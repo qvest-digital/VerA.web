@@ -24,7 +24,7 @@ import java.util.List;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 
 /**
- * This class represents a union of {@link OptionalField} and the typed value of an guest.
+ * This class represents a union of {@link OptionalField} and the typed value of a guest.
  *
  * @author Sven Schumann <s.schumann@tarent.de>
  */
@@ -45,7 +45,7 @@ public class OptionalFieldValue extends OptionalField {
 	
 	private String value;
 	
-	private List<OptionalFieldTypeContent> optionalFieldTypeContents;
+	private List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade;
 
 	public void setValue(String value) {
 		this.value = value;
@@ -55,13 +55,13 @@ public class OptionalFieldValue extends OptionalField {
 		return value;
 	}
 	
-	public List<OptionalFieldTypeContent> getOptionalFieldTypeContents() {
-		return optionalFieldTypeContents;
+	public List<OptionalFieldTypeContentFacade> getOptionalFieldTypeContentsFacade() {
+		return optionalFieldTypeContentsFacade;
 	}
 	
-	public void setOptionalFieldTypeContents(
-			List<OptionalFieldTypeContent> optionalFieldTypeContents) {
-		this.optionalFieldTypeContents = optionalFieldTypeContents;
+	public void setOptionalFieldTypeContentsFacade(
+			List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade) {
+		this.optionalFieldTypeContentsFacade = optionalFieldTypeContentsFacade;
 	}
 	
 	public Integer getId() {
@@ -71,4 +71,5 @@ public class OptionalFieldValue extends OptionalField {
 	public void setId(Integer id) {
 	    this.id = id;
     }
+
 }

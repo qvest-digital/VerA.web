@@ -86,6 +86,10 @@ public class PersonDoctype {
 		return fk_person;
 	}
 
+	public int getPk() {
+		return pk;
+	}
+	
 	public int getFk_doctype() {
 		return fk_doctype;
 	}

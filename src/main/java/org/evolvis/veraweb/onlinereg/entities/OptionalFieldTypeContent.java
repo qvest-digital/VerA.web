@@ -22,7 +22,8 @@ import lombok.Data;
 @Table(name = "toptional_field_type_content")
 @NamedQueries({
     @NamedQuery(name = "OptionalFieldTypeContent.findTypeContentsByOptionalField", 
-    			query = "SELECT oftc from OptionalFieldTypeContent oftc WHERE oftc.fk_optional_field=:optionalFieldId AND ((oftc.content not like '') AND oftc.content is not null)")
+    			query = "SELECT oftc from OptionalFieldTypeContent oftc WHERE oftc.fk_optional_field=:optionalFieldId "
+    					+ "AND ((oftc.content not like '') AND oftc.content is not null) order by oftc.fk_optional_field")
 })
 public class OptionalFieldTypeContent {
 
@@ -33,6 +34,10 @@ public class OptionalFieldTypeContent {
 	private Integer fk_optional_field;
 	
 	private String content;
+	
+	public void setPk(int pk) {
+		this.pk = pk;
+	}
 	
 	public int getPk() {
 		return pk;
@@ -53,4 +58,5 @@ public class OptionalFieldTypeContent {
 	public void setFk_optional_field(Integer fk_optional_field) {
 		this.fk_optional_field = fk_optional_field;
 	}
+
 }
