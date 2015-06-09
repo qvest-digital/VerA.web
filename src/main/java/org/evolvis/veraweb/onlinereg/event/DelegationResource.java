@@ -85,10 +85,11 @@ public class DelegationResource {
     private static final TypeReference<Integer> CATEGORY = new TypeReference<Integer>() {};
     private static final TypeReference<Category> CATEGORY_OBJECT = new TypeReference<Category>() {};
     private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
-    private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST = new TypeReference<List<OptionalFieldValue>>() {};
+    private static final TypeReference<List<OptionalFieldValue>> FIELDS_LIST =
+            new TypeReference<List<OptionalFieldValue>>() {};
     private static final TypeReference<List<String>> CATEGORY_LIST = new TypeReference<List<String>>() {};
     private static final TypeReference<List<String>> FUNCTION_LIST = new TypeReference<List<String>>() {};
-    private static final TypeReference<List<OptionalFieldTypeContent>> TYPE_CONTENT_LIST= 
+    private static final TypeReference<List<OptionalFieldTypeContent>> TYPE_CONTENT_LIST =
     		new TypeReference<List<OptionalFieldTypeContent>>() {};
 
     /**
@@ -148,7 +149,6 @@ public class DelegationResource {
 	@GET
     @Path("/fields/list/category/{uuid}")
     public List<String> getCategories(@PathParam("uuid") String uuid) throws IOException {
-
         WebResource resource = client.resource(path("guest", uuid));
         Integer eventId = resource.get(Guest.class).getFk_event();
 
@@ -166,8 +166,6 @@ public class DelegationResource {
 	@GET
     @Path("/fields/list/function/{uuid}")
     public List<String> getFunctions(@PathParam("uuid") String uuid) throws IOException {
-
-
     	WebResource resource = client.resource(path("guest", uuid));
     	Integer eventId = resource.get(Guest.class).getFk_event();
 
@@ -188,10 +186,10 @@ public class DelegationResource {
     public List<OptionalFieldValue> getExtraDataFields(
     		@PathParam("uuid") String uuid,
     		@PathParam("personId") Integer personId) throws IOException {
-		
+
 		return getEventLabels(uuid);
     }
-	
+
     /**
      * Get optional fields.
      *
@@ -206,29 +204,30 @@ public class DelegationResource {
     public List<OptionalFieldValue> getExtraDataFieldsPerson(
     		@PathParam("uuid") String uuid,
     		@PathParam("personId") Integer personId) throws IOException {
-		
+
 		return getEventLabelsPerson(uuid, personId);
     }
 
 	/**
 	 * Loading basic data of one delegate
-	 * 
+	 *
 	 * @param uuid Delegation UUID
 	 * @param personId person ID
 	 * @return @Link{Person.class}
-	 * 
+	 *
 	 * @throws IOException the exception
 	 */
 	@GET
 	@Path("/load/{uuid}/{personId}")
-	public Person loadBasicData(@PathParam("uuid") String uuid, @PathParam("personId") String personId) throws IOException {
+    public Person loadBasicData(@PathParam("uuid") String uuid, @PathParam("personId") String personId)
+            throws IOException {
 		Person person = readResource(path("person", "list", personId), PERSON);
-		
+
 		return person;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param uuid
 	 * @param personId
 	 * @return
@@ -236,29 +235,17 @@ public class DelegationResource {
 	 */
 	@GET
 	@Path("/load/category/{uuid}/{personId}")
-	public String loadDelegateCategory(@PathParam("uuid") String uuid, @PathParam("personId") String personId) throws IOException {
+    public String loadDelegateCategory(@PathParam("uuid") String uuid, @PathParam("personId") String personId)
+            throws IOException {
 		// REST Method to get the category literal
 //		Category category = readResource(path("category","catname", uuid, personId), CATEGORY_OBJECT);
-		
+
 		WebResource resource;
 
         resource = client.resource(path("category","catname", uuid, personId));
-        String catname = null;
-
-        try {
-        	catname = resource.get(String.class);
-        } catch (UniformInterfaceException e) {
-           int statusCode = e.getResponse().getStatus();
-           if(statusCode == 204) {
-           		return null;
-           }
-
-           return null;
-        }
-
-		return StatusConverter.convertStatus(catname);
+        return getDelegateCatnameStatus(resource);
 	}
-	
+
     /**
      * Register delegate for event.
      *
@@ -290,12 +277,14 @@ public class DelegationResource {
         if(delegationIsFound) {
         	if (personId == null) {
         		// Save new delegate
-        		final String returnedValue = handleDelegationFound(uuid, lastname, firstname, convertedGenderValue, function, category, fields);
+        		final String returnedValue = handleDelegationFound(uuid, lastname, firstname, convertedGenderValue,
+        		        function, category, fields);
         		return StatusConverter.convertStatus(returnedValue);
         	}
         	else {
         		// Update delegate main data
-        		final String returnedValue = updateDelegateMainData(personId, lastname, firstname, convertedGenderValue, function, fields, uuid);
+        		final String returnedValue = updateDelegateMainData(personId, lastname, firstname, convertedGenderValue,
+        		        function, fields, uuid);
         		// Update delegate category
         		updateDelegateCategory(personId, category, uuid);
         		return StatusConverter.convertStatus(returnedValue);
@@ -306,23 +295,24 @@ public class DelegationResource {
     }
 
     private String updateDelegateCategory(Integer personId, String category, String uuid) {
-    	
+
     	final WebResource resource = client.resource(path("category","update", "delegate", "category"));
-    	
+
     	final Form postBody = new Form();
     	postBody.add("personId", personId);
     	postBody.add("category", category);
     	postBody.add("uuid", uuid);
-    	
+
     	resource.post(postBody);
-    	
+
     	return "OK";
-    	
+
     }
     private String getGenderByLabel(String gender) {
         if (gender.equals("GENERIC_GENDER_MALE")) {
             return "m";
         }
+
         return "f";
     }
 
@@ -388,6 +378,23 @@ public class DelegationResource {
 		}
 	}
 
+	private String getDelegateCatnameStatus(WebResource resource) {
+        String catname = null;
+
+        try {
+            catname = resource.get(String.class);
+        } catch (UniformInterfaceException e) {
+           int statusCode = e.getResponse().getStatus();
+           if(statusCode == 204) {
+                return null;
+           }
+
+           return null;
+        }
+
+        return StatusConverter.convertStatus(catname);
+    }
+
 	private List<OptionalFieldValue> getLabels(String uuid, Integer personId) throws IOException {
 		try{
 			final Guest guest = getEventIdFromUuid(uuid, personId);
@@ -406,7 +413,7 @@ public class DelegationResource {
 			return null;
 		}
 	}
-	
+
 	private List<OptionalFieldValue> getEventLabels(String uuid) throws IOException {
 		try{
 			final Guest guest = getEventIdFromDelegationUuid(uuid);
@@ -416,7 +423,7 @@ public class DelegationResource {
             final List<OptionalFieldValue> filteredList = new ArrayList<OptionalFieldValue>();
             for (OptionalFieldValue field : fields) {
                 if (field.getLabel() != null && !field.getLabel().equals("")) {
-                	
+
                 	// Bring the type Contents of the field
                 	List<OptionalFieldTypeContent> typeContents = readResource(path("typecontent", field.getPk()), TYPE_CONTENT_LIST);
                 	field.setOptionalFieldTypeContents(typeContents);
@@ -454,7 +461,8 @@ public class DelegationResource {
     	return readResource(path("guest","exist", uuid), BOOLEAN);
     }
 
-    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender, String function, String category, String fields)
+    private String handleDelegationFound(String uuid, String nachname, String vorname, String gender, String function,
+            String category, String fields)
             throws IOException {
 
         final Integer eventId = getEventId(uuid);
@@ -470,11 +478,11 @@ public class DelegationResource {
         final Integer personId = createPerson(company.getCompany_a_e1(), eventId, nachname, vorname, gender,username, function);
 
         Guest guest = addGuestToEvent(uuid, String.valueOf(eventId), personId, gender, nachname, vorname, username, category);
-        
+
         if (guest!=null) {
         	updateOptionalFields(uuid, fields, guest.getFk_person());
         }
-        
+
         return "OK";
     }
 
@@ -491,23 +499,25 @@ public class DelegationResource {
             handleSaveOptionalFields(uuid, fields, personId);
     	}
 	}
-    
-    private String updateDelegateMainData(Integer personId, String lastname, String firstname, String gender, String function, String fields, String uuid) throws IOException {
-    	updatePerson(personId, firstname, lastname, gender, function);
-    	updateOptionalFields(uuid, fields, personId);
-    	return "OK";
+
+    private String updateDelegateMainData(Integer personId, String lastname, String firstname, String gender,
+            String function, String fields, String uuid) throws IOException {
+        updatePerson(personId, firstname, lastname, gender, function);
+        updateOptionalFields(uuid, fields, personId);
+
+        return "OK";
     }
-    
 
     private Integer getEventId(String uuid) throws IOException {
         final Guest guest = readResource(path("guest", uuid), GUEST);
+
         return guest.getFk_event();
 	}
 
     private Guest getEventIdFromUuid(String uuid, Integer personId) throws IOException {
 		return readResource(path("guest", "delegation", uuid, personId), GUEST);
 	}
-    
+
     private Guest getEventIdFromDelegationUuid(String uuid) throws IOException {
 		return readResource(path("guest", "delegation", uuid), GUEST);
 	}
@@ -524,30 +534,35 @@ public class DelegationResource {
      * @param firstname First name
      * @param gender Gender of the person
      */
-    private Integer createPerson(String companyName, Integer eventId, String lastname, String firstname, String gender, String username, String function) {
+    private Integer createPerson(String companyName, Integer eventId, String lastname, String firstname, String gender,
+            String username, String function) {
         final WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate");
-        final Form postBody = createDelegatePostBodyContent(companyName, eventId, firstname, lastname, gender, username, function);
+        final Form postBody = createDelegatePostBodyContent(companyName, eventId, firstname, lastname, gender,
+                username, function);
         final Person person = personResource.post(Person.class, postBody);
+
         createPersonDoctype(person);
 
-    	return person.getPk();
+        return person.getPk();
     }
 
     private Person updatePerson(Integer personId, String firstname, String lastname, String gender, String function) {
     	final WebResource personResource = client.resource(config.getVerawebEndpoint() + "/rest/person/delegate/update");
         final Form postBody = updatePersonPostBodyContent(personId, firstname, lastname, gender, function);
         final Person person = personResource.post(Person.class, postBody);
-    	
+
         return person;
     }
 
     private Integer getCategoryIdByValue(String categoryName) {
         Integer categoryId = null;
+
         try {
             categoryId = readResource(path("category", categoryName), CATEGORY);
         } catch (IOException e) {
             log.warning("Fehler beim holen der Kategorie-ID");
         }
+
         return categoryId;
     }
 
@@ -558,26 +573,32 @@ public class DelegationResource {
         personDoctypeRsource.post(PersonDoctype.class, postBody);
     }
 
-    private Guest addGuestToEvent(String uuid, String eventId, Integer personId, String gender, String lastName, String firstName, String username, String category) {
+    private Guest addGuestToEvent(String uuid, String eventId, Integer personId, String gender, String lastName,
+            String firstName, String username, String category) {
         final Integer categoryId = persistPersonCategory(personId, category);
         final Guest guest = persistGuest(uuid, eventId, personId, gender, username, categoryId);
+
         createGuestDoctype(guest.getPk(), firstName, lastName);
-        
+
         return guest;
-	}
+    }
 
     private Integer persistPersonCategory(Integer personId, String category) {
         Integer categoryId = null;
+
         if (category != null && !category.equals("")) {
             categoryId = getCategoryIdByValue(category);
             createPersonCategory(personId, categoryId);
         }
+
         return categoryId;
     }
 
-    private Guest persistGuest(String uuid, String eventId, Integer personId, String gender, String username, Integer categoryId) {
+    private Guest persistGuest(String uuid, String eventId, Integer personId, String gender, String username,
+            Integer categoryId) {
         final WebResource resource = client.resource(path("guest", uuid, "register"));
         final Form postBody = createGuestPostBodyContent(eventId, personId, gender, username, categoryId);
+
         return resource.post(Guest.class, postBody);
     }
 
@@ -597,13 +618,16 @@ public class DelegationResource {
 
     private Form createGuestDoctypePostBodyContent(int guestId, String firstName, String lastName) {
         final Form postBody = new Form();
+
         postBody.add("guestId", Integer.toString(guestId));
         postBody.add("firstName", firstName);
         postBody.add("lastName", lastName);
+
         return postBody;
     }
 
-    private Form createDelegatePostBodyContent(String companyName, Integer eventId, String firstname, String lastname, String gender, String username, String function) {
+    private Form createDelegatePostBodyContent(String companyName, Integer eventId, String firstname, String lastname,
+            String gender, String username, String function) {
         Form postBody = new Form();
 
         postBody.add("company", companyName);
@@ -613,10 +637,12 @@ public class DelegationResource {
         postBody.add("lastname", lastname);
         postBody.add("gender", gender);
         postBody.add("function", function);
+
         return postBody;
     }
 
-    private Form createGuestPostBodyContent(String eventId, Integer personId, String gender, String username, Integer categoryId) {
+    private Form createGuestPostBodyContent(String eventId, Integer personId, String gender, String username,
+            Integer categoryId) {
         final Form postBody = new Form();
 
         postBody.add("userId", personId);
@@ -636,20 +662,22 @@ public class DelegationResource {
         postBody.add("personId", Integer.toString(person.getPk()));
         postBody.add("firstName", person.getFirstname_a_e1());
         postBody.add("lastName", person.getLastname_a_e1());
+
         return postBody;
     }
 
     private Form updateOptionalFieldPostBodyContent(Integer guestId, Integer fieldId, String fieldContent) {
         final Form postBody = new Form();
 
-        fieldContent = StringEscapeUtils.escapeHtml(fieldContent);
         postBody.add("guestId", guestId.toString());
         postBody.add("fieldId", fieldId.toString());
         postBody.add("fieldContent", fieldContent);
+
         return postBody;
     }
 
-    private Form updatePersonPostBodyContent(Integer personId, String firstname, String lastname, String gender, String function) {
+    private Form updatePersonPostBodyContent(Integer personId, String firstname, String lastname, String gender,
+            String function) {
         final Form postBody = new Form();
 
         postBody.add("firstname", firstname);
@@ -657,13 +685,16 @@ public class DelegationResource {
         postBody.add("gender", gender);
         postBody.add("function", function);
         postBody.add("personId", personId);
+
         return postBody;
     }
 
     private Form createPersonCategoryPostBodyContent(Integer personId, Integer categoryId) {
         final Form postBody = new Form();
+
         postBody.add("personId", personId);
         postBody.add("categoryId", categoryId);
+
         return postBody;
     }
 
@@ -685,7 +716,7 @@ public class DelegationResource {
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
                 //FIXME some times open, pooled connections time out and generate errors
-//                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
+                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
                 resource = client.resource(path);
                 final String json = resource.get(String.class);
                 return mapper.readValue(json, type);
@@ -693,7 +724,7 @@ public class DelegationResource {
                 throw che;
             }
         } catch (UniformInterfaceException uie) {
-//            log.warning(uie.getResponse().getEntity(String.class));
+            log.warning(uie.getResponse().getEntity(String.class));
             throw uie;
         }
     }
@@ -706,9 +737,11 @@ public class DelegationResource {
      */
     private String path(Object... path) {
         String r = config.getVerawebEndpoint() + BASE_RESOURCE;
+
         for (Object p : path) {
             r += "/" + p;
         }
+
         return r;
     }
 
