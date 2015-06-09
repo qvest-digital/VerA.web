@@ -77,6 +77,20 @@ public class DelegationResource extends AbstractResource {
         }
     }
 
+    @POST
+    @Path("/remove/fields")
+    public void removeFieldsForGuest(@FormParam("guestId") Integer guestId, @FormParam("fieldId") Integer fieldId) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Delegation.deleteOptionalFieldsByGuestId");
+            query.setInteger("guestId", guestId);
+            query.setInteger("fieldId", fieldId);
+            query.executeUpdate();
+        } finally {
+            session.close();
+        }
+    }
+
     /**
      * Get label id by event id and label.
      *
