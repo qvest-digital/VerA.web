@@ -41,11 +41,15 @@ import lombok.Data;
 @Table(name = "toptional_fields_delegation_content")
 @NamedQueries({
     @NamedQuery(name = Delegation.QUERY_FIND_BY_GUEST,
-    			query = "select d from Delegation d where fk_guest=:" + Delegation.PARAM_GUEST_ID + " and fk_delegation_field=:" + Delegation.PARAM_FIELD_ID)
+		query = "select d from Delegation d where fk_guest=:" + Delegation.PARAM_GUEST_ID + " and fk_delegation_field=:" + Delegation.PARAM_FIELD_ID),
+	@NamedQuery(name = Delegation.DELETE_OPTIONAL_FIELDS,
+		query = "delete from Delegation d where fk_guest=:" + Delegation.PARAM_GUEST_ID + " and fk_delegation_field=:" + Delegation.PARAM_FIELD_ID)
+
 })
 public class Delegation {
 	
 	public static final String QUERY_FIND_BY_GUEST = "Delegation.findByGuestId";
+	public static final String DELETE_OPTIONAL_FIELDS = "Delegation.deleteOptionalFieldsByGuestId";
 	public static final String PARAM_GUEST_ID = "guestId";
 	public static final String PARAM_FIELD_ID = "fieldId";
 
