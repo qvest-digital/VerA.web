@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2015 tarent solutions GmbH
- *
+ * <p/>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p/>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -62,8 +62,8 @@ public class DelegationResource extends AbstractResource {
     @GET
     @Path("/fields/list/{eventId}/{guestId}")
     public List<OptionalFieldValue> getFieldsFromEvent(
-    		@PathParam("eventId") int eventId,
-    		@PathParam("guestId") int guestId) {
+            @PathParam("eventId") int eventId,
+            @PathParam("guestId") int guestId) {
 
         final Session session = openSession();
         try {
@@ -118,14 +118,14 @@ public class DelegationResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Delegation delegation = new Delegation();
-        	delegation.setFk_guest(guestId);
-        	delegation.setFk_delegation_field(fieldId);
-        	delegation.setValue(fieldContent);
+            delegation.setFk_guest(guestId);
+            delegation.setFk_delegation_field(fieldId);
+            delegation.setValue(fieldContent);
 
-        	session.saveOrUpdate(delegation);
-        	session.flush();
+            session.saveOrUpdate(delegation);
+            session.flush();
 
-        	return delegation;
+            return delegation;
 
         } finally {
             session.close();
@@ -136,52 +136,53 @@ public class DelegationResource extends AbstractResource {
             int guestId,
             List<OptionalField> fields,
             Session session) {
-    	// TODO Refactor
+        // TODO Refactor
         // wenn type 1 -> 1 objekt mit einer Value (in der Maske Value anzeigen)
-    	// type 2 -> 1 Objekt mit einer Value (in der Maske isSelected [1 max] anzeigen als ausgewählt und Liste anzeigen als auswählbare Werte )
-    	// type 3 -> 1 Objekt mit einer Value (in der Maske isSelected anzeigen als ausgewählte und Liste anzeigen als auswählbare Werte )
-    	
-    	final List<OptionalFieldValue> fieldsList = new ArrayList<OptionalFieldValue>(fields.size());
+        // type 2 -> 1 Objekt mit einer Value (in der Maske isSelected [1 max] anzeigen als ausgewählt und Liste anzeigen als auswählbare Werte )
+        // type 3 -> 1 Objekt mit einer Value (in der Maske isSelected anzeigen als ausgewählte und Liste anzeigen als auswählbare Werte )
+
+        final List<OptionalFieldValue> fieldsList = new ArrayList<OptionalFieldValue>(fields.size());
         for (OptionalField field : fields) {
-        	OptionalFieldValue newValue;
-        	
-        	final Query query = session.getNamedQuery(Delegation.QUERY_FIND_BY_GUEST);
+            OptionalFieldValue newValue;
+
+            final Query query = session.getNamedQuery(Delegation.QUERY_FIND_BY_GUEST);
             query.setInteger(Delegation.PARAM_GUEST_ID, guestId);
             query.setInteger(Delegation.PARAM_FIELD_ID, field.getPk());
 
             // ausgewählte
             final List<Delegation> delegationList = (List<Delegation>) query.list();
-            
+
             // Keine Ausgewählte
-            if(delegationList.isEmpty()) {
-            	newValue = new OptionalFieldValue(field, null);
+            if (delegationList.isEmpty()) {
+                newValue = new OptionalFieldValue(field, null);
             } else {
-            	newValue = new OptionalFieldValue(field, null);
-	            final Query query2 = session.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField");
-	            query2.setInteger("optionalFieldId", field.getPk());
-	            
-	            // auswählbare
-	            final List<OptionalFieldTypeContent> typeContents = (List<OptionalFieldTypeContent>) query2.list();
-	            final List<OptionalFieldTypeContentFacade> typeContentsFacade = new ArrayList<OptionalFieldTypeContentFacade>();
-	            for(Iterator<OptionalFieldTypeContent> iterator = typeContents.iterator(); iterator.hasNext();) {
-	            	OptionalFieldTypeContentFacade oftcf = new OptionalFieldTypeContentFacade(iterator.next());
-	            	typeContentsFacade.add(oftcf);
-	            }
-	            
-	            if(field.getFk_type() == 1) {
-	        		newValue = new OptionalFieldValue(field,delegationList.get(0).getValue());
-	        	} else {
-	            
-	            
-	            for(Delegation delegation : delegationList) {
-	            	String insertedValue = delegation.getValue();
-	            	for(int i = 0;i<typeContentsFacade.size();i++){
-		            	if (insertedValue.equals(typeContentsFacade.get(i).getContent())){
-		            		typeContentsFacade.get(i).setIsSelected(true);
-		            	}
-	            	}
-	            }
-	            newValue.setOptionalFieldTypeContentsFacade(typeContentsFacade);;
+                newValue = new OptionalFieldValue(field, null);
+                final Query query2 = session.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField");
+                query2.setInteger("optionalFieldId", field.getPk());
+
+                // auswählbare
+                final List<OptionalFieldTypeContent> typeContents = (List<OptionalFieldTypeContent>) query2.list();
+                final List<OptionalFieldTypeContentFacade> typeContentsFacade = new ArrayList<OptionalFieldTypeContentFacade>();
+                for (Iterator<OptionalFieldTypeContent> iterator = typeContents.iterator(); iterator.hasNext(); ) {
+                    OptionalFieldTypeContentFacade oftcf = new OptionalFieldTypeContentFacade(iterator.next());
+                    typeContentsFacade.add(oftcf);
+                }
+
+                if (field.getFk_type() == 1) {
+                    newValue = new OptionalFieldValue(field, delegationList.get(0).getValue());
+                } else {
+
+
+                    for (Delegation delegation : delegationList) {
+                        String insertedValue = delegation.getValue();
+                        for (int i = 0; i < typeContentsFacade.size(); i++) {
+                            if (insertedValue.equals(typeContentsFacade.get(i).getContent())) {
+                                typeContentsFacade.get(i).setIsSelected(true);
+                            }
+                        }
+                    }
+                    newValue.setOptionalFieldTypeContentsFacade(typeContentsFacade);
+                    ;
 
                 }
             }
