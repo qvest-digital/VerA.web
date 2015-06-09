@@ -27,13 +27,16 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
+
 import lombok.extern.java.Log;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Category;
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent;
+import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContentFacade;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.PersonCategory;
@@ -47,6 +50,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
@@ -413,22 +417,31 @@ public class DelegationResource {
 			final List<OptionalFieldValue> fields =
                     readResource(path("delegation", "fields", "list", guest.getFk_event(), guest.getPk()), FIELDS_LIST);
 
-            final List<OptionalFieldValue> filteredList = new ArrayList<OptionalFieldValue>();
+			final List<OptionalFieldValue> fieldLabelsAndContent = new ArrayList<OptionalFieldValue>();
             for (OptionalFieldValue field : fields) {
                 if (field.getLabel() != null && !field.getLabel().equals("")) {
-                	
-                	// Bring the type Contents of the field
-                	List<OptionalFieldTypeContent> typeContents = readResource(path("typecontent", field.getPk()), TYPE_CONTENT_LIST);
-                	field.setOptionalFieldTypeContents(typeContents);
-
-                	filteredList.add(field);
+                	// TODO Refactor later
+                	final List<OptionalFieldTypeContentFacade> typeContentsFacade = createOptionalFieldFacade(field.getPk());
+                	field.setOptionalFieldTypeContentsFacade(typeContentsFacade);
+                	fieldLabelsAndContent.add(field);
                 }
             }
-            return filteredList;
-		}
-		catch (UniformInterfaceException uie) {
+            return fieldLabelsAndContent;
+		} catch (UniformInterfaceException uie) {
 			return null;
 		}
+	}
+
+	private List<OptionalFieldTypeContentFacade> createOptionalFieldFacade(Integer fieldId) throws IOException {
+		// Bring the type Contents of the field
+		List<OptionalFieldTypeContent> typeContents = readResource(path("typecontent", fieldId), TYPE_CONTENT_LIST);
+		List<OptionalFieldTypeContentFacade> typeContentsFacade = new ArrayList<OptionalFieldTypeContentFacade>();
+		
+		for(OptionalFieldTypeContent optionalFieldTypeContent : typeContents) {
+			OptionalFieldTypeContentFacade optionalFieldFacade = new OptionalFieldTypeContentFacade(optionalFieldTypeContent);
+			typeContentsFacade.add(optionalFieldFacade);
+		}
+		return typeContentsFacade;
 	}
 
 	private List<OptionalFieldValue> getEventLabelsPerson(String uuid, Integer personId) throws IOException {
