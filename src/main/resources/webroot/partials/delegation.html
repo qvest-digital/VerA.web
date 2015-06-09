@@ -68,13 +68,13 @@
                                    ng-model="labellist[field.pk]" style="margin-bottom: 10px;"/>
                                    
                           <select class="form-control" ng-show="field.fk_type == 2" ng-model="labellist[field.pk]">
-                           	<option ng-repeat="typeContent in field.optionalFieldTypeContents" value="{{typeContent.content}}">
+                           	<option ng-repeat="typeContent in field.optionalFieldTypeContentsFacade" ng-selected="typeContent.isSelected" value="{{typeContent.content}}">
                            		{{typeContent.content}}
                            	</option>
                            </select>
                            
                            <select class="form-control" ng-show="field.fk_type == 3" multiple ng-model="labellist[field.pk]">
-                           	<option ng-repeat="typeContent in field.optionalFieldTypeContents" value="{{typeContent.content}}">
+                           	<option ng-repeat="typeContent in field.optionalFieldTypeContentsFacade" ng-selected="typeContent.isSelected" value="{{typeContent.content}}">
                            		{{typeContent.content}}
                            	</option>
                            </select>
