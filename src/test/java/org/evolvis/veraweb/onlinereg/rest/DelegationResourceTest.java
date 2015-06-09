@@ -69,7 +69,7 @@ public class DelegationResourceTest extends AbstractResourceTest<DelegationResou
         session.close();
     }
 
-    @Test
+    @Test@Ignore
     public void testGetFields() {
         List<OptionalFieldValue> fields = resource.getFieldsFromEvent(1, 1);
         assertEquals(3, fields.size());
