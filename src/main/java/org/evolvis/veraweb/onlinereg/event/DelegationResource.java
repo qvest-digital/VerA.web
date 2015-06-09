@@ -19,7 +19,6 @@
  */
 package org.evolvis.veraweb.onlinereg.event;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -30,7 +29,6 @@ import com.sun.jersey.api.representation.Form;
 
 import lombok.extern.java.Log;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Category;
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
@@ -55,7 +53,6 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -300,7 +297,7 @@ public class DelegationResource {
 
     private String updateDelegateCategory(Integer personId, String category, String uuid) {
 
-    	final WebResource resource = client.resource(path("category","update", "delegate", "category"));
+    	final WebResource resource = client.resource(path("category", "update", "delegate", "category"));
 
     	final Form postBody = new Form();
     	postBody.add("personId", personId);
@@ -356,12 +353,12 @@ public class DelegationResource {
     }
 
     private void handleSaveOptionalFields(String uuid, String fields, Integer personId) throws IOException {
-        final TypeReference<HashMap<String, String>> typeReference = new TypeReference<HashMap<String, String>>() {};
         final Map<String,Object> fieldMap = mapper.readValue(fields, new TypeReference<Map<String,Object>>(){});
         final Guest guest = getEventIdFromUuid(uuid, personId);
 
         for(Entry<String, Object> entry : fieldMap.entrySet()){
-        	final int fieldId = Integer.parseInt(entry.getKey());
+            final int fieldId = Integer.parseInt(entry.getKey());
+            deleteExistingDelegationContent(guest.getPk(), fieldId);
         	try {
         		saveMultipleChoiceEntry(guest, entry, fieldId);
 			} catch (ClassCastException e) {
@@ -382,7 +379,15 @@ public class DelegationResource {
 		}
 	}
 
-	private String getDelegateCatnameStatus(WebResource resource) {
+    private void deleteExistingDelegationContent(final Integer guestId, final Integer fieldId) throws IOException {
+        final WebResource deleteFieldsResource = client.resource(config.getVerawebEndpoint() + "/rest/delegation/remove/fields");
+        final Form postBody = new Form();
+        postBody.add("guestId", guestId);
+        postBody.add("fieldId", fieldId);
+        deleteFieldsResource.post(postBody);
+    }
+
+    private String getDelegateCatnameStatus(WebResource resource) {
         String catname = null;
 
         try {
@@ -622,8 +627,10 @@ public class DelegationResource {
         resource.post(postBody);
 	}
 
+//    private void saveOptionalField(Integer guestId, Integer fieldId, String fieldContent, Integer fieldContentId) {
     private void saveOptionalField(Integer guestId, Integer fieldId, String fieldContent) {
         final WebResource resource = client.resource(path("delegation","field", "save"));
+//        final Form postBody = updateOptionalFieldPostBodyContent(guestId, fieldId, fieldContent, fieldContentId);
         final Form postBody = updateOptionalFieldPostBodyContent(guestId, fieldId, fieldContent);
 
         resource.post(Delegation.class, postBody);
@@ -679,12 +686,14 @@ public class DelegationResource {
         return postBody;
     }
 
+//    private Form updateOptionalFieldPostBodyContent(Integer guestId, Integer fieldId, String fieldContent, Integer fieldContentId) {
     private Form updateOptionalFieldPostBodyContent(Integer guestId, Integer fieldId, String fieldContent) {
         final Form postBody = new Form();
 
         postBody.add("guestId", guestId.toString());
         postBody.add("fieldId", fieldId.toString());
         postBody.add("fieldContent", fieldContent);
+//        postBody.add("pk", fieldContentId);
 
         return postBody;
     }
