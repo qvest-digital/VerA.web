@@ -21,9 +21,13 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
+import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent;
+import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContentFacade;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.metamodel.relational.Database;
+import org.hibernate.sql.Select;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -35,6 +39,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -131,17 +136,56 @@ public class DelegationResource extends AbstractResource {
             int guestId,
             List<OptionalField> fields,
             Session session) {
-        final List<OptionalFieldValue> fieldsList = new ArrayList<OptionalFieldValue>(fields.size());
+    	// TODO Refactor
+        // wenn type 1 -> 1 objekt mit einer Value (in der Maske Value anzeigen)
+    	// type 2 -> 1 Objekt mit einer Value (in der Maske isSelected [1 max] anzeigen als ausgewählt und Liste anzeigen als auswählbare Werte )
+    	// type 3 -> 1 Objekt mit einer Value (in der Maske isSelected anzeigen als ausgewählte und Liste anzeigen als auswählbare Werte )
+    	
+    	final List<OptionalFieldValue> fieldsList = new ArrayList<OptionalFieldValue>(fields.size());
         for (OptionalField field : fields) {
-            final Query query = session.getNamedQuery(Delegation.QUERY_FIND_BY_GUEST);
+        	OptionalFieldValue newValue;
+        	
+        	final Query query = session.getNamedQuery(Delegation.QUERY_FIND_BY_GUEST);
             query.setInteger(Delegation.PARAM_GUEST_ID, guestId);
             query.setInteger(Delegation.PARAM_FIELD_ID, field.getPk());
 
-            final Delegation delegation = (Delegation) query.uniqueResult();
-            final OptionalFieldValue newValue = new OptionalFieldValue(field,
-                    delegation == null ? null : delegation.getValue());
-
-            fieldsList.add(newValue);
+            // ausgewählte
+            final List<Delegation> delegationList = (List<Delegation>) query.list();
+            
+            // Keine Ausgewählte
+            if(delegationList.isEmpty()) {
+            	newValue = new OptionalFieldValue(field, null);
+            } else {
+            	newValue = new OptionalFieldValue(field, null);
+	            final Query query2 = session.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField");
+	            query2.setInteger("optionalFieldId", field.getPk());
+	            
+	            // auswählbare
+	            final List<OptionalFieldTypeContent> typeContents = (List<OptionalFieldTypeContent>) query2.list();
+	            final List<OptionalFieldTypeContentFacade> typeContentsFacade = new ArrayList<OptionalFieldTypeContentFacade>();
+	            for(Iterator<OptionalFieldTypeContent> iterator = typeContents.iterator(); iterator.hasNext();) {
+	            	OptionalFieldTypeContentFacade oftcf = new OptionalFieldTypeContentFacade(iterator.next());
+	            	typeContentsFacade.add(oftcf);
+	            }
+	            
+	            if(field.getFk_type() == 1) {
+	        		newValue = new OptionalFieldValue(field,delegationList.get(0).getValue());
+	        	} else {
+	            
+	            
+	            for(Delegation delegation : delegationList) {
+	            	String insertedValue = delegation.getValue();
+	            	for(int i = 0;i<typeContentsFacade.size();i++){
+		            	if (insertedValue.equals(typeContentsFacade.get(i).getContent())){
+		            		typeContentsFacade.get(i).setIsSelected(true);
+		            	}
+	            	}
+	            }
+	            newValue.setOptionalFieldTypeContentsFacade(typeContentsFacade);;
+	            fieldsList.add(newValue);
+	            
+	        	}
+            }        
         }
         return fieldsList;
     }
