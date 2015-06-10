@@ -26,8 +26,6 @@ import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContentFacade;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.metamodel.relational.Database;
-import org.hibernate.sql.Select;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -39,7 +37,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -147,61 +144,81 @@ public class DelegationResource extends AbstractResource {
     }
 
     private List<OptionalFieldValue> convertOptionalFieldsResultSetToList(
-            int guestId,
-            List<OptionalField> fields,
-            Session session) {
-        // TODO Refactor
-        // wenn type 1 -> 1 objekt mit einer Value (in der Maske Value anzeigen)
-        // type 2 -> 1 Objekt mit einer Value (in der Maske isSelected [1 max] anzeigen als ausgewählt und Liste anzeigen als auswählbare Werte )
-        // type 3 -> 1 Objekt mit einer Value (in der Maske isSelected anzeigen als ausgewählte und Liste anzeigen als auswählbare Werte )
+            final Integer guestId,
+            final List<OptionalField> fields,
+            final Session session) {
 
         final List<OptionalFieldValue> fieldsList = new ArrayList<OptionalFieldValue>(fields.size());
         for (OptionalField field : fields) {
-            OptionalFieldValue newValue;
+            final List<Delegation> delegationContents = getDelegationContentsByGuest(guestId, session, field);
 
-            final Query query = session.getNamedQuery(Delegation.QUERY_FIND_BY_GUEST);
-            query.setInteger(Delegation.PARAM_GUEST_ID, guestId);
-            query.setInteger(Delegation.PARAM_FIELD_ID, field.getPk());
-
-            // ausgewählte
-            final List<Delegation> delegationList = (List<Delegation>) query.list();
-
-            // Keine Ausgewählte
-            if (delegationList.isEmpty()) {
-                newValue = new OptionalFieldValue(field, null);
+            if (!delegationContents.isEmpty()) {
+                final OptionalFieldValue newOptionalFieldValue = initOptionalField(session, field, delegationContents);
+                fieldsList.add(newOptionalFieldValue);
             } else {
-                newValue = new OptionalFieldValue(field, null);
-                final Query query2 = session.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField");
-                query2.setInteger("optionalFieldId", field.getPk());
-
-                // auswählbare
-                final List<OptionalFieldTypeContent> typeContents = (List<OptionalFieldTypeContent>) query2.list();
-                final List<OptionalFieldTypeContentFacade> typeContentsFacade = new ArrayList<OptionalFieldTypeContentFacade>();
-                for (Iterator<OptionalFieldTypeContent> iterator = typeContents.iterator(); iterator.hasNext(); ) {
-                    OptionalFieldTypeContentFacade oftcf = new OptionalFieldTypeContentFacade(iterator.next());
-                    typeContentsFacade.add(oftcf);
-                }
-
-                if (field.getFk_type() == 1) {
-                    newValue = new OptionalFieldValue(field, delegationList.get(0).getValue());
-                } else {
-
-
-                    for (Delegation delegation : delegationList) {
-                        String insertedValue = delegation.getValue();
-                        for (int i = 0; i < typeContentsFacade.size(); i++) {
-                            if (insertedValue.equals(typeContentsFacade.get(i).getContent())) {
-                                typeContentsFacade.get(i).setIsSelected(true);
-                            }
-                        }
-                    }
-                    newValue.setOptionalFieldTypeContentsFacade(typeContentsFacade);
-                    ;
-
-                }
+                final OptionalFieldValue newOptionalFieldValue = new OptionalFieldValue(field, null);
+                fieldsList.add(newOptionalFieldValue);
             }
-            fieldsList.add(newValue);
         }
         return fieldsList;
+    }
+
+    private OptionalFieldValue initOptionalField(Session session, OptionalField field, List<Delegation> delegationContents) {
+        final List<OptionalFieldTypeContentFacade> typeContentsFacade = convertTypeContentsToDisplay(session, field);
+        OptionalFieldValue optionalFieldValue = null;
+        if (field.getFk_type() == 1) {
+            optionalFieldValue = initInputField(field, delegationContents);
+        } else {
+            optionalFieldValue = initDropdown(field, delegationContents, typeContentsFacade);
+        }
+        return optionalFieldValue;
+    }
+
+    private OptionalFieldValue initDropdown(OptionalField field, List<Delegation> delegationContents, List<OptionalFieldTypeContentFacade> typeContentsFacade) {
+        OptionalFieldValue newOptionalFieldValue = new OptionalFieldValue(field, null);
+        markOptionsAsSelected(delegationContents, typeContentsFacade);
+        newOptionalFieldValue.setOptionalFieldTypeContentsFacade(typeContentsFacade);
+
+        return newOptionalFieldValue;
+    }
+
+    private OptionalFieldValue initInputField(OptionalField field, List<Delegation> delegationContents) {
+        OptionalFieldValue newOptionalFieldValue = new OptionalFieldValue(field, null);
+        newOptionalFieldValue.setValue(delegationContents.get(0).getValue());
+        return newOptionalFieldValue;
+    }
+
+    private void markOptionsAsSelected(final List<Delegation> delegationContents, final List<OptionalFieldTypeContentFacade> typeContentsFacade) {
+        for (Delegation delegationContent : delegationContents) {
+            for (int i = 0; i < typeContentsFacade.size(); i++) {
+                if (delegationContent.getValue().equals(typeContentsFacade.get(i).getContent())) {
+                    typeContentsFacade.get(i).setIsSelected(true);
+                }
+            }
+        }
+    }
+
+    private List<OptionalFieldTypeContentFacade> convertTypeContentsToDisplay(final Session session, final OptionalField field) {
+        final List<OptionalFieldTypeContent> typeContents = getTypeContentsByField(session, field);
+        final List<OptionalFieldTypeContentFacade> typeContentsFacade = new ArrayList<OptionalFieldTypeContentFacade>();
+        for (OptionalFieldTypeContent typeContent : typeContents) {
+            final OptionalFieldTypeContentFacade typeContentFacade = new OptionalFieldTypeContentFacade(typeContent);
+            typeContentsFacade.add(typeContentFacade);
+        }
+        return typeContentsFacade;
+    }
+
+    private List<OptionalFieldTypeContent> getTypeContentsByField(final Session session, final OptionalField field) {
+        final Query getTypeContentsQuery = session.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField");
+        getTypeContentsQuery.setInteger("optionalFieldId", field.getPk());
+        return (List<OptionalFieldTypeContent>) getTypeContentsQuery.list();
+    }
+
+    private List<Delegation> getDelegationContentsByGuest(int guestId, Session session, OptionalField field) {
+        final Query query = session.getNamedQuery(Delegation.QUERY_FIND_BY_GUEST);
+        query.setInteger(Delegation.PARAM_GUEST_ID, guestId);
+        query.setInteger(Delegation.PARAM_FIELD_ID, field.getPk());
+
+        return (List<Delegation>) query.list();
     }
 }
