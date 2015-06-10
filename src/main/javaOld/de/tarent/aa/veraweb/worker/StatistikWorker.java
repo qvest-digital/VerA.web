@@ -154,10 +154,11 @@ public class StatistikWorker {
 		try {
 			// Controlling dates format
 			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-			if (!begin.equals("") && !end.equals("")) {
+			if (begin != null && end != null && !begin.equals("") && !end.equals("")) {
 				sdf.parse(begin);
 				sdf.parse(end);
 			}
+			
 			Date filterBegin = (Date)BeanFactory.transform(begin, Date.class);
 			Date filterEnd = (Date)BeanFactory.transform(end, Date.class);
 
