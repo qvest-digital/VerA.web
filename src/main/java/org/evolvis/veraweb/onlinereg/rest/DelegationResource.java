@@ -193,8 +193,6 @@ public class DelegationResource extends AbstractResource {
             for (int i = 0; i < typeContentsFacade.size(); i++) {
                 if (delegationContent.getValue().equals(typeContentsFacade.get(i).getContent())) {
                     typeContentsFacade.get(i).setIsSelected(true);
-                } else {
-                	typeContentsFacade.get(i).setIsSelected(false);
                 }
             }
         }
