@@ -152,7 +152,7 @@ public class DelegationResource extends AbstractResource {
         for (OptionalField field : fields) {
             final List<Delegation> delegationContents = getDelegationContentsByGuest(guestId, session, field);
 
-            if (!delegationContents.isEmpty()) {
+            if (!delegationContents.isEmpty() || field.getFk_type() != 1) {
                 final OptionalFieldValue newOptionalFieldValue = initOptionalField(session, field, delegationContents);
                 fieldsList.add(newOptionalFieldValue);
             } else {
@@ -193,6 +193,8 @@ public class DelegationResource extends AbstractResource {
             for (int i = 0; i < typeContentsFacade.size(); i++) {
                 if (delegationContent.getValue().equals(typeContentsFacade.get(i).getContent())) {
                     typeContentsFacade.get(i).setIsSelected(true);
+                } else {
+                	typeContentsFacade.get(i).setIsSelected(false);
                 }
             }
         }
