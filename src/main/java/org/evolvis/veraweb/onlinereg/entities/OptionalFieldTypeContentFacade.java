@@ -6,7 +6,7 @@ package org.evolvis.veraweb.onlinereg.entities;
  */
 public class OptionalFieldTypeContentFacade extends OptionalFieldTypeContent {
 	
-	private Boolean isSelected;
+	private Boolean isSelected = false;
 
 	public OptionalFieldTypeContentFacade () {
 	}
