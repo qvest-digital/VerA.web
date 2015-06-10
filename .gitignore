@@ -8,3 +8,4 @@ mem.trace.db
 target/
 *.log
 pom.xml.versionsBackup
+*.iml
