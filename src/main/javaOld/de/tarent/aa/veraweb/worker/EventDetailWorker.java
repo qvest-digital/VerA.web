@@ -231,6 +231,9 @@ public class EventDetailWorker {
                 // Allowing Press in the Event or not
                 setMediaRepresentatives(event, oldEvent);
 
+                // Allow event configrmation via online registration with/without login
+                setLoginRequired(event, oldEvent);
+
                 BeanChangeLogger clogger = new BeanChangeLogger( database, context );
                 if (event.id == null) {
 
@@ -369,6 +372,25 @@ public class EventDetailWorker {
             event.eventtype = "Offene Veranstaltung";
         } else {
             event.eventtype = "";
+        }
+    }
+
+
+    private void setLoginRequired(Event event, Event oldEvent) {
+        if ((oldEvent == null || oldEvent.loginRequired == null) && event.loginRequired != null) {
+            if (event.loginRequired.equals("on")) {
+                event.loginRequired = true;
+            } else {
+                event.loginRequired = false;
+            }
+        } else if (oldEvent != null && event != null) {
+            if (event.loginRequired != null && event.loginRequired.equals("on")) {
+                event.loginRequired = oldEvent.loginRequired;
+            } else {
+                event.loginRequired = false;
+            }
+        } else {
+            event.loginRequired = false;
         }
     }
 

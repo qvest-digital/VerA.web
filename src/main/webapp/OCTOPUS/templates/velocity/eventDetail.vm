@@ -281,8 +281,19 @@
 							#if($online-registration.activated)
 								<div class="tableRow">
 									<div class="tableCell width50 inlineLabel">
+										<label for="event-mediarepresentatives">Login notwendig</label>
+										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-login-required" name="event-login-required"
+											#if($event && $event.login-required)
+												checked
+											#end
+										>
+									</div>
+								</div>
+
+
+								<div class="tableRow">
+									<div class="tableCell width50 inlineLabel">
 										<label for="event-mediarepresentatives">Anmeldung von Pressevertretern möglich</label>
-										<!-- DEBUG $event.mediarepresentatives -->
 										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-mediarepresentatives" name="event-mediarepresentatives"
 											#if($event && $event.mediarepresentatives)
 												checked
