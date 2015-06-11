@@ -281,9 +281,10 @@
 							#if($online-registration.activated)
 								<div class="tableRow">
 									<div class="tableCell width50 inlineLabel">
-										<label for="event-mediarepresentatives">Login notwendig</label>
-										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-login-required" name="event-login-required"
-											#if($event && $event.login-required)
+										<label for="event-login_required">Login notwendig</label>
+										<!-- DEBUG $event.login_required -->
+										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-login_required" name="event-login_required"
+											#if($event && $event.login_required)
 												checked
 											#end
 										>

@@ -232,7 +232,7 @@ public class EventDetailWorker {
                 setMediaRepresentatives(event, oldEvent);
 
                 // Allow event configrmation via online registration with/without login
-                setLoginRequired(event, oldEvent);
+                setLoginRequired(cntx, event);
 
                 BeanChangeLogger clogger = new BeanChangeLogger( database, context );
                 if (event.id == null) {
@@ -332,6 +332,15 @@ public class EventDetailWorker {
         }
     }
 
+    private void setLoginRequired(OctopusContext cntx, Event event) {
+        String requestParameter = (String) cntx.getRequestObject().getRequestParameters().get("event-login_required");
+        if (requestParameter != null && requestParameter.equals("on")) {
+            event.login_required = true;
+        } else {
+            event.login_required = false;
+        }
+    }
+
     private Integer getInvitationType(Event event) {
         Integer invitationtype;
         if (event.invitepartner.booleanValue() || event.invitationtype == null) {
@@ -376,23 +385,23 @@ public class EventDetailWorker {
     }
 
 
-    private void setLoginRequired(Event event, Event oldEvent) {
-        if ((oldEvent == null || oldEvent.loginRequired == null) && event.loginRequired != null) {
-            if (event.loginRequired.equals("on")) {
-                event.loginRequired = true;
-            } else {
-                event.loginRequired = false;
-            }
-        } else if (oldEvent != null && event != null) {
-            if (event.loginRequired != null && event.loginRequired.equals("on")) {
-                event.loginRequired = oldEvent.loginRequired;
-            } else {
-                event.loginRequired = false;
-            }
-        } else {
-            event.loginRequired = false;
-        }
-    }
+//    private void setLoginRequired(Event event, Event oldEvent) {
+//        if ((oldEvent == null || oldEvent.login_required == null) && event.login_required != null) {
+//            if (event.login_required.equals("on")) {
+//                event.login_required = true;
+//            } else {
+//                event.login_required = false;
+//            }
+//        } else if (oldEvent != null && event != null) {
+//            if (event.login_required) {
+//                event.login_required = oldEvent.login_required;
+//            } else {
+//                event.login_required = false;
+//            }
+//        } else {
+//            event.login_required = false;
+//        }
+//    }
 
     /**
      * Set/Unset the event flag for Press. Currently (03.12.2014) we store the uuid into that new column
