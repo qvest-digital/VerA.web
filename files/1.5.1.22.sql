@@ -1,0 +1,1 @@
+ALTER TABLE veraweb.tevent ADD COLUMN login_required BOOLEAN;
