@@ -96,6 +96,9 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	public Integer fk_color_b;
 	public String osiam_login;
 
+	// UUID to allow registration to events without login
+	public String login_required_uuid;
+
 	@Override
     public void verify() throws BeanException {
 		if (ishost == null) ishost = new Integer(0);
