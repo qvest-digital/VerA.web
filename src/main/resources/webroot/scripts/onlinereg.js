@@ -30,6 +30,9 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
     }).when('/register/:eventId', {
         templateUrl: 'partials/register.html',
         controller: 'RegisterController'
+	}).when('/register/:eventId/:guestId', {
+			templateUrl: 'partials/register.html',
+			controller: 'RegisterController'
     }).when('/register/', {
         templateUrl: 'partials/register_user.html',
         controller: 'RegisterUserController'
@@ -48,6 +51,9 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
     }).when('/freevisitors/:uuid', {
         template: "",
         controller: 'FreeVisitorController'
+    }).when('/freevisitors/:uuid/:noLoginRequiredUUID', {
+            template: "",
+            controller: 'FreeVisitorController'
     }).when('/update/:eventId', {
 		templateUrl: 'partials/update.html',
 		controller: 'UpdateController'
@@ -129,12 +135,18 @@ onlineRegApp.controller('ResetPasswordController', function($http, $scope, $rout
 });
 
 onlineRegApp.controller('FreeVisitorController', function($http, $scope, $location, $routeParams, $translate) {
+	if ($routeParams.noLoginRequiredUUID != null) {
+		var freeVisitorsUrl = 'api/freevisitors/'+ $routeParams.uuid + '/' + $routeParams.noLoginRequiredUUID
+	} else {
+		var freeVisitorsUrl = 'api/freevisitors/'+ $routeParams.uuid
+	}
 	$http({
 		method: 'GET',
-		url: 'api/freevisitors/'+ $routeParams.uuid
+		url: freeVisitorsUrl
 	}).success(function (result) {
 		$location.path('/register/' + result);
 	}).error(function (data, status, headers, config) {
+		// FIXME Wrong message?
 		$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
 			$scope.error = text;
 		});
@@ -690,7 +702,7 @@ onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) 
 
 onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http, $translate) {
 
-	if ($rootScope.user_logged_in == null) {
+	if ($rootScope.user_logged_in == null && $routeParams.guestId == null) {
 		$scope.setNextPage('register/' + $routeParams.eventId);
 		$location.path('/login');
 	} else {

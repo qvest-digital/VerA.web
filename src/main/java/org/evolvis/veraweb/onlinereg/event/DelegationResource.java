@@ -627,10 +627,8 @@ public class DelegationResource {
         resource.post(postBody);
 	}
 
-//    private void saveOptionalField(Integer guestId, Integer fieldId, String fieldContent, Integer fieldContentId) {
     private void saveOptionalField(Integer guestId, Integer fieldId, String fieldContent) {
         final WebResource resource = client.resource(path("delegation","field", "save"));
-//        final Form postBody = updateOptionalFieldPostBodyContent(guestId, fieldId, fieldContent, fieldContentId);
         final Form postBody = updateOptionalFieldPostBodyContent(guestId, fieldId, fieldContent);
 
         resource.post(Delegation.class, postBody);

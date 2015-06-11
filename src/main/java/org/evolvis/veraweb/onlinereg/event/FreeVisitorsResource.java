@@ -35,6 +35,8 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 
 import lombok.extern.java.Log;
+import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
 /**
  * @author Max Marche <m.marche@tarent.de>, tarent solutions GmbH
@@ -61,19 +63,40 @@ public class FreeVisitorsResource {
 	}
     
     /**
-     * Get delegates of company/institution.
+     * Get
      *
-     * @param uuid The delegation UUID
-     * @return List with delegates
+     * @param uuid The free visitors UUID
+     * @return Event id
      * @throws IOException TODO
      */
 	@GET
     @Path("/{uuid}")
     public int getEvenByUUId(@PathParam("uuid") String uuid) throws IOException {
-    	WebResource resource = client.resource(path("freevisitors", uuid));
+    	final WebResource resource = client.resource(path("freevisitors", uuid));
         return resource.get(Event.class).getPk();
 	}
-	
+
+    /**
+     * Get
+     *
+     * @param uuid The free visitors UUID
+     * @return Event id
+     * @throws IOException TODO
+     */
+    @GET
+    @Path("/{uuid}/{noLoginRequiredUUID}")
+    public String getEvenByUUId(@PathParam("uuid") String uuid, @PathParam("noLoginRequiredUUID") String noLoginRequiredUUID) throws IOException {
+        final Integer guestId = checkGuestExistsByNoLoginRequiredUUID(noLoginRequiredUUID);
+        final WebResource resource = client.resource(path("freevisitors", uuid));
+
+        return StatusConverter.convertStatus(resource.get(Event.class).getPk() + "/" + guestId);
+    }
+
+    private Integer checkGuestExistsByNoLoginRequiredUUID(String noLoginRequiredUUID) {
+        final WebResource resource = client.resource(path("freevisitors", "noLoginRequired", noLoginRequiredUUID));
+        return resource.get(Integer.class);
+    }
+
 
     /**
      * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
