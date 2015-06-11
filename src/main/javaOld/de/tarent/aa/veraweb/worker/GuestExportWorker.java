@@ -22,23 +22,17 @@ package de.tarent.aa.veraweb.worker;
 import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import de.tarent.aa.veraweb.beans.*;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
+import de.tarent.dblayer.sql.statement.Update;
+import de.tarent.octopus.beans.TransactionContext;
 import org.apache.log4j.Logger;
 
-import de.tarent.aa.veraweb.beans.Doctype;
-import de.tarent.aa.veraweb.beans.Event;
-import de.tarent.aa.veraweb.beans.GuestSearch;
-import de.tarent.aa.veraweb.beans.Location;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.ExportHelper;
@@ -83,10 +77,14 @@ public class GuestExportWorker {
     /** Octopus-Ausgabeparameter für {@link #export(OctopusContext, Integer)} */
     public static final String OUTPUT_export = "stream";
 
+	public static final String EMPTY_FIELD_VALUE = "-";
+
     /** Logger dieser Klasse */
 	private final Logger logger = Logger.getLogger(getClass());
 
 	private boolean isOnlineRegistrationActive = true;
+
+	private PropertiesReader propertiesReader = new PropertiesReader();
 
 	/**
 	 * <p>
@@ -588,6 +586,7 @@ public class GuestExportWorker {
 			spreadSheet.addCell("Anmeldename");
 			spreadSheet.addCell("Passwort");
 			spreadSheet.addCell("URL");
+			spreadSheet.addCell("Anmeldung URL");
 		}
 		spreadSheet.addCell("Bemerkung");
 	}
@@ -809,9 +808,10 @@ public class GuestExportWorker {
 	 * @throws BeanException
 	 */
 	private void addCredentialsDataColumns(SpreadSheet spreadSheet, Map guest, Event event, OctopusContext cntx) throws IOException, BeanException {
-		String password = "-";
-		Object username = "-";
-		String url = "-";
+		String password = EMPTY_FIELD_VALUE;
+		Object username = EMPTY_FIELD_VALUE;
+		String url = EMPTY_FIELD_VALUE;
+		String directAccessURL = EMPTY_FIELD_VALUE;
 
 		String category = (String) guest.get("catname");
 		if (category == null) { category = ""; }
@@ -830,20 +830,49 @@ public class GuestExportWorker {
 		else {
 			username = guest.get("osiam_login");
 			password = null;
-			try {
-				url = getURLLinkUUIDDataFromGuest(Integer.valueOf(guest.get("fk_person").toString()), cntx);
-			} catch (NumberFormatException e) {
-				logger.error("NumberFormatException - getting URL/LinkUUID of the person:" + guest.get("fk_person").toString(), e);
-				throw e;
-			} catch (BeanException e) {
-				logger.error("BeanException - getting URL/LinkUUID of the person:" + guest.get("fk_person").toString(), e);
-				throw e;
+			url = getResetPasswordURL(guest, cntx);
+			String loginUUID = null;
+			if (guest.get("login_required_uuid") != null) {
+				loginUUID = guest.get("login_required_uuid").toString();
+				directAccessURL = generateEventUrlWithoutLogin(event.hash, loginUUID);
 			}
 		}
 
 		spreadSheet.addCell(username);
 		spreadSheet.addCell(password);
 		spreadSheet.addCell(url);
+		spreadSheet.addCell(directAccessURL);
+	}
+
+//	private void updateGuestWithLoginUUID(Integer id, OctopusContext octopusContext, String loginUUID) throws BeanException {
+//		Database database = new DatabaseVeraWeb(octopusContext);
+//		TransactionContext transactionContext = database.getTransactionContext();
+//
+//		Update updateStatement = SQL.Update(database);
+//		updateStatement.table("veraweb.tguest");
+//		updateStatement.update("login_required_uuid", loginUUID);
+//		updateStatement.whereAndEq("pk", id);
+//
+//		transactionContext.execute(updateStatement);
+//	}
+//
+//	private String generateUUID() {
+//		UUID uuid = UUID.randomUUID();
+//		return uuid.toString();
+//	}
+
+	private String getResetPasswordURL(Map guest, OctopusContext cntx) throws IOException, BeanException {
+		String url;
+		try {
+            url = getURLLinkUUIDDataFromGuest(Integer.valueOf(guest.get("fk_person").toString()), cntx);
+        } catch (NumberFormatException e) {
+            logger.error("NumberFormatException - getting URL/LinkUUID of the person:" + guest.get("fk_person").toString(), e);
+            throw e;
+        } catch (BeanException e) {
+            logger.error("BeanException - getting URL/LinkUUID of the person:" + guest.get("fk_person").toString(), e);
+            throw e;
+        }
+		return url;
 	}
 
 	/**
@@ -895,6 +924,11 @@ public class GuestExportWorker {
 		final Properties properties = propertiesReader.getProperties();
 		final URLGenerator url = new URLGenerator(properties);
 		return url.getURLForDelegation() + guest.get("delegation");
+	}
+
+	private String generateEventUrlWithoutLogin(String eventHash, String guestLoginUUID) {
+		final URLGenerator urlGenerator = getUrlGenerator();
+		return urlGenerator.getURLForFreeVisitors() + eventHash + "/" + guestLoginUUID;
 	}
 
 	private String extractFirstXChars(String value, int x) {
@@ -1281,6 +1315,11 @@ public class GuestExportWorker {
 			 */
 			return "Teilnahme";
 		}
+	}
+
+	private URLGenerator getUrlGenerator() {
+		final Properties properties = propertiesReader.getProperties();
+		return new URLGenerator(properties);
 	}
 
 	/**
