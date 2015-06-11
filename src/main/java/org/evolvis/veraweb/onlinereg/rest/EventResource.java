@@ -125,7 +125,7 @@ public class EventResource extends AbstractResource {
         }
 
     }
-    
+
     /**
      * Checks if a delegation exists according to the relationship between delegation and event
      * 
