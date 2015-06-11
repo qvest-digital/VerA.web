@@ -46,6 +46,8 @@ import javax.xml.bind.annotation.XmlRootElement;
             query = "SELECT g FROM Guest g where delegation = :delegation and fk_person = :userId"),
     @NamedQuery(name = "Guest.findIdByEventAndUser",
             query = "SELECT g.pk FROM Guest g where fk_event = :eventId and fk_person = :userId"),
+    @NamedQuery(name = "Guest.getGuestByNoLoginRequiredUUID",
+            query = "SELECT g.pk FROM Guest g where login_required_uuid = :noLoginRequiredUUID")
 })
 @NamedNativeQueries({
     @NamedNativeQuery(name="Event.list.userevents",
@@ -71,7 +73,7 @@ public class Guest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int pk;
+    private Integer pk;
     private int fk_event;
     private int fk_person;
     private String gender;
@@ -82,8 +84,9 @@ public class Guest {
     private String delegation;
     private Integer fk_category;
     private String osiam_login;
+    private String login_required_uuid;
 
-	public int getPk() {
+	public Integer getPk() {
 		return pk;
 	}
 
@@ -166,5 +169,12 @@ public class Guest {
 		this.osiam_login = osiam_login;
 	}
 
+    public String getLogin_required_uuid() {
+        return login_required_uuid;
+    }
+
+    public void setLogin_required_uuid(String login_required_uuid) {
+        this.login_required_uuid = login_required_uuid;
+    }
 }
 
