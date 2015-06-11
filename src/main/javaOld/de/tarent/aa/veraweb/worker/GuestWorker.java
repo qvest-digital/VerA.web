@@ -33,7 +33,10 @@ import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.GuestSerialNumber;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.Result;
+import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.Join;
+import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
@@ -182,10 +185,14 @@ public class GuestWorker {
                 System.gc();
             }
 
+
 			addGuests(cntx, context, event, personIds);
+			if (event.login_required) {
+				addLoginUUIDtoGuests(database, context, event.id, personIds);
+			}
 
 			if (sql3.length() > 0) {
-                DB.insert(context, sql3.toString());
+				DB.insert(context, sql3.toString());
                 context.commit();
             }
 
@@ -207,6 +214,60 @@ public class GuestWorker {
             throw e;
         }
     }
+
+	private void addLoginUUIDtoGuests(Database database, TransactionContext transactionContext,
+									  Integer eventId, String personIds) throws BeanException, SQLException {
+		String[] personIdsAsList = personIds.split(",");
+
+		for (int i = 0; i < personIdsAsList.length; i++) {
+			if (isNormalGuest(database, Integer.valueOf(personIdsAsList[i]), eventId)) {
+				updateSingleLoginUUID(transactionContext, personIdsAsList[i], eventId);
+			}
+		}
+	}
+
+	private Boolean isNormalGuest(Database database, Integer personId, Integer eventId) throws SQLException {
+		Select selectStatement = getQueryToCheckNormalGuests(database, personId, eventId);
+		List resultList = (List) selectStatement.getList(database);
+
+		if (!resultList.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+
+	private Select getQueryToCheckNormalGuests(Database database, Integer personId, Integer eventId) {
+		Clause clauseCompanyName = Where.or(Expr.isNull("p.company_a_e1"), Expr.equal("p.company_a_e1", ""));
+		Clause osiamLoginNull = Expr.isNull("g.osiam_login");
+
+		Select selectStatement = SQL.Select(database);
+		selectStatement.select("g.*");
+		selectStatement.from("veraweb.tguest g");
+		selectStatement.joinLeftOuter("veraweb.tperson p", "p.pk", "g.fk_person");
+		selectStatement.whereAndEq("p.isCompany", "f");
+		selectStatement.whereAndEq("g.fk_event", eventId);
+		selectStatement.whereAndEq("p.pk", personId);
+		selectStatement.whereAnd(osiamLoginNull);
+		selectStatement.whereAnd(clauseCompanyName);
+
+		return selectStatement;
+	}
+
+	private void updateSingleLoginUUID(TransactionContext transactionContext, String personId, Integer eventId) throws BeanException {
+		Update updateStatement = SQL.Update(transactionContext);
+		updateStatement.table("veraweb.tguest");
+		updateStatement.update("veraweb.tguest.login_required_uuid", generateUUID());
+		updateStatement.whereAndEq("fk_person", personId);
+		updateStatement.whereAndEq("fk_event", eventId);
+
+		transactionContext.execute(updateStatement);
+		transactionContext.commit();
+	}
+
+	private String generateUUID() {
+		UUID uuid = UUID.randomUUID();
+		return uuid.toString();
+	}
 
 	private void updateDoctype(TransactionContext context, Event event) throws BeanException, SQLException {
 		final String sql = UPDATE_GUEST_DOCUMENT_TYPES_FORMAT.format( new Object[] { event.id.toString() } );
