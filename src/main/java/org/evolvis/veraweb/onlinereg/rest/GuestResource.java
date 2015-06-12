@@ -149,6 +149,29 @@ public class GuestResource extends AbstractResource{
         }
     }
 
+    @POST
+    @Path("/update/nologin/{noLoginRequiredUUID}")
+    public void updateGuestWithoutLogin(
+                            @PathParam("noLoginRequiredUUID") String noLoginRequiredUUID,
+                            @FormParam("invitationstatus") int invitationstatus,
+                            @FormParam("notehost") String notehost) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Guest.findByNoLoginUUID");
+            query.setString("noLoginRequiredUUID", noLoginRequiredUUID);
+
+            final Guest guest = (Guest) query.uniqueResult();
+            guest.setInvitationstatus(invitationstatus);
+            guest.setNotehost(notehost);
+
+            session.update(guest);
+            session.flush();
+        } finally {
+            session.close();
+        }
+    }
+
+
     /**
      * Get guest using the UUID of a delegation
      * TODO Rename method. It is not clear.
@@ -251,6 +274,32 @@ public class GuestResource extends AbstractResource{
             final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
             if(numberOfGuestsFound.intValue() > 0) {
             	return true;
+            }
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+
+    /**
+     * Checking if the current user is registered into the event
+     *
+     * @param noLoginRequiredUUID
+     * @param eventId
+     * @return the person id to allow updating
+     */
+    @GET
+    @Path("/registered/nologin/{noLoginRequiredUUID}/{eventId}")
+    public Boolean isUserRegisteredintoEventByUUID(@PathParam("noLoginRequiredUUID") String noLoginRequiredUUID, @PathParam("eventId") Integer eventId) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Guest.checkUserRegistrationWithoutLogin");
+            query.setString("noLoginRequiredUUID", noLoginRequiredUUID);
+            query.setInteger("eventId", eventId);
+
+            final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
+            if(numberOfGuestsFound.intValue() > 0) {
+                return true;
             }
             return false;
         } finally {
