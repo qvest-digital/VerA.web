@@ -42,6 +42,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Guest.findByEventAndUser",
             query = "SELECT g FROM Guest g where fk_event = :eventId and fk_person = :userId"),
+    @NamedQuery(name = "Guest.findByNoLoginUUID",
+            query = "SELECT g FROM Guest g where login_required_uuid = :noLoginRequiredUUID"),
     @NamedQuery(name = "Guest.findByDelegationAndUser",
             query = "SELECT g FROM Guest g where delegation = :delegation and fk_person = :userId"),
     @NamedQuery(name = "Guest.findIdByEventAndUser",
@@ -64,6 +66,8 @@ import javax.xml.bind.annotation.XmlRootElement;
             query ="SELECT g.* FROM tguest g WHERE delegation=:uuid and fk_person=:personId ", resultClass=Guest.class),
 	@NamedNativeQuery(name = "Guest.checkUserRegistration",
             query = "SELECT COUNT(g.*) FROM tguest g WHERE g.fk_event=:eventId AND g.osiam_login LIKE :username"),
+    @NamedNativeQuery(name = "Guest.checkUserRegistrationWithoutLogin",
+            query = "SELECT COUNT(g.*) FROM tguest g WHERE g.fk_event=:eventId AND g.login_required_uuid LIKE :noLoginRequiredUUID"),
 	@NamedNativeQuery(name = "Guest.findByDelegationUUID",
             query = "SELECT g.* FROM tguest g LEFT JOIN tperson p ON g.fk_person=p.pk WHERE g.delegation=:delegation " +
                     "AND p.isCompany='t'", resultClass=Guest.class)
