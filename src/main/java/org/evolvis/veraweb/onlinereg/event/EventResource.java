@@ -36,6 +36,7 @@ import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.utils.EventTransporter;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
+import org.evolvis.veraweb.onlinereg.utils.VerawebConstants;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.FormParam;
@@ -221,6 +222,38 @@ public class EventResource {
     }
 
     /**
+     * Update guest status to "zusage"
+     * @param eventId
+     * @param notehost
+     * @param noLoginRequiredUUID
+     * @return
+     * @throws IOException
+     */
+    @POST
+    @Path("/{eventId}/register/nologin")
+    public String registerGuestWithoutLogin(
+            @PathParam("eventId") String eventId,
+            @FormParam("notehost") String notehost,
+            @FormParam("noLoginRequiredUUID") String noLoginRequiredUUID) throws IOException {
+
+        // checking if the user is registered on the event
+        if (isUserWithoutLoginRegistered(noLoginRequiredUUID, eventId)) {
+            updateGuestStatusWithoutLogin(noLoginRequiredUUID, VerawebConstants.GUEST_STATUS_ACCEPT, notehost);
+            return StatusConverter.convertStatus("OK");
+        }
+        return StatusConverter.convertStatus("REGISTERED");
+    }
+
+    private void updateGuestStatusWithoutLogin(final String noLoginRequiredUUID, final Integer invitationstatus, final String notehost) {
+        final Form postBodyForUpdate = new Form();
+        postBodyForUpdate.add("invitationstatus", invitationstatus);
+        postBodyForUpdate.add("notehost", notehost);
+
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guest/update/nologin/" + noLoginRequiredUUID);
+        resource.post(postBodyForUpdate);
+    }
+
+    /**
      * Get user's subscribed events.
      *
      * @param username  username
@@ -342,7 +375,12 @@ public class EventResource {
     }
 
     private Boolean isUserRegistered(String username, String eventId) throws IOException {
-    	return readResource(path("guest", "registered", username, eventId), BOOLEAN);
+        return readResource(path("guest", "registered", username, eventId), BOOLEAN);
+    }
+
+
+    private Boolean isUserWithoutLoginRegistered(String noLoginRequiredUUID, String eventId) throws IOException {
+        return readResource(path("guest", "registered", "nologin", noLoginRequiredUUID, eventId), BOOLEAN);
     }
 
     private String generateInvitationStatus(String eventId) throws IOException {
