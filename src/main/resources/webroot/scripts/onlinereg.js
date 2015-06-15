@@ -144,7 +144,13 @@ onlineRegApp.controller('FreeVisitorController', function($http, $scope, $locati
 		method: 'GET',
 		url: freeVisitorsUrl
 	}).success(function (result) {
-		$location.path('/register/' + result.status);
+		if(result.status != 'ERROR') {
+			$location.path('/register/' + result.status);
+		} else {
+			$translate('USER_EVENTS_STATUS_WITHOUT_LOGIN_CHANGED_ERROR_MESSAGE').then(function (text) {
+				$scope.error = text;
+			});
+		}
 	}).error(function (data, status, headers, config) {
 		// FIXME Wrong message?
 		$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {

@@ -89,6 +89,9 @@ public class FreeVisitorsResource {
         final Integer guestId = checkGuestExistsByNoLoginRequiredUUID(noLoginRequiredUUID);
         final WebResource resource = client.resource(path("freevisitors", uuid));
 
+        if (guestId == null) {
+            return StatusConverter.convertStatus("ERROR");
+        }
         return StatusConverter.convertStatus(resource.get(Event.class).getPk() + "/" + noLoginRequiredUUID);
     }
 
