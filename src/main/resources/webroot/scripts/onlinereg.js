@@ -445,10 +445,11 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							$scope.success = null;
 						} else if (result.status === 'OK') {
 							$scope.error = null;
+							$scope.refreshData();
 							$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
 								$scope.success = text;
 							});
-							$scope.refreshData();
+							
 
 							$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 								$scope.presentPersons = presentPersons.data;
@@ -481,6 +482,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.labellist = {};
 			$scope.getOptionalFieldsWithTypeContent();
 			$scope.error = null;
+			$scope.success = null;
 		}
 
 		$scope.loadPersonData = function(personId) {
