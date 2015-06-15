@@ -52,7 +52,7 @@
 
 
         <div id="collapse-formular" ng-show="showDialog">
-        	<hr size="95%"/> 
+        	<hr size="95%"/>
             <a href="" class="" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
                aria-controls="collapseExample">
                 {{'DELEGATION_EXTRA_FIELDS_TITLE'|translate}}
@@ -63,29 +63,29 @@
                     <div class="form-group container">
                         <div class="col-xs-5" ng-repeat="field in fields">
                         	<label for="{{field.label}}">{{field.label}}</label>
-                        	
-                            <input type="text" ng-show="field.fk_type == 1" class="form-control" id="{{field.label}}" placeholder="{{field.label}}"
+
+                            <input type="text" ng-if="field.fk_type == 1" class="form-control" id="{{field.label}}" placeholder="{{field.label}}"
                                    ng-model="labellist[field.pk]" style="margin-bottom: 10px;"/>
-                                   
-                          <select class="form-control" ng-show="field.fk_type == 2" ng-model="labellist[field.pk]">
-                           	<option ng-repeat="typeContent in field.optionalFieldTypeContentsFacade" ng-selected="typeContent.isSelected" value="{{typeContent.content}}">
+
+                          <select id="single{{field.label}}" name="multiple{{field.label}}" class="form-control" ng-if="field.fk_type == 2" ng-model="labellist[field.pk]">
+                           	<option id="single{{typeContent.pk}}" name="single{{typeContent.pk}}" ng-repeat="typeContent in field.optionalFieldTypeContentsFacade" ng-selected="typeContent.isSelected" value="{{typeContent.content}}">
                            		{{typeContent.content}}
                            	</option>
                            </select>
-                           
-                           <select class="form-control" ng-show="field.fk_type == 3" multiple ng-model="labellist[field.pk]">
-                           	<option ng-repeat="typeContent in field.optionalFieldTypeContentsFacade" ng-selected="typeContent.isSelected" value="{{typeContent.content}}">
-                           		{{typeContent.content}}
+
+                           <select id="multiple{{field.label}}" name="multiple{{field.label}}" class="form-control" ng-if="field.fk_type == 3" multiple ng-multiple="field.fk_type == 3" ng-model="labellist[field.pk]">
+                           	<option id="multiple{{typeContent.pk}}" name="single{{typeContent.pk}}" value="{{typeContent.content}}" ng-repeat="typeContent in field.optionalFieldTypeContentsFacade" ng-selected="typeContent.isSelected">
+								{{typeContent.content}}
                            	</option>
                            </select>
-                           
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-		
-		<hr size="95%"/> 
+
+		<hr size="95%"/>
     </div>
 </form>
 
@@ -117,18 +117,18 @@
 <div class="modal fade" id="extraFieldsDialog" tabindex="-1" role="dialog" aria-labelledby="extraFieldsDialogLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-    
+
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="extraFieldsDialogLabel">{{'GENERIC_CONFIRMATION'|translate}}</h4>
       </div>
-      
+
       <div class="form-group container">
 		<p>{{'DELEGATION_EMPTY_FIELDS'|translate}}</p>
 		<button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="refreshData()">
 			{{'GENERIC_YES'|translate}}
 		</button>
-		
+
 		<button type="button" class="btn btn-custom" data-dismiss="modal" >
 			{{'GENERIC_NO'|translate}}
 		</button>
