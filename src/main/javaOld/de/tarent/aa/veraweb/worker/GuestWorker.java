@@ -33,7 +33,6 @@ import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.GuestSerialNumber;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.Result;
-import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Clause;
@@ -77,7 +76,7 @@ public class GuestWorker {
     // Octopus-Aktionen
     //
     /** Octopus-Eingabe-Parameter für {@link #addGuestList(OctopusContext)} */
-	public static final String INPUT_addGuestList[] = {};
+	public static final String[] INPUT_addGuestList = {};
 	/**
 	 * Diese Octopus-Aktion fügt eine Reihe von Gästen einer
 	 * Veranstaltung hinzu.<br>
@@ -120,27 +119,27 @@ public class GuestWorker {
 
 	public void addGuestList(OctopusContext cntx) throws BeanException, IOException
 	{
-		Database database = new DatabaseVeraWeb(cntx);
-		TransactionContext context = database.getTransactionContext();
+		final Database database = new DatabaseVeraWeb(cntx);
+		final TransactionContext context = database.getTransactionContext();
 
 		try
 		{
-			Event event = ( Event ) cntx.contentAsObject( "event" );
-			List invitemain = ( List ) cntx.sessionAsObject( "selectionPerson" );
-			List invitepartner = ( List )cntx.sessionAsObject( "addguest-invitepartner" );
-			List selectreserve = ( List ) cntx.sessionAsObject( "addguest-selectreserve" );
-			List selectdelegation = ( List )cntx.sessionAsObject( "addguest-selectdelegation" );
+			final Event event = ( Event ) cntx.contentAsObject( "event" );
+			final List invitemain = ( List ) cntx.sessionAsObject( "selectionPerson" );
+			final List invitepartner = ( List )cntx.sessionAsObject( "addguest-invitepartner" );
+			final List selectreserve = ( List ) cntx.sessionAsObject( "addguest-selectreserve" );
+			final List selectdelegation = ( List )cntx.sessionAsObject( "addguest-selectdelegation" );
 			Map invitecategory = ( Map ) cntx.sessionAsObject( "addguest-invitecategory" );
-            if (invitecategory == null) {
-                invitecategory = new HashMap();
-            }
+			if (invitecategory == null) {
+				invitecategory = new HashMap();
+			}
 
-			String personIds = DatabaseHelper.listsToIdListString(new List[]{invitemain, invitepartner, selectreserve, selectdelegation});
+			final String personIds = DatabaseHelper.listsToIdListString(new List[]{invitemain, invitepartner, selectreserve, selectdelegation});
 
 			setInvitationStatistics(cntx, context, event, personIds);
 
 			// prepare third step, fill in missing data into guest tupels
-			StringBuffer sql3 = new StringBuffer();
+			StringBuffer updateGuestStatement = new StringBuffer();
             try {
                 // not optimized due to dynamic creation of doctype content from configuration
                 // must still instantiate person beans from database, which may lead to destabilization
@@ -159,14 +158,14 @@ public class GuestWorker {
                         fk_category = null;
                     }
 
-                    sql3.append(UPDATE_PERSON_TO_GUEST_LIST_FORMAT.format(new Object[]{
-                            fk_category != null ? fk_category.toString() : null,
-                            new Integer(invitepartner.indexOf(person.id) != -1 ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER),
-                            (selectreserve.indexOf(person.id) != -1) ? 1 : 0,
-                            (selectdelegation.indexOf(person.id) != -1) ? "'" + UUID.randomUUID() + "'" : null,
-                            person.id.toString(), event.id.toString()
-                    }));
-                    sql3.append(';');
+                    updateGuestStatement.append(UPDATE_PERSON_TO_GUEST_LIST_FORMAT.format(new Object[]{
+							fk_category != null ? fk_category.toString() : null,
+							new Integer(invitepartner.indexOf(person.id) != -1 ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER),
+							(selectreserve.indexOf(person.id) != -1) ? 1 : 0,
+							(selectdelegation.indexOf(person.id) != -1) ? "'" + UUID.randomUUID() + "'" : null,
+							person.id.toString(), event.id.toString()
+					}));
+                    updateGuestStatement.append(';');
                 }
                 context.commit();
             } catch (BeanException e) {
@@ -186,15 +185,7 @@ public class GuestWorker {
             }
 
 
-			addGuests(cntx, context, event, personIds);
-			if (event.login_required) {
-				addLoginUUIDtoGuests(database, context, event.id, personIds);
-			}
-
-			if (sql3.length() > 0) {
-				DB.insert(context, sql3.toString());
-                context.commit();
-            }
+			addGuests(cntx, database, context, event, personIds, updateGuestStatement);
 
 			updateDoctype(context, event);
 
@@ -215,20 +206,34 @@ public class GuestWorker {
         }
     }
 
-	private void addLoginUUIDtoGuests(Database database, TransactionContext transactionContext,
-									  Integer eventId, String personIds) throws BeanException, SQLException {
+	private void addGuests(OctopusContext cntx, Database database, TransactionContext context, Event event, String personIds, StringBuffer updateGuestStatement) throws SQLException, BeanException {
+		addGuestsInitial(cntx, context, event, personIds);
+		if (event.login_required) {
+            addLoginUUIDtoGuests(database, context, event.id, personIds);
+        }
+
+		if (updateGuestStatement.length() > 0) {
+            DB.insert(context, updateGuestStatement.toString());
+context.commit();
+}
+	}
+
+	private void addLoginUUIDtoGuests(Database database,
+									  TransactionContext transactionContext,
+									  Integer eventId,
+									  String personIds) throws BeanException, SQLException {
 		String[] personIdsAsList = personIds.split(",");
 
 		for (int i = 0; i < personIdsAsList.length; i++) {
-			if (isNormalGuest(database, Integer.valueOf(personIdsAsList[i]), eventId)) {
-				updateSingleLoginUUID(transactionContext, personIdsAsList[i], eventId);
+			if (isStandardGuest(database, Integer.valueOf(personIdsAsList[i]), eventId)) {
+				updateGuestByNoLoginRequiredUUID(transactionContext, personIdsAsList[i], eventId);
 			}
 		}
 	}
 
-	private Boolean isNormalGuest(Database database, Integer personId, Integer eventId) throws SQLException {
-		Select selectStatement = getQueryToCheckNormalGuests(database, personId, eventId);
-		List resultList = (List) selectStatement.getList(database);
+	private Boolean isStandardGuest(Database database, Integer personId, Integer eventId) throws SQLException {
+		final Select selectStatement = getQueryToCheckStandardGuestsExists(database, personId, eventId);
+		final List resultList = (List) selectStatement.getList(database);
 
 		if (!resultList.isEmpty()) {
 			return true;
@@ -236,11 +241,11 @@ public class GuestWorker {
 		return false;
 	}
 
-	private Select getQueryToCheckNormalGuests(Database database, Integer personId, Integer eventId) {
-		Clause clauseCompanyName = Where.or(Expr.isNull("p.company_a_e1"), Expr.equal("p.company_a_e1", ""));
-		Clause osiamLoginNull = Expr.isNull("g.osiam_login");
+	private Select getQueryToCheckStandardGuestsExists(Database database, Integer personId, Integer eventId) {
+		final Clause clauseCompanyName = Where.or(Expr.isNull("p.company_a_e1"), Expr.equal("p.company_a_e1", ""));
+		final Clause osiamLoginNull = Expr.isNull("g.osiam_login");
 
-		Select selectStatement = SQL.Select(database);
+		final Select selectStatement = SQL.Select(database);
 		selectStatement.select("g.*");
 		selectStatement.from("veraweb.tguest g");
 		selectStatement.joinLeftOuter("veraweb.tperson p", "p.pk", "g.fk_person");
@@ -253,20 +258,15 @@ public class GuestWorker {
 		return selectStatement;
 	}
 
-	private void updateSingleLoginUUID(TransactionContext transactionContext, String personId, Integer eventId) throws BeanException {
-		Update updateStatement = SQL.Update(transactionContext);
+	private void updateGuestByNoLoginRequiredUUID(TransactionContext transactionContext, String personId, Integer eventId) throws BeanException {
+		final Update updateStatement = SQL.Update(transactionContext);
 		updateStatement.table("veraweb.tguest");
-		updateStatement.update("veraweb.tguest.login_required_uuid", generateUUID());
+		updateStatement.update("veraweb.tguest.login_required_uuid", UUID.randomUUID().toString());
 		updateStatement.whereAndEq("fk_person", personId);
 		updateStatement.whereAndEq("fk_event", eventId);
 
 		transactionContext.execute(updateStatement);
 		transactionContext.commit();
-	}
-
-	private String generateUUID() {
-		UUID uuid = UUID.randomUUID();
-		return uuid.toString();
 	}
 
 	private void updateDoctype(TransactionContext context, Event event) throws BeanException, SQLException {
@@ -275,7 +275,7 @@ public class GuestWorker {
 		DB.insert(context, sql);
 	}
 
-	private void addGuests(OctopusContext cntx, TransactionContext context, Event event, String personIds)
+	private void addGuestsInitial(OctopusContext cntx, TransactionContext context, Event event, String personIds)
 			throws SQLException, BeanException {
 		// second step, create guest tupels
 		final String sql = ADD_PERSONS_TO_GUESTLIST_FORMAT.format(new Object[]{
@@ -415,8 +415,8 @@ public class GuestWorker {
 
 	public void addEvent(OctopusContext cntx, Integer eventId) throws BeanException, IOException
 	{
-		Database database = new DatabaseVeraWeb(cntx);
-		TransactionContext context = database.getTransactionContext();
+		final Database database = new DatabaseVeraWeb(cntx);
+		final TransactionContext context = database.getTransactionContext();
 		try
 		{
 			Event event = ( Event ) cntx.contentAsObject( "event" );
@@ -485,7 +485,7 @@ public class GuestWorker {
 	}
 
 	/** Octopus-Eingabe-Parameter für {@link #addPerson(OctopusContext, Integer)} */
-	public static final String INPUT_addPerson[] = { "event-id" };
+	public static final String[] INPUT_addPerson = { "event-id" };
 	/**
 	 * Fügt eine Person aus dem Content zu einer Veranstaltung hinzu.
 	 *
