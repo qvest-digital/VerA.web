@@ -89,14 +89,13 @@ public class FreeVisitorsResource {
         final Integer guestId = checkGuestExistsByNoLoginRequiredUUID(noLoginRequiredUUID);
         final WebResource resource = client.resource(path("freevisitors", uuid));
 
-        return StatusConverter.convertStatus(resource.get(Event.class).getPk() + "/" + guestId);
+        return StatusConverter.convertStatus(resource.get(Event.class).getPk() + "/" + guestId + "/" + noLoginRequiredUUID);
     }
 
     private Integer checkGuestExistsByNoLoginRequiredUUID(String noLoginRequiredUUID) {
         final WebResource resource = client.resource(path("freevisitors", "noLoginRequired", noLoginRequiredUUID));
         return resource.get(Integer.class);
     }
-
 
     /**
      * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
