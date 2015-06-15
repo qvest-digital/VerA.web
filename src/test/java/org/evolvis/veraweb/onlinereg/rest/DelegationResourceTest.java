@@ -19,73 +19,164 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
-import org.evolvis.veraweb.onlinereg.AbstractResourceTest;
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
-import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
+import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
+import org.hibernate.Query;
 import org.hibernate.Session;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
+import org.hibernate.SessionFactory;
+import org.junit.AfterClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import javax.servlet.ServletContext;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by aalexa on 20.01.15.
+ *
+ * @author aalexa
+ * @author jnunez
  */
-public class DelegationResourceTest extends AbstractResourceTest<DelegationResource> {
+@RunWith(MockitoJUnitRunner.class)
+public class DelegationResourceTest {
+
+    @Mock
+    private static SessionFactory mockitoSessionFactory;
+    @Mock
+    private static Session mockitoSession;
+
+    DelegationResource delegationResource;
+
     public DelegationResourceTest() {
-        super(DelegationResource.class);
+        delegationResource = new DelegationResource();
+        delegationResource.context = mock(ServletContext.class);
     }
 
-    @BeforeClass
-    public static void init() {
-        setDummyOptionalFields();
+    @AfterClass
+    public static void tearDown() {
+        mockitoSessionFactory.close();
+        mockitoSession.disconnect();
+        mockitoSession.close();
     }
 
-    private static void setDummyOptionalFields() {
-        Session session = sessionFactory.openSession();
+    private List<OptionalField> getDummyOptionalFields() {
+        List<OptionalField> optionalFields = new ArrayList<OptionalField>();
 
-        OptionalField optionalField = new OptionalField();
-        optionalField.setFk_event(1);
-        optionalField.setLabel("Label 1");
-        session.persist(optionalField);
+        // -------------------------------------------------
+            OptionalField inputField = new OptionalField();
+            inputField.setFk_type(1);
+            inputField.setFk_event(1);
+            inputField.setLabel("My input field");
+            inputField.setPk(11);
 
-        OptionalField optionalField1 = new OptionalField();
-        optionalField1.setFk_event(1);
-        optionalField1.setLabel("Label 2");
-        session.persist(optionalField1);
+            OptionalField singleComboField = new OptionalField();
+            singleComboField.setFk_type(2);
+            singleComboField.setFk_event(1);
+            singleComboField.setLabel("My combobox field");
+            singleComboField.setPk(12);
 
-        OptionalField optionalField3 = new OptionalField();
-        optionalField3.setFk_event(1);
-        optionalField3.setLabel("Label 3");
-        session.persist(optionalField3);
+            OptionalField multipleComboField = new OptionalField();
+            multipleComboField.setFk_type(3);
+            multipleComboField.setFk_event(1);
+            multipleComboField.setLabel("My multiple combobox field");
+            multipleComboField.setPk(13);
+        // -------------------------------------------------
 
-        session.flush();
-        session.close();
+        optionalFields.add(inputField);
+        optionalFields.add(singleComboField);
+        optionalFields.add(multipleComboField);
+
+        return optionalFields;
     }
 
-    @Test@Ignore
+    private List<OptionalFieldTypeContent> getDummyOptionalFieldTypeContents() {
+        List<OptionalFieldTypeContent> optionalFieldTypeContents = new ArrayList<OptionalFieldTypeContent>();
+        // -------------------------------------------------
+            OptionalFieldTypeContent optionalFieldTypeContent1 = new OptionalFieldTypeContent();
+            optionalFieldTypeContent1.setContent("Option single combo 1");
+            optionalFieldTypeContent1.setFk_optional_field(12);
+            optionalFieldTypeContent1.setPk(1);
+
+            OptionalFieldTypeContent optionalFieldTypeContent2 = new OptionalFieldTypeContent();
+            optionalFieldTypeContent2.setContent("Option single combo 2");
+            optionalFieldTypeContent2.setFk_optional_field(12);
+            optionalFieldTypeContent2.setPk(2);
+
+            OptionalFieldTypeContent optionalFieldTypeContent3 = new OptionalFieldTypeContent();
+            optionalFieldTypeContent3.setContent("Option multiple combo 1");
+            optionalFieldTypeContent3.setFk_optional_field(13);
+            optionalFieldTypeContent3.setPk(3);
+
+
+            OptionalFieldTypeContent optionalFieldTypeContent4 = new OptionalFieldTypeContent();
+            optionalFieldTypeContent3.setContent("Option multiple combo 2");
+            optionalFieldTypeContent3.setFk_optional_field(13);
+            optionalFieldTypeContent3.setPk(4);
+        // -------------------------------------------------
+
+        optionalFieldTypeContents.add(optionalFieldTypeContent1);
+        optionalFieldTypeContents.add(optionalFieldTypeContent2);
+        optionalFieldTypeContents.add(optionalFieldTypeContent3);
+        optionalFieldTypeContents.add(optionalFieldTypeContent4);
+
+        return optionalFieldTypeContents;
+    }
+
+    @Test
     public void testGetFields() {
-        List<OptionalFieldValue> fields = resource.getFieldsFromEvent(1, 1);
+        prepareSession();
+        Query findByEventIdQuery = mock(Query.class);
+        when(mockitoSession.getNamedQuery("OptionalField.findByEventId")).thenReturn(findByEventIdQuery);
+        when(findByEventIdQuery.list()).thenReturn(getDummyOptionalFields());
+
+        Query findByGuestIdQuery = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Delegation.findByGuestId")).thenReturn(findByGuestIdQuery);
+        when(findByGuestIdQuery.list()).thenReturn(new ArrayList<Delegation>());
+
+        Query findTypeContentsByOptionalFieldQuery = mock(Query.class);
+        when(mockitoSession.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField"))
+                .thenReturn(findTypeContentsByOptionalFieldQuery);
+        when(findTypeContentsByOptionalFieldQuery.list()).thenReturn(getDummyOptionalFieldTypeContents());
+
+
+        List<OptionalFieldValue> fields = delegationResource.getFieldsFromEvent(1, 1);
         assertEquals(3, fields.size());
-        assertEquals("Label 1", fields.get(0).getLabel());
+        assertEquals("My input field", fields.get(0).getLabel());
         assertEquals(1, fields.get(1).getFk_event());
     }
 
     @Test
     public void testGetLabelId() {
-        Integer labelId = resource.getLabelIdfromEventAndLabel(1, "Label 1");
+        prepareSession();
+        Query findByEventAndLabelQuery = mock(Query.class);
+        when(mockitoSession.getNamedQuery("OptionalField.findByEventIdAndLabel")).thenReturn(findByEventAndLabelQuery);
+        when(findByEventAndLabelQuery.uniqueResult()).thenReturn(1);
+
+        Integer labelId = delegationResource.getLabelIdfromEventAndLabel(1, "Label 1");
+
         assertEquals(new Integer(1), labelId);
     }
 
     @Test
     public void testSaveField() {
-        Delegation delegation = resource.saveOptionalField(1, 1, "Value Field 2");
+        prepareSession();
+        Delegation delegation = delegationResource.saveOptionalField(1, 1, "Value Field 2");
         assertNotNull(delegation);
     }
+
+    private void prepareSession() {
+        when(delegationResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+    }
+
 }
