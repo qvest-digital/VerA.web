@@ -27,7 +27,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.AfterClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -36,9 +35,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -72,8 +68,7 @@ public class DelegationResourceSessionsTest {
         mockitoSession.close();
     }
 
-    // FIXME
-    @Test@Ignore
+    @Test
     public void testGetFieldsFromEvent() {
         // GIVEN
         prepareSession();
@@ -98,7 +93,7 @@ public class DelegationResourceSessionsTest {
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
-        assertEquals(3, query1.list().size());
+        assertEquals(4, query1.list().size());
     }
 
     @Test
@@ -209,10 +204,19 @@ public class DelegationResourceSessionsTest {
         optionalFieldValue3.setOptionalFieldTypeContentsFacade(facadeElements3);
         optionalFieldValue3.setFk_type(1);
 
+
+        OptionalFieldValue optionalFieldValue4 = new OptionalFieldValue();
+        optionalFieldValue3.setPk(4);
+        optionalFieldValue3.setValue("Value 4");
+        optionalFieldValue3.setLabel("Label 4");
+        optionalFieldValue3.setOptionalFieldTypeContentsFacade(new ArrayList<OptionalFieldTypeContentFacade>());
+        optionalFieldValue3.setFk_type(1);
+
         List<OptionalFieldValue> fields = new ArrayList();
         fields.add(optionalFieldValue1);
         fields.add(optionalFieldValue2);
         fields.add(optionalFieldValue3);
+        fields.add(optionalFieldValue4);
 
         return fields;
     }
