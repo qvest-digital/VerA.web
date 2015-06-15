@@ -33,6 +33,8 @@ import javax.servlet.ServletContext;
 import java.math.BigInteger;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -277,6 +279,61 @@ public class GuestResourceSessionsTest {
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }
+
+    @Test
+    public void testUpdateGuestWithoutLogin() {
+        // GIVEN
+        String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
+        prepareSession();
+        Query query = mock(Query.class);
+        Guest guest = mock(Guest.class);
+        when(mockitoSession.getNamedQuery("Guest.findByNoLoginUUID")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(guest);
+
+        // WHEN
+        guestResource.updateGuestWithoutLogin(uuid, 1, "Notiz");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testIsUserRegisteredintoEventByUUID() {
+        // GIVEN
+        String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Guest.checkUserRegistrationWithoutLogin")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(new BigInteger("1"));
+
+        // WHEN
+        Boolean userRegisteredintoEventByUUID = guestResource.isUserRegisteredintoEventByUUID(uuid, 1);
+
+        // THEN
+        assertTrue(userRegisteredintoEventByUUID);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testIsUserRegisteredintoEventByUUIDFailed() {
+        // GIVEN
+        String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Guest.checkUserRegistrationWithoutLogin")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(new BigInteger("0"));
+
+        // WHEN
+        Boolean userRegisteredintoEventByUUID = guestResource.isUserRegisteredintoEventByUUID(uuid, 1);
+
+        // THEN
+        assertFalse(userRegisteredintoEventByUUID);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
 
     private void prepareSession() {
         when(guestResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
