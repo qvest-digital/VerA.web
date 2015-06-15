@@ -30,7 +30,7 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
     }).when('/register/:eventId', {
         templateUrl: 'partials/register.html',
         controller: 'RegisterController'
-	}).when('/register/:eventId/:guestId/:noLoginRequiredUUID', {
+	}).when('/register/:eventId/:noLoginRequiredUUID', {
 			templateUrl: 'partials/register.html',
 			controller: 'RegisterController'
     }).when('/register/', {
@@ -702,7 +702,7 @@ onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) 
 
 onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http, $translate) {
 
-	if ($rootScope.user_logged_in == null && $routeParams.guestId == null && $routeParams.noLoginRequiredUUID == null) {
+	if ($rootScope.user_logged_in == null && $routeParams.noLoginRequiredUUID == null) {
 		$scope.setNextPage('register/' + $routeParams.eventId);
 		$location.path('/login');
 	} else {
