@@ -99,7 +99,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	// UUID to allow registration to events without login
 	public String login_required_uuid;
 
-	@Override
+    @Override
     public void verify() throws BeanException {
 		if (ishost == null) ishost = new Integer(0);
 		AddressHelper.setColor(this);
@@ -184,7 +184,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	 * Diese Klasse stellt eine Facade für die Hauptperson dieses Gastes dar.
 	 */
 	private class Main implements GuestMemberFacade {
-		public Integer getInvitationType() {
+        public Integer getInvitationType() {
 			return invitationtype;
 		}
 
@@ -293,7 +293,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	 * Diese Klasse stellt eine Facade für den Partner dieses Gastes dar.
 	 */
 	private class Partner implements GuestMemberFacade {
-		public Integer getInvitationType() {
+        public Integer getInvitationType() {
 			return invitationtype;
 		}
 

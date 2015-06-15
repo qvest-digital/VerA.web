@@ -29,8 +29,7 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import de.tarent.aa.veraweb.beans.*;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
-import de.tarent.dblayer.sql.statement.Update;
-import de.tarent.octopus.beans.TransactionContext;
+
 import org.apache.log4j.Logger;
 
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
@@ -42,6 +41,8 @@ import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.commons.spreadsheet.export.SpreadSheet;
 import de.tarent.commons.spreadsheet.export.SpreadSheetFactory;
+import de.tarent.dblayer.helper.ResultList;
+import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -102,18 +103,7 @@ public class GuestExportWorker {
         final List selection = (List)cntx.sessionAsObject("selectionGuest");
 
 		if (doctypeid == null) {
-            final List list = (List)cntx.contentAsObject("allEventDoctype");
-			Iterator it = list.iterator();
-			if (it.hasNext()) {
-				doctypeid = (Integer)((Map)it.next()).get("doctype");
-			}
-			for (it = list.iterator(); it.hasNext(); ) {
-                final Map data = (Map)it.next();
-				if (((Integer)(data).get("isdefault")).intValue() == 1) {
-					doctypeid = (Integer)data.get("doctype");
-					break;
-				}
-			}
+            doctypeid = setDoctypeId(cntx, doctypeid);
 		}
 		if (doctypeid == null)
 			return null;
@@ -813,29 +803,23 @@ public class GuestExportWorker {
 		String url = EMPTY_FIELD_VALUE;
 		String directAccessURL = EMPTY_FIELD_VALUE;
 
+		Database database = new DatabaseVeraWeb(cntx);
+
 		String category = (String) guest.get("catname");
 		if (category == null) { category = ""; }
 
-		if(guest.containsKey("delegation") &&
-				guest.get("delegation") != null &&
-				guest.get("delegation").toString().length() > 0 &&
-				guest.containsKey("osiam_login") &&
-				guest.get("osiam_login") != null &&
-				guest.get("osiam_login").toString().length() > 0 && !category.equals("Pressevertreter")) {
+		if(guestIsDelegationAndHasOsiamLogin(guest, category)) {
 
 			url = generateLoginUrl(guest);
-			password = generatePassword(event, guest);
+
+			password = generatePasswordForCompany(guest, event, password, database);
+
 			username = guest.get("osiam_login");
 		}
 		else {
 			username = guest.get("osiam_login");
-			password = null;
 			url = getResetPasswordURL(guest, cntx);
-			String loginUUID = null;
-			if (guest.get("login_required_uuid") != null) {
-				loginUUID = guest.get("login_required_uuid").toString();
-				directAccessURL = generateEventUrlWithoutLogin(event.hash, loginUUID);
-			}
+			directAccessURL = getLoginUUIDAndDirectAccessURL(guest, event, directAccessURL);
 		}
 
 		spreadSheet.addCell(username);
@@ -860,6 +844,59 @@ public class GuestExportWorker {
 //		UUID uuid = UUID.randomUUID();
 //		return uuid.toString();
 //	}
+
+	private Integer setDoctypeId(OctopusContext cntx, Integer doctypeid) {
+        final List list = (List)cntx.contentAsObject("allEventDoctype");
+        Iterator it = list.iterator();
+        if (it.hasNext()) {
+            doctypeid = (Integer)((Map)it.next()).get("doctype");
+        }
+        for (it = list.iterator(); it.hasNext(); ) {
+            final Map data = (Map)it.next();
+            if (((Integer)(data).get("isdefault")).intValue() == 1) {
+                doctypeid = (Integer)data.get("doctype");
+                break;
+            }
+        }
+        return doctypeid;
+    }
+
+	private boolean guestIsDelegationAndHasOsiamLogin(Map guest, String category) {
+        return guest.containsKey("delegation") &&
+                guest.get("delegation") != null &&
+                guest.get("delegation").toString().length() > 0 &&
+                guest.containsKey("osiam_login") &&
+                guest.get("osiam_login") != null &&
+                guest.get("osiam_login").toString().length() > 0 &&
+                !category.equals("Pressevertreter");
+    }
+
+    private String getLoginUUIDAndDirectAccessURL(Map guest, Event event, String directAccessURL) {
+        String loginUUID = null;
+        if (guest.get("login_required_uuid") != null) {
+            loginUUID = guest.get("login_required_uuid").toString();
+            directAccessURL = generateEventUrlWithoutLogin(event.hash, loginUUID);
+        }
+        return directAccessURL;
+    }
+
+    private String generatePasswordForCompany(Map guest, Event event, String password, Database database)
+            throws BeanException, IOException {
+        final Select select = database.getSelect("Person");
+        select.joinLeftOuter("tguest", "tperson.pk", "tguest.fk_person");
+        select.whereAndEq("tperson.pk", guest.get("fk_person"));
+
+        final ResultList resultList = database.getList(select, database);
+
+        for (int i = 0; i < resultList.size(); i++) {
+            final ResultMap resultMap = (ResultMap) resultList.get(i);
+
+            if(resultMap.get("iscompany").toString() != null && resultMap.get("iscompany").toString().equals("t")) {
+                password = generatePassword(event, guest);
+            }
+        }
+        return password;
+    }
 
 	private String getResetPasswordURL(Map guest, OctopusContext cntx) throws IOException, BeanException {
 		String url;
@@ -909,7 +946,7 @@ public class GuestExportWorker {
 	private String generatePassword(Event event, Map guest) {
         final String shortName = event.get("shortname").toString();
         String companyName = "";
-        if (guest.get("company_a_e1") != null) {
+        if(!guest.get("company_a_e1").equals(null) && !guest.get("company_a_e1").equals("")) {
         	companyName = guest.get("company_a_e1").toString();
         }
         final StringBuilder passwordBuilder = new StringBuilder();
