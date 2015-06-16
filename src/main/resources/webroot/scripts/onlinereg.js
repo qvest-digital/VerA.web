@@ -52,14 +52,17 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
         template: "",
         controller: 'FreeVisitorController'
     }).when('/freevisitors/:uuid/:noLoginRequiredUUID', {
-            template: "",
-            controller: 'FreeVisitorController'
+		template: "",
+		controller: 'FreeVisitorController'
     }).when('/update/:eventId', {
 		templateUrl: 'partials/update.html',
 		controller: 'UpdateController'
     }).when('/reset/password/:uuid', {
 		templateUrl: 'partials/reset_password.html',
 		controller: 'ResetPasswordController'
+	}).when('/page_not_found', {
+		templateUrl: 'partials/page_not_found.html',
+		controller: 'PageNotFoundController'
     }).otherwise({
       redirectTo: '/event'
     })
@@ -95,6 +98,12 @@ onlineRegApp.directive('equals', function() {
 			}
 		}
 	}
+});
+
+onlineRegApp.controller('PageNotFoundController', function ($scope, $translate) {
+    $translate('GENERIC_PAGE_NOT_FOUND').then(function (text) {
+        $scope.error = text;
+    });
 });
 
 onlineRegApp.controller('LanguageSelectController', function ($scope, $translate) {
@@ -147,9 +156,7 @@ onlineRegApp.controller('FreeVisitorController', function($http, $scope, $locati
 		if(result.status != 'ERROR') {
 			$location.path('/register/' + result.status);
 		} else {
-			$translate('USER_EVENTS_STATUS_WITHOUT_LOGIN_CHANGED_ERROR_MESSAGE').then(function (text) {
-				$scope.error = text;
-			});
+			$location.path('/page_not_found');
 		}
 	}).error(function (data, status, headers, config) {
 		// FIXME Wrong message?

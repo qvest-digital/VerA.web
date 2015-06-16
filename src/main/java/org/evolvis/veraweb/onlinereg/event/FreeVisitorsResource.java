@@ -27,6 +27,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.sun.jersey.api.client.UniformInterfaceException;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 
@@ -71,9 +72,13 @@ public class FreeVisitorsResource {
      */
 	@GET
     @Path("/{uuid}")
-    public int getEvenByUUId(@PathParam("uuid") String uuid) throws IOException {
+    public String getEvenByUUId(@PathParam("uuid") String uuid) throws IOException {
     	final WebResource resource = client.resource(path("freevisitors", uuid));
-        return resource.get(Event.class).getPk();
+        try {
+            return StatusConverter.convertStatus(String.valueOf(resource.get(Event.class).getPk()));
+        } catch (UniformInterfaceException e) {
+            return StatusConverter.convertStatus("ERROR");
+        }
 	}
 
     /**
@@ -88,16 +93,21 @@ public class FreeVisitorsResource {
     public String getEvenByUUId(@PathParam("uuid") String uuid, @PathParam("noLoginRequiredUUID") String noLoginRequiredUUID) throws IOException {
         final Integer guestId = checkGuestExistsByNoLoginRequiredUUID(noLoginRequiredUUID);
         final WebResource resource = client.resource(path("freevisitors", uuid));
+        final Integer eventId = resource.get(Event.class).getPk();
 
-        if (guestId == null) {
+        if (guestId == null || eventId == null) {
             return StatusConverter.convertStatus("ERROR");
         }
-        return StatusConverter.convertStatus(resource.get(Event.class).getPk() + "/" + noLoginRequiredUUID);
+        return StatusConverter.convertStatus(eventId + "/" + noLoginRequiredUUID);
     }
 
     private Integer checkGuestExistsByNoLoginRequiredUUID(String noLoginRequiredUUID) {
         final WebResource resource = client.resource(path("freevisitors", "noLoginRequired", noLoginRequiredUUID));
-        return resource.get(Integer.class);
+        final Integer guestId = resource.get(Integer.class);
+        if (guestId > 0 ) {
+            return guestId;
+        }
+        return null;
     }
 
     /**

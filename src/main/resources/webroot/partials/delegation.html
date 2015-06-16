@@ -3,8 +3,14 @@
 
     <div class="form-group container">
         <div class="row marginB10">
-            <div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
-            <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+            <div ng-if="success" class="alert alert-success" role="alert">
+                <span class="glyphicon glyphicon-remove-sign">&nbsp;</span>
+                {{success}}
+            </div>
+            <div ng-if="error" class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-remove-sign">&nbsp;</span>
+                {{error}}
+            </div>
 
             <div class="col-xs-4" ng-class="delegation-form.gender.$valid ? 'has-success' : 'has-error'">
                 <select class="form-control" id="gender" name="gender" ng-model="gender"

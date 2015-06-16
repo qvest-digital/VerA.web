@@ -39,6 +39,7 @@
 	"GENERIC_CATEGORY": "Category",
 	"GENERIC_FUNCTION": "Function",
 	"GENERIC_CLEAR_FIELDS": "Clear",
+    "GENERIC_PAGE_NOT_FOUND": "Page not found",
 	"BROWSER_TITLE": "VerA.web Online-Registration",
 	"LOGIN_TITLE": "Please log in",
 	"USER_EVENT_REGISTER_TITLE": "Register",
