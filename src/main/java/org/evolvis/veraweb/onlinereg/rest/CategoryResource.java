@@ -27,6 +27,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.evolvis.veraweb.onlinereg.entities.Guest;
@@ -99,8 +100,8 @@ public class CategoryResource extends AbstractResource {
      * @return Category ID
      */
     @GET
-    @Path("/{catname}")
-    public Integer getCategoryIdByCategoryName(@PathParam("catname") String catname) {
+    @Path("/identify")
+    public Integer getCategoryIdByCategoryName(@QueryParam("catname") String catname) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Category.getCategoryIdByCategoryName");
