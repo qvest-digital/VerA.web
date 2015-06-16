@@ -61,7 +61,7 @@
   "USER_EVENTS_STATUS_CHANGED_SUCCESSFUL_MESSAGE_PART_ONE": "Sie haben Ihre Daten für die Veranstaltung",
   "USER_EVENTS_STATUS_CHANGED_SUCCESSFUL_MESSAGE_PART_TWO": "erfolgreich geändert",
   "USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE": "Sie sind bereits für diese Veranstaltung angemeldet.",
-  "USER_EVENTS_STATUS_WITHOUT_LOGIN_CHANGED_ERROR_MESSAGE": "Sie haben nicht die Berechtigung, sich an dieser Veranstaltung anzumelden.",
+  "USER_EVENTS_STATUS_WITHOUT_LOGIN_CHANGED_ERROR_MESSAGE": "Sie haben nicht die Berechtigung, sich an dieser Veranstaltung anzumelden oder Sie sind bereits für diese Veranstaltung angemeldet.",
   "USER_EVENTS_STATUS_TYPE_OPEN": "Offen",
   "USER_EVENTS_STATUS_TYPE_ACCEPTANCE": "Zusage",
   "USER_EVENTS_STATUS_TYPE_REFUSE": "Absage",

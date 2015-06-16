@@ -237,7 +237,7 @@ public class EventResource {
             @FormParam("noLoginRequiredUUID") String noLoginRequiredUUID) throws IOException {
 
         // checking if the user is registered on the event
-        if (isUserWithoutLoginRegistered(noLoginRequiredUUID, eventId)) {
+        if (!isUserWithoutLoginRegistered(noLoginRequiredUUID, eventId)) {
             updateGuestStatusWithoutLogin(noLoginRequiredUUID, VerawebConstants.GUEST_STATUS_ACCEPT, notehost);
             return StatusConverter.convertStatus("OK");
         }
