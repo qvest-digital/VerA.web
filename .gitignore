@@ -9,3 +9,6 @@ target/
 *.log
 pom.xml.versionsBackup
 *.iml
+/.apt_generated/
+.factorypath
+
