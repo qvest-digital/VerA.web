@@ -145,7 +145,18 @@ public class PersonDetailWorker implements PersonConstants {
 		 */
 		this.restoreNavigation( cntx, person, database );
 
-		/*
+		setCurrentTimeForPersonInMap(person, map);
+
+		cntx.setContent("personTab", cntx.requestAsString("personTab"));
+        cntx.setContent("personMemberTab", cntx.requestAsString("personMemberTab"));
+        cntx.setContent("personAddresstypeTab", cntx.requestAsString("personAddresstypeTab"));
+        cntx.setContent("personLocaleTab", cntx.requestAsString("personLocaleTab"));
+
+		return person;
+	}
+
+    private void setCurrentTimeForPersonInMap(Person person, Map map) {
+        /*
 		 * modified to support a direct statistics access from the detail view as per the change request for version 1.2.0
 		 * cklein
 		 * 2008-02-21
@@ -159,14 +170,7 @@ public class PersonDetailWorker implements PersonConstants {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime( d );
 		map.put( "begin", "01." + ( cal.get( Calendar.MONTH ) + 1 ) + "." + cal.get( Calendar.YEAR ) );
-
-		cntx.setContent("personTab", cntx.requestAsString("personTab"));
-        cntx.setContent("personMemberTab", cntx.requestAsString("personMemberTab"));
-        cntx.setContent("personAddresstypeTab", cntx.requestAsString("personAddresstypeTab"));
-        cntx.setContent("personLocaleTab", cntx.requestAsString("personLocaleTab"));
-
-		return person;
-	}
+    }
 
 	protected void restoreNavigation( OctopusContext cntx, Person person, Database database ) throws BeanException, IOException
 	{
@@ -179,121 +183,144 @@ public class PersonDetailWorker implements PersonConstants {
 		Select select = database.getSelectIds( sample );
 		if ( "duplicateSearch".equals( action ) )
 		{
-			//add the action and personId once again to the context
-			cntx.setContent("action", action);
-			cntx.setContent("id", personId);
-
-			// must navigate through all persons matching duplicate search query filter
-			PersonDuplicateSearchWorker w = WorkerFactory.getPersonDuplicateSearchWorker( cntx );
-			// replaces the original select as it is very similar
-			select = w.getSelect( database );
-			w.extendWhere( cntx, select );
-			select.clearColumnSelection();
-			select.selectAs( "tperson.pk", "id" );
-			select.select( "tperson.lastname_a_e1" );
-			select.select( "tperson.firstname_a_e1" );
-			select.orderBy( Order.asc( "tperson.lastname_a_e1" ).andAsc( "tperson.firstname_a_e1" ) );
+			select = getPersonIdAndName(cntx, database, action, personId);
 		}
 		else if ( action == null || action.length() == 0 || "person".equals(action))
 		{
-			// standard person list
-			// must navigate through all persons matching current search query filter
-			PersonListWorker w = WorkerFactory.getPersonListWorker( cntx );
-			PersonSearch s = w.getSearch( cntx );
-			w.extendWhere( cntx, select );
-
-			// part replication of the worker's behaviour
-			select.setDistinct( s.categoriesSelection != null || s.categorie2 != null );
-			select.select( "tperson.lastname_a_e1" );
-			select.select( "tperson.firstname_a_e1" );
-			select.orderBy( Order.asc( "tperson.lastname_a_e1" ).andAsc( "tperson.firstname_a_e1" ) );
+			setPersonsForNavigation(cntx, select);
 		}
 
 		try
 		{
-			Map< String, Map< String, Object > > navigation = new HashMap< String, Map< String, Object > >();
-			Map< String, Object > entry = null;
-
-			// setup current
-			entry = new HashMap< String, Object >();
-			entry.put( "person", person );
-			navigation.put( "current", entry );
-
-			ResultList result = new ResultList( select.executeSelect( database ).resultSet() );
-
-			int size = result.size();
-			int i;
-			for ( i = 0; i < size; i++ )
-			{
-				Map cur = ( Map ) result.get( i );
-				if ( cur.get( "id" ).equals( personId ) )
-				{
-					break;
-				}
-			}
-			if (i >= size) {
-				i = size - 1;
-			}
-			Map first = null;
-			Map previous = null;
-			if ( i > 0 )
-			{
-				first = copyPersonMap( ( Map ) result.get( 0 ) );
-				previous = copyPersonMap( ( Map ) result.get( i - 1 ) );
-			}
-
-			Map fentry = null;
-			if ( first != null )
-			{
-				fentry = new HashMap< String, Object >();
-				fentry.put( "person", first );
-			}
-			navigation.put( "first", fentry );
-
-			Map pentry = null;
-			if ( previous != null )
-			{
-				pentry = new HashMap< String, Object >();
-				pentry.put( "person", previous );
-			}
-			navigation.put( "previous", pentry );
-
-			Map next = null;
-			Map last = null;
-			if ( i < size - 1 )
-			{
-				next = copyPersonMap( ( Map ) result.get( i + 1 ) );
-				last = copyPersonMap( ( Map ) result.get( size - 1 ) );
-			}
-
-			Map nentry = null;
-			if ( next != null )
-			{
-				nentry = new HashMap< String, Object >();
-				nentry.put( "person", next );
-			}
-			navigation.put( "next", nentry );
-
-			Map lentry = null;
-			if ( last != null )
-			{
-				lentry = new HashMap< String, Object >();
-				lentry.put( "person", last );
-			}
-			navigation.put( "last", lentry );
-
-			Map< String, Object > meta = new HashMap< String, Object >();
-			meta.put( "action", action );
-			meta.put( "offset", new Integer( i + 1 ) );
-			meta.put( "count", new Integer( size ) );
-			navigation.put( "meta", meta );
-			cntx.setContent( "navigation", navigation );
+			fillNavigationWithPersonData(cntx, person, database, action, personId, select);
 		}
 		catch ( SQLException e )
 		{
 			throw new BeanException( "Unexpected exception occurred: ", e );
 		}
 	}
+
+    private void fillNavigationWithPersonData(OctopusContext cntx, Person person, Database database,
+            final String action, final Integer personId, Select select) throws SQLException {
+        Map< String, Map< String, Object > > navigation = new HashMap< String, Map< String, Object > >();
+        Map< String, Object > entry = null;
+
+        // setup current
+        entry = new HashMap< String, Object >();
+        entry.put( "person", person );
+        navigation.put( "current", entry );
+
+        ResultList result = new ResultList( select.executeSelect( database ).resultSet() );
+
+        int size = result.size();
+        int i;
+        i = setPersonMapSize(personId, navigation, result, size);
+
+        Map< String, Object > meta = new HashMap< String, Object >();
+        meta.put( "action", action );
+        meta.put( "offset", new Integer( i + 1 ) );
+        meta.put( "count", new Integer( size ) );
+        navigation.put( "meta", meta );
+        cntx.setContent( "navigation", navigation );
+    }
+
+    private int setPersonMapSize(final Integer personId, Map<String, Map<String, Object>> navigation,
+            ResultList result, int size) {
+        int i;
+        for ( i = 0; i < size; i++ )
+        {
+        	Map cur = ( Map ) result.get( i );
+        	if ( cur.get( "id" ).equals( personId ) )
+        	{
+        		break;
+        	}
+        }
+        if (i >= size) {
+        	i = size - 1;
+        }
+        Map first = null;
+        Map previous = null;
+        if ( i > 0 )
+        {
+        	first = copyPersonMap( ( Map ) result.get( 0 ) );
+        	previous = copyPersonMap( ( Map ) result.get( i - 1 ) );
+        }
+
+        Map fentry = null;
+        if ( first != null )
+        {
+        	fentry = new HashMap< String, Object >();
+        	fentry.put( "person", first );
+        }
+        navigation.put( "first", fentry );
+
+        Map pentry = null;
+        if ( previous != null )
+        {
+        	pentry = new HashMap< String, Object >();
+        	pentry.put( "person", previous );
+        }
+        navigation.put( "previous", pentry );
+
+        Map next = null;
+        Map last = null;
+        if ( i < size - 1 )
+        {
+        	next = copyPersonMap( ( Map ) result.get( i + 1 ) );
+        	last = copyPersonMap( ( Map ) result.get( size - 1 ) );
+        }
+
+        Map nentry = null;
+        if ( next != null )
+        {
+        	nentry = new HashMap< String, Object >();
+        	nentry.put( "person", next );
+        }
+        navigation.put( "next", nentry );
+
+        Map lentry = null;
+        if ( last != null )
+        {
+        	lentry = new HashMap< String, Object >();
+        	lentry.put( "person", last );
+        }
+        navigation.put( "last", lentry );
+        return i;
+    }
+
+    private void setPersonsForNavigation(OctopusContext cntx, Select select) throws BeanException {
+        // standard person list
+        // must navigate through all persons matching current search query filter
+        PersonListWorker w = WorkerFactory.getPersonListWorker( cntx );
+        PersonSearch s = w.getSearch( cntx );
+        w.extendWhere( cntx, select );
+
+        // part replication of the worker's behaviour
+        select.setDistinct( s.categoriesSelection != null || s.categorie2 != null );
+        select.select( "tperson.lastname_a_e1" );
+        select.select( "tperson.firstname_a_e1" );
+        select.orderBy( Order.asc( "tperson.lastname_a_e1" ).andAsc( "tperson.firstname_a_e1" ) );
+    }
+
+    private Select getPersonIdAndName(OctopusContext cntx, Database database, final String action,
+            final Integer personId) throws BeanException, IOException {
+        Select select;
+        //add the action and personId once again to the context
+        cntx.setContent("action", action);
+        cntx.setContent("id", personId);
+
+        // must navigate through all persons matching duplicate search query filter
+        PersonDuplicateSearchWorker w = WorkerFactory.getPersonDuplicateSearchWorker( cntx );
+        // replaces the original select as it is very similar
+        select = w.getSelect( database );
+        w.extendWhere( cntx, select );
+        select.clearColumnSelection();
+        select.selectAs( "tperson.pk", "id" );
+        select.select( "tperson.lastname_a_e1" );
+        select.select( "tperson.firstname_a_e1" );
+        select.orderBy( Order.asc( "tperson.lastname_a_e1" ).andAsc( "tperson.firstname_a_e1" ) );
+        return select;
+    }
 
 	private Map< String, Object > copyPersonMap( Map< String, Object > personMap )
 	{
@@ -341,7 +368,21 @@ public class PersonDetailWorker implements PersonConstants {
 			DateHelper.addTimeToDate(person.diplodate_a_e1, cntx.requestAsString("person-diplotime_a_e1"), person.getErrors());
 		}
 
-		if (person == null) {
+		person = createNewPersonOrClearData(database, person);
+
+		cntx.setContent("person", person);
+		cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
+		cntx.setContent("originalPersonId", cntx.requestAsInteger("originalPersonId"));
+
+		/*
+		 * added for support of direct search result list navigation, see below
+		 * cklein 2008-03-12
+		 */
+		this.restoreNavigation( cntx, person, database );
+	}
+
+    private Person createNewPersonOrClearData(Database database, Person person) throws BeanException, IOException {
+        if (person == null) {
 			person = new Person();
 		} else {
 			person.id = null;
@@ -366,17 +407,8 @@ public class PersonDetailWorker implements PersonConstants {
 			AddressHelper.clearAddressData(person.getOtherExtra2());
 			AddressHelper.checkPersonSalutation(person, database, database.getTransactionContext());
 		}
-
-		cntx.setContent("person", person);
-		cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
-		cntx.setContent("originalPersonId", cntx.requestAsInteger("originalPersonId"));
-
-		/*
-		 * added for support of direct search result list navigation, see below
-		 * cklein 2008-03-12
-		 */
-		this.restoreNavigation( cntx, person, database );
-	}
+        return person;
+    }
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #showTestPerson(OctopusContext)} */
 	public static final String INPUT_showTestPerson[] = {};
@@ -470,72 +502,77 @@ public class PersonDetailWorker implements PersonConstants {
 		}
 
 		if (person != null) {
-			String nl = "\n";
-			StringBuffer buffer = new StringBuffer();
-			PersonDoctypeFacade helper = new PersonDoctypeFacade(cntx, person);
-			PersonAddressFacade facade = person.getAddressFacade(addresstype, locale);
-
-			// freitextfelder und verbinder
-			if (doctype instanceof PersonDoctype) {
-				if ( ((PersonDoctype)doctype).textfield != null && ((PersonDoctype)doctype).textfield.length() > 0 )
-					buffer.append(((PersonDoctype)doctype).textfield).append(nl);
-				if ( ((PersonDoctype)doctype).textfieldJoin != null && ((PersonDoctype)doctype).textfieldJoin.length() > 0 )
-					buffer.append(((PersonDoctype)doctype).textfieldJoin).append(nl);
-				if ( ((PersonDoctype)doctype).textfieldPartner != null && ((PersonDoctype)doctype).textfieldPartner.length() > 0 )
-					buffer.append(((PersonDoctype)doctype).textfieldPartner).append(nl).append(nl);
-			} else {
-				buffer.append(helper.getFreitext(freitextfeld, addresstype, locale, true)).append(nl);
-				buffer.append(helper.getFreitextVerbinder(freitextfeld, addresstype, locale)).append(nl);
-				buffer.append(helper.getFreitext(freitextfeld, addresstype, locale, false)).append(nl).append(nl);
-			}
-
-			// funktion, firma und straße
-			if (facade.getFunction() != null && facade.getFunction().length() != 0)
-				buffer.append(facade.getFunction()).append(nl);
-			if (facade.getCompany() != null && facade.getCompany().length() != 0)
-				buffer.append(facade.getCompany()).append(nl);
-			if (facade.getStreet() != null && facade.getStreet().length() != 0)
-				buffer.append(facade.getStreet()).append(nl);
-
-			// plz ort
-			if (facade.getZipCode() != null)
-				buffer.append(facade.getZipCode());
-			if (!(
-					facade.getZipCode() == null ||
-					facade.getZipCode().length() == 0 ||
-					facade.getCity() == null ||
-					facade.getCity().length() == 0))
-				buffer.append(' ');
-			if (facade.getCity() != null)
-				buffer.append(facade.getCity());
-			buffer.append(nl);
-
-			// plz postfach
-			if (facade.getPOBoxZipCode() != null)
-				buffer.append(facade.getPOBoxZipCode());
-			if (!(
-					facade.getPOBoxZipCode() == null ||
-					facade.getPOBoxZipCode().length() == 0 ||
-					facade.getPOBox() == null ||
-					facade.getPOBox().length() == 0))
-				buffer.append(' ');
-			if (facade.getPOBox() != null)
-				buffer.append(facade.getPOBox());
-			buffer.append(nl);
-
-			// land
-			if (facade.getCountry() != null && facade.getCountry().length() != 0)
-				buffer.append(facade.getCountry()).append(nl);
-
-			// adresszusatz 1 und 2
-			if (facade.getSuffix1() != null && facade.getSuffix1().length() != 0)
-				buffer.append(facade.getSuffix1()).append(nl);
-			if (facade.getSuffix2() != null && facade.getSuffix2().length() != 0)
-				buffer.append(facade.getSuffix2());
-
-			cntx.setContent("personExport", buffer.toString());
+			setContentToFacades(cntx, person, freitextfeld, addresstype, locale, doctype);
 		}
 	}
+
+    private void setContentToFacades(OctopusContext cntx, Person person, Integer freitextfeld, Integer addresstype,
+            Integer locale, Object doctype) throws BeanException, IOException {
+        String nl = "\n";
+        StringBuffer buffer = new StringBuffer();
+        PersonDoctypeFacade helper = new PersonDoctypeFacade(cntx, person);
+        PersonAddressFacade facade = person.getAddressFacade(addresstype, locale);
+
+        // freitextfelder und verbinder
+        if (doctype instanceof PersonDoctype) {
+        	if ( ((PersonDoctype)doctype).textfield != null && ((PersonDoctype)doctype).textfield.length() > 0 )
+        		buffer.append(((PersonDoctype)doctype).textfield).append(nl);
+        	if ( ((PersonDoctype)doctype).textfieldJoin != null && ((PersonDoctype)doctype).textfieldJoin.length() > 0 )
+        		buffer.append(((PersonDoctype)doctype).textfieldJoin).append(nl);
+        	if ( ((PersonDoctype)doctype).textfieldPartner != null && ((PersonDoctype)doctype).textfieldPartner.length() > 0 )
+        		buffer.append(((PersonDoctype)doctype).textfieldPartner).append(nl).append(nl);
+        } else {
+        	buffer.append(helper.getFreitext(freitextfeld, addresstype, locale, true)).append(nl);
+        	buffer.append(helper.getFreitextVerbinder(freitextfeld, addresstype, locale)).append(nl);
+        	buffer.append(helper.getFreitext(freitextfeld, addresstype, locale, false)).append(nl).append(nl);
+        }
+
+        // funktion, firma und straße
+        if (facade.getFunction() != null && facade.getFunction().length() != 0)
+        	buffer.append(facade.getFunction()).append(nl);
+        if (facade.getCompany() != null && facade.getCompany().length() != 0)
+        	buffer.append(facade.getCompany()).append(nl);
+        if (facade.getStreet() != null && facade.getStreet().length() != 0)
+        	buffer.append(facade.getStreet()).append(nl);
+
+        // plz ort
+        if (facade.getZipCode() != null)
+        	buffer.append(facade.getZipCode());
+        if (!(
+        		facade.getZipCode() == null ||
+        		facade.getZipCode().length() == 0 ||
+        		facade.getCity() == null ||
+        		facade.getCity().length() == 0))
+        	buffer.append(' ');
+        if (facade.getCity() != null)
+        	buffer.append(facade.getCity());
+        buffer.append(nl);
+
+        // plz postfach
+        if (facade.getPOBoxZipCode() != null)
+        	buffer.append(facade.getPOBoxZipCode());
+        if (!(
+        		facade.getPOBoxZipCode() == null ||
+        		facade.getPOBoxZipCode().length() == 0 ||
+        		facade.getPOBox() == null ||
+        		facade.getPOBox().length() == 0))
+        	buffer.append(' ');
+        if (facade.getPOBox() != null)
+        	buffer.append(facade.getPOBox());
+        buffer.append(nl);
+
+        // land
+        if (facade.getCountry() != null && facade.getCountry().length() != 0)
+        	buffer.append(facade.getCountry()).append(nl);
+
+        // adresszusatz 1 und 2
+        if (facade.getSuffix1() != null && facade.getSuffix1().length() != 0)
+        	buffer.append(facade.getSuffix1()).append(nl);
+        if (facade.getSuffix2() != null && facade.getSuffix2().length() != 0)
+        	buffer.append(facade.getSuffix2());
+
+        cntx.setContent("personExport", buffer.toString());
+    }
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #prepareSaveDetail(OctopusContext, Boolean)} */
 	public static final String INPUT_prepareSaveDetail[] = { "saveperson" };
@@ -657,40 +694,7 @@ public class PersonDetailWorker implements PersonConstants {
 			 */
 			person.workarea = cntx.requestAsInteger( "workarea-id" );
 
-			Person personOld = null;
-			if (person != null && person.id != null) {
-				personOld = (Person)database.getBean("Person", person.id, context);
-			}
-			if (person == null) {
-				return null;
-			}
-
-			DateHelper.addTimeToDate(person.diplodate_a_e1, cntx.requestAsString("person-diplotime_a_e1"), person.getErrors());
-			person.orgunit = ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId();
-			person.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
-			AddressHelper.checkPersonSalutation(person, database, context);
-
-			updateExpireDate(person, personOld);
-
-			// must reverify due to above changes
-	        person.verify();
-			if (person.isModified() && person.isCorrect()) {
-			    createOrUpdatePerson(cntx, person, database, context, originalPersonId, personOld);
-			} else if (person.isModified()) {
-				cntx.setStatus("notcorrect");
-			}
-			context.commit();
-
-			// must reset the originalPersonId here, otherwise restoreNavigation will fail
-			cntx.setContent("originalPersonId", ( Integer ) null);
-
-			cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
-
-			/*
-			 * added for support of direct search result list navigation, see below
-			 * cklein 2008-03-12
-			 */
-			this.restoreNavigation( cntx, person, database );
+			savePersonDetail(cntx, person, database, context, originalPersonId);
 		}
 		catch( BeanException e )
 		{
@@ -700,6 +704,41 @@ public class PersonDetailWorker implements PersonConstants {
 
 		return person;
 	}
+
+    private void savePersonDetail(OctopusContext cntx, Person person, Database database, TransactionContext context,
+            Integer originalPersonId) throws BeanException, IOException {
+        Person personOld = null;
+        if (person != null && person.id != null) {
+        	personOld = (Person)database.getBean("Person", person.id, context);
+        }
+
+        DateHelper.addTimeToDate(person.diplodate_a_e1, cntx.requestAsString("person-diplotime_a_e1"), person.getErrors());
+        person.orgunit = ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId();
+        person.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
+        AddressHelper.checkPersonSalutation(person, database, context);
+
+        updateExpireDate(person, personOld);
+
+        // must reverify due to above changes
+        person.verify();
+        if (person.isModified() && person.isCorrect()) {
+            createOrUpdatePerson(cntx, person, database, context, originalPersonId, personOld);
+        } else if (person.isModified()) {
+        	cntx.setStatus("notcorrect");
+        }
+        context.commit();
+
+        // must reset the originalPersonId here, otherwise restoreNavigation will fail
+        cntx.setContent("originalPersonId", ( Integer ) null);
+
+        cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
+
+        /*
+         * added for support of direct search result list navigation, see below
+         * cklein 2008-03-12
+         */
+        this.restoreNavigation( cntx, person, database );
+    }
 
     private void updateExpireDate(Person person, Person personOld) {
         // Updatet das Gueltigkeitsdatum automatisch auf "in 3 Jahre"
