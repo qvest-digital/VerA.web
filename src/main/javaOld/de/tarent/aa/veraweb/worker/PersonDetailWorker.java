@@ -152,6 +152,7 @@ public class PersonDetailWorker implements PersonConstants {
 		 */
 		map.put( "statistik", "EventsGroupByGuest" );
 		Date d = new Date( System.currentTimeMillis() );
+
 		if (person != null && person.created != null) {
 			d = new Date(person.created.getTime());
 		}
@@ -351,6 +352,8 @@ public class PersonDetailWorker implements PersonConstants {
 			person.changed = null;
 			person.changedby = null;
 			person.importsource = null;
+			person.username = null;
+
 			AddressHelper.clearAddressData(person.getMainExtra1());
 			AddressHelper.clearAddressData(person.getMainExtra2());
 			AddressHelper.clearAddressData(person.getPartnerExtra1());
