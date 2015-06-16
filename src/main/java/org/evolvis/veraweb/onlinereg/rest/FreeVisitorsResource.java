@@ -71,7 +71,11 @@ public class FreeVisitorsResource extends AbstractResource {
         try {
             final Query query = session.getNamedQuery("Guest.getGuestByNoLoginRequiredUUID");
             query.setString("noLoginRequiredUUID", noLoginRequiredUUID);
-            return (Integer) query.uniqueResult();
+            final Integer guestId = (Integer) query.uniqueResult();
+            if (guestId != null) {
+                return guestId;
+            }
+            return -1;
         } finally {
             session.close();
         }
