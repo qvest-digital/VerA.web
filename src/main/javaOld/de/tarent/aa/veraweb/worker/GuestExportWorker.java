@@ -208,7 +208,7 @@ public class GuestExportWorker {
 		// Tabelle öffnen und erste Zeile schreiben
 		spreadSheet.openTable("Gäste", 65);
 		spreadSheet.openRow();
-		exportHeader(spreadSheet, cntx);
+		exportHeader(spreadSheet, cntx, event);
 		spreadSheet.closeRow();
 
 		// Zusatzinformationen
@@ -463,7 +463,7 @@ public class GuestExportWorker {
 	 *
 	 * @param spreadSheet In das geschrieben werden soll.
 	 */
-	protected void exportHeader(SpreadSheet spreadSheet, OctopusContext cntx) {
+	protected void exportHeader(SpreadSheet spreadSheet, OctopusContext cntx, Event event) {
 
 		checkIfOnlineRegistrationIsAvailable(cntx);
 		//
@@ -594,7 +594,9 @@ public class GuestExportWorker {
 			spreadSheet.addCell("Anmeldename");
 			spreadSheet.addCell("Passwort");
 			spreadSheet.addCell("URL");
-			spreadSheet.addCell("Anmeldung URL");
+			if (!event.login_required) {
+				spreadSheet.addCell("Anmeldung URL");
+			}
 		}
 		spreadSheet.addCell("Bemerkung");
 	}
@@ -837,13 +839,17 @@ public class GuestExportWorker {
 		else {
 			username = guest.get("osiam_login");
 			url = getResetPasswordURL(guest, cntx);
-			directAccessURL = getLoginUUIDAndDirectAccessURL(guest, event, directAccessURL);
+			if (!event.login_required) {
+				directAccessURL = getLoginUUIDAndDirectAccessURL(guest, event, directAccessURL);
+			}
 		}
 
 		spreadSheet.addCell(username);
 		spreadSheet.addCell(password);
 		spreadSheet.addCell(url);
-		spreadSheet.addCell(directAccessURL);
+		if (!event.login_required) {
+			spreadSheet.addCell(directAccessURL);
+		}
 	}
 
 //	private void updateGuestWithLoginUUID(Integer id, OctopusContext octopusContext, String loginUUID) throws BeanException {

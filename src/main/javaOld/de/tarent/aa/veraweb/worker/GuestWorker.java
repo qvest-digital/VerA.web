@@ -208,7 +208,7 @@ public class GuestWorker {
 
 	private void addGuests(OctopusContext cntx, Database database, TransactionContext context, Event event, String personIds, StringBuffer updateGuestStatement) throws SQLException, BeanException {
 		addGuestsInitial(cntx, context, event, personIds);
-		if (event.login_required) {
+		if (!event.login_required) {
             addLoginUUIDtoGuests(database, context, event.id, personIds);
         }
 
