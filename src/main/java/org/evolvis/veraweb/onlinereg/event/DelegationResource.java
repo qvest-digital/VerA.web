@@ -27,6 +27,7 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 import lombok.extern.java.Log;
 
 import org.evolvis.veraweb.onlinereg.Config;
@@ -48,6 +49,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -575,11 +577,10 @@ public class DelegationResource {
     private Integer getCategoryIdByValue(String categoryName) {
         Integer categoryId = null;
 
-        try {
-            categoryId = readResource(path("category", categoryName), CATEGORY);
-        } catch (IOException e) {
-            log.warning("Fehler beim holen der Kategorie-ID");
-        }
+        WebResource categoryResource = client.resource(config.getVerawebEndpoint() + "/rest/category/identify")
+                .queryParam("catname", categoryName);
+
+        categoryId = categoryResource.get(Integer.class);
 
         return categoryId;
     }
