@@ -221,84 +221,89 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 
 	$scope.gender = $scope.genderOptions[0];
 
-	$http.get('api/media/' + $routeParams.uuid).then(function(presentPersons) {
-		$scope.presentPersons = presentPersons.data;
-	});
+	if ($rootScope.user_logged_in == null) {
+		$http.get('api/media/' + $routeParams.uuid).then(function(presentPersons) {
+			$scope.presentPersons = presentPersons.data;
+		});
 
-	$scope.register_pressevertreter = function () {
-		if ($scope.gender.id == 0) {
-			$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
-				$scope.error = text;
-			});
-			$scope.success = null;
-		} else if ($scope.gender.id == 1 || $scope.gender.id == 2){
-			if ($scope.lastname != null && $scope.firstname != null && $scope.email != null && $scope.address != null && $scope.plz != null && $scope.city != null && $scope.country != null) {
-				$translate('GENERIC_ERROR').then(function (text) {
-					var ERROR_TEXT = text;
-				});
-				$scope.button = true;
-				console.log("registering delegierten in the event.");
-				$http({
-					method: 'POST',
-					url: 'api/media/' + $routeParams.uuid + '/register',
-					headers: {"Content-Type" : undefined},
-					data: $.param({
-							nachname: $scope.lastname,
-							vorname: $scope.firstname,
-							gender: $scope.gender.label,
-							email: $scope.email,
-							address: $scope.address,
-							plz: $scope.plz,
-							city: $scope.city,
-							country: $scope.country
-					})
-				}).success(function (result) {
-					$scope.success = null;
-					$scope.error = null;
-
-					if (result.status === 'NO_EVENT_DATA') {
-						$translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
-							$scope.error = text;
-						});
-						$scope.success = null;
-					}  else if (result.status === 'WRONG_EVENT') {
-						$translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
-							$scope.error = text;
-						});
-						$scope.success = null;
-					} else if (result.status === 'OK') {
-						$scope.error= null;
-						$translate('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE').then(function (text) {
-							$scope.success = text;
-						});
-						$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
-							$scope.presentPersons = presentPersons.data;
-						});
-
-						$scope.lastname = null;
-						$scope.firstname = null;
-						$scope.gender = $scope.genderOptions[0];
-						$scope.email = null;
-						$scope.address = null;
-						$scope.plz = null;
-						$scope.city = null;
-						$scope.country = null;
-					} else {
-						$scope.error = ERROR_TEXT;
-						$scope.success = null;
-					}
-					$scope.button = false;
-				}).error(function (data, status, headers, config) {
-					$scope.error = ERROR_TEXT;
-					$scope.button = false;
-				});
-			} else {
-				$translate('GENERIC_MESSAGE_FILL_IN_ALL_FIELDS').then(function (text) {
+		$scope.register_pressevertreter = function () {
+			if ($scope.gender.id == 0) {
+				$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
 					$scope.error = text;
 				});
 				$scope.success = null;
+			} else if ($scope.gender.id == 1 || $scope.gender.id == 2){
+				if ($scope.lastname != null && $scope.firstname != null && $scope.email != null && $scope.address != null && $scope.plz != null && $scope.city != null && $scope.country != null) {
+					$translate('GENERIC_ERROR').then(function (text) {
+						var ERROR_TEXT = text;
+					});
+					$scope.button = true;
+					console.log("registering delegierten in the event.");
+					$http({
+						method: 'POST',
+						url: 'api/media/' + $routeParams.uuid + '/register',
+						headers: {"Content-Type" : undefined},
+						data: $.param({
+								nachname: $scope.lastname,
+								vorname: $scope.firstname,
+								gender: $scope.gender.label,
+								email: $scope.email,
+								address: $scope.address,
+								plz: $scope.plz,
+								city: $scope.city,
+								country: $scope.country
+						})
+					}).success(function (result) {
+						$scope.success = null;
+						$scope.error = null;
+
+						if (result.status === 'NO_EVENT_DATA') {
+							$translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
+								$scope.error = text;
+							});
+							$scope.success = null;
+						}  else if (result.status === 'WRONG_EVENT') {
+							$translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
+								$scope.error = text;
+							});
+							$scope.success = null;
+						} else if (result.status === 'OK') {
+							$scope.error= null;
+							$translate('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE').then(function (text) {
+								$scope.success = text;
+							});
+							$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
+								$scope.presentPersons = presentPersons.data;
+							});
+
+							$scope.lastname = null;
+							$scope.firstname = null;
+							$scope.gender = $scope.genderOptions[0];
+							$scope.email = null;
+							$scope.address = null;
+							$scope.plz = null;
+							$scope.city = null;
+							$scope.country = null;
+						} else {
+							$scope.error = ERROR_TEXT;
+							$scope.success = null;
+						}
+						$scope.button = false;
+					}).error(function (data, status, headers, config) {
+						$scope.error = ERROR_TEXT;
+						$scope.button = false;
+					});
+				} else {
+					$translate('GENERIC_MESSAGE_FILL_IN_ALL_FIELDS').then(function (text) {
+						$scope.error = text;
+					});
+					$scope.success = null;
+				}
 			}
 		}
+	}
+	else {
+		$location.path('/event');
 	}
 });
 
@@ -449,7 +454,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
 								$scope.success = text;
 							});
-							
+
 
 							$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 								$scope.presentPersons = presentPersons.data;
@@ -467,7 +472,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			} else {
 				$translate('GENERIC_MESSAGE_FILL_IN_ALL_FIELDS').then(function (text) {
 					$scope.error = text;
-				}); 
+				});
 				$scope.success = null;
 			}
 		}
