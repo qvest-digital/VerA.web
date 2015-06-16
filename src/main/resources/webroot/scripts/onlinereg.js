@@ -30,7 +30,7 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
     }).when('/register/:eventId', {
         templateUrl: 'partials/register.html',
         controller: 'RegisterController'
-	}).when('/register/:eventId/:guestId/:noLoginRequiredUUID', {
+	}).when('/register/:eventId/:noLoginRequiredUUID', {
 			templateUrl: 'partials/register.html',
 			controller: 'RegisterController'
     }).when('/register/', {
@@ -144,7 +144,13 @@ onlineRegApp.controller('FreeVisitorController', function($http, $scope, $locati
 		method: 'GET',
 		url: freeVisitorsUrl
 	}).success(function (result) {
-		$location.path('/register/' + result.status);
+		if(result.status != 'ERROR') {
+			$location.path('/register/' + result.status);
+		} else {
+			$translate('USER_EVENTS_STATUS_WITHOUT_LOGIN_CHANGED_ERROR_MESSAGE').then(function (text) {
+				$scope.error = text;
+			});
+		}
 	}).error(function (data, status, headers, config) {
 		// FIXME Wrong message?
 		$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
@@ -439,10 +445,11 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							$scope.success = null;
 						} else if (result.status === 'OK') {
 							$scope.error = null;
+							$scope.refreshData();
 							$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
 								$scope.success = text;
 							});
-							$scope.refreshData();
+							
 
 							$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 								$scope.presentPersons = presentPersons.data;
@@ -475,6 +482,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.labellist = {};
 			$scope.getOptionalFieldsWithTypeContent();
 			$scope.error = null;
+			$scope.success = null;
 		}
 
 		$scope.loadPersonData = function(personId) {
@@ -702,7 +710,7 @@ onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) 
 
 onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http, $translate) {
 
-	if ($rootScope.user_logged_in == null && $routeParams.guestId == null && $routeParams.noLoginRequiredUUID == null) {
+	if ($rootScope.user_logged_in == null && $routeParams.noLoginRequiredUUID == null) {
 		$scope.setNextPage('register/' + $routeParams.eventId);
 		$location.path('/login');
 	} else {
