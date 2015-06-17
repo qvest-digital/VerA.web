@@ -86,6 +86,7 @@ public class GuestResource extends AbstractResource{
     }
 
     /**
+     * TODO We dont need this method. Next method with the same behaviour...
      * Save guest.
      *
      * @param eventId Event id
@@ -372,7 +373,15 @@ public class GuestResource extends AbstractResource{
 		try {
             final Guest guest = initGuest(null,eventId, userId, invitationstatus, invitationtype, gender, category, username, nodeHost);
 
-            session.save(guest);
+            final Query query = session.getNamedQuery("Guest.findIdByEventAndUser");
+            query.setInteger("eventId", eventId);
+            query.setInteger("userId", userId);
+            Integer guestId = (Integer) query.uniqueResult();
+            if (guestId != null) {
+                guest.setPk(guestId);
+            }
+
+            session.saveOrUpdate(guest);
 			session.flush();
 
 			return guest;

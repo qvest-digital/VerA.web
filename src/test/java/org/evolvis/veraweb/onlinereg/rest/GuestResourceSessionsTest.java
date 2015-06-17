@@ -254,6 +254,11 @@ public class GuestResourceSessionsTest {
         // GIVEN
         prepareSession();
 
+        // QUERIES
+        Query findIdByEventAndUserQuery = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Guest.findIdByEventAndUser")).thenReturn(findIdByEventAndUserQuery);
+        when(findIdByEventAndUserQuery.uniqueResult()).thenReturn(null);
+
         // WHEN
         guestResource.addGuestToEvent(1, 1, 1, 1, "Herr", 1, "username", "nodehost");
 
