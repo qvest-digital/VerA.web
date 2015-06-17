@@ -8,6 +8,12 @@
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Kategorie")
 #set($elementNamePlural = "Kategorien")
+#if($personTab == "1" || $personTab == "2")
+  ## impelemented to show message when person are changed
+  #set($elementNameSex = "female")
+  #set($elementNameSingular = "Person")
+  #set($elementNamePlural = "Personen")
+#end
 #parse("inc/header.vm")
 
 #set($searchTask = $octopusRequest.searchTask)
