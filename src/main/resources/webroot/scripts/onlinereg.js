@@ -429,7 +429,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 						url: 'api/delegation/' + $routeParams.uuid + '/register',
 						dataType: 'text',
 						headers: {
-								"Content-Type": undefined
+							"Content-Type": undefined
 						},
 
 						data: $.param({
@@ -782,11 +782,13 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 					})
 				}).success(function (result) {
 					if (result.status === 'OK') {
+						$scope.error = null;
 						$translate(['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE','USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_TWO']).then(function (translations) {
 							$scope.success = translations['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE'] + " \"" + $scope.event.shortname + "\" " + translations['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_TWO'];
 						});
 						$scope.noteToHost = null;
 					} else if (result.status === 'REGISTERED') {
+						$scope.success = null;
 						$translate('USER_EVENTS_STATUS_WITHOUT_LOGIN_CHANGED_ERROR_MESSAGE').then(function (text) {
 							$scope.error = text;
 						});
