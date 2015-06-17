@@ -234,11 +234,11 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 		});
 
 		$scope.register_pressevertreter = function () {
+			$scope.removeMessages();
 			if ($scope.gender.id == 0) {
 				$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
 					$scope.error = text;
 				});
-				$scope.success = null;
 			} else if ($scope.gender.id == 1 || $scope.gender.id == 2){
 				if ($scope.lastname != null && $scope.firstname != null && $scope.email != null && $scope.address != null && $scope.plz != null && $scope.city != null && $scope.country != null) {
 					$translate('GENERIC_ERROR').then(function (text) {
@@ -261,8 +261,6 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 								country: $scope.country
 						})
 					}).success(function (result) {
-						$scope.success = null;
-						$scope.error = null;
 
 						if (result.status === 'NO_EVENT_DATA') {
 							$translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
@@ -275,7 +273,6 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 							});
 							$scope.success = null;
 						} else if (result.status === 'OK') {
-							$scope.error= null;
 							$translate('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE').then(function (text) {
 								$scope.success = text;
 							});
@@ -293,7 +290,6 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 							$scope.country = null;
 						} else {
 							$scope.error = ERROR_TEXT;
-							$scope.success = null;
 						}
 						$scope.button = false;
 					}).error(function (data, status, headers, config) {
@@ -304,7 +300,6 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 					$translate('GENERIC_MESSAGE_FILL_IN_ALL_FIELDS').then(function (text) {
 						$scope.error = text;
 					});
-					$scope.success = null;
 				}
 			}
 		}
@@ -339,8 +334,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		});
 
 		$scope.gender = $scope.genderOptions[0];
-		$scope.success = null;
-		$scope.error = null;
 
 		$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 				$scope.presentPersons = presentPersons.data;
@@ -350,8 +343,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.error_dialog = text;
 		});
 
-		$scope.success = null;
-		$scope.error = null;
 		$scope.labellist = {};
 
 		$scope.getOptionalFieldsWithTypeContent = function() {
@@ -359,7 +350,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				$scope.fields = fields.data;
 				console.log("number of fields: "+$scope.fields.length)
 				if ($scope.fields.length == 0) {
-					$scope.success = null;
 					$scope.showDialog = false;
 				} else {
 					$scope.error_dialog = null;
@@ -380,31 +370,27 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.getOptionalFieldsWithTypeContent();
 
 		$scope.register_user = function() {
+			$scope.removeMessages();
 			if ($scope.gender.id == 0 ) {
 				$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
 					$scope.error = text;
 				});
-				$scope.success = null;
 			} else if ($scope.vorname == null) {
 				$translate('DELEGATION_MESSAGE_MISSING_FIRSTNAME').then(function (text) {
 					$scope.error = text;
 				});
-				$scope.success = null;
 			} else if ($scope.nachname == null) {
 				$translate('DELEGATION_MESSAGE_MISSING_LASTNAME').then(function (text) {
 					$scope.error = text;
 				});
-				$scope.success = null;
 			} else if($scope.vorname.length > 35) {
 				$translate('DELEGATION_MESSAGE_FIRSTNAME_MAX').then(function (text) {
 					$scope.error = text;
 				});
-				$scope.success = null;
 			} else if($scope.nachname.length > 35) {
 				$translate('DELEGATION_MESSAGE_LASTNAME_MAX').then(function (text) {
 					$scope.error = text;
 				});
-				$scope.success = null;
 			} else if ($scope.gender.id == 1 || $scope.gender.id == 2 && typeof $scope.vorname != "undefined" &&
 						$scope.vorname != null && typeof $scope.nachname != "undefined" && $scope.nachname != null) {
 				$translate('GENERIC_ERROR').then(function (text) {
@@ -412,7 +398,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				});
 
 				$scope.button = true;
-				console.log("registering delegation in the event.");
 
 				if (($scope.nachname != null && $scope.nachname != '') && ($scope.vorname != null && $scope.vorname != '')) {
 					//Empty the standard label for saving
@@ -442,21 +427,16 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							personId: $scope.targetPersonId
 						})
 					}).success(function(result) {
-						$scope.success = null;
-						$scope.error = null;
 
 						if (result.status === 'NO_EVENT_DATA') {
 							$translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
 								$scope.error = text;
 							});
-							$scope.success = null;
 						} else if (result.status === 'WRONG_DELEGATION') {
 							$translate('DELEGATION_MESSAGE_DELEGATION_DOESNT_EXISTS').then(function (text) {
 								$scope.error = text;
 							});
-							$scope.success = null;
 						} else if (result.status === 'OK') {
-							$scope.error = null;
 							$scope.refreshData();
 							$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
 								$scope.success = text;
@@ -468,7 +448,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							});
 						} else {
 							$scope.error = ERROR_TEXT;
-							$scope.success = null;
 						}
 
 						$scope.button = false;
@@ -480,7 +459,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				$translate('GENERIC_MESSAGE_FILL_IN_ALL_FIELDS').then(function (text) {
 					$scope.error = text;
 				});
-				$scope.success = null;
 			}
 		}
 
@@ -493,14 +471,16 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.targetPersonId = null;
 			$scope.labellist = {};
 			$scope.getOptionalFieldsWithTypeContent();
+		}
+		
+		$scope.removeMessages() {
 			$scope.error = null;
 			$scope.success = null;
 		}
 
 		$scope.loadPersonData = function(personId) {
 			$scope.targetPersonId=personId;
-			$scope.success = null;
-			$scope.error = null;
+			$scope.removeMessages();
 
 			$http.get('api/delegation/load/' + $routeParams.uuid + '/' + $scope.targetPersonId).then(function(person) {
 				// Setting current values
@@ -533,8 +513,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				var ERROR_TEXT = text;
 			});
 
-			$scope.success = null;
-			$scope.error = null;
 			$scope.labellist = {};
 
 			$http.get('api/delegation/load/fields/' + $routeParams.uuid + '/' + $scope.targetPersonId).then(function(fields) {
@@ -542,7 +520,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				console.log("number of fields: "+$scope.fields.length);
 				if ($scope.fields.length == 0) {
 					$scope.error_dialog = ERROR_TEXT;
-					$scope.success = null;
 					$scope.showDialog = false;
 				} else {
 					$scope.error_dialog = null;
@@ -561,8 +538,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		}
 
 		$scope.saveOptionalFields = function () {
-			$scope.success = null;
-			$scope.error = null;
+			$scope.removeMessages();
 
 			var list = $scope.labellist;
 			console.log("labels " + list);
@@ -576,7 +552,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 					personId: $scope.targetPersonId
 				})
 			}).success(function (result) {
-				$scope.error= null;
 				$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
 					$scope.success = text;
 				});
@@ -585,7 +560,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				$translate('GENERIC_ERROR').then(function (text) {
 					$scope.error = text;
 				});
-				$scope.success = null;
 			});
 		}
 	}
