@@ -473,7 +473,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.getOptionalFieldsWithTypeContent();
 		}
 		
-		$scope.removeMessages() {
+		$scope.removeMessages() = function() {
 			$scope.error = null;
 			$scope.success = null;
 		}
