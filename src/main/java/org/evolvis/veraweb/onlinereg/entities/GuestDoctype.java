@@ -44,7 +44,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 public class GuestDoctype {
 
-	/**
+    /**
+     * Default constructor. We should implement that because Hibernate need it (only when we have another constructor)
+     */
+    public GuestDoctype() {}
+
+    /**
 	 * Constructor with all required fields
 	 * @param fk_guest
 	 * @param fk_doctype
