@@ -568,16 +568,13 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 onlineRegApp.controller('DirectLoginController', function ($scope, $location, $http, $rootScope, $translate) {
 	$scope.button = false;
 	$rootScope.cleanMessages();
-	$rootScope.no_messages = function() {
-		$rootScope.status = null;
-		$rootScope.messageContent = null;
-	}
 
 	$scope.logout = function () {
 		$http({
 			method: 'POST',
 			url: 'api/idm/logout/'
 		}).success(function (result) {
+			$rootScope.cleanMessages();
 			$rootScope.error = null;
 			$scope.directusername = null;
 			$scope.directpassword = null;
@@ -819,8 +816,8 @@ onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $ro
 		console.log("DEBUG: " + $rootScope.user_logged_in);
 		var userEventsURL = 'api/event/userevents/' + $rootScope.user_logged_in;
 		$http.get(userEventsURL).success(function (result) {
-				console.log("Loading user's subscribed events...");
-				$scope.events = result;
+			console.log("Loading user's subscribed events...");
+			$scope.events = result;
 		});
 	}
 });
