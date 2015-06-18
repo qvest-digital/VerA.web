@@ -131,7 +131,7 @@
 
       <div class="form-group container">
 		<p>{{'DELEGATION_EMPTY_FIELDS'|translate}}</p>
-		<button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="refreshData()">
+		<button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="refreshData(); removeMessages();">
 			{{'GENERIC_YES'|translate}}
 		</button>
 
