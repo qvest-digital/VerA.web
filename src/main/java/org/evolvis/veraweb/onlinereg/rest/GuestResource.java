@@ -242,7 +242,6 @@ public class GuestResource extends AbstractResource{
      * Check for existing delegation by delegation uuid.
      *
      * @param uuid Delegation UUID
-     *
      * @return True if exists only one delegation, otherwise false
      */
     @GET
@@ -264,10 +263,10 @@ public class GuestResource extends AbstractResource{
     }
     
     /**
-     * find whether guest is registered for the event delegation
+     * Find whether guest is registered for the event delegation
      * 
-     * @param username
-     * @param delegation uuid
+     * @param username osiam
+     * @param delegation Delegation UUID
      */
     @GET
     @Path("/registered/delegation/{username}/{delegation}")
@@ -287,11 +286,11 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
-    
-    
+
     /**
-     * 
-     * @param username
+     * Checking if the current user is already registered for the curren event
+     *
+     * @param username osiam
      * @param eventId
      * @return
      */
