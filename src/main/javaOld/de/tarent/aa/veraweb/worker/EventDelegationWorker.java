@@ -76,8 +76,9 @@ public class EventDelegationWorker {
      */
     public List<OptionalDelegationField> showDelegationFields(OctopusContext octopusContext)
             throws IOException, BeanException, SQLException {
-        final Integer guestId = getIntegerFromRequestParameter(octopusContext, "id");
-        final Integer eventId = getIntegerFromRequestParameter(octopusContext, "eventId");
+        final Integer guestId = Integer.valueOf(octopusContext.getContextField("guest.id").toString());
+        final Integer eventId = Integer.valueOf(octopusContext.getContextField("event.id").toString());
+
         if (guestId == null && eventId == null) {
             return null;
         }
