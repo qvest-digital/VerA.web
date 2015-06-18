@@ -72,7 +72,9 @@ import javax.xml.bind.annotation.XmlRootElement;
                     "LIKE :noLoginRequiredUUID AND invitationstatus=1 "), // TODO invitation status as parameter?
 	@NamedNativeQuery(name = "Guest.findByDelegationUUID",
             query = "SELECT g.* FROM tguest g LEFT JOIN tperson p ON g.fk_person=p.pk WHERE g.delegation=:delegation " +
-                    "AND p.isCompany='t'", resultClass=Guest.class)
+                    "AND p.isCompany='t'", resultClass=Guest.class),
+    @NamedNativeQuery(name = "Guest.isGuestForEvent",
+            query = "SELECT COUNT(*) FROM tguest g WHERE g.osiam_login=:osiam_login AND g.delegation=:delegation")
 
 })
 public class Guest {
