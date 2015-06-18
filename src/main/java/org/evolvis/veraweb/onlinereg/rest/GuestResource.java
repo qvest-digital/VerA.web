@@ -262,7 +262,39 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
+    
+    /**
+     * find whether guest is registered for the event delegation
+     * 
+     * @param username
+     * @param delegation uuid
+     */
+    @GET
+    @Path("/registered/delegation/{username}/{delegation}")
+    public Boolean isUserRegisteredintoEventByDelegation(@PathParam("username") String username, @PathParam("delegation") String delegation) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Guest.isGuestForEvent");
+            query.setString("osiam_login", username);
+            query.setString("delegation", delegation);
 
+            final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
+            if(numberOfGuestsFound.intValue() > 0) {
+            	return true;
+            }
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+    
+    
+    /**
+     * 
+     * @param username
+     * @param eventId
+     * @return
+     */
     @GET
     @Path("/registered/{username}/{eventId}")
     public Boolean isUserRegisteredintoEvent(@PathParam("username") String username, @PathParam("eventId") Integer eventId) {

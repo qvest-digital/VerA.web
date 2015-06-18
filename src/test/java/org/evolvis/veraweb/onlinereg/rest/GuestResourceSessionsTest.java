@@ -338,6 +338,44 @@ public class GuestResourceSessionsTest {
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }
+    
+    @Test
+    public void testIsUserRegisteredintoEventByDelegation() {
+        // GIVEN
+        String delegation = "delegation";
+        String username = "username";
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Guest.isGuestForEvent")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(new BigInteger("1"));
+
+        // WHEN
+        Boolean isUserRegisteredintoEventByDelegation = guestResource.isUserRegisteredintoEventByDelegation(username, delegation);
+
+        // THEN
+        assertTrue(isUserRegisteredintoEventByDelegation);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testIsUserRegisteredintoEventByDelegationFailed() {
+        // GIVEN
+        String delegation = "delegation";
+        String username = "username";
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Guest.isGuestForEvent")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(new BigInteger("0"));
+
+        // WHEN
+        Boolean isUserRegisteredintoEventByDelegation = guestResource.isUserRegisteredintoEventByDelegation(username, delegation);
+
+        // THEN
+        assertFalse(isUserRegisteredintoEventByDelegation);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
 
 
     private void prepareSession() {
