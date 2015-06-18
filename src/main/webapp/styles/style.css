@@ -1094,6 +1094,11 @@ td[onclick]
 
 .width100, .tabsContent .width100 {width: 100%;}
 
+.cutOff {
+  white-space: inherit;
+  width: 150px;
+}
+
 /************* End CSS tables *****************/
 
 /************* End tables *****************/

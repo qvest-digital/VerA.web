@@ -303,7 +303,7 @@
 				}
 			</script>
 
-			<table class="sortable fixed">
+			<table class="sortable">
 				##Set column size
 				<col width="$column0%" />
    				<col width="$column1%" />
@@ -323,47 +323,47 @@
 					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>Firma</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');" style="color: #000000;">Name</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
+					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
 			#elseif($search.listorder == "firstname_a_e1")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
 					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>Firma</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');" style="color: #000000;">Vorname</a></th>
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
+					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
 			#elseif($search.listorder == "mail_a_e1")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
 					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>Firma</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">E-Mail</a></th>
+					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">E-Mail</a></th>
 			#elseif($search.listorder == "companyname")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
 					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>Firma</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">E-Mail</a></th>
+					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">E-Mail</a></th>
 			#else
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>Lfd.-Nr.</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
 					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>Firma</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">Name</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
+					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">E-Mail</a></th>
 			#end
 
 			#if($userConfig.guestListFunction)
-					<th>Funktion</th>
+					<th style="padding: 10px">Funktion</th>
 			#end
 
 			#if($userConfig.guestListCity)
-					<th>PLZ / Ort</th>
+					<th style="padding: 10px">PLZ / Ort</th>
 			#end
 
 			#if($userConfig.guestListPhone)
-					<th>Telefon</th>
+					<th style="padding: 10px">Telefon</th>
 			#end
 					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">$!message.text($!config.main)</span></th>
 					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">$!message.text($!config.partner)</span></th>
@@ -406,6 +406,17 @@
 						<td></td>
 						<td></td>
 						<td></td>
+						#if($userConfig.guestListFunction)
+							<td></td>
+						#end
+
+						#if($userConfig.guestListCity)
+							<td></td>
+						#end
+
+						#if($userConfig.guestListPhone)
+							<td></td>
+						#end
 						<td></td>
 						<td></td>
 					#else
@@ -432,28 +443,30 @@
 							#end
 						</td>
 						<td class="textCenter">
-							#if($bean.showdoctype)
-								#if($bean.mail_a_gd.length() > 0)
-									<a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
+							<div class="cutOff">
+								#if($bean.showdoctype)
+									#if($bean.mail_a_gd.length() > 0)
+										<a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
+									#else
+										&nbsp;
+									#end
 								#else
-									&nbsp;
+									#if($bean.mail_a_e1.length() > 0)
+										<a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
+									#else
+										&nbsp;
+									#end
 								#end
-							#else
-								#if($bean.mail_a_e1.length() > 0)
-									<a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
-								#else
-									&nbsp;
-								#end
-							#end
+							</div>
 						</td>
 						#if($userConfig.guestListFunction)
-								<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
+							<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
 						#end
 						#if($userConfig.guestListCity)
-								<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
+							<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
 						#end
 						#if($userConfig.guestListPhone)
-								<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
+							<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
 						#end
 						<td class="textCenter">
 							#if($bean.invitationtype != 3)
@@ -501,7 +514,7 @@
 									#end
 								#end
 							#else
-								<input type="hidden" name="${bean.id}-invitationstatus_b" value="$!bean.invitationstatus_b">nicht eingeladen
+								<input type="hidden" name="${bean.id}-invitationstatus_b" value="$!bean.invitationstatus_b">nicht eingeladen</input>
 							#end
 						</td>
 					#end
