@@ -26,8 +26,10 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
+
 import lombok.Getter;
 import lombok.extern.java.Log;
+
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.osiam.client.exception.ConnectionInitializationException;
@@ -41,6 +43,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
@@ -60,6 +63,8 @@ public class LoginResource {
      */
     public static final String BASE_RESOURCE = "/rest";
 
+    // TYPE REFERENCES
+    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
 
     /**
      * String
@@ -113,35 +118,46 @@ public class LoginResource {
 	@POST
 	@Path("/login/{username}")
 	public String login(@PathParam("username") String userName,
-			@FormParam("password") String password) throws IOException {
+			@FormParam("password") String password, 
+			@FormParam("delegation") String delegation) throws IOException {
 		if (userName == null || password == null) {
 			return null;
 		}
-
-		try {
-			String accessToken = config.getOsiam().getClient(client)
-					.getAccessToken(userName, password, "POST");
-			context.setAttribute(USERNAME, userName);
-			context.setAttribute(ACCESS_TOKEN, accessToken);
-
-			WebResource resource;
-
-            resource = client.resource(path("person", "userinfo", userName));
-            String returnedValue;
-
-            try {
-            	returnedValue = resource.get(String.class);
-            } catch (UniformInterfaceException e) {
-               int statusCode = e.getResponse().getStatus();
-               if(statusCode == 204) {
-               		return StatusConverter.convertStatus(userName);
-               }
-
-               return null;
-            }
-
-			return StatusConverter.convertStatus(returnedValue);
-		} catch (ConnectionInitializationException cie) {
+		Boolean isRegisterdForDelegationEvent = true;
+		if (delegation != null) {
+			isRegisterdForDelegationEvent = 
+					readResource(path("guest" , "registered", "delegation", userName, delegation), BOOLEAN);
+		}
+		
+		if (isRegisterdForDelegationEvent) {
+		
+			try {
+				String accessToken = config.getOsiam().getClient(client)
+						.getAccessToken(userName, password, "POST");
+				context.setAttribute(USERNAME, userName);
+				context.setAttribute(ACCESS_TOKEN, accessToken);
+	
+				WebResource resource;
+	
+	            resource = client.resource(path("person", "userinfo", userName));
+	            String returnedValue;
+	
+	            try {
+	            	returnedValue = resource.get(String.class);
+	            } catch (UniformInterfaceException e) {
+	               int statusCode = e.getResponse().getStatus();
+	               if(statusCode == 204) {
+	               		return StatusConverter.convertStatus(userName);
+	               }
+	
+	               return null;
+	            }
+	
+				return StatusConverter.convertStatus(returnedValue);
+			} catch (ConnectionInitializationException cie) {
+				return null;
+			}
+		} else {
 			return null;
 		}
 	}

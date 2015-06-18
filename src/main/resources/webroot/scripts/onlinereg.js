@@ -24,6 +24,9 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
     $routeProvider.when('/login', {
         templateUrl: 'partials/login.html',
         controller: 'LoginController'
+    }).when('/login/:delegation', {
+        templateUrl: 'partials/login.html',
+        controller: 'LoginController'
     }).when('/event', {
         templateUrl: 'partials/event.html',
         controller: 'EventController'
@@ -313,7 +316,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 	$rootScope.cleanMessages();
 	if ($rootScope.user_logged_in == null) {
 		$scope.setNextPage('delegation/' + $routeParams.uuid);
-		$location.path('/login');
+		$location.path('/login/' + $routeParams.uuid);
 	} else {
 		$scope.genderOptions = [
 			{id: 0, name:"GENERIC_PLEASE_SELECT"},
@@ -643,7 +646,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 	}
 });
 
-onlineRegApp.controller('LoginController', function ($scope, $location, $http, $rootScope, $translate) {
+onlineRegApp.controller('LoginController', function ($scope, $location, $http, $rootScope, $translate, $routeParams) {
 	$rootScope.button = false;
 	$rootScope.status = null;
 	$rootScope.messageContent = null;
@@ -658,9 +661,11 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 			url: 'api/idm/login/' + encodeURIComponent($scope.username),
 			headers: {"Content-Type" : undefined},
 			data: $.param({
-				password: $scope.password
+				password: $scope.password,
+				delegation: $routeParams.delegation
 			})
 		}).success(function (result) {
+			$scope.error = null;
 			$scope.button = false;
 			if (result != "") {
 				$rootScope.user_logged_in = $scope.username;
