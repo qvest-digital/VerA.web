@@ -14,7 +14,9 @@
 		</tr>
 
 		<tr ng-repeat="event in events">
-			<td>{{parseDate(event.datebegin) | date:'dd.MM.yyyy HH:mm'}}</td>
+			<td><span>{{parseDate(event.datebegin) | date:'dd.MM.yyyy HH:mm'}}</span> 
+			<span ng-if="event.dateend != null"> - {{parseDate(event.dateend) | date:'dd.MM.yyyy HH:mm'}}</span>
+			</td>
 			<td>{{event.shortname}}</td>
 			<td class="button_column">
 				<a href="#/register/{{event.pk}}">
