@@ -370,6 +370,7 @@ public class EventResource {
                 event.getPk(),
                 event.getShortname(),
                 event.getDatebegin(),
+                event.getDateend(),
                 isUserRegistered(username, eventId)
         );
     }

@@ -32,7 +32,16 @@ public class EventTransporter {
 	private Integer pk;
     private String shortname;
     private Date datebegin;
-    private Boolean isRegistered;
+    private Date dateend;
+    public Date getDateend() {
+		return dateend;
+	}
+
+	public void setDateend(Date dateend) {
+		this.dateend = dateend;
+	}
+
+	private Boolean isRegistered;
     private Integer status;
     private String message;
 
@@ -47,12 +56,13 @@ public class EventTransporter {
 	 * @param datebegin Date
 	 * @param isRegistered Boolean
 	 */
-	public EventTransporter(Integer pk, String shortname, Date datebegin,
+	public EventTransporter(Integer pk, String shortname, Date datebegin, Date dateend,
 			Boolean isRegistered) {
 		super();
 		this.pk = pk;
 		this.shortname = shortname;
 		this.datebegin = datebegin;
+		this.dateend = dateend;
 		this.isRegistered = isRegistered;
 	}
 	
