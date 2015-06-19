@@ -1072,25 +1072,43 @@ td[onclick]
 
 .width5, .tabsContent .width5 {width: 5%;}
 
-.width10, .tabsContent .width10 {width: 10%;} .width15, .tabsContent .width15 {width: 15% !important;}
+.width10, .tabsContent .width10 {width: 10% !important;}
 
-.width20, .tabsContent .width20 {width: 20%;} .width25, .tabsContent .width25 {width: 25%;}
+.width15, .tabsContent .width15 {width: 15%;}
 
-.width30, .tabsContent .width30 {width: 30%;} .width35, .tabsContent .width35 {width: 35%;}
+.width20, .tabsContent .width20 {width: 20%;}
 
-.width40, .tabsContent .width40 {width: 40%;} .width45, .tabsContent .width45 {width: 45%;}
+.width25, .tabsContent .width25 {width: 25%;}
+
+.width30, .tabsContent .width30 {width: 30%;}
+
+.width35, .tabsContent .width35 {width: 35%;}
+
+.width40, .tabsContent .width40 {width: 40%;}
+
+.width45, .tabsContent .width45 {width: 45%;}
 
 .width49, .tabsContent .width49 {width: 49%;}
 
-.width50, .tabsContent .width50 {width: 50%;} .width55, .tabsContent .width55 {width: 55%;}
+.width50, .tabsContent .width50 {width: 50%;}
 
-.width60, .tabsContent .width60 {width: 60%;} .width65, .tabsContent .width65 {width: 65%;}
+.width55, .tabsContent .width55 {width: 55%;}
 
-.width70, .tabsContent .width70 {width: 70%;} .width75, .tabsContent .width75 {width: 75%;}
+.width60, .tabsContent .width60 {width: 60%;}
 
-.width80, .tabsContent .width80 {width: 80% !important;} .width85, .tabsContent .width85 {width: 85%;}
+.width65, .tabsContent .width65 {width: 65%;}
 
-.width90, .tabsContent .width90 {width: 90%;} .width95, .tabsContent .width95 {width: 95%;}
+.width70, .tabsContent .width70 {width: 70%;}
+
+.width75, .tabsContent .width75 {width: 75%;}
+
+.width80, .tabsContent .width80 {width: 80% !important;}
+
+.width85, .tabsContent .width85 {width: 85%;}
+
+.width90, .tabsContent .width90 {width: 90%;}
+
+.width95, .tabsContent .width95 {width: 95%;}
 
 .width100, .tabsContent .width100 {width: 100%;}
 
