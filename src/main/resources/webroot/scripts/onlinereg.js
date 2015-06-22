@@ -14,6 +14,8 @@ onlineRegApp.run(function ($rootScope) {
 	}
 
 	$rootScope.cleanMessages = function() {
+		$rootScope.button = false;
+		$rootScope.status = null;
 		$rootScope.previousMessage = null;
 		$rootScope.messageContent = null;
 	}
@@ -170,14 +172,12 @@ onlineRegApp.controller('FreeVisitorController', function($http, $scope, $locati
 });
 
 onlineRegApp.controller('UpdateController', function($scope, $rootScope, $location, $routeParams, $http, $translate) {
-
 	if ($rootScope.user_logged_in == null) {
 
 		$scope.setNextPage('register/' + $routeParams.eventId);
 		$location.path('/login');
 
 	} else {
-
 		$scope.acceptanceOptions = [
 			{id: 0, name:"USER_EVENTS_STATUS_TYPE_OPEN"},
 			{id: 1, name:"USER_EVENTS_STATUS_TYPE_ACCEPTANCE"},
@@ -223,6 +223,11 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
 });
 
 onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, $location, $routeParams, $translate) {
+	$scope.success = null;
+	$scope.error = null;
+
+	$rootScope.cleanMessages();
+
 	$scope.genderOptions = [
 		{id: 0, name:"GENERIC_PLEASE_SELECT"},
 		{id: 1, name:"GENERIC_GENDER_MALE"},
@@ -237,7 +242,7 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 		});
 
 		$scope.register_pressevertreter = function () {
-			$scope.removeMessages();
+
 			if ($scope.gender.id == 0) {
 				$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
 					$scope.error = text;
@@ -248,7 +253,7 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 						var ERROR_TEXT = text;
 					});
 					$scope.button = true;
-					console.log("registering delegierten in the event.");
+					console.log("registering delegation in the event.");
 					$http({
 						method: 'POST',
 						url: 'api/media/' + $routeParams.uuid + '/register',
@@ -308,12 +313,16 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 		}
 	}
 	else {
-		$location.path('/event');
+		$location.path('/veranstaltungen');
 	}
 });
 
 onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams, $translate) {
+	$scope.success = null;
+	$scope.error = null;
+
 	$rootScope.cleanMessages();
+
 	if ($rootScope.user_logged_in == null) {
 		$scope.setNextPage('delegation/' + $routeParams.uuid);
 		$location.path('/login/' + $routeParams.uuid);
@@ -373,7 +382,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.getOptionalFieldsWithTypeContent();
 
 		$scope.register_user = function() {
-			$scope.removeMessages();
+			$scope.success = null;
+			$scope.error = null;
+			$rootScope.cleanMessages();
+
 			if ($scope.gender.id == 0 ) {
 				$translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
 					$scope.error = text;
@@ -475,15 +487,12 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.labellist = {};
 			$scope.getOptionalFieldsWithTypeContent();
 		}
-		
-		$scope.removeMessages = function() {
-			$scope.error = null;
-			$scope.success = null;
-		}
 
 		$scope.loadPersonData = function(personId) {
 			$scope.targetPersonId=personId;
-			$scope.removeMessages();
+			$scope.success = null;
+			$scope.error = null;
+			$rootScope.cleanMessages();
 
 			$http.get('api/delegation/load/' + $routeParams.uuid + '/' + $scope.targetPersonId).then(function(person) {
 				// Setting current values
@@ -510,7 +519,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			});
 		}
 		$scope.showOptionalFields = function (personId) {
-
 			$scope.targetPersonId=personId;
 			$translate('DELEGATION_MESSAGE_NO_EXTRA_FIELDS').then(function (text) {
 				var ERROR_TEXT = text;
@@ -541,7 +549,9 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		}
 
 		$scope.saveOptionalFields = function () {
-			$scope.removeMessages();
+			$scope.success = null;
+			$scope.error = null;
+			$rootScope.cleanMessages();
 
 			var list = $scope.labellist;
 			console.log("labels " + list);
@@ -569,9 +579,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 });
 
 onlineRegApp.controller('DirectLoginController', function ($scope, $location, $http, $rootScope, $translate) {
-	$scope.button = false;
-	$rootScope.cleanMessages();
-
 	$scope.logout = function () {
 		$http({
 			method: 'POST',
@@ -589,7 +596,7 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 			$rootScope.status = "success";
 			$rootScope.user_logged_in = null;
 			$rootScope.userinfo = null;
-			$location.path('/');
+			$location.path("/");
 		}).error(function (data, status, headers, config) {
 			console.log('ERROR! Logout failed!”')
 		});
@@ -616,7 +623,11 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 				$rootScope.status = null;
 				$rootScope.messageContent = null;
 
-				$location.path($scope.nextPage);
+				if(typeof(lastPageRegisterPath) != "undefined" && lastPageRegisterPath != "") {
+				    $location.path(lastPageRegisterPath);
+				} else {
+				    $location.path($scope.nextPage);
+				}
 			} else {
 				$rootScope.userinfo = null;
 				$translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
@@ -647,10 +658,14 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 });
 
 onlineRegApp.controller('LoginController', function ($scope, $location, $http, $rootScope, $translate, $routeParams) {
-	$rootScope.button = false;
-	$rootScope.status = null;
-	$rootScope.messageContent = null;
-	$rootScope.cleanMessages();
+//	$scope.success = null;
+//	$scope.error = null;
+//	$rootScope.cleanMessages();
+
+
+	console.log($scope.status + "1");
+
+
 
 	$scope.login = function () {
 		$scope.button = true;
@@ -672,7 +687,12 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 				$rootScope.userinfo = result.status;
 				$rootScope.status = null;
 				$rootScope.messageContent = null;
-				$location.path($scope.nextPage);
+
+				if(lastPageRegisterPath != "") {
+					$location.path(lastPageRegisterPath);
+				} else {
+					$location.path($scope.nextPage);
+				}
 			} else {
 				$rootScope.status = "danger";
 				$translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
@@ -697,6 +717,8 @@ onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) 
 });
 
 onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http, $translate) {
+	$scope.success = null;
+	$scope.error = null;
 
 	if ($rootScope.user_logged_in == null && $routeParams.noLoginRequiredUUID == null) {
 		$scope.setNextPage('register/' + $routeParams.eventId);
@@ -711,7 +733,6 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 
 	    $http.get('api/event/' + $routeParams.eventId + '/register/' + $scope.userId).success(function (result) {
 	    	if (!isUserLoged()) {
-
 	    		$location.path('/login');
 	    	} else {
 		        if (result.invitationstatus) {
@@ -776,8 +797,18 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 	}
 });
 
-onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
+onlineRegApp.controller('RegisterUserController', function($scope, $http, $location, $rootScope) {
+	$scope.success = null;
+	$scope.error = null;
+	$rootScope.cleanMessages();
+
 	$scope.status = 0;
+
+
+
+	console.log($scope.status + "2");
+
+
 
 	$scope.register = function(isValid) {
 		if(!isValid) { return; }
@@ -794,6 +825,11 @@ onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 			switch(result.status) {
 			case 'OK':
 				$scope.status = 1;
+
+				$scope.update = function (parm1, parm2) {
+			        $scope.status = parm1 + ": " + parm2;
+			    };
+
 				break;
 			case 'USER_EXISTS':
 				$scope.status = 'e1';
@@ -805,16 +841,41 @@ onlineRegApp.controller('RegisterUserController',  function($scope, $http) {
 				$scope.status = 'e';
 			}
 
+
+
+			console.log($scope.status + "3");
+
+
+
+			if($scope.status == 1) {
+				console.log($scope.status + "4");
+
+				$location.path('/login');
+
+				console.log($scope.status + "5");
+			}
+
+
 			window.console.log("User registered with response:  '" + result + "'.");
+
+			console.log($scope.status  + "6");
 		}).error(function (data, status, headers, config) {
 			$scope.status = 'e';
 			window.console.log("ERROR while userregistration.");
+
+
+			console.log($scope.status + "7");
 		});
 	};
 });
 
 onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $rootScope, $location) {
+	$scope.success = null;
+	$scope.error = null;
+
 	if ($rootScope.user_logged_in == null) {
+		lastPageRegisterPath = $location.path();
+
 		$location.path('/login');
 		$rootScope.success = null;
 	} else {
@@ -828,9 +889,17 @@ onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $ro
 });
 
 onlineRegApp.controller('KontaktdatenController', function ($scope, $location, $rootScope, $translate, $http) {
+	$scope.success = null;
+	$scope.error = null;
 	$rootScope.cleanMessages();
+
 	if ($rootScope.user_logged_in == null) {
-			$location.path('/login');
+
+
+		lastPageRegisterPath = $location.path();
+
+
+		$location.path('/login');
 	} else {
 		$http.get('api/event/list/{userid}/').success(function (result) {
 						console.log("loaded data");
