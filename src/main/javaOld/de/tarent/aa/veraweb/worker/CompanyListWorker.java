@@ -183,5 +183,6 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 		AddressHelper.checkPersonSalutation(person, database, context);
 		cntx.setContent("person", person);
 		cntx.setContent("showAdressTab", "true");
+		cntx.setContent("personAddresstypeTab", cntx.requestAsString("personAddresstypeTab"));
 	}
 }
