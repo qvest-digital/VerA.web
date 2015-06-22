@@ -15,6 +15,8 @@
 
 	<script type="text/javascript">
 		var showCategory = function () {
+		$(".errormsg").remove();
+		$(".successmsg").remove();
     		var selectionOfOption = $('option[name$="nix"]:selected');
     			if(selectionOfOption.length === 1) {
     				var msg ='<span>Wählen Sie bitte zunächst eine Kategorie aus.</span>';
