@@ -568,7 +568,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 	}
 });
 
-onlineRegApp.controller('DirectLoginController', function ($scope, $location, $http, $rootScope, $translate) {
+onlineRegApp.controller('DirectLoginController', function ($scope, $location, $http, $rootScope, $translate, $routeParams) {
 	$scope.button = false;
 	$rootScope.cleanMessages();
 
@@ -604,7 +604,8 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 			url: 'api/idm/login/' + encodeURIComponent($scope.directusername),
 			headers: {"Content-Type" : undefined},
 			data: $.param({
-					password: $scope.directpassword
+					password: $scope.directpassword,
+					delegation: $routeParams.delegation
 			})
 		}).success(function (result) {
 			$scope.button = false;
