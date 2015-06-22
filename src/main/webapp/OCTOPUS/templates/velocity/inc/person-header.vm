@@ -142,7 +142,9 @@
 							#else
 								<div class="info">
 									Es wurde kein Dokumenttyp zur Vorschauanzeige konfiguriert.
-									Dies ist &uuml;ber den Men&uuml;punkt Administration &gt; Programmeinstellungen m&ouml;glich.
+									#if($grants.isAdmin())
+										Dies ist &uuml;ber den Men&uuml;punkt Administration &gt; Programmeinstellungen m&ouml;glich.
+									#end
 								</div>
 							#end
 						</div>
