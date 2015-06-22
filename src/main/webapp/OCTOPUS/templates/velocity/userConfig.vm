@@ -44,7 +44,7 @@
 		#end
 		<div id="main_content" class="contentBoxColored grayBorder">
 
-				<div style="width: 57%; float: left; max-width: 510px;">
+				<div style="width: 57%; float: left; max-width: 550px;">
 					<h3>Personendetailansicht</h3>
 							<fieldset class="marginTop20">
 								<legend>Standard Auswahl von Tabulatoren</legend>
@@ -82,7 +82,7 @@
 							</fieldset>
 				</div>
 
-				<div style="width:41%" class="floatRight">
+				<div style="width:44%" class="floatRight">
 					<h3>Gästeliste</h3>
 							<fieldset class="marginTop20">
 								<legend>Zusätzliche Felder</legend>
