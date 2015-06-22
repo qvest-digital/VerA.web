@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.OptionalField;
+import de.tarent.aa.veraweb.beans.OptionalFieldTypeContent;
 import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
@@ -329,15 +330,14 @@ public class OptionalFieldsWorker {
         return false;
     }
 
-    public Integer getTotalEventsFromEvent(final Integer eventId) throws IOException, BeanException {
+    public List<OptionalField> getTotalEventsFromEvent(final Integer eventId) throws IOException, BeanException, SQLException {
 
-        Clause labelNotNullClause = Expr.notEqual("label","");
+        Select selectStatement = SQL.Select(database).from("veraweb.toptional_fields").select("*").
+                whereAndEq("fk_event", eventId);
 
-        Integer counter = this.database.getCount(this.database.getCount("OptionalField").
-                whereAndEq("fk_event", eventId).
-                whereAnd(labelNotNullClause)).intValue();
+        final ResultSet resultSet = database.result(selectStatement);
 
-        return counter;
+        return getOptionalFieldsAsList(resultSet);
     }
 
 }

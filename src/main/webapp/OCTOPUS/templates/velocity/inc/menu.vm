@@ -23,7 +23,7 @@
 								<li><a id="menu.exportPerson" href="${paths.staticWeb}do/ExportPersons">Personenexport</a></li>
 							#end
 							#if($grants.mayWrite())
-								<li><a id="menu.importPerson"href="${paths.staticWeb}do/ImportPersons">Personenimport</a></li>
+								<li><a id="menu.importPerson" href="${paths.staticWeb}do/ImportPersons">Personenimport</a></li>
 							#end
 						#end
 					</ul>

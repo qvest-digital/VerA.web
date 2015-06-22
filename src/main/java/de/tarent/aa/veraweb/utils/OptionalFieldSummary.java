@@ -12,9 +12,9 @@ import java.util.List;
  */
 public class OptionalFieldSummary {
 
-    public Integer totalCreatedFields;
-    public Integer totalChangedFields;
-    public Integer totalDeletedFields;
+    public Integer totalCreatedFields = 0;
+    public Integer totalChangedFields = 0;
+    public Integer totalDeletedFields = 0;
 
     public List<OptionalField> createdFields;
     public List<OptionalField> changedFields;
@@ -41,7 +41,17 @@ public class OptionalFieldSummary {
         return 0;
     }
 
+    public void setTotalCreatedFields(Integer totalCreatedFields) {
+        this.totalCreatedFields = totalCreatedFields;
+    }
 
+    public void setTotalChangedFields(Integer totalChangedFields) {
+        this.totalChangedFields = totalChangedFields;
+    }
+
+    public void setTotalDeletedFields(Integer totalDeletedFields) {
+        this.totalDeletedFields = totalDeletedFields;
+    }
 
     public List<OptionalField> getCreatedFields() {
         return this.createdFields;

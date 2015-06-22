@@ -303,61 +303,36 @@ public class EventDelegationWorker {
 
         final Map<String, String> allRequestParams = octopusContext.getRequestObject().getRequestParameters();
 
-        setDeletedOptionalFieldsIntoSummary(optionalFieldSummary,optionalFieldsWorker, allRequestParams, eventId);
-
+        List<OptionalField> oldOptionalFields = optionalFieldsWorker.getTotalEventsFromEvent(eventId);
 
         for (String key : allRequestParams.keySet()) {
-            saveFieldLabels(eventId, optionalFieldsWorker, allRequestParams, key, optionalFieldSummary);
-            saveFieldTypeContent(octopusContext, allRequestParams, key);
+            saveFieldLabels(eventId, optionalFieldsWorker, allRequestParams, key, optionalFieldSummary, oldOptionalFields);
+            saveFieldTypeContent(octopusContext, allRequestParams, key, optionalFieldSummary);
         }
 
         octopusContext.setContent("showSuccessMessage", true);
         octopusContext.setContent("optionalFieldsSummary", optionalFieldSummary);
     }
 
-    private void setDeletedOptionalFieldsIntoSummary(OptionalFieldSummary optionalFieldSummary,
-                                                     final OptionalFieldsWorker optionalFieldsWorker,
-                                                     final Map<String, String> allRequestParams,
-                                                     final Integer eventId) throws IOException, BeanException {
-
-        Integer totalOldOptionalFields = optionalFieldsWorker.getTotalEventsFromEvent(eventId);
-        Integer totalNewFields = 0;
-        for (String key : allRequestParams.keySet()) {
-            if (key.startsWith("optionalField-")) {
-                String value = allRequestParams.get(key).toString();
-                if (!value.equals("")) {
-                    totalNewFields++;
-                }
-            }
-        }
-
-        Integer difference = totalOldOptionalFields - totalNewFields;
-
-        if (difference > 0) {
-            optionalFieldSummary.totalDeletedFields = difference;
-        } else {
-            optionalFieldSummary.totalCreatedFields = difference.intValue();
-        }
-
-    }
-
     private void saveFieldLabels(Integer eventId, OptionalFieldsWorker optionalFieldsWorker,
                                  Map<String, String> allRequestParams, String key,
-                                 OptionalFieldSummary optionalFieldSummary) throws SQLException, BeanException, IOException {
+                                 OptionalFieldSummary optionalFieldSummary, List<OptionalField> oldOptionalFields) throws SQLException, BeanException, IOException {
         if (key.startsWith("optionalField-")) {
-            saveField(eventId, optionalFieldsWorker, allRequestParams, key, optionalFieldSummary);
+            saveField(eventId, optionalFieldsWorker, allRequestParams, key, optionalFieldSummary, oldOptionalFields);
         }
     }
 
-    private void saveFieldTypeContent(OctopusContext octopusContext, Map<String, String> allRequestParams, String key)
+    private void saveFieldTypeContent(OctopusContext octopusContext, Map<String, String> allRequestParams, String key,
+                                      OptionalFieldSummary optionalFieldSummary)
             throws BeanException, IOException, SQLException {
         if (key.startsWith("optionalFieldtype-") && key.contains("_value")) {
-            saveSingleFieldTypeContent(octopusContext, allRequestParams, key);            
+            saveSingleFieldTypeContent(octopusContext, allRequestParams, key, optionalFieldSummary);
         }
     }
 
     private void saveSingleFieldTypeContent(OctopusContext octopusContext, Map<String, String> allRequestParams,
-                                            String key) throws BeanException, IOException, SQLException {
+                                            String key, OptionalFieldSummary optionalFieldSummary)
+                                                        throws BeanException, IOException, SQLException {
         
         final Database database = new DatabaseVeraWeb(octopusContext);
         final TransactionContext transactionalContext = database.getTransactionContext();
@@ -365,15 +340,17 @@ public class EventDelegationWorker {
         final String[] keyParts = key.split("_");
         final String[] labelParts = keyParts[0].split("-");
         final String[] valueParts = keyParts[1].split("-");
-        
+        Integer typeContentId = new Integer(valueParts[1]);
+
         final OptionalFieldTypeContent optionalFieldTypeContent =
             handleUpdateOptionalFieldTypeContent(
                     octopusContext,
                     allRequestParams,
                     key,
                     labelParts,
-                    new Integer(valueParts[1])
-            );
+                    typeContentId);
+
+        checkChangedOptionsToSupportSummary(octopusContext, optionalFieldSummary, typeContentId, optionalFieldTypeContent);
 
         final Update update = SQL.Update( database );
         update.table( "veraweb.toptional_field_type_content" );
@@ -384,10 +361,40 @@ public class EventDelegationWorker {
         transactionalContext.commit();
     }
 
+    private void checkChangedOptionsToSupportSummary(OctopusContext octopusContext,
+                                                     OptionalFieldSummary optionalFieldSummary,
+                                                     Integer typeContentId,
+                                                     OptionalFieldTypeContent optionalFieldTypeContent)
+            throws BeanException, IOException, SQLException {
+
+        OptionalFieldTypeContent oldOptionalFieldTypeContent = getExistingTypeContent(octopusContext,typeContentId);
+        Boolean changed = false;
+        if (oldOptionalFieldTypeContent.getContent() != null &&
+                !oldOptionalFieldTypeContent.getContent().equals(optionalFieldTypeContent.getContent())) {
+            if (optionalFieldSummary.getChangedFields() != null) {
+                for (OptionalField optionalField : optionalFieldSummary.getChangedFields()) {
+                    if (optionalFieldTypeContent.getFk_optional_field().equals(optionalField.getId())) {
+                        changed = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!changed) {
+                OptionalField optionalField =
+                        getRelatedOptionalFieldByTypeContent(octopusContext,
+                                                             optionalFieldTypeContent.getFk_optional_field());
+
+                optionalFieldSummary.addChangedOptionalField(optionalField);
+            }
+
+        }
+    }
+
     private OptionalFieldTypeContent handleUpdateOptionalFieldTypeContent(
             OctopusContext octopusContext,
             Map<String, String> allRequestParams, String key,
-            String[] labelParts, Integer typeContentId) throws BeanException, IOException {
+            String[] labelParts, Integer typeContentId) throws BeanException, IOException, SQLException {
         final OptionalFieldTypeContent optionalFieldTypeContent;
         optionalFieldTypeContent = getExistingTypeContent(octopusContext, typeContentId);
         optionalFieldTypeContent.setFk_optional_field(new Integer(labelParts[1]));
@@ -398,25 +405,57 @@ public class EventDelegationWorker {
     }
     
     private OptionalFieldTypeContent getExistingTypeContent(OctopusContext octopusContext, Integer typeContentId)
-            throws BeanException, IOException {
-            final Database database = new DatabaseVeraWeb(octopusContext);
-            final Select select = SQL.Select(database);
-            select.select("toptional_field_type_content.*");
-            select.from("veraweb.toptional_field_type_content");
-            select.where(Expr.equal("veraweb.toptional_field_type_content.pk", typeContentId));
+            throws BeanException, IOException, SQLException {
+        final Database database = new DatabaseVeraWeb(octopusContext);
+        final Select select = SQL.Select(database);
+        select.select("*");
+        select.from("veraweb.toptional_field_type_content");
+        select.where(Expr.equal("veraweb.toptional_field_type_content.pk", typeContentId));
+        ResultSet resultSet = database.result(select);
 
-            return (OptionalFieldTypeContent) database.getBean("OptionalFieldTypeContent", select);
+        OptionalFieldTypeContent optionalFieldTypeContent = null;
+
+        while(resultSet.next()) {
+            Integer pk = resultSet.getInt("pk");
+            Integer fkOptionalField = resultSet.getInt("fk_optional_field");
+            String content = resultSet.getString("content");
+
+
+            optionalFieldTypeContent = new OptionalFieldTypeContent(pk, fkOptionalField, content);
+        }
+
+
+        return optionalFieldTypeContent;
+    }
+
+    private OptionalField getRelatedOptionalFieldByTypeContent(OctopusContext octopusContext, Integer optionalFieldId)
+            throws BeanException, SQLException {
+        final Database database = new DatabaseVeraWeb(octopusContext);
+        final Select select = SQL.Select(database);
+        select.select("*");
+        select.from("veraweb.toptional_fields");
+        select.where(Expr.equal("toptional_fields.pk", optionalFieldId));
+
+        ResultSet resultSet = database.result(select);
+        OptionalField optionalField = null;
+
+        while (resultSet.next()) {
+            optionalField= new OptionalField(resultSet);
+        }
+
+        return  optionalField;
     }
 
     private void saveField(Integer eventId, OptionalFieldsWorker optionalFieldsWorker,
                            Map<String, String> allRequestParams, String key,
-                           OptionalFieldSummary optionalFieldSummary) throws SQLException, BeanException, IOException {
+                           OptionalFieldSummary optionalFieldSummary, List<OptionalField> oldOptionalFields) throws SQLException, BeanException, IOException {
         final String[] splitted = key.split("-");
         final OptionalField optionalField = new OptionalField();
         optionalField.setFkEvent(eventId);
         optionalField.setLabel(allRequestParams.get(key).toString());
         optionalField.setId(Integer.parseInt(splitted[1]));
         final String typeValue = allRequestParams.get("optionalFieldType-" + splitted[1]);
+
         if (typeValue.equals(OptionalFieldTypeFacade.inputfield.getText())) {
             optionalField.setFkType(OptionalFieldTypeFacade.inputfield.getValue());
         } else if (typeValue.equals(OptionalFieldTypeFacade.simple_combobox.getText())) {
@@ -425,32 +464,26 @@ public class EventDelegationWorker {
             optionalField.setFkType(OptionalFieldTypeFacade.multiple_combobox.getValue());
         }
 
+        generateOptionalFieldSummary(optionalFieldSummary, oldOptionalFields, optionalField);
         optionalFieldsWorker.updateOptionalField(optionalField);
-        /** Insertion into summary */
-        // 1. Check if the field was stored -> into update list
-
-//        optionalFieldSummary.setCreatedFields(new ArrayList<OptionalField>());
-//        optionalFieldSummary.setChangedFields(new ArrayList<OptionalField>());
-//        optionalFieldSummary.setDeletedFields(new ArrayList<OptionalField>());
-//
-//        if (!optionalFieldsWorker.isFieldRegisterForTheEvent(optionalField.getFkEvent(), optionalField.getId())) {
-//            optionalFieldSummary.addCreatedOptionalField(optionalField);
-//        }
-//        else {
-//            optionalFieldSummary.addChangedOptionalField(optionalField);
-//
-//        }
-        // 2. Check if the field is new -> into create list
-        // 3. Check if the field is deleted -> into delete list
-
-        // TODO implement checks
-
-
-//        optionalFieldSummary.addDeletedOptionalField(optionalField);
     }
 
-
-
+    private void generateOptionalFieldSummary(OptionalFieldSummary optionalFieldSummary, List<OptionalField> oldOptionalFields, OptionalField optionalField) {
+        for (OptionalField oldField : oldOptionalFields) {
+            if (oldField.getId() == optionalField.getId()) {
+                if ("".equals(oldField.getLabel()) && !"".equals(optionalField.getLabel())) {
+                    optionalFieldSummary.addCreatedOptionalField(optionalField);
+                }
+                else if (!"".equals(oldField.getLabel()) && "".equals(optionalField.getLabel())) {
+                    optionalFieldSummary.addDeletedOptionalField(optionalField);
+                    optionalField.setFkType(OptionalFieldTypeFacade.inputfield.getValue());
+                }
+                else if (!oldField.getLabel().equals(optionalField.getLabel())) {
+                    optionalFieldSummary.addChangedOptionalField(optionalField);
+                }
+            }
+        }
+    }
 
     /**
      * Duplicate optional fields in the database exam (database).

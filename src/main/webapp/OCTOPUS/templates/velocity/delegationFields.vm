@@ -22,7 +22,6 @@
 
 		if (selectedValue == 'Eingabefeld') {
 			$("#optionsArea").hide();
-			
 		}
 		else {
 			$("#optionsArea").hide();
@@ -38,12 +37,39 @@
 
     <h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
 
-	#if ($optionalFieldsSummary.createdFields || $optionalFieldsSummary.changedFields || $optionalFieldsSummary.deletedFields)
-		<vera-confirm>
-			created: $optionalFieldsSummary.totalCreatedFields -
-			changed: $optionalFieldsSummary.totalChangedFields -
-			deleted: $optionalFieldsSummary.totalDeletedFields
-		</vera-confirm>
+	#if ($optionalFieldsSummary.createdFields.size()>0 || $optionalFieldsSummary.changedFields.size()>0 || $optionalFieldsSummary.deletedFields.size()>0)
+		<div id="message-container" class="msg successmsg">
+			#if ($optionalFieldsSummary.createdFields.size()>0)
+				<div>
+					#if ($optionalFieldsSummary.createdFields.size()>1)
+						Es wurden $optionalFieldsSummary.createdFields.size() Zusatzfelder
+					#elseif ($optionalFieldsSummary.createdFields.size()<=1)
+						Es wurde ein Zusatzfeld
+					#end
+					angelegt.
+				</div>
+			#end
+			#if ($optionalFieldsSummary.changedFields.size()>0)
+				<div>
+					#if ($optionalFieldsSummary.changedFields.size()>1)
+						Es wurden $optionalFieldsSummary.changedFields.size() Zusatzfelder
+					#elseif ($optionalFieldsSummary.changedFields.size()<=1)
+						Es wurde ein Zusatzfeld
+					#end
+					geändert.
+				</div>
+			#end
+			#if ($optionalFieldsSummary.deletedFields.size()>0)
+				<div>
+					#if ($optionalFieldsSummary.deletedFields.size()>1)
+						Es wurden $optionalFieldsSummary.deletedFields.size() Zusatzfelder
+					#elseif ($optionalFieldsSummary.deletedFields.size()<=1)
+						Es wurde ein Zusatzfeld
+					#end
+					gelöscht.
+				</div>
+			#end
+		</div>
 	#end
 
     <form id="formlist1" name="formlist1" action="$formurl?eventId=$!event.id" method="POST">
@@ -64,13 +90,13 @@
 
             <div id="tabsMain">
                 <ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-                    <li class="inactive"  onclick="window.location.href='ShowEvent?id=$!event.id';" class="noBorder">
+                    <li class="inactive noBorder" onclick="window.location.href='ShowEvent?id=$!event.id';">
                         <div>Allgemein</div>
                     </li>
-                    <li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';" class="noBorder">
+                    <li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';">
                         <div>Dokumenttypen</div>
                     </li>
-                    <li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';" class="noBorder">
+                    <li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';">
                         <div>Aufgaben</div>
                     </li>
                     #if($online-registration.activated)
@@ -85,48 +111,56 @@
                 </ul>
             </div>
 
-            <div class="contentBoxColored tabsContent">
+            <div class="contentBoxColored tabsContent table">
 				<ol class="delegationFields">
-				#set( $fieldcounter = 0)
+					#set($fieldcounter = 0)
 	                #foreach($field in $delegationFieldsWithTypeContents )
+						<div class="tableRow">
+			                #set($fieldcounter = $fieldcounter + 1)
+			            	<div class="tableCell width25">
+			            		<span>$fieldcounter.</span>
+				            	<span>Feldbezeichnung</span>
+				                <input type="text" name="optionalField-$field.fkDelegationField" maxlength="25" value="$field.label">
+							</div>
+							<div class="tableCell width25">
+								<span>Eingabetyp</span>
+				                <select name="optionalFieldType-$field.fkDelegationField">
+								    #foreach($type in $fieldTypes)
+				                	   	<option name="optionalFieldtype-$type.id" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>$type.description</option>
+								    #end
+								</select>
+							</div>
+						</div>
 
-	                #set($fieldcounter = $fieldcounter + 1)
-			            <li>
-			                <input type="text" name="optionalField-$field.fkDelegationField" maxlength="25" value="$field.label">
-
-
-			                <select name="optionalFieldType-$field.fkDelegationField">
-							    #foreach( $type in $fieldTypes)
-			                	    <!-- DEBUG: FIELD.FK_TYPE: $field.fkType  TYPE.PK: $type.id FIELD.PK $field.id -->
-							        <option name="optionalFieldtype-$type.id" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>$type.description</option>
-							    #end
-							</select>
+						<div class="tableRow">
 							#if($field.fkType == 2 || $field.fkType == 3)
-								<div>
 								<!-- BBB: -->
-									#foreach( $typeContent in $field.optionalFieldTypeContents )
+								#set($fieldvalue = 0)
+								#foreach( $typeContent in $field.optionalFieldTypeContents )
+									<div class="tableCell width25">
+										#set($fieldvalue = $fieldvalue + 1)
+										<span>$fieldvalue.</span>
 										<input value="$typeContent.content" name="optionalFieldtype-${field.fkDelegationField}_value-${typeContent.id}" />
-									#end
-								</div>
+									</div>
+								#end
 							#end
-
-			            </li>
-	                #end
+				    	</div>
+		            #end
 				</ol>
-            </div>
-        </div>
+			</div>
 
         <span id="buttonPanel-bottom" class="floatRight">
             #if($grants.mayWrite())
-                <input type="submit" name="save" value="Veranstaltung speichern" class="mainButton" title="Veranstaltung speichern" onclick="document.getElementById('formlist1').action='$formurl?eventId=$!event.id';">
+                <input type="submit" name="save" value="Veranstaltung speichern" class="mainButton"
+                	title="Veranstaltung speichern" onclick="document.getElementById('formlist1').action='$formurl?eventId=$!event.id';" />
             #end
             <input type="reset" name="cancel" value="Zur Veranstaltungsübersicht" class="mainButton"
-                   onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
+                   onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
         </span>
-    </form>
+		</div>
+	</form>
     <div class="clear"></div>
 </div>
-
 
 
 <script type="text/javascript">
