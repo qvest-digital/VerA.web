@@ -153,44 +153,36 @@ public class CompanyListWorker extends ListWorkerVeraWeb {
 		companyNameExtra2 = personcompany.getMainExtra2().getCompany();
 		if (AddressHelper.empty(companyNameExtra2)) companyNameExtra2 = companyNameLatin;
 
-		if (copyBusinessLatin) {
+		if (copyBusinessLatin || copyBusinessExtra1 || copyBusinessExtra2) {
 			AddressHelper.copyAddressData(personcompany.getBusinessLatin(), person.getBusinessLatin(), true, true, true, true);
 			person.getBusinessLatin().setCompany(companyNameLatin);
-		}
-		if (copyBusinessExtra1) {
 			AddressHelper.copyAddressData(personcompany.getBusinessExtra1(), person.getBusinessExtra1(), true, true, true, true);
 			person.getBusinessExtra1().setCompany(companyNameExtra1);
-		}
-		if (copyBusinessExtra2) {
-			AddressHelper.copyAddressData(personcompany.getBusinessExtra2(), person.getBusinessExtra2(), true, true, true, true); //ich hasse copy/paste Fehler!!
+			AddressHelper.copyAddressData(personcompany.getBusinessExtra2(), person.getBusinessExtra2(), true, true, true, true);
 			person.getBusinessExtra2().setCompany(companyNameExtra2);
 		}
-		if (copyPrivateLatin) {
-			AddressHelper.copyAddressData(personcompany.getPrivateLatin(), person.getPrivateLatin(), true, true, true, true);
+
+		if (copyPrivateLatin || copyPrivateExtra1 || copyPrivateExtra2) {
+			AddressHelper.copyAddressData(personcompany.getBusinessLatin(), person.getPrivateLatin(), true, true, true, true);
 			person.getPrivateLatin().setCompany(companyNameLatin);
-		}
-		if (copyPrivateExtra1) {
-			AddressHelper.copyAddressData(personcompany.getPrivateExtra1(), person.getPrivateExtra1(), true, true, true, true);
+			AddressHelper.copyAddressData(personcompany.getBusinessExtra1(), person.getPrivateExtra1(), true, true, true, true);
 			person.getPrivateExtra1().setCompany(companyNameExtra1);
-		}
-		if (copyPrivateExtra2) {
-			AddressHelper.copyAddressData(personcompany.getPrivateExtra2(), person.getPrivateExtra2(), true, true, true, true);
+			AddressHelper.copyAddressData(personcompany.getBusinessExtra2(), person.getPrivateExtra2(), true, true, true, true);
 			person.getPrivateExtra2().setCompany(companyNameExtra2);
 		}
-		if (copyOtherLatin) {
-			AddressHelper.copyAddressData(personcompany.getOtherLatin(), person.getOtherLatin(), true, true, true, true);
+
+		if (copyOtherLatin || copyOtherExtra1 || copyOtherExtra2) {
+			AddressHelper.copyAddressData(personcompany.getBusinessLatin(), person.getOtherLatin(), true, true, true, true);
 			person.getOtherLatin().setCompany(companyNameLatin);
-		}
-		if (copyOtherExtra1) {
-			AddressHelper.copyAddressData(personcompany.getOtherExtra1(), person.getOtherExtra1(), true, true, true, true);
+			AddressHelper.copyAddressData(personcompany.getBusinessExtra1(), person.getOtherExtra1(), true, true, true, true);
 			person.getOtherExtra1().setCompany(companyNameExtra1);
-		}
-		if (copyOtherExtra2) {
-			AddressHelper.copyAddressData(personcompany.getOtherExtra2(), person.getOtherExtra2(), true, true, true, true);
+			AddressHelper.copyAddressData(personcompany.getBusinessExtra2(), person.getOtherExtra2(), true, true, true, true);
 			person.getOtherExtra2().setCompany(companyNameExtra2);
 		}
+
 		AddressHelper.checkPersonSalutation(person, database, context);
 		cntx.setContent("person", person);
 		cntx.setContent("showAdressTab", "true");
+		cntx.setContent("personAddresstypeTab", cntx.requestAsString("personAddresstypeTab"));
 	}
 }
