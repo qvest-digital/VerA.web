@@ -23,6 +23,8 @@ import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.clause.Clause;
+import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
@@ -36,6 +38,7 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -310,6 +313,31 @@ public class OptionalFieldsWorker {
         insertStatement.insert("content", "");
 
         return insertStatement;
+    }
+
+    public Boolean isFieldRegisterForTheEvent(final Integer eventId, final Integer fieldId) throws IOException, BeanException {
+
+        Clause labelNotNullClause = Expr.notEqual("label","");
+
+        Integer counter = this.database.getCount(this.database.getCount("OptionalField").
+                whereAndEq("fk_event", eventId).
+                whereAndEq("pk", fieldId).
+                whereAnd(labelNotNullClause)).intValue();
+        if (counter > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public Integer getTotalEventsFromEvent(final Integer eventId) throws IOException, BeanException {
+
+        Clause labelNotNullClause = Expr.notEqual("label","");
+
+        Integer counter = this.database.getCount(this.database.getCount("OptionalField").
+                whereAndEq("fk_event", eventId).
+                whereAnd(labelNotNullClause)).intValue();
+
+        return counter;
     }
 
 }

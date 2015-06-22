@@ -31,12 +31,20 @@
 </script>
 
 <div id="content_container">
+
     <div id="breadcrumb" class="textRight marginBottom10">
         <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     </div>
 
     <h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
 
+	#if ($optionalFieldsSummary.createdFields || $optionalFieldsSummary.changedFields || $optionalFieldsSummary.deletedFields)
+		<vera-confirm>
+			created: $optionalFieldsSummary.totalCreatedFields -
+			changed: $optionalFieldsSummary.totalChangedFields -
+			deleted: $optionalFieldsSummary.totalDeletedFields
+		</vera-confirm>
+	#end
 
     <form id="formlist1" name="formlist1" action="$formurl?eventId=$!event.id" method="POST">
 

@@ -33,6 +33,7 @@ import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.beans.OptionalFieldType;
 import de.tarent.aa.veraweb.beans.OptionalFieldTypeContent;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.OptionalFieldSummary;
 import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
 import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.helper.ResultList;
@@ -296,24 +297,55 @@ public class EventDelegationWorker {
      */
     public void saveDelegationFieldLabels(OctopusContext octopusContext, Integer eventId)
             throws BeanException, SQLException, IOException {
+        OptionalFieldSummary optionalFieldSummary = new OptionalFieldSummary();
+
         final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
+
         final Map<String, String> allRequestParams = octopusContext.getRequestObject().getRequestParameters();
 
+        setDeletedOptionalFieldsIntoSummary(optionalFieldSummary,optionalFieldsWorker, allRequestParams, eventId);
+
+
         for (String key : allRequestParams.keySet()) {
-            saveFieldLabels(eventId, optionalFieldsWorker, allRequestParams, key);
+            saveFieldLabels(eventId, optionalFieldsWorker, allRequestParams, key, optionalFieldSummary);
             saveFieldTypeContent(octopusContext, allRequestParams, key);
         }
 
         octopusContext.setContent("showSuccessMessage", true);
+        octopusContext.setContent("optionalFieldsSummary", optionalFieldSummary);
     }
 
-    private void saveFieldLabels(
-            Integer eventId,
-            OptionalFieldsWorker optionalFieldsWorker,
-            Map<String, String> allRequestParams,
-            String key) throws SQLException, BeanException {
+    private void setDeletedOptionalFieldsIntoSummary(OptionalFieldSummary optionalFieldSummary,
+                                                     final OptionalFieldsWorker optionalFieldsWorker,
+                                                     final Map<String, String> allRequestParams,
+                                                     final Integer eventId) throws IOException, BeanException {
+
+        Integer totalOldOptionalFields = optionalFieldsWorker.getTotalEventsFromEvent(eventId);
+        Integer totalNewFields = 0;
+        for (String key : allRequestParams.keySet()) {
+            if (key.startsWith("optionalField-")) {
+                String value = allRequestParams.get(key).toString();
+                if (!value.equals("")) {
+                    totalNewFields++;
+                }
+            }
+        }
+
+        Integer difference = totalOldOptionalFields - totalNewFields;
+
+        if (difference > 0) {
+            optionalFieldSummary.totalDeletedFields = difference;
+        } else {
+            optionalFieldSummary.totalCreatedFields = difference.intValue();
+        }
+
+    }
+
+    private void saveFieldLabels(Integer eventId, OptionalFieldsWorker optionalFieldsWorker,
+                                 Map<String, String> allRequestParams, String key,
+                                 OptionalFieldSummary optionalFieldSummary) throws SQLException, BeanException, IOException {
         if (key.startsWith("optionalField-")) {
-            saveField(eventId, optionalFieldsWorker, allRequestParams, key);
+            saveField(eventId, optionalFieldsWorker, allRequestParams, key, optionalFieldSummary);
         }
     }
 
@@ -324,10 +356,8 @@ public class EventDelegationWorker {
         }
     }
 
-    private void saveSingleFieldTypeContent(
-            OctopusContext octopusContext,
-            Map<String, String> allRequestParams,
-            String key) throws BeanException, IOException, SQLException {
+    private void saveSingleFieldTypeContent(OctopusContext octopusContext, Map<String, String> allRequestParams,
+                                            String key) throws BeanException, IOException, SQLException {
         
         final Database database = new DatabaseVeraWeb(octopusContext);
         final TransactionContext transactionalContext = database.getTransactionContext();
@@ -378,11 +408,9 @@ public class EventDelegationWorker {
             return (OptionalFieldTypeContent) database.getBean("OptionalFieldTypeContent", select);
     }
 
-    private void saveField(
-            Integer eventId,
-            OptionalFieldsWorker optionalFieldsWorker,
-            Map<String, String> allRequestParams,
-            String key) throws SQLException, BeanException {
+    private void saveField(Integer eventId, OptionalFieldsWorker optionalFieldsWorker,
+                           Map<String, String> allRequestParams, String key,
+                           OptionalFieldSummary optionalFieldSummary) throws SQLException, BeanException, IOException {
         final String[] splitted = key.split("-");
         final OptionalField optionalField = new OptionalField();
         optionalField.setFkEvent(eventId);
@@ -398,7 +426,31 @@ public class EventDelegationWorker {
         }
 
         optionalFieldsWorker.updateOptionalField(optionalField);
+        /** Insertion into summary */
+        // 1. Check if the field was stored -> into update list
+
+//        optionalFieldSummary.setCreatedFields(new ArrayList<OptionalField>());
+//        optionalFieldSummary.setChangedFields(new ArrayList<OptionalField>());
+//        optionalFieldSummary.setDeletedFields(new ArrayList<OptionalField>());
+//
+//        if (!optionalFieldsWorker.isFieldRegisterForTheEvent(optionalField.getFkEvent(), optionalField.getId())) {
+//            optionalFieldSummary.addCreatedOptionalField(optionalField);
+//        }
+//        else {
+//            optionalFieldSummary.addChangedOptionalField(optionalField);
+//
+//        }
+        // 2. Check if the field is new -> into create list
+        // 3. Check if the field is deleted -> into delete list
+
+        // TODO implement checks
+
+
+//        optionalFieldSummary.addDeletedOptionalField(optionalField);
     }
+
+
+
 
     /**
      * Duplicate optional fields in the database exam (database).
