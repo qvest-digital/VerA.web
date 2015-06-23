@@ -19,6 +19,9 @@ onlineRegApp.run(function ($rootScope) {
 		$rootScope.previousMessage = null;
 		$rootScope.messageContent = null;
 	}
+
+	//Only required for LoginController
+	setStatus = null;
 });
 
 onlineRegApp.config(function ($routeProvider, $translateProvider) {
@@ -662,14 +665,12 @@ onlineRegApp.controller('DirectLoginController', function ($scope, $location, $h
 });
 
 onlineRegApp.controller('LoginController', function ($scope, $location, $http, $rootScope, $translate, $routeParams) {
-//	$scope.success = null;
-//	$scope.error = null;
-//	$rootScope.cleanMessages();
-
-
-	console.log($scope.status + "1");
-
-
+	//setStatus will be setted from RegisterUserController, if
+	//registering was successful
+	if(setStatus == 1) {
+		$scope.status = 1;
+		setStatus = null;
+	}
 
 	$scope.login = function () {
 		$scope.button = true;
@@ -808,12 +809,6 @@ onlineRegApp.controller('RegisterUserController', function($scope, $http, $locat
 
 	$scope.status = 0;
 
-
-
-	console.log($scope.status + "2");
-
-
-
 	$scope.register = function(isValid) {
 		if(!isValid) { return; }
 		$http({
@@ -830,6 +825,8 @@ onlineRegApp.controller('RegisterUserController', function($scope, $http, $locat
 			case 'OK':
 				$scope.status = 1;
 
+				setStatus = 1;
+
 				$scope.update = function (parm1, parm2) {
 			        $scope.status = parm1 + ": " + parm2;
 			    };
@@ -845,30 +842,14 @@ onlineRegApp.controller('RegisterUserController', function($scope, $http, $locat
 				$scope.status = 'e';
 			}
 
-
-
-			console.log($scope.status + "3");
-
-
-
 			if($scope.status == 1) {
-				console.log($scope.status + "4");
-
 				$location.path('/login');
-
-				console.log($scope.status + "5");
 			}
 
-
 			window.console.log("User registered with response:  '" + result + "'.");
-
-			console.log($scope.status  + "6");
 		}).error(function (data, status, headers, config) {
 			$scope.status = 'e';
 			window.console.log("ERROR while userregistration.");
-
-
-			console.log($scope.status + "7");
 		});
 	};
 });
@@ -879,7 +860,6 @@ onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $ro
 
 	if ($rootScope.user_logged_in == null) {
 		lastPageRegisterPath = $location.path();
-
 		$location.path('/login');
 		$rootScope.success = null;
 	} else {
@@ -898,11 +878,7 @@ onlineRegApp.controller('KontaktdatenController', function ($scope, $location, $
 	$rootScope.cleanMessages();
 
 	if ($rootScope.user_logged_in == null) {
-
-
 		lastPageRegisterPath = $location.path();
-
-
 		$location.path('/login');
 	} else {
 		$http.get('api/event/list/{userid}/').success(function (result) {
