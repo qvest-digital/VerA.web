@@ -277,8 +277,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		}
 
         final List order = new ArrayList();
-//		order.add("ishost");
-//		order.add("ASC");
+		order.add("ishost");
+		order.add("ASC");
 		if (search == null || search.listorder == null) {
 			order.add("someorderno");
 			order.add("tcategorie.rank");
@@ -291,8 +291,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				order.add("firstname_a_e1");
 			}
 		} else if (search.listorder.equals("orderno")) {
-                order.add("orderno");
-                order.add("orderno_p");
+                order.add("someorderno");
         } else if (search.listorder.equals("lastname_a_e1")) {
 			if (freitextfeld != null) {
 				order.add("lastname_a_gd");
