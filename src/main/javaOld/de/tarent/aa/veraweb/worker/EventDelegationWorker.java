@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
@@ -33,8 +34,12 @@ import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.beans.OptionalFieldType;
 import de.tarent.aa.veraweb.beans.OptionalFieldTypeContent;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.EventURLHandler;
+import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.OptionalFieldSummary;
 import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
+import de.tarent.aa.veraweb.utils.PropertiesReader;
+import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
@@ -83,7 +88,7 @@ public class EventDelegationWorker {
         if (guestId == null && eventId == null) {
             return null;
         }
-        setEventInContext(octopusContext, eventId);
+        setEventAndMediaRepresantativeURLInContext(octopusContext, eventId);
 
         return getOptionalFieldsForGuest(octopusContext, guestId);
     }
@@ -110,7 +115,7 @@ public class EventDelegationWorker {
      */
     public void getOptionalFieldTypesFromEvent(final OctopusContext octopusContext, Integer eventId)
             throws SQLException, BeanException, IOException {
-        setEventInContext(octopusContext, eventId);
+        setEventAndMediaRepresantativeURLInContext(octopusContext, eventId);
 
         final DatabaseVeraWeb database = new DatabaseVeraWeb(octopusContext);
         final Select selectTypesStatement = SQL.Select(database);
@@ -176,7 +181,7 @@ public class EventDelegationWorker {
      */
     public Map<String, String> showDelegationFieldsOnlyByEventId(OctopusContext octopusContext, Integer eventId)
             throws IOException, BeanException, SQLException {
-        setEventInContext(octopusContext, eventId);
+        setEventAndMediaRepresantativeURLInContext(octopusContext, eventId);
         return null;
     }
 
@@ -190,11 +195,18 @@ public class EventDelegationWorker {
         return null;
     }
 
-    private void setEventInContext(OctopusContext oc, Integer eventId) throws BeanException, IOException {
+    private void setEventAndMediaRepresantativeURLInContext(OctopusContext oc, Integer eventId)
+            throws BeanException, IOException {
         oc.setContent("eventId", eventId);
         final Event event = getEvent(oc, eventId);
         if (event != null) {
             oc.setContent("event", event);
+        }
+
+        if (OnlineRegistrationHelper.isOnlineregActive(oc)) {
+            final EventURLHandler eventURLHandler = new EventURLHandler();
+            eventURLHandler.setEventUrl(oc, event.hash);
+            setUrlForMediaRepresentatives(oc, event);
         }
     }
 
@@ -213,7 +225,7 @@ public class EventDelegationWorker {
     public List<OptionalField> getDelegationFieldsLabels(OctopusContext octopusContext, Integer eventId)
             throws IOException, BeanException, SQLException {
 
-        setEventInContext(octopusContext, eventId);
+        setEventAndMediaRepresantativeURLInContext(octopusContext, eventId);
 
         final List<OptionalFieldType> fieldTypes = getOptionalFieldTypes(octopusContext);
         octopusContext.setContent("fieldTypes", fieldTypes);
@@ -333,10 +345,10 @@ public class EventDelegationWorker {
     private void saveSingleFieldTypeContent(OctopusContext octopusContext, Map<String, String> allRequestParams,
                                             String key, OptionalFieldSummary optionalFieldSummary)
                                                         throws BeanException, IOException, SQLException {
-        
+
         final Database database = new DatabaseVeraWeb(octopusContext);
         final TransactionContext transactionalContext = database.getTransactionContext();
-        
+
         final String[] keyParts = key.split("_");
         final String[] labelParts = keyParts[0].split("-");
         final String[] valueParts = keyParts[1].split("-");
@@ -400,10 +412,10 @@ public class EventDelegationWorker {
         optionalFieldTypeContent.setFk_optional_field(new Integer(labelParts[1]));
         optionalFieldTypeContent.setContent(allRequestParams.get(key).toString());
         optionalFieldTypeContent.setId(typeContentId);
-        
+
         return optionalFieldTypeContent;
     }
-    
+
     private OptionalFieldTypeContent getExistingTypeContent(OctopusContext octopusContext, Integer typeContentId)
             throws BeanException, IOException, SQLException {
         final Database database = new DatabaseVeraWeb(octopusContext);
@@ -524,6 +536,19 @@ public class EventDelegationWorker {
             cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
         }
         return event;
+    }
+
+    private void setUrlForMediaRepresentatives(OctopusContext cntx, Event event) throws IOException {
+        PropertiesReader propertiesReader = new PropertiesReader();
+
+        if(propertiesReader.propertiesAreAvailable() && event.mediarepresentatives != null) {
+            Properties properties = propertiesReader.getProperties();
+            URLGenerator url = new URLGenerator(properties);
+            url.getURLForMediaRepresentatives();
+            cntx.setContent("pressevertreterUrl", url.getURLForMediaRepresentatives() + event.mediarepresentatives);
+        } else {
+            cntx.setContent("pressevertreterUrl", "Nicht verf&uuml;gbar");
+        }
     }
 }
 

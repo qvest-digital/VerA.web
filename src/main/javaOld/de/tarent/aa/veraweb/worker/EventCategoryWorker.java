@@ -26,7 +26,7 @@ public class EventCategoryWorker extends ListWorkerVeraWeb {
 
     @Override
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-        select.where(Expr.equal("tevent_category.fk_event", getEvent(cntx).id));
+        select.where(Expr.equal("tevent_category.fk_event", getEventAndMediaRepresentativeURL(cntx).id));
     }
 
     @Override
@@ -38,7 +38,7 @@ public class EventCategoryWorker extends ListWorkerVeraWeb {
 
     @Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
-        select.where(Expr.equal("tevent_category.fk_event", getEvent(cntx).id));
+        select.where(Expr.equal("tevent_category.fk_event", getEventAndMediaRepresentativeURL(cntx).id));
     }
 
     @Override
