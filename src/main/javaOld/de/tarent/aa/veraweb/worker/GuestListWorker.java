@@ -27,6 +27,7 @@ import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
+import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
@@ -57,6 +58,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Verwaltet eine Gästeliste.
@@ -565,7 +567,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @throws BeanException
      * @throws IOException
      */
-    public Event getEvent(OctopusContext cntx) throws BeanException, IOException {
+    public Event getEventAndMediaRepresentativeURL(OctopusContext cntx) throws BeanException, IOException {
         final GuestSearch search = getSearch(cntx);
         if (search == null) {
             return null;
@@ -575,6 +577,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         if (event == null) {
             cntx.setStatus("noevent");
         }
+
+        setUrlForMediaRepresentatives(cntx, event);
+
         return event;
     }
 
@@ -756,4 +761,17 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		data.put("absagen", absagen);
 		data.put("teilnahmen", teilnahmen);
 	}
+
+	private void setUrlForMediaRepresentatives(OctopusContext cntx, Event event) throws IOException {
+        PropertiesReader propertiesReader = new PropertiesReader();
+
+        if(propertiesReader.propertiesAreAvailable() && event.mediarepresentatives != null) {
+            Properties properties = propertiesReader.getProperties();
+            URLGenerator url = new URLGenerator(properties);
+            url.getURLForMediaRepresentatives();
+            cntx.setContent("pressevertreterUrl", url.getURLForMediaRepresentatives() + event.mediarepresentatives);
+        } else {
+            cntx.setContent("pressevertreterUrl", "Nicht verf&uuml;gbar");
+        }
+    }
 }
