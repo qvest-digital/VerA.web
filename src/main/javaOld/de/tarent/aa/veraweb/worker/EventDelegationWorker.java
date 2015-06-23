@@ -19,15 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalDelegationField;
 import de.tarent.aa.veraweb.beans.OptionalField;
@@ -52,6 +43,15 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -352,67 +352,74 @@ public class EventDelegationWorker {
 
         final Database database = new DatabaseVeraWeb(octopusContext);
         final TransactionContext transactionalContext = database.getTransactionContext();
-
         final String[] keyParts = key.split("_");
         final String[] labelParts = keyParts[0].split("-");
         final String[] valueParts = keyParts[1].split("-");
-        Integer typeContentId = new Integer(valueParts[1]);
-
-        updateFieldtypeContent(octopusContext, allRequestParams, key, optionalFieldSummary, database,
-                transactionalContext, labelParts, valueParts, typeContentId);
-    }
-
-    private void updateFieldtypeContent(OctopusContext octopusContext, Map<String, String> allRequestParams,
-            String key, OptionalFieldSummary optionalFieldSummary, final Database database,
-            final TransactionContext transactionalContext, final String[] labelParts, final String[] valueParts,
-            Integer typeContentId) throws BeanException, IOException, SQLException {
+        final Integer typeContentId = new Integer(valueParts[1]);
         final OptionalFieldTypeContent optionalFieldTypeContent =
-            handleUpdateOptionalFieldTypeContent(
-                    octopusContext,
-                    allRequestParams,
-                    key,
-                    labelParts,
-                    typeContentId);
+                handleUpdateOptionalFieldTypeContent(octopusContext, allRequestParams, key, labelParts, typeContentId);
+        final List<OptionalField> changedFields = optionalFieldSummary.getChangedFields();
+        final List<OptionalField> deletedFields = optionalFieldSummary.getDeletedFields();
+        final OptionalField changedField = checkChangedOptionsToSupportSummary(octopusContext, deletedFields, changedFields, typeContentId, optionalFieldTypeContent);
+        if(changedField != null) {
+            optionalFieldSummary.addChangedOptionalField(changedField);
+        }
 
-        checkChangedOptionsToSupportSummary(octopusContext, optionalFieldSummary, typeContentId, optionalFieldTypeContent);
-
-        final Update update = SQL.Update( database );
-        update.table( "veraweb.toptional_field_type_content" );
-        update.update( "content", optionalFieldTypeContent.getContent());
-        update.where( Expr.equal( "pk", new Integer(valueParts[1]) ) );
-
-        transactionalContext.execute(update);
+        final Update updateStatement = optionalFieldUpdateStatement(database, typeContentId, optionalFieldTypeContent);
+        transactionalContext.execute(updateStatement);
         transactionalContext.commit();
     }
 
-    private void checkChangedOptionsToSupportSummary(OctopusContext octopusContext,
-                                                     OptionalFieldSummary optionalFieldSummary,
-                                                     Integer typeContentId,
-                                                     OptionalFieldTypeContent optionalFieldTypeContent)
+    private Update optionalFieldUpdateStatement(Database database, Integer valuePart, OptionalFieldTypeContent optionalFieldTypeContent) {
+        final Update update = SQL.Update(database);
+        update.table( "veraweb.toptional_field_type_content" );
+        update.update("content", optionalFieldTypeContent.getContent());
+        update.where(Expr.equal("pk", valuePart));
+        return update;
+    }
+
+    private OptionalField checkChangedOptionsToSupportSummary(OctopusContext octopusContext,
+                                                              List<OptionalField> deletedFields,
+                                                              List<OptionalField> changedFields,
+                                                              Integer typeContentId,
+                                                              OptionalFieldTypeContent optionalFieldTypeContent)
             throws BeanException, IOException, SQLException {
 
-        final OptionalFieldTypeContent oldOptionalFieldTypeContent = getExistingTypeContent(octopusContext,typeContentId);
-        Boolean changed = false;
-        if (oldOptionalFieldTypeContent.getContent() != null && !oldOptionalFieldTypeContent.getContent().equals(optionalFieldTypeContent.getContent())) {
-            final List<OptionalField> changedFields = optionalFieldSummary.getChangedFields();
-            if (changedFields != null) {
-                for (OptionalField changedField : changedFields) {
-                    if (optionalFieldTypeContent.getFk_optional_field().equals(changedField.getId())) {
-                        changed = true;
-                        break;
-                    }
-                }
-            }
+        final OptionalFieldTypeContent oldOptionalFieldTypeContent = getExistingTypeContent(octopusContext, typeContentId);
+        final String optionalFieldContent = oldOptionalFieldTypeContent.getContent();
+        if (optionalFieldContent != null && !optionalFieldContent.equals(optionalFieldTypeContent.getContent())) {
+
+            final Integer optionalFieldId = optionalFieldTypeContent.getFk_optional_field();
+            final Boolean changed = getFieldChangedStatus(changedFields, optionalFieldId);
 
             if (!changed) {
-                final OptionalField optionalField = getRelatedOptionalFieldByTypeContent(octopusContext,optionalFieldTypeContent.getFk_optional_field());
-                final List<OptionalField> deletedFields = optionalFieldSummary.getDeletedFields();
-                if (deletedFields == null || !deletedFields.contains(optionalField)) {
-                    optionalFieldSummary.addChangedOptionalField(optionalField);
+                return addChangedOptionalFieldToSummary(octopusContext, deletedFields, optionalFieldId);
+            }
+        }
+        return null;
+    }
+
+    private Boolean getFieldChangedStatus(List<OptionalField>  changedFields, Integer optionalFieldId) {
+        Boolean changed = false;
+        if (changedFields != null) {
+            for (OptionalField changedField : changedFields) {
+                if (optionalFieldId.equals(changedField.getId())) {
+                    changed = true;
+                    break;
                 }
             }
-
         }
+        return changed;
+    }
+
+    private OptionalField addChangedOptionalFieldToSummary(OctopusContext octopusContext,
+                                                           List<OptionalField> deletedFields,
+                                                           Integer optionalFieldId) throws BeanException, SQLException {
+        final OptionalField optionalField = getRelatedOptionalFieldByTypeContent(octopusContext,optionalFieldId);
+        if (deletedFields == null || !deletedFields.contains(optionalField)) {
+            return optionalField;
+        }
+        return null;
     }
 
     private OptionalFieldTypeContent handleUpdateOptionalFieldTypeContent(
