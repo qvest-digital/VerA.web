@@ -297,13 +297,11 @@ public class EventDelegationWorker {
      */
     public void saveDelegationFieldLabels(OctopusContext octopusContext, Integer eventId)
             throws BeanException, SQLException, IOException {
-        OptionalFieldSummary optionalFieldSummary = new OptionalFieldSummary();
-
+        final OptionalFieldSummary optionalFieldSummary = new OptionalFieldSummary();
         final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
-
         final Map<String, String> allRequestParams = octopusContext.getRequestObject().getRequestParameters();
 
-        List<OptionalField> oldOptionalFields = optionalFieldsWorker.getTotalEventsFromEvent(eventId);
+        final List<OptionalField> oldOptionalFields = optionalFieldsWorker.getTotalEventsFromEvent(eventId);
 
         for (String key : allRequestParams.keySet()) {
             saveFieldLabels(eventId, optionalFieldsWorker, allRequestParams, key, optionalFieldSummary, oldOptionalFields);
@@ -367,13 +365,13 @@ public class EventDelegationWorker {
                                                      OptionalFieldTypeContent optionalFieldTypeContent)
             throws BeanException, IOException, SQLException {
 
-        OptionalFieldTypeContent oldOptionalFieldTypeContent = getExistingTypeContent(octopusContext,typeContentId);
+        final OptionalFieldTypeContent oldOptionalFieldTypeContent = getExistingTypeContent(octopusContext,typeContentId);
         Boolean changed = false;
-        if (oldOptionalFieldTypeContent.getContent() != null &&
-                !oldOptionalFieldTypeContent.getContent().equals(optionalFieldTypeContent.getContent())) {
-            if (optionalFieldSummary.getChangedFields() != null) {
-                for (OptionalField optionalField : optionalFieldSummary.getChangedFields()) {
-                    if (optionalFieldTypeContent.getFk_optional_field().equals(optionalField.getId())) {
+        if (oldOptionalFieldTypeContent.getContent() != null && !oldOptionalFieldTypeContent.getContent().equals(optionalFieldTypeContent.getContent())) {
+            final List<OptionalField> changedFields = optionalFieldSummary.getChangedFields();
+            if (changedFields != null) {
+                for (OptionalField changedField : changedFields) {
+                    if (optionalFieldTypeContent.getFk_optional_field().equals(changedField.getId())) {
                         changed = true;
                         break;
                     }
@@ -381,11 +379,11 @@ public class EventDelegationWorker {
             }
 
             if (!changed) {
-                OptionalField optionalField =
-                        getRelatedOptionalFieldByTypeContent(octopusContext,
-                                                             optionalFieldTypeContent.getFk_optional_field());
-
-                optionalFieldSummary.addChangedOptionalField(optionalField);
+                final OptionalField optionalField = getRelatedOptionalFieldByTypeContent(octopusContext,optionalFieldTypeContent.getFk_optional_field());
+                final List<OptionalField> deletedFields = optionalFieldSummary.getDeletedFields();
+                if (deletedFields == null || !deletedFields.contains(optionalField)) {
+                    optionalFieldSummary.addChangedOptionalField(optionalField);
+                }
             }
 
         }
@@ -478,7 +476,7 @@ public class EventDelegationWorker {
                     optionalFieldSummary.addDeletedOptionalField(optionalField);
                     optionalField.setFkType(OptionalFieldTypeFacade.inputfield.getValue());
                 }
-                else if (!oldField.getLabel().equals(optionalField.getLabel())) {
+                else if (!oldField.getLabel().equals(optionalField.getLabel()) || !oldField.getFkType().equals(optionalField.getFkType())) {
                     optionalFieldSummary.addChangedOptionalField(optionalField);
                 }
             }
