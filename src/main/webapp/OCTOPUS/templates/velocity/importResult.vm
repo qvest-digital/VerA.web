@@ -59,7 +59,7 @@
                 <input type="hidden" name="importId" value="$!importStatus.id"/>
                 <input type="submit" class="mainButton" value="Import abschließen" title="Import abschließen" onclick="htmlWait();"/>
 			#end
-			<input type="button" class="mainButton" value="Zur&uuml;ck zu Personenimport" title="Zur&uuml;ck zu Personenimport" onclick="window.location.href='ImportPersons';"/>
+			<input type="button" class="mainButton" value="Zur&uuml;ck zum Personenimport" title="Zur&uuml;ck zum Personenimport" onclick="window.location.href='ImportPersons';"/>
 		</span>
 	</form>
 
