@@ -254,7 +254,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 				order.add("lastname_a_e1");
 				order.add("firstname_a_e1");
 			}
-		} else if (search.listorder.equals("lastname_a_e1")) {
+		} else if (search.listorder.equals("orderno")) {
+                order.add("someorderno");
+        } else if (search.listorder.equals("lastname_a_e1")) {
 			if (freitextfeld != null) {
 				order.add("lastname_a_gd");
 				order.add("firstname_a_gd");
@@ -566,7 +568,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             search = (GuestSearch) cntx.sessionAsObject("search" + BEANNAME);
         }
 
-        if (search != null && !("lastname_a_e1".equals(search.listorder) || "firstname_a_e1".equals(search.listorder) || "mail_a_e1".equals(search.listorder))) {
+        if (search != null && !("lastname_a_e1".equals(search.listorder) || !"firstname_a_e1".equals(search.listorder) || !"mail_a_e1".equals(search.listorder) || !"orderno".equals(search.listorder))) {
             search.listorder = null;
         }
 

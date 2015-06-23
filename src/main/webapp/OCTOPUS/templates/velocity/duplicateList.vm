@@ -151,7 +151,7 @@
 		#end
 
 		<span id="buttonPanel-top" class="textRight floatRight">
-			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zu Personenimport" class="mainButton" onclick="document.formlist.action='ImportPersonsStoredRecord';document.formlist.submit();" />
+			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zum Personenimport" class="mainButton" onclick="document.formlist.action='ImportPersonsStoredRecord';document.formlist.submit();" />
 		</span>
 
 	</form>

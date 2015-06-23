@@ -139,22 +139,18 @@ public class DateHelper {
 	 * Temporarily fixes issue #1529.
 	 * @param errors
 	 */
-	static public void temporary_fix_translateErrormessageEN2DE(List< String > errors)
-	{
-		List< String > found = new ArrayList< String >();
-		for( String err : errors )
-		{
-			if ( err.contains( "is not a valid date" ) )
-			{
-				found.add( err );
+	static public void temporary_fix_translateErrormessageEN2DE(List<String> errors) {
+		List<String> found = new ArrayList<String>();
+		for (String err : errors) {
+			if (err.contains("is not a valid date")) {
+				found.add(err);
 			}
 		}
 
-		for ( String err : found )
-		{
-			String input = StringEscapeUtils.escapeHtml(err.substring( 0, err.indexOf( ' ' )));
+		for (String err : found) {
+			String input = StringEscapeUtils.escapeHtml(err.substring(0, err.indexOf(' ')));
 
-			errors.remove( err );
+			errors.remove(err);
 			errors.add("" + input + " ist kein g\u00fcltiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!");
 		}
 	}

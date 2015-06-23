@@ -110,7 +110,7 @@ public class DatabaseHelper {
 						order = order.andAsc((String)list.get(pos));
 						pos += 2;
 					} else {
-						order = order.andDesc((String)list.get(pos));
+						order = order.andAsc((String)list.get(pos));
 						pos += 1;
 					}
 				} else {
