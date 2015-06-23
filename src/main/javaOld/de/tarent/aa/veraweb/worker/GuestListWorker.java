@@ -119,6 +119,11 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         final String workareaAssignmentAction = cntx.requestAsString("workareaAssignmentAction");
 
         // does the user request categories to be assigned or unassigned?
+        saveGuestWithCategories(cntx, categoryAssignmentAction);
+    }
+
+    private void saveGuestWithCategories(OctopusContext cntx, final String categoryAssignmentAction)
+            throws BeanException, IOException {
         if (categoryAssignmentAction != null && categoryAssignmentAction.length() > 0) {
             final Database database = getDatabase(cntx);
             final TransactionContext context = database.getTransactionContext();
@@ -224,60 +229,17 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         if (configFreitextfeld != null) {
             final Database database = getDatabase(cntx);
 
-            final Select eventDoctypeSelect = database.getCount("EventDoctype");
-            eventDoctypeSelect.where(Expr.equal("fk_event", cntx.requestAsInteger("search-event")));
-            eventDoctypeSelect.whereAnd(Expr.equal("fk_doctype", configFreitextfeld));
-
-            if (database.getCount(eventDoctypeSelect) != 0) {
-                freitextfeld = configFreitextfeld;
-            }
+            freitextfeld = selectEventDoctype(cntx, configFreitextfeld, freitextfeld, database);
         }
 
-        select.joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk");
-		select.joinLeftOuter("veraweb.tcategorie", "tguest.fk_category", "tcategorie.pk");
-		select.selectAs("CASE WHEN tguest.orderno IS NOT NULL THEN NULLIF(tguest.orderno, 0) ELSE NULLIF(tguest.orderno_p, 0) END", "someorderno");
-		select.selectAs("tcategorie.rank", "catrank");
-		select.select("firstname_a_e1");
-		select.select("lastname_a_e1");
-		select.select("firstname_b_e1");
-		select.select("lastname_b_e1");
-		select.select("function_a_e1");
-        select.select("tperson.company_a_e1");
-        select.select("tperson.company_a_e2");
-        select.select("tperson.company_a_e3");
-		select.select("city_a_e1");
-		select.select("zipcode_a_e1");
-		select.select("fon_a_e1");
-		select.select("mail_a_e1");
-        select.select("delegation");
+        buildGuestSelect(select, freitextfeld);
 
-		if (freitextfeld != null) {
-			select.joinLeftOuter("veraweb.tguest_doctype", "tguest.pk", "tguest_doctype.fk_guest AND fk_doctype = " + freitextfeld);
-			select.selectAs("tguest_doctype.pk IS NOT NULL", "showdoctype");
-			select.selectAs("firstname", "firstname_a_gd");
-			select.selectAs("lastname", "lastname_a_gd");
-			select.selectAs("firstname_p", "firstname_b_gd");
-			select.selectAs("lastname_p", "lastname_b_gd");
-			select.selectAs("mail", "mail_a_gd");
-			select.selectAs("function", "function_a_gd");
-			select.selectAs("city", "city_a_gd");
-			select.selectAs("zipcode", "zipcode_a_gd");
-			select.selectAs("fon", "fon_a_gd");
-			select.selectAs("mail", "mail_a_gd");
-		} else {
-			select.selectAs("FALSE", "showdoctype");
-			select.selectAs("NULL", "firstname_a_gd");
-			select.selectAs("NULL", "lastname_a_gd");
-			select.selectAs("NULL", "firstname_b_gd");
-			select.selectAs("NULL", "lastname_b_gd");
-			select.selectAs("NULL", "mail_a_gd");
-			select.selectAs("NULL", "function_a_gd");
-			select.selectAs("NULL", "city_a_gd");
-			select.selectAs("NULL", "zipcode_a_gd");
-			select.selectAs("NULL", "fon_a_gd");
-			select.selectAs("NULL", "mail_a_gd");
-		}
+        final List order = buildOrderedGuestList(search, freitextfeld);
 
+		select.orderBy(DatabaseHelper.getOrder(order));
+	}
+
+    private List buildOrderedGuestList(final GuestSearch search, Integer freitextfeld) {
         final List order = new ArrayList();
 		order.add("ishost");
 		order.add("ASC");
@@ -327,8 +289,67 @@ public class GuestListWorker extends ListWorkerVeraWeb {
                 order.add("firstname_a_e1");
             }
         }
-		select.orderBy(DatabaseHelper.getOrder(order));
-	}
+        return order;
+    }
+
+    private void buildGuestSelect(Select select, Integer freitextfeld) {
+        select.joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk");
+		select.joinLeftOuter("veraweb.tcategorie", "tguest.fk_category", "tcategorie.pk");
+		select.selectAs("CASE WHEN tguest.orderno IS NOT NULL THEN NULLIF(tguest.orderno, 0) ELSE NULLIF(tguest.orderno_p, 0) END", "someorderno");
+		select.selectAs("tcategorie.rank", "catrank");
+		select.select("firstname_a_e1");
+		select.select("lastname_a_e1");
+		select.select("firstname_b_e1");
+		select.select("lastname_b_e1");
+		select.select("function_a_e1");
+        select.select("tperson.company_a_e1");
+        select.select("tperson.company_a_e2");
+        select.select("tperson.company_a_e3");
+		select.select("city_a_e1");
+		select.select("zipcode_a_e1");
+		select.select("fon_a_e1");
+		select.select("mail_a_e1");
+        select.select("delegation");
+
+		if (freitextfeld != null) {
+			select.joinLeftOuter("veraweb.tguest_doctype", "tguest.pk", "tguest_doctype.fk_guest AND fk_doctype = " + freitextfeld);
+			select.selectAs("tguest_doctype.pk IS NOT NULL", "showdoctype");
+			select.selectAs("firstname", "firstname_a_gd");
+			select.selectAs("lastname", "lastname_a_gd");
+			select.selectAs("firstname_p", "firstname_b_gd");
+			select.selectAs("lastname_p", "lastname_b_gd");
+			select.selectAs("mail", "mail_a_gd");
+			select.selectAs("function", "function_a_gd");
+			select.selectAs("city", "city_a_gd");
+			select.selectAs("zipcode", "zipcode_a_gd");
+			select.selectAs("fon", "fon_a_gd");
+			select.selectAs("mail", "mail_a_gd");
+		} else {
+			select.selectAs("FALSE", "showdoctype");
+			select.selectAs("NULL", "firstname_a_gd");
+			select.selectAs("NULL", "lastname_a_gd");
+			select.selectAs("NULL", "firstname_b_gd");
+			select.selectAs("NULL", "lastname_b_gd");
+			select.selectAs("NULL", "mail_a_gd");
+			select.selectAs("NULL", "function_a_gd");
+			select.selectAs("NULL", "city_a_gd");
+			select.selectAs("NULL", "zipcode_a_gd");
+			select.selectAs("NULL", "fon_a_gd");
+			select.selectAs("NULL", "mail_a_gd");
+		}
+    }
+
+    private Integer selectEventDoctype(OctopusContext cntx, final Integer configFreitextfeld, Integer freitextfeld,
+            final Database database) throws BeanException, IOException {
+        final Select eventDoctypeSelect = database.getCount("EventDoctype");
+        eventDoctypeSelect.where(Expr.equal("fk_event", cntx.requestAsInteger("search-event")));
+        eventDoctypeSelect.whereAnd(Expr.equal("fk_doctype", configFreitextfeld));
+
+        if (database.getCount(eventDoctypeSelect) != 0) {
+            freitextfeld = configFreitextfeld;
+        }
+        return freitextfeld;
+    }
 
 	protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
         final Database database = getDatabase(cntx);
@@ -434,6 +455,19 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		 */
         final Guest guestOld = ( Guest ) database.getBean( "Guest", guest.id );
 
+        final Update update = createGuestUpdateStatement(database, guest);
+
+		context.execute(update);
+
+		/*
+		 * modified to support change logging
+		 * cklein 2008-02-12
+		 */
+        final BeanChangeLogger clogger = new BeanChangeLogger( database, context );
+		clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
+	}
+
+    private Update createGuestUpdateStatement(final Database database, final Guest guest) {
         final Update update = SQL.Update( database ).
 				table("veraweb.tguest").
 				update("invitationstatus", guest.invitationstatus_a).
@@ -463,16 +497,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
                 update.update("orderno_p", null);
             }
 		}
-
-		context.execute(update);
-
-		/*
-		 * modified to support change logging
-		 * cklein 2008-02-12
-		 */
-        final BeanChangeLogger clogger = new BeanChangeLogger( database, context );
-		clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
-	}
+        return update;
+    }
 
 	protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
         final Database database = context.getDatabase();
@@ -567,7 +593,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @throws BeanException
      * @throws IOException
      */
-    public Event getEventAndMediaRepresentativeURL(OctopusContext cntx) throws BeanException, IOException {
+    public Event getEvent(OctopusContext cntx) throws BeanException, IOException {
         final GuestSearch search = getSearch(cntx);
         if (search == null) {
             return null;
@@ -696,35 +722,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	 * @throws BeanException
 	 */
 	protected void getSums(Database database, Map data, GuestSearch search, List selection) throws BeanException {
-        final WhereList where = new WhereList();
-		GuestListWorker.addGuestListFilter(search, where);
-
-		if (selection != null && selection.size() != 0) {
-			where.addAnd(Expr.in("tguest.pk", selection));
-		}
-
-        final Select select = SQL.Select( database ).
-				from("veraweb.tguest").
-				where(where);
-
-		select.selectAs(
-				"SUM(CASE WHEN reserve =  1 THEN 0 ELSE CASE WHEN invitationtype = 1 THEN 2 ELSE 1 END END)", "platz");
-		select.selectAs(
-				"SUM(CASE WHEN reserve != 1 THEN 0 ELSE CASE WHEN invitationtype = 1 THEN 2 ELSE 1 END END)", "reserve");
-		select.selectAs(
-				"SUM(CASE WHEN reserve != 1 AND invitationstatus   = 1 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
-				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 1 AND invitationtype != 2 THEN 1 ELSE 0 END)", "zusagen");
-		select.selectAs(
-				"SUM(CASE WHEN reserve != 1 AND invitationstatus   = 2 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
-				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 2 AND invitationtype != 2 THEN 1 ELSE 0 END)", "absagen");
-		select.selectAs(
-				"SUM(CASE WHEN reserve != 1 AND invitationstatus   = 3 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
-				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 3 AND invitationtype != 2 THEN 1 ELSE 0 END)", "teilnahmen");
-
-		select.selectAs(
-				"SUM(CASE WHEN tperson.iscompany = 't' THEN 1 ELSE 0 END)", "delegationen");
-
-		select.joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk");
+        final Select select = buildAndCountListFromGuests(database, search, selection);
 
         final Map result = (Map)database.getList(select, database).iterator().next();
 		Long platz = (Long)result.get("platz");
@@ -761,6 +759,43 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		data.put("absagen", absagen);
 		data.put("teilnahmen", teilnahmen);
 	}
+
+    private Select buildAndCountListFromGuests(Database database, GuestSearch search, List selection) {
+        final WhereList where = new WhereList();
+		GuestListWorker.addGuestListFilter(search, where);
+
+		if (selection != null && selection.size() != 0) {
+			where.addAnd(Expr.in("tguest.pk", selection));
+		}
+
+        final Select select = SQL.Select( database ).
+				from("veraweb.tguest").
+				where(where);
+
+		buildSelectSumFromGuestList(select);
+        return select;
+    }
+
+    private void buildSelectSumFromGuestList(final Select select) {
+        select.selectAs(
+				"SUM(CASE WHEN reserve =  1 THEN 0 ELSE CASE WHEN invitationtype = 1 THEN 2 ELSE 1 END END)", "platz");
+		select.selectAs(
+				"SUM(CASE WHEN reserve != 1 THEN 0 ELSE CASE WHEN invitationtype = 1 THEN 2 ELSE 1 END END)", "reserve");
+		select.selectAs(
+				"SUM(CASE WHEN reserve != 1 AND invitationstatus   = 1 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
+				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 1 AND invitationtype != 2 THEN 1 ELSE 0 END)", "zusagen");
+		select.selectAs(
+				"SUM(CASE WHEN reserve != 1 AND invitationstatus   = 2 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
+				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 2 AND invitationtype != 2 THEN 1 ELSE 0 END)", "absagen");
+		select.selectAs(
+				"SUM(CASE WHEN reserve != 1 AND invitationstatus   = 3 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
+				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 3 AND invitationtype != 2 THEN 1 ELSE 0 END)", "teilnahmen");
+
+		select.selectAs(
+				"SUM(CASE WHEN tperson.iscompany = 't' THEN 1 ELSE 0 END)", "delegationen");
+
+		select.joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk");
+    }
 
 	private void setUrlForMediaRepresentatives(OctopusContext cntx, Event event) throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();

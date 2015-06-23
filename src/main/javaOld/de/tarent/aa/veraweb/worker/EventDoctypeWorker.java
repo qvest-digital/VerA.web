@@ -59,7 +59,7 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
     //
 	@Override
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-		select.where(Expr.equal("fk_event", getEventAndMediaRepresentativeURL(cntx).id));
+		select.where(Expr.equal("fk_event", getEvent(cntx).id));
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
 
 	@Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
-		select.where(Expr.equal("fk_event", getEventAndMediaRepresentativeURL(cntx).id));
+		select.where(Expr.equal("fk_event", getEvent(cntx).id));
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
     //
     // Hilfsmethoden
     //
-	protected Event getEventAndMediaRepresentativeURL(OctopusContext cntx) {
+	protected Event getEvent(OctopusContext cntx) {
 		return (Event)cntx.contentAsObject("event");
 	}
 }

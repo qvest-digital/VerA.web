@@ -233,6 +233,14 @@ public class EventDelegationWorker {
         final List<OptionalField> delegationFieldsLabels = getLabelsFromDB(octopusContext, eventId);
 
         final List<OptionalDelegationField> delegationFieldsWithTypeContents = new ArrayList<OptionalDelegationField>();
+        getFieldsLabelsWithTypeContents(octopusContext, delegationFieldsLabels, delegationFieldsWithTypeContents);
+
+        return delegationFieldsLabels;
+    }
+
+    private void getFieldsLabelsWithTypeContents(OctopusContext octopusContext,
+            final List<OptionalField> delegationFieldsLabels,
+            final List<OptionalDelegationField> delegationFieldsWithTypeContents) throws BeanException, IOException {
         for (final Iterator iterator = delegationFieldsLabels.iterator(); iterator
                 .hasNext();) {
             final OptionalField optionalField = (OptionalField) iterator.next();
@@ -249,8 +257,6 @@ public class EventDelegationWorker {
         }
 
         octopusContext.setContent("delegationFieldsWithTypeContents", delegationFieldsWithTypeContents);
-
-        return delegationFieldsLabels;
     }
 
     private List<OptionalFieldTypeContent> getOptionalFieldTypeContentsFromLabel(
@@ -354,6 +360,14 @@ public class EventDelegationWorker {
         final String[] valueParts = keyParts[1].split("-");
         Integer typeContentId = new Integer(valueParts[1]);
 
+        updateFieldtypeContent(octopusContext, allRequestParams, key, optionalFieldSummary, database,
+                transactionalContext, labelParts, valueParts, typeContentId);
+    }
+
+    private void updateFieldtypeContent(OctopusContext octopusContext, Map<String, String> allRequestParams,
+            String key, OptionalFieldSummary optionalFieldSummary, final Database database,
+            final TransactionContext transactionalContext, final String[] labelParts, final String[] valueParts,
+            Integer typeContentId) throws BeanException, IOException, SQLException {
         final OptionalFieldTypeContent optionalFieldTypeContent =
             handleUpdateOptionalFieldTypeContent(
                     octopusContext,

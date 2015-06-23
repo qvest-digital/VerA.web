@@ -19,9 +19,14 @@
  */
 package de.tarent.aa.veraweb.worker;
 
+import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.beans.OptionalFieldTypeContent;
+import de.tarent.aa.veraweb.utils.EventURLHandler;
+import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
+import de.tarent.aa.veraweb.utils.PropertiesReader;
+import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Clause;
@@ -44,6 +49,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * This class handles the optional fields labels.
@@ -56,16 +62,15 @@ public class OptionalFieldsWorker {
 	private static final String DELEGATON_FIELD_VALUE_TABLE_NAME = "veraweb.toptional_fields_delegation_content";
     private static final String OPTIONAL_FIELD_TYPE_CONTENT = "veraweb.toptional_field_type_content";
 
-
     private Database database;
 
     /**
      * Constructor.
      *
-     * @param ctx The {@link OctopusContext}
+     * @param cntx The {@link OctopusContext}
      */
-	public OptionalFieldsWorker(OctopusContext ctx) {
-		this.database = new DatabaseVeraWeb(ctx);
+	public OptionalFieldsWorker(OctopusContext cntx) {
+		this.database = new DatabaseVeraWeb(cntx);
 	}
 
 	/**
@@ -307,7 +312,6 @@ public class OptionalFieldsWorker {
     }
 
     private Insert getInsertStatementForTypeContents(final Integer fieldId) {
-
         final Insert insertStatement = SQL.Insert(this.database);
         insertStatement.table(OPTIONAL_FIELD_TYPE_CONTENT);
         insertStatement.insert("fk_optional_field", fieldId);
@@ -316,8 +320,8 @@ public class OptionalFieldsWorker {
         return insertStatement;
     }
 
-    public Boolean isFieldRegisterForTheEvent(final Integer eventId, final Integer fieldId) throws IOException, BeanException {
-
+    public Boolean isFieldRegisterForTheEvent(final Integer eventId, final Integer fieldId)
+            throws IOException, BeanException {
         Clause labelNotNullClause = Expr.notEqual("label","");
 
         Integer counter = this.database.getCount(this.database.getCount("OptionalField").
@@ -330,8 +334,8 @@ public class OptionalFieldsWorker {
         return false;
     }
 
-    public List<OptionalField> getTotalEventsFromEvent(final Integer eventId) throws IOException, BeanException, SQLException {
-
+    public List<OptionalField> getTotalEventsFromEvent(final Integer eventId)
+            throws IOException, BeanException, SQLException {
         Select selectStatement = SQL.Select(database).from("veraweb.toptional_fields").select("*").
                 whereAndEq("fk_event", eventId);
 
@@ -339,5 +343,4 @@ public class OptionalFieldsWorker {
 
         return getOptionalFieldsAsList(resultSet);
     }
-
 }
