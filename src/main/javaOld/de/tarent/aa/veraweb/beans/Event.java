@@ -22,6 +22,7 @@ package de.tarent.aa.veraweb.beans;
 import java.sql.Timestamp;
 
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.VerawebCoreMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -57,9 +58,7 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
 	@Override
     public void verify() throws BeanException {
 		if (begin != null && end != null && begin.after(end)) {
-			Timestamp timestamp = begin;
-			begin = end;
-			end = timestamp;
+			addError(VerawebCoreMessages.MESSAGE_END_AND_START_DATUM);
 		}
 
 		if (shortname == null || shortname.trim().length() == 0)
