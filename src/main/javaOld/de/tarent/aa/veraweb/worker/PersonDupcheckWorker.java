@@ -110,6 +110,7 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 			 * must add time information from person-diplotime_a_e1
 			 */
 			DateHelper.addTimeToDate(person.diplodate_a_e1, cntx.requestAsString("person-diplotime_a_e1"), person.getErrors());
+			DateHelper.addTimeToDate(person.diplodate_b_e1, cntx.requestAsString("person-diplotime_b_e1"), person.getErrors());
 		}
 		AddressHelper.checkPersonSalutation(person, database, database.getTransactionContext());
 		cntx.setContent("person", person);

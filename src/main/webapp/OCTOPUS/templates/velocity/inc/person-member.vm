@@ -222,7 +222,7 @@
 							});
 						</script>
 					#end
-					<input  type="text" class="width15" name="person-diplotime${ext}" id="person-diplotime${ext}" #if($person-diplodatetime) value="$!message.date("TIME", $facade.Diplodate)" #else value="" #end onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/> <label class="inline" for="person-diplotime_a_e1">Uhr</label>
+					<input  type="text" class="width15" name="person-diplotime${ext}" id="person-diplotime${ext}" #if($person-diplodatetime) value="$!message.date("TIME", $facade.Diplodate)" #else value="" #end onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/> <label class="inline" for="person-diplotime$!message.plain($ext)">Uhr</label>
 				#end
 			</div>
 
