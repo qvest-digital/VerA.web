@@ -19,7 +19,7 @@
         </tr>
 
         <tr ng-repeat="event in events">
-            <td>{{parseDate(event.datebegin) | date:'dd.MM.yyyy HH:mm'}}{{event.dash}}{{parseDate(event.dateend) | date:'dd.MM.yyyy HH:mm'}}</td>
+            <td>{{parseDate(event.datebegin) | date:'dd.MM.yyyy HH:mm'}} <span ng-if="event.dateend != null">{{event.dash}}{{parseDate(event.dateend) | date:'dd.MM.yyyy HH:mm'}}</span></td>
             <td>{{event.shortname}}</td>
             <td class="button_column">
             	<a href="#/update/{{event.pk}}">

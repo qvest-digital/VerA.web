@@ -124,7 +124,7 @@ public class LoginResource {
 			return null;
 		}
 		Boolean isRegisterdForDelegationEvent = true;
-		if (delegation != null) {
+		if (delegation != null && !"".equals(delegation)) {
 			isRegisterdForDelegationEvent = 
 					readResource(path("guest" , "registered", "delegation", userName, delegation), BOOLEAN);
 		}
