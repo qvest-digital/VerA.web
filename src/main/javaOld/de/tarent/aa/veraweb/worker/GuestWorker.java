@@ -271,8 +271,8 @@ context.commit();
 
 	private void updateDoctype(TransactionContext context, Event event) throws BeanException, SQLException {
 		final String sql = UPDATE_GUEST_DOCUMENT_TYPES_FORMAT.format( new Object[] { event.id.toString() } );
-		context.commit();
 		DB.insert(context, sql);
+		context.commit();
 	}
 
 	private void addGuestsInitial(OctopusContext cntx, TransactionContext context, Event event, String personIds)
