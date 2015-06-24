@@ -136,11 +136,14 @@ public class CategorieWorker extends StammdatenWorker {
     public static String[] MANDATOR_getAllAvailablePersonCategories = {};
 
     public void getAllAvailablePersonCategories(OctopusContext cntx) throws BeanException, IOException {
-        Database database = getDatabase(cntx);
-        Select select = database.getSelect(BEANNAME);
+        final Integer orgunit = ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId();
+        final Database database = getDatabase(cntx);
+        final Select select = database.getSelect(BEANNAME);
         extendColumns(cntx, select);
         extendAll(cntx, select);
         select.whereAnd(Expr.isNull("fk_event"));
+        select.whereAndEq("fk_orgunit", orgunit);
+
 
         Integer count = cntx.requestAsInteger("count");
         if (count != null) {
