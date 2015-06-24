@@ -129,15 +129,17 @@ public class PersonDetailWorker implements PersonConstants {
 			id = getPersonId(cntx, id, false);
 			person = (Person)database.getBean("Person", id);
 		}
+
 		/**
 		 * BUGFIX: 18738
 		 * 
 		 */
-		Person tempPerson = (Person)database.getBean("Person", id);
-		person.setField("birthday_a_e1", tempPerson.birthday_a_e1);
-		person.setField("birthday_b_e1", tempPerson.birthday_b_e1);
-		person.setField("diplodate_a_e1", tempPerson.diplodate_a_e1);
-		person.setField("diplodate_b_e1", tempPerson.diplodate_b_e1);
+		Person originalPerson = (Person)database.getBean("Person", id);
+		person.setField("birthday_a_e1", originalPerson.birthday_a_e1);
+		person.setField("birthday_b_e1", originalPerson.birthday_b_e1);
+		person.setField("diplodate_a_e1", originalPerson.diplodate_a_e1);
+		person.setField("diplodate_b_e1", originalPerson.diplodate_b_e1);
+
 		/**
 		 * BUGFIX: 18738
 		 * 
