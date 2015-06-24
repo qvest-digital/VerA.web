@@ -591,24 +591,24 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * Diese Octopus-Aktion liefert das Ereignis aus der aktuellen Gästesuche,
      * siehe Aktion {@link #getSearch(OctopusContext)}.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @return eine {@link Event}-Instanz oder <code>null</code>.
      * @throws BeanException
      * @throws IOException
      */
-    public Event getEvent(OctopusContext cntx) throws BeanException, IOException {
-        final GuestSearch search = getSearch(cntx);
+    public Event getEvent(OctopusContext octopusContext) throws BeanException, IOException {
+        final GuestSearch search = getSearch(octopusContext);
         if (search == null) {
             return null;
         }
 
-        final Event event = EventDetailWorker.getEvent(cntx, search.event);
+        final Event event = EventDetailWorker.getEvent(octopusContext, search.event);
         if (event == null) {
-            cntx.setStatus("noevent");
+            octopusContext.setStatus("noevent");
         }
 
-        final MediaRepresentativesUtilities mediaUtilities = new MediaRepresentativesUtilities(cntx, event);
-        mediaUtilities.setUrlForMediaRepresentatives();
+        final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(octopusContext, event);
+        mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
 
         return event;
     }

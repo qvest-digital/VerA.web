@@ -81,42 +81,29 @@ public class EventDetailWorker {
      * "event-beginhastime" und "event-endhastime" abgelegt, die kennzeichnen, ob
      * Anfang bzw. Ende neben dem eigentlichen Datum einen Zeitanteil haben.
 	 *
-	 * @param cntx Octopus-Kontext
+	 * @param octopusContext Octopus-Kontext
 	 * @param id ID der zu ladenden Veranstaltung; falls <code>null</code> oder ungültig,
      *  so wird nichts geliefert
 	 */
-	public void showDetail(OctopusContext cntx, Integer id, Task task, Integer eventId) throws BeanException, IOException {
+	public void showDetail(OctopusContext octopusContext, Integer id, Task task, Integer eventId) throws BeanException, IOException {
 		if (task != null) {
 			id = task.getEventId();
 		} else if (eventId != null) {
 			id = eventId;
 		}
-		Event event = getEvent(cntx, id);
+		Event event = getEvent(octopusContext, id);
 		if (event != null) {
-			cntx.setContent("event", event);
+			octopusContext.setContent("event", event);
 			// OR Control
-			if (OnlineRegistrationHelper.isOnlineregActive(cntx)) {
-                final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(cntx, event);
+			if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
+                final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(octopusContext, event);
 				mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
 				final EventURLHandler eventURLHandler = new EventURLHandler();
-                eventURLHandler.setEventUrl(cntx, event.hash);
+                eventURLHandler.setEventUrl(octopusContext, event.hash);
 			}
 			//
 		}
 	}
-
-    private void setUrlForMediaRepresentatives(OctopusContext cntx, Event event) throws IOException {
-        PropertiesReader propertiesReader = new PropertiesReader();
-
-        if(propertiesReader.propertiesAreAvailable() && event.mediarepresentatives != null) {
-	        Properties properties = propertiesReader.getProperties();
-	        URLGenerator url = new URLGenerator(properties);
-	        url.getURLForMediaRepresentatives();
-	        cntx.setContent("pressevertreterUrl", url.getURLForMediaRepresentatives() + event.mediarepresentatives);
-        } else {
-	        cntx.setContent("pressevertreterUrl", "Nicht verf&uuml;gbar");
-        }
-    }
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String INPUT_saveDetail[] = { "saveevent" };
@@ -141,41 +128,41 @@ public class EventDetailWorker {
 	 * Abschließend werden passend Octopus-Content-Einträge unter "event", "event-beginhastime" und "event-endhastime"
 	 * erzeugt.
 	 *
-	 * @param cntx
+	 * @param octopusContext
 	 *          Octopus-Kontext
 	 * @param saveevent
 	 *          Flag; nur wenn dieses gesetzt ist, passiert tatsächlich etwas
 	 */
-	public void saveDetail(OctopusContext cntx, Boolean saveevent) throws BeanException, IOException
+	public void saveDetail(OctopusContext octopusContext, Boolean saveevent) throws BeanException, IOException
 	{
 		if (saveevent == null || !saveevent.booleanValue()) {
             return;
         }
 
-		Request request = new RequestVeraWeb(cntx);
-		Database database = new DatabaseVeraWeb(cntx);
+		Request request = new RequestVeraWeb(octopusContext);
+		Database database = new DatabaseVeraWeb(octopusContext);
 		TransactionContext context = database.getTransactionContext();
 
 		try
 		{
-			Event event = (Event) cntx.contentAsObject("event");
+			Event event = (Event) octopusContext.contentAsObject("event");
 			if (event == null)
 			{
 				event = (Event) request.getBean("Event", "event");
-				DateHelper.addTimeToDate(event.begin, cntx.requestAsString("event-begintime"), event.getErrors());
-				DateHelper.addTimeToDate(event.end, cntx.requestAsString("event-endtime"), event.getErrors());
+				DateHelper.addTimeToDate(event.begin, octopusContext.requestAsString("event-begintime"), event.getErrors());
+				DateHelper.addTimeToDate(event.end, octopusContext.requestAsString("event-endtime"), event.getErrors());
 			}
-			event.orgunit = ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId();
+			event.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
 
 			Event oldEvent = (Event) database.getBean("Event", event.id, context);
 
 			List errors = new ArrayList();
 			Map questions = new HashMap();
-            checkForDuplicateEvents(cntx, database, event, questions);
+            checkForDuplicateEvents(octopusContext, database, event, questions);
 
             /** Gibt an ob der übergebene Ort in die Stammdaten übernommen werden soll. */
-			boolean saveLocation = cntx.requestAsBoolean("addcity-masterdata").booleanValue();
-			cntx.setContent("addcity-masterdata", Boolean.valueOf(saveLocation));
+			boolean saveLocation = octopusContext.requestAsBoolean("addcity-masterdata").booleanValue();
+			octopusContext.setContent("addcity-masterdata", Boolean.valueOf(saveLocation));
 
 			/** Wenn ein Gastgeber angegeben worden ist zu diesem die Personendaten laden. */
 			if (event.host != null) {
@@ -217,9 +204,9 @@ public class EventDetailWorker {
             }
 
             if (!questions.isEmpty()) {
-                cntx.setContent("listquestions", questions);
+                octopusContext.setContent("listquestions", questions);
             }
-            if (OnlineRegistrationHelper.isOnlineregActive(cntx)) {
+            if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
             	setEventHash(event,oldEvent);
             }
             /** Veranstaltung speichern */
@@ -229,35 +216,35 @@ public class EventDetailWorker {
              * cklein 2008-02-12
              */
             	// Opened Event or not
-                setEventType(event, cntx);
+                setEventType(event, octopusContext);
                 // Allowing Press in the Event or not
                 setMediaRepresentatives(event, oldEvent);
 
                 // Allow event configrmation via online registration with/without login
-                setLoginRequired(cntx, event);
+                setLoginRequired(octopusContext, event);
 
                 BeanChangeLogger clogger = new BeanChangeLogger( database, context );
                 if (event.id == null) {
 
-                    cntx.setContent("countInsert", new Integer(1));
+                    octopusContext.setContent("countInsert", new Integer(1));
                     database.getNextPk(event, context);
                     Insert insert = database.getInsert(event);
                     insert.insert("pk", event.id);
-                    if (!((PersonalConfigAA) cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
+                    if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
                         insert.remove("note");
                     }
                     context.execute(insert);
 
-                    clogger.logInsert( cntx.personalConfig().getLoginname(), event );
+                    clogger.logInsert( octopusContext.personalConfig().getLoginname(), event );
                 } else {
-                    cntx.setContent("countUpdate", new Integer(1));
+                    octopusContext.setContent("countUpdate", new Integer(1));
                     Update update = database.getUpdate(event);
-                    if (!((PersonalConfigAA) cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
+                    if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
                         update.remove("note");
                     }
                     context.execute(update);
 
-                    clogger.logUpdate( cntx.personalConfig().getLoginname(), oldEvent, event );
+                    clogger.logUpdate( octopusContext.personalConfig().getLoginname(), oldEvent, event );
                 }
 
                 if (newEvent) {
@@ -275,7 +262,7 @@ public class EventDetailWorker {
                             database.saveBean(eventDoctype, context, false);
                         }
                     }
-                    if (OnlineRegistrationHelper.isOnlineregActive(cntx)){
+                    if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)){
                     	initOptionalFields(database, context, event);
                     }
                 }
@@ -287,12 +274,12 @@ public class EventDetailWorker {
                 // Alt: Veraltete Gastgeber zu Gästen machen
                 // Neu: gelöschten Gastgeber aus Veranstaltung entfernen.
                 if (removeHost) {
-                    handleRemoveHost(cntx, database, context, event);
+                    handleRemoveHost(octopusContext, database, context, event);
                 }
 
                 if (createHost) {
                     Boolean reserve = Boolean.FALSE;
-                    WorkerFactory.getGuestWorker(cntx).addGuest(cntx, database, context, event, event.host, null, reserve, invitationtype,
+                    WorkerFactory.getGuestWorker(octopusContext).addGuest(octopusContext, database, context, event, event.host, null, reserve, invitationtype,
                             Boolean.TRUE);
                 } else if (updateHost) {
                     context.execute(SQL.Update(database).table("veraweb.tguest").update("ishost", new Integer(1)).update("invitationtype", invitationtype)
@@ -310,23 +297,22 @@ public class EventDetailWorker {
                     // TODO refactor and centralize in EventDetailWorker
                 }
             } else {
-                cntx.setStatus("notsaved");
+                octopusContext.setStatus("notsaved");
                 if (oldEvent != null && oldEvent.mediarepresentatives != null && event.mediarepresentatives != null) {
                 	event.mediarepresentatives = oldEvent.mediarepresentatives;
                 }
             }
-            Boolean isOnlineregActive = Boolean.valueOf(cntx.getContextField(VWOR_ACTIVE).toString());
+            Boolean isOnlineregActive = Boolean.valueOf(octopusContext.getContextField(VWOR_ACTIVE).toString());
             // OR Control
             if (isOnlineregActive) {
                 final EventURLHandler eventURLHandler = new EventURLHandler();
-                eventURLHandler.setEventUrl(cntx, event.hash);
-                final MediaRepresentativesUtilities mediaRepresentativesUtilities =
-                        new MediaRepresentativesUtilities(cntx, event);
+                eventURLHandler.setEventUrl(octopusContext, event.hash);
+                final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(octopusContext, event);
             	mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
             }
-            cntx.setContent("event", event);
-			cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
-			cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
+            octopusContext.setContent("event", event);
+			octopusContext.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
+			octopusContext.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
 
 			context.commit();
         } catch (BeanException e) {
@@ -387,25 +373,6 @@ public class EventDetailWorker {
             event.eventtype = "";
         }
     }
-
-
-//    private void setLoginRequired(Event event, Event oldEvent) {
-//        if ((oldEvent == null || oldEvent.login_required == null) && event.login_required != null) {
-//            if (event.login_required.equals("on")) {
-//                event.login_required = true;
-//            } else {
-//                event.login_required = false;
-//            }
-//        } else if (oldEvent != null && event != null) {
-//            if (event.login_required) {
-//                event.login_required = oldEvent.login_required;
-//            } else {
-//                event.login_required = false;
-//            }
-//        } else {
-//            event.login_required = false;
-//        }
-//    }
 
     /**
      * Set/Unset the event flag for Press. Currently (03.12.2014) we store the uuid into that new column

@@ -26,6 +26,7 @@ import de.tarent.aa.veraweb.beans.OptionalFieldType;
 import de.tarent.aa.veraweb.beans.OptionalFieldTypeContent;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
+import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
 import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.OptionalFieldSummary;
 import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
@@ -206,7 +207,8 @@ public class EventDelegationWorker {
         if (OnlineRegistrationHelper.isOnlineregActive(oc)) {
             final EventURLHandler eventURLHandler = new EventURLHandler();
             eventURLHandler.setEventUrl(oc, event.hash);
-            setUrlForMediaRepresentatives(oc, event);
+            final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(oc, event);
+            mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
         }
     }
 
@@ -555,19 +557,6 @@ public class EventDelegationWorker {
             cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
         }
         return event;
-    }
-
-    private void setUrlForMediaRepresentatives(OctopusContext cntx, Event event) throws IOException {
-        PropertiesReader propertiesReader = new PropertiesReader();
-
-        if(propertiesReader.propertiesAreAvailable() && event.mediarepresentatives != null) {
-            Properties properties = propertiesReader.getProperties();
-            URLGenerator url = new URLGenerator(properties);
-            url.getURLForMediaRepresentatives();
-            cntx.setContent("pressevertreterUrl", url.getURLForMediaRepresentatives() + event.mediarepresentatives);
-        } else {
-            cntx.setContent("pressevertreterUrl", "Nicht verf&uuml;gbar");
-        }
     }
 }
 
