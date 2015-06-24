@@ -37,6 +37,7 @@ import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
+import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
 import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
@@ -95,7 +96,8 @@ public class EventDetailWorker {
 			cntx.setContent("event", event);
 			// OR Control
 			if (OnlineRegistrationHelper.isOnlineregActive(cntx)) {
-				setUrlForMediaRepresentatives(cntx, event);
+                final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(cntx, event);
+				mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
 				final EventURLHandler eventURLHandler = new EventURLHandler();
                 eventURLHandler.setEventUrl(cntx, event.hash);
 			}
@@ -318,7 +320,9 @@ public class EventDetailWorker {
             if (isOnlineregActive) {
                 final EventURLHandler eventURLHandler = new EventURLHandler();
                 eventURLHandler.setEventUrl(cntx, event.hash);
-            	setUrlForMediaRepresentatives(cntx, event);
+                final MediaRepresentativesUtilities mediaRepresentativesUtilities =
+                        new MediaRepresentativesUtilities(cntx, event);
+            	mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
             }
             cntx.setContent("event", event);
 			cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));

@@ -26,6 +26,7 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
+import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.dblayer.engine.DB;
@@ -606,7 +607,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             cntx.setStatus("noevent");
         }
 
-        setUrlForMediaRepresentatives(cntx, event);
+        final MediaRepresentativesUtilities mediaUtilities = new MediaRepresentativesUtilities(cntx, event);
+        mediaUtilities.setUrlForMediaRepresentatives();
 
         return event;
     }
@@ -780,7 +782,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     private void buildSelectSumFromGuestList(final Select select) {
         select.selectAs(
-				"SUM(CASE WHEN reserve =  1 THEN 0 ELSE CASE WHEN invitationtype = 1 THEN 2 ELSE 1 END END)", "platz");
+                "SUM(CASE WHEN reserve =  1 THEN 0 ELSE CASE WHEN invitationtype = 1 THEN 2 ELSE 1 END END)", "platz");
 		select.selectAs(
 				"SUM(CASE WHEN reserve != 1 THEN 0 ELSE CASE WHEN invitationtype = 1 THEN 2 ELSE 1 END END)", "reserve");
 		select.selectAs(
@@ -799,16 +801,4 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		select.joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk");
     }
 
-	private void setUrlForMediaRepresentatives(OctopusContext cntx, Event event) throws IOException {
-        PropertiesReader propertiesReader = new PropertiesReader();
-
-        if(propertiesReader.propertiesAreAvailable() && event.mediarepresentatives != null) {
-            Properties properties = propertiesReader.getProperties();
-            URLGenerator url = new URLGenerator(properties);
-            url.getURLForMediaRepresentatives();
-            cntx.setContent("pressevertreterUrl", url.getURLForMediaRepresentatives() + event.mediarepresentatives);
-        } else {
-            cntx.setContent("pressevertreterUrl", "Nicht verf&uuml;gbar");
-        }
-    }
 }
