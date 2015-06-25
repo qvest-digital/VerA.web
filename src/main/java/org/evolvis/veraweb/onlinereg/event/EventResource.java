@@ -374,7 +374,7 @@ public class EventResource {
     }
 
     private Boolean isUserRegistered(String username, String eventId) throws IOException {
-        return readResource(path("guest", "registered", username, eventId), BOOLEAN);
+        return readResource(path("guest", "registered", "accept", username, eventId), BOOLEAN);
     }
 
 
