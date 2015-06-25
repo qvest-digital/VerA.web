@@ -303,7 +303,7 @@ public class EventResource {
 
         postBody.add("eventId", eventId);
         postBody.add("userId", userId);
-        postBody.add("invitationstatus", generateInvitationStatus(eventId));
+        postBody.add("invitationstatus", INVITATIONSTATUS_COMMITMENT.toString());
         postBody.add("invitationtype", "2");
         postBody.add("gender", gender);
         postBody.add("category", "0");
@@ -316,9 +316,7 @@ public class EventResource {
 
         return guest;
     }
-    
-    
-    
+
     /**
      * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
      *
@@ -384,17 +382,6 @@ public class EventResource {
         return readResource(path("guest", "registered", "nologin", noLoginRequiredUUID, eventId), BOOLEAN);
     }
 
-    private String generateInvitationStatus(String eventId) throws IOException {
-    	final Boolean isOpen = readResource(path("event", "isopen", eventId), BOOLEAN);
-    	
-    	if (isOpen) {
-    		return INVITATIONSTATUS_COMMITMENT.toString();
-    	}
-    	
-    	return INVITATIONSTATUS_OPEN.toString();
-    }
-    
-    
 	private void createGuestDoctype(int guestId, String firstName, String lastName) {
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
 		
