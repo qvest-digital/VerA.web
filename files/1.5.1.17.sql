@@ -20,7 +20,7 @@ ALTER TABLE veraweb.toptional_fields ADD COLUMN fk_type INTEGER REFERENCES veraw
 CREATE SEQUENCE veraweb.toptional_field_type_content_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 
 CREATE TABLE veraweb.toptional_field_type_content (
-  pk INTEGER DEFAULT nextval('toptional_field_type_content_seq') NOT NULL,
+  pk INTEGER DEFAULT nextval('veraweb.toptional_field_type_content_seq') NOT NULL,
   fk_optional_field INTEGER NOT NULL REFERENCES veraweb.toptional_fields(pk) ON DELETE CASCADE,
   content text NOT NULL,
 
