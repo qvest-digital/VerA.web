@@ -313,6 +313,35 @@ public class GuestResource extends AbstractResource{
         }
     }
 
+
+    /**
+     * Checking if the current user is already registered for the curren event
+     *
+     * @param username osiam
+     * @param eventId
+     * @return
+     */
+    @GET
+    @Path("/registered/accept/{username}/{eventId}")
+    public Boolean isUserRegisteredintoEventToAccept(@PathParam("username") String username, @PathParam("eventId") Integer eventId) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Guest.checkUserRegistrationToAccept");
+            query.setString("username", username);
+            query.setInteger("eventId", eventId);
+
+            final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
+            if(numberOfGuestsFound.intValue() > 0) {
+                return true;
+            }
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+
+
+
     /**
      * Checking if the current user is registered into the event
      *
