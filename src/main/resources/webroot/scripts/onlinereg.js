@@ -616,12 +616,7 @@ onlineRegApp.controller('DirectLoginController',
 				$rootScope.user_logged_in = $scope.directusername;
 				$rootScope.status = null;
 				$rootScope.messageContent = null;
-
-				if(typeof(lastPageRegisterPath) != "undefined" && lastPageRegisterPath != "") {
-				    $location.path(lastPageRegisterPath);
-				} else {
-				    $location.path($scope.nextPage);
-				}
+				$location.path($scope.nextPage);
 			} else {
 				$rootScope.userinfo = null;
 				$translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
@@ -696,6 +691,10 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 });
 
 onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) {
+	$scope.success = null;
+	$scope.error = null;
+	$rootScope.cleanMessages();
+	$scope.setNextPage('veranstaltungen');
 	$http.get('api/event/list/' + $rootScope.user_logged_in).success(function (result) {
 		$scope.events = result;
 	});
