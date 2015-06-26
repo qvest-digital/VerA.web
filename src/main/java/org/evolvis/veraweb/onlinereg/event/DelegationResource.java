@@ -574,11 +574,11 @@ public class DelegationResource {
         return person;
     }
 
-    private Integer getCategoryIdByValue(String categoryName) {
+    private Integer getCategoryIdByValue(String categoryName, Integer personId) {
         Integer categoryId = null;
 
-        WebResource categoryResource = client.resource(config.getVerawebEndpoint() + "/rest/category/identify")
-                .queryParam("catname", categoryName);
+        WebResource categoryResource = client.resource(config.getVerawebEndpoint() + "/rest/category/person/data")
+                .queryParam("catname", categoryName).queryParam("personId", personId.toString());
 
         categoryId = categoryResource.get(Integer.class);
 
@@ -606,7 +606,7 @@ public class DelegationResource {
         Integer categoryId = null;
 
         if (category != null && !category.equals("")) {
-            categoryId = getCategoryIdByValue(category);
+            categoryId = getCategoryIdByValue(category, personId);
             createPersonCategory(personId, categoryId);
         }
 
