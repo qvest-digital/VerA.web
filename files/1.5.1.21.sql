@@ -5,7 +5,7 @@ ALTER TABLE veraweb.toptional_fields_delegation_content DROP CONSTRAINT toptiona
 CREATE SEQUENCE veraweb.toptional_fields_delegation_content_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 
 -- Including new PK column to work with unique values
-ALTER TABLE veraweb.toptional_fields_delegation_content ADD COLUMN pk INTEGER DEFAULT nextval('toptional_fields_delegation_content_seq') NOT NULL;
+ALTER TABLE veraweb.toptional_fields_delegation_content ADD COLUMN pk INTEGER DEFAULT nextval('veraweb.toptional_fields_delegation_content_seq') NOT NULL;
 ALTER TABLE veraweb.toptional_fields_delegation_content ADD CONSTRAINT toptional_fields_delegation_content_pkey PRIMARY KEY (pk);
 
 -- Update schema version
