@@ -290,7 +290,6 @@
 								</td>
 							#end
 						</tr>
-					<!-- End of foreach($bean in $list) -->
 					#end
 
 					#set($itemName = "Veranstaltungen")
@@ -298,7 +297,6 @@
 					#parse("inc/list-direct-new.vm")
 
 				</table>
-		<!-- End of if ($listparam.count == 0) -->
 		#end
 
 		<div class="textRight">
