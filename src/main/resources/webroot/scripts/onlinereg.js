@@ -2,7 +2,7 @@
  * Created by mley on 21.07.14.
  */
 
-var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate' ]);
+var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate', 'ngFileUpload' ]);
 
 onlineRegApp.run(function ($rootScope) {
 	$rootScope.parseDate = function (dt) {
@@ -81,6 +81,7 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
 	});
 
 	$translateProvider.preferredLanguage('de_DE');
+
 });
 
 onlineRegApp.directive('equals', function() {
@@ -844,17 +845,26 @@ onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $ro
 	}
 });
 
-onlineRegApp.controller('KontaktdatenController', function ($scope, $location, $rootScope, $translate, $http) {
-	$scope.success = null;
-	$scope.error = null;
-	$rootScope.cleanMessages();
+onlineRegApp.controller('FileUploadController', ['$scope', 'Upload', function ($scope, Upload) {
+    $scope.$watch('files', function () {
+        $scope.upload($scope.files);
+    });
 
-	if ($rootScope.user_logged_in == null) {
-		lastPageRegisterPath = $location.path();
-		$location.path('/login');
-	} else {
-		$http.get('api/event/list/{userid}/').success(function (result) {
-			$scope.events = result;
-		});
-	}
-});
+    $scope.upload = function (files) {
+        if (files && files.length) {
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                Upload.upload({
+                    url: '/api/fileupload/save',
+                    fields: {'username': $scope.username, "Content-Type": 'multipart/form-data'},
+                    file: file
+                }).progress(function (evt) {
+                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                    console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+                }).success(function (data, status, headers, config) {
+                    console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+                });
+            }
+        }
+    };
+}]);

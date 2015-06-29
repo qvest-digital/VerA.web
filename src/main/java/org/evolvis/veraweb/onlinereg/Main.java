@@ -24,7 +24,6 @@ package org.evolvis.veraweb.onlinereg;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 
-
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.client.JerseyClientBuilder;
@@ -40,6 +39,7 @@ import org.evolvis.veraweb.onlinereg.event.FreeVisitorsResource;
 import org.evolvis.veraweb.onlinereg.event.MediaResource;
 import org.evolvis.veraweb.onlinereg.event.UpdateResource;
 import org.evolvis.veraweb.onlinereg.event.UserResource;
+import org.evolvis.veraweb.onlinereg.fileupload.FileUploadResource;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
 import org.evolvis.veraweb.onlinereg.user.ResetPasswordResource;
 
@@ -57,6 +57,7 @@ public class Main extends Application<Config> {
 		private FreeVisitorsResource freeVisitorsResource;
 		private UpdateResource updateResource;
         private ResetPasswordResource resetPasswordResource;
+        private FileUploadResource fileUploadResource;
 	/* ********* */
 		
     /**
@@ -122,6 +123,7 @@ public class Main extends Application<Config> {
         environment.jersey().register(freeVisitorsResource = new FreeVisitorsResource(configuration, client));
         environment.jersey().register(updateResource = new UpdateResource(configuration, client));
         environment.jersey().register(resetPasswordResource = new ResetPasswordResource(configuration, client));
+        environment.jersey().register(fileUploadResource = new FileUploadResource(configuration, client));
 	}
 
 	public EventResource getEventResource() {

@@ -11,9 +11,15 @@
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="bootstrap/validator/css/bootstrapValidator.min.css"/>
 		<link href="styles/style.css" rel="stylesheet">
+		<!-- CSS from File Upload plugin -->
+			<link href="styles/jquery.fileupload.css" rel="stylesheet">
+			<link href="styles/jquery.fileupload-ui.css" rel="stylesheet">
+			<link href="styles/jquery.fileupload-noscript.css" rel="stylesheet">
+			<link href="styles/jquery.fileupload-ui-noscript.css" rel="stylesheet">
+		<!-- End of CSS from File Upload plugin -->
 	</head>
 
-	<body>
+
 	 	<div class="maincontainer"  ng-controller="DirectLoginController">
 			<div ng-include src="'partials/header.html'"></div>
 			<div ng-include src="'partials/navigation.html'"></div>
@@ -44,6 +50,13 @@
 		<script src="scripts/onlinereg.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
 		<script src="bootstrap/validator/js/bootstrapValidator.min.js"></script>
+		<!-- File Upload Plugin imports-->
+
+			<script src="scripts/fileupload/ng-file-upload-shim.min.js"></script>
+			<script src="scripts/fileupload/ng-file-upload.min.js"></script>
+
+		<!-- End File Upload imports -->
+
 
 		<script>
 			$(document).ready(function () {

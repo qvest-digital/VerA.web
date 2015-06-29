@@ -1,6 +1,8 @@
 <h2>{{'DELEGATION_REGISTER_USER_TITLE'|translate}}:</h2>
-<form role="form" id="delegation-form">
 
+<div ng-include src="'partials/fileupload.html'"></div>
+
+<form role="form" id="delegation-form">
     <div class="form-group container">
         <div class="row marginB10">
             <div ng-if="success" class="alert alert-success" role="alert">
@@ -12,6 +14,8 @@
                 <span class="glyphicon glyphicon-remove-sign">&nbsp;</span>
                 {{error}}
             </div>
+
+
 
             <div class="col-xs-4" ng-class="delegation-form.gender.$valid ? 'has-success' : 'has-error'">
                 <select class="form-control" id="gender" name="gender" ng-model="gender"
@@ -56,7 +60,6 @@
                         ng-options="category for category in categoryNames"/></select>
             </div>
         </div>
-
 
         <div id="collapse-formular" ng-show="showDialog">
         	<hr size="95%"/>
