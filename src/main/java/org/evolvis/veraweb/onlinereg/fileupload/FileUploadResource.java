@@ -1,5 +1,6 @@
 package org.evolvis.veraweb.onlinereg.fileupload;
 
+import com.sun.corba.se.spi.orbutil.fsm.Input;
 import com.sun.jersey.api.client.Client;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.MultipartDataSource;
@@ -9,6 +10,7 @@ import org.eclipse.jetty.util.MultiPartInputStreamParser;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.glassfish.jersey.media.multipart.file.StreamDataBodyPart;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -47,17 +49,13 @@ public class FileUploadResource {
         this.config = config;
     }
 
-    /**
-     * Saving temporary image
-     */
-    @POST
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @Path("/save")
-    public void saveTempImage(@FormDataParam("file") InputStream file) throws IOException {
 
-        OutputStream outputStream = null;
+     @POST
+     @Consumes(MediaType.MULTIPART_FORM_DATA)
+     @Path("/save")
+     public void saveTempImage(@FormDataParam("file") InputStream file) throws IOException {
 
-
+     OutputStream outputStream = null;
         try {
 
             // write the inputStream to a FileOutputStream

@@ -2,7 +2,8 @@
  * Created by mley on 21.07.14.
  */
 
-var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate', 'ngFileUpload' ]);
+var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate',
+													'flow', 'flow.img', 'flow.init', 'flow.provider' ]);
 
 onlineRegApp.run(function ($rootScope) {
 	$rootScope.parseDate = function (dt) {
@@ -23,6 +24,8 @@ onlineRegApp.run(function ($rootScope) {
 	//Only required for LoginController
 	setStatus = null;
 });
+
+
 
 onlineRegApp.config(function ($routeProvider, $translateProvider) {
 
@@ -83,6 +86,18 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
 	$translateProvider.preferredLanguage('de_DE');
 
 });
+
+
+onlineRegApp.config(['flowFactoryProvider', function (flowFactoryProvider) {
+	  flowFactoryProvider.defaults = {
+	    permanentErrors: [404, 500, 501],
+	    maxChunkRetries: 1,
+	    chunkRetryInterval: 5000,
+	    simultaneousUploads: 4,
+	    singleFile: true
+	  };
+	}]);
+
 
 onlineRegApp.directive('equals', function() {
 	return {
@@ -318,6 +333,25 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 });
 
 onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams, $translate) {
+
+//	$scope.image = null;
+	$rootScope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+
+		if (flowFile.size > 100*1024) {
+			$scope.imageError = "Maximal 100kb erlaubt!";
+			event.preventDefault();//prevent file from uploading
+		} else {
+			$scope.imageError = null;
+			var fileReader = new FileReader();
+			fileReader.onload = function (event) {
+				$scope.$apply(function () {
+					$scope.image = event.target.result;
+				});
+			};
+			fileReader.readAsDataURL(flowFile.file);
+		}
+	});
+
 	$scope.success = null;
 	$scope.error = null;
 
@@ -474,6 +508,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				});
 			}
 		}
+
 
 		$scope.refreshData = function() {
 			$scope.gender = $scope.genderOptions[0];
@@ -856,7 +891,7 @@ onlineRegApp.controller('FileUploadController', ['$scope', 'Upload', function ($
                 var file = files[i];
                 Upload.upload({
                     url: '/api/fileupload/save',
-                    fields: {'username': $scope.username, "Content-Type": 'multipart/form-data'},
+                    fields: {'username': $scope.username},
                     file: file
                 }).progress(function (evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);

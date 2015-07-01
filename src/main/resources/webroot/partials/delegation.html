@@ -1,6 +1,5 @@
 <h2>{{'DELEGATION_REGISTER_USER_TITLE'|translate}}:</h2>
 
-<div ng-include src="'partials/fileupload.html'"></div>
 
 <form role="form" id="delegation-form">
     <div class="form-group container">
@@ -16,6 +15,7 @@
             </div>
 
 
+            <div ng-include src="'partials/fileupload.html'"></div>
 
             <div class="col-xs-4" ng-class="delegation-form.gender.$valid ? 'has-success' : 'has-error'">
                 <select class="form-control" id="gender" name="gender" ng-model="gender"

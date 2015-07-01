@@ -1,6 +1,25 @@
-<div ng-app="onlineRegApp" ng-controller="FileUploadController">
+<div ng-controller="DelegationController" flow-init>
 
-    <button type="submit"  ngf-select ngf-change="upload($files)">Choose file</button>
+    <!--<button type="submit"  ngf-select ngf-change="upload($files)">Choose file</button>-->
 
-    Image thumbnail: <img ngf-src="files[0]" ngf-default-src="images/thumb.png">
+    <!--Image thumbnail: <img ngf-src="files[0]" ngf-default-src="images/thumb.png">-->
+
+
+
+        <span ng-show="imageError"><h3>{{imageError}}</h3></span>
+        <div
+             flow-files-submitted="$flow.upload()"
+             flow-file-success="$file.msg = $message">
+            <img flow-img="$flow.files[0]" />
+            <input type="file" flow-btn/>
+
+            <table>
+                <tr ng-repeat="file in $flow.files" ng-model="files">
+                    <td>{{file.name}}</td>
+                </tr>
+            </table>
+        </div>
+
+
+
 </div>
