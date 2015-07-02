@@ -11,7 +11,12 @@
              flow-files-submitted="$flow.upload()"
              flow-file-success="testingimage($flow.files[0])"> <!-- "$file.msg = $message"> -->
             <!--<img flow-img="$flow.files[0]" ng-href="{{image}}" />-->
-            <img src="{{image}}" />
+            <div ng-show="image">
+                <ng-if="myoldfoto">
+                    <img src="../../images/default.jpg">
+                </ng-if>
+                <img src="{{image}}" />
+            </div>
             <input type="file" flow-btn />
 
             <table>

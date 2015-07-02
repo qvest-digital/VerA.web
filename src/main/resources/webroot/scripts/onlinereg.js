@@ -424,16 +424,23 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							"Content-Type": undefined
 						},
 						data: $.param({
-							file: $scope.image
+							file: $scope.image,
+							imgUUID: $scope.imgUUID
 						})
 					}).success(function(result) {
-						$scope.success = 'nunununu';
-
+						$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
+							$scope.success = text;
+						});
 					}).error(function(data, status, headers, config) {
 					});
 
 		}
+
 		$scope.register_user = function() {
+			$scope.hasTempImage = false;
+			if ($scope.image != null) {
+				$scope.hasTempImage = true;
+			}
 			$scope.success = null;
 			$scope.error = null;
 			$rootScope.cleanMessages();
@@ -491,7 +498,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							category: $scope.category,
 							fields: JSON.stringify($scope.labellist),
 							functionDescription: $scope.functionDescription,
-							personId: $scope.targetPersonId
+							personId: $scope.targetPersonId,
+							hasTempImage: $scope.hasTempImage
 						})
 					}).success(function(result) {
 
@@ -504,21 +512,25 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 								$scope.error = text;
 							});
 						} else if (result.status === 'OK') {
+
 							$scope.refreshData();
-							$scope.uploadImage();
 
 							$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
 								$scope.success = text;
 							});
 
-
 							$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 								$scope.presentPersons = presentPersons.data;
 							});
 
-
 						} else {
-							$scope.error = ERROR_TEXT;
+							$scope.imgUUID = result.status;
+
+							$scope.uploadImage();
+                            $scope.refreshData();
+                            $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
+								$scope.presentPersons = presentPersons.data;
+							});
 						}
 
 						$scope.button = false;
@@ -542,6 +554,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.targetPersonId = null;
 			$scope.labellist = {};
 			$scope.getOptionalFieldsWithTypeContent();
+			$scope.image = '';
 		}
 
 		$scope.loadPersonData = function(personId) {

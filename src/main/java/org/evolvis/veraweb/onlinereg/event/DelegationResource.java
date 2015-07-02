@@ -57,6 +57,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -270,7 +271,8 @@ public class DelegationResource {
             @FormParam("category") String category,
             @FormParam("functionDescription") String function,
             @FormParam("fields") String fields,
-            @FormParam("personId") Integer personId) throws IOException {
+            @FormParam("personId") Integer personId,
+            @FormParam("hasTempImage") Boolean hasTempImage) throws IOException {
 
         final Boolean delegationIsFound = checkForExistingDelegation(uuid);
         final String convertedGenderValue = getGenderByLabel(gender);
@@ -278,12 +280,14 @@ public class DelegationResource {
         if(delegationIsFound) {
         	if (personId == null) {
         		// Save new delegate
+                // TODO too much parameters...
         		final String returnedValue = handleDelegationFound(uuid, lastname, firstname, convertedGenderValue,
-        		        function, category, fields);
+        		        function, category, fields, hasTempImage);
         		return StatusConverter.convertStatus(returnedValue);
         	}
         	else {
         		// Update delegate main data
+                // TODO too much parameters...
         		final String returnedValue = updateDelegateMainData(personId, lastname, firstname, convertedGenderValue,
         		        function, fields, uuid);
         		// Update delegate category
@@ -480,7 +484,7 @@ public class DelegationResource {
     }
 
     private String handleDelegationFound(String uuid, String nachname, String vorname, String gender, String function,
-            String category, String fields)
+            String category, String fields, Boolean hasTempImage)
             throws IOException {
 
         final Integer eventId = getEventId(uuid);
@@ -497,11 +501,28 @@ public class DelegationResource {
 
         Guest guest = addGuestToEvent(uuid, String.valueOf(eventId), personId, gender, nachname, vorname, username, category);
 
-        if (guest!=null) {
-        	updateOptionalFields(uuid, fields, guest.getFk_person());
+        String imgUUID = null;
+        if (hasTempImage) {
+            imgUUID = generateImageUUID();
+            updateGuestEntity(guest.getPk(), imgUUID);
         }
 
+        if (guest!=null) {
+        	updateOptionalFields(uuid, fields, guest.getFk_person());
+
+        }
+        if (imgUUID != null) {
+            return imgUUID;
+        }
         return "OK";
+    }
+
+    private void updateGuestEntity(Integer guestId, String imgUUID) {
+        final WebResource guestUpdateResource = client.resource(config.getVerawebEndpoint() + "/rest/guest/update/entity");
+        final Form postBody = new Form();
+        postBody.add("guestId", guestId);
+        postBody.add("imgUUID", imgUUID);
+        guestUpdateResource.post(postBody);
     }
 
     private void createPersonCategory(final Integer personId, final  Integer categoryId) {
@@ -518,6 +539,7 @@ public class DelegationResource {
     	}
 	}
 
+    // TODO We can use Person entity...
     private String updateDelegateMainData(Integer personId, String lastname, String firstname, String gender,
             String function, String fields, String uuid) throws IOException {
         updatePerson(personId, firstname, lastname, gender, function);
@@ -768,5 +790,10 @@ public class DelegationResource {
         final Date currentDate = new Date();
 
     	return "deleg" + currentDate.getTime();
+    }
+
+    private String generateImageUUID() {
+        UUID imageUUID = UUID.randomUUID();
+        return imageUUID.toString();
     }
 }

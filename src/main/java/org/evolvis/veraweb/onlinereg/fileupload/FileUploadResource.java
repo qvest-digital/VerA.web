@@ -2,14 +2,16 @@ package org.evolvis.veraweb.onlinereg.fileupload;
 
 import com.sun.jersey.api.client.Client;
 
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.representation.Form;
 import lombok.extern.java.Log;
 
 import org.evolvis.veraweb.onlinereg.Config;
-import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
 import javax.imageio.ImageIO;
 
-import sun.misc.BASE64Encoder;
+import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.utils.VerawebConstants;
 import sun.misc.BASE64Decoder;
 
 import javax.ws.rs.FormParam;
@@ -20,7 +22,6 @@ import javax.ws.rs.core.MediaType;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -30,7 +31,6 @@ import java.io.IOException;
 @Produces(MediaType.APPLICATION_JSON)
 @Log
 public class FileUploadResource {
-
 
     /** Jersey client */
     private Client client;
@@ -43,66 +43,69 @@ public class FileUploadResource {
      */
     private static final String BASE_RESOURCE = "/rest";
     
-    /**
-     * image types
-     */
-
-	final String JPEG = "data:image/jpeg";
-	final String JPG = "data:image/jpg";
-	final String PNG = "data:image/png";
-
     public FileUploadResource(Config config, Client client) {
         this.client = client;
         this.config = config;
     }
 
-
 	@POST
 	@Path("/save")
-	public String saveTempImage(@FormParam("file") String imageString) throws IOException {
+	public String saveTempImage(@FormParam("file") String imageString, @FormParam("imgUUID") String imgUUID) throws IOException {
 
-		String imageType = imageType(imageString);
+		String extension = getImageType(imageString);
 		String imageStringData = removeHeaderFromImage(imageString);
-		BufferedImage image = null;
-		byte[] imageByte;
-		try {
-			BASE64Decoder decoder = new BASE64Decoder();
-			imageByte = decoder.decodeBuffer(imageStringData);
-			ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
-			image = ImageIO.read(bis);
-			bis.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// save jpeg as jpg file
-		if (imageType.equals("jpeg")) {
-			imageType = "jpg";
-		}
-		File outputfile = new File("/tmp/comeonbaby." + imageType);
-		ImageIO.write(image, "jpg", outputfile);
-		return StatusConverter.convertStatus("FILE_UPLOAD_ERROR");
 
+		uploadImage(imageStringData,extension,imgUUID);
+
+		return "OK";
+	}
+
+	public void uploadImage(String imageStringData, String extension, String imgUUID) {
+		final WebResource resource = client.resource(path("fileupload", "save"));
+
+		final Form postBody = new Form();
+
+		postBody.add("imageStringData", imageStringData);
+		postBody.add("extension", extension);
+		postBody.add("imageUUID", imgUUID);
+
+		resource.post(postBody);
 	}
      
 	private String removeHeaderFromImage(String imageString) {
-		if (imageType(imageString).equals("jpg") || imageType(imageString).equals("png"))
+		if (getImageType(imageString).equals(VerawebConstants.EXTENSION_JPG) || getImageType(imageString).equals(VerawebConstants.EXTENSION_PNG))
 			return imageString.substring(22);
-		if (imageType(imageString).equals("jpeg"))
+		if (getImageType(imageString).equals(VerawebConstants.EXTENSION_JPEG))
 			return imageString.substring(23);
 
 		return "ERROR REMOVING HEADER FROM IMAGE";
 	}
      
-	private String imageType(String imageString) {
+	private String getImageType(String imageString) {
 		String imageHeader = imageString.substring(0, 15);
-		if (imageHeader.contains(JPG)) {
-			return "jpg";
-		} else if (imageHeader.contains(JPEG)) {
-			return "jpeg";
-		} else if (imageHeader.contains(PNG)) {
-			return "png";
+		if (imageHeader.contains(VerawebConstants.JPG)) {
+			return VerawebConstants.EXTENSION_JPG;
+		} else if (imageHeader.contains(VerawebConstants.JPEG)) {
+			return VerawebConstants.EXTENSION_JPEG;
+		} else if (imageHeader.contains(VerawebConstants.PNG)) {
+			return VerawebConstants.EXTENSION_PNG;
 		}
-		return "ERROR PARSING IMAGE TYPE";
+		return "ERROR_PARSING_IMAGE_TYPE";
 	}
 
+	/**
+	 * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
+	 *
+	 * @param path path fragments
+	 * @return complete path as string
+	 */
+	private String path(Object... path) {
+		String r = config.getVerawebEndpoint() + BASE_RESOURCE;
+
+		for (Object p : path) {
+			r += "/" + p;
+		}
+
+		return r;
+	}
 }
