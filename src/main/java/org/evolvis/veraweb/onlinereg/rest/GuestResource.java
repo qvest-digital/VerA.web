@@ -23,6 +23,7 @@ import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -119,6 +120,29 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
+
+    /**
+     *
+     * @param guestId
+     * @param imgUUID
+     */
+    @POST
+    @Path("/update/entity")
+    public void updateGuestEntity(@FormParam("guestId") Integer guestId, @FormParam("imgUUID") String imgUUID) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Guest.getGuestById");
+            query.setInteger("guestId", guestId);
+            final Guest guest = (Guest) query.uniqueResult();
+            guest.setImage_uuid(imgUUID);
+
+            session.update(guest);
+            session.flush();
+        } finally {
+            session.close();
+        }
+    }
+
     /**
      * Save guest.
      *
