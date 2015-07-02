@@ -42,6 +42,14 @@ public class FileUploadResource {
      * Base path of all resources.
      */
     private static final String BASE_RESOURCE = "/rest";
+    
+    /**
+     * image types
+     */
+
+	final String JPEG = "data:image/jpeg";
+	final String JPG = "data:image/jpg";
+	final String PNG = "data:image/png";
 
     public FileUploadResource(Config config, Client client) {
         this.client = client;
@@ -49,30 +57,52 @@ public class FileUploadResource {
     }
 
 
-     @POST
-     @Path("/save")
-     public String saveTempImage(@FormParam("file") String imageString) throws IOException {
-    	 
+	@POST
+	@Path("/save")
+	public String saveTempImage(@FormParam("file") String imageString) throws IOException {
 
-    	        BufferedImage image = null;
-    	        byte[] imageByte;
-    	        try {
-    	            BASE64Decoder decoder = new BASE64Decoder();
-    	            imageByte = decoder.decodeBuffer(imageString.substring(23));
-    	            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
-    	            image = ImageIO.read(bis);
-    	            bis.close();
-    	        } catch (Exception e) {
-    	            e.printStackTrace();
-    	        } finally {
-    	        	System.out.println("Chech image here");
-    	        }
-    	     File outputfile = new File ("/tmp/comeonbaby.jpg");
-    	     ImageIO.write(image, "jpg", outputfile);
+		String imageType = imageType(imageString);
+		String imageStringData = removeHeaderFromImage(imageString);
+		BufferedImage image = null;
+		byte[] imageByte;
+		try {
+			BASE64Decoder decoder = new BASE64Decoder();
+			imageByte = decoder.decodeBuffer(imageStringData);
+			ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+			image = ImageIO.read(bis);
+			bis.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// save jpeg as jpg file
+		if (imageType.equals("jpeg")) {
+			imageType = "jpg";
+		}
+		File outputfile = new File("/tmp/comeonbaby." + imageType);
+		ImageIO.write(image, "jpg", outputfile);
+		return StatusConverter.convertStatus("FILE_UPLOAD_ERROR");
 
-            return StatusConverter.convertStatus("FILE_UPLOAD_ERROR");
+	}
+     
+	private String removeHeaderFromImage(String imageString) {
+		if (imageType(imageString).equals("jpg") || imageType(imageString).equals("png"))
+			return imageString.substring(22);
+		if (imageType(imageString).equals("jpeg"))
+			return imageString.substring(23);
 
-
-     }
+		return "ERROR REMOVING HEADER FROM IMAGE";
+	}
+     
+	private String imageType(String imageString) {
+		String imageHeader = imageString.substring(0, 15);
+		if (imageHeader.contains(JPG)) {
+			return "jpg";
+		} else if (imageHeader.contains(JPEG)) {
+			return "jpeg";
+		} else if (imageHeader.contains(PNG)) {
+			return "png";
+		}
+		return "ERROR PARSING IMAGE TYPE";
+	}
 
 }
