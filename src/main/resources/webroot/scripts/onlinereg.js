@@ -335,13 +335,13 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams, $translate) {
 
 //	$scope.image = null;
-	$rootScope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+	$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
 
 		if (flowFile.size > 100*1024) {
 			$scope.imageError = "Maximal 100kb erlaubt!";
 			event.preventDefault();//prevent file from uploading
 		} else {
-			$scope.imageError = null;
+			$scope.imageError = undefined;
 			var fileReader = new FileReader();
 			fileReader.onload = function (event) {
 				$scope.$apply(function () {
@@ -413,6 +413,26 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 		$scope.getOptionalFieldsWithTypeContent();
 
+
+		$scope.uploadImage = function() {
+
+					$http({
+						method: 'POST',
+						url: 'api/fileupload/save',
+						dataType: 'text',
+						headers: {
+							"Content-Type": undefined
+						},
+						data: $.param({
+							file: $scope.image
+						})
+					}).success(function(result) {
+						$scope.success = 'nunununu';
+
+					}).error(function(data, status, headers, config) {
+					});
+
+		}
 		$scope.register_user = function() {
 			$scope.success = null;
 			$scope.error = null;
@@ -485,6 +505,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							});
 						} else if (result.status === 'OK') {
 							$scope.refreshData();
+							$scope.uploadImage();
+
 							$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
 								$scope.success = text;
 							});
@@ -493,13 +515,14 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							$http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 								$scope.presentPersons = presentPersons.data;
 							});
+
+
 						} else {
 							$scope.error = ERROR_TEXT;
 						}
 
 						$scope.button = false;
 					}).error(function(data, status, headers, config) {
-
 					});
 				}
 			} else {

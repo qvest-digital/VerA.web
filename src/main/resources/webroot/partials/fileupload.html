@@ -1,4 +1,4 @@
-<div ng-controller="DelegationController" flow-init>
+<div ng-controller="DelegationController" flow-name="jonflow" ng-init="mittwoch='huhuhu'">
 
     <!--<button type="submit"  ngf-select ngf-change="upload($files)">Choose file</button>-->
 
@@ -9,17 +9,17 @@
         <span ng-show="imageError"><h3>{{imageError}}</h3></span>
         <div
              flow-files-submitted="$flow.upload()"
-             flow-file-success="$file.msg = $message">
-            <img flow-img="$flow.files[0]" />
-            <input type="file" flow-btn/>
+             flow-file-success="testingimage($flow.files[0])"> <!-- "$file.msg = $message"> -->
+            <!--<img flow-img="$flow.files[0]" ng-href="{{image}}" />-->
+            <img src="{{image}}" />
+            <input type="file" flow-btn />
 
             <table>
-                <tr ng-repeat="file in $flow.files" ng-model="files">
+                <tr ng-repeat="file in $flow.files">
                     <td>{{file.name}}</td>
                 </tr>
             </table>
+
         </div>
-
-
 
 </div>

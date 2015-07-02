@@ -1,16 +1,11 @@
 package org.evolvis.veraweb.onlinereg.fileupload;
 
-import com.sun.corba.se.spi.orbutil.fsm.Input;
 import com.sun.jersey.api.client.Client;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MultipartDataSource;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeBodyPart;
 import lombok.extern.java.Log;
-import org.eclipse.jetty.util.MultiPartInputStreamParser;
+import org.apache.commons.codec.binary.Base64;
 import org.evolvis.veraweb.onlinereg.Config;
-import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.glassfish.jersey.media.multipart.FormDataParam;
-import org.glassfish.jersey.media.multipart.file.StreamDataBodyPart;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -51,49 +46,63 @@ public class FileUploadResource {
 
 
      @POST
-     @Consumes(MediaType.MULTIPART_FORM_DATA)
      @Path("/save")
-     public void saveTempImage(@FormDataParam("file") InputStream file) throws IOException {
+     public String saveTempImage(@FormParam("file") String stringFile) throws IOException {
 
      OutputStream outputStream = null;
-        try {
+            byte[] data = Base64.decodeBase64(stringFile);
+
+            try (OutputStream stream = new FileOutputStream("/tmp/flowyimage.png")) {
+                stream.write(data);
+            } finally {
+                if (outputStream != null) {
+                    try {
+                        //                     outputStream.flush();
+                        outputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
 
             // write the inputStream to a FileOutputStream
-            outputStream =
-                    new FileOutputStream(new File("/tmp/octopus.jpg"));
+//            outputStream =
+//                    new FileOutputStream(new File("/tmp/octopus.jpg"));
+//
+//            int read = 0;
+//            byte[] bytes = new byte[1024];
+//
+//            while ((read = file.read(bytes)) != -1) {
+//                outputStream.write(bytes, 0, read);
+//            }
+//
+//            System.out.println("Done!");
+//            return StatusConverter.convertStatus("OK");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (file != null) {
+//                try {
+//                    file.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            if (outputStream != null) {
+//                try {
+////                     outputStream.flush();
+//                    outputStream.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        }
+            return StatusConverter.convertStatus("FILE_UPLOAD_ERROR");
 
-            int read = 0;
-            byte[] bytes = new byte[1024];
 
-            while ((read = file.read(bytes)) != -1) {
-                outputStream.write(bytes, 0, read);
-            }
-
-            System.out.println("Done!");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (file != null) {
-                try {
-                    file.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (outputStream != null) {
-                try {
-//                     outputStream.flush();
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }
-
-
-    }
-
+     }
 
 }
