@@ -87,6 +87,27 @@ public class GuestResource extends AbstractResource{
     }
 
     /**
+     * Get the image UUID of a guest
+     * @param eventId event id
+     * @param userId user id
+     * @return
+     */
+    @GET
+    @Path("/image/{delegationUUID}/{personId}")
+    public String getGuestImageUUID(@PathParam("delegationUUID") String delegationUUID, @PathParam("personId") int userId) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Guest.findImageByDelegationAndUser");
+            query.setString("delegationUUID", delegationUUID);
+            query.setInteger("userId", userId);
+
+            return (String) query.uniqueResult();
+        } finally {
+            session.close();
+        }
+    }
+
+    /**
      * TODO We dont need this method. Next method with the same behaviour...
      * Save guest.
      *

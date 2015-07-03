@@ -1,22 +1,27 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
+
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
 /**
- * @Author Jon Nuñez, tarent solutions GmbH on 02.07.15.
+ * @author Jon Nuñez, tarent solutions GmbH on 02.07.15.
  */
 @Path("fileupload")
 @Produces(MediaType.APPLICATION_JSON)
@@ -61,6 +66,36 @@ public class FileUploadResource extends AbstractResource {
         File fileToStore = new File(VworConstants.DESTINY_PATH_FILE_UPLOAD + imageName);
         ImageIO.write(image, VworConstants.EXTENSION_JPG, fileToStore);
 
+    }
+
+    /**
+     * Getting the picture by image UUID
+     * @param imgUUID image uuid
+     * @return Base64 data
+     */
+    @GET
+    @Path("/download/{imgUUID}")
+    public String getImageByUUID(@PathParam("imgUUID") String imgUUID) throws IOException {
+        File file = new File(VworConstants.DESTINY_PATH_FILE_UPLOAD + generateImageName(imgUUID));
+
+        BufferedImage image = ImageIO.read(file);
+
+        String imageString = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        StringBuilder encodedImage = null;
+        try {
+            ImageIO.write(image, "jpg", bos);
+            byte[] imageBytes = bos.toByteArray();
+
+            BASE64Encoder encoder = new BASE64Encoder();
+            imageString = encoder.encode(imageBytes);
+
+            encodedImage = new StringBuilder("data:image/jpg;base64,").append(imageString);
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return encodedImage.toString();
     }
 
     public String generateImageName(String imgUUID) {
