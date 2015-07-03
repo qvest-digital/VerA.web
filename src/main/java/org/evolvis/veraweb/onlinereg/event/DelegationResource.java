@@ -289,7 +289,7 @@ public class DelegationResource {
         		// Update delegate main data
                 // TODO too much parameters...
         		final String returnedValue = updateDelegateMainData(personId, lastname, firstname, convertedGenderValue,
-        		        function, fields, uuid);
+        		        function, fields, uuid, hasTempImage);
         		// Update delegate category
         		updateDelegateCategory(personId, category, uuid);
         		return StatusConverter.convertStatus(returnedValue);
@@ -503,8 +503,7 @@ public class DelegationResource {
 
         String imgUUID = null;
         if (hasTempImage) {
-            imgUUID = generateImageUUID();
-            updateGuestEntity(guest.getPk(), imgUUID);
+            imgUUID = updateImageUUID(guest);
         }
 
         if (guest!=null) {
@@ -515,6 +514,13 @@ public class DelegationResource {
             return imgUUID;
         }
         return "OK";
+    }
+
+    private String updateImageUUID(Guest guest) {
+        String imgUUID;
+        imgUUID = generateImageUUID();
+        updateGuestEntity(guest.getPk(), imgUUID);
+        return imgUUID;
     }
 
     private void updateGuestEntity(Integer guestId, String imgUUID) {
@@ -541,9 +547,18 @@ public class DelegationResource {
 
     // TODO We can use Person entity...
     private String updateDelegateMainData(Integer personId, String lastname, String firstname, String gender,
-            String function, String fields, String uuid) throws IOException {
+            String function, String fields, String delegationUUID, Boolean hasTempImage) throws IOException {
         updatePerson(personId, firstname, lastname, gender, function);
-        updateOptionalFields(uuid, fields, personId);
+        updateOptionalFields(delegationUUID, fields, personId);
+
+        final Guest guest = readResource(path("guest", "delegation", delegationUUID, personId), GUEST);
+
+        if (hasTempImage && guest.getImage_uuid() == null) {
+            updateImageUUID(guest);
+        }
+        else if (guest.getImage_uuid() != null) {
+            return guest.getImage_uuid();
+        }
 
         return "OK";
     }

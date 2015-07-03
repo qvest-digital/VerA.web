@@ -337,8 +337,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 //	$scope.image = null;
 	$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
 
-		if (flowFile.size > 100*1024) {
-			$scope.imageError = "Maximal 100kb erlaubt!";
+		if (flowFile.size > 100*2048) {
+			$scope.imageError = "The image is not correct";
 			event.preventDefault();//prevent file from uploading
 		} else {
 			$scope.imageError = undefined;
@@ -413,7 +413,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 		$scope.getOptionalFieldsWithTypeContent();
 
-
 		$scope.uploadImage = function() {
 
 					$http({
@@ -436,11 +435,16 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 		}
 
+		$scope.removeImage = function() {
+			$scope.image = null;
+        }
+
 		$scope.register_user = function() {
 			$scope.hasTempImage = false;
 			if ($scope.image != null) {
 				$scope.hasTempImage = true;
 			}
+
 			$scope.success = null;
 			$scope.error = null;
 			$rootScope.cleanMessages();
@@ -527,6 +531,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							$scope.imgUUID = result.status;
 
 							$scope.uploadImage();
+							$scope.removeImage();
                             $scope.refreshData();
                             $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 								$scope.presentPersons = presentPersons.data;
@@ -544,7 +549,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			}
 		}
 
-
 		$scope.refreshData = function() {
 			$scope.gender = $scope.genderOptions[0];
 			$scope.category = null;
@@ -554,7 +558,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.targetPersonId = null;
 			$scope.labellist = {};
 			$scope.getOptionalFieldsWithTypeContent();
-			$scope.image = '';
+			$scope.removeImage();
 		}
 
 		$scope.loadPersonData = function(personId) {
@@ -579,7 +583,27 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			});
 			$scope.loadDelegateCategory();
 
+			$scope.loadGuestImage();
 		}
+
+		$scope.getImageUUIDByUser = function() {
+			$http.get('api/fileupload/user/image/' + $routeParams.uuid + "/" + $scope.targetPersonId).then(function(imgUUID) {
+				$scope.imgUUID = imgUUID.data.status;
+				$scope.downloadImage();
+			});
+		}
+
+		$scope.downloadImage = function() {
+			$http.get('api/fileupload/download/' + $scope.imgUUID).then(function(encodedImage) {
+				$scope.image = encodedImage.data.status;
+			});
+		}
+
+		$scope.loadGuestImage = function() {
+			$scope.getImageUUIDByUser();
+
+		}
+
 		$scope.loadDelegateCategory = function() {
 			$http.get('api/delegation/load/category/' + $routeParams.uuid + '/' + $scope.targetPersonId).then(function(catname) {
 				if (catname != null) {
@@ -587,6 +611,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				}
 			});
 		}
+
 		$scope.showOptionalFields = function (personId) {
 			$scope.targetPersonId=personId;
 			$translate('DELEGATION_MESSAGE_NO_EXTRA_FIELDS').then(function (text) {

@@ -1,31 +1,33 @@
 package org.evolvis.veraweb.onlinereg.fileupload;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 import lombok.extern.java.Log;
 
 import org.evolvis.veraweb.onlinereg.Config;
 
-import javax.imageio.ImageIO;
-
-import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.evolvis.veraweb.onlinereg.utils.VerawebConstants;
-import sun.misc.BASE64Decoder;
 
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 /**
- * Created by Jon Nuñez, tarent solutions GmbH on 29.06.15.
+ * @author  by Jon Nuñez, tarent solutions GmbH on 29.06.15.
  */
 @Path("/fileupload")
 @Produces(MediaType.APPLICATION_JSON)
@@ -38,10 +40,14 @@ public class FileUploadResource {
     /** Configuration */
     private Config config;
 
-    /**
-     * Base path of all resources.
-     */
+	/** Jackson Object Mapper */
+	private final ObjectMapper mapper = new ObjectMapper();
+
+    /** Base path of all resources. */
     private static final String BASE_RESOURCE = "/rest";
+
+	/** Return types */
+	private static final TypeReference<String> STRING = new TypeReference<String>() {};
     
     public FileUploadResource(Config config, Client client) {
         this.client = client;
@@ -50,14 +56,58 @@ public class FileUploadResource {
 
 	@POST
 	@Path("/save")
-	public String saveTempImage(@FormParam("file") String imageString, @FormParam("imgUUID") String imgUUID) throws IOException {
+	public String saveTempImage(@FormParam("file") String imageString,
+								@FormParam("imgUUID") String imgUUID) throws IOException {
 
 		String extension = getImageType(imageString);
 		String imageStringData = removeHeaderFromImage(imageString);
 
 		uploadImage(imageStringData,extension,imgUUID);
 
-		return "OK";
+		return StatusConverter.convertStatus("OK");
+	}
+
+	@GET
+	@Path("/user/image/{delegationUUID}/{personId}")
+	public String getImageUUIDByUser(@PathParam("delegationUUID") String delegationUUID,
+									 @PathParam("personId") Integer personId) {
+
+		WebResource resource = client.resource(path("guest","image", delegationUUID, personId));
+		String imageUUID = null;
+
+		try {
+			imageUUID = resource.get(String.class);
+		} catch (UniformInterfaceException e) {
+			int statusCode = e.getResponse().getStatus();
+			if(statusCode == 204) {
+				return null;
+			}
+
+			return null;
+		}
+
+		return StatusConverter.convertStatus(imageUUID);
+	}
+
+	@GET
+	@Path("/download/{imgUUID}")
+	public String downloadGuestImage(@PathParam("imgUUID") String imgUUID) throws IOException {
+
+		WebResource resource = client.resource(path("fileupload","download", imgUUID));
+		String encodedImage = null;
+
+		try {
+			encodedImage = resource.get(String.class);
+		} catch (UniformInterfaceException e) {
+			int statusCode = e.getResponse().getStatus();
+			if(statusCode == 204) {
+				return null;
+			}
+
+			return null;
+		}
+
+		return StatusConverter.convertStatus(encodedImage);
 	}
 
 	public void uploadImage(String imageStringData, String extension, String imgUUID) {
@@ -107,5 +157,36 @@ public class FileUploadResource {
 		}
 
 		return r;
+	}
+
+	/**
+	 * Reads the resource at given path and returns the entity.
+	 *
+	 * @param path path
+	 * @param type TypeReference of requested entity
+	 * @param <T>  Type of requested entity
+	 * @return requested resource
+	 * @throws IOException
+	 */
+	private <T> T readResource(String path, TypeReference<T> type) throws IOException {
+		WebResource resource;
+		try {
+			resource = client.resource(path);
+			final String json = resource.get(String.class);
+			return mapper.readValue(json, type);
+		} catch (ClientHandlerException che) {
+			if (che.getCause() instanceof SocketTimeoutException) {
+				//FIXME some times open, pooled connections time out and generate errors
+				log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
+				resource = client.resource(path);
+				final String json = resource.get(String.class);
+				return mapper.readValue(json, type);
+			} else {
+				throw che;
+			}
+		} catch (UniformInterfaceException uie) {
+			log.warning(uie.getResponse().getEntity(String.class));
+			throw uie;
+		}
 	}
 }
