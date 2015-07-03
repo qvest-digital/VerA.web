@@ -161,6 +161,24 @@ public class CategoryResource extends AbstractResource {
 		}
     }
 
+	@GET
+	@Path("person/data")
+	public Integer getCategoryByCatnameAndOrgunit(@QueryParam("catname") String categoryName,
+												  @QueryParam("personId") String personId) {
+		final Session session = openSession();
+		try {
+			final Query queryCategory = session.getNamedQuery("Category.findCategoryByPersonIdAndCatname");
+			queryCategory.setString("catname", categoryName);
+			queryCategory.setInteger("personId", Integer.valueOf(personId));
+
+			final Integer category = (Integer) queryCategory.uniqueResult();
+
+			return category;
+		} finally {
+			session.close();
+		}
+	}
+
 	private void updatePersonCategory(Integer personId,
 			final Session session, Integer categoryId) {
 		if (checkExistingPersonCategory(personId, categoryId, session)) {
