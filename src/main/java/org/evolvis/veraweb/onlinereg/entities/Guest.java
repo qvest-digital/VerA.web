@@ -48,6 +48,8 @@ import javax.xml.bind.annotation.XmlRootElement;
             query = "SELECT g FROM Guest g where delegation = :delegation and fk_person = :userId"),
     @NamedQuery(name = "Guest.findIdByEventAndUser",
             query = "SELECT g.pk FROM Guest g where fk_event = :eventId and fk_person = :userId"),
+    @NamedQuery(name = "Guest.findImageByDelegationAndUser",
+            query = "SELECT g.image_uuid FROM Guest g where delegation=:delegationUUID and fk_person = :userId"),
     @NamedQuery(name = "Guest.getGuestByNoLoginRequiredUUID",
             query = "SELECT g.pk FROM Guest g where login_required_uuid = :noLoginRequiredUUID"),
     @NamedQuery(name = "Guest.getGuestById",

@@ -45,10 +45,10 @@ public class OptionalField {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int pk;
-	private int fk_event;
+	private Integer pk;
+	private Integer fk_event;
 	private String label;
-	private int fk_type;
+	private Integer fk_type;
 	
 	public int getPk() {
 		return pk;
