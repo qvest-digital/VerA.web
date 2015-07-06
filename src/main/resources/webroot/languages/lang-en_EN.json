@@ -83,5 +83,7 @@
   "DELEGATION_REGISTER_USER_TITLE": "Add delegate",
   "DELEGATION_ALREADY_REGISTERED": "Already registered",
   "DELEGATION_EXTRA_FIELDS_TITLE": "Extra fields",
-  "DELEGATION_EMPTY_FIELDS": "Do you really want to clear the fields?"
+  "DELEGATION_EMPTY_FIELDS": "Do you really want to clear the fields?",
+  "DELEGATION_PHOTO_NEW": "Upload contact photo",
+  "DELEGATION_PHOTO_EXIST": "Change contact photo"
 }
