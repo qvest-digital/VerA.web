@@ -427,7 +427,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 					}).success(function(result) {
 						$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
 							$scope.success = text;
-							$route.reload();
+//							$route.reload();
 						});
 					}).error(function(data, status, headers, config) {
 					});
@@ -436,6 +436,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 		$scope.removeImage = function() {
 			$scope.image = null;
+			$scope.imgUUID = null;
         }
 
 		$scope.register_user = function() {
@@ -515,7 +516,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 								$scope.error = text;
 							});
 						} else if (result.status === 'OK') {
-
 							$scope.refreshData();
 
 							$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
@@ -530,8 +530,12 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							$scope.imgUUID = result.status;
 
 							$scope.uploadImage();
-							$scope.removeImage();
-                            $scope.refreshData();
+							$scope.refreshData();
+
+                            $translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
+                            	$scope.success = text;
+                            });
+
                             $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 								$scope.presentPersons = presentPersons.data;
 							});
@@ -549,6 +553,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		}
 
 		$scope.refreshData = function() {
+			$scope.success = null;
+            $scope.error = null;
+            $rootScope.cleanMessages();
+
 			$scope.gender = $scope.genderOptions[0];
 			$scope.category = null;
 			$scope.functionDescription = null;
