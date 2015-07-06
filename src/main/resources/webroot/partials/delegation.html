@@ -14,20 +14,20 @@
                 {{error}}
             </div>
 
-
-
-			<div class="row" id="NameAndPic">
-				<div style="width: 60%; float: left">
-					<div
+			<div id="NameAndPic">
+				<div style="width: 80%; float: left">
+					<div class="col-xs-12 marginB10"
 						ng-class="delegation-form.gender.$valid ? 'has-success' : 'has-error'">
+                        <label>{{'GENERIC_GENDER'|translate}}</label>
 						<select class="form-control" id="gender" name="gender"
 							ng-model="gender"
 							ng-options="option.name | translate for option in genderOptions"
 							required="" /></select>
 					</div>
 
-					<div
+					<div class="col-xs-6 marginB10"
 						ng-class="delegation-form.vorname.$valid ? 'has-success' : 'has-error'">
+                        <label>{{'GENERIC_FIRSTNAME'|translate}}</label>
 						<input type="text" class="form-control" id="vorname"
 							placeholder="{{'GENERIC_FIRSTNAME'|translate}}"
 							ng-model="vorname" required />
@@ -39,8 +39,9 @@
 						</div>
 					</div>
 
-					<div
+					<div class="col-xs-6 marginB10"
 						ng-class="delegation-form.nachname.$valid ? 'has-success' : 'has-error'">
+                        <label>{{'GENERIC_LASTNAME'|translate}}</label>
 						<input type="text" class="form-control" id="nachname"
 							placeholder="{{'GENERIC_LASTNAME'|translate}}"
 							ng-model="nachname" required />
@@ -51,28 +52,24 @@
 								{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
 						</div>
 					</div>
-				</div>
 
-				<div style="width: 40%; float: right">
-					<div ng-include src="'partials/fileupload.html'"></div>
-				</div>
+                    <div class="col-xs-12 marginB10">
+                        <label>{{'GENERIC_FUNCTION'|translate}}</label>
+                        <select class="form-control" id="functionDescription" name="functionDescription"
+                                ng-model="functionDescription" ng-options="function for function in functionSignNames"/>
+                        </select>
+                    </div>
 
+                    <div class="col-xs-12 marginB10">
+                        <label>{{'GENERIC_CATEGORY'|translate}}</label>
+                        <select class="form-control" id="category" name="category" ng-model="category"
+                                ng-options="category for category in categoryNames"/></select>
+                    </div>
+                </div>
+                <div class="img-thumbnail">
+                    <div ng-include src="'partials/fileupload.html'"></div>
+                </div>
 			</div>
-
-			<div class="row">
-
-            <div class="col-xs-6">
-                <label>{{'GENERIC_FUNCTION'|translate}}</label>
-                <select class="form-control" id="functionDescription" name="functionDescription"
-                        ng-model="functionDescription" ng-options="function for function in functionSignNames"/>
-                </select>
-            </div>
-
-            <div class="col-xs-6">
-                <label>{{'GENERIC_CATEGORY'|translate}}</label>
-                <select class="form-control" id="category" name="category" ng-model="category"
-                        ng-options="category for category in categoryNames"/></select>
-            </div>
         </div>
 
         <div id="collapse-formular" ng-show="showDialog">
