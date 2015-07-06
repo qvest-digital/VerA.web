@@ -558,7 +558,7 @@ public class DelegationResource {
         final Guest guest = readResource(path("guest", "delegation", delegationUUID, personId), GUEST);
 
         if (hasTempImage && guest.getImage_uuid() == null) {
-            updateImageUUID(guest);
+            return updateImageUUID(guest);
         }
         else if (guest.getImage_uuid() != null) {
             return guest.getImage_uuid();

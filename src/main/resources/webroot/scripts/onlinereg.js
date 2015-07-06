@@ -335,8 +335,10 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams, $translate, $route) {
 
 	$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+		$scope.error = null;
 
-		if (flowFile.size > 100*2048) {
+
+		if ($scope.error != null) {
 			$scope.imageError = "The image is not correct";
 			event.preventDefault();//prevent file from uploading
 		} else {
@@ -344,7 +346,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			var fileReader = new FileReader();
 			fileReader.onload = function (event) {
 				$scope.$apply(function () {
-					$scope.image = event.target.result;
+					$scope.validateImage(event.target.result);
+					if ($scope.error == null) {
+						$scope.image = event.target.result;
+					}
 				});
 			};
 			fileReader.readAsDataURL(flowFile.file);
@@ -413,30 +418,45 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.getOptionalFieldsWithTypeContent();
 
 		$scope.uploadImage = function() {
-					$http({
-						method: 'POST',
-						url: 'api/fileupload/save',
-						dataType: 'text',
-						headers: {
-							"Content-Type": undefined
-						},
-						data: $.param({
-							file: $scope.image,
-							imgUUID: $scope.imgUUID
-						})
-					}).success(function(result) {
-						$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
-							$scope.success = text;
-							$route.reload();
-						});
-					}).error(function(data, status, headers, config) {
-					});
-
+			$http({
+				method: 'POST',
+				url: 'api/fileupload/save',
+				dataType: 'text',
+				headers: {
+					"Content-Type": undefined
+				},
+				data: $.param({
+					file: $scope.image,
+					imgUUID: $scope.imgUUID
+				})
+			}).success(function(result) {
+				$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
+					$route.reload();
+					$scope.success = text;
+				});
+			}).error(function(data, status, headers, config) {
+			});
 		}
 
 		$scope.removeImage = function() {
 			$scope.image = null;
         }
+
+		$scope.validateImage = function(imageData) {
+			var img = new Image();
+			img.src = imageData;
+
+			if (img.complete) { // was cached 277x366
+                if (img.width != 277 && img.height != 366) {
+					$scope.error = 'Invalid photo!!!';
+                }
+            }
+            else { // wait for decoding
+				img.onload = function() {
+					$scope.error = 'Invalid photo!!!';
+				}
+			}
+		}
 
 		$scope.register_user = function() {
 			$scope.hasTempImage = false;
@@ -518,6 +538,11 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
 							$scope.refreshData();
 
+							if ($scope.image != null) {
+
+							}
+
+
 							$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
 								$scope.success = text;
 							});
@@ -532,6 +557,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							$scope.uploadImage();
 							$scope.removeImage();
                             $scope.refreshData();
+                            $route.reload();
                             $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
 								$scope.presentPersons = presentPersons.data;
 							});
