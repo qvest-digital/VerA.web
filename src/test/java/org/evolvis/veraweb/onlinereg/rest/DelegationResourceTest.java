@@ -152,7 +152,7 @@ public class DelegationResourceTest {
         List<OptionalFieldValue> fields = delegationResource.getFieldsFromEvent(1, 1);
         assertEquals(3, fields.size());
         assertEquals("My input field", fields.get(0).getLabel());
-        assertEquals(1, fields.get(1).getFk_event());
+        assertEquals(1, fields.get(1).getFk_event().intValue());
     }
 
     @Test
