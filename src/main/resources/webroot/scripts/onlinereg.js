@@ -413,7 +413,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		$scope.getOptionalFieldsWithTypeContent();
 
 		$scope.uploadImage = function() {
-
 					$http({
 						method: 'POST',
 						url: 'api/fileupload/save',
