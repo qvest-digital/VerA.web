@@ -1,6 +1,5 @@
 <h2>{{'DELEGATION_REGISTER_USER_TITLE'|translate}}:</h2>
 
-
 <form role="form" id="delegation-form">
     <div class="form-group container">
         <div class="row marginB10">
@@ -66,7 +65,7 @@
                                 ng-options="category for category in categoryNames"/></select>
                     </div>
                 </div>
-                <div class="img-thumbnail">
+                <div class="img-thumbnail pull-right">
                     <div ng-include src="'partials/fileupload.html'"></div>
                 </div>
 			</div>
@@ -146,7 +145,7 @@
 
       <div class="form-group container">
 		<p>{{'DELEGATION_EMPTY_FIELDS'|translate}}</p>
-		<button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="refreshData(); removeMessages(); obj.flow.cancel();">
+		<button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="refreshData(); obj.flow.cancel();">
 			{{'GENERIC_YES'|translate}}
 		</button>
 

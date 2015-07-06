@@ -1,22 +1,19 @@
 <div ng-controller="DelegationController">
-
-        <span ng-show="imageError"><h3>{{imageError}}</h3></span>
-        <div flow-files-submitted="$flow.upload()">
-
-            <div ng-hide="image">
-                <img src="images/default.jpg" />
-            </div>
-            <div ng-if="image != null">
-                 <img src="{{image}}" />
-            </div>
-
-            <span class="btn btn-custom" flow-btn>Upload File</span>
-
-            <table>
-                <tr ng-repeat="file in $flow.files">
-                    <td>{{file.name}}</td>
-                </tr>
-            </table>
-
+    <span ng-show="imageError"><h3>{{imageError}}</h3></span>
+    <div flow-files-submitted="$flow.upload()">
+        <div ng-hide="image">
+            <img src="images/default.jpg" />
         </div>
+        <div ng-if="image != null">
+             <img src="{{image}}" />
+        </div>
+
+        <span class="btn btn-custom marginT10" flow-btn>Upload File</span>
+
+        <table>
+            <tr ng-repeat="file in $flow.files">
+                <td>{{file.name}}</td>
+            </tr>
+        </table>
+    </div>
 </div>
