@@ -26,6 +26,7 @@
   "GENERIC_LOGOUT": "Abmelden",
   "GENERIC_CREATE_ACCOUNT": "Konto erstellen",
   "GENERIC_ERROR": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.",
+  "GENERIC_GENDER": "Geschlecht",
   "GENERIC_PLEASE_SELECT": "Bitte wählen",
   "GENERIC_GENDER_MALE": "Herr",
   "GENERIC_GENDER_FEMALE": "Frau",
