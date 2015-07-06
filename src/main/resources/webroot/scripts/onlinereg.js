@@ -332,9 +332,8 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 	}
 });
 
-onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams, $translate) {
+onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams, $translate, $route) {
 
-//	$scope.image = null;
 	$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
 
 		if (flowFile.size > 100*2048) {
@@ -429,6 +428,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 					}).success(function(result) {
 						$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
 							$scope.success = text;
+							$route.reload();
 						});
 					}).error(function(data, status, headers, config) {
 					});
@@ -584,6 +584,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.loadDelegateCategory();
 
 			$scope.loadGuestImage();
+//			$route.reload();
 		}
 
 		$scope.getImageUUIDByUser = function() {
@@ -594,6 +595,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		}
 
 		$scope.downloadImage = function() {
+
 			$http.get('api/fileupload/download/' + $scope.imgUUID).then(function(encodedImage) {
 				$scope.image = encodedImage.data.status;
 			});

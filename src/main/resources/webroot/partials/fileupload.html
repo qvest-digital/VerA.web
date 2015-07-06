@@ -1,23 +1,16 @@
 <div ng-controller="DelegationController">
 
-    <!--<button type="submit"  ngf-select ngf-change="upload($files)">Choose file</button>-->
-
-    <!--Image thumbnail: <img ngf-src="files[0]" ngf-default-src="images/thumb.png">-->
-
-
-
         <span ng-show="imageError"><h3>{{imageError}}</h3></span>
-        <div
-             flow-files-submitted="$flow.upload()"> <!-- "$file.msg = $message"> -->
-            <!--<img flow-img="$flow.files[0]" ng-href="{{image}}" />-->
-            <div class="thumbnail" ng-hide="image">
+        <div flow-files-submitted="$flow.upload()">
+
+            <div ng-hide="image">
                 <img src="images/default.jpg" />
             </div>
             <div ng-if="image != null">
                  <img src="{{image}}" />
-                <!--<img flow-img="$flow.files[0]" />-->
             </div>
-            <input type="file" flow-btn />
+
+            <span class="btn btn-custom" flow-btn>Upload File</span>
 
             <table>
                 <tr ng-repeat="file in $flow.files">
@@ -26,5 +19,4 @@
             </table>
 
         </div>
-
 </div>

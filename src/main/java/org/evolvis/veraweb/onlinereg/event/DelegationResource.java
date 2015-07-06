@@ -152,7 +152,11 @@ public class DelegationResource {
     @Path("/fields/list/category/{uuid}")
     public List<String> getCategories(@PathParam("uuid") String uuid) throws IOException {
         WebResource resource = client.resource(path("guest", uuid));
-        Integer eventId = resource.get(Guest.class).getFk_event();
+        Guest guest = resource.get(Guest.class);
+        Integer eventId = null;
+        if (guest != null) {
+            eventId = resource.get(Guest.class).getFk_event();
+        }
 
 		return readResource(path("category", "fields", "list", eventId), CATEGORY_LIST);
     }
