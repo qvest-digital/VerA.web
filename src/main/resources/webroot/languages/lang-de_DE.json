@@ -94,5 +94,7 @@
   "DELEGATION_REGISTER_USER_TITLE": "Delegierten hinzufügen",
   "DELEGATION_ALREADY_REGISTERED": "Bereits angemeldet",
   "DELEGATION_EXTRA_FIELDS_TITLE": "Weitere Felder",
-  "DELEGATION_EMPTY_FIELDS": "Möchten Sie wirklich die Felder leeren?"
+  "DELEGATION_EMPTY_FIELDS": "Möchten Sie wirklich die Felder leeren?",
+  "DELEGATION_PHOTO_NEW": "Kontaktfoto hochladen",
+  "DELEGATION_PHOTO_EXIST": "Kontaktfoto ändern"
 }

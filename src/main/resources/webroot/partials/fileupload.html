@@ -18,7 +18,8 @@
                  <img src="{{image}}" />
             </div>
 
-        <span class="btn btn-custom marginT10" flow-btn>Upload File</span>
-
+        <span class="btn btn-custom marginT10" flow-btn ng-if="image == null">{{'DELEGATION_PHOTO_NEW'|translate}}</span>
+        <span class="btn btn-custom marginT10" flow-btn ng-if="image != null">{{'DELEGATION_PHOTO_EXIST'|translate}}</span>
+        </div>
     </div>
 </div>
