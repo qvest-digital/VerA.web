@@ -145,7 +145,7 @@
 
       <div class="form-group container">
 		<p>{{'DELEGATION_EMPTY_FIELDS'|translate}}</p>
-		<button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="refreshData(); obj.flow.cancel();">
+		<button type="button" class="btn btn-custom" data-dismiss="modal" ng-click="$flow.files=[]; refreshData(); obj.flow.cancel(); ">
 			{{'GENERIC_YES'|translate}}
 		</button>
 

@@ -21,6 +21,10 @@ onlineRegApp.run(function ($rootScope) {
 		$rootScope.messageContent = null;
 	}
 
+	$rootScope.cleanImageControls = function () {
+		$rootScope.correctImageFormat = true;
+		$rootScope.correctImageSize = true;
+	}
 	//Only required for LoginController
 	setStatus = null;
 });
@@ -332,10 +336,9 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 	}
 });
 
-onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams, $translate, $route) {
-	$scope.error = null;
-
+onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams, $translate, $route, $timeout, $anchorScroll) {
 	$rootScope.cleanMessages();
+	$rootScope.cleanImageControls();
 
 	$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
 	    $scope.error = null;
@@ -351,8 +354,20 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		fileReader.onload = function (event) {
 			$scope.$apply(function () {
 				$scope.validateImageSize(event.target.result);
-				if ($scope.error === null) {
+				if ($rootScope.correctImageFormat && $rootScope.correctImageSize) {
 					$scope.image = event.target.result;
+				}
+				else {
+					if (!$rootScope.correctImageFormat) {
+						$translate('GENERIC_IMAGE_FORMAT_FALSE').then(function (text) {
+							$scope.error = text;
+						});
+					}
+					else {
+						$translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
+							$scope.error = text;
+						});
+					}
 				}
 			});
 		};
@@ -360,9 +375,9 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 	});
 
 //	$scope.success = null;
-	$scope.error = null;
-
-	$rootScope.cleanMessages();
+//	$scope.error = null;
+//
+//	$rootScope.cleanMessages();
 
 	if ($rootScope.user_logged_in == null) {
 		$scope.setNextPage('delegation/' + $routeParams.uuid);
@@ -460,38 +475,34 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
             if(!extensionStatus) {
                 $scope.success = null;
-
             	$rootScope.cleanMessages();
 
-            	$translate('GENERIC_IMAGE_FORMAT_FALSE').then(function (text) {
-                					$scope.error = text;
-                				});
-
-                event.preventDefault();
+				$rootScope.correctImageFormat = false;
+            }
+            else {
+            	$rootScope.correctImageFormat = true;
             }
         }
 
 		$scope.validateImageSize = function(imageData) {
-			var img = new Image();
-			img.src = imageData;
+			if ($rootScope.correctImageFormat) {
+				var img = new Image();
+				img.src = imageData;
 
-			if (img.complete) { // was cached 186x245
-                if (img.width != 186 && img.height != 245) {
-                    event.preventDefault();
-                    $translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
-                    	$scope.error = text;
-                    });
-
-                    event.preventDefault();
-                }
-            } else { // wait for decoding
-                event.preventDefault();
-				img.onload = function() {
-				    $translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
-                    	$scope.error = text;
-                    });
-
-                    event.preventDefault();
+				if (img.complete) { // was cached 186x245
+					if (img.width != 186 && img.height != 245) {
+						$rootScope.correctImageSize = false;
+						$scope.removeImage();
+					}
+					else {
+						$rootScope.correctImageSize = true;
+					}
+				} else { // wait for decoding
+					img.onload = function() {
+						$translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
+							$rootScope.previousMessage = text;
+						});
+					}
 				}
 			}
 		}
@@ -628,6 +639,13 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.labellist = {};
 			$scope.getOptionalFieldsWithTypeContent();
 			$scope.removeImage();
+
+			$timeout(function(){
+			  // waiting for modal closing effect - little delay, might not need this long
+			  $route.reload();
+			}, 350);
+
+
 		}
 
 		$scope.loadPersonData = function(personId) {

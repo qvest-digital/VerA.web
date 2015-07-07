@@ -155,7 +155,7 @@ public class DelegationResource {
         Guest guest = resource.get(Guest.class);
         Integer eventId = null;
         if (guest != null) {
-            eventId = resource.get(Guest.class).getFk_event();
+            eventId = guest.getFk_event();
         }
 
 		return readResource(path("category", "fields", "list", eventId), CATEGORY_LIST);
