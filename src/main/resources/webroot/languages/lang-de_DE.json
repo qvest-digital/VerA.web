@@ -31,6 +31,8 @@
   "GENERIC_GENDER_MALE": "Herr",
   "GENERIC_GENDER_FEMALE": "Frau",
   "GENERIC_MISSING_GENDER_MESSAGE": "Bitte wählen Sie ein Geschlecht aus.",
+  "GENERIC_IMAGE_SIZE_FALSE": "Das Bild muss 186 Pixel weit und 245 Pixel hoch sein!",
+  "GENERIC_IMAGE_FORMAT_FALSE": "Es werden nur die Dateiformate: \"jpeg, jpg und png\" unterstützt!",
   "GENERIC_MISSING_FIRSTNAME_MESSAGE": "Bitte geben Sie einen Vornamen ein.",
   "GENERIC_MISSING_LASTNAME_MESSAGE": "Bitte geben Sie einen Nachnamen ein.",
   "GENERIC_LOGOUT_SUCCESSFUL_MESSAGE": "Erfolgreich abgemeldet!",

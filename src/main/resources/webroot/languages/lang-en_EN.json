@@ -30,6 +30,8 @@
   "GENERIC_PLEASE_SELECT": "Please select",
   "GENERIC_GENDER_MALE": "Mr.",
   "GENERIC_GENDER_FEMALE": "Mrs./Ms.",
+  "GENERIC_IMAGE_SIZE_FALSE": "The image must have 186 pixel width and 245 pixel height!",
+  "GENERIC_IMAGE_FORMAT_FALSE": "Only image formats: \"jpeg, jpg und png\" are supported!",
   "GENERIC_MISSING_GENDER_MESSAGE": "Please select gender.",
   "GENERIC_MISSING_FIRSTNAME_MESSAGE": "Please enter firstname",
   "GENERIC_MISSING_LASTNAME_MESSAGE": "Please enter lastname",
