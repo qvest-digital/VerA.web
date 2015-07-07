@@ -1,12 +1,5 @@
 <div ng-controller="DelegationController">
-    <span ng-show="imageError"><h3>{{imageError}}</h3></span>
-    <div flow-files-submitted="$flow.upload()">
-        <div ng-hide="image">
-            <img src="images/default.jpg" />
-        </div>
-        <div ng-if="image != null">
-             <img src="{{image}}" />
-        </div>
+
 
         <span ng-show="imageError"><h3>{{imageError}}</h3></span>
         <div flow-files-submitted="$flow.upload()">
