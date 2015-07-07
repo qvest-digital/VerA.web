@@ -333,30 +333,33 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 });
 
 onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams, $translate, $route) {
+	$scope.error = null;
+
+	$rootScope.cleanMessages();
 
 	$scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
-		$scope.error = null;
+	    $scope.error = null;
 
+        if ($scope.success != null) {
+    	    $rootScope.cleanMessages();
+    	}
 
-		if ($scope.error != null) {
-			$scope.imageError = "The image is not correct";
-			event.preventDefault();//prevent file from uploading
-		} else {
-			$scope.imageError = undefined;
-			var fileReader = new FileReader();
-			fileReader.onload = function (event) {
-				$scope.$apply(function () {
-					$scope.validateImage(event.target.result);
-					if ($scope.error == null) {
-						$scope.image = event.target.result;
-					}
-				});
-			};
-			fileReader.readAsDataURL(flowFile.file);
-		}
+		$scope.validateImageExtension(flowFile);
+
+		$scope.imageError = undefined;
+		var fileReader = new FileReader();
+		fileReader.onload = function (event) {
+			$scope.$apply(function () {
+				$scope.validateImageSize(event.target.result);
+				if ($scope.error === null) {
+					$scope.image = event.target.result;
+				}
+			});
+		};
+		fileReader.readAsDataURL(flowFile.file);
 	});
 
-	$scope.success = null;
+//	$scope.success = null;
 	$scope.error = null;
 
 	$rootScope.cleanMessages();
@@ -431,7 +434,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				})
 			}).success(function(result) {
 				$translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
-					$route.reload();
+//					$route.reload();
 					$scope.success = text;
 				});
 			}).error(function(data, status, headers, config) {
@@ -443,18 +446,52 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$scope.imgUUID = null;
         }
 
-		$scope.validateImage = function(imageData) {
+        $scope.validateImageExtension = function(flowFile) {
+            var extensionTypes = new Array('jpeg','jpg','png');
+            var fileExtension = flowFile.name.split('.');
+            fileExtension = fileExtension[fileExtension.length - 1];
+            var extensionStatus = false;
+
+            for (var i in extensionTypes) {
+                if (extensionTypes[i] == fileExtension) {
+                    extensionStatus = true;
+                }
+            }
+
+            if(!extensionStatus) {
+                $scope.success = null;
+
+            	$rootScope.cleanMessages();
+
+            	$translate('GENERIC_IMAGE_FORMAT_FALSE').then(function (text) {
+                					$scope.error = text;
+                				});
+
+                event.preventDefault();
+            }
+        }
+
+		$scope.validateImageSize = function(imageData) {
 			var img = new Image();
 			img.src = imageData;
 
-			if (img.complete) { // was cached 277x366
-                if (img.width != 277 && img.height != 366) {
-					$scope.error = 'Invalid photo!!!';
+			if (img.complete) { // was cached 186x245
+                if (img.width != 186 && img.height != 245) {
+                    event.preventDefault();
+                    $translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
+                    	$scope.error = text;
+                    });
+
+                    event.preventDefault();
                 }
-            }
-            else { // wait for decoding
+            } else { // wait for decoding
+                event.preventDefault();
 				img.onload = function() {
-					$scope.error = 'Invalid photo!!!';
+				    $translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
+                    	$scope.error = text;
+                    });
+
+                    event.preventDefault();
 				}
 			}
 		}
@@ -552,7 +589,9 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 							$scope.uploadImage();
 
 							$scope.removeImage();
+
                             $scope.refreshData();
+
                             $route.reload();
 
                             $translate('DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL').then(function (text) {
