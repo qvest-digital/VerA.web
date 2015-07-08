@@ -497,13 +497,13 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 					else {
 						$rootScope.correctImageSize = true;
 					}
-				} else { // wait for decoding
-					img.onload = function() {
-						$translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
-							$rootScope.previousMessage = text;
-						});
-					}
-				}
+				} //else { // wait for decoding
+//					img.onload = function() {
+//						$translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
+//							$rootScope.previousMessage = text;
+//						});
+//					}
+//				}
 			}
 		}
 
@@ -643,7 +643,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			$timeout(function(){
 			  // waiting for modal closing effect - little delay, might not need this long
 			  $route.reload();
-			}, 350);
+			}, 600);
 
 
 		}
