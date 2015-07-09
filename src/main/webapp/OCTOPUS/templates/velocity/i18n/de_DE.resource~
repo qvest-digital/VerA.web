@@ -14,7 +14,7 @@ Ja=Ja
 Nein=Nein
 Es wurde eine Anrede gel\u00f6scht=Es wurde eine Anrede gel\u00f6scht
 Es existiert bereits ein Stammdaten-Eintrag unter dem Namen =Es existiert bereits ein Stammdaten-Eintrag unter dem Namen 
-=
+
 #Administration/Arbeitsbereichee=#Administration/Arbeitsbereichee
 #https://veraweb.tarent-demo.de/veraweb/do/WorkArea=#https://veraweb.tarent-demo.de/veraweb/do/WorkArea
 Arbeitsbereiche=Arbeitsbereiche
@@ -24,7 +24,7 @@ Es wurden keine Daten gefunden=Es wurden keine Daten gefunden
 Es wurde ein neuer Arbeitsbereich angelegt=Es wurde ein neuer Arbeitsbereich angelegt
 Es wurde kein Arbeitsbereich gel\u00f6scht=Es wurde kein Arbeitsbereich gel\u00f6scht
 Es wurde ein Arbeitsbereich gel\u00f6scht=Es wurde ein Arbeitsbereich gel\u00f6scht
-=
+
 #Administration/Benutzer=#Administration/Benutzer
 Benutzer=Benutzer
 Markierte(n) Benutzer=Markierte(n) Benutzer
@@ -34,7 +34,7 @@ Benutzerrechte=Benutzerrechte
 Es wurde ein neuer Benutzer angelegt=Es wurde ein neuer Benutzer angelegt
 Es wurde ein Benutzer gel\u00f6scht=Es wurde ein Benutzer gel\u00f6scht
 Sie m\u00fcssen eine Benutzerrollenbezeichnung eingeben=Sie m\u00fcssen eine Benutzerrollenbezeichnung eingeben
-=
+
 #Administration/Dokumenttypen=#Administration/Dokumenttypen
 #https://veraweb.tarent-demo.de/veraweb/do/Doctype=#https://veraweb.tarent-demo.de/veraweb/do/Doctype
 Hinweis=Hinweis
@@ -59,8 +59,8 @@ Chinesisch=Chinesisch
 Es wurde ein Dokumenttyp gel\u00f6scht.=Es wurde ein Dokumenttyp gel\u00f6scht.
 Es existiert bereits ein Stammdaten-Eintrag unter dem Namen=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen
 Es wurde ein neuer Dokumenttyp angelegt.=Es wurde ein neuer Dokumenttyp angelegt.
-=
-=
+
+
 #Administration/E-Mail-Postausgang=#Administration/E-Mail-Postausgang
 Status=Status
 Von=Von
@@ -71,8 +71,8 @@ E-Mails=E-Mails
 Beim Versenden dieser E-Mail ist ein Fehler aufgetreten. Sie k\u00f6nnen diese jetzt bearbeiten und erneut senden.=Beim Versenden dieser E-Mail ist ein Fehler aufgetreten. Sie k\u00f6nnen diese jetzt bearbeiten und erneut senden.
 technische Fehlermeldung einblenden=technische Fehlermeldung einblenden
 Fehlerbeschreibung:=Fehlerbeschreibung:
-=
-=
+
+
 #Administration/E-Mail-Vorlagen=#Administration/E-Mail-Vorlagen
 E-Mail-Vorlagen=E-Mail-Vorlagen
 Markierte Vorlage(n)=Markierte Vorlage(n)
@@ -83,8 +83,8 @@ Text*=Text*
 Platzhalter=Platzhalter
 Hinzuf\u00fcgen=Hinzuf\u00fcgen
 Zur\u00fcck zur Vorlagenliste=Zur\u00fcck zur Vorlagenliste
-=
-=
+
+
 #Administration/Farben=#Administration/Farben
 Farben=Farben
 Bezeichnung*=Bezeichnung*
@@ -93,15 +93,15 @@ Inland: Ja - Geschlecht: Weiblich=Inland: Ja - Geschlecht: Weiblich
 Inland: Ja - Geschlecht: M\u00e4nnlich=Inland: Ja - Geschlecht: M\u00e4nnlich
 Inland: Nein - Geschlecht: Weiblich=Inland: Nein - Geschlecht: Weiblich
 Inland: Nein - Geschlecht: M\u00e4nnlich=Inland: Nein - Geschlecht: M\u00e4nnlich
-=
+
 #Administration/Funktionen/Amtsbezeichnungen=#Administration/Funktionen/Amtsbezeichnungen
 Funktionen/Amtsbezeichnungen=Funktionen/Amtsbezeichnungen
 Markierte Bezeichnung(e)=Markierte Bezeichnung(e)
 Bezeichnung=Bezeichnung
 Es wurde eine neue Funktion/Amtsbezeichnung angelegt.=Es wurde eine neue Funktion/Amtsbezeichnung angelegt.
 Es wurde eine Funktion/Amtsbezeichnung gel\u00f6scht.=Es wurde eine Funktion/Amtsbezeichnung gel\u00f6scht.
-=
-=
+
+
 #Administration/Kategorien=#Administration/Kategorien
 Kategorien=Kategorien
 Markierte Kategorie(n)=Markierte Kategorie(n)
@@ -127,7 +127,7 @@ Firma Tag 2015=Firma Tag 2015
 Saturday Event 1=Saturday Event 1
 Delegation Test=Delegation Test
 FFF=FFF
-=
+
 #Administration/Mandanten=#Administration/Mandanten
 Mandanten=Mandanten
 Markierte(n) Mandanten=Markierte(n) Mandanten
@@ -143,7 +143,7 @@ Verteiler:=Verteiler:
 Benutzer:=Benutzer:
 Mandanten zuordnen=Mandanten zuordnen
 Mandant:=Mandant:
-=
+
 #Administration/Programmeinstellungen=#Administration/Programmeinstellungen
 Programeinstellungen=Programeinstellungen
 Standard Auswahl von Tabulatoren=Standard Auswahl von Tabulatoren
@@ -191,8 +191,7 @@ Zeichensatz Alternative 1:=Zeichensatz Alternative 1:
 Zeichensatz Alternative 2:=Zeichensatz Alternative 2:
 Adresszusatz 1:=Adresszusatz 1:
 Adresszusatz 2:=Adresszusatz 2:
-=
-=
+
 #Administration/Reports=#Administration/Reports
 Reports=Reports
 Hinweis=Hinweis
@@ -201,7 +200,7 @@ Datum Beginn:=Datum Beginn:
 Datum Ende:=Datum Ende:
 Felder zur\u00fccksetzen=Felder zur\u00fccksetzen
 Report erzeugen=Report erzeugen
-=
+
 #Administration/Stellvertretungen=#Administration/Stellvertretungen
 Stellvertretungen=Stellvertretungen
 G\u00fcltigkeitsfilter=G\u00fcltigkeitsfilter
@@ -213,7 +212,7 @@ Vertreter*=Vertreter*
 G\u00fcltig ab=G\u00fcltig ab
 G\u00fcltig bis=G\u00fcltig bis
 Keine Daten gefunden.=Keine Daten gefunden.
-=
+
 #Administration/Veranstaltungsorte=#Administration/Veranstaltungsorte
 Markierte(n) Veranstaltungsort(e)=Markierte(n) Veranstaltungsort(e)
 Neuen Veranstaltungsort hinzuf\u00fcgen=Neuen Veranstaltungsort hinzuf\u00fcgen
@@ -230,7 +229,6 @@ Bemerkung=Bemerkung
 URL=URL
 GPS-Daten=GPS-Daten
 Raumnummer=Raumnummer
-=
 #Verwaltung/Einstellungen=#Verwaltung/Einstellungen
 Verwaltung=Verwaltung	
 Einstellungen=Einstellungen	
