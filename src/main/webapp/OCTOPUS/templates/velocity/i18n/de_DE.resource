@@ -123,5 +123,15 @@ neue amtsbezeichnung hinzufügen=
 es wurden keine amtsbezeichnungen gefunden.=
 #veranstaltung bearbeiten: /kategorien
 neue kategorie hinzufügen=
-
-
+#veranstaltungssuche
+suche=
+datum (beginn)=
+nur in zukünftigen veranstaltungen suchen=
+sie können bei der suche sogenannte platzhalter verwenden, der+ steht für mehrere das ? für einzelne=
+#veranstaltungssuche /suchergebnis
+suchergebnis:Veranstaltungen=
+# neue veranstaltung anlegen
+einladungsart=
+mit partner=
+offene veranstaltung=
+es wurde eine neue veranstaltung angelegt.=
