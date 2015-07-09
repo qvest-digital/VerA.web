@@ -65,4 +65,63 @@ von=of
 veranstaltungen=events
 anzahl pro seite=
 seite x von y=page x of y
+#veranstaltung bearbeiten: /allgemein
+veranstaltung bearbeiten=
+veranstaltungs-id=
+veranstaltungsname=
+veranstaltungs-URL=
+URl für pressevertreter=
+zur gästeverwaltung=
+allgemein=
+dokumenttypen=
+aufgaben=
+zusätzliche personendaten=
+funktionen/amtsbezeichnungen=
+kategorien=
+kurzbereichnung=
+einladungsart=
+offene veranstaltung=
+um x uhr=
+maximal anzahl gäste=
+veranstalgungsort=
+gastgeber suchen=
+gastgeber entfernen=
+gastgeber-partner=
+bemerkung=
+login notwendig=
+anmeldung von pressevertretern möglich=
+veranstaltung speichern=
+zur veranstaltungsübersicht=
+#veranstaltung bearbeiten: /dokumenttypen
+markierte dokumenttypen=
+entfernen=
+neuen dokumenttyp hinzufügen=
+id=
+bezeichnung=
+x von y dokumenttypen=
+anzahl pro seite=
+#veranstaltung bearbeiten: /aufgaben
+neue aufgabe anlegen=
+es liegen keine aufgaben für diese veranstaltung vor=
+ausgewählte einträge=
+löschen=
+titel=
+status=
+verantwortlicher=
+#veranstaltung bearbeiten: /aufgaben/aufgabe anlegen
+aufgaben-id=
+fertigstellung=
+priorität=
+veranstwortlicher=
+beschreibung=
+verantwortlichen hinzufügen=
+verantwortlichen entfernen=
+aufgabe speichern=
+zurück zur aufgabenübersicht=
+#veranstaltung bearbeiten: /funktionen/amtsbezeichnungen
+neue amtsbezeichnung hinzufügen=
+es wurden keine amtsbezeichnungen gefunden.=
+#veranstaltung bearbeiten: /kategorien
+neue kategorie hinzufügen=
+
 
