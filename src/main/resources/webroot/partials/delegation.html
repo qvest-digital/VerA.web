@@ -3,7 +3,7 @@
 <form role="form" id="delegation-form">
     <div class="form-group container">
         <div class="row marginB10">
-            <div ng-if="success" class="alert alert-success" role="alert">
+            <div ng-if="success" class="row alert alert-success" role="alert">
                 <span class="glyphicon glyphicon-ok-sign">&nbsp;</span>
                 {{success}}
             </div>
@@ -13,60 +13,65 @@
                 {{error}}
             </div>
 
-			<div id="NameAndPic">
-				<div style="width: 80%; float: left">
-					<div class="col-xs-12 marginB10"
-						ng-class="delegation-form.gender.$valid ? 'has-success' : 'has-error'">
+			<div id="NameAndPic" class="row col-md-12 col-xs-12 dol-sm-12 col-lg-12 pull-right">
+                <div class="row col-xs-6 col-sm-7 col-lg-9 col-md-9">
+                    <div class="row marginB10"
+                        ng-class="delegation-form.gender.$valid ? 'has-success' : 'has-error'">
                         <label>{{'GENERIC_GENDER'|translate}}</label>
-						<select class="form-control" id="gender" name="gender"
-							ng-model="gender"
-							ng-options="option.name | translate for option in genderOptions"
-							required="" /></select>
-					</div>
+                        <select class="form-control" id="gender" name="gender"
+                            ng-model="gender"
+                            ng-options="option.name | translate for option in genderOptions"
+                            required="" /></select>
+                    </div>
 
-					<div class="col-xs-6 marginB10"
-						ng-class="delegation-form.vorname.$valid ? 'has-success' : 'has-error'">
-                        <label>{{'GENERIC_FIRSTNAME'|translate}}</label>
-						<input type="text" class="form-control" id="vorname"
-							placeholder="{{'GENERIC_FIRSTNAME'|translate}}"
-							ng-model="vorname" required />
+                    <div class="row">
+                        <div class="row col-md-6 marginB10"
+                            ng-class="delegation-form.vorname.$valid ? 'has-success' : 'has-error'">
+                            <label>{{'GENERIC_FIRSTNAME'|translate}}</label>
+                            <input type="text" class="form-control" id="vorname"
+                                placeholder="{{'GENERIC_FIRSTNAME'|translate}}"
+                                ng-model="vorname" required />
 
-						<div
-							ng-show="delegation-form.$submitted || delegation-form.vorname.$touched">
-							<div class="help-block" ng-show="vorname.$error.required">
-								{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
-						</div>
-					</div>
+                            <div
+                                ng-show="delegation-form.$submitted || delegation-form.vorname.$touched">
+                                <div class="help-block" ng-show="vorname.$error.required">
+                                    {{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+                            </div>
+                        </div>
 
-					<div class="col-xs-6 marginB10"
-						ng-class="delegation-form.nachname.$valid ? 'has-success' : 'has-error'">
-                        <label>{{'GENERIC_LASTNAME'|translate}}</label>
-						<input type="text" class="form-control" id="nachname"
-							placeholder="{{'GENERIC_LASTNAME'|translate}}"
-							ng-model="nachname" required />
+                        <div class="row col-md-6 marginB10"
+                            ng-class="delegation-form.nachname.$valid ? 'has-success' : 'has-error'">
+                            <label>{{'GENERIC_LASTNAME'|translate}}</label>
+                            <input type="text" class="form-control" id="nachname"
+                                placeholder="{{'GENERIC_LASTNAME'|translate}}"
+                                ng-model="nachname" required />
 
-						<div
-							ng-show="delegation-form.$submitted || delegation-form.nachname.$touched">
-							<div class="help-block" ng-show="nachname.$error.required">
-								{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
-						</div>
-					</div>
+                            <div
+                                ng-show="delegation-form.$submitted || delegation-form.nachname.$touched">
+                                <div class="help-block" ng-show="nachname.$error.required">
+                                    {{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div class="col-xs-12 marginB10">
+                    <div class="row marginB10">
                         <label>{{'GENERIC_FUNCTION'|translate}}</label>
                         <select class="form-control" id="functionDescription" name="functionDescription"
                                 ng-model="functionDescription" ng-options="function for function in functionSignNames"/>
                         </select>
                     </div>
 
-                    <div class="col-xs-12 marginB10">
+                    <div class="row marginB10">
                         <label>{{'GENERIC_CATEGORY'|translate}}</label>
                         <select class="form-control" id="category" name="category" ng-model="category"
                                 ng-options="category for category in categoryNames"/></select>
                     </div>
                 </div>
-                <div class="img-thumbnail pull-right">
-                    <div ng-include src="'partials/fileupload.html'"></div>
+
+                <div class="row col-xs-6 col-sm-5 col-lg-3 col-md-3 pull-right">
+                    <div class="row img-thumbnail">
+                        <div ng-include src="'partials/fileupload.html'"></div>
+                    </div>
                 </div>
 			</div>
         </div>

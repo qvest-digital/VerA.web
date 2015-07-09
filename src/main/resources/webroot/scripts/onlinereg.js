@@ -644,8 +644,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 			  // waiting for modal closing effect - little delay, might not need this long
 			  $route.reload();
 			}, 600);
-
-
 		}
 
 		$scope.loadPersonData = function(personId) {
