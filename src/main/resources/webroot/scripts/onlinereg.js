@@ -489,21 +489,16 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				var img = new Image();
 				img.src = imageData;
 
-				if (img.complete) { // was cached 186x245
-					if (img.width != 186 && img.height != 245) {
-						$rootScope.correctImageSize = false;
-						$scope.removeImage();
-					}
-					else {
-						$rootScope.correctImageSize = true;
-					}
-				} //else { // wait for decoding
-//					img.onload = function() {
-//						$translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
-//							$rootScope.previousMessage = text;
-//						});
-//					}
-//				}
+				//uncomment the "img.complete" check, if it will works in further versions
+				//if (img.complete) { // was cached 186x245
+
+				if (img.width == 186 && img.height == 245) {
+					$rootScope.correctImageSize = true;
+				}
+				else {
+					$rootScope.correctImageSize = false;
+					$scope.removeImage();
+				}
 			}
 		}
 
