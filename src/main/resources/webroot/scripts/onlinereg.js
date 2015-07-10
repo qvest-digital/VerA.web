@@ -354,7 +354,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		fileReader.onload = function (event) {
 			$scope.$apply(function () {
 				$scope.validateImageSize(event.target.result);
-				if ($rootScope.correctImageFormat && $rootScope.correctImageSize) {
+				if ($rootScope.correctImageFormat === true && $rootScope.correctImageSize === true) {
 					$scope.image = event.target.result;
 				}
 				else {
@@ -373,11 +373,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 		};
 		fileReader.readAsDataURL(flowFile.file);
 	});
-
-//	$scope.success = null;
-//	$scope.error = null;
-//
-//	$rootScope.cleanMessages();
 
 	if ($rootScope.user_logged_in == null) {
 		$scope.setNextPage('delegation/' + $routeParams.uuid);
@@ -489,15 +484,13 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 				var img = new Image();
 				img.src = imageData;
 
-				//uncomment the "img.complete" check, if it will works in further versions
-				//if (img.complete) { // was cached 186x245
-
-				if (img.width == 186 && img.height == 245) {
-					$rootScope.correctImageSize = true;
-				}
-				else {
-					$rootScope.correctImageSize = false;
-					$scope.removeImage();
+				if (img.complete) { // was cached 186x245
+					if (img.width == 186 && img.height == 245) {
+						$rootScope.correctImageSize = true;
+					}
+					else {
+						$rootScope.correctImageSize = false;
+					}
 				}
 			}
 		}
