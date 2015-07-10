@@ -68,6 +68,8 @@ public class Event {
     private String mediarepresentatives;
     private int fk_orgunit = 1;
     private String hash;
+    private Integer maxguest;
+    private Integer maxreserve;
 
     @ManyToOne
     @JoinColumn(name="fk_location")
@@ -112,4 +114,12 @@ public class Event {
     public String getMediarepresentatives() {
 		return mediarepresentatives;
 	}
+
+    public Integer getMaxguest() { return maxguest; }
+
+    public void setMaxguest(Integer maxguest) { this.maxguest = maxguest; }
+
+    public Integer getMaxreserve() { return maxreserve; }
+
+    public void setMaxreserve(Integer maxreserve) { this.maxreserve = maxreserve; }
 }
