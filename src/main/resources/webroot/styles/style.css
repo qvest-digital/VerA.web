@@ -36,6 +36,15 @@ body {
     padding-top: 0px;
 }
 
+/************* 3. CSS-Statements in Classes *************/
+.floatRight {
+	float: right;
+}
+
+.fontWeight0 {
+	font-weight: normal !important;
+}
+
 .marginT10 {
     margin-top: 10px;
 }
@@ -44,13 +53,21 @@ body {
     margin-bottom: 10px;
 }
 
-/************* 3. CSS-Statements in Classes *************/
-.floatRight {
-	float: right;
+.paddingL0 {
+    padding-left: 0px;
 }
 
-.fontWeight0 {
-	font-weight: normal !important;
+.paddingR0 {
+    padding-right: 0px;
+}
+
+.paddingLR0 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.nopadding {
+    padding: 0 !important;
 }
 
 /************* 4. Custom button style *************/
