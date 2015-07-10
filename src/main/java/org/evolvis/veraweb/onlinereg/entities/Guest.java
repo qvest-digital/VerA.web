@@ -100,6 +100,7 @@ public class Guest {
     private String osiam_login;
     private String login_required_uuid;
     private String image_uuid;
+    private String reserve;
 
 	public Integer getPk() {
 		return pk;
@@ -195,5 +196,9 @@ public class Guest {
     public String getImage_uuid() { return image_uuid; }
 
     public void setImage_uuid(String image_uuid) { this.image_uuid = image_uuid; }
+
+    public String getReserve() { return reserve; }
+
+    public void setReserve(String reserve) { this.reserve = reserve; }
 }
 
