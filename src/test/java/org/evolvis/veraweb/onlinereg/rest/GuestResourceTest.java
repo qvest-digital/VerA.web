@@ -46,6 +46,7 @@ public class GuestResourceTest extends AbstractResourceTest<GuestResource>{
         guest.setFk_person(1);
         guest.setNotehost("note");
         guest.setInvitationstatus(0);
+
         session.persist(guest);
 
         session.flush();
