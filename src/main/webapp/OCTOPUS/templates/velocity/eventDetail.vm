@@ -211,6 +211,16 @@
 									<input type="checkbox" class="noFloat" id="event-invitepartner" name="event-invitepartner" value="true" #if(!$event || $event.invitepartner) checked #end id="event-invitepartner">
 								</div>
 							</div>
+
+							<div class="tableRow">
+								<div class="tableCell width50">
+                                    <label for="event-maxwaitlist">Maximale L&auml;nge der Warteliste</label>
+                                    <input type="text" onchange="setModified();" class="int" id="event-maxwaitlist" value="$!message.plain($event.maxwaitlist)" name="event-maxwaitlist">
+                                </div>
+                                <div class="tableCell width50">
+                                </div>
+							</div>
+
 							<div class="tableRow">
 								<div class="tableCell width50">
 									<label for="event-location">Veranstaltungsort</label>

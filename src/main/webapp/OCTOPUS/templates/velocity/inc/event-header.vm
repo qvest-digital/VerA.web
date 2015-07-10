@@ -31,13 +31,13 @@
 				<strong>Ende:</strong> $!message.date("DATE", $event.end) #if($event-endhastime)um $!message.date("TIME", $event.end) Uhr#end
 			</div>
 		</div>
-		#if($online-registration.activated)
-			<div class="tableRow">
+		<div class="tableRow">
+			#if($online-registration.activated)
 				<div class="tableCell width30">
 					<strong style="vertical-align: inherit;">Veranstaltungs-URL:</strong> <pre>$!message.textarea($eventUrl)</pre>
 				</div>
-			</div>
-		#end
+			#end
+		</div>
 		<div class="tableCell width50">
 			#if($online-registration.activated)
 				<strong>URL für Pressevertreter:</strong><br/>
@@ -45,11 +45,8 @@
 					$pressevertreterUrl
 				#end
 			#end
-			#if($completeEventHeader)
-			<div class="tableCell width30">
-				<strong>Max. Anzahl G&auml;ste:</strong> $!message.text($event.maxguest)
-			</div>
-			#end
+			<strong style="vertical-align: inherit;">Max. Anzahl G&auml;ste:</strong> $!message.text($event.maxguest)<br/>
+			<strong style="vertical-align: inherit;">Max. L&auml;nge Warteliste</strong> $!message.textarea($event.maxwaitlist)<br/>
 		</div>
 	</div>
 </div>
