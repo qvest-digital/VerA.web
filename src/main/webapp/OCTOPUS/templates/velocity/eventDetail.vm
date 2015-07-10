@@ -214,8 +214,8 @@
 
 							<div class="tableRow">
 								<div class="tableCell width50">
-                                    <label for="event-maxwaitlist">Maximale L&auml;nge der Warteliste</label>
-                                    <input type="text" onchange="setModified();" class="int" id="event-maxwaitlist" value="$!message.plain($event.maxwaitlist)" name="event-maxwaitlist">
+                                    <label for="event-maxreserve">Maximale L&auml;nge der Warteliste</label>
+                                    <input type="text" onchange="setModified();" class="int" id="event-maxreserve" value="$!message.plain($event.maxreserve)" name="event-maxreserve">
                                 </div>
                                 <div class="tableCell width50">
                                 </div>

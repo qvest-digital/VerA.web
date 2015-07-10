@@ -46,7 +46,7 @@
 				#end
 			#end
 			<strong style="vertical-align: inherit;">Max. Anzahl G&auml;ste:</strong> $!message.text($event.maxguest)<br/>
-			<strong style="vertical-align: inherit;">Max. L&auml;nge Warteliste</strong> $!message.textarea($event.maxwaitlist)<br/>
+			<strong style="vertical-align: inherit;">Max. L&auml;nge Warteliste</strong> $!message.textarea($event.maxreserve)<br/>
 		</div>
 	</div>
 </div>
