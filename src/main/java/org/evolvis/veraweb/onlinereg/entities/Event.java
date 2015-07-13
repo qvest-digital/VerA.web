@@ -47,18 +47,24 @@ import java.util.Date;
         @NamedQuery(name = "Event.getEventByHash", query = "SELECT e FROM Event e where e.hash = :hash")
 })
 @NamedNativeQueries({
-    @NamedNativeQuery(name="Event.list", query =
-            "SELECT DISTINCT tevent.* FROM tevent " +
+    @NamedNativeQuery(name="Event.list",
+            query = "SELECT DISTINCT tevent.* FROM tevent " +
                     "LEFT JOIN tguest g ON tevent.pk=g.fk_event " +
                     "WHERE (CURRENT_TIMESTAMP < tevent.datebegin OR CURRENT_TIMESTAMP < tevent.dateend) " +
                     "AND tevent.eventtype LIKE 'Offene Veranstaltung' " +
-                    "AND ((tevent.maxguest=0 OR tevent.maxguest IS NULL OR (tevent.maxguest > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=0))) " +
-                    " OR ((tevent.maxguest=0 OR tevent.maxguest IS NULL) OR (tevent.maxreserve > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=1))))", resultClass=Event.class),
-    @NamedNativeQuery(name="Event.guestByUUID",query="SELECT count(e.*) FROM tevent e WHERE mediarepresentatives=:uuid "),
-    @NamedNativeQuery(name="Event.getEventByUUID", query="SELECT e.pk FROM tevent e where e.mediarepresentatives=:uuid "),
-    @NamedNativeQuery(name="Event.isOpen", query="SELECT count(e.*) FROM tevent e " +
-											     "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
-											     "AND e.eventtype LIKE 'Offene Veranstaltung' AND pk=:eventId")
+                    "AND ((tevent.maxguest = 0 OR tevent.maxguest = -1 OR tevent.maxguest IS NULL " +
+                    "OR (tevent.maxguest > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=0))) " +
+                    " OR ((tevent.maxreserve = 0 OR tevent.maxreserve = -1 OR tevent.maxguest IS NULL) " +
+                    "OR (tevent.maxreserve > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=1))))",
+            resultClass=Event.class),
+    @NamedNativeQuery(name="Event.guestByUUID",
+                      query="SELECT count(e.*) FROM tevent e WHERE mediarepresentatives=:uuid "),
+    @NamedNativeQuery(name="Event.getEventByUUID",
+                      query="SELECT e.pk FROM tevent e where e.mediarepresentatives=:uuid "),
+    @NamedNativeQuery(name="Event.isOpen",
+                      query="SELECT count(e.*) FROM tevent e " +
+                            "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
+                            "AND e.eventtype LIKE 'Offene Veranstaltung' AND pk=:eventId")
 })
 
 public class Event {
