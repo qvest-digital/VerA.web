@@ -197,6 +197,46 @@ public class EventResource extends AbstractResource {
         }
     }
 
+    @GET
+    @Path("/guestlist/status/{eventId}")
+    public Boolean isGuestListFull(@PathParam("eventId") Integer eventId) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Event.checkMaxGuestLimit");
+            query.setInteger("eventId", eventId);
+
+            final BigInteger counter = (BigInteger) query.uniqueResult();
+
+            if (counter.longValue() > 0) {
+                return true;
+            }
+            return false;
+
+        } finally {
+            session.close();
+        }
+    }
+
+    @GET
+    @Path("/reservelist/status/{eventId}")
+    public Boolean isReserveListFull(@PathParam("eventId") Integer eventId) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Event.checkMaxReserveLimit");
+            query.setInteger("eventId", eventId);
+
+            final BigInteger counter = (BigInteger) query.uniqueResult();
+
+            if (counter.longValue() > 0) {
+                return true;
+            }
+            return false;
+
+        } finally {
+            session.close();
+        }
+    }
+
     /**
      * Get the events associated to a person
      *
