@@ -52,9 +52,9 @@ import java.util.Date;
                     "LEFT JOIN tguest g ON tevent.pk=g.fk_event " +
                     "WHERE (CURRENT_TIMESTAMP < tevent.datebegin OR CURRENT_TIMESTAMP < tevent.dateend) " +
                     "AND tevent.eventtype LIKE 'Offene Veranstaltung' " +
-                    "AND ((tevent.maxguest = 0 OR tevent.maxguest = -1 OR tevent.maxguest IS NULL " +
+                    "AND ((tevent.maxguest = 0 OR tevent.maxguest = -1 OR tevent.maxguest IS NULL OR tevent.maxguest IS NULL " +
                     "OR (tevent.maxguest > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=0))) " +
-                    " OR ((tevent.maxreserve = 0 OR tevent.maxreserve = -1 OR tevent.maxguest IS NULL) " +
+                    " OR ((tevent.maxreserve = 0 OR tevent.maxreserve = -1 OR tevent.maxreserve IS NULL OR tevent.maxguest IS NULL) " +
                     "OR (tevent.maxreserve > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=1))))",
             resultClass = Event.class),
     @NamedNativeQuery(name = "Event.guestByUUID",
@@ -67,16 +67,17 @@ import java.util.Date;
                             "AND e.eventtype LIKE 'Offene Veranstaltung' AND pk=:eventId"),
     @NamedNativeQuery(name = "Event.checkMaxGuestLimit",
                       query = "SELECT DISTINCT count(*) " +
-                              "FROM veraweb.tevent " +
-                              "WHERE (maxguest <= (SELECT count(*) FROM tguest WHERE fk_event=:eventId " +
-                              "AND reserve = 0)) AND pk=:eventId"),
+                              "FROM veraweb.tevent WHERE " +
+                              "((tevent.maxguest = 0 OR tevent.maxguest = -1 OR tevent.maxguest IS NULL) " +
+                              "OR (maxguest <= (SELECT count(*) FROM tguest WHERE fk_event=:eventId AND reserve = 0))) " +
+                              "AND pk=:eventId"),
     @NamedNativeQuery(name = "Event.checkMaxReserveLimit",
                       query = "SELECT DISTINCT count(*) " +
-                              "FROM veraweb.tevent " +
-                              "WHERE (maxreserve <= (SELECT count(*) FROM tguest WHERE fk_event=:eventId " +
-                              "AND reserve = 1)) AND pk=:eventId")
+                              "FROM veraweb.tevent WHERE " +
+                              "((tevent.maxreserve = 0 OR tevent.maxreserve = -1 OR tevent.maxreserve IS NULL) " +
+                              "OR (maxreserve <= (SELECT count(*) FROM tguest WHERE fk_event=:eventId AND reserve = 1))) " +
+                              "AND pk=:eventId")
 })
-
 public class Event {
 
     @Id
