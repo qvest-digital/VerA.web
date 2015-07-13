@@ -48,6 +48,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -128,7 +129,7 @@ public class EventResource {
     @javax.ws.rs.core.Context
     @Getter
     private ServletContext context;
-    
+
     /**
      * Creates a new EventResource
      *
@@ -268,6 +269,32 @@ public class EventResource {
         return readResource(path("event", "userevents", username), EVENT_LIST);
     }
 
+    /**
+     * Controlling status of guest and reserve lists
+     *
+     * @param eventId the event ID
+     * @return response to send
+     * @throws IOException
+     */
+    @GET
+    @Path("/guestlist/status/{eventId}")
+    public String getGuestListStatus(@PathParam("eventId") Integer eventId) throws IOException {
+
+        Boolean isGuestListFull = readResource(path("event", "guestlist", "status", eventId), BOOLEAN);
+
+        if (!isGuestListFull) {
+            return StatusConverter.convertStatus(VerawebConstants.GUEST_LIST_OK);
+        }
+        else {
+            Boolean isReserveListFull = readResource(path("event", "reservelist", "status", eventId), BOOLEAN);
+            if (!isReserveListFull) {
+                return StatusConverter.convertStatus(VerawebConstants.WAITING_LIST_OK);
+            }
+            else {
+                return StatusConverter.convertStatus(VerawebConstants.WAITING_LIST_FULL);
+            }
+        }
+    }
 
     /**
      * Get Person instance from one username

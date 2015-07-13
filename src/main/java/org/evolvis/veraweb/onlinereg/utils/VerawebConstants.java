@@ -3,7 +3,7 @@ package org.evolvis.veraweb.onlinereg.utils;
 /**
  * Util constants class
  *
- * Created by Jon Nuñez, tarent solutions GmbH on 12.06.15.
+ * @author Jon Nuñez, tarent solutions GmbH on 12.06.15.
  */
 public class VerawebConstants {
 
@@ -20,5 +20,10 @@ public class VerawebConstants {
         public static final String EXTENSION_JPEG = "jpeg";
         public static final String EXTENSION_JPG = "jpg";
         public static final String EXTENSION_PNG = "png";
+
+    /** Responses of reserve and guest list checks */
+        public static final String GUEST_LIST_OK = "GUEST_LIST_OK";
+        public static final String WAITING_LIST_OK = "WAITING_LIST_OK";
+        public static final String WAITING_LIST_FULL = "WAITING_LIST_FULL";
 
 }

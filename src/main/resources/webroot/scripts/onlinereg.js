@@ -880,10 +880,25 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
     $scope.success = null;
     $scope.error = null;
 
+    $http.get('api/event/guestlist/status/' + $routeParams.eventId).success(function(result) {
+
+        if (result.status === 'WAITING_LIST_OK') {
+            $scope.error = 'To waiting list...';
+        }
+        else if (result.status === 'WAITING_LIST_FULL') {
+            $scope.error = 'Impossible to go into the event...';
+        }
+        else if (result.status === 'GUEST_LIST_OK') {
+            $scope.error = null;
+        }
+
+    });
+
     if ($rootScope.user_logged_in == null && $routeParams.noLoginRequiredUUID == null) {
         $scope.setNextPage('register/' + $routeParams.eventId);
         $location.path('/login');
     } else {
+
         $scope.noLoginRequiredUUID = $routeParams.noLoginRequiredUUID;
 
         $http.get('api/event/' + $routeParams.eventId).success(function (result) {
