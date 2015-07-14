@@ -56,6 +56,11 @@ import java.util.Date;
                     "OR (tevent.maxguest > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=0))) " +
                     " OR (tevent.maxreserve > 0 " +
                     "AND (tevent.maxreserve > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=1))))",
+                    "AND (tevent.maxguest > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=0) " +
+                    "OR (tevent.maxreserve > 0 " +
+                    "AND tevent.maxreserve > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=1))) " +
+                    "OR tevent.maxguest IS NULL " +
+                    "AND tevent.eventtype LIKE 'Offene Veranstaltung' ",
             resultClass = Event.class),
     @NamedNativeQuery(name = "Event.guestByUUID",
                       query = "SELECT count(e.*) FROM tevent e WHERE mediarepresentatives=:uuid "),
