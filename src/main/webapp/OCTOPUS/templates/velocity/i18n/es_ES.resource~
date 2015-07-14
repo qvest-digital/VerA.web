@@ -360,7 +360,7 @@ alle erzeugen=todos producen
 kategorien und ereigni\u00dfe=categorías y eventos
 
 #Personen/Personen\u00fcbersicht/Person bearbeiten/Statistik
-\u00fcbersicht \u00fcber alle Veranstaltungen eines Gastes.=\u00fcersicht sobre todos los eventos de un invitado.
+\u00fcbersicht \u00fcber alle Veranstaltungen eines Gastes.=üersicht sobre todos los eventos de un invitado.
 Ab=desde
 Statistik f\u00fcr Gast:=Estadísticas para huéspedes:
 Veranstaltung=evento
@@ -395,7 +395,7 @@ Akad. Titel=Akad . Título
 Geburtsdatum=fecha de nacimiento
 Vorname=nombre
 Nachname=apellido
-Nationalit\u00e4t/Staatsangeh\u00e4rigkeit=Nationalit\u00e4t / nacionalidad
+Nationalit\u00e4t/Staatsangeh\u00e4rigkeit=Nationalitä / nacionalidad
 Sprachen=Idiomas
 Inland=hogar
 Sprachen=Idiomas
@@ -451,7 +451,7 @@ Felder leeren=Los campos vacíos
 
 #Personen/Dublettensuche
 Dublettensuche=Dublettensuche
-Hinweis Beachten Sie, da\u00df \u00e4 mit ae, \u00e4 mit oe, \u00fc mit ue und \u00df mit \u00df verglichen wird.=Nota Tenga en cuenta que con \u00e4t \u00e4t , \u00e4 con oe, ue se compara con la UE y el ß con ss.
+Hinweis Beachten Sie, da\u00df \u00e4 mit ae, \u00e4 mit oe, \u00fc mit ue und \u00df mit \u00df verglichen wird.=Nota Tenga en cuenta que con ä ä , ö con oe, ue se compara con la UE y el ß con ss.
 
 #Personen/Export von Personendaten
 Export von Personendaten=Exportación de Datos de Carácter Personal
@@ -469,7 +469,7 @@ Politik=política
 Pre\u00dfevertreter=representantes de la prensa
 Wirtschaft=economía
 CSV: Anmerkung=CSV : Nota
-Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00e4ngig) kann es pa\u00dfieren, da\u00df MS Excel und OO Calc die exportierten Daten nicht vollst\u00e4ndig lesen k\u00e4nnen.=Dependiendo de la cantidad de campos exportados (en particular , esto depende del número de tipos de documentos exportados y categorías) , puede suceder que de MS Excel y OO Calc los datos exportados no pueden leer vollst\u00e4tdig .
+Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00e4ngig) kann es pa\u00dfieren, da\u00df MS Excel und OO Calc die exportierten Daten nicht vollst\u00e4ndig lesen k\u00e4nnen.=Dependiendo de la cantidad de campos exportados (en particular , esto depende del número de tipos de documentos exportados y categorías) , puede suceder que de MS Excel y OO Calc los datos exportados no pueden leer vollstädig .
 Export starten=Iniciar exportación
 
 #Personen/Import von Personendaten
@@ -503,7 +503,7 @@ benutzer=usuario
 hilfe=ayuda
 abmelden=cancelar
 Willkomen bei VerA.web=Bienvenido al VerA.web
-Sie haben hier die M\u00e4glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00e4schen. Weiterhin k\u00e4nnen Sie mandantenspezifische und globale Einstellungen einsehen und bearbeiten. Sollten Sie weitere Informationen ben\u00e4tigen, finden Sie diese auf der Seite Hilfe.=Aquí tienes la oportunidad de dominar los datos y las observaciones muestran sobre personas y acontecimientos , para exportar e importar, editar y eliminar . También puede ver y editar la configuración de cliente- específicos y globales. Si ben\u00e4igen más información , por favor consulte la página de ayuda .
+Sie haben hier die M\u00e4glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00e4schen. Weiterhin k\u00e4nnen Sie mandantenspezifische und globale Einstellungen einsehen und bearbeiten. Sollten Sie weitere Informationen ben\u00e4tigen, finden Sie diese auf der Seite Hilfe.=Aquí tienes la oportunidad de dominar los datos y las observaciones muestran sobre personas y acontecimientos , para exportar e importar, editar y eliminar . También puede ver y editar la configuración de cliente- específicos y globales. Si benöigen más información , por favor consulte la página de ayuda .
 sie sind hier=ellos están aquí
 
 #personendropdown
@@ -568,7 +568,7 @@ zur g\u00e4steverwaltung=de administración para invitados
 allgemein=general
 dokumenttypen=Tipos de documentos
 aufgaben=tareas
-zus\u00e4tzliche personendaten=zus\u00e4tzliche datos personales
+zus\u00e4tzliche personendaten=zusäzliche datos personales
 funktionen/amtsbezeichnungen=Características / títulos oficiales
 kategorien=Categorías
 kurzbereichnung=planificación de corto alcance
@@ -616,7 +616,7 @@ aufgabe speichern=guardar empleo
 zur\u00fcck zur aufgaben\u00fcbersicht=Volver a la visión general de tareas
 
 #veranstaltung bearbeiten: /funktionen/amtsbezeichnungen
-neue amtsbezeichnung hinzuf\u00fcgen=nuevo título oficial hinzu\u00fcgen
+neue amtsbezeichnung hinzuf\u00fcgen=nuevo título oficial hinzuügen
 es wurden keine amtsbezeichnungen gefunden.=No se han encontrado títulos oficiales.
 
 #veranstaltung bearbeiten: /kategorien
@@ -645,7 +645,7 @@ erzeugt aus veranstaltung=generada a partir de evento
 
 #statistiken
 statistiken=estadística
-statistik auf folgenden zeitrahmen einschr\u00e4nken:=Estadísticas einschr\u00e4tken en el siguiente período de tiempo :
+statistik auf folgenden zeitrahmen einschr\u00e4nken:=Estadísticas einschräken en el siguiente período de tiempo :
 statistiktyp ausw\u00e4hlen:=Seleccione el tipo de estadística:
 zeitrahmen-beginn=Plazo de inicio
 zeitrahmen-ende=Plazo de gama
