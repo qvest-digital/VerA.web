@@ -496,6 +496,34 @@ public class GuestResource extends AbstractResource{
     }
 
     /**
+     * Checking if the guest is a reserve or not
+     *
+     * @param eventId the event ID
+     * @param username the username - osiam_login
+     */
+    @GET
+    @Path("/isreserve/{eventId}/{username}")
+    public Boolean isReserve(@PathParam("eventId") final Integer eventId,
+                             @PathParam("username") final String username) {
+
+        final Session session = openSession();
+        try {
+
+            final Query query = session.getNamedQuery("Guest.isReserve");
+            query.setInteger("eventId", eventId);
+            query.setString("username", username);
+            Integer reserve = (Integer) query.uniqueResult();
+
+            if (reserve != null && reserve.equals(1)) {
+                return true;
+            }
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+
+    /**
      * Initialize guest with event information
      */
     private Guest initGuest(String uuid, Integer eventId, Integer userId, Integer invitationstatus,
