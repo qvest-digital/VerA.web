@@ -881,6 +881,8 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
     $scope.error = null;
 
     $http.get('api/event/guestlist/status/' + $routeParams.eventId).success(function(result) {
+        //save result.status in scope for next functions
+        $scope.resultStatus = result.status;
 
         if (result.status === 'WAITING_LIST_OK') {
             $translate('REGISTER_USER_MESSAGE_TO_RESERVE_LIST').then(function (text) {
@@ -895,14 +897,12 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
         else if (result.status === 'GUEST_LIST_OK') {
             $scope.error = null;
         }
-
     });
 
     if ($rootScope.user_logged_in == null && $routeParams.noLoginRequiredUUID == null) {
         $scope.setNextPage('register/' + $routeParams.eventId);
         $location.path('/login');
     } else {
-
         $scope.noLoginRequiredUUID = $routeParams.noLoginRequiredUUID;
 
         $http.get('api/event/' + $routeParams.eventId).success(function (result) {
@@ -929,7 +929,8 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
                     url: 'api/event/' + $routeParams.eventId + '/register',
                     headers: {"Content-Type" : undefined},
                     data: $.param({
-                        notehost: $scope.noteToHost
+                        notehost: $scope.noteToHost,
+                        resultStatus: $scope.resultStatus
                     })
                 }).success(function (result) {
                     if (result.status === 'OK') {
@@ -951,7 +952,8 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
                     headers: {"Content-Type" : undefined},
                     data: $.param({
                         notehost: $scope.noteToHost,
-                        noLoginRequiredUUID: $scope.noLoginRequiredUUID
+                        noLoginRequiredUUID: $scope.noLoginRequiredUUID,
+                        resultStatus: $scope.resultStatus
                     })
                 }).success(function (result) {
                     if (result.status === 'OK') {

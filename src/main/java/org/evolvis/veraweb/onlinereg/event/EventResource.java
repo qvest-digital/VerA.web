@@ -48,7 +48,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -210,12 +209,13 @@ public class EventResource {
     @Path("/{eventId}/register")
     public String register(
     		@PathParam("eventId") String eventId,
-    		@FormParam("notehost") String notehost) throws IOException {
+    		@FormParam("notehost") String notehost,
+            @FormParam("resultStatus") String resultStatus) throws IOException {
         final String username = (String) context.getAttribute(USERNAME);
-    	
+
     	// checking if the user is registered on the event
     	if (!isUserRegistered(username, eventId)) {
-            registerUserAsGuestForEvent(eventId, notehost, username);
+            registerUserAsGuestForEvent(eventId, notehost, resultStatus, username);
     		return StatusConverter.convertStatus("OK");
     	}
     	
@@ -245,12 +245,14 @@ public class EventResource {
         return StatusConverter.convertStatus("REGISTERED");
     }
 
-    private void updateGuestStatusWithoutLogin(final String noLoginRequiredUUID, final Integer invitationstatus, final String notehost) {
+    private void updateGuestStatusWithoutLogin(final String noLoginRequiredUUID, final Integer invitationstatus,
+                                               final String notehost) {
         final Form postBodyForUpdate = new Form();
         postBodyForUpdate.add("invitationstatus", invitationstatus);
         postBodyForUpdate.add("notehost", notehost);
 
-        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guest/update/nologin/" + noLoginRequiredUUID);
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guest/update/nologin/" +
+                noLoginRequiredUUID);
         resource.post(postBodyForUpdate);
     }
 
@@ -324,7 +326,8 @@ public class EventResource {
                                   String lastName,
                                   String firstName,
                                   String username,
-                                  String nodeHost) throws IOException {
+                                  String nodeHost,
+                                  Integer reserve) throws IOException {
         final WebResource resource = client.resource(path("guest", "register"));
         final Form postBody = new Form();
 
@@ -336,6 +339,7 @@ public class EventResource {
         postBody.add("category", "0");
         postBody.add("username", username);
         postBody.add("hostNode", nodeHost);
+        postBody.add("reserve", reserve);
 
         final Guest guest = resource.type(MediaType.APPLICATION_FORM_URLENCODED_TYPE).post(Guest.class, postBody);
 
@@ -442,18 +446,32 @@ public class EventResource {
         return event.getFk_orgunit();
     }
 
-    private void registerUserAsGuestForEvent(String eventId, String notehost, String username) throws IOException {
+    private void registerUserAsGuestForEvent(String eventId, String notehost, String resultStatus, String username)
+            throws IOException {
         final Person person = getUserData(username);
         final Integer userId = person.getPk();
 
-        if (person != null && userId != null) {
+        if (person != null && userId != null && resultStatus.equals(VerawebConstants.GUEST_LIST_OK)) {
             addGuestToEvent(eventId,
                     userId.toString(),
                     person.getSex_a_e1(),
                     person.getFirstname_a_e1(),
                     person.getLastname_a_e1(),
                     username,
-                    notehost
+                    notehost,
+                    0 //move not on reserve
+            );
+
+            updatePersonOrgunit(eventId, userId);
+        } else if (resultStatus.equals(VerawebConstants.WAITING_LIST_OK)) {
+            addGuestToEvent(eventId,
+                    userId.toString(),
+                    person.getSex_a_e1(),
+                    person.getFirstname_a_e1(),
+                    person.getLastname_a_e1(),
+                    username,
+                    notehost,
+                    1 //move to reserve
             );
 
             updatePersonOrgunit(eventId, userId);
