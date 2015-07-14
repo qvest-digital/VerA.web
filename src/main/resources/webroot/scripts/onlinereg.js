@@ -898,19 +898,13 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
     $http.get('api/event/guestlist/status/' + $routeParams.eventId).success(function(result) {
         //save result.status in scope for next functions
         $scope.resultStatus = result.status;
+        //second status to save status of registering in waiting list
+        $scope.registeredOnWaitingList = result.status;
 
-        if (result.status === 'WAITING_LIST_OK') {
-            $translate('REGISTER_USER_MESSAGE_TO_RESERVE_LIST').then(function (text) {
-                $scope.error = text;
-            });
-        }
-        else if (result.status === 'WAITING_LIST_FULL') {
+        if (result.status === 'WAITING_LIST_FULL') {
             $translate('REGISTER_USER_MESSAGE_EVENT_FULL').then(function (text) {
                 $scope.error = text;
             });
-        }
-        else if (result.status === 'GUEST_LIST_OK') {
-            $scope.error = null;
         }
     });
 
@@ -948,7 +942,14 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
                         resultStatus: $scope.resultStatus
                     })
                 }).success(function (result) {
-                    if (result.status === 'OK') {
+                    if ($scope.registeredOnWaitingList === 'WAITING_LIST_OK') {
+                        $translate('REGISTER_USER_MESSAGE_TO_RESERVE_LIST').then(function (text) {
+                            $rootScope.previousMessage = text;
+                        });
+                        $scope.setNextPage('veranstaltungen');
+                        $location.path($scope.nextPage);
+                    }
+                    else if (result.status === 'OK') {
                         $translate(['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE','USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_TWO']).then(function (translations) {
                             $rootScope.previousMessage = translations['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE'] + " \"" + $scope.event.shortname + "\" " + translations['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_TWO'];
                         });
