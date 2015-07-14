@@ -76,7 +76,7 @@ public class GuestResourceSessionsTest {
         when(query.uniqueResult()).thenReturn(mock(Guest.class));
 
         // WHEN
-        guestResource.getGuest(1,1);
+        guestResource.getGuest(1, 1, 0);
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
@@ -158,7 +158,7 @@ public class GuestResourceSessionsTest {
         doNothing().when(mockitoSession).update(guest);
 
         // WHEN
-        guestResource.saveGuest(1,1,1,"host");
+        guestResource.saveGuest(1, 1, 1, "host", 0);
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
@@ -260,7 +260,7 @@ public class GuestResourceSessionsTest {
         when(findIdByEventAndUserQuery.uniqueResult()).thenReturn(null);
 
         // WHEN
-        guestResource.addGuestToEvent(1, 1, 1, 1, "Herr", 1, "username", "nodehost");
+        guestResource.addGuestToEvent(1, 1, 1, 1, "Herr", 1, "username", "nodehost", 0);
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
@@ -350,7 +350,8 @@ public class GuestResourceSessionsTest {
         when(query.uniqueResult()).thenReturn(new BigInteger("1"));
 
         // WHEN
-        Boolean isUserRegisteredintoEventByDelegation = guestResource.isUserRegisteredintoEventByDelegation(username, delegation);
+        Boolean isUserRegisteredintoEventByDelegation = guestResource.isUserRegisteredintoEventByDelegation(username,
+                delegation);
 
         // THEN
         assertTrue(isUserRegisteredintoEventByDelegation);
@@ -369,7 +370,8 @@ public class GuestResourceSessionsTest {
         when(query.uniqueResult()).thenReturn(new BigInteger("0"));
 
         // WHEN
-        Boolean isUserRegisteredintoEventByDelegation = guestResource.isUserRegisteredintoEventByDelegation(username, delegation);
+        Boolean isUserRegisteredintoEventByDelegation = guestResource.isUserRegisteredintoEventByDelegation(username,
+                delegation);
 
         // THEN
         assertFalse(isUserRegisteredintoEventByDelegation);

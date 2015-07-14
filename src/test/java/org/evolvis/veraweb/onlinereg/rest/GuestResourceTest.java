@@ -55,16 +55,19 @@ public class GuestResourceTest extends AbstractResourceTest<GuestResource>{
 
     @Test
     public void testGetGuest() {
-        Guest g = resource.getGuest(1, 1);
+        Guest g = resource.getGuest(1, 1, 0);
 
         assertEquals("note", g.getNotehost());
         assertEquals(0, g.getInvitationstatus().intValue());
+        assertEquals(0, g.getReserve().intValue());
     }
 
     @Test
     public void testSaveGuest() {
-        Guest g = resource.saveGuest(1, 1, 2, "new note");
+        Guest g = resource.saveGuest(1, 1, 2, "new note", 0);
+
         assertEquals("new note", g.getNotehost());
         assertEquals(2, g.getInvitationstatus().intValue());
+        assertEquals(0, g.getReserve().intValue());
     }
 }
