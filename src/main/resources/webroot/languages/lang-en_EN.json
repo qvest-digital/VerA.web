@@ -75,7 +75,7 @@
   "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Passwords do not match!",
 
   "REGISTER_USER_MESSAGE_EVENT_FULL": "This event is fully booked. Please, try to register yourself in another event of your interest by using the list of open events.",
-  "REGISTER_USER_MESSAGE_TO_RESERVE_LIST": "This event is fully booked. You will be registered as a backup in the waiting list. We will inform you in case of available places.",
+  "REGISTER_USER_MESSAGE_TO_RESERVE_LIST": "This event is fully booked. You are registered as a backup in the waiting list. We will inform you in case of available places.",
 
   "DELEGATION_OPTION_CATEGORY": "Category",
   "DELEGATION_OPTION_FUNCTION": "Function",
