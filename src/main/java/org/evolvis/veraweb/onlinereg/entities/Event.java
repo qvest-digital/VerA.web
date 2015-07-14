@@ -51,11 +51,11 @@ import java.util.Date;
             query = "SELECT DISTINCT tevent.* FROM tevent " +
                     "LEFT JOIN tguest g ON tevent.pk=g.fk_event " +
                     "WHERE (CURRENT_TIMESTAMP < tevent.datebegin OR CURRENT_TIMESTAMP < tevent.dateend) " +
-                    "AND tevent.eventtype LIKE 'Offene Veranstaltung' " +
-                    "AND ((tevent.maxguest = 0 OR tevent.maxguest = -1 OR tevent.maxguest IS NULL OR tevent.maxguest IS NULL " +
-                    "OR (tevent.maxguest > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=0))) " +
-                    " OR ((tevent.maxreserve = 0 OR tevent.maxreserve = -1 OR tevent.maxreserve IS NULL OR tevent.maxguest IS NULL) " +
-                    "OR (tevent.maxreserve > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=1))))",
+                    "AND (tevent.maxguest > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=0) " +
+                    "OR (tevent.maxreserve > 0 " +
+                    "AND tevent.maxreserve > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=1))) " +
+                    "OR tevent.maxguest IS NULL " +
+                    "AND tevent.eventtype LIKE 'Offene Veranstaltung' ",
             resultClass = Event.class),
     @NamedNativeQuery(name = "Event.guestByUUID",
                       query = "SELECT count(e.*) FROM tevent e WHERE mediarepresentatives=:uuid "),
