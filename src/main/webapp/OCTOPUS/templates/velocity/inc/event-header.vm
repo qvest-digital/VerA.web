@@ -38,15 +38,25 @@
 				</div>
 			#end
 		</div>
-		<div class="tableCell width50">
-			#if($online-registration.activated)
-				<strong>URL für Pressevertreter:</strong><br/>
-				#if($pressevertreterUrl && $pressevertreterUrl != "" && $event.mediarepresentatives && $event.mediarepresentatives != "f")
-					$pressevertreterUrl
+		<div class="tableRow">
+			<div class="tableCell width30">
+				#if($online-registration.activated)
+					<strong>URL für Pressevertreter:</strong><br/>
+					#if($pressevertreterUrl && $pressevertreterUrl != "" && $event.mediarepresentatives && $event.mediarepresentatives != "f")
+						$pressevertreterUrl
+					#end
 				#end
-			#end
-			<strong style="vertical-align: inherit;">Max. Anzahl G&auml;ste:</strong> $!message.text($event.maxguest)<br/>
-			<strong style="vertical-align: inherit;">Max. L&auml;nge Warteliste</strong> $!message.textarea($event.maxreserve)<br/>
+			</div>
+		</div>
+		<div class="tableRow">
+        	<div class="tableCell width30">
+				<strong style="vertical-align: inherit;">Max. Anzahl G&auml;ste:</strong> $!message.text($event.maxguest)<br/>
+			</div>
+		</div>
+		<div class="tableRow">
+        	<div class="tableCell width30">
+				<strong style="vertical-align: inherit;">Max. L&auml;nge Warteliste</strong> $!message.textarea($event.maxreserve)<br/>
+			</div>
 		</div>
 	</div>
 </div>
