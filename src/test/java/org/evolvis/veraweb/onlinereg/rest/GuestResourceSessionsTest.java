@@ -176,7 +176,7 @@ public class GuestResourceSessionsTest {
         when(query.uniqueResult()).thenReturn(guest);
 
         // WHEN
-        guestResource.findEventIdByDelegation(uuid);
+        guestResource.findGuestByEventWithDelegationUUID(uuid);
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();

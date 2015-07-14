@@ -23,7 +23,6 @@ import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -36,17 +35,19 @@ import javax.ws.rs.core.MediaType;
 import java.math.BigInteger;
 
 /**
- * Created by mley on 03.08.14.
+ * @author mley on 03.08.14.
+ * @author sweiz
  */
 @Path("/guest")
 @Produces(MediaType.APPLICATION_JSON)
 public class GuestResource extends AbstractResource{
 
     /**
-     * Get guest.
+     * Get guest
      *
      * @param eventId Event id
      * @param userId User id
+     * @param reserve 0 = not on reserve, 1 = on reserve
      *
      * @return Guest
      */
@@ -90,9 +91,10 @@ public class GuestResource extends AbstractResource{
 
     /**
      * Get the image UUID of a guest
-     * @param eventId event id
-     * @param userId user id
-     * @return
+     * @param delegationUUID UUID of delegation
+     * @param userId ID of user
+     *
+     * @return image UUID
      */
     @GET
     @Path("/image/{delegationUUID}/{personId}")
@@ -117,7 +119,8 @@ public class GuestResource extends AbstractResource{
      * @param eventId Event id
      * @param userId User id
      * @param invitationstatus invitation status
-     * @param notehost TODO
+     * @param notehost note text for host
+     * @param reserve 0 = not on reserve, 1 = on reserve
      *
      * @return The guest
      */
@@ -149,8 +152,8 @@ public class GuestResource extends AbstractResource{
 
     /**
      *
-     * @param guestId
-     * @param imgUUID
+     * @param guestId ID of guest
+     * @param imgUUID UUID of image
      */
     @POST
     @Path("/update/entity")
@@ -172,10 +175,10 @@ public class GuestResource extends AbstractResource{
     /**
      * Save guest.
      *
-     * @param eventId Event id
-     * @param userId User id
-     * @param invitationstatus invitation status
-     * @param notehost TODO
+     * @param eventId ID of event
+     * @param userId ID of user
+     * @param invitationstatus 0 = Offen, 1 = Zusage, 2 = Absage
+     * @param notehost note text for host
      */
     @POST
     @Path("/update/{eventId}/{userId}")
@@ -200,6 +203,12 @@ public class GuestResource extends AbstractResource{
         }
     }
 
+    /**
+     *
+     * @param noLoginRequiredUUID UUID of users without logindata
+     * @param invitationstatus 0 = Offen, 1 = Zusage, 2 = Absage
+     * @param notehost note text for host
+     */
     @POST
     @Path("/update/nologin/{noLoginRequiredUUID}")
     public void updateGuestWithoutLogin(
@@ -225,14 +234,13 @@ public class GuestResource extends AbstractResource{
 
     /**
      * Get guest using the UUID of a delegation
-     * TODO Rename method. It is not clear.
      *
-     * @param uuid Delegation uuid
+     * @param uuid UUID of delegation
      * @return Guest
      */
     @GET
     @Path("/{uuid}")
-    public Guest findEventIdByDelegation(@PathParam("uuid") String uuid) {
+    public Guest findGuestByEventWithDelegationUUID(@PathParam("uuid") String uuid) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.findEventIdByDelegationUUID");
@@ -248,8 +256,8 @@ public class GuestResource extends AbstractResource{
     /**
      * Find guest by delegation and person id.
      *
-     * @param uuid Delegation UUID
-     * @param userId Person id
+     * @param uuid UUID of delegation
+     * @param userId ID of person
      *
      * @return Guest
      */
@@ -270,7 +278,7 @@ public class GuestResource extends AbstractResource{
     /**
      * Find guest by delegation and person id.
      *
-     * @param uuid Delegation UUID
+     * @param uuid UUID of delegation
      *
      * @return Guest
      */
@@ -291,7 +299,7 @@ public class GuestResource extends AbstractResource{
     /**
      * Check for existing delegation by delegation uuid.
      *
-     * @param uuid Delegation UUID
+     * @param uuid UUID of delegation
      * @return True if exists only one delegation, otherwise false
      */
     @GET
@@ -315,8 +323,10 @@ public class GuestResource extends AbstractResource{
     /**
      * Find whether guest is registered for the event delegation
      * 
-     * @param username osiam
-     * @param delegation Delegation UUID
+     * @param username OSIAM username
+     * @param delegation UUID of delegation
+     *
+     * return true if guest count over 0
      */
     @GET
     @Path("/registered/delegation/{username}/{delegation}")
@@ -341,9 +351,9 @@ public class GuestResource extends AbstractResource{
     /**
      * Checking if the current user is already registered for the curren event
      *
-     * @param username osiam
-     * @param eventId
-     * @return
+     * @param username OSIAM username
+     * @param eventId ID of event
+     * @return true if guest count over 0
      */
     @GET
     @Path("/registered/{username}/{eventId}")
@@ -369,9 +379,9 @@ public class GuestResource extends AbstractResource{
     /**
      * Checking if the current user is already registered for the curren event
      *
-     * @param username osiam
-     * @param eventId
-     * @return
+     * @param username OSIAM username
+     * @param eventId ID of event
+     * @return true if guest count over 0
      */
     @GET
     @Path("/registered/accept/{username}/{eventId}")
@@ -398,8 +408,8 @@ public class GuestResource extends AbstractResource{
     /**
      * Checking if the current user is registered into the event
      *
-     * @param noLoginRequiredUUID
-     * @param eventId
+     * @param noLoginRequiredUUID UUID of users without logindata
+     * @param eventId ID of event
      * @return the person id to allow updating
      */
     @GET
@@ -425,13 +435,16 @@ public class GuestResource extends AbstractResource{
     /**
      * Add guest to event.
      *
-     * @param uuid Uuid
-     * @param eventId Event id
-     * @param userId User id
-     * @param invitationstatus Invitation status
-     * @param invitationtype Invitationtype
-     * @param gender Gender
+     * @param uuid UUID of guest
+     * @param eventId ID of event
+     * @param userId ID of user
+     * @param invitationstatus 0 = Offen, 1 = Zusage, 2 = Absage
+     * @param invitationtype 0 = main person and partner invited, 1 = main person and partner invited,
+     *                       2 = only main person invited, 3 = only partner invited <- no main person
+     * @param gender m = male, f = female
      * @param category Category
+     * @param hostNode Note text for host
+     * @param username Username
      *
      * @return Guest
      */
@@ -449,7 +462,7 @@ public class GuestResource extends AbstractResource{
         final Session session = openSession();
 		try {
             //0 = not in reserve list
-            final Guest guest = initGuest(uuid,eventId, userId, invitationstatus, invitationtype, gender, category,
+            final Guest guest = initGuest(uuid, eventId, userId, invitationstatus, invitationtype, gender, category,
                     username, hostNode, 0);
 
             session.save(guest);
@@ -464,12 +477,16 @@ public class GuestResource extends AbstractResource{
     /**
      * Add guest to event.
      *
-     * @param eventId Event id
-     * @param userId User id
-     * @param invitationstatus Invitation status
-     * @param invitationtype Invitationtype
-     * @param gender Gender
+     * @param eventId ID of event
+     * @param userId ID of user
+     * @param invitationstatus 0 = Offen, 1 = Zusage, 2 = Absage
+     * @param invitationtype 0 = main person and partner invited, 1 = main person and partner invited,
+     *                       2 = only main person invited, 3 = only partner invited <- no main person
+     * @param gender m = male, f = female
      * @param category Category
+     * @param username Username
+     * @param reserve 0 = not on reserve, 1 = on reserve
+     * @param nodeHost Node text for host
      *
      * @return Guest
      */
