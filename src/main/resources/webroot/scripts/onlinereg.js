@@ -213,6 +213,21 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
             });
         });
 
+        $http.get('api/update/isreserve/' + $routeParams.eventId + '/' + $rootScope.user_logged_in).success(function (result) {
+            $scope.event = result;
+            if (result) {
+                $translate('REGISTER_USER_MESSAGE_TO_RESERVE_LIST').then(function (text) {
+                    $scope.error = text;
+                });
+            }
+            else $scope.error = null;
+        }).error(function (data, status, headers, config) {
+            $translate('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE').then(function (text) {
+                $scope.error = text;
+            });
+        });
+
+
         $scope.update = function () {
             $http({
                 method: 'POST',

@@ -154,6 +154,18 @@ public class UpdateResource {
     }
 
     /**
+     * Checking if the guest is a reserve or not
+     *
+     * @param eventId the event ID
+     * @param username the username - osiam_login
+     */
+    @GET
+    @Path("/isreserve/{eventId}/{username}")
+    public Boolean isReserve(@PathParam("eventId") final Integer eventId,
+                             @PathParam("username") final String username) throws IOException {
+        return readResource(path("guest", "isreserve", eventId, username), BOOLEAN);
+    }
+    /**
      * Update guest
      *
      * @param eventId int
