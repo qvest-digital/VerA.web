@@ -53,7 +53,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Guest.getGuestByNoLoginRequiredUUID",
             query = "SELECT g.pk FROM Guest g where login_required_uuid = :noLoginRequiredUUID"),
     @NamedQuery(name = "Guest.getGuestById",
-            query = "SELECT g FROM Guest g where pk=:guestId")
+            query = "SELECT g FROM Guest g where pk=:guestId"),
+    @NamedQuery(name = "Guest.isReserve",
+                query = "SELECT g.reserve FROM Guest g WHERE g.fk_event=:eventId AND g.osiam_login=:username")
 })
 @NamedNativeQueries({
     @NamedNativeQuery(name="Event.list.userevents",
