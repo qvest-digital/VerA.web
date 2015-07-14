@@ -24,6 +24,7 @@ import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.evolvis.veraweb.onlinereg.Main;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.utils.VerawebConstants;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -76,7 +77,7 @@ public class EventResourceTest {
 
     @Test@Ignore
     public void testSaveRegistration() throws IOException {
-        String returnedValue = er.register("1", "2");
+        String returnedValue = er.register("1", "2", VerawebConstants.GUEST_LIST_OK);
         assertEquals("OK", returnedValue);
     }
 }
