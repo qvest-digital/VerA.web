@@ -100,7 +100,8 @@ public class Guest {
     private String osiam_login;
     private String login_required_uuid;
     private String image_uuid;
-    private Integer reserve;
+    //Standard 0 = not on reserve
+    private Integer reserve = 0;
 
 	public Integer getPk() {
 		return pk;
