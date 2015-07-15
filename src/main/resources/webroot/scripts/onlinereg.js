@@ -898,7 +898,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
         //second status to save status of registering in waiting list
         $scope.registeredOnWaitingList = result.status;
 
-        if (result.status === 'WAITING_LIST_FULL') {
+        if (result.status === 'WAITING_LIST_FULL' && $routeParams.noLoginRequiredUUID == null) {
             $scope.registerButton = false;
 
             $translate('REGISTER_USER_MESSAGE_EVENT_FULL').then(function (text) {
