@@ -193,7 +193,6 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
 
         $scope.setNextPage('register/' + $routeParams.eventId);
         $location.path('/login');
-
     } else {
         $scope.acceptanceOptions = [
             {id: 0, name:"USER_EVENTS_STATUS_TYPE_OPEN"},
@@ -224,7 +223,6 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
                 $scope.error = text;
             });
         });
-
 
         $scope.update = function () {
             $http({
@@ -900,6 +898,8 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
         $scope.registeredOnWaitingList = result.status;
 
         if (result.status === 'WAITING_LIST_FULL') {
+            $scope.registerButton = false;
+
             $translate('REGISTER_USER_MESSAGE_EVENT_FULL').then(function (text) {
                 $scope.error = text;
             });
