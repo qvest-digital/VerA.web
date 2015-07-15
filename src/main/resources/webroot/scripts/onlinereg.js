@@ -970,18 +970,10 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
                     headers: {"Content-Type" : undefined},
                     data: $.param({
                         notehost: $scope.noteToHost,
-                        noLoginRequiredUUID: $scope.noLoginRequiredUUID,
-                        guestStatus: $scope.guestStatus
+                        noLoginRequiredUUID: $scope.noLoginRequiredUUID
                     })
                 }).success(function (result) {
-
-                    if ($scope.registeredOnWaitingList === 'WAITING_LIST_OK') {
-                        $scope.success = null;
-                        $translate('REGISTER_USER_MESSAGE_TO_RESERVE_LIST').then(function (text) {
-                            $scope.error = text;
-                        });
-                    }
-                    else if (result.status === 'OK') {
+                    if (result.status === 'OK') {
                         $scope.error = null;
                         $translate(['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE','USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_TWO']).then(function (translations) {
                             $scope.success = translations['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE'] + " \"" + $scope.event.shortname + "\" " + translations['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_TWO'];
@@ -989,22 +981,10 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
                         $scope.noteToHost = null;
                     } else if (result.status === 'REGISTERED') {
                         $scope.success = null;
-                        $translate('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE').then(function (text) {
+                        $translate('USER_EVENTS_STATUS_WITHOUT_LOGIN_CHANGED_ERROR_MESSAGE').then(function (text) {
                             $scope.error = text;
                         });
                     }
-//                    if (result.status === 'OK') {
-//                        $scope.error = null;
-//                        $translate(['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE','USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_TWO']).then(function (translations) {
-//                            $scope.success = translations['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_ONE'] + " \"" + $scope.event.shortname + "\" " + translations['USER_EVENT_REGISTER_MESSAGE_SUCCESSFUL_PART_TWO'];
-//                        });
-//                        $scope.noteToHost = null;
-//                    } else if (result.status === 'REGISTERED') {
-//                        $scope.success = null;
-//                        $translate('USER_EVENTS_STATUS_WITHOUT_LOGIN_CHANGED_ERROR_MESSAGE').then(function (text) {
-//                            $scope.error = text;
-//                        });
-//                    }
                 });
             }
 

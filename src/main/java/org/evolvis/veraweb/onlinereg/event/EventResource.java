@@ -206,12 +206,11 @@ public class EventResource {
     public String registerGuestWithoutLogin(
             @PathParam("eventId") String eventId,
             @FormParam("notehost") String notehost,
-            @FormParam("noLoginRequiredUUID") String noLoginRequiredUUID,
-            @FormParam("guestStatus") final String guestStatus) throws IOException {
+            @FormParam("noLoginRequiredUUID") String noLoginRequiredUUID) throws IOException {
 
         // checking if the user is registered on the event
         if (!isUserWithoutLoginRegistered(noLoginRequiredUUID, eventId)) {
-            updateGuestStatusWithoutLogin(noLoginRequiredUUID, VerawebConstants.GUEST_STATUS_ACCEPT, notehost, getGuestReservationStatus(guestStatus));
+            updateGuestStatusWithoutLogin(noLoginRequiredUUID, VerawebConstants.GUEST_STATUS_ACCEPT, notehost);
             return StatusConverter.convertStatus("OK");
         }
         return StatusConverter.convertStatus("REGISTERED");
@@ -219,12 +218,10 @@ public class EventResource {
 
     private void updateGuestStatusWithoutLogin(final String noLoginRequiredUUID,
                                                final Integer invitationstatus,
-                                               final String notehost,
-                                               final Integer reserve) {
+                                               final String notehost) {
         final Form postBodyForUpdate = new Form();
         postBodyForUpdate.add("invitationstatus", invitationstatus);
         postBodyForUpdate.add("notehost", notehost);
-        postBodyForUpdate.add("reserve", reserve);
 
 
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guest/update/nologin/" +
