@@ -212,8 +212,7 @@ public class GuestResource extends AbstractResource{
     public void updateGuestWithoutLogin(
                             @PathParam("noLoginRequiredUUID") String noLoginRequiredUUID,
                             @FormParam("invitationstatus") int invitationstatus,
-                            @FormParam("notehost") String notehost,
-                            @FormParam("reserve") final Integer reserve) {
+                            @FormParam("notehost") String notehost) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.findByNoLoginUUID");
@@ -222,7 +221,6 @@ public class GuestResource extends AbstractResource{
             final Guest guest = (Guest) query.uniqueResult();
             guest.setInvitationstatus(invitationstatus);
             guest.setNotehost(notehost);
-            guest.setReserve(reserve);
 
             session.update(guest);
             session.flush();
