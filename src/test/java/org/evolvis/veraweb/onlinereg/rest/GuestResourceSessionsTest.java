@@ -296,7 +296,7 @@ public class GuestResourceSessionsTest {
         when(query.uniqueResult()).thenReturn(guest);
 
         // WHEN
-        guestResource.updateGuestWithoutLogin(uuid, 1, "Notiz");
+        guestResource.updateGuestWithoutLogin(uuid, 1, "Notiz", 0);
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();

@@ -37,6 +37,7 @@ import java.math.BigInteger;
 /**
  * @author mley on 03.08.14.
  * @author sweiz
+ * @author jnunez
  */
 @Path("/guest")
 @Produces(MediaType.APPLICATION_JSON)
@@ -48,7 +49,6 @@ public class GuestResource extends AbstractResource{
      * @param eventId Event id
      * @param userId User id
      * @param reserve 0 = not on reserve, 1 = on reserve
-     *
      * @return Guest
      */
     @GET
@@ -72,7 +72,6 @@ public class GuestResource extends AbstractResource{
      *
      * @param eventId Event id
      * @param userId User id
-     *
      * @return Guest
      */
     @GET
@@ -91,9 +90,9 @@ public class GuestResource extends AbstractResource{
 
     /**
      * Get the image UUID of a guest
+     *
      * @param delegationUUID UUID of delegation
      * @param userId ID of user
-     *
      * @return image UUID
      */
     @GET
@@ -121,7 +120,6 @@ public class GuestResource extends AbstractResource{
      * @param invitationstatus invitation status
      * @param notehost note text for host
      * @param reserve 0 = not on reserve, 1 = on reserve
-     *
      * @return The guest
      */
     @POST
@@ -184,8 +182,8 @@ public class GuestResource extends AbstractResource{
     @Path("/update/{eventId}/{userId}")
     public void updateGuest(@PathParam("eventId") int eventId,
                            @PathParam("userId") int userId,
-                           @QueryParam("invitationstatus") int invitationstatus,
-                           @QueryParam("notehost") String notehost) {
+                           @FormParam("invitationstatus") int invitationstatus,
+                           @FormParam("notehost") String notehost) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.findByEventAndUser");
@@ -213,8 +211,9 @@ public class GuestResource extends AbstractResource{
     @Path("/update/nologin/{noLoginRequiredUUID}")
     public void updateGuestWithoutLogin(
                             @PathParam("noLoginRequiredUUID") String noLoginRequiredUUID,
-                            @QueryParam("invitationstatus") int invitationstatus,
-                            @QueryParam("notehost") String notehost) {
+                            @FormParam("invitationstatus") int invitationstatus,
+                            @FormParam("notehost") String notehost,
+                            @FormParam("reserve") final Integer reserve) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Guest.findByNoLoginUUID");
@@ -223,6 +222,7 @@ public class GuestResource extends AbstractResource{
             final Guest guest = (Guest) query.uniqueResult();
             guest.setInvitationstatus(invitationstatus);
             guest.setNotehost(notehost);
+            guest.setReserve(reserve);
 
             session.update(guest);
             session.flush();
@@ -230,7 +230,6 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
-
 
     /**
      * Get guest using the UUID of a delegation
