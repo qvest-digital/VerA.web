@@ -13,7 +13,7 @@ Wirklich L\u00f6schen?=Vraiment supprimer?
 Ja=Oui
 Nein=non
 Es wurde eine Anrede gel\u00f6scht=Il a été une salutation supprimé
-Es existiert bereits ein Stammdaten-Eintrag unter dem Namen=Il est déjà un maître de saisie de données sous le nom
+Es existiert bereits ein Stammdaten-Eintrag unter dem Namen =Il est déjà un maître de saisie de données sous le nom
 
 #Administration/Arbeitsbereiche
 
@@ -692,7 +692,7 @@ laufende nummer berechnen=calculer le nombre séquentiel
 alle stammdaten neu laden=tous Recharger des données de base
 direkteinsprung: ist nur bei einer sortierung nach name, vorname oder e-mail m\u00f6glich.=Navigation rapide est possible seulement quand vous triez par nom, prénom ou par e-mail.
 beim erstellen von Steuerdateien oder G\u00e4stelisten wird Ihr oben ausgew\u00e4hlter Filter ber\u00fccksichtigt.=lors de la création des fichiers de contrôle ou les listes d'invités de filtres sélectionnés est considéré comme votre top.
-Wenn Sie einzelne G\u00e4ste markieren, werden nur diese exportiert, ansonsten die vollst\u00e4ndige Liste.=Si vous marquez les clients individuels, seuls ceux qui sont exportés, sinon la liste complète.
+Wenn Sie einzelne G\u00e4ste markieren, werden nur diese exportiert, ansonsten die vollst\u00e4ndige Liste. =Si vous marquez les clients individuels, seuls ceux qui sont exportés, sinon la liste complète.
 
 # g\u00e4steliste erstellen=# g\u00e4steliste erstellen
 g\u00e4steliste erstellen=Créez la liste des invités
