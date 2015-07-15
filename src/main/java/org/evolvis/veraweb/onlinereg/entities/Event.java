@@ -72,11 +72,12 @@ import java.util.Date;
                               "OR (maxguest <= (SELECT count(*) FROM tguest WHERE fk_event=:eventId AND reserve = 0))) " +
                               "AND pk=:eventId"),
     @NamedNativeQuery(name = "Event.checkMaxReserveLimit",
-                      query = "SELECT DISTINCT COUNT(*) " +
-                              "FROM veraweb.tevent " +
-                              "WHERE ((tevent.maxreserve IS NULL OR tevent.maxreserve < 1) " +
-                              "OR (maxreserve <= (SELECT count(*) FROM tguest WHERE fk_event=:eventId AND reserve = 1))) " +
-                              "AND pk=:eventId")
+                      query = "SELECT DISTINCT tevent.maxreserve " +
+                              "FROM veraweb.tevent WHERE " +
+                              "tevent.pk=:eventId " +
+                              "AND tevent.maxreserve > (SELECT count(*) FROM tguest WHERE fk_event=:eventId AND reserve = 1) " +
+                              "AND tevent.maxreserve IS NOT NULL " +
+                              "AND tevent.maxreserve > 0 ")
 })
 public class Event {
 
