@@ -426,22 +426,18 @@ public class EventResource {
                     person.getLastname_a_e1(),
                     username,
                     notehost,
-                    0 //move not on reserve
-            );
-
-            updatePersonOrgunit(eventId, userId);
-        } else if (guestStatus.equals(VerawebConstants.WAITING_LIST_OK)) {
-            addGuestToEvent(eventId,
-                    userId.toString(),
-                    person.getSex_a_e1(),
-                    person.getFirstname_a_e1(),
-                    person.getLastname_a_e1(),
-                    username,
-                    notehost,
-                    1 //move to reserve
+                    getGuestStatusValue(guestStatus)
             );
 
             updatePersonOrgunit(eventId, userId);
         }
+    }
+
+    private Integer getGuestStatusValue(final String guestStatus) {
+        if (guestStatus.equals(VerawebConstants.GUEST_LIST_OK)) {
+            return 0; // not reserve
+
+        }
+        return 1; // reserve
     }
 }
