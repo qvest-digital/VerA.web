@@ -61,70 +61,42 @@ import java.util.List;
 @Log
 public class EventResource {
 
-    /**
-     * base path of all resource
-     */
+    /** base path of all resource */
     public static final String BASE_RESOURCE = "/rest";
 
     public static final String USERNAME = "USERNAME";
 
-    /**
-     * Event type
-     */
-    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {
-    };
+    /** Event type */
+    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {};
 
-    /**
-     * List of Events type
-     */
-    private static final TypeReference<List<Event>> EVENT_LIST = new TypeReference<List<Event>>() {
-    };
+    /** List of Events type */
+    private static final TypeReference<List<Event>> EVENT_LIST = new TypeReference<List<Event>>() {};
 
-    /**
-     * Person type
-     */
-    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {
-    };
+    /** Person type */
+    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
 
-    /**
-     * Guest type
-     */
-    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {
-    };
+    /** Guest type */
+    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
 
-    /**
-     * Guest type
-     */
-    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {
-    };
+    /** Guest type */
+    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
 
-    /**
-     * Guest type
-     */
-    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {
-    };
+    /** Guest type */
+    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
 
     private static final Integer INVITATIONSTATUS_OPEN = 0;
     private static final Integer INVITATIONSTATUS_COMMITMENT = 1;
 
-    /**
-     * Jersey client
-     */
+    /** Jersey client */
     private Client client;
 
-    /**
-     * configuration
-     */
+    /** Configuration */
     private Config config;
 
-    /**
-     * Jackson Object Mapper
-     */
+    /** Jackson Object Mapper */
     private ObjectMapper mapper = new ObjectMapper();
 
-    /**
-     * Servlet context
-     */
+    /** Servlet context */
     @javax.ws.rs.core.Context
     @Getter
     private ServletContext context;
@@ -139,7 +111,6 @@ public class EventResource {
         this.client = client;
         this.config = config;
     }
-
 
     /**
      * Returns a list of events
@@ -192,8 +163,6 @@ public class EventResource {
     		@PathParam("userId") int userId) throws IOException {
         return readResource(path("guest", eventId, userId), GUEST);
     }
-    
-    
 
     /**
      * Save the registration to an event
@@ -224,6 +193,7 @@ public class EventResource {
 
     /**
      * Update guest status to "zusage"
+     *
      * @param eventId
      * @param notehost
      * @param noLoginRequiredUUID
@@ -245,7 +215,8 @@ public class EventResource {
         return StatusConverter.convertStatus("REGISTERED");
     }
 
-    private void updateGuestStatusWithoutLogin(final String noLoginRequiredUUID, final Integer invitationstatus,
+    private void updateGuestStatusWithoutLogin(final String noLoginRequiredUUID,
+                                               final Integer invitationstatus,
                                                final String notehost) {
         final Form postBodyForUpdate = new Form();
         postBodyForUpdate.add("invitationstatus", invitationstatus);
@@ -302,15 +273,12 @@ public class EventResource {
      * Get Person instance from one username
      *
      * @param username Username
-     *
      * @return Person
-     *
      * @throws IOException TODO
      */
     private Person getUserData(String username) throws IOException {
         return readResource(path("person", "userdata", username), PERSON);
     }
-
 
     /**
      * Includes a new guest in the database - Table "tguest".
@@ -407,7 +375,6 @@ public class EventResource {
     private Boolean isUserRegistered(String username, String eventId) throws IOException {
         return readResource(path("guest", "registered", "accept", username, eventId), BOOLEAN);
     }
-
 
     private Boolean isUserWithoutLoginRegistered(String noLoginRequiredUUID, String eventId) throws IOException {
         return readResource(path("guest", "registered", "nologin", noLoginRequiredUUID, eventId), BOOLEAN);
