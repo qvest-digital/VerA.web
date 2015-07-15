@@ -418,7 +418,7 @@ public class EventResource {
         final Person person = getUserData(username);
         final Integer userId = person.getPk();
 
-        if (person != null && userId != null && guestStatus.equals(VerawebConstants.GUEST_LIST_OK)) {
+        if (person != null && userId != null) {
             addGuestToEvent(eventId,
                     userId.toString(),
                     person.getSex_a_e1(),
@@ -436,7 +436,6 @@ public class EventResource {
     private Integer getGuestStatusValue(final String guestStatus) {
         if (guestStatus.equals(VerawebConstants.GUEST_LIST_OK)) {
             return 0; // not reserve
-
         }
         return 1; // reserve
     }
