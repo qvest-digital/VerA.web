@@ -222,16 +222,22 @@ public class EventResource extends AbstractResource {
     public Boolean isReserveListFull(@PathParam("eventId") Integer eventId) {
         final Session session = openSession();
         try {
+            Event thisEvent = getEvent(eventId);
+            Integer maxGuestNumber = thisEvent.getMaxguest();
+
             final Query query = session.getNamedQuery("Event.checkMaxReserveLimit");
             query.setInteger("eventId", eventId);
 
-            final BigInteger counter = (BigInteger) query.uniqueResult();
+            final Integer reserveLimitNumber = (Integer) query.uniqueResult();
 
-            if (counter.longValue() > 0) {
-                return true;
+            if(maxGuestNumber == null) {
+                return false;
             }
-            return false;
-
+            else if (reserveLimitNumber == null) {
+                return true;
+            } else {
+                return false;
+            }
         } finally {
             session.close();
         }
