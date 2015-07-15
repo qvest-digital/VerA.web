@@ -893,7 +893,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 
     $http.get('api/event/guestlist/status/' + $routeParams.eventId).success(function(result) {
         //save result.status in scope for next functions
-        $scope.resultStatus = result.status;
+        $scope.guestStatus = result.status;
         //second status to save status of registering in waiting list
         $scope.registeredOnWaitingList = result.status;
 
@@ -937,7 +937,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
                     headers: {"Content-Type" : undefined},
                     data: $.param({
                         notehost: $scope.noteToHost,
-                        resultStatus: $scope.resultStatus
+                        guestStatus: $scope.guestStatus
                     })
                 }).success(function (result) {
                     if ($scope.registeredOnWaitingList === 'WAITING_LIST_OK') {
@@ -967,7 +967,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
                     data: $.param({
                         notehost: $scope.noteToHost,
                         noLoginRequiredUUID: $scope.noLoginRequiredUUID,
-                        resultStatus: $scope.resultStatus
+                        guestStatus: $scope.guestStatus
                     })
                 }).success(function (result) {
                     if (result.status === 'OK') {

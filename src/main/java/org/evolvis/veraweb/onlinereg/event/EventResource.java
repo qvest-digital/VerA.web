@@ -179,12 +179,12 @@ public class EventResource {
     public String register(
     		@PathParam("eventId") String eventId,
     		@FormParam("notehost") String notehost,
-            @FormParam("resultStatus") String resultStatus) throws IOException {
+            @FormParam("guestStatus") String guestStatus) throws IOException {
         final String username = (String) context.getAttribute(USERNAME);
 
     	// checking if the user is registered on the event
     	if (!isUserRegistered(username, eventId)) {
-            registerUserAsGuestForEvent(eventId, notehost, resultStatus, username);
+            registerUserAsGuestForEvent(eventId, notehost, guestStatus, username);
     		return StatusConverter.convertStatus("OK");
     	}
     	
@@ -413,12 +413,12 @@ public class EventResource {
         return event.getFk_orgunit();
     }
 
-    private void registerUserAsGuestForEvent(String eventId, String notehost, String resultStatus, String username)
+    private void registerUserAsGuestForEvent(String eventId, String notehost, String guestStatus, String username)
             throws IOException {
         final Person person = getUserData(username);
         final Integer userId = person.getPk();
 
-        if (person != null && userId != null && resultStatus.equals(VerawebConstants.GUEST_LIST_OK)) {
+        if (person != null && userId != null && guestStatus.equals(VerawebConstants.GUEST_LIST_OK)) {
             addGuestToEvent(eventId,
                     userId.toString(),
                     person.getSex_a_e1(),
@@ -430,7 +430,7 @@ public class EventResource {
             );
 
             updatePersonOrgunit(eventId, userId);
-        } else if (resultStatus.equals(VerawebConstants.WAITING_LIST_OK)) {
+        } else if (guestStatus.equals(VerawebConstants.WAITING_LIST_OK)) {
             addGuestToEvent(eventId,
                     userId.toString(),
                     person.getSex_a_e1(),
