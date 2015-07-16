@@ -914,10 +914,21 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
         $scope.setNextPage('register/' + $routeParams.eventId);
         $location.path('/login');
     } else {
-        $scope.noLoginRequiredUUID = $routeParams.noLoginRequiredUUID;
 
-        $http.get('api/event/' + $routeParams.eventId).success(function (result) {
-            $scope.event = result;
+        $http.get('api/event/registered/' + $rootScope.user_logged_in + '/' + $routeParams.eventId)
+        .success(function (isUserRegistered) {
+
+            if (!isUserRegistered) {
+                $scope.noLoginRequiredUUID = $routeParams.noLoginRequiredUUID;
+
+                $http.get('api/event/' + $routeParams.eventId).success(function (result) {
+                    $scope.event = result;
+                });
+            }
+            else {
+                // redirect to update site because the user is already registered
+                $location.path('/update/' + $routeParams.eventId);
+            }
         });
 
 //        $http.get('api/event/' + $routeParams.eventId + '/register/' + $scope.userId).success(function (result) {

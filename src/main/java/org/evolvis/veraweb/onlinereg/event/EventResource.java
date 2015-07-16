@@ -216,19 +216,6 @@ public class EventResource {
         return StatusConverter.convertStatus("REGISTERED");
     }
 
-    private void updateGuestStatusWithoutLogin(final String noLoginRequiredUUID,
-                                               final Integer invitationstatus,
-                                               final String notehost) {
-        final Form postBodyForUpdate = new Form();
-        postBodyForUpdate.add("invitationstatus", invitationstatus);
-        postBodyForUpdate.add("notehost", notehost);
-
-
-        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guest/update/nologin/" +
-                noLoginRequiredUUID);
-        resource.post(postBodyForUpdate);
-    }
-
     /**
      * Get user's subscribed events.
      *
@@ -269,6 +256,32 @@ public class EventResource {
                 return StatusConverter.convertStatus(VerawebConstants.WAITING_LIST_FULL);
             }
         }
+    }
+
+    /**
+     * Checking if the user is already registered for the event
+     *
+     * @param username the username
+     * @param eventId the event ID
+     */
+    @GET
+    @Path("/registered/{username}/{eventId}")
+    public Boolean isUserRegisteredIntoEvent(@PathParam("username") final String username,
+                                             @PathParam("eventId") final Integer eventId) throws IOException {
+        return readResource(path("guest", "registered", username, eventId), BOOLEAN);
+    }
+
+    private void updateGuestStatusWithoutLogin(final String noLoginRequiredUUID,
+                                               final Integer invitationstatus,
+                                               final String notehost) {
+        final Form postBodyForUpdate = new Form();
+        postBodyForUpdate.add("invitationstatus", invitationstatus);
+        postBodyForUpdate.add("notehost", notehost);
+
+
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guest/update/nologin/" +
+                noLoginRequiredUUID);
+        resource.post(postBodyForUpdate);
     }
 
     /**
