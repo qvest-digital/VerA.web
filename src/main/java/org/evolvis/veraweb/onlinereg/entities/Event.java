@@ -67,17 +67,18 @@ import java.util.Date;
                             "AND e.eventtype LIKE 'Offene Veranstaltung' AND pk=:eventId"),
     @NamedNativeQuery(name = "Event.checkMaxGuestLimit",
                       query = "SELECT DISTINCT count(*) " +
-                              "FROM veraweb.tevent WHERE " +
-                              "((tevent.maxguest = 0 OR tevent.maxguest = -1 OR tevent.maxguest IS NULL) " +
-                              "OR (maxguest <= (SELECT count(*) FROM tguest WHERE fk_event=:eventId AND reserve = 0))) " +
-                              "AND pk=:eventId"),
+                              "FROM veraweb.tevent " +
+                              "where tevent.pk=:eventId " +
+                              "AND (tevent.maxguest IS NOT NULL " +
+                              "AND (tevent.maxguest <= (SELECT count(*) FROM tguest WHERE fk_event=:eventId AND reserve = 0) " +
+                              "AND tevent.maxguest > 0 ))"),
     @NamedNativeQuery(name = "Event.checkMaxReserveLimit",
-                      query = "SELECT DISTINCT tevent.maxreserve " +
-                              "FROM veraweb.tevent WHERE " +
-                              "tevent.pk=:eventId " +
-                              "AND tevent.maxreserve > (SELECT count(*) FROM tguest WHERE fk_event=:eventId AND reserve = 1) " +
-                              "AND tevent.maxreserve IS NOT NULL " +
-                              "AND tevent.maxreserve > 0 ")
+                      query = "SELECT DISTINCT count(*) " +
+                              "FROM veraweb.tevent  " +
+                              "WHERE tevent.pk=:eventId " +
+                              "AND ((tevent.maxreserve IS NULL OR tevent.maxreserve=0) " +
+                              "OR (tevent.maxreserve <= (SELECT count(*) FROM tguest WHERE fk_event=:eventId AND reserve = 1) " +
+                              "AND tevent.maxreserve > 0 ))")
 })
 public class Event {
 
