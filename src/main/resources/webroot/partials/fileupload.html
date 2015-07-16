@@ -4,14 +4,17 @@
         <!--<span ng-show="imageError"><h3>{{imageError}}</h3></span>-->
         <div flow-files-submitted="$flow.upload();">
 
-            <div ng-hide="image">
+            <div class="img-thumbnail" ng-hide="image">
                 <img src="images/default.png" />
+                <div class="row">
+                    <span class="btn btn-custom marginL25 marginT10" flow-btn>{{'DELEGATION_PHOTO_NEW'|translate}}</span>
+                </div>
             </div>
-            <div ng-if="image != null">
-                 <img ng-src="{{image}}" />
+            <div class="img-thumbnail" ng-if="image != null">
+                <img ng-src="{{image}}" />
+                <div class="row">
+                    <span class="btn btn-custom marginL25 marginT10" flow-btn>{{'DELEGATION_PHOTO_EXIST'|translate}}</span>
+                </div>
             </div>
-
-        <span class="btn btn-custom marginT10" flow-btn ng-if="image == null">{{'DELEGATION_PHOTO_NEW'|translate}}</span>
-        <span class="btn btn-custom marginT10" flow-btn ng-if="image != null">{{'DELEGATION_PHOTO_EXIST'|translate}}</span>
         </div>
 </div>
