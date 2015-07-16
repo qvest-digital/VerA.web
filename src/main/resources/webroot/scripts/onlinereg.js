@@ -404,7 +404,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                     }
                     $scope.loadingphoto = false;
             });
-                }, 2500);
+                }, 3500);
         };
         fileReader.readAsDataURL(flowFile.file);
     });
