@@ -368,9 +368,9 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
         $scope.imageError = undefined;
         var fileReader = new FileReader();
         fileReader.onload = function (event) {
+              $timeout(function(){
             $scope.$apply(function () {
 
-              $timeout(function(){
                     var img = new Image();
                     img.src = event.target.result;
                     $scope.validateImageSize(img);
@@ -401,8 +401,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                             });
                         }
                     }
-                }, 1000);
             });
+                }, 1000);
         };
         fileReader.readAsDataURL(flowFile.file);
     });
