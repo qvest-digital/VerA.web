@@ -357,6 +357,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
     }
 
     $scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+        $scope.loadingphoto = true;
         $scope.error = null;
 
         if ($scope.success != null && $scope.success != false && $rootScope.delegationSuccessMessage != null && $rootScope.delegationSuccessMessage != false) {
@@ -401,8 +402,9 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                             });
                         }
                     }
+                    $scope.loadingphoto = false;
             });
-                }, 1000);
+                }, 2500);
         };
         fileReader.readAsDataURL(flowFile.file);
     });
