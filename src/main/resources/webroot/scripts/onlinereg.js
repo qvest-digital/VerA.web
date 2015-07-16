@@ -374,7 +374,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
                     var img = new Image();
                     img.src = event.target.result;
-                    $scope.validateImageSize(img);
+//                    $scope.validateImageSize(img);
 
                                 if ($rootScope.correctImageFormat) {
 
@@ -384,7 +384,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                                             $scope.image = event.target.result;
                                         }
                                         else {
-                                            $scope.image = '';
                                             if (!$rootScope.correctImageFormat) {
                                                 $scope.success = null;
                                                 $scope.error = null;
@@ -410,7 +409,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                                 }
 
                     $scope.loadingphoto = false;
-                }, 650);
+                }, 1200);
             });
         };
         fileReader.readAsDataURL(flowFile.file);
