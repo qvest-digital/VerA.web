@@ -136,9 +136,14 @@ public class GuestResource extends AbstractResource{
             query.setInteger("userId", userId);
 
             final Guest guest = (Guest) query.uniqueResult();
-            guest.setInvitationstatus(invitationstatus);
             guest.setNotehost(notehost);
             guest.setReserve(reserve);
+            if (reserve == 1 ) {
+                guest.setInvitationstatus(0);
+            }
+            else {
+                guest.setInvitationstatus(invitationstatus);
+            }
 
             session.update(guest);
             session.flush();
