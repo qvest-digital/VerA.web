@@ -410,7 +410,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
                     $scope.loadingphoto = false;
             });
-                }, 600);
+                }, 1000);
         };
         fileReader.readAsDataURL(flowFile.file);
     });
