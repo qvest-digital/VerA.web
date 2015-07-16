@@ -401,7 +401,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                             });
                         }
                     }
-                }, 750);
+                }, 1000);
             });
         };
         fileReader.readAsDataURL(flowFile.file);
