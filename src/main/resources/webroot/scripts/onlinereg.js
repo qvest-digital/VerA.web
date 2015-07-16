@@ -357,6 +357,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
     }
 
     $scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+
         $scope.loadingphoto = true;
         $scope.error = null;
 
@@ -406,10 +407,39 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                                             }
                                         }
                                     }
+                                    else {
+                                        img.onload = function() {
+                                           if (img.width == 186 && img.height == 245) {
+                                               $scope.image = event.target.result;
+                                           }
+                                           else {
+                                               if (!$rootScope.correctImageFormat) {
+                                                   $scope.success = null;
+                                                   $scope.error = null;
+
+                                                   $rootScope.cleanMessages();
+
+                                                   $translate('GENERIC_IMAGE_FORMAT_FALSE').then(function (text) {
+                                                       $scope.error = text;
+                                                   });
+                                               }
+                                               else {
+                                                   $scope.success = null;
+                                                   $scope.error = null;
+
+                                                   $rootScope.cleanMessages();
+
+                                                   $translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
+                                                       $scope.error = text;
+                                                   });
+                                               }
+                                           }
+                                        }
+                                    }
                                 }
 
                     $scope.loadingphoto = false;
-                }, 1200);
+                }, 3500);
             });
         };
         fileReader.readAsDataURL(flowFile.file);
