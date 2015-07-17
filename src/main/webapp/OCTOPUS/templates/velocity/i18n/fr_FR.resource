@@ -286,67 +286,67 @@ E-Mail:=E-Mail
 nicht verf\u00fcgbar=indisponible
 
 
-#Allgemein	
+#Allgemein
 Sie sind hier:=Ils sont ici:
-Ja=oui	
+Ja=oui
 Nein=non
 Home=accueil
-	
+
 #Tabellen
-ID=ID	
-Datum=date	
-Arbeitsbereich=Espace de travail	
-Nachname=nom de famille	
-Vorname=prénom	
-Amtsbezeichnung=titre officiel	
+ID=ID
+Datum=date
+Arbeitsbereich=Espace de travail
+Nachname=nom de famille
+Vorname=prénom
+Amtsbezeichnung=titre officiel
 Firma / Institution (G)=Société / Institution (G)
 Stra\u00dfe (G)=Stra \ u00dfe (G)
 PLZ (G)=ZIP (G)
 Ort (G)=Place (G)
-Markierte Person(en)=Personne (s) marqué	
-L\u00e4schen=effacer	
-Expotieren=animaux de l'Expo	
+Markierte Person(en)=Personne (s) marqué
+L\u00e4schen=effacer
+Expotieren=animaux de l'Expo
 Kategorien zuordnen=Attribuer catégories
 Kategorien entfernen=Retirer Catégories
 Arbeitsbereich zuordnen=Attribuer espace de travail
 Arbeitsbereich entfernen=Retirer Workspace
 Durchf\u00fchren=conduite
-von=de	
+von=de
 Personen | Anzahl pro Seite=Personnes | Nombre par page
-Alle=tous	
-Seite=page	
+Alle=tous
+Seite=page
 G\u00fcltig bis=Date d'expiration
-Geburtsdatum=date de naissance	
-Geburtsort=lieu de naissance	
+Geburtsdatum=date de naissance
+Geburtsort=lieu de naissance
 Nationalit\u00e4t/Staatsangeh\u00e4rigkeit=Nationalité / citoyenneté
-Sprachen=langues	
+Sprachen=langues
 Hinweis f\u00fcr Gastgeber=Remarque pour les hôtes
-Akkreditierungsdatum=Date d'accréditation	
-um=sur	
-Uhr=horloge	
-Datenherkunft=RecordSource	
+Akkreditierungsdatum=Date d'accréditation
+um=sur
+Uhr=horloge
+Datenherkunft=RecordSource
 Person=personne
-	
-#Dateityp	
-CSV (Comma-Separated-Values)=CSV (Comma-Separated-Values)	
-XML (VerA.web-XML)=XML (VerA.web-XML)	
-ZKM (VerA.web-XML \u00fcber das Zentrale Kommunikationsmodul)=ZKM (VerA.web-XML via le module de communication central)	
-MAdLAN-Personen (MAdLAN-Personen-Import)=Personne MAdLAN (MAdLAN personne Importer)	
-MAdLAN-Firmen (MAdLAN-Firmen-Import)=MAdLAN entreprises (entreprises de MAdLAN importer)	
-X-Manage-CSV (X-Manage Kontakte)=X-Manage-CSV (X-Manage Contacts)	
-CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)=CSVDonnéespersonnelles+Adresse+DocType (Comma-Separated-Values)	
-CSVPersdat+Doktyp (Comma-Separated-Values)=CSVDonnéespersonnelles+DocType (Comma-Separated-Values)	
-CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)=CSVDonnéespersonnelles+DocType 1.0 (Comma-Separated-Values)	
-CSVPersdat+Kategorien (Comma-Separated-Values)=CSVDonnéespersonnelles+Catégories (Comma-Separated-Values)	
-CSV-ISO-8859-15 (Im-/Export ISO-8859-15)=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)	
 
-#Personen/Personen\u00fcbersicht	
-Personen\u00fcbersicht=Les gens \ Présentation	
+#Dateityp
+CSV (Comma-Separated-Values)=CSV (Comma-Separated-Values)
+XML (VerA.web-XML)=XML (VerA.web-XML)
+ZKM (VerA.web-XML \u00fcber das Zentrale Kommunikationsmodul)=ZKM (VerA.web-XML via le module de communication central)
+MAdLAN-Personen (MAdLAN-Personen-Import)=Personne MAdLAN (MAdLAN personne Importer)
+MAdLAN-Firmen (MAdLAN-Firmen-Import)=MAdLAN entreprises (entreprises de MAdLAN importer)
+X-Manage-CSV (X-Manage Kontakte)=X-Manage-CSV (X-Manage Contacts)
+CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)=CSVDonnéespersonnelles+Adresse+DocType (Comma-Separated-Values)
+CSVPersdat+Doktyp (Comma-Separated-Values)=CSVDonnéespersonnelles+DocType (Comma-Separated-Values)
+CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)=CSVDonnéespersonnelles+DocType 1.0 (Comma-Separated-Values)
+CSVPersdat+Kategorien (Comma-Separated-Values)=CSVDonnéespersonnelles+Catégories (Comma-Separated-Values)
+CSV-ISO-8859-15 (Im-/Export ISO-8859-15)=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
+
+#Personen/Personen\u00fcbersicht
+Personen\u00fcbersicht=Les gens \ Présentation
 Personen suchen=recherche de personnes
 Neue Person anlegen=Création d'une nouvelle personne
 Direkteinsprung=aller à
 
-#Personen/Personen\u00fcbersicht/Person bearbeiten	
+#Personen/Personen\u00fcbersicht/Person bearbeiten
 Person bearbeiten:=Modifier Personne:
 Erfa\u00dft am / von=Enregistré le / par
 Zuletzt ge\u00e4ndert am / von=Dernière mise à jour / par
@@ -358,7 +358,7 @@ Person kopieren=copie personne
 Etikett erzeugen=étiquette Produce
 Einer Veranstaltung zuordnen=Affectation d'un événement
 Person l\u00e4schen=supprimer une personne
-Statistik=statistiques	
+Statistik=statistiques
 Aus Stammdaten hinzuf\u00fcgen=Ajouter à partir des données de base
 
 #Personen/Personen\u00fcbersicht/Person bearbeiten/Dokumenttypen=#Personen/Personen\u00fcbersicht/Person bearbeiten/Dokumenttypen
@@ -366,82 +366,82 @@ dokumenttyp=type De Document
 alle erzeugen=produisent tous
 #Personen/Personen\u00fcbersicht/Person bearbeiten/Kategorien=#Personen/Personen\u00fcbersicht/Person bearbeiten/Kategorien
 kategorien und ereigni\u00dfe=catégories et événements
-#Personen/Personen\u00fcbersicht/Person bearbeiten/Statistik=#Personen/Personen\u00fcbersicht/Person bearbeiten/Statistik	
+#Personen/Personen\u00fcbersicht/Person bearbeiten/Statistik=#Personen/Personen\u00fcbersicht/Person bearbeiten/Statistik
 \u00fcbersicht \u00fcber alle Veranstaltungen eines Gastes.=aperçu de tous les événements d'un invité.
-Ab=de	
+Ab=de
 Statistik f\u00fcr Gast:=Statistiques de clients:
-Veranstaltung=événement	
-Beginn=début	
-Status=statut	
-Partner=partenaire	
+Veranstaltung=événement
+Beginn=début
+Status=statut
+Partner=partenaire
 
-#Personen/Personensuche	
-Personensuche=Recherche de personnes	
-Suche=recherche	
-Erweiterte Suche=Recherche Avancée	
+#Personen/Personensuche
+Personensuche=Recherche de personnes
+Suche=recherche
+Erweiterte Suche=Recherche Avancée
 Hinweis Sie k\u00e4nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00fcr mehrere und das ? f\u00fcr einzelne Zeichen. Die Suche erfolgt im Vornamen, Nachnamen, Ort, PLZ, Stra\u00dfe, Firma/Institution, Telefon, Fax, Mobil, E-Mail, Bemerkungen, Kategorien, Arbeitsbereiche und Amtsbezeichnung/Funktion.=Remarque Vous pouvez utiliser soi-disant wildcards dans la recherche, l'* représente un chiffre, et que? pour les caractères individuels. La recherche est effectuée dans le prénom, le nom, ville, zip, rue, société / institution, téléphone, fax, mobile, e-mail, des commentaires, des catégories, des zones de travail et titre / fonction.
 
-#Personen/Neue Person anlegen	
+#Personen/Neue Person anlegen
 Neue Person anlegen=Création d'une nouvelle personne
-Personendaten=données personnelles	
-Hauptperson=personnage Principal	
-Partner=partenaire	
-Ist Firma=est Société	
-Zeichensatz=Charset	
-Latein=Latin	
-Kyrillisch=cyrillique	
-Chinesisch=chinois	
-Anrede=salutation	
-Frau=femme	
-Herr=M.	
-Lady=dame	
-Sir=monsieur	
+Personendaten=données personnelles
+Hauptperson=personnage Principal
+Partner=partenaire
+Ist Firma=est Société
+Zeichensatz=Charset
+Latein=Latin
+Kyrillisch=cyrillique
+Chinesisch=chinois
+Anrede=salutation
+Frau=femme
+Herr=M.
+Lady=dame
+Sir=monsieur
 Bitte w\u00e4hlen Sie=Choisissez s'il vous plaît
 G\u00fcltig bis=Date d'expiration
 Akad. Titel=Académique. titre
-Geburtsdatum=date de naissance	
-Vorname=prénom	
-Nachname=nom de famille	
+Geburtsdatum=date de naissance
+Vorname=prénom
+Nachname=nom de famille
 Nationalit\u00e4t/Staatsangeh\u00e4rigkeit=Nationalité / citoyenneté
-Sprachen=langues	
-Inland=accueil	
-Sprachen=langues	
-Geschlecht=sexe	
-M\u00e4nnlich=mâle	
-Weiblich=femme	
+Sprachen=langues
+Inland=accueil
+Sprachen=langues
+Geschlecht=sexe
+M\u00e4nnlich=mâle
+Weiblich=femme
 Akkreditierungsdatum=Date d'accréditation
-Uhr=horloge	
-Bemerkung=remarque	
+Uhr=horloge
+Bemerkung=remarque
 Hinweis f\u00fcr Orga=Avis à l'organisation
 Hinweis f\u00fcr Gastgeber=Remarque pour les hôtes
-Anschriften=adresses	
+Anschriften=adresses
 Amtsbezeichnung/Funktion=Description officielle / Fonction
 Firma/Institution=Société / Institution
 Stra\u00dfe=route
 PLZ / Ort=NPA / Ville
-Bundesland=état	
-Land=pays	
+Bundesland=état
+Land=pays
 PLZ / Postfach=Zip / code postal
-IBAN=IBAN	
-Telefon=téléphone	
-BIC=BIC	
-Fax=Fax	
-E-Mail=E-Mail	
-Mobil=portable	
-www=www	
-Privat=en privé	
-Weitere=autre	
+IBAN=IBAN
+Telefon=téléphone
+BIC=BIC
+Fax=Fax
+E-Mail=E-Mail
+Mobil=portable
+www=www
+Privat=en privé
+Weitere=autre
 Dublettenpr\u00fcfung durchf\u00fchren=Dublettenprüfung durchführen
 Zur Personen\u00fcbersicht=Pour les personnes Présentation
 
-#Personen/Suchen & Ersetzen in Personendaten	
+#Personen/Suchen & Ersetzen in Personendaten
 Suchen & Ersetzen in Personendaten=Rechercher et remplacer des données personnelles
 Hinweis Wenn Sie den Platzhalter * verwenden, werden auch Teilst\u00fccke ersetzt, sonst nur vollst\u00e4ndige Datenfelder.=Note * Si vous utilisez le joker, et les articles peuvent être remplacés, sinon seuls les champs de données complètes.
-Suchen*=Recherche *	
-Ersetzen=remplacer	
+Suchen*=Recherche *
+Ersetzen=remplacer
 In folgenden Feldern*=Dans les champs suivants *
-Vorname=prénom	
-Nachname=nom de famille	
+Vorname=prénom
+Nachname=nom de famille
 Anrede / Titel=Civilité / Titre
 Freitextfelder=Champs de texte libre
 Amtsbezeichn.=titre officiel
@@ -450,36 +450,36 @@ Adre\u00dfeadresse
 PLZ / Ort=NPA / Ville
 Telefon / Fax=Téléphone / Fax
 E-Mail=E-Mail
-www=www	
+www=www
 Suchen=recherche
 Einzeln ersetzen=remplacer simple
 Alle ersetzen=Remplace Tout
 Felder leeren=Les champs vides
 
-#Personen/Dublettensuche	
-Dublettensuche=Dublettensuche	
+#Personen/Dublettensuche
+Dublettensuche=Dublettensuche
 Hinweis Beachten Sie, da\u00df \u00e4 mit ae, \u00e4 mit oe, \u00fc mit ue und \u00df mit \u00df verglichen wird.=Remarque Notez qu'avec \u00e4 \u00fc, \u00df avec oe, ue est comparé avec UE et ß avec les art.
 
-#Personen/Export von Personendaten	
+#Personen/Export von Personendaten
 Export von Personendaten=Exporter des données personnelles
 Hinweis Sie exportieren mit dieser Funktion au\u00dfchlie\u00dflich Personen aus Ihrem aktuellen Mandanten.=Remarque Pour exporter cette fonction seulement les gens de vos clients actuels.
 Veranstaltung=événement
-Kategorie=catégorie	
-Alle=tous	
-ohne=sans	
-Botschaften=ambassades	
+Kategorie=catégorie
+Alle=tous
+ohne=sans
+Botschaften=ambassades
 Finanzamt\u00dfprecher=Porte-parole du ministère des Finances
-Journalisten=journalistes	
+Journalisten=journalistes
 Lieferant=fournisseur
-NOGs=NOGs	
-Politik=politique	
+NOGs=NOGs
+Politik=politique
 Pre\u00dfevertreter=représentants de la presse
 Wirtschaft=économie
 CSV: Anmerkung=CSV: Remarque
 Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00e4ngig) kann es pa\u00dfieren, da\u00df MS Excel und OO Calc die exportierten Daten nicht vollst\u00e4ndig lesen k\u00e4nnen.=Selon la quantité de champs exportés (en particulier, cela dépend du nombre de types de documents exportés et catégories), il peut arriver que MS Excel et Calc OO les données exportées ne peuvent pas entièrement lu.
 Export starten=Démarrer l'exportation
 
-#Personen/Import von Personendaten	
+#Personen/Import von Personendaten
 Import von Personendaten=Importer des données personnelles
 Hinweis Beim Import k\u00e4nnen Feldinhalte, die l\u00e4nger als bei VerA.web vorgesehen sind, gek\u00fcrzt \u00fcbernommen werden.=Remarque Lors de l'importation au champ contenu qui sont fournis pour plus de VerA.web être adoptées raccourcie.
 Datenherkunft*=Source des données *
@@ -491,54 +491,54 @@ Datei ausw\u00e4hlen=Choisissez un fichier
 Keine ausgew\u00e4hlt=Aucune sélection
 Import starten=Démarrer l'importation
 
-#anmeldung	
+#anmeldung
 login=se connecter
 benutzername=nom d'utilisateur
 pa\u00dfwort=mot de passe
-in vertretung anmelden=signer dans la représentation	
-anmelden=se connecter	
+in vertretung anmelden=signer dans la représentation
+anmelden=se connecter
 felder leeren=champs vides
-hinweis=note	
+hinweis=note
 bitte verwenden sie ihre organisationskennzeichen oder vorname.nachname als benutzernamen=S'il vous plaît utilisez votre organisation comme identification ou nom d'utilisateur firstname.lastname
 
-#mainpage=#mainpage	
-personen=personnes	
-veranstaltungen=événements	
-verwaltung=gestion	
-administration=administration	
-benutzer=utilisateur	
-hilfe=Aidez-Moi	
-abmelden=annuler	
+#mainpage=#mainpage
+personen=personnes
+veranstaltungen=événements
+verwaltung=gestion
+administration=administration
+benutzer=utilisateur
+hilfe=Aidez-Moi
+abmelden=annuler
 Willkomen bei VerA.web=Bienvenue au VerA.web
 Sie haben hier die M\u00e4glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00e4schen. Weiterhin k\u00e4nnen Sie mandantenspezifische und globale Einstellungen einsehen und bearbeiten. Sollten Sie weitere Informationen ben\u00e4tigen, finden Sie diese auf der Seite Hilfe.=Ici vous avez la possibilité de maîtriser les données et observations montrent des gens et des événements, d'exporter et d'importer, modifier et supprimer. Vous pouvez également afficher et modifier les paramètres client-spécifiques et globaux. Si vous avez besoin de plus amples informations, s'il vous plaît consulter la page Aide.
 sie sind hier=ils sont ici
 
 #personendropdown
 personen\u00fcbersicht=Présentation des personnes
-personensuche=Recherche de personnes	
+personensuche=Recherche de personnes
 neue person=nouvelle personne
 suchen & ersetzen=Rechercher et remplacer
-dublettensuche=Recherche Duplicate	
+dublettensuche=Recherche Duplicate
 personenexport=personnes exportent
 personenimport=l'importation personnelle
 
-#veranstaltungendropdown	
+#veranstaltungendropdown
 veranstaltungs\u00fcbersicht=Présentation de l'événement
 veranstaltung\u00dfuche=recherche d'un événement
 neue veranstaltung=nouvel évènement
-verteiler=distributeur	
-statistiken=statistiques	
+verteiler=distributeur
+statistiken=statistiques
 
-#verwaltungdropdown=#verwaltungdropdown	
-einstellungen=paramètres	
-vertretungen=représentations	
-info=infos	
+#verwaltungdropdown=#verwaltungdropdown
+einstellungen=paramètres
+vertretungen=représentations
+info=infos
 
-#administrationdropdown=#administrationdropdown	
+#administrationdropdown=#administrationdropdown
 anreden=salutations
 arbeitsbereiche=Espaces de travail
-benutzer=utilisateur	
-dokumenttypen=Types de documents	
+benutzer=utilisateur
+dokumenttypen=Types de documents
 e-mail-postausgang=Email envoi
 e-mail-vorlagen=des modèles d'e-mail
 farben=couleurs
@@ -550,13 +550,13 @@ reports=rapports
 stellvertretungen=Les délégués
 veranstaltungsorte=lieux
 
-#Veranstaltungs\u00fcbersicht=#Veranstaltungs\u00fcbersicht	
+#Veranstaltungs\u00fcbersicht=#Veranstaltungs\u00fcbersicht
 veranstaltungs\u00fcbersicht=Présentation de l'événement
-id=id	
-name=nom	
-beginn=début	
-ende=fin	
-gastgeber=hôte	
+id=id
+name=nom
+beginn=début
+ende=fin
+gastgeber=hôte
 veranstaltungsort=lieu
 veranstaltung suchen=Recherche événement
 neue veranstaltung anlegen=Créer nouvel événement
@@ -565,19 +565,19 @@ veranstaltungen=événements
 anzahl pro seite=Afficher par page
 seite x von y=page x de y
 
-#veranstaltung bearbeiten: /allgemein=#veranstaltung bearbeiten: /allgemein	
+#veranstaltung bearbeiten: /allgemein=#veranstaltung bearbeiten: /allgemein
 veranstaltung bearbeiten=Modifier l'événement
 veranstaltungs-id=ID d'événement
 veranstaltungsname=nom de l'événement
 veranstaltungs-URL=URL de l'événement
 URl f\u00fcr pre\u00dfevertreter=URL de représentants de la presse
 zur g\u00e4steverwaltung=à la gestion des clients
-allgemein=général	
+allgemein=général
 dokumenttypen=Types de documents
-aufgaben=tâches	
+aufgaben=tâches
 zus\u00e4tzliche personendaten=données à caractère personnel supplémentaire
 funktionen/amtsbezeichnungen=Caractéristiques / titres officiels
-kategorien=Catégories	
+kategorien=Catégories
 kurzbereichnung=planification à court terme
 einladungsart=le style d'invitation
 offene veranstaltung=événement ouvert
@@ -592,51 +592,51 @@ login notwendig=login requis
 anmeldung von pre\u00dfevertretern m\u00e4glich=Inscription de représentants possibles de presse
 veranstaltung speichern=Sauvegarder événement
 zur veranstaltungs\u00fcbersicht=Tous les événements à
-	
-#veranstaltung bearbeiten: /dokumenttypen	
+
+#veranstaltung bearbeiten: /dokumenttypen
 markierte dokumenttypen=les types de documents marqués
-entfernen=supprimer	
+entfernen=supprimer
 neuen dokumenttyp hinzuf\u00fcgen=Ajouter un nouveau type de document
-id=id	
-bezeichnung=désignation	
+id=id
+bezeichnung=désignation
 x von y dokumenttypen=x y de types de documents
 anzahl pro seite=Afficher par page
-	
-#veranstaltung bearbeiten: /aufgaben	
+
+#veranstaltung bearbeiten: /aufgaben
 neue aufgabe anlegen=Créer nouvelle tâche
 es liegen keine aufgaben f\u00fcr diese veranstaltung vor=Il n'y a pas de tâches pour cet événement avant
 ausgew\u00e4hlte eintr\u00e4ge=entrées sélectionnées
 l\u00e4schen=supprimer
-titel=titre	
-status=statut	
+titel=titre
+status=statut
 verantwortlicher=responsable
 
-#veranstaltung bearbeiten: /aufgaben/aufgabe anlegen=#veranstaltung bearbeiten: /aufgaben/aufgabe anlegen	
+#veranstaltung bearbeiten: /aufgaben/aufgabe anlegen=#veranstaltung bearbeiten: /aufgaben/aufgabe anlegen
 aufgaben-id=ID de la tâche
 fertigstellung=achèvement
 priorit\u00e4t=priorité
 veranstwortlicher=responsable
-beschreibung=description	
+beschreibung=description
 verantwortlichen hinzuf\u00fcgen=Ajouter la charge
 verantwortlichen entfernen=Supprimer responsable
 aufgabe speichern=sauvegarder
 zur\u00fcck zur aufgaben\u00fcbersicht=Retour à la liste des tâches
 
-#veranstaltung bearbeiten: /funktionen/amtsbezeichnungen	
+#veranstaltung bearbeiten: /funktionen/amtsbezeichnungen
 neue amtsbezeichnung hinzuf\u00fcgen=Ajouter un nouveau titre officiel
 es wurden keine amtsbezeichnungen gefunden.=Pas de titres officiels ont été trouvées.
 
 #veranstaltung bearbeiten: /kategorien
 neue kategorie hinzuf\u00fcgen=Ajouter une nouvelle catégorie
 
-#veranstaltung\u00dfuche	
-suche=recherche	
+#veranstaltung\u00dfuche
+suche=recherche
 datum (beginn)=Date (début)
 nur in zuk\u00fcnftigen veranstaltungen suchen=Rechercher uniquement dans les événements futurs
 sie k\u00e4nnen bei der suche sogenannte platzhalter verwenden, der+ steht f\u00fcr mehrere das ? f\u00fcr einzelne=Vous pouvez utiliser dans la recherche de soi-disant espace réservé + représente le nombre? pour les caractères individuels
 #veranstaltung\u00dfuche /suchergebnis
 suchergebnis:Veranstaltungen=Résultats de la recherche: Événements
-	
+
 # neue veranstaltung anlegen
 einladungsart=le style d'invitation
 mit partner=avec un partenaire
@@ -649,10 +649,10 @@ angelegt von=créé par
 angelegt am=créé sur
 erzeugt aus veranstaltung=générée à partir de l'événement
 
-#statistiken	
+#statistiken
 statistiken=statistiques
 statistik auf folgenden zeitrahmen einschr\u00e4nken:=Statistiques Restreindre calendrier suivant:
-statistiktyp ausw\u00e4hlen:=Sélectionnez type de statistique:	
+statistiktyp ausw\u00e4hlen:=Sélectionnez type de statistique:
 zeitrahmen-beginn=Délai de démarrage
 zeitrahmen-ende=Calendrier-end
 Gesamt\u00fcbersicht \u00fcber die Anzahl der Veranstaltungen pro Jahr.=Résumé général du nombre d'événements par année.
