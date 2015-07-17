@@ -70,7 +70,8 @@ import java.util.Date;
                               "FROM veraweb.tevent " +
                               "where tevent.pk=:eventId " +
                               "AND (tevent.maxguest IS NOT NULL " +
-                              "AND (tevent.maxguest <= (SELECT count(*) FROM tguest WHERE fk_event=:eventId " +
+                              "AND (tevent.maxguest <= " +
+                                    "(SELECT count(*) FROM tguest WHERE fk_event=:eventId " +
                               "AND reserve = 0 " +
                               "AND tguest.invitationstatus != 2) " +
                               "AND tevent.maxguest > 0 ))"),
@@ -80,7 +81,8 @@ import java.util.Date;
                               "WHERE tevent.pk=:eventId " +
                               "AND ((tevent.maxreserve IS NULL OR tevent.maxreserve=0) " +
                               "OR (tevent.maxreserve <= " +
-                                    " (SELECT count(*) FROM tguest WHERE fk_event=:eventId AND reserve = 1) " +
+                                    "(SELECT count(*) FROM tguest WHERE fk_event=:eventId " +
+                              "AND reserve = 1 " +
                               "AND tguest.invitationstatus != 2) " +
                               "AND tevent.maxreserve > 0 ))")
 })
