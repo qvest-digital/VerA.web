@@ -365,7 +365,31 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
             $rootScope.cleanMessages();
         }
 
-        $scope.validateImageExtension(flowFile);
+//        $scope.validateImageExtension(flowFile);
+
+        var extensionTypes = new Array('jpeg','jpg','png');
+        var fileExtension = flowFile.name.split('.');
+        fileExtension = fileExtension[fileExtension.length - 1];
+        var extensionStatus = false;
+
+        for (var i in extensionTypes) {
+            if (extensionTypes[i] == fileExtension) {
+                extensionStatus = true;
+            }
+        }
+
+        if(!extensionStatus) {
+            $scope.success = null;
+            $rootScope.cleanMessages();
+
+            $rootScope.correctImageFormat = false;
+        }
+        else {
+            $rootScope.correctImageFormat = true;
+        }
+
+
+
 
         $scope.imageError = undefined;
         var fileReader = new FileReader();
@@ -387,6 +411,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                                         $timeout(function(){
                                             $scope.image = event.target.result;
                                             $scope.loadingphoto = false;
+                                            $scope.success = null;
+                                            $scope.error = null;
                                         }, 500);
                                         }
                                         else {
@@ -418,6 +444,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                                                $timeout(function(){
                                                 $scope.image = event.target.result;
                                                 $scope.loadingphoto = false;
+                                                $scope.success = null;
+                                                $scope.error = null;
                                                }, 500);
                                            }
                                            else {
@@ -443,6 +471,15 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                                            }
                                         }
                                     }
+                                }
+                                else {
+                                       $scope.success = null;
+                                       $scope.error = null;
+
+                                       $rootScope.cleanMessages();
+                                       $translate('GENERIC_IMAGE_FORMAT_FALSE').then(function (text) {
+                                           $scope.error = text;
+                                       });
                                 }
 
                         $scope.loadingphoto = false;
