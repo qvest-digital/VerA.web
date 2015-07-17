@@ -191,13 +191,23 @@ public class GuestResource extends AbstractResource{
                            @FormParam("notehost") String notehost) {
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("Guest.findByEventAndUser");
-            query.setInteger("eventId", eventId);
-            query.setInteger("userId", userId);
+            final Query checkMaxGuestLimit = session.getNamedQuery("Event.checkMaxGuestLimit");
+            checkMaxGuestLimit.setInteger("eventId", eventId);
 
-            final Guest guest = (Guest) query.uniqueResult();
+            BigInteger maxGuestLimit = (BigInteger) checkMaxGuestLimit.uniqueResult();
+
+            final Query getGuest = session.getNamedQuery("Guest.findByEventAndUser");
+            getGuest.setInteger("eventId", eventId);
+            getGuest.setInteger("userId", userId);
+
+            final Guest guest = (Guest) getGuest.uniqueResult();
             guest.setInvitationstatus(invitationstatus);
             guest.setNotehost(notehost);
+
+            //Remove guest from reserve, if maxguests are not greater as guest count
+            if(maxGuestLimit.longValue() == 0) {
+                guest.setReserve(0);
+            }
 
             session.update(guest);
             session.flush();
