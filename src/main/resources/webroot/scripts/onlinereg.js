@@ -365,8 +365,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
             $rootScope.cleanMessages();
         }
 
-//        $scope.validateImageExtension(flowFile);
-
         var extensionTypes = new Array('jpeg','jpg','png');
         var fileExtension = flowFile.name.split('.');
         fileExtension = fileExtension[fileExtension.length - 1];
@@ -388,9 +386,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
             $rootScope.correctImageFormat = true;
         }
 
-
-
-
         $scope.imageError = undefined;
         var fileReader = new FileReader();
 
@@ -401,86 +396,85 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
                     var img = new Image();
                     img.src = event.target.result;
-//                    $scope.validateImageSize(img);
 
-                                if ($rootScope.correctImageFormat) {
+                        if ($rootScope.correctImageFormat) {
 
-                                    // was cached 186x245
-                                    if (img.complete) {
-                                        if (img.width == 186 && img.height == 245) {
-                                        $timeout(function(){
-                                            $scope.image = event.target.result;
-                                            $scope.loadingphoto = false;
-                                            $scope.success = null;
-                                            $scope.error = null;
-                                        }, 500);
-                                        }
-                                        else {
-                                            if (!$rootScope.correctImageFormat) {
-                                                $scope.success = null;
-                                                $scope.error = null;
-
-                                                $rootScope.cleanMessages();
-
-                                                $translate('GENERIC_IMAGE_FORMAT_FALSE').then(function (text) {
-                                                    $scope.error = text;
-                                                });
-                                            }
-                                            else {
-                                                $scope.success = null;
-                                                $scope.error = null;
-
-                                                $rootScope.cleanMessages();
-
-                                                $translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
-                                                    $scope.error = text;
-                                                });
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        img.onload = function() {
-                                           if (img.width == 186 && img.height == 245) {
-                                               $timeout(function(){
-                                                $scope.image = event.target.result;
-                                                $scope.loadingphoto = false;
-                                                $scope.success = null;
-                                                $scope.error = null;
-                                               }, 500);
-                                           }
-                                           else {
-                                               if (!$rootScope.correctImageFormat) {
-                                                   $scope.success = null;
-                                                   $scope.error = null;
-
-                                                   $rootScope.cleanMessages();
-                                                   $translate('GENERIC_IMAGE_FORMAT_FALSE').then(function (text) {
-                                                       $scope.error = text;
-                                                   });
-                                               }
-                                               else {
-                                                   $scope.success = null;
-                                                   $scope.error = null;
-
-                                                   $rootScope.cleanMessages();
-
-                                                   $translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
-                                                       $scope.error = text;
-                                                   });
-                                               }
-                                           }
-                                        }
-                                    }
+                            // was cached 186x245
+                            if (img.complete) {
+                                if (img.width == 186 && img.height == 245) {
+                                $timeout(function(){
+                                    $scope.image = event.target.result;
+                                    $scope.loadingphoto = false;
+                                    $scope.success = null;
+                                    $scope.error = null;
+                                }, 500);
                                 }
                                 else {
-                                       $scope.success = null;
-                                       $scope.error = null;
+                                    if (!$rootScope.correctImageFormat) {
+                                        $scope.success = null;
+                                        $scope.error = null;
 
-                                       $rootScope.cleanMessages();
-                                       $translate('GENERIC_IMAGE_FORMAT_FALSE').then(function (text) {
-                                           $scope.error = text;
-                                       });
+                                        $rootScope.cleanMessages();
+
+                                        $translate('GENERIC_IMAGE_FORMAT_FALSE').then(function (text) {
+                                            $scope.error = text;
+                                        });
+                                    }
+                                    else {
+                                        $scope.success = null;
+                                        $scope.error = null;
+
+                                        $rootScope.cleanMessages();
+
+                                        $translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
+                                            $scope.error = text;
+                                        });
+                                    }
                                 }
+                            }
+                            else {
+                                img.onload = function() {
+                                   if (img.width == 186 && img.height == 245) {
+                                       $timeout(function(){
+                                        $scope.image = event.target.result;
+                                        $scope.loadingphoto = false;
+                                        $scope.success = null;
+                                        $scope.error = null;
+                                       }, 500);
+                                   }
+                                   else {
+                                       if (!$rootScope.correctImageFormat) {
+                                           $scope.success = null;
+                                           $scope.error = null;
+
+                                           $rootScope.cleanMessages();
+                                           $translate('GENERIC_IMAGE_FORMAT_FALSE').then(function (text) {
+                                               $scope.error = text;
+                                           });
+                                       }
+                                       else {
+                                           $scope.success = null;
+                                           $scope.error = null;
+
+                                           $rootScope.cleanMessages();
+
+                                           $translate('GENERIC_IMAGE_SIZE_FALSE').then(function (text) {
+                                               $scope.error = text;
+                                           });
+                                       }
+                                   }
+                                }
+                            }
+                        }
+                        else {
+                               $scope.success = null;
+                               $scope.error = null;
+
+                               $rootScope.cleanMessages();
+                               $translate('GENERIC_IMAGE_FORMAT_FALSE').then(function (text) {
+                                   $scope.error = text;
+                               });
+                        }
 
                         $scope.loadingphoto = false;
                 }, 600);
@@ -780,7 +774,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
         $scope.loadGuestImage = function() {
             $scope.getImageUUIDByUser();
-
         }
 
         $scope.loadDelegateCategory = function() {
