@@ -18,3 +18,4 @@ mem.trace.db
 target/
 pom.xml.versionsBackup
 *.iml
+*~
