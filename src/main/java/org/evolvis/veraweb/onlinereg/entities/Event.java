@@ -51,9 +51,11 @@ import java.util.Date;
             query = "SELECT DISTINCT tevent.* FROM tevent " +
                     "LEFT JOIN tguest g ON tevent.pk=g.fk_event " +
                     "WHERE (CURRENT_TIMESTAMP < tevent.datebegin OR CURRENT_TIMESTAMP < tevent.dateend) " +
-                    "AND (tevent.maxguest > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=0) " +
+                    "AND (tevent.maxguest > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=0 " +
+                    "AND tguest.invitationstatus != 2 ) " +
                     "OR (tevent.maxreserve > 0 " +
-                    "AND tevent.maxreserve > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=1))) " +
+                    "AND tevent.maxreserve > (SELECT count(pk) FROM tguest WHERE fk_event=tevent.pk AND reserve=1 " +
+                    "AND tguest.invitationstatus != 2))) " +
                     "OR tevent.maxguest IS NULL " +
                     "AND tevent.eventtype LIKE 'Offene Veranstaltung' ",
             resultClass = Event.class),
