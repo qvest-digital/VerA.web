@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by mley on 03.08.14.
+ * @author jnunez
  */
 @Data
 @XmlRootElement
@@ -59,7 +60,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 @NamedNativeQueries({
     @NamedNativeQuery(name="Event.list.userevents",
-            query = "SELECT e.* FROM tevent e JOIN tguest g on g.fk_event = e.pk JOIN tperson tp on g.fk_person = tp.pk " +
+            query = "SELECT e.* " +
+                    "FROM tevent e JOIN tguest g on g.fk_event = e.pk JOIN tperson tp on g.fk_person = tp.pk " +
                     "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
                     "AND tp.pk = :fk_person ORDER BY e.datebegin ASC", resultClass=Event.class),
     @NamedNativeQuery(name="Guest.guestByUUID",
@@ -83,7 +85,6 @@ import javax.xml.bind.annotation.XmlRootElement;
                     "AND p.isCompany='t'", resultClass=Guest.class),
     @NamedNativeQuery(name = "Guest.isGuestForEvent",
             query = "SELECT COUNT(*) FROM tguest g WHERE g.osiam_login=:osiam_login AND g.delegation=:delegation")
-
 })
 public class Guest {
 
@@ -114,7 +115,6 @@ public class Guest {
     public int getFk_event() {
         return fk_event;
     }
-
     public void setFk_event(int fk_event) {
         this.fk_event = fk_event;
     }
@@ -122,7 +122,6 @@ public class Guest {
     public int getFk_person() {
         return fk_person;
     }
-
     public void setFk_person(int fk_person) {
         this.fk_person = fk_person;
     }
@@ -130,7 +129,6 @@ public class Guest {
     public String getGender() {
         return gender;
     }
-
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -138,7 +136,6 @@ public class Guest {
     public String getGender_p() {
         return gender_p;
     }
-
     public void setGender_p(String gender_p) {
         this.gender_p = gender_p;
     }
@@ -146,7 +143,6 @@ public class Guest {
     public Integer getInvitationstatus() {
         return invitationstatus;
     }
-
     public void setInvitationstatus(Integer invitationstatus) {
         this.invitationstatus = invitationstatus;
     }
@@ -154,7 +150,6 @@ public class Guest {
     public String getNotehost() {
         return notehost;
     }
-
     public void setNotehost(String notehost) {
         this.notehost = notehost;
     }
@@ -162,7 +157,6 @@ public class Guest {
     public String getDelegation() {
         return delegation;
     }
-
     public void setDelegation(String delegation) {
         this.delegation = delegation;
     }
@@ -170,7 +164,6 @@ public class Guest {
     public int getInvitationtype() {
         return invitationtype;
     }
-
     public void setInvitationtype(Integer invitationtype) {
         this.invitationtype = invitationtype;
     }
@@ -178,14 +171,13 @@ public class Guest {
 	public Integer getFk_category() {
 		return fk_category;
 	}
-
 	public void setFk_category(Integer fk_category) {
 		this.fk_category = fk_category;
 	}
+
 	public String getOsiam_login() {
 		return osiam_login;
 	}
-	
 	public void setOsiam_login(String osiam_login) {
 		this.osiam_login = osiam_login;
 	}
@@ -193,17 +185,13 @@ public class Guest {
     public String getLogin_required_uuid() {
         return login_required_uuid;
     }
-
     public void setLogin_required_uuid(String login_required_uuid) {
         this.login_required_uuid = login_required_uuid;
     }
 
     public String getImage_uuid() { return image_uuid; }
-
     public void setImage_uuid(String image_uuid) { this.image_uuid = image_uuid; }
 
     public Integer getReserve() { return reserve; }
-
     public void setReserve(Integer reserve) { this.reserve = reserve; }
 }
-
