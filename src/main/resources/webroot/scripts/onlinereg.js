@@ -369,7 +369,9 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
 
         $scope.imageError = undefined;
         var fileReader = new FileReader();
+
         fileReader.onload = function (event) {
+
             $scope.$apply(function () {
               $timeout(function(){
 
@@ -382,7 +384,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                                     // was cached 186x245
                                     if (img.complete) {
                                         if (img.width == 186 && img.height == 245) {
+                                        $timeout(function(){
                                             $scope.image = event.target.result;
+                                            $scope.loadingphoto = false;
+                                        }, 500);
                                         }
                                         else {
                                             if (!$rootScope.correctImageFormat) {
@@ -410,7 +415,10 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                                     else {
                                         img.onload = function() {
                                            if (img.width == 186 && img.height == 245) {
-                                               $scope.image = event.target.result;
+                                               $timeout(function(){
+                                                $scope.image = event.target.result;
+                                                $scope.loadingphoto = false;
+                                               }, 500);
                                            }
                                            else {
                                                if (!$rootScope.correctImageFormat) {
@@ -418,7 +426,6 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                                                    $scope.error = null;
 
                                                    $rootScope.cleanMessages();
-
                                                    $translate('GENERIC_IMAGE_FORMAT_FALSE').then(function (text) {
                                                        $scope.error = text;
                                                    });
@@ -438,8 +445,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                                     }
                                 }
 
-                    $scope.loadingphoto = false;
-                }, 3500);
+                        $scope.loadingphoto = false;
+                }, 600);
             });
         };
         fileReader.readAsDataURL(flowFile.file);
