@@ -1,37 +1,37 @@
 #Administration/Anreden
-Anreden=Saludos
-Markierte Anrede(n)=Título seleccionado (s)
+Anreden=Tratamientos
+Markierte Anrede(n)=Tratamiento(s) seleccionado(s)
 ID=ID
-Stammform=forma Maestro
-Geschlecht=sexo
-Bearbeiten=editar
-Weiblich=femenino
-M\u00e4nnlich=masculino
-Direkteinsprung=Salta a
-Es wurde eine neue Anrede angelegt=Se creó un nuevo saludo
-Wirklich L\u00f6schen?=Realmente eliminar?
+Stammform=Descripción
+Geschlecht=Sexo
+Bearbeiten=Editar
+Weiblich=Mujer
+M\u00e4nnlich=Hombre
+Direkteinsprung=Saltar a
+Es wurde eine neue Anrede angelegt=Se ha creado un nuevo tratamiento
+Wirklich L\u00f6schen?=¿Desea eliminar el tratamiento seleccionado?
 Ja=Sí
 Nein=No
-Es wurde eine Anrede gel\u00f6scht=Se elimina un saludo
-Es existiert bereits ein Stammdaten-Eintrag unter dem Namen=Ya existe una entrada de datos principal bajo el nombre
+Es wurde eine Anrede gel\u00f6scht=Se ha eliminado un tratamiento
+Es existiert bereits ein Stammdaten-Eintrag unter dem Namen=Ya existe un tratamiento denominado
 
 #Administration/Arbeitsbereiche
 Arbeitsbereiche=Áreas de trabajo
-Markierte(n) Arbeitsbereich(e)=Marcado (n) el área de trabajo (s)
-Arbeitsbereiche=Áreas de trabajo
-Es wurden keine Daten gefunden=Datos no encontrados
-Es wurde ein neuer Arbeitsbereich angelegt=Fue creado un nuevo espacio de trabajo
-Es wurde kein Arbeitsbereich gel\u00f6scht=No había ningún área de trabajo despejada
-Es wurde ein Arbeitsbereich gel\u00f6scht=Cuenta con un área de trabajo despejada
+Markierte(n) Arbeitsbereich(e)=Área (s) de trabajo seleccionada (s)
+Arbeitsbereiche=Área de trabajo
+Es wurden keine Daten gefunden=No se han encontrado datos
+Es wurde ein neuer Arbeitsbereich angelegt=Área de trabajo creada satisfactoriamente
+Es wurde kein Arbeitsbereich gel\u00f6scht=No se eliminado ningún área de trabajo
+Es wurde ein Arbeitsbereich gel\u00f6scht=Se ha eliminado el área de trabajo seleccionado
 
 #Administration/Benutzer
 Benutzer=Usuario
-Markierte(n) Benutzer=Usuario seleccionado (s)
+Markierte(n) Benutzer=Usuario(s) seleccionado(s)
 Mandant=cliente
-Benutzername=nombre de usuario
-Benutzerrechte=los derechos de los usuarios
-Es wurde ein neuer Benutzer angelegt=Se ha creado es un nuevo usuario
-Es wurde ein Benutzer gel\u00f6scht=Tiene un usuario eliminado
+Benutzername=Nombre de usuario
+Benutzerrechte=Permisos de usuario
+Es wurde ein neuer Benutzer angelegt=Usuario creado satisfactoriamente
+Es wurde ein Benutzer gel\u00f6scht=Se ha eliminado el usuario seleccionado
 Sie m\u00fc\u00dfen eine Benutzerrollenbezeichnung eingeben=Debe ingresar un papel el nombre de usuario
 
 #Administration/Dokumenttypen
