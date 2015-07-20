@@ -65,6 +65,7 @@ import java.util.Properties;
  * Verwaltet eine Gästeliste.
  *
  * @author Mikel, Christoph
+ * @author sweiz
  * @version $Revision: 1.1 $
  */
 public class GuestListWorker extends ListWorkerVeraWeb {
@@ -757,7 +758,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
 		data.put("platz", new Long(platz.longValue() - delegationen.longValue()));
 		data.put("reserve", reserve);
-		data.put("all", new Long(platz.longValue() + reserve.longValue()) - delegationen.longValue());
+		data.put("all", new Long(platz.longValue() - delegationen.longValue()));
 		data.put("offen", new Long(platz.longValue() - zusagen.longValue() - absagen.longValue() - teilnahmen.longValue()) - delegationen.longValue());
 		data.put("zusagen", zusagen);
 		data.put("absagen", absagen);
@@ -782,18 +783,18 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     private void buildSelectSumFromGuestList(final Select select) {
         select.selectAs(
-                "SUM(CASE WHEN reserve =  1 THEN 0 ELSE CASE WHEN invitationtype = 1 THEN 2 ELSE 1 END END)", "platz");
+                "SUM(CASE WHEN invitationtype = 1 THEN 2 ELSE 1 END)", "platz");
 		select.selectAs(
 				"SUM(CASE WHEN reserve != 1 THEN 0 ELSE CASE WHEN invitationtype = 1 THEN 2 ELSE 1 END END)", "reserve");
 		select.selectAs(
-				"SUM(CASE WHEN reserve != 1 AND invitationstatus   = 1 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
-				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 1 AND invitationtype != 2 THEN 1 ELSE 0 END)", "zusagen");
+				"SUM(CASE WHEN invitationstatus   = 1 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
+				"SUM(CASE WHEN invitationstatus_p = 1 AND invitationtype != 2 THEN 1 ELSE 0 END)", "zusagen");
 		select.selectAs(
-				"SUM(CASE WHEN reserve != 1 AND invitationstatus   = 2 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
-				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 2 AND invitationtype != 2 THEN 1 ELSE 0 END)", "absagen");
+				"SUM(CASE WHEN invitationstatus   = 2 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
+				"SUM(CASE WHEN invitationstatus_p = 2 AND invitationtype != 2 THEN 1 ELSE 0 END)", "absagen");
 		select.selectAs(
-				"SUM(CASE WHEN reserve != 1 AND invitationstatus   = 3 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
-				"SUM(CASE WHEN reserve != 1 AND invitationstatus_p = 3 AND invitationtype != 2 THEN 1 ELSE 0 END)", "teilnahmen");
+				"SUM(CASE WHEN invitationstatus   = 3 AND invitationtype != 3 THEN 1 ELSE 0 END) + " +
+				"SUM(CASE WHEN invitationstatus_p = 3 AND invitationtype != 2 THEN 1 ELSE 0 END)", "teilnahmen");
 
 		select.selectAs(
 				"SUM(CASE WHEN tperson.iscompany = 't' THEN 1 ELSE 0 END)", "delegationen");
