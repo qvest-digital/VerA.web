@@ -39,17 +39,36 @@
 		<div id="container" #if($event) class="event" #end>
 			<header id="header">
 				<a href="${paths.staticWeb}do/" title="Zur Startseite" class="noBorder"><img src="${paths.staticWeb}images/veraweb_logo.png" alt="VerA.web Logo"></a>
-					#if($grants && $grants.isAuthenticated())
-						<div id="topNav">
-							<ul>
-								#if($config.helplink)
-								<li><a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>Hilfe</a></li>
-								#else
-								<li><a href="${paths.staticWeb}/doc/Benutzerhandbuch.pdf" target="_blank">Hilfe</a></li>
-								#end
-								<li><a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder"> <span class="borderBottom">Abmelden</span> <img src="${paths.staticWeb}images/logout.png" alt="Logout icon" title="Logout" style="vertical-align:middle;" /></a></li>
-							</ul>
-						</div>
+
+				<div id="topNav">
+                	<ul>
+                        <form class="inline">
+                            <li>
+                                <strong>Sprache:</strong>
+                                <select name="languageSelecter">
+                                    #foreach($option in $translatedNames)
+                                        <option>${option}</option>
+                                    #end
+                                </select>
+                            </li>
+                        </form>
+
+					    #if($grants && $grants.isAuthenticated())
+							#if($config.helplink)
+    							<li><a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>Hilfe</a></li>
+							#else
+	    						<li><a href="${paths.staticWeb}/doc/Benutzerhandbuch.pdf" target="_blank">Hilfe</a></li>
+							#end
+							<li>
+							    <a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder">
+							        <span class="borderBottom">Abmelden</span>
+							        <img src="${paths.staticWeb}images/logout.png" alt="Logout icon" title="Logout" style="vertical-align:middle;" />
+							    </a>
+							</li>
+						#end
+					</ul>
+				</div>
+				    #if($grants && $grants.isAuthenticated())
 						<div id="user">
 							<strong>Benutzer:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>In Vertretung f&uuml;r:</strong> $octopusConfig.personalConfig.role #end
 						</div>
