@@ -32,6 +32,7 @@
 		<worker name="UserListWorker" implementation="de.tarent.aa.veraweb.worker.UserListWorker" singleton="true" factory="reflected" />
 		<worker name="OrgUnitListWorker" implementation="de.tarent.aa.veraweb.worker.OrgUnitListWorker" singleton="true" factory="reflected" />
 		<worker name="OSIAMWorker" implementation="de.tarent.aa.veraweb.worker.OSIAMWorker" singleton="true" factory="reflected" />
+        <worker name="LanguageProvider" implementation="de.tarent.aa.veraweb.utils.i18n.LanguageProvider" singleton="true" factory="reflected" />
 
 		<!-- Changelog-Worker -->
 		<worker name="ChangeLogMaintenanceWorker" implementation="de.tarent.aa.veraweb.worker.ChangeLogMaintenanceWorker" singleton="true" factory="reflected" />
@@ -241,6 +242,7 @@
 			<action name="load" worker="SecurityWorker"/>
 			<action name="load" worker="ConfigWorker"/>
 			<action name="load" worker="UserConfigWorker"/>
+            <action name="load" worker="LanguageProvider" />
 		</task>
 
 		<task name="LoadStammdaten" access="private" groups="User,SystemUser">
