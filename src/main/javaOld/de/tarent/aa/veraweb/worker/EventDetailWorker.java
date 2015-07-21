@@ -133,8 +133,7 @@ public class EventDetailWorker {
 	 * @param saveevent
 	 *          Flag; nur wenn dieses gesetzt ist, passiert tatsächlich etwas
 	 */
-	public void saveDetail(OctopusContext octopusContext, Boolean saveevent) throws BeanException, IOException
-	{
+	public void saveDetail(OctopusContext octopusContext, Boolean saveevent) throws BeanException, IOException {
 		if (saveevent == null || !saveevent.booleanValue()) {
             return;
         }
