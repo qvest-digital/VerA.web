@@ -1,5 +1,8 @@
 package de.tarent.aa.veraweb.utils.i18n;
 
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.log4j.Logger;
 
@@ -173,20 +176,23 @@ public class LanguageProvider {
     private void insertAllValuesFromSelectedLanguageToContext(OctopusContext cntx) {
         Map<String, String> placeholderWithTranslation = new TreeMap<String, String>();
 
-        //TODO mach
-        properties = this.loadProperties("en_EN.resource");
-        //properties = this.loadProperties(getFileNameByLangText(cntx));
-
         for(final String key : properties.stringPropertyNames()) {
             placeholderWithTranslation.put(key, properties.getProperty(key));
         }
 
+        cntx.setContent("language", properties.getProperty("language"));
+
         cntx.setContent("placeholderWithTranslation", placeholderWithTranslation);
+
+        Request request = new RequestVeraWeb(cntx);
+        try {
+            properties = this.loadProperties(getFileNameByLangText(request.getField("languageSelecter").toString()));
+        } catch (BeanException e) {
+
+        }
     }
 
-    private String getFileNameByLangText(OctopusContext cntx) {
-        String selectedLanguage = cntx.getContextField("selectedLanguage").toString();
-
-        return existingLanguagesAndFilenames.get(selectedLanguage);
+    private String getFileNameByLangText(String langName) {
+        return existingLanguagesAndFilenames.get(langName);
     }
 }

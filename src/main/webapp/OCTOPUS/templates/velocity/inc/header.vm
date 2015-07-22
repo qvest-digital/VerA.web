@@ -40,17 +40,20 @@
 			<header id="header">
 				<a href="${paths.staticWeb}do/" title="Zur Startseite" class="noBorder"><img src="${paths.staticWeb}images/veraweb_logo.png" alt="VerA.web Logo"></a>
 				<div id="topNav">
+
+
+
                 	<ul>
-                        <form class="inline">
+                        <form id="languageSelectForm" class="inline" method="POST">
                             <li>
                                 <strong>Sprache:</strong>
-                                <select name="languageSelecter">
+                                <select id="languageSelecter" name="languageSelecter" onchange="changeLanguage();">
                                     #foreach($option in $translatedNames)
-                                    	##if()
-                                        ##	<option selected>${option}</option>
-                                        ##else
+                                    	#if(${option} == ${language})
+                                        	<option selected>${option}</option>
+                                        #else
                                         	<option>${option}</option>
-                                        ##end
+                                        #end
                                     #end
                                 </select>
                             </li>
@@ -147,3 +150,9 @@
 				#end
 
 			#end
+
+            <script type="text/javascript">
+                function changeLanguage() {
+                    document.getElementById("languageSelectForm").submit();
+                }
+            </script>
