@@ -32,41 +32,41 @@
 <div id="content_container">
 
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+        <strong>${placeholderWithTranslation.platzhalterSiesindhier}</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.VeranstaltungBearbeiten}</span>
     </div>
 
-    <h1>Veranstaltung bearbeiten: $!message.plain($event.shortname)</h1>
+    <h1>${placeholderWithTranslation.VeranstaltungBearbeiten}: $!message.plain($event.shortname)</h1>
 
 	#if ($optionalFieldsSummary.createdFields.size()>0 || $optionalFieldsSummary.changedFields.size()>0 || $optionalFieldsSummary.deletedFields.size()>0)
 		<div id="message-container" class="msg successmsg">
 			#if ($optionalFieldsSummary.createdFields.size()>0)
 				<div>
 					#if ($optionalFieldsSummary.createdFields.size()>1)
-						Es wurden $optionalFieldsSummary.createdFields.size() Zusatzfelder
+						${placeholderWithTranslation.Eswurden} $optionalFieldsSummary.createdFields.size() ${placeholderWithTranslation.Zusatzfelder}
 					#elseif ($optionalFieldsSummary.createdFields.size()<=1)
-						Es wurde ein Zusatzfeld
+						${placeholderWithTranslation.EswurdeeinZusatzfeld}
 					#end
-					angelegt.
+					${placeholderWithTranslation.Angelegt}
 				</div>
 			#end
 			#if ($optionalFieldsSummary.changedFields.size()>0)
 				<div>
 					#if ($optionalFieldsSummary.changedFields.size()>1)
-						Es wurden $optionalFieldsSummary.changedFields.size() Zusatzfelder
+						${placeholderWithTranslation.Eswurden} $optionalFieldsSummary.changedFields.size() ${placeholderWithTranslation.Zusatzfelder}
 					#elseif ($optionalFieldsSummary.changedFields.size()<=1)
-						Es wurde ein Zusatzfeld
+						${placeholderWithTranslation.EswurdeeinZusatzfeld}
 					#end
-					geändert.
+					${placeholderWithTranslation.Geandert}
 				</div>
 			#end
 			#if ($optionalFieldsSummary.deletedFields.size()>0)
 				<div>
 					#if ($optionalFieldsSummary.deletedFields.size()>1)
-						Es wurden $optionalFieldsSummary.deletedFields.size() Zusatzfelder
+						${placeholderWithTranslation.Eswurden} $optionalFieldsSummary.deletedFields.size() ${placeholderWithTranslation.Zusatzfelder}
 					#elseif ($optionalFieldsSummary.deletedFields.size()<=1)
-						Es wurde ein Zusatzfeld
+						${placeholderWithTranslation.EswurdeeinZusatzfeld}
 					#end
-					gelöscht.
+					${placeholderWithTranslation.Geloscht}
 				</div>
 			#end
 		</div>
@@ -78,7 +78,7 @@
         #parse("inc/event-header.vm")
 
         <div class="marginBottom10 marginTop20 textRight" id="buttonPanel-top">
-            <input type="button" class="mainButton" value="Zur G&auml;steverwaltung" name="guestlist"
+            <input type="button" class="mainButton" value="${placeholderWithTranslation.ZurGasteverwaltung}" name="guestlist"
                    onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
         </div>
 
@@ -91,21 +91,21 @@
             <div id="tabsMain">
                 <ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
                     <li class="inactive noBorder" onclick="window.location.href='ShowEvent?id=$!event.id';">
-                        <div>Allgemein</div>
+                        <div>${placeholderWithTranslation.Allgemein}</div>
                     </li>
                     <li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';">
-                        <div>Dokumenttypen</div>
+                        <div>${placeholderWithTranslation.Dokumenttypen}</div>
                     </li>
                     <li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';">
-                        <div>Aufgaben</div>
+                        <div>${placeholderWithTranslation.Aufgaben}</div>
                     </li>
                     #if($online-registration.activated)
 	                    <li class="active">
-	                        <div>Zusätzliche Personendaten</div>
+	                        <div>${placeholderWithTranslation.ZusatzlichePersonendaten}</div>
 	                    </li>
-	                    <li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>Funktionen/Amtsbezeichnungen</div>
+	                    <li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.FunktionenAmtsbezeichnungen}</div>
                         </li>
-                        <li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>Kategorien</div>
+                        <li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.Kategorien}</div>
                         </li>
 	                #end
                 </ul>
@@ -119,11 +119,11 @@
 			                #set($fieldcounter = $fieldcounter + 1)
 			            	<div class="tableCell width25">
 			            		<span>$fieldcounter.</span>
-				            	<span>Feldbezeichnung</span>
+				            	<span>${placeholderWithTranslation.Feldbezeichnung}</span>
 				                <input type="text" name="optionalField-$field.fkDelegationField" maxlength="25" value="$field.label">
 							</div>
 							<div class="tableCell width25">
-								<span>Eingabetyp</span>
+								<span>${placeholderWithTranslation.Eingabetyp}</span>
 				                <select name="optionalFieldType-$field.fkDelegationField">
 								    #foreach($type in $fieldTypes)
 				                	   	<option name="optionalFieldtype-$type.id" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>$type.description</option>
@@ -151,10 +151,10 @@
 
         <span id="buttonPanel-bottom" class="floatRight">
             #if($grants.mayWrite())
-                <input type="submit" name="save" value="Veranstaltung speichern" class="mainButton"
-                	title="Veranstaltung speichern" onclick="document.getElementById('formlist1').action='$formurl?eventId=$!event.id';" />
+                <input type="submit" name="save" value="${placeholderWithTranslation.VeranstaltungSpeichern}" class="mainButton"
+                	title="${placeholderWithTranslation.VeranstaltungSpeichern}" onclick="document.getElementById('formlist1').action='$formurl?eventId=$!event.id';" />
             #end
-            <input type="reset" name="cancel" value="Zur Veranstaltungsübersicht" class="mainButton"
+            <input type="reset" name="cancel" value="${placeholderWithTranslation.ZurVeranstaltungsubersicht}" class="mainButton"
                    onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
         </span>
 		</div>
@@ -167,7 +167,7 @@
 
 $(document).ready(function() {
 	if ($showSuccessMessage == true) {
-		showSuccess('Erfolgreich gespeichert!');
+		showSuccess(' ${placeholderWithTranslation.ErfolgreichGespeichert} ');
 	}
 });
 

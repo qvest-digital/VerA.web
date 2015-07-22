@@ -21,10 +21,10 @@
 
 <div id="content_container">
 	<div class="textRight marginBottom10" id="breadcrumb">
-	    <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Dokumenttypen</span>
+	    <strong>${placeholderWithTranslation.SieSindHier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.Dokumenttypen}</span>
 	</div>
 
-	<h1>Dokumenttypen</h1>
+	<h1>${placeholderWithTranslation.Dokumenttypen}</h1>
 
 	<form id="formlist" name="formlist" action="Doctype" method="POST">
 
@@ -50,11 +50,11 @@
 				<input type="hidden" name="list" value="$bean.id">
 			#end
 
-			<div class="textRight mandatoryText tabs">* = Pflichtfelder</div>
+			<div class="textRight mandatoryText tabs">* = ${placeholderWithTranslation.Pflichtfelder}</div>
 
 			<span id="actionPanel" class="inlineLabel">
-    	       	<strong>Markierte(n) Dokumenttyp(en)</strong>
-    	       	<input type="button" name="remove" onclick="askDelete()"  value="L&ouml;schen" title="Markierte(n) Dokumenttyp(en) l&ouml;schen" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end>
+    	       	<strong>${placeholderWithTranslation.platzhalter}MarkiertenDokumenttypen</strong>
+    	       	<input type="button" name="remove" onclick="askDelete()"  value="${placeholderWithTranslation.platzhalter}L&ouml;schen" title="${placeholderWithTranslation.platzhalter}Markierte(n) Dokumenttyp(en) l&ouml;schen" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end>
             </span>
 
 			<table class="fixed">
@@ -72,17 +72,17 @@
    				<col width="$column10%" />
 
 				<tr>
-					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th></th>
-					<th class="smallCell textCenter">ID</th>
-					<th>Bezeichnung*</th>
-					<th class="textCenter">Adress-Typ</th>
-					<th class="textCenter">Zeichensatz</th>
-					<th class="textCenter">Format</th>
-					<th class="smallCell textCenter" title="Eigenes Dokument f&uuml;r Partner">Dokument f&uuml;r Partner</th>
-					<th class="smallCell textCenter" title="Sortierreihenfolge">Sortier.</th>
-					<th class="smallCell textCenter" title="Kennzeichen">Kennz.</th>
-					<th class="smallCell textCenter" title="Gastgeber mit Ausgeben">GA</th>
-					<th class="smallCell textCenter" title="Ist Standard f&uuml;r Steuerdatei">SD</th>
+					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.Alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th></th>
+					<th class="smallCell textCenter">${placeholderWithTranslation.ID}</th>
+					<th>${placeholderWithTranslation.Bezeichnung}</th>
+					<th class="textCenter">${placeholderWithTranslation.AdressTyp}</th>
+					<th class="textCenter">${placeholderWithTranslation.Zeichensatz}</th>
+					<th class="textCenter">${placeholderWithTranslation.Format}</th>
+					<th class="smallCell textCenter" title="${placeholderWithTranslation.EigenesDokumentfurPartner}">${placeholderWithTranslation.Dokument f&uuml;r Partner}</th>
+					<th class="smallCell textCenter" title="${placeholderWithTranslation.Sortierreihenfolge}">${placeholderWithTranslation.Sortier}</th>
+					<th class="smallCell textCenter" title="${placeholderWithTranslation.Kennzeichen}">${placeholderWithTranslation.Kennz}</th>
+					<th class="smallCell textCenter" title="${placeholderWithTranslation.GastgebermitAusgeben}">${placeholderWithTranslation.GA}</th>
+					<th class="smallCell textCenter" title="${placeholderWithTranslation.IstStandardFurSteuerdatei}">${placeholderWithTranslation.SD}</th>
 				</tr>
 				<tr>
 					<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" style="display: none;"></td>
@@ -110,11 +110,11 @@
 							<option value="csv">CSV</option>
 						</select>
 					</td>
-					<td class="textCenter"><input type="checkbox" name="add-partner" value="true"  title="Eigenes Dokument f&uuml;r Partner" onchange="setModified('add')"></td>
+					<td class="textCenter"><input type="checkbox" name="add-partner" value="true"  title="${placeholderWithTranslation.EigenesDokumentfurPartner}" onchange="setModified('add')"></td>
 					<td><input type="text" name="add-sortorder" value="" onchange="setModified('add')"></td>
 					<td><input type="text" name="add-flags" value="" onchange="setModified('add')"></td>
-					<td><input type="checkbox" name="add-host" value="true"  title="Gastgeber mit Ausgeben" onchange="setModified('add')" checked></td>
-					<td><input type="checkbox" name="add-isdefault" value="true" title="Ist Standard f&uuml;r Steuerdatei" onchange="setModified('add')"; onlyOneStandard('add');></td>
+					<td><input type="checkbox" name="add-host" value="true"  title="${placeholderWithTranslation.GastgebermitAusgeben" onchange="setModified('add')" checked></td>
+					<td><input type="checkbox" name="add-isdefault" value="true" title="${placeholderWithTranslation.IstStandardFurSteuerdatei}" onchange="setModified('add')"; onlyOneStandard('add');></td>
 				</tr>
 				#foreach($bean in $list)
 				<tr>
@@ -143,17 +143,17 @@
 							<option value="csv"#if($bean.format == "csv") selected #end>CSV</option>
 						</select>
 					</td>
-					<td class="textCenter"><input type="checkbox" name="${bean.id}-partner" value="true" #if($bean.partner) checked #end  title="Eigenes Dokument f&uuml;r Partner" onchange="setModified('$!bean.id')"></td>
+					<td class="textCenter"><input type="checkbox" name="${bean.id}-partner" value="true" #if($bean.partner) checked #end  title="${placeholderWithTranslation.EigenesDokumentfurPartner}" onchange="setModified('$!bean.id')"></td>
 					<td class="textCenter"><input type="text" name="${bean.id}-sortorder" value="$!message.text($bean.sortorder)"onchange="setModified('$!bean.id')"></td>
 					<td class="textCenter"><input type="text" name="${bean.id}-flags" value="$!message.text($bean.flags)" onchange="setModified('$!bean.id')"></td>
-					<td class="textCenter"><input type="checkbox" name="${bean.id}-host" value="true" #if($bean.host) checked #end  title="Gastgeber mit Ausgeben" onchange="setModified('$!bean.id')"></td>
-					<td class="textCenter"><input type="checkbox" name="${bean.id}-isdefault" value="true" #if($bean.isdefault) checked #end  title="Ist Standard f&uuml;r Steuerdatei" onchange="setModified('$!bean.id'); onlyOneStandard('$!bean.id');"></td>
+					<td class="textCenter"><input type="checkbox" name="${bean.id}-host" value="true" #if($bean.host) checked #end  title="${placeholderWithTranslation.GastgebermitAusgeben}" onchange="setModified('$!bean.id')"></td>
+					<td class="textCenter"><input type="checkbox" name="${bean.id}-isdefault" value="true" #if($bean.isdefault) checked #end  title="${placeholderWithTranslation.IstStandardFurSteuerdatei}" onchange="setModified('$!bean.id'); onlyOneStandard('$!bean.id');"></td>
 				</tr>
 				#end
 
     			#if ($listparam.count == 0)
                     <tr>
-						<td colspan="99">Es wurden keine Daten gefunden</td>
+						<td colspan="99">${placeholderWithTranslation.EswurdenkeineDatengefunden}</td>
 					</tr>
     			#end
 
@@ -164,21 +164,20 @@
 
 			#if($grants.isAdmin())
 			<div class="textRight marginTop10" id="buttonPanel-bottom">
-				<input type="submit" name="save" value="Speichern" class="mainButton" />
+				<input type="submit" name="save" value="${placeholderWithTranslation.Speichern}" class="mainButton" />
 			</div>
 			#end
 
 			<input type="hidden" name="egal" value="egal" id="presave">
 			<vera-info>
-	   			 <p><strong>Format:</strong> OOo 1.1 steht f&uuml;r OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f&uuml;r OpenOffice 2.0 (ods-Datei),
-	   			 xls steht für Microsoft Office (xls-Datei) und CSV steht für CSV-Dateiformat.</p>
-	  			 <p><strong>Kennzeichen:</strong> Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef&uuml;gt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.</p>
+	   			 <p><strong>${placeholderWithTranslation.Format}</strong> ${placeholderWithTranslation.OOo11stehtfurOpenOffice11sxcDateiundOOo20furOpenOffice20odsDateixlsstehtfurMicrosoftOfficexlsDateiundCSVstehtfurCSVDateiformat}</p>
+	  			 <p><strong>${placeholderWithTranslation.Kennzeichen}</strong> ${placeholderWithTranslation.Kennz50und99werdenautomneuenVeranstaltungenhinzugefugtBeimKennz50wirdkeinFreitextfelderzeugt}</p>
 			</vera-info>
 
 			##Rueckfrage beim Loeschen
 			<script type="text/javascript">
 				function askDelete() {
-				htmlConfirm('Wirklich L&ouml;schen?', new Array('Ja', 'Nein'), new Array("askDeleteYes();", "askDeleteNo();"));
+				htmlConfirm(' ${placeholderWithTranslation.WirklichLoschen} ', new Array(' ${placeholderWithTranslation.Ja} ', ' ${placeholderWithTranslation.Nein} '), new Array("askDeleteYes();", "askDeleteNo();"));
 			}
 			function askDeleteYes() {
 				hideDialogs();

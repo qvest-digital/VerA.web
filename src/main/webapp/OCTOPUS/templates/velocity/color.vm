@@ -8,10 +8,10 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-	    	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Farben</span>
+	    	<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.Farben}</span>
 	</div>
 
-	<h1>Farben</h1>
+	<h1>${placeholderWithTranslation.Farben}</h1>
 
 	<form id="formlist" name="formlist" action="Color" method="POST">
 
@@ -43,16 +43,16 @@
 
 
 		<div id="main_content">
-			<div class="textRight mandatoryText tabs">* = Pflichtfelder</div>
+			<div class="textRight mandatoryText tabs">* = ${placeholderWithTranslation.Pflichtfelder}</div>
 
 			<table>
 				<tr>
-					<th>Bezeichnung*</th>
-					<th class="width15 textCenter">Farbwert (R G B)</th>
+					<th>${placeholderWithTranslation.Bezeichnung}</th>
+					<th class="width15 textCenter">${placeholderWithTranslation.Farbwert}</th>
 				</tr>
 
 				<tr>
-                    <td colspan="2" class="bold">Inland: Ja - Geschlecht: Weiblich</td>
+                    <td colspan="2" class="bold">${placeholderWithTranslation.InlandJaGeschlechtWeiblich}</td>
 				</tr>
 				## RGB teilen
 				#if($color1)
@@ -74,7 +74,7 @@
 				#end
 
 				<tr>
-                    <td colspan="2" class="bold">Inland: Ja - Geschlecht: M&auml;nnlich</td>
+                    <td colspan="2" class="bold">${placeholderWithTranslation.InlandJaGeschlechtMannlich}</td>
 				</tr>
 				## RGB teilen
 				#if($color2)
@@ -96,7 +96,7 @@
 				#end
 
 				<tr>
-                    <td colspan="2" class="bold">Inland: Nein - Geschlecht: Weiblich</td>
+                    <td colspan="2" class="bold">${placeholderWithTranslation.InlandNeinGeschlechtWeiblich}</td>
 				</tr>
 				## RGB teilen
 				#if($color3)
@@ -118,7 +118,7 @@
 				#end
 
 				<tr>
-                    <td colspan="2" class="bold">Inland: Nein - Geschlecht: M&auml;nnlich</td>
+                    <td colspan="2" class="bold">${placeholderWithTranslation.InlandNeinGeschlechtMannlich}</td>
 				</tr>
 				## RGB teilen
 				#if($color4)
@@ -144,7 +144,7 @@
 
 			#if($grants.isAdmin())
 				<div id="buttonPanel-bottom" class="textRight marginTop10">
-					<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
+					<input type="submit" name="save" value="${placeholderWithTranslation.Speichern}" title="${placeholderWithTranslation.Speichern}" class="mainButton" />
 				</div>
 			#end
 

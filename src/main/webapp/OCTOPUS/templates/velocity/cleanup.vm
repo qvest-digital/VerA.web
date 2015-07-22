@@ -14,11 +14,11 @@
 #if($cleanup && $cleanup.size() > 0)
 	#if($cleanupdone)
 		<div style="margin-top: 10px; font-size: 14px; font-family: Arial;">
-			Folgende Aktionen <strong>WURDEN</strong> durchgef&uuml;hrt</strong>
+			${placeholderWithTranslation.FolgendeAktionen}<strong>${placeholderWithTranslation.WURDEN}</strong> ${placeholderWithTranslation.durchgefuhrt}</strong>
 		</div>
 	#else
 		<div style="margin-top: 10px; font-size: 14px; font-family: Arial;">
-			Folgende Aktionen <strong>K&Ouml;NNEN</strong> durchgef&uuml;hrt</strong>
+			${placeholderWithTranslation.FolgendeAktionen}<strong>${placeholderWithTranslation.KONNEN}</strong> ${placeholderWithTranslation.durchgefuhrt}</strong>
 		</div>
 	#end
 	<ul>
@@ -29,16 +29,16 @@
 
 	#if($cleanupdone)
 		<br>
-		<a href="${paths.staticWeb}do/Cleanup">Aktuallisieren</a>
+		<a href="${paths.staticWeb}do/Cleanup">${placeholderWithTranslation.Aktuallisieren}</a>
 	#else
 		<br>
-		<a href="${paths.staticWeb}do/Cleanup">Aktuallisieren</a> &nbsp; | &nbsp;
-		<a href="${paths.staticWeb}do/Cleanup?force=true">Cleanup jetzt unwiderruflich durchf&uuml;hren.</a>
+		<a href="${paths.staticWeb}do/Cleanup">${placeholderWithTranslation.Aktuallisieren}</a> &nbsp; | &nbsp;
+		<a href="${paths.staticWeb}do/Cleanup?force=true">${placeholderWithTranslation.Cleanupjetztunwiderruflichdurchfuhren}</a>
 	#end
 #else
-	Es sind derzeit keine Cleanups m&ouml;glich / n&ouml;tig.
+	${placeholderWithTranslation.EssindderzeitkeineCleanupsmoglichnotig}
 	<br><br>
-	<a href="${paths.staticWeb}do/Cleanup">Aktuallisieren</a>
+	<a href="${paths.staticWeb}do/Cleanup">${placeholderWithTranslation.Aktuallisieren}</a>
 #end
 
 

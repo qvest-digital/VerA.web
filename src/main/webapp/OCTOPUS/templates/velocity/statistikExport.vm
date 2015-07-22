@@ -5,7 +5,7 @@
 		<title>$title</title>
 		## Style
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
-		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report.css" media="all" title="Ausw&auml;rtiges Amt Intranet-Stil">
+		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report.css" media="all" title="${placeholderWithTranslation.AuswartigesAmtIntranetStil}">
 		## Browser-Cache deaktivieren
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="cache-control" content="no-cache">
@@ -17,21 +17,21 @@
 			<div class="msg errormsg">
 				<h1>$formatMessage</h1>
 			</div>
-			<input name="button" class="mainButton" type="button" onclick="window.close();" value="Zurück" />
+			<input name="button" class="mainButton" type="button" onclick="window.close();" value="${${placeholderWithTranslation.Zuruck}" />
 		#else
 			<h1>$title</h1>
 			#if($begin.class.name == "java.util.Date" && $end.class.name == "java.util.Date")
-				<h2>Im Zeitraum vom $!message.date("DATE", $begin) bis zum $!message.date("DATE", $end)</h2>
+				<h2>${${placeholderWithTranslation.ImZeitraumvom} $!message.date("DATE", $begin) ${${placeholderWithTranslation.biszum} $!message.date("DATE", $end)</h2>
 			#elseif($begin.class.name == "java.util.Date")
-				<h2>Ab $!message.date("DATE", $begin)</h2>
+				<h2>${${placeholderWithTranslation.Ab} $!message.date("DATE", $begin)</h2>
 			#elseif($end.class.name == "java.util.Date")
-				<h2>Bis $!message.date("DATE", $end)</h2>
+				<h2>${${placeholderWithTranslation.Bis} $!message.date("DATE", $end)</h2>
 			#end
 
 			#if($statistik == "EventsGroupByHost" && $person)
-				<h2>Statistik f&uuml;r Gastgeber: $person.MainLatin.SaveAs</h2>
+				<h2>${StatistikfurGastgeber} $person.MainLatin.SaveAs</h2>
 			#elseif($statistik == "EventsGroupByGuest" && $person)
-				<h2>Statistik f&uuml;r Gast: $person.MainLatin.SaveAs</h2>
+				<h2>${StatistikfurGast} $person.MainLatin.SaveAs</h2>
 			#end
 
 			<!-- $result -->
