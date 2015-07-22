@@ -1,4 +1,4 @@
-language=Espa\U00F1ol
+language=Espa\u00F1ol
 
 #Administration/Anreden
 Anreden=Tratamientos
