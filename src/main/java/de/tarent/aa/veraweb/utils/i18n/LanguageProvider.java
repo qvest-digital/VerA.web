@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -25,17 +24,14 @@ public class LanguageProvider {
     /** Octopus-Eingabeparameter für die Aktion {@link #load(OctopusContext)} */
     public static final String INPUT_load[] = {};
     /** Language file constants */
-    public static final String STANDARD_LANG_FILE =  InputStream.class.getResource("LanguageProvider") System.getProperty("catalina.base") +
-            "/webapps/veraweb/OCTOPUS/templates/velocity/l10n/de_DE.resource";
-    LanguageProvider.class.getResource("/l10n/de_DE.resource")
-
-
+    public static final String STANDARD_LANG_FILE = LanguageProvider.class.getClassLoader().
+            getResource("de/tarent/l10n/de_DE.resource").toString();
 
     public static final Logger LOGGER = Logger.getLogger(LanguageProvider.class.getName());
     private static final String FILE_PATH = "/etc/veraweb/l10n/";
 
     public Properties properties;
-    private Map<String, String> existingLanguagesAndFilenames = new TreeMap();
+    private Map<String, String> existingLanguagesAndFilenames = new TreeMap<String, String>();
 
     /**
      *
@@ -62,7 +58,7 @@ public class LanguageProvider {
      * Get value from loaded property with key
      *
      * @param key String placeholder for translated text
-     * @return
+     * @return value from key
      */
     public String getProperty(String key) {
         return this.properties.getProperty(key);
@@ -74,7 +70,7 @@ public class LanguageProvider {
      * @return false if properties null, else true
      */
     public boolean propertiesAreAvailable() {
-        return (this.properties == null) ? false : true;
+        return (this.properties != null);
     }
 
     /**
@@ -113,9 +109,9 @@ public class LanguageProvider {
         List<String> languageFileNames = new ArrayList<String>();
 
         try {
-            for (int i = 0; i < listOfFiles.length; i++) {
-                if (listOfFiles[i].isFile()) {
-                    languageFileNames.add(listOfFiles[i].getName());
+            for (File file : listOfFiles) {
+                if (file.isFile()) {
+                    languageFileNames.add(file.getName());
                 }
             }
         } catch (NullPointerException e) {
@@ -133,7 +129,7 @@ public class LanguageProvider {
         FileInputStream inputStream = null;
 
         try {
-            if(langFileName == STANDARD_LANG_FILE) {
+            if(langFileName.equals(STANDARD_LANG_FILE)) {
                 //Standard language file
                 inputStream = new FileInputStream(langFileName);
             } else {
@@ -146,7 +142,12 @@ public class LanguageProvider {
             LOGGER.warn("Could not read language files!");
         }
         finally {
-            try { inputStream.close(); } catch (Exception e) { }
+            try {
+                inputStream.close();
+            } catch (Exception closeFileException) {
+                LOGGER.warn(closeFileException);
+                LOGGER.warn("Could not close data!" + inputStream);
+            }
         }
 
         return properties;
@@ -172,10 +173,8 @@ public class LanguageProvider {
     private void insertAllValuesFromSelectedLanguageToContext(OctopusContext cntx) {
         Map<String, String> placeholderWithTranslation = new TreeMap<String, String>();
 
-        LanguageProvider.class.getResource("/de/tarent/aa/veraweb/config.propersties");
-
-        properties = this.loadProperties("en_EN.resource");
         //TODO mach
+        properties = this.loadProperties("en_EN.resource");
         //properties = this.loadProperties(getFileNameByLangText(cntx));
 
         for(final String key : properties.stringPropertyNames()) {
