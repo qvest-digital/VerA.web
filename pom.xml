@@ -5,7 +5,7 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-core</artifactId>
 	<packaging>war</packaging>
-	<version>1.6.26-SNAPSHOT</version>
+	<version>1.6.26.1-SNAPSHOT</version>
 
 	<name>veraweb-evolvis-war</name>
 	<description>Veranstaltungsmanagment VerA.web</description>
@@ -270,6 +270,30 @@
 							<sources>
 								<source>src/main/javaOld</source>
 							</sources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>versionsnummern</id>
+						<goals>
+							<goal>regex-properties</goal>
+						</goals>
+						<configuration>
+							<regexPropertySettings>
+								<regexPropertySetting>
+									<name>po-version</name>
+									<value>${project.version}</value>
+									<regex>^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)(-SNAPSHOT)?$</regex>
+									<replacement>$1.$2.$3$5</replacement>
+									<failIfNoMatch>true</failIfNoMatch>
+								</regexPropertySetting>
+								<regexPropertySetting>
+									<name>po-buildnummer</name>
+									<value>${project.version}</value>
+									<regex>^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)(-SNAPSHOT)?$</regex>
+									<replacement>$4</replacement>
+									<failIfNoMatch>true</failIfNoMatch>
+								</regexPropertySetting>
+							</regexPropertySettings>
 						</configuration>
 					</execution>
 				</executions>

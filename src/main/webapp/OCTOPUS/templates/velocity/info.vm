@@ -2,8 +2,8 @@
 #set($title = "Hilfe - Info &uuml;ber VerA.web")
 
 ##Values in per cent for table columns width
-#set($column0 = 10)
-#set($column1 = 90)
+#set($column0 = 15)
+#set($column1 = 85)
 
 #parse("inc/header.vm")
 
@@ -31,17 +31,20 @@
     <h3>VerA.web</h3>
     #if($properties)
     <table class="form fixed">
-    	##Set column size
-		<col width="$column0%" />
-		<col width="$column1%" />
+        ##Set column size
+        <col width="$column0%" />
+        <col width="$column1%" />
 
-    	<tr>
-    		<td class="width10 bold">Version:</td>
-    		<td>$properties.getString("version")</td>
-    	</tr><tr>
-    		<td class="width10 bold">Build:</td>
-    		<td>$properties.getString("build")</td>
-    	</tr>
+        <tr>
+            <td class="width15 bold">Version:</td>
+            <td>$properties.getString("poversion")</td>
+        </tr><tr>
+            <td class="width15 bold">Buildnummer:</td>
+            <td>$properties.getString("pobuildnr")</td>
+        </tr><tr>
+            <td class="width15 bold">Buildzeit:</td>
+            <td>$properties.getString("pobuildts")</td>
+        </tr>
     </table>
     <br>
     #else
@@ -55,7 +58,7 @@
 		<col width="$column1%" />
 
     	<tr>
-    		<td class="width10 bold">Version:</td>
+    		<td class="width15 bold">Version:</td>
     		<td>
     #if($config && $config.get("SCHEMA_VERSION"))
     			$config.get("SCHEMA_VERSION")
@@ -64,7 +67,7 @@
     #end
     		</td>
     	</tr><tr>
-    		<td class="width10 bold">Zeichensatz:</td>
+    		<td class="width15 bold">Zeichensatz:</td>
     		<td>
     #if($LC_CTYPE)
     			LC_CTYPE = $LC_CTYPE
@@ -73,7 +76,7 @@
     #end
     		</td>
     	</tr><tr>
-    		<td class="width10 bold">&nbsp;</td>
+    		<td class="width15 bold">&nbsp;</td>
     		<td>
     #if($LC_COLLATE)
     			LC_COLLATE = $LC_COLLATE
@@ -94,10 +97,10 @@
 		<col width="$column1%" />
 
     	<tr>
-    		<td class="width10 bold"">Login:</td>
+    		<td class="width15 bold"">Login:</td>
     		<td>$!octopusConfig.personalConfig.userLogin</td>
     	</tr><tr>
-    		<td class="width10 bold">Rolle:</td>
+    		<td class="width15 bold">Rolle:</td>
     		<td>
     #if($octopusConfig.personalConfig.role)
     			$octopusConfig.personalConfig.role
@@ -107,7 +110,7 @@
     		</td>
     	</tr>
     	<tr>
-    		<td class="width10 bold">Mandant:</td>
+    		<td class="width15 bold">Mandant:</td>
     		<td>
     #if($orgUnit.id != 0)
     			$orgUnit.name
@@ -133,7 +136,7 @@
     	</tr>
     #end
     	<tr>
-    		<td class="width10 bold">Gruppen:</td>
+    		<td class="width15 bold">Gruppen:</td>
     		<td>
     #foreach($gg in $octopusConfig.personalConfig.userGroups)
      $gg
@@ -141,7 +144,7 @@
     		</td>
     	</tr>
     	<tr>
-    		<td class="width10 bold"">E-Mail:</td>
+    		<td class="width15 bold"">E-Mail:</td>
     		<td>
     #if($octopusConfig.personalConfig.userEmail)
     			$!octopusConfig.personalConfig.userEmail
