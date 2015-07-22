@@ -39,7 +39,6 @@
 		<div id="container" #if($event) class="event" #end>
 			<header id="header">
 				<a href="${paths.staticWeb}do/" title="Zur Startseite" class="noBorder"><img src="${paths.staticWeb}images/veraweb_logo.png" alt="VerA.web Logo"></a>
-
 				<div id="topNav">
                 	<ul>
                         <form class="inline">
@@ -47,7 +46,11 @@
                                 <strong>Sprache:</strong>
                                 <select name="languageSelecter">
                                     #foreach($option in $translatedNames)
-                                        <option>${option}</option>
+                                    	##if()
+                                        ##	<option selected>${option}</option>
+                                        ##else
+                                        	<option>${option}</option>
+                                        ##end
                                     #end
                                 </select>
                             </li>

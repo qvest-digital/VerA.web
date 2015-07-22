@@ -1,3 +1,5 @@
+language=English
+
 #Administration/Anreden
 Anreden=Salutations
 Markierte Anrede(n)=Marked salutation(s)

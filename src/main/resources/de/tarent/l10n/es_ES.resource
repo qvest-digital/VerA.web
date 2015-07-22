@@ -1,3 +1,5 @@
+language=Espa\U00F1ol
+
 #Administration/Anreden
 Anreden=Tratamientos
 Markierte Anrede(n)=Tratamiento(s) seleccionado(s)

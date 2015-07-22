@@ -1,3 +1,5 @@
+language=Fran\U00E7ais
+
 #Administration/Anreden
 Anreden=Salutations
 Markierte Anrede(n)=Salutation(s) marqu\u00E9e
