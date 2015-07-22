@@ -6,9 +6,8 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * @author jnunez Jon Nuñez, tarent solutions GmbH on 09.07.15.
@@ -26,12 +25,17 @@ public class LanguageProvider {
     /** Octopus-Eingabeparameter für die Aktion {@link #load(OctopusContext)} */
     public static final String INPUT_load[] = {};
     /** Language file constants */
-    public static final String STANDARD_LANG_FILE = System.getProperty("catalina.base") +
+    public static final String STANDARD_LANG_FILE =  InputStream.class.getResource("LanguageProvider") System.getProperty("catalina.base") +
             "/webapps/veraweb/OCTOPUS/templates/velocity/l10n/de_DE.resource";
+    LanguageProvider.class.getResource("/l10n/de_DE.resource")
+
+
+
     public static final Logger LOGGER = Logger.getLogger(LanguageProvider.class.getName());
     private static final String FILE_PATH = "/etc/veraweb/l10n/";
 
     public Properties properties;
+    private Map<String, String> existingLanguagesAndFilenames = new TreeMap();
 
     /**
      *
@@ -80,6 +84,7 @@ public class LanguageProvider {
      */
     public void load(OctopusContext cntx) {
         cntx.setContent("translatedNames", this.getLanguageOptions());
+        this.insertAllValuesFromSelectedLanguageToContext(cntx);
     }
 
     /**
@@ -102,15 +107,15 @@ public class LanguageProvider {
      *
      * @return list of file names
      */
-    public List<String> getLanguageNames() {
+    public List<String> getLanguageFileNames() {
         File folder = new File(FILE_PATH);
         File[] listOfFiles = folder.listFiles();
-        List<String> languageNames = new ArrayList<String>();
+        List<String> languageFileNames = new ArrayList<String>();
 
         try {
             for (int i = 0; i < listOfFiles.length; i++) {
                 if (listOfFiles[i].isFile()) {
-                    languageNames.add(listOfFiles[i].getName());
+                    languageFileNames.add(listOfFiles[i].getName());
                 }
             }
         } catch (NullPointerException e) {
@@ -118,7 +123,7 @@ public class LanguageProvider {
             LOGGER.warn("Directory not found!");
         }
 
-        return languageNames;
+        return languageFileNames;
     }
 
     //Load content of language file into properties
@@ -150,13 +155,39 @@ public class LanguageProvider {
     //Set language names (language parameter of language data) from all
     //language data of the given directory
     private List<String> getLanguageOptions() {
-        List<String> propertyNames = getLanguageNames();
+        existingLanguagesAndFilenames.clear();
+        List<String> propertyNames = getLanguageFileNames();
         List<String> translatedNames = new ArrayList<String>();
 
         for(String langFileName : propertyNames) {
-            translatedNames.add(getLocalizationValue(langFileName, "language"));
+            String value = getLocalizationValue(langFileName, "language");
+
+            translatedNames.add(value);
+            existingLanguagesAndFilenames.put(value, langFileName);
         }
 
         return translatedNames;
+    }
+
+    private void insertAllValuesFromSelectedLanguageToContext(OctopusContext cntx) {
+        Map<String, String> placeholderWithTranslation = new TreeMap<String, String>();
+
+        LanguageProvider.class.getResource("/de/tarent/aa/veraweb/config.propersties");
+
+        properties = this.loadProperties("en_EN.resource");
+        //TODO mach
+        //properties = this.loadProperties(getFileNameByLangText(cntx));
+
+        for(final String key : properties.stringPropertyNames()) {
+            placeholderWithTranslation.put(key, properties.getProperty(key));
+        }
+
+        cntx.setContent("placeholderWithTranslation", placeholderWithTranslation);
+    }
+
+    private String getFileNameByLangText(OctopusContext cntx) {
+        String selectedLanguage = cntx.getContextField("selectedLanguage").toString();
+
+        return existingLanguagesAndFilenames.get(selectedLanguage);
     }
 }
