@@ -689,7 +689,7 @@ laufendenummerberechnen=laufende nummer berechnen
 allestammdatenneuladen=alle stammdaten neu laden
 direkteinsprung:istnurbeieinersortierungnachname,vornameodere-mailm\u00f6glich.=direkteinsprung: ist nur bei einer sortierung nach name, vorname oder e-mail m\u00f6glich.
 beimerstellenvonSteuerdateienoderG\u00e4stelistenwirdIhrobenausgew\u00e4hlterFilterber\u00fccksichtigt.=beim erstellen von Steuerdateien oder G\u00e4stelisten wird Ihr oben ausgew\u00e4hlter Filter ber\u00fccksichtigt.
-WennSieeinzelneG\u00e4stemarkieren,werdennurdieseexportiert,ansonstendievollst\u00e4ndigeListe.=Wenn Sie einzelne G\u00e4ste markieren, werden nur diese exportiert, ansonsten die vollst\u00e4ndige Liste. 
+WennSieeinzelneG\u00e4stemarkieren,werdennurdieseexportiert,ansonstendievollst\u00e4ndigeListe.=Wenn Sie einzelne G\u00e4ste markieren, werden nur diese exportiert, ansonsten die vollst\u00e4ndige Liste.
 
 #g\u00e4stelisteerstellen=# g\u00e4steliste erstellen
 g\u00e4stelisteerstellen=g\u00e4steliste erstellen
