@@ -24,10 +24,10 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Veranstaltungsorte</span>
+		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.Veranstaltungsorte}</span>
 	</div>
 
-	<h1>Veranstaltungsorte</h1>
+	<h1>${placeholderWithTranslation.Veranstaltungsorte}</h1>
 
 	<form id="formlist" name="formlist" action="Location" method="POST">
 		<input type="hidden" name="doRemove" value="true">
@@ -43,7 +43,7 @@
 			</vera-warn>
 		#elseif($listquestions && $listquestions.size() > 0)
 			<vera-confirm>
-				<strong>Bitte best&auml;tigen Sie das L&ouml;schen von Veranstaltungsorten</strong><br>
+				<strong>${placeholderWithTranslation.BittebestatigenSiedasLoschenvonVeranstaltungsorten}</strong><br>
 				<table class="form" style="margin: 5px 0px 0px 0px;">
 				#foreach($quest in $listquestions.entrySet())
 					<tr>
@@ -54,9 +54,9 @@
 				</table><br />
 
 			#if($save)
-				<input type="submit" class="button" name="remove" value="Ja" title="Markierte Veranstaltungsorte l&ouml;schen"> &nbsp;
+				<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.Ja}" title="${placeholderWithTranslation.MarkierteVeranstaltungsorteloschen}"> &nbsp;
 			#end
-				<input type="button" class="cancel" name="cancel" value="Nein" onclick="window.location.href='Location?selectNone=true';"> &nbsp;
+				<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.Nein}" onclick="window.location.href='Location?selectNone=true';"> &nbsp;
 			</vera-confirm>
 		#end
 
@@ -65,14 +65,14 @@
 		#end
 
 		<span id="actionPanel" class="inlineLabel">
-			<label>Markierte(n) Veranstaltungsort(e)
-				<input type="submit" id="remove" name="remove" value="L&ouml;schen" title="Markierte(n) Veranstaltungsort(e) l&ouml;schen" />
+			<label>${placeholderWithTranslation.MarkiertenVeranstaltungsorte}
+				<input type="submit" id="remove" name="remove" value="${placeholderWithTranslation.Loschen}" title="${placeholderWithTranslation.MarkiertenVeranstaltungsorteLoschen}" />
 			</label>
 		</span>
 
 		#if($grants.mayWrite())
 		<span class="textRight floatRight" id="buttonPanel-top">
-			<input type="button" id="new" name="new" value="Neuen Veranstaltungsort hinzuf&uuml;gen" title="Neuen Veranstaltungsort hinzuf&uuml;gen" class="mainButton" onclick="window.location.href='CreateLocation';" />
+			<input type="button" id="new" name="new" value="${placeholderWithTranslation.NeuenVeranstaltungsorthinzufugen}" title="${placeholderWithTranslation.NeuenVeranstaltungsorthinzufugen}" class="mainButton" onclick="window.location.href='CreateLocation';" />
 		</span>
 		#end
 
@@ -95,20 +95,20 @@
 			<col width="$column13%" />
 
 			<tr>
-				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
-				<th class="smallCell textCenter">ID</th>
-				<th>Bezeichnung</th>
-				<th>Ansprechpartner</th>
-				<th>Stra&szlig;e</th>
-				<th>PLZ</th>
-				<th>Ort</th>
-				<th>Telefon</th>
-				<th>Fax</th>
-				<th>E-Mail</th>
-				<th>Bemerkung</th>
-				<th>URL</th>
-				<th>GPS-Daten</th>
-				<th>Raumnummer</th>
+				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.Alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+				<th class="smallCell textCenter">${placeholderWithTranslation.ID}</th>
+				<th>${placeholderWithTranslation.Bezeichnung}</th>
+				<th>${placeholderWithTranslation.Ansprechpartner}</th>
+				<th>${placeholderWithTranslation.Strasze}</th>
+				<th>${placeholderWithTranslation.PLZ}</th>
+				<th>${placeholderWithTranslation.Ort}</th>
+				<th>${placeholderWithTranslation.Telefon}</th>
+				<th>${placeholderWithTranslation.Fax}</th>
+				<th>${placeholderWithTranslation.EMail}</th>
+				<th>${placeholderWithTranslation.Bemerkung}</th>
+				<th>${placeholderWithTranslation.URL}</th>
+				<th>${placeholderWithTranslation.GPSDaten}</th>
+				<th>${placeholderWithTranslation.Raumnummer}</th>
 			</tr>
 			#foreach($bean in $list)
 				<tr>
@@ -130,7 +130,7 @@
 			#end
 			#if ($listparam.count == 0)
 				<tr>
-					<td colspan="14">Es wurden keine Daten gefunden</td>
+					<td colspan="14">${placeholderWithTranslation.EswurdenkeineDatengefunden}</td>
 				</tr>
 			#end
 

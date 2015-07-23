@@ -8,10 +8,10 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Verteiler</span>
+		<strong>${placeholderWithTranslation.Siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Personen} > ${placeholderWithTranslation.Verteiler}</span>
 	</div>
 
-	<h1>Verteiler versenden</h1>
+	<h1>${placeholderWithTranslation.Verteilerversenden}</h1>
 
 
 	<form id="formlist" name="formlist" action="MailinglistWrite" method="POST">
@@ -31,12 +31,12 @@
 
     	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
 
-			<div class="textRight mandatoryText">* = Pflichtfelder</div>
+			<div class="textRight mandatoryText">* = ${placeholderWithTranslation.Pflichtfelder}</div>
 
 			<div class="table width100">
 				<div class="tableRow">
 					<div class="tableCell width70">
-						<h2 class="marginBottom15">E-Mail schreiben</h2>
+						<h2 class="marginBottom15">${placeholderWithTranslation.EMailschreiben}</h2>
 
             			<div>
                         	<label for="mail-subject">Betreff</label>
@@ -47,62 +47,62 @@
                         	<textarea id="mail-text" name="mail-text" style="height:200px">$!message.textarea($mail.text)</textarea>
             			</div>
             			<div class="inlineLabel">
-                            <label for="platzhalter">Platzhalter</label>
+                            <label for="platzhalter">${placeholderWithTranslation.Platzhalter}</label>
                         	<select name="platzhalter" id="platzhalter" class="inlineInput autoWidth">
-            					<option value="firstname">Vorname</option>
-            					<option value="lastname">Nachname</option>
-             					<option value="salutation">Anrede</option>
-            					<option value="title">Akad. Titel</option>
-             					<option value="function">Amtsbez./Funktion</option>
-            					<option value="company">Firma/Institution</option>
-            					<option value="street">Stra&szlig;e</option>
-            					<option value="zipcode">PLZ</option>
-            					<option value="city">Ort</option>
-            					<option value="country">Land</option>
-            					<option value="poboxzipcode">Postfach-PLZ</option>
-            					<option value="pobox">Postfach-Nummer</option>
+            					<option value="firstname">${placeholderWithTranslation.Vorname}</option>
+            					<option value="lastname">${placeholderWithTranslation.Nachname}</option>
+             					<option value="salutation">${placeholderWithTranslation.Anrede}</option>
+            					<option value="title">${placeholderWithTranslation.AkadTitel}</option>
+             					<option value="function">${placeholderWithTranslation.AmtsbezFunktion}</option>
+            					<option value="company">${placeholderWithTranslation.Firma/Institution}</option>
+            					<option value="street">${placeholderWithTranslation.Stra&szlig;e}</option>
+            					<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
+            					<option value="city">${placeholderWithTranslation.Ort}</option>
+            					<option value="country">${placeholderWithTranslation.Land}</option>
+            					<option value="poboxzipcode">${placeholderWithTranslation.PostfachPLZ}</option>
+            					<option value="pobox">${placeholderWithTranslation.PostfachNummer}</option>
             					<option value="suffix1">$!message.text($!config.suffix1)</option>
             					<option value="suffix2">$!message.text($!config.suffix2)</option>
-            					<option value="phone">Telefon</option>
-            					<option value="fax">Fax</option>
-            					<option value="mobile">Mobil</option>
-            					<option value="email">E-Mail</option>
-            					<option value="url">www</option>
+            					<option value="phone">${placeholderWithTranslation.Telefon}</option>
+            					<option value="fax">${placeholderWithTranslation.Fax}</option>
+            					<option value="mobile">${placeholderWithTranslation.Mobil}</option>
+            					<option value="email">${placeholderWithTranslation.EMail}</option>
+            					<option value="url">${placeholderWithTranslation.www}</option>
             				</select>
-                            <input type="button" name="add" value="In Text einfügen" title="Platzhalter in Text einfügen" class="autoWidth noFloat" onclick="addPlatzhalter(this);">
+                            <input type="button" name="add" value="${placeholderWithTranslation.InTexteinfuegen}" title="${placeholderWithTranslation.PlatzhalterinTexteinfuegen}" class="autoWidth noFloat" onclick="addPlatzhalter(this);">
             			</div>
 
                         <div id="buttonPanel-bottom" class="textRight">
-                           	<input type="button" name="send" value="Senden" title="Senden" class="mainButton autoWidth" onclick="document.getElementById('formlist').action='MailinglistSend'; document.getElementById('formlist').submit();">
-                           	<input type="reset"  name="clear"  value="Zur&uuml;cksetzen" title="Zur&uuml;cksetzen" class="mainButton autoWidth">
+                           	<input type="button" name="send" value="${placeholderWithTranslation.Senden}" title="${placeholderWithTranslation.Senden}" class="mainButton autoWidth" onclick="document.getElementById('formlist').action='MailinglistSend'; document.getElementById('formlist').submit();">
+                           	<input type="reset"  name="clear"  value="${placeholderWithTranslation.Zuruecksetzen}" title="${placeholderWithTranslation.Zuruecksetzen}" class="mainButton autoWidth">
                         </div>
 					</div>
 
 
 					<div class="tableCell width30">
-                		<h2 class="marginBottom15">E-Mail Vorlagen</h2>
+                		<h2 class="marginBottom15">${placeholderWithTranslation.EMailVorlagen}</h2>
 
                         <div>
-            				<label for="mail-draft">Vorhandene Vorlagen</label>
+            				<label for="mail-draft">${placeholderWithTranslation.VorhandeneVorlagen}</label>
 								#if($allMailDraft && $allMailDraft.size() > 0)
                         			<select id="mail-draft" name="mail-draft">
-										<option value="0">&lt;Bitte ausw&auml;hlen&gt;</option>
+										<option value="0">${placeholderWithTranslation.Bitteauswhaelengt}</option>
 										#foreach($draft in $allMailDraft)
                                 			<option value="$!draft.id" #if($mail.id && $mail.id == $draft.id) selected #end>$!message.text($!draft.name)</option>
                                 		#end
                             		</select>
-                        			<input type="button" name="" value="Vorlage laden" class="autoWidth" title="Vorlage laden" onclick="document.getElementById('loaddraft').value='true'; document.getElementById('formlist').submit();"/>
+                        			<input type="button" name="" value="${placeholderWithTranslation.Vorlageladen}" class="autoWidth" title="${placeholderWithTranslation.Vorlageladen}" onclick="document.getElementById('loaddraft').value='true'; document.getElementById('formlist').submit();"/>
 									<input type="button" name="send" value="Vorlage entfernen" class="autoWidth" onclick="window.location.href='MailinglistWrite';" title="Keine Vorlage verwenden"/>
 								#else
-									Es liegen keine Vorlagen vor
+									${placeholderWithTranslation.Es liegen keine Vorlagen vor
 								#end
 
                			</div>
                         <div class="marginTop20">
-                        			<label for="mail-name">Neue Vorlage (Name)*</label>
+                        			<label for="mail-name">${placeholderWithTranslation.NeueVorlageName}*</label>
                         			<input type="text" id="mail-name" name="mail-name" value="$!message.text($mail.name)">
-                        			<input type="button" name="savedraft" value="Neue Vorlage speichern" title="Neue Vorlage speichern" onclick="document.getElementById('savedraft').value='true'; document.getElementById('formlist').submit();" class="autoWidth">
-                                    <p class="mandatoryText"><strong>Hinweis</strong> Neue Vorlagen müssen sowohl einen Betreff als auch Text enthalten.</p>
+                        			<input type="button" name="savedraft" value="${placeholderWithTranslation.NeueVorlagespeichern}" title="${placeholderWithTranslation.NeueVorlagespeichern}" onclick="document.getElementById('savedraft').value='true'; document.getElementById('formlist').submit();" class="autoWidth">
+                                    <p class="mandatoryText"><strong>${placeholderWithTranslation.Hinweis}</strong>${placeholderWithTranslation.NeueVorlagenmuessensowohleinenBetreffalsauchTextenthalten}.</p>
                         </div>
 					</div>
 				</div>
@@ -111,7 +111,7 @@
 		</div>
 
 		<div id="buttonPanel-bottom" class="textRight">
-			<input type="button" name="cancel" value="Zur&uuml;ck zum Verteiler" title="Zur&uuml;ck zum Verteiler" class="mainButton" onclick="window.location.href='ShowMailinglistDetail';">
+			<input type="button" name="cancel" value="${placeholderWithTranslation.ZurueckzumVerteiler}" title="${placeholderWithTranslation.ZurueckzumVerteiler}" class="mainButton" onclick="window.location.href='ShowMailinglistDetail';">
 		</div>
     </form>
 </div>

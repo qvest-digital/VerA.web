@@ -19,17 +19,17 @@
         <input type="hidden" name="doRemove" value="true"/>
 
         <div class="textRight marginBottom10" id="breadcrumb">
-        	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > E-Mail-Vorlagen</span>
+            <strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.EMailVorlage}</span>
         </div>
 
-        <h1>E-Mail-Vorlagen</h1>
+        <h1>${placeholderWithTranslation.EMailVorlage}</h1>
 
         <span id="actionPanel" class="inlineLabel">
 	       	<strong>Markierte Vorlage(n)</strong>
-	       	<input type="submit" name="remove" value="Löschen" title="Markierte Vorlage(n) löschen" onclick="" />
+	       	<input type="submit" name="remove" value="${placeholderWithTranslation.Loschen}" title="${placeholderWithTranslation.MarkierteVorlagenloschen}" onclick="" />
         </span>
         <span id="" class="buttonPanel-top textRight floatRight">
-			<input type="button" name="" value="Neue Vorlage anlegen" title="Neue Vorlage anlegen" class="mainButton" onclick="window.location.href='MailDraftDetail';" />
+			<input type="button" name="" value="Neue Vorlage anlegen" title="${placeholderWithTranslation.NeueVolageanlegen}" class="mainButton" onclick="window.location.href='MailDraftDetail';" />
         </span>
         #foreach($bean in $list)
         <input type="hidden" name="list" value="$bean.id"/>
@@ -43,10 +43,10 @@
 
         	<tr>
         		<th class="smallCell textCenter">
-        			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/>
+        			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.Alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/>
         		</th>
-        		<th class="smallCell textCenter">ID</th>
-        		<th>Name der Vorlage</th>
+        		<th class="smallCell textCenter">${placeholderWithTranslation.ID}</th>
+        		<th>${placeholderWithTranslation.NamederVorlage}</th>
         	</tr>
         	#foreach($bean in $list)
         	<tr>
@@ -60,7 +60,7 @@
         	#parse("inc/list-navi-new.vm")
         	#parse("inc/list-direct-new.vm")
             #if ($listparam.count == 0)
-            	<tr><td colspan="3">Keine Daten gefunden.</td></tr>
+            	<tr><td colspan="3">${placeholderWithTranslation.KeineDatengefunden}</td></tr>
             #end
         </table>
 

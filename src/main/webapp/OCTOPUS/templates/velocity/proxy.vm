@@ -1,20 +1,20 @@
 ## $Id$
 #if($proxiesFor == 'ou')
-	#set($activeMenu = "Administration")
-	#set($title = "Administration - alle Stellvertretungen im Mandanten")
+	#set($activeMenu = "${placeholderWithTranslation.Administration}")
+	#set($title = "${placeholderWithTranslation.AdministrationalleStellvertretungenimMandanten}")
 #elseif($proxiesFor == 'all')
-	#set($activeMenu = "Administration")
-	#set($title = "Administration - alle Stellvertretungen")
+	#set($activeMenu = "${placeholderWithTranslation.Administration}")
+	#set($title = "${placeholderWithTranslation.AdministrationalleStellvertretungen}")
 #elseif($proxiesFor == 'self')
 	#set($activeMenu = "Verwaltung")
-	#set($title = "Verwaltung - pers&ouml;nliche Vertretungen")
+	#set($title = "${placeholderWithTranslation.VerwaltungpersoenlicheVertretungen}")
 #else
-	#set($activeMenu = "Administration")
-	#set($title = "Stellvertretungen")
+	#set($activeMenu = "${placeholderWithTranslation.Administration}")
+	#set($title = "${placeholderWithTranslation.Stellvertretungen}")
 #end
 #set($elementNameSex = "female")
-#set($elementNameSingular = "Vertretung")
-#set($elementNamePlural = "Vertretungen")
+#set($elementNameSingular = "${placeholderWithTranslation.Vertretung}")
+#set($elementNamePlural = "${placeholderWithTranslation.Vertretungen}")
 #parse("inc/header.vm")
 <div id="content_container">
 	<form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
@@ -22,20 +22,20 @@
 	## Dynamischer breadcrumb
 	#if($activeMenu == "Administration")
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Stellvertretungen</span>
+		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.Stellvertretungen}</span>
 	</div>
 	#elseif($activeMenu == "Verwaltung")
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Verwaltung > Vertretungen</span>
+		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Verwaltung} > ${placeholderWithTranslation.Vertretungen}</span>
 	</div>
 	#end
 
 	## Dynamische Überschrift
 	#if($activeMenu == "Verwaltung")
-	<h1>Vertretungen</h1>
+	<h1>${placeholderWithTranslation.Vertretungen}</h1>
 
 	#elseif($activeMenu == "Administration")
-	<h1>Stellvertretungen</h1>
+	<h1>${placeholderWithTranslation.Stellvertretungen}</h1>
 
 	#end
 
@@ -66,26 +66,26 @@
 	<div class="contentBoxColored grayBorder marginBottom20">
 		<h3 class="marginBottom10">Gültigkeitsfilter</h3>
 		<div class="inlineLabel">
-			<input type="radio" id="validityIgnore" name="proxiesValid" value="ignore" onclick="submit();" #if($proxiesValid && $proxiesValid=='ignore')checked#end><label for="validityIgnore"> alle Vertretungen</label>
-			<input type="radio" id="validityFuture" name="proxiesValid" value="future" onclick="submit();" #if((!$proxiesValid) || $proxiesValid=='future')checked#end><label for="validityFuture"> keine abgelaufenen Vertretungen</label>
-			<input type="radio" id="validityNow" name="proxiesValid" value="now" onclick="submit();" #if($proxiesValid && $proxiesValid=='now')checked#end><label for="validityNow"> nur aktuelle Vertretungen</label>
+			<input type="radio" id="validityIgnore" name="proxiesValid" value="ignore" onclick="submit();" #if($proxiesValid && $proxiesValid=='ignore')checked#end><label for="validityIgnore"> ${placeholderWithTranslation.alleVertretungen}</label>
+			<input type="radio" id="validityFuture" name="proxiesValid" value="future" onclick="submit();" #if((!$proxiesValid) || $proxiesValid=='future')checked#end><label for="validityFuture"> ${placeholderWithTranslation.keineabgelaufenenVertretungen}</label>
+			<input type="radio" id="validityNow" name="proxiesValid" value="now" onclick="submit();" #if($proxiesValid && $proxiesValid=='now')checked#end><label for="validityNow"> ${placeholderWithTranslation.nuraktuelleVertretungen}</label>
 		</div>
 	</div>
 
-	<div class="textRight mandatoryText">* = Pflichtfelder</div>
+	<div class="textRight mandatoryText">* = ${placeholderWithTranslation.Pflichtfelder}</div>
 
 	<span id="actionPanel" class="inlineLabel">
 		<strong >
-			Markierte Vertretung(en)
+			${placeholderWithTranslation.MarkierteVertretungen}
 		</strong>
-			<input type="submit" name="remove" value="L&ouml;schen" title="Markierte Vertretung(en) l&ouml;schen" class="" />
+			<input type="submit" name="remove" value="${placeholderWithTranslation.Loeschen}" title="${placeholderWithTranslation.MarkierteVertretungenloeschen}" class="" />
 	</span>
 
 	<table>
 		<tbody>
 		<tr>
 			<th class="textCenter smallCell">
-				<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/>
+				<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.Alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/>
 			</th>
 			<th class="textCenter smallCell">ID</th>
 	#if($proxiesFor != 'self')
@@ -95,8 +95,8 @@
 			<th>Rolle*</th>
 	#end
 			<th>Vertreter*</th>
-			<th class="textCenter width15">G&uuml;ltig ab</th>
-			<th class="textCenter width15">G&uuml;ltig bis</th>
+			<th class="textCenter width15">${placeholderWithTranslation.Gueltigab}</th>
+			<th class="textCenter width15">${placeholderWithTranslation.Gueltigbis}</th>
 		</tr>
 		<tr>
 			<td><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" style="display: none;"></td>
@@ -108,7 +108,7 @@
 			<td>
 	 #if($allUser)
 				<select id="add-user" name="add-user" onchange="setModified('add')">
-					<option value="">Bitte ausw&auml;hlen</option>
+					<option value="">${placeholderWithTranslation.Bitteauswaehlen}</option>
 	  #foreach($user in $allUser)
 					<option value="$user.id">$!message.plain($user.name)</option>
 	  #end
@@ -123,7 +123,7 @@
 			<td>
 	#if($roleList)
 				<select id="add-proxy" name="add-proxy" onchange="setModified('add')">
-					<option value="">Bitte ausw&auml;hlen</option>
+					<option value="">${placeholderWithTranslation.Bitteauswaehlen}</option>
 	 #foreach($role in $roleList)
 					<option value="$role">$!message.plain($role)</option>
 	 #end
@@ -136,7 +136,7 @@
 				<div class="calenderContainer">
 					<span id="show-add-from" class="datepickerContainer">
 					<input type="text" name="add-validFrom" id="add-validFrom" value="" class="datepicker width80" onchange="setModified('add')">
-					<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen">
+					<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.Datumauswaehlen}" title="${placeholderWithTranslation.Datumauswaehlen}">
 					<script type="text/javascript">
 						Calendar.setup({
 							inputField	 :	"add-validFrom",
@@ -151,7 +151,7 @@
 				<div class="calenderContainer">
 					<span id="show-add-till" class="datepickerContainer">
 					<input type="text" name="add-validTill" id="add-validTill" value="" class="datepicker width80" onchange="setModified('add')">
-					<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen">
+					<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.Datumauswaehlen}" title="${placeholderWithTranslation.Datumauswaehlen}">
 					<script type="text/javascript">
 						Calendar.setup({
 							inputField	 :	"add-validTill",
@@ -186,7 +186,7 @@
 				<div class="calenderContainer">
 					<span id="show-${bean.id}-from" class="datepickerContainer">
 					<input type="text" name="${bean.id}-validFrom" id="${bean.id}-validFrom" value="$!message.date("DATE", $bean.validFrom)" class="datepicker width80" onchange="setModified('$!bean.id')">
-					<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen">
+					<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.Datumauswaehlen}" title="${placeholderWithTranslation.Datumauswaehlen}">
 					<script type="text/javascript">
 						Calendar.setup({
 							inputField	 :	"${bean.id}-validFrom",
@@ -201,7 +201,7 @@
 				<div class="calenderContainer">
 					<span id="show-${bean.id}-till" class="datepickerContainer">
 					<input type="text" name="${bean.id}-validTill" id="${bean.id}-validTill" value="$!message.date("DATE", $bean.validTill)" class="datepicker width80" onchange="setModified('$!bean.id')">
-					<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen">
+					<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.Datumauswaehlen}" title="${placeholderWithTranslation.Datumauswaehlen}">
 					<script type="text/javascript">
 						Calendar.setup({
 							inputField	 :	"${bean.id}-validTill",
@@ -228,7 +228,7 @@
 
 
 	<div id="buttonPanel-bottom" class="textRight marginTop10">
-		<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
+		<input type="submit" name="save" value="${placeholderWithTranslation.Speichern}" title="${placeholderWithTranslation.Speichern}" class="mainButton" />
 	</div>
 
 

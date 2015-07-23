@@ -21,19 +21,19 @@
 
     <div id="content_container">
 		<div class="textRight marginBottom10" id="breadcrumb">
-			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > E-Mail-Postausgang</span>
+			<strong>${placeholderWithTranslation.Siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.EMailPostausgang}</span>
 		</div>
 
 		<div id="main_content">
-    		<h1>E-Mail-Postausgang</h1>
+    		<h1>${placeholderWithTranslation.EMailPostausgang}</h1>
 
     		#foreach($bean in $list)
     			<input type="hidden" name="list" value="$bean.id"/>
             #end
 
     		<span id="actionPanel" class="inlineLabel">
-    			<strong>Markierte E-Mail(s)</strong>
-    	       	<input type="submit" name="remove" value="Löschen" title="Markierte E-Mail(s) löschen"/>
+    			<strong>${placeholderWithTranslation.MarkierteEMails}</strong>
+    	       	<input type="submit" name="remove" value="${placeholderWithTranslation.Loeschen}" title="${placeholderWithTranslation.MarkierteEMailsloeschen}"/>
     	    </span>
 
     		<table class="fixed">
@@ -45,22 +45,22 @@
    				<col width="$column4%" />
 
         		<tr>
-        			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
-        			<th class="smallCell textCenter">Status</th>
+        			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.Alledemarkieren}"/></th>
+        			<th class="smallCell textCenter">${placeholderWithTranslation.Status}</th>
         			<th>Von</th>
         			<th>An</th>
-        			<th class="width50">Betreff</th>
+        			<th class="width50">${placeholderWithTranslation.Betreff}</th>
         		</tr>
                 #foreach($bean in $list)
     	        	<tr>
     					<td class="textCenter"><input type="hidden" value="$bean.id" name="${bean.id}-id"/><input type="checkbox" value="true" name="${bean.id}-select"/></td>
     					<td class="textCenter" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">
-    					      #if($bean.status == 1)Offen
-    					      #elseif($bean.status == 2)Wartet
-    					      #elseif($bean.status == 3)Wird versendet
-    					      #elseif($bean.status == 4)Gesendet
-    					      #elseif($bean.status > 10)<span style="font-weight: bold; color: #ff0000;">Fehler</span>
-    					      #else<em>unbekannt</em>
+    					      #if($bean.status == 1)${placeholderWithTranslation.Offen}
+    					      #elseif($bean.status == 2)${placeholderWithTranslation.Wartet}
+    					      #elseif($bean.status == 3)${placeholderWithTranslation.Wirdversendet}
+    					      #elseif($bean.status == 4)${placeholderWithTranslation.Gesendet}
+    					      #elseif($bean.status > 10)<span style="font-weight: bold; color: #ff0000;">${placeholderWithTranslation.Fehler}</span>
+    					      #else<em>${placeholderWithTranslation.unbekannt}</em>
     					      #end
     						</td>
     					<td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.from)</td>
@@ -71,7 +71,7 @@
 
     			#if ($listparam.count == 0)
         			<tr>
-    					<td colspan="5">Keine Daten gefunden</td>
+    					<td colspan="5">${placeholderWithTranslation.KeineDatengefunden}</td>
         			</tr>
         		#end
 

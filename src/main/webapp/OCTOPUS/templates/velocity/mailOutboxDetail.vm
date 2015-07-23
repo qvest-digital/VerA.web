@@ -15,10 +15,10 @@
         <input type="hidden" name="save" value="true"/>
 
         <div id="breadcrumb marginBottom10" class="textRight">
-    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Postausgang</span>
+    		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.Postausgang}</span>
     	</div>
 
-		<h1>Postausgang</h1>
+		<h1>${placeholderWithTranslation.Postausgang}</h1>
 
         #if($mailoutbox.errors.size() > 0 || $mailoutbox.status == $mailoutbox.STATUS_ERROR || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
             <vera-warn>
@@ -26,31 +26,31 @@
             		$!message.plain($error)<br>
             	#end
             	#if($mailoutbox.status > 10 || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
-            		Beim Versenden dieser E-Mail ist ein Fehler aufgetreten.
-            		Sie k&ouml;nnen diese jetzt bearbeiten und erneut senden.
+            		${placeholderWithTranslation.BeimVersendendieserEMailisteinFehleraufgetreten}
+            		${placeholderWithTranslation.Siekoumlnnendiesejetztbearbeitenunderneutsenden}
             	#end
             </vera-warn>
         #elseif($mailoutbox.status == 1)
             <vera-info>
-            	Diese E-Mail wartet auf ihre Fertigstellung durch einen Benutzer.
+            	${placeholderWithTranslation.ieseEMailwartetaufihreFertigstellungdurcheinenBenutzer}
             </vera-info>
         #elseif($mailoutbox.status == 2)
             <vera-info>
-            	Diese E-Mail wartet auf ihre Versendung.
+            	${placeholderWithTranslation.DieseEMailwartetaufihreVersendung}
             </vera-info>
         #elseif($mailoutbox.status == 3)
             <vera-warn>
-            	Diese E-Mail wird gerade versendet und sollte <strong>nicht bearbeitet</strong> werden.
+            	${placeholderWithTranslation.DieseEMailwirdgeradeversendetundsollte} <strong>${placeholderWithTranslation.nichtbearbeitet}</strong> ${placeholderWithTranslation.werden}
             </vera-warn>
         #elseif($mailoutbox.status == 4)
             <vera-warn>
-            	Diese E-Mail wurde bereits versendet und sollte <strong>nicht mehr bearbeitet</strong> werden.
+            	${placeholderWithTranslation.DieseEMailwurdebereitsversendetundsollte} <strong>${placeholderWithTranslation.nichtmehrbearbeitet}</strong> ${placeholderWithTranslation.werden}
             </vera-warn>
         #end
 
         <input type="hidden" name="mailoutbox-id" value="$!mailoutbox.id"/>
 
-		<div class="textRight bold">* = Pflichtfelder</div>
+		<div class="textRight bold">${placeholderWithTranslation.Pflichtfelder}</div>
 
         <table class="form">
 			<tr>
@@ -75,11 +75,11 @@
 			</tr>
             #if($mailoutbox.status == $mailoutbox.STATUS_ERROR || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
                 <tr>
-                	<td>Fehlerbeschreibung:</td>
+                	<td>${placeholderWithTranslation.Fehlerbeschreibung}</td>
                 	<td>
-                		<a id="show-errorlink" href="javascript:showBlock(document.getElementById('show-errortext')); hideBlock(document.getElementById('show-errorlink'));">technische Fehlermeldung einblenden</a>
+                		<a id="show-errorlink" href="javascript:showBlock(document.getElementById('show-errortext')); hideBlock(document.getElementById('show-errorlink'));">${placeholderWithTranslation.technischeFehlermeldungeinblenden}</a>
                 		<div id="show-errortext" name="show-errortext" style="display: none;">
-                    		<a href="javascript:showBlock(document.getElementById('show-errorlink')); hideBlock(document.getElementById('show-errortext'));">technische Fehlermeldung ausblenden</a>
+                    		<a href="javascript:showBlock(document.getElementById('show-errorlink')); hideBlock(document.getElementById('show-errortext'));">${placeholderWithTranslation.technischeFehlermeldungausblenden}</a>
                     		<p>$!message.plain($mailoutbox.errortext)</p>
                 		</div>
                 	</td>
@@ -87,12 +87,12 @@
             #end
 
             #if ($listparam.count == 0)
-            	<tr><td colspan="2">Keine Daten gefunden.</td></tr>
+            	<tr><td colspan="2">${placeholderWithTranslation.KeineDatengefunden}</td></tr>
             #end
         </table>
 
     	<div class="textRight marginTop10" id="buttonPanel-bottom">
-			<input type="submit" name="submit" value="Speichern" title="Speichern" class="mainButton" />
+			<input type="submit" name="submit" value="Speichern" title="${placeholderWithTranslation.Speichern}" class="mainButton" />
 			<input type="button" name="save" value="Zurück" title="Zurück" class="mainButton" onclick="window.location.href='MailOutboxList';" />
 		</div>
 

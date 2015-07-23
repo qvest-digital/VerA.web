@@ -7,14 +7,14 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Verteiler</span>
+		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Verteiler}</span>
 	</div>
 
-	<h1>Verteiler anlegen</h1>
+	<h1>${placeholderWithTranslation.Verteileranlegen}</h1>
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
 
-		<div class="textRight mandatoryText">* = Pflichtfelder</div>
+		<div class="textRight mandatoryText">* = ${placeholderWithTranslation.Pflichtfelder}</div>
 
     		<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait();">
 
@@ -27,25 +27,25 @@
             		</vera-warn>
         		#end
 
-        		<p>Sie legen einen neuen Verteiler aus der Veranstaltung <strong>&quot;$!message.plain($event.shortname)&quot;</strong> mit
+        		<p>${placeholderWithTranslation.SielegeneinenneuenVerteilerausderVeranstaltung} <strong>&quot;$!message.plain($event.shortname)&quot;</strong> ${placeholderWithTranslation.mit}
 
     			#if($mailinglistParams.count == 1)
-        			einer Person
+        			${placeholderWithTranslation.einerPerson}
         		#else
-        			$!mailinglistParams.count Personen
+        			$!mailinglistParams.count ${placeholderWithTranslation.Personen}
         		#end
-        		an
+        		${placeholderWithTranslation.an}
         		</p>
 
         		<input type="hidden" name="mailinglist-event" value="$!event.id">
 
-        		<label for="mailinglist-name">Verteilername*</label>
+        		<label for="mailinglist-name">${placeholderWithTranslation.Verteilername}</label>
         		<input type="text" name="mailinglist-name" maxlength="200" value="$!message.text($mailinglist.name)" id="mailinglist-name">
         	</div>
 
         	<div class="textRight">
-        		<input type="submit" name="save" class="mainButton" value="Verteiler speichern" title="Verteiler speichern">
-        		<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur G&auml;steverwaltung" title="Zur&uuml;ck zur G&auml;steverwaltung" onclick="window.location.href='ShowGuestList?selectNone=true';">
+        		<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.Verteilerspeichern}" title="${placeholderWithTranslation.Verteilerspeichern}">
+        		<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZuruckzurGasteverwaltung" title="${placeholderWithTranslation.ZuruckzurGasteverwaltung" onclick="window.location.href='ShowGuestList?selectNone=true';">
         	</div>
 		</form>
 </div><!-- end #content_container -->

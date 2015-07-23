@@ -20,21 +20,20 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ImportPersons" title="Zum Personen-Import">Personen-Import</a> > Importstatus</span>
+		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Personen} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.ZumPersonenImport}">${placeholderWithTranslation.PersonenImport}</a> > ${placeholderWithTranslation.Importstatus}</span>
 	</div>
-	<h1>Importstatus: vorhandene Dubletten bearbeiten</h1>
+	<h1>${placeholderWithTranslation.ImportstatusvorhandeneDublettenbearbeiten}</h1>
 
 	#if($noDupsSelected)
 		<vera-warn>
-			Bitte markieren Sie die zu importierenden Personen.
+			${placeholderWithTranslation.BittemarkierenSiediezuimportierendenPersonen}
 		</vera-warn>
 	#end
 
 	<vera-info>
-		Dubletten, die durch den <strong>Import hinzugefügt werden würden</strong>, sind mit einer Checkbox gekennzeichnet.
-		Darunter befinden sich die bereits im System vorhandenen, entsprechenden Datens&auml;tze.<br />
-		Beachten Sie, dass &auml; mit ae, &ouml; mit oe, &uuml; mit ue und &szlig; mit ss verglichen wird.<br />
-		Um eine Dublette in den Import zu integrieren, m&uuml;ssen Sie sie &uuml;bernehmen.
+		${placeholderWithTranslation.Dublettendiedurchden}<strong>${placeholderWithTranslation.Importhinzugefugtwerdenwurden}</strong>${placeholderWithTranslation.sindmiteinerCheckboxgekennzeichnetDarunterbefindensichdiebereitsimSystemvorhandenenentsprechendenDatensatze<br />
+		${placeholderWithTranslation.BeachtenSiedassamitaeomitoeumitueundssmitssverglichenwird<br />
+		${placeholderWithTranslation.UmeineDubletteindenImportzuintegrierenmussenSiesieubernehmen}
 	</vera-info>
 
 	<form id="formlist" name="formlist" action="ImportPersonsEditDuplicates" method="POST">
@@ -45,8 +44,8 @@
 		<input type="hidden" name="saveCount" value="$!saveCount"/>
 
 		<span id="actionPanel" class="inlineLabel">
-			<label>Markierte Person(en)
-				<input type="submit" name="save" type="button" value="Als Dublette &uuml;bernehmen" title="Markierte Person(en) als Dublette &uuml;bernehmen"/>
+			<label>${placeholderWithTranslation.MarkiertePersonen}
+				<input type="submit" name="save" type="button" value="${placeholderWithTranslation.AlsDubletteubernehmen" title="${placeholderWithTranslation.MarkiertePersonenalsDubletteubernehmen}"/>
 			</label>
 		</span>
 
@@ -70,15 +69,15 @@
 					<col width="$column8%" />
 
 					<tr>
-						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end title="Alle (de)markieren"/></th>
-						<th>ID</th>
-						<th>Name</th>
-						<th>Vorname</th>
-						<th>Amtsbezeichnung</th>
-						<th>Firma / Institution</th>
-						<th>Stra&szlig;e</th>
-						<th>PLZ</th>
-						<th>Ort</th>
+						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end title="${placeholderWithTranslation.platzhalter}Alle (de)markieren"/></th>
+						<th>${placeholderWithTranslation.ID}</th>
+						<th>${placeholderWithTranslation.Name}</th>
+						<th>${placeholderWithTranslation.Vorname}</th>
+						<th>${placeholderWithTranslation.Amtsbezeichnung}</th>
+						<th>${placeholderWithTranslation.FirmaInstitution}</th>
+						<th>${placeholderWithTranslation.Strasse}Stra&szlig;e</th>
+						<th>${placeholderWithTranslation.PLZ}</th>
+						<th>${placeholderWithTranslation.Ort}</th>
 					</tr>
 
 					#foreach($bean in $list)
@@ -135,7 +134,7 @@
 
 					<tr class="colspan">
 						<td colspan="99">
-							Anzahl zu speichernde Dubletten: $!listselection.size()
+							${placeholderWithTranslation.AnzahlzuspeicherndeDubletten} $!listselection.size()
 						</td>
 					</tr>
 
@@ -145,13 +144,13 @@
 		#else
 
 			<div class="contentBoxColored grayBorder marginBottom20">
-				Es wurden keine Einträge gefunden.
+				${placeholderWithTranslation.EswurdenkeineEintragegefunden}
 			</div>
 
 		#end
 
 		<span id="buttonPanel-top" class="textRight floatRight">
-			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zum Personenimport" class="mainButton" onclick="document.formlist.action='ImportPersonsStoredRecord';document.formlist.submit();" />
+			<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.ZuruckzumPersonenimport}" class="mainButton" onclick="document.formlist.action='ImportPersonsStoredRecord';document.formlist.submit();" />
 		</span>
 
 	</form>

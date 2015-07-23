@@ -1,23 +1,23 @@
 #if($person && $person.id)
 
 	#set($personDB = true)
-	#set($activeMenu = "Personen")
-	#set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
+	#set($activeMenu = "${placeholderWithTranslation.Personen}")
+	#set($title = "${placeholderWithTranslation.Personbearbeiten}: $!message.plain($person.MainLatin.SaveAs)")
 
 #else
 
 	#if($action == "guest")
-		#set($activeMenu = "Veranstaltungen")
+		#set($activeMenu = "${placeholderWithTranslation.Veranstaltungen}")
 	#elseif($action == "host")
-		#set($activeMenu = "Veranstaltungen")
+		#set($activeMenu = "${placeholderWithTranslation.Veranstaltungen}")
 	#elseif($action == "statistikGuest")
-		#set($activeMenu = "Veranstaltungen")
+		#set($activeMenu = "${placeholderWithTranslation.Veranstaltungen}")
 	#elseif($action == "statistikHost")
-		#set($activeMenu = "Veranstaltungen")
+		#set($activeMenu = "${placeholderWithTranslation.Veranstaltungen}")
 	#elseif($action == "taskReferencePerson")
-		#set($activeMenu = "Veranstaltungen")
+		#set($activeMenu = "${placeholderWithTranslation.Veranstaltungen}")
 	#else
-		#set($activeMenu = "Personen")
+		#set($activeMenu = "${placeholderWithTranslation.Personen}")
 	#end
 
 	#set($personTab = "1")
@@ -29,8 +29,8 @@
 #end
 
 #set($elementNameSex = "female")
-#set($elementNameSingular = "Person")
-#set($elementNamePlural = "Personen")
+#set($elementNameSingular = "${placeholderWithTranslation.Person}")
+#set($elementNamePlural = "${placeholderWithTranslation.Personen}")
 #parse("inc/header.vm")
 
 #set($searchTask = $octopusRequest.searchTask)
@@ -44,10 +44,10 @@
 #if($octopusRequest.task == "AddPersonToEventDetail")
 	<vera-success>
 		#if($invited == 1)
-			Diese Person wurde erfolgreich zur G&auml;steliste der Veranstaltung &quot;$!message.plain($event.shortname)&quot; hinzugef&uuml;gt.
+			${placeholderWithTranslation.DiesePersonwurdeerfolgreichzurGaestelistederVeranstaltung} &quot;$!message.plain($event.shortname)&quot; ${placeholderWithTranslation.hinzugefuegt}.
 		#end
 		#if($notInvited == 1)
-			Diese Person wurde nicht hinzugef&uuml;gt, da Sie bereits auf der G&auml;steliste steht.
+			${placeholderWithTranslation.DiesePersonwurdenichthinzugefuegtdaSiebereitsaufderGaestelistesteht}
 		#end
 	</vera-success>
 #end
@@ -139,7 +139,7 @@
 
 	#if($person.deleted == "t")
 		<vera-warn>
-					Diese Person wurde bereits als gel&ouml;scht markiert und wird beim Suchen nicht mehr angezeigt.
+					${placeholderWithTranslation.DiesePersonwurdebereitsalsgeloeschtmarkiertundwirdbeimSuchennichtmehrangezeigt}
 		</vera-warn>
 	#end
 
@@ -159,7 +159,7 @@
 
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > #if($person && $person.id)Person bearbeiten#else Person anlegen#end</span>
+		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Personen} > #if($person && $person.id)${placeholderWithTranslation.Personbearbeiten}#else ${placeholderWithTranslation.Personanlegen}#end</span>
 	</div>
 
 	<h1>$title</h1>
@@ -167,13 +167,13 @@
 	#if($createNewPerson || !$personDB)
 			#if($octopusRequest.forcedupcheck == "true" && $errors.isEmpty())
 			<vera-success>
-				Es wurden keine Dubletten gefunden. Sie k&ouml;nnen jetzt weitere Daten eingeben und die Daten speichern.
+				${placeholderWithTranslation.EswurdenkeineDublettengefundenSiekoennenjetztweitereDateneingebenunddieDatenspeichern}
 			</vera-success>
 			#else
 			<vera-info>
-				Bitte geben Sie zun&auml;chst den <strong>Vor- und Nachnamen</strong> an und f&uuml;hren die Dublettenpr&uuml;fung durch.
-					Bei Firmen w&auml;hlen Sie die Checkbox <strong>"Ist Firma"</strong> und tragen dann den Firmennamen ein. Das System pr&uuml;ft Ihre Angaben daraufhin auf Dubletten.
-					Liegt keine Dublette vor, k&ouml;nnen Sie weitere Daten eingeben und die Daten speichern.
+				${placeholderWithTranslation.BittegebenSiezunaechstden} <strong>${placeholderWithTranslation.VorundNachnamen}</strong> ${placeholderWithTranslation.anundfuehrendieDublettenpruefungdurch}
+					${placeholderWithTranslation.BeiFirmenwaehlenSiedieCheckbox} <strong>"${placeholderWithTranslation.IstFirma}"</strong> ${placeholderWithTranslation.undtragendanndenFirmennameneinDasSystemprueftIhreAngabendaraufhinaufDubletten}
+					${placeholderWithTranslation.LiegtkeineDublettevorkoennenSieweitereDateneingebenunddieDatenspeichern}
 			</vera-info>
 			#end
 	#end
@@ -187,10 +187,10 @@
 
 	<div id="tabsMain">
 		<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-			<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>Personendaten</div>
-			</li><li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>Anschriften</div>
-			</li>#if($personDB)<li class="inactive" id="dokumenttypen" onclick="showDoctypes();"><div>Dokumenttypen</div>
-			</li><li class="inactive" id="kategorien" onclick="showCategories();"><div>Kategorien</div></li>#end
+			<li vera-tab="${placeholderWithTranslation.personendaten}" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>${placeholderWithTranslation.Personendaten}</div>
+			</li><li vera-tab="${placeholderWithTranslation.anschriften}" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>${placeholderWithTranslation.Anschriften}</div>
+			</li>#if($personDB)<li class="inactive" id="${placeholderWithTranslation.dokumenttypen}" onclick="showDoctypes();"><div>${placeholderWithTranslation.Dokumenttypen}</div>
+			</li><li class="inactive" id="${placeholderWithTranslation.kategorien}" onclick="showCategories();"><div>${placeholderWithTranslation.Kategorien}</div></li>#end
 		</ul>
 	</div>
 
@@ -198,7 +198,7 @@
 	#set($extEncoding2 = "_e2")
 	#set($extEncoding3 = "_e3")
 
-	<div class="tabsSub" vera-content="personendaten">
+	<div class="tabsSub" vera-content="${placeholderWithTranslation.personendaten}">
 		<ul class="marginBottom20" vera-tab-group>
 			<li vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" ><div>$!message.plain($config.main)</div></li>
 			<li vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" ><div>$!message.plain($config.partner)</div></li>
@@ -207,7 +207,7 @@
 		<hr />
 
 		<div class="CharSet">
-			<label for="encoding">Zeichensatz</label>
+			<label for="encoding">${placeholderWithTranslation.Zeichensatz}</label>
 			<select vera-select name="encoding" id="encoding">
 				<option value="person$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '1');" ><div>$!message.plain($config.latin)</div></option>
 				<option value="person$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '2');" ><div>$!message.plain($config.extra1)</div></option>
@@ -217,41 +217,41 @@
 	</div>
 
 
-	<div vera-content="personendaten" class="contentBoxColored tabsContent">
+	<div vera-content="${placeholderWithTranslation.personendaten}" class="contentBoxColored tabsContent">
 
-		<div class="textRight mandatoryText">* = Pflichtfelder</div>
+		<div class="textRight mandatoryText">* = ${placeholderWithTranslation.Pflichtfelder}</div>
 
-		#set($personPartner = "hauptperson")
+		#set($personPartner = "${placeholderWithTranslation.hauptperson}")
 		#set($extEncoding = "$extEncoding1")
 		#set($ext = "_a$extEncoding")
 		#set($facade = $person.MainLatin)
 		#parse("inc/person-member.vm")
 
-		#set($personPartner = "hauptperson")
+		#set($personPartner = "${placeholderWithTranslation.hauptperson}")
 		#set($extEncoding = "$extEncoding2")
 		#set($ext = "_a$extEncoding")
 		#set($facade = $person.MainExtra1)
 		#parse("inc/person-member.vm")
 
-		#set($personPartner = "hauptperson")
+		#set($personPartner = "${placeholderWithTranslation.hauptperson}")
 		#set($extEncoding = "$extEncoding3")
 		#set($ext = "_a$extEncoding")
 		#set($facade = $person.MainExtra2)
 		#parse("inc/person-member.vm")
 
-		#set($personPartner = "partner")
+		#set($personPartner = "${placeholderWithTranslation.partner}")
 		#set($extEncoding = "$extEncoding1")
 		#set($ext = "_b$extEncoding")
 		#set($facade = $person.PartnerLatin)
 		#parse("inc/person-member.vm")
 
-		#set($personPartner = "partner")
+		#set($personPartner = "${placeholderWithTranslation.partner}")
 		#set($extEncoding = "$extEncoding2")
 		#set($ext = "_b$extEncoding")
 		#set($facade = $person.PartnerExtra1)
 		#parse("inc/person-member.vm")
 
-		#set($personPartner = "partner")
+		#set($personPartner = "${placeholderWithTranslation.partner}")
 		#set($extEncoding = "$extEncoding3")
 		#set($ext = "_b$extEncoding")
 		#set($facade = $person.PartnerExtra2)
@@ -259,17 +259,17 @@
 
 	</div>
 
-	<div class="tabsSub" vera-content="anschriften">
+	<div class="tabsSub" vera-content="${placeholderWithTranslation.anschriften}">
 		<ul class="marginBottom20" vera-tab-group>
-			<li vera-tab="geschaeftlich" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" ><div>$!message.plain($config.business)</div></li>
-			<li vera-tab="privat" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "2") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '2');" ><div>$!message.plain($config.private)</div></li>
-			<li vera-tab="weitere" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "3") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '3');" ><div>$!message.plain($config.other)</div></li>
+			<li vera-tab="${placeholderWithTranslation.geschaeftlich}" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" ><div>$!message.plain($config.business)</div></li>
+			<li vera-tab="${placeholderWithTranslation.privat}" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "2") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '2');" ><div>$!message.plain($config.private)</div></li>
+			<li vera-tab="${placeholderWithTranslation.weitere}" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "3") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '3');" ><div>$!message.plain($config.other)</div></li>
 		</ul>
 
 		<hr />
 
 		<div class="CharSet">
-			<label for="encoding">Zeichensatz</label>
+			<label for="encoding">${placeholderWithTranslation.Zeichensatz}</label>
 			<select vera-select name="encoding" id="encoding">
 				<option value="address$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '1');" ><div>$!message.plain($config.latin)</div></option>
 				<option value="address$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '2');" ><div>$!message.plain($config.extra1)</div></option>
@@ -278,57 +278,57 @@
 		</div>
 	</div>
 
-	<div vera-content="anschriften" class="contentBoxColored tabsContent">
+	<div vera-content="${placeholderWithTranslation.anschriften}" class="contentBoxColored tabsContent">
 
-		#set($addressType = "geschaeftlich")
+		#set($addressType = "${placeholderWithTranslation.geschaeftlich}")
 		#set($extEncoding = "$extEncoding1")
 		#set($ext = "_a$extEncoding")
 		#set($facade = $person.BusinessLatin)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "geschaeftlich")
+		#set($addressType = "${placeholderWithTranslation.geschaeftlich}")
 		#set($extEncoding = "$extEncoding2")
 		#set($ext = "_a$extEncoding")
 		#set($facade = $person.BusinessExtra1)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "geschaeftlich")
+		#set($addressType = "${placeholderWithTranslation.geschaeftlich}")
 		#set($extEncoding = "$extEncoding3")
 		#set($ext = "_a$extEncoding")
 		#set($facade = $person.BusinessExtra2)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "privat")
+		#set($addressType = "${placeholderWithTranslation.privat}")
 		#set($extEncoding = "$extEncoding1")
 		#set($ext = "_b$extEncoding")
 		#set($facade = $person.PrivateLatin)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "privat")
+		#set($addressType = "${placeholderWithTranslation.privat}")
 		#set($extEncoding = "$extEncoding2")
 		#set($ext = "_b$extEncoding")
 		#set($facade = $person.PrivateExtra1)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "privat")
+		#set($addressType = "${placeholderWithTranslation.privat}")
 		#set($extEncoding = "$extEncoding3")
 		#set($ext = "_b$extEncoding")
 		#set($facade = $person.PrivateExtra2)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "weitere")
+		#set($addressType = "${placeholderWithTranslation.weitere}")
 		#set($extEncoding = "$extEncoding1")
 		#set($ext = "_c$extEncoding")
 		#set($facade = $person.OtherLatin)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "weitere")
+		#set($addressType = "${placeholderWithTranslation.weitere}")
 		#set($extEncoding = "$extEncoding2")
 		#set($ext = "_c$extEncoding")
 		#set($facade = $person.OtherExtra1)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "weitere")
+		#set($addressType = "${placeholderWithTranslation.weitere}")
 		#set($extEncoding = "$extEncoding3")
 		#set($ext = "_c$extEncoding")
 		#set($facade = $person.OtherExtra2)
@@ -348,30 +348,30 @@
 
 		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
-				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern"/>
+				<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.Personspeichern}" title="${placeholderWithTranslation.Personspeichern}"/>
 			#end
-			<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Personensuche" title="Zur&uuml;ck zur Personensuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/AddPersonToEventList?searchTask=personSearchTask'; }">
+			<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZurueckzurPersonensuche}" title="${placeholderWithTranslation.ZurueckzurPersonensuche}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/AddPersonToEventList?searchTask=personSearchTask'; }">
 		</span>
 
 	#elseif($action == "host")
 
 		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
-				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
+				<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.Personspeichern}" title="${placeholderWithTranslation.Personspeichern}" />
 			#end
-			<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SetHostToEventList'; }">
+			<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.Zurueck}" title="${placeholderWithTranslation.Zurueck}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SetHostToEventList'; }">
 		</span>
 
 	#elseif($action == "event")
 		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
-				<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
+				<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.Personspeichern}" title="${placeholderWithTranslation.Personspeichern}" />
 			#end
-			<input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
+			<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZurPersonenuebersicht}" title="${placeholderWithTranslation.ZurPersonenuebersicht}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
 			#if($octopusRequest.show && $octopusRequest.show == 'doctype')
-				<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDoctype'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZurueckzurVeranstaltung}" title="${placeholderWithTranslation.ZurueckzurVeranstaltung}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDoctype'; }">
 			#else
-				<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZurueckzurVeranstaltung}" title="${placeholderWithTranslation.ZurueckzurVeranstaltung}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">
 			#end
 		</span>
 
@@ -380,17 +380,17 @@
 		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
 				#if($createNewPerson)
-					<input type="submit" name="save" class="mainButton" value="Dublettenpr&uuml;fung durchf&uuml;hren" title="Dublettenpr&uuml;fung durchf&uuml;hren" />
+					<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.Dublettenpruefungdurchfuehren}" title="${placeholderWithTranslation.Dublettenpruefungdurchfuehren}" />
 				#else
-					<input type="submit" name="save" class="mainButton" value="Person speichern" title="Person speichern" />
+					<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.Personspeichern}" title="${placeholderWithTranslation.Personspeichern}" />
 				#end
 			#end
 			#if($action == "duplicateSearch")
-				<input type="button" name="cancel" class="mainButton" value="Zur Dublettensuche" title="Zur Dublettensuche" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch?selectNone=true'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZurDublettensuche}" title="${placeholderWithTranslation.ZurDublettensuche}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch?selectNone=true'; }">
 			#elseif($searchTask && $searchTask == "personSearchTask")
-				<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zum Suchergebnis" title="Zur&uuml;ck zum Suchergebnis" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask&selectNone=true'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZurueckzumSuchergebnis}" title="${placeholderWithTranslation.ZurueckzumSuchergebnis}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask&selectNone=true'; }">
 			#else
-				<input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZurPersonenuebersicht}" title="${placeholderWithTranslation.ZurPersonenuebersicht}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
 			#end
 		</span>
 
@@ -408,12 +408,12 @@
 
 	#if($action == "guest")
 		function addToGuestList() {
-			htmlConfirm('Soll dieser Gast auf Platz gesetzt werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
+			htmlConfirm('${placeholderWithTranslation.SolldieserGastaufPlatzgesetztwerden}', new Array('${placeholderWithTranslation.Ja}', '${placeholderWithTranslation.Nein}'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
 		}
 
 		function addToGuestQuestX1(answer) {
 			document.getElementById('inviteGuestReserve').value = answer;
-			htmlConfirm('Soll die Partnerin / der Partner mit eingeladen werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX2('true');", "addToGuestQuestX2('false');"));
+			htmlConfirm('${placeholderWithTranslation.SolldiePartnerinderPartnermiteingeladenwerden}', new Array('${placeholderWithTranslation.Ja}', '${placeholderWithTranslation.Nein}'), new Array("addToGuestQuestX2('true');", "addToGuestQuestX2('false');"));
 		}
 
 		function addToGuestQuestX2(answer) {
@@ -441,7 +441,7 @@
 	}
 
 	function removePerson() {
-		##if (confirm('Aktuelle Person wirklich entfernen?')) {
+		##if (confirm('${placeholderWithTranslation.AktuellePersonwirklichentfernen}')) {
 		window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
 
 	}

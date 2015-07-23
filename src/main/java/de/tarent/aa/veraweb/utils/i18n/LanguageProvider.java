@@ -45,6 +45,7 @@ public class LanguageProvider {
 
     public Properties properties;
     private Map<String, String> existingLanguagesAndFilenames = new TreeMap<String, String>();
+    private String selectedLanguage = "";
 
     /**
      *
@@ -133,29 +134,35 @@ public class LanguageProvider {
         return properties;
     }
 
+    private String testvariable = "";
+
     private void insertAllValuesFromSelectedLanguageToContext(OctopusContext cntx) {
-        String selectedLanguage;
         Map<String, String> placeholderWithTranslation = new TreeMap<String, String>();
         final Request request = new RequestVeraWeb(cntx);
 
-        cntx.setContent("language", properties.getProperty("language"));
 
-        try {
-            if(request.getField("languageSelector") == null) {
-                selectedLanguage = getFileNameByLangText("Deutsch");
-            } else {
-                selectedLanguage = getFileNameByLangText(request.getField("languageSelector").toString());
+            if (cntx.getContextField("languageSelector") == null && testvariable.equals("")) {
+                cntx.setContent("languageSelector", "Deutsch");
             }
 
-            properties = this.loadProperties(selectedLanguage);
-        } catch (BeanException e) {
-            e.printStackTrace();
+
+        if(cntx.getContextField("languageSelector") == null) {
+            cntx.setContent("languageSelector", "Deutsch");
         }
+        testvariable = cntx.getContextField("languageSelector").toString();
+                selectedLanguage = getFileNameByLangText(cntx.getContextField("languageSelector").toString());
+
+
+            properties = this.loadProperties(selectedLanguage);
+
 
         for(final String key : properties.stringPropertyNames()) {
             placeholderWithTranslation.put(key, properties.getProperty(key));
         }
 
+        //Value of language name, which is read by language selector
+        cntx.setContent("language", properties.getProperty("language"));
+        //All keys with values from language data
         cntx.setContent("placeholderWithTranslation", placeholderWithTranslation);
     }
 

@@ -21,10 +21,10 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltungssuche</span>
+		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungssuche}</span>
 	</div>
 
-	<h1>Veranstaltungssuche</h1>
+	<h1>${placeholderWithTranslation.Veranstaltungssuche}</h1>
 
 	<form action="$formurl" method="post" id="eventSearch_form">
 	<input type="hidden" name="start" value="0">
@@ -36,22 +36,22 @@
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 
-			<h2>Suche</h2>
+			<h2>${placeholderWithTranslation.Suche}</h2>
 
 				<fieldset style="border: none; padding-top: 0;">
-					<legend class="noDisplay">Veranstaltung</legend>
+					<legend class="noDisplay">${placeholderWithTranslation.Veranstaltung}</legend>
 
 					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell width30">
-								<label for="input.shortname">Kurzbezeichnung</label>
+								<label for="input.shortname">${placeholderWithTranslation.Kurzbezeichnung}</label>
 								<input type="text" name="shortname" id="input.shortname" value="">
 							</div>
 							<div class="tableCell width30">
-								<label for="begin">Datum (Beginn)</label>
+								<label for="begin">${placeholderWithTranslation.DatumBeginn}</label>
 								<div class="calenderContainer">
 									<input type="text" name="begin" value="" id="begin" class="datepicker">
-									<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="Datum ausw&auml;hlen"></span>
+									<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.Datumauswahlen}" title="${placeholderWithTranslation.Datumauswahlen}"></span>
 									<script type="text/javascript">
 									    Calendar.setup({
 											inputField     :    "begin",
@@ -68,17 +68,17 @@
 								</div>
 							</div>
 							<div class="tableCell width30">
-								<label for="eventname">Name</label>
+								<label for="eventname">${placeholderWithTranslation.Name}</label>
 								<textarea name="eventname" id="eventname" value=""></textarea>
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width30">
-								<label for="hostname">Gastgeber</label>
+								<label for="hostname">${placeholderWithTranslation.Gastgeber}</label>
 								<input type="text" name="hostname" id="hostname" value="">
 							</div>
 							<div class="tableCell width30">
-								<label for="location">Veranstaltungsort</label>
+								<label for="location">${placeholderWithTranslation.Veranstaltungsort}</label>
                                 <select name="location" id="location">
                                     <option value=""></option> ##get all locations
                                     #foreach($location in $allLocation)
@@ -87,7 +87,7 @@
                                 </select>
 							</div>
 							<div class="tableCell width30">
-								<label for="current">Nur in zuk&uuml;nftigen Veranstaltungen suchen</label>
+								<label for="current">${placeholderWithTranslation.NurinzuunftigenVeranstaltungensuchen}</label>
 								<input type="checkbox" id="current" name="current" value="true" checked>
 							</div>
 						</div>
@@ -96,23 +96,23 @@
 
 				<div id="buttonPanel-bottom" class="textRight">
 					#if($action == "guest")
-						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen" title="Suchen" />
-						<input type="reset"  class="mainButton" value="Felder leeren" title="Felder leeren" />
-						<input type="button" class="mainButton"  name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowGuestList?selectNone=true';" />
+						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.Suchen}" title="${placeholderWithTranslation.Suchen}" />
+						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.Felderleeren}" title="${placeholderWithTranslation.Felderleeren}" />
+						<input type="button" class="mainButton"  name="cancel" value="${placeholderWithTranslation.Zuruck}" title="${placeholderWithTranslation.Zuruck}" onclick="window.location.href='ShowGuestList?selectNone=true';" />
 					#elseif($action == "addperson")
-						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen" title="Suchen" />
-						<input type="reset"  class="mainButton" value="Felder leeren" title="Felder leeren" />
-						<input type="button" class="mainButton"  name="cancel" value="Zur&uuml;ck" title="Zur&uuml;ck" onclick="window.location.href='ShowPerson';" />
+						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.Suchen}" title="${placeholderWithTranslation.Suchen}" />
+						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.Felderleeren}" title="${placeholderWithTranslation.Felderleeren}" />
+						<input type="button" class="mainButton"  name="cancel" value="${placeholderWithTranslation.Zuruck}" title="${placeholderWithTranslation.Zuruck}" onclick="window.location.href='ShowPerson';" />
 					#else
-						<input id="button.startSearch" type="submit" class="mainButton" value="Suchen" title="Suchen" />
-						<input type="reset"  class="mainButton" value="Felder leeren" title="Felder leeren" />
+						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.Suchen}" title="${placeholderWithTranslation.Suchen}" />
+						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.Felderleeren}" title="${placeholderWithTranslation.Felderleeren}" />
 					#end
 				</div>
 
 		</div>
 
 		<vera-info vera-stay>
-			Sie können bei der Suche sogenannte Platzhalter verwenden, der * steht für mehrere und das ? für einzelne Zeichen.
+			${placeholderWithTranslation.SiekonnenbeiderSuchesogenanntePlatzhalterverwendenderstehtfurmehrereunddasfureinzelneZeichen}
 		</vera-info>
 
 		##<br><a href="SearchEvent?search=current">Aktuelle Veranstaltungen anzeigen</a><br><br>

@@ -26,10 +26,10 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Verteiler</span>
+		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Verteiler}</span>
 	</div>
 
-	<h1>Verteilerdetails: $!message.text($!mailinglist.name)</h1>
+	<h1>${placeholderWithTranslation.Verteilerdetails} $!message.text($!mailinglist.name)</h1>
 
 	<form id="formlist" name="formlist" action="ShowMailinglistDetail" method="POST">
 		<input type="hidden" name="start" value="">
@@ -47,14 +47,14 @@
 
     		<span class="inlineLabel" id="actionPanel">
 				#if($grants.mayWrite())
-					<strong>Markierte Adresse(n)</strong> <input type="submit" name="remove" value="L&ouml;schen" onclick="submit();" title="Markierte Adressen aus dem Verteiler l&ouml;schen"/>
+					<strong>${placeholderWithTranslation.MarkierteAdressen}</strong> <input type="submit" name="remove" value="${placeholderWithTranslation.Loschen}" onclick="submit();" title="${placeholderWithTranslation.MarkierteAdressenausdemVerteilerloschen}"/>
 				#else &nbsp;#end
             </span>
 
 			#if($grants.mayReadStandardFields())
         		<span id="buttonPanel_top" class="textRight floatRight">
-        			<input type="button" name="send" value="Verteiler versenden" onclick="window.location.href='MailinglistWrite';" title="an alle Adressen versenden" class="mainButton"/>
-					<input type="button" name="openMailClient" value="E-Mail-Client aufrufen" onclick="javascript:openNewEmail();" title="E-Mail-Client aufrufen" class="mainButton"/>
+        			<input type="button" name="send" value="${placeholderWithTranslation.Verteilerversenden}" onclick="window.location.href='MailinglistWrite';" title="${placeholderWithTranslation.analleAdressenversenden}" class="mainButton"/>
+					<input type="button" name="openMailClient" value="${placeholderWithTranslation.EMailClientaufrufen}" onclick="javascript:openNewEmail();" title="${placeholderWithTranslation.EMailClientaufrufen}" class="mainButton"/>
         		</span>
 			#end
 
@@ -67,10 +67,10 @@
 				<col width="$column4%" />
 
     			<tr>
-    				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
-    				<th>Name</th>
-    				<th>Vorname</th>
-    				<th>Adresse</th>
+    				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.Alledemarkieren}"/></th>
+    				<th>${placeholderWithTranslation.Name}</th>
+    				<th>${placeholderWithTranslation.Vorname}</th>
+    				<th>${placeholderWithTranslation.Adresse}</th>
     			</tr>
     			#foreach($bean in $list)
     			<tr>
@@ -89,13 +89,13 @@
 		#else
 
 			<div class="contentBoxColored grayBorder marginBottom5">
-				Es liegen keine Adressdaten für diesen Verteiler vor.
+				${placeholderWithTranslation.EsliegenkeineAdressdatenfurdiesenVerteilervor}
             </div>
 
 		#end
 
 		<span class="floatRight" id="buttonPanel-bottom">
-			<input type="button" name="cancel" value="Zur&uuml;ck zur Verteiler&uuml;bersicht"  onclick="window.location.href='ShowMailinglistList?selectNone=true';" title="Zur&uuml;ck zur Verteiler&uuml;bersicht" class="mainButton">
+			<input type="button" name="cancel" value="${placeholderWithTranslation.ZuruckzurVerteilerubersicht}"  onclick="window.location.href='ShowMailinglistList?selectNone=true';" title="${placeholderWithTranslation.ZuruckzurVerteilerubersicht}" class="mainButton">
 		</span>
 
 	</form>
@@ -104,11 +104,11 @@
 <script type="text/javascript">
     #if($maildispatchParams && $maildispatchParams.count)
         #if($maildispatchParams.count == 0)
-        	showWarning('Es wurde keine E-Mail zum Versenden gespeichert.');
+        	showWarning(' ${placeholderWithTranslation.EswurdekeineEMailzumVersendengespeichert} ');
         #elseif($maildispatchParams.count == 1)
-        	showSuccess('Es wurde eine E-Mail zum Versenden gespeichert. Diese wird nun automatisch versendet.');
+        	showSuccess(' ${placeholderWithTranslation.EswurdeeineeineEMailzumVersendengespeichertDiesewirdnunautomatischversendet} ');
         #else
-        	showSuccess('Es wurden $maildispatchParams.count E-Mails zum Versenden gespeichert. Diese werden nun automatisch versendet.');
+        	showSuccess(' ${placeholderWithTranslation.Eswurden} $maildispatchParams.count ${placeholderWithTranslation.EMailszumVersendengespeichertDiesewerdennunautomatischversendet} ');
         #end
     #end
 </script>

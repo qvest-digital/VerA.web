@@ -20,15 +20,15 @@
     		$error<br>
     	#end
     	<br>
-    	Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
+    	${placeholderWithTranslation.Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
     </vera-warn>
     #end
 
     	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>Sie sind hier:</strong> <span>Home</span>
+    		<strong>${placeholderWithTranslation.Siesindhier}:</strong> <span>${placeholderWithTranslation.Home}</span>
     	</div>
 
-    <h1 class="marginTop25">Willkommen bei VerA.web</h1>
+    <h1 class="marginTop25">${placeholderWithTranslation.WillkommenbeiVerAweb}</h1>
 
     #if($grants.isUser())
     ##<P>
@@ -37,55 +37,53 @@
 
     #if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
     <P>
-    	Sie haben hier die M&ouml;glichkeit,
+    	${placeholderWithTranslation.SiehabenhierdieMoeglichkeit}
       #if($grants.mayReadStandardFields())
-    	Stammdaten von
+    	${placeholderWithTranslation.Stammdatenvon}
       #end
       #if($grants.mayReadRemarkFields())
        #if($grants.mayReadStandardFields())
-    	und
+    	${placeholderWithTranslation.und
        #end
-    	Bemerkungen zu
+    	${placeholderWithTranslation.Bemerkungenzu}
       #end
-    	Personen und Veranstaltungen
+    	${placeholderWithTranslation.PersonenundVeranstaltungen}
       #if($grants.mayWrite())
-    	anzuzeigen, zu
+    	${placeholderWithTranslation.anzuzeigenzu}
        #if($grants.mayExport())
-    	ex- und
+    	${placeholderWithTranslation.exund}
        #end
-    	importieren, zu bearbeiten und zu l&ouml;schen.
+    	${placeholderWithTranslation.importierenzubearbeitenundzuloeschen}
       #elseif($grants.mayExport())
-    	anzuzeigen und zu exportieren.
+    	${placeholderWithTranslation.anzuzeigenundzuexportieren}
       #else
-    	anzuzeigen.
+    	${placeholderWithTranslation.anzuzeigen}.
       #end
     </P>
      #end
      #if($grants.isPartialAdmin() || $grants.isAdmin())
     <P>
-    	Weiterhin k&ouml;nnen Sie
+    	${placeholderWithTranslation.WeiterhinkoennenSie}
       #if($grants.isPartialAdmin())
-    	mandantenspezifische
+    	${placeholderWithTranslation.mandantenspezifische}
       #end
       #if($grants.isAdmin())
        #if($grants.isPartialAdmin())
-    	und
+    	${placeholderWithTranslation.und}
        #end
-    	globale
+    	${placeholderWithTranslation.globale}
       #end
-    	Einstellungen einsehen und bearbeiten.
+    	${placeholderWithTranslation.Einstellungeneinsehenundbearbeiten}
     </P>
      #end
     <P>
-    	Sollten Sie weitere Informationen ben&ouml;tigen, finden Sie diese auf der Seite "Hilfe".
+    	${placeholderWithTranslation.SolltenSieweitereInformationenbenoetigenfindenSiedieseaufderSeiteHilfe}.
     </P>
     #elseif($octopusConfig.personalConfig.roles)
      #parse("inc/role-chooser.vm")
     #else
     <P>
-    	Zu Ihrer Anmeldung existieren keine Rollen, unter denen Sie in VerA.web
-    	agieren k&ouml;nnen. Bitte melden Sie sich ab und mit einer
-    	Benutzer- oder Rollenkennung erneut an, die in VerA.web nutzbar ist.
+    	${placeholderWithTranslation.ZuIhrerAnmeldungexistierenkeineRollenunterdenenSieinVerAwebagierenkoennenBittemeldenSiesichabundmiteinerBenutzeroderRollenkennungerneutandieinVerAwebnutzbarist}.
     </P>
     #end
 

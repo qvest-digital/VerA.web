@@ -15,10 +15,10 @@
 
 	<div id="content_container">
         <div id="breadcrumb" class="textRight marginBottom10">
-            <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > E-Mail-Vorlage</span>
+            <strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.EMailVorlage}</span>
         </div>
 
-        <h1>E-Mail-Vorlage</h1>
+        <h1>${placeholderWithTranslation.EMailVorlage}</h1>
 
         #if($maildraft.errors.size() > 0)
             <vera-warn>
@@ -30,23 +30,23 @@
 
     	<input type="hidden" name="maildraft-id" value="$!maildraft.id"/>
 
-    	<div class="textRight bold">* = Pflichtfelder</div>
+    	<div class="textRight bold">* = ${placeholderWithTranslation.Pflichtfelder}</div>
 
         <table class="form">
 			<tr>
-            	<td class="bold width15"><label for="show-id">ID</label></td>
+            	<td class="bold width15"><label for="show-id">${placeholderWithTranslation.ID}</label></td>
             	<td><input type="text" id="show-id" name="show-id" value="$!message.text($maildraft.id)" class="id" vera-disabled /></td>
             </tr>
 			<tr>
-            	<td class="bold"><label for="maildraft-name">Name der Vorlage*</label></td>
+            	<td class="bold"><label for="maildraft-name">${placeholderWithTranslation.NamederVorlage}</label></td>
             	<td><input type="text" id="maildraft-name" name="maildraft-name" maxlength="200" value="$!message.text($maildraft.name)" /></td>
             </tr>
 			<tr>
-            	<td class="bold"><label for="maildraft-subject">Betreff*</label></td>
+            	<td class="bold"><label for="maildraft-subject">${placeholderWithTranslation.Betreff}</label></td>
             	<td><input type="text" id="maildraft-subject" name="maildraft-subject" maxlength="200" value="$!message.text($maildraft.subject)" /></td>
             </tr>
 			<tr>
-            	<td class="bold"><label for="maildraft-text">Text*</label></td>
+            	<td class="bold"><label for="maildraft-text">${placeholderWithTranslation.Text}</label></td>
             	<td><textarea cols="50" rows="20" id="maildraft-text" class="width100" name="maildraft-text" >$!message.textarea($maildraft.text)</textarea></td>
             </tr>
 			<tr>
@@ -54,40 +54,40 @@
             	<td>
             		<div class="">
             			<select id="platzhalter" name="platzhalter" class="width15" >
-            				<option value="firstname">Vorname</option>
-            				<option value="lastname">Nachname</option>
-            				<option value="salutation">Anrede</option>
-            				<option value="title">Akad. Titel</option>
-            				<option value="function">Amtsbez./Funktion</option>
-            				<option value="company">Firma/Institution</option>
-            				<option value="street">Stra&szlig;e</option>
-            				<option value="zipcode">PLZ</option>
-            				<option value="city">Ort</option>
-            				<option value="country">Land</option>
-            				<option value="poboxzipcode">Postfach-PLZ</option>
-            				<option value="pobox">Postfach-Nummer</option>
+            				<option value="firstname">${placeholderWithTranslation.Vorname}</option>
+            				<option value="lastname">${placeholderWithTranslation.Nachname}</option>
+            				<option value="salutation">${placeholderWithTranslation.Anrede</option>
+            				<option value="title">${placeholderWithTranslation.AkadTitel}</option>
+            				<option value="function">${placeholderWithTranslation.AmtsbezFunktion}</option>
+            				<option value="company">${placeholderWithTranslation.FirmaInstitution}</option>
+            				<option value="street">${placeholderWithTranslation.Strasze}</option>
+            				<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
+            				<option value="city">${placeholderWithTranslation.Ort}</option>
+            				<option value="country">${placeholderWithTranslation.Land}</option>
+            				<option value="poboxzipcode">${placeholderWithTranslation.PostfachPLZ}</option>
+            				<option value="pobox">${placeholderWithTranslation.PostfachNummer}</option>
             				<option value="suffix1">$!message.text($!config.suffix1)</option>
             				<option value="suffix2">$!message.text($!config.suffix2)</option>
-            				<option value="phone">Telefon</option>
-            				<option value="fax">Fax</option>
-            				<option value="mobile">Mobil</option>
-            				<option value="email">E-Mail</option>
-            				<option value="url">www</option>
+            				<option value="phone">${placeholderWithTranslation.Telefon}</option>
+            				<option value="fax">${placeholderWithTranslation.Fax}</option>
+            				<option value="mobile">${placeholderWithTranslation.Mobil}}</option>
+            				<option value="email">${placeholderWithTranslation.EMail}</option>
+            				<option value="url">${placeholderWithTranslation.www}</option>
             			</select>
-            				<input type="button" name="add" value="Hinzuf&uuml;gen" onclick="addPlatzhalter(this);"/>
+            				<input type="button" name="add" value="${placeholderWithTranslation.Hinzufugen}" onclick="addPlatzhalter(this);"/>
             		</div>
             	</td>
         	</tr>
 
             #if ($listparam.count == 0)
-            	<tr><td colspan="2">Keine Daten gefunden.</td></tr>
+            	<tr><td colspan="2">${placeholderWithTranslation.KeineDatengefunden}</td></tr>
             #end
         </table>
 
 
         <div id="buttonPanel-bottom" class="textRight marginTop10">
-        	<input type="submit" name="submit" value="Speichern" title="Speichern" class="mainButton" />
-        	<input type="button" name="cancel" value="Zur&uuml;ck zur Vorlagenliste" title="Zur&uuml;ck zur Vorlagenliste" class="mainButton" onclick="window.location.href='MailDraftList?selectNone=true';" />
+        	<input type="submit" name="submit" value="${placeholderWithTranslation.Speichern}" title="${placeholderWithTranslation.Speichern}" class="mainButton" />
+        	<input type="button" name="cancel" value="${placeholderWithTranslation.ZuruckzurVorlagenliste}" title="${placeholderWithTranslation.ZuruckzurVorlagenliste}" class="mainButton" onclick="window.location.href='MailDraftList?selectNone=true';" />
         </div>
 	</div>
 

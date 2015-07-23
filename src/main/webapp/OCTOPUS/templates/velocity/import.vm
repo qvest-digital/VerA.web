@@ -7,50 +7,40 @@
 
 	<div id="content_container">
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Personenimport</span>
+			<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Personen} > ${placeholderWithTranslation.Personenimport}</span>
 		</div>
 
-		<h1>Import von Personendaten</h1>
+		<h1>${placeholderWithTranslation.ImportvonPersonendaten}</h1>
 
         #if($errors.size() > 0 || $importStatus.invalidData)
             <vera-warn>
             	#if($importStatus.invalidData == "importSource")
-            		Sie haben keine Datenherkunft angegeben.
+            		${placeholderWithTranslation.SiehabenkeineDatenherkunftangegeben}
             	#elseif($importStatus.invalidData == "fileExtension")
             		#if($importStatus.fileextension == "ods")
-            			Sie haben versucht eine StarOffice bzw. OpenOffice-Datei zu importieren.
-            			Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
-            			Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
+            			${placeholderWithTranslation.SiehabenversuchteineStarOfficebzwOpenOfficeDateizuimportierenDerdirekteImportistinderaktuellenVersionvonVerAwebleidernichtmoglichBittespeichernSiedieseDateizuerstmitIhremTabellenkalkulationsprogrammalscsvDateiab}
             		#elseif($importStatus.fileextension == "sxc")
-            			Sie haben versucht eine StarOffice bzw. OpenOffice-Datei zu importieren.
-            			Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
-            			Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
+            			${placeholderWithTranslation.SiehabenversuchteineStarOfficebzwOpenOfficeDateizuimportierenDerdirekteImportistinderaktuellenVersionvonVerAwebleidernichtmoglichBittespeichernSiedieseDateizuerstmitIhremTabellenkalkulationsprogrammalscsvDateiab}
             		#elseif($importStatus.fileextension == "xls")
-            			Sie haben versucht eine Microsoft Excel-Datei zu importieren.
-            			Der direkte Import von Excel-Dokumenten ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
-            Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
+            			${placeholderWithTranslation.SiehabenversuchteineMicrosoftExcelDateizuimportierenDerdirekteImportvonExcelDokumentenistinderaktuellenVersionvonVerAwebleidernichtmolichBittespeichernSiedieseDateizuerstmitIhremTabellenkalkulationsprogrammalscsvDateiab}
             		#elseif($importStatus.fileextension == "pdf")
-            			Sie haben versucht eine PDF-Datei zu importieren.
-            			Dies ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
+            			${placeholderWithTranslation.SiehabenversuchteinePDFDateizuimportierenDiesistinderaktuellenVersionvonVerAwebleidernichtmoglich}
             		#elseif($importStatus.fileextension == "zip")
-            			Sie haben versucht eine ZIP-Datei zu importieren.
-            			Dies ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
+            			${placeholderWithTranslation.SiehabenversuchteineZIPDateizuimportierenDiesistinderaktuellenVersionvonVerAwebleidernichtmoglich}
             		#elseif($importStatus.fileextension == "exe")
-            			Sie haben versucht eine EXE-Datei zu importieren.
-            			Dies ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
+            			${placeholderWithTranslation.SiehabenversuchteineEXEDateizuimportierenDiesistinderaktuellenVersionvonVerAwebleidernichtmoglich}
             		#else
-            			Sie haben versucht eine Datei mit der Endung
-            			$importStatus.fileextension zu importieren.
-            			Dies ist in der aktuellen Version von VerA.web leider nicht m&ouml;glich.
+            			${placeholderWithTranslation.SiehabenversuchteineDateimitderEndung}
+            			$importStatus.fileextension ${placeholderWithTranslation.zuimportierenDiesistinderaktuellenVersionvonVerAwebleidernichtmoglich}
             		#end
             	#elseif($importStatus.invalidData == "inputStream")
-            		Sie haben keine Datei ausgew&auml;hlt oder diese war leer.
+            		${placeholderWithTranslation.SiehabenkeineDateiausgewahltoderdiesewarleer}
             	#elseif($importStatus.invalidData == "errorOnImport")
-            		Es ist ein unerwarteter Fehler beim importieren einer Datei aufgetreten.<br>
-            		Vermutlich befindet sich die Import-Datei nicht im vom System erwartem Format.<br><br>
+            		${placeholderWithTranslation.EsisteinunerwarteterFehlerbeimimportiereneinerDateiaufgetreten}<br>
+            		${placeholderWithTranslation.VermutlichbefindetsichdieImportDateinichtimvomSystemerwartemFormat}<br><br>
 
-            		Fehlermeldung: <em>&quot;$message.plain($importStatus.message)&quot;</em> &nbsp;&nbsp;&nbsp;
-            		(<a href="javascript:showBlock(document.getElementById('javastacktrace'));">Details anzeigen</a>)
+            		${placeholderWithTranslation.Fehlermeldung} <em>&quot;$message.plain($importStatus.message)&quot;</em> &nbsp;&nbsp;&nbsp;
+            		(<a href="javascript:showBlock(document.getElementById('javastacktrace'));">${placeholderWithTranslation.Detailsanzeigen}</a>)
 
             <pre id="javastacktrace" style="display: none;">
 
@@ -66,24 +56,24 @@
 		#end
 
 		<vera-info>
-			Beim Import k&ouml;nnen Feldinhalte, die l&auml;nger als bei VerA.web vorgesehen sind, gek&uuml;rzt &uuml;bernommen werden.
+			${placeholderWithTranslation.BeimImportkonnenFeldinhaltedielangeralsbeiVerAwebvorgesehensindgekurztubernommenwerden}
 		</vera-info>
 
 
 		<div id="main_content" class="contentBoxColored grayBorder">
-			<div class="textRight mandatoryText">* = Pflichtfelder</div>
+			<div class="textRight mandatoryText">* = ${placeholderWithTranslation.Pflichtfelder}</div>
 
             <form action="ImportPersonsFile" method="post" enctype="multipart/form-data" name="formImport" id="formImport" >
 
     			<div class="table width100">
     				<div class="tableRow">
     					<div class="tableCell width50">
-    						<label for="importSource">Datenherkunft*</label>
+    						<label for="importSource">${placeholderWithTranslation.Datenherkunft}</label>
     						<input type="text" name="importSource" id="importSource" value="$!message.text($importSource)">
     					</div>
     					<div class="tableCell width50">
 							#if($grants && $grants.isAdmin() && $allOrgUnit)
-								<label for="orgUnit">Zielmandant</label>
+								<label for="orgUnit">${placeholderWithTranslation.Zielmandant}</label>
 								<select name="orgUnit" id="orgUnit" >
 									#foreach($orgunit in $allOrgUnit)
 										<option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>$!message.text($orgunit.name)</option>
@@ -95,11 +85,11 @@
 
     				<div class="tableRow">
     					<div class="tableCell">
-    						<label for="importfile">Import-Datei*</label>
+    						<label for="importfile">${placeholderWithTranslation.ImportDatei}</label>
     						<input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*">
     					</div>
     					<div class="tableCell">
-    						<label for="format">Dateityp</label>
+    						<label for="format">${placeholderWithTranslation.Dateityp}</label>
     						<select name="format" id="format" onchange="return formatChanged();">
                             #foreach($formatKey in $formats.keySet())
                              #set($format = $formats.get($formatKey))
@@ -113,7 +103,7 @@
                             		<div $style id="format-$formatKey" class="marginTop20">
                               #if($format.properties.containsKey("choices"))
                                #set($choices = $format.properties.get("choices"))
-                            			<fieldset class="format"><legend>$format.name: weitere Optionen</legend>
+                            			<fieldset class="format"><legend>$format.name: ${placeholderWithTranslation.weitere Optionen</legend>
                                 			<div class="table width100">
                                #foreach($choiceKey in $choices.keySet())
                                 #set($choice = $choices.get($choiceKey))
@@ -159,14 +149,14 @@
 		</div><!-- End #main_content-->
 
 		<div id="buttonPanel-bottom" class="textRight marginTop10">
-			<input name="start" type="button" value="Import starten" title="Import starten" class="mainButton" onclick="askStart()">
+			<input name="start" type="button" value="${placeholderWithTranslation.Importstarten}" title="${placeholderWithTranslation.Importstarten}" class="mainButton" onclick="askStart()">
 		</div>
 </div>
 <script type="text/javascript">
 ##Hinweis und Rueckfrage vor dem Import
 
 	function askStart() {
-		htmlConfirm('Alle Dokumenttypen der zu importierenden Personen m&uuml;ssen im System vorhanden sein. Soll der Import jetzt gestartet werden?', new Array('Ja', 'Nein'), new Array("askStartYes();", "askStartNo();"));
+		htmlConfirm(' ${placeholderWithTranslation.AlleDokumenttypenderzuimportierendenPersonenmussenimSystemvorhandenseinSollderImportjetztgestartetwerden ', new Array(' ${placeholderWithTranslation.Ja} ', ' ${placeholderWithTranslation.Nein} '), new Array("askStartYes();", "askStartNo();"));
 	}
 	function askStartYes() {
 		hideDialogs();

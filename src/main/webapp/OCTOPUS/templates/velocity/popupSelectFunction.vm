@@ -29,7 +29,7 @@
         <input type="hidden" name="selectNone" value="false"/>
 
 				<div class="contentBoxColored grayBorder">
-					<h2>Bitte w&auml;hlen Sie eine Amtsbezeichnung / Funktion aus:</h2>
+					<h2>${placeholderWithTranslation.BittewaehlenSieeineAmtsbezeichnungFunktionaus}:</h2>
 					<table>
 						#foreach($bean in $list)
 							<tr>
@@ -52,7 +52,7 @@
 							#parse("inc/list-navi-new.vm")
 							#parse("inc/list-direct-new.vm")
 						#else
-							Keine Daten gefunden.<br/><br/>
+							${placeholderWithTranslation.KeineDatengefunden}.<br/><br/>
 						#end
 					</table>
 

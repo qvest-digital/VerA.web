@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Firma/Institution ausw&auml;hlen</title>
+		<title>${placeholderWithTranslation.FirmaInstitutionauswaehlen}</title>
 		## Style
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
@@ -30,7 +30,7 @@
 
             <div class="contentBoxColored grayBorder">
 
-    			<h2>Bitte w&auml;hlen Sie eine Firma / Institution aus:</h2>
+    			<h2>${placeholderWithTranslation.BittewaehlenSieeineFirmaInstitutionaus}:</h2>
     			<table>
 
     			#foreach($bean in $list)
@@ -52,12 +52,12 @@
     				#parse("inc/list-navi-new.vm")
     				#parse("inc/list-direct-new.vm")
     			#else
-    				Keine Daten gefunden.<br/><br/>
+    				${placeholderWithTranslation.KeineDatengefunden}.<br/><br/>
     			#end
     			</table>
 
     			<div class="textRight">
-    				<input type="button" value="Schlie&szlig;en" onclick="closePopup();"/>
+    				<input type="button" value="${placeholderWithTranslation.Schliessen}" onclick="closePopup();"/>
     			</div>
 
     		</div>

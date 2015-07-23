@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 	<head>
-		<title>Personen-Etikett</title>
+		<title>${placeholderWithTranslation.PersonenEtikett}</title>
 		## Style
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
 	    <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
@@ -23,12 +23,12 @@
 	<body onload="selectAll(document.getElementById('exportText'));">
 		<form action="" method="post">
 		<div class="contentBoxColored grayBorder padding20">
-			<strong>Markieren und kopieren Sie folgendes Adress-Etikett</strong>
+			<strong>${placeholderWithTranslation.MarkierenundkopierenSiefolgendesAdressEtikett}</strong>
 
 			<textarea class="width100" style="height:150px" id="exportText" name="exportText">$!message.textarea($personExport)</textarea>
 
 			<div id="buttonPanel-bottom" class="textRight">
-				<input type="button" value="Schlie&szlig;en"  onclick="closePopup();">
+				<input type="button" value="${placeholderWithTranslation.Schliessen}"  onclick="closePopup();">
 			</div>
 		</div>
 		</form>

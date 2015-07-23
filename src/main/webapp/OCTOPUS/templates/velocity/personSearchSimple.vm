@@ -11,14 +11,14 @@
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Personensuche</span>
+        <strong>${placeholderWithTranslation.Siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Personen} > ${placeholderWithTranslation.Personensuche}</span>
     </div>
 
-    <h1>Personensuche</h1>
+    <h1>${placeholderWithTranslation.Personensuche}</h1>
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 
-        <h2><label for="searchfield">Suche</label></h2>
+        <h2><label for="searchfield">${placeholderWithTranslation.Suche}</label></h2>
 
         <form action="SearchPerson" id="peopleSearch_form" method="post">
             <input type="hidden" name="start" value="0">
@@ -34,16 +34,16 @@
 
 
             <div id="buttonPanel-bottom" class="textRight">
-                    <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" />
-                    <input type="button" class="mainButton submit" name="cancel" value="Erweiterte Suche" title="Erweiterte Suche" onclick="window.location.href='${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear'" />
+                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.Suchen}" title="${placeholderWithTranslation.Suchen}" />
+                    <input type="button" class="mainButton submit" name="cancel" value="${placeholderWithTranslation.ErweiterteSuche}" title="${placeholderWithTranslation.ErweiterteSuche}" onclick="window.location.href='${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear'" />
             </div>
 
         </form>
     </div>
     <vera-info vera-stay>
-	    Sie können bei der Suche sogenannte Platzhalter verwenden, der * steht für mehrere und das ? für einzelne Zeichen. <br/>
-        Die Suche erfolgt im Vornamen, Nachnamen, Ort, PLZ, Straße, Firma/Institution, Telefon, Fax, Mobil, E-Mail, Bemerkungen, Kategorien, Arbeitsbereiche<br/>
-		und Amtsbezeichnung/Funktion.
+	    ${placeholderWithTranslation.SiekoennenbeiderSuchesogenanntePlatzhalterverwendenderstehtfuermehrereunddasfuereinzelneZeichen}. <br/>
+        ${placeholderWithTranslation.DieSucheerfolgtimVornamenNachnamenOrtPLZStrasseFirmaInstitutionTelefonFaxMobilEMailBemerkungenKategorienArbeitsbereiche}<br/>
+		${placeholderWithTranslation.undAmtsbezeichnungFunktion}.
     </vera-info>
 </div>
 

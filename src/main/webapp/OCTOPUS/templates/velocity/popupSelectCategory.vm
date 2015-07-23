@@ -5,7 +5,7 @@
 <html>
 
 <head>
-	<title>Kategorien</title>
+	<title>${placeholderWithTranslation.Kategorien}</title>
 	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
 	<script type="text/javascript" src="${paths.staticWeb}scripts/jquery.min.js"></script>
@@ -19,13 +19,13 @@
 		$(".successmsg").remove();
     		var selectionOfOption = $('option[name$="nix"]:selected');
     			if(selectionOfOption.length === 1) {
-    				var msg ='<span>Wählen Sie bitte zunächst eine Kategorie aus.</span>';
+    				var msg ='<span>${placeholderWithTranslation.WaehlenSiebittezunaechsteineKategorieaus}</span>';
 					showWarning(msg);
     			}else {
 					$(".errormsg").remove();
 					$(".successmsg").remove();
     				#if( $count == 1 )
-						showAllocateAssign('Wollen Sie diese Person bzw. diesen Gast der ausgewählten Kategorie zuordnen?',
+						showAllocateAssign('${placeholderWithTranslation.WollenSiediesePersonbzwdiesenGastderausgewaehltenKategoriezuordnen}',
 						function () { // Ja
                            	var form = window.opener.document.forms[ "formlist" ];
                 	       	 var input = window.document.createElement('input');
@@ -35,10 +35,10 @@
                 	       	 form.appendChild(input);
                 	       	 form.submit();
 						}, function () { //nein
-							showSuccess('Es wurde keine Kategorie zugeordnet');
+							showSuccess('${placeholderWithTranslation.EswurdekeineKategoriezugeordnet}');
 						});
         			#else
-						showAllocateAssign('Wollen Sie ${count} Personen bzw. Gäste der ausgewählten Kategorie zuordnen?',
+						showAllocateAssign('${placeholderWithTranslation.WollenSiePersonenbzwGaestederausgewaehltenKategoriezuordnen}',
 						function () { // Ja
                            	var form = window.opener.document.forms[ "formlist" ];
                 	       	 var input = window.document.createElement('input');
@@ -48,7 +48,7 @@
                 	       	 form.appendChild(input);
                 	       	 form.submit();
 						}, function () { //nein
-							showSuccess('Es wurden keine Kategorien zugeordnet');
+							showSuccess('${placeholderWithTranslation.EswurdenkeineKategorienzugeordnet}');
 						});
         			#end
     			};
@@ -56,11 +56,11 @@
 		var showRemoveCategory = function() {
 			var selectionOfOption = $('option[name$="nix"]:selected');
     			if(selectionOfOption.length === 1) {
-    				var msg ='<span>Wählen Sie bitte zunächst eine Kategorie aus.</span>';
+    				var msg ='<span>${placeholderWithTranslation.WaehlenSiebittezunaechsteineKategorieaus}</span>';
 					showWarning(msg);
     			}else {
     				#if( $count == 1 )
-						showAllocateRemove('Wollen Sie diese Personen bzw. diesen Gast aus der ausgewählten Kategorie entfernen?',
+						showAllocateRemove('${placeholderWithTranslation.WollenSiediesePersonenbzwdiesenGastausderausgewaehltenKategorieentfernen}',
 						function () { // Ja
                            	var form = window.opener.document.forms[ "formlist" ];
                 	       	 var input = window.document.createElement('input');
@@ -70,10 +70,10 @@
                 	       	 form.appendChild(input);
                 	       	 form.submit();
 						}, function () { //nein
-							showSuccess('Es wurde keine Kategorie entfernt');
+							showSuccess('${placeholderWithTranslation.EswurdekeineKategorieentfernt}');
 						});
         			#else
-						showAllocateRemove('Wollen Sie ${count} Personen bzw. Gäste aus der ausgewählten Kategorie entfernen?',
+						showAllocateRemove('${placeholderWithTranslation.WollenSiePersonenbzwGaesteausderausgewaehltenKategorieentfernen}',
 						function () { // Ja
 							var form = window.opener.document.forms[ "formlist" ];
                 	       	 var input = window.document.createElement('input');
@@ -83,7 +83,7 @@
                 	       	 form.appendChild(input);
                 	       	 form.submit();
 						}, function () { //nein
-							showSuccess('Es wurden keine Kategorien entfernt.');
+							showSuccess('${placeholderWithTranslation.EswurdenkeineKategorienentfernt}');
 						});
         			#end
     			};
@@ -94,11 +94,11 @@
             $('#button\\.execute').click(function (e) {
                 var selectText = $("input:button[name$='checkboxForSelection'] ").text();
 
-				if (selectText == "Zuweisen") {
+				if (selectText == "${placeholderWithTranslation.Zuweisen}") {
 					showDeleteAllocate();
-				}else if (selectText == "Entfernen") {
+				}else if (selectText == "${placeholderWithTranslation.Entfernen}") {
             		selectedActionRemove();
-				}else if (selectText == "Abbrechen") {
+				}else if (selectText == "${placeholderWithTranslation.Abbrechen}") {
 					selectedActionCancel();
 				}
 			});
@@ -128,15 +128,15 @@
 		{
 #if( $assignmentAction == "assign" )
 #if( $count == 1 )
-			doit = confirm( "Wollen Sie diese Person bzw. diesen Gast der ausgewählten Kategorie zuordnen?" );
+			doit = confirm( "${placeholderWithTranslation.WollenSiediesePersonbzwdiesenGastderausgewaehltenKategoriezuordnen}" );
 #else
-			doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste der ausgewählten Kategorie zuordnen?" );
+			doit = confirm( "${placeholderWithTranslation.WollenSiePersonenbzwGaestederausgewaehltenKategoriezuordnen}" );
 #end
 #else
 #if( $count == 1)
-			doit = confirm( "Wollen Sie diese Personen bzw. diesen Gast aus der ausgewählten Kategorie entfernen?" );
+			doit = confirm( "${placeholderWithTranslation.WollenSiediesePersonenbzwdiesenGastausderausgewaehltenKategorieentfernen}" );
 #else
-			doit = confirm( "Wollen Sie ${count} Personen bzw. Gäste aus der ausgewählten Kategorie entfernen?" );
+			doit = confirm( "${placeholderWithTranslation.WollenSiePersonenbzwGaesteausderausgewaehltenKategorieentfernen}" );
 #end
 #end
 			if ( doit )
@@ -171,28 +171,28 @@
 
 <div class="contentBoxColored grayBorder">
 
-		<h1>Wählen Sie eine Kategorie aus, welche Sie
+		<h1>${placeholderWithTranslation.WaehlenSieeineKategorieauswelcheSie}
 			#if( $assignmentAction == "assign" )
-				zuweisen
+				${placeholderWithTranslation.zuweisen}
 			#else
-				entfernen
+				${placeholderWithTranslation.entfernen}
 			#end
-		möchten:</h1>
+		${placeholderWithTranslation.moechten}</h1>
 
 
 		#if( $allCategorie.size() > 0 )
-			<label for="category">Kategorie</label>
+			<label for="category">${placeholderWithTranslation.Kategorie}</label>
 			<select name="category" id="category" onChange="selected(this);">
 			<option name="nix" value="">
 		#if( $assignmentAction == "unassign" )
-			<option name="Entfernen" value="0">Alle entfernen
+			<option name="Entfernen" value="0">${placeholderWithTranslation.Alleentfernen}
 		#end
 			#foreach( $category in $allCategorie )
 			<option name="kategorie" value="${category.id}">$!message.plain(${category.name})
 			#end
 			</select>
 		#else
-		    Sie haben keine Kategorien konfiguriert. Diese können Sie im Administrationsbereich unter dem Punkt <em>Kategorien</em> definieren.
+		    ${placeholderWithTranslation.SiehabenkeineKategorienkonfiguriertDiesekoennenSieimAdministrationsbereichunterdemPunkt} <em>${placeholderWithTranslation.Kategorien}</em> ${placeholderWithTranslation.definieren}
 		#end
 
 
@@ -208,8 +208,7 @@
 </form>
 
 <vera-info>
-	Sie haben ${count} Person(en) ausgewählt. Abhängig von der Anzahl
-	der ausgewählten Personen kann die Aktion eine gewisse Zeit in Anspruch nehmen.
+	${placeholderWithTranslation.SiehabenPersonenausgewaehltAbhaengigvonderAnzahlderausgewaehltenPersonenkanndieAktioneinegewisseZeitinAnspruchnehmen}
 </vera-info>
 </body>
 </html>

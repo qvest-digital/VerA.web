@@ -4,16 +4,16 @@
 
 	<div id="content_container">
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Personenexport</span>
+			<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Personen} > ${placeholderWithTranslation.Personenexport}</span>
 		</div>
 
 		<h1>$title</h1>
 
 		<vera-info>
             #if($domain && $domain == "all" && $grants.isAdmin())
-            Sie sind als &quot;Voll-Administrator&quot; angemeldet und exportieren hiermit Mandanten&uuml;bergreifend.
+            ${placeholderWithTranslation.SiesindalsVollAdministratorangemeldetundexportierenhiermitMandantenubergreifend}
             #else
-            Sie exportieren mit dieser Funktion ausschlie&szlig;lich Personen aus Ihrem aktuellen Mandanten.
+            ${placeholderWithTranslation.SieexportierenmitdieserFunktionausschlieszlichPersonenausIhremaktuellenMandanten}
             #end
 		</vera-info>
 
@@ -25,7 +25,7 @@
     				<div class="tableRow">
     					<div class="tableCell inlineLabel width30">
     						<input type="radio" name="exportFilter" id="exportFilterEvent" value="event" onclick="return filterChanged()">
-    						<label for="exportFilterEvent">Veranstaltung</label>
+    						<label for="exportFilterEvent">${placeholderWithTranslation.Veranstaltung}</label>
     					</div>
     					<div class="tableCell">
         					<select id="exportEvent" name="exportEvent">
@@ -33,8 +33,8 @@
                                    		# the octopus version in use made it a valid integer object of value 0, which broke
                                    		# existing code relying on the fact that the request parameter would be null.
                                    		#
-                                   			<option value="0">Alle</option>
-                                   			<option value="-1">Keine</option>
+                                   			<option value="0">${placeholderWithTranslation.Alle}</option>
+                                   			<option value="-1">${placeholderWithTranslation.Keine}</option>
                                    #foreach($event in $allEvent)
                                    			<option value="$!event.id">$!message.text($event.shortname)</option>
                                    #end
@@ -43,8 +43,8 @@
     				</div>
     				<div class="tableRow">
     					<div class="tableCell inlineLabel">
-    						<input type="radio" name="exportFilter" id="exportFilterCategory" value="category" onclick="return filterChanged()">
-    						<label for="exportFilterCategory">Kategorie</label>
+    						<input type="radio" name="exportFilter" id="exportFilterCategory" value=category" onclick="return filterChanged()">
+    						<label for="exportFilterCategory">${placeholderWithTranslation.Kategorie}</label>
     					</div>
     					<div class="tableCell">
     						<select name="exportCategory" id="exportCategory">
@@ -52,8 +52,8 @@
                     		# the octopus version in use made it a valid integer object of value 0, which broke
                     		# existing code relying on the fact that the request parameter would be null.
                     		#
-                    			<option value="0">Alle</option>
-                    			<option value="-1">ohne</option>
+                    			<option value="0">${placeholderWithTranslation.Alle}</option>
+                    			<option value="-1">${placeholderWithTranslation.ohne}</option>
                     #foreach($category in $allCategorie)
                     			<option value="$!category.id">$!message.text($category.name)</option>
                     #end
@@ -62,7 +62,7 @@
     				</div>
     				<div class="tableRow">
     					<div class=" tableCell">
-    						<label for="format">Dateityp</label>
+    						<label for="format">${placeholderWithTranslation.Dateityp}</label>
     					</div>
     					<div class="tableCell">
     						<select name="format" id="format" class="autoWidth" onchange="return formatChanged();">
@@ -83,7 +83,7 @@
                 		<div $style id="format-$formatKey" class="marginTop20">
                   #if($format.properties.containsKey("choices"))
                    #set($choices = $format.properties.get("choices"))
-                			<fieldset class="format"><legend>$format.name: weitere Optionen</legend>
+                			<fieldset class="format"><legend>$format.name: ${placeholderWithTranslation.weitereOptionen}</legend>
                     			<div class="table width50">
                    #foreach($choiceKey in $choices.keySet())
                     #set($choice = $choices.get($choiceKey))
@@ -111,9 +111,9 @@
                    #set($remarks = $format.properties.get("remarks"))
                 			<fieldset class="format">
                    #if($remarks.size() == 1)
-                   				<legend>$format.name: Anmerkung</legend>
+                   				<legend>$format.name: ${placeholderWithTranslation.Anmerkung}</legend>
                    #else
-                   				<legend>$format.name: Anmerkungen</legend>
+                   				<legend>$format.name: ${placeholderWithTranslation.Anmerkungen}</legend>
                    #end
                    #foreach($remark in $remarks)
                 				<p>$remark</p>
@@ -140,7 +140,7 @@
         	</div>
 
 			<div id="buttonPanel-bottom" class="textRight marginTop10">
-				<input type="submit" name="submit" value="Export starten" class="mainButton" />
+				<input type="submit" name="submit" value="${placeholderWithTranslation.Exportstarten}" class="mainButton" />
  			</div>
 
         </form>

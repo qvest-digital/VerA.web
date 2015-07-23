@@ -2,8 +2,8 @@
 #set($title = "Hilfe - Info &uuml;ber VerA.web")
 
 ##Values in per cent for table columns width
-#set($column0 = 15)
-#set($column1 = 85)
+#set($column0 = 10)
+#set($column1 = 90)
 
 #parse("inc/header.vm")
 
@@ -11,10 +11,10 @@
     <form action="Main" method="POST">
 
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Verwaltung > Info</span>
+        <strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Verwaltung} > ${placeholderWithTranslation.Info}</span>
     </div>
 
-    <h1>Informationen zu VerA.web</h1>
+    <h1>${placeholderWithTranslation.InformationenzuVerAweb}</h1>
 
 
     #if($errors && $errors.size() > 0)
@@ -23,7 +23,7 @@
     		$error<br>
     	#end
     	<br>
-    	Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
+    	${placeholderWithTranslation.EskannzuunerwartetenFehlernkommenBittewendenSiesichanIhrenAdministrator}
     </vera-warn>
     #end
 
@@ -31,57 +31,54 @@
     <h3>VerA.web</h3>
     #if($properties)
     <table class="form fixed">
-        ##Set column size
-        <col width="$column0%" />
-        <col width="$column1%" />
+    	##Set column size
+		<col width="$column0%" />
+		<col width="$column1%" />
 
-        <tr>
-            <td class="width15 bold">Version:</td>
-            <td>$properties.getString("poversion")</td>
-        </tr><tr>
-            <td class="width15 bold">Buildnummer:</td>
-            <td>$properties.getString("pobuildnr")</td>
-        </tr><tr>
-            <td class="width15 bold">Buildzeit:</td>
-            <td>$properties.getString("pobuildts")</td>
-        </tr>
+    	<tr>
+    		<td class="width10 bold">Version:</td>
+    		<td>$properties.getString("version")</td>
+    	</tr><tr>
+    		<td class="width10 bold">Build:</td>
+    		<td>$properties.getString("build")</td>
+    	</tr>
     </table>
     <br>
     #else
-    <p><i>Informationen nicht verf&uuml;gbar</i></p>
+    <p><i>${placeholderWithTranslation.Informationennichtverfugbar}</i></p>
     #end
 
-    <h3>Datenbank</h3>
+    <h3>${placeholderWithTranslation.Datenbank}</h3>
     <table class="form fixed">
     	##Set column size
 		<col width="$column0%" />
 		<col width="$column1%" />
 
     	<tr>
-    		<td class="width15 bold">Version:</td>
+    		<td class="width10 bold">Version:</td>
     		<td>
     #if($config && $config.get("SCHEMA_VERSION"))
     			$config.get("SCHEMA_VERSION")
     #else
-    			<i style="color: red;">nicht verf&uuml;gbar</i>
+    			<i style="color: red;">${placeholderWithTranslation.nichtverfugbar}</i>
     #end
     		</td>
     	</tr><tr>
-    		<td class="width15 bold">Zeichensatz:</td>
+    		<td class="width10 bold">${placeholderWithTranslation.Zeichensatz}</td>
     		<td>
     #if($LC_CTYPE)
     			LC_CTYPE = $LC_CTYPE
     #else
-    			<i style="color: red;">nicht verf&uuml;gbar</i>
+    			<i style="color: red;">${placeholderWithTranslation.nichtverfugbar}</i>
     #end
     		</td>
     	</tr><tr>
-    		<td class="width15 bold">&nbsp;</td>
+    		<td class="width10 bold">&nbsp;</td>
     		<td>
     #if($LC_COLLATE)
     			LC_COLLATE = $LC_COLLATE
     #else
-    			<i style="color: red;">nicht verf&uuml;gbar</i>
+    			<i style="color: red;">${placeholderWithTranslation.nichtverfugbar}</i>
     #end
     		</td>
     	</tr>
@@ -97,25 +94,25 @@
 		<col width="$column1%" />
 
     	<tr>
-    		<td class="width15 bold"">Login:</td>
+    		<td class="width10 bold"">Login:</td>
     		<td>$!octopusConfig.personalConfig.userLogin</td>
     	</tr><tr>
-    		<td class="width15 bold">Rolle:</td>
+    		<td class="width10 bold">Rolle:</td>
     		<td>
     #if($octopusConfig.personalConfig.role)
     			$octopusConfig.personalConfig.role
     #else
-    			<i>nicht gew&auml;hlt</i>
+    			<i>${placeholderWithTranslation.nichtgewahlt}</i>
     #end
     		</td>
     	</tr>
     	<tr>
-    		<td class="width15 bold">Mandant:</td>
+    		<td class="width10 bold">Mandant:</td>
     		<td>
     #if($orgUnit.id != 0)
     			$orgUnit.name
     #else
-    			<i>nicht gew&auml;hlt</i>
+    			<i>${placeholderWithTranslation.nichtgewahlt}</i>
     #end
     		</td>
     	</tr>
@@ -127,7 +124,7 @@
     #end
     #if($octopusConfig.personalConfig.roles)
     	<tr>
-    		<td>verf&uuml;gbare Rollen:</td>
+    		<td>${placeholderWithTranslation.verfugbareRollen}</td>
     		<td>
      #foreach($gg in $octopusConfig.personalConfig.roles)
      $gg
@@ -136,7 +133,7 @@
     	</tr>
     #end
     	<tr>
-    		<td class="width15 bold">Gruppen:</td>
+    		<td class="width10 bold">Gruppen:</td>
     		<td>
     #foreach($gg in $octopusConfig.personalConfig.userGroups)
      $gg
@@ -144,12 +141,12 @@
     		</td>
     	</tr>
     	<tr>
-    		<td class="width15 bold"">E-Mail:</td>
+    		<td class="width10 bold"">E-Mail:</td>
     		<td>
     #if($octopusConfig.personalConfig.userEmail)
     			$!octopusConfig.personalConfig.userEmail
     #else
-    			<i>nicht verf&uuml;gbar</i>
+    			<i>${placeholderWithTranslation.nichtverfugbar}</i>
     #end
     		</td>
     	</tr>

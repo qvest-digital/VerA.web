@@ -3,7 +3,7 @@
 
 <form action="default" method="post" target="_top" onsubmit="if(document.getElementById('loginasproxy').checked) { this.action = 'LoginAsProxy'; this.task.value = 'LoginAsProxy'; }">
 
-<h1 class="marginTop25">Login</h1>
+<h1 class="marginTop25">${placeholderWithTranslation.Login}</h1>
 
 <div class="table">
     <div class="tableRow">
@@ -20,19 +20,18 @@
     </div>
     <div class="tableRow">
         <div class="tableCell inlineLabel">
-        	<label for="loginasproxy">${placeholderWithTranslation.InVertretunganmelden}</label>
-        	<input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
+        	<label for="loginasproxy">${placeholderWithTranslation.InVertretunganmelden}</label> <input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
         </div>
     </div>
 </div>
 
 <div id="buttonPanel-bottom" class="marginTop5 marginBottom20">
-	<input type="submit" class="mainButton" value="${placeholderWithTranslation.Anmelden}" title="Anmelden" name="submit" id="button.login" />
-	<input type="reset" class="mainButton" value="${placeholderWithTranslation.Felderleeren}" title="Felder leeren" name="cancel" id="button.clearFields" />
+	<input type="submit" class="mainButton" value="${placeholderWithTranslation.Anmelden}" title="${placeholderWithTranslation.Anmelden}" name="submit" id="button.login" />
+	<input type="reset" class="mainButton" value="${placeholderWithTranslation.Felderleeren}" title="${placeholderWithTranslation.Felderleeren}" name="cancel" id="button.clearFields" />
 </div>
 
 <vera-info vera-stay>
-	Bitte verwenden Sie Ihr Organisationskennzeichen oder <strong>Vorname.Nachname</strong> als Benutzernamen.
+	${placeholderWithTranslation.BitteverwendenSieIhrOrganisationskennzeichenoder} <strong>${placeholderWithTranslation.VornameNachname}</strong> ${placeholderWithTranslation.alsBenutzernamen}
 </vera-info>
 
 
@@ -40,7 +39,7 @@
 
 #if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin")
 <vera-warn>
-	Es ist ein Fehler bei der Anmeldung aufgetreten. Bitte &uuml;berpr&uuml;fen Sie Ihren Benutzernamen und Ihr Passwort.
+	${placeholderWithTranslation.EsisteinFehlerbeiderAnmeldungaufgetretenBitteuberprufenSieIhrenBenutzernamenundIhrPasswort}
 </vera-warn>
 #end
 

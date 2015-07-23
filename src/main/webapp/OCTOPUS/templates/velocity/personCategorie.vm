@@ -6,13 +6,13 @@
 #end
 
 #set($elementNameSex = "female")
-#set($elementNameSingular = "Kategorie")
-#set($elementNamePlural = "Kategorien")
+#set($elementNameSingular = "${placeholderWithTranslation.Kategorie}")
+#set($elementNamePlural = "${placeholderWithTranslation.Kategorien}")
 #if($personTab == "1" || $personTab == "2")
   ## impelemented to show message when person are changed
   #set($elementNameSex = "female")
-  #set($elementNameSingular = "Person")
-  #set($elementNamePlural = "Personen")
+  #set($elementNameSingular = "${placeholderWithTranslation.Person}")
+  #set($elementNamePlural = "${placeholderWithTranslation.Personen}")
 #end
 #parse("inc/header.vm")
 
@@ -21,7 +21,7 @@
 <div id="content_container">
 
     <div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > Person bearbeiten</span>
+    	<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Personen} > ${placeholderWithTranslation.Personbearbeiten}</span>
     </div>
 
     <h1>$title</h1>
@@ -31,10 +31,10 @@
     <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
         <div id="tabsMain">
         	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-        		<li class="inactive" id="personendaten" onclick="window.location.href='${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=1&offset=${navigation.current.offset}'+getGuestTabId();"><div>Persondendaten</div>
-        		</li><li class="inactive" id="anschriften" onclick="window.location.href='ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=2&offset=${navigation.current.offset}'+getGuestTabId();"><div>Anschriften</div>
-        		</li><li class="inactive" id="dokumenttypen" onclick="window.location.href='ShowPersonDoctypeList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.current.offset}'+getGuestTabId();"><div>Dokumenttypen</div>
-        		</li><li class="active" id="kategorien" onclick="window.location.href='ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.current.offset}'+getGuestTabId();"><div>Kategorien</div></li>
+        		<li class="inactive" id="${placeholderWithTranslation.personendaten}" onclick="window.location.href='${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=1&offset=${navigation.current.offset}'+getGuestTabId();"><div>${placeholderWithTranslation.Persondendaten}</div>
+        		</li><li class="inactive" id="${placeholderWithTranslation.anschriften}" onclick="window.location.href='ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=2&offset=${navigation.current.offset}'+getGuestTabId();"><div>${placeholderWithTranslation.Anschriften}</div>
+        		</li><li class="inactive" id="${placeholderWithTranslation.dokumenttypen}" onclick="window.location.href='ShowPersonDoctypeList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.current.offset}'+getGuestTabId();"><div>${placeholderWithTranslation.Dokumenttypen}</div>
+        		</li><li class="active" id="${placeholderWithTranslation.kategorien}" onclick="window.location.href='ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.current.offset}'+getGuestTabId();"><div>${placeholderWithTranslation.Kategorien}</div></li>
         	</ul>
         </div>
 
@@ -59,12 +59,12 @@
             <script type="text/javascript">
 
             	function addToGuestList() {
-            		htmlConfirm('Soll dieser Gast auf Platz gesetzt werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
+            		htmlConfirm('${placeholderWithTranslation.SolldieserGastaufPlatzgesetztwerden}', new Array('${placeholderWithTranslation.Ja}', '${placeholderWithTranslation.Nein}'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
             	}
 
             	function addToGuestQuestX1(answer) {
             		document.getElementById('inviteGuestReserve').value = answer;
-            		htmlConfirm('Soll die Partnerin / der Partner mit eingeladen werden?', new Array('Ja', 'Nein'), new Array("addToGuestQuestX2('true');", "addToGuestQuestX2('false');"));
+            		htmlConfirm('${placeholderWithTranslation.SolldiePartnerinderPartnermiteingeladenwerden}', new Array('${placeholderWithTranslation.Ja}', '${placeholderWithTranslation.Nein}'), new Array("addToGuestQuestX2('true');", "addToGuestQuestX2('false');"));
             	}
 
             	function addToGuestQuestX2(answer) {
@@ -90,7 +90,7 @@
             	}
 
 				function removePerson() {
-            		if (confirm('Aktuelle Person wirklich entfernen?')) {
+            		if (confirm('${placeholderWithTranslation.AktuellePersonwirklichentfernen}')) {
             			window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
             		}
             	}
@@ -101,26 +101,26 @@
 
     <span id="buttonPanel-bottom" class="textRight floatRight">
 		#if($grants.mayWrite())
-			<input type="button" class="mainButton" value="Person speichern" title="Person speichern" onclick="savePersonCategories();"/>
+			<input type="button" class="mainButton" value="${placeholderWithTranslation.Personspeichern}" title="${placeholderWithTranslation.Personspeichern}" onclick="savePersonCategories();"/>
 		#end
 
     	#if($action == "guest")
-        	<input type="button" name="cancel" value="Zur Personenliste" title="Zur Personenliste" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/AddPersonToEventList';"/>
+        	<input type="button" name="cancel" value="${placeholderWithTranslation.ZurPersonenliste}" title="${placeholderWithTranslation.ZurPersonenliste}" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/AddPersonToEventList';"/>
         #elseif($action == "host")
-        	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';"/>
+        	<input type="button" name="cancel" value="${placeholderWithTranslation.ZurPersonenuebersicht}" title="${placeholderWithTranslation.ZurPersonenuebersicht}" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';"/>
         #elseif($action == "event")
-        	<input type="button" name="cancel" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';"/>
+        	<input type="button" name="cancel" value="${placeholderWithTranslation.ZurPersonenuebersicht}" title="${placeholderWithTranslation.ZurPersonenuebersicht}" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';"/>
 			#if($octopusRequest.show && $octopusRequest.show == 'doctype')
-				<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDoctype'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZurueckzurVeranstaltung}" title="${placeholderWithTranslation.ZurueckzurVeranstaltung}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDoctype'; }">
 			#else
-				<input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zur Veranstaltung" title="Zur&uuml;ck zur Veranstaltung" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZurueckzurVeranstaltung}" title="${placeholderWithTranslation.ZurueckzurVeranstaltung}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">
 			#end
 		#elseif($action == "duplicateSearch")
-            <input type="button" name="cancel" value="Zur Dublettensuche" title="Zur Dublettensuche" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/PersonDuplicateSearch?selectnNone=true';">
+            <input type="button" name="cancel" value="${placeholderWithTranslation.ZurDublettensuche}" title="${placeholderWithTranslation.ZurDublettensuche}" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/PersonDuplicateSearch?selectnNone=true';">
         #elseif($searchTask && $searchTask == "personSearchTask")
-            <input type="button" name="cancel" class="mainButton" value="Zur&uuml;ck zum Suchergebnis" title="Zur&uuml;ck zum Suchergebnis" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask&selectNone=true'; }">
+            <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZurueckzumSuchergebnis}" title="${placeholderWithTranslation.ZurueckzumSuchergebnis}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask&selectNone=true'; }">
         #else
-            <input type="button" name="cancel" class="mainButton" value="Zur Personen&uuml;bersicht" title="Zur Personen&uuml;bersicht" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
+            <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZurPersonenuebersicht}" title="${placeholderWithTranslation.ZurPersonenuebersicht}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
 		#end
     </span>
 
