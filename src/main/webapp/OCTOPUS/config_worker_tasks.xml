@@ -150,11 +150,13 @@
 		<!-- LOGIN und DEFAULT Task. -->
 		<task name="login" access="public" groups="User,Unclear,Unauthorized">
 			<description>Der Login Task --- hier wird der Login *durchgeführt*</description>
+            <action name="load" worker="LanguageProvider" />
 			<doTask name="Main" />
 		</task>
 
 		<task name="logout" access="public" groups="LoggedOut">
 			<description>Der Logout Task</description>
+            <action name="load" worker="LanguageProvider" />
 			<doTask name="ShowLogin" />
 		</task>
 
@@ -172,6 +174,7 @@
 			<description>
 				Dieser Task zeigt den Login Dialog an.
 			</description>
+            <action name="load" worker="LanguageProvider" />
 			<doTask name="Load"/>
 			<doTask name="Verify"/>
 			<response type="velocity" name="login">
@@ -513,7 +516,6 @@
 			<response type="velocity" name="personSearchSimple">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
-
 		</task>
 
 		<task name="SearchPerson" access="public" groups="StandardFieldsReader">
@@ -547,9 +549,6 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
-
-
-
 
 		<task name="CreatePerson" access="public" groups="Writer">
 			<description>

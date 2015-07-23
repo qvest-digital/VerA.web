@@ -27,7 +27,7 @@
             	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Administration > Anreden</span>
     		</div>
 
-            <h1>Anreden</h1>
+            <h1>${placeholderWithTranslation.Anreden}</h1>
 
             <span id="actionPanel" class="inlineLabel">
               <strong>Markierte Anrede(n)</strong>
