@@ -74,7 +74,7 @@
 <h2 class="marginTop30 marginBottom10">Details</h2>
 #printStackTrace($status.exception)
 #else
-<p>${placeholderWithTranslation.UnbekannterFehler</p>
+<p>${placeholderWithTranslation.UnbekannterFehler}</p>
 #end
 
 
