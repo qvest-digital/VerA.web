@@ -37,8 +37,7 @@ public class LanguageProvider {
     /** Octopus-Eingabeparameter für die Aktion {@link #load(OctopusContext)} */
     public static final String INPUT_load[] = {};
     /** Language file constants */
-    public static final String STANDARD_LANG_FILE = LanguageProvider.class.getClassLoader().
-            getResource("de/tarent/l10n/de_DE.resource").toString();
+    public static final String STANDARD_LANG_FILE = "/etc/veraweb/l10n/de_DE.resource";
 
     public static final Logger LOGGER = Logger.getLogger(LanguageProvider.class.getName());
     private static final String FILE_PATH = "/etc/veraweb/l10n/";
