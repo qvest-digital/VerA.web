@@ -82,9 +82,7 @@ public class LanguageProvider {
      * @param cntx OctopusContext
      */
     public void load(OctopusContext cntx) {
-        if(cntx.getContextField("translateNames") == null) {
-            cntx.setContent("translatedNames", this.getLanguageOptions());
-        }
+        cntx.setContent("translatedNames", this.getLanguageOptions());
         this.insertAllValuesFromSelectedLanguageToContext(cntx);
     }
 
@@ -144,12 +142,12 @@ public class LanguageProvider {
 
         try {
             if(request.getField("languageSelector") == null) {
-                selectedLanguage = "Deutsch";
+                selectedLanguage = getFileNameByLangText("Deutsch");
             } else {
                 selectedLanguage = getFileNameByLangText(request.getField("languageSelector").toString());
             }
 
-            properties = this.loadProperties(getFileNameByLangText(selectedLanguage));
+            properties = this.loadProperties(selectedLanguage);
         } catch (BeanException e) {
             e.printStackTrace();
         }
