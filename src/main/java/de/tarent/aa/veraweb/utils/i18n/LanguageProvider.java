@@ -24,6 +24,16 @@ public class LanguageProvider {
         this.properties = loadProperties(STANDARD_LANG_FILE);
     }
 
+    /**
+     *
+     * Load language file into properties
+     *
+     * @param langFileName String name of language file
+     */
+    public LanguageProvider(final String langFileName) {
+        this.properties = this.loadProperties(langFileName);
+    }
+
     /** Octopus-Eingabeparameter für die Aktion {@link #load(OctopusContext)} */
     public static final String INPUT_load[] = {};
     /** Language file constants */
@@ -35,16 +45,6 @@ public class LanguageProvider {
 
     public Properties properties;
     private Map<String, String> existingLanguagesAndFilenames = new TreeMap<String, String>();
-
-    /**
-     *
-     * Load language file into properties
-     *
-     * @param langFileName String name of language file
-     */
-    public LanguageProvider(final String langFileName) {
-        this.properties = this.loadProperties(langFileName);
-    }
 
     /**
      *
@@ -68,9 +68,9 @@ public class LanguageProvider {
     }
 
     /**
-     * Checks, if the properties is null
+     * Checks, if the properties object is null
      *
-     * @return false if properties null, else true
+     * @return false if properties object is null, else true
      */
     public boolean propertiesAreAvailable() {
         return (this.properties != null);
@@ -82,7 +82,9 @@ public class LanguageProvider {
      * @param cntx OctopusContext
      */
     public void load(OctopusContext cntx) {
-        cntx.setContent("translatedNames", this.getLanguageOptions());
+        if(cntx.getContextField("translateNames") == null) {
+            cntx.setContent("translatedNames", this.getLanguageOptions());
+        }
         this.insertAllValuesFromSelectedLanguageToContext(cntx);
     }
 
@@ -101,30 +103,6 @@ public class LanguageProvider {
         return key;
     }
 
-    /**
-     * Get list of files (only names)
-     *
-     * @return list of file names
-     */
-    public List<String> getLanguageFileNames() {
-        File folder = new File(FILE_PATH);
-        File[] listOfFiles = folder.listFiles();
-        List<String> languageFileNames = new ArrayList<String>();
-
-        try {
-            for (File file : listOfFiles) {
-                if (file.isFile()) {
-                    languageFileNames.add(file.getName());
-                }
-            }
-        } catch (NullPointerException e) {
-            LOGGER.warn(e);
-            LOGGER.warn("Directory not found!");
-        }
-
-        return languageFileNames;
-    }
-
     //Load content of language file into properties
     private Properties loadProperties(final String langFileName) {
         final Properties properties = new Properties();
@@ -139,6 +117,7 @@ public class LanguageProvider {
                 //Language file from /etc/veraweb/l10n
                 inputStream = new FileInputStream(FILE_PATH + langFileName);
             }
+
             properties.load(inputStream);
         } catch (IOException uniqueLangFileException) {
             LOGGER.warn(uniqueLangFileException);
@@ -149,11 +128,37 @@ public class LanguageProvider {
                 inputStream.close();
             } catch (Exception closeFileException) {
                 LOGGER.warn(closeFileException);
-                LOGGER.warn("Could not close data!" + inputStream);
+                LOGGER.warn("Could not close data! - " + inputStream);
             }
         }
 
         return properties;
+    }
+
+    private void insertAllValuesFromSelectedLanguageToContext(OctopusContext cntx) {
+        String selectedLanguage;
+        Map<String, String> placeholderWithTranslation = new TreeMap<String, String>();
+        final Request request = new RequestVeraWeb(cntx);
+
+        cntx.setContent("language", properties.getProperty("language"));
+
+        try {
+            if(request.getField("languageSelector") == null) {
+                selectedLanguage = "Deutsch";
+            } else {
+                selectedLanguage = getFileNameByLangText(request.getField("languageSelector").toString());
+            }
+
+            properties = this.loadProperties(getFileNameByLangText(selectedLanguage));
+        } catch (BeanException e) {
+            e.printStackTrace();
+        }
+
+        for(final String key : properties.stringPropertyNames()) {
+            placeholderWithTranslation.put(key, properties.getProperty(key));
+        }
+
+        cntx.setContent("placeholderWithTranslation", placeholderWithTranslation);
     }
 
     //Set language names (language parameter of language data) from all
@@ -173,23 +178,28 @@ public class LanguageProvider {
         return translatedNames;
     }
 
-    private void insertAllValuesFromSelectedLanguageToContext(OctopusContext cntx) {
-        Map<String, String> placeholderWithTranslation = new TreeMap<String, String>();
+    /**
+     * Get list of files (only file names)
+     *
+     * @return list of file names
+     */
+    private List<String> getLanguageFileNames() {
+        File folder = new File(FILE_PATH);
+        File[] listOfFiles = folder.listFiles();
+        List<String> languageFileNames = new ArrayList<String>();
 
-        for(final String key : properties.stringPropertyNames()) {
-            placeholderWithTranslation.put(key, properties.getProperty(key));
-        }
-
-        cntx.setContent("language", properties.getProperty("language"));
-
-        cntx.setContent("placeholderWithTranslation", placeholderWithTranslation);
-
-        Request request = new RequestVeraWeb(cntx);
         try {
-            properties = this.loadProperties(getFileNameByLangText(request.getField("languageSelecter").toString()));
-        } catch (BeanException e) {
-
+            for (File file : listOfFiles) {
+                if (file.isFile()) {
+                    languageFileNames.add(file.getName());
+                }
+            }
+        } catch (NullPointerException e) {
+            LOGGER.warn(e);
+            LOGGER.warn("Directory not found!");
         }
+
+        return languageFileNames;
     }
 
     private String getFileNameByLangText(String langName) {
