@@ -20,7 +20,7 @@
     		$error<br>
     	#end
     	<br>
-    	${placeholderWithTranslation.Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
+    	${EskannzuunerwartetenFehlernkommenBittewendenSiesichanIhrenAdministrator}
     </vera-warn>
     #end
 
@@ -43,7 +43,7 @@
       #end
       #if($grants.mayReadRemarkFields())
        #if($grants.mayReadStandardFields())
-    	${placeholderWithTranslation.und
+    	${placeholderWithTranslation.und}
        #end
     	${placeholderWithTranslation.Bemerkungenzu}
       #end
