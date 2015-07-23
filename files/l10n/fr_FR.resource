@@ -1,4 +1,4 @@
-language=Fran\U00E7ais
+language=Fran\u00E7ais
 
 #Administration/Anreden
 Anreden=Salutations
