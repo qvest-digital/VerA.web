@@ -75,7 +75,7 @@
 			</tr>
             #if($mailoutbox.status == $mailoutbox.STATUS_ERROR || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
                 <tr>
-                	<td>${placeholderWithTranslation.Fehlerbeschreibung}</td>
+                	<td>${placeholderWithTranslation.Fehlerbeschreibung}:</td>
                 	<td>
                 		<a id="show-errorlink" href="javascript:showBlock(document.getElementById('show-errortext')); hideBlock(document.getElementById('show-errorlink'));">${placeholderWithTranslation.technischeFehlermeldungeinblenden}</a>
                 		<div id="show-errortext" name="show-errortext" style="display: none;">
