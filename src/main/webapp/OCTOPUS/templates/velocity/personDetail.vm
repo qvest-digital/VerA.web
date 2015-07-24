@@ -190,7 +190,7 @@
 			<li vera-tab="${placeholderWithTranslation.personendaten}" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>${placeholderWithTranslation.Personendaten}</div>
 			</li><li vera-tab="${placeholderWithTranslation.anschriften}" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>${placeholderWithTranslation.Anschriften}</div>
 			</li>#if($personDB)<li class="inactive" id="${placeholderWithTranslation.dokumenttypen}" onclick="showDoctypes();"><div>${placeholderWithTranslation.Dokumenttypen}</div>
-			</li><li class="inactive" id="${placeholderWithTranslation.kategorien}" onclick="showCategories();"><div>${placeholderWithTranslation.Kategorien}</div></li>#end
+			</li><li class="inactive" id="${placeholderWithTranslation.Kategorien}" onclick="showCategories();"><div>${placeholderWithTranslation.Kategorien}</div></li>#end
 		</ul>
 	</div>
 

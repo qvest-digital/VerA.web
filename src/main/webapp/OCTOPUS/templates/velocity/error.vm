@@ -69,7 +69,7 @@
 </table>
 #end
 
-<h2 class="marginBottom10">Fehler</h2>
+<h2 class="marginBottom10">${placeholderWithTranslation.Fehler}</h2>
 <p>${placeholderWithTranslation.BeiderBearbeitungIhrerAnfrageisteinFehleraufgetretenBittemeldenSiediesIhremAdministrator}</p>
 <h2 class="marginTop30 marginBottom10">Details</h2>
 #printStackTrace($status.exception)

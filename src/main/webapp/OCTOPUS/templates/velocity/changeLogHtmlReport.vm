@@ -22,7 +22,7 @@
 				<th>${placeholderWithTranslation.Benutzer}</th>
 				<th>${placeholderWithTranslation.Objekt}</th>
 				<th>${placeholderWithTranslation.ObjektId}</th>
-				<th>${placeholderWithTranslation.Name}</th>
+				<th>${placeholderWithTranslation.GENREIC_NAME}</th>
 				<th>${placeholderWithTranslation.ArtderAnderung}</th>
 				<th>${placeholderWithTranslation.GeanderteFelder}</th>
 			</tr>

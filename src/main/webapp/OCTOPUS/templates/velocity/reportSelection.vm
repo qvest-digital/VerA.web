@@ -47,26 +47,26 @@
             </script>
 
         	<!-- Der folgende Bereich soll bitte nur erscheinen, wenn "Liste nach Sortierung ausgewählt ist -->
-        	<h3 class="marginBottom10 marginTop30" id="sortHeadline" style="display:none">Sortierkriterien</h3>
+        	<h3 class="marginBottom10 marginTop30" id="sortHeadline" style="display:none">${placeholderWithTranslation.SORT_CRITERIA}</h3>
 
         	<div class="table" id="sort" style="display:none">
         		<div class="tableRow">
         			<div class="tableCell">
-        				<label for="sort1">${placeholderWithTranslation.Sortierennach}</label>
+        				<label for="sort1">${placeholderWithTranslation.SORT_CRITERIA}</label>
         			</div>
         			<div class="tableCell">
         				<select name="sort1" id="sort1">
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
-                            			<option value="orderno">${placeholderWithTranslation.LaufendeNummer}</option>
-                            			<option value="name" selected>${placeholderWithTranslation.Name}</option>
+                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
+                            			<option value="name" selected>${placeholderWithTranslation.GENREIC_NAME}</option>
                             			<option value="country">${placeholderWithTranslation.Land}</option>
                             			<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
                             			<option value="category">${placeholderWithTranslation.Kategorie}</option>
                             			<option value="rank">${placeholderWithTranslation.Rang}</option>
                             			<option value="table">${placeholderWithTranslation.Tisch}</option>
                             #else
-                            			<option value="orderno">${placeholderWithTranslation.LaufendeNummer}</option>
-                            			<option value="name">${placeholderWithTranslation.Name}</option>
+                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
+                            			<option value="name">${placeholderWithTranslation.GENREIC_NAME}</option>
                             			<option value="country">${placeholderWithTranslation.Land}</option>
                             			<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
                             			<option value="category">${placeholderWithTranslation.Kategorie}</option>
@@ -82,16 +82,16 @@
             			<select name="sort2" id="sort2">
                             			<option value=""></option>
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
-                            			<option value="orderno">${placeholderWithTranslation.LaufendeNummer}</option>
-                            			<option value="name">${placeholderWithTranslation.Name}</option>
+                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
+                            			<option value="name">${placeholderWithTranslation.GENREIC_NAME}</option>
                             			<option value="country">${placeholderWithTranslation.Land}</option>
                             			<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
                             			<option value="category" selected>${placeholderWithTranslation.Kategorie}</option>
                             			<option value="rank">${placeholderWithTranslation.Rang}</option>
                             			<option value="table">${placeholderWithTranslation.Tisch}</option>
                             #else
-                            			<option value="orderno">${placeholderWithTranslation.LaufendeNummer}</option>
-                            			<option value="name" selected>${placeholderWithTranslation.Name}</option>
+                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
+                            			<option value="name" selected>${placeholderWithTranslation.GENREIC_NAME}</option>
                             			<option value="country">${placeholderWithTranslation.Land}</option>
                             			<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
                             			<option value="category">${placeholderWithTranslation.Kategorie}</option>
@@ -107,8 +107,8 @@
         				<select name="sort3" id="sort3" >
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
                             			<option value=""></option>
-                            			<option value="orderno">${placeholderWithTranslation.LaufendeNummer<}/option>
-                            			<option value="name">${placeholderWithTranslation.Name}</option>
+                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER<}/option>
+                            			<option value="name">${placeholderWithTranslation.GENREIC_NAME}</option>
                             			<option value="country">${placeholderWithTranslation.Land}</option>
                             			<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
                             			<option value="category">${placeholderWithTranslation.Kategorie}</option>
@@ -116,8 +116,8 @@
                             			<option value="table">${placeholderWithTranslation.Tisch}</option>
                             #else
                             			<option value="" selected></option>
-                            			<option value="orderno">${placeholderWithTranslation.LaufendeNummer}</option>
-                            			<option value="name">${placeholderWithTranslation.Nam}e</option>
+                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
+                            			<option value="name">${placeholderWithTranslation.GENREIC_NAME}</option>
                             			<option value="country">${placeholderWithTranslation.Land}</option>
                             			<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
                             			<option value="category">${placeholderWithTranslation.Kategorie}</option>

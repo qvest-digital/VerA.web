@@ -37,53 +37,53 @@
 
     #if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
     <P>
-    	${placeholderWithTranslation.SiehabenhierdieMoeglichkeit}
+    	${placeholderWithTranslation.WELCOME_TEXT_ONE}
       #if($grants.mayReadStandardFields())
-    	${placeholderWithTranslation.Stammdatenvon}
+    	${placeholderWithTranslation.WELCOME_TEXT_TWO}
       #end
       #if($grants.mayReadRemarkFields())
        #if($grants.mayReadStandardFields())
-    	${placeholderWithTranslation.und}
+    	${placeholderWithTranslation.WELCOME_TEXT_AND}
        #end
-    	${placeholderWithTranslation.Bemerkungenzu}
+    	${placeholderWithTranslation.WELCOME_TEXT_THREE}
       #end
-    	${placeholderWithTranslation.PersonenundVeranstaltungen}
+    	${placeholderWithTranslation.WELCOME_TEXT_FOUR}
       #if($grants.mayWrite())
-    	${placeholderWithTranslation.anzuzeigenzu}
+    	${placeholderWithTranslation.WELCOME_TEXT_FIVE}
        #if($grants.mayExport())
-    	${placeholderWithTranslation.exund}
+    	${placeholderWithTranslation.WELCOME_TEXT_SIX}
        #end
-    	${placeholderWithTranslation.importierenzubearbeitenundzuloeschen}
+    	${placeholderWithTranslation.WELCOME_TEXT_SEVEN}
       #elseif($grants.mayExport())
-    	${placeholderWithTranslation.anzuzeigenundzuexportieren}
+    	${placeholderWithTranslation.WELCOME_TEXT_EIGHT}
       #else
-    	${placeholderWithTranslation.anzuzeigen}.
+    	${placeholderWithTranslation.WELCOME_TEXT_NINE}.
       #end
     </P>
      #end
      #if($grants.isPartialAdmin() || $grants.isAdmin())
     <P>
-    	${placeholderWithTranslation.WeiterhinkoennenSie}
+    	${placeholderWithTranslation.WELCOME_TEXT_TEN}
       #if($grants.isPartialAdmin())
-    	${placeholderWithTranslation.mandantenspezifische}
+    	${placeholderWithTranslation.WELCOME_TEXT_ELEVEN}
       #end
       #if($grants.isAdmin())
        #if($grants.isPartialAdmin())
-    	${placeholderWithTranslation.und}
+    	${placeholderWithTranslation.WELCOME_TEXT_AND}
        #end
-    	${placeholderWithTranslation.globale}
+    	${placeholderWithTranslation.WELCOME_TEXT_TWELVE}
       #end
-    	${placeholderWithTranslation.Einstellungeneinsehenundbearbeiten}
+    	${placeholderWithTranslation.WELCOME_TEXT_THIRTEEN}
     </P>
      #end
     <P>
-    	${placeholderWithTranslation.SolltenSieweitereInformationenbenoetigenfindenSiedieseaufderSeiteHilfe}.
+    	${placeholderWithTranslation.WELCOME_TEXT_FOURTEEN}.
     </P>
     #elseif($octopusConfig.personalConfig.roles)
      #parse("inc/role-chooser.vm")
     #else
     <P>
-    	${placeholderWithTranslation.ZuIhrerAnmeldungexistierenkeineRollenunterdenenSieinVerAwebagierenkoennenBittemeldenSiesichabundmiteinerBenutzeroderRollenkennungerneutandieinVerAwebnutzbarist}.
+    	${placeholderWithTranslation.WELCOME_TEXT_FIFTEEN}.
     </P>
     #end
 

@@ -21,7 +21,7 @@
 
 <div id="content_container">
 	<div class="textRight marginBottom10" id="breadcrumb">
-	    <strong>${placeholderWithTranslation.SieSindHier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.Dokumenttypen}</span>
+	    <strong>${placeholderWithTranslation.SiesindHier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.Dokumenttypen}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.Dokumenttypen}</h1>
@@ -54,7 +54,7 @@
 
 			<span id="actionPanel" class="inlineLabel">
     	       	<strong>${placeholderWithTranslation.platzhalter}MarkiertenDokumenttypen</strong>
-    	       	<input type="button" name="remove" onclick="askDelete()"  value="${placeholderWithTranslation.platzhalter}L&ouml;schen" title="${placeholderWithTranslation.platzhalter}Markierte(n) Dokumenttyp(en) l&ouml;schen" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end>
+    	       	<input type="button" name="remove" onclick="askDelete()"  value="${placeholderWithTranslation.Loschen}" title="${placeholderWithTranslation.MarkiertenDokumenttypenloschen}" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end>
             </span>
 
 			<table class="fixed">
@@ -78,7 +78,7 @@
 					<th class="textCenter">${placeholderWithTranslation.AdressTyp}</th>
 					<th class="textCenter">${placeholderWithTranslation.Zeichensatz}</th>
 					<th class="textCenter">${placeholderWithTranslation.Format}</th>
-					<th class="smallCell textCenter" title="${placeholderWithTranslation.EigenesDokumentfurPartner}">${placeholderWithTranslation.Dokument f&uuml;r Partner}</th>
+					<th class="smallCell textCenter" title="${placeholderWithTranslation.EigenesDokumentfurPartner}">${placeholderWithTranslation.DokumentfurPartner}</th>
 					<th class="smallCell textCenter" title="${placeholderWithTranslation.Sortierreihenfolge}">${placeholderWithTranslation.Sortier}</th>
 					<th class="smallCell textCenter" title="${placeholderWithTranslation.Kennzeichen}">${placeholderWithTranslation.Kennz}</th>
 					<th class="smallCell textCenter" title="${placeholderWithTranslation.GastgebermitAusgeben}">${placeholderWithTranslation.GA}</th>
@@ -113,7 +113,7 @@
 					<td class="textCenter"><input type="checkbox" name="add-partner" value="true"  title="${placeholderWithTranslation.EigenesDokumentfurPartner}" onchange="setModified('add')"></td>
 					<td><input type="text" name="add-sortorder" value="" onchange="setModified('add')"></td>
 					<td><input type="text" name="add-flags" value="" onchange="setModified('add')"></td>
-					<td><input type="checkbox" name="add-host" value="true"  title="${placeholderWithTranslation.GastgebermitAusgeben" onchange="setModified('add')" checked></td>
+					<td><input type="checkbox" name="add-host" value="true"  title="${placeholderWithTranslation.GastgebermitAusgeben}" onchange="setModified('add')" checked></td>
 					<td><input type="checkbox" name="add-isdefault" value="true" title="${placeholderWithTranslation.IstStandardFurSteuerdatei}" onchange="setModified('add')"; onlyOneStandard('add');></td>
 				</tr>
 				#foreach($bean in $list)

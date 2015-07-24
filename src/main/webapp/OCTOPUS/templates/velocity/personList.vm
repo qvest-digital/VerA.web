@@ -158,7 +158,7 @@
 		<h1>$title</h1>
 		#if($title == "Dublettensuche")
 			<vera-info>
-				${placeholderWithTranslation.BeachtenSiedassaumitaeoumitoeuemitueundssmitssverglichenwird}<br />
+				${placeholderWithTranslation.DUPCHECK_UMLAUTS_WARNING}<br />
 			</vera-info>
 		#end
 	#end
@@ -346,7 +346,7 @@ var showDeleteMessages = function () {
 				}
 				if (ongoingTaskEventPersonIds.length > 0) {
 					msg += '<br><span class="notBold">${placeholderWithTranslation.FolgendePersonensindmindestenseinerAufgabeinmindestenseinerlaufendenoder} ' +
-							' ${placeholderWithTranslation.zukuenftigenVeranstaltungzugeordnetDetailinformationenrufenSiebitteüberdie} ' +
+							' ${placeholderWithTranslation.zukuenftigenVeranstaltungzugeordnetDetailinformationenrufenSiebitteuberdie} ' +
 							' ${placeholderWithTranslation.AufgabenlistenderjeweiligenVeranstaltungenaufDiePersonenwerdenausallen} ' +
 							' ${placeholderWithTranslation.Aufgabenentfernt} </span><br><ul class="text">';
 					$ .each(ongoingTaskEventPersonIds, function (index, id) {
@@ -897,7 +897,7 @@ function submitFormWithGivenAction(action) {
 							#end
 							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.ID}</a></th>
 							<th title="Datum"><a href="javascript:orderPersonList('created');">${placeholderWithTranslation.Datum}</a></span></th>
-							<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">${placeholderWithTranslation.Arbeits&shy;bereich</a></th>
+							<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">${placeholderWithTranslation.Arbeitsbereich}</a></th>
 							<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.Nachname}</a></th>
 							<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.Vorname}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.Amtsbeshyzeichnung}</a></th>

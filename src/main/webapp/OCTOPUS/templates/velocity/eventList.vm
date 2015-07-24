@@ -185,7 +185,7 @@
 						#end
 
 						<th class="smallCell textCenter">${placeholderWithTranslation.ID}</th>
-						<th>${placeholderWithTranslation.Name}</th>
+						<th>${placeholderWithTranslation.GENREIC_NAME}</th>
 						<th class="smallCell textCenter">${placeholderWithTranslation.Beginn}</th>
 						<th class="smallCell textCenter">${placeholderWithTranslation.Ende}</th>
 						<th>${placeholderWithTranslation.Gastgeber}</th>

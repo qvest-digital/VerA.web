@@ -548,7 +548,7 @@ veranstaltungsorte=Lugares
 #Veranstaltungs\u00fcbersicht
 veranstaltungs\u00fcbersicht=Evento Informaci\u00F3n general
 id=ID
-name=nombre
+GENREIC_NAME=nombre
 beginn=comenzando
 ende=fin
 gastgeber=anfitri\u00F3n
@@ -678,7 +678,7 @@ platzwahl=cara o cruz
 status=estado
 lfd.-nr.=Lfd.-Nr.
 firma=empresa
-name=nombre
+GENREIC_NAME=nombre
 vorname=nombre
 e-mail=correo electr\u00F3nico
 hauptperson=protagonista
@@ -690,16 +690,16 @@ direkteinsprung:istnurbeieinersortierungnachname,vornameodere-mailm\u00f6glich.=
 beimerstellenvonSteuerdateienoderG\u00e4stelistenwirdIhrobenausgew\u00e4hlterFilterber\u00fccksichtigt.=al crear archivos de control o listas de invitados de los filtros seleccionados se considera que su parte superior.
 WennSieeinzelneG\u00e4stemarkieren,werdennurdieseexportiert,ansonstendievollst\u00e4ndigeListe.=Si marca hu\u00E9spedes individuales , s\u00F3lo aquellos son exportados , de lo contrario la lista completa.
 
-# g\u00e4steliste erstellen
-g\u00e4stelisteerstellen=Crear lista de invitados
-ausgabeformatw\u00e4hlen=Seleccione el formato de salida
-listenachkategoriengruppiert-mitpartner=Lista de los gatos Agrupados - con socios
-listenachkategoriengruppiert-mitTel.undMobiltelefon=Lista de los gatos Agrupados - con Tel y el tel\u00E9fono m\u00F3vil .
-listenachkategoriengruppiert-mitpartnerundfax=Lista de los gatos Agrupados - con pareja y fax
-listenachsortierung-mitpartner,tel.undmobiltelefon=lista clasificando -con pareja, tel . y el tel\u00E9fono m\u00F3vil
-sortierkriterien=criterios de clasificaci\u00F3n
-sortierennach=Ordenar por
-laufendenummer=n\u00FAmero actual
+#Gästeliste erstellen
+GUEST_LIST_CREATE=Crear lista de invitados
+SELECT_OUTPUT_FORMAT=Seleccione el formato de salida
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Lista de los gatos Agrupados - con socios
+LIST_GROUP_BY_CATEGORY_WITH_TEL=Lista de los gatos Agrupados - con Tel y el tel\u00E9fono m\u00F3vil .
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Lista de los gatos Agrupados - con pareja y fax
+LIST_SORT_PARTNER_TEL=lista clasificando -con pareja, tel . y el tel\u00E9fono m\u00F3vil
+SORT_CRITERIA=criterios de clasificaci\u00F3n
+SORT_CRITERIA=Ordenar por
+CONTINUAL_NUMBER=n\u00FAmero actual
 anschlie\u00dfendnach=seguido por
 zus\u00e4tzlichesortierungnach=clasificaci\u00F3n adicional por
 arbeitsbereich=Espacio de trabajo

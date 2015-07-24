@@ -85,7 +85,7 @@
 
 			<tr>
 				<th class="smallCell textCenter">ID</th>
-				<th>Name</th>
+				<th>${placeholderWithTranslation.GENREIC_NAME}</th>
 				<th>Vorname</th>
 				<th>Amtsbezeichnung</th>
 				<th>Firma / Institution (G)</th>

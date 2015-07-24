@@ -39,7 +39,7 @@
                 <li class="inactive" id="${placeholderWithTranslation.personendaten}"><div>${placeholderWithTranslation.Personendaten}</div>
                 </li><li class="inactive" id="${placeholderWithTranslation.anschriften}"><div>${placeholderWithTranslation.Anschriften}</div>
                 </li><li class="active" id="${placeholderWithTranslation.dokumenttypen}"><div>${placeholderWithTranslation.Dokumenttypen}</div>
-                </li><li class="inactive" id="${placeholderWithTranslation.kategorien}"><div>${placeholderWithTranslation.Kategorien}</div></li>
+                </li><li class="inactive" id="${placeholderWithTranslation.Kategorien}"><div>${placeholderWithTranslation.Kategorien}</div></li>
             </ul>
         </div>
 
@@ -151,7 +151,7 @@
         $('li#anschriften').click(function () {
             window.location.href = '${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=2'+getGuestTabId();
         });
-        $('li#kategorien').click(function () {
+        $('li#Kategorien').click(function () {
             window.location.href = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask'+getGuestTabId();
         });
 

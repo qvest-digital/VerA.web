@@ -17,10 +17,10 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-	    	<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > 				${placeholderWithTranslation.administration} > ${placeholderWithTranslation.kategorien}</span>
+	    	<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > 				${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.Kategorien}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.kategorien}</h1>
+	<h1>${placeholderWithTranslation.Kategorien}</h1>
 
 	<form id="formlist" name="formlist" action="Categorie" method="POST">
 		#if($listerrors && $listerrors.size() > 0)

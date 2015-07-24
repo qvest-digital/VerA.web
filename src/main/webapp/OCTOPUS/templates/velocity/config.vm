@@ -170,7 +170,7 @@
             </div>
 
             <div class="floatRight width49">
-                <h3>${placeholderWithTranslation.Oberfl&auml;chenbeschriftungen:}</h3>
+                <h3>${placeholderWithTranslation.Oberflachenbeschriftungen}</h3>
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width25">Hauptperson:</td>
@@ -216,7 +216,7 @@
             </div>
 
             <div class="width49">
-                <h3>${placeholderWithTranslation.Hilfe:}</h3>
+                <h3>${placeholderWithTranslation.Hilfe}</h3>
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.HilfeLink}</td>
@@ -227,7 +227,7 @@
                 		<td>
                 			<select name="helptarget" >
                 				$config.helptarget
-                				<option value="">${placeholderWithTranslation.AktuellesBrowserFensterverwenden.}</option>
+                				<option value="">${placeholderWithTranslation.AktuellesBrowserFensterverwenden}</option>
                 				<option value="_blank"      #if($config.helptarget == "_blank") selected #end>${placeholderWithTranslation.ProAufrufeinneuesBrowserFensteroffnen}</option>
                 				<option value="verawebhelp" #if($config.helptarget == "verawebhelp") selected #end>${placeholderWithTranslation.BeijedemAufrufdasselbeBrowserFensternichtdasaktuelle}</option>
                 			</select>
@@ -252,7 +252,7 @@
             ## 2008-02-18
 
             <div class="width49">
-                <h3>${placeholderWithTranslation.Anderungsprotokoll:}</h3>
+                <h3>${placeholderWithTranslation.Anderungsprotokoll}</h3>
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width50">${placeholderWithTranslation.VorhaltezeitderProtokolldatenJahreMonateTage}</td>

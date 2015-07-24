@@ -13,11 +13,11 @@
     		<strong>${placeholderWithTranslation.Siesindhier}:</strong> <span><a href="index.html">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration}> ${placeholderWithTranslation.Anreden}/span>
     	</div>
 
-    	<h1>${placeholderWithTranslation.Anreden}/h1>
+    	<h1>${placeholderWithTranslation.Anreden}</h1>
 
     	<span id="actionPanel" class="inlineLabel">
-    		<strong>${placeholderWithTranslation.MarkierteAnreden}/strong>
-    		<input type="submit" name="remove" value="${placeholderWithTranslation.Loeschen} title="${placeholderWithTranslation.MarkierteAnredenloeschen}" />
+    		<strong>${placeholderWithTranslation.MarkierteAnreden}</strong>
+    		<input type="submit" name="remove" value="${placeholderWithTranslation.Loeschen}" title="${placeholderWithTranslation.MarkierteAnredenloeschen}" />
     	</span>
 
 		#if($listerrors.size() > 0)

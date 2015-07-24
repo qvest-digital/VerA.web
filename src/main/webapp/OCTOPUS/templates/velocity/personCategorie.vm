@@ -34,7 +34,7 @@
         		<li class="inactive" id="${placeholderWithTranslation.personendaten}" onclick="window.location.href='${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=1&offset=${navigation.current.offset}'+getGuestTabId();"><div>${placeholderWithTranslation.Persondendaten}</div>
         		</li><li class="inactive" id="${placeholderWithTranslation.anschriften}" onclick="window.location.href='ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=2&offset=${navigation.current.offset}'+getGuestTabId();"><div>${placeholderWithTranslation.Anschriften}</div>
         		</li><li class="inactive" id="${placeholderWithTranslation.dokumenttypen}" onclick="window.location.href='ShowPersonDoctypeList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.current.offset}'+getGuestTabId();"><div>${placeholderWithTranslation.Dokumenttypen}</div>
-        		</li><li class="active" id="${placeholderWithTranslation.kategorien}" onclick="window.location.href='ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.current.offset}'+getGuestTabId();"><div>${placeholderWithTranslation.Kategorien}</div></li>
+        		</li><li class="active" id="${placeholderWithTranslation.Kategorien}" onclick="window.location.href='ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.current.offset}'+getGuestTabId();"><div>${placeholderWithTranslation.Kategorien}</div></li>
         	</ul>
         </div>
 
