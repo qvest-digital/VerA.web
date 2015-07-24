@@ -40,11 +40,15 @@ public class LanguageProvider {
     public static final String STANDARD_LANG_FILE = "/etc/veraweb/l10n/de_DE.resource";
 
     public static final Logger LOGGER = Logger.getLogger(LanguageProvider.class.getName());
+    //Path of all language files
     private static final String FILE_PATH = "/etc/veraweb/l10n/";
 
+    /** Content of selected language file will be saved in Properties object */
     public Properties properties;
+    //Map with all language names and their filename
     private Map<String, String> existingLanguagesAndFilenames = new TreeMap<String, String>();
-    private String selectedLanguage = "";
+    //Selected language will be persist, to load it on recall of controller
+    private String lastSelectedLanguage = "";
 
     /**
      *
@@ -133,27 +137,22 @@ public class LanguageProvider {
         return properties;
     }
 
-    private String testvariable = "";
-
     private void insertAllValuesFromSelectedLanguageToContext(OctopusContext cntx) {
         Map<String, String> placeholderWithTranslation = new TreeMap<String, String>();
         final Request request = new RequestVeraWeb(cntx);
 
-
-            if (cntx.getContextField("languageSelector") == null && testvariable.equals("")) {
+        try {
+            //Will only be true on first load
+            if (cntx.getContextField("languageSelector") == null && (lastSelectedLanguage.equals("") || lastSelectedLanguage == null)) {
                 cntx.setContent("languageSelector", "Deutsch");
+                lastSelectedLanguage = "de_DE.resource";
+            } else if (request.getField("languageSelector") != null){
+                lastSelectedLanguage = getFileNameByLangText(request.getField("languageSelector").toString());
             }
-
-
-        if(cntx.getContextField("languageSelector") == null) {
-            cntx.setContent("languageSelector", "Deutsch");
+        } catch (BeanException e) {
+            e.printStackTrace();
         }
-        testvariable = cntx.getContextField("languageSelector").toString();
-                selectedLanguage = getFileNameByLangText(cntx.getContextField("languageSelector").toString());
-
-
-            properties = this.loadProperties(selectedLanguage);
-
+            properties = this.loadProperties(lastSelectedLanguage);
 
         for(final String key : properties.stringPropertyNames()) {
             placeholderWithTranslation.put(key, properties.getProperty(key));
@@ -163,6 +162,8 @@ public class LanguageProvider {
         cntx.setContent("language", properties.getProperty("language"));
         //All keys with values from language data
         cntx.setContent("placeholderWithTranslation", placeholderWithTranslation);
+
+        lastSelectedLanguage = getFileNameByLangText(cntx.getContextField("language").toString());
     }
 
     //Set language names (language parameter of language data) from all
