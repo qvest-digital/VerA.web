@@ -40,12 +40,14 @@ Veranstaltungs- und Adreßverwaltung läuft.
 Desweiteren benötigen Sie den Apache 2 Webserver (idealerweise mit
 dem \texttt{prefork} MPM) und \texttt{mod\_jk}, Tomcat 7 mit Java™ 7.
 
+\begin{minipage}{\textwidth}
 Auf einem Debian 7 „wheezy“-System können Sie diese sowie den
 Datenbankserver wie folgt lokal installieren:
 
 \begin{lstlisting}[language=sh]
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 apache2-mpm-prefork apache2 libapache2-mod-jk
 \end{lstlisting}
+\end{minipage}
 
 \begin{minipage}{\textwidth}
 Bitte achten Sie darauf, daß keine ältere Version des JDK verwendet
@@ -63,6 +65,7 @@ Distribution“) von tarent beziehen:
 \begin{itemize}
  \item{\texttt{veraweb-core-\produktversion{}-files.tgz}
   \emph{oder} \texttt{veraweb-core-\produktversion{}-files.zip}}
+  \\(der Inhalt dieser Dateien ist identisch, nur anders verpackt)
  \item{\texttt{veraweb-core-\produktversion{}.war}}
 \end{itemize}
 
