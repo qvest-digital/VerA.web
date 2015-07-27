@@ -291,3 +291,13 @@ Jetzt können Sie z.B. über \texttt{https://veraweb.lan.tarent.de/veraweb/}
 auf das Veranstaltungsmanagement zugreifen und sich einloggen. Falls
 hierbei Fehler auftauchen prüfen Sie bitte den LDAP-Zugriff und eventuell
 in \texttt{/var/log/tomcat7/catalina.out} auftauchende Meldungen.
+
+\begin{minipage}{\textwidth}
+Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
+mehr und können sie entfernen:
+
+\begin{lstlisting}[language=sh]
+cd ..
+rm -rf veraweb-core-〈\produktversion{}〉* veraweb.war
+\end{lstlisting}
+\end{minipage}
