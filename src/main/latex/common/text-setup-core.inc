@@ -18,7 +18,7 @@
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
 %-
-% Textabschnitt 3.1-3.3: Setup VerA.web-core
+% Textabschnitt 3.1-3.4: Setup VerA.web-core
 
 \section{Installation internes VerA.web-System}\label{sec:setup-int}
 
@@ -180,3 +180,59 @@ SELECT veraweb.serv_build_sequences();
 \end{minipage}
 
 Damit ist die Einrichtung der Datenbank abgeschlossen.
+
+\subsection{Webserver VerA.web-core}\label{subsec:setup-core-apache}
+
+\begin{minipage}{\textwidth}
+Aktivieren Sie zunächst das \texttt{jk}-Modul, welches benutzt wird,
+um vermittels des AJP-Protokolls Anfragen an den Webserver an Tomcat
+durchzureichen:
+
+\begin{lstlisting}[language=sh]
+sudo a2enmod jk
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Dann tragen Sie folgende Zeile in die vhost-Konfiguration ein:
+
+\begin{lstlisting}
+JkMount /veraweb* ajp13_worker
+\end{lstlisting}
+\end{minipage}
+
+Diese Zeile sollte z.B. vor das \texttt{DocumentRoot /var/www} in der
+Datei \texttt{/etc/apache2/sites-available/default-ssl} der mitgelieferten
+Standardkonfiguration des Webservers unter Debian geschrieben werden, welche
+mit einem \texttt{sudo a2ensite default-ssl} aktiviert wird.
+
+Desweiteren richten wir üblicherweise eine Weiterleitung auf die Startseite
+sowie eine von HTTP nach HTTPS ein; beide an der jeweils selben Stelle:
+
+\begin{minipage}{\textwidth}
+In \texttt{/etc/apache2/sites-available/default-ssl} (HTTPS):
+
+\begin{lstlisting}
+RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/veraweb/
+\end{lstlisting}
+
+Anstelle von \texttt{veraweb.lan.tarent.de} tragen Sie bitte den Namen
+Ihres Servers (FQDN) ein.
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Und \texttt{/etc/apache2/sites-available/default} (HTTP):
+
+\begin{lstlisting}
+RedirectMatch 301 . https://veraweb.lan.tarent.de/veraweb/
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Abschließend starten Sie bitte den Webserver neu:
+
+\begin{lstlisting}[language=sh]
+sudo service apache2 stop
+sudo service apache2 start
+\end{lstlisting}
+\end{minipage}
