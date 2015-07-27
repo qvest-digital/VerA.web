@@ -54,13 +54,14 @@ zu VerA.web erhalten sollen (idealerweise sollten Sie sich selbst
 ebenfalls einen solchen Zugang einrichten). Diese benötigen wir
 weiter unten.
 
-Legen Sie zunächst, als normaler Benutzer mit \texttt{sudo}-Rechten
-den Datenbankbenutzer und die Datenbank an:
+\begin{minipage}{\textwidth}
+Legen Sie zunächst den Datenbankbenutzer und die Datenbank an:
 
 \begin{lstlisting}[language=sh]
 sudo -u postgres createuser --no-superuser --no-createdb --no-createrole --pwprompt veraweb
 sudo -u postgres createdb --encoding=UTF-8 --owner=veraweb --template=template0 veraweb
 \end{lstlisting}
+\end{minipage}
 
 
 

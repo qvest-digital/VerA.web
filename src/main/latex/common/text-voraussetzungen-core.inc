@@ -47,6 +47,7 @@ Datenbankserver wie folgt lokal installieren:
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 apache2-mpm-prefork apache2 libapache2-mod-jk
 \end{lstlisting}
 
+\begin{minipage}{\textwidth}
 Bitte achten Sie darauf, daß keine ältere Version des JDK verwendet
 wird (hier werden die in „wheezy“ vorhandenen älteren Versionen
 deinstalliert):
@@ -54,6 +55,7 @@ deinstalliert):
 \begin{lstlisting}[language=sh]
 sudo apt-get purge openjdk-6-jre-headless gcj-4.6-jdk gcj-4.7-jdk
 \end{lstlisting}
+\end{minipage}
 
 Zur Installation müssen Sie folgende Dateien („die VerA.web-core
 Distribution“) von tarent beziehen:
