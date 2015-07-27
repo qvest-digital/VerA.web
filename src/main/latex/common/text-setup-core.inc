@@ -18,7 +18,7 @@
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
 %-
-% Textabschnitt 3.1-3.2: Setup VerA.web-core
+% Textabschnitt 3.1-3.3: Setup VerA.web-core
 
 \section{Installation internes VerA.web-System}\label{sec:setup-int}
 
@@ -57,6 +57,35 @@ Die weiteren Dateien werden im folgenden verwendet. Falls Sie möchten
 können Sie bereits das Benutzerhandbuch (\texttt{Benutzerhandbuch.pdf})
 dem Nutzerkreis zukommen lassen; es ist jedoch auch als Online-Hilfe
 während der Benutzung von VerA.web jederzeit durch einen Klick erreichbar.
+
+\subsection{LDAP-Anbindung VerA.web-core}\label{subsec:setup-core-ldap}
+
+Bearbeiten Sie die Datei \texttt{config\_ldap\_access.xml}, indem Sie
+dort die nötigen Angaben eintragen, um Ihren LDAP-Verzeichnisdienst
+benutzen zu können. Dies sind insbesondere die folgenden Parameter:
+
+\begin{itemize}
+ \item{\texttt{ldapurl}: LDAP-Server, zum Beispiel:
+  \texttt{ldaps://dc.lan.tarent.de:7636}}
+ \item{\texttt{ldapbasedn}: Basis-DN des Verzeichnisses}
+ \item{\texttt{ldaprelative}: LDAP-Zweig, in dem sich Benutzerkonten
+  befinden; Standardwert: \texttt{ou=Users}}
+ \item{\texttt{ldapuser} und \texttt{ldappwd}: falls nötig, ein
+  Benutzer, mit dem sich die Software im LDAP authentifizieren kann,
+  sofern die Zugriffe nicht anonym möglich sind}
+ \item{\texttt{ldapuserobjectclass}: Objektklasse, die Benutzerkonten
+  innehaben; Standardwert: \texttt{person}}
+\end{itemize}
+
+\begin{minipage}{\textwidth}
+Danach installieren Sie die angepaßte Konfigurationsdatei:
+
+\begin{lstlisting}[language=sh]
+sudo install -c -o 0 -g 0 -m 644 config_ldap_access.xml /etc/veraweb/
+\end{lstlisting}
+\end{minipage}
+
+Hiermit ist die LDAP-Konfiguration abgeschlossen.
 
 \subsection{Datenbank VerA.web-core}\label{subsec:setup-core-db}
 
