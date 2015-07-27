@@ -25,7 +25,7 @@
 „VerA.web“ steht für Veranstaltungs- und Adreßverwaltung im „web“ (Internet).
 VerA.web ist eine Open Source-Webanwendung, die die IT-gestützte Planung und
 Durchführung von Anlässen, Konferenzen und anderen Veranstaltungen maßgeblich
-unterstützt. Dieses Dokument beschreibt, wie VerA.web-core (die eigentliche
+unterstützt. Dieses Dokument beschreibt, wie VerA.web core (die eigentliche
 Veranstaltungsmanagementsoftware) durch einen Systemadministrator eigenständig
 installiert werden kann.
 

@@ -28,17 +28,17 @@ Installation der einzelnen Komponenten beschrieben.
 
 \subsection{Dateien VerA.web-core}\label{subsec:setup-core-files}
 
-Entpacken Sie die Datei \texttt{veraweb-core-\produktversion{}-files.tgz}
-(oder \texttt{.zip}) und wechseln Sie in das angelegte neue Verzeichnis
+Benennen Sie die Datei \texttt{veraweb-core-\produktversion{}.war}
+in \texttt{veraweb.war} um. Entpacken Sie die Datei
+\texttt{veraweb-core-\produktversion{}-files.tgz} (oder
+\texttt{.zip}) und wechseln Sie in das angelegte neue Verzeichnis
 (im Beispiel wird die Unix-Variante mit \texttt{.tgz} verwendet):
 
 \begin{lstlisting}[language=sh]
+mv veraweb-core-〈\produktversion{}〉.war veraweb.war
 tar -xzf veraweb-core-〈\produktversion{}〉-files.tgz
 cd veraweb-core-〈\produktversion{}〉
 \end{lstlisting}
-
-Benennen Sie die Datei \texttt{veraweb-core-\produktversion{}.war}
-in \texttt{veraweb.war} um.
 
 \subsection{Datenbank VerA.web-core}\label{subsec:setup-core-db}
 
@@ -48,13 +48,21 @@ eingerichtet. Hierbei wird von einer auf der lokalen Maschine im
 Debian-Stil installierten und betriebsbereiten PostgreSQL-Datenbank
 ausgegangen.
 
+Bevor Sie beginnen informieren Sie sich bitte über die LDAP-Kürzel
+(Unix-Loginnamen) der Nutzer, die zunächst einen Administratorenzugang
+zu VerA.web erhalten sollen (idealerweise sollten Sie sich selbst
+ebenfalls einen solchen Zugang einrichten). Diese benötigen wir
+weiter unten.
+
 Legen Sie zunächst, als normaler Benutzer mit \texttt{sudo}-Rechten
 den Datenbankbenutzer und die Datenbank an:
 
 \begin{lstlisting}[language=sh]
 sudo -u postgres createuser --no-superuser --no-createdb --no-createrole --pwprompt veraweb
-sudo -u postgres createdb --encoding=UTF-8 --owner=veraweb veraweb
+sudo -u postgres createdb --encoding=UTF-8 --owner=veraweb --template=template0 veraweb
 \end{lstlisting}
+
+
 
 
 
