@@ -22,25 +22,55 @@
 
 \subsection{Interne Veranstaltungs- und Adreßverwaltung}\label{subsec:req-core}
 
-Eine VM mit mindestens 512 MiB RAM und 512 MiB Swap wird empfohlen.
-Als Betriebssystem legen wir Debian 7 „wheezy“ nahe; die Software
-\emph{kann} jedoch auch mit einer anderen Debian-basierten Distribution
+Zum Betrieb von VerA.web core empfehlen wir eine eigenständige VM
+mit Debian Linux 7 „wheezy“ als Betriebssystem. Zwar \emph{kann}
+die Software auch mit einer anderen Debian-basierten Distribution
 (z.B. Ubuntu 14.04 „trusty“) oder einer anderen Java/Tomcat-Umgebung
-betrieben werden.
+betrieben werden, allerdings geht diese Installationsanleitung von
+der empfohlenen Systemumgebung aus.
 
-An weiterer Software werden Apache 2 mit \texttt{mod\_jk}, Tomcat 7
-mit Java™ 7, sowie eine PostgreSQL-Datenbank benötigt. Auf einem
-Debian 7 „wheezy“-System können Sie diese wie folgt lokal installieren:
+Für VerA.web core benötigen Sie mindestens 512 MiB Arbeitsspeicher;
+1 GiB wird empfohlen. Wir empfehlen mindestens 2 GiB Festplatte,
+besser 8 GiB.
+
+In dieser Anleitung wird weiterhin angenommen, daß der notwendige
+Datenbankserver (PostgreSQL) auf derselben VM wie die interne
+Veranstaltungs- und Adreßverwaltung läuft.
+
+Desweiteren benötigen Sie den Apache 2 Webserver (idealerweise mit
+dem \texttt{prefork} MPM) und \texttt{mod\_jk}, Tomcat 7 mit Java™ 7.
+Wir setzen unsere Systeme üblicherweise aus Sicherheitsgründen so auf,
+daß HTTPS-Verbindungen im Apache Webserver terminiert werden und über
+das AJP-Protokoll von diesem an Tomcat weitergereicht werden. Sämtliche
+SSL/TLS-Keys, -Features und weitere Sicherheitsprüfungen wie z.B. ein
+Paßwortschutz oder Zugangskontrolle richten wir im Apache Webserver ein.
+Sie \emph{können} Tomcat auch direkt über HTTP ansprechen, dies entspricht
+jedoch nicht dem von uns empfohlenen Setup.
+
+Die Installation des Webservers (SSL/TLS-Zertifikat, Zugangskontrollen,
+falls nötig vhosts) liegt außerhalb des Rahmens dieses Dokuments. Es
+wird davon ausgegangen, daß Apache so weit eingerichtet wird, daß er
+statische Webseiten ausliefern kann, und nur die Integration mit dem
+Veranstaltungsmanagement beschrieben.
+
+\begin{minipage}{\textwidth}
+Auf einem Debian 7 „wheezy“-System können Sie diese sowie den
+Datenbankserver wie folgt lokal installieren:
 
 \begin{lstlisting}[language=sh]
-sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 apache2 libapache2-mod-jk
+sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 apache2-mpm-prefork apache2 libapache2-mod-jk
 \end{lstlisting}
+\end{minipage}
 
-Bitte achten Sie darauf, daß keine ältere Version des JDK verwendet wird:
+\begin{minipage}{\textwidth}
+Bitte achten Sie darauf, daß keine ältere Version des JDK verwendet
+wird (hier werden die in „wheezy“ vorhandenen älteren Versionen
+deinstalliert):
 
 \begin{lstlisting}[language=sh]
 sudo apt-get purge openjdk-6-jre-headless gcj-4.6-jdk gcj-4.7-jdk
 \end{lstlisting}
+\end{minipage}
 
 Zur Installation müssen Sie folgende Dateien („die VerA.web-core
 Distribution“) von tarent beziehen:
@@ -48,6 +78,7 @@ Distribution“) von tarent beziehen:
 \begin{itemize}
  \item{\texttt{veraweb-core-\produktversion{}-files.tgz}
   \emph{oder} \texttt{veraweb-core-\produktversion{}-files.zip}}
+  \\(der Inhalt dieser Dateien ist identisch, nur anders verpackt)
  \item{\texttt{veraweb-core-\produktversion{}.war}}
 \end{itemize}
 
