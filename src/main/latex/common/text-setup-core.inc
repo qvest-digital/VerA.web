@@ -18,7 +18,7 @@
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
 %-
-% Textabschnitt 3.1-3.4: Setup VerA.web-core
+% Textabschnitt 3.1-3.5: Setup VerA.web-core
 
 \section{Installation internes VerA.web-System}\label{sec:setup-int}
 
@@ -236,3 +236,58 @@ sudo service apache2 stop
 sudo service apache2 start
 \end{lstlisting}
 \end{minipage}
+
+\subsection{Applikationsserver VerA.web-core}\label{subsec:setup-core-tomcat}
+
+\begin{minipage}{\textwidth}
+Stoppen Sie bitte zunächst den Applikationsserver und löschen
+ggfs. alle vorherigen VerA.web-Webapps:
+
+\begin{lstlisting}[language=sh]
+sudo service tomcat7 stop
+sudo rm -rf /var/lib/tomcat7/webapps/veraweb*
+sudo rm -rf /var/lib/tomcat7/webapps/vwor*
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Nun bearbeiten Sie die Datei \texttt{/etc/tomcat7/server.xml}, um Tomcat
+von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
+und kommentieren ihn aus (eine einfache Suche nach „8080“ findet ihn):
+
+\begin{lstlisting}[language=XML]
+    <Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               URIEncoding="UTF-8"
+               redirectPort="8443" />
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Dann suchen Sie folgenden auskommentierten Abschnitt (ca. 20 Zeilen weiter):
+
+\begin{lstlisting}[language=XML]
+    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+\end{lstlisting}
+
+Entfernen Sie hier die Kommentarzeichen und fügen Sie ein weiteres Attribut
+hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
+
+\begin{lstlisting}[language=XML]
+    <Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Nun können Sie den Server wieder starten und die VerA.web-Anwendung deployen:
+
+\begin{lstlisting}[language=sh]
+sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
+sudo service tomcat7 start
+\end{lstlisting}
+\end{minipage}
+
+Jetzt können Sie z.B. über \texttt{https://veraweb.lan.tarent.de/veraweb/}
+auf das Veranstaltungsmanagement zugreifen und sich einloggen. Falls
+hierbei Fehler auftauchen prüfen Sie bitte den LDAP-Zugriff und eventuell
+in \texttt{/var/log/tomcat7/catalina.out} auftauchende Meldungen.
