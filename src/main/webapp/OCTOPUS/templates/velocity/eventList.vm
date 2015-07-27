@@ -48,12 +48,12 @@
 <div id="content_container">
 	#if($action == "guest" || $searchTask)
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.ZurVeranstaltungssuche">${placeholderWithTranslation.Veranstaltungssuche}</a> > ${placeholderWithTranslation.Suchergebnis}</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.ZurVeranstaltungssuche">${placeholderWithTranslation.Veranstaltungssuche}</a> > ${placeholderWithTranslation.Suchergebnis}</span>
 		</div>
 			<h1>${placeholderWithTranslation.SuchergebnisVeranstaltungen</h1>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungsubersicht}</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungsubersicht}</span>
 		</div>
 			<h1>${placeholderWithTranslation.Veranstaltungsubersicht}</h1>
 	#end

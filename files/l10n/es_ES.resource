@@ -2,7 +2,7 @@ language=Espa\u00F1ol
 
 #Administration/Anreden
 Anreden=Tratamientos
-MarkierteAnrede(n)=Tratamiento(s) seleccionado(s)
+MarkierteAnrede=Tratamiento(s) seleccionado(s)
 ID=ID
 Stammform=Descripci\u00F3n
 Geschlecht=Sexo
@@ -19,7 +19,7 @@ EsexistiertbereitseinStammdaten-EintragunterdemNamen=Ya existe un tratamiento de
 
 #Administration/Arbeitsbereiche
 Arbeitsbereiche=\u00C1reas de trabajo
-Markierte(n)Arbeitsbereich(e)=\u00C1rea (s) de trabajo seleccionada (s)
+Markierte=\u00C1rea (s) de trabajo seleccionada (s)
 Arbeitsbereiche=\u00C1rea de trabajo
 EswurdenkeineDatengefunden=No se han encontrado datos
 EswurdeeinneuerArbeitsbereichangelegt=\u00C1rea de trabajo creada satisfactoriamente
@@ -40,7 +40,7 @@ Siem\u00fc\u00dfeneineBenutzerrollenbezeichnungeingeben=Debe ingresar un papel e
 Hinweis=Nota
 Format:OOo1.1stehtf\u00fcrOpenOffice1.1(sxc-Datei)undOOo2.0f\u00fcrOpenOffice2.0(ods-Datei),xlsstehtf\u00fcrMicrosoftOfficeKennzeichen:Kennz.50und99werdenautom.neuenVeranstaltungenhinzugef\u00fcgt.BeimKennz.50wirdkeinFreitextfelderzeugt.(xls-Datei)undCSVstehtf\u00fcrCSV-Dateiformat.=Formato: OOo 1.1 es 2.0 para OpenOffice 2.0 (archivo ODS), XLS significa Microsoft Office (archivo XLS) y CSV significa formato de archivo CSV para OpenOffice 1.1 (archivo SXC) y OOo.
 Kennzeichen:Kennz.50und99werdenautom.neuenVeranstaltungenhinzugef\u00fcgt.BeimKennz.50wirdkeinFreitextfelderzeugt.=Placa :. Banderas 50 y 99 son autom\u00E1ticas. nuevos eventos a\u00F1adidos. En ref. 50 no se genera un campo de texto libre.
-Markierte(n)Dokumenttyp(en)=Marcado (n) el tipo de documento (s)
+Markierte=Marcado (n) el tipo de documento (s)
 Bezeichnung*=Descripci\u00F3n *
 Adre\u00df-Typ=Tipo De Direcci\u00F3n
 Zeichensatz=Charset
@@ -73,7 +73,7 @@ Fehlerbeschreibung:=Descripci\u00F3n del error:
 
 #Administration/E-Mail-Vorlagen
 E-Mail-Vorlagen=Las plantillas de correo electr\u00F3nico
-MarkierteVorlage(n)=Documento seleccionado (s)
+MarkierteVorlage=Documento seleccionado (s)
 NeueVorlageanlegen=Creaci\u00F3n de una nueva plantilla
 NamederVorlage=Nombre de la plantilla
 EswurdeeineneueVorlageangelegt.=No se crea una nueva plantilla.
@@ -85,7 +85,7 @@ Zur\u00fcckzurVorlagenliste=Back to Original List
 #Administration/Farben
 Farben=Colores
 Bezeichnung*=designaci\u00F3n*
-Farbwert(RGB)=cromaticidad (R V A)
+Farbwert=cromaticidad (R V A)
 Inland:Ja-Geschlecht:Weiblich=Interno S\u00ED - G\u00E9nero: Mujer
 Inland:Ja-Geschlecht:M\u00e4nnlich=Interno S\u00ED - Sexo: Masculino
 Inland:Nein-Geschlecht:Weiblich=Interno: No - G\u00E9nero: Mujer
@@ -93,17 +93,17 @@ Inland:Nein-Geschlecht:M\u00e4nnlich=Interno: No - Sexo: Masculino
 
 #Administration/Funktionen/Amtsbezeichnungen
 Funktionen/Amtsbezeichnungen=Caracter\u00EDsticas / t\u00EDtulos oficiales
-MarkierteBezeichnung(e)=Nombre (s) Marcado
+MarkierteBezeichnung=Nombre (s) Marcado
 Bezeichnung=designaci\u00F3n
 EswurdeeineneueFunktion/Amtsbezeichnungangelegt.=Se ha creado una nueva funci\u00F3n / posici\u00F3n.
 EswurdeeineFunktion/Amtsbezeichnunggel\u00f6scht.=Ha sido borrada y una funci\u00F3n / posici\u00F3n.
 
 #Administration/Kategorien
 Kategorien=Categor\u00EDas
-MarkierteKategorie(n)=Categor\u00EDa seleccionada (s)
+MarkierteKategorie=Categor\u00EDa seleccionada (s)
 Kennzeichen=signo distintivo
 Rang=rango
-Veranstaltung(en)=Evento (s)
+Veranstaltung=Evento (s)
 Kategorie=categor\u00EDa
 Ereignis=evento
 
@@ -193,7 +193,7 @@ G\u00fcltigbis=Fecha de expiraci\u00F3n
 KeineDatengefunden.=Datos no encontrados.
 
 #Administration/Veranstaltungsorte
-Markierte(n)Veranstaltungsort(e)=Marcado (s) Lugar (s)
+Markierte=Marcado (s) Lugar (s)
 NeuenVeranstaltungsorthinzuf\u00fcgen=Crear Nuevo Evento
 ID=ID
 Bezeichnung=designaci\u00F3n
@@ -244,7 +244,7 @@ G\u00fcltigkeitsfilter=filtros de validez
 alleVertretungen=Todas las misiones
 keineabgelaufenenVertretungen=no hay misiones anteriores
 nuraktuelleVertretungen=s\u00F3lo misiones actuales
-MarkierteVertretung(en)=Representaci\u00F3n marcada ( s )
+MarkierteVertretung=Representaci\u00F3n marcada ( s )
 L\u00e4schen=borrar
 ID=identificaci\u00F3n
 Vertreter*=Representantes *
@@ -280,7 +280,6 @@ E-Mail:=Email:
 nichtverf\u00fcgbar=no disponible
 
 #Allgemein
-Siesindhier:=Ellos est\u00E1n aqu\u00ED:
 Ja=s\u00ED
 Nein=no
 Home=hogar
@@ -292,11 +291,11 @@ Arbeitsbereich=Espacio de trabajo
 Nachname=apellido
 Vorname=nombre
 Amtsbezeichnung=t\u00EDtulo oficial
-Firma/Institution(G)=Empresa / Instituci\u00F3n (G )
-Stra\u00dfe(G)=Road ( G)
-PLZ(G)=ZIP ( G)
-Ort(G)=Lugar ( G)
-MarkiertePerson(en)=Marcada persona ( s )
+Firma/Institution=Empresa / Instituci\u00F3n (G )
+Stra\u00dfe=Road ( G)
+PLZ=ZIP ( G)
+Ort=Lugar ( G)
+MarkiertePerson=Marcada persona ( s )
 L\u00e4schen=borrar
 Expotieren=animales Expo
 Kategorienzuordnen=Asignar categor\u00EDas
@@ -321,17 +320,17 @@ Datenherkunft=RecordSource
 Person=persona
 
 #Dateityp
-CSV(Comma-Separated-Values)=CSV ( valores separados por comas )
-XML(VerA.web-XML)=XML ( VerA.web - XML)
-ZKM(VerA.web-XML\u00fcberdasZentraleKommunikationsmodul)=ZKM ( VerA.web en XML a trav\u00E9s del m\u00F3dulo de comunicaci\u00F3n central )
-MAdLAN-Personen(MAdLAN-Personen-Import)=Persona MAdLAN ( MAdLAN persona Importaci\u00F3n )
-MAdLAN-Firmen(MAdLAN-Firmen-Import)=MAdLAN empresas ( empresas MAdLAN importan )
-X-Manage-CSV(X-ManageKontakte)=X - gestionar CSV (X - Administrar contactos )
-CSVPersdat+Anschrift+Doktyp(Comma-Separated-Values)=CSVPersdat + Direcci\u00F3n + DocType ( valores separados por comas )
-CSVPersdat+Doktyp(Comma-Separated-Values)=CSVPersdat + DocType ( valores separados por comas )
-CSVPersdat+Doktyp1.0(Comma-Separated-Values)=CSVPersdat + DocType 1,0 ( valores separados por comas )
-CSVPersdat+Kategorien(Comma-Separated-Values)=CSVPersdat + categor\u00EDas ( valores separados por comas )
-CSV-ISO-8859-15(Im-/ExportISO-8859-15)=CSV ISO- 8859-15 (importaci\u00F3n / exportaci\u00F3n ISO- 8859-15 )
+CSV=CSV ( valores separados por comas )
+XML=XML ( VerA.web - XML)
+ZKM=ZKM ( VerA.web en XML a trav\u00E9s del m\u00F3dulo de comunicaci\u00F3n central )
+MAdLAN-Personen=Persona MAdLAN ( MAdLAN persona Importaci\u00F3n )
+MAdLAN-Firmen=MAdLAN empresas ( empresas MAdLAN importan )
+X-Manage-CSV=X - gestionar CSV (X - Administrar contactos )
+CSVPersdat+Anschrift+Doktyp=CSVPersdat + Direcci\u00F3n + DocType ( valores separados por comas )
+CSVPersdat+Doktyp=CSVPersdat + DocType ( valores separados por comas )
+CSVPersdat+Doktyp1.0=CSVPersdat + DocType 1,0 ( valores separados por comas )
+CSVPersdat+Kategorien=CSVPersdat + categor\u00EDas ( valores separados por comas )
+CSV-ISO-8859-15=CSV ISO- 8859-15 (importaci\u00F3n / exportaci\u00F3n ISO- 8859-15 )
 
 #Personen/Personen\u00fcbersicht
 Personen\u00fcbersicht=Visi\u00F3n general de Personas
@@ -626,7 +625,7 @@ neuekategoriehinzuf\u00fcgen=Agregar una nueva categor\u00EDa
 
 #veranstaltung\u00dfuche
 suche=b\u00FAsqueda
-datum(beginn)=Fecha (inicio)
+datum=Fecha (inicio)
 nurinzuk\u00fcnftigenveranstaltungensuchen=Buscar s\u00F3lo en eventos futuros
 siek\u00e4nnenbeidersuchesogenannteplatzhalterverwenden,der+stehtf\u00fcrmehreredas?f\u00fcreinzelne=Usted puede utilizar en la b\u00FAsqueda de la llamada marcador de posici\u00F3n + representa el n\u00FAmero? para el individuo
 
@@ -724,11 +723,11 @@ zeichensatz=charset
 datenbearbeiten=Editar informaci\u00F3n
 verbinder=conector
 freitextfeld=campo de texto libre
-freitextfeld(Partner)=campo de texto libre (Socio )
-anrede(Partner)=Tratamiento (Socio )
-Aka.titel(Partner)=Aka . T\u00EDtulo (Socio )
-vorname(Partner)=Nombre (Socio )
-nachname(Partner)=Nombre (Socio )
+freitextfeld=campo de texto libre (Socio )
+anrede=Tratamiento (Socio )
+Aka.titel=Aka . T\u00EDtulo (Socio )
+vorname=Nombre (Socio )
+nachname=Nombre (Socio )
 kontaktdaten=contacto
 stra\u00dfe=calle
 plz=c\u00F3digo postal

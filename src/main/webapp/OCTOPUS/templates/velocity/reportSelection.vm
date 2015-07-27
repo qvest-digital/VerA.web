@@ -4,7 +4,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungbearbeiten}</span>
+    	<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungbearbeiten}</span>
     </div>
     <h1>${placeholderWithTranslation.GaesteverwaltungderVeranstaltung} $!message.plain($event.shortname)</h1>
 

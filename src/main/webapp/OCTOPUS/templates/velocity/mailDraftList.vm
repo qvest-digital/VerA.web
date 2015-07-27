@@ -19,7 +19,7 @@
         <input type="hidden" name="doRemove" value="true"/>
 
         <div class="textRight marginBottom10" id="breadcrumb">
-            <strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.EMailVorlage}</span>
+            <strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.EMailVorlage}</span>
         </div>
 
         <h1>${placeholderWithTranslation.EMailVorlage}</h1>

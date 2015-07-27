@@ -25,7 +25,7 @@
     #end
 
     	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.Siesindhier}:</strong> <span>${placeholderWithTranslation.Home}</span>
+    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span>${placeholderWithTranslation.Home}</span>
     	</div>
 
     <h1 class="marginTop25">${placeholderWithTranslation.WillkommenbeiVerAweb}</h1>

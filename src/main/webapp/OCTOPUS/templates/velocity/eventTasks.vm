@@ -22,7 +22,7 @@
 
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungbearbeiten}</span>
+		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungbearbeiten}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.Veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>

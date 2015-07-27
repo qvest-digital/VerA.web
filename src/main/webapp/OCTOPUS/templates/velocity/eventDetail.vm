@@ -15,12 +15,12 @@
 <div id="content_container">
 	#if($event && $event.id)
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungearbeiten}</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungearbeiten}</span>
 		</div>
 			<h1>${placeholderWithTranslation.Veranstaltungearbeiten} $!message.plain($event.shortname)</h1>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.NeueVeranstaltung}</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.NeueVeranstaltung}</span>
 		</div>
 			<h1>${placeholderWithTranslation.NeueVeranstaltunganlegen}</h1>
 	#end

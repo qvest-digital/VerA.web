@@ -6,7 +6,7 @@
 	<form action="UserConfig" method="POST">
 
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Verwaltung} > ${placeholderWithTranslation.Einstellungen}</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Verwaltung} > ${placeholderWithTranslation.Einstellungen}</span>
 		</div>
 
 		<h1>${placeholderWithTranslation.Einstellungen}</h1>

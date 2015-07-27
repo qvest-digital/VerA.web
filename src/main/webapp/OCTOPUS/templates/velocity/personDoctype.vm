@@ -19,7 +19,7 @@
 #set($searchTask = $octopusRequest.searchTask)
 
 <div id="breadcrumb" class="textRight marginBottom10">
-    <strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Personen} > #if($person && $person.id)${placeholderWithTranslation.Personbearbeiten}#else ${placeholderWithTranslation.Personanlegen}#end</span>
+    <strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Personen} > #if($person && $person.id)${placeholderWithTranslation.Personbearbeiten}#else ${placeholderWithTranslation.Personanlegen}#end</span>
 </div>
 
 <h1>$title</h1>

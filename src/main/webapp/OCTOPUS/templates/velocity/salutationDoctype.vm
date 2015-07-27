@@ -10,7 +10,7 @@
     <div id="content_container">
 
     	<div id="breadcrumb marginBottom10" class="textRight">
-    		<strong>${placeholderWithTranslation.Siesindhier}:</strong> <span><a href="index.html">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration}> ${placeholderWithTranslation.Anreden}/span>
+    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="index.html">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration}> ${placeholderWithTranslation.Anreden}/span>
     	</div>
 
     	<h1>${placeholderWithTranslation.Anreden}</h1>

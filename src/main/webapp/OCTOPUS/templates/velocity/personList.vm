@@ -129,17 +129,17 @@
 <div id="content_container">
 	#if($action == "host")
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
 		</div>
 		<h1>$title</h1>
 	#elseif($searchTask && $searchTask == "personSearchTask")
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
 		</div>
 		<h1>$title</h1>
 	#elseif($action == "taskReferencePerson")
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
 		</div>
 		<h1>$title</h1>
 
@@ -153,7 +153,7 @@
 
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.personen} > $title</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.personen} > $title</span>
 		</div>
 		<h1>$title</h1>
 		#if($title == "Dublettensuche")
@@ -900,7 +900,7 @@ function submitFormWithGivenAction(action) {
 							<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">${placeholderWithTranslation.Arbeitsbereich}</a></th>
 							<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.Nachname}</a></th>
 							<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.Vorname}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.Amtsbeshyzeichnung}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.Amtsbezeichnung}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.FirmaInstitutionG}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.StrasseG}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.PLZG}</a></th>
@@ -946,7 +946,7 @@ function submitFormWithGivenAction(action) {
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.Amtsbeshyzeichnung}
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.Amtsbezeichnung}
 								#if($personSearchField == 'function_a_e1')
 										#if ($personSearchOrder == 'ASC')
 											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>

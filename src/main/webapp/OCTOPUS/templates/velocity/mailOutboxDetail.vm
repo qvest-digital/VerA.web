@@ -15,7 +15,7 @@
         <input type="hidden" name="save" value="true"/>
 
         <div id="breadcrumb marginBottom10" class="textRight">
-    		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.Postausgang}</span>
+    		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.Postausgang}</span>
     	</div>
 
 		<h1>${placeholderWithTranslation.Postausgang}</h1>

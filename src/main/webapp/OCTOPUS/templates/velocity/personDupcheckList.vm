@@ -59,7 +59,7 @@
 
 
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Personen} > ${placeholderWithTranslation.Dublettensuche}</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Personen} > ${placeholderWithTranslation.Dublettensuche}</span>
 		</div>
 
 		<vera-info>
