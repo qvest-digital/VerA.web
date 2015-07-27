@@ -106,6 +106,10 @@ die Dateien aus dem Archiv mit den installierten Dateien, z.B. mit
 \texttt{diff -u} oder einem graphischen Tool, um festzustellen, ob
 Sie überhaupt Änderungen durchführen müssen, und wenn ja, welche.
 
+Die Datei \texttt{config\_ldap\_access.xml} wurde in manchen
+Versionen als \texttt{config\_ldap\_access.xml.dist} und/oder
+als separater Download angeboten.
+
 \subsection{Datenbank VerA.web-core}\label{subsec:upgrade-core-db}
 
 \begin{minipage}{\textwidth}
@@ -140,6 +144,10 @@ sudo service tomcat7 stop
 sudo rm -rf /var/lib/tomcat7/webapps/veraweb*
 sudo rm -rf /var/lib/tomcat7/webapps/vwor*
 \end{lstlisting}
+
+Bitte beachten Sie, daß der Tomcat-Dienst ggfs. noch einige Sekunden
+weiterläuft, nachdem der Stop-Befehl abgeschickt wurde; im Zweifelsfalls
+können Sie mit \texttt{ps ax | grep java} prüfen, ob noch Prozesse laufen.
 \end{minipage}
 
 \begin{minipage}{\textwidth}
