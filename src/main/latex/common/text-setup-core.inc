@@ -53,6 +53,11 @@ sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
 \end{lstlisting}
 \end{minipage}
 
+Die weiteren Dateien werden im folgenden verwendet. Falls Sie möchten
+können Sie bereits das Benutzerhandbuch (\texttt{Benutzerhandbuch.pdf})
+dem Nutzerkreis zukommen lassen; es ist jedoch auch als Online-Hilfe
+während der Benutzung von VerA.web jederzeit durch einen Klick erreichbar.
+
 \subsection{Datenbank VerA.web-core}\label{subsec:setup-core-db}
 
 Im folgenden Abschnitt wird die Datenbank für VerA.web mit dem
@@ -64,8 +69,7 @@ ausgegangen.
 Bevor Sie beginnen informieren Sie sich bitte über die LDAP-Kürzel
 (Unix-Loginnamen) der Nutzer, die zunächst einen Administratorenzugang
 zu VerA.web erhalten sollen (idealerweise sollten Sie sich selbst
-ebenfalls einen solchen Zugang einrichten). Diese benötigen wir
-weiter unten.
+ebenfalls einen solchen Zugang einrichten). Diese benötigen wir später.
 
 \begin{minipage}{\textwidth}
 Legen Sie zunächst den Datenbankbenutzer und die Datenbank an:
