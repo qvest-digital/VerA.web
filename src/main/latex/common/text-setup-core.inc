@@ -33,8 +33,8 @@ Entpacken Sie die Datei \texttt{veraweb-core-\produktversion{}-files.tgz}
 (im Beispiel wird die Unix-Variante mit \texttt{.tgz} verwendet):
 
 \begin{lstlisting}[language=sh]
-tar -xzf veraweb-core-\produktversion{}-files.tgz
-cd veraweb-core-\produktversion{}
+tar -xzf veraweb-core-〈\produktversion{}〉-files.tgz
+cd veraweb-core-〈\produktversion{}〉
 \end{lstlisting}
 
 Benennen Sie die Datei \texttt{veraweb-core-\produktversion{}.war}
