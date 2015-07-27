@@ -104,8 +104,8 @@ ebenfalls einen solchen Zugang einrichten). Diese benötigen wir später.
 Legen Sie zunächst den Datenbankbenutzer und die Datenbank an:
 
 \begin{lstlisting}[language=sh]
-sudo -u postgres createuser --no-superuser --no-createdb --no-createrole --pwprompt veraweb
-sudo -u postgres createdb --encoding=UTF-8 --owner=veraweb --template=template0 veraweb
+sudo -u postgres createuser -D -P -R -S veraweb
+sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
 \end{lstlisting}
 \end{minipage}
 
@@ -162,7 +162,8 @@ agieren sollen, bekanntgeben. Setzen Sie hierzu für jeden Benutzer eine
 Zeile entsprechend der folgenden ab (\texttt{vnnnnn} sei das LDAP-Kürzel):
 
 \begin{lstlisting}[language=SQL]
-INSERT INTO veraweb.tuser (fk_orgunit, username, role) VALUES (NULL, 'vnnnnn', 5);
+INSERT INTO veraweb.tuser (fk_orgunit, username, role)
+    VALUES (NULL, 'vnnnnn', 5);
 \end{lstlisting}
 \end{minipage}
 
