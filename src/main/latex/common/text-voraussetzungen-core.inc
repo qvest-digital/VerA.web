@@ -39,6 +39,19 @@ Veranstaltungs- und Adreßverwaltung läuft.
 
 Desweiteren benötigen Sie den Apache 2 Webserver (idealerweise mit
 dem \texttt{prefork} MPM) und \texttt{mod\_jk}, Tomcat 7 mit Java™ 7.
+Wir setzen unsere Systeme üblicherweise aus Sicherheitsgründen so auf,
+daß HTTPS-Verbindungen im Apache Webserver terminiert werden und über
+das AJP-Protokoll von diesem an Tomcat weitergereicht werden. Sämtliche
+SSL/TLS-Keys, -Features und weitere Sicherheitsprüfungen wie z.B. ein
+Paßwortschutz oder Zugangskontrolle richten wir im Apache Webserver ein.
+Sie \emph{können} Tomcat auch direkt über HTTP ansprechen, dies entspricht
+jedoch nicht dem von uns empfohlenen Setup.
+
+Die Installation des Webservers (SSL/TLS-Zertifikat, Zugangskontrollen,
+falls nötig vhosts) liegt außerhalb des Rahmens dieses Dokuments. Es
+wird davon ausgegangen, daß Apache so weit eingerichtet wird, daß er
+statische Webseiten ausliefern kann, und nur die Integration mit dem
+Veranstaltungsmanagement beschrieben.
 
 \begin{minipage}{\textwidth}
 Auf einem Debian 7 „wheezy“-System können Sie diese sowie den
