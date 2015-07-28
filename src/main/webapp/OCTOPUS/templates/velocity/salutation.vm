@@ -60,7 +60,7 @@
             						<th class="smallCell textCenter"><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end></th>
             						<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
             						<th>Stammform</th>
-            						<th class="textCenter width10">${placeholderWithTranslation.geschlecht}</th>
+            						<th class="textCenter width10">${placeholderWithTranslation.GENERIC_GENDER}</th>
             						<th class="smallCell textCenter">${placeholderWithTranslation.bearbeiten}</th>
             					</tr>
 
@@ -84,7 +84,7 @@
                                 		<td>
                                 			<select name="${bean.id}-gender"  style="width: 97%;" onchange="setModified('$!bean.id')">
                                 				<option value="M">M&auml;nnlich</option>
-                                				<option value="F" #if($bean.gender && $bean.gender == "F") selected#end>${placeholderWithTranslation.weiblich}</option>
+                                				<option value="F" #if($bean.gender && $bean.gender == "F") selected#end>${placeholderWithTranslation.GENERIC_GENDER_FEMALE}</option>
                                 			</select>
                                 		</td>
                                 		<td class="textCenter"><a href="SalutationDoctype?start=0&id=${bean.id}" class="noBorder"><img src=" ${paths.staticWeb}images/edit.png" alt="bearbeiten" title="bearbeiten" /></a></td>
@@ -109,7 +109,7 @@
                             ##Rueckfrage beim Loeschen
                             <script type="text/javascript">
                             function askDelete() {
-                            	htmlConfirm(' ${placeholderWithTranslation.wirklichloumlschen} ', new Array(' ${placeholderWithTranslation.ja} ', ' ${placeholderWithTranslation.nein} '), new Array("askDeleteYes();", "askDeleteNo();"));
+                            	htmlConfirm(' ${placeholderWithTranslation.wirklichloumlschen} ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("askDeleteYes();", "askDeleteNo();"));
                             }
                             function askDeleteYes() {
                             	hideDialogs();

@@ -56,12 +56,12 @@
 
 #if($osiam-user-created)
 	<vera-success>
-		Die Anmeldedaten wurden erfolgreich erzeugt.
+		${placeholderWithTranslation.MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL}
 	</vera-success>
 #end
 #if ($osiam-user-exists)
 	<vera-warn>
-		Anmeldedaten für diese Person sind bereits vorhanden.
+		${placeholderWithTranslation.MESSAGE_OSIAM_LOGIN_DATA_EXIST}
 	</vera-warn>
 #end
 	<div id="buttonPanel-top" class="textRight marginBottom10">

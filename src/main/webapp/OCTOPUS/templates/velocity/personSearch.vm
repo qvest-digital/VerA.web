@@ -1,27 +1,27 @@
 
 #if($action == "guest")
-	#set($activeMenu = "${placeholderWithTranslation.veranstaltungen}")
+	#set($activeMenu = "Veranstaltungen")
 	#set($title = "${placeholderWithTranslation.gastsuchenveranstaltung} $!message.plain($event.shortname)")
 #elseif($action == "host")
-	#set($activeMenu = "${placeholderWithTranslation.veranstaltungen}")
+	#set($activeMenu = "Veranstaltungen")
     #set($title = "${placeholderWithTranslation.gastsuchenveranstaltung} $!message.plain($event.shortname)")
 #elseif($action == "statistikGuest")
-	#set($activeMenu = "${placeholderWithTranslation.veranstaltungen}")
+	#set($activeMenu = "Veranstaltungen")
     #set($title = "${placeholderWithTranslation.gastsuchen}")
 #elseif($action == "statistikHost")
-	#set($activeMenu = "${placeholderWithTranslation.veranstaltungen}")
+	#set($activeMenu = "Veranstaltungen")
     #set($title = "Gastgeber suchen")
 #elseif($action == "taskReferencePerson")
-	#set($activeMenu = "${placeholderWithTranslation.veranstaltungen}")
+	#set($activeMenu = "Veranstaltungen")
     #set($title = "${placeholderWithTranslation.verantwortlichenfueraufgabesuchen}")
 #else
-	#set($activeMenu = "${placeholderWithTranslation.personen}")
+	#set($activeMenu = "Personen")
     #set($title = "${placeholderWithTranslation.personsuchen}")
 #end
 
 #set($elementNameSex = "female")
 #set($elementNameSingular = "${placeholderWithTranslation.person}")
-#set($elementNamePlural = ${placeholderWithTranslation."personen}")
+#set($elementNamePlural = "${placeholderWithTranslation.personen}")
 #parse("inc/header.vm")
 
 #if($action == "guest")
@@ -40,25 +40,25 @@
 
 	#if($action == "host")
     	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.gastgeberhinzufuegen}</span>
+    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.gastgeberhinzufuegen}</span>
     	</div>
 
-    	<h1>${placeholderWithTranslation.personensuche:gastgeberhinzufuegen}</h1>
+    	<h1>${placeholderWithTranslation.personensuchegastgeberhinzufugen}</h1>
 	#elseif($action == "guest")
     	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.gasthinzufuegen}</span>
+    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.gasthinzufuegen}</span>
     	</div>
 
-    	<h1>${placeholderWithTranslation.personensuchegasthinzufügen}</h1>
+    	<h1>${placeholderWithTranslation.personensuchegasthinzufugen}</h1>
 	#elseif($action == "taskReferencePerson")
     	<div id="breadcrumb" class="textRight marginBottom10">
     		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Verantwortlichen hinzufügen</span>
     	</div>
 
-    	<h1>Personensuche: Verantwortlichen für Aufgabe hinzufügen</h1>
+    	<h1>${placeholderWithTranslation.personensuche} ${placeholderWithTranslation.verantwortlichenfueraufgabehinzufugen}</h1>
 	#else
         <div id="breadcrumb" class="textRight marginBottom10">
-            <strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > ${placeholderWithTranslation.personensuche}</span>
+            <strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > ${placeholderWithTranslation.personensuche}</span>
         </div>
 
         <h1>${placeholderWithTranslation.personensuche}</h1>
@@ -198,7 +198,7 @@
                             <input type="text" name="importsource" id="importsource" value="$!message.text($search.importsource)"  />
                         </div>
                         <div class="tableCell width30">
-                            <label for="validtype">${placeholderWithTranslation.gültigkeitsdatum}</label>
+                            <label for="validtype">${placeholderWithTranslation.gultigkeitsdatum}</label>
                             <select name="validtype" id="validtype" >
                                 <option value="1" #if($search.validtype == 1) selected #end>${placeholderWithTranslation.biszudiesemdatum}</option>
                                 <option value="2" #if($search.validtype == 2) selected #end>${placeholderWithTranslation.abdiesemdatum}</option>
@@ -255,8 +255,8 @@
         </form>
     </div>
     <vera-info vera-stay>
-        ${placeholderWithTranslation.siekönnenbeidersuchesogenannteplatzhalterverwendenderstehtfürmehrereunddasfüreinzelnezeichen} <br/>
-        ${placeholderWithTranslation.diesucheauchdiemehrfachsuchenachkategorienummehrerekategorienauszuwählenhaltensiebittediemaustastegedrücktundziehensiedenmauszeigerueberdieindersuchezuberücksichtigendenkategorienalternativkönnensiebeigedrückterstrgtastemitderlinkenmaustasteaufdiezuberücksichtigendenkategorienklickenbeachtensiebittedassdiebeidenpseudokategorienalleundkeinenichtzusammenmitanderenkategorienausgewähltwerdenkönnen}
+        ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen} <br/>
+        ${placeholderWithTranslation.HINT_SEARCH_MULTIPLE}
     </vera-info>
 </div>
 

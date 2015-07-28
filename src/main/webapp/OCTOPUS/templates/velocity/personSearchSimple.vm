@@ -42,7 +42,7 @@
     </div>
     <vera-info vera-stay>
 	    ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen}. <br/>
-        ${placeholderWithTranslation.diesucheerfolgtimvornamennachnamenortplzstrassefirmainstitutiontelefonfaxmobilemailbemerkungenkategorienarbeitsbereiche}<br/>
+        ${placeholderWithTranslation.HINT_SEARCH_WHERE}<br/>
 		${placeholderWithTranslation.undamtsbezeichnungfunktion}.
     </vera-info>
 </div>

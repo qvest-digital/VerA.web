@@ -15,12 +15,12 @@
 <div id="content_container">
 	#if($event && $event.id)
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungearbeiten}</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungearbeiten}</span>
 		</div>
 			<h1>${placeholderWithTranslation.veranstaltungearbeiten} $!message.plain($event.shortname)</h1>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.neueveranstaltung}</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.neueveranstaltung}</span>
 		</div>
 			<h1>${placeholderWithTranslation.neueveranstaltunganlegen}</h1>
 	#end
@@ -62,9 +62,9 @@
 				</table><br>
 
 				#if($save)
-					<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.ja}" title="${placeholderWithTranslation.speichern}">
+					<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" title="${placeholderWithTranslation.speichern}">
 				#end
-				<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.nein}" onclick="window.location.href='ShowEvent?id=$!event.id';">
+				<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" onclick="window.location.href='ShowEvent?id=$!event.id';">
 			</div>
 
 		#end
@@ -128,7 +128,7 @@
 
 							<div class="tableRow">
 								<div class="tableCell width50">
-									<label for="event-eventname">${placeholderWithTranslation.genreic_name}</label>
+									<label for="event-eventname">${placeholderWithTranslation.GENERIC_NAME}</label>
 									<textarea onchange="setModified();" id="event-eventname" name="event-eventname" cols="20" rows="4">$!message.textarea($event.eventname)</textarea>
 								</div>
 
@@ -240,7 +240,7 @@
 											} else {
 												select.options[select.length] = new Option(city, city, false, true);
 												#if($grants.isAdmin() || $grants.isPartialAdmin())
-												htmlConfirm(' ${placeholderWithTranslation.sollendiestammdatenumdiesenorterweitertwerden} ', new Array(' ${placeholderWithTranslation.ja} ', ' ${placeholderWithTranslation.nein} '), new Array("addCityYes();", "addCityNo();"));
+												htmlConfirm(' ${placeholderWithTranslation.sollendiestammdatenumdiesenorterweitertwerden} ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("addCityYes();", "addCityNo();"));
 												#else
 												addCityNo();
 												#end

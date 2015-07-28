@@ -12,7 +12,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.veranstaltungsorte}</span>
+		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.veranstaltungsorte}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.veranstaltungsorte}</h1>
@@ -47,9 +47,9 @@
 			</table><br>
 
 			#if($save)
-			<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.ja}" title="${placeholderWithTranslation.speichern}"> &nbsp;
+			<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" title="${placeholderWithTranslation.speichern}"> &nbsp;
 			#end
-			<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.nein}" onclick="window.location.href='CreateLocation?id=$!$locationtId';"> &nbsp;
+			<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" onclick="window.location.href='CreateLocation?id=$!$locationtId';"> &nbsp;
 		</vera-confirm>
 		#end
 

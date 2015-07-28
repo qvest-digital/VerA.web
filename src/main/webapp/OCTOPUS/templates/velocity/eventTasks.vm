@@ -22,7 +22,7 @@
 
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
@@ -103,9 +103,9 @@
 						#end
 					</ul><br>
 					#if($save)
-					<input type="submit" name="remove" value="${placeholderWithTranslation.ja}" title="${placeholderWithTranslation.ausgewahlteeintrageloschen}">
+					<input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" title="${placeholderWithTranslation.ausgewahlteeintrageloschen}">
 					#end
-					<input type="button" name="cancel" value="${placeholderWithTranslation.nein}" onclick="window.location.href='ShowEventTasks?id=$!id&selectNone=true'"> &nbsp;
+					<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" onclick="window.location.href='ShowEventTasks?id=$!id&selectNone=true'"> &nbsp;
 				</vera-confirm>
 				#end
 

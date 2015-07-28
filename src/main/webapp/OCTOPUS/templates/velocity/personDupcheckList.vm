@@ -1,4 +1,4 @@
-#set($activeMenu = "${placeholderWithTranslation.personen}")
+#set($activeMenu = "Personen")
 #set($title = "${placeholderWithTranslation.personspeicherndublettenpruefung}")
 #set($elementNameSex = "female")
 #set($elementNameSingular = "${placeholderWithTranslation.person}")
@@ -59,11 +59,11 @@
 
 
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > ${placeholderWithTranslation.dublettensuche}</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > ${placeholderWithTranslation.dublettensuche}</span>
 		</div>
 
 		<vera-info>
-			${placeholderWithTranslation.beachtensiedassaemitaeoemitoeümitueundssmitssverglichenwird}<br />
+			${placeholderWithTranslation.DUPCHECK_UMLAUTS_WARNING}<br />
 		</vera-info>
 
 		<h1 class="paddingTop20">Vorhandene Dubletten</h1>
@@ -85,7 +85,7 @@
 
 			<tr>
 				<th class="smallCell textCenter">ID</th>
-				<th>${placeholderWithTranslation.genreic_name}</th>
+				<th>${placeholderWithTranslation.GENERIC_NAME}</th>
 				<th>Vorname</th>
 				<th>Amtsbezeichnung</th>
 				<th>Firma / Institution (G)</th>

@@ -20,7 +20,7 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.personen} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.personenimport}</a> > ${placeholderWithTranslation.importstatus}</span>
+		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.personen} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.personenimport}</a> > ${placeholderWithTranslation.importstatus}</span>
 	</div>
 	<h1>${placeholderWithTranslation.importstatusvorhandenedublettenbearbeiten}</h1>
 
@@ -45,7 +45,7 @@
 
 		<span id="actionPanel" class="inlineLabel">
 			<label>${placeholderWithTranslation.markiertepersonen}
-				<input type="submit" name="save" type="button" value="${placeholderWithTranslation.alsdubletteubernehmen" title="${placeholderwithtranslation.markiertepersonenalsdubletteubernehmen}"/>
+				<input type="submit" name="save" type="button" value="${placeholderWithTranslation.alsdubletteubernehmen" title="${placeholderWithTranslation.markiertepersonenalsdubletteubernehmen}"/>
 			</label>
 		</span>
 
@@ -71,7 +71,7 @@
 					<tr>
 						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end title="${placeholderWithTranslation.platzhalter}Alle (de)markieren"/></th>
 						<th>${placeholderWithTranslation.id}</th>
-						<th>${placeholderWithTranslation.genreic_name}</th>
+						<th>${placeholderWithTranslation.GENERIC_NAME}</th>
 						<th>${placeholderWithTranslation.vorname}</th>
 						<th>${placeholderWithTranslation.amtsbezeichnung}</th>
 						<th>${placeholderWithTranslation.firmainstitution}</th>

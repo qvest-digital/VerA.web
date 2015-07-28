@@ -547,7 +547,7 @@ veranstaltungsorte=Lugares
 #Veranstaltungs\u00fcbersicht
 veranstaltungs\u00fcbersicht=Evento Informaci\u00F3n general
 id=ID
-GENREIC_NAME=nombre
+GENERIC_NAME=nombre
 beginn=comenzando
 ende=fin
 gastgeber=anfitri\u00F3n
@@ -677,7 +677,7 @@ platzwahl=cara o cruz
 status=estado
 lfd.-nr.=Lfd.-Nr.
 firma=empresa
-GENREIC_NAME=nombre
+GENERIC_NAME=nombre
 vorname=nombre
 e-mail=correo electr\u00F3nico
 hauptperson=protagonista

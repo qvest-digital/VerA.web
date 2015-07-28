@@ -21,7 +21,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungssuche}</span>
+		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungssuche}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.veranstaltungssuche}</h1>
@@ -68,7 +68,7 @@
 								</div>
 							</div>
 							<div class="tableCell width30">
-								<label for="eventname">${placeholderWithTranslation.genreic_name}</label>
+								<label for="eventname">${placeholderWithTranslation.GENERIC_NAME}</label>
 								<textarea name="eventname" id="eventname" value=""></textarea>
 							</div>
 						</div>

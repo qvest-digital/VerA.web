@@ -129,36 +129,36 @@
 <div id="content_container">
 	#if($action == "host")
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
 		</div>
 		<h1>$title</h1>
 	#elseif($searchTask && $searchTask == "personSearchTask")
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
 		</div>
 		<h1>$title</h1>
 	#elseif($action == "taskReferencePerson")
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
 		</div>
 		<h1>$title</h1>
 
 
 	#elseif($action == "guest")
 				<div id="breadcrumb" class="textRight marginBottom10">
-				<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
+				<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
 		</div>
 		<h1>$title</h1>
 
 
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > $title</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > $title</span>
 		</div>
 		<h1>$title</h1>
 		#if($title == "Dublettensuche")
 			<vera-info>
-				${placeholderWithTranslation.dupcheck_umlauts_warning}<br />
+				${placeholderWithTranslation.DUPCHECK_UMLAUTS_WARNING}<br />
 			</vera-info>
 		#end
 	#end
@@ -333,9 +333,9 @@ var showDeleteMessages = function () {
 
 				}
 				if (ongoingEventPersonIds.length > 0) {
-					msg += '<br><span class="notBold"> ${placeholderWithTranslation.folgendepersonensindmindestenseinerlaufendenoderzukumnftigenveranstaltunge} ' +
-							' ${placeholderWithTranslation.zugeordnetdetailinformationenkoennensieueberdiegaestelistender} ' +
-							' ${placeholderWithTranslation.jeweiligenveranstaltungenabrufendiepersonenwerdenausallengaestelisten} ' +
+					msg += '<br><span class="notBold"> ${placeholderWithTranslation.folgendepersonensindmindestenseinerlaufendenoderzukumnftigenveranstaltung} ' +
+							' ${placeholderWithTranslation.zugeordnetDetailinformationenkoennenSieueberdieGaestelistender} ' +
+							' ${placeholderWithTranslation.jeweiligenVeranstaltungenabrufenDiePersonenwerdenausallenGaestelisten} ' +
 							'entfernt:</span><br><ul class="text">';
 					$ .each(ongoingEventPersonIds, function (index, id) {
 						var person = personModel[id];
@@ -375,7 +375,7 @@ var showDeleteMessages = function () {
 					}, function () { // Nein
 						$(".errormsg").remove();
 						$(".successmsg").remove();
-						showSuccess(' ${placeholderWithTranslation.eswurdeeinepersongelouscht}');
+						showSuccess(' ${placeholderWithTranslation.eswurdekeinepersongeloscht}');
 						$('input:checkbox').prop('disabled', false);
 					});
 			}

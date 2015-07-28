@@ -22,7 +22,7 @@
 				<th>${placeholderWithTranslation.benutzer}</th>
 				<th>${placeholderWithTranslation.objekt}</th>
 				<th>${placeholderWithTranslation.objektid}</th>
-				<th>${placeholderWithTranslation.genreic_name}</th>
+				<th>${placeholderWithTranslation.GENERIC_NAME}</th>
 				<th>${placeholderWithTranslation.artderanderung}</th>
 				<th>${placeholderWithTranslation.geandertefelder}</th>
 			</tr>

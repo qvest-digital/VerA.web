@@ -1,15 +1,15 @@
 ## $Id$
 #if($proxiesFor == 'ou')
-	#set($activeMenu = "${placeholderWithTranslation.administration}")
+	#set($activeMenu = "Administration")
 	#set($title = "${placeholderWithTranslation.administrationallestellvertretungenimmandanten}")
 #elseif($proxiesFor == 'all')
-	#set($activeMenu = "${placeholderWithTranslation.administration}")
+	#set($activeMenu = "Administration")
 	#set($title = "${placeholderWithTranslation.administrationallestellvertretungen}")
 #elseif($proxiesFor == 'self')
 	#set($activeMenu = "Verwaltung")
 	#set($title = "${placeholderWithTranslation.verwaltungpersoenlichevertretungen}")
 #else
-	#set($activeMenu = "${placeholderWithTranslation.administration}")
+	#set($activeMenu = "Administration")
 	#set($title = "${placeholderWithTranslation.stellvertretungen}")
 #end
 #set($elementNameSex = "female")
@@ -22,11 +22,11 @@
 	## Dynamischer breadcrumb
 	#if($activeMenu == "Administration")
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.stellvertretungen}</span>
+		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.stellvertretungen}</span>
 	</div>
 	#elseif($activeMenu == "Verwaltung")
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.verwaltung} > ${placeholderWithTranslation.vertretungen}</span>
+		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.verwaltung} > ${placeholderWithTranslation.vertretungen}</span>
 	</div>
 	#end
 

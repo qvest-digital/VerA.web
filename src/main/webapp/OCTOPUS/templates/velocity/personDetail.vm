@@ -1,30 +1,30 @@
 #if($person && $person.id)
 
 	#set($personDB = true)
-	#set($activeMenu = "${placeholderWithTranslation.personen}")
+	#set($activeMenu = "Personen")
 	#set($title = "${placeholderWithTranslation.personbearbeiten}: $!message.plain($person.MainLatin.SaveAs)")
 
 #else
 
 	#if($action == "guest")
-		#set($activeMenu = "${placeholderWithTranslation.veranstaltungen}")
+		#set($activeMenu = "Veranstaltungen")
 	#elseif($action == "host")
-		#set($activeMenu = "${placeholderWithTranslation.veranstaltungen}")
+		#set($activeMenu = "Veranstaltungen")
 	#elseif($action == "statistikGuest")
-		#set($activeMenu = "${placeholderWithTranslation.veranstaltungen}")
+		#set($activeMenu = "Veranstaltungen")
 	#elseif($action == "statistikHost")
-		#set($activeMenu = "${placeholderWithTranslation.veranstaltungen}")
+		#set($activeMenu = "Veranstaltungen")
 	#elseif($action == "taskReferencePerson")
-		#set($activeMenu = "${placeholderWithTranslation.veranstaltungen}")
+		#set($activeMenu = "Veranstaltungen")
 	#else
-		#set($activeMenu = "${placeholderWithTranslation.personen}")
+		#set($activeMenu = "Personen")
 	#end
 
 	#set($personTab = "1")
 	#set($personMemberTab = "1")
 	#set($personAddresstypeTab = "1")
 	#set($personLocaleTab = "1")
-	#set($title = "Neue Person anlegen")
+	#set($title = "${placeholderWithTranslation.neuepersonanlegen}")
 
 #end
 
@@ -139,7 +139,7 @@
 
 	#if($person.deleted == "t")
 		<vera-warn>
-					${placeholderWithTranslation.diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt}
+			${placeholderWithTranslation.diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt}
 		</vera-warn>
 	#end
 
@@ -159,7 +159,7 @@
 
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > #if($person && $person.id)${placeholderWithTranslation.personbearbeiten}#else ${placeholderWithTranslation.personanlegen}#end</span>
+		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > #if($person && $person.id)${placeholderWithTranslation.personbearbeiten}#else ${placeholderWithTranslation.personanlegen}#end</span>
 	</div>
 
 	<h1>$title</h1>
@@ -171,8 +171,8 @@
 			</vera-success>
 			#else
 			<vera-info>
-				${placeholderWithTranslation.bittegebensiezunaechstden} <strong>${placeholderWithTranslation.vorundnachnamen}</strong> ${placeholderWithTranslation.anundfuehrendiedublettenpruefungdurch}
-					${placeholderWithTranslation.beifirmenwaehlensiediecheckbox} <strong>"${placeholderWithTranslation.istfirma}"</strong> ${placeholderWithTranslation.undtragendanndenfirmennameneindassystemprueftihreangabendaraufhinaufdubletten}
+				${placeholderWithTranslation.bittegebensiezunaechstden} <strong>${placeholderWithTranslation.vorundnachnamen}</strong> ${placeholderWithTranslation.anundfuhrendiedublettenprufungdurch}
+					${placeholderWithTranslation.beifirmenwaehlensiediecheckbox} <strong>"${placeholderWithTranslation.istfirma}"</strong> ${placeholderWithTranslation.undtragendanndenfirmennameneindassystempruftihreangabendaraufhinaufdubletten}
 					${placeholderWithTranslation.liegtkeinedublettevorkoennensieweiteredateneingebenunddiedatenspeichern}
 			</vera-info>
 			#end
@@ -187,10 +187,10 @@
 
 	<div id="tabsMain">
 		<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-			<li vera-tab="${placeholderWithTranslation.personendaten}" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>${placeholderWithTranslation.personendaten}</div>
-			</li><li vera-tab="${placeholderWithTranslation.anschriften}" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>${placeholderWithTranslation.anschriften}</div>
-			</li>#if($personDB)<li class="inactive" id="${placeholderWithTranslation.dokumenttypen}" onclick="showDoctypes();"><div>${placeholderWithTranslation.dokumenttypen}</div>
-			</li><li class="inactive" id="${placeholderWithTranslation.kategorien}" onclick="showCategories();"><div>${placeholderWithTranslation.kategorien}</div></li>#end
+			<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>${placeholderWithTranslation.personendaten}</div>
+			</li><li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>${placeholderWithTranslation.anschriften}</div>
+			</li>#if($personDB)<li class="inactive" id="dokumenttypen" onclick="showDoctypes();"><div>${placeholderWithTranslation.dokumenttypen}</div>
+			</li><li class="inactive" id="kategorien" onclick="showCategories();"><div>${placeholderWithTranslation.kategorien}</div></li>#end
 		</ul>
 	</div>
 
@@ -198,7 +198,7 @@
 	#set($extEncoding2 = "_e2")
 	#set($extEncoding3 = "_e3")
 
-	<div class="tabsSub" vera-content="${placeholderWithTranslation.personendaten}">
+	<div class="tabsSub" vera-content="personendaten">
 		<ul class="marginBottom20" vera-tab-group>
 			<li vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" ><div>$!message.plain($config.main)</div></li>
 			<li vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" ><div>$!message.plain($config.partner)</div></li>
@@ -217,41 +217,41 @@
 	</div>
 
 
-	<div vera-content="${placeholderWithTranslation.personendaten}" class="contentBoxColored tabsContent">
+	<div vera-content="personendaten" class="contentBoxColored tabsContent">
 
 		<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
-		#set($personPartner = "${placeholderWithTranslation.hauptperson}")
+		#set($personPartner = "hauptperson")
 		#set($extEncoding = "$extEncoding1")
 		#set($ext = "_a$extEncoding")
 		#set($facade = $person.MainLatin)
 		#parse("inc/person-member.vm")
 
-		#set($personPartner = "${placeholderWithTranslation.hauptperson}")
+		#set($personPartner = "hauptperson")
 		#set($extEncoding = "$extEncoding2")
 		#set($ext = "_a$extEncoding")
 		#set($facade = $person.MainExtra1)
 		#parse("inc/person-member.vm")
 
-		#set($personPartner = "${placeholderWithTranslation.hauptperson}")
+		#set($personPartner = "hauptperson")
 		#set($extEncoding = "$extEncoding3")
 		#set($ext = "_a$extEncoding")
 		#set($facade = $person.MainExtra2)
 		#parse("inc/person-member.vm")
 
-		#set($personPartner = "${placeholderWithTranslation.partner}")
+		#set($personPartner = "partner")
 		#set($extEncoding = "$extEncoding1")
 		#set($ext = "_b$extEncoding")
 		#set($facade = $person.PartnerLatin)
 		#parse("inc/person-member.vm")
 
-		#set($personPartner = "${placeholderWithTranslation.partner}")
+		#set($personPartner = "partner")
 		#set($extEncoding = "$extEncoding2")
 		#set($ext = "_b$extEncoding")
 		#set($facade = $person.PartnerExtra1)
 		#parse("inc/person-member.vm")
 
-		#set($personPartner = "${placeholderWithTranslation.partner}")
+		#set($personPartner = "partner")
 		#set($extEncoding = "$extEncoding3")
 		#set($ext = "_b$extEncoding")
 		#set($facade = $person.PartnerExtra2)
@@ -259,11 +259,11 @@
 
 	</div>
 
-	<div class="tabsSub" vera-content="${placeholderWithTranslation.anschriften}">
+	<div class="tabsSub" vera-content="anschriften">
 		<ul class="marginBottom20" vera-tab-group>
-			<li vera-tab="${placeholderWithTranslation.geschaeftlich}" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" ><div>$!message.plain($config.business)</div></li>
-			<li vera-tab="${placeholderWithTranslation.privat}" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "2") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '2');" ><div>$!message.plain($config.private)</div></li>
-			<li vera-tab="${placeholderWithTranslation.weitere}" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "3") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '3');" ><div>$!message.plain($config.other)</div></li>
+			<li vera-tab="geschaeftlich" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" ><div>$!message.plain($config.business)</div></li>
+			<li vera-tab="privat" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "2") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '2');" ><div>$!message.plain($config.private)</div></li>
+			<li vera-tab="weitere" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "3") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '3');" ><div>$!message.plain($config.other)</div></li>
 		</ul>
 
 		<hr />
@@ -278,57 +278,57 @@
 		</div>
 	</div>
 
-	<div vera-content="${placeholderWithTranslation.anschriften}" class="contentBoxColored tabsContent">
+	<div vera-content="anschriften" class="contentBoxColored tabsContent">
 
-		#set($addressType = "${placeholderWithTranslation.geschaeftlich}")
+		#set($addressType = "geschaeftlich")
 		#set($extEncoding = "$extEncoding1")
 		#set($ext = "_a$extEncoding")
 		#set($facade = $person.BusinessLatin)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "${placeholderWithTranslation.geschaeftlich}")
+		#set($addressType = "geschaeftlich")
 		#set($extEncoding = "$extEncoding2")
 		#set($ext = "_a$extEncoding")
 		#set($facade = $person.BusinessExtra1)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "${placeholderWithTranslation.geschaeftlich}")
+		#set($addressType = "geschaeftlich")
 		#set($extEncoding = "$extEncoding3")
 		#set($ext = "_a$extEncoding")
 		#set($facade = $person.BusinessExtra2)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "${placeholderWithTranslation.privat}")
+		#set($addressType = "privat")
 		#set($extEncoding = "$extEncoding1")
 		#set($ext = "_b$extEncoding")
 		#set($facade = $person.PrivateLatin)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "${placeholderWithTranslation.privat}")
+		#set($addressType = "privat")
 		#set($extEncoding = "$extEncoding2")
 		#set($ext = "_b$extEncoding")
 		#set($facade = $person.PrivateExtra1)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "${placeholderWithTranslation.privat}")
+		#set($addressType = "privat")
 		#set($extEncoding = "$extEncoding3")
 		#set($ext = "_b$extEncoding")
 		#set($facade = $person.PrivateExtra2)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "${placeholderWithTranslation.weitere}")
+		#set($addressType = "weitere")
 		#set($extEncoding = "$extEncoding1")
 		#set($ext = "_c$extEncoding")
 		#set($facade = $person.OtherLatin)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "${placeholderWithTranslation.weitere}")
+		#set($addressType = "weitere")
 		#set($extEncoding = "$extEncoding2")
 		#set($ext = "_c$extEncoding")
 		#set($facade = $person.OtherExtra1)
 		#parse("inc/person-address.vm")
 
-		#set($addressType = "${placeholderWithTranslation.weitere}")
+		#set($addressType = "weitere")
 		#set($extEncoding = "$extEncoding3")
 		#set($ext = "_c$extEncoding")
 		#set($facade = $person.OtherExtra2)
@@ -396,7 +396,6 @@
 
 	#end
 
-
 	#if($navigation)
 		#parse("inc/person-navi.vm")
 	#end
@@ -408,12 +407,12 @@
 
 	#if($action == "guest")
 		function addToGuestList() {
-			htmlConfirm('${placeholderWithTranslation.solldiesergastaufplatzgesetztwerden}', new Array('${placeholderWithTranslation.ja}', '${placeholderWithTranslation.nein}'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
+			htmlConfirm('${placeholderWithTranslation.solldiesergastaufplatzgesetztwerden}', new Array('${placeholderWithTranslation.GENERIC_YES}', '${placeholderWithTranslation.GENERIC_NO}'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
 		}
 
 		function addToGuestQuestX1(answer) {
 			document.getElementById('inviteGuestReserve').value = answer;
-			htmlConfirm('${placeholderWithTranslation.solldiepartnerinderpartnermiteingeladenwerden}', new Array('${placeholderWithTranslation.ja}', '${placeholderWithTranslation.nein}'), new Array("addToGuestQuestX2('true');", "addToGuestQuestX2('false');"));
+			htmlConfirm('${placeholderWithTranslation.solldiepartnerinderpartnermiteingeladenwerden}', new Array('${placeholderWithTranslation.GENERIC_YES}', '${placeholderWithTranslation.GENERIC_NO}'), new Array("addToGuestQuestX2('true');", "addToGuestQuestX2('false');"));
 		}
 
 		function addToGuestQuestX2(answer) {
@@ -494,12 +493,12 @@
 	$("#person-iscompany:not([vera-disabled])").click(function() {
 		if (this.checked) {
 			$('#company-row').show();
-			$('label[for=person-firstname_a_e1]').html('Vorname');
-			$('label[for=person-lastname_a_e1]').html('Nachname');
+			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.vorname}');
+			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.nachname}');
 		} else {
 			$('#company-row').hide();
-			$('label[for=person-firstname_a_e1]').html('Vorname*');
-			$('label[for=person-lastname_a_e1]').html('Nachname*');
+			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.vorname}*');
+			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.nachname}*');
 		}
 	});
 
@@ -523,12 +522,12 @@
 		//checkbox was checked.
 		if($("#person-iscompany").is(":checked")){
 			$('#company-row').show();
-			$('label[for=person-firstname_a_e1]').html('Vorname');
-			$('label[for=person-lastname_a_e1]').html('Nachname');
+			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.vorname}');
+			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.nachname}');
 		} else {
 			$('#company-row').hide();
-			$('label[for=person-firstname_a_e1]').html('Vorname*');
-			$('label[for=person-lastname_a_e1]').html('Nachname*');
+			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.vorname}*');
+			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.nachname}*');
 		}
 	});
 
