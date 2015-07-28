@@ -604,7 +604,7 @@ direkteinsprung:istnurbeieinersortierungnachname,vornameodere-mailm\u00f6glich.=
 beimerstellenvonSteuerdateienoderG\u00e4stelistenwirdIhrobenausgew\u00e4hlterFilterber\u00fccksichtigt.=The filter you choose is taking into concern while creating the coontril file or the list of guests.
 WennSieeinzelneG\u00e4stemarkieren,werdennurdieseexportiert,ansonstendievollst\u00e4ndigeListe.=If you mark guest these will be the only one exported.
 
-#Gästeliste erstellen
+#G\u00E4steliste erstellen
 GUEST_LIST_CREATE=Create a list of guests
 SELECT_OUTPUT_FORMAT=Choose format
 LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Sort lists by categories \u2013 with partner

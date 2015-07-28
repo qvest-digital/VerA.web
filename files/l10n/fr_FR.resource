@@ -695,7 +695,7 @@ direkteinsprung:istnurbeieinersortierungnachname,vornameodere-mailm\u00f6glich.=
 beimerstellenvonSteuerdateienoderG\u00e4stelistenwirdIhrobenausgew\u00e4hlterFilterber\u00fccksichtigt.=lors de la cr\u00e9ation des fichiers de contr\u00F4le ou les listes d'invit\u00e9s de filtres s\u00e9lectionn\u00e9s est consid\u00e9r\u00e9 comme votre top.
 WennSieeinzelneG\u00e4stemarkieren,werdennurdieseexportiert,ansonstendievollst\u00e4ndigeListe.=Si vous marquez les clients individuels, seuls ceux qui sont export\u00e9s, sinon la liste compl\u00E8te.
 
-#Gästeliste erstellen
+#G\u00E4steliste erstellen
 GUEST_LIST_CREATE=Cr\u00e9ez la liste des invit\u00e9s
 SELECT_OUTPUT_FORMAT=S\u00e9lectionnez le format de sortie
 LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Liste Group\u00e9s par cat\u00e9gories - avec des partenaires

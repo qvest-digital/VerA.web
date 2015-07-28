@@ -689,7 +689,7 @@ direkteinsprung:istnurbeieinersortierungnachname,vornameodere-mailm\u00f6glich.=
 beimerstellenvonSteuerdateienoderG\u00e4stelistenwirdIhrobenausgew\u00e4hlterFilterber\u00fccksichtigt.=al crear archivos de control o listas de invitados de los filtros seleccionados se considera que su parte superior.
 WennSieeinzelneG\u00e4stemarkieren,werdennurdieseexportiert,ansonstendievollst\u00e4ndigeListe.=Si marca hu\u00E9spedes individuales , s\u00F3lo aquellos son exportados , de lo contrario la lista completa.
 
-#Gästeliste erstellen
+#G\u00E4steliste erstellen
 GUEST_LIST_CREATE=Crear lista de invitados
 SELECT_OUTPUT_FORMAT=Seleccione el formato de salida
 LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Lista de los gatos Agrupados - con socios
@@ -776,7 +776,7 @@ WELCOME_TEXT_FOUR=a cerca de- personas y eventos,
 WELCOME_TEXT_FIVE=de mostrar,
 WELCOME_TEXT_SIX=para extraerlos
 WELCOME_TEXT_SEVEN=o importarlos, modificarlos o eliminarlos.
-WELCOME_TEXT_EIGHT=visualización y exportaci\u00f3n.
+WELCOME_TEXT_EIGHT=visualizaci\u00F3n y exportaci\u00f3n.
 WELCOME_TEXT_TEN=Adem\u00e1s pueden ser
 WELCOME_TEXT_ELEVEN=espec\u00edfica del cliente
 WELCOME_TEXT_AND=y
