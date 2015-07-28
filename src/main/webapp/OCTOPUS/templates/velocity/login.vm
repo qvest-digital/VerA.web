@@ -3,35 +3,35 @@
 
 <form action="default" method="post" target="_top" onsubmit="if(document.getElementById('loginasproxy').checked) { this.action = 'LoginAsProxy'; this.task.value = 'LoginAsProxy'; }">
 
-<h1 class="marginTop25">${placeholderWithTranslation.Login}</h1>
+<h1 class="marginTop25">${placeholderWithTranslation.login}</h1>
 
 <div class="table">
     <div class="tableRow">
         <div class="tableCell">
-        	<label for="input.username">${placeholderWithTranslation.Benutzername}</label>
+        	<label for="input.username">${placeholderWithTranslation.benutzername}</label>
         	<input type="text" id="input.username" name="username">
         </div>
     </div>
     <div class="tableRow">
         <div class="tableCell">
-        	<label for="input.password">${placeholderWithTranslation.Passwort}</label>
+        	<label for="input.password">${placeholderWithTranslation.passwort}</label>
         	<input type="password" id="input.password" name="password">
         </div>
     </div>
     <div class="tableRow">
         <div class="tableCell inlineLabel">
-        	<label for="loginasproxy">${placeholderWithTranslation.InVertretunganmelden}</label> <input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
+        	<label for="loginasproxy">${placeholderWithTranslation.invertretunganmelden}</label> <input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
         </div>
     </div>
 </div>
 
 <div id="buttonPanel-bottom" class="marginTop5 marginBottom20">
-	<input type="submit" class="mainButton" value="${placeholderWithTranslation.Anmelden}" title="${placeholderWithTranslation.Anmelden}" name="submit" id="button.login" />
-	<input type="reset" class="mainButton" value="${placeholderWithTranslation.Felderleeren}" title="${placeholderWithTranslation.Felderleeren}" name="cancel" id="button.clearFields" />
+	<input type="submit" class="mainButton" value="${placeholderWithTranslation.anmelden}" title="${placeholderWithTranslation.anmelden}" name="submit" id="button.login" />
+	<input type="reset" class="mainButton" value="${placeholderWithTranslation.felderleeren}" title="${placeholderWithTranslation.felderleeren}" name="cancel" id="button.clearFields" />
 </div>
 
 <vera-info vera-stay>
-	${placeholderWithTranslation.BitteverwendenSieIhrOrganisationskennzeichenoder} <strong>${placeholderWithTranslation.VornameNachname}</strong> ${placeholderWithTranslation.alsBenutzernamen}
+	${placeholderWithTranslation.bitteverwendensieihrorganisationskennzeichenoder} <strong>${placeholderWithTranslation.vornamenachname}</strong> ${placeholderWithTranslation.alsbenutzernamen}
 </vera-info>
 
 
@@ -39,7 +39,7 @@
 
 #if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin")
 <vera-warn>
-	${placeholderWithTranslation.EsisteinFehlerbeiderAnmeldungaufgetretenBitteuberprufenSieIhrenBenutzernamenundIhrPasswort}
+	${placeholderWithTranslation.esisteinfehlerbeideranmeldungaufgetretenbitteuberprufensieihrenbenutzernamenundihrpasswort}
 </vera-warn>
 #end
 

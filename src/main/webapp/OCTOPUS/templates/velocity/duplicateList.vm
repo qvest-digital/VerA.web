@@ -20,20 +20,20 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Personen} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.ZumPersonenImport}">${placeholderWithTranslation.PersonenImport}</a> > ${placeholderWithTranslation.Importstatus}</span>
+		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.personen} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.personenimport}</a> > ${placeholderWithTranslation.importstatus}</span>
 	</div>
-	<h1>${placeholderWithTranslation.ImportstatusvorhandeneDublettenbearbeiten}</h1>
+	<h1>${placeholderWithTranslation.importstatusvorhandenedublettenbearbeiten}</h1>
 
 	#if($noDupsSelected)
 		<vera-warn>
-			${placeholderWithTranslation.BittemarkierenSiediezuimportierendenPersonen}
+			${placeholderWithTranslation.bittemarkierensiediezuimportierendenpersonen}
 		</vera-warn>
 	#end
 
 	<vera-info>
-		${placeholderWithTranslation.Dublettendiedurchden}<strong>${placeholderWithTranslation.Importhinzugefugtwerdenwurden}</strong>${placeholderWithTranslation.sindmiteinerCheckboxgekennzeichnetDarunterbefindensichdiebereitsimSystemvorhandenenentsprechendenDatensatze<br />
-		${placeholderWithTranslation.BeachtenSiedassamitaeomitoeumitueundssmitssverglichenwird<br />
-		${placeholderWithTranslation.UmeineDubletteindenImportzuintegrierenmussenSiesieubernehmen}
+		${placeholderWithTranslation.dublettendiedurchden}<strong>${placeholderWithTranslation.importhinzugefugtwerdenwurden}</strong>${placeholderWithTranslation.sindmiteinercheckboxgekennzeichnetdarunterbefindensichdiebereitsimsystemvorhandenenentsprechendendatensatze}<br />
+		${placeholderWithTranslation.beachtensiedassamitaeomitoeumitueundssmitssverglichenwird}<br />
+		${placeholderWithTranslation.umeinedubletteindenimportzuintegrierenmussensiesieubernehmen}
 	</vera-info>
 
 	<form id="formlist" name="formlist" action="ImportPersonsEditDuplicates" method="POST">
@@ -44,8 +44,8 @@
 		<input type="hidden" name="saveCount" value="$!saveCount"/>
 
 		<span id="actionPanel" class="inlineLabel">
-			<label>${placeholderWithTranslation.MarkiertePersonen}
-				<input type="submit" name="save" type="button" value="${placeholderWithTranslation.AlsDubletteubernehmen" title="${placeholderWithTranslation.MarkiertePersonenalsDubletteubernehmen}"/>
+			<label>${placeholderWithTranslation.markiertepersonen}
+				<input type="submit" name="save" type="button" value="${placeholderWithTranslation.alsdubletteubernehmen" title="${placeholderwithtranslation.markiertepersonenalsdubletteubernehmen}"/>
 			</label>
 		</span>
 
@@ -70,14 +70,14 @@
 
 					<tr>
 						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end title="${placeholderWithTranslation.platzhalter}Alle (de)markieren"/></th>
-						<th>${placeholderWithTranslation.ID}</th>
-						<th>${placeholderWithTranslation.GENREIC_NAME}</th>
-						<th>${placeholderWithTranslation.Vorname}</th>
-						<th>${placeholderWithTranslation.Amtsbezeichnung}</th>
-						<th>${placeholderWithTranslation.FirmaInstitution}</th>
-						<th>${placeholderWithTranslation.Strasse}Stra&szlig;e</th>
-						<th>${placeholderWithTranslation.PLZ}</th>
-						<th>${placeholderWithTranslation.Ort}</th>
+						<th>${placeholderWithTranslation.id}</th>
+						<th>${placeholderWithTranslation.genreic_name}</th>
+						<th>${placeholderWithTranslation.vorname}</th>
+						<th>${placeholderWithTranslation.amtsbezeichnung}</th>
+						<th>${placeholderWithTranslation.firmainstitution}</th>
+						<th>${placeholderWithTranslation.strasse}Stra&szlig;e</th>
+						<th>${placeholderWithTranslation.plz}</th>
+						<th>${placeholderWithTranslation.ort}</th>
 					</tr>
 
 					#foreach($bean in $list)
@@ -134,7 +134,7 @@
 
 					<tr class="colspan">
 						<td colspan="99">
-							${placeholderWithTranslation.AnzahlzuspeicherndeDubletten} $!listselection.size()
+							${placeholderWithTranslation.anzahlzuspeicherndedubletten} $!listselection.size()
 						</td>
 					</tr>
 
@@ -144,13 +144,13 @@
 		#else
 
 			<div class="contentBoxColored grayBorder marginBottom20">
-				${placeholderWithTranslation.EswurdenkeineEintragegefunden}
+				${placeholderWithTranslation.eswurdenkeineeintragegefunden}
 			</div>
 
 		#end
 
 		<span id="buttonPanel-top" class="textRight floatRight">
-			<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.ZuruckzumPersonenimport}" class="mainButton" onclick="document.formlist.action='ImportPersonsStoredRecord';document.formlist.submit();" />
+			<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzumpersonenimport}" class="mainButton" onclick="document.formlist.action='ImportPersonsStoredRecord';document.formlist.submit();" />
 		</span>
 
 	</form>

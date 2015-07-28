@@ -7,14 +7,14 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Verteiler}</span>
+		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.verteiler}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.Verteileranlegen}</h1>
+	<h1>${placeholderWithTranslation.verteileranlegen}</h1>
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
 
-		<div class="textRight mandatoryText">* = ${placeholderWithTranslation.Pflichtfelder}</div>
+		<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
     		<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait();">
 
@@ -27,25 +27,25 @@
             		</vera-warn>
         		#end
 
-        		<p>${placeholderWithTranslation.SielegeneinenneuenVerteilerausderVeranstaltung} <strong>&quot;$!message.plain($event.shortname)&quot;</strong> ${placeholderWithTranslation.mit}
+        		<p>${placeholderWithTranslation.sielegeneinenneuenverteilerausderveranstaltung} <strong>&quot;$!message.plain($event.shortname)&quot;</strong> ${placeholderWithTranslation.mit}
 
     			#if($mailinglistParams.count == 1)
-        			${placeholderWithTranslation.einerPerson}
+        			${placeholderWithTranslation.einerperson}
         		#else
-        			$!mailinglistParams.count ${placeholderWithTranslation.Personen}
+        			$!mailinglistParams.count ${placeholderWithTranslation.personen}
         		#end
         		${placeholderWithTranslation.an}
         		</p>
 
         		<input type="hidden" name="mailinglist-event" value="$!event.id">
 
-        		<label for="mailinglist-name">${placeholderWithTranslation.Verteilername}</label>
+        		<label for="mailinglist-name">${placeholderWithTranslation.verteilername}</label>
         		<input type="text" name="mailinglist-name" maxlength="200" value="$!message.text($mailinglist.name)" id="mailinglist-name">
         	</div>
 
         	<div class="textRight">
-        		<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.Verteilerspeichern}" title="${placeholderWithTranslation.Verteilerspeichern}">
-        		<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZuruckzurGasteverwaltung" title="${placeholderWithTranslation.ZuruckzurGasteverwaltung" onclick="window.location.href='ShowGuestList?selectNone=true';">
+        		<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.verteilerspeichern}" title="${placeholderWithTranslation.verteilerspeichern}">
+        		<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zuruckzurgasteverwaltung}" title="${placeholderWithTranslation.zuruckzurgasteverwaltung}" onclick="window.location.href='ShowGuestList?selectNone=true';">
         	</div>
 		</form>
 </div><!-- end #content_container -->

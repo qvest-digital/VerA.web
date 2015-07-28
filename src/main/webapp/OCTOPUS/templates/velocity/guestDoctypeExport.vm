@@ -60,7 +60,7 @@
             #end
 		</div>
 
-       	<h3 class="marginBottom10 marginTop25" id="sortHeadline">${placeholderWithTranslation.SORT_CRITERIA}</h3>
+       	<h3 class="marginBottom10 marginTop25" id="sortHeadline">${placeholderWithTranslation.sort_criteria}</h3>
 
 		<div class="table" id="sort">
         		<div class="tableRow">
@@ -71,7 +71,7 @@
         				<select name="sort1" id="sort1">
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
                             			<option value="orderno">Laufende Nummer</option>
-                            			<option value="name" selected>${placeholderWithTranslation.GENREIC_NAME}</option>
+                            			<option value="name" selected>${placeholderWithTranslation.genreic_name}</option>
                             			<option value="country">Land</option>
                             			<option value="zipcode">PLZ</option>
                             			<option value="category">Kategorie</option>
@@ -83,7 +83,7 @@
                             			<option value="workareaname">Arbeitsbereich</option>
                             #else
                             			<option value="orderno">Laufende Nummer</option>
-                            			<option value="name">${placeholderWithTranslation.GENREIC_NAME}</option>
+                            			<option value="name">${placeholderWithTranslation.genreic_name}</option>
                             			<option value="country">Land</option>
                             			<option value="zipcode">PLZ</option>
                             			<option value="category">Kategorie</option>
@@ -104,7 +104,7 @@
                             			<option value=""></option>
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
                             			<option value="orderno">Laufende Nummer</option>
-                            			<option value="name">${placeholderWithTranslation.GENREIC_NAME}</option>
+                            			<option value="name">${placeholderWithTranslation.genreic_name}</option>
                             			<option value="country">Land</option>
                             			<option value="zipcode">PLZ</option>
                             			<option value="category" selected>Kategorie</option>
@@ -116,7 +116,7 @@
                             			<option value="workareaname">Arbeitsbereich</option>
                             #else
                             			<option value="orderno">Laufende Nummer</option>
-                            			<option value="name" selected>${placeholderWithTranslation.GENREIC_NAME}</option>
+                            			<option value="name" selected>${placeholderWithTranslation.genreic_name}</option>
                             			<option value="country">Land</option>
                             			<option value="zipcode">PLZ</option>
                             			<option value="category">Kategorie</option>
@@ -137,7 +137,7 @@
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
                             			<option value=""></option>
                             			<option value="orderno">Laufende Nummer</option>
-                            			<option value="name">${placeholderWithTranslation.GENREIC_NAME}</option>
+                            			<option value="name">${placeholderWithTranslation.genreic_name}</option>
                             			<option value="country">Land</option>
                             			<option value="zipcode">PLZ</option>
                             			<option value="category">Kategorie</option>
@@ -150,7 +150,7 @@
                             #else
                             			<option value="" selected></option>
                             			<option value="orderno">Laufende Nummer</option>
-                            			<option value="name">${placeholderWithTranslation.GENREIC_NAME}</option>
+                            			<option value="name">${placeholderWithTranslation.genreic_name}</option>
                             			<option value="country">Land</option>
                             			<option value="zipcode">PLZ</option>
                             			<option value="category">Kategorie</option>

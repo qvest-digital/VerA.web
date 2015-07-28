@@ -5,7 +5,7 @@
 <html>
 
 <head>
-	<title>${placeholderWithTranslation.Arbeitsbereiche}</title>
+	<title>${placeholderWithTranslation.arbeitsbereiche}</title>
 	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
 	<script type="text/javascript" src="${paths.staticWeb}scripts/jquery.min.js"></script>
@@ -16,11 +16,11 @@
 		var showDeleteAllocate = function () {
     		var selectionOfOption = $('option[name$="nix"]:selected');
     			if(selectionOfOption.length === 1) {
-    				var msg ='<span>${placeholderWithTranslation.WaehlenSiebittezunaechsteinenArbeitsbereichaus}</span>';
+    				var msg ='<span>${placeholderWithTranslation.waehlensiebittezunaechsteinenarbeitsbereichaus}</span>';
 					showWarning(msg);
     			}else {
     				#if( $count == 1 )
-						showAllocateAssign('${placeholderWithTranslation.WollenSiediesePersonbzwdiesenGastdenausgewaehltenArbeitsbereichzuordnen}',
+						showAllocateAssign('${placeholderWithTranslation.wollensiediesepersonbzwdiesengastdenausgewaehltenarbeitsbereichzuordnen}',
 						function () { // Ja
                            	var form = window.opener.document.forms[ "formlist" ];
                 	       	 var input = window.document.createElement('input');
@@ -30,10 +30,10 @@
                 	       	 form.appendChild(input);
                 	       	 form.submit();
 						}, function () { //nein
-							showSuccess('${placeholderWithTranslation.EswurdekeinArbeitsbereichzugeordnet}');
+							showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichzugeordnet}');
 						});
         			#else
-        				showAllocateAssign('${placeholderWithTranslation.WollenSiediesenPersonenbzwdiesenGaestedenausgewaehltenArbeitsbereichzuordnen}',
+        				showAllocateAssign('${placeholderWithTranslation.wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen}',
 						function () { // Ja
 							var form = window.opener.document.forms[ "formlist" ];
                 	       	 var input = window.document.createElement('input');
@@ -43,7 +43,7 @@
                 	       	 form.appendChild(input);
                 	       	 form.submit();
 						}, function () { //nein
-							showSuccess('${placeholderWithTranslation.EswurdenkeineArbeitsbereichzugeordnet}');
+							showSuccess('${placeholderWithTranslation.eswurdenkeinearbeitsbereichzugeordnet}');
 						});
         			#end
     			};
@@ -51,11 +51,11 @@
 		var showDeleteAllocateRemove = function() {
 			var selectionOfOption = $('option[name$="nix"]:selected');
     			if(selectionOfOption.length === 1) {
-    				var msg ='<span>${placeholderWithTranslation.WaehlenSiebittezunaechsteinenArbeitsbereichaus}</span>';
+    				var msg ='<span>${placeholderWithTranslation.waehlensiebittezunaechsteinenarbeitsbereichaus}</span>';
 					showWarning(msg);
     			}else {
     				#if( $count == 1 )
-						showAllocateRemove('${placeholderWithTranslation.WollenSiedieZuordnungdieserPersonbzwdiesemGastzumausgewaehltenArbeitsbereichaufheben}',
+						showAllocateRemove('${placeholderWithTranslation.wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben}',
 						function () { // Ja
                            	var form = window.opener.document.forms[ "formlist" ];
                 	       	 var input = window.document.createElement('input');
@@ -65,10 +65,10 @@
                 	       	 form.appendChild(input);
                 	       	 form.submit();
 						}, function () { //nein
-							showSuccess('${placeholderWithTranslation.EswurdekeinArbeitsbereichaufgehoben}');
+							showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichaufgehoben}');
 						});
         			#else
-						showAllocateRemove('${placeholderWithTranslation.WollenSiedieZuordnungvonPersonenbzwGaestenzumausgewaehltenArbeitsbereichaufheben}',
+						showAllocateRemove('${placeholderWithTranslation.wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben}',
 						function () { // Ja
 							var form = window.opener.document.forms[ "formlist" ];
                 	       	 var input = window.document.createElement('input');
@@ -78,7 +78,7 @@
                 	       	 form.appendChild(input);
                 	       	 form.submit();
 						}, function () { //nein
-							showSuccess('${placeholderWithTranslation.EswurdekeinArbeitsbereichaufgehoben}');
+							showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichaufgehoben}');
 						});
         			#end
     			};
@@ -89,11 +89,11 @@
             $('#button\\.execute').click(function (e) {
                 var selectText = $("input:button[name$='checkboxForSelection'] ").text();
 
-				if (selectText == "${placeholderWithTranslation.Zuweisen}") {
+				if (selectText == "${placeholderWithTranslation.zuweisen}") {
 					showDeleteAllocate();
-				}else if (selectText == "${placeholderWithTranslation.Entfernen}") {
+				}else if (selectText == "${placeholderWithTranslation.entfernen}") {
             		selectedActionRemove();
-				}else if (selectText == "${placeholderWithTranslation.Abbrechen}") {
+				}else if (selectText == "${placeholderWithTranslation.abbrechen}") {
 					selectedActionCancel();
 				}
 			});
@@ -123,19 +123,19 @@
 		{
 #if( $assignmentAction == "assign" )
 #if( $count == 1 )
-			##doit = confirm( "${placeholderWithTranslation.WollenSiediesePersonbzwdiesenGastdemausgewaehltenArbeitsbereichzuordnen}" );
+			##doit = confirm( "${placeholderWithTranslation.wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen}" );
 			doit = true;
 
 #else
-			##doit = confirm( "${placeholderWithTranslation.WollenSiePersonenbzwGaestedemausgewaehltenArbeitsbereichzuordnen}" );
+			##doit = confirm( "${placeholderWithTranslation.wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen}" );
 			doit = true;
 #end
 #else
 #if ( $count == 1 )
-			##doit = confirm( "${placeholderWithTranslation.WollenSiedieZuordnungdieserPersonbzwdiesemGastzumausgewaehltenArbeitsbereichaufheben}" );
+			##doit = confirm( "${placeholderWithTranslation.wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben}" );
 			doit = true;
 #else
-			##doit = confirm( "${placeholderWithTranslation.WollenSiedieZuordnungvonPersonenbzwGaestenzumausgewaehltenArbeitsbereichaufheben}" );
+			##doit = confirm( "${placeholderWithTranslation.wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben}" );
 			doit = true;
 #end
 #end
@@ -169,7 +169,7 @@
 <form>
 
 <div class="contentBoxColored grayBorder">
-		<h1>${placeholderWithTranslation.WaehlenSieeinenArbeitsbereichauswelchenSie}
+		<h1>${placeholderWithTranslation.waehlensieeinenarbeitsbereichauswelchensie}
 	#if( $assignmentAction == "assign" )
 		${placeholderWithTranslation.zuweisen}
 	#else
@@ -178,33 +178,33 @@
 	    ${placeholderWithTranslation.moechten}</h1>
 
 	#if( $allWorkArea.size() > 0 )
-		<label for="workarea">${placeholderWithTranslation.Arbeitsbereich}</label>
+		<label for="workarea">${placeholderWithTranslation.arbeitsbereich}</label>
 		<select name="workarea" id="workarea" onChange="selected(this);">
 		<option name="nix" value="">
 	#if( $assignmentAction == "unassign" )
-		<option name="Entfernen" value="0">${placeholderWithTranslation.Alleentfernen}
+		<option name="Entfernen" value="0">${placeholderWithTranslation.alleentfernen}
 	#end
 		#foreach( $workarea in $allWorkArea )
 		<option name="arbeitsbereich" value="${workarea.id}">$!message.plain(${workarea.name})
 		#end
 		</select>
 	#else
-	    ${placeholderWithTranslation.SiehabenkeineArbeitsbereichekonfiguriertDiesekoennenSieimAdministrationsbereichunterdemPunkt} <em>${placeholderWithTranslation.Arbeitsbereiche}</em> ${placeholderWithTranslation.definieren}
+	    ${placeholderWithTranslation.siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt} <em>${placeholderWithTranslation.arbeitsbereiche}</em> ${placeholderWithTranslation.definieren}
 	#end
 
 	<div class="textRight marginTop5" id="buttonPanel-bottom">
-		<input type="button" name="checkboxForSelection" value="${placeholderWithTranslation.Abbrechen}" onClick="restore();closePopup();">
+		<input type="button" name="checkboxForSelection" value="${placeholderWithTranslation.abbrechen}" onClick="restore();closePopup();">
 		#if( $assignmentAction == "assign" && $allWorkArea.size() > 0 )
-				<input type="button"  name="checkboxForSelection" value="${placeholderWithTranslation.Zuweisen}" onClick="showDeleteAllocate();">
+				<input type="button"  name="checkboxForSelection" value="${placeholderWithTranslation.zuweisen}" onClick="showDeleteAllocate();">
 		#elseif ( $allWorkArea.size() > 0 )
-				<input type="button"  name="checkboxForSelection" value="${placeholderWithTranslation.Entfernen}" onClick="showDeleteAllocateRemove();">
+				<input type="button"  name="checkboxForSelection" value="${placeholderWithTranslation.entfernen}" onClick="showDeleteAllocateRemove();">
 		#end
 	</div>
 </div>
 </form>
 
 <vera-info>
-	${placeholderWithTranslation.SiehabenPersonenausgewaehltAbhaengigvonderAnzahlderausgewaehltenPersonenkanndieAktioneinegewisseZeitinAnspruchnehmen}
+	${placeholderWithTranslation.siehabenpersonenausgewaehltabhaengigvonderanzahlderausgewaehltenpersonenkanndieaktioneinegewissezeitinanspruchnehmen}
 </vera-info>
 
 

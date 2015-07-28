@@ -15,16 +15,16 @@
 		<meta http-equiv="pragma" content="no-cache">
 	</head>
 	<body>
-		<h1>${placeholderWithTranslation.AnderungsprotokollfurdenZeitraum} ${begin} - ${end}</h1>
+		<h1>${placeholderWithTranslation.anderungsprotokollfurdenzeitraum} ${begin} - ${end}</h1>
 		<table style="width: 100%;">
 			<tr>
-				<th>${placeholderWithTranslation.Datum}</th>
-				<th>${placeholderWithTranslation.Benutzer}</th>
-				<th>${placeholderWithTranslation.Objekt}</th>
-				<th>${placeholderWithTranslation.ObjektId}</th>
-				<th>${placeholderWithTranslation.GENREIC_NAME}</th>
-				<th>${placeholderWithTranslation.ArtderAnderung}</th>
-				<th>${placeholderWithTranslation.GeanderteFelder}</th>
+				<th>${placeholderWithTranslation.datum}</th>
+				<th>${placeholderWithTranslation.benutzer}</th>
+				<th>${placeholderWithTranslation.objekt}</th>
+				<th>${placeholderWithTranslation.objektid}</th>
+				<th>${placeholderWithTranslation.genreic_name}</th>
+				<th>${placeholderWithTranslation.artderanderung}</th>
+				<th>${placeholderWithTranslation.geandertefelder}</th>
 			</tr>
 			#foreach( $entry in $list )
 			<tr>

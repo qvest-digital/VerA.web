@@ -11,10 +11,10 @@
     <form action="Main" method="POST">
 
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Verwaltung} > ${placeholderWithTranslation.Info}</span>
+        <strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.verwaltung} > ${placeholderWithTranslation.info}</span>
     </div>
 
-    <h1>${placeholderWithTranslation.InformationenzuVerAweb}</h1>
+    <h1>${placeholderWithTranslation.informationenzuveraweb}</h1>
 
 
     #if($errors && $errors.size() > 0)
@@ -45,10 +45,10 @@
     </table>
     <br>
     #else
-    <p><i>${placeholderWithTranslation.Informationennichtverfugbar}</i></p>
+    <p><i>${placeholderWithTranslation.informationennichtverfugbar}</i></p>
     #end
 
-    <h3>${placeholderWithTranslation.Datenbank}</h3>
+    <h3>${placeholderWithTranslation.datenbank}</h3>
     <table class="form fixed">
     	##Set column size
 		<col width="$column0%" />
@@ -64,7 +64,7 @@
     #end
     		</td>
     	</tr><tr>
-    		<td class="width15 bold">${placeholderWithTranslation.Zeichensatz}</td>
+    		<td class="width15 bold">${placeholderWithTranslation.zeichensatz}</td>
     		<td>
     #if($LC_CTYPE)
     			LC_CTYPE = $LC_CTYPE
@@ -124,7 +124,7 @@
     #end
     #if($octopusConfig.personalConfig.roles)
     	<tr>
-    		<td>${placeholderWithTranslation.verfugbareRollen}</td>
+    		<td>${placeholderWithTranslation.verfugbarerollen}</td>
     		<td>
      #foreach($gg in $octopusConfig.personalConfig.roles)
      $gg

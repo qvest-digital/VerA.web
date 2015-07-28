@@ -1,12 +1,12 @@
 #set($activeMenu = "Veranstaltungen")
-#set($title = "${placeholderWithTranslation.GaestelisteerstellenfuerVeranstaltungeventshortname}")
+#set($title = "${placeholderWithTranslation.gaestelisteerstellenfuerveranstaltungeventshortname}")
 #parse("inc/header.vm")
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungbearbeiten}</span>
+    	<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
     </div>
-    <h1>${placeholderWithTranslation.GaesteverwaltungderVeranstaltung} $!message.plain($event.shortname)</h1>
+    <h1>${placeholderWithTranslation.gaesteverwaltungderveranstaltung} $!message.plain($event.shortname)</h1>
 
 	#if(!$isNewEvent)
 		#set($completeEventHeader = true)
@@ -16,17 +16,17 @@
 	<div class="contentBoxColored grayBorder marginTop20 marginBottom10">
         <form action="ReportGuestList" target="_blank" method="get">
 
-        	<h2>${placeholderWithTranslation.Gaestelisteerstellen}</h2>
+        	<h2>${placeholderWithTranslation.gaestelisteerstellen}</h2>
 
         	<div class="table">
         		<div class="tableRow">
         			<div class="tableCell">
-        				<label for="type">${placeholderWithTranslation.Ausgabeformatwaehlen</label>
+        				<label for="type">${placeholderWithTranslation.ausgabeformatwaehlen}</label>
         				<select name="type" id="type">
-                			<option value="Kat01">${placeholderWithTranslation.ListenachKategoriengruppiertmitPartner}</option>
-                			<option value="Kat02">${placeholderWithTranslation.ListenachKategoriengruppiertmitTelundMobiltelefon}</option>
-                			<option value="Kat03">${placeholderWithTranslation.ListenachKategoriengruppiertmitPartnerundFax}</option>
-                			<option value="Alpha01">${placeholderWithTranslation.ListenachSortierungmitPartnerTelundMobiltelefon}</option>
+                			<option value="Kat01">${placeholderWithTranslation.listenachkategoriengruppiertmitpartner}</option>
+                			<option value="Kat02">${placeholderWithTranslation.listenachkategoriengruppiertmittelundmobiltelefon}</option>
+                			<option value="Kat03">${placeholderWithTranslation.listenachkategoriengruppiertmitpartnerundfax}</option>
+                			<option value="Alpha01">${placeholderWithTranslation.listenachsortierungmitpartnertelundmobiltelefon}</option>
                 		</select>
         			</div>
         		</div>
@@ -47,106 +47,106 @@
             </script>
 
         	<!-- Der folgende Bereich soll bitte nur erscheinen, wenn "Liste nach Sortierung ausgewählt ist -->
-        	<h3 class="marginBottom10 marginTop30" id="sortHeadline" style="display:none">${placeholderWithTranslation.SORT_CRITERIA}</h3>
+        	<h3 class="marginBottom10 marginTop30" id="sortHeadline" style="display:none">${placeholderWithTranslation.sort_criteria}</h3>
 
         	<div class="table" id="sort" style="display:none">
         		<div class="tableRow">
         			<div class="tableCell">
-        				<label for="sort1">${placeholderWithTranslation.SORT_CRITERIA}</label>
+        				<label for="sort1">${placeholderWithTranslation.sort_criteria}</label>
         			</div>
         			<div class="tableCell">
         				<select name="sort1" id="sort1">
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
-                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
-                            			<option value="name" selected>${placeholderWithTranslation.GENREIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.Land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
-                            			<option value="category">${placeholderWithTranslation.Kategorie}</option>
-                            			<option value="rank">${placeholderWithTranslation.Rang}</option>
-                            			<option value="table">${placeholderWithTranslation.Tisch}</option>
+                            			<option value="orderno">${placeholderWithTranslation.continual_number}</option>
+                            			<option value="name" selected>${placeholderWithTranslation.genreic_name}</option>
+                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
+                            			<option value="category">${placeholderWithTranslation.kategorie}</option>
+                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="table">${placeholderWithTranslation.tisch}</option>
                             #else
-                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
-                            			<option value="name">${placeholderWithTranslation.GENREIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.Land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
-                            			<option value="category">${placeholderWithTranslation.Kategorie}</option>
-                            			<option value="rank">${placeholderWithTranslation.Rang}</option>
-                            			<option value="table">${placeholderWithTranslation.Tisch}</option>
+                            			<option value="orderno">${placeholderWithTranslation.continual_number}</option>
+                            			<option value="name">${placeholderWithTranslation.genreic_name}</option>
+                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
+                            			<option value="category">${placeholderWithTranslation.kategorie}</option>
+                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="table">${placeholderWithTranslation.tisch}</option>
                             #end
                     	</select>
         			</div>
         		</div>
         		<div class="tableRow">
-        			<div class="tableCell"><label for="sort2">${placeholderWithTranslation.Anschließendnach}</label></div>
+        			<div class="tableCell"><label for="sort2">${placeholderWithTranslation.anschließendnach}</label></div>
         			<div class="tableCell">
             			<select name="sort2" id="sort2">
                             			<option value=""></option>
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
-                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
-                            			<option value="name">${placeholderWithTranslation.GENREIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.Land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
-                            			<option value="category" selected>${placeholderWithTranslation.Kategorie}</option>
-                            			<option value="rank">${placeholderWithTranslation.Rang}</option>
-                            			<option value="table">${placeholderWithTranslation.Tisch}</option>
+                            			<option value="orderno">${placeholderWithTranslation.continual_number}</option>
+                            			<option value="name">${placeholderWithTranslation.genreic_name}</option>
+                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
+                            			<option value="category" selected>${placeholderWithTranslation.kategorie}</option>
+                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="table">${placeholderWithTranslation.tisch}</option>
                             #else
-                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
-                            			<option value="name" selected>${placeholderWithTranslation.GENREIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.Land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
-                            			<option value="category">${placeholderWithTranslation.Kategorie}</option>
-                            			<option value="rank">${placeholderWithTranslation.Rang}</option>
-                            			<option value="table">${placeholderWithTranslation.Tisch}</option>
+                            			<option value="orderno">${placeholderWithTranslation.continual_number}</option>
+                            			<option value="name" selected>${placeholderWithTranslation.genreic_name}</option>
+                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
+                            			<option value="category">${placeholderWithTranslation.kategorie}</option>
+                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="table">${placeholderWithTranslation.tisch}</option>
                             #end
                 		</select>
         			</div>
         		</div>
         		<div class="tableRow">
-        			<div class="tableCell"><label for="sort3">${placeholderWithTranslation.Anschließendnach}</label></div>
+        			<div class="tableCell"><label for="sort3">${placeholderWithTranslation.anschließendnach}</label></div>
         			<div class="tableCell">
         				<select name="sort3" id="sort3" >
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
                             			<option value=""></option>
-                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER<}/option>
-                            			<option value="name">${placeholderWithTranslation.GENREIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.Land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
-                            			<option value="category">${placeholderWithTranslation.Kategorie}</option>
-                            			<option value="rank" selected>${placeholderWithTranslation.Rang}</option>
-                            			<option value="table">${placeholderWithTranslation.Tisch}</option>
+                            			<option value="orderno">${placeholderWithTranslation.continual_number<}/option>
+                            			<option value="name">${placeholderWithTranslation.genreic_name}</option>
+                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
+                            			<option value="category">${placeholderWithTranslation.kategorie}</option>
+                            			<option value="rank" selected>${placeholderWithTranslation.rang}</option>
+                            			<option value="table">${placeholderWithTranslation.tisch}</option>
                             #else
                             			<option value="" selected></option>
-                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
-                            			<option value="name">${placeholderWithTranslation.GENREIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.Land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.PLZ}</option>
-                            			<option value="category">${placeholderWithTranslation.Kategorie}</option>
-                            			<option value="rank">${placeholderWithTranslation.Rang}</option>
-                            			<option value="table">${placeholderWithTranslation.Tisch}</option>
+                            			<option value="orderno">${placeholderWithTranslation.continual_number}</option>
+                            			<option value="name">${placeholderWithTranslation.genreic_name}</option>
+                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
+                            			<option value="category">${placeholderWithTranslation.kategorie}</option>
+                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="table">${placeholderWithTranslation.tisch}</option>
                             #end
             		</select>
         			</div>
         		</div>
         		<div class="tableRow">
         			<div class="tableCell">
-        				<strong>${placeholderWithTranslation.ZusaetzlicheSortierungnach}</strong>
+        				<strong>${placeholderWithTranslation.zusaetzlichesortierungnach}</strong>
         			</div>
         			<div class="tableCell inlineLabel">
-        				<label for="orderByWorkArea">${placeholderWithTranslation.Arbeitsbereich}</label> <input type="checkbox" id="orderByWorkArea" name="orderByWorkArea" value="true" class="noFloat" />
+        				<label for="orderByWorkArea">${placeholderWithTranslation.arbeitsbereich}</label> <input type="checkbox" id="orderByWorkArea" name="orderByWorkArea" value="true" class="noFloat" />
         			</div>
         		</div>
         	</div>
         	<!-- Bereich Ende -->
 
         	<div id="buttonPanel-bottom" class="textRight">
-        		<input type="submit" name="report" value="${placeholderWithTranslation.Gaestelisteerstellen}" title="${placeholderWithTranslation.Gaestelisteerstellen}" class="mainButton" />
+        		<input type="submit" name="report" value="${placeholderWithTranslation.gaestelisteerstellen}" title="${placeholderWithTranslation.gaestelisteerstellen}" class="mainButton" />
             </div>
 
         </form>
 	</div>
 
 	<div id="buttonPanel-bottom" class="textRight">
-		<input type="button" name="cancel" value="${placeholderWithTranslation.ZurueckzurGaesteverwaltung}" title="${placeholderWithTranslation.ZurueckzurGaesteverwaltung}" class="mainButton" onclick="window.location.href='ShowGuestList?selectNone=true';" />
+		<input type="button" name="cancel" value="${placeholderWithTranslation.zurueckzurgaesteverwaltung}" title="${placeholderWithTranslation.zurueckzurgaesteverwaltung}" class="mainButton" onclick="window.location.href='ShowGuestList?selectNone=true';" />
 	</div>
 </div>
 

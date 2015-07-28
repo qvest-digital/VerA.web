@@ -24,14 +24,14 @@
             <input type="hidden" name="limit" value="" />
 
             <div id="breadcrumb marginBottom10" class="textRight">
-            	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}"> ${placeholderWithTranslation.Home} </a> > Administration > Anreden</span>
+            	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}"> ${placeholderWithTranslation.home} </a> > Administration > Anreden</span>
     		</div>
 
             <h1>Anreden</h1>
 
             <span id="actionPanel" class="inlineLabel">
               <strong>Markierte Anrede(n)</strong>
-             	<input type="button" name="remove" onclick="askDelete()"  value="L&ouml;schen" title="${placeholderWithTranslation.MarkierteAnredenloumlschen}" #if($grants.isAdmin()) #else vera-disabled #end>
+             	<input type="button" name="remove" onclick="askDelete()"  value="L&ouml;schen" title="${placeholderWithTranslation.markierteanredenloumlschen}" #if($grants.isAdmin()) #else vera-disabled #end>
             </span>
 
 
@@ -58,10 +58,10 @@
 
             					<tr>
             						<th class="smallCell textCenter"><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end></th>
-            						<th class="smallCell textCenter">${placeholderWithTranslation.ID}</th>
+            						<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
             						<th>Stammform</th>
-            						<th class="textCenter width10">${placeholderWithTranslation.Geschlecht}</th>
-            						<th class="smallCell textCenter">${placeholderWithTranslation.Bearbeiten}</th>
+            						<th class="textCenter width10">${placeholderWithTranslation.geschlecht}</th>
+            						<th class="smallCell textCenter">${placeholderWithTranslation.bearbeiten}</th>
             					</tr>
 
 								<tr>
@@ -84,14 +84,14 @@
                                 		<td>
                                 			<select name="${bean.id}-gender"  style="width: 97%;" onchange="setModified('$!bean.id')">
                                 				<option value="M">M&auml;nnlich</option>
-                                				<option value="F" #if($bean.gender && $bean.gender == "F") selected#end>${placeholderWithTranslation.Weiblich}</option>
+                                				<option value="F" #if($bean.gender && $bean.gender == "F") selected#end>${placeholderWithTranslation.weiblich}</option>
                                 			</select>
                                 		</td>
                                 		<td class="textCenter"><a href="SalutationDoctype?start=0&id=${bean.id}" class="noBorder"><img src=" ${paths.staticWeb}images/edit.png" alt="bearbeiten" title="bearbeiten" /></a></td>
                                 	</tr>
                                 	#end
 									#if ($listparam.count == 0)
-                                    	<tr><td colspan="5">${placeholderWithTranslation.KeineDatengefunden}</td></tr>
+                                    	<tr><td colspan="5">${placeholderWithTranslation.keinedatengefunden}</td></tr>
                                     #end
 
 
@@ -102,14 +102,14 @@
             				</table>
 							#if($grants.isAdmin())
             				<div class="textRight marginTop10" id="buttonPanel-bottom">
-									<input type="submit" name="save" value="Speichern" title="${placeholderWithTranslation.Speichern}" class="mainButton" />
+									<input type="submit" name="save" value="Speichern" title="${placeholderWithTranslation.speichern}" class="mainButton" />
             				</div>
 							#end
 
                             ##Rueckfrage beim Loeschen
                             <script type="text/javascript">
                             function askDelete() {
-                            	htmlConfirm(' ${placeholderWithTranslation.WirklichLoumlschen} ', new Array(' ${placeholderWithTranslation.Ja} ', ' ${placeholderWithTranslation.Nein} '), new Array("askDeleteYes();", "askDeleteNo();"));
+                            	htmlConfirm(' ${placeholderWithTranslation.wirklichloumlschen} ', new Array(' ${placeholderWithTranslation.ja} ', ' ${placeholderWithTranslation.nein} '), new Array("askDeleteYes();", "askDeleteNo();"));
                             }
                             function askDeleteYes() {
                             	hideDialogs();

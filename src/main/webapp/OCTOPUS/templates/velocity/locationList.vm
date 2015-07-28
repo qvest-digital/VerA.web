@@ -24,10 +24,10 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.Veranstaltungsorte}</span>
+		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.veranstaltungsorte}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.Veranstaltungsorte}</h1>
+	<h1>${placeholderWithTranslation.veranstaltungsorte}</h1>
 
 	<form id="formlist" name="formlist" action="Location" method="POST">
 		<input type="hidden" name="doRemove" value="true">
@@ -43,7 +43,7 @@
 			</vera-warn>
 		#elseif($listquestions && $listquestions.size() > 0)
 			<vera-confirm>
-				<strong>${placeholderWithTranslation.BittebestatigenSiedasLoschenvonVeranstaltungsorten}</strong><br>
+				<strong>${placeholderWithTranslation.bittebestatigensiedasloschenvonveranstaltungsorten}</strong><br>
 				<table class="form" style="margin: 5px 0px 0px 0px;">
 				#foreach($quest in $listquestions.entrySet())
 					<tr>
@@ -54,9 +54,9 @@
 				</table><br />
 
 			#if($save)
-				<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.Ja}" title="${placeholderWithTranslation.MarkierteVeranstaltungsorteloschen}"> &nbsp;
+				<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.ja}" title="${placeholderWithTranslation.markierteveranstaltungsorteloschen}"> &nbsp;
 			#end
-				<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.Nein}" onclick="window.location.href='Location?selectNone=true';"> &nbsp;
+				<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.nein}" onclick="window.location.href='Location?selectNone=true';"> &nbsp;
 			</vera-confirm>
 		#end
 
@@ -65,14 +65,14 @@
 		#end
 
 		<span id="actionPanel" class="inlineLabel">
-			<label>${placeholderWithTranslation.MarkiertenVeranstaltungsorte}
-				<input type="submit" id="remove" name="remove" value="${placeholderWithTranslation.Loschen}" title="${placeholderWithTranslation.MarkiertenVeranstaltungsorteLoschen}" />
+			<label>${placeholderWithTranslation.markiertenveranstaltungsorte}
+				<input type="submit" id="remove" name="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markiertenveranstaltungsorteloschen}" />
 			</label>
 		</span>
 
 		#if($grants.mayWrite())
 		<span class="textRight floatRight" id="buttonPanel-top">
-			<input type="button" id="new" name="new" value="${placeholderWithTranslation.NeuenVeranstaltungsorthinzufugen}" title="${placeholderWithTranslation.NeuenVeranstaltungsorthinzufugen}" class="mainButton" onclick="window.location.href='CreateLocation';" />
+			<input type="button" id="new" name="new" value="${placeholderWithTranslation.neuenveranstaltungsorthinzufugen}" title="${placeholderWithTranslation.neuenveranstaltungsorthinzufugen}" class="mainButton" onclick="window.location.href='CreateLocation';" />
 		</span>
 		#end
 
@@ -95,20 +95,20 @@
 			<col width="$column13%" />
 
 			<tr>
-				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.Alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
-				<th class="smallCell textCenter">${placeholderWithTranslation.ID}</th>
-				<th>${placeholderWithTranslation.Bezeichnung}</th>
-				<th>${placeholderWithTranslation.Ansprechpartner}</th>
-				<th>${placeholderWithTranslation.Strasze}</th>
-				<th>${placeholderWithTranslation.PLZ}</th>
-				<th>${placeholderWithTranslation.Ort}</th>
-				<th>${placeholderWithTranslation.Telefon}</th>
-				<th>${placeholderWithTranslation.Fax}</th>
-				<th>${placeholderWithTranslation.EMail}</th>
-				<th>${placeholderWithTranslation.Bemerkung}</th>
-				<th>${placeholderWithTranslation.URL}</th>
-				<th>${placeholderWithTranslation.GPSDaten}</th>
-				<th>${placeholderWithTranslation.Raumnummer}</th>
+				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+				<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
+				<th>${placeholderWithTranslation.bezeichnung}</th>
+				<th>${placeholderWithTranslation.ansprechpartner}</th>
+				<th>${placeholderWithTranslation.strasze}</th>
+				<th>${placeholderWithTranslation.plz}</th>
+				<th>${placeholderWithTranslation.ort}</th>
+				<th>${placeholderWithTranslation.telefon}</th>
+				<th>${placeholderWithTranslation.fax}</th>
+				<th>${placeholderWithTranslation.email}</th>
+				<th>${placeholderWithTranslation.bemerkung}</th>
+				<th>${placeholderWithTranslation.url}</th>
+				<th>${placeholderWithTranslation.gpsdaten}</th>
+				<th>${placeholderWithTranslation.raumnummer}</th>
 			</tr>
 			#foreach($bean in $list)
 				<tr>
@@ -130,7 +130,7 @@
 			#end
 			#if ($listparam.count == 0)
 				<tr>
-					<td colspan="14">${placeholderWithTranslation.EswurdenkeineDatengefunden}</td>
+					<td colspan="14">${placeholderWithTranslation.eswurdenkeinedatengefunden}</td>
 				</tr>
 			#end
 

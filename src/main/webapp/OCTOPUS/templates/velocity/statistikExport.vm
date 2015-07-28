@@ -5,7 +5,7 @@
 		<title>$title</title>
 		## Style
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
-		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report.css" media="all" title="${placeholderWithTranslation.AuswartigesAmtIntranetStil}">
+		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report.css" media="all" title="${placeholderWithTranslation.auswartigesamtintranetstil}">
 		## Browser-Cache deaktivieren
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="cache-control" content="no-cache">
@@ -17,15 +17,15 @@
 			<div class="msg errormsg">
 				<h1>$formatMessage</h1>
 			</div>
-			<input name="button" class="mainButton" type="button" onclick="window.close();" value="${${placeholderWithTranslation.Zuruck}" />
+			<input name="button" class="mainButton" type="button" onclick="window.close();" value="${${placeholderWithTranslation.zuruck}" />
 		#else
 			<h1>$title</h1>
 			#if($begin.class.name == "java.util.Date" && $end.class.name == "java.util.Date")
-				<h2>${${placeholderWithTranslation.ImZeitraumvom} $!message.date("DATE", $begin) ${${placeholderWithTranslation.biszum} $!message.date("DATE", $end)</h2>
+				<h2>${${placeholderWithTranslation.imzeitraumvom} $!message.date("DATE", $begin) ${${placeholderWithTranslation.biszum} $!message.date("DATE", $end)</h2>
 			#elseif($begin.class.name == "java.util.Date")
-				<h2>${${placeholderWithTranslation.Ab} $!message.date("DATE", $begin)</h2>
+				<h2>${${placeholderWithTranslation.ab} $!message.date("DATE", $begin)</h2>
 			#elseif($end.class.name == "java.util.Date")
-				<h2>${${placeholderWithTranslation.Bis} $!message.date("DATE", $end)</h2>
+				<h2>${${placeholderWithTranslation.bis} $!message.date("DATE", $end)</h2>
 			#end
 
 			#if($statistik == "EventsGroupByHost" && $person)
