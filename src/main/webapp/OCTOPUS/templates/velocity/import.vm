@@ -156,7 +156,7 @@
 ##Hinweis und Rueckfrage vor dem Import
 
 	function askStart() {
-		htmlConfirm(' ${placeholderWithTranslation.alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden ', new array(' ${placeholderwithtranslation.ja} ', ' ${placeholderWithTranslation.nein} '), new Array("askStartYes();", "askStartNo();"));
+		htmlConfirm(' ${placeholderWithTranslation.alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden} ', new Array(' ${placeholderWithTranslation.ja} ', ' ${placeholderWithTranslation.nein} '), new Array("askStartYes();", "askStartNo();"));
 	}
 	function askStartYes() {
 		hideDialogs();
