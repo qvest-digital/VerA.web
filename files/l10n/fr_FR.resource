@@ -94,7 +94,7 @@ Inland:Ja-Geschlecht:M\u00e4nnlich=Oui domestique - Sexe: Masculin
 Inland:Nein-Geschlecht:Weiblich=National: Non - Sexe: Femme
 Inland:Nein-Geschlecht:M\u00e4nnlich=National: Non - Sexe: Masculin
 
-#Administration/Funktionen/Amtsbezeichnungen=
+#Administration/Funktionen/Amtsbezeichnungen
 Funktionen/Amtsbezeichnungen=Caract\u00e9ristiques / titres officiels
 MarkierteBezeichnung=Nom (s) marqu\u00e9
 Bezeichnung=d\u00e9signation*
@@ -354,7 +354,6 @@ Erfa\u00dftam/von=Enregistr\u00e9 le / par
 Zuletztge\u00e4ndertam/von=Derni\u00E8re mise \u00E0 jour / par
 Personen-ID=People-ID
 Online-AnmeldungBenutzername=Connexion ligne Nom d'utilisateur
-"Freifeld-Vorschauf\u00fcr""Etikett""	"="Aper\u00E7u champ libre pour" "label"
 ZudieserPersonwurdedasentsprechendeVorschaufeldnochnichterzeugt.=La fen\u00EAtre de pr\u00e9visualisation correspondant n'a pas encore \u00e9t\u00e9 g\u00e9n\u00e9r\u00e9 pour cet individu.
 Personkopieren=copie personne
 Etiketterzeugen=\u00e9tiquette Produce
@@ -363,12 +362,12 @@ Personl\u00e4schen=supprimer une personne
 Statistik=statistiques
 AusStammdatenhinzuf\u00fcgen=Ajouter \u00E0 partir des donn\u00e9es de base
 
-#Personen/Personen\u00fcbersicht/Personbearbeiten/Dokumenttypen=#Personen/Personen\u00fcbersicht/Person bearbeiten/Dokumenttypen
+#Personen/Personen\u00fcbersicht/Personbearbeiten/Dokumenttypen
 dokumenttyp=type De Document
 alleerzeugen=produisent tous
-#Personen/Personen\u00fcbersicht/Personbearbeiten/Kategorien=#Personen/Personen\u00fcbersicht/Person bearbeiten/Kategorien
+#Personen/Personen\u00fcbersicht/Personbearbeiten/Kategorien
 kategorienundereigni\u00dfe=cat\u00e9gories et \u00e9v\u00e9nements
-#Personen/Personen\u00fcbersicht/Personbearbeiten/Statistik=#Personen/Personen\u00fcbersicht/Person bearbeiten/Statistik
+#Personen/Personen\u00fcbersicht/Personbearbeiten/Statistik
 \u00fcbersicht\u00fcberalleVeranstaltungeneinesGastes.=aper\u00E7u de tous les \u00e9v\u00e9nements d'un invit\u00e9.
 Ab=de
 Statistikf\u00fcrGast:=Statistiques de clients:
@@ -503,7 +502,7 @@ felderleeren=champs vides
 hinweis=note
 bitteverwendensieihreorganisationskennzeichenodervorname.nachnamealsbenutzernamen=S'il vous pla\u00EEt utilisez votre organisation comme identification ou nom d'utilisateur firstname.lastname
 
-#mainpage=#mainpage
+#mainpage
 personen=personnes
 veranstaltungen=\u00e9v\u00e9nements
 verwaltung=gestion
@@ -530,12 +529,12 @@ neueveranstaltung=nouvel \u00e9v\u00E8nement
 verteiler=distributeur
 statistiken=statistiques
 
-#verwaltungdropdown=#verwaltungdropdown
+#verwaltungdropdown
 einstellungen=param\u00E8tres
 vertretungen=repr\u00e9sentations
 info=infos
 
-#administrationdropdown=#administrationdropdown
+#administrationdropdown
 anreden=salutations
 arbeitsbereiche=Espaces de travail
 benutzer=utilisateur
@@ -551,7 +550,7 @@ reports=rapports
 stellvertretungen=Les d\u00e9l\u00e9gu\u00e9s
 veranstaltungsorte=lieux
 
-#Veranstaltungs\u00fcbersicht=#Veranstaltungs\u00fcbersicht
+#Veranstaltungs\u00fcbersicht
 veranstaltungs\u00fcbersicht=Pr\u00e9sentation de l'\u00e9v\u00e9nement
 id=id
 GENREIC_NAME=nom
@@ -566,7 +565,7 @@ veranstaltungen=\u00e9v\u00e9nements
 anzahlproseite=Afficher par page
 seitexvony=page x de y
 
-#veranstaltungbearbeiten:/allgemein=#veranstaltung bearbeiten: /allgemein
+#veranstaltungbearbeiten:/allgemein
 veranstaltungbearbeiten=Modifier l'\u00e9v\u00e9nement
 veranstaltungs-id=ID d'\u00e9v\u00e9nement
 veranstaltungsname=nom de l'\u00e9v\u00e9nement
@@ -612,7 +611,7 @@ titel=titre
 status=statut
 verantwortlicher=responsable
 
-#veranstaltungbearbeiten:/aufgaben/aufgabeanlegen=#veranstaltung bearbeiten: /aufgaben/aufgabe anlegen
+#veranstaltungbearbeiten:/aufgaben/aufgabeanlegen
 aufgaben-id=ID de la t\u00E2che
 fertigstellung=ach\u00E8vement
 priorit\u00e4t=priorit\u00e9
@@ -709,7 +708,7 @@ anschlie\u00dfendnach=suivie par
 zus\u00e4tzlichesortierungnach=tri suppl\u00e9mentaire par
 arbeitsbereich=Espace de travail
 
-#gastdetails=#gastdetails
+#gastdetails
 gastdetails=Invit\u00e9 D\u00e9tails
 funktion=fonction
 Siebearbeitenhierau\u00dfchlie\u00dflichPersonendatenimRahmenderaktuellenVeranstaltung,keinegrundlegendenStammdaten.=Modifier ici exclusivement des donn\u00e9es personnelles dans le contexte de l'actualit\u00e9, pas de donn\u00e9es de base de base.
@@ -718,7 +717,7 @@ reserve=r\u00e9serve
 aufstammdatenzur\u00fccksetzen=Reset pour Master Data
 stammdatenbearbeiten=Modification des donn\u00e9es de base
 
-#dokumenttypen=#dokumenttypen
+#dokumenttypen
 dokumenttypw\u00e4hlen=S\u00e9lectionnez Type de document
 mitgliedsausweis=carte de membre
 etikett=\u00e9tiquette
@@ -750,7 +749,7 @@ www=www
 mobil=portable
 zur\u00fcckzudenveranstaltungsdetails=Retour aux d\u00e9tails de l'\u00e9v\u00e9nement
 
-#personbearbeiten/dokumenttypen/bearbeiten=#person bearbeiten/dokumenttypen/bearbeiten
+#personbearbeiten/dokumenttypen/bearbeiten
 dokumenttypbearbeiten=Type de document \u00C9dition
 dokument-id=Document ID
 dokument-name=Nom du document
@@ -765,11 +764,11 @@ statistik=statistiques
 EsliegenkeineKategorienundEreigni\u00dfevor=Il n'y a pas de cat\u00e9gories et d'\u00e9v\u00e9nements avant
 Beigr\u00fcnhinterlegtenEintr\u00e4genhandeltessichumwiederkehrendeEreigni\u00dfe.=En vert soulign\u00e9 entr\u00e9es est \u00e9v\u00e9nements r\u00e9currents.
 
-#suchen&ersetzeninpersonendaten=#suchen &ersetzen in personendaten
+#suchen&ersetzeninpersonendaten
 einzelnersetzen=remplacer individuellement
 alleersetzen=Remplace Tout
 
-#verteilerdetails=#verteilerdetails
+#verteilerdetails
 verteilerdetails:=D\u00e9tails de distribution:
 verteilerversenden=Envoyer distribution
 e-mail-clientaufrufen=client appelant e-mail

@@ -1,6 +1,6 @@
 language=English
 
-#Administration/Anreden
+# Administration/Anreden
 Anreden=Salutations
 MarkierteAnrede=Marked salutation(s)
 ID=ID
@@ -16,15 +16,14 @@ Ja=Yes
 Nein=No
 EswurdeeineAnredegel\u00f6scht=A title has been deleted
 EsexistiertbereitseinStammdaten-EintragunterdemNamen=A master file data entry for this name already exists
-#Administration/Arbeitsbereichee
-#https://veraweb.tarent-demo.de/veraweb/do/WorkArea
+# Administration/Arbeitsbereichee
 Arbeitsbereiche=Work field
 Markierte=Marked work field(s)
 EswurdenkeineDatengefunden=No data has been found
 EswurdeeinneuerArbeitsbereichangelegt=A new work field has been created
 EswurdekeinArbeitsbereichgel\u00f6scht=No work field has been deleted
 EswurdeeinArbeitsbereichgel\u00f6scht=A work field has been deleted
-#Administration/Benutzer
+# Administration/Benutzer
 Benutzer=User
 Markierte(n)Benutzer=Marked user
 Mandant=Client
@@ -33,8 +32,7 @@ Benutzerrechte=User rights
 EswurdeeinneuerBenutzerangelegt=A new user has been added
 EswurdeeinBenutzergel\u00f6scht=A user has been deleted
 Siem\u00fc\u00dfeneineBenutzerrollenbezeichnungeingeben=You have to give a role description for the user
-#Administration/Dokumenttypen
-#https://veraweb.tarent-demo.de/veraweb/do/Doctype
+# Administration/Dokumenttypen
 Hinweis=Tooltip
 Format:OOo1.1stehtf\u00fcrOpenOffice1.1(sxc-Datei)undOOo2.0f\u00fcrOpenOffice2.0(ods-Datei),xlsstehtf\u00fcrMicrosoftOfficeKennzeichen:Kennz.50und99werdenautom.neuenVeranstaltungenhinzugef\u00fcgt.BeimKennz.50wirdkeinFreitextfelderzeugt.(xls-Datei)undCSVstehtf\u00fcrCSV-Dateiformat.=Format: OOo 1.1 is for OpenOffice 1.1 (sxc) and OOo 2.0 if for OpenOffice 2.0(ods), xls is for Microsoft office (xls) and csv is for the csv file format
 Kennzeichen:Kennz.50und99werdenautom.neuenVeranstaltungenhinzugef\u00fcgt.BeimKennz.50wirdkeinFreitextfelderzeugt.=Sign: Sign 50 and 99 will be added automatically to new events. The flag 50 will not create a free text field
@@ -57,7 +55,7 @@ Chinesisch=Chinese
 EswurdeeinDokumenttypgel\u00f6scht.=A document-type had been deleted
 EsexistiertbereitseinStammdaten-EintragunterdemNamen=A master file data entry for this name already exists
 EswurdeeinneuerDokumenttypangelegt.=A new document-type has been added
-#Administration/E-Mail-Postausgang
+# Administration/E-Mail-Postausgang
 Status=Status
 Von=Of
 An=To
@@ -67,7 +65,7 @@ E-Mails=E-mails
 BeimVersendendieserE-MailisteinFehleraufgetreten.Siek\u00f6nnendiesejetztbearbeitenunderneutsenden.=An error has occurded while sending this e-mail. You can now edit your e-mail and send it again
 technischeFehlermeldungeinblenden=Show techincal error
 Fehlerbeschreibung:=Error description
-#Administration/E-Mail-Vorlagen
+# Administration/E-Mail-Vorlagen
 E-Mail-Vorlagen=E-mail patterns
 MarkierteVorlage=Marked pattern(s)
 NeueVorlageanlegen=Create a new pattern
@@ -77,7 +75,7 @@ Text*=Text
 Platzhalter=Placeholder
 Hinzuf\u00fcgen=Address-type
 Zur\u00fcckzurVorlagenliste=Back to pattern-list
-#Administration/Farben
+# Administration/Farben
 Farben=Colors
 Bezeichnung*=Description*
 Farbwert=Chromaticity (R Y B)
@@ -85,13 +83,13 @@ Inland:Ja-Geschlecht:Weiblich=Inland: Yes \u2013 Gender: Female
 Inland:Ja-Geschlecht:M\u00e4nnlich=Inland: Yes \u2013 Gender: Male
 Inland:Nein-Geschlecht:Weiblich=Inland: No \u2013 Gender: Female
 Inland:Nein-Geschlecht:M\u00e4nnlich=Inland: No \u2013 Gender: Male
-#Administration/Funktionen/Amtsbezeichnungen=
+# Administration/Funktionen/Amtsbezeichnungen
 Funktionen/Amtsbezeichnungen=Function/employment title
 MarkierteBezeichnung=Marked descriptions
 Bezeichnung=Decription
 EswurdeeineneueFunktion/Amtsbezeichnungangelegt.=A new function/employment title has been added
 EswurdeeineFunktion/Amtsbezeichnunggel\u00f6scht.=A function/employment title has been deleted
-#Administration/Kategorien=
+#Administration/Kategorien
 Kategorien=Categories
 MarkierteKategorie=Marked categories
 Kennzeichen=Sign
@@ -101,7 +99,7 @@ Kategorie=Category
 Ereignis=Occasion
 Diplo,Corps=Diplo. Corps
 F\u00fcralleVeranstaltungen=For all events
-#Administration/Mandanten=
+# Administration/Mandanten
 Mandanten=Clients
 Markierte(n)Mandanten=Marked clients
 Mandant=Client
@@ -116,7 +114,7 @@ Verteiler:=Dispatcher:
 Benutzer:=User
 Mandantenzuordnen=Assign client
 Mandant:=Client:
-#Administration/Programmeinstellungen=
+# Administration/Programmeinstellungen
 Programeinstellungen=Program settings
 StandardAuswahlvonTabulatoren=Standard selection of tabulators
 Haupttabs=Main tabs
@@ -163,7 +161,7 @@ ZeichensatzAlternative1:=Charset alternative 1
 ZeichensatzAlternative2:=Charset alternative 2
 Adre\u00dfzusatz1:=Addition to the address 1
 Adre\u00dfzusatz2:=Addition to the address 2
-#Administration/Reports=
+# Administration/Reports
 Reports=Reports
 Hinweis=Tooltip
 Abh\u00e4ngigvomausgew\u00e4hltenZeitraumundderdarausresultierendenAnzahlDaten,kanndieErzeugungdesBerichtsrelativlangedauern.HabenSiebitteeinwenigGeduld.=Depending on the selected period and the resulting number of data, the generation of the report may take a long time. Please have a little patience.
@@ -171,7 +169,7 @@ DatumBeginn:=Date start:
 DatumEnde:=Date end:
 Felderzur\u00fccksetzen=Reset fields
 Reporterzeugen=Generate report
-#Administration/Stellvertretungen=
+# Administration/Stellvertretungen
 Stellvertretungen=Delegates
 G\u00fcltigkeitsfilter=Vailidity filter
 alleVertretungen=All representations
@@ -182,7 +180,7 @@ Vertreter*=Representative
 G\u00fcltigab=Date of start
 G\u00fcltigbis=Date of expiry
 KeineDatengefunden.=No data found
-#Administration/Veranstaltungsorte=
+# Administration/Veranstaltungsorte
 Markierte=Marked Venue(s)
 NeuenVeranstaltungsorthinzuf\u00fcgen=Add new Venue
 ID=ID
@@ -198,7 +196,7 @@ Bemerkung=Comment
 URL=URL
 GPS-Daten=GPS-Data
 Raumnummer=Roomnumber
-#Verwaltung/Einstellungen=
+# Verwaltung/Einstellungen
 Verwaltung=Management
 Einstellungen=Settings
 Personendetailansicht=Detailed people View
@@ -226,7 +224,7 @@ Latein=Latin
 Zeichensatz1=Charset 1
 Zeichensatz2=Charset 2
 Einstellungenwurdenerfolgreichgespeichert=The changes have been saved
-#Verwaltung/Vertretungen	=
+# Verwaltung/Vertretungen
 Vertretungen=Representation
 G\u00fcltigkeitsfilter=Validity filter
 alleVertretungen=All representations
@@ -247,7 +245,7 @@ Siem\u00fc\u00dfeneineVertretereingeben=You have to name a representative
 DerBeginnderVertretungmu\u00dfvordemEndeliegen=The start of the representation has to be earlier than the end
 EswurdenVertretungengel\u00e4scht=Representatives have been deleted
 KeineDatengefunden.=No data has been found.
-#Verwaltung/Info
+# Verwaltung/Info
 Verwaltung=Management
 Info=Information
 InformationenzuVerA.web=Information about VerA.web
@@ -264,12 +262,12 @@ Mandant:=Client
 Gruppen:=Groups:
 E-Mail:=E-mail:
 nichtverf\u00fcgbar=Unavailable
-#Allgemein	=
+# Allgemein
 siesindhier=You are here
 Ja=Yes
 Nein=No data found
 Home=Home
-#Tabellen=
+# Tabellen
 ID=ID
 Datum=Date end:
 Arbeitsbereich=Wwork field
@@ -303,7 +301,7 @@ um=At
 Uhr=O'clock
 Datenherkunft=Source of data
 Person=Persons
-#Dateityp	=
+# Dateityp
 CSV=CSV (Comma-Separated-Values)
 XML=XML (VerA.web-XML)
 ZKM=ZKM (VerA.web-XML via the central communication module)
@@ -315,18 +313,17 @@ CSVPersdat+Doktyp=CSVPersdat+Doktyp (Comma-Separated-Values)
 CSVPersdat+Doktyp1.0=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
 CSVPersdat+Kategorien=CSVPersdat+Categories (Comma-Separated-Values)
 CSV-ISO-8859-15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
-#Personen/Personen\u00fcbersicht	=
+# Personen/Personenuebersicht
 Personen\u00fcbersicht=Peopleoverview
 Personensuchen=Search persons
 NeuePersonanlegen=Create a new person
 Direkteinsprung=Paging
-#Personen/Personen\u00fcbersicht/Personbearbeiten	=
+#Personen/Personen\u00fcbersicht/Personbearbeiten
 Personbearbeiten:=Edit persons
 Erfa\u00dftam/von=Created on / of
 Zuletztge\u00e4ndertam/von=Last changed on / of
 Personen-ID=Persons-ID
 Online-AnmeldungBenutzername=Online-registration username
-"Freifeld-Vorschauf\u00fcr""Etikett""	"=Free text field preview for \u201Clabel\u201D
 ZudieserPersonwurdedasentsprechendeVorschaufeldnochnichterzeugt.=The previewfield has not been created for this person yet
 Personkopieren=Copy person
 Etiketterzeugen=Create label
@@ -334,12 +331,12 @@ EinerVeranstaltungzuordnen=Assign to an event
 Personl\u00e4schen=Delete person
 Statistik=Statistic
 AusStammdatenhinzuf\u00fcgen=Add from master file data
-#Personen/Personen\u00fcbersicht/Personbearbeiten/Dokumenttypen=
+#Personen/Personen\u00fcbersicht/Personbearbeiten/Dokumenttypen
 dokumenttyp=Document type
 alleerzeugen=Create all
-#Personen/Personen\u00fcbersicht/Personbearbeiten/Kategorien=
+#Personen/Personen\u00fcbersicht/Personbearbeiten/Kategorien
 kategorienundereigni\u00dfe=Categories and events
-#Personen/Personen\u00fcbersicht/Personbearbeiten/Statistik=
+#Personen/Personen\u00fcbersicht/Personbearbeiten/Statistik
 \u00fcbersicht\u00fcberalleVeranstaltungeneinesGastes.=Overview of all events of a guest
 Ab=From
 Statistikf\u00fcrGast:=Statistics for the guest
@@ -347,12 +344,12 @@ Veranstaltung=Event
 Beginn=Start
 Status=Status
 Partner=Partner
-#Personen/Personensuche	=
+#Personen/Personensuche
 Personensuche=Search for persons
 Suche=Search
 ErweiterteSuche=Enhanced search
 HinweisSiek\u00e4nnenbeiderSuchesogenanntePlatzhalterverwenden,der*stehtf\u00fcrmehrereunddas?f\u00fcreinzelneZeichen.DieSucheerfolgtimVornamen,Nachnamen,Ort,PLZ,Stra\u00dfe,Firma/Institution,Telefon,Fax,Mobil,E-Mail,Bemerkungen,Kategorien,ArbeitsbereicheundAmtsbezeichnung/Funktion.=Tooltip: you can use placeholder while searching for persons. * stands for multiple and ? Stands for a single letter. You can search for first name, surname, place, ZID, street, company/institution, phone number, fax, mobile phone number, e-mail, notes, categories, work fields and employment titles.
-#Personen/NeuePersonanlegen	=
+#Personen/NeuePersonanlegen
 NeuePersonanlegen=Create a new person
 Personendaten=Personal data
 Hauptperson=Main person
@@ -392,14 +389,14 @@ Alleersetzen=Replace all
 Felderleeren=Clear fields
 #Personen/Dublettensuche
 HinweisBeachtenSie,da\u00df\u00e4mitae,\u00e4mitoe,\u00fcmitueund\u00dfmit\u00dfverglichenwird.=Please consider that we will  compare  \u00e4 with  ae, \u00e4 with oe, \u00fc with ue and \u00df with \u00df.
-#Personen/ExportvonPersonendaten	=
+#Personen/ExportvonPersonendaten
 ExportvonPersonendaten=Export personal data
 HinweisSieexportierenmitdieserFunktionau\u00dfchlie\u00dflichPersonenausIhremaktuellenMandanten.=Tooltip: you will only export persons from you current client with this function.
 Veranstaltung=Event
 CSV:Anmerkung=CSV: note
 JenachMengederexportiertenFelder(insbesondereistdiesvonderAnzahlexportierterDokumenttypenundKategorienabh\u00e4ngig)kannespa\u00dfieren,da\u00dfMSExcelundOOCalcdieexportiertenDatennichtvollst\u00e4ndiglesenk\u00e4nnen.=It can occur that MS Ecel and OO Calc can't read the exported data correctly due to the file being to big (depends mostly on the amount of exported document types and categories).
 Exportstarten=Start export
-#Personen/ImportvonPersonendaten	=
+#Personen/ImportvonPersonendaten
 ImportvonPersonendaten=Import of personal data
 HinweisBeimImportk\u00e4nnenFeldinhalte,diel\u00e4ngeralsbeiVerA.webvorgesehensind,gek\u00fcrzt\u00fcbernommenwerden.=Tooltip: content that is longer than our standart field lenght might get shortened
 Datenherkunft*=Source of data
@@ -409,7 +406,7 @@ Dateityp=Data type
 Dateiausw\u00e4hlen=Choose data
 Keineausgew\u00e4hlt=Nothing selected
 Importstarten=Start import
-#anmeldung	=
+#anmeldung
 login=Login:
 benutzername=Username
 pa\u00dfwort=Password
@@ -418,7 +415,7 @@ anmelden=Login
 felderleeren=Clear fields
 hinweis=Tooltip
 bitteverwendensieihreorganisationskennzeichenodervorname.nachnamealsbenutzernamen=Please use your company-sign or first name, surname as your username
-#mainpage=
+#mainpage
 personen=Persons
 veranstaltungen=Events
 verwaltung=Management
@@ -442,24 +439,24 @@ WELCOME_TEXT_TWELVE=globale
 WELCOME_TEXT_THIRTEEN=Einstellungen einsehen und bearbeiten.
 WELCOME_TEXT_FOURTEEN=Sollten Sie weitere Informationen ben\u00f6tigen, finden Sie diese auf der Seite "Hilfe"
 WELCOME_TEXT_FIFTEEN=Zu Ihrer Anmeldung existieren keine Rollen, unter denen Sie in VerA.web agieren k\u00f6nnen. Bitte melden Sie sich ab und mit einer Benutzer- oder Rollenkennung erneut an, die in VerA.web nutzbar ist
-#personendropdown=
+#personendropdown
 personen\u00fcbersicht=Personoverview
 personensuche=Search for persons
 neueperson=New person
 suchen&ersetzen=Search and replace
 personenexport=Export persons
 personenimport=Import persons
-#veranstaltungendropdown	=
+#veranstaltungendropdown
 veranstaltungs\u00fcbersicht=Eventoverview
 veranstaltung\u00dfuche=Search for events
 neueveranstaltung=New event
 verteiler=Distributor
 statistiken=Statistics
-#verwaltungdropdown=
+#verwaltungdropdown
 einstellungen=Settings
 vertretungen=Representatives
 info=Information
-#administrationdropdown=
+#administrationdropdown
 anreden=Titles
 arbeitsbereiche=Work fields
 benutzer=User
@@ -474,7 +471,7 @@ programmeinstellungen=Programsettings
 reports=Reports
 stellvertretungen=Representations
 veranstaltungsorte=Venues
-#Veranstaltungs\u00fcbersicht=
+#Veranstaltungs\u00fcbersicht
 veranstaltungs\u00fcbersicht=Eventoverview
 id=ID
 GENREIC_NAME=Name
@@ -488,7 +485,7 @@ von=Of
 veranstaltungen=Events
 anzahlproseite=Amount shown on this site
 seitexvony=Page x of y
-#veranstaltungbearbeiten:/allgemein=
+#veranstaltungbearbeiten:/allgemein
 veranstaltungbearbeiten=Edit events
 veranstaltungs-id=Event-id
 veranstaltungsname=Eventname
@@ -515,13 +512,13 @@ loginnotwendig=Login neccessary
 anmeldungvonpre\u00dfevertreternm\u00e4glich=Registeration of representatives of the press possible
 veranstaltungspeichern=Save event
 zurveranstaltungs\u00fcbersicht=To eventoverview
-#veranstaltungbearbeiten:/dokumenttypen	=
+#veranstaltungbearbeiten:/dokumenttypen
 markiertedokumenttypen=Marked document types
 entfernen=Remove
 neuendokumenttyphinzuf\u00fcgen=Create a new document type
 bezeichnung=Name
 xvonydokumenttypen=X of y document types
-#veranstaltungbearbeiten:/aufgaben	=
+#veranstaltungbearbeiten:/aufgaben
 neueaufgabeanlegen=Create a new task
 esliegenkeineaufgabenf\u00fcrdieseveranstaltungvor=There are no tasks for this event
 ausgew\u00e4hlteeintr\u00e4ge=Selected entries
@@ -529,7 +526,7 @@ l\u00e4schen=Delete
 titel=Titel
 status=Status
 verantwortlicher=Person in charge
-#veranstaltungbearbeiten:/aufgaben/aufgabeanlegen=
+#veranstaltungbearbeiten:/aufgaben/aufgabeanlegen
 aufgaben-id=Task-id
 fertigstellung=Completion
 priorit\u00e4t=Priority
@@ -538,29 +535,29 @@ verantwortlichenhinzuf\u00fcgen=Add a person in charge
 verantwortlichenentfernen=Delete person in charge
 aufgabespeichern=Save task
 zur\u00fcckzuraufgaben\u00fcbersicht=Back to the taskoverview
-#veranstaltungbearbeiten:/funktionen/amtsbezeichnungen	=
+#veranstaltungbearbeiten:/funktionen/amtsbezeichnungen
 neueamtsbezeichnunghinzuf\u00fcgen=Add a new employment title
 eswurdenkeineamtsbezeichnungengefunden.=No employment titles have been found
-#veranstaltungbearbeiten:/kategorien=
+#veranstaltungbearbeiten:/kategorien
 neuekategoriehinzuf\u00fcgen=Add new category
-#veranstaltung\u00dfuche	=
+#veranstaltung\u00dfuche
 suche=Search
 datum=Date (start)
 nurinzuk\u00fcnftigenveranstaltungensuchen=Search only for events in the future
 siek\u00e4nnenbeidersuchesogenannteplatzhalterverwenden,der+stehtf\u00fcrmehreredas?f\u00fcreinzelne=You can use placeholder while searching for persons. * stands for multiple and ? Stands for a single letter.
-#veranstaltung\u00dfuche/suchergebnis=
+#veranstaltung\u00dfuche/suchergebnis
 suchergebnis:Veranstaltungen=Search result: Events
-#neueveranstaltunganlegen=
+#neueveranstaltunganlegen
 einladungsart=Form of invitation
 mitpartner=With partner
 offeneveranstaltung=Open event
 eswurdeeineneueveranstaltungangelegt.=A new event has been created
-#verteiler=
+#verteiler
 verteiler=Distributor
 angelegtvon=Created by
 angelegtam=Created on (date)
 erzeugtausveranstaltung=Created from an event
-#statistiken	=
+#statistiken
 statistiken=Statistics
 statistikauffolgendenzeitrahmeneinschr\u00e4nken:=Limit the statistic to the following time frame
 statistiktypausw\u00e4hlen:=Choose statistic
@@ -573,7 +570,7 @@ Gesamt\u00fcbersicht\u00fcberalleVeranstaltungen,gruppiertnachGastgeber.=Complet
 \u00fcbersicht\u00fcberalleVeranstaltungeneinesGastes(mitSuche).=Overview of all events of a guest.
 \u00fcbersicht\u00fcberalleVeranstaltungensortiertnachVeranstaltungsort.=Overview of all events sorted by venue.
 statistikerstellen=Create statistic
-#G\u00e4steverwaltungderveranstaltung=
+#G\u00e4steverwaltungderveranstaltung
 G\u00e4steverwaltungderveranstaltung:=Guest management of the event
 veranstaltungsname:=Eventname
 max.anzahlg\u00e4ste:=Maximum amount of guests
@@ -617,14 +614,14 @@ CONTINUAL_NUMBER=Serial number
 anschlie\u00dfendnach=Furthermore sort by
 zus\u00e4tzlichesortierungnach=?
 arbeitsbereich=Work field
-#gastdetails=
+#gastdetails
 funktion=Function
 Siebearbeitenhierau\u00dfchlie\u00dflichPersonendatenimRahmenderaktuellenVeranstaltung,keinegrundlegendenStammdaten.=You are only editing personal data inside of this event. The main data won't be changed.
 istgastgeber:=Is host:
 reserve=Reserve
 aufstammdatenzur\u00fccksetzen=Set back to main data source
 stammdatenbearbeiten=Edit main data source
-#dokumenttypen=
+#dokumenttypen
 dokumenttypw\u00e4hlen=Choose document type
 mitgliedsausweis=Membership card
 etikett=Label
@@ -649,7 +646,7 @@ e-mail=E-mail
 www=Www
 mobil=Mobile number
 zur\u00fcckzudenveranstaltungsdetails=Back to the event details
-#personbearbeiten/dokumenttypen/bearbeiten=
+#personbearbeiten/dokumenttypen/bearbeiten
 dokumenttypbearbeiten=Edit document type
 dokument-id=Document-id
 dokument-name=Document-name
@@ -662,7 +659,7 @@ einerveranstaltungzuordnen=Add to an event
 personl\u00f6schen=Delete person
 EsliegenkeineKategorienundEreigni\u00dfevor=No categories or entries have been found
 Beigr\u00fcnhinterlegtenEintr\u00e4genhandeltessichumwiederkehrendeEreigni\u00dfe.=If an event is marked green, it is a regulary happening event.
-#verteilerdetails=
+#verteilerdetails
 verteilerdetails:=Distributordetails:
 verteilerversenden=Send distributor
 e-mail-clientaufrufen=Open e-mail client

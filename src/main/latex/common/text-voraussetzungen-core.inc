@@ -51,7 +51,8 @@ Die Installation des Webservers (SSL/TLS-Zertifikat, Zugangskontrollen,
 falls nötig vhosts) liegt außerhalb des Rahmens dieses Dokuments. Es
 wird davon ausgegangen, daß Apache so weit eingerichtet wird, daß er
 statische Webseiten ausliefern kann, und nur die Integration mit dem
-Veranstaltungsmanagement beschrieben.
+Veranstaltungsmanagement beschrieben. (Vergessen Sie bei Debian nicht,
+\texttt{sudo a2enmod ssl} auszuführen.)
 
 \begin{minipage}{\textwidth}
 Auf einem Debian 7 „wheezy“-System können Sie diese sowie den
@@ -83,3 +84,7 @@ Distribution“) von tarent beziehen:
 \end{itemize}
 
 Bitte wenden Sie sich hierzu an unseren Produktvertrieb.
+
+Die Installation wird als regulärer Benutzer, der sich vermittels
+des Programms \texttt{sudo} Superuserrechte verschaffen kann,
+durchgeführt, kann aber auch als \texttt{root} durchlaufen werden.
