@@ -9,10 +9,10 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungearbeiten}</span>
+		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungearbeiten}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.Veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
+	<h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
 
 
 	#set($completeEventHeader = false)
@@ -28,7 +28,7 @@
 		<input type="hidden" name="doRemove" value="true"/>
 
 	<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
-		<input type="button" class="mainButton" value="${placeholderWithTranslation.ZurGasteverwaltung}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
+		<input type="button" class="mainButton" value="${placeholderWithTranslation.zurgasteverwaltung}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
 	</div>
 
 		<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
@@ -36,20 +36,20 @@
 			<div id="tabsMain" class="event">
 				<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
 					<li class="inactive"  onclick="window.location.href='ShowEvent?id=$!event.id';" class="noBorder">
-						<div>${placeholderWithTranslation.Allgemein}</div>
+						<div>${placeholderWithTranslation.allgemein}</div>
 					</li>
 					<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';" class="noBorder">
-						<div>${placeholderWithTranslation.Dokumenttypen}</div>
+						<div>${placeholderWithTranslation.dokumenttypen}</div>
 					</li>
 					<li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';" class="noBorder">
-						<div>${placeholderWithTranslation.Aufgaben}</div>
+						<div>${placeholderWithTranslation.aufgaben}</div>
 					</li>
 					#if($online-registration.activated)
-						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.ZusatzlichePersonendaten}</div>
+						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.zusatzlichepersonendaten}</div>
 						</li>
-						<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.FunktionenAmtsbezeichnungen}</div>
+						<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.funktionenamtsbezeichnungen}</div>
 						</li>
-						<li class="active"><div>${placeholderWithTranslation.Kategorien}</div>
+						<li class="active"><div>${placeholderWithTranslation.kategorien}</div>
 						</li>
 					#end
 				</ul>
@@ -60,14 +60,14 @@
 
 				<span id="actionPanel">
 					#if($grants.mayWrite() && $list && $list.size() > 0)
-						<strong>${placeholderWithTranslation.MarkiertenKategorien}</strong>
-						<input type="button" name="remove" value="Entfernen" title="${placeholderWithTranslation.MarkiertenKategorienentfernen}" onclick="deleteEventCategory();"/>
+						<strong>${placeholderWithTranslation.markiertenkategorien}</strong>
+						<input type="button" name="remove" value="Entfernen" title="${placeholderWithTranslation.markiertenkategorienentfernen}" onclick="deleteEventCategory();"/>
 					#else &nbsp;#end
 				</span>
 
 				#if($grants.mayWrite())
 					<div class="buttonPanel-top floatRight">
-						<input type="submit" name="save" title="${placeholderWithTranslation.NeueKategoriehinzufugen}" value="${placeholderWithTranslation.NeueKategoriehinzufugen}" class="mainButton" onclick="saveEventCategory();"/>
+						<input type="submit" name="save" title="${placeholderWithTranslation.neuekategoriehinzufugen}" value="${placeholderWithTranslation.neuekategoriehinzufugen}" class="mainButton" onclick="saveEventCategory();"/>
 					</div>
 				#end
 
@@ -99,10 +99,10 @@
 
 						<tr >
 							#if($list && $list.size() > 0 && $grants.mayWrite())
-								<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.Alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+								<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 							#end
-							<th class="smallCell textCenter">${placeholderWithTranslation.ID}</th>
-							<th>${placeholderWithTranslation.Bezeichnung}</th>
+							<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
+							<th>${placeholderWithTranslation.bezeichnung}</th>
 						</tr>
 						#if($grants.mayWrite())
 						<tr>
@@ -113,7 +113,7 @@
 							<td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>neu</em></td>
 							<td>
 								<select id="add-category" name="add-category" onchange="setModified('add')">
-									<option value="0">${placeholderWithTranslation.Bitteauswahlen}</option>
+									<option value="0">${placeholderWithTranslation.bitteauswahlen}</option>
 									#foreach($category in $allCategorie)
 										<option value="$category.id">$!message.plain($category.name)</option>
 									#end
@@ -133,7 +133,7 @@
 
 					#if ($listparam.count == 0)
 						<tr>
-							<td colspan="2">${placeholderWithTranslation.EswurdenkeineAmtsbezeichnungengefunden}</td>
+							<td colspan="2">${placeholderWithTranslation.eswurdenkeineamtsbezeichnungengefunden}</td>
 						</tr>
 					#end
 
@@ -148,9 +148,9 @@
 
 		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
-				<input type="submit" name="save" value="${placeholderWithTranslation.VeranstaltungSpeichern}" class="mainButton"/>
+				<input type="submit" name="save" value="${placeholderWithTranslation.veranstaltungspeichern}" class="mainButton"/>
 			#end
-			<input type="button" name="cancel" value="${placeholderWithTranslation.ZurVeranstaltungsubersicht}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
+			<input type="button" name="cancel" value="${placeholderWithTranslation.zurveranstaltungsubersicht}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
 		</span>
 
 	</form>

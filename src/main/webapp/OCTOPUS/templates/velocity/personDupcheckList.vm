@@ -1,8 +1,8 @@
-#set($activeMenu = "${placeholderWithTranslation.Personen}")
-#set($title = "${placeholderWithTranslation.PersonspeichernDublettenPruefung}")
+#set($activeMenu = "${placeholderWithTranslation.personen}")
+#set($title = "${placeholderWithTranslation.personspeicherndublettenpruefung}")
 #set($elementNameSex = "female")
-#set($elementNameSingular = "${placeholderWithTranslation.Person}")
-#set($elementNamePlural = "${placeholderWithTranslation.Personen}")
+#set($elementNameSingular = "${placeholderWithTranslation.person}")
+#set($elementNamePlural = "${placeholderWithTranslation.personen}")
 
 ##Values in per cent for table columns width
 #set($column0 = 5)
@@ -59,11 +59,11 @@
 
 
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Personen} > ${placeholderWithTranslation.Dublettensuche}</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > ${placeholderWithTranslation.dublettensuche}</span>
 		</div>
 
 		<vera-info>
-			${placeholderWithTranslation.BeachtenSiedassaemitaeoemitoeümitueundssmitssverglichenwird}<br />
+			${placeholderWithTranslation.beachtensiedassaemitaeoemitoeümitueundssmitssverglichenwird}<br />
 		</vera-info>
 
 		<h1 class="paddingTop20">Vorhandene Dubletten</h1>
@@ -85,7 +85,7 @@
 
 			<tr>
 				<th class="smallCell textCenter">ID</th>
-				<th>${placeholderWithTranslation.GENREIC_NAME}</th>
+				<th>${placeholderWithTranslation.genreic_name}</th>
 				<th>Vorname</th>
 				<th>Amtsbezeichnung</th>
 				<th>Firma / Institution (G)</th>
@@ -104,7 +104,7 @@
 				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.street_a_e1)</td>
 				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.zipcode_a_e1)</td>
 				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.city_a_e1)</td>
-				<td class="textCenter"><a href="SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/add.png" alt="${placeholderWithTranslation.NeuenEintraganlegen}" title="${placeholderWithTranslation.NeuenEintraganlegen}"></a></td>
+				<td class="textCenter"><a href="SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/add.png" alt="${placeholderWithTranslation.neueneintraganlegen}" title="${placeholderWithTranslation.neueneintraganlegen}"></a></td>
 			</tr>
 			#foreach($bean in $list)
 			<tr>
@@ -117,28 +117,28 @@
 				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.street_a_e1)</td>
 				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.zipcode_a_e1)</td>
 				<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!action';">$!message.text($!bean.city_a_e1)</td>
-				<td class="textCenter"><a href="ShowPerson?id=$!{bean.id}&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="${placeholderWithTranslation.ExistierendenEintragbearbeiten}" title="${placeholderWithTranslation.ExistierendenEintragbearbeiten}"></a></td>
+				<td class="textCenter"><a href="ShowPerson?id=$!{bean.id}&action=$!action" class="noBorder"><img src="${paths.staticWeb}images/edit.png" alt="${placeholderWithTranslation.existierendeneintragbearbeiten}" title="${placeholderWithTranslation.existierendeneintragbearbeiten}"></a></td>
 			</tr>
 			#end
 
-			#set($itemName = "${placeholderWithTranslation.Personen}")
+			#set($itemName = "${placeholderWithTranslation.personen}")
 			#parse("inc/list-navi-new.vm")
 		</table>
 
 		#set($disableListSelect = true)
 		#if ($listparam.count == 0)
-			<br>${placeholderWithTranslation.EswurdenkeineDublettengefunden}
+			<br>${placeholderWithTranslation.eswurdenkeinedublettengefunden}
 		#end
 
 	<div class="textRight">
 
 		#if($action == "guest")
-			<input type="submit" class="submit" name="add" value="${placeholderWithTranslation.Hinzufuegen}" title="${placeholderWithTranslation.AusgewaehltePersonenzurVeranstaltunghinzufuegen}">
-			<input type="button" class="button" name="newperson" value="${placeholderWithTranslation.Personerfassen}" title="${placeholderWithTranslation.Personerfassen}" onclick="window.location.href='ShowPerson';">
-			<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.Zurueck}" title="${placeholderWithTranslation.Zurueck}" onclick="window.location.href='ShowGuestList?selectNone=true';">
+			<input type="submit" class="submit" name="add" value="${placeholderWithTranslation.hinzufuegen}" title="${placeholderWithTranslation.ausgewaehltepersonenzurveranstaltunghinzufuegen}">
+			<input type="button" class="button" name="newperson" value="${placeholderWithTranslation.personerfassen}" title="${placeholderWithTranslation.personerfassen}" onclick="window.location.href='ShowPerson';">
+			<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='ShowGuestList?selectNone=true';">
 		#else
-			<!-- <input type="button" class="button" name="newperson" value="${placeholderWithTranslation.Dublettenanlegen}" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId';"> -->
-			<input type="button" name="cancel" value="${placeholderWithTranslation.Abbrechenundzurueck}" title="${placeholderWithTranslation.Abbrechenundzurueck}" onclick="window.location.href='PersonDupcheckCancel';" class="mainButton">
+			<!-- <input type="button" class="button" name="newperson" value="${placeholderWithTranslation.dublettenanlegen}" onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId';"> -->
+			<input type="button" name="cancel" value="${placeholderWithTranslation.abbrechenundzurueck}" title="${placeholderWithTranslation.abbrechenundzurueck}" onclick="window.location.href='PersonDupcheckCancel';" class="mainButton">
 		#end
 
 	</div>

@@ -7,15 +7,15 @@
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Personen} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.ZumPersonenImport}">${placeholderWithTranslation.Personenimport}</a> > ${placeholderWithTranslation.Importstatus}</span>
+    	<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.personen} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.personenimport}</a> > ${placeholderWithTranslation.importstatus}</span>
     </div>
-    <h1>${placeholderWithTranslation.Importstatus}</h1>
+    <h1>${placeholderWithTranslation.importstatus}</h1>
 
 	<vera-info>
-		${placeholderWithTranslation.UmDublettenspeicherbarzumachenmussensiezunachstimBereichvorhandeneDublettenubernommenwerden}<br />
-		${placeholderWithTranslation.BeachtenSiedassamitaeomitoeumitueundszmitssverglichenwird}<br />
-		${placeholderWithTranslation.DerImportisterstbeendetwennderButtonImportabschlieszengeklicktwurde}<br />
-		${placeholderWithTranslation.DerImportkannerstabgeschlossenwerdenwennspeicherbareDatensatzevorhandensind}
+		${placeholderWithTranslation.umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden}<br />
+		${placeholderWithTranslation.beachtensiedassamitaeomitoeumitueundszmitssverglichenwird}<br />
+		${placeholderWithTranslation.derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde}<br />
+		${placeholderWithTranslation.derimportkannerstabgeschlossenwerdenwennspeicherbaredatensatzevorhandensind}
 	</vera-info>
 
 	#if($importStatus.dupCount && $importStatus.dupCount != 0)
@@ -26,7 +26,7 @@
                 <input type="hidden" name="saveCount" value="$saveCount"/>
                 <input type="hidden" name="start" value="0"/>
     			<input type="hidden" name="selectNone" #if($selectNone && $selectNone == "false") value="false" #else value="true" #end/>
-                <input type="submit" class="mainButton" value="${placeholderWithTranslation.vorhandeneDubletten}"  title="${placeholderWithTranslation.VorhandeneDublettenbearbeiten}" />
+                <input type="submit" class="mainButton" value="${placeholderWithTranslation.vorhandenedubletten}"  title="${placeholderWithTranslation.vorhandenedublettenbearbeiten}" />
             </form>
 		</div>
 	#end
@@ -39,11 +39,11 @@
 					<strong>Import-ID:</strong> $!message.text($importStatus.id)
 				</div>
 				<div class="tableCell width70">
-					<strong class="inlineBlock width35">${placeholderWithTranslation.ZuimportierendeDatensatzeinsgesamt}</strong> $!importStatus.dsCount<br />
-					<strong class="inlineBlock width35">${placeholderWithTranslation.davonDubletten}</strong> $!importStatus.dupCount<br />
+					<strong class="inlineBlock width35">${placeholderWithTranslation.zuimportierendedatensatzeinsgesamt}</strong> $!importStatus.dsCount<br />
+					<strong class="inlineBlock width35">${placeholderWithTranslation.davondubletten}</strong> $!importStatus.dupCount<br />
 					<strong class="inlineBlock width35">${placeholderWithTranslation.davonspeicherbar}</strong> $!importStatus.saveCount<br />
         			#if($importStatus.igCount  && $importStatus.igCount != 0)
-						<strong class="inlineBlock width35">&nbsp;&nbsp; ${placeholderWithTranslation.IgnorierteFehlerdatensatze} </strong> $!importStatus.igCount
+						<strong class="inlineBlock width35">&nbsp;&nbsp; ${placeholderWithTranslation.ignoriertefehlerdatensatze} </strong> $!importStatus.igCount
         			#end
 
 				</div>
@@ -57,9 +57,9 @@
 		<span class="textRight floatRight">
 			#if($importStatus.saveCount  && $importStatus.saveCount != 0)
                 <input type="hidden" name="importId" value="$!importStatus.id"/>
-                <input type="submit" class="mainButton" value="${placeholderWithTranslation.Importabschlieszen}" title="${placeholderWithTranslation.Importabschlieszen}" onclick="htmlWait();"/>
+                <input type="submit" class="mainButton" value="${placeholderWithTranslation.importabschlieszen}" title="${placeholderWithTranslation.importabschlieszen}" onclick="htmlWait();"/>
 			#end
-			<input type="button" class="mainButton" value="${placeholderWithTranslation.ZuruckzumPersonenimport}" title="${placeholderWithTranslation.ZuruckzumPersonenimport}" onclick="window.location.href='ImportPersons';"/>
+			<input type="button" class="mainButton" value="${placeholderWithTranslation.zuruckzumpersonenimport}" title="${placeholderWithTranslation.zuruckzumpersonenimport}" onclick="window.location.href='ImportPersons';"/>
 		</span>
 	</form>
 
@@ -70,11 +70,11 @@
 #if($imported)
     <script type="text/javascript">
      #if($imported == 0)
-    	showSuccess(' ${placeholderWithTranslation.SiehabenkeinenDatensatzimportiert.} ');
+    	showSuccess(' ${placeholderWithTranslation.siehabenkeinendatensatzimportiert.} ');
      #elseif($imported == 1)
-    	showSuccess(' ${placeholderWithTranslation.SiehabeneinenDatensatzimportiert.} ');
+    	showSuccess(' ${placeholderWithTranslation.siehabeneinendatensatzimportiert.} ');
      #elseif($imported > 1)
-    	showSuccess(' ${placeholderWithTranslation.Siehaben} $imported ${placeholderWithTranslation.Datensatzeimportiert.} ');
+    	showSuccess(' ${placeholderWithTranslation.siehaben} $imported ${placeholderWithTranslation.datensatzeimportiert.} ');
      #end
     </script>
 #end

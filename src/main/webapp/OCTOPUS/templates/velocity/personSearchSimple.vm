@@ -11,14 +11,14 @@
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Personen} > ${placeholderWithTranslation.Personensuche}</span>
+        <strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > ${placeholderWithTranslation.personensuche}</span>
     </div>
 
-    <h1>${placeholderWithTranslation.Personensuche}</h1>
+    <h1>${placeholderWithTranslation.personensuche}</h1>
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 
-        <h2><label for="searchfield">${placeholderWithTranslation.Suche}</label></h2>
+        <h2><label for="searchfield">${placeholderWithTranslation.suche}</label></h2>
 
         <form action="SearchPerson" id="peopleSearch_form" method="post">
             <input type="hidden" name="start" value="0">
@@ -34,16 +34,16 @@
 
 
             <div id="buttonPanel-bottom" class="textRight">
-                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.Suchen}" title="${placeholderWithTranslation.Suchen}" />
-                    <input type="button" class="mainButton submit" name="cancel" value="${placeholderWithTranslation.ErweiterteSuche}" title="${placeholderWithTranslation.ErweiterteSuche}" onclick="window.location.href='${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear'" />
+                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
+                    <input type="button" class="mainButton submit" name="cancel" value="${placeholderWithTranslation.erweitertesuche}" title="${placeholderWithTranslation.erweitertesuche}" onclick="window.location.href='${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear'" />
             </div>
 
         </form>
     </div>
     <vera-info vera-stay>
-	    ${placeholderWithTranslation.SiekoennenbeiderSuchesogenanntePlatzhalterverwendenderstehtfuermehrereunddasfuereinzelneZeichen}. <br/>
-        ${placeholderWithTranslation.DieSucheerfolgtimVornamenNachnamenOrtPLZStrasseFirmaInstitutionTelefonFaxMobilEMailBemerkungenKategorienArbeitsbereiche}<br/>
-		${placeholderWithTranslation.undAmtsbezeichnungFunktion}.
+	    ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen}. <br/>
+        ${placeholderWithTranslation.diesucheerfolgtimvornamennachnamenortplzstrassefirmainstitutiontelefonfaxmobilemailbemerkungenkategorienarbeitsbereiche}<br/>
+		${placeholderWithTranslation.undamtsbezeichnungfunktion}.
     </vera-info>
 </div>
 

@@ -25,16 +25,16 @@
 <div id="content_container">
 
     <div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.Mandanten}</span>
+    	<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.mandanten}</span>
     </div>
 
-	<h1>${placeholderWithTranslation.Mandanten}</h1>
+	<h1>${placeholderWithTranslation.mandanten}</h1>
 
     <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
 		<div class="event" id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-				<li vera-tab-default="" vera-tab="mandanten" class="active"><div>${placeholderWithTranslation.Mandanten}</div>
-				</li><li class="inactive"><a href="OrgunitCleanup" class="noBorder"><div>${placeholderWithTranslation.Datenbank}</div></a>
+				<li vera-tab-default="" vera-tab="mandanten" class="active"><div>${placeholderWithTranslation.mandanten}</div>
+				</li><li class="inactive"><a href="OrgunitCleanup" class="noBorder"><div>${placeholderWithTranslation.datenbank}</div></a>
 				</li>
 			</ul>
 		</div>
@@ -56,7 +56,7 @@
 		<div class="contentBoxColored tabsContent" vera-content="mandanten">
 
     		<span class="inlineLabel" id="actionPanel">
-            	<strong>${placeholderWithTranslation.MarkiertenMandanten}</strong>
+            	<strong>${placeholderWithTranslation.markiertenmandanten}</strong>
             	<input type="submit" onclick="return confirm('Markierte(n) Mandanten wirklich löschen?');" title="Markierte(n) Mandanten löschen" name="remove" value="L&ouml;schen" >
             </span>
             <table class="fixed">
@@ -66,9 +66,9 @@
     			<col width="$column2%" />
 
             	<tr>
-            		<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.Alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+            		<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
             		<th class="smallCell textCenter">ID</th>
-            		<th>${placeholderWithTranslation.Mandant}</th>
+            		<th>${placeholderWithTranslation.mandant}</th>
             	</tr>
             	<tr>
             		<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
@@ -84,7 +84,7 @@
 				#end
 					#if ($listparam.count == 0)
 						<tr>
-							<td colspan="3">${placeholderWithTranslation.EswurdenkeineDatengefunden}</td>
+							<td colspan="3">${placeholderWithTranslation.eswurdenkeinedatengefunden}</td>
 						</tr>
 					#end
 
@@ -96,7 +96,7 @@
         </div>
     			<span id="buttonPanel-bottom" class="floatRight marginTop10">
     			<!-- Show the save button -->
-    				<input type="submit" name="save" value="Speichern" title="${placeholderWithTranslation.Speichern}" class="mainButton">
+    				<input type="submit" name="save" value="Speichern" title="${placeholderWithTranslation.speichern}" class="mainButton">
     			</span>
 
     </div><!-- End ID=main_content-->

@@ -36,10 +36,10 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Verteiler}</span>
+		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.verteiler}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.Verteiler}</h1>
+	<h1>${placeholderWithTranslation.verteiler}</h1>
 
 	<form id="formlist" name="formlist" action="ShowMailinglistList" method="POST">
 
@@ -57,8 +57,8 @@
 
         	#if($grants.mayWrite())
         	<span id="actionPanel">
-                <strong>${placeholderWithTranslation.MarkiertenVerteiler}</strong>
-        		<input type="button" name="remove" value="${placeholderWithTranslation.Loschen}" onclick="deleteMailinglist();" title="${placeholderWithTranslation.MarkierteVerteilerloschen}">
+                <strong>${placeholderWithTranslation.markiertenverteiler}</strong>
+        		<input type="button" name="remove" value="${placeholderWithTranslation.loschen}" onclick="deleteMailinglist();" title="${placeholderWithTranslation.markierteverteilerloschen}">
         	</span>
         	#end
 
@@ -73,11 +73,11 @@
 
         		<tr>
         			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
-        			<th class="smallCell textCenter">${placeholderWithTranslation.ID}</th>
-        			<th>${placeholderWithTranslation.Bezeichnung}</th>
-        			<th>${placeholderWithTranslation.Angelegtvon}</th>
-        			<th class="smallCell nowrap">${placeholderWithTranslation.Angelegtam}</th>
-        			<th>${placeholderWithTranslation.ErzeugtausVeranstaltung}</th>
+        			<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
+        			<th>${placeholderWithTranslation.bezeichnung}</th>
+        			<th>${placeholderWithTranslation.angelegtvon}</th>
+        			<th class="smallCell nowrap">${placeholderWithTranslation.angelegtam}</th>
+        			<th>${placeholderWithTranslation.erzeugtausveranstaltung}</th>
         		</tr>
         		#foreach($bean in $list)
         		<tr>
@@ -98,7 +98,7 @@
     	#else
 
     		<div class="contentBoxColored grayBorder marginBottom20">
-    			${placeholderWithTranslation.EswurdenkeineEintragegefunden}
+    			${placeholderWithTranslation.eswurdenkeineeintragegefunden}
     		</div>
 
     	#end

@@ -25,10 +25,10 @@
     #end
 
     	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span>${placeholderWithTranslation.Home}</span>
+    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span>${placeholderWithTranslation.home}</span>
     	</div>
 
-    <h1 class="marginTop25">${placeholderWithTranslation.WillkommenbeiVerAweb}</h1>
+    <h1 class="marginTop25">${placeholderWithTranslation.willkommenbeiveraweb}</h1>
 
     #if($grants.isUser())
     ##<P>
@@ -37,53 +37,53 @@
 
     #if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
     <P>
-    	${placeholderWithTranslation.WELCOME_TEXT_ONE}
+    	${placeholderWithTranslation.welcome_text_one}
       #if($grants.mayReadStandardFields())
-    	${placeholderWithTranslation.WELCOME_TEXT_TWO}
+    	${placeholderWithTranslation.welcome_text_two}
       #end
       #if($grants.mayReadRemarkFields())
        #if($grants.mayReadStandardFields())
-    	${placeholderWithTranslation.WELCOME_TEXT_AND}
+    	${placeholderWithTranslation.welcome_text_and}
        #end
-    	${placeholderWithTranslation.WELCOME_TEXT_THREE}
+    	${placeholderWithTranslation.welcome_text_three}
       #end
-    	${placeholderWithTranslation.WELCOME_TEXT_FOUR}
+    	${placeholderWithTranslation.welcome_text_four}
       #if($grants.mayWrite())
-    	${placeholderWithTranslation.WELCOME_TEXT_FIVE}
+    	${placeholderWithTranslation.welcome_text_five}
        #if($grants.mayExport())
-    	${placeholderWithTranslation.WELCOME_TEXT_SIX}
+    	${placeholderWithTranslation.welcome_text_six}
        #end
-    	${placeholderWithTranslation.WELCOME_TEXT_SEVEN}
+    	${placeholderWithTranslation.welcome_text_seven}
       #elseif($grants.mayExport())
-    	${placeholderWithTranslation.WELCOME_TEXT_EIGHT}
+    	${placeholderWithTranslation.welcome_text_eight}
       #else
-    	${placeholderWithTranslation.WELCOME_TEXT_NINE}
+    	${placeholderWithTranslation.welcome_text_nine}
       #end
     </P>
      #end
      #if($grants.isPartialAdmin() || $grants.isAdmin())
     <P>
-    	${placeholderWithTranslation.WELCOME_TEXT_TEN}
+    	${placeholderWithTranslation.welcome_text_ten}
       #if($grants.isPartialAdmin())
-    	${placeholderWithTranslation.WELCOME_TEXT_ELEVEN}
+    	${placeholderWithTranslation.welcome_text_eleven}
       #end
       #if($grants.isAdmin())
        #if($grants.isPartialAdmin())
-    	${placeholderWithTranslation.WELCOME_TEXT_AND}
+    	${placeholderWithTranslation.welcome_text_and}
        #end
-    	${placeholderWithTranslation.WELCOME_TEXT_TWELVE}
+    	${placeholderWithTranslation.welcome_text_twelve}
       #end
-    	${placeholderWithTranslation.WELCOME_TEXT_THIRTEEN}
+    	${placeholderWithTranslation.welcome_text_thirteen}
     </P>
      #end
     <P>
-    	${placeholderWithTranslation.WELCOME_TEXT_FOURTEEN}
+    	${placeholderWithTranslation.welcome_text_fourteen}
     </P>
     #elseif($octopusConfig.personalConfig.roles)
      #parse("inc/role-chooser.vm")
     #else
     <P>
-    	${placeholderWithTranslation.WELCOME_TEXT_FIFTEEN}
+    	${placeholderWithTranslation.welcome_text_fifteen}
     </P>
     #end
 
