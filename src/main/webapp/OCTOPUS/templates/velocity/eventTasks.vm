@@ -22,10 +22,10 @@
 
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungbearbeiten}</span>
+		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.Veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
+	<h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
 
 
 	<form id="formlist" name="formlist" action="$formurl?id=$!id" method="POST">
@@ -34,7 +34,7 @@
 	#parse("inc/event-header.vm")
 
 	<div class="marginBottom10 marginTop20 textRight" id="buttonPanel-top">
-		<input type="button" class="mainButton" value="${placeholderWithTranslation.ZurGasteverwaltung}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
+		<input type="button" class="mainButton" value="${placeholderWithTranslation.zurgasteverwaltung}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
 	</div>
 
 	<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
@@ -49,16 +49,16 @@
 
 			<div id="tabsMain">
 				<ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-					<li class="inactive" onclick="window.location.href='ShowEvent?id=$!id';" class="noBorder"><div>${placeholderWithTranslation.Allgemein}</div></a>
-					</li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$id&selectNone=true';" class="noBorder"><div>${placeholderWithTranslation.Dokumenttypen}</div>
-					</li><li class="active"><div>${placeholderWithTranslation.Aufgaben}</div>
+					<li class="inactive" onclick="window.location.href='ShowEvent?id=$!id';" class="noBorder"><div>${placeholderWithTranslation.allgemein}</div></a>
+					</li><li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$id&selectNone=true';" class="noBorder"><div>${placeholderWithTranslation.dokumenttypen}</div>
+					</li><li class="active"><div>${placeholderWithTranslation.aufgaben}</div>
 					</li>
 					#if($online-registration.activated)
-						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.ZusatzlichePersonendaten}</div>
+						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.zusatzlichepersonendaten}</div>
 						</li>
-						<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.FunktionenAmtsbezeichnungen}</div>
+						<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.funktionenamtsbezeichnungen}</div>
 						</li>
-						<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.Kategorien}</div>
+						<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
 						</li>
 					#end
 				</ul>
@@ -74,7 +74,7 @@
 
 				#if($listerrors && $listerrors.size() > 0)
 				<vera-warn>
-					<strong>${placeholderWithTranslation.LoschenvonAufgabenistnichtmoglich}</strong><br>
+					<strong>${placeholderWithTranslation.loschenvonaufgabenistnichtmoglich}</strong><br>
 					<ul style="margin: 0px 0px 0px -10px;">
 						#if($listerrors.size() > 5)
 						#set($show = 5)
@@ -88,14 +88,14 @@
 						#end
 						#if($listerrors.size() > $show)
 						#set($drop = $listerrors.size() - $show)
-						<li style="margin: 5px 0px 0px 0px;"><em>... $drop ${placeholderWithTranslation.weitereMeldungen}</em></li>
+						<li style="margin: 5px 0px 0px 0px;"><em>... $drop ${placeholderWithTranslation.weiteremeldungen}</em></li>
 						#end
 					</ul>
 				</vera-warn>
 				#end
 				#if($listquestions && $listquestions.size() > 0)
 				<vera-confirm>
-					<strong>${placeholderWithTranslation.BittebestatigenSiedasLoschenvonAufgaben}</strong><br>
+					<strong>${placeholderWithTranslation.bittebestatigensiedasloschenvonaufgaben}</strong><br>
 					<ul style="margin: 0px 0px 0px -10px;">
 						#foreach($quest in $listquestions.entrySet())
 						<li style="margin: 5px 0px 0px 0px;"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</li>
@@ -103,9 +103,9 @@
 						#end
 					</ul><br>
 					#if($save)
-					<input type="submit" name="remove" value="${placeholderWithTranslation.Ja}" title="${placeholderWithTranslation.ausgewahlteEintrageloschen}">
+					<input type="submit" name="remove" value="${placeholderWithTranslation.ja}" title="${placeholderWithTranslation.ausgewahlteeintrageloschen}">
 					#end
-					<input type="button" name="cancel" value="${placeholderWithTranslation.Nein}" onclick="window.location.href='ShowEventTasks?id=$!id&selectNone=true'"> &nbsp;
+					<input type="button" name="cancel" value="${placeholderWithTranslation.nein}" onclick="window.location.href='ShowEventTasks?id=$!id&selectNone=true'"> &nbsp;
 				</vera-confirm>
 				#end
 
@@ -125,11 +125,11 @@
 
 						#if ($listparam.count != 0)
 						<div class="tableCell width50 inlineLabel" style="vertical-align:bottom;">
-							<label>${placeholderWithTranslation.AusgewahlteEintrage}</label>
-							<input type="submit" name="remove" id="remove" value="${placeholderWithTranslation.Loschen}" title="${placeholderWithTranslation.Loschen}" class="autoWidth noFloat"></div>
+							<label>${placeholderWithTranslation.ausgewahlteeintrage}</label>
+							<input type="submit" name="remove" id="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.loschen}" class="autoWidth noFloat"></div>
 						#end
 						<div class="tableCell width50 textRight">
-							<input type="button" title="${placeholderWithTranslation.NeueAufgabeanlegen}" value="${placeholderWithTranslation.NeueAufgabeanlegen}" name="save" id="" class="autoWidth mainButton" onclick="window.location.href='CreateEventTask?eventId=$!id';">
+							<input type="button" title="${placeholderWithTranslation.neueaufgabeanlegen}" value="${placeholderWithTranslation.neueaufgabeanlegen}" name="save" id="" class="autoWidth mainButton" onclick="window.location.href='CreateEventTask?eventId=$!id';">
 						</div>
 					</div>
 				</div>
@@ -151,14 +151,14 @@
 
 					<tbody>
 					<tr>
-						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.Alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
-						<th class="smallCell textCenter">${placeholderWithTranslation.ID}</th>
-						<th>${placeholderWithTranslation.Titel}</th>
-						<th class="smallCell textCenter">${placeholderWithTranslation.Start}</th>
-						<th class="smallCell textCenter">${placeholderWithTranslation.Ende}</th>
-						<th class="smallCell textCenter">${placeholderWithTranslation.Status}</th>
-						<th>${placeholderWithTranslation.Verantwortlicher}</th>
-						<th class="smallCell textCenter">${placeholderWithTranslation.Prioritat}</th>
+						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
+						<th>${placeholderWithTranslation.titel}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.start}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.ende}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.status}</th>
+						<th>${placeholderWithTranslation.verantwortlicher}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.prioritat}</th>
 					</tr>
 					#foreach($bean in $list)
 						<tr>
@@ -192,13 +192,13 @@
 
 				#else
 					<vera-info vera-stay>
-						${placeholderWithTranslation.EsliegenkeineAufgabenfürdieseVeranstaltungvor}
+						${placeholderWithTranslation.esliegenkeineaufgabenfürdieseveranstaltungvor}
 					</vera-info>
 				#end
 
 
 				<div class="textRight">
-					<!--input type="button" id="cancel" name="cancel" class="button" value="${placeholderWithTranslation.Zuruck}" title="${placeholderWithTranslation.ZurSuche}" onclick="window.location.href='SearchEvent';"-->
+					<!--input type="button" id="cancel" name="cancel" class="button" value="${placeholderWithTranslation.zuruck}" title="${placeholderWithTranslation.zursuche}" onclick="window.location.href='SearchEvent';"-->
 				</div>
 
 
@@ -209,9 +209,9 @@
 	 </div>
 			<span id="buttonPanel-bottom" class="floatRight">
 				#if($grants.mayWrite())
-					<input type="button" name="save" value="${placeholderWithTranslation.Veranstaltungspeichern}" class="mainButton" onclick="showSuccess(' ${placeholderWithTranslation.Erfolgreichgespeichert} ');">
+					<input type="button" name="save" value="${placeholderWithTranslation.veranstaltungspeichern}" class="mainButton" onclick="showSuccess(' ${placeholderWithTranslation.erfolgreichgespeichert} ');">
 				#end
-				<input type="reset" name="cancel" value="${placeholderWithTranslation.ZurVeranstaltungsubersicht}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
+				<input type="reset" name="cancel" value="${placeholderWithTranslation.zurveranstaltungsubersicht}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
 
 			</span>
 	</form>

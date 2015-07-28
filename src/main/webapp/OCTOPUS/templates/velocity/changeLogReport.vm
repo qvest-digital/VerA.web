@@ -10,15 +10,15 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration} > ${placeholderWithTranslation.Reports}</span>
+		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.reports}</span>
 	</div>
 
 	<h1>Reports</h1>
 
 
 			<div class="contentBoxColored hinweis grayBorder marginBottom20">
-				<strong>${placeholderWithTranslation.Hinweis}</strong>
-				<p>${placeholderWithTranslation.AbhangigvomausgewahltenZeitraumundderdarausresultierendenAnzahlDatenkanndieErzeugungdesBerichtsrelativlangedauernHabenSiebitteeinwenigGeduld}</p>
+				<strong>${placeholderWithTranslation.hinweis}</strong>
+				<p>${placeholderWithTranslation.abhangigvomausgewahltenzeitraumundderdarausresultierendenanzahldatenkanndieerzeugungdesberichtsrelativlangedauernhabensiebitteeinweniggeduld}</p>
 			</div>
 
 #if($noLogDataAvailableMessage)
@@ -31,7 +31,7 @@
 <div class="table width30">
 	<div class="tableRow">
 		<div class="tableCell ">
-			<label for="begin">${placeholderWithTranslation.DatumBeginn}</label>
+			<label for="begin">${placeholderWithTranslation.datumbeginn}</label>
 		</div>
 		<div class="tableCell ">
 			<span id="show-begin" class="datepickerContainer">
@@ -50,12 +50,12 @@
 	</div>
 	<div class="tableRow">
 		<div class="tableCell ">
-			<label for="end">${placeholderWithTranslation.DatumEnde}</label>
+			<label for="end">${placeholderWithTranslation.datumende}</label>
 		</div>
 	<div class="tableCell ">
 		<span id="show-end" class="datepickerContainer">
 			<input type="text" name="end" value="${end}" id="end" class="datepicker width80">
-			<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.Datumauswahlen}" title="${placeholderWithTranslation.Datumauswahlen}">
+			<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}">
 			<script type="text/javascript">
 				Calendar.setup({
 					inputField: "end",
@@ -70,8 +70,8 @@
 </div>
 
 <div id="buttonPanel-bottom" class="marginTop10">
-	<input type="submit" class="mainButton" value="${placeholderWithTranslation.Reporterzeugen}" title="${placeholderWithTranslation.Reporterzeugen}" />
-	<input type="reset" class="mainButton" value="${placeholderWithTranslation.Felderzurucksetzen}" title="${placeholderWithTranslation.Felderzurucksetzen}" />
+	<input type="submit" class="mainButton" value="${placeholderWithTranslation.reporterzeugen}" title="${placeholderWithTranslation.reporterzeugen}" />
+	<input type="reset" class="mainButton" value="${placeholderWithTranslation.felderzurucksetzen}" title="${placeholderWithTranslation.felderzurucksetzen}" />
 </div>
 
 

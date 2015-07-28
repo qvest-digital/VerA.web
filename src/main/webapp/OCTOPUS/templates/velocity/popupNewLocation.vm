@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
 <html>
 	<head>
-		<title>${placeholderWithTranslation.NeuenOrteingeben}</title>
+		<title>${placeholderWithTranslation.neuenorteingeben}</title>
 		## Style
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
@@ -26,15 +26,15 @@
 
 			<div class="contentBoxColored grayBorder">
 
-				<h2>${placeholderWithTranslation.NeuerVeranstaltungsort}</h2>
+				<h2>${placeholderWithTranslation.neuerveranstaltungsort}</h2>
 
-				<label for="city">${placeholderWithTranslation.BittegebenSieeinenneuenOrteinundklickenSieaufHinzufuegen}</label>
+				<label for="city">${placeholderWithTranslation.bittegebensieeinenneuenorteinundklickensieaufhinzufuegen}</label>
 				<input type="text" id="city" name="city" value="">
 
 
 				<div class="textRight marginTop5" id="buttonPanel-bottom">
-					<input type="submit" value="${placeholderWithTranslation.Hinzufuegen}" class="mainButton" ssonclick="if (returnCity()) closePopup();">
-					<input type="button" value="${placeholderWithTranslation.Schliessen}"  class="mainButton" onclick="closePopup();">
+					<input type="submit" value="${placeholderWithTranslation.hinzufuegen}" class="mainButton" ssonclick="if (returnCity()) closePopup();">
+					<input type="button" value="${placeholderWithTranslation.schliessen}"  class="mainButton" onclick="closePopup();">
 				</div>
 			</div>
 		</form>

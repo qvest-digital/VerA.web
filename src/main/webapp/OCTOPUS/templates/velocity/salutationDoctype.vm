@@ -10,14 +10,14 @@
     <div id="content_container">
 
     	<div id="breadcrumb marginBottom10" class="textRight">
-    		<strong>${placeholderWithTranslation.Siesindhier}:</strong> <span><a href="index.html">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Administration}> ${placeholderWithTranslation.Anreden}/span>
+    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="index.html">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration}> ${placeholderWithTranslation.anreden}/span>
     	</div>
 
-    	<h1>${placeholderWithTranslation.Anreden}/h1>
+    	<h1>${placeholderWithTranslation.anreden}</h1>
 
     	<span id="actionPanel" class="inlineLabel">
-    		<strong>${placeholderWithTranslation.MarkierteAnreden}/strong>
-    		<input type="submit" name="remove" value="${placeholderWithTranslation.Loeschen} title="${placeholderWithTranslation.MarkierteAnredenloeschen}" />
+    		<strong>${placeholderWithTranslation.markierteanreden}</strong>
+    		<input type="submit" name="remove" value="${placeholderWithTranslation.loeschen}" title="${placeholderWithTranslation.markierteanredenloeschen}" />
     	</span>
 
 		#if($listerrors.size() > 0)
@@ -44,8 +44,8 @@
         	<tr>
         		<th class="smallCell textCenter"><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect"></th>
         		<th class="smallCell textCenter">ID</th>
-        		<th>${placeholderWithTranslation.Bezeichnung}</th>
-        		<th>${placeholderWithTranslation.Dokumenttyp}</th>
+        		<th>${placeholderWithTranslation.bezeichnung}</th>
+        		<th>${placeholderWithTranslation.dokumenttyp}</th>
         	</tr>
         #if ($allDoctype.iterator().hasNext())
         	<tr>
@@ -75,7 +75,7 @@
 		#end
 		#if ($listparam.count == 0)
             	<tr>
-        			<td colspan="5">${placeholderWithTranslation.KeineDatengefunden}</td>
+        			<td colspan="5">${placeholderWithTranslation.keinedatengefunden}</td>
         		</tr>
         #end
 
@@ -85,8 +85,8 @@
         </table>
 
     	<div class="textRight" id="buttonPanel-bottom">
-    		<input type="submit" name="save" value="${placeholderWithTranslation.Speichern}" title="${placeholderWithTranslation.Speichern}" class="mainButton" />
-    		<input type="button" name="save" value="${placeholderWithTranslation.Zurueck}" onclick="window.location.href='Salutation';" title="${placeholderWithTranslation.Zurueck}" class="mainButton" />
+    		<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+    		<input type="button" name="save" value="${placeholderWithTranslation.zurueck}" onclick="window.location.href='Salutation';" title="${placeholderWithTranslation.zurueck}" class="mainButton" />
     	</div>
 
 

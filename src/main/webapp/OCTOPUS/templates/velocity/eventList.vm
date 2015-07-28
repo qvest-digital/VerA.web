@@ -48,27 +48,27 @@
 <div id="content_container">
 	#if($action == "guest" || $searchTask)
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.ZurVeranstaltungssuche">${placeholderWithTranslation.Veranstaltungssuche}</a> > ${placeholderWithTranslation.Suchergebnis}</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.zurveranstaltungssuche">${placeholderwithtranslation.veranstaltungssuche}</a> > ${placeholderWithTranslation.suchergebnis}</span>
 		</div>
-			<h1>${placeholderWithTranslation.SuchergebnisVeranstaltungen</h1>
+			<h1>${placeholderWithTranslation.suchergebnisveranstaltungen}</h1>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungsubersicht}</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungsubersicht}</span>
 		</div>
-			<h1>${placeholderWithTranslation.Veranstaltungsubersicht}</h1>
+			<h1>${placeholderWithTranslation.veranstaltungsubersicht}</h1>
 	#end
 
 
 
 	#if($action == "guest")
 	<vera-info>
-		${placeholderWithTranslation.BitteklickenSieeinederaufgelistetenVeranstaltungenanumdieGastezuubernehmen}
+		${placeholderWithTranslation.bitteklickensieeinederaufgelistetenveranstaltungenanumdiegastezuubernehmen}
 	</vera-info>
 	#end
 
 	#if($action == "addperson")
 	<vera-info>
-		${placeholderWithTranslation.BitteklickenSieeinederaufgelistetenVeranstaltungenanumdiePersondieserVeranstaltungzuzuordnen}
+		${placeholderWithTranslation.bitteklickensieeinederaufgelistetenveranstaltungenanumdiepersondieserveranstaltungzuzuordnen}
 	</vera-info>
 	#end
 
@@ -88,7 +88,7 @@
 
 		#if($listerrors && $listerrors.size() > 0)
 			<vera-warn>
-				<strong>${placeholderWithTranslation.LoschenvonVeranstaltungenistnichtmoglich}</strong><br>
+				<strong>${placeholderWithTranslation.loschenvonveranstaltungenistnichtmoglich}</strong><br>
 				<ul style="margin: 0px 0px 0px -10px;">
 
 				#if($listerrors.size() > 5)
@@ -105,14 +105,14 @@
 
 				#if($listerrors.size() > $show)
 					#set($drop = $listerrors.size() - $show)
-						<li style="margin: 5px 0px 0px 0px;"><em>... $drop ${placeholderWithTranslation.weitereMeldungen}</em></li>
+						<li style="margin: 5px 0px 0px 0px;"><em>... $drop ${placeholderWithTranslation.weiteremeldungen}</em></li>
 				#end
 				</ul>
 			</vera-warn>
 
 		#elseif($listquestions && $listquestions.size() > 0)
 			<vera-confirm>
-				<strong>${placeholderWithTranslation.BittebestatigenSiedasLoschendermarkiertenVeranstaltungen}</strong><br><br>
+				<strong>${placeholderWithTranslation.bittebestatigensiedasloschendermarkiertenveranstaltungen}</strong><br><br>
 				#foreach($quest in $listquestions.entrySet())
 						<span class="notBold"><input type="hidden" name="$quest.key" value="true">$quest.value</span>
 					#set($save = true)
@@ -127,9 +127,9 @@
 
 				#if($save)
 					<div class="floatRight">
-					<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.Loschen" title="${placeholderWithTranslation.markierteVeranstaltungloschen}">
+					<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.loschen" title="${placeholderwithtranslation.markierteveranstaltungloschen}">
 				#end
-				<input type="button" id="button.remove-cancel" name="cancel" value="${placeholderWithTranslation.Abbrechen}"/>
+				<input type="button" id="button.remove-cancel" name="cancel" value="${placeholderWithTranslation.abbrechen}"/>
 				</div>
 			</vera-confirm>
 		#end
@@ -138,11 +138,11 @@
 		#if ($listparam.count == 0)
 			#if($grants.mayWrite() && !$searchTask)
 				<div id="" class="buttonPanel-top textRight marginBottom10">
-					<input type="button" name="" value="${placeholderWithTranslation.NeueVeranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateEvent?action=event';"/>
+					<input type="button" name="" value="${placeholderWithTranslation.neueveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateEvent?action=event';"/>
 				</div>
 			#end
 			<div class="contentBoxColored grayBorder marginBottom20">
-				${placeholderWithTranslation.EswurdenkeineEintragegefunden}
+				${placeholderWithTranslation.eswurdenkeineeintragegefunden}
 			</div>
 
 		#else
@@ -150,17 +150,17 @@
 			#if($action != "guest" && $action != "addperson")
 			<span id="actionPanel" class="inlineLabel">
 				#if(($action != "guest" || $action != "addperson") && $grants.mayWrite())
-					<strong>${placeholderWithTranslation.MarkierteVeranstaltungen}</strong>
-					<input type="button" id="button.remove" name="button.remove" value="${placeholderWithTranslation.Loschen}" title="${placeholderWithTranslation.MarkierteVeranstaltungenloschen}"/>
+					<strong>${placeholderWithTranslation.markierteveranstaltungen}</strong>
+					<input type="button" id="button.remove" name="button.remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markierteveranstaltungenloschen}"/>
 				#else &nbsp; #end
 			</span>
 			#end
 
 			#if($action != "guest" && $action != "addperson" && !$searchTask )
 				<span id="" class="buttonPanel-top textRight floatRight">
-					<input type="button" name="" value="${placeholderWithTranslation.Veranstaltungsuchen}" class="mainButton" onclick="window.location.href='ShowEventSearch?action=event';"/>
+					<input type="button" name="" value="${placeholderWithTranslation.veranstaltungsuchen}" class="mainButton" onclick="window.location.href='ShowEventSearch?action=event';"/>
 					#if($grants.mayWrite())
-						<input type="button" name="" value="${placeholderWithTranslation.NeueVeranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateEvent?action=event';"/>
+						<input type="button" name="" value="${placeholderWithTranslation.neueveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateEvent?action=event';"/>
 					#end
 				</span>
 			#end
@@ -184,12 +184,12 @@
 							<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
 						#end
 
-						<th class="smallCell textCenter">${placeholderWithTranslation.ID}</th>
-						<th>${placeholderWithTranslation.Name}</th>
-						<th class="smallCell textCenter">${placeholderWithTranslation.Beginn}</th>
-						<th class="smallCell textCenter">${placeholderWithTranslation.Ende}</th>
-						<th>${placeholderWithTranslation.Gastgeber}</th>
-						<th>${placeholderWithTranslation.Veranstaltungsort}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
+						<th>${placeholderWithTranslation.genreic_name}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.beginn}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.ende}</th>
+						<th>${placeholderWithTranslation.gastgeber}</th>
+						<th>${placeholderWithTranslation.veranstaltungsort}</th>
 					</tr>
 
 					#foreach($bean in $list)
@@ -301,9 +301,9 @@
 
 		<div class="textRight">
 			#if($action == "guest" && !$searchTask)
-				<input type="button" name="cancel" value="${placeholderWithTranslation.ZuruckzurVeranstaltungssuche}" onclick="window.location.href='ShowGuestList?selectNone=true';" class="mainButton">
+				<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzurveranstaltungssuche}" onclick="window.location.href='ShowGuestList?selectNone=true';" class="mainButton">
 			#elseif($action == "addperson" || $searchTask)
-				<input type="button" name="cancel" value="${placeholderWithTranslation.ZuruckzurVeranstaltungssuche}" onclick="window.location.href='ShowEventSearch';" class="mainButton">
+				<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzurveranstaltungssuche}" onclick="window.location.href='ShowEventSearch';" class="mainButton">
 			#end
 		</div>
 	</form>
@@ -315,15 +315,15 @@
 			var checkBoxes = $('input:checkbox[name$="-select"]:checked');
 
 			if (checkBoxes.length === 0) {
-				showInfo(' ${placeholderWithTranslation.WahlenSiebittezunachsteineodermehrereVeranstaltungenaus ');
+				showInfo(' ${placeholderWithTranslation.wahlensiebittezunachsteineodermehrereveranstaltungenaus} ');
 			} else {
-				$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.Ja}" />').submit();
+				$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.ja}" />').submit();
 			}
 		});
 
 		$('#button\\.remove-cancel').click(function (e) {
 			$('input[name$="-select"]').prop('checked', false);
-			$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.Ja}" />').submit();
+			$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.ja}" />').submit();
 		});
 	});
 </script>

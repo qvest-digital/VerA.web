@@ -17,7 +17,7 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-	    	<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > 				${placeholderWithTranslation.administration} > ${placeholderWithTranslation.kategorien}</span>
+	    	<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > 				${placeholderWithTranslation.administration} > ${placeholderWithTranslation.kategorien}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.kategorien}</h1>
@@ -32,10 +32,10 @@
 		#end
 		#if($resortQuestion)
         	<vera-confirm>
-        		<strong>${placeholderWithTranslation.SolldieneueKategorie}'$!message.text($beanToAdd.name)' ${placeholderWithTranslation.einsortiertwerden}</strong><br>
+        		<strong>${placeholderWithTranslation.solldieneuekategorie}'$!message.text($beanToAdd.name)' ${placeholderWithTranslation.einsortiertwerden}</strong><br>
 				<input type="hidden" name="questionConfirmed" value="true"/>
-				<input type="button" id="button.resortYes" value="${placeholderWithTranslation.Ja}"/> &nbsp;
-        		<input type="button" id="button.resortNo" value="${placeholderWithTranslation.Nein}"/> &nbsp;
+				<input type="button" id="button.resortYes" value="${placeholderWithTranslation.ja}"/> &nbsp;
+        		<input type="button" id="button.resortNo" value="${placeholderWithTranslation.nein}"/> &nbsp;
         	</vera-confirm>
     	#end
 
@@ -62,11 +62,11 @@
 			#end
 		#end
 
-		<div class="textRight mandatoryText tabs">* = ${placeholderWithTranslation.Pflichtfelder}</div>
+		<div class="textRight mandatoryText tabs">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
 		<span class="inlineLabel" id="actionPanel">
 			<strong>Markierte Kategorie(n)</strong>
-			<input type="submit" name="remove" value="${placeholderWithTranslation.Loschen}" class="button" title="${placeholderWithTranslation.MarkierteKategorienloschen}" onclick="formlist.action='SaveCategories';return true;">
+			<input type="submit" name="remove" value="${placeholderWithTranslation.loschen}" class="button" title="${placeholderWithTranslation.markiertekategorienloschen}" onclick="formlist.action='SaveCategories';return true;">
 
 		</span>
 
@@ -81,13 +81,13 @@
 
 			<tr>
 				#if($grants.isAdmin() || $grants.isPartialAdmin())
-					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.Alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
-					<th class="smallCell textCenter">${placeholderWithTranslation.ID}</th>
+					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+					<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
 				#end
-				<th>${placeholderWithTranslation.Bezeichnung}</th>
-				<th>${placeholderWithTranslation.Kennzeichen}</th>
-				<th>${placeholderWithTranslation.Rang}</th>
-				<th>${placeholderWithTranslation.Veranstaltungen}</th>
+				<th>${placeholderWithTranslation.bezeichnung}</th>
+				<th>${placeholderWithTranslation.kennzeichen}</th>
+				<th>${placeholderWithTranslation.rang}</th>
+				<th>${placeholderWithTranslation.veranstaltungen}</th>
 			</tr>
 
 		#if($grants.isAdmin() || $grants.isPartialAdmin())
@@ -105,7 +105,7 @@
 				<td><input type="text" name="add-rank" id="add-rank" #if($beanToAdd) value="$!message.text($beanToAdd.rank)" #else value="" #end onchange="setModified('add')"></td>
 				<td>
 					<select id="add-event" name="add-event" onchange="setModified('add'); ">
-					<option value="">${placeholderWithTranslation.FuralleVeranstaltungen}</option>
+					<option value="">${placeholderWithTranslation.furalleveranstaltungen}</option>
 					#foreach($event in $allEvent)
 						<option #if($beanToAdd && $beanToAdd.event && $beanToAdd.event == $event.id) selected#end value="$!event.id">$!message.plain($event.shortname)</option>
 					#end
@@ -154,7 +154,7 @@
 					#else
 						<select id="${bean.id}-event" name="${bean.id}-event" onchange="setModified('$!bean.id')" #if(! ( $grants.isAdmin() || $grants.isPartialAdmin() ))vera-disabled#end>
 					#end
-					<option value="">${placeholderWithTranslation.FuralleVeranstaltungen}</option>
+					<option value="">${placeholderWithTranslation.furalleveranstaltungen}</option>
 					#foreach($event in $allEvent)
 						<option #if($bean.event && $bean.event == $event.id) selected#end value="$!event.id">$!message.plain($event.shortname)</option>
 					#end
@@ -178,7 +178,7 @@
 						#if($bean.event && $bean.event == $event.id)#set($found=true)$!message.plain($event.shortname)#end
 					#end
 					#if(!$found)
-						${placeholderWithTranslation.FuralleVeranstaltungen}
+						${placeholderWithTranslation.furalleveranstaltungen}
 					#end
 				</td>
 			#end
@@ -186,7 +186,7 @@
 		#end
 		#if ($listparam.count == 0)
             <tr>
-				<td colspan="99">${placeholderWithTranslation.EswurdenkeineDatengefunden}</td>
+				<td colspan="99">${placeholderWithTranslation.eswurdenkeinedatengefunden}</td>
 			</tr>
 		#end
 		#set($itemName = "Kategorien")
@@ -199,7 +199,7 @@
 		## 2008-02-21
 			#if($grants.isAdmin() || $grants.isPartialAdmin())
 				<div class="textRight marginTop10" id="buttonPanel-bottom">
-					<input type="submit" name="save" value="${placeholderWithTranslation.Speichern}" title="${placeholderWithTranslation.Speichern}" class="mainButton" onclick="formlist.action='SaveCategories';return true;">
+					<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" onclick="formlist.action='SaveCategories';return true;">
 				</div>
 			#end
 	</form>

@@ -26,10 +26,10 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Verteiler}</span>
+		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.verteiler}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.Verteilerdetails} $!message.text($!mailinglist.name)</h1>
+	<h1>${placeholderWithTranslation.verteilerdetails} $!message.text($!mailinglist.name)</h1>
 
 	<form id="formlist" name="formlist" action="ShowMailinglistDetail" method="POST">
 		<input type="hidden" name="start" value="">
@@ -47,14 +47,14 @@
 
     		<span class="inlineLabel" id="actionPanel">
 				#if($grants.mayWrite())
-					<strong>${placeholderWithTranslation.MarkierteAdressen}</strong> <input type="submit" name="remove" value="${placeholderWithTranslation.Loschen}" onclick="submit();" title="${placeholderWithTranslation.MarkierteAdressenausdemVerteilerloschen}"/>
+					<strong>${placeholderWithTranslation.markierteadressen}</strong> <input type="submit" name="remove" value="${placeholderWithTranslation.loschen}" onclick="submit();" title="${placeholderWithTranslation.markierteadressenausdemverteilerloschen}"/>
 				#else &nbsp;#end
             </span>
 
 			#if($grants.mayReadStandardFields())
         		<span id="buttonPanel_top" class="textRight floatRight">
-        			<input type="button" name="send" value="${placeholderWithTranslation.Verteilerversenden}" onclick="window.location.href='MailinglistWrite';" title="${placeholderWithTranslation.analleAdressenversenden}" class="mainButton"/>
-					<input type="button" name="openMailClient" value="${placeholderWithTranslation.EMailClientaufrufen}" onclick="javascript:openNewEmail();" title="${placeholderWithTranslation.EMailClientaufrufen}" class="mainButton"/>
+        			<input type="button" name="send" value="${placeholderWithTranslation.verteilerversenden}" onclick="window.location.href='MailinglistWrite';" title="${placeholderWithTranslation.analleadressenversenden}" class="mainButton"/>
+					<input type="button" name="openMailClient" value="${placeholderWithTranslation.emailclientaufrufen}" onclick="javascript:openNewEmail();" title="${placeholderWithTranslation.emailclientaufrufen}" class="mainButton"/>
         		</span>
 			#end
 
@@ -67,10 +67,10 @@
 				<col width="$column4%" />
 
     			<tr>
-    				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.Alledemarkieren}"/></th>
-    				<th>${placeholderWithTranslation.Name}</th>
-    				<th>${placeholderWithTranslation.Vorname}</th>
-    				<th>${placeholderWithTranslation.Adresse}</th>
+    				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}"/></th>
+    				<th>${placeholderWithTranslation.genreic_name}</th>
+    				<th>${placeholderWithTranslation.vorname}</th>
+    				<th>${placeholderWithTranslation.adresse}</th>
     			</tr>
     			#foreach($bean in $list)
     			<tr>
@@ -89,13 +89,13 @@
 		#else
 
 			<div class="contentBoxColored grayBorder marginBottom5">
-				${placeholderWithTranslation.EsliegenkeineAdressdatenfurdiesenVerteilervor}
+				${placeholderWithTranslation.esliegenkeineadressdatenfurdiesenverteilervor}
             </div>
 
 		#end
 
 		<span class="floatRight" id="buttonPanel-bottom">
-			<input type="button" name="cancel" value="${placeholderWithTranslation.ZuruckzurVerteilerubersicht}"  onclick="window.location.href='ShowMailinglistList?selectNone=true';" title="${placeholderWithTranslation.ZuruckzurVerteilerubersicht}" class="mainButton">
+			<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzurverteilerubersicht}"  onclick="window.location.href='ShowMailinglistList?selectNone=true';" title="${placeholderWithTranslation.zuruckzurverteilerubersicht}" class="mainButton">
 		</span>
 
 	</form>
@@ -104,11 +104,11 @@
 <script type="text/javascript">
     #if($maildispatchParams && $maildispatchParams.count)
         #if($maildispatchParams.count == 0)
-        	showWarning(' ${placeholderWithTranslation.EswurdekeineEMailzumVersendengespeichert} ');
+        	showWarning(' ${placeholderWithTranslation.eswurdekeineemailzumversendengespeichert} ');
         #elseif($maildispatchParams.count == 1)
-        	showSuccess(' ${placeholderWithTranslation.EswurdeeineeineEMailzumVersendengespeichertDiesewirdnunautomatischversendet} ');
+        	showSuccess(' ${placeholderWithTranslation.eswurdeeineeineemailzumversendengespeichertdiesewirdnunautomatischversendet} ');
         #else
-        	showSuccess(' ${placeholderWithTranslation.Eswurden} $maildispatchParams.count ${placeholderWithTranslation.EMailszumVersendengespeichertDiesewerdennunautomatischversendet} ');
+        	showSuccess(' ${placeholderWithTranslation.eswurden} $maildispatchParams.count ${placeholderWithTranslation.emailszumversendengespeichertdiesewerdennunautomatischversendet} ');
         #end
     #end
 </script>

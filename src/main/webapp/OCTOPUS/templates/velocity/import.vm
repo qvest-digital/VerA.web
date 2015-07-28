@@ -7,40 +7,40 @@
 
 	<div id="content_container">
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.Siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Personen} > ${placeholderWithTranslation.Personenimport}</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.personen} > ${placeholderWithTranslation.personenimport}</span>
 		</div>
 
-		<h1>${placeholderWithTranslation.ImportvonPersonendaten}</h1>
+		<h1>${placeholderWithTranslation.importvonpersonendaten}</h1>
 
         #if($errors.size() > 0 || $importStatus.invalidData)
             <vera-warn>
             	#if($importStatus.invalidData == "importSource")
-            		${placeholderWithTranslation.SiehabenkeineDatenherkunftangegeben}
+            		${placeholderWithTranslation.siehabenkeinedatenherkunftangegeben}
             	#elseif($importStatus.invalidData == "fileExtension")
             		#if($importStatus.fileextension == "ods")
-            			${placeholderWithTranslation.SiehabenversuchteineStarOfficebzwOpenOfficeDateizuimportierenDerdirekteImportistinderaktuellenVersionvonVerAwebleidernichtmoglichBittespeichernSiedieseDateizuerstmitIhremTabellenkalkulationsprogrammalscsvDateiab}
+            			${placeholderWithTranslation.siehabenversuchteinestarofficebzwopenofficedateizuimportierenderdirekteimportistinderaktuellenversionvonverawebleidernichtmoglichbittespeichernsiediesedateizuerstmitihremtabellenkalkulationsprogrammalscsvdateiab}
             		#elseif($importStatus.fileextension == "sxc")
-            			${placeholderWithTranslation.SiehabenversuchteineStarOfficebzwOpenOfficeDateizuimportierenDerdirekteImportistinderaktuellenVersionvonVerAwebleidernichtmoglichBittespeichernSiedieseDateizuerstmitIhremTabellenkalkulationsprogrammalscsvDateiab}
+            			${placeholderWithTranslation.siehabenversuchteinestarofficebzwopenofficedateizuimportierenderdirekteimportistinderaktuellenversionvonverawebleidernichtmoglichbittespeichernsiediesedateizuerstmitihremtabellenkalkulationsprogrammalscsvdateiab}
             		#elseif($importStatus.fileextension == "xls")
-            			${placeholderWithTranslation.SiehabenversuchteineMicrosoftExcelDateizuimportierenDerdirekteImportvonExcelDokumentenistinderaktuellenVersionvonVerAwebleidernichtmolichBittespeichernSiedieseDateizuerstmitIhremTabellenkalkulationsprogrammalscsvDateiab}
+            			${placeholderWithTranslation.siehabenversuchteinemicrosoftexceldateizuimportierenderdirekteimportvonexceldokumentenistinderaktuellenversionvonverawebleidernichtmolichbittespeichernsiediesedateizuerstmitihremtabellenkalkulationsprogrammalscsvdateiab}
             		#elseif($importStatus.fileextension == "pdf")
-            			${placeholderWithTranslation.SiehabenversuchteinePDFDateizuimportierenDiesistinderaktuellenVersionvonVerAwebleidernichtmoglich}
+            			${placeholderWithTranslation.siehabenversuchteinepdfdateizuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich}
             		#elseif($importStatus.fileextension == "zip")
-            			${placeholderWithTranslation.SiehabenversuchteineZIPDateizuimportierenDiesistinderaktuellenVersionvonVerAwebleidernichtmoglich}
+            			${placeholderWithTranslation.siehabenversuchteinezipdateizuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich}
             		#elseif($importStatus.fileextension == "exe")
-            			${placeholderWithTranslation.SiehabenversuchteineEXEDateizuimportierenDiesistinderaktuellenVersionvonVerAwebleidernichtmoglich}
+            			${placeholderWithTranslation.siehabenversuchteineexedateizuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich}
             		#else
-            			${placeholderWithTranslation.SiehabenversuchteineDateimitderEndung}
-            			$importStatus.fileextension ${placeholderWithTranslation.zuimportierenDiesistinderaktuellenVersionvonVerAwebleidernichtmoglich}
+            			${placeholderWithTranslation.siehabenversuchteinedateimitderendung}
+            			$importStatus.fileextension ${placeholderWithTranslation.zuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich}
             		#end
             	#elseif($importStatus.invalidData == "inputStream")
-            		${placeholderWithTranslation.SiehabenkeineDateiausgewahltoderdiesewarleer}
+            		${placeholderWithTranslation.siehabenkeinedateiausgewahltoderdiesewarleer}
             	#elseif($importStatus.invalidData == "errorOnImport")
-            		${placeholderWithTranslation.EsisteinunerwarteterFehlerbeimimportiereneinerDateiaufgetreten}<br>
-            		${placeholderWithTranslation.VermutlichbefindetsichdieImportDateinichtimvomSystemerwartemFormat}<br><br>
+            		${placeholderWithTranslation.esisteinunerwarteterfehlerbeimimportiereneinerdateiaufgetreten}<br>
+            		${placeholderWithTranslation.vermutlichbefindetsichdieimportdateinichtimvomsystemerwartemformat}<br><br>
 
-            		${placeholderWithTranslation.Fehlermeldung} <em>&quot;$message.plain($importStatus.message)&quot;</em> &nbsp;&nbsp;&nbsp;
-            		(<a href="javascript:showBlock(document.getElementById('javastacktrace'));">${placeholderWithTranslation.Detailsanzeigen}</a>)
+            		${placeholderWithTranslation.fehlermeldung} <em>&quot;$message.plain($importStatus.message)&quot;</em> &nbsp;&nbsp;&nbsp;
+            		(<a href="javascript:showBlock(document.getElementById('javastacktrace'));">${placeholderWithTranslation.detailsanzeigen}</a>)
 
             <pre id="javastacktrace" style="display: none;">
 
@@ -56,24 +56,24 @@
 		#end
 
 		<vera-info>
-			${placeholderWithTranslation.BeimImportkonnenFeldinhaltedielangeralsbeiVerAwebvorgesehensindgekurztubernommenwerden}
+			${placeholderWithTranslation.beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden}
 		</vera-info>
 
 
 		<div id="main_content" class="contentBoxColored grayBorder">
-			<div class="textRight mandatoryText">* = ${placeholderWithTranslation.Pflichtfelder}</div>
+			<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
             <form action="ImportPersonsFile" method="post" enctype="multipart/form-data" name="formImport" id="formImport" >
 
     			<div class="table width100">
     				<div class="tableRow">
     					<div class="tableCell width50">
-    						<label for="importSource">${placeholderWithTranslation.Datenherkunft}</label>
+    						<label for="importSource">${placeholderWithTranslation.datenherkunft}</label>
     						<input type="text" name="importSource" id="importSource" value="$!message.text($importSource)">
     					</div>
     					<div class="tableCell width50">
 							#if($grants && $grants.isAdmin() && $allOrgUnit)
-								<label for="orgUnit">${placeholderWithTranslation.Zielmandant}</label>
+								<label for="orgUnit">${placeholderWithTranslation.zielmandant}</label>
 								<select name="orgUnit" id="orgUnit" >
 									#foreach($orgunit in $allOrgUnit)
 										<option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>$!message.text($orgunit.name)</option>
@@ -85,11 +85,11 @@
 
     				<div class="tableRow">
     					<div class="tableCell">
-    						<label for="importfile">${placeholderWithTranslation.ImportDatei}</label>
+    						<label for="importfile">${placeholderWithTranslation.importdatei}</label>
     						<input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*">
     					</div>
     					<div class="tableCell">
-    						<label for="format">${placeholderWithTranslation.Dateityp}</label>
+    						<label for="format">${placeholderWithTranslation.dateityp}</label>
     						<select name="format" id="format" onchange="return formatChanged();">
                             #foreach($formatKey in $formats.keySet())
                              #set($format = $formats.get($formatKey))
@@ -103,7 +103,7 @@
                             		<div $style id="format-$formatKey" class="marginTop20">
                               #if($format.properties.containsKey("choices"))
                                #set($choices = $format.properties.get("choices"))
-                            			<fieldset class="format"><legend>$format.name: ${placeholderWithTranslation.weitere Optionen</legend>
+                            			<fieldset class="format"><legend>$format.name: ${placeholderWithTranslation.weitereoptionen}</legend>
                                 			<div class="table width100">
                                #foreach($choiceKey in $choices.keySet())
                                 #set($choice = $choices.get($choiceKey))
@@ -149,14 +149,14 @@
 		</div><!-- End #main_content-->
 
 		<div id="buttonPanel-bottom" class="textRight marginTop10">
-			<input name="start" type="button" value="${placeholderWithTranslation.Importstarten}" title="${placeholderWithTranslation.Importstarten}" class="mainButton" onclick="askStart()">
+			<input name="start" type="button" value="${placeholderWithTranslation.importstarten}" title="${placeholderWithTranslation.importstarten}" class="mainButton" onclick="askStart()">
 		</div>
 </div>
 <script type="text/javascript">
 ##Hinweis und Rueckfrage vor dem Import
 
 	function askStart() {
-		htmlConfirm(' ${placeholderWithTranslation.AlleDokumenttypenderzuimportierendenPersonenmussenimSystemvorhandenseinSollderImportjetztgestartetwerden ', new Array(' ${placeholderWithTranslation.Ja} ', ' ${placeholderWithTranslation.Nein} '), new Array("askStartYes();", "askStartNo();"));
+		htmlConfirm(' ${placeholderWithTranslation.alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden ', new array(' ${placeholderwithtranslation.ja} ', ' ${placeholderWithTranslation.nein} '), new Array("askStartYes();", "askStartNo();"));
 	}
 	function askStartYes() {
 		hideDialogs();

@@ -5,10 +5,10 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">Home</a> > ${placeholderWithTranslation.Personen} > ${placeholderWithTranslation.SuchenErsetzen}</span>
+		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > ${placeholderWithTranslation.suchenersetzen}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.SuchenErsetzeninPersonendaten}</h1>
+	<h1>${placeholderWithTranslation.suchenersetzeninpersonendaten}</h1>
 
 	<form id="formlist" name="formlist" action="CountReplaceAllPerson" method="POST">
 	<input type="hidden" name="start" value="0">
@@ -32,25 +32,25 @@
 				</div>
 			</div>
 
-			<p><strong>${placeholderWithTranslation.InfolgendenFeldern}</strong></p>
+			<p><strong>${placeholderWithTranslation.infolgendenfeldern}</strong></p>
 
 			<div class="table inlineLabel marginBottom20">
 				<div class="tableRow">
-					<div class="tableCell"><input type="checkbox" id="snr-group01" name="snr-group01" value="true" #if($replace-request.snr-group01) checked#end> <label for="snr-group01" title="${placeholderWithTranslation.VornamederHauptpersonunddesPartners}">${placeholderWithTranslation.Vorname}</label></div>
-					<div class="tableCell"><input type="checkbox" id="snr-group02" name="snr-group02" value="true" #if($replace-request.snr-group02) checked#end> <label for="snr-group02" title="${placeholderWithTranslation.NachnamederHauptpersonunddesPartners}">${placeholderWithTranslation.Nachname}</label></div>
-					<div class="tableCell"><input type="checkbox" id="snr-group04" name="snr-group04" value="true" #if($replace-request.snr-group04) checked#end> <label for="snr-group04" title="${placeholderWithTranslation.AnredeundTitel}">${placeholderWithTranslation.AnredeTitel}</label></div>
-					<div class="tableCell"><input type="checkbox" id="snr-group20" name="snr-group20" value="true" #if($replace-request.snr-group20) checked#end> <label for="snr-group20" title="${placeholderWithTranslation.Freitextfelder}">${placeholderWithTranslation.Freitextfelder}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group01" name="snr-group01" value="true" #if($replace-request.snr-group01) checked#end> <label for="snr-group01" title="${placeholderWithTranslation.vornamederhauptpersonunddespartners}">${placeholderWithTranslation.vorname}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group02" name="snr-group02" value="true" #if($replace-request.snr-group02) checked#end> <label for="snr-group02" title="${placeholderWithTranslation.nachnamederhauptpersonunddespartners}">${placeholderWithTranslation.nachname}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group04" name="snr-group04" value="true" #if($replace-request.snr-group04) checked#end> <label for="snr-group04" title="${placeholderWithTranslation.anredeundtitel}">${placeholderWithTranslation.anredetitel}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group20" name="snr-group20" value="true" #if($replace-request.snr-group20) checked#end> <label for="snr-group20" title="${placeholderWithTranslation.freitextfelder}">${placeholderWithTranslation.freitextfelder}</label></div>
 				</div>
 				<div class="tableRow">
-					<div class="tableCell"><input type="checkbox" id="snr-group03" name="snr-group03" value="true" #if($replace-request.snr-group03) checked#end> <label for="snr-group03" title="${placeholderWithTranslation.AmtsbezeichnungFunktion}">${placeholderWithTranslation.Amtsbezeichn}</label></div>
-					<div class="tableCell"><input type="checkbox" id="snr-group05" name="snr-group05" value="true" #if($replace-request.snr-group05) checked#end> <label for="snr-group05" title="${placeholderWithTranslation.FirmaInstitution}">${placeholderWithTranslation.Institution}</label></div>
-					<div class="tableCell"><input type="checkbox" id="snr-group06" name="snr-group06" value="true" #if($replace-request.snr-group06) checked#end> <label for="snr-group06" title="${placeholderWithTranslation.StraszligeAdresszusatzundLand}">${placeholderWithTranslation.Adresse}</label></div>
-					<div class="tableCell"><input type="checkbox" id="snr-group07" name="snr-group07" value="true" #if($replace-request.snr-group07) checked#end> <label for="snr-group07" title="${placeholderWithTranslation.PLZOrtundPLZPostfach}">${placeholderWithTranslation.PLZOrt}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group03" name="snr-group03" value="true" #if($replace-request.snr-group03) checked#end> <label for="snr-group03" title="${placeholderWithTranslation.amtsbezeichnungfunktion}">${placeholderWithTranslation.amtsbezeichn}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group05" name="snr-group05" value="true" #if($replace-request.snr-group05) checked#end> <label for="snr-group05" title="${placeholderWithTranslation.firmainstitution}">${placeholderWithTranslation.institution}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group06" name="snr-group06" value="true" #if($replace-request.snr-group06) checked#end> <label for="snr-group06" title="${placeholderWithTranslation.straszligeadresszusatzundland}">${placeholderWithTranslation.adresse}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group07" name="snr-group07" value="true" #if($replace-request.snr-group07) checked#end> <label for="snr-group07" title="${placeholderWithTranslation.plzortundplzpostfach}">${placeholderWithTranslation.plzort}</label></div>
 				</div>
 				<div class="tableRow">
-					<div class="tableCell"><input type="checkbox" id="snr-group08" name="snr-group08" value="true" #if($replace-request.snr-group08) checked#end> <label for="snr-group08" title="${placeholderWithTranslation.TelefonTelefaxundMobiltelefon}">${placeholderWithTranslation.TelefonFax}</label></div>
-					<div class="tableCell"><input type="checkbox" id="snr-group09" name="snr-group09" value="true" #if($replace-request.snr-group09) checked#end> <label for="snr-group09" title="${placeholderWithTranslation.EMailAdresse}">${placeholderWithTranslation.EMail}</label></div>
-					<div class="tableCell"><input type="checkbox" id="snr-group10" name="snr-group10" value="true" #if($replace-request.snr-group10) checked#end> <label for="snr-group10" title="${placeholderWithTranslation.InternetAdresse}">${placeholderWithTranslation.www}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group08" name="snr-group08" value="true" #if($replace-request.snr-group08) checked#end> <label for="snr-group08" title="${placeholderWithTranslation.telefontelefaxundmobiltelefon}">${placeholderWithTranslation.telefonfax}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group09" name="snr-group09" value="true" #if($replace-request.snr-group09) checked#end> <label for="snr-group09" title="${placeholderWithTranslation.emailadresse}">${placeholderWithTranslation.email}</label></div>
+					<div class="tableCell"><input type="checkbox" id="snr-group10" name="snr-group10" value="true" #if($replace-request.snr-group10) checked#end> <label for="snr-group10" title="${placeholderWithTranslation.internetadresse}">${placeholderWithTranslation.www}</label></div>
 					<div class="tableCell"></div>
 				</div>
 			</div>
@@ -59,45 +59,45 @@
 				#if(!$snr-count)
 					<vera-warn>
 					#if($noSearchParam)
-						${placeholderWithTranslation.IhreSuchemussausmindestenseinemBuchstabenbestehen}
+						${placeholderWithTranslation.ihresuchemussausmindestenseinembuchstabenbestehen}
 					#elseif($noFieldsSelected)
-						${placeholderWithTranslation.SiemuessenmindestenseinFeldausgewhlthaben}
+						${placeholderWithTranslation.siemuessenmindestenseinfeldausgewhlthaben}
 					#end
 					</vera-warn>
 				#elseif($snr-count == 0)
-					<vera-success>${placeholderWithTranslation.EswurdekeinePersonersetzt}</vera-success>
+					<vera-success>${placeholderWithTranslation.eswurdekeinepersonersetzt}</vera-success>
 				#elseif($snr-count == 1)
-					<vera-success>${placeholderWithTranslation.EswurdeeinePersonersetzt}</vera-success>
+					<vera-success>${placeholderWithTranslation.eswurdeeinepersonersetzt}</vera-success>
 				#else
-					<vera-success>${placeholderWithTranslation.Eswurden} $!snr-count ${placeholderWithTranslation.Personenersetzt}</vera-success>
+					<vera-success>${placeholderWithTranslation.eswurden} $!snr-count ${placeholderWithTranslation.personenersetzt}</vera-success>
 				#end
 			#elseif($snr-action == "count")
 				#if(!$snr-count)
 					<vera-warn>
 					#if($noSearchParam)
-						${placeholderWithTranslation.IhreSuchemussausmindestenseinemBuchstabenbestehen}
+						${placeholderWithTranslation.ihresuchemussausmindestenseinembuchstabenbestehen}
 					#elseif($noFieldsSelected)
-						${placeholderWithTranslation.SiemuessenmindestenseinFeldausgewaehlthaben}
+						${placeholderWithTranslation.siemuessenmindestenseinfeldausgewaehlthaben}
 					#end
 					</vera-warn>
 				#elseif($snr-count == 0)
-					<vera-success>${placeholderWithTranslation.EswurdekeinePersongefunden}</vera-success>
+					<vera-success>${placeholderWithTranslation.eswurdekeinepersongefunden}</vera-success>
 				#elseif($snr-count == 1)
-					<vera-success>${placeholderWithTranslation.EswurdeeinePersongefunden}</vera-success>
+					<vera-success>${placeholderWithTranslation.eswurdeeinepersongefunden}</vera-success>
 				#else
-					<vera-success>${placeholderWithTranslation.Eswurden} $!snr-count ${placeholderWithTranslation.Personengefunden}</vera-success>
+					<vera-success>${placeholderWithTranslation.eswurden} $!snr-count ${placeholderWithTranslation.personengefunden}</vera-success>
 				#end
 			#end
 
 			<div id="buttonPanel-bottom">
-				<input type="submit" class="mainButton" title="${placeholderWithTranslation.Suchen}" name="count" value="Suchen"/>
-				<input type="button" class="mainButton" title="${placeholderWithTranslation.EinzelneEinzraegezumErsetzenselektieren}" name="replace" value="Einzeln ersetzen" onclick="document.getElementById('formlist').action='ShowReplacePersonList'; document.getElementById('formlist').submit();"/>
-				<input type="button" class="mainButton" title="${placeholderWithTranslation.Allesofortersetzen}" name="replaceall" value="Alle ersetzen" onclick="document.getElementById('formlist').action='SaveReplaceAllPerson'; document.getElementById('formlist').submit();"/>
-				<input type="button" class="mainButton" title="${placeholderWithTranslation.Felderleeren}" name="cancel" value="Felder leeren" onclick="clearFields();">
+				<input type="submit" class="mainButton" title="${placeholderWithTranslation.suchen}" name="count" value="Suchen"/>
+				<input type="button" class="mainButton" title="${placeholderWithTranslation.einzelneeinzraegezumersetzenselektieren}" name="replace" value="Einzeln ersetzen" onclick="document.getElementById('formlist').action='ShowReplacePersonList'; document.getElementById('formlist').submit();"/>
+				<input type="button" class="mainButton" title="${placeholderWithTranslation.allesofortersetzen}" name="replaceall" value="Alle ersetzen" onclick="document.getElementById('formlist').action='SaveReplaceAllPerson'; document.getElementById('formlist').submit();"/>
+				<input type="button" class="mainButton" title="${placeholderWithTranslation.felderleeren}" name="cancel" value="Felder leeren" onclick="clearFields();">
 			</div>
 		</div>
 		<vera-info>
-			${placeholderWithTranslation.WennSiedenPlatzhalterverwendenwerdenauchTeilstueckeersetztsonstnurvollstaendigeDatenfelder}
+			${placeholderWithTranslation.wennsiedenplatzhalterverwendenwerdenauchteilstueckeersetztsonstnurvollstaendigedatenfelder}
 		</vera-info>
 	</form>
 </div>
