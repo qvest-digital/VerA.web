@@ -68,7 +68,7 @@
 								</div>
 							</div>
 							<div class="tableCell width30">
-								<label for="eventname">${placeholderWithTranslation.genreic_name}</label>
+								<label for="eventname">${placeholderWithTranslation.GENERIC_NAME}</label>
 								<textarea name="eventname" id="eventname" value=""></textarea>
 							</div>
 						</div>

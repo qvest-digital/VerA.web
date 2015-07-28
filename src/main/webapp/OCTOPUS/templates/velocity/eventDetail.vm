@@ -128,7 +128,7 @@
 
 							<div class="tableRow">
 								<div class="tableCell width50">
-									<label for="event-eventname">${placeholderWithTranslation.genreic_name}</label>
+									<label for="event-eventname">${placeholderWithTranslation.GENERIC_NAME}</label>
 									<textarea onchange="setModified();" id="event-eventname" name="event-eventname" cols="20" rows="4">$!message.textarea($event.eventname)</textarea>
 								</div>
 
