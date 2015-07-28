@@ -48,7 +48,7 @@
 <div id="content_container">
 	#if($action == "guest" || $searchTask)
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.zurveranstaltungssuche">${placeholderwithtranslation.veranstaltungssuche}</a> > ${placeholderWithTranslation.suchergebnis}</span>
+			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.zurveranstaltungssuche}">${placeholderwithtranslation.veranstaltungssuche}</a> > ${placeholderWithTranslation.suchergebnis}</span>
 		</div>
 			<h1>${placeholderWithTranslation.suchergebnisveranstaltungen}</h1>
 	#else
@@ -127,7 +127,7 @@
 
 				#if($save)
 					<div class="floatRight">
-					<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.loschen" title="${placeholderwithtranslation.markierteveranstaltungloschen}">
+					<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderwithtranslation.markierteveranstaltungloschen}">
 				#end
 				<input type="button" id="button.remove-cancel" name="cancel" value="${placeholderWithTranslation.abbrechen}"/>
 				</div>
@@ -185,7 +185,7 @@
 						#end
 
 						<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
-						<th>${placeholderWithTranslation.genreic_name}</th>
+						<th>${placeholderWithTranslation.GENERIC_NAME}</th>
 						<th class="smallCell textCenter">${placeholderWithTranslation.beginn}</th>
 						<th class="smallCell textCenter">${placeholderWithTranslation.ende}</th>
 						<th>${placeholderWithTranslation.gastgeber}</th>

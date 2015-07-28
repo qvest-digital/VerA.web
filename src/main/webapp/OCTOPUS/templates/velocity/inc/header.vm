@@ -60,9 +60,9 @@
 
 					    #if($grants && $grants.isAuthenticated())
 							#if($config.helplink)
-    							<li><a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>${placeholderWithTranslation.Hilfe}</a></li>
+    							<li><a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>${placeholderWithTranslation.hilfe}</a></li>
 							#else
-	    						<li><a href="${paths.staticWeb}/doc/Benutzerhandbuch.pdf" target="_blank">${placeholderWithTranslation.Hilfe}</a></li>
+	    						<li><a href="${paths.staticWeb}/doc/Benutzerhandbuch.pdf" target="_blank">${placeholderWithTranslation.hilfe}</a></li>
 							#end
 							<li>
 							    <a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder">
@@ -75,7 +75,7 @@
 				</div>
 				    #if($grants && $grants.isAuthenticated())
 						<div id="user">
-							<strong>${placeholderWithTranslation.Benutzer}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>In Vertretung f&uuml;r:</strong> $octopusConfig.personalConfig.role #end
+							<strong>${placeholderWithTranslation.benutzer}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>In Vertretung f&uuml;r:</strong> $octopusConfig.personalConfig.role #end
 						</div>
 					#end
 			</header>
