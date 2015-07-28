@@ -21,7 +21,7 @@
         	<div class="table">
         		<div class="tableRow">
         			<div class="tableCell">
-        				<label for="type">${placeholderWithTranslation.Ausgabeformatwaehlen</label>
+        				<label for="type">${placeholderWithTranslation.Ausgabeformatwaehlen}</label>
         				<select name="type" id="type">
                 			<option value="Kat01">${placeholderWithTranslation.ListenachKategoriengruppiertmitPartner}</option>
                 			<option value="Kat02">${placeholderWithTranslation.ListenachKategoriengruppiertmitTelundMobiltelefon}</option>

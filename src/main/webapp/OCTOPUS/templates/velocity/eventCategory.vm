@@ -61,7 +61,7 @@
 				<span id="actionPanel">
 					#if($grants.mayWrite() && $list && $list.size() > 0)
 						<strong>${placeholderWithTranslation.MarkiertenKategorien}</strong>
-						<input type="button" name="remove" value="Entfernen" title="${placeholderWithTranslation.MarkiertenKategorienentfernen" onclick="deleteEventCategory();"/>
+						<input type="button" name="remove" value="Entfernen" title="${placeholderWithTranslation.MarkiertenKategorienentfernen}" onclick="deleteEventCategory();"/>
 					#else &nbsp;#end
 				</span>
 

@@ -56,7 +56,7 @@
             			<select id="platzhalter" name="platzhalter" class="width15" >
             				<option value="firstname">${placeholderWithTranslation.Vorname}</option>
             				<option value="lastname">${placeholderWithTranslation.Nachname}</option>
-            				<option value="salutation">${placeholderWithTranslation.Anrede</option>
+            				<option value="salutation">${placeholderWithTranslation.Anrede}</option>
             				<option value="title">${placeholderWithTranslation.AkadTitel}</option>
             				<option value="function">${placeholderWithTranslation.AmtsbezFunktion}</option>
             				<option value="company">${placeholderWithTranslation.FirmaInstitution}</option>

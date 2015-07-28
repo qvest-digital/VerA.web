@@ -45,7 +45,7 @@
 
         	<div class="textRight">
         		<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.Verteilerspeichern}" title="${placeholderWithTranslation.Verteilerspeichern}">
-        		<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZuruckzurGasteverwaltung" title="${placeholderWithTranslation.ZuruckzurGasteverwaltung" onclick="window.location.href='ShowGuestList?selectNone=true';">
+        		<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.ZuruckzurGasteverwaltung}" title="${placeholderWithTranslation.ZuruckzurGasteverwaltung}" onclick="window.location.href='ShowGuestList?selectNone=true';">
         	</div>
 		</form>
 </div><!-- end #content_container -->

@@ -188,7 +188,7 @@
 									<label for="gastgeber">${placeholderWithTranslation.Gastgeber}</label>
 									<input type="hidden" value="$!event.host" name="event-host" id="event-host">
 									<input type="hidden" value="$!event.hostname" name="event-hostname" id="event-hostname">
-									<input type="hidden" value="${placeholderWithTranslation.keinGastgeberausgewahlt" name="showevent-hostnametext" id="showevent-hostnametext">
+									<input type="hidden" value="${placeholderWithTranslation.keinGastgeberausgewahlt}" name="showevent-hostnametext" id="showevent-hostnametext">
 									<input type="text" vera-disabled class="textdisabled" value="$!message.text($event.hostname)" name="showevent-hostname" id="showevent-hostname">
 									#if($grants.mayWrite())
 									<div class="addButton">
@@ -290,7 +290,7 @@
 							#if($online-registration.activated)
 								<div class="tableRow">
 									<div class="tableCell width50 inlineLabel">
-										<label for="event-login_required">${placeholderWithTranslation.Login notwendig</label>
+										<label for="event-login_required">${placeholderWithTranslation.Loginnotwendig}</label>
 										<!-- DEBUG $event.login_required -->
 										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-login_required" name="event-login_required"
 											#if($event && $event.login_required)
@@ -303,7 +303,7 @@
 
 								<div class="tableRow">
 									<div class="tableCell width50 inlineLabel">
-										<label for="event-mediarepresentatives">${placeholderWithTranslation.AnmeldungvonPressevertreternmoglich</label>
+										<label for="event-mediarepresentatives">${placeholderWithTranslation.AnmeldungvonPressevertreternmoglich}</label>
 										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-mediarepresentatives" name="event-mediarepresentatives"
 											#if($event && $event.mediarepresentatives)
 												checked

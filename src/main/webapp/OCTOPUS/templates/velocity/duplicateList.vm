@@ -31,8 +31,8 @@
 	#end
 
 	<vera-info>
-		${placeholderWithTranslation.Dublettendiedurchden}<strong>${placeholderWithTranslation.Importhinzugefugtwerdenwurden}</strong>${placeholderWithTranslation.sindmiteinerCheckboxgekennzeichnetDarunterbefindensichdiebereitsimSystemvorhandenenentsprechendenDatensatze<br />
-		${placeholderWithTranslation.BeachtenSiedassamitaeomitoeumitueundssmitssverglichenwird<br />
+		${placeholderWithTranslation.Dublettendiedurchden}<strong>${placeholderWithTranslation.Importhinzugefugtwerdenwurden}</strong>${placeholderWithTranslation.sindmiteinerCheckboxgekennzeichnetDarunterbefindensichdiebereitsimSystemvorhandenenentsprechendenDatensatze}<br />
+		${placeholderWithTranslation.BeachtenSiedassamitaeomitoeumitueundssmitssverglichenwird}<br />
 		${placeholderWithTranslation.UmeineDubletteindenImportzuintegrierenmussenSiesieubernehmen}
 	</vera-info>
 

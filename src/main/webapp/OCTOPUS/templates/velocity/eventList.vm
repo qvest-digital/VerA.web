@@ -50,7 +50,7 @@
 		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.ZurVeranstaltungssuche">${placeholderWithTranslation.Veranstaltungssuche}</a> > ${placeholderWithTranslation.Suchergebnis}</span>
 		</div>
-			<h1>${placeholderWithTranslation.SuchergebnisVeranstaltungen</h1>
+			<h1>${placeholderWithTranslation.SuchergebnisVeranstaltungen}</h1>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.ZurStartseite}">${placeholderWithTranslation.Home}</a> > ${placeholderWithTranslation.Veranstaltungen} > ${placeholderWithTranslation.Veranstaltungsubersicht}</span>
@@ -315,7 +315,7 @@
 			var checkBoxes = $('input:checkbox[name$="-select"]:checked');
 
 			if (checkBoxes.length === 0) {
-				showInfo(' ${placeholderWithTranslation.WahlenSiebittezunachsteineodermehrereVeranstaltungenaus ');
+				showInfo(' ${placeholderWithTranslation.WahlenSiebittezunachsteineodermehrereVeranstaltungenaus} ');
 			} else {
 				$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.Ja}" />').submit();
 			}

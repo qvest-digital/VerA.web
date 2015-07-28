@@ -58,7 +58,7 @@
         	#if($grants.mayWrite())
         	<span id="actionPanel">
                 <strong>${placeholderWithTranslation.MarkiertenVerteiler}</strong>
-        		<input type="button" name="remove" value="${placeholderWithTranslation.Loschen" onclick="deleteMailinglist();" title="${placeholderWithTranslation.MarkierteVerteilerloschen">
+        		<input type="button" name="remove" value="${placeholderWithTranslation.Loschen}" onclick="deleteMailinglist();" title="${placeholderWithTranslation.MarkierteVerteilerloschen}">
         	</span>
         	#end
 

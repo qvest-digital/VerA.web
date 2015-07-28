@@ -27,7 +27,7 @@
     </div>
     #end
 
-	<h1>${placeholderWithTranslation.Veranstaltungearbeiten $!message.plain($event.shortname)</h1>
+	<h1>${placeholderWithTranslation.Veranstaltungearbeiten} $!message.plain($event.shortname)</h1>
 
     <form id="formlist" name="formlist" action="" method="POST">
         <input type="hidden" id="a" name="a" value="taskReferencePerson" />
@@ -108,7 +108,7 @@
                 <div class="table width100">
                     <div class="tableRow">
                         <div class="tableCell width40">
-                            <strong>${placeholderWithTranslation.AufgabenID</strong><br /> $!message.text($task.id)</div>
+                            <strong>${placeholderWithTranslation.AufgabenID}</strong><br /> $!message.text($task.id)</div>
                         <div class="tableCell width30">
                             <label for="task-startdate">${placeholderWithTranslation.Beginn}</label>
                             <input tabindex="2" type="text" name="task-startdate" id="task-startdate" value="$!message.date("DATE", $task.startdate)" class="date" style="width: 80px;" onchange="setModified();">
@@ -163,7 +163,7 @@
                                 });
                             </script>
                             #end
-                            <input type="text" tabindex="5" name="task-endtime" id="task-endtime" #if($task-endhastime) value="$!message.date("TIME", $task.enddate)" #else value="$!message.plain($task.endtime)" #end class="date" style="width: 45px;" onchange="setModified();"> <label class="inline" for="task-endtime">${placeholderWithTranslation.Uhr</label>
+                            <input type="text" tabindex="5" name="task-endtime" id="task-endtime" #if($task-endhastime) value="$!message.date("TIME", $task.enddate)" #else value="$!message.plain($task.endtime)" #end class="date" style="width: 45px;" onchange="setModified();"> <label class="inline" for="task-endtime">${placeholderWithTranslation.Uhr}</label>
                         </div>
                         <div class="tableCell">
                             <label for="task-priority">${placeholderWithTranslation.Prioritat}</label>

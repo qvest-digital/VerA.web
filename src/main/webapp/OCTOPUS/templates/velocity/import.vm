@@ -103,7 +103,7 @@
                             		<div $style id="format-$formatKey" class="marginTop20">
                               #if($format.properties.containsKey("choices"))
                                #set($choices = $format.properties.get("choices"))
-                            			<fieldset class="format"><legend>$format.name: ${placeholderWithTranslation.weitere Optionen</legend>
+                            			<fieldset class="format"><legend>$format.name: ${placeholderWithTranslation.weitereOptionen}</legend>
                                 			<div class="table width100">
                                #foreach($choiceKey in $choices.keySet())
                                 #set($choice = $choices.get($choiceKey))

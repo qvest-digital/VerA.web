@@ -115,7 +115,7 @@
 								<td class="textCenter"/>
 							#end
 							<input type="hidden" id="add-modified" name="add-modified" value="false"/><input type="checkbox" name="add-select" value="true" style="display: none;"/>
-							<td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>${placeholderWithTranslation.neu</em></td>
+							<td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>${placeholderWithTranslation.neu}</em></td>
 							<td>
 								<select id="add-function" name="add-function" onchange="setModified('add')">
 									<option value="0">${placeholderWithTranslation.Bitteauswahlen}</option>
@@ -155,7 +155,7 @@
 			#if($grants.mayWrite())
 				<input type="submit" name="save" value="${placeholderWithTranslation.VeranstaltungSpeichern}" class="mainButton"/>
 			#end
-			<input type="button" name="cancel" value="${placeholderWithTranslation.ZurVeranstaltungsubersicht" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
+			<input type="button" name="cancel" value="${placeholderWithTranslation.ZurVeranstaltungsubersicht}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
 		</span>
 
 	</form>
