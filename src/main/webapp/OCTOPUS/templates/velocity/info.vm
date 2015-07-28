@@ -37,7 +37,7 @@
 
         <tr>
             <td class="width15 bold">Version:</td>
-            <td>$properties.getString("version")</td>
+            <td>$properties.getString("poversion")</td>
         </tr><tr>
             <td class="width15 bold">Buildnummer:</td>
             <td>$properties.getString("pobuildnr")</td>
