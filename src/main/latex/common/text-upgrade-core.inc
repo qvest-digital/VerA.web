@@ -113,23 +113,14 @@ als separater Download angeboten.
 \subsection{Datenbank VerA.web-core}\label{subsec:upgrade-core-db}
 
 \begin{minipage}{\textwidth}
-Loggen Sie sich auf der Datenbank ein:
+Loggen Sie sich auf der Datenbank ein und starten Sie das Upgrade-SQL:
 
 \begin{lstlisting}[language=sh]
-psql -U veraweb -h 127.0.0.1 -W veraweb
+psql -U veraweb -h 127.0.0.1 -W veraweb <upgrade.sql
 \end{lstlisting}
-\end{minipage}
 
 Falls Sie einen anderen Datenbankserver, Port, Benutzer oder Datenbank
 verwenden müssen Sie diese hier selbstverständlich anpassen.
-
-\begin{minipage}{\textwidth}
-Dann setzen Sie folgendes SQL-Kommando ab:
-
-\begin{lstlisting}[language=SQL]
-\i upgrade.sql
-\q
-\end{lstlisting}
 \end{minipage}
 
 \subsection{Applikationsserver VerA.web-core}\label{subsec:upgrade-core-tomcat}
