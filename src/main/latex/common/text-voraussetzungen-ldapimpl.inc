@@ -24,7 +24,7 @@
 
 Sie benötigen ein LDAP-Verzeichnis, in dem Sie die Zugänge (user
 accounts) für die Sachbearbeiter, die VerA.web benutzen sollen,
-pflegen. Hierfür wird OpenLDAP empfohlen.
+sowie Administratorenzugänge pflegen. Hierfür wird OpenLDAP empfohlen.
 
 Die Einrichtung eines solchen LDAP-Verzeichnisses ist außerhalb
 des Rahmens dieser Installationsanleitung.

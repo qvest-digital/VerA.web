@@ -18,7 +18,7 @@
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
 %-
-% Textabschnitt 3.1-3.3: Setup VerA.web-core
+% Textabschnitt 3.1-3.5: Setup VerA.web-core
 
 \section{Installation internes VerA.web-System}\label{sec:setup-int}
 
@@ -180,3 +180,144 @@ SELECT veraweb.serv_build_sequences();
 \end{minipage}
 
 Damit ist die Einrichtung der Datenbank abgeschlossen.
+
+\subsection{Webserver VerA.web-core}\label{subsec:setup-core-apache}
+
+\begin{minipage}{\textwidth}
+Aktivieren Sie zunächst das \texttt{jk}-Modul, welches benutzt wird,
+um vermittels des AJP-Protokolls Anfragen an den Webserver an Tomcat
+durchzureichen:
+
+\begin{lstlisting}[language=sh]
+sudo a2enmod jk
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Dann tragen Sie folgende Zeile in die vhost-Konfiguration ein:
+
+\begin{lstlisting}
+JkMount /veraweb* ajp13_worker
+\end{lstlisting}
+\end{minipage}
+
+Diese Zeile sollte z.B. in der mitgelieferten Standardkonfiguration
+des Webservers unter Debian
+\texttt{/etc/apache2/sites-available/default-ssl}, welche mit einem
+\texttt{sudo a2ensite default-ssl} aktiviert wird, vor das
+\texttt{DocumentRoot /var/www} geschrieben werden.
+
+Desweiteren richten wir üblicherweise eine Weiterleitung auf die Startseite
+sowie eine von HTTP nach HTTPS ein; beide an der jeweils selben Stelle;
+anstelle von \texttt{veraweb.lan.tarent.de} tragen Sie bitte den Namen
+Ihres Servers (FQDN) ein.
+
+\begin{minipage}{\textwidth}
+In \texttt{/etc/apache2/sites-available/default-ssl} (HTTPS):
+
+\begin{lstlisting}
+RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/veraweb/
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Desweiteren \texttt{/etc/apache2/sites-available/default} (HTTP):
+
+\begin{lstlisting}
+RedirectMatch 301 . https://veraweb.lan.tarent.de/veraweb/
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Abschließend starten Sie bitte den Webserver neu:
+
+\begin{lstlisting}[language=sh]
+sudo service apache2 stop
+sudo service apache2 start
+\end{lstlisting}
+\end{minipage}
+
+Ein Aufruf von z.B. \texttt{https://veraweb.lan.tarent.de/veraweb/} sollte
+nun einen Fehlercode 503 „Service Temporarily Unavailable“ zurückliefern.
+Im \texttt{/var/log/apache2/mod\_jk.log} sollten Sie eine Meldung à la
+„\texttt{ajp\_send\_request::jk\_ajp\_common.c (1630): (ajp13\_worker)
+connecting to backend failed. Tomcat is probably not started or is listening
+on the wrong port (errno=111)}“ sehen. Hingegen sollte unter der URL
+\texttt{https://veraweb.lan.tarent.de/index.html} weiterhin die Standardseite
+des Webservers zu sehen sein.
+
+\subsection{Applikationsserver VerA.web-core}\label{subsec:setup-core-tomcat}
+
+\begin{minipage}{\textwidth}
+Deployen Sie die VerA.web-Anwendung in den Applikationsserver Tomcat:
+
+\begin{lstlisting}[language=sh]
+sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
+\end{lstlisting}
+\end{minipage}
+
+Nun können Sie bereits über \texttt{http://localhost:8080/veraweb/} auf
+das Veranstaltungsmanagement zugreifen und sich testweise einloggen. Falls
+hierbei Fehler auftauchen prüfen Sie bitte den LDAP-Zugriff und eventuell
+in \texttt{/var/log/tomcat7/catalina.out} auftauchende Meldungen.
+
+\begin{minipage}{\textwidth}
+Stoppen Sie bitte nun den Applikationsserver:
+
+\begin{lstlisting}[language=sh]
+sudo service tomcat7 stop
+\end{lstlisting}
+
+Bitte beachten Sie, daß der Tomcat-Dienst ggfs. noch einige Sekunden
+weiterläuft, nachdem der Stop-Befehl abgeschickt wurde; im Zweifelsfalls
+können Sie mit \texttt{ps ax | grep java} prüfen, ob noch Prozesse laufen.
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Nun bearbeiten Sie die Datei \texttt{/etc/tomcat7/server.xml}, um Tomcat
+von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
+und kommentieren ihn aus (eine einfache Suche nach „8080“ findet ihn):
+
+\begin{lstlisting}[language=XML]
+    <Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               URIEncoding="UTF-8"
+               redirectPort="8443" />
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Dann suchen Sie folgenden auskommentierten Abschnitt (ca. 20 Zeilen weiter):
+
+\begin{lstlisting}[language=XML]
+    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+\end{lstlisting}
+
+Entfernen Sie hier die Kommentarzeichen und fügen Sie ein weiteres Attribut
+hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
+
+\begin{lstlisting}[language=XML]
+    <Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Nun können Sie den Server wieder starten:
+
+\begin{lstlisting}[language=sh]
+sudo service tomcat7 start
+\end{lstlisting}
+\end{minipage}
+
+Jetzt können Sie z.B. über \texttt{https://veraweb.lan.tarent.de/veraweb/}
+auf das Veranstaltungsmanagement zugreifen und sich einloggen.
+
+\begin{minipage}{\textwidth}
+Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
+mehr und können sie entfernen:
+
+\begin{lstlisting}[language=sh]
+cd ..
+rm -rf veraweb-core-〈\produktversion{}〉* veraweb.war
+\end{lstlisting}
+\end{minipage}
