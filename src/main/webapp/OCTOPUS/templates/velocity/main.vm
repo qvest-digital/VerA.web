@@ -37,53 +37,53 @@
 
     #if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
     <P>
-    	${placeholderWithTranslation.welcome_text_one}
+    	${placeholderWithTranslation.WELCOME_TEXT_ONE}
       #if($grants.mayReadStandardFields())
-    	${placeholderWithTranslation.welcome_text_two}
+    	${placeholderWithTranslation.WELCOME_TEXT_TWO}
       #end
       #if($grants.mayReadRemarkFields())
        #if($grants.mayReadStandardFields())
-    	${placeholderWithTranslation.welcome_text_and}
+    	${placeholderWithTranslation.WELCOME_TEXT_AND}
        #end
-    	${placeholderWithTranslation.welcome_text_three}
+    	${placeholderWithTranslation.WELCOME_TEXT_THREE}
       #end
-    	${placeholderWithTranslation.welcome_text_four}
+    	${placeholderWithTranslation.WELCOME_TEXT_FOUR}
       #if($grants.mayWrite())
-    	${placeholderWithTranslation.welcome_text_five}
+    	${placeholderWithTranslation.WELCOME_TEXT_FIVE}
        #if($grants.mayExport())
-    	${placeholderWithTranslation.welcome_text_six}
+    	${placeholderWithTranslation.WELCOME_TEXT_SIX}
        #end
-    	${placeholderWithTranslation.welcome_text_seven}
+    	${placeholderWithTranslation.WELCOME_TEXT_SEVEN}
       #elseif($grants.mayExport())
-    	${placeholderWithTranslation.welcome_text_eight}
+    	${placeholderWithTranslation.WELCOME_TEXT_EIGHT}
       #else
-    	${placeholderWithTranslation.welcome_text_nine}
+    	${placeholderWithTranslation.WELCOME_TEXT_NINE}
       #end
     </P>
      #end
      #if($grants.isPartialAdmin() || $grants.isAdmin())
     <P>
-    	${placeholderWithTranslation.welcome_text_ten}
+    	${placeholderWithTranslation.WELCOME_TEXT_TEN}
       #if($grants.isPartialAdmin())
-    	${placeholderWithTranslation.welcome_text_eleven}
+    	${placeholderWithTranslation.WELCOME_TEXT_ELEVEN}
       #end
       #if($grants.isAdmin())
        #if($grants.isPartialAdmin())
-    	${placeholderWithTranslation.welcome_text_and}
+    	${placeholderWithTranslation.WELCOME_TEXT_AND}
        #end
-    	${placeholderWithTranslation.welcome_text_twelve}
+    	${placeholderWithTranslation.WELCOME_TEXT_TWELVE}
       #end
-    	${placeholderWithTranslation.welcome_text_thirteen}
+    	${placeholderWithTranslation.WELCOME_TEXT_THIRTEEN}
     </P>
      #end
     <P>
-    	${placeholderWithTranslation.welcome_text_fourteen}
+    	${placeholderWithTranslation.WELCOME_TEXT_FOURTEEN}
     </P>
     #elseif($octopusConfig.personalConfig.roles)
      #parse("inc/role-chooser.vm")
     #else
     <P>
-    	${placeholderWithTranslation.welcome_text_fifteen}
+    	${placeholderWithTranslation.WELCOME_TEXT_FIFTEEN}
     </P>
     #end
 
