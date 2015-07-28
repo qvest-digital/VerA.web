@@ -17,12 +17,12 @@
 			<div class="table width100">
 				<div class="tableRow">
 					<div class="tableCell width50">
-						<h2>${placeholderWithTranslation.statistikauffolgendenzeitrahmeneinschraumlnken}</h2>
+						<h2>${placeholderWithTranslation.statistikauffolgendenzeitrahmeneinschranken}</h2>
 
 						<label for="begin">${placeholderWithTranslation.zeitrahmenbeginn}</label>
 						<span id="showBegin" class="datepickerContainer">
 						<input type="text" name="begin" placeholder="TT.MM.JJJJ" id="begin" class="datepicker">
-						<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="${placeholderWithTranslation.datumauswaumlhlen}">
+						<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="${placeholderWithTranslation.datumauswahlen}">
 						<script type="text/javascript">
 							Calendar.setup({
 								inputField	 :	"begin",
@@ -36,7 +36,7 @@
 						<label for="end">${placeholderWithTranslation.zeitrahmenende}</label>
 						<span id="showEnd" class="datepickerContainer">
 						<input type="text" name="end" placeholder="TT.MM.JJJJ" id="end" class="datepicker">
-						<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="${placeholderWithTranslation.datumauswaumlhlen}">
+						<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="${placeholderWithTranslation.datumauswahlen}">
 						<script type="text/javascript">
 							Calendar.setup({
 								inputField	 :	"end",
@@ -120,7 +120,7 @@
 							}
 						</script>
 
-						<h2>${placeholderWithTranslation.statistiktypauswaumlhlen}</h2>
+						<h2>${placeholderWithTranslation.statistiktypauswahlen}</h2>
 
 						<input type="radio" id="EventsPerYear" name="statistik" value="EventsPerYear" checked><label for="EventsPerYear">
 						${placeholderWithTranslation.gesamtuebersichtueberdieanzahlderveranstaltungenprojahr}</label><br />

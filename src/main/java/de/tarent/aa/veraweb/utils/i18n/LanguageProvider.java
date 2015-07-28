@@ -195,7 +195,7 @@ public class LanguageProvider {
 
         try {
             for (File file : listOfFiles) {
-                if (file.isFile()) {
+                if (file.isFile() && file.getName().endsWith(".resource")) {
                     languageFileNames.add(file.getName());
                 }
             }

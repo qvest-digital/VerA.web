@@ -1,0 +1,3 @@
+#!/bin/sh
+cd "$(dirname "$0")"
+perl -C -pi -e 's/[^\n -~]/"\\u" . sprintf("%04X", ord($&))/eg' *.resource
