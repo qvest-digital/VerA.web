@@ -50,7 +50,7 @@
 						<div>${placeholderWithTranslation.aufgaben}</div>
 					</li>
 					#if($online-registration.activated)
-						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.zusätzliche personendaten}</div>
+						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.zusatzlichepersonendaten}</div>
 						</li>
 						<li class="active"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
 						</li>
@@ -104,7 +104,7 @@
 
 						<tr >
 							#if($list && $list.size() > 0 && $grants.mayWrite())
-								<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alle (de)markieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+								<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 							#end
 							<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
 							<th>${placeholderWithTranslation.bezeichnung}</th>

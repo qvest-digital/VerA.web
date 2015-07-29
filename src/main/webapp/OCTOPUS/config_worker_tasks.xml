@@ -174,8 +174,8 @@
 			<description>
 				Dieser Task zeigt den Login Dialog an.
 			</description>
+            <doTask name="Load"/>
             <action name="load" worker="LanguageProvider" />
-			<doTask name="Load"/>
 			<doTask name="Verify"/>
 			<response type="velocity" name="login">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -249,7 +249,7 @@
 		</task>
 
 		<task name="LoadStammdaten" access="private" groups="User,SystemUser">
-			<description>Alle Worker die für die Stammdaten benötigt werden, z.B. Berechtigungen setzten.</description>
+			<description>Alle Worker die für die Stammdaten benötigt werden, z.B. Berechtigungen setzen.</description>
 			<doTask name="Load"/>
 		</task>
 
@@ -1195,7 +1195,7 @@
 
 		<task name="SaveDelegationFields" access="public" groups="StandardFieldsReader">
 			<description>
-				Dieser Task speicher die bearbeiteten Tasks.
+				Dieser Task speichert die bearbeiteten Tasks.
 			</description>
 			<doTask name="Load"/>
 			<action name="saveDelegationFieldLabels" worker="EventDelegationWorker" />
