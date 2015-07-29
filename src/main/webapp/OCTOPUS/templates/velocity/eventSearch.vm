@@ -97,15 +97,15 @@
 				<div id="buttonPanel-bottom" class="textRight">
 					#if($action == "guest")
 						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
-						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.felderleeren}" title="${placeholderWithTranslation.felderleeren}" />
+						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" />
 						<input type="button" class="mainButton"  name="cancel" value="${placeholderWithTranslation.zuruck}" title="${placeholderWithTranslation.zuruck}" onclick="window.location.href='ShowGuestList?selectNone=true';" />
 					#elseif($action == "addperson")
 						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
-						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.felderleeren}" title="${placeholderWithTranslation.felderleeren}" />
+						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" />
 						<input type="button" class="mainButton"  name="cancel" value="${placeholderWithTranslation.zuruck}" title="${placeholderWithTranslation.zuruck}" onclick="window.location.href='ShowPerson';" />
 					#else
 						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
-						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.felderleeren}" title="${placeholderWithTranslation.felderleeren}" />
+						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" />
 					#end
 				</div>
 
