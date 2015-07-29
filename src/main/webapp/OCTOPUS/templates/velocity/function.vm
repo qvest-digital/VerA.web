@@ -1,5 +1,5 @@
 #set($activeMenu = "Administration")
-#set($title = "${placeholderWithTranslation.funktion}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE}")
+#set($title = "${placeholderWithTranslation.funktion}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}")
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Funktion/Amtsbezeichnung")
 #set($elementNamePlural = "Funktionen/Amtsbezeichnungen")
@@ -14,10 +14,10 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-	    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.funktionenamtsbezeichnungen}</span>
+	    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.funktionenamtsbezeichnungen}</h1>
+	<h1>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</h1>
 
 	<form id="formlist" name="formlist" action="Function" method="POST">
 		<input type="hidden" name="doInsert" value="true">

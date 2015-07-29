@@ -97,7 +97,7 @@
                             <input type="text" name="lastname" id="lastname" value="$!message.text($search.lastname)"  />
                         </div>
                         <div class="tableCell width30">
-                            <label for="function">${placeholderWithTranslation.amtsbezeichnungfunktion}</label>
+                            <label for="function">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}</label>
                             <input type="text" name="function" id="function" value="$!message.text($search.function)"  />
                         </div>
                     </div>
@@ -233,23 +233,23 @@
             <div id="buttonPanel-bottom" class="textRight">
                 #if($action == "guest")
                     <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
-                    <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.felderleeren}" title="${placeholderWithTranslation.felderleeren}" onclick="clearForm();" />
+                    <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
                     <input type="button" class="mainButton cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='ShowGuestList?selectNone=true';" />
                 #elseif($action == "host")
                     <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
-                    <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.felderleeren}" title="${placeholderWithTranslation.felderleeren}" onclick="clearForm();" />
+                    <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
                     <input type="button" class="mainButton cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='SetHostToEventDetail';" />
                 #elseif($action == "statistikGuest")
                     <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
-                    <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.felderleeren}" title="${placeholderWithTranslation.felderleeren}" onclick="clearForm();" />
+                    <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
                     <input type="button" class="mainButton cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='Statistik';" />
                 #elseif($action == "statistikHost")
                     <input type="submit" class="mainButton submit" name="search" value="Suchen" title="Suchen" />
-                    <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.felderleeren}" title="${placeholderWithTranslation.felderleeren}" onclick="clearForm();" />
+                    <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
                     <input type="button" class="mainButton cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='Statistik';" />
                 #else
                     <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
-                    <input type="button"  class="mainButton reset" name="cancel" value="${placeholderWithTranslation.felderleeren}" title="${placeholderWithTranslation.felderleeren}" onclick="clearForm();" />
+                    <input type="button"  class="mainButton reset" name="cancel" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
                 #end
             </div>
         </form>
