@@ -393,7 +393,7 @@ e-mail-postausgang=e-mail-postausgang
 programmeinstellungen=Programmeinstellungen
 veranstaltungsorte=Veranstaltungsorte
 # Veranstaltungsuebersicht
-GENREIC_NAME=Name
+GENERIC_NAME=Name
 ende=Ende
 gastgeber=Gastgeber
 veranstaltungsort=Veranstaltungsort

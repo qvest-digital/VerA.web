@@ -553,7 +553,7 @@ veranstaltungsorte=lieux
 #Veranstaltungs\u00FCbersicht
 veranstaltungs\u00FCbersicht=Pr\u00E9sentation de l'\u00E9v\u00E9nement
 id=id
-GENREIC_NAME=nom
+GENERIC_NAME=nom
 beginn=d\u00E9but
 ende=fin
 gastgeber=h\u00F4te
@@ -682,7 +682,7 @@ platzwahl=lancer en l'air
 status=statut
 lfd.-nr.=lfd.-nr.
 firma=entreprise
-GENREIC_NAME=nom
+GENERIC_NAME=nom
 vorname=pr\u00E9nom
 e-mail=e-mail
 hauptperson=personnage principal
