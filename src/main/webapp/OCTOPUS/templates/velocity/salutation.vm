@@ -61,7 +61,7 @@
             						<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
             						<th>Stammform</th>
             						<th class="textCenter width10">${placeholderWithTranslation.GENERIC_GENDER}</th>
-            						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_EDIT}</th>
+            						<th class="smallCell textCenter">${placeholderWithTranslation.bearbeiten}</th>
             					</tr>
 
 								<tr>
@@ -109,7 +109,7 @@
                             ##Rueckfrage beim Loeschen
                             <script type="text/javascript">
                             function askDelete() {
-                            	htmlConfirm(' ${placeholderWithTranslation.wirklichloumlschen} ', new Array(' ${placeholderWithTranslation.ja} ', ' ${placeholderWithTranslation.nein} '), new Array("askDeleteYes();", "askDeleteNo();"));
+                            	htmlConfirm(' ${placeholderWithTranslation.wirklichloumlschen} ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("askDeleteYes();", "askDeleteNo();"));
                             }
                             function askDeleteYes() {
                             	hideDialogs();

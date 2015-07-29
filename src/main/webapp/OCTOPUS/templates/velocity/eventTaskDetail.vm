@@ -19,11 +19,11 @@
 
     #if($task && $task.id)
     <div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungearbeiten}</span>
+		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungearbeiten}</span>
     </div>
     #else
     <div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungearbeiten}</span>
+		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungearbeiten}</span>
     </div>
     #end
 
@@ -64,9 +64,9 @@
                 </table><br>
 
                 #if($save)
-                <input type="submit" class="button" name="remove" value="${placeholderWithTranslation.ja}" title="${placeholderWithTranslation.speichern}">
+                <input type="submit" class="button" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" title="${placeholderWithTranslation.speichern}">
                 #end
-                <input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.nein}" goto="ShowEvent?id=$!eventId">
+                <input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" goto="ShowEvent?id=$!eventId">
             </div>
         </div>
         #end

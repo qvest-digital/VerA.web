@@ -1,4 +1,4 @@
-#set($activeMenu = "${placeholderWithTranslation.administration}")
+#set($activeMenu = "Administration")
 
 ## $Id$
 #if($domain == 'ou')
@@ -24,7 +24,7 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-	    	<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.benutzer}</span>
+	    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.benutzer}</span>
 	</div>
 
 	<h1>Benutzer</h1>

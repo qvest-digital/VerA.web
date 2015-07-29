@@ -48,12 +48,12 @@
 <div id="content_container">
 	#if($action == "guest" || $searchTask)
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.zurveranstaltungssuche}">${placeholderwithtranslation.veranstaltungssuche}</a> > ${placeholderWithTranslation.suchergebnis}</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.zurveranstaltungssuche}">${placeholderWithTranslation.veranstaltungssuche}</a> > ${placeholderWithTranslation.suchergebnis}</span>
 		</div>
 			<h1>${placeholderWithTranslation.suchergebnisveranstaltungen}</h1>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungsubersicht}</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungsubersicht}</span>
 		</div>
 			<h1>${placeholderWithTranslation.veranstaltungsubersicht}</h1>
 	#end
@@ -127,7 +127,7 @@
 
 				#if($save)
 					<div class="floatRight">
-					<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderwithtranslation.markierteveranstaltungloschen}">
+					<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markierteveranstaltungloschen}">
 				#end
 				<input type="button" id="button.remove-cancel" name="cancel" value="${placeholderWithTranslation.abbrechen}"/>
 				</div>
@@ -317,13 +317,13 @@
 			if (checkBoxes.length === 0) {
 				showInfo(' ${placeholderWithTranslation.wahlensiebittezunachsteineodermehrereveranstaltungenaus} ');
 			} else {
-				$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.ja}" />').submit();
+				$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" />').submit();
 			}
 		});
 
 		$('#button\\.remove-cancel').click(function (e) {
 			$('input[name$="-select"]').prop('checked', false);
-			$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.ja}" />').submit();
+			$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" />').submit();
 		});
 	});
 </script>

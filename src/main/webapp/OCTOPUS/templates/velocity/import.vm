@@ -7,7 +7,7 @@
 
 	<div id="content_container">
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.personen} > ${placeholderWithTranslation.personenimport}</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.personen} > ${placeholderWithTranslation.personenimport}</span>
 		</div>
 
 		<h1>${placeholderWithTranslation.importvonpersonendaten}</h1>
@@ -156,7 +156,7 @@
 ##Hinweis und Rueckfrage vor dem Import
 
 	function askStart() {
-		htmlConfirm(' ${placeholderWithTranslation.alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden} ', new Array(' ${placeholderWithTranslation.ja} ', ' ${placeholderWithTranslation.nein} '), new Array("askStartYes();", "askStartNo();"));
+		htmlConfirm(' ${placeholderWithTranslation.alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden} ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("askStartYes();", "askStartNo();"));
 	}
 	function askStartYes() {
 		hideDialogs();

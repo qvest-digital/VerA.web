@@ -474,7 +474,7 @@ veranstaltungsorte=Venues
 #Veranstaltungs\u00FCbersicht
 veranstaltungs\u00FCbersicht=Eventoverview
 id=ID
-GENREIC_NAME=Name
+GENERIC_NAME=Name
 beginn=Start
 ende=End
 gastgeber=host
@@ -589,7 +589,7 @@ platzwahl=?
 status=Status
 lfd.-nr.=Lfd. -nr.
 firma=Company
-GENREIC_NAME=Surname
+GENERIC_NAME=Surname
 vorname=First name
 e-mail=E-mail
 hauptperson=Main person

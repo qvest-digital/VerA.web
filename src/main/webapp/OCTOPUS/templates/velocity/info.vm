@@ -11,7 +11,7 @@
     <form action="Main" method="POST">
 
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>${placeholderWithTranslation.siesindhier}</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.verwaltung} > ${placeholderWithTranslation.info}</span>
+        <strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.verwaltung} > ${placeholderWithTranslation.info}</span>
     </div>
 
     <h1>${placeholderWithTranslation.informationenzuveraweb}</h1>
