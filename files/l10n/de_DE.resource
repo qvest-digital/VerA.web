@@ -108,14 +108,14 @@ GENERIC_USERNAME=Benutzername
 GENERIC_USER_RIGHTS=Benutzerrechte
 MESSAGE_SUCCESS_INSERT_USER=Es wurde ein neuer Benutzer angelegt
 MESSAGE_SUCCESS_DELETE_USER=Es wurde ein Benutzer gel\u00F6scht
-MESSAGE_FILL_USER_ROLE=Sie m\u00FC\u00DFen eine Benutzerrollenbezeichnung eingeben
+MESSAGE_FILL_USER_ROLE=Sie m\u00FCssen eine Benutzerrollenbezeichnung eingeben
 # Administration/Dokumenttypen
 GENERIC_TOOLTIP=Hinweis
 HINT_FORMAT_INFO=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei), xls steht f\u00FCr Microsoft Office Kennzeichen: Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.(xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
 HINT_EVENT_MARK=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
 GENERIC_DOCUMENT_TYPES_MARKED=Markierte(n) Dokumenttyp(en)
 GENERIC_LABELLING=Bezeichnung*
-GENERIC_ADRESS_TYPE=Adre\u00DF-Typ
+GENERIC_ADRESS_TYPE=Adress-Typ
 GENERIC_CHARSET=Zeichensatz
 GENERIC_FORMAT=Format
 GENERIC_PARTNER_DOCUMENT=Dokument f\u00FCr Partner
@@ -223,8 +223,8 @@ anschriftweitere=Anschrift Weitere:
 zeichensatzlatein=Zeichensatz Latein:
 zeichensatzalternative1=Zeichensatz Alternative 1:
 zeichensatzalternative2=Zeichensatz Alternative 2:
-adresszusatz1=Adre\u00DFzusatz 1:
-adresszusatz2=Adre\u00DFzusatz 2:
+adresszusatz1=Adresszusatz 1:
+adresszusatz2=Adresszusatz 2:
 # Administration/Reports
 reports=Reports
 abhangigvomausgewahltenzeitraumundderdarausresultierendenanzahldatenkanndieerzeugungdesberichtsrelativlangedauernhabensiebitteeinweniggeduld=Abh\u00E4ngig vom ausgew\u00E4hlten Zeitraum und der daraus resultierenden Anzahl Daten, kann die Erzeugung des Berichts relativ lange dauern. Haben Sie bitte ein wenig Geduld.
@@ -275,8 +275,8 @@ loschen=L\u00F6schen
 neu=neu
 eswurdeeineneuevertretungangelegt=Es wurde eine neue Vertretung angelegt
 eswurdeeinevertretunggeloscht=Es wurde eine Vertretung gel\u00E4scht
-siemuseneinevertretereingeben=Sie m\u00FC\u00DFen eine Vertreter eingeben
-derbeginndervertretungmusvordemendeliegen=Der Beginn der Vertretung mu\u00DF vor dem Ende liegen
+siemuseneinevertretereingeben=Sie m\u00FCssen eine Vertreter eingeben
+derbeginndervertretungmusvordemendeliegen=Der Beginn der Vertretung muss vor dem Ende liegen
 eswurden=Es wurden
 vertretungengeloscht=Vertretungen gel\u00E4scht
 # Verwaltung/Info
@@ -342,7 +342,7 @@ personensuchen=Personen suchen
 neuepersonanlegen=Neue Person anlegen
 # Personen/Personenuebersicht/Person bearbeiten
 personbearbeiten=Person bearbeiten
-erfasstam=Erfa\u00DFt am
+erfasstam=Erfasst am
 zuletztgeandertam=Zuletzt ge\u00E4ndert am
 personen-id=Personen-ID
 online-anmeldungbenutzername=Online-Anmeldung Benutzername
@@ -358,7 +358,7 @@ ausstammdatenhinzufugen=Aus Stammdaten hinzuf\u00FCgen
 dokumenttyp=dokumenttyp
 alleerzeugen=alle erzeugen
 # Personen/Personenuebersicht/Person bearbeiten/Kategorien
-kategorienundereignisse=kategorien und ereigni\u00DFe
+kategorienundereignisse=kategorien und ereignisse
 # Personen/Personenuebersicht/Personbearbeiten/Statistik
 ubersichtuberalleveranstaltungeneinesgastes=\u00FCbersicht \u00FCber alle Veranstaltungen eines Gastes.
 ab=Ab
@@ -406,16 +406,16 @@ anrede/titel=Anrede / Titel
 freitextfelder=Freitextfelder
 amtsbezeichn=Amtsbezeichn.
 institution=Institution
-adresse=Adre\u00DFe
+adresse=Adresse
 telefon/fax=Telefon / Fax
 einzelnersetzen=Einzeln ersetzen
 alleersetzen=Alle ersetzen
 # Personen/Dublettensuche
 dublettensuche=Dublettensuche
-HINT_DUPLICATE_UMLAUTS=Hinweis Beachten Sie, da\u00DF \u00E4 mit ae, \u00E4 mit oe, \u00FC mit ue und \u00DF mit \u00DF verglichen wird.
+HINT_DUPLICATE_UMLAUTS=Hinweis Beachten Sie, dass \u00E4 mit ae, \u00E4 mit oe, \u00FC mit ue und \u00DF mit \u00DF verglichen wird.
 # Personen/Export von Personendaten
 exportvonpersonendaten=Export von Personendaten
-HINT_EXPORT_MANDANT_PERSON=Hinweis Sie exportieren mit dieser Funktion au\u00DFchlie\u00DFlich Personen aus Ihrem aktuellen Mandanten.
+HINT_EXPORT_MANDANT_PERSON=Hinweis Sie exportieren mit dieser Funktion ausschlie\u00DFlich Personen aus Ihrem aktuellen Mandanten.
 ohne=ohne
 botschaften=Botschaften
 finanzamtsprecher=Finanzamtsprecher
@@ -423,9 +423,9 @@ journalisten=Journalisten
 lieferant=Lieferant
 nogs=NOGs
 politik=Politik
-pressevertreter=Pre\u00DFevertreter
+pressevertreter=Pressevertreter
 wirtschaft=Wirtschaft
-HINT_EXPORT_OPEN_DATA=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es pa\u00DFieren, da\u00DF MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00E4nnen.
+HINT_EXPORT_OPEN_DATA=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00E4nnen.
 exportstarten=Export starten
 # Personen/Import von Personendaten
 importvonpersonendaten=Import von Personendaten
@@ -456,12 +456,12 @@ personenexport=Personenexport
 personenimport=Personenimport
 # veranstaltungendropdown
 veranstaltungsubersicht=Veranstaltungs\u00FCbersicht
-veranstaltunguuche=veranstaltung\u00DFuche
+veranstaltunguuche=veranstaltungssuche
 neueveranstaltung=Neue Veranstaltung
 statistiken=Statistiken
 # administrationdropdown
-anreden=anreden
-arbeitsbereiche=arbeitsbereiche
+anreden=Anreden
+arbeitsbereiche=Arbeitsbereiche
 dokumenttypen=Dokumenttypen
 e-mail-postausgang=e-mail-postausgang
 programmeinstellungen=Programmeinstellungen
