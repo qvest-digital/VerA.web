@@ -60,7 +60,7 @@
             				<option value="title">${placeholderWithTranslation.akadtitel}</option>
             				<option value="function">${placeholderWithTranslation.amtsbezfunktion}</option>
             				<option value="company">${placeholderWithTranslation.firmainstitution}</option>
-            				<option value="street">${placeholderWithTranslation.strasze}</option>
+            				<option value="street">${placeholderWithTranslation.GENERIC_STREET}</option>
             				<option value="zipcode">${placeholderWithTranslation.plz}</option>
             				<option value="city">${placeholderWithTranslation.ort}</option>
             				<option value="country">${placeholderWithTranslation.land}</option>
