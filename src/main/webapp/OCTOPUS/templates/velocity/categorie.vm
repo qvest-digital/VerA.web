@@ -32,7 +32,7 @@
 		#end
 		#if($resortQuestion)
         	<vera-confirm>
-        		<strong>${placeholderWithTranslation.solldieneuekategorie}'$!message.text($beanToAdd.name)' ${placeholderWithTranslation.einsortiertwerden}</strong><br>
+        		<strong>${placeholderWithTranslation.solldieneuekategorie} '$!message.text($beanToAdd.name)' ${placeholderWithTranslation.einsortiertwerden}</strong><br>
 				<input type="hidden" name="questionConfirmed" value="true"/>
 				<input type="button" id="button.resortYes" value="${placeholderWithTranslation.GENERIC_YES}"/> &nbsp;
         		<input type="button" id="button.resortNo" value="${placeholderWithTranslation.GENERIC_NO}"/> &nbsp;

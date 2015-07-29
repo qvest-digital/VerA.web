@@ -9,7 +9,7 @@
 
 #if($missingorgunit.result == "done")
 <vera-success>
-	${placeholderWithTranslation.alledatensaetzewurdenerfolgreichmandantenzugeordnet}
+	${placeholderWithTranslation.alledatensatzewurdenerfolgreichmandantenzugeordnet}
 </vera-success>
 #end
 
@@ -43,7 +43,7 @@
                 	<td><input type="text" value="$!message.text($missingorgunit.event)" id="event" vera-disabled></td>
 
                 </tr><tr>
-                	<td class="width15 bold"><label for="import">${placeholderWithTranslation.importvorgaenge}:</label></td>
+                	<td class="width15 bold"><label for="import">${placeholderWithTranslation.importvorgange}:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.import)" id="import" vera-disabled></td>
                 	<td class="width15 bold"><label for="importPerson">${placeholderWithTranslation.importpersonen}:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.importperson)" id="importPerson" vera-disabled></td>

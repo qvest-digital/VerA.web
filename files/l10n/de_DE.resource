@@ -69,10 +69,12 @@ BROWSER_TITLE_OVERVIEW_EVENTS_SORT_PLACE=\u00DCbersicht \u00FCber alle Veranstal
 BROWSER_TITLE_OVERVIEW_EVENTS_UNKNOWN_STATISTIC=UNBEKANNTE STATISTIK
 
 GENERIC_CLIENTS=Mandanten
+GENERIC_EDIT=Bearbeiten
 GENERIC_FUNCTION_SINGULAR=Funktion
 GENERIC_FUNCTION_PLURAL=Funktionen
 GENERIC_OFFICIAL_TITLE_SINGULAR=Amtsbezeichnung
 GENERIC_OFFICIAL_TITLE_PLURAL=Amtsbezeichnungen
+GENERIC_OFFICIAL_TITLE_SHORT=Amtsbez
 
 # Administration/Anreden
 GENERIC_SALUTATIONS=Anreden
@@ -80,7 +82,6 @@ GENERIC_SALUTATIONS_MARKED=Markierte Anrede(n)
 GENERIC_ID=ID
 GENERIC_MAIN_FORM=Stammform
 GENERIC_GENDER=Geschlecht
-GENERIC_EDIT=Bearbeiten
 GENERIC_GENDER_FEMALE=Weiblich
 GENERIC_GENDER_MALE=M\u00E4nnlich
 GENERIC_PAGING=Direkteinsprung
@@ -159,7 +160,7 @@ inlandjageschlechtmannlich=Inland: Ja - Geschlecht: M\u00E4nnlich
 inlandneingeschlechtweiblich=Inland: Nein - Geschlecht: Weiblich
 inlandneingeschlechtmannlich=Inland: Nein - Geschlecht: M\u00E4nnlich
 # Administration/Funktionen/Amtsbezeichnungen
-markiertebezeichnung=Markierte Bezeichnung(e)
+markiertebezeichnung=Markierte Bezeichnung(en)
 bezeichnung=Bezeichnung
 eswurdeeineneuefunktion/amtsbezeichnungangelegt=Es wurde eine neue Funktion/Amtsbezeichnung angelegt.
 eswurdeeinefunktion/amtsbezeichnunggeloscht=Es wurde eine Funktion/Amtsbezeichnung gel\u00F6scht.
@@ -198,11 +199,11 @@ standardauswahlderselectboxzeichensatz=Standard Auswahl der Selectbox \u201EZeic
 zeichensatz1=Zeichensatz 1
 zeichensatz2=Zeichensatz 2
 standardanredenundfreitextfelder=Standard-Anreden und Freitextfelder:
-standaerdanrede=Standaerd-Anrede:
+standardanrede=Standard-Anrede:
 standardanredepartner=Standard-Anrede Partner:
 freitextfeldverbinder=Freitextfeld-Verbinder:
 freitextfeldanzeige=Freitextfeld (Anzeige):
-freitextfeldgasteliste=Freitextfeld (G\u00E4;steliste):
+freitextfeldgasteliste=Freitextfeld (G\u00E4steliste):
 hilfe=Hilfe
 hilfelink=Hilfe-Link:
 hilfefenster=Hilfe-Fenster:
@@ -257,6 +258,7 @@ bemerkung=Bemerkung
 url=URL
 gps-daten=GPS-Daten
 raumnummer=Raumnummer
+EVENT_PLACES_CONFIRM_DELETE=Bitte best\u00E4tigen Sie das L\u00F6schen von Veranstaltungsorten
 # Verwaltung/Einstellungen
 verwaltung=Verwaltung
 einstellungen=Einstellungen
@@ -475,7 +477,7 @@ neueveranstaltunganlegen=Neue Veranstaltung anlegen
 anzahlproseite=anzahl pro seite
 seitexvony=seite x von y
 # veranstaltung bearbeiten/allgemein
-veranstaltungearbeiten=Veranstaltung bearbeiten:
+veranstaltungbearbeiten=Veranstaltung bearbeiten
 veranstaltungs-id=veranstaltungs-id
 veranstaltungsname=veranstaltungsname
 veranstaltungsurl=veranstaltungs-URL
@@ -518,10 +520,10 @@ verantwortlichenhinzufugen=Verantwortlichen hinzuf\u00FCgen
 verantwortlichenentfernen=Verantwortlichen entfernen
 aufgabespeichern=Aufgabe Speichern
 zuruckzuraufgabenubersicht=Zur\u00FCck zur Aufgaben\u00FCbersicht
-# veranstaltungbearbeiten/funktionen/amtsbezeichnungen
+# veranstaltung bearbeiten/funktionen/amtsbezeichnungen
 neueamtsbezeichnunghinzufugen=Neue Amtsbezeichnung Hinzuf\u00FCgen
 eswurdenkeineamtsbezeichnungengefunden=Es wurden keine Amtsbezeichnungen gefunden.
-# veranstaltungbearbeiten/kategorien
+# veranstaltung bearbeiten/kategorien
 neuekategoriehinzufugen=Neue Kategorie hinzuf\u00FCgen
 # veranstaltungssuche
 nurinzukunftigenveranstaltungensuchen=nur in zuk\u00FCnftigen Veranstaltungen suchen
@@ -709,7 +711,6 @@ siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehrereunddasfurein
 bittebestatigensiedasspeicherndieseraufgabe=Bitte best\u00E4tigen Sie das Speichern dieser Aufgabe
 verantworlichenhinzufugen=Verantworlichen hinzuf\u00FCgen
 verantworlichenentfernen=Verantworlichen entfernen
-veranstaltungbearbeiten=Veranstaltungbearbeiten
 loschenvonaufgabenistnichtmoglich=L\u00F6schen von Aufgaben ist nicht m\u00F6glich
 bittebestatigensiedasloschenvonaufgaben=Bitte best\u00E4tigen Sie das L\u00F6schen von Aufgaben
 ausgewahlteeintrageloschen=ausgew\u00E4hlte Eintr\u00E4ge l\u00F6schen

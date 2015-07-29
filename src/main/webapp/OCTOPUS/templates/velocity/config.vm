@@ -119,7 +119,7 @@
                 <h3>${placeholderWithTranslation.standardanredenundfreitextfelder}</h3>
                 <table class="marginBottom20">
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.standaerdanrede}</td>
+                		<td class="bold width25">${placeholderWithTranslation.standardanrede}</td>
                 		<td>
                 			<select name="anrede" class="combox">
                 				<option></option>
@@ -145,7 +145,7 @@
                 		<td><input type="text" name="freitextfeldverbinder" maxlength="300" value="$!message.plain($config.freitextfeldverbinder)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">>${placeholderWithTranslation.freitextfeldanzeige}</td>
+                		<td class="bold width25">${placeholderWithTranslation.freitextfeldanzeige}</td>
                 		<td>
                 			<select name="freitextfeld" >
                 				<option value="">${placeholderWithTranslation.nochkeineauswahlgetroffen}</option>

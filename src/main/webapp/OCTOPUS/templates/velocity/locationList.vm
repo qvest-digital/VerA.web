@@ -43,7 +43,7 @@
 			</vera-warn>
 		#elseif($listquestions && $listquestions.size() > 0)
 			<vera-confirm>
-				<strong>${placeholderWithTranslation.bittebestatigensiedasloschenvonveranstaltungsorten}</strong><br>
+				<strong>${placeholderWithTranslation.EVENT_PLACES_CONFIRM_DELETE}</strong><br>
 				<table class="form" style="margin: 5px 0px 0px 0px;">
 				#foreach($quest in $listquestions.entrySet())
 					<tr>

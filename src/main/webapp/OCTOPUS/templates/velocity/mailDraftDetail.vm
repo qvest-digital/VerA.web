@@ -38,11 +38,11 @@
             	<td><input type="text" id="show-id" name="show-id" value="$!message.text($maildraft.id)" class="id" vera-disabled /></td>
             </tr>
 			<tr>
-            	<td class="bold"><label for="maildraft-name">${placeholderWithTranslation.namedervorlage}</label></td>
+            	<td class="bold"><label for="maildraft-name">${placeholderWithTranslation.namedervorlage}*</label></td>
             	<td><input type="text" id="maildraft-name" name="maildraft-name" maxlength="200" value="$!message.text($maildraft.name)" /></td>
             </tr>
 			<tr>
-            	<td class="bold"><label for="maildraft-subject">${placeholderWithTranslation.betreff}</label></td>
+            	<td class="bold"><label for="maildraft-subject">${placeholderWithTranslation.betreff}*</label></td>
             	<td><input type="text" id="maildraft-subject" name="maildraft-subject" maxlength="200" value="$!message.text($maildraft.subject)" /></td>
             </tr>
 			<tr>
@@ -58,7 +58,7 @@
             				<option value="lastname">${placeholderWithTranslation.nachname}</option>
             				<option value="salutation">${placeholderWithTranslation.anrede}</option>
             				<option value="title">${placeholderWithTranslation.akadtitel}</option>
-            				<option value="function">${placeholderWithTranslation.amtsbezfunktion}</option>
+            				<option value="function">${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SHORT}./${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</option>
             				<option value="company">${placeholderWithTranslation.firmainstitution}</option>
             				<option value="street">${placeholderWithTranslation.strasse}</option>
             				<option value="zipcode">${placeholderWithTranslation.plz}</option>
@@ -70,7 +70,7 @@
             				<option value="suffix2">$!message.text($!config.suffix2)</option>
             				<option value="phone">${placeholderWithTranslation.telefon}</option>
             				<option value="fax">${placeholderWithTranslation.fax}</option>
-            				<option value="mobile">${placeholderWithTranslation.mobil}}</option>
+            				<option value="mobile">${placeholderWithTranslation.mobil}</option>
             				<option value="email">${placeholderWithTranslation.email}</option>
             				<option value="url">${placeholderWithTranslation.www}</option>
             			</select>

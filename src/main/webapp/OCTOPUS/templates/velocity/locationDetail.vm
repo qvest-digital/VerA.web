@@ -112,7 +112,7 @@
 			#if($grants.mayWrite())
 				<input id="button.save" type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" onclick="document.getElementById('formlist').action='SaveLocation';" class="mainButton" />
 			 #end
-			<input id="button.back" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zuruck}" title="${placeholderWithTranslation.zuruckzurubersicht" onclick="window.location.href='${paths.staticweb}do/Location?start=0&selectNone=true';" />
+			<input id="button.back" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zuruck}" title="${placeholderWithTranslation.zuruckzurubersicht}" onclick="window.location.href='${paths.staticWeb}do/Location?start=0&selectNone=true';" />
 		</div>
 
 	</form>
