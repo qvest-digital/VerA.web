@@ -1,6 +1,6 @@
 #if($action == "guest")
 	#set($activeMenu = "Veranstaltungen")
-	#set($title = "Gast hinzuf&uuml;gen zu &bdquo;$!message.plain($event.shortname)&rdquo;")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_GUEST_ADD_EVENT} „$!message.plain($event.shortname)“")
 
 	##Values in per cent for table columns width
 	#set($column0 = 3)
@@ -17,7 +17,7 @@
 
 #elseif($action == "host")
 	#set($activeMenu = "Veranstaltungen")
-	#set($title = "Gastgeber ausw&auml;hlen f&uuml;r &bdquo;$!message.plain($event.shortname)&rdquo;")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_GUEST_HOST_ADD_EVENT} „$!message.plain($event.shortname)“")
 
 	##Values in per cent for table columns width
 	#set($column0 = 5)
@@ -35,17 +35,17 @@
 
 #elseif($action == "statistikGuest")
 	#set($activeMenu = "Veranstaltungen")
-	#set($title = "Gast ausw&auml;hlen")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_GUEST_SELECT}")
 
 
 #elseif($action == "statistikHost")
 	#set($activeMenu = "Veranstaltungen")
-	#set($title = "Gastgeber ausw&auml;hlen")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_GUEST_HOST_SELECT}")
 
 
 #elseif($action == "replace")
 	#set($activeMenu = "Personen")
-	#set($title = "Suchen &amp; Ersetzen in Personendaten")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_SEARCH_REPLACE_PERSONDATA}")
 
 	##Values in per cent for table columns width
 	#set($column0 = 3)
@@ -63,7 +63,7 @@
 
 #elseif($action == "duplicateSearch")
 	#set($activeMenu = "Personen")
-	#set($title = "Dublettensuche")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_DUPLICATE_SEARCH}")
 
 	##Values in per cent for table columns width
 	#set($column0 = 3)
@@ -81,7 +81,7 @@
 
 #elseif($action == "taskReferencePerson")
 	#set($activeMenu = "Veranstaltungen")
-	#set($title = "Verantwortlichen f&uuml;r Aufgabe ausw&auml;hlen")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_TASK_ADD_RESPONSIBLE}")
 
 	##Values in per cent for table columns width
 	#set($column0 = 5)
@@ -114,9 +114,9 @@
 	#set($column10 = 0)
 
 	#if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
-		#set($title = "Person l&ouml;schen")
+		#set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_DELETE}")
 	#else
-		#set($title = "Personen&uuml;bersicht")
+		#set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_LIST}")
 	#end
 #end
 

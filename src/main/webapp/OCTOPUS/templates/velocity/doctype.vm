@@ -1,5 +1,5 @@
 #set($activeMenu = "Administration")
-#set($title = "Dokumenttypen")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_DOCUMENT_TYPES}")
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Dokumenttyp")
 #set($elementNamePlural = "Dokumenttypen")

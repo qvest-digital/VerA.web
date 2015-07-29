@@ -74,7 +74,7 @@
 			#if($domain == 'all')
 					<th>${placeholderWithTranslation.mandant}</th>
 			#end
-					<th>${placeholderWithTranslation.benutzername}</th>
+					<th>${placeholderWithTranslation.GENERIC_USERNAME}</th>
 					<th>${placeholderWithTranslation.benutzerrechte}</th>
 				</tr>
 				<tr>

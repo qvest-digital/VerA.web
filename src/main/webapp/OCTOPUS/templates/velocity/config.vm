@@ -1,5 +1,5 @@
 #set($activeMenu = "Administration")
-#set($title = "Allgemeine Einstellungen")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_GENERAL_CONFIGS}")
 #parse("inc/header.vm")
 
 <form id="formlist" name="formlist" action="Config" method="POST">

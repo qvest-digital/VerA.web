@@ -1,4 +1,4 @@
-#set($title = "Ein Fehler ist aufgetreten.")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}.")
 #parse("inc/header.vm")
 
 <h1>${placeholderWithTranslation.fehlermeldung}</h1>

@@ -1,5 +1,5 @@
 #set($activeMenu = "Administration")
-#set($title = "Cleanup")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_CLEANUP}")
 #parse("inc/header.vm")
 
 <table class="tab" border="0" cellspacing="0" cellpadding="0"><tr>

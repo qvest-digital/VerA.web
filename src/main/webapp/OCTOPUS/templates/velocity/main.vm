@@ -1,11 +1,11 @@
 #if($octopusConfig.personalConfig.role)
- #set($title = "mit der Rolle $octopusConfig.personalConfig.role")
+ #set($title = "${placeholderWithTranslation.BROWSER_TITLE_ROLE_WITH} $octopusConfig.personalConfig.role")
 #elseif($octopusConfig.personalConfig.roles)
- #set($title = "mit verf&uuml;gbaren Rollen $octopusConfig.personalConfig.roles")
+ #set($title = "${placeholderWithTranslation.BROWSER_TITLE_ROLE_AVAILABLE} $octopusConfig.personalConfig.roles")
 #else
- #set($title = "ohne Rolleninformationen")
+ #set($title = "${placeholderWithTranslation.BROWSER_TITLE_ROLE_WITHOUT_INFO}")
 #end
-#set($title = "Sie wurden erfolgreich $title am System angemeldet.")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_SUCCESSFUL_LOGIN_ONE} $title ${placeholderWithTranslation.BROWSER_TITLE_SUCCESSFUL_LOGIN_TWO}.")
 ##foreach($gg in $octopusConfig.personalConfig.userGroups)
 ##set($title = "$title $gg")
 ##end

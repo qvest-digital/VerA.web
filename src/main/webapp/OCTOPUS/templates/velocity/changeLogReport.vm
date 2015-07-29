@@ -17,7 +17,7 @@
 
 
 			<div class="contentBoxColored hinweis grayBorder marginBottom20">
-				<strong>${placeholderWithTranslation.hinweis}</strong>
+				<strong>${placeholderWithTranslation.Hinweis}</strong>
 				<p>${placeholderWithTranslation.abhangigvomausgewahltenzeitraumundderdarausresultierendenanzahldatenkanndieerzeugungdesberichtsrelativlangedauernhabensiebitteeinweniggeduld}</p>
 			</div>
 

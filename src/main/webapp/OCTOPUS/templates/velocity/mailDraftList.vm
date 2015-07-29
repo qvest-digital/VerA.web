@@ -1,5 +1,5 @@
 #set($activeMenu = "Administration")
-#set($title = "E-Mail-Vorlagen")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_SUBMISSION}")
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Vorlage")
 #set($elementNamePlural = "Vorlagen")

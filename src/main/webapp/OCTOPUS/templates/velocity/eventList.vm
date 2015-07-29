@@ -1,7 +1,7 @@
 #set($activeMenu = "Veranstaltungen")
 
 #if($action == "guest")
-	#set($title = "Veranstaltung ausw&auml;hlen - Veranstaltung: $!message.plain($event.shortname)")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SELECT} - ${placeholderWithTranslation.veranstaltung}: $!message.plain($event.shortname)")
 
 	#set($column0 = 5)
 	#set($column1 = 25)
@@ -12,7 +12,7 @@
 	#set($column6 = 0)
 
 #elseif($action == "addperson")
-	#set($title = "Veranstaltung ausw&auml;hlen - Person zuordnen")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SELECT} - ${placeholderWithTranslation.BROWSER_TITLE_PERSON_ASSIGN}")
 
 	#set($column0 = 5)
 	#set($column1 = 25)
@@ -23,7 +23,7 @@
 	#set($column6 = 0)
 
 #else
-	#set($title = "Veranstaltung ausw&auml;hlen")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SELECT}")
 
 	#set($column0 = 3)
 	#set($column1 = 5)

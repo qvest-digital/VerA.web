@@ -1,5 +1,5 @@
 #set($activeMenu = "Veranstaltungen")
-#set($title = "Verteilerliste: $!mailinglist.name")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_DISTRIBUTOR_LIST}: $!mailinglist.name")
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Verteiler")
 #set($elementNamePlural = "Verteiler")

@@ -10,7 +10,7 @@
     #set($title = "${placeholderWithTranslation.gastsuchen}")
 #elseif($action == "statistikHost")
 	#set($activeMenu = "Veranstaltungen")
-    #set($title = "Gastgeber suchen")
+    #set($title = "${placeholderWithTranslation.BROWSER_TITLE_GUEST_HOST_SEARCH}")
 #elseif($action == "taskReferencePerson")
 	#set($activeMenu = "Veranstaltungen")
     #set($title = "${placeholderWithTranslation.verantwortlichenfueraufgabesuchen}")

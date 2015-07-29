@@ -1,5 +1,5 @@
 #set($activeMenu = "Veranstaltungen")
-#set($title = "Verteiler erstellen - Veranstaltung: $!event.shortname")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_DISTRIBUTOR_CREATE} - ${placeholderWithTranslation.veranstaltung}: $!event.shortname")
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Verteiler")
 #set($elementNamePlural = "Verteiler")

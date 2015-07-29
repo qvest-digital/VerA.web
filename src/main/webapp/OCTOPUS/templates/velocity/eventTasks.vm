@@ -1,5 +1,5 @@
 #set($activeMenu = "Veranstaltungen")
-#set($title = "Aufgaben")
+#set($title = "${placeholderWithTranslation.aufgaben}")
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Aufgabe")
 #set($elementNamePlural = "Aufgaben")

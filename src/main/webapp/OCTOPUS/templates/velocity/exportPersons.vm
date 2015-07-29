@@ -1,5 +1,5 @@
 #set($activeMenu = "Personen")
-#set($title = "Export von Personendaten")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EXPORT_PERSONDATA}")
 #parse("inc/header.vm")
 
 	<div id="content_container">

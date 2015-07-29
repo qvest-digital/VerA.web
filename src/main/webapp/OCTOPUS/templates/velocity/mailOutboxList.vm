@@ -1,5 +1,5 @@
 #set($activeMenu = "Administration")
-#set($title = "E-Mail-Postausgang")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_OUTBOX}")
 #set($elementNameSex = "female")
 #set($elementNameSingular = "E-Mail")
 #set($elementNamePlural = "E-Mails")

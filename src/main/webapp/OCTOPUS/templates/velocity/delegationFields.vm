@@ -1,5 +1,5 @@
 #set($activeMenu = "Veranstaltungen")
-#set($title = "Aufgaben")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_TASKS}")
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Aufgabe")
 #set($elementNamePlural = "Aufgaben")

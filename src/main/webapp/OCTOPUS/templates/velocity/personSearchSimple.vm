@@ -1,7 +1,7 @@
 
 #if($action == "Personen")
 	#set($activeMenu = "Personen")
-    #set($title = "Person suchen")
+    #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_SEARCH}")
 #end
 
 #set($elementNameSex = "female")

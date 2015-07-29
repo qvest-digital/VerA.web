@@ -1,9 +1,9 @@
 #set($activeMenu = "Veranstaltungen")
 
 #if($task && $task.id)
-	#set($title = "Aufgabe bearbeiten: $!message.text($task.title)")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_TASKS_EDIT}: $!message.text($task.title)")
 #else
-	#set($title = "Neue Aufgabe erstellen")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_TASKS_CREATE}")
 #end
 
 #set($elementNameSex = "female")

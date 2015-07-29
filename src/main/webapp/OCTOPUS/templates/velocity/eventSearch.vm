@@ -1,11 +1,11 @@
 #set($activeMenu = "Veranstaltungen")
 
 #if($action == "guest")
-	#set($title = "Veranstaltung suchen - Veranstaltung: $!message.plain($event.shortname)")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SEARCH} - ${placeholderWithTranslation.veranstaltung}: $!message.plain($event.shortname)")
 #elseif($action == "addperson")
-	#set($title = "Veranstaltung suchen - Person zuordnen")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SEARCH} - ${placeholderWithTranslation.BROWSER_TITLE_PERSON_ASSIGN}")
 #else
-	#set($title = "Veranstaltung suchen")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SEARCH}")
 #end
 
 #set($elementNameSex = "female")

@@ -1,5 +1,5 @@
 #set($activeMenu = "Administration")
-#set($title = "Farben")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_COLOURS}")
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Farbe")
 #set($elementNamePlural = "Farben")

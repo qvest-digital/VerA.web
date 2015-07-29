@@ -1,5 +1,5 @@
 #set($activeMenu = "Administration")
-#set($title = "Kategorien")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_CATEGORY}")
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Kategorie")
 #set($elementNamePlural = "Kategorien")

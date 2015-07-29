@@ -1,8 +1,8 @@
 #set($activeMenu = "Personen")
 #if($person)
-    #set($title = "Person bearbeiten: $!message.plain($person.MainLatin.SaveAs)")
+    #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_EDIT}: $!message.plain($person.MainLatin.SaveAs)")
 #else
-    #set($title = "Neue Person anlegen")
+    #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_CREATE}")
 #end
 
 #set($elementNameSex = "female")

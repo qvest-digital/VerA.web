@@ -1,8 +1,8 @@
 #set($activeMenu = "Administration")
 #if($maildraft && $maildraft.id)
-	#set($title = "E-Mail-Vorlage bearbeiten: $!message.text($maildraft.name)")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_SUBMISSION_EDIT}: $!message.text($maildraft.name)")
 #else
-	#set($title = "Neue E-Mail-Vorlage anlegen")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_SUBMISSION_CREATE}")
 #end
 
 #set($elementNameSex = "female")

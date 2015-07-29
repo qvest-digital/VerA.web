@@ -1,5 +1,5 @@
 #set($activeMenu = "Verwaltung")
-#set($title = "Benutzer Einstellungen")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_USER_CONFIGS}")
 #parse("inc/header.vm")
 
 <div id="content_container">

@@ -1,5 +1,5 @@
 #set($activeMenu = "Personen")
-#set($title = "Status des Importvorgangs")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_IMPORT_STATUS}")
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Person")
 #set($elementNamePlural = "Personen")

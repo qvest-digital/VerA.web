@@ -1,5 +1,5 @@
 #set($activeMenu = "Administration")
-#set($title = "Funktion/Amtsbezeichnung")
+#set($title = "${placeholderWithTranslation.funktion}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE}")
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Funktion/Amtsbezeichnung")
 #set($elementNamePlural = "Funktionen/Amtsbezeichnungen")

@@ -1,5 +1,5 @@
 #set($activeMenu = "Personen")
-#set($title = "Suchen &amp; Ersetzen")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_SEARCH_REPLACE}")
 #parse("inc/header.vm")
 
 

@@ -1,5 +1,5 @@
 #set($activeMenu = "Administration")
-#set($title = "Stammdaten - Anrede: $!salutation.name")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_DATA_SALUTATION}")
 #set($elementNameSex = "female")
 #set($elementNameSingular = "Anrede")
 #set($elementNamePlural = "Anreden")

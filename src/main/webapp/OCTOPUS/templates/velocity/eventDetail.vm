@@ -1,10 +1,10 @@
 #set($activeMenu = "Veranstaltungen")
 
 #if($event && $event.id)
-	#set($title = "Veranstaltung bearbeiten: $!message.plain($event.shortname)")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_EDIT}: $!message.plain($event.shortname)")
 #else
 	#set($isNewEvent = 1)
-	#set($title = "Neue Veranstaltung erstellen")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_CREATE}")
 #end
 
 #set($elementNameSex = "female")

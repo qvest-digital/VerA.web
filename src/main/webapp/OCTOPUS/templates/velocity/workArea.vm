@@ -1,5 +1,5 @@
 #set($activeMenu = "Administration")
-#set($title = "Arbeitsbereiche")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_WORK_AREAS}")
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Arbeitsbereich")
 #set($elementNamePlural = "Arbeitsbereiche")

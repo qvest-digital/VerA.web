@@ -1,22 +1,22 @@
 
 #if($statistik == "EventsPerYear")
-	#set($title = "Gesamt&uuml;bersicht &uuml;ber die Anzahl der Veranstaltungen pro Jahr.")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_EVENTS_YEAR}.")
 #elseif($statistik == "EventsPerMonth")
-	#set($title = "Gesamt&uuml;bersicht &uuml;ber die Anzahl der Veranstaltungen pro Monat.")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_EVENTS_MONTH}.")
 #elseif($statistik == "EventsGroupByHost")
 	#if($person)
-		#set($title = "&Uuml;bersicht &uuml;ber alle Veranstaltungen eines Gastgebers.")
+		#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_GUEST_HOST_EVENTS}.")
 	#else
-		#set($title = "Gesamt&uuml;bersicht &uuml;ber alle Veranstaltungen, gruppiert nach Gastgeber.")
+		#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_EVENTS_SORT_GUEST_HOST}.")
 	#end
 #elseif($statistik == "EventsGroupByGuest")
 	#if($person)
-		#set($title = "&Uuml;bersicht &uuml;ber alle Veranstaltungen eines Gastes.")
+		#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_GUEST_EVENTS}.")
 	#else
-		#set($title = "Gesamt&uuml;bersicht &uuml;ber alle Veranstaltungen, gruppiert nach G&auml;sten.")
+		#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_EVENTS_SORT_GUEST}.")
 	#end
 #elseif($statistik == "EventsGroupByLocation")
-	#set($title = "&Uuml;bersicht &uuml;ber alle Veranstaltungen sortiert nach Veranstaltungsort.")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_EVENTS_SORT_PLACE}.")
 #else
-	#set($title = "UNBEKANNTE STATISTIK")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_EVENTS_UNKNOWN_STATISTIC}")
 #end

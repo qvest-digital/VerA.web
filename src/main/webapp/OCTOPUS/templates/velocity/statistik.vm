@@ -1,5 +1,5 @@
 #set($activeMenu = "Veranstaltungen")
-#set($title = "Statistik erstellen")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_STATISTIC_CREATE}")
 #parse("inc/header.vm")
 
 <div id="content_container">

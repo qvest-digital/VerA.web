@@ -1,8 +1,8 @@
 #set($activeMenu = "Administration")
 #if($mailoutbox && $mailoutbox.id)
-	#set($title = "E-Mail bearbeiten")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_EDIT}")
 #else
-	#set($title = "Neue E-Mail anlegen")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_CREATE}")
 #end
 
 #set($elementNameSex = "female")

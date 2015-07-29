@@ -1,5 +1,5 @@
 #set($activeMenu = "Administration")
-#set($title = "Veranstaltungsorte")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_LOCATION}")
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Veranstaltungsort")
 #set($elementNamePlural = "Veranstaltungsorte")

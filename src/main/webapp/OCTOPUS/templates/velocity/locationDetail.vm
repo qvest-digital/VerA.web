@@ -1,8 +1,8 @@
 #set($activeMenu = "Administration")
 #if($location && $location.id)
-	#set($title = "Veranstaltungsort bearbeiten: $!message.plain($location.shortname)")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_LOCATION_EDIT}: $!message.plain($location.shortname)")
 #else
-	#set($title = "Neuen Veranstaltungsort eingeben")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_LOCATION_CREATE}")
 #end
 
 #set($elementNameSex = "male")

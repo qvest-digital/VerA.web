@@ -1,5 +1,5 @@
 #set($activeMenu = "Verwaltung")
-#set($title = "Hilfe - Info &uuml;ber VerA.web")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_HELP} - ${placeholderWithTranslation.BROWSER_TITLE_INFO_VERAWEB}")
 
 ##Values in per cent for table columns width
 #set($column0 = 15)
