@@ -99,7 +99,7 @@
 				<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
 				<th>${placeholderWithTranslation.bezeichnung}</th>
 				<th>${placeholderWithTranslation.ansprechpartner}</th>
-				<th>${placeholderWithTranslation.strasze}</th>
+				<th>${placeholderWithTranslation.strasse}</th>
 				<th>${placeholderWithTranslation.plz}</th>
 				<th>${placeholderWithTranslation.ort}</th>
 				<th>${placeholderWithTranslation.telefon}</th>

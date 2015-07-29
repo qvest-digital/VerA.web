@@ -66,7 +66,7 @@
 			<tr>
 				<td class="width10 bold"><label for="location-contact-person">${placeholderWithTranslation.ansprechpartner}</label></td>
 				<td><input type="text" name="location-contactperson" value="$!message.text($location.contactperson)" id="location-contact-person" maxlength="250" onchange="setModified();"></td>
-				<td class="width10 bold"><label for="location-address">${placeholderWithTranslation.strasze}</label></td>
+				<td class="width10 bold"><label for="location-address">${placeholderWithTranslation.strasse}</label></td>
 				<td><input type="text" name="location-address" value="$!message.text($location.address)" id="location-address" maxlength="250" onchange="setModified();"></td>
 			</tr>
 
