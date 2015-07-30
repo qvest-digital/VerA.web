@@ -467,10 +467,11 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
-	-- 1.6.26.1
+	-- anything after the old SQL files
+
 	vnewvsn := '2015-07-30';
 	IF vcurvsn < vnewvsn THEN
-		vmsg := 'begin.update(1.6.26.1)';
+		vmsg := 'begin.update(' || vnewvsn || ')';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
 		-- New table for link between event and events, which are preconditions
@@ -488,15 +489,15 @@ BEGIN
 		-- New flag, to show if precondition of guest is fulfilled
 		ALTER TABLE veraweb.tguest ADD COLUMN precondition BOOLEAN DEFAULT true;
 
-
-		-- post-upgrade 1.6.26.1
-		vmsg := 'end.update(1.6.26.1)';
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
 		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
 		vcurvsn := vnewvsn;
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
 	-- end
+
 	IF vcurvsn <> vversion THEN
 		RAISE WARNING 'Database version after upgrade (%) does not match target (%)',
 		    vcurvsn, vversion
