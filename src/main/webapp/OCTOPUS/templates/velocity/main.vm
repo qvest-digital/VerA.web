@@ -57,7 +57,6 @@
       #elseif($grants.mayExport())
     	${placeholderWithTranslation.WELCOME_TEXT_EIGHT}
       #else
-    	${placeholderWithTranslation.WELCOME_TEXT_NINE}
       #end
     </P>
      #end

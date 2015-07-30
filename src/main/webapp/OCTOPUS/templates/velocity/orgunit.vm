@@ -1,6 +1,6 @@
 #set($activeMenu = "Administration")
 ## $Id$
-#set($title = "${placeholderWithTranslation.GENERIC_CLIENTS_PLURAL}")
+#set($title = "${placeholderWithTranslation.GENERIC_CLIENTS}")
 #set($elementNameSex = "male")
 #set($elementNameSingular = "Mandant")
 #set($elementNamePlural = "Mandanten")
