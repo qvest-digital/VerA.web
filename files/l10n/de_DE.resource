@@ -67,7 +67,12 @@ BROWSER_TITLE_OVERVIEW_GUEST_EVENTS=\u00DCbersicht \u00FCber alle Veranstaltunge
 BROWSER_TITLE_OVERVIEW_EVENTS_SORT_GUEST=Gesamt\u00FCbersicht \u00FCber alle Veranstaltungen, gruppiert nach G\u00E4sten
 BROWSER_TITLE_OVERVIEW_EVENTS_SORT_PLACE=\u00DCbersicht \u00FCber alle Veranstaltungen sortiert nach Veranstaltungsort
 BROWSER_TITLE_OVERVIEW_EVENTS_UNKNOWN_STATISTIC=UNBEKANNTE STATISTIK
-
+#MENU
+MENU_PERSONS=Personen
+MENU_EVENTS=Veranstaltungen
+MENU_MANAGEMENT=Verwaltung
+MENU_ADMINISTRATION=Administration
+#FIXES
 GENERIC_CLIENTS=Mandanten
 GENERIC_EDIT=Bearbeiten
 GENERIC_FUNCTION_SINGULAR=Funktion
@@ -528,6 +533,14 @@ neueamtsbezeichnunghinzufugen=Neue Amtsbezeichnung Hinzuf\u00FCgen
 eswurdenkeineamtsbezeichnungengefunden=Es wurden keine Amtsbezeichnungen gefunden.
 # veranstaltung bearbeiten/kategorien
 neuekategoriehinzufugen=Neue Kategorie hinzuf\u00FCgen
+# veranstaltung bearbeiten/vorbedingungen
+GENERIC_PRECONDITION_PLURAL=Vorbedingungen
+EVENT_PRECONDITION_MARKED=Markierte Vorbendingung(en)
+EVENT_PRECONDITION_ADD=Vorbedingung hinzufügen
+EVENT_PRECONDITION_INVITATIONSTATUS=Teilnahmestatus
+EVENT_PRECONDITION_STARTDATE=Startdatum
+EVENT_PRECONDITION_NOT_FOUND=Es wurden keine Vorbedingungen gefunden
+
 # veranstaltungssuche
 nurinzukunftigenveranstaltungensuchen=nur in zuk\u00FCnftigen Veranstaltungen suchen
 siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Sie k\u00F6nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00FCr mehrere das ? f\u00FCr einzelne

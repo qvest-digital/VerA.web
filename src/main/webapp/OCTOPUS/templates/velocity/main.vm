@@ -20,7 +20,7 @@
     		$error<br>
     	#end
     	<br>
-    	${placeholderWithTranslation.eskannzuunerwartetenFehlernkommenBittewendenSiesichanIhrenAdministrator}
+    	${placeholderWithTranslation.eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator}
     </vera-warn>
     #end
 
