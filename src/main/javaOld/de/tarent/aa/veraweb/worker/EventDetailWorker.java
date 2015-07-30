@@ -216,11 +216,13 @@ public class EventDetailWorker {
              */
             	// Opened Event or not
                 setEventType(event, octopusContext);
+                // Allow event confirmation via online registration with/without login
+                setLoginRequired(octopusContext, event);
+                // Allows an guest to register for an event, for which he
+                // doesn't fullfill the preconditions
+                setAcceptingGuestsWithoutPreconditions(octopusContext, event);
                 // Allowing Press in the Event or not
                 setMediaRepresentatives(event, oldEvent);
-
-                // Allow event configrmation via online registration with/without login
-                setLoginRequired(octopusContext, event);
 
                 BeanChangeLogger clogger = new BeanChangeLogger( database, context );
                 if (event.id == null) {
@@ -327,6 +329,16 @@ public class EventDetailWorker {
             event.login_required = true;
         } else {
             event.login_required = false;
+        }
+    }
+
+    private void setAcceptingGuestsWithoutPreconditions(OctopusContext cntx, Event event) {
+        String requestParameter = (String) cntx.getRequestObject().getRequestParameters().
+                get("event-apply_without_precondition");
+        if (requestParameter != null && requestParameter.equals("on")) {
+            event.apply_without_precondition = true;
+        } else {
+            event.apply_without_precondition = false;
         }
     }
 
