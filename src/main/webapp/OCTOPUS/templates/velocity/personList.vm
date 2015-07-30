@@ -391,7 +391,7 @@ $(function () {
 				showSuccess(' ${placeholderWithTranslation.derarbeitsbereichwurdeerfolgreichhinzugefugt} ');
 
 			#elseif($assignmentActionForWorkarea == "unassign")
-				showSuccess(' ${placeholderWithTranslation.diearbeitsbereichewurdenerfolgreichentfernt} .');
+				showSuccess(' ${placeholderWithTranslation.diearbeitsbereichewurdenerfolgreichentfernt} ');
 			#end
 	//	});
 	// };
