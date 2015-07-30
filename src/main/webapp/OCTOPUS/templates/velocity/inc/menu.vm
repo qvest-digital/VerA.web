@@ -51,7 +51,7 @@
 							<li><a id="menu.proxy" href="${paths.staticWeb}do/Proxy?selectNone=true">${placeholderWithTranslation.vertretungen}</a></li>
 						#end
 					#elseif(!$octopusConfig.personalConfig.role)
-						<li><a id="menu.chooseRole" href="${paths.staticWeb}do/default">${placeholderWithTranslation.rollewahlen}</a></li>
+						<li><a id="menu.chooseRole" href="${paths.staticWeb}do/default">${placeholderWithTranslation.GENERIC_CHOOSE_ROLE}</a></li>
 					#end
 					<li><a id="menu.info" href="${paths.staticWeb}do/Info">${placeholderWithTranslation.info}</a></li>
 				</ul>

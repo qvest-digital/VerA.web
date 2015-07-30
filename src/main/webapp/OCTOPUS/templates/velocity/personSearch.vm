@@ -16,7 +16,7 @@
     #set($title = "${placeholderWithTranslation.verantwortlichenfueraufgabesuchen}")
 #else
 	#set($activeMenu = "Personen")
-    #set($title = "${placeholderWithTranslation.personsuchen}")
+    #set($title = "${placeholderWithTranslation.GENERIC_SEARCH_FOR_PERSON}")
 #end
 
 #set($elementNameSex = "female")

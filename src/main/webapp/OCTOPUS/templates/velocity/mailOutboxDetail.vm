@@ -27,7 +27,7 @@
             	#end
             	#if($mailoutbox.status > 10 || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
             		${placeholderWithTranslation.beimversendendieseremailisteinfehleraufgetreten}
-            		${placeholderWithTranslation.siekoumlnnendiesejetztbearbeitenunderneutsenden}
+            		${placeholderWithTranslation.siekonnendiesejetztbearbeitenunderneutsenden}
             	#end
             </vera-warn>
         #elseif($mailoutbox.status == 1)

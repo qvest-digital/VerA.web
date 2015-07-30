@@ -18,17 +18,17 @@
             		${placeholderWithTranslation.siehabenkeinedatenherkunftangegeben}
             	#elseif($importStatus.invalidData == "fileExtension")
             		#if($importStatus.fileextension == "ods")
-            			${placeholderWithTranslation.siehabenversuchteinestarofficebzwopenofficedateizuimportierenderdirekteimportistinderaktuellenversionvonverawebleidernichtmoglichbittespeichernsiediesedateizuerstmitihremtabellenkalkulationsprogrammalscsvdateiab}
+            			${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_OPENOFFICE}
             		#elseif($importStatus.fileextension == "sxc")
-            			${placeholderWithTranslation.siehabenversuchteinestarofficebzwopenofficedateizuimportierenderdirekteimportistinderaktuellenversionvonverawebleidernichtmoglichbittespeichernsiediesedateizuerstmitihremtabellenkalkulationsprogrammalscsvdateiab}
+            			${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_STAROFFICE}
             		#elseif($importStatus.fileextension == "xls")
-            			${placeholderWithTranslation.siehabenversuchteinemicrosoftexceldateizuimportierenderdirekteimportvonexceldokumentenistinderaktuellenversionvonverawebleidernichtmolichbittespeichernsiediesedateizuerstmitihremtabellenkalkulationsprogrammalscsvdateiab}
+            			${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_EXCEL}
             		#elseif($importStatus.fileextension == "pdf")
-            			${placeholderWithTranslation.siehabenversuchteinepdfdateizuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich}
+            			${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_PDF}
             		#elseif($importStatus.fileextension == "zip")
-            			${placeholderWithTranslation.siehabenversuchteinezipdateizuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich}
+            			${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_ZIP}
             		#elseif($importStatus.fileextension == "exe")
-            			${placeholderWithTranslation.siehabenversuchteineexedateizuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich}
+            			${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_EXE}
             		#else
             			${placeholderWithTranslation.siehabenversuchteinedateimitderendung}
             			$importStatus.fileextension ${placeholderWithTranslation.zuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich}

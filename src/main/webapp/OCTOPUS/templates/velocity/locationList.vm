@@ -66,7 +66,7 @@
 
 		<span id="actionPanel" class="inlineLabel">
 			<label>${placeholderWithTranslation.markiertenveranstaltungsorte}
-				<input type="submit" id="remove" name="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markiertenveranstaltungsorteloschen}" />
+				<input type="submit" id="remove" name="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markierteveranstaltungsorteloschen}" />
 			</label>
 		</span>
 

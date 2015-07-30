@@ -36,7 +36,7 @@
 			<div class="table width100">
 				<div class="tableRow">
 					<div class="tableCell width70">
-						<h2 class="marginBottom15">${placeholderWithTranslation.emailschreiben}</h2>
+						<h2 class="marginBottom15">${placeholderWithTranslation.GENERIC_WRITE_EMAIL}</h2>
 
             			<div>
                         	<label for="mail-subject">Betreff</label>
