@@ -475,19 +475,20 @@ BEGIN
 
 		-- New table for link between event and events, which are preconditions
 		CREATE TABLE veraweb.tevent_precondition (
-			pk serial NOT NULL,
 			fk_event_main INTEGER NOT NULL,
 			fk_event_precondition INTEGER,
 			invitationstatus INTEGER DEFAULT 0,
 
 			FOREIGN KEY (fk_event_main) REFERENCES veraweb.tevent(pk),
 			FOREIGN KEY (fk_event_precondition) REFERENCES veraweb.tevent(pk),
-			PRIMARY KEY (pk)
+			CONSTRAINT tevent_main_event_precondition_pkey PRIMARY KEY (fk_event_main,fk_event_precondition)
 		) WITH OIDS;
 
 		-- New flag, to show if precondition of guest is fulfilled
-		ALTER TABLE veraweb.tguest ADD COLUMN precondition BOOLEAN DEFAULT true;
-		
+		ALTER TABLE veraweb.tguest ADD COLUMN precondition BOOLEAN DEFAULT false;
+
+		-- New flag, to disallow or allow guests with unfulfilled preconditions to apply to events
+		ALTER TABLE veraweb.tevent ADD COLUMN apply_without_preconditions BOOLEAN DEFAULT false;
 
 		-- post-upgrade 1.6.26.1
                 vmsg := 'end.update(1.6.26.1)';

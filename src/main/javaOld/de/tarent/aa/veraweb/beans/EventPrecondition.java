@@ -11,7 +11,6 @@ import de.tarent.octopus.server.OctopusContext;
  * Created by sweiz, tarent solutions GmbH on 30.07.15.
  */
 public class EventPrecondition extends AbstractBean {
-    public Integer id;
     public Integer event_main;
     public Integer event_precondition;
     public Integer invitationstatus;
