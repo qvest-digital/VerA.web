@@ -42,7 +42,7 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0.6pt}
 \fancyhead[L]{\headmark}
-\fancyhead[R]{\tarentlogo[6cm]{}}
+\fancyhead[R]{\tarentlogo[5.25cm]{}}
 \fancyfoot[L]{\footnotesize\copyright tarent}
 \fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
 \fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
@@ -54,7 +54,7 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0.6pt}
 \fancyhead[L]{#1}
-\fancyhead[R]{\tarentlogo[6cm]{}}
+\fancyhead[R]{\tarentlogo[5.25cm]{}}
 \fancyfoot[L]{\footnotesize\copyright #2 tarent}
 \fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
 \fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
@@ -68,7 +68,7 @@
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-\fancyfoot[C]{\tarentlogo[8cm]{}}
+\fancyfoot[C]{\tarentlogo[7cm]{}}
 
 \colorbox{tarentrot}{
  \parbox[b][3cm][c]{0.975\textwidth}{
