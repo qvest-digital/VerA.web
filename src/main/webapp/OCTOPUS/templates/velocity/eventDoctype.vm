@@ -51,6 +51,8 @@
 						</li>
 						<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
 						</li>
+                        <li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
+                        </li>
 					#end
 				</ul>
 			</div>

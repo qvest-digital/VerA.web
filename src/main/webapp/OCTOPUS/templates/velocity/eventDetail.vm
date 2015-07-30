@@ -96,6 +96,8 @@
 							</li>
 							<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
 							</li>
+							<li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
+                            </li>
 						#end
 					</ul>
 				</div>
@@ -288,6 +290,18 @@
 								</div>
 							</div>
 							#if($online-registration.activated)
+                                <div class="tableRow">
+                                    <div class="tableCell width50 inlineLabel">
+                                        <label for="event-apply_without_precondition">${placeholderWithTranslation.EVENT_PRECONDITION_ALLOW_GUESTS_WITHOUT_PRECONDITION}</label>
+                                        <!-- DEBUG $event.login_required -->
+                                        <input type="checkbox" onchange="setModified();" class="noFloat" id="event-apply_without_precondition" name="event-apply_without_precondition"
+                                               #if($event && $event.apply_without_precondition)
+                                                checked
+                                               #end
+                                                >
+                                    </div>
+                                </div>
+
 								<div class="tableRow">
 									<div class="tableCell width50 inlineLabel">
 										<label for="event-login_required">${placeholderWithTranslation.loginnotwendig}</label>
@@ -299,7 +313,6 @@
 										>
 									</div>
 								</div>
-
 
 								<div class="tableRow">
 									<div class="tableCell width50 inlineLabel">
