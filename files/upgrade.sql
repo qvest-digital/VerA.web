@@ -19,7 +19,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2015-07-30';
+	vversion := '2015-07-10';
 
 	-- initialisation
 	vint := 0;
@@ -467,39 +467,7 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
-	-- anything after the old SQL files
-
-	vnewvsn := '2015-07-30';
-	IF vcurvsn < vnewvsn THEN
-		vmsg := 'begin.update(' || vnewvsn || ')';
-		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-
-		-- New table for link between event and events, which are preconditions
-		CREATE TABLE veraweb.tevent_precondition (
-			fk_event_main INTEGER NOT NULL,
-			fk_event_precondition INTEGER,
-			invitationstatus INTEGER DEFAULT 0,
-
-			FOREIGN KEY (fk_event_main) REFERENCES veraweb.tevent(pk),
-			FOREIGN KEY (fk_event_precondition) REFERENCES veraweb.tevent(pk),
-			CONSTRAINT tevent_main_event_precondition_pkey PRIMARY KEY (fk_event_main,fk_event_precondition)
-		) WITH OIDS;
-
-		-- New flag, to show if precondition of guest is fulfilled
-		ALTER TABLE veraweb.tguest ADD COLUMN precondition BOOLEAN DEFAULT false;
-
-		-- New flag, to disallow or allow guests with unfulfilled preconditions to apply to events
-		ALTER TABLE veraweb.tevent ADD COLUMN apply_without_preconditions BOOLEAN DEFAULT false;
-
-		-- post-upgrade
-		vmsg := 'end.update(' || vnewvsn || ')';
-		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-		vcurvsn := vnewvsn;
-		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-	END IF;
-
 	-- end
-
 	IF vcurvsn <> vversion THEN
 		RAISE WARNING 'Database version after upgrade (%) does not match target (%)',
 		    vcurvsn, vversion

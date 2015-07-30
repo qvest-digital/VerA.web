@@ -80,7 +80,6 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	public String domestic_a;
 	public String color_a;
 	public Integer fk_color_a;
-	public Boolean precondition;
 
 	// Partner
 	public Integer invitationstatus_b;
@@ -237,10 +236,6 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 			return fk_color_a;
 		}
 
-		public Boolean getPrecondition() {
-			return precondition;
-		}
-
 		public void setInvitationType(Integer value) {
 			invitationtype = value;
 		}
@@ -291,10 +286,6 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 
 		public void setColorFK(Integer value) {
 			fk_color_a = value;
-		}
-
-		public void setPrecondition(Boolean value) {
-			precondition = value;
 		}
 	}
 

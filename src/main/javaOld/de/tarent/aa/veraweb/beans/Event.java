@@ -55,7 +55,6 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
 	public String mediarepresentatives;
 	public String hash;
 	public Boolean login_required;
-	public Boolean apply_without_preconditions;
 
 	@Override
     public void verify() throws BeanException {
