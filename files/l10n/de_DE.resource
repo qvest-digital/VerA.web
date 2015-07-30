@@ -528,6 +528,14 @@ neueamtsbezeichnunghinzufugen=Neue Amtsbezeichnung Hinzuf\u00FCgen
 eswurdenkeineamtsbezeichnungengefunden=Es wurden keine Amtsbezeichnungen gefunden.
 # veranstaltung bearbeiten/kategorien
 neuekategoriehinzufugen=Neue Kategorie hinzuf\u00FCgen
+# veranstaltung bearbeiten/vorbedingungen
+GENERIC_PRECONDITION_PLURAL=Vorbedingungen
+EVENT_PRECONDITION_MARKED=Markierte Vorbendingung(en)
+EVENT_PRECONDITION_ADD=Vorbedingung hinzufügen
+EVENT_PRECONDITION_INVITATIONSTATUS=Teilnahmestatus
+EVENT_PRECONDITION_STARTDATE=Startdatum
+EVENT_PRECONDITION_NOT_FOUND=Es wurden keine Vorbedingungen gefunden
+
 # veranstaltungssuche
 nurinzukunftigenveranstaltungensuchen=nur in zuk\u00FCnftigen Veranstaltungen suchen
 siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Sie k\u00F6nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00FCr mehrere das ? f\u00FCr einzelne
