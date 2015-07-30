@@ -63,7 +63,7 @@
 		</div>
 
 		<vera-info>
-			${placeholderWithTranslation.DUPCHECK_UMLAUTS_WARNING}<br />
+			${placeholderWithTranslation.HINT_UMLAUT_COMPARISON}<br />
 		</vera-info>
 
 		<h1 class="paddingTop20">Vorhandene Dubletten</h1>

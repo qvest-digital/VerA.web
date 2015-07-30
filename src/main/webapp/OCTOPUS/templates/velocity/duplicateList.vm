@@ -32,7 +32,7 @@
 
 	<vera-info>
 		${placeholderWithTranslation.dublettendiedurchden}<strong>${placeholderWithTranslation.importhinzugefugtwerdenwurden}</strong>${placeholderWithTranslation.sindmiteinercheckboxgekennzeichnetdarunterbefindensichdiebereitsimsystemvorhandenenentsprechendendatensatze}<br />
-		${placeholderWithTranslation.beachtensiedassamitaeomitoeumitueundssmitssverglichenwird}<br />
+		${placeholderWithTranslation.HINT_UMLAUT_COMPARISON}<br />
 		${placeholderWithTranslation.umeinedubletteindenimportzuintegrierenmussensiesieubernehmen}
 	</vera-info>
 

@@ -60,7 +60,7 @@
             #end
 		</div>
 
-       	<h3 class="marginBottom10 marginTop25" id="sortHeadline">${placeholderWithTranslation.sort_criteria}</h3>
+       	<h3 class="marginBottom10 marginTop25" id="sortHeadline">${placeholderWithTranslation.SORT_CRITERIA}</h3>
 
 		<div class="table" id="sort">
         		<div class="tableRow">
