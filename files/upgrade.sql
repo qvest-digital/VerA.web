@@ -19,7 +19,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2015-07-10';
+	vversion := '2015-07-30';
 
 	-- initialisation
 	vint := 0;
@@ -458,7 +458,7 @@ BEGIN
 		ALTER TABLE veraweb.tevent ADD COLUMN maxreserve int4 DEFAULT 0;
 
 		-- New column to identify Guest-Photo
-		ALTER TABLE veraweb.tguest ADD COLUMN image_uuid character varying(100);
+		ALTER TABLE veraweb.tguest ADD COLUMN image_uuid CHARACTER varying(100);
 
 		-- post-upgrade 1.5.1.34
 		vmsg := 'end.update(1.5.1.34)';
@@ -467,19 +467,48 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
-	-- end
-	IF vcurvsn <> vversion THEN
-		RAISE WARNING 'Database version after upgrade (%) does not match target (%)',
-		    vcurvsn, vversion
-		    USING HINT = 'vcurvsn in last if block vs. vversion at begin of upgrade.sql';
-	END IF;
-	vmsg := 'end.SCHEMA UPDATE TO VERSION ' || vcurvsn;
-	INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-	IF vcurvsn <> vversion THEN
-		RETURN 'error (schema version mismatch in upgrade.sql)';
-	END IF;
+	-- 1.6.26.1
+	vnewvsn := '2015-07-30';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(1.6.26.1)';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
-	RETURN 'ok ' || vcurvsn || ' (success)';
+		-- New table for link between event and events, which are preconditions
+		CREATE TABLE veraweb.tevent_precondition (
+			pk serial NOT NULL,
+			fk_event_main INTEGER NOT NULL,
+			fk_event_precondition INTEGER,
+			invitationstatus INTEGER DEFAULT 0,
+
+			FOREIGN KEY (fk_event_main) REFERENCES veraweb.tevent(pk),
+			FOREIGN KEY (fk_event_precondition) REFERENCES veraweb.tevent(pk),
+			PRIMARY KEY (pk)
+		) WITH OIDS;
+
+		-- New flag, to show if precondition of guest is fulfilled
+		ALTER TABLE veraweb.tguest ADD COLUMN precondition BOOLEAN DEFAULT true;
+		
+
+		-- post-upgrade 1.6.26.1
+                vmsg := 'end.update(1.6.26.1)';
+                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+                vcurvsn := vnewvsn;
+                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+        END IF;
+
+	-- end
+        IF vcurvsn <> vversion THEN
+                RAISE WARNING 'Database version after upgrade (%) does not match target (%)',
+                    vcurvsn, vversion
+                    USING HINT = 'vcurvsn in last if block vs. vversion at begin of upgrade.sql';
+        END IF;
+        vmsg := 'end.SCHEMA UPDATE TO VERSION ' || vcurvsn;
+        INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+        IF vcurvsn <> vversion THEN
+                RETURN 'error (schema version mismatch in upgrade.sql)';
+        END IF;
+
+        RETURN 'ok ' || vcurvsn || ' (success)';
 END;
 $$ LANGUAGE 'plpgsql' VOLATILE;
 
