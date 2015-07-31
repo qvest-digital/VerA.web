@@ -534,6 +534,8 @@ neueamtsbezeichnunghinzufugen=Neue Amtsbezeichnung Hinzuf\u00FCgen
 eswurdenkeineamtsbezeichnungengefunden=Es wurden keine Amtsbezeichnungen gefunden.
 # veranstaltung bearbeiten/kategorien
 neuekategoriehinzufugen=Neue Kategorie hinzuf\u00FCgen
+# veranstaltung bearbeiten/unterveranstaltungen
+subEvents=Unterveranstaltungen
 # veranstaltung bearbeiten/vorbedingungen
 GENERIC_PRECONDITION_PLURAL=Vorbedingungen
 EVENT_PRECONDITION_MARKED=Markierte Vorbendingung(en)

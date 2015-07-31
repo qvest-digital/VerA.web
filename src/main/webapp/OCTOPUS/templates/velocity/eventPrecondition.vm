@@ -53,6 +53,8 @@
                     </li>
                     <li class="active"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
                     </li>
+                    <li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';"><div>${placeholderWithTranslation.subEvents}</div>
+                    </li>
                     #end
                 </ul>
             </div>
@@ -84,15 +86,15 @@
                     #set($column0 = 3)
                     #set($column1 = 5)
                     #set($column2 = 72)
-                    #set($column3 = 19)
-                    #set($column4 = 11)
+                    #set($column3 = 16)
+                    #set($column4 = 14)
                 #else
                     ##Values in per cent for table columns width
                     ##If precondition doesn't exist
                     #set($column0 = 5)
-                    #set($column1 = 70)
-                    #set($column2 = 14)
-                    #set($column3 = 11)
+                    #set($column1 = 75)
+                    #set($column2 = 16)
+                    #set($column3 = 14)
                     #set($column4 = 0)
                 #end
 
@@ -116,7 +118,7 @@
                     #if($grants.mayWrite())
                     <tr>
                         #if($list && $list.size() > 0 && $grants.mayWrite())
-                        <td class="textCenter"/>
+                            <td class="textCenter"/>
                         #end
                         <input type="hidden" id="add-modified" name="add-modified" value="false"/><input type="checkbox" name="add-select" value="true" style="display: none;"/>
                         <td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>neu</em></td>
@@ -137,22 +139,22 @@
                             </select>
                         </td>
                         <td>
+                            #if($grants.mayWrite())
                             <div class="calenderContainer">
-                                #if($grants.mayWrite())
-                                    <span class="datepickerContainer" id="max_begin">
-                                        <input type="text" class="datepicker" id="$bean.max_begin" name="$bean.max_begin" onchange="setModified();">
-                                            <img title="${placeholderWithTranslation.datumauswahlen}" alt="${placeholderWithTranslation.datumauswahlen}" src="${paths.staticWeb}images/calendar.png">
-                                        <script type="text/javascript">
-                                            Calendar.setup({
-                                                inputField: "$bean.max_begin",
-                                                button:     "$bean.max_begin",
-                                                ifFormat:   "%d.%m.%Y",
-                                                showsTime:  false
-                                            });
-                                        </script>
-                                    </span>
-                                #end
+                                <span class="datepickerContainer" id="max_begin">
+                                    <input type="text" class="datepicker width80" id="$bean.max_begin" name="$bean.max_begin" onchange="setModified();">
+                                    <img title="${placeholderWithTranslation.datumauswahlen}" alt="${placeholderWithTranslation.datumauswahlen}" src="${paths.staticWeb}images/calendar.png">
+                                    <script type="text/javascript">
+                                        Calendar.setup({
+                                            inputField: "$bean.max_begin",
+                                            button:     "max_begin",
+                                            ifFormat:   "%d.%m.%Y",
+                                            showsTime:  false
+                                        });
+                                    </script>
+                                </span>
                             </div>
+                            #end
                         </td>
                     </tr>
                     #end
@@ -179,14 +181,8 @@
                     #end
 
                     #if ($list.size() == 0)
-                        ##Only for hint message
-                        #set($column0 = 100)
-                        #set($column1 = 0)
-                        #set($column2 = 0)
-                        #set($column3 = 0)
-                        #set($column4 = 0)
                         <tr>
-                            <td colspan="2">${placeholderWithTranslation.EVENT_PRECONDITION_NOT_FOUND}</td>
+                            <td colspan="4">${placeholderWithTranslation.EVENT_PRECONDITION_NOT_FOUND}</td>
                         </tr>
                     #end
 
