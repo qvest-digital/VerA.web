@@ -109,6 +109,8 @@
                         </li>
 						<li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
 						</li>
+                    <li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';"><div>${placeholderWithTranslation.subEvents}</div>
+                    </li>
 	                #end
                 </ul>
             </div>
