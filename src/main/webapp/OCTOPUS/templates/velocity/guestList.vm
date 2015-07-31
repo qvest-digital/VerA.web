@@ -461,6 +461,8 @@
 								#else
 									#if($bean.mail_a_e1.length() > 0)
 										<a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
+										<a class="noBorder" href="mailto:$!message.plain($bean.mail_a_e1)?subject=$!message.plain($event.shortname)"><img src="${paths.staticWeb}images/email.gif" title="E-Mail an diese Adresse senden"></a>
+				
 									#else
 										&nbsp;
 									#end
