@@ -70,6 +70,7 @@ BROWSER_TITLE_OVERVIEW_EVENTS_UNKNOWN_STATISTIC=UNBEKANNTE STATISTIK
 
 GENERIC_CLIENTS=Mandanten
 GENERIC_EDIT=Bearbeiten
+GENERAL_EVENT_SINGULAR=Veranstaltung
 GENERIC_FUNCTION_SINGULAR=Funktion
 GENERIC_FUNCTION_PLURAL=Funktionen
 GENERIC_OFFICIAL_TITLE_SINGULAR=Amtsbezeichnung
@@ -862,6 +863,7 @@ wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Wollen Sie di
 eswurdekeinekategoriezugeordnet=Es wurde keine Kategorie zugeordnet
 wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen=Wollen Sie ${count} Personen bzw. G\u00E4ste der ausgew\u00E4hlten Kategorie zuordnen?
 eswurdenkeinekategorienzugeordnet=Es wurden keine Kategorien zugeordnet
+eswurdenkeinekategoriengefunden=Es wurden keine Kategorien gefunden
 wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen=Wollen Sie diese Personen bzw. diesen Gast aus der ausgew\u00E4hlten Kategorie entfernen?
 eswurdekeinekategorieentfernt=Es wurde keine Kategorie entfernt
 wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen=Wollen Sie ${count} Personen bzw. G\u00E4ste aus der ausgew\u00E4hlten Kategorie entfernen?

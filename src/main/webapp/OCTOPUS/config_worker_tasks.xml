@@ -76,6 +76,7 @@
 		<worker name="GuestReportWorker" implementation="de.tarent.aa.veraweb.worker.GuestReportWorker" singleton="true" factory="reflected" />
 		<worker name="EventFunctionWorker" implementation="de.tarent.aa.veraweb.worker.EventFunctionWorker" singleton="true" factory="reflected" />
 		<worker name="EventCategoryWorker" implementation="de.tarent.aa.veraweb.worker.EventCategoryWorker" singleton="true" factory="reflected" />
+		<worker name="EventPreconditionWorker"  implementation="de.tarent.aa.veraweb.worker.EventPreconditionWorker" singleton="true" factory="reflected" />
 
 		<!-- Stammdaten-Worker -->
 		<worker name="ColorWorker" implementation="de.tarent.aa.veraweb.worker.ColorWorker" singleton="true" factory="reflected" />
@@ -1280,7 +1281,7 @@
 			<action name="showDetail" worker="EventDetailWorker" />
 			<action name="saveList" worker="EventPreconditionWorker" />
 			<action name="showList" worker="EventPreconditionWorker" />
-			<action name="getAll" worker="PreconditionWorker" />
+			<action name="getAll" worker="EventPreconditionWorker" />
 			<response type="velocity" name="eventPrecondition">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>

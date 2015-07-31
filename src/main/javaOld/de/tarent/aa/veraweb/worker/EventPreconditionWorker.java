@@ -1,7 +1,6 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.Event;
-import de.tarent.aa.veraweb.beans.EventPrecondition;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
@@ -32,8 +31,8 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
     @Override
     protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
         select.join("veraweb.tevent", "tevent.pk", "tevent_precondition.fk_event_precondition");
-        select.selectAs("tevent.eventname", "eventName");
-        select.orderBy(Order.asc("eventName"));
+        select.selectAs("tevent.shortname", "shortName");
+//        select.orderBy(Order.asc("tevent_precondition.fk_event_precondition"));
     }
 
     @Override

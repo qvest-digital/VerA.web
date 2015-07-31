@@ -83,13 +83,17 @@
                     ##If category exists
                     #set($column0 = 3)
                     #set($column1 = 5)
-                    #set($column2 = 92)
+                    #set($column2 = 72)
+                    #set($column3 = 19)
+                    #set($column4 = 11)
                 #else
                     ##Values in per cent for table columns width
                     ##If precondition doesn't exist
-                    #set($column0 = 5)
-                    #set($column1 = 95)
+                    #set($column0 = 100)
+                    #set($column1 = 0)
                     #set($column2 = 0)
+                    #set($column3 = 0)
+                    #set($column4 = 0)
                 #end
 
                 <table class="notBold fixed">
@@ -97,13 +101,15 @@
                     <col width="$column0%" />
                     <col width="$column1%" />
                     <col width="$column2%" />
+                    <col width="$column3%" />
+                    <col width="$column4%" />
 
                     <tr>
                         #if($list && $list.size() > 0 && $grants.mayWrite())
                             <th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
                         #end
                         <th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
-                        <th>${placeholderWithTranslation.bezeichnung}</th>
+                        <th>${placeholderWithTranslation.GENERAL_EVENT_SINGULAR}</th>
                         <th>${placeholderWithTranslation.EVENT_PRECONDITION_INVITATIONSTATUS}</th>
                         <th>${placeholderWithTranslation.EVENT_PRECONDITION_STARTDATE}</th>
                     </tr>
@@ -122,24 +128,60 @@
                                 #end
                             </select>
                         </td>
+                        <td class="textCenter">
+                            <select name="${bean.id}-invitationstatus_a" onchange="setModified('${bean.id}')">
+                                <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0) selected#end value="0">Offen</option>
+                                <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 1) selected#end value="1">Zusage</option>
+                                <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 2) selected#end value="2">Absage</option>
+                                <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 3) selected#end value="3">Teilgenommen</option>
+                            </select>
+                        </td>
+                        <td>
+                            <div class="calenderContainer">
+                                #if($grants.mayWrite())
+                                    <span class="datepickerContainer" id="max_begin">
+                                        <input type="text" class="datepicker" id="$bean.max_begin" name="$bean.max_begin" onchange="setModified();">
+                                            <img title="${placeholderWithTranslation.datumauswahlen}" alt="${placeholderWithTranslation.datumauswahlen}" src="${paths.staticWeb}images/calendar.png">
+                                        <script type="text/javascript">
+                                            Calendar.setup({
+                                                inputField: "$bean.max_begin",
+                                                button:     "$bean.max_begin",
+                                                ifFormat:   "%d.%m.%Y",
+                                                showsTime:  false
+                                            });
+                                        </script>
+                                    </span>
+                                #end
+                            </div>
+                        </td>
                     </tr>
                     #end
                     #foreach($bean in $list)
                         <tr>
                             #if($grants.mayWrite())
-                                <td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/><input type="checkbox" name="${bean.id}-select" value="true"/></td>
+                                <td class="textCenter"><input type="hidden" id="${bean.event_precondition}-modified" name="${bean.event_precondition}-modified" value="false"/><input type="checkbox" name="${bean.event_precondition}-select" value="true"/></td>
                             #end
-                            <td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id"/><input type="hidden" name="${bean.id}-event" value="$!event.id"/>$!bean.id</td>
-                            <td>$!message.plain($bean.name)</td>
-                            <td>$!message.plain($bean.startDate)</td>
-                            <td>$!message.plain($bean.invitationstatus)</td>
+                            <td class="textCenter"><input type="hidden" name="${$bean.event_precondition}-id" value="$!bean.event_precondition"/><input type="hidden" name="${bean.event_precondition}-event" value="$!event.event_precondition"/>$!bean.event_precondition</td>
+                            <td>$!message.plain($bean.shortName)</td>
+                            <td>
+                                #if($bean.invitationstatus && $bean.invitationstatus == 0)
+                                    Offen
+                                #elseif($bean.invitationstatus && $bean.invitationstatus == 1)
+                                    Zusage
+                                #elseif($bean.invitationstatus && $bean.invitationstatus == 2)
+                                    Absage
+                                #elseif($bean.invitationstatus && $bean.invitationstatus == 3)
+                                    Teilgenommen
+                                #end
+                            </td>
+                            <td>$!message.plain($bean.max_begin)</td>
                         </tr>
                     #end
 
                     #if ($listparam.count == 0)
-                    <tr>
-                        <td colspan="2">${placeholderWithTranslation.EVENT_PRECONDITION_NOT_FOUND}</td>
-                    </tr>
+                        <tr>
+                            <td colspan="2">${placeholderWithTranslation.EVENT_PRECONDITION_NOT_FOUND}</td>
+                        </tr>
                     #end
 
                     #set($itemName = "GENERIC_PRECONDITION_PLURAL")
