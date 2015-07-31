@@ -33,6 +33,7 @@ import io.dropwizard.setup.Environment;
 import io.dropwizard.util.Duration;
 import lombok.Getter;
 
+import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.event.DelegationResource;
 import org.evolvis.veraweb.onlinereg.event.EventResource;
 import org.evolvis.veraweb.onlinereg.event.FreeVisitorsResource;
@@ -44,6 +45,7 @@ import org.evolvis.veraweb.onlinereg.user.LoginResource;
 import org.evolvis.veraweb.onlinereg.user.ResetPasswordResource;
 
 @Getter
+@Log
 public class Main extends Application<Config> {
 
 	
@@ -92,8 +94,13 @@ public class Main extends Application<Config> {
                 .using(jcc)
                 .build("jerseyClient");
 
-        client.addFilter(
-        		new HTTPBasicAuthFilter(configuration.getRestauth().getUsername(),configuration.getRestauth().getPassword()));
+        try {
+            client.addFilter(
+                    new HTTPBasicAuthFilter(configuration.getRestauth().getUsername(), configuration.getRestauth().getPassword()));
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            log.warning("REST-Auth Konfiguration in config.yaml prüfen!");
+        }
 
         environment.jersey().setUrlPattern("/api/*");
 
