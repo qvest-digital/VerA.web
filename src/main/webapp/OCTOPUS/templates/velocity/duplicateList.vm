@@ -45,7 +45,7 @@
 
 		<span id="actionPanel" class="inlineLabel">
 			<label>${placeholderWithTranslation.markiertepersonen}
-				<input type="submit" name="save" type="button" value="${placeholderWithTranslation.alsdubletteubernehmen" title="${placeholderWithTranslation.markiertepersonenalsdubletteubernehmen}"/>
+				<input type="submit" name="save" type="button" value="${placeholderWithTranslation.alsdubletteubernehmen}" title="${placeholderWithTranslation.markiertepersonenalsdubletteubernehmen}"/>
 			</label>
 		</span>
 

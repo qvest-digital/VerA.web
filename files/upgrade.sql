@@ -479,6 +479,7 @@ BEGIN
 			fk_event_main INTEGER NOT NULL,
 			fk_event_precondition INTEGER NOT NULL,
 			invitationstatus INTEGER DEFAULT 0,
+			datebegin timestamptz NOT NULL,
 
 			FOREIGN KEY (fk_event_main) REFERENCES veraweb.tevent(pk),
 			FOREIGN KEY (fk_event_precondition) REFERENCES veraweb.tevent(pk),
@@ -489,7 +490,7 @@ BEGIN
 		ALTER TABLE veraweb.tguest ADD COLUMN precondition BOOLEAN DEFAULT false;
 
 		-- New flag, to disallow or allow guests with unfulfilled preconditions to apply to events
-		ALTER TABLE veraweb.tevent ADD COLUMN apply_without_precondition INTEGER DEFAULT 0;
+		ALTER TABLE veraweb.tevent ADD COLUMN apply_without_precondition int4 DEFAULT 0;
 
 		-- post-upgrade
 		vmsg := 'end.update(' || vnewvsn || ')';
