@@ -1,8 +1,13 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_EDIT}: $!message.plain($event.shortname)")
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Kategorie")
-#set($elementNamePlural = "Kategorien")
+#set($elementNameSex = "male")
+#set($elementNameSingular = "Dokumenttyp")
+#set($elementNamePlural = "Dokumenttypen")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 92)
 
 #parse("inc/header.vm")
 
@@ -18,7 +23,7 @@
 	#set($completeEventHeader = false)
 	#parse("inc/event-header.vm")
 
-	<form id="formlist" name="formlist" action="ShowEventCategory" method="POST" onsubmit="htmlWait();">
+	<form id="formlist" name="formlist" action="ShowEventDoctype" method="POST" onsubmit="htmlWait();">
 		<input type="hidden" name="id" value="$!event.id"/>
 		<input type="hidden" name="start" value=""/>
 		<input type="hidden" name="limit" value=""/>
@@ -35,25 +40,20 @@
 
 			<div id="tabsMain" class="event">
 				<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-					<li class="inactive"  onclick="window.location.href='ShowEvent?id=$!event.id';" class="noBorder">
-						<div>${placeholderWithTranslation.allgemein}</div>
-					</li>
-					<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';" class="noBorder">
-						<div>${placeholderWithTranslation.dokumenttypen}</div>
-					</li>
-					<li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';" class="noBorder">
-						<div>${placeholderWithTranslation.aufgaben}</div>
+					<li class="inactive" onclick="window.location.href='ShowEvent?id=$!event.id';"><div>Allgemein</div>
+					</li><li class="inactive"><div>${placeholderWithTranslation.dokumenttypen}</div>
+					</li><li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';"><div>Aufgaben</div>
 					</li>
 					#if($online-registration.activated)
 						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.zusatzlichepersonendaten}</div>
 						</li>
 						<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
 						</li>
-						<li class="active"><div>${placeholderWithTranslation.kategorien}</div>
+						<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
 						</li>
-                        <li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
-                        </li>
-                    <li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';"><div>${placeholderWithTranslation.subEvents}</div>
+                  <li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
+                  </li>
+                    <li class="active" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';"><div>${placeholderWithTranslation.subEvents}</div>
                     </li>
 					#end
 				</ul>
@@ -64,14 +64,14 @@
 
 				<span id="actionPanel">
 					#if($grants.mayWrite() && $list && $list.size() > 0)
-						<strong>${placeholderWithTranslation.markiertenkategorien}</strong>
-						<input type="button" name="remove" value="Entfernen" title="${placeholderWithTranslation.markiertenkategorienentfernen}" onclick="deleteEventCategory();"/>
+						<strong>Markierte(n) Dokumenttyp(en)</strong>
+						<input type="button" name="remove" value="${placeholderWithTranslation.entfernen}" title="${placeholderWithTranslation.markiertendokumenttypenentfernen}" onclick="deleteEventDoctype();"/>
 					#else &nbsp;#end
 				</span>
 
 				#if($grants.mayWrite())
 					<div class="buttonPanel-top floatRight">
-						<input type="submit" name="save" title="${placeholderWithTranslation.neuekategoriehinzufugen}" value="${placeholderWithTranslation.neuekategoriehinzufugen}" class="mainButton" onclick="saveEventCategory();"/>
+						<input type="submit" name="save" title="${placeholderWithTranslation.neuendokumenttyphinzufugen}" value="${placeholderWithTranslation.neuendokumenttyphinzufugen}" class="mainButton" onclick="saveEventDoctype();"/>
 					</div>
 				#end
 
@@ -79,22 +79,8 @@
 					<input type="hidden" name="list" value="$bean.id"/>
 				#end
 
+
 				#if(($list && $list.size() > 0) || $grants.mayWrite())
-
-					#if ($list && $list.size() > 0)
-						##Values in per cent for table columns width
-						##If category exists
-						#set($column0 = 3)
-						#set($column1 = 5)
-						#set($column2 = 92)
-					#else
-						##Values in per cent for table columns width
-						##If category doesn't exist
-						#set($column0 = 5)
-						#set($column1 = 95)
-						#set($column2 = 0)
-					#end
-
 					<table class="notBold fixed">
 						##Set column size
 						<col width="$column0%" />
@@ -116,10 +102,10 @@
 							<input type="hidden" id="add-modified" name="add-modified" value="false"/><input type="checkbox" name="add-select" value="true" style="display: none;"/>
 							<td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>neu</em></td>
 							<td>
-								<select id="add-category" name="add-category" onchange="setModified('add')">
+								<select id="add-doctype" name="add-doctype" onchange="setModified('add')">
 									<option value="0">${placeholderWithTranslation.bitteauswahlen}</option>
-									#foreach($category in $allCategorie)
-										<option value="$category.id">$!message.plain($category.name)</option>
+									#foreach($doctype in $allDoctype)
+										<option value="$doctype.id">$!message.plain($doctype.name)</option>
 									#end
 								</select>
 							</td>
@@ -128,7 +114,7 @@
 					#foreach($bean in $list)
 						<tr>
 							#if($grants.mayWrite())
-								<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/><input type="checkbox" name="${bean.id}-select" value="true"/></td>
+							<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/><input type="checkbox" name="${bean.id}-select" value="true"/></td>
 							#end
 							<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id"/><input type="hidden" name="${bean.id}-event" value="$!event.id"/>$!bean.id</td>
 							<td>$!message.plain($bean.name)</td>
@@ -137,17 +123,18 @@
 
 					#if ($listparam.count == 0)
 						<tr>
-							<td colspan="2">${placeholderWithTranslation.eswurdenkeinekategoriengefunden}</td>
+							<td colspan="2">${placeholderWithTranslation.eswurdenkeinedokumenttypengefunden}</td>
 						</tr>
 					#end
 
-					#set($itemName = "Kategorien")
+					#set($itemName = "Dokumenttypen")
 					#parse("inc/list-navi-new.vm")
 
 				</table>
 				#end
 
 			</div>
+
 		</div>
 
 		<span id="buttonPanel-bottom" class="floatRight">
@@ -163,12 +150,12 @@
 </div>
 
 <script type="text/javascript">
-	function deleteEventCategory() {
+	function deleteEventDoctype() {
 		$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
 		document.formlist.submit();
 	}
 
-	function saveEventCategory() {
+	function saveEventDoctype() {
 		$('<input>').attr({ type: 'hidden', id: 'save', name: 'save' }).appendTo($('#formlist'));
 		document.formlist.submit();
 	}
