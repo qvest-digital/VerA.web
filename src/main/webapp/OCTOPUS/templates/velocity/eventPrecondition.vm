@@ -89,10 +89,10 @@
                 #else
                     ##Values in per cent for table columns width
                     ##If precondition doesn't exist
-                    #set($column0 = 100)
-                    #set($column1 = 0)
-                    #set($column2 = 0)
-                    #set($column3 = 0)
+                    #set($column0 = 5)
+                    #set($column1 = 70)
+                    #set($column2 = 14)
+                    #set($column3 = 11)
                     #set($column4 = 0)
                 #end
 
@@ -174,11 +174,17 @@
                                     Teilgenommen
                                 #end
                             </td>
-                            <td>$!message.plain($bean.max_begin)</td>
+                            <td>$!message.date("DATE", $bean.max_begin)</td>
                         </tr>
                     #end
 
-                    #if ($listparam.count == 0)
+                    #if ($list.size() == 0)
+                        ##Only for hint message
+                        #set($column0 = 100)
+                        #set($column1 = 0)
+                        #set($column2 = 0)
+                        #set($column3 = 0)
+                        #set($column4 = 0)
                         <tr>
                             <td colspan="2">${placeholderWithTranslation.EVENT_PRECONDITION_NOT_FOUND}</td>
                         </tr>

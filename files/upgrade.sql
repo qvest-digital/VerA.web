@@ -479,7 +479,7 @@ BEGIN
 			fk_event_main INTEGER NOT NULL,
 			fk_event_precondition INTEGER NOT NULL,
 			invitationstatus INTEGER DEFAULT 0,
-			datebegin timestamptz NOT NULL,
+			datebegin TIMESTAMP WITH TIME ZONE,
 
 			FOREIGN KEY (fk_event_main) REFERENCES veraweb.tevent(pk),
 			FOREIGN KEY (fk_event_precondition) REFERENCES veraweb.tevent(pk),
