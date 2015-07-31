@@ -67,9 +67,15 @@ BROWSER_TITLE_OVERVIEW_GUEST_EVENTS=\u00DCbersicht \u00FCber alle Veranstaltunge
 BROWSER_TITLE_OVERVIEW_EVENTS_SORT_GUEST=Gesamt\u00FCbersicht \u00FCber alle Veranstaltungen, gruppiert nach G\u00E4sten
 BROWSER_TITLE_OVERVIEW_EVENTS_SORT_PLACE=\u00DCbersicht \u00FCber alle Veranstaltungen sortiert nach Veranstaltungsort
 BROWSER_TITLE_OVERVIEW_EVENTS_UNKNOWN_STATISTIC=UNBEKANNTE STATISTIK
-
+#MENU
+MENU_PERSONS=Personen
+MENU_EVENTS=Veranstaltungen
+MENU_MANAGEMENT=Verwaltung
+MENU_ADMINISTRATION=Administration
+#FIXES
 GENERIC_CLIENTS=Mandanten
 GENERIC_EDIT=Bearbeiten
+GENERAL_EVENT_SINGULAR=Veranstaltung
 GENERIC_FUNCTION_SINGULAR=Funktion
 GENERIC_FUNCTION_PLURAL=Funktionen
 GENERIC_OFFICIAL_TITLE_SINGULAR=Amtsbezeichnung
@@ -864,6 +870,7 @@ wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Wollen Sie di
 eswurdekeinekategoriezugeordnet=Es wurde keine Kategorie zugeordnet
 wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen=Wollen Sie ${count} Personen bzw. G\u00E4ste der ausgew\u00E4hlten Kategorie zuordnen?
 eswurdenkeinekategorienzugeordnet=Es wurden keine Kategorien zugeordnet
+eswurdenkeinekategoriengefunden=Es wurden keine Kategorien gefunden
 wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen=Wollen Sie diese Personen bzw. diesen Gast aus der ausgew\u00E4hlten Kategorie entfernen?
 eswurdekeinekategorieentfernt=Es wurde keine Kategorie entfernt
 wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen=Wollen Sie ${count} Personen bzw. G\u00E4ste aus der ausgew\u00E4hlten Kategorie entfernen?

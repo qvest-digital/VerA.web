@@ -4,6 +4,8 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
+import java.sql.Timestamp;
+
 /**
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.tevent_precondition, eine
  * Vorbedingung, dar.
@@ -14,6 +16,8 @@ public class EventPrecondition extends AbstractBean {
     public Integer event_main;
     public Integer event_precondition;
     public Integer invitationstatus;
+    public Timestamp max_begin;
+    public String shortName;
 
     /**
      * Diese Methode überprüft die eingegangenen Werte von event_main, event_precondition und invitationstatus

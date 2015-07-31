@@ -80,7 +80,6 @@
 				#end
 
 				#if(($list && $list.size() > 0) || $grants.mayWrite())
-
 					#if ($list && $list.size() > 0)
 						##Values in per cent for table columns width
 						##If category exists

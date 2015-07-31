@@ -137,7 +137,6 @@
 								</div>
 
 								<div class="tableCell width50">
-
 									<label for="event-begin">${placeholderWithTranslation.beginn}*</label>
 									<div class="calenderContainer">
 											#if($grants.mayWrite())
