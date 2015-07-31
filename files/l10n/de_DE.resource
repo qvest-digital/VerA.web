@@ -67,7 +67,12 @@ BROWSER_TITLE_OVERVIEW_GUEST_EVENTS=\u00DCbersicht \u00FCber alle Veranstaltunge
 BROWSER_TITLE_OVERVIEW_EVENTS_SORT_GUEST=Gesamt\u00FCbersicht \u00FCber alle Veranstaltungen, gruppiert nach G\u00E4sten
 BROWSER_TITLE_OVERVIEW_EVENTS_SORT_PLACE=\u00DCbersicht \u00FCber alle Veranstaltungen sortiert nach Veranstaltungsort
 BROWSER_TITLE_OVERVIEW_EVENTS_UNKNOWN_STATISTIC=UNBEKANNTE STATISTIK
-
+#MENU
+MENU_PERSONS=Personen
+MENU_EVENTS=Veranstaltungen
+MENU_MANAGEMENT=Verwaltung
+MENU_ADMINISTRATION=Administration
+#FIXES
 GENERIC_CLIENTS=Mandanten
 GENERIC_EDIT=Bearbeiten
 GENERAL_EVENT_SINGULAR=Veranstaltung

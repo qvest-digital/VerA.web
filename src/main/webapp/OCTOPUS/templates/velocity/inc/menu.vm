@@ -7,7 +7,7 @@
 		<ul>
 			#if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
 				<li #if ($activeMenu == "Personen") class="active" #end >
-					<span>Personen</span>
+					<span>${placeholderWithTranslation.MENU_PERSONS}</span>
 					<ul>
 						<li><a id="menu.overviewPerson" href="${paths.staticWeb}do/SearchPerson?action=person&search=reset&findAll=true&selectNone=true">${placeholderWithTranslation.personenubersicht}</a></li>
 						#if($grants.mayWrite())
@@ -28,7 +28,7 @@
 						#end
 					</ul>
 				</li><li #if ($activeMenu == "Veranstaltungen") class="active" #end >
-					<span>Veranstaltungen</span>
+					<span>${placeholderWithTranslation.MENU_EVENTS}</span>
 					<ul>
 						<li><a id="menu.overviewEvent" href="${paths.staticWeb}do/SearchEvent?action=event&search=reset&selectNone=true">${placeholderWithTranslation.veranstaltungsubersicht}</a></li>
 						#if($grants.mayWrite())
@@ -43,7 +43,7 @@
 						#end
 					</ul>
 				</li>#end<li #if ($activeMenu == "Verwaltung") class="active" #end >
-				<span>Verwaltung</span>
+				<span>${placeholderWithTranslation.MENU_MANAGEMENT}</span>
 				<ul>
 					#if($grants.isUser())
 						<li><a id="menu.userConfig" href="${paths.staticWeb}do/UserConfig">${placeholderWithTranslation.einstellungen}</a></li>
@@ -56,7 +56,7 @@
 					<li><a id="menu.info" href="${paths.staticWeb}do/Info">${placeholderWithTranslation.info}</a></li>
 				</ul>
 			</li>#if($grants.isUser() || $grants.isSystemUser())<li #if ($activeMenu == "Administration") class="active" #end >
-					<span>Administration</span>
+					<span>${placeholderWithTranslation.MENU_ADMINISTRATION}</span>
 					<ul>
 						#if($grants.isAdmin())
 							<li><a id="menu.salutation" href="${paths.staticWeb}do/Salutation?start=0&selectNone=true">${placeholderWithTranslation.anreden}</a></li>
