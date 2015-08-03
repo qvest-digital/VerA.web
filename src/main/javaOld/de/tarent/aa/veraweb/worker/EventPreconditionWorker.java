@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 
 /**
- * Created by sweiz - tarent solutions GmbH on 30.07.15.
+ * @author sweiz - tarent solutions GmbH - tarent solutions GmbH on 30.07.15.
  */
 public class EventPreconditionWorker extends ListWorkerVeraWeb {
     private static final Logger LOGGER = Logger.getLogger(EventPreconditionWorker.class.getCanonicalName());
