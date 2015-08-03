@@ -121,8 +121,8 @@
                             </li>
                             #end
                         </ul>
+                </div>
                     #end
-				</div>
 
 			<input type="hidden" name="event-id" value="$!event.id">
 			<input type="hidden" name="event-orgunit" value="$!event.orgunit">
