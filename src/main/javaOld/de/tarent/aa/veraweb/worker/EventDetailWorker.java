@@ -311,6 +311,7 @@ public class EventDetailWorker {
                 final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(octopusContext, event);
             	mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
             }
+
             octopusContext.setContent("event", event);
 			octopusContext.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
 			octopusContext.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
@@ -335,7 +336,8 @@ public class EventDetailWorker {
     private void setAcceptingGuestsWithoutPreconditions(OctopusContext cntx, Event event) {
         String requestParameter = (String) cntx.getRequestObject().getRequestParameters().
                 get("event-apply_without_precondition");
-        if (requestParameter != null && requestParameter.equals("on")) {
+        if (requestParameter != null && requestParameter.equals("on") &&
+                (event.eventtype != null && event.eventtype.equals("Offene Veranstaltung"))) {
             event.apply_without_precondition = true;
         } else {
             event.apply_without_precondition = false;
@@ -382,6 +384,8 @@ public class EventDetailWorker {
             event.eventtype = "Offene Veranstaltung";
         } else {
             event.eventtype = "";
+
+            event.apply_without_precondition = false;
         }
     }
 

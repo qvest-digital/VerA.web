@@ -32,110 +32,126 @@
 		<input type="hidden" name="doUpdate" value="false"/>
 		<input type="hidden" name="doRemove" value="true"/>
 
-	<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
-		<input type="button" class="mainButton" value="${placeholderWithTranslation.zurgasteverwaltung}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
-	</div>
+        <div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
+            <input type="button" class="mainButton" value="${placeholderWithTranslation.zurgasteverwaltung}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
+        </div>
 
-		<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
-
-			<div id="tabsMain" class="event">
-				<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-					<li class="inactive" onclick="window.location.href='ShowEvent?id=$!event.id';"><div>Allgemein</div>
-					</li><li class="inactive"><div>${placeholderWithTranslation.dokumenttypen}</div>
-					</li><li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';"><div>Aufgaben</div>
-					</li>
-					#if($online-registration.activated)
-						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.zusatzlichepersonendaten}</div>
-						</li>
-						<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
-						</li>
-						<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
-						</li>
-                  <li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
-                  </li>
-                    <li class="active" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';"><div>${placeholderWithTranslation.subEvents}</div>
+        <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+        <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
+            <div id="tabsMain" class="event">
+                ##First row
+                <ul class="gray-gradient" vera-tab-group>
+                    <li class="inactive" onclick="window.location.href='ShowEvent?id=$!event.id';">
+                        <div>Allgemein</div>
                     </li>
-					#end
-				</ul>
-			</div>
+                    <li class="inactive">
+                        <div>${placeholderWithTranslation.dokumenttypen}</div>
+                    </li>
+                    <li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';">
+                        <div>Aufgaben</div>
+                    </li>
+                    #if($online-registration.activated)
+                        <li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'">
+                            <div>${placeholderWithTranslation.zusatzlichepersonendaten}</div>
+                        </li>
+                        <li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';">
+                            <div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
+                        </li>
+                        <li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';">
+                            <div>${placeholderWithTranslation.kategorien}</div>
+                        </li>
+                    #end
+                </ul>
+                ##Second row
+                #if($online-registration.activated)
+                    <ul class="gray-gradient" vera-tab-group>
+                        #if($event.apply_without_precondition && $event.apply_without_precondition == true)
+                        <li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';">
+                            <div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
+                        </li>
+                        #end
+                        <li class="active">
+                            <div>${placeholderWithTranslation.subEvents}</div>
+                        </li>
+                    </ul>
+                #end
+            </div>
 
 
-			<div class="contentBoxColored tabsContent">
+            <div class="contentBoxColored tabsContent">
 
-				<span id="actionPanel">
-					#if($grants.mayWrite() && $list && $list.size() > 0)
-						<strong>Markierte(n) Dokumenttyp(en)</strong>
-						<input type="button" name="remove" value="${placeholderWithTranslation.entfernen}" title="${placeholderWithTranslation.markiertendokumenttypenentfernen}" onclick="deleteEventDoctype();"/>
-					#else &nbsp;#end
-				</span>
+                <span id="actionPanel">
+                    #if($grants.mayWrite() && $list && $list.size() > 0)
+                        <strong>Markierte(n) Dokumenttyp(en)</strong>
+                        <input type="button" name="remove" value="${placeholderWithTranslation.entfernen}" title="${placeholderWithTranslation.markiertendokumenttypenentfernen}" onclick="deleteEventDoctype();"/>
+                    #else &nbsp;#end
+                </span>
 
-				#if($grants.mayWrite())
-					<div class="buttonPanel-top floatRight">
-						<input type="submit" name="save" title="${placeholderWithTranslation.neuendokumenttyphinzufugen}" value="${placeholderWithTranslation.neuendokumenttyphinzufugen}" class="mainButton" onclick="saveEventDoctype();"/>
-					</div>
-				#end
+                #if($grants.mayWrite())
+                    <div class="buttonPanel-top floatRight">
+                        <input type="submit" name="save" title="${placeholderWithTranslation.neuendokumenttyphinzufugen}" value="${placeholderWithTranslation.neuendokumenttyphinzufugen}" class="mainButton" onclick="saveEventDoctype();"/>
+                    </div>
+                #end
 
-				#foreach($bean in $list)
-					<input type="hidden" name="list" value="$bean.id"/>
-				#end
+                #foreach($bean in $list)
+                    <input type="hidden" name="list" value="$bean.id"/>
+                #end
 
 
-				#if(($list && $list.size() > 0) || $grants.mayWrite())
-					<table class="notBold fixed">
-						##Set column size
-						<col width="$column0%" />
-						<col width="$column1%" />
-						<col width="$column2%" />
+                #if(($list && $list.size() > 0) || $grants.mayWrite())
+                    <table class="notBold fixed">
+                        ##Set column size
+                        <col width="$column0%" />
+                        <col width="$column1%" />
+                        <col width="$column2%" />
 
-						<tr >
-							#if($list && $list.size() > 0 && $grants.mayWrite())
-								<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
-							#end
-							<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
-							<th>${placeholderWithTranslation.bezeichnung}</th>
-						</tr>
-						#if($grants.mayWrite())
-						<tr>
-							#if($list && $list.size() > 0 && $grants.mayWrite())
-								<td class="textCenter"/>
-							#end
-							<input type="hidden" id="add-modified" name="add-modified" value="false"/><input type="checkbox" name="add-select" value="true" style="display: none;"/>
-							<td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>neu</em></td>
-							<td>
-								<select id="add-doctype" name="add-doctype" onchange="setModified('add')">
-									<option value="0">${placeholderWithTranslation.bitteauswahlen}</option>
-									#foreach($doctype in $allDoctype)
-										<option value="$doctype.id">$!message.plain($doctype.name)</option>
-									#end
-								</select>
-							</td>
-						</tr>
-					#end
-					#foreach($bean in $list)
-						<tr>
-							#if($grants.mayWrite())
-							<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/><input type="checkbox" name="${bean.id}-select" value="true"/></td>
-							#end
-							<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id"/><input type="hidden" name="${bean.id}-event" value="$!event.id"/>$!bean.id</td>
-							<td>$!message.plain($bean.name)</td>
-						</tr>
-					#end
+                        <tr >
+                            #if($list && $list.size() > 0 && $grants.mayWrite())
+                                <th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+                            #end
+                            <th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
+                            <th>${placeholderWithTranslation.bezeichnung}</th>
+                        </tr>
+                        #if($grants.mayWrite())
+                        <tr>
+                            #if($list && $list.size() > 0 && $grants.mayWrite())
+                                <td class="textCenter"/>
+                            #end
+                            <input type="hidden" id="add-modified" name="add-modified" value="false"/><input type="checkbox" name="add-select" value="true" style="display: none;"/>
+                            <td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>neu</em></td>
+                            <td>
+                                <select id="add-doctype" name="add-doctype" onchange="setModified('add')">
+                                    <option value="0">${placeholderWithTranslation.bitteauswahlen}</option>
+                                    #foreach($doctype in $allDoctype)
+                                        <option value="$doctype.id">$!message.plain($doctype.name)</option>
+                                    #end
+                                </select>
+                            </td>
+                        </tr>
+                    #end
+                    #foreach($bean in $list)
+                        <tr>
+                            #if($grants.mayWrite())
+                            <td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/><input type="checkbox" name="${bean.id}-select" value="true"/></td>
+                            #end
+                            <td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id"/><input type="hidden" name="${bean.id}-event" value="$!event.id"/>$!bean.id</td>
+                            <td>$!message.plain($bean.name)</td>
+                        </tr>
+                    #end
 
-					#if ($listparam.count == 0)
-						<tr>
-							<td colspan="2">${placeholderWithTranslation.eswurdenkeinedokumenttypengefunden}</td>
-						</tr>
-					#end
+                    #if ($listparam.count == 0)
+                        <tr>
+                            <td colspan="2">${placeholderWithTranslation.eswurdenkeinedokumenttypengefunden}</td>
+                        </tr>
+                    #end
 
-					#set($itemName = "Dokumenttypen")
-					#parse("inc/list-navi-new.vm")
+                    #set($itemName = "Dokumenttypen")
+                    #parse("inc/list-navi-new.vm")
 
-				</table>
-				#end
-
-			</div>
-
-		</div>
+                </table>
+                #end
+            </div>
+        </div>
 
 		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())

@@ -81,11 +81,10 @@
             <input type="button" class="mainButton" value="${placeholderWithTranslation.zurgasteverwaltung}" title="${placeholderWithTranslation.zurgasteverwaltung}" name="guestlist" goto="ShowGuestList?search-event=$!event.id&start=0&selectNone=true">
         </div>
 
+        <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
         <div id="main_content" class="tabs contentBox grayBorder marginBottom10 event">
-
-
             <div id="tabsMain">
-                <ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+                <ul class="gray-gradient">
                     <li class="inactive" id="showEvent" goto="ShowEvent?id=$!eventId" class="noBorder"><div>${placeholderWithTranslation.allgemein}</div></a>
                     </li><li id="showEventDoctype" class="inactive" goto="${paths.staticWeb}do/ShowEventDoctype?id=$!eventId&selectNone=true" class="noBorder"><div>${placeholderWithTranslation.dokumenttypen}</div>
                     </li><li id="showEventTasks" class="active" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true"><div>${placeholderWithTranslation.aufgaben}</div>

@@ -77,6 +77,7 @@
 		<worker name="EventFunctionWorker" implementation="de.tarent.aa.veraweb.worker.EventFunctionWorker" singleton="true" factory="reflected" />
 		<worker name="EventCategoryWorker" implementation="de.tarent.aa.veraweb.worker.EventCategoryWorker" singleton="true" factory="reflected" />
 		<worker name="EventPreconditionWorker"  implementation="de.tarent.aa.veraweb.worker.EventPreconditionWorker" singleton="true" factory="reflected" />
+		<worker name="EventSubEventListWorker"  implementation="de.tarent.aa.veraweb.worker.EventSubEventListWorker" singleton="true" factory="reflected" />
 
 		<!-- Stammdaten-Worker -->
 		<worker name="ColorWorker" implementation="de.tarent.aa.veraweb.worker.ColorWorker" singleton="true" factory="reflected" />
@@ -1283,6 +1284,24 @@
 			<action name="showList" worker="EventPreconditionWorker" />
 			<action name="getAll" worker="EventPreconditionWorker" />
 			<response type="velocity" name="eventPrecondition">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowEventSubEventList" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt die Unterveranstaltungen an.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveDetail" worker="EventDetailWorker" />
+			<status equals="notsaved">
+				<doTask name="SaveEvent"/>
+			</status>
+			<action name="showDetail" worker="EventDetailWorker" />
+			<action name="saveList" worker="EventSubEventListWorker" />
+			<action name="showList" worker="EventSubEventListWorker" />
+			<action name="getAll" worker="EventSubEventListWorker" />
+			<response type="velocity" name="eventSubEventList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>

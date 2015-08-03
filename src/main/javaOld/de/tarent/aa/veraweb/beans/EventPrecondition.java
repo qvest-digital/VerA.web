@@ -10,7 +10,7 @@ import java.sql.Timestamp;
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.tevent_precondition, eine
  * Vorbedingung, dar.
  *
- * Created by sweiz, tarent solutions GmbH on 30.07.15.
+ * @author sweiz, tarent solutions GmbH on 30.07.15.
  */
 public class EventPrecondition extends AbstractBean {
     public Integer event_main;

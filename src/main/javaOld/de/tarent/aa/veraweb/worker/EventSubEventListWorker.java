@@ -14,30 +14,30 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 
 /**
- * @author sweiz - tarent solutions GmbH - tarent solutions GmbH on 30.07.15.
+ * @author sweiz - tarent solutions GmbH on 30.07.15.
  */
-public class EventPreconditionWorker extends ListWorkerVeraWeb {
-    private static final Logger LOGGER = Logger.getLogger(EventPreconditionWorker.class.getCanonicalName());
+public class EventSubEventListWorker extends ListWorkerVeraWeb {
+    private static final Logger LOGGER = Logger.getLogger(EventSubEventListWorker.class.getCanonicalName());
 
-    public EventPreconditionWorker() {
-        super("EventPrecondition");
+    public EventSubEventListWorker() {
+        super("EventSubEventList");
     }
 
     @Override
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-        select.where(Expr.equal("tevent_precondition.fk_event_main", getEvent(cntx).id));
+        select.where(Expr.equal("tevent_SubEventList.fk_event_main", getEvent(cntx).id));
     }
 
     @Override
     protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
-        select.join("veraweb.tevent", "tevent.pk", "tevent_precondition.fk_event_precondition");
+        select.join("veraweb.tevent", "tevent.pk", "tevent_SubEventList.fk_event_SubEventList");
         select.selectAs("tevent.shortname", "shortName");
-        select.addOrderBy(Order.asc("tevent_precondition.fk_event_precondition"));
+//        select.orderBy(Order.asc("tevent_SubEventList.fk_event_SubEventList"));
     }
 
     @Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
-        select.where(Expr.equal("tevent_precondition.fk_event_main", getEvent(cntx).id));
+        select.where(Expr.equal("tevent_SubEventList.fk_event_main", getEvent(cntx).id));
     }
 
     @Override
