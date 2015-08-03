@@ -41,6 +41,8 @@ Desweiteren benötigen Sie den Apache 2 Webserver (idealerweise mit
 dem \texttt{prefork} MPM; in dieser Anleitung gehen wir von einem
 Setup mit Apache 2.2 auf Debian wheezy aus) und \texttt{mod\_jk},
 Tomcat 7 mit Java™ 7.
+\Warning \emph{Achtung:} Java™ 6 oder älter wird nicht unterstützt
+und führt während der Installation zu Fehlern!
 Wir setzen unsere Systeme üblicherweise aus Sicherheitsgründen so auf,
 daß HTTPS-Verbindungen im Apache Webserver terminiert werden und über
 das AJP-Protokoll von diesem an Tomcat weitergereicht werden. Sämtliche
