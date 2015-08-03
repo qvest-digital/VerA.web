@@ -32,14 +32,15 @@
 		<input type="hidden" name="doUpdate" value="false"/>
 		<input type="hidden" name="doRemove" value="true"/>
 
-	<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
-		<input type="button" class="mainButton" value="${placeholderWithTranslation.zurgasteverwaltung}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
-	</div>
+		<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
+			<input type="button" class="mainButton" value="${placeholderWithTranslation.zurgasteverwaltung}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
+		</div>
 
+		<!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
 		<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
-
 			<div id="tabsMain" class="event">
-				<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+				##First row
+				<ul class="gray-gradient" vera-tab-group>
 					<li class="inactive"  onclick="window.location.href='ShowEvent?id=$!event.id';" class="noBorder">
 						<div>${placeholderWithTranslation.allgemein}</div>
 					</li>
@@ -56,19 +57,22 @@
 						</li>
 						<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
 						</li>
-						#if($event.apply_without_precondition && $event.apply_without_precondition == true)
-							<li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
-							</li>
-						#end
-                    <li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';"><div>${placeholderWithTranslation.subEvents}</div>
-                    </li>
 					#end
 				</ul>
+				##Second row
+				#if($online-registration.activated)
+					<ul class="gray-gradient" vera-tab-group>
+						#if($event.apply_without_precondition && $event.apply_without_precondition == true)
+						<li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
+						</li>
+						#end
+						<li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';"><div>${placeholderWithTranslation.subEvents}</div>
+						</li>
+					</ul>
+				#end
 			</div>
 
-
 			<div class="contentBoxColored tabsContent">
-
 				<span id="actionPanel">
 					#if($grants.mayWrite() && $list && $list.size() > 0)
 						<strong>${placeholderWithTranslation.markiertenamtsbezeichnungen}</strong>

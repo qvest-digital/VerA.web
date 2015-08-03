@@ -75,37 +75,54 @@
 		#end
 
 		#if($event && $event.id)
-		<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
-			<input type="button" class="mainButton" value="${placeholderWithTranslation.zurgasteverwaltung}" title="${placeholderWithTranslation.zurgasteverwaltung}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
-		</div>
+            <div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
+                <input type="button" class="mainButton" value="${placeholderWithTranslation.zurgasteverwaltung}" title="${placeholderWithTranslation.zurgasteverwaltung}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
+            </div>
 		#end
 
+        <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
 		<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
-
 			#if(!$isNewEvent)
 				<div id="tabsMain" class="event">
-					<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-						<li vera-tab="allgemein" vera-tab-default><div>${placeholderWithTranslation.allgemein}</div>
-						</li><li onclick="showDoctypes();" class="inactive"><div>${placeholderWithTranslation.dokumenttypen}</div>
-						</li><li class="inactive" #if ($event.id) onclick="if (checkModified()) { window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';}" #end><div>${placeholderWithTranslation.aufgaben}</div>
+                    ##First row
+					<ul class="gray-gradient" vera-tab-group>
+						<li vera-tab="allgemein" vera-tab-default>
+                            <div>${placeholderWithTranslation.allgemein}</div>
+						</li>
+                        <li onclick="showDoctypes();" class="inactive">
+                            <div>${placeholderWithTranslation.dokumenttypen}</div>
+						</li>
+                        <li class="inactive" #if ($event.id)
+                            onclick="if (checkModified()) { window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';}" #end>
+                            <div>${placeholderWithTranslation.aufgaben}</div>
 						</li>
 						#if ($online-registration.activated)
-							<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.zusatzlichepersonendaten}</div>
+							<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'">
+                                <div>${placeholderWithTranslation.zusatzlichepersonendaten}</div>
 							</li>
-							<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
+							<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';">
+                                <div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
 							</li>
-							<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
+							<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';">
+                                <div>${placeholderWithTranslation.kategorien}</div>
 							</li>
+                        #end
+                    </ul>
+                    ##Second row
+                    #if($online-registration.activated)
+                        <ul class="gray-gradient" vera-tab-group>
                             #if($event.apply_without_precondition && $event.apply_without_precondition == true)
-                                <li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
-                                </li>
+                            <li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';">
+                                <div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
+                            </li>
                             #end
-                    <li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';"><div>${placeholderWithTranslation.subEvents}</div>
-                    </li>
-						#end
-					</ul>
+                            <li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';">
+                                <div>${placeholderWithTranslation.subEvents}</div>
+                            </li>
+                            #end
+                        </ul>
+                    #end
 				</div>
-			#end
 
 			<input type="hidden" name="event-id" value="$!event.id">
 			<input type="hidden" name="event-orgunit" value="$!event.orgunit">
