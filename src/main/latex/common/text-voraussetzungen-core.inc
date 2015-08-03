@@ -38,7 +38,9 @@ Datenbankserver (PostgreSQL) auf derselben VM wie die interne
 Veranstaltungs- und Adreßverwaltung läuft.
 
 Desweiteren benötigen Sie den Apache 2 Webserver (idealerweise mit
-dem \texttt{prefork} MPM) und \texttt{mod\_jk}, Tomcat 7 mit Java™ 7.
+dem \texttt{prefork} MPM; in dieser Anleitung gehen wir von einem
+Setup mit Apache 2.2 auf Debian wheezy aus) und \texttt{mod\_jk},
+Tomcat 7 mit Java™ 7.
 Wir setzen unsere Systeme üblicherweise aus Sicherheitsgründen so auf,
 daß HTTPS-Verbindungen im Apache Webserver terminiert werden und über
 das AJP-Protokoll von diesem an Tomcat weitergereicht werden. Sämtliche
