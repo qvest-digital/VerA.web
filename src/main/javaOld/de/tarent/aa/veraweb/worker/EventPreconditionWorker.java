@@ -32,7 +32,7 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
     protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
         select.join("veraweb.tevent", "tevent.pk", "tevent_precondition.fk_event_precondition");
         select.selectAs("tevent.shortname", "shortName");
-//        select.orderBy(Order.asc("tevent_precondition.fk_event_precondition"));
+        select.addOrderBy(Order.asc("tevent_precondition.fk_event_precondition"));
     }
 
     @Override
