@@ -96,8 +96,10 @@
 							</li>
 							<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
 							</li>
-							<li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
-                            </li>
+                            #if($event.apply_without_precondition && $event.apply_without_precondition == true)
+                                <li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
+                                </li>
+                            #end
                     <li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';"><div>${placeholderWithTranslation.subEvents}</div>
                     </li>
 						#end
@@ -188,7 +190,7 @@
 									</select>
 								</div>
 								<div class="tableCell width50 ">
-									<label for="gastgeber">${placeholderWithTranslation.gastgeber}</label>
+									<label for="event-host">${placeholderWithTranslation.gastgeber}</label>
 									<input type="hidden" value="$!event.host" name="event-host" id="event-host">
 									<input type="hidden" value="$!event.hostname" name="event-hostname" id="event-hostname">
 									<input type="hidden" value="${placeholderWithTranslation.keingastgeberausgewahlt}" name="showevent-hostnametext" id="showevent-hostnametext">
@@ -291,17 +293,19 @@
 								</div>
 							</div>
 							#if($online-registration.activated)
-                                <div class="tableRow">
-                                    <div class="tableCell width50 inlineLabel">
-                                        <label for="event-apply_without_precondition">${placeholderWithTranslation.EVENT_PRECONDITION_ALLOW_GUESTS_WITHOUT_PRECONDITION}</label>
-                                        <!-- DEBUG $event.login_required -->
-                                        <input type="checkbox" onchange="setModified();" class="noFloat" id="event-apply_without_precondition" name="event-apply_without_precondition"
-                                               #if($event && $event.apply_without_precondition)
-                                                checked
-                                               #end
-                                                >
+                                #if($event && $event.eventtype != "")
+                                    <div class="tableRow">
+                                        <div class="tableCell width50 inlineLabel">
+                                            <label for="event-apply_without_precondition">${placeholderWithTranslation.EVENT_PRECONDITION_ALLOW_GUESTS_WITHOUT_PRECONDITION}</label>
+                                            <!-- DEBUG $event.login_required -->
+                                            <input type="checkbox" onchange="setModified();" class="noFloat" id="event-apply_without_precondition" name="event-apply_without_precondition"
+                                                   #if($event && $event.apply_without_precondition)
+                                                    checked
+                                                   #end
+                                                    >
+                                        </div>
                                     </div>
-                                </div>
+                                #end
 
 								<div class="tableRow">
 									<div class="tableCell width50 inlineLabel">

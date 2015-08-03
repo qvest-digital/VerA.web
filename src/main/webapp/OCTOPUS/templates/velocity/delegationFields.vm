@@ -107,8 +107,10 @@
                         </li>
                         <li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
                         </li>
-						<li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
-						</li>
+						#if($event.apply_without_precondition && $event.apply_without_precondition == true)
+                            <li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
+                            </li>
+						#end
                     <li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';"><div>${placeholderWithTranslation.subEvents}</div>
                     </li>
 	                #end

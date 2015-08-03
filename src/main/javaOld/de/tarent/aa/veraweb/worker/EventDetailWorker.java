@@ -311,6 +311,11 @@ public class EventDetailWorker {
                 final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(octopusContext, event);
             	mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
             }
+
+            if(event.eventtype == null || !event.eventtype.equals("Offene Veranstaltung")) {
+                event.apply_without_precondition = null;
+            }
+
             octopusContext.setContent("event", event);
 			octopusContext.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
 			octopusContext.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
