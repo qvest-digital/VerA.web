@@ -4,11 +4,6 @@
 #set($elementNameSingular = "Dokumenttyp")
 #set($elementNamePlural = "Dokumenttypen")
 
-##Values in per cent for table columns width
-#set($column0 = 3)
-#set($column1 = 5)
-#set($column2 = 92)
-
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -92,6 +87,18 @@
 					<input type="hidden" name="list" value="$bean.id"/>
 				#end
 
+                ##Values in per cent for table columns width
+                ##If documenttypes list is empty
+                #if ($list && $list.size() > 0)
+                    #set($column0 = 3)
+                    #set($column1 = 5)
+                    #set($column2 = 92)
+                #else
+                    ##If no documenttypes are created
+                    #set($column0 = 5)
+                    #set($column1 = 92)
+                    #set($column2 = 0)
+                #end
 
 				#if(($list && $list.size() > 0) || $grants.mayWrite())
 					<table class="notBold fixed">
