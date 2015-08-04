@@ -109,7 +109,7 @@
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>veraweb-core</artifactId>
   </rootModule>
-  <goals>clean install</goals>
+  <goals>clean install -Platex</goals>
   <mavenName>Maven2.2.1</mavenName>
   <mavenOpts>-Xmx3072m</mavenOpts>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
