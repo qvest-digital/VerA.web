@@ -95,26 +95,27 @@ public class EventSubEventListWorker extends ListWorkerVeraWeb {
      */
     private static final Logger LOGGER = Logger.getLogger(EventSubEventListWorker.class.getCanonicalName());
 
-    public EventSubEventListWorker() {
-        super("EventSubEventList");
-    }
+//    public EventSubEventListWorker() {
+//        super("EventSubEventList");
+//    }
 
     @Override
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-        select.where(Expr.equal("tevent.parenteventid", getEvent(cntx).id));
+        select.where(Expr.equal("tevent.parent_event_id", getEvent(cntx).id));
     }
 
     @Override
    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
-        select.join("veraweb.tevent", "tevent.pk", "tevent.fk_event");
-        select.selectAs("tevent.shortname", "shortName");
-        select.orderBy(Order.asc("tevent_SubEventList.fk_event_SubEventList"));
+//        select.join("veraweb.tevent", "tevent.pk", "tevent.fk_event");
+//        select.selectAs("tevent.shortname", "shortName");
+//        select.orderBy(Order.asc("tevent_.fk_event"));
+//    	select.where(Expr.isNotNull("tevent.parent_event_id"));
     }
 
-    @Override
-    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
-        select.where(Expr.equal("tevent.parenteventid", getEvent(cntx).id));
-    }
+//    @Override
+//    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
+//        select.where(Expr.equal("tevent.parenteventid", getEvent(cntx).id));
+//    }
 
     @Override
     protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context) {

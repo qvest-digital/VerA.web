@@ -40,7 +40,7 @@ public class EventSubEventList extends AbstractBean implements OrgUnitDependent 
 	public String hash;
 	public Boolean login_required;
 	public Boolean apply_without_precondition;
-	public Integer parenteventid;
+	public Integer parent_event_id;
 	
 	@Override
     public void verify() throws BeanException {

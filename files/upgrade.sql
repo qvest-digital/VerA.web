@@ -19,7 +19,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2015-08-03';
+	vversion := '2015-08-04';
 
 	-- initialisation
 	vint := 0;
@@ -499,13 +499,13 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
-	vnewvsn := '2015-08-03';
+	vnewvsn := '2015-08-04';
 	IF vcurvsn < vnewvsn THEN
 		vmsg := 'begin.update(' || vnewvsn || ')';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
 		-- New table for link between event and events, which are preconditions
-		ALTER TABLE tevent ADD COLUMN ParentEventId INTEGER references veraweb.tevent(pk);
+		ALTER TABLE tevent ADD COLUMN parent_event_id INTEGER REFERENCES veraweb.tevent(pk) ON DELETE CASCADE;
 		-- post-upgrade
 		vmsg := 'end.update(' || vnewvsn || ')';
 		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
