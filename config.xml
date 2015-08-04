@@ -41,31 +41,31 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Run.Update:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:anonymous</permission>
-      <permission>hudson.model.Item.Workspace:mley</permission>
-      <permission>hudson.model.Item.Workspace:aalexa</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:dgeorg</permission>
-      <permission>hudson.model.Item.Build:mley</permission>
-      <permission>hudson.model.Item.Build:aalexa</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Build:dgeorg</permission>
+      <permission>hudson.model.Item.Delete:mley</permission>
+      <permission>hudson.model.Item.Delete:aalexa</permission>
+      <permission>hudson.model.Item.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Delete:dgeorg</permission>
       <permission>hudson.model.Item.Read:anonymous</permission>
       <permission>hudson.model.Item.Read:mley</permission>
       <permission>hudson.model.Item.Read:aalexa</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
       <permission>hudson.model.Item.Read:dgeorg</permission>
-      <permission>hudson.model.Item.Delete:mley</permission>
-      <permission>hudson.model.Item.Delete:aalexa</permission>
-      <permission>hudson.model.Item.Delete:veraweb</permission>
-      <permission>hudson.model.Item.Delete:dgeorg</permission>
+      <permission>hudson.model.Item.Workspace:anonymous</permission>
+      <permission>hudson.model.Item.Workspace:mley</permission>
+      <permission>hudson.model.Item.Workspace:aalexa</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:dgeorg</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.scm.SCM.Tag:veraweb</permission>
       <permission>hudson.model.Run.Delete:veraweb</permission>
       <permission>hudson.model.Item.Configure:mley</permission>
       <permission>hudson.model.Item.Configure:aalexa</permission>
       <permission>hudson.model.Item.Configure:veraweb</permission>
       <permission>hudson.model.Item.Configure:dgeorg</permission>
-      <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Item.Build:mley</permission>
+      <permission>hudson.model.Item.Build:aalexa</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Build:dgeorg</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM">
@@ -147,6 +147,30 @@
         <color>BLUE</color>
       </threshold>
     </hudson.tasks.BuildTrigger>
+    <hudson.plugins.jabber.im.transport.JabberPublisher>
+      <targets>
+        <hudson.plugins.im.DefaultIMMessageTarget>
+          <value>aalexa@info.tarent.de,</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget>
+          <value>csalib@info.tarent.de,</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget>
+          <value>jnunez@info.tarent.de,</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget>
+          <value>sweiz@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+      </targets>
+      <strategy>ALL</strategy>
+      <notifyOnBuildStart>false</notifyOnBuildStart>
+      <notifySuspects>false</notifySuspects>
+      <notifyCulprits>false</notifyCulprits>
+      <notifyFixers>false</notifyFixers>
+      <notifyUpstreamCommitters>false</notifyUpstreamCommitters>
+      <buildToChatNotifier class="hudson.plugins.im.build_notify.DefaultBuildToChatNotifier"/>
+      <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
+    </hudson.plugins.jabber.im.transport.JabberPublisher>
   </publishers>
   <buildWrappers>
     <org.jvnet.hudson.plugins.m2release.M2ReleaseBuildWrapper>
@@ -158,17 +182,8 @@
   <prebuilders/>
   <postbuilders>
     <hudson.tasks.Shell>
-      <command>scp target/vw-online-registration.jar root@veraweb:/tmp/
-ssh root@veraweb &apos;
-	set -e
-
-	update-service --remove /etc/vw-onlinereg/vw-onlinereg onlinereg
-	sleep 2
-
-	cp /tmp/vw-online-registration.jar /usr/share/vw-onlinereg/vw-online-registration.jar
-
-	update-service --add /etc/vw-onlinereg/vw-onlinereg onlinereg
-    &apos;
+      <command>scp target/vw-online-registration.jar root@veraweb-mit-oa.lan.tarent.de:/service/vwor/vwor.jar
+ssh root@veraweb-mit-oa.lan.tarent.de &apos;svc -t /service/vwor&apos;
 </command>
     </hudson.tasks.Shell>
   </postbuilders>
