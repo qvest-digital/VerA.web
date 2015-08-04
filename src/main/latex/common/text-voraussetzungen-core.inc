@@ -44,8 +44,10 @@ wird mit Apache 2.2 ausgeliefert, Debian 8 „jessie“\textsuperscript{\ref{fn:
 mit Apache 2.4} auf Debian wheezy\footnote{\label{fn:jessie}Diese
 Installationsanleitung beschreibt aktuell nur den Betrieb unter
 Debian 7 „wheezy“.} aus) und \texttt{mod\_jk}, Tomcat 7 mit Java™ 7.
+
 \Warning \emph{Achtung:} Java™ 6 oder älter wird nicht unterstützt
 und führt während der Installation zu Fehlern!
+
 Wir setzen unsere Systeme üblicherweise aus Sicherheitsgründen so auf,
 daß HTTPS-Verbindungen im Apache Webserver terminiert werden und über
 das AJP-Protokoll von diesem an Tomcat weitergereicht werden. Sämtliche
