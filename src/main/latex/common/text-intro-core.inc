@@ -2,6 +2,10 @@
 %
 % Copyright © 2015
 %	Thorsten Glaser <t.glaser@tarent.de>
+% Copyright © 2014, 2015
+%	Thorsten “mirabilos” Glaser <thorsten.glaser@teckids.org>
+% Copyright © 2013, 2014
+%	Dominik George <dominik.george@teckids.org>
 %
 % Provided that these terms and disclaimer and all copyright notices
 % are retained or reproduced in an accompanying document, permission
@@ -32,4 +36,14 @@ installiert werden kann.
 \section{Systemvoraussetzungen}\label{sec:requirements}
 
 Im folgenden werden die Systemvoraussetzungen und empfohlene Umgebung
-für VerA.web beschrieben.
+für VerA.web beschrieben, zunächst kurz tabellarisch, dann im Fließtext.
+
+\begin{tabular}{| r || l | l |}\hline
+                 & Minimum    & empfohlen\\\hline\hline
+ CPU             & 1          & 1\\\hline
+ Arbeitsspeicher & 512 MiB    & 1 GiB\\\hline
+ Festplatte      & 2 GB       & 8 GB\\\hline
+ Betriebssystem  & Debian 7   & Debian 7 oder 8\textsuperscript{\ref{fn:jessie}}\\\hline
+ Webserver       & Apache 2.2 & Apache 2.2 oder 2.4\textsuperscript{\ref{fn:apache}}\\\hline
+ Java Runtime    & OpenJDK 7  & OpenJDK 7\\\hline
+\end{tabular}

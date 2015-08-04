@@ -28,3 +28,9 @@ sowie Administratorenzugänge pflegen. Hierfür wird OpenLDAP empfohlen.
 
 Die Einrichtung eines solchen LDAP-Verzeichnisses ist außerhalb
 des Rahmens dieser Installationsanleitung.
+
+Für eine kleine Site ist es möglich, den LDAP-Server (Debian-Pakete
+\texttt{slapd} und \texttt{ldap-utils} sowie, als einfach bedienbare
+Oberfläche, \texttt{ldap-account-manager}) auf demselben Server wie
+die interne Veranstaltungs- und Adreßverwaltung laufenzulassen; dies
+erhöht die Systemvoraussetzungen nicht.

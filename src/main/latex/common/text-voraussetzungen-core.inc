@@ -33,14 +33,17 @@ Für VerA.web core benötigen Sie mindestens 512 MiB Arbeitsspeicher;
 1 GiB wird empfohlen. Wir empfehlen mindestens 2 GiB Festplatte,
 besser 8 GiB.
 
-In dieser Anleitung wird weiterhin angenommen, daß der notwendige
-Datenbankserver (PostgreSQL) auf derselben VM wie die interne
-Veranstaltungs- und Adreßverwaltung läuft.
+In dieser Anleitung sowie den Systemvoraussetzungen wird weiterhin
+angenommen, daß der notwendige Datenbankserver (PostgreSQL) auf
+derselben VM wie die interne Veranstaltungs- und Adreßverwaltung läuft.
 
 Desweiteren benötigen Sie den Apache 2 Webserver (idealerweise mit
 dem \texttt{prefork} MPM; in dieser Anleitung gehen wir von einem
-Setup mit Apache 2.2 auf Debian wheezy aus) und \texttt{mod\_jk},
-Tomcat 7 mit Java™ 7.
+Setup mit Apache 2.2\footnote{\label{fn:apache}Debian 7 „wheezy“
+wird mit Apache 2.2 ausgeliefert, Debian 8 „jessie“\textsuperscript{\ref{fn:jessie}}
+mit Apache 2.4} auf Debian wheezy\footnote{\label{fn:jessie}Diese
+Installationsanleitung beschreibt aktuell nur den Betrieb unter
+Debian 7 „wheezy“.} aus) und \texttt{mod\_jk}, Tomcat 7 mit Java™ 7.
 \Warning \emph{Achtung:} Java™ 6 oder älter wird nicht unterstützt
 und führt während der Installation zu Fehlern!
 Wir setzen unsere Systeme üblicherweise aus Sicherheitsgründen so auf,
