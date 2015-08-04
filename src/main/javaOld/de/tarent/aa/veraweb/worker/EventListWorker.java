@@ -64,7 +64,7 @@ import de.tarent.octopus.server.OctopusContext;
  * @author Christoph Jerolimov
  */
 public class EventListWorker extends ListWorkerVeraWeb {
-    //
+	  //
     // Öffentliche Konstanten
     //
     /** Parameter: Wessen Ereignisse? */

@@ -1171,6 +1171,17 @@
 			</response>
 		</task>
 
+		<task name="CreateSubEvent" access="public" groups="Writer">
+			<description>
+				Dieser Task zeigt eine Unterveranstaltung an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="LocationListWorker" />
+			<response type="velocity" name="eventSubEventDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
 		<task name="ShowEvent" access="public" groups="StandardFieldsReader">
 			<description>
 				Dieser Task zeigt eine Veranstaltung an.

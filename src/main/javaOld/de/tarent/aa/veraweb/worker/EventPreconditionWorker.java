@@ -22,7 +22,7 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
     public EventPreconditionWorker() {
         super("EventPrecondition");
     }
-
+    
     @Override
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
         select.where(Expr.equal("tevent_precondition.fk_event_main", getEvent(cntx).id));
