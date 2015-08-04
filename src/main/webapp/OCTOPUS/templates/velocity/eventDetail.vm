@@ -111,18 +111,18 @@
                     ##Second row
                     #if($online-registration.activated)
                         <ul class="gray-gradient" vera-tab-group>
-                            #if($event.apply_without_precondition && $event.apply_without_precondition == true)
-                            <li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';">
-                                <div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
-                            </li>
+                            #if($event.eventtype == "Offene Veranstaltung")
+                                <li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';">
+                                    <div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
+                                </li>
                             #end
                             <li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';">
-                                <div>${placeholderWithTranslation.subEvents}</div>
+                                <div>${placeholderWithTranslation.GENERIC_SUBEVENT_PLURAL}</div>
                             </li>
-                            #end
                         </ul>
-                    #end
-				</div>
+					#end
+                </div>
+            #end
 
 			<input type="hidden" name="event-id" value="$!event.id">
 			<input type="hidden" name="event-orgunit" value="$!event.orgunit">
