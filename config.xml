@@ -41,21 +41,21 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Run.Update:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:anonymous</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:dgeorg</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Build:dgeorg</permission>
       <permission>hudson.model.Item.Delete:veraweb</permission>
       <permission>hudson.model.Item.Delete:dgeorg</permission>
       <permission>hudson.model.Item.Read:anonymous</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
       <permission>hudson.model.Item.Read:dgeorg</permission>
+      <permission>hudson.model.Item.Workspace:anonymous</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:dgeorg</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.scm.SCM.Tag:veraweb</permission>
       <permission>hudson.model.Run.Delete:veraweb</permission>
       <permission>hudson.model.Item.Configure:veraweb</permission>
       <permission>hudson.model.Item.Configure:dgeorg</permission>
-      <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Build:dgeorg</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM">
@@ -137,6 +137,30 @@
       <jobAdditionalProperties>-e</jobAdditionalProperties>
     </hudson.plugins.sonar.SonarPublisher>
     <org.jenkinsci.plugins.emotional__jenkins.EmotionalJenkinsPublisher/>
+    <hudson.plugins.jabber.im.transport.JabberPublisher>
+      <targets>
+        <hudson.plugins.im.DefaultIMMessageTarget>
+          <value>aalexa@info.tarent.de,</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget>
+          <value>csalib@info.tarent.de,</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget>
+          <value>jnunez@info.tarent.de,</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget>
+          <value>sweiz@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+      </targets>
+      <strategy>ALL</strategy>
+      <notifyOnBuildStart>false</notifyOnBuildStart>
+      <notifySuspects>false</notifySuspects>
+      <notifyCulprits>false</notifyCulprits>
+      <notifyFixers>false</notifyFixers>
+      <notifyUpstreamCommitters>false</notifyUpstreamCommitters>
+      <buildToChatNotifier class="hudson.plugins.im.build_notify.DefaultBuildToChatNotifier"/>
+      <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
+    </hudson.plugins.jabber.im.transport.JabberPublisher>
   </publishers>
   <buildWrappers>
     <org.jvnet.hudson.plugins.m2release.M2ReleaseBuildWrapper>
@@ -148,19 +172,24 @@
   <prebuilders/>
   <postbuilders>
     <hudson.tasks.Shell>
-      <command>scp target/veraweb.war root@veraweb:/tmp
-ssh root@veraweb &apos;
-	set -e
-	service tomcat7 stop
-	sleep 10
+      <command># this needs /root/.pgpass (chmod 0600) set up
+# 127.0.0.1:5432:veraweb:veraweb:password
 
-	rm -rf /var/lib/tomcat7/webapps/veraweb*
-	cp /tmp/veraweb.war /var/lib/tomcat7/webapps/
-	cp /home/ldap_config/config_ldap_access.xml /etc/veraweb/
-
-	service tomcat7 start
-        # due to osiam in tomcat, it takes long to startup
-    &apos;
+set -e
+ssh root@veraweb-mit.lan.tarent.de &apos;service tomcat7 stop&apos;
+ssh root@veraweb-ohne.lan.tarent.de &apos;service tomcat7 stop&apos;
+sleep 10
+ssh root@veraweb-mit.lan.tarent.de &apos;psql -U veraweb -h 127.0.0.1 veraweb&apos; &lt;files/upgrade.sql
+ssh root@veraweb-ohne.lan.tarent.de &apos;psql -U veraweb -h 127.0.0.1 veraweb&apos; &lt;files/upgrade.sql
+scp files/l10n/*.resource root@veraweb-mit.lan.tarent.de:/etc/veraweb/l10n/
+scp files/l10n/*.resource root@veraweb-ohne.lan.tarent.de:/etc/veraweb/l10n/
+ssh root@veraweb-mit.lan.tarent.de &apos;rm -rf /var/lib/tomcat7/webapps/veraweb*&apos;
+ssh root@veraweb-ohne.lan.tarent.de &apos;rm -rf /var/lib/tomcat7/webapps/veraweb*&apos;
+scp target/veraweb.war root@veraweb-mit.lan.tarent.de:/var/lib/tomcat7/webapps/veraweb.war
+scp target/veraweb.war root@veraweb-ohne.lan.tarent.de:/var/lib/tomcat7/webapps/veraweb.war
+ssh root@veraweb-mit.lan.tarent.de &apos;service tomcat7 start&apos;
+ssh root@veraweb-ohne.lan.tarent.de &apos;service tomcat7 start&apos;
+sleep 10
 </command>
     </hudson.tasks.Shell>
   </postbuilders>
