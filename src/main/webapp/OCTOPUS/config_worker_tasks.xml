@@ -1279,6 +1279,7 @@
 			<status equals="notsaved">
 				<doTask name="SaveEvent"/>
 			</status>
+            <action name="getAll" worker="EventListWorker"/>
 			<action name="showDetail" worker="EventDetailWorker" />
 			<action name="saveList" worker="EventPreconditionWorker" />
 			<action name="showList" worker="EventPreconditionWorker" />

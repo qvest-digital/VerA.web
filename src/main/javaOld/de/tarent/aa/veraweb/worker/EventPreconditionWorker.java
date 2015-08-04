@@ -45,9 +45,11 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
         try {
             super.saveBean(octopusContext, bean, context);
         } catch (BeanException e) {
-            LOGGER.error("Fehler beim speichern der neuen Vorbedingung", e);
+            LOGGER.error("Fehler beim Speichern der neuen Vorbedingung", e);
         } catch (IOException e) {
-            LOGGER.error("Fehler beim speichern der neuen Vorbedingung", e);
+            LOGGER.error("Fehler beim Speichern der neuen Vorbedingung", e);
+        } catch (NumberFormatException e) {
+            LOGGER.error("Fehler beim Speichern der neuen Vorbedingung", e);
         }
     }
 

@@ -67,13 +67,13 @@
                 ##Second row
                 #if($online-registration.activated)
                     <ul class="gray-gradient" vera-tab-group>
-                        #if($event.apply_without_precondition && $event.apply_without_precondition == true)
+                        #if($event.eventtype == "Offene Veranstaltung")
                             <li class="active">
                                 <div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
                             </li>
                         #end
                         <li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';">
-                            <div>${placeholderWithTranslation.subEvents}</div>
+                            <div>${placeholderWithTranslation.GENERIC_SUBEVENT_PLURAL}</div>
                         </li>
                     </ul>
                 #end
@@ -84,7 +84,7 @@
 				<span id="actionPanel">
 					#if($grants.mayWrite() && $list && $list.size() > 0)
 						<strong>${placeholderWithTranslation.EVENT_PRECONDITION_MARKED}</strong>
-						<input type="button" name="remove" value="Entfernen" title="${placeholderWithTranslation.EVENT_PRECONDITION_MARKED}" onclick="deleteEventPrecondition();"/>
+						<input type="button" name="remove" value="${placeholderWithTranslation.entfernen}" title="${placeholderWithTranslation.EVENT_PRECONDITION_MARKED}" onclick="deleteEventPrecondition();"/>
 					#else &nbsp;#end
 				</span>
 
@@ -102,7 +102,7 @@
 
                 #if ($list && $list.size() > 0)
                     ##Values in per cent for table columns width
-                    ##If category exists
+                    ##If precondition exists
                     #set($column0 = 3)
                     #set($column1 = 5)
                     #set($column2 = 72)
@@ -145,8 +145,8 @@
                         <td>
                             <select id="add-precondition" name="add-precondition" onchange="setModified('add')">
                                 <option value="0">${placeholderWithTranslation.bitteauswahlen}</option>
-                                #foreach($eventName in $precondition.eventNames)
-                                    <option value="$precondition.id">$!message.plain($eventName)</option>
+                                #foreach($eventName in $allEvent)
+                                    <option value="$precondition.id">$!message.plain($eventName.shortname)</option>
                                 #end
                             </select>
                         </td>
@@ -228,12 +228,12 @@
 </div>
 
 <script type="text/javascript">
-	function deleteEventCategory() {
+	function deleteEventPrecondition() {
 		$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
 		document.formlist.submit();
 	}
 
-	function saveEventCategory() {
+	function saveEventPrecondition() {
 		$('<input>').attr({ type: 'hidden', id: 'save', name: 'save' }).appendTo($('#formlist'));
 		document.formlist.submit();
 	}

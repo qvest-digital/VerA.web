@@ -290,14 +290,9 @@ public class EventListWorker extends ListWorkerVeraWeb {
 					);
 			}
 
-
 		} catch (SQLException e) {
 			throw new BeanException("SQL Exception while deleting OptionalFields from Event", e);
 		}
-
-
-
-
 
 		context.execute(
 		        SQL.Delete(database)
