@@ -1,5 +1,6 @@
 package de.tarent.aa.veraweb.beans;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 
 import de.tarent.aa.veraweb.utils.DateHelper;
@@ -73,19 +74,21 @@ public class EventSubEventList extends AbstractBean implements OrgUnitDependent 
         checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
     }
 
-    private void getEvent(OctopusContext cntx) {
-    	
-    	
-//	    if (id == null) return null;
-//		Database database = new DatabaseVeraWeb(cntx);
-//		Event event = (Event)database.getBean("Event", id);
-//	
-//	    if (event != null) {
-//	        cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
-//	        cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
-//	    }
-//		return event;
-    }
+//    private void getEvent(OctopusContext cntx) {
+//    	
+//    	
+////	    if (id == null) return null;
+////		Database database = new DatabaseVeraWeb(cntx);
+////		Event event = (Event)database.getBean("Event", id);
+////	
+////	    if (event != null) {
+////	        cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
+////	        cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
+////	    }
+////		return event;
+//    }
+    
+    
     
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne geschrieben

@@ -17,6 +17,7 @@ import de.tarent.octopus.beans.BeanListWorker;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.config.TcPersonalConfig;
@@ -37,43 +38,7 @@ import java.util.Map;
  * @author sweiz - tarent solutions GmbH on 30.07.15.
  */
 public class EventSubEventListWorker extends ListWorkerVeraWeb {
-//    private static final Logger LOGGER = Logger.getLogger(EventSubEventListWorker.class.getCanonicalName());
-//
-//    public EventSubEventListWorker() {
-//        super("EventSubEventList");
-//    }
-//
-//    @Override
-//    protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-//        select.where(Expr.equal("tevent.parenteventid", getEvent(cntx).id));
-//    }
-//
-////    @Override
-////   protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
-////        select.join("veraweb.tevent", "tevent.pk", "tevent.fk_event");
-////        select.selectAs("tevent.shortname", "shortName");
-////        select.orderBy(Order.asc("tevent_SubEventList.fk_event_SubEventList"));
-////    }
-//
-//    @Override
-//    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
-//        select.where(Expr.equal("tevent.parenteventid", getEvent(cntx).id));
-//    }
-//
-//    @Override
-//    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context) {
-//        try {
-//            super.saveBean(octopusContext, bean, context);
-//        } catch (BeanException e) {
-//            LOGGER.error("Fehler beim speichern der neuen Vorbedingung", e);
-//        } catch (IOException e) {
-//            LOGGER.error("Fehler beim speichern der neuen Vorbedingung", e);
-//        }
-//    }
-//
-//    private Event getEvent(OctopusContext cntx) {
-//        return (Event)cntx.contentAsObject("event");
-//    }
+
 	
 	
 	  //
@@ -87,12 +52,27 @@ public class EventSubEventListWorker extends ListWorkerVeraWeb {
     /** Parameterwert: Ereignisse des gleichen Mandanten */
     public final static String PARAM_DOMAIN_VALUE_OU = "ou";
 
+    public static final String INPUT_getEvent[] = {};
+
+    public static final String OUTPUT_getEvent = "event";
+    
     //
     // Konstruktoren
     //
 	/** Default-Kontruktor der den Beannamen festlegt. */
 	public EventSubEventListWorker() {
 		super("Event");
+	}
+	
+	public void getEvent(OctopusContext cntx, Integer id) throws BeanException, IOException {
+		if (id != null) {
+			Database database = new DatabaseVeraWeb(cntx);
+			Event event = (Event)database.getBean("Event", id);
+			
+	        if (event != null) {
+	        	
+	        }
+		}
 	}
 
 //	private getEvent(OctopusContext cntx) {
@@ -113,28 +93,43 @@ public class EventSubEventListWorker extends ListWorkerVeraWeb {
      * @see BeanListWorker#getAll(OctopusContext)
      * @see BeanListWorker#extendAll(OctopusContext, Select)
      */
+    private static final Logger LOGGER = Logger.getLogger(EventSubEventListWorker.class.getCanonicalName());
+
+    public EventSubEventListWorker() {
+        super("EventSubEventList");
+    }
+
     @Override
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-        super.extendAll(cntx, select);
-        TcPersonalConfig pConfig = cntx.personalConfig();
-        if (pConfig instanceof PersonalConfigAA) {
-            PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
-            String domain = cntx.contentAsString(PARAM_DOMAIN);
-            if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN)))
-                select.where(Expr.equal("fk_orgunit", aaConfig.getOrgUnitId()));
-        } else
-            throw new BeanException("Missing user information");
+        select.where(Expr.equal("tevent.parenteventid", getEvent(cntx).id));
+    }
 
-        // Dreht die Sortierung beim Export von Personen-Daten
-        // um, um erst die "ältesten" Veranstaltungen zu sehen,
-        // da diese am wahrscheinlichsten für einen Export
-        // in Frage kommen.
-        String invertOrder = cntx.contentAsString("invertOrder");
-        if ("true".equals(invertOrder)) {
-        	select.orderBy(Order.desc("datebegin").andAsc("shortname"));
+    @Override
+   protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
+        select.join("veraweb.tevent", "tevent.pk", "tevent.fk_event");
+        select.selectAs("tevent.shortname", "shortName");
+        select.orderBy(Order.asc("tevent_SubEventList.fk_event_SubEventList"));
+    }
+
+    @Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
+        select.where(Expr.equal("tevent.parenteventid", getEvent(cntx).id));
+    }
+
+    @Override
+    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context) {
+        try {
+            super.saveBean(octopusContext, bean, context);
+        } catch (BeanException e) {
+            LOGGER.error("Fehler beim speichern der neuen Vorbedingung", e);
+        } catch (IOException e) {
+            LOGGER.error("Fehler beim speichern der neuen Vorbedingung", e);
         }
     }
 
+    private Event getEvent(OctopusContext cntx) {
+        return (Event)cntx.contentAsObject("event");
+    }
 
     @Override
 	public List showList(OctopusContext cntx) throws BeanException, IOException {
