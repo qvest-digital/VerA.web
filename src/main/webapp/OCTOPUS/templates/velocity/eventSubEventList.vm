@@ -5,9 +5,13 @@
 #set($elementNamePlural = "Dokumenttypen")
 
 ##Values in per cent for table columns width
-#set($column0 = 3)
-#set($column1 = 5)
-#set($column2 = 92)
+	#set($column0 = 3)
+	#set($column1 = 5)
+	#set($column2 = 25)
+	#set($column3 = 10)
+	#set($column4 = 10)
+	#set($column5 = 25)
+	#set($column6 = 25)
 
 #parse("inc/header.vm")
 
@@ -203,6 +207,7 @@
     				<col width="$column5%" />
     				<col width="$column6%" />
 
+
 					<tr>
 						#if($action != "guest" && $action != "addperson" && $grants.mayWrite())
 							<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
@@ -392,6 +397,9 @@
 											$!message.plain($location.get("name"))
 										#end
 									#end
+								</td>
+								<td>
+								##Vorbedingungen erfüllen
 								</td>
 							#end
 						</tr>
