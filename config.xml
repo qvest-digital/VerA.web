@@ -164,7 +164,7 @@
   </publishers>
   <buildWrappers>
     <org.jvnet.hudson.plugins.m2release.M2ReleaseBuildWrapper>
-      <releaseGoals>-Dresume=false release:prepare release:perform -DpreparationGoals=&quot;clean install&quot; -e</releaseGoals>
+      <releaseGoals>-Dresume=false release:prepare release:perform -DpreparationGoals=&quot;clean install&quot; -e -Platex</releaseGoals>
       <selectCustomScmCommentPrefix>false</selectCustomScmCommentPrefix>
       <selectAppendHudsonUsername>false</selectAppendHudsonUsername>
     </org.jvnet.hudson.plugins.m2release.M2ReleaseBuildWrapper>
