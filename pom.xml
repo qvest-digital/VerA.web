@@ -300,6 +300,22 @@
 							</regexPropertySettings>
 						</configuration>
 					</execution>
+					<execution>
+						<id>attach-artifacts</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attach-artifact</goal>
+						</goals>
+						<configuration>
+							<artifacts>
+								<artifact>
+									<file>target/latex/installationsanleitung-core/installationsanleitung-core.pdf</file>
+									<type>pdf</type>
+									<classifier>installationsanleitung-core</classifier>
+								</artifact>
+							</artifacts>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 
@@ -350,6 +366,14 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>latex-maven-plugin</artifactId>
 				<version>1.1</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>latex</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
