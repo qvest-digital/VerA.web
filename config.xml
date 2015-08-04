@@ -41,26 +41,26 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Run.Update:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:anonymous</permission>
-      <permission>hudson.model.Item.Workspace:aalexa</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:dgeorg</permission>
-      <permission>hudson.model.Item.Build:aalexa</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Build:dgeorg</permission>
+      <permission>hudson.model.Item.Delete:aalexa</permission>
+      <permission>hudson.model.Item.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Delete:dgeorg</permission>
       <permission>hudson.model.Item.Read:anonymous</permission>
       <permission>hudson.model.Item.Read:aalexa</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
       <permission>hudson.model.Item.Read:dgeorg</permission>
-      <permission>hudson.model.Item.Delete:aalexa</permission>
-      <permission>hudson.model.Item.Delete:veraweb</permission>
-      <permission>hudson.model.Item.Delete:dgeorg</permission>
+      <permission>hudson.model.Item.Workspace:anonymous</permission>
+      <permission>hudson.model.Item.Workspace:aalexa</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:dgeorg</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.scm.SCM.Tag:veraweb</permission>
       <permission>hudson.model.Run.Delete:veraweb</permission>
       <permission>hudson.model.Item.Configure:aalexa</permission>
       <permission>hudson.model.Item.Configure:veraweb</permission>
       <permission>hudson.model.Item.Configure:dgeorg</permission>
-      <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Item.Build:aalexa</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Build:dgeorg</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM">
@@ -150,6 +150,30 @@
       <jobAdditionalProperties>-e</jobAdditionalProperties>
     </hudson.plugins.sonar.SonarPublisher>
     <org.jenkinsci.plugins.emotional__jenkins.EmotionalJenkinsPublisher/>
+    <hudson.plugins.jabber.im.transport.JabberPublisher>
+      <targets>
+        <hudson.plugins.im.DefaultIMMessageTarget>
+          <value>aalexa@info.tarent.de,</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget>
+          <value>csalib@info.tarent.de,</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget>
+          <value>jnunez@info.tarent.de,</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget>
+          <value>sweiz@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+      </targets>
+      <strategy>ALL</strategy>
+      <notifyOnBuildStart>false</notifyOnBuildStart>
+      <notifySuspects>false</notifySuspects>
+      <notifyCulprits>false</notifyCulprits>
+      <notifyFixers>false</notifyFixers>
+      <notifyUpstreamCommitters>false</notifyUpstreamCommitters>
+      <buildToChatNotifier class="hudson.plugins.im.build_notify.DefaultBuildToChatNotifier"/>
+      <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
+    </hudson.plugins.jabber.im.transport.JabberPublisher>
   </publishers>
   <buildWrappers>
     <org.jvnet.hudson.plugins.m2release.M2ReleaseBuildWrapper>
@@ -161,18 +185,13 @@
   <prebuilders/>
   <postbuilders>
     <hudson.tasks.Shell>
-      <command>scp target/vwor.war root@veraweb:/tmp
-ssh root@veraweb &apos;
-	set -e
-
-	service tomcat7 stop
-	sleep 10
-
-	rm -rf /var/lib/tomcat7/webapps/vwor*
-	cp /tmp/vwor.war /var/lib/tomcat7/webapps/
-
-	service tomcat7 start
-    &apos;
+      <command>set -e
+ssh root@veraweb-mit.lan.tarent.de &apos;service tomcat7 stop&apos;
+sleep 10
+ssh root@veraweb-mit.lan.tarent.de &apos;rm -rf /var/lib/tomcat7/webapps/vwor*&apos;
+scp target/vwor.war root@veraweb-mit.lan.tarent.de:/var/lib/tomcat7/webapps/vwor.war
+ssh root@veraweb-mit.lan.tarent.de &apos;service tomcat7 start&apos;
+sleep 10
 </command>
     </hudson.tasks.Shell>
   </postbuilders>
