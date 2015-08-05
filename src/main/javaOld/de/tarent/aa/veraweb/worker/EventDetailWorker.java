@@ -154,6 +154,10 @@ public class EventDetailWorker {
 			event.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
 
 			Event oldEvent = (Event) database.getBean("Event", event.id, context);
+			// conserve parent_event_id for subEvents
+			if(oldEvent != null) {
+				event.parent_event_id=oldEvent.parent_event_id;
+			}
 
 			List errors = new ArrayList();
 			Map questions = new HashMap();

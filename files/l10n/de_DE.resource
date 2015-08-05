@@ -10,6 +10,7 @@ BROWSER_TITLE_DOCUMENT_TYPES=Dokumenttypen
 BROWSER_TITLE_IMPORT_DUPLICATE_ACCEPT=Importstatus - Dubletten \u00FCbernehmen
 BROWSER_TITLE_ERROR_OCCURS=Ein Fehler ist aufgetreten
 BROWSER_TITLE_EVENT_EDIT=Veranstaltung bearbeiten
+BROWSER_TITLE_SUBEVENT_EDIT=Unterveranstaltung bearbeiten
 BROWSER_TITLE_EVENT_CREATE=Neue Veranstaltung erstellen
 BROWSER_TITLE_EVENT_SELECT=Veranstaltung ausw\u00E4hlen
 BROWSER_TITLE_PERSON_ASSIGN=Person zuordnen
@@ -490,6 +491,7 @@ anzahlproseite=anzahl pro seite
 seitexvony=seite x von y
 # veranstaltung bearbeiten/allgemein
 veranstaltungbearbeiten=Veranstaltung bearbeiten
+unterveranstaltungbearbeiten=Unterveranstaltung bearbeiten
 veranstaltungs-id=veranstaltungs-id
 veranstaltungsname=veranstaltungsname
 veranstaltungsurl=veranstaltungs-URL
@@ -510,7 +512,9 @@ gastgeberpartner=Gastgeber-Partner
 loginnotwendig=Login notwendig
 anmeldungvonpressevertreternmoglich=Anmeldung von Pressevertretern m\u00F6glich
 veranstaltungspeichern=Veranstaltung speichern
+unterveranstaltungspeichern=Unterveranstaltung speichern
 zurveranstaltungsubersicht=Zur Veranstaltungs\u00FCbersicht
+zurunterveranstaltungsubersicht=Zur Untereranstaltungs\u00FCbersicht
 # veranstaltung bearbeiten/dokumenttypen
 markiertedokumenttypen=markierte Dokumenttypen
 entfernen=Entfernen

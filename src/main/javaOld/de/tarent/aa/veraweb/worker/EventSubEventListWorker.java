@@ -2,6 +2,7 @@ package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalField;
+import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -74,11 +75,6 @@ public class EventSubEventListWorker extends ListWorkerVeraWeb {
 	        }
 		}
 	}
-
-//	private getEvent(OctopusContext cntx) {
-//    	EventDetailWorker eventDetailWorker = new EventDetailWorker();
-//    	
-//    }
 	
     //
     // Basisklasse BeanListWorker
@@ -95,27 +91,22 @@ public class EventSubEventListWorker extends ListWorkerVeraWeb {
      */
     private static final Logger LOGGER = Logger.getLogger(EventSubEventListWorker.class.getCanonicalName());
 
-//    public EventSubEventListWorker() {
-//        super("EventSubEventList");
-//    }
-
     @Override
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
         select.where(Expr.equal("tevent.parent_event_id", getEvent(cntx).id));
+        
+        System.out.println("breakpoint");
     }
 
     @Override
-   protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
-//        select.join("veraweb.tevent", "tevent.pk", "tevent.fk_event");
-//        select.selectAs("tevent.shortname", "shortName");
-//        select.orderBy(Order.asc("tevent_.fk_event"));
-//    	select.where(Expr.isNotNull("tevent.parent_event_id"));
+   protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {        
+        select.selectAs("tevent.parent_event_id", "parent_event_id");
     }
 
-//    @Override
-//    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
-//        select.where(Expr.equal("tevent.parenteventid", getEvent(cntx).id));
-//    }
+    @Override
+    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
+        select.where(Expr.equal("tevent.parent_event_id", getEvent(cntx).id));
+    }
 
     @Override
     protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context) {
@@ -153,7 +144,7 @@ public class EventSubEventListWorker extends ListWorkerVeraWeb {
 	 *
 	 * @see #getSearch(OctopusContext)
 	 */
-	@Override
+/*	@Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
 		Event search = getSearch(cntx);
 
@@ -202,7 +193,7 @@ public class EventSubEventListWorker extends ListWorkerVeraWeb {
         if (where.size() > 0)
             select.where(where);
 	}
-
+*/
 	/**
 	 * Überprüft ob es noch laufende oder zukünftige Veranstaltungen und fragt ggf. ob diese trotzdem gelöscht werden sollen.
 	 */

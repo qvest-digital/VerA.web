@@ -1,7 +1,11 @@
 #set($activeMenu = "Veranstaltungen")
 
 #if($event && $event.id)
-	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_EDIT}: $!message.plain($event.shortname)")
+	##if($event.parent_event_id)
+		#set($title = "${placeholderWithTranslation.BROWSER_TITLE_SUBEVENT_EDIT}: $!message.plain($event.shortname)")
+	##else
+		##set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_EDIT}: $!message.plain($event.shortname)")
+	##end
 #else
 	#set($isNewEvent = 1)
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_CREATE}")
@@ -17,7 +21,11 @@
 		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
 		</div>
-			<h1>${placeholderWithTranslation.veranstaltungbearbeiten} $!message.plain($event.shortname)</h1>
+		#if($event.parent_event_id)
+			<h1>${placeholderWithTranslation.unterveranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
+		#else
+			<h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
+		#end
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.neueveranstaltung}</span>
@@ -126,6 +134,7 @@
 
 			<input type="hidden" name="event-id" value="$!event.id">
 			<input type="hidden" name="event-orgunit" value="$!event.orgunit">
+			<input type="hidden" name="event-parent-id" value="$!event.parent_event_id" >
 
 			<div #if(!$isNewEvent)vera-content="allgemein"#end class="contentBoxColored tabsContent">
 				<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
@@ -354,13 +363,25 @@
 		<span class="floatRight" id="buttonPanel-bottom">
 			<!-- Show the save button -->
 			#if($grants.mayWrite())
-				<input type="submit" class="mainButton" value="${placeholderWithTranslation.veranstaltungspeichern}" title="${placeholderWithTranslation.veranstaltungspeichern}" name="save" onclick="document.getElementById('formlist').action='SaveEvent';">
+				<input type="submit" class="mainButton" 
+				#if($event.parent_event_id)
+					value="${placeholderWithTranslation.unterveranstaltungspeichern}" 
+				#else
+					value="${placeholderWithTranslation.veranstaltungspeichern}"
+				#end
+				title="${placeholderWithTranslation.veranstaltungspeichern}" name="save" onclick="document.getElementById('formlist').action='SaveEvent';">
 			#end
-
-			#if($event && $event.id)
-				<input type="reset" class="mainButton" value="${placeholderWithTranslation.zurveranstaltungsubersicht}" title="${placeholderWithTranslation.zurveranstaltungsubersicht}" name="cancel" onclick="window.location.href='SearchEvent?action=event&selectNone=true';">
+			
+			<input type="reset" class="mainButton"
+			#if($event.parent_event_id)
+				value="${placeholderWithTranslation.zurunterveranstaltungsubersicht}"
 			#else
-				<input type="reset" class="mainButton" value="${placeholderWithTranslation.zurveranstaltungsubersicht}" title="${placeholderWithTranslation.zurveranstaltungsubersicht}" name="cancel" onclick="if (checkModified()) { window.location.href='ShowEventSearch?action=event'; }">
+				value="${placeholderWithTranslation.zurveranstaltungsubersicht}"
+			#end
+			#if($event && $event.id)
+				 title="${placeholderWithTranslation.zurveranstaltungsubersicht}" name="cancel" onclick="window.location.href='SearchEvent?action=event&selectNone=true';">
+			#else
+				 title="${placeholderWithTranslation.zurveranstaltungsubersicht}" name="cancel" onclick="if (checkModified()) { window.location.href='ShowEventSearch?action=event'; }">
 			#end
 		</span>
 
