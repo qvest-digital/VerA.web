@@ -144,56 +144,13 @@ public class EventSubEventListWorker extends ListWorkerVeraWeb {
 	 *
 	 * @see #getSearch(OctopusContext)
 	 */
-/*	@Override
-    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
-		Event search = getSearch(cntx);
+    
+    
+    public void passParentEventId(OctopusContext octopusContext) {
+    	System.out.println("test");
+//    	octopusContext.setContent("ParentId", "");
+    }
 
-		// WHERE - Filtert das Datenbank Ergebnis anhand der Benutzereingaben.
-		WhereList where = new WhereList();
-
-        TcPersonalConfig pConfig = cntx.personalConfig();
-        if (pConfig instanceof PersonalConfigAA) {
-            PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
-            String domain = cntx.contentAsString(PARAM_DOMAIN);
-            if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN)))
-                where.addAnd(Expr.equal("fk_orgunit", aaConfig.getOrgUnitId()));
-        } else
-            throw new BeanException("Missing user information");
-
-		if (search.shortname != null && search.shortname.length() != 0) {
-			where.addAnd(DatabaseHelper.getWhere(search.shortname, new String[] {
-					"shortname" }));
-		}
-		if (search.eventname != null && search.eventname.length() != 0) {
-			where.addAnd(DatabaseHelper.getWhere(search.eventname, new String[] {
-					"eventname" }));
-		}
-		if (search.hostname != null && search.hostname.length() != 0) {
-			where.addAnd(DatabaseHelper.getWhere(search.hostname, new String[] {
-					"hostname" }));
-		}
-		if (search.location != null) {
-			where.addAnd(Expr.equal("fk_location", search.location));
-		}
-		if (search.begin != null) {
-			Timestamp nextDay = new Timestamp(search.begin.getTime() + 86400000); // nächster tag
-			where.addAnd(Where.and(
-					Expr.greaterOrEqual("datebegin", search.begin),
-					Expr.less("datebegin", nextDay)));
-		}
-		if (search.end != null) {
-			where.addAnd(new RawClause(
-					"((datebegin IS NOT NULL AND datebegin>=now()::date) OR" +
-					" (dateend IS NOT NULL AND dateend>=now()::date))"));
-//			where.addAnd(Where.or(
-//					Expr.greaterOrEqual("datebegin", search.end),
-//					Expr.greaterOrEqual("dateend", search.end)));
-		}
-
-        if (where.size() > 0)
-            select.where(where);
-	}
-*/
 	/**
 	 * Überprüft ob es noch laufende oder zukünftige Veranstaltungen und fragt ggf. ob diese trotzdem gelöscht werden sollen.
 	 */

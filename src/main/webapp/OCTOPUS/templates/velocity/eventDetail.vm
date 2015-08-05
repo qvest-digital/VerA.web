@@ -1,11 +1,7 @@
 #set($activeMenu = "Veranstaltungen")
 
 #if($event && $event.id)
-	##if($event.parent_event_id)
 		#set($title = "${placeholderWithTranslation.BROWSER_TITLE_SUBEVENT_EDIT}: $!message.plain($event.shortname)")
-	##else
-		##set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_EDIT}: $!message.plain($event.shortname)")
-	##end
 #else
 	#set($isNewEvent = 1)
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_CREATE}")

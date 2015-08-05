@@ -26,6 +26,7 @@
 
 	#set($completeEventHeader = false)
 	#parse("inc/event-header.vm")
+	
 
 	<form id="formlist" name="formlist" action="ShowEventDoctype" method="POST" onsubmit="htmlWait();">
 		<input type="hidden" name="id" value="$!event.id"/>
@@ -166,7 +167,7 @@
 		#if ($listparam.count == 0)
 			#if($grants.mayWrite() && !$searchTask)
 				<div id="" class="buttonPanel-top textRight marginBottom10">
-					<input type="button" name="" value="${placeholderWithTranslation.neueunterveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateSubEvent?action=subEvent';"/>
+					<input type="button" name="" value="${placeholderWithTranslation.neueunterveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateSubEvent?action=event';"/>
 				</div>
 			#end
 			<div class="contentBoxColored grayBorder marginBottom20">
@@ -186,9 +187,8 @@
 
 			#if($action != "guest" && $action != "addperson" && !$searchTask )
 				<span id="" class="buttonPanel-top textRight floatRight">
-					<input type="button" name="" value="${placeholderWithTranslation.unterveranstaltungsuchen}" class="mainButton" onclick="window.location.href='ShowEventSearch?action=event';"/>
 					#if($grants.mayWrite())
-						<input type="button" name="" value="${placeholderWithTranslation.neueunterveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateSubEvent?id=$!event.id&action=subEvent';"/>
+						<input type="button" name="" value="${placeholderWithTranslation.neueunterveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateSubEvent?id=$!event.id&action=event';"/>
 					#end
 				</span>
 			#end
@@ -207,7 +207,7 @@
     				<col width="$column5%" />
     				<col width="$column6%" />
 
-
+ 
 					<tr>
 						#if($action != "guest" && $action != "addperson" && $grants.mayWrite())
 							<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
@@ -244,89 +244,9 @@
 										<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter">$!message.date("DATE_TIME", $bean.end) Uhr</td>
 									#end
 								#else
-									<td onclick="window.location.#set($activeMenu = "Veranstaltungen")
-#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_EDIT}: $!message.plain($event.shortname)")
-#set($elementNameSex = "male")
-#set($elementNameSingular = "Dokumenttyp")
-#set($elementNamePlural = "Dokumenttypen")
-
-##Values in per cent for table columns width
-#set($column0 = 3)
-#set($column1 = 5)
-#set($column2 = 92)
-
-#parse("inc/header.vm")
-
-<div id="content_container">
-
-	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
-	</div>
-
-	<h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
-
-
-	#set($completeEventHeader = false)
-	#parse("inc/event-header.vm")
-
-	<form id="formlist" name="formlist" action="ShowEventDoctype" method="POST" onsubmit="htmlWait();">
-		<input type="hidden" name="id" value="$!event.id"/>
-		<input type="hidden" name="start" value=""/>
-		<input type="hidden" name="limit" value=""/>
-		<input type="hidden" name="selectNone" value="true"/>
-		<input type="hidden" name="doInsert" value="true"/>
-		<input type="hidden" name="doUpdate" value="false"/>
-		<input type="hidden" name="doRemove" value="true"/>
-
-        <div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
-            <input type="button" class="mainButton" value="${placeholderWithTranslation.zurgasteverwaltung}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
-        </div>
-
-        <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-        <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
-            <div id="tabsMain" class="event">
-                ##First row
-                <ul class="gray-gradient" vera-tab-group>
-                    <li class="inactive" onclick="window.location.href='ShowEvent?id=$!event.id';">
-                        <div>Allgemein</div>
-                    </li>
-                   <li class="inactive"
-                        onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';" class="noBorder">
-                        <div>${placeholderWithTranslation.dokumenttypen}</div>
-                    </li>
-                    <li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';">
-                        <div>Aufgaben</div>
-                    </li>
-                    #if($online-registration.activated)
-                        <li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'">
-                            <div>${placeholderWithTranslation.zusatzlichepersonendaten}</div>
-                        </li>
-                        <li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';">
-                            <div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
-                        </li>
-                        <li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';">
-                            <div>${placeholderWithTranslation.kategorien}</div>
-                        </li>
-                    #end
-                </ul>
-                ##Second row
-                #if($online-registration.activated)
-                    <ul class="gray-gradient" vera-tab-group>
-                        #if($event.apply_without_precondition && $event.apply_without_precondition == true)
-                        <li class="inactive" onclick="window.location.href='ShowEventPrecondition?id=$!event.id';">
-                            <div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
-                        </li>
-                        #end
-                        <li class="active">
-                            <div>${placeholderWithTranslation.subEvents}</div>
-                        </li>
-                    </ul>
-                #end
-            </div>
-
-
-									href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter"></td>
+									<td onclick="window.location.#set($activeMenu = "Veranstaltungen") href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter"></td>
 								#end
+								
 
 								<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';">$!message.plain($bean.hostname)</td>
 								<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';">
@@ -411,14 +331,6 @@
 
 				</table>
 		#end
-
-		<div class="textRight">
-			#if($action == "guest" && !$searchTask)
-				<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzurveranstaltungssuche}" onclick="window.location.href='ShowGuestList?selectNone=true';" class="mainButton">
-			#elseif($action == "addperson" || $searchTask)
-				<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzurveranstaltungssuche}" onclick="window.location.href='ShowEventSearch';" class="mainButton">
-			#end
-		</div>
 	</form>
 </div>
 

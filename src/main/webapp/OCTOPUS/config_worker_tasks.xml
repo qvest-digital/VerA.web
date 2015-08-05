@@ -1165,7 +1165,6 @@
 				Dieser Task zeigt eine Veranstaltung an.
 			</description>
 			<doTask name="Load"/>
-			<action name="getAll" worker="LocationListWorker" />
 			<response type="velocity" name="eventDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -1176,8 +1175,8 @@
 				Dieser Task zeigt eine Unterveranstaltung an.
 			</description>
 			<doTask name="Load"/>
-			<action name="getAll" worker="LocationListWorker" />
-			<response type="velocity" name="eventSubEventDetail">
+			<action name="passParentEventId" worker="EventSubEventListWorker" />
+			<response type="velocity" name="eventDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
