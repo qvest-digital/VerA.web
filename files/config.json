@@ -24,10 +24,10 @@
     "adminContextPath": "/admin",
     "applicationContextPath": "/",
     "connector": {
-      "port": 8080,
+      "port": 8081,
       "type": "http"
     },
     "type": "simple"
   },
-  "verawebEndpoint": "http://localhost:8181/vwor"
+  "verawebEndpoint": "http://localhost:8080/vwor"
 }
