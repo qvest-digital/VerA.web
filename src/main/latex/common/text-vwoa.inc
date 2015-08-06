@@ -38,9 +38,11 @@ Temporäres Verzeichnis ~/vwoa anlegen und populieren:
   aus files.tgz, anzupassen:
   * osiam/{clientSecret,endpoint}
     → osiamsecret in register-veraweb-into-osiam.sh
+    → endpoint https://HOSTNAME
   * restauth/{password,username}
     → /etc/tomcat7/tomcat-users.xml in vwor
   * verawebEndpoint
+    → https://HOSTNAME/vwor
 - vwoa/run 0:0 755 aus files.tgz
 
 XXX TODO: als regulärer User rennen! ⚠⚠⚠ SECURITY ⚠⚠⚠
