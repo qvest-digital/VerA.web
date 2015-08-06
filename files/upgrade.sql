@@ -19,7 +19,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2015-07-30';
+	vversion := '2015-08-06';
 
 	-- initialisation
 	vint := 0;
@@ -469,7 +469,7 @@ BEGIN
 
 	-- anything after the old SQL files
 
-	vnewvsn := '2015-07-30';
+	vnewvsn := '2015-08-06';
 	IF vcurvsn < vnewvsn THEN
 		vmsg := 'begin.update(' || vnewvsn || ')';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
@@ -487,10 +487,12 @@ BEGIN
 		) WITH OIDS;
 
 		-- New flag, to show if precondition of guest is fulfilled
-		ALTER TABLE veraweb.tguest ADD COLUMN precondition BOOLEAN DEFAULT false;
+		ALTER TABLE veraweb.tguest ADD COLUMN precondition int4 DEFAULT 0;
 
 		-- New flag, to disallow or allow guests with unfulfilled preconditions to apply to events
 		ALTER TABLE veraweb.tevent ADD COLUMN apply_without_precondition int4 DEFAULT 0;
+        -- Now sets default value (current time)
+		ALTER TABLE veraweb.tguest ALTER COLUMN created SET DEFAULT current_timestamp;
 
 		-- post-upgrade
 		vmsg := 'end.update(' || vnewvsn || ')';
