@@ -41,6 +41,7 @@ sudo -u postgres createdb -E UTF-8 -O ong -T template0 ong
 Dateien aus vw-online-registration-files.tgz osiam/* nach /etc/osiam/ kopieren und anpassen.
 
 Für OSIAM-Betrieb muß der tomcat auf localhost (oder außen) auf http/8080 lauschen!
+TODO: https-only
 
 Anpassen: /etc/tomcat7/catalina.properties /^shared.loader=/s!$!,/etc/osiam!
 
