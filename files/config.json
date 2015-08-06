@@ -2,7 +2,11 @@
   "logging": {
     "appenders": [
       {
-        "type": "console"
+        "archivedFileCount": 7,
+        "archivedLogFilenamePattern": "/var/log/vwoa.log.%d.gz",
+        "currentLogFilename": "/var/log/vwoa.log",
+        "timeZone": "UTC",
+        "type": "file"
       }
     ],
     "level": "INFO",
