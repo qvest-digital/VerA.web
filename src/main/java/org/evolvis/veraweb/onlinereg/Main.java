@@ -99,7 +99,7 @@ public class Main extends Application<Config> {
                     new HTTPBasicAuthFilter(configuration.getRestauth().getUsername(), configuration.getRestauth().getPassword()));
         } catch (NullPointerException e) {
             e.printStackTrace();
-            log.warning("REST-Auth Konfiguration in config.yaml prüfen!");
+            log.warning("REST-Auth Konfiguration in config.json prüfen!");
         }
 
         environment.jersey().setUrlPattern("/api/*");
