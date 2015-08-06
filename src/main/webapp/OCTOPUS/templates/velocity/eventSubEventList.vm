@@ -167,7 +167,7 @@
 		#if ($listparam.count == 0)
 			#if($grants.mayWrite() && !$searchTask)
 				<div id="" class="buttonPanel-top textRight marginBottom10">
-					<input type="button" name="" value="${placeholderWithTranslation.neueunterveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateSubEvent?action=event';"/>
+					<input type="button" name="" value="${placeholderWithTranslation.neueunterveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateSubEvent?parentId=$!event.id';"/>
 				</div>
 			#end
 			<div class="contentBoxColored grayBorder marginBottom20">
@@ -188,7 +188,7 @@
 			#if($action != "guest" && $action != "addperson" && !$searchTask )
 				<span id="" class="buttonPanel-top textRight floatRight">
 					#if($grants.mayWrite())
-						<input type="button" name="" value="${placeholderWithTranslation.neueunterveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateSubEvent?id=$!event.id&action=event';"/>
+						<input type="button" name="" value="${placeholderWithTranslation.neueunterveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateSubEvent?parentId=$!event.id&action=event';"/>
 					#end
 				</span>
 			#end

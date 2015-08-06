@@ -34,6 +34,9 @@
 		<input type="hidden" id="modified" name="event-modified" value="false">
 		<input type="hidden" name="saveevent" value="true">
 		<input type="hidden" name="search" value="clear">
+		#if($parentId)
+			<input type="hidden" name="parentId" value="$parentId">
+		#end
 
 		#if($status && $status.code && $status.code == "noevent")
 			<vera-warn>
@@ -120,11 +123,13 @@
                                     <div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
                                 </li>
                             #end
+                    #end
+                    #if(!$event.parent_event_id)
                             <li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';">
                                 <div>${placeholderWithTranslation.GENERIC_SUBEVENT_PLURAL}</div>
                             </li>
+                    #end
                         </ul>
-					#end
                 </div>
             #end
 

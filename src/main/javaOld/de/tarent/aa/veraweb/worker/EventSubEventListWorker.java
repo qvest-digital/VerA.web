@@ -57,6 +57,8 @@ public class EventSubEventListWorker extends ListWorkerVeraWeb {
 
     public static final String OUTPUT_getEvent = "event";
     
+    public static final String INPUT_passParentEventId[] = {};
+    
     //
     // Konstruktoren
     //
@@ -147,8 +149,7 @@ public class EventSubEventListWorker extends ListWorkerVeraWeb {
     
     
     public void passParentEventId(OctopusContext octopusContext) {
-    	System.out.println("test");
-//    	octopusContext.setContent("ParentId", "");
+    	octopusContext.setContent("parentId", octopusContext.getRequestObject().getRequestParameters().get("parentId"));
     }
 
 	/**
