@@ -30,9 +30,8 @@ In den vhost:
 	ProxyPass /vwor-app/ http://localhost:8081/
 	ProxyPassReverse /vwor-app/ http://localhost:8081/
 
-Temporäres Verzeichnis ~/vwoa/log anlegen und populieren:
+Temporäres Verzeichnis ~/vwoa anlegen und populieren:
 - vwoa/ 0:0 755
-- vwoa/log/ 0:0 755
 - vwoa/vwoa.jar 0:0 644
   von https://maven-repo.evolvis.org/releases/org/evolvis/veraweb/online-anmeldung/1.6.25.0/online-anmeldung-1.6.25.0.jar
 - vwoa/config.json 0:0 644
@@ -42,3 +41,12 @@ Temporäres Verzeichnis ~/vwoa/log anlegen und populieren:
   * restauth/{password,username}
     → /etc/tomcat7/tomcat-users.xml in vwor
   * verawebEndpoint
+- vwoa/run 0:0 755 aus files.tgz
+
+XXX TODO: als regulärer User rennen! ⚠⚠⚠ SECURITY ⚠⚠⚠
+
+Nachdem fertig: mv vwoa /etc/service/ und beten.
+
+svstat /etc/service/vwoa
+
+less /var/log/vwoa.log
