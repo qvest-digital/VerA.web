@@ -20,6 +20,8 @@
 #-
 # Register VerA.web into OSIAM. Mostly idempotent, except OSIAM bug:
 # https://github.com/osiam/auth-server/issues/54
+#
+#XXX TODO: use https-only for OSIAM
 
 # -*- configuration -*-
 
