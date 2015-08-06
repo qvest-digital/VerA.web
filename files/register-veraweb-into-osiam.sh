@@ -2,6 +2,8 @@
 #-
 # Copyright (c) 2015
 #	Thorsten Glaser <t.glaser@tarent.de>
+# Copyright (c) 2013
+#	mirabilos <tg@mirbsd.org>
 #
 # Provided that these terms and disclaimer and all copyright notices
 # are retained or reproduced in an accompanying document, permission
@@ -36,6 +38,47 @@ verawebserver=https://veraweb.lan.tarent.de/veraweb
 
 nl='
 '
+
+# escape string into JSON string (with surrounding quotes)
+function json_escape {
+	[[ -o utf8-mode ]]; local u=$?
+	set -U
+	local o=\" s
+	if (( $# )); then
+		read -raN-1 s <<<"$*"
+		unset s[${#s[*]}-1]
+	else
+		read -raN-1 s
+	fi
+	local -i i=0 n=${#s[*]} wc
+	local -Uui16 -Z7 x
+	local -i1 ch
+
+	while (( i < n )); do
+		(( ch = x = wc = s[i++] ))
+		case $wc {
+		(8) o+=\\b ;;
+		(9) o+=\\t ;;
+		(10) o+=\\n ;;
+		(12) o+=\\f ;;
+		(13) o+=\\r ;;
+		(34) o+=\\\" ;;
+		(92) o+=\\\\ ;;
+		(*)
+			if (( wc < 0x20 || wc > 0xFFFD || \
+			    (wc >= 0xD800 && wc <= 0xDFFF) || \
+			    (wc > 0x7E && wc < 0xA0) )); then
+				o+=\\u${x#16#}
+			else
+				o+=${ch#1#}
+			fi
+			;;
+		}
+	done
+	(( u )) && set +U
+	print -nr -- "$o\""
+}
+
 print -u2 I: updating database
 cd /
 sudo -u postgres psql ong <<'EOF'
@@ -81,7 +124,7 @@ if ! x=$(curl -i -H "Accept: application/json" \
     http://localhost:8080/osiam-auth-server/Client <<EOD
 {
   "accessTokenValiditySeconds": "5000",
-  "client_secret": "$osiamsecret",
+  "client_secret": $(json_escape "$osiamsecret"),
   "grants": [
     "authorization_code",
     "client_credentials",
@@ -90,7 +133,7 @@ if ! x=$(curl -i -H "Accept: application/json" \
   ],
   "id": "online-registration",
   "implicit": "false",
-  "redirectUri": "$verawebserver",
+  "redirectUri": $(json_escape "$verawebserver"),
   "refreshTokenValiditySeconds": "5000",
   "scope": [
     "POST",
