@@ -321,10 +321,11 @@ public class EventDetailWorker {
 			octopusContext.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
 			octopusContext.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
 			
-			// conserve parent_event_id for subEvents
+			// conserve parent_event_id for subEvents and in Octopus
 				if(oldEvent != null) {
 					event.parent_event_id=oldEvent.parent_event_id;
 				} else if (octopusContext.getRequestObject().get("parentId") != null) {
+					octopusContext.setContent("parentId", octopusContext.getRequestObject().get("parentId"));
 					event.parent_event_id= Integer.parseInt(octopusContext.getRequestObject().get("parentId"));
 				}
 				
