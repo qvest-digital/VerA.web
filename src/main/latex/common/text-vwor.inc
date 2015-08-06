@@ -35,7 +35,7 @@ Bearbeiten /etc/tomcat7/tomcat-users.xml vor das schließende </tomcat-users> am
   <role rolename="veraweb"/>
   <user username="veraweb" password="veraweb" roles="veraweb"/>
 
-Anpassen username/password, aber auf was?
+Anpassen username/password (spätere HTTP Basic Auth-Absicherung der API)!
 
 Tomcat neustarten.
 
