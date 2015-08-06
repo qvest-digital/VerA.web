@@ -514,7 +514,7 @@ anmeldungvonpressevertreternmoglich=Anmeldung von Pressevertretern m\u00F6glich
 veranstaltungspeichern=Veranstaltung speichern
 unterveranstaltungspeichern=Unterveranstaltung speichern
 zurveranstaltungsubersicht=Zur Veranstaltungs\u00FCbersicht
-zurunterveranstaltungsubersicht=Zur Untereranstaltungs\u00FCbersicht
+zurunterveranstaltungsubersicht=Zur Unterveranstaltungs\u00FCbersicht
 # veranstaltung bearbeiten/dokumenttypen
 markiertedokumenttypen=markierte Dokumenttypen
 entfernen=Entfernen
@@ -531,7 +531,7 @@ verantwortlicher=Verantwortlicher
 aufgabenid=Aufgaben-ID
 fertigstellung=fertigstellung
 prioritat=Priorit\u00E4t
-veranstwortlicher=Veranstwortlicher
+verantwortlicher=Verantwortlicher
 beschreibung=Beschreibung
 verantwortlichenhinzufugen=Verantwortlichen hinzuf\u00FCgen
 verantwortlichenentfernen=Verantwortlichen entfernen

@@ -34,8 +34,12 @@
     <div id="breadcrumb" class="textRight marginBottom10">
         <strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
     </div>
-
-    <h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
+	
+	#if($event.parent_event_id)
+		<h1>${placeholderWithTranslation.unterveranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
+	#else
+		<h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1
+	#end
 
 	#if ($optionalFieldsSummary.createdFields.size()>0 || $optionalFieldsSummary.changedFields.size()>0 || $optionalFieldsSummary.deletedFields.size()>0)
 		<div id="message-container" class="msg successmsg">
@@ -121,9 +125,11 @@
 								<div>${placeholderWithTranslation.GENERIC_PRECONDITION_PLURAL}</div>
 							</li>
 						#end
-                        <li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';">
-                            <div>${placeholderWithTranslation.GENERIC_SUBEVENT_PLURAL}</div>
-                        </li>
+                   		#if(!$event.parent_event_id)
+							<li class="inactive" onclick="window.location.href='ShowEventSubEventList?id=$!event.id';">
+	                            <div>${placeholderWithTranslation.GENERIC_SUBEVENT_PLURAL}</div>
+							</li>
+						#end
                     </ul>
                 #end
             </div>
@@ -168,11 +174,23 @@
 
         <span id="buttonPanel-bottom" class="floatRight">
             #if($grants.mayWrite())
-                <input type="submit" name="save" value="${placeholderWithTranslation.veranstaltungspeichern}" class="mainButton"
+                <input type="submit" name="save" 
+					#if($event.parent_event_id)
+						value="${placeholderWithTranslation.unterveranstaltungspeichern}" 
+					#else
+						value="${placeholderWithTranslation.veranstaltungspeichern}"
+					#end
+					class="mainButton"
                 	title="${placeholderWithTranslation.veranstaltungspeichern}" onclick="document.getElementById('formlist1').action='$formurl?eventId=$!event.id';" />
             #end
-            <input type="reset" name="cancel" value="${placeholderWithTranslation.zurveranstaltungsubersicht}" class="mainButton"
-                   onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
+            <input type="reset" name="cancel" 
+				#if($event.parent_event_id)
+					value="${placeholderWithTranslation.zurunterveranstaltungsubersicht}"
+				#else
+					value="${placeholderWithTranslation.zurveranstaltungsubersicht}"
+				#end
+				class="mainButton"
+              onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
         </span>
 		</div>
 	</form>
