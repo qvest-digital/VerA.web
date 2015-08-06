@@ -44,3 +44,4 @@ als vwor.war reinwerfen.
 
 Apache-Konfig zusätzlich:
 	JkMount /vwor* ajp13_worker
+Absicherung: macht sein eigenes HTTP Basic Auth

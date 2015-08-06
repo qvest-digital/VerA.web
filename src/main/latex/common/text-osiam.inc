@@ -57,3 +57,4 @@ VerA.web bei OSIAM anmelden: register-veraweb-into-osiam.sh bearbeiten und renne
 Apache-Konfig (XXX wollen wir das wirklich exponieren? Zugriffsschutz wie?)
 	JkMount /osiam-auth-server* ajp13_worker
 	JkMount /osiam-resource-server* ajp13_worker
+Absicherung: ja, hier nur Verbindungen von vwor und vwoa zulassen (tbd)
