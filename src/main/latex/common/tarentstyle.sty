@@ -7,6 +7,8 @@
 %	Thorsten “mirabilos” Glaser <thorsten.glaser@teckids.org>
 % Copyright © 2013
 %	Dominik George <nik@naturalnet.de>
+% with contributions by (among others)
+%	Steven B. Segletes <http://tex.stackexchange.com/users/25858>
 %
 % Provided that these terms and disclaimer and all copyright notices
 % are retained or reproduced in an accompanying document, permission
@@ -63,6 +65,14 @@
 \displaywidowpenalty=10000
 
 \newcommand\0{\scalebox{-1}[1]{0}}
+\let\svttfamily\ttfamily
+\let\svtexttt\texttt
+\catcode`0=\active
+\def0{\0}
+\renewcommand\ttfamily{\svttfamily\catcode`0=\active }
+\renewcommand\texttt{\bgroup\ttfamily\texttthelp}
+\def\texttthelp#1{#1\egroup}
+\catcode`0=12
 
 \DeclareGraphicsExtensions{.pdf,.eps,.png,.jpg}
 
