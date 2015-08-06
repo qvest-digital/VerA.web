@@ -276,7 +276,8 @@ können Sie mit \texttt{ps ax | grep java} prüfen, ob noch Prozesse laufen.
 \begin{minipage}{\textwidth}
 Nun bearbeiten Sie die Datei \texttt{/etc/tomcat7/server.xml}, um Tomcat
 von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
-und kommentieren ihn aus (eine einfache Suche nach „8080“ findet ihn):
+(eine einfache Suche nach „8080“ findet ihn) und kommentieren ihn aus,
+indem Sie davor \texttt{<!-{}-} und dahinter \texttt{-{}->} schreiben:
 
 \begin{lstlisting}[language=XML]
     <Connector port="8080" protocol="HTTP/1.1"
