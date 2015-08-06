@@ -53,3 +53,7 @@ Wait until deployed (takes more than 3 minutes).
 Check if started: curl http://localhost:8080/osiam-resource-server/ServiceProviderConfigs
 
 VerA.web bei OSIAM anmelden: register-veraweb-into-osiam.sh bearbeiten und rennen
+
+Apache-Konfig (XXX wollen wir das wirklich exponieren? Zugriffsschutz wie?)
+	JkMount /osiam-auth-server* ajp13_worker
+	JkMount /osiam-resource-server* ajp13_worker
