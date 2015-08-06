@@ -28,6 +28,8 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{tarentstyle}
 
+% not in lenny
+%\RequirePackage{accsupp}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[pdftex]{graphics}
 \RequirePackage{ngerman}
@@ -116,6 +118,7 @@
 \usepackage{listings}
 \lstset{
 	backgroundcolor=\color{tarentgrau},
+	columns=fullflexible,
 	tabsize=4,
 	rulecolor=,
 	language=python,
