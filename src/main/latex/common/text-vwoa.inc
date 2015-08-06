@@ -52,3 +52,5 @@ Nachdem fertig: mv vwoa /etc/service/ und beten.
 svstat /etc/service/vwoa
 
 less /var/log/vwoa.log
+
+TODO: maybe add a primer on service management with DJB dæmontools
