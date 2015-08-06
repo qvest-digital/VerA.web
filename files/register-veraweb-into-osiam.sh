@@ -31,8 +31,6 @@
 serverauth=ZXhhbXBsZS1jbGllbnQ6c2VjcmV0
 # VerA.web application secret (change it!)
 osiamsecret=geheim
-# path to VerA.web-core installation (change it!)
-verawebserver=https://veraweb.lan.tarent.de/veraweb
 
 # -*- do not change below this point -*-
 
@@ -133,7 +131,7 @@ if ! x=$(curl -i -H "Accept: application/json" \
   ],
   "id": "online-registration",
   "implicit": "false",
-  "redirectUri": $(json_escape "$verawebserver"),
+  "redirectUri": "http://localhost/irrelevant",
   "refreshTokenValiditySeconds": "5000",
   "scope": [
     "POST",
