@@ -20,6 +20,8 @@
 %-
 % im Moment nur Notizen
 
+TODO auch in -core: starting the JVM with -Dfile.encoding=UTF-8
+
 Selbes System wie -core, welcher ok sein muß.
 
 Bearbeiten /etc/tomcat7/context.xml vor das schließende </Context> am Dateiende:
