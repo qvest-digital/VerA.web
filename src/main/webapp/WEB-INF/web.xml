@@ -35,6 +35,9 @@
         <listener-class>org.evolvis.veraweb.onlinereg.HibernateSessionFactoryListener</listener-class>
     </listener>
 
+    <security-role>
+        <role-name>veraweb</role-name>
+    </security-role>
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Veraweb REST API</web-resource-name>
