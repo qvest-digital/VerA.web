@@ -4,6 +4,7 @@
 .project
 .settings
 /*.log
+.metadata/
 /veraweb-war/.checkstyle
 /veraweb-war/.classpath
 /veraweb-war/.project

@@ -141,6 +141,7 @@ public class EventDetailWorker {
 		Request request = new RequestVeraWeb(octopusContext);
 		Database database = new DatabaseVeraWeb(octopusContext);
 		TransactionContext context = database.getTransactionContext();
+		
 
 		try
 		{
@@ -150,6 +151,10 @@ public class EventDetailWorker {
 				event = (Event) request.getBean("Event", "event");
 				DateHelper.addTimeToDate(event.begin, octopusContext.requestAsString("event-begintime"), event.getErrors());
 				DateHelper.addTimeToDate(event.end, octopusContext.requestAsString("event-endtime"), event.getErrors());
+				String parentId=octopusContext.getRequestObject().get("parentId");
+				if (parentId != null) {
+					event.parent_event_id= Integer.parseInt(parentId);
+				}
 			}
 			event.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
 
@@ -315,6 +320,14 @@ public class EventDetailWorker {
             octopusContext.setContent("event", event);
 			octopusContext.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
 			octopusContext.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
+			
+			// conserve parent_event_id for subEvents
+				if(oldEvent != null) {
+					event.parent_event_id=oldEvent.parent_event_id;
+				} else if (octopusContext.getRequestObject().get("parentId") != null) {
+					event.parent_event_id= Integer.parseInt(octopusContext.getRequestObject().get("parentId"));
+				}
+				
 
 			context.commit();
         } catch (BeanException e) {
@@ -409,6 +422,14 @@ public class EventDetailWorker {
     	} else {
     		event.mediarepresentatives = null;
     	}
+    }
+    
+    /*
+     * 
+     * 
+     */
+    private void setParentId(Event event, Event oldEvent) {
+    	
     }
 
     /**

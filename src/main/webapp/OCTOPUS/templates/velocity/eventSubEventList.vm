@@ -5,9 +5,13 @@
 #set($elementNamePlural = "Dokumenttypen")
 
 ##Values in per cent for table columns width
-#set($column0 = 3)
-#set($column1 = 5)
-#set($column2 = 92)
+	#set($column0 = 3)
+	#set($column1 = 5)
+	#set($column2 = 25)
+	#set($column3 = 10)
+	#set($column4 = 10)
+	#set($column5 = 25)
+	#set($column6 = 25)
 
 #parse("inc/header.vm")
 
@@ -22,6 +26,7 @@
 
 	#set($completeEventHeader = false)
 	#parse("inc/event-header.vm")
+	
 
 	<form id="formlist" name="formlist" action="ShowEventDoctype" method="POST" onsubmit="htmlWait();">
 		<input type="hidden" name="id" value="$!event.id"/>
@@ -44,7 +49,8 @@
                     <li class="inactive" onclick="window.location.href='ShowEvent?id=$!event.id';">
                         <div>Allgemein</div>
                     </li>
-                    <li class="inactive">
+                   <li class="inactive"
+                        onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';" class="noBorder">
                         <div>${placeholderWithTranslation.dokumenttypen}</div>
                     </li>
                     <li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';">
@@ -78,107 +84,275 @@
             </div>
 
 
-            <div class="contentBoxColored tabsContent">
-
-                <span id="actionPanel">
-                    #if($grants.mayWrite() && $list && $list.size() > 0)
-                        <strong>Markierte(n) Dokumenttyp(en)</strong>
-                        <input type="button" name="remove" value="${placeholderWithTranslation.entfernen}" title="${placeholderWithTranslation.markiertendokumenttypenentfernen}" onclick="deleteEventDoctype();"/>
-                    #else &nbsp;#end
-                </span>
-
-                #if($grants.mayWrite())
-                    <div class="buttonPanel-top floatRight">
-                        <input type="submit" name="save" title="${placeholderWithTranslation.neuendokumenttyphinzufugen}" value="${placeholderWithTranslation.neuendokumenttyphinzufugen}" class="mainButton" onclick="saveEventDoctype();"/>
-                    </div>
-                #end
-
-                #foreach($bean in $list)
-                    <input type="hidden" name="list" value="$bean.id"/>
-                #end
 
 
-                #if(($list && $list.size() > 0) || $grants.mayWrite())
-                    <table class="notBold fixed">
-                        ##Set column size
-                        <col width="$column0%" />
-                        <col width="$column1%" />
-                        <col width="$column2%" />
 
-                        <tr >
-                            #if($list && $list.size() > 0 && $grants.mayWrite())
-                                <th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
-                            #end
-                            <th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
-                            <th>${placeholderWithTranslation.bezeichnung}</th>
-                        </tr>
-                        #if($grants.mayWrite())
-                        <tr>
-                            #if($list && $list.size() > 0 && $grants.mayWrite())
-                                <td class="textCenter"/>
-                            #end
-                            <input type="hidden" id="add-modified" name="add-modified" value="false"/><input type="checkbox" name="add-select" value="true" style="display: none;"/>
-                            <td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>neu</em></td>
-                            <td>
-                                <select id="add-doctype" name="add-doctype" onchange="setModified('add')">
-                                    <option value="0">${placeholderWithTranslation.bitteauswahlen}</option>
-                                    #foreach($doctype in $allDoctype)
-                                        <option value="$doctype.id">$!message.plain($doctype.name)</option>
-                                    #end
-                                </select>
-                            </td>
-                        </tr>
-                    #end
-                    #foreach($bean in $list)
-                        <tr>
-                            #if($grants.mayWrite())
-                            <td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/><input type="checkbox" name="${bean.id}-select" value="true"/></td>
-                            #end
-                            <td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id"/><input type="hidden" name="${bean.id}-event" value="$!event.id"/>$!bean.id</td>
-                            <td>$!message.plain($bean.name)</td>
-                        </tr>
-                    #end
 
-                    #if ($listparam.count == 0)
-                        <tr>
-                            <td colspan="2">${placeholderWithTranslation.eswurdenkeinedokumenttypengefunden}</td>
-                        </tr>
-                    #end
+	<div style="height:20px;"></div>
+	#if($action == "guest")
+	<vera-info>
+		${placeholderWithTranslation.bitteklickensieeinederaufgelistetenveranstaltungenanumdiegastezuubernehmen}
+	</vera-info>
+	#end
 
-                    #set($itemName = "Dokumenttypen")
-                    #parse("inc/list-navi-new.vm")
+	#if($action == "addperson")
+	<vera-info>
+		${placeholderWithTranslation.bitteklickensieeinederaufgelistetenveranstaltungenanumdiepersondieserveranstaltungzuzuordnen}
+	</vera-info>
+	#end
 
-                </table>
-                #end
-            </div>
-        </div>
 
-		<span id="buttonPanel-bottom" class="floatRight">
-			#if($grants.mayWrite())
-				<input type="submit" name="save" value="${placeholderWithTranslation.veranstaltungspeichern}" class="mainButton"/>
+	<form id="formlist" name="formlist" action="$formurl" method="POST">
+		<input type="hidden" name="start" value="">
+		<input type="hidden" name="limit" value="" />
+
+		<!-- Hidden value to save the information if the list view was shown after event search.
+		This is specially needed after one of the paging buttons was pressed to save this information.-->
+		#if($searchTask)
+			<input type="hidden" name="searchTask" value="">
+		#end
+
+		<input type="hidden" name="selectNone" value="true">
+		<input type="hidden" name="doRemove" value="true">
+
+		#if($listerrors && $listerrors.size() > 0)
+			<vera-warn>
+				<strong>${placeholderWithTranslation.loschenvonveranstaltungenistnichtmoglich}</strong><br>
+				<ul style="margin: 0px 0px 0px -10px;">
+
+				#if($listerrors.size() > 5)
+					#set($show = 5)
+				#else
+					#set($show = $listerrors.size())
+				#end
+
+				#foreach($error in $listerrors)
+					#if($velocityCount <= $show)
+						<li style="margin: 5px 0px 0px 0px;">$error</li>
+					#end
+				#end
+
+				#if($listerrors.size() > $show)
+					#set($drop = $listerrors.size() - $show)
+						<li style="margin: 5px 0px 0px 0px;"><em>... $drop ${placeholderWithTranslation.weiteremeldungen}</em></li>
+				#end
+				</ul>
+			</vera-warn>
+
+		#elseif($listquestions && $listquestions.size() > 0)
+			<vera-confirm>
+				<strong>${placeholderWithTranslation.bittebestatigensiedasloschendermarkiertenveranstaltungen}</strong><br><br>
+				#foreach($quest in $listquestions.entrySet())
+						<span class="notBold"><input type="hidden" name="$quest.key" value="true">$quest.value</span>
+					#set($save = true)
+				#end
+				<br>
+				#foreach($quest in $listquestions2.entrySet())
+						<input type="hidden" name="$quest.key" value="true">$quest.value
+					#set($save = true)
+				#end
+				<br>
+				<br>
+
+				#if($save)
+					<div class="floatRight">
+					<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markierteveranstaltungloschen}">
+				#end
+				<input type="button" id="button.remove-cancel" name="cancel" value="${placeholderWithTranslation.abbrechen}"/>
+				</div>
+			</vera-confirm>
+		#end
+
+		<!-- No need to show table and buttons in case of no results -->
+		#if ($listparam.count == 0)
+			#if($grants.mayWrite() && !$searchTask)
+				<div id="" class="buttonPanel-top textRight marginBottom10">
+					<input type="button" name="" value="${placeholderWithTranslation.neueunterveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateSubEvent?parentId=$!event.id';"/>
+				</div>
 			#end
-			<input type="button" name="cancel" value="${placeholderWithTranslation.zurveranstaltungsubersicht}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
-		</span>
+			<div class="contentBoxColored grayBorder marginBottom20">
+				${placeholderWithTranslation.eswurdenkeineeintragegefunden}
+			</div>
 
+		#else
+
+			#if($action != "guest" && $action != "addperson")
+			<span id="actionPanel" class="inlineLabel">
+				#if(($action != "guest" || $action != "addperson") && $grants.mayWrite())
+					<strong>${placeholderWithTranslation.markierteunterveranstaltungen}</strong>
+					<input type="button" id="button.remove" name="button.remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markierteunterveranstaltungenloschen}"/>
+				#else &nbsp; #end
+			</span>
+			#end
+
+			#if($action != "guest" && $action != "addperson" && !$searchTask )
+				<span id="" class="buttonPanel-top textRight floatRight">
+					#if($grants.mayWrite())
+						<input type="button" name="" value="${placeholderWithTranslation.neueunterveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateSubEvent?parentId=$!event.id&action=event';"/>
+					#end
+				</span>
+			#end
+
+				#foreach($bean in $list)
+					<input type="hidden" name="list" value="$bean.id">
+				#end
+
+				<table class="fixed">
+					##Set column size
+					<col width="$column0%" />
+    				<col width="$column1%" />
+    				<col width="$column2%" />
+    				<col width="$column3%" />
+    				<col width="$column4%" />
+    				<col width="$column5%" />
+    				<col width="$column6%" />
+
+ 
+					<tr>
+						#if($action != "guest" && $action != "addperson" && $grants.mayWrite())
+							<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
+						#end
+
+						<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
+						<th>${placeholderWithTranslation.GENERIC_NAME}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.beginn}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.ende}</th>
+						<th>${placeholderWithTranslation.gastgeber}</th>
+						<th>${placeholderWithTranslation.veranstaltungsort}</th>
+					</tr>
+
+					#foreach($bean in $list)
+
+						#set($offset = $listparam.start + $velocityCount)
+						<tr>
+
+							#if($action == "guest")
+
+								<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+								<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';">$!message.plain($bean.shortname)</td>
+
+								#if ($bean.begin.Seconds == 30)
+									<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter">$!message.date("DATE", $bean.begin)</td>
+								#else
+									<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter">$!message.date("DATE_TIME", $bean.begin) Uhr</td>
+								#end
+
+								#if($bean.end)
+									#if ($bean.end.Seconds == 30)
+										<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter">$!message.date("DATE", $bean.end)</td>
+									#else
+										<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter">$!message.date("DATE_TIME", $bean.end) Uhr</td>
+									#end
+								#else
+									<td onclick="window.location.#set($activeMenu = "Veranstaltungen") href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';" class="textCenter"></td>
+								#end
+								
+
+								<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';">$!message.plain($bean.hostname)</td>
+								<td onclick="window.location.href='AddEventToEventGuestList?id=$!{bean.id}&selectNone=true';">
+									#foreach($location in $allLocation)
+										#if($location.get("id") == $bean.location)
+											$!message.plain($location.get("name"))
+										#end
+									#end
+								</td>
+
+							#elseif($action == "addperson")
+
+								<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+								<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.shortname)</td>
+
+								#if ($bean.begin.Seconds == 30)
+									<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter">$!message.date("DATE", $bean.begin)</td>
+								#else
+									<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter">$!message.date("DATE_TIME", $bean.begin) Uhr</td>
+								#end
+
+								#if($bean.end)
+									#if ($bean.end.Seconds == 30)
+										<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter">$!message.date("DATE", $bean.end)</td>
+									#else
+										<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter">$!message.date("DATE_TIME", $bean.end) Uhr</td>
+									#end
+								#else
+									<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';" class="textCenter"></td>
+								#end
+
+								<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">$!message.plain($bean.hostname)</td>
+								<td onclick="window.location.href='AddPersonToEventDetail?event-id=$!{bean.id}&action=person';">
+									#foreach($location in $allLocation)
+										#if($location.get("id") == $bean.location)
+											$!message.plain($location.get("name"))
+										#end
+									#end
+								</td>
+
+							#else
+								#if($grants.mayWrite())
+									<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
+								#end
+								<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
+								<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.shortname)</td>
+
+								#if ($bean.begin.Seconds == 30)
+									<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter">$!message.date("DATE", $bean.begin)</td>
+								#else
+									<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter">$!message.date("DATE_TIME", $bean.begin) Uhr</td>
+								#end
+
+								#if($bean.end)
+									#if ($bean.end.Seconds == 30)
+										<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter">$!message.date("DATE", $bean.end)</td>
+									#else
+										<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter">$!message.date("DATE_TIME", $bean.end) Uhr</td>
+									#end
+								#else
+									<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';" class="textCenter"></td>
+								#end
+
+								<td onclick="window.location.href='ShowEvent?id=$!{bean.id}';">$!message.plain($bean.hostname)</td>
+								<td width="200px" onclick="window.location.href='ShowEvent?id=$!{bean.id}';">
+									#foreach($location in $allLocation)
+										#if($location.get("id") == $bean.location)
+											$!message.plain($location.get("name"))
+										#end
+									#end
+								</td>
+								<td>
+								##Vorbedingungen erfüllen
+								</td>
+							#end
+						</tr>
+					#end
+
+					#set($itemName = "Veranstaltungen")
+					#parse("inc/list-navi-new.vm")
+					#parse("inc/list-direct-new.vm")
+
+				</table>
+		#end
 	</form>
-	<div class="clear"></div>
-
 </div>
 
-<script type="text/javascript">
-	function deleteEventDoctype() {
-		$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
-		document.formlist.submit();
-	}
+<script>
+	$(function() {
+		$('#button\\.remove').click(function (e) {
+			var checkBoxes = $('input:checkbox[name$="-select"]:checked');
 
-	function saveEventDoctype() {
-		$('<input>').attr({ type: 'hidden', id: 'save', name: 'save' }).appendTo($('#formlist'));
-		document.formlist.submit();
-	}
+			if (checkBoxes.length === 0) {
+				showInfo(' ${placeholderWithTranslation.wahlensiebittezunachsteineodermehrereveranstaltungenaus} ');
+			} else {
+				$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" />').submit();
+			}
+		});
 
-	#if(!$grants.mayWrite())
-		disableForm(document.getElementById('formlist'));
-	#end
+		$('#button\\.remove-cancel').click(function (e) {
+			$('input[name$="-select"]').prop('checked', false);
+			$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" />').submit();
+		});
+	});
 </script>
+
+
 
 #parse("inc/footer.vm")

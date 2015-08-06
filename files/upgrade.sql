@@ -493,7 +493,9 @@ BEGIN
 		ALTER TABLE veraweb.tevent ADD COLUMN apply_without_precondition int4 DEFAULT 0;
         -- Now sets default value (current time)
 		ALTER TABLE veraweb.tguest ALTER COLUMN created SET DEFAULT current_timestamp;
-
+        -- New table for link between event and events, which are preconditions
+        ALTER TABLE tevent ADD COLUMN parent_event_id INTEGER REFERENCES veraweb.tevent(pk) ON DELETE CASCADE;
+		
 		-- post-upgrade
 		vmsg := 'end.update(' || vnewvsn || ')';
 		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';

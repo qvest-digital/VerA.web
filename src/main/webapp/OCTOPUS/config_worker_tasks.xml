@@ -1165,7 +1165,17 @@
 				Dieser Task zeigt eine Veranstaltung an.
 			</description>
 			<doTask name="Load"/>
-			<action name="getAll" worker="LocationListWorker" />
+			<response type="velocity" name="eventDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="CreateSubEvent" access="public" groups="Writer">
+			<description>
+				Dieser Task zeigt eine Unterveranstaltung an.
+			</description>
+			<doTask name="Load"/>
+			<action name="passParentEventId" worker="EventSubEventListWorker" />
 			<response type="velocity" name="eventDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -1298,6 +1308,7 @@
 			<status equals="notsaved">
 				<doTask name="SaveEvent"/>
 			</status>
+			<!-- action name="getAll" worker="EventListWorker"/ -->
 			<action name="showDetail" worker="EventDetailWorker" />
 			<action name="saveList" worker="EventSubEventListWorker" />
 			<action name="showList" worker="EventSubEventListWorker" />
