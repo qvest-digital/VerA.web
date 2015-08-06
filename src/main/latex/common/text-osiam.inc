@@ -22,7 +22,7 @@
 
 Link: https://github.com/osiam/osiam/blob/master/docs/detailed-reference-installation.md
 
-OSIAM Pakete: curl openjdk-7-jre-headless postgresql tomcat7 unzip
+OSIAM Pakete: curl mksh openjdk-7-jre-headless postgresql tomcat7 unzip
 
 RAM: 960 nur OSIAM (1536 rec), 1024 mit VW+VWOA (2048 rec)
 
@@ -51,3 +51,4 @@ Tomcat neustarten, dann WARs rein als osiam-auth-server.war und osiam-resource-s
 Wait until deployed (takes more than 3 minutes).
 Check if started: curl http://localhost:8080/osiam-resource-server/ServiceProviderConfigs
 
+VerA.web bei OSIAM anmelden: register-veraweb-into-osiam.sh bearbeiten und rennen
