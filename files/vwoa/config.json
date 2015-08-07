@@ -18,7 +18,7 @@
   "osiam": {
     "clientId": "online-registration",
     "clientSecret": "geheim",
-    "endpoint": "http://localhost:8080"
+    "endpoint": "https://HOSTNAME"
   },
   "restauth": {
     "password": "veraweb",
@@ -34,5 +34,5 @@
     },
     "type": "simple"
   },
-  "verawebEndpoint": "http://localhost:8080/vwor"
+  "verawebEndpoint": "https://HOSTNAME/vwor"
 }
