@@ -47,6 +47,14 @@
 	#set($formurl = "SearchEvent")
 #end
 
+#set($listParentIds = [])
+#foreach($bean in $list)
+	<input type="hidden" name="list" value="$bean.id">
+	#if($bean.parent_event_id)
+		$listParentIds.add($bean.parent_event_id)
+	#end
+#end
+
 
 <div id="content_container">
 	#if($action == "guest" || $searchTask)
@@ -167,14 +175,6 @@
 					#end
 				</span>
 			#end
-				#set($listParentIds = [])
-				<p> GET ALL PARENTIDS </p>
-				#foreach($bean in $list)
-					<input type="hidden" name="list" value="$bean.id">
-					#if($bean.parent_event_id)
-						$listParentIds.add($bean.parent_event_id)
-					#end
-				#end
 				
 				<table class="fixed">
 					##Set column size
@@ -299,19 +299,19 @@
 											#end
 										#end
 									</td>
+								#end
+								<td>
+								#set($show = false)
+								##ANZEIGE DER SR FLAGE
+								#foreach($parentId in $listParentIds)
+									#if($bean.id == $parentId)
+										#set($show = true)
 									#end
-									<td> 							
-									#set($show = false)
-									##ANZEIGE DER SR FLAGE
-									#foreach($parentId in $listParentIds)
-										#if($bean.id == $parentId)
-											#set($show = true)
-										#end
-									#end
-									#if($show)
-										SR
-									#end
-								</td>
+								#end
+								#if($show)
+									SR
+								#end
+							</td>
 							#end
 						</tr>
 					#end

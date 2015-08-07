@@ -42,20 +42,22 @@
 				<div id="topNav">
                 	<ul>
                         <form id="languageSelectForm" class="inline" method="POST">
-                            <li>
-                                <strong>Sprache:</strong>
-                                <select id="languageSelector" name="languageSelector" onchange="changeLanguage();">
-                                <p>${language} test1</p>
-									#foreach($option in $translatedNames)
-									    <p>${language} test ${option}</p>
-										#if(${option} == ${language})
-											<option selected>${option}</option>
-										#else
-											<option>${option}</option>
+							#if($translatedNames)
+	                            <li>
+	                                <strong>Sprache:</strong>
+	                                <select id="languageSelector" name="languageSelector" onchange="changeLanguage();">
+	                                <p>${language} test1</p>
+										#foreach($option in $translatedNames)
+										    <p>${language} test ${option}</p>
+											#if(${option} == ${language})
+												<option selected>${option}</option>
+											#else
+												<option>${option}</option>
+											#end
 										#end
-									#end
-                                </select>
-                            </li>
+	                                </select>
+	                            </li>
+	                        #end
                         </form>
 
 					    #if($grants && $grants.isAuthenticated())
