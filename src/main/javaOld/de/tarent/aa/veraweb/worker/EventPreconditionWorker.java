@@ -3,15 +3,23 @@ package de.tarent.aa.veraweb.worker;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
+import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author sweiz - tarent solutions GmbH - tarent solutions GmbH on 30.07.15.
@@ -38,6 +46,34 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
     @Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
         select.where(Expr.equal("tevent_precondition.fk_event_main", getEvent(cntx).id));
+    }
+
+    public void savePrecondition(OctopusContext octopusContext) {
+        Database database = new DatabaseVeraWeb(octopusContext);
+        final Integer eventMain = octopusContext.requestAsInteger("id");
+        final Integer eventPrecondition = octopusContext.requestAsInteger("event_precondition");
+        final Integer invitationstatus = octopusContext.requestAsInteger("invitationstatus_a");
+        Date maxBegin = null;
+
+        DateFormat format = new SimpleDateFormat("d-m-yyyy");
+        try {
+            maxBegin = format.parse(octopusContext.requestAsString("max_begin"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Insert insert = new Insert();
+        insert.table("tevent_precondition");
+        insert.insert("fk_event_main", eventMain);
+        insert.insert("fk_event_precondition", eventPrecondition);
+        insert.insert("invitationstatus", invitationstatus);
+        insert.insert("datebegin", maxBegin);
+
+        try {
+            insert.executeInsert(database);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

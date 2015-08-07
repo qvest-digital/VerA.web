@@ -1299,6 +1299,17 @@
 			</response>
 		</task>
 
+        <!--<task name="SaveEventPrecondition" access="public" groups="Administrator,PartialAdmin">--><!--User-->
+        <!--    <description>
+                Speichert die Vorbedingungen.
+            </description>
+            <doTask name="LoadStammdaten"/>
+            <action name="getAll" worker="EventPreconditionWorker"/>
+            <action name="savePrecondition" worker="EventPreconditionWorker" />
+            <doTask name="ShowEventPrecondition"/>
+        </task>
+        -->
+
 		<task name="ShowEventSubEventList" access="public" groups="StandardFieldsReader">
 			<description>
 				Dieser Task zeigt die Unterveranstaltungen an.

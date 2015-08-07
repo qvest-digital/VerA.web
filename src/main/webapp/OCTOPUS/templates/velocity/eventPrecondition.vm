@@ -15,7 +15,7 @@
     #if($event.parent_event_id)
 		<h1>${placeholderWithTranslation.unterveranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
 	#else
-		<h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1
+		<h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
 	#end
 
     #set($completeEventHeader = false)
@@ -94,9 +94,12 @@
 				</span>
 
                 #if($grants.mayWrite())
-                <div class="buttonPanel-top floatRight">
-                    <input type="submit" name="save" title="${placeholderWithTranslation.EVENT_PRECONDITION_ADD}" value="${placeholderWithTranslation.EVENT_PRECONDITION_ADD}" class="mainButton" onclick="saveEventPrecondition();"/>
-                </div>
+                    <div class="buttonPanel-top floatRight">
+                        <input type="submit" name="saveevent" value="true" name="save"
+                               title="${placeholderWithTranslation.EVENT_PRECONDITION_ADD}" class="mainButton"
+                               onclick="window.location.href='SaveEventPrecondition?action=savePrecondition';">
+                               ${placeholderWithTranslation.EVENT_PRECONDITION_ADD} />
+                    </div>
                 #end
 
                 #foreach($bean in $list)
@@ -148,15 +151,15 @@
                         <input type="hidden" id="add-modified" name="add-modified" value="false"/><input type="checkbox" name="add-select" value="true" style="display: none;"/>
                         <td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>neu</em></td>
                         <td>
-                            <select id="add-precondition" name="add-precondition" onchange="setModified('add')">
+                            <select id="event_precondition" name="event_precondition" onchange="setModified('add')">
                                 <option value="0">${placeholderWithTranslation.bitteauswahlen}</option>
                                 #foreach($eventName in $allEvent)
-                                    <option value="$precondition.id">$!message.plain($eventName.shortname)</option>
+                                    <option value="$eventName.id">$!message.plain($eventName.shortname)</option>
                                 #end
                             </select>
                         </td>
                         <td class="textCenter">
-                            <select name="${bean.id}-invitationstatus_a" onchange="setModified('${bean.id}')">
+                            <select name="invitationstatus_a" onchange="setModified('${bean.id}')">
                                 <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0) selected#end value="0">Offen</option>
                                 <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 1) selected#end value="1">Zusage</option>
                                 <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 2) selected#end value="2">Absage</option>
@@ -166,12 +169,12 @@
                         <td>
                             #if($grants.mayWrite())
                             <div class="calenderContainer">
-                                <span class="datepickerContainer" id="max_begin">
-                                    <input type="text" class="datepicker width80" id="$bean.max_begin" name="$bean.max_begin" onchange="setModified();">
+                                <span class="datepickerContainer" id="datepicker_max_begin">
+                                    <input type="text" class="datepicker width80" id="max_begin" name="max_begin" onchange="setModified();">
                                     <img title="${placeholderWithTranslation.datumauswahlen}" alt="${placeholderWithTranslation.datumauswahlen}" src="${paths.staticWeb}images/calendar.png">
                                     <script type="text/javascript">
                                         Calendar.setup({
-                                            inputField: "$bean.max_begin",
+                                            inputField: "max_begin",
                                             button:     "max_begin",
                                             ifFormat:   "%d.%m.%Y",
                                             showsTime:  false
