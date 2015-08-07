@@ -39,9 +39,11 @@ sudo -u postgres createuser -D -P -R -S ong
 sudo -u postgres createdb -E UTF-8 -O ong -T template0 ong
 
 Dateien aus vw-online-registration-files.tgz osiam/* nach /etc/osiam/ kopieren und anpassen.
+In allen Fällen ist HOSTNAME der https-fähige FQDN des OSIAM-Servers.
 
 Für OSIAM-Betrieb muß der tomcat auf localhost (oder außen) auf http/8080 lauschen!
 TODO: https-only
+partially done, siehe ein Absatz weiter oben!
 
 Anpassen: /etc/tomcat7/catalina.properties /^shared.loader=/s!$!,/etc/osiam!
 
