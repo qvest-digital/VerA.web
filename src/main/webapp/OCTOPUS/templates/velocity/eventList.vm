@@ -30,8 +30,10 @@
 	#set($column2 = 24)
 	#set($column3 = 10)
 	#set($column4 = 10)
-	#set($column5 = 24)
-	#set($column6 = 24)
+	#set($column5 = 21)
+	#set($column6 = 21)
+	#set($column7 = 6)
+		
 #end
 
 #set($elementNameSex = "female")
@@ -178,6 +180,7 @@
     				<col width="$column4%" />
     				<col width="$column5%" />
     				<col width="$column6%" />
+    				<col width="$column7%" />
 
 					<tr>
 						#if($action != "guest" && $action != "addperson" && $grants.mayWrite())
@@ -190,6 +193,7 @@
 						<th class="smallCell textCenter">${placeholderWithTranslation.ende}</th>
 						<th>${placeholderWithTranslation.gastgeber}</th>
 						<th>${placeholderWithTranslation.veranstaltungsort}</th>
+						<th>Unter</th>
 					</tr>
 
 					#foreach($bean in $list)
@@ -289,6 +293,11 @@
 									#end
 								</td>
 							#end
+							<td> 
+							##if($!{bean.id} in $listParentIds )
+							$!{bean.flag}
+							##end
+							</td>
 						</tr>
 					#end
 

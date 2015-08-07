@@ -123,8 +123,15 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	public List showList(OctopusContext cntx) throws BeanException, IOException {
     	String val = cntx.getRequestObject().get("searchTask");
     	cntx.setContent("searchTask", val);
-		return super.showList(cntx);
+    	List<Object> events = super.showList(cntx);
+    	
+		return events;
 	}
+    
+   @Override
+   protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {        
+        select.selectAs("CASE WHEN tevent.pk in (SELECT DISTINCT parent_event_id from tevent) THEN 'SR' ELSE 'FR' END", "FLAG");
+    }
 
 	/**
 	 * Wenn das Event <code>search</code> einen Start-Termin hat,
@@ -185,6 +192,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
 //					Expr.greaterOrEqual("datebegin", search.end),
 //					Expr.greaterOrEqual("dateend", search.end)));
 		}
+		
+		where.addAnd(Expr.isNull("parent_event_id"));
 
         if (where.size() > 0)
             select.where(where);
