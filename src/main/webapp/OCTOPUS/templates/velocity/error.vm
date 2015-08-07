@@ -1,7 +1,7 @@
-#set($title = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}.")
+#set($title = "Ein Fehler ist aufgetreten.")
 #parse("inc/header.vm")
 
-<h1>${placeholderWithTranslation.fehlermeldung}</h1>
+<h1>Fehlermeldung</h1>
 
 #if($status.exception)
 #macro(printStackTraceElement $ste)
@@ -69,12 +69,13 @@
 </table>
 #end
 
-<h2 class="marginBottom10">${placeholderWithTranslation.fehler}</h2>
-<p>${placeholderWithTranslation.beiderbearbeitungihreranfrageisteinfehleraufgetretenbittemeldensiediesihremadministrator}</p>
+<h2 class="marginBottom10">Fehler</h2>
+<p>Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten.
+Bitte melden Sie dies Ihrem Administrator.</p>
 <h2 class="marginTop30 marginBottom10">Details</h2>
 #printStackTrace($status.exception)
 #else
-<p>${placeholderWithTranslation.unbekannterfehler}</p>
+<p>Unbekannter Fehler.</p>
 #end
 
 
