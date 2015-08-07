@@ -151,9 +151,16 @@ public class EventDetailWorker {
 			List errors = new ArrayList();
 			Map questions = new HashMap();
             checkForDuplicateEvents(octopusContext, database, event, questions);
-            if(octopusContext.requestAsInteger("event_precondition") != null && !octopusContext.requestAsInteger("event_precondition").equals("")) {
+
+
+
+            if( octopusContext.requestAsInteger("event_precondition") != null &&
+                !octopusContext.requestAsInteger("event_precondition").equals(0) &&
+                !octopusContext.requestAsInteger("event_precondition").equals("")) {
                 savePrecondition(octopusContext, transactionContext);
             }
+
+
 
             /** Gibt an ob der übergebene Ort in die Stammdaten übernommen werden soll. */
 			boolean saveLocation = octopusContext.requestAsBoolean("addcity-masterdata").booleanValue();
@@ -329,7 +336,6 @@ public class EventDetailWorker {
     }
 
     public void savePrecondition(OctopusContext octopusContext, TransactionContext transactionContext) throws BeanException {
-        EventPrecondition eventPrecondition = new EventPrecondition();
         Database database = new DatabaseVeraWeb(octopusContext);
         final Integer eventMainId = octopusContext.requestAsInteger("id");
         final Integer eventPreconditionId = octopusContext.requestAsInteger("event_precondition");
@@ -337,23 +343,28 @@ public class EventDetailWorker {
 
         final Date maxBegin = getDateForPrecondition(octopusContext.requestAsString("max_begin"));
 
-        Insert insert = null;
-        try {
-            insert = database.getInsert(eventPrecondition);
-        } catch (BeanException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        final EventPrecondition eventPrecondition = new EventPrecondition();
+//        eventPrecondition.setField("event_main",eventMainId);
+//        eventPrecondition.setField("event_precondition",eventPreconditionId);
+//        eventPrecondition.setField("invitationstatus",invitationstatus);
+//        eventPrecondition.setField("max_begin",maxBegin);
 
-        if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
-            insert.insert("fk_event_main", eventMainId);
-            insert.insert("fk_event_precondition", eventPreconditionId);
-            insert.insert("invitationstatus", invitationstatus);
-            insert.insert("datebegin", maxBegin);
-        }
+        transactionContext.execute(SQL.Insert(database).table("veraweb.tevent_precondition")
+                .insert("fk_event_main", eventMainId)
+                .insert("fk_event_precondition", eventPreconditionId)
+                .insert("invitationstatus", invitationstatus)
+                .insert("datebegin", maxBegin));
 
-        transactionContext.execute(insert);
+//        Insert insert = null;
+//        try {
+//            insert = database.getInsert(eventPrecondition);
+//        } catch (BeanException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        transactionContext.execute(insert);
     }
 
     private Date getDateForPrecondition(String datebegin) {

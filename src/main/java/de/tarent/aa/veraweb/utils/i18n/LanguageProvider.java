@@ -39,7 +39,7 @@ public class LanguageProvider {
     /** Language file constants */
     public static final String STANDARD_LANG_FILE = "/etc/veraweb/l10n/de_DE.resource";
 
-    public static final Logger LOGGER = Logger.getLogger(LanguageProvider.class.getName());
+    public static final Logger LOGGER = Logger.getLogger(LanguageProvider.class.getCanonicalName());
     //Path of all language files
     private static final String FILE_PATH = "/etc/veraweb/l10n/";
 
