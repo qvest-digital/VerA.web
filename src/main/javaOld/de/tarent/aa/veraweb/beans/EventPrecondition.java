@@ -10,14 +10,15 @@ import java.sql.Timestamp;
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.tevent_precondition, eine
  * Vorbedingung, dar.
  *
- * @author sweiz, tarent solutions GmbH on 30.07.15.
+ * @author sweiz - tarent solutions GmbH on 30.07.15.
  */
 public class EventPrecondition extends AbstractBean {
     public Integer event_main;
     public Integer event_precondition;
     public Integer invitationstatus;
     public Timestamp max_begin;
-    public String shortName;
+    //TODO Doesn't need it?
+    //public String shortName;
 
     /**
      * Diese Methode überprüft die eingegangenen Werte von event_main, event_precondition und invitationstatus
@@ -31,10 +32,13 @@ public class EventPrecondition extends AbstractBean {
             addError("Die Zuordnung einer Vorbedingung zu einer Veranstaltung ist fehlerhaft.");
         }
         if (event_precondition == null || event_precondition.intValue() == 0) {
-            addError("Die Zuordnung eines Vorbedingung zu einer Veranstaltung ist fehlerhaft.");
+            addError("Die Zuordnung einer Vorbedingung zu einer Veranstaltung ist fehlerhaft.");
         }
         if (invitationstatus == null || invitationstatus.intValue() == 0) {
-            addError("Die Zuordnung eines Vorbedingung zu einer Veranstaltung ist fehlerhaft.");
+            addError("Die Zuordnung einer Vorbedingung zu einer Veranstaltung ist fehlerhaft.");
+        }
+        if (max_begin == null) {
+            addError("Die Zuordnung einer Vorbedingung zu einer Veranstaltung ist fehlerhaft.");
         }
     }
 
