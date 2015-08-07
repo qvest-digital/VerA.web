@@ -32,6 +32,19 @@
       "port": 8081,
       "type": "http"
     },
+    "requestLog": {
+      "appenders": [
+        {
+          "archive": true,
+          "archivedFileCount": 7,
+          "archivedLogFilenamePattern": "/var/log/vwoa.log.%d.gz",
+          "currentLogFilename": "/var/log/vwoa.log",
+          "threshold": "ALL",
+          "type": "file"
+        }
+      ],
+      "timeZone": "UTC"
+    },
     "type": "simple"
   },
   "verawebEndpoint": "https://HOSTNAME/vwor"
