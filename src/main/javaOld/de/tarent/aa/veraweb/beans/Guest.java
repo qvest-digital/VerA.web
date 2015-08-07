@@ -354,6 +354,10 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 			return fk_color_b;
 		}
 
+        public Boolean getPrecondition() {
+            return precondition;
+        }
+
 		public void setInvitationType(Integer value) {
 			invitationtype = value;
 		}

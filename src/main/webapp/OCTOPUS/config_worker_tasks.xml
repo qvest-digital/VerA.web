@@ -1285,13 +1285,11 @@
 				Dieser Task zeigt die Vorbedingungen, die für die Online-Anmeldung freigegeben sind, an.
 			</description>
 			<doTask name="Load"/>
-			<action name="saveDetail" worker="EventDetailWorker" />
 			<status equals="notsaved">
 				<doTask name="SaveEvent"/>
 			</status>
             <action name="getAll" worker="EventListWorker"/>
 			<action name="showDetail" worker="EventDetailWorker" />
-			<action name="saveList" worker="EventPreconditionWorker" />
 			<action name="showList" worker="EventPreconditionWorker" />
 			<action name="getAll" worker="EventPreconditionWorker" />
 			<response type="velocity" name="eventPrecondition">
@@ -1299,16 +1297,13 @@
 			</response>
 		</task>
 
-        <!--<task name="SaveEventPrecondition" access="public" groups="Administrator,PartialAdmin">--><!--User-->
-        <!--    <description>
-                Speichert die Vorbedingungen.
+        <task name="SaveEventPrecondition" access="public" groups="Writer">
+            <description>
+                Dieser Task speichert eine Vorbedingung zu einer Veranstaltung.
             </description>
-            <doTask name="LoadStammdaten"/>
-            <action name="getAll" worker="EventPreconditionWorker"/>
-            <action name="savePrecondition" worker="EventPreconditionWorker" />
-            <doTask name="ShowEventPrecondition"/>
+            <action name="saveDetail" worker="EventPreconditionWorker" />
+            <doTask name="ShowEventPrecondition" />
         </task>
-        -->
 
 		<task name="ShowEventSubEventList" access="public" groups="StandardFieldsReader">
 			<description>
@@ -1319,7 +1314,6 @@
 			<status equals="notsaved">
 				<doTask name="SaveEvent"/>
 			</status>
-			<!-- action name="getAll" worker="EventListWorker"/ -->
 			<action name="showDetail" worker="EventDetailWorker" />
 			<action name="saveList" worker="EventSubEventListWorker" />
 			<action name="showList" worker="EventSubEventListWorker" />
