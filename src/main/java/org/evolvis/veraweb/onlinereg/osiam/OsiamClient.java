@@ -103,6 +103,7 @@ public class OsiamClient {
      * @throws IOException
      */
     public User getUser(String accessTokenAsString, String userName) throws IOException {
+log.warning("OSIAM getUser token '" + accessTokenAsString + "'");//…
     	Query query = new QueryBuilder().filter("userName eq \"" + userName + "\"").build();
     	AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
     	SCIMSearchResult<User> users = this.connector.searchUsers(query, accessToken);
@@ -122,6 +123,7 @@ public class OsiamClient {
      * @throws IOException
      */
     public User createUser(String accessTokenAsString, User user) throws IOException {
+log.warning("OSIAM createUser token '" + accessTokenAsString + "'");//…
     	AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
     	return this.connector.createUser(user, accessToken);
 	}
