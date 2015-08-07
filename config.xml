@@ -27,7 +27,7 @@
  einzeln releasen und jeweils den Trigger des Folgejobs in der Queue (oder&#xd;
  den Job früh beim Bauen) abbrechen.&lt;br /&gt;&#xd;
  Die Jobs rest-api und online-anmeldung &lt;em&gt;müssen&lt;/em&gt; immer mit derselben&#xd;
- Version wie rest-common entwickelt (1.2.3-SNAPSHOT) und releast (1.2.3)&#xd;
+ Version wie rest-common entwickelt (1.6.x.1-SNAPSHOT – x ist die Sprintnummer) und releast (1.6.x.1)&#xd;
  werden – nur veraweb-common ist unabhängig. Beim Release muß „Specify custom&#xd;
  SCM tag“ ausgewählt werden; wir verwenden die Version, also den Inhalt von&#xd;
  „Release Version“ weiter oben im Formular, als Tagnamen in allen diesen Projekten.&lt;/p&gt;&#xd;
