@@ -43,7 +43,6 @@ import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -75,7 +74,8 @@ public class EventDetailWorker {
 	 * @param id ID der zu ladenden Veranstaltung; falls <code>null</code> oder ungültig,
      *  so wird nichts geliefert
 	 */
-	public void showDetail(OctopusContext octopusContext, Integer id, Task task, Integer eventId) throws BeanException, IOException {
+	public void showDetail(OctopusContext octopusContext, Integer id, Task task,
+                           Integer eventId) throws BeanException, IOException {
 		if (task != null) {
 			id = task.getEventId();
 		} else if (eventId != null) {
@@ -86,7 +86,8 @@ public class EventDetailWorker {
 			octopusContext.setContent("event", event);
 			// OR Control
 			if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
-                final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(octopusContext, event);
+                final MediaRepresentativesUtilities mediaRepresentativesUtilities =
+                        new MediaRepresentativesUtilities(octopusContext, event);
 				mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
 				final EventURLHandler eventURLHandler = new EventURLHandler();
                 eventURLHandler.setEventUrl(octopusContext, event.hash);
@@ -148,201 +149,7 @@ public class EventDetailWorker {
 		TransactionContext transactionContext = database.getTransactionContext();
 
 		try {
-			Event event = (Event) octopusContext.contentAsObject("event");
-			if (event == null)
-			{
-				event = (Event) request.getBean("Event", "event");
-				DateHelper.addTimeToDate(event.begin, octopusContext.requestAsString("event-begintime"), event.getErrors());
-				DateHelper.addTimeToDate(event.end, octopusContext.requestAsString("event-endtime"), event.getErrors());
-				String parentId=octopusContext.getRequestObject().get("parentId");
-				if (parentId != null) {
-					event.parent_event_id= Integer.parseInt(parentId);
-				}
-			}
-			event.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
-
-			Event oldEvent = (Event) database.getBean("Event", event.id, transactionContext);
-
-			List errors = new ArrayList();
-			Map questions = new HashMap();
-            checkForDuplicateEvents(octopusContext, database, event, questions);
-
-
-
-            if( octopusContext.requestAsInteger("event_precondition") != null &&
-                !octopusContext.requestAsInteger("event_precondition").equals(0) &&
-                !octopusContext.requestAsInteger("event_precondition").equals("")) {
-                savePrecondition(octopusContext, transactionContext);
-            }
-
-
-
-            /** Gibt an ob der übergebene Ort in die Stammdaten übernommen werden soll. */
-			boolean saveLocation = octopusContext.requestAsBoolean("addcity-masterdata").booleanValue();
-			octopusContext.setContent("addcity-masterdata", Boolean.valueOf(saveLocation));
-
-			/** Wenn ein Gastgeber angegeben worden ist zu diesem die Personendaten laden. */
-			if (event.host != null) {
-                getHostPersonDetails(database, transactionContext, event);
-			} else {
-				event.hostname = null;
-			}
-
-			/** Gibt an ob es sich um eine neue Veranstaltung handelt. */
-			boolean newEvent = event.id == null;
-
-            /** Gibt an ob es sich um einen neuen oder alten Gastgeber handelt. */
-			boolean createHost;
-			boolean updateHost;
-			boolean removeHost;
-			if (newEvent) {
-				// Neue Veranstaltung -> Gastgeber anlegen
-				removeHost = false;
-				updateHost = false;
-				createHost = event.host != null;
-
-			} else {
-                if (event.host == null) {
-                    // Alte Veranstaltung -> Gastgeber entfernen
-                    removeHost = database.getCount(
-                            database.getCount("Guest").where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("ishost", new Integer(1))))).intValue() != 0;
-                    updateHost = false;
-                    createHost = false;
-                } else {
-                    // Alte Veranstaltung -> Gastgeber hinzufügen
-                    removeHost = database.getCount(
-                            database.getCount("Guest").where(
-                                    Where.and(Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("fk_person", event.host)), Expr.equal("ishost",
-                                            new Integer(1))))).intValue() != 0;
-                    updateHost = database.getCount(
-                            database.getCount("Guest").where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host)))).intValue() != 0;
-                    createHost = !updateHost;
-                }
-            }
-
-            if (!questions.isEmpty()) {
-                octopusContext.setContent("listquestions", questions);
-            }
-            if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
-            	setEventHash(event,oldEvent);
-            }
-            /** Veranstaltung speichern */
-            if (event.isModified() && event.isCorrect() && questions.isEmpty()) {
-            /*
-             * modified to support change logging
-             * cklein 2008-02-12
-             */
-            	// Opened Event or not
-                setEventType(event, octopusContext);
-                // Allow event confirmation via online registration with/without login
-                setLoginRequired(octopusContext, event);
-                // Allows an guest to register for an event, for which he
-                // doesn't fullfill the preconditions
-                setAcceptingGuestsWithoutPreconditions(octopusContext, event);
-                // Allowing Press in the Event or not
-                setMediaRepresentatives(event, oldEvent);
-
-                BeanChangeLogger clogger = new BeanChangeLogger( database, transactionContext );
-                if (event.id == null) {
-
-                    octopusContext.setContent("countInsert", new Integer(1));
-                    database.getNextPk(event, transactionContext);
-                    Insert insert = database.getInsert(event);
-                    insert.insert("pk", event.id);
-                    if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
-                        insert.remove("note");
-                    }
-                    transactionContext.execute(insert);
-
-                    clogger.logInsert( octopusContext.personalConfig().getLoginname(), event );
-                } else {
-                    octopusContext.setContent("countUpdate", new Integer(1));
-                    Update update = database.getUpdate(event);
-                    if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
-                        update.remove("note");
-                    }
-                    transactionContext.execute(update);
-
-                    clogger.logUpdate( octopusContext.personalConfig().getLoginname(), oldEvent, event );
-                }
-
-                if (newEvent) {
-                    List list = database.getBeanList("Doctype", database.getSelect("Doctype").where(
-                                    Where
-                                            .or(Expr.equal("flags", new Integer(Doctype.FLAG_IS_STANDARD)), Expr.equal("flags", new Integer(Doctype.FLAG_NO_FREITEXT)))),
-                            transactionContext);
-                    for (Iterator it = list.iterator(); it.hasNext(); ) {
-                        Doctype doctype = (Doctype) it.next();
-                        EventDoctype eventDoctype = new EventDoctype();
-                        eventDoctype.event = event.id;
-                        eventDoctype.doctype = doctype.id;
-                        if (eventDoctype.event != null && eventDoctype.doctype != null)
-                        {
-                            database.saveBean(eventDoctype, transactionContext, false);
-                        }
-                    }
-                    if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)){
-                    	initOptionalFields(database, transactionContext, event);
-                    }
-                }
-
-                Integer invitationtype = getInvitationType(event);
-
-                // Bug 1601
-                // Alt: Veraltete Gastgeber zu Gästen machen
-                // Neu: gelöschten Gastgeber aus Veranstaltung entfernen.
-                if (removeHost) {
-                    handleRemoveHost(octopusContext, database, transactionContext, event);
-                }
-
-                if (createHost) {
-                    Boolean reserve = Boolean.FALSE;
-                    WorkerFactory.getGuestWorker(octopusContext).addGuest(octopusContext, database, transactionContext, event, event.host, null, reserve, invitationtype,
-                            Boolean.TRUE);
-                } else if (updateHost) {
-                    transactionContext.execute(SQL.Update(database).table("veraweb.tguest").update("ishost", new Integer(1)).update("invitationtype", invitationtype)
-                            .where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host))));
-
-                    // TODO also modifies tguest, full change logging requires
-                    // TODO refactor and centralize in GuestDetailWorker
-                }
-
-                if (oldEvent != null && !event.invitationtype.equals(oldEvent.invitationtype)) {
-                    transactionContext.execute(SQL.Update(database).table("veraweb.tguest").update("invitationtype", event.invitationtype).where(
-                            Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("ishost", new Integer(1)))));
-
-                    // TODO also modifies tevent, full change logging requires
-                    // TODO refactor and centralize in EventDetailWorker
-                }
-            } else {
-                octopusContext.setStatus("notsaved");
-                if (oldEvent != null && oldEvent.mediarepresentatives != null && event.mediarepresentatives != null) {
-                	event.mediarepresentatives = oldEvent.mediarepresentatives;
-                }
-            }
-            Boolean isOnlineregActive = Boolean.valueOf(octopusContext.getContextField(VWOR_ACTIVE).toString());
-            // OR Control
-            if (isOnlineregActive) {
-                final EventURLHandler eventURLHandler = new EventURLHandler();
-                eventURLHandler.setEventUrl(octopusContext, event.hash);
-                final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(octopusContext, event);
-            	mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
-            }
-
-            octopusContext.setContent("event", event);
-			octopusContext.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
-			octopusContext.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
-			
-			// conserve parent_event_id for subEvents and in Octopus
-				if(oldEvent != null) {
-					event.parent_event_id=oldEvent.parent_event_id;
-				} else if (octopusContext.getRequestObject().get("parentId") != null) {
-					octopusContext.setContent("parentId", octopusContext.getRequestObject().get("parentId"));
-					event.parent_event_id= Integer.parseInt(octopusContext.getRequestObject().get("parentId"));
-				}
-				
-
-			transactionContext.commit();
+            prepareAndSaveEvent(octopusContext, request, database, transactionContext);
         } catch (BeanException e) {
             transactionContext.rollBack();
             // must report error to user
@@ -350,58 +157,357 @@ public class EventDetailWorker {
         }
     }
 
-    public void savePrecondition(OctopusContext octopusContext, TransactionContext transactionContext) throws BeanException {
+    /**
+     * Saves the precondition with precondition event ID, invitationstatus and datebegin for main event
+     *
+     * @param octopusContext
+     * @param transactionContext
+     * @throws BeanException
+     */
+    public void savePrecondition(OctopusContext octopusContext,
+                                 TransactionContext transactionContext) throws BeanException {
         Database database = new DatabaseVeraWeb(octopusContext);
         final Integer eventMainId = octopusContext.requestAsInteger("id");
         final Integer eventPreconditionId = octopusContext.requestAsInteger("event_precondition");
         final Integer invitationstatus = octopusContext.requestAsInteger("invitationstatus_a");
 
-        final Date maxBegin = getDateForPrecondition(octopusContext.requestAsString("max_begin"));
-
-//        final EventPrecondition eventPrecondition = new EventPrecondition();
-//        eventPrecondition.setField("event_main",eventMainId);
-//        eventPrecondition.setField("event_precondition",eventPreconditionId);
-//        eventPrecondition.setField("invitationstatus",invitationstatus);
-//        eventPrecondition.setField("max_begin",maxBegin);
+        final Date maxBegin = getFormattedDate(octopusContext.requestAsString("max_begin"));
 
         transactionContext.execute(SQL.Insert(database).table("veraweb.tevent_precondition")
                 .insert("fk_event_main", eventMainId)
                 .insert("fk_event_precondition", eventPreconditionId)
                 .insert("invitationstatus", invitationstatus)
                 .insert("datebegin", maxBegin));
-
-//        Insert insert = null;
-//        try {
-//            insert = database.getInsert(eventPrecondition);
-//        } catch (BeanException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-//        transactionContext.execute(insert);
     }
 
-    private Date getDateForPrecondition(String datebegin) {
-//        final String formattedDate = datebegin.replaceAll("\\.", "-");
-//        final DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-//
-//        try {
-//            Date tempDate = format.parse(formattedDate);
-//
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+    private void prepareAndSaveEvent(OctopusContext octopusContext, Request request, Database database,
+                                     TransactionContext transactionContext) throws BeanException, IOException {
+        Event event = (Event) octopusContext.contentAsObject("event");
+        event = createNewEvent(octopusContext, request, event);
+        Event oldEvent = (Event) database.getBean("Event", event.id, transactionContext);
 
-        Date finalDate = null;
-        SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+        List errors = new ArrayList();
+        Map questions = new HashMap();
+        checkForDuplicateEvents(octopusContext, database, event, questions);
+
+        checkAndSaveEventPrecondition(octopusContext, transactionContext);
+        setLocationToMasterData(octopusContext);
+        loadHostPersonDetails(database, transactionContext, event);
+
+        /** Gibt an ob es sich um eine neue Veranstaltung handelt. */
+        boolean newEvent = event.id == null;
+        setHostAndEventVariables(octopusContext, database, transactionContext, event, oldEvent, questions, newEvent);
+
+        getOnlineregActive(octopusContext, event);
+
+        setStandardEventContentToOctopusContext(octopusContext, event);
+        setParentEventId(octopusContext, event, oldEvent);
+
+        transactionContext.commit();
+    }
+
+    private void setParentEventId(OctopusContext octopusContext, Event event, Event oldEvent) {
+        // conserve parent_event_id for subEvents and in Octopus
+        if(oldEvent != null) {
+            event.parent_event_id=oldEvent.parent_event_id;
+        } else if (octopusContext.getRequestObject().get("parentId") != null) {
+            octopusContext.setContent("parentId", octopusContext.getRequestObject().get("parentId"));
+            event.parent_event_id= Integer.parseInt(octopusContext.getRequestObject().get("parentId"));
+        }
+    }
+
+    private void setStandardEventContentToOctopusContext(OctopusContext octopusContext, Event event) {
+        octopusContext.setContent("event", event);
+        octopusContext.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
+        octopusContext.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
+    }
+
+    private void getOnlineregActive(OctopusContext octopusContext, Event event) throws IOException {
+        Boolean isOnlineregActive = Boolean.valueOf(octopusContext.getContextField(VWOR_ACTIVE).toString());
+        // OR Control
+        if (isOnlineregActive) {
+            setOnlineRegURLs(octopusContext, event);
+        }
+    }
+
+    private void setHostAndEventVariables(OctopusContext octopusContext, Database database, TransactionContext transactionContext, Event event, Event oldEvent, Map questions, boolean newEvent) throws BeanException, IOException {
+        /** Gibt an ob es sich um einen neuen oder alten Gastgeber handelt. */
+        boolean createHost;
+        boolean updateHost;
+        boolean removeHost;
+        if (newEvent) {
+            // Neue Veranstaltung -> Gastgeber anlegen
+            removeHost = false;
+            updateHost = false;
+            createHost = event.host != null;
+
+        } else {
+            if (event.host == null) {
+                // Alte Veranstaltung -> Gastgeber entfernen
+                removeHost = isExistingHostForRemoveHost(database, event);
+                updateHost = false;
+                createHost = false;
+            } else {
+                // Alte Veranstaltung -> Gastgeber hinzufügen
+                removeHost = isExistingHostForCreateHost(database, event);
+                updateHost = isExistingHostForUpdateHost(database, event);
+                createHost = !updateHost;
+            }
+        }
+
+        if (!questions.isEmpty()) {
+            octopusContext.setContent("listquestions", questions);
+        }
+        if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
+            setEventHash(event,oldEvent);
+        }
+        /** Veranstaltung speichern */
+        if (event.isModified() && event.isCorrect() && questions.isEmpty()) {
+            saveEvent(octopusContext, database, transactionContext, event, oldEvent, newEvent, createHost, updateHost, removeHost);
+
+        } else {
+            octopusContext.setStatus("notsaved");
+            if (oldEvent != null && oldEvent.mediarepresentatives != null && event.mediarepresentatives != null) {
+                event.mediarepresentatives = oldEvent.mediarepresentatives;
+            }
+        }
+    }
+
+    private void loadHostPersonDetails(Database database, TransactionContext transactionContext, Event event) throws BeanException, IOException {
+        /** Wenn ein Gastgeber angegeben worden ist zu diesem die Personendaten laden. */
+        if (event.host != null) {
+            getHostPersonDetails(database, transactionContext, event);
+        } else {
+            event.hostname = null;
+        }
+    }
+
+    private void setLocationToMasterData(OctopusContext octopusContext) {
+        /** Gibt an ob der übergebene Ort in die Stammdaten übernommen werden soll. */
+        boolean saveLocation = octopusContext.requestAsBoolean("addcity-masterdata").booleanValue();
+        octopusContext.setContent("addcity-masterdata", Boolean.valueOf(saveLocation));
+    }
+
+    private void checkAndSaveEventPrecondition(OctopusContext octopusContext, TransactionContext transactionContext) throws BeanException {
+        if(octopusContext.requestAsInteger("event_precondition") != null &&
+                !octopusContext.requestAsInteger("event_precondition").equals(0) &&
+                !octopusContext.requestAsInteger("event_precondition").equals("")) {
+            savePrecondition(octopusContext, transactionContext);
+        }
+    }
+
+    private Event createNewEvent(OctopusContext octopusContext, Request request, Event event) throws BeanException {
+        if (event == null) {
+            event = prepareNewEvent(octopusContext, request);
+        }
+        event.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
+        return event;
+    }
+
+    private void setOnlineRegURLs(OctopusContext octopusContext, Event event) throws IOException {
+        final EventURLHandler eventURLHandler = new EventURLHandler();
+        eventURLHandler.setEventUrl(octopusContext, event.hash);
+        final MediaRepresentativesUtilities mediaRepresentativesUtilities = new MediaRepresentativesUtilities(octopusContext, event);
+        mediaRepresentativesUtilities.setUrlForMediaRepresentatives();
+    }
+
+    private void saveEvent(OctopusContext octopusContext, Database database, TransactionContext transactionContext,
+                           Event event, Event oldEvent, boolean newEvent, boolean createHost, boolean updateHost,
+                           boolean removeHost) throws BeanException, IOException {
+        setCheckboxesForEvent(octopusContext, event, oldEvent);
+
+        createUpdateEvent(octopusContext, database, transactionContext, event, oldEvent);
+
+        if (newEvent) {
+            prepareNewEvent(octopusContext, database, transactionContext, event);
+        }
+
+        Integer invitationtype = getInvitationType(event);
+
+        updateCreateRemoveHost(octopusContext, database, transactionContext, event, createHost, updateHost, removeHost,
+                invitationtype);
+
+
+        if (oldEvent != null && !event.invitationtype.equals(oldEvent.invitationtype)) {
+            updateNotHostGuestInvitationtype(database, transactionContext, event);
+        }
+    }
+
+    private void createUpdateEvent(
+            OctopusContext octopusContext, Database database,
+            TransactionContext transactionContext, Event event, Event oldEvent) throws BeanException, IOException {
+        /*
+         * modified to support change logging
+         * cklein 2008-02-12
+         */
+        BeanChangeLogger clogger = new BeanChangeLogger( database, transactionContext );
+        if (event.id == null) {
+            insertPkFromEventId(octopusContext, database, transactionContext, event, clogger);
+        } else {
+            executeUpdate(octopusContext, database, transactionContext, event, oldEvent, clogger);
+        }
+    }
+
+    private void updateCreateRemoveHost(OctopusContext octopusContext, Database database,
+                                        TransactionContext transactionContext, Event event, boolean createHost,
+                                        boolean updateHost, boolean removeHost,
+                                        Integer invitationtype) throws BeanException, IOException {
+        // Bug 1601
+        // Alt: Veraltete Gastgeber zu Gästen machen
+        // Neu: gelöschten Gastgeber aus Veranstaltung entfernen.
+        if (removeHost) {
+            handleRemoveHost(octopusContext, database, transactionContext, event);
+        }
+
+        if (createHost) {
+            setEventHost(octopusContext, database, transactionContext, event, invitationtype);
+        } else if (updateHost) {
+            updateHostAndInvitationTypeForNewPerson(database, transactionContext, event, invitationtype);
+        }
+    }
+
+    private void updateNotHostGuestInvitationtype(Database database, TransactionContext
+            transactionContext, Event event) throws BeanException {
+        transactionContext.execute(SQL.Update(database)
+                .table("veraweb.tguest")
+                .update("invitationtype", event.invitationtype)
+                .where(Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("ishost", new Integer(1)))));
+
+        // TODO also modifies tevent, full change logging requires
+        // TODO refactor and centralize in EventDetailWorker
+    }
+
+    private void updateHostAndInvitationTypeForNewPerson(Database database, TransactionContext transactionContext,
+                                                         Event event, Integer invitationtype) throws BeanException {
+        transactionContext.execute(SQL.Update(database).table("veraweb.tguest").update("ishost",
+                new Integer(1)).update("invitationtype", invitationtype)
+                .where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host))));
+
+        // TODO also modifies tguest, full change logging requires
+        // TODO refactor and centralize in GuestDetailWorker
+    }
+
+    private void setEventHost(OctopusContext octopusContext, Database database, TransactionContext transactionContext,
+                              Event event, Integer invitationtype) throws BeanException, IOException {
+        Boolean reserve = Boolean.FALSE;
+        WorkerFactory.getGuestWorker(octopusContext).addGuest(octopusContext, database, transactionContext,
+                event, event.host, null, reserve, invitationtype,
+                Boolean.TRUE);
+    }
+
+    private void prepareNewEvent(OctopusContext octopusContext, Database database,
+                                 TransactionContext transactionContext, Event event) throws BeanException, IOException {
+        List list = database.getBeanList("Doctype", database.getSelect("Doctype").where(
+                        Where.or(Expr.equal("flags", new Integer(Doctype.FLAG_IS_STANDARD)),
+                                Expr.equal("flags", new Integer(Doctype.FLAG_NO_FREITEXT)))),
+                transactionContext);
+        for (Iterator it = list.iterator(); it.hasNext(); ) {
+            saveDoctypesForEvent(database, transactionContext, event, it);
+        }
+        if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)){
+            initOptionalFields(database, transactionContext, event);
+        }
+    }
+
+    private void saveDoctypesForEvent(Database database, TransactionContext transactionContext,
+                                      Event event, Iterator it) throws BeanException, IOException {
+        Doctype doctype = (Doctype) it.next();
+        EventDoctype eventDoctype = new EventDoctype();
+        eventDoctype.event = event.id;
+        eventDoctype.doctype = doctype.id;
+        if (eventDoctype.event != null && eventDoctype.doctype != null)
+        {
+            database.saveBean(eventDoctype, transactionContext, false);
+        }
+    }
+
+    private void executeUpdate(OctopusContext octopusContext, Database database,
+                               TransactionContext transactionContext, Event event,
+                               Event oldEvent, BeanChangeLogger clogger) throws BeanException, IOException {
+        octopusContext.setContent("countUpdate", new Integer(1));
+        Update update = database.getUpdate(event);
+        if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
+            update.remove("note");
+        }
+        transactionContext.execute(update);
+
+        clogger.logUpdate( octopusContext.personalConfig().getLoginname(), oldEvent, event );
+    }
+
+    private void insertPkFromEventId(OctopusContext octopusContext, Database database,
+                                     TransactionContext transactionContext, Event event,
+                                     BeanChangeLogger clogger) throws BeanException, IOException {
+        octopusContext.setContent("countInsert", new Integer(1));
+        database.getNextPk(event, transactionContext);
+        Insert insert = database.getInsert(event);
+        insert.insert("pk", event.id);
+        if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
+            insert.remove("note");
+        }
+        transactionContext.execute(insert);
+
+        clogger.logInsert( octopusContext.personalConfig().getLoginname(), event );
+    }
+
+    private void setCheckboxesForEvent(OctopusContext octopusContext, Event event, Event oldEvent) {
+        // Opened Event or not
+        setEventType(event, octopusContext);
+        // Allow event confirmation via online registration with/without login
+        setLoginRequired(octopusContext, event);
+        // Allows an guest to register for an event, for which he
+        // doesn't fullfill the preconditions
+        setAcceptingGuestsWithoutPreconditions(octopusContext, event);
+        // Allowing Press in the Event or not
+        setMediaRepresentatives(event, oldEvent);
+    }
+
+    private boolean isExistingHostForUpdateHost(Database database, Event event) throws BeanException, IOException {
+        return database.getCount(
+                database.getCount("Guest")
+                        .where(Where
+                                .and(Expr.equal("fk_event", event.id),
+                                    Expr.equal("fk_person", event.host)))).intValue() != 0;
+    }
+
+    private boolean isExistingHostForCreateHost(Database database, Event event) throws BeanException, IOException {
+        return database.getCount(
+                database.getCount("Guest").where(
+                        Where.and(Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("fk_person", event.host)),
+                                Expr.equal("ishost",
+                                new Integer(1))))).intValue() != 0;
+    }
+
+    private boolean isExistingHostForRemoveHost(Database database, Event event) throws BeanException, IOException {
+        return database.getCount(
+                database.getCount("Guest").where(Where.and(Expr.equal("fk_event", event.id),
+                        Expr.equal("ishost", new Integer(1))))).intValue() != 0;
+    }
+
+    private Event prepareNewEvent(OctopusContext octopusContext, Request request) throws BeanException {
+        Event event;
+        event = (Event) request.getBean("Event", "event");
+        DateHelper.addTimeToDate(event.begin, octopusContext.requestAsString("event-begintime"), event.getErrors());
+        DateHelper.addTimeToDate(event.end, octopusContext.requestAsString("event-endtime"), event.getErrors());
+        String parentId=octopusContext.getRequestObject().get("parentId");
+        if (parentId != null) {
+            event.parent_event_id= Integer.parseInt(parentId);
+        }
+        return event;
+    }
+
+    private Date getFormattedDate(String datebegin) {
+        final String formattedDate = datebegin.replaceAll("\\.", "-");
+        Date correctDate = null;
+
         try {
-            finalDate = format2.parse("2015-08-06");
+            final Date format = new SimpleDateFormat("dd-MM-yyyy").parse(formattedDate);
+            final String format2 = new SimpleDateFormat("yyyy-MM-dd").format(format);
+            correctDate = new SimpleDateFormat("yyyy-MM-dd").parse(format2);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        return finalDate;
+        return correctDate;
     }
 
     private void setLoginRequired(OctopusContext cntx, Event event) {
@@ -449,7 +555,10 @@ public class EventDetailWorker {
 
     private void initOptionalFields(Database database, TransactionContext context, Event event) throws BeanException {
         for(int i = 0; i < NUMBER_OPTIONAL_FIELDS; i++) {
-            context.execute(SQL.Insert(database).table("veraweb.toptional_fields").insert("fk_event", event.id).insert("label", ""));
+            context.execute(SQL.Insert(database)
+                    .table("veraweb.toptional_fields")
+                    .insert("fk_event", event.id)
+                    .insert("label", ""));
         }
     }
 
@@ -460,7 +569,8 @@ public class EventDetailWorker {
      * @param event The event
      */
     private void setEventType(Event event, OctopusContext cntx) {
-        if(event.eventtype != null && event.eventtype.equals("on") && OnlineRegistrationHelper.isOnlineregActive(cntx)) {
+        if(event.eventtype != null && event.eventtype.equals("on") &&
+                OnlineRegistrationHelper.isOnlineregActive(cntx)) {
             event.eventtype = "Offene Veranstaltung";
         } else {
             event.eventtype = "";
@@ -506,15 +616,18 @@ public class EventDetailWorker {
     	}
     }
 
-    private void getHostPersonDetails(Database database, TransactionContext context, Event event) throws BeanException, IOException {
-        Person person = (Person) database.getBean("Person", database.getSelect("Person").where(Expr.equal("pk", event.host)), context);
+    private void getHostPersonDetails(Database database, TransactionContext context,
+                                      Event event) throws BeanException, IOException {
+        Person person = (Person) database.getBean("Person", database.getSelect("Person")
+                .where(Expr.equal("pk", event.host)), context);
         if (person != null) {
             event.hostname = person.getMainLatin().getSaveAs();
             event.setModified(true);
         }
     }
 
-    private void checkForDuplicateEvents(OctopusContext cntx, Database database, Event event, Map questions) throws BeanException, IOException {
+    private void checkForDuplicateEvents(OctopusContext cntx, Database database, Event event,
+                                         Map questions) throws BeanException, IOException {
         // Test ob bereits eine Veranstaltung mit diesem Namen existiert.
         if (event.shortname != null && event.shortname.length() != 0) {
             WhereList where = new WhereList();

@@ -95,10 +95,10 @@
 
                 #if($grants.mayWrite())
                     <div class="buttonPanel-top floatRight">
-                        <input type="submit" name="saveevent" value="true" name="save"
+                        <input type="submit" name="saveevent"
                                title="${placeholderWithTranslation.EVENT_PRECONDITION_ADD}" class="mainButton"
-                               onclick="window.location.href='SaveEventPrecondition?action=savePrecondition';">
-                               ${placeholderWithTranslation.EVENT_PRECONDITION_ADD} />
+                               value="${placeholderWithTranslation.EVENT_PRECONDITION_ADD}"
+                               onclick="window.location.href='SaveEventPrecondition?action=savePrecondition';"/>
                     </div>
                 #end
 
@@ -171,11 +171,11 @@
                             <div class="calenderContainer">
                                 <span class="datepickerContainer" id="datepicker_max_begin">
                                     <input type="text" class="datepicker width80" id="max_begin" name="max_begin" onchange="setModified();">
-                                    <img title="${placeholderWithTranslation.datumauswahlen}" alt="${placeholderWithTranslation.datumauswahlen}" src="${paths.staticWeb}images/calendar.png">
+                                    <img id="startDatepicker" title="${placeholderWithTranslation.datumauswahlen}" alt="${placeholderWithTranslation.datumauswahlen}" src="${paths.staticWeb}images/calendar.png">
                                     <script type="text/javascript">
                                         Calendar.setup({
                                             inputField: "max_begin",
-                                            button:     "max_begin",
+                                            button:     "datepicker_max_begin",
                                             ifFormat:   "%d.%m.%Y",
                                             showsTime:  false
                                         });

@@ -1,10 +1,36 @@
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright © 2004–2008 tarent GmbH
+ * Copyright © 2013–2015 tarent solutions GmbH
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, see: http://www.gnu.org/licenses/
+ */
 package de.tarent.aa.veraweb.beans;
 
+import de.tarent.dblayer.sql.SQL;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.tevent_precondition, eine
@@ -17,8 +43,8 @@ public class EventPrecondition extends AbstractBean {
     public Integer event_precondition;
     public Integer invitationstatus;
     public Timestamp max_begin;
-    //TODO Doesn't need it?
-    //public String shortName;
+    //Needed to show shortname of event in velocity
+    public String shortName;
 
     /**
      * Diese Methode überprüft die eingegangenen Werte von event_main, event_precondition und invitationstatus

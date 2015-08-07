@@ -76,8 +76,6 @@ public class EventTaskDetailWorker {
         }
     }
 
-
-
 	public static final String[] INPUT_loadReferencePerson = { "refPersId" };
 	public static final boolean[] MANDATORY_loadReferencePerson = { false };
 
