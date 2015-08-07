@@ -1138,6 +1138,17 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
+		
+		<task name="CopyEvent" access="public" groups="StandardFieldsReader">
+			<description>
+				This task allows the copy of an Event
+			</description>
+			<doTask name="Load"/>
+			<action name="copyEvent" worker="EventDetailWorker"/>
+			<response type="velocity" name="eventDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
 
 		<task name="SearchEvent" access="public" groups="StandardFieldsReader">
 			<description>

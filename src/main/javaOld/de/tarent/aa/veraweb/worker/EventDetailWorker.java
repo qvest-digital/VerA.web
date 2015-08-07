@@ -94,6 +94,21 @@ public class EventDetailWorker {
 			//
 		}
 	}
+	
+	public static final String INPUT_copyEvent[] = {};
+	
+	public void copyEvent(OctopusContext octopusContext) {
+		System.out.println("testing first");
+		Event event;
+		try {
+			Integer id = new Integer((String) octopusContext.getContextField("id"));
+			Database database = new DatabaseVeraWeb(octopusContext);
+			event = (Event)database.getBean("Event", id);
+		} catch (Exception e) {}
+		
+		
+		System.out.println("testing");
+	}
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String INPUT_saveDetail[] = { "saveevent" };
@@ -474,14 +489,6 @@ public class EventDetailWorker {
     	} else {
     		event.mediarepresentatives = null;
     	}
-    }
-    
-    /*
-     * 
-     * 
-     */
-    private void setParentId(Event event, Event oldEvent) {
-    	
     }
 
     /**
