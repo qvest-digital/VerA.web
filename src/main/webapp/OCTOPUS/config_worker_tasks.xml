@@ -1159,6 +1159,25 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
+		
+		<task name="deleteSubEvent" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task sucht Veranstaltungen.
+			</description>
+			<contract>
+				<input name="Aktuell" type="xsd:string" optional="t" description="Flag: nur aktuelle Veranstaltungen"/>
+				<input name="Name" type="xsd:string" optional="t" description="gesuchter Name"/>
+				<input name="Langname" type="xsd:string" optional="t" description="gesuchter Langname"/>
+				<input name="Datum" type="xsd:string" optional="t" description="gesuchtes Datum"/>
+				<input name="Ort" type="xsd:string" optional="t" description="gesuchter Ort"/>
+				<input name="Gastgeber" type="xsd:string" optional="t" description="gesuchter Gastgeber"/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="showList" worker="EventListWorker" />
+			<response type="velocity" name="eventSubEventList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
 
 		<task name="CreateEvent" access="public" groups="Writer">
 			<description>
