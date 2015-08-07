@@ -20,6 +20,8 @@
 %-
 % im Moment nur Notizen
 
+TODO: fixup all HOSTNAME""s to say which is which
+
 Link: https://github.com/osiam/osiam/blob/master/docs/detailed-reference-installation.md
 
 OSIAM Pakete: curl mksh openjdk-7-jre-headless postgresql tomcat7 unzip
