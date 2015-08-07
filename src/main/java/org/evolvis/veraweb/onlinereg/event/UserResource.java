@@ -43,7 +43,6 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 import lombok.Getter;
-import lombok.extern.java.Log;
 
 /**
  * Resource to register new users in OSIAM backend
@@ -51,7 +50,6 @@ import lombok.extern.java.Log;
 @Getter
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
-@Log
 public class UserResource {
     private static final String VERAWEB_SCHEME = "urn:scim:schemas:veraweb:1.5:Person";
 	private Config config;
@@ -91,7 +89,6 @@ public class UserResource {
 
         OsiamClient osiamClient = config.getOsiam().getClient(client);
         String accessToken = osiamClient.getAccessTokenClientCred("GET", "POST");
-log.warning("OSIAM getAccessTokenClientCred token '" + accessToken + "'");//…
 
         User user = osiamClient.getUser(accessToken, osiam_username);
         if (user != null) {
