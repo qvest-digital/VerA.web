@@ -68,13 +68,13 @@ public class OsiamClient {
      * @throws IOException if an error occurs, e.g. service is not available, user does not exists, password wrong
      */
     public String getAccessTokenUserPass(String username, String password, String... scopes) throws IOException {
-	Scope[] scopeObjects = new Scope[scopes.length];
+        Scope[] scopeObjects = new Scope[scopes.length];
 
-	for (int i = 0; i < scopes.length; ++i) {
-		scopeObjects[i] = new Scope(scopes[i]);
-	}
+        for (int i = 0; i < scopes.length; ++i) {
+            scopeObjects[i] = new Scope(scopes[i]);
+        }
 
-    	return this.connector.retrieveAccessToken(username, password, scopeObjects).getToken();
+        return this.connector.retrieveAccessToken(username, password, scopeObjects).getToken();
     }
 
     /**
@@ -85,13 +85,13 @@ public class OsiamClient {
      * @throws IOException if an error occurs, e.g. service is not available, client credentials wrong
      */
     public String getAccessTokenClientCred(String... scopes) throws IOException {
-	Scope[] scopeObjects = new Scope[scopes.length];
+        Scope[] scopeObjects = new Scope[scopes.length];
 
-	for (int i = 0; i < scopes.length; ++i) {
-		scopeObjects[i] = new Scope(scopes[i]);
-	}
+        for (int i = 0; i < scopes.length; ++i) {
+            scopeObjects[i] = new Scope(scopes[i]);
+        }
 
-    	return this.connector.retrieveAccessToken(scopeObjects).getToken();
+        return this.connector.retrieveAccessToken(scopeObjects).getToken();
     }
 
     /**
