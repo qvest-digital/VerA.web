@@ -28,7 +28,7 @@
 	#parse("inc/event-header.vm")
 	
 
-	<form id="formlist" name="formlist" action="ShowEventDoctype" method="POST" onsubmit="htmlWait();">
+	<form id="formlist" name="formlist" action="deleteSubEvent" method="POST">
 		<input type="hidden" name="id" value="$!event.id"/>
 		<input type="hidden" name="start" value=""/>
 		<input type="hidden" name="limit" value=""/>
@@ -102,7 +102,6 @@
 	#end
 
 
-	<form id="formlist" name="formlist" action="$formurl" method="POST">
 		<input type="hidden" name="start" value="">
 		<input type="hidden" name="limit" value="" />
 
