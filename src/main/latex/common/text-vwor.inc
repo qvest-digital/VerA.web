@@ -22,6 +22,8 @@
 
 TODO auch in -core: starting the JVM with -Dfile.encoding=UTF-8
 
+TODO auch in -core: JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
+
 Selbes System wie -core, welcher ok sein muß.
 
 Bearbeiten /etc/tomcat7/context.xml vor das schließende </Context> am Dateiende:
