@@ -64,6 +64,8 @@ public interface GuestMemberFacade extends EventConstants {
 	/** @return Farbe */
 	public Integer getColorFK();
 
+    public Boolean getPrecondition();
+
 	/** Ändert Einladungstyp */
 	public void setInvitationType(Integer value);
 

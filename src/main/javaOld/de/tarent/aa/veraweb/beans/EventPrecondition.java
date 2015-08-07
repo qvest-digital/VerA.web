@@ -19,11 +19,18 @@
  */
 package de.tarent.aa.veraweb.beans;
 
+import de.tarent.dblayer.sql.SQL;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.tevent_precondition, eine
@@ -36,8 +43,8 @@ public class EventPrecondition extends AbstractBean {
     public Integer event_precondition;
     public Integer invitationstatus;
     public Timestamp max_begin;
-    //TODO Doesn't need it?
-    //public String shortName;
+    //Needed to show shortname of event in velocity
+    public String shortName;
 
     /**
      * Diese Methode überprüft die eingegangenen Werte von event_main, event_precondition und invitationstatus
