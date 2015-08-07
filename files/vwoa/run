@@ -4,4 +4,5 @@
 cd "$(dirname "$0")"
 exec >&2
 date -u +'INFO  [%F %T,000] starting up VWOA' >>/var/log/vwoa.log
+sleep 3
 exec java -Xmx128m -jar vwoa.jar server config.json
