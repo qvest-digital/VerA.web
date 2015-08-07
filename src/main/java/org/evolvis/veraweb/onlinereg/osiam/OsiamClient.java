@@ -74,7 +74,8 @@ public class OsiamClient {
             scopeObjects[i] = new Scope(scopes[i]);
         }
 
-        return this.connector.retrieveAccessToken(username, password, scopeObjects).getToken();
+        AccessToken at = this.connector.retrieveAccessToken(username, password, scopeObjects);
+        return at.getToken();
     }
 
     /**
@@ -91,7 +92,8 @@ public class OsiamClient {
             scopeObjects[i] = new Scope(scopes[i]);
         }
 
-        return this.connector.retrieveAccessToken(scopeObjects).getToken();
+        AccessToken at = this.connector.retrieveAccessToken(scopeObjects);
+        return at.getToken();
     }
 
     /**
