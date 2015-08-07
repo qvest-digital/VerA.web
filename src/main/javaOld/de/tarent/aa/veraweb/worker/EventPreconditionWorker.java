@@ -2,6 +2,7 @@ package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.EventPrecondition;
+import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Insert;
@@ -29,12 +30,7 @@ import java.util.Date;
  */
 public class EventPreconditionWorker extends ListWorkerVeraWeb {
     private static final Logger LOGGER = Logger.getLogger(EventPreconditionWorker.class.getCanonicalName());
-
-    //private static final String PARAM_EVENT_ID = "eventId";
-    //public static final String[] INPUT_setEventPrecondition = {PARAM_EVENT_ID};
-    //public static final String OUTPUT_setEventPrecondition = PARAM_EVENT_ID;
-    //public static final String[] INPUT_saveDetail = {PARAM_EVENT_ID};
-    //public static final boolean eventId = false;
+    public static final String INPUT_savePrecondition[] = { };
 
     public EventPreconditionWorker() {
         super("EventPrecondition");
@@ -42,7 +38,7 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
     
     @Override
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-        select.where(Expr.equal("tevent_precondition.fk_event_main", getEvent(cntx). id));
+        select.where(Expr.equal("tevent_precondition.fk_event_main", getEvent(cntx).id));
 
         //TODO Hier weitermachen
         //cntx.getContextField("").get()
@@ -61,121 +57,47 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
         select.where(Expr.equal("tevent_precondition.fk_event_main", getEvent(cntx).id));
     }
 
-//    @Override
-//    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context) {
-//        try {
-//            super.saveBean(octopusContext, bean, context);
-//        } catch (BeanException e) {
-//            LOGGER.error("Fehler beim Speichern der neuen Vorbedingung", e);
-//        } catch (IOException e) {
-//            LOGGER.error("Fehler beim Speichern der neuen Vorbedingung", e);
-//        } catch (NumberFormatException e) {
-//            LOGGER.error("Fehler beim Speichern der neuen Vorbedingung", e);
-//        }
-//    }
+    /**
+     * Saves a precondition with given information in octopuscontext
+     *
+     * @param octopusContext Context data of octopus
+     * @throws BeanException BeanException
+     */
+    public void savePrecondition(OctopusContext octopusContext) throws BeanException {
+        Request request = new RequestVeraWeb(octopusContext);
+        String event_main = (String) request.getField("id");
+        String event_precondition = (String) request.getField("event_precondition");
+        String invitationstatus = (String) request.getField("invitationstatus_a");
+        String max_begin = (String) request.getField("max_begin");
 
-    public static final String INPUT_saveDetail[] = {};
-    private DatabaseVeraWebFactory databaseVeraWebFactory = new DatabaseVeraWebFactory();
+        if(event_main != null && !event_main.equals(0) && event_precondition != null && !event_precondition.equals(0) &&
+                invitationstatus != null && !invitationstatus.equals(0) && max_begin != null && !max_begin.equals(0)) {
+            TransactionContext transactionContext = (new DatabaseVeraWeb(octopusContext)).getTransactionContext();
+            Database database = new DatabaseVeraWeb(octopusContext);
 
-    public void saveDetail(OctopusContext cntx/*, Boolean saveprecondition, Boolean eventId*/)
-            throws BeanException, IOException {
-        //if (saveprecondition == null || !saveprecondition.booleanValue()) {
-        //    return;
-        //}
-        //if (eventId == null || !eventId.booleanValue()) {
-        //    return;
-        //}
+            final Date maxBegin = getFormattedDate(max_begin);
 
-        //Request request = new RequestVeraWeb(cntx);
+            transactionContext.execute(SQL.Insert(database).table("veraweb.tevent_precondition")
+                    .insert("fk_event_main", Integer.valueOf(event_main))
+                    .insert("fk_event_precondition", Integer.valueOf(event_precondition))
+                    .insert("invitationstatus", Integer.valueOf(invitationstatus))
+                    .insert("datebegin", maxBegin));
+        }
+    }
 
+    private Date getFormattedDate(String datebegin) {
+        final String formattedDate = datebegin.replaceAll("\\.", "-");
+        Date correctDate = null;
 
-
-
-
-
-
-
-        Database database = databaseVeraWebFactory.createDatabaseVeraWeb(cntx);
-        EventPrecondition eventPrecondition = (EventPrecondition) cntx.contentAsObject("precondition");
-
-        if(eventPrecondition != null) {
-            Insert insert = database.getInsert(eventPrecondition);
-            insert.insert("fk_event_main", eventPrecondition.event_main);
-            insert.insert("fk_event_precondition", eventPrecondition.event_precondition);
-            insert.insert("invitationstatus", eventPrecondition.invitationstatus);
-            insert.insert("datebegin", eventPrecondition.max_begin);
+        try {
+            final Date format = new SimpleDateFormat("dd-MM-yyyy").parse(formattedDate);
+            final String format2 = new SimpleDateFormat("yyyy-MM-dd").format(format);
+            correctDate = new SimpleDateFormat("yyyy-MM-dd").parse(format2);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
-
-
-
-
-
-
-//        final String PARAM_TASK = "precondition";
-//        final String PARAM_EVENT_ID = "eventId";
-//
-//        try {
-//
-//            if (eventPrecondition == null) {
-//                eventPrecondition = (Task) request.getBean("Task", PARAM_TASK);
-//                DateHelper.addTimeToDate(task.startdate, task.starttime, task.getErrors());
-//                DateHelper.addTimeToDate(task.enddate, task.endtime, task.getErrors());
-//            }
-//
-//            /** Aufgabe speichern */
-//            if (eventPrecondition.isModified() && eventPrecondition.isCorrect()) {
-//                BeanChangeLogger clogger = new BeanChangeLogger(database,
-//                        context);
-//                if (eventPrecondition.getId() == null) {
-//                    cntx.setContent("countInsert", Integer.valueOf(1));
-//                    database.getNextPk(task, context);
-//
-//                    eventPrecondition.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
-//
-//                    Insert insert = database.getInsert(eventPrecondition);
-//                    insert.insert("pk", eventPrecondition.getId());
-//
-//                    if (!((PersonalConfigAA) cntx.personalConfig()).getGrants()
-//                            .mayReadRemarkFields()) {
-//                        insert.remove("note");
-//                    }
-//                    context.execute(insert);
-//
-//                    clogger.logInsert(cntx.personalConfig().getLoginname(),
-//                            task);
-//                } else {
-//                    cntx.setContent("countUpdate", Integer.valueOf(1));
-//                    Update update = database.getUpdate(task);
-//                    if (!((PersonalConfigAA) cntx.personalConfig()).getGrants()
-//                            .mayReadRemarkFields()) {
-//                        update.remove("note");
-//                    }
-//                    context.execute(update);
-//
-//                    clogger.logUpdate(cntx.personalConfig().getLoginname(), oldTask, task);
-//                }
-//            } else {
-//                cntx.setStatus("notsaved");
-//            }
-//            cntx.setContent(PARAM_TASK, task);
-//            cntx.setContent("task-starthastime",
-//                    Boolean.valueOf(DateHelper.isTimeInDate(task.getStartdate())));
-//            cntx.setContent("task-endhastime",
-//                    Boolean.valueOf(DateHelper.isTimeInDate(task.getEnddate())));
-//
-//            if (task != null && task.personId != null) {
-//                Person person = getPersonFromDB(cntx, task.personId);
-//                cntx.getContentObject().setField("refPerson", person);
-//            };
-//
-//            context.commit();
-//        } catch (BeanException e) {
-//            context.rollBack();
-//            // must report error to user
-//            throw new BeanException(
-//                    "Die Taskdetails konnten nicht gespeichert werden.", e);
-//        }
+        return correctDate;
     }
 
     private Event getEvent(OctopusContext cntx) {

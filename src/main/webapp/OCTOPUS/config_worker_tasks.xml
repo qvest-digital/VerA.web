@@ -1285,9 +1285,7 @@
 				Dieser Task zeigt die Vorbedingungen, die für die Online-Anmeldung freigegeben sind, an.
 			</description>
 			<doTask name="Load"/>
-			<status equals="notsaved">
-				<doTask name="SaveEvent"/>
-			</status>
+			<action name="savePrecondition" worker="EventPreconditionWorker" />
             <action name="getAll" worker="EventListWorker"/>
 			<action name="showDetail" worker="EventDetailWorker" />
 			<action name="showList" worker="EventPreconditionWorker" />
@@ -1301,8 +1299,21 @@
             <description>
                 Dieser Task speichert eine Vorbedingung zu einer Veranstaltung.
             </description>
-            <action name="saveDetail" worker="EventPreconditionWorker" />
-            <doTask name="ShowEventPrecondition" />
+            <doTask name="Load"/>
+            <contract>
+                <input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
+                <input name="event_precondition" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
+                <input name="invitationstatus_a" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
+                <input name="max_begin" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
+            </contract>
+            <!-- Saving doesn't work in this context, cause the Octopuscontext is not filled with the required
+                 information. So this action is in the task "ShowEventPrecondition" which works!
+            -->
+            <!-- <action name="savePrecondition" worker="EventPreconditionWorker"/> -->
+            <doTask name="ShowEventPrecondition"/>
+            <response type="velocity" name="eventDetail">
+                <param name="ContentType" value="text/html;charset=UTF-8"/>
+            </response>
         </task>
 
 		<task name="ShowEventSubEventList" access="public" groups="StandardFieldsReader">
