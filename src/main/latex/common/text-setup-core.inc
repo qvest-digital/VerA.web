@@ -29,16 +29,16 @@ Installation der einzelnen Komponenten beschrieben.
 \subsection{Dateien VerA.web-core}\label{subsec:setup-core-files}
 
 \begin{minipage}{\textwidth}
-Benennen Sie die Datei \texttt{veraweb-core-\produktversion{}.war}
+Benennen Sie die Datei \texttt{veraweb-core-\vwiaverssw{}.war}
 in \texttt{veraweb.war} um. Entpacken Sie die Datei
-\texttt{veraweb-core-\produktversion{}-files.tgz} (oder
+\texttt{veraweb-core-\vwiaverssw{}-files.tgz} (oder
 \texttt{.zip}) und wechseln Sie in das angelegte neue Verzeichnis
 (im Beispiel wird die Unix-Variante mit \texttt{.tgz} verwendet):
 
 \begin{lstlisting}[language=sh]
-mv veraweb-core-〈\produktversion{}〉.war veraweb.war
-tar -xzf veraweb-core-〈\produktversion{}〉-files.tgz
-cd veraweb-core-〈\produktversion{}〉
+mv veraweb-core-〈\vwiaverssw{}〉.war veraweb.war
+tar -xzf veraweb-core-〈\vwiaverssw{}〉-files.tgz
+cd veraweb-core-〈\vwiaverssw{}〉
 \end{lstlisting}
 \end{minipage}
 
@@ -319,6 +319,6 @@ mehr und können sie entfernen:
 
 \begin{lstlisting}[language=sh]
 cd ..
-rm -rf veraweb-core-〈\produktversion{}〉* veraweb.war
+rm -rf veraweb-core-〈\vwiaverssw{}〉* veraweb.war
 \end{lstlisting}
 \end{minipage}

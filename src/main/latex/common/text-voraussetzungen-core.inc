@@ -86,10 +86,10 @@ Zur Installation müssen Sie folgende Dateien („die VerA.web-core
 Distribution“) von tarent beziehen:
 
 \begin{itemize}
- \item{\texttt{veraweb-core-\produktversion{}-files.tgz}
-  \emph{oder} \texttt{veraweb-core-\produktversion{}-files.zip}}
+ \item{\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
+  \emph{oder} \texttt{veraweb-core-\vwiaverssw{}-files.zip}}
   \\(der Inhalt dieser Dateien ist identisch, nur anders verpackt)
- \item{\texttt{veraweb-core-\produktversion{}.war}}
+ \item{\texttt{veraweb-core-\vwiaverssw{}.war}}
 \end{itemize}
 
 Bitte wenden Sie sich hierzu an unseren Produktvertrieb.

@@ -28,9 +28,9 @@ RAM: 960 nur OSIAM (1536 rec), 1024 mit VW+VWOA (2048 rec)
 
 Downloads:
 
-http://maven-repo.evolvis.org/releases/org/osiam/osiam-auth-server/2.0/osiam-auth-server-2.0.war
+http://maven-repo.evolvis.org/releases/org/osiam/osiam-auth-server/\vwiaversosiam{}/osiam-auth-server-\vwiaversosiam{}.war
 
-http://maven-repo.evolvis.org/releases/org/osiam/osiam-resource-server/2.0/osiam-resource-server-2.0.war
+http://maven-repo.evolvis.org/releases/org/osiam/osiam-resource-server/\vwiaversosiam{}/osiam-resource-server-\vwiaversosiam{}.war
 
 DB-Konfig (Default-PW ong):
 

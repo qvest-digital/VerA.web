@@ -18,26 +18,14 @@
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
 
-\documentclass{tarentanleitung}
-\begin{document}
+% VerA.web Fassung der Installationsanleitung
+\newcommand{\vwiaversfassungnr}{2.0}
+\newcommand{\vwiaversfassungmonat}{Juli}
+\newcommand{\vwiaversfassungjahr}{2015}
 
-\input{version.inc}
-\tarentanleitung
- {Installationsanleitung VerA.web-core}
- {\vwiaverspo}{\vwiaversfassungnr}{\vwiaversfassungmonat}{\vwiaversfassungjahr}{veraweblogo}
+% VerA.web Version (ohne und mit Buildnummer)
+\newcommand{\vwiaverspo}{1.6.26}
+\newcommand{\vwiaverssw}{1.6.26.3}
 
-\input{toc.inc}
-\input{text-intro-core.inc}
-\input{text-voraussetzungen-ldapimpl.inc}
-\input{text-voraussetzungen-core.inc}
-\input{text-setup-core.inc}
-
-Damit ist die Installation abgeschlossen.
-
-\input{text-upgrade-core.inc}
-
-Damit ist das Upgrade abgeschlossen.
-
-\input{text-ende.inc}
-
-\end{document}
+% OSIAM Version
+\newcommand{\vwiaversosiam}{2.0}

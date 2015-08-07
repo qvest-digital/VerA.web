@@ -39,7 +39,7 @@ Anpassen username/password (spätere HTTP Basic Auth-Absicherung der API)!
 
 Tomcat neustarten.
 
-https://maven-repo.evolvis.org/releases/org/evolvis/veraweb/rest-api/1.6.25.0/rest-api-1.6.25.0.war
+https://maven-repo.evolvis.org/releases/org/evolvis/veraweb/rest-api/\vwiaverssw{}/rest-api-\vwiaverssw{}.war
 als vwor.war reinwerfen.
 
 Apache-Konfig zusätzlich:

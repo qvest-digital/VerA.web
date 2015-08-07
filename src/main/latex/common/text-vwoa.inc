@@ -33,7 +33,7 @@ In den vhost:
 Temporäres Verzeichnis ~/vwoa anlegen und populieren:
 - vwoa/ 0:0 755
 - vwoa/vwoa.jar 0:0 644
-  von https://maven-repo.evolvis.org/releases/org/evolvis/veraweb/online-anmeldung/1.6.25.0/online-anmeldung-1.6.25.0.jar
+  von https://maven-repo.evolvis.org/releases/org/evolvis/veraweb/online-anmeldung/\vwiaverssw{}/online-anmeldung-\vwiaverssw{}.jar
 - vwoa/config.json 0:0 644
   aus files.tgz, anzupassen:
   * osiam/{clientSecret,endpoint}
