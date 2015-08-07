@@ -122,7 +122,7 @@ public class ResetPasswordResource {
 
     private void createOsiamUser(String username, String password) throws IOException {
         final OsiamClient osiamClient = config.getOsiam().getClient(client);
-        final String accessTokenAsString = osiamClient.getAccessToken("GET POST");
+        final String accessTokenAsString = osiamClient.getAccessTokenClientCred("GET", "POST");
 
         final User user = new User.Builder(username)
                 .setName(new Name.Builder().build())

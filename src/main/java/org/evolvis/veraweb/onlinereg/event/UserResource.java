@@ -88,7 +88,7 @@ public class UserResource {
         }
 
         OsiamClient osiamClient = config.getOsiam().getClient(client);
-        String accessToken = osiamClient.getAccessToken("GET POST");
+        String accessToken = osiamClient.getAccessTokenClientCred("GET", "POST");
 
         User user = osiamClient.getUser(accessToken, osiam_username);
         if (user != null) {

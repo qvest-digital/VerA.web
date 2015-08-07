@@ -133,7 +133,7 @@ public class LoginResource {
 		
 			try {
 				String accessToken = config.getOsiam().getClient(client)
-						.getAccessToken(userName, password, "POST");
+						.getAccessTokenUserPass(userName, password, "POST");
 				context.setAttribute(USERNAME, userName);
 				context.setAttribute(ACCESS_TOKEN, accessToken);
 	
