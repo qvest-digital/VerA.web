@@ -71,10 +71,11 @@ sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
 \end{lstlisting}
 \end{minipage}
 
-Falls Sie eine VerA.web-Version haben, welche die Konfigurationsdateien
-noch nicht in \texttt{/etc/veraweb} ablegt, müssen Sie die angepaßten
-Dateien \texttt{/var/lib/tomcat7/webapps/veraweb/OCTOPUS/config\_*.xml}
-zunächst dorthinkopieren.
+Falls Sie von einer VerA.web-Version, die die Konfigurationsdateien
+noch nicht in \texttt{/etc/veraweb} ablegt, aktualisieren, müssen Sie
+dort zunächst die angepaßten Dateien aus dem Verzeichnis
+\texttt{/var/lib/tomcat7/webapps/veraweb/OCTOPUS/config\_*.xml}
+hinkopieren.
 
 Das neue Konfigurationsschema wurde mit VerA.web 1.5.1.4 eingeführt,
 war jedoch bereits in VerA.web 1.4.3.5 (und \emph{nur} dieser Version

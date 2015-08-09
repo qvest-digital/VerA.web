@@ -239,10 +239,10 @@ sudo service apache2 start
 
 Ein Aufruf von z.B. \texttt{https://veraweb.lan.tarent.de/veraweb/} sollte
 nun einen Fehlercode 503 „Service Temporarily Unavailable“ zurückliefern.
-Im \texttt{/var/log/apache2/mod\_jk.log} sollten Sie eine Meldung à la
+Im \texttt{/var/log/apache2/mod\_jk.log} sollten Sie eine Notiz
 „\texttt{ajp\_send\_request::jk\_ajp\_common.c (1630): (ajp13\_worker)
 connecting to backend failed. Tomcat is probably not started or is listening
-on the wrong port (errno=111)}“ sehen. Hingegen sollte unter der URL
+on the wrong port}“ sehen. Hingegen sollte unter der URL
 \texttt{https://veraweb.lan.tarent.de/index.html} weiterhin die Standardseite
 des Webservers zu sehen sein.
 
