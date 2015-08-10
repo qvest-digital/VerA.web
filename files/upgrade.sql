@@ -516,7 +516,6 @@ BEGIN
 
 		ALTER TABLE veraweb.tevent_precondition DROP COLUMN pk;
 
-		ALTER TABLE veraweb.tevent_precondition DROP CONSTRAINT tevent_main_event_precondition_pkey;
 		ALTER TABLE veraweb.tevent_precondition ADD CONSTRAINT tevent_main_event_precondition_pkey PRIMARY KEY (fk_event_main, fk_event_precondition);
 
 		-- post-upgrade
