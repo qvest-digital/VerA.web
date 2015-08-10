@@ -66,8 +66,7 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
     public List showList(OctopusContext octopusContext) throws BeanException {
         final Database database = new DatabaseVeraWeb(octopusContext);
 
-        String mainEventId = octopusContext.;
-        final Select selectEventsStatement = getSelectStatement(database, mainEventId);
+        final Select selectEventsStatement = getSelectStatement(database, String.valueOf(1));
 
         return database.getList(selectEventsStatement, database);
     }
@@ -110,35 +109,35 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
         }
     }
 
-//    /**
-//     * Saves a precondition with given information in octopuscontext
-//     *
-//     * @param octopusContext Context data of octopus
-//     * @throws BeanException BeanException
-//     */
-//    public void savePrecondition(OctopusContext octopusContext) throws BeanException {
-//        Request request = new RequestVeraWeb(octopusContext);
-//        String event_main = (String) request.getField("id");
-//        String event_precondition = (String) request.getField("event_precondition");
-//        String invitationstatus = (String) request.getField("invitationstatus_a");
-//        String max_begin = (String) request.getField("max_begin");
-//
-//        if(event_main != null && !event_main.equals(0) && event_precondition != null && !event_precondition.equals(0) &&
-//                invitationstatus != null && !invitationstatus.equals(0) && max_begin != null && !max_begin.equals(0)) {
-//            TransactionContext transactionContext = (new DatabaseVeraWeb(octopusContext)).getTransactionContext();
-//            Database database = new DatabaseVeraWeb(octopusContext);
-//
-//            final Date maxBegin = getFormattedDate(max_begin);
-//
-//            transactionContext.execute(SQL.Insert(database).table("veraweb.tevent_precondition")
-//                    .insert("fk_event_main", Integer.valueOf(event_main))
-//                    .insert("fk_event_precondition", Integer.valueOf(event_precondition))
-//                    .insert("invitationstatus", Integer.valueOf(invitationstatus))
-//                    .insert("datebegin", maxBegin));
-//
-//            transactionContext.commit();
-//        }
-//    }
+    /**
+     * Saves a precondition with given information in octopuscontext
+     *
+     * @param octopusContext Context data of octopus
+     * @throws BeanException BeanException
+     */
+    public void savePrecondition(OctopusContext octopusContext) throws BeanException {
+        Request request = new RequestVeraWeb(octopusContext);
+        String event_main = (String) request.getField("id");
+        String event_precondition = (String) request.getField("event_precondition");
+        String invitationstatus = (String) request.getField("invitationstatus_a");
+        String max_begin = (String) request.getField("max_begin");
+
+        if(event_main != null && !event_main.equals(0) && event_precondition != null && !event_precondition.equals(0) &&
+                invitationstatus != null && !invitationstatus.equals(0) && max_begin != null && !max_begin.equals(0)) {
+            TransactionContext transactionContext = (new DatabaseVeraWeb(octopusContext)).getTransactionContext();
+            Database database = new DatabaseVeraWeb(octopusContext);
+
+            final Date maxBegin = getFormattedDate(max_begin);
+
+            transactionContext.execute(SQL.Insert(database).table("veraweb.tevent_precondition")
+                    .insert("fk_event_main", Integer.valueOf(event_main))
+                    .insert("fk_event_precondition", Integer.valueOf(event_precondition))
+                    .insert("invitationstatus", Integer.valueOf(invitationstatus))
+                    .insert("datebegin", maxBegin));
+
+            transactionContext.commit();
+        }
+    }
 
     private Date getFormattedDate(String datebegin) {
         final String formattedDate = datebegin.replaceAll("\\.", "-");

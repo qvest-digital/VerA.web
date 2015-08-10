@@ -1315,7 +1315,7 @@
 				Dieser Task zeigt die Vorbedingungen, die für die Online-Anmeldung freigegeben sind, an.
 			</description>
 			<doTask name="Load"/>
-			<!--<action name="savePrecondition" worker="EventPreconditionWorker" />-->
+			<action name="savePrecondition" worker="EventPreconditionWorker" />
             <action name="getAll" worker="EventListWorker"/>
 			<action name="showDetail" worker="EventDetailWorker" />
 			<action name="showList" worker="EventPreconditionWorker" />
