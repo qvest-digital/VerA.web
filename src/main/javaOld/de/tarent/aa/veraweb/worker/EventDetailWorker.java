@@ -110,15 +110,24 @@ public class EventDetailWorker {
 	public static final String INPUT_copyEvent[] = {};
 	
 	public void copyEvent(OctopusContext octopusContext) {
+		
 		Event event;
 		try {
-			Request request = new RequestVeraWeb(octopusContext);
+			// Copy event in tevent
 			Integer id = new Integer((String) octopusContext.getContextField("id"));
 			Database database = new DatabaseVeraWeb(octopusContext);
 			event = (Event)database.getBean("Event", id);
+			TransactionContext transactionContext = database.getTransactionContext();
+			event.shortname = "Copy of " + event.shortname;
+			database.getNextPk(event, transactionContext);
+	        Insert insert = database.getInsert(event);
+	        insert.insert("pk", event.id);
+	        transactionContext.execute(insert);
+	        transactionContext.commit();
+	        
+	        
+	        System.out.println("TEST");
 			
-			event = createNewEvent(octopusContext, request, event);
-			octopusContext.contentAsObject("event");
 			
 		} catch (Exception e) {}
 		
@@ -503,6 +512,7 @@ public class EventDetailWorker {
         event = (Event) request.getBean("Event", "event");
         DateHelper.addTimeToDate(event.begin, octopusContext.requestAsString("event-begintime"), event.getErrors());
         DateHelper.addTimeToDate(event.end, octopusContext.requestAsString("event-endtime"), event.getErrors());
+        // keep parentId in the context when changing the Tabs.
         String parentId=octopusContext.getRequestObject().get("parentId");
         if (parentId != null) {
             event.parent_event_id= Integer.parseInt(parentId);

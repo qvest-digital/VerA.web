@@ -326,14 +326,16 @@
 
 			if (checkBoxes.length === 0) {
 				showInfo(' ${placeholderWithTranslation.wahlensiebittezunachsteineodermehrereveranstaltungenaus} ');
+				alert("first");
 			} else {
-				$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" />').submit();
+				$('form').append('<input type="hidden" name="remove" value="Ja" />').submit();
+				alert("first");
 			}
 		});
 
 		$('#button\\.remove-cancel').click(function (e) {
 			$('input[name$="-select"]').prop('checked', false);
-			$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" />').submit();
+			$('form').append('<input type="hidden" name="remove" value="Ja" />').submit();
 		});
 	});
 </script>
