@@ -19,7 +19,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2015-08-07';
+	vversion := '2015-08-10';
 
 	-- initialisation
 	vint := 0;
@@ -467,8 +467,6 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
-	-- anything after the old SQL files
-
 	vnewvsn := '2015-08-07';
 	IF vcurvsn < vnewvsn THEN
 		vmsg := 'begin.update(' || vnewvsn || ')';
@@ -506,6 +504,24 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
+	-- anything after the old SQL files
+
+	vnewvsn := '2015-08-10';
+    	IF vcurvsn < vnewvsn THEN
+    		vmsg := 'begin.update(' || vnewvsn || ')';
+    		DROP SEQUENCE veraweb.tevent_precondition_seq;
+
+			ALTER TABLE veraweb.tevent_precondition DROP COLUMN pk;
+
+			ALTER TABLE veraweb.tevent_precondition DROP CONSTRAINT tevent_main_event_precondition_pkey;
+			ALTER TABLE veraweb.tevent_precondition ADD CONSTRAINT tevent_main_event_precondition_pkey PRIMARY KEY (fk_event_main, fk_event_precondition)
+
+    		-- post-upgrade
+    		vmsg := 'end.update(' || vnewvsn || ')';
+    		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+    		vcurvsn := vnewvsn;
+    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+    	END IF;
 	-- end
 
 	IF vcurvsn <> vversion THEN
