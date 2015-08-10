@@ -430,7 +430,7 @@
 		<dependency>
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-ext-beans</artifactId>
-			<version>1.6.2verawebpl3</version>
+			<version>1.6.2verawebpl4</version>
 
 			<exclusions>
 				<exclusion>
