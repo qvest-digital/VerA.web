@@ -314,6 +314,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 		select.select("fon_a_e1");
 		select.select("mail_a_e1");
         select.select("delegation");
+        select.select("precondition");
 
 		if (freitextfeld != null) {
 			select.joinLeftOuter("veraweb.tguest_doctype", "tguest.pk", "tguest_doctype.fk_guest AND fk_doctype = " + freitextfeld);
