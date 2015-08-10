@@ -20,29 +20,27 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.Event;
-import de.tarent.aa.veraweb.beans.EventPrecondition;
 import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
-import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.beans.Request;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWebFactory;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author sweiz - tarent solutions GmbH - tarent solutions GmbH on 30.07.15.
@@ -65,6 +63,25 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
     }
 
     @Override
+    public List showList(OctopusContext octopusContext) throws BeanException {
+        final Database database = new DatabaseVeraWeb(octopusContext);
+
+        final Select selectEventsStatement = getSelectStatement(database, String.valueOf(1));
+
+        return database.getList(selectEventsStatement, database);
+    }
+
+    private Select getSelectStatement(Database database, String mainEventId) {
+        Clause clause = Expr.equal("p.fk_event_main", mainEventId);
+
+        return SQL.SelectDistinct(database).
+            select("e.*").select("p.invitationstatus").selectAs("p.datebegin", "precondition_date").
+            join("veraweb.tevent_precondition p", "p.fk_event_precondition", "e.pk").
+            from("veraweb.tevent e").
+            where(clause);
+    }
+
+    @Override
     protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
         select.join("veraweb.tevent", "tevent.pk", "tevent_precondition.fk_event_precondition");
         select.selectAs("tevent.shortname", "shortName");
@@ -78,6 +95,17 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
         } else {
             Request request = new RequestVeraWeb(cntx);
             select.where(Expr.equal("tevent_precondition.fk_event_main", Integer.valueOf((String) request.getField("id"))));
+        }
+    }
+
+    @Override
+    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context) {
+        try {
+            super.saveBean(octopusContext, bean, context);
+        } catch (BeanException e) {
+            LOGGER.error("Fehler beim speichern der neuen Kategorie", e);
+        } catch (IOException e) {
+            LOGGER.error("Fehler beim speichern der neuen Kategorie", e);
         }
     }
 

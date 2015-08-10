@@ -187,12 +187,13 @@
                     </tr>
                     #end
                     #foreach($bean in $list)
+                    <!-- DEBUG $bean -->
                         <tr>
                             #if($grants.mayWrite())
                                 <td class="textCenter"><input type="hidden" id="${bean.event_precondition}-modified" name="${bean.event_precondition}-modified" value="false"/><input type="checkbox" name="${bean.event_precondition}-select" value="true"/></td>
                             #end
-                            <td class="textCenter"><input type="hidden" name="${$bean.event_precondition}-id" value="$!bean.event_precondition"/><input type="hidden" name="${bean.event_precondition}-event" value="$!event.event_precondition"/>$!bean.event_precondition</td>
-                            <td>$!message.plain($bean.shortName)</td>
+                            <td class="textCenter"><input type="hidden" name="${$bean.event_precondition}-id" value="$!bean.event_precondition"/><input type="hidden" name="${bean.event_precondition}-event" value="$!event.event_precondition"/>$!bean.pk</td>
+                            <td>$!message.plain($bean.shortname)</td>
                             <td>
                                 #if($bean.invitationstatus && $bean.invitationstatus == 0)
                                     Offen
@@ -204,7 +205,7 @@
                                     Teilgenommen
                                 #end
                             </td>
-                            <td>$!message.date("DATE", $bean.max_begin)</td>
+                            <td>$!message.date("DATE", $bean.precondition_date)</td>
                         </tr>
                     #end
 
