@@ -371,6 +371,9 @@
 					value="${placeholderWithTranslation.veranstaltungspeichern}"
 				#end
 				title="${placeholderWithTranslation.veranstaltungspeichern}" name="save" onclick="document.getElementById('formlist').action='SaveEvent';">
+				#if(!$isNewEvent && !$event.parent_event_id)
+					<input type="submit" class="mainButton" value="Veranstaltung kopieren" onclick="document.getElementById('formlist').action='CopyEvent?id=$event.id';"/>
+				#end
 			#end
 			
 			<input type="reset" class="mainButton"
@@ -385,6 +388,7 @@
 				 title="${placeholderWithTranslation.zurveranstaltungsubersicht}" name="cancel" onclick="if (checkModified()) { window.location.href='ShowEventSearch?action=event'; }">
 			#end
 		</span>
+		
 
 		<script type="text/javascript">
 			function showDoctypes() {
