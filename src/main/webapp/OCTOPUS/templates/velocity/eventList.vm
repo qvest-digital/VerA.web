@@ -47,15 +47,6 @@
 	#set($formurl = "SearchEvent")
 #end
 
-#set($listParentIds = [])
-#foreach($bean in $list)
-	<input type="hidden" name="list" value="$bean.id">
-	#if($bean.parent_event_id)
-		$listParentIds.add($bean.parent_event_id)
-	#end
-#end
-
-
 <div id="content_container">
 	#if($action == "guest" || $searchTask)
 		<div id="breadcrumb" class="textRight marginBottom10">
@@ -303,12 +294,7 @@
 								<td>
 								#set($show = false)
 								##ANZEIGE DER SR FLAGE
-								#foreach($parentId in $listParentIds)
-									#if($bean.id == $parentId)
-										#set($show = true)
-									#end
-								#end
-								#if($show)
+								#if($ParentIds.containsKey($bean.id))
 									SR
 								#end
 							</td>

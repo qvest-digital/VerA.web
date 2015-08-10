@@ -27,10 +27,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
+import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
+import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
@@ -45,6 +48,7 @@ import de.tarent.octopus.beans.BeanListWorker;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.config.TcPersonalConfig;
@@ -120,17 +124,36 @@ public class EventListWorker extends ListWorkerVeraWeb {
 
 
     @Override
-	public List showList(OctopusContext cntx) throws BeanException, IOException {
-    	String val = cntx.getRequestObject().get("searchTask");
-    	cntx.setContent("searchTask", val);
-    	List<Object> events = super.showList(cntx);
+	public List showList(OctopusContext octopusContext) throws BeanException, IOException {
+    	String val = octopusContext.getRequestObject().get("searchTask");
+    	octopusContext.setContent("searchTask", val);
     	
+    	addMainEventsFlag(octopusContext);
+    	
+    	@SuppressWarnings("unchecked")
+		List<Event> events = super.showList(octopusContext);
 		return events;
+	}
+
+	private void addMainEventsFlag(OctopusContext octopusContext) throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(octopusContext);
+    	TransactionContext transactionContext = database.getTransactionContext();
+    	
+    	@SuppressWarnings("unchecked")
+		List<Event> allevents = database.getBeanList("Event", database.getSelect("Event"),
+        transactionContext);
+    	
+    	Map<Integer,Integer> ParentIds = new TreeMap<Integer, Integer>();
+    	for(Event event : allevents) {
+    		if(event.parent_event_id != null && !ParentIds.containsKey(event.id)) {
+    			ParentIds.put(event.parent_event_id, event.id);
+    		}
+    	}
+    	octopusContext.setContent("ParentIds", ParentIds);
 	}
     
    @Override
    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {        
-        select.selectAs("CASE WHEN tevent.pk in (SELECT DISTINCT parent_event_id from tevent) THEN 'SR' ELSE 'FR' END", "FLAG");
     }
 
 	/**
@@ -193,8 +216,6 @@ public class EventListWorker extends ListWorkerVeraWeb {
 //					Expr.greaterOrEqual("dateend", search.end)));
 		}
 		
-		where.addAnd(Expr.isNull("parent_event_id"));
-
         if (where.size() > 0)
             select.where(where);
 	}
@@ -302,7 +323,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		} catch (SQLException e) {
 			throw new BeanException("SQL Exception while deleting OptionalFields from Event", e);
 		}
-
+		
 		context.execute(
 		        SQL.Delete(database)
 		        .from("veraweb.ttask")

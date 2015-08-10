@@ -19,7 +19,23 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import de.tarent.aa.veraweb.beans.*;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import de.tarent.aa.veraweb.beans.Doctype;
+import de.tarent.aa.veraweb.beans.Event;
+import de.tarent.aa.veraweb.beans.EventDoctype;
+import de.tarent.aa.veraweb.beans.Guest;
+import de.tarent.aa.veraweb.beans.Person;
+import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
@@ -41,11 +57,6 @@ import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 /**
  * Dieser Octopus-Worker dient der Anzeige und Bearbeitung von Details von
@@ -99,16 +110,19 @@ public class EventDetailWorker {
 	public static final String INPUT_copyEvent[] = {};
 	
 	public void copyEvent(OctopusContext octopusContext) {
-		System.out.println("testing first");
 		Event event;
 		try {
+			Request request = new RequestVeraWeb(octopusContext);
 			Integer id = new Integer((String) octopusContext.getContextField("id"));
 			Database database = new DatabaseVeraWeb(octopusContext);
 			event = (Event)database.getBean("Event", id);
+			
+			event = createNewEvent(octopusContext, request, event);
+			octopusContext.contentAsObject("event");
+			
 		} catch (Exception e) {}
 		
 		
-		System.out.println("testing");
 	}
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Boolean)} */
@@ -152,6 +166,7 @@ public class EventDetailWorker {
             prepareAndSaveEvent(octopusContext, request, database, transactionContext);
         } catch (BeanException e) {
             transactionContext.rollBack();
+            
             // must report error to user
             throw new BeanException("Die Eventdetails konnten nicht gespeichert werden.", e);
         }

@@ -149,7 +149,6 @@
 								#if ($online-registration.activated)
 									<div class="tableCell width50 inlineLabel">
 										<label for="event-eventtype">${placeholderWithTranslation.offeneveranstaltung}</label>
-										<!-- DEBUG $event.eventtype -->
 										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-eventtype" name="event-eventtype"
 											#if($event && $event.eventtype != "")
 												checked
@@ -324,7 +323,6 @@
                                     <div class="tableRow">
                                         <div class="tableCell width50 inlineLabel">
                                             <label for="event-apply_without_precondition">${placeholderWithTranslation.EVENT_PRECONDITION_ALLOW_GUESTS_WITHOUT_PRECONDITION}</label>
-                                            <!-- DEBUG $event.login_required -->
                                             <input type="checkbox" onchange="setModified();" class="noFloat" id="event-apply_without_precondition" name="event-apply_without_precondition"
                                                    #if($event && $event.apply_without_precondition)
                                                     checked
@@ -337,7 +335,6 @@
 								<div class="tableRow">
 									<div class="tableCell width50 inlineLabel">
 										<label for="event-login_required">${placeholderWithTranslation.loginnotwendig}</label>
-										<!-- DEBUG $event.login_required -->
 										<input type="checkbox" onchange="setModified();" class="noFloat" id="event-login_required" name="event-login_required"
 											#if($event && $event.login_required)
 												checked
@@ -353,7 +350,7 @@
 											#if($event && $event.mediarepresentatives)
 												checked
 											#end
-										>
+										
 									</div>
 								</div>
 							#end
