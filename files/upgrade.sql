@@ -509,6 +509,9 @@ BEGIN
 	vnewvsn := '2015-08-10';
 	IF vcurvsn < vnewvsn THEN
 		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+
+		-- some comment about what this does here
 		DROP SEQUENCE veraweb.tevent_precondition_seq;
 
 		ALTER TABLE veraweb.tevent_precondition DROP COLUMN pk;
