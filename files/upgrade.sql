@@ -474,12 +474,8 @@ BEGIN
 		vmsg := 'begin.update(' || vnewvsn || ')';
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
-		-- Create new sequence to allow unique PK in tevent_precondition
-		CREATE SEQUENCE veraweb.tevent_precondition_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
-
 		-- New table for link between event and events, which are preconditions
 		CREATE TABLE veraweb.tevent_precondition (
-			pk serial NOT NULL,
 			fk_event_main INTEGER NOT NULL,
 			fk_event_precondition INTEGER NOT NULL,
 			invitationstatus INTEGER DEFAULT 0,
@@ -487,7 +483,7 @@ BEGIN
 
 			FOREIGN KEY (fk_event_main) REFERENCES veraweb.tevent(pk),
 			FOREIGN KEY (fk_event_precondition) REFERENCES veraweb.tevent(pk),
-			CONSTRAINT tevent_main_event_precondition_pkey PRIMARY KEY (pk)
+			CONSTRAINT tevent_main_event_precondition_pkey PRIMARY KEY (fk_event_main, fk_event_precondition)
 		) WITH OIDS;
 
 		-- New flag, to show if precondition of guest is fulfilled
