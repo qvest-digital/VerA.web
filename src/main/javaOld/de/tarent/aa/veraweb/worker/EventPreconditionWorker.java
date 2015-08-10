@@ -82,6 +82,8 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
                     .insert("fk_event_precondition", Integer.valueOf(event_precondition))
                     .insert("invitationstatus", Integer.valueOf(invitationstatus))
                     .insert("datebegin", maxBegin));
+
+            transactionContext.commit();
         }
     }
 
