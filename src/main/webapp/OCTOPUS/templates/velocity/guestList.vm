@@ -412,16 +412,6 @@
 						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Auf Platz">&nbsp;</td>
 					#end
 
-
-
-                    $bean
-                    <p>jetzt facade</p>
-                    $facade
-
-
-
-
-
                     #if($bean.precondition == 0)
                         <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Vorbedingung nicht erfüllt"><strong>V</strong></td>
                     #else
