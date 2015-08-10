@@ -166,6 +166,10 @@
 					#end
 				</span>
 			#end
+			
+			#foreach($bean in $list)
+				<input type="hidden" name="list" value="$bean.id" />
+			#end
 				
 				<table class="fixed">
 					##Set column size
@@ -326,10 +330,8 @@
 
 			if (checkBoxes.length === 0) {
 				showInfo(' ${placeholderWithTranslation.wahlensiebittezunachsteineodermehrereveranstaltungenaus} ');
-				alert("first");
 			} else {
 				$('form').append('<input type="hidden" name="remove" value="Ja" />').submit();
-				alert("first");
 			}
 		});
 
