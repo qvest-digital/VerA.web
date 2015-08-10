@@ -73,7 +73,12 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
 
     @Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
-        select.where(Expr.equal("tevent_precondition.fk_event_main", getEvent(cntx).id));
+        if(getEvent(cntx) != null) {
+            select.where(Expr.equal("tevent_precondition.fk_event_main", getEvent(cntx).id));
+        } else {
+            Request request = new RequestVeraWeb(cntx);
+            select.where(Expr.equal("tevent_precondition.fk_event_main", Integer.valueOf((String) request.getField("id"))));
+        }
     }
 
     /**
@@ -122,6 +127,10 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
     }
 
     private Event getEvent(OctopusContext cntx) {
-        return (Event)cntx.contentAsObject("event");
+        if(cntx.contentAsObject("event") != null) {
+            return (Event) cntx.contentAsObject("event");
+        } else {
+            return null;
+        }
     }
 }
