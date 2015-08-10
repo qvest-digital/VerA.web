@@ -467,6 +467,8 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
+	-- anything after the old SQL files
+
 	vnewvsn := '2015-08-07';
 	IF vcurvsn < vnewvsn THEN
 		vmsg := 'begin.update(' || vnewvsn || ')';
@@ -492,11 +494,11 @@ BEGIN
 		ALTER TABLE veraweb.tguest ADD COLUMN precondition int4 DEFAULT 0;
 		-- New flag, to disallow or allow guests with unfulfilled preconditions to apply to events
 		ALTER TABLE veraweb.tevent ADD COLUMN apply_without_precondition int4 DEFAULT 0;
-        -- Now sets default value (current time)
+		-- Now sets default value (current time)
 		ALTER TABLE veraweb.tguest ALTER COLUMN created SET DEFAULT current_timestamp;
-        -- New column for link between parent event and child events
-        ALTER TABLE tevent ADD COLUMN parent_event_id INTEGER REFERENCES veraweb.tevent(pk) ON DELETE CASCADE;
-		
+		-- New column for link between parent event and child events
+		ALTER TABLE tevent ADD COLUMN parent_event_id INTEGER REFERENCES veraweb.tevent(pk) ON DELETE CASCADE;
+
 		-- post-upgrade
 		vmsg := 'end.update(' || vnewvsn || ')';
 		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
@@ -504,24 +506,26 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
-	-- anything after the old SQL files
-
 	vnewvsn := '2015-08-10';
-    	IF vcurvsn < vnewvsn THEN
-    		vmsg := 'begin.update(' || vnewvsn || ')';
-    		DROP SEQUENCE veraweb.tevent_precondition_seq;
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
-			ALTER TABLE veraweb.tevent_precondition DROP COLUMN pk;
+		-- some comment about what this does here
+		DROP SEQUENCE veraweb.tevent_precondition_seq;
 
-			ALTER TABLE veraweb.tevent_precondition DROP CONSTRAINT tevent_main_event_precondition_pkey;
-			ALTER TABLE veraweb.tevent_precondition ADD CONSTRAINT tevent_main_event_precondition_pkey PRIMARY KEY (fk_event_main, fk_event_precondition)
+		ALTER TABLE veraweb.tevent_precondition DROP COLUMN pk;
 
-    		-- post-upgrade
-    		vmsg := 'end.update(' || vnewvsn || ')';
-    		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-    		vcurvsn := vnewvsn;
-    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-    	END IF;
+		ALTER TABLE veraweb.tevent_precondition DROP CONSTRAINT tevent_main_event_precondition_pkey;
+		ALTER TABLE veraweb.tevent_precondition ADD CONSTRAINT tevent_main_event_precondition_pkey PRIMARY KEY (fk_event_main, fk_event_precondition);
+
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
+
 	-- end
 
 	IF vcurvsn <> vversion THEN
