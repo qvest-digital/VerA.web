@@ -538,6 +538,9 @@ BEGIN
 			ALTER TABLE veraweb.tevent_precondition ADD CONSTRAINT tevent_precondition_fk_event_precondition_fkey
             		    FOREIGN KEY (fk_event_precondition) REFERENCES veraweb.tevent(pk) ON DELETE CASCADE;
 
+			ALTER TABLE veraweb.tguest DROP COLUMN precondition;
+			ALTER TABLE veraweb.tguest ADD COLUMN precondition int4 DEFAULT 1;
+
     		-- post-upgrade
     		vmsg := 'end.update(' || vnewvsn || ')';
     		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
