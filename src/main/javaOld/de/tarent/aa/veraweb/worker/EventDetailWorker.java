@@ -31,15 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import de.tarent.aa.veraweb.beans.Doctype;
-import de.tarent.aa.veraweb.beans.Event;
-import de.tarent.aa.veraweb.beans.EventCategory;
-import de.tarent.aa.veraweb.beans.EventDoctype;
-import de.tarent.aa.veraweb.beans.EventFunction;
-import de.tarent.aa.veraweb.beans.EventPrecondition;
-import de.tarent.aa.veraweb.beans.Guest;
-import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.aa.veraweb.beans.Task;
+import de.tarent.aa.veraweb.beans.*;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
@@ -123,7 +115,6 @@ public class EventDetailWorker {
 		id = new Integer((String) octopusContext.getContextField("id"));
 		
 		try {
-			
 			event = (Event)database.getBean("Event", id);
 			event.shortname = "Copy of " + event.shortname;
 			Date today = new Date();
@@ -144,9 +135,9 @@ public class EventDetailWorker {
 		copyEventFunctions(database, transactionContext, id, newId);
 		copyEventCategories(database, transactionContext, id, newId);
 		copyEventPreconditions(database, transactionContext, id, newId);
+        initOptionalFields(database, transactionContext, event);
         
         System.out.println("TEST");
-			
 	}
 
 
