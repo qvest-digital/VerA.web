@@ -118,35 +118,72 @@ public class EventDetailWorker {
 		Event event = null;
 		Database database = new DatabaseVeraWeb(octopusContext);
 		TransactionContext transactionContext = database.getTransactionContext();
-		Integer id = null;
+		Integer oldId = null;
 		Integer newId = null;
-		id = new Integer((String) octopusContext.getContextField("id"));
+		oldId = new Integer((String) octopusContext.getContextField("id"));
+		Event oldEvent = (Event) database.getBean("Event", oldId);
+		Date today = new Date();
+		Timestamp todayTimestamp = new Timestamp(today.getTime());
 		
 		try {
 			
-			event = (Event)database.getBean("Event", id);
+			event = oldEvent;
 			event.shortname = "Copy of " + event.shortname;
-			Date today = new Date();
-			Timestamp todayTimestamp = new Timestamp(today.getTime());
 			event.begin = todayTimestamp;
 			database.getNextPk(event, transactionContext);
 			newId = event.id;
-	        Insert insert = database.getInsert(event);
-	        insert.insert("pk", event.id);
-	        transactionContext.execute(insert);
-	        transactionContext.commit();
+	        
+			insertNewEvent(event, database, transactionContext);
+	        
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		copyEventDoctypes(database, transactionContext, id, newId);
-		copyEventTasks(database, transactionContext, id, newId);
-		copyEventFunctions(database, transactionContext, id, newId);
-		copyEventCategories(database, transactionContext, id, newId);
-		copyEventPreconditions(database, transactionContext, id, newId);
-        
-        System.out.println("TEST");
-			
+		copyEventData(database, transactionContext, oldId, newId);
+		
+		copySubEvents(database, transactionContext, oldId, newId, todayTimestamp);
+		
+		Event newEvent = (Event) database.getBean("Event", newId);
+		octopusContext.setContent("event", newEvent);
+	}
+
+
+	private void copySubEvents(Database database, TransactionContext transactionContext, Integer oldId, Integer newId,
+			Timestamp todayTimestamp) throws BeanException, IOException {
+		List<Event> subEvents = database.getBeanList("Event", database.getSelect("Event")
+				.where(Expr.equal("parent_event_id", oldId)),
+                transactionContext);
+		int oldSubEventId, newSubEventId;
+		for(Event subEvent : subEvents) {
+			oldSubEventId = subEvent.id;
+			database.getNextPk(subEvent, transactionContext);
+			newSubEventId = subEvent.id;
+			subEvent.parent_event_id = newId;
+			subEvent.begin = todayTimestamp;
+	        insertNewEvent(subEvent, database, transactionContext);
+			copyEventData(database, transactionContext, oldSubEventId, newSubEventId);
+		}
+	}
+
+
+	private void insertNewEvent(Event event, Database database, TransactionContext transactionContext)
+			throws BeanException, IOException {
+		Insert insert = database.getInsert(event);
+		insert.insert("pk", event.id);
+		transactionContext.execute(insert);
+		transactionContext.commit();
+	}
+
+
+	private void copyEventData(Database database, TransactionContext transactionContext, Integer oldId,
+			Integer newId) throws BeanException, IOException {
+		
+		copyEventDoctypes(database, transactionContext, oldId, newId);
+		copyEventTasks(database, transactionContext, oldId, newId);
+		copyEventFunctions(database, transactionContext, oldId, newId);
+		copyEventCategories(database, transactionContext, oldId, newId);
+		copyEventPreconditions(database, transactionContext, oldId, newId);
+		
 	}
 
 
