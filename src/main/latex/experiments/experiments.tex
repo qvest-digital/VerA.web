@@ -1,0 +1,77 @@
+% VerA.web (public) Teχ-Experimente
+%
+% Copyright © 2015
+%	Thorsten Glaser <t.glaser@tarent.de>
+%
+% Provided that these terms and disclaimer and all copyright notices
+% are retained or reproduced in an accompanying document, permission
+% is granted to deal in this work without restriction, including un‐
+% limited rights to use, publicly perform, distribute, sell, modify,
+% merge, give away, or sublicence.
+%
+% This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to
+% the utmost extent permitted by applicable law, neither express nor
+% implied; without malicious intent or gross negligence. In no event
+% may a licensor, author or contributor be held liable for indirect,
+% direct, other damage, loss, or other issues arising in any way out
+% of dealing in the work, even if advised of the possibility of such
+% damage or existence of a defect, except proven that it results out
+% of said person’s immediate fault when using the work as intended.
+
+\documentclass{tarentanleitung}
+\begin{document}
+
+\input{version.inc}
+\tarentanleitung
+ {Experimente}
+ {\vwiaverspo}{\vwiaversfassungnr}{\vwiaversfassungmonat}{\vwiaversfassungjahr}{veraweblogo}
+
+\input{toc.inc}
+
+\section{Experimente}
+
+Wie breit ist die Seite? % 497.92325pt ~= 175 mm (5 Nullen nach dem Komma)
+% ein Teχ-Punkt (pt) ist exakt 2540/7227 mm = 0.3̅5̅1̅4̅5̅9̅8̅0̅ mm
+% ein Teχ-Punkt (pt) ist exakt 800/803 PostScript-Punkt (pt, Teχ bp) = 0.9̅9̅6̅2̅6̅4̅0̅0̅ bp
+% Teχ rechnet intern nur auf ca. 6 Stellen genau, fixed-point, daher vmtl. exakt
+
+\the\textwidth
+
+Kann ich Text ifdef'en?
+
+\newif\ifosiam
+\osiamtrue
+
+\ifosiam
+ OSIAM ja2 (ok)
+\else
+ OSIAM nein2
+\fi
+
+\ifosiam
+ OSIAM ja1 (ok)
+\fi
+
+% \if!osiam ist immer false, \ifnotosiam schmeißt nen Fehler ☹
+\ifosiam\else
+ OSIAM nein1
+\fi
+
+\osiamfalse
+
+\ifosiam
+ OSIAM ja2
+\else
+ OSIAM nein2 (ok)
+\fi
+
+\ifosiam
+ OSIAM ja1
+\fi
+
+% \if!osiam ist immer false, \ifnotosiam schmeißt nen Fehler ☹
+\ifosiam\else
+ OSIAM nein1 (ok)
+\fi
+
+\end{document}
