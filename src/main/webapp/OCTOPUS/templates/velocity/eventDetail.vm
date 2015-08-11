@@ -372,18 +372,18 @@
 					<input type="submit" class="mainButton" value="Veranstaltung kopieren" onclick="document.getElementById('formlist').action='CopyEvent?id=$event.id';"/>
 				#end
 			#end
-			
-			<input type="reset" class="mainButton"
-			#if($event.parent_event_id)
-				value="${placeholderWithTranslation.zurunterveranstaltungsubersicht}"
-			#else
-				value="${placeholderWithTranslation.zurveranstaltungsubersicht}"
-			#end
-			#if($event && $event.id)
-				 title="${placeholderWithTranslation.zurveranstaltungsubersicht}" name="cancel" onclick="window.location.href='SearchEvent?action=event&selectNone=true';">
-			#else
-				 title="${placeholderWithTranslation.zurveranstaltungsubersicht}" name="cancel" onclick="if (checkModified()) { window.location.href='ShowEventSearch?action=event'; }">
-			#end
+
+            <input type ="reset" class="mainButton"
+                #if($event && $event.parent_event_id)
+                    value="${placeholderWithTranslation.zurunterveranstaltungsubersicht}"
+                    title="${placeholderWithTranslation.zurunterveranstaltungsubersicht}" name="cancel"
+                    onclick="if (checkModified()) { window.location.href='ShowEventSubEventList?id=$event.parent_event_id';}"
+                #else
+                    value="${placeholderWithTranslation.zurveranstaltungsubersicht}"
+                    title="${placeholderWithTranslation.zurveranstaltungsubersicht}" name="cancel"
+                    onclick="if (checkModified()) { window.location.href='SearchEvent?action=event'; }"
+                #end
+            />
 		</span>
 		
 
