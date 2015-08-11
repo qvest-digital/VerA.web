@@ -71,8 +71,9 @@ public class EventPreconditionWorker extends ListWorkerVeraWeb {
     @Override
     public List showList(OctopusContext octopusContext) throws BeanException {
         final Database database = new DatabaseVeraWeb(octopusContext);
+        final String mainEventId = (String) octopusContext.getRequestObject().getRequestParameters().get("id");
 
-        final Select selectEventsStatement = getSelectStatement(database, String.valueOf(1));
+        final Select selectEventsStatement = getSelectStatement(database, mainEventId);
 
         return database.getList(selectEventsStatement, database);
     }
