@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,7 +33,10 @@ import java.util.UUID;
 
 import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Event;
+import de.tarent.aa.veraweb.beans.EventCategory;
 import de.tarent.aa.veraweb.beans.EventDoctype;
+import de.tarent.aa.veraweb.beans.EventFunction;
+import de.tarent.aa.veraweb.beans.EventPrecondition;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
@@ -116,14 +120,15 @@ public class EventDetailWorker {
 		TransactionContext transactionContext = database.getTransactionContext();
 		Integer id = null;
 		Integer newId = null;
+		id = new Integer((String) octopusContext.getContextField("id"));
+		
 		try {
-			id = new Integer((String) octopusContext.getContextField("id"));
 			
-			
-			// Copy event in tevent
 			event = (Event)database.getBean("Event", id);
 			event.shortname = "Copy of " + event.shortname;
-			
+			Date today = new Date();
+			Timestamp todayTimestamp = new Timestamp(today.getTime());
+			event.begin = todayTimestamp;
 			database.getNextPk(event, transactionContext);
 			newId = event.id;
 	        Insert insert = database.getInsert(event);
@@ -134,12 +139,61 @@ public class EventDetailWorker {
 			e.printStackTrace();
 		}
 		
-        // Copy event doctype
 		copyEventDoctypes(database, transactionContext, id, newId);
+		copyEventTasks(database, transactionContext, id, newId);
+		copyEventFunctions(database, transactionContext, id, newId);
+		copyEventCategories(database, transactionContext, id, newId);
+		copyEventPreconditions(database, transactionContext, id, newId);
         
         System.out.println("TEST");
 			
 	}
+
+
+	private void copyEventPreconditions(Database database, TransactionContext transactionContext, Integer id,
+			Integer newId) throws BeanException, IOException {
+		List<EventPrecondition> allEventPreconditions = database.getBeanList("EventPrecondition", 
+				database.getSelect("EventPrecondition").where(Expr.equal("fk_event_main", id)),
+                transactionContext);
+		
+        for(EventPrecondition eventPrecondition : allEventPreconditions) {
+        	eventPrecondition.event_main = newId;
+	        Insert insert = database.getInsert(eventPrecondition);
+	        transactionContext.execute(insert);
+	        transactionContext.commit();
+        }
+	}
+
+
+	private void copyEventCategories(Database database, TransactionContext transactionContext, Integer id, Integer newId)
+			throws BeanException, IOException {
+		List<EventCategory> allEventCategories = database.getBeanList("EventCategory", database.getSelect("EventCategory")
+				.whereAndEq("fk_event", id),
+                transactionContext);
+        
+        for(EventCategory eventCategory : allEventCategories) {
+        	eventCategory.event = newId;
+	        Insert insert = database.getInsert(eventCategory);
+	        transactionContext.execute(insert);
+	        transactionContext.commit();
+        }
+	}
+
+
+	private void copyEventFunctions(Database database, TransactionContext transactionContext, Integer id, Integer newId)
+			throws BeanException, IOException {
+		List<EventFunction> allEventFunctions = database.getBeanList("EventFunction", database.getSelect("EventFunction")
+				.whereAndEq("fk_event", id),
+                transactionContext);
+        
+        for(EventFunction eventFunction : allEventFunctions) {
+        	eventFunction.event = newId;
+	        Insert insert = database.getInsert(eventFunction);
+	        transactionContext.execute(insert);
+	        transactionContext.commit();
+        }
+	}
+
 
 	private void copyEventDoctypes(Database database, TransactionContext transactionContext, Integer id, Integer newId)
 			throws BeanException, IOException {
@@ -154,6 +208,18 @@ public class EventDetailWorker {
         }
 	}
 	
+	private void copyEventTasks(Database database, TransactionContext transactionContext, Integer id, Integer newId)
+			throws BeanException, IOException {
+		List<Task> allEventTasks = database.getBeanList("Task", database.getSelect("Task").whereAndEq("fk_event", id),
+				transactionContext);
+		
+		for(Task task : allEventTasks) {
+			task.eventId = newId;
+			Insert insert = database.getInsert(task);
+			transactionContext.execute(insert);
+			transactionContext.commit();
+		}
+	}
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String INPUT_saveDetail[] = { "saveevent" };
