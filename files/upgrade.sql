@@ -19,7 +19,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2015-08-10';
+	vversion := '2015-08-11';
 
 	-- initialisation
 	vint := 0;
@@ -524,6 +524,26 @@ BEGIN
 		vcurvsn := vnewvsn;
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
+
+	vnewvsn := '2015-08-11';
+    	IF vcurvsn < vnewvsn THEN
+    		vmsg := 'begin.update(' || vnewvsn || ')';
+
+			ALTER TABLE veraweb.tevent_precondition DROP CONSTRAINT tevent_precondition_fk_event_main_fkey;
+            ALTER TABLE veraweb.tevent_precondition DROP CONSTRAINT tevent_precondition_fk_event_precondition_fkey;
+
+			ALTER TABLE veraweb.tevent_precondition ADD CONSTRAINT tevent_precondition_fk_event_main_fkey
+            		    FOREIGN KEY (fk_event_main) REFERENCES veraweb.tevent(pk) ON DELETE CASCADE;
+
+			ALTER TABLE veraweb.tevent_precondition ADD CONSTRAINT tevent_precondition_fk_event_precondition_fkey
+            		    FOREIGN KEY (fk_event_precondition) REFERENCES veraweb.tevent(pk) ON DELETE CASCADE;
+
+    		-- post-upgrade
+    		vmsg := 'end.update(' || vnewvsn || ')';
+    		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+    		vcurvsn := vnewvsn;
+    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+    	END IF;
 
 	-- end
 
