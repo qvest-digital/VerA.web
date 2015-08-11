@@ -109,30 +109,51 @@ public class EventDetailWorker {
 	
 	public static final String INPUT_copyEvent[] = {};
 	
-	public void copyEvent(OctopusContext octopusContext) {
+	public void copyEvent(OctopusContext octopusContext) throws BeanException, IOException {
 		
-		Event event;
+		Event event = null;
+		Database database = new DatabaseVeraWeb(octopusContext);
+		TransactionContext transactionContext = database.getTransactionContext();
+		Integer id = null;
+		Integer newId = null;
 		try {
+			id = new Integer((String) octopusContext.getContextField("id"));
+			
+			
 			// Copy event in tevent
-			Integer id = new Integer((String) octopusContext.getContextField("id"));
-			Database database = new DatabaseVeraWeb(octopusContext);
 			event = (Event)database.getBean("Event", id);
-			TransactionContext transactionContext = database.getTransactionContext();
 			event.shortname = "Copy of " + event.shortname;
+			
 			database.getNextPk(event, transactionContext);
+			newId = event.id;
 	        Insert insert = database.getInsert(event);
 	        insert.insert("pk", event.id);
 	        transactionContext.execute(insert);
 	        transactionContext.commit();
-	        
-	        
-	        System.out.println("TEST");
-			
-			
-		} catch (Exception e) {}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		
+        // Copy event doctype
+		copyEventDoctypes(database, transactionContext, id, newId);
+        
+        System.out.println("TEST");
+			
 	}
+
+	private void copyEventDoctypes(Database database, TransactionContext transactionContext, Integer id, Integer newId)
+			throws BeanException, IOException {
+		List<EventDoctype> allEventDoctypes = database.getBeanList("EventDoctype", database.getSelect("EventDoctype").whereAndEq("fk_event", id),
+                transactionContext);
+        
+        for(EventDoctype eventDoctype : allEventDoctypes) {
+        	eventDoctype.event = newId;
+	        Insert insert = database.getInsert(eventDoctype);
+	        transactionContext.execute(insert);
+	        transactionContext.commit();
+        }
+	}
+	
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String INPUT_saveDetail[] = { "saveevent" };
