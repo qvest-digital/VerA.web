@@ -322,7 +322,7 @@
 			#if($search.listorder == "lastname_a_e1")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
-					<th class="textCenter smallCell" title="Vorbedingung nicht erfüllt"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">V</span></th>
+					<th class="textCenter smallCell" title="Vorbedingung"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">V</span></th>
 					<th><a href="javascript:orderGuestList('companyname');"><nobr>Firma</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');" style="color: #000000;">${placeholderWithTranslation.GENERIC_NAME}</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
@@ -330,7 +330,7 @@
 			#elseif($search.listorder == "firstname_a_e1")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
-                    <th class="textCenter smallCell" title="Vorbedingung nicht erfüllt"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">V</span></th>
+                    <th class="textCenter smallCell" title="Vorbedingung"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">V</span></th>
 					<th><a href="javascript:orderGuestList('companyname');"><nobr>Firma</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');" style="color: #000000;">Vorname</a></th>
@@ -338,7 +338,7 @@
 			#elseif($search.listorder == "mail_a_e1")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
-                    <th class="textCenter smallCell" title="Vorbedingung nicht erfüllt"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">V</span></th>
+                    <th class="textCenter smallCell" title="Vorbedingung"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">V</span></th>
 					<th><a href="javascript:orderGuestList('companyname');"><nobr>Firma</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
@@ -346,7 +346,7 @@
 			#elseif($search.listorder == "companyname")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>Lfd.-Nr.</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
-                    <th class="textCenter smallCell" title="Vorbedingung nicht erfüllt"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">V</span></th>
+                    <th class="textCenter smallCell" title="Vorbedingung"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">V</span></th>
 					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>Firma</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
@@ -355,7 +355,7 @@
 			#elseif($search.listorder == "orderno")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>Lfd.-Nr.</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
-                    <th class="textCenter smallCell" title="Vorbedingung nicht erfüllt"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">V</span></th>
+                    <th class="textCenter smallCell" title="Vorbedingung"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">V</span></th>
 					<th><a href="javascript:orderGuestList('companyname');"><nobr>Firma</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
@@ -363,7 +363,7 @@
 			#else
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>Lfd.-Nr.</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">R</span></th>
-                    <th class="textCenter smallCell" title="Vorbedingung nicht erfüllt"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">V</span></th>
+                    <th class="textCenter smallCell" title="Vorbedingung"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">V</span></th>
 					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>Firma</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">Vorname</a></th>
@@ -413,9 +413,9 @@
 					#end
 
                     #if($bean.precondition == 0)
-                        <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Vorbedingung nicht erfüllt"><strong>V</strong></td>
+                        <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="nicht erfüllt"><strong>V</strong></td>
                     #else
-                        <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="Vorbedingung erfüllt">&nbsp;</td>
+                        <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="erfüllt">&nbsp;</td>
                     #end
 
 					#if($bean.company_a_e1 != "")
