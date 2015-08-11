@@ -526,27 +526,29 @@ BEGIN
 	END IF;
 
 	vnewvsn := '2015-08-11';
-    	IF vcurvsn < vnewvsn THEN
-    		vmsg := 'begin.update(' || vnewvsn || ')';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
-			ALTER TABLE veraweb.tevent_precondition DROP CONSTRAINT tevent_precondition_fk_event_main_fkey;
-            ALTER TABLE veraweb.tevent_precondition DROP CONSTRAINT tevent_precondition_fk_event_precondition_fkey;
+		-- to enable deletion of event with preconditions
+		ALTER TABLE veraweb.tevent_precondition DROP CONSTRAINT tevent_precondition_fk_event_main_fkey;
+		ALTER TABLE veraweb.tevent_precondition DROP CONSTRAINT tevent_precondition_fk_event_precondition_fkey;
 
-			ALTER TABLE veraweb.tevent_precondition ADD CONSTRAINT tevent_precondition_fk_event_main_fkey
-            		    FOREIGN KEY (fk_event_main) REFERENCES veraweb.tevent(pk) ON DELETE CASCADE;
+		ALTER TABLE veraweb.tevent_precondition ADD CONSTRAINT tevent_precondition_fk_event_main_fkey
+		    FOREIGN KEY (fk_event_main) REFERENCES veraweb.tevent(pk) ON DELETE CASCADE;
 
-			ALTER TABLE veraweb.tevent_precondition ADD CONSTRAINT tevent_precondition_fk_event_precondition_fkey
-            		    FOREIGN KEY (fk_event_precondition) REFERENCES veraweb.tevent(pk) ON DELETE CASCADE;
+		ALTER TABLE veraweb.tevent_precondition ADD CONSTRAINT tevent_precondition_fk_event_precondition_fkey
+		    FOREIGN KEY (fk_event_precondition) REFERENCES veraweb.tevent(pk) ON DELETE CASCADE;
 
-			ALTER TABLE veraweb.tguest DROP COLUMN precondition;
-			ALTER TABLE veraweb.tguest ADD COLUMN precondition int4 DEFAULT 1;
+		ALTER TABLE veraweb.tguest DROP COLUMN precondition;
+		ALTER TABLE veraweb.tguest ADD COLUMN precondition int4 DEFAULT 1;
 
-    		-- post-upgrade
-    		vmsg := 'end.update(' || vnewvsn || ')';
-    		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-    		vcurvsn := vnewvsn;
-    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-    	END IF;
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
 	-- end
 
