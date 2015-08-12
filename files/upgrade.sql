@@ -19,7 +19,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2015-08-11';
+	vversion := '2015-08-12';
 
 	-- initialisation
 	vint := 0;
