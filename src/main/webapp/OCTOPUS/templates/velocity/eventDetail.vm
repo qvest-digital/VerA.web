@@ -142,8 +142,9 @@
 						<div class="table width100">
 							<div class="tableRow">
 								<div class="tableCell width50">
-									<label for="event-shortname">${placeholderWithTranslation.kurzbezeichnung}</label>
-									<input type="text" onchange="setModified();" maxlength="50" id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
+									<label>${placeholderWithTranslation.kurzbezeichnung}</label>
+									<label for="event-shortname">${placeholderWithTranslation.GENERIC_GERMAN}</label>: <input type="text" onchange="setModified();" maxlength="50" id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
+									<label for="event-shortnameEn">${placeholderWithTranslation.GENERIC_ENGLISH}</label>: <input type="text" onchange="setModified();" maxlength="50" id="event-shortnameEn" value="$!message.text($event.shortnameEn)" name="event-shortnameEn"/>
 								</div>
 
 								#if ($online-registration.activated)
@@ -161,7 +162,8 @@
 							<div class="tableRow">
 								<div class="tableCell width50">
 									<label for="event-eventname">${placeholderWithTranslation.GENERIC_NAME}</label>
-									<textarea onchange="setModified();" id="event-eventname" name="event-eventname" cols="20" rows="4">$!message.textarea($event.eventname)</textarea>
+									<label for="event-shortname">${placeholderWithTranslation.GENERIC_GERMAN}</label>: <textarea onchange="setModified();" id="event-eventname" name="event-eventname" cols="20" rows="4">$!message.textarea($event.eventname)</textarea>
+									<label for="event-shortname">${placeholderWithTranslation.GENERIC_GERMAN}</label>: <textarea onchange="setModified();" id="event-eventnameEn" name="event-eventnameEn" cols="20" rows="4">$!message.textarea($event.eventnameEn)</textarea>
 								</div>
 
 								<div class="tableCell width50">
