@@ -19,7 +19,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2015-08-12';
+	vversion := '2015-08-13';
 
 	-- initialisation
 	vint := 0;
@@ -497,6 +497,7 @@ BEGIN
 		-- Now sets default value (current time)
 		ALTER TABLE veraweb.tguest ALTER COLUMN created SET DEFAULT current_timestamp;
 		-- New column for link between parent event and child events
+		--XXX shouldn't this be veraweb.tevent? //mirabilos
 		ALTER TABLE tevent ADD COLUMN parent_event_id INTEGER REFERENCES veraweb.tevent(pk) ON DELETE CASCADE;
 
 		-- post-upgrade
@@ -560,8 +561,9 @@ BEGIN
 			ALTER TABLE veraweb.tevent ADD COLUMN eventname_en text;
 
 		-- Adding on delete cascade to constraint
+		--XXX shouldn't this be veraweb.toptional_fields and veraweb.tevent? //mirabilos
 			ALTER TABLE toptional_fields DROP CONSTRAINT toptional_fields_fk_event_fkey;
-			ALTER TABLE veraweb.toptional_fields ADD CONSTRAINT toptional_fields_fk_event_fkey 
+			ALTER TABLE veraweb.toptional_fields ADD CONSTRAINT toptional_fields_fk_event_fkey
 			FOREIGN KEY (fk_event) REFERENCES tevent (pk) MATCH SIMPLE
 			      ON UPDATE NO ACTION ON DELETE CASCADE;
 
@@ -571,6 +573,26 @@ BEGIN
     		vcurvsn := vnewvsn;
     		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
     	END IF;
+
+	vnewvsn := '2015-08-13';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+
+		-- fixup constraints
+		ALTER TABLE ttask DROP CONSTRAINT ttask_fk_event_fkey;
+		--XXX shouldn't this be veraweb.ttask and veraweb.tevent? //mirabilos
+		ALTER TABLE ttask ADD CONSTRAINT ttask_fk_event_fkey
+		    FOREIGN KEY (fk_event)
+		    REFERENCES tevent (pk) MATCH SIMPLE
+		    ON UPDATE NO ACTION ON DELETE CASCADE;
+
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
 	-- end
 
