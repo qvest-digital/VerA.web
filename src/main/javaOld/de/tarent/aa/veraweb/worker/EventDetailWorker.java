@@ -334,6 +334,7 @@ public class EventDetailWorker {
             subEvent.begin = todayTimestamp;
             insertNewEvent(subEvent, database, transactionContext);
             copyEventData(database, transactionContext, oldSubEventId, newSubEventId, subEvent);
+            initOptionalFields(database, transactionContext, subEvent);
         }
     }
 
