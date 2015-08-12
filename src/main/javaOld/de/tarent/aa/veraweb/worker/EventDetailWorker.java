@@ -130,7 +130,7 @@ public class EventDetailWorker {
 			e.printStackTrace();
 		}
 		
-		copyEventData(database, transactionContext, oldId, newId);
+		copyEventData(database, transactionContext, oldId, newId, event);
 		
 		copySubEvents(database, transactionContext, oldId, newId, todayTimestamp);
 		
@@ -152,7 +152,7 @@ public class EventDetailWorker {
 			subEvent.parent_event_id = newId;
 			subEvent.begin = todayTimestamp;
 	        insertNewEvent(subEvent, database, transactionContext);
-			copyEventData(database, transactionContext, oldSubEventId, newSubEventId);
+			copyEventData(database, transactionContext, oldSubEventId, newSubEventId, subEvent);
 		}
 	}
 
@@ -167,7 +167,7 @@ public class EventDetailWorker {
 
 
 	private void copyEventData(Database database, TransactionContext transactionContext, Integer oldId,
-			Integer newId) throws BeanException, IOException {
+			Integer newId, Event event) throws BeanException, IOException {
 		
 		copyEventDoctypes(database, transactionContext, oldId, newId);
 		copyEventTasks(database, transactionContext, oldId, newId);
