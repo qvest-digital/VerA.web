@@ -751,8 +751,12 @@ public class EventDetailWorker {
         DateHelper.addTimeToDate(event.end, octopusContext.requestAsString("event-endtime"), event.getErrors());
         // keep parentId in the context when changing the Tabs.
         String parentId=octopusContext.getRequestObject().get("event-parent-id");
-        if (parentId != null) {
+        String oldParentId= (String) octopusContext.getContextField("parentId");
+        if (parentId != null && !parentId.equals("")) {
             event.parent_event_id= Integer.parseInt(parentId);
+        }
+        if (oldParentId != null && !oldParentId.equals("")) {
+            event.parent_event_id= Integer.parseInt(oldParentId);
         }
         return event;
     }
