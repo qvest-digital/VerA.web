@@ -196,7 +196,7 @@
 					<input type="hidden" name="list" value="$bean.id">
 				#end
 
-				<table class="fixed">
+				<table class="fixed notBold">
 					##Set column size
 					<col width="$column0%" />
     				<col width="$column1%" />
