@@ -87,6 +87,8 @@ GENERIC_WRITE_EMAIL=E-mail schreiben
 GENERIC_SEARCH_FOR_PERSON=Person suchen
 GENERIC_CHOOSE_ROLE=Rolle w\u00E4hlen
 GENERIC_SUBEVENT_PLURAL=Unterveranstaltungen
+GENERIC_GERMAN=Deutsch
+GENERIC_ENGLISH=Englisch
 
 # Administration/Anreden
 GENERIC_SALUTATIONS=Anreden
