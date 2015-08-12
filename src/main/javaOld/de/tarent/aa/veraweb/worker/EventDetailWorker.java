@@ -749,7 +749,7 @@ public class EventDetailWorker {
         DateHelper.addTimeToDate(event.begin, octopusContext.requestAsString("event-begintime"), event.getErrors());
         DateHelper.addTimeToDate(event.end, octopusContext.requestAsString("event-endtime"), event.getErrors());
         // keep parentId in the context when changing the Tabs.
-        String parentId=octopusContext.getRequestObject().get("parentId");
+        String parentId=octopusContext.getRequestObject().get("event-parent-id");
         if (parentId != null) {
             event.parent_event_id= Integer.parseInt(parentId);
         }
