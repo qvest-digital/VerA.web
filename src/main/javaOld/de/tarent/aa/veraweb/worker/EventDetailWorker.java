@@ -510,7 +510,7 @@ public class EventDetailWorker {
             octopusContext.setContent("listquestions", questions);
         }
         if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
-            setEventHash(event,oldEvent);
+            setEventHash(event, oldEvent);
         }
         /** Veranstaltung speichern */
         if (event.isModified() && event.isCorrect() && questions.isEmpty()) {
@@ -751,7 +751,7 @@ public class EventDetailWorker {
         DateHelper.addTimeToDate(event.end, octopusContext.requestAsString("event-endtime"), event.getErrors());
         // keep parentId in the context when changing the Tabs.
         String parentId=octopusContext.getRequestObject().get("event-parent-id");
-        if (parentId != null) {
+        if (parentId != null && !parentId.equals("")) {
             event.parent_event_id= Integer.parseInt(parentId);
         }
         return event;
