@@ -106,147 +106,17 @@ public class EventDetailWorker {
 	public static final String INPUT_copyEvent[] = {};
 	
 	public void copyEvent(OctopusContext octopusContext) throws BeanException, IOException {
-		
+		final Database database = new DatabaseVeraWeb(octopusContext);
+		final Date today = new Date();
+		final Integer oldId = new Integer((String) octopusContext.getContextField("id"));
+		final Event oldEvent = (Event) database.getBean("Event", oldId);
+		final Timestamp todayTimestamp = new Timestamp(today.getTime());
+		final TransactionContext transactionContext = database.getTransactionContext();
 		Event event = null;
-		Database database = new DatabaseVeraWeb(octopusContext);
-		TransactionContext transactionContext = database.getTransactionContext();
-		Integer oldId = null;
 		Integer newId = null;
-		oldId = new Integer((String) octopusContext.getContextField("id"));
-		Event oldEvent = (Event) database.getBean("Event", oldId);
-		Date today = new Date();
-		Timestamp todayTimestamp = new Timestamp(today.getTime());
-		
-		try {
-			event = oldEvent;
-			event.shortname = "Copy of " + event.shortname;
-			event.begin = todayTimestamp;
-			database.getNextPk(event, transactionContext);
-			newId = event.id;
-	        
-			insertNewEvent(event, database, transactionContext);
-	        
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		copyEventData(database, transactionContext, oldId, newId, event);
-		
-		copySubEvents(database, transactionContext, oldId, newId, todayTimestamp);
-		
-		Event newEvent = (Event) database.getBean("Event", newId);
-		octopusContext.setContent("event", newEvent);
-	}
 
-
-	private void copySubEvents(Database database, TransactionContext transactionContext, Integer oldId, Integer newId,
-			Timestamp todayTimestamp) throws BeanException, IOException {
-		List<Event> subEvents = database.getBeanList("Event", database.getSelect("Event")
-				.where(Expr.equal("parent_event_id", oldId)),
-                transactionContext);
-		int oldSubEventId, newSubEventId;
-		for(Event subEvent : subEvents) {
-			oldSubEventId = subEvent.id;
-			database.getNextPk(subEvent, transactionContext);
-			newSubEventId = subEvent.id;
-			subEvent.parent_event_id = newId;
-			subEvent.begin = todayTimestamp;
-	        insertNewEvent(subEvent, database, transactionContext);
-			copyEventData(database, transactionContext, oldSubEventId, newSubEventId, subEvent);
-		}
-	}
-
-
-	private void insertNewEvent(Event event, Database database, TransactionContext transactionContext)
-			throws BeanException, IOException {
-		Insert insert = database.getInsert(event);
-		insert.insert("pk", event.id);
-		transactionContext.execute(insert);
-		transactionContext.commit();
-	}
-
-
-	private void copyEventData(Database database, TransactionContext transactionContext, Integer oldId,
-			Integer newId, Event event) throws BeanException, IOException {
-		
-		copyEventDoctypes(database, transactionContext, oldId, newId);
-		copyEventTasks(database, transactionContext, oldId, newId);
-		copyEventFunctions(database, transactionContext, oldId, newId);
-		copyEventCategories(database, transactionContext, oldId, newId);
-		copyEventPreconditions(database, transactionContext, oldId, newId);
-        initOptionalFields(database, transactionContext, event);
-	}
-
-
-	private void copyEventPreconditions(Database database, TransactionContext transactionContext, Integer id,
-			Integer newId) throws BeanException, IOException {
-		List<EventPrecondition> allEventPreconditions = database.getBeanList("EventPrecondition", 
-				database.getSelect("EventPrecondition").where(Expr.equal("fk_event_main", id)),
-                transactionContext);
-		
-        for(EventPrecondition eventPrecondition : allEventPreconditions) {
-        	eventPrecondition.event_main = newId;
-	        Insert insert = database.getInsert(eventPrecondition);
-	        transactionContext.execute(insert);
-	        transactionContext.commit();
-        }
-	}
-
-
-	private void copyEventCategories(Database database, TransactionContext transactionContext, Integer id, Integer newId)
-			throws BeanException, IOException {
-		List<EventCategory> allEventCategories = database.getBeanList("EventCategory", database.getSelect("EventCategory")
-				.whereAndEq("fk_event", id),
-                transactionContext);
-        
-        for(EventCategory eventCategory : allEventCategories) {
-        	eventCategory.event = newId;
-	        Insert insert = database.getInsert(eventCategory);
-	        transactionContext.execute(insert);
-	        transactionContext.commit();
-        }
-	}
-
-
-	private void copyEventFunctions(Database database, TransactionContext transactionContext, Integer id, Integer newId)
-			throws BeanException, IOException {
-		List<EventFunction> allEventFunctions = database.getBeanList("EventFunction", database.getSelect("EventFunction")
-				.whereAndEq("fk_event", id),
-                transactionContext);
-        
-        for(EventFunction eventFunction : allEventFunctions) {
-        	eventFunction.event = newId;
-	        Insert insert = database.getInsert(eventFunction);
-	        transactionContext.execute(insert);
-	        transactionContext.commit();
-        }
-	}
-
-
-	private void copyEventDoctypes(Database database, TransactionContext transactionContext, Integer id, Integer newId)
-			throws BeanException, IOException {
-		List<EventDoctype> allEventDoctypes = database.getBeanList("EventDoctype", database.getSelect("EventDoctype").whereAndEq("fk_event", id),
-                transactionContext);
-        
-        for(EventDoctype eventDoctype : allEventDoctypes) {
-        	eventDoctype.event = newId;
-	        Insert insert = database.getInsert(eventDoctype);
-	        transactionContext.execute(insert);
-	        transactionContext.commit();
-        }
-	}
-	
-	private void copyEventTasks(Database database, TransactionContext transactionContext, Integer id, Integer newId)
-			throws BeanException, IOException {
-		List<Task> allEventTasks = database.getBeanList("Task", database.getSelect("Task").whereAndEq("fk_event", id),
-				transactionContext);
-		
-		for(Task task : allEventTasks) {
-			task.eventId = newId;
-			Insert insert = database.getInsert(task);
-			transactionContext.execute(insert);
-			transactionContext.commit();
-		}
+        copyAndInsertEventAndSubEvents(octopusContext, database, oldId, oldEvent, todayTimestamp, transactionContext,
+                event, newId);
 	}
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Boolean)} */
@@ -296,6 +166,98 @@ public class EventDetailWorker {
         }
     }
 
+    /** Eingabe-Parameter der Octopus-Aktion {@link #saveTemp(OctopusContext)} */
+    public static final String INPUT_saveTemp[] = {};
+    /**
+     * Diese Octopus-Aktion holt eine Veranstaltung unter "event" aus dem Octopus-Request und legt sie unter "event" in
+     * den Octopus-Content und unter "eventtemp" in die Session.
+     *
+     * @param cntx
+     *          Octopus-Kontext
+     */
+    public void saveTemp(OctopusContext cntx) throws BeanException {
+        Request request = new RequestVeraWeb(cntx);
+        Event event = (Event)request.getBean("Event", "event");
+        DateHelper.addTimeToDate(event.begin, cntx.requestAsString("event-begintime"), event.getErrors());
+        DateHelper.addTimeToDate(event.end, cntx.requestAsString("event-endtime"), event.getErrors());
+        event.orgunit = ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId();
+        cntx.setSession("eventtemp", event);
+        cntx.setContent("event", event);
+    }
+
+    /** Eingabe-Parameter der Octopus-Aktion {@link #loadTemp(OctopusContext)} */
+    public static final String INPUT_loadTemp[] = {};
+    /**
+     * Diese Octopus-Aktion holt eine Veranstaltung unter "eventtemp" aus der Session und
+     * legt sie unter "event" und Hilfsflags unter "event-beginhastime" und "event-endhastime"
+     * im Octopus-Content ab.
+     *
+     * @param cntx Octopus-Kontext
+     */
+    public void loadTemp(OctopusContext cntx) {
+        Event event = (Event)cntx.sessionAsObject("eventtemp");
+        cntx.setContent("event", event);
+        cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
+        cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
+    }
+
+    /** Eingabe-Parameter der Octopus-Aktion {@link #setHost(OctopusContext)} */
+    public static final String INPUT_setHost[] = {};
+    /**
+     * Diese Octopus-Aktion holt eine Veranstaltung unter "eventtemp" aus der Session
+     * und die ID eines Gastgebers unter "hostid" aus dem Octopus-Request. Wenn diese
+     * ID nicht <code>null</code> ist, wird die zugehörige Person der Veranstaltung
+     * (im Speicher, nicht in der DB) als Gastgeber zugeordnet und ein Flag unter
+     * "saveevent" im Octopus-Content gesetzt.
+     *
+     * @param cntx Octopus-Kontext
+     */
+    public void setHost(OctopusContext cntx) throws BeanException, IOException {
+        Database database = new DatabaseVeraWeb(cntx);
+        Event event = (Event)cntx.sessionAsObject("eventtemp");
+        Integer hostid = null;
+        try {
+            hostid = new Integer(cntx.requestAsString("hostid"));
+        } catch (NumberFormatException e) {
+        }
+        if (hostid != null) {
+            event.host = hostid;
+            Person person = (Person)database.getBean("Person", hostid);
+            if (person != null) {
+                event.hostname = person.getMainLatin().getSaveAs();
+            }
+            event.setModified(true);
+            cntx.setContent("saveevent", Boolean.TRUE);
+        }
+    }
+
+    //
+    // Hilfsmethoden
+    //
+    /**
+     * Diese Methode holt eine Veranstaltung zu der übergebenen ID aus der Datenbank,
+     * gibt diese zurück und setzt als Nebeneffekt im Octopus-Content des übergebenen
+     * Octopus-Kontexts unter den Schlüsseln "event-beginhastime" und "event-endhastime"
+     * Flags, die anzeigen, ob Start- und Ende-Eintrag jeweils einen gültigen Zeitanteil
+     * besitzen.
+     *
+     * @param cntx Octopus-Kontext, in dem Flags gesetzt werden.
+     * @param id Veranstaltungs-ID
+     * @return eingelesene Veranstaltung
+     */
+    static public Event getEvent(OctopusContext cntx, Integer id) throws BeanException, IOException {
+        if (id == null) return null;
+
+        Database database = new DatabaseVeraWeb(cntx);
+        Event event = (Event)database.getBean("Event", id);
+
+        if (event != null) {
+            cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
+            cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
+        }
+        return event;
+    }
+
     /**
      * Saves the precondition with precondition event ID, invitationstatus and datebegin for main event
      *
@@ -317,6 +279,155 @@ public class EventDetailWorker {
                 .insert("fk_event_precondition", eventPreconditionId)
                 .insert("invitationstatus", invitationstatus)
                 .insert("datebegin", maxBegin));
+    }
+
+    private void copyAndInsertEventAndSubEvents(OctopusContext octopusContext, Database database, Integer oldId,
+                                                Event oldEvent, Timestamp todayTimestamp,
+                                                TransactionContext transactionContext, Event event,
+                                                Integer newId) throws BeanException, IOException {
+        try {
+            event = prepareNewEventForCopy(database, oldEvent, todayTimestamp, transactionContext);
+            newId = event.id;
+
+            insertNewEvent(event, database, transactionContext);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        copyEventsAndInsertToOctopusContext(octopusContext, database, oldId, todayTimestamp, transactionContext,
+                event, newId);
+    }
+
+    private Event prepareNewEventForCopy(Database database, Event oldEvent, Timestamp todayTimestamp,
+                                         TransactionContext transactionContext) throws BeanException, IOException {
+        Event event;
+        event = oldEvent;
+        event.shortname = "Copy of " + event.shortname;
+        event.begin = todayTimestamp;
+        database.getNextPk(event, transactionContext);
+        return event;
+    }
+
+    private void copyEventsAndInsertToOctopusContext(OctopusContext octopusContext, Database database, Integer oldId,
+                                                     Timestamp todayTimestamp, TransactionContext transactionContext,
+                                                     Event event, Integer newId) throws BeanException, IOException {
+        copyEventData(database, transactionContext, oldId, newId, event);
+
+        copySubEvents(database, transactionContext, oldId, newId, todayTimestamp);
+
+        Event newEvent = (Event) database.getBean("Event", newId);
+        octopusContext.setContent("event", newEvent);
+    }
+
+
+    private void copySubEvents(Database database, TransactionContext transactionContext, Integer oldId, Integer newId,
+                               Timestamp todayTimestamp) throws BeanException, IOException {
+        List<Event> subEvents = database.getBeanList("Event", database.getSelect("Event")
+                        .where(Expr.equal("parent_event_id", oldId)),
+                transactionContext);
+        int oldSubEventId, newSubEventId;
+        for(Event subEvent : subEvents) {
+            oldSubEventId = subEvent.id;
+            database.getNextPk(subEvent, transactionContext);
+            newSubEventId = subEvent.id;
+            subEvent.parent_event_id = newId;
+            subEvent.begin = todayTimestamp;
+            insertNewEvent(subEvent, database, transactionContext);
+            copyEventData(database, transactionContext, oldSubEventId, newSubEventId, subEvent);
+        }
+    }
+
+
+    private void insertNewEvent(Event event, Database database, TransactionContext transactionContext)
+            throws BeanException, IOException {
+        Insert insert = database.getInsert(event);
+        insert.insert("pk", event.id);
+        transactionContext.execute(insert);
+        transactionContext.commit();
+    }
+
+
+    private void copyEventData(Database database, TransactionContext transactionContext, Integer oldId,
+                               Integer newId, Event event) throws BeanException, IOException {
+
+        copyEventDoctypes(database, transactionContext, oldId, newId);
+        copyEventTasks(database, transactionContext, oldId, newId);
+        copyEventFunctions(database, transactionContext, oldId, newId);
+        copyEventCategories(database, transactionContext, oldId, newId);
+        copyEventPreconditions(database, transactionContext, oldId, newId);
+        initOptionalFields(database, transactionContext, event);
+    }
+
+
+    private void copyEventPreconditions(Database database, TransactionContext transactionContext, Integer id,
+                                        Integer newId) throws BeanException, IOException {
+        List<EventPrecondition> allEventPreconditions = database.getBeanList("EventPrecondition",
+                database.getSelect("EventPrecondition").where(Expr.equal("fk_event_main", id)),
+                transactionContext);
+
+        for(EventPrecondition eventPrecondition : allEventPreconditions) {
+            eventPrecondition.event_main = newId;
+            Insert insert = database.getInsert(eventPrecondition);
+            transactionContext.execute(insert);
+            transactionContext.commit();
+        }
+    }
+
+
+    private void copyEventCategories(Database database, TransactionContext transactionContext, Integer id, Integer newId)
+            throws BeanException, IOException {
+        List<EventCategory> allEventCategories = database.getBeanList("EventCategory", database.getSelect("EventCategory")
+                        .whereAndEq("fk_event", id),
+                transactionContext);
+
+        for(EventCategory eventCategory : allEventCategories) {
+            eventCategory.event = newId;
+            Insert insert = database.getInsert(eventCategory);
+            transactionContext.execute(insert);
+            transactionContext.commit();
+        }
+    }
+
+
+    private void copyEventFunctions(Database database, TransactionContext transactionContext, Integer id, Integer newId)
+            throws BeanException, IOException {
+        List<EventFunction> allEventFunctions = database.getBeanList("EventFunction", database.getSelect("EventFunction")
+                        .whereAndEq("fk_event", id),
+                transactionContext);
+
+        for(EventFunction eventFunction : allEventFunctions) {
+            eventFunction.event = newId;
+            Insert insert = database.getInsert(eventFunction);
+            transactionContext.execute(insert);
+            transactionContext.commit();
+        }
+    }
+
+
+    private void copyEventDoctypes(Database database, TransactionContext transactionContext, Integer id, Integer newId)
+            throws BeanException, IOException {
+        List<EventDoctype> allEventDoctypes = database.getBeanList("EventDoctype", database.getSelect("EventDoctype").whereAndEq("fk_event", id),
+                transactionContext);
+
+        for(EventDoctype eventDoctype : allEventDoctypes) {
+            eventDoctype.event = newId;
+            Insert insert = database.getInsert(eventDoctype);
+            transactionContext.execute(insert);
+            transactionContext.commit();
+        }
+    }
+
+    private void copyEventTasks(Database database, TransactionContext transactionContext, Integer id, Integer newId)
+            throws BeanException, IOException {
+        List<Task> allEventTasks = database.getBeanList("Task", database.getSelect("Task").whereAndEq("fk_event", id),
+                transactionContext);
+
+        for(Task task : allEventTasks) {
+            task.eventId = newId;
+            Insert insert = database.getInsert(task);
+            transactionContext.execute(insert);
+            transactionContext.commit();
+        }
     }
 
     private void prepareAndSaveEvent(OctopusContext octopusContext, Request request, Database database,
@@ -791,96 +902,4 @@ public class EventDetailWorker {
             }
         }
     }
-
-    /** Eingabe-Parameter der Octopus-Aktion {@link #saveTemp(OctopusContext)} */
-	public static final String INPUT_saveTemp[] = {};
-	/**
-	 * Diese Octopus-Aktion holt eine Veranstaltung unter "event" aus dem Octopus-Request und legt sie unter "event" in
-	 * den Octopus-Content und unter "eventtemp" in die Session.
-	 *
-	 * @param cntx
-	 *          Octopus-Kontext
-	 */
-	public void saveTemp(OctopusContext cntx) throws BeanException {
-		Request request = new RequestVeraWeb(cntx);
-		Event event = (Event)request.getBean("Event", "event");
-		DateHelper.addTimeToDate(event.begin, cntx.requestAsString("event-begintime"), event.getErrors());
-		DateHelper.addTimeToDate(event.end, cntx.requestAsString("event-endtime"), event.getErrors());
-		event.orgunit = ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId();
-		cntx.setSession("eventtemp", event);
-		cntx.setContent("event", event);
-	}
-
-    /** Eingabe-Parameter der Octopus-Aktion {@link #loadTemp(OctopusContext)} */
-    public static final String INPUT_loadTemp[] = {};
-    /**
-     * Diese Octopus-Aktion holt eine Veranstaltung unter "eventtemp" aus der Session und
-     * legt sie unter "event" und Hilfsflags unter "event-beginhastime" und "event-endhastime"
-     * im Octopus-Content ab.
-     *
-     * @param cntx Octopus-Kontext
-     */
-	public void loadTemp(OctopusContext cntx) {
-		Event event = (Event)cntx.sessionAsObject("eventtemp");
-		cntx.setContent("event", event);
-		cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
-		cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
-	}
-
-    /** Eingabe-Parameter der Octopus-Aktion {@link #setHost(OctopusContext)} */
-    public static final String INPUT_setHost[] = {};
-    /**
-     * Diese Octopus-Aktion holt eine Veranstaltung unter "eventtemp" aus der Session
-     * und die ID eines Gastgebers unter "hostid" aus dem Octopus-Request. Wenn diese
-     * ID nicht <code>null</code> ist, wird die zugehörige Person der Veranstaltung
-     * (im Speicher, nicht in der DB) als Gastgeber zugeordnet und ein Flag unter
-     * "saveevent" im Octopus-Content gesetzt.
-     *
-     * @param cntx Octopus-Kontext
-     */
-	public void setHost(OctopusContext cntx) throws BeanException, IOException {
-		Database database = new DatabaseVeraWeb(cntx);
-		Event event = (Event)cntx.sessionAsObject("eventtemp");
-		Integer hostid = null;
-		try {
-			hostid = new Integer(cntx.requestAsString("hostid"));
-		} catch (NumberFormatException e) {
-		}
-		if (hostid != null) {
-			event.host = hostid;
-			Person person = (Person)database.getBean("Person", hostid);
-			if (person != null) {
-				event.hostname = person.getMainLatin().getSaveAs();
-			}
-			event.setModified(true);
-			cntx.setContent("saveevent", Boolean.TRUE);
-		}
-	}
-
-    //
-    // Hilfsmethoden
-    //
-    /**
-     * Diese Methode holt eine Veranstaltung zu der übergebenen ID aus der Datenbank,
-     * gibt diese zurück und setzt als Nebeneffekt im Octopus-Content des übergebenen
-     * Octopus-Kontexts unter den Schlüsseln "event-beginhastime" und "event-endhastime"
-     * Flags, die anzeigen, ob Start- und Ende-Eintrag jeweils einen gültigen Zeitanteil
-     * besitzen.
-     *
-     * @param cntx Octopus-Kontext, in dem Flags gesetzt werden.
-     * @param id Veranstaltungs-ID
-     * @return eingelesene Veranstaltung
-     */
-	static public Event getEvent(OctopusContext cntx, Integer id) throws BeanException, IOException {
-		if (id == null) return null;
-
-		Database database = new DatabaseVeraWeb(cntx);
-		Event event = (Event)database.getBean("Event", id);
-
-        if (event != null) {
-            cntx.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
-            cntx.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
-        }
-		return event;
-	}
 }
