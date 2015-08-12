@@ -510,7 +510,7 @@ public class EventDetailWorker {
             octopusContext.setContent("listquestions", questions);
         }
         if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
-            setEventHash(event,oldEvent);
+            setEventHash(event, oldEvent);
         }
         /** Veranstaltung speichern */
         if (event.isModified() && event.isCorrect() && questions.isEmpty()) {
