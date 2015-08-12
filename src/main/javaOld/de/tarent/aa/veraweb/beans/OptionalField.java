@@ -48,7 +48,6 @@ public class OptionalField extends AbstractHistoryBean {
 		this.fkType = resultSet.getInt("fk_type");
 	}
 
-
 	public String getLabel() {
 		return label;
 	}

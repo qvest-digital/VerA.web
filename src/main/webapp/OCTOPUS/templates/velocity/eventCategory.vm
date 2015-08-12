@@ -15,9 +15,8 @@
 	#if($event.parent_event_id)
 		<h1>${placeholderWithTranslation.unterveranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
 	#else
-		<h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1
+		<h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
 	#end
-
 
 	#set($completeEventHeader = false)
 	#parse("inc/event-header.vm")
