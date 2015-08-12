@@ -559,6 +559,12 @@ BEGIN
 			ALTER TABLE veraweb.tevent ADD COLUMN shortname_en varchar(50);
 			ALTER TABLE veraweb.tevent ADD COLUMN eventname_en text;
 
+		-- Adding on delete cascade to constraint
+			ALTER TABLE toptional_fields DROP CONSTRAINT toptional_fields_fk_event_fkey;
+			ALTER TABLE veraweb.toptional_fields ADD CONSTRAINT toptional_fields_fk_event_fkey 
+			FOREIGN KEY (fk_event) REFERENCES tevent (pk) MATCH SIMPLE
+			      ON UPDATE NO ACTION ON DELETE CASCADE;
+
     		-- post-upgrade
     		vmsg := 'end.update(' || vnewvsn || ')';
     		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
