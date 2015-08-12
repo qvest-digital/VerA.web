@@ -550,6 +550,22 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
+	vnewvsn := '2015-08-12';
+    	IF vcurvsn < vnewvsn THEN
+    		vmsg := 'begin.update(' || vnewvsn || ')';
+    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+
+    		-- to enable english shortname and description for event
+			ALTER TABLE veraweb.tevent ADD COLUMN shortname_en varchar(50);
+			ALTER TABLE veraweb.tevent ADD COLUMN eventname_en text;
+
+    		-- post-upgrade
+    		vmsg := 'end.update(' || vnewvsn || ')';
+    		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+    		vcurvsn := vnewvsn;
+    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+    	END IF;
+
 	-- end
 
 	IF vcurvsn <> vversion THEN

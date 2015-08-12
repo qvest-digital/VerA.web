@@ -57,6 +57,8 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
 	public Boolean login_required;
 	public Boolean apply_without_precondition;
 	public Integer parent_event_id;
+	public String shortnameEn;
+	public String eventnameEn;
 
 	@Override
     public void verify() throws BeanException {

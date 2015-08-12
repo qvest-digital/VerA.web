@@ -680,3 +680,6 @@ WELCOME_TEXT_TWELVE=global
 WELCOME_TEXT_THIRTEEN=settings can be inspected and edited.
 WELCOME_TEXT_FOURTEEN=For further information please go to the \u201EHelp\u201C page.
 WELCOME_TEXT_FIFTEEN=There are no roles for your account, where you can operate with VerA.web. Please logout and login with another user- or role ID, which is usable for VerA.web.
+
+GENERIC_GERMAN=German
+GENERIC_ENGLISH=English

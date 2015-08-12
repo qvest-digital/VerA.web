@@ -566,8 +566,9 @@ public class EventDetailWorker {
                            Event event, Event oldEvent, boolean newEvent, boolean createHost, boolean updateHost,
                            boolean removeHost) throws BeanException, IOException {
         setCheckboxesForEvent(octopusContext, event, oldEvent);
+        setEnglishContents(octopusContext, event);
 
-        createUpdateEvent(octopusContext, database, transactionContext, event, oldEvent);
+        createOrUpdateEvent(octopusContext, database, transactionContext, event, oldEvent);
 
         if (newEvent) {
             prepareNewEvent(octopusContext, database, transactionContext, event);
@@ -584,7 +585,16 @@ public class EventDetailWorker {
         }
     }
 
-    private void createUpdateEvent(
+    private void setEnglishContents(OctopusContext octopusContext, Event event) {
+        String englishShortname = (String) octopusContext.getRequestObject().getRequestParameters().get("event-shortnameEn");
+        String englishEventname = (String) octopusContext.getRequestObject().getRequestParameters().get("event-eventnameEn");
+
+        event.shortnameEn = englishShortname;
+        event.eventnameEn = englishEventname;
+
+    }
+
+    private void createOrUpdateEvent(
             OctopusContext octopusContext, Database database,
             TransactionContext transactionContext, Event event, Event oldEvent) throws BeanException, IOException {
         /*
