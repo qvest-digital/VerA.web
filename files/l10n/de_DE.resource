@@ -597,6 +597,7 @@ allestammdatenneuladen=alle Stammdaten neu laden
 HINT_ENTRY_POINT=Direkteinsprung: ist nur bei einer Sortierung nach Name, Vorname oder E-Mail m\u00F6glich.
 HINT_GUEST_MANAGEMENT_FILTER=Beim Erstellen von Steuerdateien oder G\u00E4stelisten wird Ihr oben ausgew\u00E4hlter Filter ber\u00FCcksichtigt.
 HINT_GUEST_MANAGEMENT_MARKED=Wenn Sie einzelne G\u00E4ste markieren, werden nur diese exportiert, ansonsten die vollst\u00E4ndige Liste.
+GUEST_LIST_PROVIDE_DOCUMENT=Dokument bereitstellen
 
 # Gaesteliste erstellen
 GUEST_LIST_CREATE=G\u00E4steliste erstellen

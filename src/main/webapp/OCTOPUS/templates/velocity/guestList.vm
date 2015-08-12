@@ -186,17 +186,22 @@
 			<!-- neu -->
 			<div class="table width100 marginTop30">
 				<div class="tableRow">
-						<div class="tableCell width35 inlineInput" style="padding-bottom:0"><label for="actionSelection">Markierte Person(en)</label>
-								<select id="actionSelection" class="autoWidth">
-									<option>Löschen</option>
-									<option>Kategorien zuordnen</option>
-									<option>Kategorien entfernen</option>
-									<option>Verteiler erstellen</option>
-									<option>Steuerdatei exportieren</option>
-								</select>
-								<input type="button" name="button.execute" id="button.execute" value="Durchführen" class="autoWidth">
+						<div class="tableCell width30 inlineInput" style="padding-bottom:0">
+                            <label for="actionSelection">Markierte Person(en)</label>
+                            <select id="actionSelection" class="autoWidth">
+                                <option>Löschen</option>
+                                <option>Kategorien zuordnen</option>
+                                <option>Kategorien entfernen</option>
+                                <option>Verteiler erstellen</option>
+                                <option>Steuerdatei exportieren</option>
+                            </select>
+                            <input type="button" name="button.execute" id="button.execute" value="Durchführen" class="autoWidth">
 						</div>
 						<div class="tableCell textRight" style="vertical-align:bottom; padding-bottom:0">
+                            <input type="button" class="mainButton inlineInput autoWidth" name="redirectDocument"
+                                   value="${placeholderWithTranslation.GUEST_LIST_PROVIDE_DOCUMENT}"
+                                   title="${placeholderWithTranslation.GUEST_LIST_PROVIDE_DOCUMENT}"
+                                   onclick="window.open('https://dms.tarent.de/share/page/site/virtueller-seminarraum/documentlibrary')" />
 							#if($grants.mayWrite())
 								<input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="G&auml;steliste erstellen" title="G&auml;steliste erstellen" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
 								<input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="G&auml;ste aus Veranstaltung &uuml;bernehmen" title="G&auml;ste aus Veranstaltung &uuml;bernehmen" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
