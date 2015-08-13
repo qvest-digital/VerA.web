@@ -93,4 +93,7 @@
 % Folgeseiten
 \restoregeometry
 \tarentohnedeckblatt{#1}{#5}
+\floatstyle{boxed}
+\restylefloat{figure}
+\renewcommand{\figurename}{Abbildung}
 }
