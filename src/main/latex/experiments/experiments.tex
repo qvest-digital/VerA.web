@@ -108,4 +108,31 @@ brauche ich hier einen Seitenumbruch.
 In Abbildung~\ref{fig:logovw} sehen Sie das VerA.web-Logo;
 Abbildung~\ref{fig:logotarent} verweist auf das neue tarent-Logo.
 
+\subsection{Listing Copy \& Paste}
+
+\begin{lstlisting}[language=sh]
+sudo mkdir -p /etc/veraweb/l10n
+sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
+sudo install -c -o 0 -g 0 -m 644 config_ldap_access.xml /etc/veraweb/
+sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
+
++---------------------------------------------------+
+|                                                   |
+| meh                                               |
+| meow                                              |
+| meh x                                             |
+| ieh x                                             |
+| iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii |
+| i     i     i     i     i       i       i       i |
+| i i i i i i i i i i i i i i i i i i i i i i i i i |
+| x x x x x x x x x x x x x x x x x x x x x x x x x |
+| m m m m m m m m m m m m m m m m m m m m m m m m m |
+| mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm |
+| xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx |
+| a!b"c#d$e%f&g'h(i)j*k+l-m/n^o_p`q~r\s[t{u|v?w^x<y |
+| a b c d e f g h i j k l m n o p q r s t u v w x y |
++---------------------------------------------------+
+
+\end{lstlisting}
+
 \end{document}
