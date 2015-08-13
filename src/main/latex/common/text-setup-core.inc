@@ -280,10 +280,10 @@ von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
 indem Sie davor \texttt{<!-{}-} und dahinter \texttt{-{}->} schreiben:
 
 \begin{lstlisting}[language=XML]
-    <Connector port="8080" protocol="HTTP/1.1"
-               connectionTimeout="20000"
-               URIEncoding="UTF-8"
-               redirectPort="8443" />
+<Connector port="8080" protocol="HTTP/1.1"
+           connectionTimeout="20000"
+           URIEncoding="UTF-8"
+           redirectPort="8443" />
 \end{lstlisting}
 \end{minipage}
 
@@ -291,14 +291,14 @@ indem Sie davor \texttt{<!-{}-} und dahinter \texttt{-{}->} schreiben:
 Dann suchen Sie folgenden auskommentierten Abschnitt (ca. 20 Zeilen weiter):
 
 \begin{lstlisting}[language=XML]
-    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
 \end{lstlisting}
 
 Entfernen Sie hier die Kommentarzeichen und fügen Sie ein weiteres Attribut
 hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
 
 \begin{lstlisting}[language=XML]
-    <Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
+<Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
 \end{lstlisting}
 \end{minipage}
 

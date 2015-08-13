@@ -68,7 +68,8 @@ Auf einem Debian 7 „wheezy“-System können Sie diese sowie den
 Datenbankserver wie folgt lokal installieren:
 
 \begin{lstlisting}[language=sh]
-sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 apache2-mpm-prefork apache2 libapache2-mod-jk
+sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
+    apache2-mpm-prefork apache2 libapache2-mod-jk
 \end{lstlisting}
 \end{minipage}
 
