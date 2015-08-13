@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -28,13 +29,18 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import de.tarent.aa.veraweb.beans.Mailinglist;
+import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
+import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -120,24 +126,36 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * wird sie in der Datenbank gespeichert, ansonsten wird der Status
      * "error" gesetzt.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
 	 */
-	public void saveDetail(OctopusContext cntx) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
-		Request request = getRequest(cntx);
+	public void saveDetail(OctopusContext octopusContext) throws BeanException, IOException {
+		Database database = getDatabase(octopusContext);
+		Request request = getRequest(octopusContext);
 
 		Mailinglist mailinglist = (Mailinglist)request.getBean("Mailinglist", "mailinglist");
-		mailinglist.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
-		mailinglist.user = ((PersonalConfigAA)cntx.personalConfig()).getVerawebId();
-		mailinglist.orgunit = ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId();
+		mailinglist.updateHistoryFields(null, ((PersonalConfigAA)octopusContext.personalConfig()).getRoleWithProxy());
+		mailinglist.user = ((PersonalConfigAA)octopusContext.personalConfig()).getVerawebId();
+		mailinglist.orgunit = ((PersonalConfigAA)octopusContext.personalConfig()).getOrgUnitId();
 
-		cntx.setContent("mailinglist", mailinglist);
-		cntx.setSession("mailinglist", mailinglist);
+		octopusContext.setContent("mailinglist", mailinglist);
+		octopusContext.setSession("mailinglist", mailinglist);	
 
 		if (mailinglist.isCorrect()) {
-			database.saveBean(mailinglist);
+			ExecutionContext executionContext = database;
+			TransactionContext transactionContext = database.getTransactionContext();
+			if (mailinglist.id == null) {
+				database.getNextPk(mailinglist, executionContext);
+				Insert insert = database.getInsert(mailinglist);
+				insert.insert("pk", mailinglist.id);
+				transactionContext.execute(insert);
+				transactionContext.commit();
+			} else {
+				Update update = database.getUpdate(mailinglist);
+				transactionContext.execute(update);
+				transactionContext.commit();
+			} 
 		} else {
-			cntx.setStatus("error");
+			octopusContext.setStatus("error");
 			return;
 		}
 	}

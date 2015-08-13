@@ -146,7 +146,9 @@ public class LanguageProvider {
         }
         finally {
             try {
-                inputStream.close();
+                if (inputStream != null) {
+                    inputStream.close();
+                }
             } catch (Exception closeFileException) {
                 LOGGER.warn(closeFileException);
                 LOGGER.warn("Could not close data! - " + inputStream);
@@ -156,33 +158,39 @@ public class LanguageProvider {
         return properties;
     }
 
-    private void insertAllValuesFromSelectedLanguageToContext(OctopusContext cntx) {
+    private void insertAllValuesFromSelectedLanguageToContext(OctopusContext octopusContext) {
         Map<String, String> placeholderWithTranslation = new TreeMap<String, String>();
-        final Request request = new RequestVeraWeb(cntx);
+        final Request request = new RequestVeraWeb(octopusContext);
 
         try {
             //Will only be true on first load
-            if (cntx.getContextField("languageSelector") == null && (lastSelectedLanguage.equals("") || lastSelectedLanguage == null)) {
-                cntx.setContent("languageSelector", "Deutsch");
+            if (octopusContext.getContextField("languageSelector") == null &&
+                    (lastSelectedLanguage == null || lastSelectedLanguage.equals(""))) {
+                octopusContext.setContent("languageSelector", "Deutsch");
                 lastSelectedLanguage = "de_DE.resource";
-            } else if (request.getField("languageSelector") != null){
+            } else if (request.getField("languageSelector") != null) {
                 lastSelectedLanguage = getFileNameByLangText(request.getField("languageSelector").toString());
             }
         } catch (BeanException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            LOGGER.error("Insert all values from selected language to OctopusContext failed! " +
+                    "\nlastSelectedLanguage: " + lastSelectedLanguage +
+                    "\nOctopusContext:" + octopusContext +
+                    "\nlanguageSelector: " + octopusContext.getContextField("languageSelector"), e);
         }
-            properties = this.loadProperties(lastSelectedLanguage);
+        properties = this.loadProperties(lastSelectedLanguage);
 
-        for(final String key : properties.stringPropertyNames()) {
+        for (final String key : properties.stringPropertyNames()) {
             placeholderWithTranslation.put(key, properties.getProperty(key));
         }
 
         //Value of language name, which is read by language selector
-        cntx.setContent("language", properties.getProperty("language"));
+        octopusContext.setContent("language", properties.getProperty("language"));
         //All keys with values from language data
-        cntx.setContent("placeholderWithTranslation", placeholderWithTranslation);
+        octopusContext.setContent("placeholderWithTranslation", placeholderWithTranslation);
 
-        lastSelectedLanguage = getFileNameByLangText(cntx.getContextField("language").toString());
+        lastSelectedLanguage = getFileNameByLangText(octopusContext.getContextField("language").toString());
     }
 
     //Set language names (language parameter of language data) from all
@@ -213,9 +221,11 @@ public class LanguageProvider {
         List<String> languageFileNames = new ArrayList<String>();
 
         try {
-            for (File file : listOfFiles) {
-                if (file.isFile() && file.getName().endsWith(".resource")) {
-                    languageFileNames.add(file.getName());
+            if (listOfFiles != null && listOfFiles.length > 0) {
+                for (File file : listOfFiles) {
+                    if (file.isFile() && file.getName().endsWith(".resource")) {
+                        languageFileNames.add(file.getName());
+                    }
                 }
             }
         } catch (NullPointerException e) {
