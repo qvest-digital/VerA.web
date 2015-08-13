@@ -30,12 +30,16 @@
 
 \section{Experimente}
 
+\subsection{Seitenbreite}
+
 Wie breit ist die Seite? % 497.92325pt ~= 175 mm (5 Nullen nach dem Komma)
 % ein Teχ-Punkt (pt) ist exakt 2540/7227 mm = 0.3̅5̅1̅4̅5̅9̅8̅0̅ mm
 % ein Teχ-Punkt (pt) ist exakt 800/803 PostScript-Punkt (pt, Teχ bp) = 0.9̅9̅6̅2̅6̅4̅0̅0̅ bp
 % Teχ rechnet intern nur auf ca. 6 Stellen genau, fixed-point, daher vmtl. exakt
 
 \the\textwidth
+
+\subsection{bedingte Ausführung}
 
 Kann ich Text ifdef'en?
 
@@ -73,5 +77,62 @@ Kann ich Text ifdef'en?
 \ifosiam\else
  OSIAM nein1 (ok)
 \fi
+
+\subsection{Abbildungen}
+
+Gehen Abbildungen? Und wenn ja, wie macht man sie schön?
+
+\begin{figure}[h!]
+ \centering\includegraphics[width=.8\textwidth]{veraweblogo}
+% \\\the\textwidth % ändert sich nicht (getestet)
+ \caption{Das Veraweb-Logo auf 80\% Breite}
+ \label{fig:logovw}
+\end{figure}
+
+Hier könnte man noch etwas längeren Text einfügen, zum Beispiel
+welchen, der erklärt, warum man hier eine Tilde \~{} statt eines
+Leerzeichens verwendet, aber paßt schon so.
+
+\newpage
+
+Allerdings will ich den Umbruch und die Verweise testen, daher
+brauche ich hier einen Seitenumbruch.
+
+\begin{figure}[h!]
+ \centering\includegraphics[width=.95\textwidth]{tarentlogo}
+% \\\the\textwidth
+ \caption{Das tarent-Logo auf 95\% Breite}
+ \label{fig:logotarent}
+\end{figure}
+
+In Abbildung~\ref{fig:logovw} sehen Sie das VerA.web-Logo;
+Abbildung~\ref{fig:logotarent} verweist auf das neue tarent-Logo.
+
+\subsection{Listing Copy \& Paste}
+
+\begin{lstlisting}[language=sh]
+sudo mkdir -p /etc/veraweb/l10n
+sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
+sudo install -c -o 0 -g 0 -m 644 config_ldap_access.xml /etc/veraweb/
+sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
+
++---------------------------------------------------+
+|                                                   |
+| meh                                               |
+| meow                                              |
+| meh x                                             |
+| ieh x                                             |
+| iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii |
+| i     i     i     i     i       i       i       i |
+| i i i i i i i i i i i i i i i i i i i i i i i i i |
+| x x x x x x x x x x x x x x x x x x x x x x x x x |
+| m m m m m m m m m m m m m m m m m m m m m m m m m |
+| mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm |
+| xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx |
+| a!b"c#d$e%f&g'h(i)j*k+l-m/n^o_p`q~r\s[t{u|v?w^x<y |
+| a b c d e f g h i j k l m n o p q r s t u v w x y |
++---------------------------------------------------+
+
+\end{lstlisting}
 
 \end{document}
