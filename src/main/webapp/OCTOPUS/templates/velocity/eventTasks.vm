@@ -156,7 +156,7 @@
 						<th>${placeholderWithTranslation.titel}</th>
 						<th class="smallCell textCenter">${placeholderWithTranslation.start}</th>
 						<th class="smallCell textCenter">${placeholderWithTranslation.ende}</th>
-						<th class="smallCell textCenter">${placeholderWithTranslation.status}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_STATUS}</th>
 						<th>${placeholderWithTranslation.verantwortlicher}</th>
 						<th class="smallCell textCenter">${placeholderWithTranslation.prioritat}</th>
 					</tr>

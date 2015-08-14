@@ -34,7 +34,7 @@
         		#else
         			$!mailinglistParams.count ${placeholderWithTranslation.personen}
         		#end
-        		${placeholderWithTranslation.an}
+        		${placeholderWithTranslation.GENERIC_TO}
         		</p>
 
         		<input type="hidden" name="mailinglist-event" value="$!event.id">

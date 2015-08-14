@@ -69,12 +69,12 @@
 </table>
 #end
 
-<h2 class="marginBottom10">${placeholderWithTranslation.fehler}</h2>
+<h2 class="marginBottom10">${placeholderWithTranslation.GENERIC_ERROR}</h2>
 <p>${placeholderWithTranslation.beiderbearbeitungihreranfrageisteinfehleraufgetretenbittemeldensiediesihremadministrator}</p>
 <h2 class="marginTop30 marginBottom10">Details</h2>
 #printStackTrace($status.exception)
 #else
-<p>${placeholderWithTranslation.unbekannterfehler}</p>
+<p>${placeholderWithTranslation.unbekannterGENERIC_ERROR}</p>
 #end
 
 

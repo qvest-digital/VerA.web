@@ -42,7 +42,7 @@
             	<td><input type="text" id="maildraft-name" name="maildraft-name" maxlength="200" value="$!message.text($maildraft.name)" /></td>
             </tr>
 			<tr>
-            	<td class="bold"><label for="maildraft-subject">${placeholderWithTranslation.betreff}*</label></td>
+            	<td class="bold"><label for="maildraft-subject">${placeholderWithTranslation.GENERIC_SUBJECT}*</label></td>
             	<td><input type="text" id="maildraft-subject" name="maildraft-subject" maxlength="200" value="$!message.text($maildraft.subject)" /></td>
             </tr>
 			<tr>

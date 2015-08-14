@@ -46,10 +46,10 @@
 
         		<tr>
         			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}"/></th>
-        			<th class="smallCell textCenter">${placeholderWithTranslation.status}</th>
+        			<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_STATUS}</th>
         			<th>Von</th>
         			<th>An</th>
-        			<th class="width50">${placeholderWithTranslation.betreff}</th>
+        			<th class="width50">${placeholderWithTranslation.GENERIC_SUBJECT}</th>
         		</tr>
                 #foreach($bean in $list)
     	        	<tr>
@@ -59,7 +59,7 @@
     					      #elseif($bean.status == 2)${placeholderWithTranslation.wartet}
     					      #elseif($bean.status == 3)${placeholderWithTranslation.wirdversendet}
     					      #elseif($bean.status == 4)${placeholderWithTranslation.gesendet}
-    					      #elseif($bean.status > 10)<span style="font-weight: bold; color: #ff0000;">${placeholderWithTranslation.fehler}</span>
+    					      #elseif($bean.status > 10)<span style="font-weight: bold; color: #ff0000;">${placeholderWithTranslation.GENERIC_ERROR}</span>
     					      #else<em>${placeholderWithTranslation.unbekannt}</em>
     					      #end
     						</td>

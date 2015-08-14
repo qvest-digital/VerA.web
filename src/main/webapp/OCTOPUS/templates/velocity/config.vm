@@ -92,7 +92,7 @@
                                         		<div class="tableCell bold paddingBottom10">${placeholderWithTranslation.subtabsvonanschriften}</div>
             									<div class="tableCell verticalBottom"><label for="personAddresstypeTab1"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab1" value="1" #if($personAddresstypeTab1) checked #end>&nbsp;${placeholderWithTranslation.geschaftlich}</label></div>
                                         		<div class="tableCell verticalBottom"><label for="personAddresstypeTab2"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab2" value="2" #if($personAddresstypeTab2) checked #end>&nbsp;${placeholderWithTranslation.privat}</label></div>
-                                        		<div class="tableCell verticalBottom"><label for="personAddresstypeTab3"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab3" value="3" #if($personAddresstypeTab3) checked #end>&nbsp;${placeholderWithTranslation.weitere}</label></div>
+                                        		<div class="tableCell verticalBottom"><label for="personAddresstypeTab3"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab3" value="3" #if($personAddresstypeTab3) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_MORE}</label></div>
                                     	</div>
                                     </div>
                            	</fieldset>
@@ -103,7 +103,7 @@
                             	<legend>${placeholderWithTranslation.standardauswahlderselectboxzeichensatz}</legend>
                             		<div class="table width100 marginTop10">
                             			<div class="tableRow">
-                                    		<div class="tableCell"><label for="personLocaleTab1"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end>&nbsp;${placeholderWithTranslation.latein}</label></div>
+                                    		<div class="tableCell"><label for="personLocaleTab1"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_LATIN}</label></div>
                                     		<div class="tableCell"><label for="personLocaleTab2"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end>&nbsp;${placeholderWithTranslation.zeichensatz1}</label></div>
                                     		<div class="tableCell"><label for="personLocaleTab3"><input type="radio" name="personLocaleTab" id="personLocaleTab3" value="3" #if($personLocaleTab3) checked #end>&nbsp;${placeholderWithTranslation.zeichensatz2}</label></div>
                             			</div>

@@ -46,7 +46,7 @@
 	#if($current == 1) $!config.business
 	#elseif($current == 2) $!config.private
 	#elseif($current == 3) $!config.other
-	#else ${placeholderWithTranslation.fehler}
+	#else ${placeholderWithTranslation.GENERIC_ERROR}
 	#end
 #end
 
@@ -54,6 +54,6 @@
 	#if($current == 1) $!config.latin
 	#elseif($current == 2) $!config.extra1
 	#elseif($current == 3) $!config.extra2
-	#else ${placeholderWithTranslation.fehler}
+	#else ${placeholderWithTranslation.GENERIC_ERROR}
 	#end
 #end
