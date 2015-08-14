@@ -77,7 +77,7 @@
         			</div>
         		</div>
         		<div class="tableRow">
-        			<div class="tableCell"><label for="sort2">${placeholderWithTranslation.anschließendnach}</label></div>
+        			<div class="tableCell"><label for="sort2">${placeholderWithTranslation.anschlieendnach}</label></div>
         			<div class="tableCell">
             			<select name="sort2" id="sort2">
                             			<option value=""></option>
@@ -102,12 +102,12 @@
         			</div>
         		</div>
         		<div class="tableRow">
-        			<div class="tableCell"><label for="sort3">${placeholderWithTranslation.anschließendnach}</label></div>
+        			<div class="tableCell"><label for="sort3">${placeholderWithTranslation.anschlieendnach}</label></div>
         			<div class="tableCell">
         				<select name="sort3" id="sort3" >
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
                             			<option value=""></option>
-                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER<}/option>
+                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
                             			<option value="country">${placeholderWithTranslation.land}</option>
                             			<option value="zipcode">${placeholderWithTranslation.plz}</option>
