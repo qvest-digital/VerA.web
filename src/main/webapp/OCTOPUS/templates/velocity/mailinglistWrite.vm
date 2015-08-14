@@ -54,8 +54,8 @@
              					<option value="salutation">${placeholderWithTranslation.anrede}</option>
             					<option value="title">${placeholderWithTranslation.akadtitel}</option>
              					<option value="function">${placeholderWithTranslation.amtsbezfunktion}</option>
-            					<option value="company">${placeholderWithTranslation.firma/institution}</option>
-            					<option value="street">${placeholderWithTranslation.stra&szlig;e}</option>
+            					<option value="company">${placeholderWithTranslation.firmainstitution}</option>
+            					<option value="street">${placeholderWithTranslation.strasse}</option>
             					<option value="zipcode">${placeholderWithTranslation.plz}</option>
             					<option value="city">${placeholderWithTranslation.ort}</option>
             					<option value="country">${placeholderWithTranslation.land}</option>
