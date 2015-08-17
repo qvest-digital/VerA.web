@@ -21,7 +21,7 @@
 		#else
 			<h1>$title</h1>
 			#if($begin.class.name == "java.util.Date" && $end.class.name == "java.util.Date")
-				<h2>${${placeholderWithTranslation.imzeitraumvom} $!message.date("DATE", $begin) ${${placeholderWithTranslation.biszum} $!message.date("DATE", $end)</h2>
+				<h2>${placeholderWithTranslation.imzeitraumvom} $!message.date("DATE", $begin) ${placeholderWithTranslation.biszum} $!message.date("DATE", $end)</h2>
 			#elseif($begin.class.name == "java.util.Date")
 				<h2>${${placeholderWithTranslation.ab} $!message.date("DATE", $begin)</h2>
 			#elseif($end.class.name == "java.util.Date")
