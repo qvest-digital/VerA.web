@@ -5,14 +5,14 @@
     #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_CREATE}")
 #end
 
-#set($elementNameSex = "female")
-#set($elementNameSingular = "${placeholderWithTranslation.kategorie}")
-#set($elementNamePlural = "${placeholderWithTranslation.kategorien}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_CATEGORY}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
 #if($personTab == "1" || $personTab == "2")
   ## impelemented to show message when person are changed
-  #set($elementNameSex = "female")
-  #set($elementNameSingular = "${placeholderWithTranslation.person}")
-  #set($elementNamePlural = "${placeholderWithTranslation.personen}")
+  #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+  #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
+  #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 #end
 #parse("inc/header.vm")
 

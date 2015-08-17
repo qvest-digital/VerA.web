@@ -1,8 +1,8 @@
 #set($activeMenu = "Administration")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_DATA_SALUTATION}")
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Anrede")
-#set($elementNamePlural = "Anreden")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_SALUTATION}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_SALUTATION_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_SALUTATION_PLURAL}")
 #parse("inc/header.vm")
 
 <form id="formlist" name="formlist" action="SalutationDoctype" method="POST">

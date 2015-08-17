@@ -43,11 +43,11 @@
                 	<ul>
                         <form id="languageSelectForm" class="inline" method="POST">
                             <li>
-                                <strong>Sprache:</strong>
+                                <strong>${placeholderWithTranslation.GENERIC_LANGUAGE}:</strong>
                                 <select id="languageSelector" name="languageSelector" onchange="changeLanguage();">
-                                <p>${language} test1</p>
+                                <p>${language}</p>
 									#foreach($option in $translatedNames)
-									    <p>${language} test ${option}</p>
+									    <p>${language} ${option}</p>
 										#if(${option} == ${language})
 											<option selected>${option}</option>
 										#else
@@ -73,79 +73,75 @@
 						#end
 					</ul>
 				</div>
-				    #if($grants && $grants.isAuthenticated())
-						<div id="user">
-							<strong>${placeholderWithTranslation.benutzer}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>In Vertretung f&uuml;r:</strong> $octopusConfig.personalConfig.role #end
-						</div>
-					#end
+                #if($grants && $grants.isAuthenticated())
+                    <div id="user">
+                        <strong>${placeholderWithTranslation.benutzer}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>${placeholderWithTranslation.HEADER_REPRESENTATION_FOR}:</strong> $octopusConfig.personalConfig.role #end
+                    </div>
+                #end
 			</header>
 
 			#parse("inc/menu.vm")
-
 			#if($elementNameSingular && $elementNameSingular != "" && $elementNamePlural && $elementNamePlural != "" && $elementNameSex && $elementNameSex != "")
-				#if($elementNameSex && $elementNameSex == "female")
-					#set($prefNo = "keine")
-					#set($prefOne = "eine")
-					#set($prefNew = "neue")
+				#if($elementNameSex && $elementNameSex == "Female")
+					#set($prefNo = "${placeholderWithTranslation.HEADER_ELEMENT_FEMALE_NO}")
+					#set($prefOne = "${placeholderWithTranslation.HEADER_ELEMENT_FEMALE_ONE}")
+					#set($prefNew = "${placeholderWithTranslation.HEADER_ELEMENT_FEMALE_NEW}")
 				#else
-					#set($prefNo = "kein")
-					#set($prefOne = "ein")
-					#set($prefNew = "neuer")
+					#set($prefNo = "${placeholderWithTranslation.HEADER_ELEMENT_MALE_NO}")
+					#set($prefOne = "${placeholderWithTranslation.HEADER_ELEMENT_MALE_ONE}")
+					#set($prefNew = "${placeholderWithTranslation.HEADER_ELEMENT_MALE_NEW}")
 				#end
 				#set($noElement = "$prefNo $elementNameSingular")
 				#set($noNewElement = "$prefNo $prefNew $elementNameSingular")
 				#set($oneElement = "$prefOne $elementNameSingular")
 				#set($oneNewElement = "$prefOne $prefNew $elementNameSingular")
 				#set($severalElements = "$elementNamePlural")
-				#set($severalNewElements = "neue $elementNamePlural")
+				#set($severalNewElements = "${placeholderWithTranslation.GENERIC_NEW_PLURAL} $elementNamePlural")
 			#else
-				#set($noElement = "kein Datensatz")
-				#set($noNewElement = "kein neuer Datensatz")
-				#set($oneElement = "ein Datensatz")
-				#set($oneNewElement = "ein neuer Datensatz")
-				#set($severalElements = "Datensätze")
-				#set($severalNewElements = "neue Datensätze")
+				#set($noElement = "${placeholderWithTranslation.HEADER_ELEMENT_NO_RECORD_SINGULAR}")
+				#set($noNewElement = "${placeholderWithTranslation.HEADER_ELEMENT_NO_NEW_RECORD_SINGULAR}")
+				#set($oneElement = "${placeholderWithTranslation.HEADER_ELEMENT_ONE_RECORD_SINGULAR}")
+				#set($oneNewElement = "${placeholderWithTranslation.HEADER_ELEMENT_ONE_NEW_RECORD_SINGULAR}")
+				#set($severalElements = "${placeholderWithTranslation.HEADER_ELEMENT_PLURAL}")
+				#set($severalNewElements = "${placeholderWithTranslation.HEADER_ELEMENT_NEW_PLURAL}")
 			#end
 
 			#if($countInsert && $countInsert > 0)
 				<vera-success>
 					#if($countInsert == 0)
-						Es wurde $noNewElement angelegt.
+						${placeholderWithTranslation.HEADER_COUNT_INSERT_ZERO_PART_ONE} $noNewElement ${placeholderWithTranslation.HEADER_COUNT_INSERT_ZERO_PART_TWO}
 					#elseif($countInsert == 1)
-						Es wurde $oneNewElement angelegt.
+                        ${placeholderWithTranslation.HEADER_COUNT_INSERT_ONE_PART_ONE} $oneNewElement ${placeholderWithTranslation.HEADER_COUNT_INSERT_ONE_PART_TWO}
 					#else
-						Es wurden $countInsert $severalNewElements angelegt.
+                        ${placeholderWithTranslation.HEADER_COUNT_INSERT_ELSE_PART_ONE} $countInsert $severalNewElements ${placeholderWithTranslation.HEADER_COUNT_INSERT_ELSE_PART_TWO}
 					#end
 				</vera-success>
 			#end
 			#if($countUpdate && $countUpdate > 0)
 				<vera-success>
 					#if($countUpdate == 0)
-						Es wurde $noElement ge&auml;ndert.
+                        ${placeholderWithTranslation.HEADER_COUNT_UPDATE_ZERO_PART_ONE} $noElement ${placeholderWithTranslation.HEADER_COUNT_UPDATE_ZERO_PART_TWO}
 					#elseif($countUpdate == 1)
-						Es wurde $oneElement ge&auml;ndert.
+                        ${placeholderWithTranslation.HEADER_COUNT_UPDATE_ONE_PART_ONE} $oneElement ${placeholderWithTranslation.HEADER_COUNT_UPDATE_ONE_PART_TWO}
 					#else
-						Es wurden $countUpdate $severalElements ge&auml;ndert.
+                        ${placeholderWithTranslation.HEADER_COUNT_UPDATE_ELSE_PART_ONE} $countUpdate $severalElements ${placeholderWithTranslation.HEADER_COUNT_UPDATE_ELSE_PART_TWO}
 					#end
 				</vera-success>
 			#end
 			#if($countRemove && $countRemove >= 0)
-
-				## Extra If Verzweigung um überflüssige Success Meldung von Löschen von Personen(Aus Detailansicht) auszublenden.
-				#if($noElement == "keine Person")
+                ##Extra If-Verzweigung um überflüssige Success Meldung von Löschen von Personen(Aus Detailansicht) auszublenden
+				#if($noElement && $noElement == "$prefNo ${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
 
 				#else
-				<vera-success>
-					#if($countRemove == 0)
-						Es wurde $noElement gel&ouml;scht.
-					#elseif($countRemove == 1)
-						Es wurde $oneElement gel&ouml;scht.
-					#else
-						Es wurden $countRemove $severalElements gel&ouml;scht.
-					#end
-				</vera-success>
-
-				## Extra If Verzweigung um überflüssige Success Meldung von Löschen von Personen(Aus Detailansicht) auszublenden.
+                    <vera-success>
+                        #if($countRemove == 0)
+                            ${placeholderWithTranslation.HEADER_COUNT_REMOVE_ZERO_PART_ONE} $noElement ${placeholderWithTranslation.HEADER_COUNT_REMOVE_ZERO_PART_TWO}
+                        #elseif($countRemove == 1)
+                            ${placeholderWithTranslation.HEADER_COUNT_REMOVE_ONE_PART_ONE} $oneElement ${placeholderWithTranslation.HEADER_COUNT_REMOVE_ONE_PART_TWO}
+                        #else
+                            ${placeholderWithTranslation.HEADER_COUNT_REMOVE_ELSE_PART_ONE} $countRemove $severalElements ${placeholderWithTranslation.HEADER_COUNT_REMOVE_ELSE_PART_TWO}
+                        #end
+                    </vera-success>
 				#end
 
 			#end

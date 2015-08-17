@@ -1,8 +1,8 @@
 #set($activeMenu = "Administration")
 #set($title = "${placeholderWithTranslation.funktion}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}")
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Funktion/Amtsbezeichnung")
-#set($elementNamePlural = "Funktionen/Amtsbezeichnungen")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_FUNCTION_OFFICIAL_TITLE}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}")
 
 ##Values in per cent for table columns width
 #set($column0 = 3)

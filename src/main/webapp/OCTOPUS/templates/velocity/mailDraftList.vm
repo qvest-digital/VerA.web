@@ -1,8 +1,8 @@
 #set($activeMenu = "Administration")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_SUBMISSION}")
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Vorlage")
-#set($elementNamePlural = "Vorlagen")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_MAIL_DRAFT}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_PLURAL}")
 
 ##Values in per cent for table columns width
 #set($column0 = 3)

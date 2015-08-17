@@ -8,9 +8,9 @@
 #else
 #set($title = "${placeholderWithTranslation.benutzer}")
 #end
-#set($elementNameSex = "male")
-#set($elementNameSingular = "${placeholderWithTranslation.benutzer}")
-#set($elementNamePlural = "${placeholderWithTranslation.benutzer}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_USER}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_USER_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_USER_PLURAL}")
 
 ##Values in per cent for table columns width
 #set($column0 = 3)
@@ -72,7 +72,7 @@
 					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 					<th class="smallCell textCenter">ID</th>
 			#if($domain == 'all')
-					<th>${placeholderWithTranslation.GENERIC_CLIENT}</th>
+					<th>${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}</th>
 			#end
 					<th>${placeholderWithTranslation.GENERIC_USERNAME}</th>
 					<th>${placeholderWithTranslation.GENERIC_USER_RIGHTS}</th>

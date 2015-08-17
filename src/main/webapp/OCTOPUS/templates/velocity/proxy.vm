@@ -12,9 +12,9 @@
 	#set($activeMenu = "Administration")
 	#set($title = "${placeholderWithTranslation.stellvertretungen}")
 #end
-#set($elementNameSex = "female")
-#set($elementNameSingular = "${placeholderWithTranslation.vertretung}")
-#set($elementNamePlural = "${placeholderWithTranslation.vertretungen}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_REPRESENTATIVE}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_REPRESENTATIVE_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_REPRESENTATIVE_PLURAL}")
 #parse("inc/header.vm")
 <div id="content_container">
 	<form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
