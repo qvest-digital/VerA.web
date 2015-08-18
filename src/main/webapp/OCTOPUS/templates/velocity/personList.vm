@@ -165,7 +165,7 @@
 
 	#if($action == "taskReferencePerson")
 		<vera-info>
-			${placeholderWithTranslation.klickensieeinederaufgelistetenpersonenanumsiederaufgabehinzuzufugen}
+			${placeholderWithTranslation.klickensieeinederaufgelistetenpersonenanumsiederaufgabehinzuzufugen}!
 		</vera-info>
 	#end
 
@@ -324,7 +324,7 @@ var showDeleteMessages = function () {
 
 				var msg = '';
 				if (notExpiredPersonIds.length > 0) {
-					msg += '<br><span class="notBold"> ${placeholderWithTranslation.beidenfolgendenpersonenliegtdasgultigkeitsdatuminderzukunft} </span> <ul class="text">';
+					msg += '<br><span class="notBold"> ${placeholderWithTranslation.beidenfolgendenpersonenliegtdasgultigkeitsdatuminderzukunft}: </span> <ul class="text">';
 					$ .each(notExpiredPersonIds, function (index, id) {
 						var person = personModel[id];
 						msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
@@ -348,7 +348,7 @@ var showDeleteMessages = function () {
 					msg += '<br><span class="notBold">${placeholderWithTranslation.folgendepersonensindmindestenseineraufgabeinmindestenseinerlaufendenoder} ' +
 							' ${placeholderWithTranslation.zukunftigenveranstaltungzugeordnetdetailinformationenrufensiebitteuberdie} ' +
 							' ${placeholderWithTranslation.aufgabenlistenderjeweiligenveranstaltungenaufdiepersonenwerdenausallen} ' +
-							' ${placeholderWithTranslation.aufgabenentfernt} </span><br><ul class="text">';
+							' ${placeholderWithTranslation.aufgabenentfernt}: </span><br><ul class="text">';
 					$ .each(ongoingTaskEventPersonIds, function (index, id) {
 						var person = personModel[id];
 						msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';

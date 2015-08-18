@@ -177,7 +177,7 @@
 			##Rueckfrage beim Loeschen
 			<script type="text/javascript">
 				function askDelete() {
-				htmlConfirm(' ${placeholderWithTranslation.wirklichloschen} ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("askDeleteYes();", "askDeleteNo();"));
+				htmlConfirm(' ${placeholderWithTranslation.wirklichloschen}? ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("askDeleteYes();", "askDeleteNo();"));
 			}
 			function askDeleteYes() {
 				hideDialogs();

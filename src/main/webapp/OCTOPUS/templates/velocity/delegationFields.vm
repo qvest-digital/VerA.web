@@ -46,7 +46,7 @@
 					#elseif ($optionalFieldsSummary.createdFields.size()<=1)
 						${placeholderWithTranslation.eswurdeeinzusatzfeld}
 					#end
-					${placeholderWithTranslation.angelegt}
+					${placeholderWithTranslation.angelegt}.
 				</div>
 			#end
 			#if ($optionalFieldsSummary.changedFields.size()>0)
@@ -56,7 +56,7 @@
 					#elseif ($optionalFieldsSummary.changedFields.size()<=1)
 						${placeholderWithTranslation.eswurdeeinzusatzfeld}
 					#end
-					${placeholderWithTranslation.geandert}
+					${placeholderWithTranslation.geandert}.
 				</div>
 			#end
 			#if ($optionalFieldsSummary.deletedFields.size()>0)
@@ -66,7 +66,7 @@
 					#elseif ($optionalFieldsSummary.deletedFields.size()<=1)
 						${placeholderWithTranslation.eswurdeeinzusatzfeld}
 					#end
-					${placeholderWithTranslation.geloscht}
+					${placeholderWithTranslation.geloscht}.
 				</div>
 			#end
 		</div>

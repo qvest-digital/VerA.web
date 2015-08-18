@@ -29,7 +29,7 @@
 		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.verteiler}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.verteilerdetails} $!message.text($!mailinglist.name)</h1>
+	<h1>${placeholderWithTranslation.verteilerdetails}: $!message.text($!mailinglist.name)</h1>
 
 	<form id="formlist" name="formlist" action="ShowMailinglistDetail" method="POST">
 		<input type="hidden" name="start" value="">

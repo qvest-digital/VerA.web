@@ -17,7 +17,7 @@
 			<div class="table width100">
 				<div class="tableRow">
 					<div class="tableCell width50">
-						<h2>${placeholderWithTranslation.statistikauffolgendenzeitrahmeneinschranken}</h2>
+						<h2>${placeholderWithTranslation.statistikauffolgendenzeitrahmeneinschranken}:</h2>
 
 						<label for="begin">${placeholderWithTranslation.zeitrahmenbeginn}</label>
 						<span id="showBegin" class="datepickerContainer">
@@ -120,7 +120,7 @@
 							}
 						</script>
 
-						<h2>${placeholderWithTranslation.statistiktypauswahlen}</h2>
+						<h2>${placeholderWithTranslation.statistiktypauswahlen}:</h2>
 
 						<input type="radio" id="EventsPerYear" name="statistik" value="EventsPerYear" checked><label for="EventsPerYear">
 						${placeholderWithTranslation.STATISTIC_RADIO_PER_YEAR}.</label><br />

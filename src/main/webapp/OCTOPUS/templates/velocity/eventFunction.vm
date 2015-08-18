@@ -118,7 +118,7 @@
 							<td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>${placeholderWithTranslation.neu}</em></td>
 							<td>
 								<select id="add-function" name="add-function" onchange="setModified('add')">
-									<option value="0">${placeholderWithTranslation.bitteauswahlen}</option>
+									<option value="0">${placeholderWithTranslation.bitteauswahlen}:</option>
 									#foreach($function in $allFunction)
 										<option value="$function.id">$!message.plain($function.name)</option>
 									#end
