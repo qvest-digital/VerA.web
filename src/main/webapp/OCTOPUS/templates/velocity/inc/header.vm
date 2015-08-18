@@ -44,17 +44,27 @@
                         <form id="languageSelectForm" class="inline" method="POST">
                             <li>
                                 <strong>Sprache:</strong>
-                                <select id="languageSelector" name="languageSelector" onchange="changeLanguage();">
                                 <p>${language} test1</p>
-									#foreach($option in $translatedNames)
-									    <p>${language} test ${option}</p>
-										#if(${option} == ${language})
-											<option selected>${option}</option>
-										#else
-											<option>${option}</option>
-										#end
+                                	#if ($translatedNames)
+                                		<select id="languageSelector" name="languageSelector" onchange="changeLanguage();">
+											#foreach($option in $translatedNames)
+												<p>${language} test ${option}</p>
+												#if(${option} == ${language})
+													<option selected>${option}</option>
+												#else
+													<option>${option}</option>
+												#end
+											#end
+										</select>
+									#else
+									 	<select id="languageSelector" name="languageSelector" onchange="changeLoginLanguage(this);">
+											<option selected value="de">Deutsch</option>
+											<option value="en">English</option>
+											<option value="es">Español</option>
+											<option value="fr">Français</option>
+                                		</select>
 									#end
-                                </select>
+
                             </li>
                         </form>
 
@@ -153,5 +163,44 @@
             <script type="text/javascript">
                 function changeLanguage() {
                     document.getElementById("languageSelectForm").submit();
+                }
+            </script>
+
+			<script>
+				$(document).ready(function(){
+					$("#german").show();
+					$("#french").hide();
+					$("#spanish").hide();
+					$("#english").hide();
+                });
+			</script>
+
+			<script type="text/javascript">
+                function changeLoginLanguage(selectedLanguage) {
+                	var lang = selectedLanguage.value;
+                	if (lang == 'de') {
+						$("#french").hide();
+						$("#spanish").hide();
+						$("#english").hide();
+						$("#german").show();
+                	}
+                	else if (lang == 'en') {
+						$("#french").hide();
+						$("#spanish").hide();
+						$("#english").show();
+						$("#german").hide();
+                	}
+                	else if (lang == 'es') {
+						$("#french").hide();
+						$("#spanish").show();
+						$("#english").hide();
+						$("#german").hide();
+                	}
+                	else if (lang == 'fr') {
+						$("#french").show();
+						$("#spanish").hide();
+						$("#english").hide();
+						$("#german").hide();
+                	}
                 }
             </script>
