@@ -486,7 +486,7 @@ veranstaltungen=Events
 anzahlproseite=Amount shown on this site
 seitexvony=Page x of y
 #veranstaltungbearbeiten:/allgemein
-veranstaltungbearbeiten=Edit events
+veranstaltungbearbeiten=Edit event
 veranstaltungs-id=Event-id
 veranstaltungsname=Eventname
 veranstaltungs-URL=Event-URL

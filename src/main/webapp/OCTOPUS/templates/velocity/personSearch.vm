@@ -19,9 +19,9 @@
     #set($title = "${placeholderWithTranslation.GENERIC_SEARCH_FOR_PERSON}")
 #end
 
-#set($elementNameSex = "female")
-#set($elementNameSingular = "${placeholderWithTranslation.person}")
-#set($elementNamePlural = "${placeholderWithTranslation.personen}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 #parse("inc/header.vm")
 
 #if($action == "guest")

@@ -1,9 +1,9 @@
 #set($activeMenu = "Administration")
 ## $Id$
-#set($title = "${placeholderWithTranslation.GENERIC_CLIENTS}")
-#set($elementNameSex = "male")
-#set($elementNameSingular = "Mandant")
-#set($elementNamePlural = "Mandanten")
+#set($title = "${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_CLIENT}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}")
 
 ##Values in per cent for table columns width
 #set($column0 = 3)

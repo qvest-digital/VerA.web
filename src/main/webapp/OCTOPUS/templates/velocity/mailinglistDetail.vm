@@ -1,8 +1,8 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_DISTRIBUTOR_LIST}: $!mailinglist.name")
-#set($elementNameSex = "male")
-#set($elementNameSingular = "Verteiler")
-#set($elementNamePlural = "Verteiler")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_DISTRIBUTOR}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_PLURAL}")
 
 ##Values in per cent for table columns width
 #set($column0 = 0)

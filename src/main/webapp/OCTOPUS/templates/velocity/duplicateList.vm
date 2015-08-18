@@ -1,8 +1,8 @@
 #set($activeMenu = "Personen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_IMPORT_DUPLICATE_ACCEPT}")
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Person")
-#set($elementNamePlural = "Personen")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 
 ##Values in per cent for table columns width
 #set($column0 = 3)

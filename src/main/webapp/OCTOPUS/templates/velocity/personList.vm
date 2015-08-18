@@ -120,9 +120,9 @@
 	#end
 #end
 
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Person")
-#set($elementNamePlural = "Personen")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 
 #parse("inc/header.vm")
 

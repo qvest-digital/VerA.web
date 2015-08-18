@@ -1,8 +1,8 @@
 #set($activeMenu = "Administration")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_CATEGORY}")
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Kategorie")
-#set($elementNamePlural = "Kategorien")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_CATEGORY}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
 
 ##Values in per cent for table columns width
 #set($column0 = 3)

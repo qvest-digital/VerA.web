@@ -1,10 +1,10 @@
 #set($activeMenu = "Administration")
 ## $Id$
-#set($title = "${placeholderWithTranslation.GENERIC_CLIENTS}")
+#set($title = "${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}")
 
-#set($elementNameSex = "male")
-#set($elementNameSingular = "Mandant")
-#set($elementNamePlural = "Mandanten")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_CLIENT}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}")
 #parse("inc/header.vm")
 
 #if($missingorgunit.result == "done")
