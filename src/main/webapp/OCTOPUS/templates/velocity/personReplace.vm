@@ -32,7 +32,7 @@
 				</div>
 			</div>
 
-			<p><strong>${placeholderWithTranslation.infolgendenfeldern}</strong></p>
+			<p><strong>${placeholderWithTranslation.infolgendenfeldern}*</strong></p>
 
 			<div class="table inlineLabel marginBottom20">
 				<div class="tableRow">

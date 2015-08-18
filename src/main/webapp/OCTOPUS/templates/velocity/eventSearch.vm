@@ -48,7 +48,7 @@
 								<input type="text" name="shortname" id="input.shortname" value="">
 							</div>
 							<div class="tableCell width30">
-								<label for="begin">${placeholderWithTranslation.datumbeginn}</label>
+								<label for="begin">${placeholderWithTranslation.datum} (${placeholderWithTranslation.beginn})</label>
 								<div class="calenderContainer">
 									<input type="text" name="begin" value="" id="begin" class="datepicker">
 									<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"></span>

@@ -46,7 +46,7 @@
             	<td><input type="text" id="maildraft-subject" name="maildraft-subject" maxlength="200" value="$!message.text($maildraft.subject)" /></td>
             </tr>
 			<tr>
-            	<td class="bold"><label for="maildraft-text">${placeholderWithTranslation.text}</label></td>
+            	<td class="bold"><label for="maildraft-text">${placeholderWithTranslation.text}*</label></td>
             	<td><textarea cols="50" rows="20" id="maildraft-text" class="width100" name="maildraft-text" >$!message.textarea($maildraft.text)</textarea></td>
             </tr>
 			<tr>
