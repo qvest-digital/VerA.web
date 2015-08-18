@@ -84,7 +84,7 @@
 					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 					<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
 				#end
-				<th>${placeholderWithTranslation.bezeichnung}</th>
+				<th>${placeholderWithTranslation.bezeichnung}*</th>
 				<th>${placeholderWithTranslation.kennzeichen}</th>
 				<th>${placeholderWithTranslation.rang}</th>
 				<th>${placeholderWithTranslation.veranstaltungen}</th>

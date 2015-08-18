@@ -134,7 +134,7 @@
 
 					<tr class="colspan">
 						<td colspan="99">
-							${placeholderWithTranslation.anzahlzuspeicherndedubletten} $!listselection.size()
+							${placeholderWithTranslation.anzahlzuspeicherndedubletten}: $!listselection.size()
 						</td>
 					</tr>
 

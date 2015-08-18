@@ -127,7 +127,7 @@
     #end
     #if($octopusConfig.personalConfig.roles)
     	<tr>
-    		<td>${placeholderWithTranslation.verfugbarerollen}</td>
+    		<td>${placeholderWithTranslation.verfugbarerollen}:</td>
     		<td>
      #foreach($gg in $octopusConfig.personalConfig.roles)
      $gg

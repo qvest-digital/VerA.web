@@ -240,7 +240,7 @@
 											} else {
 												select.options[select.length] = new Option(city, city, false, true);
 												#if($grants.isAdmin() || $grants.isPartialAdmin())
-												htmlConfirm(' ${placeholderWithTranslation.sollendiestammdatenumdiesenorterweitertwerden} ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("addCityYes();", "addCityNo();"));
+												htmlConfirm(' ${placeholderWithTranslation.sollendiestammdatenumdiesenorterweitertwerden}? ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("addCityYes();", "addCityNo();"));
 												#else
 												addCityNo();
 												#end

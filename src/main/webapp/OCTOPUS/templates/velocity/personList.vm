@@ -165,7 +165,7 @@
 
 	#if($action == "taskReferencePerson")
 		<vera-info>
-			${placeholderWithTranslation.klickensieeinederaufgelistetenpersonenanumsiederaufgabehinzuzufugen}
+			${placeholderWithTranslation.klickensieeinederaufgelistetenpersonenanumsiederaufgabehinzuzufugen}!
 		</vera-info>
 	#end
 
@@ -324,7 +324,7 @@ var showDeleteMessages = function () {
 
 				var msg = '';
 				if (notExpiredPersonIds.length > 0) {
-					msg += '<br><span class="notBold"> ${placeholderWithTranslation.beidenfolgendenpersonenliegtdasgultigkeitsdatuminderzukunft} </span> <ul class="text">';
+					msg += '<br><span class="notBold"> ${placeholderWithTranslation.beidenfolgendenpersonenliegtdasgultigkeitsdatuminderzukunft}: </span> <ul class="text">';
 					$ .each(notExpiredPersonIds, function (index, id) {
 						var person = personModel[id];
 						msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
@@ -348,7 +348,7 @@ var showDeleteMessages = function () {
 					msg += '<br><span class="notBold">${placeholderWithTranslation.folgendepersonensindmindestenseineraufgabeinmindestenseinerlaufendenoder} ' +
 							' ${placeholderWithTranslation.zukunftigenveranstaltungzugeordnetdetailinformationenrufensiebitteuberdie} ' +
 							' ${placeholderWithTranslation.aufgabenlistenderjeweiligenveranstaltungenaufdiepersonenwerdenausallen} ' +
-							' ${placeholderWithTranslation.aufgabenentfernt} </span><br><ul class="text">';
+							' ${placeholderWithTranslation.aufgabenentfernt}: </span><br><ul class="text">';
 					$ .each(ongoingTaskEventPersonIds, function (index, id) {
 						var person = personModel[id];
 						msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
@@ -745,7 +745,8 @@ function submitFormWithGivenAction(action) {
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitutiong}
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution} 
+								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'company_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -764,10 +765,14 @@ function submitFormWithGivenAction(action) {
 							<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}</a></th>
 							<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitutiong}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasseg}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plzg}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ortg}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plz}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ort}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
 							#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.bundesland} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
 						</tr>
 					#elseif($action == "statistikHost")
@@ -776,10 +781,14 @@ function submitFormWithGivenAction(action) {
 							<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}</a></th>
 							<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitutiong}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasseg}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plzg}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ortg}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plz}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ort}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
 							#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.bundesland} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
 						</tr>
 					#elseif($action == "statistikGuest")
@@ -788,10 +797,14 @@ function submitFormWithGivenAction(action) {
 							<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}</a></th>
 							<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitutiong}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasseg}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plzg}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ortg}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}</a></th>
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plz}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ort}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
 							#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.bundesland} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
 						</tr>
 					#elseif($action == "taskReferencePerson")
@@ -901,10 +914,14 @@ function submitFormWithGivenAction(action) {
 							<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}</a></th>
 							<th title="Hauptperson, Zeichensatz 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitutiong}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasseg}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plzg}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ortg}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plz}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ort}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
 							#if($userConfig.personListState)<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.bundesland} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
 						</tr>
 					#else
@@ -957,7 +974,8 @@ function submitFormWithGivenAction(action) {
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitutiong}
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'company_a_e1')
 										#if ($personSearchOrder == 'ASC')
 											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -968,7 +986,8 @@ function submitFormWithGivenAction(action) {
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasseg}
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'street_a_e1')
 										#if ($personSearchOrder == 'ASC')
 											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -979,7 +998,8 @@ function submitFormWithGivenAction(action) {
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plzg}
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plz}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'zipcode_a_e1')
 										#if ($personSearchOrder == 'ASC')
 											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -990,7 +1010,8 @@ function submitFormWithGivenAction(action) {
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ortg}
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ort}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'city_a_e1')
 										#if ($personSearchOrder == 'ASC')
 											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>

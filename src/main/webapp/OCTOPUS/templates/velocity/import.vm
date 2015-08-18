@@ -85,7 +85,7 @@
 
     				<div class="tableRow">
     					<div class="tableCell">
-    						<label for="importfile">${placeholderWithTranslation.importdatei}</label>
+    						<label for="importfile">${placeholderWithTranslation.importdatei}*</label>
     						<input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*">
     					</div>
     					<div class="tableCell">
