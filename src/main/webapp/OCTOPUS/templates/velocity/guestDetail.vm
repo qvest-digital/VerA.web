@@ -9,7 +9,7 @@
     <div id="breadcrumb" class="textRight marginBottom10">
             <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
     </div>
-    <h1>G&auml;steverwaltung der Veranstaltung: $!message.plain($event.shortname)</h1>
+    <h1>${placeholderWithTranslation.gasteverwaltungderveranstaltung}: $!message.plain($event.shortname)</h1>
 
     #if(!$isNewEvent)
         #set($completeEventHeader = true)

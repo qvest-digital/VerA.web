@@ -10,7 +10,7 @@
 	<form id="formlist" name="formlist" action="" method="get" target="" onsubmit="return exportStatistik();">
 		<input type="hidden" id="a" name="a" value="statistik">
 
-		<h1>Statistiken</h1>
+		<h1>${placeholderWithTranslation.statistiken}</h1>
 
 		<div id="main_content" class="contentBoxColored grayBorder">
 
@@ -147,7 +147,7 @@
 		</div>
 
 		<div class="textRight marginTop10">
-			<input type="submit" class="mainButton" name="create" value="Statistik erstellen" title="${placeholderWithTranslation.statistikerstellen}" />
+			<input type="submit" class="mainButton" name="create" value="${placeholderWithTranslation.statistikerstellen}" title="${placeholderWithTranslation.statistikerstellen}" />
 		</div>
 
 	</form>

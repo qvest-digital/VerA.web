@@ -641,7 +641,7 @@ function submitFormWithGivenAction(action) {
 								<option>${placeholderWithTranslation.arbeitsbereichzuordnen}</option>
 								<option>${placeholderWithTranslation.arbeitsbereichentfernen}</option>
 							</select>
-							<input type="button" value="Durchführen" id="button.execute" name="button.execute" />
+							<input type="button" value="${placeholderWithTranslation.durchfuhren}" id="button.execute" name="button.execute" />
 						#elseif($exportFormat && $grants.mayExport())
 							Markierte Person(en)
 							<input type="button" value="Exportieren" title="${placeholderWithTranslation.exportieren}" onclick="selectedActionExportPerson();" />
