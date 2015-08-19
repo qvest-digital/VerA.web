@@ -142,7 +142,7 @@
 
 			<div class="tableCell width50 inlineLabel ">
 				#if($ext == "_a_e1" || $ext == "_b_e1")
-					<strong>Inland</strong><br />
+					<strong>${placeholderWithTranslation.inland}</strong><br />
 					#if ($facade.Domestic && $facade.Domestic == "f")
 						<label for="person-domestic${ext}-t" onchange="setModified();"><input  type="radio" name="person-domestic$ext" value="t" id="person-domestic${ext}-t" class="noFloat" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>${placeholderWithTranslation.GENERIC_YES}</label>
 						<label for="person-domestic${ext}-f" onchange="setModified();"><input  type="radio" name="person-domestic$ext" value="f" id="person-domestic${ext}-f" class="noFloat" checked #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>${placeholderWithTranslation.GENERIC_NO}</label>

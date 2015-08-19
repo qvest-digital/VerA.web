@@ -44,10 +44,10 @@
                         <form id="languageSelectForm" class="inline" method="POST">
                             <li>
 
-                                <div id="languagede"><strong>Sprache:</strong></div>
-                                <div id="languageen"><strong>Language:</strong></div>
-                                <div id="languagees"><strong>Idioma:</strong></div>
-                                <div id="languagefr"><strong>SpracheFR:</strong></div>
+                                <div class="inline" id="languagede"><strong>Sprache:</strong></div>
+                                <div class="inline" id="languageen"><strong>Language:</strong></div>
+                                <div class="inline" id="languagees"><strong>Idioma:</strong></div>
+                                <div class="inline" id="languagefr"><strong>SpracheFR:</strong></div>
                                 	#if ($translatedNames)
                                 		<select id="languageSelector" name="languageSelector" onchange="changeLanguage(this); changeLoginLanguage(this);">
 
@@ -101,11 +101,12 @@
 						#end
 					</ul>
 				</div>
-                #if($grants && $grants.isAuthenticated())
-                    <div id="user">
-                        <strong>${placeholderWithTranslation.benutzer}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>${placeholderWithTranslation.HEADER_REPRESENTATION_FOR}:</strong> $octopusConfig.personalConfig.role #end
-                    </div>
-                #end
+
+				#if($grants && $grants.isAuthenticated())
+					<div id="user">
+						<strong>${placeholderWithTranslation.benutzer}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>${placeholderWithTranslation.HEADER_REPRESENTATION_FOR}:</strong> $octopusConfig.personalConfig.role #end
+					</div>
+				#end
 			</header>
 
 			#parse("inc/menu.vm")
