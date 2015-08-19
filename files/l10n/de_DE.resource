@@ -179,15 +179,17 @@ GENERIC_SEARCH_FOR_PERSON=Person suchen
 GENERIC_CHOOSE_ROLE=Rolle w\u00E4hlen
 GENERIC_EVENT=Veranstaltung
 GENERIC_EVENTS=Veranstaltungen
-SHOW_ALL_RECORDS=Alle Datensätze anzeigen lassen
-SHOW_RECORDS=Datensätze anzeigen lassen
+SHOW_ALL_RECORDS=Alle Datens\u00E4tze anzeigen lassen
+SHOW_RECORDS=Datens\u00E4tze anzeigen lassen
 
 # GENERALLY USED
 GENERIC_EMAIL_ADDRESS=E-Mail-Adresse
 GENERIC_FROM=Von
 GENERIC_LANGUAGE=Sprache
 GENERIC_LOGOUT=Abmelden
+GENERIC_ON=Auf
 GENERIC_PAGE=Seite
+GENERIC_PLACE=Platz
 
 # MENU
 MENU_PERSONS=Personen
@@ -743,7 +745,7 @@ aufplatz=Auf Platz
 aufreserve=Auf Reserve
 filter=Filter
 platzwahl=Platzwahl
-lfdnr=Lfd.-nr.
+lfdnr=Lfd.-NR.
 nichteingeladen=Nicht eingeladen
 laufendenummerberechnen=Laufende Nummer berechnen
 allestammdatenneuladen=Alle Stammdaten neu laden
@@ -753,18 +755,39 @@ HINT_GUEST_MANAGEMENT_MARKED=Wenn Sie einzelne G\u00E4ste markieren, werden nur 
 TABLE_BEFORE_GUEST=Vorheriger Gast
 TABLE_FIRST_GUEST=Erster Gast
 TABLE_LAST_GUEST=Letzter Gast
-TABLE_NEXT_GUEST=Nächster Gast
+TABLE_NEXT_GUEST=N\u00E4chster Gast
 
 # GAESTELISTE
-GUEST_LIST_DIDNT_CHANGE=Die Gästeliste wurde nicht verändert
-GUEST_LIST_EXPAND_ONE=Die Gästeliste wurde um einen Gast erweitert
-GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=Die Gästeliste wurde um
-GUEST_LIST_EXPAND_MULTIPLE_PART_TWO=Gäste erweitert
+GUEST_LIST_ALL_GUEST=Alle G\u00E4ste
+GUEST_LIST_ALL_GUEST_ON_PLACE=Alle G\u00E4ste auf Platz
+GUEST_LIST_ALL_GUEST_ON_RESERVE=Alle G\u00E4ste auf Reserve
+GUEST_LIST_APPLY_GUEST_FROM_EVENT=G\u00E4ste aus Veranstaltung \u00FCbernehmen
+GUEST_LIST_CATEGORY_ASSIGN=Kategorien zuordnen
+GUEST_LIST_CATEGORY_REMOVE=Kategorien entfernen
+GUEST_LIST_DISTRIBUTOR_CREATE=Verteiler erstellen
+GUEST_LIST_DATA_EXPORT=Steuerdatei exportieren
+GUEST_LIST_CONFIRM_ACTION=Bitte best\u00E4tigen Sie die folgende Aktion
+GUEST_LIST_DIDNT_CHANGE=Die G\u00E4steliste wurde nicht ver\u00E4ndert
+GUEST_LIST_EXPAND_ONE=Die G\u00E4steliste wurde um einen Gast erweitert
+GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=Die G\u00E4steliste wurde um
+GUEST_LIST_EXPAND_MULTIPLE_PART_TWO=G\u00E4ste erweitert
+GUEST_LIST_HINT_EXPORT_GUEST=Wenn Sie einzelne G\u00E4ste markieren, werden nur diese exportiert, ansonsten die vollst\u00E4ndige Liste
+GUEST_LIST_HINT_FILTER=Beim Erstellen von Steuerdateien oder G\u00E4stelisten wird Ihr oben ausgew\u00E4hlter Filter ber\u00FCcksichtigt
+GUEST_LIST_HINT_RED_PERSON=Rot hinterlegte Personen wurden bereits als "zu l\u00F6schen" markiert
 GUEST_LIST_CREATED_NO_PERSON=wurde ohne Personen angelegt
 GUEST_LIST_CREATED_ONE_PERSON=wurde mit einer Person angelegt
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE=wurde mit
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO=Personen angelegt
-GUEST_LIST_NUMBER_CALCULATED_SAVED=Die "Laufende Nummer" wurde für alle Gäste neu berechnet und gespeichert
+GUEST_LIST_NO_GUEST_INVITED=Es wurden noch keine G\u00E4ste eingeladen
+GUEST_LIST_NUMBER_CALCULATE=Laufende Nummer berechnen
+GUEST_LIST_NUMBER_CALCULATED_SAVED=Die "Laufende Nummer" wurde f\u00FCr alle G\u00E4ste neu berechnet und gespeichert
+GUEST_LIST_ONLY_OPEN=nur Offene
+GUEST_LIST_ONLY_ACCEPT=nur Zusagen
+GUEST_LIST_ONLY_DECLINED=nur Absagen
+GUEST_LIST_ONLY_PARTICIPATE=nur Teilnahmen
+GUEST_LIST_PERSON_DATA_RELOAD=Alle Stammdaten neu laden
+GUEST_LIST_RESERVE=R
+GUEST_LIST_SEARCH_PERSON_ADD=Personen suchen und zu der G\u00E4steliste hinzuf\u00FCgen
 
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=G\u00E4steliste erstellen

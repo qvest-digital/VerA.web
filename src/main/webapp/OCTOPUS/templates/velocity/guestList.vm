@@ -65,7 +65,7 @@
 
 	#if($octopusRequest.task == "CalcSerialNumber" && (!$listquestions || $listquestions.size() == 0))
 		<vera-success>
-            ${placeholderWithTranslation..
+            ${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATED_SAVED}.
 		</vera-success>
 	#end
 	<div id="main_content" class="tabs contentBox marginBottom10 marginTop20 grayBorder" style="border-bottom:0">
@@ -73,14 +73,14 @@
 		<div id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
 				<li id="gaesteliste" vera-tab class="active posRel" style="z-index:2">
-                    <div>${placeholderWithTranslation.G&auml;steliste</div>
+                    <div>${placeholderWithTranslation.gasteliste}</div>
 				#if($list.size() > 0)
 				</li>
                 <li id="gastdetails" class="inactive">
-                    <div>${placeholderWithTranslation.Gastdetails</div>
+                    <div>${placeholderWithTranslation.gastdetails}</div>
 				</li>
                 <li id="dokumenttypen" class="inactive">
-                    <div>${placeholderWithTranslation.Dokumenttypen</div>
+                    <div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
 				#end
 				</li>
 			</ul>
@@ -90,12 +90,12 @@
 
 			<div id="guestSummary" class="table posAb hinweis grayBorder" style="padding-bottom: 5px;">
 				<div class="tableRow">
-					<div class="tableCell"><strong>${placeholderWithTranslation.Offen:</strong> $!guestlist-sums.offen</div>
-					<div class="tableCell"><strong>${placeholderWithTranslation.Zusagen:</strong> $!guestlist-sums.zusagen</div>
-					<div class="tableCell"><strong>${placeholderWithTranslation.Absagen:</strong> $!guestlist-sums.absagen</div>
-					<div class="tableCell"><strong>${placeholderWithTranslation.Teilnahmen:</strong> $!guestlist-sums.teilnahmen</div>
-					<div class="tableCell"><strong>${placeholderWithTranslation.Auf&nbsp;Platz:</strong> $!guestlist-sums.platz</div>
-					<div class="tableCell"><strong>${placeholderWithTranslation.Auf&nbsp;Reserve:</strong> $!guestlist-sums.reserve</div>
+					<div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_STATUS_OPEN}:</strong> $!guestlist-sums.offen</div>
+					<div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}:</strong> $!guestlist-sums.zusagen</div>
+					<div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_STATUS_DECLINE}:</strong> $!guestlist-sums.absagen</div>
+					<div class="tableCell"><strong>${placeholderWithTranslation.teilnahmen}:</strong> $!guestlist-sums.teilnahmen</div>
+					<div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_ON}&nbsp;${placeholderWithTranslation.GENERIC_PLACE}:</strong> $!guestlist-sums.platz</div>
+					<div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_ON}&nbsp;${placeholderWithTranslation.reserve}:</strong> $!guestlist-sums.reserve</div>
 				</div>
 			</div>
 
@@ -107,32 +107,32 @@
 				<input type="hidden" name="search-event" value="$search.event">
 				<input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder">
 
-				<h3 class="marginBottom0">${placeholderWithTranslation.Filter</h3>
+				<h3 class="marginBottom0">${placeholderWithTranslation.filter}</h3>
 
 				<div class="table width75">
 					<div class="tableRow">
 						<div class="tableCell width25">
-							<label for="search-reserve">${placeholderWithTranslation.Platzwahl</label>
+							<label for="search-reserve">${placeholderWithTranslation.platzwahl}</label>
 							<select name="search-reserve" id="search-reserve" onchange="submit();">
-										<option value="">${placeholderWithTranslation.Alle G&auml;ste</option>
-										<option #if($search.reserve && $search.reserve == 1) selected#end value="1">${placeholderWithTranslation.Alle G&auml;ste auf Platz</option>
-										<option #if($search.reserve && $search.reserve == 2) selected#end value="2">${placeholderWithTranslation.Alle G&auml;ste auf Reserve</option>
+										<option value="">${placeholderWithTranslation.GUEST_LIST_ALL_GUEST}</option>
+										<option #if($search.reserve && $search.reserve == 1) selected#end value="1">${placeholderWithTranslation.GUEST_LIST_ALL_GUEST_ON_PLACE}</option>
+										<option #if($search.reserve && $search.reserve == 2) selected#end value="2">${placeholderWithTranslation.GUEST_LIST_ALL_GUEST_ON_RESERVE}</option>
 							</select>
 						</div>
 						<div class="tableCell width25">
-							<label for="search-invitationstatus">${placeholderWithTranslation.Status</label>
+							<label for="search-invitationstatus">${placeholderWithTranslation.GENERIC_STATUS}</label>
 							<select name="search-invitationstatus" id="search-invitationstatus" onchange="submit();">
-								<option value="">${placeholderWithTranslation.Alle</option>
-								<option #if($search.invitationstatus && $search.invitationstatus == 1) selected#end value="1">${placeholderWithTranslation.nur Offene</option>
-								<option #if($search.invitationstatus && $search.invitationstatus == 2) selected#end value="2">${placeholderWithTranslation.nur Zusagen</option>
-								<option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="3">${placeholderWithTranslation.nur Absagen</option>
-								<option #if($search.invitationstatus && $search.invitationstatus == 4) selected#end value="4">${placeholderWithTranslation.nur Teilnahmen</option>
+								<option value="">${placeholderWithTranslation.alle}</option>
+								<option #if($search.invitationstatus && $search.invitationstatus == 1) selected#end value="1">${placeholderWithTranslation.GUEST_LIST_ONLY_OPEN}</option>
+								<option #if($search.invitationstatus && $search.invitationstatus == 2) selected#end value="2">${placeholderWithTranslation.GUEST_LIST_ONLY_ACCEPT}</option>
+								<option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="3">${placeholderWithTranslation.GUEST_LIST_ONLY_DECLINED}</option>
+								<option #if($search.invitationstatus && $search.invitationstatus == 4) selected#end value="4">${placeholderWithTranslation.GUEST_LIST_ONLY_PARTICIPATE}</option>
 							</select>
 						</div>
 						<div class="tableCell width50">
-							<label for="search-category">${placeholderWithTranslation.Kategorie</label>
+							<label for="search-category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
 							<select name="search-category" id="search-category" onchange="submit();">
-								<option value="">${placeholderWithTranslation.Alle</option>
+								<option value="">${placeholderWithTranslation.alle}</option>
 								#foreach($category in $categories)
 									<option #if($search.category && $search.category == $category) selected#end value="$category">$category</option>
 								#end
@@ -152,7 +152,7 @@
 			#elseif($listquestions && $listquestions.size() > 0)
 				<form action="" method="POST">
 				<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
-					<strong>${placeholderWithTranslation.Bitte best&auml;tigen Sie die folgende Aktion</strong><br>
+					<strong>${placeholderWithTranslation.GUEST_LIST_CONFIRM_ACTION}</strong><br>
 					<table class="form" style="margin: 5px 0px 0px 0px;">
 					#foreach($quest in $listquestions.entrySet())
 						<tr>
@@ -163,10 +163,10 @@
 					</table><br>
 
 					#if($save)
-						<input type="submit" name="remove" value="Ja" title="Speichern" />
+						<input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" title="${placeholderWithTranslation.speichern}" />
 					#end
 
-					<input type="button" name="cancel" value="Nein" title="Abbrechen" onclick="window.location.href='ShowGuestList?selectNone=true';"> &nbsp;
+					<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" title="${placeholderWithTranslation.abbrechen}" onclick="window.location.href='ShowGuestList?selectNone=true';"> &nbsp;
 				</div>
 				</form>
 			#end
@@ -190,21 +190,21 @@
 			<!-- neu -->
 			<div class="table width100 marginTop30">
 				<div class="tableRow">
-						<div class="tableCell width35 inlineInput" style="padding-bottom:0"><label for="actionSelection">${placeholderWithTranslation.Markierte Person(en)</label>
+						<div class="tableCell width35 inlineInput" style="padding-bottom:0"><label for="actionSelection">${placeholderWithTranslation.markiertepersonen}</label>
 								<select id="actionSelection" class="autoWidth">
-									<option>${placeholderWithTranslation.Löschen</option>
-									<option>${placeholderWithTranslation.Kategorien zuordnen</option>
-									<option>${placeholderWithTranslation.Kategorien entfernen</option>
-									<option>${placeholderWithTranslation.Verteiler erstellen</option>
-									<option>${placeholderWithTranslation.Steuerdatei exportieren</option>
+									<option>${placeholderWithTranslation.loschen}</option>
+									<option>${placeholderWithTranslation.GUEST_LIST_CATEGORY_ASSIGN}</option>
+									<option>${placeholderWithTranslation.GUEST_LIST_CATEGORY_REMOVE}</option>
+									<option>${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
+									<option>${placeholderWithTranslation.GUEST_LIST_DATA_EXPORT}</option>
 								</select>
 								<input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.durchfuhren}" class="autoWidth">
 						</div>
 						<div class="tableCell textRight" style="vertical-align:bottom; padding-bottom:0">
 							#if($grants.mayWrite())
-								<input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.G&auml;steliste erstellen" title="${placeholderWithTranslation.G&auml;steliste erstellen" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
-								<input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.G&auml;ste aus Veranstaltung &uuml;bernehmen" title="${placeholderWithTranslation.G&auml;ste aus Veranstaltung &uuml;bernehmen" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
-								<input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.Gast hinzuf&uuml;gen" title="${placeholderWithTranslation.Personen suchen und zu der G&auml;steliste hinzuf&uuml;gen" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
+								<input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
+								<input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
+								<input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
 							#end
 						</div>
 				</div>
@@ -320,62 +320,62 @@
    				<col width="$column8%" />
 
 				<tr>
-					<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
+					<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 			#if($search.listorder == "lastname_a_e1")
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.Lfd.-Nr.</nobr></a></th>
-					<th class="textCenter smallCell" title="${placeholderWithTranslation.Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.R</span></th>
-					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.Firma</nobr></a></th>
+					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
+					<th class="textCenter smallCell" title="${placeholderWithTranslation.GUEST_LIST_RESERVE} / ${placeholderWithTranslation.GENERIC_PLACE}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');" style="color: #000000;">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.Vorname</a></th>
-					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.E-Mail</a></th>
+					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
+					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#elseif($search.listorder == "firstname_a_e1")
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.Lfd.-Nr.</nobr></a></th>
-					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.R</span></th>
-					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.Firma</nobr></a></th>
+					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
+					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');" style="color: #000000;">${placeholderWithTranslation.Vorname</a></th>
-					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.E-Mail</a></th>
+					<th><a href="javascript:orderGuestList('firstname_a_e1');" style="color: #000000;">${placeholderWithTranslation.vorname}</a></th>
+					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#elseif($search.listorder == "mail_a_e1")
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.Lfd.-Nr.</nobr></a></th>
-					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.R</span></th>
-					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.Firma</nobr></a></th>
+					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
+					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.Vorname</a></th>
-					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">${placeholderWithTranslation.E-Mail</a></th>
+					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
+					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#elseif($search.listorder == "companyname")
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.Lfd.-Nr.</nobr></a></th>
-					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.R</span></th>
-					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>${placeholderWithTranslation.Firma</nobr></a></th>
+					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
+					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.Vorname</a></th>
-					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.E-Mail</a></th>
+					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
+					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 
 			#elseif($search.listorder == "orderno")
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>${placeholderWithTranslation.Lfd.-Nr.</nobr></a></th>
-					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.R</span></th>
-					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.Firma</nobr></a></th>
+					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
+					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.Vorname</a></th>
-					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.E-Mail</a></th>
+					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
+					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#else
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>${placeholderWithTranslation.Lfd.-Nr.</nobr></a></th>
-					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.R</span></th>
-					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>${placeholderWithTranslation.Firma</nobr></a></th>
+					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
+					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.Vorname</a></th>
-					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.E-Mail</a></th>
+					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
+					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#end
 
 			#if($userConfig.guestListFunction)
-					<th style="padding: 10px">${placeholderWithTranslation.Funktion</th>
+					<th style="padding: 10px">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</th>
 			#end
 
 			#if($userConfig.guestListCity)
-					<th style="padding: 10px">${placeholderWithTranslation.PLZ / ${placeholderWithTranslation.Ort</th>
+					<th style="padding: 10px">${placeholderWithTranslation.plz} / ${placeholderWithTranslation.ort}</th>
 			#end
 
 			#if($userConfig.guestListPhone)
-					<th style="padding: 10px">${placeholderWithTranslation.Telefon</th>
+					<th style="padding: 10px">${placeholderWithTranslation.telefon}</th>
 			#end
 					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">$!message.text($!config.main)</span></th>
 					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">$!message.text($!config.partner)</span></th>
@@ -394,24 +394,24 @@
 					<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" onChange="selectionChange( this );" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/></td>
 					<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
 						#if($bean.ishost && $bean.ishost == 1)
-							<em>${placeholderWithTranslation.Gastgeber</em>
+							<em>${placeholderWithTranslation.gastgeber}</em>
 						#elseif($bean.someorderno)
 							$bean.someorderno
 						#else
-							<em>${placeholderWithTranslation.keine</em>
+							<em>${placeholderWithTranslation.keine}</em>
 						#end
 					</td>
 
 					#if($bean.reserve == 1)
-						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.Auf Reserve"><strong>${placeholderWithTranslation.R</strong></td>
+						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufreserve}"><strong>${placeholderWithTranslation.GUEST_LIST_RESERVE}</strong></td>
 					#else
-						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.Auf Platz">&nbsp;</td>
+						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufplatz}">&nbsp;</td>
 					#end
 
 					#if($bean.company_a_e1 != "")
-						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.Firma/Institution">$bean.company_a_e1</td>
+						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">$bean.company_a_e1</td>
 					#else
-						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.Firma/Institution">&nbsp;</td>
+						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">&nbsp;</td>
 					#end
 
 					#if($bean.iscompany == "t" && $bean.delegation != "" && $bean.invitationtype != 4)
@@ -484,20 +484,20 @@
 							#if($bean.invitationtype != 3)
 								#if($grants.mayWrite())
 								<select name="${bean.id}-invitationstatus_a" onchange="setModified('${bean.id}')">
-									<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0) selected#end value="0">${placeholderWithTranslation.Offen</option>
-									<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 1) selected#end value="1">${placeholderWithTranslation.Zusage</option>
-									<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 2) selected#end value="2">${placeholderWithTranslation.Absage</option>
-									<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 3) selected#end value="3">${placeholderWithTranslation.Teilgenommen</option>
+									<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_STATUS_OPEN}</option>
+									<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 1) selected#end value="1">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
+									<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 2) selected#end value="2">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
+									<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 3) selected#end value="3">${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}</option>
 								</select>
 								#else
 									#if($bean.invitationstatus_a && $bean.invitationstatus_a == 0)
-                                        ${placeholderWithTranslation.Offen
+                                        ${placeholderWithTranslation.GENERIC_STATUS_OPEN}
 									#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 1)
-                                        ${placeholderWithTranslation.Zusage
+                                        ${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}
 									#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 2)
-                                        ${placeholderWithTranslation.Absage
+                                        ${placeholderWithTranslation.GENERIC_STATUS_DECLINE}
 									#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 3)
-                                        ${placeholderWithTranslation.Teilgenommen
+                                        ${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}
 									#end
 								#end
 							#else
@@ -509,24 +509,24 @@
 							#if($bean.invitationtype != 2)
 								#if($grants.mayWrite())
 									<select name="${bean.id}-invitationstatus_b" onchange="setModified('${bean.id}')">
-										<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0) selected#end value="0">${placeholderWithTranslation.Offen</option>
-										<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 1) selected#end value="1">${placeholderWithTranslation.Zusage</option>
-										<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 2) selected#end value="2">${placeholderWithTranslation.Absage</option>
-										<option #if($bean.invitationstatus_a && $bean.invitationstatus_b == 3) selected#end value="3">${placeholderWithTranslation.Teilgenommen</option>
+										<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_STATUS_OPEN}</option>
+										<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 1) selected#end value="1">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
+										<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 2) selected#end value="2">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
+										<option #if($bean.invitationstatus_a && $bean.invitationstatus_b == 3) selected#end value="3">${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}</option>
 									</select>
 								#else
 									#if($bean.invitationstatus_b && $bean.invitationstatus_b == 0)
-                                        ${placeholderWithTranslation.Offen
+                                        ${placeholderWithTranslation.GENERIC_STATUS_OPEN}
 									#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 1)
-                                        ${placeholderWithTranslation.Zusage
+                                        ${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}
 									#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 2)
-                                        ${placeholderWithTranslation.Absage
+                                        ${placeholderWithTranslation.GENERIC_STATUS_DECLINE}
 									#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 3)
-                                        ${placeholderWithTranslation.Teilgenommen
+                                        ${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}
 									#end
 								#end
 							#else
-								<input type="hidden" name="${bean.id}-invitationstatus_b" value="$!bean.invitationstatus_b">${placeholderWithTranslation.nicht eingeladen</input>
+								<input type="hidden" name="${bean.id}-invitationstatus_b" value="$!bean.invitationstatus_b">${placeholderWithTranslation.nichteingeladen}</input>
 							#end
 						</td>
 					#end
@@ -534,7 +534,7 @@
 				#end
 
 				#if ($listparam.count == 0)
-					<tr class="colspan"><td colspan="99">${placeholderWithTranslation.Es wurden noch keine Gäste eingeladen</td></tr>
+					<tr class="colspan"><td colspan="99">${placeholderWithTranslation.GUEST_LIST_NO_GUEST_INVITED}</td></tr>
 				#end
 
 				#set($itemName = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
@@ -553,13 +553,13 @@
 			</table>
 
 			<div class="textRight marginTop10 marginBottom20">
-				<input type="button" name="calcSerialNumber" value="Laufende Nummer berechnen" title="Laufende Nummer berechnen" onclick="htmlWait(); window.location.href='CalcSerialNumber';" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
-				<input type="button" name="reloadAllGuestData" value="Alle Stammdaten neu laden" title="Alle Stammdaten neu laden" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
+				<input type="button" name="calcSerialNumber" value="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" title="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" onclick="htmlWait(); window.location.href='CalcSerialNumber';" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
+				<input type="button" name="reloadAllGuestData" value="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" title="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
 			</div>
 
 			<vera-info vera-stay>
-                ${placeholderWithTranslation.Beim Erstellen von Steuerdateien oder G&auml;stelisten wird Ihr oben ausgew&auml;hlter Filter ber&uuml;cksichtigt.<br>
-                ${placeholderWithTranslation.Wenn Sie einzelne G&auml;ste markieren, werden nur diese exportiert, ansonsten die vollst&auml;ndige Liste.
+                ${placeholderWithTranslation.GUEST_LIST_HINT_FILTER}.<br>
+                ${placeholderWithTranslation.GUEST_LIST_HINT_EXPORT_GUEST}.
 			</vera-info>
 
 			#if($deletedperson)
@@ -567,7 +567,7 @@
 					<tr style="height: 20px;">
 						<td class="list2error" style="width: 20px;">&nbsp;</td>
 						<td class="list1error">
-                            ${placeholderWithTranslation.Rot hinterlegte Personen wurden bereits als &quot;zu l&ouml;schen&quot; markiert.
+                            ${placeholderWithTranslation.GUEST_LIST_HINT_RED_PERSON}.
 						</td>
 					</tr>
 				</table>
@@ -595,9 +595,9 @@
 
 			<div style="bottom: -40px; right: -1px;" class="textRight posAb" id="buttonPanel-bottom">
 				#if($grants.mayWrite())
-					<input type="submit" name="save" value="${placeholderWithTranslation.Speichern" title="${placeholderWithTranslation.Speichern" class="mainButton" />
+					<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
 				#end
-				<input type="button" name="cancel" value="${placeholderWithTranslation.Zur&uuml;ck zu den Veranstaltungsdetails" title="${placeholderWithTranslation.Zur&uuml;ck zu den Veranstaltungsdetails" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
+				<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" title="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
 			</div>
 
 			</form>
