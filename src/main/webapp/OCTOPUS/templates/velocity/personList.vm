@@ -641,7 +641,7 @@ function submitFormWithGivenAction(action) {
 								<option>${placeholderWithTranslation.arbeitsbereichzuordnen}</option>
 								<option>${placeholderWithTranslation.arbeitsbereichentfernen}</option>
 							</select>
-							<input type="button" value="Durchführen" id="button.execute" name="button.execute" />
+							<input type="button" value="${placeholderWithTranslation.durchfuhren}" id="button.execute" name="button.execute" />
 						#elseif($exportFormat && $grants.mayExport())
 							Markierte Person(en)
 							<input type="button" value="Exportieren" title="${placeholderWithTranslation.exportieren}" onclick="selectedActionExportPerson();" />
@@ -661,7 +661,7 @@ function submitFormWithGivenAction(action) {
 				#if($action != "guest")
 					<input type="button" id="button.searchPerson" name="button.searchPerson" value="Personen suchen" title="${placeholderWithTranslation.personensuchen}" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
 					#if($grants.mayWrite())
-						<input type="button" id="button.newPerson" name="button.newPerson" value="Neue Person anlegen" title="${placeholderWithTranslation.neuepersonanlegen}" class="mainButton" onclick="window.location.href='CreatePerson';" />
+						<input type="button" id="button.newPerson" name="button.newPerson" value="${placeholderWithTranslation.neuepersonanlegen}" title="${placeholderWithTranslation.neuepersonanlegen}" class="mainButton" onclick="window.location.href='CreatePerson';" />
 					#end
 				#end
 					</span>
@@ -1224,7 +1224,7 @@ function submitFormWithGivenAction(action) {
 	#else
 		#if($grants.mayWrite() && !$searchTask)
 			<div id="" class="buttonPanel-top textRight marginBottom10">
-				<input type="button" id="button.newPerson" name="button.newPerson" value="Neue Person anlegen" title="${placeholderWithTranslation.neuepersonanlegen}" class="mainButton" onclick="window.location.href='CreatePerson';" />
+				<input type="button" id="button.newPerson" name="button.newPerson" value="${placeholderWithTranslation.neuepersonanlegen}" title="${placeholderWithTranslation.neuepersonanlegen}" class="mainButton" onclick="window.location.href='CreatePerson';" />
 			</div>
 		#end
 
