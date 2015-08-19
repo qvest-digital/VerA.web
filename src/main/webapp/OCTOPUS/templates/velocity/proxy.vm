@@ -215,7 +215,7 @@
 		</tr>
 		#end
 
-			#set($itemName = "Vertreter")
+			#set($itemName = "${placeholderWithTranslation.GENERIC_REPRESENTATIVE_PLURAL}")
 			#parse("inc/list-navi-new.vm")
 			#parse("inc/list-direct-new.vm")
 		#if ($listparam.count == 0)

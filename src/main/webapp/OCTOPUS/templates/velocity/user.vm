@@ -173,7 +173,7 @@
 					</tr>
     			#end
 
-			#set($itemName = "Benutzer")
+			#set($itemName = "${placeholderWithTranslation.GENERIC_USER_PLURAL}")
 			#parse("inc/list-navi-new.vm")
 			#parse("inc/list-direct-new.vm")
 

@@ -103,7 +103,7 @@
 	</tr>
 	#end
 
-    #set($itemName = "Dokumenttypen")
+    #set($itemName = "${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}")
     #parse("inc/list-navi-new.vm")
 </table>
 

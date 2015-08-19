@@ -20,7 +20,7 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.personen} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.personenimport}</a> > ${placeholderWithTranslation.importstatus}</span>
+		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.personenimport}</a> > ${placeholderWithTranslation.importstatus}</span>
 	</div>
 	<h1>${placeholderWithTranslation.importstatusvorhandenedublettenbearbeiten}</h1>
 
@@ -129,7 +129,7 @@
 						#end
 					#end
 
-					#set($itemName = "Personen")
+					#set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 					#parse("inc/list-navi-new.vm")
 
 					<tr class="colspan">

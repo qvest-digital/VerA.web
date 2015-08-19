@@ -88,7 +88,7 @@
 						</tr>
 					#end
 
-				#set($itemName = "Mandanten")
+				#set($itemName = "${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}")
 				#parse("inc/list-navi-new.vm")
 				#parse("inc/list-direct-new.vm")
             </table>

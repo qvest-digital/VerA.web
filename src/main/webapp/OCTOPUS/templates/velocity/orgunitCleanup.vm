@@ -37,7 +37,7 @@
                 <h2 class="marginBottom10">${placeholderWithTranslation.nichtmandantenzugeordnetedaten}</h2>
 
                 <table><tr>
-                	<td class="width15 bold"><label for="person">${placeholderWithTranslation.personen}:</label></td>
+                	<td class="width15 bold"><label for="person">${placeholderWithTranslation.GENERIC_PERSON_PLURAL}:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.person)" id="person" vera-disabled></td>
                 	<td class="width15 bold"><label for="event">${placeholderWithTranslation.veranstaltungen}:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.event)" id="event" vera-disabled></td>

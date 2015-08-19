@@ -48,7 +48,7 @@
 
     			#set($disableListSelect = true)
     			#if ($listparam.count > 0)
-    				#set($itemName = "Firmen/Institutionen")
+    				#set($itemName = "${placeholderWithTranslation.GENERIC_COMPANY_PLURAL}/${placeholderWithTranslation.GENERIC_INSTITUTION_PLURAL}")
     				#parse("inc/list-navi-new.vm")
     				#parse("inc/list-direct-new.vm")
     			#else

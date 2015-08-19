@@ -75,7 +75,7 @@
 					</tr>
     			#end
 
-				#set($itemName = "Arbeitsbereiche")
+				#set($itemName = "${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}")
 				#parse("inc/list-navi-new.vm")
 				#parse("inc/list-direct-new.vm")
 

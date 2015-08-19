@@ -95,7 +95,7 @@
                                     #end
 
 
-                                    #set($itemName = "Anreden")
+                                    #set($itemName = "${placeholderWithTranslation.GENERIC_SALUTATION_PLURAL}")
     				#parse("inc/list-navi-new.vm")
     				#parse("inc/list-direct-new.vm")
 

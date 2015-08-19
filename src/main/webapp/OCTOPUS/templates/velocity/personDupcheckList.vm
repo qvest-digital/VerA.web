@@ -59,7 +59,7 @@
 
 
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > ${placeholderWithTranslation.dublettensuche}</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.dublettensuche}</span>
 		</div>
 
 		<vera-info>
@@ -121,7 +121,7 @@
 			</tr>
 			#end
 
-			#set($itemName = "${placeholderWithTranslation.personen}")
+			#set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 			#parse("inc/list-navi-new.vm")
 		</table>
 

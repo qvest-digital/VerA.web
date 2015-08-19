@@ -89,7 +89,7 @@
 		</tr>
 	#end
 
-	#set($itemName = "Kategorien")
+	#set($itemName = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
 	#parse("inc/list-navi-new.vm")
 	#parse("inc/list-direct-new.vm")
 </table>

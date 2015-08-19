@@ -76,7 +76,7 @@
 					</tr>
     			#end
 
-				#set($itemName = "Funktionen/Amtsbezeichnungen")
+				#set($itemName = "${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}")
 				#parse("inc/list-navi-new.vm")
 				#parse("inc/list-direct-new.vm")
 			</table>

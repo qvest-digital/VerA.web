@@ -134,7 +134,7 @@
 				</tr>
 			#end
 
-			#set($itemName = "Veranstaltungsorte")
+			#set($itemName = "${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}")
 			#parse("inc/list-navi-new.vm")
 			#parse("inc/list-direct-new.vm")
 		</table>

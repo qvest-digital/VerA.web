@@ -533,7 +533,7 @@
 					<tr class="colspan"><td colspan="99">Es wurden noch keine Gäste eingeladen</td></tr>
 				#end
 
-				#set($itemName = "Gästen")
+				#set($itemName = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
 				#parse("inc/list-navi-new.vm")
 
 				#if($search.listorder)

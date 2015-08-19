@@ -137,7 +137,7 @@
 						</tr>
 					#end
 
-					#set($itemName = "Amtsbezeichnungen")
+					#set($itemName = "${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}")
 					#parse("inc/list-navi-new.vm")
 
 				</table>
