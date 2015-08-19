@@ -65,7 +65,7 @@
 	#end
     <div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 
-        <h2>Suche</h2>
+        <h2>${placeholderWithTranslation.suche}</h2>
 
         <form action="$formurl" id="peopleSearch_form" method="post">
             <input type="hidden" name="start" value="0">

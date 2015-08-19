@@ -659,7 +659,7 @@ function submitFormWithGivenAction(action) {
 					<span id="buttonPanel-top" class="textRight floatRight">
 				#end
 				#if($action != "guest")
-					<input type="button" id="button.searchPerson" name="button.searchPerson" value="Personen suchen" title="${placeholderWithTranslation.personensuchen}" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
+					<input type="button" id="button.searchPerson" name="button.searchPerson" value="${placeholderWithTranslation.personensuchen}" title="${placeholderWithTranslation.personensuchen}" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
 					#if($grants.mayWrite())
 						<input type="button" id="button.newPerson" name="button.newPerson" value="${placeholderWithTranslation.neuepersonanlegen}" title="${placeholderWithTranslation.neuepersonanlegen}" class="mainButton" onclick="window.location.href='CreatePerson';" />
 					#end
@@ -843,7 +843,8 @@ function submitFormWithGivenAction(action) {
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitutiong}
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'company_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -854,7 +855,8 @@ function submitFormWithGivenAction(action) {
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasseg}
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'street_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -865,7 +867,8 @@ function submitFormWithGivenAction(action) {
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plzg}
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plz}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'zipcode_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -876,7 +879,8 @@ function submitFormWithGivenAction(action) {
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ortg}
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ort}
+								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'city_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -1237,21 +1241,21 @@ function submitFormWithGivenAction(action) {
 	## Zurück-Button
 	<span id="buttonPanel-top" class="textRight floatRight">
 		#if($action == "guest")
-			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zur G&auml;steliste" class="mainButton" onclick="window.location.href='ShowGuestList?selectNone=true';" />
+			<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzurgasteliste}" class="mainButton" onclick="window.location.href='ShowGuestList?selectNone=true';" />
 		#elseif($action == "host")
-			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zu Veranstaltungsdetails" class="mainButton" onclick="window.location.href='SetHostToEventDetail';" />
+			<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzurveranstaltungsdetails}" class="mainButton" onclick="window.location.href='SetHostToEventDetail';" />
 		#elseif($action == "statistikGuest" || $action == "statistikHost")
-			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zu Veranstaltungsstatistiken" class="mainButton" onclick="window.location.href='Statistik';" />
+			<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzurveranstaltungsstatistiken}" class="mainButton" onclick="window.location.href='Statistik';" />
 		#elseif($action == "taskReferencePerson")
 			#if($taskId && $taskId != "")
-				<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zur Veranstaltungsaufgabe" class="mainButton" onclick="window.location.href='ShowEventTask?id=$!taskId';" />
+				<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzurveranstaltungsaufgabe}" class="mainButton" onclick="window.location.href='ShowEventTask?id=$!taskId';" />
 			#else
-				<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zur Veranstaltungsaufgabe" class="mainButton" onclick="window.location.href='CreateEventTask?eventId=$!eventId';" />
+				<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzurveranstaltungsaufgabe}" class="mainButton" onclick="window.location.href='CreateEventTask?eventId=$!eventId';" />
 			#end
 		#elseif($action == "replace")
-			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zu Suchen &amp; Ersetzen" class="mainButton" onclick="window.location.href='ShowReplacePerson';" />
+			<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzusuchenundersetzen}" class="mainButton" onclick="window.location.href='ShowReplacePerson';" />
 		#elseif($searchTask && $searchTask == "personSearchTask")
-			<input type="button" id="button.cancel" name="button.cancel" value="Zur&uuml;ck zur Personensuche" class="mainButton" onclick="javascript:history.back();" />
+			<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzurpersonensuche}" class="mainButton" onclick="javascript:history.back();" />
 		#end
 	</span>
 

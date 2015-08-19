@@ -12,7 +12,7 @@
 						<li><a id="menu.overviewPerson" href="${paths.staticWeb}do/SearchPerson?action=person&search=reset&findAll=true&selectNone=true">${placeholderWithTranslation.personenubersicht}</a></li>
 						#if($grants.mayWrite())
 							<li><a id="menu.searchPerson" href="${paths.staticWeb}do/ShowPersonSearchSimple?action=person&search=clear">${placeholderWithTranslation.personensuche}</a></li>
-							<li><a id="menu.newPerson" href="${paths.staticWeb}do/CreatePerson?action=person">Neue Person</a></li>
+							<li><a id="menu.newPerson" href="${paths.staticWeb}do/CreatePerson?action=person">${placeholderWithTranslation.neueperson}</a></li>
 						#end
 						#if($grants.isUser())
 							#if($grants.mayWrite())

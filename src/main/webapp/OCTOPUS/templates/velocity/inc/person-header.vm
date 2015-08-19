@@ -4,52 +4,52 @@
 
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($online-registration.activated && !$person.username)
-			<input type="button" name="copy" class="mainButton" value="Anmeldedaten erzeugen" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
 		#end
 		#if($person && $person.id)
 			<input type="button" name="add" value="In G&auml;steliste &uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" class="mainButton" onclick="addToGuestList();">
 		#end
 		#if($grants.mayWrite())
-			<input type="button" name="copy" class="mainButton" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }"/>
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.personkopieren}" onclick="if (checkModified()) { copyPerson(); }"/>
 		#end
-		<input type="button" name="export" class="mainButton"value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
+		<input type="button" name="export" class="mainButton"value="${placeholderWithTranslation.etiketterzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 	</div>
 
 #elseif($action == "host")
 
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($online-registration.activated && !$person.username)
-			<input type="button" name="copy" class="mainButton" value="Anmeldedaten erzeugen" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
 		#end
 		#if($person && $person.id)
 			<input type="button" name="set" class="mainButton" value="&Uuml;bernehmen" title="Person direkt als Gastgeber &uuml;bernehmen" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventDetail?hostid=$!person.id';">
 		#end
 		#if($grants.mayWrite())
-			<input type="button" name="copy" class="mainButton" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.personkopieren}" onclick="if (checkModified()) { copyPerson(); }" />
 		#end
-		<input type="button" name="export" class="mainButton" value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
+		<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.etiketterzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 
 		## modified to provide a direct statistic button as per change request for version 1.2.0
 		## cklein
 		## 2008-03-14
-		<input type="button" value="Statistik" class="mainButton" name="statistics" #if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else vera-disabled #end>
+		<input type="button" value="${placeholderWithTranslation.statistik}" class="mainButton" name="statistics" #if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else vera-disabled #end>
 	</div>
 
 #elseif($action == "event")
 
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($online-registration.activated && !$person.username)
-			<input type="button" name="copy" class="mainButton" value="Anmeldedaten erzeugen" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
 		#end
 		#if($grants.mayWrite())
-			<input type="button" name="copy" class="mainButton" value="Person kopieren" onclick="if (checkModified()) { copyPerson(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.personkopieren}" onclick="if (checkModified()) { copyPerson(); }" />
 		#end
-		<input type="button" name="export" class="mainButton" value="Etikett erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
+		<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.etiketterzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 
 		## modified to provide a direct statistic button as per change request for version 1.2.0
 		## cklein
 		## 2008-03-14
-		<input type="button" value="Statistik" class="mainButton" name="statistics"	#if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else vera-disabled #end>
+		<input type="button" value="${placeholderWithTranslation.statistik}" class="mainButton" name="statistics"	#if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else vera-disabled #end>
 	</div>
 
 #else
@@ -67,16 +67,16 @@
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($person && $person.id)
 			#if($online-registration.activated && !$person.username)
-				<input type="button" name="copy" class="mainButton" value="Anmeldedaten erzeugen" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
+				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
 			#end
 			#if($grants.mayWrite())
-				<input type="button" name="copy" class="mainButton" value="Person kopieren" title="Aktuelle Person kopieren" onclick="if (checkModified()) { copyPerson(); }" />
+				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.personkopieren}" title="Aktuelle Person kopieren" onclick="if (checkModified()) { copyPerson(); }" />
 			#end
-			<input type="button" name="export" class="mainButton" value="Etikett erzeugen" title="Etikett f&uuml;r aktuelle Person erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
+			<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.etiketterzeugen}" title="Etikett f&uuml;r aktuelle Person erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 			#if($grants.mayWrite())
-				<input type="button" name="event" class="mainButton" value="Einer Veranstaltung zuordnen" title="Aktuelle Person einer Veranstaltung zuordnen" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }"/>
+				<input type="button" name="event" class="mainButton" value="${placeholderWithTranslation.einerveranstaltungzuordnen}" title="Aktuelle Person einer Veranstaltung zuordnen" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }"/>
 
-				<input type="button" name="remove" class="mainButton" value="Person l&ouml;schen" title="Aktuelle Person l&ouml;schen und zur Personenliste zur&uuml;ckkehren." onclick="if (checkModified()) { removePerson(); }" />
+				<input type="button" name="remove" class="mainButton" value="${placeholderWithTranslation.personloschen}" title="Aktuelle Person l&ouml;schen und zur Personenliste zur&uuml;ckkehren." onclick="if (checkModified()) { removePerson(); }" />
 			#end
 		#end
 
@@ -85,7 +85,7 @@
 		## cklein
 		## 2008-02-21
 		#if($person && $person.id)
-			<input type="button" value="Statistik" title="Statistik" name="statistics" class="mainButton" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );">
+			<input type="button" value="${placeholderWithTranslation.statistik}" title="${placeholderWithTranslation.statistik}" name="statistics" class="mainButton" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );">
 		#end
 	</div>
 
