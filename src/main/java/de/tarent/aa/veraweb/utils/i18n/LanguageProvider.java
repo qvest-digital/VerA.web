@@ -162,44 +162,50 @@ public class LanguageProvider {
 
         try {
             //Will only be true on first load
-            if (cntx.getContextField("languageSelector") == null && (lastSelectedLanguage.equals("") || lastSelectedLanguage == null)) {
+            if (cntx.getContextField("languageSelector") == null && ((lastSelectedLanguage != null && lastSelectedLanguage.equals("")) || lastSelectedLanguage == null)) {
                 cntx.setContent("languageSelector", "Deutsch");
                 lastSelectedLanguage = "de_DE.resource";
             } else if (request.getField("languageSelector") != null){
-                lastSelectedLanguage = getFileNameByLangText(request.getField("languageSelector").toString());
+                if (request.getField("languageSelector").toString().contains("_")) {
+                    lastSelectedLanguage = request.getField("languageSelector").toString() + ".resource";
+                }
+                else {
+                    lastSelectedLanguage = getFileNameByLangText(request.getField("languageSelector").toString());
+                }
             }
         } catch (BeanException e) {
             e.printStackTrace();
         }
+        if (lastSelectedLanguage != null) {
             properties = this.loadProperties(lastSelectedLanguage);
+        }
 
         for(final String key : properties.stringPropertyNames()) {
             placeholderWithTranslation.put(key, properties.getProperty(key));
         }
 
         //Value of language name, which is read by language selector
-        cntx.setContent("language", properties.getProperty("language"));
+        cntx.setContent("language", lastSelectedLanguage.substring(0,5));
         //All keys with values from language data
         cntx.setContent("placeholderWithTranslation", placeholderWithTranslation);
 
-        lastSelectedLanguage = getFileNameByLangText(cntx.getContextField("language").toString());
+        lastSelectedLanguage = getFileNameByLangText(properties.getProperty("language").toString());
     }
 
     //Set language names (language parameter of language data) from all
     //language data of the given directory
-    private List<String> getLanguageOptions() {
+    private Map<String, String> getLanguageOptions() {
         existingLanguagesAndFilenames.clear();
         List<String> propertyNames = getLanguageFileNames();
-        List<String> translatedNames = new ArrayList<String>();
 
+        Map<String, String> newMap = new HashMap<String, String>();
         for(String langFileName : propertyNames) {
             String value = getLocalizationValue(langFileName, "language");
-
-            translatedNames.add(value);
+            newMap.put(langFileName.substring(0,5), value);
             existingLanguagesAndFilenames.put(value, langFileName);
         }
 
-        return translatedNames;
+        return newMap;
     }
 
     /**

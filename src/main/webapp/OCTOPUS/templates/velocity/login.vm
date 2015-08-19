@@ -1,51 +1,20 @@
 #set($title = "${placeholderWithTranslation.GENERIC_LOGIN}")
 #parse("inc/header.vm")
 
-<form action="default" method="post" target="_top" onsubmit="if(document.getElementById('loginasproxy').checked) { this.action = 'LoginAsProxy'; this.task.value = 'LoginAsProxy'; }">
-
-<h1 class="marginTop25">${placeholderWithTranslation.GENERIC_LOGIN}</h1>
-
-<div class="table">
-    <div class="tableRow">
-        <div class="tableCell">
-        	<label for="input.username">${placeholderWithTranslation.GENERIC_USERNAME}</label>
-        	<input type="text" id="input.username" name="username">
-        </div>
-    </div>
-    <div class="tableRow">
-        <div class="tableCell">
-        	<label for="input.password">${placeholderWithTranslation.GENERIC_PASSWORD}</label>
-        	<input type="password" id="input.password" name="password">
-        </div>
-    </div>
-    <div class="tableRow">
-        <div class="tableCell inlineLabel">
-        	<label for="loginasproxy">${placeholderWithTranslation.LOGIN_REPRESENTATION}</label> <input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
-        </div>
-    </div>
+<div id="german">
+	#parse("login_de.vm")
 </div>
 
-<div id="buttonPanel-bottom" class="marginTop5 marginBottom20">
-	<input type="submit" class="mainButton" value="${placeholderWithTranslation.GENERIC_LOGIN}" title="${placeholderWithTranslation.GENERIC_LOGIN}" name="submit" id="button.login" />
-	<input type="reset" class="mainButton" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" name="cancel" id="button.clearFields" />
+<div id="english">
+	#parse("login_en.vm")
 </div>
 
-<vera-info vera-stay>
-	${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_ONE} <strong>${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_TWO}</strong> ${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_THREE}
-</vera-info>
+<div id="spanish">
+	#parse("login_es.vm")
+</div>
 
+<div id="french">
+	#parse("login_fr.vm")
+</div>
 
-<input name="task" type="hidden" value="default">
-
-#if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin")
-<vera-warn>
-	${placeholderWithTranslation.LOGIN_ERROR}
-</vera-warn>
-#end
-
-</form>
-
-<!--
-$responseParams
--->
 #parse("inc/footer.vm")

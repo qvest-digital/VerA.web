@@ -1,0 +1,43 @@
+<form action="default" method="post" target="_top" onsubmit="if(document.getElementById('loginasproxy').checked) { this.action = 'LoginAsProxy'; this.task.value = 'LoginAsProxy'; }">
+<h1 class="marginTop25">Iniciar sesión</h1>
+
+<div class="table">
+    <div class="tableRow">
+        <div class="tableCell">
+        	<label for="input.username">Nombre de usuario</label>
+        	<input type="text" id="input.username" name="username">
+        </div>
+    </div>
+    <div class="tableRow">
+        <div class="tableCell">
+        	<label for="input.password">Contraseña</label>
+        	<input type="password" id="input.password" name="password">
+        </div>
+    </div>
+    <div class="tableRow">
+        <div class="tableCell inlineLabel">
+        	<label for="loginasproxy">Acceder como representante</label>
+        	<input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
+        </div>
+    </div>
+</div>
+
+<div id="buttonPanel-bottom" class="marginTop5 marginBottom20">
+	<input type="submit" class="mainButton" value="Acceder" title="${placeholderWithTranslation.GENERIC_LOGIN}" name="submit" id="button.login" />
+	<input type="reset" class="mainButton" value="Borrar" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" name="cancel" id="button.clearFields" />
+</div>
+
+<vera-info vera-stay>
+	${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_ONE} <strong>${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_TWO}</strong> ${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_THREE}
+</vera-info>
+
+<input name="task" type="hidden" value="default">
+<input name="loginlanguage" type="hidden" value="fr_FR">
+<input name="languageSelector" type="hidden" value="Français">
+
+#if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin" && $octopusRequest.loginlanguage == "fr_FR")
+<vera-warn>
+	${placeholderWithTranslation.LOGIN_ERROR}
+</vera-warn>
+#end
+</form>

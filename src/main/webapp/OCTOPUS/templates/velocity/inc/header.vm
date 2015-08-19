@@ -43,18 +43,46 @@
                 	<ul>
                         <form id="languageSelectForm" class="inline" method="POST">
                             <li>
-                                <strong>${placeholderWithTranslation.GENERIC_LANGUAGE}:</strong>
-                                <select id="languageSelector" name="languageSelector" onchange="changeLanguage();">
-                                <p>${language}</p>
-									#foreach($option in $translatedNames)
-									    <p>${language} ${option}</p>
-										#if(${option} == ${language})
-											<option selected>${option}</option>
-										#else
-											<option>${option}</option>
-										#end
+
+                                <div id="languagede"><strong>Sprache:</strong></div>
+                                <div id="languageen"><strong>Language:</strong></div>
+                                <div id="languagees"><strong>Idioma:</strong></div>
+                                <div id="languagefr"><strong>SpracheFR:</strong></div>
+                                	#if ($translatedNames)
+                                		<select id="languageSelector" name="languageSelector" onchange="changeLanguage(this); changeLoginLanguage(this);">
+
+											<option value="de_DE"
+												#if(${language} == "de_DE")
+													selected
+												#end
+
+											>${translatedNames.get("de_DE")}</option>
+											<option value="en_EN"
+												#if(${language} == "en_EN")
+													selected
+												#end
+											>${translatedNames.get("en_EN")}</option>
+											<option value="es_ES"
+												#if(${language} == "es_ES")
+													selected
+												#end
+											>${translatedNames.get("es_ES")}</option>
+											<option value="fr_FR"
+												#if(${language} == "fr_FR")
+													selected
+												#end
+											>${translatedNames.get("fr_FR")}</option>
+										</select>
+									#else
+									 	<select id="languageSelectorLogin" name="languageSelector" onchange="changeLoginLanguage(this);">
+											<option value="de_DE">Deutsch</option>
+											<option value="en_EN">English</option>
+											<option value="es_ES">Español</option>
+											<option value="fr_FR">Français</option>
+                                		</select>
+
 									#end
-                                </select>
+
                             </li>
                         </form>
 
@@ -147,7 +175,114 @@
 			#end
 
             <script type="text/javascript">
-                function changeLanguage() {
+                function changeLanguage(selectedLanguage) {
                     document.getElementById("languageSelectForm").submit();
+                }
+            </script>
+
+			<script type="text/javascript">
+				$(document).ready(function(){
+
+					var octopusLanguage = "${language}";
+					var previousLanguage = "${octopusRequest.loginlanguage}";
+					if (octopusLanguage == "en_EN" || octopusLanguage == "es_ES" || octopusLanguage == "de_DE" || octopusLanguage == "fr_FR") {
+						previousLanguage = octopusLanguage;
+					}
+
+					if (previousLanguage == 'de_DE' || (previousLanguage != 'de_DE' && previousLanguage != 'en_EN' && previousLanguage != 'es_ES' && previousLanguage != 'fr_FR')) {
+						$("#french").hide();
+						$("#spanish").hide();
+						$("#english").hide();
+						$("#german").show();
+						$("#languagefr").hide();
+						$("#languagees").hide();
+						$("#languageen").hide();
+						$("#languagede").show();
+
+						$("#languageSelectorLogin").val('de_DE');
+					}
+					else if (previousLanguage == 'en_EN') {
+						$("#french").hide();
+						$("#spanish").hide();
+						$("#english").show();
+						$("#german").hide();
+						$("#languagefr").hide();
+						$("#languagees").hide();
+						$("#languageen").show();
+						$("#languagede").hide();
+
+						$("#languageSelectorLogin").val('en_EN');
+					}
+					else if (previousLanguage == 'es_ES') {
+						$("#french").hide();
+						$("#spanish").show();
+						$("#english").hide();
+						$("#german").hide();
+						$("#languagefr").hide();
+						$("#languagees").show();
+						$("#languageen").hide();
+						$("#languagede").hide();
+
+						$("#languageSelectorLogin").val('es_ES');
+					}
+					else if (previousLanguage == 'fr_FR') {
+						$("#french").show();
+						$("#spanish").hide();
+						$("#english").hide();
+						$("#german").hide();
+						$("#languagefr").show();
+						$("#languagees").hide();
+						$("#languageen").hide();
+						$("#languagede").hide();
+
+						$("#languageSelectorLogin").val('fr_FR');
+					}
+                });
+			</script>
+
+			<script type="text/javascript">
+                function changeLoginLanguage(selectedLanguage) {
+                	$(".errormsg").remove();
+                	var lang = selectedLanguage.value;
+                	if (lang == 'de_DE') {
+						$("#french").hide();
+						$("#spanish").hide();
+						$("#english").hide();
+						$("#german").show();
+						$("#languagefr").hide();
+						$("#languagees").hide();
+						$("#languageen").hide();
+						$("#languagede").show();
+                	}
+                	else if (lang == 'en_EN') {
+						$("#french").hide();
+						$("#spanish").hide();
+						$("#english").show();
+						$("#german").hide();
+						$("#languagefr").hide();
+						$("#languagees").hide();
+						$("#languageen").show();
+						$("#languagede").hide();
+                	}
+                	else if (lang == 'es_ES') {
+						$("#french").hide();
+						$("#spanish").show();
+						$("#english").hide();
+						$("#german").hide();
+						$("#languagefr").hide();
+						$("#languagees").show();
+						$("#languageen").hide();
+						$("#languagede").hide();
+                	}
+                	else if (lang == 'fr_FR') {
+						$("#french").show();
+						$("#spanish").hide();
+						$("#english").hide();
+						$("#german").hide();
+						$("#languagefr").show();
+						$("#languagees").hide();
+						$("#languageen").hide();
+						$("#languagede").hide();
+                	}
                 }
             </script>
