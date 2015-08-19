@@ -170,7 +170,7 @@ public class LanguageProvider {
                     lastSelectedLanguage = request.getField("languageSelector").toString() + ".resource";
                 }
                 else {
-                    getFileNameByLangText(cntx.getContextField("language").toString());
+                    lastSelectedLanguage = getFileNameByLangText(request.getField("languageSelector").toString());
                 }
             }
         } catch (BeanException e) {

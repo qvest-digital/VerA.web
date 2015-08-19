@@ -185,7 +185,7 @@
 
 					var octopusLanguage = "${language}";
 					var previousLanguage = "${octopusRequest.loginlanguage}";
-					if (octopusLanguage != "${language}") {
+					if (octopusLanguage == "en_EN" || octopusLanguage == "es_ES" || octopusLanguage == "de_DE" || octopusLanguage == "fr_FR") {
 						previousLanguage = octopusLanguage;
 					}
 
