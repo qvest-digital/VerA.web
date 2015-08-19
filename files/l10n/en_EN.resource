@@ -1,5 +1,33 @@
 language=English
 
+# GENERALLY USED
+GENERIC_LANGUAGE=Languages
+GENERIC_LOGOUT=Logout
+
+# MENU
+MENU_PERSONS=Persons
+MENU_EVENTS=Events
+MENU_MANAGEMENT=Management
+MENU_ADMINISTRATION=Administration
+
+# WELCOME SITE: FIRST PAGE AFTER LOGIN
+administration=Administration
+bittewaehlensieeineamtsbezeichnungfunktionaus=Please select a function / employment title
+home=Home
+eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator=It may cause unexpected errors. Please contact your administrator.
+willkommenbeiveraweb=Welcome to VerA.web
+WELCOME_TEXT_GRANT_READ_STANDARD_FIELDS=VerA.web offers the possibility to show master data of persons and events and to export them.
+WELCOME_TEXT_GRANT_READ_REMARK_FIELDS=VerA.web offers the possibility to show master data of and comments about persons and events and to export them.
+WELCOME_TEXT_GRANT_EXPORT_PART_ONE=VerA.web offers the possibility to show master data of
+WELCOME_TEXT_GRANT_WRITE_FULL=and comments about
+WELCOME_TEXT_GRANT_EXPORT_PART_TWO=persons and events, to ex- or import, alter or delete them.
+WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=VerA.web offers the possibility to show master data of- and comments about persons and events, to ex- or import, alter or delete them.    Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
+WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO=Furthermore client-specific settings can be inspected and edited.
+WELCOME_TEXT_GRANT_ADMIN_PART_ONE=VerA.web offers the possibility to show master data of- and comments about persons and events, to ex- or import, alter or delete them.
+WELCOME_TEXT_GRANT_ADMIN_PART_TWO=Furthermore client-specific and global settings can be inspected and edited.
+WELCOME_TEXT_HELP=For further information please go to the \u201EHelp\u201C page.
+WELCOME_TEXT_NO_ROLE=Their are no roles for your login, which gives you the ability to act with VerA.web. Please logout and login with an user- or role-ID, which is usable in VerA.web.
+
 # Administration/Anreden
 Anreden=Salutations
 MarkierteAnrede=Marked salutation(s)
@@ -137,7 +165,7 @@ Standard-AnredePartner:=Default salutation for the partner
 Freitextfeld-Verbinder:=Free text field connector:
 Freitextfeld(Anzeige):=Free text field (displayed):
 Freitextfeld(G\u00E4steliste):=Free text field (list of guests):
-Hilfe=Help
+hilfe=Help
 Hilfe-Link:=Help-link:
 Hilfe-Fenster:=Help-window:
 AktuellesBrowser-Fensterverwenden.=Use current browser-window
@@ -419,9 +447,7 @@ bitteverwendensieihreorganisationskennzeichenodervorname.nachnamealsbenutzername
 personen=Persons
 veranstaltungen=Events
 verwaltung=Management
-administration=Administration
 benutzer=User
-hilfe=help
 abmelden=Logout
 WillkomenbeiVerA.web=Welcome to VerA.web
 WELCOME_TEXT_ONE=Sie haben hier die M\u00F6glichkeit,

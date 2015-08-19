@@ -161,15 +161,6 @@ HEADER_ELEMENT_ONE_NEW_RECORD_SINGULAR=ein neuer Datensatz
 HEADER_ELEMENT_PLURAL=Datens\u00E4tze
 HEADER_ELEMENT_NEW_PLURAL=neue Datens\u00E4tze
 
-# GENERALLY USED
-GENERIC_LOGOUT=Abmelden
-
-# MENU
-MENU_PERSONS=Personen
-MENU_EVENTS=Veranstaltungen
-MENU_MANAGEMENT=Verwaltung
-MENU_ADMINISTRATION=Administration
-
 # FIXES
 GENERIC_EDIT=Bearbeiten
 GENERIC_OFFICIAL_TITLE_SHORT=Amtsbez
@@ -179,7 +170,43 @@ GENERIC_SEARCH_FOR_PERSON=Person suchen
 GENERIC_CHOOSE_ROLE=Rolle w\u00E4hlen
 GENERIC_EVENT=Veranstaltung
 GENERIC_EVENTS=Veranstaltungen
+
+# GENERALLY USED
 GENERIC_LANGUAGE=Sprache
+GENERIC_LOGOUT=Abmelden
+
+# MENU
+MENU_PERSONS=Personen
+MENU_EVENTS=Veranstaltungen
+MENU_MANAGEMENT=Verwaltung
+MENU_ADMINISTRATION=Administration
+
+# ANMELDUNG
+LOGIN_ERROR=Es ist ein Fehler bei der Anmeldung aufgetreten. Bitte \u00FCberprufen Sie Ihren Benutzernamen und Ihr Passwort.
+GENERIC_PASSWORD=Passwort
+LOGIN_REPRESENTATION=In Vertretung anmelden
+GENERIC_LOGIN=Anmelden
+GENERIC_CLEAR_FIELDS=Felder leeren
+HINT_LOGIN_ORGANISATION_ONE=Bitte verwenden Sie Ihr Organisationskennzeichen oder
+HINT_LOGIN_ORGANISATION_TWO=vorname.nachname
+HINT_LOGIN_ORGANISATION_THREE=als Benutzernamen
+
+# WELCOME SITE: FIRST PAGE AFTER LOGIN
+administration=Administration
+bittewaehlensieeineamtsbezeichnungfunktionaus=Bitte w\u00E4hlen Sie eine Amtsbezeichnung / Funktion aus
+eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator=Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
+willkommenbeiveraweb=Willkommen bei VerA.web
+WELCOME_TEXT_GRANT_READ_STANDARD_FIELDS=Sie haben hier die M\u00F6glichkeit, Stammdaten von Personen und Veranstaltungen anzuzeigen und zu exportieren.
+WELCOME_TEXT_GRANT_READ_REMARK_FIELDS=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen und zu exportieren.
+WELCOME_TEXT_GRANT_EXPORT_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von
+WELCOME_TEXT_GRANT_WRITE_FULL=und Bemerkungen zu
+WELCOME_TEXT_GRANT_EXPORT_PART_TWO=Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
+WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
+WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO=Weiterhin k\u00F6nnen Sie mandantenspezifische Einstellungen einsehen und bearbeiten.
+WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
+WELCOME_TEXT_GRANT_ADMIN_PART_TWO=Weiterhin k\u00F6nnen Sie mandantenspezifische und globale Einstellungen einsehen und bearbeiten.
+WELCOME_TEXT_HELP=Sollten Sie weitere Informationen ben\u00F6tigen, finden Sie diese auf der Seite \u201EHilfe\u201C.
+WELCOME_TEXT_NO_ROLE=Zu Ihrer Anmeldung existieren keine Rollen, unter denen Sie in VerA.web agieren k\u00F6nnen. Bitte melden Sie sich ab und mit einer Benutzer- oder Rollenkennung erneut an, die in VerA.web nutzbar ist.
 
 # ADMINISTRATION/ANREDEN
 GENERIC_SALUTATIONS=Anreden
@@ -570,32 +597,6 @@ dateiauswahlen=Datei ausw\u00E4hlen
 keineausgewahlt=Keine ausgew\u00E4hlt
 importstarten=Import starten
 
-# ANMELDUNG
-LOGIN_ERROR=Es ist ein Fehler bei der Anmeldung aufgetreten. Bitte \u00FCberprufen Sie Ihren Benutzernamen und Ihr Passwort.
-GENERIC_PASSWORD=Passwort
-LOGIN_REPRESENTATION=In Vertretung anmelden
-GENERIC_LOGIN=Anmelden
-GENERIC_CLEAR_FIELDS=Felder leeren
-HINT_LOGIN_ORGANISATION_ONE=Bitte verwenden Sie Ihr Organisationskennzeichen oder
-HINT_LOGIN_ORGANISATION_TWO=vorname.nachname
-HINT_LOGIN_ORGANISATION_THREE=als Benutzernamen
-
-# WELCOME SITE: FIRST SITE AFTER LOGIN
-administration=Administration
-bittewaehlensieeineamtsbezeichnungfunktionaus=Bitte w\u00E4hlen Sie eine Amtsbezeichnung / Funktion aus
-willkommenbeiveraweb=Willkommen bei VerA.web
-WELCOME_TEXT_GRANT_READ_STANDARD_FIELDS=Sie haben hier die M\u00F6glichkeit, Stammdaten von Personen und Veranstaltungen anzuzeigen und zu exportieren.
-WELCOME_TEXT_GRANT_READ_REMARK_FIELDS=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen und zu exportieren.
-WELCOME_TEXT_GRANT_EXPORT_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von
-WELCOME_TEXT_GRANT_WRITE_FULL=und Bemerkungen zu
-WELCOME_TEXT_GRANT_EXPORT_PART_TWO=Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
-WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
-WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO=Weiterhin k\u00F6nnen Sie mandantenspezifische Einstellungen einsehen und bearbeiten.
-WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
-WELCOME_TEXT_GRANT_ADMIN_PART_TWO=Weiterhin k\u00F6nnen Sie mandantenspezifische und globale Einstellungen einsehen und bearbeiten.
-WELCOME_TEXT_HELP=Sollten Sie weitere Informationen ben\u00F6tigen, finden Sie diese auf der Seite "Hilfe".
-WELCOME_TEXT_NO_ROLE=Zu Ihrer Anmeldung existieren keine Rollen, unter denen Sie in VerA.web agieren k\u00F6nnen. Bitte melden Sie sich ab und mit einer Benutzer- oder Rollenkennung erneut an, die in VerA.web nutzbar ist.
-
 # PERSONENDROPDOWN
 neueperson=neue person
 suchen&ersetzen=suchen & ersetzen
@@ -928,7 +929,6 @@ siehabenkeinendatensatzimportiert=Sie haben keinen Datensatz importiert.
 siehabeneinendatensatzimportiert=Sie haben einen Datensatz importiert.
 siehaben=Sie haben
 datensatzeimportiert=Datens\u00E4tze importiert.
-eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator=Es kann zu unerwarteten Fehlern kommen. Bitte wenden Sie sich an Ihren Administrator.
 informationennichtverfugbar=Informationen nicht verf\u00FCgbar
 nichtgewahlt=nicht gew\u00E4hlt
 verfugbarerollen=verf\u00FCgbare Rollen
