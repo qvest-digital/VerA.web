@@ -177,7 +177,7 @@
 			#else
 				${placeholderWithTranslation.entfernen}
 			#end
-		${placeholderWithTranslation.moechten}</h1>
+		${placeholderWithTranslation.moechten}:</h1>
 
 
 		#if( $allCategorie.size() > 0 )

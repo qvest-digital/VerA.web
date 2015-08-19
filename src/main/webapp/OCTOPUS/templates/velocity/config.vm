@@ -170,7 +170,7 @@
             </div>
 
             <div class="floatRight width49">
-                <h3>${placeholderWithTranslation.oberflachenbeschriftungen}</h3>
+                <h3>${placeholderWithTranslation.oberflachenbeschriftungen}:</h3>
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width25">Hauptperson:</td>
@@ -271,7 +271,7 @@
                 					display : "changeLogRetentionPolicyDisplay",
                 					value : "changeLogRetentionPolicyValue",
                 					button : "show-changeLogRetentionPolicy",
-                					title : "${placeholderWithTranslation.gebensiedieaufbewahrungsfristein}"
+                					title : "${placeholderWithTranslation.gebensiedieaufbewahrungsfristein}:"
                 				}
                 			);
                 		</script>

@@ -1,10 +1,10 @@
 
 #if($action == "guest")
 	#set($activeMenu = "Veranstaltungen")
-	#set($title = "${placeholderWithTranslation.gastsuchenveranstaltung} $!message.plain($event.shortname)")
+	#set($title = "${placeholderWithTranslation.gastsuchenveranstaltung}: $!message.plain($event.shortname)")
 #elseif($action == "host")
 	#set($activeMenu = "Veranstaltungen")
-    #set($title = "${placeholderWithTranslation.gastsuchenveranstaltung} $!message.plain($event.shortname)")
+    #set($title = "${placeholderWithTranslation.gastsuchenveranstaltung}: $!message.plain($event.shortname)")
 #elseif($action == "statistikGuest")
 	#set($activeMenu = "Veranstaltungen")
     #set($title = "${placeholderWithTranslation.gastsuchen}")

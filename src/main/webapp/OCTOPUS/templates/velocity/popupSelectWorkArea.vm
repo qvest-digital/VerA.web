@@ -175,7 +175,7 @@
 	#else
 		${placeholderWithTranslation.entfernen}
 	#end
-	    ${placeholderWithTranslation.moechten}</h1>
+	    ${placeholderWithTranslation.moechten}:</h1>
 
 	#if( $allWorkArea.size() > 0 )
 		<label for="workarea">${placeholderWithTranslation.arbeitsbereich}</label>
