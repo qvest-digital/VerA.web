@@ -17,7 +17,7 @@
 			<div class="table width100">
 				<div class="tableRow">
 					<div class="tableCell width50">
-						<h2>${placeholderWithTranslation.statistikauffolgendenzeitrahmeneinschranken}</h2>
+						<h2>${placeholderWithTranslation.statistikauffolgendenzeitrahmeneinschranken}:</h2>
 
 						<label for="begin">${placeholderWithTranslation.zeitrahmenbeginn}</label>
 						<span id="showBegin" class="datepickerContainer">
@@ -120,25 +120,25 @@
 							}
 						</script>
 
-						<h2>${placeholderWithTranslation.statistiktypauswahlen}</h2>
+						<h2>${placeholderWithTranslation.statistiktypauswahlen}:</h2>
 
 						<input type="radio" id="EventsPerYear" name="statistik" value="EventsPerYear" checked><label for="EventsPerYear">
-						${placeholderWithTranslation.STATISTIC_RADIO_PER_YEAR}</label><br />
+						${placeholderWithTranslation.STATISTIC_RADIO_PER_YEAR}.</label><br />
 
 						<input type="radio" id="EventsPerMonth" name="statistik" value="EventsPerMonth"><label for="EventsPerMonth">
-						${placeholderWithTranslation.STATISTIC_RADIO_PER_MONTH}</label><br />
+						${placeholderWithTranslation.STATISTIC_RADIO_PER_MONTH}.</label><br />
 
 						<input type="radio" id="EventsGroupByHost1" name="statistik" value="EventsGroupByHost"><label for="EventsGroupByHost1">
-						${placeholderWithTranslation.STATISTIC_RADIO_GROUPED_BY_HOST}</label><br />
+						${placeholderWithTranslation.STATISTIC_RADIO_GROUPED_BY_HOST}.</label><br />
 
 						<input type="radio" id="EventsGroupByHost2" name="statistik" value="EventsGroupByHost"><label for="EventsGroupByHost2">
-						${placeholderWithTranslation.STATISTIC_RADIO_PER_HOST}</label><br />
+						${placeholderWithTranslation.STATISTIC_RADIO_PER_HOST}.</label><br />
 
 						<input type="radio" id="EventsGroupByGuest" name="statistik" value="EventsGroupByGuest"><label for="EventsGroupByGuest">
-						${placeholderWithTranslation.STATISTIC_RADIO_PER_GUEST}</label><br />
+						${placeholderWithTranslation.STATISTIC_RADIO_PER_GUEST}.</label><br />
 
 						<input type="radio" id="EventsGroupByLocation" name="statistik" value="EventsGroupByLocation"><label for="EventsGroupByLocation">
-						${placeholderWithTranslation.STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE}</label>
+						${placeholderWithTranslation.STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE}.</label>
 					</div>
 				</div>
 			</div>

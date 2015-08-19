@@ -8,9 +8,9 @@
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SEARCH}")
 #end
 
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Veranstaltung")
-#set($elementNamePlural = "Veranstaltungen")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_EVENT}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_EVENT_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_EVENT_PLURAL}")
 #parse("inc/header.vm")
 
 #if($action == "guest")
@@ -48,7 +48,7 @@
 								<input type="text" name="shortname" id="input.shortname" value="">
 							</div>
 							<div class="tableCell width30">
-								<label for="begin">${placeholderWithTranslation.datumbeginn}</label>
+								<label for="begin">${placeholderWithTranslation.datum} (${placeholderWithTranslation.beginn})</label>
 								<div class="calenderContainer">
 									<input type="text" name="begin" value="" id="begin" class="datepicker">
 									<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"></span>

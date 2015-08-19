@@ -5,9 +5,9 @@
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_LOCATION_CREATE}")
 #end
 
-#set($elementNameSex = "male")
-#set($elementNameSingular = "Veranstaltungsort")
-#set($elementNamePlural = "Veranstaltungsorte")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_EVENT_LOCATION}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_EVENT_LOCATION_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}")
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -57,7 +57,7 @@
 
 		<table>
 			<tr>
-				<td class="width10 bold"><label for="location-name">${placeholderWithTranslation.bezeichnung}</label></td>
+				<td class="width10 bold"><label for="location-name">${placeholderWithTranslation.bezeichnung}*</label></td>
 				<td><input type="text" name="location-name" value="$!message.text($location.name)" id="location-name" maxlength="200" onchange="setModified();"></td>
 				<td class="width10 bold"><label for="id">${placeholderWithTranslation.id}</label></td>
 				<td><input type="text" name="id" value="$!message.text($location.id)" id="id" class="id" vera-disabled></td>

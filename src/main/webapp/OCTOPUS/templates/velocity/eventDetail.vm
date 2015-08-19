@@ -7,9 +7,9 @@
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_CREATE}")
 #end
 
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Veranstaltung")
-#set($elementNamePlural = "Veranstaltungen")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_EVENT}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_EVENT_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_EVENT_PLURAL}")
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -240,7 +240,7 @@
 											} else {
 												select.options[select.length] = new Option(city, city, false, true);
 												#if($grants.isAdmin() || $grants.isPartialAdmin())
-												htmlConfirm(' ${placeholderWithTranslation.sollendiestammdatenumdiesenorterweitertwerden} ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("addCityYes();", "addCityNo();"));
+												htmlConfirm(' ${placeholderWithTranslation.sollendiestammdatenumdiesenorterweitertwerden}? ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("addCityYes();", "addCityNo();"));
 												#else
 												addCityNo();
 												#end

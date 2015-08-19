@@ -1,8 +1,8 @@
 #set($activeMenu = "Personen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_IMPORT_STATUS}")
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Person")
-#set($elementNamePlural = "Personen")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -39,11 +39,11 @@
 					<strong>Import-ID:</strong> $!message.text($importStatus.id)
 				</div>
 				<div class="tableCell width70">
-					<strong class="inlineBlock width35">${placeholderWithTranslation.zuimportierendedatensatzeinsgesamt}</strong> $!importStatus.dsCount<br />
-					<strong class="inlineBlock width35">${placeholderWithTranslation.davondubletten}</strong> $!importStatus.dupCount<br />
-					<strong class="inlineBlock width35">${placeholderWithTranslation.davonspeicherbar}</strong> $!importStatus.saveCount<br />
+					<strong class="inlineBlock width35">${placeholderWithTranslation.zuimportierendedatensatzeinsgesamt}:</strong> $!importStatus.dsCount<br />
+					<strong class="inlineBlock width35">${placeholderWithTranslation.davondubletten}:</strong> $!importStatus.dupCount<br />
+					<strong class="inlineBlock width35">${placeholderWithTranslation.davonspeicherbar}:</strong> $!importStatus.saveCount<br />
         			#if($importStatus.igCount  && $importStatus.igCount != 0)
-						<strong class="inlineBlock width35">${placeholderWithTranslation.ignoriertefehlerdatensatze} </strong> $!importStatus.igCount
+						<strong class="inlineBlock width35">${placeholderWithTranslation.ignoriertefehlerdatensatze}: </strong> $!importStatus.igCount
         			#end
 
 				</div>

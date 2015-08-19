@@ -6,9 +6,9 @@
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_TASKS_CREATE}")
 #end
 
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Aufgabe")
-#set($elementNamePlural = "Aufgaben")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_TASK}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_TASK_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_TASK_PLURAL}")
 #parse("inc/header.vm")
 
 #if(!$eventId)

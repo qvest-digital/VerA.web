@@ -5,14 +5,14 @@
  #set($title = "${placeholderWithTranslation.neuepersonanlegen}")
 #end
 
-#set($elementNameSex = "male")
-#set($elementNameSingular = "${placeholderWithTranslation.dokumenttyp}")
-#set($elementNamePlural = "${placeholderWithTranslation.dokumenttypen}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_DOCUMENT_TYPE}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}")
 #if($personTab == "1" || $personTab == "2")
   ## impelemented to show message when person are changed
-  #set($elementNameSex = "female")
-  #set($elementNameSingular = "${placeholderWithTranslation.person}")
-  #set($elementNamePlural = "${placeholderWithTranslation.personen}")
+  #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+  #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
+  #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 #end
 #parse("inc/header.vm")
 

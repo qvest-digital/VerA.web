@@ -1,8 +1,8 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_TASKS}")
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Aufgabe")
-#set($elementNamePlural = "Aufgaben")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_DELEGATION_FIELD}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_DELEGATION_FIELD_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_DELEGATION_FIELD_PLURAL}")
 #parse("inc/header.vm")
 #set($formurl = "SaveDelegationFields")
 
@@ -46,7 +46,7 @@
 					#elseif ($optionalFieldsSummary.createdFields.size()<=1)
 						${placeholderWithTranslation.eswurdeeinzusatzfeld}
 					#end
-					${placeholderWithTranslation.angelegt}
+					${placeholderWithTranslation.angelegt}.
 				</div>
 			#end
 			#if ($optionalFieldsSummary.changedFields.size()>0)
@@ -56,7 +56,7 @@
 					#elseif ($optionalFieldsSummary.changedFields.size()<=1)
 						${placeholderWithTranslation.eswurdeeinzusatzfeld}
 					#end
-					${placeholderWithTranslation.geandert}
+					${placeholderWithTranslation.geandert}.
 				</div>
 			#end
 			#if ($optionalFieldsSummary.deletedFields.size()>0)
@@ -66,7 +66,7 @@
 					#elseif ($optionalFieldsSummary.deletedFields.size()<=1)
 						${placeholderWithTranslation.eswurdeeinzusatzfeld}
 					#end
-					${placeholderWithTranslation.geloscht}
+					${placeholderWithTranslation.geloscht}.
 				</div>
 			#end
 		</div>

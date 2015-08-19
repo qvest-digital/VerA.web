@@ -1,8 +1,8 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "${placeholderWithTranslation.aufgaben}")
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Aufgabe")
-#set($elementNamePlural = "Aufgaben")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_TASK}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_TASK_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_TASK_PLURAL}")
 
 ##Values in per cent for table columns width
 #set($column0 = 3)

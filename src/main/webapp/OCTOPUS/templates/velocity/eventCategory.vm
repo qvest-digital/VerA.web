@@ -1,8 +1,8 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_EDIT}: $!message.plain($event.shortname)")
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Kategorie")
-#set($elementNamePlural = "Kategorien")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_CATEGORY}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
 
 #parse("inc/header.vm")
 
@@ -113,7 +113,7 @@
 							<td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>neu</em></td>
 							<td>
 								<select id="add-category" name="add-category" onchange="setModified('add')">
-									<option value="0">${placeholderWithTranslation.bitteauswahlen}</option>
+									<option value="0">${placeholderWithTranslation.bitteauswahlen}:</option>
 									#foreach($category in $allCategorie)
 										<option value="$category.id">$!message.plain($category.name)</option>
 									#end

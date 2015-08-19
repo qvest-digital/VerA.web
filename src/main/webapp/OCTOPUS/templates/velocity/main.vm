@@ -13,7 +13,6 @@
 
 
 <div id="content_container">
-
     #if($errors && $errors.size() > 0)
     <vera-warn>
     	#foreach($error in $errors)
@@ -31,61 +30,51 @@
     <h1 class="marginTop25">${placeholderWithTranslation.willkommenbeiveraweb}</h1>
 
     #if($grants.isUser())
-    ##<P>
+    ##<p>
     ##	Hallo $!{octopusConfig.personalConfig.userGivenName} $!{octopusConfig.personalConfig.userLastName}.
-    ##</P>
+    ##</p>
 
-    #if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
-    <P>
-    	${placeholderWithTranslation.WELCOME_TEXT_ONE}
-      #if($grants.mayReadStandardFields())
-    	${placeholderWithTranslation.WELCOME_TEXT_TWO}
-      #end
-      #if($grants.mayReadRemarkFields())
-       #if($grants.mayReadStandardFields())
-    	${placeholderWithTranslation.WELCOME_TEXT_AND}
-       #end
-    	${placeholderWithTranslation.WELCOME_TEXT_THREE}
-      #end
-    	${placeholderWithTranslation.WELCOME_TEXT_FOUR}
-      #if($grants.mayWrite())
-    	${placeholderWithTranslation.WELCOME_TEXT_FIVE}
-       #if($grants.mayExport())
-    	${placeholderWithTranslation.WELCOME_TEXT_SIX}
-       #end
-    	${placeholderWithTranslation.WELCOME_TEXT_SEVEN}
-      #elseif($grants.mayExport())
-    	${placeholderWithTranslation.WELCOME_TEXT_EIGHT}
-      #else
-      #end
-    </P>
-     #end
-     #if($grants.isPartialAdmin() || $grants.isAdmin())
-    <P>
-    	${placeholderWithTranslation.WELCOME_TEXT_TEN}
-      #if($grants.isPartialAdmin())
-    	${placeholderWithTranslation.WELCOME_TEXT_ELEVEN}
-      #end
-      #if($grants.isAdmin())
-       #if($grants.isPartialAdmin())
-    	${placeholderWithTranslation.WELCOME_TEXT_AND}
-       #end
-    	${placeholderWithTranslation.WELCOME_TEXT_TWELVE}
-      #end
-    	${placeholderWithTranslation.WELCOME_TEXT_THIRTEEN}
-    </P>
-     #end
-    <P>
-    	${placeholderWithTranslation.WELCOME_TEXT_FOURTEEN}
-    </P>
-    #elseif($octopusConfig.personalConfig.roles)
-     #parse("inc/role-chooser.vm")
-    #else
-    <P>
-    	${placeholderWithTranslation.WELCOME_TEXT_FIFTEEN}
-    </P>
+    #if($grants.isAdmin())
+    <p>
+        ${placeholderWithTranslation.WELCOME_TEXT_GRANT_ADMIN_PART_ONE}
+    </p>
+    <p>
+        ${placeholderWithTranslation.WELCOME_TEXT_GRANT_ADMIN_PART_TWO}
+    </p>
+    #elseif($grants.isPartialAdmin())
+    <p>
+        ${placeholderWithTranslation.WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE}
+    </p>
+    <p>
+        ${placeholderWithTranslation.WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO}
+    </p>
+    #elseif($grants.mayWrite())
+    <p>
+        ${placeholderWithTranslation.WELCOME_TEXT_GRANT_EXPORT_PART_ONE}
+        #if($grants.mayReadRemarkFields())
+            ${placeholderWithTranslation.WELCOME_TEXT_GRANT_WRITE_FULL}
+        #end
+        ${placeholderWithTranslation.WELCOME_TEXT_GRANT_EXPORT_PART_TWO}
+    </p>
+    #elseif($grants.mayReadRemarkFields())
+    <p>
+        ${placeholderWithTranslation.WELCOME_TEXT_GRANT_READ_REMARK_FIELDS}
+    </p>
+    #elseif($grants.mayReadStandardFields())
+    <p>
+        ${placeholderWithTranslation.WELCOME_TEXT_GRANT_READ_STANDARD_FIELDS}
+    </p>
     #end
-
+    <p>
+        ${placeholderWithTranslation.WELCOME_TEXT_HELP}
+    </p>
+    #elseif($octopusConfig.personalConfig.roles)
+    #parse("inc/role-chooser.vm")
+    #else
+    <p>
+        ${placeholderWithTranslation.WELCOME_TEXT_NO_ROLE}
+    </p>
+    #end
 </div>
 
 

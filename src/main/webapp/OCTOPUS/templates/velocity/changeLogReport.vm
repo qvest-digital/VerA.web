@@ -31,7 +31,7 @@
 <div class="table width30">
 	<div class="tableRow">
 		<div class="tableCell ">
-			<label for="begin">${placeholderWithTranslation.datumbeginn}</label>
+			<label for="begin">${placeholderWithTranslation.datumbeginn}:</label>
 		</div>
 		<div class="tableCell ">
 			<span id="show-begin" class="datepickerContainer">
@@ -50,7 +50,7 @@
 	</div>
 	<div class="tableRow">
 		<div class="tableCell ">
-			<label for="end">${placeholderWithTranslation.datumende}</label>
+			<label for="end">${placeholderWithTranslation.datumende}:</label>
 		</div>
 	<div class="tableCell ">
 		<span id="show-end" class="datepickerContainer">

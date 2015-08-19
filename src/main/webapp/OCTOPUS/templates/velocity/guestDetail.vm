@@ -1,8 +1,8 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_GUESTLIST}: $!message.plain($event.shortname)")
-#set($elementNameSex = "male")
-#set($elementNameSingular = "Gast")
-#set($elementNamePlural = "G&auml;ste")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_GUEST}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_GUEST_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
 #parse("inc/header.vm")
 
 <div id="content_container">

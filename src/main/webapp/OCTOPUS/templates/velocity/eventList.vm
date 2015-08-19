@@ -34,9 +34,9 @@
 	#set($column6 = 24)
 #end
 
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Veranstaltung")
-#set($elementNamePlural = "Veranstaltungen")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_EVENT}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_EVENT_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_EVENT_PLURAL}")
 #parse("inc/header.vm")
 
 #if($action == "guest")
@@ -50,7 +50,7 @@
 		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.zurveranstaltungssuche}">${placeholderWithTranslation.veranstaltungssuche}</a> > ${placeholderWithTranslation.suchergebnis}</span>
 		</div>
-			<h1>${placeholderWithTranslation.suchergebnisveranstaltungen}</h1>
+			<h1>${placeholderWithTranslation.suchergebnis}: ${placeholderWithTranslation.veranstaltungen}</h1>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungsubersicht}</span>

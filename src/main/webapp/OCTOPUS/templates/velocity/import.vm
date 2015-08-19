@@ -1,8 +1,8 @@
 #set($activeMenu = "Personen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_IMPORT_PERSONDATA}")
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Person")
-#set($elementNamePlural = "Personen")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 #parse("inc/header.vm")
 
 	<div id="content_container">
@@ -85,7 +85,7 @@
 
     				<div class="tableRow">
     					<div class="tableCell">
-    						<label for="importfile">${placeholderWithTranslation.importdatei}</label>
+    						<label for="importfile">${placeholderWithTranslation.importdatei}*</label>
     						<input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*">
     					</div>
     					<div class="tableCell">

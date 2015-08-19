@@ -1,8 +1,8 @@
 #set($activeMenu = "Administration")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_COLOURS}")
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Farbe")
-#set($elementNamePlural = "Farben")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_COLOR}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_COLOR_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_COLOR_PLURAL}")
 #parse("inc/header.vm")
 
 <div id="content_container">
@@ -48,11 +48,16 @@
 			<table>
 				<tr>
 					<th>${placeholderWithTranslation.bezeichnung}</th>
-					<th class="width15 textCenter">${placeholderWithTranslation.farbwert}</th>
+					<th class="width15 textCenter">${placeholderWithTranslation.farbwert}
+					(${placeholderWithTranslation.LETTERS_RED_GREEN_BLUE})</th>
 				</tr>
 
 				<tr>
-                    <td colspan="2" class="bold">${placeholderWithTranslation.inlandjageschlechtweiblich}</td>
+                    <td colspan="2" class="bold">${placeholderWithTranslation.inland}
+		    				${placeholderWithTranslation.GENERIC_YES} - 
+                                                ${placeholderWithTranslation.GENERIC_GENDER}: 
+                                                ${placeholderWithTranslation.GENERIC_GENDER_FEMALE}
+				</td>
 				</tr>
 				## RGB teilen
 				#if($color1)
@@ -74,7 +79,11 @@
 				#end
 
 				<tr>
-                    <td colspan="2" class="bold">${placeholderWithTranslation.inlandjageschlechtmannlich}</td>
+                    <td colspan="2" class="bold">${placeholderWithTranslation.inland}: 
+		    				${placeholderWithTranslation.GENERIC_YES} - 
+		    		                ${placeholderWithTranslation.GENERIC_GENDER}: 
+		    		                ${placeholderWithTranslation.GENERIC_GENDER_MALE}
+				</td>
 				</tr>
 				## RGB teilen
 				#if($color2)
@@ -96,7 +105,11 @@
 				#end
 
 				<tr>
-                    <td colspan="2" class="bold">${placeholderWithTranslation.inlandneingeschlechtweiblich}</td>
+                    <td colspan="2" class="bold">${placeholderWithTranslation.inland}:
+						${placeholderWithTranslation.GENERIC_NO} - 
+						${placeholderWithTranslation.GENERIC_GENDER}: 
+						${placeholderWithTranslation.GENERIC_GENDER_FEMALE}
+				</td>
 				</tr>
 				## RGB teilen
 				#if($color3)
@@ -118,7 +131,11 @@
 				#end
 
 				<tr>
-                    <td colspan="2" class="bold">${placeholderWithTranslation.inlandneingeschlechtmannlich}</td>
+                    <td colspan="2" class="bold">${placeholderWithTranslation.inland}: 
+						${placeholderWithTranslation.GENERIC_NO} - 
+						${placeholderWithTranslation.GENERIC_GENDER}: 
+						${placeholderWithTranslation.GENERIC_GENDER_MALE}
+						</td>
 				</tr>
 				## RGB teilen
 				#if($color4)

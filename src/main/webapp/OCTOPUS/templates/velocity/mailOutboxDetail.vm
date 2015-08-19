@@ -5,9 +5,9 @@
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_CREATE}")
 #end
 
-#set($elementNameSex = "female")
-#set($elementNameSingular = "E-Mail")
-#set($elementNamePlural = "E-Mails")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_EMAIL}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_EMAIL_PLURAL}")
 #parse("inc/header.vm")
 
 <div id="content_container">

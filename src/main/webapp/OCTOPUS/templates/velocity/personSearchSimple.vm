@@ -4,9 +4,9 @@
     #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_SEARCH}")
 #end
 
-#set($elementNameSex = "female")
-#set($elementNameSingular = "Person")
-#set($elementNamePlural = "Personen")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+#set($elementNameSingular = "GENERIC_PERSON_SINGULAR")
+#set($elementNamePlural = "GENERIC_PERSON_PLURAL")
 #parse("inc/header.vm")
 
 <div id="content_container">

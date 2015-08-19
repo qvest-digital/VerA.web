@@ -104,8 +104,8 @@
                             		<div class="table width100 marginTop10">
                             			<div class="tableRow">
                                     		<div class="tableCell"><label for="personLocaleTab1"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_LATIN}</label></div>
-                                    		<div class="tableCell"><label for="personLocaleTab2"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end>&nbsp;${placeholderWithTranslation.zeichensatz1}</label></div>
-                                    		<div class="tableCell"><label for="personLocaleTab3"><input type="radio" name="personLocaleTab" id="personLocaleTab3" value="3" #if($personLocaleTab3) checked #end>&nbsp;${placeholderWithTranslation.zeichensatz2}</label></div>
+                                    		<div class="tableCell"><label for="personLocaleTab2"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end>&nbsp;${placeholderWithTranslation.zeichensatz} 1</label></div>
+                                    		<div class="tableCell"><label for="personLocaleTab3"><input type="radio" name="personLocaleTab" id="personLocaleTab3" value="3" #if($personLocaleTab3) checked #end>&nbsp;${placeholderWithTranslation.zeichensatz} 2</label></div>
                             			</div>
                                     </div>
                             </fieldset>
@@ -116,10 +116,10 @@
             </div>
 
             <div class="width49" style="float:left;">
-                <h3>${placeholderWithTranslation.standardanredenundfreitextfelder}</h3>
+                <h3>${placeholderWithTranslation.standardanredenundfreitextfelder}:</h3>
                 <table class="marginBottom20">
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.standardanrede}</td>
+                		<td class="bold width25">${placeholderWithTranslation.standardanrede}:</td>
                 		<td>
                 			<select name="anrede" class="combox">
                 				<option></option>
@@ -130,7 +130,7 @@
                 		</td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.standardanredepartner}</td>
+                		<td class="bold width25">${placeholderWithTranslation.standardanredepartner}:</td>
                 		<td>
                 			<select name="anrede_p" >
                 				<option></option>
@@ -141,11 +141,11 @@
                 		</td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.freitextfeldverbinder}</td>
+                		<td class="bold width25">${placeholderWithTranslation.freitextfeldverbinder}:</td>
                 		<td><input type="text" name="freitextfeldverbinder" maxlength="300" value="$!message.plain($config.freitextfeldverbinder)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.freitextfeldanzeige}</td>
+                		<td class="bold width25">${placeholderWithTranslation.freitextfeldanzeige}:</td>
                 		<td>
                 			<select name="freitextfeld" >
                 				<option value="">${placeholderWithTranslation.nochkeineauswahlgetroffen}</option>
@@ -156,7 +156,7 @@
                 		</td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.freitextfeldgasteliste}</td>
+                		<td class="bold width25">${placeholderWithTranslation.freitextfeldgasteliste}:</td>
                 		<td>
                 			<select name="freitextfeld2" >
                 				<option value="">${placeholderWithTranslation.nochkeineauswahlgetroffen}</option>
@@ -219,17 +219,17 @@
                 <h3>${placeholderWithTranslation.hilfe}</h3>
                 <table class="marginBottom20">
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.hilfelink}</td>
+                		<td class="bold width25">${placeholderWithTranslation.hilfelink}:</td>
                 		<td><input type="text" name="helplink" maxlength="300" value="$!message.text($config.helplink)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.hilfefenster}</td>
+                		<td class="bold width25">${placeholderWithTranslation.hilfefenster}:</td>
                 		<td>
                 			<select name="helptarget" >
                 				$config.helptarget
-                				<option value="">${placeholderWithTranslation.aktuellesbrowserfensterverwenden}</option>
-                				<option value="_blank"      #if($config.helptarget == "_blank") selected #end>${placeholderWithTranslation.proaufrufeinneuesbrowserfensteroffnen}</option>
-                				<option value="verawebhelp" #if($config.helptarget == "verawebhelp") selected #end>${placeholderWithTranslation.beijedemaufrufdasselbebrowserfensternichtdasaktuelle}</option>
+                				<option value="">${placeholderWithTranslation.aktuellesbrowserfensterverwenden}.</option>
+                				<option value="_blank"      #if($config.helptarget == "_blank") selected #end>${placeholderWithTranslation.proaufrufeinneuesbrowserfensteroffnen}.</option>
+                				<option value="verawebhelp" #if($config.helptarget == "verawebhelp") selected #end>${placeholderWithTranslation.beijedemaufrufdasselbebrowserfensternichtdasaktuelle}.</option>
                 			</select>
                 		</td>
                 	</tr>
@@ -238,10 +238,10 @@
 
 
             <div class="width49">
-                <h3>${placeholderWithTranslation.sonstiges}</h3>
+                <h3>${placeholderWithTranslation.sonstiges}:</h3>
                 <table class="marginBottom20">
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.faxdnfaxaa}</td>
+                		<td class="bold width25">${placeholderWithTranslation.faxdnfaxaa}:</td>
                 		<td><input type="text" name="faxdomain" maxlength="300" value="$!message.text($config.faxdomain)" ></td>
                 	</tr>
                 </table>
@@ -255,7 +255,9 @@
                 <h3>${placeholderWithTranslation.anderungsprotokoll}</h3>
                 <table class="marginBottom20">
                 	<tr>
-                		<td class="bold width50">${placeholderWithTranslation.vorhaltezeitderprotokolldatenjahremonatetage}</td>
+                		<td class="bold width50">${placeholderWithTranslation.vorhaltezeitderprotokolldaten}
+				(${placeholderWithTranslation.GENERIC_YEARS}/${placeholderWithTranslation.GENERIC_MONTHS}/${placeholderWithTranslation.GENERIC_DAYS}):
+				</td>
                 		<td>
                 		<input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="$!message.text($config.changeLogRetentionPolicy.toString())"  vera-disabled style="width: 80px;">
                 		<input type="text" maxlength="300" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))"  vera-disabled style="background-color: #f0f0f0;width: 200px;">

@@ -1,8 +1,8 @@
 #set($activeMenu = "Administration")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_DOCUMENT_TYPES}")
-#set($elementNameSex = "male")
-#set($elementNameSingular = "Dokumenttyp")
-#set($elementNamePlural = "Dokumenttypen")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_DOCUMENT_TYPE}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}")
 
 ##Values in per cent for table columns width
 #set($column0 = 3)
@@ -170,14 +170,14 @@
 
 			<input type="hidden" name="egal" value="egal" id="presave">
 			<vera-info>
-	   			 <p><strong>${placeholderWithTranslation.format}</strong> ${placeholderWithTranslation.HINT_FORMAT_INFO}</p>
-	  			 <p><strong>${placeholderWithTranslation.kennzeichen}</strong> ${placeholderWithTranslation.HINT_EVENT_MARK}</p>
+	   			 <p><strong>${placeholderWithTranslation.GENERIC_FORMAT}:</strong> ${placeholderWithTranslation.HINT_FORMAT_INFO}</p>
+	  			 <p><strong>${placeholderWithTranslation.kennzeichen}:</strong> ${placeholderWithTranslation.HINT_EVENT_MARK}</p>
 			</vera-info>
 
 			##Rueckfrage beim Loeschen
 			<script type="text/javascript">
 				function askDelete() {
-				htmlConfirm(' ${placeholderWithTranslation.wirklichloschen} ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("askDeleteYes();", "askDeleteNo();"));
+				htmlConfirm(' ${placeholderWithTranslation.wirklichloschen}? ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("askDeleteYes();", "askDeleteNo();"));
 			}
 			function askDeleteYes() {
 				hideDialogs();

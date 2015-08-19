@@ -1,8 +1,8 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_DISTRIBUTOR_CREATE} - ${placeholderWithTranslation.veranstaltung}: $!event.shortname")
-#set($elementNameSex = "male")
-#set($elementNameSingular = "Verteiler")
-#set($elementNamePlural = "Verteiler")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_DISTRIBUTOR}")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_PLURAL}")
 #parse("inc/header.vm")
 
 <div id="content_container">

@@ -25,7 +25,7 @@
 					$(".errormsg").remove();
 					$(".successmsg").remove();
     				#if( $count == 1 )
-						showAllocateAssign('${placeholderWithTranslation.wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen}',
+						showAllocateAssign('${placeholderWithTranslation.wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen}?',
 						function () { // Ja
                            	var form = window.opener.document.forms[ "formlist" ];
                 	       	 var input = window.document.createElement('input');
@@ -38,7 +38,7 @@
 							showSuccess('${placeholderWithTranslation.eswurdekeinekategoriezugeordnet}');
 						});
         			#else
-						showAllocateAssign('${placeholderWithTranslation.wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen}',
+						showAllocateAssign('${placeholderWithTranslation.wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen}?',
 						function () { // Ja
                            	var form = window.opener.document.forms[ "formlist" ];
                 	       	 var input = window.document.createElement('input');
@@ -60,7 +60,7 @@
 					showWarning(msg);
     			}else {
     				#if( $count == 1 )
-						showAllocateRemove('${placeholderWithTranslation.wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen}',
+						showAllocateRemove('${placeholderWithTranslation.wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen}?',
 						function () { // Ja
                            	var form = window.opener.document.forms[ "formlist" ];
                 	       	 var input = window.document.createElement('input');
@@ -73,7 +73,7 @@
 							showSuccess('${placeholderWithTranslation.eswurdekeinekategorieentfernt}');
 						});
         			#else
-						showAllocateRemove('${placeholderWithTranslation.wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen}',
+						showAllocateRemove('${placeholderWithTranslation.wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen}?',
 						function () { // Ja
 							var form = window.opener.document.forms[ "formlist" ];
                 	       	 var input = window.document.createElement('input');
@@ -128,15 +128,15 @@
 		{
 #if( $assignmentAction == "assign" )
 #if( $count == 1 )
-			doit = confirm( "${placeholderWithTranslation.wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen}" );
+			doit = confirm( "${placeholderWithTranslation.wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen}?" );
 #else
-			doit = confirm( "${placeholderWithTranslation.wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen}" );
+			doit = confirm( "${placeholderWithTranslation.wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen}?" );
 #end
 #else
 #if( $count == 1)
-			doit = confirm( "${placeholderWithTranslation.wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen}" );
+			doit = confirm( "${placeholderWithTranslation.wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen}?" );
 #else
-			doit = confirm( "${placeholderWithTranslation.wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen}" );
+			doit = confirm( "${placeholderWithTranslation.wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen}?" );
 #end
 #end
 			if ( doit )
