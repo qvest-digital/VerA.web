@@ -71,7 +71,7 @@
 
     			#if ($listparam.count == 0)
         			<tr>
-    					<td colspan="5">${placeholderWithTranslation.keinedatengefunden}</td>
+    					<td colspan="5">${placeholderWithTranslation.keinedatengefunden}.</td>
         			</tr>
         		#end
 

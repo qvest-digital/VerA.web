@@ -378,8 +378,7 @@ anschriftweitere=Anschrift Weitere
 zeichensatzlatein=Zeichensatz Latein
 zeichensatzalternative1=Zeichensatz Alternative 1
 zeichensatzalternative2=Zeichensatz Alternative 2
-adresszusatz1=Adresszusatz 1
-adresszusatz2=Adresszusatz 2
+adresszusatz=Adresszusatz
 
 # ADMINISTRATION/REPORTS
 reports=Reports
@@ -399,7 +398,7 @@ rolle=Rolle
 vertreter=Vertreter
 gultigab=G\u00FCltig ab
 gultigbis=G\u00FCltig bis
-keinedatengefunden=Keine Daten gefunden.
+keinedatengefunden=Keine Daten gefunden
 
 # ADMINISTRATION/VERANSTALTUNGSORTE
 markierte=Markierte(n) Veranstaltungsort(e)
@@ -418,11 +417,12 @@ EVENT_PLACES_CONFIRM_DELETE=Bitte best\u00E4tigen Sie das L\u00F6schen von Veran
 # VERWALTUNG/EINSTELLUNGEN
 verwaltung=Verwaltung
 einstellungen=Einstellungen
+subtabsvon=Subtabs von
 personendetailansicht=Personendetailansicht
 gasteliste=G\u00E4steliste
 zusatzlichefelder=Zus\u00E4tzliche Felder
 funktion=Funktion
-plz/ort=PLZ / Ort
+plzort=PLZ / Ort
 personenliste=Personenliste
 bundesland=Bundesland
 einstellungenwurdenerfolgreichgespeichert=Einstellungen wurden erfolgreich gespeichert.

@@ -108,7 +108,7 @@
 </table>
 
 #if ($listparam.count == 0)
-	<br>Keine Daten gefunden.
+	<br>${placeholderWithTranslation.keinedatengefunden}.
 #end
 
 

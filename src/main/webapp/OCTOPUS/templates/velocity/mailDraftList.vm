@@ -60,7 +60,7 @@
         	#parse("inc/list-navi-new.vm")
         	#parse("inc/list-direct-new.vm")
             #if ($listparam.count == 0)
-            	<tr><td colspan="3">${placeholderWithTranslation.keinedatengefunden}</td></tr>
+            	<tr><td colspan="3">${placeholderWithTranslation.keinedatengefunden}.</td></tr>
             #end
         </table>
 

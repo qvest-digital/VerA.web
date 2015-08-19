@@ -95,7 +95,7 @@
 				<th class="textCenter smallCell">Weiteres Vorgehen</th>
 			</tr>
 			<tr>
-				<td class="textCenter"><em>neu</em></td>
+				<td class="textCenter"><em>${placeholderWithTranslation.neu}</em></td>
 				##additional parameters action cf. issue #2091
 				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.lastname_a_e1)</td>
 				<td onclick="window.location.href='SavePerson?saveperson=true&person-nodupcheck=true&originalPersonId=$!originalPersonId&action=$!action';">$!message.text($!person.firstname_a_e1)</td>

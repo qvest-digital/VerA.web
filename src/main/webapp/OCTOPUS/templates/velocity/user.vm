@@ -27,7 +27,7 @@
 	    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.benutzer}</span>
 	</div>
 
-	<h1>Benutzer</h1>
+	<h1>${placeholderWithTranslation.GENERIC_USER}</h1>
 
 	<form id="formlist" name="formlist" action="$octopusRequest.task" method="POST">
 		#if($listerrors && $listerrors.size() > 0)

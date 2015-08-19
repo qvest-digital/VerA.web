@@ -16,17 +16,17 @@
 	<input type="hidden" name="selectNone" value="true">
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
-			<div class="textRight mandatoryText">* = Pflichtfelder</div>
+			<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
 			<div class="table width20 marginBottom10">
 				<div class="tableRow">
 					<div class="tableCell">
-						<label for="snr-search">Suchen*</label>
+						<label for="snr-search">${placeholderWithTranslation.suchen}*</label>
 						<input type="text" name="snr-search" id="snr-search" value="$!message.text($replace-request.search)">
 					</div>
 				</div>
 				<div class="tableRow">
 					<div class="tableCell">
-						<label for="snr-replace">Ersetzen</label>
+						<label for="snr-replace">${placeholderWithTranslation.ersetzen}</label>
 						<input type="text" name="snr-replace" id="snr-replace" value="$!message.text($replace-request.replace)">
 					</div>
 				</div>
@@ -90,10 +90,10 @@
 			#end
 
 			<div id="buttonPanel-bottom">
-				<input type="submit" class="mainButton" title="${placeholderWithTranslation.suchen}" name="count" value="Suchen"/>
-				<input type="button" class="mainButton" title="${placeholderWithTranslation.einzelneeinzraegezumersetzenselektieren}" name="replace" value="Einzeln ersetzen" onclick="document.getElementById('formlist').action='ShowReplacePersonList'; document.getElementById('formlist').submit();"/>
-				<input type="button" class="mainButton" title="${placeholderWithTranslation.allesofortersetzen}" name="replaceall" value="Alle ersetzen" onclick="document.getElementById('formlist').action='SaveReplaceAllPerson'; document.getElementById('formlist').submit();"/>
-				<input type="button" class="mainButton" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" name="cancel" value="Felder leeren" onclick="clearFields();">
+				<input type="submit" class="mainButton" title="${placeholderWithTranslation.suchen}" name="count" value="${placeholderWithTranslation.suchen}"/>
+				<input type="button" class="mainButton" title="${placeholderWithTranslation.einzelneeinzraegezumersetzenselektieren}" name="replace" value="${placeholderWithTranslation.einzelnersetzen}" onclick="document.getElementById('formlist').action='ShowReplacePersonList'; document.getElementById('formlist').submit();"/>
+				<input type="button" class="mainButton" title="${placeholderWithTranslation.allesofortersetzen}" name="replaceall" value="${placeholderWithTranslation.alleersetzen}" onclick="document.getElementById('formlist').action='SaveReplaceAllPerson'; document.getElementById('formlist').submit();"/>
+				<input type="button" class="mainButton" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" name="cancel" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearFields();">
 			</div>
 		</div>
 		<vera-info>

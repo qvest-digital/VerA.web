@@ -205,11 +205,11 @@
                 		<td><input type="text" name="extra2" maxlength="300" value="$!message.text($config.extra2)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">Adresszusatz 1:</td>
+                		<td class="bold width25">${placeholderWithTranslation.adresszusatz} 1:</td>
                 		<td><input type="text" name="suffix1" maxlength="300" value="$!message.text($config.suffix1)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">Adresszusatz 2:</td>
+                		<td class="bold width25">${placeholderWithTranslation.adresszusatz} 2:</td>
                 		<td><input type="text" name="suffix2" maxlength="300" value="$!message.text($config.suffix2)" ></td>
                 	</tr>
                 </table>
