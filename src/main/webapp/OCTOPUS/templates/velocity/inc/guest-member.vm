@@ -33,7 +33,7 @@
 			#end
 		</div>
 		<div class="tableCell width50">
-			<label for="guest-language$ext">${placeholderWithTranslation.Sprachen</label>
+			<label for="guest-language$ext">${placeholderWithTranslation.sprachen}</label>
 			<input type="text" id="guest-language$ext" name="guest-language$ext" value="$!message.text($facade.Languages)" />
 		</div>
 	</div>
