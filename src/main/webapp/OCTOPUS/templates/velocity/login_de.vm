@@ -1,15 +1,15 @@
-
-<h1 class="marginTop25">${placeholderWithTranslation.GENERIC_LOGIN}</h1>
+<form action="default" method="post" target="_top" onsubmit="if(document.getElementById('loginasproxy').checked) { this.action = 'LoginAsProxy'; this.task.value = 'LoginAsProxy'; }">
+<h1 class="marginTop25">Anmelden</h1>
 
 <div class="table">
     <div class="tableRow">
-        <div class="tableCell" id="deutsch">
+        <div class="tableCell">
         	<label for="input.username">Benutzername</label>
         	<input type="text" id="input.username" name="username">
         </div>
     </div>
     <div class="tableRow">
-        <div class="tableCell" id="spain">
+        <div class="tableCell">
         	<label for="input.password">Passwort</label>
         	<input type="password" id="input.password" name="password">
         </div>
@@ -23,18 +23,22 @@
 </div>
 
 <div id="buttonPanel-bottom" class="marginTop5 marginBottom20">
-	<input type="submit" class="mainButton" value="${placeholderWithTranslation.GENERIC_LOGIN}" title="${placeholderWithTranslation.GENERIC_LOGIN}" name="submit" id="button.login" />
-	<input type="reset" class="mainButton" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" name="cancel" id="button.clearFields" />
+	<input type="submit" class="mainButton" value="Anmelden" title="Anmelden" name="submit" id="button.login" />
+	<input type="reset" class="mainButton" value="Felder leeren" title="Felder leeren" name="cancel" id="button.clearFields" />
 </div>
 
 <vera-info vera-stay>
-	${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_ONE} <strong>${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_TWO}</strong> ${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_THREE}
+	Bitte verwenden Sie Ihr Organisationskennzeichen oder <strong>vorname.nachname</strong> als Benutzernamen
 </vera-info>
 
 <input name="task" type="hidden" value="default">
+<input name="loginlanguage" type="hidden" value="de_DE">
+<input name="languageSelector" type="hidden" value="Deutsch">
 
-#if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin")
+#if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin" && $octopusRequest.loginlanguage == "de_DE")
 <vera-warn>
-	${placeholderWithTranslation.LOGIN_ERROR}
+	Es ist ein Fehler bei der Anmeldung aufgetreten. Bitte \u00FCberprufen Sie Ihren Benutzernamen und Ihr Passwort.
 </vera-warn>
 #end
+
+</form>

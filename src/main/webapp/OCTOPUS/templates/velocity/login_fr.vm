@@ -1,15 +1,15 @@
-
+<form action="default" method="post" target="_top" onsubmit="if(document.getElementById('loginasproxy').checked) { this.action = 'LoginAsProxy'; this.task.value = 'LoginAsProxy'; }">
 <h1 class="marginTop25">Iniciar sesión</h1>
 
 <div class="table">
     <div class="tableRow">
-        <div class="tableCell" id="deutsch">
+        <div class="tableCell">
         	<label for="input.username">Nombre de usuario</label>
         	<input type="text" id="input.username" name="username">
         </div>
     </div>
     <div class="tableRow">
-        <div class="tableCell" id="spain">
+        <div class="tableCell">
         	<label for="input.password">Contraseña</label>
         	<input type="password" id="input.password" name="password">
         </div>
@@ -32,9 +32,12 @@
 </vera-info>
 
 <input name="task" type="hidden" value="default">
+<input name="loginlanguage" type="hidden" value="fr_FR">
+<input name="languageSelector" type="hidden" value="Français">
 
-#if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin")
+#if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin" && $octopusRequest.loginlanguage == "fr_FR")
 <vera-warn>
 	${placeholderWithTranslation.LOGIN_ERROR}
 </vera-warn>
 #end
+</form>

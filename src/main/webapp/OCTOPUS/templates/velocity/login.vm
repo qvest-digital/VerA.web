@@ -1,9 +1,6 @@
 #set($title = "${placeholderWithTranslation.GENERIC_LOGIN}")
 #parse("inc/header.vm")
 
-<form action="default" method="post" target="_top" onsubmit="if(document.getElementById('loginasproxy').checked) { this.action = 'LoginAsProxy'; this.task.value = 'LoginAsProxy'; }">
-
-
 <div id="german">
 	#parse("login_de.vm")
 </div>
@@ -19,8 +16,5 @@
 <div id="french">
 	#parse("login_fr.vm")
 </div>
-
-
-</form>
 
 #parse("inc/footer.vm")
