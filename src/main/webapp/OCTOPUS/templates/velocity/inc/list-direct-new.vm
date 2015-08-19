@@ -1,6 +1,6 @@
 #if($listparam.count > 0 && $liststarts)
 	<tr class="colspan">
-		<td colspan="99" class="textCenter">Direkteinsprung:
+		<td colspan="99" class="textCenter">${placeholderWithTranslation.GENERIC_PAGING}:
 			<ul class="inline alphabet">
 				<li><a href="javascript:navigateList('A');">A</a></li>
 				<li><a href="javascript:navigateList('B');">B</a></li>

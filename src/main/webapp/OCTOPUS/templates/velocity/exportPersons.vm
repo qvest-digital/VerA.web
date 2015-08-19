@@ -75,8 +75,6 @@
     				</div>
     			</div>
 
-
-
                 #set($style = '')
                 #foreach($formatKey in $formats.keySet())
                  #set($format = $formats.get($formatKey))

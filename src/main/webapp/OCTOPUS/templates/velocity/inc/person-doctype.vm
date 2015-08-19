@@ -18,8 +18,8 @@
 
     #if($grants.mayWrite())
         <span id="actionPanel" class="inlineLabel">
-            <label>Markierte(n) Dokumenttyp(en)
-                <input type="submit" title="Markierte(n) Dokumenttyp(en) entfernen" value="Entfernen" name="remove" />
+            <label>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPES_MARKED}
+                <input type="submit" title="${placeholderWithTranslation.GENERIC_DOCUMENT_TYPES_MARKED_DELETE}" value="Entfernen" name="remove" />
             </label>
 		</span>
 
