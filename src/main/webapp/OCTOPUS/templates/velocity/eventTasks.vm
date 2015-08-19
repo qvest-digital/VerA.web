@@ -185,7 +185,7 @@
 						</tr>
 					#end
 
-					#set($itemName = "Aufgaben")
+					#set($itemName = "${placeholderWithTranslation.GENERIC_TASK_PLURAL}")
 					#parse("inc/list-navi-new.vm")
 					</tbody>
 				</table>

@@ -6,7 +6,9 @@
 	<table cellspacing="0" cellpadding="0" style="width: 100%; margin-bottom: 5px;">
 		<tr>
 			<td>
-				<span id="listnavitext" class="listnavitext" style="margin-right: 15px;">$start - $stop von $listparam.count</span>
+				<span id="listnavitext" class="listnavitext" style="margin-right: 15px;">
+                    $start - $stop ${placeholderWithTranslation.GENERIC_FROM} $listparam.count
+                </span>
 
 				#if($listparam.start == $listparam.first)
 					<a id="page-first" class="listnavilinkinactiv" title="Erste Seite">&laquo;&laquo;</a>

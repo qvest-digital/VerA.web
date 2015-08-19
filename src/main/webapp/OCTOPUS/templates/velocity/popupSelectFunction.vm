@@ -48,7 +48,7 @@
 
 						#set($disableListSelect = true)
 						#if ($listparam.count > 0)
-							#set($itemName = "Funktionen")
+							#set($itemName = "${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}")
 							#parse("inc/list-navi-new.vm")
 							#parse("inc/list-direct-new.vm")
 						#else

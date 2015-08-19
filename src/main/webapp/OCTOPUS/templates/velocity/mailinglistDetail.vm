@@ -81,7 +81,7 @@
     			</tr>
 				#end
 
-				#set($itemName = "Adressdaten")
+				#set($itemName = "${placeholderWithTranslation.GENERIC_ADDRESS_DATA_PLURAL}")
 				#parse("inc/list-navi-new.vm")
 				#parse("inc/list-direct-new.vm")
     		</table>

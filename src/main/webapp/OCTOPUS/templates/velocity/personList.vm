@@ -153,7 +153,7 @@
 
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > $title</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > $title</span>
 		</div>
 		<h1>$title</h1>
 		#if($title == "Dublettensuche")
@@ -1211,7 +1211,7 @@ function submitFormWithGivenAction(action) {
 						#end
 					#end
 
-					#set($itemName = "Personen")
+					#set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 					#parse("inc/list-navi-new.vm")
 					#parse("inc/list-direct-new.vm")
 				</table>

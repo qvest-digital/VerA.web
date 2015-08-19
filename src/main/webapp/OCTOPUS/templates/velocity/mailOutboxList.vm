@@ -75,7 +75,7 @@
         			</tr>
         		#end
 
-    			#set($itemName = "E-Mails")
+    			#set($itemName = "${placeholderWithTranslation.GENERIC_EMAIL_PLURAL}")
     			#parse("inc/list-navi-new.vm")
     			#parse("inc/list-direct-new.vm")
     		</table>

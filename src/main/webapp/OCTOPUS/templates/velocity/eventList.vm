@@ -292,7 +292,7 @@
 						</tr>
 					#end
 
-					#set($itemName = "Veranstaltungen")
+					#set($itemName = "${placeholderWithTranslation.GENERIC_EVENT_PLURAL}")
 					#parse("inc/list-navi-new.vm")
 					#parse("inc/list-direct-new.vm")
 

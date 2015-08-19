@@ -142,7 +142,7 @@
 						</tr>
 					#end
 
-					#set($itemName = "Amtsbezeichnungen")
+					#set($itemName = "${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}")
 					#parse("inc/list-navi-new.vm")
 
 				</table>

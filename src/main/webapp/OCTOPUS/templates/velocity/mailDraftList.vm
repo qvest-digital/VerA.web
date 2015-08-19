@@ -56,7 +56,7 @@
         	</tr>
         	#end
 
-        	#set($itemName = "Vorlagen")
+        	#set($itemName = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_PLURAL}")
         	#parse("inc/list-navi-new.vm")
         	#parse("inc/list-direct-new.vm")
             #if ($listparam.count == 0)

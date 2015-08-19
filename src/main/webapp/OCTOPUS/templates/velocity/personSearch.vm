@@ -58,7 +58,7 @@
     	<h1>${placeholderWithTranslation.personensuche} ${placeholderWithTranslation.verantwortlichenfueraufgabehinzufugen}</h1>
 	#else
         <div id="breadcrumb" class="textRight marginBottom10">
-            <strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.personen} > ${placeholderWithTranslation.personensuche}</span>
+            <strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.personensuche}</span>
         </div>
 
         <h1>${placeholderWithTranslation.personensuche}</h1>

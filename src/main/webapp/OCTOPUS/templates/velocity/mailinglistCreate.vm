@@ -32,7 +32,7 @@
     			#if($mailinglistParams.count == 1)
         			${placeholderWithTranslation.einerperson}
         		#else
-        			$!mailinglistParams.count ${placeholderWithTranslation.personen}
+        			$!mailinglistParams.count ${placeholderWithTranslation.GENERIC_PERSON_PLURAL}
         		#end
         		${placeholderWithTranslation.GENERIC_TO}
         		</p>
