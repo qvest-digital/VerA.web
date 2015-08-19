@@ -126,6 +126,10 @@ GENERIC_REPRESENTATIVE_SINGULAR=Vertretung
 GENERIC_REPRESENTATIVE_PLURAL=Vertretungen
 GENERIC_SALUTATION_SINGULAR=Anrede
 GENERIC_SALUTATION_PLURAL=Anreden
+GENERIC_STATUS_OPEN=Offen
+GENERIC_STATUS_ACCEPT=Zusage
+GENERIC_STATUS_DECLINE=Absage
+GENERIC_STATUS_PARTICIPATED=Teilgenommen
 GENERIC_TASK_SINGULAR=Aufgabe
 GENERIC_TASK_PLURAL=Aufgaben
 GENERIC_USER_SINGULAR=Benutzer
@@ -175,8 +179,11 @@ GENERIC_SEARCH_FOR_PERSON=Person suchen
 GENERIC_CHOOSE_ROLE=Rolle w\u00E4hlen
 GENERIC_EVENT=Veranstaltung
 GENERIC_EVENTS=Veranstaltungen
+SHOW_ALL_RECORDS=Alle Datensätze anzeigen lassen
+SHOW_RECORDS=Datensätze anzeigen lassen
 
 # GENERALLY USED
+GENERIC_EMAIL_ADDRESS=E-Mail-Adresse
 GENERIC_FROM=Von
 GENERIC_LANGUAGE=Sprache
 GENERIC_LOGOUT=Abmelden
@@ -473,7 +480,7 @@ staatsangehorigkeit=Staatsangeh\u00E4rigkeit
 sprachen=Sprachen
 hinweisfurgastgeber=Hinweis f\u00FCr Gastgeber
 akkreditierungsdatum=Akkreditierungsdatum
-um=Um
+um=um
 uhr=Uhr
 datenherkunft=Datenherkunft
 person=Person
@@ -631,21 +638,27 @@ neueveranstaltunganlegen=Neue Veranstaltung anlegen
 anzahlproseite=Anzahl pro seite
 seitexvony=Seite x von y
 
+# EVENT HEADER
+EVENT_ID=Veranstaltungs-ID
+EVENT_NAME=Veranstaltungsname
+EVENT_URL=Veranstaltungs-URL
+EVENT_URL_MEDIA_REPRESENTATIVE=URl f\u00FCr pressevertreter
+EVENT_MAX_GUEST=Maximal Anzahl G\u00E4ste
+EVENT_MAX_RESERVE=Maximal Anzahl Warteliste
+EVENT_INVITATION_TYPE=Einladungsart
+EVENT_INVITATION_TYPE_WITHOUT_PARTNER=Ohne Partner
+EVENT_INVITATION_TYPE_ONLY_PARTNER=Nur Partner
+EVENT_INVITATION_TYPE_WITH_PARTNER=Mit Partner
+
 # VERANSTALTUNG BEARBEITEN/ALLGEMEIN
 veranstaltungbearbeiten=Veranstaltung bearbeiten
-veranstaltungs-id=Veranstaltungs-id
-veranstaltungsname=Veranstaltungsname
-veranstaltungsurl=Veranstaltungs-URL
-urlfurpressevertreter=URl f\u00FCr pressevertreter
 zurgasteverwaltung=Zur G\u00E4steverwaltung
 allgemein=Allgemein
 aufgaben=Aufgaben
 zusatzlichepersonendaten=Zus\u00E4tzliche Personendaten
 kurzbereichnung=Kurzbereichnung
-einladungsart=Einladungsart
 offeneveranstaltung=Offene Veranstaltung
 umxuhr=Um x uhr
-maximalanzahlgaste=Maximal Anzahl G\u00E4ste
 veranstalgungsort=Veranstalgungsort
 gastgebersuchen=Gastgeber suchen
 gastgeberentfernen=Gastgeber entfernen
@@ -656,7 +669,7 @@ veranstaltungspeichern=Veranstaltung speichern
 zurveranstaltungsubersicht=Zur Veranstaltungs\u00FCbersicht
 
 # VERANSTALTUNG BEARBEITEN/DOKUMENTTYPEN
-markiertedokumenttypen=Markierte Dokumenttypen
+GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Markierte(n) Dokumenttyp(en) entfernen
 entfernen=Entfernen
 neuendokumenttyphinzufugen=Neuen Dokumenttyp hinzuf\u00FCgen
 xvonydokumenttypen=x von y Dokumenttypen
@@ -738,6 +751,21 @@ allestammdatenneuladen=Alle Stammdaten neu laden
 HINT_ENTRY_POINT=Direkteinsprung: ist nur bei einer Sortierung nach Name, Vorname oder E-Mail m\u00F6glich.
 HINT_GUEST_MANAGEMENT_FILTER=Beim Erstellen von Steuerdateien oder G\u00E4stelisten wird Ihr oben ausgew\u00E4hlter Filter ber\u00FCcksichtigt.
 HINT_GUEST_MANAGEMENT_MARKED=Wenn Sie einzelne G\u00E4ste markieren, werden nur diese exportiert, ansonsten die vollst\u00E4ndige Liste.
+TABLE_BEFORE_GUEST=Vorheriger Gast
+TABLE_FIRST_GUEST=Erster Gast
+TABLE_LAST_GUEST=Letzter Gast
+TABLE_NEXT_GUEST=Nächster Gast
+
+# GAESTELISTE
+GUEST_LIST_DIDNT_CHANGE=Die Gästeliste wurde nicht verändert
+GUEST_LIST_EXPAND_ONE=Die Gästeliste wurde um einen Gast erweitert
+GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=Die Gästeliste wurde um
+GUEST_LIST_EXPAND_MULTIPLE_PART_TWO=Gäste erweitert
+GUEST_LIST_CREATED_NO_PERSON=wurde ohne Personen angelegt
+GUEST_LIST_CREATED_ONE_PERSON=wurde mit einer Person angelegt
+GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE=wurde mit
+GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO=Personen angelegt
+GUEST_LIST_NUMBER_CALCULATED_SAVED=Die "Laufende Nummer" wurde für alle Gäste neu berechnet und gespeichert
 
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=G\u00E4steliste erstellen
@@ -753,6 +781,11 @@ anschliesendnach=Anschlie\u00DFend nach
 zusatzlichesortierungnach=Zus\u00E4tzliche sortierung nach
 
 # GASTDETAILS
+GUEST_DETAIL_HINT_GUEST_HOST=Hinweis Gastgeber
+GUEST_DETAIL_HINT_ORGANISATION_TEAM=Hinweis Orgateam
+GUEST_DETAIL_INVITATION_STATUS=Status der Einladung
+GUEST_DETAIL_SEAT_NUMBER=Tisch-Nummer
+GUEST_DETAIL_TABLE_NUMBER=Platz-Nummer
 gastdetails=Gastdetails
 HINT_GUEST_LIST_EDIT_PERSONDATA=Sie bearbeiten hier ausschlie\u00DFlich Personendaten im Rahmen der aktuellen Veranstaltung, keine grundlegenden Stammdaten.
 istgastgeber=Ist Gastgeber

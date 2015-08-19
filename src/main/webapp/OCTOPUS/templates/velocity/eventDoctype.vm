@@ -40,16 +40,24 @@
 
 			<div id="tabsMain" class="event">
 				<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-					<li class="inactive" onclick="window.location.href='ShowEvent?id=$!event.id';"><div>Allgemein</div>
-					</li><li class="active"><div>${placeholderWithTranslation.dokumenttypen}</div>
-					</li><li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';"><div>Aufgaben</div>
+					<li class="inactive" onclick="window.location.href='ShowEvent?id=$!event.id';">
+                        <div>${placeholderWithTranslation.allgemein}</div>
+					</li>
+                    <li class="active">
+                        <div>${placeholderWithTranslation.dokumenttypen}</div>
+					</li>
+                    <li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';">
+                        <div>${placeholderWithTranslation.aufgaben}</div>
 					</li>
 					#if($online-registration.activated)
-						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.zusatzlichepersonendaten}</div>
+						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'">
+                            <div>${placeholderWithTranslation.zusatzlichepersonendaten}</div>
 						</li>
-						<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
+						<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';">
+                            <div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
 						</li>
-						<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
+						<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';">
+                            <div>${placeholderWithTranslation.kategorien}</div>
 						</li>
 					#end
 				</ul>
@@ -60,7 +68,7 @@
 
 				<span id="actionPanel">
 					#if($grants.mayWrite() && $list && $list.size() > 0)
-						<strong>Markierte(n) Dokumenttyp(en)</strong>
+						<strong>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPES_MARKED}</strong>
 						<input type="button" name="remove" value="${placeholderWithTranslation.entfernen}" title="${placeholderWithTranslation.markiertendokumenttypenentfernen}" onclick="deleteEventDoctype();"/>
 					#else &nbsp;#end
 				</span>

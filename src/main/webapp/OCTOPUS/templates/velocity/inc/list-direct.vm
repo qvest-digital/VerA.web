@@ -2,7 +2,7 @@
 
 <table cellspacing="0" cellpadding="0" style="width: 100%; margin-bottom: 10px;"><tr><td>
 <div class="listnavidirect">
-	Direkteinsprung:
+    ${placeholderWithTranslation.GENERIC_PAGING}:
 	<a href="javascript:navigateList('A');">A</a>
 	<a href="javascript:navigateList('B');">B</a>
 	<a href="javascript:navigateList('C');">C</a>
