@@ -16,7 +16,7 @@
 
 			#set($pageNumber = $listparam.start / $listparam.limit + 1)
 
-			<span class="paging floatRight textRight">Seite $pageNumber von $listparam.pages
+			<span class="paging floatRight textRight">${placeholderWithTranslation.GENERIC_PAGE} $pageNumber ${placeholderWithTranslation.GENERIC_FROM} $listparam.pages
 				<ul>
 					#if($listparam.start == $listparam.first)
 						<li class="img" id="page-first"><img src="${paths.staticWeb}images/paging_arrow_left_last.png" title="Erste Seite" style="cursor: pointer;"></li>
