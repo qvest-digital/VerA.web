@@ -86,7 +86,26 @@
     				<div class="tableRow">
     					<div class="tableCell">
     						<label for="importfile">${placeholderWithTranslation.importdatei}*</label>
-    						<input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*">
+    						<div id="input_container" style="width: 0px; height: 0px;">
+    							<input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*" onChange="fileSelected();"/>
+    						</div>
+
+                                <div class="button" style="
+                                    text-align: center;
+                                    margin-right: 10px;
+                                    float:left;
+                                    width: 150px;
+                                    text-decoration: none;
+                                    background-color: #EEEEEE;
+                                    color: #333333;
+                                    padding: 2px 6px 2px 6px;
+                                    border-top: 1px solid #CCCCCC;
+                                    border-right: 1px solid #333333;
+                                    border-bottom: 1px solid #333333;
+                                    border-left: 1px solid #CCCCCC;"
+                                    onclick="upload();">${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}</div>
+                                <div id="selectedFile" style="padding-top: 3px;"></div>
+
     					</div>
     					<div class="tableCell">
     						<label for="format">${placeholderWithTranslation.dateityp}</label>
@@ -153,6 +172,19 @@
 		</div>
 </div>
 <script type="text/javascript">
+
+function upload(){
+ document.getElementById('importfile').click();
+}
+
+function fileSelected() {
+    var elem = document.getElementById("importfile").value;
+    var res = elem.split("\\");
+    var fileName = res[res.length-1];
+    console.log(fileName);
+    $("div#selectedFile").text(fileName);
+}
+
 ##Hinweis und Rueckfrage vor dem Import
 
 	function askStart() {

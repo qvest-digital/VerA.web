@@ -1274,3 +1274,7 @@ neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten=Neue Vorlagen m\u00FCs
 zurueckzumverteiler=Zur\u00FCck zum Verteiler
 markiertenveranstaltungsorte=Markierte(n) Veranstaltungsorte
 hinweis=Hinweis
+
+
+# GENERIC
+GENERIC_UPLOAD_BUTTON = Datei ausw\u00E4hlen
