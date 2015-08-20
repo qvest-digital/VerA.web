@@ -477,7 +477,7 @@ function submitFormWithGivenAction(action) {
 			#if($action == "guest")
 
 				<span id="actionPanel" class="inlineLabel">
-					<label>Markierte Person(en)
+					<label>${placeholderWithTranslation.markiertepersonen}
 						<input type="button" value="Hinzuf&uuml;gen" title=" ${placeholderWithTranslation.markiertepersonenzurveranstaltunghinzufuegen} " onclick="$('#selectNone').val('false'); submitFormWithGivenAction('AddPersonToEventGuestList');" />
 					</label>
 				</span>
@@ -643,7 +643,7 @@ function submitFormWithGivenAction(action) {
 							</select>
 							<input type="button" value="${placeholderWithTranslation.durchfuhren}" id="button.execute" name="button.execute" />
 						#elseif($exportFormat && $grants.mayExport())
-							Markierte Person(en)
+i							${placeholderWithTranslation.markiertepersonen}	
 							<input type="button" value="Exportieren" title="${placeholderWithTranslation.exportieren}" onclick="selectedActionExportPerson();" />
 						#else &nbsp; #end
 					</label>

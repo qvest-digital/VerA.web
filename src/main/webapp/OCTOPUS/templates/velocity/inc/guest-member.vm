@@ -39,7 +39,7 @@
 	</div>
 	<div class="tableRow">
 		<div class="tableCell width50 inlineLabel">
-			<strong>Geschlecht</strong><br />
+			<strong>${placeholderWithTranslation.GENERIC_GENDER}</strong><br />
 			#if ($facade.Sex && $facade.Sex == "f")
 				<input type="radio" name="guest-sex$ext" value="m" id="guest-sex${ext}-m"><label for="guest-sex${ext}-m"> ${placeholderWithTranslation.GENERIC_GENDER_MALE}</label>
 				<input type="radio" name="guest-sex$ext" value="f" id="guest-sex${ext}-f" checked><label for="guest-sex${ext}-f"> ${placeholderWithTranslation.GENERIC_GENDER_FEMALE}</label>

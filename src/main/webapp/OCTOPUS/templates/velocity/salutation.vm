@@ -31,7 +31,7 @@
 
             <span id="actionPanel" class="inlineLabel">
               <strong>${placeholderWithTranslation.GENERIC_SALUTATIONS_MARKED}</strong>
-             	<input type="button" name="remove" onclick="askDelete()"  value="L&ouml;schen" title="${placeholderWithTranslation.markierteanredenloschen}" #if($grants.isAdmin()) #else vera-disabled #end>
+             	<input type="button" name="remove" onclick="askDelete()"  value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markierteanredenloschen}" #if($grants.isAdmin()) #else vera-disabled #end>
             </span>
 
 

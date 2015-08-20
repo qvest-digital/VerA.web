@@ -53,7 +53,7 @@
 			<div class="textRight mandatoryText tabs">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
 			<span id="actionPanel" class="inlineLabel">
-    	       	<strong>${placeholderWithTranslation.platzhalter}MarkiertenDokumenttypen</strong>
+    	       	<strong>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPES_MARKED}</strong>
     	       	<input type="button" name="remove" onclick="askDelete()"  value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markiertendokumenttypenloschen}" #if($grants.isAdmin()) class="submit" #else class="buttondisabled" vera-disabled #end>
             </span>
 

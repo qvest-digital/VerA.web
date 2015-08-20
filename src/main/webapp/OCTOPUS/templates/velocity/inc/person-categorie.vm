@@ -18,12 +18,12 @@
 
 <span id="actionPanel" class="inlineLabel">
 	#if($grants.mayWrite())
-		Markierte Katgorie(n) <input type="submit" name="remove" value="Entfernen" title="Markierte Kategorie(n) entfernen"/>
+		${placeholderWithTranslation.markiertekategorien} <input type="submit" name="remove" value="Entfernen" title="Markierte Kategorie(n) entfernen"/>
 	#end
 </span>
 <div class="buttonPanel-top floatRight">
 	#if($grants.mayWrite())
-		<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton"/>
+		<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="Speichern" class="mainButton"/>
 	#end
 </div>
 

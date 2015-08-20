@@ -131,7 +131,7 @@
 					<td>
 			   #if($allOrgUnit)
 						<select id="${bean.id}-orgunit" name="${bean.id}-orgunit" onchange="setModified('${bean.id}')">
-							<option value="">Bitte ausw&auml;hlen</option>
+							<option value="">${placeholderWithTranslation.bitteauswahlen}</option>
 			    #foreach($orgunit in $allOrgUnit)
 							<option value="$orgunit.id" #if($orgunit.id==$bean.orgunit)selected#end>$!message.plain($orgunit.name)</option>
 			    #end
@@ -146,7 +146,7 @@
 					<td><input type="hidden" name="${bean.id}-name" value="$!message.plain($bean.name)"/>$!message.plain($bean.name)</td>
 					<td>
 						<select id="${bean.id}-role" name="${bean.id}-role"  onchange="setModified('${bean.id}')">
-							<option value="">inaktiv</option>
+							<option value="">${placeholderWithTranslation.inaktiv}</option>
 							<option value="1" #if(1==$bean.role)selected#end>${placeholderWithTranslation.leseneingeschraenkt}</option>
 							<option value="2" #if(2==$bean.role)selected#end>${placeholderWithTranslation.lesenuneingeschraenkt}</option>
 							<option value="6" #if(6==$bean.role)selected#end>${placeholderWithTranslation.lesenundschreibeneingeschraenkt}</option>

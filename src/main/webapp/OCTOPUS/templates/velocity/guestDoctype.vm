@@ -70,12 +70,12 @@
                 <input type="hidden" name="guestdoctype-addresstype" value="$!guestdoctype.addresstype">
                 <input type="hidden" name="guestdoctype-locale" value="$!guestdoctype.locale">
 
-				<h3 class="marginBottom10">Adresstyp und Zeichensatz w&auml;hlen</h3>
+				<h3 class="marginBottom10">${placeholderWithTranslation.adresstypundzeichensatzwahlen}</h3>
 
 				<div class="table marginBottom40">
 					<div class="tableRow">
 						<div class="tableCell">
-							<label for="select-addresstype">Adresstyp</label>
+							<label for="select-addresstype">${placeholderWithTranslation.adresstyp}</label>
 							<select id="select-addresstype" name="select-addresstype">
                     			<option value="1" #if($guestdoctype.addresstype == 1) selected#end>$!message.text($!config.business)</option>
                     			<option value="2" #if($guestdoctype.addresstype == 2) selected#end>$!message.text($!config.private)</option>
@@ -83,7 +83,7 @@
 							</select>
 						</div>
 						<div class="tableCell">
-							<label for="select-locale">Zeichensatz</label>
+							<label for="select-locale">${placeholderWithTranslation.zeichensatz}</label>
 							<select id="select-locale" name="select-locale">
                     			<option value="1" #if($guestdoctype.locale == 1) selected#end>$!message.text($!config.latin)</option>
                     			<option value="2" #if($guestdoctype.locale == 2) selected#end>$!message.text($!config.extra1)</option>
@@ -282,7 +282,7 @@
 
                 <span class="posAb" id="buttonPanel-bottom" style="right:-1px; bottom:-40px">
 					#if($grants.mayWrite())
-						<input type="submit" name="save" value="Speichern" title="Speichern" class="mainButton" />
+						<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="Speichern" class="mainButton" />
 					#end
                     <input type="button" name="cancel" value="Zur&uuml;ck zu den Veranstaltungsdetails" title="Zur&uuml;ck zu den Veranstaltungsdetails" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
                 </span>

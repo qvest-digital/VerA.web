@@ -442,6 +442,7 @@ Suchen*=Recherche *
 Ersetzen=remplacer
 InfolgendenFeldern*=Dans les champs suivants *
 Vorname=pr\u00E9nom
+markiertenmandantenwirklichloschen=TEST
 Nachname=nom de famille
 Anrede/Titel=Civilit\u00E9 / Titre
 Freitextfelder=Champs de texte libre

@@ -660,7 +660,6 @@ freitextfeld=Free text field
 freitextfeld=Free text field (partner)
 anrede=Other (partner)
 Aka.titel=Akad. Title (partner)
-vorname=First name (partner)
 nachname=Surname (partner)
 kontaktdaten=Contact data
 nummer=Number

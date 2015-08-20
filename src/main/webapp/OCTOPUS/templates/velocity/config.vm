@@ -173,35 +173,35 @@
                 <h3>${placeholderWithTranslation.oberflachenbeschriftungen}:</h3>
                 <table class="marginBottom20">
                 	<tr>
-                		<td class="bold width25">Hauptperson:</td>
+                		<td class="bold width25">${placeholderWithTranslation.hauptperson}:</td>
                 		<td><input type="text" name="main" maxlength="300" value="$!message.text($config.main)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">Partner:</td>
+                		<td class="bold width25">${placeholderWithTranslation.partner}:</td>
                 		<td><input type="text" name="partner" maxlength="300" value="$!message.text($config.partner)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">Anschrift Gesch&auml;ftlich:</td>
+                		<td class="bold width25">${placeholderWithTranslation.anschriftgeschaftlich}:</td>
                 		<td><input type="text" name="business" maxlength="300" value="$!message.text($config.business)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">Anschrift Privat:</td>
+                		<td class="bold width25">${placeholderWithTranslation.anschriftprivat}:</td>
                 		<td><input type="text" name="private" maxlength="300" value="$!message.text($config.private)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">Anschrift Weitere:</td>
+                		<td class="bold width25">${placeholderWithTranslation.anschriftweitere}:</td>
                 		<td><input type="text" name="other" maxlength="300" value="$!message.text($config.other)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">Zeichensatz Latein:</td>
+                		<td class="bold width25">${placeholderWithTranslation.zeichensatzlatein}:</td>
                 		<td><input type="text" name="latin" maxlength="300" value="$!message.text($config.latin)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">Zeichensatz Alternative 1:</td>
+                		<td class="bold width25">${placeholderWithTranslation.zeichensatzalternative} 1:</td>
                 		<td><input type="text" name="extra1" maxlength="300" value="$!message.text($config.extra1)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">Zeichensatz Alternative 2:</td>
+                		<td class="bold width25">${placeholderWithTranslation.zeichensatzalternative} 2:</td>
                 		<td><input type="text" name="extra2" maxlength="300" value="$!message.text($config.extra2)" ></td>
                 	</tr>
                 	<tr>

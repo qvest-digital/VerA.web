@@ -65,7 +65,7 @@
 		<div class="textRight mandatoryText tabs">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
 		<span class="inlineLabel" id="actionPanel">
-			<strong>Markierte Kategorie(n)</strong>
+			<strong>${placeholderWithTranslation.markiertekategorien}</strong>
 			<input type="submit" name="remove" value="${placeholderWithTranslation.loschen}" class="button" title="${placeholderWithTranslation.markiertekategorienloschen}" onclick="formlist.action='SaveCategories';return true;">
 
 		</span>

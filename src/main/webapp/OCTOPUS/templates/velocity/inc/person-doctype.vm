@@ -25,7 +25,7 @@
 
 		<span id="buttonPanel-top" class="textRight floatRight">
          <input id="buttonMain" class="mainButton" type="button" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id&tab=$!octopusRequest.tab&show=$!octopusRequest.show';" value="Alle erzeugen" name="create">
-            <input class="mainButton" type="submit" value="Änderungen speichern" title="Änderungen speichern" name="save" />
+            <input class="mainButton" type="submit" value="${placeholderWithTranslation.anderungenspeichern}" title="Änderungen speichern" name="save" />
 		</span>
     #end
 
@@ -36,9 +36,9 @@
         <th class="textCenter smallCell"><input type="checkbox" name="" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end #if(!$grants.mayWrite()) vera-disabled#end /></th>
         #end
         <th>Dokumenttyp</th>
-        <th class="textCenter smallCell">Anschrift</th>
-        <th class="textCenter smallCell">Zeichensatz</th>
-        <th class="textCenter smallCell">Aktionen</th>
+        <th class="textCenter smallCell">${placeholderWithTranslation.anschrift}</th>
+        <th class="textCenter smallCell">${placeholderWithTranslation.zeichensatz}</th>
+        <th class="textCenter smallCell">${placeholderWithTranslation.aktionen}</th>
 	</tr>
 	#foreach($bean in $list)
 	<tr>

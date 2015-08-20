@@ -62,7 +62,7 @@
             	<td><input type="text" id="mailoutbox-from" name="mailoutbox-from" maxlength="200" value="$!message.text($mailoutbox.from)" /></td>
             </tr>
 			<tr>
-            	<td><label for="mailoutbox-to">An*</label></td>
+            	<td><label for="mailoutbox-to">${placeholderWithTranslation.CAP_TO}*</label></td>
             	<td><input type="text" id="mailoutbox-to" name="mailoutbox-to" maxlength="200" value="$!message.text($mailoutbox.to)" /></td>
             </tr>
 			<tr>
@@ -92,7 +92,7 @@
         </table>
 
     	<div class="textRight marginTop10" id="buttonPanel-bottom">
-			<input type="submit" name="submit" value="Speichern" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+			<input type="submit" name="submit" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
 			<input type="button" name="save" value="Zurück" title="Zurück" class="mainButton" onclick="window.location.href='MailOutboxList';" />
 		</div>
 

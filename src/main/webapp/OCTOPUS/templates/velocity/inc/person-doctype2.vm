@@ -56,7 +56,7 @@
 
 <div class="tableRow">
 	<div class="tableCell width50">
-		<label for="persondoctype-locale">Zeichensatz</label>
+		<label for="persondoctype-locale">${placeholderWithTranslation.zeichensatz}</label>
 		#if($grants.mayWrite())
 			<select id="persondoctype-locale" name="persondoctype-locale" >
 				<option value="1" #if($persondoctype.locale && $persondoctype.locale == 1) selected#end>$!message.text($!config.latin)</option>

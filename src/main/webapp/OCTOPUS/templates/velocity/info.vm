@@ -36,13 +36,13 @@
         <col width="$column1%" />
 
         <tr>
-            <td class="width15 bold">Version:</td>
+            <td class="width15 bold">${placeholderWithTranslation.version}:</td>
             <td>$properties.getString("poversion")</td>
         </tr><tr>
-            <td class="width15 bold">Buildnummer:</td>
+            <td class="width15 bold">${placeholderWithTranslation.buildnummer}:</td>
             <td>$properties.getString("pobuildnr")</td>
         </tr><tr>
-            <td class="width15 bold">Buildzeit:</td>
+            <td class="width15 bold">${placeholderWithTranslation.buildzeit}:</td>
             <td>$properties.getString("pobuildts")</td>
         </tr>
     </table>
@@ -58,7 +58,7 @@
 		<col width="$column1%" />
 
     	<tr>
-    		<td class="width15 bold">Version:</td>
+    		<td class="width15 bold">${placeholderWithTranslation.version}:</td>
     		<td>
     #if($config && $config.get("SCHEMA_VERSION"))
     			$config.get("SCHEMA_VERSION")
@@ -97,10 +97,10 @@
 		<col width="$column1%" />
 
     	<tr>
-    		<td class="width15 bold"">Login:</td>
+    		<td class="width15 bold"">${placeholderWithTranslation.login}:</td>
     		<td>$!octopusConfig.personalConfig.userLogin</td>
     	</tr><tr>
-    		<td class="width15 bold">Rolle:</td>
+    		<td class="width15 bold">${placeholderWithTranslation.rolle}:</td>
     		<td>
     #if($octopusConfig.personalConfig.role)
     			$octopusConfig.personalConfig.role
@@ -110,7 +110,7 @@
     		</td>
     	</tr>
     	<tr>
-    		<td class="width15 bold">Mandant:</td>
+    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}:</td>
     		<td>
     #if($orgUnit.id != 0)
     			$orgUnit.name
@@ -122,13 +122,14 @@
     #if($octopusConfig.personalConfig.proxy)
     	<tr>
     		<td>vertreten durch:</td>
-    		<td>$octopusConfig.personalConfig.proxy</td>
-    	</tr>
-    #end
-    #if($octopusConfig.personalConfig.roles)
-    	<tr>
-    		<td>${placeholderWithTranslation.verfugbarerollen}:</td>
-    		<td>
+    		<td>$octopusConfig.personalConfig.proxy</td> 
+	</tr> 
+    #end 
+    #if($octopusConfig.personalConfig.roles) 
+	<tr> 
+		<td>${placeholderWithTranslation.verfugbarerollen}:
+		</td> 
+	<td>
      #foreach($gg in $octopusConfig.personalConfig.roles)
      $gg
      #end
@@ -136,7 +137,7 @@
     	</tr>
     #end
     	<tr>
-    		<td class="width15 bold">Gruppen:</td>
+    		<td class="width15 bold">${placeholderWithTranslation.gruppen}:</td>
     		<td>
     #foreach($gg in $octopusConfig.personalConfig.userGroups)
      $gg
@@ -144,7 +145,7 @@
     		</td>
     	</tr>
     	<tr>
-    		<td class="width15 bold"">E-Mail:</td>
+    		<td class="width15 bold"">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}:</td>
     		<td>
     #if($octopusConfig.personalConfig.userEmail)
     			$!octopusConfig.personalConfig.userEmail

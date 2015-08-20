@@ -50,7 +50,7 @@
             	<td><textarea cols="50" rows="20" id="maildraft-text" class="width100" name="maildraft-text" >$!message.textarea($maildraft.text)</textarea></td>
             </tr>
 			<tr>
-            	<td class="bold"><label for="platzhalter">Platzhalter</label></td>
+            	<td class="bold"><label for="platzhalter">${placeholderWithTranslation.platzhalter}</label></td>
             	<td>
             		<div class="">
             			<select id="platzhalter" name="platzhalter" class="width15" >

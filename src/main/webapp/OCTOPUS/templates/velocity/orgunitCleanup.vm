@@ -24,7 +24,7 @@
     <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
 		<div class="event" id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-				<li class="inactiv"><a href="Orgunit?selectNone=true" class="noBorder"><div>Mandanten</div></a>
+				<li class="inactiv"><a href="Orgunit?selectNone=true" class="noBorder"><div>${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</div></a>
 				</li><li vera-tab-default="" vera-tab="database" class="active"><div>${placeholderWithTranslation.datenbank}</div>
 				</li>
 			</ul>
@@ -83,7 +83,7 @@
                 </div>
 
   			<span id="buttonPanel-bottom" class="floatRight marginTop10">
-				<input type="submit" name="submit" value="Zuordnen" title="${placeholderWithTranslation.zuordnen}" class="mainButton">
+				<input type="submit" name="submit" value="${placeholderWithTranslation.zuordnen}" title="${placeholderWithTranslation.zuordnen}" class="mainButton">
   			</span>
 
 

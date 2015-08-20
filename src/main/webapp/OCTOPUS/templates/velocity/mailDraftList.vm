@@ -25,11 +25,11 @@
         <h1>${placeholderWithTranslation.emailvorlage}</h1>
 
         <span id="actionPanel" class="inlineLabel">
-	       	<strong>Markierte Vorlage(n)</strong>
+	       	<strong>${placeholderWithTranslation.markiertevorlage}</strong>
 	       	<input type="submit" name="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markiertevorlagenloschen}" onclick="" />
         </span>
         <span id="" class="buttonPanel-top textRight floatRight">
-			<input type="button" name="" value="Neue Vorlage anlegen" title="${placeholderWithTranslation.neuevorlageanlegen}" class="mainButton" onclick="window.location.href='MailDraftDetail';" />
+			<input type="button" name="" value="${placeholderWithTranslation.neuevorlageanlegen}" title="${placeholderWithTranslation.neuevorlageanlegen}" class="mainButton" onclick="window.location.href='MailDraftDetail';" />
         </span>
         #foreach($bean in $list)
         <input type="hidden" name="list" value="$bean.id"/>

@@ -57,7 +57,8 @@
 
     		<span class="inlineLabel" id="actionPanel">
             	<strong>${placeholderWithTranslation.markiertenmandanten}</strong>
-            	<input type="submit" onclick="return confirm('Markierte(n) Mandanten wirklich löschen?');" title="Markierte(n) Mandanten löschen" name="remove" value="L&ouml;schen" >
+            	<input type="submit" onclick="return confirm('${placeholderWithTranslation.markiertenmandantenwirklichloschen}?');" title="Markierte(n) Mandanten l&ouml;schen" name="remove" 
+		value="${placeholderWithTranslation.loschen}" />
             </span>
             <table class="fixed">
             	##Set column size
@@ -96,7 +97,7 @@
         </div>
     			<span id="buttonPanel-bottom" class="floatRight marginTop10">
     			<!-- Show the save button -->
-    				<input type="submit" name="save" value="Speichern" title="${placeholderWithTranslation.speichern}" class="mainButton">
+    				<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton">
     			</span>
 
     </div><!-- End ID=main_content-->
