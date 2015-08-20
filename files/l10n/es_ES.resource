@@ -272,8 +272,8 @@ GENERIC_MORE=Adicionales
 GENERIC_LATIN=Latín
 kyrillisch=Cirílico
 chinesisch=Chino
-eswurdeeindokumenttypgeloscht=Es wurde ein Dokumenttyp gel\u00F6scht.
-eswurdeeinneuerdokumenttypangelegt=Es wurde ein neuer Dokumenttyp angelegt.
+eswurdeeindokumenttypgeloscht=Se ha eliminado un tipo de documento.
+eswurdeeinneuerdokumenttypangelegt=Nuevo tipo de documento creado satisfactoriamente.
 
 # ADMINISTRATION/E-MAIL-POSTAUSGANG
 GENERIC_STATUS=Status
