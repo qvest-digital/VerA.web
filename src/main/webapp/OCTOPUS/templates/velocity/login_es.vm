@@ -27,9 +27,10 @@
 	<input type="reset" class="mainButton" value="Borrar" title="Reiniciar" name="cancel" id="button.clearFields" />
 </div>
 
-<vera-info vera-stay>
-	Por favor, utilice el nombre de su organización o <strong>nombre.apellido</strong> como nombre de usuario
-</vera-info>
+<div class="hinweis grayBorder marginBottom20 notBold">
+    <strong>Aviso</strong>
+    <p>Por favor, utilice el nombre de su organización o <strong>nombre.apellido</strong> como nombre de usuario</p>
+</div>
 
 <input name="task" type="hidden" value="default">
 <input name="loginlanguage" type="hidden" value="es_ES">
