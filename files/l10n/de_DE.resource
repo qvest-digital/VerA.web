@@ -1285,9 +1285,13 @@ neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten=Neue Vorlagen m\u00FCs
 zurueckzumverteiler=Zur\u00FCck zum Verteiler
 markiertenveranstaltungsorte=Markierte(n) Veranstaltungsorte
 hinweis=Hinweis
-GENERIC_FEDERAL_STATE=Bundesland
 inaktiv=inaktiv
 aktionen=Aktionen
 anschrift=Anschrift
 anderungenspeichern=\u00E4nderungen speichern
+
+
+# GENERIC
+GENERIC_UPLOAD_BUTTON = Datei ausw\u00E4hlen
 GENERIC_TO=An
+GENERIC_FEDERAL_STATE=Bundesland

@@ -11,7 +11,6 @@
 ##end
 #parse("inc/header.vm")
 
-
 <div id="content_container">
     #if($errors && $errors.size() > 0)
     <vera-warn>
@@ -76,7 +75,6 @@
     </p>
     #end
 </div>
-
 
 <!--
 $responseParams
