@@ -27,9 +27,10 @@
 	<input type="reset" class="mainButton" value="Reset" title="Reset" name="cancel" id="button.clearFields" />
 </div>
 
-<vera-info vera-stay>
-	Please, use your company signature or <strong>firstname.lastname</strong> as username
-</vera-info>
+<div class="hinweis grayBorder marginBottom20 notBold">
+    <strong>Tooltip</strong>
+    <p>Please, use your company signature or <strong>firstname.lastname</strong> as username</p>
+</div>
 
 <input name="task" type="hidden" value="default">
 <input name="loginlanguage" type="hidden" value="en_EN">

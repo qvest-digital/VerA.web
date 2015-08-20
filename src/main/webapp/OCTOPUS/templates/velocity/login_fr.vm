@@ -27,6 +27,10 @@
 	<input type="reset" class="mainButton" value="Borrar" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" name="cancel" id="button.clearFields" />
 </div>
 
+<div class="hinweis grayBorder marginBottom20 notBold">
+    <strong>AUF FRANZÖSICH!!!! Hinweis FR</strong>
+    <p>AUF FRANZÖSICH!!!! Bitte verwenden Sie Ihr Organisationskennzeichen oder <strong>vorname.nachname</strong> als Benutzernamen</p>
+</div>
 <vera-info vera-stay>
 	${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_ONE} <strong>${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_TWO}</strong> ${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_THREE}
 </vera-info>

@@ -224,8 +224,8 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @param htmlStr
      * @returns {*|jQuery|HTMLElement}
      */
-    var createInfoHtml = function (htmlStr) {
-        return $('<div class="hinweis grayBorder marginBottom20 notBold"><strong>Hinweis</strong><p>'
+    var createInfoHtml = function (toolTip, htmlStr) {
+        return $('<div class="hinweis grayBorder marginBottom20 notBold"><strong>' + toolTip + '</strong><p>'
             + htmlStr + '</p></div>');
     };
 
@@ -300,12 +300,12 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
 
     showInfo = (function () {
         var activeInfoDialogs = {};
-        return function (htmlStr) {
+        return function (toolTip, htmlStr) {
             if (activeInfoDialogs.hasOwnProperty(htmlStr)) { // already open?
                 return;
             }
             activeInfoDialogs[htmlStr] = null;
-            var info = createInfoHtml(htmlStr);
+            var info = createInfoHtml(toolTip, htmlStr);
             info.click(function () {
                 info.remove();
                 delete activeInfoDialogs[htmlStr];
