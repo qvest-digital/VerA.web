@@ -10,6 +10,7 @@
 		<h1>$title</h1>
 
 		<vera-info>
+			<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
             #if($domain && $domain == "all" && $grants.isAdmin())
             ${placeholderWithTranslation.siesindalsvolladministratorangemeldetundexportierenhiermitmandantenubergreifend}
             #else

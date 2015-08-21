@@ -31,6 +31,7 @@
 	#end
 
 	<vera-info>
+		<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
 		${placeholderWithTranslation.dublettendiedurchden}<strong>${placeholderWithTranslation.importhinzugefugtwerdenwurden}</strong>${placeholderWithTranslation.sindmiteinercheckboxgekennzeichnetdarunterbefindensichdiebereitsimsystemvorhandenenentsprechendendatensatze}<br />
 		${placeholderWithTranslation.HINT_UMLAUT_COMPARISON}<br />
 		${placeholderWithTranslation.umeinedubletteindenimportzuintegrierenmussensiesieubernehmen}

@@ -63,6 +63,7 @@
 		</div>
 
 		<vera-info>
+			${placeholderWithTranslation.GENERIC_TOOLTIP}<br />
 			${placeholderWithTranslation.HINT_UMLAUT_COMPARISON}<br />
 		</vera-info>
 

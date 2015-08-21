@@ -56,9 +56,9 @@
 		#end
 
 		<vera-info>
+			<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
 			${placeholderWithTranslation.beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden}
 		</vera-info>
-
 
 		<div id="main_content" class="contentBoxColored grayBorder">
 			<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>

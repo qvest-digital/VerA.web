@@ -33,6 +33,7 @@ import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
@@ -228,7 +229,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
                                 ))),
                     context);
 
-			LanguageProvider languageProvider = enableTranslation(cntx);
+			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
 
     		if (countOfNotExpiredEvents != null && countOfNotExpiredEvents.intValue() > 0) {
     			questions.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_WARNING_EVENTS_IN_FUTURE"));
@@ -265,22 +267,6 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		}
 
 		return count;
-	}
-
-	/**
-	 * Enabling translations to allow it over hardcoded text in java files
-	 *
-	 * @param cntx Octopus Context
-	 * @return LanguageProvider instance
-	 */
-	private LanguageProvider enableTranslation(OctopusContext cntx) {
-		String language = cntx.getContentObject().get("language").toString();
-
-		LanguageProvider languageProvider = new LanguageProvider();
-
-		languageProvider.setLastSelectedLanguage(language + ".resource");
-		languageProvider.load(cntx);
-		return languageProvider;
 	}
 
 	/**
