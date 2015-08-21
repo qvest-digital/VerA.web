@@ -112,6 +112,7 @@
 		</div>
 
 		<vera-info vera-stay>
+			<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
 			${placeholderWithTranslation.siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehrereunddasfureinzelnezeichen}
 		</vera-info>
 

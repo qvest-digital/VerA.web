@@ -961,3 +961,14 @@ WELCOME_TEXT_TWELVE=global
 WELCOME_TEXT_THIRTEEN=settings can be inspected and edited.
 WELCOME_TEXT_FOURTEEN=For further information please go to the \u201EHelp\u201C page.
 WELCOME_TEXT_FIFTEEN=There are no roles for your account, where you can operate with VerA.web. Please logout and login with another user- or role ID, which is usable for VerA.web.
+
+# EVENT LIST TEXTS
+
+EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Minimun one selected event is currently active or is going to be active in the future.
+EVENT_LIST_WARNING_SELECTION_CHANGING=Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L\u00f6schen ab.
+EVENT_LIST_DELETE_CONFIRMATION_MESSAGE=Sollen alle markierten Veranstaltungen gel\u00f6scht werden? Diese Aktion kann nicht r\u00fcckg\u00e4ngig gemacht werden.
+
+# PERSON LIST TEXTS
+PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE=Sie haben keine Berechtigung Personen zu l\u00f6schen.
+PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Sie d\u00fcrfen immer nur eine Person l\u00f6schen.\n Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.
+PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Sollen alle markierten Personen gel\u00f6scht werden?

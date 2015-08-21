@@ -41,6 +41,8 @@ import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
 import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.URLGenerator;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
@@ -430,8 +432,13 @@ public class EventDetailWorker {
 
             if (database.getCount(database.getCount("Event").where(where)).intValue() != 0) {
                 if (!cntx.requestAsBoolean("event-samename").booleanValue()) {
-                    questions.put("event-samename", "Eine Verstaltung mit dem Namen '" + event.shortname
-                        + "' existiert bereits. M\u00f6chten Sie die neue Veranstaltung dennoch speichern?");
+
+                    LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+                    LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+
+
+                    questions.put("event-samename", languageProvider.getProperty("EVENT_DETAIL_ALREADY_EXISTS_ONE")
+                                + event.shortname + languageProvider.getProperty("EVENT_DETAIL_ALREADY_EXISTS_TWO"));
                 } else {
                     //QUICKFIX wenn die Frage samename schon gestellt wurde und user trotzdem speichern will, ist der
                     //event zwar neu, aber nicht mehr modified. Dann wird weiter unten nicht gespeichert.

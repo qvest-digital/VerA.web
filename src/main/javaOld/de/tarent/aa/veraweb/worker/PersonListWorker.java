@@ -24,6 +24,8 @@ import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.Format;
@@ -549,18 +551,25 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 				groups.contains(PersonalConfigAA.GROUP_PARTIAL_ADMIN);
 		if (admin) user = false;
 
+		LanguageProviderHelper languageProviderHelper = null;
+		LanguageProvider languageProvider = null;
+
 		if (!(user || admin)) {
-			errors.add("Sie haben keine Berechtigung Personen zu l\u00f6schen.");
+			languageProviderHelper = new LanguageProviderHelper();
+			languageProvider = languageProviderHelper.enableTranslation(cntx);
+			errors.add(languageProvider.getProperty("PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE"));
 			return count;
 		}
 		/** User dürfen immer nur eine Person gleichzeitig löschen. */
 		if (user && selectionRemove.size() > 1) {
-			errors.add("Sie d\u00fcrfen immer nur eine Person l\u00f6schen.\n" +
-					"Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.");
+			if (languageProviderHelper == null) {
+				languageProviderHelper = new LanguageProviderHelper();
+				languageProvider = languageProviderHelper.enableTranslation(cntx);
+			}
+			errors.add(languageProvider.getProperty("PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON"));
 			cntx.setContent("listerrors", errors);
 			return count;
 		}
-
 
 		int maxquestions = 0;
 		int subselectsize = 1000;
@@ -593,7 +602,11 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
 		/** Fragen ob alle Personen wirklich gelöscht werden sollen. */
 		if (!getContextAsBoolean(cntx, "remove-person")) {
-			questions.put("remove-person", "Sollen alle markierten Personen gel\u00f6scht werden?");
+			if (languageProviderHelper == null) {
+				languageProviderHelper = new LanguageProviderHelper();
+				languageProvider = languageProviderHelper.enableTranslation(cntx);
+			}
+			questions.put("remove-person", languageProvider.getProperty("PERSON_LIST_QUESTION_DELETE_CONFIRMATION"));
 		}
 
 		if (!questions.isEmpty()) {
