@@ -1295,3 +1295,8 @@ anderungenspeichern=\u00E4nderungen speichern
 GENERIC_UPLOAD_BUTTON = Datei ausw\u00E4hlen
 GENERIC_TO=An
 GENERIC_FEDERAL_STATE=Bundesland
+
+# EVENT LIST TEXTS
+EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Mindestens eine markierte Veranstaltung l\u00e4uft aktuell oder liegt in der Zukunft.
+EVENT_LIST_WARNING_SELECTION_CHANGING=Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L\u00f6schen ab.
+EVENT_LIST_DELETE_CONFIRMATION_MESSAGE=Sollen alle markierten Veranstaltungen gel\u00f6scht werden? Diese Aktion kann nicht r\u00fcckg\u00e4ngig gemacht werden.
