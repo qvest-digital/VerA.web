@@ -27,10 +27,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
@@ -226,14 +228,16 @@ public class EventListWorker extends ListWorkerVeraWeb {
                                 ))),
                     context);
 
+			LanguageProvider languageProvider = enableTranslation(cntx);
+
     		if (countOfNotExpiredEvents != null && countOfNotExpiredEvents.intValue() > 0) {
-    			questions.put("force-remove-events", "Mindestens eine markierte Veranstaltung l\u00e4uft aktuell oder liegt in der Zukunft.");
-    			questions2.put("force-remove-events", "Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L\u00f6schen ab.");
+    			questions.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_WARNING_EVENTS_IN_FUTURE"));
+    			questions2.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_WARNING_SELECTION_CHANGING"));
     		} else {
-    		    questions.put("force-remove-events", "Sollen alle markierten Veranstaltungen gel\u00f6scht werden? Diese Aktion kann nicht r\u00fcckg\u00e4ngig gemacht werden.");
+    		    questions.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_DELETE_CONFIRMATION_MESSAGE"));
     		}
     		cntx.setContent("listquestions", questions);
-    		cntx.setContent("listquestions2", questions2);
+				cntx.setContent("listquestions2", questions2);
             return -1;
 		}
 
@@ -261,6 +265,22 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		}
 
 		return count;
+	}
+
+	/**
+	 * Enabling translations to allow it over hardcoded text in java files
+	 *
+	 * @param cntx Octopus Context
+	 * @return LanguageProvider instance
+	 */
+	private LanguageProvider enableTranslation(OctopusContext cntx) {
+		String language = cntx.getContentObject().get("language").toString();
+
+		LanguageProvider languageProvider = new LanguageProvider();
+
+		languageProvider.setLastSelectedLanguage(language + ".resource");
+		languageProvider.load(cntx);
+		return languageProvider;
 	}
 
 	/**

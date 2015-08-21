@@ -235,4 +235,12 @@ public class LanguageProvider {
     private String getFileNameByLangText(String langName) {
         return existingLanguagesAndFilenames.get(langName);
     }
+
+    public String getLastSelectedLanguage() {
+        return lastSelectedLanguage;
+    }
+
+    public void setLastSelectedLanguage(String lastSelectedLanguage) {
+        this.lastSelectedLanguage = lastSelectedLanguage;
+    }
 }
