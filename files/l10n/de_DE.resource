@@ -1311,3 +1311,7 @@ EVENT_LIST_DELETE_CONFIRMATION_MESSAGE=Sollen alle markierten Veranstaltungen ge
 PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE=Sie haben keine Berechtigung Personen zu l\u00f6schen.
 PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Sie d\u00fcrfen immer nur eine Person l\u00f6schen.\n Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.
 PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Sollen alle markierten Personen gel\u00f6scht werden?
+
+# EVENT DETAIL SITE TEXTS
+EVENT_DETAIL_ALREADY_EXISTS_ONE=Eine Verstaltung mit dem Namen '
+EVENT_DETAIL_ALREADY_EXISTS_TWO=' existiert bereits. M\u00f6chten Sie die neue Veranstaltung dennoch speichern?
