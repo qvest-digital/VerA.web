@@ -1300,3 +1300,8 @@ GENERIC_FEDERAL_STATE=Bundesland
 EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Mindestens eine markierte Veranstaltung l\u00e4uft aktuell oder liegt in der Zukunft.
 EVENT_LIST_WARNING_SELECTION_CHANGING=Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L\u00f6schen ab.
 EVENT_LIST_DELETE_CONFIRMATION_MESSAGE=Sollen alle markierten Veranstaltungen gel\u00f6scht werden? Diese Aktion kann nicht r\u00fcckg\u00e4ngig gemacht werden.
+
+# PERSON LIST TEXTS
+PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE=Sie haben keine Berechtigung Personen zu l\u00f6schen.
+PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Sie d\u00fcrfen immer nur eine Person l\u00f6schen.\n Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.
+PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Sollen alle markierten Personen gel\u00f6scht werden?
