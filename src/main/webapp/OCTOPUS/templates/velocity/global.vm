@@ -30,7 +30,7 @@
 	<select name="$name" #if($style) style="$style"#end>
 		<option value="1"#if($current == 1) selected#end>${placeholderWithTranslation.geschaftlich}</option>
 		<option value="2"#if($current == 2) selected#end>${placeholderWithTranslation.privat}</option>
-		<option value="3"#if($current == 3) selected#end>${placeholderWithTranslation.weitere}</option>
+		<option value="3"#if($current == 3) selected#end>${placeholderWithTranslation.GENERIC_MORE}</option>
 	</select>
 #end
 
@@ -45,7 +45,7 @@
 #macro(textAddresstype $current)
 	#if($current == 1) ${placeholderWithTranslation.geschaftlich} 
 	#elseif($current == 2) ${placeholderWithTranslation.privat}
-	#elseif($current == 3) ${placeholderWithTranslation.weitere}
+	#elseif($current == 3) ${placeholderWithTranslation.GENERIC_MORE}
 	#else ${placeholderWithTranslation.GENERIC_ERROR}
 	#end
 #end

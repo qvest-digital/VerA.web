@@ -107,7 +107,7 @@
                             <div class="table width100">
                                 <div class="tableRow">
                                     <div class="tableCell width40">
-                                        <label for="guest-invitationtype">Einladungsart:</label>
+                                        <label for="guest-invitationtype">${placeholderWithTranslation.EVENT_INVITATION_TYPE}:</label>
                                         <select id="guest-invitationtype" name="guest-invitationtype" onchange="setGuestInvitationtype(this.value);">
                                             <option value="1"#if($guest.invitationtype && $guest.invitationtype == 1) selected#end>Mit Partner</option>
                                             <option value="2"#if($guest.invitationtype && $guest.invitationtype == 2) selected#end>Ohne Partner</option>
@@ -118,11 +118,11 @@
                                     <div class="tableCell width25 inlineLabel" style="border-left: 1px solid #C1C1C1; border-right: 1px solid #C1C1C1; padding-left: 30px; vertical-align:middle;">
                                         <label for="showguest-ishost" style="white-space:nowrap">Ist Gastgeber:
                                         #if($guest.ishost == 1)
-                                            <span class="notBold">Ja</span>
+                                            <span class="notBold">${placeholderWithTranslation.GENERIC_YES}</span>
                                             <input type="hidden" name="showguest-ishost" value="1"/>
                                             <input type="hidden" name="guest-ishost" value="1"/>
                                         #else
-                                            <span class="notBold">Nein</span>
+                                            <span class="notBold">${placeholderWithTranslation.GENERIC_NO}</span>
                                             <input type="hidden" name="showguest-ishost" value="0"/>
                                             <input type="hidden" name="guest-ishost" value="0"/>
                                         #end
@@ -130,13 +130,13 @@
                                     </div>
 
                                     <div class="tableCell inlineLabel" style="padding-left: 30px; vertical-align:middle;">
-                                        <label for="guest-reserve">Reserve:</label>
+                                        <label for="guest-reserve">${placeholderWithTranslation.reserve}:</label>
                                         <input type="checkbox" id="guest-reserve" name="guest-reserve" value="true" class="noFloat" #if($guest.reserve) checked #end>
                                     </div>
                                 </div>
                                 <div class="tableRow">
                                     <div class="tableCell paddingTop10">
-                                        <label for="guest-category">Kategorie:</label>
+                                        <label for="guest-category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}:</label>
                                         <select name="guest-category" id="guest-category" onchange="setModified('categorie')">
                                             <option value="">Keine</option>
                                             #foreach($category in $personCategories)
@@ -145,7 +145,7 @@
                                         </select>
                                     </div>
                                     <div class="tableCell width20 paddingTop10">
-                                        <label for="guest-rank">Rang:</label>
+                                        <label for="guest-rank">${placeholderWithTranslation.rang}:</label>
                                         <input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)">
                                     </div>
 

@@ -1,7 +1,7 @@
 #set($activeMenu = "Administration")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_CATEGORY}")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_CATEGORY}")
-#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}")
+#set($elementNameSingular = ">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}<")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
 
 ##Values in per cent for table columns width
@@ -97,7 +97,7 @@
 				<td><input type="text" name="add-name" id="add-name" maxlength="200" #if($beanToAdd) value="$!message.text($beanToAdd.name)" #else value="" #end onchange="setModified('add')"></td>
 				<td>
 					<select id="add-flags" name="add-flags" onchange="setModified('add')">
-						<option value="0" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 0) selected #end>Kategorie</option>
+						<option value="0" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 0) selected #end>${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
 						<option value="1" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 1) selected #end>Ereignis</option>
 						<option value="99" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 99) selected #end>Diplo. Corps</option>
 					</select>
@@ -136,7 +136,7 @@
 					#else
 						<select id="${bean.id}-flags" name="${bean.id}-flags" onchange="setModified('$!bean.id')">
 					#end
-						<option #if($bean.flags && $bean.flags == 0) selected#end value="0">Kategorie</option>
+						<option #if($bean.flags && $bean.flags == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
 						<option #if($bean.flags && $bean.flags == 1) selected#end value="1">Ereignis</option>
 						<option #if($bean.flags && $bean.flags == 99) selected#end value="99">Diplo. Corps</option>
 					</select>

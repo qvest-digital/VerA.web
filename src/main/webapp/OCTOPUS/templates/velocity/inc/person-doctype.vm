@@ -54,11 +54,11 @@
 			#if($bean.addresstype && $bean.addresstype != 0)
 				<option value="1" #if($bean.addresstype == 1) selected#end>${placeholderWithTranslation.geschaftlich}</option>
 				<option value="2" #if($bean.addresstype == 2) selected#end>${placeholderWithTranslation.privat}</option>
-				<option value="3" #if($bean.addresstype == 3) selected#end>${placeholderWithTranslation.weitere}</option>
+				<option value="3" #if($bean.addresstype == 3) selected#end>${placeholderWithTranslation.GENERIC_MORE}</option>
 			#else
 				<option value="1" #if($bean.doctypeAddresstype == 1) selected#end>${placeholderWithTranslation.geschaftlich}</option>
 				<option value="2" #if($bean.doctypeAddresstype == 2) selected#end>${placeholderWithTranslation.privat}</option>
-				<option value="3" #if($bean.doctypeAddresstype == 3) selected#end>${placeholderWithTranslation.weitere}</option>
+				<option value="3" #if($bean.doctypeAddresstype == 3) selected#end>${placeholderWithTranslation.GENERIC_MORE}</option>
 			#end
 			</select>
 		</td>

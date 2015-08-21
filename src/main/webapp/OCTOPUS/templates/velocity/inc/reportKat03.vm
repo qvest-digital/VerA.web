@@ -188,27 +188,27 @@
 
 <table style="width: 100%;">
 	<tr>
-		<td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Offen):</h2></td>
+		<td style="text-align: right;"><h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Offen):</h2></td>
 		<td style="width: 15px;">&nbsp;</td>
 		<td style="width: 100px"><h3 style="text-align: left;">$o</h3></td>
 	</tr>
 	<tr>
-		<td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Zusagen):</h2></td>
+		<td style="text-align: right;"><h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Zusagen):</h2></td>
 		<td style="width: 15px;">&nbsp;</td>
 		<td style="width: 100px"><h3 style="text-align: left;">$z</h3></td>
 	</tr>
 	<tr>
-		<td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Absagen):</h2></td>
+		<td style="text-align: right;"><h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Absagen):</h2></td>
 		<td style="width: 15px;">&nbsp;</td>
 		<td style="width: 100px"><h3 style="text-align: left;">$a</h3></td>
 	</tr>
 	<tr>
-		<td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Teilnahmen):</h2></td>
+		<td style="text-align: right;"><h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Teilnahmen):</h2></td>
 		<td style="width: 15px;">&nbsp;</td>
 		<td style="width: 100px"><h3 style="text-align: left;">$t</h3></td>
 	</tr>
 	<tr>
-		<td style="text-align: right;"><h2 style="text-align: right;">G&auml;steanzahl (Gesamt):</h2></td>
+		<td style="text-align: right;"><h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Gesamt):</h2></td>
 		<td style="width: 15px;">&nbsp;</td>
 		<td style="width: 100px"><h3 style="text-align: left;">#set($g = $o + $z + $a + $t)$g</h3></td>
 	</tr>

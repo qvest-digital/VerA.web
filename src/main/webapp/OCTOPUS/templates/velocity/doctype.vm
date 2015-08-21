@@ -92,7 +92,7 @@
 						<select name="add-addresstype" onchange="setModified('add')">
 							<option value="1">${placeholderWithTranslation.geschaftlich}</option>
 							<option value="2">${placeholderWithTranslation.privat}</option>
-							<option value="3">${placeholderWithTranslation.weitere}</option>
+							<option value="3">${placeholderWithTranslation.GENERIC_MORE}</option>
 						</select>
 					</td>
 					<td>
@@ -125,7 +125,7 @@
 						<select name="${bean.id}-addresstype"  onchange="setModified('$!bean.id')">
 							<option value="1"#if($bean.addresstype == 1) selected#end>${placeholderWithTranslation.geschaftlich}</option>
 							<option value="2"#if($bean.addresstype == 2) selected#end>${placeholderWithTranslation.privat}</option>
-							<option value="3"#if($bean.addresstype == 3) selected#end>${placeholderWithTranslation.weitere}</option>
+							<option value="3"#if($bean.addresstype == 3) selected#end>${placeholderWithTranslation.GENERIC_MORE}</option>
 						</select>
 					</td>
 					<td>

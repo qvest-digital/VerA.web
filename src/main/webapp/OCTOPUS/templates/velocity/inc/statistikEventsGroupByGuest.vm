@@ -3,7 +3,7 @@
 	<tr>
 		<td class="kategorieName" style="width: 55%;"><nobr><strong>Veranstaltung</strong></nobr></td>
 		<td class="kategorieName" style="width: 15%;"><nobr><strong>Beginn</strong></nobr></td>
-##		<td class="kategorieName" style="width: 15%;"><nobr><strong>Einladungsart</strong></nobr></td>
+##		<td class="kategorieName" style="width: 15%;"><nobr><strong>${placeholderWithTranslation.EVENT_INVITATION_TYPE}</strong></nobr></td>
 		<td class="kategorieName" style="width: 15%;"><nobr><strong>Status</strong></nobr></td>
 		<td class="kategorieName" style="width: 15%;"><nobr><strong>Status Partner</strong></nobr></td>
 	</tr>
