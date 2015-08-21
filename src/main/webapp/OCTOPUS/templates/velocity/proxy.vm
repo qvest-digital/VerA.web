@@ -64,7 +64,7 @@
 	<input type="hidden" name="list" value="$bean.id">
 	#end
 	<div class="contentBoxColored grayBorder marginBottom20">
-		<h3 class="marginBottom10">Gültigkeitsfilter</h3>
+		<h3 class="marginBottom10">${placeholderWithTranslation.gultigkeitsfilter}</h3>
 		<div class="inlineLabel">
 			<input type="radio" id="validityIgnore" name="proxiesValid" value="ignore" onclick="submit();" #if($proxiesValid && $proxiesValid=='ignore')checked#end><label for="validityIgnore"> ${placeholderWithTranslation.allevertretungen}</label>
 			<input type="radio" id="validityFuture" name="proxiesValid" value="future" onclick="submit();" #if((!$proxiesValid) || $proxiesValid=='future')checked#end><label for="validityFuture"> ${placeholderWithTranslation.keineabgelaufenenvertretungen}</label>

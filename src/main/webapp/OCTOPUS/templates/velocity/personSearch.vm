@@ -254,7 +254,8 @@
             </div>
         </form>
     </div>
-    <vera-info vera-stay>
+    <vera-info>
+	<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
         ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen} <br/>
         ${placeholderWithTranslation.HINT_SEARCH_MULTIPLE}
     </vera-info>

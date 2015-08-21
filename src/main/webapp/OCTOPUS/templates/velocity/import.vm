@@ -56,6 +56,7 @@
 		#end
 
 		<vera-info>
+			<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
 			${placeholderWithTranslation.beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden}
 		</vera-info>
 

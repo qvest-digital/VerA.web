@@ -264,9 +264,9 @@
 
 	<div class="tabsSub" vera-content="anschriften">
 		<ul class="marginBottom20" vera-tab-group>
-			<li vera-tab="geschaeftlich" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" ><div>$!message.plain($config.business)</div></li>
-			<li vera-tab="privat" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "2") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '2');" ><div>$!message.plain($config.private)</div></li>
-			<li vera-tab="weitere" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "3") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '3');" ><div>$!message.plain($config.other)</div></li>
+			<li vera-tab="geschaeftlich" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" ><div>${placeholderWithTranslation.geschaftlich}</div></li>
+			<li vera-tab="privat" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "2") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '2');" ><div>${placeholderWithTranslation.privat}</div></li>
+			<li vera-tab="weitere" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "3") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '3');" ><div>${placeholderWithTranslation.GENERIC_MORE}</div></li>
 		</ul>
 
 		<hr />
@@ -274,7 +274,7 @@
 		<div class="CharSet">
 			<label for="encoding">${placeholderWithTranslation.zeichensatz}</label>
 			<select vera-select name="encoding" id="encoding">
-				<option value="address$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '1');" ><div>$!message.plain($config.latin)</div></option>
+				<option value="address$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '1');" ><div>${placeholderWithTranslation.GENERIC_LATIN}</div></option>
 				<option value="address$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '2');" ><div>${placeholderWithTranslation.zeichensatz} 1</div></option>
 				<option value="address$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '3');" ><div>${placeholderWithTranslation.zeichensatz} 2</div></option>
 			</select>

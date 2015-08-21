@@ -190,7 +190,7 @@
                 	</tr>
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.anschriftweitere}:</td>
-                		<td><input type="text" name="other" maxlength="300" value="${placeholderWithTranslation.weitere}" ></td>
+                		<td><input type="text" name="other" maxlength="300" value="${placeholderWithTranslation.GENERIC_MORE}" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.zeichensatzlatein}:</td>

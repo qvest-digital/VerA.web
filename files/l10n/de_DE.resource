@@ -1295,6 +1295,8 @@ anderungenspeichern=\u00E4nderungen speichern
 GENERIC_UPLOAD_BUTTON = Datei ausw\u00E4hlen
 GENERIC_TO=An
 GENERIC_FEDERAL_STATE=Bundesland
+GENERIC_PERSONAL_DATA=Pers\u00F6nliche Daten
+GENERIC_NUMBER_OF_GUESTS=G\u00E4steanzahl
 
 #MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Dieser Gast wurde ohne Hauptperson eingeladen
