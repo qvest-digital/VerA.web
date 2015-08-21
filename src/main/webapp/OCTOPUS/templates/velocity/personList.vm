@@ -670,8 +670,8 @@ i							${placeholderWithTranslation.markiertepersonen}
 			#if ($action == "guest")
 				<div id="key" class="table hinweis contentBoxColored grayBorder floatRight" style="margin-top: -14px;">
 					<div class="tableRow">
-						<div class="tableCell"><strong>H</strong> = $!message.text($!config.main) ${placeholderWithTranslation.einladen}</div>
-						<div class="tableCell"><strong>P</strong> = $!message.text($!config.partner) ${placeholderWithTranslation.einladen}</div>
+						<div class="tableCell"><strong>H</strong> = ${placeholderWithTranslation.hauptperson} ${placeholderWithTranslation.einladen}</div>
+						<div class="tableCell"><strong>P</strong> = ${placeholderWithTranslation.partner} ${placeholderWithTranslation.einladen}</div>
 						<div class="tableCell"><strong>R</strong> = ${placeholderWithTranslation.aufreservesetzen}</div>
 						#if ($delegationCanBeUsed)
 							<div class="tableCell"><strong>D</strong> = ${placeholderWithTranslation.delegationanmelden}</div>
@@ -704,8 +704,8 @@ i							${placeholderWithTranslation.markiertepersonen}
 					#if($action == "guest")
 						<tr>
 							#if($grants.mayWrite())
-								<th class="textCenter smallCell" title="$!message.text($!config.main) einladen">H <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkiereninklpartnerwenneingeladen}" style="margin: 5px;" #if($listselection.size() == $list.size()) checked#end/></th>
-								<th class="textCenter smallCell" title="$!message.text($!config.partner) ${placeholderWithTranslation.einladen}">P</th>
+								<th class="textCenter smallCell" title="${placeholderWithTranslation.hauptperson} ${placeholderWithTranslation.einladen}">H <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkiereninklpartnerwenneingeladen}" style="margin: 5px;" #if($listselection.size() == $list.size()) checked#end/></th>
+								<th class="textCenter smallCell" title="${placeholderWithTranslation.partner} ${placeholderWithTranslation.einladen}">P</th>
 								<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen}">R</th>
 								#if ($delegationCanBeUsed)
 									<th class="textCenter smallCell" title="${placeholderWithTranslation.delegationanmelden}">D</th>
@@ -1053,26 +1053,26 @@ i							${placeholderWithTranslation.markiertepersonen}
 								#if($grants.mayWrite())
 									#if($event.invitationtype == 2)
 										## Ohne Partner
-										<td title="$!config.main einladen">
+										<td title="${placeholderWithTranslation.hauptperson} ${placeholderWithTranslation.einladen}">
 											<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 										</td>
-										<td title="$!config.partner einladen">
+										<td title="${placeholderWithTranslation.partner} ${placeholderWithTranslation.einladen}">
 											<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) disabled #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 										</td>
 									#elseif($event.invitationtype == 3)
 										## NurPartner
-										<td title="$!config.main einladen">
+										<td title="${placeholderWithTranslation.hauptperson} ${placeholderWithTranslation.einladen}">
 											<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 										</td>
-										<td title="$!config.partner einladen">
+										<td title="${placeholderWithTranslation.partner} ${placeholderWithTranslation.einladen}">
 											<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) disabled #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 										</td>
 									#else
 										## Mit Partner
-										<td title="$!config.main einladen">
+										<td title="${placeholderWithTranslation.hauptperson} ${placeholderWithTranslation.einladen}">
 											<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #elseif($hasB) onClick="onClickSetState('${bean.id}-select', '${bean.id}-partner');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 										</td>
-										<td title="$!config.partner einladen">
+										<td title="${placeholderWithTranslation.partner} ${placeholderWithTranslation.einladen}">
 											<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) disabled #elseif($hasA) onClick="onClickSetState('${bean.id}-partner', '${bean.id}-select');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 										</td>
 									#end

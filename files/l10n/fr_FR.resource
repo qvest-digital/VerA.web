@@ -137,7 +137,7 @@ Personendaten=donn\u00E9es personnelles
 Anschriften=adresses
 Subtabsvon\u201EPersonendaten\u201D=Sous-onglets de \u00ABdonn\u00E9es personnelles\u00BB
 Hauptperson=personnage Principal
-Partner=partenaire
+partner=partenaire
 Subtabsvon\u201EAnschriften\u201D=Sous-onglets de "adresses"
 Gesch\u00E4ftlich=entreprise
 Privat=en priv\u00E9
@@ -167,7 +167,7 @@ Jahre=ann\u00E9es
 MOnate=mois
 Tage=jour
 Hauptperson:=Personnage Principal:
-Partner:=partenaire:
+partner:=partenaire:
 AnschriftGesch\u00E4ftlich:=Adresse d'affaires:
 AnschriftPrivat:=Adresse priv\u00E9e:
 AnschriftWeitere:=Autre adresse:
@@ -227,7 +227,7 @@ Anschriften=adresses
 
 Subtabsvon\u201EPersonendaten\u201D=Sous-onglets de \u00ABdonn\u00E9es personnelles\u00BB
 Hauptperson=personnage Principal
-Partner=partenaire
+partner=partenaire
 Subtabsvon\u201EAnschriften\u201D=Sous-onglets de "adresses"
 Gesch\u00E4sftlich=entreprise
 Privat=en priv\u00E9
@@ -374,7 +374,7 @@ Statistikf\u00FCrGast:=Statistiques de clients:
 Veranstaltung=\u00E9v\u00E9nement
 Beginn=d\u00E9but
 Status=statut
-Partner=partenaire
+partner=partenaire
 
 #Personen/Personensuche
 Personensuche=Recherche de personnes
@@ -386,7 +386,7 @@ HinweisSiek\u00E4nnenbeiderSuchesogenanntePlatzhalterverwenden,der*stehtf\u00FCr
 NeuePersonanlegen=Cr\u00E9ation d'une nouvelle personne
 Personendaten=donn\u00E9es personnelles
 Hauptperson=personnage Principal
-Partner=partenaire
+partner=partenaire
 IstFirma=est Soci\u00E9t\u00E9
 Zeichensatz=Charset
 Latein=Latin

@@ -1295,3 +1295,9 @@ anderungenspeichern=\u00E4nderungen speichern
 GENERIC_UPLOAD_BUTTON = Datei ausw\u00E4hlen
 GENERIC_TO=An
 GENERIC_FEDERAL_STATE=Bundesland
+
+#MESSAGES
+MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Dieser Gast wurde ohne Hauptperson eingeladen
+MESSAGE_INVITATION_WITHOUT_PARTNER=Dieser Gast wurde ohne Partner eingeladen
+MESSAGE_INVITATION_WITHOUT_PERSON_PART1=M\u00F6chten Sie diese jetzt
+MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON=nachtr\u00E4glich einladen

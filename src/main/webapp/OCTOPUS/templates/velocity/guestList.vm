@@ -377,8 +377,8 @@
 			#if($userConfig.guestListPhone)
 					<th style="padding: 10px">${placeholderWithTranslation.telefon}</th>
 			#end
-					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">$!message.text($!config.main)</span></th>
-					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">$!message.text($!config.partner)</span></th>
+					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.hauptperson}</span></th>
+					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.partner}</span></th>
 				</tr>
 
 				#set($deletedperson = false)

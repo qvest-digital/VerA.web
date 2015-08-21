@@ -77,17 +77,17 @@
 						<div class="tableCell">
 							<label for="select-addresstype">${placeholderWithTranslation.adresstyp}</label>
 							<select id="select-addresstype" name="select-addresstype">
-                    			<option value="1" #if($guestdoctype.addresstype == 1) selected#end>$!message.text($!config.business)</option>
-                    			<option value="2" #if($guestdoctype.addresstype == 2) selected#end>$!message.text($!config.private)</option>
-                    			<option value="3" #if($guestdoctype.addresstype == 3) selected#end>$!message.text($!config.other)</option>
+                    			<option value="1" #if($guestdoctype.addresstype == 1) selected#end>${placeholderWithTranslation.geschaftlich}</option>
+                    			<option value="2" #if($guestdoctype.addresstype == 2) selected#end>${placeholderWithTranslation.privat}</option>
+                    			<option value="3" #if($guestdoctype.addresstype == 3) selected#end>${placeholderWithTranslation.weitere}</option>
 							</select>
 						</div>
 						<div class="tableCell">
 							<label for="select-locale">${placeholderWithTranslation.zeichensatz}</label>
 							<select id="select-locale" name="select-locale">
-                    			<option value="1" #if($guestdoctype.locale == 1) selected#end>$!message.text($!config.latin)</option>
-                    			<option value="2" #if($guestdoctype.locale == 2) selected#end>$!message.text($!config.extra1)</option>
-                    			<option value="3" #if($guestdoctype.locale == 3) selected#end>$!message.text($!config.extra2)</option>
+                    			<option value="1" #if($guestdoctype.locale == 1) selected#end>${placeholderWithTranslation.GENERIC_LATIN}</option>
+                    			<option value="2" #if($guestdoctype.locale == 2) selected#end>${placeholderWithTranslation.zeichensatz} 1</option>
+                    			<option value="3" #if($guestdoctype.locale == 3) selected#end>${placeholderWithTranslation.zeichenstaz} 2</option>
                     		</select>
 
 						</div>
@@ -238,7 +238,7 @@
 							</div>						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
-								<label for="guestdoctype-suffix1">$!config.suffix1</label>
+								<label for="guestdoctype-suffix1">${placeholderWithTranslation.adresszusatz} 1</label>
 								<input type="text" id="guestdoctype-suffix1" maxlength="100" name="guestdoctype-suffix1" value="$!message.text($guestdoctype.suffix1)" />
 							</div>
 							<div class="tableCell width50">
@@ -248,7 +248,7 @@
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
-								<label for="guestdoctype-suffix2">$!config.suffix2</label>
+								<label for="guestdoctype-suffix2">${placeholderWithTranslation.adresszusatz} 2</label>
 								<input type="text" id="guestdoctype-suffix2" maxlength="100" name="guestdoctype-suffix2" value="$!message.text($guestdoctype.suffix2)" />
 							</div>
 							<div class="tableCell width50">
