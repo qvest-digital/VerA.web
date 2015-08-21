@@ -126,6 +126,10 @@ GENERIC_REPRESENTATIVE_SINGULAR=Representante
 GENERIC_REPRESENTATIVE_PLURAL=Representantes
 GENERIC_SALUTATION_SINGULAR=Denominaci\u00F3n
 GENERIC_SALUTATION_PLURAL=Denominaciones
+GENERIC_STATUS_OPEN=Abierto
+GENERIC_STATUS_ACCEPT=Confirmado
+GENERIC_STATUS_DECLINE=Rechazado
+GENERIC_STATUS_PARTICIPATED=Participante
 GENERIC_TASK_SINGULAR=Tarea
 GENERIC_TASK_PLURAL=Tareas
 GENERIC_USER_SINGULAR=Usuario
@@ -169,18 +173,23 @@ HEADER_ELEMENT_NEW_PLURAL=nuevos registros
 # FIXES
 GENERIC_EDIT=Editar
 GENERIC_OFFICIAL_TITLE_SHORT=T\u00EDtulo
-LETTER_COMMERCIAL=\u0028G\u0029 ********************************************
+LETTER_COMMERCIAL=\u0028G\u0029
 GENERIC_WRITE_EMAIL=Redactar E-mail
 GENERIC_SEARCH_FOR_PERSON=Buscar persona
 GENERIC_CHOOSE_ROLE=Seleccionar rol
 GENERIC_EVENT=Evento
 GENERIC_EVENTS=Eventos
+SHOW_ALL_RECORDS=Mostrar todos los registros
+SHOW_RECORDS=Mostrar registros
 
 # GENERALLY USED
+GENERIC_EMAIL_ADDRESS=Direcci\u00F3n de correo electr\u00F3nico
 GENERIC_FROM=De
 GENERIC_LANGUAGE=Idioma
 GENERIC_LOGOUT=Cerrar sesi\u00F3n
+GENERIC_ON=En
 GENERIC_PAGE=P\u00E1gina
+GENERIC_PLACE=plaza
 
 # MENU
 MENU_PERSONS=Personas
@@ -209,39 +218,39 @@ WELCOME_TEXT_GRANT_EXPORT_PART_ONE=Usted tiene la posibilidad de visualizar, exp
 WELCOME_TEXT_GRANT_WRITE_FULL=y observaciones
 WELCOME_TEXT_GRANT_EXPORT_PART_TWO=de personas y eventos.
 WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Usted tiene la posibilidad de visualizar, exportar, importar, editar y eliminar datos maestros y observaciones de personas y eventos.
-WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO=También puede visualizar y editar la configuración del mandante.
+WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO=Tambi\u00E9n puede visualizar y editar la configuraci\u00F3n del mandante.
 WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Usted tiene la posibilidad de visualizar, exportar, importar, editar y eliminar los datos maestros y observaciones de personas y eventos.
-WELCOME_TEXT_GRANT_ADMIN_PART_TWO=También puede visualizar y editar la configuración global y por mandante.
-WELCOME_TEXT_HELP=Si necesita más información, por favor visite la página \u201EAyuda\u201C.
-WELCOME_TEXT_NO_ROLE=Su acceso no dispone de rol para utilizar VerA.web. Por favor, cierre su sesión y vuelva a intentarlo con una cuenta de usuario habilitada en VerA.web.
+WELCOME_TEXT_GRANT_ADMIN_PART_TWO=Tambi\u00E9n puede visualizar y editar la configuraci\u00F3n global y por mandante.
+WELCOME_TEXT_HELP=Si necesita m\u00E1s informaci\u00F3n, por favor visite la p\u00E1gina \u201EAyuda\u201C.
+WELCOME_TEXT_NO_ROLE=Su acceso no dispone de rol para utilizar VerA.web. Por favor, cierre su sesi\u00F3n y vuelva a intentarlo con una cuenta de usuario habilitada en VerA.web.
 GENERIC_AVAILABLE_DUPLICATES=Duplicados existentes
 
 # ADMINISTRATION/ANREDEN
 GENERIC_SALUTATIONS=Denominaciones
 GENERIC_SALUTATIONS_MARKED=Denominaciones seleccionadas
 GENERIC_ID=ID
-GENERIC_MAIN_FORM=Descripción
-GENERIC_GENDER=Género
+GENERIC_MAIN_FORM=Descripci\u00F3n
+GENERIC_GENDER=G\u00E9nero
 GENERIC_GENDER_FEMALE=Mujer
 GENERIC_GENDER_MALE=Hombre
 GENERIC_PAGING=Punto de entrada directa
-MESSAGE_SUCCESS_INSERT_SALUTATION=Denominación creada satisfactoriamente
-QUESTION_DELETE=¿Realmente desea eliminar su selección?
+MESSAGE_SUCCESS_INSERT_SALUTATION=Denominaci\u00F3n creada satisfactoriamente
+QUESTION_DELETE=\u00BFRealmente desea eliminar su selecci\u00F3n?
 GENERIC_NEW_PLURAL=nuevas
-GENERIC_YES=Sí
+GENERIC_YES=S\u00ED
 GENERIC_NO=No
-MESSAGE_SUCCESS_DELETE_SALUTATION=Denominación eliminada satisfactoriamente
-MESSAGE_EXIST_MASTER_DATA_ENTRY=Ya existe una denominación con el nombre
+MESSAGE_SUCCESS_DELETE_SALUTATION=Denominaci\u00F3n eliminada satisfactoriamente
+MESSAGE_EXIST_MASTER_DATA_ENTRY=Ya existe una denominaci\u00F3n con el nombre
 GENERIC_NAME=Nombre
 GENERIC_NEW=Nueva
 
 # ADMINISTRATION/ARBEITSBEREICHE
-GENERIC_WORK_FIELDS=Áreas de trabajo
-GENERIC_WORK_FIELDS_MARKED=Área(s) de trabajo seleccionada(s)
+GENERIC_WORK_FIELDS=\u00C1reas de trabajo
+GENERIC_WORK_FIELDS_MARKED=\u00C1rea(s) de trabajo seleccionada(s)
 MESSAGE_MISSING_DATA=No se han encontrado datos
-MESSAGE_INSERT_WORK_FIELD=Nuevo área de trabajo creado satisfactoriamente
-MESSAGE_FAIL_DELETE_WORK_FIELD=No se ha eliminado ningún área de trabajo
-MESSAGE_SUCCESS_DELETE_WORK_FIELD=Se ha eliminado un área de trabajo
+MESSAGE_INSERT_WORK_FIELD=Nuevo \u00E1rea de trabajo creado satisfactoriamente
+MESSAGE_FAIL_DELETE_WORK_FIELD=No se ha eliminado ning\u00FAn \u00E1rea de trabajo
+MESSAGE_SUCCESS_DELETE_WORK_FIELD=Se ha eliminado un \u00E1rea de trabajo
 
 # ADMINISTRATION/BENUTZER
 GENERIC_USER=Usuario
@@ -250,15 +259,15 @@ GENERIC_USERNAME=Nombre de usuario
 GENERIC_USER_RIGHTS=Permisos de usuario
 MESSAGE_SUCCESS_INSERT_USER=Se ha creado un nuevo usuario
 MESSAGE_SUCCESS_DELETE_USER=Se ha eliminado un usuario
-MESSAGE_FILL_USER_ROLE=Debe introducir una descripción para el rol de usuario
+MESSAGE_FILL_USER_ROLE=Debe introducir una descripci\u00F3n para el rol de usuario
 
 # ADMINISTRATION/DOKUMENTTYPEN
 GENERIC_TOOLTIP=Aviso
-HINT_FORMAT_INFO=OOo 1.1 para OpenOffice 1.1 (Archivo-sxc) y OOo 2.0 para OpenOffice 2.0 (Archivo-ods), xls para Microsoft Office: los signos distintivos 50 y 99 serán automáticamente aderidos a un nuevo evento. En caso del signo 50 no habrá posibilidad de texto libre.(Archivo-xls) y CSV para Archivo-CSV.
-HINT_EVENT_MARK=Los signos distintivos 50 y 99 serán automáticamente aderidos a un nuevo eve     nto. En caso del signo 50 no habrá posibilidad de texto libre.
+HINT_FORMAT_INFO=OOo 1.1 para OpenOffice 1.1 (Archivo-sxc) y OOo 2.0 para OpenOffice 2.0 (Archivo-ods), xls para Microsoft Office: los signos distintivos 50 y 99 ser\u00E1n autom\u00E1ticamente aderidos a un nuevo evento. En caso del signo 50 no habr\u00E1 posibilidad de texto libre.(Archivo-xls) y CSV para Archivo-CSV.
+HINT_EVENT_MARK=Los signos distintivos 50 y 99 ser\u00E1n autom\u00E1ticamente aderidos a un nuevo evento. En caso del signo 50 no habr\u00E1 posibilidad de texto libre.
 GENERIC_DOCUMENT_TYPES_MARKED=Tipo(s) de documento seleccionado(s)
-GENERIC_LABELLING=Descripción
-GENERIC_ADRESS_TYPE=Tipo de dirección
+GENERIC_LABELLING=Descripci\u00F3n
+GENERIC_ADRESS_TYPE=Tipo de direcci\u00F3n
 GENERIC_CHARSET=Charset
 GENERIC_FORMAT=Formato
 GENERIC_PARTNER_DOCUMENT=Documento para partner
@@ -269,8 +278,8 @@ GENERIC_SD=SD
 GENERIC_BUSINESS=Negocio
 GENERIC_PRIVATE=Privado
 GENERIC_MORE=Adicionales
-GENERIC_LATIN=Latín
-kyrillisch=Cirílico
+GENERIC_LATIN=Lat\u00EDn
+kyrillisch=Cir\u00EDlico
 chinesisch=Chino
 eswurdeeindokumenttypgeloscht=Se ha eliminado un tipo de documento.
 eswurdeeinneuerdokumenttypangelegt=Nuevo tipo de documento creado satisfactoriamente.

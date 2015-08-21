@@ -225,8 +225,12 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createInfoHtml = function (toolTip, htmlStr) {
-        return $('<div class="hinweis grayBorder marginBottom20 notBold"><strong>' + toolTip + '</strong><p>'
-            + htmlStr + '</p></div>');
+        if (htmlStr == undefined) {
+            return $('<div class="hinweis grayBorder marginBottom20 notBold">' + toolTip + '</div>');
+        } else {
+            return $('<div class="hinweis grayBorder marginBottom20 notBold"><strong>' + toolTip + '</strong><p>'
+                + htmlStr + '</p></div>');
+        }
     };
 
     /**

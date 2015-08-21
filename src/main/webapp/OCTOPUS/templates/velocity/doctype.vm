@@ -170,8 +170,9 @@
 
 			<input type="hidden" name="egal" value="egal" id="presave">
 			<vera-info>
-	   			 <p><strong>${placeholderWithTranslation.GENERIC_FORMAT}:</strong> ${placeholderWithTranslation.HINT_FORMAT_INFO}</p>
-	  			 <p><strong>${placeholderWithTranslation.kennzeichen}:</strong> ${placeholderWithTranslation.HINT_EVENT_MARK}</p>
+				<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
+	   			<p><strong>${placeholderWithTranslation.GENERIC_FORMAT}:</strong> ${placeholderWithTranslation.HINT_FORMAT_INFO}</p>
+	  			<p><strong>${placeholderWithTranslation.kennzeichen}:</strong> ${placeholderWithTranslation.HINT_EVENT_MARK}</p>
 			</vera-info>
 
 			##Rueckfrage beim Loeschen
