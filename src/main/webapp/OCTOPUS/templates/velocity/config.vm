@@ -174,43 +174,43 @@
                 <table class="marginBottom20">
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.hauptperson}:</td>
-                		<td><input type="text" name="main" maxlength="300" value="$!message.text($config.main)" ></td>
+                		<td><input type="text" name="main" maxlength="300" value="${placeholderWithTranslation.hauptperson}" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.partner}:</td>
-                		<td><input type="text" name="partner" maxlength="300" value="$!message.text($config.partner)" ></td>
+                		<td><input type="text" name="partner" maxlength="300" value="${placeholderWithTranslation.partner}" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.anschriftgeschaftlich}:</td>
-                		<td><input type="text" name="business" maxlength="300" value="$!message.text($config.business)" ></td>
+                		<td><input type="text" name="business" maxlength="300" value="${placeholderWithTranslation.geschaftlich}" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.anschriftprivat}:</td>
-                		<td><input type="text" name="private" maxlength="300" value="$!message.text($config.private)" ></td>
+                		<td><input type="text" name="private" maxlength="300" value="${placeholderWithTranslation.privat}" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.anschriftweitere}:</td>
-                		<td><input type="text" name="other" maxlength="300" value="$!message.text($config.other)" ></td>
+                		<td><input type="text" name="other" maxlength="300" value="${placeholderWithTranslation.weitere}" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.zeichensatzlatein}:</td>
-                		<td><input type="text" name="latin" maxlength="300" value="$!message.text($config.latin)" ></td>
+                		<td><input type="text" name="latin" maxlength="300" value="${placeholderWithTranslation.GENERIC_LATIN}" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.zeichensatzalternative} 1:</td>
-                		<td><input type="text" name="extra1" maxlength="300" value="$!message.text($config.extra1)" ></td>
+                		<td><input type="text" name="extra1" maxlength="300" value="${placeholderWithTranslation.zeichensatz} 1" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.zeichensatzalternative} 2:</td>
-                		<td><input type="text" name="extra2" maxlength="300" value="$!message.text($config.extra2)" ></td>
+                		<td><input type="text" name="extra2" maxlength="300" value="${placeholderWithTranslation.zeichensatz} 2" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.adresszusatz} 1:</td>
-                		<td><input type="text" name="suffix1" maxlength="300" value="$!message.text($config.suffix1)" ></td>
+                		<td><input type="text" name="suffix1" maxlength="300" value="${placeholderWithTranslation.adresszusatz} 1" ></td>
                 	</tr>
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.adresszusatz} 2:</td>
-                		<td><input type="text" name="suffix2" maxlength="300" value="$!message.text($config.suffix2)" ></td>
+                		<td><input type="text" name="suffix2" maxlength="300" value="${placeholderWithTranslation.adresszusatz} 2" ></td>
                 	</tr>
                 </table>
             </div>

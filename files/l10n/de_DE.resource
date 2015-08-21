@@ -1296,6 +1296,12 @@ GENERIC_UPLOAD_BUTTON = Datei ausw\u00E4hlen
 GENERIC_TO=An
 GENERIC_FEDERAL_STATE=Bundesland
 
+#MESSAGES
+MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Dieser Gast wurde ohne Hauptperson eingeladen
+MESSAGE_INVITATION_WITHOUT_PARTNER=Dieser Gast wurde ohne Partner eingeladen
+MESSAGE_INVITATION_WITHOUT_PERSON_PART1=M\u00F6chten Sie diese jetzt
+MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON=nachtr\u00E4glich einladen
+
 # EVENT LIST TEXTS
 EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Mindestens eine markierte Veranstaltung l\u00e4uft aktuell oder liegt in der Zukunft.
 EVENT_LIST_WARNING_SELECTION_CHANGING=Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L\u00f6schen ab.

@@ -60,16 +60,16 @@
 		#if($grants.mayWrite())
 			<select id="persondoctype-locale" name="persondoctype-locale" >
 				<option value="1" #if($persondoctype.locale && $persondoctype.locale == 1) selected#end>$!message.text($!config.latin)</option>
-				<option value="2" #if($persondoctype.locale && $persondoctype.locale == 2) selected#end>$!message.text($!config.extra1)</option>
-				<option value="3" #if($persondoctype.locale && $persondoctype.locale == 3) selected#end>$!message.text($!config.extra2)</option>
+				<option value="2" #if($persondoctype.locale && $persondoctype.locale == 2) selected#end>${placeholderWithTranslation.zeichensatz} 1</option>
+				<option value="3" #if($persondoctype.locale && $persondoctype.locale == 3) selected#end>${placeholderWithTranslation.zeichensatz} 2</option>
 			</select>
 		#else
 			#if($persondoctype.locale && $persondoctype.locale == 1)
 				$!message.text($!config.latin)
 			#elseif($persondoctype.locale && $persondoctype.locale == 2)
-				$!message.text($!config.extra1)
+				${placeholderWithTranslation.zeichensatz} 1
 			#elseif($persondoctype.locale && $persondoctype.locale == 3)
-				$!message.text($!config.extra2)
+				${placeholderWithTranslation.zeichensatz} 2
 			#end
 		#end
 	</div>

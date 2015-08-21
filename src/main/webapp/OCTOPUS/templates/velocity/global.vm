@@ -28,32 +28,32 @@
 
 #macro(comboAddresstype $name $current $style)
 	<select name="$name" #if($style) style="$style"#end>
-		<option value="1"#if($current == 1) selected#end>$!config.business</option>
-		<option value="2"#if($current == 2) selected#end>$!config.private</option>
-		<option value="3"#if($current == 3) selected#end>$!config.other</option>
+		<option value="1"#if($current == 1) selected#end>${placeholderWithTranslation.geschaftlich}</option>
+		<option value="2"#if($current == 2) selected#end>${placeholderWithTranslation.privat}</option>
+		<option value="3"#if($current == 3) selected#end>${placeholderWithTranslation.weitere}</option>
 	</select>
 #end
 
 #macro(comboLocale $name $current $style)
 	<select name="$name" #if($style) style="$style"#end>
-		<option value="1"#if($current == 1) selected#end>$!config.latin</option>
-		<option value="2"#if($current == 2) selected#end>$!config.extra1</option>
-		<option value="3"#if($current == 3) selected#end>$!config.extra2</option>
+		<option value="1"#if($current == 1) selected#end>${placeholderWithTranslation.GENERIC_LATIN}</option>
+		<option value="2"#if($current == 2) selected#end>${placeholderWithTranslation.zeichensatz} 1</option>
+		<option value="3"#if($current == 3) selected#end>${placeholderWithTranslation.zeichensatz} 2</option>
 	</select>
 #end
 
 #macro(textAddresstype $current)
-	#if($current == 1) $!config.business
-	#elseif($current == 2) $!config.private
-	#elseif($current == 3) $!config.other
+	#if($current == 1) ${placeholderWithTranslation.geschaftlich} 
+	#elseif($current == 2) ${placeholderWithTranslation.privat}
+	#elseif($current == 3) ${placeholderWithTranslation.weitere}
 	#else ${placeholderWithTranslation.GENERIC_ERROR}
 	#end
 #end
 
 #macro(textLocale)
-	#if($current == 1) $!config.latin
-	#elseif($current == 2) $!config.extra1
-	#elseif($current == 3) $!config.extra2
+	#if($current == 1) ${placeholderWithTranslation.GENERIC_LATIN} 
+	#elseif($current == 2) ${placeholderWithTranslation.zeichensatz} 1
+	#elseif($current == 3) ${placeholderWithTranslation.zeichensatz} 2
 	#else ${placeholderWithTranslation.GENERIC_ERROR}
 	#end
 #end

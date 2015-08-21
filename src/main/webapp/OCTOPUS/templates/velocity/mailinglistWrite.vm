@@ -61,8 +61,8 @@
             					<option value="country">${placeholderWithTranslation.land}</option>
             					<option value="poboxzipcode">${placeholderWithTranslation.postfachplz}</option>
             					<option value="pobox">${placeholderWithTranslation.postfachnummer}</option>
-            					<option value="suffix1">$!message.text($!config.suffix1)</option>
-            					<option value="suffix2">$!message.text($!config.suffix2)</option>
+            					<option value="suffix1">${placeholderWithTranslation.adresszusatz} 1</option>
+            					<option value="suffix2">${placeholderWithTranslation.adresszusatz} 2</option>
             					<option value="phone">${placeholderWithTranslation.telefon}</option>
             					<option value="fax">${placeholderWithTranslation.fax}</option>
             					<option value="mobile">${placeholderWithTranslation.mobil}</option>

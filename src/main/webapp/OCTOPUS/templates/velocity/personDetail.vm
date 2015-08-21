@@ -200,8 +200,8 @@
 
 	<div class="tabsSub" vera-content="personendaten">
 		<ul class="marginBottom20" vera-tab-group>
-			<li vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" ><div>$!message.plain($config.main)</div></li>
-			<li vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" ><div>$!message.plain($config.partner)</div></li>
+			<li vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" ><div>${placeholderWithTranslation.hauptperson}</div></li>
+			<li vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" ><div>${placeholderWithTranslation.partner}</div></li>
 		</ul>
 
 		<hr />
@@ -209,9 +209,12 @@
 		<div class="CharSet">
 			<label for="encoding">${placeholderWithTranslation.zeichensatz}</label>
 			<select vera-select name="encoding" id="encoding">
-				<option value="person$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '1');" ><div>$!message.plain($config.latin)</div></option>
-				<option value="person$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '2');" ><div>$!message.plain($config.extra1)</div></option>
-				<option value="person$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '3');" ><div>$!message.plain($config.extra2)</div></option>
+				<option value="person$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end 
+				onclick="$('#personLocaleTab').attr('value', '1');" ><div>n)</div>${placeholderWithTranslation.latein}</option>
+				<option value="person$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end 
+				onclick="$('#personLocaleTab').attr('value', '2');" ><div>${placeholderWithTranslation.zeichensatz} 1</div></option>
+				<option value="person$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end 
+				onclick="$('#personLocaleTab').attr('value', '3');" ><div>${placeholderWithTranslation.zeichensatz} 2</div></option>
 			</select>
 		</div>
 	</div>
@@ -272,8 +275,8 @@
 			<label for="encoding">${placeholderWithTranslation.zeichensatz}</label>
 			<select vera-select name="encoding" id="encoding">
 				<option value="address$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '1');" ><div>$!message.plain($config.latin)</div></option>
-				<option value="address$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '2');" ><div>$!message.plain($config.extra1)</div></option>
-				<option value="address$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '3');" ><div>$!message.plain($config.extra2)</div></option>
+				<option value="address$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '2');" ><div>${placeholderWithTranslation.zeichensatz} 1</div></option>
+				<option value="address$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '3');" ><div>${placeholderWithTranslation.zeichensatz} 2</div></option>
 			</select>
 		</div>
 	</div>
