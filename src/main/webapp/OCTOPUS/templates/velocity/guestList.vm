@@ -192,11 +192,11 @@
 				<div class="tableRow">
 						<div class="tableCell width35 inlineInput" style="padding-bottom:0"><label for="actionSelection">${placeholderWithTranslation.markiertepersonen}</label>
 								<select id="actionSelection" class="autoWidth">
-									<option>${placeholderWithTranslation.loschen}</option>
-									<option>${placeholderWithTranslation.GUEST_LIST_CATEGORY_ASSIGN}</option>
-									<option>${placeholderWithTranslation.GUEST_LIST_CATEGORY_REMOVE}</option>
-									<option>${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
-									<option>${placeholderWithTranslation.GUEST_LIST_DATA_EXPORT}</option>
+									<option value="0">${placeholderWithTranslation.loschen}</option>
+									<option value="1">${placeholderWithTranslation.GUEST_LIST_CATEGORY_ASSIGN}</option>
+									<option value="2">${placeholderWithTranslation.GUEST_LIST_CATEGORY_REMOVE}</option>
+									<option value="3">${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
+									<option value="4">${placeholderWithTranslation.GUEST_LIST_DATA_EXPORT}</option>
 								</select>
 								<input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.durchfuhren}" class="autoWidth">
 						</div>
@@ -249,21 +249,20 @@
 
 
 				$(function () {
-
 					$('#button\\.execute').click(function (e) {
-						var selectText = $('#actionSelection option:selected').text();
+						var selectValue = $('#actionSelection option:selected').val();
 
 						if(hasSelection()){
-							if (selectText == "Löschen") {
+							if (selectValue == "0") {
 								removeGuestabfrage();
-							} else if (selectText == "Kategorien zuordnen") {
+							} else if (selectValue == "1") {
 								assignCategories();
-							} else if (selectText == "Kategorien entfernen") {
+							} else if (selectValue == "2") {
 								unassignCategories();
-							} else if (selectText == "Verteiler erstellen") {
+							} else if (selectValue == "3") {
 								$('#selectNone').val('false');
 								submitFormWithGivenAction('CreateMailinglist', $grants.mayWrite());
-							} else if (selectText == "Steuerdatei exportieren") {
+							} else if (selectValue == "4") {
 								$('#selectNone').val('false');
 								submitFormWithGivenAction('ShowExportGuestDoctype', $grants.mayExport());
 							}

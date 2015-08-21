@@ -3,212 +3,209 @@
 ## 2008-02-28
 
 <html>
-
-<head>
-	<title>${placeholderWithTranslation.kategorien}</title>
-	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
-	<script type="text/javascript" src="${paths.staticWeb}scripts/jquery.min.js"></script>
-	<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
-	<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
-
-
-	<script type="text/javascript">
-		var showCategory = function () {
-		$(".errormsg").remove();
-		$(".successmsg").remove();
-    		var selectionOfOption = $('option[name$="nix"]:selected');
-    			if(selectionOfOption.length === 1) {
-    				var msg ='<span>${placeholderWithTranslation.waehlensiebittezunaechsteinekategorieaus}</span>';
-					showWarning(msg);
-    			}else {
-					$(".errormsg").remove();
-					$(".successmsg").remove();
-    				#if( $count == 1 )
-						showAllocateAssign('${placeholderWithTranslation.wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen}?',
-						function () { // Ja
-                           	var form = window.opener.document.forms[ "formlist" ];
-                	       	 var input = window.document.createElement('input');
-                	       	 input.type = 'hidden';
-                	       	 input.name = 'categoryAssigned';
-                	       	 input.value = 'assign';
-                	       	 form.appendChild(input);
-                	       	 form.submit();
-						}, function () { //nein
-							showSuccess('${placeholderWithTranslation.eswurdekeinekategoriezugeordnet}');
-						});
-        			#else
-						showAllocateAssign('${placeholderWithTranslation.wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen}?',
-						function () { // Ja
-                           	var form = window.opener.document.forms[ "formlist" ];
-                	       	 var input = window.document.createElement('input');
-                	       	 input.type = 'hidden';
-                	       	 input.name = 'categoryAssigned';
-                	       	 input.value = 'assign';
-                	       	 form.appendChild(input);
-                	       	 form.submit();
-						}, function () { //nein
-							showSuccess('${placeholderWithTranslation.eswurdenkeinekategorienzugeordnet}');
-						});
-        			#end
-    			};
-		};
-		var showRemoveCategory = function() {
-			var selectionOfOption = $('option[name$="nix"]:selected');
-    			if(selectionOfOption.length === 1) {
-    				var msg ='<span>${placeholderWithTranslation.waehlensiebittezunaechsteinekategorieaus}</span>';
-					showWarning(msg);
-    			}else {
-    				#if( $count == 1 )
-						showAllocateRemove('${placeholderWithTranslation.wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen}?',
-						function () { // Ja
-                           	var form = window.opener.document.forms[ "formlist" ];
-                	       	 var input = window.document.createElement('input');
-                	       	 input.type = 'hidden';
-                	       	 input.name = 'categoryAssigned';
-                	       	 input.value = 'unassign';
-                	       	 form.appendChild(input);
-                	       	 form.submit();
-						}, function () { //nein
-							showSuccess('${placeholderWithTranslation.eswurdekeinekategorieentfernt}');
-						});
-        			#else
-						showAllocateRemove('${placeholderWithTranslation.wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen}?',
-						function () { // Ja
-							var form = window.opener.document.forms[ "formlist" ];
-                	       	 var input = window.document.createElement('input');
-                	       	 input.type = 'hidden';
-                	       	 input.name = 'categoryAssigned';
-                	       	 input.value = 'unassign';
-                	       	 form.appendChild(input);
-                	       	 form.submit();
-						}, function () { //nein
-							showSuccess('${placeholderWithTranslation.eswurdenkeinekategorienentfernt}');
-						});
-        			#end
-    			};
-		};
-
-		// Funktion um ausgewählte Option : Zuweisen / Entfernen und Abbrechen zu überprüfen und dementspreche abfragen zu implementieren
-		$(function () {
-            $('#button\\.execute').click(function (e) {
-                var selectText = $("input:button[name$='checkboxForSelection'] ").text();
-
-				if (selectText == "${placeholderWithTranslation.zuweisen}") {
-					showDeleteAllocate();
-				}else if (selectText == "${placeholderWithTranslation.entfernen}") {
-            		selectedActionRemove();
-				}else if (selectText == "${placeholderWithTranslation.abbrechen}") {
-					selectedActionCancel();
-				}
-			});
-		});
-
-		var oldState = { categoryId : null, actionName : null };
-
-		function selected( elt )
-		{
-			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ].value = elt.options[ elt.selectedIndex ].value;
-			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = "${assignmentAction}";
-		}
-
-		function restore()
-		{
-			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ].value = oldState.categoryId;
-			window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = oldState.actionName;
-		}
-
-		function initialize()
-		{
-			oldState.categoryId = window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ].value;
-			oldState.actionName = window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value;
-		}
-
-		function send()
-		{
-#if( $assignmentAction == "assign" )
-#if( $count == 1 )
-			doit = confirm( "${placeholderWithTranslation.wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen}?" );
-#else
-			doit = confirm( "${placeholderWithTranslation.wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen}?" );
-#end
-#else
-#if( $count == 1)
-			doit = confirm( "${placeholderWithTranslation.wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen}?" );
-#else
-			doit = confirm( "${placeholderWithTranslation.wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen}?" );
-#end
-#end
-			if ( doit )
-			{
-				window.opener.document.forms[ "formlist" ].submit();
-			}
-		}
-
-		function adjustSize()
-		{
-			var elt = document.getElementById( "category" );
-			var minWidth = 400;
-			var newWidth = elt ? elt.offsetWidth : minWidth;
-			if ( newWidth < minWidth )
-			{
-				newWidth = minWidth;
-			}
-			if( window.innerWidth < newWidth )
-			{
-				// add fixed margins + paddings
-				newWidth += 100;
-			}
-			window.resizeTo( newWidth, document.body.offsetHeight + 20 );
-		}
-	</script>
-</head>
-
-<body onload="adjustSize();" id="popUp">
-
-<form>
+    <head>
+        <title>${placeholderWithTranslation.kategorien}</title>
+        <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
+        <script type="text/javascript" src="${paths.staticWeb}scripts/jquery.min.js"></script>
+        <script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
+        <script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
 
 
-<div class="contentBoxColored grayBorder">
+        <script type="text/javascript">
+            var showCategory = function () {
+            $(".errormsg").remove();
+            $(".successmsg").remove();
+                var selectionOfOption = $('option[name$="nix"]:selected');
+                    if(selectionOfOption.length === 1) {
+                        var msg ='<span>${placeholderWithTranslation.waehlensiebittezunaechsteinekategorieaus}</span>';
+                        showWarning(msg);
+                    }else {
+                        $(".errormsg").remove();
+                        $(".successmsg").remove();
+                        #if( $count == 1 )
+                            showAllocateAssign('${placeholderWithTranslation.wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen}?',
+                            function () { // Ja
+                                var form = window.opener.document.forms[ "formlist" ];
+                                 var input = window.document.createElement('input');
+                                 input.type = 'hidden';
+                                 input.name = 'categoryAssigned';
+                                 input.value = 'assign';
+                                 form.appendChild(input);
+                                 form.submit();
+                            }, function () { //nein
+                                showSuccess('${placeholderWithTranslation.eswurdekeinekategoriezugeordnet}');
+                            });
+                        #else
+                            showAllocateAssign('${placeholderWithTranslation.wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen}?',
+                            function () { // Ja
+                                var form = window.opener.document.forms[ "formlist" ];
+                                 var input = window.document.createElement('input');
+                                 input.type = 'hidden';
+                                 input.name = 'categoryAssigned';
+                                 input.value = 'assign';
+                                 form.appendChild(input);
+                                 form.submit();
+                            }, function () { //nein
+                                showSuccess('${placeholderWithTranslation.eswurdenkeinekategorienzugeordnet}');
+                            });
+                        #end
+                    };
+            };
+            var showRemoveCategory = function() {
+                var selectionOfOption = $('option[name$="nix"]:selected');
+                    if(selectionOfOption.length === 1) {
+                        var msg ='<span>${placeholderWithTranslation.waehlensiebittezunaechsteinekategorieaus}</span>';
+                        showWarning(msg);
+                    }else {
+                        #if( $count == 1 )
+                            showAllocateRemove('${placeholderWithTranslation.wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen}?',
+                            function () { // Ja
+                                var form = window.opener.document.forms[ "formlist" ];
+                                 var input = window.document.createElement('input');
+                                 input.type = 'hidden';
+                                 input.name = 'categoryAssigned';
+                                 input.value = 'unassign';
+                                 form.appendChild(input);
+                                 form.submit();
+                            }, function () { //nein
+                                showSuccess('${placeholderWithTranslation.eswurdekeinekategorieentfernt}');
+                            });
+                        #else
+                            showAllocateRemove('${placeholderWithTranslation.wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen}?',
+                            function () { // Ja
+                                var form = window.opener.document.forms[ "formlist" ];
+                                 var input = window.document.createElement('input');
+                                 input.type = 'hidden';
+                                 input.name = 'categoryAssigned';
+                                 input.value = 'unassign';
+                                 form.appendChild(input);
+                                 form.submit();
+                            }, function () { //nein
+                                showSuccess('${placeholderWithTranslation.eswurdenkeinekategorienentfernt}');
+                            });
+                        #end
+                    };
+            };
 
-		<h1>${placeholderWithTranslation.waehlensieeinekategorieauswelchesie}
-			#if( $assignmentAction == "assign" )
-				${placeholderWithTranslation.zuweisen}
-			#else
-				${placeholderWithTranslation.entfernen}
-			#end
-		${placeholderWithTranslation.moechten}:</h1>
+            // Funktion um ausgewählte Option : Zuweisen / Entfernen und Abbrechen zu überprüfen und dementspreche abfragen zu implementieren
+            $(function () {
+                $('#button\\.execute').click(function (e) {
+                    var selectValue = $("input:button[name$='checkboxForSelection'] ").id();
+
+                    if (selectValue == "0") {
+                        showDeleteAllocate();
+                    }else if (selectValue == "1") {
+                        selectedActionRemove();
+                    }else if (selectValue == "2") {
+                        selectedActionCancel();
+                    }
+                });
+            });
+
+            var oldState = { categoryId : null, actionName : null };
+
+            function selected( elt )
+            {
+                window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ].value = elt.options[ elt.selectedIndex ].value;
+                window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = "${assignmentAction}";
+            }
+
+            function restore()
+            {
+                window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ].value = oldState.categoryId;
+                window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = oldState.actionName;
+            }
+
+            function initialize()
+            {
+                oldState.categoryId = window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentId" ].value;
+                oldState.actionName = window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value;
+            }
+
+            function send()
+            {
+                #if( $assignmentAction == "assign" )
+                    #if( $count == 1 )
+                                doit = confirm( "${placeholderWithTranslation.wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen}?" );
+                    #else
+                                doit = confirm( "${placeholderWithTranslation.wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen}?" );
+                    #end
+                #else
+                    #if( $count == 1)
+                                doit = confirm( "${placeholderWithTranslation.wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen}?" );
+                    #else
+                                doit = confirm( "${placeholderWithTranslation.wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen}?" );
+                    #end
+                #end
+                if ( doit )
+                {
+                    window.opener.document.forms[ "formlist" ].submit();
+                }
+            }
+
+            function adjustSize()
+            {
+                var elt = document.getElementById( "category" );
+                var minWidth = 400;
+                var newWidth = elt ? elt.offsetWidth : minWidth;
+
+                if ( newWidth < minWidth )
+                {
+                    newWidth = minWidth;
+                }
+                if( window.innerWidth < newWidth )
+                {
+                    // add fixed margins + paddings
+                    newWidth += 100;
+                }
+                window.resizeTo( newWidth, document.body.offsetHeight + 20 );
+            }
+        </script>
+    </head>
+
+    <body onload="adjustSize();" id="popUp">
+        <form>
+            <div class="contentBoxColored grayBorder">
+
+                    <h1>${placeholderWithTranslation.waehlensieeinekategorieauswelchesie}
+                        #if( $assignmentAction == "assign" )
+                            ${placeholderWithTranslation.zuweisen}
+                        #else
+                            ${placeholderWithTranslation.entfernen}
+                        #end
+                    ${placeholderWithTranslation.moechten}:</h1>
 
 
-		#if( $allCategorie.size() > 0 )
-			<label for="category">${placeholderWithTranslation.kategorie}</label>
-			<select name="category" id="category" onChange="selected(this);">
-			<option name="nix" value="">
-		#if( $assignmentAction == "unassign" )
-			<option name="Entfernen" value="0">${placeholderWithTranslation.alleentfernen}
-		#end
-			#foreach( $category in $allCategorie )
-			<option name="kategorie" value="${category.id}">$!message.plain(${category.name})
-			#end
-			</select>
-		#else
-		    ${placeholderWithTranslation.siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt} <em>${placeholderWithTranslation.kategorien}</em> ${placeholderWithTranslation.definieren}
-		#end
+                    #if( $allCategorie.size() > 0 )
+                        <label for="category">${placeholderWithTranslation.kategorie}</label>
+                        <select name="category" id="category" onChange="selected(this);">
+                        <option name="nix" value="">
+                    #if( $assignmentAction == "unassign" )
+                        <option name="Entfernen" value="0">${placeholderWithTranslation.alleentfernen}
+                    #end
+                        #foreach( $category in $allCategorie )
+                            <option name="kategorie" value="${category.id}">$!message.plain(${category.name})
+                        #end
+                        </select>
+                    #else
+                        ${placeholderWithTranslation.siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt} <em>${placeholderWithTranslation.kategorien}</em> ${placeholderWithTranslation.definieren}
+                    #end
 
 
-	<div class="textRight marginTop5" id="buttonPanel-bottom">
-		<input type="button" name="checkboxForSelection" value="Abbrechen" onClick="restore();closePopup();">
-		#if( $assignmentAction == "assign" && $allCategorie.size() > 0 )
-				<input type="button" name="checkboxForSelection" value="Zuweisen" onClick="showCategory();">
-		#elseif ( $allCategorie.size() > 0 )
-				<input type="button" name="checkboxForSelection" value="Entfernen" onClick="showRemoveCategory();">
-		#end
-	</div>
-</div>
-</form>
+                <div class="textRight marginTop5" id="buttonPanel-bottom">
+                    <input id="0" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.abbrechen}" onClick="restore();closePopup();">
+                    #if( $assignmentAction == "assign" && $allCategorie.size() > 0 )
+                        <input id="1" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.zuweisen}" onClick="showCategory();">
+                    #elseif ( $allCategorie.size() > 0 )
+                        <input id="2" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.entfernen}" onClick="showRemoveCategory();">
+                    #end
+                </div>
+            </div>
+        </form>
 
-<vera-info>
-	${placeholderWithTranslation.siehabenpersonenausgewaehltabhaengigvonderanzahlderausgewaehltenpersonenkanndieaktioneinegewissezeitinanspruchnehmen}
-</vera-info>
-</body>
+        <vera-info>
+            ${placeholderWithTranslation.siehabenpersonenausgewaehltabhaengigvonderanzahlderausgewaehltenpersonenkanndieaktioneinegewissezeitinanspruchnehmen}
+        </vera-info>
+    </body>
 </html>

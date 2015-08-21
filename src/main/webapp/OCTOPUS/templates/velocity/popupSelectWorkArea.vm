@@ -87,13 +87,13 @@
 		// Funktion um ausgewählte Option : Zuweisen / Entfernen und Abbrechen zu überprüfen und dementspreche abfragen zu implementieren
 		$(function () {
             $('#button\\.execute').click(function (e) {
-                var selectText = $("input:button[name$='checkboxForSelection'] ").text();
+                var selectValue = $("input:button[name$='checkboxForSelection'] ").id();
 
-				if (selectText == "${placeholderWithTranslation.zuweisen}") {
+				if (selectValue == "0") {
 					showDeleteAllocate();
-				}else if (selectText == "${placeholderWithTranslation.entfernen}") {
+				}else if (selectValue == "1") {
             		selectedActionRemove();
-				}else if (selectText == "${placeholderWithTranslation.abbrechen}") {
+				}else if (selectValue == "2") {
 					selectedActionCancel();
 				}
 			});
@@ -193,11 +193,11 @@
 	#end
 
 	<div class="textRight marginTop5" id="buttonPanel-bottom">
-		<input type="button" name="checkboxForSelection" value="${placeholderWithTranslation.abbrechen}" onClick="restore();closePopup();">
+		<input id="0" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.abbrechen}" onClick="restore();closePopup();">
 		#if( $assignmentAction == "assign" && $allWorkArea.size() > 0 )
-				<input type="button"  name="checkboxForSelection" value="${placeholderWithTranslation.zuweisen}" onClick="showDeleteAllocate();">
+				<input id="1" type="button"  name="checkboxForSelection" value="${placeholderWithTranslation.zuweisen}" onClick="showDeleteAllocate();">
 		#elseif ( $allWorkArea.size() > 0 )
-				<input type="button"  name="checkboxForSelection" value="${placeholderWithTranslation.entfernen}" onClick="showDeleteAllocateRemove();">
+				<input id="2" type="button"  name="checkboxForSelection" value="${placeholderWithTranslation.entfernen}" onClick="showDeleteAllocateRemove();">
 		#end
 	</div>
 </div>

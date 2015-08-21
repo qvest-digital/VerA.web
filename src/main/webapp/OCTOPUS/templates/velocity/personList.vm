@@ -250,7 +250,6 @@
 
 			## Handler für selektierte Aktion
 <script>
-
 	var personModel = (function () {
 		var now = Date.now();
 		// parse a date in yyyy-mm-dd format
@@ -282,156 +281,154 @@
 	}());
 
 
-var showDeleteMessages = function () {
+    var showDeleteMessages = function () {
+        #if(!$grants.mayWrite())
+            $(".errormsg").remove();
+            $(".successmsg").remove();
+            showWarning(' ${placeholderWithTranslation.siehabenkeineausreichendeberechtigungmpersonenzuentfernen} ');
+            return;
+        #end
+        var checkBoxes = $('input:checkbox[name$="-select"]:checked');
+        if (checkBoxes.length === 0) {
+            $(".errormsg").remove();
+            $(".successmsg").remove();
+            showWarning(' ${placeholderWithTranslation.wauhlensiebittezunauchsteineodermehrerepersonenaus}');
+        } else {
 
-			#if(!$grants.mayWrite())
-				$(".errormsg").remove();
-				$(".successmsg").remove();
-				showWarning(' ${placeholderWithTranslation.siehabenkeineausreichendeberechtigungmpersonenzuentfernen} ');
-				return;
-			#end
-			var checkBoxes = $('input:checkbox[name$="-select"]:checked');
-			if (checkBoxes.length === 0) {
-				$(".errormsg").remove();
-				$(".successmsg").remove();
-				showWarning(' ${placeholderWithTranslation.wauhlensiebittezunauchsteineodermehrerepersonenaus}');
-			} else {
+            // get array of selected person ids
+            var ids = checkBoxes.map(function () {
+                return $(this).attr('name').split('-')[0];
+            }).toArray();
 
-				// get array of selected person ids
-				var ids = checkBoxes.map(function () {
-					return $(this).attr('name').split('-')[0];
-				}).toArray();
-
-				var notExpiredPersonIds = [];
-				$ .each(ids, function(index, id) {
-					if (!personModel[id].expired) {
-						notExpiredPersonIds.push(id);
-					}
-				});
-				var ongoingEventPersonIds = [];
-				$ .each(ids, function(index, id) {
-					if (personModel[id].ongoingEvent) {
-						ongoingEventPersonIds.push(id);
-					}
-				});
-				var ongoingTaskEventPersonIds = [];
-				$ .each(ids, function(index, id) {
-					if (personModel[id].ongoingTaskEvent) {
-						ongoingTaskEventPersonIds.push(id);
-					}
-				});
-
-
-				var msg = '';
-				if (notExpiredPersonIds.length > 0) {
-					msg += '<br><span class="notBold"> ${placeholderWithTranslation.beidenfolgendenpersonenliegtdasgultigkeitsdatuminderzukunft}: </span> <ul class="text">';
-					$ .each(notExpiredPersonIds, function (index, id) {
-						var person = personModel[id];
-						msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
-					});
-					msg += '</ul>';
-
-				}
-				if (ongoingEventPersonIds.length > 0) {
-					msg += '<br><span class="notBold"> ${placeholderWithTranslation.folgendepersonensindmindestenseinerlaufendenoderzukumnftigenveranstaltung} ' +
-							' ${placeholderWithTranslation.zugeordnetdetailinformationenkoennensieueberdiegastelistender} ' +
-							' ${placeholderWithTranslation.jeweiligenveranstaltungenabrufendiepersonenwerdenausallengastelisten} ' +
-							'entfernt:</span><br><ul class="text">';
-					$ .each(ongoingEventPersonIds, function (index, id) {
-						var person = personModel[id];
-						msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
-					});
-					msg += '</ul>';
-
-				}
-				if (ongoingTaskEventPersonIds.length > 0) {
-					msg += '<br><span class="notBold">${placeholderWithTranslation.folgendepersonensindmindestenseineraufgabeinmindestenseinerlaufendenoder} ' +
-							' ${placeholderWithTranslation.zukunftigenveranstaltungzugeordnetdetailinformationenrufensiebitteuberdie} ' +
-							' ${placeholderWithTranslation.aufgabenlistenderjeweiligenveranstaltungenaufdiepersonenwerdenausallen} ' +
-							' ${placeholderWithTranslation.aufgabenentfernt}: </span><br><ul class="text">';
-					$ .each(ongoingTaskEventPersonIds, function (index, id) {
-						var person = personModel[id];
-						msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
-					});
-					msg += '</ul>';
-				}
-				msg += '<br><span class="notBold"> ${placeholderWithTranslation.wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab} </span><br>'+ ' ${placeholderWithTranslation.sollenallemarkiertenpersonengeloeschtwerden} ' +
-						' ${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden} <br>';
-				// disable all checkboxes while confirmation is visible
-				$('input:checkbox').prop('disabled', true);
-				$(".errormsg").remove();
-				$(".successmsg").remove();
-				showConfirmYesNo(' ${placeholderWithTranslation.bittebestaetigensiedasloeschendermarkiertenpersonen}',
-					msg,
-					function () { // Ja
-						$ .each(notExpiredPersonIds, function(index, id) {
-							$('form').append('<input type="hidden" name="remove-expire-' + id + '" value="true" >');
-							$('form').append('<input type="hidden" name="deleted" value="'+notExpiredPersonIds.length+'" >');
-						});
-
-						$('input[name=remove-person]').val('true');
-						$('input:checkbox').prop('disabled', false);
-						$('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
-					}, function () { // Nein
-						$(".errormsg").remove();
-						$(".successmsg").remove();
-						showSuccess(' ${placeholderWithTranslation.eswurdekeinepersongeloscht}');
-						$('input:checkbox').prop('disabled', false);
-					});
-			}
-};
-
-$(function () {
-	// var showSuccessForWorkarea = function () {
-	//	$(document).ready(function(){
-			document.getElementsByName("workareaAssignmentAction").value = "${assignmentActionForWorkarea}";
-			$(".errormsg").remove();
-
-			#if($assignmentActionForWorkarea == "assign")
-				showSuccess(' ${placeholderWithTranslation.derarbeitsbereichwurdeerfolgreichhinzugefugt} ');
-
-			#elseif($assignmentActionForWorkarea == "unassign")
-				showSuccess(' ${placeholderWithTranslation.diearbeitsbereichewurdenerfolgreichentfernt} ');
-			#end
-	//	});
-	// };
-});
+            var notExpiredPersonIds = [];
+            $ .each(ids, function(index, id) {
+                if (!personModel[id].expired) {
+                    notExpiredPersonIds.push(id);
+                }
+            });
+            var ongoingEventPersonIds = [];
+            $ .each(ids, function(index, id) {
+                if (personModel[id].ongoingEvent) {
+                    ongoingEventPersonIds.push(id);
+                }
+            });
+            var ongoingTaskEventPersonIds = [];
+            $ .each(ids, function(index, id) {
+                if (personModel[id].ongoingTaskEvent) {
+                    ongoingTaskEventPersonIds.push(id);
+                }
+            });
 
 
-$(function () {
+            var msg = '';
+            if (notExpiredPersonIds.length > 0) {
+                msg += '<br><span class="notBold"> ${placeholderWithTranslation.beidenfolgendenpersonenliegtdasgultigkeitsdatuminderzukunft}: </span> <ul class="text">';
+                $ .each(notExpiredPersonIds, function (index, id) {
+                    var person = personModel[id];
+                    msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
+                });
+                msg += '</ul>';
 
-	$('#button\\.execute').click(function (e) {
-		var selectText = $('#actionSelection option:selected').text();
+            }
+            if (ongoingEventPersonIds.length > 0) {
+                msg += '<br><span class="notBold"> ${placeholderWithTranslation.folgendepersonensindmindestenseinerlaufendenoderzukumnftigenveranstaltung} ' +
+                        ' ${placeholderWithTranslation.zugeordnetdetailinformationenkoennensieueberdiegastelistender} ' +
+                        ' ${placeholderWithTranslation.jeweiligenveranstaltungenabrufendiepersonenwerdenausallengastelisten} ' +
+                        'entfernt:</span><br><ul class="text">';
+                $ .each(ongoingEventPersonIds, function (index, id) {
+                    var person = personModel[id];
+                    msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
+                });
+                msg += '</ul>';
 
-		if (selectText == "Löschen") {
-			showDeleteMessages();
-		} else if (selectText == "Exportieren") {
-			selectedActionExportPerson();
-		} else if (selectText == "Kategorien zuordnen") {
-			assignCategories();
-		} else if (selectText == "Kategorien entfernen") {
-			unassignCategories();
-		} else if (selectText == "Arbeitsbereich zuordnen") {
-			assignWorkarea();
-		} else if (selectText == "Arbeitsbereich entfernen") {
-			unassignWorkarea();
-		} else if (selectText == "Ersetzen") {
-			submitFormWithGivenAction('SaveReplacePersonList');
-		} else if (selectText == "Übernehmen") {
-			submitFormWithGivenAction('AddPersonToEventGuestList');
-		}
-	});
-});
+            }
+            if (ongoingTaskEventPersonIds.length > 0) {
+                msg += '<br><span class="notBold">${placeholderWithTranslation.folgendepersonensindmindestenseineraufgabeinmindestenseinerlaufendenoder} ' +
+                        ' ${placeholderWithTranslation.zukunftigenveranstaltungzugeordnetdetailinformationenrufensiebitteuberdie} ' +
+                        ' ${placeholderWithTranslation.aufgabenlistenderjeweiligenveranstaltungenaufdiepersonenwerdenausallen} ' +
+                        ' ${placeholderWithTranslation.aufgabenentfernt}: </span><br><ul class="text">';
+                $ .each(ongoingTaskEventPersonIds, function (index, id) {
+                    var person = personModel[id];
+                    msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
+                });
+                msg += '</ul>';
+            }
+            msg += '<br><span class="notBold"> ${placeholderWithTranslation.wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab} </span><br>'+ ' ${placeholderWithTranslation.sollenallemarkiertenpersonengeloeschtwerden} ' +
+                    ' ${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden} <br>';
+            // disable all checkboxes while confirmation is visible
+            $('input:checkbox').prop('disabled', true);
+            $(".errormsg").remove();
+            $(".successmsg").remove();
+            showConfirmYesNo(' ${placeholderWithTranslation.bittebestaetigensiedasloeschendermarkiertenpersonen}',
+                msg,
+                function () { // Ja
+                    $ .each(notExpiredPersonIds, function(index, id) {
+                        $('form').append('<input type="hidden" name="remove-expire-' + id + '" value="true" >');
+                        $('form').append('<input type="hidden" name="deleted" value="'+notExpiredPersonIds.length+'" >');
+                    });
 
-function selectedActionExportPerson() {
-	submitFormWithGivenAction('${paths.staticWeb}do/PersonExport/export.$exportFormat');
-	document.formlist.action = '${paths.staticWeb}do/$octopusRequest.task';
-}
+                    $('input[name=remove-person]').val('true');
+                    $('input:checkbox').prop('disabled', false);
+                    $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
+                }, function () { // Nein
+                    $(".errormsg").remove();
+                    $(".successmsg").remove();
+                    showSuccess(' ${placeholderWithTranslation.eswurdekeinepersongeloscht}');
+                    $('input:checkbox').prop('disabled', false);
+                });
+        }
+    };
 
-function submitFormWithGivenAction(action) {
-	document.getElementById('formlist').action = action;
-	document.formlist.submit();
-}
+    $(function () {
+        // var showSuccessForWorkarea = function () {
+        //	$(document).ready(function(){
+                document.getElementsByName("workareaAssignmentAction").value = "${assignmentActionForWorkarea}";
+                $(".errormsg").remove();
+
+                #if($assignmentActionForWorkarea == "assign")
+                    showSuccess(' ${placeholderWithTranslation.derarbeitsbereichwurdeerfolgreichhinzugefugt} ');
+
+                #elseif($assignmentActionForWorkarea == "unassign")
+                    showSuccess(' ${placeholderWithTranslation.diearbeitsbereichewurdenerfolgreichentfernt} ');
+                #end
+        //	});
+        // };
+    });
+
+    $(function () {
+
+        $('#button\\.execute').click(function (e) {
+            var selectValue = $('#actionSelection option:selected').val();
+
+            if (selectValue == "0") {
+                showDeleteMessages();
+            } else if (selectValue == "1") {
+                selectedActionExportPerson();
+            } else if (selectValue == "2") {
+                assignCategories();
+            } else if (selectValue == "3") {
+                unassignCategories();
+            } else if (selectValue == "4") {
+                assignWorkarea();
+            } else if (selectValue == "5") {
+                unassignWorkarea();
+            } else if (selectValue == "6") {
+                submitFormWithGivenAction('SaveReplacePersonList');
+            } else if (selectValue == "7") {
+                submitFormWithGivenAction('AddPersonToEventGuestList');
+            }
+        });
+    });
+
+    function selectedActionExportPerson() {
+        submitFormWithGivenAction('${paths.staticWeb}do/PersonExport/export.$exportFormat');
+        document.formlist.action = '${paths.staticWeb}do/$octopusRequest.task';
+    }
+
+    function submitFormWithGivenAction(action) {
+        document.getElementById('formlist').action = action;
+        document.formlist.submit();
+    }
 </script>
 
 			#if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
@@ -632,14 +629,14 @@ function submitFormWithGivenAction(action) {
 						#if($grants.mayWrite())
 							${placeholderWithTranslation.markiertepersonen}
 							<select id="actionSelection">
-								<option>${placeholderWithTranslation.loeschen}</option>
+								<option value="0">${placeholderWithTranslation.loeschen}</option>
 								#if($exportFormat && $grants.mayExport())
-									<option>${placeholderWithTranslation.exportieren}</option>
+									<option value="1">${placeholderWithTranslation.exportieren}</option>
 								#end
-								<option>${placeholderWithTranslation.kategorienzuordnen}</option>
-								<option>${placeholderWithTranslation.kategorienentfernen}</option>
-								<option>${placeholderWithTranslation.arbeitsbereichzuordnen}</option>
-								<option>${placeholderWithTranslation.arbeitsbereichentfernen}</option>
+								<option value="2">${placeholderWithTranslation.kategorienzuordnen}</option>
+								<option value="3">${placeholderWithTranslation.kategorienentfernen}</option>
+								<option value="4">${placeholderWithTranslation.arbeitsbereichzuordnen}</option>
+								<option value="5">${placeholderWithTranslation.arbeitsbereichentfernen}</option>
 							</select>
 							<input type="button" value="${placeholderWithTranslation.durchfuhren}" id="button.execute" name="button.execute" />
 						#elseif($exportFormat && $grants.mayExport())
