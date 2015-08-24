@@ -143,8 +143,11 @@
                                                 #if($format.name == "ZKM")
                                                     ${placeholderWithTranslation.LABEL_EXPORT_ZKM}
                                                 #elseif($format.name == "MAdLAN-Personen" || $format.name == "MAdLAN-Firmen")
-                                                    ${placeholderWithTranslation.LABEL_EXPORT_MADLAN_ENCODING}
-                                                    ${placeholderWithTranslation.LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC}
+                                                    #if($choice.default == "West")
+                                                        ${placeholderWithTranslation.LABEL_EXPORT_MADLAN_ENCODING}
+                                                    #else
+                                                        ${placeholderWithTranslation.LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC}
+                                                    #end
                                                 #end
                                             </label>
                                         </div>
