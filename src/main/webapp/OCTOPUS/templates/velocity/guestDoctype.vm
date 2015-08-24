@@ -20,9 +20,9 @@
 	<div class="tabs contentBox grayBorder marginBottom40 marginTop20 posRel" id="main_content">
     	<div id="tabsMain">
     		<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-    			<li id="gaesteliste" class="inactive"><div>G&auml;steliste</div>
-    			</li><li id="gastdetails" class="inactive"><div>Gastdetails</div>
-    			</li><li id="dokumenttypen" class="active"><div>Dokumenttypen</div>
+    			<li id="gaesteliste" class="inactive"><div>${placeholderWithTranslation.gasteliste}</div>
+    			</li><li id="gastdetails" class="inactive"><div>${placeholderWithTranslation.gastdetails}</div>
+    			</li><li id="dokumenttypen" class="active"><div>${placeholderWithTranslation.BROWSER_TITLE_DOCUMENT_TYPES}</div>
     			</li>
     		</ul>
     	</div>
