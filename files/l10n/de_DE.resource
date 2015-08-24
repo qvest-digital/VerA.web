@@ -1317,3 +1317,6 @@ PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Sollen alle markierten Personen gel\u00
 # EVENT DETAIL SITE TEXTS
 EVENT_DETAIL_ALREADY_EXISTS_ONE=Eine Verstaltung mit dem Namen '
 EVENT_DETAIL_ALREADY_EXISTS_TWO=' existiert bereits. M\u00f6chten Sie die neue Veranstaltung dennoch speichern?
+
+# CATEGORY TEXTS
+CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen 
