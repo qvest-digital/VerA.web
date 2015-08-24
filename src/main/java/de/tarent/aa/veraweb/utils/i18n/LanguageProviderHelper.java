@@ -16,9 +16,8 @@ public class LanguageProviderHelper {
      * @return LanguageProvider instance
      */
     public LanguageProvider enableTranslation(OctopusContext octopusContext) {
-        String language = octopusContext.getContentObject().get("language").toString();
-
-        LanguageProvider languageProvider = new LanguageProvider();
+        final String language = octopusContext.getContentObject().get("language").toString();
+        final LanguageProvider languageProvider = new LanguageProvider();
 
         languageProvider.setLastSelectedLanguage(language + ".resource");
         languageProvider.load(octopusContext);
