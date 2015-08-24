@@ -12,16 +12,16 @@ public class LanguageProviderHelper {
     /**
      * Enabling translations to allow it over hardcoded text in java files
      *
-     * @param cntx Octopus Context
+     * @param octopusContext Octopus Context
      * @return LanguageProvider instance
      */
-    public LanguageProvider enableTranslation(OctopusContext cntx) {
-        String language = cntx.getContentObject().get("language").toString();
+    public LanguageProvider enableTranslation(OctopusContext octopusContext) {
+        String language = octopusContext.getContentObject().get("language").toString();
 
         LanguageProvider languageProvider = new LanguageProvider();
 
         languageProvider.setLastSelectedLanguage(language + ".resource");
-        languageProvider.load(cntx);
+        languageProvider.load(octopusContext);
         return languageProvider;
     }
 }
