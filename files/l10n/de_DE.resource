@@ -649,7 +649,7 @@ keineausgewahlt=Keine ausgew\u00E4hlt
 importstarten=Import starten
 
 # PERSONENDROPDOWN
-neueperson=Neue person
+neueperson=Neue Person
 suchen&ersetzen=Suchen & ersetzen
 personenexport=Personenexport
 personenimport=Personenimport
@@ -1222,6 +1222,7 @@ aufreservesetzen=Auf Reserve setzen
 delegationanmelden=Delegation anmelden
 alledemarkiereninklpartnerwenneingeladen=Alle (de)markieren (inkl. Partner, wenn eingeladen)
 arbeitsshybereich=Arbeits&shy;bereich
+amtsbeshyzeichnung=Amtsbe&shy;zeichnung
 eswurdenkeineeintraegegefunden=Es wurden keine Eintr\u00E4ge gefunden.
 suchenersetzen=Suchen & Ersetzen
 suchenersetzeninpersonendaten=Suchen & Ersetzen in Personendaten

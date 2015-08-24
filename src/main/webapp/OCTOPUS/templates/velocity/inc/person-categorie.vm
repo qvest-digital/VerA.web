@@ -75,7 +75,14 @@
 				$!message.text($!{bean.id})
 			</td>
 			<td>
-				$!message.text($!bean.name) (#if($bean.flags == 99)Dipl.&nbsp;Corps#elseif($bean.flags == 1)Ereignis#else Kategorie#end)
+				$!message.text($!bean.name)
+                #if($bean.flags == 99)
+                    Dipl.&nbsp;Corps
+                #elseif($bean.flags == 1)
+                    (Ereignis)
+                #else
+                    (Kategorie)
+                #end
 			</td>
 			<td>
 				<input type="text" name="${bean.id}-rank" value="$!message.text($bean.rank)" class="small50px" onchange="setModified('$!bean.id')" #if(!$grants.mayWrite()) vera-disabled#end/>
