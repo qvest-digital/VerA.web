@@ -243,7 +243,10 @@
 									showSuccess('Es wurden keine G&auml;ste gel&ouml;scht.');
 									$('input:checkbox').prop('disabled', false);
 
-								});
+								},
+								'${placeholderWithTranslation.loschen}',
+								'${placeholderWithTranslation.abbrechen}'
+								);
 						}
 				}
 

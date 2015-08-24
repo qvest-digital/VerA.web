@@ -98,21 +98,21 @@
 				<div class="table width100">
 					<div class="tableRow">
 						<div class="tableCell width50">
-							<strong>Erfasst am / von</strong><br />
+							<strong>${placeholderWithTranslation.erfasstam} / ${placeholderWithTranslation.GENERIC_FROM}</strong><br />
 							#if($person.created)$!message.date("DATE", $person.created)#end #if($person.createdby)/ $!message.text($person.createdby)#end
 						</div>
 						<div class="tableCell width50">
-							<strong>Zuletzt geändert am / von</strong><br />
+							<strong>${placeholderWithTranslation.zuletztgeandertam} / ${placeholderWithTranslation.GENERIC_FROM}</strong><br />
 							#if($person.changed)$!message.date("DATE", $person.changed)#end #if($person.changedby)/ $!message.text($person.changedby)#end
 						</div>
 					</div>
 					<div class="tableRow">
 						<div class="tableCell width50" id="showid">
-							<strong>Personen-ID</strong><br />#if($person.id)$!message.text($person.id)#end
+							<strong>${placeholderWithTranslation.personen-id}</strong><br />#if($person.id)$!message.text($person.id)#end
 						</div>
 						<div class="tableCell width50">
 							#if($online-registration.activated)
-								<strong>Online-Anmeldung Benutzername</strong><br />
+								<strong>${placeholderWithTranslation.online-anmeldungbenutzername}</strong><br />
 								#if($person.username)
 									$person.username
 								#end

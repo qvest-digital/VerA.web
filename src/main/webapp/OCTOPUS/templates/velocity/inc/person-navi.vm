@@ -17,7 +17,7 @@
 			<li class="img"><a href="${paths.staticWeb}do/ShowPerson?id=${navigation.previous.person.id}#if ( $navigation.meta.action && $navigation.meta.action != "" )&action=${navigation.meta.action}#end"><img src="${paths.staticWeb}images/paging_arrow_left_active.png" title="Vorherige Person" style="cursor: pointer;"></a></li>
         #end
 
-		Person ${navigation.meta.offset} von ${navigation.meta.count}
+		${placeholderWithTranslation.person} ${navigation.meta.offset} ${placeholderWithTranslation.GENERIC_FROM} ${navigation.meta.count}
 
 		#if(!$navigation.next)
 			<li class="img inactive"><a><img src="${paths.staticWeb}images/paging_arrow_right.png" title="N&auml;chste Person" style="cursor: pointer;"></a></li>

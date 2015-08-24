@@ -518,7 +518,7 @@ zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person
 personkopieren=Person kopieren
 etiketterzeugen=Etikett erzeugen
 einerveranstaltungzuordnen=Einer Veranstaltung zuordnen
-personloschen=Person l\u00E4schen
+personloschen=Person l\u00F6schen
 statistik=Statistik
 ausstammdatenhinzufugen=Aus Stammdaten hinzuf\u00FCgen
 
@@ -1289,7 +1289,7 @@ inaktiv=inaktiv
 aktionen=Aktionen
 anschrift=Anschrift
 anderungenspeichern=\u00E4nderungen speichern
-
+senden=Senden
 
 # GENERIC
 GENERIC_UPLOAD_BUTTON = Datei ausw\u00E4hlen
@@ -1297,6 +1297,7 @@ GENERIC_TO=An
 GENERIC_FEDERAL_STATE=Bundesland
 GENERIC_PERSONAL_DATA=Pers\u00F6nliche Daten
 GENERIC_NUMBER_OF_GUESTS=G\u00E4steanzahl
+GENERIC_TELEFON=Telefon
 
 #MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Dieser Gast wurde ohne Hauptperson eingeladen
@@ -1324,3 +1325,5 @@ CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter
 # CHANGELOG REPORTS TEXTS
 CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgung.
 
+#BROWSER TITLES
+BROWSER_TITLE_REPORTS=Reports
