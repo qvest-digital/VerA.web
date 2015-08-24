@@ -28,6 +28,8 @@ import java.util.Random;
 
 import de.tarent.aa.veraweb.beans.Categorie;
 
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.statement.Delete;
 import org.apache.log4j.Logger;
@@ -55,6 +57,7 @@ import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.server.OctopusContext;
+import org.osiam.bundled.org.apache.commons.codec.language.bm.Lang;
 
 /**
  * Dieser Octopus-Worker dient der Anzeige und Bearbeitung von Details von Gästen.
@@ -228,7 +231,10 @@ public class GuestDetailWorker extends GuestListWorker {
             Guest guest = (Guest) request.getBean("Guest", "guest");
 
             //Check for duplicate reservation (guest and partner).
-            List<String> duplicateErrorList = reservationDupCheck(database, guest);
+            LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+            LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+
+            List<String> duplicateErrorList = reservationDupCheck(database, guest, languageProvider);
 
             //In case duplications were found show the errors and do not proceed with saving
             if(duplicateErrorList != null && !duplicateErrorList.isEmpty()){
@@ -436,36 +442,42 @@ public class GuestDetailWorker extends GuestListWorker {
      * @throws BeanException
      * @throws IOException
      */
-    public List<String> reservationDupCheck(Database database, Guest guest) throws BeanException, IOException {
+    public List<String> reservationDupCheck(Database database, Guest guest, final LanguageProvider languageProvider) throws BeanException, IOException {
 
         List<String> duplicateErrorList = new ArrayList<String>();
 
-        return duplicateGuestAndPartnerList(database, guest, duplicateErrorList);
+        return duplicateGuestAndPartnerList(database, guest, duplicateErrorList, languageProvider);
     }
 
     private List<String> duplicateGuestAndPartnerList(Database database, Guest guest,
-            List<String> duplicateErrorList) throws BeanException, IOException {
+            List<String> duplicateErrorList, final LanguageProvider languageProvider) throws BeanException, IOException {
+
+
+
+
+
         //SCENARIO 1 - The seat (or table and seat) of the guest ("Hauptperson") is already reserved by another guest
-        selectGuestAddDuplicateGuestList(database, guest, duplicateErrorList);
+        selectGuestAddDuplicateGuestList(database, guest, duplicateErrorList, languageProvider);
 
         //SCENARIO 2 - The seat (or table and seat) of the guest is already reserved by another partner
-        selectPartnerAddDuplicateGuestList(database, guest, duplicateErrorList);
+        selectPartnerAddDuplicateGuestList(database, guest, duplicateErrorList, languageProvider);
 
 
         if(guest.getIsPartnerInvited()){
             //SCENARIO 3 - The seat (or table and seat) of the partner is already reserved by another guest
-            selectGuestAddPartnerDuplicateList(database, guest, duplicateErrorList);
+            selectGuestAddPartnerDuplicateList(database, guest, duplicateErrorList, languageProvider);
 
             //SCENARIO 4 - The seat (or table and seat) of the partner is already reserved by another partner
             if (guest.seatno_b != null && guest.seatno_b > 0) {
-                selectPartnerAddPartnerDuplicateList(database, guest, duplicateErrorList);
+                selectPartnerAddPartnerDuplicateList(database, guest, duplicateErrorList, languageProvider);
             }
         }
 
         return duplicateErrorList;
     }
 
-    private void selectPartnerAddPartnerDuplicateList(Database database, Guest guest, List<String> duplicateErrorList)
+    private void selectPartnerAddPartnerDuplicateList(Database database, Guest guest, List<String> duplicateErrorList,
+                                                      final LanguageProvider languageProvider)
             throws BeanException, IOException {
         if (guest.tableno_b == null || guest.tableno_b.intValue() == 0) {
 
@@ -479,7 +491,12 @@ public class GuestDetailWorker extends GuestListWorker {
             Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
             if(duplicatePerson != null){
-                duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "dem Partner", "des Partners"));
+                duplicateErrorList.add(
+                        getDuplicateSeatErrorMessage(duplicatePerson,
+                                                     languageProvider.getProperty("GUEST_DETAIL_PARTNER"),
+                                                     languageProvider.getProperty("GUEST_DETAIL_PARTNER_GENITIV"),
+                                                     languageProvider)
+                );
             }
         } else {
             Select select = database.getSelect("Guest")
@@ -491,12 +508,17 @@ public class GuestDetailWorker extends GuestListWorker {
             Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
             if(duplicatePerson != null){
-                duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "dem Partner", "des Partners"));
+                duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
+                        languageProvider.getProperty("GUEST_DETAIL_PARTNER"),
+                        languageProvider.getProperty("GUEST_DETAIL_PARTNER_GENITIV"), languageProvider));
             }
         }
     }
 
-    private void selectGuestAddPartnerDuplicateList(Database database, Guest guest, List<String> duplicateErrorList)
+    private void selectGuestAddPartnerDuplicateList(Database database,
+                                                    Guest guest,
+                                                    List<String> duplicateErrorList,
+                                                    final LanguageProvider languageProvider)
             throws BeanException, IOException {
         if (guest.seatno_b != null && guest.seatno_b > 0) {
             if (guest.tableno_b == null || guest.tableno_b.intValue() == 0) {
@@ -511,7 +533,10 @@ public class GuestDetailWorker extends GuestListWorker {
                 Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
                 if(duplicatePerson != null){
-                    duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "der Hauptperson", "des Partners"));
+                    duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
+                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                            languageProvider.getProperty("GUEST_DETAIL_PARTNER_GENITIV"),
+                            languageProvider));
                 }
             } else {
                 Select select = database.getSelect("Guest")
@@ -523,13 +548,17 @@ public class GuestDetailWorker extends GuestListWorker {
                 Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
                 if(duplicatePerson != null){
-                    duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "der Hauptperson", "des Partners"));
+                    duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
+                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                            languageProvider.getProperty("GUEST_DETAIL_PARTNER_GENITIV"),
+                            languageProvider));
                 }
             }
         }
     }
 
-    private void selectPartnerAddDuplicateGuestList(Database database, Guest guest, List<String> duplicateErrorList)
+    private void selectPartnerAddDuplicateGuestList(Database database, Guest guest, List<String> duplicateErrorList,
+                                                    final LanguageProvider languageProvider)
             throws BeanException, IOException {
         if (guest.seatno_a != null && guest.seatno_a > 0) {
             if (guest.tableno_a == null || guest.tableno_a.intValue() == 0) {
@@ -545,7 +574,10 @@ public class GuestDetailWorker extends GuestListWorker {
                 Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
                 if(duplicatePerson != null){
-                    duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "dem Partner", "der Hauptperson"));
+                    duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
+                            languageProvider.getProperty("GUEST_DETAIL_PARTNER"),
+                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                            languageProvider));
                 }
 
             } else {
@@ -558,14 +590,18 @@ public class GuestDetailWorker extends GuestListWorker {
                 Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
                 if(duplicatePerson != null){
-                    duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "dem Partner", "der Hauptperson"));
+                    duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
+                            languageProvider.getProperty("GUEST_DETAIL_PARTNER"),
+                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                            languageProvider));
                 }
             }
 
         }
     }
 
-    private void selectGuestAddDuplicateGuestList(Database database, Guest guest, List<String> duplicateErrorList)
+    private void selectGuestAddDuplicateGuestList(Database database, Guest guest, List<String> duplicateErrorList,
+                                                  final LanguageProvider languageProvider)
             throws BeanException, IOException {
         if (guest.seatno_a != null && guest.seatno_a > 0) {
             if (guest.tableno_a == null || guest.tableno_a.intValue() == 0) {
@@ -580,7 +616,10 @@ public class GuestDetailWorker extends GuestListWorker {
                 Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
                 if(duplicatePerson != null){
-                    duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "der Hauptperson", "der Hauptperson"));
+                    duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
+                                           languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                                           languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                                           languageProvider));
                 }
             } else {
                 Select select = database.getSelect("Guest")
@@ -593,7 +632,10 @@ public class GuestDetailWorker extends GuestListWorker {
                 Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
                 if(duplicatePerson != null){
-                    duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson, "der Hauptperson", "der Hauptperson"));
+                    duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
+                                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                                            languageProvider));
                 }
             }
         }
@@ -626,11 +668,19 @@ public class GuestDetailWorker extends GuestListWorker {
         return duplicatePersonResult;
     }
 
-    private String getDuplicateSeatErrorMessage(Person duplicatePerson, String changeSeatFor, String collidesWithSeatOf){
-        return "Bitte \u00e4ndern Sie erst den Sitzplatz bei " + changeSeatFor + " von "
-                + duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1
-                + " (" + duplicatePerson.id    + ") \u00fcber die G\u00e4steliste. Diese Person sitzt aktuell auf "
-                + "dem eingegebenen Sitzplatz " + collidesWithSeatOf + ". Die \u00c4nderung wurde nicht gespeichert.";
+    private String getDuplicateSeatErrorMessage(Person duplicatePerson,
+                                                String changeSeatFor,
+                                                String collidesWithSeatOf,
+                                                final LanguageProvider languageProvider){
+
+        return languageProvider.getProperty("GUEST_DETAIL_DUP_SEAT_ERROR_ONE") +
+                changeSeatFor +
+                languageProvider.getProperty("GUEST_DETAIL_DUP_SEAT_ERROR_TWO") +
+                duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1 +
+                " (" + duplicatePerson.id    + ") " +
+                languageProvider.getProperty("GUEST_DETAIL_DUP_SEAT_ERROR_THREE") +
+                languageProvider.getProperty("GUEST_DETAIL_DUP_SEAT_ERROR_FOUR") +
+                collidesWithSeatOf + languageProvider.getProperty("GUEST_DETAIL_DUP_SEAT_ERROR_FIVE");
     }
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #showTestGuest(OctopusContext)} */
