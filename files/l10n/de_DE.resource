@@ -599,8 +599,44 @@ nogs=NOGs
 politik=Politik
 pressevertreter=Pressevertreter
 wirtschaft=Wirtschaft
-HINT_EXPORT_OPEN_DATA=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00E4nnen.
 exportstarten=Export starten
+ENCODING_TYPE_CYRILLIC=Kyrillisch
+ENCODING_TYPE_WEST=Westlich
+ENCODING_TYPE_BALTIC=Baltisch
+ENCODING_TYPE_EAST=\u00D6stlich
+ENCODING_TYPE_TURKISH=T\u00FCrkisch
+EXPORT_DATA_TYPE_CSV=CSV (Comma-Separated-Values)
+EXPORT_DATA_TYPE_XML=XML (VerA.web-XML)
+EXPORT_DATA_TYPE_ZKM=ZKM (VerA.web-XML \u00FCber das Zentrale Kommunikationsmodul)
+EXPORT_DATA_TYPE_MADLAN_PERSON=MAdLAN-Personen (MAdLAN-Personen-Import)
+EXPORT_DATA_TYPE_MADLAN_COMPANY=MAdLAN-Firmen (MAdLAN-Firmen-Import)
+EXPORT_DATA_TYPE_X_MANAGE_CSV=X-Manage-CSV (X-Manage Kontakte)
+EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE=CSVPersdat+Doktyp (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Kategorien (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
+EXPORT_TITLE_CSV=CSV
+EXPORT_TITLE_XML=XML
+EXPORT_TITLE_ZKM=ZKM
+EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Personen
+EXPORT_TITLE_MADLAN_COMPANY=MAdLAN-Firmen
+EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
+EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV Personendaten+Anschriften+Dokumenttypen
+EXPORT_TITLE_CSVPERSDATA_DOCTYPE=CSV Personendaten+Dokumenttypen
+EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV Personendaten+Dokumenttypen 1.0
+EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV Personendaten+Kategorien
+EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
+LABEL_EXPORT_ZKM=Ziel (ZKM-K\u00FCrzel)
+LABEL_EXPORT_MADLAN_ENCODING=Encoding
+LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Encoding (kyrillisch)
+HINT_EXPORT_CSV=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_ZKM=Die Exportdatei wird sowohl im ZKM-Ausgangsordner abgelegt als auch Ihnen zur Kontrolle zum Herunterladen angeboten. Das Herunterladen k\u00F6nnen Sie bedenkenlos abbrechen.
+HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Es werden nur die Felder aus den Karteireitern "Personendaten", "Anschriften", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE=Es werden nur die Felder aus den Karteireitern "Personendaten", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Es werden nur die Felder aus den Karteireitern "Personendaten", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern "Personendaten", "Kategorien" und deren untergeordneten\u0009Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSV_ISO_8859_15=Dieses Format ist f\u00FCr Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 importvonpersonendaten=Import von Personendaten
@@ -1327,3 +1363,9 @@ CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgun
 
 #BROWSER TITLES
 BROWSER_TITLE_REPORTS=Reports
+
+#NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zurücksetzen
+GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
+GUEST=Gast
+GENERIC_OF=von

@@ -417,8 +417,7 @@ public class PersonExportWorker extends PersonListWorker {
 				}
 			}
 		}
-		catch( SQLException e )
-		{
+		catch( SQLException e ) {
 			throw new BeanException( "Der Export kann nicht ausgef\u00fchrt werden.", e );
 		}
 	}

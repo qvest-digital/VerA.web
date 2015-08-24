@@ -1,12 +1,12 @@
 <vera-info vera-stay>
-	Sie bearbeiten hier ausschlie&szlig;lich Personendaten im Rahmen der aktuellen Veranstaltung, <i>keine</i> grundlegenden Stammdaten.
+	${placeholderWithTranslation.HINT_GUEST_LIST_EDIT_PERSONDATA}
 </vera-info>
 
 <div class="textRight marginBottom20" id="buttonPanel-bottom">
 	#if($grants.mayWrite())
-		<input type="button" name="refresh" value="Auf Stammdaten zurücksetzen" title="Alle Werte auf Stammdaten zurücksetzen" onclick="reloadGuestData();" />
+		<input type="button" name="refresh" value="${placeholderWithTranslation.aufstammdatenzurucksetzen}" title="${GUEST_LIST_RESET_ALL_TO_MASTER_DATA}" onclick="reloadGuestData();" />
 	#end
-		<input type="button" name="persondata" value="Stammdaten bearbeiten" title="Personenstammdaten bearbeiten" onclick="shwoPersonDetail();" />
+		<input type="button" name="persondata" value="${placeholderWithTranslation.GUEST_LIST_EDIT_MASTER_DATA}" title="${placeholderWithTranslation.GUEST_LIST_EDIT_MASTER_DATA}" onclick="shwoPersonDetail();" />
 </div>
 
 <script type="text/javascript">

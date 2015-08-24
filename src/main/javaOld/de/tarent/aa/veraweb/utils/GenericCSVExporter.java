@@ -72,8 +72,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	 *          {@link Person}-Bean
 	 * @see de.tarent.aa.veraweb.utils.Exporter#exportPerson(de.tarent.aa.veraweb.beans.Person)
 	 */
-	public void exportPerson(Person person) throws BeanException, IOException
-	{
+	public void exportPerson(Person person) throws BeanException, IOException {
 		assert csvFieldNames != null;
 		assert fieldMapping != null;
 		assert csvWriter != null;
@@ -95,25 +94,25 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	 */
 	public void startExport() throws IOException
 	{
-		if (exchangeFormat == null)
-			throw new IOException("Der Export benötigt ein ExchangeFormat.");
-		if (database == null)
-			throw new IOException("Der Export benötigt eine Database.");
-		if (outputStream == null)
-			throw new IOException("Der Export benötigt einen OutputStream.");
-		try
-		{
+		if (exchangeFormat == null) {
+            throw new IOException("Der Export benötigt ein ExchangeFormat.");
+        }
+		if (database == null) {
+            throw new IOException("Der Export benötigt eine Database.");
+        }
+		if (outputStream == null) {
+            throw new IOException("Der Export benötigt einen OutputStream.");
+        }
+		try {
 			readProperties();
 			parseFormat(true);
 			initWriter();
 			writeHeaderLine();
-		} catch (MappingException e)
-		{
+		} catch (MappingException e) {
 			IOException ioe = new IOException("Fehler im Feldmapping");
 			ioe.initCause(e);
 			throw ioe;
-		} catch (BeanException e)
-		{
+		} catch (BeanException e) {
 			IOException ioe = new IOException("Fehler beim Daten-Bean-Zugriff");
 			ioe.initCause(e);
 			throw ioe;
@@ -127,8 +126,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	 * @throws IOException
 	 * @see de.tarent.aa.veraweb.utils.Exporter#endExport()
 	 */
-	public void endExport() throws IOException
-	{
+	public void endExport() throws IOException {
 		assert csvWriter != null;
 		csvWriter.close();
 	}
@@ -139,8 +137,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	/**
 	 * Diese Methode initialisiert den internen {@link CSVFileWriter}.
 	 */
-	void initWriter() throws UnsupportedEncodingException, IOException
-	{
+	void initWriter() throws UnsupportedEncodingException, IOException {
 		assert exchangeFormat != null;
 		assert outputStream != null;
 		Writer writer = new OutputStreamWriter(outputStream, encoding);
@@ -152,8 +149,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	/**
 	 * Diese Methode schreibt die Kopfzeile mit den Spaltennamen.
 	 */
-	void writeHeaderLine()
-	{
+	void writeHeaderLine() {
 		assert csvWriter != null;
 		assert fieldMapping != null;
 		csvWriter.writeFields(csvFieldNames);
@@ -183,8 +179,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		{
 			Object result = null;
 			// Personenstammdatenfelder
-			try
-			{
+			try {
 				if (sourceKey.charAt(0) == ':')
 					result = person.get(sourceKey.substring(1));
 				else if (sourceKey.startsWith("CAT:"))
@@ -199,8 +194,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 					result = getTextField(sourceKey.substring(4), true);
 				else
 					logger.warning("Unbekanntes Quellfeld");
-			} catch (Exception e)
-			{
+			} catch (Exception e) {
 				logger.log(Level.WARNING, "Fehler beim Beziehen von Personendaten", e);
 			}
 			if (result instanceof Date)
@@ -212,8 +206,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		// Konstruktor
 		//
 		/** Der Konstruktor vermerkt die Person */
-		PersonEntity(Person person)
-		{
+		PersonEntity(Person person) {
 			this.person = person;
 		}
 
@@ -231,8 +224,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		 */
 		Object getRank(String categoryName) throws BeanException, IOException
 		{
-			if (ranks == null)
-			{
+			if (ranks == null) {
 				ranks = new HashMap();
 				Bean sampleCategory = database.createBean("Categorie");
 				Bean samplePersonCategory = database.createBean("PersonCategorie");
@@ -242,18 +234,17 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 					database.getProperty(sampleCategory, "rank"), "rankDefault").selectAs(database.getProperty(samplePersonCategory, "rank"), "rank")
 					.where(Expr.equal(database.getProperty(samplePersonCategory, "person"), person.id));
 				List entries = database.getList(select, database);
-				for (Iterator itEntries = entries.iterator(); itEntries.hasNext();)
-				{
+				for (Iterator itEntries = entries.iterator(); itEntries.hasNext();) {
 					Map entry = (Map) itEntries.next();
 					Object name = entry.get("name");
 					if (name == null)
 						continue;
 					Object rank = entry.get("rank");
-					if (rank == null)
-					{
+					if (rank == null) {
 						rank = entry.get("rankDefault");
-						if (rank == null)
-							rank = DEFAULT_RANK;
+						if (rank == null) {
+                            rank = DEFAULT_RANK;
+                        }
 					}
 					ranks.put(name, rank);
 				}
@@ -272,8 +263,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		 */
 		Object getTextField(String docTypeName, boolean partner) throws IOException, BeanException
 		{
-			if (textFields == null)
-			{
+			if (textFields == null) {
 				textFields = new HashMap();
 				textFieldsPartner = new HashMap();
 				Bean sampleDocType = database.createBean("Doctype");
@@ -285,8 +275,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 					database.getProperty(samplePersonDocType, "textfieldPartner"), "textFieldPartner").where(
 					Expr.equal(database.getProperty(samplePersonDocType, "person"), person.id));
 				List entries = database.getList(select, database);
-				for (Iterator itEntries = entries.iterator(); itEntries.hasNext();)
-				{
+				for (Iterator itEntries = entries.iterator(); itEntries.hasNext();) {
 					Map entry = (Map) itEntries.next();
 					Object name = entry.get("name");
 					if (name == null)
@@ -306,40 +295,39 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		// Membervariablen
 		//
 		/** Die {@link Person}, für die dies eine Facade ist. */
-		final Person	person;
+		final Person person;
 
 		/** Die Ränge der Person in den Kategorien */
-		Map						ranks							= null;
+		Map ranks = null;
 
 		/** Die Dokumenttypfreitexte der Hauptperson */
-		Map						textFields				= null;
+		Map textFields = null;
 
 		/** Die Dokumenttypfreitexte des Partners */
-		Map						textFieldsPartner	= null;
+		Map textFieldsPartner = null;
 	}
 
 	/** Einschränkung auf Mandant */
-	protected Integer			orgUnitId			= null;
+	protected Integer orgUnitId = null;
 
 	/** Einschränkung auf Kategorie <code>Null</code> = alle Kategorien, 0 = keine Kategorie */
-	protected Integer			categoryId		= null;
+	protected Integer categoryId		= null;
 
 	//
 	// geschützte Membervariablen
 	//
 	/** CSV-Ausgabe-Objekt */
-	CSVFileWriter					csvWriter			= null;
+	CSVFileWriter csvWriter = null;
 
 	/** Logger dieser Klasse */
-	final static Logger		logger				= Logger.getLogger(GenericCSVExporter.class.getName());
+	final static Logger logger = Logger.getLogger(GenericCSVExporter.class.getName());
 
 	/*
 	 * (non-Javadoc)
 	 *
 	 * @see de.tarent.aa.veraweb.utils.Exporter#setOrgUnitId(java.lang.Integer)
 	 */
-	public void setOrgUnitId(Integer orgUnitId)
-	{
+	public void setOrgUnitId(Integer orgUnitId)	{
 		this.orgUnitId = orgUnitId;
 	}
 
@@ -348,8 +336,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	 *
 	 * @see de.tarent.aa.veraweb.utils.Exporter#setCategoryId(java.lang.Integer)
 	 */
-	public void setCategoryId(Integer categoryId)
-	{
+	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
 	}
 
@@ -361,16 +348,17 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	 * @throws BeanException
 	 */
 	@Override
-    protected List getCategoriesFromDB() throws BeanException, IOException
-	{
-		// alle Kategorien.
-		if (this.categoryId == null && this.orgUnitId == null)
-			return super.getCategoriesFromDB();
-		// keine Kategorien
-		if (this.categoryId != null && this.categoryId.intValue() == 0)
-			return null;
+    protected List getCategoriesFromDB() throws BeanException, IOException {
+        // alle Kategorien.
+        if (this.categoryId == null && this.orgUnitId == null) {
+            return super.getCategoriesFromDB();
+        }
+        // keine Kategorien
+        if (this.categoryId != null && this.categoryId.intValue() == 0) {
+            return null;
+        }
 
-		Select sel = database.getSelect("Categorie");
+        Select sel = database.getSelect("Categorie");
 
 		/*TODO sobald Select.whereAnd(Clause) zum DB-Layer.jar gehoert, kann der Code(Kot) unten ausgetauscht werden.
 		if (this.categoryId != null)
@@ -383,21 +371,22 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		}
 		*/
 
-		Clause expr1 = null, expr2 = null;
-		if (this.categoryId != null)
-		{
-			expr1 = Expr.equal("pk", this.categoryId);
-		}
-		if (this.orgUnitId != null && this.orgUnitId.intValue() != -1)
-		{
-			expr2 = Expr.equal("fk_orgunit", this.orgUnitId);
-		}
-		if (expr1 != null && expr2 != null)
-			sel.where(Where.and(expr1, expr2));
-		else if (expr1 != null && expr2 == null)
-			sel.where(expr1);
-		else if (expr1 == null && expr2 != null)
-			sel.where(expr2);
+        Clause expr1 = null, expr2 = null;
+        if (this.categoryId != null) {
+            expr1 = Expr.equal("pk", this.categoryId);
+        }
+        if (this.orgUnitId != null && this.orgUnitId.intValue() != -1) {
+            expr2 = Expr.equal("fk_orgunit", this.orgUnitId);
+        }
+        if (expr1 != null && expr2 != null) {
+            sel.where(Where.and(expr1, expr2));
+        }
+        else if (expr1 != null && expr2 == null) {
+            sel.where(expr1);
+        }
+		else if (expr1 == null && expr2 != null) {
+            sel.where(expr2);
+        }
 
 		return database.getBeanList( "Categorie", sel );
 	}
@@ -408,8 +397,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 	 * @see de.tarent.aa.veraweb.utils.GenericCSVBase#getDocumentTypesFromDB()
 	 */
 	@Override
-    protected List getDocumentTypesFromDB() throws BeanException, IOException
-	{
+    protected List getDocumentTypesFromDB() throws BeanException, IOException {
 		// TODO nur die Dokumenttypen des Mandanten, falls Doktypen auf Mandanten eingeschränkt werden.
 		return super.getDocumentTypesFromDB();
 	}
