@@ -921,7 +921,7 @@ geloscht=gel\u00F6scht
 feldbezeichnung=Feldbezeichnung
 eingabetyp=Eingabetyp
 erfolgreichgespeichert=Erfolgreich gespeichert!
-markiertendokumenttypen=Markierte(n) Dokumenttyp(en)
+markiertendokumenttypen=Markierte(r) Dokumenttyp(en)
 eigenesdokumentfurpartner=Eigenes Dokument f\u00FCr Partner
 sortierreihenfolge=Sortierreihenfolge
 gastgebermitausgeben=Gastgeber mit Ausgeben
@@ -955,7 +955,7 @@ keingastgeberausgewahlt=Kein Gastgeber ausgew\u00E4hlt
 kurzbezeichnung=Kurzbezeichnung
 maximalelangederwarteliste=Maximale L\u00E4nge der Warteliste
 sollendiestammdatenumdiesenorterweitertwerden=Sollen die Stammdaten um diesen Ort erweitert werden
-markiertendokumenttypenentfernen=Markierte(n) Dokumenttyp(en) entfernen
+markiertendokumenttypenentfernen=Markierte(r) Dokumenttyp(en) entfernen
 eswurdenkeinedokumenttypengefunden=Es wurden keine Dokumenttypen gefunden.
 markiertenamtsbezeichnungen=Markierte(n) Amtsbezeichnung(en)
 markiertenamtsbezeichnungenentfernen=Markierte(n) Amtsbezeichnung(en) entfernen
@@ -1000,7 +1000,7 @@ category=Kategorie
 weitereoptionen=Weitere Optionen
 anmerkung=Anmerkung
 anmerkungen=Anmerkungen
-markiertebezeichnunge=Markierte Bezeichnung(e)
+markiertebezeichnunge=Markierte Bezeichnung(en)
 markierteeintrageentfernen=Markierte Eintr\u00E4ge entfernen
 eswurdenkeinedatengefunden=Es wurden keine Daten gefunden
 siehabenkeinedatenherkunftangegeben=Sie haben keine Datenherkunft angegeben.
@@ -1267,8 +1267,8 @@ werden=werden.
 dieseemailwurdebereitsversendetundsollte=Diese E-Mail wurde bereits versendet und sollte
 nichtmehrbearbeitet=nicht mehr bearbeitet
 technischefehlermeldungausblenden=Technische Fehlermeldung ausblenden
-markiertenmandanten=Markierte(n) Mandanten
-markiertenmandantenwirklichloschen=Markierte\u0028n\u0029 wirklich l\u00F6schen
+markiertenmandanten=Markierte(r) Mandant(en)
+markiertenmandantenwirklichloschen=Markierte\u0028n\u0029 Mandant\u0028en\u0029 wirklich l\u00F6schen
 alledatensatzewurdenerfolgreichmandantenzugeordnet=Alle Datens\u00E4tze wurden erfolgreich einem Mandanten zugeordnet.
 esexistiertnochkeinmandant=Es existiert noch kein Mandant.
 zuordnen=Zuordnen
@@ -1319,7 +1319,7 @@ neuevorlagename=Neue Vorlage (Name)
 neuevorlagespeichern=Neue Vorlage speichern
 neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten=Neue Vorlagen m\u00FCssen sowohl einen Betreff als auch Text enthalten
 zurueckzumverteiler=Zur\u00FCck zum Verteiler
-markiertenveranstaltungsorte=Markierte(n) Veranstaltungsorte
+markiertenveranstaltungsorte=Markierte(r) Veranstaltungsort(e)
 hinweis=Hinweis
 inaktiv=inaktiv
 aktionen=Aktionen
@@ -1353,3 +1353,10 @@ PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Sollen alle markierten Personen gel\u00
 # EVENT DETAIL SITE TEXTS
 EVENT_DETAIL_ALREADY_EXISTS_ONE=Eine Verstaltung mit dem Namen '
 EVENT_DETAIL_ALREADY_EXISTS_TWO=' existiert bereits. M\u00f6chten Sie die neue Veranstaltung dennoch speichern?
+
+# CATEGORY TEXTS
+CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen 
+
+# CHANGELOG REPORTS TEXTS
+CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgung.
+
