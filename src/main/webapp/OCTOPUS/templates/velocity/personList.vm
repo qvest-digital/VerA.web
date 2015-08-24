@@ -208,7 +208,6 @@
 		</script>
 	#end
 
-
 	<form id="personListFilter" name="personListFilter" action="${paths.staticWeb}do/$octopusRequest.task" method="POST" class="marginTop25">
 		<!--<input type="hidden" name="start" value="0" />
 		<input type="hidden" name="limit" value="" />
@@ -359,23 +358,29 @@
             $('input:checkbox').prop('disabled', true);
             $(".errormsg").remove();
             $(".successmsg").remove();
-            showConfirmYesNo(' ${placeholderWithTranslation.bittebestaetigensiedasloeschendermarkiertenpersonen}',
-                msg,
-                function () { // Ja
-                    $ .each(notExpiredPersonIds, function(index, id) {
-                        $('form').append('<input type="hidden" name="remove-expire-' + id + '" value="true" >');
-                        $('form').append('<input type="hidden" name="deleted" value="'+notExpiredPersonIds.length+'" >');
-                    });
+	    showConfirmYesNo(' ${placeholderWithTranslation.bittebestaetigensiedasloeschendermarkiertenpersonen}',
+	        msg,
 
-                    $('input[name=remove-person]').val('true');
-                    $('input:checkbox').prop('disabled', false);
-                    $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
-                }, function () { // Nein
-                    $(".errormsg").remove();
-                    $(".successmsg").remove();
-                    showSuccess(' ${placeholderWithTranslation.eswurdekeinepersongeloscht}');
-                    $('input:checkbox').prop('disabled', false);
-                });
+	        function () { // Ja
+	            $ .each(notExpiredPersonIds, function(index, id) {
+	                $('form').append('<input type="hidden" name="remove-expire-' + id + '" value="true" >');
+	                $('form').append('<input type="hidden" name="deleted" value="'+notExpiredPersonIds.length+'" >');
+	            });
+	
+	            $('input[name=remove-person]').val('true');
+	            $('input:checkbox').prop('disabled', false);
+	            $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
+	        }, 
+		
+		function () { // Nein
+	            $(".errormsg").remove();
+	            $(".successmsg").remove();
+	            showSuccess(' ${placeholderWithTranslation.eswurdekeinepersongeloscht}');
+	            $('input:checkbox').prop('disabled', false);
+	        },
+		'${placeholderWithTranslation.loschen}',
+		'${placeholderWithTranslation.abbrechen}'
+	    );
         }
     };
 
@@ -629,7 +634,7 @@
 						#if($grants.mayWrite())
 							${placeholderWithTranslation.markiertepersonen}
 							<select id="actionSelection">
-								<option value="0">${placeholderWithTranslation.loeschen}</option>
+								<option value="0">${placeholderWithTranslation.loschen}</option>
 								#if($exportFormat && $grants.mayExport())
 									<option value="1">${placeholderWithTranslation.exportieren}</option>
 								#end
@@ -1234,7 +1239,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 		</div>
 
 	#end
-
+	
 	## Zurück-Button
 	<span id="buttonPanel-top" class="textRight floatRight">
 		#if($action == "guest")

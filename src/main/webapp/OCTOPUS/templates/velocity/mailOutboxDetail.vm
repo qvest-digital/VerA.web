@@ -66,7 +66,7 @@
             	<td><input type="text" id="mailoutbox-to" name="mailoutbox-to" maxlength="200" value="$!message.text($mailoutbox.to)" /></td>
             </tr>
 			<tr>
-            	<td><label for="mailoutbox-subject">Betreff*</label></td>
+            	<td><label for="mailoutbox-subject">${placeholderWithTranslation.GENERIC_SUBJECT}*</label></td>
             	<td><input type="text" id="mailoutbox-subject" name="mailoutbox-subject" maxlength="200" value="$!message.text($mailoutbox.subject)" /></td>
             </tr>
 			<tr>

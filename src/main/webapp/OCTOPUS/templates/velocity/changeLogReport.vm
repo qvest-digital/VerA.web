@@ -13,7 +13,7 @@
 		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.reports}</span>
 	</div>
 
-	<h1>Reports</h1>
+	<h1>${placeholderWithTranslation.BROWSER_TITLE_REPORTS}</h1>
 
 
 			<div class="contentBoxColored hinweis grayBorder marginBottom20">

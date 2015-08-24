@@ -39,11 +39,11 @@
 						<h2 class="marginBottom15">${placeholderWithTranslation.GENERIC_WRITE_EMAIL}</h2>
 
             			<div>
-                        	<label for="mail-subject">Betreff</label>
+                        	<label for="mail-subject">${placeholderWithTranslation.GENERIC_SUBJECT}</label>
                             <input type="text" id="mail-subject" name="mail-subject" value="$!message.text($mail.subject)">
             			</div>
             			<div>
-                        	<label for="mail-text">Text</label>
+                        	<label for="mail-text">${placeholderWithTranslation.text}</label>
                         	<textarea id="mail-text" name="mail-text" style="height:200px">$!message.textarea($mail.text)</textarea>
             			</div>
             			<div class="inlineLabel">

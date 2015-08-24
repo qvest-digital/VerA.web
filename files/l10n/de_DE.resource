@@ -518,7 +518,7 @@ zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person
 personkopieren=Person kopieren
 etiketterzeugen=Etikett erzeugen
 einerveranstaltungzuordnen=Einer Veranstaltung zuordnen
-personloschen=Person l\u00E4schen
+personloschen=Person l\u00F6schen
 statistik=Statistik
 ausstammdatenhinzufugen=Aus Stammdaten hinzuf\u00FCgen
 
@@ -1326,7 +1326,7 @@ inaktiv=inaktiv
 aktionen=Aktionen
 anschrift=Anschrift
 anderungenspeichern=\u00E4nderungen speichern
-
+senden=Senden
 
 # GENERIC
 GENERIC_UPLOAD_BUTTON = Datei ausw\u00E4hlen
@@ -1334,6 +1334,7 @@ GENERIC_TO=An
 GENERIC_FEDERAL_STATE=Bundesland
 GENERIC_PERSONAL_DATA=Pers\u00F6nliche Daten
 GENERIC_NUMBER_OF_GUESTS=G\u00E4steanzahl
+GENERIC_TELEFON=Telefon
 
 #MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Dieser Gast wurde ohne Hauptperson eingeladen
@@ -1361,8 +1362,24 @@ CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter
 # CHANGELOG REPORTS TEXTS
 CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgung.
 
-#
+#BROWSER TITLES
+BROWSER_TITLE_REPORTS=Reports
+
+#NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zurücksetzen
 GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
 GUEST=Gast
 GENERIC_OF=von
+
+# GUEST DETAIL TEXTS
+GUEST_DETAIL_PARTNER=dem Partner
+GUEST_DETAIL_PARTNER_GENITIV=des Partners
+GUEST_DETAIL_MAINPERSON=der Hauptperson
+
+GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Bitte \u00e4ndern Sie erst den Sitzplatz bei 
+GUEST_DETAIL_DUP_SEAT_ERROR_TWO= von 
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=\u00fcber die G\u00e4steliste. Diese Person sitzt aktuell auf 
+GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=dem eingegebenen Sitzplatz 
+GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Die \u00c4nderung wurde nicht gespeichert.
+
+
