@@ -649,7 +649,7 @@ keineausgewahlt=Keine ausgew\u00E4hlt
 importstarten=Import starten
 
 # PERSONENDROPDOWN
-neueperson=Neue person
+neueperson=Neue Person
 suchen&ersetzen=Suchen & ersetzen
 personenexport=Personenexport
 personenimport=Personenimport
@@ -1222,6 +1222,7 @@ aufreservesetzen=Auf Reserve setzen
 delegationanmelden=Delegation anmelden
 alledemarkiereninklpartnerwenneingeladen=Alle (de)markieren (inkl. Partner, wenn eingeladen)
 arbeitsshybereich=Arbeits&shy;bereich
+amtsbeshyzeichnung=Amtsbe&shy;zeichnung
 eswurdenkeineeintraegegefunden=Es wurden keine Eintr\u00E4ge gefunden.
 suchenersetzen=Suchen & Ersetzen
 suchenersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
@@ -1372,3 +1373,29 @@ GENERIC_OF=von
 GENERIC_ASSIGN=Zuweisen
 GENERIC_CANCEL=Abbrechen
 GENERIC_DELETE=Entfernen
+
+# GUEST DETAIL TEXTS
+GUEST_DETAIL_PARTNER=dem Partner
+GUEST_DETAIL_PARTNER_GENITIV=des Partners
+GUEST_DETAIL_MAINPERSON=der Hauptperson
+
+GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Bitte \u00e4ndern Sie erst den Sitzplatz bei 
+GUEST_DETAIL_DUP_SEAT_ERROR_TWO= von 
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=\u00fcber die G\u00e4steliste. Diese Person sitzt aktuell auf 
+GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=dem eingegebenen Sitzplatz 
+GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Die \u00c4nderung wurde nicht gespeichert.
+
+# GUEST TEXTS
+GUEST_CALC_SERIALNO=Diese Veranstaltung liegt bereits in der Vergangenheit, m\u00f6chten Sie trotzdem die Laufende-Nummer neu berechnen?
+
+# MAILING LIST TEXTS
+MAILING_LIST_NO_ADDRESSES=Das Anlegen eines neuen Verteilers ist fehlgeschlagen, da zu den ausgew\u00e4hlten Personen keine Adressdaten vorliegen
+
+# ORG UNIT LIST TEXTS
+ORG_UNIT_NO_MANDANT_ID=Einzuf\u00fcgender Mandant darf keine ID haben
+ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Einzuf\u00fcgender Mandant 
+ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO= existiert bereits.
+ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Zu aktualisierender Mandant 
+ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= muß eine ID haben
+ORG_UNIT_MANDANT_EXISTS_ONE=Ein Mandant mit Namen 
+ORG_UNIT_MANDANT_EXISTS_TWO= existiert bereits.

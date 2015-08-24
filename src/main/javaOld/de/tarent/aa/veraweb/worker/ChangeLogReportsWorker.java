@@ -30,6 +30,8 @@ import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.ChangeLogEntry;
 import de.tarent.aa.veraweb.beans.ChangeLogReport;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
@@ -132,7 +134,10 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 		Integer count = getCount( cntx, database );
 		if ( count.intValue() == 0 )
 		{
-			cntx.setContent( "noLogDataAvailableMessage", "Es stehen keine Protokolldaten zur Verf\u00fcgung." );
+			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+
+			cntx.setContent( "noLogDataAvailableMessage", languageProvider.getProperty("CHANGELOG_NO_PROTOCOL_AVAILABLE").toString());
 		}
 	}
 
