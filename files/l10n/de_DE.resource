@@ -1360,3 +1360,8 @@ CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter
 # CHANGELOG REPORTS TEXTS
 CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgung.
 
+#
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zurücksetzen
+GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
+GUEST=Gast
+GENERIC_OF=von

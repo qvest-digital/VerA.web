@@ -47,9 +47,9 @@
 
         <div id="tabsMain">
             <ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-                <li id="gaesteliste" class="inactive"><div>G&auml;steliste</div>
-                </li><li id="gastdetails" #if($responseTab == "detail") vera-tab-default #end class="active"><div>Gastdetails</div>
-                </li><li id="dokumenttypen" class="inactive"><div>Dokumenttypen</div></li>
+                <li id="gaesteliste" class="inactive"><div>${placeholderWithTranslation.gasteliste}</div>
+                </li><li id="gastdetails" #if($responseTab == "detail") vera-tab-default #end class="active"><div>${placeholderWithTranslation.gastdetails}</div>
+                </li><li id="dokumenttypen" class="inactive"><div>${placeholderWithTranslation.BROWSER_TITLE_DOCUMENT_TYPES}</div></li>
             </ul>
         </div>
 
@@ -62,7 +62,7 @@
             <div class="contentBox grayBorder tabs marginBottom10" vera-content="">
                 <div id="tabsMain2">
                     <ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-                        <li id="allgemein" vera-tab #if(!$tab || $tab == "detail-1") vera-tab-default #end onclick="$('#tab').attr('value', 'detail-1');"><div>Allgemein</div>
+                        <li id="allgemein" vera-tab #if(!$tab || $tab == "detail-1") vera-tab-default #end onclick="$('#tab').attr('value', 'detail-1');"><div>${placeholderWithTranslation.allgemein}</div>
                         </li><li id="hauptperson" vera-tab #if($tab && $tab == "detail-2") vera-tab-default #end onclick="$('#tab').attr('value', 'detail-2');"><div>${placeholderWithTranslation.hauptperson}</div>
                         </li><li id="partner" vera-tab #if($tab && $tab == "detail-3") vera-tab-default #end onclick="$('#tab').attr('value', 'detail-3');"><div>${placeholderWithTranslation.partner}</div>
                         </li>
@@ -116,7 +116,7 @@
                                     </div>
 
                                     <div class="tableCell width25 inlineLabel" style="border-left: 1px solid #C1C1C1; border-right: 1px solid #C1C1C1; padding-left: 30px; vertical-align:middle;">
-                                        <label for="showguest-ishost" style="white-space:nowrap">Ist Gastgeber:
+                                        <label for="showguest-ishost" style="white-space:nowrap">${placeholderWithTranslation.istgastgeber}:
                                         #if($guest.ishost == 1)
                                             <span class="notBold">${placeholderWithTranslation.GENERIC_YES}</span>
                                             <input type="hidden" name="showguest-ishost" value="1"/>
@@ -288,7 +288,7 @@
                         #if($grants.mayWrite())
                             <input type="button" name="save" value="${placeholderWithTranslation.speichern}"  class="mainButton" onClick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" />
                         #end
-                        <input type="button" name="cancel" value="Zur&uuml;ck zu den Veranstaltungsdetails" title="Zur&uuml;ck zu den Veranstaltungdetails" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
+                        <input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" title="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
                     </span>
                   </form>
 
