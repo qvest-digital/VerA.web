@@ -1369,3 +1369,6 @@ GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zurücksetzen
 GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
 GUEST=Gast
 GENERIC_OF=von
+GENERIC_ASSIGN=Zuweisen
+GENERIC_CANCEL=Abbrechen
+GENERIC_DELETE=Entfernen
