@@ -5,201 +5,226 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 #parse("inc/header.vm")
 
-	<div id="content_container">
-		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.personenimport}</span>
-		</div>
+<div id="content_container">
+    <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>${placeholderWithTranslation.siesindhier}:</strong>
+        <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">
+            ${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.personenimport}
+        </span>
+    </div>
 
-		<h1>${placeholderWithTranslation.importvonpersonendaten}</h1>
+    <h1>${placeholderWithTranslation.importvonpersonendaten}</h1>
 
-        #if($errors.size() > 0 || $importStatus.invalidData)
-            <vera-warn>
-            	#if($importStatus.invalidData == "importSource")
-            		${placeholderWithTranslation.siehabenkeinedatenherkunftangegeben}
-            	#elseif($importStatus.invalidData == "fileExtension")
-            		#if($importStatus.fileextension == "ods")
-            			${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_OPENOFFICE}
-            		#elseif($importStatus.fileextension == "sxc")
-            			${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_STAROFFICE}
-            		#elseif($importStatus.fileextension == "xls")
-            			${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_EXCEL}
-            		#elseif($importStatus.fileextension == "pdf")
-            			${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_PDF}
-            		#elseif($importStatus.fileextension == "zip")
-            			${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_ZIP}
-            		#elseif($importStatus.fileextension == "exe")
-            			${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_EXE}
-            		#else
-            			${placeholderWithTranslation.siehabenversuchteinedateimitderendung}
-            			$importStatus.fileextension ${placeholderWithTranslation.zuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich}
-            		#end
-            	#elseif($importStatus.invalidData == "inputStream")
-            		${placeholderWithTranslation.siehabenkeinedateiausgewahltoderdiesewarleer}
-            	#elseif($importStatus.invalidData == "errorOnImport")
-            		${placeholderWithTranslation.esisteinunerwarteterfehlerbeimimportiereneinerdateiaufgetreten}<br>
-            		${placeholderWithTranslation.vermutlichbefindetsichdieimportdateinichtimvomsystemerwartemformat}<br><br>
+    #if($errors.size() > 0 || $importStatus.invalidData)
+        <vera-warn>
+            #if($importStatus.invalidData == "importSource")
+                ${placeholderWithTranslation.siehabenkeinedatenherkunftangegeben}
+            #elseif($importStatus.invalidData == "fileExtension")
+                #if($importStatus.fileextension == "ods")
+                    ${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_OPENOFFICE}
+                #elseif($importStatus.fileextension == "sxc")
+                    ${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_STAROFFICE}
+                #elseif($importStatus.fileextension == "xls")
+                    ${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_EXCEL}
+                #elseif($importStatus.fileextension == "pdf")
+                    ${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_PDF}
+                #elseif($importStatus.fileextension == "zip")
+                    ${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_ZIP}
+                #elseif($importStatus.fileextension == "exe")
+                    ${placeholderWithTranslation.HINT_IMPORT_NOT_POSSIBLE_EXE}
+                #else
+                    ${placeholderWithTranslation.siehabenversuchteinedateimitderendung}
+                    $importStatus.fileextension ${placeholderWithTranslation.zuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich}
+                #end
+            #elseif($importStatus.invalidData == "inputStream")
+                ${placeholderWithTranslation.siehabenkeinedateiausgewahltoderdiesewarleer}
+            #elseif($importStatus.invalidData == "errorOnImport")
+                ${placeholderWithTranslation.esisteinunerwarteterfehlerbeimimportiereneinerdateiaufgetreten}<br>
+                ${placeholderWithTranslation.vermutlichbefindetsichdieimportdateinichtimvomsystemerwartemformat}<br><br>
 
-            		${placeholderWithTranslation.fehlermeldung} <em>&quot;$message.plain($importStatus.message)&quot;</em> &nbsp;&nbsp;&nbsp;
-            		(<a href="javascript:showBlock(document.getElementById('javastacktrace'));">${placeholderWithTranslation.detailsanzeigen}</a>)
+                ${placeholderWithTranslation.fehlermeldung} <em>&quot;$message.plain($importStatus.message)&quot;</em> &nbsp;&nbsp;&nbsp;
+                (<a href="javascript:showBlock(document.getElementById('javastacktrace'));">${placeholderWithTranslation.detailsanzeigen}</a>)
 
-            <pre id="javastacktrace" style="display: none;">
+                <pre id="javastacktrace" style="display: none;">
+                    $importStatus.exception
+                </pre>
+            #end
 
-            $importStatus.exception
-            </pre>
+            #foreach($error in $errors)
+                $error
+            #end
+        </vera-warn>
+    #end
 
-            	#end
+    <vera-info>
+        <p>
+            <strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong>
+        </p>
+        ${placeholderWithTranslation.beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden}
+    </vera-info>
 
-            	#foreach($error in $errors)
-            		$error
-            	#end
-            </vera-warn>
-		#end
+    <div id="main_content" class="contentBoxColored grayBorder">
+        <div class="textRight mandatoryText">
+            * = ${placeholderWithTranslation.pflichtfelder}
+        </div>
 
-		<vera-info>
-			<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
-			${placeholderWithTranslation.beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden}
-		</vera-info>
-
-		<div id="main_content" class="contentBoxColored grayBorder">
-			<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
-
-            <form action="ImportPersonsFile" method="post" enctype="multipart/form-data" name="formImport" id="formImport" >
-
-    			<div class="table width100">
-    				<div class="tableRow">
-    					<div class="tableCell width50">
-    						<label for="importSource">${placeholderWithTranslation.datenherkunft}</label>
-    						<input type="text" name="importSource" id="importSource" value="$!message.text($importSource)">
-    					</div>
-    					<div class="tableCell width50">
-							#if($grants && $grants.isAdmin() && $allOrgUnit)
-								<label for="orgUnit">${placeholderWithTranslation.zielmandant}</label>
-								<select name="orgUnit" id="orgUnit" >
-									#foreach($orgunit in $allOrgUnit)
-										<option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>$!message.text($orgunit.name)</option>
-									#end
-								</select>
-							#end
-    					</div>
-    				</div>
-
-    				<div class="tableRow">
-    					<div class="tableCell">
-    						<label for="importfile">${placeholderWithTranslation.importdatei}*</label>
-    						<div id="input_container" style="width: 0px; height: 0px;">
-    							<input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*" onChange="fileSelected();"/>
-    						</div>
-
-                                <div class="button" style="
-                                    text-align: center;
-                                    margin-right: 10px;
-                                    float:left;
-                                    width: 150px;
-                                    text-decoration: none;
-                                    background-color: #EEEEEE;
-                                    color: #333333;
-                                    padding: 2px 6px 2px 6px;
-                                    border-top: 1px solid #CCCCCC;
-                                    border-right: 1px solid #333333;
-                                    border-bottom: 1px solid #333333;
-                                    border-left: 1px solid #CCCCCC;"
-                                    onclick="upload();">${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}</div>
-                                <div id="selectedFile" style="padding-top: 3px;"></div>
-
-    					</div>
-    					<div class="tableCell">
-    						<label for="format">${placeholderWithTranslation.dateityp}</label>
-    						<select name="format" id="format" onchange="return formatChanged();">
-                            #foreach($formatKey in $formats.keySet())
-                             #set($format = $formats.get($formatKey))
-                            	<option value="$formatKey">$format.name ($format.description)</option>
-                            #end
-                            </select>
-
-                            #set($style = '')
-                            #foreach($formatKey in $formats.keySet())
-                             #set($format = $formats.get($formatKey))
-                            		<div $style id="format-$formatKey" class="marginTop20">
-                              #if($format.properties.containsKey("choices"))
-                               #set($choices = $format.properties.get("choices"))
-                            			<fieldset class="format"><legend>$format.name: ${placeholderWithTranslation.weitereoptionen}</legend>
-                                			<div class="table width100">
-                               #foreach($choiceKey in $choices.keySet())
-                                #set($choice = $choices.get($choiceKey))
-                                				<div class="tableRow">
-                            						<div class="tableCell width30"><label for="format-${formatKey}-$choiceKey">$!choice.get("label")</label></div>
-                            						<div class="tableCell">
-                                #set($default = $choice.get("default"))
-                                #if($choice.containsKey("select"))
-                                 #set($select = $choice.get("select"))
-                            							<select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" >
-                                 #foreach($selectKey in $select.keySet())
-                            								<option value="$selectKey"#if($selectKey==$default) selected#end>$select.get($selectKey)</option>
-                                 #end
-                            							</select>
-                                #else
-                                						<input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" >
+        <form action="ImportPersonsFile" method="post" enctype="multipart/form-data" name="formImport" id="formImport">
+            <div class="table width100">
+                <div class="tableRow">
+                    <div class="tableCell width50">
+                        <label for="importSource">
+                            ${placeholderWithTranslation.datenherkunft}
+                        </label>
+                        <input type="text" name="importSource" id="importSource" value="$!message.text($importSource)">
+                    </div>
+                    <div class="tableCell width50">
+                        #if($grants && $grants.isAdmin() && $allOrgUnit)
+                            <label for="orgUnit">
+                                ${placeholderWithTranslation.zielmandant}
+                            </label>
+                            <select name="orgUnit" id="orgUnit">
+                                #foreach($orgunit in $allOrgUnit)
+                                    <option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>
+                                        $!message.text($orgunit.name)
+                                    </option>
                                 #end
-                            						</div>
-                                				</div>
-                               #end
-                                			</div>
-                            			</fieldset>
-                              #end
-                            		</div>
-                             #set($style = 'style="display:none;"')
-                            #end
-                            <script type="text/javascript">
-                            	function formatChanged() {
+                            </select>
+                        #end
+                    </div>
+                </div>
+
+                <div class="tableRow">
+                    <div class="tableCell">
+                        <label for="importfile">
+                            ${placeholderWithTranslation.importdatei}*
+                        </label>
+                        <div id="input_container" style="width: 0px; height: 0px;">
+                            <input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*" onChange="fileSelected();"/>
+                        </div>
+
+                        <div class="button" style="
+text-align: center;
+margin-right: 10px;
+float:left;
+width: 150px;
+text-decoration: none;
+background-color: #EEEEEE;
+color: #333333;
+padding: 2px 6px 2px 6px;
+border-top: 1px solid #CCCCCC;
+border-right: 1px solid #333333;
+border-bottom: 1px solid #333333;
+border-left: 1px solid #CCCCCC;" onclick="upload();">
+                            ${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}
+                        </div>
+                        <div id="selectedFile" style="padding-top: 3px;"></div>
+                    </div>
+                    <div class="tableCell">
+                        <label for="format">
+                            ${placeholderWithTranslation.dateityp}
+                        </label>
+                        <select name="format" id="format" onchange="return formatChanged();">
                             #foreach($formatKey in $formats.keySet())
-                            		document.getElementById('format-$formatKey').style.display = 'none';
+                                #set($format = $formats.get($formatKey))
+                                <option value="$formatKey">
+                                    $format.name ($format.description)
+                                </option>
                             #end
-                            		document.getElementById('format-' + document.formImport.format.options[document.formImport.format.options.selectedIndex].value).style.display = '';
-                            		return true;
-                            	}
-                            </script>
-    					</div>
-    				</div>
-    			</div>
+                        </select>
 
+                        #set($style = '')
+                        #foreach($formatKey in $formats.keySet())
+                            #set($format = $formats.get($formatKey))
+                            <div $style id="format-$formatKey" class="marginTop20">
+                                #if($format.properties.containsKey("choices"))
+                                    #set($choices = $format.properties.get("choices"))
+                                    <fieldset class="format">
+                                        <legend>
+                                            $format.name: ${placeholderWithTranslation.weitereoptionen}
+                                        </legend>
+                                        <div class="table width100">
+                                            #foreach($choiceKey in $choices.keySet())
+                                                #set($choice = $choices.get($choiceKey))
+                                                <div class="tableRow">
+                                                    <div class="tableCell width30">
+                                                        <label for="format-${formatKey}-$choiceKey">
+                                                            $!choice.get("label")
+                                                        </label>
+                                                    </div>
+                                                    <div class="tableCell">
+                                                        #set($default = $choice.get("default"))
+                                                        #if($choice.containsKey("select"))
+                                                            #set($select = $choice.get("select"))
+                                                            <select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey">
+                                                                #foreach($selectKey in $select.keySet())
+                                                                    <option value="$selectKey"#if($selectKey==$default) selected#end>
+                                                                        $select.get($selectKey)
+                                                                    </option>
+                                                                #end
+                                                            </select>
+                                                        #else
+                                                            <input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default">
+                                                        #end
+                                                    </div>
+                                                </div>
+                                            #end
+                                        </div>
+                                    </fieldset>
+                                #end
+                            </div>
+                            #set($style = 'style="display:none;"')
+                        #end
 
-            </form>
+                        <script type="text/javascript">
+                            function formatChanged() {
+                                #foreach($formatKey in $formats.keySet())
+                                    document.getElementById('format-$formatKey').style.display = 'none';
+                                #end
+                                document.getElementById('format-' + document.formImport.format.options[document.formImport.format.options.selectedIndex].value).style.display = '';
 
-		</div><!-- End #main_content-->
+                                return true;
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div><!-- End #main_content-->
 
-		<div id="buttonPanel-bottom" class="textRight marginTop10">
-			<input name="start" type="button" value="${placeholderWithTranslation.importstarten}" title="${placeholderWithTranslation.importstarten}" class="mainButton" onclick="askStart()">
-		</div>
+    <div id="buttonPanel-bottom" class="textRight marginTop10">
+        <input name="start" type="button" value="${placeholderWithTranslation.importstarten}" title="${placeholderWithTranslation.importstarten}" class="mainButton" onclick="askStart()">
+    </div>
 </div>
+
 <script type="text/javascript">
 
-function upload(){
- document.getElementById('importfile').click();
-}
+    function upload(){
+        document.getElementById('importfile').click();
+    }
 
-function fileSelected() {
-    var elem = document.getElementById("importfile").value;
-    var res = elem.split("\\");
-    var fileName = res[res.length-1];
-    console.log(fileName);
-    $("div#selectedFile").text(fileName);
-}
+    function fileSelected() {
+        var elem = document.getElementById("importfile").value;
+        var res = elem.split("\\");
+        var fileName = res[res.length-1];
+        console.log(fileName);
+        $("div#selectedFile").text(fileName);
+    }
 
-##Hinweis und Rueckfrage vor dem Import
-
-	function askStart() {
-		htmlConfirm(' ${placeholderWithTranslation.alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden} ', new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("askStartYes();", "askStartNo();"));
-	}
-	function askStartYes() {
-		hideDialogs();
-		showComboboxes();
-		htmlWait();
-		document.getElementById('formImport').submit();
-	}
-	function askStartNo() {
-		hideDialogs();
-		showComboboxes();
-	}
+    ##Hinweis und Rueckfrage vor dem Import
+    function askStart() {
+        htmlConfirm(' ${placeholderWithTranslation.alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden} ',
+        new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("askStartYes();", "askStartNo();"));
+    }
+    function askStartYes() {
+        hideDialogs();
+        showComboboxes();
+        htmlWait();
+        document.getElementById('formImport').submit();
+    }
+    function askStartNo() {
+        hideDialogs();
+        showComboboxes();
+    }
 </script>
 
 ##<!-- Bug 1362: Die Möglichkeit, einen bestehenden Exportvorgang zu laden, ist vom AA nicht gewünscht -->
