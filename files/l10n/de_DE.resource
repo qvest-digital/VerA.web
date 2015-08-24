@@ -1320,3 +1320,7 @@ EVENT_DETAIL_ALREADY_EXISTS_TWO=' existiert bereits. M\u00f6chten Sie die neue V
 
 # CATEGORY TEXTS
 CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen 
+
+# CHANGELOG REPORTS TEXTS
+CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgung.
+
