@@ -36,6 +36,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import org.apache.log4j.Logger;
 
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
@@ -395,10 +397,12 @@ public class StatistikWorker {
 		}
 		spreadSheet.openTable("Statistik", size);
 
+		LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+		LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
 		// header
 		spreadSheet.openRow();
 		for (int i = 1; i <= size; i++) {
-			spreadSheet.addCell(getColumnName(column[i]));
+			spreadSheet.addCell(getColumnName(column[i], languageProvider));
 		}
 		spreadSheet.closeRow();
 
@@ -406,7 +410,7 @@ public class StatistikWorker {
 		while (resultSet.next()) {
 			spreadSheet.openRow();
 			for (int i = 1; i <= size; i++) {
-				spreadSheet.addCell(getColumnValue(column[i], resultSet, resultSet.getObject(i)));
+				spreadSheet.addCell(getColumnValue(column[i], resultSet, resultSet.getObject(i), languageProvider));
 			}
 			spreadSheet.closeRow();
 		}
@@ -444,29 +448,31 @@ public class StatistikWorker {
 		return stream;
 	}
 
-	protected String getColumnName(String name) {
+	protected String getColumnName(String name, final LanguageProvider languageProvider) {
+
 		if (name.equals("shortname")) {
-			return "Name der Veranstaltung";
+			return languageProvider.getProperty("STATS_COLUMN_EVENT_NAME");
 		} else if (name.equals("datebegin")) {
-			return "Beginn";
+			return languageProvider.getProperty("STATS_COLUMN_DATE_BEGIN");
 		} else if (name.equals("invitationtype")) {
-			return "Einladungsart";
+			return languageProvider.getProperty("STATS_COLUMN_INVITATION_TYPE");
 		} else if (name.equals("invitationstatus")) {
-			return "Status";
+			return languageProvider.getProperty("STATS_COLUMN_INVITATION_STATUS");
 		} else if (name.equals("invitationstatus_p")) {
-			return "Status Partner";
+			return languageProvider.getProperty("STATS_COLUMN_INVITATION_STATUS_PARTNER");
 		} else if (name.equals("year")) {
-			return "Jahr";
+			return languageProvider.getProperty("STATS_COLUMN_YEAR");
 		} else if (name.equals("month")) {
-			return "Monat";
+			return languageProvider.getProperty("STATS_COLUMN_MONTH");
 		} else if (name.equals("events")) {
-			return "Veranstaltungen";
+			return languageProvider.getProperty("STATS_COLUMN_EVENTS");
 		}
 
 		return "##" + name + "##";
 	}
 
-	protected Object getColumnValue(String name, ResultSet resultSet, Object content) throws SQLException {
+	protected Object getColumnValue(String name, ResultSet resultSet, Object content,
+									final LanguageProvider languageProvider) throws SQLException {
 		if (name.equals("invitationtype")) {
 			return GuestExportWorker.getType((Integer)content);
 		} else if (name.equals("invitationstatus")) {
@@ -474,14 +480,14 @@ public class StatistikWorker {
 			if (type != EventConstants.TYPE_NURPARTNER) {
 				return GuestExportWorker.getStatus((Integer)content);
 			} else {
-				return "nicht eingeladen";
+				return languageProvider.getProperty("STATS_NOT_INVITED");
 			}
 		} else if (name.equals("invitationstatus_p")) {
 			int type = resultSet.getInt("invitationtype");
 			if (type != EventConstants.TYPE_OHNEPARTNER) {
 				return GuestExportWorker.getStatus((Integer)content);
 			} else {
-				return "nicht eingeladen";
+				return languageProvider.getProperty("STATS_NOT_INVITED");
 			}
 		}
 
