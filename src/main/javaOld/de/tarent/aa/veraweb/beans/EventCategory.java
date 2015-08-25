@@ -19,6 +19,7 @@
  */
 package de.tarent.aa.veraweb.beans;
 
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -40,13 +41,11 @@ public class EventCategory extends AbstractBean {
      *
      * @throws de.tarent.octopus.beans.BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      */
-	@Override
-    public void verify() throws BeanException {
-		if (event == null || event.intValue() == 0) {
-            addError("Die Zuordnung einer Kategorie zu einer Veranstaltung ist fehlerhaft.");
-        }
-		if (category == null || category.intValue() == 0) {
-            addError("Die Zuordnung einer Kategorie zu einer Veranstaltung ist fehlerhaft.");
+
+    public void verify(final OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
+		if (event == null || event.intValue() == 0 || category == null || category.intValue() == 0) {
+            addError(messages.getMessageEventcategoryWrong()); // Die Zuordnung einer Kategorie zu einer Veranstaltung ist fehlerhaft.
         }
 	}
 

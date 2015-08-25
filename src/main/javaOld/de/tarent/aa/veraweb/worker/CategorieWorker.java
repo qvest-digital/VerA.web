@@ -261,6 +261,9 @@ public class CategorieWorker extends StammdatenWorker {
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
         int count = 0;
         if (bean.isModified()) {
+            if (bean instanceof Categorie) {
+                ((Categorie) bean).verify(cntx);
+            }
             if (bean.isCorrect()) {
                 Database database = context.getDatabase();
 

@@ -35,7 +35,10 @@
                                  form.submit();
                             }, function () { //nein
                                 showSuccess('${placeholderWithTranslation.eswurdekeinekategoriezugeordnet}');
-                            });
+                            },
+			    ${placeholderWithTranslation.GENERIC_ASSIGN},
+			    ${placeholderWithTranslation.GENERIC_CANCEL}
+			    );
                         #else
                             showAllocateAssign('${placeholderWithTranslation.wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen}?',
                             function () { // Ja
@@ -48,7 +51,10 @@
                                  form.submit();
                             }, function () { //nein
                                 showSuccess('${placeholderWithTranslation.eswurdenkeinekategorienzugeordnet}');
-                            });
+                            },
+			    ${placeholderWithTranslation.GENERIC_ASSIGN},
+			    ${placeholderWithTranslation.GENERIC_CANCEL}
+			    );
                         #end
                     };
             };
@@ -70,7 +76,10 @@
                                  form.submit();
                             }, function () { //nein
                                 showSuccess('${placeholderWithTranslation.eswurdekeinekategorieentfernt}');
-                            });
+                            },
+			    ${placeholderWithTranslation.GENERIC_DELETE},
+			    ${placeholderWithTranslation.GENERIC_CANCEL}
+			    );
                         #else
                             showAllocateRemove('${placeholderWithTranslation.wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen}?',
                             function () { // Ja
@@ -83,7 +92,10 @@
                                  form.submit();
                             }, function () { //nein
                                 showSuccess('${placeholderWithTranslation.eswurdenkeinekategorienentfernt}');
-                            });
+                            },
+			    ${placeholderWithTranslation.GENERIC_DELETE},
+			    ${placeholderWithTranslation.GENERIC_CANCEL}
+			    );
                         #end
                     };
             };
