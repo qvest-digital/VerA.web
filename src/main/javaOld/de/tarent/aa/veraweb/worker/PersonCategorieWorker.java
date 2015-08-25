@@ -26,6 +26,8 @@ import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Select;
@@ -80,9 +82,11 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
                 errors = new ArrayList();
                 octopusContext.setContent(OUTPUT_saveListErrors, errors);
             }
-            errors.add("Um eine neue Kategorie hinzuzuf\u00fcgen w\u00e4hlen" +
-                    " Sie bitte eine Kategorie aus. " +
-                    "(Sie haben nur einen Rang eingegeben.)");
+
+            LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+            LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
+
+            errors.add(languageProvider.getProperty("PERSON_CATEGORIES_SELECT_WARNING"));
         }
     }
 

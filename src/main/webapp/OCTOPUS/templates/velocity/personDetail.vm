@@ -210,7 +210,7 @@
 			<label for="encoding">${placeholderWithTranslation.zeichensatz}</label>
 			<select vera-select name="encoding" id="encoding">
 				<option value="person$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end 
-				onclick="$('#personLocaleTab').attr('value', '1');" ><div>n)</div>${placeholderWithTranslation.latein}</option>
+				onclick="$('#personLocaleTab').attr('value', '1');" ><div>${placeholderWithTranslation.GENERIC_LATIN}</div></option>
 				<option value="person$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end 
 				onclick="$('#personLocaleTab').attr('value', '2');" ><div>${placeholderWithTranslation.zeichensatz} 1</div></option>
 				<option value="person$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end 

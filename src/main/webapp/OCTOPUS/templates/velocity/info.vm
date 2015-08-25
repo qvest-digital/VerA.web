@@ -89,7 +89,7 @@
     <br>
 
 
-    <h3>Benutzer</h3>
+    <h3>${placeholderWithTranslation.GENERIC_USER}</h3>
 
     <table class="form fixed">
     	##Set column size

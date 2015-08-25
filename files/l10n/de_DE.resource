@@ -518,7 +518,7 @@ zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person
 personkopieren=Person kopieren
 etiketterzeugen=Etikett erzeugen
 einerveranstaltungzuordnen=Einer Veranstaltung zuordnen
-personloschen=Person l\u00E4schen
+personloschen=Person l\u00F6schen
 statistik=Statistik
 ausstammdatenhinzufugen=Aus Stammdaten hinzuf\u00FCgen
 
@@ -599,8 +599,44 @@ nogs=NOGs
 politik=Politik
 pressevertreter=Pressevertreter
 wirtschaft=Wirtschaft
-HINT_EXPORT_OPEN_DATA=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00E4nnen.
 exportstarten=Export starten
+ENCODING_TYPE_CYRILLIC=Kyrillisch
+ENCODING_TYPE_WEST=Westlich
+ENCODING_TYPE_BALTIC=Baltisch
+ENCODING_TYPE_EAST=\u00D6stlich
+ENCODING_TYPE_TURKISH=T\u00FCrkisch
+EXPORT_DATA_TYPE_CSV=CSV (Comma-Separated-Values)
+EXPORT_DATA_TYPE_XML=XML (VerA.web-XML)
+EXPORT_DATA_TYPE_ZKM=ZKM (VerA.web-XML \u00FCber das Zentrale Kommunikationsmodul)
+EXPORT_DATA_TYPE_MADLAN_PERSON=MAdLAN-Personen (MAdLAN-Personen-Import)
+EXPORT_DATA_TYPE_MADLAN_COMPANY=MAdLAN-Firmen (MAdLAN-Firmen-Import)
+EXPORT_DATA_TYPE_X_MANAGE_CSV=X-Manage-CSV (X-Manage Kontakte)
+EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE=CSVPersdat+Doktyp (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Kategorien (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
+EXPORT_TITLE_CSV=CSV
+EXPORT_TITLE_XML=XML
+EXPORT_TITLE_ZKM=ZKM
+EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Personen
+EXPORT_TITLE_MADLAN_COMPANY=MAdLAN-Firmen
+EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
+EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV Personendaten+Anschriften+Dokumenttypen
+EXPORT_TITLE_CSVPERSDATA_DOCTYPE=CSV Personendaten+Dokumenttypen
+EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV Personendaten+Dokumenttypen 1.0
+EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV Personendaten+Kategorien
+EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
+LABEL_EXPORT_ZKM=Ziel (ZKM-K\u00FCrzel)
+LABEL_EXPORT_MADLAN_ENCODING=Encoding
+LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Encoding (kyrillisch)
+HINT_EXPORT_CSV=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_ZKM=Die Exportdatei wird sowohl im ZKM-Ausgangsordner abgelegt als auch Ihnen zur Kontrolle zum Herunterladen angeboten. Das Herunterladen k\u00F6nnen Sie bedenkenlos abbrechen.
+HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Es werden nur die Felder aus den Karteireitern "Personendaten", "Anschriften", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE=Es werden nur die Felder aus den Karteireitern "Personendaten", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Es werden nur die Felder aus den Karteireitern "Personendaten", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern "Personendaten", "Kategorien" und deren untergeordneten\u0009Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSV_ISO_8859_15=Dieses Format ist f\u00FCr Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 importvonpersonendaten=Import von Personendaten
@@ -613,7 +649,7 @@ keineausgewahlt=Keine ausgew\u00E4hlt
 importstarten=Import starten
 
 # PERSONENDROPDOWN
-neueperson=Neue person
+neueperson=Neue Person
 suchen&ersetzen=Suchen & ersetzen
 personenexport=Personenexport
 personenimport=Personenimport
@@ -885,7 +921,7 @@ geloscht=gel\u00F6scht
 feldbezeichnung=Feldbezeichnung
 eingabetyp=Eingabetyp
 erfolgreichgespeichert=Erfolgreich gespeichert!
-markiertendokumenttypen=Markierte(n) Dokumenttyp(en)
+markiertendokumenttypen=Markierte(r) Dokumenttyp(en)
 eigenesdokumentfurpartner=Eigenes Dokument f\u00FCr Partner
 sortierreihenfolge=Sortierreihenfolge
 gastgebermitausgeben=Gastgeber mit Ausgeben
@@ -919,7 +955,7 @@ keingastgeberausgewahlt=Kein Gastgeber ausgew\u00E4hlt
 kurzbezeichnung=Kurzbezeichnung
 maximalelangederwarteliste=Maximale L\u00E4nge der Warteliste
 sollendiestammdatenumdiesenorterweitertwerden=Sollen die Stammdaten um diesen Ort erweitert werden
-markiertendokumenttypenentfernen=Markierte(n) Dokumenttyp(en) entfernen
+markiertendokumenttypenentfernen=Markierte(r) Dokumenttyp(en) entfernen
 eswurdenkeinedokumenttypengefunden=Es wurden keine Dokumenttypen gefunden.
 markiertenamtsbezeichnungen=Markierte(n) Amtsbezeichnung(en)
 markiertenamtsbezeichnungenentfernen=Markierte(n) Amtsbezeichnung(en) entfernen
@@ -964,7 +1000,7 @@ category=Kategorie
 weitereoptionen=Weitere Optionen
 anmerkung=Anmerkung
 anmerkungen=Anmerkungen
-markiertebezeichnunge=Markierte Bezeichnung(e)
+markiertebezeichnunge=Markierte Bezeichnung(en)
 markierteeintrageentfernen=Markierte Eintr\u00E4ge entfernen
 eswurdenkeinedatengefunden=Es wurden keine Daten gefunden
 siehabenkeinedatenherkunftangegeben=Sie haben keine Datenherkunft angegeben.
@@ -1186,6 +1222,7 @@ aufreservesetzen=Auf Reserve setzen
 delegationanmelden=Delegation anmelden
 alledemarkiereninklpartnerwenneingeladen=Alle (de)markieren (inkl. Partner, wenn eingeladen)
 arbeitsshybereich=Arbeits&shy;bereich
+amtsbeshyzeichnung=Amtsbe&shy;zeichnung
 eswurdenkeineeintraegegefunden=Es wurden keine Eintr\u00E4ge gefunden.
 suchenersetzen=Suchen & Ersetzen
 suchenersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
@@ -1231,8 +1268,8 @@ werden=werden.
 dieseemailwurdebereitsversendetundsollte=Diese E-Mail wurde bereits versendet und sollte
 nichtmehrbearbeitet=nicht mehr bearbeitet
 technischefehlermeldungausblenden=Technische Fehlermeldung ausblenden
-markiertenmandanten=Markierte(n) Mandanten
-markiertenmandantenwirklichloschen=Markierte\u0028n\u0029 wirklich l\u00F6schen
+markiertenmandanten=Markierte(r) Mandant(en)
+markiertenmandantenwirklichloschen=Markierte\u0028n\u0029 Mandant\u0028en\u0029 wirklich l\u00F6schen
 alledatensatzewurdenerfolgreichmandantenzugeordnet=Alle Datens\u00E4tze wurden erfolgreich einem Mandanten zugeordnet.
 esexistiertnochkeinmandant=Es existiert noch kein Mandant.
 zuordnen=Zuordnen
@@ -1283,13 +1320,13 @@ neuevorlagename=Neue Vorlage (Name)
 neuevorlagespeichern=Neue Vorlage speichern
 neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten=Neue Vorlagen m\u00FCssen sowohl einen Betreff als auch Text enthalten
 zurueckzumverteiler=Zur\u00FCck zum Verteiler
-markiertenveranstaltungsorte=Markierte(n) Veranstaltungsorte
+markiertenveranstaltungsorte=Markierte(r) Veranstaltungsort(e)
 hinweis=Hinweis
 inaktiv=inaktiv
 aktionen=Aktionen
 anschrift=Anschrift
 anderungenspeichern=\u00E4nderungen speichern
-
+senden=Senden
 
 # GENERIC
 GENERIC_UPLOAD_BUTTON = Datei ausw\u00E4hlen
@@ -1297,8 +1334,9 @@ GENERIC_TO=An
 GENERIC_FEDERAL_STATE=Bundesland
 GENERIC_PERSONAL_DATA=Pers\u00F6nliche Daten
 GENERIC_NUMBER_OF_GUESTS=G\u00E4steanzahl
+GENERIC_TELEFON=Telefon
 
-#MESSAGES
+# MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Dieser Gast wurde ohne Hauptperson eingeladen
 MESSAGE_INVITATION_WITHOUT_PARTNER=Dieser Gast wurde ohne Partner eingeladen
 MESSAGE_INVITATION_WITHOUT_PERSON_PART1=M\u00F6chten Sie diese jetzt
@@ -1329,3 +1367,115 @@ CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter
 
 # CHANGELOG REPORTS TEXTS
 CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgung.
+
+# BROWSER TITLES
+BROWSER_TITLE_REPORTS=Reports
+
+# NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zurücksetzen
+GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
+GUEST=Gast
+GENERIC_OF=von
+GENERIC_ASSIGN=Zuweisen
+GENERIC_CANCEL=Abbrechen
+GENERIC_DELETE=Entfernen
+
+# GUEST DETAIL TEXTS
+GUEST_DETAIL_PARTNER=dem Partner
+GUEST_DETAIL_PARTNER_GENITIV=des Partners
+GUEST_DETAIL_MAINPERSON=der Hauptperson
+
+GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Bitte \u00e4ndern Sie erst den Sitzplatz bei 
+GUEST_DETAIL_DUP_SEAT_ERROR_TWO= von 
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=\u00fcber die G\u00e4steliste. Diese Person sitzt aktuell auf 
+GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=dem eingegebenen Sitzplatz 
+GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Die \u00c4nderung wurde nicht gespeichert.
+
+# GUEST TEXTS
+GUEST_CALC_SERIALNO=Diese Veranstaltung liegt bereits in der Vergangenheit, m\u00f6chten Sie trotzdem die Laufende-Nummer neu berechnen?
+
+# MAILING LIST TEXTS
+MAILING_LIST_NO_ADDRESSES=Das Anlegen eines neuen Verteilers ist fehlgeschlagen, da zu den ausgew\u00e4hlten Personen keine Adressdaten vorliegen
+
+# ORG UNIT LIST TEXTS
+ORG_UNIT_NO_MANDANT_ID=Einzuf\u00fcgender Mandant darf keine ID haben
+ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Einzuf\u00fcgender Mandant 
+ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO= existiert bereits.
+ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Zu aktualisierender Mandant 
+ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= muß eine ID haben
+ORG_UNIT_MANDANT_EXISTS_ONE=Ein Mandant mit Namen 
+ORG_UNIT_MANDANT_EXISTS_TWO= existiert bereits.
+
+# PERSON CATEGORIES TEXTS
+PERSON_CATEGORIES_SELECT_WARNING=Um eine neue Kategorie hinzuzuf\u00fcgen w\u00e4hlen Sie bitte eine Kategorie aus. (Sie haben nur einen Rang eingegeben.)
+
+# EXPORT FILE HEADERS
+EXPORT_HEADER_DOCUMENT_TYPE=Dokument_Typ
+EXPORT_HEADER_FREETEXT_FIELD=Freitextfeld
+EXPORT_HEADER_PARTNER_FREETEXT_FIELD=Partner_Freitextfeld
+EXPORT_HEADER_INTERCONNECTS=Verbinder
+EXPORT_HEADER_ADDRESS=Anschrift
+EXPORT_HEADER_CHARSET=Zeichensatz
+EXPORT_HEADER_FUNCTION=Funktion
+EXPORT_HEADER_TITLE=Anrede
+EXPORT_HEADER_FIRSTNAME=Vorname
+EXPORT_HEADER_LASTNAME=Nachname
+EXPORT_HEADER_PARTNER_TITLE=Partner_Anrede
+EXPORT_HEADER_PARTNER_ACADEMIC_TITLE=Partner_Akad_Titel
+EXPORT_HEADER_PARTNER_FIRSTNAME=Partner_Vorname
+EXPORT_HEADER_PARTNER_LASTNAME=Partner_Nachname
+EXPORT_HEADER_POSTALCODE=PLZ
+EXPORT_HEADER_CITY=Ort
+EXPORT_HEADER_STREET=Strasse
+EXPORT_HEADER_COUNTRY=Land
+EXPORT_HEADER_ADDITIONAL_ADDRESS_ONE=Adresszusatz_1
+EXPORT_HEADER_ADDITIONAL_ADDRESS_TWO=Adresszusatz_2
+EXPORT_HEADER_CITY_OF_BORN=Geburtsort
+EXPORT_HEADER_TELEPHONE=Telefon
+EXPORT_HEADER_FAX=Fax
+EXPORT_HEADER_EMAIL=Email
+EXPORT_HEADER_WWW=WWW
+EXPORT_HEADER_MOBILE=Mobil
+EXPORT_HEADER_COMPANY=Firma
+EXPORT_HEADER_POST_OFFICE_BOX_NUMBER=Postfach_Nr
+EXPORT_HEADER_POST_OFFICE_BOX_PLZ=Postfach_PLZ
+EXPORT_HEADER_WORK_AREA=Arbeitsbereich
+EXPORT_HEADER_CATEGORY=Kategorie
+EXPORT_HEADER_CATEGORY_RANG=Kategorie_Rang
+EXPORT_HEADER_RANG=Rang
+EXPORT_HEADER_RESERVE=Reserve
+EXPORT_HEADER_STATUS=Status
+EXPORT_HEADER_TABLE=Tisch
+EXPORT_HEADER_SEAT=Platz
+EXPORT_HEADER_CURRENT_NUMBER=Lfd_Nr
+EXPORT_HEADER_COLOUR=Farbe
+EXPORT_HEADER_IN_COUNTRY=Inland
+EXPORT_HEADER_LANGUAGES=Sprachen
+EXPORT_HEADER_SEX=Geschlecht
+EXPORT_HEADER_NATIONALITY=Nationalit\u00e4t
+EXPORT_HEADER_HINT_RESPONSIBLE=Hinweis_Gastgeber
+EXPORT_HEADER_HINT_ORG_TEAM=Hinweis_Orgateam
+EXPORT_HEADER_PARTNER_STATUS=Partner_Status
+EXPORT_HEADER_PARTNER_TABLE=Partner_Tisch
+EXPORT_HEADER_PARTNER_SEAT=Partner_Platz
+EXPORT_HEADER_PARTNER_CURRENT_NUMBER=Partner_Lfd_Nr
+EXPORT_HEADER_PARTNER_COLOUR=Partner_Farbe
+EXPORT_HEADER_PARTNER_IN_COUNTRY=Inland
+EXPORT_HEADER_PARTNER_LANGUAGES=Partner_Sprachen
+EXPORT_HEADER_PARTNER_SEX=Partner_Geschlecht
+EXPORT_HEADER_PARTNER_NATIONALITY=Partner_Nationalit\u00e4t
+EXPORT_HEADER_PARTNER_HINT_RESPONSIBLE=Partner_Hinweis_Gastgeber
+EXPORT_HEADER_PARTNER_HINT_ORG_TEAM=Partner_Hinweis_Orgateam
+EXPORT_HEADER_ACCEPT=Anzahl_Zusagen
+EXPORT_HEADER_DECLINE=Anzahl_Absagen
+EXPORT_HEADER_OPEN=Anzahl_Offene
+EXPORT_HEADER_GUEST_IN_PLACE=Anzahl_Gaeste_auf_Platz
+EXPORT_HEADER_GUEST_IN_RESERVE=Anzahl_Gaeste_auf_Reserve
+EXPORT_HEADER_EVENT_NAME=Veranstaltungsname
+EXPORT_HEADER_EVENT_BEGIN=Veranstaltung_Beginn
+EXPORT_HEADER_EVENT_END=Veranstaltung_Ende
+EXPORT_HEADER_EVENT_LOCATION=Ort_der_Veranstaltung
+EXPORT_HEADER_OBSERVATION=Bemerkung
+
+# MAIN DATA (STAMMDATEN-WORKER) TEXTS
+MAIN_DATA_WARN_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen

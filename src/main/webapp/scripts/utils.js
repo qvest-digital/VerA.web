@@ -338,14 +338,15 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
         });
     };
 
+
     showConfirmYesNo = (function () {
         var activeConfirmDialogs = {};
-        return function (title, htmlContent, yesAction, nayAction) {
+        return function (title, htmlContent, yesAction, nayAction, textDelete, textCancel) {
             if (activeConfirmDialogs.hasOwnProperty(title)) { // already open?
                 return;
             }
-            var btnYes = $('<input type="button" class="button marginRight5" value="Löschen">');
-            var btnNo = $('<input type="button" class="button" value="Abbrechen">');
+            var btnYes = $('<input type="button" class="button marginRight5" value="'+ textDelete +'">');
+            var btnNo = $('<input type="button" class="button" value="'+ textCancel+'"/>');
             var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + htmlContent + '<br>');
             btnYes.click(function () {
                 yesAction();
@@ -371,12 +372,12 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
 
     showAllocateAssign = (function () {
     	 var activeConfirmDialogs = {};
-         return function (title, yesAction, nayAction) {
+         return function (title, yesAction, nayAction, textAssign, textCancel) {
              if (activeConfirmDialogs.hasOwnProperty(title)) { // already open?
                  return;
              }
-             var btnYes = $('<input type="button" class="button marginRight5" value="Zuweisen">');
-             var btnNo = $('<input type="button" class="button" value="Abbrechen">');
+             var btnYes = $('<input type="button" class="button marginRight5" value="'+ textAssign +'">');
+             var btnNo = $('<input type="button" class="button" value="'+ textCancel +'">');
              var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + '<br>');
              btnYes.click(function () {
             	 yesAction();
@@ -403,12 +404,12 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
 
     showAllocateRemove = (function () {
    	 var activeConfirmDialogs = {};
-        return function (title, yesAction, nayAction) {
+        return function (title, yesAction, nayAction, textDelete, textCancel) {
             if (activeConfirmDialogs.hasOwnProperty(title)) { // already open?
                 return;
             }
-            var btnYes = $('<input type="button" class="button marginRight5" value="Entfernen">');
-            var btnNo = $('<input type="button" class="button" value="Abbrechen">');
+            var btnYes = $('<input type="button" class="button marginRight5" value="'+ textDelete +'">');
+            var btnNo = $('<input type="button" class="button" value="'+ textCancel +'">');
             var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + '<br>');
             btnYes.click(function () {
            	  yesAction();

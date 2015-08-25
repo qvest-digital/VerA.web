@@ -18,12 +18,12 @@
 
 <span id="actionPanel" class="inlineLabel">
 	#if($grants.mayWrite())
-		${placeholderWithTranslation.markiertekategorien} <input type="submit" name="remove" value="Entfernen" title="Markierte Kategorie(n) entfernen"/>
+		${placeholderWithTranslation.markiertekategorien} <input type="submit" name="remove" value="${placeholderWithTranslation.entfernen}" title="Markierte Kategorie(n) entfernen"/>
 	#end
 </span>
 <div class="buttonPanel-top floatRight">
 	#if($grants.mayWrite())
-		<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="Speichern" class="mainButton"/>
+		<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton"/>
 	#end
 </div>
 
@@ -33,9 +33,9 @@
 		#if($list && $list.size() > 0 && $grants.mayWrite())
 			<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end #if(!$grants.mayWrite()) vera-disabled#end/></th>
 		#end
-		<th class="textCenter smallCell">ID</th>
-		<th>Kategorien und Ereignisse</th>
-		<th class="textCenter smallCell">Rang</th>
+		<th class="textCenter smallCell">${placeholderWithTranslation.GENERIC_ID}</th>
+		<th>${placeholderWithTranslation.kategorienundereignisse}</th>
+		<th class="textCenter smallCell">${placeholderWithTranslation.rang}</th>
 	</tr>
 	#if($grants.mayWrite())
 	<tr>
@@ -50,7 +50,7 @@
 		</td>
 		<td>
 			<select id="add-categorie" name="add-categorie" style="width:100%;" onchange="setModified('add')" #if(!$grants.mayWrite()) vera-disabled#end>
-				<option value="">Bitte w&auml;hlen sie</option>
+				<option value="">${placeholderWithTranslation.bittewahlensie}</option>
 				#foreach($categorie in $allCategorie)
 					<option value="$!categorie.id">$!message.plain($categorie.name)</option>
 				#end
@@ -75,7 +75,14 @@
 				$!message.text($!{bean.id})
 			</td>
 			<td>
-				$!message.text($!bean.name) (#if($bean.flags == 99)Dipl.&nbsp;Corps#elseif($bean.flags == 1)Ereignis#else Kategorie#end)
+				$!message.text($!bean.name)
+                #if($bean.flags == 99)
+                    Dipl.&nbsp;Corps
+                #elseif($bean.flags == 1)
+                    (Ereignis)
+                #else
+                    (Kategorie)
+                #end
 			</td>
 			<td>
 				<input type="text" name="${bean.id}-rank" value="$!message.text($bean.rank)" class="small50px" onchange="setModified('$!bean.id')" #if(!$grants.mayWrite()) vera-disabled#end/>
@@ -85,7 +92,7 @@
 
 	#if ($listparam.count == 0)
 		<tr>
-			<td colspan="3">Es liegen keine Kategorien und Ereignisse vor</td>
+			<td colspan="3">${placeholderWithTranslation.esliegenkeinekategorienundereignissevor}</td>
 		</tr>
 	#end
 
@@ -96,7 +103,7 @@
 
 
 <vera-info vera-stay>
-	Bei gr&uuml;n hinterlegten Eintr&auml;gen handelt es sich um wiederkehrende Ereignisse.
+	${placeholderWithTranslation.beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse}
 </vera-info>
 
 

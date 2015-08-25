@@ -208,7 +208,6 @@
 		</script>
 	#end
 
-
 	<form id="personListFilter" name="personListFilter" action="${paths.staticWeb}do/$octopusRequest.task" method="POST" class="marginTop25">
 		<!--<input type="hidden" name="start" value="0" />
 		<input type="hidden" name="limit" value="" />
@@ -359,23 +358,29 @@
             $('input:checkbox').prop('disabled', true);
             $(".errormsg").remove();
             $(".successmsg").remove();
-            showConfirmYesNo(' ${placeholderWithTranslation.bittebestaetigensiedasloeschendermarkiertenpersonen}',
-                msg,
-                function () { // Ja
-                    $ .each(notExpiredPersonIds, function(index, id) {
-                        $('form').append('<input type="hidden" name="remove-expire-' + id + '" value="true" >');
-                        $('form').append('<input type="hidden" name="deleted" value="'+notExpiredPersonIds.length+'" >');
-                    });
+	    showConfirmYesNo(' ${placeholderWithTranslation.bittebestaetigensiedasloeschendermarkiertenpersonen}',
+	        msg,
 
-                    $('input[name=remove-person]').val('true');
-                    $('input:checkbox').prop('disabled', false);
-                    $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
-                }, function () { // Nein
-                    $(".errormsg").remove();
-                    $(".successmsg").remove();
-                    showSuccess(' ${placeholderWithTranslation.eswurdekeinepersongeloscht}');
-                    $('input:checkbox').prop('disabled', false);
-                });
+	        function () { // Ja
+	            $ .each(notExpiredPersonIds, function(index, id) {
+	                $('form').append('<input type="hidden" name="remove-expire-' + id + '" value="true" >');
+	                $('form').append('<input type="hidden" name="deleted" value="'+notExpiredPersonIds.length+'" >');
+	            });
+	
+	            $('input[name=remove-person]').val('true');
+	            $('input:checkbox').prop('disabled', false);
+	            $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
+	        }, 
+		
+		function () { // Nein
+	            $(".errormsg").remove();
+	            $(".successmsg").remove();
+	            showSuccess(' ${placeholderWithTranslation.eswurdekeinepersongeloscht}');
+	            $('input:checkbox').prop('disabled', false);
+	        },
+		'${placeholderWithTranslation.loschen}',
+		'${placeholderWithTranslation.abbrechen}'
+	    );
         }
     };
 
@@ -629,7 +634,7 @@
 						#if($grants.mayWrite())
 							${placeholderWithTranslation.markiertepersonen}
 							<select id="actionSelection">
-								<option value="0">${placeholderWithTranslation.loeschen}</option>
+								<option value="0">${placeholderWithTranslation.loschen}</option>
 								#if($exportFormat && $grants.mayExport())
 									<option value="1">${placeholderWithTranslation.exportieren}</option>
 								#end
@@ -731,7 +736,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbeshyzeichnung}
 								#if($personSearchField == 'function_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -761,7 +766,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.id}</a></th>
 							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}</a></th>
 							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbeshyzeichnung}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
@@ -777,7 +782,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.id}</a></th>
 							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}</a></th>
 							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbeshyzeichnung}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
@@ -793,7 +798,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
 							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}</a></th>
 							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbeshyzeichnung}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}</a></th>
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
@@ -829,7 +834,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbeshyzeichnung}
 								#if($personSearchField == 'function_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -911,10 +916,10 @@ i							${placeholderWithTranslation.markiertepersonen}
 							#end
 							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.id}</a></th>
 							<th title="Datum"><a href="javascript:orderPersonList('created');">${placeholderWithTranslation.datum}</a></span></th>
-							<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">${placeholderWithTranslation.arbeitsbereich}</a></th>
+							<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">${placeholderWithTranslation.arbeitsshybereich}</a></th>
 							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}</a></th>
 							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbeshyzeichnung}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
 							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
@@ -964,7 +969,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}
+							<th title="Gesch&auml;ftlich, Zeichensatz 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbeshyzeichnung}
 								#if($personSearchField == 'function_a_e1')
 										#if ($personSearchOrder == 'ASC')
 											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -1234,7 +1239,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 		</div>
 
 	#end
-
+	
 	## Zurück-Button
 	<span id="buttonPanel-top" class="textRight floatRight">
 		#if($action == "guest")

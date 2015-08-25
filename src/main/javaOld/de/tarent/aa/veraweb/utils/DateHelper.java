@@ -149,7 +149,7 @@ public class DateHelper {
 
 		for (String err : found) {
 			String input = StringEscapeUtils.escapeHtml(err.substring(0, err.indexOf(' ')));
-
+			// TODO TRANSLATIONS (without OctopusContext)
 			errors.remove(err);
 			errors.add("" + input + " ist kein g\u00fcltiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!");
 		}

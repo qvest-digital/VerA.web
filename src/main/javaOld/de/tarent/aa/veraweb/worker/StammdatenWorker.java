@@ -19,12 +19,9 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-
 import de.tarent.aa.veraweb.beans.Doctype;
-import de.tarent.aa.veraweb.beans.Event;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -38,6 +35,10 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Testet ob bereits ein Stammdaten-Eintrag mit dem selben Namen existiert.
@@ -114,7 +115,11 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 	                    database.getCount(bean).
 	                    where(clause),context);
 	            if (exist.intValue() != 0) {
-	                errors.add("Es existiert bereits ein Stammdaten-Eintrag unter dem Namen '" + bean.getField("name") + "'.");
+					LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+					LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+
+	                errors.add(languageProvider.getProperty("MAIN_DATA_WARN_ALREADY_EXISTS") +
+									" '" + bean.getField("name") + "'.");
 	            } else {
 	                count += super.insertBean(cntx, errors, bean, context);
 	            }

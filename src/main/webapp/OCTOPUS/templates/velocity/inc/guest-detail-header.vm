@@ -1,5 +1,5 @@
 <div id="guestTop" class="notBold grayBorder contentBox marginBottom20 bgWhite">
-	<h3>Gastdetails</h3>
+	<h3>${placeholderWithTranslation.gastdetails}</h3>
 	<div class="table width100">
 		## Bug 1591 im Kopf nicht die Stammdaten anzeigen
 			#if($showGuestListData)

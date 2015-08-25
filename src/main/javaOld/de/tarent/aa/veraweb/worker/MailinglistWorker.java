@@ -30,6 +30,8 @@ import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Mailinglist;
 import de.tarent.aa.veraweb.beans.MailinglistAddress;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -139,8 +141,11 @@ public class MailinglistWorker {
 		int savedAddresses = addMailinglist(cntx, mailinglist, freitextfeld, addresstype, locale, clause);
 
 		if (savedAddresses == 0) {
+
+			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
             cntx.setStatus("error");
-            mailinglist.addError("Das Anlegen eines neuen Verteilers ist fehlgeschlagen, da zu den ausgew\u00e4hlten Personen keine Adressdaten vorliegen.");
+            mailinglist.addError(languageProvider.getProperty("MAILING_LIST_NO_ADDRESSES"));
     		if (mailinglist.id != null) {
                 database.execute(database.getDelete(mailinglist));
     		}

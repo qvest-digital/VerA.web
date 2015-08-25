@@ -156,7 +156,7 @@
                             <label for="categorie">${placeholderWithTranslation.kategorie}</label>
 
 							<select name="categoriesSelection" id="categorie" size="5" multiple="multiple" onChange="ensureCorrectSelection( this );">
-							<option value="" #if( ! $search.categoriesSearch || ( $search.categoriesSelection && $search.categoriesSelection.size() == 0 ) ) selected #end>Alle</option>
+							<option value="" #if( ! $search.categoriesSearch || ( $search.categoriesSelection && $search.categoriesSelection.size() == 0 ) ) selected #end>${placeholderWithTranslation.alle}</option>
 							<option value="0" #if( $search.categoriesSelection && $search.categoriesSelection.size() == 1 && $search.categoriesSelection.get(0).intValue() == 0 ) selected #end>${placeholderWithTranslation.keinekategoriezugeordnet}</option>
 							#foreach($categorie in $allCategorie)
 							    #if((!$categorie.flags) || ($categorie.flags != 1))

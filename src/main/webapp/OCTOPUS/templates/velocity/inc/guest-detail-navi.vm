@@ -9,7 +9,7 @@
 			<li class="img"><a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;"><img src="${paths.staticWeb}images/paging_arrow_left_active.png" title="${placeholderWithTranslation.TABLE_FIRST_GUEST}" style="cursor: pointer;"/></a></li>
 		#end
 
-		Gast $search.offset von $search.count
+		${placeholderWithTranslation.GUEST} $search.offset ${placeholderWithTranslation.GENERIC_OF} $search.count
 
 		#set($offset = $search.offset + 1)
 		#if ($offset > $search.count)
