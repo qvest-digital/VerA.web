@@ -1470,3 +1470,6 @@ EXPORT_HEADER_EVENT_BEGIN=Veranstaltung_Beginn
 EXPORT_HEADER_EVENT_END=Veranstaltung_Ende
 EXPORT_HEADER_EVENT_LOCATION=Ort_der_Veranstaltung
 EXPORT_HEADER_OBSERVATION=Bemerkung
+
+# MAIN DATA (STAMMDATEN-WORKER) TEXTS
+MAIN_DATA_WARN_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen

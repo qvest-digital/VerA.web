@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -108,7 +110,11 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 	                    database.getCount(bean).
 	                    where(clause),context);
 	            if (exist.intValue() != 0) {
-	                errors.add("Es existiert bereits ein Stammdaten-Eintrag unter dem Namen '" + bean.getField("name") + "'.");
+					LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+					LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+
+	                errors.add(languageProvider.getProperty("MAIN_DATA_WARN_ALREADY_EXISTS") +
+									" '" + bean.getField("name") + "'.");
 	            } else {
 	                count += super.insertBean(cntx, errors, bean, context);
 	            }
