@@ -31,6 +31,8 @@ import java.util.Map;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import org.apache.log4j.Logger;
 
 import de.tarent.aa.veraweb.beans.Color;
@@ -175,7 +177,7 @@ public class PersonExportWorker extends PersonListWorker {
         			// Tabelle öffnen und erste Zeile schreiben
         			spreadSheet.openTable("Gäste", 65);
         			spreadSheet.openRow();
-        			exportHeader(spreadSheet);
+        			exportHeader(spreadSheet, cntx);
         			spreadSheet.closeRow();
 
         			// Zusatzinformationen
@@ -245,108 +247,82 @@ public class PersonExportWorker extends PersonListWorker {
 	 *
 	 * @param spreadSheet {@link SpreadSheet}, in das geschrieben werden soll.
 	 */
-	protected void exportHeader(SpreadSheet spreadSheet) {
+	protected void exportHeader(SpreadSheet spreadSheet, OctopusContext octopusContext) {
+
+		LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+		LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
 		//
 		// Gast spezifische Daten
 		//
-		spreadSheet.addCell("Dokument_Typ"); // Name des Dokument-Typs
-		spreadSheet.addCell("Freitextfeld");
-		spreadSheet.addCell("Partner_Freitextfeld");
-		spreadSheet.addCell("Verbinder");
 
-		spreadSheet.addCell("Anschrift"); // P, G oder S - Vorgabe aus Person, überschreibbar
-		spreadSheet.addCell("Zeichensatz"); // L, F1 oder F2 - Vorgabe aus Person, überschreibbar
 
-		spreadSheet.addCell("Funktion");
-		spreadSheet.addCell("Anrede");
-		spreadSheet.addCell("Akad_Titel");
-		spreadSheet.addCell("Vorname");
-		spreadSheet.addCell("Nachname");
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_DOCUMENT_TYPE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_FREETEXT_FIELD"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_FREETEXT_FIELD"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_INTERCONNECTS"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_ADDRESS"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_CHARSET"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_FUNCTION"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_TITLE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_FIRSTNAME"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_LASTNAME"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_TITLE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_ACADEMIC_TITLE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_FIRSTNAME"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_LASTNAME"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_POSTALCODE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_CITY"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_STREET"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_COUNTRY"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_ADDITIONAL_ADDRESS_ONE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_ADDITIONAL_ADDRESS_TWO"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_CITY_OF_BORN"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_TELEPHONE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_FAX"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_EMAIL"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_WWW"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_MOBILE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_COMPANY"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_POST_OFFICE_BOX_NUMBER"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_POST_OFFICE_BOX_PLZ"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_WORK_AREA"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_CATEGORY"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_CATEGORY_RANG"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_RANG"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_RESERVE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_STATUS"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_TABLE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_SEAT"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_CURRENT_NUMBER"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_COLOUR"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_IN_COUNTRY"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_LANGUAGES"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_SEX"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_NATIONALITY"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_HINT_RESPONSIBLE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_HINT_ORG_TEAM"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_STATUS"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_TABLE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_SEAT"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_CURRENT_NUMBER"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_COLOUR"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_IN_COUNTRY"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_LANGUAGES"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_SEX"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_NATIONALITY"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_HINT_RESPONSIBLE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_HINT_ORG_TEAM"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_ACCEPT"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_DECLINE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_OPEN"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_GUEST_IN_PLACE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_GUEST_IN_RESERVE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_EVENT_NAME"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_EVENT_BEGIN"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_EVENT_END"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_EVENT_LOCATION"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_OBSERVATION"));
 
-		spreadSheet.addCell("Partner_Anrede");
-		spreadSheet.addCell("Partner_Akad_Titel");
-		spreadSheet.addCell("Partner_Vorname");
-		spreadSheet.addCell("Partner_Nachname");
-
-		spreadSheet.addCell("PLZ");
-		spreadSheet.addCell("Ort");
-		spreadSheet.addCell("Strasse");
-		spreadSheet.addCell("Land");
-		spreadSheet.addCell("Adresszusatz_1");
-		spreadSheet.addCell("Adresszusatz_2");
-
-		/*
-		 * modified to support birthplace as per change request for version 1.2.0
-		 * cklein
-		 * 2008-02-26
-		 */
-		spreadSheet.addCell("Geburtsort");
-		spreadSheet.addCell("Telefon");
-		spreadSheet.addCell("Fax");
-		spreadSheet.addCell("Email");
-		spreadSheet.addCell("WWW");
-		spreadSheet.addCell("Mobil");
-		spreadSheet.addCell("Firma");
-		spreadSheet.addCell("Postfach_Nr");
-		spreadSheet.addCell("Postfach_PLZ");
-
-		/*
-		 * modified to support workareas as per change request for version 1.2.0
-		 * cklein
-		 * 2008-02-26
-		 */
-		spreadSheet.addCell("Arbeitsbereich");
-		//
-		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
-		//
-		spreadSheet.addCell("Kategorie"); // Verweis auf Kategorie, die zur Auswahl führte
-		spreadSheet.addCell("Kategorie_Rang"); // Der Rang der Kategorie innerhalb der Kategorien
-		spreadSheet.addCell("Rang"); // Der Rang der Person innerhalb der Kategorie
-		spreadSheet.addCell("Reserve"); // 0 = Tisch, 1 = Reservce
-
-		//
-		// Veranstaltungsspezifische Attribute für Person
-		//
-		spreadSheet.addCell("Status"); // 0 = Offen, 1 = Zusage, 2 = Absage
-		spreadSheet.addCell("Tisch");
-		spreadSheet.addCell("Platz");
-		spreadSheet.addCell("Lfd_Nr");
-		spreadSheet.addCell("Farbe"); // Verweiss auf Farbe die verwendet werden soll.
-		spreadSheet.addCell("Inland"); // Ja / Nein
-		spreadSheet.addCell("Sprachen");
-		spreadSheet.addCell("Geschlecht"); // M oder F
-		spreadSheet.addCell("Nationalität");
-		spreadSheet.addCell("Hinweis_Gastgeber");
-		spreadSheet.addCell("Hinweis_Orgateam");
-
-		//
-		// Veranstaltungsspezifische Attribute für Partner der Person
-		//
-		spreadSheet.addCell("Partner_Status"); // 0 = Offen, 1 = Zusage, 2 = Absage
-		spreadSheet.addCell("Partner_Tisch");
-		spreadSheet.addCell("Partner_Platz");
-		spreadSheet.addCell("Partner_Lfd_Nr");
-		spreadSheet.addCell("Partner_Farbe"); // Verweiss auf Farbe die verwendet werden soll.
-		spreadSheet.addCell("Partner_Inland"); // Ja / Nein
-		spreadSheet.addCell("Partner_Sprachen");
-		spreadSheet.addCell("Partner_Geschlecht"); // M oder F
-		spreadSheet.addCell("Partner_Nationalität");
-		spreadSheet.addCell("Partner_Hinweis_Gastgeber");
-		spreadSheet.addCell("Partner_Hinweis_Orgateam");
-
-		//
-		// Sonstiges
-		//
-		spreadSheet.addCell("Anzahl_Zusagen");
-		spreadSheet.addCell("Anzahl_Absagen");
-		spreadSheet.addCell("Anzahl_Offene");
-		spreadSheet.addCell("Anzahl_Gaeste_auf_Platz");
-		spreadSheet.addCell("Anzahl_Gaeste_auf_Reserve");
-		spreadSheet.addCell("Veranstaltungsname");
-		spreadSheet.addCell("Veranstaltung_Beginn");
-		spreadSheet.addCell("Veranstaltung_Ende");
-		spreadSheet.addCell("Ort_der_Veranstaltung");
-		spreadSheet.addCell("Bemerkung");
 	}
 
     /**

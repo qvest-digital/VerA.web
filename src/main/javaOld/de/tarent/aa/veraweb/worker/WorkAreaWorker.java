@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.tarent.aa.veraweb.beans.WorkArea;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
@@ -73,7 +75,12 @@ public class WorkAreaWorker extends StammdatenWorker
 			{
 				errors = new ArrayList< String >();
 			}
-			errors.add( "Der Arbeitsbereich mit dem Namen '" + ( ( WorkArea ) bean ).name + "' konnte nicht angelegt werden. Bitte weisen Sie sich zuerst einen Mandanten zu." );
+			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+
+			errors.add(languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_ONE") +
+					  ((WorkArea)bean).name +
+					  languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_TWO"));
 			cntx.setContent( OUTPUT_saveListErrors, errors );
 		}
 		else

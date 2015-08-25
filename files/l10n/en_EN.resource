@@ -550,7 +550,7 @@ nichtverf\u00FCgbar=Unavailable
 siesindhier=You are here
 Ja=Yes
 Nein=No data found
-Home=Home
+home=Home
 # Tabellen
 ID=ID
 Datum=Date end:

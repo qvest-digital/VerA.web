@@ -152,7 +152,7 @@ HEADER_COUNT_REMOVE_ZERO_PART_TWO=gel\u00F6scht
 HEADER_COUNT_REMOVE_ONE_PART_TWO=gel\u00F6scht
 HEADER_COUNT_REMOVE_ELSE_PART_TWO=gel\u00F6scht
 HEADER_COUNT_UPDATE_ZERO_PART_ONE=Es wurde
-HEADER_COUNT_UPDATE_ONE_PART_ONE =Es wurde
+HEADER_COUNT_UPDATE_ONE_PART_ONE=Es wurde
 HEADER_COUNT_UPDATE_ELSE_PART_ONE=Es wurden
 HEADER_COUNT_UPDATE_ZERO_PART_TWO=ge\u00E4ndert
 HEADER_COUNT_UPDATE_ONE_PART_TWO=ge\u00E4ndert
@@ -461,7 +461,7 @@ datum=Datum
 arbeitsbereich=Arbeitsbereich
 nachname=Nachname
 vorname=Vorname
-amtsbezeichnung=Amtsbezeichnung
+akwritemtsbezeichnung=Amtsbezeichnung
 firmainstitution=Firma / Institution
 strasse=Stra\u00DFe
 plz=PLZ
@@ -649,7 +649,7 @@ keineausgewahlt=Keine ausgew\u00E4hlt
 importstarten=Import starten
 
 # PERSONENDROPDOWN
-neueperson=Neue person
+neueperson=Neue Person
 suchen&ersetzen=Suchen & ersetzen
 personenexport=Personenexport
 personenimport=Personenimport
@@ -1222,6 +1222,7 @@ aufreservesetzen=Auf Reserve setzen
 delegationanmelden=Delegation anmelden
 alledemarkiereninklpartnerwenneingeladen=Alle (de)markieren (inkl. Partner, wenn eingeladen)
 arbeitsshybereich=Arbeits&shy;bereich
+amtsbeshyzeichnung=Amtsbe&shy;zeichnung
 eswurdenkeineeintraegegefunden=Es wurden keine Eintr\u00E4ge gefunden.
 suchenersetzen=Suchen & Ersetzen
 suchenersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
@@ -1328,18 +1329,26 @@ anderungenspeichern=\u00E4nderungen speichern
 senden=Senden
 
 # GENERIC
-GENERIC_UPLOAD_BUTTON = Datei ausw\u00E4hlen
+GENERIC_UPLOAD_BUTTON=Datei ausw\u00E4hlen
 GENERIC_TO=An
 GENERIC_FEDERAL_STATE=Bundesland
 GENERIC_PERSONAL_DATA=Pers\u00F6nliche Daten
 GENERIC_NUMBER_OF_GUESTS=G\u00E4steanzahl
 GENERIC_TELEFON=Telefon
 
-#MESSAGES
+# MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Dieser Gast wurde ohne Hauptperson eingeladen
 MESSAGE_INVITATION_WITHOUT_PARTNER=Dieser Gast wurde ohne Partner eingeladen
 MESSAGE_INVITATION_WITHOUT_PERSON_PART1=M\u00F6chten Sie diese jetzt
 MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON=nachtr\u00E4glich einladen
+MESSAGE_END_AND_START_DATE=Das Ende der Veranstaltung muss zeitlich nach dem Beginn der Veranstaltung liegen.
+MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=Die Veranstaltung kann nicht gespeichert werden. Vergeben Sie bitte eine Kurzbezeichnung.
+MESSAGE_EVENT_WRING_DATE_FORMAT=Sie m\u00FCssen den Beginn der Veranstaltung im Format TT.MM.JJJJ angeben.
+MESSAGE_GENERIC_MISSING_DESCRIPTION=Sie m\u00fcssen eine Bezeichung eingeben.
+MESSAGE_COLOR_MISSING_NAME=Sie m\u00FCssen einen Namen eingeben.
+MESSAGE_EVENTCATEGORY_ASSIGNMENT_WRONG=Die Zuordnung einer Kategorie zu einer Veranstaltung ist fehlerhaft.
+MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=Die Zuordnung eines Dokumenttypens zu einer Veranstaltung ist fehlerhaft.
+MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG=Die Zuordnung einer Funktion/Amtsbezeichnung zu einer Veranstaltung ist fehlerhaft.
 
 # EVENT LIST TEXTS
 EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Mindestens eine markierte Veranstaltung l\u00e4uft aktuell oder liegt in der Zukunft.
@@ -1361,8 +1370,9 @@ CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter
 # CHANGELOG REPORTS TEXTS
 CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgung.
 
-#BROWSER TITLES
+# BROWSER TITLES
 BROWSER_TITLE_REPORTS=Reports
+
 
 #NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zur\u00fccksetzen
@@ -1393,19 +1403,15 @@ bittebestatigensiedasloschendermarkiertengasteliste=Bitte best\u00E4tigen Sie da
 GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00f6scht.
 
 
-EVENT_DOCTYPE_RESET_INFO=Bitte \u00fcberpr\u00fcfen Sie ob dieser Veranstaltung
-                	bereits Dokumenttypen zugeordnet sind. Sollte dies der
-                	Fall sein m\u00fcssen Sie die Dokumenttypen f\u00fcr diesen
-                	Gast neu erzeugen, klicken Sie hierzu auf &quot;Auf Stammdaten zur\u00fccksetzen&quot;.
-                	
+EVENT_DOCTYPE_RESET_INFO=Bitte \u00fcberpr\u00fcfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00fcssen Sie die Dokumenttypen f\u00fcr diesen Gast neu erzeugen, klicken Sie hierzu auf &quot;Auf Stammdaten zur\u00fccksetzen&quot;.
+
 diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00fcber den Men\u00fcpunkt Administration &gt; Programmeinstellungen m\u00f6glich.
             
 GENERIC_CHOSEN_GUESTLIST=Ausgew\u00E4hlte G\u00E4ste            
 exportierfahigegasteliste=Exportierf\u00E4hige G\u00E4ste
 unvollstandigegasteliste=Unvollst\u00E4ndige G\u00E4ste
 
-GUESTLIST_FILTER_EXPORT_INFO=Sollten Sie in der G\u00E4steliste eine Filterung getroffen haben, werden nur die
-		ausgew\u00E4hlten G\u00E4ste exportiert.
+GUESTLIST_FILTER_EXPORT_INFO=Sollten Sie in der G\u00E4steliste eine Filterung getroffen haben, werden nur die ausgew\u00E4hlten G\u00E4ste exportiert.
 
 GUEST_CANNOT_BE_EXPORTED_1=Ein Gast
 GUEST_CANNOT_BE_EXPORTED_2=kann
@@ -1424,3 +1430,148 @@ GENERIC_SELECT_FUNCTION=Funktion ausw\u00E4hlen
 diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten=Die Stammdaten dieses Gastes wurden gel\u00f6scht. Sie k\u00f6nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten
 DELETE_SELECTED_MANDATOR=Markierte(n) Mandanten l\u00f6schen
 PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Soll der Rang der Kategorie aus den Stammdaten \u00fcbernommen werden?
+
+
+# NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zur\u00FCcksetzen
+GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
+GUEST=Gast
+GENERIC_OF=von
+GENERIC_ASSIGN=Zuweisen
+GENERIC_CANCEL=Abbrechen
+GENERIC_DELETE=Entfernen
+
+# GUEST DETAIL TEXTS
+GUEST_DETAIL_PARTNER=dem Partner
+GUEST_DETAIL_PARTNER_GENITIV=des Partners
+GUEST_DETAIL_MAINPERSON=der Hauptperson
+
+GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Bitte \u00e4ndern Sie erst den Sitzplatz bei 
+GUEST_DETAIL_DUP_SEAT_ERROR_TWO=von 
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=\u00fcber die G\u00e4steliste. Diese Person sitzt aktuell auf 
+GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=dem eingegebenen Sitzplatz 
+GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Die \u00c4nderung wurde nicht gespeichert.
+
+# GUEST TEXTS
+GUEST_CALC_SERIALNO=Diese Veranstaltung liegt bereits in der Vergangenheit, m\u00f6chten Sie trotzdem die Laufende-Nummer neu berechnen?
+
+# MAILING LIST TEXTS
+MAILING_LIST_NO_ADDRESSES=Das Anlegen eines neuen Verteilers ist fehlgeschlagen, da zu den ausgew\u00e4hlten Personen keine Adressdaten vorliegen
+
+# ORG UNIT LIST TEXTS
+ORG_UNIT_NO_MANDANT_ID=Einzuf\u00fcgender Mandant darf keine ID haben
+ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Einzuf\u00fcgender Mandant 
+ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO=existiert bereits.
+ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Zu aktualisierender Mandant 
+ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= mu\u00DF eine ID haben
+ORG_UNIT_MANDANT_EXISTS_ONE=Ein Mandant mit Namen 
+ORG_UNIT_MANDANT_EXISTS_TWO=existiert bereits.
+
+# PERSON CATEGORIES TEXTS
+PERSON_CATEGORIES_SELECT_WARNING=Um eine neue Kategorie hinzuzuf\u00fcgen w\u00e4hlen Sie bitte eine Kategorie aus. (Sie haben nur einen Rang eingegeben.)
+
+# EXPORT FILE HEADERS
+EXPORT_HEADER_DOCUMENT_TYPE=Dokument_Typ
+EXPORT_HEADER_FREETEXT_FIELD=Freitextfeld
+EXPORT_HEADER_PARTNER_FREETEXT_FIELD=Partner_Freitextfeld
+EXPORT_HEADER_INTERCONNECTS=Verbinder
+EXPORT_HEADER_ADDRESS=Anschrift
+EXPORT_HEADER_CHARSET=Zeichensatz
+EXPORT_HEADER_FUNCTION=Funktion
+EXPORT_HEADER_TITLE=Anrede
+EXPORT_HEADER_FIRSTNAME=Vorname
+EXPORT_HEADER_LASTNAME=Nachname
+EXPORT_HEADER_PARTNER_TITLE=Partner_Anrede
+EXPORT_HEADER_PARTNER_ACADEMIC_TITLE=Partner_Akad_Titel
+EXPORT_HEADER_PARTNER_FIRSTNAME=Partner_Vorname
+EXPORT_HEADER_PARTNER_LASTNAME=Partner_Nachname
+EXPORT_HEADER_POSTALCODE=PLZ
+EXPORT_HEADER_CITY=Ort
+EXPORT_HEADER_STREET=Strasse
+EXPORT_HEADER_COUNTRY=Land
+EXPORT_HEADER_ADDITIONAL_ADDRESS_ONE=Adresszusatz_1
+EXPORT_HEADER_ADDITIONAL_ADDRESS_TWO=Adresszusatz_2
+EXPORT_HEADER_CITY_OF_BORN=Geburtsort
+EXPORT_HEADER_TELEPHONE=Telefon
+EXPORT_HEADER_FAX=Fax
+EXPORT_HEADER_EMAIL=Email
+EXPORT_HEADER_WWW=WWW
+EXPORT_HEADER_MOBILE=Mobil
+EXPORT_HEADER_COMPANY=Firma
+EXPORT_HEADER_POST_OFFICE_BOX_NUMBER=Postfach_Nr
+EXPORT_HEADER_POST_OFFICE_BOX_PLZ=Postfach_PLZ
+EXPORT_HEADER_WORK_AREA=Arbeitsbereich
+EXPORT_HEADER_CATEGORY=Kategorie
+EXPORT_HEADER_CATEGORY_RANG=Kategorie_Rang
+EXPORT_HEADER_RANG=Rang
+EXPORT_HEADER_RESERVE=Reserve
+EXPORT_HEADER_STATUS=Status
+EXPORT_HEADER_TABLE=Tisch
+EXPORT_HEADER_SEAT=Platz
+EXPORT_HEADER_CURRENT_NUMBER=Lfd_Nr
+EXPORT_HEADER_COLOUR=Farbe
+EXPORT_HEADER_IN_COUNTRY=Inland
+EXPORT_HEADER_LANGUAGES=Sprachen
+EXPORT_HEADER_SEX=Geschlecht
+EXPORT_HEADER_NATIONALITY=Nationalit\u00e4t
+EXPORT_HEADER_HINT_RESPONSIBLE=Hinweis_Gastgeber
+EXPORT_HEADER_HINT_ORG_TEAM=Hinweis_Orgateam
+EXPORT_HEADER_PARTNER_STATUS=Partner_Status
+EXPORT_HEADER_PARTNER_TABLE=Partner_Tisch
+EXPORT_HEADER_PARTNER_SEAT=Partner_Platz
+EXPORT_HEADER_PARTNER_CURRENT_NUMBER=Partner_Lfd_Nr
+EXPORT_HEADER_PARTNER_COLOUR=Partner_Farbe
+EXPORT_HEADER_PARTNER_IN_COUNTRY=Inland
+EXPORT_HEADER_PARTNER_LANGUAGES=Partner_Sprachen
+EXPORT_HEADER_PARTNER_SEX=Partner_Geschlecht
+EXPORT_HEADER_PARTNER_NATIONALITY=Partner_Nationalit\u00e4t
+EXPORT_HEADER_PARTNER_HINT_RESPONSIBLE=Partner_Hinweis_Gastgeber
+EXPORT_HEADER_PARTNER_HINT_ORG_TEAM=Partner_Hinweis_Orgateam
+EXPORT_HEADER_ACCEPT=Anzahl_Zusagen
+EXPORT_HEADER_DECLINE=Anzahl_Absagen
+EXPORT_HEADER_OPEN=Anzahl_Offene
+EXPORT_HEADER_GUEST_IN_PLACE=Anzahl_Gaeste_auf_Platz
+EXPORT_HEADER_GUEST_IN_RESERVE=Anzahl_Gaeste_auf_Reserve
+EXPORT_HEADER_EVENT_NAME=Veranstaltungsname
+EXPORT_HEADER_EVENT_BEGIN=Veranstaltung_Beginn
+EXPORT_HEADER_EVENT_END=Veranstaltung_Ende
+EXPORT_HEADER_EVENT_LOCATION=Ort_der_Veranstaltung
+EXPORT_HEADER_OBSERVATION=Bemerkung
+
+# MAIN DATA (STAMMDATEN-WORKER) TEXTS
+MAIN_DATA_WARN_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen
+
+# STATS (Statistik Worker)
+STATS_COLUMN_EVENT_NAME=Name der Veranstaltung
+STATS_COLUMN_DATE_BEGIN=Beginn
+STATS_COLUMN_INVITATION_TYPE=Einladungsart
+STATS_COLUMN_INVITATION_STATUS=Status
+STATS_COLUMN_INVITATION_STATUS_PARTNER=Status Partner
+STATS_COLUMN_YEAR=Jahr
+STATS_COLUMN_MONTH=Monat
+STATS_COLUMN_EVENTS=Veranstaltungen
+STATS_NOT_INVITED=nicht eingeladen
+
+# USER LIST TEXTS
+USER_LIST_WARN_MANDANT_ONE=Einzuf\u00fcgender Benutzer ist bereits dem Mandanten 
+USER_LIST_WARN_MANDANT_TWO= zugeordnet.
+USER_LIST_WARN_ALREADY_USER=Einzuf\u00fcgender Benutzer ist bereits VerA.web zugeordnet.
+
+# WORKAREA TEXTS
+WORKAREA_ERROR_INCORRECT_NAME_ONE=Der Arbeitsbereich mit dem Namen '
+WORKAREA_ERROR_INCORRECT_NAME_TWO=' konnte nicht angelegt werden. Bitte weisen Sie sich zuerst einen Mandanten zu.
+
+# VERIFY TEXTS
+VERIFY_ERROR_ACCESS_TO_DB_UNABLE=Die Verbindung zur Datenbank wurde nicht erfolgreich hergestellt.
+VERIFY_ERROR_ACCESS_TO_DB_INTERRUPTED=Die Verbindung zur Datenbank wurde unterbrochen.
+VERIFY_ERROR_ACCESS_TO_DB_NOT_INTERRUPTED=Die Verbindung zur Datenbank wurde nicht erfolgreich unterbrochen.
+VERIFY_ERROR_DB_NOT_ACCESSIBLE=Die Verbindung zur Datenbank konnte nicht hergestellt werden.
+VERIFY_ERROR_DB_VERSION_NOT_DETERMINED=Die Version des Datenbank-Schemas konnte nicht ermittelt werden.
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE=Die Version des Datenbank-Schemas (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO=) stimmt nicht mit der von VerA.web erwarteten (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=) \u00fcbereini.
+VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00fctzt nicht den erwarteten Zeichensatz (LC_CTYPE=
+VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00fctzt nicht die erwarteten Textvergleichsregeln (LC_COLLATE=
+VERIFY_ERROR_XML=Bei der Erzeugung eines XML-Testdokumentes ist ein Fehler aufgetreten. (
+VERIFY_ERROR_JAVA_ONE=Die installierte Java-Version (
+VERIFY_ERROR_JAVA_TWO=) entspricht nicht der erwarteten Version (1.4).

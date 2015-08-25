@@ -27,6 +27,8 @@ import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.OrgUnit;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
@@ -79,13 +81,16 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
+
     	int count = 0;
         if (bean.isModified()) {
             if (bean.isCorrect()) {
                 if (bean instanceof OrgUnit) {
+					LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+					LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
                     OrgUnit orgunitBean = (OrgUnit) bean;
                     if (orgunitBean.id != null) {
-                        errors.add("Einzuf\u00fcgender Mandant darf keine ID haben");
+                        errors.add(languageProvider.getProperty("ORG_UNIT_NO_MANDANT_ID"));
                         return count;
                     }
                     Database database = context.getDatabase();
@@ -93,7 +98,9 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                             database.getSelect("OrgUnit").
                             where(Expr.equal("unitname", orgunitBean.name)), context);
                     if (dupBean != null) {
-                        errors.add("Einzuf\u00fcgender Mandant '" + orgunitBean.name + "' existiert bereits.");
+                        errors.add(languageProvider.getProperty("ORG_UNIT_NO_MANDANT_ALREADY_EXISTS_ONE") +
+								   orgunitBean.name +
+								   languageProvider.getProperty("ORG_UNIT_NO_MANDANT_ALREADY_EXISTS_TWO"));
                         return count;
                     }
                 }
@@ -119,7 +126,8 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * @throws IOException
      */
     @Override
-    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context) throws BeanException, IOException {
+    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context)
+			throws BeanException, IOException {
     	int count = 0;
         for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
             Bean bean = (Bean)it.next();
@@ -127,8 +135,14 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                 if (bean.isCorrect()) {
                     if (bean instanceof OrgUnit) {
                         OrgUnit orgunitBean = (OrgUnit) bean;
+
+						LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+						LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+
                         if (orgunitBean.id == null) {
-                            errors.add("Zu aktualisierender Mandant " + orgunitBean.name + " muß eine ID haben");
+                            errors.add(languageProvider.getProperty("ORG_UNIT_MANDANT_ID_COMPULSORY_ONE") +
+									   orgunitBean.name +
+									   languageProvider.getProperty("ORG_UNIT_MANDANT_ID_COMPULSORY_TWO"));
                             continue;
                         }
                         Database database = context.getDatabase();
@@ -138,7 +152,9 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                                         Expr.equal("unitname", orgunitBean.name),
                                         Expr.notEqual("pk", orgunitBean.id))), context);
                         if (dupBean != null) {
-                            errors.add("Ein Mandant mit Namen " + orgunitBean.name + " existiert bereits.");
+                            errors.add(languageProvider.getProperty("ORG_UNIT_MANDANT_EXISTS_ONE") +
+									   orgunitBean.name +
+									   languageProvider.getProperty("ORG_UNIT_MANDANT_EXISTS_TWO"));
                             continue;
                         }
                     }

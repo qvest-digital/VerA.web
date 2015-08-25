@@ -31,7 +31,10 @@
                 	       	 form.submit();
 						}, function () { //nein
 							showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichzugeordnet}');
-						});
+						},
+			    			${placeholderWithTranslation.GENERIC_ASSIGN},
+			    			${placeholderWithTranslation.GENERIC_CANCEL}
+			    	);
         			#else
         				showAllocateAssign('${placeholderWithTranslation.wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen}',
 						function () { // Ja
@@ -44,7 +47,10 @@
                 	       	 form.submit();
 						}, function () { //nein
 							showSuccess('${placeholderWithTranslation.eswurdenkeinearbeitsbereichzugeordnet}');
-						});
+						},
+			    ${placeholderWithTranslation.GENERIC_ASSIGN},
+			    ${placeholderWithTranslation.GENERIC_CANCEL}
+			    );
         			#end
     			};
 		};
@@ -66,7 +72,10 @@
                 	       	 form.submit();
 						}, function () { //nein
 							showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichaufgehoben}');
-						});
+						},
+						${placeholderWithTranslation.GENERIC_DELETE},
+						${placeholderWithTranslation.GENERIC_CANCEL}
+						);
         			#else
 						showAllocateRemove('${placeholderWithTranslation.wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben}',
 						function () { // Ja
@@ -79,7 +88,10 @@
                 	       	 form.submit();
 						}, function () { //nein
 							showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichaufgehoben}');
-						});
+						},
+						${placeholderWithTranslation.GENERIC_DELETE},
+						${placeholderWithTranslation.GENERIC_CANCEL}
+						);
         			#end
     			};
 		};

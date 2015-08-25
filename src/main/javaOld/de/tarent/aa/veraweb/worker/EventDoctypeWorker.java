@@ -80,6 +80,7 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
     protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
 
 		Database database = context.getDatabase();
+		((EventDoctype) bean).verify(cntx);
 		super.saveBean(cntx, bean, context);
 		List list =
 				database.getList(

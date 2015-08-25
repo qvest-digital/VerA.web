@@ -31,6 +31,8 @@ import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.GuestSerialNumber;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.sql.Join;
@@ -631,7 +633,10 @@ context.commit();
 
 		Map questions = new HashMap();
 		if (event.begin.before(new Date()) && !cntx.requestAsBoolean("calc-serialno").booleanValue()) {
-			questions.put("calc-serialno", "Diese Veranstaltung liegt bereits in der Vergangenheit, m\u00f6chten Sie trotzdem die Laufende-Nummer neu berechnen?");
+			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+
+			questions.put("calc-serialno", languageProvider.getProperty("GUEST_CALC_SERIALNO"));
 		} else {
 			TransactionContext context = database.getTransactionContext();
 			try

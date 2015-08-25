@@ -26,6 +26,8 @@ import java.util.List;
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Person;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -259,6 +261,9 @@ public class CategorieWorker extends StammdatenWorker {
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
         int count = 0;
         if (bean.isModified()) {
+            if (bean instanceof Categorie) {
+                ((Categorie) bean).verify(cntx);
+            }
             if (bean.isCorrect()) {
                 Database database = context.getDatabase();
 
@@ -271,8 +276,12 @@ public class CategorieWorker extends StammdatenWorker {
                 boolean admin = groups.contains(PersonalConfigAA.GROUP_ADMIN) || groups.contains(PersonalConfigAA.GROUP_PARTIAL_ADMIN);
 
                 if (exist.intValue() != 0) {
+
+                    LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+                    LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+
                     cntx.getContentObject().setField("beanToAdd", bean);
-                    errors.add("Es existiert bereits ein Stammdaten-Eintrag unter dem Namen '" + bean.getField("name") + "'.");
+                    errors.add(languageProvider.getProperty("CATEGORY_DETAIL_ALREADY_EXISTS").toString() + bean.getField("name") + "'.");
                 } else if (admin && !cntx.requestAsBoolean("questionConfirmed").booleanValue()) {
                     cntx.getContentObject().setField("beanToAdd", bean);
                     cntx.getContentObject().setField("resortQuestion", true);
