@@ -1492,3 +1492,8 @@ STATS_COLUMN_YEAR=Jahr
 STATS_COLUMN_MONTH=Monat
 STATS_COLUMN_EVENTS=Veranstaltungen
 STATS_NOT_INVITED=nicht eingeladen
+
+# USER LIST TEXTS
+USER_LIST_WARN_MANDANT_ONE=Einzuf\u00fcgender Benutzer ist bereits dem Mandanten 
+USER_LIST_WARN_MANDANT_TWO= zugeordnet.
+USER_LIST_WARN_ALREADY_USER=Einzuf\u00fcgender Benutzer ist bereits VerA.web zugeordnet.
