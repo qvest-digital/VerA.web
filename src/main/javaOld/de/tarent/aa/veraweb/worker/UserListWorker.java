@@ -26,6 +26,8 @@ import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.beans.Proxy;
 import de.tarent.aa.veraweb.beans.User;
 import de.tarent.aa.veraweb.beans.UserConfig;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.WhereList;
@@ -185,10 +187,14 @@ public class UserListWorker extends ListWorkerVeraWeb {
                             where(Expr.equal("username", userBean.name)), context);
                     if (dupBean != null) {
                         OrgUnit ou = (OrgUnit) database.getBean("OrgUnit", dupBean.orgunit, context);
+                        LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+                        LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
                         if (ou != null) {
-                            errors.add("Einzuf\u00fcgender Benutzer ist bereits dem Mandanten " + ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) + " zugeordnet.");
+                            errors.add(languageProvider.getProperty("USER_LIST_WARN_MANDANT_ONE") +
+                                      ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) +
+                                      languageProvider.getProperty("USER_LIST_WARN_MANDANT_TWO"));
                         } else {
-                            errors.add("Einzuf\u00fcgender Benutzer ist bereits VerA.web zugeordnet.");
+                            errors.add(languageProvider.getProperty("USER_LIST_WARN_ALREADY_USER"));
                         }
                         return count;
                     }

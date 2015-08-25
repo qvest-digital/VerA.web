@@ -30,6 +30,8 @@ import java.util.ResourceBundle;
 import javax.xml.transform.TransformerFactory;
 
 import de.tarent.aa.veraweb.beans.Config;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.octopus.beans.BeanException;
@@ -93,21 +95,23 @@ public class VerifyWorker {
 	 * @param cntx Octopus-Context
 	 */
 	public void verifyDatabase(OctopusContext cntx) {
+		LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+		LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
 		if (!DB.hasPool(cntx.getModuleName())) {
-			addError(cntx, "Die Verbindung zur Datenbank wurde nicht erfolgreich hergestellt.");
+			addError(cntx, languageProvider.getProperty("VERIFY_ERROR_ACCESS_TO_DB_UNABLE"));
 		} else {
 			try {
 				Connection connection = DB.getConnection(cntx.getModuleName());
 				if (connection == null || connection.isClosed()) {
-					addWarning(cntx, "Die Verbindung zur Datenbank wurde unterbrochen.");
+					addWarning(cntx, languageProvider.getProperty("VERIFY_ERROR_ACCESS_TO_DB_INTERRUPTED"));
 				} else {
 					connection.close();
 					if (!connection.isClosed()) {
-						addWarning(cntx, "Die Verbindung zur Datenbank wurde nicht erfolgreich unterbrochen.");
+						addWarning(cntx, languageProvider.getProperty("VERIFY_ERROR_ACCESS_TO_DB_NOT_INTERRUPTED"));
 					}
 				}
 			} catch (SQLException e) {
-				addError(cntx, "Die Verbindung zur Datenbank konnte nicht hergestellt werden.");
+				addError(cntx, languageProvider.getProperty("VERIFY_ERROR_DB_NOT_ACCESSIBLE"));
 			}
 		}
 	}
@@ -124,6 +128,8 @@ public class VerifyWorker {
 	 * @throws IOException
 	 */
 	public void verifySchemaVersion(OctopusContext cntx) throws BeanException, IOException {
+		LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+		LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
 		Database database = new DatabaseVeraWeb(cntx);
 
 		Config config = (Config)
@@ -133,9 +139,12 @@ public class VerifyWorker {
 		ResourceBundle properties = (ResourceBundle)cntx.contentAsObject("properties");
 
 		if (config == null || config.value == null) {
-			addError(cntx, "Die Version des Datenbank-Schemas konnte nicht ermittelt werden.");
+			addError(cntx, languageProvider.getProperty("VERIFY_ERROR_DB_VERSION_NOT_DETERMINED"));
 		} else if (!config.value.equals(properties.getString("schema-version"))) {
-			addError(cntx, "Die Version des Datenbank-Schemas (" + config.value + ") stimmt nicht mit der von VerA.web erwarteten (" + properties.getString("schema-version") + ") \u00fcberein.");
+			addError(cntx, languageProvider.getProperty("VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE") + config.value +
+					languageProvider.getProperty("VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO") +
+					properties.getString("schema-version") +
+					languageProvider.getProperty("VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE"));
 		}
 	}
 
@@ -164,6 +173,8 @@ public class VerifyWorker {
 	 * @param cntx OctopusContext
 	 */
 	public void verifyDatabaseCharset(OctopusContext cntx) {
+		LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+		LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
 		getDatabaseCharset(cntx);
 		String LC_CTYPE = cntx.contentAsString("LC_CTYPE");
 		String LC_COLLATE = cntx.contentAsString("LC_COLLATE");
@@ -171,10 +182,10 @@ public class VerifyWorker {
 		cntx.setContent("LC_COLLATE", LC_COLLATE);
 
 		if (LC_CTYPE == null || LC_CTYPE.toUpperCase().indexOf("UTF-8") == -1) {
-			addError(cntx, "Ihre Datenbankkonfiguration unterst\u00fctzt nicht den erwarteten Zeichensatz (LC_CTYPE=" + LC_CTYPE + ").");
+			addError(cntx, languageProvider.getProperty("VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED") + LC_CTYPE + ").");
 		}
 		if (LC_COLLATE == null || LC_COLLATE.toUpperCase().indexOf("UTF-8") == -1) {
-			addError(cntx, "Ihre Datenbankkonfiguration unterst\u00fctzt nicht die erwarteten Textvergleichsregeln (LC_COLLATE=" + LC_COLLATE + ").");
+			addError(cntx, languageProvider.getProperty("VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED") + LC_COLLATE + ").");
 		}
 	}
 
@@ -208,7 +219,9 @@ public class VerifyWorker {
 		try {
 			TransformerFactory.newInstance().newTransformer();
 		} catch (Throwable e) {
-			addError(cntx, "Bei der Erzeugung eines XML-Testdokumentes ist ein Fehler aufgetreten. (" + e.toString() + ")");
+			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+			addError(cntx, languageProvider.getProperty("VERIFY_ERROR_XML") + e.toString() + ")");
 		}
 	}
 
@@ -221,7 +234,11 @@ public class VerifyWorker {
 	 */
 	public void verifyJavaVersion(OctopusContext cntx) {
 		if (!System.getProperty("java.version").startsWith("1.4")) {
-			addError(cntx, "Die installierte Java-Version (" + System.getProperty("java.version") + ") entspricht nicht der erwarteten Version (1.4).");
+			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+			addError(cntx, languageProvider.getProperty("VERIFY_ERROR_JAVA_ONE") +
+					       System.getProperty("java.version") +
+						   languageProvider.getProperty("VERIFY_ERROR_JAVA_TWO"));
 		}
 	}
 }

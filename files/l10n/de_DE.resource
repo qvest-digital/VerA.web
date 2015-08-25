@@ -152,7 +152,7 @@ HEADER_COUNT_REMOVE_ZERO_PART_TWO=gel\u00F6scht
 HEADER_COUNT_REMOVE_ONE_PART_TWO=gel\u00F6scht
 HEADER_COUNT_REMOVE_ELSE_PART_TWO=gel\u00F6scht
 HEADER_COUNT_UPDATE_ZERO_PART_ONE=Es wurde
-HEADER_COUNT_UPDATE_ONE_PART_ONE =Es wurde
+HEADER_COUNT_UPDATE_ONE_PART_ONE=Es wurde
 HEADER_COUNT_UPDATE_ELSE_PART_ONE=Es wurden
 HEADER_COUNT_UPDATE_ZERO_PART_TWO=ge\u00E4ndert
 HEADER_COUNT_UPDATE_ONE_PART_TWO=ge\u00E4ndert
@@ -1329,7 +1329,7 @@ anderungenspeichern=\u00E4nderungen speichern
 senden=Senden
 
 # GENERIC
-GENERIC_UPLOAD_BUTTON = Datei ausw\u00E4hlen
+GENERIC_UPLOAD_BUTTON=Datei ausw\u00E4hlen
 GENERIC_TO=An
 GENERIC_FEDERAL_STATE=Bundesland
 GENERIC_PERSONAL_DATA=Pers\u00F6nliche Daten
@@ -1389,7 +1389,7 @@ GUEST_DETAIL_PARTNER_GENITIV=des Partners
 GUEST_DETAIL_MAINPERSON=der Hauptperson
 
 GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Bitte \u00e4ndern Sie erst den Sitzplatz bei 
-GUEST_DETAIL_DUP_SEAT_ERROR_TWO= von 
+GUEST_DETAIL_DUP_SEAT_ERROR_TWO=von 
 GUEST_DETAIL_DUP_SEAT_ERROR_THREE=\u00fcber die G\u00e4steliste. Diese Person sitzt aktuell auf 
 GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=dem eingegebenen Sitzplatz 
 GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Die \u00c4nderung wurde nicht gespeichert.
@@ -1403,11 +1403,11 @@ MAILING_LIST_NO_ADDRESSES=Das Anlegen eines neuen Verteilers ist fehlgeschlagen,
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=Einzuf\u00fcgender Mandant darf keine ID haben
 ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Einzuf\u00fcgender Mandant 
-ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO= existiert bereits.
+ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO=existiert bereits.
 ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Zu aktualisierender Mandant 
 ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= mu\u00DF eine ID haben
 ORG_UNIT_MANDANT_EXISTS_ONE=Ein Mandant mit Namen 
-ORG_UNIT_MANDANT_EXISTS_TWO= existiert bereits.
+ORG_UNIT_MANDANT_EXISTS_TWO=existiert bereits.
 
 # PERSON CATEGORIES TEXTS
 PERSON_CATEGORIES_SELECT_WARNING=Um eine neue Kategorie hinzuzuf\u00fcgen w\u00e4hlen Sie bitte eine Kategorie aus. (Sie haben nur einen Rang eingegeben.)
@@ -1482,3 +1482,38 @@ EXPORT_HEADER_OBSERVATION=Bemerkung
 
 # MAIN DATA (STAMMDATEN-WORKER) TEXTS
 MAIN_DATA_WARN_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen
+
+# STATS (Statistik Worker)
+STATS_COLUMN_EVENT_NAME=Name der Veranstaltung
+STATS_COLUMN_DATE_BEGIN=Beginn
+STATS_COLUMN_INVITATION_TYPE=Einladungsart
+STATS_COLUMN_INVITATION_STATUS=Status
+STATS_COLUMN_INVITATION_STATUS_PARTNER=Status Partner
+STATS_COLUMN_YEAR=Jahr
+STATS_COLUMN_MONTH=Monat
+STATS_COLUMN_EVENTS=Veranstaltungen
+STATS_NOT_INVITED=nicht eingeladen
+
+# USER LIST TEXTS
+USER_LIST_WARN_MANDANT_ONE=Einzuf\u00fcgender Benutzer ist bereits dem Mandanten 
+USER_LIST_WARN_MANDANT_TWO= zugeordnet.
+USER_LIST_WARN_ALREADY_USER=Einzuf\u00fcgender Benutzer ist bereits VerA.web zugeordnet.
+
+# WORKAREA TEXTS
+WORKAREA_ERROR_INCORRECT_NAME_ONE=Der Arbeitsbereich mit dem Namen '
+WORKAREA_ERROR_INCORRECT_NAME_TWO=' konnte nicht angelegt werden. Bitte weisen Sie sich zuerst einen Mandanten zu.
+
+# VERIFY TEXTS
+VERIFY_ERROR_ACCESS_TO_DB_UNABLE=Die Verbindung zur Datenbank wurde nicht erfolgreich hergestellt.
+VERIFY_ERROR_ACCESS_TO_DB_INTERRUPTED=Die Verbindung zur Datenbank wurde unterbrochen.
+VERIFY_ERROR_ACCESS_TO_DB_NOT_INTERRUPTED=Die Verbindung zur Datenbank wurde nicht erfolgreich unterbrochen.
+VERIFY_ERROR_DB_NOT_ACCESSIBLE=Die Verbindung zur Datenbank konnte nicht hergestellt werden.
+VERIFY_ERROR_DB_VERSION_NOT_DETERMINED=Die Version des Datenbank-Schemas konnte nicht ermittelt werden.
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE=Die Version des Datenbank-Schemas (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO=) stimmt nicht mit der von VerA.web erwarteten (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=) \u00fcbereini.
+VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00fctzt nicht den erwarteten Zeichensatz (LC_CTYPE=
+VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00fctzt nicht die erwarteten Textvergleichsregeln (LC_COLLATE=
+VERIFY_ERROR_XML=Bei der Erzeugung eines XML-Testdokumentes ist ein Fehler aufgetreten. (
+VERIFY_ERROR_JAVA_ONE=Die installierte Java-Version (
+VERIFY_ERROR_JAVA_TWO=) entspricht nicht der erwarteten Version (1.4).
