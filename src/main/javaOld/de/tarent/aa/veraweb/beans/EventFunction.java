@@ -19,6 +19,7 @@
  */
 package de.tarent.aa.veraweb.beans;
 
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -31,13 +32,10 @@ public class EventFunction extends AbstractBean {
 	public String name;
 	public Integer sortorder;
 
-	@Override
-    public void verify() throws BeanException {
-		if (event == null || event.intValue() == 0) {
-            addError("Die Zuordnung einer Funktion/Amtsbezeichnung zu einer Veranstaltung ist fehlerhaft.");
-        }
-		if (function == null || function.intValue() == 0) {
-            addError("Die Zuordnung eines Funktion/Amtsbezeichnung zu einer Veranstaltung ist fehlerhaft.");
+    public void verify(OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
+		if (event == null || event.intValue() == 0 || function == null || function.intValue() == 0) {
+            addError(messages.getMessageEventfunctionWrong());
         }
 	}
 

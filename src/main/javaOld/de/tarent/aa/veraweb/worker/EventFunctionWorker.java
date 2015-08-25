@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.Event;
+import de.tarent.aa.veraweb.beans.EventFunction;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
@@ -63,6 +64,7 @@ public class EventFunctionWorker extends ListWorkerVeraWeb {
     @Override
     protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context) {
         try {
+            ((EventFunction) bean).verify(octopusContext);
             super.saveBean(octopusContext, bean, context);
         } catch (BeanException e) {
             LOGGER.error("Fehler beim speichern der neuen Amtsbezeichnung/Funktion", e);
