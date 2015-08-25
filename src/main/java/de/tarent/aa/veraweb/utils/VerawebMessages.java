@@ -63,4 +63,8 @@ public class VerawebMessages {
     public String getMessageEventdoctypeWrong() {
         return languageProvider.getProperty("MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG");
     }
+
+    public String getMessageEventfunctionWrong() {
+        return languageProvider.getProperty("MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG");
+    }
 }
