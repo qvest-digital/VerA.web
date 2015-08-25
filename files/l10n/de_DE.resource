@@ -1501,3 +1501,18 @@ USER_LIST_WARN_ALREADY_USER=Einzuf\u00fcgender Benutzer ist bereits VerA.web zug
 # WORKAREA TEXTS
 WORKAREA_ERROR_INCORRECT_NAME_ONE=Der Arbeitsbereich mit dem Namen '
 WORKAREA_ERROR_INCORRECT_NAME_TWO=' konnte nicht angelegt werden. Bitte weisen Sie sich zuerst einen Mandanten zu.
+
+# VERIFY TEXTS
+VERIFY_ERROR_ACCESS_TO_DB_UNABLE=Die Verbindung zur Datenbank wurde nicht erfolgreich hergestellt.
+VERIFY_ERROR_ACCESS_TO_DB_INTERRUPTED=Die Verbindung zur Datenbank wurde unterbrochen.
+VERIFY_ERROR_ACCESS_TO_DB_NOT_INTERRUPTED=Die Verbindung zur Datenbank wurde nicht erfolgreich unterbrochen.
+VERIFY_ERROR_DB_NOT_ACCESSIBLE=Die Verbindung zur Datenbank konnte nicht hergestellt werden.
+VERIFY_ERROR_DB_VERSION_NOT_DETERMINED=Die Version des Datenbank-Schemas konnte nicht ermittelt werden.
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE=Die Version des Datenbank-Schemas (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO=) stimmt nicht mit der von VerA.web erwarteten (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=) \u00fcbereini.
+VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00fctzt nicht den erwarteten Zeichensatz (LC_CTYPE=
+VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00fctzt nicht die erwarteten Textvergleichsregeln (LC_COLLATE=
+VERIFY_ERROR_XML=Bei der Erzeugung eines XML-Testdokumentes ist ein Fehler aufgetreten. (
+VERIFY_ERROR_JAVA_ONE=Die installierte Java-Version (
+VERIFY_ERROR_JAVA_TWO=) entspricht nicht der erwarteten Version (1.4).
