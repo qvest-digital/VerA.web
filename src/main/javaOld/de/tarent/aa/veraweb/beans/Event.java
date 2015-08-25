@@ -19,14 +19,14 @@
  */
 package de.tarent.aa.veraweb.beans;
 
-import java.sql.Timestamp;
-
 import de.tarent.aa.veraweb.utils.DateHelper;
-import de.tarent.aa.veraweb.utils.VerawebCoreMessages;
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
+
+import java.sql.Timestamp;
 
 public class Event extends AbstractHistoryBean implements OrgUnitDependent {
 	/** PK */
@@ -56,23 +56,27 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
 	public String hash;
 	public Boolean login_required;
 
-	@Override
-    public void verify() throws BeanException {
-		if (begin != null && end != null && begin.after(end)) {
-			addError(VerawebCoreMessages.MESSAGE_END_AND_START_DATUM);
-		}
-
-		if (shortname == null || shortname.trim().length() == 0)
-			addError("Die Veranstaltung kann nicht gespeichert werden. Vergeben Sie bitte eine Kurzbezeichnung.");
-		if (begin == null)
-			addError("Sie m\u00fcssen den Beginn der Veranstaltung im Format TT.MM.JJJJ angeben.");
-
+    public void verify(OctopusContext octopusContext) throws BeanException {
+        addErrors(octopusContext);
 		/*
 		 * 2009-05-17 cklein
 		 * temporarily fixes issue #1529 until i gain access to the old octopus repository
 		 */
 		DateHelper.temporary_fix_translateErrormessageEN2DE( this.getErrors() );
 	}
+
+    private void addErrors(OctopusContext octopusContext) {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
+        if (begin != null && end != null && begin.after(end)) {
+            addError(messages.getMessageEndAndStartDate());
+        }
+        if (shortname == null || shortname.trim().length() == 0) {
+            addError(messages.getMessageEventMissingShortDescription());
+        }
+        if (begin == null) {
+            addError(messages.getMessageEventWrongDateFormat());
+        }
+    }
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden

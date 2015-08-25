@@ -1303,6 +1303,12 @@ MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Dieser Gast wurde ohne Hauptperson eingel
 MESSAGE_INVITATION_WITHOUT_PARTNER=Dieser Gast wurde ohne Partner eingeladen
 MESSAGE_INVITATION_WITHOUT_PERSON_PART1=M\u00F6chten Sie diese jetzt
 MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON=nachtr\u00E4glich einladen
+MESSAGE_END_AND_START_DATE=Das Ende der Veranstaltung muss zeitlich nach dem Beginn der Veranstaltung liegen.
+MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=Die Veranstaltung kann nicht gespeichert werden. Vergeben Sie bitte eine Kurzbezeichnung.
+MESSAGE_EVENT_WRING_DATE_FORMAT=Sie m\u00FCssen den Beginn der Veranstaltung im Format TT.MM.JJJJ angeben.
+MESSAGE_GENERIC_MISSING_DESCRIPTION=Sie m\u00fcssen eine Bezeichung eingeben.
+MESSAGE_COLOR_MISSING_NAME=Sie m\u00FCssen einen Namen eingeben.
+MESSAGE_EVENTCATEGORY_ASSIGNMENT_WRONG=Die Zuordnung einer Kategorie zu einer Veranstaltung ist fehlerhaft.
 
 # EVENT LIST TEXTS
 EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Mindestens eine markierte Veranstaltung l\u00e4uft aktuell oder liegt in der Zukunft.
@@ -1323,4 +1329,3 @@ CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter
 
 # CHANGELOG REPORTS TEXTS
 CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgung.
-

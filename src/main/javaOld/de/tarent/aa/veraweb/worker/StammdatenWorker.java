@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import de.tarent.aa.veraweb.beans.Doctype;
+import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -92,6 +94,10 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		if (bean.isModified()) {
+			if (bean instanceof Doctype) {
+				((Doctype) bean).verify(cntx);
+			}
+
 		    if (bean.isCorrect()) {
 		        Database database = context.getDatabase();
 
