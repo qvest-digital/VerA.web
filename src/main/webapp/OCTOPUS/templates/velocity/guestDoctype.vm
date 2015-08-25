@@ -34,7 +34,7 @@
 			#parse("inc/guestMasterDataNote.vm")
 
             #if (!$allDoctype || $allDoctype.size() != 0)
-			<h3 class="marginBottom10">Dokumenttyp w&auml;hlen</h3>
+			<h3 class="marginBottom10">${placeholderWithTranslation.dokumenttypwahlen}</h3>
             <form action="ShowGuestDoctype" method="get" class="marginBottom40">
 
 			<div class="inlineLabel">
@@ -163,7 +163,7 @@
 				</fieldset>
 
                 <fieldset class="width49 floatRight">
-					<legend>Pers&ouml;nliche Daten (Partner)</legend>
+					<legend>${placeholderWithTranslation.GENERIC_PERSONAL_DATA} (${placeholderWithTranslation.partner})</legend>
 					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell">
@@ -269,10 +269,7 @@
                 #else
 
                 <vera-info>
-                	Bitte &uuml;berpr&uuml;fen Sie ob dieser Veranstaltung
-                	bereits Dokumenttypen zugeordnet sind. Sollte dies der
-                	Fall sein m&uuml;ssen Sie die Dokumenttypen f&uuml;r diesen
-                	Gast neu erzeugen, klicken Sie hierzu auf &quot;Auf Stammdaten zur&uuml;cksetzen&quot;.
+                	${placeholderWithTranslation.EVENT_DOCTYPE_RESET_INFO}
                 </vera-info>
 
                 #end
@@ -284,7 +281,7 @@
 					#if($grants.mayWrite())
 						<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="Speichern" class="mainButton" />
 					#end
-                    <input type="button" name="cancel" value="Zur&uuml;ck zu den Veranstaltungsdetails" title="Zur&uuml;ck zu den Veranstaltungsdetails" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
+                    <input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" title="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
                 </span>
 
             </form><!-- End id="GuestForm" -->

@@ -4,8 +4,8 @@
 		<title>$titel</title>
 		## Style
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
-		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report.css" media="screen" title="Ausw&auml;rtiges Amt Intranet-Stil">
-		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report-print.css" media="print" title="Ausw&auml;rtiges Amt Intranet-Stil">
+		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report.css" media="screen" title="${placeholderWithTranslation.auswartigesamtintranetstil}">
+		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report-print.css" media="print" title="${placeholderWithTranslation.auswartigesamtintranetstil}">
 		## Tabs und Popups
 		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-tabs.js"></script>
 		## Browser-Cache deaktivieren

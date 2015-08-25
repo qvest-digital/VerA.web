@@ -20,9 +20,9 @@
 		${placeholderWithTranslation.person} ${navigation.meta.offset} ${placeholderWithTranslation.GENERIC_FROM} ${navigation.meta.count}
 
 		#if(!$navigation.next)
-			<li class="img inactive"><a><img src="${paths.staticWeb}images/paging_arrow_right.png" title="N&auml;chste Person" style="cursor: pointer;"></a></li>
+			<li class="img inactive"><a><img src="${paths.staticWeb}images/paging_arrow_right.png" title="${placeholderWithTranslation.GENEREIC_NEXT_PERSON}" style="cursor: pointer;"></a></li>
         #else
-			<li class="img"><a href="${paths.staticWeb}do/ShowPerson?id=${navigation.next.person.id}#if ( $navigation.meta.action && $navigation.meta.action != "" )&action=${navigation.meta.action}#end" ><img src="${paths.staticWeb}images/paging_arrow_right_active.png" title="N&auml;chste Person" style="cursor: pointer;"></a></li>
+			<li class="img"><a href="${paths.staticWeb}do/ShowPerson?id=${navigation.next.person.id}#if ( $navigation.meta.action && $navigation.meta.action != "" )&action=${navigation.meta.action}#end" ><img src="${paths.staticWeb}images/paging_arrow_right_active.png" title="${placeholderWithTranslation.GENEREIC_NEXT_PERSON}" style="cursor: pointer;"></a></li>
         #end
 		#if(!$navigation.last)
 			<li class="img inactive"><a><img src="${paths.staticWeb}images/paging_arrow_right_last.png" title="Letzte Person" style="cursor: pointer;"></a></li>

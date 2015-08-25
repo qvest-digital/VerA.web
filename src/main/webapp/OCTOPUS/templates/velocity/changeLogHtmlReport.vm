@@ -8,7 +8,7 @@
 		<title>Änderungsprotokoll für den Zeitraum ${begin} - ${end}</title>
 		## Style
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
-		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report.css" media="all" title="Ausw&auml;rtiges Amt Intranet-Stil">
+		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report.css" media="all" title="${placeholderWithTranslation.auswartigesamtintranetstil}">
 		## Browser-Cache deaktivieren
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="cache-control" content="no-cache">

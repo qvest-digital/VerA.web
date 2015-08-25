@@ -19,11 +19,11 @@
     #if($invited)
         <vera-success>
             #if($invited == 0)
-                Die G&auml;steliste wurde nicht ver&auml;ndert.
+                ${placeholderWithTranslation.GUEST_LIST_DIDNT_CHANGE}.
             #elseif($invited == 1)
-                Die G&auml;steliste wurde um einen Gast erweitert.
+                ${placeholderWithTranslation.GUEST_LIST_EXPAND_ONE}.
             #else
-                Die G&auml;steliste wurde um $invited G&auml;ste erweitert.
+                ${placeholderWithTranslation.GUEST_LIST_EXPAND_MULTIPLE_PART_ONE} $invited ${placeholderWithTranslation.GUEST_LIST_EXPAND_MULTIPLE_PART_TWO}.
             #end
         </vera-success>
     #end
@@ -40,7 +40,7 @@
     #end
     #if($octopusRequest.task == "CalcSerialNumber" && (!$listquestions || $listquestions.size() == 0))
         <vera-success>
-            Die &quot;Laufende Nummer&quot; wurde f&uuml;r alle G&auml;ste neu berechnet und gespeichert.
+            ${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATED_SAVED}.
         </vera-success>
     #end
     <div id="main_content" class="tabs contentBox grayBorder marginBottom40 marginTop20 posRel">
@@ -86,7 +86,7 @@
 
                         #if($person.deleted == "t")
                         <vera-info>
-                            Die Stammdaten dieses Gastes wurden gel&ouml;scht. Sie k&ouml;nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten.
+                            ${placeholderWithTranslation.diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten}.
                         </vera-info>
                         #end
 
@@ -327,7 +327,7 @@ false
     ##wenn andere Kategorie ausgewaehlt wird, evtl. Rang aus Stammdaten laden
     function askPreSave() {
         if (isModified('categorie') && document.getElementById('guest-rank').value == '') {
-              htmlConfirm('Soll der Rang der Kategorie aus den Stammdaten &uuml;bernommen werden?', new Array('Ja', 'Nein'), new Array("saveDocWithMasterDataRank('true');", "saveDocWithMasterDataRank('false');"));
+              htmlConfirm('${placeholderWithTranslation.PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA}', new Array('Ja', 'Nein'), new Array("saveDocWithMasterDataRank('true');", "saveDocWithMasterDataRank('false');"));
         }
         else {
             saveDocWithMasterDataRank('false');

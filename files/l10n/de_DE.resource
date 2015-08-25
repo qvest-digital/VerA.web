@@ -1365,7 +1365,62 @@ CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgun
 BROWSER_TITLE_REPORTS=Reports
 
 #NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
-GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zurücksetzen
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zur\u00fccksetzen
 GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
 GUEST=Gast
 GENERIC_OF=von
+
+
+TOOLTIP_EDIT_HEADLINES=Sie k\u00f6nnen die \U00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den &quot;Bearbeiten&quot;-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
+GENERIC_NEXT_PAGE=N\u00E4chste Seite
+GENERIC_PREVIOUS_PAGE=N\u00E4chste Seite
+GENERIC_APPLY_TO_GUESTLIST=In G\u00E4steliste \u00fcbernehmen
+GENERIC_APPLY_GUEST_TO_GUESTLIST=Gast direkt in G\u00E4steliste \u00fcbernehmen
+GENERIC_APPLY=\U00DCbernehmen
+GENERIC_APPLY_PERSON_AS_HOST=Person direkt als Gastgeber \u00fcbernehmen
+etikettfuraktuellepersonerzeugen=Etikett f\u00fcr aktuelle Person erzeugen
+
+aktuellepersonloschenundzurpersonenlistezuruckkehren=Aktuelle Person l\u00f6schen und zur Personenliste zur\u00fcckkehren
+freifeldvorschaufur=Freifeld-Vorschau f\u00fcr
+zudieserpersonwurdedasentsprechendevorschaufeldnochncihterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt
+GENERIC_LAST_PAGE=letzte Seite
+siemussendierolleangebenunterdersieverawebnutzenmochten=Sie m\u00fcssen die Rolle angeben, unter der Sie VerA.web nutzen m\u00f6chten.
+GENERIC_CHOOSE=ausw\u00E4hlen
+GENERIC_RESET=Zur\u00fccksetzen
+siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=Sie haben keine ausreichende Berechtigung um die G\u00E4ste zu entfernen
+wahlensiebittezunachsteineodermehreregastelistenaus=W\u00E4hlen Sie bitte zun\u00E4chst eine oder mehrere G\u00E4sten aus
+bittebestatigensiedasloschendermarkiertengasteliste=Bitte best\u00E4tigen Sie das L\u00f6schen der markierten G\u00E4ste!
+GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00f6scht.
+
+
+EVENT_DOCTYPE_RESET_INFO=Bitte \u00fcberpr\u00fcfen Sie ob dieser Veranstaltung
+                	bereits Dokumenttypen zugeordnet sind. Sollte dies der
+                	Fall sein m\u00fcssen Sie die Dokumenttypen f\u00fcr diesen
+                	Gast neu erzeugen, klicken Sie hierzu auf &quot;Auf Stammdaten zur\u00fccksetzen&quot;.
+                	
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00fcber den Men\u00fcpunkt Administration &gt; Programmeinstellungen m\u00f6glich.
+            
+GENERIC_CHOSEN_GUESTLIST=Ausgew\u00E4hlte G\u00E4ste            
+exportierfahigegasteliste=Exportierf\u00E4hige G\u00E4ste
+unvollstandigegasteliste=Unvollst\u00E4ndige G\u00E4ste
+
+GUESTLIST_FILTER_EXPORT_INFO=Sollten Sie in der G\u00E4steliste eine Filterung getroffen haben, werden nur die
+		ausgew\u00E4hlten G\u00E4ste exportiert.
+
+GUEST_CANNOT_BE_EXPORTED_1=Ein Gast
+GUEST_CANNOT_BE_EXPORTED_2=kann
+GUEST_CANNOT_BE_EXPORTED_3=nicht exportiert
+GUEST_CANNOT_BE_EXPORTED_4=werden
+PERSON_MISSING_DOCTYPE_SPECIFIC_DATA=weil zu dieser Person keine entsprechenden dokumenttypspezifische Daten gespeichert worden sind
+
+GUESTS_CANNOT_BE_EXPORTED_1=G\u00E4ste
+GUESTS_CANNOT_BE_EXPORTED_2=k\u00f6nnen
+GUESTS_CANNOT_BE_EXPORTED_3=nicht exportiert
+GUESTS_CANNOT_BE_EXPORTED_4=werden
+PERSONS_MISSING_DOCTYPE_SPECIFIC_DATA=weil nicht zu jeder Person entsprechende dokumenttypspezifische Daten gespeichert worden sind
+GENERIC_TO_EVENTDETAIL=Zu den Veranstaltungsdetails
+GENERIC_INSERT_CURRENT_MONTH=aktuellen Monat einf\u00fcgen
+GENERIC_SELECT_FUNCTION=Funktion ausw\u00E4hlen
+diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten=Die Stammdaten dieses Gastes wurden gel\u00f6scht. Sie k\u00f6nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten
+DELETE_SELECTED_MANDATOR=Markierte(n) Mandanten l\u00f6schen
+PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Soll der Rang der Kategorie aus den Stammdaten \u00fcbernommen werden?

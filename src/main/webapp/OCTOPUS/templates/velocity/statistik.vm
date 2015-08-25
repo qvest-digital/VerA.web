@@ -22,7 +22,7 @@
 						<label for="begin">${placeholderWithTranslation.zeitrahmenbeginn}</label>
 						<span id="showBegin" class="datepickerContainer">
 						<input type="text" name="begin" placeholder="TT.MM.JJJJ" id="begin" class="datepicker">
-						<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="${placeholderWithTranslation.datumauswahlen}">
+						<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}">
 						<script type="text/javascript">
 							Calendar.setup({
 								inputField	 :	"begin",
@@ -32,11 +32,11 @@
 							});
 						</script></span>
 				##		&nbsp; &nbsp;
-				##		(<a href="javascript:document.getElementById('begin').value='$!message.date("DATE", $firstDayInMonth)'; document.getElementById('end').value='$!message.date("DATE", $lastDayInMonth)';">aktuellen Monat einf&uuml;gen</a>)
+				##		(<a href="javascript:document.getElementById('begin').value='$!message.date("DATE", $firstDayInMonth)'; document.getElementById('end').value='$!message.date("DATE", $lastDayInMonth)';">${placeholderWithTranslation.GENERIC_INSERT_CURRENT_MONTH}</a>)
 						<label for="end">${placeholderWithTranslation.zeitrahmenende}</label>
 						<span id="showEnd" class="datepickerContainer">
 						<input type="text" name="end" placeholder="TT.MM.JJJJ" id="end" class="datepicker">
-						<img src="${paths.staticWeb}images/calendar.png" alt="Datum ausw&auml;hlen" title="${placeholderWithTranslation.datumauswahlen}">
+						<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}">
 						<script type="text/javascript">
 							Calendar.setup({
 								inputField	 :	"end",
