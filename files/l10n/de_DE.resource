@@ -1348,6 +1348,7 @@ MESSAGE_GENERIC_MISSING_DESCRIPTION=Sie m\u00fcssen eine Bezeichung eingeben.
 MESSAGE_COLOR_MISSING_NAME=Sie m\u00FCssen einen Namen eingeben.
 MESSAGE_EVENTCATEGORY_ASSIGNMENT_WRONG=Die Zuordnung einer Kategorie zu einer Veranstaltung ist fehlerhaft.
 MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=Die Zuordnung eines Dokumenttypens zu einer Veranstaltung ist fehlerhaft.
+MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG=Die Zuordnung einer Funktion/Amtsbezeichnung zu einer Veranstaltung ist fehlerhaft.
 
 # EVENT LIST TEXTS
 EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Mindestens eine markierte Veranstaltung l\u00e4uft aktuell oder liegt in der Zukunft.
@@ -1373,7 +1374,7 @@ CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgun
 BROWSER_TITLE_REPORTS=Reports
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
-GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zurücksetzen
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zur\u00FCcksetzen
 GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
 GUEST=Gast
 GENERIC_OF=von
@@ -1403,7 +1404,7 @@ ORG_UNIT_NO_MANDANT_ID=Einzuf\u00fcgender Mandant darf keine ID haben
 ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Einzuf\u00fcgender Mandant 
 ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO= existiert bereits.
 ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Zu aktualisierender Mandant 
-ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= muß eine ID haben
+ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= mu\u00DF eine ID haben
 ORG_UNIT_MANDANT_EXISTS_ONE=Ein Mandant mit Namen 
 ORG_UNIT_MANDANT_EXISTS_TWO= existiert bereits.
 
