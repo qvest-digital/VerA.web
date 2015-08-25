@@ -19,14 +19,18 @@
 			<span class="paging floatRight textRight">${placeholderWithTranslation.GENERIC_PAGE} $pageNumber ${placeholderWithTranslation.GENERIC_FROM} $listparam.pages
 				<ul>
 					#if($listparam.start == $listparam.first)
-						<li class="img" id="page-first"><img src="${paths.staticWeb}images/paging_arrow_left_last.png" title="Erste Seite" style="cursor: pointer;"></li>
+						<li class="img" id="page-first"><img src="${paths.staticWeb}images/paging_arrow_left_last.png" title="Erste Seite" style="cursor: pointer;">
+                        </li>
 					#else
-						<li class="img" id="page-first"><img src="${paths.staticWeb}images/paging_arrow_left_last_active.png" onclick="navigateList($listparam.first);" title="Erste Seite" style="cursor: pointer;"></li>
+						<li class="img" id="page-first"><img src="${paths.staticWeb}images/paging_arrow_left_last_active.png" onclick="navigateList($listparam.first);" title="Erste Seite" style="cursor: pointer;">
+                        </li>
 					#end
 					#if($listparam.start == $listparam.prev)
-						<li class="img" id="page-previous"><img src="${paths.staticWeb}images/paging_arrow_left.png" title="Vorherige Seite" style="cursor: pointer;"></li>
+						<li class="img" id="page-previous"><img src="${paths.staticWeb}images/paging_arrow_left.png" title="Vorherige Seite" style="cursor: pointer;">
+                        </li>
 					#else
-						<li class="img" id="page-previous"><img src="${paths.staticWeb}images/paging_arrow_left_active.png" onclick="navigateList($listparam.prev);" title="Vorherige Seite" style="cursor: pointer;"></li>
+						<li class="img" id="page-previous"><img src="${paths.staticWeb}images/paging_arrow_left_active.png" onclick="navigateList($listparam.prev);" title="Vorherige Seite" style="cursor: pointer;">
+                        </li>
 					#end
 
 

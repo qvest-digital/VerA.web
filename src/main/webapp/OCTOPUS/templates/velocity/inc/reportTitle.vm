@@ -1,4 +1,3 @@
-
 <div class="dontprint" style="border: 1px dashed #ff0000; margin: 10px 0px 10px 0px; padding: 5px; text-align: center;">
 	<span style="color: #ff0000;">${placeholderWithTranslation.GENERIC_TOOLTIP}:</span>
 	Sie k&ouml;nnen die &Uuml;berschriften vor dem Drucken noch ver&auml;ndern
@@ -10,15 +9,16 @@
 	<a href="javascript:editTitle1();" class="dontprint" style="text-align: right;">(Bearbeiten)</a>
 </div>
 <div id="editTitleBlock1" style="display: none;">
-	<textarea id="editTitle1" rows="4" cols="40" class="h1"></textarea>
+	<textarea id="editTitle1" rows="4" cols="40" class="h1">
+    </textarea>
 	<a href="javascript:saveTitle1();" class="dontprint" style="text-align: right;">(Speichern)</a>
 </div>
 
 <div id="showTitleBlock2">
 	#if($event.eventname && $event.eventname.length() > 0)
-	<div id="showTitle2" class="h2">$!message.plain($event.eventname)</div>
+	    <div id="showTitle2" class="h2">$!message.plain($event.eventname)</div>
 	#else
-	<div id="showTitle2" class="h2">$!message.plain($event.shortname)</div>
+	    <div id="showTitle2" class="h2">$!message.plain($event.shortname)</div>
 	#end
 	<a href="javascript:editTitle2();" class="dontprint" style="text-align: right; margin-bottom: 3px;">(Bearbeiten)</a>
 </div>
@@ -78,12 +78,24 @@
 
 <table style="width: 100%;">
 	<tr>
-		<td style="width: 8%;">Beginn:</td>
-		<td style="width: 17%;">$!message.date("DATE_TIME", $event.begin)</td>
-		<td style="width: 8%;">Ende:</td>
-		<td style="width: 17%;">$!message.date("DATE_TIME", $event.end)</td>
-		<td style="width: 8%;">Ort:</td>
-		<td>$!event.location</td>
+		<td style="width: 8%;">
+            Beginn:
+        </td>
+		<td style="width: 17%;">
+            $!message.date("DATE_TIME", $event.begin)
+        </td>
+		<td style="width: 8%;">
+            Ende:
+        </td>
+		<td style="width: 17%;">
+            $!message.date("DATE_TIME", $event.end)
+        </td>
+		<td style="width: 8%;">
+            Ort:
+        </td>
+		<td>
+            $!event.location
+        </td>
 	</tr>
 </table>
 <hr class="kategorie" />

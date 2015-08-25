@@ -7,29 +7,40 @@
 ## Voraussetzung also: $octopusConfig.personalConfig.roles nicht null
 ##
 <p>
-Sie m&uuml;ssen die Rolle angeben, unter der Sie VerA.web nutzen m&ouml;chten.
-Bitte w&auml;hlen Sie:
+    Sie m&uuml;ssen die Rolle angeben, unter der Sie VerA.web nutzen m&ouml;chten.
+    Bitte w&auml;hlen Sie:
 </p>
 <br/>
 <form action="login" method="post" target="_top">
 	<!--input name="task" value="chooseRole" type="hidden"/-->
 	<table class="form">
 		<tr>
-			<td><label for="username">Rolle</label></td>
+			<td>
+                <label for="username">Rolle</label>
+            </td>
 			<td>
 				<select id="role" name="username"  style="width: 60%;">
-#foreach($s in $octopusConfig.personalConfig.roles)
-					<option value="$!s">$!s</option>
-#end
+                    #foreach($s in $octopusConfig.personalConfig.roles)
+					    <option value="$!s">$!s</option>
+                    #end
 				</select>
 			</td>
-		</tr><tr>
-			<td><label for="password">Passwort</label></td>
-			<td><input type="password" name="password" value="$!octopusRequest.get("password")" id="password"  style="width: 60%;"></td>
-		</tr><tr>
-			<td>&nbsp;</td>
+		</tr>
+        <tr>
 			<td>
-				<input name="submit" type="submit" value="Ausw&auml;hlen" class="submit"> &nbsp;
+                <label for="password">Passwort</label>
+            </td>
+			<td>
+                <input type="password" name="password" value="$!octopusRequest.get("password")" id="password"  style="width: 60%;">
+            </td>
+		</tr>
+        <tr>
+			<td>
+                &nbsp;
+            </td>
+			<td>
+				<input name="submit" type="submit" value="Ausw&auml;hlen" class="submit">
+                &nbsp;
 				<input name="cancel" type="reset"  value="Zur&uuml;cksetzen" class="reset">
 			</td>
 		</tr>
