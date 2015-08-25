@@ -92,16 +92,16 @@ public class ColorWorker {
 	/**
 	 * Speichert eine Liste von Farben.
 	 *
-	 * @param cntx Octopus-Context
+	 * @param octopusContext Octopus-Context
 	 * @throws IOException
 	 * @throws BeanException
 	 */
-	public void saveList(OctopusContext cntx) throws BeanException, IOException {
-		if (!cntx.personalConfig().isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
+	public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
+		if (!octopusContext.personalConfig().isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
 			return;
 
-		Request request = new RequestVeraWeb(cntx);
-		Database database = new DatabaseVeraWeb(cntx);
+		Request request = new RequestVeraWeb(octopusContext);
+		Database database = new DatabaseVeraWeb(octopusContext);
 		List errors = new ArrayList();
 
 		Color color1 = (Color)request.getBean("Color", "color1");
@@ -109,13 +109,13 @@ public class ColorWorker {
 		Color color3 = (Color)request.getBean("Color", "color3");
 		Color color4 = (Color)request.getBean("Color", "color4");
 
-		saveColor(database, new Integer(1), color1, errors);
-		saveColor(database, new Integer(2), color2, errors);
-		saveColor(database, new Integer(3), color3, errors);
-		saveColor(database, new Integer(4), color4, errors);
+		saveColor(octopusContext, database, new Integer(1), color1, errors);
+		saveColor(octopusContext, database, new Integer(2), color2, errors);
+		saveColor(octopusContext, database, new Integer(3), color3, errors);
+		saveColor(octopusContext, database, new Integer(4), color4, errors);
 
 		if (!errors.isEmpty()) {
-			cntx.setContent("errors", errors);
+			octopusContext.setContent("errors", errors);
 		}
 	}
 
@@ -125,7 +125,8 @@ public class ColorWorker {
 		database.execute(delete);
 	}
 
-	protected void saveColor(Database database, Integer id, Color color, List errors) throws BeanException, IOException {
+	protected void saveColor(OctopusContext octopusContext, Database database, Integer id, Color color, List errors) throws BeanException, IOException {
+		color.verify(octopusContext);
 		if (color.id == null) {
 			if (color.isCorrect()) {
 				database.execute(database.getInsert(color).insert("pk", id));

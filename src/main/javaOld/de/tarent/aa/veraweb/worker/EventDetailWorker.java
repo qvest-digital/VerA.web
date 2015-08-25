@@ -211,6 +211,8 @@ public class EventDetailWorker {
             	setEventHash(event,oldEvent);
             }
             /** Veranstaltung speichern */
+
+            event.verify(octopusContext);
             if (event.isModified() && event.isCorrect() && questions.isEmpty()) {
             /*
              * modified to support change logging
@@ -223,7 +225,6 @@ public class EventDetailWorker {
 
                 // Allow event configrmation via online registration with/without login
                 setLoginRequired(octopusContext, event);
-
                 BeanChangeLogger clogger = new BeanChangeLogger( database, context );
                 if (event.id == null) {
 

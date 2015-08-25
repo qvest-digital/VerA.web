@@ -65,14 +65,14 @@ public class DoctypeWorker extends StammdatenWorker {
     // Oberklasse BeanListWorker
     //
 	@Override
-    protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-		Event event = (Event)cntx.contentAsObject("event");
+    protected void extendAll(OctopusContext octopusContext, Select select) throws BeanException, IOException {
+		Event event = (Event)octopusContext.contentAsObject("event");
 		if (event != null) {
 			select.where(new RawClause("pk NOT IN (" +
 					"SELECT fk_doctype FROM veraweb.tevent_doctype WHERE fk_event = " + event.id
 					+ ")"));
 		}
-		Salutation salutation = (Salutation)cntx.contentAsObject("salutation");
+		Salutation salutation = (Salutation)octopusContext.contentAsObject("salutation");
 		if (salutation != null) {
 			select.where(new RawClause("pk NOT IN (" +
 					"SELECT fk_doctype FROM veraweb.tsalutation_doctype WHERE fk_salutation = " + salutation.id
@@ -81,7 +81,7 @@ public class DoctypeWorker extends StammdatenWorker {
 	}
 
 	@Override
-    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
+	protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context) throws BeanException, IOException {
 		Doctype doctype = (Doctype)bean;
 		Boolean isdefault = doctype.isdefault;
 		Database database = context.getDatabase();
@@ -105,6 +105,7 @@ public class DoctypeWorker extends StammdatenWorker {
 						where(Expr.equal("fk_doctype", doctype.id)));
 			}
 		}
-		super.saveBean(cntx, bean, context);
+
+		super.saveBean(octopusContext, bean, context);
 	}
 }
