@@ -67,4 +67,8 @@ public class VerawebMessages {
     public String getMessageEventfunctionWrong() {
         return languageProvider.getProperty("MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG");
     }
+
+    public String getMessageFunctionMissingName() {
+        return languageProvider.getProperty("MESSAGE_FUNCTION_MISSING_NAME");
+    }
 }
