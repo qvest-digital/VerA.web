@@ -1637,3 +1637,5 @@ GENERIC_PLEASE_WAIT_MESSAGE=Dieser Vorgang kann einen Moment dauern.
 # WORK AREA (Bean) TEXTS
 WORKAREA_ERROR_MISSING_NAME=Der Arbeitsbereich ben\u00f6tigt einen eindeutigen Namen.
 
+# DATE HELPER TEXTS
+DATE_HELPER_INCORRECT_DATE= ist kein g\u00fcltiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!
