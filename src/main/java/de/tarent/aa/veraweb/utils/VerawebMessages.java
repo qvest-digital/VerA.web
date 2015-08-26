@@ -183,4 +183,8 @@ public class VerawebMessages {
     public String getMessageFunctionMissingName() {
         return languageProvider.getProperty("MESSAGE_FUNCTION_MISSING_NAME");
     }
+
+    public String getMessageUserMissingRole() {
+        return languageProvider.getProperty("MESSAGE_USER_MISSING_ROLE");
+    }
 }

@@ -1584,6 +1584,10 @@ STATS_NOT_INVITED=nicht eingeladen
 USER_LIST_WARN_MANDANT_ONE=Einzuf\u00fcgender Benutzer ist bereits dem Mandanten 
 USER_LIST_WARN_MANDANT_TWO= zugeordnet.
 USER_LIST_WARN_ALREADY_USER=Einzuf\u00fcgender Benutzer ist bereits VerA.web zugeordnet.
+USER_LIST_WARN_NO_ID=Einzuf\u00fcgender Benutzer darf keine ID haben
+
+# USER MESSAGES
+MESSAGE_USER_MISSING_ROLE=Sie m\u00fcssen eine Benutzerrollenbezeichnung eingeben.
 
 # WORKAREA TEXTS
 WORKAREA_ERROR_INCORRECT_NAME_ONE=Der Arbeitsbereich mit dem Namen '
