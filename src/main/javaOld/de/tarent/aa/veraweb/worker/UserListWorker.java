@@ -174,11 +174,16 @@ public class UserListWorker extends ListWorkerVeraWeb {
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context ) throws BeanException, IOException {
     	int count = 0;
         if (bean.isModified()) {
+            if (bean instanceof User) {
+                ((User) bean).verify(cntx);
+            }
             if (bean.isCorrect()) {
                 if (bean instanceof User) {
+                    LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+                    LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
                     User userBean = (User) bean;
                     if (userBean.id != null) {
-                        errors.add("Einzuf\u00fcgender Benutzer darf keine ID haben");
+                        errors.add(languageProvider.getProperty("USER_LIST_WARN_NO_ID"));
                         return count;
                     }
                     Database database = new DatabaseVeraWeb(cntx);
@@ -187,8 +192,6 @@ public class UserListWorker extends ListWorkerVeraWeb {
                             where(Expr.equal("username", userBean.name)), context);
                     if (dupBean != null) {
                         OrgUnit ou = (OrgUnit) database.getBean("OrgUnit", dupBean.orgunit, context);
-                        LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-                        LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
                         if (ou != null) {
                             errors.add(languageProvider.getProperty("USER_LIST_WARN_MANDANT_ONE") +
                                       ((ou.name != null && ou.name.length() > 0) ? ou.name : ou.id.toString()) +

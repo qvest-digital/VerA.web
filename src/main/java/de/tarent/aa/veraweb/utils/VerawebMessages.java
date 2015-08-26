@@ -282,4 +282,8 @@ public class VerawebMessages {
     public String getMessageGuestdoctypeZipMaxLength() {
         return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_ZIP_MAX_LENGTH");
     }
+
+    public String getMessageUserMissingRole() {
+        return languageProvider.getProperty("MESSAGE_USER_MISSING_ROLE");
+    }
 }
