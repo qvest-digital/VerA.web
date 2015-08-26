@@ -113,8 +113,10 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 	}
 
 	@Override
-    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
+    protected void saveBean(final OctopusContext octopusContext, Bean bean, TransactionContext context) throws BeanException, IOException {
 		PersonDoctype personDoctype = (PersonDoctype)bean;
+
+		((PersonDoctype) bean).verify(octopusContext);
 		if (personDoctype.id != null) {
 			Database database = context.getDatabase();
 			Update update = SQL.Update( database ).
@@ -124,10 +126,10 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
 					where(Expr.equal("pk", personDoctype.id));
 			context.execute(update);
 		} else {
-			super.saveBean(cntx, bean, context);
+			super.saveBean(octopusContext, bean, context);
 		}
 
-		WorkerFactory.getPersonDetailWorker(cntx).updatePerson(cntx, null, personDoctype.person);
+		WorkerFactory.getPersonDetailWorker(octopusContext).updatePerson(octopusContext, null, personDoctype.person);
 	}
 
 	//
