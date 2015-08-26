@@ -360,17 +360,6 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 
         Select sel = database.getSelect("Categorie");
 
-		/*TODO sobald Select.whereAnd(Clause) zum DB-Layer.jar gehoert, kann der Code(Kot) unten ausgetauscht werden.
-		if (this.categoryId != null)
-		{
-			sel.whereAnd(Expr.equal("pk", this.categoryId));
-		}
-		if (this.orgUnitId != null && this.orgUnitId.intValue() != -1)
-		{
-			sel.whereAnd(Expr.equal("fk_orgunit", this.orgUnitId));
-		}
-		*/
-
         Clause expr1 = null, expr2 = null;
         if (this.categoryId != null) {
             expr1 = Expr.equal("pk", this.categoryId);
@@ -391,10 +380,8 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter
 		return database.getBeanList( "Categorie", sel );
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see de.tarent.aa.veraweb.utils.GenericCSVBase#getDocumentTypesFromDB()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
     protected List getDocumentTypesFromDB() throws BeanException, IOException {
