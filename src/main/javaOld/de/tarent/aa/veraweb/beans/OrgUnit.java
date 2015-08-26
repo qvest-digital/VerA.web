@@ -39,11 +39,11 @@ public class OrgUnit extends AbstractBean {
     /** Mandantenname */
     public String name;
 
-    public void verify(OctopusContext octopusContext) throws BeanException {
-        VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+    public void verify(final OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
 
         if (name == null || name.trim().length() == 0) {
-            addError(verawebMessages.getMessageOrgUnitNoName());
+            addError(messages.getMessageOrgUnitNoName());
         }
     }
 

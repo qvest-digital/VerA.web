@@ -214,14 +214,15 @@ public class Location extends AbstractBean implements OrgUnitDependent, Comparab
         this.location = location;
     }
 
-    public void verify(OctopusContext octopusContext) throws BeanException {
-        final VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+    public void verify(final OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
 
-		if (name == null || name.trim().length() == 0)
-			addError(verawebMessages.getMessageLocationTitleEmpty() );
+		if (name == null || name.trim().length() == 0) {
+            addError(messages.getMessageLocationTitleEmpty());
+        }
 
 		if(comment != null && comment.length() > 1000) {
-		    addError(verawebMessages.getMessageLocationMaxRemarkReached());
+		    addError(messages.getMessageLocationMaxRemarkReached());
 		}
 	}
 

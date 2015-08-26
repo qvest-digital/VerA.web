@@ -135,27 +135,27 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 	 * Request und speichert diesen im Content und in der Datenbank,
 	 * wenn im Request der Parameter save auf true gesetzt ist.
 	 *
-	 * @param cntx Octopus-Context
+	 * @param octopusContext Octopus-Context
 	 * @param save Gibt an ob eMail-Entwurf gespeichert werden soll.
 	 * @return eMail-Entwurf
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public MailDraft saveDetail(OctopusContext cntx, Boolean save) throws BeanException, IOException {
+	public MailDraft saveDetail(final OctopusContext octopusContext, final Boolean save) throws BeanException, IOException {
 		if (save != null && save.booleanValue()) {
-			MailDraft mailDraft = (MailDraft)getRequest(cntx).getBean("MailDraft", "maildraft");
-			TransactionContext context = ( new DatabaseVeraWeb(cntx) ).getTransactionContext();
-            mailDraft.verify(cntx);
+			MailDraft mailDraft = (MailDraft)getRequest(octopusContext).getBean("MailDraft", "maildraft");
+			TransactionContext context = ( new DatabaseVeraWeb(octopusContext) ).getTransactionContext();
+            mailDraft.verify(octopusContext);
 
 			if (mailDraft.isCorrect()) {
 				try {
 				    if (mailDraft.id == null) {
-				        cntx.setContent("countInsert", new Integer(1));
+				        octopusContext.setContent("countInsert", new Integer(1));
 				    } else {
-				        cntx.setContent("countUpdate", new Integer(1));
+				        octopusContext.setContent("countUpdate", new Integer(1));
 				    }
 
-                    saveBean(cntx, mailDraft, context);
+                    saveBean(octopusContext, mailDraft, context);
                     context.commit();
 				} catch ( Throwable e ) {
 					context.rollBack();

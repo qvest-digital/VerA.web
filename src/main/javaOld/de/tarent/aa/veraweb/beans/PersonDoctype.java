@@ -106,16 +106,30 @@ public class PersonDoctype extends AbstractBean {
      *
      * @throws BeanException bei Unvollständigkeit
      */
-    public void verify(OctopusContext octopusContext) throws BeanException {
-        VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+    public void verify(final OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
 
-        if (addresstype == null)
-            addresstype = new Integer(PersonConstants.ADDRESSTYPE_BUSINESS);
+        initMandatoryFields();
+
+        if ( textfieldJoin != null && textfieldJoin.length() > 50 ) {
+			addError(messages.getMessageDocTypeMaxConnectorReached());
+		}
+    }
+
+    private void initMandatoryFields() {
+        initAddresstype();
+        initLocale();
+    }
+
+    private void initLocale() {
         if (locale == null) {
             locale = new Integer(PersonConstants.LOCALE_LATIN);
         }
-		if ( textfieldJoin != null && textfieldJoin.length() > 50 ) {
-			addError(verawebMessages.getMessageDocTypeMaxConnectorReached());
-		}
+    }
+
+    private void initAddresstype() {
+        if (addresstype == null) {
+            addresstype = new Integer(PersonConstants.ADDRESSTYPE_BUSINESS);
+        }
     }
 }

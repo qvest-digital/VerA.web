@@ -60,11 +60,11 @@ public class PersonCategorie extends AbstractBean {
         checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
     }
 
-    public void verify(OctopusContext octopusContext) throws BeanException {
-        VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+    public void verify(final OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
 
     	if (person == null || categorie == null) {
-            addError(verawebMessages.getMessagePersonCategoryNoConnectionPersonCategory());
+            addError(messages.getMessagePersonCategoryNoConnectionPersonCategory());
         }
     }
 }
