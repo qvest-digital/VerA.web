@@ -214,23 +214,23 @@
 			<script>
 				var removeGuestabfrage = function () {
 						#if(!$grants.mayWrite())
-							showWarning('Sie haben keine ausreichende Berechtigung um G&auml;ste zu entfernen.');
+							showWarning('${placeholderWithTranslation.siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen}.');
 							return;
 						#end
 						var checkBoxes = $('input:checkbox[name$="-select"]:checked');
 						if (checkBoxes.length === 0) {
 							$(".errormsg").remove();
 							$(".successmsg").remove();
-							showWarning('W&auml;hlen Sie bitte zun&auml;chst eine oder mehrere G&auml;ste aus.');
+							showWarning('${placeholderWithTranslation.wahlensiebittezunachsteineodermehreregastelistenaus}.');
 						} else {
 							$(".errormsg").remove();
 							$(".successmsg").remove();
 							var msg = '';
-							msg += '<br><span class="notBold">Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L&ouml;schen ab.</span><br>'+ 'Sollen alle markierten Personen gel&ouml;scht werden? ' +
-							'Diese Aktion kann nicht r&uuml;ckg&auml;ngig gemacht werden.<br>';
+							msg += '<br><span class="notBold">${placeholderWithTranslation.wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab</span><br>'+ '${placeholderWithTranslation.sollenallemarkiertenpersonengeloeschtwerden} ' +
+							'${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden}<br>';
 							// disable all checkboxes while confirmation is visible
 							$('input:checkbox').prop('disabled', true);
-							showConfirmYesNo('Bitte best&auml;tigen Sie das L&ouml;schen der markierten G&auml;ste!',
+							showConfirmYesNo('${placeholderWithTranslation.bittebestatigensiedasloschendermarkiertengasteliste}',
 								msg,
 								function () { // Ja
 									$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
@@ -240,7 +240,7 @@
 								}, function () { // Nein
 									$(".errormsg").remove();
 									$(".successmsg").remove();
-									showSuccess('Es wurden keine G&auml;ste gel&ouml;scht.');
+									showSuccess('GENERIC_NO_GUESTLIST_DELETED');
 									$('input:checkbox').prop('disabled', false);
 
 								},
@@ -272,7 +272,7 @@
 						} else {
 							$(".errormsg").remove();
 							$(".successmsg").remove();
-							showWarning( "Wählen Sie bitte zunächst einen oder mehrere G&auml;ste aus." );
+							showWarning( "${placeholderWithTranslation.wahlensiebittezunachsteineodermehreregastelistenaus}." );
 						}
 					});
 				});

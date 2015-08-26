@@ -57,14 +57,14 @@
 
 
 					#if($listparam.start == $listparam.next)
-						<li class="img" id="page-next"><img src="${paths.staticWeb}images/paging_arrow_right.png" title="N&auml;chste Seite" style="cursor: pointer;"/></li>
+						<li class="img" id="page-next"><img src="${paths.staticWeb}images/paging_arrow_right.png" title="${placeholderWithTranslation.GENERIC_NEXT_PAGE}" style="cursor: pointer;"/></li>
 					#else
-						<li class="img" id="page-next"><img src="${paths.staticWeb}images/paging_arrow_right_active.png" onclick="navigateList($listparam.next);" title="N&auml;chste Seite" style="cursor: pointer;"/></li>
+						<li class="img" id="page-next"><img src="${paths.staticWeb}images/paging_arrow_right_active.png" onclick="navigateList($listparam.next);" title="${placeholderWithTranslation.GENERIC_NEXT_PAGE}" style="cursor: pointer;"/></li>
 					#end
 					#if($listparam.start == $listparam.last)
-						<li class="img" id="page-last"><img src="${paths.staticWeb}images/paging_arrow_right_last.png" title="Letzte Seite" style="cursor: pointer;"/></li>
+						<li class="img" id="page-last"><img src="${paths.staticWeb}images/paging_arrow_right_last.png" title="${placeholderWithTranslation.GENERIC_LAST_PAGE}" style="cursor: pointer;"/></li>
 					#else
-						<li class="img" id="page-last"><img src="${paths.staticWeb}images/paging_arrow_right_last_active.png" onclick="navigateList($listparam.last);" title="Letzte Seite" style="cursor: pointer;"/></li>
+						<li class="img" id="page-last"><img src="${paths.staticWeb}images/paging_arrow_right_last_active.png" onclick="navigateList($listparam.last);" title="${placeholderWithTranslation.GENERIC_LAST_PAGE}" style="cursor: pointer;"/></li>
 					#end
 				</ul>
 			</span>

@@ -174,5 +174,13 @@ public class VerawebMessages {
 
     public String getMessageProxyRepresentativeBeginBeforeEnd() {
         return languageProvider.getProperty("MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END");
+	}
+
+    public String getMessageEventfunctionWrong() {
+        return languageProvider.getProperty("MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG");
+    }
+
+    public String getMessageFunctionMissingName() {
+        return languageProvider.getProperty("MESSAGE_FUNCTION_MISSING_NAME");
     }
 }

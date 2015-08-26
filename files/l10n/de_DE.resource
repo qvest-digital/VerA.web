@@ -152,7 +152,7 @@ HEADER_COUNT_REMOVE_ZERO_PART_TWO=gel\u00F6scht
 HEADER_COUNT_REMOVE_ONE_PART_TWO=gel\u00F6scht
 HEADER_COUNT_REMOVE_ELSE_PART_TWO=gel\u00F6scht
 HEADER_COUNT_UPDATE_ZERO_PART_ONE=Es wurde
-HEADER_COUNT_UPDATE_ONE_PART_ONE =Es wurde
+HEADER_COUNT_UPDATE_ONE_PART_ONE=Es wurde
 HEADER_COUNT_UPDATE_ELSE_PART_ONE=Es wurden
 HEADER_COUNT_UPDATE_ZERO_PART_TWO=ge\u00E4ndert
 HEADER_COUNT_UPDATE_ONE_PART_TWO=ge\u00E4ndert
@@ -461,7 +461,7 @@ datum=Datum
 arbeitsbereich=Arbeitsbereich
 nachname=Nachname
 vorname=Vorname
-amtsbezeichnung=Amtsbezeichnung
+akwritemtsbezeichnung=Amtsbezeichnung
 firmainstitution=Firma / Institution
 strasse=Stra\u00DFe
 plz=PLZ
@@ -1328,7 +1328,7 @@ anderungenspeichern=Änderungen speichern
 senden=Senden
 
 # GENERIC
-GENERIC_UPLOAD_BUTTON = Datei ausw\u00E4hlen
+GENERIC_UPLOAD_BUTTON=Datei ausw\u00E4hlen
 GENERIC_TO=An
 GENERIC_FEDERAL_STATE=Bundesland
 GENERIC_PERSONAL_DATA=Pers\u00F6nliche Daten
@@ -1375,6 +1375,8 @@ MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=Der Verbinder darf maximal 50 Zeichen lang
 MESSAGE_PROXY_NO_REPRESENTATIVE=Sie müssen eine Vertreter eingeben.
 MESSAGE_PROXY_NO_ROLE=Sie müssen einen Rolle eingeben.
 MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=Der Beginn der Vertretung muss vor dem Ende liegen.
+MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG=Die Zuordnung einer Funktion/Amtsbezeichnung zu einer Veranstaltung ist fehlerhaft.
+MESSAGE_FUNCTION_MISSING_NAME=Sie m\u00fcssen der Funktion einen Namen geben.
 
 # EVENT LIST TEXTS
 EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Mindestens eine markierte Veranstaltung l\u00e4uft aktuell oder liegt in der Zukunft.
@@ -1399,8 +1401,67 @@ CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgun
 # BROWSER TITLES
 BROWSER_TITLE_REPORTS=Reports
 
+
+#NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zur\u00fccksetzen
+GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
+GUEST=Gast
+GENERIC_OF=von
+
+
+TOOLTIP_EDIT_HEADLINES=Sie k\u00f6nnen die \U00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den &quot;Bearbeiten&quot;-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
+GENERIC_NEXT_PAGE=N\u00E4chste Seite
+GENERIC_PREVIOUS_PAGE=N\u00E4chste Seite
+GENERIC_APPLY_TO_GUESTLIST=In G\u00E4steliste \u00fcbernehmen
+GENERIC_APPLY_GUEST_TO_GUESTLIST=Gast direkt in G\u00E4steliste \u00fcbernehmen
+GENERIC_APPLY=\U00DCbernehmen
+GENERIC_APPLY_PERSON_AS_HOST=Person direkt als Gastgeber \u00fcbernehmen
+etikettfuraktuellepersonerzeugen=Etikett f\u00fcr aktuelle Person erzeugen
+
+aktuellepersonloschenundzurpersonenlistezuruckkehren=Aktuelle Person l\u00f6schen und zur Personenliste zur\u00fcckkehren
+freifeldvorschaufur=Freifeld-Vorschau f\u00fcr
+zudieserpersonwurdedasentsprechendevorschaufeldnochncihterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt
+GENERIC_LAST_PAGE=letzte Seite
+siemussendierolleangebenunterdersieverawebnutzenmochten=Sie m\u00fcssen die Rolle angeben, unter der Sie VerA.web nutzen m\u00f6chten.
+GENERIC_CHOOSE=ausw\u00E4hlen
+GENERIC_RESET=Zur\u00fccksetzen
+siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=Sie haben keine ausreichende Berechtigung um die G\u00E4ste zu entfernen
+wahlensiebittezunachsteineodermehreregastelistenaus=W\u00E4hlen Sie bitte zun\u00E4chst eine oder mehrere G\u00E4sten aus
+bittebestatigensiedasloschendermarkiertengasteliste=Bitte best\u00E4tigen Sie das L\u00f6schen der markierten G\u00E4ste!
+GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00f6scht.
+
+
+EVENT_DOCTYPE_RESET_INFO=Bitte \u00fcberpr\u00fcfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00fcssen Sie die Dokumenttypen f\u00fcr diesen Gast neu erzeugen, klicken Sie hierzu auf &quot;Auf Stammdaten zur\u00fccksetzen&quot;.
+
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00fcber den Men\u00fcpunkt Administration &gt; Programmeinstellungen m\u00f6glich.
+            
+GENERIC_CHOSEN_GUESTLIST=Ausgew\u00E4hlte G\u00E4ste            
+exportierfahigegasteliste=Exportierf\u00E4hige G\u00E4ste
+unvollstandigegasteliste=Unvollst\u00E4ndige G\u00E4ste
+
+GUESTLIST_FILTER_EXPORT_INFO=Sollten Sie in der G\u00E4steliste eine Filterung getroffen haben, werden nur die ausgew\u00E4hlten G\u00E4ste exportiert.
+
+GUEST_CANNOT_BE_EXPORTED_1=Ein Gast
+GUEST_CANNOT_BE_EXPORTED_2=kann
+GUEST_CANNOT_BE_EXPORTED_3=nicht exportiert
+GUEST_CANNOT_BE_EXPORTED_4=werden
+PERSON_MISSING_DOCTYPE_SPECIFIC_DATA=weil zu dieser Person keine entsprechenden dokumenttypspezifische Daten gespeichert worden sind
+
+GUESTS_CANNOT_BE_EXPORTED_1=G\u00E4ste
+GUESTS_CANNOT_BE_EXPORTED_2=k\u00f6nnen
+GUESTS_CANNOT_BE_EXPORTED_3=nicht exportiert
+GUESTS_CANNOT_BE_EXPORTED_4=werden
+PERSONS_MISSING_DOCTYPE_SPECIFIC_DATA=weil nicht zu jeder Person entsprechende dokumenttypspezifische Daten gespeichert worden sind
+GENERIC_TO_EVENTDETAIL=Zu den Veranstaltungsdetails
+GENERIC_INSERT_CURRENT_MONTH=aktuellen Monat einf\u00fcgen
+GENERIC_SELECT_FUNCTION=Funktion ausw\u00E4hlen
+diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten=Die Stammdaten dieses Gastes wurden gel\u00f6scht. Sie k\u00f6nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten
+DELETE_SELECTED_MANDATOR=Markierte(n) Mandanten l\u00f6schen
+PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Soll der Rang der Kategorie aus den Stammdaten \u00fcbernommen werden?
+
+
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
-GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zurücksetzen
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zur\u00FCcksetzen
 GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
 GUEST=Gast
 GENERIC_OF=von
@@ -1413,10 +1474,10 @@ GUEST_DETAIL_PARTNER=dem Partner
 GUEST_DETAIL_PARTNER_GENITIV=des Partners
 GUEST_DETAIL_MAINPERSON=der Hauptperson
 
-GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Bitte \u00e4ndern Sie erst den Sitzplatz bei
-GUEST_DETAIL_DUP_SEAT_ERROR_TWO= von
-GUEST_DETAIL_DUP_SEAT_ERROR_THREE=\u00fcber die G\u00e4steliste. Diese Person sitzt aktuell auf
-GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=dem eingegebenen Sitzplatz
+GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Bitte \u00e4ndern Sie erst den Sitzplatz bei 
+GUEST_DETAIL_DUP_SEAT_ERROR_TWO=von 
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=\u00fcber die G\u00e4steliste. Diese Person sitzt aktuell auf 
+GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=dem eingegebenen Sitzplatz 
 GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Die \u00c4nderung wurde nicht gespeichert.
 
 # GUEST TEXTS
@@ -1427,12 +1488,12 @@ MAILING_LIST_NO_ADDRESSES=Das Anlegen eines neuen Verteilers ist fehlgeschlagen,
 
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=Einzuf\u00fcgender Mandant darf keine ID haben
-ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Einzuf\u00fcgender Mandant
-ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO= existiert bereits.
-ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Zu aktualisierender Mandant
-ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= muß eine ID haben
-ORG_UNIT_MANDANT_EXISTS_ONE=Ein Mandant mit Namen
-ORG_UNIT_MANDANT_EXISTS_TWO= existiert bereits.
+ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Einzuf\u00fcgender Mandant 
+ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO=existiert bereits.
+ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Zu aktualisierender Mandant 
+ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= mu\u00DF eine ID haben
+ORG_UNIT_MANDANT_EXISTS_ONE=Ein Mandant mit Namen 
+ORG_UNIT_MANDANT_EXISTS_TWO=existiert bereits.
 
 # PERSON CATEGORIES TEXTS
 PERSON_CATEGORIES_SELECT_WARNING=Um eine neue Kategorie hinzuzuf\u00fcgen w\u00e4hlen Sie bitte eine Kategorie aus. (Sie haben nur einen Rang eingegeben.)
@@ -1507,3 +1568,38 @@ EXPORT_HEADER_OBSERVATION=Bemerkung
 
 # MAIN DATA (STAMMDATEN-WORKER) TEXTS
 MAIN_DATA_WARN_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen
+
+# STATS (Statistik Worker)
+STATS_COLUMN_EVENT_NAME=Name der Veranstaltung
+STATS_COLUMN_DATE_BEGIN=Beginn
+STATS_COLUMN_INVITATION_TYPE=Einladungsart
+STATS_COLUMN_INVITATION_STATUS=Status
+STATS_COLUMN_INVITATION_STATUS_PARTNER=Status Partner
+STATS_COLUMN_YEAR=Jahr
+STATS_COLUMN_MONTH=Monat
+STATS_COLUMN_EVENTS=Veranstaltungen
+STATS_NOT_INVITED=nicht eingeladen
+
+# USER LIST TEXTS
+USER_LIST_WARN_MANDANT_ONE=Einzuf\u00fcgender Benutzer ist bereits dem Mandanten 
+USER_LIST_WARN_MANDANT_TWO= zugeordnet.
+USER_LIST_WARN_ALREADY_USER=Einzuf\u00fcgender Benutzer ist bereits VerA.web zugeordnet.
+
+# WORKAREA TEXTS
+WORKAREA_ERROR_INCORRECT_NAME_ONE=Der Arbeitsbereich mit dem Namen '
+WORKAREA_ERROR_INCORRECT_NAME_TWO=' konnte nicht angelegt werden. Bitte weisen Sie sich zuerst einen Mandanten zu.
+
+# VERIFY TEXTS
+VERIFY_ERROR_ACCESS_TO_DB_UNABLE=Die Verbindung zur Datenbank wurde nicht erfolgreich hergestellt.
+VERIFY_ERROR_ACCESS_TO_DB_INTERRUPTED=Die Verbindung zur Datenbank wurde unterbrochen.
+VERIFY_ERROR_ACCESS_TO_DB_NOT_INTERRUPTED=Die Verbindung zur Datenbank wurde nicht erfolgreich unterbrochen.
+VERIFY_ERROR_DB_NOT_ACCESSIBLE=Die Verbindung zur Datenbank konnte nicht hergestellt werden.
+VERIFY_ERROR_DB_VERSION_NOT_DETERMINED=Die Version des Datenbank-Schemas konnte nicht ermittelt werden.
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE=Die Version des Datenbank-Schemas (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO=) stimmt nicht mit der von VerA.web erwarteten (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=) \u00fcbereini.
+VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00fctzt nicht den erwarteten Zeichensatz (LC_CTYPE=
+VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00fctzt nicht die erwarteten Textvergleichsregeln (LC_COLLATE=
+VERIFY_ERROR_XML=Bei der Erzeugung eines XML-Testdokumentes ist ein Fehler aufgetreten. (
+VERIFY_ERROR_JAVA_ONE=Die installierte Java-Version (
+VERIFY_ERROR_JAVA_TWO=) entspricht nicht der erwarteten Version (1.4).

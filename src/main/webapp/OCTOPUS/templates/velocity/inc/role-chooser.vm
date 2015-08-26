@@ -7,8 +7,8 @@
 ## Voraussetzung also: $octopusConfig.personalConfig.roles nicht null
 ##
 <p>
-    Sie m&uuml;ssen die Rolle angeben, unter der Sie VerA.web nutzen m&ouml;chten.
-    Bitte w&auml;hlen Sie:
+${placeholderWithTranslation.siemussendierolleangebenunterdersieverawebnutzenmochten}
+${placeholderWithTranslation.bittewahlensie}
 </p>
 <br/>
 <form action="login" method="post" target="_top">
@@ -39,9 +39,9 @@
                 &nbsp;
             </td>
 			<td>
-				<input name="submit" type="submit" value="Ausw&auml;hlen" class="submit">
+                <input name="submit" type="submit" value="${placeholderWithTranslation.GENERIC_CHOOSE}" class="submit">
                 &nbsp;
-				<input name="cancel" type="reset"  value="Zur&uuml;cksetzen" class="reset">
+                <input name="cancel" type="reset"  value="${placeholderWithTranslation.GENERIC_RESET}" class="reset">
 			</td>
 		</tr>
 	</table>

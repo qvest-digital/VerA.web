@@ -43,9 +43,9 @@
 				#end
 
 				#if($listparam.start == $listparam.next)
-					<a id="page-next" class="listnavilinkinactiv" title="N&auml;chste Seite">&raquo;</a>
+					<a id="page-next" class="listnavilinkinactiv" title="${placeholderWithTranslation.GENERIC_NEXT_PAGE}">&raquo;</a>
 				#else
-					<a id="page-next" href="javascript:navigateList($listparam.next);" class="listnavilink" title="N&auml;chste Seite">&raquo;</a>
+					<a id="page-next" href="javascript:navigateList($listparam.next);" class="listnavilink" title="${placeholderWithTranslation.GENERIC_NEXT_PAGE}">&raquo;</a>
 				#end
 				#if($listparam.start == $listparam.last)
 					<a id="page-last" class="listnavilinkinactiv" title="Letzte Seite">&raquo;&raquo;</a>

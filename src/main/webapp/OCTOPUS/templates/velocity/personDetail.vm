@@ -443,7 +443,7 @@
 	}
 
 	function removePerson() {
-		##if (confirm('${placeholderWithTranslation.aktuellepersonwirklichentfernen}')) {
+		##if (confirm('${placeholderWithTranslation.aktuellepersonwirklichentfernen}')) {}
 		window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
 
 	}

@@ -85,30 +85,30 @@
     <span id="buttonPanel-bottom" class="textRight">
         #if($action == "guest")
             #if($grants.mayWrite())
-                <input type="submit" name="save" value="Dokumenttyp speichern" title="Dokumenttyp speichern" class="mainButton" />
+                <input type="submit" name="save" value="${placeholderWithTranslation.dokumenttypspeichern}" title="${placeholderWithTranslation.dokumenttypspeichern}" class="mainButton" />
             #end
-            <input type="button" name="cancel" value="Zur&uuml;ck zur Dokumenttypenliste" title="Zur&uuml;ck zur Dokumenttypenliste" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&selectNone=true';"/>
+            <input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzurdokumenttypenliste}" title="${placeholderWithTranslation.zuruckzurdokumenttypenliste}" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&selectNone=true';"/>
             #if($person)
-                <input type="button" name="add" value="&Uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" onclick="addToGuestList();" #if($grants.mayWrite()) class="mainButton" #else vera-disabled #end/>
+                <input type="button" name="add" value="${placeholderWithTranslation.GENERIC_APPLY}" title="${placeholderWithTranslation.GENERIC_APPLY_GUEST_TO_GUESTLIST}" onclick="addToGuestList();" #if($grants.mayWrite()) class="mainButton" #else vera-disabled #end/>
                 <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.abbrechen}" title="${placeholderWithTranslation.abbrechen}" onclick="window.location.href='AddPersonToEventList';" />
             #else
                 <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.abbrechen}" title="${placeholderWithTranslation.abbrechen}" onclick="window.location.href='AddPersonToEventList';" />
             #end
         #elseif($action == "host")
             #if($grants.mayWrite())
-                <input type="submit" name="save" value="Dokumenttyp speichern" title="Dokumenttyp speichern" class="mainButton" />
+                <input type="submit" name="save" value="${placeholderWithTranslation.dokumenttypspeichern}" title="${placeholderWithTranslation.dokumenttypspeichern}" class="mainButton" />
             #end
-            <input type="button" name="cancel" value="Zur&uuml;ck zur Dokumenttypenliste" title="Zur&uuml;ck zur Dokumenttypenliste" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&selectNone=true';" />
+            <input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzurdokumenttypenliste}" title="${placeholderWithTranslation.zuruckzurdokumenttypenliste}" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&selectNone=true';" />
             <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.abbrechen}" title="${placeholderWithTranslation.abbrechen}" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';" />
         #elseif($action == "event")
             #if($grants.mayWrite())
-                <input type="submit" name="save" value="Dokumenttyp speichern" title="Dokumenttyp speichern" class="mainButton" />
+                <input type="submit" name="save" value="${placeholderWithTranslation.dokumenttypspeichern}" title="${placeholderWithTranslation.dokumenttypspeichern}" class="mainButton" />
             #end
         #else
             #if($grants.mayWrite())
-                <input type="submit" name="save" value="Dokumenttyp speichern" title="Dokumenttyp speichern" class="mainButton" />
+                <input type="submit" name="save" value="${placeholderWithTranslation.dokumenttypspeichern}" title="${placeholderWithTranslation.dokumenttypspeichern}" class="mainButton" />
             #end
-            <input type="button" name="cancel" value="Zur&uuml;ck zur Dokumenttypenliste" title="Zur&uuml;ck zur Dokumenttypenliste" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&selectNone=true';" />
+            <input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzurdokumenttypenliste}" title="${placeholderWithTranslation.zuruckzurdokumenttypenliste}" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&selectNone=true';" />
         #end
     </span>
 </form>

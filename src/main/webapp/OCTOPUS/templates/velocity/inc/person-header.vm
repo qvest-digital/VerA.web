@@ -6,7 +6,7 @@
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
 		#end
 		#if($person && $person.id)
-			<input type="button" name="add" value="In G&auml;steliste &uuml;bernehmen" title="Gast direkt in G&auml;steliste &uuml;bernehmen" class="mainButton" onclick="addToGuestList();">
+			<input type="button" name="add" value="${placeholderWithTranslation.GENERIC_APPLY_TO_GUESTLIST}" title="${placeholderWithTranslation.APPLY_GUEST_TO_GUESTLIST}" class="mainButton" onclick="addToGuestList();">
 		#end
 		#if($grants.mayWrite())
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.personkopieren}" onclick="if (checkModified()) { copyPerson(); }"/>
@@ -19,7 +19,7 @@
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
 		#end
 		#if($person && $person.id)
-			<input type="button" name="set" class="mainButton" value="&Uuml;bernehmen" title="Person direkt als Gastgeber &uuml;bernehmen" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventDetail?hostid=$!person.id';">
+			<input type="button" name="set" class="mainButton" value="${placeholderWithTranslation.GENERIC_APPLY}" title="${placeholderWithTranslation.GENERIC_APPLY_PERSON_AS_HOST}" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventDetail?hostid=$!person.id';">
 		#end
 		#if($grants.mayWrite())
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.personkopieren}" onclick="if (checkModified()) { copyPerson(); }" />
@@ -65,10 +65,10 @@
 			#if($grants.mayWrite())
 				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.personkopieren}" title="Aktuelle Person kopieren" onclick="if (checkModified()) { copyPerson(); }" />
 			#end
-			<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.etiketterzeugen}" title="Etikett f&uuml;r aktuelle Person erzeugen" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
+			<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.etiketterzeugen}" title="${placeholderWithTranslation.etikettfuraktuellepersonerzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 			#if($grants.mayWrite())
 				<input type="button" name="event" class="mainButton" value="${placeholderWithTranslation.einerveranstaltungzuordnen}" title="Aktuelle Person einer Veranstaltung zuordnen" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }"/>
-				<input type="button" name="remove" class="mainButton" value="${placeholderWithTranslation.personloschen}" title="Aktuelle Person l&ouml;schen und zur Personenliste zur&uuml;ckkehren." onclick="if (checkModified()) { removePerson(); }" />
+				<input type="button" name="remove" class="mainButton" value="${placeholderWithTranslation.personloschen}" title="${placeholderWithTranslation.aktuellepersonloschenundzurpersonenlistezuruckkehren}." onclick="if (checkModified()) { removePerson(); }" />
 			#end
 		#end
 
@@ -119,7 +119,7 @@
 					<div class="tableRow">
 						<div class="tableCell">
 							#if($doctype)
-								<strong>Freifeld-Vorschau f&uuml;r &quot;$!message.plain($doctype.name)&quot;</strong>
+								<strong>${placeholderWithTranslation.freifeldvorschaufur} &quot;$!message.plain($doctype.name)&quot;</strong>
 								#if($doctype.textfield)
 									<textarea id="d8" name="freitextfeld" style="height:88px;" vera-disabled>
                                         $!message.textarea($doctype.textfield)
@@ -137,7 +137,7 @@
 								<div class="info">
 									Es wurde kein Dokumenttyp zur Vorschauanzeige konfiguriert.
 									#if($grants.isAdmin())
-										Dies ist &uuml;ber den Men&uuml;punkt Administration &gt; Programmeinstellungen m&ouml;glich.
+										${placeholderWithTranslation.diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich}
 									#end
 								</div>
 							#end
