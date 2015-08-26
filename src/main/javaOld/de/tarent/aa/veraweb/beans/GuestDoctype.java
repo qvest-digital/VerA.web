@@ -124,104 +124,79 @@ public class GuestDoctype extends AbstractBean {
     }
 
 	@Override
-	public void verify() throws BeanException
-	{
+	public void verify() throws BeanException {
 		super.verify();
-		if ( city != null && city.length() > 100 )
-		{
-			addError( "Der Name der Stadt darf maximal 100 Zeichen lang sein." );
+		if (city != null && city.length() > 100) {
+			addError("Der Name der Stadt darf maximal 100 Zeichen lang sein.");
 		}
-		if ( company != null && company.length() > 250 )
-		{
-			addError( "Der Name der Firma darf maximal 250 Zeichen lang sein." );
+		if (company != null && company.length() > 250) {
+			addError("Der Name der Firma darf maximal 250 Zeichen lang sein.");
 		}
-		if ( country != null && country.length() > 100 )
-		{
-			addError( "Der Name des Landes darf maximal 100 Zeichen lang sein." );
+		if (country != null && country.length() > 100) {
+			addError("Der Name des Landes darf maximal 100 Zeichen lang sein.");
 		}
-		if ( fax != null && fax.length() > 100 )
-		{
-			addError( "Die Faxnummer darf maximal 100 Zeichen lang sein." );
+		if (fax != null && fax.length() > 100) {
+			addError("Die Faxnummer darf maximal 100 Zeichen lang sein.");
 		}
-		if ( firstname != null && firstname.length() > 100 )
-		{
-			addError( "Der Vorname darf maximal 100 Zeichen lang sein." );
+		if (firstname != null && firstname.length() > 100) {
+			addError("Der Vorname darf maximal 100 Zeichen lang sein.");
 		}
-		if ( lastname != null && lastname.length() > 100 )
-		{
-			addError( "Der Nachname darf maximal 100 Zeichen lang sein." );
+		if (lastname != null && lastname.length() > 100) {
+			addError("Der Nachname darf maximal 100 Zeichen lang sein.");
 		}
-		if ( firstname_p != null && firstname_p.length() > 100 )
-		{
-			addError( "Der Vorname des Partners darf maximal 100 Zeichen lang sein." );
+		if (firstname_p != null && firstname_p.length() > 100) {
+			addError("Der Vorname des Partners darf maximal 100 Zeichen lang sein.");
 		}
-		if ( lastname_p != null && lastname_p.length() > 100 )
-		{
-			addError( "Der Nachname des Partners darf maximal 100 Zeichen lang sein." );
+		if (lastname_p != null && lastname_p.length() > 100) {
+			addError("Der Nachname des Partners darf maximal 100 Zeichen lang sein.");
 		}
-		if ( fon != null && fon.length() > 100 )
-		{
-			addError( "Die Telefonnummer darf maximal 100 Zeichen lang sein." );
+		if (fon != null && fon.length() > 100) {
+			addError("Die Telefonnummer darf maximal 100 Zeichen lang sein.");
 		}
-		if ( function != null && function.length() > 250 )
-		{
-			addError( "Die Funktionsbezeichnung darf maximal 250 Zeichen lang sein." );
+		if (function != null && function.length() > 250) {
+			addError("Die Funktionsbezeichnung darf maximal 250 Zeichen lang sein.");
 		}
-		if ( mail != null && mail.length() > 250 )
-		{
-			addError( "Die E-Mail Addresse darf maximal 250 Zeichen lang sein." );
+		if (mail != null && mail.length() > 250) {
+			addError("Die E-Mail Addresse darf maximal 250 Zeichen lang sein.");
 		}
-		if ( mobil != null && mobil.length() > 100 )
-		{
-			addError( "Die Mobilfunknummer darf maximal 100 Zeichen lang sein." );
+		if (mobil != null && mobil.length() > 100) {
+			addError("Die Mobilfunknummer darf maximal 100 Zeichen lang sein.");
 		}
-		if ( pobox != null && pobox.length() > 50 )
-		{
-			addError( "Die P.O. Box Nummer darf maximal 50 Zeichen lang sein." );
+		if (pobox != null && pobox.length() > 50) {
+			addError("Die P.O. Box Nummer darf maximal 50 Zeichen lang sein.");
 		}
-		if ( poboxzipcode != null && poboxzipcode.length() > 50 )
-		{
-			addError( "Die Postleitzahl zur P.O. Box darf maximal 50 Zeichen lang sein." );
+		if (poboxzipcode != null && poboxzipcode.length() > 50) {
+			addError("Die Postleitzahl zur P.O. Box darf maximal 50 Zeichen lang sein.");
 		}
-		if ( salutation != null && salutation.length() > 50 )
-		{
-			addError( "Die Anrede darf maximal 50 Zeichen lang sein." );
+		if (salutation != null && salutation.length() > 50) {
+			addError("Die Anrede darf maximal 50 Zeichen lang sein.");
 		}
-		if ( salutation_p != null && salutation_p.length() > 50 )
-		{
-			addError( "Die Anrede des Partners darf maximal 50 Zeichen lang sein." );
+		if (salutation_p != null && salutation_p.length() > 50) {
+			addError("Die Anrede des Partners darf maximal 50 Zeichen lang sein.");
 		}
-		if ( street != null && street.length() > 100 )
-		{
-			addError( "Der Straßenname darf maximal 100 Zeichen lang sein." );
+		if (street != null && street.length() > 100) {
+			addError("Der Straßenname darf maximal 100 Zeichen lang sein.");
 		}
-		if ( suffix1 != null && suffix1.length() > 100 )
-		{
-			addError( "Das erste Suffix darf maximal 100 Zeichen lang sein." );
+		if (suffix1 != null && suffix1.length() > 100) {
+			addError("Das erste Suffix darf maximal 100 Zeichen lang sein.");
 		}
-		if ( suffix2 != null && suffix2.length() > 100 )
-		{
-			addError( "Das zweite Suffix darf maximal 100 Zeichen lang sein." );
+		if (suffix2 != null && suffix2.length() > 100) {
+			addError("Das zweite Suffix darf maximal 100 Zeichen lang sein.");
 		}
-		if ( textjoin != null && textjoin.length() > 50 )
-		{
-			addError( "Der Verbinder darf maximal 50 Zeichen lang sein." );
+		if (textjoin != null && textjoin.length() > 50) {
+			addError("Der Verbinder darf maximal 50 Zeichen lang sein.");
 		}
-		if ( titel != null && titel.length() > 250 )
-		{
-			addError( "Die Titelbezeichnung darf maximal 250 Zeichen lang sein." );
+		if (titel != null && titel.length() > 250) {
+			addError("Die Titelbezeichnung darf maximal 250 Zeichen lang sein.");
 		}
-		if ( titel_p != null && titel_p.length() > 250 )
-		{
-			addError( "Die Titelbezeichnung des Partners darf maximal 250 Zeichen lang sein." );
+		if (titel_p != null && titel_p.length() > 250) {
+			addError("Die Titelbezeichnung des Partners darf maximal 250 Zeichen lang sein.");
 		}
-		if ( www != null && www.length() > 250 )
-		{
-			addError( "Die WWW URL darf maximal 250 Zeichen lang sein." );
+		if (www != null && www.length() > 250) {
+			addError("Die WWW URL darf maximal 250 Zeichen lang sein.");
 		}
-		if ( zipcode != null && zipcode.length() > 250 )
-		{
-			addError( "Die Postleitzahl darf maximal 50 Zeichen lang sein." );
+		if (zipcode != null && zipcode.length() > 250) {
+			addError("Die Postleitzahl darf maximal 50 Zeichen lang sein.");
 		}
 	}
 }
