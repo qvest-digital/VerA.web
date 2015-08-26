@@ -115,8 +115,12 @@ public class Task extends AbstractHistoryBean {
      */
     public String endtime;
 
+    private VerawebMessages messages;
+
     public void verify(OctopusContext octopusContext) throws BeanException {
-        final VerawebMessages messages = new VerawebMessages(octopusContext);
+        if (messages == null) {
+            messages = new VerawebMessages(octopusContext);
+        }
 
         if ((starttime != null && starttime.length() > 0 && startdate == null)
                 || (endtime != null && endtime.length() > 0 && enddate == null)) {
@@ -471,5 +475,13 @@ public class Task extends AbstractHistoryBean {
      */
     public void setEndtime(final String endtime) {
         this.endtime = endtime;
+    }
+
+    public VerawebMessages getMessages() {
+        return messages;
+    }
+
+    public void setMessages(VerawebMessages messages) {
+        this.messages = messages;
     }
 }
