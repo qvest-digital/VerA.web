@@ -91,11 +91,11 @@ public class OptionalFieldsWorker {
      * @throws BeanException TODO
 	 */
 	public void createOptionalField(OptionalField optionalField) throws SQLException, BeanException {
-		final TransactionContext context = this.database.getTransactionContext();
+		final TransactionContext transactionContext = this.database.getTransactionContext();
         final Insert insert = getStatementInsertOptionalField(optionalField);
 
-		DB.insert(context, insert.statementToString());
-        context.commit();
+		DB.insert(transactionContext, insert.statementToString());
+        transactionContext.commit();
 	}
 
     /**

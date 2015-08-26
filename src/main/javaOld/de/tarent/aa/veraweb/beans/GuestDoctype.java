@@ -19,6 +19,7 @@
  */
 package de.tarent.aa.veraweb.beans;
 
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -123,80 +124,80 @@ public class GuestDoctype extends AbstractBean {
         checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
     }
 
-	@Override
-	public void verify() throws BeanException {
+	public void verify(final OctopusContext octopusContext) throws BeanException {
 		super.verify();
+		final VerawebMessages messages = new VerawebMessages(octopusContext);
 		if (city != null && city.length() > 100) {
-			addError("Der Name der Stadt darf maximal 100 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeCitynameMaxLength());
 		}
 		if (company != null && company.length() > 250) {
-			addError("Der Name der Firma darf maximal 250 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeCompanynameMaxLength());
 		}
 		if (country != null && country.length() > 100) {
-			addError("Der Name des Landes darf maximal 100 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeCountrynameMaxLength());
 		}
 		if (fax != null && fax.length() > 100) {
-			addError("Die Faxnummer darf maximal 100 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeFaxMaxLength());
 		}
 		if (firstname != null && firstname.length() > 100) {
-			addError("Der Vorname darf maximal 100 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeFirstnameMaxLength());
 		}
 		if (lastname != null && lastname.length() > 100) {
-			addError("Der Nachname darf maximal 100 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeLastnameMaxLength());
 		}
 		if (firstname_p != null && firstname_p.length() > 100) {
-			addError("Der Vorname des Partners darf maximal 100 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeFirstnamePartnerMaxLength());
 		}
 		if (lastname_p != null && lastname_p.length() > 100) {
-			addError("Der Nachname des Partners darf maximal 100 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeLastnamePartnerMaxLength());
 		}
 		if (fon != null && fon.length() > 100) {
-			addError("Die Telefonnummer darf maximal 100 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypePhoneMaxLength());
 		}
 		if (function != null && function.length() > 250) {
-			addError("Die Funktionsbezeichnung darf maximal 250 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeFunctionMaxLength());
 		}
 		if (mail != null && mail.length() > 250) {
-			addError("Die E-Mail Addresse darf maximal 250 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeEmailMaxLength());
 		}
 		if (mobil != null && mobil.length() > 100) {
-			addError("Die Mobilfunknummer darf maximal 100 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeMobilePhoneMaxLength());
 		}
 		if (pobox != null && pobox.length() > 50) {
-			addError("Die P.O. Box Nummer darf maximal 50 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypePOBoxMaxLength());
 		}
 		if (poboxzipcode != null && poboxzipcode.length() > 50) {
-			addError("Die Postleitzahl zur P.O. Box darf maximal 50 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypePOBoxZipMaxLength());
 		}
 		if (salutation != null && salutation.length() > 50) {
-			addError("Die Anrede darf maximal 50 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeSalutationMaxLength());
 		}
 		if (salutation_p != null && salutation_p.length() > 50) {
-			addError("Die Anrede des Partners darf maximal 50 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeSalutationPartnerMaxLength());
 		}
 		if (street != null && street.length() > 100) {
-			addError("Der Straßenname darf maximal 100 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeStreetMaxLength());
 		}
 		if (suffix1 != null && suffix1.length() > 100) {
-			addError("Das erste Suffix darf maximal 100 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeSuffix1MaxLength());
 		}
 		if (suffix2 != null && suffix2.length() > 100) {
-			addError("Das zweite Suffix darf maximal 100 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeSuffix2MaxLength());
 		}
 		if (textjoin != null && textjoin.length() > 50) {
-			addError("Der Verbinder darf maximal 50 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeTextjoinMaxLength());
 		}
 		if (titel != null && titel.length() > 250) {
-			addError("Die Titelbezeichnung darf maximal 250 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeTitleMaxLength());
 		}
 		if (titel_p != null && titel_p.length() > 250) {
-			addError("Die Titelbezeichnung des Partners darf maximal 250 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeTitlePartnerMaxLength());
 		}
 		if (www != null && www.length() > 250) {
-			addError("Die WWW URL darf maximal 250 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeUrlMaxLength());
 		}
 		if (zipcode != null && zipcode.length() > 250) {
-			addError("Die Postleitzahl darf maximal 50 Zeichen lang sein.");
+			addError(messages.getMessageGuestdoctypeZipMaxLength());
 		}
 	}
 }

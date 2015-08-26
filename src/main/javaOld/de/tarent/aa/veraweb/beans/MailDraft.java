@@ -51,17 +51,19 @@ public class MailDraft extends AbstractHistoryBean {
 	/** Geändert am */
 	public Timestamp changed;
 
-    public void verify(OctopusContext octopusContext) throws BeanException {
-        VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+    public void verify(final OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
 
 		if (name == null || name.trim().length() == 0) {
-            addError(verawebMessages.getMessageEMailDraftNameMissing());
+            addError(messages.getMessageEMailDraftNameMissing());
         }
+
 		if (subject == null || subject.trim().length() == 0) {
-            addError(verawebMessages.getMessageEMailDraftSubjectMissing());
+            addError(messages.getMessageEMailDraftSubjectMissing());
         }
+
 		if (text == null || text.trim().length() == 0) {
-            addError(verawebMessages.getMessageEMailDraftTextMissing());
+            addError(messages.getMessageEMailDraftTextMissing());
         }
 	}
 

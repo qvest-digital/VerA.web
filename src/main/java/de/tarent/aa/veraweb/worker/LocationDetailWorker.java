@@ -96,24 +96,24 @@ public class LocationDetailWorker {
 	public static final boolean MANDATORY_saveDetail[] = { false };
 
 
-	public void saveDetail(OctopusContext cntx, Boolean savelocation)
+	public void saveDetail(final OctopusContext octopusContext, Boolean savelocation)
             throws BeanException, IOException {
         if (savelocation == null || !savelocation.booleanValue()) {
             return;
         }
 
-        Request request = new RequestVeraWeb(cntx);
+        Request request = new RequestVeraWeb(octopusContext);
 
-        Database database = databaseVeraWebFactory.createDatabaseVeraWeb(cntx);
+        Database database = databaseVeraWebFactory.createDatabaseVeraWeb(octopusContext);
         TransactionContext context = database.getTransactionContext();
 
         try {
-            Location location = (Location) cntx.contentAsObject(PARAM_LOCATION);
+            Location location = (Location) octopusContext.contentAsObject(PARAM_LOCATION);
             if (location == null) {
                 location = (Location) request.getBean("Location", PARAM_LOCATION);
             }
 
-            location.verify(cntx);
+            location.verify(octopusContext);
 
             List errors = location.getErrors();
             Location oldlocation = (Location) database.getBean("Location", location.getId(),
@@ -127,28 +127,28 @@ public class LocationDetailWorker {
                 BeanChangeLogger clogger = new BeanChangeLogger(database,
                         context);
                 if (location.getId() == null) {
-                    cntx.setContent("countInsert", Integer.valueOf(1));
+                    octopusContext.setContent("countInsert", Integer.valueOf(1));
                     database.getNextPk(location, context);
 
-                    location.setOrgunit(((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId());
+                    location.setOrgunit(((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId());
 
                     Insert insert = database.getInsert(location);
                     insert.insert("pk", location.getId());
 
                     context.execute(insert);
 
-                    clogger.logInsert(cntx.personalConfig().getLoginname(),
+                    clogger.logInsert(octopusContext.personalConfig().getLoginname(),
                             location);
                 } else {
-                    cntx.setContent("countUpdate", Integer.valueOf(1));
+                    octopusContext.setContent("countUpdate", Integer.valueOf(1));
                     Update update = database.getUpdate(location);
                     context.execute(update);
 
                 }
             } else {
-                cntx.setStatus("notsaved");
+                octopusContext.setStatus("notsaved");
             }
-            cntx.setContent(PARAM_LOCATION, location);
+            octopusContext.setContent(PARAM_LOCATION, location);
 
 
             context.commit();

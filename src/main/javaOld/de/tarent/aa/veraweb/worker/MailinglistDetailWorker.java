@@ -120,26 +120,26 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * wird sie in der Datenbank gespeichert, ansonsten wird der Status
      * "error" gesetzt.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
 	 */
-	public void saveDetail(OctopusContext cntx) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
-		Request request = getRequest(cntx);
+	public void saveDetail(final OctopusContext octopusContext) throws BeanException, IOException {
+		Database database = getDatabase(octopusContext);
+		Request request = getRequest(octopusContext);
 
 		Mailinglist mailinglist = (Mailinglist)request.getBean("Mailinglist", "mailinglist");
-		mailinglist.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
-		mailinglist.user = ((PersonalConfigAA)cntx.personalConfig()).getVerawebId();
-		mailinglist.orgunit = ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId();
+		mailinglist.updateHistoryFields(null, ((PersonalConfigAA)octopusContext.personalConfig()).getRoleWithProxy());
+		mailinglist.user = ((PersonalConfigAA)octopusContext.personalConfig()).getVerawebId();
+		mailinglist.orgunit = ((PersonalConfigAA)octopusContext.personalConfig()).getOrgUnitId();
 
-		cntx.setContent("mailinglist", mailinglist);
-		cntx.setSession("mailinglist", mailinglist);
+		octopusContext.setContent("mailinglist", mailinglist);
+		octopusContext.setSession("mailinglist", mailinglist);
 
-        mailinglist.verify(cntx);
+        mailinglist.verify(octopusContext);
 
 		if (mailinglist.isCorrect()) {
 			database.saveBean(mailinglist);
 		} else {
-			cntx.setStatus("error");
+			octopusContext.setStatus("error");
 			return;
 		}
 	}
