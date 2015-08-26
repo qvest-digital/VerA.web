@@ -1630,5 +1630,10 @@ VERIFY_ERROR_XML=Bei der Erzeugung eines XML-Testdokumentes ist ein Fehler aufge
 VERIFY_ERROR_JAVA_ONE=Die installierte Java-Version (
 VERIFY_ERROR_JAVA_TWO=) entspricht nicht der erwarteten Version (1.4).
 
+# GENERIC DIALOG MESSAGES
 GENERIC_PLEASE_WAIT_HEADER=Bitte warten...
 GENERIC_PLEASE_WAIT_MESSAGE=Dieser Vorgang kann einen Moment dauern.
+
+# WORK AREA (Bean) TEXTS
+WORKAREA_ERROR_MISSING_NAME=Der Arbeitsbereich ben\u00f6tigt einen eindeutigen Namen.
+
