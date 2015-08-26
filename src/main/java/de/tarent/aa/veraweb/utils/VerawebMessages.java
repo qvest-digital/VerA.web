@@ -41,7 +41,6 @@ public class VerawebMessages {
 
     public String getMessageEventMissingShortDescription() {
         return languageProvider.getProperty("MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION");
-
     }
 
     public String getMessageEventWrongDateFormat() {

@@ -125,7 +125,8 @@ public class ColorWorker {
 		database.execute(delete);
 	}
 
-	protected void saveColor(OctopusContext octopusContext, Database database, Integer id, Color color, List errors) throws BeanException, IOException {
+	protected void saveColor(OctopusContext octopusContext, Database database, Integer id, Color color, List errors)
+																					throws BeanException, IOException {
 		color.verify(octopusContext);
 		if (color.id == null) {
 			if (color.isCorrect()) {

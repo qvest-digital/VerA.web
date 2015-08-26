@@ -142,7 +142,7 @@ public class DateHelper {
 	static public void temporary_fix_translateErrormessageEN2DE(List<String> errors) {
 		List<String> found = new ArrayList<String>();
 		for (String err : errors) {
-			if (err.contains("is not a valid date")) {
+			if (err != null && err.contains("is not a valid date")) {
 				found.add(err);
 			}
 		}
