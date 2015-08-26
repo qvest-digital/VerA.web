@@ -27,6 +27,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
+import de.tarent.octopus.server.OctopusContext;
 import org.apache.commons.lang.StringEscapeUtils;
 
 /**
@@ -139,7 +142,8 @@ public class DateHelper {
 	 * Temporarily fixes issue #1529.
 	 * @param errors
 	 */
-	static public void temporary_fix_translateErrormessageEN2DE(List<String> errors) {
+	static public void temporary_fix_translateErrormessageEN2DE(List<String> errors,
+																final OctopusContext octopusContext) {
 		List<String> found = new ArrayList<String>();
 		for (String err : errors) {
 			if (err != null && err.contains("is not a valid date")) {
@@ -149,9 +153,12 @@ public class DateHelper {
 
 		for (String err : found) {
 			String input = StringEscapeUtils.escapeHtml(err.substring(0, err.indexOf(' ')));
-			// TODO TRANSLATIONS (without OctopusContext)
+
+			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
+
 			errors.remove(err);
-			errors.add("" + input + " ist kein g\u00fcltiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!");
+			errors.add("" + input + languageProvider.getProperty("DATE_HELPER_INCORRECT_DATE"));
 		}
 	}
 

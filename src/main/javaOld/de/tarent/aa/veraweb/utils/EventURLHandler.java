@@ -22,6 +22,8 @@ package de.tarent.aa.veraweb.utils;
 import java.util.Properties;
 
 import de.tarent.aa.veraweb.beans.Event;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.octopus.server.OctopusContext;
 
 /**
@@ -61,7 +63,10 @@ public class EventURLHandler {
             final URLGenerator urlGenerator = getUrlGenerator();
 	        cntx.setContent("eventUrl", urlGenerator.getURLForFreeVisitors() + uuid);
         } else {
-	        cntx.setContent("eventUrl", "Nicht verfügbar");
+            LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+            LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+
+	        cntx.setContent("eventUrl", languageProvider.getProperty("GENERIC_NOT_AVAILABLE"));
         }
     }
 
