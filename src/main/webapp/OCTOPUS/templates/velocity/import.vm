@@ -262,7 +262,7 @@ border-left: 1px solid #CCCCCC;" onclick="upload();">
     function askStartYes() {
         hideDialogs();
         showComboboxes();
-        htmlWait();
+        htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');
         document.getElementById('formImport').submit();
     }
     function askStartNo() {

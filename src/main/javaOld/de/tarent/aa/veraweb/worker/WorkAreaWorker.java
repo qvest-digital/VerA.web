@@ -60,32 +60,37 @@ public class WorkAreaWorker extends StammdatenWorker
 	}
 
 	@Override
-	protected void saveBean( OctopusContext cntx, Bean bean, TransactionContext context ) throws BeanException, IOException
+	protected void saveBean( OctopusContext octopusContext, Bean bean, TransactionContext context ) throws BeanException, IOException
 	{
 		WorkArea workArea = ( WorkArea ) bean;
-
 		if ( workArea.orgunit == null )
 		{
-			workArea.orgunit = ( ( PersonalConfigAA ) cntx.personalConfig() ).getOrgUnitId();
+			workArea.orgunit = ( ( PersonalConfigAA ) octopusContext.personalConfig() ).getOrgUnitId();
 		}
 		if ( workArea.orgunit == -1)
 		{
-			List< String > errors = ( List< String > ) cntx.getContextField( OUTPUT_saveListErrors );
+			List<String> errors = null;
+			if (workArea.getErrors() != null && !workArea.getErrors().isEmpty()) {
+				errors= workArea.getErrors();
+			}
+			else {
+				errors = ( List< String > ) octopusContext.getContextField( OUTPUT_saveListErrors );
+			}
 			if  ( errors == null )
 			{
 				errors = new ArrayList< String >();
 			}
 			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
 
 			errors.add(languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_ONE") +
 					  ((WorkArea)bean).name +
 					  languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_TWO"));
-			cntx.setContent( OUTPUT_saveListErrors, errors );
+			octopusContext.setContent(OUTPUT_saveListErrors, errors);
 		}
 		else
 		{
-			super.saveBean(cntx, bean, context);
+			super.saveBean(octopusContext, bean, context);
 		}
 	}
 

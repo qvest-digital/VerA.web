@@ -57,7 +57,7 @@
 		<span class="textRight floatRight">
 			#if($importStatus.saveCount  && $importStatus.saveCount != 0)
                 <input type="hidden" name="importId" value="$!importStatus.id"/>
-                <input type="submit" class="mainButton" value="${placeholderWithTranslation.importabschlieszen}" title="${placeholderWithTranslation.importabschlieszen}" onclick="htmlWait();"/>
+                <input type="submit" class="mainButton" value="${placeholderWithTranslation.importabschlieszen}" title="${placeholderWithTranslation.importabschlieszen}" onclick="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');"/>
 			#end
 			<input type="button" class="mainButton" value="${placeholderWithTranslation.zuruckzumpersonenimport}" title="${placeholderWithTranslation.zuruckzumpersonenimport}" onclick="window.location.href='ImportPersons';"/>
 		</span>

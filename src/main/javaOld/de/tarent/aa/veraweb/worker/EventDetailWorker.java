@@ -210,8 +210,8 @@ public class EventDetailWorker {
             if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
             	setEventHash(event,oldEvent);
             }
-            /** Veranstaltung speichern */
 
+            /** Veranstaltung speichern */
             event.verify(octopusContext);
             if (event.isModified() && event.isCorrect() && questions.isEmpty()) {
             /*

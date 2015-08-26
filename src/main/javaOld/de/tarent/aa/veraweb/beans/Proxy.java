@@ -66,16 +66,18 @@ public class Proxy extends AbstractHistoryBean {
      * Der Benutzer und Stellvertreterrolle müssen angegeben sein.
      */
     public void verify(OctopusContext octopusContext) {
-        VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
 
         if (proxy == null || proxy.trim().length() == 0) {
-            addError(verawebMessages.getMessageProxyNoRepresentative());
+            addError(messages.getMessageProxyNoRepresentative());
         }
+
         if (user == null || user.intValue() == 0) {
-            addError(verawebMessages.getMessageProxyNoRole());
+            addError(messages.getMessageProxyNoRole());
         }
+
         if (validFrom != null && validTill != null && validFrom.after(validTill)) {
-        	addError(verawebMessages.getMessageProxyRepresentativeBeginBeforeEnd());
+        	addError(messages.getMessageProxyRepresentativeBeginBeforeEnd());
         }
     }
 

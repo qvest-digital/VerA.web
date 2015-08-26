@@ -19,6 +19,7 @@
  */
 package de.tarent.aa.veraweb.beans;
 
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -41,10 +42,12 @@ public class User extends AbstractBean implements OrgUnitDependent {
     /**
      * Der Benutzername (genauer: die AA-Rolle) muss angegeben sein.
      */
-    @Override
-    public void verify() {
-        if (name == null || name.trim().length() == 0)
-            addError("Sie m\u00fcssen eine Benutzerrollenbezeichnung eingeben.");
+    public void verify(final OctopusContext octopusContext) {
+        if (name == null || name.trim().length() == 0) {
+
+            final VerawebMessages messages = new VerawebMessages(octopusContext);
+            addError(messages.getMessageUserMissingRole());
+        }
     }
 
     /**

@@ -297,32 +297,32 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String mail_c_e3;
 	public String url_c_e3;
 
-	public void verify(OctopusContext octopusContext) throws BeanException {
+	public void verify(final OctopusContext octopusContext) throws BeanException {
 		AddressHelper.checkPerson(this);
-        VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
 //		solveXSS(); TODO Get a better solution
 
 		if ((company_a_e1 != null && !company_a_e1.equals("")) && company_a_e1.length()>100) {
-	        addError(verawebMessages.getMessagePersonMaxCompanyReached());
+	        addError(messages.getMessagePersonMaxCompanyReached());
 		}
 		if ((firstname_a_e1 != null && !firstname_a_e1.equals("")) && firstname_a_e1.length()>100) {
-	        addError(verawebMessages.getMessagePersonMaxNameReached());
+	        addError(messages.getMessagePersonMaxNameReached());
 		}
 		if ((lastname_a_e1 != null && !lastname_a_e1.equals("")) && lastname_a_e1.length()>100) {
-	        addError(verawebMessages.getMessagePersonMaxLastnameReached());
+	        addError(messages.getMessagePersonMaxLastnameReached());
 		}
 
 		if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {
 		    if (company_a_e1 == null || company_a_e1.equals("") || company_a_e1.trim().equals("")) {
-		        addError(verawebMessages.getMessagePersonNoCompanyName());
+		        addError(messages.getMessagePersonNoCompanyName());
 		    }
 		} else if ((firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) &&
 				(lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0)) {
-			addError(verawebMessages.getMessageNoNameLastName());
+			addError(messages.getMessageNoNameLastName());
 		} else if (	firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) {
-			addError(verawebMessages.getMessageNoName());
+			addError(messages.getMessageNoName());
 		} else if (lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0) {
-			addError(verawebMessages.getMessageNoLastname());
+			addError(messages.getMessageNoLastname());
 		}
 
 		/*

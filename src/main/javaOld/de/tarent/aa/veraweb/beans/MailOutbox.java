@@ -62,17 +62,17 @@ public class MailOutbox extends AbstractBean {
 	/** Error Text */
 	public String errortext;
 
-    public void verify(OctopusContext octopusContext) throws BeanException {
-        VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+    public void verify(final OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
 
 		if (from == null || from.trim().length() == 0) {
-            addError(verawebMessages.getMessageEMailWithoutSender());
+            addError(messages.getMessageEMailWithoutSender());
         }
 		if (to == null || to.trim().length() == 0) {
-            addError(verawebMessages.getMessageEMailWithoutReceiver());
+            addError(messages.getMessageEMailWithoutReceiver());
         }
 		if (subject == null || subject.trim().length() == 0) {
-            addError(verawebMessages.getMessageEMailWithoutSubject());
+            addError(messages.getMessageEMailWithoutSubject());
         }
 	}
 

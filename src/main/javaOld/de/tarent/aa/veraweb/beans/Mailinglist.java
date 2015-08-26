@@ -37,11 +37,11 @@ public class Mailinglist extends AbstractHistoryBean implements OrgUnitDependent
 	public Timestamp created;
 	public String createdby;
 
-    public void verify(OctopusContext octopusContext) throws BeanException {
-        VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+    public void verify(final OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
 
 		if (name == null || name.trim().length() == 0) {
-            addError(verawebMessages.getMessageMailingListNameEmpty());
+            addError(messages.getMessageMailingListNameEmpty());
         }
 	}
 
