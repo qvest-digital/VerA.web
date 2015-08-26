@@ -96,6 +96,8 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 		if (save != null && save.booleanValue()) {
 			MailOutbox mailOutbox = (MailOutbox)getRequest(cntx).getBean("MailOutbox", "mailoutbox");
 
+            mailOutbox.verify(cntx);
+
 			if (mailOutbox.lastupdate == null) {
 				mailOutbox.lastupdate = new Timestamp(System.currentTimeMillis());
 			}

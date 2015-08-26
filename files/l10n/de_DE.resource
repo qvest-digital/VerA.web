@@ -877,7 +877,7 @@ dokument-id=Dokument-ID
 dokument-name=Dokument-Name
 dokumenttypspeichern=Dokumenttyp speichern
 zuruckzurdokumenttypenliste=Zur\u00FCck zur Dokumenttypenliste
-anmeldedatenerzeugen=enmeldedaten erzeugen
+anmeldedatenerzeugen=Anmeldedaten erzeugen
 esliegenkeinekategorienundereignissevor=Es liegen keine Kategorien und Ereignisse vor
 beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=Bei gr\u00FCn hinterlegten Eintr\u00E4gen handelt es sich um wiederkehrende Ereignisse.
 
@@ -1234,7 +1234,6 @@ straszligeadresszusatzundland=Stra\u00DFe, Adresszusatz und Land
 plzortundplzpostfach=PLZ / Ort und PLZ / Postfach
 telefontelefaxundmobiltelefon=Telefon, Telefax und Mobiltelefon
 telefonfax=Telefon / Fax
-telefon=Telefon
 emailadresse=E-Mail Adresse
 internetadresse=Internet-Adresse
 ihresuchemussausmindestenseinembuchstabenbestehen=Ihre Suche muss aus mindestens einem Buchstaben bestehen.
@@ -1325,7 +1324,7 @@ hinweis=Hinweis
 inaktiv=inaktiv
 aktionen=Aktionen
 anschrift=Anschrift
-anderungenspeichern=\u00E4nderungen speichern
+anderungenspeichern=Änderungen speichern
 senden=Senden
 
 # GENERIC
@@ -1348,6 +1347,34 @@ MESSAGE_GENERIC_MISSING_DESCRIPTION=Sie m\u00fcssen eine Bezeichung eingeben.
 MESSAGE_COLOR_MISSING_NAME=Sie m\u00FCssen einen Namen eingeben.
 MESSAGE_EVENTCATEGORY_ASSIGNMENT_WRONG=Die Zuordnung einer Kategorie zu einer Veranstaltung ist fehlerhaft.
 MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=Die Zuordnung eines Dokumenttypens zu einer Veranstaltung ist fehlerhaft.
+MESSAGE_EVENT_LOCATION_TITLE_EMPTY=Der Veranstaltungsort kann nicht gespeichert werden. Vergeben Sie Bitte einen Titel.
+MESSAGE_EVENT_LOCATION_MAX_REMARK_REACHED=Der Inhalt des Bemerkungsfelds darf maximal 1000 Zeichen lang sein.
+MESSAGE_EMAIL_DRAFT_NAME_MISSING=Sie müssen der E-Mail-Vorlage einen Namen geben.
+MESSAGE_EMAIL_DRAFT_SUBJECT_MISSING=Sie haben der E-Mail-Vorlage keinen Betreff gegeben.
+MESSAGE_EMAIL_DRAFT_TEXT_MISSING=Sie haben in dieser E-Mail-Vorlage keinen Text eingegeben.
+MESSAGE_EMAIL_LIST_NAME_EMPTY=Bitte geben sie dem Verteiler einen Namen.
+MESSAGE_TASK_TIME_WITHOUT_DATE=Die Eingabe einer Uhrzeit ohne ein zugehöriges Datum ist nicht zulässig.
+MESSAGE_TASK_END_DATE_NOT_FUTURE=Die Aufgabe kann nicht gespeichert werden. Das Enddatum muss in der Zukunft liegen.
+MESSAGE_TASK_END_DATE_WITHOUT_BEGIN_DATE=Die Aufgabe kann nicht gespeichert werden. Bitte geben Sie neben dem Enddatum auch ein Startdatum an.
+MESSAGE_TASK_BEGIN_DATE_BEFORE_END_DATE=Die Aufgabe kann nicht gespeichert werden. Das Startdatum muss vor dem Enddatum liegen.
+MESSAGE_TASK_NO_SHORTNAME=Die Aufgabe kann nicht gespeichert werden. Vergeben Sie bitte eine Kurzbezeichnung.
+MESSAGE_TASK_MAX_REMARK_REACHED=Die Aufgabe kann nicht gespeichert werden. Das Feld Beschreibung darf nicht mehr als 1000 Zeichen besitzen.
+MESSAGE_TASK_EMAIL_WITHOUT_SENDER=Die E-Mail kann nicht ohne Absender versendet werden.
+MESSAGE_TASK_EMAIL_WITHOUT_RECEIVER=Die E-Mail kann nicht ohne Empfänger versendet werden.
+MESSAGE_TASK_EMAIL_WITHOUT_SUBJECT=Die E-Mail kann nicht ohne Betreff versendet werden.
+MESSAGE_ORG_UNIT_NO_NAME=Sie müssen einen Namen eingeben.
+MESSAGE_PERSON_MAX_COMPANY_REACHED=Sie dürfen maximal 100 Zeichen für die Firma/Institution angeben.
+MESSAGE_PERSON_MAX_NAME_REACHED=Sie dürfen maximal 100 Zeichen für den Vornamen der Hauptperson angeben.
+MESSAGE_PERSON_MAX_LASTNAME_REACHED=Sie dürfen maximal 100 Zeichen für den Nachnamen der Hauptperson angeben.
+MESSAGE_PERSON_NO_COMPANY_NAME=Sie müssen einen Namen für die Firma/Institution angeben.
+MESSAGE_PERSON_NO_NAME_LAST_NAME=Sie müssen einen Vornamen und einen Nachnamen angeben.
+MESSAGE_PERSON_NO_NAME=Sie müssen einen Vornamen angeben.
+MESSAGE_PERSON_NO_LASTNAME=Sie müssen einen Nachnamen angeben.
+MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=Kann Verbindung zwischen Person und Kategorie nicht speichern.
+MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=Der Verbinder darf maximal 50 Zeichen lang sein.
+MESSAGE_PROXY_NO_REPRESENTATIVE=Sie müssen eine Vertreter eingeben.
+MESSAGE_PROXY_NO_ROLE=Sie müssen einen Rolle eingeben.
+MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=Der Beginn der Vertretung muss vor dem Ende liegen.
 MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG=Die Zuordnung einer Funktion/Amtsbezeichnung zu einer Veranstaltung ist fehlerhaft.
 MESSAGE_FUNCTION_MISSING_NAME=Sie m\u00fcssen der Funktion einen Namen geben.
 
@@ -1366,7 +1393,7 @@ EVENT_DETAIL_ALREADY_EXISTS_ONE=Eine Verstaltung mit dem Namen '
 EVENT_DETAIL_ALREADY_EXISTS_TWO=' existiert bereits. M\u00f6chten Sie die neue Veranstaltung dennoch speichern?
 
 # CATEGORY TEXTS
-CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen 
+CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen
 
 # CHANGELOG REPORTS TEXTS
 CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgung.

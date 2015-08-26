@@ -23,6 +23,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -33,7 +34,6 @@ import de.tarent.octopus.server.OctopusContext;
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  */
 public class Task extends AbstractHistoryBean {
-
     /**
      * PK.
      */
@@ -136,8 +136,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Get fk_event
      *
-     * @param eventId
-     *
+     * return the id
      */
     public Integer getEventId() {
         return this.eventId;
@@ -146,7 +145,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set fk_event
      *
-     * @param fk_event
+     * @param eventId fk_event
      *
      */
     public void setEventId(final Integer eventId) {
@@ -417,30 +416,30 @@ public class Task extends AbstractHistoryBean {
         this.endtime = endtime;
     }
 
-    @Override
-    public void verify() throws BeanException {
+    public void verify(OctopusContext octopusContext) throws BeanException {
+        VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+
         if ((starttime != null && starttime.length() > 0 && startdate == null)
                 || (endtime != null && endtime.length() > 0 && enddate == null)) {
-            addError("Die Eingabe einer Uhrzeit ohne ein zugeh\u00f6riges Datum ist nicht zul\u00e4ssig.");
+            addError(verawebMessages.getMessageTaskTimeWithoutDate());
         }
 
         if (enddate != null) {
             if (enddate.before(new Date())) {
-                addError("Die Aufgabe kann nicht gespeichert werden. Das Enddatum muss in der Zukunft liegen.");
+                addError(verawebMessages.getMessageTaskEndDateNotFuture());
             } else if (startdate == null) {
-                addError("Die Aufgabe kann nicht gespeichert werden. Bitte geben Sie neben dem Enddatum auch ein "
-                        + "Startdatum an.");
+                addError(verawebMessages.getMessageTaskEndDateWithoutBeginDate());
             } else if (startdate.after(enddate)) {
-                addError("Die Aufgabe kann nicht gespeichert werden. Das Startdatum muss vor dem Enddatum liegen.");
+                addError(verawebMessages.getMessageTaskBeginDateBeforeEndDate());
             }
         }
         if (title == null || title.trim().length() == 0) {
-            addError("Die Aufgabe kann nicht gespeichert werden. Vergeben Sie bitte eine Kurzbezeichnung.");
+            addError(verawebMessages.getMessageTaskNoShortname());
         }
         if (description != null && description.length() > 1000) {
-            addError("Die Aufgabe kann nicht gespeichert werden. Das Feld Beschreibung darf nicht mehr als 1000 Zeichen besitzen.");
+            addError(verawebMessages.getMessageTaskMaxRemarkRechaed());
         }
-        DateHelper.temporary_fix_translateErrormessageEN2DE( this.getErrors() );
+        DateHelper.temporary_fix_translateErrormessageEN2DE(this.getErrors());
     }
 
     /**

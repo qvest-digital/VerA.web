@@ -43,35 +43,36 @@
                 	<ul>
                         <form id="languageSelectForm" class="inline" method="POST">
                             <li>
-
                                 <div class="inline" id="languagede"><strong>Sprache:</strong></div>
                                 <div class="inline" id="languageen"><strong>Language:</strong></div>
                                 <div class="inline" id="languagees"><strong>Idioma:</strong></div>
                                 <div class="inline" id="languagefr"><strong>SpracheFR:</strong></div>
                                 	#if ($translatedNames)
                                 		<select id="languageSelector" name="languageSelector" onchange="changeLanguage(this); changeLoginLanguage(this);">
-
 											<option value="de_DE"
 												#if(${language} == "de_DE")
 													selected
 												#end
-
-											>${translatedNames.get("de_DE")}</option>
+											    >${translatedNames.get("de_DE")}
+                                            </option>
 											<option value="en_EN"
 												#if(${language} == "en_EN")
 													selected
 												#end
-											>${translatedNames.get("en_EN")}</option>
+											    >${translatedNames.get("en_EN")}
+                                            </option>
 											<option value="es_ES"
 												#if(${language} == "es_ES")
 													selected
 												#end
-											>${translatedNames.get("es_ES")}</option>
+											    >${translatedNames.get("es_ES")}
+                                            </option>
 											<option value="fr_FR"
 												#if(${language} == "fr_FR")
 													selected
 												#end
-											>${translatedNames.get("fr_FR")}</option>
+											    >${translatedNames.get("fr_FR")}
+                                            </option>
 										</select>
 									#else
 									 	<select id="languageSelectorLogin" name="languageSelector" onchange="changeLoginLanguage(this);">
@@ -88,9 +89,17 @@
 
 					    #if($grants && $grants.isAuthenticated())
 							#if($config.helplink)
-    							<li><a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>${placeholderWithTranslation.hilfe}</a></li>
+    							<li>
+                                    <a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>
+                                        ${placeholderWithTranslation.hilfe}
+                                    </a>
+                                </li>
 							#else
-	    						<li><a href="${paths.staticWeb}/doc/Benutzerhandbuch.pdf" target="_blank">${placeholderWithTranslation.hilfe}</a></li>
+	    						<li>
+                                    <a href="${paths.staticWeb}/doc/Benutzerhandbuch.pdf" target="_blank">
+                                        ${placeholderWithTranslation.hilfe}
+                                    </a>
+                                </li>
 							#end
 							<li>
 							    <a id="menu.logout" href="${paths.staticWeb}do/logout" class="noBorder">

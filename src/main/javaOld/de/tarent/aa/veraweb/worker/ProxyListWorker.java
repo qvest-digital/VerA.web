@@ -323,7 +323,12 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
 			calendar.set(Calendar.MILLISECOND, 0);
 			proxy.validTill.setTime(calendar.getTimeInMillis());
 		}
-		super.saveBean(cntx, bean, context);
+
+        proxy.verify(cntx);
+
+        if(proxy.isCorrect()) {
+            super.saveBean(cntx, bean, context);
+        }
 	}
 
     //

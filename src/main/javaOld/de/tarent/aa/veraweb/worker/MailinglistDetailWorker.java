@@ -134,6 +134,8 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
 		cntx.setContent("mailinglist", mailinglist);
 		cntx.setSession("mailinglist", mailinglist);
 
+        mailinglist.verify(cntx);
+
 		if (mailinglist.isCorrect()) {
 			database.saveBean(mailinglist);
 		} else {

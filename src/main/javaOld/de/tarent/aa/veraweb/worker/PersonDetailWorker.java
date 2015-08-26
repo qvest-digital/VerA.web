@@ -618,7 +618,7 @@ public class PersonDetailWorker implements PersonConstants {
             Person person = (Person)request.getBean("Person", "person");
 
             if (person != null) {
-                person.verify();
+                person.verify(cntx);
                 if (!person.isCorrect()) {
                     if (person.id == null) {
                         cntx.setStatus("notcorrect");
@@ -671,7 +671,7 @@ public class PersonDetailWorker implements PersonConstants {
 			/* fix for bug 1013
 			 * cklein 2008-03-12
 			 */
-	        person.verify();
+	        person.verify(cntx);
             if (!person.isCorrect()) {
                 cntx.setStatus("notcorrect");
 
@@ -737,7 +737,7 @@ public class PersonDetailWorker implements PersonConstants {
         updateExpireDate(person, personOld);
 
         // must reverify due to above changes
-        person.verify();
+        person.verify(cntx);
         if (person.isModified() && person.isCorrect()) {
             createOrUpdatePerson(cntx, person, database, context, originalPersonId, personOld);
         } else if (person.isModified()) {

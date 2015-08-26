@@ -5,10 +5,12 @@
 	<div class="table width100">
 		<div class="tableRow">
 			<div class="tableCell width30 paddingBottom15">
-				<strong>${placeholderWithTranslation.EVENT_ID}:</strong> $!message.text($event.id)
+				<strong>${placeholderWithTranslation.EVENT_ID}:</strong>
+                $!message.text($event.id)
 			</div>
 			<div class="tableCell width30">
-				<strong>${placeholderWithTranslation.beginn}:</strong> $!message.date("DATE", $event.begin) #if($event-beginhastime)um $!message.date("TIME", $event.begin) Uhr#end
+				<strong>${placeholderWithTranslation.beginn}:</strong>
+                $!message.date("DATE", $event.begin) #if($event-beginhastime)um $!message.date("TIME", $event.begin) Uhr#end
 			</div>
 			#if($completeEventHeader)
 			<div class="tableCell width30">
@@ -28,7 +30,8 @@
 				<strong style="vertical-align: inherit;">${placeholderWithTranslation.EVENT_NAME}:</strong> <pre>$!message.textarea($eventnamecut)</pre>
 			</div>
 			<div class="tableCell width30">
-				<strong>${placeholderWithTranslation.ende}:</strong> $!message.date("DATE", $event.end) #if($event-endhastime)${placeholderWithTranslation.um} $!message.date("TIME", $event.end) ${placeholderWithTranslation.uhr}#end
+				<strong>${placeholderWithTranslation.ende}:</strong>
+                $!message.date("DATE", $event.end) #if($event-endhastime)${placeholderWithTranslation.um} $!message.date("TIME", $event.end) ${placeholderWithTranslation.uhr}#end
 			</div>
 		</div>
 		<div class="tableRow">
@@ -50,12 +53,14 @@
 		</div>
 		<div class="tableRow">
         	<div class="tableCell width30">
-				<strong style="vertical-align: inherit;">${placeholderWithTranslation.EVENT_MAX_GUEST}:</strong> $!message.text($event.maxguest)<br/>
+				<strong style="vertical-align: inherit;">${placeholderWithTranslation.EVENT_MAX_GUEST}:</strong>
+                $!message.text($event.maxguest)<br/>
 			</div>
 		</div>
 		<div class="tableRow">
         	<div class="tableCell width30">
-				<strong style="vertical-align: inherit;">${placeholderWithTranslation.EVENT_MAX_RESERVE}:</strong> $!message.textarea($event.maxreserve)<br/>
+				<strong style="vertical-align: inherit;">${placeholderWithTranslation.EVENT_MAX_RESERVE}:</strong>
+                $!message.textarea($event.maxreserve)<br/>
 			</div>
 		</div>
 	</div>

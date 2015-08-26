@@ -1,4 +1,4 @@
-/**
+/**ver
  * veraweb, platform independent webservice-based event management
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
@@ -164,16 +164,23 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
             select.where(Expr.equal("fk_person", personId));
             select.whereAnd(Expr.equal("fk_categorie", categoryId));
             Integer count = database.getCount(select);
+
             if (count.intValue() == 0) {
                 PersonCategorie personCategory = (PersonCategorie) database.createBean("PersonCategorie");
                 personCategory.categorie = categoryId;
                 personCategory.person = personId;
                 personCategory.rank = category.rank;
-                if (save)
-                    this.saveBean(cntx, personCategory, context);
-                return personCategory;
+
+                personCategory.verify(cntx);
+
+                if(personCategory.isCorrect()) {
+                    if (save)
+                        this.saveBean(cntx, personCategory, context);
+                    return personCategory;
+                }
             }
         }
+
         return null;
     }
 

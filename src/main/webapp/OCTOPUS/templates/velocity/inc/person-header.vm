@@ -1,22 +1,19 @@
 <!-- Nur in Bearbeiten Sicht -->
 
 #if($action == "guest")
-
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($online-registration.activated && !$person.username)
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
 		#end
 		#if($person && $person.id)
-			<input type="button" name="add" value="${placeholderWithTranslation.GENERIC_APPLY_TO_GUESTLIST}" title="${placeholderWithTranslation.APPLY_GUEST_TO_GUESTLIST" class="mainButton" onclick="addToGuestList();">
+			<input type="button" name="add" value="${placeholderWithTranslation.GENERIC_APPLY_TO_GUESTLIST}" title="${placeholderWithTranslation.APPLY_GUEST_TO_GUESTLIST}" class="mainButton" onclick="addToGuestList();">
 		#end
 		#if($grants.mayWrite())
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.personkopieren}" onclick="if (checkModified()) { copyPerson(); }"/>
 		#end
 		<input type="button" name="export" class="mainButton"value="${placeholderWithTranslation.etiketterzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 	</div>
-
 #elseif($action == "host")
-
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($online-registration.activated && !$person.username)
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
@@ -34,9 +31,7 @@
 		## 2008-03-14
 		<input type="button" value="${placeholderWithTranslation.statistik}" class="mainButton" name="statistics" #if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else vera-disabled #end>
 	</div>
-
 #elseif($action == "event")
-
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($online-registration.activated && !$person.username)
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
@@ -51,19 +46,17 @@
 		## 2008-03-14
 		<input type="button" value="${placeholderWithTranslation.statistik}" class="mainButton" name="statistics"	#if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else vera-disabled #end>
 	</div>
-
 #else
-
-#if($osiam-user-created)
-	<vera-success>
-		${placeholderWithTranslation.MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL}
-	</vera-success>
-#end
-#if ($osiam-user-exists)
-	<vera-warn>
-		${placeholderWithTranslation.MESSAGE_OSIAM_LOGIN_DATA_EXIST}
-	</vera-warn>
-#end
+    #if($osiam-user-created)
+        <vera-success>
+            ${placeholderWithTranslation.MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL}
+        </vera-success>
+    #end
+    #if ($osiam-user-exists)
+        <vera-warn>
+            ${placeholderWithTranslation.MESSAGE_OSIAM_LOGIN_DATA_EXIST}
+        </vera-warn>
+    #end
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($person && $person.id)
 			#if($online-registration.activated && !$person.username)
@@ -75,7 +68,6 @@
 			<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.etiketterzeugen}" title="${placeholderWithTranslation.etikettfuraktuellepersonerzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 			#if($grants.mayWrite())
 				<input type="button" name="event" class="mainButton" value="${placeholderWithTranslation.einerveranstaltungzuordnen}" title="Aktuelle Person einer Veranstaltung zuordnen" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }"/>
-
 				<input type="button" name="remove" class="mainButton" value="${placeholderWithTranslation.personloschen}" title="${placeholderWithTranslation.aktuellepersonloschenundzurpersonenlistezuruckkehren}." onclick="if (checkModified()) { removePerson(); }" />
 			#end
 		#end
@@ -88,7 +80,6 @@
 			<input type="button" value="${placeholderWithTranslation.statistik}" title="${placeholderWithTranslation.statistik}" name="statistics" class="mainButton" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );">
 		#end
 	</div>
-
 #end
 
 <div id="peopleTop">
@@ -118,14 +109,11 @@
 								#end
 							#end
 						</div>
-
 					</div>
 				</div>
 			</div>
 
 			<div class="tableCell">&nbsp;</div>
-
-
 			<div class="tableCell width50">
 				<div class="table width100">
 					<div class="tableRow">
@@ -133,11 +121,17 @@
 							#if($doctype)
 								<strong>${placeholderWithTranslation.freifeldvorschaufur} &quot;$!message.plain($doctype.name)&quot;</strong>
 								#if($doctype.textfield)
-									<textarea id="d8" name="freitextfeld" style="height:88px;" vera-disabled>$!message.textarea($doctype.textfield)</textarea>
+									<textarea id="d8" name="freitextfeld" style="height:88px;" vera-disabled>
+                                        $!message.textarea($doctype.textfield)
+                                    </textarea>
 								#elseif(!$person)
-									<textarea id="d8" name="freitextfeld" style="height:88px;" vera-disabled></textarea>
+									<textarea id="d8" name="freitextfeld" style="height:88px;" vera-disabled>
+
+                                    </textarea>
 								#else
-									<textarea id="d8" name="freitextfeld" style="height:88px; color: #ff8080;" vera-disabled>Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.</textarea>
+									<textarea id="d8" name="freitextfeld" style="height:88px; color: #ff8080;" vera-disabled>
+                                        Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
+                                    </textarea>
 								#end
 							#else
 								<div class="info">

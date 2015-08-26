@@ -25,11 +25,15 @@
 		<div class="tableCell width50 inlineLabel">
 			<strong>${placeholderWithTranslation.inland}</strong><br />
 			#if ($facade.Domestic && $facade.Domestic == "f")
-				<input type="radio" name="guest-domestic$ext" value="t" id="guest-domestic${ext}-t"><label for="guest-domestic${ext}-t"> ${placeholderWithTranslation.GENERIC_YES}</label>
-				<input type="radio" name="guest-domestic$ext" value="f" id="guest-domestic${ext}-f" checked><label for="guest-domestic${ext}-f"> ${placeholderWithTranslation.GENERIC_NO}</label>
+				<input type="radio" name="guest-domestic$ext" value="t" id="guest-domestic${ext}-t"><label for="guest-domestic${ext}-t">
+                ${placeholderWithTranslation.GENERIC_YES}</label>
+				<input type="radio" name="guest-domestic$ext" value="f" id="guest-domestic${ext}-f" checked><label for="guest-domestic${ext}-f">
+                ${placeholderWithTranslation.GENERIC_NO}</label>
 			#else
-				<input type="radio" name="guest-domestic$ext" value="t" id="guest-domestic${ext}-t" checked><label for="guest-domestic${ext}-t"> ${placeholderWithTranslation.GENERIC_YES}</label>
-				<input type="radio" name="guest-domestic$ext" value="f" id="guest-domestic${ext}-f"><label for="guest-domestic${ext}-f"> ${placeholderWithTranslation.GENERIC_NO}</label>
+				<input type="radio" name="guest-domestic$ext" value="t" id="guest-domestic${ext}-t" checked><label for="guest-domestic${ext}-t">
+                ${placeholderWithTranslation.GENERIC_YES}</label>
+				<input type="radio" name="guest-domestic$ext" value="f" id="guest-domestic${ext}-f"><label for="guest-domestic${ext}-f">
+                ${placeholderWithTranslation.GENERIC_NO}</label>
 			#end
 		</div>
 		<div class="tableCell width50">
@@ -41,13 +45,16 @@
 		<div class="tableCell width50 inlineLabel">
 			<strong>${placeholderWithTranslation.GENERIC_GENDER}</strong><br />
 			#if ($facade.Sex && $facade.Sex == "f")
-				<input type="radio" name="guest-sex$ext" value="m" id="guest-sex${ext}-m"><label for="guest-sex${ext}-m"> ${placeholderWithTranslation.GENERIC_GENDER_MALE}</label>
-				<input type="radio" name="guest-sex$ext" value="f" id="guest-sex${ext}-f" checked><label for="guest-sex${ext}-f"> ${placeholderWithTranslation.GENERIC_GENDER_FEMALE}</label>
+				<input type="radio" name="guest-sex$ext" value="m" id="guest-sex${ext}-m"><label for="guest-sex${ext}-m">
+                ${placeholderWithTranslation.GENERIC_GENDER_MALE}</label>
+				<input type="radio" name="guest-sex$ext" value="f" id="guest-sex${ext}-f" checked><label for="guest-sex${ext}-f">
+                ${placeholderWithTranslation.GENERIC_GENDER_FEMALE}</label>
 			#else
-				<input type="radio" name="guest-sex$ext" value="m" id="guest-sex${ext}-m" checked><label for="guest-sex${ext}-m"> ${placeholderWithTranslation.GENERIC_GENDER_MALE}</label>
-				<input type="radio" name="guest-sex$ext" value="f" id="guest-sex${ext}-f"><label for="guest-sex${ext}-f"> ${placeholderWithTranslation.GENERIC_GENDER_FEMALE}</label>
+				<input type="radio" name="guest-sex$ext" value="m" id="guest-sex${ext}-m" checked><label for="guest-sex${ext}-m">
+                ${placeholderWithTranslation.GENERIC_GENDER_MALE}</label>
+				<input type="radio" name="guest-sex$ext" value="f" id="guest-sex${ext}-f"><label for="guest-sex${ext}-f">
+                ${placeholderWithTranslation.GENERIC_GENDER_FEMALE}</label>
 			#end
-
 		</div>
 		<div class="tableCell width50">
 			<label for="guest-nationality$ext">${placeholderWithTranslation.nationalitat}/${placeholderWithTranslation.staatsangehorigkeit}</label>
@@ -57,11 +64,15 @@
 	<div class="tableRow">
 		<div class="tableCell width50">
 			<label for="guest-notehost$ext">${placeholderWithTranslation.GUEST_DETAIL_HINT_GUEST_HOST}</label>
-			<textarea id="guest-notehost$ext" name="guest-notehost$ext" #if($grants.mayReadRemarkFields()) >$!message.textarea($facade.NoteHost)#else vera-disabled class="textdisabled">#end</textarea>
+			<textarea id="guest-notehost$ext" name="guest-notehost$ext" #if($grants.mayReadRemarkFields())>
+                $!message.textarea($facade.NoteHost)#else vera-disabled class="textdisabled">#end
+            </textarea>
 		</div>
 		<div class="tableCell width50">
 			<label for="guest-noteorga$ext">${placeholderWithTranslation.GUEST_DETAIL_HINT_ORGANISATION_TEAM}</label>
-			<textarea id="guest-noteorga$ext" name="guest-noteorga$ext" #if($grants.mayReadRemarkFields()) >$!message.textarea($facade.NoteOrga)#else vera-disabled class="textdisabled">#end</textarea>
+			<textarea id="guest-noteorga$ext" name="guest-noteorga$ext" #if($grants.mayReadRemarkFields())>
+                $!message.textarea($facade.NoteOrga)#else vera-disabled class="textdisabled">#end
+            </textarea>
 		</div>
 	</div>
 	<div class="tableRow">
