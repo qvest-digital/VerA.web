@@ -226,7 +226,7 @@
 							$(".errormsg").remove();
 							$(".successmsg").remove();
 							var msg = '';
-							msg += '<br><span class="notBold">${placeholderWithTranslation.wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab</span><br>'+ '${placeholderWithTranslation.sollenallemarkiertenpersonengeloeschtwerden} ' +
+							msg += '<br><span class="notBold">${placeholderWithTranslation.wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab}</span><br>'+ '${placeholderWithTranslation.sollenallemarkiertenpersonengeloeschtwerden} ' +
 							'${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden}<br>';
 							// disable all checkboxes while confirmation is visible
 							$('input:checkbox').prop('disabled', true);
