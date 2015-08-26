@@ -113,7 +113,7 @@
 
 				#if($grants && $grants.isAuthenticated())
 					<div id="user">
-						<strong>${placeholderWithTranslation.benutzer}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>${placeholderWithTranslation.HEADER_REPRESENTATION_FOR}:</strong> $octopusConfig.personalConfig.role #end
+						<strong>${placeholderWithTranslation.GENERIC_USER}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>${placeholderWithTranslation.HEADER_REPRESENTATION_FOR}:</strong> $octopusConfig.personalConfig.role #end
 					</div>
 				#end
 			</header>

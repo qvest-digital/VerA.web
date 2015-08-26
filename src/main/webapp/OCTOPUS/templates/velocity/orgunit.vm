@@ -25,15 +25,15 @@
 <div id="content_container">
 
     <div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.mandanten}</span>
+    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</span>
     </div>
 
-	<h1>${placeholderWithTranslation.mandanten}</h1>
+	<h1>${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</h1>
 
     <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
 		<div class="event" id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-				<li vera-tab-default="" vera-tab="mandanten" class="active"><div>${placeholderWithTranslation.mandanten}</div>
+				<li vera-tab-default="" vera-tab="mandanten" class="active"><div>${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</div>
 				</li><li class="inactive"><a href="OrgunitCleanup" class="noBorder"><div>${placeholderWithTranslation.datenbank}</div></a>
 				</li>
 			</ul>
@@ -69,7 +69,7 @@
             	<tr>
             		<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
             		<th class="smallCell textCenter">ID</th>
-            		<th>${placeholderWithTranslation.mandant}</th>
+            		<th>${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}</th>
             	</tr>
             	<tr>
             		<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>

@@ -187,10 +187,10 @@
 
 	<div id="tabsMain">
 		<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-			<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>${placeholderWithTranslation.personendaten}</div>
+			<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>${placeholderWithTranslation.GENERIC_PERSONS_DATA}</div>
 			</li><li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>${placeholderWithTranslation.anschriften}</div>
 			</li>#if($personDB)<li class="inactive" id="dokumenttypen" onclick="showDoctypes();"><div>${placeholderWithTranslation.dokumenttypen}</div>
-			</li><li class="inactive" id="kategorien" onclick="showCategories();"><div>${placeholderWithTranslation.kategorien}</div></li>#end
+			</li><li class="inactive" id="kategorien" onclick="showCategories();"><div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div></li>#end
 		</ul>
 	</div>
 

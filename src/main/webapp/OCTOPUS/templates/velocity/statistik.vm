@@ -4,7 +4,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.statistiken}</span>
+		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.statistiken}</span>
 	</div>
 
 	<form id="formlist" name="formlist" action="" method="get" target="" onsubmit="return exportStatistik();">

@@ -63,7 +63,7 @@
                     <div class="tableCell inlineLabel">
                         <input type="radio" name="exportFilter" id="exportFilterCategory" value=category" onclick="return filterChanged()">
                         <label for="exportFilterCategory">
-                            ${placeholderWithTranslation.kategorie}
+                            ${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}
                         </label>
                     </div>
                     <div class="tableCell">

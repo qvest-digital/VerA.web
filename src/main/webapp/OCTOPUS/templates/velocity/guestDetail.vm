@@ -145,7 +145,7 @@
                                         </select>
                                     </div>
                                     <div class="tableCell width20 paddingTop10">
-                                        <label for="guest-rank">${placeholderWithTranslation.rang}:</label>
+                                        <label for="guest-rank">${placeholderWithTranslation.GENERIC_RANK}:</label>
                                         <input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)">
                                     </div>
 

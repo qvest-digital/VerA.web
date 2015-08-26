@@ -17,10 +17,10 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-	    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > 				${placeholderWithTranslation.administration} > ${placeholderWithTranslation.kategorien}</span>
+	    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > 				${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.kategorien}</h1>
+	<h1>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</h1>
 
 	<form id="formlist" name="formlist" action="Categorie" method="POST">
 		#if($listerrors && $listerrors.size() > 0)
@@ -84,10 +84,10 @@
 					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 					<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
 				#end
-				<th>${placeholderWithTranslation.bezeichnung}*</th>
-				<th>${placeholderWithTranslation.kennzeichen}</th>
-				<th>${placeholderWithTranslation.rang}</th>
-				<th>${placeholderWithTranslation.veranstaltungen}</th>
+				<th>${placeholderWithTranslation.GENERIC_LABELLING}*</th>
+				<th>${placeholderWithTranslation.GENERIC_MARK_LONG}</th>
+				<th>${placeholderWithTranslation.GENERIC_RANK}</th>
+				<th>${placeholderWithTranslation.GENERIC_EVENTS_PP}</th>
 			</tr>
 
 		#if($grants.isAdmin() || $grants.isPartialAdmin())

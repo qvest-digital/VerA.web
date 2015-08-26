@@ -15,12 +15,12 @@
 <div id="content_container">
 	#if($event && $event.id)
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
 		</div>
 			<h1>${placeholderWithTranslation.veranstaltungbearbeiten} $!message.plain($event.shortname)</h1>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.neueveranstaltung}</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.neueveranstaltung}</span>
 		</div>
 			<h1>${placeholderWithTranslation.neueveranstaltunganlegen}</h1>
 	#end
@@ -94,7 +94,7 @@
 							</li>
 							<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
 							</li>
-							<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
+							<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div>
 							</li>
 						#end
 					</ul>

@@ -70,7 +70,7 @@
 					<col width="$column8%" />
 
 					<tr>
-						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end title="${placeholderWithTranslation.platzhalter}Alle (de)markieren"/></th>
+						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end title="${placeholderWithTranslation.GENERIC_PLACEHOLDER}Alle (de)markieren"/></th>
 						<th>${placeholderWithTranslation.id}</th>
 						<th>${placeholderWithTranslation.GENERIC_NAME}</th>
 						<th>${placeholderWithTranslation.vorname}</th>

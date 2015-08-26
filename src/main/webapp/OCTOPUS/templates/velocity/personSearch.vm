@@ -40,13 +40,13 @@
 
 	#if($action == "host")
     	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.gastgeberhinzufuegen}</span>
+    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.gastgeberhinzufuegen}</span>
     	</div>
 
     	<h1>${placeholderWithTranslation.personensuchegastgeberhinzufugen}</h1>
 	#elseif($action == "guest")
     	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.gasthinzufuegen}</span>
+    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.gasthinzufuegen}</span>
     	</div>
 
     	<h1>${placeholderWithTranslation.personensuchegasthinzufugen}</h1>
@@ -153,7 +153,7 @@
                 <div class="table width100">
                     <div class="tableRow">
                         <div class="tableCell width30">
-                            <label for="categorie">${placeholderWithTranslation.kategorie}</label>
+                            <label for="categorie">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
 
 							<select name="categoriesSelection" id="categorie" size="5" multiple="multiple" onChange="ensureCorrectSelection( this );">
 							<option value="" #if( ! $search.categoriesSearch || ( $search.categoriesSelection && $search.categoriesSelection.size() == 0 ) ) selected #end>${placeholderWithTranslation.alle}</option>
@@ -179,7 +179,7 @@
 
                         </div>
                         <div class="tableCell width30">
-                            <label for="categorie2">${placeholderWithTranslation.ereignis}</label>
+                            <label for="categorie2">${placeholderWithTranslation.GENERIC_OCCASION}</label>
 
 							<select name="categorie2" id="categorie2" >
 							<option value="">${placeholderWithTranslation.alle}</option>

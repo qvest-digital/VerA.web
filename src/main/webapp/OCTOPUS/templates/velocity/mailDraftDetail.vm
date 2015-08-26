@@ -38,7 +38,7 @@
             	<td><input type="text" id="show-id" name="show-id" value="$!message.text($maildraft.id)" class="id" vera-disabled /></td>
             </tr>
 			<tr>
-            	<td class="bold"><label for="maildraft-name">${placeholderWithTranslation.namedervorlage}*</label></td>
+            	<td class="bold"><label for="maildraft-name">${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}*</label></td>
             	<td><input type="text" id="maildraft-name" name="maildraft-name" maxlength="200" value="$!message.text($maildraft.name)" /></td>
             </tr>
 			<tr>
@@ -46,11 +46,11 @@
             	<td><input type="text" id="maildraft-subject" name="maildraft-subject" maxlength="200" value="$!message.text($maildraft.subject)" /></td>
             </tr>
 			<tr>
-            	<td class="bold"><label for="maildraft-text">${placeholderWithTranslation.text}*</label></td>
+            	<td class="bold"><label for="maildraft-text">${placeholderWithTranslation.GENERIC_TEXT}*</label></td>
             	<td><textarea cols="50" rows="20" id="maildraft-text" class="width100" name="maildraft-text" >$!message.textarea($maildraft.text)</textarea></td>
             </tr>
 			<tr>
-            	<td class="bold"><label for="platzhalter">${placeholderWithTranslation.platzhalter}</label></td>
+            	<td class="bold"><label for="platzhalter">${placeholderWithTranslation.GENERIC_PLACEHOLDER}</label></td>
             	<td>
             		<div class="">
             			<select id="platzhalter" name="platzhalter" class="width15" >
@@ -74,7 +74,7 @@
             				<option value="email">${placeholderWithTranslation.email}</option>
             				<option value="url">${placeholderWithTranslation.www}</option>
             			</select>
-            				<input type="button" name="add" value="${placeholderWithTranslation.hinzufugen}" onclick="addPlatzhalter(this);"/>
+            				<input type="button" name="add" value="${placeholderWithTranslation.GENERIC_ADD}" onclick="addPlatzhalter(this);"/>
             		</div>
             	</td>
         	</tr>
@@ -87,7 +87,7 @@
 
         <div id="buttonPanel-bottom" class="textRight marginTop10">
         	<input type="submit" name="submit" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
-        	<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzurvorlagenliste}" title="${placeholderWithTranslation.zuruckzurvorlagenliste}" class="mainButton" onclick="window.location.href='MailDraftList?selectNone=true';" />
+        	<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" class="mainButton" onclick="window.location.href='MailDraftList?selectNone=true';" />
         </div>
 	</div>
 

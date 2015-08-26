@@ -54,7 +54,7 @@
 				<tr>
 					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 					<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
-					<th>${placeholderWithTranslation.bezeichnung}</th>
+					<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
 				</tr>
 				<tr>
 					<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" style="display: none;"></td>

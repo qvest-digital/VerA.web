@@ -286,66 +286,62 @@ eswurdeeinneuerdokumenttypangelegt=Es wurde ein neuer Dokumenttyp angelegt.
 
 # ADMINISTRATION/E-MAIL-POSTAUSGANG
 GENERIC_STATUS=Status
-CAP_TO=An
+GENERIC_TO=An
 GENERIC_SUBJECT=Betreff
 GENERIC_ERROR=Fehler
 e-mails=E-Mails
-technischefehlermeldungeinblenden=Technische Fehlermeldung einblenden
-fehlerbeschreibung=Fehlerbeschreibung
+GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE=Technische Fehlermeldung einblenden
+GENERIC_ERROR_DESCRIPTION=Fehlerbeschreibung
 
 # ADMINISTRATION/E-MAIL-VORLAGEN
 e-mail-vorlagen=E-Mail-Vorlagen
-markiertevorlage=Markierte Vorlage(n)
-neuevorlageanlegen=Neue Vorlage anlegen
-namedervorlage=Name der Vorlage
+GENERIC_MARKED_TEMPLATES_PP=Markierte Vorlage(n)
+GENERIC_INSERT_NEW_TEMPLATES=Neue Vorlage anlegen
+GENERIC_TEMPLATE_NAME=Name der Vorlage
 eswurdeeineneuevorlageangelegt=Es wurde eine neue Vorlage angelegt.
-text=Text
-platzhalter=Platzhalter
-hinzufugen=Hinzuf\u00FCgen
-zuruckzurvorlagenliste=Zur\u00FCck zur Vorlagenliste
+GENERIC_TEXT=Text
+GENERIC_PLACEHOLDER=Platzhalter
+GENERIC_ADD=Hinzuf\u00FCgen
+GENERIC_BACK_TO_TEMPLATES_LIST=Zur\u00FCck zur Vorlagenliste
 
 # ADMINISTRATION/FARBEN
-farben=Farben
-farbwert=Farbwert
-LETTERS_RED_GREEN_BLUE=R G B
-inlandjageschlechtweiblich=Inland: Ja - Geschlecht: Weiblich
-inlandjageschlechtmannlich=Inland: Ja - Geschlecht: M\u00E4nnlich
-inlandneingeschlechtweiblich=Inland: Nein - Geschlecht: Weiblich
-inlandneingeschlechtmannlich=Inland: Nein - Geschlecht: M\u00E4nnlich
+GENERIC_COLOR_PLURAL=Farben
+GENERIC_CHROMATICITY=Farbwert
+LETTERS_CHROMATICITY=R G B
 
 # ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
 markiertebezeichnung=Markierte Bezeichnung(en)
-bezeichnung=Bezeichnung
+GENERIC_LABELLING=Bezeichnung
 eswurdeeineneuefunktion/amtsbezeichnungangelegt=Es wurde eine neue Funktion/Amtsbezeichnung angelegt.
 eswurdeeinefunktion/amtsbezeichnunggeloscht=Es wurde eine Funktion/Amtsbezeichnung gel\u00F6scht.
 
 # ADMINISTRATION/KATEGORIEN
-kategorien=Kategorien
+GENERIC_CATEGORY_PLURAL=Kategorien
 markiertekategorie=Markierte Kategorie(n)
-kennzeichen=Kennzeichen
-rang=Rang
-veranstaltungen=Veranstaltung(en)
-kategorie=Kategorie
-ereignis=Ereignis
+GENERIC_MARK_LONG=Kennzeichen
+GENERIC_RANK=Rang
+GENERIC_EVENTS_PP=Veranstaltung(en)
+GENERIC_CATEGORY_SINGULAR=Kategorie
+GENERIC_OCCASION=Ereignis
 
 # ADMINISTRATION/MANDANTEN
-mandanten=Mandanten
+GENERIC_CLIENT_PLURAL=Mandanten
 markierte(n)mandanten=Markierte(n) Mandanten
-nichtmandantenzugeordnetedaten=Nicht Mandanten zugeordnete Daten
+GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Nicht Mandanten zugeordnete Daten
 personen=Personen
-importvorgange=Import Vorg\u00E4nge
+GENERIC_IMPORT_PROCEDURES=Import Vorg\u00E4nge
 veranstaltungorte=Veranstaltungorte
-importpersonen=Import Personen
-verteiler=Verteiler
-benutzer=Benutzer
-mandantenzuordnen=Mandanten zuordnen
-mandant=Mandant
+GENERIC_IMPORT_PERSONS=Import Personen
+GENERIC_DISTRIBUTOR_SINGULAR=Verteiler
+GENERIC_USER=Benutzer
+GENERIC_ASSIGN_CLIENTS=Mandanten zuordnen
+GENERIC_CLIENT_SINGULAR=Mandant
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
 programeinstellungen=Programeinstellungen
-standardauswahlvontabulatoren=Standard Auswahl von Tabulatoren
-haupttabs=Haupttabs
-personendaten=Personendaten
+GENERIC_STANDARD_TABULATOR_CHOICE=Standard Auswahl von Tabulatoren
+GENERIC_MAIN_TABS=Haupttabs
+GENERIC_PERSONS_DATA=Personendaten
 anschriften=Anschriften
 subtabsvonpersonendaten=Subtabs von \u201EPersonendaten\u201C
 hauptperson=Hauptperson
@@ -1603,3 +1599,9 @@ VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00fct
 VERIFY_ERROR_XML=Bei der Erzeugung eines XML-Testdokumentes ist ein Fehler aufgetreten. (
 VERIFY_ERROR_JAVA_ONE=Die installierte Java-Version (
 VERIFY_ERROR_JAVA_TWO=) entspricht nicht der erwarteten Version (1.4).
+
+#TO BE DELETED
+inlandjageschlechtweiblich=Inland: Ja - Geschlecht: Weiblich
+inlandjageschlechtmannlich=Inland: Ja - Geschlecht: M\u00E4nnlich
+inlandneingeschlechtweiblich=Inland: Nein - Geschlecht: Weiblich
+inlandneingeschlechtmannlich=Inland: Nein - Geschlecht: M\u00E4nnlich

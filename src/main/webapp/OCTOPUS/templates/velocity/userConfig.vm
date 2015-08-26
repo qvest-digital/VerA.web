@@ -47,16 +47,16 @@
 				<div style="width: 57%; float: left; max-width: 550px;">
 					<h3>${placeholderWithTranslation.personendetailansicht}</h3>
 							<fieldset class="marginTop20">
-								<legend>${placeholderWithTranslation.standardauswahlvontabulatoren}</legend>
+								<legend>${placeholderWithTranslation.GENERIC_STANDARD_TABULATOR_CHOICE}</legend>
 								<div class="table width100 inlineLabel">
 									<div class="tableRow">
-										<div class="tableCell bold paddingBottom10 width30">${placeholderWithTranslation.haupttabs}</div>
-										<div class="tableCell"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end> <label for="personTab1">&nbsp;${placeholderWithTranslation.personendaten}</label></div>
+										<div class="tableCell bold paddingBottom10 width30">${placeholderWithTranslation.GENERIC_MAIN_TABS}</div>
+										<div class="tableCell"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end> <label for="personTab1">&nbsp;${placeholderWithTranslation.GENERIC_PERSONS_DATA}</label></div>
 										<div class="tableCell"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end> <label for="personTab2">&nbsp;${placeholderWithTranslation.anschriften}</label></div>
 										<div class="tableCell"></div>
 									</div>
 									<div class="tableRow">
-										<div class="tableCell bold paddingBottom10">${placeholderWithTranslation.subtabsvon}&bdquo;${placeholderWithTranslation.personendaten}&rdquo;</div>
+										<div class="tableCell bold paddingBottom10">${placeholderWithTranslation.subtabsvon}&bdquo;${placeholderWithTranslation.GENERIC_PERSONS_DATA}&rdquo;</div>
 										<div class="tableCell verticalBottom"><input type="radio" name="personMemberTab" id="personMemberTab1" value="1" #if($personMemberTab1) checked #end> <label for="personMemberTab1">&nbsp;${placeholderWithTranslation.hauptperson}</label></div>
 										<div class="tableCell verticalBottom"><input type="radio" name="personMemberTab" id="personMemberTab2" value="2" #if($personMemberTab2) checked #end> <label for="personMemberTab2">&nbsp;${placeholderWithTranslation.partner}</label></div>
 										<div class="tableCell"></div>

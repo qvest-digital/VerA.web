@@ -97,7 +97,7 @@
 			<tr>
 				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 				<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
-				<th>${placeholderWithTranslation.bezeichnung}</th>
+				<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
 				<th>${placeholderWithTranslation.ansprechpartner}</th>
 				<th>${placeholderWithTranslation.strasse}</th>
 				<th>${placeholderWithTranslation.plz}</th>

@@ -8,10 +8,10 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-	    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.farben}</span>
+	    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_COLOR_PLURAL}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.farben}</h1>
+	<h1>${placeholderWithTranslation.GENERIC_COLOR_PLURAL}</h1>
 
 	<form id="formlist" name="formlist" action="Color" method="POST">
 
@@ -47,9 +47,9 @@
 
 			<table>
 				<tr>
-					<th>${placeholderWithTranslation.bezeichnung}</th>
-					<th class="width15 textCenter">${placeholderWithTranslation.farbwert}
-					(${placeholderWithTranslation.LETTERS_RED_GREEN_BLUE})</th>
+					<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
+					<th class="width15 textCenter">${placeholderWithTranslation.GENERIC_CHROMATICITY}
+					(${placeholderWithTranslation.LETTERS_CHROMATICITY})</th>
 				</tr>
 
 				<tr>

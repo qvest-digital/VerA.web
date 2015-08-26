@@ -74,11 +74,11 @@
 
 				<div style="width: 55%; float: left; max-width: 510px;">
 					<fieldset class="marginTop20">
-                                <legend>${placeholderWithTranslation.standardauswahlvontabulatoren}</legend>
+                                <legend>${placeholderWithTranslation.GENERIC_STANDARD_TABULATOR_CHOICE}</legend>
                                     <div class="table width100 marginTop10">
                                     	<div class="tableRow">
-                                        		<div class="tableCell bold paddingBottom10 width30">${placeholderWithTranslation.haupttabs}</div>
-                                        		<div class="tableCell"><label for="personTab1"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end>&nbsp;${placeholderWithTranslation.personendaten}</label></div>
+                                        		<div class="tableCell bold paddingBottom10 width30">${placeholderWithTranslation.GENERIC_MAIN_TABS}</div>
+                                        		<div class="tableCell"><label for="personTab1"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_PERSONS_DATA}</label></div>
                                         		<div class="tableCell"><label for="personTab2"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end>&nbsp;${placeholderWithTranslation.anschriften}</label></div>
                                     			<div class="tableCell"></div>
                                     	</div>

@@ -58,7 +58,7 @@
 						#end
 						#if($grants.isUser())
 							<li>
-                                <a id="menu.mailingList" href="${paths.staticWeb}do/ShowMailinglistList?selectNone=true">${placeholderWithTranslation.verteiler}</a>
+                                <a id="menu.mailingList" href="${paths.staticWeb}do/ShowMailinglistList?selectNone=true">${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</a>
                             </li>
 							#if($grants.mayExport())
 								<li>
@@ -107,16 +107,16 @@
 						#end
 						#if($grants.isAdmin())
 							<li>
-                                <a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0&selectNone=true">${placeholderWithTranslation.benutzer}</a>
+                                <a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_USER}</a>
                             </li>
 						#else
 							#if($grants.isSystemUser())
 								<li>
-                                    <a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0&selectNone=true">${placeholderWithTranslation.benutzer}</a>
+                                    <a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_USER}</a>
                                 </li>
 							#elseif($grants.isPartialAdmin())
 								<li>
-                                    <a id="menu.user" href="${paths.staticWeb}do/OUUser?start=0&selectNone=true">${placeholderWithTranslation.benutzer}</a>
+                                    <a id="menu.user" href="${paths.staticWeb}do/OUUser?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_USER}</a>
                                 </li>
 							#end
 						#end
@@ -137,7 +137,7 @@
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
 							<li>
-                                <a id="menu.color" href="${paths.staticWeb}do/Color">${placeholderWithTranslation.farben}</a>
+                                <a id="menu.color" href="${paths.staticWeb}do/Color">${placeholderWithTranslation.GENERIC_COLOR_PLURAL}</a>
                             </li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
@@ -147,12 +147,12 @@
 						#end
 						#if($grants.isUser())
 							<li>
-                                <a id="menu.category" href="${paths.staticWeb}do/Categorie?start=0&selectNone=true">${placeholderWithTranslation.kategorien}</a>
+                                <a id="menu.category" href="${paths.staticWeb}do/Categorie?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</a>
                             </li>
 						#end
 						#if($grants.isAdmin() || $grants.isSystemUser())
 							<li>
-                                <a id="menu.orgunit" href="${paths.staticWeb}do/Orgunit?start=0&selectNone=true">${placeholderWithTranslation.mandanten}</a>
+                                <a id="menu.orgunit" href="${paths.staticWeb}do/Orgunit?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</a>
                             </li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())

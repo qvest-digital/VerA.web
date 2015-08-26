@@ -48,12 +48,12 @@
 <div id="content_container">
 	#if($action == "guest" || $searchTask)
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.zurveranstaltungssuche}">${placeholderWithTranslation.veranstaltungssuche}</a> > ${placeholderWithTranslation.suchergebnis}</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.zurveranstaltungssuche}">${placeholderWithTranslation.veranstaltungssuche}</a> > ${placeholderWithTranslation.suchergebnis}</span>
 		</div>
-			<h1>${placeholderWithTranslation.suchergebnis}: ${placeholderWithTranslation.veranstaltungen}</h1>
+			<h1>${placeholderWithTranslation.suchergebnis}: ${placeholderWithTranslation.GENERIC_EVENTS_PP}</h1>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungsubersicht}</span>
+			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungsubersicht}</span>
 		</div>
 			<h1>${placeholderWithTranslation.veranstaltungsubersicht}</h1>
 	#end

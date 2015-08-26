@@ -6,7 +6,7 @@
 #elseif($domain == 'all')
 #set($title = "${placeholderWithTranslation.verwaltungallebenutzer}")
 #else
-#set($title = "${placeholderWithTranslation.benutzer}")
+#set($title = "${placeholderWithTranslation.GENERIC_USER}")
 #end
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_USER}")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_USER_SINGULAR}")
@@ -24,7 +24,7 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-	    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.benutzer}</span>
+	    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_USER}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.GENERIC_USER}</h1>

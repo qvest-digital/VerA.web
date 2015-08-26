@@ -43,7 +43,7 @@
                 ${placeholderWithTranslation.kategorienundereignisse}
             </th>
             <th class="textCenter smallCell">
-                ${placeholderWithTranslation.rang}
+                ${placeholderWithTranslation.GENERIC_RANK}
             </th>
         </tr>
         #if($grants.mayWrite())

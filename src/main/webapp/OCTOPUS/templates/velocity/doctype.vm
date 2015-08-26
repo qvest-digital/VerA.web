@@ -74,13 +74,13 @@
 				<tr>
 					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th></th>
 					<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
-					<th>${placeholderWithTranslation.bezeichnung}</th>
+					<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
 					<th class="textCenter">${placeholderWithTranslation.adresstyp}</th>
 					<th class="textCenter">${placeholderWithTranslation.zeichensatz}</th>
 					<th class="textCenter">${placeholderWithTranslation.format}</th>
 					<th class="smallCell textCenter" title="${placeholderWithTranslation.eigenesdokumentfurpartner}">${placeholderWithTranslation.GENERIC_PARTNER_DOCUMENT}</th>
 					<th class="smallCell textCenter" title="${placeholderWithTranslation.sortierreihenfolge}">${placeholderWithTranslation.GENERIC_SORT}</th>
-					<th class="smallCell textCenter" title="${placeholderWithTranslation.kennzeichen}">${placeholderWithTranslation.GENERIC_SIGN}</th>
+					<th class="smallCell textCenter" title="${placeholderWithTranslation.GENERIC_MARK_LONG}">${placeholderWithTranslation.GENERIC_SIGN}</th>
 					<th class="smallCell textCenter" title="${placeholderWithTranslation.gastgebermitausgeben}">${placeholderWithTranslation.GENERIC_GA}</th>
 					<th class="smallCell textCenter" title="${placeholderWithTranslation.iststandardfursteuerdatei}">${placeholderWithTranslation.GENERIC_SD}</th>
 				</tr>
@@ -172,7 +172,7 @@
 			<vera-info>
 				<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
 	   			<p><strong>${placeholderWithTranslation.GENERIC_FORMAT}:</strong> ${placeholderWithTranslation.HINT_FORMAT_INFO}</p>
-	  			<p><strong>${placeholderWithTranslation.kennzeichen}:</strong> ${placeholderWithTranslation.HINT_EVENT_MARK}</p>
+	  			<p><strong>${placeholderWithTranslation.GENERIC_MARK_LONG}:</strong> ${placeholderWithTranslation.HINT_EVENT_MARK}</p>
 			</vera-info>
 
 			##Rueckfrage beim Loeschen

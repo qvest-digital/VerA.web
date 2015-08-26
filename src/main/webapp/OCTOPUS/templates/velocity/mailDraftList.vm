@@ -25,11 +25,11 @@
         <h1>${placeholderWithTranslation.emailvorlage}</h1>
 
         <span id="actionPanel" class="inlineLabel">
-	       	<strong>${placeholderWithTranslation.markiertevorlage}</strong>
+	       	<strong>${placeholderWithTranslation.GENERIC_MARKED_TEMPLATES_PP}</strong>
 	       	<input type="submit" name="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markiertevorlagenloschen}" onclick="" />
         </span>
         <span id="" class="buttonPanel-top textRight floatRight">
-			<input type="button" name="" value="${placeholderWithTranslation.neuevorlageanlegen}" title="${placeholderWithTranslation.neuevorlageanlegen}" class="mainButton" onclick="window.location.href='MailDraftDetail';" />
+			<input type="button" name="" value="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" title="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" class="mainButton" onclick="window.location.href='MailDraftDetail';" />
         </span>
         #foreach($bean in $list)
         <input type="hidden" name="list" value="$bean.id"/>
@@ -46,7 +46,7 @@
         			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/>
         		</th>
         		<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
-        		<th>${placeholderWithTranslation.namedervorlage}</th>
+        		<th>${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}</th>
         	</tr>
         	#foreach($bean in $list)
         	<tr>
