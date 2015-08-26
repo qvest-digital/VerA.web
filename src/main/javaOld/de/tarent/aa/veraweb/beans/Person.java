@@ -21,6 +21,7 @@ package de.tarent.aa.veraweb.beans;
 
 import java.sql.Timestamp;
 
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import org.apache.commons.lang.StringEscapeUtils;
 
 import de.tarent.aa.veraweb.beans.facade.AbstractMember;
@@ -296,33 +297,32 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 	public String mail_c_e3;
 	public String url_c_e3;
 
-	@Override
-    public void verify() throws BeanException {
+	public void verify(OctopusContext octopusContext) throws BeanException {
 		AddressHelper.checkPerson(this);
-
+        VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
 //		solveXSS(); TODO Get a better solution
 
 		if ((company_a_e1 != null && !company_a_e1.equals("")) && company_a_e1.length()>100) {
-	        addError("Sie d\u00fcrfen maximal 100 Zeichen f\u00fcr die Firma/Institution angeben.");
+	        addError(verawebMessages.getMessagePersonMaxCompanyReached());
 		}
 		if ((firstname_a_e1 != null && !firstname_a_e1.equals("")) && firstname_a_e1.length()>100) {
-	        addError("Sie d\u00fcrfen maximal 100 Zeichen f\u00fcr den Vornamen der Hauptperson angeben.");
+	        addError(verawebMessages.getMessagePersonMaxNameReached());
 		}
 		if ((lastname_a_e1 != null && !lastname_a_e1.equals("")) && lastname_a_e1.length()>100) {
-	        addError("Sie d\u00fcrfen maximal 100 Zeichen f\u00fcr den Nachnamen der Hauptperson angeben.");
+	        addError(verawebMessages.getMessagePersonMaxLastnameReached());
 		}
 
 		if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {
 		    if (company_a_e1 == null || company_a_e1.equals("") || company_a_e1.trim().equals("")) {
-		        addError("Sie m\u00fcssen einen Namen f\u00fcr die Firma/Institution angeben.");
+		        addError(verawebMessages.getMessagePersonNoCompanyName());
 		    }
 		} else if ((firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) &&
 				(lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0)) {
-			addError("Sie m\u00fcssen einen Vornamen und einen Nachnamen angeben.");
+			addError(verawebMessages.getMessageNoNameLastName());
 		} else if (	firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) {
-			addError("Sie m\u00fcssen einen Vornamen angeben.");
+			addError(verawebMessages.getMessageNoName());
 		} else if (lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0) {
-			addError("Sie m\u00fcssen einen Nachnamen angeben.");
+			addError(verawebMessages.getMessageNoLastname());
 		}
 
 		/*

@@ -145,6 +145,8 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 		if (save != null && save.booleanValue()) {
 			MailDraft mailDraft = (MailDraft)getRequest(cntx).getBean("MailDraft", "maildraft");
 			TransactionContext context = ( new DatabaseVeraWeb(cntx) ).getTransactionContext();
+            mailDraft.verify(cntx);
+
 			if (mailDraft.isCorrect()) {
 				try {
 				    if (mailDraft.id == null) {
@@ -152,8 +154,9 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 				    } else {
 				        cntx.setContent("countUpdate", new Integer(1));
 				    }
-					saveBean(cntx, mailDraft, context);
-					context.commit();
+
+                    saveBean(cntx, mailDraft, context);
+                    context.commit();
 				} catch ( Throwable e ) {
 					context.rollBack();
 					throw new BeanException( "Der Maildraft konnte nicht gespeichert werden.", e );

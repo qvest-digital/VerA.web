@@ -102,7 +102,6 @@ public class LocationDetailWorker {
             return;
         }
 
-
         Request request = new RequestVeraWeb(cntx);
 
         Database database = databaseVeraWebFactory.createDatabaseVeraWeb(cntx);
@@ -113,6 +112,8 @@ public class LocationDetailWorker {
             if (location == null) {
                 location = (Location) request.getBean("Location", PARAM_LOCATION);
             }
+
+            location.verify(cntx);
 
             List errors = location.getErrors();
             Location oldlocation = (Location) database.getBean("Location", location.getId(),

@@ -76,8 +76,6 @@ public class EventTaskDetailWorker {
         }
     }
 
-
-
 	public static final String[] INPUT_loadReferencePerson = { "refPersId" };
 	public static final boolean[] MANDATORY_loadReferencePerson = { false };
 
@@ -184,6 +182,8 @@ public class EventTaskDetailWorker {
 				DateHelper.addTimeToDate(task.startdate, task.starttime, task.getErrors());
 				DateHelper.addTimeToDate(task.enddate, task.endtime, task.getErrors());
 			}
+
+            task.verify(cntx);
 
 			Task oldTask = (Task) database.getBean("Task", task.getId(),
 					context);

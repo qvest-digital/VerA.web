@@ -21,6 +21,7 @@ package de.tarent.aa.veraweb.beans;
 
 import java.sql.Timestamp;
 
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -50,14 +51,18 @@ public class MailDraft extends AbstractHistoryBean {
 	/** Geändert am */
 	public Timestamp changed;
 
-	@Override
-    public void verify() throws BeanException {
-		if (name == null || name.trim().length() == 0)
-			addError("Sie m\u00fcssen der E-Mail-Vorlage einen Namen geben.");
-		if (subject == null || subject.trim().length() == 0)
-			addError("Sie haben der E-Mail-Vorlage keinen Betreff gegeben.");
-		if (text == null || text.trim().length() == 0)
-			addError("Sie haben in dieser E-Mail-Vorlage keinen Text eingegeben.");
+    public void verify(OctopusContext octopusContext) throws BeanException {
+        VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+
+		if (name == null || name.trim().length() == 0) {
+            addError(verawebMessages.getMessageEMailDraftNameMissing());
+        }
+		if (subject == null || subject.trim().length() == 0) {
+            addError(verawebMessages.getMessageEMailDraftSubjectMissing());
+        }
+		if (text == null || text.trim().length() == 0) {
+            addError(verawebMessages.getMessageEMailDraftTextMissing());
+        }
 	}
 
 	/**
