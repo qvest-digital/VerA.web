@@ -8,7 +8,7 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.verteilerversenden}</h1>
@@ -49,22 +49,22 @@
             			<div class="inlineLabel">
                             <label for="platzhalter">${placeholderWithTranslation.GENERIC_PLACEHOLDER}</label>
                         	<select name="platzhalter" id="platzhalter" class="inlineInput autoWidth">
-            					<option value="firstname">${placeholderWithTranslation.vorname}</option>
-            					<option value="lastname">${placeholderWithTranslation.nachname}</option>
+            					<option value="firstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</option>
+            					<option value="lastname">${placeholderWithTranslation.GENERIC_LASTNAME}</option>
              					<option value="salutation">${placeholderWithTranslation.anrede}</option>
             					<option value="title">${placeholderWithTranslation.akadtitel}</option>
              					<option value="function">${placeholderWithTranslation.amtsbezfunktion}</option>
-            					<option value="company">${placeholderWithTranslation.firmainstitution}</option>
+            					<option value="company">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</option>
             					<option value="street">${placeholderWithTranslation.strase}</option>
-            					<option value="zipcode">${placeholderWithTranslation.plz}</option>
-            					<option value="city">${placeholderWithTranslation.ort}</option>
+            					<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+            					<option value="city">${placeholderWithTranslation.GENERIC_CITY}</option>
             					<option value="country">${placeholderWithTranslation.land}</option>
             					<option value="poboxzipcode">${placeholderWithTranslation.postfachplz}</option>
             					<option value="pobox">${placeholderWithTranslation.postfachnummer}</option>
-            					<option value="suffix1">${placeholderWithTranslation.adresszusatz} 1</option>
-            					<option value="suffix2">${placeholderWithTranslation.adresszusatz} 2</option>
-            					<option value="phone">${placeholderWithTranslation.telefon}</option>
-            					<option value="fax">${placeholderWithTranslation.fax}</option>
+            					<option value="suffix1">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1</option>
+            					<option value="suffix2">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2</option>
+            					<option value="phone">${placeholderWithTranslation.GENERIC_TELEFON}</option>
+            					<option value="fax">${placeholderWithTranslation.GENERIC_FAX}</option>
             					<option value="mobile">${placeholderWithTranslation.mobil}</option>
             					<option value="email">${placeholderWithTranslation.email}</option>
             					<option value="url">${placeholderWithTranslation.www}</option>

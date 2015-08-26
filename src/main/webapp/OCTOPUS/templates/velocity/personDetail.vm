@@ -159,7 +159,7 @@
 
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > #if($person && $person.id)${placeholderWithTranslation.personbearbeiten}#else ${placeholderWithTranslation.personanlegen}#end</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > #if($person && $person.id)${placeholderWithTranslation.personbearbeiten}#else ${placeholderWithTranslation.personanlegen}#end</span>
 	</div>
 
 	<h1>$title</h1>
@@ -188,7 +188,7 @@
 	<div id="tabsMain">
 		<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
 			<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>${placeholderWithTranslation.GENERIC_PERSONS_DATA}</div>
-			</li><li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>${placeholderWithTranslation.anschriften}</div>
+			</li><li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</div>
 			</li>#if($personDB)<li class="inactive" id="dokumenttypen" onclick="showDoctypes();"><div>${placeholderWithTranslation.dokumenttypen}</div>
 			</li><li class="inactive" id="kategorien" onclick="showCategories();"><div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div></li>#end
 		</ul>
@@ -200,21 +200,21 @@
 
 	<div class="tabsSub" vera-content="personendaten">
 		<ul class="marginBottom20" vera-tab-group>
-			<li vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" ><div>${placeholderWithTranslation.hauptperson}</div></li>
-			<li vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" ><div>${placeholderWithTranslation.partner}</div></li>
+			<li vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" ><div>${placeholderWithTranslation.GENERIC_MAIN_PERSON}</div></li>
+			<li vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" ><div>${placeholderWithTranslation.GENERIC_PARTNER}</div></li>
 		</ul>
 
 		<hr />
 
 		<div class="CharSet">
-			<label for="encoding">${placeholderWithTranslation.zeichensatz}</label>
+			<label for="encoding">${placeholderWithTranslation.GENERIC_CHARSET}</label>
 			<select vera-select name="encoding" id="encoding">
 				<option value="person$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end 
 				onclick="$('#personLocaleTab').attr('value', '1');" ><div>${placeholderWithTranslation.GENERIC_LATIN}</div></option>
 				<option value="person$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end 
-				onclick="$('#personLocaleTab').attr('value', '2');" ><div>${placeholderWithTranslation.zeichensatz} 1</div></option>
+				onclick="$('#personLocaleTab').attr('value', '2');" ><div>${placeholderWithTranslation.GENERIC_CHARSET} 1</div></option>
 				<option value="person$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end 
-				onclick="$('#personLocaleTab').attr('value', '3');" ><div>${placeholderWithTranslation.zeichensatz} 2</div></option>
+				onclick="$('#personLocaleTab').attr('value', '3');" ><div>${placeholderWithTranslation.GENERIC_CHARSET} 2</div></option>
 			</select>
 		</div>
 	</div>
@@ -264,7 +264,7 @@
 
 	<div class="tabsSub" vera-content="anschriften">
 		<ul class="marginBottom20" vera-tab-group>
-			<li vera-tab="geschaeftlich" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" ><div>${placeholderWithTranslation.geschaftlich}</div></li>
+			<li vera-tab="geschaeftlich" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" ><div>${placeholderWithTranslation.GENERIC_BUSINESS}</div></li>
 			<li vera-tab="privat" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "2") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '2');" ><div>${placeholderWithTranslation.privat}</div></li>
 			<li vera-tab="weitere" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "3") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '3');" ><div>${placeholderWithTranslation.GENERIC_MORE}</div></li>
 		</ul>
@@ -272,11 +272,11 @@
 		<hr />
 
 		<div class="CharSet">
-			<label for="encoding">${placeholderWithTranslation.zeichensatz}</label>
+			<label for="encoding">${placeholderWithTranslation.GENERIC_CHARSET}</label>
 			<select vera-select name="encoding" id="encoding">
 				<option value="address$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '1');" ><div>${placeholderWithTranslation.GENERIC_LATIN}</div></option>
-				<option value="address$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '2');" ><div>${placeholderWithTranslation.zeichensatz} 1</div></option>
-				<option value="address$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '3');" ><div>${placeholderWithTranslation.zeichensatz} 2</div></option>
+				<option value="address$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '2');" ><div>${placeholderWithTranslation.GENERIC_CHARSET} 1</div></option>
+				<option value="address$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '3');" ><div>${placeholderWithTranslation.GENERIC_CHARSET} 2</div></option>
 			</select>
 		</div>
 	</div>
@@ -496,12 +496,12 @@
 	$("#person-iscompany:not([vera-disabled])").click(function() {
 		if (this.checked) {
 			$('#company-row').show();
-			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.vorname}');
-			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.nachname}');
+			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.GENERIC_FIRSTNAME}');
+			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.GENERIC_LASTNAME}');
 		} else {
 			$('#company-row').hide();
-			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.vorname}*');
-			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.nachname}*');
+			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.GENERIC_FIRSTNAME}*');
+			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.GENERIC_LASTNAME}*');
 		}
 	});
 
@@ -525,12 +525,12 @@
 		//checkbox was checked.
 		if($("#person-iscompany").is(":checked")){
 			$('#company-row').show();
-			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.vorname}');
-			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.nachname}');
+			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.GENERIC_FIRSTNAME}');
+			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.GENERIC_LASTNAME}');
 		} else {
 			$('#company-row').hide();
-			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.vorname}*');
-			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.nachname}*');
+			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.GENERIC_FIRSTNAME}*');
+			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.GENERIC_LASTNAME}*');
 		}
 	});
 

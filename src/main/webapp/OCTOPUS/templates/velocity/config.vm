@@ -6,13 +6,13 @@
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}" > ${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.programmeinstellungen} </span>
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}" > ${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.programmeinstellungen} </span>
     </div>
 
     <h1>${placeholderWithTranslation.programmeinstellungen}</h1>
 
 	#if($saveSuccess)
-		<vera-success>${placeholderWithTranslation.einstellungenwurdenerfolgreichgespeichert}</vera-success>
+		<vera-success>${placeholderWithTranslation.MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED}</vera-success>
 	#end
 
     <div class="content">
@@ -79,18 +79,18 @@
                                     	<div class="tableRow">
                                         		<div class="tableCell bold paddingBottom10 width30">${placeholderWithTranslation.GENERIC_MAIN_TABS}</div>
                                         		<div class="tableCell"><label for="personTab1"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_PERSONS_DATA}</label></div>
-                                        		<div class="tableCell"><label for="personTab2"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end>&nbsp;${placeholderWithTranslation.anschriften}</label></div>
+                                        		<div class="tableCell"><label for="personTab2"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</label></div>
                                     			<div class="tableCell"></div>
                                     	</div>
                                     	<div class="tableRow">
-                                        		<div class="tableCell bold paddingBottom10">${placeholderWithTranslation.subtabsvonpersonendaten}</div>
-                                        		<div class="tableCell verticalBottom"><label for="personMemberTab1"><input type="radio" name="personMemberTab" id="personMemberTab1" value="1" #if($personMemberTab1) checked #end>&nbsp;${placeholderWithTranslation.hauptperson}</label></div>
-                                        		<div class="tableCell verticalBottom"><label for="personMemberTab2"><input type="radio" name="personMemberTab" id="personMemberTab2" value="2" #if($personMemberTab2) checked #end>&nbsp;${placeholderWithTranslation.partner}</label></div>
+                                        		<div class="tableCell bold paddingBottom10">${placeholderWithTranslation.GENERIC_SUBTABS_OF_PERSONS_DATA}</div>
+                                        		<div class="tableCell verticalBottom"><label for="personMemberTab1"><input type="radio" name="personMemberTab" id="personMemberTab1" value="1" #if($personMemberTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_MAIN_PERSON}</label></div>
+                                        		<div class="tableCell verticalBottom"><label for="personMemberTab2"><input type="radio" name="personMemberTab" id="personMemberTab2" value="2" #if($personMemberTab2) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_PARTNER}</label></div>
                                         		<div class="tableCell"></div>
                                     	</div>
                                     	<div class="tableRow">
-                                        		<div class="tableCell bold paddingBottom10">${placeholderWithTranslation.subtabsvonanschriften}</div>
-            									<div class="tableCell verticalBottom"><label for="personAddresstypeTab1"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab1" value="1" #if($personAddresstypeTab1) checked #end>&nbsp;${placeholderWithTranslation.geschaftlich}</label></div>
+                                        		<div class="tableCell bold paddingBottom10">${placeholderWithTranslation.GENERIC_SUBTABS_OF_MAILING_ADDRESSES}</div>
+            									<div class="tableCell verticalBottom"><label for="personAddresstypeTab1"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab1" value="1" #if($personAddresstypeTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_BUSINESS}</label></div>
                                         		<div class="tableCell verticalBottom"><label for="personAddresstypeTab2"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab2" value="2" #if($personAddresstypeTab2) checked #end>&nbsp;${placeholderWithTranslation.privat}</label></div>
                                         		<div class="tableCell verticalBottom"><label for="personAddresstypeTab3"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab3" value="3" #if($personAddresstypeTab3) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_MORE}</label></div>
                                     	</div>
@@ -100,12 +100,12 @@
 
 				<div style="width:43%" class="floatRight">
 				 <fieldset class="marginTop20">
-                            	<legend>${placeholderWithTranslation.standardauswahlderselectboxzeichensatz}</legend>
+                            	<legend>${placeholderWithTranslation.GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX}</legend>
                             		<div class="table width100 marginTop10">
                             			<div class="tableRow">
                                     		<div class="tableCell"><label for="personLocaleTab1"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_LATIN}</label></div>
-                                    		<div class="tableCell"><label for="personLocaleTab2"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end>&nbsp;${placeholderWithTranslation.zeichensatz} 1</label></div>
-                                    		<div class="tableCell"><label for="personLocaleTab3"><input type="radio" name="personLocaleTab" id="personLocaleTab3" value="3" #if($personLocaleTab3) checked #end>&nbsp;${placeholderWithTranslation.zeichensatz} 2</label></div>
+                                    		<div class="tableCell"><label for="personLocaleTab2"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_CHARSET} 1</label></div>
+                                    		<div class="tableCell"><label for="personLocaleTab3"><input type="radio" name="personLocaleTab" id="personLocaleTab3" value="3" #if($personLocaleTab3) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_CHARSET} 2</label></div>
                             			</div>
                                     </div>
                             </fieldset>
@@ -116,10 +116,10 @@
             </div>
 
             <div class="width49" style="float:left;">
-                <h3>${placeholderWithTranslation.standardanredenundfreitextfelder}:</h3>
+                <h3>${placeholderWithTranslation.GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS}:</h3>
                 <table class="marginBottom20">
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.standardanrede}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_STANDARD_SALUTATION}:</td>
                 		<td>
                 			<select name="anrede" class="combox">
                 				<option></option>
@@ -130,7 +130,7 @@
                 		</td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.standardanredepartner}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_STANDARD_SALUTATION_PARTNER}:</td>
                 		<td>
                 			<select name="anrede_p" >
                 				<option></option>
@@ -141,7 +141,7 @@
                 		</td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.freitextfeldverbinder}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD_CONNECTOR}:</td>
                 		<td><input type="text" name="freitextfeldverbinder" maxlength="300" value="$!message.plain($config.freitextfeldverbinder)" ></td>
                 	</tr>
                 	<tr>
@@ -173,63 +173,63 @@
                 <h3>${placeholderWithTranslation.oberflachenbeschriftungen}:</h3>
                 <table class="marginBottom20">
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.hauptperson}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_MAIN_PERSON}:</td>
                 		<td><input type="text" name="main" maxlength="300" value="$!message.text($!config.main)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.partner}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_PARTNER}:</td>
                 		<td><input type="text" name="partner" maxlength="300" value="$!message.text($!config.partner)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.anschriftgeschaftlich}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_MAILING_ADDRESS_BUSINESS}:</td>
                 		<td><input type="text" name="business" maxlength="300" value="$!message.text($!config.business)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.anschriftprivat}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_MAILING_ADDRESS_PRIVATE}:</td>
                 		<td><input type="text" name="private" maxlength="300" value="$!message.text($!config.private)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.anschriftweitere}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_MAILING_ADDRESS_OTHERS}:</td>
                 		<td><input type="text" name="other" maxlength="300" value="$!message.text($!config.other)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.zeichensatzlatein}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_LABELLING_LATIN}:</td>
                 		<td><input type="text" name="latin" maxlength="300" value="$!message.text($!config.latin)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.zeichensatzalternative} 1:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_LABELLING_ALTERNATIVE} 1:</td>
                 		<td><input type="text" name="extra1" maxlength="300" value="$!message.text($!config.extra1)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.zeichensatzalternative} 2:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_LABELLING_ALTERNATIVE} 2:</td>
                 		<td><input type="text" name="extra2" maxlength="300" value="$!message.text($!config.extra2)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.adresszusatz} 1:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1:</td>
                 		<td><input type="text" name="suffix1" maxlength="300" value="$!message.text($!config.suffix1)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.adresszusatz} 2:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2:</td>
                 		<td><input type="text" name="suffix2" maxlength="300" value="$!message.text($!config.suffix2)" ></td>
                 	</tr>
                 </table>
             </div>
 
             <div class="width49">
-                <h3>${placeholderWithTranslation.hilfe}</h3>
+                <h3>${placeholderWithTranslation.GENERIC_HELP}</h3>
                 <table class="marginBottom20">
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.hilfelink}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_HELP_LINK}:</td>
                 		<td><input type="text" name="helplink" maxlength="300" value="$!message.text($config.helplink)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.hilfefenster}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_HELP_WINDOW}:</td>
                 		<td>
                 			<select name="helptarget" >
                 				$config.helptarget
-                				<option value="">${placeholderWithTranslation.aktuellesbrowserfensterverwenden}.</option>
-                				<option value="_blank"      #if($config.helptarget == "_blank") selected #end>${placeholderWithTranslation.proaufrufeinneuesbrowserfensteroffnen}.</option>
-                				<option value="verawebhelp" #if($config.helptarget == "verawebhelp") selected #end>${placeholderWithTranslation.beijedemaufrufdasselbebrowserfensternichtdasaktuelle}.</option>
+                				<option value="">${placeholderWithTranslation.GENERIC_USE_CURRENT_BROWSER_WINDOW}.</option>
+                				<option value="_blank"      #if($config.helptarget == "_blank") selected #end>${placeholderWithTranslation.GENERIC_OPEN_NEW_BROWSER_WINDOW_PER_REQUEST}.</option>
+                				<option value="verawebhelp" #if($config.helptarget == "verawebhelp") selected #end>${placeholderWithTranslation.OPTION_HELP_WINDOW_3}.</option>
                 			</select>
                 		</td>
                 	</tr>
@@ -238,10 +238,10 @@
 
 
             <div class="width49">
-                <h3>${placeholderWithTranslation.sonstiges}:</h3>
+                <h3>${placeholderWithTranslation.GENERIC_MISCELLANEOUS}:</h3>
                 <table class="marginBottom20">
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.faxdnfaxaa}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_FAX_CONFIG_FIELD}:</td>
                 		<td><input type="text" name="faxdomain" maxlength="300" value="$!message.text($config.faxdomain)" ></td>
                 	</tr>
                 </table>
@@ -252,10 +252,10 @@
             ## 2008-02-18
 
             <div class="width49">
-                <h3>${placeholderWithTranslation.anderungsprotokoll}</h3>
+                <h3>${placeholderWithTranslation.GENERIC_PROTOCOL_TIME_CHANGE}</h3>
                 <table class="marginBottom20">
                 	<tr>
-                		<td class="bold width50">${placeholderWithTranslation.vorhaltezeitderprotokolldaten}
+                		<td class="bold width50">${placeholderWithTranslation.GENERIC_PROTOCOL_COMMISIONING_TIME}
 				(${placeholderWithTranslation.GENERIC_YEARS}/${placeholderWithTranslation.GENERIC_MONTHS}/${placeholderWithTranslation.GENERIC_DAYS}):
 				</td>
                 		<td>
@@ -271,7 +271,7 @@
                 					display : "changeLogRetentionPolicyDisplay",
                 					value : "changeLogRetentionPolicyValue",
                 					button : "show-changeLogRetentionPolicy",
-                					title : "${placeholderWithTranslation.gebensiedieaufbewahrungsfristein}:"
+                					title : "${placeholderWithTranslation.HINT_GIVE_THE_RETENTION_PERIOD}:"
                 				}
                 			);
                 		</script>

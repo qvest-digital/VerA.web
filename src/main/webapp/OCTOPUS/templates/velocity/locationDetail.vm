@@ -12,7 +12,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.veranstaltungsorte}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.veranstaltungsorte}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.veranstaltungsorte}</h1>
@@ -59,47 +59,47 @@
 			<tr>
 				<td class="width10 bold"><label for="location-name">${placeholderWithTranslation.GENERIC_LABELLING}*</label></td>
 				<td><input type="text" name="location-name" value="$!message.text($location.name)" id="location-name" maxlength="200" onchange="setModified();"></td>
-				<td class="width10 bold"><label for="id">${placeholderWithTranslation.id}</label></td>
+				<td class="width10 bold"><label for="id">${placeholderWithTranslation.GENERIC_ID}</label></td>
 				<td><input type="text" name="id" value="$!message.text($location.id)" id="id" class="id" vera-disabled></td>
 			</tr>
 
 			<tr>
-				<td class="width10 bold"><label for="location-contact-person">${placeholderWithTranslation.ansprechpartner}</label></td>
+				<td class="width10 bold"><label for="location-contact-person">${placeholderWithTranslation.GENERIC_CONTACT_PERSON}</label></td>
 				<td><input type="text" name="location-contactperson" value="$!message.text($location.contactperson)" id="location-contact-person" maxlength="250" onchange="setModified();"></td>
-				<td class="width10 bold"><label for="location-address">${placeholderWithTranslation.strasse}</label></td>
+				<td class="width10 bold"><label for="location-address">${placeholderWithTranslation.GENERIC_STREET}</label></td>
 				<td><input type="text" name="location-address" value="$!message.text($location.address)" id="location-address" maxlength="250" onchange="setModified();"></td>
 			</tr>
 
 			<tr>
-				<td class="width10 bold"><label for="location-zip">${placeholderWithTranslation.plz}</label></td>
+				<td class="width10 bold"><label for="location-zip">${placeholderWithTranslation.GENERIC_POST_NUMBER}</label></td>
 				<td><input type="text" name="location-zip" value="$!message.text($location.zip)" id="location-zip" maxlength="50" onchange="setModified();"></td>
-				<td class="width10 bold"><label for="location-location">${placeholderWithTranslation.ort}</label></td>
+				<td class="width10 bold"><label for="location-location">${placeholderWithTranslation.GENERIC_CITY}</label></td>
 				<td><input type="text" name="location-location" value="$!message.text($location.location)" id="location-location" maxlength="100" onchange="setModified();"></td>
 			</tr>
 
 			<tr>
-				<td class="width10 bold"><label for="location-callnumber">${placeholderWithTranslation.telefon}</label></td>
+				<td class="width10 bold"><label for="location-callnumber">${placeholderWithTranslation.GENERIC_TELEFON}</label></td>
 				<td><input type="text" name="location-callnumber" value="$!message.text($location.callnumber)" id="location-callnumber" maxlength="50" onchange="setModified();"></td>
-				<td class="width10 bold"><label for="location-faxnumber">${placeholderWithTranslation.fax}</label></td>
+				<td class="width10 bold"><label for="location-faxnumber">${placeholderWithTranslation.GENERIC_FAX}</label></td>
 				<td><input type="text" name="location-faxnumber" value="$!message.text($location.faxnumber)" id="location-faxnumber" maxlength="50" onchange="setModified();"></td>
 			</tr>
 
 			<tr>
 				<td class="width10 bold"><label for="location-email">${placeholderWithTranslation.email}</label></td>
 				<td><input type="text" name="location-email" value="$!message.text($location.email)" id="location-email" maxlength="100" onchange="setModified();"></td>
-				<td class="width10 bold"><label for="location-comment">${placeholderWithTranslation.bemerkung}</label></td>
+				<td class="width10 bold"><label for="location-comment">${placeholderWithTranslation.GENERIC_REMARK}</label></td>
 				<td><textarea name="location-comment" id="location-comment" onchange="setModified();">$!message.textarea($location.comment)</textarea></td>
 			</tr>
 
 			<tr>
-				<td class="width10 bold"><label for="location-url">${placeholderWithTranslation.url}</label></td>
+				<td class="width10 bold"><label for="location-url">${placeholderWithTranslation.GENERIC_URL}</label></td>
 				<td><input type="text" name="location-url" value="$!message.text($location.url)" id="location-url" maxlength="250" onchange="setModified();"></td>
 				<td class="width10 bold"><label for="location-gpsdata">${placeholderWithTranslation.gpsdaten}</label></td>
 				<td><input type="text" name="location-gpsdata" value="$!message.text($location.gpsdata)" id="location-gpsdata" maxlength="1000" onchange="setModified();"></td>
 			</tr>
 
 			<tr>
-				<td class="width10 bold"><label for="location-roomnumber">${placeholderWithTranslation.raumnummer}</label></td>
+				<td class="width10 bold"><label for="location-roomnumber">${placeholderWithTranslation.GENERIC_ROOM_NUMBER}</label></td>
 				<td><input type="text" name="location-roomnumber" value="$!message.text($location.roomnumber)" id="location-roomnumber" maxlength="250" onchange="setModified();"></td>
 				<td></td>
 				<td></td>

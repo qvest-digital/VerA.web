@@ -5,11 +5,11 @@
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
         <strong>
-            ${placeholderWithTranslation.siesindhier}:
+            ${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:
         </strong>
         <span>
             <a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">
-                ${placeholderWithTranslation.home}
+                ${placeholderWithTranslation.GENERIC_HOME}
             </a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.personenexport}
         </span>
     </div>
@@ -46,7 +46,7 @@
                             # existing code relying on the fact that the request parameter would be null.
                             #
                             <option value="0">
-                                ${placeholderWithTranslation.alle}
+                                ${placeholderWithTranslation.GENERIC_ALL}
                             </option>
                             <option value="-1">
                                 ${placeholderWithTranslation.keine}
@@ -73,7 +73,7 @@
                             # existing code relying on the fact that the request parameter would be null.
                             #
                             <option value="0">
-                                ${placeholderWithTranslation.alle}
+                                ${placeholderWithTranslation.GENERIC_ALL}
                             </option>
                             <option value="-1">
                                 ${placeholderWithTranslation.ohne}

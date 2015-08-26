@@ -24,7 +24,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.veranstaltungsorte}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.veranstaltungsorte}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.veranstaltungsorte}</h1>
@@ -66,13 +66,13 @@
 
 		<span id="actionPanel" class="inlineLabel">
 			<label>${placeholderWithTranslation.markiertenveranstaltungsorte}
-				<input type="submit" id="remove" name="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markierteveranstaltungsorteloschen}" />
+				<input type="submit" id="remove" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markierteveranstaltungsorteloschen}" />
 			</label>
 		</span>
 
 		#if($grants.mayWrite())
 		<span class="textRight floatRight" id="buttonPanel-top">
-			<input type="button" id="new" name="new" value="${placeholderWithTranslation.neuenveranstaltungsorthinzufugen}" title="${placeholderWithTranslation.neuenveranstaltungsorthinzufugen}" class="mainButton" onclick="window.location.href='CreateLocation';" />
+			<input type="button" id="new" name="new" value="${placeholderWithTranslation.GENERIC_ADD_NEW_EVENT_LOCATIONS}" title="${placeholderWithTranslation.GENERIC_ADD_NEW_EVENT_LOCATIONS}" class="mainButton" onclick="window.location.href='CreateLocation';" />
 		</span>
 		#end
 
@@ -96,19 +96,19 @@
 
 			<tr>
 				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
-				<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
+				<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
 				<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
-				<th>${placeholderWithTranslation.ansprechpartner}</th>
-				<th>${placeholderWithTranslation.strasse}</th>
-				<th>${placeholderWithTranslation.plz}</th>
-				<th>${placeholderWithTranslation.ort}</th>
-				<th>${placeholderWithTranslation.telefon}</th>
-				<th>${placeholderWithTranslation.fax}</th>
+				<th>${placeholderWithTranslation.GENERIC_CONTACT_PERSON}</th>
+				<th>${placeholderWithTranslation.GENERIC_STREET}</th>
+				<th>${placeholderWithTranslation.GENERIC_POST_NUMBER}</th>
+				<th>${placeholderWithTranslation.GENERIC_CITY}</th>
+				<th>${placeholderWithTranslation.GENERIC_TELEFON}</th>
+				<th>${placeholderWithTranslation.GENERIC_FAX}</th>
 				<th>${placeholderWithTranslation.email}</th>
-				<th>${placeholderWithTranslation.bemerkung}</th>
-				<th>${placeholderWithTranslation.url}</th>
+				<th>${placeholderWithTranslation.GENERIC_REMARK}</th>
+				<th>${placeholderWithTranslation.GENERIC_URL}</th>
 				<th>${placeholderWithTranslation.gpsdaten}</th>
-				<th>${placeholderWithTranslation.raumnummer}</th>
+				<th>${placeholderWithTranslation.GENERIC_ROOM_NUMBER}</th>
 			</tr>
 			#foreach($bean in $list)
 				<tr>

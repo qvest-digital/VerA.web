@@ -10,7 +10,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.reports}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_REPORTS}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.BROWSER_TITLE_REPORTS}</h1>
@@ -18,7 +18,7 @@
 
 			<div class="contentBoxColored hinweis grayBorder marginBottom20">
 				<strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong>
-				<p>${placeholderWithTranslation.abhangigvomausgewahltenzeitraumundderdarausresultierendenanzahldatenkanndieerzeugungdesberichtsrelativlangedauernhabensiebitteeinweniggeduld}</p>
+				<p>${placeholderWithTranslation.MESSAGE_WAITING_MESSAGE_LOG_REPORT}</p>
 			</div>
 
 #if($noLogDataAvailableMessage)
@@ -31,7 +31,7 @@
 <div class="table width30">
 	<div class="tableRow">
 		<div class="tableCell ">
-			<label for="begin">${placeholderWithTranslation.datumbeginn}:</label>
+			<label for="begin">${placeholderWithTranslation.GENERIC_DATE_BEGIN}:</label>
 		</div>
 		<div class="tableCell ">
 			<span id="show-begin" class="datepickerContainer">
@@ -50,7 +50,7 @@
 	</div>
 	<div class="tableRow">
 		<div class="tableCell ">
-			<label for="end">${placeholderWithTranslation.datumende}:</label>
+			<label for="end">${placeholderWithTranslation.GENERIC_DATE_END}:</label>
 		</div>
 	<div class="tableCell ">
 		<span id="show-end" class="datepickerContainer">
@@ -70,8 +70,8 @@
 </div>
 
 <div id="buttonPanel-bottom" class="marginTop10">
-	<input type="submit" class="mainButton" value="${placeholderWithTranslation.reporterzeugen}" title="${placeholderWithTranslation.reporterzeugen}" />
-	<input type="reset" class="mainButton" value="${placeholderWithTranslation.felderzurucksetzen}" title="${placeholderWithTranslation.felderzurucksetzen}" />
+	<input type="submit" class="mainButton" value="${placeholderWithTranslation.GENERIC_GENERATE_REPORT}" title="${placeholderWithTranslation.GENERIC_GENERATE_REPORT}" />
+	<input type="reset" class="mainButton" value="${placeholderWithTranslation.GENERIC_BACKUP_FIEDS}" title="${placeholderWithTranslation.GENERIC_BACKUP_FIEDS}" />
 </div>
 
 

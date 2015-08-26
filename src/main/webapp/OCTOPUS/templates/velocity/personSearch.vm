@@ -40,13 +40,13 @@
 
 	#if($action == "host")
     	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.gastgeberhinzufuegen}</span>
+    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.gastgeberhinzufuegen}</span>
     	</div>
 
     	<h1>${placeholderWithTranslation.personensuchegastgeberhinzufugen}</h1>
 	#elseif($action == "guest")
     	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.gasthinzufuegen}</span>
+    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.gasthinzufuegen}</span>
     	</div>
 
     	<h1>${placeholderWithTranslation.personensuchegasthinzufugen}</h1>
@@ -58,7 +58,7 @@
     	<h1>${placeholderWithTranslation.personensuche} ${placeholderWithTranslation.verantwortlichenfueraufgabehinzufugen}</h1>
 	#else
         <div id="breadcrumb" class="textRight marginBottom10">
-            <strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.personensuche}</span>
+            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.personensuche}</span>
         </div>
 
         <h1>${placeholderWithTranslation.personensuche}</h1>
@@ -89,11 +89,11 @@
                 <div class="table width100">
                     <div class="tableRow">
                         <div class="tableCell width30">
-                            <label for="firstname">${placeholderWithTranslation.vorname}</label>
+                            <label for="firstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</label>
                             <input type="text" name="firstname" id="firstname" value="$!message.text($search.firstname)"  />
                         </div>
                         <div class="tableCell width30">
-                            <label for="lastname">${placeholderWithTranslation.nachname}</label>
+                            <label for="lastname">${placeholderWithTranslation.GENERIC_LASTNAME}</label>
                             <input type="text" name="lastname" id="lastname" value="$!message.text($search.lastname)"  />
                         </div>
                         <div class="tableCell width30">
@@ -103,7 +103,7 @@
                     </div>
                     <div class="tableRow">
                         <div class="tableCell width30">
-                            <label for="company">${placeholderWithTranslation.firmainstitution}</label>
+                            <label for="company">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</label>
                             <input type="text" name="company" id="company" value="$!message.text($search.company)"  />
                         </div>
                         <div class="tableCell width30">
@@ -121,21 +121,21 @@
                 <div class="table width100">
                     <div class="tableRow">
                         <div class="tableCell width30">
-                            <label for="street">${placeholderWithTranslation.strasse}</label>
+                            <label for="street">${placeholderWithTranslation.GENERIC_STREET}</label>
                             <input type="text" name="street" id="street" value="$!message.text($search.street)"  />
                         </div>
                         <div class="tableCell width30">
-                            <label for="zipcode">${placeholderWithTranslation.plz}</label>
+                            <label for="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</label>
                             <input type="text" name="zipcode" id="zipcode" value="$!message.text($search.zipcode)"  />
                         </div>
                         <div class="tableCell width30">
-                            <label for="city">${placeholderWithTranslation.ort}</label>
+                            <label for="city">${placeholderWithTranslation.GENERIC_CITY}</label>
                             <input type="text" name="city" id="city" value="$!message.text($search.city)"  />
                         </div>
                     </div>
                     <div class="tableRow">
                         <div class="tableCell width30">
-                            <label for="state">${placeholderWithTranslation.bundesland}</label>
+                            <label for="state">${placeholderWithTranslation.GENERIC_FEDERAL_STATE}</label>
                             <input type="text" name="state" id="state" value="$!message.text($search.state)"  />
                         </div>
                         <div class="tableCell width30">
@@ -156,7 +156,7 @@
                             <label for="categorie">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
 
 							<select name="categoriesSelection" id="categorie" size="5" multiple="multiple" onChange="ensureCorrectSelection( this );">
-							<option value="" #if( ! $search.categoriesSearch || ( $search.categoriesSelection && $search.categoriesSelection.size() == 0 ) ) selected #end>${placeholderWithTranslation.alle}</option>
+							<option value="" #if( ! $search.categoriesSearch || ( $search.categoriesSelection && $search.categoriesSelection.size() == 0 ) ) selected #end>${placeholderWithTranslation.GENERIC_ALL}</option>
 							<option value="0" #if( $search.categoriesSelection && $search.categoriesSelection.size() == 1 && $search.categoriesSelection.get(0).intValue() == 0 ) selected #end>${placeholderWithTranslation.keinekategoriezugeordnet}</option>
 							#foreach($categorie in $allCategorie)
 							    #if((!$categorie.flags) || ($categorie.flags != 1))
@@ -167,10 +167,10 @@
 
                         </div>
                         <div class="tableCell width30">
-                            <label for="workarea">${placeholderWithTranslation.arbeitsbereich}</label>
+                            <label for="workarea">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</label>
 
 							<select name="workarea" id="workarea" >
-							<option value="">${placeholderWithTranslation.alle}</option>
+							<option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
 							<option value="0">${placeholderWithTranslation.keinarbeitsbereichzugeordnet}</option>
 							#foreach($workArea in $allWorkArea)
 							    <option value="$!workArea.id" #if($search.workarea == $!workArea.id) selected #end>$!message.plain($!workArea.name)</option>
@@ -182,7 +182,7 @@
                             <label for="categorie2">${placeholderWithTranslation.GENERIC_OCCASION}</label>
 
 							<select name="categorie2" id="categorie2" >
-							<option value="">${placeholderWithTranslation.alle}</option>
+							<option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
 							#foreach($categorie in $allCategorie)
 							    #if($categorie.flags == 1)
 							    <option value="$!categorie.id" #if($search.categorie2 == $!categorie.id) selected #end>$!message.plain($!categorie.name)</option>
@@ -194,7 +194,7 @@
                     </div>
                     <div class="tableRow">
                         <div class="tableCell width30">
-                            <label for="importsource">${placeholderWithTranslation.datenherkunft}</label>
+                            <label for="importsource">${placeholderWithTranslation.GENERIC_ORIGIN_DATA}</label>
                             <input type="text" name="importsource" id="importsource" value="$!message.text($search.importsource)"  />
                         </div>
                         <div class="tableCell width30">

@@ -55,7 +55,7 @@
             <td class="textCenter smallCell">
                 <input type="hidden" name="add-id" value=""/>
                 <input type="hidden" name="add-person" value="$!person.id"/>
-                <em>${placeholderWithTranslation.neu}</em>
+                <em>${placeholderWithTranslation.GENERIC_NEW}</em>
             </td>
             <td>
                 <select id="add-categorie" name="add-categorie" style="width:100%;" onchange="setModified('add')" #if(!$grants.mayWrite()) vera-disabled#end>

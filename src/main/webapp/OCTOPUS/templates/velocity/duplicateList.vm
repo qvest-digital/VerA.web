@@ -20,7 +20,7 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.personenimport}</a> > ${placeholderWithTranslation.importstatus}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.personenimport}</a> > ${placeholderWithTranslation.importstatus}</span>
 	</div>
 	<h1>${placeholderWithTranslation.importstatusvorhandenedublettenbearbeiten}</h1>
 
@@ -45,7 +45,7 @@
 		<input type="hidden" name="saveCount" value="$!saveCount"/>
 
 		<span id="actionPanel" class="inlineLabel">
-			<label>${placeholderWithTranslation.markiertepersonen}
+			<label>${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 				<input type="submit" name="save" type="button" value="${placeholderWithTranslation.alsdubletteubernehmen}" title="${placeholderWithTranslation.markiertepersonenalsdubletteubernehmen}"/>
 			</label>
 		</span>
@@ -71,14 +71,14 @@
 
 					<tr>
 						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end title="${placeholderWithTranslation.GENERIC_PLACEHOLDER}Alle (de)markieren"/></th>
-						<th>${placeholderWithTranslation.id}</th>
+						<th>${placeholderWithTranslation.GENERIC_ID}</th>
 						<th>${placeholderWithTranslation.GENERIC_NAME}</th>
-						<th>${placeholderWithTranslation.vorname}</th>
+						<th>${placeholderWithTranslation.GENERIC_FIRSTNAME}</th>
 						<th>${placeholderWithTranslation.amtsbezeichnung}</th>
-						<th>${placeholderWithTranslation.firmainstitution}</th>
-						<th>${placeholderWithTranslation.strasse}Stra&szlig;e</th>
-						<th>${placeholderWithTranslation.plz}</th>
-						<th>${placeholderWithTranslation.ort}</th>
+						<th>${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</th>
+						<th>${placeholderWithTranslation.GENERIC_STREET}Stra&szlig;e</th>
+						<th>${placeholderWithTranslation.GENERIC_POST_NUMBER}</th>
+						<th>${placeholderWithTranslation.GENERIC_CITY}</th>
 					</tr>
 
 					#foreach($bean in $list)

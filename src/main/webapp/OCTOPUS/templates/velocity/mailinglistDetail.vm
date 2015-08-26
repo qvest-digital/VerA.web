@@ -26,7 +26,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.verteilerdetails}: $!message.text($!mailinglist.name)</h1>
@@ -47,7 +47,7 @@
 
     		<span class="inlineLabel" id="actionPanel">
 				#if($grants.mayWrite())
-					<strong>${placeholderWithTranslation.markierteadressen}</strong> <input type="submit" name="remove" value="${placeholderWithTranslation.loschen}" onclick="submit();" title="${placeholderWithTranslation.markierteadressenausdemverteilerloschen}"/>
+					<strong>${placeholderWithTranslation.markierteadressen}</strong> <input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" onclick="submit();" title="${placeholderWithTranslation.markierteadressenausdemverteilerloschen}"/>
 				#else &nbsp;#end
             </span>
 
@@ -69,7 +69,7 @@
     			<tr>
     				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}"/></th>
     				<th>${placeholderWithTranslation.GENERIC_NAME}</th>
-    				<th>${placeholderWithTranslation.vorname}</th>
+    				<th>${placeholderWithTranslation.GENERIC_FIRSTNAME}</th>
     				<th>${placeholderWithTranslation.adresse}</th>
     			</tr>
     			#foreach($bean in $list)
@@ -108,7 +108,7 @@
         #elseif($maildispatchParams.count == 1)
         	showSuccess(' ${placeholderWithTranslation.eswurdeeineeineemailzumversendengespeichertdiesewirdnunautomatischversendet} ');
         #else
-        	showSuccess(' ${placeholderWithTranslation.eswurden} $maildispatchParams.count ${placeholderWithTranslation.emailszumversendengespeichertdiesewerdennunautomatischversendet} ');
+        	showSuccess(' ${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $maildispatchParams.count ${placeholderWithTranslation.emailszumversendengespeichertdiesewerdennunautomatischversendet} ');
         #end
     #end
 </script>

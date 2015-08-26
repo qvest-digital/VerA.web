@@ -15,7 +15,7 @@
 
 	<div id="content_container">
         <div id="breadcrumb" class="textRight marginBottom10">
-            <strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.emailvorlage}</span>
+            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.emailvorlage}</span>
         </div>
 
         <h1>${placeholderWithTranslation.emailvorlage}</h1>
@@ -34,7 +34,7 @@
 
         <table class="form">
 			<tr>
-            	<td class="bold width15"><label for="show-id">${placeholderWithTranslation.id}</label></td>
+            	<td class="bold width15"><label for="show-id">${placeholderWithTranslation.GENERIC_ID}</label></td>
             	<td><input type="text" id="show-id" name="show-id" value="$!message.text($maildraft.id)" class="id" vera-disabled /></td>
             </tr>
 			<tr>
@@ -54,22 +54,22 @@
             	<td>
             		<div class="">
             			<select id="platzhalter" name="platzhalter" class="width15" >
-            				<option value="firstname">${placeholderWithTranslation.vorname}</option>
-            				<option value="lastname">${placeholderWithTranslation.nachname}</option>
+            				<option value="firstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</option>
+            				<option value="lastname">${placeholderWithTranslation.GENERIC_LASTNAME}</option>
             				<option value="salutation">${placeholderWithTranslation.anrede}</option>
             				<option value="title">${placeholderWithTranslation.akadtitel}</option>
             				<option value="function">${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SHORT}./${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</option>
-            				<option value="company">${placeholderWithTranslation.firmainstitution}</option>
-            				<option value="street">${placeholderWithTranslation.strasse}</option>
-            				<option value="zipcode">${placeholderWithTranslation.plz}</option>
-            				<option value="city">${placeholderWithTranslation.ort}</option>
+            				<option value="company">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</option>
+            				<option value="street">${placeholderWithTranslation.GENERIC_STREET}</option>
+            				<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+            				<option value="city">${placeholderWithTranslation.GENERIC_CITY}</option>
             				<option value="country">${placeholderWithTranslation.land}</option>
             				<option value="poboxzipcode">${placeholderWithTranslation.postfachplz}</option>
             				<option value="pobox">${placeholderWithTranslation.postfachnummer}</option>
-            				<option value="suffix1">${placeholderWithTranslation.adresszusatz} 1</option>
-            				<option value="suffix2">${placeholderWithTranslation.adresszusatz} 2</option>
-            				<option value="phone">${placeholderWithTranslation.telefon}</option>
-            				<option value="fax">${placeholderWithTranslation.fax}</option>
+            				<option value="suffix1">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1</option>
+            				<option value="suffix2">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2</option>
+            				<option value="phone">${placeholderWithTranslation.GENERIC_TELEFON}</option>
+            				<option value="fax">${placeholderWithTranslation.GENERIC_FAX}</option>
             				<option value="mobile">${placeholderWithTranslation.mobil}</option>
             				<option value="email">${placeholderWithTranslation.email}</option>
             				<option value="url">${placeholderWithTranslation.www}</option>
@@ -80,7 +80,7 @@
         	</tr>
 
             #if ($listparam.count == 0)
-            	<tr><td colspan="2">${placeholderWithTranslation.keinedatengefunden}.</td></tr>
+            	<tr><td colspan="2">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
             #end
         </table>
 
