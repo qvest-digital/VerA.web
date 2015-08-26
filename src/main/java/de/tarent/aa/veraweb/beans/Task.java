@@ -34,6 +34,7 @@ import de.tarent.octopus.server.OctopusContext;
  * @author Valentin But (v.but@tarent.de), tarent solutions GmbH
  */
 public class Task extends AbstractHistoryBean {
+
     /**
      * PK.
      */
@@ -113,6 +114,62 @@ public class Task extends AbstractHistoryBean {
      *  End time. This bean properties is not mapped to database field.
      */
     public String endtime;
+
+    public void verify(OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
+
+        if ((starttime != null && starttime.length() > 0 && startdate == null)
+                || (endtime != null && endtime.length() > 0 && enddate == null)) {
+            addError(messages.getMessageTaskTimeWithoutDate());
+        }
+
+        if (enddate != null) {
+            if (enddate.before(new Date())) {
+                addError(messages.getMessageTaskEndDateNotFuture());
+            } else if (startdate == null) {
+                addError(messages.getMessageTaskEndDateWithoutBeginDate());
+            } else if (startdate.after(enddate)) {
+                addError(messages.getMessageTaskBeginDateBeforeEndDate());
+            }
+        }
+        if (title == null || title.trim().length() == 0) {
+            addError(messages.getMessageTaskNoShortname());
+        }
+        if (description != null && description.length() > 1000) {
+            addError(messages.getMessageTaskMaxRemarkRechaed());
+        }
+        DateHelper.temporary_fix_translateErrormessageEN2DE(this.getErrors());
+    }
+
+    /**
+     * Checks whether logged in user in current context is allowed to read this bean.<br>
+     * Group {@link PersonalConfigAA#GROUP_READ_STANDARD} is required.
+     *
+     * @param cntx
+     *            Octopus context
+     * @throws BeanException
+     *             thrown exception if user is prohibited from reading this bean
+     * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
+     */
+    @Override
+    public void checkRead(final OctopusContext cntx) throws BeanException {
+        checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
+    }
+
+    /**
+     * Checks whether logged in user in current context is allowed to read this bean.<br>
+     * Group {@link PersonalConfigAA#GROUP_WRITE} is required.
+     *
+     * @param cntx
+     *            Octopus context
+     * @throws BeanException
+     *             thrown exception if user is prohibited from writing this bean
+     * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
+     */
+    @Override
+    public void checkWrite(final OctopusContext cntx) throws BeanException {
+        checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
+    }
 
     /**
      * Get id.
@@ -415,61 +472,4 @@ public class Task extends AbstractHistoryBean {
     public void setEndtime(final String endtime) {
         this.endtime = endtime;
     }
-
-    public void verify(OctopusContext octopusContext) throws BeanException {
-        VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
-
-        if ((starttime != null && starttime.length() > 0 && startdate == null)
-                || (endtime != null && endtime.length() > 0 && enddate == null)) {
-            addError(verawebMessages.getMessageTaskTimeWithoutDate());
-        }
-
-        if (enddate != null) {
-            if (enddate.before(new Date())) {
-                addError(verawebMessages.getMessageTaskEndDateNotFuture());
-            } else if (startdate == null) {
-                addError(verawebMessages.getMessageTaskEndDateWithoutBeginDate());
-            } else if (startdate.after(enddate)) {
-                addError(verawebMessages.getMessageTaskBeginDateBeforeEndDate());
-            }
-        }
-        if (title == null || title.trim().length() == 0) {
-            addError(verawebMessages.getMessageTaskNoShortname());
-        }
-        if (description != null && description.length() > 1000) {
-            addError(verawebMessages.getMessageTaskMaxRemarkRechaed());
-        }
-        DateHelper.temporary_fix_translateErrormessageEN2DE(this.getErrors());
-    }
-
-    /**
-     * Checks whether logged in user in current context is allowed to read this bean.<br>
-     * Group {@link PersonalConfigAA#GROUP_READ_STANDARD} is required.
-     *
-     * @param cntx
-     *            Octopus context
-     * @throws BeanException
-     *             thrown exception if user is prohibited from reading this bean
-     * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
-     */
-    @Override
-    public void checkRead(final OctopusContext cntx) throws BeanException {
-        checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
-    }
-
-    /**
-     * Checks whether logged in user in current context is allowed to read this bean.<br>
-     * Group {@link PersonalConfigAA#GROUP_WRITE} is required.
-     *
-     * @param cntx
-     *            Octopus context
-     * @throws BeanException
-     *             thrown exception if user is prohibited from writing this bean
-     * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
-     */
-    @Override
-    public void checkWrite(final OctopusContext cntx) throws BeanException {
-        checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
-    }
-
 }
