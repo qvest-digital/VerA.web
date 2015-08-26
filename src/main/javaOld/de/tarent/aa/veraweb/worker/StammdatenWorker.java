@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.Doctype;
+import de.tarent.aa.veraweb.beans.WorkArea;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.Escaper;
@@ -92,11 +93,13 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 	}
 
 	@Override
-    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
+    protected int insertBean(OctopusContext octopusContext, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		if (bean.isModified()) {
 			if (bean instanceof Doctype) {
-				((Doctype) bean).verify(cntx);
+				((Doctype) bean).verify(octopusContext);
+			} else if (bean instanceof WorkArea) {
+				((WorkArea) bean).verify(octopusContext);
 			}
 
 		    if (bean.isCorrect()) {
@@ -107,7 +110,7 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 	                    database.getProperty(bean, "name"),
 	                    bean.getField("name"));
 	            if (orgunit != null) {
-	                clause = Where.and(Expr.equal(orgunit, ((PersonalConfigAA)(cntx.personalConfig())).getOrgUnitId()), clause);
+	                clause = Where.and(Expr.equal(orgunit, ((PersonalConfigAA)(octopusContext.personalConfig())).getOrgUnitId()), clause);
 	            }
 
 	            Integer exist =
@@ -116,12 +119,12 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
 	                    where(clause),context);
 	            if (exist.intValue() != 0) {
 					LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-					LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+					LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
 
 	                errors.add(languageProvider.getProperty("MAIN_DATA_WARN_ALREADY_EXISTS") +
 									" '" + bean.getField("name") + "'.");
 	            } else {
-	                count += super.insertBean(cntx, errors, bean, context);
+	                count += super.insertBean(octopusContext, errors, bean, context);
 	            }
 		    } else {
 		        errors.addAll(bean.getErrors());
