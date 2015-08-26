@@ -303,7 +303,7 @@
 				}
 
 				function submitFormWithGivenAction(action, permission) {
-						htmlWait();
+						htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');
 						document.getElementById('formlist').action = action;
 						document.formlist.submit();
 				}
@@ -555,7 +555,7 @@
 			</table>
 
 			<div class="textRight marginTop10 marginBottom20">
-				<input type="button" name="calcSerialNumber" value="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" title="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" onclick="htmlWait(); window.location.href='CalcSerialNumber';" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
+				<input type="button" name="calcSerialNumber" value="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" title="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" onclick="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}'); window.location.href='CalcSerialNumber';" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
 				<input type="button" name="reloadAllGuestData" value="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" title="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
 			</div>
 

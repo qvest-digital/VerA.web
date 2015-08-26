@@ -1629,3 +1629,6 @@ VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00fct
 VERIFY_ERROR_XML=Bei der Erzeugung eines XML-Testdokumentes ist ein Fehler aufgetreten. (
 VERIFY_ERROR_JAVA_ONE=Die installierte Java-Version (
 VERIFY_ERROR_JAVA_TWO=) entspricht nicht der erwarteten Version (1.4).
+
+GENERIC_PLEASE_WAIT_HEADER=Bitte warten...
+GENERIC_PLEASE_WAIT_MESSAGE=Dieser Vorgang kann einen Moment dauern.
