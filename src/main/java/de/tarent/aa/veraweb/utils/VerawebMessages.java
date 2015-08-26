@@ -29,9 +29,6 @@ import de.tarent.octopus.server.OctopusContext;
 public class VerawebMessages {
     final LanguageProviderHelper languageProviderHelper;
     final LanguageProvider languageProvider;
-    private String messageGuestdoctypeCompanynameMaxLength;
-    private String messageGuestdoctypeCountrynameMaxLength;
-    private String messageGuestdoctypeFaxMaxLength;
 
     public VerawebMessages(OctopusContext octopusContext) {
         languageProviderHelper = new LanguageProviderHelper();
