@@ -275,10 +275,10 @@ border-left: 1px solid #CCCCCC;" onclick="upload();">
 ##<br>
 ##<hr class="contentsection" />
 ##<br>
-##<h1>Bestehenden Importvorgang laden</h1>
+##<h1>${placeholderWithTranslation.GENERIC_LOAD_EXISTING_IMPORTPROCESS}</h1>
 ##<form action="ImportPersonsStoredRecord" method="post" enctype="multipart/form-data">
 ##<table class="form"><tr>
-##	<td><label for="importId">Import-ID</label></td>
+##	<td><label for="importId">${placeholderWithTranslation.GENERIC_IMPORTID}</label></td>
 ##	<td align="right">
 ##	    <input type="text" name="importId" id="importId" value="" >
 ##	</td>

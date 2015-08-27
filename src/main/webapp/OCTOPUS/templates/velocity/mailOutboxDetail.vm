@@ -54,11 +54,11 @@
 
         <table class="form">
 			<tr>
-            	<td class="width5"><label for="show-id">ID</label></td>
+            	<td class="width5"><label for="show-id">${placeholderWithTranslation.GENERIC_ID}</label></td>
             	<td><input type="text" id="show-id" name="show-id" value="$!message.text($mailoutbox.id)" class="id" vera-disabled /></td>
             </tr>
 			<tr>
-            	<td><label for="mailoutbox-from">Von*</label></td>
+            	<td><label for="mailoutbox-from">${placeholderWithTranslation.GENERIC_OF_CAPITAL}*</label></td>
             	<td><input type="text" id="mailoutbox-from" name="mailoutbox-from" maxlength="200" value="$!message.text($mailoutbox.from)" /></td>
             </tr>
 			<tr>
@@ -70,7 +70,7 @@
             	<td><input type="text" id="mailoutbox-subject" name="mailoutbox-subject" maxlength="200" value="$!message.text($mailoutbox.subject)" /></td>
             </tr>
 			<tr>
-            	<td><label for="mailoutbox-text">Text</label></td>
+            	<td><label for="mailoutbox-text">${placeholderWithTranslation.GENERIC_TEXT}</label></td>
             	<td><textarea cols="20" rows="20" id="mailoutbox-text" name="mailoutbox-text" >$!message.textarea($mailoutbox.text)</textarea></td>
 			</tr>
             #if($mailoutbox.status == $mailoutbox.STATUS_ERROR || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))

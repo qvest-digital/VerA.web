@@ -11,17 +11,17 @@
         </td>
 		<td class="kategorieZusage">
             <nobr>
-                <strong>Zusage</strong>
+                <strong>${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</strong>
             </nobr>
         </td>
 		<td class="kategorieAbsage">
             <nobr>
-                <strong>Absage</strong>
+                <strong>${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</strong>
             </nobr>
         </td>
 		<td class="kategorieTeilnahme">
             <nobr>
-                <strong>Teilnahme</strong>
+                <strong>${placeholderWithTranslation.GENERIC_PARTICIPATION}</strong>
             </nobr>
         </td>
 	</tr>
@@ -36,7 +36,7 @@
 			#set($category = "")
 			#set($workarea = "")
 			<div class="kategorie">
-                <em>Keiner Kategorie zugeordnet</em>
+                <em>${placeholderWithTranslation.GENERIC_ASSIGNED_TO_CATEGORY}</em>
             </div>
 		#elseif($bean.category)
 			#set($category = $bean.category)
@@ -52,7 +52,7 @@
 			#if( $bean.workarea_name == "Kein Arbeitsbereich" && $workarea != "" )
 				#set($workarea = "")
 				<div class="kategorie" style="margin-left: 1em;">
-                    <em>Keinem Arbeitsbereich zugeordnet</em>
+                    <em>${placeholderWithTranslation.GENERIC_NOT_ASSIGNED_TO_WORKAREA</em>
                 </div>
 			#else
 				#set($workarea = $bean.workarea_name)
@@ -80,9 +80,9 @@
             <tr>
                 <td class="kategorieNo">
                     #if($bean.ishost && $bean.ishost == 1)
-                        <em>G</em>
+                        <em>${placeholderWithTranslation.LETTER_HOST}</em>
                     #elseif($bean.reserve == 1)
-                        <em>Reserve</em>
+                        <em>${placeholderWithTranslation.reserve}</em>
                     #else
                         $!bean.orderno
                     #end
@@ -138,13 +138,13 @@
                         <table cellspacing="0" cellpadding="0" border="0" class="kategorie">
                             <tr>
                                 <td class="kategorieName" style="width: 33%;">
-                                    <em>Telefonnr.: $!message.plain($bean.fon_a_gd)</em>
+                                    <em>${placeholderWithTranslation.GENERIC_PHONE_NUMBER_SHORT}: $!message.plain($bean.fon_a_gd)</em>
                                 </td>
                                 <td class="kategorieName" style="width: 33%;">
-                                    <em>Privat: $!message.plain($bean.fon_b_e1)</em>
+                                    <em>${placeholderWithTranslation.GENERIC_PRIVATE}: $!message.plain($bean.fon_b_e1)</em>
                                 </td>
                                 <td class="kategorieName" style="width: 34%;">
-                                    <em>Mobiltelefon: $!message.plain($bean.mobil_a_gd)</em>
+                                    <em>${placeholderWithTranslation.GENERIC_MOBILE_PHONE}: $!message.plain($bean.mobil_a_gd)</em>
                                 </td>
                             </tr>
                         </table>
@@ -152,13 +152,13 @@
                         <table cellspacing="0" cellpadding="0" border="0" class="kategorie">
                             <tr>
                                 <td class="kategorieName" style="width: 33%;">
-                                    <em>Telefonnr.: $!message.plain($bean.fon_a_e1)</em>
+                                    <em>${placeholderWithTranslation.GENERIC_PHONE_NUMBER_SHORT}: $!message.plain($bean.fon_a_e1)</em>
                                 </td>
                                 <td class="kategorieName" style="width: 33%;">
-                                    <em>Privat: $!message.plain($bean.fon_b_e1)</em>
+                                    <em>${placeholderWithTranslation.GENERIC_PRIVATE}: $!message.plain($bean.fon_b_e1)</em>
                                 </td>
                                 <td class="kategorieName" style="width: 34%;">
-                                    <em>Mobiltelefon: $!message.plain($bean.mobil_a_e1)</em>
+                                    <em>${placeholderWithTranslation.GENERIC_MOBILE_PHONE}: $!message.plain($bean.mobil_a_e1)</em>
                                 </td>
                             </tr>
                         </table>

@@ -26,27 +26,27 @@
 
 <table style="width: 100%;" border="1" cellpadding="2" cellspacing="2">
   <tr>
-    <td style="width: 15%;">Adressblock 1</td>
+    <td style="width: 15%;">${placeholderWithTranslation.GENERIC_ADDRESS_BLOCK} 1</td>
     <td><textarea name="addrblock" rows="3">$!message.textarea($address.getAdressblock1())</textarea></td>
   </tr>
   <tr>
-    <td>Adressblock 2</td>
+    <td>${placeholderWithTranslation.GENERIC_ADDRESS_BLOCK} 2</td>
     <td><textarea name="addrblock" rows="3">$!message.textarea($address.getAdressblock2())</textarea></td>
   </tr>
   <tr>
-    <td>Adressblock 3</td>
+    <td>${placeholderWithTranslation.GENERIC_ADDRESS_BLOCK} 3</td>
     <td><textarea name="addrblock" rows="3">$!message.textarea($address.getAdressblock3())</textarea></td>
   </tr>
   <tr>
-    <td>Adressblock 4</td>
+    <td>${placeholderWithTranslation.GENERIC_ADDRESS_BLOCK} 4</td>
     <td><textarea name="addrblock" rows="3">$!message.textarea($address.getAdressblock4())</textarea></td>
   </tr>
   <tr>
-    <td>Adressblock 5</td>
+    <td>${placeholderWithTranslation.GENERIC_ADDRESS_BLOCK} 5</td>
     <td><textarea name="addrblock" rows="3">$!message.textarea($address.getAdressblock5())</textarea></td>
   </tr>
   <tr>
-    <td>Adressblock 6</td>
+    <td>${placeholderWithTranslation.GENERIC_ADDRESS_BLOCK} 6</td>
     <td><textarea name="addrblock" rows="3">$!message.textarea($address.getAdressblock6())</textarea></td>
   </tr>
 </table><br/>

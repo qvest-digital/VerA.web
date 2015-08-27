@@ -105,7 +105,7 @@
                             ## 2009-05-07 cklein
                             ## non existing doctypes cannot be viewed as part of issue #1528
                         ##else
-                            ##<a href="${paths.staticWeb}do/ShowPersonDoctype?id=$!person.id&persondoctype-doctype=$!bean.doctypeId">anschauen</a>
+                            ##<a href="${paths.staticWeb}do/ShowPersonDoctype?id=$!person.id&persondoctype-doctype=$!bean.doctypeId">${placeholderWithTranslation.GENERIC_LOOK_AT}</a>
                         #end
                     </td>
                 #end

@@ -503,7 +503,7 @@
 									#end
 								#end
 							#else
-								<input type="hidden" name="${bean.id}-invitationstatus_a" value="$!bean.invitationstatus_a">nicht eingeladen
+								<input type="hidden" name="${bean.id}-invitationstatus_a" value="$!bean.invitationstatus_a">${placeholderWithTranslation.nichteingeladen}</input>
 							#end
 						</td>
 

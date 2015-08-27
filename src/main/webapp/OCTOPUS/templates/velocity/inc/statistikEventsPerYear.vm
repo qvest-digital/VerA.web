@@ -2,12 +2,12 @@
 	<tr>
 		<td class="kategorieName" style="width: 50%;">
             <nobr>
-                <strong>Jahr</strong>
+                <strong>${placeholderWithTranslation.GENERIC_YEAR}</strong>
             </nobr>
         </td>
 		<td class="kategorieName" style="width: 50%;">
             <nobr>
-                <strong>Veranstaltungen</strong>
+                <strong>${placeholderWithTranslation.GENERIC_EVENT_PLURAL}</strong>
             </nobr>
         </td>
 	</tr>
@@ -32,7 +32,7 @@
 	<table style="width: 100%;">
 		<tr>
 			<td style="text-align: right;">
-                <h2>Anzahl:</h2>
+                <h2>${placeholderWithTranslation.GENERIC_COUNT}:</h2>
             </td>
 			<td style="width: 20px;">
                 &nbsp;

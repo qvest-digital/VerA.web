@@ -24,7 +24,7 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-	    	<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_USER}</span>
+	    	<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_USER}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.GENERIC_USER}</h1>
@@ -70,7 +70,7 @@
 
 				<tr style="height: 20px;">
 					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
-					<th class="smallCell textCenter">ID</th>
+					<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
 			#if($domain == 'all')
 					<th>${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}</th>
 			#end

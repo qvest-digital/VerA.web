@@ -2,12 +2,12 @@
 	<tr>
 		<td class="kategorieName" style="width: 55%;">
             <nobr>
-                <strong>Veranstaltung</strong>
+                <strong>${placeholderWithTranslation.GENERIC_EVENT_SINGULAR}</strong>
             </nobr>
         </td>
 		<td class="kategorieName" style="width: 15%;">
             <nobr>
-                <strong>Beginn</strong>
+                <strong>${placeholderWithTranslation.beginn}</strong>
             </nobr>
         </td>
 		##<td class="kategorieName" style="width: 15%;">
@@ -17,12 +17,12 @@
         </td>
 		<td class="kategorieName" style="width: 15%;">
             <nobr>
-                <strong>Status</strong>
+                <strong>${placeholderWithTranslation.GENERIC_STATUS}</strong>
             </nobr>
         </td>
 		<td class="kategorieName" style="width: 15%;">
             <nobr>
-                <strong>Status Partner</strong>
+                <strong>${placeholderWithTranslation.STATS_COLUMN_INVITATION_STATUS_PARTNER}</strong>
             </nobr>
         </td>
 	</tr>
@@ -37,7 +37,7 @@
 				<table style="width: 100%;">
 					<tr>
 						<td style="text-align: right;">
-                            <h2>Anzahl:</h2>
+                            <h2>${placeholderWithTranslation.GENERIC_COUNT}:</h2>
                         </td>
 						<td style="width: 20px;">
                             &nbsp;
@@ -51,14 +51,14 @@
 			#set($count = 0)
 			#set($subhead = 0)
 			<div class="kategorie">
-                <em>Kein Gast gefunden</em>
+                <em>${placeholderWithTranslation.GENERIC_NO_GUST_FOUND}</em>
             </div>
 		#elseif($bean.subhead)
 			#if($count > 0)
 				<table style="width: 100%;">
 					<tr>
 						<td style="text-align: right;">
-                            <h2>Anzahl:</h2>
+                            <h2>${placeholderWithTranslation.GENERIC_COUNT}:</h2>
                         </td>
 						<td style="width: 20px;">
                             &nbsp;
@@ -144,7 +144,7 @@
 	<table style="width: 100%;">
 		<tr>
 			<td style="text-align: right;">
-                <h2>Anzahl:</h2>
+                <h2>${placeholderWithTranslation.GENERIC_COUNT}:</h2>
             </td>
 			<td style="width: 20px;">
                 &nbsp;

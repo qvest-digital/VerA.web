@@ -7,7 +7,7 @@
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
-            <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
     </div>
     <h1>${placeholderWithTranslation.gasteverwaltungderveranstaltung}: $!message.plain($event.shortname)</h1>
 
@@ -109,9 +109,9 @@
                                     <div class="tableCell width40">
                                         <label for="guest-invitationtype">${placeholderWithTranslation.EVENT_INVITATION_TYPE}:</label>
                                         <select id="guest-invitationtype" name="guest-invitationtype" onchange="setGuestInvitationtype(this.value);">
-                                            <option value="1"#if($guest.invitationtype && $guest.invitationtype == 1) selected#end>Mit Partner</option>
-                                            <option value="2"#if($guest.invitationtype && $guest.invitationtype == 2) selected#end>Ohne Partner</option>
-                                            <option value="3"#if($guest.invitationtype && $guest.invitationtype == 3) selected#end>Nur Partner</option>
+                                            <option value="1"#if($guest.invitationtype && $guest.invitationtype == 1) selected#end>${placeholderWithTranslation.EVENT_INVITATION_TYPE_WITH_PARTNER}</option>
+                                            <option value="2"#if($guest.invitationtype && $guest.invitationtype == 2) selected#end>${placeholderWithTranslation.EVENT_INVITATION_TYPE_WITHOUT_PARTNER}</option>
+                                            <option value="3"#if($guest.invitationtype && $guest.invitationtype == 3) selected#end>${placeholderWithTranslation.EVENT_INVITATION_TYPE_ONLY_PARTNER}</option>
                                         </select>
                                     </div>
 
@@ -138,7 +138,7 @@
                                     <div class="tableCell paddingTop10">
                                         <label for="guest-category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}:</label>
                                         <select name="guest-category" id="guest-category" onchange="setModified('categorie')">
-                                            <option value="">Keine</option>
+                                            <option value="">${placeholderWithTranslation.GENERIC_NONE}</option>
                                             #foreach($category in $personCategories)
                                                 <option value="$category.id" #if($guest.category == $category.id) selected#end>$!message.plain($category.name)</option>
                                             #end
@@ -238,7 +238,7 @@
 ##<div id="subtab-detail-block">
 ##    <table class="subtab" border="0" cellspacing="0" cellpadding="0"><tr>
 ##        <td class="subtableft">&nbsp;</td>
-##        <td class="subtab" id="detail-1-tab"><a href="javascript:showTab('detail-1');" id="detail-1-link" class="subtab">Allgemein</a></td>
+##        <td class="subtab" id="detail-1-tab"><a href="javascript:showTab('detail-1');" id="detail-1-link" class="subtab">${placeholderWithTranslation.allgemein}</a></td>
 ##        <td class="subtab" id="detail-2-tab"><a href="javascript:showTab('detail-2');" id="detail-2-link" class="subtab">$!config.main</a></td>
 ## partner tab now renders inactive if there is no partner defined or none has been invited
 ## for existing guests, newly created guests will render the tab active

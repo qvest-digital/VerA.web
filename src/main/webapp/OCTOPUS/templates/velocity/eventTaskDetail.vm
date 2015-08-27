@@ -150,7 +150,7 @@
                             <label for="task-title">${placeholderWithTranslation.kurzbezeichnung}</label>
                             <input tabindex="1" type="text" name="task-title" value="$!message.text($task.title)" id="task-title" maxlength="100" onchange="setModified();"></div>
                         <div class="tableCell">
-                            <label for="task-enddate">Ende</label>
+                            <label for="task-enddate">${placeholderWithTranslation.ende}</label>
                             <input tabindex="4" type="text" name="task-enddate" id="task-enddate" value="$!message.date("DATE", $task.enddate)" class="date" style="width: 80px;" onchange="setModified();">
                             #if($grants.mayWrite())
                             <span id="show-end" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"></span> um

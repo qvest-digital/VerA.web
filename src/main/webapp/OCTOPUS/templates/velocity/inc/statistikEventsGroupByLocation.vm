@@ -2,22 +2,22 @@
 	<tr>
 		<td class="kategorieName" style="width: 30%;">
             <nobr>
-                <strong>Veranstaltungsort</strong>
+                <strong>${placeholderWithTranslation.GENERIC_VENUE}</strong>
             </nobr>
         </td>
 		<td class="kategorieName" style="width: 30%;">
             <nobr>
-                <strong>Veranstaltungsname</strong>
+                <strong>${placeholderWithTranslation.EVENT_NAME}</strong>
             </nobr>
         </td>
 		<td class="kategorieName" style="width: 25%;">
             <nobr>
-                <strong>Gastgeber</strong>
+                <strong>${placeholderWithTranslation.gastgeber}</strong>
             </nobr>
         </td>
 		<td class="kategorieName" style="width: 15%;">
             <nobr>
-                <strong>Datum</strong>
+                <strong>${placeholderWithTranslation.GENERIC_DATE}</strong>
             </nobr>
         </td>
 	</tr>
@@ -52,7 +52,7 @@
 	<table style="width: 100%;">
 		<tr>
 			<td style="text-align: right;">
-                <h2>Anzahl:</h2>
+                <h2>${placeholderWithTranslation.GENERIC_COUNT}:</h2>
             </td>
 			<td style="width: 20px;">
                 &nbsp;

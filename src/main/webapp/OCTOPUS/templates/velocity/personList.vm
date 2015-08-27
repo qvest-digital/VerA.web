@@ -129,31 +129,31 @@
 <div id="content_container">
 	#if($action == "host")
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">&{placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
 		</div>
 		<h1>$title</h1>
 	#elseif($searchTask && $searchTask == "personSearchTask")
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">&{placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
 		</div>
 		<h1>$title</h1>
 	#elseif($action == "taskReferencePerson")
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">&{placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
 		</div>
 		<h1>$title</h1>
 
 
 	#elseif($action == "guest")
 				<div id="breadcrumb" class="textRight marginBottom10">
-				<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
+				<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">&{placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
 		</div>
 		<h1>$title</h1>
 
 
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > $title</span>
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">&{placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > $title</span>
 		</div>
 		<h1>$title</h1>
 		#if($title == "Dublettensuche")
@@ -672,9 +672,9 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 			#if ($action == "guest")
 				<div id="key" class="table hinweis contentBoxColored grayBorder floatRight" style="margin-top: -14px;">
 					<div class="tableRow">
-						<div class="tableCell"><strong>H</strong> = ${placeholderWithTranslation.GENERIC_MAIN_PERSON} ${placeholderWithTranslation.einladen}</div>
-						<div class="tableCell"><strong>P</strong> = ${placeholderWithTranslation.GENERIC_PARTNER} ${placeholderWithTranslation.einladen}</div>
-						<div class="tableCell"><strong>R</strong> = ${placeholderWithTranslation.aufreservesetzen}</div>
+						<div class="tableCell"><strong>${placeholderWithTranslation.LETTER_MAIN_PERSON}</strong> = ${placeholderWithTranslation.GENERIC_MAIN_PERSON} ${placeholderWithTranslation.einladen}</div>
+						<div class="tableCell"><strong>${placeholderWithTranslation.LETTER_PARTNER}</strong> = ${placeholderWithTranslation.GENERIC_PARTNER} ${placeholderWithTranslation.einladen}</div>
+						<div class="tableCell"><strong>${placeholderWithTranslation.LETTER_RESERVE}</strong> = ${placeholderWithTranslation.aufreservesetzen}</div>
 						#if ($delegationCanBeUsed)
 							<div class="tableCell"><strong>D</strong> = ${placeholderWithTranslation.delegationanmelden}</div>
 						#end
@@ -706,15 +706,15 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 					#if($action == "guest")
 						<tr>
 							#if($grants.mayWrite())
-								<th class="textCenter smallCell" title="${placeholderWithTranslation.GENERIC_MAIN_PERSON} ${placeholderWithTranslation.einladen}">H <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkiereninklpartnerwenneingeladen}" style="margin: 5px;" #if($listselection.size() == $list.size()) checked#end/></th>
-								<th class="textCenter smallCell" title="${placeholderWithTranslation.GENERIC_PARTNER} ${placeholderWithTranslation.einladen}">P</th>
-								<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen}">R</th>
+								<th class="textCenter smallCell" title="${placeholderWithTranslation.GENERIC_MAIN_PERSON} ${placeholderWithTranslation.einladen}">${placeholderWithTranslation.LETTER_MAIN_PERSON} <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkiereninklpartnerwenneingeladen}" style="margin: 5px;" #if($listselection.size() == $list.size()) checked#end/></th>
+								<th class="textCenter smallCell" title="${placeholderWithTranslation.GENERIC_PARTNER} ${placeholderWithTranslation.einladen}">${placeholderWithTranslation.LETTER_PARTNER}</th>
+								<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen}">${placeholderWithTranslation.LETTER_RESERVE}</th>
 								#if ($delegationCanBeUsed)
-									<th class="textCenter smallCell" title="${placeholderWithTranslation.delegationanmelden}">D</th>
+									<th class="textCenter smallCell" title="${placeholderWithTranslation.delegationanmelden}">${placeholderWithTranslation.LETTER_DELEGATION}</th>
 								#end
 							#end
-							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
-							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name
+							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.ID}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME_WITH_SOFT_HYPHEN}
 								#if($personSearchField == 'lastname_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -725,7 +725,7 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME_WITH_SOFT_HYPHEN}
 								#if($personSearchField == 'firstname_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -798,7 +798,7 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 						</tr>
 					#elseif($action == "statistikGuest")
 						<tr>
-							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
+							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.ID}</a></th>
 							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>
 							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
 							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
@@ -938,7 +938,7 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 							#if($grants.mayWrite() || ($exportFormat && $grants.mayExport()) || $action == "replace")
 								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 							#end
-							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
+							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.ID}</a></th>
 							<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">${placeholderWithTranslation.arbeitsshybereich}
 									#if($personSearchField == 'workarea_name')
 										#if ($personSearchOrder == 'ASC')

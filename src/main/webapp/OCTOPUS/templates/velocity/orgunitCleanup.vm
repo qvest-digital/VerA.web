@@ -16,7 +16,7 @@
 <div id="content_container">
 
     <div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</span>
+    	<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</span>
     </div>
 
 	<h1>${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</h1>

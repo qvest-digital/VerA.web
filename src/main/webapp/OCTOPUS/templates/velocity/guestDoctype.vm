@@ -8,7 +8,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Veranstaltungen > Veranstaltung bearbeiten</span>
+    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
     </div>
     <h1>${placeholderWithTranslation.gasteverwaltungderveranstaltung}: $!message.plain($event.shortname)</h1>
 
@@ -38,7 +38,7 @@
             <form action="ShowGuestDoctype" method="get" class="marginBottom40">
 
 			<div class="inlineLabel">
-				<label for="">Dokumenttyp</label>
+				<label for="">${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_SINGULAR}</label>
 				<select id="doctype-id" name="doctype-id" onChange="submit();">
             			#foreach($doc in $allDoctype)
             			<option value="$!doc.doctype" #if($doc.doctype == $guestdoctype.doctype) selected#end>$!message.text($doc.name)</option>
@@ -97,22 +97,22 @@
 					</div>
 				</div>
 
-				<h3 class="marginBottom10">Daten bearbeiten</h3>
+				<h3 class="marginBottom10">${placeholderWithTranslation.datenbearbeiten}</h3>
 
 				<div class="table width100 marginBottom40">
 					<div class="tableRow">
 						<div class="tableCell width50">
-							<label for="guestdoctype-textfield">Freitextfeld</label>
+							<label for="guestdoctype-textfield">${placeholderWithTranslation.freitextfeld}</label>
 							<textarea id="guestdoctype-textfield" name="guestdoctype-textfield" >$!message.textarea($guestdoctype.textfield)</textarea>
 						</div>
 						<div class="tableCell width50">
-							<label for="guestdoctype-textfield_p">Freitextfeld (Partner)</label>
+							<label for="guestdoctype-textfield_p">${placeholderWithTranslation.freitextfeldpartner}</label>
 							<textarea id="guestdoctype-textfield_p" name="guestdoctype-textfield_p" >$!message.textarea($guestdoctype.textfield_p)</textarea>
 						</div>
 					</div>
 					<div class="tableRow">
 						<div class="tableCell">
-							<label for="guestdoctype-textjoin">Verbinder</label>
+							<label for="guestdoctype-textjoin">${placeholderWithTranslation.verbinder}</label>
 							<input type="text" id="guestdoctype-textjoin" name="guestdoctype-textjoin" maxlength="50" value="$!message.text($guestdoctype.textjoin)" >
 						</div>
 						<div class="tableCell"></div>
@@ -125,37 +125,37 @@
 					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-salutation">Anrede</label>
+								<label for="guestdoctype-salutation">${placeholderWithTranslation.GENERIC_SALUTATION_SINGULAR}</label>
 								<input type="text" id="guestdoctype-salutation" maxlength="50" name="guestdoctype-salutation" value="$!message.text($guestdoctype.salutation)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-titel">Akad. Titel</label>
+								<label for="guestdoctype-titel">${placeholderWithTranslation.akadtitel}</label>
 								<input type="text" id="guestdoctype-titel" maxlength="250" name="guestdoctype-titel" value="$!message.text($guestdoctype.titel)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-firstname">Vorname</label>
+								<label for="guestdoctype-firstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</label>
 								<input type="text" id="guestdoctype-firstname" maxlength="100" name="guestdoctype-firstname" value="$!message.text($guestdoctype.firstname)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-lastname">Nachname</label>
+								<label for="guestdoctype-lastname">${placeholderWithTranslation.GENERIC_LASTNAME}</label>
 								<input type="text" id="guestdoctype-lastname" maxlength="100" name="guestdoctype-lastname" value="$!message.text($guestdoctype.lastname)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="">Funktion / Amtsbez.</label>
+								<label for="">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR} / ${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SHORT}.</label>
 								<input type="text" id="guestdoctype-function" maxlength="250" name="guestdoctype-function" value="$!message.text($guestdoctype.function)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-company">Firma / Institution</label>
+								<label for="guestdoctype-company">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</label>
 								<input type="text" id="guestdoctype-company" maxlength="250" name="guestdoctype-company" value="$!message.text($guestdoctype.company)" >
 							</div>
 						</div>
@@ -167,25 +167,25 @@
 					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-salutation_p">Anrede (Partner)</label>
+								<label for="guestdoctype-salutation_p">${placeholderWithTranslation.GENERIC_SALUTATION_SINGULAR} (${placeholderWithTranslation.PARTNER})</label>
 								<input type="text" id="guestdoctype-salutation_p" maxlength="50" name="guestdoctype-salutation_p" value="$!message.text($guestdoctype.salutation_p)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-titel_p">Akad. Titel (Partner)</label>
+								<label for="guestdoctype-titel_p">${placeholderWithTranslation.akadtitel} (${placeholderWithTranslation.GENERIC_PARTNER})</label>
 								<input type="text" id="guestdoctype-titel_p" maxlength="250" name="guestdoctype-titel_p" value="$!message.text($guestdoctype.titel_p)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-firstname_p">Vorname (Partner)</label>
+								<label for="guestdoctype-firstname_p">${placeholderWithTranslation.GENERIC_FIRSTNAME} (${placeholderWithTranslation.PARTNER})</label>
 								<input type="text" id="guestdoctype-firstname_p"maxlength="100" name="guestdoctype-firstname_p" value="$!message.text($guestdoctype.firstname_p)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-lastname_p">Nachname (Partner)</label>
+								<label for="guestdoctype-lastname_p">${placeholderWithTranslation.GENERIC_LASTNAME} (${placeholderWithTranslation.PARTNER})</label>
 								<input type="text" id="guestdoctype-lastname_p" maxlength="100" name="guestdoctype-lastname_p" value="$!message.text($guestdoctype.lastname_p)" />
 							</div>
 						</div>
@@ -193,47 +193,47 @@
                 </fieldset>
 
 				<fieldset>
-					<legend>Kontaktdaten</legend>
+					<legend>${placeholderWithTranslation.kontaktdaten}</legend>
 					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell width50">
-								<label for="guestdoctype-street">Stra&szlig;e</label>
+								<label for="guestdoctype-street">${placeholderWithTranslation.GENERIC_STREET}</label>
 								<input type="text" maxlength="100" id="guestdoctype-street" name="guestdoctype-street" value="$!message.text($guestdoctype.street)" />
 							</div>
 							<div class="tableCell width50">
-								<label for="guestdoctype-fon">Telefon</label>
+								<label for="guestdoctype-fon">${placeholderWithTranslation.GENERIC_TELEFON}</label>
 								<input type="text" id="guestdoctype-fon" maxlength="100" name="guestdoctype-fon" value="$!message.text($guestdoctype.fon)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
 								<div class="width25 inlineBlock">
-									<label for="guestdoctype-zipcode">PLZ</label>
+									<label for="guestdoctype-zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</label>
 									<input type="text" id="guestdoctype-zipcode" maxlength="50" name="guestdoctype-zipcode" value="$!message.text($guestdoctype.zipcode)" />
 								</div>
 								<div class="width75 inlineBlock floatRight">
-									<label for="guestdoctype-city">Ort</label>
+									<label for="guestdoctype-city">${placeholderWithTranslation.GENERIC_CITY}</label>
 									<input type="text" id="guestdoctype-city" name="guestdoctype-city" maxlength="100" value="$!message.text($guestdoctype.city)" />
 								</div>
 							</div>
 							<div class="tableCell width50">
-								<label for="guestdoctype-fax">Fax</label>
+								<label for="guestdoctype-fax">${placeholderWithTranslation.GENERIC_FAX}</label>
 								<input type="text" id="guestdoctype-fax" maxlength="100" name="guestdoctype-fax" value="$!message.text($guestdoctype.fax)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
 								<div class="width25 inlineBlock">
-									<label for="guestdoctype-poboxzipcode">Postfach PLZ</label>
+									<label for="guestdoctype-poboxzipcode">${placeholderWithTranslation.postfachplz}</label>
 									<input type="text" id="guestdoctype-poboxzipcode" maxlength="50" name="guestdoctype-poboxzipcode" value="$!message.text($guestdoctype.poboxzipcode)" />
 								</div>
 								<div class="width75 inlineBlock floatRight">
-									<label for="guestdoctype-pobox">Nummer</label>
+									<label for="guestdoctype-pobox">${placeholderWithTranslation.nummer}</label>
 									<input type="text" id="guestdoctype-pobox" name="guestdoctype-pobox" maxlength="50" value="$!message.text($guestdoctype.pobox)" />
 								</div>
 							</div>
 							<div class="tableCell width50">
-								<label for="guestdoctype-mail">E-Mail #if($email && $email.length()>0)<a href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label>
+								<label for="guestdoctype-mail">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR} #if($email && $email.length()>0)<a href="mailto:$!message.text($email)"><img src="${paths.staticWeb}images/email.gif"></a>#end</label>
 								<input type="text" maxlength="250" id="guestdoctype-mail" name="guestdoctype-mail" value="$!message.text($guestdoctype.mail)" >
 							</div>						</div>
 						<div class="tableRow">
@@ -242,7 +242,7 @@
 								<input type="text" id="guestdoctype-suffix1" maxlength="100" name="guestdoctype-suffix1" value="$!message.text($guestdoctype.suffix1)" />
 							</div>
 							<div class="tableCell width50">
-								<label for="guestdoctype-www">WWW</label>
+								<label for="guestdoctype-www">${placeholderWithTranslation.www}</label>
 								<input type="text" maxlength="250" id="guestdoctype-www" name="guestdoctype-www" value="$!message.text($guestdoctype.www)" >
 							</div>
 						</div>
@@ -252,13 +252,13 @@
 								<input type="text" id="guestdoctype-suffix2" maxlength="100" name="guestdoctype-suffix2" value="$!message.text($guestdoctype.suffix2)" />
 							</div>
 							<div class="tableCell width50">
-								<label for="guestdoctype-mobil">Mobil</label>
+								<label for="guestdoctype-mobil">${placeholderWithTranslation.mobil}</label>
 								<input type="text" maxlength="100" id="guestdoctype-mobil" name="guestdoctype-mobil" value="$!message.text($guestdoctype.mobil)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
-								<label for="guestdoctype-country">Land</label>
+								<label for="guestdoctype-country">${placeholderWithTranslation.land}</label>
 								<input type="text" id="guestdoctype-country" maxlength="100" name="guestdoctype-country" value="$!message.text($guestdoctype.country)" />
 							</div>
 							<div class="tabelCell"></div>

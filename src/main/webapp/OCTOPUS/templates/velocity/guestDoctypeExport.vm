@@ -4,7 +4,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.zurstartseite} > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="${placeholderWithTranslation.zurpersonensuche}">${placeholderWithTranslation.personensuche}</a> > Suchergebnis</span>
+		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.zurstartseite} > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="${placeholderWithTranslation.zurpersonensuche}">${placeholderWithTranslation.personensuche}</a> > ${placeholderWithTranslation.suchergebnis}</span>
     </div>
 
 	<h1>${placeholderWithTranslation.steuerdatei}</h1>

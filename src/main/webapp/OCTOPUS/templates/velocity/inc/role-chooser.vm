@@ -16,7 +16,7 @@ ${placeholderWithTranslation.bittewahlensie}
 	<table class="form">
 		<tr>
 			<td>
-                <label for="username">Rolle</label>
+                <label for="username">${placeholderWithTranslation.GENERIC_ROLE}</label>
             </td>
 			<td>
 				<select id="role" name="username"  style="width: 60%;">
@@ -28,7 +28,7 @@ ${placeholderWithTranslation.bittewahlensie}
 		</tr>
         <tr>
 			<td>
-                <label for="password">Passwort</label>
+                <label for="password">${placeholderWithTranslation.GENERIC_PASSWORD}</label>
             </td>
 			<td>
                 <input type="password" name="password" value="$!octopusRequest.get("password")" id="password"  style="width: 60%;">

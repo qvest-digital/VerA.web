@@ -59,7 +59,7 @@
 
 
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.dublettensuche}</span>
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.dublettensuche}</span>
 		</div>
 
 		<vera-info>
@@ -85,15 +85,15 @@
 			<col width="$column8%" />
 
 			<tr>
-				<th class="smallCell textCenter">ID</th>
+				<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
 				<th>${placeholderWithTranslation.GENERIC_NAME}</th>
-				<th>Vorname</th>
-				<th>Amtsbezeichnung</th>
-				<th>Firma / Institution (G)</th>
-				<th>Stra&szlig;e (G)</th>
-				<th>PLZ (G)</th>
-				<th>Ort (G)</th>
-				<th class="textCenter smallCell">Weiteres Vorgehen</th>
+				<th>${placeholderWithTranslation.GENERIC_FIRSTNAME}</th>
+				<th>&{placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}</th>
+				<th>&{placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION} (G)</th>
+				<th>&{placeholderWithTranslation.GENERIC_STREET} (G)</th>
+				<th>&{placeholderWithTranslation.GENERIC_POST_NUMBER} (G)</th>
+				<th>&{placeholderWithTranslation.GENERIC_CITY} (G)</th>
+				<th class="textCenter smallCell">&{placeholderWithTranslation.GENERIC_FURTHER_PROCEEDING}</th>
 			</tr>
 			<tr>
 				<td class="textCenter"><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>

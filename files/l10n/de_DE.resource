@@ -457,7 +457,7 @@ GENERIC_DATE=Datum
 GENERIC_WORKAREA_SINGULAR=Arbeitsbereich
 GENERIC_LASTNAME=Nachname
 GENERIC_FIRSTNAME=Vorname
-akwritemtsbezeichnung=Amtsbezeichnung
+amtsbezeichnung=Amtsbezeichnung
 GENERIC_COMPANY_INSTITUTION=Firma / Institution
 GENERIC_STREET=Stra\u00DFe
 GENERIC_POST_NUMBER=PLZ
@@ -1319,7 +1319,7 @@ markiertenveranstaltungsorte=Markierte(r) Veranstaltungsort(e)
 hinweis=Hinweis
 inaktiv=inaktiv
 aktionen=Aktionen
-anschrift=Anschrift
+anschrift
 anderungenspeichern=\u00C4nderungen speichern
 senden=Senden
 
@@ -1485,7 +1485,7 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Soll der Rang der Kategorie aus den S
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zur\u00FCcksetzen
 GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
 GUEST=Gast
-GENERIC_OF=von
+GENERIC_OF_Capital=Von
 GENERIC_ASSIGN=Zuweisen
 GENERIC_CANCEL=Abbrechen
 GENERIC_DELETE=Entfernen
@@ -1648,5 +1648,52 @@ EVENT_NO_DOCTYPES_ASSIGNED=Der Veranstaltung wurden noch keine Dokumenttypen zug
 # DATE HELPER TEXTS
 DATE_HELPER_INCORRECT_DATE= ist kein g\u00fcltiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!
 
-
+#WIP
 GENERIC_SHOW_CURRENT_EVENTS=Aktuelle Veranstaltungen anzeigen
+GENERIC_FURTHER_PROCEEDING=Weiteres Vorgehen
+
+LETTER_MAIN_PERSON=H
+LETTER_PARTNER=P
+LETTER_RESERVE=R
+LETTER_DELEGATION=D
+LETTER_HOST=G
+
+GENERIC_LASTNAME_WITH_SOFT_HYPHEN=Nach\u00ADname
+GENERIC_FIRSTNAME_WITH_SOFT_HYPHEN=Vor\u00ADname
+
+GENERIC_LOAD_EXISTING_IMPORTPROCESS=Bestehenden Importvorgang laden
+GENERIC_IMPORTID=ImportID
+GENERIC_YEAR=Jahr
+GENERIC_COUNT=Anzahl
+GENERIC_PARTICIPATION=Teilnahme
+GENERIC_NOT_ASSIGNED_TO_CATEGORY=Keiner Kategorie zugeordnet
+GENERIC_NOT_ASSIGNED_TO_WORKAREA=Keinem Arbeitsbereich zugeordnet
+GENERIC_NO_HOST_ASSIGNED=Kein Gastgeber zugeordnet
+GENERIC_NO_GUEST_FOUND=Kein Gast gefunden
+
+GENERIC_PHONE_NUMBER_SHORT=Telefonnr.
+GENERIC_FAX_NUMBER_SHORT=Faxnr.
+
+GENERIC_MONTH_YEAR=Monat\u2215Jahr
+GENERIC_LOOK_AT=anschauen
+GENERIC_MOBILE_PHONE=Mobiltelefon
+
+PHONE_OFFICIAL=Tel. dienstlich
+PHONE_PRIVATE=Tel. privat
+PHONE_MOBILE=Tel. mobil
+
+GENERIC_PARTNER_FREETEXTFIELD=Partner Freitextfeld
+GENERIC_VENUE=Veranstaltungsort
+
+GENERIC_TOTAL=Gesamt
+OPTION_MARK_ADMINISTRATION_CATEGORY_1=Kategorie
+OPTION_MARK_ADMINISTRATION_CATEGORY_2=Ereignis
+OPTION_MARK_ADMINISTRATION_CATEGORY_3=Diplo. Corps
+
+GENERIC_IMPORTID_HYPHEN=Import-ID
+
+GENERIC_SUBSTITUTED_BY=vertreten durch
+GENERIC_NONE=Keine
+GENERIC_ADDRESS_BLOCK=Adressblock
+
+GENERIC_CONTEXT_PLURAL=Kontexte

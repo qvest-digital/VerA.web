@@ -43,7 +43,7 @@
         <table>
         	<tr>
         		<th class="smallCell textCenter"><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect"></th>
-        		<th class="smallCell textCenter">ID</th>
+        		<th class="smallCell textCenter">${placeholderWithTranslation.ID}</th>
         		<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
         		<th>${placeholderWithTranslation.dokumenttyp}</th>
         	</tr>

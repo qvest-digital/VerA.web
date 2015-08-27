@@ -98,7 +98,7 @@
 				<td>
 					<select id="add-flags" name="add-flags" onchange="setModified('add')">
 						<option value="0" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 0) selected #end>${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-						<option value="1" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 1) selected #end>Ereignis</option>
+						<option value="1" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 1) selected #end>${placeholderWithTranslation.GENERIC_OCCASION}</option>
 						<option value="99" #if($beanToAdd && $beanToAdd.flags && $beanToAdd.flags == 99) selected #end>Diplo. Corps</option>
 					</select>
 				</td>
@@ -136,9 +136,9 @@
 					#else
 						<select id="${bean.id}-flags" name="${bean.id}-flags" onchange="setModified('$!bean.id')">
 					#end
-						<option #if($bean.flags && $bean.flags == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-						<option #if($bean.flags && $bean.flags == 1) selected#end value="1">Ereignis</option>
-						<option #if($bean.flags && $bean.flags == 99) selected#end value="99">Diplo. Corps</option>
+						<option #if($bean.flags && $bean.flags == 0) selected#end value="0">${placeholderWithTranslation.OPTION_MARK_ADMINISTRATION_CATEGORY_1}</option>
+						<option #if($bean.flags && $bean.flags == 1) selected#end value="1">${placeholderWithTranslation.OPTION_MARK_ADMINISTRATION_CATEGORY_2}</option>
+						<option #if($bean.flags && $bean.flags == 99) selected#end value="99">${placeholderWithTranslation.OPTION_MARK_ADMINISTRATION_CATEGORY_3}</option>
 					</select>
 				</td>
 				<td class="textCenter">

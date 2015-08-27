@@ -23,12 +23,12 @@
 <table style="width: 100%;" border="1" cellpadding="2" cellspacing="2">
 	<tr>
 		<th>&nbsp;</th>
-		<th><nobr>Adressblock 1</nobr></th>
-		<th><nobr>Adressblock 2</nobr></th>
-		<th><nobr>Adressblock 3</nobr></th>
-		<th><nobr>Adressblock 4</nobr></th>
-		<th><nobr>Adressblock 5</nobr></th>
-		<th><nobr>Adressblock 6</nobr></th>
+		<th><nobr>${placeholderWithTranslation.GENERIC_ADDRESS_BLOCK} 1</nobr></th>
+		<th><nobr>${placeholderWithTranslation.GENERIC_ADDRESS_BLOCK} 2</nobr></th>
+		<th><nobr>${placeholderWithTranslation.GENERIC_ADDRESS_BLOCK} 3</nobr></th>
+		<th><nobr>${placeholderWithTranslation.GENERIC_ADDRESS_BLOCK} 4</nobr></th>
+		<th><nobr>${placeholderWithTranslation.GENERIC_ADDRESS_BLOCK} 5</nobr></th>
+		<th><nobr>${placeholderWithTranslation.GENERIC_ADDRESS_BLOCK} 6</nobr></th>
     </tr>
 #foreach($address in $addressen)
 	<tr>
