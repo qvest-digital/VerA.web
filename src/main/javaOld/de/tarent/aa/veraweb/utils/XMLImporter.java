@@ -56,9 +56,7 @@ import de.tarent.octopus.beans.BeanException;
  * @author mikel
  */
 public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstants, CcmConstants {
-    //
-    // Konstruktoren
-    //
+
     /**
      * Dieser Konstruktor merkt sich nach <code>null</code>-Test die übergebene Quelle.
      *
@@ -281,7 +279,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
          *  @see ContentHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
          */
         public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
-            logger.entering(getClass().getName(), "startElement", new Object[] {namespaceURI, localName, qName, atts});
+            logger.entering(getClass().getName(), "startElement", new Object[]{namespaceURI, localName, qName, atts});
             if (CCM_NAMESPACE_URI.equals(namespaceURI))
                 logger.finer("ignoriere Import-Element " + qName + " aus ZKM-Namensraum " + namespaceURI);
             else if (!VW_NAMESPACE_URI.equals(namespaceURI))
@@ -357,7 +355,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
          * @see ContentHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
          */
         public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
-            logger.entering(getClass().getName(), "endElement", new Object[] {namespaceURI, localName, qName});
+            logger.entering(getClass().getName(), "endElement", new Object[]{namespaceURI, localName, qName});
             if (!VW_NAMESPACE_URI.equals(namespaceURI)) {
                 if (CCM_NAMESPACE_URI.equals(namespaceURI))
                     logger.finer("ignoriere Import-Element " + qName + " aus ZKM-Namensraum " + namespaceURI);
@@ -437,7 +435,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
          * @see ContentHandler#startPrefixMapping(java.lang.String, java.lang.String)
          */
         public void startPrefixMapping(String prefix, String uri) throws SAXException {
-            logger.entering(getClass().getName(), "startPrefixMapping", new Object[] {prefix, uri});
+            logger.entering(getClass().getName(), "startPrefixMapping", new Object[]{prefix, uri});
             nameSpaces.put(prefix, uri);
         }
 
@@ -467,9 +465,6 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
             logger.entering(getClass().getName(), "skippedEntity", name);
         }
 
-        //
-        // Hilfsmethoden
-        //
         /**
          * Diese Methode setzt die Person-Attribute in
          * {@link ImportPerson}-Eigenschaften um.<br>
@@ -528,7 +523,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
             String title = atts.getValue(VW_NAMESPACE_URI, NAME_TITLE_ATTRIBUTE);
             String salutation = atts.getValue(VW_NAMESPACE_URI, NAME_SALUTATION_ATTRIBUTE);
 
-            PersonMemberFacade facade =  person.getMemberFacade(!partner, entityLocale);
+            PersonMemberFacade facade = person.getMemberFacade(!partner, entityLocale);
             facade.setFirstname(firstname);
             facade.setLastname(lastname);
             facade.setTitle(title);
@@ -737,21 +732,6 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
             category.name = name;
             extras.add(category);
 
-//            StringBuffer buffer = null;
-//            switch (flagValue) {
-//            case Categorie.FLAG_DEFAULT:
-//                buffer = categoryBuffer;
-//                break;
-//            case Categorie.FLAG_EVENT:
-//                buffer = occasionBuffer;
-//                break;
-//            }
-//
-//            if (buffer != null) {
-//                if (buffer.length() > 0)
-//                    buffer.append('\n');
-//                buffer.append(name);
-//            }
         }
 
         /**
@@ -806,38 +786,38 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
          */
         void setModeEntering(int newMode, String nodeName) throws SAXException {
             int expected = -1;
-            switch(newMode) {
-            case MODE_OUTSIDE:
-                break;
-            case MODE_CONTAINER:
-                expected = MODE_OUTSIDE;
-                break;
-            case MODE_PERSON:
-                expected = MODE_CONTAINER;
-                break;
-            case MODE_MEMBER:
-            case MODE_ADDRESS:
-            case MODE_HISTORY:
-            case MODE_CATEGORY:
-            case MODE_DOCTYPE:
-                expected = MODE_PERSON;
-                break;
-            case MODE_NAME:
-            case MODE_NOTE:
-                expected = MODE_MEMBER;
-                break;
-            case MODE_FUNCTION:
-            case MODE_COMPANY:
-            case MODE_STREET:
-            case MODE_CITY:
-            case MODE_STATE:
-            case MODE_POBOX:
-            case MODE_SUFFIX:
-            case MODE_PHONE:
-                expected = MODE_ADDRESS;
-                break;
-            default:
-                break;
+            switch (newMode) {
+                case MODE_OUTSIDE:
+                    break;
+                case MODE_CONTAINER:
+                    expected = MODE_OUTSIDE;
+                    break;
+                case MODE_PERSON:
+                    expected = MODE_CONTAINER;
+                    break;
+                case MODE_MEMBER:
+                case MODE_ADDRESS:
+                case MODE_HISTORY:
+                case MODE_CATEGORY:
+                case MODE_DOCTYPE:
+                    expected = MODE_PERSON;
+                    break;
+                case MODE_NAME:
+                case MODE_NOTE:
+                    expected = MODE_MEMBER;
+                    break;
+                case MODE_FUNCTION:
+                case MODE_COMPANY:
+                case MODE_STREET:
+                case MODE_CITY:
+                case MODE_STATE:
+                case MODE_POBOX:
+                case MODE_SUFFIX:
+                case MODE_PHONE:
+                    expected = MODE_ADDRESS;
+                    break;
+                default:
+                    break;
             }
             if (mode != expected) {
                 throw new SAXException("XML-Format-Fehler: Element " + nodeName + " darf nur im Modus " + expected + ", nicht " + mode + " auftauchen.");
@@ -855,39 +835,39 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
          * @throws SAXException bei unerlaubten Moduswechselwünschen
          */
         void setModeLeaving(String nodeName) throws SAXException {
-            switch(mode) {
-            case MODE_OUTSIDE:
-                mode = -1;
-                break;
-            case MODE_CONTAINER:
-                mode = MODE_OUTSIDE;
-                break;
-            case MODE_PERSON:
-                mode = MODE_CONTAINER;
-                break;
-            case MODE_MEMBER:
-            case MODE_ADDRESS:
-            case MODE_HISTORY:
-            case MODE_CATEGORY:
-            case MODE_DOCTYPE:
-                mode = MODE_PERSON;
-                break;
-            case MODE_NAME:
-            case MODE_NOTE:
-                mode = MODE_MEMBER;
-                break;
-            case MODE_FUNCTION:
-            case MODE_COMPANY:
-            case MODE_STREET:
-            case MODE_CITY:
-            case MODE_STATE:
-            case MODE_POBOX:
-            case MODE_SUFFIX:
-            case MODE_PHONE:
-                mode = MODE_ADDRESS;
-                break;
-            default:
-                throw new SAXException("XML-Format-Fehler: Element " + nodeName + " kann im Modus " + mode + " nicht verlassen werden.");
+            switch (mode) {
+                case MODE_OUTSIDE:
+                    mode = -1;
+                    break;
+                case MODE_CONTAINER:
+                    mode = MODE_OUTSIDE;
+                    break;
+                case MODE_PERSON:
+                    mode = MODE_CONTAINER;
+                    break;
+                case MODE_MEMBER:
+                case MODE_ADDRESS:
+                case MODE_HISTORY:
+                case MODE_CATEGORY:
+                case MODE_DOCTYPE:
+                    mode = MODE_PERSON;
+                    break;
+                case MODE_NAME:
+                case MODE_NOTE:
+                    mode = MODE_MEMBER;
+                    break;
+                case MODE_FUNCTION:
+                case MODE_COMPANY:
+                case MODE_STREET:
+                case MODE_CITY:
+                case MODE_STATE:
+                case MODE_POBOX:
+                case MODE_SUFFIX:
+                case MODE_PHONE:
+                    mode = MODE_ADDRESS;
+                    break;
+                default:
+                    throw new SAXException("XML-Format-Fehler: Element " + nodeName + " kann im Modus " + mode + " nicht verlassen werden.");
             }
         }
 
