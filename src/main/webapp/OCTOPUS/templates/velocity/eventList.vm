@@ -1,7 +1,7 @@
 #set($activeMenu = "Veranstaltungen")
 
 #if($action == "guest")
-	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SELECT} - ${placeholderWithTranslation.veranstaltung}: $!message.plain($event.shortname)")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SELECT} - ${placeholderWithTranslation.GENERIC_EVENT}: $!message.plain($event.shortname)")
 
 	#set($column0 = 5)
 	#set($column1 = 25)
@@ -53,9 +53,9 @@
 			<h1>${placeholderWithTranslation.suchergebnis}: ${placeholderWithTranslation.GENERIC_EVENTS_PP}</h1>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungsubersicht}</span>
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_EVENT_VIEW}</span>
 		</div>
-			<h1>${placeholderWithTranslation.veranstaltungsubersicht}</h1>
+			<h1>${placeholderWithTranslation.GENERIC_EVENT_VIEW}</h1>
 	#end
 
 
@@ -138,7 +138,7 @@
 		#if ($listparam.count == 0)
 			#if($grants.mayWrite() && !$searchTask)
 				<div id="" class="buttonPanel-top textRight marginBottom10">
-					<input type="button" name="" value="${placeholderWithTranslation.neueveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateEvent?action=event';"/>
+					<input type="button" name="" value="${placeholderWithTranslation.GENERIC_CREATE_NEW_EVENT}" class="mainButton" onclick="window.location.href='CreateEvent?action=event';"/>
 				</div>
 			#end
 			<div class="contentBoxColored grayBorder marginBottom20">
@@ -158,9 +158,9 @@
 
 			#if($action != "guest" && $action != "addperson" && !$searchTask )
 				<span id="" class="buttonPanel-top textRight floatRight">
-					<input type="button" name="" value="${placeholderWithTranslation.veranstaltungsuchen}" class="mainButton" onclick="window.location.href='ShowEventSearch?action=event';"/>
+					<input type="button" name="" value="${placeholderWithTranslation.GENERIC_EVENT_SEARCH}" class="mainButton" onclick="window.location.href='ShowEventSearch?action=event';"/>
 					#if($grants.mayWrite())
-						<input type="button" name="" value="${placeholderWithTranslation.neueveranstaltunganlegen}" class="mainButton" onclick="window.location.href='CreateEvent?action=event';"/>
+						<input type="button" name="" value="${placeholderWithTranslation.GENERIC_CREATE_NEW_EVENT}" class="mainButton" onclick="window.location.href='CreateEvent?action=event';"/>
 					#end
 				</span>
 			#end
@@ -186,10 +186,10 @@
 
 						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
 						<th>${placeholderWithTranslation.GENERIC_NAME}</th>
-						<th class="smallCell textCenter">${placeholderWithTranslation.beginn}</th>
-						<th class="smallCell textCenter">${placeholderWithTranslation.ende}</th>
-						<th>${placeholderWithTranslation.gastgeber}</th>
-						<th>${placeholderWithTranslation.veranstaltungsort}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_BEGIN}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_END}</th>
+						<th>${placeholderWithTranslation.GENERIC_HOST}</th>
+						<th>${placeholderWithTranslation.GENERIC_EVENT_LOCATION_SINGULAR}</th>
 					</tr>
 
 					#foreach($bean in $list)

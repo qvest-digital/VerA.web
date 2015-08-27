@@ -23,7 +23,7 @@
 	</div>
 	<div class="tableRow">
 		<div class="tableCell width50 inlineLabel">
-			<strong>${placeholderWithTranslation.inland}</strong><br />
+			<strong>${placeholderWithTranslation.GENERIC_IN_COUNTRY}</strong><br />
 			#if ($facade.Domestic && $facade.Domestic == "f")
 				<input type="radio" name="guest-domestic$ext" value="t" id="guest-domestic${ext}-t"><label for="guest-domestic${ext}-t">
                 ${placeholderWithTranslation.GENERIC_YES}</label>

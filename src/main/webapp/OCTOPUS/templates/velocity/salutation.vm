@@ -24,10 +24,10 @@
             <input type="hidden" name="limit" value="" />
 
             <div id="breadcrumb marginBottom10" class="textRight">
-            	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}"> ${placeholderWithTranslation.GENERIC_HOME} </a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.anreden}</span>
+            	<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}"> ${placeholderWithTranslation.GENERIC_HOME} </a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_SALUTATIONS}</span>
     		</div>
 
-            <h1>${placeholderWithTranslation.anreden}</h1>
+            <h1>${placeholderWithTranslation.GENERIC_SALUTATIONS}</h1>
 
             <span id="actionPanel" class="inlineLabel">
               <strong>${placeholderWithTranslation.GENERIC_SALUTATIONS_MARKED}</strong>

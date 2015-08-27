@@ -70,7 +70,7 @@
     				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}"/></th>
     				<th>${placeholderWithTranslation.GENERIC_NAME}</th>
     				<th>${placeholderWithTranslation.GENERIC_FIRSTNAME}</th>
-    				<th>${placeholderWithTranslation.adresse}</th>
+    				<th>${placeholderWithTranslation.GENERIC_ADDRESSES}</th>
     			</tr>
     			#foreach($bean in $list)
     			<tr>

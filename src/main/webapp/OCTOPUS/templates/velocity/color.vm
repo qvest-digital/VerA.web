@@ -53,7 +53,7 @@
 				</tr>
 
 				<tr>
-                    <td colspan="2" class="bold">${placeholderWithTranslation.inland}
+                    <td colspan="2" class="bold">${placeholderWithTranslation.GENERIC_IN_COUNTRY}
 		    				${placeholderWithTranslation.GENERIC_YES} - 
                                                 ${placeholderWithTranslation.GENERIC_GENDER}: 
                                                 ${placeholderWithTranslation.GENERIC_GENDER_FEMALE}
@@ -79,7 +79,7 @@
 				#end
 
 				<tr>
-                    <td colspan="2" class="bold">${placeholderWithTranslation.inland}: 
+                    <td colspan="2" class="bold">${placeholderWithTranslation.GENERIC_IN_COUNTRY}: 
 		    				${placeholderWithTranslation.GENERIC_YES} - 
 		    		                ${placeholderWithTranslation.GENERIC_GENDER}: 
 		    		                ${placeholderWithTranslation.GENERIC_GENDER_MALE}
@@ -105,7 +105,7 @@
 				#end
 
 				<tr>
-                    <td colspan="2" class="bold">${placeholderWithTranslation.inland}:
+                    <td colspan="2" class="bold">${placeholderWithTranslation.GENERIC_IN_COUNTRY}:
 						${placeholderWithTranslation.GENERIC_NO} - 
 						${placeholderWithTranslation.GENERIC_GENDER}: 
 						${placeholderWithTranslation.GENERIC_GENDER_FEMALE}
@@ -131,7 +131,7 @@
 				#end
 
 				<tr>
-                    <td colspan="2" class="bold">${placeholderWithTranslation.inland}: 
+                    <td colspan="2" class="bold">${placeholderWithTranslation.GENERIC_IN_COUNTRY}: 
 						${placeholderWithTranslation.GENERIC_NO} - 
 						${placeholderWithTranslation.GENERIC_GENDER}: 
 						${placeholderWithTranslation.GENERIC_GENDER_MALE}

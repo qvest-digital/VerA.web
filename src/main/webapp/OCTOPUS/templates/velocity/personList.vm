@@ -174,7 +174,7 @@
 			#if($deleted == 1)
 				showSuccess(' ${placeholderWithTranslation.eswurdeeinepersongeloscht} ');
 			#elseif($deleted > 1)
-				showSuccess(' ${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $deleted ${placeholderWithTranslation.personengeloscht} ');
+				showSuccess(' ${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $deleted ${placeholderWithTranslation.GENERIC_PERSONS_DELETED} ');
 			#end
 		</script>
 	#end
@@ -557,7 +557,7 @@
 
 				<span id="actionPanel" class="inlineLabel">
 					<label> ${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
-						<input type="button" value="Ersetzen" title="${placeholderWithTranslation.ersetzen}" onclick="submitFormWithGivenAction('SaveReplacePersonList');" />
+						<input type="button" value="Ersetzen" title="${placeholderWithTranslation.GENERIC_REPLACE}" onclick="submitFormWithGivenAction('SaveReplacePersonList');" />
 					</label>
 				</span>
 
@@ -661,9 +661,9 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 					<span id="buttonPanel-top" class="textRight floatRight">
 				#end
 				#if($action != "guest")
-					<input type="button" id="button.searchPerson" name="button.searchPerson" value="${placeholderWithTranslation.personensuchen}" title="${placeholderWithTranslation.personensuchen}" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
+					<input type="button" id="button.searchPerson" name="button.searchPerson" value="${placeholderWithTranslation.GENERIC_SEARCH_PERSONS}" title="${placeholderWithTranslation.GENERIC_SEARCH_PERSONS}" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
 					#if($grants.mayWrite())
-						<input type="button" id="button.newPerson" name="button.newPerson" value="${placeholderWithTranslation.neuepersonanlegen}" title="${placeholderWithTranslation.neuepersonanlegen}" class="mainButton" onclick="window.location.href='CreatePerson';" />
+						<input type="button" id="button.newPerson" name="button.newPerson" value="${placeholderWithTranslation.GENERIC_CREATE_PERSON}" title="${placeholderWithTranslation.GENERIC_CREATE_PERSON}" class="mainButton" onclick="window.location.href='CreatePerson';" />
 					#end
 				#end
 					</span>
@@ -1233,7 +1233,7 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 	#else
 		#if($grants.mayWrite() && !$searchTask)
 			<div id="" class="buttonPanel-top textRight marginBottom10">
-				<input type="button" id="button.newPerson" name="button.newPerson" value="${placeholderWithTranslation.neuepersonanlegen}" title="${placeholderWithTranslation.neuepersonanlegen}" class="mainButton" onclick="window.location.href='CreatePerson';" />
+				<input type="button" id="button.newPerson" name="button.newPerson" value="${placeholderWithTranslation.GENERIC_CREATE_PERSON}" title="${placeholderWithTranslation.GENERIC_CREATE_PERSON}" class="mainButton" onclick="window.location.href='CreatePerson';" />
 			</div>
 		#end
 

@@ -11,12 +11,12 @@
         <span>
             <a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">
                 ${placeholderWithTranslation.GENERIC_HOME}
-            </a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.personenimport}
+            </a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_IMPORT_PERSONS}
         </span>
     </div>
 
     <h1>
-        ${placeholderWithTranslation.importvonpersonendaten}
+        ${placeholderWithTranslation.GENERIC_IMPORT_FROM_PERSONS_DATA}
     </h1>
 
     #if($errors.size() > 0 || $importStatus.invalidData)
@@ -84,7 +84,7 @@
                     <div class="tableCell width50">
                         #if($grants && $grants.isAdmin() && $allOrgUnit)
                             <label for="orgUnit">
-                                ${placeholderWithTranslation.zielmandant}
+                                ${placeholderWithTranslation.GENERIC_TARGET_CLIENT}
                             </label>
                             <select name="orgUnit" id="orgUnit">
                                 #foreach($orgunit in $allOrgUnit)
@@ -100,7 +100,7 @@
                 <div class="tableRow">
                     <div class="tableCell">
                         <label for="importfile">
-                            ${placeholderWithTranslation.importdatei}*
+                            ${placeholderWithTranslation.GENERIC_IMPORT_DATA}*
                         </label>
                         <div id="input_container" style="width: 0px; height: 0px;">
                             <input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*" onChange="fileSelected();"/>
@@ -125,7 +125,7 @@ border-left: 1px solid #CCCCCC;" onclick="upload();">
                     </div>
                     <div class="tableCell">
                         <label for="format">
-                            ${placeholderWithTranslation.dateityp}
+                            ${placeholderWithTranslation.GENERIC_DATA_TYPE}
                         </label>
                         <select name="format" id="format" onchange="return formatChanged();">
                             #foreach($formatKey in $formats.keySet())
@@ -236,7 +236,7 @@ border-left: 1px solid #CCCCCC;" onclick="upload();">
     </div><!-- End #main_content-->
 
     <div id="buttonPanel-bottom" class="textRight marginTop10">
-        <input name="start" type="button" value="${placeholderWithTranslation.importstarten}" title="${placeholderWithTranslation.importstarten}" class="mainButton" onclick="askStart()">
+        <input name="start" type="button" value="${placeholderWithTranslation.GENERIC_START_IMPORT}" title="${placeholderWithTranslation.GENERIC_START_IMPORT}" class="mainButton" onclick="askStart()">
     </div>
 </div>
 

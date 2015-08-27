@@ -10,10 +10,10 @@
     <div id="content_container">
 
     	<div id="breadcrumb marginBottom10" class="textRight">
-    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="index.html">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration}> ${placeholderWithTranslation.anreden}/span>
+    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="index.html">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration}> ${placeholderWithTranslation.GENERIC_SALUTATIONS}/span>
     	</div>
 
-    	<h1>${placeholderWithTranslation.anreden}</h1>
+    	<h1>${placeholderWithTranslation.GENERIC_SALUTATIONS}</h1>
 
     	<span id="actionPanel" class="inlineLabel">
     		<strong>${placeholderWithTranslation.markierteanreden}</strong>
@@ -45,7 +45,7 @@
         		<th class="smallCell textCenter"><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect"></th>
         		<th class="smallCell textCenter">ID</th>
         		<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
-        		<th>${placeholderWithTranslation.dokumenttyp}</th>
+        		<th>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_SINGULAR}</th>
         	</tr>
         #if ($allDoctype.iterator().hasNext())
         	<tr>

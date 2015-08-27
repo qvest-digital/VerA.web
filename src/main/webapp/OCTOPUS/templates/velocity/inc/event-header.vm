@@ -9,7 +9,7 @@
                 $!message.text($event.id)
 			</div>
 			<div class="tableCell width30">
-				<strong>${placeholderWithTranslation.beginn}:</strong>
+				<strong>${placeholderWithTranslation.GENERIC_BEGIN}:</strong>
                 $!message.date("DATE", $event.begin) #if($event-beginhastime)um $!message.date("TIME", $event.begin) Uhr#end
 			</div>
 			#if($completeEventHeader)
@@ -30,7 +30,7 @@
 				<strong style="vertical-align: inherit;">${placeholderWithTranslation.EVENT_NAME}:</strong> <pre>$!message.textarea($eventnamecut)</pre>
 			</div>
 			<div class="tableCell width30">
-				<strong>${placeholderWithTranslation.ende}:</strong>
+				<strong>${placeholderWithTranslation.GENERIC_END}:</strong>
                 $!message.date("DATE", $event.end) #if($event-endhastime)${placeholderWithTranslation.GENERIC_AT} $!message.date("TIME", $event.end) ${placeholderWithTranslation.GENERIC_OCLOCK}#end
 			</div>
 		</div>

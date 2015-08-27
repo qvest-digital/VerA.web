@@ -48,7 +48,7 @@
 			</div>
 
 			<div class="tableCell width50">
-				<label for="person-country$!message.plain($ext)">${placeholderWithTranslation.land}</label>
+				<label for="person-country$!message.plain($ext)">${placeholderWithTranslation.GENERIC_COUNTRY}</label>
 				<input type="text" id="person-country$!message.plain($ext)" name="person-country$!message.plain($ext)" value="$!message.text($facade.Country)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
 
@@ -57,7 +57,7 @@
 		<div class="tableRow">
 
 			<div class="tableCell width50 inlineLabel">
-				<label for="person-poboxzipcode$!message.plain($ext)">${placeholderWithTranslation.GENERIC_POST_NUMBER}</label> / <label for="person-pobox$!message.plain($ext)">${placeholderWithTranslation.postfach}</label><br />
+				<label for="person-poboxzipcode$!message.plain($ext)">${placeholderWithTranslation.GENERIC_POST_NUMBER}</label> / <label for="person-pobox$!message.plain($ext)">${placeholderWithTranslation.GENERIC_POST_OFFICE_BOX}</label><br />
 				<input type="text" id="person-poboxzipcode$!message.plain($ext)" name="person-poboxzipcode$!message.plain($ext)" value="$!message.text($facade.POBoxZipCode)" onchange="setModified();" class="width15 inlineInput" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 				<input type="text" id="person-pobox$!message.plain($ext)" name="person-pobox$!message.plain($ext)" value="$!message.text($facade.POBox)" onchange="setModified();" class="width85 inlineInput" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
@@ -98,7 +98,7 @@
 		 <div class="tableRow">
 
 			<div class="tableCell width50">
-				<label for="person-mobil$!message.plain($ext)">${placeholderWithTranslation.mobil}</label>
+				<label for="person-mobil$!message.plain($ext)">${placeholderWithTranslation.GENERIC_MOBILE}</label>
 				<input type="text" id="person-mobil$!message.plain($ext)" name="person-mobil$!message.plain($ext)" value="$!message.text($facade.Mobile)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
 
@@ -119,7 +119,7 @@
 		<div class="tableRow">
 
 			<div class="tableCell width50">
-				<label for="person-url$!message.plain($ext)">${placeholderWithTranslation.www}</label>
+				<label for="person-url$!message.plain($ext)">${placeholderWithTranslation.LETTERS_WWW}</label>
 				<input type="url" id="person-url$!message.plain($ext)" name="person-url$!message.plain($ext)" value="$!message.text($facade.Url)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
 

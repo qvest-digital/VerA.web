@@ -1,5 +1,5 @@
 #set($activeMenu = "Veranstaltungen")
-#set($title = "${placeholderWithTranslation.BROWSER_TITLE_DISTRIBUTOR_CREATE} - ${placeholderWithTranslation.veranstaltung}: $!event.shortname")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_DISTRIBUTOR_CREATE} - ${placeholderWithTranslation.GENERIC_EVENT}: $!event.shortname")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_DISTRIBUTOR}")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_PLURAL}")

@@ -353,14 +353,15 @@ GENERIC_CHARSET=Zeichensatz
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Standard-Anreden und Freitextfelder
 GENERIC_STANDARD_SALUTATION=Standard-Anrede
 GENERIC_STANDARD_SALUTATION_PARTNER=Standard-Anrede Partner
+GENERIC_FREE_TEXT_FIELD=Freitextfeld
+GENERIC_FREE_TEXT_FIELDS=Freitextfelder
 GENERIC_FREE_TEXT_FIELD_CONNECTOR=Freitextfeld-Verbinder
-freitextfeldanzeige=Freitextfeld (Anzeige)
-freitextfeldgasteliste=Freitextfeld (G\u00E4steliste)
+GENERIC_SHOW=Anzeige
 GENERIC_HELP=Hilfe
 GENERIC_HELP_LINK=Hilfe-Link
 GENERIC_HELP_WINDOW=Hilfe-Fenster
-GENERIC_USE_CURRENT_BROWSER_WINDOW=Aktuelles Browser-Fenster verwenden
-GENERIC_OPEN_NEW_BROWSER_WINDOW_PER_REQUEST=Pro Aufruf ein neues Browser-Fenster \u00F6ffnen
+OPTION_HELP_WINDOW_1=Aktuelles Browser-Fenster verwenden
+OPTION_HELP_WINDOW_2=Pro Aufruf ein neues Browser-Fenster \u00F6ffnen
 OPTION_HELP_WINDOW_3=Bei jedem Aufruf das selbe Browser-Fenster (nicht das aktuelle)
 GENERIC_MISCELLANEOUS=Sonstiges
 GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
@@ -499,44 +500,44 @@ csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 
 # PERSONEN/PERSONENUEBERSICHT
 GENERIC_PERSON_SUMMARY=Personen\u00FCbersicht
-personensuchen=Personen suchen
-neuepersonanlegen=Neue Person anlegen
-personengeloscht=Personen gel\u00F6scht
+GENERIC_SEARCH_PERSONS=Personen suchen
+GENERIC_CREATE_PERSON=Neue Person anlegen
+GENERIC_PERSONS_DELETED=Personen gel\u00F6scht
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN
-personbearbeiten=Person bearbeiten
-erfasstam=Erfasst am
-zuletztgeandertam=Zuletzt ge\u00E4ndert am
-personen-id=Personen-ID
-online-anmeldungbenutzername=Online-Anmeldung Benutzername
+GENERIC_EDIT_PERSON=Person bearbeiten
+GENERIC_DOCUMENTED_ON=Erfasst am
+GENERIC_LAST_EDITED_ON=Zuletzt ge\u00E4ndert am
+GENERIC_PERSONS_ID=Personen-ID
+GENERIC_OA_USERNAME=Online-Anmeldung Benutzername
 freifeld-vorschaufuretikett="Freifeld-Vorschau f\u00C3\u00BCr \u00E2\u0080\u009EEtikett\u00E2\u0080\u009C"
 zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
-personkopieren=Person kopieren
-etiketterzeugen=Etikett erzeugen
-einerveranstaltungzuordnen=Einer Veranstaltung zuordnen
-personloschen=Person l\u00F6schen
-statistik=Statistik
+GENERIC_COPY_PERSON=Person kopieren
+GENERIC_CREATE_TAG=Etikett erzeugen
+GENERIC_ASSIGN_AN_EVENT=Einer Veranstaltung zuordnen
+GENERIC_DELETE_PERSON=Person l\u00F6schen
+GENERIC_STATISTIC=Statistik
 ausstammdatenhinzufugen=Aus Stammdaten hinzuf\u00FCgen
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
-dokumenttyp=Dokumenttyp
-alleerzeugen=Alle erzeugen
+GENERIC_DOCUMENT_TYPE_SINGULAR=Dokumenttyp
+GENERIC_GENERATE_ALL=Alle erzeugen
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
-kategorienundereignisse=Kategorien und Ereignisse
+GENERIC_CATEGORIES_AND_OCCASIONS=Kategorien und Ereignisse
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/STATISTIK
 ubersichtuberalleveranstaltungeneinesgastes=\u00FCbersicht \u00FCber alle Veranstaltungen eines Gastes.
-ab=Ab
+GENERIC_VIEW_OVER_GUEST_EVENT=Ab
 statistikfurgast=Statistik f\u00FCr Gast
-veranstaltung=Veranstaltung
-beginn=Beginn
+GENERIC_EVENT=Veranstaltung
+GENERIC_BEGIN=Beginn
 
 # PERSONEN/PERSONENSUCHE
-personensuche=Personensuche
-suche=Suche
-gultigkeitsdatum=G\u00FCltigkeitsdatum
-erweitertesuche=Erweiterte Suche
+GENERIC_SEARCH_PERSON=Personensuche
+GENERIC_SEARCH=Suche
+GENERIC_VALIDITY_DATE=G\u00FCltigkeitsdatum
+GENERIC_ADVANCED_SEARCH=Erweiterte Suche
 HINT_PLACEHOLDER=Hinweis Sie k\u00E4nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00FCr mehrere und das ? f\u00FCr einzelne Zeichen. Die Suche erfolgt im Vornamen, Nachnamen, Ort, PLZ, Stra\u00DFe, Firma/Institution, Telefon, Fax, Mobil, E-Mail, Bemerkungen, Kategorien, Arbeitsbereiche und Amtsbezeichnung/Funktion.
 
 # PERSONEN/NEUE PERSON ANLEGEN
@@ -544,49 +545,48 @@ MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=Die Anmeldedaten wurden erfolgreich erzeugt.
 MESSAGE_OSIAM_LOGIN_DATA_EXIST=Anmeldedaten f\u00FCr diese Person sind bereits vorhanden.
 
 # PERSONEN/NEUE PERSON ANLEGEN
-istfirma=Ist Firma
-anrede=Anrede
+GENERIC_IS_COMPANY=Ist Firma
+GENERIC_SALUTATION_SINGULAR=Anrede
 frau=Frau
 herr=Herr
 lady=Lady
 sir=Sir
-bittewahlensie=Bitte w\u00E4hlen Sie
-akadtitel=Akad. Titel
-inland=Inland
-hinweisfurorga=Hinweis f\u00FCr Orga
-firma=Firma
-land=Land
+GENERIC_PLEASE_CHOOSE=Bitte w\u00E4hlen Sie
+GENERIC_ACAD_TITLE=Akad. Titel
+GENERIC_IN_COUNTRY=Inland
+GENERIC_HINT_FOR_ORGA=Hinweis f\u00FCr Orga
+GENERIC_COMPANY_SINGULAR=Firma
+GENERIC_COUNTRY=Land
 plz/postfach=PLZ / Postfach
-postfach=Postfach
+GENERIC_POST_OFFICE_BOX=Postfach
 iban=IBAN
 bic=BIC
-mobil=Mobil
-www=WWW
+GENERIC_MOBILE=Mobil
+LETTERS_WWW=WWW
 dublettenprufungdurchfuhren=Dublettenpr\u00FCfung durchf\u00FChren
 zurpersonenubersicht=Zur Personen\u00FCbersicht
 
 # PERSONEN/SUCHEN & ERSETZEN IN PERSONENDATEN
 suchen&ersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
 hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Hinweis Wenn Sie den Platzhalter * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
-suchen=Suchen
-ersetzen=Ersetzen
-infolgendenfeldern=In folgenden Feldern
+GENERIC_SEARCH_V=Suchen
+GENERIC_REPLACE=Ersetzen
+GENERIC_IN_THE_FOLLOWING_FIELDS=In folgenden Feldern
 anrede/titel=Anrede / Titel
-freitextfelder=Freitextfelder
-amtsbezeichn=Amtsbezeichn.
-institution=Institution
-adresse=Adresse
+GENERIC_EMPLOYMENT_TITLE_SHORT=Amtsbezeichn.
+GENERIC_INSTITUTION_SINGULAR=Institution
+GENERIC_ADDRESSES=Adresse
 telefon/fax=Telefon / Fax
-einzelnersetzen=Einzeln ersetzen
-alleersetzen=Alle ersetzen
+GENERIC_REPLACE_INDIVIDUALLY=Einzeln ersetzen
+GENERIC_REPLACE_ALL=Alle ersetzen
 
 # PERSONEN/DUBLETTENSUCHE
-dublettensuche=Dublettensuche
+GENERIC_DUPLICATE_SEARCH=Dublettensuche
 
 # PERSONEN/EXPORT VON PERSONENDATEN
 exportvonpersonendaten=Export von Personendaten
 HINT_EXPORT_MANDANT_PERSON=Sie exportieren mit dieser Funktion ausschlie\u00DFlich Personen aus Ihrem aktuellen Mandanten.
-ohne=Ohne
+GENERIC_WITHOUT=Ohne
 botschaften=Botschaften
 finanzamtsprecher=Finanzamtsprecher
 journalisten=Journalisten
@@ -595,7 +595,7 @@ nogs=NOGs
 politik=Politik
 pressevertreter=Pressevertreter
 wirtschaft=Wirtschaft
-exportstarten=Export starten
+GENERIC_START_EXPORT=Export starten
 ENCODING_TYPE_CYRILLIC=Kyrillisch
 ENCODING_TYPE_WEST=Westlich
 ENCODING_TYPE_BALTIC=Baltisch
@@ -635,42 +635,42 @@ HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern 
 HINT_EXPORT_CSV_ISO_8859_15=Dieses Format ist f\u00FCr Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
-importvonpersonendaten=Import von Personendaten
+GENERIC_IMPORT_FROM_PERSONS_DATA=Import von Personendaten
 HINT_IMPORT_SHORT_CONTENT=Hinweis Beim Import k\u00E4nnen Feldinhalte, die l\u00E4nger als bei VerA.web vorgesehen sind, gek\u00FCrzt \u00FCbernommen werden.
-zielmandant=Zielmandant
-importdatei=Import-Datei
-dateityp=Dateityp
+GENERIC_TARGET_CLIENT=Zielmandant
+GENERIC_IMPORT_DATA=Import-Datei
+GENERIC_DATA_TYPE=Dateityp
 dateiauswahlen=Datei ausw\u00E4hlen
 keineausgewahlt=Keine ausgew\u00E4hlt
-importstarten=Import starten
+GENERIC_START_IMPORT=Import starten
 
 # PERSONENDROPDOWN
-neueperson=Neue Person
+GENERIC_NEW_PERSON=Neue Person
 suchen&ersetzen=Suchen & ersetzen
-personenexport=Personenexport
-personenimport=Personenimport
+GENERIC_EXPORT_PERSONS=Personenexport
+GENERIC_IMPORT_PERSONS=Personenimport
 
 # VERANSTALTUNGENDROPDOWN
-veranstaltungsubersicht=Veranstaltungs\u00FCbersicht
+GENERIC_EVENT_VIEW=Veranstaltungs\u00FCbersicht
 veranstaltunguuche=Veranstaltungssuche
-neueveranstaltung=Neue Veranstaltung
-statistiken=Statistiken
+GENERIC_NEW_EVENT=Neue Veranstaltung
+GENERIC_STATISTICS=Statistiken
 
 # ADMINISTRATIONDROPDOWN
-anreden=Anreden
-arbeitsbereiche=Arbeitsbereiche
-dokumenttypen=Dokumenttypen
+GENERIC_SALUTATIONS=Anreden
+GENERIC_WORKAREA_PLURAL=Arbeitsbereiche
+GENERIC_DOCUMENT_TYPE_PLURAL=Dokumenttypen
 e-mail-postausgang=E-Mail-Postausgang
-programmeinstellungen=Programmeinstellungen
-veranstaltungsorte=Veranstaltungsorte
+GENERIC_PROGRAM_PERFERENCES=Programmeinstellungen
+GENERIC_EVENT_LOCATION_PLURAL=Veranstaltungsorte
 
 # VERANSTALTUNGSUEBERSICHT
-ende=Ende
-gastgeber=Gastgeber
-veranstaltungsort=Veranstaltungsort
-veranstaltungsuchen=Veranstaltung suchen
-neueveranstaltunganlegen=Neue Veranstaltung anlegen
-anzahlproseite=Anzahl pro seite
+GENERIC_END=Ende
+GENERIC_HOST=Gastgeber
+GENERIC_EVENT_LOCATION_SINGULAR=Veranstaltungsort
+GENERIC_EVENT_SEARCH=Veranstaltung suchen
+GENERIC_CREATE_NEW_EVENT=Neue Veranstaltung anlegen
+GENERIC_NUMBER_PER_PAGE=Anzahl pro seite
 seitexvony=Seite x von y
 
 # EVENT HEADER
@@ -686,38 +686,38 @@ EVENT_INVITATION_TYPE_ONLY_PARTNER=Nur Partner
 EVENT_INVITATION_TYPE_WITH_PARTNER=Mit Partner
 
 # VERANSTALTUNG BEARBEITEN/ALLGEMEIN
-veranstaltungbearbeiten=Veranstaltung bearbeiten
-zurgasteverwaltung=Zur G\u00E4steverwaltung
-allgemein=Allgemein
-aufgaben=Aufgaben
-zusatzlichepersonendaten=Zus\u00E4tzliche Personendaten
+GENERIC_EDIT_EVENT=Veranstaltung bearbeiten
+GENERIC_TO_GUEST_MANAGEMENT=Zur G\u00E4steverwaltung
+GENERIC_GENERAL=Allgemein
+GENERIC_TASK_PLURAL=Aufgaben
+GENERIC_ADDITIONAL_PERSONS_DATA=Zus\u00E4tzliche Personendaten
 kurzbereichnung=Kurzbereichnung
-offeneveranstaltung=Offene Veranstaltung
+GENERIC_OPEN_EVENT=Offene Veranstaltung
 umxuhr=Um x uhr
 veranstalgungsort=Veranstalgungsort
-gastgebersuchen=Gastgeber suchen
-gastgeberentfernen=Gastgeber entfernen
-gastgeberpartner=Gastgeber-Partner
-loginnotwendig=Login notwendig
-anmeldungvonpressevertreternmoglich=Anmeldung von Pressevertretern m\u00F6glich
-veranstaltungspeichern=Veranstaltung speichern
-zurveranstaltungsubersicht=Zur Veranstaltungs\u00FCbersicht
+GENERIC_SEARCH_FOR_HOST=Gastgeber suchen
+GENERIC_DELETE_HOST=Gastgeber entfernen
+GENERIC_HOST_PARTNER=Gastgeber-Partner
+GENERIC_LOGIN_REQUIRED=Login notwendig
+GENERIC_SUBSCRIPTION_OF_PRESS_REPRESENTATIVES_POSSIBLE=Anmeldung von Pressevertretern m\u00F6glich
+GENERIC_SAVE_EVENT=Veranstaltung speichern
+GENERIC_TO_EVENT_VIEW=Zur Veranstaltungs\u00FCbersicht
 
 # VERANSTALTUNG BEARBEITEN/DOKUMENTTYPEN
 GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Markierte(n) Dokumenttyp(en) entfernen
-entfernen=Entfernen
-neuendokumenttyphinzufugen=Neuen Dokumenttyp hinzuf\u00FCgen
+GENERIC_DELETE=Entfernen
+GENERIC_ADD_NEW_DOCUMENT_TYPE=Neuen Dokumenttyp hinzuf\u00FCgen
 xvonydokumenttypen=x von y Dokumenttypen
 
 # VERANSTALTUNG BEARBEITEN/AUFGABEN
-neueaufgabeanlegen=Neue Aufgabe anlegen
-esliegenkeineaufgabenfurdieseveranstaltungvor=Es liegen keine Aufgaben f\u00FCr diese Veranstaltung vor
-ausgewahlteeintrage=Ausgew\u00E4hlte Eintr\u00E4ge
-titel=Titel
-verantwortlicher=Verantwortlicher
+GENERIC_ADD_NEW_TASK=Neue Aufgabe anlegen
+MESSAGE_NO_TASKS_FOR_THIS_EVENT=Es liegen keine Aufgaben f\u00FCr diese Veranstaltung vor
+GENERIC_SELECTED_ENTRIES=Ausgew\u00E4hlte Eintr\u00E4ge
+GENERIC_TITLE=Titel
+GENERIC_RESPONSIBLE=Verantwortlicher
 
 # VERANSTALTUNG BEARBEITEN/AUFGABEN/AUFGABE ANLEGEN
-aufgabenid=Aufgaben-ID
+GENERIC_TASKS_ID=Aufgaben-ID
 fertigstellung=Fertigstellung
 prioritat=Priorit\u00E4t
 beschreibung=Beschreibung
@@ -858,7 +858,6 @@ adresstypundzeichensatzwahlen=Adresstyp und Zeichensatz w\u00E4hlen
 adresstyp=Adresstyp
 datenbearbeiten=Daten bearbeiten
 verbinder=Verbinder
-freitextfeld=Freitextfeld
 freitextfeldpartner=Freitextfeld (Partner)
 akatitel=Aka. Titel (Partner)
 kontaktdaten=Kontaktdaten
@@ -1489,6 +1488,7 @@ GENERIC_OF=von
 GENERIC_ASSIGN=Zuweisen
 GENERIC_CANCEL=Abbrechen
 GENERIC_DELETE=Entfernen
+GENERIC_CONNECTOR=Verbinder
 
 # GUEST DETAIL TEXTS
 GUEST_DETAIL_PARTNER=dem Partner

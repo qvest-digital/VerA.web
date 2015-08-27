@@ -9,9 +9,9 @@
 			<input type="button" name="add" value="${placeholderWithTranslation.GENERIC_APPLY_TO_GUESTLIST}" title="${placeholderWithTranslation.APPLY_GUEST_TO_GUESTLIST}" class="mainButton" onclick="addToGuestList();">
 		#end
 		#if($grants.mayWrite())
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.personkopieren}" onclick="if (checkModified()) { copyPerson(); }"/>
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified()) { copyPerson(); }"/>
 		#end
-		<input type="button" name="export" class="mainButton"value="${placeholderWithTranslation.etiketterzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
+		<input type="button" name="export" class="mainButton"value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 	</div>
 #elseif($action == "host")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
@@ -22,14 +22,14 @@
 			<input type="button" name="set" class="mainButton" value="${placeholderWithTranslation.GENERIC_APPLY}" title="${placeholderWithTranslation.GENERIC_APPLY_PERSON_AS_HOST}" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventDetail?hostid=$!person.id';">
 		#end
 		#if($grants.mayWrite())
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.personkopieren}" onclick="if (checkModified()) { copyPerson(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified()) { copyPerson(); }" />
 		#end
-		<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.etiketterzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
+		<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 
 		## modified to provide a direct statistic button as per change request for version 1.2.0
 		## cklein
 		## 2008-03-14
-		<input type="button" value="${placeholderWithTranslation.statistik}" class="mainButton" name="statistics" #if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else vera-disabled #end>
+		<input type="button" value="${placeholderWithTranslation.GENERIC_STATISTIC}" class="mainButton" name="statistics" #if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else vera-disabled #end>
 	</div>
 #elseif($action == "event")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
@@ -37,14 +37,14 @@
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
 		#end
 		#if($grants.mayWrite())
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.personkopieren}" onclick="if (checkModified()) { copyPerson(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified()) { copyPerson(); }" />
 		#end
-		<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.etiketterzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
+		<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 
 		## modified to provide a direct statistic button as per change request for version 1.2.0
 		## cklein
 		## 2008-03-14
-		<input type="button" value="${placeholderWithTranslation.statistik}" class="mainButton" name="statistics"	#if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else vera-disabled #end>
+		<input type="button" value="${placeholderWithTranslation.GENERIC_STATISTIC}" class="mainButton" name="statistics"	#if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else vera-disabled #end>
 	</div>
 #else
     #if($osiam-user-created)
@@ -63,12 +63,12 @@
 				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
 			#end
 			#if($grants.mayWrite())
-				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.personkopieren}" title="Aktuelle Person kopieren" onclick="if (checkModified()) { copyPerson(); }" />
+				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" title="Aktuelle Person kopieren" onclick="if (checkModified()) { copyPerson(); }" />
 			#end
-			<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.etiketterzeugen}" title="${placeholderWithTranslation.etikettfuraktuellepersonerzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
+			<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" title="${placeholderWithTranslation.etikettfuraktuellepersonerzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 			#if($grants.mayWrite())
-				<input type="button" name="event" class="mainButton" value="${placeholderWithTranslation.einerveranstaltungzuordnen}" title="Aktuelle Person einer Veranstaltung zuordnen" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }"/>
-				<input type="button" name="remove" class="mainButton" value="${placeholderWithTranslation.personloschen}" title="${placeholderWithTranslation.aktuellepersonloschenundzurpersonenlistezuruckkehren}." onclick="if (checkModified()) { removePerson(); }" />
+				<input type="button" name="event" class="mainButton" value="${placeholderWithTranslation.GENERIC_ASSIGN_AN_EVENT}" title="Aktuelle Person einer Veranstaltung zuordnen" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }"/>
+				<input type="button" name="remove" class="mainButton" value="${placeholderWithTranslation.GENERIC_DELETE_PERSON}" title="${placeholderWithTranslation.aktuellepersonloschenundzurpersonenlistezuruckkehren}." onclick="if (checkModified()) { removePerson(); }" />
 			#end
 		#end
 
@@ -77,7 +77,7 @@
 		## cklein
 		## 2008-02-21
 		#if($person && $person.id)
-			<input type="button" value="${placeholderWithTranslation.statistik}" title="${placeholderWithTranslation.statistik}" name="statistics" class="mainButton" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );">
+			<input type="button" value="${placeholderWithTranslation.GENERIC_STATISTIC}" title="${placeholderWithTranslation.GENERIC_STATISTIC}" name="statistics" class="mainButton" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );">
 		#end
 	</div>
 #end
@@ -89,21 +89,21 @@
 				<div class="table width100">
 					<div class="tableRow">
 						<div class="tableCell width50">
-							<strong>${placeholderWithTranslation.erfasstam} / ${placeholderWithTranslation.GENERIC_FROM}</strong><br />
+							<strong>${placeholderWithTranslation.GENERIC_DOCUMENTED_ON} / ${placeholderWithTranslation.GENERIC_FROM}</strong><br />
 							#if($person.created)$!message.date("DATE", $person.created)#end #if($person.createdby)/ $!message.text($person.createdby)#end
 						</div>
 						<div class="tableCell width50">
-							<strong>${placeholderWithTranslation.zuletztgeandertam} / ${placeholderWithTranslation.GENERIC_FROM}</strong><br />
+							<strong>${placeholderWithTranslation.GENERIC_LAST_EDITED_ON} / ${placeholderWithTranslation.GENERIC_FROM}</strong><br />
 							#if($person.changed)$!message.date("DATE", $person.changed)#end #if($person.changedby)/ $!message.text($person.changedby)#end
 						</div>
 					</div>
 					<div class="tableRow">
 						<div class="tableCell width50" id="showid">
-							<strong>${placeholderWithTranslation.personen-id}</strong><br />#if($person.id)$!message.text($person.id)#end
+							<strong>${placeholderWithTranslation.GENERIC_PERSONS_ID}</strong><br />#if($person.id)$!message.text($person.id)#end
 						</div>
 						<div class="tableCell width50">
 							#if($online-registration.activated)
-								<strong>${placeholderWithTranslation.online-anmeldungbenutzername}</strong><br />
+								<strong>${placeholderWithTranslation.GENERIC_OA_USERNAME}</strong><br />
 								#if($person.username)
 									$person.username
 								#end

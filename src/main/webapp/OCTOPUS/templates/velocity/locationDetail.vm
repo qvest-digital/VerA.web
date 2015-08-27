@@ -12,10 +12,10 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.veranstaltungsorte}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.veranstaltungsorte}</h1>
+	<h1>${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}</h1>
 
 
 	<form id="formlist" name="formlist" action="" method="POST">

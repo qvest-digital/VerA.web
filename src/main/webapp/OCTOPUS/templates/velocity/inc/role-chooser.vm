@@ -8,7 +8,7 @@
 ##
 <p>
 ${placeholderWithTranslation.siemussendierolleangebenunterdersieverawebnutzenmochten}
-${placeholderWithTranslation.bittewahlensie}
+${placeholderWithTranslation.GENERIC_PLEASE_CHOOSE}
 </p>
 <br/>
 <form action="login" method="post" target="_top">

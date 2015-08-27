@@ -14,10 +14,10 @@
                         </li>
 						#if($grants.mayWrite())
 							<li>
-                                <a id="menu.searchPerson" href="${paths.staticWeb}do/ShowPersonSearchSimple?action=person&search=clear">${placeholderWithTranslation.personensuche}</a>
+                                <a id="menu.searchPerson" href="${paths.staticWeb}do/ShowPersonSearchSimple?action=person&search=clear">${placeholderWithTranslation.GENERIC_SEARCH_PERSON}</a>
                             </li>
 							<li>
-                                <a id="menu.newPerson" href="${paths.staticWeb}do/CreatePerson?action=person">${placeholderWithTranslation.neueperson}</a>
+                                <a id="menu.newPerson" href="${paths.staticWeb}do/CreatePerson?action=person">${placeholderWithTranslation.GENERIC_NEW_PERSON}</a>
                             </li>
 						#end
 						#if($grants.isUser())
@@ -26,17 +26,17 @@
                                     <a id="menu.searchReplace" href="${paths.staticWeb}do/ShowReplacePerson">${placeholderWithTranslation.suchenersetzen}</a>
                                 </li>
 								<li>
-                                    <a id="menu.searchDuplicate" href="${paths.staticWeb}do/PersonDuplicateSearch?selectNone=true">${placeholderWithTranslation.dublettensuche}</a>
+                                    <a id="menu.searchDuplicate" href="${paths.staticWeb}do/PersonDuplicateSearch?selectNone=true">${placeholderWithTranslation.GENERIC_DUPLICATE_SEARCH}</a>
                                 </li>
 							#end
 							#if($grants.mayExport())
 								<li>
-                                    <a id="menu.exportPerson" href="${paths.staticWeb}do/ExportPersons">${placeholderWithTranslation.personenexport}</a>
+                                    <a id="menu.exportPerson" href="${paths.staticWeb}do/ExportPersons">${placeholderWithTranslation.GENERIC_EXPORT_PERSONS}</a>
                                 </li>
 							#end
 							#if($grants.mayWrite())
 								<li>
-                                    <a id="menu.importPerson" href="${paths.staticWeb}do/ImportPersons">${placeholderWithTranslation.personenimport}</a>
+                                    <a id="menu.importPerson" href="${paths.staticWeb}do/ImportPersons">${placeholderWithTranslation.GENERIC_IMPORT_PERSONS}</a>
                                 </li>
 							#end
 						#end
@@ -46,14 +46,14 @@
 					<span>${placeholderWithTranslation.MENU_EVENTS}</span>
 					<ul>
 						<li>
-                            <a id="menu.overviewEvent" href="${paths.staticWeb}do/SearchEvent?action=event&search=reset&selectNone=true">${placeholderWithTranslation.veranstaltungsubersicht}</a>
+                            <a id="menu.overviewEvent" href="${paths.staticWeb}do/SearchEvent?action=event&search=reset&selectNone=true">${placeholderWithTranslation.GENERIC_EVENT_VIEW}</a>
                         </li>
 						#if($grants.mayWrite())
 							<li>
                                 <a id="menu.searchEvent" href="${paths.staticWeb}do/ShowEventSearch?action=event">${placeholderWithTranslation.veranstaltungssuche}</a>
                             </li>
 							<li>
-                                <a id="menu.newEvent" href="${paths.staticWeb}do/CreateEvent?action=event">${placeholderWithTranslation.neueveranstaltung}</a>
+                                <a id="menu.newEvent" href="${paths.staticWeb}do/CreateEvent?action=event">${placeholderWithTranslation.GENERIC_NEW_EVENT}</a>
                             </li>
 						#end
 						#if($grants.isUser())
@@ -62,7 +62,7 @@
                             </li>
 							#if($grants.mayExport())
 								<li>
-                                    <a id="menu.statistic" href="${paths.staticWeb}do/Statistik">${placeholderWithTranslation.statistiken}</a>
+                                    <a id="menu.statistic" href="${paths.staticWeb}do/Statistik">${placeholderWithTranslation.GENERIC_STATISTICS}</a>
                                 </li>
 							#end
 						#end
@@ -97,12 +97,12 @@
 					<ul>
 						#if($grants.isAdmin())
 							<li>
-                                <a id="menu.salutation" href="${paths.staticWeb}do/Salutation?start=0&selectNone=true">${placeholderWithTranslation.anreden}</a>
+                                <a id="menu.salutation" href="${paths.staticWeb}do/Salutation?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_SALUTATIONS}</a>
                             </li>
 						#end
 						#if($grants.isAdmin())
 							<li>
-                                <a id="menu.workarea" href="${paths.staticWeb}do/WorkArea?start=0&selectNone=true">${placeholderWithTranslation.arbeitsbereiche}</a>
+                                <a id="menu.workarea" href="${paths.staticWeb}do/WorkArea?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}</a>
                             </li>
 						#end
 						#if($grants.isAdmin())
@@ -122,7 +122,7 @@
 						#end
 						#if($grants.isAdmin())
 							<li>
-                                <a id="menu.doctype" href="${paths.staticWeb}do/Doctype?start=0&selectNone=true">${placeholderWithTranslation.dokumenttypen}</a>
+                                <a id="menu.doctype" href="${paths.staticWeb}do/Doctype?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</a>
                             </li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
@@ -157,7 +157,7 @@
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
 							<li>
-                                <a id="menu.config" href="${paths.staticWeb}do/Config">${placeholderWithTranslation.programmeinstellungen}</a>
+                                <a id="menu.config" href="${paths.staticWeb}do/Config">${placeholderWithTranslation.GENERIC_PROGRAM_PERFERENCES}</a>
                             </li>
 						#end
 						#if($grants.isAdmin())
@@ -176,7 +176,7 @@
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
 							<li>
-                                <a id="menu.location" href="${paths.staticWeb}do/Location?start=0&selectNone=true">${placeholderWithTranslation.veranstaltungsorte}</a>
+                                <a id="menu.location" href="${paths.staticWeb}do/Location?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}</a>
                             </li>
 						#end
 					</ul>

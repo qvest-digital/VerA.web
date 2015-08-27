@@ -6,10 +6,10 @@
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}" > ${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.programmeinstellungen} </span>
+        <strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}" > ${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_PROGRAM_PERFERENCES} </span>
     </div>
 
-    <h1>${placeholderWithTranslation.programmeinstellungen}</h1>
+    <h1>${placeholderWithTranslation.GENERIC_PROGRAM_PERFERENCES}</h1>
 
 	#if($saveSuccess)
 		<vera-success>${placeholderWithTranslation.MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED}</vera-success>
@@ -141,11 +141,11 @@
                 		</td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD_CONNECTOR}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD}-${placeholderWithTranslation.CONNECTOR}:</td>
                 		<td><input type="text" name="freitextfeldverbinder" maxlength="300" value="$!message.plain($config.freitextfeldverbinder)" ></td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.freitextfeldanzeige}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD} (${placeholderWithTranslation.GENERIC_SHOW}) :</td>
                 		<td>
                 			<select name="freitextfeld" >
                 				<option value="">${placeholderWithTranslation.nochkeineauswahlgetroffen}</option>
@@ -156,7 +156,7 @@
                 		</td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.freitextfeldgasteliste}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD} (${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}):</td>
                 		<td>
                 			<select name="freitextfeld2" >
                 				<option value="">${placeholderWithTranslation.nochkeineauswahlgetroffen}</option>
@@ -227,8 +227,8 @@
                 		<td>
                 			<select name="helptarget" >
                 				$config.helptarget
-                				<option value="">${placeholderWithTranslation.GENERIC_USE_CURRENT_BROWSER_WINDOW}.</option>
-                				<option value="_blank"      #if($config.helptarget == "_blank") selected #end>${placeholderWithTranslation.GENERIC_OPEN_NEW_BROWSER_WINDOW_PER_REQUEST}.</option>
+                				<option value="">${placeholderWithTranslation.OPTION_HELP_WINDOW_1}.</option>
+                				<option value="_blank"      #if($config.helptarget == "_blank") selected #end>${placeholderWithTranslation.OPTION_HELP_WINDOW_2}.</option>
                 				<option value="verawebhelp" #if($config.helptarget == "verawebhelp") selected #end>${placeholderWithTranslation.OPTION_HELP_WINDOW_3}.</option>
                 			</select>
                 		</td>
