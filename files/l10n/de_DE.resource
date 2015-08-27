@@ -718,20 +718,20 @@ GENERIC_RESPONSIBLE=Verantwortlicher
 
 # VERANSTALTUNG BEARBEITEN/AUFGABEN/AUFGABE ANLEGEN
 GENERIC_TASKS_ID=Aufgaben-ID
-fertigstellung=Fertigstellung
-prioritat=Priorit\u00E4t
-beschreibung=Beschreibung
-verantwortlichenhinzufugen=Verantwortlichen hinzuf\u00FCgen
+GENERIC_COMPLETION=Fertigstellung
+GENERIC_PRIORITY=Priorit\u00E4t
+GENERIC_DESCRIPTION=Beschreibung
+GENERIC_ADD_RESPONSIBLES=Verantwortlichen hinzuf\u00FCgen
 verantwortlichenentfernen=Verantwortlichen entfernen
-aufgabespeichern=Aufgabe Speichern
-zuruckzuraufgabenubersicht=Zur\u00FCck zur Aufgaben\u00FCbersicht
+GENERIC_SAVE_TASK=Aufgabe Speichern
+GENERIC_BACK_TO_TASKS_VIEW=Zur\u00FCck zur Aufgaben\u00FCbersicht
 
 # VERANSTALTUNG BEARBEITEN/FUNKTIONEN/AMTSBEZEICHNUNGEN
-neueamtsbezeichnunghinzufugen=Neue Amtsbezeichnung Hinzuf\u00FCgen
-eswurdenkeineamtsbezeichnungengefunden=Es wurden keine Amtsbezeichnungen gefunden.
+GENERIC_ADD_NEW_EMPLOYMENT_TITLE=Neue Amtsbezeichnung Hinzuf\u00FCgen
+MESSAGE_NO_EMPLOYMENT_TITLES_FOUND=Es wurden keine Amtsbezeichnungen gefunden.
 
 # VERANSTALTUNG BEARBEITEN/KATEGORIEN
-neuekategoriehinzufugen=Neue Kategorie hinzuf\u00FCgen
+GENERIC_ADD_NEW_KATEGORIES=Neue Kategorie hinzuf\u00FCgen
 
 # VERANSTALTUNG BEARBEITEN/VORBEDINGUNGEN
 GENERIC_PRECONDITION_PLURAL=Vorbedingungen

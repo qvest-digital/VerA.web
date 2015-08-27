@@ -72,7 +72,7 @@
 
 				#if($grants.mayWrite())
 					<div class="buttonPanel-top floatRight">
-						<input type="submit" name="save" title="${placeholderWithTranslation.neueamtsbezeichnunghinzufugen}" value="${placeholderWithTranslation.neueamtsbezeichnunghinzufugen}" class="mainButton" onclick="saveEventFunction();"/>
+						<input type="submit" name="save" title="${placeholderWithTranslation.GENERIC_ADD_NEW_EMPLOYMENT_TITLE}" value="${placeholderWithTranslation.GENERIC_ADD_NEW_EMPLOYMENT_TITLE}" class="mainButton" onclick="saveEventFunction();"/>
 					</div>
 				#end
 
@@ -138,7 +138,7 @@
 
 					#if ($listparam.count == 0)
 						<tr>
-							<td colspan="2">${placeholderWithTranslation.eswurdenkeineamtsbezeichnungengefunden}</td>
+							<td colspan="2">${placeholderWithTranslation.MESSAGE_NO_EMPLOYMENT_TITLES_FOUND}</td>
 						</tr>
 					#end
 

@@ -158,7 +158,7 @@
 						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_END}</th>
 						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_STATUS}</th>
 						<th>${placeholderWithTranslation.GENERIC_RESPONSIBLE}</th>
-						<th class="smallCell textCenter">${placeholderWithTranslation.prioritat}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_PRIORITY}</th>
 					</tr>
 					#foreach($bean in $list)
 						<tr>

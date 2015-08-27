@@ -67,7 +67,7 @@
 
 				#if($grants.mayWrite())
 					<div class="buttonPanel-top floatRight">
-						<input type="submit" name="save" title="${placeholderWithTranslation.neuekategoriehinzufugen}" value="${placeholderWithTranslation.neuekategoriehinzufugen}" class="mainButton" onclick="saveEventCategory();"/>
+						<input type="submit" name="save" title="${placeholderWithTranslation.GENERIC_ADD_NEW_KATEGORIES}" value="${placeholderWithTranslation.GENERIC_ADD_NEW_KATEGORIES}" class="mainButton" onclick="saveEventCategory();"/>
 					</div>
 				#end
 

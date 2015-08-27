@@ -129,7 +129,7 @@
                             #end
                             <input type="text" tabindex="3" name="task-starttime" id="task-starttime" #if($task-starthastime) value="$!message.date("TIME", $task.startdate)" #else value="$!message.plain($task.starttime)" #end class="date" style="width: 45px;" onchange="setModified();"> <label class="inline" for="task-starttime">${placeholderWithTranslation.GENERIC_OCLOCK}</label></div>
                         <div class="tableCell width30">
-                            <label for="task-degreeofcompletion">${placeholderWithTranslation.fertigstellung}</label>
+                            <label for="task-degreeofcompletion">${placeholderWithTranslation.GENERIC_COMPLETION}</label>
                             <select tabindex="6" name="task-degreeofcompletion" id="task-degreeofcompletion" class="width20" onchange="setModified();">
                                 <option #if($task.degreeofcompletion && $task.degreeofcompletion == 0) selected #end value="0">0%</option>
                                 <option #if($task.degreeofcompletion && $task.degreeofcompletion == 10) selected #end value="10">10%</option>
@@ -166,7 +166,7 @@
                             <input type="text" tabindex="5" name="task-endtime" id="task-endtime" #if($task-endhastime) value="$!message.date("TIME", $task.enddate)" #else value="$!message.plain($task.endtime)" #end class="date" style="width: 45px;" onchange="setModified();"> <label class="inline" for="task-endtime">${placeholderWithTranslation.GENERIC_OCLOCK}</label>
                         </div>
                         <div class="tableCell">
-                            <label for="task-priority">${placeholderWithTranslation.prioritat}</label>
+                            <label for="task-priority">${placeholderWithTranslation.GENERIC_PRIORITY}</label>
                             <select  tabindex="7" name="task-priority" id="task-priority" class="width20" onchange="setModified();">
                                 <option #if($task.priority && $task.priority == 1) selected #end value="1">1</option>
                                 <option #if($task.priority && $task.priority == 2) selected #end value="2">2</option>
@@ -182,7 +182,7 @@
                  <div class="table width100">
                     <div class="tableRow">
                         <div class="tableCell">
-                            <label for="task-description">${placeholderWithTranslation.beschreibung}</label>
+                            <label for="task-description">${placeholderWithTranslation.GENERIC_DESCRIPTION}</label>
                             <textarea tabindex="8" rows="4" cols="20" name="task-description" id="task-description" onchange="setModified();">$!message.textarea($task.description)</textarea>
                         </div>
                     </div>
@@ -206,14 +206,14 @@
                 <div class="textRight" id="buttonPanel-bottom">
                     #if($event && $event.id)
         				#if($grants.mayWrite())
-        					<input id="button.save" tabindex="11" type="submit" name="save" value="${placeholderWithTranslation.aufgabespeichern}" title="${placeholderWithTranslation.aufgabespeichern}" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
+        					<input id="button.save" tabindex="11" type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_TASK}" title="${placeholderWithTranslation.GENERIC_SAVE_TASK}" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
         				#end
-                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zuruckzuraufgabenubersicht}" title="${placeholderWithTranslation.zuruckzuraufgabenubersicht}" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
+                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
                     #else
         				#if($grants.mayWrite())
-        					<input id="button.save" tabindex="11" type="submit" name="save" value="${placeholderWithTranslation.aufgabespeichern}" title="${placeholderWithTranslation.aufgabespeichern}" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
+        					<input id="button.save" tabindex="11" type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_TASK}" title="${placeholderWithTranslation.GENERIC_SAVE_TASK}" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
         				#end
-                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zuruckzuraufgabenubersicht}" title="${placeholderWithTranslation.zuruckzuraufgabenubersicht}" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
+                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
                     #end
                 </div>
 			</div>
