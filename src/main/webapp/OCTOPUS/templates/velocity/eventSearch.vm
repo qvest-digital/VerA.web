@@ -116,7 +116,7 @@
 			${placeholderWithTranslation.siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehrereunddasfureinzelnezeichen}
 		</vera-info>
 
-		##<br><a href="SearchEvent?search=current">Aktuelle Veranstaltungen anzeigen</a><br><br>
+		##<br><a href="SearchEvent?search=current">${placeholderWithTranslation.GENERIC_SHOW_CURRENT_EVENTS}</a><br><br>
 
 </form>
 </div>

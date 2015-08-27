@@ -1,4 +1,4 @@
-#set($activeMenu = "Administration")
+#set($activeMenu = "${placeholderWithTranslation.MENU_ADMINISTRATION}")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_CATEGORY}")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_CATEGORY}")
 #set($elementNameSingular = ">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}<")
