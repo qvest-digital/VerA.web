@@ -82,9 +82,13 @@ public class EventURLHandlerTest {
         // WHEN
         LanguageProviderHelper languageProviderHelper = mock(LanguageProviderHelper.class);
         LanguageProvider languageProvider = mock(LanguageProvider.class);
+        languageProvider.properties = mock(Properties.class);
+        Properties myproperties = languageProvider.properties;
+        when(myproperties.getProperty("language")).thenReturn("de_DE");
+
         TcContent contentObject = mock(TcContent.class);
         when(octopusContext.getContentObject()).thenReturn(contentObject);
-        when(contentObject.get("language")).thenReturn("Deutsch");
+        when(contentObject.get("language")).thenReturn("de_DE");
         when(languageProviderHelper.enableTranslation(octopusContext)).thenReturn(languageProvider);
         when(languageProvider.getProperty("GENERIC_NOT_AVAILABLE")).thenReturn("Nicht verfügbar");
 
