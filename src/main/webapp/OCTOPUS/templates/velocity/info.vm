@@ -121,7 +121,7 @@
     	</tr>
     #if($octopusConfig.personalConfig.proxy)
     	<tr>
-    		<td>${placeholderWithTranslation.GENERIC_SUBSTITUTD_BY}:</td>
+    		<td>${placeholderWithTranslation.GENERIC_SUBSTITUTED_BY}:</td>
     		<td>$octopusConfig.personalConfig.proxy</td> 
 	</tr> 
     #end 

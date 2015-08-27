@@ -88,12 +88,12 @@
 				<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
 				<th>${placeholderWithTranslation.GENERIC_NAME}</th>
 				<th>${placeholderWithTranslation.GENERIC_FIRSTNAME}</th>
-				<th>&{placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}</th>
-				<th>&{placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION} (G)</th>
-				<th>&{placeholderWithTranslation.GENERIC_STREET} (G)</th>
-				<th>&{placeholderWithTranslation.GENERIC_POST_NUMBER} (G)</th>
-				<th>&{placeholderWithTranslation.GENERIC_CITY} (G)</th>
-				<th class="textCenter smallCell">&{placeholderWithTranslation.GENERIC_FURTHER_PROCEEDING}</th>
+				<th>${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}</th>
+				<th>${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION} ${placeholderWithTranslation.LETTER_COMMERCIAL}</th>
+				<th>${placeholderWithTranslation.GENERIC_STREET} ${placeholderWithTranslation.LETTER_COMMERCIAL}</th>
+				<th>${placeholderWithTranslation.GENERIC_POST_NUMBER} ${placeholderWithTranslation.LETTER_COMMERCIAL}</th>
+				<th>${placeholderWithTranslation.GENERIC_CITY} ${placeholderWithTranslation.LETTER_COMMERCIAL}</th>
+				<th class="textCenter smallCell">${placeholderWithTranslation.GENERIC_FURTHER_PROCEEDING}</th>
 			</tr>
 			<tr>
 				<td class="textCenter"><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>

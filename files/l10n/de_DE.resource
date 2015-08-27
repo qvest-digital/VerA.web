@@ -1319,7 +1319,7 @@ markiertenveranstaltungsorte=Markierte(r) Veranstaltungsort(e)
 hinweis=Hinweis
 inaktiv=inaktiv
 aktionen=Aktionen
-anschrift
+anschrift=Anschrift
 anderungenspeichern=\u00C4nderungen speichern
 senden=Senden
 
