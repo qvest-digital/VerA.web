@@ -285,6 +285,226 @@ eswurdeeindokumenttypgeloscht=Se ha eliminado un tipo de documento.
 eswurdeeinneuerdokumenttypangelegt=Nuevo tipo de documento creado satisfactoriamente.
 
 # ADMINISTRATION/E-MAIL-POSTAUSGANG
+GENERIC_STATUS=Estado
+GENERIC_TO=Para
+GENERIC_SUBJECT=Asunto
+GENERIC_ERROR=Error
+e-mails=E-Mails
+GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE=Combinar error técnicoTechnische Fehlermeldung einblenden
+GENERIC_ERROR_DESCRIPTION=Descripción del error
+
+# ADMINISTRATION/E-MAIL-VORLAGEN
+e-mail-vorlagen=Plantillas de correo electrónico
+GENERIC_MARKED_TEMPLATES_PP=Plantilla(s) seleccionada(s)
+GENERIC_INSERT_NEW_TEMPLATES=Crear nueva plantilla
+GENERIC_TEMPLATE_NAME=Nombre de la plantilla
+eswurdeeineneuevorlageangelegt=Nueva plantilla creada satisfactoriamente.
+GENERIC_TEXT=Texto
+GENERIC_PLACEHOLDER=Identificador
+GENERIC_ADD=Añadir
+GENERIC_BACK_TO_TEMPLATES_LIST=Volver al listado de plantillas
+
+# ADMINISTRATION/FARBEN
+GENERIC_COLOR_PLURAL=Colores
+GENERIC_CHROMATICITY=Cromaticidad
+LETTERS_CHROMATICITY=R G B
+
+# ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
+markiertebezeichnung=Denominaciones seleccionadas
+GENERIC_LABELLING=Denominación
+eswurdeeineneuefunktion/amtsbezeichnungangelegt=Se ha creado una nueva función/denominación.
+eswurdeeinefunktion/amtsbezeichnunggeloscht=Se ha eliminado una función/denominación.
+
+# ADMINISTRATION/KATEGORIEN
+GENERIC_CATEGORY_PLURAL=Categorías
+markiertekategorie=Categoría(s) seleccionada(s)
+GENERIC_MARK_LONG=Clase
+GENERIC_RANK=Rango
+GENERIC_EVENTS_PP=Evento(s)
+GENERIC_CATEGORY_SINGULAR=Categoría
+GENERIC_OCCASION=Suceso
+
+# ADMINISTRATION/MANDANTEN
+GENERIC_CLIENT_PLURAL=Mandantes
+markierte(n)mandanten=Mandante(s) seleccionado(s)
+GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Datos de mandantes no asociados
+personen=Personas
+GENERIC_IMPORT_PROCEDURES=Importar procesos
+veranstaltungorte=Localización del evento
+GENERIC_IMPORT_PERSONS=Importar personas
+GENERIC_DISTRIBUTOR_SINGULAR=Distribuidor
+GENERIC_USER=Usuario
+GENERIC_ASSIGN_CLIENTS=Asignar mandantes
+GENERIC_CLIENT_SINGULAR=Mandante
+
+# ADMINISTRATION/PROGRAMMEINSTELLUNGEN
+programeinstellungen=Configuración del sistema
+GENERIC_STANDARD_TABULATOR_CHOICE=Elección estándar mediante tabulaciones
+GENERIC_MAIN_TABS=Pestañas principales
+GENERIC_PERSONS_DATA=Datos de personas
+GENERIC_MAILING_ADDRESSES=Direcciones
+GENERIC_SUBTABS_OF_PERSONS_DATA=Subpestañas de \u00E2\u0080\u009EDatos de personas\u00E2\u0080\u009C
+GENERIC_MAIN_PERSON=Persona principal
+GENERIC_PARTNER=Partner
+GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subpestañas de \u00E2\u0080\u009EDirecciones\u00E2\u0080\u009C
+GENERIC_BUSINESS=Negocio
+GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Elección estándar sobre el selector de \u00E2\u0080\u009Echarset\u00E2\u0080\u009C
+GENERIC_CHARSET=Conjunto de caracteres
+GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Denominaciones estándar y campos de texto libre
+GENERIC_STANDARD_SALUTATION=Denominación estándar
+GENERIC_STANDARD_SALUTATION_PARTNER=Demoninación estándar del partner
+GENERIC_FREE_TEXT_FIELD=Campo de texto libre
+GENERIC_FREE_TEXT_FIELDS=Campos de texto libre
+GENERIC_FREE_TEXT_FIELD_CONNECTOR=Conexión de campo de texto libre
+GENERIC_SHOW=Visualización
+GENERIC_HELP=Ayuda
+GENERIC_HELP_LINK=Enlace de ayuda
+GENERIC_HELP_WINDOW=Ventana de ayuda
+OPTION_HELP_WINDOW_1=Utilizar ventana de ayuda actual
+OPTION_HELP_WINDOW_2=Abrir una nueva ventana navegador por llamada
+OPTION_HELP_WINDOW_3=La misma ventana de ayuda por llamada (no la actual)
+GENERIC_MISCELLANEOUS=Otros
+GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
+GENERIC_PROTOCOL_TIME_CHANGE=Historial de cambios
+GENERIC_PROTOCOL_COMMISIONING_TIME=Intervalo del registro de datos
+HINT_GIVE_THE_RETENTION_PERIOD=Indique el período de retención
+GENERIC_YEARS=Años
+GENERIC_MONTHS=Meses
+GENERIC_DAYS=Días
+GENERIC_MAILING_ADDRESS_BUSINESS=Dirección de trabajo
+GENERIC_MAILING_ADDRESS_PRIVATE=Dirección privada
+GENERIC_MAILING_ADDRESS_OTHERS=Otras direcciones
+GENERIC_LABELLING_LATIN=Conjunto de caracteres latinos
+GENERIC_LABELLING_ALTERNATIVE=Conjunto de caracteres alternativo
+GENERIC_ADDRESS_ADDITIONAL=Dirección adicional
+
+# ADMINISTRATION/REPORTS
+GENERIC_REPORTS=Resúmenes
+MESSAGE_WAITING_MESSAGE_LOG_REPORT=Dependiendo del período de tiempo seleccionado y la cantidad de datos, la generación del informe puede tardar más tiempo de lo normal. Por favor, mantenga la paciencia hasta el final del proceso.
+GENERIC_DATE_BEGIN=Fecha de inicio
+GENERIC_DATE_END=Fecha de fin
+GENERIC_BACKUP_FIEDS=Reiniciar campos
+GENERIC_GENERATE_REPORT=Generar resumen
+
+# ADMINISTRATION/STELLVERTRETUNGEN
+GENERIC_REPRESENTATIVES=Delegados
+GENERIC_AVAILABILITY_FILTER=Filtro de disponibilidad
+GENERIC_REPRESENTATIVES_ALL=Todos los delegados
+GENERIC_NO_REPRESENTATION_EXPIRED=Ninguna representación pasada
+GENERIC_ONLY_CURRENT_REPRESENTATIONS=Sólo representaciones actuales
+GENERIC_ROLE=Rol
+GENERIC_REPRESENTATIVE=Representante
+gultigab=Disponible a partir de
+GENERIC_VALID_TILL=Disponible hasta
+GENERIC_NO_DATA_FOUND=No se han encontrado datos
+
+# ADMINISTRATION/VERANSTALTUNGSORTE
+markierte=Localizaciones de eventos seleccionadas
+GENERIC_ADD_NEW_EVENT_LOCATIONS=Crear nueva localización para evento
+GENERIC_ID=ID
+GENERIC_CONTACT_PERSON=Persona de contacto
+GENERIC_TELEFON=Teléfono
+GENERIC_FAX=Fax
+e-mail=E-Mail
+GENERIC_REMARK=Observaciones
+GENERIC_URL=Enlace
+gps-daten=Datos de localización (GPS)
+GENERIC_ROOM_NUMBER=Número de sala
+EVENT_PLACES_CONFIRM_DELETE=Por favor, confirme la eliminación de las localizaciones del evento
+
+# VERWALTUNG/EINSTELLUNGEN
+GENERIC_MANAGEMENT=Gestión
+GENERIC_OPTIONS=Ajustes
+GENERIC_SUBTABS_OF=Subpestañas de
+GENERIC_PERSONAL_DETAILED_VIEW=Vista detalle de personas
+GENERIC_LIST_OF_GUESTS=Lista de invitados
+zusatzlichefelder=Campos adicionales
+GENERIC_FUNCTION_SINGULAR=Función
+GENERIC_POSTNUMBER_AND_CITY=Código postal / Ciudad
+GENERIC_LIST_OF_PERSONS=Lista de personas
+GENERIC_FEDERAL_STATE=Provincia
+MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=La configuración se ha guardado satisfactoriamente.
+
+# VERWALTUNG/VERTRETUNGEN
+GENERIC_REPRESENTATIVE_PLURAL=Representaciones
+markiertevertretung=Representaciones seleccionadas
+GENERIC_DELETE=Eliminar
+GENERIC_NEW=Nuevo
+eswurdeeineneuevertretungangelegt=Se ha creado una nueva representación
+eswurdeeinevertretunggeloscht=Se ha eliminado una representación
+siemuseneinevertretereingeben=Debe seleccionar un representante
+derbeginndervertretungmusvordemendeliegen=La fecha de inicio debe ser anterior a la fecha final
+MESSAGE_REPORT_NUMBER_PART_1=Se han eliminado
+vertretungengeloscht=representaciones
+# VERWALTUNG/INFO
+GENERIC_INFO=Información
+GENERIC_INFORMATION_ABOUT_VERAWEB=Acerca de VerA.web
+veraweb=VerA.web
+GENERIC_VERSION=Versión
+build=Compilación
+GENERIC_BUILD_NUMBER=Número de compilación
+GENERIC_BUILD_TIME=Tiempo de compilación
+GENERIC_DATABASE=Base de datos
+GENERIC_LOGIN=Login
+GENERIC_GROUPS=Grupos
+GENERIC_NOT_AVAILABLE=No disponible
+
+# ALLGEMEIN
+GENERIC_YOU_ARE_HERE=Usted se encuentra aquí
+GENERIC_HOME=Inicio
+
+# TABELLEN
+GENERIC_DATE=Fecha
+GENERIC_WORKAREA_SINGULAR=Área de trabajo
+GENERIC_LASTNAME=Apellido
+GENERIC_FIRSTNAME=Nombre
+akwritemtsbezeichnung=Título
+GENERIC_COMPANY_INSTITUTION=Empresa / Institución
+GENERIC_STREET=Calle
+GENERIC_POST_NUMBER=Código postal
+GENERIC_CITY=Ciudad
+GENERIC_MARKED_PERSONS_PP=Persona(s) seleccionada(s)
+expotieren=Exportar
+GENERIC_ASSIGN_CATEGORIES=Asignar categorías
+GENERIC_REMOVE_CATEGORIES=Eliminar categorías
+GENERIC_ASSING_WORKAREA=Asignar áreas de trabajo
+GENERIC_REMOVE_WORKAREA=Eliminar áreas de trabajo
+GENERIC_EXECUTE=Aplicar
+personenanzahlproseite=Personas | Personen | Total por página
+GENERIC_ALL=Todas
+seite=Página
+GENERIC_PAGE=Fecha de nacimiento
+GENERIC_PLACE_OF_BIRTH=Lugar de nacimiento
+GENERIC_NATIONALITY=Nacionalidad
+GENERIC_CITIZENSHIP=Ciudadanía
+GENERIC_LANGUAGES=Idiomas
+GENERIC_HINT_FOR_HOST=Aviso para el anfitrión
+GENERIC_ACCOUNT_OPENING_DATE=Fecha de acreditación
+GENERIC_AT=a las
+GENERIC_OCLOCK=horas
+GENERIC_ORIGIN_DATA=Origen de los datos
+GENERIC_PERSON_SINGULAR=Persona
+
+# DATEITYP
+csv=CSV (Comma-Separated-Values)
+xml=XML (VerA.web-XML)
+zkm=ZKM (VerA.web-XML sobre el módulo central de comunicación)
+madlan-personen=MAdLAN-Personas (MAdLAN-Importar-Personas)
+madlan-firmen=MAdLAN-Empresas (MAdLAN-Importar-Empresas)
+x-manage-csv=X-Manage-CSV (X-Manage Contactos)
+csvpersdatanschriftdoktyp=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
+csvpersdatdoktyp=CSVPersdat+Doktyp (Comma-Separated-Values)
+csvpersdatdoktyp10=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
+csvpersdatkategorien=CSVPersdat+Categorías (Comma-Separated-Values)
+csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
+
+
+# ----------------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------------
+
+# ADMINISTRATION/E-MAIL-POSTAUSGANG
 GENERIC_STATUS=Status
 CAP_TO=An
 GENERIC_SUBJECT=Betreff
