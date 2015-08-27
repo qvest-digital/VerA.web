@@ -71,7 +71,7 @@ public class GuestSerialNumber {
 		public abstract void calcSerialNumber() throws BeanException, IOException;
 
 		protected void clearSerialNumber() throws BeanException {
-			Update update = SQL.Update( context ).
+			Update update = SQL.Update(context).
 					table("veraweb.tguest").
 					update("orderno", null).
 					update("orderno_p", null).
@@ -80,38 +80,42 @@ public class GuestSerialNumber {
 		}
 
 		protected void setSerialNumber(Map guest) throws BeanException, IOException {
-			Integer invitationtype = (Integer)guest.get("invitationtype");
-			Integer invitationstatus_a = (Integer)guest.get("invitationstatus_a");
-			Integer invitationstatus_b = (Integer)guest.get("invitationstatus_b");
+			Integer invitationtype = (Integer) guest.get("invitationtype");
+			Integer invitationstatus_a = (Integer) guest.get("invitationstatus_a");
+			Integer invitationstatus_b = (Integer) guest.get("invitationstatus_b");
 			Integer orderno_a;
 			Integer orderno_b;
 
 			if (invitationtype == null || invitationtype.intValue() == EventConstants.TYPE_MITPARTNER) {
-				if (invitationstatus_a != null && invitationstatus_a.intValue() == 2)
+				if (invitationstatus_a != null && invitationstatus_a.intValue() == 2) {
 					orderno_a = null;
-				else
+				} else {
 					orderno_a = new Integer(++orderNo);
-				if (invitationstatus_b != null && invitationstatus_b.intValue() == 2)
+				}
+				if (invitationstatus_b != null && invitationstatus_b.intValue() == 2) {
 					orderno_b = null;
-				else
+				} else {
 					orderno_b = new Integer(++orderNo);
+				}
 			} else if (invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
-				if (invitationstatus_a != null && invitationstatus_a.intValue() == 2)
+				if (invitationstatus_a != null && invitationstatus_a.intValue() == 2) {
 					orderno_a = null;
-				else
+				} else {
 					orderno_a = new Integer(++orderNo);
-				orderno_b =  null;
+				}
+				orderno_b = null;
 			} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
 				orderno_a = null;
-				if (invitationstatus_b != null && invitationstatus_b.intValue() == 2)
+				if (invitationstatus_b != null && invitationstatus_b.intValue() == 2) {
 					orderno_b = null;
-				else
+				} else {
 					orderno_b = new Integer(++orderNo);
+				}
 			} else {
 				throw new IOException("wrong invitationtype");
 			}
 
-			context.execute(SQL.Update( context ).
+			context.execute(SQL.Update(context).
 					table("veraweb.tguest").
 					update("tguest.orderno", orderno_a).
 					update("tguest.orderno_p", orderno_b).
@@ -120,12 +124,12 @@ public class GuestSerialNumber {
 
 		protected void setSerialNumber(Select select) throws BeanException, IOException {
 			for (Iterator it = context.getDatabase().getList(select, context).iterator(); it.hasNext(); ) {
-				setSerialNumber((Map)it.next());
+				setSerialNumber((Map) it.next());
 			}
 		}
 
 		protected Select getSelect() {
-			return SQL.Select( context ).
+			return SQL.Select(context).
 					from("veraweb.tguest").
 					selectAs("tguest.pk", "id").
 					selectAs("tguest.invitationtype", "invitationtype").
@@ -169,17 +173,17 @@ public class GuestSerialNumber {
 			clearSerialNumber();
 			calcSerialNumberForGuestRank();
 
-			Select select = SQL.Select( context ).
+			Select select = SQL.Select(context).
 					from("veraweb.tcategorie").
 					selectAs("pk", "id").
 					selectAs("flags", "flag").
 					orderBy(Order.asc("rank").andAsc("catname"));
 			for (Iterator it = context.getDatabase().getList(select, context).iterator(); it.hasNext(); ) {
-				Map map = (Map)it.next();
-				if (((Integer)map.get("flag")).intValue() == Categorie.FLAG_DIPLO_CORPS) {
-					calcSerialNumberForDiploCorp((Integer)map.get("id"));
+				Map map = (Map) it.next();
+				if (((Integer) map.get("flag")).intValue() == Categorie.FLAG_DIPLO_CORPS) {
+					calcSerialNumberForDiploCorp((Integer) map.get("id"));
 				} else {
-					calcSerialNumberForCategorie((Integer)map.get("id"));
+					calcSerialNumberForCategorie((Integer) map.get("id"));
 				}
 			}
 

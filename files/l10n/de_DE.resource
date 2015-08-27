@@ -1216,8 +1216,8 @@ einladen=Einladen
 aufreservesetzen=Auf Reserve setzen
 delegationanmelden=Delegation anmelden
 alledemarkiereninklpartnerwenneingeladen=Alle (de)markieren (inkl. Partner, wenn eingeladen)
-arbeitsshybereich=Arbeits&shy;bereich
-amtsbeshyzeichnung=Amtsbe&shy;zeichnung
+arbeitsshybereich=Arbeits\u00ADbereich
+amtsbeshyzeichnung=Amtsbe\u00ADzeichnung
 eswurdenkeineeintraegegefunden=Es wurden keine Eintr\u00E4ge gefunden.
 suchenersetzen=Suchen & Ersetzen
 suchenersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
@@ -1429,9 +1429,9 @@ GUEST=Gast
 GENERIC_OF=von
 
 
-TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \U00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den &quot;Bearbeiten&quot;-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
+TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \U00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den \u0022Bearbeiten\u0022-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
 GENERIC_NEXT_PAGE=N\u00E4chste Seite
-GENERIC_PREVIOUS_PAGE=N\u00E4chste Seite
+GENERIC_PREVIOUS_PAGE=Vorherige Seite
 GENERIC_APPLY_TO_GUESTLIST=In G\u00E4steliste \u00FCbernehmen
 GENERIC_APPLY_GUEST_TO_GUESTLIST=Gast direkt in G\u00E4steliste \u00FCbernehmen
 GENERIC_APPLY=\U00DCbernehmen
@@ -1451,9 +1451,9 @@ bittebestatigensiedasloschendermarkiertengasteliste=Bitte best\u00E4tigen Sie da
 GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00F6scht.
 
 
-EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf &quot;Auf Stammdaten zur\u00FCcksetzen&quot;.
+EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf \u0022Auf Stammdaten zur\u00FCcksetzen\u0022.
 
-diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00FCber den Men\u00FCpunkt Administration &gt; Programmeinstellungen m\u00F6glich.
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00FCber den Men\u00FCpunkt Administration \u003E Programmeinstellungen m\u00F6glich.
             
 GENERIC_CHOSEN_GUESTLIST=Ausgew\u00E4hlte G\u00E4ste            
 exportierfahigegasteliste=Exportierf\u00E4hige G\u00E4ste
@@ -1517,7 +1517,7 @@ ORG_UNIT_MANDANT_EXISTS_ONE=Ein Mandant mit Namen
 ORG_UNIT_MANDANT_EXISTS_TWO=existiert bereits.
 
 # PERSON CATEGORIES TEXTS
-PERSON_CATEGORIES_SELECT_WARNING=Um eine neue Kategorie hinzuzuf\u00FCgen w\u00E4hlen Sie bitte eine Kategorie aus. (Sie haben nur einen Rang eingegeben.)
+PERSON_CATEGORIES_SELECT_WARNING=Um eine neue Kategorie hinzuzuf\u00FCgen, w\u00E4hlen Sie bitte eine Kategorie aus. (Sie haben nur einen Rang eingegeben.)
 
 # EXPORT FILE HEADERS
 EXPORT_HEADER_DOCUMENT_TYPE=Dokument_Typ
@@ -1638,3 +1638,15 @@ GENERIC_PLEASE_WAIT_MESSAGE=Dieser Vorgang kann einen Moment dauern.
 
 # WORK AREA (Bean) TEXTS
 WORKAREA_ERROR_MISSING_NAME=Der Arbeitsbereich ben\u00f6tigt einen eindeutigen Namen.
+
+
+zurpersonensuche=Zur Personensuche
+steuerdatei=Steuerdatei
+dokumenttypauswahlen=Dokumenttyp ausw\u00E4hlen
+EVENT_NO_DOCTYPES_ASSIGNED=Der Veranstaltung wurden noch keine Dokumenttypen zugeordnet
+
+# DATE HELPER TEXTS
+DATE_HELPER_INCORRECT_DATE= ist kein g\u00fcltiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!
+
+
+GENERIC_SHOW_CURRENT_EVENTS=Aktuelle Veranstaltungen anzeigen

@@ -168,20 +168,20 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
             if (targetField != null && targetField.length() > 0) {
                 String targetValue = fieldMapping.resolve(targetField, row);
                 if (targetValue != null) {
-                	targetValue = targetValue.trim();
+                    targetValue = targetValue.trim();
                 }
                 if (targetField.charAt(0) == ':') {
                     Object targetObject = targetValue;
                     Class fieldClass = person.getFieldClass(targetField.substring(1));
                     if (Date.class.isAssignableFrom(fieldClass)) {
                         try {
-                        	if (targetValue != null && targetValue.length() > 0) {
-	                            Date dateValue = dateFormat.parse(targetValue.toString());
-	                            Constructor constructor = fieldClass.getConstructor(ONE_LONG);
-	                            targetObject = constructor.newInstance(new Object[] {new Long(dateValue.getTime())});
-                        	} else {
-                        		targetObject = null;
-                        	}
+                            if (targetValue != null && targetValue.length() > 0) {
+                                Date dateValue = dateFormat.parse(targetValue.toString());
+                                Constructor constructor = fieldClass.getConstructor(ONE_LONG);
+                                targetObject = constructor.newInstance(new Object[]{new Long(dateValue.getTime())});
+                            } else {
+                                targetObject = null;
+                            }
                         } catch (NoSuchMethodException e) {
                             logger.log(Level.WARNING, "Datums-Klasse ohne (long)-Konstruktor", e);
                         } catch (ParseException e) {
@@ -190,24 +190,20 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
                             logger.log(Level.WARNING, "Datumsklasse nicht instanziierbar", e);
                         }
                     }
-//                    if (person.getFieldClass(targetField.substring(1)).isAssignableFrom(Timestamp.class))
-//                        try {
-//                            targetObject = Timestamp.valueOf(targetValue);
-//                        } catch(IllegalArgumentException iae) {}
                     person.put(targetField.substring(1), targetObject);
-                }
-                else if (targetField.startsWith("CAT:"))
+                } else if (targetField.startsWith("CAT:")) {
                     addCategory(targetField.substring(4), targetValue, Categorie.FLAG_DEFAULT, extras);
-                else if (targetField.startsWith("EVE:"))
-                	addCategory(targetField.substring(4), targetValue, Categorie.FLAG_EVENT, extras);
-                else if (targetField.startsWith("COR:"))
-                	addCategory(targetField.substring(4), targetValue, Categorie.FLAG_DIPLO_CORPS, extras);
-                else if (targetField.startsWith("DTM:"))
+                } else if (targetField.startsWith("EVE:")) {
+                    addCategory(targetField.substring(4), targetValue, Categorie.FLAG_EVENT, extras);
+                } else if (targetField.startsWith("COR:")) {
+                    addCategory(targetField.substring(4), targetValue, Categorie.FLAG_DIPLO_CORPS, extras);
+                } else if (targetField.startsWith("DTM:")) {
                     addDoctypeMain(targetField.substring(4), targetValue, extras);
-                else if (targetField.startsWith("DTP:"))
+                } else if (targetField.startsWith("DTP:")) {
                     addDoctypePartner(targetField.substring(4), targetValue, extras);
-                else
+                } else {
                     logger.warning("Unbekanntes Zielfeld " + targetField);
+                }
             }
         }
         digester.importPerson(person, new ArrayList(extras.values()));
@@ -228,27 +224,26 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         assert extras != null;
 
         if (rank == null || rank.length() == 0)
-        	return;
+            return;
 
         Integer rankNumber;
         try {
-       		rankNumber = new Integer(rank);
+            rankNumber = new Integer(rank);
         } catch (NumberFormatException nfe) {
-        	if (rank.toUpperCase().equals(DEFAULT_RANK.toUpperCase())) {
-        		rankNumber = null;
-        	} else {
-//        		logger.warning("Ungültiger Kategorie-Rang beim Import einer CSV-Datei. Rang: " + rank);
-        		return;
-        	}
+            if (rank.toUpperCase().equals(DEFAULT_RANK.toUpperCase())) {
+                rankNumber = null;
+            } else {
+                return;
+            }
         }
 
         String catKey;
         if (flags == Categorie.FLAG_EVENT) {
-        	catKey = "EVE:" + name;
+            catKey = "EVE:" + name;
         } else if (flags == Categorie.FLAG_DIPLO_CORPS) {
-        	catKey = "COR:" + name;
+            catKey = "COR:" + name;
         } else {
-        	catKey = "CAT:" + name;
+            catKey = "CAT:" + name;
         }
 
         if (extras.containsKey(catKey)) {
@@ -322,9 +317,6 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         }
     }
 
-    //
-    // geschützte innere Klassen
-    //
     /**
      * Diese Klasse stellt eine CSV-Zeile als {@link de.tarent.data.exchange.FieldMapping.Entity}
      * dar.
@@ -376,13 +368,21 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     //
     // geschützte Membervariablen
     //
-    /** CSV-Eingabe-Objekt */
+    /**
+     * CSV-Eingabe-Objekt
+     */
     CSVFileReader csvReader = null;
-    /** Import-Targets */
+    /**
+     * Import-Targets
+     */
     List targets = null;
-    /** Header-Felder */
+    /**
+     * Header-Felder
+     */
     List headers = null;
-    final static Class[] ONE_LONG = new Class[] {Long.TYPE};
-    /** Logger dieser Klasse */
+    final static Class[] ONE_LONG = new Class[]{Long.TYPE};
+    /**
+     * Logger dieser Klasse
+     */
     final static Logger logger = Logger.getLogger(GenericCSVImporter.class.getName());
 }

@@ -62,11 +62,14 @@ public class PropertiesReader {
             inputStream = new FileInputStream(PROPERTY_FILE);
             properties.load(inputStream);
         } catch (IOException e) {
-        	return null;
+            return null;
         } finally {
-            try { inputStream.close(); } catch (Exception e) { }
+            try {
+                inputStream.close();
+            } catch (Exception e) {
+            }
         }
 
-		return properties;
+        return properties;
     }
 }
