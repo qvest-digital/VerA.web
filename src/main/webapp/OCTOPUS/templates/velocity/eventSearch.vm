@@ -1,7 +1,7 @@
 #set($activeMenu = "Veranstaltungen")
 
 #if($action == "guest")
-	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SEARCH} - ${placeholderWithTranslation.veranstaltung}: $!message.plain($event.shortname)")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SEARCH} - ${placeholderWithTranslation.GENERIC_EVENT}: $!message.plain($event.shortname)")
 #elseif($action == "addperson")
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SEARCH} - ${placeholderWithTranslation.BROWSER_TITLE_PERSON_ASSIGN}")
 #else
@@ -36,10 +36,10 @@
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 
-			<h2>${placeholderWithTranslation.suche}</h2>
+			<h2>${placeholderWithTranslation.GENERIC_SEARCH}</h2>
 
 				<fieldset style="border: none; padding-top: 0;">
-					<legend class="noDisplay">${placeholderWithTranslation.veranstaltung}</legend>
+					<legend class="noDisplay">${placeholderWithTranslation.GENERIC_EVENT}</legend>
 
 					<div class="table width100">
 						<div class="tableRow">
@@ -48,7 +48,7 @@
 								<input type="text" name="shortname" id="input.shortname" value="">
 							</div>
 							<div class="tableCell width30">
-								<label for="begin">${placeholderWithTranslation.GENERIC_DATE} (${placeholderWithTranslation.beginn})</label>
+								<label for="begin">${placeholderWithTranslation.GENERIC_DATE} (${placeholderWithTranslation.GENERIC_BEGIN})</label>
 								<div class="calenderContainer">
 									<input type="text" name="begin" value="" id="begin" class="datepicker">
 									<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"></span>
@@ -74,11 +74,11 @@
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width30">
-								<label for="hostname">${placeholderWithTranslation.gastgeber}</label>
+								<label for="hostname">${placeholderWithTranslation.GENERIC_HOST}</label>
 								<input type="text" name="hostname" id="hostname" value="">
 							</div>
 							<div class="tableCell width30">
-								<label for="location">${placeholderWithTranslation.veranstaltungsort}</label>
+								<label for="location">${placeholderWithTranslation.GENERIC_EVENT_LOCATION_SINGULAR}</label>
                                 <select name="location" id="location">
                                     <option value=""></option> ##get all locations
                                     #foreach($location in $allLocation)
@@ -96,15 +96,15 @@
 
 				<div id="buttonPanel-bottom" class="textRight">
 					#if($action == "guest")
-						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
+						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
 						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" />
 						<input type="button" class="mainButton"  name="cancel" value="${placeholderWithTranslation.zuruck}" title="${placeholderWithTranslation.zuruck}" onclick="window.location.href='ShowGuestList?selectNone=true';" />
 					#elseif($action == "addperson")
-						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
+						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
 						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" />
 						<input type="button" class="mainButton"  name="cancel" value="${placeholderWithTranslation.zuruck}" title="${placeholderWithTranslation.zuruck}" onclick="window.location.href='ShowPerson';" />
 					#else
-						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
+						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
 						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" />
 					#end
 				</div>

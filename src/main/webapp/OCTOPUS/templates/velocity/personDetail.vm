@@ -2,7 +2,7 @@
 
 	#set($personDB = true)
 	#set($activeMenu = "Personen")
-	#set($title = "${placeholderWithTranslation.personbearbeiten}: $!message.plain($person.MainLatin.SaveAs)")
+	#set($title = "${placeholderWithTranslation.GENERIC_EDIT_PERSON}: $!message.plain($person.MainLatin.SaveAs)")
 
 #else
 
@@ -24,7 +24,7 @@
 	#set($personMemberTab = "1")
 	#set($personAddresstypeTab = "1")
 	#set($personLocaleTab = "1")
-	#set($title = "${placeholderWithTranslation.neuepersonanlegen}")
+	#set($title = "${placeholderWithTranslation.GENERIC_CREATE_PERSON}")
 
 #end
 
@@ -172,7 +172,7 @@
 			#else
 			<vera-info>
 				${placeholderWithTranslation.bittegebensiezunaechstden} <strong>${placeholderWithTranslation.vorundnachnamen}</strong> ${placeholderWithTranslation.anundfuhrendiedublettenprufungdurch}
-					${placeholderWithTranslation.beifirmenwaehlensiediecheckbox} <strong>"${placeholderWithTranslation.istfirma}"</strong> ${placeholderWithTranslation.undtragendanndenfirmennameneindassystempruftihreangabendaraufhinaufdubletten}
+					${placeholderWithTranslation.beifirmenwaehlensiediecheckbox} <strong>"${placeholderWithTranslation.GENERIC_IS_COMPANY}"</strong> ${placeholderWithTranslation.undtragendanndenfirmennameneindassystempruftihreangabendaraufhinaufdubletten}
 					${placeholderWithTranslation.liegtkeinedublettevorkoennensieweiteredateneingebenunddiedatenspeichern}
 			</vera-info>
 			#end
@@ -189,7 +189,7 @@
 		<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
 			<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>${placeholderWithTranslation.GENERIC_PERSONS_DATA}</div>
 			</li><li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</div>
-			</li>#if($personDB)<li class="inactive" id="dokumenttypen" onclick="showDoctypes();"><div>${placeholderWithTranslation.dokumenttypen}</div>
+			</li>#if($personDB)<li class="inactive" id="dokumenttypen" onclick="showDoctypes();"><div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
 			</li><li class="inactive" id="kategorien" onclick="showCategories();"><div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div></li>#end
 		</ul>
 	</div>

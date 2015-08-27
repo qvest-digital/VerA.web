@@ -19,7 +19,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
 	</div>
 	<h1>${placeholderWithTranslation.gasteverwaltungderveranstaltung}: $!message.plain($event.shortname)</h1>
 
@@ -396,7 +396,7 @@
 					<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" onChange="selectionChange( this );" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/></td>
 					<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
 						#if($bean.ishost && $bean.ishost == 1)
-							<em>${placeholderWithTranslation.gastgeber}</em>
+							<em>${placeholderWithTranslation.GENERIC_HOST}</em>
 						#elseif($bean.someorderno)
 							$bean.someorderno
 						#else

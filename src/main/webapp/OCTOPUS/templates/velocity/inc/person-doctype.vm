@@ -18,12 +18,12 @@
     #if($grants.mayWrite())
         <span id="actionPanel" class="inlineLabel">
             <label>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPES_MARKED}
-                <input type="submit" title="${placeholderWithTranslation.GENERIC_DOCUMENT_TYPES_MARKED_DELETE}" value="${placeholderWithTranslation.entfernen}" name="remove" />
+                <input type="submit" title="${placeholderWithTranslation.GENERIC_DOCUMENT_TYPES_MARKED_DELETE}" value="${placeholderWithTranslation.GENERIC_DELETE}" name="remove" />
             </label>
         </span>
 
         <span id="buttonPanel-top" class="textRight floatRight">
-            <input id="buttonMain" class="mainButton" type="button" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id&tab=$!octopusRequest.tab&show=$!octopusRequest.show';" value="${placeholderWithTranslation.alleerzeugen}" name="create">
+            <input id="buttonMain" class="mainButton" type="button" onclick="window.location.href='${paths.staticWeb}do/CreateAllPersonDoctypes?id=$!person.id&tab=$!octopusRequest.tab&show=$!octopusRequest.show';" value="${placeholderWithTranslation.GENERIC_GENERATE_ALL}" name="create">
             <input class="mainButton" type="submit" value="${placeholderWithTranslation.anderungenspeichern}" title="Änderungen speichern" name="save" />
         </span>
     #end
@@ -35,7 +35,7 @@
                 <th class="textCenter smallCell"><input type="checkbox" name="" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end #if(!$grants.mayWrite()) vera-disabled#end /></th>
             #end
             <th>
-                ${placeholderWithTranslation.dokumenttyp}
+                ${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_SINGULAR}
             </th>
             <th class="textCenter smallCell">
                 ${placeholderWithTranslation.anschrift}

@@ -164,7 +164,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
             property = format.getProperties().get("textfieldMapping");
             if (property instanceof Map) try {
                 parseTextfieldMappings((Map) property);
-            } catch(BeanException be) {
+            } catch (BeanException be) {
                 IOException ioe = new IOException("Fehler beim Parsen der Freitext-Mappings");
                 ioe.initCause(be);
                 throw ioe;
@@ -274,19 +274,19 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     final String getTextfield(Person person, String key) throws BeanException {
         MessageFormat format = (MessageFormat) textfieldSelects.get(key);
         if (format != null)
-        try {
-            Iterator it = new ResultList(DB.result(db, format.format(new Object[] {person.id})).resultSet()).iterator();
-            if (it.hasNext())
-                return String.valueOf(((Map)it.next()).get("field"));
-        } catch (SQLException e) {
-            throw new BeanException("Problem beim Ermitteln eines Freitextfeldes", e);
-        }
+            try {
+                Iterator it = new ResultList(DB.result(db, format.format(new Object[]{person.id})).resultSet()).iterator();
+                if (it.hasNext())
+                    return String.valueOf(((Map) it.next()).get("field"));
+            } catch (SQLException e) {
+                throw new BeanException("Problem beim Ermitteln eines Freitextfeldes", e);
+            }
         return null;
     }
 
     final String getCategory(Person person, Integer flags) throws BeanException, IOException {
         Select personCategoriesSelect = new Select(false).from("veraweb.tperson_categorie")
-            .select("fk_categorie").where(Expr.equal("fk_person", person.id));
+                .select("fk_categorie").where(Expr.equal("fk_person", person.id));
         List categories = db.getBeanList("Categorie",
                 db.getSelect("Categorie").where(new WhereList().addAnd(
                         Expr.equal("flags", flags)).addAnd(
@@ -333,10 +333,10 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
             logger.warning("Für den Export konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
         else {
             Select select = new Select(true).from("veraweb.tperson_doctype")
-                .selectAs(partner ? "textfield_p" : "textfield", "field")
-                .where(new WhereList().addAnd(
-                        Expr.equal("fk_doctype", doctype.id)).addAnd(
-                        new RawClause("fk_person = {0}")));
+                    .selectAs(partner ? "textfield_p" : "textfield", "field")
+                    .where(new WhereList().addAnd(
+                            Expr.equal("fk_doctype", doctype.id)).addAnd(
+                            new RawClause("fk_person = {0}")));
             selectFormats.put(textfield, new MessageFormat(select.toString()));
         }
     }

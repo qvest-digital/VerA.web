@@ -113,7 +113,7 @@ public class PersonDuplicateCheckHelper {
 		final List<ResultMap> importedPersonsList = getImportPersonData();
 
 		// iteration over all imported persons data
-		for (ResultMap result: importedPersonsList) {
+		for (ResultMap result : importedPersonsList) {
 			ImportPerson importPerson = new ImportPerson();
 
 			personIdArray = new ArrayList<Integer>();
@@ -154,13 +154,13 @@ public class PersonDuplicateCheckHelper {
 		duplicateImportedPerson = new ImportPerson();
 		duplicateImportedPerson.id = (Integer) result.get("import_id");
 
-		for (Iterator<ResultList> itDuplicates = list.iterator(); itDuplicates.hasNext();) {
-            final Map next = (Map) itDuplicates.next();
-            final Integer personId = (Integer) next.get("person_id");
-            if (personId != null) {
-            	personIdArray.add(personId);
-            }
-        }
+		for (Iterator<ResultList> itDuplicates = list.iterator(); itDuplicates.hasNext(); ) {
+			final Map next = (Map) itDuplicates.next();
+			final Integer personId = (Integer) next.get("person_id");
+			if (personId != null) {
+				personIdArray.add(personId);
+			}
+		}
 	}
 
 	/**
@@ -170,8 +170,8 @@ public class PersonDuplicateCheckHelper {
 	 */
 	private List<Integer> listUniquePersonIds(List<Integer> personIdArray) {
 		for(int i = 0; i < personIdArray.size(); i++) {
-			for(int j = 1; j < personIdArray.size(); j++) {
-				if(personIdArray.get(i) == personIdArray.get(j)) {
+			for (int j = 1; j < personIdArray.size(); j++) {
+				if (personIdArray.get(i) == personIdArray.get(j)) {
 					personIdArray.remove(i);
 				}
 			}
@@ -194,9 +194,9 @@ public class PersonDuplicateCheckHelper {
 
 		final Select select = SQL.Select(database);
 		select.from(" veraweb.timportperson");
-		select.selectAs(database.getProperty(sampleImportPerson, "id"),	"import_id");
-		select.selectAs(database.getProperty(sampleImportPerson, "firstname_a_e1"),	"firstname");
-		select.selectAs(database.getProperty(sampleImportPerson, "lastname_a_e1"),	"lastname");
+		select.selectAs(database.getProperty(sampleImportPerson, "id"), "import_id");
+		select.selectAs(database.getProperty(sampleImportPerson, "firstname_a_e1"), "firstname");
+		select.selectAs(database.getProperty(sampleImportPerson, "lastname_a_e1"), "lastname");
 
 		select.where(Expr.equal(
 				database.getProperty(sampleImportPerson, "fk_import"),
@@ -217,7 +217,7 @@ public class PersonDuplicateCheckHelper {
 	public Clause getDuplicateExprPerson(OctopusContext cntx, Person person) {
 		// Not deleted person
 		Clause clause = Where.and(Expr.equal("fk_orgunit",
-				((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
+						((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
 				Expr.equal("deleted", PersonConstants.DELETED_FALSE));
 
 		String ln = person == null || person.lastname_a_e1 == null || person.lastname_a_e1.equals("") ? ""
@@ -262,7 +262,7 @@ public class PersonDuplicateCheckHelper {
 		Clause finalCaseQuery = getQueryOfAllDuplicatesCases(ln, fn,
 				helpFirstName, helpLastName);
 
-		Clause dupCheckFinal = Where.or(checkMixChanges,finalCaseQuery);
+		Clause dupCheckFinal = Where.or(checkMixChanges, finalCaseQuery);
 
 		// Merging with the easiest check
 		return Where.and(clause, dupCheckFinal);
@@ -366,7 +366,7 @@ public class PersonDuplicateCheckHelper {
 	 */
 	public Clause getDuplicateExprCompany(OctopusContext cntx, Person person) {
 		Clause clause = Where.and(Expr.equal("fk_orgunit",
-				((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
+						((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
 				Expr.equal("deleted", PersonConstants.DELETED_FALSE));
 		String companyName = person == null || person.company_a_e1 == null || person.company_a_e1.equals("") ? ""
 				: person.company_a_e1;
@@ -407,7 +407,7 @@ public class PersonDuplicateCheckHelper {
 			return null;
 		}
 		final StringBuffer buffer = new StringBuffer();
-		for (Iterator<Integer> itDuplicates = duplicates.iterator(); itDuplicates.hasNext();) {
+		for (Iterator<Integer> itDuplicates = duplicates.iterator(); itDuplicates.hasNext(); ) {
 			if (buffer.length() > 0) {
 				buffer.append(ImportPerson.PK_SEPERATOR_CHAR);
 			}

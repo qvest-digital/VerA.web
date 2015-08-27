@@ -21,7 +21,7 @@
 <span id="actionPanel" class="inlineLabel">
 	#if($grants.mayWrite())
 		${placeholderWithTranslation.markiertekategorien}
-        <input type="submit" name="remove" value="${placeholderWithTranslation.entfernen}" title="Markierte Kategorie(n) entfernen"/>
+        <input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="Markierte Kategorie(n) entfernen"/>
 	#end
 </span>
 <div class="buttonPanel-top floatRight">
@@ -40,7 +40,7 @@
                 ${placeholderWithTranslation.GENERIC_ID}
             </th>
             <th>
-                ${placeholderWithTranslation.kategorienundereignisse}
+                ${placeholderWithTranslation.GENERIC_CATEGORIES_AND_OCCASIONS}
             </th>
             <th class="textCenter smallCell">
                 ${placeholderWithTranslation.GENERIC_RANK}
@@ -59,7 +59,7 @@
             </td>
             <td>
                 <select id="add-categorie" name="add-categorie" style="width:100%;" onchange="setModified('add')" #if(!$grants.mayWrite()) vera-disabled#end>
-                    <option value="">${placeholderWithTranslation.bittewahlensie}</option>
+                    <option value="">${placeholderWithTranslation.GENERIC_PLEASE_CHOOSE}</option>
                     #foreach($categorie in $allCategorie)
                         <option value="$!categorie.id">$!message.plain($categorie.name)</option>
                     #end

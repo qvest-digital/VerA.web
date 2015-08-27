@@ -14,11 +14,11 @@
         <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.personensuche}</span>
     </div>
 
-    <h1>${placeholderWithTranslation.personensuche}</h1>
+    <h1>${placeholderWithTranslation.GENERIC_SEARCH_PERSON}</h1>
 
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 
-        <h2><label for="searchfield">${placeholderWithTranslation.suche}</label></h2>
+        <h2><label for="searchfield">${placeholderWithTranslation.GENERIC_SEARCH}</label></h2>
 
         <form action="SearchPerson" id="peopleSearch_form" method="post">
             <input type="hidden" name="start" value="0">
@@ -34,8 +34,8 @@
 
 
             <div id="buttonPanel-bottom" class="textRight">
-                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
-                    <input type="button" class="mainButton submit" name="cancel" value="${placeholderWithTranslation.erweitertesuche}" title="${placeholderWithTranslation.erweitertesuche}" onclick="window.location.href='${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear'" />
+                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
+                    <input type="button" class="mainButton submit" name="cancel" value="${placeholderWithTranslation.GENERIC_ADVANCED_SEARCH}" title="${placeholderWithTranslation.GENERIC_ADVANCED_SEARCH}" onclick="window.location.href='${paths.staticWeb}do/ShowPersonSearch?action=person&search=clear'" />
             </div>
 
         </form>

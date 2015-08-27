@@ -345,9 +345,6 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         }
     }
 
-    //
-    // Schnittstelle AlternativeDestination
-    //
     /**
      * Diese Methode liefert ein alternatives Ziel in Form eines {@link OutputStream}s.
      *
@@ -362,14 +359,14 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
             millis = millis.substring(millis.length() - 3);
             StringBuffer buffer = new StringBuffer();
             buffer.append("rte") // Præfix --- "ctn" bei hoher und "rte" bei normaler Priorität, "sys" bei Fehlerdateien
-                .append('_')
-                .append(ccmApplication) // Applikation
-                .append('_')
-                .append(ccmSenderEndpoint) // Dienstort
-                .append('_')
-                .append(ccmDateFormat.format(now)) // Zeitstempel
-                .append(millis) // Millisekunden
-                .append(".xml");
+                    .append('_')
+                    .append(ccmApplication) // Applikation
+                    .append('_')
+                    .append(ccmSenderEndpoint) // Dienstort
+                    .append('_')
+                    .append(ccmDateFormat.format(now)) // Zeitstempel
+                    .append(millis) // Millisekunden
+                    .append(".xml");
             ccmOutgoingFile = new File(ccmOutgoingFolder, buffer.toString());
             return new FileOutputStream(ccmOutgoingFile);
         }
@@ -381,14 +378,11 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
      * löscht dabei z.B. neu erstellte Dateien wieder.
      */
     public void rollback() {
-    	if (ccmOutgoingFile != null && ccmOutgoingFile.exists()) {
-    		ccmOutgoingFile.delete();
-    	}
+        if (ccmOutgoingFile != null && ccmOutgoingFile.exists()) {
+            ccmOutgoingFile.delete();
+        }
     }
 
-    //
-    // geschützte Methoden
-    //
     /**
      * Diese Methode fügt dem VerA.web-Personen-Element Verwaltungsinformationen
      * hinzu.
@@ -401,8 +395,6 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         setAttribute(personElement, PERSON_SAVE_AS_ATTRIBUTE_VW, person.getMainLatin().getSaveAs());
         setAttribute(personElement, PERSON_IS_COMPANY_ATTRIBUTE_VW, person.iscompany);
         setAttribute(personElement, PERSON_EXPIRATION_ATTRIBUTE_VW, person.expire);
-        // TODO: PERSON_ORG_UNIT_ATTRIBUTE
-        //setAttribute(personElement, PERSON_ORG_UNIT_ATTRIBUTE_VW, ???);
         appendChild(personElement, createHistoryElement(person));
     }
 
@@ -447,11 +439,11 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         Categorie sampleCategory = (Categorie) db.createBean("Categorie");
         Bean samplePersonCategory = db.createBean("PersonCategorie");
         Select select = db.getSelect(sampleCategory)
-            .join(db.getProperty(samplePersonCategory, "table"),
-                    db.getProperty(sampleCategory, "id"),
-                    db.getProperty(samplePersonCategory, "categorie"))
-            .selectAs(db.getProperty(samplePersonCategory, "rank"), "individualRank")
-            .where(Expr.equal(db.getProperty(samplePersonCategory, "person"), person.id));
+                .join(db.getProperty(samplePersonCategory, "table"),
+                        db.getProperty(sampleCategory, "id"),
+                        db.getProperty(samplePersonCategory, "categorie"))
+                .selectAs(db.getProperty(samplePersonCategory, "rank"), "individualRank")
+                .where(Expr.equal(db.getProperty(samplePersonCategory, "person"), person.id));
         List list = db.getList(select, db);
         for (Iterator itList = list.iterator(); itList.hasNext(); ) {
             Map data = (Map) itList.next();
@@ -476,17 +468,17 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
      * @throws IOException
      */
     void insertDocTypes(Element personElement, Person person) throws BeanException, IOException {
-        logger.entering(getClass().getName(), "insertDocTypes", new Object[] {personElement, person});
+        logger.entering(getClass().getName(), "insertDocTypes", new Object[]{personElement, person});
         Doctype sampleDoctype = (Doctype) db.createBean("Doctype");
         Bean samplePersonDoctype = db.createBean("PersonDoctype");
         Select select = db.getSelect(sampleDoctype)
-            .join(db.getProperty(samplePersonDoctype, "table"),
-                    db.getProperty(sampleDoctype, "id"),
-                    db.getProperty(samplePersonDoctype, "doctype"))
-            .selectAs(db.getProperty(samplePersonDoctype, "textfield"), "textfield")
-            .selectAs(db.getProperty(samplePersonDoctype, "textfieldPartner"), "textfieldPartner")
-            .selectAs(db.getProperty(samplePersonDoctype, "textfieldJoin"), "textfieldJoin")
-            .where(Expr.equal(db.getProperty(samplePersonDoctype, "person"), person.id));
+                .join(db.getProperty(samplePersonDoctype, "table"),
+                        db.getProperty(sampleDoctype, "id"),
+                        db.getProperty(samplePersonDoctype, "doctype"))
+                .selectAs(db.getProperty(samplePersonDoctype, "textfield"), "textfield")
+                .selectAs(db.getProperty(samplePersonDoctype, "textfieldPartner"), "textfieldPartner")
+                .selectAs(db.getProperty(samplePersonDoctype, "textfieldJoin"), "textfieldJoin")
+                .where(Expr.equal(db.getProperty(samplePersonDoctype, "person"), person.id));
         List list = db.getList(select, db);
         for (Iterator itList = list.iterator(); itList.hasNext(); ) {
             Map data = (Map) itList.next();
@@ -583,19 +575,19 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     Element createNoteElement(Person person, boolean partner, int type) {
         String typeValue = null;
         String noteText = null;
-        switch(type) {
-        case NOTE_TYPE_GENERAL:
-            typeValue = NOTE_TYPE_ATTRIBUTE_GENERAL_VW;
-            noteText = partner ? person.note_b_e1 : person.note_a_e1;
-            break;
-        case NOTE_TYPE_ORGANIZATION:
-            typeValue = NOTE_TYPE_ATTRIBUTE_ORGANIZATION_VW;
-            noteText = partner ? person.noteorga_b_e1 : person.noteorga_a_e1;
-            break;
-        case NOTE_TYPE_HOST:
-            typeValue = NOTE_TYPE_ATTRIBUTE_HOST_VW;
-            noteText = partner ? person.notehost_b_e1 : person.notehost_a_e1;
-            break;
+        switch (type) {
+            case NOTE_TYPE_GENERAL:
+                typeValue = NOTE_TYPE_ATTRIBUTE_GENERAL_VW;
+                noteText = partner ? person.note_b_e1 : person.note_a_e1;
+                break;
+            case NOTE_TYPE_ORGANIZATION:
+                typeValue = NOTE_TYPE_ATTRIBUTE_ORGANIZATION_VW;
+                noteText = partner ? person.noteorga_b_e1 : person.noteorga_a_e1;
+                break;
+            case NOTE_TYPE_HOST:
+                typeValue = NOTE_TYPE_ATTRIBUTE_HOST_VW;
+                noteText = partner ? person.notehost_b_e1 : person.notehost_a_e1;
+                break;
         }
         return createTextElement(NOTE_ELEMENT_VW, noteText, NOTE_TYPE_ATTRIBUTE_VW, typeValue, false);
     }
@@ -612,19 +604,19 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     Element createNameElement(Person person, boolean partner, int lang) {
         PersonMemberFacade facade = null;
         String language = null;
-        switch(lang) {
-        case LANGUAGE_LATIN:
-            language = LANGUAGE_ATTRIBUTE_LATIN_VW;
-            facade = partner ? person.getPartnerLatin() : person.getMainLatin();
-            break;
-        case LANGUAGE_EXTRA_1:
-            language = LANGUAGE_ATTRIBUTE_EXTRA_1_VW;
-            facade = partner ? person.getPartnerExtra1() : person.getMainExtra1();
-            break;
-        case LANGUAGE_EXTRA_2:
-            language = LANGUAGE_ATTRIBUTE_EXTRA_2_VW;
-            facade = partner ? person.getPartnerExtra2() : person.getMainExtra2();
-            break;
+        switch (lang) {
+            case LANGUAGE_LATIN:
+                language = LANGUAGE_ATTRIBUTE_LATIN_VW;
+                facade = partner ? person.getPartnerLatin() : person.getMainLatin();
+                break;
+            case LANGUAGE_EXTRA_1:
+                language = LANGUAGE_ATTRIBUTE_EXTRA_1_VW;
+                facade = partner ? person.getPartnerExtra1() : person.getMainExtra1();
+                break;
+            case LANGUAGE_EXTRA_2:
+                language = LANGUAGE_ATTRIBUTE_EXTRA_2_VW;
+                facade = partner ? person.getPartnerExtra2() : person.getMainExtra2();
+                break;
         }
         assert facade != null;
 
@@ -652,60 +644,60 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         PersonAddressFacade facade = null;
         String language = null;
         String addressType = null;
-        switch(lang) {
-        case LANGUAGE_LATIN:
-            language = LANGUAGE_ATTRIBUTE_LATIN_VW;
-            break;
-        case LANGUAGE_EXTRA_1:
-            language = LANGUAGE_ATTRIBUTE_EXTRA_1_VW;
-            break;
-        case LANGUAGE_EXTRA_2:
-            language = LANGUAGE_ATTRIBUTE_EXTRA_2_VW;
-            break;
+        switch (lang) {
+            case LANGUAGE_LATIN:
+                language = LANGUAGE_ATTRIBUTE_LATIN_VW;
+                break;
+            case LANGUAGE_EXTRA_1:
+                language = LANGUAGE_ATTRIBUTE_EXTRA_1_VW;
+                break;
+            case LANGUAGE_EXTRA_2:
+                language = LANGUAGE_ATTRIBUTE_EXTRA_2_VW;
+                break;
         }
-        switch(type) {
-        case ADDRESS_TYPE_PRIVATE:
-            addressType = ADDRESS_TYPE_ATTRIBUTE_PRIVATE_VW;
-            switch(lang) {
-            case LANGUAGE_LATIN:
-                facade = person.getPrivateLatin();
+        switch (type) {
+            case ADDRESS_TYPE_PRIVATE:
+                addressType = ADDRESS_TYPE_ATTRIBUTE_PRIVATE_VW;
+                switch (lang) {
+                    case LANGUAGE_LATIN:
+                        facade = person.getPrivateLatin();
+                        break;
+                    case LANGUAGE_EXTRA_1:
+                        facade = person.getPrivateExtra1();
+                        break;
+                    case LANGUAGE_EXTRA_2:
+                        facade = person.getPrivateExtra2();
+                        break;
+                }
                 break;
-            case LANGUAGE_EXTRA_1:
-                facade = person.getPrivateExtra1();
+            case ADDRESS_TYPE_BUSINESS:
+                addressType = ADDRESS_TYPE_ATTRIBUTE_BUSINESS_VW;
+                switch (lang) {
+                    case LANGUAGE_LATIN:
+                        facade = person.getBusinessLatin();
+                        break;
+                    case LANGUAGE_EXTRA_1:
+                        facade = person.getBusinessExtra1();
+                        break;
+                    case LANGUAGE_EXTRA_2:
+                        facade = person.getBusinessExtra2();
+                        break;
+                }
                 break;
-            case LANGUAGE_EXTRA_2:
-                facade = person.getPrivateExtra2();
+            case ADDRESS_TYPE_OTHER:
+                addressType = ADDRESS_TYPE_ATTRIBUTE_OTHER_VW;
+                switch (lang) {
+                    case LANGUAGE_LATIN:
+                        facade = person.getOtherLatin();
+                        break;
+                    case LANGUAGE_EXTRA_1:
+                        facade = person.getOtherExtra1();
+                        break;
+                    case LANGUAGE_EXTRA_2:
+                        facade = person.getOtherExtra2();
+                        break;
+                }
                 break;
-            }
-            break;
-        case ADDRESS_TYPE_BUSINESS:
-            addressType = ADDRESS_TYPE_ATTRIBUTE_BUSINESS_VW;
-            switch(lang) {
-            case LANGUAGE_LATIN:
-                facade = person.getBusinessLatin();
-                break;
-            case LANGUAGE_EXTRA_1:
-                facade = person.getBusinessExtra1();
-                break;
-            case LANGUAGE_EXTRA_2:
-                facade = person.getBusinessExtra2();
-                break;
-            }
-            break;
-        case ADDRESS_TYPE_OTHER:
-            addressType = ADDRESS_TYPE_ATTRIBUTE_OTHER_VW;
-            switch(lang) {
-            case LANGUAGE_LATIN:
-                facade = person.getOtherLatin();
-                break;
-            case LANGUAGE_EXTRA_1:
-                facade = person.getOtherExtra1();
-                break;
-            case LANGUAGE_EXTRA_2:
-                facade = person.getOtherExtra2();
-                break;
-            }
-            break;
         }
         if (facade != null) {
             boolean notEmpty = false;

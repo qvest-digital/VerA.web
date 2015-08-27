@@ -20,7 +20,7 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.personenimport}</a> > ${placeholderWithTranslation.importstatus}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.GENERIC_IMPORT_PERSONS}</a> > ${placeholderWithTranslation.importstatus}</span>
 	</div>
 	<h1>${placeholderWithTranslation.importstatusvorhandenedublettenbearbeiten}</h1>
 

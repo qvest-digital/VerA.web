@@ -9,10 +9,10 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
+	<h1>${placeholderWithTranslation.GENERIC_EDIT_EVENT}: $!message.plain($event.shortname)</h1>
 
 
 	#set($completeEventHeader = false)
@@ -28,7 +28,7 @@
 		<input type="hidden" name="doRemove" value="true"/>
 
 	<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
-		<input type="button" class="mainButton" value="${placeholderWithTranslation.zurgasteverwaltung}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
+		<input type="button" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
 	</div>
 
 		<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
@@ -36,16 +36,16 @@
 			<div id="tabsMain" class="event">
 				<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
 					<li class="inactive"  onclick="window.location.href='ShowEvent?id=$!event.id';" class="noBorder">
-						<div>${placeholderWithTranslation.allgemein}</div>
+						<div>${placeholderWithTranslation.GENERIC_GENERAL}</div>
 					</li>
 					<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';" class="noBorder">
-						<div>${placeholderWithTranslation.dokumenttypen}</div>
+						<div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
 					</li>
 					<li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';" class="noBorder">
-						<div>${placeholderWithTranslation.aufgaben}</div>
+						<div>${placeholderWithTranslation.GENERIC_TASK_PLURAL}</div>
 					</li>
 					#if($online-registration.activated)
-						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.zusatzlichepersonendaten}</div>
+						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.GENERIC_ADDITIONAL_PERSONS_DATA}</div>
 						</li>
 						<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
 						</li>
@@ -67,7 +67,7 @@
 
 				#if($grants.mayWrite())
 					<div class="buttonPanel-top floatRight">
-						<input type="submit" name="save" title="${placeholderWithTranslation.neuekategoriehinzufugen}" value="${placeholderWithTranslation.neuekategoriehinzufugen}" class="mainButton" onclick="saveEventCategory();"/>
+						<input type="submit" name="save" title="${placeholderWithTranslation.GENERIC_ADD_NEW_KATEGORIES}" value="${placeholderWithTranslation.GENERIC_ADD_NEW_KATEGORIES}" class="mainButton" onclick="saveEventCategory();"/>
 					</div>
 				#end
 
@@ -148,9 +148,9 @@
 
 		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
-				<input type="submit" name="save" value="${placeholderWithTranslation.veranstaltungspeichern}" class="mainButton"/>
+				<input type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" class="mainButton"/>
 			#end
-			<input type="button" name="cancel" value="${placeholderWithTranslation.zurveranstaltungsubersicht}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
+			<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
 		</span>
 
 	</form>

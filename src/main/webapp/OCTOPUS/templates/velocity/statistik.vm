@@ -10,7 +10,7 @@
 	<form id="formlist" name="formlist" action="" method="get" target="" onsubmit="return exportStatistik();">
 		<input type="hidden" id="a" name="a" value="statistik">
 
-		<h1>${placeholderWithTranslation.statistiken}</h1>
+		<h1>${placeholderWithTranslation.GENERIC_STATISTICS}</h1>
 
 		<div id="main_content" class="contentBoxColored grayBorder">
 

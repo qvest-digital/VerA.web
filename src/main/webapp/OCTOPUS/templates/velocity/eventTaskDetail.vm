@@ -19,15 +19,15 @@
 
     #if($task && $task.id)
     <div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
     </div>
     #else
     <div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
     </div>
     #end
 
-	<h1>${placeholderWithTranslation.veranstaltungbearbeiten} $!message.plain($event.shortname)</h1>
+	<h1>${placeholderWithTranslation.GENERIC_EDIT_EVENT} $!message.plain($event.shortname)</h1>
 
     <form id="formlist" name="formlist" action="" method="POST">
         <input type="hidden" id="a" name="a" value="taskReferencePerson" />
@@ -78,7 +78,7 @@
         #parse("inc/event-header.vm")
 
 		<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
-            <input type="button" class="mainButton" value="${placeholderWithTranslation.zurgasteverwaltung}" title="${placeholderWithTranslation.zurgasteverwaltung}" name="guestlist" goto="ShowGuestList?search-event=$!event.id&start=0&selectNone=true">
+            <input type="button" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" title="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" name="guestlist" goto="ShowGuestList?search-event=$!event.id&start=0&selectNone=true">
         </div>
 
         <div id="main_content" class="tabs contentBox grayBorder marginBottom10 event">
@@ -86,12 +86,12 @@
 
             <div id="tabsMain">
                 <ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-                    <li class="inactive" id="showEvent" goto="ShowEvent?id=$!eventId" class="noBorder"><div>${placeholderWithTranslation.allgemein}</div></a>
-                    </li><li id="showEventDoctype" class="inactive" goto="${paths.staticWeb}do/ShowEventDoctype?id=$!eventId&selectNone=true" class="noBorder"><div>${placeholderWithTranslation.dokumenttypen}</div>
-                    </li><li id="showEventTasks" class="active" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true"><div>${placeholderWithTranslation.aufgaben}</div>
+                    <li class="inactive" id="showEvent" goto="ShowEvent?id=$!eventId" class="noBorder"><div>${placeholderWithTranslation.GENERIC_GENERAL}</div></a>
+                    </li><li id="showEventDoctype" class="inactive" goto="${paths.staticWeb}do/ShowEventDoctype?id=$!eventId&selectNone=true" class="noBorder"><div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
+                    </li><li id="showEventTasks" class="active" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true"><div>${placeholderWithTranslation.GENERIC_TASK_PLURAL}</div>
                     </li>
                     #if($online-registration.activated)
-                    	<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.zusatzlichepersonendaten}</div>
+                    	<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.GENERIC_ADDITIONAL_PERSONS_DATA}</div>
                         </li>
                         <li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
                         </li>
@@ -108,9 +108,9 @@
                 <div class="table width100">
                     <div class="tableRow">
                         <div class="tableCell width40">
-                            <strong>${placeholderWithTranslation.aufgabenid}</strong><br /> $!message.text($task.id)</div>
+                            <strong>${placeholderWithTranslation.GENERIC_TASKS_ID}</strong><br /> $!message.text($task.id)</div>
                         <div class="tableCell width30">
-                            <label for="task-startdate">${placeholderWithTranslation.beginn}</label>
+                            <label for="task-startdate">${placeholderWithTranslation.GENERIC_BEGIN}</label>
                             <input tabindex="2" type="text" name="task-startdate" id="task-startdate" value="$!message.date("DATE", $task.startdate)" class="date" style="width: 80px;" onchange="setModified();">
                             #if($grants.mayWrite())
                             <span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"></span> um
@@ -129,7 +129,7 @@
                             #end
                             <input type="text" tabindex="3" name="task-starttime" id="task-starttime" #if($task-starthastime) value="$!message.date("TIME", $task.startdate)" #else value="$!message.plain($task.starttime)" #end class="date" style="width: 45px;" onchange="setModified();"> <label class="inline" for="task-starttime">${placeholderWithTranslation.GENERIC_OCLOCK}</label></div>
                         <div class="tableCell width30">
-                            <label for="task-degreeofcompletion">${placeholderWithTranslation.fertigstellung}</label>
+                            <label for="task-degreeofcompletion">${placeholderWithTranslation.GENERIC_COMPLETION}</label>
                             <select tabindex="6" name="task-degreeofcompletion" id="task-degreeofcompletion" class="width20" onchange="setModified();">
                                 <option #if($task.degreeofcompletion && $task.degreeofcompletion == 0) selected #end value="0">0%</option>
                                 <option #if($task.degreeofcompletion && $task.degreeofcompletion == 10) selected #end value="10">10%</option>
@@ -166,7 +166,7 @@
                             <input type="text" tabindex="5" name="task-endtime" id="task-endtime" #if($task-endhastime) value="$!message.date("TIME", $task.enddate)" #else value="$!message.plain($task.endtime)" #end class="date" style="width: 45px;" onchange="setModified();"> <label class="inline" for="task-endtime">${placeholderWithTranslation.GENERIC_OCLOCK}</label>
                         </div>
                         <div class="tableCell">
-                            <label for="task-priority">${placeholderWithTranslation.prioritat}</label>
+                            <label for="task-priority">${placeholderWithTranslation.GENERIC_PRIORITY}</label>
                             <select  tabindex="7" name="task-priority" id="task-priority" class="width20" onchange="setModified();">
                                 <option #if($task.priority && $task.priority == 1) selected #end value="1">1</option>
                                 <option #if($task.priority && $task.priority == 2) selected #end value="2">2</option>
@@ -182,14 +182,14 @@
                  <div class="table width100">
                     <div class="tableRow">
                         <div class="tableCell">
-                            <label for="task-description">${placeholderWithTranslation.beschreibung}</label>
+                            <label for="task-description">${placeholderWithTranslation.GENERIC_DESCRIPTION}</label>
                             <textarea tabindex="8" rows="4" cols="20" name="task-description" id="task-description" onchange="setModified();">$!message.textarea($task.description)</textarea>
                         </div>
                     </div>
                     <div class="tableRow">
                         <div class="tableCell">
                             <input type="hidden" id="task-reference-person" value="$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)">
-                            <strong>${placeholderWithTranslation.verantwortlicher}</strong>
+                            <strong>${placeholderWithTranslation.GENERIC_RESPONSIBLE}</strong>
                             <div id="task-reference-person-text" class="marginBottom5">$!message.text($refPerson.firstname_a_e1) $!message.text($refPerson.lastname_a_e1)</div>
     				        #if($grants.mayWrite())
                                 <div>
@@ -206,14 +206,14 @@
                 <div class="textRight" id="buttonPanel-bottom">
                     #if($event && $event.id)
         				#if($grants.mayWrite())
-        					<input id="button.save" tabindex="11" type="submit" name="save" value="${placeholderWithTranslation.aufgabespeichern}" title="${placeholderWithTranslation.aufgabespeichern}" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
+        					<input id="button.save" tabindex="11" type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_TASK}" title="${placeholderWithTranslation.GENERIC_SAVE_TASK}" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
         				#end
-                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zuruckzuraufgabenubersicht}" title="${placeholderWithTranslation.zuruckzuraufgabenubersicht}" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
+                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
                     #else
         				#if($grants.mayWrite())
-        					<input id="button.save" tabindex="11" type="submit" name="save" value="${placeholderWithTranslation.aufgabespeichern}" title="${placeholderWithTranslation.aufgabespeichern}" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
+        					<input id="button.save" tabindex="11" type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_TASK}" title="${placeholderWithTranslation.GENERIC_SAVE_TASK}" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
         				#end
-                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zuruckzuraufgabenubersicht}" title="${placeholderWithTranslation.zuruckzuraufgabenubersicht}" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
+                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
                     #end
                 </div>
 			</div>
@@ -222,9 +222,9 @@
 
 		<span id="buttonPanel-bottom" class="floatRight">
             #if($grants.mayWrite())
-			    <input type="submit" name="save" value="${placeholderWithTranslation.veranstaltungspeichern}" class="mainButton" onclick="document.getElementById('formlist').action='SaveEventTask';">
+			    <input type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" class="mainButton" onclick="document.getElementById('formlist').action='SaveEventTask';">
             #end
-			<input type="reset" name="cancel" value="${placeholderWithTranslation.zurveranstaltungsubersicht}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
+			<input type="reset" name="cancel" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
         </span>
 
     </form>

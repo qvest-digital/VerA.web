@@ -49,7 +49,7 @@
                 	<td><input type="text" value="$!message.text($missingorgunit.importperson)" id="importPerson" vera-disabled></td>
 
                 </tr><tr>
-                	<td class="width15 bold"><label for="venue">${placeholderWithTranslation.veranstaltungsorte}:</label></td>
+                	<td class="width15 bold"><label for="venue">${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.location)" id="venue" vera-disabled></td>
                 	<td class="width15 bold"><label for="mailinglist">${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}:</label></td>
                 	<td><input type="text" value="$!message.text($missingorgunit.mailinglist)" id="mailinglist" vera-disabled></td>

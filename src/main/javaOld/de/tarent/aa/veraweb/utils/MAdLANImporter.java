@@ -134,7 +134,7 @@ public class MAdLANImporter implements Importer, Exchanger {
 
         //Teste die Gültigkeit der Konfiguration
         List requiredFields = (List) format.getProperties().get("importRequiredFields");
-        List fitDateFields = (List)format.getProperties().get("fitDateFields");
+        List fitDateFields = (List) format.getProperties().get("fitDateFields");
         List setNullFields = (List) format.getProperties().get("setNullFields");
         Map rawMadlanFieldMapping = (Map) format.getProperties().get("fieldMapping");
         if (rawMadlanFieldMapping == null)
@@ -142,10 +142,10 @@ public class MAdLANImporter implements Importer, Exchanger {
         FieldMapping mapping = new FieldMapping(rawMadlanFieldMapping);
         Object test = isSubset(mapping.getTargetFields(), requiredFields);
         if (test != null)
-            throw new IOException("Datenbankfeld \""+test+"\" wird benötigt, fehlt aber in der konfigurierten Mapping-Definition.");
+            throw new IOException("Datenbankfeld \"" + test + "\" wird benötigt, fehlt aber in der konfigurierten Mapping-Definition.");
         test = isSubset((new ImportPerson()).getFields(), mapping.getTargetFields());
         if (test != null)
-            throw new IOException("Datenbankfeld \""+test+"\" wird in der Mapping-Definition beschrieben, fehlt aber in den "+ImportPerson.class.getName()+"-Bean-Parametern.");
+            throw new IOException("Datenbankfeld \"" + test + "\" wird in der Mapping-Definition beschrieben, fehlt aber in den " + ImportPerson.class.getName() + "-Bean-Parametern.");
 
         //Beginne mit dem Parsen (Auswertung des Headers)
         MadlanReader mr = new MadlanReader(reader, format);
@@ -170,7 +170,7 @@ public class MAdLANImporter implements Importer, Exchanger {
                 mapping.setRow(row);
                 Iterator it = mapping.getTargetFields().iterator();
                 while (it.hasNext()) {
-                    String key = (String)it.next();
+                    String key = (String) it.next();
                     importPerson.setField(key, mapping.getValue(key));
                 }
 
@@ -198,38 +198,38 @@ public class MAdLANImporter implements Importer, Exchanger {
                 // Hierbei handelt es sich um weitere Firmenanschriften, die hier
                 // in die Private bzw. Weitere Anschrift/Latin einsortiert werden.
 
-            	String company = importPerson.getBusinessLatin().getCompany();
+                String company = importPerson.getBusinessLatin().getCompany();
                 if (company != null) {
-                	company = company.trim();
-               		String ca[] = company.split("[\r\n]");
-               		List cl = new ArrayList();
-               		for (int i = 0; i < ca.length; i++)
-               			if (ca[i] != null && ca[i].trim().length() != 0)
-               				cl.add(ca[i].trim());
+                    company = company.trim();
+                    String ca[] = company.split("[\r\n]");
+                    List cl = new ArrayList();
+                    for (int i = 0; i < ca.length; i++)
+                        if (ca[i] != null && ca[i].trim().length() != 0)
+                            cl.add(ca[i].trim());
 
-                	if (cl.size() == 0) {
-                   		importPerson.company_a_e1 = "";
-                   		importPerson.company_b_e1 = "";
-                   		importPerson.company_c_e1 = "";
-                	} else if (cl.size() == 1) {
-                   		importPerson.company_a_e1 = (String)cl.get(0);
-                   		importPerson.company_b_e1 = "";
-                   		importPerson.company_c_e1 = "";
-                	} else if (cl.size() == 2) {
-                   		importPerson.company_a_e1 = (String)cl.get(0);
-                   		importPerson.company_b_e1 = (String)cl.get(1);
-                   		importPerson.company_c_e1 = "";
-                	} else if (cl.size() >= 3) {
-                   		importPerson.company_a_e1 = (String)cl.get(0);
-                   		importPerson.company_b_e1 = (String)cl.get(1);
-                   		StringBuffer sb = new StringBuffer();
-                   		for (Iterator clit = cl.iterator(); clit.hasNext(); ) {
-                   			sb.append((String)clit.next());
-                   			if (clit.hasNext())
-                   				sb.append(", ");
-                   		}
-                   		importPerson.company_c_e1 = sb.toString();
-                	}
+                    if (cl.size() == 0) {
+                        importPerson.company_a_e1 = "";
+                        importPerson.company_b_e1 = "";
+                        importPerson.company_c_e1 = "";
+                    } else if (cl.size() == 1) {
+                        importPerson.company_a_e1 = (String) cl.get(0);
+                        importPerson.company_b_e1 = "";
+                        importPerson.company_c_e1 = "";
+                    } else if (cl.size() == 2) {
+                        importPerson.company_a_e1 = (String) cl.get(0);
+                        importPerson.company_b_e1 = (String) cl.get(1);
+                        importPerson.company_c_e1 = "";
+                    } else if (cl.size() >= 3) {
+                        importPerson.company_a_e1 = (String) cl.get(0);
+                        importPerson.company_b_e1 = (String) cl.get(1);
+                        StringBuffer sb = new StringBuffer();
+                        for (Iterator clit = cl.iterator(); clit.hasNext(); ) {
+                            sb.append((String) clit.next());
+                            if (clit.hasNext())
+                                sb.append(", ");
+                        }
+                        importPerson.company_c_e1 = sb.toString();
+                    }
                 }
 
                 digester.importPerson(importPerson, null);
@@ -268,12 +268,6 @@ public class MAdLANImporter implements Importer, Exchanger {
      * @return Timestamp
      */
     private static Timestamp fitDateField(Timestamp value) {
-        /*if (field.length() == 8 && field.charAt(field.length()-3) == '.') {//Jahresangabe ist nur zweistellig
-            StringBuffer buffer = new StringBuffer(field);
-            buffer.insert(6, "19");
-            return buffer.toString();
-        } else
-            return field;*/
         logger.finer("Timestamp: " + value);
         return value;
     }

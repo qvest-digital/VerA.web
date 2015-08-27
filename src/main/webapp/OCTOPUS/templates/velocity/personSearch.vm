@@ -52,20 +52,20 @@
     	<h1>${placeholderWithTranslation.personensuchegasthinzufugen}</h1>
 	#elseif($action == "taskReferencePerson")
     	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS} > ${placeholderWithTranslation.verantwortlichenhinzufugen}</span>
+    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS} > ${placeholderWithTranslation.GENERIC_ADD_RESPONSIBLES}</span>
     	</div>
 
-    	<h1>${placeholderWithTranslation.personensuche} ${placeholderWithTranslation.verantwortlichenfueraufgabehinzufugen}</h1>
+    	<h1>${placeholderWithTranslation.GENERIC_SEARCH_PERSON} ${placeholderWithTranslation.verantwortlichenfueraufgabehinzufugen}</h1>
 	#else
         <div id="breadcrumb" class="textRight marginBottom10">
-            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.personensuche}</span>
+            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_SEARCH_PERSON}</span>
         </div>
 
-        <h1>${placeholderWithTranslation.personensuche}</h1>
+        <h1>${placeholderWithTranslation.GENERIC_SEARCH_PERSON}</h1>
 	#end
     <div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 
-        <h2>${placeholderWithTranslation.suche}</h2>
+        <h2>${placeholderWithTranslation.GENERIC_SEARCH}</h2>
 
         <form action="$formurl" id="peopleSearch_form" method="post">
             <input type="hidden" name="start" value="0">
@@ -107,7 +107,7 @@
                             <input type="text" name="company" id="company" value="$!message.text($search.company)"  />
                         </div>
                         <div class="tableCell width30">
-                            <label for="iscompany">${placeholderWithTranslation.istfirma}</label>
+                            <label for="iscompany">${placeholderWithTranslation.GENERIC_IS_COMPANY}</label>
                             <input type="checkbox" name="iscompany" id="iscompany" value="true"  #if($search.iscompany) checked #end />
                         </div>
                         <div class="tableCell width30"></div>
@@ -116,7 +116,7 @@
             </fieldset>
 
             <fieldset>
-                <legend>${placeholderWithTranslation.adresse}</legend>
+                <legend>${placeholderWithTranslation.GENERIC_ADDRESSES}</legend>
 
                 <div class="table width100">
                     <div class="tableRow">
@@ -139,7 +139,7 @@
                             <input type="text" name="state" id="state" value="$!message.text($search.state)"  />
                         </div>
                         <div class="tableCell width30">
-                            <label for="country">${placeholderWithTranslation.land}</label>
+                            <label for="country">${placeholderWithTranslation.GENERIC_COUNTRY}</label>
                             <input type="text" name="country" id="country" value="$!message.text($search.country)"  />
                         </div>
                         <div class="tableCell width30"></div>
@@ -198,7 +198,7 @@
                             <input type="text" name="importsource" id="importsource" value="$!message.text($search.importsource)"  />
                         </div>
                         <div class="tableCell width30">
-                            <label for="validtype">${placeholderWithTranslation.gultigkeitsdatum}</label>
+                            <label for="validtype">${placeholderWithTranslation.GENERIC_VALIDITY_DATE}</label>
                             <select name="validtype" id="validtype" >
                                 <option value="1" #if($search.validtype == 1) selected #end>${placeholderWithTranslation.biszudiesemdatum}</option>
                                 <option value="2" #if($search.validtype == 2) selected #end>${placeholderWithTranslation.abdiesemdatum}</option>
@@ -232,15 +232,15 @@
 
             <div id="buttonPanel-bottom" class="textRight">
                 #if($action == "guest")
-                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
+                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
                     <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
                     <input type="button" class="mainButton cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='ShowGuestList?selectNone=true';" />
                 #elseif($action == "host")
-                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
+                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
                     <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
                     <input type="button" class="mainButton cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='SetHostToEventDetail';" />
                 #elseif($action == "statistikGuest")
-                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
+                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
                     <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
                     <input type="button" class="mainButton cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='Statistik';" />
                 #elseif($action == "statistikHost")
@@ -248,7 +248,7 @@
                     <input type="button" class="mainButton reset"  name="reset" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
                     <input type="button" class="mainButton cancel" name="cancel" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="window.location.href='Statistik';" />
                 #else
-                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.suchen}" title="${placeholderWithTranslation.suchen}" />
+                    <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
                     <input type="button"  class="mainButton reset" name="cancel" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" onclick="clearForm();" />
                 #end
             </div>

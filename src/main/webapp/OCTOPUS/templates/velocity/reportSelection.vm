@@ -4,7 +4,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+    	<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
     </div>
     <h1>${placeholderWithTranslation.gaesteverwaltungderveranstaltung} $!message.plain($event.shortname)</h1>
 
@@ -59,7 +59,7 @@
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
                             			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
                             			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
@@ -67,7 +67,7 @@
                             #else
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
                             			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
                             			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
@@ -84,7 +84,7 @@
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
                             			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
                             			<option value="category" selected>${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
                             			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
@@ -92,7 +92,7 @@
                             #else
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
                             			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
                             			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
@@ -109,7 +109,7 @@
                             			<option value=""></option>
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
                             			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
                             			<option value="rank" selected>${placeholderWithTranslation.GENERIC_RANK}</option>
@@ -118,7 +118,7 @@
                             			<option value="" selected></option>
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
                             			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
                             			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>

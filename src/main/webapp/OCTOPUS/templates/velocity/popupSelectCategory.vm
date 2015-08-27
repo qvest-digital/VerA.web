@@ -184,7 +184,7 @@
                         #if( $assignmentAction == "assign" )
                             ${placeholderWithTranslation.zuweisen}
                         #else
-                            ${placeholderWithTranslation.entfernen}
+                            ${placeholderWithTranslation.GENERIC_DELETE}
                         #end
                     ${placeholderWithTranslation.moechten}:</h1>
 
@@ -210,7 +210,7 @@
                     #if( $assignmentAction == "assign" && $allCategorie.size() > 0 )
                         <input id="1" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.zuweisen}" onClick="showCategory();">
                     #elseif ( $allCategorie.size() > 0 )
-                        <input id="2" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.entfernen}" onClick="showRemoveCategory();">
+                        <input id="2" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.GENERIC_DELETE}" onClick="showRemoveCategory();">
                     #end
                 </div>
             </div>

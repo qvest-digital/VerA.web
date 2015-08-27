@@ -65,13 +65,13 @@ public class MadlanReader implements MadlanConstants {
      */
 	public MadlanReader(Reader reader, ExchangeFormat format) {
         Map properties = format.getProperties();
-        kyrillicFields = (List) properties.get(KEY_KYRILLIC_FIELDS);
-        if (logger.isEnabledFor(Level.DEBUG))
-        	logger.log(Level.DEBUG, "Ermittle Haupt-Zeichen-Mapping");
-        mappingA = getChars((String)properties.get(KEY_MAPPING_A));
-        if (logger.isEnabledFor(Level.DEBUG))
-        	logger.log(Level.DEBUG, "Ermittle kyrillisches Zeichen-Mapping");
-        mappingB = getChars((String)properties.get(KEY_MAPPING_B));
+		kyrillicFields = (List) properties.get(KEY_KYRILLIC_FIELDS);
+		if (logger.isEnabledFor(Level.DEBUG))
+			logger.log(Level.DEBUG, "Ermittle Haupt-Zeichen-Mapping");
+		mappingA = getChars((String) properties.get(KEY_MAPPING_A));
+		if (logger.isEnabledFor(Level.DEBUG))
+			logger.log(Level.DEBUG, "Ermittle kyrillisches Zeichen-Mapping");
+		mappingB = getChars((String) properties.get(KEY_MAPPING_B));
 		tokenizer = new StreamTokenizer(reader);
 		//Tokenizer konfigurieren
 		tokenizer.resetSyntax();
@@ -79,7 +79,7 @@ public class MadlanReader implements MadlanConstants {
 		tokenizer.lowerCaseMode(false);
 		tokenizer.slashSlashComments(false);
 		tokenizer.slashStarComments(false);
-		tokenizer.wordChars(' ',':');
+		tokenizer.wordChars(' ', ':');
 		tokenizer.wordChars('<','~');
 	}
 
@@ -91,20 +91,20 @@ public class MadlanReader implements MadlanConstants {
 	public List getHeader() throws IOException {
 		if (header == null)
 			header = readRow(true); //Header lesen
-        isKyrillic = new boolean[header.size()];
-        if (kyrillicFields != null) {
-        	if (logger.isEnabledFor(Level.DEBUG))
-            	logger.log(Level.DEBUG, "Anzahl bekannter kyrillischer Felder: " + kyrillicFields.size());
-            Iterator itHeaders = header.iterator();
-            int fieldsFound = 0;
-            for(int i = 0; i < isKyrillic.length; i++) {
-                isKyrillic[i] = (kyrillicFields.contains(itHeaders.next()));
-                if (isKyrillic[i])
-                    fieldsFound++;
-            }
-            if (logger.isEnabledFor(Level.DEBUG))
-            	logger.log(Level.DEBUG, "Anzahl gefundener kyrillischer Felder: " + fieldsFound);
-        }
+		isKyrillic = new boolean[header.size()];
+		if (kyrillicFields != null) {
+			if (logger.isEnabledFor(Level.DEBUG))
+				logger.log(Level.DEBUG, "Anzahl bekannter kyrillischer Felder: " + kyrillicFields.size());
+			Iterator itHeaders = header.iterator();
+			int fieldsFound = 0;
+			for (int i = 0; i < isKyrillic.length; i++) {
+				isKyrillic[i] = (kyrillicFields.contains(itHeaders.next()));
+				if (isKyrillic[i])
+					fieldsFound++;
+			}
+			if (logger.isEnabledFor(Level.DEBUG))
+				logger.log(Level.DEBUG, "Anzahl gefundener kyrillischer Felder: " + fieldsFound);
+		}
 
 		return header;
 	}
@@ -158,7 +158,7 @@ public class MadlanReader implements MadlanConstants {
 					if (getHeader().size() >= count)
 						buffer.append(getHeader().get(count));
 					buffer.append("=").append(row.get(count));
-					if (count < row.size() -1)
+					if (count < row.size() - 1)
 						buffer.append("; ");
 				}
 				buffer.append("]");
@@ -181,7 +181,7 @@ public class MadlanReader implements MadlanConstants {
 						break;
 					case StreamTokenizer.TT_NUMBER:
 						assert false; //durch die Wahl der Wortzeichen (s.o.)
-									  // eigentlich nicht möglich
+						// eigentlich nicht möglich
 					default:
 						char c = (char) tokenizer.ttype;
 						if (c == separatorChar) { //Feld fertig gelesen
@@ -221,7 +221,7 @@ public class MadlanReader implements MadlanConstants {
 					if (getHeader().size() >= count)
 						buffer.append(getHeader().get(count));
 					buffer.append("=").append(row.get(count));
-					if (count < row.size() -1)
+					if (count < row.size() - 1)
 						buffer.append("; ");
 				}
 				buffer.append("]");
@@ -238,17 +238,17 @@ public class MadlanReader implements MadlanConstants {
 			} else
 				return null; //leere Zeile
 		}
-        if (!isHeader)
-            for (i = 0; i < isKyrillic.length; i++) {
-                char[] mapping = isKyrillic[i] ? mappingB : mappingA;
-                char[] chars = row.get(i).toString().toCharArray();
-                for(int j = 0; j < chars.length; j++) {
-                    char c = chars[j];
-                    if (c >= 0 && c <= 255)
-                        chars[j] = mapping[c];
-                }
-                row.set(i, new String(chars).trim());
-            }
+		if (!isHeader)
+			for (i = 0; i < isKyrillic.length; i++) {
+				char[] mapping = isKyrillic[i] ? mappingB : mappingA;
+				char[] chars = row.get(i).toString().toCharArray();
+				for (int j = 0; j < chars.length; j++) {
+					char c = chars[j];
+					if (c >= 0 && c <= 255)
+						chars[j] = mapping[c];
+				}
+				row.set(i, new String(chars).trim());
+			}
 		return row;
 	}
 
@@ -388,17 +388,16 @@ public class MadlanReader implements MadlanConstants {
      */
     public final static char[] getChars(String key) {
         char[] result = null;
-        if (key != null)
-            result = (char[]) charsets.get(key.toLowerCase());
-        if (result == null) {
-            result = charsLatin;
-            if (logger.isEnabledFor(Level.DEBUG))
-            	logger.log(Level.DEBUG, "Mapping '" + key + "' nicht erkannt; benutze Latin.");
-        } else
-        	if (logger.isEnabledFor(Level.DEBUG))
-            	logger.log(Level.DEBUG, "Mapping '" + key + "' wird benutzt.");
-        return result;
-    }
+		if (key != null)
+			result = (char[]) charsets.get(key.toLowerCase());
+		if (result == null) {
+			result = charsLatin;
+			if (logger.isEnabledFor(Level.DEBUG))
+				logger.log(Level.DEBUG, "Mapping '" + key + "' nicht erkannt; benutze Latin.");
+		} else if (logger.isEnabledFor(Level.DEBUG))
+			logger.log(Level.DEBUG, "Mapping '" + key + "' wird benutzt.");
+		return result;
+	}
 
     final static Map charsets = new TreeMap();
     static {

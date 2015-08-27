@@ -5,7 +5,7 @@
 <html>
 
 <head>
-	<title>${placeholderWithTranslation.arbeitsbereiche}</title>
+	<title>${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}</title>
 	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
 	<script type="text/javascript" src="${paths.staticWeb}scripts/jquery.min.js"></script>
@@ -185,7 +185,7 @@
 	#if( $assignmentAction == "assign" )
 		${placeholderWithTranslation.zuweisen}
 	#else
-		${placeholderWithTranslation.entfernen}
+		${placeholderWithTranslation.GENERIC_DELETE}
 	#end
 	    ${placeholderWithTranslation.moechten}:</h1>
 
@@ -201,7 +201,7 @@
 		#end
 		</select>
 	#else
-	    ${placeholderWithTranslation.siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt} <em>${placeholderWithTranslation.arbeitsbereiche}</em> ${placeholderWithTranslation.definieren}
+	    ${placeholderWithTranslation.siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt} <em>${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}</em> ${placeholderWithTranslation.definieren}
 	#end
 
 	<div class="textRight marginTop5" id="buttonPanel-bottom">
@@ -209,7 +209,7 @@
 		#if( $assignmentAction == "assign" && $allWorkArea.size() > 0 )
 				<input id="1" type="button"  name="checkboxForSelection" value="${placeholderWithTranslation.zuweisen}" onClick="showDeleteAllocate();">
 		#elseif ( $allWorkArea.size() > 0 )
-				<input id="2" type="button"  name="checkboxForSelection" value="${placeholderWithTranslation.entfernen}" onClick="showDeleteAllocateRemove();">
+				<input id="2" type="button"  name="checkboxForSelection" value="${placeholderWithTranslation.GENERIC_DELETE}" onClick="showDeleteAllocateRemove();">
 		#end
 	</div>
 </div>

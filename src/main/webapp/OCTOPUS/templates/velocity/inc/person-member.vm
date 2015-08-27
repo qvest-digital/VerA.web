@@ -3,7 +3,7 @@
 		<div class="tableRow">
 			<div class="tableCell width50 inlineLabel ">
 				#if($ext == "_a_e1")
-					<label for="person-iscompany">${placeholderWithTranslation.istfirma}</label>
+					<label for="person-iscompany">${placeholderWithTranslation.GENERIC_IS_COMPANY}</label>
 					<input tabindex="120" type="checkbox" id="person-iscompany" name="person-iscompany" value="t" class="noFloat" #if(($person.iscompany && $person.iscompany == "t") || ($person-iscompany && $person-iscompany == "t")) checked #end onchange="setModified();" #if(!$grants.mayWrite()) vera-disabled#end/>
 				#end
 			</div>
@@ -12,7 +12,7 @@
 
 		<div class="tableRow">
 			<div class="tableCell width50 #if(!$grants.mayWrite() || $!message.plain($ext) != "_a_e1") vera-disabled #end" id="company-row" style="display:none">
-				 <label for="person-company-ignore$!message.plain($ext)">${placeholderWithTranslation.firma}/${placeholderWithTranslation.institution}*</label>
+				 <label for="person-company-ignore$!message.plain($ext)">${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}*</label>
 				<input #if ($ext =='_a_e1') tabindex="130" #end type="text" id="person-company-ignore$!message.plain($ext)" name="person-company-ignore$!message.plain($ext)" maxlength="100" value="$!message.text($facade.Company)" onchange="setModified();"/>
 			</div>
 			<div class="tableCell width50"></div>
@@ -20,7 +20,7 @@
 
 		<div class="tableRow">
 			<div class="tableCell width50 ">
-				<label for="person-salutation$!message.plain($ext)">${placeholderWithTranslation.anrede}</label>
+				<label for="person-salutation$!message.plain($ext)">${placeholderWithTranslation.GENERIC_SALUTATION_SINGULAR}</label>
 				#set($sel = false)
 				<select  class="width30" id="person-salutation$!message.plain($ext)" name="person-salutation$!message.plain($ext)" onchange="setModified(); setSex('person-salutation$!message.plain($ext)', 'person-sex${ext}');" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >
 					#if($ext == "_a_e1" || $ext == "_a_e2" || $ext == "_a_e3")
@@ -35,7 +35,7 @@
 					#if(!$facade.SalutationFK)
 						<option value="$!facade.Salutation"#if(!$sel) selected #set($sel = true)#end>$!message.text($facade.Salutation)</option>
 					#end
-					<option value=""#if(!$sel) selected #end>${placeholderWithTranslation.bittewahlensie}</option>
+					<option value=""#if(!$sel) selected #end>${placeholderWithTranslation.GENERIC_PLEASE_CHOOSE}</option>
 				</select>
 			</div>
 
@@ -66,7 +66,7 @@
 		<div class="tableRow">
 
 			<div class="tableCell width50 ">
-				<label for="person-title$!message.plain($ext)">${placeholderWithTranslation.akadtitel}</label>
+				<label for="person-title$!message.plain($ext)">${placeholderWithTranslation.GENERIC_ACAD_TITLE}</label>
 				<input  type="text" id="person-title$!message.plain($ext)" name="person-title$!message.plain($ext)" value="$!message.text($facade.Title)" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
 			</div>
 
@@ -127,7 +127,7 @@
 		<div class="tableRow">
 			<div class="tableCell width50 inlineLabel ">
 				#if($ext == "_a_e1" || $ext == "_b_e1")
-					<strong>${placeholderWithTranslation.inland}</strong><br />
+					<strong>${placeholderWithTranslation.GENERIC_IN_COUNTRY}</strong><br />
 					#if ($facade.Domestic && $facade.Domestic == "f")
 						<label for="person-domestic${ext}-t" onchange="setModified();"><input  type="radio" name="person-domestic$ext" value="t" id="person-domestic${ext}-t" class="noFloat" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>${placeholderWithTranslation.GENERIC_YES}</label>
 						<label for="person-domestic${ext}-f" onchange="setModified();"><input  type="radio" name="person-domestic$ext" value="f" id="person-domestic${ext}-f" class="noFloat" checked #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>${placeholderWithTranslation.GENERIC_NO}</label>
@@ -217,7 +217,7 @@
 
 			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
-					<label for="person-noteorga$!message.plain($ext)">${placeholderWithTranslation.hinweisfurorga}</label>
+					<label for="person-noteorga$!message.plain($ext)">${placeholderWithTranslation.GENERIC_HINT_FOR_ORGA}</label>
 					<textarea rows="3" cols="20" id="person-noteorga$!message.plain($ext)" name="person-noteorga$!message.plain($ext)" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >
                         $!message.textarea($facade.NoteOrga)#else vera-disabled>#end
                     </textarea>

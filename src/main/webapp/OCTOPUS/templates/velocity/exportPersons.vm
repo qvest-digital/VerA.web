@@ -10,7 +10,7 @@
         <span>
             <a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">
                 ${placeholderWithTranslation.GENERIC_HOME}
-            </a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.personenexport}
+            </a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_EXPORT_PERSONS}
         </span>
     </div>
 
@@ -36,7 +36,7 @@
                     <div class="tableCell inlineLabel width30">
                         <input type="radio" name="exportFilter" id="exportFilterEvent" value="event" onclick="return filterChanged()">
                         <label for="exportFilterEvent">
-                            ${placeholderWithTranslation.veranstaltung}
+                            ${placeholderWithTranslation.GENERIC_EVENT}
                         </label>
                     </div>
                     <div class="tableCell">
@@ -76,7 +76,7 @@
                                 ${placeholderWithTranslation.GENERIC_ALL}
                             </option>
                             <option value="-1">
-                                ${placeholderWithTranslation.ohne}
+                                ${placeholderWithTranslation.GENERIC_WITHOUT}
                             </option>
                             #foreach($category in $allCategorie)
                                 <option value="$!category.id">
@@ -89,7 +89,7 @@
                 <div class="tableRow">
                     <div class=" tableCell">
                         <label for="format">
-                            ${placeholderWithTranslation.dateityp}
+                            ${placeholderWithTranslation.GENERIC_DATA_TYPE}
                         </label>
                     </div>
                     <div class="tableCell">
@@ -297,7 +297,7 @@
         </div>
 
         <div id="buttonPanel-bottom" class="textRight marginTop10">
-            <input type="submit" name="submit" value="${placeholderWithTranslation.exportstarten}" class="mainButton" />
+            <input type="submit" name="submit" value="${placeholderWithTranslation.GENERIC_START_EXPORT}" class="mainButton" />
         </div>
     </form>
 </div>

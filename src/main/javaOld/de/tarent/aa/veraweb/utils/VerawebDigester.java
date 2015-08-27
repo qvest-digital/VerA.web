@@ -165,7 +165,7 @@ public class VerawebDigester implements ImportDigester {
          * fk_workarea must not be null, setting default workarea "Keine" with pk == 0
          * cklein 2008-03-27
          */
-        person.workarea = new Integer( 0 );
+        person.workarea = new Integer(0);
 
         // Datensatz nicht berechtigte Felder entziehen.
         person.clearRestrictedFields(cntx);
@@ -176,21 +176,21 @@ public class VerawebDigester implements ImportDigester {
             // Zähler aktualisieren
             personCount++;
 
-        	// Datensatz speichern.
-	        if (extras == null) {
+            // Datensatz speichern.
+            if (extras == null) {
                 db.saveBean(person, context, false); // neue ID wird nicht benötigt
-	        } else {
-	        	db.saveBean(person, context, true);
-	            // Extras übernehmen
-	            for(Iterator itExtras = extras.iterator(); itExtras.hasNext(); ) {
-	                Object extraObject = itExtras.next();
-	                if (extraObject instanceof ImportPersonExtra) {
-	                    ((ImportPersonExtra) extraObject).associateWith(person);
-	                    if (extraObject instanceof Bean)
-	                        db.saveBean((Bean) extraObject, context, false);
-	                }
-	            }
-	        }
+            } else {
+                db.saveBean(person, context, true);
+                // Extras übernehmen
+                for (Iterator itExtras = extras.iterator(); itExtras.hasNext(); ) {
+                    Object extraObject = itExtras.next();
+                    if (extraObject instanceof ImportPersonExtra) {
+                        ((ImportPersonExtra) extraObject).associateWith(person);
+                        if (extraObject instanceof Bean)
+                            db.saveBean((Bean) extraObject, context, false);
+                    }
+                }
+            }
         } else {
             incorrectCount++;
         }

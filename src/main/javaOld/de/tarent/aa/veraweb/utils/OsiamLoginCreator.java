@@ -169,7 +169,7 @@ public class OsiamLoginCreator {
             usernameSuffix++;
         }
         if (finalUsername.equals("")) {
-        	return username;
+            return username;
         }
         return finalUsername;
     }
