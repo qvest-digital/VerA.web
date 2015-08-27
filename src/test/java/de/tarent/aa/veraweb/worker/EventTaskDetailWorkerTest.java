@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2015 tarent solutions GmbH
- *
+ * <p/>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p/>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -105,57 +105,57 @@ public class EventTaskDetailWorkerTest { //extends TestCase {
 //		verify(dbv).getInsert(argThat(new TaskArgumentMarcher(t)));
 //	}
 
-	private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+    private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
-	private static void putTaskInContextRequest(OctopusContext cntx, String id, String title, String startdate,
-			String created, String priority, String description, String degreeofcompletion, String fk_event,
-			String changedby, String createdby, String enddate, String changed, String modified, String starttime,
-			String endtime) {
-		doReturn(id).when(cntx).requestAsObject("task-id");
-		doReturn(title).when(cntx).requestAsObject("task-title");
-		doReturn(startdate).when(cntx).requestAsObject("task-startdate");
-		doReturn(created).when(cntx).requestAsObject("task-created");
-		doReturn(priority).when(cntx).requestAsObject("task-priority");
-		doReturn(description).when(cntx).requestAsObject("task-description");
-		doReturn(degreeofcompletion).when(cntx).requestAsObject("task-degreeofcompletion");
-		doReturn(fk_event).when(cntx).requestAsObject("task-eventId");
-		doReturn(changedby).when(cntx).requestAsObject("task-changedby");
-		doReturn(createdby).when(cntx).requestAsObject("task-createdby");
-		doReturn(enddate).when(cntx).requestAsObject("task-enddate");
-		doReturn(changed).when(cntx).requestAsObject("task-changed");
-		doReturn(modified).when(cntx).requestAsObject("task-modified");
-		doReturn(starttime).when(cntx).requestAsObject("task-starttime");
-		doReturn(endtime).when(cntx).requestAsObject("task-endtime");
-	}
+    private static void putTaskInContextRequest(OctopusContext cntx, String id, String title, String startdate,
+                                                String created, String priority, String description, String degreeofcompletion, String fk_event,
+                                                String changedby, String createdby, String enddate, String changed, String modified, String starttime,
+                                                String endtime) {
+        doReturn(id).when(cntx).requestAsObject("task-id");
+        doReturn(title).when(cntx).requestAsObject("task-title");
+        doReturn(startdate).when(cntx).requestAsObject("task-startdate");
+        doReturn(created).when(cntx).requestAsObject("task-created");
+        doReturn(priority).when(cntx).requestAsObject("task-priority");
+        doReturn(description).when(cntx).requestAsObject("task-description");
+        doReturn(degreeofcompletion).when(cntx).requestAsObject("task-degreeofcompletion");
+        doReturn(fk_event).when(cntx).requestAsObject("task-eventId");
+        doReturn(changedby).when(cntx).requestAsObject("task-changedby");
+        doReturn(createdby).when(cntx).requestAsObject("task-createdby");
+        doReturn(enddate).when(cntx).requestAsObject("task-enddate");
+        doReturn(changed).when(cntx).requestAsObject("task-changed");
+        doReturn(modified).when(cntx).requestAsObject("task-modified");
+        doReturn(starttime).when(cntx).requestAsObject("task-starttime");
+        doReturn(endtime).when(cntx).requestAsObject("task-endtime");
+    }
 
-	class TaskArgumentMarcher extends ArgumentMatcher<Bean> {
+    class TaskArgumentMarcher extends ArgumentMatcher<Bean> {
 
-		private final Task task;
+        private final Task task;
 
-		public TaskArgumentMarcher(Task task) {
-			this.task = task;
-		}
+        public TaskArgumentMarcher(Task task) {
+            this.task = task;
+        }
 
-		@Override
-		public boolean matches(Object taskObj) {
-			if (!(taskObj instanceof Task)) {
-				return false;
-			}
-			Task tsk = (Task) taskObj;
-			// changed time is not equal but should be similar => assume max 1 second difference
-			Timestamp b = task.getChanged();
-			Timestamp a = tsk.getChanged();
-			if (Math.abs(a.getTime() - b.getTime()) > 1000) {
-				return false;
-			}
-			// temporary remove changed property for equality check
-			tsk.setChanged(null);
-			task.setChanged(null);
-			boolean equal = tsk.equals(task);
-			tsk.setChanged(a);
-			task.setChanged(b);
-			return equal;
-		}
-	}
+        @Override
+        public boolean matches(Object taskObj) {
+            if (!(taskObj instanceof Task)) {
+                return false;
+            }
+            Task tsk = (Task) taskObj;
+            // changed time is not equal but should be similar => assume max 1 second difference
+            Timestamp b = task.getChanged();
+            Timestamp a = tsk.getChanged();
+            if (Math.abs(a.getTime() - b.getTime()) > 1000) {
+                return false;
+            }
+            // temporary remove changed property for equality check
+            tsk.setChanged(null);
+            task.setChanged(null);
+            boolean equal = tsk.equals(task);
+            tsk.setChanged(a);
+            task.setChanged(b);
+            return equal;
+        }
+    }
 
 }

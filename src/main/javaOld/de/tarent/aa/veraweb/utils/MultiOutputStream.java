@@ -53,7 +53,7 @@ public class MultiOutputStream extends OutputStream {
     public void write(int b) throws IOException {
 		for (int i = 0; i < size; i++) {
 			try {
-				((OutputStream)streams.get(i)).write(b);
+				((OutputStream) streams.get(i)).write(b);
 			} catch (IOException e) {
 			}
 		}
@@ -66,7 +66,7 @@ public class MultiOutputStream extends OutputStream {
     public void write(byte[] b) throws IOException {
 		for (int i = 0; i < size; i++) {
 			try {
-				((OutputStream)streams.get(i)).write(b);
+				((OutputStream) streams.get(i)).write(b);
 			} catch (IOException e) {
 			}
 		}
@@ -79,7 +79,7 @@ public class MultiOutputStream extends OutputStream {
     public void write(byte[] b, int off, int len) throws IOException {
 		for (int i = 0; i < size; i++) {
 			try {
-				((OutputStream)streams.get(i)).write(b, off, len);
+				((OutputStream) streams.get(i)).write(b, off, len);
 			} catch (IOException e) {
 			}
 		}
@@ -92,7 +92,7 @@ public class MultiOutputStream extends OutputStream {
     public void close() {
 		for (int i = 0; i < size; i++) {
 			try {
-				((OutputStream)streams.get(i)).close();
+				((OutputStream) streams.get(i)).close();
 			} catch (IOException e) {
 			}
 		}
