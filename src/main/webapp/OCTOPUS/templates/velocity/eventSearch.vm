@@ -21,7 +21,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungssuche}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungssuche}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.veranstaltungssuche}</h1>
@@ -48,7 +48,7 @@
 								<input type="text" name="shortname" id="input.shortname" value="">
 							</div>
 							<div class="tableCell width30">
-								<label for="begin">${placeholderWithTranslation.datum} (${placeholderWithTranslation.beginn})</label>
+								<label for="begin">${placeholderWithTranslation.GENERIC_DATE} (${placeholderWithTranslation.beginn})</label>
 								<div class="calenderContainer">
 									<input type="text" name="begin" value="" id="begin" class="datepicker">
 									<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"></span>

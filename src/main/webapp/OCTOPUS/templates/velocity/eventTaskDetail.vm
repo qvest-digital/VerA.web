@@ -19,11 +19,11 @@
 
     #if($task && $task.id)
     <div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
     </div>
     #else
     <div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
     </div>
     #end
 
@@ -95,7 +95,7 @@
                         </li>
                         <li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
                         </li>
-                        <li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
+                        <li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div>
                         </li>
                     #end
                 </ul>
@@ -127,7 +127,7 @@
                                 });
                             </script>
                             #end
-                            <input type="text" tabindex="3" name="task-starttime" id="task-starttime" #if($task-starthastime) value="$!message.date("TIME", $task.startdate)" #else value="$!message.plain($task.starttime)" #end class="date" style="width: 45px;" onchange="setModified();"> <label class="inline" for="task-starttime">${placeholderWithTranslation.uhr}</label></div>
+                            <input type="text" tabindex="3" name="task-starttime" id="task-starttime" #if($task-starthastime) value="$!message.date("TIME", $task.startdate)" #else value="$!message.plain($task.starttime)" #end class="date" style="width: 45px;" onchange="setModified();"> <label class="inline" for="task-starttime">${placeholderWithTranslation.GENERIC_OCLOCK}</label></div>
                         <div class="tableCell width30">
                             <label for="task-degreeofcompletion">${placeholderWithTranslation.fertigstellung}</label>
                             <select tabindex="6" name="task-degreeofcompletion" id="task-degreeofcompletion" class="width20" onchange="setModified();">
@@ -163,7 +163,7 @@
                                 });
                             </script>
                             #end
-                            <input type="text" tabindex="5" name="task-endtime" id="task-endtime" #if($task-endhastime) value="$!message.date("TIME", $task.enddate)" #else value="$!message.plain($task.endtime)" #end class="date" style="width: 45px;" onchange="setModified();"> <label class="inline" for="task-endtime">${placeholderWithTranslation.uhr}</label>
+                            <input type="text" tabindex="5" name="task-endtime" id="task-endtime" #if($task-endhastime) value="$!message.date("TIME", $task.enddate)" #else value="$!message.plain($task.endtime)" #end class="date" style="width: 45px;" onchange="setModified();"> <label class="inline" for="task-endtime">${placeholderWithTranslation.GENERIC_OCLOCK}</label>
                         </div>
                         <div class="tableCell">
                             <label for="task-priority">${placeholderWithTranslation.prioritat}</label>

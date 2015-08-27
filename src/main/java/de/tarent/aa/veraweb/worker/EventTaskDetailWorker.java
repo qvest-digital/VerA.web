@@ -76,8 +76,6 @@ public class EventTaskDetailWorker {
         }
     }
 
-
-
 	public static final String[] INPUT_loadReferencePerson = { "refPersId" };
 	public static final boolean[] MANDATORY_loadReferencePerson = { false };
 
@@ -167,23 +165,25 @@ public class EventTaskDetailWorker {
 	public static final boolean MANDATORY_saveDetail[] = { false };
 
 
-	public void saveDetail(OctopusContext cntx, Boolean savetask)
+	public void saveDetail(final OctopusContext octopusContext, Boolean savetask)
 			throws BeanException, IOException {
 		if (savetask == null || !savetask.booleanValue()) {
 			return;
 		}
 
-		Request request = new RequestVeraWeb(cntx);
-		Database database = databaseVeraWebFactory.createDatabaseVeraWeb(cntx);
+		Request request = new RequestVeraWeb(octopusContext);
+		Database database = databaseVeraWebFactory.createDatabaseVeraWeb(octopusContext);
 		TransactionContext context = database.getTransactionContext();
 
 		try {
-			Task task = (Task) cntx.contentAsObject(PARAM_TASK);
+			Task task = (Task) octopusContext.contentAsObject(PARAM_TASK);
 			if (task == null) {
 				task = (Task) request.getBean("Task", PARAM_TASK);
 				DateHelper.addTimeToDate(task.startdate, task.starttime, task.getErrors());
 				DateHelper.addTimeToDate(task.enddate, task.endtime, task.getErrors());
 			}
+
+            task.verify(octopusContext);
 
 			Task oldTask = (Task) database.getBean("Task", task.getId(),
 					context);
@@ -193,45 +193,45 @@ public class EventTaskDetailWorker {
 				BeanChangeLogger clogger = new BeanChangeLogger(database,
 						context);
 				if (task.getId() == null) {
-					cntx.setContent("countInsert", Integer.valueOf(1));
+					octopusContext.setContent("countInsert", Integer.valueOf(1));
 					database.getNextPk(task, context);
 
-					task.updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
+					task.updateHistoryFields(null, ((PersonalConfigAA)octopusContext.personalConfig()).getRoleWithProxy());
 
 					Insert insert = database.getInsert(task);
 					insert.insert("pk", task.getId());
 
-					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants()
+					if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants()
 							.mayReadRemarkFields()) {
 						insert.remove("note");
 					}
 					context.execute(insert);
 
-					clogger.logInsert(cntx.personalConfig().getLoginname(),
+					clogger.logInsert(octopusContext.personalConfig().getLoginname(),
 							task);
 				} else {
-					cntx.setContent("countUpdate", Integer.valueOf(1));
+					octopusContext.setContent("countUpdate", Integer.valueOf(1));
 					Update update = database.getUpdate(task);
-					if (!((PersonalConfigAA) cntx.personalConfig()).getGrants()
+					if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants()
 							.mayReadRemarkFields()) {
 						update.remove("note");
 					}
 					context.execute(update);
 
-					clogger.logUpdate(cntx.personalConfig().getLoginname(), oldTask, task);
+					clogger.logUpdate(octopusContext.personalConfig().getLoginname(), oldTask, task);
 				}
 			} else {
-				cntx.setStatus("notsaved");
+				octopusContext.setStatus("notsaved");
 			}
-			cntx.setContent(PARAM_TASK, task);
-			cntx.setContent("task-starthastime",
+			octopusContext.setContent(PARAM_TASK, task);
+			octopusContext.setContent("task-starthastime",
 					Boolean.valueOf(DateHelper.isTimeInDate(task.getStartdate())));
-			cntx.setContent("task-endhastime",
+			octopusContext.setContent("task-endhastime",
 					Boolean.valueOf(DateHelper.isTimeInDate(task.getEnddate())));
 
 			if (task != null && task.personId != null) {
-				Person person = getPersonFromDB(cntx, task.personId);
-				cntx.getContentObject().setField("refPerson", person);
+				Person person = getPersonFromDB(octopusContext, task.personId);
+				octopusContext.getContentObject().setField("refPerson", person);
 			};
 
 			context.commit();

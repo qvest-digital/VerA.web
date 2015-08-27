@@ -52,7 +52,7 @@
 							#parse("inc/list-navi-new.vm")
 							#parse("inc/list-direct-new.vm")
 						#else
-							${placeholderWithTranslation.keinedatengefunden}.<br/><br/>
+							${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.<br/><br/>
 						#end
 					</table>
 

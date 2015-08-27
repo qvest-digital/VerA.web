@@ -20,7 +20,7 @@
 	<div class="tabs contentBox grayBorder marginBottom40 marginTop20 posRel" id="main_content">
     	<div id="tabsMain">
     		<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-    			<li id="gaesteliste" class="inactive"><div>${placeholderWithTranslation.gasteliste}</div>
+    			<li id="gaesteliste" class="inactive"><div>${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}</div>
     			</li><li id="gastdetails" class="inactive"><div>${placeholderWithTranslation.gastdetails}</div>
     			</li><li id="dokumenttypen" class="active"><div>${placeholderWithTranslation.BROWSER_TITLE_DOCUMENT_TYPES}</div>
     			</li>
@@ -77,16 +77,16 @@
 						<div class="tableCell">
 							<label for="select-addresstype">${placeholderWithTranslation.adresstyp}</label>
 							<select id="select-addresstype" name="select-addresstype">
-                    			<option value="1" #if($guestdoctype.addresstype == 1) selected#end>${placeholderWithTranslation.geschaftlich}</option>
+                    			<option value="1" #if($guestdoctype.addresstype == 1) selected#end>${placeholderWithTranslation.GENERIC_BUSINESS}</option>
                     			<option value="2" #if($guestdoctype.addresstype == 2) selected#end>${placeholderWithTranslation.privat}</option>
                     			<option value="3" #if($guestdoctype.addresstype == 3) selected#end>${placeholderWithTranslation.GENERIC_MORE}</option>
 							</select>
 						</div>
 						<div class="tableCell">
-							<label for="select-locale">${placeholderWithTranslation.zeichensatz}</label>
+							<label for="select-locale">${placeholderWithTranslation.GENERIC_CHARSET}</label>
 							<select id="select-locale" name="select-locale">
                     			<option value="1" #if($guestdoctype.locale == 1) selected#end>${placeholderWithTranslation.GENERIC_LATIN}</option>
-                    			<option value="2" #if($guestdoctype.locale == 2) selected#end>${placeholderWithTranslation.zeichensatz} 1</option>
+                    			<option value="2" #if($guestdoctype.locale == 2) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 1</option>
                     			<option value="3" #if($guestdoctype.locale == 3) selected#end>${placeholderWithTranslation.zeichenstaz} 2</option>
                     		</select>
 
@@ -121,7 +121,7 @@
 
 
 				<fieldset class="width49 inline">
-					<legend>${placeholderWithTranslation.GENERIC_PERSONAL_DATA} (${placeholderWithTranslation.hauptperson})</legend>
+					<legend>${placeholderWithTranslation.GENERIC_PERSONAL_DATA} (${placeholderWithTranslation.GENERIC_MAIN_PERSON})</legend>
 					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell">
@@ -163,7 +163,7 @@
 				</fieldset>
 
                 <fieldset class="width49 floatRight">
-					<legend>${placeholderWithTranslation.GENERIC_PERSONAL_DATA} (${placeholderWithTranslation.partner})</legend>
+					<legend>${placeholderWithTranslation.GENERIC_PERSONAL_DATA} (${placeholderWithTranslation.GENERIC_PARTNER})</legend>
 					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell">
@@ -238,7 +238,7 @@
 							</div>						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
-								<label for="guestdoctype-suffix1">${placeholderWithTranslation.adresszusatz} 1</label>
+								<label for="guestdoctype-suffix1">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1</label>
 								<input type="text" id="guestdoctype-suffix1" maxlength="100" name="guestdoctype-suffix1" value="$!message.text($guestdoctype.suffix1)" />
 							</div>
 							<div class="tableCell width50">
@@ -248,7 +248,7 @@
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
-								<label for="guestdoctype-suffix2">${placeholderWithTranslation.adresszusatz} 2</label>
+								<label for="guestdoctype-suffix2">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2</label>
 								<input type="text" id="guestdoctype-suffix2" maxlength="100" name="guestdoctype-suffix2" value="$!message.text($guestdoctype.suffix2)" />
 							</div>
 							<div class="tableCell width50">

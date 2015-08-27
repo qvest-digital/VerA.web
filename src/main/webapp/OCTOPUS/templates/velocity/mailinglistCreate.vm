@@ -7,7 +7,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.verteiler}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.verteileranlegen}</h1>
@@ -16,7 +16,7 @@
 
 		<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
-    		<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait();">
+    		<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');">
 
         		#if($mailinglist.errors.size() > 0)
             		<vera-warn>

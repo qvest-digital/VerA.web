@@ -1,11 +1,13 @@
 #if($listerrors && $listerrors.size() > 0)
-<vera-warn>
-	<ul style="margin: 0px 0px 0px -10px;">
-	#foreach($error in $listerrors)
-		<li style="margin: 5px 0px 0px -5px;">$error</li>
-	#end
-	</ul>
-</vera-warn>
+    <vera-warn>
+        <ul style="margin: 0px 0px 0px -10px;">
+            #foreach($error in $listerrors)
+                <li style="margin: 5px 0px 0px -5px;">
+                    $error
+                </li>
+            #end
+        </ul>
+    </vera-warn>
 #end
 
 <input type="hidden" name="doInsert" value="true">
@@ -18,7 +20,8 @@
 
 <span id="actionPanel" class="inlineLabel">
 	#if($grants.mayWrite())
-		${placeholderWithTranslation.markiertekategorien} <input type="submit" name="remove" value="${placeholderWithTranslation.entfernen}" title="Markierte Kategorie(n) entfernen"/>
+		${placeholderWithTranslation.markiertekategorien}
+        <input type="submit" name="remove" value="${placeholderWithTranslation.entfernen}" title="Markierte Kategorie(n) entfernen"/>
 	#end
 </span>
 <div class="buttonPanel-top floatRight">
@@ -28,84 +31,87 @@
 </div>
 
 #if(($list && $list.size() > 0) || $grants.mayWrite())
-<table class="notBold">
-	<tr>
-		#if($list && $list.size() > 0 && $grants.mayWrite())
-			<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end #if(!$grants.mayWrite()) vera-disabled#end/></th>
-		#end
-		<th class="textCenter smallCell">${placeholderWithTranslation.GENERIC_ID}</th>
-		<th>${placeholderWithTranslation.kategorienundereignisse}</th>
-		<th class="textCenter smallCell">${placeholderWithTranslation.rang}</th>
-	</tr>
-	#if($grants.mayWrite())
-	<tr>
-		#if($list && $list.size() > 0 && $grants.mayWrite())
-			<td class="textCenter smallCell"/>
-		#end
-		<input type="hidden" id="add-modified" name="add-modified" value="false"/>
-		<td class="textCenter smallCell">
-			<input type="hidden" name="add-id" value=""/>
-			<input type="hidden" name="add-person" value="$!person.id"/>
-			<em>${placeholderWithTranslation.neu}</em>
-		</td>
-		<td>
-			<select id="add-categorie" name="add-categorie" style="width:100%;" onchange="setModified('add')" #if(!$grants.mayWrite()) vera-disabled#end>
-				<option value="">${placeholderWithTranslation.bittewahlensie}</option>
-				#foreach($categorie in $allCategorie)
-					<option value="$!categorie.id">$!message.plain($categorie.name)</option>
-				#end
-			</select>
-		</td>
-		<td class="textCenter">
-			<input type="text" name="add-rank" value="$!message.text($bean.rank)" class="small50px" onchange="setModified('add')" #if(!$grants.mayWrite()) vera-disabled#end/>
-		</td>
-	</tr>
-	#end
-	#foreach($bean in $list)
-		<tr #if($bean.flags == 1)class="repeat"#end>
-			#if($grants.mayWrite())
-			<td class="textCenter smallCell">
-				<input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/>
-				<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$grants.mayWrite()) vera-disabled#end/>
-			</td>
-			#end
-			<td>
-				<input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person"/>
-				<input type="hidden" name="${bean.id}-categorie" value="$!message.text($!bean.categorie)"/>
-				$!message.text($!{bean.id})
-			</td>
-			<td>
-				$!message.text($!bean.name)
-                #if($bean.flags == 99)
-                    Dipl.&nbsp;Corps
-                #elseif($bean.flags == 1)
-                    (Ereignis)
-                #else
-                    (Kategorie)
+    <table class="notBold">
+        <tr>
+            #if($list && $list.size() > 0 && $grants.mayWrite())
+                <th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end #if(!$grants.mayWrite()) vera-disabled#end/></th>
+            #end
+            <th class="textCenter smallCell">
+                ${placeholderWithTranslation.GENERIC_ID}
+            </th>
+            <th>
+                ${placeholderWithTranslation.kategorienundereignisse}
+            </th>
+            <th class="textCenter smallCell">
+                ${placeholderWithTranslation.GENERIC_RANK}
+            </th>
+        </tr>
+        #if($grants.mayWrite())
+        <tr>
+            #if($list && $list.size() > 0 && $grants.mayWrite())
+                <td class="textCenter smallCell"/>
+            #end
+            <input type="hidden" id="add-modified" name="add-modified" value="false"/>
+            <td class="textCenter smallCell">
+                <input type="hidden" name="add-id" value=""/>
+                <input type="hidden" name="add-person" value="$!person.id"/>
+                <em>${placeholderWithTranslation.GENERIC_NEW}</em>
+            </td>
+            <td>
+                <select id="add-categorie" name="add-categorie" style="width:100%;" onchange="setModified('add')" #if(!$grants.mayWrite()) vera-disabled#end>
+                    <option value="">${placeholderWithTranslation.bittewahlensie}</option>
+                    #foreach($categorie in $allCategorie)
+                        <option value="$!categorie.id">$!message.plain($categorie.name)</option>
+                    #end
+                </select>
+            </td>
+            <td class="textCenter">
+                <input type="text" name="add-rank" value="$!message.text($bean.rank)" class="small50px" onchange="setModified('add')" #if(!$grants.mayWrite()) vera-disabled#end/>
+            </td>
+        </tr>
+        #end
+        #foreach($bean in $list)
+            <tr #if($bean.flags == 1)class="repeat"#end>
+                #if($grants.mayWrite())
+                <td class="textCenter smallCell">
+                    <input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"/>
+                    <input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$grants.mayWrite()) vera-disabled#end/>
+                </td>
                 #end
-			</td>
-			<td>
-				<input type="text" name="${bean.id}-rank" value="$!message.text($bean.rank)" class="small50px" onchange="setModified('$!bean.id')" #if(!$grants.mayWrite()) vera-disabled#end/>
-			</td>
-		</tr>
-	#end
+                <td>
+                    <input type="hidden" name="${bean.id}-id" value="$!bean.id"><input type="hidden" name="${bean.id}-person" value="$!bean.person"/>
+                    <input type="hidden" name="${bean.id}-categorie" value="$!message.text($!bean.categorie)"/>
+                    $!message.text($!{bean.id})
+                </td>
+                <td>
+                    $!message.text($!bean.name)
+                    #if($bean.flags == 99)
+                        Dipl.&nbsp;Corps
+                    #elseif($bean.flags == 1)
+                        (Ereignis)
+                    #else
+                        (Kategorie)
+                    #end
+                </td>
+                <td>
+                    <input type="text" name="${bean.id}-rank" value="$!message.text($bean.rank)" class="small50px" onchange="setModified('$!bean.id')" #if(!$grants.mayWrite()) vera-disabled#end/>
+                </td>
+            </tr>
+        #end
 
-	#if ($listparam.count == 0)
-		<tr>
-			<td colspan="3">${placeholderWithTranslation.esliegenkeinekategorienundereignissevor}</td>
-		</tr>
-	#end
+        #if ($listparam.count == 0)
+            <tr>
+                <td colspan="3">${placeholderWithTranslation.esliegenkeinekategorienundereignissevor}</td>
+            </tr>
+        #end
 
-	#set($itemName = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
-	#parse("inc/list-navi-new.vm")
-	#parse("inc/list-direct-new.vm")
-</table>
-
-
-<vera-info vera-stay>
-	${placeholderWithTranslation.beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse}
-</vera-info>
+        #set($itemName = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
+        #parse("inc/list-navi-new.vm")
+        #parse("inc/list-direct-new.vm")
+    </table>
 
 
-
+    <vera-info vera-stay>
+        ${placeholderWithTranslation.beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse}
+    </vera-info>
 #end

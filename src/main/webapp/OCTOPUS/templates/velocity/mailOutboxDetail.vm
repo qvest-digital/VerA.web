@@ -15,7 +15,7 @@
         <input type="hidden" name="save" value="true"/>
 
         <div id="breadcrumb marginBottom10" class="textRight">
-    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.postausgang}</span>
+    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.postausgang}</span>
     	</div>
 
 		<h1>${placeholderWithTranslation.postausgang}</h1>
@@ -62,7 +62,7 @@
             	<td><input type="text" id="mailoutbox-from" name="mailoutbox-from" maxlength="200" value="$!message.text($mailoutbox.from)" /></td>
             </tr>
 			<tr>
-            	<td><label for="mailoutbox-to">${placeholderWithTranslation.CAP_TO}*</label></td>
+            	<td><label for="mailoutbox-to">${placeholderWithTranslation.GENERIC_TO}*</label></td>
             	<td><input type="text" id="mailoutbox-to" name="mailoutbox-to" maxlength="200" value="$!message.text($mailoutbox.to)" /></td>
             </tr>
 			<tr>
@@ -75,9 +75,9 @@
 			</tr>
             #if($mailoutbox.status == $mailoutbox.STATUS_ERROR || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
                 <tr>
-                	<td>${placeholderWithTranslation.fehlerbeschreibung}:</td>
+                	<td>${placeholderWithTranslation.GENERIC_ERROR_DESCRIPTION}:</td>
                 	<td>
-                		<a id="show-errorlink" href="javascript:showBlock(document.getElementById('show-errortext')); hideBlock(document.getElementById('show-errorlink'));">${placeholderWithTranslation.technischefehlermeldungeinblenden}</a>
+                		<a id="show-errorlink" href="javascript:showBlock(document.getElementById('show-errortext')); hideBlock(document.getElementById('show-errorlink'));">${placeholderWithTranslation.GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE}</a>
                 		<div id="show-errortext" name="show-errortext" style="display: none;">
                     		<a href="javascript:showBlock(document.getElementById('show-errorlink')); hideBlock(document.getElementById('show-errortext'));">${placeholderWithTranslation.technischefehlermeldungausblenden}</a>
                     		<p>$!message.plain($mailoutbox.errortext)</p>
@@ -87,7 +87,7 @@
             #end
 
             #if ($listparam.count == 0)
-            	<tr><td colspan="2">${placeholderWithTranslation.keinedatengefunden}.</td></tr>
+            	<tr><td colspan="2">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
             #end
         </table>
 

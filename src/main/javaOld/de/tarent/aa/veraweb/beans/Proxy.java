@@ -21,6 +21,7 @@ package de.tarent.aa.veraweb.beans;
 
 import java.sql.Timestamp;
 
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
@@ -64,16 +65,19 @@ public class Proxy extends AbstractHistoryBean {
     /**
      * Der Benutzer und Stellvertreterrolle müssen angegeben sein.
      */
-    @Override
-    public void verify() {
+    public void verify(OctopusContext octopusContext) {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
+
         if (proxy == null || proxy.trim().length() == 0) {
-            addError("Sie m\u00fcssen eine Vertreter eingeben.");
+            addError(messages.getMessageProxyNoRepresentative());
         }
+
         if (user == null || user.intValue() == 0) {
-            addError("Sie m\u00fcssen einen Rolle eingeben.");
+            addError(messages.getMessageProxyNoRole());
         }
+
         if (validFrom != null && validTill != null && validFrom.after(validTill)) {
-        	addError("Der Beginn der Vertretung muss vor dem Ende liegen.");
+        	addError(messages.getMessageProxyRepresentativeBeginBeforeEnd());
         }
     }
 

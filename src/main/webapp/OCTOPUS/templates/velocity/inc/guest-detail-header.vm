@@ -34,13 +34,25 @@
 
 
 		<div class="tableRow">
-			<div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_GUEST_SINGULAR}:</strong> $!message.text($name)</div>
-			<div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_EMAIL_ADDRESS}:</strong> $!message.text($email)</div>
-			<div class="tableCell"><strong>${placeholderWithTranslation.CONTINUAL_NUMBER}:</strong> #if($guest.orderno_a)$!guest.orderno_a#else$!guest.orderno_b#end</div>
+			<div class="tableCell">
+                <strong>${placeholderWithTranslation.GENERIC_GUEST_SINGULAR}:</strong>
+                $!message.text($name)</div>
+			<div class="tableCell">
+                <strong>${placeholderWithTranslation.GENERIC_EMAIL_ADDRESS}:</strong>
+                $!message.text($email)</div>
+			<div class="tableCell">
+                <strong>${placeholderWithTranslation.CONTINUAL_NUMBER}:</strong>
+                #if($guest.orderno_a)$!guest.orderno_a#else$!guest.orderno_b#end</div>
 		</div>
 		<div class="tableRow">
-			<div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}:</strong> $!message.text($funktion)</div>
-			<div class="tableCell"><strong>${placeholderWithTranslation.partner}:</strong> $!message.text($name_p)</div>
+			<div class="tableCell">
+                <strong>${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}:</strong>
+                $!message.text($funktion)
+            </div>
+			<div class="tableCell">
+                <strong>${placeholderWithTranslation.GENERIC_PARTNER}:</strong>
+                $!message.text($name_p)
+            </div>
 		</div>
 			
 	</div>	

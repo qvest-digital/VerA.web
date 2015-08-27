@@ -19,6 +19,7 @@
  */
 package de.tarent.aa.veraweb.beans;
 
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -59,9 +60,11 @@ public class PersonCategorie extends AbstractBean {
         checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
     }
 
-    @Override
-    public void verify() throws BeanException {
-    	if (person == null || categorie == null)
-    		addError("Kann Verbindung zwischen Person und Kategorie nicht speichern.");
+    public void verify(final OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
+
+    	if (person == null || categorie == null) {
+            addError(messages.getMessagePersonCategoryNoConnectionPersonCategory());
+        }
     }
 }

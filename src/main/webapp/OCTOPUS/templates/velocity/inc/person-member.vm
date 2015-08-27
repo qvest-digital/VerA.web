@@ -1,10 +1,6 @@
-
 <div vera-content="$personPartner person$extEncoding">
-
 	<div class="table width100">
-
 		<div class="tableRow">
-
 			<div class="tableCell width50 inlineLabel ">
 				#if($ext == "_a_e1")
 					<label for="person-iscompany">${placeholderWithTranslation.istfirma}</label>
@@ -12,21 +8,17 @@
 				#end
 			</div>
 			<div class="tableCell width50"></div>
-
 		</div>
 
 		<div class="tableRow">
-
 			<div class="tableCell width50 #if(!$grants.mayWrite() || $!message.plain($ext) != "_a_e1") vera-disabled #end" id="company-row" style="display:none">
 				 <label for="person-company-ignore$!message.plain($ext)">${placeholderWithTranslation.firma}/${placeholderWithTranslation.institution}*</label>
 				<input #if ($ext =='_a_e1') tabindex="130" #end type="text" id="person-company-ignore$!message.plain($ext)" name="person-company-ignore$!message.plain($ext)" maxlength="100" value="$!message.text($facade.Company)" onchange="setModified();"/>
 			</div>
 			<div class="tableCell width50"></div>
-
 		</div>
 
 		<div class="tableRow">
-
 			<div class="tableCell width50 ">
 				<label for="person-salutation$!message.plain($ext)">${placeholderWithTranslation.anrede}</label>
 				#set($sel = false)
@@ -48,7 +40,7 @@
 			</div>
 
 			<div class="tableCell width50 ">
-				<label for="person-expire$!message.plain($ext)">${placeholderWithTranslation.gultigbis}</label>
+				<label for="person-expire$!message.plain($ext)">${placeholderWithTranslation.GENERIC_VALID_TILL}</label>
 				<input type="text" name="person-expire$!message.plain($ext)" id="person-expire$!message.plain($ext)" value="$!message.date("DATE", $person.expire)" class="datepicker personExpiredDate" onchange="setModified(); updateExpiredDate(this.value);" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
 				#if($grants.mayWrite() && !$createNewPerson)
 					<span id="show-expire$!message.plain($ext)" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"/></span>
@@ -69,7 +61,6 @@
 					</script>
 				#end
 			</div>
-
 		</div>
 
 		<div class="tableRow">
@@ -81,7 +72,7 @@
 
 			<div class="tableCell width50 ">
 				#if($ext == "_a_e1" || $ext == "_b_e1")
-					<label for="person-birthday$!message.plain($ext)">${placeholderWithTranslation.geburtsdatum}</label>
+					<label for="person-birthday$!message.plain($ext)">${placeholderWithTranslation.GENERIC_PAGE}</label>
 					<input  type="text" name="person-birthday$ext" value="$!message.date("DATE", $facade.Birthday, false)" id="person-birthday$!message.plain($ext)" class="datepicker" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
 					#if($grants.mayWrite() && !$createNewPerson)
 						<span id="show-birthday$ext" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"/></span>
@@ -103,43 +94,37 @@
 					#end
 				#end
 			</div>
-
 		</div>
 
 		<div class="tableRow">
-
 			<div class="tableCell width50 ">
-				<label for="person-firstname$!message.plain($ext)">${placeholderWithTranslation.vorname}#if($ext == "_a_e1")*#end</label>
+				<label for="person-firstname$!message.plain($ext)">${placeholderWithTranslation.GENERIC_FIRSTNAME}#if($ext == "_a_e1")*#end</label>
 				<input #if ($ext =='_a_e1') tabindex="100" #end type="text" id="person-firstname$!message.plain($ext)" name="person-firstname$!message.plain($ext)" value="$!message.text($facade.Firstname)" maxlength="100" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) vera-disabled#end/>
 			</div>
 
 			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_a_e2" || $ext == "_a_e3" )
-					<label for="person-birthplace$!message.plain($ext)">${placeholderWithTranslation.geburtsort}</label>
+					<label for="person-birthplace$!message.plain($ext)">${placeholderWithTranslation.GENERIC_PLACE_OF_BIRTH}</label>
 					<input type="text" name="person-birthplace$!message.plain($ext)" value="$!message.text($facade.Birthplace)"  maxlength="100" id="person-birthplace$!message.plain($ext)" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end />
 				#end
 			</div>
-
 		</div>
 
 		<div class="tableRow">
-
 			<div class="tableCell width50 ">
-				<label for="person-lastname$!message.plain($ext)">${placeholderWithTranslation.nachname}#if($ext == "_a_e1")*#end</label>
+				<label for="person-lastname$!message.plain($ext)">${placeholderWithTranslation.GENERIC_LASTNAME}#if($ext == "_a_e1")*#end</label>
 				<input #if ($ext =='_a_e1') tabindex="110" #end type="text" id="person-lastname$!message.plain($ext)" name="person-lastname$!message.plain($ext)" value="$!message.text($facade.Lastname)" maxlength="100" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) vera-disabled#end/>
 			</div>
 
 			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
-					<label for="person-nationality$!message.plain($ext)">${placeholderWithTranslation.nationalitat}/${placeholderWithTranslation.staatsangehorigkeit}</label>
+					<label for="person-nationality$!message.plain($ext)">${placeholderWithTranslation.GENERIC_NATIONALITY}/${placeholderWithTranslation.GENERIC_CITIZENSHIP}</label>
 					<input  type="text" id="person-nationality$!message.plain($ext)" name="person-nationality$!message.plain($ext)" value="$!message.text($facade.Nationality)" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
 				#end
 			</div>
-
 		</div>
 
 		<div class="tableRow">
-
 			<div class="tableCell width50 inlineLabel ">
 				#if($ext == "_a_e1" || $ext == "_b_e1")
 					<strong>${placeholderWithTranslation.inland}</strong><br />
@@ -155,18 +140,16 @@
 
 			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
-					<label for="person-languages$!message.plain($ext)">${placeholderWithTranslation.sprachen}</label>
+					<label for="person-languages$!message.plain($ext)">${placeholderWithTranslation.GENERIC_LANGUAGES}</label>
 					<input  type="text" id="person-languages$!message.plain($ext)" name="person-languages$!message.plain($ext)" value="$!message.text($facade.Languages)" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
 				#end
 			</div>
-
 		</div>
 
 		<div class="tableRow">
-
 			<div class="tableCell width50 ">
 				#if($ext == "_a_e1")
-					<label for="workarea-id">${placeholderWithTranslation.arbeitsbereich}</label>
+					<label for="workarea-id">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</label>
 					<select  name="workarea-id" id="workarea-id" onchange="setModified('workarea')" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end>
 						<option value="">${placeholderWithTranslation.keinarbeitsbereich}</option>
 						#foreach($workArea in $allWorkArea)
@@ -188,24 +171,27 @@
 					#end
 				#end
 			</div>
-
 		</div>
 
 		<div class="tableRow">
-
 			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
-					<label for="person-note$!message.plain($ext)">${placeholderWithTranslation.bemerkung}</label>
-					<textarea  rows="3" cols="20" id="person-note$!message.plain($ext)" name="person-note$!message.plain($ext)" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >$!message.textarea($facade.Note)#else vera-disabled>#end</textarea>
+					<label for="person-note$!message.plain($ext)">${placeholderWithTranslation.GENERIC_REMARK}</label>
+					<textarea  rows="3" cols="20" id="person-note$!message.plain($ext)" name="person-note$!message.plain($ext)" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >
+                        $!message.textarea($facade.Note)#else vera-disabled>#end
+                    </textarea>
 				#end
 			</div>
 
 			<div class="tableCell width50 ">
 				#if($ext == "_a_e1" || $ext == "_b_e1")
-					<label for="person-diplodate$!message.plain($ext)">${placeholderWithTranslation.akkreditierungsdatum}</label>
-					<input  type="text" name="person-diplodate$!message.plain($ext)" value="$!message.date("DATE", $facade.Diplodate, false)" id="person-diplodate$!message.plain($ext)" onchange="setModified();" class="datepicker" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
+					<label for="person-diplodate$!message.plain($ext)">${placeholderWithTranslation.GENERIC_ACCOUNT_OPENING_DATE}</label>
+					<input type="text" name="person-diplodate$!message.plain($ext)" value="$!message.date("DATE", $facade.Diplodate, false)" id="person-diplodate$!message.plain($ext)" onchange="setModified();" class="datepicker" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
 					#if($grants.mayWrite() && !$createNewPerson)
-						<span id="show-diplodate$!message.plain($ext)" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"/></span> &nbsp; ${placeholderWithTranslation.um} &nbsp;
+						<span id="show-diplodate$!message.plain($ext)" class="datepickerContainer">
+                            <img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"/>
+                        </span>
+                        &nbsp; ${placeholderWithTranslation.GENERIC_AT} &nbsp;
 						<script type="text/javascript">
 							$(function () {
 								Calendar.setup({
@@ -222,10 +208,9 @@
 							});
 						</script>
 					#end
-					<input type="text" class="width15" name="person-diplotime${ext}" id="person-diplotime${ext}" #if($person-diplodatetime) value="$!message.date("TIME", $facade.Diplodate)" #else value="" #end onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/> <label class="inline" for="person-diplotime$!message.plain($ext)">${placeholderWithTranslation.uhr}</label>
+					<input type="text" class="width15" name="person-diplotime${ext}" id="person-diplotime${ext}" #if($person-diplodatetime) value="$!message.date("TIME", $facade.Diplodate)" #else value="" #end onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/> <label class="inline" for="person-diplotime$!message.plain($ext)">${placeholderWithTranslation.GENERIC_OCLOCK}</label>
 				#end
 			</div>
-
 		</div>
 
 		<div class="tableRow">
@@ -233,24 +218,26 @@
 			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
 					<label for="person-noteorga$!message.plain($ext)">${placeholderWithTranslation.hinweisfurorga}</label>
-					<textarea  rows="3" cols="20" id="person-noteorga$!message.plain($ext)" name="person-noteorga$!message.plain($ext)" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >$!message.textarea($facade.NoteOrga)#else vera-disabled>#end</textarea>
+					<textarea rows="3" cols="20" id="person-noteorga$!message.plain($ext)" name="person-noteorga$!message.plain($ext)" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >
+                        $!message.textarea($facade.NoteOrga)#else vera-disabled>#end
+                    </textarea>
 				#end
 			</div>
 
 			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
-					<label for="person-notehost$!message.plain($ext)">${placeholderWithTranslation.hinweisfurgastgeber}</label>
-					<textarea  rows="3" cols="20" id="person-notehost$!message.plain($ext)" name="person-notehost$!message.plain($ext)" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >$!message.textarea($facade.NoteHost)#else vera-disabled>#end</textarea>
+					<label for="person-notehost$!message.plain($ext)">${placeholderWithTranslation.GENERIC_HINT_FOR_HOST}</label>
+					<textarea rows="3" cols="20" id="person-notehost$!message.plain($ext)" name="person-notehost$!message.plain($ext)" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >
+                        $!message.textarea($facade.NoteHost)#else vera-disabled>#end
+                    </textarea>
 				#end
 			</div>
-
 		</div>
 
 		<div class="tableRow">
-
 			<div class="tableCell width50 notBold">
 				#if ( !$createNewPerson && ($ext == "_a_e1" || $ext == "_b_e1") )
-					<strong>${placeholderWithTranslation.datenherkunft}</strong><br/>
+					<strong>${placeholderWithTranslation.GENERIC_ORIGIN_DATA}</strong><br/>
 					#if(!$person.importsource || $person.importsource == '')-#else$!message.text($person.importsource)#end
 				#end
 			</div>

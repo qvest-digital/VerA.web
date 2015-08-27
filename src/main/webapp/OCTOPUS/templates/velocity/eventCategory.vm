@@ -9,7 +9,7 @@
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
@@ -18,7 +18,7 @@
 	#set($completeEventHeader = false)
 	#parse("inc/event-header.vm")
 
-	<form id="formlist" name="formlist" action="ShowEventCategory" method="POST" onsubmit="htmlWait();">
+	<form id="formlist" name="formlist" action="ShowEventCategory" method="POST" onsubmit="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');">
 		<input type="hidden" name="id" value="$!event.id"/>
 		<input type="hidden" name="start" value=""/>
 		<input type="hidden" name="limit" value=""/>
@@ -49,7 +49,7 @@
 						</li>
 						<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
 						</li>
-						<li class="active"><div>${placeholderWithTranslation.kategorien}</div>
+						<li class="active"><div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div>
 						</li>
 					#end
 				</ul>
@@ -101,8 +101,8 @@
 							#if($list && $list.size() > 0 && $grants.mayWrite())
 								<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 							#end
-							<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
-							<th>${placeholderWithTranslation.bezeichnung}</th>
+							<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+							<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
 						</tr>
 						#if($grants.mayWrite())
 						<tr>
@@ -110,7 +110,7 @@
 								<td class="textCenter"/>
 							#end
 							<input type="hidden" id="add-modified" name="add-modified" value="false"/><input type="checkbox" name="add-select" value="true" style="display: none;"/>
-							<td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>${placeholderWithTranslation.neu}</em></td>
+							<td class="textCenter"><input type="hidden" name="add-id" value=""/><input type="hidden" name="add-event" value="$!event.id"/><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
 							<td>
 								<select id="add-category" name="add-category" onchange="setModified('add')">
 									<option value="0">${placeholderWithTranslation.bitteauswahlen}:</option>

@@ -108,7 +108,7 @@ public class Duration extends AbstractBean
 	 * @param fmt
 	 * @return String
 	 */
-	public String toFormattedString( String fmt )
+	public String toFormattedString(String fmt)
 	{
 		StringBuffer temp = new StringBuffer();
 		char c = 0;

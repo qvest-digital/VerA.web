@@ -303,7 +303,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     }
 
 	@Override
-    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
+    protected void saveBean(final OctopusContext octopusContext, Bean bean, TransactionContext context) throws BeanException, IOException {
 		Proxy proxy = (Proxy)bean;
 		if (proxy.validFrom != null) {
 			Calendar calendar = Calendar.getInstance();
@@ -323,7 +323,12 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
 			calendar.set(Calendar.MILLISECOND, 0);
 			proxy.validTill.setTime(calendar.getTimeInMillis());
 		}
-		super.saveBean(cntx, bean, context);
+
+        proxy.verify(octopusContext);
+
+        if(proxy.isCorrect()) {
+            super.saveBean(octopusContext, bean, context);
+        }
 	}
 
     //

@@ -7,7 +7,7 @@
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.personenimport}</a> > ${placeholderWithTranslation.importstatus}</span>
+    	<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.personenimport}</a> > ${placeholderWithTranslation.importstatus}</span>
     </div>
     <h1>${placeholderWithTranslation.importstatus}</h1>
 
@@ -57,7 +57,7 @@
 		<span class="textRight floatRight">
 			#if($importStatus.saveCount  && $importStatus.saveCount != 0)
                 <input type="hidden" name="importId" value="$!importStatus.id"/>
-                <input type="submit" class="mainButton" value="${placeholderWithTranslation.importabschlieszen}" title="${placeholderWithTranslation.importabschlieszen}" onclick="htmlWait();"/>
+                <input type="submit" class="mainButton" value="${placeholderWithTranslation.importabschlieszen}" title="${placeholderWithTranslation.importabschlieszen}" onclick="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');"/>
 			#end
 			<input type="button" class="mainButton" value="${placeholderWithTranslation.zuruckzumpersonenimport}" title="${placeholderWithTranslation.zuruckzumpersonenimport}" onclick="window.location.href='ImportPersons';"/>
 		</span>

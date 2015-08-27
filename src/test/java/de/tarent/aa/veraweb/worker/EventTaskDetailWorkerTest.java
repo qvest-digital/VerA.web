@@ -31,6 +31,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import de.tarent.aa.veraweb.utils.VerawebMessages;
+import de.tarent.octopus.content.TcContent;
 import junit.framework.TestCase;
 
 import org.mockito.ArgumentMatcher;
@@ -64,6 +66,12 @@ public class EventTaskDetailWorkerTest extends TestCase {
 		Grants grants = mock(Grants.class);// , withSettings().verboseLogging());
 		doReturn(grants).when(personalConfig).getGrants();
 		doReturn(personalConfig).when(cntx).personalConfig();
+		Task task = mock(Task.class);
+		doReturn(task).when(cntx).contentAsObject("task");
+		TcContent contentObject = mock(TcContent.class);
+		doReturn(contentObject).when(cntx).getContentObject();
+		doReturn("de_DE").when(contentObject).get("language");
+		task.setMessages(new VerawebMessages(cntx));
 
 		// config
 		doReturn(null).when(cntx).contentAsObject("task"); // assume no task is in content

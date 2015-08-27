@@ -1,4 +1,3 @@
-
 <div vera-content="$addressType address$extEncoding">
 	<div class="table width100">
 
@@ -34,7 +33,7 @@
 			</div>
 
 			<div class="tableCell width50 inlineLabel">
-				<label for="person-zipcode$!message.plain($ext)">${placeholderWithTranslation.plz}</label> / <label for="person-city$!message.plain($ext)">${placeholderWithTranslation.ort}</label><br />
+				<label for="person-zipcode$!message.plain($ext)">${placeholderWithTranslation.GENERIC_POST_NUMBER}</label> / <label for="person-city$!message.plain($ext)">${placeholderWithTranslation.GENERIC_CITY}</label><br />
 				<input type="text" id="person-zipcode$!message.plain($ext)" name="person-zipcode$!message.plain($ext)" value="$!message.text($facade.ZipCode)" onchange="setModified();" class="width15 inlineInput" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 				<input type="text" id="person-city$!message.plain($ext)" name="person-city$!message.plain($ext)" value="$!message.text($facade.City)" onchange="setModified();" class="width85 inlineInput" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
@@ -58,7 +57,7 @@
 		<div class="tableRow">
 
 			<div class="tableCell width50 inlineLabel">
-				<label for="person-poboxzipcode$!message.plain($ext)">${placeholderWithTranslation.plz}</label> / <label for="person-pobox$!message.plain($ext)">${placeholderWithTranslation.postfach}</label><br />
+				<label for="person-poboxzipcode$!message.plain($ext)">${placeholderWithTranslation.GENERIC_POST_NUMBER}</label> / <label for="person-pobox$!message.plain($ext)">${placeholderWithTranslation.postfach}</label><br />
 				<input type="text" id="person-poboxzipcode$!message.plain($ext)" name="person-poboxzipcode$!message.plain($ext)" value="$!message.text($facade.POBoxZipCode)" onchange="setModified();" class="width15 inlineInput" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 				<input type="text" id="person-pobox$!message.plain($ext)" name="person-pobox$!message.plain($ext)" value="$!message.text($facade.POBox)" onchange="setModified();" class="width85 inlineInput" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
@@ -71,12 +70,12 @@
 		<div class="tableRow">
 
 			<div class="tableCell width50">
-				<label for="person-suffix1$!message.plain($ext)">${placeholderWithTranslation.adresszusatz} 1</label>
+				<label for="person-suffix1$!message.plain($ext)">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1</label>
 				<input type="text" id="person-suffix1$!message.plain($ext)" name="person-suffix1$!message.plain($ext)" value="$!message.text($facade.Suffix1)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
 
 			<div class="tableCell width50">
-				<label for="person-suffix2$!message.plain($ext)">${placeholderWithTranslation.adresszusatz} 2</label>
+				<label for="person-suffix2$!message.plain($ext)">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2</label>
 				<input type="text" id="person-suffix2$!message.plain($ext)" name="person-suffix2$!message.plain($ext)" value="$!message.text($facade.Suffix2)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
 
@@ -90,7 +89,7 @@
 			</div>
 
 			<div class="tableCell width50">
-				<label for="person-fax$!message.plain($ext)">${placeholderWithTranslation.fax}</label>
+				<label for="person-fax$!message.plain($ext)">${placeholderWithTranslation.GENERIC_FAX}</label>
 				<input type="text" id="person-fax$!message.plain($ext)" name="person-fax$!message.plain($ext)" value="$!message.text($facade.Fax)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
 

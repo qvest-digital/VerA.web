@@ -21,6 +21,7 @@ package de.tarent.aa.veraweb.beans;
 
 import java.sql.Timestamp;
 
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -61,14 +62,18 @@ public class MailOutbox extends AbstractBean {
 	/** Error Text */
 	public String errortext;
 
-	@Override
-    public void verify() throws BeanException {
-		if (from == null || from.trim().length() == 0)
-			addError("Die E-Mail kann nicht ohne Absender versendet werden.");
-		if (to == null || to.trim().length() == 0)
-			addError("Die E-Mail kann nicht ohne Empf\u00e4nger versendet werden.");
-		if (subject == null || subject.trim().length() == 0)
-			addError("Die E-Mail kann nicht ohne Betreff versendet werden.");
+    public void verify(final OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
+
+		if (from == null || from.trim().length() == 0) {
+            addError(messages.getMessageEMailWithoutSender());
+        }
+		if (to == null || to.trim().length() == 0) {
+            addError(messages.getMessageEMailWithoutReceiver());
+        }
+		if (subject == null || subject.trim().length() == 0) {
+            addError(messages.getMessageEMailWithoutSubject());
+        }
 	}
 
 	/**

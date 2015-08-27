@@ -45,7 +45,7 @@ public class EventCategory extends AbstractBean {
     public void verify(final OctopusContext octopusContext) throws BeanException {
         final VerawebMessages messages = new VerawebMessages(octopusContext);
 		if (event == null || event.intValue() == 0 || category == null || category.intValue() == 0) {
-            addError(messages.getMessageEventcategoryWrong()); // Die Zuordnung einer Kategorie zu einer Veranstaltung ist fehlerhaft.
+            addError(messages.getMessageEventcategoryWrong());
         }
 	}
 

@@ -99,11 +99,11 @@ function htmlConfirm(question, answer, links) {
 }
 
 /** erstellt ein bitte-warten dialog */
-function htmlWait() {
+function htmlWait(pleaseWaitHeader, pleaseWaitMessage) {
 	var text = '';
 	text += '<div style="height: 140px;">';
-	text += '<strong>Bitte warten...</strong><br><br>';
-	text += 'Dieser Vorgang kann einen Moment dauern.';
+	text += '<strong>' + pleaseWaitHeader + '</strong><br><br>';
+	text += pleaseWaitMessage;
 	text += '</div>';
 
 	htmlDialog('dialogInfo', text);

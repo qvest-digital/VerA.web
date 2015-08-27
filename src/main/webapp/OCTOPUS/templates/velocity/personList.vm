@@ -129,31 +129,31 @@
 <div id="content_container">
 	#if($action == "host")
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
 		</div>
 		<h1>$title</h1>
 	#elseif($searchTask && $searchTask == "personSearchTask")
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
 		</div>
 		<h1>$title</h1>
 	#elseif($action == "taskReferencePerson")
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
 		</div>
 		<h1>$title</h1>
 
 
 	#elseif($action == "guest")
 				<div id="breadcrumb" class="textRight marginBottom10">
-				<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > $title</span>
+				<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
 		</div>
 		<h1>$title</h1>
 
 
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > $title</span>
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > $title</span>
 		</div>
 		<h1>$title</h1>
 		#if($title == "Dublettensuche")
@@ -174,7 +174,7 @@
 			#if($deleted == 1)
 				showSuccess(' ${placeholderWithTranslation.eswurdeeinepersongeloscht} ');
 			#elseif($deleted > 1)
-				showSuccess(' ${placeholderWithTranslation.eswurden} $deleted ${placeholderWithTranslation.personengeloscht} ');
+				showSuccess(' ${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $deleted ${placeholderWithTranslation.personengeloscht} ');
 			#end
 		</script>
 	#end
@@ -378,7 +378,7 @@
 	            showSuccess(' ${placeholderWithTranslation.eswurdekeinepersongeloscht}');
 	            $('input:checkbox').prop('disabled', false);
 	        },
-		'${placeholderWithTranslation.loschen}',
+		'${placeholderWithTranslation.GENERIC_DELETE}',
 		'${placeholderWithTranslation.abbrechen}'
 	    );
         }
@@ -479,8 +479,8 @@
 			#if($action == "guest")
 
 				<span id="actionPanel" class="inlineLabel">
-					<label>${placeholderWithTranslation.markiertepersonen}
-						<input type="button" value="${placeholderWithTranslation.hinzufugen}" title=" ${placeholderWithTranslation.markiertepersonenzurveranstaltunghinzufuegen} " onclick="$('#selectNone').val('false'); submitFormWithGivenAction('AddPersonToEventGuestList');" />
+					<label>${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
+						<input type="button" value="${placeholderWithTranslation.GENERIC_ADD}" title=" ${placeholderWithTranslation.markiertepersonenzurveranstaltunghinzufuegen} " onclick="$('#selectNone').val('false'); submitFormWithGivenAction('AddPersonToEventGuestList');" />
 					</label>
 				</span>
 
@@ -556,7 +556,7 @@
 			#elseif($action == "replace")
 
 				<span id="actionPanel" class="inlineLabel">
-					<label> ${placeholderWithTranslation.markiertepersonen}
+					<label> ${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 						<input type="button" value="Ersetzen" title="${placeholderWithTranslation.ersetzen}" onclick="submitFormWithGivenAction('SaveReplacePersonList');" />
 					</label>
 				</span>
@@ -632,20 +632,20 @@
 				<span id="actionPanel" class="inlineLabel">
 					<label>
 						#if($grants.mayWrite())
-							${placeholderWithTranslation.markiertepersonen}
+							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 							<select id="actionSelection">
-								<option value="0">${placeholderWithTranslation.loschen}</option>
+								<option value="0">${placeholderWithTranslation.GENERIC_DELETE}</option>
 								#if($exportFormat && $grants.mayExport())
 									<option value="1">${placeholderWithTranslation.exportieren}</option>
 								#end
-								<option value="2">${placeholderWithTranslation.kategorienzuordnen}</option>
-								<option value="3">${placeholderWithTranslation.kategorienentfernen}</option>
-								<option value="4">${placeholderWithTranslation.arbeitsbereichzuordnen}</option>
-								<option value="5">${placeholderWithTranslation.arbeitsbereichentfernen}</option>
+								<option value="2">${placeholderWithTranslation.GENERIC_ASSIGN_CATEGORIES}</option>
+								<option value="3">${placeholderWithTranslation.GENERIC_REMOVE_CATEGORIES}</option>
+								<option value="4">${placeholderWithTranslation.GENERIC_ASSING_WORKAREA}</option>
+								<option value="5">${placeholderWithTranslation.GENERIC_REMOVE_WORKAREA}</option>
 							</select>
-							<input type="button" value="${placeholderWithTranslation.durchfuhren}" id="button.execute" name="button.execute" />
+							<input type="button" value="${placeholderWithTranslation.GENERIC_EXECUTE}" id="button.execute" name="button.execute" />
 						#elseif($exportFormat && $grants.mayExport())
-i							${placeholderWithTranslation.markiertepersonen}	
+i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}	
 							<input type="button" value="Exportieren" title="${placeholderWithTranslation.exportieren}" onclick="selectedActionExportPerson();" />
 						#else &nbsp; #end
 					</label>
@@ -672,8 +672,8 @@ i							${placeholderWithTranslation.markiertepersonen}
 			#if ($action == "guest")
 				<div id="key" class="table hinweis contentBoxColored grayBorder floatRight" style="margin-top: -14px;">
 					<div class="tableRow">
-						<div class="tableCell"><strong>H</strong> = ${placeholderWithTranslation.hauptperson} ${placeholderWithTranslation.einladen}</div>
-						<div class="tableCell"><strong>P</strong> = ${placeholderWithTranslation.partner} ${placeholderWithTranslation.einladen}</div>
+						<div class="tableCell"><strong>H</strong> = ${placeholderWithTranslation.GENERIC_MAIN_PERSON} ${placeholderWithTranslation.einladen}</div>
+						<div class="tableCell"><strong>P</strong> = ${placeholderWithTranslation.GENERIC_PARTNER} ${placeholderWithTranslation.einladen}</div>
 						<div class="tableCell"><strong>R</strong> = ${placeholderWithTranslation.aufreservesetzen}</div>
 						#if ($delegationCanBeUsed)
 							<div class="tableCell"><strong>D</strong> = ${placeholderWithTranslation.delegationanmelden}</div>
@@ -706,15 +706,15 @@ i							${placeholderWithTranslation.markiertepersonen}
 					#if($action == "guest")
 						<tr>
 							#if($grants.mayWrite())
-								<th class="textCenter smallCell" title="${placeholderWithTranslation.hauptperson} ${placeholderWithTranslation.einladen}">H <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkiereninklpartnerwenneingeladen}" style="margin: 5px;" #if($listselection.size() == $list.size()) checked#end/></th>
-								<th class="textCenter smallCell" title="${placeholderWithTranslation.partner} ${placeholderWithTranslation.einladen}">P</th>
+								<th class="textCenter smallCell" title="${placeholderWithTranslation.GENERIC_MAIN_PERSON} ${placeholderWithTranslation.einladen}">H <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkiereninklpartnerwenneingeladen}" style="margin: 5px;" #if($listselection.size() == $list.size()) checked#end/></th>
+								<th class="textCenter smallCell" title="${placeholderWithTranslation.GENERIC_PARTNER} ${placeholderWithTranslation.einladen}">P</th>
 								<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen}">R</th>
 								#if ($delegationCanBeUsed)
 									<th class="textCenter smallCell" title="${placeholderWithTranslation.delegationanmelden}">D</th>
 								#end
 							#end
 							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">Nach&shy;name
 								#if($personSearchField == 'lastname_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -725,7 +725,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">Vor&shy;name
 								#if($personSearchField == 'firstname_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -736,7 +736,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}
 
 								#if($personSearchField == 'function_a_e1')
 									#if ($personSearchOrder == 'ASC')
@@ -748,7 +748,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution} 
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION} 
 								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'company_a_e1')
 									#if ($personSearchOrder == 'ASC')
@@ -760,62 +760,62 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th style="color:#1B1B1B; padding:10px;">${placeholderWithTranslation.kategorie}</th>
+							<th style="color:#1B1B1B; padding:10px;">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</th>
 						</tr>
 					#elseif($action == "host")
 						<tr>
-							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.id}</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}
+							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.GENERIC_ID}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.GENERIC_STREET}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plz}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.GENERIC_POST_NUMBER}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ort}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.GENERIC_CITY}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							#if($userConfig.personListState)<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.bundesland} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
+							#if($userConfig.personListState)<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.GENERIC_FEDERAL_STATE} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
 						</tr>
 					#elseif($action == "statistikHost")
 						<tr>
-							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.id}</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
+							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.GENERIC_ID}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
 
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}
 
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.GENERIC_STREET}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plz}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.GENERIC_POST_NUMBER}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ort}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.GENERIC_CITY}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							#if($userConfig.personListState)<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.bundesland} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
+							#if($userConfig.personListState)<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.GENERIC_FEDERAL_STATE} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
 						</tr>
 					#elseif($action == "statistikGuest")
 						<tr>
 							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">ID</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</a></th>
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.GENERIC_STREET}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plz}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.GENERIC_POST_NUMBER}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ort}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.GENERIC_CITY}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							#if($userConfig.personListState)<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.bundesland} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
+							#if($userConfig.personListState)<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.GENERIC_FEDERAL_STATE} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
 						</tr>
 					#elseif($action == "taskReferencePerson")
 						<tr>
-							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.id}</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}
+							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.GENERIC_ID}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}
 								#if($personSearchField == 'lastname_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -826,7 +826,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}
 								#if($personSearchField == 'firstname_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -837,7 +837,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}
 								#if($personSearchField == 'function_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -848,7 +848,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'company_a_e1')
 									#if ($personSearchOrder == 'ASC')
@@ -860,7 +860,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.GENERIC_STREET}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'street_a_e1')
 									#if ($personSearchOrder == 'ASC')
@@ -872,7 +872,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plz}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.GENERIC_POST_NUMBER}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'zipcode_a_e1')
 									#if ($personSearchOrder == 'ASC')
@@ -884,7 +884,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ort}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.GENERIC_CITY}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'city_a_e1')
 									#if ($personSearchOrder == 'ASC')
@@ -896,7 +896,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							#if($userConfig.personListState)<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.bundesland} ${placeholderWithTranslation.LETTER_COMMERCIAL}
+							#if($userConfig.personListState)<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.GENERIC_FEDERAL_STATE} ${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'state_a_e1')
 									#if ($personSearchOrder == 'ASC')
 										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -917,21 +917,21 @@ i							${placeholderWithTranslation.markiertepersonen}
 							#if($grants.mayWrite())
 								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 							#end
-							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.id}</a></th>
-							<th title="Datum"><a href="javascript:orderPersonList('created');">${placeholderWithTranslation.datum}</a></span></th>
+							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.GENERIC_ID}</a></th>
+							<th title="Datum"><a href="javascript:orderPersonList('created');">${placeholderWithTranslation.GENERIC_DATE}</a></span></th>
 							<th title="Arbeitsbereich"><a href="javascript:orderPersonList('workarea_name');">${placeholderWithTranslation.arbeitsshybereich}</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.GENERIC_STREET}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plz}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.GENERIC_POST_NUMBER}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ort}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.GENERIC_CITY}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
-							#if($userConfig.personListState)<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.bundesland} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
+							#if($userConfig.personListState)<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.GENERIC_FEDERAL_STATE} ${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>#end
 						</tr>
 					#else
 						<tr>
@@ -950,7 +950,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.nachname}
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}
 									#if($personSearchField == 'lastname_a_e1')
 										#if ($personSearchOrder == 'ASC')
 											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -961,7 +961,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							<th title="${placeholderWithTranslation.hauptperson}, ${placeholderWithTranslation.zeichensatz} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.vorname}
+							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}
 								#if($personSearchField == 'firstname_a_e1')
 										#if ($personSearchOrder == 'ASC')
 											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -972,7 +972,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}
 								#if($personSearchField == 'function_a_e1')
 										#if ($personSearchOrder == 'ASC')
 											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -983,7 +983,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.firmainstitution}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'company_a_e1')
 										#if ($personSearchOrder == 'ASC')
@@ -995,7 +995,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.strasse}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.GENERIC_STREET}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'street_a_e1')
 										#if ($personSearchOrder == 'ASC')
@@ -1007,7 +1007,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.plz}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('zipcode_a_e1');">${placeholderWithTranslation.GENERIC_POST_NUMBER}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'zipcode_a_e1')
 										#if ($personSearchOrder == 'ASC')
@@ -1019,7 +1019,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.ort}
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('city_a_e1');">${placeholderWithTranslation.GENERIC_CITY}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'city_a_e1')
 										#if ($personSearchOrder == 'ASC')
@@ -1031,7 +1031,7 @@ i							${placeholderWithTranslation.markiertepersonen}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
 							</a></th>
-							#if($userConfig.personListState)<th title="${placeholderWithTranslation.geschaftlich}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.bundesland} ${placeholderWithTranslation.LETTER_COMMERCIAL}
+							#if($userConfig.personListState)<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('state_a_e1');">${placeholderWithTranslation.GENERIC_FEDERAL_STATE} ${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'state_a_e1')
 										#if ($personSearchOrder == 'ASC')
 											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
@@ -1058,26 +1058,26 @@ i							${placeholderWithTranslation.markiertepersonen}
 								#if($grants.mayWrite())
 									#if($event.invitationtype == 2)
 										## Ohne Partner
-										<td title="${placeholderWithTranslation.hauptperson} ${placeholderWithTranslation.einladen}">
+										<td title="${placeholderWithTranslation.GENERIC_MAIN_PERSON} ${placeholderWithTranslation.einladen}">
 											<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 										</td>
-										<td title="${placeholderWithTranslation.partner} ${placeholderWithTranslation.einladen}">
+										<td title="${placeholderWithTranslation.GENERIC_PARTNER} ${placeholderWithTranslation.einladen}">
 											<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) disabled #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 										</td>
 									#elseif($event.invitationtype == 3)
 										## NurPartner
-										<td title="${placeholderWithTranslation.hauptperson} ${placeholderWithTranslation.einladen}">
+										<td title="${placeholderWithTranslation.GENERIC_MAIN_PERSON} ${placeholderWithTranslation.einladen}">
 											<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 										</td>
-										<td title="${placeholderWithTranslation.partner} ${placeholderWithTranslation.einladen}">
+										<td title="${placeholderWithTranslation.GENERIC_PARTNER} ${placeholderWithTranslation.einladen}">
 											<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) disabled #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 										</td>
 									#else
 										## Mit Partner
-										<td title="${placeholderWithTranslation.hauptperson} ${placeholderWithTranslation.einladen}">
+										<td title="${placeholderWithTranslation.GENERIC_MAIN_PERSON} ${placeholderWithTranslation.einladen}">
 											<input type="checkbox" id="${bean.id}-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end #if(!$hasA) onClick="hasNoMain('${bean.id}-select');" #elseif($hasB) onClick="onClickSetState('${bean.id}-select', '${bean.id}-partner');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 										</td>
-										<td title="${placeholderWithTranslation.partner} ${placeholderWithTranslation.einladen}">
+										<td title="${placeholderWithTranslation.GENERIC_PARTNER} ${placeholderWithTranslation.einladen}">
 											<input type="checkbox" id="${bean.id}-partner" name="${bean.id}-partner" value="true" #if($invitepartner.indexOf($bean.id) != -1) checked#end #if(!$hasB) disabled #elseif($hasA) onClick="onClickSetState('${bean.id}-partner', '${bean.id}-select');onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #else onClick="onClickEnforceConsistentState('${bean.id}-select', '${bean.id}-partner', '${bean.id}-reserve');" #end>
 										</td>
 									#end

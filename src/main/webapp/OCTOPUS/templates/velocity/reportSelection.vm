@@ -4,7 +4,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+    	<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
     </div>
     <h1>${placeholderWithTranslation.gaesteverwaltungderveranstaltung} $!message.plain($event.shortname)</h1>
 
@@ -60,17 +60,17 @@
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
                             			<option value="country">${placeholderWithTranslation.land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
-                            			<option value="category">${placeholderWithTranslation.kategorie}</option>
-                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+                            			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
+                            			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                             			<option value="table">${placeholderWithTranslation.tisch}</option>
                             #else
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
                             			<option value="country">${placeholderWithTranslation.land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
-                            			<option value="category">${placeholderWithTranslation.kategorie}</option>
-                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+                            			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
+                            			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                             			<option value="table">${placeholderWithTranslation.tisch}</option>
                             #end
                     	</select>
@@ -85,17 +85,17 @@
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
                             			<option value="country">${placeholderWithTranslation.land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
-                            			<option value="category" selected>${placeholderWithTranslation.kategorie}</option>
-                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+                            			<option value="category" selected>${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
+                            			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                             			<option value="table">${placeholderWithTranslation.tisch}</option>
                             #else
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
                             			<option value="country">${placeholderWithTranslation.land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
-                            			<option value="category">${placeholderWithTranslation.kategorie}</option>
-                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+                            			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
+                            			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                             			<option value="table">${placeholderWithTranslation.tisch}</option>
                             #end
                 		</select>
@@ -110,18 +110,18 @@
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
                             			<option value="country">${placeholderWithTranslation.land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
-                            			<option value="category">${placeholderWithTranslation.kategorie}</option>
-                            			<option value="rank" selected>${placeholderWithTranslation.rang}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+                            			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
+                            			<option value="rank" selected>${placeholderWithTranslation.GENERIC_RANK}</option>
                             			<option value="table">${placeholderWithTranslation.tisch}</option>
                             #else
                             			<option value="" selected></option>
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
                             			<option value="country">${placeholderWithTranslation.land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
-                            			<option value="category">${placeholderWithTranslation.kategorie}</option>
-                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+                            			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
+                            			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                             			<option value="table">${placeholderWithTranslation.tisch}</option>
                             #end
             		</select>
@@ -132,7 +132,7 @@
         				<strong>${placeholderWithTranslation.zusaetzlichesortierungnach}</strong>
         			</div>
         			<div class="tableCell inlineLabel">
-        				<label for="orderByWorkArea">${placeholderWithTranslation.arbeitsbereich}</label> <input type="checkbox" id="orderByWorkArea" name="orderByWorkArea" value="true" class="noFloat" />
+        				<label for="orderByWorkArea">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</label> <input type="checkbox" id="orderByWorkArea" name="orderByWorkArea" value="true" class="noFloat" />
         			</div>
         		</div>
         	</div>

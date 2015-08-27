@@ -10,7 +10,7 @@
     <div id="content_container">
 
     	<div id="breadcrumb marginBottom10" class="textRight">
-    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="index.html">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration}> ${placeholderWithTranslation.anreden}/span>
+    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="index.html">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration}> ${placeholderWithTranslation.anreden}/span>
     	</div>
 
     	<h1>${placeholderWithTranslation.anreden}</h1>
@@ -44,13 +44,13 @@
         	<tr>
         		<th class="smallCell textCenter"><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect"></th>
         		<th class="smallCell textCenter">ID</th>
-        		<th>${placeholderWithTranslation.bezeichnung}</th>
+        		<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
         		<th>${placeholderWithTranslation.dokumenttyp}</th>
         	</tr>
         #if ($allDoctype.iterator().hasNext())
         	<tr>
         		<td><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
-        		<td><input type="hidden" name="add-id" value=""><input type="hidden" name="add-salutation" value="$!salutation.id"><em>${placeholderWithTranslation.neu}</em></td>
+        		<td><input type="hidden" name="add-id" value=""><input type="hidden" name="add-salutation" value="$!salutation.id"><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
         		<td><input type="text" name="add-text" value=""  onchange="setModified('add')"></td>
         		<td>
         			<select id="add-doctype" name="add-doctype" onchange="setModified('add')">
@@ -75,7 +75,7 @@
 		#end
 		#if ($listparam.count == 0)
             	<tr>
-        			<td colspan="5">${placeholderWithTranslation.keinedatengefunden}.</td>
+        			<td colspan="5">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td>
         		</tr>
         #end
 

@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.beans;
 
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -105,16 +106,30 @@ public class PersonDoctype extends AbstractBean {
      *
      * @throws BeanException bei Unvollständigkeit
      */
-    @Override
-    public void verify() throws BeanException {
-        if (addresstype == null)
-            addresstype = new Integer(PersonConstants.ADDRESSTYPE_BUSINESS);
+    public void verify(final OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
+
+        initMandatoryFields();
+
+        if ( textfieldJoin != null && textfieldJoin.length() > 50 ) {
+			addError(messages.getMessageDocTypeMaxConnectorReached());
+		}
+    }
+
+    private void initMandatoryFields() {
+        initAddresstype();
+        initLocale();
+    }
+
+    private void initLocale() {
         if (locale == null) {
             locale = new Integer(PersonConstants.LOCALE_LATIN);
         }
-		if ( textfieldJoin != null && textfieldJoin.length() > 50 )
-		{
-			addError( "Der Verbinder darf maximal 50 Zeichen lang sein." );
-		}
+    }
+
+    private void initAddresstype() {
+        if (addresstype == null) {
+            addresstype = new Integer(PersonConstants.ADDRESSTYPE_BUSINESS);
+        }
     }
 }

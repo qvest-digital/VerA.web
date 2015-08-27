@@ -23,6 +23,7 @@ import java.text.Collator;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -213,13 +214,15 @@ public class Location extends AbstractBean implements OrgUnitDependent, Comparab
         this.location = location;
     }
 
-    @Override
-    public void verify() throws BeanException {
-		if (name == null || name.trim().length() == 0)
-			addError("Der Veranstaltungsort kann nicht gespeichert werden. Vergeben Sie Bitte einen Titel.");
+    public void verify(final OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
+
+		if (name == null || name.trim().length() == 0) {
+            addError(messages.getMessageLocationTitleEmpty());
+        }
 
 		if(comment != null && comment.length() > 1000) {
-		    addError("Der Inhalt des Bemerkungsfelds darf maximal 1000 Zeichen lang sein.");
+		    addError(messages.getMessageLocationMaxRemarkReached());
 		}
 	}
 

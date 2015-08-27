@@ -19,17 +19,17 @@
         <input type="hidden" name="doRemove" value="true"/>
 
         <div class="textRight marginBottom10" id="breadcrumb">
-            <strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.emailvorlage}</span>
+            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.emailvorlage}</span>
         </div>
 
         <h1>${placeholderWithTranslation.emailvorlage}</h1>
 
         <span id="actionPanel" class="inlineLabel">
-	       	<strong>${placeholderWithTranslation.markiertevorlage}</strong>
-	       	<input type="submit" name="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markiertevorlagenloschen}" onclick="" />
+	       	<strong>${placeholderWithTranslation.GENERIC_MARKED_TEMPLATES_PP}</strong>
+	       	<input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markiertevorlagenloschen}" onclick="" />
         </span>
         <span id="" class="buttonPanel-top textRight floatRight">
-			<input type="button" name="" value="${placeholderWithTranslation.neuevorlageanlegen}" title="${placeholderWithTranslation.neuevorlageanlegen}" class="mainButton" onclick="window.location.href='MailDraftDetail';" />
+			<input type="button" name="" value="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" title="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" class="mainButton" onclick="window.location.href='MailDraftDetail';" />
         </span>
         #foreach($bean in $list)
         <input type="hidden" name="list" value="$bean.id"/>
@@ -45,8 +45,8 @@
         		<th class="smallCell textCenter">
         			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/>
         		</th>
-        		<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
-        		<th>${placeholderWithTranslation.namedervorlage}</th>
+        		<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+        		<th>${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}</th>
         	</tr>
         	#foreach($bean in $list)
         	<tr>
@@ -60,7 +60,7 @@
         	#parse("inc/list-navi-new.vm")
         	#parse("inc/list-direct-new.vm")
             #if ($listparam.count == 0)
-            	<tr><td colspan="3">${placeholderWithTranslation.keinedatengefunden}.</td></tr>
+            	<tr><td colspan="3">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
             #end
         </table>
 

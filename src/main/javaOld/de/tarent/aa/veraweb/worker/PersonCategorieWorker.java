@@ -1,4 +1,4 @@
-/**
+/**ver
  * veraweb, platform independent webservice-based event management
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
@@ -55,8 +55,8 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
     // Oberklasse BeanListWorker
     //
     @Override
-    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
-        Bean bean = (Bean) cntx.contentAsObject("person");
+    protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException, IOException {
+        Bean bean = (Bean) octopusContext.contentAsObject("person");
         select.where(Expr.equal("fk_person", bean.getField("id")));
     }
 
@@ -148,32 +148,39 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
     }
 
     @Override
-    protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
-        super.saveBean(cntx, bean, context);
-        WorkerFactory.getPersonDetailWorker(cntx).updatePerson(cntx, null, ((PersonCategorie) bean).person);
+    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context) throws BeanException, IOException {
+        super.saveBean(octopusContext, bean, context);
+        WorkerFactory.getPersonDetailWorker(octopusContext).updatePerson(octopusContext, null, ((PersonCategorie) bean).person);
     }
 
-    public void addCategoryAssignment(OctopusContext cntx, Integer categoryId, Integer personId, Database database, TransactionContext context) throws BeanException, IOException {
-        addCategoryAssignment(cntx, categoryId, personId, database, context, true);
+    public void addCategoryAssignment(OctopusContext octopusContext, Integer categoryId, Integer personId, Database database, TransactionContext context) throws BeanException, IOException {
+        addCategoryAssignment(octopusContext, categoryId, personId, database, context, true);
     }
 
-    public PersonCategorie addCategoryAssignment(OctopusContext cntx, Integer categoryId, Integer personId, Database database, TransactionContext context, boolean save) throws BeanException, IOException {
+    public PersonCategorie addCategoryAssignment(final OctopusContext octopusContext, Integer categoryId, Integer personId, Database database, TransactionContext context, boolean save) throws BeanException, IOException {
         Categorie category = (Categorie) database.getBean("Categorie", categoryId, context == null ? database : context);
         if (category != null) {
             Select select = database.getCount("PersonCategorie");
             select.where(Expr.equal("fk_person", personId));
             select.whereAnd(Expr.equal("fk_categorie", categoryId));
             Integer count = database.getCount(select);
+
             if (count.intValue() == 0) {
                 PersonCategorie personCategory = (PersonCategorie) database.createBean("PersonCategorie");
                 personCategory.categorie = categoryId;
                 personCategory.person = personId;
                 personCategory.rank = category.rank;
-                if (save)
-                    this.saveBean(cntx, personCategory, context);
-                return personCategory;
+
+                personCategory.verify(octopusContext);
+
+                if(personCategory.isCorrect()) {
+                    if (save)
+                        this.saveBean(octopusContext, personCategory, context);
+                    return personCategory;
+                }
             }
         }
+
         return null;
     }
 

@@ -32,7 +32,7 @@
 <div id="content_container">
 
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
     </div>
 
     <h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
@@ -42,7 +42,7 @@
 			#if ($optionalFieldsSummary.createdFields.size()>0)
 				<div>
 					#if ($optionalFieldsSummary.createdFields.size()>1)
-						${placeholderWithTranslation.eswurden} $optionalFieldsSummary.createdFields.size() ${placeholderWithTranslation.zusatzfelder}
+						${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $optionalFieldsSummary.createdFields.size() ${placeholderWithTranslation.zusatzfelder}
 					#elseif ($optionalFieldsSummary.createdFields.size()<=1)
 						${placeholderWithTranslation.eswurdeeinzusatzfeld}
 					#end
@@ -52,7 +52,7 @@
 			#if ($optionalFieldsSummary.changedFields.size()>0)
 				<div>
 					#if ($optionalFieldsSummary.changedFields.size()>1)
-						${placeholderWithTranslation.eswurden} $optionalFieldsSummary.changedFields.size() ${placeholderWithTranslation.zusatzfelder}
+						${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $optionalFieldsSummary.changedFields.size() ${placeholderWithTranslation.zusatzfelder}
 					#elseif ($optionalFieldsSummary.changedFields.size()<=1)
 						${placeholderWithTranslation.eswurdeeinzusatzfeld}
 					#end
@@ -62,7 +62,7 @@
 			#if ($optionalFieldsSummary.deletedFields.size()>0)
 				<div>
 					#if ($optionalFieldsSummary.deletedFields.size()>1)
-						${placeholderWithTranslation.eswurden} $optionalFieldsSummary.deletedFields.size() ${placeholderWithTranslation.zusatzfelder}
+						${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $optionalFieldsSummary.deletedFields.size() ${placeholderWithTranslation.zusatzfelder}
 					#elseif ($optionalFieldsSummary.deletedFields.size()<=1)
 						${placeholderWithTranslation.eswurdeeinzusatzfeld}
 					#end
@@ -105,7 +105,7 @@
 	                    </li>
 	                    <li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
                         </li>
-                        <li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
+                        <li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div>
                         </li>
 	                #end
                 </ul>

@@ -86,15 +86,17 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 	 * Speichert die übergebenen eMail im Postausgang und setzt
 	 * den Status auf 'zu versenden' zurück.
 	 *
-	 * @param cntx Octopus-Context
+	 * @param octopusContext Octopus-Context
 	 * @param save Gibt an ob eMail-Entwurf gespeichert werden soll.
 	 * @return eMail
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public MailOutbox saveDetail(OctopusContext cntx, Boolean save) throws BeanException, IOException {
+	public MailOutbox saveDetail(final OctopusContext octopusContext, Boolean save) throws BeanException, IOException {
 		if (save != null && save.booleanValue()) {
-			MailOutbox mailOutbox = (MailOutbox)getRequest(cntx).getBean("MailOutbox", "mailoutbox");
+			MailOutbox mailOutbox = (MailOutbox)getRequest(octopusContext).getBean("MailOutbox", "mailoutbox");
+
+            mailOutbox.verify(octopusContext);
 
 			if (mailOutbox.lastupdate == null) {
 				mailOutbox.lastupdate = new Timestamp(System.currentTimeMillis());
@@ -107,14 +109,14 @@ public class MailOutboxWorker extends ListWorkerVeraWeb {
 			}
 
 			if (mailOutbox.isCorrect()) {
-				TransactionContext context = ( new DatabaseVeraWeb(cntx) ).getTransactionContext();
+				TransactionContext context = ( new DatabaseVeraWeb(octopusContext) ).getTransactionContext();
 				try {
 				    if (mailOutbox.id == null) {
-                        cntx.setContent("countInsert", new Integer(1));
+                        octopusContext.setContent("countInsert", new Integer(1));
                     } else {
-                        cntx.setContent("countUpdate", new Integer(1));
+                        octopusContext.setContent("countUpdate", new Integer(1));
                     }
-				    saveBean(cntx, mailOutbox, context);
+				    saveBean(octopusContext, mailOutbox, context);
 					context.commit();
 				} catch ( BeanException e ) {
 					context.rollBack();

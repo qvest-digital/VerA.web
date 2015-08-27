@@ -19,14 +19,8 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalField;
-import de.tarent.aa.veraweb.beans.OptionalFieldTypeContent;
-import de.tarent.aa.veraweb.utils.EventURLHandler;
-import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
-import de.tarent.aa.veraweb.utils.PropertiesReader;
-import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Clause;
@@ -49,7 +43,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * This class handles the optional fields labels.
@@ -98,11 +91,11 @@ public class OptionalFieldsWorker {
      * @throws BeanException TODO
 	 */
 	public void createOptionalField(OptionalField optionalField) throws SQLException, BeanException {
-		final TransactionContext context = this.database.getTransactionContext();
+		final TransactionContext transactionContext = this.database.getTransactionContext();
         final Insert insert = getStatementInsertOptionalField(optionalField);
 
-		DB.insert(context, insert.statementToString());
-        context.commit();
+		DB.insert(transactionContext, insert.statementToString());
+        transactionContext.commit();
 	}
 
     /**
@@ -191,12 +184,12 @@ public class OptionalFieldsWorker {
      */
 	public void removeOptionalField(OptionalField optionalField) throws SQLException, BeanException {
 		final TransactionContext context = this.database.getTransactionContext();
-		deleteOprionalFieldDependencies(context, optionalField);
+		deleteOptionalFieldDependencies(context, optionalField);
         deleteOptionalFieldFromDB(optionalField, context);
 	}
 
-    private void deleteOprionalFieldDependencies(TransactionContext context,
-			OptionalField optionalField) throws BeanException, SQLException {
+    private void deleteOptionalFieldDependencies(TransactionContext context,
+                                                 OptionalField optionalField) throws BeanException, SQLException {
     	 final Delete deleteStatement = getDeleteDependenciesStatement(optionalField);
          deleteStatement.executeDelete(context);
          context.commit();

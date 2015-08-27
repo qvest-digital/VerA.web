@@ -48,12 +48,12 @@
 <div id="content_container">
 	#if($action == "guest" || $searchTask)
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.zurveranstaltungssuche}">${placeholderWithTranslation.veranstaltungssuche}</a> > ${placeholderWithTranslation.suchergebnis}</span>
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > <a href="${paths.staticWeb}do/ShowEventSearch?action=event" title="${placeholderWithTranslation.zurveranstaltungssuche}">${placeholderWithTranslation.veranstaltungssuche}</a> > ${placeholderWithTranslation.suchergebnis}</span>
 		</div>
-			<h1>${placeholderWithTranslation.suchergebnis}: ${placeholderWithTranslation.veranstaltungen}</h1>
+			<h1>${placeholderWithTranslation.suchergebnis}: ${placeholderWithTranslation.GENERIC_EVENTS_PP}</h1>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
-			<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungsubersicht}</span>
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungsubersicht}</span>
 		</div>
 			<h1>${placeholderWithTranslation.veranstaltungsubersicht}</h1>
 	#end
@@ -127,7 +127,7 @@
 
 				#if($save)
 					<div class="floatRight">
-					<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markierteveranstaltungloschen}">
+					<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markierteveranstaltungloschen}">
 				#end
 				<input type="button" id="button.remove-cancel" name="cancel" value="${placeholderWithTranslation.abbrechen}"/>
 				</div>
@@ -151,7 +151,7 @@
 			<span id="actionPanel" class="inlineLabel">
 				#if(($action != "guest" || $action != "addperson") && $grants.mayWrite())
 					<strong>${placeholderWithTranslation.markierteveranstaltungen}</strong>
-					<input type="button" id="button.remove" name="button.remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.markierteveranstaltungenloschen}"/>
+					<input type="button" id="button.remove" name="button.remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markierteveranstaltungenloschen}"/>
 				#else &nbsp; #end
 			</span>
 			#end
@@ -184,7 +184,7 @@
 							<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end/></th>
 						#end
 
-						<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
 						<th>${placeholderWithTranslation.GENERIC_NAME}</th>
 						<th class="smallCell textCenter">${placeholderWithTranslation.beginn}</th>
 						<th class="smallCell textCenter">${placeholderWithTranslation.ende}</th>

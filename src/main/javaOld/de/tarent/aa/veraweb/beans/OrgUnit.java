@@ -19,6 +19,7 @@
  */
 package de.tarent.aa.veraweb.beans;
 
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
@@ -38,10 +39,12 @@ public class OrgUnit extends AbstractBean {
     /** Mandantenname */
     public String name;
 
-    @Override
-    public void verify() throws BeanException {
-        if (name == null || name.trim().length() == 0)
-            addError("Sie m\u00fcssen einen Namen eingeben.");
+    public void verify(final OctopusContext octopusContext) throws BeanException {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
+
+        if (name == null || name.trim().length() == 0) {
+            addError(messages.getMessageOrgUnitNoName());
+        }
     }
 
     /**

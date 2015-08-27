@@ -1,4 +1,3 @@
-
 #if($statistik == "EventsPerYear")
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_EVENTS_YEAR}.")
 #elseif($statistik == "EventsPerMonth")
