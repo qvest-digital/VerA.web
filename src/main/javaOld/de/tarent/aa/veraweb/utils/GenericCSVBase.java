@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2015 tarent solutions GmbH
- *
+ * <p/>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p/>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -82,11 +82,12 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     public final static char DEFAULT_TEXT_QUALIFIER = '"';
 
     /** Default-Kategorie-Rang, wenn alle Rang-Einträge <code>null</code> sind. */
-		protected static final String	DEFAULT_RANK	= "X";
+    protected static final String DEFAULT_RANK = "X";
 
     //
     // Schnittstelle DatabaseUtilizer
     //
+
     /**
      * Die zu nutzende Datenbank
      *
@@ -108,6 +109,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     //
     // Schnittstelle Exchanger
     //
+
     /**
      * Das zu verwendende Austauschformat.
      *
@@ -116,6 +118,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     public ExchangeFormat getExchangeFormat() {
         return exchangeFormat;
     }
+
     /**
      * Das zu verwendende Austauschformat.
      *
@@ -133,6 +136,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     public InputStream getInputStream() {
         return inputStream;
     }
+
     /**
      * Der zu verwendende Eingabedatenstrom.
      *
@@ -150,6 +154,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     public OutputStream getOutputStream() {
         return outputStream;
     }
+
     /**
      * Der zu verwendende Ausgabedatenstrom.
      *
@@ -162,6 +167,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     //
     // geschützte Hilfsmethoden
     //
+
     /**
      * Diese Methode ermittelt Exportparameter aus dem
      * {@link #getExchangeFormat() ExchangeFormat}.
@@ -212,7 +218,7 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      * @throws IOException
      * @throws BeanException
      */
-    Set getCategoryFields() throws BeanException, IOException  {
+    Set getCategoryFields() throws BeanException, IOException {
         Set result = new HashSet();
         List categories = getCategoriesFromDB();
         if (categories == null) return result; //keine Kategorien
@@ -220,22 +226,23 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
         for (Iterator itCategories = categories.iterator(); itCategories.hasNext(); ) {
             Map categoryData = (Map) itCategories.next();
             Object nameObject = categoryData.get("name");
-            Integer flags = (Integer)categoryData.get("flags");
+            Integer flags = (Integer) categoryData.get("flags");
 
             if (nameObject == null)
-            	continue;
+                continue;
 
             if (flags == null || flags.intValue() == Categorie.FLAG_DEFAULT)
-                result.add(categoryFieldFormat.format(new Object[]{ nameObject }));
+                result.add(categoryFieldFormat.format(new Object[]{nameObject}));
             else if (flags.intValue() == Categorie.FLAG_DIPLO_CORPS)
-            	result.add(corpsFieldFormat.format(new Object[]{ nameObject }));
+                result.add(corpsFieldFormat.format(new Object[]{nameObject}));
             else if (flags.intValue() == Categorie.FLAG_EVENT)
-            	result.add(eventFieldFormat.format(new Object[]{ nameObject }));
+                result.add(eventFieldFormat.format(new Object[]{nameObject}));
             else
-            	assert false;
+                assert false;
         }
         return result;
     }
+
     /**
      * Diese Methode holt alle notwendigen Kategorien aus der Datenbank.
      * Kann zur Einschränkung überschrieben werden.
@@ -243,19 +250,18 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      * @throws IOException
      * @throws BeanException
      */
-    protected List getCategoriesFromDB() throws BeanException, IOException
-    {
-    	return database.getBeanList( "Categorie", database.getSelect("Categorie") );
+    protected List getCategoriesFromDB() throws BeanException, IOException {
+        return database.getBeanList("Categorie", database.getSelect("Categorie"));
     }
+
     /**
      * Diese Methode holt alle notwendigen Dokumenttypen aus der Datenbank.
      * Kann zur Einschränkung überschrieben werden.
      * @throws IOException
      * @throws BeanException
      */
-    protected List getDocumentTypesFromDB() throws BeanException, IOException
-    {
-    	return database.getBeanList( "Doctype", database.getSelect("Doctype") );
+    protected List getDocumentTypesFromDB() throws BeanException, IOException {
+        return database.getBeanList("Doctype", database.getSelect("Doctype"));
     }
 
     /**
@@ -268,8 +274,8 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
             Map docTypeData = (Map) itDocTypes.next();
             Object nameObject = docTypeData.get("name");
             if (nameObject != null) {
-                result.add(docTypeMainFieldFormat.format(new Object[]{ nameObject }));
-                result.add(docTypePartnerFieldFormat.format(new Object[]{ nameObject }));
+                result.add(docTypeMainFieldFormat.format(new Object[]{nameObject}));
+                result.add(docTypePartnerFieldFormat.format(new Object[]{nameObject}));
             }
         }
         return result;
