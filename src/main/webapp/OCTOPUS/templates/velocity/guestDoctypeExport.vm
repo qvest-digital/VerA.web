@@ -4,10 +4,10 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>Sie sind hier:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">Home</a> > Personen > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="Zur Personensuche">Personensuche</a> > Suchergebnis</span>
+		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.zurstartseite} > <a href="${paths.staticWeb}do/ShowPersonSearch?action=person" title="${placeholderWithTranslation.zurpersonensuche}">${placeholderWithTranslation.personensuche}</a> > Suchergebnis</span>
     </div>
 
-	<h1>Steuerdatei</h1>
+	<h1>${placeholderWithTranslation.steuerdatei}</h1>
 
     #parse("inc/event-header.vm")
 
@@ -15,10 +15,10 @@
 
     <form id="ExportForm" action="ShowExportGuestDoctype" method="post">
 
-		<h2 class="marginTop20 marginBottom10">Dokumenttyp auswählen</h2>
+		<h2 class="marginTop20 marginBottom10">${placeholderWithTranslation.dokumenttypauswahlen}</h2>
 
 		<p class="inlineLabel">
-			<label for="doctype">Dokumenttyp</label>
+			<label for="doctype">${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_SINGULAR}</label>
 			<select name="doctype"  onChange="document.getElementById('ExportForm').action='ShowExportGuestDoctype'; submit();" id="doctype">
     			#foreach($bean in $allEventDoctype)
     			<option value="$!bean.doctype" #if($bean.doctype == $exportCalc.doctype) selected#end>$!message.text($!bean.name)</option>
@@ -26,7 +26,7 @@
     		</select>
 		</p>
 
-		<h3 class="marginTop30 marginBottom10">Daten bearbeiten</h3>
+		<h3 class="marginTop30 marginBottom10">${placeholderWithTranslation.datenbearbeiten}</h3>
 
 		<div class="table">
 			<div class="tableRow">
@@ -65,101 +65,101 @@
 		<div class="table" id="sort">
         		<div class="tableRow">
         			<div class="tableCell">
-        				<label for="sort1">Sortieren nach</label>
+        				<label for="sort1">${placeholderWithTranslation.CONTINUAL_NUMBER}</label>
         			</div>
         			<div class="tableCell">
         				<select name="sort1" id="sort1">
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
-                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">Land</option>
-                            			<option value="zipcode">PLZ</option>
+                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-                            			<option value="rank">Rang</option>
-                            			<option value="table">Tisch</option>
+                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="table">${placeholderWithTranslation.tisch}</option>
                             ## modified to support workareas as per change request for version 1.2.0
                             ## cklein
                             ## 2008-02-26
-                            			<option value="workareaname">Arbeitsbereich</option>
+                            			<option value="workareaname">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</option>
                             #else
-                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">Land</option>
-                            			<option value="zipcode">PLZ</option>
+                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-                            			<option value="rank">Rang</option>
-                            			<option value="table">Tisch</option>
+                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="table">${placeholderWithTranslation.tisch}</option>
                             ## modified to support workareas as per change request for version 1.2.0
                             ## cklein
                             ## 2008-02-26
-                            			<option value="workareaname">Arbeitsbereich</option>
+                            			<option value="workareaname">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</option>
                             #end
                     	</select>
         			</div>
         		</div>
         		<div class="tableRow">
-        			<div class="tableCell"><label for="sort2">Anschließend nach</label></div>
+        			<div class="tableCell"><label for="sort2">${placeholderWithTranslation.anschliesendnach}</label></div>
         			<div class="tableCell">
             			<select name="sort2" id="sort2">
                             			<option value=""></option>
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
-                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">Land</option>
-                            			<option value="zipcode">PLZ</option>
+                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
                             			<option value="category" selected>${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-                            			<option value="rank">Rang</option>
-                            			<option value="table">Tisch</option>
+                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="table">${placeholderWithTranslation.tisch}</option>
                             ## modified to support workareas as per change request for version 1.2.0
                             ## cklein
                             ## 2008-02-26
-                            			<option value="workareaname">Arbeitsbereich</option>
+                            			<option value="workareaname">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</option>
                             #else
-                            			<option value="orderno">Laufende Nummer</option>
+                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">Land</option>
-                            			<option value="zipcode">PLZ</option>
+                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-                            			<option value="rank">Rang</option>
-                            			<option value="table">Tisch</option>
+                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="table">${placeholderWithTranslation.tisch}</option>
                             ## modified to support workareas as per change request for version 1.2.0
                             ## cklein
                             ## 2008-02-26
-                            			<option value="workareaname">Arbeitsbereich</option>
+                            			<option value="workareaname">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</option>
                             #end
                 		</select>
         			</div>
         		</div>
         		<div class="tableRow">
-        			<div class="tableCell"><label for="sort3">Anschließend nach</label></div>
+        			<div class="tableCell"><label for="sort3">${placeholderWithTranslation.anschliesendnach}</label></div>
         			<div class="tableCell">
         				<select name="sort3" id="sort3" >
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
                             			<option value=""></option>
-                            			<option value="orderno">Laufende Nummer</option>
-                            			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">Land</option>
-                            			<option value="zipcode">PLZ</option>
+                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
+                            			<option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
+                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-                            			<option value="rank" selected>Rang</option>
-                            			<option value="table">Tisch</option>
+                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="table">${placeholderWithTranslation.tisch}</option>
                             ## modified to support workareas as per change request for version 1.2.0
                             ## cklein
                             ## 2008-02-26
-                            			<option value="workareaname">Arbeitsbereich</option>
+                            			<option value="workareaname">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</option>
                             #else
                             			<option value="" selected></option>
-                            			<option value="orderno">Laufende Nummer</option>
-                            			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">Land</option>
-                            			<option value="zipcode">PLZ</option>
+                            			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
+                            			<option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
+                            			<option value="country">${placeholderWithTranslation.land}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-                            			<option value="rank">Rang</option>
-                            			<option value="table">Tisch</option>
+                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="table">${placeholderWithTranslation.tisch}</option>
                             ## modified to support workareas as per change request for version 1.2.0
                             ## cklein
                             ## 2008-02-26
-                            			<option value="workareaname">Arbeitsbereich</option>
+                            			<option value="workareaname">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</option>
                             #end
             		</select>
         		</div>
@@ -195,7 +195,7 @@
     #else
 
     <vera-info>
-		Der Veranstaltung wurden noch keine Dokumenttypen zugeordnet.
+		${placeholderWithTranslation.EVENT_NO_DOCTYPES_ASSIGNED}.
     </vera-info>
 
     <div class="textRight marginTop10" id="buttonPanel-bottom">
