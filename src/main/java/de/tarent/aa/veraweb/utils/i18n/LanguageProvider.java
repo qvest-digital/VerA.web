@@ -189,7 +189,7 @@ public class LanguageProvider {
         //All keys with values from language data
         cntx.setContent("placeholderWithTranslation", placeholderWithTranslation);
 
-        lastSelectedLanguage = getFileNameByLangText(properties.getProperty("language").toString());
+        lastSelectedLanguage = getFileNameByLangText(properties.getProperty("language"));
     }
 
     //Set language names (language parameter of language data) from all
