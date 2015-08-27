@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2015 tarent solutions GmbH
- *
+ * <p/>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p/>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -29,41 +29,41 @@ import de.tarent.octopus.server.PersonalConfig;
 import java.sql.Timestamp;
 
 public class Event extends AbstractHistoryBean implements OrgUnitDependent {
-	/** PK */
-	public Integer id;
-	/** Orgunit */
-	public Integer orgunit;
-	/** Einladungsart, siehe TYPE_* */
-	public Integer invitationtype;
-	/** FK auf veraweb.tperson.pk */
-	public Integer host;
-	public String shortname;
-	public String eventname;
-	public Timestamp begin;
-	public Timestamp end;
-	public Boolean invitepartner;
+    /** PK */
+    public Integer id;
+    /** Orgunit */
+    public Integer orgunit;
+    /** Einladungsart, siehe TYPE_* */
+    public Integer invitationtype;
+    /** FK auf veraweb.tperson.pk */
+    public Integer host;
+    public String shortname;
+    public String eventname;
+    public Timestamp begin;
+    public Timestamp end;
+    public Boolean invitepartner;
     public String eventtype;
-	public String hostname;
-	public Integer maxguest;
-	public Integer maxreserve;
-	public Integer location;
-	public String note;
-	public String createdby;
-	public String changedby;
-	public Timestamp created;
-	public Timestamp changed;
-	public String mediarepresentatives;
-	public String hash;
-	public Boolean login_required;
+    public String hostname;
+    public Integer maxguest;
+    public Integer maxreserve;
+    public Integer location;
+    public String note;
+    public String createdby;
+    public String changedby;
+    public Timestamp created;
+    public Timestamp changed;
+    public String mediarepresentatives;
+    public String hash;
+    public Boolean login_required;
 
     public void verify(OctopusContext octopusContext) throws BeanException {
         addErrors(octopusContext);
-		/*
+        /*
 		 * 2009-05-17 cklein
 		 * temporarily fixes issue #1529 until i gain access to the old octopus repository
 		 */
-		DateHelper.temporary_fix_translateErrormessageEN2DE( this.getErrors() );
-	}
+        DateHelper.temporary_fix_translateErrormessageEN2DE(this.getErrors(), octopusContext);
+    }
 
     private void addErrors(OctopusContext octopusContext) {
         final VerawebMessages messages = new VerawebMessages(octopusContext);
@@ -124,11 +124,11 @@ public class Event extends AbstractHistoryBean implements OrgUnitDependent {
         super.clearRestrictedFields(cntx);
     }
 
-	public String getHash() {
-		return hash;
-	}
+    public String getHash() {
+        return hash;
+    }
 
-	public void setHash(String hash) {
-		this.hash = hash;
-	}
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
 }

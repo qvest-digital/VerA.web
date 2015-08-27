@@ -1644,3 +1644,7 @@ zurpersonensuche=Zur Personensuche
 steuerdatei=Steuerdatei
 dokumenttypauswahlen=Dokumenttyp ausw&auml;hlen
 EVENT_NO_DOCTYPES_ASSIGNED=Der Veranstaltung wurden noch keine Dokumenttypen zugeordnet
+
+# DATE HELPER TEXTS
+DATE_HELPER_INCORRECT_DATE= ist kein g\u00fcltiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!
+
