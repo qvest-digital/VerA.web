@@ -10,7 +10,7 @@
 	#set($title = "${placeholderWithTranslation.verwaltungpersoenlichevertretungen}")
 #else
 	#set($activeMenu = "Administration")
-	#set($title = "${placeholderWithTranslation.stellvertretungen}")
+	#set($title = "${placeholderWithTranslation.GENERIC_REPRESENTATIVES}")
 #end
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_REPRESENTATIVE}")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_REPRESENTATIVE_SINGULAR}")
@@ -22,20 +22,20 @@
 	## Dynamischer breadcrumb
 	#if($activeMenu == "Administration")
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.stellvertretungen}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_REPRESENTATIVES}</span>
 	</div>
 	#elseif($activeMenu == "Verwaltung")
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.verwaltung} > ${placeholderWithTranslation.vertretungen}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">Home</a> > ${placeholderWithTranslation.GENERIC_MANAGEMENT} > ${placeholderWithTranslation.GENERIC_REPRESENTATIVE_PLURAL}</span>
 	</div>
 	#end
 
 	## Dynamische Überschrift
 	#if($activeMenu == "Verwaltung")
-	<h1>${placeholderWithTranslation.vertretungen}</h1>
+	<h1>${placeholderWithTranslation.GENERIC_REPRESENTATIVE_PLURAL}</h1>
 
 	#elseif($activeMenu == "Administration")
-	<h1>${placeholderWithTranslation.stellvertretungen}</h1>
+	<h1>${placeholderWithTranslation.GENERIC_REPRESENTATIVES}</h1>
 
 	#end
 
@@ -64,11 +64,11 @@
 	<input type="hidden" name="list" value="$bean.id">
 	#end
 	<div class="contentBoxColored grayBorder marginBottom20">
-		<h3 class="marginBottom10">${placeholderWithTranslation.gultigkeitsfilter}</h3>
+		<h3 class="marginBottom10">${placeholderWithTranslation.GENERIC_AVAILABILITY_FILTER}</h3>
 		<div class="inlineLabel">
-			<input type="radio" id="validityIgnore" name="proxiesValid" value="ignore" onclick="submit();" #if($proxiesValid && $proxiesValid=='ignore')checked#end><label for="validityIgnore"> ${placeholderWithTranslation.allevertretungen}</label>
-			<input type="radio" id="validityFuture" name="proxiesValid" value="future" onclick="submit();" #if((!$proxiesValid) || $proxiesValid=='future')checked#end><label for="validityFuture"> ${placeholderWithTranslation.keineabgelaufenenvertretungen}</label>
-			<input type="radio" id="validityNow" name="proxiesValid" value="now" onclick="submit();" #if($proxiesValid && $proxiesValid=='now')checked#end><label for="validityNow"> ${placeholderWithTranslation.nuraktuellevertretungen}</label>
+			<input type="radio" id="validityIgnore" name="proxiesValid" value="ignore" onclick="submit();" #if($proxiesValid && $proxiesValid=='ignore')checked#end><label for="validityIgnore"> ${placeholderWithTranslation.GENERIC_REPRESENTATIVES_ALL}</label>
+			<input type="radio" id="validityFuture" name="proxiesValid" value="future" onclick="submit();" #if((!$proxiesValid) || $proxiesValid=='future')checked#end><label for="validityFuture"> ${placeholderWithTranslation.GENERIC_NO_REPRESENTATION_EXPIRED}</label>
+			<input type="radio" id="validityNow" name="proxiesValid" value="now" onclick="submit();" #if($proxiesValid && $proxiesValid=='now')checked#end><label for="validityNow"> ${placeholderWithTranslation.GENERIC_ONLY_CURRENT_REPRESENTATIONS}</label>
 		</div>
 	</div>
 
@@ -92,15 +92,15 @@
 	 #if($proxiesFor != 'ou')
 			<th><${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}</th>
 	 #end
-			<th>${placeholderWithTranslation.rolle}*</th>
+			<th>${placeholderWithTranslation.GENERIC_ROLE}*</th>
 	#end
-			<th>${placeholderWithTranslation.vertreter}*</th>
+			<th>${placeholderWithTranslation.GENERIC_REPRESENTATIVE}*</th>
 			<th class="textCenter width15">${placeholderWithTranslation.gueltigab}</th>
 			<th class="textCenter width15">${placeholderWithTranslation.gueltigbis}</th>
 		</tr>
 		<tr>
 			<td><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" style="display: none;"></td>
-			<td><input type="hidden" name="add-id" value=""><em>${placeholderWithTranslation.neu}</em></td>
+			<td><input type="hidden" name="add-id" value=""><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
 	#if($proxiesFor != 'self')
 	 #if($proxiesFor != 'ou')
 			<td></td>
@@ -219,7 +219,7 @@
 			#parse("inc/list-navi-new.vm")
 			#parse("inc/list-direct-new.vm")
 		#if ($listparam.count == 0)
-			<tr><td colspan="5">${placeholderWithTranslation.keinedatengefunden}.</td></tr>
+			<tr><td colspan="5">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
 		#end
 		</tbody>
 	</table>

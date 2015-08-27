@@ -33,7 +33,7 @@
             </li>
         #end
 
-		${placeholderWithTranslation.person} ${navigation.meta.offset} ${placeholderWithTranslation.GENERIC_FROM} ${navigation.meta.count}
+		${placeholderWithTranslation.GENERIC_PERSON_SINGULAR} ${navigation.meta.offset} ${placeholderWithTranslation.GENERIC_FROM} ${navigation.meta.count}
 
 		#if(!$navigation.next)
 			<li class="img inactive">

@@ -43,13 +43,13 @@
             <label for="persondoctype-addresstype">Anschrift</label>
             #if($grants.mayWrite())
                 <select id="persondoctype-addresstype" name="persondoctype-addresstype" >
-                    <option value="1" #if($persondoctype.addresstype && $persondoctype.addresstype == 1) selected#end>${placeholderWithTranslation.geschaftlich}</option>
+                    <option value="1" #if($persondoctype.addresstype && $persondoctype.addresstype == 1) selected#end>${placeholderWithTranslation.GENERIC_BUSINESS}</option>
                     <option value="2" #if($persondoctype.addresstype && $persondoctype.addresstype == 2) selected#end>${placeholderWithTranslation.privat}</option>
                     <option value="3" #if($persondoctype.addresstype && $persondoctype.addresstype == 3) selected#end>${placeholderWithTranslation.GENERIC_MORE}</option>
                 </select>
             #else
                 #if($persondoctype.addresstype && $persondoctype.addresstype == 1)
-                    ${placeholderWithTranslation.geschaftlich}
+                    ${placeholderWithTranslation.GENERIC_BUSINESS}
                 #elseif($persondoctype.addresstype && $persondoctype.addresstype == 2)
                     ${placeholderWithTranslation.privat}
                 #elseif($persondoctype.addresstype && $persondoctype.addresstype == 3)
@@ -61,20 +61,20 @@
 
     <div class="tableRow">
         <div class="tableCell width50">
-            <label for="persondoctype-locale">${placeholderWithTranslation.zeichensatz}</label>
+            <label for="persondoctype-locale">${placeholderWithTranslation.GENERIC_CHARSET}</label>
             #if($grants.mayWrite())
                 <select id="persondoctype-locale" name="persondoctype-locale" >
                     <option value="1" #if($persondoctype.locale && $persondoctype.locale == 1) selected#end>${placeholderWithTranslation.GENERIC_LATIN}</option>
-                    <option value="2" #if($persondoctype.locale && $persondoctype.locale == 2) selected#end>${placeholderWithTranslation.zeichensatz} 1</option>
-                    <option value="3" #if($persondoctype.locale && $persondoctype.locale == 3) selected#end>${placeholderWithTranslation.zeichensatz} 2</option>
+                    <option value="2" #if($persondoctype.locale && $persondoctype.locale == 2) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 1</option>
+                    <option value="3" #if($persondoctype.locale && $persondoctype.locale == 3) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 2</option>
                 </select>
             #else
                 #if($persondoctype.locale && $persondoctype.locale == 1)
                     ${placeholderWithTranslation.GENERIC_LATIN}
                 #elseif($persondoctype.locale && $persondoctype.locale == 2)
-                    ${placeholderWithTranslation.zeichensatz} 1
+                    ${placeholderWithTranslation.GENERIC_CHARSET} 1
                 #elseif($persondoctype.locale && $persondoctype.locale == 3)
-                    ${placeholderWithTranslation.zeichensatz} 2
+                    ${placeholderWithTranslation.GENERIC_CHARSET} 2
                 #end
             #end
         </div>

@@ -4,7 +4,7 @@
 
 <html>
     <head>
-        <title>${placeholderWithTranslation.kategorien}</title>
+        <title>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</title>
         <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all" />
         <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
         <script type="text/javascript" src="${paths.staticWeb}scripts/jquery.min.js"></script>
@@ -190,7 +190,7 @@
 
 
                     #if( $allCategorie.size() > 0 )
-                        <label for="category">${placeholderWithTranslation.kategorie}</label>
+                        <label for="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
                         <select name="category" id="category" onChange="selected(this);">
                         <option name="nix" value="">
                     #if( $assignmentAction == "unassign" )
@@ -201,7 +201,7 @@
                         #end
                         </select>
                     #else
-                        ${placeholderWithTranslation.siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt} <em>${placeholderWithTranslation.kategorien}</em> ${placeholderWithTranslation.definieren}
+                        ${placeholderWithTranslation.siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt} <em>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</em> ${placeholderWithTranslation.definieren}
                     #end
 
 

@@ -10,7 +10,7 @@
 					<span>${placeholderWithTranslation.MENU_PERSONS}</span>
 					<ul>
 						<li>
-                            <a id="menu.overviewPerson" href="${paths.staticWeb}do/SearchPerson?action=person&search=reset&findAll=true&selectNone=true">${placeholderWithTranslation.personenubersicht}</a>
+                            <a id="menu.overviewPerson" href="${paths.staticWeb}do/SearchPerson?action=person&search=reset&findAll=true&selectNone=true">${placeholderWithTranslation.GENERIC_PERSON_SUMMARY}</a>
                         </li>
 						#if($grants.mayWrite())
 							<li>
@@ -58,7 +58,7 @@
 						#end
 						#if($grants.isUser())
 							<li>
-                                <a id="menu.mailingList" href="${paths.staticWeb}do/ShowMailinglistList?selectNone=true">${placeholderWithTranslation.verteiler}</a>
+                                <a id="menu.mailingList" href="${paths.staticWeb}do/ShowMailinglistList?selectNone=true">${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</a>
                             </li>
 							#if($grants.mayExport())
 								<li>
@@ -74,11 +74,11 @@
 				<ul>
 					#if($grants.isUser())
 						<li>
-                            <a id="menu.userConfig" href="${paths.staticWeb}do/UserConfig">${placeholderWithTranslation.einstellungen}</a>
+                            <a id="menu.userConfig" href="${paths.staticWeb}do/UserConfig">${placeholderWithTranslation.GENERIC_OPTIONS}</a>
                         </li>
 						#if(!$octopusConfig.personalConfig.proxy)
 							<li>
-                                <a id="menu.proxy" href="${paths.staticWeb}do/Proxy?selectNone=true">${placeholderWithTranslation.vertretungen}</a>
+                                <a id="menu.proxy" href="${paths.staticWeb}do/Proxy?selectNone=true">${placeholderWithTranslation.GENERIC_REPRESENTATIVE_PLURAL}</a>
                             </li>
 						#end
 					#elseif(!$octopusConfig.personalConfig.role)
@@ -87,7 +87,7 @@
                         </li>
 					#end
 					<li>
-                        <a id="menu.info" href="${paths.staticWeb}do/Info">${placeholderWithTranslation.info}</a>
+                        <a id="menu.info" href="${paths.staticWeb}do/Info">${placeholderWithTranslation.GENERIC_INFO}</a>
                     </li>
 				</ul>
 			</li>
@@ -107,16 +107,16 @@
 						#end
 						#if($grants.isAdmin())
 							<li>
-                                <a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0&selectNone=true">${placeholderWithTranslation.benutzer}</a>
+                                <a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_USER}</a>
                             </li>
 						#else
 							#if($grants.isSystemUser())
 								<li>
-                                    <a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0&selectNone=true">${placeholderWithTranslation.benutzer}</a>
+                                    <a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_USER}</a>
                                 </li>
 							#elseif($grants.isPartialAdmin())
 								<li>
-                                    <a id="menu.user" href="${paths.staticWeb}do/OUUser?start=0&selectNone=true">${placeholderWithTranslation.benutzer}</a>
+                                    <a id="menu.user" href="${paths.staticWeb}do/OUUser?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_USER}</a>
                                 </li>
 							#end
 						#end
@@ -137,7 +137,7 @@
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
 							<li>
-                                <a id="menu.color" href="${paths.staticWeb}do/Color">${placeholderWithTranslation.farben}</a>
+                                <a id="menu.color" href="${paths.staticWeb}do/Color">${placeholderWithTranslation.GENERIC_COLOR_PLURAL}</a>
                             </li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
@@ -147,12 +147,12 @@
 						#end
 						#if($grants.isUser())
 							<li>
-                                <a id="menu.category" href="${paths.staticWeb}do/Categorie?start=0&selectNone=true">${placeholderWithTranslation.kategorien}</a>
+                                <a id="menu.category" href="${paths.staticWeb}do/Categorie?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</a>
                             </li>
 						#end
 						#if($grants.isAdmin() || $grants.isSystemUser())
 							<li>
-                                <a id="menu.orgunit" href="${paths.staticWeb}do/Orgunit?start=0&selectNone=true">${placeholderWithTranslation.mandanten}</a>
+                                <a id="menu.orgunit" href="${paths.staticWeb}do/Orgunit?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</a>
                             </li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
@@ -162,16 +162,16 @@
 						#end
 						#if($grants.isAdmin())
 							<li>
-                                <a id="menu.reports" href="${paths.staticWeb}do/ChangeLogReport">${placeholderWithTranslation.reports}</a>
+                                <a id="menu.reports" href="${paths.staticWeb}do/ChangeLogReport">${placeholderWithTranslation.GENERIC_REPORTS}</a>
                             </li>
 						#end
 						#if($grants.isAdmin())
 							<li>
-                                <a id="menu.allProxy" href="${paths.staticWeb}do/AllProxy?start=0&selectNone=true">${placeholderWithTranslation.stellvertretungen}</a>
+                                <a id="menu.allProxy" href="${paths.staticWeb}do/AllProxy?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_REPRESENTATIVES}</a>
                             </li>
 						#elseif($grants.isPartialAdmin())
 							<li>
-                                <a id="menu.proxy" href="${paths.staticWeb}do/OUProxy?start=0&selectNone=true">${placeholderWithTranslation.stellvertretungen}</a>
+                                <a id="menu.proxy" href="${paths.staticWeb}do/OUProxy?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_REPRESENTATIVES}</a>
                             </li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())

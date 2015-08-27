@@ -173,7 +173,7 @@ HEADER_ELEMENT_NEW_PLURAL=neue Datens\u00E4tze
 # FIXES
 GENERIC_EDIT=Bearbeiten
 GENERIC_OFFICIAL_TITLE_SHORT=Amtsbez
-LETTER_COMMERCIAL=\u0028G\u0029
+LETTER_COMMERCIAL=(G)
 GENERIC_WRITE_EMAIL=E-mail schreiben
 GENERIC_SEARCH_FOR_PERSON=Person suchen
 GENERIC_CHOOSE_ROLE=Rolle w\u00E4hlen
@@ -221,7 +221,7 @@ WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, S
 WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO=Weiterhin k\u00F6nnen Sie mandantenspezifische Einstellungen einsehen und bearbeiten.
 WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
 WELCOME_TEXT_GRANT_ADMIN_PART_TWO=Weiterhin k\u00F6nnen Sie mandantenspezifische und globale Einstellungen einsehen und bearbeiten.
-WELCOME_TEXT_HELP=Sollten Sie weitere Informationen ben\u00F6tigen, finden Sie diese auf der Seite \u201EHilfe\u201C.
+WELCOME_TEXT_HELP=Sollten Sie weitere Informationen ben\u00C3\u00B6tigen, finden Sie diese auf der Seite \u00E2\u0080\u009EHilfe\u00E2\u0080\u009C.
 WELCOME_TEXT_NO_ROLE=Zu Ihrer Anmeldung existieren keine Rollen, unter denen Sie in VerA.web agieren k\u00F6nnen. Bitte melden Sie sich ab und mit einer Benutzer- oder Rollenkennung erneut an, die in VerA.web nutzbar ist.
 GENERIC_AVAILABLE_DUPLICATES=Vorhandene Dubletten
 
@@ -286,207 +286,203 @@ eswurdeeinneuerdokumenttypangelegt=Es wurde ein neuer Dokumenttyp angelegt.
 
 # ADMINISTRATION/E-MAIL-POSTAUSGANG
 GENERIC_STATUS=Status
-CAP_TO=An
+GENERIC_TO=An
 GENERIC_SUBJECT=Betreff
 GENERIC_ERROR=Fehler
 e-mails=E-Mails
-technischefehlermeldungeinblenden=Technische Fehlermeldung einblenden
-fehlerbeschreibung=Fehlerbeschreibung
+GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE=Technische Fehlermeldung einblenden
+GENERIC_ERROR_DESCRIPTION=Fehlerbeschreibung
 
 # ADMINISTRATION/E-MAIL-VORLAGEN
 e-mail-vorlagen=E-Mail-Vorlagen
-markiertevorlage=Markierte Vorlage(n)
-neuevorlageanlegen=Neue Vorlage anlegen
-namedervorlage=Name der Vorlage
+GENERIC_MARKED_TEMPLATES_PP=Markierte Vorlage(n)
+GENERIC_INSERT_NEW_TEMPLATES=Neue Vorlage anlegen
+GENERIC_TEMPLATE_NAME=Name der Vorlage
 eswurdeeineneuevorlageangelegt=Es wurde eine neue Vorlage angelegt.
-text=Text
-platzhalter=Platzhalter
-hinzufugen=Hinzuf\u00FCgen
-zuruckzurvorlagenliste=Zur\u00FCck zur Vorlagenliste
+GENERIC_TEXT=Text
+GENERIC_PLACEHOLDER=Platzhalter
+GENERIC_ADD=Hinzuf\u00FCgen
+GENERIC_BACK_TO_TEMPLATES_LIST=Zur\u00FCck zur Vorlagenliste
 
 # ADMINISTRATION/FARBEN
-farben=Farben
-farbwert=Farbwert
-LETTERS_RED_GREEN_BLUE=R G B
-inlandjageschlechtweiblich=Inland: Ja - Geschlecht: Weiblich
-inlandjageschlechtmannlich=Inland: Ja - Geschlecht: M\u00E4nnlich
-inlandneingeschlechtweiblich=Inland: Nein - Geschlecht: Weiblich
-inlandneingeschlechtmannlich=Inland: Nein - Geschlecht: M\u00E4nnlich
+GENERIC_COLOR_PLURAL=Farben
+GENERIC_CHROMATICITY=Farbwert
+LETTERS_CHROMATICITY=R G B
 
 # ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
 markiertebezeichnung=Markierte Bezeichnung(en)
-bezeichnung=Bezeichnung
+GENERIC_LABELLING=Bezeichnung
 eswurdeeineneuefunktion/amtsbezeichnungangelegt=Es wurde eine neue Funktion/Amtsbezeichnung angelegt.
 eswurdeeinefunktion/amtsbezeichnunggeloscht=Es wurde eine Funktion/Amtsbezeichnung gel\u00F6scht.
 
 # ADMINISTRATION/KATEGORIEN
-kategorien=Kategorien
+GENERIC_CATEGORY_PLURAL=Kategorien
 markiertekategorie=Markierte Kategorie(n)
-kennzeichen=Kennzeichen
-rang=Rang
-veranstaltungen=Veranstaltung(en)
-kategorie=Kategorie
-ereignis=Ereignis
+GENERIC_MARK_LONG=Kennzeichen
+GENERIC_RANK=Rang
+GENERIC_EVENTS_PP=Veranstaltung(en)
+GENERIC_CATEGORY_SINGULAR=Kategorie
+GENERIC_OCCASION=Ereignis
 
 # ADMINISTRATION/MANDANTEN
-mandanten=Mandanten
+GENERIC_CLIENT_PLURAL=Mandanten
 markierte(n)mandanten=Markierte(n) Mandanten
-nichtmandantenzugeordnetedaten=Nicht Mandanten zugeordnete Daten
+GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Nicht Mandanten zugeordnete Daten
 personen=Personen
-importvorgange=Import Vorg\u00E4nge
+GENERIC_IMPORT_PROCEDURES=Import Vorg\u00E4nge
 veranstaltungorte=Veranstaltungorte
-importpersonen=Import Personen
-verteiler=Verteiler
-benutzer=Benutzer
-mandantenzuordnen=Mandanten zuordnen
-mandant=Mandant
+GENERIC_IMPORT_PERSONS=Import Personen
+GENERIC_DISTRIBUTOR_SINGULAR=Verteiler
+GENERIC_USER=Benutzer
+GENERIC_ASSIGN_CLIENTS=Mandanten zuordnen
+GENERIC_CLIENT_SINGULAR=Mandant
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
 programeinstellungen=Programeinstellungen
-standardauswahlvontabulatoren=Standard Auswahl von Tabulatoren
-haupttabs=Haupttabs
-personendaten=Personendaten
-anschriften=Anschriften
-subtabsvonpersonendaten=Subtabs von \u201EPersonendaten\u201C
-hauptperson=Hauptperson
-partner=Partner
-subtabsvonanschriften=Subtabs von \u201EAnschriften\u201C
-geschaftlich=Gesch\u00E4ftlich
-standardauswahlderselectboxzeichensatz=Standard Auswahl der Selectbox \u201EZeichensatz\u201C
-zeichensatz=Zeichensatz
-standardanredenundfreitextfelder=Standard-Anreden und Freitextfelder
-standardanrede=Standard-Anrede
-standardanredepartner=Standard-Anrede Partner
-freitextfeldverbinder=Freitextfeld-Verbinder
+GENERIC_STANDARD_TABULATOR_CHOICE=Standard Auswahl von Tabulatoren
+GENERIC_MAIN_TABS=Haupttabs
+GENERIC_PERSONS_DATA=Personendaten
+GENERIC_MAILING_ADDRESSES=Anschriften
+GENERIC_SUBTABS_OF_PERSONS_DATA=Subtabs von \u00E2\u0080\u009EPersonendaten\u00E2\u0080\u009C
+GENERIC_MAIN_PERSON=Hauptperson
+GENERIC_PARTNER=Partner
+GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subtabs von \u00E2\u0080\u009EAnschriften\u00E2\u0080\u009C
+GENERIC_BUSINESS=Gesch\u00E4ftlich
+GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Standard Auswahl der Selectbox \u00E2\u0080\u009EZeichensatz\u00E2\u0080\u009C
+GENERIC_CHARSET=Zeichensatz
+GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Standard-Anreden und Freitextfelder
+GENERIC_STANDARD_SALUTATION=Standard-Anrede
+GENERIC_STANDARD_SALUTATION_PARTNER=Standard-Anrede Partner
+GENERIC_FREE_TEXT_FIELD_CONNECTOR=Freitextfeld-Verbinder
 freitextfeldanzeige=Freitextfeld (Anzeige)
 freitextfeldgasteliste=Freitextfeld (G\u00E4steliste)
-hilfe=Hilfe
-hilfelink=Hilfe-Link
-hilfefenster=Hilfe-Fenster
-aktuellesbrowserfensterverwenden=Aktuelles Browser-Fenster verwenden
-proaufrufeinneuesbrowserfensteroffnen=Pro Aufruf ein neues Browser-Fenster \u00F6ffnen
-beijedemaufrufdasselbebrowserfensternichtdasaktuelle=Bei jedem Aufruf das selbe Browser-Fenster (nicht das aktuelle)
-sonstiges=Sonstiges
-faxdnfaxaa=Fax-DN (@fax.aa)
-anderungsprotokoll=\u00E4nderungsprotokoll
-vorhaltezeitderprotokolldaten=Vorhaltezeit der Protokolldaten
-gebensiedieaufbewahrungsfristein=Geben Sie die Aufbewahrungsfrist ein
+GENERIC_HELP=Hilfe
+GENERIC_HELP_LINK=Hilfe-Link
+GENERIC_HELP_WINDOW=Hilfe-Fenster
+GENERIC_USE_CURRENT_BROWSER_WINDOW=Aktuelles Browser-Fenster verwenden
+GENERIC_OPEN_NEW_BROWSER_WINDOW_PER_REQUEST=Pro Aufruf ein neues Browser-Fenster \u00F6ffnen
+OPTION_HELP_WINDOW_3=Bei jedem Aufruf das selbe Browser-Fenster (nicht das aktuelle)
+GENERIC_MISCELLANEOUS=Sonstiges
+GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
+GENERIC_PROTOCOL_TIME_CHANGE=\u00E4nderungsprotokoll
+GENERIC_PROTOCOL_COMMISIONING_TIME=Vorhaltezeit der Protokolldaten
+HINT_GIVE_THE_RETENTION_PERIOD=Geben Sie die Aufbewahrungsfrist ein
 GENERIC_YEARS=Jahre
 GENERIC_MONTHS=Monate
 GENERIC_DAYS=Tage
-anschriftgeschaftlich=Anschrift Gesch\u00E4ftlich
-anschriftprivat=Anschrift Privat
-anschriftweitere=Anschrift Weitere
-zeichensatzlatein=Zeichensatz Latein
-zeichensatzalternative=Zeichensatz Alternative
-adresszusatz=Adresszusatz
+GENERIC_MAILING_ADDRESS_BUSINESS=Anschrift Gesch\u00E4ftlich
+GENERIC_MAILING_ADDRESS_PRIVATE=Anschrift Privat
+GENERIC_MAILING_ADDRESS_OTHERS=Anschrift Weitere
+GENERIC_LABELLING_LATIN=Zeichensatz Latein
+GENERIC_LABELLING_ALTERNATIVE=Zeichensatz Alternative
+GENERIC_ADDRESS_ADDITIONAL=Adresszusatz
 
 # ADMINISTRATION/REPORTS
-reports=Reports
-abhangigvomausgewahltenzeitraumundderdarausresultierendenanzahldatenkanndieerzeugungdesberichtsrelativlangedauernhabensiebitteeinweniggeduld=Abh\u00E4ngig vom ausgew\u00E4hlten Zeitraum und der daraus resultierenden Anzahl von Daten, kann die Erzeugung des Berichts relativ lange dauern. Haben Sie bitte ein wenig Geduld.
-datumbeginn=Datum Beginn
-datumende=Datum Ende
-felderzurucksetzen=Felder zur\u00FCcksetzen
-reporterzeugen=Report erzeugen
+GENERIC_REPORTS=Reports
+MESSAGE_WAITING_MESSAGE_LOG_REPORT=Abh\u00E4ngig vom ausgew\u00E4hlten Zeitraum und der daraus resultierenden Anzahl von Daten, kann die Erzeugung des Berichts relativ lange dauern. Haben Sie bitte ein wenig Geduld.
+GENERIC_DATE_BEGIN=Datum Beginn
+GENERIC_DATE_END=Datum Ende
+GENERIC_BACKUP_FIEDS=Felder zur\u00FCcksetzen
+GENERIC_GENERATE_REPORT=Report erzeugen
 
 # ADMINISTRATION/STELLVERTRETUNGEN
-stellvertretungen=Stellvertretungen
-gultigkeitsfilter=G\u00FCltigkeitsfilter
-allevertretungen=Alle Vertretungen
-keineabgelaufenenvertretungen=Keine abgelaufenen Vertretungen
-nuraktuellevertretungen=Nur aktuelle Vertretungen
-rolle=Rolle
-vertreter=Vertreter
+GENERIC_REPRESENTATIVES=Stellvertretungen
+GENERIC_AVAILABILITY_FILTER=G\u00FCltigkeitsfilter
+GENERIC_REPRESENTATIVES_ALL=Alle Vertretungen
+GENERIC_NO_REPRESENTATION_EXPIRED=Keine abgelaufenen Vertretungen
+GENERIC_ONLY_CURRENT_REPRESENTATIONS=Nur aktuelle Vertretungen
+GENERIC_ROLE=Rolle
+GENERIC_REPRESENTATIVE=Vertreter
 gultigab=G\u00FCltig ab
-gultigbis=G\u00FCltig bis
-keinedatengefunden=Keine Daten gefunden
+GENERIC_VALID_TILL=G\u00FCltig bis
+GENERIC_NO_DATA_FOUND=Keine Daten gefunden
 
 # ADMINISTRATION/VERANSTALTUNGSORTE
 markierte=Markierte(n) Veranstaltungsort(e)
-neuenveranstaltungsorthinzufugen=Neuen Veranstaltungsort hinzuf\u00FCgen
-id=ID
-ansprechpartner=Ansprechpartner
-telefon=Telefon
-fax=Fax
+GENERIC_ADD_NEW_EVENT_LOCATIONS=Neuen Veranstaltungsort hinzuf\u00FCgen
+GENERIC_ID=ID
+GENERIC_CONTACT_PERSON=Ansprechpartner
+GENERIC_TELEFON=Telefon
+GENERIC_FAX=Fax
 e-mail=E-Mail
-bemerkung=Bemerkung
-url=URL
+GENERIC_REMARK=Bemerkung
+GENERIC_URL=URL
 gps-daten=GPS-Daten
-raumnummer=Raumnummer
+GENERIC_ROOM_NUMBER=Raumnummer
 EVENT_PLACES_CONFIRM_DELETE=Bitte best\u00E4tigen Sie das L\u00F6schen von Veranstaltungsorten
 
 # VERWALTUNG/EINSTELLUNGEN
-verwaltung=Verwaltung
-einstellungen=Einstellungen
-subtabsvon=Subtabs von
-personendetailansicht=Personendetailansicht
-gasteliste=G\u00E4steliste
+GENERIC_MANAGEMENT=Verwaltung
+GENERIC_OPTIONS=Einstellungen
+GENERIC_SUBTABS_OF=Subtabs von
+GENERIC_PERSONAL_DETAILED_VIEW=Personendetailansicht
+GENERIC_LIST_OF_GUESTS=G\u00E4steliste
 zusatzlichefelder=Zus\u00E4tzliche Felder
-funktion=Funktion
-plzort=PLZ / Ort
-personenliste=Personenliste
-bundesland=Bundesland
-einstellungenwurdenerfolgreichgespeichert=Einstellungen wurden erfolgreich gespeichert.
+GENERIC_FUNCTION_SINGULAR=Funktion
+GENERIC_POSTNUMBER_AND_CITY=PLZ / Ort
+GENERIC_LIST_OF_PERSONS=Personenliste
+GENERIC_FEDERAL_STATE=Bundesland
+MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=Einstellungen wurden erfolgreich gespeichert.
 
 # VERWALTUNG/VERTRETUNGEN
-vertretungen=Vertretungen
+GENERIC_REPRESENTATIVE_PLURAL=Vertretungen
 markiertevertretung=Markierte Vertretung(en)
-loschen=L\u00F6schen
-neu=Neu
+GENERIC_DELETE=L\u00F6schen
+GENERIC_NEW=Neu
 eswurdeeineneuevertretungangelegt=Es wurde eine neue Vertretung angelegt
 eswurdeeinevertretunggeloscht=Es wurde eine Vertretung gel\u00E4scht
 siemuseneinevertretereingeben=Sie m\u00FCssen eine Vertreter eingeben
 derbeginndervertretungmusvordemendeliegen=Der Beginn der Vertretung muss vor dem Ende liegen
-eswurden=Es wurden
+MESSAGE_REPORT_NUMBER_PART_1=Es wurden
 vertretungengeloscht=Vertretungen gel\u00E4scht
 # VERWALTUNG/INFO
-info=Info
-informationenzuveraweb=Informationen zu VerA.web
+GENERIC_INFO=Info
+GENERIC_INFORMATION_ABOUT_VERAWEB=Informationen zu VerA.web
 veraweb=VerA.web
-version=Version
+GENERIC_VERSION=Version
 build=Build
-buildnummer=Buildnummer
-buildzeit=Buildzeit
-datenbank=Datenbank
-login=Login
-gruppen=Gruppen
-nichtverfugbar=Nicht verf\u00FCgbar
+GENERIC_BUILD_NUMBER=Buildnummer
+GENERIC_BUILD_TIME=Buildzeit
+GENERIC_DATABASE=Datenbank
+GENERIC_LOGIN=Login
+GENERIC_GROUPS=Gruppen
+GENERIC_NOT_AVAILABLE=Nicht verf\u00FCgbar
 
 # ALLGEMEIN
-siesindhier=Sie sind hier
-home=Home
+GENERIC_YOU_ARE_HERE=Sie sind hier
+GENERIC_HOME=Home
 
 # TABELLEN
-datum=Datum
-arbeitsbereich=Arbeitsbereich
-nachname=Nachname
-vorname=Vorname
+GENERIC_DATE=Datum
+GENERIC_WORKAREA_SINGULAR=Arbeitsbereich
+GENERIC_LASTNAME=Nachname
+GENERIC_FIRSTNAME=Vorname
 akwritemtsbezeichnung=Amtsbezeichnung
-firmainstitution=Firma / Institution
-strasse=Stra\u00DFe
-plz=PLZ
-ort=Ort
-markiertepersonen=Markierte Person(en)
+GENERIC_COMPANY_INSTITUTION=Firma / Institution
+GENERIC_STREET=Stra\u00DFe
+GENERIC_POST_NUMBER=PLZ
+GENERIC_CITY=Ort
+GENERIC_MARKED_PERSONS_PP=Markierte Person(en)
 expotieren=Expotieren
-kategorienzuordnen=Kategorien zuordnen
-kategorienentfernen=Kategorien entfernen
-arbeitsbereichzuordnen=Arbeitsbereich zuordnen
-arbeitsbereichentfernen=Arbeitsbereich entfernen
-durchfuhren=Durchf\u00FChren
+GENERIC_ASSIGN_CATEGORIES=Kategorien zuordnen
+GENERIC_REMOVE_CATEGORIES=Kategorien entfernen
+GENERIC_ASSING_WORKAREA=Arbeitsbereich zuordnen
+GENERIC_REMOVE_WORKAREA=Arbeitsbereich entfernen
+GENERIC_EXECUTE=Durchf\u00FChren
 personenanzahlproseite=Personen | Anzahl pro Seite
-alle=Alle
+GENERIC_ALL=Alle
 seite=Seite
-geburtsdatum=Geburtsdatum
-geburtsort=Geburtsort
-nationalitat=Nationalit\u00E4t
-staatsangehorigkeit=Staatsangeh\u00F6rigkeit
-sprachen=Sprachen
-hinweisfurgastgeber=Hinweis f\u00FCr Gastgeber
-akkreditierungsdatum=Akkreditierungsdatum
-um=um
-uhr=Uhr
-datenherkunft=Datenherkunft
-person=Person
+GENERIC_PAGE=Geburtsdatum
+GENERIC_PLACE_OF_BIRTH=Geburtsort
+GENERIC_NATIONALITY=Nationalit\u00E4t
+GENERIC_CITIZENSHIP=Staatsangeh\u00F6rigkeit
+GENERIC_LANGUAGES=Sprachen
+GENERIC_HINT_FOR_HOST=Hinweis f\u00FCr Gastgeber
+GENERIC_ACCOUNT_OPENING_DATE=Akkreditierungsdatum
+GENERIC_AT=um
+GENERIC_OCLOCK=Uhr
+GENERIC_ORIGIN_DATA=Datenherkunft
+GENERIC_PERSON_SINGULAR=Person
 
 # DATEITYP
 csv=CSV (Comma-Separated-Values)
@@ -502,7 +498,7 @@ csvpersdatkategorien=CSVPersdat+Kategorien (Comma-Separated-Values)
 csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 
 # PERSONEN/PERSONENUEBERSICHT
-personenubersicht=Personen\u00FCbersicht
+GENERIC_PERSON_SUMMARY=Personen\u00FCbersicht
 personensuchen=Personen suchen
 neuepersonanlegen=Neue Person anlegen
 personengeloscht=Personen gel\u00F6scht
@@ -513,7 +509,7 @@ erfasstam=Erfasst am
 zuletztgeandertam=Zuletzt ge\u00E4ndert am
 personen-id=Personen-ID
 online-anmeldungbenutzername=Online-Anmeldung Benutzername
-freifeld-vorschaufuretikett="Freifeld-Vorschau f\u00FCr \u201EEtikett\u201C"
+freifeld-vorschaufuretikett="Freifeld-Vorschau f\u00C3\u00BCr \u00E2\u0080\u009EEtikett\u00E2\u0080\u009C"
 zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
 personkopieren=Person kopieren
 etiketterzeugen=Etikett erzeugen
@@ -893,7 +889,7 @@ zurstartseite=Zur Startseite
 solldieneuekategorie=Soll die neue Kategorie
 einsortiertwerden=einsortiert werden?
 pflichtfelder=Pflichtfelder
-markiertekategorien=Markierte Kategorie\u0028n\u0029
+markiertekategorien=Markierte Kategorie(n)
 markiertekategorienloschen=Markierte Kategorien l\u00F6schen
 alledemarkieren=Alle (de)markieren
 furalleveranstaltungen=F\u00FCr alle Veranstaltungen
@@ -1018,9 +1014,9 @@ vermutlichbefindetsichdieimportdateinichtimvomsystemerwartemformat=Vermutlich be
 detailsanzeigen=Details anzeigen
 beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden=Beim Import k\u00F6nnen Feldinhalte, die l\u00E4nger als bei VerA.web vorgesehen sind, gek\u00FCrzt \u00FCbernommen werden.
 alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden=Alle Dokumenttypen der zu importierenden Personen m\u00FCssen im System vorhanden sein. Soll der Import jetzt gestartet werden?
-umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=Um Dubletten speicherbar zu machen, m\u00FCssen sie zun\u00E4chst im Bereich \u201Evorhandene Dubletten\u201C \u00FCbernommen werden.
+umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=Um Dubletten speicherbar zu machen, m\u00C3\u00BCssen sie zun\u00C3\u00A4chst im Bereich \u00E2\u0080\u009Evorhandene Dubletten\u00E2\u0080\u009C \u00C3\u00BCbernommen werden.
 HINT_UMLAUT_COMPARISON=Beachten Sie, dass \u00E4 mit ae, \u00F6 mit oe, \u00FC mit ue und \u00DF mit ss verglichen wird.
-derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=Der Import ist erst beendet, wenn der Button \u201EImport abschlie\u00DFen\u201C geklickt wurde.
+derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=Der Import ist erst beendet, wenn der Button \u00E2\u0080\u009EImport abschlie\u00C3\u009Fen\u00E2\u0080\u009C geklickt wurde.
 derimportkannerstabgeschlossenwerdenwennspeicherbaredatensatzevorhandensind=Der Import kann erst abgeschlossen werden, wenn speicherbare Datens\u00E4tze vorhanden sind.
 vorhandenedubletten=Vorhandene Dubletten
 vorhandenedublettenbearbeiten=Vorhandene Dubletten bearbeiten
@@ -1254,7 +1250,7 @@ markiertendokumenttypenloschen=Markierte Dokumenttyp(en) l\u00F6schen
 markierteveranstaltungsorteloschen=Markierte Veranstaltungsorte l\u00F6schen
 markiertevorlagenloschen=Markierte Vorlagen l\u00F6schen
 keinedateigefunden=Keine Datei gefunden.
-standardauswahlderselectboxbdquozeichensatzrdquo=Standard Auswahl der Selectbox \u201EZeichensatz\u201C
+standardauswahlderselectboxbdquozeichensatzrdquo=Standard Auswahl der Selectbox \u00E2\u0080\u009EZeichensatz\u00E2\u0080\u009C
 zusaetzlichefelder=Zus\u00E4tzliche Felder
 postausgang=Postausgang
 beimversendendieseremailisteinfehleraufgetreten=Beim Versenden dieser E-Mail ist ein Fehler aufgetreten.
@@ -1268,7 +1264,7 @@ dieseemailwurdebereitsversendetundsollte=Diese E-Mail wurde bereits versendet un
 nichtmehrbearbeitet=nicht mehr bearbeitet
 technischefehlermeldungausblenden=Technische Fehlermeldung ausblenden
 markiertenmandanten=Markierte(r) Mandant(en)
-markiertenmandantenwirklichloschen=Markierte\u0028n\u0029 Mandant\u0028en\u0029 wirklich l\u00F6schen
+markiertenmandantenwirklichloschen=Markierte(n) Mandant(en) wirklich l\u00F6schen
 alledatensatzewurdenerfolgreichmandantenzugeordnet=Alle Datens\u00E4tze wurden erfolgreich einem Mandanten zugeordnet.
 esexistiertnochkeinmandant=Es existiert noch kein Mandant.
 zuordnen=Zuordnen
@@ -1343,7 +1339,7 @@ MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON=nachtr\u00E4glich einladen
 MESSAGE_END_AND_START_DATE=Das Ende der Veranstaltung muss zeitlich nach dem Beginn der Veranstaltung liegen.
 MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=Die Veranstaltung kann nicht gespeichert werden. Vergeben Sie bitte eine Kurzbezeichnung.
 MESSAGE_EVENT_WRING_DATE_FORMAT=Sie m\u00FCssen den Beginn der Veranstaltung im Format TT.MM.JJJJ angeben.
-MESSAGE_GENERIC_MISSING_DESCRIPTION=Sie m\u00fcssen eine Bezeichung eingeben.
+MESSAGE_GENERIC_MISSING_DESCRIPTION=Sie m\u00FCssen eine Bezeichung eingeben.
 MESSAGE_COLOR_MISSING_NAME=Sie m\u00FCssen einen Namen eingeben.
 MESSAGE_EVENTCATEGORY_ASSIGNMENT_WRONG=Die Zuordnung einer Kategorie zu einer Veranstaltung ist fehlerhaft.
 MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=Die Zuordnung eines Dokumenttypens zu einer Veranstaltung ist fehlerhaft.
@@ -1404,61 +1400,61 @@ MESSAGE_GUEST_DOCTYPE_ZIP_MAX_LENGTH=Die Postleitzahl darf maximal 50 Zeichen la
 MESSAGE_USER_MISSING_ROLE=Sie m\u00fcssen eine Benutzerrollenbezeichnung eingeben.
 
 # EVENT LIST TEXTS
-EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Mindestens eine markierte Veranstaltung l\u00e4uft aktuell oder liegt in der Zukunft.
-EVENT_LIST_WARNING_SELECTION_CHANGING=Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L\u00f6schen ab.
-EVENT_LIST_DELETE_CONFIRMATION_MESSAGE=Sollen alle markierten Veranstaltungen gel\u00f6scht werden? Diese Aktion kann nicht r\u00fcckg\u00e4ngig gemacht werden.
+EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Mindestens eine markierte Veranstaltung l\u00E4uft aktuell oder liegt in der Zukunft.
+EVENT_LIST_WARNING_SELECTION_CHANGING=Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L\u00F6schen ab.
+EVENT_LIST_DELETE_CONFIRMATION_MESSAGE=Sollen alle markierten Veranstaltungen gel\u00F6scht werden? Diese Aktion kann nicht r\u00FCckg\u00E4ngig gemacht werden.
 
 # PERSON LIST TEXTS
-PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE=Sie haben keine Berechtigung Personen zu l\u00f6schen.
-PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Sie d\u00fcrfen immer nur eine Person l\u00f6schen.\n Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.
-PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Sollen alle markierten Personen gel\u00f6scht werden?
+PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE=Sie haben keine Berechtigung Personen zu l\u00F6schen.
+PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Sie d\u00FCrfen immer nur eine Person l\u00F6schen.\n Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.
+PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Sollen alle markierten Personen gel\u00F6scht werden?
 
 # EVENT DETAIL SITE TEXTS
 EVENT_DETAIL_ALREADY_EXISTS_ONE=Eine Verstaltung mit dem Namen '
-EVENT_DETAIL_ALREADY_EXISTS_TWO=' existiert bereits. M\u00f6chten Sie die neue Veranstaltung dennoch speichern?
+EVENT_DETAIL_ALREADY_EXISTS_TWO=' existiert bereits. M\u00F6chten Sie die neue Veranstaltung dennoch speichern?
 
 # CATEGORY TEXTS
 CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen
 
 # CHANGELOG REPORTS TEXTS
-CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00fcgung.
+CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00FCgung.
 
 # BROWSER TITLES
 BROWSER_TITLE_REPORTS=Reports
 
 
 #NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
-GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zur\u00fccksetzen
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zur\u00FCcksetzen
 GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
 GUEST=Gast
 GENERIC_OF=von
 
 
-TOOLTIP_EDIT_HEADLINES=Sie k\u00f6nnen die \U00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den &quot;Bearbeiten&quot;-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
+TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \U00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den &quot;Bearbeiten&quot;-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
 GENERIC_NEXT_PAGE=N\u00E4chste Seite
 GENERIC_PREVIOUS_PAGE=N\u00E4chste Seite
-GENERIC_APPLY_TO_GUESTLIST=In G\u00E4steliste \u00fcbernehmen
-GENERIC_APPLY_GUEST_TO_GUESTLIST=Gast direkt in G\u00E4steliste \u00fcbernehmen
+GENERIC_APPLY_TO_GUESTLIST=In G\u00E4steliste \u00FCbernehmen
+GENERIC_APPLY_GUEST_TO_GUESTLIST=Gast direkt in G\u00E4steliste \u00FCbernehmen
 GENERIC_APPLY=\U00DCbernehmen
-GENERIC_APPLY_PERSON_AS_HOST=Person direkt als Gastgeber \u00fcbernehmen
-etikettfuraktuellepersonerzeugen=Etikett f\u00fcr aktuelle Person erzeugen
+GENERIC_APPLY_PERSON_AS_HOST=Person direkt als Gastgeber \u00FCbernehmen
+etikettfuraktuellepersonerzeugen=Etikett f\u00FCr aktuelle Person erzeugen
 
-aktuellepersonloschenundzurpersonenlistezuruckkehren=Aktuelle Person l\u00f6schen und zur Personenliste zur\u00fcckkehren
-freifeldvorschaufur=Freifeld-Vorschau f\u00fcr
+aktuellepersonloschenundzurpersonenlistezuruckkehren=Aktuelle Person l\u00F6schen und zur Personenliste zur\u00FCckkehren
+freifeldvorschaufur=Freifeld-Vorschau f\u00FCr
 zudieserpersonwurdedasentsprechendevorschaufeldnochncihterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt
 GENERIC_LAST_PAGE=letzte Seite
-siemussendierolleangebenunterdersieverawebnutzenmochten=Sie m\u00fcssen die Rolle angeben, unter der Sie VerA.web nutzen m\u00f6chten.
+siemussendierolleangebenunterdersieverawebnutzenmochten=Sie m\u00FCssen die Rolle angeben, unter der Sie VerA.web nutzen m\u00F6chten.
 GENERIC_CHOOSE=ausw\u00E4hlen
-GENERIC_RESET=Zur\u00fccksetzen
+GENERIC_RESET=Zur\u00FCcksetzen
 siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=Sie haben keine ausreichende Berechtigung um die G\u00E4ste zu entfernen
 wahlensiebittezunachsteineodermehreregastelistenaus=W\u00E4hlen Sie bitte zun\u00E4chst eine oder mehrere G\u00E4sten aus
-bittebestatigensiedasloschendermarkiertengasteliste=Bitte best\u00E4tigen Sie das L\u00f6schen der markierten G\u00E4ste!
-GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00f6scht.
+bittebestatigensiedasloschendermarkiertengasteliste=Bitte best\u00E4tigen Sie das L\u00F6schen der markierten G\u00E4ste!
+GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00F6scht.
 
 
-EVENT_DOCTYPE_RESET_INFO=Bitte \u00fcberpr\u00fcfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00fcssen Sie die Dokumenttypen f\u00fcr diesen Gast neu erzeugen, klicken Sie hierzu auf &quot;Auf Stammdaten zur\u00fccksetzen&quot;.
+EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf &quot;Auf Stammdaten zur\u00FCcksetzen&quot;.
 
-diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00fcber den Men\u00fcpunkt Administration &gt; Programmeinstellungen m\u00f6glich.
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00FCber den Men\u00FCpunkt Administration &gt; Programmeinstellungen m\u00F6glich.
             
 GENERIC_CHOSEN_GUESTLIST=Ausgew\u00E4hlte G\u00E4ste            
 exportierfahigegasteliste=Exportierf\u00E4hige G\u00E4ste
@@ -1473,16 +1469,16 @@ GUEST_CANNOT_BE_EXPORTED_4=werden
 PERSON_MISSING_DOCTYPE_SPECIFIC_DATA=weil zu dieser Person keine entsprechenden dokumenttypspezifische Daten gespeichert worden sind
 
 GUESTS_CANNOT_BE_EXPORTED_1=G\u00E4ste
-GUESTS_CANNOT_BE_EXPORTED_2=k\u00f6nnen
+GUESTS_CANNOT_BE_EXPORTED_2=k\u00F6nnen
 GUESTS_CANNOT_BE_EXPORTED_3=nicht exportiert
 GUESTS_CANNOT_BE_EXPORTED_4=werden
 PERSONS_MISSING_DOCTYPE_SPECIFIC_DATA=weil nicht zu jeder Person entsprechende dokumenttypspezifische Daten gespeichert worden sind
 GENERIC_TO_EVENTDETAIL=Zu den Veranstaltungsdetails
-GENERIC_INSERT_CURRENT_MONTH=aktuellen Monat einf\u00fcgen
+GENERIC_INSERT_CURRENT_MONTH=aktuellen Monat einf\u00FCgen
 GENERIC_SELECT_FUNCTION=Funktion ausw\u00E4hlen
-diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten=Die Stammdaten dieses Gastes wurden gel\u00f6scht. Sie k\u00f6nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten
-DELETE_SELECTED_MANDATOR=Markierte(n) Mandanten l\u00f6schen
-PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Soll der Rang der Kategorie aus den Stammdaten \u00fcbernommen werden?
+diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten=Die Stammdaten dieses Gastes wurden gel\u00F6scht. Sie k\u00F6nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten
+DELETE_SELECTED_MANDATOR=Markierte(n) Mandanten l\u00F6schen
+PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Soll der Rang der Kategorie aus den Stammdaten \u00FCbernommen werden?
 
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
@@ -1499,21 +1495,21 @@ GUEST_DETAIL_PARTNER=dem Partner
 GUEST_DETAIL_PARTNER_GENITIV=des Partners
 GUEST_DETAIL_MAINPERSON=der Hauptperson
 
-GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Bitte \u00e4ndern Sie erst den Sitzplatz bei 
+GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Bitte \u00E4ndern Sie erst den Sitzplatz bei 
 GUEST_DETAIL_DUP_SEAT_ERROR_TWO=von 
-GUEST_DETAIL_DUP_SEAT_ERROR_THREE=\u00fcber die G\u00e4steliste. Diese Person sitzt aktuell auf 
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=\u00FCber die G\u00E4steliste. Diese Person sitzt aktuell auf 
 GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=dem eingegebenen Sitzplatz 
-GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Die \u00c4nderung wurde nicht gespeichert.
+GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Die \u00C4nderung wurde nicht gespeichert.
 
 # GUEST TEXTS
-GUEST_CALC_SERIALNO=Diese Veranstaltung liegt bereits in der Vergangenheit, m\u00f6chten Sie trotzdem die Laufende-Nummer neu berechnen?
+GUEST_CALC_SERIALNO=Diese Veranstaltung liegt bereits in der Vergangenheit, m\u00F6chten Sie trotzdem die Laufende-Nummer neu berechnen?
 
 # MAILING LIST TEXTS
-MAILING_LIST_NO_ADDRESSES=Das Anlegen eines neuen Verteilers ist fehlgeschlagen, da zu den ausgew\u00e4hlten Personen keine Adressdaten vorliegen
+MAILING_LIST_NO_ADDRESSES=Das Anlegen eines neuen Verteilers ist fehlgeschlagen, da zu den ausgew\u00E4hlten Personen keine Adressdaten vorliegen
 
 # ORG UNIT LIST TEXTS
-ORG_UNIT_NO_MANDANT_ID=Einzuf\u00fcgender Mandant darf keine ID haben
-ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Einzuf\u00fcgender Mandant 
+ORG_UNIT_NO_MANDANT_ID=Einzuf\u00FCgender Mandant darf keine ID haben
+ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Einzuf\u00FCgender Mandant 
 ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO=existiert bereits.
 ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Zu aktualisierender Mandant 
 ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= mu\u00DF eine ID haben
@@ -1521,7 +1517,7 @@ ORG_UNIT_MANDANT_EXISTS_ONE=Ein Mandant mit Namen
 ORG_UNIT_MANDANT_EXISTS_TWO=existiert bereits.
 
 # PERSON CATEGORIES TEXTS
-PERSON_CATEGORIES_SELECT_WARNING=Um eine neue Kategorie hinzuzuf\u00fcgen w\u00e4hlen Sie bitte eine Kategorie aus. (Sie haben nur einen Rang eingegeben.)
+PERSON_CATEGORIES_SELECT_WARNING=Um eine neue Kategorie hinzuzuf\u00FCgen w\u00E4hlen Sie bitte eine Kategorie aus. (Sie haben nur einen Rang eingegeben.)
 
 # EXPORT FILE HEADERS
 EXPORT_HEADER_DOCUMENT_TYPE=Dokument_Typ
@@ -1566,7 +1562,7 @@ EXPORT_HEADER_COLOUR=Farbe
 EXPORT_HEADER_IN_COUNTRY=Inland
 EXPORT_HEADER_LANGUAGES=Sprachen
 EXPORT_HEADER_SEX=Geschlecht
-EXPORT_HEADER_NATIONALITY=Nationalit\u00e4t
+EXPORT_HEADER_NATIONALITY=Nationalit\u00E4t
 EXPORT_HEADER_HINT_RESPONSIBLE=Hinweis_Gastgeber
 EXPORT_HEADER_HINT_ORG_TEAM=Hinweis_Orgateam
 EXPORT_HEADER_PARTNER_STATUS=Partner_Status
@@ -1577,7 +1573,7 @@ EXPORT_HEADER_PARTNER_COLOUR=Partner_Farbe
 EXPORT_HEADER_PARTNER_IN_COUNTRY=Inland
 EXPORT_HEADER_PARTNER_LANGUAGES=Partner_Sprachen
 EXPORT_HEADER_PARTNER_SEX=Partner_Geschlecht
-EXPORT_HEADER_PARTNER_NATIONALITY=Partner_Nationalit\u00e4t
+EXPORT_HEADER_PARTNER_NATIONALITY=Partner_Nationalit\u00E4t
 EXPORT_HEADER_PARTNER_HINT_RESPONSIBLE=Partner_Hinweis_Gastgeber
 EXPORT_HEADER_PARTNER_HINT_ORG_TEAM=Partner_Hinweis_Orgateam
 EXPORT_HEADER_ACCEPT=Anzahl_Zusagen
@@ -1606,9 +1602,9 @@ STATS_COLUMN_EVENTS=Veranstaltungen
 STATS_NOT_INVITED=nicht eingeladen
 
 # USER LIST TEXTS
-USER_LIST_WARN_MANDANT_ONE=Einzuf\u00fcgender Benutzer ist bereits dem Mandanten 
+USER_LIST_WARN_MANDANT_ONE=Einzuf\u00FCgender Benutzer ist bereits dem Mandanten 
 USER_LIST_WARN_MANDANT_TWO= zugeordnet.
-USER_LIST_WARN_ALREADY_USER=Einzuf\u00fcgender Benutzer ist bereits VerA.web zugeordnet.
+USER_LIST_WARN_ALREADY_USER=Einzuf\u00FCgender Benutzer ist bereits VerA.web zugeordnet.
 USER_LIST_WARN_NO_ID=Einzuf\u00fcgender Benutzer darf keine ID haben
 
 # WORKAREA TEXTS
@@ -1623,12 +1619,18 @@ VERIFY_ERROR_DB_NOT_ACCESSIBLE=Die Verbindung zur Datenbank konnte nicht hergest
 VERIFY_ERROR_DB_VERSION_NOT_DETERMINED=Die Version des Datenbank-Schemas konnte nicht ermittelt werden.
 VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE=Die Version des Datenbank-Schemas (
 VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO=) stimmt nicht mit der von VerA.web erwarteten (
-VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=) \u00fcbereini.
-VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00fctzt nicht den erwarteten Zeichensatz (LC_CTYPE=
-VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00fctzt nicht die erwarteten Textvergleichsregeln (LC_COLLATE=
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=) \u00FCbereini.
+VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00FCtzt nicht den erwarteten Zeichensatz (LC_CTYPE=
+VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Ihre Datenbankkonfiguration unterst\u00FCtzt nicht die erwarteten Textvergleichsregeln (LC_COLLATE=
 VERIFY_ERROR_XML=Bei der Erzeugung eines XML-Testdokumentes ist ein Fehler aufgetreten. (
 VERIFY_ERROR_JAVA_ONE=Die installierte Java-Version (
 VERIFY_ERROR_JAVA_TWO=) entspricht nicht der erwarteten Version (1.4).
+
+#TO BE DELETED
+inlandjageschlechtweiblich=Inland: Ja - Geschlecht: Weiblich
+inlandjageschlechtmannlich=Inland: Ja - Geschlecht: M\u00E4nnlich
+inlandneingeschlechtweiblich=Inland: Nein - Geschlecht: Weiblich
+inlandneingeschlechtmannlich=Inland: Nein - Geschlecht: M\u00E4nnlich
 
 # GENERIC DIALOG MESSAGES
 GENERIC_PLEASE_WAIT_HEADER=Bitte warten...

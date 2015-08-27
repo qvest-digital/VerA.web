@@ -7,9 +7,9 @@
     <form action="" method="post" target="_top">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong>
         <span>
-            <a href="${paths.staticWeb}do/" title="${ZurStartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.login} (${placeholderWithTranslation.stellvertretung})
+            <a href="${paths.staticWeb}do/" title="${ZurStartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_LOGIN} (${placeholderWithTranslation.stellvertretung})
         </span>
 	</div>
 

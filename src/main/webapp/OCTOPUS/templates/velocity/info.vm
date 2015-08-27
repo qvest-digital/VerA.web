@@ -11,10 +11,10 @@
     <form action="Main" method="POST">
 
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.verwaltung} > ${placeholderWithTranslation.info}</span>
+        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_MANAGEMENT} > ${placeholderWithTranslation.GENERIC_INFO}</span>
     </div>
 
-    <h1>${placeholderWithTranslation.informationenzuveraweb}</h1>
+    <h1>${placeholderWithTranslation.GENERIC_INFORMATION_ABOUT_VERAWEB}</h1>
 
 
     #if($errors && $errors.size() > 0)
@@ -36,13 +36,13 @@
         <col width="$column1%" />
 
         <tr>
-            <td class="width15 bold">${placeholderWithTranslation.version}:</td>
+            <td class="width15 bold">${placeholderWithTranslation.GENERIC_VERSION}:</td>
             <td>$properties.getString("poversion")</td>
         </tr><tr>
-            <td class="width15 bold">${placeholderWithTranslation.buildnummer}:</td>
+            <td class="width15 bold">${placeholderWithTranslation.GENERIC_BUILD_NUMBER}:</td>
             <td>$properties.getString("pobuildnr")</td>
         </tr><tr>
-            <td class="width15 bold">${placeholderWithTranslation.buildzeit}:</td>
+            <td class="width15 bold">${placeholderWithTranslation.GENERIC_BUILD_TIME}:</td>
             <td>$properties.getString("pobuildts")</td>
         </tr>
     </table>
@@ -51,28 +51,28 @@
     <p><i>${placeholderWithTranslation.informationennichtverfugbar}</i></p>
     #end
 
-    <h3>${placeholderWithTranslation.datenbank}</h3>
+    <h3>${placeholderWithTranslation.GENERIC_DATABASE}</h3>
     <table class="form fixed">
     	##Set column size
 		<col width="$column0%" />
 		<col width="$column1%" />
 
     	<tr>
-    		<td class="width15 bold">${placeholderWithTranslation.version}:</td>
+    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_VERSION}:</td>
     		<td>
     #if($config && $config.get("SCHEMA_VERSION"))
     			$config.get("SCHEMA_VERSION")
     #else
-    			<i style="color: red;">${placeholderWithTranslation.nichtverfugbar}</i>
+    			<i style="color: red;">${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
     #end
     		</td>
     	</tr><tr>
-    		<td class="width15 bold">${placeholderWithTranslation.zeichensatz}</td>
+    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_CHARSET}</td>
     		<td>
     #if($LC_CTYPE)
     			LC_CTYPE = $LC_CTYPE
     #else
-    			<i style="color: red;">${placeholderWithTranslation.nichtverfugbar}</i>
+    			<i style="color: red;">${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
     #end
     		</td>
     	</tr><tr>
@@ -81,7 +81,7 @@
     #if($LC_COLLATE)
     			LC_COLLATE = $LC_COLLATE
     #else
-    			<i style="color: red;">${placeholderWithTranslation.nichtverfugbar}</i>
+    			<i style="color: red;">${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
     #end
     		</td>
     	</tr>
@@ -97,10 +97,10 @@
 		<col width="$column1%" />
 
     	<tr>
-    		<td class="width15 bold"">${placeholderWithTranslation.login}:</td>
+    		<td class="width15 bold"">${placeholderWithTranslation.GENERIC_LOGIN}:</td>
     		<td>$!octopusConfig.personalConfig.userLogin</td>
     	</tr><tr>
-    		<td class="width15 bold">${placeholderWithTranslation.rolle}:</td>
+    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_ROLE}:</td>
     		<td>
     #if($octopusConfig.personalConfig.role)
     			$octopusConfig.personalConfig.role
@@ -137,7 +137,7 @@
     	</tr>
     #end
     	<tr>
-    		<td class="width15 bold">${placeholderWithTranslation.gruppen}:</td>
+    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_GROUPS}:</td>
     		<td>
     #foreach($gg in $octopusConfig.personalConfig.userGroups)
      $gg
@@ -150,7 +150,7 @@
     #if($octopusConfig.personalConfig.userEmail)
     			$!octopusConfig.personalConfig.userEmail
     #else
-    			<i>${placeholderWithTranslation.nichtverfugbar}</i>
+    			<i>${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
     #end
     		</td>
     	</tr>

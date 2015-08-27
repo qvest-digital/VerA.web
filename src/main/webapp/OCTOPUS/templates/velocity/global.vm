@@ -28,7 +28,7 @@
 
 #macro(comboAddresstype $name $current $style)
 	<select name="$name" #if($style) style="$style"#end>
-		<option value="1"#if($current == 1) selected#end>${placeholderWithTranslation.geschaftlich}</option>
+		<option value="1"#if($current == 1) selected#end>${placeholderWithTranslation.GENERIC_BUSINESS}</option>
 		<option value="2"#if($current == 2) selected#end>${placeholderWithTranslation.privat}</option>
 		<option value="3"#if($current == 3) selected#end>${placeholderWithTranslation.GENERIC_MORE}</option>
 	</select>
@@ -37,13 +37,13 @@
 #macro(comboLocale $name $current $style)
 	<select name="$name" #if($style) style="$style"#end>
 		<option value="1"#if($current == 1) selected#end>${placeholderWithTranslation.GENERIC_LATIN}</option>
-		<option value="2"#if($current == 2) selected#end>${placeholderWithTranslation.zeichensatz} 1</option>
-		<option value="3"#if($current == 3) selected#end>${placeholderWithTranslation.zeichensatz} 2</option>
+		<option value="2"#if($current == 2) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 1</option>
+		<option value="3"#if($current == 3) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 2</option>
 	</select>
 #end
 
 #macro(textAddresstype $current)
-	#if($current == 1) ${placeholderWithTranslation.geschaftlich} 
+	#if($current == 1) ${placeholderWithTranslation.GENERIC_BUSINESS} 
 	#elseif($current == 2) ${placeholderWithTranslation.privat}
 	#elseif($current == 3) ${placeholderWithTranslation.GENERIC_MORE}
 	#else ${placeholderWithTranslation.GENERIC_ERROR}
@@ -52,8 +52,8 @@
 
 #macro(textLocale)
 	#if($current == 1) ${placeholderWithTranslation.GENERIC_LATIN} 
-	#elseif($current == 2) ${placeholderWithTranslation.zeichensatz} 1
-	#elseif($current == 3) ${placeholderWithTranslation.zeichensatz} 2
+	#elseif($current == 2) ${placeholderWithTranslation.GENERIC_CHARSET} 1
+	#elseif($current == 3) ${placeholderWithTranslation.GENERIC_CHARSET} 2
 	#else ${placeholderWithTranslation.GENERIC_ERROR}
 	#end
 #end

@@ -41,7 +41,7 @@
                 ${placeholderWithTranslation.anschrift}
             </th>
             <th class="textCenter smallCell">
-                ${placeholderWithTranslation.zeichensatz}
+                ${placeholderWithTranslation.GENERIC_CHARSET}
             </th>
             <th class="textCenter smallCell">
                 ${placeholderWithTranslation.aktionen}
@@ -61,11 +61,11 @@
                 <td>
                     <select id="${bean.id}-addresstype" name="${bean.id}-addresstype" onchange="setModified('${bean.id}')" #if(!$bean.id) vera-disabled #end>
                         #if($bean.addresstype && $bean.addresstype != 0)
-                            <option value="1" #if($bean.addresstype == 1) selected#end>${placeholderWithTranslation.geschaftlich}</option>
+                            <option value="1" #if($bean.addresstype == 1) selected#end>${placeholderWithTranslation.GENERIC_BUSINESS}</option>
                             <option value="2" #if($bean.addresstype == 2) selected#end>${placeholderWithTranslation.privat}</option>
                             <option value="3" #if($bean.addresstype == 3) selected#end>${placeholderWithTranslation.GENERIC_MORE}</option>
                         #else
-                            <option value="1" #if($bean.doctypeAddresstype == 1) selected#end>${placeholderWithTranslation.geschaftlich}</option>
+                            <option value="1" #if($bean.doctypeAddresstype == 1) selected#end>${placeholderWithTranslation.GENERIC_BUSINESS}</option>
                             <option value="2" #if($bean.doctypeAddresstype == 2) selected#end>${placeholderWithTranslation.privat}</option>
                             <option value="3" #if($bean.doctypeAddresstype == 3) selected#end>${placeholderWithTranslation.GENERIC_MORE}</option>
                         #end
@@ -75,12 +75,12 @@
                     <select id="${bean.id}-locale" name="${bean.id}-locale" onchange="setModified('${bean.id}')" #if(!$bean.id) vera-disabled #end>
                         #if($bean.locale && $bean.locale != 0)
                             <option value="1" #if($bean.locale == 1) selected#end>${placeholderWithTranslation.GENERIC_LATIN}</option>
-                            <option value="2" #if($bean.locale == 2) selected#end>${placeholderWithTranslation.zeichensatz} 1</option>
-                            <option value="3" #if($bean.locale == 3) selected#end>${placeholderWithTranslation.zeichensatz} 2</option>
+                            <option value="2" #if($bean.locale == 2) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 1</option>
+                            <option value="3" #if($bean.locale == 3) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 2</option>
                         #else
                             <option value="1" #if($bean.doctypeLocale == 1) selected#end>${placeholderWithTranslation.GENERIC_LATIN}</option>
-                            <option value="2" #if($bean.doctypeLocale == 2) selected#end>${placeholderWithTranslation.zeichensatz} 1</option>
-                            <option value="3" #if($bean.doctypeLocale == 3) selected#end>${placeholderWithTranslation.zeichensatz} 2</option>
+                            <option value="2" #if($bean.doctypeLocale == 2) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 1</option>
+                            <option value="3" #if($bean.doctypeLocale == 3) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 2</option>
                         #end
                     </select>
                 </td>
@@ -117,6 +117,6 @@
     </table>
 
     #if ($listparam.count == 0)
-        <br>${placeholderWithTranslation.keinedatengefunden}.
+        <br>${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.
     #end
 </form>

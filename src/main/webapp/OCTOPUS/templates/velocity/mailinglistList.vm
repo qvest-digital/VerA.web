@@ -36,10 +36,10 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.verteiler}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>
 	</div>
 
-	<h1>${placeholderWithTranslation.verteiler}</h1>
+	<h1>${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</h1>
 
 	<form id="formlist" name="formlist" action="ShowMailinglistList" method="POST">
 
@@ -58,7 +58,7 @@
         	#if($grants.mayWrite())
         	<span id="actionPanel">
                 <strong>${placeholderWithTranslation.markiertenverteiler}</strong>
-        		<input type="button" name="remove" value="${placeholderWithTranslation.loschen}" onclick="deleteMailinglist();" title="${placeholderWithTranslation.markierteverteilerloschen}">
+        		<input type="button" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" onclick="deleteMailinglist();" title="${placeholderWithTranslation.markierteverteilerloschen}">
         	</span>
         	#end
 
@@ -73,8 +73,8 @@
 
         		<tr>
         			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
-        			<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
-        			<th>${placeholderWithTranslation.bezeichnung}</th>
+        			<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+        			<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
         			<th>${placeholderWithTranslation.angelegtvon}</th>
         			<th class="smallCell nowrap">${placeholderWithTranslation.angelegtam}</th>
         			<th>${placeholderWithTranslation.erzeugtausveranstaltung}</th>

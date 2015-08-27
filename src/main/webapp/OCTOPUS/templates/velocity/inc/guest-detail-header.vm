@@ -50,7 +50,7 @@
                 $!message.text($funktion)
             </div>
 			<div class="tableCell">
-                <strong>${placeholderWithTranslation.partner}:</strong>
+                <strong>${placeholderWithTranslation.GENERIC_PARTNER}:</strong>
                 $!message.text($name_p)
             </div>
 		</div>

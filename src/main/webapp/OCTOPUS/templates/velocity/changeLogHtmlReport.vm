@@ -18,8 +18,8 @@
 		<h1>${placeholderWithTranslation.anderungsprotokollfurdenzeitraum} ${begin} - ${end}</h1>
 		<table style="width: 100%;">
 			<tr>
-				<th>${placeholderWithTranslation.datum}</th>
-				<th>${placeholderWithTranslation.benutzer}</th>
+				<th>${placeholderWithTranslation.GENERIC_DATE}</th>
+				<th>${placeholderWithTranslation.GENERIC_USER}</th>
 				<th>${placeholderWithTranslation.objekt}</th>
 				<th>${placeholderWithTranslation.objektid}</th>
 				<th>${placeholderWithTranslation.GENERIC_NAME}</th>

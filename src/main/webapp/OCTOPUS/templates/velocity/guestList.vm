@@ -19,7 +19,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
 	</div>
 	<h1>${placeholderWithTranslation.gasteverwaltungderveranstaltung}: $!message.plain($event.shortname)</h1>
 
@@ -73,7 +73,7 @@
 		<div id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
 				<li id="gaesteliste" vera-tab class="active posRel" style="z-index:2">
-                    <div>${placeholderWithTranslation.gasteliste}</div>
+                    <div>${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}</div>
 				#if($list.size() > 0)
 				</li>
                 <li id="gastdetails" class="inactive">
@@ -122,7 +122,7 @@
 						<div class="tableCell width25">
 							<label for="search-invitationstatus">${placeholderWithTranslation.GENERIC_STATUS}</label>
 							<select name="search-invitationstatus" id="search-invitationstatus" onchange="submit();">
-								<option value="">${placeholderWithTranslation.alle}</option>
+								<option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
 								<option #if($search.invitationstatus && $search.invitationstatus == 1) selected#end value="1">${placeholderWithTranslation.GUEST_LIST_ONLY_OPEN}</option>
 								<option #if($search.invitationstatus && $search.invitationstatus == 2) selected#end value="2">${placeholderWithTranslation.GUEST_LIST_ONLY_ACCEPT}</option>
 								<option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="3">${placeholderWithTranslation.GUEST_LIST_ONLY_DECLINED}</option>
@@ -132,7 +132,7 @@
 						<div class="tableCell width50">
 							<label for="search-category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
 							<select name="search-category" id="search-category" onchange="submit();">
-								<option value="">${placeholderWithTranslation.alle}</option>
+								<option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
 								#foreach($category in $categories)
 									<option #if($search.category && $search.category == $category) selected#end value="$category">$category</option>
 								#end
@@ -190,15 +190,15 @@
 			<!-- neu -->
 			<div class="table width100 marginTop30">
 				<div class="tableRow">
-						<div class="tableCell width35 inlineInput" style="padding-bottom:0"><label for="actionSelection">${placeholderWithTranslation.markiertepersonen}</label>
+						<div class="tableCell width35 inlineInput" style="padding-bottom:0"><label for="actionSelection">${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}</label>
 								<select id="actionSelection" class="autoWidth">
-									<option value="0">${placeholderWithTranslation.loschen}</option>
+									<option value="0">${placeholderWithTranslation.GENERIC_DELETE}</option>
 									<option value="1">${placeholderWithTranslation.GUEST_LIST_CATEGORY_ASSIGN}</option>
 									<option value="2">${placeholderWithTranslation.GUEST_LIST_CATEGORY_REMOVE}</option>
 									<option value="3">${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
 									<option value="4">${placeholderWithTranslation.GUEST_LIST_DATA_EXPORT}</option>
 								</select>
-								<input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.durchfuhren}" class="autoWidth">
+								<input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.GENERIC_EXECUTE}" class="autoWidth">
 						</div>
 						<div class="tableCell textRight" style="vertical-align:bottom; padding-bottom:0">
 							#if($grants.mayWrite())
@@ -244,7 +244,7 @@
 									$('input:checkbox').prop('disabled', false);
 
 								},
-								'${placeholderWithTranslation.loschen}',
+								'${placeholderWithTranslation.GENERIC_DELETE}',
 								'${placeholderWithTranslation.abbrechen}'
 								);
 						}
@@ -328,28 +328,28 @@
 					<th class="textCenter smallCell" title="${placeholderWithTranslation.GUEST_LIST_RESERVE} / ${placeholderWithTranslation.GENERIC_PLACE}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');" style="color: #000000;">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
+					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
 					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#elseif($search.listorder == "firstname_a_e1")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');" style="color: #000000;">${placeholderWithTranslation.vorname}</a></th>
+					<th><a href="javascript:orderGuestList('firstname_a_e1');" style="color: #000000;">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
 					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#elseif($search.listorder == "mail_a_e1")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
+					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
 					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#elseif($search.listorder == "companyname")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
+					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
 					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 
 			#elseif($search.listorder == "orderno")
@@ -357,14 +357,14 @@
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
+					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
 					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#else
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
 					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.vorname}</a></th>
+					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
 					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#end
 
@@ -373,14 +373,14 @@
 			#end
 
 			#if($userConfig.guestListCity)
-					<th style="padding: 10px">${placeholderWithTranslation.plz} / ${placeholderWithTranslation.ort}</th>
+					<th style="padding: 10px">${placeholderWithTranslation.GENERIC_POST_NUMBER} / ${placeholderWithTranslation.GENERIC_CITY}</th>
 			#end
 
 			#if($userConfig.guestListPhone)
-					<th style="padding: 10px">${placeholderWithTranslation.telefon}</th>
+					<th style="padding: 10px">${placeholderWithTranslation.GENERIC_TELEFON}</th>
 			#end
-					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.hauptperson}</span></th>
-					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.partner}</span></th>
+					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_MAIN_PERSON}</span></th>
+					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_PARTNER}</span></th>
 				</tr>
 
 				#set($deletedperson = false)

@@ -22,7 +22,7 @@
 
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.home}</a> > ${placeholderWithTranslation.veranstaltungen} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
 	</div>
 
 	<h1>${placeholderWithTranslation.veranstaltungbearbeiten}: $!message.plain($event.shortname)</h1>
@@ -58,7 +58,7 @@
 						</li>
 						<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
 						</li>
-						<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.kategorien}</div>
+						<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div>
 						</li>
 					#end
 				</ul>
@@ -126,7 +126,7 @@
 						#if ($listparam.count != 0)
 						<div class="tableCell width50 inlineLabel" style="vertical-align:bottom;">
 							<label>${placeholderWithTranslation.ausgewahlteeintrage}</label>
-							<input type="submit" name="remove" id="remove" value="${placeholderWithTranslation.loschen}" title="${placeholderWithTranslation.loschen}" class="autoWidth noFloat"></div>
+							<input type="submit" name="remove" id="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.GENERIC_DELETE}" class="autoWidth noFloat"></div>
 						#end
 						<div class="tableCell width50 textRight">
 							<input type="button" title="${placeholderWithTranslation.neueaufgabeanlegen}" value="${placeholderWithTranslation.neueaufgabeanlegen}" name="save" id="" class="autoWidth mainButton" onclick="window.location.href='CreateEventTask?eventId=$!id';">
@@ -152,7 +152,7 @@
 					<tbody>
 					<tr>
 						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
-						<th class="smallCell textCenter">${placeholderWithTranslation.id}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
 						<th>${placeholderWithTranslation.titel}</th>
 						<th class="smallCell textCenter">${placeholderWithTranslation.start}</th>
 						<th class="smallCell textCenter">${placeholderWithTranslation.ende}</th>

@@ -37,7 +37,7 @@
 			#end
 		</div>
 		<div class="tableCell width50">
-			<label for="guest-language$ext">${placeholderWithTranslation.sprachen}</label>
+			<label for="guest-language$ext">${placeholderWithTranslation.GENERIC_LANGUAGES}</label>
 			<input type="text" id="guest-language$ext" name="guest-language$ext" value="$!message.text($facade.Languages)" />
 		</div>
 	</div>
@@ -57,7 +57,7 @@
 			#end
 		</div>
 		<div class="tableCell width50">
-			<label for="guest-nationality$ext">${placeholderWithTranslation.nationalitat}/${placeholderWithTranslation.staatsangehorigkeit}</label>
+			<label for="guest-nationality$ext">${placeholderWithTranslation.GENERIC_NATIONALITY}/${placeholderWithTranslation.GENERIC_CITIZENSHIP}</label>
 			<input type="text" id="guest-nationality$ext" name="guest-nationality$ext" value="$!message.text($facade.Nationality)" >
 		</div>
 	</div>

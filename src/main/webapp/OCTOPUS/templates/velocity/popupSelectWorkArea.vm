@@ -190,7 +190,7 @@
 	    ${placeholderWithTranslation.moechten}:</h1>
 
 	#if( $allWorkArea.size() > 0 )
-		<label for="workarea">${placeholderWithTranslation.arbeitsbereich}</label>
+		<label for="workarea">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</label>
 		<select name="workarea" id="workarea" onChange="selected(this);">
 		<option name="nix" value="">
 	#if( $assignmentAction == "unassign" )

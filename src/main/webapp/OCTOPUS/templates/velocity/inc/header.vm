@@ -91,13 +91,13 @@
 							#if($config.helplink)
     							<li>
                                     <a href="${paths.staticWeb}$config.helplink" #if($config.helptarget) target="$config.helptarget" #end>
-                                        ${placeholderWithTranslation.hilfe}
+                                        ${placeholderWithTranslation.GENERIC_HELP}
                                     </a>
                                 </li>
 							#else
 	    						<li>
                                     <a href="${paths.staticWeb}/doc/Benutzerhandbuch.pdf" target="_blank">
-                                        ${placeholderWithTranslation.hilfe}
+                                        ${placeholderWithTranslation.GENERIC_HELP}
                                     </a>
                                 </li>
 							#end
@@ -113,7 +113,7 @@
 
 				#if($grants && $grants.isAuthenticated())
 					<div id="user">
-						<strong>${placeholderWithTranslation.benutzer}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>${placeholderWithTranslation.HEADER_REPRESENTATION_FOR}:</strong> $octopusConfig.personalConfig.role #end
+						<strong>${placeholderWithTranslation.GENERIC_USER}:</strong> $octopusConfig.personalConfig.userName#if($octopusConfig.personalConfig.proxy) / <strong>${placeholderWithTranslation.HEADER_REPRESENTATION_FOR}:</strong> $octopusConfig.personalConfig.role #end
 					</div>
 				#end
 			</header>

@@ -23,7 +23,7 @@
     #end
 
     	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.siesindhier}:</strong> <span>${placeholderWithTranslation.home}</span>
+    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span>${placeholderWithTranslation.GENERIC_HOME}</span>
     	</div>
 
     <h1 class="marginTop25">${placeholderWithTranslation.willkommenbeiveraweb}</h1>
