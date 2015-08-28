@@ -603,151 +603,152 @@ ENCODING_TYPE_EAST=Del este
 ENCODING_TYPE_TURKISH=Turco
 EXPORT_DATA_TYPE_CSV=CSV (Comma-Separated-Values)
 EXPORT_DATA_TYPE_XML=XML (VerA.web-XML)
-EXPORT_DATA_TYPE_ZKM=ZKM (VerA.web-XML \u00FCber das Zentrale Kommunikationsmodul)
-EXPORT_DATA_TYPE_MADLAN_PERSON=MAdLAN-Personen (MAdLAN-Personen-Import)
-EXPORT_DATA_TYPE_MADLAN_COMPANY=MAdLAN-Firmen (MAdLAN-Firmen-Import)
+EXPORT_DATA_TYPE_ZKM=ZKM (VerA.web-XML mediante el módulo de comunicación central)
+EXPORT_DATA_TYPE_MADLAN_PERSON=MAdLAN-Personas (MAdLAN-Importar-Personas)
+EXPORT_DATA_TYPE_MADLAN_COMPANY=MAdLAN-Empresas (MAdLAN-Importar-Empresas)
 EXPORT_DATA_TYPE_X_MANAGE_CSV=X-Manage-CSV (X-Manage Kontakte)
-EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE=CSVPersdat+Doktyp (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Kategorien (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE=CSVPersdat+Dirección+TipoDocumento (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE=CSVPersdat+TipoDocumento (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+TipoDocumento 1.0 (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Categorías (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 EXPORT_TITLE_CSV=CSV
 EXPORT_TITLE_XML=XML
 EXPORT_TITLE_ZKM=ZKM
-EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Personen
-EXPORT_TITLE_MADLAN_COMPANY=MAdLAN-Firmen
+EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Personas
+EXPORT_TITLE_MADLAN_COMPANY=MAdLAN-Empresas
 EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
-EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV Personendaten+Anschriften+Dokumenttypen
-EXPORT_TITLE_CSVPERSDATA_DOCTYPE=CSV Personendaten+Dokumenttypen
-EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV Personendaten+Dokumenttypen 1.0
-EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV Personendaten+Kategorien
+EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV DatosPersonas+Direcciones+TiposDocumentos
+EXPORT_TITLE_CSVPERSDATA_DOCTYPE=CSV DatosPersonas+TiposDocumentos
+EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV DatosPersonas+TiposDocumentos 1.0
+EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV DatosPersonas+Categorías
 EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
-LABEL_EXPORT_ZKM=Ziel (ZKM-K\u00FCrzel)
-LABEL_EXPORT_MADLAN_ENCODING=Encoding
-LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Encoding (kyrillisch)
-HINT_EXPORT_CSV=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_ZKM=Die Exportdatei wird sowohl im ZKM-Ausgangsordner abgelegt als auch Ihnen zur Kontrolle zum Herunterladen angeboten. Das Herunterladen k\u00F6nnen Sie bedenkenlos abbrechen.
-HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Es werden nur die Felder aus den Karteireitern "Personendaten", "Anschriften", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE=Es werden nur die Felder aus den Karteireitern "Personendaten", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Es werden nur die Felder aus den Karteireitern "Personendaten", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern "Personendaten", "Kategorien" und deren untergeordneten\u0009Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSV_ISO_8859_15=Dieses Format ist f\u00FCr Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+LABEL_EXPORT_ZKM=Ziel (ZKM-Abreviatura)
+LABEL_EXPORT_MADLAN_ENCODING=Codificación
+LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Codificación (Cirílica)
+
+HINT_EXPORT_CSV=Dependiendo de la cantidad de datos exportados (mediante el número de categorías y tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_ZKM=El archivo de exportación será almacenado en la carpeta de salida ZKM como se podrá gestionar un control sobre la descarga. La descarga se podrá abortar de forma segura.
+HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Se exportarán únicamente los campos ubicados en las pestañas "Datos de personas", "Direcciones", "Tipos de documento" y sus respectivas pestañas inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el número de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE=Se exportarán únicamente los campos ubicados en las pestañas "Datos de personas", "Tipos de documento" y sus respectivas pestañas inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el número de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Se exportarán únicamente los campos ubicados en las pestañas "Datos de personas", "Tipos de documento" y sus respectivas pestañas inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el número de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Se exportarán únicamente los campos ubicados en las pestañas "Datos de personas", "Tipos de documento" y sus respectivas pestañas inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el número de categorías), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSV_ISO_8859_15=Este formato es adecuado para la importación/exportación sobre aplicaciones como MS Office, las cuales utilizan el juego de caracteres ISO-8859-15. Dependiendo de la cantidad de datos exportados (en particular, sobre el número de categorías y tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
-GENERIC_IMPORT_FROM_PERSONS_DATA=Import von Personendaten
-HINT_IMPORT_SHORT_CONTENT=Hinweis Beim Import k\u00E4nnen Feldinhalte, die l\u00E4nger als bei VerA.web vorgesehen sind, gek\u00FCrzt \u00FCbernommen werden.
-GENERIC_TARGET_CLIENT=Zielmandant
-GENERIC_IMPORT_DATA=Import-Datei
-GENERIC_DATA_TYPE=Dateityp
-dateiauswahlen=Datei ausw\u00E4hlen
-keineausgewahlt=Keine ausgew\u00E4hlt
-GENERIC_START_IMPORT=Import starten
+GENERIC_IMPORT_FROM_PERSONS_DATA=Importación de datos de personas
+HINT_IMPORT_SHORT_CONTENT=Aviso: Al importar los datos, es posible que los datos de mayor longitud sean acortados para su visualización en VerA.web.
+GENERIC_TARGET_CLIENT=Mandante objetivo
+GENERIC_IMPORT_DATA=Importar-Archivo
+GENERIC_DATA_TYPE=Tipo de archivo
+dateiauswahlen=Seleccionar archivo
+keineausgewahlt=Ningún seleccionado
+GENERIC_START_IMPORT=Comenzar importación
 
 # PERSONENDROPDOWN
-GENERIC_NEW_PERSON=Neue Person
-suchen&ersetzen=Suchen & ersetzen
-GENERIC_EXPORT_PERSONS=Personenexport
-GENERIC_IMPORT_PERSONS=Personenimport
+GENERIC_NEW_PERSON=Nueva persona
+suchen&ersetzen=Buscar y reemplazar
+GENERIC_EXPORT_PERSONS=Exportación de personas
+GENERIC_IMPORT_PERSONS=Importación de personas
 
 # VERANSTALTUNGENDROPDOWN
-GENERIC_EVENT_VIEW=Veranstaltungs\u00FCbersicht
-veranstaltunguuche=Veranstaltungssuche
-GENERIC_NEW_EVENT=Neue Veranstaltung
-GENERIC_STATISTICS=Statistiken
+GENERIC_EVENT_VIEW=Lista de eventos
+veranstaltunguuche=Búsqueda de eventos
+GENERIC_NEW_EVENT=Nuevo evento
+GENERIC_STATISTICS=Estadísticas
 
 # ADMINISTRATIONDROPDOWN
-GENERIC_SALUTATIONS=Anreden
-GENERIC_WORKAREA_PLURAL=Arbeitsbereiche
-GENERIC_DOCUMENT_TYPE_PLURAL=Dokumenttypen
-e-mail-postausgang=E-Mail-Postausgang
-GENERIC_PROGRAM_PERFERENCES=Programmeinstellungen
-GENERIC_EVENT_LOCATION_PLURAL=Veranstaltungsorte
+GENERIC_SALUTATIONS=Denominaciones
+GENERIC_WORKAREA_PLURAL=Área de trabajo
+GENERIC_DOCUMENT_TYPE_PLURAL=Tipos de documento
+e-mail-postausgang=E-Mail-Buzón de salida
+GENERIC_PROGRAM_PERFERENCES=Preferencias de programa
+GENERIC_EVENT_LOCATION_PLURAL=Localizaciones de eventos
 
 # VERANSTALTUNGSUEBERSICHT
-GENERIC_END=Ende
-GENERIC_HOST=Gastgeber
-GENERIC_EVENT_LOCATION_SINGULAR=Veranstaltungsort
-GENERIC_EVENT_SEARCH=Veranstaltung suchen
-GENERIC_CREATE_NEW_EVENT=Neue Veranstaltung anlegen
-GENERIC_NUMBER_PER_PAGE=Anzahl pro seite
-seitexvony=Seite x von y
+GENERIC_END=Fin
+GENERIC_HOST=Anfitrión
+GENERIC_EVENT_LOCATION_SINGULAR=Localización del evento
+GENERIC_EVENT_SEARCH=Buscar eventos
+GENERIC_CREATE_NEW_EVENT=Crear nuevo evento
+GENERIC_NUMBER_PER_PAGE=Total por página
+seitexvony=Página x de y
 
 # EVENT HEADER
-EVENT_ID=Veranstaltungs-ID
-EVENT_NAME=Veranstaltungsname
-EVENT_URL=Veranstaltungs-URL
-EVENT_URL_MEDIA_REPRESENTATIVE=URl f\u00FCr pressevertreter
-EVENT_MAX_GUEST=Maximal Anzahl G\u00E4ste
-EVENT_MAX_RESERVE=Maximal Anzahl Warteliste
-EVENT_INVITATION_TYPE=Einladungsart
-EVENT_INVITATION_TYPE_WITHOUT_PARTNER=Ohne Partner
-EVENT_INVITATION_TYPE_ONLY_PARTNER=Nur Partner
-EVENT_INVITATION_TYPE_WITH_PARTNER=Mit Partner
+EVENT_ID=ID-Evento
+EVENT_NAME=Nombre del evento
+EVENT_URL=Enlace al evento
+EVENT_URL_MEDIA_REPRESENTATIVE=Enlace para representates de prensa
+EVENT_MAX_GUEST=Número máximo de invitados
+EVENT_MAX_RESERVE=Número máximo en lista de espera
+EVENT_INVITATION_TYPE=Tipo de invitación
+EVENT_INVITATION_TYPE_WITHOUT_PARTNER=Sin partner
+EVENT_INVITATION_TYPE_ONLY_PARTNER=Sólo partner
+EVENT_INVITATION_TYPE_WITH_PARTNER=Con partner
 
 # VERANSTALTUNG BEARBEITEN/ALLGEMEIN
-GENERIC_EDIT_EVENT=Veranstaltung bearbeiten
-GENERIC_TO_GUEST_MANAGEMENT=Zur G\u00E4steverwaltung
-GENERIC_GENERAL=Allgemein
-GENERIC_TASK_PLURAL=Aufgaben
-GENERIC_ADDITIONAL_PERSONS_DATA=Zus\u00E4tzliche Personendaten
-kurzbereichnung=Kurzbereichnung
-GENERIC_OPEN_EVENT=Offene Veranstaltung
-umxuhr=Um x uhr
-veranstalgungsort=Veranstalgungsort
-GENERIC_SEARCH_FOR_HOST=Gastgeber suchen
-GENERIC_DELETE_HOST=Gastgeber entfernen
-GENERIC_HOST_PARTNER=Gastgeber-Partner
-GENERIC_LOGIN_REQUIRED=Login notwendig
-GENERIC_SUBSCRIPTION_OF_PRESS_REPRESENTATIVES_POSSIBLE=Anmeldung von Pressevertretern m\u00F6glich
-GENERIC_SAVE_EVENT=Veranstaltung speichern
-GENERIC_TO_EVENT_VIEW=Zur Veranstaltungs\u00FCbersicht
+GENERIC_EDIT_EVENT=Editar evento
+GENERIC_TO_GUEST_MANAGEMENT=Gestión de invitados
+GENERIC_GENERAL=General
+GENERIC_TASK_PLURAL=Tareas
+GENERIC_ADDITIONAL_PERSONS_DATA=Datos adicionales
+kurzbereichnung=Abreviatura
+GENERIC_OPEN_EVENT=Evento abierto
+umxuhr=A las x horas
+veranstalgungsort=Localización del evento
+GENERIC_SEARCH_FOR_HOST=Buscar anfitrión
+GENERIC_DELETE_HOST=Eliminar anfitrión
+GENERIC_HOST_PARTNER=Anfitrión-Partner
+GENERIC_LOGIN_REQUIRED=Login necesario
+GENERIC_SUBSCRIPTION_OF_PRESS_REPRESENTATIVES_POSSIBLE=Acceso habilitado a representantes de prensa
+GENERIC_SAVE_EVENT=Guardar evento
+GENERIC_TO_EVENT_VIEW=Lista de eventos
 
 # VERANSTALTUNG BEARBEITEN/DOKUMENTTYPEN
-GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Markierte(n) Dokumenttyp(en) entfernen
-GENERIC_DELETE=Entfernen
-GENERIC_ADD_NEW_DOCUMENT_TYPE=Neuen Dokumenttyp hinzuf\u00FCgen
-xvonydokumenttypen=x von y Dokumenttypen
+GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Eliminar tipo(s) de documento seleccionado(s)
+GENERIC_DELETE=Eliminar
+GENERIC_ADD_NEW_DOCUMENT_TYPE=Añadir nuevo tipo de documento
+xvonydokumenttypen=x de y tipos de documento
 
 # VERANSTALTUNG BEARBEITEN/AUFGABEN
-GENERIC_ADD_NEW_TASK=Neue Aufgabe anlegen
-MESSAGE_NO_TASKS_FOR_THIS_EVENT=Es liegen keine Aufgaben f\u00FCr diese Veranstaltung vor
-GENERIC_SELECTED_ENTRIES=Ausgew\u00E4hlte Eintr\u00E4ge
-GENERIC_TITLE=Titel
-GENERIC_RESPONSIBLE=Verantwortlicher
+GENERIC_ADD_NEW_TASK=Crear nueva tarea
+MESSAGE_NO_TASKS_FOR_THIS_EVENT=No existe ninguna tarea asignada a este evento
+GENERIC_SELECTED_ENTRIES=Entradas seleccionadas
+GENERIC_TITLE=Título
+GENERIC_RESPONSIBLE=Responsable
 
 # VERANSTALTUNG BEARBEITEN/AUFGABEN/AUFGABE ANLEGEN
-GENERIC_TASKS_ID=Aufgaben-ID
-GENERIC_COMPLETION=Fertigstellung
-GENERIC_PRIORITY=Priorit\u00E4t
-GENERIC_DESCRIPTION=Beschreibung
-GENERIC_ADD_RESPONSIBLES=Verantwortlichen hinzuf\u00FCgen
-verantwortlichenentfernen=Verantwortlichen entfernen
-GENERIC_SAVE_TASK=Aufgabe Speichern
-GENERIC_BACK_TO_TASKS_VIEW=Zur\u00FCck zur Aufgaben\u00FCbersicht
+GENERIC_TASKS_ID=ID-Tarea
+GENERIC_COMPLETION=Finalización
+GENERIC_PRIORITY=Prioridad
+GENERIC_DESCRIPTION=Descripción
+GENERIC_ADD_RESPONSIBLES=Añadir responsables
+verantwortlichenentfernen=Eliminar responsables
+GENERIC_SAVE_TASK=Guardar tarea
+GENERIC_BACK_TO_TASKS_VIEW=Lista de tareas
 
 # VERANSTALTUNG BEARBEITEN/FUNKTIONEN/AMTSBEZEICHNUNGEN
-GENERIC_ADD_NEW_EMPLOYMENT_TITLE=Neue Amtsbezeichnung Hinzuf\u00FCgen
-MESSAGE_NO_EMPLOYMENT_TITLES_FOUND=Es wurden keine Amtsbezeichnungen gefunden.
+GENERIC_ADD_NEW_EMPLOYMENT_TITLE=Añadir nuevo título
+MESSAGE_NO_EMPLOYMENT_TITLES_FOUND=No se han encontrado títulos
 
 # VERANSTALTUNG BEARBEITEN/KATEGORIEN
-GENERIC_ADD_NEW_KATEGORIES=Neue Kategorie hinzuf\u00FCgen
+GENERIC_ADD_NEW_KATEGORIES=Añadir nueva categoría
 
 # VERANSTALTUNG BEARBEITEN/VORBEDINGUNGEN
-GENERIC_PRECONDITION_PLURAL=Vorbedingungen
-EVENT_PRECONDITION_MARKED=Markierte Vorbendingung(en)
-EVENT_PRECONDITION_ADD=Vorbedingung hinzuf\u00FCgen
-EVENT_PRECONDITION_INVITATIONSTATUS=Teilnahmestatus
-EVENT_PRECONDITION_STARTDATE=Startdatum
-EVENT_PRECONDITION_NOT_FOUND=Es wurden keine Vorbedingungen gefunden
+GENERIC_PRECONDITION_PLURAL=Precondiciones
+EVENT_PRECONDITION_MARKED=Precondiciones seleccionadas
+EVENT_PRECONDITION_ADD=Añadir precondiciones
+EVENT_PRECONDITION_INVITATIONSTATUS=Estado de invitación
+EVENT_PRECONDITION_STARTDATE=Fecha de inicio
+EVENT_PRECONDITION_NOT_FOUND=No se han encontrado precondiciones
 
 # VERANSTALTUNGSSUCHE
-nurinzukunftigenveranstaltungensuchen=Nur in zuk\u00FCnftigen Veranstaltungen suchen
-siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Sie k\u00F6nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00FCr mehrere das ? f\u00FCr einzelne
+nurinzukunftigenveranstaltungensuchen=Buscar sólo en eventos futuros
+siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Puede utilizar comodines en su búsqueda: asterisco (*) para búsqueda plurar y el símbolo de interrogación para búsqueda individual.
 
 # NEUE VERANSTALTUNG ANLEGEN
-mitpartner=Mit Partner
-eswurdeeineneueveranstaltungangelegt=Es wurde eine neue Veranstaltung angelegt.
+mitpartner=Con partner
+eswurdeeineneueveranstaltungangelegt=Se ha creado un nuevo evento.
 # ----------------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------------
