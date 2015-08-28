@@ -1,0 +1,35 @@
+#!/bin/mksh
+[[ $KSH_VERSION = *MIRBSD* ]] || exit 255
+cd "$(dirname "$0")"
+./decode
+for dst in en es fr; do
+	lno=0
+	while IFS= read -r line; do
+		(( ++lno % 100 )) || print -u2 -- "$dst Line #$lno…         \\r"
+		t=${line%%'#'*}
+		t=${t%%+([	 ])}
+		t=${t##+([	 ])}
+		if [[ $line != *=* ]]; then
+			print -r -- "$line"
+			continue
+		fi
+		k=${t%%=*}
+		v=${t#*=}
+		k=${k%%+([	 ])}
+		k=${k##+([	 ])}
+		v=${v%%+([	 ])}
+		v=${v##+([	 ])}
+		print -r -- "$k=$v"
+		t=$(print -r -- "$v" | bash trans -show-original n \
+		    -show-prompt-message n -show-languages n \
+		    -show-dictionary y -show-alternatives y \
+		    -no-ansi de:$dst)
+		t=${t%%+([	 ])}
+		print -r -- "${t:-ERROR WHILE GETTING TRANSLATION}" | \
+		    sed 's/^/|	/'
+	done <de_DE.resource >$dst.mtrans
+done
+./encode
+print
+print 'Now work on {en,es,fr}.mtrans, rename to e.g. en_EN.resource,'
+print 'then run ./encode before committing!'
