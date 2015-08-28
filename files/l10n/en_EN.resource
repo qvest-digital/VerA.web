@@ -497,257 +497,257 @@ Privat=Private
 Weitere=Other
 G\u00E4steliste=Guest list
 Zus\u00E4tzlicheFelder=Additional fields
-Funktion=Function
-PLZ/Ort=ZIP / City
-Telefon=Phone
-Personenliste=Individual list
-Zus\u00E4tzlicheFelder=Additional fields
-Bundesland=State
-StandardAuswahlderSelectbox\u00E2\u0080\u009EZeichensatz\u00E2\u0080\u009C=Default settics for \u00E2\u0080\u009Ccharset\u00E2\u0080\u009D
-Latein=Latin
-Zeichensatz1=Charset 1
-Zeichensatz2=Charset 2
-Einstellungenwurdenerfolgreichgespeichert=The changes have been saved
-# Verwaltung/Vertretungen
-Vertretungen=Representation
-G\u00FCltigkeitsfilter=Validity filter
-alleVertretungen=All representations
-keineabgelaufenenVertretungen=No expired representations
-nuraktuelleVertretungen=Only current representations
-MarkierteVertretung=Marked representation
-L\u00E4schen=Delete
-ID=ID
-Vertreter*=Representative
-G\u00FCltigab=Valid from
-G\u00FCltigbis=Valid to
-neu=New
-von=Of
-Vertreter=Representative
-EswurdeeineneueVertretungangelegt=A new representation has been created
-EswurdeeineVertretunggel\u00E4scht=A representative has been deleted
-Siem\u00FC\u00DFeneineVertretereingeben=You have to name a representative
-DerBeginnderVertretungmu\u00DFvordemEndeliegen=The start of the representation has to be earlier than the end
-EswurdenVertretungengel\u00E4scht=Representatives have been deleted
-KeineDatengefunden.=No data has been found.
-# Verwaltung/Info
-Verwaltung=Management
-Info=Information
-InformationenzuVerA.web=Information about VerA.web
-VerA.web=VerA.web
-Version:=Version:
-Build:=Build:
-Datenbank=Data base
-Version:=Version:
-Zeichensatz:=Charset:
-Benutzer=User
-Login:=Login:
-Rolle:=Role:
-Mandant:=Client
-Gruppen:=Groups:
-E-Mail:=E-mail:
-nichtverf\u00FCgbar=Unavailable
-# Allgemein
-siesindhier=You are here
-Ja=Yes
-Nein=No data found
-home=Home
-# Tabellen
-ID=ID
-Datum=Date end:
-Arbeitsbereich=Wwork field
-Nachname=Surname
-Vorname=First name
-Amtsbezeichnung=Employment title
-Firma/Institution=Company/Institution (G)
-Stra\u00DFe=Street (G)
-PLZ=ZIP (G)
-Ort=City (G)
-MarkiertePerson=Marked persons
-L\u00E4schen=Delete
-Expotieren=Export
-Kategorienzuordnen=Add categories
-Kategorienentfernen=Delete categories
-Arbeitsbereichzuordnen=Add work field
-Arbeitsbereichentfernen=Delete work field
-Durchf\u00FChren=Execute
-von=Of
-Personen|AnzahlproSeite=Persons | Amount shown on this site
-Alle=All
-Seite=Page
-G\u00FCltigbis=Valid to
-Geburtsdatum=Date of birth
-Geburtsort=Place of birth
-Nationalit\u00E4t/Staatsangeh\u00E4rigkeit=Nationality
-Sprachen=Languages
-Hinweisf\u00FCrGastgeber=Note to the host
-Akkreditierungsdatum=Accreditation date
-um=At
-Uhr=O'clock
-Datenherkunft=Source of data
-Person=Persons
-# Dateityp
-CSV=CSV (Comma-Separated-Values)
-XML=XML (VerA.web-XML)
-ZKM=ZKM (VerA.web-XML via the central communication module)
-MAdLAN-Personen=MAdLAN-Persons (MadLAN-Persons-Import)
-MAdLAN-Firmen=MAdLAN-Company (MadLAN-Company-Import)
-X-Manage-CSV=X-Manage-CSV (X-Manage Contacts)
-CSVPersdat+Anschrift+Doktyp=CSVPersdat+Address+Doktyp (Comma-Separated-Values)
-CSVPersdat+Doktyp=CSVPersdat+Doktyp (Comma-Separated-Values)
-CSVPersdat+Doktyp1.0=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
-CSVPersdat+Kategorien=CSVPersdat+Categories (Comma-Separated-Values)
-CSV-ISO-8859-15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
-# Personen/Personenuebersicht
-Personen\u00FCbersicht=Peopleoverview
-Personensuchen=Search persons
-NeuePersonanlegen=Create a new person
-Direkteinsprung=Paging
-#Personen/Personen\u00FCbersicht/Personbearbeiten
-Personbearbeiten:=Edit persons
-Erfa\u00DFtam/von=Created on / of
-Zuletztge\u00E4ndertam/von=Last changed on / of
-Personen-ID=Persons-ID
-Online-AnmeldungBenutzername=Online-registration username
-ZudieserPersonwurdedasentsprechendeVorschaufeldnochnichterzeugt.=The previewfield has not been created for this person yet
-Personkopieren=Copy person
-Etiketterzeugen=Create label
-EinerVeranstaltungzuordnen=Assign to an event
-Personl\u00E4schen=Delete person
-Statistik=Statistic
-AusStammdatenhinzuf\u00FCgen=Add from master file data
-#Personen/Personen\u00FCbersicht/Personbearbeiten/Dokumenttypen
-dokumenttyp=Document type
-alleerzeugen=Create all
-#Personen/Personen\u00FCbersicht/Personbearbeiten/Kategorien
-kategorienundereigni\u00DFe=Categories and events
-#Personen/Personen\u00FCbersicht/Personbearbeiten/Statistik
-\u00FCbersicht\u00FCberalleVeranstaltungeneinesGastes.=Overview of all events of a guest
-Ab=From
-Statistikf\u00FCrGast:=Statistics for the guest
-Veranstaltung=Event
-Beginn=Start
-Status=Status
-Partner=Partner
-#Personen/Personensuche
-Personensuche=Search for persons
-Suche=Search
-ErweiterteSuche=Enhanced search
-HinweisSiek\u00E4nnenbeiderSuchesogenanntePlatzhalterverwenden,der*stehtf\u00FCrmehrereunddas?f\u00FCreinzelneZeichen.DieSucheerfolgtimVornamen,Nachnamen,Ort,PLZ,Stra\u00DFe,Firma/Institution,Telefon,Fax,Mobil,E-Mail,Bemerkungen,Kategorien,ArbeitsbereicheundAmtsbezeichnung/Funktion.=Tooltip: you can use placeholder while searching for persons. * stands for multiple and ? Stands for a single letter. You can search for first name, surname, place, ZID, street, company/institution, phone number, fax, mobile phone number, e-mail, notes, categories, work fields and employment titles.
-#Personen/NeuePersonanlegen
-NeuePersonanlegen=Create a new person
-Personendaten=Personal data
-Hauptperson=Main person
-Partner=Partner
-IstFirma=Is company
-Zeichensatz=Charset
-Frau=Ms
-Herr=Mr
-Lady=Lady
-Sir=Sir
-Bittew\u00E4hlenSie=Pls choose
-G\u00FCltigbis=Valid to
-Akad.Titel=Academic title
-Geburtsdatum=Date of birth
-Vorname=First name
-Nachname=Surname
-Nationalit\u00E4t/Staatsangeh\u00E4rigkeit=Nationality
-Sprachen=Languages
-Inland=Inland
-Bemerkung=Note
-Hinweisf\u00FCrOrga=Information for the organisation
-Hinweisf\u00FCrGastgeber=Information for the host
-IBAN=IBAN
-BIC=BIC
-www=Www
-Privat=Private
-Dublettenpr\u00FCfungdurchf\u00FChren=Search for duplicates
-ZurPersonen\u00FCbersicht=To personoverview
-#Personen/Suchen & Ersetzen in Personendaten
-Suchen&ErsetzeninPersonendaten=Search and replace in the personal data
-HinweisWennSiedenPlatzhalter*verwenden,werdenauchTeilst\u00FCckeersetzt,sonstnurvollst\u00E4ndigeDatenfelder.=Tooltip: if you use placeholder like * you can replace smaler parts of the data. Otherwise the complete data field will be replaced.
-Suchen*=Search*
-Ersetzen=Replace
-InfolgendenFeldern*=In the following fields
-Einzelnersetzen=Replace individually
-Alleersetzen=Replace all
-Felderleeren=Clear fields
-#Personen/Dublettensuche
-HinweisBeachtenSie,da\u00DF\u00E4mitae,\u00E4mitoe,\u00FCmitueund\u00DFmit\u00DFverglichenwird.=Please consider that we will  compare  \u00E4 with  ae, \u00E4 with oe, \u00FC with ue and \u00DF with \u00DF.
-#Personen/ExportvonPersonendaten
-ExportvonPersonendaten=Export personal data
-HinweisSieexportierenmitdieserFunktionau\u00DFchlie\u00DFlichPersonenausIhremaktuellenMandanten.=Tooltip: you will only export persons from you current client with this function.
-Veranstaltung=Event
-CSV:Anmerkung=CSV: note
-JenachMengederexportiertenFelder(insbesondereistdiesvonderAnzahlexportierterDokumenttypenundKategorienabh\u00E4ngig)kannespa\u00DFieren,da\u00DFMSExcelundOOCalcdieexportiertenDatennichtvollst\u00E4ndiglesenk\u00E4nnen.=It can occur that MS Ecel and OO Calc can't read the exported data correctly due to the file being to big (depends mostly on the amount of exported document types and categories).
-Exportstarten=Start export
-#Personen/ImportvonPersonendaten
-ImportvonPersonendaten=Import of personal data
-HinweisBeimImportk\u00E4nnenFeldinhalte,diel\u00E4ngeralsbeiVerA.webvorgesehensind,gek\u00FCrzt\u00FCbernommenwerden.=Tooltip: content that is longer than our standart field lenght might get shortened
-Datenherkunft*=Source of data
-Zielmandant=Target client
-Import-Datei*=Import data
-Dateityp=Data type
-Dateiausw\u00E4hlen=Choose data
-Keineausgew\u00E4hlt=Nothing selected
-Importstarten=Start import
-#anmeldung
-login=Login:
-benutzername=Username
-pa\u00DFwort=Password
-invertretunganmelden=Login as representative
-anmelden=Login
-felderleeren=Clear fields
-hinweis=Tooltip
-bitteverwendensieihreorganisationskennzeichenodervorname.nachnamealsbenutzernamen=Please use your company-sign or first name, surname as your username
-#mainpage
-personen=Persons
-veranstaltungen=Events
-verwaltung=Management
-benutzer=User
-abmelden=Logout
-WillkomenbeiVerA.web=Welcome to VerA.web
-WELCOME_TEXT_ONE=Sie haben hier die M\u00F6glichkeit,
-WELCOME_TEXT_TWO=Stammdaten von
-WELCOME_TEXT_THREE=Bemerkungen zu
-WELCOME_TEXT_FOUR=Personen und Veranstaltungen
-WELCOME_TEXT_FIVE=anzuzeigen, zu
-WELCOME_TEXT_SIX=ex- und
-WELCOME_TEXT_SEVEN=importieren, zu bearbeiten und zu l\u00F6schen.
-WELCOME_TEXT_EIGHT=anzuzeigen und zu exportieren.
-WELCOME_TEXT_TEN=Weiterhin k\u00F6nnen Sie
-WELCOME_TEXT_ELEVEN=mandantenspezifische
-WELCOME_TEXT_AND=und
-WELCOME_TEXT_TWELVE=globale
-WELCOME_TEXT_THIRTEEN=Einstellungen einsehen und bearbeiten.
-WELCOME_TEXT_FOURTEEN=Sollten Sie weitere Informationen ben\u00F6tigen, finden Sie diese auf der Seite "Hilfe"
-WELCOME_TEXT_FIFTEEN=Zu Ihrer Anmeldung existieren keine Rollen, unter denen Sie in VerA.web agieren k\u00F6nnen. Bitte melden Sie sich ab und mit einer Benutzer- oder Rollenkennung erneut an, die in VerA.web nutzbar ist
-#personendropdown
-personen\u00FCbersicht=Personoverview
-personensuche=Search for persons
-neueperson=New person
-suchen&ersetzen=Search and replace
-personenexport=Export persons
-personenimport=Import persons
-#veranstaltungendropdown
-veranstaltungs\u00FCbersicht=Eventoverview
-veranstaltung\u00DFuche=Search for events
-neueveranstaltung=New event
-verteiler=Distributor
-statistiken=Statistics
-#verwaltungdropdown
-einstellungen=Settings
-vertretungen=Representatives
-info=Information
-#administrationdropdown
-anreden=Titles
-arbeitsbereiche=Work fields
-benutzer=User
-dokumenttypen=Document types
-e-mail-postausgang=E-mail outbox
-e-mail-vorlagen=E-mail templates
-farben=Colors
-funktionen/amtsbezeichnungen=Functions/employment titles
-kategorien=Categories
+
+# PERSONEN/PERSONENUEBERSICHT
+GENERIC_PERSON_SUMMARY=Persons summary
+GENERIC_SEARCH_PERSONS=Search for persons
+GENERIC_CREATE_PERSON=Create person
+GENERIC_PERSONS_DELETED=Persons deleted
+
+# PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN
+GENERIC_EDIT_PERSON=Edit person
+GENERIC_DOCUMENTED_ON=Documented on
+GENERIC_LAST_EDITED_ON=Last edited on
+GENERIC_PERSONS_ID=Persons-ID
+GENERIC_OA_USERNAME=Online-registration username
+freifeld-vorschaufuretikett="Freifeld-Vorschau f\u00C3\u00BCr \u00E2\u0080\u009EEtikett\u00E2\u0080\u009C"
+zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
+GENERIC_COPY_PERSON=Copy person
+GENERIC_CREATE_TAG=Create tag
+GENERIC_ASSIGN_AN_EVENT=Assign to event
+GENERIC_DELETE_PERSON=Delete person
+GENERIC_STATISTIC=Statistics
+ausstammdatenhinzufugen=Aus Stammdaten hinzuf\u00FCgen
+
+# PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
+GENERIC_DOCUMENT_TYPE_SINGULAR=Dokument type
+GENERIC_GENERATE_ALL=Generate all
+
+# PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
+GENERIC_CATEGORIES_AND_OCCASIONS=Categories and occasions
+
+# PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/STATISTIK
+ubersichtuberalleveranstaltungeneinesgastes=\u00FCbersicht \u00FCber alle Veranstaltungen eines Gastes.
+GENERIC_VIEW_OVER_GUEST_EVENT=From
+statistikfurgast=Statistik f\u00FCr Gast
+GENERIC_EVENT=Event
+GENERIC_BEGIN=Start
+
+# PERSONEN/PERSONENSUCHE
+GENERIC_SEARCH_PERSON=Search for person
+GENERIC_SEARCH=Search
+GENERIC_VALIDITY_DATE=Validity date
+GENERIC_ADVANCED_SEARCH=Advanced search
+HINT_PLACEHOLDER=Hint With the Search, you can use Placeholder, where * stands for several and the Question mark ? for singular. This search could be used in Surnames, Last names, City, Zip code, Street, Company/Institution, telefon, fax, mobile, E-mail, remarks, categories, working areas and employment title/function.
+
+# PERSONEN/NEUE PERSON ANLEGEN
+MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=The login credentials have been created successfully.
+MESSAGE_OSIAM_LOGIN_DATA_EXIST=Login credentials for this person already exist.
+
+# PERSONEN/NEUE PERSON ANLEGEN
+GENERIC_IS_COMPANY=Is compnay
+GENERIC_SALUTATION_SINGULAR=Salutation
+frau=Frau
+herr=Herr
+lady=Lady
+sir=Sir
+GENERIC_PLEASE_CHOOSE=Please choose
+GENERIC_ACAD_TITLE=Acad. title
+GENERIC_IN_COUNTRY=In country
+GENERIC_HINT_FOR_ORGA=Hint for Orga
+GENERIC_COMPANY_SINGULAR=Company
+GENERIC_COUNTRY=Country
+plz/postfach=Zip code/ post office box
+GENERIC_POST_OFFICE_BOX=Post office box
+iban=IBAN
+bic=BIC
+GENERIC_MOBILE=Mobile
+LETTERS_WWW=WWW
+dublettenprufungdurchfuhren=Dublettenpr\u00FCfung durchf\u00FChren
+zurpersonenubersicht=To Person view
+
+# PERSONEN/SUCHEN & ERSETZEN IN PERSONENDATEN
+suchen&ersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
+hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Hinweis Wenn Sie den Platzhalter * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
+GENERIC_SEARCH_V=Search
+GENERIC_REPLACE=Replace
+GENERIC_IN_THE_FOLLOWING_FIELDS=In the following fields
+anrede/titel=Salutations / title
+GENERIC_EMPLOYMENT_TITLE_SHORT=Empl. title
+GENERIC_INSTITUTION_SINGULAR=Institution
+GENERIC_ADDRESSES=Addresses
+telefon/fax=Phone / Fax
+GENERIC_REPLACE_INDIVIDUALLY=Replace individually
+GENERIC_REPLACE_ALL=Replace all
+
+# PERSONEN/DUBLETTENSUCHE
+GENERIC_DUPLICATE_SEARCH=Search for duplicates
+
+# PERSONEN/EXPORT VON PERSONENDATEN
+exportvonpersonendaten=Export von Personendaten
+HINT_EXPORT_MANDANT_PERSON=You export with this function only persons from the current client.
+GENERIC_WITHOUT=Without
+botschaften=Botschaften
+finanzamtsprecher=Finanzamtsprecher
+journalisten=Journalisten
+lieferant=Lieferant
+nogs=NOGs
+politik=Politik
+pressevertreter=Pressevertreter
+wirtschaft=Wirtschaft
+GENERIC_START_EXPORT=Start export
+ENCODING_TYPE_CYRILLIC=Cyrillic
+ENCODING_TYPE_WEST=Westerly
+ENCODING_TYPE_BALTIC=Baltic
+ENCODING_TYPE_EAST=Eastly
+ENCODING_TYPE_TURKISH=Turkish
+EXPORT_DATA_TYPE_CSV=CSV (Comma-Separated-Values)
+EXPORT_DATA_TYPE_XML=XML (VerA.web-XML)
+EXPORT_DATA_TYPE_ZKM=ZKM (VerA.web-XML over the Central Communication module)
+EXPORT_DATA_TYPE_MADLAN_PERSON=MAdLAN-Persons (MAdLAN-Persons-Import)
+EXPORT_DATA_TYPE_MADLAN_COMPANY=MAdLAN-companies (MAdLAN-Companies-Import)
+EXPORT_DATA_TYPE_X_MANAGE_CSV=X-Manage-CSV (X-Manage contacts)
+EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE=CSVPersdat+Mailing box+Doctype (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE=CSVPersdat+Doktype (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+Doktype 1.0 (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Categories (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
+EXPORT_TITLE_CSV=CSV
+EXPORT_TITLE_XML=XML
+EXPORT_TITLE_ZKM=ZKM
+EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Persons
+EXPORT_TITLE_MADLAN_COMPANY=MAdLAN-Companies
+EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
+EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV Persons data+mailing boxes+Dokument types
+EXPORT_TITLE_CSVPERSDATA_DOCTYPE=CSV Persons data+Document types
+EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV Persons data+Dokument types 1.0
+EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV Persons data+Categories
+EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
+LABEL_EXPORT_ZKM=Ziel (ZKM-Code)
+LABEL_EXPORT_MADLAN_ENCODING=Encoding
+LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Encoding (Cyrillic)
+HINT_EXPORT_CSV=Depending on the amount of the exported fields (especially the amount of Document types and categories), MS Excel and OO Calc may not be able to read the exported data entirely.
+HINT_EXPORT_ZKM=The export file will be stored in the ZKM-folder and provided to download for control purposes.The Download can be cancelled at any time.
+HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Only the fields from the "Personal data", "Addresses" and "Document types" tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
+Es werden nur die Felder aus den Karteireitern "Personendaten", "Anschriften", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Only the fields from the "Personal data" and "Document types" tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Only the fields from the "Personal data" and "Categories" tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
+HINT_EXPORT_CSV_ISO_8859_15=This format is for Im-/Export compatible with MS Office Applications, which use a Character set of ISO-8859-15. Depending on the amount of the exported fields (especially the amount of Doc    ument types), MS Excel and OO Calc may not be able to read the exported data entirely.
+
+# PERSONEN/IMPORT VON PERSONENDATEN
+GENERIC_IMPORT_FROM_PERSONS_DATA=Import of persons data
+HINT_IMPORT_SHORT_CONTENT=Hint With the Import, the input fields which are longer than VerA.web expects, will be shortened.
+GENERIC_TARGET_CLIENT=Target client
+GENERIC_IMPORT_DATA=Import-Data
+GENERIC_DATA_TYPE=Data type
+dateiauswahlen=Datei ausw\u00E4hlen
+keineausgewahlt=Keine ausgew\u00E4hlt
+GENERIC_START_IMPORT=Start import
+
+# PERSONENDROPDOWN
+GENERIC_NEW_PERSON=New person
+suchen&ersetzen=Search & replace
+GENERIC_EXPORT_PERSONS=Export persons
+GENERIC_IMPORT_PERSONS=Import persons
+
+# VERANSTALTUNGENDROPDOWN
+GENERIC_EVENT_VIEW=Event view
+veranstaltunguuche=Veranstaltungssuche
+GENERIC_NEW_EVENT=New event
+GENERIC_STATISTICS=Statistics
+
+# ADMINISTRATIONDROPDOWN
+GENERIC_SALUTATIONS=Salutations
+GENERIC_WORKAREA_PLURAL=Work areas
+GENERIC_DOCUMENT_TYPE_PLURAL=Dokument types
+e-mail-postausgang=E-Mail outbox
+GENERIC_PROGRAM_PERFERENCES=Program preferences
+GENERIC_EVENT_LOCATION_PLURAL=Event locations
+
+# VERANSTALTUNGSUEBERSICHT
+GENERIC_END=End
+GENERIC_HOST=Host
+GENERIC_EVENT_LOCATION_SINGULAR=Event location
+GENERIC_EVENT_SEARCH=Search for event
+GENERIC_CREATE_NEW_EVENT=Create new event
+GENERIC_NUMBER_PER_PAGE=Count per page
+seitexvony=Seite x von y
+
+# EVENT HEADER
+EVENT_ID=Event-ID
+EVENT_NAME=Event name
+EVENT_URL=Event-URL
+EVENT_URL_MEDIA_REPRESENTATIVE=URl for press representatives
+EVENT_MAX_GUEST=Maximal number of Guests
+EVENT_MAX_RESERVE=Maximal number at the Waitinglist
+EVENT_INVITATION_TYPE=Invitation type
+EVENT_INVITATION_TYPE_WITHOUT_PARTNER=Without partner
+EVENT_INVITATION_TYPE_ONLY_PARTNER=Only partner
+EVENT_INVITATION_TYPE_WITH_PARTNER=With Partner
+
+# VERANSTALTUNG BEARBEITEN/ALLGEMEIN
+GENERIC_EDIT_EVENT=Edit event
+GENERIC_TO_GUEST_MANAGEMENT=To guest management
+GENERIC_GENERAL=General
+GENERIC_TASK_PLURAL=Tasks
+GENERIC_ADDITIONAL_PERSONS_DATA=Additional persons data
+kurzbereichnung=Kurzbereichnung
+GENERIC_OPEN_EVENT=Open event
+umxuhr=Um x uhr
+veranstalgungsort=Event location
+GENERIC_SEARCH_FOR_HOST=Search for host
+GENERIC_DELETE_HOST=Delete host
+GENERIC_HOST_PARTNER=Host-partner
+GENERIC_LOGIN_REQUIRED=Login required
+GENERIC_SUBSCRIPTION_OF_PRESS_REPRESENTATIVES_POSSIBLE=Subscription of press representatives possible
+GENERIC_SAVE_EVENT=Save event
+GENERIC_TO_EVENT_VIEW=To event view
+
+# VERANSTALTUNG BEARBEITEN/DOKUMENTTYPEN
+GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Delete marked document type(s)
+GENERIC_DELETE=Delete
+GENERIC_ADD_NEW_DOCUMENT_TYPE=Add new document type
+xvonydokumenttypen=x of y documenttypes
+
+# VERANSTALTUNG BEARBEITEN/AUFGABEN
+GENERIC_ADD_NEW_TASK=create new task
+MESSAGE_NO_TASKS_FOR_THIS_EVENT=No tasks are assigned to this event
+GENERIC_SELECTED_ENTRIES=Selected entries
+GENERIC_TITLE=Title
+GENERIC_RESPONSIBLE=Responsible
+
+# VERANSTALTUNG BEARBEITEN/AUFGABEN/AUFGABE ANLEGEN
+GENERIC_TASKS_ID=Task-ID
+GENERIC_COMPLETION=Completion
+GENERIC_PRIORITY=Priority
+GENERIC_DESCRIPTION=Description
+GENERIC_ADD_RESPONSIBLES=Add responsibles
+verantwortlichenentfernen=Delete responsibles
+GENERIC_SAVE_TASK=Save task
+GENERIC_BACK_TO_TASKS_VIEW=Back to task overview
+
+# VERANSTALTUNG BEARBEITEN/FUNKTIONEN/AMTSBEZEICHNUNGEN
+GENERIC_ADD_NEW_EMPLOYMENT_TITLE=Add new employment title
+MESSAGE_NO_EMPLOYMENT_TITLES_FOUND=No employment titles were found
+
+# VERANSTALTUNG BEARBEITEN/KATEGORIEN
+GENERIC_ADD_NEW_KATEGORIES=Add new categorie
+
+# VERANSTALTUNG BEARBEITEN/VORBEDINGUNGEN
+#GENERIC_PRECONDITION_PLURAL=Preconditions
+#EVENT_PRECONDITION_MARKED=Marked precondition(s)
+#EVENT_PRECONDITION_ADD=Add precondition
+#EVENT_PRECONDITION_INVITATIONSTATUS=Teilnahmestatus
+#EVENT_PRECONDITION_STARTDATE=Startdatum
+#EVENT_PRECONDITION_NOT_FOUND=Es wurden keine Vorbedingungen gefunden
+
+# VERANSTALTUNGSSUCHE
+nurinzukunftigenveranstaltungensuchen=Nur in zuk\u00FCnftigen Veranstaltungen suchen
+siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Sie k\u00F6nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00FCr mehrere das ? f\u00FCr einzelne
+
+# NEUE VERANSTALTUNG ANLEGEN
+mitpartner=Mit Partner
+eswurdeeineneueveranstaltungangelegt=Es wurde eine neue Veranstaltung angelegt.
 
 # VERTEILER
 angelegtvon=applied by
@@ -998,256 +998,256 @@ anmerkungen=notes
 markiertebezeichnunge=marked description(s)
 markierteeintrageentfernen=remove marked entries
 eswurdenkeinedatengefunden=No data found
-mandanten=Clients
-programmeinstellungen=Programsettings
-reports=Reports
-stellvertretungen=Representations
-veranstaltungsorte=Venues
-#Veranstaltungs\u00FCbersicht
-veranstaltungs\u00FCbersicht=Eventoverview
-id=ID
-GENERIC_NAME=Name
-beginn=Start
-ende=End
-gastgeber=host
-veranstaltungsort=Venues
-veranstaltungsuchen=Search for events
-neueveranstaltunganlegen=Create a new event
-von=Of
-veranstaltungen=Events
-anzahlproseite=Amount shown on this site
-seitexvony=Page x of y
-#veranstaltungbearbeiten:/allgemein
-veranstaltungbearbeiten=Edit event
-veranstaltungs-id=Event-id
-veranstaltungsname=Eventname
-veranstaltungs-URL=Event-URL
-URlf\u00FCrpre\u00DFevertreter=URL for representatives of the press
-zurg\u00E4steverwaltung=To the guestmanagement
-allgemein=General
-dokumenttypen=Document types
-aufgaben=Tasks
-zus\u00E4tzlichepersonendaten=Additional personal data
-funktionen/amtsbezeichnungen=Functions/employment titles
-kategorien=Categories
-kurzbezeichnung=Brief description
-einladungsart=Form of invitation
-offeneveranstaltung=Open event
-umxuhr=At x o'clock
-maximalanzahlg\u00E4ste=Maximum amount of guests
-veranstalgungsort=Venue
-gastgebersuchen=Search for host
-gastgeberentfernen=Delete host
-gastgeber-partner=Partner of the host
-bemerkung=Comment
-loginnotwendig=Login neccessary
-anmeldungvonpre\u00DFevertreternm\u00E4glich=Registeration of representatives of the press possible
-veranstaltungspeichern=Save event
-zurveranstaltungs\u00FCbersicht=To eventoverview
-#veranstaltungbearbeiten:/dokumenttypen
-markiertedokumenttypen=Marked document types
-entfernen=Remove
-neuendokumenttyphinzuf\u00FCgen=Create a new document type
-bezeichnung=Name
-xvonydokumenttypen=X of y document types
-#veranstaltungbearbeiten:/aufgaben
-neueaufgabeanlegen=Create a new task
-esliegenkeineaufgabenf\u00FCrdieseveranstaltungvor=There are no tasks for this event
-ausgew\u00E4hlteeintr\u00E4ge=Selected entries
-l\u00E4schen=Delete
-titel=Titel
-status=Status
-verantwortlicher=Person in charge
-#veranstaltungbearbeiten:/aufgaben/aufgabeanlegen
-aufgaben-id=Task-id
-fertigstellung=Completion
-priorit\u00E4t=Priority
-beschreibung=Description
-verantwortlichenhinzuf\u00FCgen=Add a person in charge
-verantwortlichenentfernen=Delete person in charge
-aufgabespeichern=Save task
-zur\u00FCckzuraufgaben\u00FCbersicht=Back to the taskoverview
-#veranstaltungbearbeiten:/funktionen/amtsbezeichnungen
-neueamtsbezeichnunghinzuf\u00FCgen=Add a new employment title
-eswurdenkeineamtsbezeichnungengefunden.=No employment titles have been found
-#veranstaltungbearbeiten:/kategorien
-neuekategoriehinzuf\u00FCgen=Add new category
-#veranstaltung\u00DFuche
-suche=Search
-datum=Date (start)
-nurinzuk\u00FCnftigenveranstaltungensuchen=Search only for events in the future
-siek\u00E4nnenbeidersuchesogenannteplatzhalterverwenden,der+stehtf\u00FCrmehreredas?f\u00FCreinzelne=You can use placeholder while searching for persons. * stands for multiple and ? Stands for a single letter.
-#veranstaltung\u00DFuche/suchergebnis
-suchergebnis:Veranstaltungen=Search result: Events
-#neueveranstaltunganlegen
-einladungsart=Form of invitation
-mitpartner=With partner
-offeneveranstaltung=Open event
-eswurdeeineneueveranstaltungangelegt.=A new event has been created
-#verteiler
-verteiler=Distributor
-angelegtvon=Created by
-angelegtam=Created on (date)
-erzeugtausveranstaltung=Created from an event
-#statistiken
-statistiken=Statistics
-statistikauffolgendenzeitrahmeneinschr\u00E4nken:=Limit the statistic to the following time frame
-statistiktypausw\u00E4hlen:=Choose statistic
-zeitrahmen-beginn=Time frame start
-zeitrahmen-ende=Time frame end
-Gesamt\u00FCbersicht\u00FCberdieAnzahlderVeranstaltungenproJahr.=Complete overview of all events in a year.
-Gesamt\u00FCbersicht\u00FCberdieAnzahlderVeranstaltungenproMonat.=Complete overview of all events in a month.
-Gesamt\u00FCbersicht\u00FCberalleVeranstaltungen,gruppiertnachGastgeber.=Complete overview of all events sorted by host.
-\u00FCbersicht\u00FCberalleVeranstaltungeneinesGastgebers(mitSuche).=Overview of all events of a host (with search function).
-\u00FCbersicht\u00FCberalleVeranstaltungeneinesGastes(mitSuche).=Overview of all events of a guest.
-\u00FCbersicht\u00FCberalleVeranstaltungensortiertnachVeranstaltungsort.=Overview of all events sorted by venue.
-statistikerstellen=Create statistic
-#G\u00E4steverwaltungderveranstaltung
-G\u00E4steverwaltungderveranstaltung:=Guest management of the event
-veranstaltungsname:=Eventname
-max.anzahlg\u00E4ste:=Maximum amount of guests
-g\u00E4steliste=List of guests
-einladungsart=Form of invitation
-g\u00E4stedetails=Guestdetails
-dokumenttypen=Document types
-offen=Open
-zusagen=Commitment
-absagen=Denial
-teilnahmen=Attendance
-aufplatz=On place
-aufreserve=On reserve
-filter=Filter
-platzwahl=?
-status=Status
-lfd.-nr.=Lfd. -nr.
-firma=Company
-GENERIC_NAME=Surname
-vorname=First name
-e-mail=E-mail
-hauptperson=Main person
-partner=Partner
-nichteingeladen=Not invited
-laufendenummerberechnen=Create serial number
-allestammdatenneuladen=Load the master file data again
-direkteinsprung:istnurbeieinersortierungnachname,vornameodere-mailm\u00F6glich.=Paging: Paging is only possible if you sort by either first name, surname or e-mail.
-beimerstellenvonSteuerdateienoderG\u00E4stelistenwirdIhrobenausgew\u00E4hlterFilterber\u00FCcksichtigt.=The filter you choose is taking into concern while creating the coontril file or the list of guests.
-WennSieeinzelneG\u00E4stemarkieren,werdennurdieseexportiert,ansonstendievollst\u00E4ndigeListe.=If you mark guest these will be the only one exported.
-
-#G\u00E4steliste erstellen
-GUEST_LIST_CREATE=Create a list of guests
-SELECT_OUTPUT_FORMAT=Choose format
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Sort lists by categories \u00E2\u0080\u0093 with partner
-LIST_GROUP_BY_CATEGORY_WITH_TEL=Sort lists by categories \u00E2\u0080\u0093 with telephone/mobile number
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Sort lists by categories \u00E2\u0080\u0093 with partner and fax
-LIST_SORT_PARTNER_TEL=Sort lists by categories \u00E2\u0080\u0093 with partner, tel. and mobilephone
-SORT_CRITERIA=Sortingcriteria
-SORT_CRITERIA=Sort by
-CONTINUAL_NUMBER=Serial number
-anschlie\u00DFendnach=Furthermore sort by
-zus\u00E4tzlichesortierungnach=?
-arbeitsbereich=Work field
-#gastdetails
-funktion=Function
-Siebearbeitenhierau\u00DFchlie\u00DFlichPersonendatenimRahmenderaktuellenVeranstaltung,keinegrundlegendenStammdaten.=You are only editing personal data inside of this event. The main data won't be changed.
-istgastgeber:=Is host:
-reserve=Reserve
-aufstammdatenzur\u00FCcksetzen=Set back to main data source
-stammdatenbearbeiten=Edit main data source
-#dokumenttypen
-dokumenttypw\u00E4hlen=Choose document type
-mitgliedsausweis=Membership card
-etikett=Label
-tischkarte=Place card
-adre\u00DFtypundzeichensatzw\u00E4hlen=Choose type of address and charset
-adre\u00DFtyp=Type of address
-datenbearbeiten=Edit data
-verbinder=Connector
-freitextfeld=Free text field
-freitextfeld=Free text field (partner)
-anrede=Other (partner)
-Aka.titel=Akad. Title (partner)
-nachname=Surname (partner)
-kontaktdaten=Contact data
-nummer=Number
-bic=Bic
-land=Country
-telefon=Telephone number
-fax=Fax
-e-mail=E-mail
-www=Www
-mobil=Mobile number
-zur\u00FCckzudenveranstaltungsdetails=Back to the event details
-#personbearbeiten/dokumenttypen/bearbeiten
-dokumenttypbearbeiten=Edit document type
-dokument-id=Document-id
-dokument-name=Document-name
-dokumenttypspeichern=Save document type
-zur\u00FCckzurdokumenttypenliste=Back to the lost of document types
-anmeldedatenerzeugen=Create registrationdata
-personkopieren=Copy person
-etiketterzeugen=Create a label
-einerveranstaltungzuordnen=Add to an event
-personl\u00F6schen=Delete person
-EsliegenkeineKategorienundEreigni\u00DFevor=No categories or entries have been found
-Beigr\u00FCnhinterlegtenEintr\u00E4genhandeltessichumwiederkehrendeEreigni\u00DFe.=If an event is marked green, it is a regulary happening event.
-#verteilerdetails
-verteilerdetails:=Distributordetails:
-verteilerversenden=Send distributor
-e-mail-clientaufrufen=Open e-mail client
-
-WillkommenbeiVerAweb=Welcome to VerA.web
-WELCOME_TEXT_ONE=VerA.web offers the possibility,
-WELCOME_TEXT_TWO=to show master data
-WELCOME_TEXT_THREE=of- and comments
-WELCOME_TEXT_FOUR=about persons and events,
-WELCOME_TEXT_FIVE=to
-WELCOME_TEXT_SIX=ex-
-WELCOME_TEXT_SEVEN=or import, alter or delete them.
-WELCOME_TEXT_EIGHT=show and export.
-WELCOME_TEXT_TEN=Furthermore
-WELCOME_TEXT_ELEVEN=client-specific
-WELCOME_TEXT_AND=and
-WELCOME_TEXT_TWELVE=global
-WELCOME_TEXT_THIRTEEN=settings can be inspected and edited.
-WELCOME_TEXT_FOURTEEN=For further information please go to the \u00E2\u0080\u009EHelp\u00E2\u0080\u009C page.
-WELCOME_TEXT_FIFTEEN=There are no roles for your account, where you can operate with VerA.web. Please logout and login with another user- or role ID, which is usable for VerA.web.
-
-# EVENT LIST TEXTS
-
-EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Minimun one selected event is currently active or is going to be active in the future.
-EVENT_LIST_WARNING_SELECTION_CHANGING=Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L\u00F6schen ab.
-EVENT_LIST_DELETE_CONFIRMATION_MESSAGE=Sollen alle markierten Veranstaltungen gel\u00F6scht werden? Diese Aktion kann nicht r\u00FCckg\u00E4ngig gemacht werden.
-
-# PERSON LIST TEXTS
-PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE=Sie haben keine Berechtigung Personen zu l\u00F6schen.
-PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Sie d\u00FCrfen immer nur eine Person l\u00F6schen.\n Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.
-PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Sollen alle markierten Personen gel\u00F6scht werden?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+siehabenkeinedatenherkunftangegeben=You have not inserted any data origin.
+HINT_EXPORT_NOT_POSSIBLE_OPENOFFICE=You are trying to import an OpenOffice file. The direct import is in the current version of VerA.web unfortunately not possible. Please save the file with your table calculation program as a .csv file.
+HINT_EXPORT_NOT_POSSIBLE_STAROFFICE=You are trying to import a StarOffice file. The direct import is in the current version of VerA.web unfortunately not possible. Please save the file with your table calculation program as a .csv file.
+HINT_EXPORT_NOT_POSSIBLE_EXCEL=You are trying to import a Microsoft Excel file. The direct import is in the current version of VerA.web unfortunately not possible. Please save the file with your table calculation program as a .csv file.
+HINT_IMPORT_NOT_POSSIBLE_PDF=You are trying to import a PDF file. This import is unfortunately in the current version of VerA.web not possible.
+HINT_IMPORT_NOT_POSSIBLE_ZIP=You are trying to import a ZIP file. This import is unfortunately in the current version of VerA.web not possible.
+HINT_IMPORT_NOT_POSSIBLE_EXE=You are trying to import a EXE file. This import is unfortunately in the current version of VerA.web not possible.
+siehabenversuchteinedateimitderendung=You are trying to import  a data with the extension 
+zuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich=.This is unfortunately in the cuurent version of VerA.web not available.
+siehabenkeinedateiausgewahltoderdiesewarleer=You have either selected an empty file or have not selected any at all.
+esisteinunerwarteterfehlerbeimimportiereneinerdateiaufgetreten=An error has occured while importing the file.
+vermutlichbefindetsichdieimportdateinichtimvomsystemerwartemformat=Probably the import file is not in the expected format.
+detailsanzeigen=Show details
+beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden=While importing, the input fields content might be shortened.
+alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden=All documenttypes of the imported persons musst be in the system. Would you like to start the import?
+umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=In order to be able save duplicates, they first have to be applied in the available duplicates.
+HINT_UMLAUT_COMPARISON=Please note, that the special characters \u00E4, \u00F6, \u00FC and \u00DF will be compared with ae,oe,ue and ss.
+derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=In order to complete the import process, please click on "Complete import".
+derimportkannerstabgeschlossenwerdenwennspeicherbaredatensatzevorhandensind=The import will be completed only when storable datasets are available.
+vorhandenedubletten=Available duplicates
+vorhandenedublettenbearbeiten=Edit available duplicates
+zuimportierendedatensatzeinsgesamt=To import all datasets
+davondubletten=Duplicates
+davonspeicherbar=storable
+ignoriertefehlerdatensatze=Ignored datasets errors
+importabschlieszen=Complete import
+siehabenkeinendatensatzimportiert=You have not imported any dataset.
+siehabeneinendatensatzimportiert=You have imorted one dataset.
+siehaben=You have imported
+datensatzeimportiert=datasets.
+informationennichtverfugbar=Information not available
+nichtgewahlt=Not selected
+verfugbarerollen=Available roles
+passowrt=Password
+inverteretunganmelden=Login as representative
+vornamenachname=First name.Last name
+alsbenutzernamen=As Username
+emailvorlage=E-mail attachement
+amtsbezfunktion=Empl. Title/funktion
+postfachnummer=Post office number
+email=E-mail
+verteileranlegen=Create distributor
+sielegeneinenneuenverteilerausderveranstaltung=You are creating a new distributor from the Event
+mit=with
+einerperson=a person
+verteilername=Name of the distributor
+verteilerspeichern=Save distributor
+markierteadressen=Marked Address(es)
+markierteadressenausdemverteilerloschen=Delete marked address(es)
+analleadressenversenden=Send to all addresses
+emailclientaufrufen=Invoke E-mail client
+esliegenkeineadressdatenfurdiesenverteilervor=No addresses exist for this distributor
+esliegenkeineadressenfurdiesenverteilervor=No addresses exist for this distributor
+esliegenkeinevorlagenvor=There are no templates.
+zuruckzurverteilerubersicht=back to distributor overview
+eswurdekeineemailzumversendengespeichert=No E-mails to be sent were saved
+eswurdeeineemailzumversendengespeichertdiesewirdnunautomatischversendet=An E-mail was saved automatically. This will be sent automatically.
+emailszumversendengespeichertdiesewerdennunautomatischversendet=E-mails to be sent are automatically saved. These will be automatially sent.
+markiertenverteiler=Marked distributor(s)
+markierteverteilerloschen=Delete marked distributors
+persondendaten=Person data
+solldiesergastaufplatzgesetztwerden=Should this guest get a seat?
+solldiepartnerinderpartnermiteingeladenwerden=Should the partner be invited?
+aktuellepersonwirklichentfernen=Delete updated person?
+personspeichern=Save person
+zurpersonenliste=To persons List
+zurpersonenuebersicht=To persons overview
+zurueckzurveranstaltung=Back to Event
+zurdublettensuche=To duplicates
+zurckzumsuchergebnis=Back to search results
+diesepersonwurdeerfolgreichzurgaestelistederveranstaltung= This person was successfully added to the guest list.
+hinzugefuegt=added
+diesepersonwurdenichthinzugefuegtdasiebereitsaufdergaestelistesteht=This person was not added, since he/she is already on the guest list.
+diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt=This person is already marked as deleted and will not be shown in search anymore.
+personanlegen=Create person
+eswurdenkeinedublettengefundensiekoennenjetztweiteredateneingebenunddiedatenspeichern=No duplicates were found. You can now input more data and save.
+bittegebensiezunaechstden=Please give
+vorundnachnamen=first and last name
+anundfuhrendiedublettenprufungdurch=and search for duplicates.
+beifirmenwaehlensiediecheckbox=By companies, choose the checkbox
+undtragendanndenfirmennameneindassystempruftihreangabendaraufhinaufdubletten=and input the company name. The system checks your inputs for duplicates.
+liegtkeinedublettevorkoennensieweiteredateneingebenunddiedatenspeichern=There are no duplicates, you can input more data and save.
+geschaeftlich=Business
+privat=Private
+zurueckzurpersonensuche=Back to person search
+zurueck=Back
+dublettenpruefungdurchfuehren=Execute search for duplicates
+zurueckzumsuchergebnis=Back to search results
+personspeicherndublettenpruefung=Save person - Search for duplicates
+neueneintraganlegen=Create new entry
+existierendeneintragbearbeiten=Edit existing entry
+eswurdenkeinedublettengefunden=No duplicates were found.
+hinzufuegen=Add
+ausgewaehltepersonenzurveranstaltunghinzufuegen=Add selected persons to event.
+personerfassen=Record person
+dublettenanlegen=Create duplicates
+abbrechenundzurueck=Cancel and back
+gastsuchenveranstaltung=Search guest - Event
+gastsuchen=Search guest
+verantwortlichenfueraufgabesuchen=Search tasks for responsibles
+verantwortlichenfueraufgabehinzufugen=Add tasks to responsibles
+gastgeberhinzufuegen=Add host
+personensuchegastgeberhinzufugen=Search person: Add person
+gasthinzufuegen=Add guest
+personensuchegasthinzufugen=Search person: Add guest
+personfirma=Person/Company
+weitereangaben=More Tasks
+keinekategoriezugeordnet=No Category was assigned
+keinarbeitsbereichzugeordnet=No workarea assigned
+keinarbeitsbereich=No workarea
+gueltigkeitsdatum=Validity date
+biszudiesemdatum=Till this date
+abdiesemdatum=From this date
+angenaudiesemdatum=On this date
+datumauswaehlen=Select date
+HINT_SEARCH_MULTIPLE=You can search also for multiple categories. To select multiple categories, please click and hold with your mouse and drag it over the categories. Alternatively, you can press the Ctrl button and hold while choosing the desired categories. Please note that both pseudocategories "All" and "None" cannot be selected with other categories.
+waehlensiebittezunaechsteinekategorieaus=Please choose a categorie.
+wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Would you like to assign a categorie to this person (i.e. guest)
+eswurdekeinekategoriezugeordnet=No categories were assigned
+wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen=Would you like to assign this categorie to these persons?
+eswurdenkeinekategorienzugeordnet=No categorie assigned
+eswurdenkeinekategoriengefunden=No categories were found
+wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen=Would you like to delete this person (i.e. guest) from the categorie
+eswurdekeinekategorieentfernt=No categorie was deleted
+wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen=Would you like to delete this person (i.e. guest) from the categorie
+eswurdenkeinekategorienentfernt=No categories were deleted
+zuweisen=assign
+waehlensieeinekategorieauswelchesie=Choose a categorie, where
+moechten=like
+alleentfernen=Delete all
+siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=you have no configured category. These you can define under Administrationsarea
+definieren=.
+siehabenpersonenausgewaehltabhaengigvonderanzahlderausgewaehltenpersonenkanndieaktioneinegewissezeitinanspruchnehmen=You chose persons. Depending on the amount of persons, this action could take a while.
+waehlensiebittezunaechsteinenarbeitsbereichaus=Please, choose a workarea.
+wollensiediesepersonbzwdiesengastdenausgewaehltenarbeitsbereichzuordnen=Would you like to assign the chosen workarea to this person (i.e guest)
+eswurdekeinarbeitsbereichzugeordnet=No workarea was assigned
+wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen=Would you like to assign the chosen workare to these persons (i.e. guests)
+eswurdenkeinearbeitsbereichzugeordnet=no workareas were assigned
+wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben=Would you like to revoke the workarea assignment of this person (i.e. guest)
+eswurdekeinarbeitsbereichaufgehoben=No workarea revoked
+wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Would you like to revoke the selected workarea assignment of the persons (i.e. guests) 
+wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Would you like to assign the selected workarea to this person (i.e. guest)
+wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=Would you like assign the selected workarea to the persons (i.e. guests)
+waehlensieeinenarbeitsbereichauswelchensie=Choose a workarea, which
+siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=You haven't configured any workarea. You can these under Administrationsarea
+administrationallestellvertretungenimmandanten=Administration - all representations in clients
+administrationallestellvertretungen=Administration - all representations
+verwaltungpersoenlichevertretungen=Administration - personal representation
+vertretung=Representation
+markiertevertretungen=Marked substitutions
+loeschen=Delete
+markiertevertretungenloeschen=Delete marked substitute(s)
+gueltigab=valid from
+gueltigbis=valid until
+bitteauswaehlen=Please choose
+gaestelisteerstellenfuerveranstaltungeventshortname=Create guest list for event
+gaesteverwaltungderveranstaltung=Guests management of the event
+gaestelisteerstellen=Create guest list
+ausgabeformatwaehlen=Choose output format
+listenachkategoriengruppiertmitpartner=List grouped by categories - with partner
+listenachkategoriengruppiertmittelundmobiltelefon=List grouped by kategories - with phone and mobile
+listenachkategoriengruppiertmitpartnerundfax=List grouped by categories - with partner and fax
+listenachsortierungmitpartnertelundmobiltelefon=Sorted list - with partner, phone and mobile
+tisch=Table
+zusaetzlichesortierungnach=Additionaly sorted by
+zurueckzurgaesteverwaltung=Back to guest management
+verwaltungallebenutzerimmandanten=Management - all users in Clients
+verwaltungallebenutzer=Management - all users
+markiertenbenutzer=Marked user(s)
+markiertenbenutzerloeschen=Delete marked user(s)
+leseneingeschraenkt=Read only
+lesenuneingeschraenkt=Read only unrestrained
+lesenundschreibeneingeschraenkt=Read and write only
+lesenundschreibenuneingeschraenkt=Read and write unrestrained
+mandantadministrieren=Administrate client
+administrieren=Administrate
+stellvertretung=substitution
+bittewahlensiedierolleausdiesievertretenmochten=Please choose a role you would like to represent
+benutzerrolle=User roles
+vertreten=represent
+statistikfurgastgeber=Statistics for host
+imzeitraumvom=In time frame of
+biszum=Until
+bis=Till
+auswartigesamtintranetstil=Foreigners office Intranet-style
+klickensieeinederaufgelistetenpersonenanumsiederaufgabehinzuzufugen=Klick on a listed person, to add a Task to him.
+eswurdeeinepersongeloscht=A person was deleted
+eswurdekeinepersongeloscht=No person was deleted
+personengelouscht=person deleted.
+derarbeitsbereichwurdeerfolgreichhinzugefugt=The workarea was added successfully.
+diearbeitsbereichewurdenerfolgreichentfernt=The workareas were deleted successfully.
+diekategoriewurdeerfolgreichhinzugefugt=The category was added successfully.
+diekategorienwurdenerfolgreichentfernt=The categories were added successfully.
+siehabenkeineausreichendeberechtigungmpersonenzuentfernen=You have no permission to delete a person.
+wauhlensiebittezunauchsteineodermehrerepersonenaus=Please, choose one or more persons.
+beidenfolgendenpersonenliegtdasgultigkeitsdatuminderzukunft=The Expiry date of these persons is in the future
+folgendepersonensindmindestenseinerlaufendenoderzukumnftigenveranstaltung=The following persons are assigned at least for one current or upcoming event.
+zugeordnetdetailinformationenkoennensieueberdiegaestelistender=For more detailed information, you can check the respective guest list.
+jeweiligenveranstaltungenabrufendiepersonenwerdenausallengastelisten=The persons will be deleted
+folgendepersonensindmindestenseineraufgabeinmindestenseinerlaufendenoder=The following persons are assigned at least a task in at least on current or
+zukunftigenveranstaltungzugeordnetdetailinformationenrufensiebitteuberdie=upcoming event. For more detailed information, please check the
+aufgabenlistenderjeweiligenveranstaltungenaufdiepersonenwerdenausallen=correspondant guest list. The tasks of these persons will otherwise
+aufgabenentfernt=be deleted
+wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab=If you want to adjust your selection, please stop the deletion.
+sollenallemarkiertenpersonengeloeschtwerden=Should all persons be deleted?
+dieseaktionkannnichtrueckgaungiggemachtwerden=This action cannot be undone.
+bittebestaetigensiedasloeschendermarkiertenpersonen=Please confirm the deletion request of the marked persons!
+loeschenvonpersonenistnichtmoeglich=Deletion of persons is not possible
+markiertepersonenzurveranstaltunghinzufuegen=Add marked person(s) to event
+zudieserpersonistkeinehauptpersoneingetragen=No main person ist added to this person.
+diesepersonkannnichtaufreservegesetztwerdendadienotwendigendaten=This person cannot be set to reserve, since the essential data
+nichtvollstaendigerfasstwurden=were not thoroughly entered.
+waehlensiebittezunaechsteineodermehrerepersonenaus=Please, choose one or more persons.
+exportieren=Export
+einladen=Invite
+aufreservesetzen=Set as reserve
+delegationanmelden=Register delegation
+alledemarkiereninklpartnerwenneingeladen=All (un)marked (incl. Partner, if invited)
+arbeitsshybereich=Workarea
+amtsbeshyzeichnung=amtsbezeichnung
+eswurdenkeineeintraegegefunden=No entries were found.
+suchenersetzen=Search & replace
+suchenersetzeninpersonendaten=Search & replace in persons data
+vornamederhauptpersonunddespartners=First name of the main person and his/her partner
+nachnamederhauptpersonunddespartners=Family name of the main person and his/her parnter
+anredetitel=Salutation / Title
+anredeundtitel=Salutation and title
+straszligeadresszusatzundland=Street, additional address and country
+plzortundplzpostfach=Zip code / City and Zip code / Post office box
+telefontelefaxundmobiltelefon=Phone, telefax and mobile
+telefonfax=Phone / Fax
+emailadresse=E-mail Address
+internetadresse=Internet-Addresses
+ihresuchemussausmindestenseinembuchstabenbestehen=Your search fileds must include at least a letter.
+siemuessenmindestenseinfeldausgewhlthaben=You should select a field at least.
+eswurdekeinepersonersetzt=No person was replaced.
+eswurdeeinepersonersetzt=One person was replaced.
+personenersetzt=Persons replaced.
+siemuessenmindestenseinfeldausgewaehlthaben=You should select at least one field.
+eswurdekeinepersongefunden=No persons were found.
+eswurdeeinepersongefunden=One person was found.
+personengefunden=Persons found.
+einzelneeinzraegezumersetzenselektieren=Singular entries were selected for replacing
+allesofortersetzen=Replace all immediately
+wennsiedenplatzhalterverwendenwerdenauchteilstueckeersetztsonstnurvollstaendigedatenfelder=If you use the placeholder *, sections will also be replaced, otherwise only complete datafields.
+siemuessendasdatumdeszeitrahmensimformatttmmjjjjangeben=You should input a date in the DD.MM.JJJJ format
+markierteanredenloschen=Delete marked salutation(s)
+markiertendokumenttypenloschen=Delete marked document type(s)
+markierteveranstaltungsorteloschen=Delete marked event location(s)
+markiertevorlagenloschen=Delete marked attachements
 keinedateigefunden=No file found.
 standardauswahlderselectboxbdquozeichensatzrdquo=Default selection "character set"
 zusaetzlichefelder=additional fields
