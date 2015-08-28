@@ -221,7 +221,7 @@ WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, S
 WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO=Weiterhin k\u00F6nnen Sie mandantenspezifische Einstellungen einsehen und bearbeiten.
 WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
 WELCOME_TEXT_GRANT_ADMIN_PART_TWO=Weiterhin k\u00F6nnen Sie mandantenspezifische und globale Einstellungen einsehen und bearbeiten.
-WELCOME_TEXT_HELP=Sollten Sie weitere Informationen ben\u00C3\u00B6tigen, finden Sie diese auf der Seite \u00E2\u0080\u009EHilfe\u00E2\u0080\u009C.
+WELCOME_TEXT_HELP=Sollten Sie weitere Informationen ben\u00F6tigen, finden Sie diese auf der Seite \u201EHilfe\u201C.
 WELCOME_TEXT_NO_ROLE=Zu Ihrer Anmeldung existieren keine Rollen, unter denen Sie in VerA.web agieren k\u00F6nnen. Bitte melden Sie sich ab und mit einer Benutzer- oder Rollenkennung erneut an, die in VerA.web nutzbar ist.
 GENERIC_AVAILABLE_DUPLICATES=Vorhandene Dubletten
 
@@ -343,12 +343,12 @@ GENERIC_STANDARD_TABULATOR_CHOICE=Standard Auswahl von Tabulatoren
 GENERIC_MAIN_TABS=Haupttabs
 GENERIC_PERSONS_DATA=Personendaten
 GENERIC_MAILING_ADDRESSES=Anschriften
-GENERIC_SUBTABS_OF_PERSONS_DATA=Subtabs von \u00E2\u0080\u009EPersonendaten\u00E2\u0080\u009C
+GENERIC_SUBTABS_OF_PERSONS_DATA=Subtabs von \u201EPersonendaten\u201C
 GENERIC_MAIN_PERSON=Hauptperson
 GENERIC_PARTNER=Partner
-GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subtabs von \u00E2\u0080\u009EAnschriften\u00E2\u0080\u009C
+GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subtabs von \u201EAnschriften\u201C
 GENERIC_BUSINESS=Gesch\u00E4ftlich
-GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Standard Auswahl der Selectbox \u00E2\u0080\u009EZeichensatz\u00E2\u0080\u009C
+GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Standard Auswahl der Selectbox \u201EZeichensatz\u201C
 GENERIC_CHARSET=Zeichensatz
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Standard-Anreden und Freitextfelder
 GENERIC_STANDARD_SALUTATION=Standard-Anrede
@@ -510,7 +510,7 @@ GENERIC_DOCUMENTED_ON=Erfasst am
 GENERIC_LAST_EDITED_ON=Zuletzt ge\u00E4ndert am
 GENERIC_PERSONS_ID=Personen-ID
 GENERIC_OA_USERNAME=Online-Anmeldung Benutzername
-freifeld-vorschaufuretikett="Freifeld-Vorschau f\u00C3\u00BCr \u00E2\u0080\u009EEtikett\u00E2\u0080\u009C"
+freifeld-vorschaufuretikett=Freifeld-Vorschau f\u00FCr \u201EEtikett\u201C
 zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
 GENERIC_COPY_PERSON=Person kopieren
 GENERIC_CREATE_TAG=Etikett erzeugen
@@ -631,7 +631,7 @@ HINT_EXPORT_ZKM=Die Exportdatei wird sowohl im ZKM-Ausgangsordner abgelegt als a
 HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Es werden nur die Felder aus den Karteireitern "Personendaten", "Anschriften", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSVPERSDATA_DOCTYPE=Es werden nur die Felder aus den Karteireitern "Personendaten", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Es werden nur die Felder aus den Karteireitern "Personendaten", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern "Personendaten", "Kategorien" und deren untergeordneten\u0009Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern "Personendaten", "Kategorien" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSV_ISO_8859_15=Dieses Format ist f\u00FCr Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
@@ -1013,9 +1013,9 @@ vermutlichbefindetsichdieimportdateinichtimvomsystemerwartemformat=Vermutlich be
 detailsanzeigen=Details anzeigen
 beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden=Beim Import k\u00F6nnen Feldinhalte, die l\u00E4nger als bei VerA.web vorgesehen sind, gek\u00FCrzt \u00FCbernommen werden.
 alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden=Alle Dokumenttypen der zu importierenden Personen m\u00FCssen im System vorhanden sein. Soll der Import jetzt gestartet werden?
-umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=Um Dubletten speicherbar zu machen, m\u00C3\u00BCssen sie zun\u00C3\u00A4chst im Bereich \u00E2\u0080\u009Evorhandene Dubletten\u00E2\u0080\u009C \u00C3\u00BCbernommen werden.
+umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=Um Dubletten speicherbar zu machen, m\u00FCssen sie zun\u00E4chst im Bereich \u201Evorhandene Dubletten\u201C \u00FCbernommen werden.
 HINT_UMLAUT_COMPARISON=Beachten Sie, dass \u00E4 mit ae, \u00F6 mit oe, \u00FC mit ue und \u00DF mit ss verglichen wird.
-derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=Der Import ist erst beendet, wenn der Button \u00E2\u0080\u009EImport abschlie\u00C3\u009Fen\u00E2\u0080\u009C geklickt wurde.
+derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=Der Import ist erst beendet, wenn der Button \u201EImport abschlie\u00DFen\u201C geklickt wurde.
 derimportkannerstabgeschlossenwerdenwennspeicherbaredatensatzevorhandensind=Der Import kann erst abgeschlossen werden, wenn speicherbare Datens\u00E4tze vorhanden sind.
 vorhandenedubletten=Vorhandene Dubletten
 vorhandenedublettenbearbeiten=Vorhandene Dubletten bearbeiten
@@ -1249,7 +1249,7 @@ markiertendokumenttypenloschen=Markierte Dokumenttyp(en) l\u00F6schen
 markierteveranstaltungsorteloschen=Markierte Veranstaltungsorte l\u00F6schen
 markiertevorlagenloschen=Markierte Vorlagen l\u00F6schen
 keinedateigefunden=Keine Datei gefunden.
-standardauswahlderselectboxbdquozeichensatzrdquo=Standard Auswahl der Selectbox \u00E2\u0080\u009EZeichensatz\u00E2\u0080\u009C
+standardauswahlderselectboxbdquozeichensatzrdquo=Standard Auswahl der Selectbox \u201EZeichensatz\u201C
 zusaetzlichefelder=Zus\u00E4tzliche Felder
 postausgang=Postausgang
 beimversendendieseremailisteinfehleraufgetreten=Beim Versenden dieser E-Mail ist ein Fehler aufgetreten.
@@ -1371,7 +1371,7 @@ MESSAGE_PROXY_NO_REPRESENTATIVE=Sie m\u00FCssen eine Vertreter eingeben.
 MESSAGE_PROXY_NO_ROLE=Sie m\u00FCssen einen Rolle eingeben.
 MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=Der Beginn der Vertretung muss vor dem Ende liegen.
 MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG=Die Zuordnung einer Funktion/Amtsbezeichnung zu einer Veranstaltung ist fehlerhaft.
-MESSAGE_FUNCTION_MISSING_NAME=Sie m\u00fcssen der Funktion einen Namen geben.
+MESSAGE_FUNCTION_MISSING_NAME=Sie m\u00FCssen der Funktion einen Namen geben.
 MESSAGE_GUEST_DOCTYPE_CITYNAME_MAX_LENGTH=Der Name der Stadt darf maximal 100 Zeichen lang sein.
 MESSAGE_GUEST_DOCTYPE_COMPANYNAME_MAX_LENGTH=Der Name der Firma darf maximal 250 Zeichen lang sein.
 MESSAGE_GUEST_DOCTYPE_COUNTRYNAME_MAX_LENGTH=Der Name des Landes darf maximal 100 Zeichen lang sein.
@@ -1396,7 +1396,7 @@ MESSAGE_GUEST_DOCTYPE_TITLE_MAX_LENGTH=Die Titelbezeichnung darf maximal 250 Zei
 MESSAGE_GUEST_DOCTYPE_TITLEPARTNER_MAX_LENGTH=Die Titelbezeichnung des Partners darf maximal 250 Zeichen lang sein.
 MESSAGE_GUEST_DOCTYPE_URL_MAX_LENGTH=Die WWW URL darf maximal 250 Zeichen lang sein.
 MESSAGE_GUEST_DOCTYPE_ZIP_MAX_LENGTH=Die Postleitzahl darf maximal 50 Zeichen lang sein.
-MESSAGE_USER_MISSING_ROLE=Sie m\u00fcssen eine Benutzerrollenbezeichnung eingeben.
+MESSAGE_USER_MISSING_ROLE=Sie m\u00FCssen eine Benutzerrollenbezeichnung eingeben.
 
 # EVENT LIST TEXTS
 EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Mindestens eine markierte Veranstaltung l\u00E4uft aktuell oder liegt in der Zukunft.
@@ -1429,7 +1429,7 @@ GUEST=Gast
 GENERIC_OF=von
 
 
-TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \U00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den \u0022Bearbeiten\u0022-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
+TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \U00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den "Bearbeiten"-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
 GENERIC_NEXT_PAGE=N\u00E4chste Seite
 GENERIC_PREVIOUS_PAGE=Vorherige Seite
 GENERIC_APPLY_TO_GUESTLIST=In G\u00E4steliste \u00FCbernehmen
@@ -1451,11 +1451,11 @@ bittebestatigensiedasloschendermarkiertengasteliste=Bitte best\u00E4tigen Sie da
 GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00F6scht.
 
 
-EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf \u0022Auf Stammdaten zur\u00FCcksetzen\u0022.
+EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf "Auf Stammdaten zur\u00FCcksetzen".
 
-diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00FCber den Men\u00FCpunkt Administration \u003E Programmeinstellungen m\u00F6glich.
-            
-GENERIC_CHOSEN_GUESTLIST=Ausgew\u00E4hlte G\u00E4ste            
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00FCber den Men\u00FCpunkt Administration > Programmeinstellungen m\u00F6glich.
+
+GENERIC_CHOSEN_GUESTLIST=Ausgew\u00E4hlte G\u00E4ste
 exportierfahigegasteliste=Exportierf\u00E4hige G\u00E4ste
 unvollstandigegasteliste=Unvollst\u00E4ndige G\u00E4ste
 
@@ -1495,10 +1495,10 @@ GUEST_DETAIL_PARTNER=dem Partner
 GUEST_DETAIL_PARTNER_GENITIV=des Partners
 GUEST_DETAIL_MAINPERSON=der Hauptperson
 
-GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Bitte \u00E4ndern Sie erst den Sitzplatz bei 
-GUEST_DETAIL_DUP_SEAT_ERROR_TWO=von 
-GUEST_DETAIL_DUP_SEAT_ERROR_THREE=\u00FCber die G\u00E4steliste. Diese Person sitzt aktuell auf 
-GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=dem eingegebenen Sitzplatz 
+GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Bitte \u00E4ndern Sie erst den Sitzplatz bei
+GUEST_DETAIL_DUP_SEAT_ERROR_TWO=von
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=\u00FCber die G\u00E4steliste. Diese Person sitzt aktuell auf
+GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=dem eingegebenen Sitzplatz
 GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Die \u00C4nderung wurde nicht gespeichert.
 
 # GUEST TEXTS
@@ -1509,11 +1509,11 @@ MAILING_LIST_NO_ADDRESSES=Das Anlegen eines neuen Verteilers ist fehlgeschlagen,
 
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=Einzuf\u00FCgender Mandant darf keine ID haben
-ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Einzuf\u00FCgender Mandant 
+ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Einzuf\u00FCgender Mandant
 ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO=existiert bereits.
-ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Zu aktualisierender Mandant 
+ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Zu aktualisierender Mandant
 ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= mu\u00DF eine ID haben
-ORG_UNIT_MANDANT_EXISTS_ONE=Ein Mandant mit Namen 
+ORG_UNIT_MANDANT_EXISTS_ONE=Ein Mandant mit Namen
 ORG_UNIT_MANDANT_EXISTS_TWO=existiert bereits.
 
 # PERSON CATEGORIES TEXTS
@@ -1602,10 +1602,10 @@ STATS_COLUMN_EVENTS=Veranstaltungen
 STATS_NOT_INVITED=nicht eingeladen
 
 # USER LIST TEXTS
-USER_LIST_WARN_MANDANT_ONE=Einzuf\u00FCgender Benutzer ist bereits dem Mandanten 
+USER_LIST_WARN_MANDANT_ONE=Einzuf\u00FCgender Benutzer ist bereits dem Mandanten
 USER_LIST_WARN_MANDANT_TWO= zugeordnet.
 USER_LIST_WARN_ALREADY_USER=Einzuf\u00FCgender Benutzer ist bereits VerA.web zugeordnet.
-USER_LIST_WARN_NO_ID=Einzuf\u00fcgender Benutzer darf keine ID haben
+USER_LIST_WARN_NO_ID=Einzuf\u00FCgender Benutzer darf keine ID haben
 
 # WORKAREA TEXTS
 WORKAREA_ERROR_INCORRECT_NAME_ONE=Der Arbeitsbereich mit dem Namen '
@@ -1637,7 +1637,7 @@ GENERIC_PLEASE_WAIT_HEADER=Bitte warten...
 GENERIC_PLEASE_WAIT_MESSAGE=Dieser Vorgang kann einen Moment dauern.
 
 # WORK AREA (Bean) TEXTS
-WORKAREA_ERROR_MISSING_NAME=Der Arbeitsbereich ben\u00f6tigt einen eindeutigen Namen.
+WORKAREA_ERROR_MISSING_NAME=Der Arbeitsbereich ben\u00F6tigt einen eindeutigen Namen.
 
 
 zurpersonensuche=Zur Personensuche
@@ -1646,7 +1646,7 @@ dokumenttypauswahlen=Dokumenttyp ausw\u00E4hlen
 EVENT_NO_DOCTYPES_ASSIGNED=Der Veranstaltung wurden noch keine Dokumenttypen zugeordnet
 
 # DATE HELPER TEXTS
-DATE_HELPER_INCORRECT_DATE= ist kein g\u00fcltiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!
+DATE_HELPER_INCORRECT_DATE= ist kein g\u00FCltiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!
 
 #WIP
 GENERIC_SHOW_CURRENT_EVENTS=Aktuelle Veranstaltungen anzeigen
@@ -1674,7 +1674,7 @@ GENERIC_NO_GUEST_FOUND=Kein Gast gefunden
 GENERIC_PHONE_NUMBER_SHORT=Telefonnr.
 GENERIC_FAX_NUMBER_SHORT=Faxnr.
 
-GENERIC_MONTH_YEAR=Monat\u2215Jahr
+GENERIC_MONTH_YEAR=Monat/Jahr
 GENERIC_LOOK_AT=anschauen
 GENERIC_MOBILE_PHONE=Mobiltelefon
 

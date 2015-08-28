@@ -290,18 +290,18 @@ GENERIC_TO=Para
 GENERIC_SUBJECT=Asunto
 GENERIC_ERROR=Error
 e-mails=E-Mails
-GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE=Combinar error técnicoTechnische Fehlermeldung einblenden
-GENERIC_ERROR_DESCRIPTION=Descripción del error
+GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE=Combinar error t\u00E9cnicoTechnische Fehlermeldung einblenden
+GENERIC_ERROR_DESCRIPTION=Descripci\u00F3n del error
 
 # ADMINISTRATION/E-MAIL-VORLAGEN
-e-mail-vorlagen=Plantillas de correo electrónico
+e-mail-vorlagen=Plantillas de correo electr\u00F3nico
 GENERIC_MARKED_TEMPLATES_PP=Plantilla(s) seleccionada(s)
 GENERIC_INSERT_NEW_TEMPLATES=Crear nueva plantilla
 GENERIC_TEMPLATE_NAME=Nombre de la plantilla
 eswurdeeineneuevorlageangelegt=Nueva plantilla creada satisfactoriamente.
 GENERIC_TEXT=Texto
 GENERIC_PLACEHOLDER=Identificador
-GENERIC_ADD=Añadir
+GENERIC_ADD=A\u00F1adir
 GENERIC_BACK_TO_TEMPLATES_LIST=Volver al listado de plantillas
 
 # ADMINISTRATION/FARBEN
@@ -311,17 +311,17 @@ LETTERS_CHROMATICITY=R G B
 
 # ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
 markiertebezeichnung=Denominaciones seleccionadas
-GENERIC_LABELLING=Denominación
-eswurdeeineneuefunktion/amtsbezeichnungangelegt=Se ha creado una nueva función/denominación.
-eswurdeeinefunktion/amtsbezeichnunggeloscht=Se ha eliminado una función/denominación.
+GENERIC_LABELLING=Denominaci\u00F3n
+eswurdeeineneuefunktion/amtsbezeichnungangelegt=Se ha creado una nueva funci\u00F3n/denominaci\u00F3n.
+eswurdeeinefunktion/amtsbezeichnunggeloscht=Se ha eliminado una funci\u00F3n/denominaci\u00F3n.
 
 # ADMINISTRATION/KATEGORIEN
-GENERIC_CATEGORY_PLURAL=Categorías
-markiertekategorie=Categoría(s) seleccionada(s)
+GENERIC_CATEGORY_PLURAL=Categor\u00EDas
+markiertekategorie=Categor\u00EDa(s) seleccionada(s)
 GENERIC_MARK_LONG=Clase
 GENERIC_RANK=Rango
 GENERIC_EVENTS_PP=Evento(s)
-GENERIC_CATEGORY_SINGULAR=Categoría
+GENERIC_CATEGORY_SINGULAR=Categor\u00EDa
 GENERIC_OCCASION=Suceso
 
 # ADMINISTRATION/MANDANTEN
@@ -330,7 +330,7 @@ markierte(n)mandanten=Mandante(s) seleccionado(s)
 GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Datos de mandantes no asociados
 personen=Personas
 GENERIC_IMPORT_PROCEDURES=Importar procesos
-veranstaltungorte=Localización del evento
+veranstaltungorte=Localizaci\u00F3n del evento
 GENERIC_IMPORT_PERSONS=Importar personas
 GENERIC_DISTRIBUTOR_SINGULAR=Distribuidor
 GENERIC_USER=Usuario
@@ -338,25 +338,25 @@ GENERIC_ASSIGN_CLIENTS=Asignar mandantes
 GENERIC_CLIENT_SINGULAR=Mandante
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
-programeinstellungen=Configuración del sistema
-GENERIC_STANDARD_TABULATOR_CHOICE=Elección estándar mediante tabulaciones
-GENERIC_MAIN_TABS=Pestañas principales
+programeinstellungen=Configuraci\u00F3n del sistema
+GENERIC_STANDARD_TABULATOR_CHOICE=Elecci\u00F3n est\u00E1ndar mediante tabulaciones
+GENERIC_MAIN_TABS=Pesta\u00F1as principales
 GENERIC_PERSONS_DATA=Datos de personas
 GENERIC_MAILING_ADDRESSES=Direcciones
-GENERIC_SUBTABS_OF_PERSONS_DATA=Subpestañas de \u00E2\u0080\u009EDatos de personas\u00E2\u0080\u009C
+GENERIC_SUBTABS_OF_PERSONS_DATA=Subpesta\u00F1as de \u00E2\u0080\u009EDatos de personas\u00E2\u0080\u009C
 GENERIC_MAIN_PERSON=Persona principal
 GENERIC_PARTNER=Partner
-GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subpestañas de \u00E2\u0080\u009EDirecciones\u00E2\u0080\u009C
+GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subpesta\u00F1as de \u00E2\u0080\u009EDirecciones\u00E2\u0080\u009C
 GENERIC_BUSINESS=Negocio
-GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Elección estándar sobre el selector de \u00E2\u0080\u009Echarset\u00E2\u0080\u009C
+GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Elecci\u00F3n est\u00E1ndar sobre el selector de \u00E2\u0080\u009Echarset\u00E2\u0080\u009C
 GENERIC_CHARSET=Conjunto de caracteres
-GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Denominaciones estándar y campos de texto libre
-GENERIC_STANDARD_SALUTATION=Denominación estándar
-GENERIC_STANDARD_SALUTATION_PARTNER=Demoninación estándar del partner
+GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Denominaciones est\u00E1ndar y campos de texto libre
+GENERIC_STANDARD_SALUTATION=Denominaci\u00F3n est\u00E1ndar
+GENERIC_STANDARD_SALUTATION_PARTNER=Demoninaci\u00F3n est\u00E1ndar del partner
 GENERIC_FREE_TEXT_FIELD=Campo de texto libre
 GENERIC_FREE_TEXT_FIELDS=Campos de texto libre
-GENERIC_FREE_TEXT_FIELD_CONNECTOR=Conexión de campo de texto libre
-GENERIC_SHOW=Visualización
+GENERIC_FREE_TEXT_FIELD_CONNECTOR=Conexi\u00F3n de campo de texto libre
+GENERIC_SHOW=Visualizaci\u00F3n
 GENERIC_HELP=Ayuda
 GENERIC_HELP_LINK=Enlace de ayuda
 GENERIC_HELP_WINDOW=Ventana de ayuda
@@ -367,20 +367,20 @@ GENERIC_MISCELLANEOUS=Otros
 GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
 GENERIC_PROTOCOL_TIME_CHANGE=Historial de cambios
 GENERIC_PROTOCOL_COMMISIONING_TIME=Intervalo del registro de datos
-HINT_GIVE_THE_RETENTION_PERIOD=Indique el período de retención
-GENERIC_YEARS=Años
+HINT_GIVE_THE_RETENTION_PERIOD=Indique el per\u00EDodo de retenci\u00F3n
+GENERIC_YEARS=A\u00F1os
 GENERIC_MONTHS=Meses
-GENERIC_DAYS=Días
-GENERIC_MAILING_ADDRESS_BUSINESS=Dirección de trabajo
-GENERIC_MAILING_ADDRESS_PRIVATE=Dirección privada
+GENERIC_DAYS=D\u00EDas
+GENERIC_MAILING_ADDRESS_BUSINESS=Direcci\u00F3n de trabajo
+GENERIC_MAILING_ADDRESS_PRIVATE=Direcci\u00F3n privada
 GENERIC_MAILING_ADDRESS_OTHERS=Otras direcciones
 GENERIC_LABELLING_LATIN=Conjunto de caracteres latinos
 GENERIC_LABELLING_ALTERNATIVE=Conjunto de caracteres alternativo
-GENERIC_ADDRESS_ADDITIONAL=Dirección adicional
+GENERIC_ADDRESS_ADDITIONAL=Direcci\u00F3n adicional
 
 # ADMINISTRATION/REPORTS
-GENERIC_REPORTS=Resúmenes
-MESSAGE_WAITING_MESSAGE_LOG_REPORT=Dependiendo del período de tiempo seleccionado y la cantidad de datos, la generación del informe puede tardar más tiempo de lo normal. Por favor, mantenga la paciencia hasta el final del proceso.
+GENERIC_REPORTS=Res\u00FAmenes
+MESSAGE_WAITING_MESSAGE_LOG_REPORT=Dependiendo del per\u00EDodo de tiempo seleccionado y la cantidad de datos, la generaci\u00F3n del informe puede tardar m\u00E1s tiempo de lo normal. Por favor, mantenga la paciencia hasta el final del proceso.
 GENERIC_DATE_BEGIN=Fecha de inicio
 GENERIC_DATE_END=Fecha de fin
 GENERIC_BACKUP_FIEDS=Reiniciar campos
@@ -390,8 +390,8 @@ GENERIC_GENERATE_REPORT=Generar resumen
 GENERIC_REPRESENTATIVES=Delegados
 GENERIC_AVAILABILITY_FILTER=Filtro de disponibilidad
 GENERIC_REPRESENTATIVES_ALL=Todos los delegados
-GENERIC_NO_REPRESENTATION_EXPIRED=Ninguna representación pasada
-GENERIC_ONLY_CURRENT_REPRESENTATIONS=Sólo representaciones actuales
+GENERIC_NO_REPRESENTATION_EXPIRED=Ninguna representaci\u00F3n pasada
+GENERIC_ONLY_CURRENT_REPRESENTATIONS=S\u00F3lo representaciones actuales
 GENERIC_ROLE=Rol
 GENERIC_REPRESENTATIVE=Representante
 gultigab=Disponible a partir de
@@ -400,86 +400,86 @@ GENERIC_NO_DATA_FOUND=No se han encontrado datos
 
 # ADMINISTRATION/VERANSTALTUNGSORTE
 markierte=Localizaciones de eventos seleccionadas
-GENERIC_ADD_NEW_EVENT_LOCATIONS=Crear nueva localización para evento
+GENERIC_ADD_NEW_EVENT_LOCATIONS=Crear nueva localizaci\u00F3n para evento
 GENERIC_ID=ID
 GENERIC_CONTACT_PERSON=Persona de contacto
-GENERIC_TELEFON=Teléfono
+GENERIC_TELEFON=Tel\u00E9fono
 GENERIC_FAX=Fax
 e-mail=E-Mail
 GENERIC_REMARK=Observaciones
 GENERIC_URL=Enlace
-gps-daten=Datos de localización (GPS)
-GENERIC_ROOM_NUMBER=Número de sala
-EVENT_PLACES_CONFIRM_DELETE=Por favor, confirme la eliminación de las localizaciones del evento
+gps-daten=Datos de localizaci\u00F3n (GPS)
+GENERIC_ROOM_NUMBER=N\u00FAmero de sala
+EVENT_PLACES_CONFIRM_DELETE=Por favor, confirme la eliminaci\u00F3n de las localizaciones del evento
 
 # VERWALTUNG/EINSTELLUNGEN
-GENERIC_MANAGEMENT=Gestión
+GENERIC_MANAGEMENT=Gesti\u00F3n
 GENERIC_OPTIONS=Ajustes
-GENERIC_SUBTABS_OF=Subpestañas de
+GENERIC_SUBTABS_OF=Subpesta\u00F1as de
 GENERIC_PERSONAL_DETAILED_VIEW=Vista detalle de personas
 GENERIC_LIST_OF_GUESTS=Lista de invitados
 zusatzlichefelder=Campos adicionales
-GENERIC_FUNCTION_SINGULAR=Función
-GENERIC_POSTNUMBER_AND_CITY=Código postal / Ciudad
+GENERIC_FUNCTION_SINGULAR=Funci\u00F3n
+GENERIC_POSTNUMBER_AND_CITY=C\u00F3digo postal / Ciudad
 GENERIC_LIST_OF_PERSONS=Lista de personas
 GENERIC_FEDERAL_STATE=Provincia
-MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=La configuración se ha guardado satisfactoriamente.
+MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=La configuraci\u00F3n se ha guardado satisfactoriamente.
 
 # VERWALTUNG/VERTRETUNGEN
 GENERIC_REPRESENTATIVE_PLURAL=Representaciones
 markiertevertretung=Representaciones seleccionadas
 GENERIC_DELETE=Eliminar
 GENERIC_NEW=Nuevo
-eswurdeeineneuevertretungangelegt=Se ha creado una nueva representación
-eswurdeeinevertretunggeloscht=Se ha eliminado una representación
+eswurdeeineneuevertretungangelegt=Se ha creado una nueva representaci\u00F3n
+eswurdeeinevertretunggeloscht=Se ha eliminado una representaci\u00F3n
 siemuseneinevertretereingeben=Debe seleccionar un representante
 derbeginndervertretungmusvordemendeliegen=La fecha de inicio debe ser anterior a la fecha final
 MESSAGE_REPORT_NUMBER_PART_1=Se han eliminado
 vertretungengeloscht=representaciones
 # VERWALTUNG/INFO
-GENERIC_INFO=Información
+GENERIC_INFO=Informaci\u00F3n
 GENERIC_INFORMATION_ABOUT_VERAWEB=Acerca de VerA.web
 veraweb=VerA.web
-GENERIC_VERSION=Versión
-build=Compilación
-GENERIC_BUILD_NUMBER=Número de compilación
-GENERIC_BUILD_TIME=Tiempo de compilación
+GENERIC_VERSION=Versi\u00F3n
+build=Compilaci\u00F3n
+GENERIC_BUILD_NUMBER=N\u00FAmero de compilaci\u00F3n
+GENERIC_BUILD_TIME=Tiempo de compilaci\u00F3n
 GENERIC_DATABASE=Base de datos
 GENERIC_LOGIN=Login
 GENERIC_GROUPS=Grupos
 GENERIC_NOT_AVAILABLE=No disponible
 
 # ALLGEMEIN
-GENERIC_YOU_ARE_HERE=Usted se encuentra aquí
+GENERIC_YOU_ARE_HERE=Usted se encuentra aqu\u00ED
 GENERIC_HOME=Inicio
 
 # TABELLEN
 GENERIC_DATE=Fecha
-GENERIC_WORKAREA_SINGULAR=Área de trabajo
+GENERIC_WORKAREA_SINGULAR=\u00C1rea de trabajo
 GENERIC_LASTNAME=Apellido
 GENERIC_FIRSTNAME=Nombre
-akwritemtsbezeichnung=Título
-GENERIC_COMPANY_INSTITUTION=Empresa / Institución
+akwritemtsbezeichnung=T\u00EDtulo
+GENERIC_COMPANY_INSTITUTION=Empresa / Instituci\u00F3n
 GENERIC_STREET=Calle
-GENERIC_POST_NUMBER=Código postal
+GENERIC_POST_NUMBER=C\u00F3digo postal
 GENERIC_CITY=Ciudad
 GENERIC_MARKED_PERSONS_PP=Persona(s) seleccionada(s)
 expotieren=Exportar
-GENERIC_ASSIGN_CATEGORIES=Asignar categorías
-GENERIC_REMOVE_CATEGORIES=Eliminar categorías
-GENERIC_ASSING_WORKAREA=Asignar áreas de trabajo
-GENERIC_REMOVE_WORKAREA=Eliminar áreas de trabajo
+GENERIC_ASSIGN_CATEGORIES=Asignar categor\u00EDas
+GENERIC_REMOVE_CATEGORIES=Eliminar categor\u00EDas
+GENERIC_ASSING_WORKAREA=Asignar \u00E1reas de trabajo
+GENERIC_REMOVE_WORKAREA=Eliminar \u00E1reas de trabajo
 GENERIC_EXECUTE=Aplicar
-personenanzahlproseite=Personas | Personen | Total por página
+personenanzahlproseite=Personas | Personen | Total por p\u00E1gina
 GENERIC_ALL=Todas
-seite=Página
+seite=P\u00E1gina
 GENERIC_PAGE=Fecha de nacimiento
 GENERIC_PLACE_OF_BIRTH=Lugar de nacimiento
 GENERIC_NATIONALITY=Nacionalidad
-GENERIC_CITIZENSHIP=Ciudadanía
+GENERIC_CITIZENSHIP=Ciudadan\u00EDa
 GENERIC_LANGUAGES=Idiomas
-GENERIC_HINT_FOR_HOST=Aviso para el anfitrión
-GENERIC_ACCOUNT_OPENING_DATE=Fecha de acreditación
+GENERIC_HINT_FOR_HOST=Aviso para el anfitri\u00F3n
+GENERIC_ACCOUNT_OPENING_DATE=Fecha de acreditaci\u00F3n
 GENERIC_AT=a las
 GENERIC_OCLOCK=horas
 GENERIC_ORIGIN_DATA=Origen de los datos
@@ -488,14 +488,14 @@ GENERIC_PERSON_SINGULAR=Persona
 # DATEITYP
 csv=CSV (Comma-Separated-Values)
 xml=XML (VerA.web-XML)
-zkm=ZKM (VerA.web-XML sobre el módulo central de comunicación)
+zkm=ZKM (VerA.web-XML sobre el m\u00F3dulo central de comunicaci\u00F3n)
 madlan-personen=MAdLAN-Personas (MAdLAN-Importar-Personas)
 madlan-firmen=MAdLAN-Empresas (MAdLAN-Importar-Empresas)
 x-manage-csv=X-Manage-CSV (X-Manage Contactos)
 csvpersdatanschriftdoktyp=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
 csvpersdatdoktyp=CSVPersdat+Doktyp (Comma-Separated-Values)
 csvpersdatdoktyp10=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
-csvpersdatkategorien=CSVPersdat+Categorías (Comma-Separated-Values)
+csvpersdatkategorien=CSVPersdat+Categor\u00EDas (Comma-Separated-Values)
 csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 
 # PERSONEN/PERSONENUEBERSICHT
@@ -507,16 +507,16 @@ GENERIC_PERSONS_DELETED=Personas eliminadas
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN
 GENERIC_EDIT_PERSON=Editar persona
 GENERIC_DOCUMENTED_ON=Documentado el 
-GENERIC_LAST_EDITED_ON=Última edición el 
+GENERIC_LAST_EDITED_ON=\u00DAltima edici\u00F3n el 
 GENERIC_PERSONS_ID=Identificador de personas
-GENERIC_OA_USERNAME=Nombre de usuario para aplicación en línea
+GENERIC_OA_USERNAME=Nombre de usuario para aplicaci\u00F3n en l\u00EDnea
 freifeld-vorschaufuretikett="Campo de vista previa para \u00E2\u0080\u009EEtiqueta\u00E2\u0080\u009C"
 zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Para esta persona, la vista previa correspondiente no ha sido generada.
 GENERIC_COPY_PERSON=Copiar persona
 GENERIC_CREATE_TAG=Crear etiqueta
 GENERIC_ASSIGN_AN_EVENT=Asignar un evento
 GENERIC_DELETE_PERSON=Eliminar persona
-GENERIC_STATISTIC=Estadísticas
+GENERIC_STATISTIC=Estad\u00EDsticas
 ausstammdatenhinzufugen=Obtener de los datos maestros
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
@@ -524,21 +524,21 @@ GENERIC_DOCUMENT_TYPE_SINGULAR=Tipo de documento
 GENERIC_GENERATE_ALL=Generar todos
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
-GENERIC_CATEGORIES_AND_OCCASIONS=Categorías y sucesos
+GENERIC_CATEGORIES_AND_OCCASIONS=Categor\u00EDas y sucesos
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/STATISTIK
 ubersichtuberalleveranstaltungeneinesgastes=Lista de todos los eventos por invitado
 GENERIC_VIEW_OVER_GUEST_EVENT=Desde
-statistikfurgast=Estadísticas para invitado
+statistikfurgast=Estad\u00EDsticas para invitado
 GENERIC_EVENT=Evento
 GENERIC_BEGIN=Comienzo
 
 # PERSONEN/PERSONENSUCHE
-GENERIC_SEARCH_PERSON=Búsqueda de personas 
-GENERIC_SEARCH=Búsqueda
+GENERIC_SEARCH_PERSON=B\u00FAsqueda de personas 
+GENERIC_SEARCH=B\u00FAsqueda
 GENERIC_VALIDITY_DATE=Fecha de disponibilidad
-GENERIC_ADVANCED_SEARCH=Búsqueda avanzada
-HINT_PLACEHOLDER=Aviso: Puede utilizar comodines para su búsqueda. El asterisco (*) se utilizará para búsqueda plural, así como el símbolo de interrogación(?) para búsqueda individual. La búsqueda se realizará mediante nombre, apellido, ciudad, código postal, calle, Empresa/Institución, teléfono, fax, teléfono móvil, correo electrónico, observaciones, categorías, área de trabajo y función/título.
+GENERIC_ADVANCED_SEARCH=B\u00FAsqueda avanzada
+HINT_PLACEHOLDER=Aviso: Puede utilizar comodines para su b\u00FAsqueda. El asterisco (*) se utilizar\u00E1 para representar n\u00FAmeros, as\u00ED como el s\u00EDmbolo de interrogaci\u00F3n(?) para caracteres individuales. La b\u00FAsqueda se realizar\u00E1 mediante nombre, apellido, ciudad, c\u00F3digo postal, calle, Empresa/Instituci\u00F3n, tel\u00E9fono, fax, tel\u00E9fono m\u00F3vil, correo electr\u00F3nico, observaciones, categor\u00EDas, \u00E1rea de trabajo y funci\u00F3n/t\u00EDtulo.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=Datos de acceso guardados satisfactoriamente.
@@ -546,71 +546,71 @@ MESSAGE_OSIAM_LOGIN_DATA_EXIST=Ya existen datos de acceso para esta persona.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Empresa
-GENERIC_SALUTATION_SINGULAR=Denominación
+GENERIC_SALUTATION_SINGULAR=Denominaci\u00F3n
 frau=Sra.
 herr=D.
 lady=Srta.
 sir=Sr.
 GENERIC_PLEASE_CHOOSE=Por favor, seleccione
-GENERIC_ACAD_TITLE=Título académico
-GENERIC_IN_COUNTRY=En el país
-GENERIC_HINT_FOR_ORGA=Aviso para la organización
+GENERIC_ACAD_TITLE=T\u00EDtulo acad\u00E9mico
+GENERIC_IN_COUNTRY=En el pa\u00EDs
+GENERIC_HINT_FOR_ORGA=Aviso para la organizaci\u00F3n
 GENERIC_COMPANY_SINGULAR=Empresa
-GENERIC_COUNTRY=País
-plz/postfach=Código postal/apartado de correos
+GENERIC_COUNTRY=Pa\u00EDs
+plz/postfach=C\u00F3digo postal/apartado de correos
 GENERIC_POST_OFFICE_BOX=Apartado de correos
 iban=IBAN
 bic=BIC
-GENERIC_MOBILE=Móvil
+GENERIC_MOBILE=M\u00F3vil
 LETTERS_WWW=WWW
 dublettenprufungdurchfuhren=Examinar duplicados
 zurpersonenubersicht=Listado de personas
 
 # PERSONEN/SUCHEN & ERSETZEN IN PERSONENDATEN
 suchen&ersetzeninpersonendaten=Buscar y reemplazar datos de personas
-hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Aviso: al utilizar el comodín '*', serán reemplazadas todas las que contengan las secciones del texto de búsqueda (orden incluído), si no se reemplazarán aquellas que coincidan exáctamente con el texto de búsqueda.
+hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Aviso: al utilizar el comod\u00EDn '*', ser\u00E1n reemplazadas todas las que contengan las secciones del texto de b\u00FAsqueda (orden inclu\u00EDdo), si no se reemplazar\u00E1n aquellas que coincidan ex\u00E1ctamente con el texto de b\u00FAsqueda.
 GENERIC_SEARCH_V=Buscar
 GENERIC_REPLACE=Reemplazar
-GENERIC_IN_THE_FOLLOWING_FIELDS=En los próximos campos
-anrede/titel=Denominación / Título
+GENERIC_IN_THE_FOLLOWING_FIELDS=En los pr\u00F3ximos campos
+anrede/titel=Denominaci\u00F3n / T\u00EDtulo
 GENERIC_EMPLOYMENT_TITLE_SHORT=Cargo
-GENERIC_INSTITUTION_SINGULAR=Institución
-GENERIC_ADDRESSES=Dirección
-telefon/fax=Teléfono / fax
+GENERIC_INSTITUTION_SINGULAR=Instituci\u00F3n
+GENERIC_ADDRESSES=Direcci\u00F3n
+telefon/fax=Tel\u00E9fono / fax
 GENERIC_REPLACE_INDIVIDUALLY=Reemplazar individualmente
 GENERIC_REPLACE_ALL=Reemplazar todas
 
 # PERSONEN/DUBLETTENSUCHE
-GENERIC_DUPLICATE_SEARCH=Búsqueda de duplicados
+GENERIC_DUPLICATE_SEARCH=B\u00FAsqueda de duplicados
 
 # PERSONEN/EXPORT VON PERSONENDATEN
 exportvonpersonendaten=Exportar desde los datos de personas
-HINT_EXPORT_MANDANT_PERSON=Mediante esta función, usted exporta sólo las personas correspondientes a los mandantes actuales.
+HINT_EXPORT_MANDANT_PERSON=Mediante esta funci\u00F3n, usted exporta s\u00F3lo las personas correspondientes a los mandantes actuales.
 GENERIC_WITHOUT=Sin
 botschaften=Embajadas
 finanzamtsprecher=Portavoz financiero
 journalisten=Periodistas
 lieferant=Proveedor
 nogs=ONGs
-politik=Político
+politik=Pol\u00EDtico
 pressevertreter=Representante de prensa
-wirtschaft=Economía
-GENERIC_START_EXPORT=Iniciar exportación
-ENCODING_TYPE_CYRILLIC=Cirílico
+wirtschaft=Econom\u00EDa
+GENERIC_START_EXPORT=Iniciar exportaci\u00F3n
+ENCODING_TYPE_CYRILLIC=Cir\u00EDlico
 ENCODING_TYPE_WEST=Del oeste
-ENCODING_TYPE_BALTIC=Báltico
+ENCODING_TYPE_BALTIC=B\u00E1ltico
 ENCODING_TYPE_EAST=Del este
 ENCODING_TYPE_TURKISH=Turco
 EXPORT_DATA_TYPE_CSV=CSV (Comma-Separated-Values)
 EXPORT_DATA_TYPE_XML=XML (VerA.web-XML)
-EXPORT_DATA_TYPE_ZKM=ZKM (VerA.web-XML mediante el módulo de comunicación central)
+EXPORT_DATA_TYPE_ZKM=ZKM (VerA.web-XML mediante el m\u00F3dulo de comunicaci\u00F3n central)
 EXPORT_DATA_TYPE_MADLAN_PERSON=MAdLAN-Personas (MAdLAN-Importar-Personas)
 EXPORT_DATA_TYPE_MADLAN_COMPANY=MAdLAN-Empresas (MAdLAN-Importar-Empresas)
 EXPORT_DATA_TYPE_X_MANAGE_CSV=X-Manage-CSV (X-Manage Kontakte)
-EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE=CSVPersdat+Dirección+TipoDocumento (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE=CSVPersdat+Direcci\u00F3n+TipoDocumento (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE=CSVPersdat+TipoDocumento (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+TipoDocumento 1.0 (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Categorías (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Categor\u00EDas (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 EXPORT_TITLE_CSV=CSV
 EXPORT_TITLE_XML=XML
@@ -621,9 +621,10 @@ EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
 EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV DatosPersonas+Direcciones+TiposDocumentos
 EXPORT_TITLE_CSVPERSDATA_DOCTYPE=CSV DatosPersonas+TiposDocumentos
 EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV DatosPersonas+TiposDocumentos 1.0
-EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV DatosPersonas+Categorías
+EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV DatosPersonas+Categor\u00EDas
 EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
 LABEL_EXPORT_ZKM=Ziel (ZKM-Abreviatura)
+<<<<<<< HEAD
 LABEL_EXPORT_MADLAN_ENCODING=Codificación
 LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Codificación (Cirílica)
 HINT_EXPORT_CSV=Dependiendo de la cantidad de datos exportados (mediante el número de categorías y tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
@@ -633,71 +634,83 @@ HINT_EXPORT_CSVPERSDATA_DOCTYPE=Se exportarán únicamente los campos ubicados e
 HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Se exportarán únicamente los campos ubicados en las pestañas "Datos de personas", "Tipos de documento" y sus respectivas pestañas inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el número de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Se exportarán únicamente los campos ubicados en las pestañas "Datos de personas", "Tipos de documento" y sus respectivas pestañas inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el número de categorías), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
 HINT_EXPORT_CSV_ISO_8859_15=Este formato es adecuado para la importación/exportación sobre aplicaciones como MS Office, las cuales utilizan el juego de caracteres ISO-8859-15. Dependiendo de la cantidad de datos exportados (en particular, sobre el número de categorías y tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+=======
+LABEL_EXPORT_MADLAN_ENCODING=Codificaci\u00F3n
+LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Codificaci\u00F3n (Cir\u00EDlica)
+
+HINT_EXPORT_CSV=Dependiendo de la cantidad de datos exportados (mediante el n\u00FAmero de categor\u00EDas y tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_ZKM=El archivo de exportaci\u00F3n ser\u00E1 almacenado en la carpeta de salida ZKM como se podr\u00E1 gestionar un control sobre la descarga. La descarga se podr\u00E1 abortar de forma segura.
+HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as "Datos de personas", "Direcciones", "Tipos de documento" y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as "Datos de personas", "Tipos de documento" y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as "Datos de personas", "Tipos de documento" y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as "Datos de personas", "Tipos de documento" y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de categor\u00EDas), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSV_ISO_8859_15=Este formato es adecuado para la importaci\u00F3n/exportaci\u00F3n sobre aplicaciones como MS Office, las cuales utilizan el juego de caracteres ISO-8859-15. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de categor\u00EDas y tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+>>>>>>> 478c88ee85ed668e42dfa2f35f58ba5fdf156496
 
 # PERSONEN/IMPORT VON PERSONENDATEN
-GENERIC_IMPORT_FROM_PERSONS_DATA=Importación de datos de personas
-HINT_IMPORT_SHORT_CONTENT=Aviso: Al importar los datos, es posible que los datos de mayor longitud sean acortados para su visualización en VerA.web.
+GENERIC_IMPORT_FROM_PERSONS_DATA=Importaci\u00F3n de datos de personas
+HINT_IMPORT_SHORT_CONTENT=Aviso: Al importar los datos, es posible que los datos de mayor longitud sean acortados para su visualizaci\u00F3n en VerA.web.
 GENERIC_TARGET_CLIENT=Mandante objetivo
 GENERIC_IMPORT_DATA=Importar-Archivo
 GENERIC_DATA_TYPE=Tipo de archivo
 dateiauswahlen=Seleccionar archivo
-keineausgewahlt=Ningún seleccionado
-GENERIC_START_IMPORT=Comenzar importación
+keineausgewahlt=Ning\u00FAn seleccionado
+GENERIC_START_IMPORT=Comenzar importaci\u00F3n
 
 # PERSONENDROPDOWN
 GENERIC_NEW_PERSON=Nueva persona
 suchen&ersetzen=Buscar y reemplazar
-GENERIC_EXPORT_PERSONS=Exportación de personas
-GENERIC_IMPORT_PERSONS=Importación de personas
+GENERIC_EXPORT_PERSONS=Exportaci\u00F3n de personas
+GENERIC_IMPORT_PERSONS=Importaci\u00F3n de personas
 
 # VERANSTALTUNGENDROPDOWN
 GENERIC_EVENT_VIEW=Lista de eventos
-veranstaltunguuche=Búsqueda de eventos
+veranstaltunguuche=B\u00FAsqueda de eventos
 GENERIC_NEW_EVENT=Nuevo evento
-GENERIC_STATISTICS=Estadísticas
+GENERIC_STATISTICS=Estad\u00EDsticas
 
 # ADMINISTRATIONDROPDOWN
 GENERIC_SALUTATIONS=Denominaciones
-GENERIC_WORKAREA_PLURAL=Área de trabajo
+GENERIC_WORKAREA_PLURAL=\u00C1rea de trabajo
 GENERIC_DOCUMENT_TYPE_PLURAL=Tipos de documento
-e-mail-postausgang=E-Mail-Buzón de salida
+e-mail-postausgang=E-Mail-Buz\u00F3n de salida
 GENERIC_PROGRAM_PERFERENCES=Preferencias de programa
 GENERIC_EVENT_LOCATION_PLURAL=Localizaciones de eventos
 
 # VERANSTALTUNGSUEBERSICHT
 GENERIC_END=Fin
-GENERIC_HOST=Anfitrión
-GENERIC_EVENT_LOCATION_SINGULAR=Localización del evento
+GENERIC_HOST=Anfitri\u00F3n
+GENERIC_EVENT_LOCATION_SINGULAR=Localizaci\u00F3n del evento
 GENERIC_EVENT_SEARCH=Buscar eventos
 GENERIC_CREATE_NEW_EVENT=Crear nuevo evento
-GENERIC_NUMBER_PER_PAGE=Total por página
-seitexvony=Página x de y
+GENERIC_NUMBER_PER_PAGE=Total por p\u00E1gina
+seitexvony=P\u00E1gina x de y
 
 # EVENT HEADER
 EVENT_ID=ID-Evento
 EVENT_NAME=Nombre del evento
 EVENT_URL=Enlace al evento
 EVENT_URL_MEDIA_REPRESENTATIVE=Enlace para representates de prensa
-EVENT_MAX_GUEST=Número máximo de invitados
-EVENT_MAX_RESERVE=Número máximo en lista de espera
-EVENT_INVITATION_TYPE=Tipo de invitación
+EVENT_MAX_GUEST=N\u00FAmero m\u00E1ximo de invitados
+EVENT_MAX_RESERVE=N\u00FAmero m\u00E1ximo en lista de espera
+EVENT_INVITATION_TYPE=Tipo de invitaci\u00F3n
 EVENT_INVITATION_TYPE_WITHOUT_PARTNER=Sin partner
-EVENT_INVITATION_TYPE_ONLY_PARTNER=Sólo partner
+EVENT_INVITATION_TYPE_ONLY_PARTNER=S\u00F3lo partner
 EVENT_INVITATION_TYPE_WITH_PARTNER=Con partner
 
 # VERANSTALTUNG BEARBEITEN/ALLGEMEIN
 GENERIC_EDIT_EVENT=Editar evento
-GENERIC_TO_GUEST_MANAGEMENT=Gestión de invitados
+GENERIC_TO_GUEST_MANAGEMENT=Gesti\u00F3n de invitados
 GENERIC_GENERAL=General
 GENERIC_TASK_PLURAL=Tareas
 GENERIC_ADDITIONAL_PERSONS_DATA=Datos adicionales
 kurzbereichnung=Abreviatura
 GENERIC_OPEN_EVENT=Evento abierto
 umxuhr=A las x horas
-veranstalgungsort=Localización del evento
-GENERIC_SEARCH_FOR_HOST=Buscar anfitrión
-GENERIC_DELETE_HOST=Eliminar anfitrión
-GENERIC_HOST_PARTNER=Anfitrión-Partner
+veranstalgungsort=Localizaci\u00F3n del evento
+GENERIC_SEARCH_FOR_HOST=Buscar anfitri\u00F3n
+GENERIC_DELETE_HOST=Eliminar anfitri\u00F3n
+GENERIC_HOST_PARTNER=Anfitri\u00F3n-Partner
 GENERIC_LOGIN_REQUIRED=Login necesario
 GENERIC_SUBSCRIPTION_OF_PRESS_REPRESENTATIVES_POSSIBLE=Acceso habilitado a representantes de prensa
 GENERIC_SAVE_EVENT=Guardar evento
@@ -706,44 +719,49 @@ GENERIC_TO_EVENT_VIEW=Lista de eventos
 # VERANSTALTUNG BEARBEITEN/DOKUMENTTYPEN
 GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Eliminar tipo(s) de documento seleccionado(s)
 GENERIC_DELETE=Eliminar
-GENERIC_ADD_NEW_DOCUMENT_TYPE=Añadir nuevo tipo de documento
+GENERIC_ADD_NEW_DOCUMENT_TYPE=A\u00F1adir nuevo tipo de documento
 xvonydokumenttypen=x de y tipos de documento
 
 # VERANSTALTUNG BEARBEITEN/AUFGABEN
 GENERIC_ADD_NEW_TASK=Crear nueva tarea
 MESSAGE_NO_TASKS_FOR_THIS_EVENT=No existe ninguna tarea asignada a este evento
 GENERIC_SELECTED_ENTRIES=Entradas seleccionadas
-GENERIC_TITLE=Título
+GENERIC_TITLE=T\u00EDtulo
 GENERIC_RESPONSIBLE=Responsable
 
 # VERANSTALTUNG BEARBEITEN/AUFGABEN/AUFGABE ANLEGEN
 GENERIC_TASKS_ID=ID-Tarea
-GENERIC_COMPLETION=Finalización
+GENERIC_COMPLETION=Finalizaci\u00F3n
 GENERIC_PRIORITY=Prioridad
-GENERIC_DESCRIPTION=Descripción
-GENERIC_ADD_RESPONSIBLES=Añadir responsables
+GENERIC_DESCRIPTION=Descripci\u00F3n
+GENERIC_ADD_RESPONSIBLES=A\u00F1adir responsables
 verantwortlichenentfernen=Eliminar responsables
 GENERIC_SAVE_TASK=Guardar tarea
 GENERIC_BACK_TO_TASKS_VIEW=Lista de tareas
 
 # VERANSTALTUNG BEARBEITEN/FUNKTIONEN/AMTSBEZEICHNUNGEN
-GENERIC_ADD_NEW_EMPLOYMENT_TITLE=Añadir nuevo título
-MESSAGE_NO_EMPLOYMENT_TITLES_FOUND=No se han encontrado títulos
+GENERIC_ADD_NEW_EMPLOYMENT_TITLE=A\u00F1adir nuevo t\u00EDtulo
+MESSAGE_NO_EMPLOYMENT_TITLES_FOUND=No se han encontrado t\u00EDtulos
 
 # VERANSTALTUNG BEARBEITEN/KATEGORIEN
-GENERIC_ADD_NEW_KATEGORIES=Añadir nueva categoría
+GENERIC_ADD_NEW_KATEGORIES=A\u00F1adir nueva categor\u00EDa
 
 # VERANSTALTUNG BEARBEITEN/VORBEDINGUNGEN
 GENERIC_PRECONDITION_PLURAL=Precondiciones
 EVENT_PRECONDITION_MARKED=Precondiciones seleccionadas
-EVENT_PRECONDITION_ADD=Añadir precondiciones
-EVENT_PRECONDITION_INVITATIONSTATUS=Estado de invitación
+EVENT_PRECONDITION_ADD=A\u00F1adir precondiciones
+EVENT_PRECONDITION_INVITATIONSTATUS=Estado de invitaci\u00F3n
 EVENT_PRECONDITION_STARTDATE=Fecha de inicio
 EVENT_PRECONDITION_NOT_FOUND=No se han encontrado precondiciones
 
 # VERANSTALTUNGSSUCHE
+<<<<<<< HEAD
 nurinzukunftigenveranstaltungensuchen=Buscar sólo en eventos futuros
 siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Puede utilizar comodines en su búsqueda: asterisco (*) para búsqueda plurar y el símbolo de interrogación para individual.
+=======
+nurinzukunftigenveranstaltungensuchen=Buscar s\u00F3lo en eventos futuros
+siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Puede utilizar comodines en su b\u00FAsqueda: asterisco (*) para b\u00FAsqueda plurar y el s\u00EDmbolo de interrogaci\u00F3n para b\u00FAsqueda individual.
+>>>>>>> 478c88ee85ed668e42dfa2f35f58ba5fdf156496
 
 # NEUE VERANSTALTUNG ANLEGEN
 mitpartner=Con partner
