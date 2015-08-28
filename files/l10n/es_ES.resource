@@ -268,7 +268,7 @@ HINT_EVENT_MARK=Los signos distintivos 50 y 99 ser\u00E1n autom\u00E1ticamente a
 GENERIC_DOCUMENT_TYPES_MARKED=Tipo(s) de documento seleccionado(s)
 GENERIC_LABELLING=Descripci\u00F3n
 GENERIC_ADRESS_TYPE=Tipo de direcci\u00F3n
-GENERIC_CHARSET=Charset
+GENERIC_CHARSET=Conjunto de caracteres
 GENERIC_FORMAT=Formato
 GENERIC_PARTNER_DOCUMENT=Documento para partner
 GENERIC_SORT=Selecc.
@@ -538,7 +538,7 @@ GENERIC_SEARCH_PERSON=Búsqueda de personas
 GENERIC_SEARCH=Búsqueda
 GENERIC_VALIDITY_DATE=Fecha de disponibilidad
 GENERIC_ADVANCED_SEARCH=Búsqueda avanzada
-HINT_PLACEHOLDER=Aviso: Puede utilizar comodines para su búsqueda. El asterisco (*) se utilizará para representar números, así como el símbolo de interrogación(?) para caracteres individuales. La búsqueda se realizará mediante nombre, apellido, ciudad, código postal, calle, Empresa/Institución, teléfono, fax, teléfono móvil, correo electrónico, observaciones, categorías, área de trabajo y función/título.
+HINT_PLACEHOLDER=Aviso: Puede utilizar comodines para su búsqueda. El asterisco (*) se utilizará para búsqueda plural, así como el símbolo de interrogación(?) para búsqueda individual. La búsqueda se realizará mediante nombre, apellido, ciudad, código postal, calle, Empresa/Institución, teléfono, fax, teléfono móvil, correo electrónico, observaciones, categorías, área de trabajo y función/título.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=Datos de acceso guardados satisfactoriamente.
@@ -626,7 +626,6 @@ EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
 LABEL_EXPORT_ZKM=Ziel (ZKM-Abreviatura)
 LABEL_EXPORT_MADLAN_ENCODING=Codificación
 LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Codificación (Cirílica)
-
 HINT_EXPORT_CSV=Dependiendo de la cantidad de datos exportados (mediante el número de categorías y tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
 HINT_EXPORT_ZKM=El archivo de exportación será almacenado en la carpeta de salida ZKM como se podrá gestionar un control sobre la descarga. La descarga se podrá abortar de forma segura.
 HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Se exportarán únicamente los campos ubicados en las pestañas "Datos de personas", "Direcciones", "Tipos de documento" y sus respectivas pestañas inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el número de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
@@ -744,11 +743,261 @@ EVENT_PRECONDITION_NOT_FOUND=No se han encontrado precondiciones
 
 # VERANSTALTUNGSSUCHE
 nurinzukunftigenveranstaltungensuchen=Buscar sólo en eventos futuros
-siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Puede utilizar comodines en su búsqueda: asterisco (*) para búsqueda plurar y el símbolo de interrogación para búsqueda individual.
+siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Puede utilizar comodines en su búsqueda: asterisco (*) para búsqueda plurar y el símbolo de interrogación para individual.
 
 # NEUE VERANSTALTUNG ANLEGEN
 mitpartner=Con partner
 eswurdeeineneueveranstaltungangelegt=Se ha creado un nuevo evento.
+
+# VERTEILER
+angelegtvon=Creado por
+angelegtam=Creado el
+erzeugtausveranstaltung=Generado por evento
+
+# STATISTIKEN
+statistikauffolgendenzeitrahmeneinschranken=Restringir estadísticas para el próximo intervalo temporal
+statistiktypauswahlen=Seleccionar tipo de estadísticas
+zeitrahmenbeginn=Inicio-Intervalo
+zeitrahmenende=Final-Intervalo
+STATISTIC_RADIO_PER_YEAR=Total de eventos por año
+STATISTIC_RADIO_PER_MONTH=Total de eventos por mes
+STATISTIC_RADIO_GROUPED_BY_HOST=Total de eventos, agrupados por anfitrión
+STATISTIC_RADIO_PER_HOST=Listado de eventos de un anfitrión (con búsqueda)
+STATISTIC_RADIO_PER_GUEST=Listado de eventos de un invitado (con búsqueda)
+STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE=Listado de eventos ordenados por localización
+statistikerstellen=Generar estadísticas
+
+# GAESTEVERWALTUNG DER VERANSTALTUNG
+gasteverwaltungderveranstaltung=Gestión de invitados del evento
+maxanzahlgaste=Total de invitados
+gastedetails=Detalles de invitados
+offen=Abierto
+zusagen=Aceptado
+absagen=Rechazado
+teilnahmen=Participaciones
+aufplatz=Con plaza
+aufreserve=En reserva
+filter=Filtro
+platzwahl=Selección de plaza
+lfdnr=N° Serie
+nichteingeladen=No invitado
+laufendenummerberechnen=Calcular número de serie
+allestammdatenneuladen=Cargar datos maestros de nuevo
+HINT_ENTRY_POINT=Direkteinsprung: sólo es posible mediante ordenación por nombre, apellido o correo electrónico..
+HINT_GUEST_MANAGEMENT_FILTER=Para la generación del archivo de control o listado de invitados se considerara el criterio establecido en el filtro superior.
+HINT_GUEST_MANAGEMENT_MARKED=Si selecciona un sólo invitado, será el único en ser exportado. De lo contrario, se exportará el listado completo.
+TABLE_BEFORE_GUEST=Invitado anterior
+TABLE_FIRST_GUEST=Primer invitado
+TABLE_LAST_GUEST=Último invitado
+TABLE_NEXT_GUEST=Invitado siguiente
+
+# GAESTELISTE
+GUEST_LIST_ALL_GUEST=Todos los invitados
+GUEST_LIST_ALL_GUEST_ON_PLACE=Todos los invitados con plaza
+GUEST_LIST_ALL_GUEST_ON_RESERVE=Todos los invitados en reserva
+GUEST_LIST_APPLY_GUEST_FROM_EVENT=Aplicar invitados desde evento
+GUEST_LIST_CATEGORY_ASSIGN=Asignar categorías
+GUEST_LIST_CATEGORY_REMOVE=Eliminar categorías
+GUEST_LIST_DISTRIBUTOR_CREATE=Crear distribuidor
+GUEST_LIST_DATA_EXPORT=Exportar archivo de control
+GUEST_LIST_CONFIRM_ACTION=Por favor, confirme la siguiente acción
+GUEST_LIST_DIDNT_CHANGE=No se ha modificado la lista de invitados
+GUEST_LIST_EXPAND_ONE=Se ha añadido un invitado a la lista
+GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=Se han añadido 
+GUEST_LIST_EXPAND_MULTIPLE_PART_TWO=invitados a la lista
+GUEST_LIST_HINT_EXPORT_GUEST=Si selecciona un sólo invitado, será el único en ser exportado. De lo contrario, se exportará el listado completo
+GUEST_LIST_HINT_FILTER=Para la generación del archivo de control o listado de invitados se considerara el criterio establecido en el filtro superior.
+GUEST_LIST_HINT_RED_PERSON=Las personas con fondo de color rojo serán marcadas como personas "a borrar"
+GUEST_LIST_CREATED_NO_PERSON=creado sin personas
+GUEST_LIST_CREATED_ONE_PERSON=creado con una persona
+GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE=creado con 
+GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO=personas
+GUEST_LIST_NO_GUEST_INVITED=Aún no se han añadido invitadoseingeladen
+GUEST_LIST_NUMBER_CALCULATE=Calcular número de serie
+GUEST_LIST_NUMBER_CALCULATED_SAVED=El "número de serie" será recalculado y guardado para todos los invitados
+GUEST_LIST_ONLY_OPEN=sólo pendientes
+GUEST_LIST_ONLY_ACCEPT=sólo aceptados
+GUEST_LIST_ONLY_DECLINED=sólo rechazados
+GUEST_LIST_ONLY_PARTICIPATE=sólo participantes
+GUEST_LIST_PERSON_DATA_RELOAD=Recargar todos los datos maestros
+GUEST_LIST_RESERVE=R
+GUEST_LIST_SEARCH_PERSON_ADD=Buscar personas y añadirlas a la lista de invitados
+
+# GAESTELISTE ERSTELLEN
+GUEST_LIST_CREATE=Generar lista de invitados
+SELECT_OUTPUT_FORMAT=Seleccionar formato de salida
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Lista agrupada por categoría - con Partner
+LIST_GROUP_BY_CATEGORY_WITH_TEL=Lista agrupada por categoría - con número de teléfono y móvil
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Lista agrupada por categoría - con partner y fax
+LIST_SORT_PARTNER_TEL=Lista agrupada -con partner, número de teléfono y móvil
+SORT_CRITERIA=Criterios de filtración
+SORT_AFTER=Filtrar por
+CONTINUAL_NUMBER=Número de serie
+anschliesendnach=Después de
+zusatzlichesortierungnach=Filtro adicional por
+
+# GASTDETAILS
+GUEST_DETAIL_HINT_GUEST_HOST=Aviso para el anfitrión
+GUEST_DETAIL_HINT_ORGANISATION_TEAM=Aviso para la organización
+GUEST_DETAIL_INVITATION_STATUS=Estado de la invitación
+GUEST_DETAIL_SEAT_NUMBER=Plaza
+GUEST_DETAIL_TABLE_NUMBER=Mesa
+gastdetails=Detalles del invitado
+HINT_GUEST_LIST_EDIT_PERSONDATA=Únicamente modificará los datos de la persona correspondientes al evento actual, no produciéndose cambios sobre los datos maestros.
+istgastgeber=Anfitrión
+reserve=Reserva
+aufstammdatenzurucksetzen=Restablecer desde los datos maestros
+stammdatenbearbeiten=Editar datos maestros
+
+# DOKUMENTTYPEN
+dokumenttypwahlen=Seleccionar tipos de documento
+mitgliedsausweis=Tarjeta de membresía
+etikett=Etiqueta
+tischkarte=Tarjeta de mesa
+adresstypundzeichensatzwahlen=Seleccionar tipo de dirección y conjunto de caracteres
+adresstyp=Tipo de dirección
+datenbearbeiten=Editar datos
+verbinder=Interconexiones
+freitextfeldpartner=Campo de texto libre (partner)
+akatitel=Título académico (partner)
+kontaktdaten=Datos de contacto
+strase=Calle
+postfachplz=Código postal
+nummer=Número
+zuruckzudenveranstaltungsdetails=Volver a detalles del evento
+
+# PERSON BEARBEITEN/DOKUMENTTYPEN/BEARBEITEN
+dokumenttypbearbeiten=Editar tipo de documento
+dokument-id=ID-Documento
+dokument-name=Nombre-Documento
+dokumenttypspeichern=Guardar tipo de documento
+zuruckzurdokumenttypenliste=Volver a tipos de documento
+anmeldedatenerzeugen=Generar datos de acceso
+esliegenkeinekategorienundereignissevor=No se presentan categorías y sucesos
+beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=En verde se resaltan las entradas de sucesos repetidos.
+
+# SUCHEN & ERSETZEN IN PERSONENDATEN
+
+# VERTEILERDETAILS
+verteilerdetails=Detalles de la distribución
+verteilerversenden=Enviar distribución
+e-mail-clientaufrufen=Redactar E-Mail a cliente
+
+# FEHLEND
+zurstartseite=Inicio
+solldieneuekategorie=¿Debería filtrarse 
+einsortiertwerden=la nueva categoría?
+pflichtfelder=Campos obligatorios
+markiertekategorien=Categorías seleccionadas
+markiertekategorienloschen=Eliminar las categorías seleccionadas
+alledemarkieren=Eliminar selección
+furalleveranstaltungen=Para todos los eventos
+speichern=Guardar
+anderungsprotokollfurdenzeitraum=Historial de cambios para el período de tiempo
+objekt=Objeto
+objektid=ID-Objeto
+artderanderung=Tipo de cambio
+geandertefelder=Campos modificados
+datumauswahlen=Seleccionar fechaDatum ausw\u00E4hlen
+folgendeaktionen=Acciones siguientes
+wurden=ser
+durchgefuhrt=realizadas
+konnen=podrán
+aktuallisieren=Actualizar
+cleanupjetztunwiderruflichdurchfuhren=Realizar cleanup definitivo
+essindderzeitkeinecleanupsmoglichnotig=No es posible/necesario realizar un cleanup.
+nochkeineauswahlgetroffen=Aún no se dispone de selección
+oberflachenbeschriftungen=Oberfl\u00E4chenbeschriftungen
+zusatzfelder=Campos adicionales
+eswurdeeinzusatzfeld=Se ha creado 
+angelegt=un campo adicional
+geandert=modificado
+geloscht=eliminado
+feldbezeichnung=Descripción del campo
+eingabetyp=Tipo de entrada
+erfolgreichgespeichert=¡Guardado satisfactoriamente!
+markiertendokumenttypen=Tipo(s) de documento seleccionado(s)
+eigenesdokumentfurpartner=Documento para partners
+sortierreihenfolge=Orden de clasificación
+gastgebermitausgeben=Anfitrión con distribución
+iststandardfursteuerdatei=Estándar para el archivo de control
+format=Formato
+HINT_EXPORT_FORMAT=OOo 1.1 para OpenOffice 1.1 (Archivo-sxc) y OOo 2.0 para OpenOffice 2.0 (Archivo-ods),xls para Microsoft Office (Archivo-xls) y CSV para formato-CSV.
+HINT_EVENT_IDENTIFICATION=Las marcas 50 y 99 serán añadidas automáticamente al evento. Para la marca 50 no se dispondrá de ningún campo de texto libre.
+wirklichloschen=Eliminar realmente
+zumpersonenimport=Volver a Importar-Personas
+importstatus=Estado de la importación
+importstatusvorhandenedublettenbearbeiten=Estado de la importación: editar duplicados existentes
+bittemarkierensiediezuimportierendenpersonen=Por favor, realice su selección para importar personas.
+dublettendiedurchden=Duplicados, los cuales serán añadidos 
+importhinzugefugtwerdenwurden=a través de la importación
+sindmiteinercheckboxgekennzeichnetdarunterbefindensichdiebereitsimsystemvorhandenenentsprechendendatensatze=, se encuentra remarados mediante un checkbox. Seguidamente se muestran los datos ya almacenados dentro del sistema.
+umeinedubletteindenimportzuintegrierenmussensiesieubernehmen=Deberá escoger los duplicados para integrarlos en la importación.
+alsdubletteubernehmen=Aceptar como duplicados
+markiertepersonenalsdubletteubernehmen=Persona(s) seleccionada(s) como duplicado(s)
+anzahlzuspeicherndedubletten=Recuento de duplicados a almacenar
+eswurdenkeineeintragegefunden=No se han encontrado entradas
+zuruckzumpersonenimport=Volver a importación
+fehlermeldung=Mensaje de error
+beiderbearbeitungihreranfrageisteinfehleraufgetretenbittemeldensiediesihremadministrator=Durante la ejecución del proceso ha ocurrido un error. Por favor, contacte con su administrador.
+unbekannterfehler=Error desconocido.
+markiertenkategorien=Categorías seleccionadas
+markiertenkategorienentfernen=Eliminar categorías seleccionadas
+bitteauswahlen=Por favor, realice su selección
+dieveranstaltungandersiegeradegearbeitethabenwurdevoneinemanderenanwendergeloschtsiekonnennuneineneueveranstaltunganlegenoderanderweitigmitverawebarbeiten=El evento actual ha sido eliminado por otro usuario. Puede crear un nuevo evento si así lo desea, o simplemente continuar trabajando sobre VerA.web.
+bittebestatigensiedasspeicherndieserveranstaltung=Por favor, confirme la actualización del evento actual
+keingastgeberausgewahlt=Anfitrión no seleccionado
+kurzbezeichnung=Descripción corta
+maximalelangederwarteliste=Longitud máxima de la lista de espera
+sollendiestammdatenumdiesenorterweitertwerden=Los datos maestros deben ser modificados en relación a la localización actual
+markiertendokumenttypenentfernen=Eliminar tipo(s) de documento seleccionado(s)
+eswurdenkeinedokumenttypengefunden=No se han encontrado tipos de documento.
+markiertenamtsbezeichnungen=Título(s) seleccionado(s)
+markiertenamtsbezeichnungenentfernen=Eliminar título(s) seleccionado(s)
+zurveranstaltungssuche=Búsqueda de eventos
+veranstaltungssuche=Búsqueda de eventos
+suchergebnis=Resultado de la búsqueda
+bitteklickensieeinederaufgelistetenveranstaltungenanumdiegastezuubernehmen=Por favor, para obtener la lista de invitados, seleccione un evento dentro del listado.
+bitteklickensieeinederaufgelistetenveranstaltungenanumdiepersondieserveranstaltungzuzuordnen=Por favor, para asignar la persona de un evento, seleccione un evento dentro del listado.
+bitteklickensieeinederaufgelistetenpersonenanumdiesealsgastgeberzuuebernehmen=Por favor, seleccione una persona de la lista para establecerla como anfitrión.
+loschenvonveranstaltungenistnichtmoglich=No es posible eliminar eventos
+weiteremeldungen=mensajes adicionales.
+bittebestatigensiedasloschendermarkiertenveranstaltungen=Por favor, ¡confirme la eliminación de los eventos seleccionados!
+markierteveranstaltungloschen=Eliminar los eventos seleccionados
+abbrechen=Cancelar
+markierteveranstaltungen=Evento(s) seleccionado(s)
+markierteveranstaltungenloschen=Eliminar evento(s) seleccionado(s)
+zuruckzurgasteverwaltung=Volver a gestión de invitados
+zuruckzurgasteliste=Volver a lista de invitados
+zuruckzurveranstaltungsdetails=Volver a detalles de evento
+zuruckzurveranstaltungsstatistiken=Volver a estadísticas del evento
+zuruckzurveranstaltungsaufgabe=Volver a tareas del evento
+zuruckzurpersonensuche=Volver a búsqueda de personas
+zuruckzusuchenundersetzen=Buscar y reemplazar
+zuruckzurveranstaltungssuche=Búsqueda de eventos
+wahlensiebittezunachsteineodermehrereveranstaltungenaus=Por favor, comience por seleccionar uno o más eventos.
+nurinzuunftigenveranstaltungensuchen=Buscar sólo en eventos futuros
+zuruck=Volver
+siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehrereunddasfureinzelnezeichen=Puede utilizar comodines en la búsqueda. Al utilizar el comodín '*', serán seleccionadas todas las que contengan las secciones del texto de búsqueda (orden incluído), así como podrá realizar búsquedas individuales mediante el comodín '?'.
+bittebestatigensiedasspeicherndieseraufgabe=Por favor, confirme la actualización sobre la tarea actual
+verantworlichenhinzufugen=Añadir responsables
+verantworlichenentfernen=Eliminar responsables
+loschenvonaufgabenistnichtmoglich=No se puede eliminar tareas
+bittebestatigensiedasloschenvonaufgaben=Por favor, confirme la eliminación de las tareas
+ausgewahlteeintrageloschen=Elminar entradas seleccionadas
+start=Comenzar
+zursuche=Buscar
+siesindalsvolladministratorangemeldetundexportierenhiermitmandantenubergreifend=Se ha conectado como administrador y le es permitido exportar todos los mandantes.
+sieexportierenmitdieserfunktionausschlieszlichpersonenausihremaktuellenmandanten=Mediante esta función, puede exportar exclusivamente personas pertenecientes a mandantes.
+event=Evento
+keine=Ningún
+category=Categoría
+weitereoptionen=Opciones adicionales
+anmerkung=Nota
+anmerkungen=Notas
+markiertebezeichnunge=Denominaciones seleccionadas
+markierteeintrageentfernen=Eliminar denominaciones seleccionadas
+eswurdenkeinedatengefunden=No se han encontrado datos
 # ----------------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------------
