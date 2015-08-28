@@ -1454,8 +1454,8 @@ GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00F6scht.
 EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf \u0022Auf Stammdaten zur\u00FCcksetzen\u0022.
 
 diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00FCber den Men\u00FCpunkt Administration \u003E Programmeinstellungen m\u00F6glich.
-            
-GENERIC_CHOSEN_GUESTLIST=Ausgew\u00E4hlte G\u00E4ste            
+
+GENERIC_CHOSEN_GUESTLIST=Ausgew\u00E4hlte G\u00E4ste
 exportierfahigegasteliste=Exportierf\u00E4hige G\u00E4ste
 unvollstandigegasteliste=Unvollst\u00E4ndige G\u00E4ste
 
@@ -1495,10 +1495,10 @@ GUEST_DETAIL_PARTNER=dem Partner
 GUEST_DETAIL_PARTNER_GENITIV=des Partners
 GUEST_DETAIL_MAINPERSON=der Hauptperson
 
-GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Bitte \u00E4ndern Sie erst den Sitzplatz bei 
-GUEST_DETAIL_DUP_SEAT_ERROR_TWO=von 
-GUEST_DETAIL_DUP_SEAT_ERROR_THREE=\u00FCber die G\u00E4steliste. Diese Person sitzt aktuell auf 
-GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=dem eingegebenen Sitzplatz 
+GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Bitte \u00E4ndern Sie erst den Sitzplatz bei
+GUEST_DETAIL_DUP_SEAT_ERROR_TWO=von
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=\u00FCber die G\u00E4steliste. Diese Person sitzt aktuell auf
+GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=dem eingegebenen Sitzplatz
 GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Die \u00C4nderung wurde nicht gespeichert.
 
 # GUEST TEXTS
@@ -1509,11 +1509,11 @@ MAILING_LIST_NO_ADDRESSES=Das Anlegen eines neuen Verteilers ist fehlgeschlagen,
 
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=Einzuf\u00FCgender Mandant darf keine ID haben
-ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Einzuf\u00FCgender Mandant 
+ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Einzuf\u00FCgender Mandant
 ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO=existiert bereits.
-ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Zu aktualisierender Mandant 
+ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Zu aktualisierender Mandant
 ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= mu\u00DF eine ID haben
-ORG_UNIT_MANDANT_EXISTS_ONE=Ein Mandant mit Namen 
+ORG_UNIT_MANDANT_EXISTS_ONE=Ein Mandant mit Namen
 ORG_UNIT_MANDANT_EXISTS_TWO=existiert bereits.
 
 # PERSON CATEGORIES TEXTS
@@ -1602,7 +1602,7 @@ STATS_COLUMN_EVENTS=Veranstaltungen
 STATS_NOT_INVITED=nicht eingeladen
 
 # USER LIST TEXTS
-USER_LIST_WARN_MANDANT_ONE=Einzuf\u00FCgender Benutzer ist bereits dem Mandanten 
+USER_LIST_WARN_MANDANT_ONE=Einzuf\u00FCgender Benutzer ist bereits dem Mandanten
 USER_LIST_WARN_MANDANT_TWO= zugeordnet.
 USER_LIST_WARN_ALREADY_USER=Einzuf\u00FCgender Benutzer ist bereits VerA.web zugeordnet.
 USER_LIST_WARN_NO_ID=Einzuf\u00fcgender Benutzer darf keine ID haben
