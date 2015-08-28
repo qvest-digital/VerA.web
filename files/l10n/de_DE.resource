@@ -1371,7 +1371,7 @@ MESSAGE_PROXY_NO_REPRESENTATIVE=Sie m\u00FCssen eine Vertreter eingeben.
 MESSAGE_PROXY_NO_ROLE=Sie m\u00FCssen einen Rolle eingeben.
 MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=Der Beginn der Vertretung muss vor dem Ende liegen.
 MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG=Die Zuordnung einer Funktion/Amtsbezeichnung zu einer Veranstaltung ist fehlerhaft.
-MESSAGE_FUNCTION_MISSING_NAME=Sie m\u00fcssen der Funktion einen Namen geben.
+MESSAGE_FUNCTION_MISSING_NAME=Sie m\u00FCssen der Funktion einen Namen geben.
 MESSAGE_GUEST_DOCTYPE_CITYNAME_MAX_LENGTH=Der Name der Stadt darf maximal 100 Zeichen lang sein.
 MESSAGE_GUEST_DOCTYPE_COMPANYNAME_MAX_LENGTH=Der Name der Firma darf maximal 250 Zeichen lang sein.
 MESSAGE_GUEST_DOCTYPE_COUNTRYNAME_MAX_LENGTH=Der Name des Landes darf maximal 100 Zeichen lang sein.
@@ -1396,7 +1396,7 @@ MESSAGE_GUEST_DOCTYPE_TITLE_MAX_LENGTH=Die Titelbezeichnung darf maximal 250 Zei
 MESSAGE_GUEST_DOCTYPE_TITLEPARTNER_MAX_LENGTH=Die Titelbezeichnung des Partners darf maximal 250 Zeichen lang sein.
 MESSAGE_GUEST_DOCTYPE_URL_MAX_LENGTH=Die WWW URL darf maximal 250 Zeichen lang sein.
 MESSAGE_GUEST_DOCTYPE_ZIP_MAX_LENGTH=Die Postleitzahl darf maximal 50 Zeichen lang sein.
-MESSAGE_USER_MISSING_ROLE=Sie m\u00fcssen eine Benutzerrollenbezeichnung eingeben.
+MESSAGE_USER_MISSING_ROLE=Sie m\u00FCssen eine Benutzerrollenbezeichnung eingeben.
 
 # EVENT LIST TEXTS
 EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Mindestens eine markierte Veranstaltung l\u00E4uft aktuell oder liegt in der Zukunft.
@@ -1429,7 +1429,7 @@ GUEST=Gast
 GENERIC_OF=von
 
 
-TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \U00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den \u0022Bearbeiten\u0022-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
+TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \U00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den "Bearbeiten"-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
 GENERIC_NEXT_PAGE=N\u00E4chste Seite
 GENERIC_PREVIOUS_PAGE=Vorherige Seite
 GENERIC_APPLY_TO_GUESTLIST=In G\u00E4steliste \u00FCbernehmen
@@ -1451,9 +1451,9 @@ bittebestatigensiedasloschendermarkiertengasteliste=Bitte best\u00E4tigen Sie da
 GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00F6scht.
 
 
-EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf \u0022Auf Stammdaten zur\u00FCcksetzen\u0022.
+EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf "Auf Stammdaten zur\u00FCcksetzen".
 
-diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00FCber den Men\u00FCpunkt Administration \u003E Programmeinstellungen m\u00F6glich.
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00FCber den Men\u00FCpunkt Administration > Programmeinstellungen m\u00F6glich.
 
 GENERIC_CHOSEN_GUESTLIST=Ausgew\u00E4hlte G\u00E4ste
 exportierfahigegasteliste=Exportierf\u00E4hige G\u00E4ste
@@ -1605,7 +1605,7 @@ STATS_NOT_INVITED=nicht eingeladen
 USER_LIST_WARN_MANDANT_ONE=Einzuf\u00FCgender Benutzer ist bereits dem Mandanten
 USER_LIST_WARN_MANDANT_TWO= zugeordnet.
 USER_LIST_WARN_ALREADY_USER=Einzuf\u00FCgender Benutzer ist bereits VerA.web zugeordnet.
-USER_LIST_WARN_NO_ID=Einzuf\u00fcgender Benutzer darf keine ID haben
+USER_LIST_WARN_NO_ID=Einzuf\u00FCgender Benutzer darf keine ID haben
 
 # WORKAREA TEXTS
 WORKAREA_ERROR_INCORRECT_NAME_ONE=Der Arbeitsbereich mit dem Namen '
@@ -1637,7 +1637,7 @@ GENERIC_PLEASE_WAIT_HEADER=Bitte warten...
 GENERIC_PLEASE_WAIT_MESSAGE=Dieser Vorgang kann einen Moment dauern.
 
 # WORK AREA (Bean) TEXTS
-WORKAREA_ERROR_MISSING_NAME=Der Arbeitsbereich ben\u00f6tigt einen eindeutigen Namen.
+WORKAREA_ERROR_MISSING_NAME=Der Arbeitsbereich ben\u00F6tigt einen eindeutigen Namen.
 
 
 zurpersonensuche=Zur Personensuche
@@ -1646,7 +1646,7 @@ dokumenttypauswahlen=Dokumenttyp ausw\u00E4hlen
 EVENT_NO_DOCTYPES_ASSIGNED=Der Veranstaltung wurden noch keine Dokumenttypen zugeordnet
 
 # DATE HELPER TEXTS
-DATE_HELPER_INCORRECT_DATE= ist kein g\u00fcltiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!
+DATE_HELPER_INCORRECT_DATE= ist kein g\u00FCltiges Datum. Bitte verwenden Sie das Eingabeformat TT.MM.JJJJ!
 
 #WIP
 GENERIC_SHOW_CURRENT_EVENTS=Aktuelle Veranstaltungen anzeigen
