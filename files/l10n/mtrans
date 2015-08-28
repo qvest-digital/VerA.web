@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 for dst in en es fr; do
 	lno=0
 	while IFS= read -r line; do
-		(( ++lno % 100 )) || print -u2 -- "$dst Line #$lno…         \\r"
+		(( ++lno % 100 )) || print -nu2 -- "$dst Line #$lno…         \\r"
 		t=${line%%'#'*}
 		t=${t%%+([	 ])}
 		t=${t##+([	 ])}
