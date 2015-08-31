@@ -90,9 +90,36 @@
             	}
 
 				function removePerson() {
-            		if (confirm('${placeholderWithTranslation.aktuellepersonwirklichentfernen}')) {
-            			window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
-            		}
+            		#if(!$grants.mayWrite())
+						$(".errormsg").remove();
+						$(".successmsg").remove();
+						showWarning(' ${placeholderWithTranslation.siehabenkeineausreichendeberechtigungmpersonenzuentfernen} ');
+						return;
+					#end
+
+					var msg = '';
+					msg += '<br><span class="notBold"> ${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION} </span><br>'+ ' ${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING} ' +
+										' ${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden} <br>';
+
+					$(".errormsg").remove();
+					$(".successmsg").remove();
+
+					showConfirmYesNo(' ${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_HEADER}', msg,
+						 // Ja, Person löschen
+						function () {
+							window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
+						},
+
+						 // Nein, abbrechen
+						function () {
+							$(".errormsg").remove();
+							$(".successmsg").remove();
+							showSuccess(' ${placeholderWithTranslation.eswurdekeinepersongeloscht}');
+							$('input:checkbox').prop('disabled', false);
+						},
+						'${placeholderWithTranslation.GENERIC_DELETE}',
+						'${placeholderWithTranslation.abbrechen}'
+					);
             	}
 
             </script>
