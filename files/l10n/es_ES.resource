@@ -1701,6 +1701,6 @@ GENERIC_ADDRESS_BLOCK=Bloque de direcci\u00F3n
 
 GENERIC_CONTEXT_PLURAL=Contextos
 
-PERSON_DETAIL_DELETE_PERSON_HEADER=Bitte best\u00E4tigen Sie das L\u00F6schen der Person!
-PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION=Wenn Sie diese Person doch nicht l\u00F6schen wollen, brechen Sie bitte den Vorgang ab.
-PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=Soll diese Person wirklich gel\u00F6scht werden?
+PERSON_DETAIL_DELETE_PERSON_HEADER=Por favor, \u00A1confirme la eliminaci\u00F3n de la persona!
+PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION=Si no quiere eliminar esta persona, por favor, cancele el proceso.
+PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=\u00BFDebe la persona actual ser eliminada?
