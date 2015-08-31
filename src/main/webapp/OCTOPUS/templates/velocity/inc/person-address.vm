@@ -84,7 +84,7 @@
 		<div class="tableRow">
 
 			<div class="tableCell width50">
-				<label for="person-fon$!message.plain($ext)">${placeholderWithTranslation.TELEFON}</label>
+				<label for="person-fon$!message.plain($ext)">${placeholderWithTranslation.GENERIC_TELEFON}</label>
 				<input type="text" id="person-fon$!message.plain($ext)" name="person-fon$!message.plain($ext)" value="$!message.text($facade.Phone)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
 

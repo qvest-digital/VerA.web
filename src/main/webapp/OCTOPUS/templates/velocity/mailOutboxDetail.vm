@@ -32,7 +32,7 @@
             </vera-warn>
         #elseif($mailoutbox.status == 1)
             <vera-info>
-            	${placeholderWithTranslation.ieseemailwartetaufihrefertigstellungdurcheinenbenutzer}
+            	${placeholderWithTranslation.dieseemailwartetaufihrefertigstellungdurcheinenbenutzer}
             </vera-info>
         #elseif($mailoutbox.status == 2)
             <vera-info>

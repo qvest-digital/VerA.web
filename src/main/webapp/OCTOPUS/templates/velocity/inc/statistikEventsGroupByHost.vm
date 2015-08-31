@@ -7,7 +7,7 @@
         </td>
 		<td class="kategorieName" style="width: 15%;">
             <nobr>
-                <strong>${placeholderWithTranslation.beginn}</strong>
+                <strong>${placeholderWithTranslation.GENERIC_BEGIN}</strong>
             </nobr>
         </td>
 		<td class="kategorieName" style="width: 35%;">
@@ -32,7 +32,7 @@
         </td>
         ##<td class="kategorieName" style="width: 12%;">
             <nobr>
-                <strong>${placeholderWithTranslation.COLUMN_INVITATION_STATUS_PARTNER}</strong>
+                <strong>${placeholderWithTranslation.STATS_COLUMN_INVITATION_STATUS_PARTNER}</strong>
             </nobr>
         </td>
 	</tr>
@@ -181,7 +181,7 @@
 	<table style="width: 100%;">
 		<tr>
 			<td style="text-align: right;">
-                <h2>${placeholderWithTranslation.GENERIC_TOTAL:</h2>
+                <h2>${placeholderWithTranslation.GENERIC_TOTAL}:</h2>
             </td>
 			<td style="width: 20px;">
                 &nbsp;

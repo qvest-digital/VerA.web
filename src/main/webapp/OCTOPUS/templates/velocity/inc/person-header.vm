@@ -6,7 +6,7 @@
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
 		#end
 		#if($person && $person.id)
-			<input type="button" name="add" value="${placeholderWithTranslation.GENERIC_APPLY_TO_GUESTLIST}" title="${placeholderWithTranslation.APPLY_GUEST_TO_GUESTLIST}" class="mainButton" onclick="addToGuestList();">
+			<input type="button" name="add" value="${placeholderWithTranslation.GENERIC_APPLY_TO_GUESTLIST}" title="${placeholderWithTranslation.GENERIC_APPLY_GUEST_TO_GUESTLIST}" class="mainButton" onclick="addToGuestList();">
 		#end
 		#if($grants.mayWrite())
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified()) { copyPerson(); }"/>

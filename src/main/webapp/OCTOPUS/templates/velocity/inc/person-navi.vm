@@ -38,7 +38,7 @@
 		#if(!$navigation.next)
 			<li class="img inactive">
                 <a>
-                    <img src="${paths.staticWeb}images/paging_arrow_right.png" title="${placeholderWithTranslation.GENEREIC_NEXT_PERSON}" style="cursor: pointer;">
+                    <img src="${paths.staticWeb}images/paging_arrow_right.png" title="${placeholderWithTranslation.GENERIC_NEXT_PERSON}" style="cursor: pointer;">
                 </a>
             </li>
         #else
@@ -48,7 +48,7 @@
                         &action=${navigation.meta.action}
                     #end
                     ">
-                    <img src="${paths.staticWeb}images/paging_arrow_right_active.png" title="${placeholderWithTranslation.GENEREIC_NEXT_PERSON}" style="cursor: pointer;">
+                    <img src="${paths.staticWeb}images/paging_arrow_right_active.png" title="${placeholderWithTranslation.GENERIC_NEXT_PERSON}" style="cursor: pointer;">
                 </a>
             </li>
         #end

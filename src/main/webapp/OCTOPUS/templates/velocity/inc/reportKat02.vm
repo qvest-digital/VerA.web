@@ -36,7 +36,7 @@
 			#set($category = "")
 			#set($workarea = "")
 			<div class="kategorie">
-                <em>${placeholderWithTranslation.GENERIC_ASSIGNED_TO_CATEGORY}</em>
+                <em>${placeholderWithTranslation.GENERIC_NOT_ASSIGNED_TO_CATEGORY}</em>
             </div>
 		#elseif($bean.category)
 			#set($category = $bean.category)
@@ -52,7 +52,7 @@
 			#if( $bean.workarea_name == "Kein Arbeitsbereich" && $workarea != "" )
 				#set($workarea = "")
 				<div class="kategorie" style="margin-left: 1em;">
-                    <em>${placeholderWithTranslation.GENERIC_NOT_ASSIGNED_TO_WORKAREA</em>
+                    <em>${placeholderWithTranslation.GENERIC_NOT_ASSIGNED_TO_WORKAREA}</em>
                 </div>
 			#else
 				#set($workarea = $bean.workarea_name)

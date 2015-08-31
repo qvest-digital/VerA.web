@@ -106,7 +106,7 @@
         #if($maildispatchParams.count == 0)
         	showWarning(' ${placeholderWithTranslation.eswurdekeineemailzumversendengespeichert} ');
         #elseif($maildispatchParams.count == 1)
-        	showSuccess(' ${placeholderWithTranslation.eswurdeeineeineemailzumversendengespeichertdiesewirdnunautomatischversendet} ');
+        	showSuccess(' ${placeholderWithTranslation.eswurdeeineemailzumversendengespeichertdiesewirdnunautomatischversendet} ');
         #else
         	showSuccess(' ${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $maildispatchParams.count ${placeholderWithTranslation.emailszumversendengespeichertdiesewerdennunautomatischversendet} ');
         #end

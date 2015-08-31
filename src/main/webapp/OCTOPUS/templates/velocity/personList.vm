@@ -331,7 +331,7 @@
             }
             if (ongoingEventPersonIds.length > 0) {
                 msg += '<br><span class="notBold"> ${placeholderWithTranslation.folgendepersonensindmindestenseinerlaufendenoderzukumnftigenveranstaltung} ' +
-                        ' ${placeholderWithTranslation.zugeordnetdetailinformationenkoennensieueberdiegastelistender} ' +
+                        ' ${placeholderWithTranslation.zugeordnetdetailinformationenkoennensieueberdiegaestelistender} ' +
                         ' ${placeholderWithTranslation.jeweiligenveranstaltungenabrufendiepersonenwerdenausallengastelisten} ' +
                         'entfernt:</span><br><ul class="text">';
                 $ .each(ongoingEventPersonIds, function (index, id) {
