@@ -1250,951 +1250,457 @@ markierteanredenloschen=Eliminar denominaciones seleccionadas
 markiertendokumenttypenloschen=Eliminar tipos de documento seleccionados
 markierteveranstaltungsorteloschen=Eliminar localizaciones de evento seleccionadas
 markiertevorlagenloschen=Eliminar plantillas seleccionadas
-# ----------------------------------------------------------------------------------------------------------------------------
-# ----------------------------------------------------------------------------------------------------------------------------
-# ----------------------------------------------------------------------------------------------------------------------------
-# ----------------------------------------------------------------------------------------------------------------------------
 
-# ADMINISTRATION/E-MAIL-POSTAUSGANG
-GENERIC_STATUS=Status
-CAP_TO=An
-GENERIC_SUBJECT=Betreff
-GENERIC_ERROR=Fehler
-e-mails=E-Mails
-technischefehlermeldungeinblenden=Technische Fehlermeldung einblenden
-fehlerbeschreibung=Fehlerbeschreibung
+keinedateigefunden=No se han encontrado archivos.
+standardauswahlderselectboxbdquozeichensatzrdquo=Selecci\u00F3n est\u00E1ndar del selectbox \u201Egrupo de caracteres\u201C
+zusaetzlichefelder=Campos adicionales
+postausgang=Bandeja de salida
+beimversendendieseremailisteinfehleraufgetreten=Error al enviar el correo electr\u00F3nico.
+siekonnendiesejetztbearbeitenunderneutsenden=Ahora puede editarlo y enviar de nuevo.
+dieseemailwartetaufihrefertigstellungdurcheinenbenutzer=\u00C9ste correo electr\u00F3nico se encuentra a la espera de terminaci\u00F3n por parte de un usuario.
+dieseemailwartetaufihreversendung=\u00C9ste correo electr\u00F3nico se encuentra a la espera de env\u00EDo.
+dieseemailwirdgeradeversendetundsollte=\u00C9ste correo electr\u00F3nico ser\u00E1 enviado y deber\u00EDa 
+nichtbearbeitet=no ser 
+werden=modificado.
+dieseemailwurdebereitsversendetundsollte=\u00C9ste correo electr\u00F3nico ser\u00E1 enviado y deber\u00EDa 
+nichtmehrbearbeitet=no volver a ser 
+technischefehlermeldungausblenden=Ocultar error t\u00E9cnico
+markiertenmandanten=Mandante(s) seleccionado(s)
+markiertenmandantenwirklichloschen=Eliminar realmente mandante(s) seleccionado(s)
+alledatensatzewurdenerfolgreichmandantenzugeordnet=Todos los registros han sido asignados a un mandante satisfactoriamente.
+esexistiertnochkeinmandant=A\u00FAn no existen mandantes.
+zuordnen=Asignar
+markierteanreden=Denominaciones seleccionadas
+markierteanredenloeschen=Eliminar denominaciones seleccionadas
+markiertenarbeitsbereiche=\u00C1rea(s) de trabajo seleccionada(s)
+markierteeintraegeentfernen=Eliminar entradas seleccionadas
+emailpostausgang=Bandeja de salida
+markierteemailsloeschen=Eliminar E-Mail(s) seleccionado(s)
+markierteemails=E-Mail(s) seleccionado(s)
+wartet=Esperar
+wirdversendet=Ser\u00E1 enviado
+gesendet=Enviado
+unbekannt=Desconocido
+firmainstitutionauswaehlen=Seleccionar empresa/instituci\u00F3n
+bittewaehlensieeinefirmainstitutionaus=Por favor, seleccione una empresa o instituci\u00F3n
+schliessen=Cerrar
+verawebuebersicht=VerA.web :: Vista general
+uebersichtanzeigen=Mostrar vista general
+neuendatensatzanlegen=Insertar nuevo registro
+openofficedateiherrunterladen=Descargar documento OpenOffice
+keinedatensaetzegefunden=No se han encontrado registros
+einendatensatzgefunden=Un registro encontrado
+datensaetzegefunden=Registros encontrados
+anzeigen=mostrar
+wollensiediesendatensatzunwiderruflichentfernen=\u00BFDese eliminar irrevocablemente el registro?
+verawebdetailansicht=VerA.web :: Vista detalle
+datensatzbearbeiten=Editar registro
+zuruecksetzen=Restaurar
+datensatzloeschen=Eliminar registro
+siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen=En su b\u00FAsqueda, podr\u00E1 utilizar comodines, el asterisco (*) servir\u00E1 para b\u00FAsquedas globales y el s\u00EDmbolo de interrogaci\u00F3n (?) para b\u00FAsquedas individuales
+undamtsbezeichnungfunktion=y t\u00EDtulo/funci\u00F3n
+HINT_SEARCH_WHERE=La b\u00FAsqueda se basa en nombres, apellidos, localizaci\u00F3n, c\u00F3digo postal, calle, empresa/instituci\u00F3n, tel\u00E9fono, fax, m\u00F3vil, e-mail, observaciones, categor\u00EDas y \u00E1reas de trabajo
+neuenorteingeben=Asignar nueva localizaci\u00F3n
+bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Por favor, introduzca una nueva localizaci\u00F3n y presione sobre "Asignar"
+neuerveranstaltungsort=Nueva localizaci\u00F3n
+markierenundkopierensiefolgendesadressetikett=Seleccionar y copiar las siguientes etiquetas de direcci\u00F3n
+personenetikett=Etiquetas-Personas
+zuruckzurubersicht=Volver a vista principal
+gpsdaten=Datos-GPS
+platzhalterintexteinfuegen=Insertar marcador de posici\u00F3n en el texto
+intexteinfuegen=Insertar en el texto
+emailvorlagen=Plantillas de correo electr\u00F3nico
+vorhandenevorlagen=Plantillas disponibles
+bitteauswhaelengt=Por favor, seleccione
+vorlageladen=Cargar plantilla
+neuevorlagename=Nueva plantilla (nombre)
+neuevorlagespeichern=Guardar nueva plantilla
+neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten=La nueva plantilla debe contener su asunto correspondiente
+zurueckzumverteiler=Volver a distribuci\u00F3n
+markiertenveranstaltungsorte=Localizaciones seleccionadas
+hinweis=Aviso
+inaktiv=inactivo
+aktionen=Acciones
+anschrift=Direcci\u00F3n
+anderungenspeichern=Guardar cambios
+senden=Enviar
 
-# ADMINISTRATION/E-MAIL-VORLAGEN
-e-mail-vorlagen=E-Mail-Vorlagen
-markiertevorlage=Markierte Vorlage(n)
-neuevorlageanlegen=Neue Vorlage anlegen
-namedervorlage=Name der Vorlage
-eswurdeeineneuevorlageangelegt=Es wurde eine neue Vorlage angelegt.
-text=Text
-platzhalter=Platzhalter
-hinzufugen=Hinzuf\u00FCgen
-zuruckzurvorlagenliste=Zur\u00FCck zur Vorlagenliste
+# GENERIC
+GENERIC_UPLOAD_BUTTON=Seleccionar archivo
+GENERIC_TO=para
+GENERIC_FEDERAL_STATE=Provincia
+GENERIC_PERSONAL_DATA=Datos personales
+GENERIC_NUMBER_OF_GUESTS=N\u00FAmero de invitados
+GENERIC_TELEFON=Tel\u00E9fono
 
-# ADMINISTRATION/FARBEN
-farben=Farben
-farbwert=Farbwert
-LETTERS_RED_GREEN_BLUE=R G B
-inlandjageschlechtweiblich=Inland: Ja - Geschlecht: Weiblich
-inlandjageschlechtmannlich=Inland: Ja - Geschlecht: M\u00E4nnlich
-inlandneingeschlechtweiblich=Inland: Nein - Geschlecht: Weiblich
-inlandneingeschlechtmannlich=Inland: Nein - Geschlecht: M\u00E4nnlich
+# MESSAGES
+MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Este invitado ser\u00E1 inclu\u00EDdo sin persona principal
+MESSAGE_INVITATION_WITHOUT_PARTNER=Este invitado ser\u00E1 inclu\u00EDdo sin partner
+MESSAGE_INVITATION_WITHOUT_PERSON_PART1=Desea ahora 
+MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON=invitar posteriormente
+MESSAGE_END_AND_START_DATE=La fecha fin del evento deber\u00E1 ubicarse temporalmente despu\u00E9s que la fecha de inicio.
+MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=No se ha podido guardar el evento. Por favor, introduzca una descripci\u00F3n corta.
+MESSAGE_EVENT_WRING_DATE_FORMAT=Debe introducir la fecha de inicio del evento mediante el formato DD.MM.AAAA.
+MESSAGE_GENERIC_MISSING_DESCRIPTION=Debe introducir una descripci\u00F3n.
+MESSAGE_COLOR_MISSING_NAME=Debe introducir un nombre.
+MESSAGE_EVENTCATEGORY_ASSIGNMENT_WRONG=Se han producido errores en la asignaci\u00F3n de una categor\u00EDa a un evento.
+MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=Se han producido errores en la asignaci\u00F3n de un tipo de documento a un evento.
+MESSAGE_EVENT_LOCATION_TITLE_EMPTY=La localizaci\u00F3n del evento no se puede guardar. Por favor, introduzca un t\u00EDtulo.
+MESSAGE_EVENT_LOCATION_MAX_REMARK_REACHED=El contenido del campo de observaciones tiene un m\u00E1ximo de 1000 caracteres.
+MESSAGE_EMAIL_DRAFT_NAME_MISSING=Debe introducir un nombre para la plantilla de correo electr\u00F3nico.
+MESSAGE_EMAIL_DRAFT_SUBJECT_MISSING=No ha introducido un asunto para la plantilla de correo electr\u00F3nico.
+MESSAGE_EMAIL_DRAFT_TEXT_MISSING=No ha introducido ning\u00FAn texto en la plantilla de correo electr\u00F3nico.
+MESSAGE_EMAIL_LIST_NAME_EMPTY=Por favor, introduzca un nombre para el distribuidor.
+MESSAGE_TASK_TIME_WITHOUT_DATE=No est\u00E1 permitido introducir tiempo sin haber seleccionado fecha previamente.
+MESSAGE_TASK_END_DATE_NOT_FUTURE=No se pueden guardar las tareas. La fecha final debe ser en el futuro.
+MESSAGE_TASK_END_DATE_WITHOUT_BEGIN_DATE=No se pueden guardar las tareas. Por favor, introduzca tambi\u00E9n una fecha de inicio.
+MESSAGE_TASK_BEGIN_DATE_BEFORE_END_DATE=No se pueden guardar las tareas. La fecha de inicio debe ubicarse antes que la fecha fin.
+MESSAGE_TASK_NO_SHORTNAME=No se pueden guardar las tareas. Por favor, introduzca una descripci\u00F3n corta.
+MESSAGE_TASK_MAX_REMARK_REACHED=No se pueden guardar las tareas. El campo de descripci\u00F3n no puede contener m\u00E1s de 1000 caracteres.
+MESSAGE_TASK_EMAIL_WITHOUT_SENDER=El E-Mail no puede ser enviado sin remitente.
+MESSAGE_TASK_EMAIL_WITHOUT_RECEIVER=El E-Mail no puede ser enviado sin destinatario.
+MESSAGE_TASK_EMAIL_WITHOUT_SUBJECT=El E-Mail no puede ser enviado sin asunto.
+MESSAGE_ORG_UNIT_NO_NAME=Debe introducir un nombre.
+MESSAGE_PERSON_MAX_COMPANY_REACHED=Podr\u00E1 introducir un m\u00E1ximo de 100 caracteres para la firma o instituci\u00F3n.
+MESSAGE_PERSON_MAX_NAME_REACHED=Podr\u00E1 introducir un m\u00E1ximo de 100 caracteres para el nombre de la persona principal.
+MESSAGE_PERSON_MAX_LASTNAME_REACHED=Podr\u00E1 introducir un m\u00E1ximo de 100 caracteres para el apellido de la persona principal.
+MESSAGE_PERSON_NO_COMPANY_NAME=Debe introducir un nombre para la firma o instituci\u00F3n.
+MESSAGE_PERSON_NO_NAME_LAST_NAME=Debe introducir un nombre y apellidos.
+MESSAGE_PERSON_NO_NAME=Debe introducir un nombre.
+MESSAGE_PERSON_NO_LASTNAME=Debe introducir los apellidos.
+MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=No se puede guardar la relaci\u00F3n entre persona y categor\u00EDa.
+MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=El conector puede ser de hasta 50 caracteres de longitud.
+MESSAGE_PROXY_NO_REPRESENTATIVE=Debe introducir un representante.
+MESSAGE_PROXY_NO_ROLE=Debe introducir un rol.
+MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=El comienzo de la representaci\u00F3n debe comenzar antes que el final.
+MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG=Se han producido errores en la asignaci\u00F3n de una funci\u00F3n/t\u00EDtulo a un evento.
+MESSAGE_FUNCTION_MISSING_NAME=Debe introducir un nombre para la funci\u00F3n.
+MESSAGE_GUEST_DOCTYPE_CITYNAME_MAX_LENGTH=El nombre de la ciudad tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_COMPANYNAME_MAX_LENGTH=El nombre de la empresa tiene un m\u00E1ximo de 250 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_COUNTRYNAME_MAX_LENGTH=El nombre del pa\u00EDs tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_FAX_MAX_LENGTH=El n\u00FAmero de fax tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_FIRSTNAME_MAX_LENGTH=El nombre tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_LASTNAME_MAX_LENGTH=El apellido tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_FIRSTNAME_PARTNER_MAX_LENGTH=El nombre del partner tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_LASTNAME_PARTNER_MAX_LENGTH=El apellido del partner tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_PHONE_MAX_LENGTH=El n\u00FAmero de tel\u00E9fono tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_FUNCTION_MAX_LENGTH=La descripci\u00F3n de la funci\u00F3n tiene un m\u00E1ximo de 250 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_EMAIL_MAX_LENGTH=La direcci\u00F3n de correo electr\u00F3nico tiene un m\u00E1ximo de 250 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_MOBILE_MAX_LENGTH=El n\u00FAmero de tel\u00E9fono m\u00F3vil tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_POBOX_MAX_LENGTH=El apartado de correos tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_POBOX_ZIP_MAX_LENGTH=El c\u00F3digo postal para el apartado de correos tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_SALUTATION_MAX_LENGTH=La denominaci\u00F3n tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_SALUTATION_PARTNER_MAX_LENGTH=La denominaci\u00F3n del partner tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_STREET_MAX_LENGTH=El nombre de la calle tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_SUFFIX1_MAX_LENGTH=El primer sufijo tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_SUFFIX2_MAX_LENGTH=El segundo sufijo tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_TEXTJOIN_MAX_LENGTH=El conector tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_TITLE_MAX_LENGTH=El t\u00EDtulo tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_TITLEPARTNER_MAX_LENGTH=El t\u00EDtulo del partner tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_URL_MAX_LENGTH=La URL tiene un m\u00E1ximo de 250 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_ZIP_MAX_LENGTH=El c\u00F3digo postal tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_USER_MISSING_ROLE=Debe introducir una descripci\u00F3n para el rol de usuario.
 
-# ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
-markiertebezeichnung=Markierte Bezeichnung(en)
-bezeichnung=Bezeichnung
-eswurdeeineneuefunktion/amtsbezeichnungangelegt=Es wurde eine neue Funktion/Amtsbezeichnung angelegt.
-eswurdeeinefunktion/amtsbezeichnunggeloscht=Es wurde eine Funktion/Amtsbezeichnung gel\u00F6scht.
+# EVENT LIST TEXTS
+EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Al menos un evento de los seleccionados est\u00E1 activo o lo estar\u00E1 en el futuro.
+EVENT_LIST_WARNING_SELECTION_CHANGING=Si quiere modificar su selecci\u00F3n, por favor, cancele la eliminaci\u00F3n.
+EVENT_LIST_DELETE_CONFIRMATION_MESSAGE=\u00BFDeben eliminarse todos los eventos seleccionados? Esta acci\u00F3n no se podr\u00E1 deshacer.
 
-# ADMINISTRATION/KATEGORIEN
-kategorien=Kategorien
-markiertekategorie=Markierte Kategorie(n)
-kennzeichen=Kennzeichen
-rang=Rang
-veranstaltungen=Veranstaltung(en)
-kategorie=Kategorie
-ereignis=Ereignis
+# PERSON LIST TEXTS
+PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE=No tiene permiso para eliminar personas.
+PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Debe eliminar siempre s\u00F3lo una persona. Por favor, seleccione s\u00F3lo una entrada o contacte con su administrador.
+PERSON_LIST_QUESTION_DELETE_CONFIRMATION=\u00BFDeben eliminarse todas las personas seleccionados?
 
-# ADMINISTRATION/MANDANTEN
-mandanten=Mandanten
-markierte(n)mandanten=Markierte(n) Mandanten
-nichtmandantenzugeordnetedaten=Nicht Mandanten zugeordnete Daten
-personen=Personen
-importvorgange=Import Vorg\u00E4nge
-veranstaltungorte=Veranstaltungorte
-importpersonen=Import Personen
-verteiler=Verteiler
-benutzer=Benutzer
-mandantenzuordnen=Mandanten zuordnen
-mandant=Mandant
+# EVENT DETAIL SITE TEXTS
+EVENT_DETAIL_ALREADY_EXISTS_ONE=Ya existe un evento con el nombre '
+EVENT_DETAIL_ALREADY_EXISTS_TWO='. \u00BFDesea de todas formas guardar el evento nuevo?
 
-# ADMINISTRATION/PROGRAMMEINSTELLUNGEN
-programeinstellungen=Programeinstellungen
-standardauswahlvontabulatoren=Standard Auswahl von Tabulatoren
-haupttabs=Haupttabs
-personendaten=Personendaten
-anschriften=Anschriften
-subtabsvonpersonendaten=Subtabs von \u00E2\u0080\u009EPersonendaten\u00E2\u0080\u009C
-hauptperson=Hauptperson
-partner=Partner
-subtabsvonanschriften=Subtabs von \u00E2\u0080\u009EAnschriften\u00E2\u0080\u009C
-geschaftlich=Gesch\u00E4ftlich
-standardauswahlderselectboxzeichensatz=Standard Auswahl der Selectbox \u00E2\u0080\u009EZeichensatz\u00E2\u0080\u009C
-zeichensatz=Zeichensatz
-standardanredenundfreitextfelder=Standard-Anreden und Freitextfelder
-standardanrede=Standard-Anrede
-standardanredepartner=Standard-Anrede Partner
-freitextfeldverbinder=Freitextfeld-Verbinder
-freitextfeldanzeige=Freitextfeld (Anzeige)
-freitextfeldgasteliste=Freitextfeld (G\u00E4steliste)
-hilfe=Hilfe
-hilfelink=Hilfe-Link
-hilfefenster=Hilfe-Fenster
-aktuellesbrowserfensterverwenden=Aktuelles Browser-Fenster verwenden
-proaufrufeinneuesbrowserfensteroffnen=Pro Aufruf ein neues Browser-Fenster \u00F6ffnen
-beijedemaufrufdasselbebrowserfensternichtdasaktuelle=Bei jedem Aufruf das selbe Browser-Fenster (nicht das aktuelle)
-sonstiges=Sonstiges
-faxdnfaxaa=Fax-DN (@fax.aa)
-anderungsprotokoll=\u00E4nderungsprotokoll
-vorhaltezeitderprotokolldaten=Vorhaltezeit der Protokolldaten
-gebensiedieaufbewahrungsfristein=Geben Sie die Aufbewahrungsfrist ein
-GENERIC_YEARS=Jahre
-GENERIC_MONTHS=Monate
-GENERIC_DAYS=Tage
-anschriftgeschaftlich=Anschrift Gesch\u00E4ftlich
-anschriftprivat=Anschrift Privat
-anschriftweitere=Anschrift Weitere
-zeichensatzlatein=Zeichensatz Latein
-zeichensatzalternative1=Zeichensatz Alternative 1
-zeichensatzalternative2=Zeichensatz Alternative 2
-adresszusatz1=Adresszusatz 1
-adresszusatz2=Adresszusatz 2
+# CATEGORY TEXTS
+CATEGORY_DETAIL_ALREADY_EXISTS=Ya existe una entrada de datos maestros bajo el nombre 
 
-# ADMINISTRATION/REPORTS
-reports=Reports
-abhangigvomausgewahltenzeitraumundderdarausresultierendenanzahldatenkanndieerzeugungdesberichtsrelativlangedauernhabensiebitteeinweniggeduld=Abh\u00E4ngig vom ausgew\u00E4hlten Zeitraum und der daraus resultierenden Anzahl von Daten, kann die Erzeugung des Berichts relativ lange dauern. Haben Sie bitte ein wenig Geduld.
-datumbeginn=Datum Beginn
-datumende=Datum Ende
-felderzurucksetzen=Felder zur\u00FCcksetzen
-reporterzeugen=Report erzeugen
+# CHANGELOG REPORTS TEXTS
+CHANGELOG_NO_PROTOCOL_AVAILABLE=No existen datos hist\u00F3ricos.
 
-# ADMINISTRATION/STELLVERTRETUNGEN
-stellvertretungen=Stellvertretungen
-gultigkeitsfilter=G\u00FCltigkeitsfilter
-allevertretungen=Alle Vertretungen
-keineabgelaufenenvertretungen=Keine abgelaufenen Vertretungen
-nuraktuellevertretungen=Nur aktuelle Vertretungen
-rolle=Rolle
-vertreter=Vertreter
-gultigab=G\u00FCltig ab
-gultigbis=G\u00FCltig bis
-keinedatengefunden=Keine Daten gefunden.
+# BROWSER TITLES
+BROWSER_TITLE_REPORTS=Reports
 
-# ADMINISTRATION/VERANSTALTUNGSORTE
-markierte=Markierte(n) Veranstaltungsort(e)
-neuenveranstaltungsorthinzufugen=Neuen Veranstaltungsort hinzuf\u00FCgen
-id=ID
-ansprechpartner=Ansprechpartner
-telefon=Telefon
-fax=Fax
-e-mail=E-Mail
-bemerkung=Bemerkung
-url=URL
-gps-daten=GPS-Daten
-raumnummer=Raumnummer
-EVENT_PLACES_CONFIRM_DELETE=Bitte best\u00E4tigen Sie das L\u00F6schen von Veranstaltungsorten
 
-# VERWALTUNG/EINSTELLUNGEN
-verwaltung=Verwaltung
-einstellungen=Einstellungen
-personendetailansicht=Personendetailansicht
-gasteliste=G\u00E4steliste
-zusatzlichefelder=Zus\u00E4tzliche Felder
-funktion=Funktion
-plz/ort=PLZ / Ort
-personenliste=Personenliste
-bundesland=Bundesland
-einstellungenwurdenerfolgreichgespeichert=Einstellungen wurden erfolgreich gespeichert.
+#NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reiniciar todos los valores de los datos maestros
+GUEST_LIST_EDIT_MASTER_DATA=Editar datos maestros de personas
+GUEST=Invitado
+GENERIC_OF=de
 
-# VERWALTUNG/VERTRETUNGEN
-vertretungen=Vertretungen
-markiertevertretung=Markierte Vertretung(en)
-loschen=L\u00F6schen
-neu=Neu
-eswurdeeineneuevertretungangelegt=Es wurde eine neue Vertretung angelegt
-eswurdeeinevertretunggeloscht=Es wurde eine Vertretung gel\u00E4scht
-siemuseneinevertretereingeben=Sie m\u00FCssen eine Vertreter eingeben
-derbeginndervertretungmusvordemendeliegen=Der Beginn der Vertretung muss vor dem Ende liegen
-eswurden=Es wurden
-vertretungengeloscht=Vertretungen gel\u00E4scht
-# VERWALTUNG/INFO
-info=Info
-informationenzuveraweb=Informationen zu VerA.web
-veraweb=VerA.web
-version=Version
-build=Build
-datenbank=Datenbank
-login=Login
-gruppen=Gruppen
-nichtverfugbar=Nicht verf\u00FCgbar
 
-# ALLGEMEIN
-siesindhier=Sie sind hier
-home=Home
+TOOLTIP_EDIT_HEADLINES=Usted puede modificar los encabezados antes de imprimir pulsando sobre "Editar". Por favor, guarde antes de imprimir.
+GENERIC_NEXT_PAGE=P\u00E1gina siguiente
+GENERIC_PREVIOUS_PAGE=P\u00E1gina anterior
+GENERIC_APPLY_TO_GUESTLIST=A\u00F1adir a la lista de invitados
+GENERIC_APPLY_GUEST_TO_GUESTLIST=Seleccionar invitado directamente desde la lista de invitados
+GENERIC_APPLY=Seleccionar
+GENERIC_APPLY_PERSON_AS_HOST=Seleccionar persona directamente como anfitri\u00F3n
+etikettfuraktuellepersonerzeugen=Generar etiqueta para la persona actual
 
-# TABELLEN
-datum=Datum
-arbeitsbereich=Arbeits&shy;bereich
-nachname=Nachname
-vorname=Vorname
-amtsbezeichnung=Amtsbe&shy;zeichnung
-firmainstitution=Firma / Institution
-strasse=Stra\u00DFe
-plz=PLZ
-ort=Ort
-markiertepersonen=Markierte Person(en)
-expotieren=Expotieren
-kategorienzuordnen=Kategorien zuordnen
-kategorienentfernen=Kategorien entfernen
-arbeitsbereichzuordnen=Arbeitsbereich zuordnen
-arbeitsbereichentfernen=Arbeitsbereich entfernen
-durchfuhren=Durchf\u00FChren
-personenanzahlproseite=Personen | Anzahl pro Seite
-alle=Alle
-seite=Seite
-geburtsdatum=Geburtsdatum
-geburtsort=Geburtsort
-nationalitat=Nationalit\u00E4t
-staatsangehorigkeit=Staatsangeh\u00E4rigkeit
-sprachen=Sprachen
-hinweisfurgastgeber=Hinweis f\u00FCr Gastgeber
-akkreditierungsdatum=Akkreditierungsdatum
-um=Um
-uhr=Uhr
-datenherkunft=Datenherkunft
-person=Person
+aktuellepersonloschenundzurpersonenlistezuruckkehren=Eliminar persona actual y volver a la lista de personas
+freifeldvorschaufur=Campo libre-Vista previa para 
+zudieserpersonwurdedasentsprechendevorschaufeldnochncihterzeugt=El campo Vista Previa no ser\u00E1 generado para esta persona
+GENERIC_LAST_PAGE=\u00FAltima p\u00E1gina
+siemussendierolleangebenunterdersieverawebnutzenmochten=Debe introducir los roles que desea utilizar en VerA.web.
+GENERIC_CHOOSE=seleccionar
+GENERIC_RESET=Reiniciar
+siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=No tiene permisos para eliminar invitados
+wahlensiebittezunachsteineodermehreregastelistenaus=Por favor, seleccione uno o m\u00E1s invitados
+bittebestatigensiedasloschendermarkiertengasteliste=Por favor, \u00A1confirme la eliminaci\u00F3n de los invitados seleccionados!
+GENERIC_NO_GUESTLIST_DELETED=No se han eliminado invitados.
 
-# DATEITYP
-csv=CSV (Comma-Separated-Values)
-xml=XML (VerA.web-XML)
-zkm=ZKM (VerA.web-XML \u00FCber das Zentrale Kommunikationsmodul)
-madlan-personen=MAdLAN-Personen (MAdLAN-Personen-Import)
-madlan-firmen=MAdLAN-Firmen (MAdLAN-Firmen-Import)
-x-manage-csv=X-Manage-CSV (X-Manage Kontakte)
-csvpersdatanschriftdoktyp=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
-csvpersdatdoktyp=CSVPersdat+Doktyp (Comma-Separated-Values)
-csvpersdatdoktyp10=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
-csvpersdatkategorien=CSVPersdat+Kategorien (Comma-Separated-Values)
-csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 
-# PERSONEN/PERSONENUEBERSICHT
-personenubersicht=Personen\u00FCbersicht
-personensuchen=Personen suchen
-neuepersonanlegen=Neue Person anlegen
-personengeloscht=Personen gel\u00F6scht
+EVENT_DOCTYPE_RESET_INFO=Por favor, compruebe que el evento tiene asociados los tipos de documento. Si este fuera el caso, necesita volver a crear los tipos de documento para los invitados, haciendo clic en "Restablecer datos maestros".
 
-# PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN
-personbearbeiten=Person bearbeiten
-erfasstam=Erfasst am
-zuletztgeandertam=Zuletzt ge\u00E4ndert am
-personen-id=Personen-ID
-online-anmeldungbenutzername=Online-Anmeldung Benutzername
-freifeld-vorschaufuretikett="Freifeld-Vorschau f\u00C3\u00BCr \u00E2\u0080\u009EEtikett\u00E2\u0080\u009C"
-zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
-personkopieren=Person kopieren
-etiketterzeugen=Etikett erzeugen
-einerveranstaltungzuordnen=Einer Veranstaltung zuordnen
-personloschen=Person l\u00E4schen
-statistik=Statistik
-ausstammdatenhinzufugen=Aus Stammdaten hinzuf\u00FCgen
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Se encuentra dentro del men\u00FA "Administraci\u00F3n > Preferencias de programa.
 
-# PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
-dokumenttyp=Dokumenttyp
-alleerzeugen=Alle erzeugen
+GENERIC_CHOSEN_GUESTLIST=Invitados seleccionados
+exportierfahigegasteliste=Invitados exportables
+unvollstandigegasteliste=Invitados incompletos
 
-# PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
-kategorienundereignisse=Kategorien und Ereignisse
+GUESTLIST_FILTER_EXPORT_INFO=S\u00F3lo ser\u00E1n exportados los invitados seleccionados a trav\u00E9s del filtro ejecutado sobre la lista de invitados.
 
-# PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/STATISTIK
-ubersichtuberalleveranstaltungeneinesgastes=\u00FCbersicht \u00FCber alle Veranstaltungen eines Gastes.
-ab=Ab
-statistikfurgast=Statistik f\u00FCr Gast
-veranstaltung=Veranstaltung
-beginn=Beginn
+GUEST_CANNOT_BE_EXPORTED_1=Un invitado 
+GUEST_CANNOT_BE_EXPORTED_2=no se ha 
+GUEST_CANNOT_BE_EXPORTED_3=podido 
+GUEST_CANNOT_BE_EXPORTED_4=exportar
+PERSON_MISSING_DOCTYPE_SPECIFIC_DATA=porque para esa persona no se han guardado datos espec\u00EDficos del tipo de documento
 
-# PERSONEN/PERSONENSUCHE
-personensuche=Personensuche
-suche=Suche
-gultigkeitsdatum=G\u00FCltigkeitsdatum
-erweitertesuche=Erweiterte Suche
-HINT_PLACEHOLDER=Hinweis Sie k\u00E4nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00FCr mehrere und das ? f\u00FCr einzelne Zeichen. Die Suche erfolgt im Vornamen, Nachnamen, Ort, PLZ, Stra\u00DFe, Firma/Institution, Telefon, Fax, Mobil, E-Mail, Bemerkungen, Kategorien, Arbeitsbereiche und Amtsbezeichnung/Funktion.
+GUESTS_CANNOT_BE_EXPORTED_1=invitados
+GUESTS_CANNOT_BE_EXPORTED_2=no se han
+GUESTS_CANNOT_BE_EXPORTED_3=podido
+GUESTS_CANNOT_BE_EXPORTED_4=exportar
+PERSONS_MISSING_DOCTYPE_SPECIFIC_DATA=porque para esas personas no se han guardado datos espec\u00EDficos del tipo de documento
+GENERIC_TO_EVENTDETAIL=Volver a detalles del evento
+GENERIC_INSERT_CURRENT_MONTH=insertar mes actual
+GENERIC_SELECT_FUNCTION=Seleccionar funci\u00F3n
+diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten=Se han eliminado los datos maestros de este invitado. S\u00F3lo se pueden editar datos en relaci\u00F3n al evento actual.
+DELETE_SELECTED_MANDATOR=Eliminar mandante(s) seleccionado(s)
+PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=\u00BFUtilizar los datos de rango de categor\u00EDa de los datos maestros?
 
-# PERSONEN/NEUE PERSON ANLEGEN
-MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=Die Anmeldedaten wurden erfolgreich erzeugt.
-MESSAGE_OSIAM_LOGIN_DATA_EXIST=Anmeldedaten f\u00FCr diese Person sind bereits vorhanden.
 
-# PERSONEN/NEUE PERSON ANLEGEN
-istfirma=Ist Firma
-anrede=Anrede
-frau=Frau
-herr=Herr
-lady=Lady
-sir=Sir
-bittewahlensie=Bitte w\u00E4hlen Sie
-akadtitel=Akad. Titel
-inland=Inland
-hinweisfurorga=Hinweis f\u00FCr Orga
-firma=Firma
-land=Land
-plz/postfach=PLZ / Postfach
-iban=IBAN
-bic=BIC
-mobil=Mobil
-www=WWW
-dublettenprufungdurchfuhren=Dublettenpr\u00FCfung durchf\u00FChren
-zurpersonenubersicht=Zur Personen\u00FCbersicht
+# NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reiniciar todos los valores mediante datos maestros
+GUEST_LIST_EDIT_MASTER_DATA=Editar datos maestros de personas
+GUEST=Invitad
+GENERIC_OF_Capital=de
+GENERIC_ASSIGN=Aceptar
+GENERIC_CANCEL=Cancelar
+GENERIC_DELETE=Eliminar
+GENERIC_CONNECTOR=Conector
 
-# PERSONEN/SUCHEN & ERSETZEN IN PERSONENDATEN
-suchen&ersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
-hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Hinweis Wenn Sie den Platzhalter * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
-suchen=Suchen
-ersetzen=Ersetzen
-infolgendenfeldern=In folgenden Feldern
-anrede/titel=Anrede / Titel
-freitextfelder=Freitextfelder
-amtsbezeichn=Amtsbezeichn.
-institution=Institution
-adresse=Adresse
-telefon/fax=Telefon / Fax
-einzelnersetzen=Einzeln ersetzen
-alleersetzen=Alle ersetzen
+# GUEST DETAIL TEXTS
+GUEST_DETAIL_PARTNER=el partner
+GUEST_DETAIL_PARTNER_GENITIV=del partner
+GUEST_DETAIL_MAINPERSON=la persona principal
 
-# PERSONEN/DUBLETTENSUCHE
-dublettensuche=Dublettensuche
+GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Por favor, modifique el asiento por
+GUEST_DETAIL_DUP_SEAT_ERROR_TWO=de
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=sobre la lista de invitados. Esta persona se sienta actualmente en 
+GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=el asiento introducido
+GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. El cambio no se ha producidoDie \u00C4nderung wurde nicht gespeichert.
 
-# PERSONEN/EXPORT VON PERSONENDATEN
-exportvonpersonendaten=Export von Personendaten
-HINT_EXPORT_MANDANT_PERSON=Sie exportieren mit dieser Funktion ausschlie\u00DFlich Personen aus Ihrem aktuellen Mandanten.
-ohne=Ohne
-botschaften=Botschaften
-finanzamtsprecher=Finanzamtsprecher
-journalisten=Journalisten
-lieferant=Lieferant
-nogs=NOGs
-politik=Politik
-pressevertreter=Pressevertreter
-wirtschaft=Wirtschaft
-HINT_EXPORT_OPEN_DATA=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00E4nnen.
-exportstarten=Export starten
+# GUEST TEXTS
+GUEST_CALC_SERIALNO=Este evento pertenece a una fecha en el pasado. Aun as\u00ED, \u00BFdesea volver a calcular su n\u00FAmero de serie?
 
-# PERSONEN/IMPORT VON PERSONENDATEN
-importvonpersonendaten=Import von Personendaten
-HINT_IMPORT_SHORT_CONTENT=Hinweis Beim Import k\u00E4nnen Feldinhalte, die l\u00E4nger als bei VerA.web vorgesehen sind, gek\u00FCrzt \u00FCbernommen werden.
-zielmandant=Zielmandant
-importdatei=Import-Datei
-dateityp=Dateityp
-dateiauswahlen=Datei ausw\u00E4hlen
-keineausgewahlt=Keine ausgew\u00E4hlt
-importstarten=Import starten
+# MAILING LIST TEXTS
+MAILING_LIST_NO_ADDRESSES=La creaci\u00F3n de un nuevo distribuidor finaliz\u00F3 con errores, debido a la inexistencia de datos de direcciones en las personas seleccionadas
 
-# PERSONENDROPDOWN
-neueperson=Neue person
-suchen&ersetzen=Suchen & ersetzen
-personenexport=Personenexport
-personenimport=Personenimport
+# ORG UNIT LIST TEXTS
+ORG_UNIT_NO_MANDANT_ID=El mandante a insertar no deber\u00E1 tener ID
+ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=El mandante a insertar
+ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO=ya existe.
+ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Actualizar mandante
+ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= debe tener un ID
+ORG_UNIT_MANDANT_EXISTS_ONE=Un mandante con el nombre 
+ORG_UNIT_MANDANT_EXISTS_TWO=ya existe.
 
-# VERANSTALTUNGENDROPDOWN
-veranstaltungsubersicht=Veranstaltungs\u00FCbersicht
-veranstaltunguuche=Veranstaltungssuche
-neueveranstaltung=Neue Veranstaltung
-statistiken=Statistiken
+# PERSON CATEGORIES TEXTS
+PERSON_CATEGORIES_SELECT_WARNING=Para insertar una nueva categor\u00EDa, por favor, seleccione una. (S\u00F3lo ha introducido el rango.)
 
-# ADMINISTRATIONDROPDOWN
-anreden=Anreden
-arbeitsbereiche=Arbeitsbereiche
-dokumenttypen=Dokumenttypen
-e-mail-postausgang=E-Mail-Postausgang
-programmeinstellungen=Programmeinstellungen
-veranstaltungsorte=Veranstaltungsorte
+# EXPORT FILE HEADERS
+EXPORT_HEADER_DOCUMENT_TYPE=Tipo_Documento
+EXPORT_HEADER_FREETEXT_FIELD=Campo_libre
+EXPORT_HEADER_PARTNER_FREETEXT_FIELD=Campo_libre_Partner
+EXPORT_HEADER_INTERCONNECTS=Conector
+EXPORT_HEADER_ADDRESS=Direcci\u00F3n
+EXPORT_HEADER_CHARSET=Charset
+EXPORT_HEADER_FUNCTION=Funci\u00F3n
+EXPORT_HEADER_TITLE=G\u00E9nero
+EXPORT_HEADER_FIRSTNAME=Nombre
+EXPORT_HEADER_LASTNAME=Apellidos
+EXPORT_HEADER_PARTNER_TITLE=G\u00E9nero_Partner
+EXPORT_HEADER_PARTNER_ACADEMIC_TITLE=T\u00EDtulo_acad_Partner
+EXPORT_HEADER_PARTNER_FIRSTNAME=Nombre_Partner
+EXPORT_HEADER_PARTNER_LASTNAME=Apellidos_Partner
+EXPORT_HEADER_POSTALCODE=CP
+EXPORT_HEADER_CITY=Ciudad
+EXPORT_HEADER_STREET=Calle
+EXPORT_HEADER_COUNTRY=Pa\u00EDs
+EXPORT_HEADER_ADDITIONAL_ADDRESS_ONE=Direcci\u00F3n_adicional_1
+EXPORT_HEADER_ADDITIONAL_ADDRESS_TWO=Direcci\u00F3n_adicional_2
+EXPORT_HEADER_CITY_OF_BORN=Lugar_nacimiento
+EXPORT_HEADER_TELEPHONE=Tel\u00E9fono
+EXPORT_HEADER_FAX=Fax
+EXPORT_HEADER_EMAIL=Email
+EXPORT_HEADER_WWW=WWW
+EXPORT_HEADER_MOBILE=M\u00F3vil
+EXPORT_HEADER_COMPANY=Empresa
+EXPORT_HEADER_POST_OFFICE_BOX_NUMBER=Apt_Correos
+EXPORT_HEADER_POST_OFFICE_BOX_PLZ=CP
+EXPORT_HEADER_WORK_AREA=\u00C1rea_trabajo
+EXPORT_HEADER_CATEGORY=Categor\u00EDa
+EXPORT_HEADER_CATEGORY_RANG=Rango_Categor\u00EDa
+EXPORT_HEADER_RANG=Rango
+EXPORT_HEADER_RESERVE=Reserva
+EXPORT_HEADER_STATUS=Estado
+EXPORT_HEADER_TABLE=Mesa
+EXPORT_HEADER_SEAT=Sitio
+EXPORT_HEADER_CURRENT_NUMBER=N\u00FAmero_serie
+EXPORT_HEADER_COLOUR=Color
+EXPORT_HEADER_IN_COUNTRY=En_pa\u00EDs
+EXPORT_HEADER_LANGUAGES=Idiomas
+EXPORT_HEADER_SEX=G\u00E9nero
+EXPORT_HEADER_NATIONALITY=Nacionalidad
+EXPORT_HEADER_HINT_RESPONSIBLE=Aviso_Anfitri\u00F3n
+EXPORT_HEADER_HINT_ORG_TEAM=Aviso_Orga
+EXPORT_HEADER_PARTNER_STATUS=Estado_Partner
+EXPORT_HEADER_PARTNER_TABLE=Mesa_Partner
+EXPORT_HEADER_PARTNER_SEAT=Sitio_Partner
+EXPORT_HEADER_PARTNER_CURRENT_NUMBER=N\u00FAmero_serie_Partner
+EXPORT_HEADER_PARTNER_COLOUR=Color_Partner
+EXPORT_HEADER_PARTNER_IN_COUNTRY=En_pa\u00EDs
+EXPORT_HEADER_PARTNER_LANGUAGES=Idiomas_Partner
+EXPORT_HEADER_PARTNER_SEX=G\u00E9nero_Partner
+EXPORT_HEADER_PARTNER_NATIONALITY=Nacionalidad_Partner
+EXPORT_HEADER_PARTNER_HINT_RESPONSIBLE=Aviso_Anfitri\u00F3n_Partner
+EXPORT_HEADER_PARTNER_HINT_ORG_TEAM=Aviso_Orga_Partner
+EXPORT_HEADER_ACCEPT=Selecci\u00F3n_Aceptada
+EXPORT_HEADER_DECLINE=Selecci\u00F3n_Rechazada
+EXPORT_HEADER_OPEN=Selecci\u00F3n_Pendiente
+EXPORT_HEADER_GUEST_IN_PLACE=Total_invitados_con_sitio
+EXPORT_HEADER_GUEST_IN_RESERVE=Total_invitados_en_reserva
+EXPORT_HEADER_EVENT_NAME=Nombre_evento
+EXPORT_HEADER_EVENT_BEGIN=Inicio_evento
+EXPORT_HEADER_EVENT_END=Fin_evento
+EXPORT_HEADER_EVENT_LOCATION=Lugar_evento
+EXPORT_HEADER_OBSERVATION=Observaciones
 
-# VERANSTALTUNGSUEBERSICHT
-ende=Ende
-gastgeber=Gastgeber
-veranstaltungsort=Veranstaltungsort
-veranstaltungsuchen=Veranstaltung suchen
-neueveranstaltunganlegen=Neue Veranstaltung anlegen
-anzahlproseite=Anzahl pro seite
-seitexvony=Seite x von y
+# MAIN DATA (STAMMDATEN-WORKER) TEXTS
+MAIN_DATA_WARN_ALREADY_EXISTS=Ya existe una entrada de datos maestros bajo el nombre
 
-# VERANSTALTUNG BEARBEITEN/ALLGEMEIN
-veranstaltungbearbeiten=Veranstaltung bearbeiten
-veranstaltungs-id=Veranstaltungs-id
-veranstaltungsname=Veranstaltungsname
-veranstaltungsurl=Veranstaltungs-URL
-urlfurpressevertreter=URl f\u00FCr pressevertreter
-zurgasteverwaltung=Zur G\u00E4steverwaltung
-allgemein=Allgemein
-aufgaben=Aufgaben
-zusatzlichepersonendaten=Zus\u00E4tzliche Personendaten
-kurzbereichnung=Kurzbereichnung
-einladungsart=Einladungsart
-offeneveranstaltung=Offene Veranstaltung
-umxuhr=Um x uhr
-maximalanzahlgaste=Maximal Anzahl G\u00E4ste
-veranstalgungsort=Veranstalgungsort
-gastgebersuchen=Gastgeber suchen
-gastgeberentfernen=Gastgeber entfernen
-gastgeberpartner=Gastgeber-Partner
-loginnotwendig=Login notwendig
-anmeldungvonpressevertreternmoglich=Anmeldung von Pressevertretern m\u00F6glich
-veranstaltungspeichern=Veranstaltung speichern
-zurveranstaltungsubersicht=Zur Veranstaltungs\u00FCbersicht
+# STATS (Statistik Worker)
+STATS_COLUMN_EVENT_NAME=Nombre del evento
+STATS_COLUMN_DATE_BEGIN=Inicio
+STATS_COLUMN_INVITATION_TYPE=Tipo de invitaci\u00F3n
+STATS_COLUMN_INVITATION_STATUS=Estado
+STATS_COLUMN_INVITATION_STATUS_PARTNER=Estado del partner
+STATS_COLUMN_YEAR=A\u00F1o
+STATS_COLUMN_MONTH=Mes
+STATS_COLUMN_EVENTS=Eventos
+STATS_NOT_INVITED=no invitado
 
-# VERANSTALTUNG BEARBEITEN/DOKUMENTTYPEN
-markiertedokumenttypen=Markierte Dokumenttypen
-entfernen=Entfernen
-neuendokumenttyphinzufugen=Neuen Dokumenttyp hinzuf\u00FCgen
-xvonydokumenttypen=x von y Dokumenttypen
+# USER LIST TEXTS
+USER_LIST_WARN_MANDANT_ONE=El usuario a insertar ya se encuentra asignado al mandante 
+USER_LIST_WARN_MANDANT_TWO=.
+USER_LIST_WARN_ALREADY_USER=El usuario a insertar ya existe en VerA.web.
+USER_LIST_WARN_NO_ID=El usuario a insertar no debe tener ID
 
-# VERANSTALTUNG BEARBEITEN/AUFGABEN
-neueaufgabeanlegen=Neue Aufgabe anlegen
-esliegenkeineaufgabenfurdieseveranstaltungvor=Es liegen keine Aufgaben f\u00FCr diese Veranstaltung vor
-ausgewahlteeintrage=Ausgew\u00E4hlte Eintr\u00E4ge
-titel=Titel
-verantwortlicher=Verantwortlicher
+# WORKAREA TEXTS
+WORKAREA_ERROR_INCORRECT_NAME_ONE=El \u00E1rea de trabajo con el nombre '
+WORKAREA_ERROR_INCORRECT_NAME_TWO=' no se ha podido crear. Por favor, identifique en primer lugar un mandante.
 
-# VERANSTALTUNG BEARBEITEN/AUFGABEN/AUFGABE ANLEGEN
-aufgabenid=Aufgaben-ID
-fertigstellung=Fertigstellung
-prioritat=Priorit\u00E4t
-beschreibung=Beschreibung
-verantwortlichenhinzufugen=Verantwortlichen hinzuf\u00FCgen
-verantwortlichenentfernen=Verantwortlichen entfernen
-aufgabespeichern=Aufgabe Speichern
-zuruckzuraufgabenubersicht=Zur\u00FCck zur Aufgaben\u00FCbersicht
+# VERIFY TEXTS
+VERIFY_ERROR_ACCESS_TO_DB_UNABLE=No ha podido establecerse conexi\u00F3n con la base de datos.
+VERIFY_ERROR_ACCESS_TO_DB_INTERRUPTED=La conexi\u00F3n con la base de datos se ha visto interrumpida.
+VERIFY_ERROR_ACCESS_TO_DB_NOT_INTERRUPTED=La conexi\u00F3n con la base de datos no se ha podido interrumpir con \u00E9xito.
+VERIFY_ERROR_DB_NOT_ACCESSIBLE=No ha podido establecerse conexi\u00F3n con la base de datos.
+VERIFY_ERROR_DB_VERSION_NOT_DETERMINED=No se pudo determinar la versi\u00F3n del esquema de la base de datos.
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE=La versi\u00F3n del esquema de base de datos (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO=) no es la esperada por VerA.web (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
+VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Su configuraci\u00F3n actual de base de datos no puede interpretar el conjunto de caracteres (LC_CTYPE=
+VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Su configuraci\u00F3n actual de base de datos no puede interpretar las reglas de comparaci\u00F3n de texto (LC_COLLATE=
+VERIFY_ERROR_XML=Se ha producido un error al generar un documento XML de prueba. (
+VERIFY_ERROR_JAVA_ONE=La versi\u00F3n de Java instalada (
+VERIFY_ERROR_JAVA_TWO=) no se corresponde con la versi\u00F3n esperada (1.4).
 
-# VERANSTALTUNG BEARBEITEN/FUNKTIONEN/AMTSBEZEICHNUNGEN
-neueamtsbezeichnunghinzufugen=Neue Amtsbezeichnung Hinzuf\u00FCgen
-eswurdenkeineamtsbezeichnungengefunden=Es wurden keine Amtsbezeichnungen gefunden.
+#TO BE DELETED
+inlandjageschlechtweiblich=En el pa\u00EDs: S\u00ED - G\u00E9nero: mujer
+inlandjageschlechtmannlich=En el pa\u00EDs: S\u00ED - G\u00E9nero: hombre
+inlandneingeschlechtweiblich=En el pa\u00EDs: No - G\u00E9nero: mujer
+inlandneingeschlechtmannlich=En el pa\u00EDs: No - G\u00E9nero: hombre
 
-# VERANSTALTUNG BEARBEITEN/KATEGORIEN
-neuekategoriehinzufugen=Neue Kategorie hinzuf\u00FCgen
+# GENERIC DIALOG MESSAGES
+GENERIC_PLEASE_WAIT_HEADER=Por favor, espere...
+GENERIC_PLEASE_WAIT_MESSAGE=El proceso puede tardar m\u00E1s de lo normal.
 
-# VERANSTALTUNG BEARBEITEN/VORBEDINGUNGEN
-GENERIC_PRECONDITION_PLURAL=Vorbedingungen
-EVENT_PRECONDITION_MARKED=Markierte Vorbendingung(en)
-EVENT_PRECONDITION_ADD=Vorbedingung hinzuf\u00FCgen
-EVENT_PRECONDITION_INVITATIONSTATUS=Teilnahmestatus
-EVENT_PRECONDITION_STARTDATE=Startdatum
-EVENT_PRECONDITION_NOT_FOUND=Es wurden keine Vorbedingungen gefunden
+# WORK AREA (Bean) TEXTS
+WORKAREA_ERROR_MISSING_NAME=El \u00E1rea de trabajo requiere un nombre \u00FAnico.
 
-# VERANSTALTUNGSSUCHE
-nurinzukunftigenveranstaltungensuchen=Nur in zuk\u00FCnftigen Veranstaltungen suchen
-siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Sie k\u00F6nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00FCr mehrere das ? f\u00FCr einzelne
 
-# NEUE VERANSTALTUNG ANLEGEN
-mitpartner=Mit Partner
-eswurdeeineneueveranstaltungangelegt=Es wurde eine neue Veranstaltung angelegt.
+zurpersonensuche=Volver a b\u00FAsqueda de personas
+steuerdatei=Archivo de control
+dokumenttypauswahlen=Seleccionar tipo de documento
+EVENT_NO_DOCTYPES_ASSIGNED=El evento no tiene tipos de documento asociados
 
-# VERTEILER
-angelegtvon=Angelegt von
-angelegtam=Angelegt am
-erzeugtausveranstaltung=Erzeugt aus Veranstaltung
+# DATE HELPER TEXTS
+DATE_HELPER_INCORRECT_DATE= no es una fecha v\u00E1lida. Por favor, \u00A1utilice el formato de entrada DD.MM.AAAA!
 
-# STATISTIKEN
-statistikauffolgendenzeitrahmeneinschranken=Statistik auf folgenden Zeitrahmen einschr\u00E4nken
-statistiktypauswahlen=Statistiktyp ausw\u00E4hlen
-zeitrahmenbeginn=Zeitrahmen-beginn
-zeitrahmenende=Zeitrahmen-ende
-STATISTIC_RADIO_PER_YEAR=Gesamt\u00FCbersicht \u00FCber die Anzahl der Veranstaltungen pro Jahr
-STATISTIC_RADIO_PER_MONTH=Gesamt\u00FCbersicht \u00FCber die Anzahl der Veranstaltungen pro Monat
-STATISTIC_RADIO_GROUPED_BY_HOST=Gesamt\u00FCbersicht \u00FCber alle Veranstaltungen, gruppiert nach Gastgeber
-STATISTIC_RADIO_PER_HOST=\u00DCbersicht \u00FCber alle Veranstaltungen eines Gastgebers (mit Suche)
-STATISTIC_RADIO_PER_GUEST=\u00DCbersicht \u00FCber alle Veranstaltungen eines Gastes (mit Suche)
-STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE=\u00DCbersicht \u00FCber alle Veranstaltungen sortiert nach Veranstaltungsort
-statistikerstellen=Statistik erstellen
+#WIP
+GENERIC_SHOW_CURRENT_EVENTS=Mostrar eventos actuales
+GENERIC_FURTHER_PROCEEDING=Acciones posteriores
 
-# GAESTEVERWALTUNG DER VERANSTALTUNG
-gasteverwaltungderveranstaltung=G\u00E4steverwaltung der Veranstaltung
-maxanzahlgaste=Max. Anzahl G\u00E4ste
-gastedetails=G\u00E4stedetails
-offen=Offen
-zusagen=Zusagen
-absagen=Absagen
-teilnahmen=Teilnahmen
-aufplatz=Auf Platz
-aufreserve=Auf Reserve
-filter=Filter
-platzwahl=Platzwahl
-lfdnr=Lfd.-nr.
-nichteingeladen=Nicht eingeladen
-laufendenummerberechnen=Laufende Nummer berechnen
-allestammdatenneuladen=Alle Stammdaten neu laden
-HINT_ENTRY_POINT=Direkteinsprung: ist nur bei einer Sortierung nach Name, Vorname oder E-Mail m\u00F6glich.
-HINT_GUEST_MANAGEMENT_FILTER=Beim Erstellen von Steuerdateien oder G\u00E4stelisten wird Ihr oben ausgew\u00E4hlter Filter ber\u00FCcksichtigt.
-HINT_GUEST_MANAGEMENT_MARKED=Wenn Sie einzelne G\u00E4ste markieren, werden nur diese exportiert, ansonsten die vollst\u00E4ndige Liste.
+LETTER_MAIN_PERSON=H
+LETTER_PARTNER=P
+LETTER_RESERVE=R
+LETTER_DELEGATION=D
+LETTER_HOST=G
 
-# GAESTELISTE ERSTELLEN
-GUEST_LIST_CREATE=G\u00E4steliste erstellen
-SELECT_OUTPUT_FORMAT=Ausgabeformat w\u00E4hlen
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Liste nach Kategorien gruppiert - mit Partner
-LIST_GROUP_BY_CATEGORY_WITH_TEL=Liste nach Kategorien gruppiert - mit Tel. und Mobiltelefon
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Liste nach Kategorien gruppiert - mit Partner und Fax
-LIST_SORT_PARTNER_TEL=Liste nach sortierung -mit Partner, Tel. und Mobiltelefon
-SORT_CRITERIA=Sortierkriterien
-SORT_AFTER=Sortieren nach
-CONTINUAL_NUMBER=Laufende nummer
-anschliesendnach=Anschlie\u00DFend nach
-zusatzlichesortierungnach=Zus\u00E4tzliche sortierung nach
+GENERIC_LASTNAME_WITH_SOFT_HYPHEN=Nach\u00ADname
+GENERIC_FIRSTNAME_WITH_SOFT_HYPHEN=Vor\u00ADname
 
-# GASTDETAILS
-gastdetails=Gastdetails
-HINT_GUEST_LIST_EDIT_PERSONDATA=Sie bearbeiten hier ausschlie\u00DFlich Personendaten im Rahmen der aktuellen Veranstaltung, keine grundlegenden Stammdaten.
-istgastgeber=Ist Gastgeber
-reserve=Reserve
-aufstammdatenzurucksetzen=Auf Stammdaten zur\u00FCcksetzen
-stammdatenbearbeiten=Stammdaten bearbeiten
+GENERIC_LOAD_EXISTING_IMPORTPROCESS=Cargar proceso de importaci\u00F3n existente
+GENERIC_IMPORTID=ImportID
+GENERIC_YEAR=A\u00F1o
+GENERIC_COUNT=Total
+GENERIC_PARTICIPATION=Participaci\u00F3n
+GENERIC_NOT_ASSIGNED_TO_CATEGORY=Sin categor\u00EDa asignada
+GENERIC_NOT_ASSIGNED_TO_WORKAREA=Sin \u00E1rea de trabajo asignada
+GENERIC_NO_HOST_ASSIGNED=Sin anfitri\u00F3n asignado
+GENERIC_NO_GUEST_FOUND=Sin invitados
 
-# DOKUMENTTYPEN
-dokumenttypwahlen=Dokumenttyp w\u00E4hlen
-mitgliedsausweis=Mitgliedsausweis
-etikett=Etikett
-tischkarte=Tischkarte
-adresstypundzeichensatzwahlen=Adresstyp und Zeichensatz w\u00E4hlen
-adresstyp=Adresstyp
-datenbearbeiten=Daten bearbeiten
-verbinder=Verbinder
-freitextfeld=Freitextfeld
-freitextfeldpartner=Freitextfeld (Partner)
-akatitel=Aka. Titel (Partner)
-kontaktdaten=Kontaktdaten
-strase=Stra\u00DFe
-postfachplz=Postfach PLZ
-nummer=Nummer
-zuruckzudenveranstaltungsdetails=Zur\u00FCck zu den Veranstaltungsdetails
+GENERIC_PHONE_NUMBER_SHORT=Tlf.
+GENERIC_FAX_NUMBER_SHORT=Fax.
 
-# PERSON BEARBEITEN/DOKUMENTTYPEN/BEARBEITEN
-dokumenttypbearbeiten=Dokumenttyp bearbeiten
-dokument-id=Dokument-ID
-dokument-name=Dokument-Name
-dokumenttypspeichern=Dokumenttyp speichern
-zuruckzurdokumenttypenliste=Zur\u00FCck zur Dokumenttypenliste
-anmeldedatenerzeugen=Anmeldedaten erzeugen
-esliegenkeinekategorienundereignissevor=Es liegen keine Kategorien und Ereignisse vor
-beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=Bei gr\u00FCn hinterlegten Eintr\u00E4gen handelt es sich um wiederkehrende Ereignisse.
+GENERIC_MONTH_YEAR=Mes/A\u00F1o
+GENERIC_LOOK_AT=visualizar
+GENERIC_MOBILE_PHONE=M\u00F3vil
 
-# SUCHEN & ERSETZEN IN PERSONENDATEN
+PHONE_OFFICIAL=Tlf. negocios
+PHONE_PRIVATE=Tlf. privado
+PHONE_MOBILE=Tlf. m\u00F3vil
 
-# VERTEILERDETAILS
-verteilerdetails=Verteilerdetails
-verteilerversenden=Verteiler versenden
-e-mail-clientaufrufen=E-Mail-Client aufrufen
+GENERIC_PARTNER_FREETEXTFIELD=Campo de texto libre para partner
+GENERIC_VENUE=Localizaci\u00F3n del evento
 
-# FEHLEND
-zurstartseite=Zur Startseite
-solldieneuekategorie=Soll die neue Kategorie
-einsortiertwerden=einsortiert werden?
-pflichtfelder=Pflichtfelder
-markiertekategorienloschen=Markierte Kategorien l\u00F6schen
-alledemarkieren=Alle (de)markieren
-furalleveranstaltungen=F\u00FCr alle Veranstaltungen
-speichern=Speichern
-anderungsprotokollfurdenzeitraum=\u00C4nderungsprotokoll f\u00FCr den Zeitraum
-objekt=Objekt
-objektid=Objekt-Id
-artderanderung=Art der \u00C4nderung
-geandertefelder=Ge\u00E4nderte Felder
-datumauswahlen=Datum ausw\u00E4hlen
-folgendeaktionen=Folgende Aktionen
-wurden=WURDEN
-durchgefuhrt=durchgef\u00FChrt
-konnen=K\u00D6NNEN
-aktuallisieren=Aktuallisieren
-cleanupjetztunwiderruflichdurchfuhren=Cleanup jetzt unwiderruflich durchf\u00FChren.
-essindderzeitkeinecleanupsmoglichnotig=Es sind derzeit keine Cleanups m\u00F6glich / n\u00F6tig.
-nochkeineauswahlgetroffen=Noch keine Auswahl getroffen
-oberflachenbeschriftungen=Oberfl\u00E4chenbeschriftungen
-zusatzfelder=Zusatzfelder
-eswurdeeinzusatzfeld=Es wurde ein Zusatzfeld
-angelegt=angelegt
-geandert=ge\u00E4ndert
-geloscht=gel\u00F6scht
-feldbezeichnung=Feldbezeichnung
-eingabetyp=Eingabetyp
-erfolgreichgespeichert=Erfolgreich gespeichert!
-markiertendokumenttypen=Markierte(n) Dokumenttyp(en)
-eigenesdokumentfurpartner=Eigenes Dokument f\u00FCr Partner
-sortierreihenfolge=Sortierreihenfolge
-gastgebermitausgeben=Gastgeber mit Ausgeben
-iststandardfursteuerdatei=Ist Standard f\u00FCr Steuerdatei
-format=Format
-HINT_EXPORT_FORMAT=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei),xls steht f\u00FCr Microsoft Office (xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
-HINT_EVENT_IDENTIFICATION=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
-wirklichloschen=Wirklich l\u00E4schen
-zumpersonenimport=Zum Personen-Import
-importstatus=Importstatus
-importstatusvorhandenedublettenbearbeiten=Importstatus: vorhandene Dubletten bearbeiten
-bittemarkierensiediezuimportierendenpersonen=Bitte markieren Sie die zu importierenden Personen.
-dublettendiedurchden=Dubletten, die durch den
-importhinzugefugtwerdenwurden=Import hinzugef\u00FCgt werden w\u00FCrden
-sindmiteinercheckboxgekennzeichnetdarunterbefindensichdiebereitsimsystemvorhandenenentsprechendendatensatze=, sind mit einer Checkbox gekennzeichnet.Darunter befinden sich die bereits im System vorhandenen, entsprechenden Datens\u00E4tze.
-umeinedubletteindenimportzuintegrierenmussensiesieubernehmen=Um eine Dublette in den Import zu integrieren, m\u00FCssen Sie sie \u00FCbernehmen.
-alsdubletteubernehmen=Als Dublette \u00FCbernehmen
-markiertepersonenalsdubletteubernehmen=Markierte Person(en) als Dublette \u00FCbernehmen
-anzahlzuspeicherndedubletten=Anzahl zu speichernde Dubletten
-eswurdenkeineeintragegefunden=Es wurden keine Eintr\u00E4ge gefunden.
-zuruckzumpersonenimport=Zur\u00FCck zum Personenimport
-fehlermeldung=Fehlermeldung
-beiderbearbeitungihreranfrageisteinfehleraufgetretenbittemeldensiediesihremadministrator=Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten.Bitte melden Sie dies Ihrem Administrator.
-unbekannterfehler=Unbekannter Fehler.
-markiertenkategorien=Markierte(n) Kategorie(n)
-markiertenkategorienentfernen=Markierte(n) Kategorie(n) entfernen
-bitteauswahlen=Bitte ausw\u00E4hlen
-dieveranstaltungandersiegeradegearbeitethabenwurdevoneinemanderenanwendergeloschtsiekonnennuneineneueveranstaltunganlegenoderanderweitigmitverawebarbeiten=Die Veranstaltung, an der Sie gerade gearbeitet haben, wurde von einem anderen Anwender gel\u00F6scht.Sie k\u00F6nnen nun eine neue Veranstaltung anlegen oder anderweitig mit VerA.web arbeiten.
-bittebestatigensiedasspeicherndieserveranstaltung=Bitte best\u00E4tigen Sie das Speichern dieser Veranstaltung
-keingastgeberausgewahlt=Kein Gastgeber ausgew\u00E4hlt
-kurzbezeichnung=Kurzbezeichnung
-maximalelangederwarteliste=Maximale L\u00E4nge der Warteliste
-sollendiestammdatenumdiesenorterweitertwerden=Sollen die Stammdaten um diesen Ort erweitert werden
-markiertendokumenttypenentfernen=Markierte(n) Dokumenttyp(en) entfernen
-eswurdenkeinedokumenttypengefunden=Es wurden keine Dokumenttypen gefunden.
-markiertenamtsbezeichnungen=Markierte(n) Amtsbezeichnung(en)
-markiertenamtsbezeichnungenentfernen=Markierte(n) Amtsbezeichnung(en) entfernen
-zurveranstaltungssuche=Zur Veranstaltungssuche
-veranstaltungssuche=Veranstaltungssuche
-suchergebnis=Suchergebnis
-bitteklickensieeinederaufgelistetenveranstaltungenanumdiegastezuubernehmen=Bitte klicken Sie eine der aufgelisteten Veranstaltungen an, um die G\u00E4ste zu \u00FCbernehmen.
-bitteklickensieeinederaufgelistetenveranstaltungenanumdiepersondieserveranstaltungzuzuordnen=Bitte klicken Sie eine der aufgelisteten Veranstaltungen an, um die Person dieser Veranstaltung zuzuordnen.
-bitteklickensieeinederaufgelistetenpersonenanumdiesealsgastgeberzuuebernehmen=Bitte klicken Sie eine der aufgelisteten Personen an um diese als Gastgeber zu \u00E4bernehmen.
-loschenvonveranstaltungenistnichtmoglich=L\u00F6schen von Veranstaltungen ist nicht m\u00F6glich
-weiteremeldungen=weitere Meldungen.
-bittebestatigensiedasloschendermarkiertenveranstaltungen=Bitte best\u00E4tigen Sie das L\u00F6schen der markierten Veranstaltungen!
-markierteveranstaltungloschen=Markierte Veranstaltung l\u00F6schen
-abbrechen=Abbrechen
-markierteveranstaltungen=Markierte Veranstaltung(en)
-markierteveranstaltungenloschen=Markierte Veranstaltungen l\u00F6schen
-zuruckzurgasteverwaltung=Zur\u00FCck zur G\u00E4steverwaltung
-zuruckzurveranstaltungssuche=Zur\u00FCck zur Veranstaltungssuche
-wahlensiebittezunachsteineodermehrereveranstaltungenaus=W\u00E4hlen Sie bitte zun\u00E4chst eine oder mehrere Veranstaltungen aus.
-nurinzuunftigenveranstaltungensuchen=Nur in zuk\u00FCnftigen Veranstaltungen suchen
-zuruck=Zur\u00FCck
-siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehrereunddasfureinzelnezeichen=Sie k\u00F6nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00FCr mehrere und das ? f\u00FCr einzelne Zeichen.
-bittebestatigensiedasspeicherndieseraufgabe=Bitte best\u00E4tigen Sie das Speichern dieser Aufgabe
-verantworlichenhinzufugen=Verantworlichen hinzuf\u00FCgen
-verantworlichenentfernen=Verantworlichen entfernen
-loschenvonaufgabenistnichtmoglich=L\u00F6schen von Aufgaben ist nicht m\u00F6glich
-bittebestatigensiedasloschenvonaufgaben=Bitte best\u00E4tigen Sie das L\u00F6schen von Aufgaben
-ausgewahlteeintrageloschen=Ausgew\u00E4hlte Eintr\u00E4ge l\u00F6schen
-start=Start
-zursuche=Zur Suche
-siesindalsvolladministratorangemeldetundexportierenhiermitmandantenubergreifend=Sie sind als "Voll-Administrator" angemeldet und exportieren hiermit Mandanten\u00FCbergreifend.
-sieexportierenmitdieserfunktionausschlieszlichpersonenausihremaktuellenmandanten=Sie exportieren mit dieser Funktion ausschlie\u00DFlich Personen aus Ihrem aktuellen Mandanten.
-event=Veranstaltung
-keine=Keine
-category=Kategorie
-weitereoptionen=Weitere Optionen
-anmerkung=Anmerkung
-anmerkungen=Anmerkungen
-markiertebezeichnunge=Markierte Bezeichnung(e)
-markierteeintrageentfernen=Markierte Eintr\u00E4ge entfernen
-eswurdenkeinedatengefunden=Es wurden keine Daten gefunden
-siehabenkeinedatenherkunftangegeben=Sie haben keine Datenherkunft angegeben.
-HINT_EXPORT_NOT_POSSIBLE_OPENOFFICE=Sie haben versucht eine OpenOffice-Datei zu importieren.Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
-HINT_EXPORT_NOT_POSSIBLE_STAROFFICE=Sie haben versucht eine StarOffice-Datei zu importieren.Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
-HINT_EXPORT_NOT_POSSIBLE_EXCEL=Sie haben versucht eine Microsoft Excel-Datei zu importieren.Der direkte Import von Excel-Dokumenten ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
-HINT_IMPORT_NOT_POSSIBLE_PDF=Sie haben versucht eine PDF-Datei zu importieren.Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
-HINT_IMPORT_NOT_POSSIBLE_ZIP=Sie haben versucht eine ZIP-Datei zu importieren.Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
-HINT_IMPORT_NOT_POSSIBLE_EXE=Sie haben versucht eine EXE-Datei zu importieren.Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
-siehabenversuchteinedateimitderendung=Sie haben versucht eine Datei mit der Endung
-zuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich=zu importieren. Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
-siehabenkeinedateiausgewahltoderdiesewarleer=Sie haben keine Datei ausgew\u00E4hlt oder diese war leer.
-esisteinunerwarteterfehlerbeimimportiereneinerdateiaufgetreten=Es ist ein unerwarteter Fehler beim importieren einer Datei aufgetreten.
-vermutlichbefindetsichdieimportdateinichtimvomsystemerwartemformat=Vermutlich befindet sich die Import-Datei nicht im vom System erwartem Format.
-detailsanzeigen=Details anzeigen
-beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden=Beim Import k\u00F6nnen Feldinhalte, die l\u00E4nger als bei VerA.web vorgesehen sind, gek\u00FCrzt \u00FCbernommen werden.
-alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden=Alle Dokumenttypen der zu importierenden Personen m\u00FCssen im System vorhanden sein. Soll der Import jetzt gestartet werden?
-umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=Um Dubletten speicherbar zu machen, m\u00C3\u00BCssen sie zun\u00C3\u00A4chst im Bereich \u00E2\u0080\u009Evorhandene Dubletten\u00E2\u0080\u009C \u00C3\u00BCbernommen werden.
-HINT_UMLAUT_COMPARISON=Beachten Sie, dass \u00E4 mit ae, \u00F6 mit oe, \u00FC mit ue und \u00DF mit ss verglichen wird.
-derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=Der Import ist erst beendet, wenn der Button \u00E2\u0080\u009EImport abschlie\u00C3\u009Fen\u00E2\u0080\u009C geklickt wurde.
-derimportkannerstabgeschlossenwerdenwennspeicherbaredatensatzevorhandensind=Der Import kann erst abgeschlossen werden, wenn speicherbare Datens\u00E4tze vorhanden sind.
-vorhandenedubletten=Vorhandene Dubletten
-vorhandenedublettenbearbeiten=Vorhandene Dubletten bearbeiten
-zuimportierendedatensatzeinsgesamt=Zu importierende Datens\u00E4tze insgesamt
-davondubletten=Davon Dubletten
-davonspeicherbar=Davon speicherbar
-ignoriertefehlerdatensatze=Ignorierte Fehlerdatens\u00E4tze
-importabschlieszen=Import abschlie\u00DFen
-siehabenkeinendatensatzimportiert=Sie haben keinen Datensatz importiert.
-siehabeneinendatensatzimportiert=Sie haben einen Datensatz importiert.
-siehaben=Sie haben
-datensatzeimportiert=Datens\u00E4tze importiert.
-informationennichtverfugbar=Informationen nicht verf\u00FCgbar
-nichtgewahlt=Nicht gew\u00E4hlt
-verfugbarerollen=Verf\u00FCgbare Rollen
-passowrt=Passwort
-inverteretunganmelden=In Vertretung anmelden
-vornamenachname=Vorname.Nachname
-alsbenutzernamen=Als Benutzernamen
-emailvorlage=E-Mail-Vorlage
-amtsbezfunktion=Amtsbez./Funktion
-postfachnummer=Postfach Nummer
-email=E-Mail
-verteileranlegen=Verteileranlegen
-sielegeneinenneuenverteilerausderveranstaltung=Sie legen einen neuen Verteiler aus der Veranstaltung
-mit=mit
-einerperson=einer Person
-verteilername=Verteilername
-verteilerspeichern=Verteiler speichern
-markierteadressen=Markierte Adresse(n)
-markierteadressenausdemverteilerloschen=Markierte Adresse(n) loschen
-analleadressenversenden=An alle Adressen versenden
-emailclientaufrufen=E-Mail-Client aufrufen
-esliegenkeineadressdatenfurdiesenverteilervor=Es liegen keine Adressdaten f\u00FCr diesen Verteiler vor.
-esliegenkeineadressenfurdiesenverteilervor=Es liegen keine Adressen f\u00FCr diesen Verteiler vor.
-esliegenkeinevorlagenvor=Es liegen keine Vorlagen vor.
-zuruckzurverteilerubersicht=Zur\u00FCck zur Verteiler\u00FCbersicht
-eswurdekeineemailzumversendengespeichert=Es wurde keine E-Mail zum Versenden gespeichert
-eswurdeeineemailzumversendengespeichertdiesewirdnunautomatischversendet=Es wurde eine E-Mail automatisch gespeichert. Diese wird nun automatisch versendet.
-emailszumversendengespeichertdiesewerdennunautomatischversendet=E-Mails zum Versenden automatisch gespeichert. Diese werden nun automatisch versendet.
-markiertenverteiler=Markierte(n) Verteiler
-markierteverteilerloschen=Markierte Verteiler l\u00F6schen
-persondendaten=Persondendaten
-solldiesergastaufplatzgesetztwerden=Soll dieser Gast auf Platz gesetzt werden?
-solldiepartnerinderpartnermiteingeladenwerden=Soll die Partnerin / der Partner mit eingeladen werden?
-aktuellepersonwirklichentfernen=Aktuelle Person wirklich entfernen?
-personspeichern=Person speichern
-zurpersonenliste=Zur Personenliste
-zurpersonenuebersicht=Zur Personen\u00FCbersicht
-zurueckzurveranstaltung=Zur\u00FCck zur Veranstaltung
-zurdublettensuche=Zur Dublettensuche
-zurckzumsuchergebnis=Zur\u00FCck zum Suchergebnis
-diesepersonwurdeerfolgreichzurgaestelistederveranstaltung=Diese Person wurde erfolgreich zur G\u00E4steliste der Veranstaltung
-hinzugefuegt=hinzugef\u00FCgt
-diesepersonwurdenichthinzugefuegtdasiebereitsaufdergaestelistesteht=Diese Person wurde nicht hinzugef\u00FCgt, da Sie bereits auf der G\u00E4steliste steht.
-diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt=Diese Person wurde bereits als gel\u00F6scht markiert und wird beim Suchen nicht mehr angezeigt.
-personanlegen=Person anlegen
-eswurdenkeinedublettengefundensiekoennenjetztweiteredateneingebenunddiedatenspeichern=Es wurden keine Dubletten gefunden. Sie k\u00F6nnen jetzt weitere Daten eingeben und die Daten speichern.
-bittegebensiezunaechstden=Bitte geben Sie zun\u00E4chst den
-vorundnachnamen=Vor- und Nachnamen
-anundfuhrendiedublettenprufungdurch=an und f\u00FChren die Dublettenpr\u00FCfung durch.
-beifirmenwaehlensiediecheckbox=Bei Firmen w\u00E4hlen Sie die Checkbox
-undtragendanndenfirmennameneindassystempruftihreangabendaraufhinaufdubletten=und tragen dann den Firmennamen ein. Das System pr\u00FCft Ihre Angaben daraufhin auf Dubletten.
-liegtkeinedublettevorkoennensieweiteredateneingebenunddiedatenspeichern=Liegt keine Dublette vor, k\u00F6nnen Sie weitere Daten eingeben und die Daten speichern.
-geschaeftlich=Gesch\u00E4ftlich
-privat=Privat
-zurueckzurpersonensuche=Zur\u00FCck zur Personensuche
-zurueck=Zur\u00FCck
-dublettenpruefungdurchfuehren=Dublettenpr\u00FCfung durchf\u00FChren
-zurueckzumsuchergebnis=Zurueck zum Suchergebnis
-personspeicherndublettenpruefung=Person speichern - Dubletten-Pr\u00FCfung
-neueneintraganlegen=Neuen Eintrag anlegen
-existierendeneintragbearbeiten=Existierenden Eintrag bearbeiten
-eswurdenkeinedublettengefunden=Es wurden keine Dubletten gefunden.
-hinzufuegen=Hinzuf\u00FCgen
-ausgewaehltepersonenzurveranstaltunghinzufuegen=Ausgew\u00E4hlte Personen zur Veranstaltung hinzuf\u00FCgen.
-personerfassen=Person erfassen
-dublettenanlegen=Dubletten anlegen
-abbrechenundzurueck=Abbrechen und zur\u00FCck
-gastsuchenveranstaltung=Gast suchen - Veranstaltung
-gastsuchen=Gast suchen
-verantwortlichenfueraufgabesuchen=Verantwortlichen f\u00FCr Aufgabe suchen
-verantwortlichenfueraufgabehinzufugen=Verantwortlichen f\u00FCr Aufgabe hinzuf\u00FCgen
-gastgeberhinzufuegen=Gastgeber hinzuf\u00FCgen
-personensuchegastgeberhinzufugen=Personensuche: Gastgeber hinzuf\u00FCgen
-gasthinzufuegen=Gast hinzuf\u00FCgen
-personensuchegasthinzufugen=Personensuche: Gast hinzuf\u00FCgen
-personfirma=Person/Firma
-weitereangaben=Weitere Angaben
-keinekategoriezugeordnet=Keine Kategorie zugeordnet
-keinarbeitsbereichzugeordnet=Kein Arbeitsbereich zugeordnet
-keinarbeitsbereich=Kein Arbeitsbereich
-gueltigkeitsdatum=G\u00FCltigkeitsdatum
-biszudiesemdatum=Bis zu diesem Datum
-abdiesemdatum=Ab diesem Datum
-angenaudiesemdatum=An genau diesem Datum
-datumauswaehlen=Datum ausw\u00E4hlen
-HINT_SEARCH_MULTIPLE=Die Suche unterst\u00FCtzt auch die Mehrfachsuche nach Kategorien. Um mehrere Kategorien auszuw\u00E4hlen, halten Sie bitte die Maustaste gedr\u00FCckt und ziehen Sie den Mauszeiger \u00FCber die in der Suche zu ber\u00FCcksichtigenden Kategorien. Alternativ k\u00F6nnen Sie bei gedr\u00FCckter STRG-Taste mit der linken Maustaste auf die zu ber\u00FCcksichtigenden Kategorien klicken. Beachten Sie bitte, dass die beiden Pseudokategorien "Alle" und "Keine" nicht zusammen mit anderen Kategorien ausgew\u00E4hlt werden k\u00F6nnen.
-waehlensiebittezunaechsteinekategorieaus=W\u00E4hlen Sie bitte zun\u00E4chst eine Kategorie aus.
-wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Wollen Sie diese Person bzw. diesen Gast der ausgew\u00E4hlten Kategorie zuordnen
-eswurdekeinekategoriezugeordnet=Es wurde keine Kategorie zugeordnet
-wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen=Wollen Sie ${count} Personen bzw. G\u00E4ste der ausgew\u00E4hlten Kategorie zuordnen
-eswurdenkeinekategorienzugeordnet=Es wurden keine Kategorien zugeordnet
-eswurdenkeinekategoriengefunden=Es wurden keine Kategorien gefunden
-wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen=Wollen Sie diese Personen bzw. diesen Gast aus der ausgew\u00E4hlten Kategorie entfernen
-eswurdekeinekategorieentfernt=Es wurde keine Kategorie entfernt
-wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen=Wollen Sie ${count} Personen bzw. G\u00E4ste aus der ausgew\u00E4hlten Kategorie entfernen
-eswurdenkeinekategorienentfernt=Es wurden keine Kategorien entfernt.
-zuweisen=Zuweisen
-waehlensieeinekategorieauswelchesie=W\u00E4hlen Sie eine Kategorie aus, welche Sie
-moechten=m\u00F6chten
-alleentfernen=Alle entfernen
-siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=Sie haben keine Kategorien konfiguriert. Diese k\u00F6nnen Sie im Administrationsbereich unter dem Punkt
-definieren=definieren.
-siehabenpersonenausgewaehltabhaengigvonderanzahlderausgewaehltenpersonenkanndieaktioneinegewissezeitinanspruchnehmen=Sie haben ${count} Person(en) ausgew\u00E4hlt. Abh\u00E4ngig von der Anzahl der ausgew\u00E4hlten Personen kann die Aktion eine gewisse Zeit in Anspruch nehmen.
-waehlensiebittezunaechsteinenarbeitsbereichaus=W\u00E4hlen Sie bitte zun\u00E4chst einen Arbeitsbereich aus.
-wollensiediesepersonbzwdiesengastdenausgewaehltenarbeitsbereichzuordnen=Wollen Sie diese Person bzw. diesen Gast den ausgew\u00E4hlten Arbeitsbereich zuordnen
-eswurdekeinarbeitsbereichzugeordnet=Es wurde kein Arbeitsbereich zugeordnet
-wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen=Wollen Sie diesen Personen bzw. diesen G\u00E4ste den ausgew\u00E4hlten Arbeitsbereich zuordnen
-eswurdenkeinearbeitsbereichzugeordnet=Es wurden keine Arbeitsbereich zugeordnet
-wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben=Wollen Sie die Zuordnung dieser Person bzw. diesem Gast zum ausgew\u00E4hlten Arbeitsbereich aufheben
-eswurdekeinarbeitsbereichaufgehoben=Es wurde kein Arbeitsbereich aufgehoben
-wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Wollen Sie die Zuordnung von ${count} Personen bzw. G\u00E4sten zum ausgew\u00E4hlten Arbeitsbereich aufheben
-wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Wollen Sie diese Person bzw. diesen Gast dem ausgew\u00E4hlten Arbeitsbereich zuordnen
-wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=Wollen Sie ${count} Personen bzw. G\u00E4ste dem ausgew\u00E4hlten Arbeitsbereich zuordnen
-waehlensieeinenarbeitsbereichauswelchensie=W\u00E4hlen Sie einen Arbeitsbereich aus, welchen Sie
-siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=Sie haben keine Arbeitsbereiche konfiguriert. Diese k\u00F6nnen Sie im Administrationsbereich unter dem Punkt
-administrationallestellvertretungenimmandanten=Administration - alle Stellvertretungen im Mandanten
-administrationallestellvertretungen=Administration - alle Stellvertretungen
-verwaltungpersoenlichevertretungen=Verwaltung - pers\u00F6nliche Vertretungen
-vertretung=Vertretung
-markiertevertretungen=Markierte Vertretung(en)
-loeschen=L\u00F6schen
-markiertevertretungenloeschen=Markierte Vertretung(en) l\u00F6schen
-gueltigab=G\u00FCltig ab
-gueltigbis=G\u00FCltig bis
-bitteauswaehlen=Bitte ausw\u00E4hlen
-gaestelisteerstellenfuerveranstaltungeventshortname=G\u00E4steliste erstellen f\u00FCr Veranstaltung: $!event.shortname
-gaesteverwaltungderveranstaltung=G\u00E4steverwaltung der Veranstaltung
-gaestelisteerstellen=G\u00E4steliste erstellen
-ausgabeformatwaehlen=Ausgabeformat w\u00E4hlen
-listenachkategoriengruppiertmitpartner=Liste nach Kategorien gruppiert - mit Partner
-listenachkategoriengruppiertmittelundmobiltelefon=Liste nach Kategorien gruppiert - mit Tel. und Mobiltelefon
-listenachkategoriengruppiertmitpartnerundfax=Liste nach Kategorien gruppiert - mit Partner und Fax
-listenachsortierungmitpartnertelundmobiltelefon=Liste nach Sortierung - mit Partner, Tel. und Mobiltelefon
-tisch=Tisch
-zusaetzlichesortierungnach=Zus\u00E4tzliche Sortierung nach
-zurueckzurgaesteverwaltung=Zur\u00FCck zur G\u00E4steverwaltung
-verwaltungallebenutzerimmandanten=Verwaltung - alle Benutzer im Mandanten
-verwaltungallebenutzer=Verwaltung - alle Benutzer
-markiertenbenutzer=Markierte(n) Benutzer
-markiertenbenutzerloeschen=Markierte(n) Benutzer l\u00D6schen
-leseneingeschraenkt=Lesen eingeschr\u00E4nkt
-lesenuneingeschraenkt=Lesen uneingeschr\u00E4nkt
-lesenundschreibeneingeschraenkt=Lesen und Schreiben eingeschr\u00E4nkt
-lesenundschreibenuneingeschraenkt=Lesen und Schreiben uneingeschr\u00E4nkt
-mandantadministrieren=Mandant Administrieren
-administrieren=Administrieren
-stellvertretung=Stellvertretung
-bittewahlensiedierolleausdiesievertretenmochten=Bitte w\u00E4hlen Sie die Rolle aus die Sie vertreten m\u00F6chten
-benutzerrolle=Benutzerrolle
-vertreten=Vertreten
-statistikfurgastgeber=Statistik f\u00FCr Gastgeber
-imzeitraumvom=Im Zeitraum vom
-biszum=Bis zum
-bis=Bis
-auswartigesamtintranetstil=Ausw\u00E4rtiges Amt Intranet-Stil
-klickensieeinederaufgelistetenpersonenanumsiederaufgabehinzuzufugen=Klicken Sie eine der aufgelisteten Personen an, um sie der Aufgabe hinzuzuf\u00FCgen
-eswurdeeinepersongeloscht=Es wurde eine Person gel\u00F6scht
-eswurdekeinepersongeloscht=Es wurde keine Person gel\u00F6scht
-personengelouscht=Personen gel\u00F6scht.
-derarbeitsbereichwurdeerfolgreichhinzugefugt=Der Arbeitsbereich wurde erfolgreich hinzugef\u00FCgt.
-diearbeitsbereichewurdenerfolgreichentfernt=Die Arbeitsbereiche wurden erfolgreich entfernt.
-diekategoriewurdeerfolgreichhinzugefugt=Die Kategorie wurde erfolgreich hinzugef\u00FCgt.
-diekategorienwurdenerfolgreichentfernt=Die Kategorien wurden erfolgreich entfernt.
-siehabenkeineausreichendeberechtigungmpersonenzuentfernen=Sie haben keine ausreichende Berechtigung um Personen zu entfernen.
-wauhlensiebittezunauchsteineodermehrerepersonenaus=W\u00E4hlen Sie bitte zun\u00E4chst eine oder mehrere Personen aus.
-beidenfolgendenpersonenliegtdasgultigkeitsdatuminderzukunft=Bei den folgenden Personen liegt das G\u00FCltigkeitsdatum in der Zukunft
-folgendepersonensindmindestenseinerlaufendenoderzukumnftigenveranstaltung=Folgende Personen sind mindestens einer laufenden oder zuk\u00FCnftigen Veranstaltung
-zugeordnetdetailinformationenkoennensieueberdiegaestelistender=zugeordnet. Detailinformationen k\u00F6nnen Sie \u00FCber die G\u00E4stelisten der
-jeweiligenveranstaltungenabrufendiepersonenwerdenausallengastelisten=jeweiligen Veranstaltungen abrufen. Die Personen werden aus allen G\u00E4stelisten
-folgendepersonensindmindestenseineraufgabeinmindestenseinerlaufendenoder=Folgende Personen sind mindestens einer Aufgabe in mindestens einer laufenden oder
-zukunftigenveranstaltungzugeordnetdetailinformationenrufensiebitteuberdie=zuk\u00FCnftigen Veranstaltung zugeordnet. Detailinformationen rufen Sie bitte \u00FCber die
-aufgabenlistenderjeweiligenveranstaltungenaufdiepersonenwerdenausallen=Aufgabenlisten der jeweiligen Veranstaltungen auf. Die Personen werden aus allen
-aufgabenentfernt=Aufgaben entfernt
-wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab=Wenn Sie Ihre Auswahl anpassen wollen, brechen Sie bitte das L\u00F6schen ab.
-sollenallemarkiertenpersonengeloeschtwerden=Sollen alle markierten Personen gel\u00F6scht werden?
-dieseaktionkannnichtrueckgaungiggemachtwerden=Diese Aktion kann nicht r\u00FCckg\u00E4ngig gemacht werden.
-bittebestaetigensiedasloeschendermarkiertenpersonen=Bitte best\u00E4tigen Sie das L\u00F6schen der markierten Personen!
-loeschenvonpersonenistnichtmoeglich=L\u00F6schen von Personen ist nicht m\u00F6glich
-markiertepersonenzurveranstaltunghinzufuegen=Markierte Person(en) zur Veranstaltung hinzuf\u00FCgen
-zudieserpersonistkeinehauptpersoneingetragen=Zu dieser Person ist keine Hauptperson eingetragen.
-diesepersonkannnichtaufreservegesetztwerdendadienotwendigendaten=Diese Person kann nicht auf Reserve gesetzt werden, da die notwendigen Daten
-nichtvollstaendigerfasstwurden=nicht vollst\u00E4ndig erfasst wurden.
-waehlensiebittezunaechsteineodermehrerepersonenaus=W\u00E4hlen Sie bitte zun\u00E4chst eine oder mehrere Personen aus.
-exportieren=Exportieren
-einladen=Einladen
-aufreservesetzen=Auf Reserve setzen
-delegationanmelden=Delegation anmelden
-alledemarkiereninklpartnerwenneingeladen=Alle (de)markieren (inkl. Partner, wenn eingeladen)
-arbeitsshybereich=Arbeits&shy;bereich
-eswurdenkeineeintraegegefunden=Es wurden keine Eintr\u00E4ge gefunden.
-suchenersetzen=Suchen & Ersetzen
-suchenersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
-vornamederhauptpersonunddespartners=Vorname der Hauptperson und des Partners
-nachnamederhauptpersonunddespartners=Nachname der Hauptperson und des Partners
-anredetitel=Anrede / Titel
-anredeundtitel=Anrede und Titel
-straszligeadresszusatzundland=Stra\u00DFe, Adresszusatz und Land
-plzortundplzpostfach=PLZ / Ort und PLZ / Postfach
-telefontelefaxundmobiltelefon=Telefon, Telefax und Mobiltelefon
-telefonfax=Telefon / Fax
-emailadresse=E-Mail Adresse
-internetadresse=Internet-Adresse
-ihresuchemussausmindestenseinembuchstabenbestehen=Ihre Suche muss aus mindestens einem Buchstaben bestehen.
-siemuessenmindestenseinfeldausgewhlthaben=Sie m\u00FCssen mindestens ein Feld ausgew\u00E4hlt haben.
-eswurdekeinepersonersetzt=Es wurde keine Person ersetzt.
-eswurdeeinepersonersetzt=Es wurde eine Person ersetzt.
-personenersetzt=Personen ersetzt.
-siemuessenmindestenseinfeldausgewaehlthaben=Sie m\u00FCssen mindestens ein Feld ausgew\u00E4hlt haben.
-eswurdekeinepersongefunden=Es wurde keine Person gefunden.
-eswurdeeinepersongefunden=Es wurde eine Person gefunden.
-personengefunden=Personen gefunden.
-einzelneeinzraegezumersetzenselektieren=Einzelne Einzr\u00E4ge zum Ersetzen selektieren
-allesofortersetzen=Alle sofort ersetzen
-wennsiedenplatzhalterverwendenwerdenauchteilstueckeersetztsonstnurvollstaendigedatenfelder=Wenn Sie den Platzhalter * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
-siemuessendasdatumdeszeitrahmensimformatttmmjjjjangeben=Sie m\u00FCssen das Datum des Zeitrahmens im Format TT.MM.JJJJ angeben
-markierteanredenloschen=Markierte Anrede(n) l\u00F6schen
-markiertendokumenttypenloschen=Markierte Dokumenttyp(en) l\u00F6schen
-markierteveranstaltungsorteloschen=Markierte Veranstaltungsorte l\u00F6schen
-markiertevorlagenloschen=Markierte Vorlagen l\u00F6schen
-keinedateigefunden=Keine Datei gefunden.
-standardauswahlderselectboxbdquozeichensatzrdquo=Standard Auswahl der Selectbox \u00E2\u0080\u009EZeichensatz\u00E2\u0080\u009C
-zusaetzlichefelder=Zus\u00E4tzliche Felder
-postausgang=Postausgang
-beimversendendieseremailisteinfehleraufgetreten=Beim Versenden dieser E-Mail ist ein Fehler aufgetreten.
-siekonnendiesejetztbearbeitenunderneutsenden=Sie k\u00F6nnen diese jetzt bearbeiten und erneut senden.
-dieseemailwartetaufihrefertigstellungdurcheinenbenutzer=Diese E-Mail wartet auf ihre Fertigstellung durch einen Benutzer.
-dieseemailwartetaufihreversendung=Diese E-Mail wartet auf ihre Versendung.
-dieseemailwirdgeradeversendetundsollte=Diese E-Mail wird gerade versendet und sollte
-nichtbearbeitet=nicht bearbeitet
-werden=werden.
-dieseemailwurdebereitsversendetundsollte=Diese E-Mail wurde bereits versendet und sollte
-nichtmehrbearbeitet=nicht mehr bearbeitet
-technischefehlermeldungausblenden=Technische Fehlermeldung ausblenden
-markiertenmandanten=Markierte(n) Mandanten
-alledatensatzewurdenerfolgreichmandantenzugeordnet=Alle Datens\u00E4tze wurden erfolgreich einem Mandanten zugeordnet.
-esexistiertnochkeinmandant=Es existiert noch kein Mandant.
-zuordnen=Zuordnen
-markierteanreden=Markierte Anrede(n)
-markierteanredenloeschen=Markierte Anreden l\u00F6schen
-markiertenarbeitsbereiche=Markierte(n) Arbeitsbereich(e)
-markierteeintraegeentfernen=Markierte Eintr\u00E4ge entfernen
-emailpostausgang=E-Mail-Postausgang
-markierteemailsloeschen=Markierte E-Mail(s) l\u00F6schen
-markierteemails=Markierte E-Mail(s)
-wartet=Wartet
-wirdversendet=Wird versendet
-gesendet=Gesendet
-unbekannt=Unbekannt
-firmainstitutionauswaehlen=Firma/Institution ausw\u00E4hlen
-bittewaehlensieeinefirmainstitutionaus=Bitte w\u00E4hlen Sie eine Firma / Institution aus
-schliessen=Schlie\u00DFen
-verawebuebersicht=VerA.web :: \u00DCbersicht
-uebersichtanzeigen=\u00DCbersicht anzeigen
-neuendatensatzanlegen=Neuen Datensatz anlegen
-openofficedateiherrunterladen=OpenOffice-Datei herrunterladen
-keinedatensaetzegefunden=Keine Datens\u00E4tze gefunden
-einendatensatzgefunden=Einen Datensatz gefunden
-datensaetzegefunden=Datens\u00E4tze gefunden
-anzeigen=anzeigen
-wollensiediesendatensatzunwiderruflichentfernen=Wollen Sie diesen Datensatz unwiderruflich entfernen
-verawebdetailansicht=VerA.web :: Detailansicht
-datensatzbearbeiten=Datensatz bearbeiten
-zuruecksetzen=Zur\u00FCcksetzen
-datensatzloeschen=Datensatzl\u00F6schen
-siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen=Sie k\u00F6nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00FCr mehrere und das ? f\u00FCr einzelne Zeichen
-undamtsbezeichnungfunktion=und Amtsbezeichnung/Funktion
-HINT_SEARCH_WHERE=Die Suche erfolgt im Vornamen, Nachnamen, Ort, PLZ, Stra\u00DFe, Firma/Institution, Telefon, Fax, Mobil, E-Mail, Bemerkungen, Kategorien, Arbeitsbereiche
-neuenorteingeben=Neuen Ort eingeben
-bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Bitte geben Sie einen neuen Ort ein und klicken Sie auf "Hinzuf\u00FCgen"
-neuerveranstaltungsort=Neuer Veranstaltungsort
-markierenundkopierensiefolgendesadressetikett=Markieren und kopieren Sie folgendes Adress-Etikett
-personenetikett=Personen-Etikett
-zuruckzurubersicht=Zuruck zur \u00DCbersicht
-gpsdaten=GPS-Daten
-platzhalterintexteinfuegen=Platzhalter in Text einf\u00FCgen
-intexteinfuegen=In Text einf\u00FCgen
-emailvorlagen=E-Mail Vorlagen
-vorhandenevorlagen=Vorhandene Vorlagen
-bitteauswhaelengt=Bitte ausw\u00E4hlen
-vorlageladen=Vorlage laden
-neuevorlagename=Neue Vorlage (Name)
-neuevorlagespeichern=Neue Vorlage speichern
-neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten=Neue Vorlagen m\u00FCssen sowohl einen Betreff als auch Text enthalten
-zurueckzumverteiler=Zur\u00FCck zum Verteiler
-markiertenveranstaltungsorte=Markierte(n) Veranstaltungsorte
-hinweis=Hinweis
+GENERIC_TOTAL=Total
+OPTION_MARK_ADMINISTRATION_CATEGORY_1=Categor\u00EDa
+OPTION_MARK_ADMINISTRATION_CATEGORY_2=Suceso
+OPTION_MARK_ADMINISTRATION_CATEGORY_3=Diplo. Corps
+
+GENERIC_IMPORTID_HYPHEN=Import-ID
+
+GENERIC_SUBSTITUTED_BY=representado por 
+GENERIC_NONE=Ning\u00FAn
+GENERIC_ADDRESS_BLOCK=Bloque de direcci\u00F3n
+
+GENERIC_CONTEXT_PLURAL=Contextos
+
+PERSON_DETAIL_DELETE_PERSON_HEADER=Por favor, \u00A1confirme la eliminaci\u00F3n de la persona!
+PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION=Si no quiere eliminar esta persona, por favor, cancele el proceso.
+PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=\u00BFDebe la persona actual ser eliminada?
