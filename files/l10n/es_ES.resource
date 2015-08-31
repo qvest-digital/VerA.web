@@ -1250,6 +1250,257 @@ markierteanredenloschen=Eliminar denominaciones seleccionadas
 markiertendokumenttypenloschen=Eliminar tipos de documento seleccionados
 markierteveranstaltungsorteloschen=Eliminar localizaciones de evento seleccionadas
 markiertevorlagenloschen=Eliminar plantillas seleccionadas
+
+keinedateigefunden=No se han encontrado archivos.
+standardauswahlderselectboxbdquozeichensatzrdquo=Selecci\u00F3n est\u00E1ndar del selectbox \u201Egrupo de caracteres\u201C
+zusaetzlichefelder=Campos adicionales
+postausgang=Bandeja de salida
+beimversendendieseremailisteinfehleraufgetreten=Error al enviar el correo electr\u00F3nico.
+siekonnendiesejetztbearbeitenunderneutsenden=Ahora puede editarlo y enviar de nuevo.
+dieseemailwartetaufihrefertigstellungdurcheinenbenutzer=\u00C9ste correo electr\u00F3nico se encuentra a la espera de terminaci\u00F3n por parte de un usuario.
+dieseemailwartetaufihreversendung=\u00C9ste correo electr\u00F3nico se encuentra a la espera de env\u00EDo.
+dieseemailwirdgeradeversendetundsollte=\u00C9ste correo electr\u00F3nico ser\u00E1 enviado y deber\u00EDa 
+nichtbearbeitet=no ser 
+werden=modificado.
+dieseemailwurdebereitsversendetundsollte=\u00C9ste correo electr\u00F3nico ser\u00E1 enviado y deber\u00EDa 
+nichtmehrbearbeitet=no volver a ser 
+technischefehlermeldungausblenden=Ocultar error t\u00E9cnico
+markiertenmandanten=Mandante(s) seleccionado(s)
+markiertenmandantenwirklichloschen=Eliminar realmente mandante(s) seleccionado(s)
+alledatensatzewurdenerfolgreichmandantenzugeordnet=Todos los registros han sido asignados a un mandante satisfactoriamente.
+esexistiertnochkeinmandant=A\u00FAn no existen mandantes.
+zuordnen=Asignar
+markierteanreden=Denominaciones seleccionadas
+markierteanredenloeschen=Eliminar denominaciones seleccionadas
+markiertenarbeitsbereiche=\u00C1rea(s) de trabajo seleccionada(s)
+markierteeintraegeentfernen=Eliminar entradas seleccionadas
+emailpostausgang=Bandeja de salida
+markierteemailsloeschen=Eliminar E-Mail(s) seleccionado(s)
+markierteemails=E-Mail(s) seleccionado(s)
+wartet=Esperar
+wirdversendet=Ser\u00E1 enviado
+gesendet=Enviado
+unbekannt=Desconocido
+firmainstitutionauswaehlen=Seleccionar empresa/instituci\u00F3n
+bittewaehlensieeinefirmainstitutionaus=Por favor, seleccione una empresa o instituci\u00F3n
+schliessen=Cerrar
+verawebuebersicht=VerA.web :: Vista general
+uebersichtanzeigen=Mostrar vista general
+neuendatensatzanlegen=Insertar nuevo registro
+openofficedateiherrunterladen=Descargar documento OpenOffice
+keinedatensaetzegefunden=No se han encontrado registros
+einendatensatzgefunden=Un registro encontrado
+datensaetzegefunden=Registros encontrados
+anzeigen=mostrar
+wollensiediesendatensatzunwiderruflichentfernen=\u00BFDese eliminar irrevocablemente el registro?
+verawebdetailansicht=VerA.web :: Vista detalle
+datensatzbearbeiten=Editar registro
+zuruecksetzen=Restaurar
+datensatzloeschen=Eliminar registro
+siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen=En su b\u00FAsqueda, podr\u00E1 utilizar comodines, el asterisco (*) servir\u00E1 para b\u00FAsquedas globales y el s\u00EDmbolo de interrogaci\u00F3n (?) para b\u00FAsquedas individuales
+undamtsbezeichnungfunktion=y t\u00EDtulo/funci\u00F3n
+HINT_SEARCH_WHERE=La b\u00FAsqueda se basa en nombres, apellidos, localizaci\u00F3n, c\u00F3digo postal, calle, empresa/instituci\u00F3n, tel\u00E9fono, fax, m\u00F3vil, e-mail, observaciones, categor\u00EDas y \u00E1reas de trabajo
+neuenorteingeben=Asignar nueva localizaci\u00F3n
+bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Por favor, introduzca una nueva localizaci\u00F3n y presione sobre "Asignar"
+neuerveranstaltungsort=Nueva localizaci\u00F3n
+markierenundkopierensiefolgendesadressetikett=Seleccionar y copiar las siguientes etiquetas de direcci\u00F3n
+personenetikett=Etiquetas-Personas
+zuruckzurubersicht=Volver a vista principal
+gpsdaten=Datos-GPS
+platzhalterintexteinfuegen=Insertar marcador de posici\u00F3n en el texto
+intexteinfuegen=Insertar en el texto
+emailvorlagen=Plantillas de correo electr\u00F3nico
+vorhandenevorlagen=Plantillas disponibles
+bitteauswhaelengt=Por favor, seleccione
+vorlageladen=Cargar plantilla
+neuevorlagename=Nueva plantilla (nombre)
+neuevorlagespeichern=Guardar nueva plantilla
+neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten=La nueva plantilla debe contener su asunto correspondiente
+zurueckzumverteiler=Volver a distribuci\u00F3n
+markiertenveranstaltungsorte=Localizaciones seleccionadas
+hinweis=Aviso
+inaktiv=inactivo
+aktionen=Acciones
+anschrift=Direcci\u00F3n
+anderungenspeichern=Guardar cambios
+senden=Enviar
+
+# GENERIC
+GENERIC_UPLOAD_BUTTON=Seleccionar archivo
+GENERIC_TO=para
+GENERIC_FEDERAL_STATE=Provincia
+GENERIC_PERSONAL_DATA=Datos personales
+GENERIC_NUMBER_OF_GUESTS=N\u00FAmero de invitados
+GENERIC_TELEFON=Tel\u00E9fono
+
+# MESSAGES
+MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Este invitado ser\u00E1 inclu\u00EDdo sin persona principal
+MESSAGE_INVITATION_WITHOUT_PARTNER=Este invitado ser\u00E1 inclu\u00EDdo sin partner
+MESSAGE_INVITATION_WITHOUT_PERSON_PART1=Desea ahora 
+MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON=invitar posteriormente
+MESSAGE_END_AND_START_DATE=La fecha fin del evento deber\u00E1 ubicarse temporalmente despu\u00E9s que la fecha de inicio.
+MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=No se ha podido guardar el evento. Por favor, introduzca una descripci\u00F3n corta.
+MESSAGE_EVENT_WRING_DATE_FORMAT=Debe introducir la fecha de inicio del evento mediante el formato DD.MM.AAAA.
+MESSAGE_GENERIC_MISSING_DESCRIPTION=Debe introducir una descripci\u00F3n.
+MESSAGE_COLOR_MISSING_NAME=Debe introducir un nombre.
+MESSAGE_EVENTCATEGORY_ASSIGNMENT_WRONG=Se han producido errores en la asignaci\u00F3n de una categor\u00EDa a un evento.
+MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=Se han producido errores en la asignaci\u00F3n de un tipo de documento a un evento.
+MESSAGE_EVENT_LOCATION_TITLE_EMPTY=La localizaci\u00F3n del evento no se puede guardar. Por favor, introduzca un t\u00EDtulo.
+MESSAGE_EVENT_LOCATION_MAX_REMARK_REACHED=El contenido del campo de observaciones tiene un m\u00E1ximo de 1000 caracteres.
+MESSAGE_EMAIL_DRAFT_NAME_MISSING=Debe introducir un nombre para la plantilla de correo electr\u00F3nico.
+MESSAGE_EMAIL_DRAFT_SUBJECT_MISSING=No ha introducido un asunto para la plantilla de correo electr\u00F3nico.
+MESSAGE_EMAIL_DRAFT_TEXT_MISSING=No ha introducido ning\u00FAn texto en la plantilla de correo electr\u00F3nico.
+MESSAGE_EMAIL_LIST_NAME_EMPTY=Por favor, introduzca un nombre para el distribuidor.
+MESSAGE_TASK_TIME_WITHOUT_DATE=No est\u00E1 permitido introducir tiempo sin haber seleccionado fecha previamente.
+MESSAGE_TASK_END_DATE_NOT_FUTURE=No se pueden guardar las tareas. La fecha final debe ser en el futuro.
+MESSAGE_TASK_END_DATE_WITHOUT_BEGIN_DATE=No se pueden guardar las tareas. Por favor, introduzca tambi\u00E9n una fecha de inicio.
+MESSAGE_TASK_BEGIN_DATE_BEFORE_END_DATE=No se pueden guardar las tareas. La fecha de inicio debe ubicarse antes que la fecha fin.
+MESSAGE_TASK_NO_SHORTNAME=No se pueden guardar las tareas. Por favor, introduzca una descripci\u00F3n corta.
+MESSAGE_TASK_MAX_REMARK_REACHED=No se pueden guardar las tareas. El campo de descripci\u00F3n no puede contener m\u00E1s de 1000 caracteres.
+MESSAGE_TASK_EMAIL_WITHOUT_SENDER=El E-Mail no puede ser enviado sin remitente.
+MESSAGE_TASK_EMAIL_WITHOUT_RECEIVER=El E-Mail no puede ser enviado sin destinatario.
+MESSAGE_TASK_EMAIL_WITHOUT_SUBJECT=El E-Mail no puede ser enviado sin asunto.
+MESSAGE_ORG_UNIT_NO_NAME=Debe introducir un nombre.
+MESSAGE_PERSON_MAX_COMPANY_REACHED=Podr\u00E1 introducir un m\u00E1ximo de 100 caracteres para la firma o instituci\u00F3n.
+MESSAGE_PERSON_MAX_NAME_REACHED=Podr\u00E1 introducir un m\u00E1ximo de 100 caracteres para el nombre de la persona principal.
+MESSAGE_PERSON_MAX_LASTNAME_REACHED=Podr\u00E1 introducir un m\u00E1ximo de 100 caracteres para el apellido de la persona principal.
+MESSAGE_PERSON_NO_COMPANY_NAME=Debe introducir un nombre para la firma o instituci\u00F3n.
+MESSAGE_PERSON_NO_NAME_LAST_NAME=Debe introducir un nombre y apellidos.
+MESSAGE_PERSON_NO_NAME=Debe introducir un nombre.
+MESSAGE_PERSON_NO_LASTNAME=Debe introducir los apellidos.
+MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=No se puede guardar la relaci\u00F3n entre persona y categor\u00EDa.
+MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=El conector puede ser de hasta 50 caracteres de longitud.
+MESSAGE_PROXY_NO_REPRESENTATIVE=Debe introducir un representante.
+MESSAGE_PROXY_NO_ROLE=Debe introducir un rol.
+MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=El comienzo de la representaci\u00F3n debe comenzar antes que el final.
+MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG=Se han producido errores en la asignaci\u00F3n de una funci\u00F3n/t\u00EDtulo a un evento.
+MESSAGE_FUNCTION_MISSING_NAME=Debe introducir un nombre para la funci\u00F3n.
+MESSAGE_GUEST_DOCTYPE_CITYNAME_MAX_LENGTH=El nombre de la ciudad tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_COMPANYNAME_MAX_LENGTH=El nombre de la empresa tiene un m\u00E1ximo de 250 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_COUNTRYNAME_MAX_LENGTH=El nombre del pa\u00EDs tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_FAX_MAX_LENGTH=El n\u00FAmero de fax tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_FIRSTNAME_MAX_LENGTH=El nombre tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_LASTNAME_MAX_LENGTH=El apellido tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_FIRSTNAME_PARTNER_MAX_LENGTH=El nombre del partner tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_LASTNAME_PARTNER_MAX_LENGTH=El apellido del partner tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_PHONE_MAX_LENGTH=El n\u00FAmero de tel\u00E9fono tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_FUNCTION_MAX_LENGTH=La descripci\u00F3n de la funci\u00F3n tiene un m\u00E1ximo de 250 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_EMAIL_MAX_LENGTH=La direcci\u00F3n de correo electr\u00F3nico tiene un m\u00E1ximo de 250 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_MOBILE_MAX_LENGTH=El n\u00FAmero de tel\u00E9fono m\u00F3vil tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_POBOX_MAX_LENGTH=El apartado de correos tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_POBOX_ZIP_MAX_LENGTH=El c\u00F3digo postal para el apartado de correos tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_SALUTATION_MAX_LENGTH=La denominaci\u00F3n tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_SALUTATION_PARTNER_MAX_LENGTH=La denominaci\u00F3n del partner tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_STREET_MAX_LENGTH=El nombre de la calle tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_SUFFIX1_MAX_LENGTH=El primer sufijo tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_SUFFIX2_MAX_LENGTH=El segundo sufijo tiene un m\u00E1ximo de 100 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_TEXTJOIN_MAX_LENGTH=El conector tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_TITLE_MAX_LENGTH=El t\u00EDtulo tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_TITLEPARTNER_MAX_LENGTH=El t\u00EDtulo del partner tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_URL_MAX_LENGTH=La URL tiene un m\u00E1ximo de 250 caracteres de longitud.
+MESSAGE_GUEST_DOCTYPE_ZIP_MAX_LENGTH=El c\u00F3digo postal tiene un m\u00E1ximo de 50 caracteres de longitud.
+MESSAGE_USER_MISSING_ROLE=Debe introducir una descripci\u00F3n para el rol de usuario.
+
+# EVENT LIST TEXTS
+EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Al menos un evento de los seleccionados est\u00E1 activo o lo estar\u00E1 en el futuro.
+EVENT_LIST_WARNING_SELECTION_CHANGING=Si quiere modificar su selecci\u00F3n, por favor, cancele la eliminaci\u00F3n.
+EVENT_LIST_DELETE_CONFIRMATION_MESSAGE=\u00BFDeben eliminarse todos los eventos seleccionados? Esta acci\u00F3n no se podr\u00E1 deshacer.
+
+# PERSON LIST TEXTS
+PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE=No tiene permiso para eliminar personas.
+PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Debe eliminar siempre s\u00F3lo una persona. Por favor, seleccione s\u00F3lo una entrada o contacte con su administrador.
+PERSON_LIST_QUESTION_DELETE_CONFIRMATION=\u00BFDeben eliminarse todas las personas seleccionados?
+
+# EVENT DETAIL SITE TEXTS
+EVENT_DETAIL_ALREADY_EXISTS_ONE=Ya existe un evento con el nombre '
+EVENT_DETAIL_ALREADY_EXISTS_TWO='. \u00BFDesea de todas formas guardar el evento nuevo?
+
+# CATEGORY TEXTS
+CATEGORY_DETAIL_ALREADY_EXISTS=Ya existe una entrada de datos maestros bajo el nombre 
+
+# CHANGELOG REPORTS TEXTS
+CHANGELOG_NO_PROTOCOL_AVAILABLE=No existen datos hist\u00F3ricos.
+
+# BROWSER TITLES
+BROWSER_TITLE_REPORTS=Reports
+
+
+#NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reiniciar todos los valores de los datos maestros
+GUEST_LIST_EDIT_MASTER_DATA=Editar datos maestros de personas
+GUEST=Invitado
+GENERIC_OF=de
+
+
+TOOLTIP_EDIT_HEADLINES=Usted puede modificar los encabezados antes de imprimir pulsando sobre "Editar". Por favor, guarde antes de imprimir.
+GENERIC_NEXT_PAGE=P\u00E1gina siguiente
+GENERIC_PREVIOUS_PAGE=P\u00E1gina anterior
+GENERIC_APPLY_TO_GUESTLIST=A\u00F1adir a la lista de invitados
+GENERIC_APPLY_GUEST_TO_GUESTLIST=Seleccionar invitado directamente desde la lista de invitados
+GENERIC_APPLY=Seleccionar
+GENERIC_APPLY_PERSON_AS_HOST=Seleccionar persona directamente como anfitri\u00F3n
+etikettfuraktuellepersonerzeugen=Generar etiqueta para la persona actual
+
+aktuellepersonloschenundzurpersonenlistezuruckkehren=Eliminar persona actual y volver a la lista de personas
+freifeldvorschaufur=Campo libre-Vista previa para 
+zudieserpersonwurdedasentsprechendevorschaufeldnochncihterzeugt=El campo Vista Previa no ser\u00E1 generado para esta persona
+GENERIC_LAST_PAGE=\u00FAltima p\u00E1gina
+siemussendierolleangebenunterdersieverawebnutzenmochten=Debe introducir los roles que desea utilizar en VerA.web.
+GENERIC_CHOOSE=seleccionar
+GENERIC_RESET=Reiniciar
+siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=No tiene permisos para eliminar invitados
+wahlensiebittezunachsteineodermehreregastelistenaus=Por favor, seleccione uno o m\u00E1s invitados
+bittebestatigensiedasloschendermarkiertengasteliste=Por favor, \u00A1confirme la eliminaci\u00F3n de los invitados seleccionados!
+GENERIC_NO_GUESTLIST_DELETED=No se han eliminado invitados.
+
+
+EVENT_DOCTYPE_RESET_INFO=Por favor, compruebe que el evento tiene asociados los tipos de documento. Si este fuera el caso, necesita volver a crear los tipos de documento para los invitados, haciendo clic en "Restablecer datos maestros".
+
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Se encuentra dentro del men\u00FA "Administraci\u00F3n > Preferencias de programa.
+
+GENERIC_CHOSEN_GUESTLIST=Invitados seleccionados
+exportierfahigegasteliste=Invitados exportables
+unvollstandigegasteliste=Invitados incompletos
+
+GUESTLIST_FILTER_EXPORT_INFO=S\u00F3lo ser\u00E1n exportados los invitados seleccionados a trav\u00E9s del filtro ejecutado sobre la lista de invitados.
+
+GUEST_CANNOT_BE_EXPORTED_1=Un invitado 
+GUEST_CANNOT_BE_EXPORTED_2=no se ha 
+GUEST_CANNOT_BE_EXPORTED_3=podido 
+GUEST_CANNOT_BE_EXPORTED_4=exportar
+PERSON_MISSING_DOCTYPE_SPECIFIC_DATA=porque para esa persona no se han guardado datos espec\u00EDficos del tipo de documento
+
+GUESTS_CANNOT_BE_EXPORTED_1=invitados
+GUESTS_CANNOT_BE_EXPORTED_2=no se han
+GUESTS_CANNOT_BE_EXPORTED_3=podido
+GUESTS_CANNOT_BE_EXPORTED_4=exportar
+PERSONS_MISSING_DOCTYPE_SPECIFIC_DATA=porque para esas personas no se han guardado datos espec\u00EDficos del tipo de documento
+GENERIC_TO_EVENTDETAIL=Volver a detalles del evento
+GENERIC_INSERT_CURRENT_MONTH=insertar mes actual
+GENERIC_SELECT_FUNCTION=Seleccionar funci\u00F3n
+diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten=Se han eliminado los datos maestros de este invitado. S\u00F3lo se pueden editar datos en relaci\u00F3n al evento actual.
+DELETE_SELECTED_MANDATOR=Eliminar mandante(s) seleccionado(s)
+PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=\u00BFUtilizar los datos de rango de categor\u00EDa de los datos maestros?
+
+
+# NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reiniciar todos los valores mediante datos maestros
+GUEST_LIST_EDIT_MASTER_DATA=Editar datos maestros de personas
+GUEST=Invitad
+GENERIC_OF_Capital=de
+GENERIC_ASSIGN=Aceptar
+GENERIC_CANCEL=Cancelar
+GENERIC_DELETE=Eliminar
+GENERIC_CONNECTOR=Conector
+
+# GUEST DETAIL TEXTS
+GUEST_DETAIL_PARTNER=el partner
+GUEST_DETAIL_PARTNER_GENITIV=del partner
+GUEST_DETAIL_MAINPERSON=la persona principal
+
+GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Por favor, modifique el asiento por
+GUEST_DETAIL_DUP_SEAT_ERROR_TWO=de
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=sobre la lista de invitados. Esta persona se sienta actualmente en 
 # ----------------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------------
