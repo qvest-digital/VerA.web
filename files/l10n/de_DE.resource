@@ -1704,3 +1704,4 @@ PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=Soll diese Person wirklich 
 
 # PERSON HEADER TEXTS
 PERSON_HEADER_NO_DOCTYPE_CONFIG=Es wurde kein Dokumenttyp zur Vorschauanzeige konfiguriert.
+
