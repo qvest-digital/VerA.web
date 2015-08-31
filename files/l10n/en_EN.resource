@@ -1498,3 +1498,208 @@ GUEST_DETAIL_MAINPERSON=of the main person
 GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Please first change the seat at
 GUEST_DETAIL_DUP_SEAT_ERROR_TWO=from 
 GUEST_DETAIL_DUP_SEAT_ERROR_THREE=vie the guest list. This person currently sits at 
+GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=on seat
+GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Changes have not been saved.
+
+# GUEST TEXTS
+GUEST_CALC_SERIALNO=This is event is in the past already. Do you wish to recalculate the serial number anyway?
+
+# MAILING LIST TEXTS
+MAILING_LIST_NO_ADDRESSES=Failed to apply a new contributor, due to selected person's missing address-data
+
+# ORG UNIT LIST TEXTS
+ORG_UNIT_NO_MANDANT_ID=Client to be inserted must not have an id
+ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Client to be inserted
+ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO=already exists.
+ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Client to be updated
+ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= must have an id
+ORG_UNIT_MANDANT_EXISTS_ONE=A client with the name
+ORG_UNIT_MANDANT_EXISTS_TWO=already exists.
+
+# PERSON CATEGORIES TEXTS
+PERSON_CATEGORIES_SELECT_WARNING=In order to add a category, please choose a category. (You only entered a rank.)
+
+# EXPORT FILE HEADERS
+EXPORT_HEADER_DOCUMENT_TYPE=document_type
+EXPORT_HEADER_FREETEXT_FIELD=free_text_field
+EXPORT_HEADER_PARTNER_FREETEXT_FIELD=Partner_free_text_field
+EXPORT_HEADER_INTERCONNECTS=Connector
+EXPORT_HEADER_ADDRESS=Address
+EXPORT_HEADER_CHARSET=Charset	
+EXPORT_HEADER_FUNCTION=funktion
+EXPORT_HEADER_TITLE=Title
+EXPORT_HEADER_FIRSTNAME=First_name
+EXPORT_HEADER_LASTNAME=Last_name
+EXPORT_HEADER_PARTNER_TITLE=Partner_title
+EXPORT_HEADER_PARTNER_ACADEMIC_TITLE=Partner_Academic_title
+EXPORT_HEADER_PARTNER_FIRSTNAME=Parnter_first_name
+EXPORT_HEADER_PARTNER_LASTNAME=Partner_last_name
+EXPORT_HEADER_POSTALCODE=ZIP-code
+EXPORT_HEADER_CITY=City
+EXPORT_HEADER_STREET=Street
+EXPORT_HEADER_COUNTRY=Country
+EXPORT_HEADER_ADDITIONAL_ADDRESS_ONE=Address_extension_1
+EXPORT_HEADER_ADDITIONAL_ADDRESS_TWO=Address_extension_2
+EXPORT_HEADER_CITY_OF_BORN=Place_of_birth
+EXPORT_HEADER_TELEPHONE=Phone
+EXPORT_HEADER_FAX=Fax
+EXPORT_HEADER_EMAIL=E-mail
+EXPORT_HEADER_WWW=WWW
+EXPORT_HEADER_MOBILE=Mobile
+EXPORT_HEADER_COMPANY=Company
+EXPORT_HEADER_POST_OFFICE_BOX_NUMBER=PO_box_number
+EXPORT_HEADER_POST_OFFICE_BOX_PLZ=PO_box-zip_code
+EXPORT_HEADER_WORK_AREA=Working_area
+EXPORT_HEADER_CATEGORY=Category
+EXPORT_HEADER_CATEGORY_RANG=Category_rank
+EXPORT_HEADER_RANG=rank
+EXPORT_HEADER_RESERVE=reserve
+EXPORT_HEADER_STATUS=Status
+EXPORT_HEADER_TABLE=Table
+EXPORT_HEADER_SEAT=Seat
+EXPORT_HEADER_CURRENT_NUMBER=Serial_number
+EXPORT_HEADER_COLOUR=Color
+EXPORT_HEADER_IN_COUNTRY=In_country
+EXPORT_HEADER_LANGUAGES=Languages
+EXPORT_HEADER_SEX=Sex
+EXPORT_HEADER_NATIONALITY=Nationality
+EXPORT_HEADER_HINT_RESPONSIBLE=Hint_host
+EXPORT_HEADER_HINT_ORG_TEAM=hint_org_team
+EXPORT_HEADER_PARTNER_STATUS=Partner_status
+EXPORT_HEADER_PARTNER_TABLE=Partner_table
+EXPORT_HEADER_PARTNER_SEAT=Partner_seat
+EXPORT_HEADER_PARTNER_CURRENT_NUMBER=Partner_serial_no
+EXPORT_HEADER_PARTNER_COLOUR=Partner_Color
+EXPORT_HEADER_PARTNER_IN_COUNTRY=In_country
+EXPORT_HEADER_PARTNER_LANGUAGES=Partner_languages
+EXPORT_HEADER_PARTNER_SEX=Partner_sex
+EXPORT_HEADER_PARTNER_NATIONALITY=Partner_nationality
+EXPORT_HEADER_PARTNER_HINT_RESPONSIBLE=Partner_hint_host
+EXPORT_HEADER_PARTNER_HINT_ORG_TEAM=Partner_hint_org_team
+EXPORT_HEADER_ACCEPT=Number_acceptances
+EXPORT_HEADER_DECLINE=Number_declinings
+EXPORT_HEADER_OPEN=Number_open
+EXPORT_HEADER_GUEST_IN_PLACE=Number_guests_on_seat
+EXPORT_HEADER_GUEST_IN_RESERVE=Number_guests_on_reserve
+EXPORT_HEADER_EVENT_NAME=Event_name
+EXPORT_HEADER_EVENT_BEGIN=Event_begin
+EXPORT_HEADER_EVENT_END=Event_end
+EXPORT_HEADER_EVENT_LOCATION=Event_location
+EXPORT_HEADER_OBSERVATION=Observation
+
+# MAIN DATA (STAMMDATEN-WORKER) TEXTS
+MAIN_DATA_WARN_ALREADY_EXISTS=A core-date entry with this name already exists
+
+# STATS (Statistik Worker)
+STATS_COLUMN_EVENT_NAME=Event name
+STATS_COLUMN_DATE_BEGIN=Begin
+STATS_COLUMN_INVITATION_TYPE=Invitation type
+STATS_COLUMN_INVITATION_STATUS=Status
+STATS_COLUMN_INVITATION_STATUS_PARTNER=Status partner
+STATS_COLUMN_YEAR=Year
+STATS_COLUMN_MONTH=Month
+STATS_COLUMN_EVENTS=Events
+STATS_NOT_INVITED=not invited
+
+# USER LIST TEXTS
+USER_LIST_WARN_MANDANT_ONE=User to be inserted is already assigned to client
+USER_LIST_WARN_MANDANT_TWO=.
+USER_LIST_WARN_ALREADY_USER=User to be inserted is already assigned to VerA.web.
+USER_LIST_WARN_NO_ID=User to be inserted must not have an id
+
+# WORKAREA TEXTS
+WORKAREA_ERROR_INCORRECT_NAME_ONE=The work area named '
+WORKAREA_ERROR_INCORRECT_NAME_TWO=' could not be created. Please assign a client first.
+
+# VERIFY TEXTS
+VERIFY_ERROR_ACCESS_TO_DB_UNABLE=Could not establish connection to database.
+VERIFY_ERROR_ACCESS_TO_DB_INTERRUPTED=Connection to database interrupted.
+VERIFY_ERROR_ACCESS_TO_DB_NOT_INTERRUPTED=Failed to interrupt database connection.
+VERIFY_ERROR_DB_NOT_ACCESSIBLE=Failed to connect to database.
+VERIFY_ERROR_DB_VERSION_NOT_DETERMINED=Could not determine version of database-schema.
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE=The database schema's version (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO=) does not match the version expected by VerA.web (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
+VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Your database configuration does not support the expected charset (LC_CTYPE=
+VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Your database configuration does not support the expected rules for text comparison(LC_COLLATE=
+VERIFY_ERROR_XML=An error occured while creating a XM-test document.(
+VERIFY_ERROR_JAVA_ONE=The installed java-version (
+VERIFY_ERROR_JAVA_TWO=) does not match the expected version (1.4).
+
+#TO BE DELETED
+inlandjageschlechtweiblich=In Country: Yes - Sex:Female
+inlandjageschlechtmannlich=In Country: Yes - Sex:Male
+inlandneingeschlechtweiblich=In Country: No - Sex:Female
+inlandneingeschlechtmannlich=In Country: No - Sex:Male
+
+# GENERIC DIALOG MESSAGES
+GENERIC_PLEASE_WAIT_HEADER=Please wait...
+GENERIC_PLEASE_WAIT_MESSAGE=This process may take some time.
+
+# WORK AREA (Bean) TEXTS
+WORKAREA_ERROR_MISSING_NAME=The work area must have a distinct name.
+
+
+zurpersonensuche=To People search
+steuerdatei=Control file
+dokumenttypauswahlen=Choose document type
+EVENT_NO_DOCTYPES_ASSIGNED=No document types have been assigned to the event yet
+
+# DATE HELPER TEXTS
+DATE_HELPER_INCORRECT_DATE= is not a valid date. Please use the format DD.MM.YYYY!
+
+#WIP
+GENERIC_SHOW_CURRENT_EVENTS=Show current event
+GENERIC_FURTHER_PROCEEDING=Further proceeding
+
+LETTER_MAIN_PERSON=M
+LETTER_PARTNER=P
+LETTER_RESERVE=R
+LETTER_DELEGATION=D
+LETTER_HOST=H
+
+GENERIC_LASTNAME_WITH_SOFT_HYPHEN=Last Name
+GENERIC_FIRSTNAME_WITH_SOFT_HYPHEN=First Name
+
+GENERIC_LOAD_EXISTING_IMPORTPROCESS=Load existing importprocess
+GENERIC_IMPORTID=Import-id
+GENERIC_YEAR=Year
+GENERIC_COUNT=Count
+GENERIC_PARTICIPATION=Participation
+GENERIC_NOT_ASSIGNED_TO_CATEGORY=Not assigned to category
+GENERIC_NOT_ASSIGNED_TO_WORKAREA=Not assigned to work area
+GENERIC_NO_HOST_ASSIGNED=No host assigned
+GENERIC_NO_GUEST_FOUND=No guest found
+
+GENERIC_PHONE_NUMBER_SHORT=Phone number
+GENERIC_FAX_NUMBER_SHORT=Fax number
+
+GENERIC_MONTH_YEAR=Month/Year
+GENERIC_LOOK_AT=look at
+GENERIC_MOBILE_PHONE=Mobilte phone
+
+PHONE_OFFICIAL=Phone official
+PHONE_PRIVATE=Phone private
+PHONE_MOBILE=Phone mobile
+
+GENERIC_PARTNER_FREETEXTFIELD=Partner free text field
+GENERIC_VENUE=Venue
+
+GENERIC_TOTAL=Total
+OPTION_MARK_ADMINISTRATION_CATEGORY_1=Category
+OPTION_MARK_ADMINISTRATION_CATEGORY_2=Occasion
+OPTION_MARK_ADMINISTRATION_CATEGORY_3=Diplo. Corps
+
+GENERIC_IMPORTID_HYPHEN=Import-id
+
+GENERIC_SUBSTITUTED_BY=substituted by
+GENERIC_NONE=none
+GENERIC_ADDRESS_BLOCK=Address block
+
+GENERIC_CONTEXT_PLURAL=Contexts
+
+
+
+
+
+
