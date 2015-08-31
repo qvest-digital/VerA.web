@@ -106,8 +106,8 @@ GENERIC_DOCUMENT_TYPE_SINGULAR=Tipo de documento
 GENERIC_DOCUMENT_TYPE_PLURAL=Tipos de documento
 GENERIC_EMAIL_SINGULAR=E-Mail
 GENERIC_EMAIL_PLURAL=E-Mails
-GENERIC_EVENT_SINGULAR=Evento
-GENERIC_EVENT_PLURAL=Eventos
+GENERIC_EVENT_SINGULAR=evento
+GENERIC_EVENT_PLURAL=eventos
 GENERIC_EVENT_LOCATION_SINGULAR=Localizaci\u00F3n del evento
 GENERIC_EVENT_LOCATION_PLURAL=Localizaciones del evento
 GENERIC_FUNCTION_SINGULAR=Funci\u00F3n
@@ -139,30 +139,30 @@ GENERIC_WORKAREA_PLURAL=\u00C1reas de trabajo
 
 # HEADER MESSAGES
 HEADER_REPRESENTATION_FOR=En representaci\u00F3n de
-HEADER_COUNT_INSERT_ZERO_PART_ONE=Se ha
-HEADER_COUNT_INSERT_ONE_PART_ONE=Se ha
-HEADER_COUNT_INSERT_ELSE_PART_ONE=Se han
-HEADER_COUNT_INSERT_ZERO_PART_TWO=creado
-HEADER_COUNT_INSERT_ONE_PART_TWO=creado
-HEADER_COUNT_INSERT_ELSE_PART_TWO=creado
-HEADER_COUNT_REMOVE_ZERO_PART_ONE=Se ha
-HEADER_COUNT_REMOVE_ONE_PART_ONE=Se ha
-HEADER_COUNT_REMOVE_ELSE_PART_ONE=Se han
-HEADER_COUNT_REMOVE_ZERO_PART_TWO=eliminado
-HEADER_COUNT_REMOVE_ONE_PART_TWO=eliminado
-HEADER_COUNT_REMOVE_ELSE_PART_TWO=eliminado
-HEADER_COUNT_UPDATE_ZERO_PART_ONE=Se ha
-HEADER_COUNT_UPDATE_ONE_PART_ONE =Se ha
-HEADER_COUNT_UPDATE_ELSE_PART_ONE=Se han
-HEADER_COUNT_UPDATE_ZERO_PART_TWO=modificado
-HEADER_COUNT_UPDATE_ONE_PART_TWO=modificado
-HEADER_COUNT_UPDATE_ELSE_PART_TWO=modificado
+HEADER_COUNT_INSERT_ZERO_PART_ONE=Se ha creado
+HEADER_COUNT_INSERT_ONE_PART_ONE=Se ha creado
+HEADER_COUNT_INSERT_ELSE_PART_ONE=Se han creado
+HEADER_COUNT_INSERT_ZERO_PART_TWO=
+HEADER_COUNT_INSERT_ONE_PART_TWO=
+HEADER_COUNT_INSERT_ELSE_PART_TWO=
+HEADER_COUNT_REMOVE_ZERO_PART_ONE=Se ha eliminado
+HEADER_COUNT_REMOVE_ONE_PART_ONE=Se ha eliminado
+HEADER_COUNT_REMOVE_ELSE_PART_ONE=Se han eliminado
+HEADER_COUNT_REMOVE_ZERO_PART_TWO=
+HEADER_COUNT_REMOVE_ONE_PART_TWO=
+HEADER_COUNT_REMOVE_ELSE_PART_TWO=
+HEADER_COUNT_UPDATE_ZERO_PART_ONE=Se ha modificado
+HEADER_COUNT_UPDATE_ONE_PART_ONE =Se ha modificado
+HEADER_COUNT_UPDATE_ELSE_PART_ONE=Se han modificado
+HEADER_COUNT_UPDATE_ZERO_PART_TWO=
+HEADER_COUNT_UPDATE_ONE_PART_TWO=
+HEADER_COUNT_UPDATE_ELSE_PART_TWO=
 HEADER_ELEMENT_FEMALE_NO=ninguna
-HEADER_ELEMENT_FEMALE_ONE=una
-HEADER_ELEMENT_FEMALE_NEW=nueva
+HEADER_ELEMENT_FEMALE_ONE=un
+HEADER_ELEMENT_FEMALE_NEW=
 HEADER_ELEMENT_MALE_NO=ning\u00FAn
-HEADER_ELEMENT_MALE_ONE=un
-HEADER_ELEMENT_MALE_NEW=nuevo
+HEADER_ELEMENT_MALE_ONE=un registro de
+HEADER_ELEMENT_MALE_NEW=
 HEADER_ELEMENT_NO_RECORD_SINGULAR=ning\u00FAn registro
 HEADER_ELEMENT_NO_NEW_RECORD_SINGULAR=ning\u00FAn nuevo registro
 HEADER_ELEMENT_ONE_RECORD_SINGULAR=un registro
@@ -458,7 +458,7 @@ GENERIC_DATE=Fecha
 GENERIC_WORKAREA_SINGULAR=\u00C1rea de trabajo
 GENERIC_LASTNAME=Apellido
 GENERIC_FIRSTNAME=Nombre
-akwritemtsbezeichnung=T\u00EDtulo
+amtsbezeichnung=T\u00EDtulo
 GENERIC_COMPANY_INSTITUTION=Empresa / Instituci\u00F3n
 GENERIC_STREET=Calle
 GENERIC_POST_NUMBER=C\u00F3digo postal
@@ -483,7 +483,7 @@ GENERIC_ACCOUNT_OPENING_DATE=Fecha de acreditaci\u00F3n
 GENERIC_AT=a las
 GENERIC_OCLOCK=horas
 GENERIC_ORIGIN_DATA=Origen de los datos
-GENERIC_PERSON_SINGULAR=Persona
+GENERIC_PERSON_SINGULAR=persona
 
 # DATEITYP
 csv=CSV (Comma-Separated-Values)
@@ -502,7 +502,7 @@ csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 GENERIC_PERSON_SUMMARY=Lista de personas
 GENERIC_SEARCH_PERSONS=Buscar personas
 GENERIC_CREATE_PERSON=Crear nueva persona
-GENERIC_PERSONS_DELETED=Personas eliminadas
+GENERIC_PERSONS_DELETED=personas
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN
 GENERIC_EDIT_PERSON=Editar persona
@@ -1074,7 +1074,7 @@ diesepersonwurdeerfolgreichzurgaestelistederveranstaltung=La persona ha sido inv
 hinzugefuegt=al evento
 diesepersonwurdenichthinzugefuegtdasiebereitsaufdergaestelistesteht=La persona no ser\u00E1 invitada, puesto que ya se encuentra en la lista de invitados.
 diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt=La persona actual ser\u00E1 marcada como borrada. Por tanto, no ser\u00E1 posible acceder a ella mediante la b\u00FAsqueda de personas.
-personanlegen\u2243Crear persona
+personanlegen=Crear persona
 eswurdenkeinedublettengefundensiekoennenjetztweiteredateneingebenunddiedatenspeichern=No se han encontrado duplicados. Usted podr\u00E1 ahora rellenar la informaci\u00F3n para almacenarla.
 bittegebensiezunaechstden=Por favor, primero indique 
 vorundnachnamen= nombre y apellidos 
@@ -1456,7 +1456,7 @@ GENERIC_NO_GUESTLIST_DELETED=No se han eliminado invitados.
 
 EVENT_DOCTYPE_RESET_INFO=Por favor, compruebe que el evento tiene asociados los tipos de documento. Si este fuera el caso, necesita volver a crear los tipos de documento para los invitados, haciendo clic en "Restablecer datos maestros".
 
-diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Se encuentra dentro del men\u00FA "Administraci\u00F3n > Preferencias de programa.
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Se encuentra dentro del men\u00FA "Administraci\u00F3n > Preferencias de programa".
 
 GENERIC_CHOSEN_GUESTLIST=Invitados seleccionados
 exportierfahigegasteliste=Invitados exportables
@@ -1655,11 +1655,11 @@ DATE_HELPER_INCORRECT_DATE= no es una fecha v\u00E1lida. Por favor, \u00A1utilic
 GENERIC_SHOW_CURRENT_EVENTS=Mostrar eventos actuales
 GENERIC_FURTHER_PROCEEDING=Acciones posteriores
 
-LETTER_MAIN_PERSON=H
+LETTER_MAIN_PERSON=PP
 LETTER_PARTNER=P
 LETTER_RESERVE=R
 LETTER_DELEGATION=D
-LETTER_HOST=G
+LETTER_HOST=A
 
 GENERIC_LASTNAME_WITH_SOFT_HYPHEN=Nach\u00ADname
 GENERIC_FIRSTNAME_WITH_SOFT_HYPHEN=Vor\u00ADname
@@ -1704,3 +1704,6 @@ GENERIC_CONTEXT_PLURAL=Contextos
 PERSON_DETAIL_DELETE_PERSON_HEADER=Por favor, \u00A1confirme la eliminaci\u00F3n de la persona!
 PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION=Si no quiere eliminar esta persona, por favor, cancele el proceso.
 PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=\u00BFDebe la persona actual ser eliminada?
+
+# PERSON HEADER TEXTS
+PERSON_HEADER_NO_DOCTYPE_CONFIG=No se ha configurado ning\u00FAn tipo de documento.

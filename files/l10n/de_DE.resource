@@ -1701,3 +1701,6 @@ GENERIC_CONTEXT_PLURAL=Kontexte
 PERSON_DETAIL_DELETE_PERSON_HEADER=Bitte best\u00E4tigen Sie das L\u00F6schen der Person!
 PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION=Wenn Sie diese Person doch nicht l\u00F6schen wollen, brechen Sie bitte den Vorgang ab.
 PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=Soll diese Person wirklich gel\u00F6scht werden?
+
+# PERSON HEADER TEXTS
+PERSON_HEADER_NO_DOCTYPE_CONFIG=Es wurde kein Dokumenttyp zur Vorschauanzeige konfiguriert.

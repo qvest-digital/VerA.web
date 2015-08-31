@@ -135,7 +135,7 @@
 								#end
 							#else
 								<div class="info">
-									Es wurde kein Dokumenttyp zur Vorschauanzeige konfiguriert.
+									${placeholderWithTranslation.PERSON_HEADER_NO_DOCTYPE_CONFIG}
 									#if($grants.isAdmin())
 										${placeholderWithTranslation.diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich}
 									#end
