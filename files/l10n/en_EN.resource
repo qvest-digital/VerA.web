@@ -353,9 +353,10 @@ GENERIC_CHARSET=Charset
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Standard salutations and free text fields
 GENERIC_STANDARD_SALUTATION=Standard salutations
 GENERIC_STANDARD_SALUTATION_PARTNER=Standard form of address: partner
+GENERIC_FREE_TEXT_FIELD=Free text field
+GENERIC_FREE_TEXT_FIELDS=Free text fields
 GENERIC_FREE_TEXT_FIELD_CONNECTOR=Free text field connector
-freitextfeldanzeige=Free text field (display)
-freitextfeldgasteliste=free text field  (guest list)
+GENERIC_SHOW=Show
 GENERIC_HELP=Help
 GENERIC_HELP_LINK=Help link
 GENERIC_HELP_WINDOW=Help window
@@ -1697,7 +1698,10 @@ GENERIC_ADDRESS_BLOCK=Address block
 
 GENERIC_CONTEXT_PLURAL=Contexts
 
-PERSON_DETAIL_DELETE_PERSON_HEADER=Bitte best\u00E4tigen Sie das L\u00F6schen der Person!
-PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION=Wenn Sie diese Person doch nicht l\u00F6schen wollen, brechen Sie bitte den Vorgang ab.
-PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=Soll diese Person wirklich gel\u00F6scht werden?
+PERSON_DETAIL_DELETE_PERSON_HEADER=Please confirm the deletion of the person!
+PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION=If you want to stop the deletion, please abort the procedure.
+PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=Would you really like to delete this person?
+
+# PERSON HEADER TEXTS
+PERSON_HEADER_NO_DOCTYPE_CONFIG=Es wurde kein Dokumenttyp zur Vorschauanzeige konfiguriert.
 
