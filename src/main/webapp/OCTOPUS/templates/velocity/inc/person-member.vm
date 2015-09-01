@@ -72,7 +72,7 @@
 
 			<div class="tableCell width50 ">
 				#if($ext == "_a_e1" || $ext == "_b_e1")
-					<label for="person-birthday$!message.plain($ext)">${placeholderWithTranslation.GENERIC_PAGE}</label>
+					<label for="person-birthday$!message.plain($ext)">${placeholderWithTranslation.GENERIC_DATE_OF_BIRTH}</label>
 					<input  type="text" name="person-birthday$ext" value="$!message.date("DATE", $facade.Birthday, false)" id="person-birthday$!message.plain($ext)" class="datepicker" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
 					#if($grants.mayWrite() && !$createNewPerson)
 						<span id="show-birthday$ext" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"/></span>
