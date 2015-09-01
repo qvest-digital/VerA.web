@@ -284,219 +284,218 @@ chinesisch=Chinese
 eswurdeeindokumenttypgeloscht=A document type has been deleted.
 eswurdeeinneuerdokumenttypangelegt=A new document type has been created.
 
-# Administration/Anreden
-Anreden=Salutations
-MarkierteAnrede=Marked salutation(s)
-ID=ID
-Stammform=Principal form
-Geschlecht=Gender
-Bearbeiten=Edit
-Weiblich=Female
-M\u00E4nnlich=Male
-Direkteinsprung=Paging
-EswurdeeineneueAnredeangelegt=A new salutation has been added
-WirklichL\u00F6schen?=Are you sure you want to delete the title?
-Ja=Yes
-Nein=No
-EswurdeeineAnredegel\u00F6scht=A title has been deleted
-EsexistiertbereitseinStammdaten-EintragunterdemNamen=A master file data entry for this name already exists
-# Administration/Arbeitsbereichee
-Arbeitsbereiche=Work field
-Markierte=Marked work field(s)
-EswurdenkeineDatengefunden=No data has been found
-EswurdeeinneuerArbeitsbereichangelegt=A new work field has been created
-EswurdekeinArbeitsbereichgel\u00F6scht=No work field has been deleted
-EswurdeeinArbeitsbereichgel\u00F6scht=A work field has been deleted
-# Administration/Benutzer
-Benutzer=User
-Markierte(n)Benutzer=Marked user
-Mandant=Client
-Benutzername=Username
-Benutzerrechte=User rights
-EswurdeeinneuerBenutzerangelegt=A new user has been added
-EswurdeeinBenutzergel\u00F6scht=A user has been deleted
-Siem\u00FC\u00DFeneineBenutzerrollenbezeichnungeingeben=You have to give a role description for the user
-# Administration/Dokumenttypen
-Hinweis=Tooltip
-Format:OOo1.1stehtf\u00FCrOpenOffice1.1(sxc-Datei)undOOo2.0f\u00FCrOpenOffice2.0(ods-Datei),xlsstehtf\u00FCrMicrosoftOfficeKennzeichen:Kennz.50und99werdenautom.neuenVeranstaltungenhinzugef\u00FCgt.BeimKennz.50wirdkeinFreitextfelderzeugt.(xls-Datei)undCSVstehtf\u00FCrCSV-Dateiformat.=Format: OOo 1.1 is for OpenOffice 1.1 (sxc) and OOo 2.0 if for OpenOffice 2.0(ods), xls is for Microsoft office (xls) and csv is for the csv file format
-Kennzeichen:Kennz.50und99werdenautom.neuenVeranstaltungenhinzugef\u00FCgt.BeimKennz.50wirdkeinFreitextfelderzeugt.=Sign: Sign 50 and 99 will be added automatically to new events. The flag 50 will not create a free text field
-Markierte=Marked document type(s)
-Bezeichnung*=Description*
-Adre\u00DF-Typ=Address-type
-Zeichensatz=Charset
-Format=Format: OOo 1.1 is for OpenOffice 1.1 (sxc) and OOo 2.0 if for OpenOffice 2.0(ods), xls is for Microsoft office (xls) and csv is for the csv-dataformat
-Dokumentf\u00FCrPartner=Document for partner
-Sortier.=Sort.
-Kennz.=Sign
-GA=GA
-SD=SD
-Gesch\u00E4ftlich=Business
-Privat=Private
-Weitere=Other
-Latein=Latin
-Kyrillisch=Cyrillic
-Chinesisch=Chinese
-EswurdeeinDokumenttypgel\u00F6scht.=A document-type had been deleted
-EsexistiertbereitseinStammdaten-EintragunterdemNamen=A master file data entry for this name already exists
-EswurdeeinneuerDokumenttypangelegt.=A new document-type has been added
-# Administration/E-Mail-Postausgang
-Status=Status
-Von=Of
-An=To
-Betreff=Regard
-Fehler=Error
-E-Mails=E-mails
-BeimVersendendieserE-MailisteinFehleraufgetreten.Siek\u00F6nnendiesejetztbearbeitenunderneutsenden.=An error has occurded while sending this e-mail. You can now edit your e-mail and send it again
-technischeFehlermeldungeinblenden=Show techincal error
-Fehlerbeschreibung:=Error description
-# Administration/E-Mail-Vorlagen
-E-Mail-Vorlagen=E-mail patterns
-MarkierteVorlage=Marked pattern(s)
-NeueVorlageanlegen=Create a new pattern
-NamederVorlage=Name of the pattern
-EswurdeeineneueVorlageangelegt.=A new pattern has been created
-Text*=Text
-Platzhalter=Placeholder
-Hinzuf\u00FCgen=Address-type
-Zur\u00FCckzurVorlagenliste=Back to pattern-list
-# Administration/Farben
-Farben=Colors
-Bezeichnung*=Description*
-Farbwert=Chromaticity (R Y B)
-Inland:Ja-Geschlecht:Weiblich=Inland: Yes \u00E2\u0080\u0093 Gender: Female
-Inland:Ja-Geschlecht:M\u00C3\u00A4nnlich=Inland: Yes \u00E2\u0080\u0093 Gender: Male
-Inland:Nein-Geschlecht:Weiblich=Inland: No \u00E2\u0080\u0093 Gender: Female
-Inland:Nein-Geschlecht:M\u00C3\u00A4nnlich=Inland: No \u00E2\u0080\u0093 Gender: Male
-# Administration/Funktionen/Amtsbezeichnungen
-Funktionen/Amtsbezeichnungen=Function/employment title
-MarkierteBezeichnung=Marked descriptions
-Bezeichnung=Decription
-EswurdeeineneueFunktion/Amtsbezeichnungangelegt.=A new function/employment title has been added
-EswurdeeineFunktion/Amtsbezeichnunggel\u00F6scht.=A function/employment title has been deleted
-#Administration/Kategorien
-Kategorien=Categories
-MarkierteKategorie=Marked categories
-Kennzeichen=Sign
-Rang=Rank
-Veranstaltung=Event(s)
-Kategorie=Category
-Ereignis=Occasion
-Diplo,Corps=Diplo. Corps
-F\u00FCralleVeranstaltungen=For all events
-# Administration/Mandanten
-Mandanten=Clients
-Markierte(n)Mandanten=Marked clients
-Mandant=Client
-NichtMandantenzugeordneteDaten=Non clients associated data
-Personen:=Persons
-ImportVorg\u00E4nge:=Import operations
-Veranstaltungorte:=Venues
-Kategorien:=Categories
-Veranstaltungen:=Events
-ImportPersonen:=Import persons:
-Verteiler:=Dispatcher:
-Benutzer:=User
-Mandantenzuordnen=Assign client
-Mandant:=Client:
-# Administration/Programmeinstellungen
-Programeinstellungen=Program settings
-StandardAuswahlvonTabulatoren=Standard selection of tabulators
-Haupttabs=Main tabs
-Personendaten=Oersonal data
-Anschriften=Addresses
-Subtabsvon\u00E2\u0080\u009EPersonendaten\u00E2\u0080\u009C=Subtabs of \u00E2\u0080\u009Cpersonal data\u00E2\u0080\u009D
-Hauptperson=Main person
-Partner=Partner
-Subtabsvon\u00E2\u0080\u009EAnschriften\u00E2\u0080\u009C=Subtabs of \u00E2\u0080\u009Caddresses\u00E2\u0080\u009D
-Gesch\u00E4ftlich=Business
-Privat=Private
-Weitere=Other
-StandardAuswahlderSelectbox\u00E2\u0080\u009EZeichensatzC=Default settics for \u00E2\u0080\u009Ccharset\u00E2\u0080\u009D
-Latein=Latin
-Zeichensatz1=Charset 1
-Zeichensatz2=Charset 2
-Standard-AnredenundFreitextfelder:=Default salutations and free text fields
-Standaerd-Anrede:=Default salutations
-Standard-AnredePartner:=Default salutation for the partner
-Freitextfeld-Verbinder:=Free text field connector:
-Freitextfeld(Anzeige):=Free text field (displayed):
-Freitextfeld(G\u00E4steliste):=Free text field (list of guests):
-hilfe=Help
-Hilfe-Link:=Help-link:
-Hilfe-Fenster:=Help-window:
-AktuellesBrowser-Fensterverwenden.=Use current browser-window
-ProAufrufeinneuesBrowser-Fenster\u00F6ffnen.=Open new browser-window on every call
-BeijedemAufrufdasselbeBrowser-Fenster(nichtdasaktuelle).=Use the same browser-window (not the current window) for every call
-Sonstiges:=Other:
-Fax-DN(@fax.aa):=Fax-Dn (@fax.aa):
-\u00E4nderungsprotokoll:=Change log:
-VorhaltezeitderProtokolldaten(Jahre/Monate/Tage):=Validity of the log data (years/months/days)
-GebenSiedieAufbewahrungsfristein:=Pls give a retention period:
-Jahre=Years
-Monate=Months
-Tage=Days
-Hauptperson:=Main person
-Partner:=Partner
-AnschriftGesch\u00E4ftlich:=Address business:
-AnschriftPrivat:=Address private:
-AnschriftWeitere:=Address other:
-ZeichensatzLatein:=Charset latin
-ZeichensatzAlternative1:=Charset alternative 1
-ZeichensatzAlternative2:=Charset alternative 2
-Adre\u00DFzusatz1:=Addition to the address 1
-Adre\u00DFzusatz2:=Addition to the address 2
-# Administration/Reports
-Reports=Reports
-Hinweis=Tooltip
-Abh\u00E4ngigvomausgew\u00E4hltenZeitraumundderdarausresultierendenAnzahlDaten,kanndieErzeugungdesBerichtsrelativlangedauern.HabenSiebitteeinwenigGeduld.=Depending on the selected period and the resulting number of data, the generation of the report may take a long time. Please have a little patience.
-DatumBeginn:=Date start:
-DatumEnde:=Date end:
-Felderzur\u00FCcksetzen=Reset fields
-Reporterzeugen=Generate report
-# Administration/Stellvertretungen
-Stellvertretungen=Delegates
-G\u00FCltigkeitsfilter=Vailidity filter
-alleVertretungen=All representations
-keineabgelaufenenVertretungen=No expired representations
-nuraktuelleVertretungen=Only current representations
-Rolle*=Role*
-Vertreter*=Representative
-G\u00FCltigab=Date of start
-G\u00FCltigbis=Date of expiry
-KeineDatengefunden.=No data found
-# Administration/Veranstaltungsorte
-Markierte=Marked Venue(s)
-NeuenVeranstaltungsorthinzuf\u00FCgen=Add new Venue
-ID=ID
-Bezeichnung=Designation
-Ansprechpartner=Contact
-Stra\u00DFe=Street
-PLZ=ZIP
-Ort=Place
-Telefon=Phone
-Fax=Fax
-E-Mail=E-Mail
-Bemerkung=Comment
-URL=URL
-GPS-Daten=GPS-Data
-Raumnummer=Roomnumber
-# Verwaltung/Einstellungen
-Verwaltung=Management
-Einstellungen=Settings
-Personendetailansicht=Detailed people View
-StandardAuswahlvonTabulatoren=Standard selection of tabulators
-Haupttabs=Main tabs
-Personendaten=Personal data
-Anschriften=Adresses
-Subtabsvon\u00E2\u0080\u009EPersonendaten\u00E2\u0080\u009C=Subtabs of \u00E2\u0080\u009Cpersonal data\u00E2\u0080\u009D
-Hauptperson=Main person
-Partner=Partner
-Subtabsvon\u00E2\u0080\u009EAnschriften\u00E2\u0080\u009C=Subtabs of \u00E2\u0080\u009Cadresses\u00E2\u0080\u009D
-Gesch\u00E4ftlich=Buisnesslike
-Privat=Private
-Weitere=Other
-G\u00E4steliste=Guest list
-Zus\u00E4tzlicheFelder=Additional fields
+# ADMINISTRATION/E-MAIL-POSTAUSGANG
+GENERIC_STATUS=Status
+GENERIC_TO=To
+GENERIC_SUBJECT=Subject
+GENERIC_ERROR=Error
+e-mails=E-mails
+GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE=Blend in technical error message
+GENERIC_ERROR_DESCRIPTION=Error description
+
+# ADMINISTRATION/E-MAIL-VORLAGEN
+e-mail-vorlagen=E-Mail template
+GENERIC_MARKED_TEMPLATES_PP=Marked template(s)
+GENERIC_INSERT_NEW_TEMPLATES=Create new template
+GENERIC_TEMPLATE_NAME=Name of template
+eswurdeeineneuevorlageangelegt=A new template has been created
+GENERIC_TEXT=Text
+GENERIC_PLACEHOLDER=Placeholder
+GENERIC_ADD=Add
+GENERIC_BACK_TO_TEMPLATES_LIST=Back to list of templates
+
+# ADMINISTRATION/FARBEN
+GENERIC_COLOR_PLURAL=Colours
+GENERIC_CHROMATICITY=Chromatic value
+LETTERS_CHROMATICITY=R G B
+
+# ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
+markiertebezeichnung=Marked title(s)
+GENERIC_LABELLING=Title
+eswurdeeineneuefunktion/amtsbezeichnungangelegt=A new function/official title has been created
+eswurdeeinefunktion/amtsbezeichnunggeloscht=A function/offical title has been deleted
+
+# ADMINISTRATION/KATEGORIEN
+GENERIC_CATEGORY_PLURAL=Categories
+markiertekategorie=Marked categorie(s)
+GENERIC_MARK_LONG=Mark
+GENERIC_RANK=Rank
+GENERIC_EVENTS_PP=Event(s)
+GENERIC_CATEGORY_SINGULAR=Category
+GENERIC_OCCASION=Occasion
+
+# ADMINISTRATION/MANDANTEN
+GENERIC_CLIENT_PLURAL=Clients
+markierte(n)mandanten=Marked client(s)
+GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Data not assigned to clients
+personen=Persons
+GENERIC_IMPORT_PROCEDURES=Import procedures
+veranstaltungorte=Venues
+GENERIC_IMPORT_PERSONS=Import persons
+GENERIC_DISTRIBUTOR_SINGULAR=Distributor
+GENERIC_USER=User
+GENERIC_ASSIGN_CLIENTS=Assign clients
+GENERIC_CLIENT_SINGULAR=Client
+
+# ADMINISTRATION/PROGRAMMEINSTELLUNGEN
+programeinstellungen=Settings
+GENERIC_STANDARD_TABULATOR_CHOICE=Standard choice of tabulators
+GENERIC_MAIN_TABS=Main tabs
+GENERIC_PERSONS_DATA=Personal data
+GENERIC_MAILING_ADDRESSES=Addresses
+GENERIC_SUBTABS_OF_PERSONS_DATA=Subtabs of \u00E2\u0080\u009Epersonal data\u00E2\u0080\u009C
+GENERIC_MAIN_PERSON=Main person
+GENERIC_PARTNER=Partner
+GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subtabs of \u00E2\u0080\u009Eaddresses\u00E2\u0080\u009C
+GENERIC_BUSINESS=Business
+GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Standard choice of selectbox \u00E2\u0080\u009Echarset\u00E2\u0080\u009C
+GENERIC_CHARSET=Charset
+GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Standard salutations and free text fields
+GENERIC_STANDARD_SALUTATION=Standard salutations
+GENERIC_STANDARD_SALUTATION_PARTNER=Standard form of address: partner
+GENERIC_FREE_TEXT_FIELD_CONNECTOR=Free text field connector
+freitextfeldanzeige=Free text field (display)
+freitextfeldgasteliste=free text field  (guest list)
+GENERIC_HELP=Help
+GENERIC_HELP_LINK=Help link
+GENERIC_HELP_WINDOW=Help window
+GENERIC_USE_CURRENT_BROWSER_WINDOW=Use current browser window
+GENERIC_OPEN_NEW_BROWSER_WINDOW_PER_REQUEST=Open new browser window per request
+OPTION_HELP_WINDOW_3=Same browser window for each request (not the current one)
+GENERIC_MISCELLANEOUS=Miscellaneous
+GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
+GENERIC_PROTOCOL_TIME_CHANGE=Protocol of amendment
+GENERIC_PROTOCOL_COMMISIONING_TIME=Derivative time of protocol data
+HINT_GIVE_THE_RETENTION_PERIOD=Please enter the retention period
+GENERIC_YEARS=Years
+GENERIC_MONTHS=Months
+GENERIC_DAYS=Days
+GENERIC_MAILING_ADDRESS_BUSINESS=Business address
+GENERIC_MAILING_ADDRESS_PRIVATE=Private address
+GENERIC_MAILING_ADDRESS_OTHERS=Address (others)
+GENERIC_LABELLING_LATIN=Charset latin
+GENERIC_LABELLING_ALTERNATIVE=Charset alternative
+GENERIC_ADDRESS_ADDITIONAL=Addition to address
+
+# ADMINISTRATION/REPORTS
+GENERIC_REPORTS=Reports
+MESSAGE_WAITING_MESSAGE_LOG_REPORT=Depending on the chosen period of time and the amount of data resulting from that, the report creation may take a while. Please be patient.
+GENERIC_DATE_BEGIN=Start date
+GENERIC_DATE_END=End date
+GENERIC_BACKUP_FIEDS=Reset fields
+GENERIC_GENERATE_REPORT=Create report
+
+# ADMINISTRATION/STELLVERTRETUNGEN
+GENERIC_REPRESENTATIVES=Representations
+GENERIC_AVAILABILITY_FILTER=Availability filter
+GENERIC_REPRESENTATIVES_ALL=All representations
+GENERIC_NO_REPRESENTATION_EXPIRED=No expired representation
+GENERIC_ONLY_CURRENT_REPRESENTATIONS=Current representations only
+GENERIC_ROLE=Role
+GENERIC_REPRESENTATIVE=Representative
+gultigab=valid from
+GENERIC_VALID_TILL=valid until
+GENERIC_NO_DATA_FOUND=No data found
+
+# ADMINISTRATION/VERANSTALTUNGSORTE
+markierte=Marked venue(s)
+GENERIC_ADD_NEW_EVENT_LOCATIONS=Add new venue
+GENERIC_ID=ID
+GENERIC_CONTACT_PERSON=Contact
+GENERIC_TELEFON=Phone
+GENERIC_FAX=Fax
+e-mail=E-mail
+GENERIC_REMARK=Comment
+GENERIC_URL=URL
+gps-daten=GPS data
+GENERIC_ROOM_NUMBER=Room number
+EVENT_PLACES_CONFIRM_DELETE=Please confirm the deletion of venues
+
+# VERWALTUNG/EINSTELLUNGEN
+GENERIC_MANAGEMENT=Management
+GENERIC_OPTIONS=Options
+GENERIC_SUBTABS_OF=Subtabs of
+GENERIC_PERSONAL_DETAILED_VIEW=Personal detailed view
+GENERIC_LIST_OF_GUESTS=Guest list
+zusatzlichefelder=Additional fields
+GENERIC_FUNCTION_SINGULAR=Function
+GENERIC_POSTNUMBER_AND_CITY=Postal code / City
+GENERIC_LIST_OF_PERSONS=List of persons
+GENERIC_FEDERAL_STATE=State
+MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=Options were saved successfully.
+
+# VERWALTUNG/VERTRETUNGEN
+GENERIC_REPRESENTATIVE_PLURAL=Representations
+markiertevertretung=Marked representation(s)
+GENERIC_DELETE=Delete
+GENERIC_NEW=New
+eswurdeeineneuevertretungangelegt=A new representation has been created
+eswurdeeinevertretunggeloscht=One representation has been deleted
+siemuseneinevertretereingeben=You need to enter a representation
+derbeginndervertretungmusvordemendeliegen=The start date of the representation has to be before the end date
+MESSAGE_REPORT_NUMBER_PART_1=There were
+vertretungengeloscht=Representations deleted
+# VERWALTUNG/INFO
+GENERIC_INFO=Info
+GENERIC_INFORMATION_ABOUT_VERAWEB=Informations about VerA.web
+veraweb=VerA.web
+GENERIC_VERSION=Version
+build=Build
+GENERIC_BUILD_NUMBER=Build number
+GENERIC_BUILD_TIME=Build time
+GENERIC_DATABASE=Database
+GENERIC_LOGIN=Login
+GENERIC_GROUPS=Groups
+GENERIC_NOT_AVAILABLE=Not available
+
+# ALLGEMEIN
+GENERIC_YOU_ARE_HERE=You are here
+GENERIC_HOME=Home
+
+# TABELLEN
+GENERIC_DATE=Date
+GENERIC_WORKAREA_SINGULAR=Field of work
+GENERIC_LASTNAME=Lastname
+GENERIC_FIRSTNAME=Firstname
+akwritemtsbezeichnung=Official title
+GENERIC_COMPANY_INSTITUTION=Company / Institution
+GENERIC_STREET=Street
+GENERIC_POST_NUMBER=Postal code
+GENERIC_CITY=City
+GENERIC_MARKED_PERSONS_PP=Marked person(s)
+expotieren=Export
+GENERIC_ASSIGN_CATEGORIES=Assign category
+GENERIC_REMOVE_CATEGORIES=Remove category
+GENERIC_ASSING_WORKAREA=Assign field of work
+GENERIC_REMOVE_WORKAREA=Remove field of work
+GENERIC_EXECUTE=Execute
+personenanzahlproseite=Persons | Number per site
+GENERIC_ALL=All
+seite=Site
+GENERIC_DATE_OF_BIRTH=Date of birth
+GENERIC_PLACE_OF_BIRTH=Place of birth
+GENERIC_NATIONALITY=Nationality
+GENERIC_CITIZENSHIP=Citizenship
+GENERIC_LANGUAGES=Languages
+GENERIC_HINT_FOR_HOST=Hint for host
+GENERIC_ACCOUNT_OPENING_DATE=Account opening date
+GENERIC_AT=at
+GENERIC_OCLOCK=oclock
+GENERIC_ORIGIN_DATA=data origin
+GENERIC_PERSON_SINGULAR=Person
+
+# DATEITYP
+csv=CSV (Comma-Separated-Values)
+xml=XML (VerA.web-XML)
+zkm=ZKM (VerA.web-XML by central communications module)
+madlan-personen=MAdLAN-Persons (MAdLAN-Person-Import)
+madlan-firmen=MAdLAN-Companies (MAdLAN-Company-Import)
+x-manage-csv=X-Manage-CSV (X-Manage Contacts)
+csvpersdatanschriftdoktyp=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
+csvpersdatdoktyp=CSVPersdat+Doktyp (Comma-Separated-Values)
+csvpersdatdoktyp10=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
+csvpersdatkategorien=CSVPersdat+Kategorien (Comma-Separated-Values)
+csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 
 # PERSONEN/PERSONENUEBERSICHT
 GENERIC_PERSON_SUMMARY=Persons summary

@@ -1,846 +1,1003 @@
-
 language=Fran\u00E7ais
 
-#Administration/Anreden
-Anreden=Salutations
-MarkierteAnrede=Salutation(s) marqu\u00E9e
-ID=ID
-Stammform=forme de Ma\u00EEtre
-Geschlecht=sexe
-Bearbeiten=\u00E9diter
-Weiblich=femme
-M\u00E4nnlich=m\u00E2le
-Direkteinsprung=aller \u00E0
-EswurdeeineneueAnredeangelegt=Il a \u00E9t\u00E9 cr\u00E9\u00E9 un nouveau salut
-WirklichL\u00F6schen?=Vraiment supprimer?
-Ja=Oui
-Nein=non
-EswurdeeineAnredegel\u00F6scht=Il a \u00E9t\u00E9 une salutation supprim\u00E9
-EsexistiertbereitseinStammdaten-EintragunterdemNamen=Il est d\u00E9j\u00E0 un ma\u00EEtre de saisie de donn\u00E9es sous le nom
+# BROWSER TAB-TITLE
+BROWSER_TITLE_CATEGORY=Catégorie
+BROWSER_TITLE_CLEANUP=Cleanup
+BROWSER_TITLE_COLOURS=Couleurs
+BROWSER_TITLE_GENERAL_CONFIGS=Configurations général
+BROWSER_TITLE_TASKS=Devoirs
+BROWSER_TITLE_DOCUMENT_TYPES=Types de documents
+BROWSER_TITLE_IMPORT_DUPLICATE_ACCEPT=Statut d'import - adopter les doublons
+BROWSER_TITLE_ERROR_OCCURS=Une défaillance est apparue
+BROWSER_TITLE_EVENT_EDIT=Editer événement
+BROWSER_TITLE_EVENT_CREATE=Dresser nouveau événement
+BROWSER_TITLE_EVENT_SELECT=Choisir événement
+BROWSER_TITLE_PERSON_ASSIGN=Classer personne
+BROWSER_TITLE_EVENT_SEARCH=Chercher événement
+BROWSER_TITLE_TASKS_EDIT=Editer devoir
+BROWSER_TITLE_TASKS_CREATE=Dresser nouveau devoir
+BROWSER_TITLE_EXPORT_PERSONDATA=Exportation des informations individuelles
+BROWSER_TITLE_IMPORT_PERSONDATA=Importation des informations individuelles
+BROWSER_TITLE_EVENT_GUESTLIST=Liste des visiteurs pour événement
+BROWSER_TITLE_EVENT_EXPORT_DATA=Générer le fichier de contrôle pour événement
+BROWSER_TITLE_IMPORT_STATUS=Statut de processus d'importation
+BROWSER_TITLE_HELP=Aide
+BROWSER_TITLE_INFO_VERAWEB=Info sur VerA.web
+BROWSER_TITLE_EVENT_LOCATION_EDIT=Editer le lieu de la manifestation
+BROWSER_TITLE_EVENT_LOCATION_CREATE=Entrer nouveau lieu de la manifestation
+BROWSER_TITLE_EVENT_LOCATION=Lieux de la manifestation
+BROWSER_TITLE_EMAIL_SUBMISSION_CREATE=Etablir nouveau modèle d'e-mail
+BROWSER_TITLE_EMAIL_SUBMISSION_EDIT=Editer modèle d'e-mail
+BROWSER_TITLE_EMAIL_SUBMISSION=Modèles d'e-mail
+BROWSER_TITLE_DISTRIBUTOR_CREATE=Dresser la liste de distribution
+BROWSER_TITLE_DISTRIBUTOR_LIST=Liste de distribution
+BROWSER_TITLE_EMAIL_WRITE_DISTRIBUTOR=Ecrire un e-mail à la liste de distribution
+BROWSER_TITLE_EMAIL_EDIT=Editer e-mail
+BROWSER_TITLE_EMAIL_CREATE=Etablir nouveau e-mail
+BROWSER_TITLE_EMAIL_OUTBOX=Boîte d'envoi d'e-mail
+BROWSER_TITLE_ROLE_WITH=avec le rôle
+BROWSER_TITLE_ROLE_AVAILABLE=avec les rôles disponsibles
+BROWSER_TITLE_ROLE_WITHOUT_INFO=sans informations des rôles
+BROWSER_TITLE_SUCCESSFUL_LOGIN_ONE=Vous êtes inscrit
+BROWSER_TITLE_SUCCESSFUL_LOGIN_TWO=au système avec succès
+BROWSER_TITLE_PERSON_EDIT=Editer personne
+BROWSER_TITLE_PERSON_CREATE=Etablir nouvelle personne
+BROWSER_TITLE_GUEST_ADD_EVENT=Ajouter visiteur à
+BROWSER_TITLE_GUEST_HOST_ADD_EVENT=Choisir l'hôte pour
+BROWSER_TITLE_GUEST_SELECT=Choisir visiteur
+BROWSER_TITLE_GUEST_HOST_SELECT=Choisir l'hôte
+BROWSER_TITLE_SEARCH_REPLACE_PERSONDATA=Chercher et remplacer dans les informtation individuelle
+BROWSER_TITLE_DUPLICATE_SEARCH=Recherche des doublons
+BROWSER_TITLE_TASK_ADD_RESPONSIBLE=Choisir le responsable du devoir
+BROWSER_TITLE_PERSON_DELETE=Effacer personne
+BROWSER_TITLE_PERSON_LIST=Vue d'ensemble des personnes
+BROWSER_TITLE_SEARCH_REPLACE=Chercher et remplacer
+BROWSER_TITLE_GUEST_HOST_SEARCH=Chercher l'hôte
+BROWSER_TITLE_PERSON_SEARCH=Chercher personne
+BROWSER_TITLE_PERSON_DATA_SALUTATION=Données de base - titres
+BROWSER_TITLE_LOGIN_REPRESENTATIVE=Ouvrir une session en tant que suppléant
+BROWSER_TITLE_STATISTIC_CREATE=Dresser statistique
+BROWSER_TITLE_USER_CONFIGS=Paramètres utilisateur
+BROWSER_TITLE_WORK_AREAS=Secteurs du travail
+BROWSER_TITLE_OVERVIEW_EVENTS_YEAR=Aperçu complet du nombre des événements
+BROWSER_TITLE_OVERVIEW_EVENTS_MONTH=Aperçu complet du nombre des événements par année
+BROWSER_TITLE_OVERVIEW_GUEST_HOST_EVENTS=Aperçu complet du nombre de tout les événements d'un hôte
+BROWSER_TITLE_OVERVIEW_EVENTS_SORT_GUEST_HOST=Aperçu complet du nombre de tout les événements, rassemblé par hôte
+BROWSER_TITLE_OVERVIEW_GUEST_EVENTS=Aperçu complet de tout les événements d'un invité
+BROWSER_TITLE_OVERVIEW_EVENTS_SORT_GUEST=Aperçu complet de tout les événements, rassemblé par invités
+BROWSER_TITLE_OVERVIEW_EVENTS_SORT_PLACE=Aperçu complet de tout les événements, trier par lieu de la manifestation
+BROWSER_TITLE_OVERVIEW_EVENTS_UNKNOWN_STATISTIC=STATISTIQUE INCONNU
 
-#Administration/Arbeitsbereiche
+# YOU MUST SET THESE PLACEHOLDERS WITH THE GENDER TYPE OF YOUR LANGUAGE FOR EACH OBJECT AS MALE OR FEMALE
+GENDER_TYPE_CATEGORY=Féminin
+GENDER_TYPE_CLIENT=Masculin
+GENDER_TYPE_COLOR=Féminin
+GENDER_TYPE_DELEGATION_FIELD=Féminin
+GENDER_TYPE_DISTRIBUTOR=Masculin
+GENDER_TYPE_DOCUMENT_TYPE=Masculin
+GENDER_TYPE_EMAIL=Féminin
+GENDER_TYPE_EVENT=Féminin
+GENDER_TYPE_EVENT_LOCATION=Masculin
+GENDER_TYPE_FUNCTION_OFFICIAL_TITLE=Féminin
+GENDER_TYPE_GUEST=Masculin
+GENDER_TYPE_MAIL_DRAFT=Féminin
+GENDER_TYPE_PERSON=Féminin
+GENDER_TYPE_REPRESENTATIVE=Féminin
+GENDER_TYPE_SALUTATION=Féminin
+GENDER_TYPE_TASK=Féminin
+GENDER_TYPE_USER=Masculin
+GENDER_TYPE_WORKAREA=Masculin
 
-Arbeitsbereiche=Espacesdetravail
-Markierte=Marqu\u00E9 (n) zone (s) de travail
-Arbeitsbereiche=Espaces de travail
-EswurdenkeineDatengefunden=Aucune donn\u00E9e disponible
-EswurdeeinneuerArbeitsbereichangelegt=Il a \u00E9t\u00E9 cr\u00E9\u00E9 un nouvel espace de travail
-EswurdekeinArbeitsbereichgel\u00F6scht=Il n'y avait aucun espace de travail d\u00E9gag\u00E9
-EswurdeeinArbeitsbereichgel\u00F6scht=Il dispose d'un espace de travail d\u00E9gag\u00E9
+# REPETITIVE OBJECTS IN THER SINGULAR- AND PLURAL-TYPE
+GENERIC_ADDRESS_DATA_PLURAL=Coordonnées
+GENERIC_CATEGORY_SINGULAR=Catégorie
+GENERIC_CATEGORY_PLURAL=Catégories
+GENERIC_CLIENT_SINGULAR=Mandant
+GENERIC_CLIENT_PLURAL=Mandants
+GENERIC_COLOR_SINGULAR=Couleur
+GENERIC_COLOR_PLURAL=Couleurs
+GENERIC_COMPANY_SINGULAR=Enterprise
+GENERIC_COMPANY_PLURAL=Enterprises
+GENERIC_DELEGATION_FIELD_SINGULAR=Champ supplémentaire
+GENERIC_DELEGATION_FIELD_PLURAL=Champs supplémentaire
+GENERIC_DISTRIBUTOR_SINGULAR=Distributeur
+GENERIC_DISTRIBUTOR_PLURAL=Distributeurs
+GENERIC_DOCUMENT_TYPE_SINGULAR=Type de document
+GENERIC_DOCUMENT_TYPE_PLURAL=Types de document
+GENERIC_EMAIL_SINGULAR=E-mail
+GENERIC_EMAIL_PLURAL=E-mails
+GENERIC_EVENT_SINGULAR=Manifestation
+GENERIC_EVENT_PLURAL=Manifestations
+GENERIC_EVENT_LOCATION_SINGULAR=Lieu de la manifestation
+GENERIC_EVENT_LOCATION_PLURAL=Lieux de la manifestation
+GENERIC_FUNCTION_SINGULAR=Fonction
+GENERIC_FUNCTION_PLURAL=Fonctions
+GENERIC_GUEST_SINGULAR=Visiteur
+GENERIC_GUEST_PLURAL=Visiteurs
+GENERIC_INSTITUTION_SINGULAR=Institution
+GENERIC_INSTITUTION_PLURAL=Institutions
+GENERIC_MAIL_DRAFT_SINGULAR=Modèle
+GENERIC_MAIL_DRAFT_PLURAL=Modèles
+GENERIC_OFFICIAL_TITLE_SINGULAR=Désignation de fonction
+GENERIC_OFFICIAL_TITLE_PLURAL=Désignations de fonction
+GENERIC_PERSON_SINGULAR=Personne
+GENERIC_PERSON_PLURAL=Personnes
+GENERIC_REPRESENTATIVE_SINGULAR=Suppléance
+GENERIC_REPRESENTATIVE_PLURAL=Suppléances
+GENERIC_SALUTATION_SINGULAR=Titre
+GENERIC_SALUTATION_PLURAL=Titres
+GENERIC_STATUS_OPEN=Ouvert
+GENERIC_STATUS_ACCEPT=réponse positive
+GENERIC_STATUS_DECLINE=réponse negative
+GENERIC_STATUS_PARTICIPATED=Participé
+GENERIC_TASK_SINGULAR=Devoir
+GENERIC_TASK_PLURAL=Devoirs
+GENERIC_USER_SINGULAR=Utilisateur de PC
+GENERIC_USER_PLURAL=Utilisateurs de PC
+GENERIC_WORKAREA_SINGULAR=Secteur du travail
+GENERIC_WORKAREA_PLURAL=Secteurs du travail
 
-#Administration/Benutzer
+# HEADER MESSAGES
+HEADER_REPRESENTATION_FOR=Suppléance de
+HEADER_COUNT_INSERT_ZERO_PART_ONE=Il a été
+HEADER_COUNT_INSERT_ONE_PART_ONE=Il a été
+HEADER_COUNT_INSERT_ELSE_PART_ONE=Ont été
+HEADER_COUNT_INSERT_ZERO_PART_TWO=créé
+HEADER_COUNT_INSERT_ONE_PART_TWO=créé
+HEADER_COUNT_INSERT_ELSE_PART_TWO=créé
+HEADER_COUNT_REMOVE_ZERO_PART_ONE=Il a été
+HEADER_COUNT_REMOVE_ONE_PART_ONE=Il a été
+HEADER_COUNT_REMOVE_ELSE_PART_ONE=Ont été
+HEADER_COUNT_REMOVE_ZERO_PART_TWO=effacé
+HEADER_COUNT_REMOVE_ONE_PART_TWO=effacé
+HEADER_COUNT_REMOVE_ELSE_PART_TWO=effacé
+HEADER_COUNT_UPDATE_ZERO_PART_ONE=Il a été
+HEADER_COUNT_UPDATE_ONE_PART_ONE =Il a été
+HEADER_COUNT_UPDATE_ELSE_PART_ONE=Ont été
+HEADER_COUNT_UPDATE_ZERO_PART_TWO=changé
+HEADER_COUNT_UPDATE_ONE_PART_TWO=changé
+HEADER_COUNT_UPDATE_ELSE_PART_TWO=changé
+HEADER_ELEMENT_FEMALE_NO=pas de
+HEADER_ELEMENT_FEMALE_ONE=une
+HEADER_ELEMENT_FEMALE_NEW=nouvelle
+HEADER_ELEMENT_MALE_NO=pas de
+HEADER_ELEMENT_MALE_ONE=un
+HEADER_ELEMENT_MALE_NEW=nouveau
+HEADER_ELEMENT_NO_RECORD_SINGULAR=aucun enregistrement
+HEADER_ELEMENT_NO_NEW_RECORD_SINGULAR=aucun enregistrement nouvel
+HEADER_ELEMENT_ONE_RECORD_SINGULAR=un enregistrement
+HEADER_ELEMENT_ONE_NEW_RECORD_SINGULAR=un enregistrement nouvel
+HEADER_ELEMENT_PLURAL=Enregistrements
+HEADER_ELEMENT_NEW_PLURAL=Nouveaux Enregistrements
 
-Benutzer=utilisateur
-Markierte(n)Benutzer=L'utilisateur s\u00E9lectionn\u00E9 (s)
-Mandant=client
-Benutzername=nom d'utilisateur
-Benutzerrechte=les droits des utilisateurs
-EswurdeeinneuerBenutzerangelegt=Il a un nouvel utilisateur est cr\u00E9\u00E9
-EswurdeeinBenutzergel\u00F6scht=Il dispose d'un utilisateur supprim\u00E9
-Siem\u00FCsseneineBenutzerrollenbezeichnungeingeben=Vous devez entrer un r\u00F4le de nom d'utilisateur
+# FIXES
+GENERIC_EDIT=Modifier
+GENERIC_OFFICIAL_TITLE_SHORT=Désign. d. fonction
+LETTER_COMMERCIAL=\u0028G\u0029
+GENERIC_WRITE_EMAIL=Ecrire e-mail
+GENERIC_SEARCH_FOR_PERSON=Chercher une personne
+GENERIC_CHOOSE_ROLE=Choisir rôle
+GENERIC_EVENT=Manifestation
+GENERIC_EVENTS=Manifestations
+SHOW_ALL_RECORDS=Afficher tout les enregistrements
+SHOW_RECORDS=Afficher les enregistrements
 
-#Administration/Dokumenttypen
+# GENERALLY USED
+GENERIC_EMAIL_ADDRESS=Adresse électronique
+GENERIC_FROM=De
+GENERIC_LANGUAGE=Langue
+GENERIC_LOGOUT=Fermeture de session
+GENERIC_ON=A
+GENERIC_PAGE=Page
+GENERIC_PLACE=Place
 
-Hinweis=Note
-Format:OOo1.1stehtf\u00FCrOpenOffice1.1(sxc-Datei)undOOo2.0f\u00FCrOpenOffice2.0(ods-Datei),xlsstehtf\u00FCrMicrosoftOfficeKennzeichen:Kennz.50und99werdenautom.neuenVeranstaltungenhinzugef\u00FCgt.BeimKennz.50wirdkeinFreitextfelderzeugt.(xls-Datei)undCSVstehtf\u00FCrCSV-Dateiformat.=Format: OOo 1.1 est OpenOffice 1.1 (fichier SXC) et OOo 2.0 pour OpenOffice 2.0 (fichier ODS), XLS signifie Microsoft Office License Plate :. Drapeaux 50 et 99 sont automatiques. nouveaux \u00E9v\u00E9nements ajout\u00E9s. Dans ref. 50 no champ de texte libre (fichier xls) et CSV g\u00E9n\u00E9r\u00E9. Repr\u00E9sente format de fichier CSV.
-Markierte=Marqu\u00E9 (n) type de document (s)
-Bezeichnung*=d\u00E9signation*
-Adress-Typ=Type D'Adresse
-Zeichensatz=Charset
-Format=Format
-Dokumentf\u00FCrPartner=Document pour Partenaires
-Sortier.=Tri.
-Kennz.=Indiana
-GA=GA
-SD=SD
-Gesch\u00E4ftlich=entreprise
-Privat=en priv\u00E9
-Weitere=autre
-Latein=latin
-Kyrillisch=cyrillique
-Chinesisch=chinois
-EswurdeeinDokumenttypgel\u00F6scht.=Il a \u00E9t\u00E9 supprim\u00E9 un type de document.
-EsexistiertbereitseinStammdaten-EintragunterdemNamen=Il est d\u00E9j\u00E0 un ma\u00EEtre de saisie de donn\u00E9es sous le nom
-EswurdeeinneuerDokumenttypangelegt.=Il a cr\u00E9\u00E9 un nouveau type de document.
+# MENU
+MENU_PERSONS=Personnes
+MENU_EVENTS=Manifestations
+MENU_MANAGEMENT=Gestion
+MENU_ADMINISTRATION=Administration
 
+# ANMELDUNG
+LOGIN_ERROR=Il y avait une erreur lors de l'inscription. S'il vous plaît vérifier votre nom d'utilisateur et mot de passe.
+GENERIC_PASSWORD=Mot de passe
+LOGIN_REPRESENTATION=Ouvrir comme suppléance
+GENERIC_LOGIN=Ouvrir
+GENERIC_CLEAR_FIELDS=vider les champs
+HINT_LOGIN_ORGANISATION_ONE=Utiliser votre signe d'organisation ou
+HINT_LOGIN_ORGANISATION_TWO=prénom.nom
+HINT_LOGIN_ORGANISATION_THREE=comme nom d'utilisateur s'il vous plaît.
 
-#Administration/E-Mail-Postausgang
-Status=statut
-Von=de
-An=sur
-Betreff=respect
-Fehler=erreur
-E-Mails=E-Mails
-BeimVersendendieserE-MailisteinFehleraufgetreten.Siek\u00F6nnendiesejetztbearbeitenunderneutsenden.=Lorsque vous envoyez cet e-mail \u00E9tait une erreur. Vous pouvez modifier et renvoyer maintenant.
-technischeFehlermeldungeinblenden=Montrer erreur technique
-Fehlerbeschreibung:=Description de l'erreur:
+# WELCOME SITE: FIRST PAGE AFTER LOGIN
+administration=Administration
+bittewaehlensieeineamtsbezeichnungfunktionaus=Choisissez un désignation de fonction s'il vous plaît
+eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator=Il peut entraîner des erreurs inattendues. Contactez votre administrateur s'il vous plaît.
+willkommenbeiveraweb=Bienvenu à VerA.web
+WELCOME_TEXT_GRANT_READ_STANDARD_FIELDS=Ici vous avez la possibilité d'afficher et exporter des données de base des personnes et des manifestations.
+WELCOME_TEXT_GRANT_READ_REMARK_FIELDS=Ici vous avez la possibilité d'afficher et exporter des données de base des personnes et des manifestations.
+WELCOME_TEXT_GRANT_EXPORT_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von
+WELCOME_TEXT_GRANT_WRITE_FULL=und Bemerkungen zu
+WELCOME_TEXT_GRANT_EXPORT_PART_TWO=Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
+WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
+WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO=Weiterhin k\u00F6nnen Sie mandantenspezifische Einstellungen einsehen und bearbeiten.
+WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
+WELCOME_TEXT_GRANT_ADMIN_PART_TWO=Weiterhin k\u00F6nnen Sie mandantenspezifische und globale Einstellungen einsehen und bearbeiten.
+WELCOME_TEXT_HELP=Sollten Sie weitere Informationen ben\u00F6tigen, finden Sie diese auf der Seite \u201EHilfe\u201C.
+WELCOME_TEXT_NO_ROLE=Zu Ihrer Anmeldung existieren keine Rollen, unter denen Sie in VerA.web agieren k\u00F6nnen. Bitte melden Sie sich ab und mit einer Benutzer- oder Rollenkennung erneut an, die in VerA.web nutzbar ist.
+GENERIC_AVAILABLE_DUPLICATES=Vorhandene Dubletten
 
-#Administration/E-Mail-Vorlagen
-E-Mail-Vorlagen=Mod\u00E8les E-mail
-MarkierteVorlage=Document s\u00E9lectionn\u00E9 (s)
-NeueVorlageanlegen=Cr\u00E9ation d'un nouveau mod\u00E8le
-NamederVorlage=Nom du mod\u00E8le
-EswurdeeineneueVorlageangelegt.=L\u00E0, un nouveau mod\u00E8le est cr\u00E9\u00E9.
-Text*=texte *
-Platzhalter=Wildcard
-Hinzuf\u00FCgen=ajouter
-Zur\u00FCckzurVorlagenliste=Retour \u00E0 la liste d'origine
+# ADMINISTRATION/ANREDEN
+GENERIC_SALUTATIONS=Titres
+GENERIC_SALUTATIONS_MARKED=Marquer titre(s)
+GENERIC_ID=ID
+GENERIC_MAIN_FORM=Forme de base
+GENERIC_GENDER=sexe
+GENERIC_GENDER_FEMALE=Féminin
+GENERIC_GENDER_MALE=Masculin
+GENERIC_PAGING=Direkteinsprung
+MESSAGE_SUCCESS_INSERT_SALUTATION=Il a été créé un nouveau titre
+QUESTION_DELETE=Réellement effacer?
+GENERIC_NEW_PLURAL=nouveau
+GENERIC_YES=Oui
+GENERIC_NO=Non
+MESSAGE_SUCCESS_DELETE_SALUTATION=Il a été un titre effacer
+MESSAGE_EXIST_MASTER_DATA_ENTRY=Il existe déjà une entrée de données de base sous le nom
+GENERIC_NAME=Nom
+GENERIC_NEW=Nouvel
 
-#Administration/Farben
-Farben=couleurs
-Bezeichnung*=Description *
-Farbwert=chromaticit\u00E9 (r v b)
-Inland:Ja-Geschlecht:Weiblich=Oui domestique - Sexe: Femme
-Inland:Ja-Geschlecht:M\u00E4nnlich=Oui domestique - Sexe: Masculin
-Inland:Nein-Geschlecht:Weiblich=National: Non - Sexe: Femme
-Inland:Nein-Geschlecht:M\u00E4nnlich=National: Non - Sexe: Masculin
+# ADMINISTRATION/ARBEITSBEREICHE
+GENERIC_WORK_FIELDS=Secteurs du travail
+GENERIC_WORK_FIELDS_MARKED=Secteur(s) du travail marqué
+MESSAGE_MISSING_DATA=Aucun donnée trouvée
+MESSAGE_INSERT_WORK_FIELD=Il a été créé un nouveau secteur du travail
+MESSAGE_FAIL_DELETE_WORK_FIELD=Il n'y avait aucun secteur du travail effacé
+MESSAGE_SUCCESS_DELETE_WORK_FIELD=Il a été un secteur du travail effacé
 
-#Administration/Funktionen/Amtsbezeichnungen
-Funktionen/Amtsbezeichnungen=Caract\u00E9ristiques / titres officiels
-MarkierteBezeichnung=Nom (s) marqu\u00E9
-Bezeichnung=d\u00E9signation*
-EswurdeeineneueFunktion/Amtsbezeichnungangelegt.=Il a cr\u00E9\u00E9 une nouvelle fonction / poste.
-EswurdeeineFunktion/Amtsbezeichnunggel\u00F6scht.=A \u00E9t\u00E9 supprim\u00E9 et une fonction / poste.
+# ADMINISTRATION/BENUTZER
+GENERIC_USER=Utilisateur
+GENERIC_USER_MARKED=Utilisateur(s) marqué
+GENERIC_USERNAME=nom d'utilisateur
+GENERIC_USER_RIGHTS=Droits des utilisateurs
+MESSAGE_SUCCESS_INSERT_USER=Il a été créé un nouveau utilisateur
+MESSAGE_SUCCESS_DELETE_USER=Il a été effacé un utilisateur
+MESSAGE_FILL_USER_ROLE=Entrez un nom de rôle d'utilisateur s'il vou plaît
 
+# ADMINISTRATION/DOKUMENTTYPEN
+GENERIC_TOOLTIP=Remarque
+HINT_FORMAT_INFO=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei), xls steht f\u00FCr Microsoft Office Kennzeichen: Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.(xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
+HINT_EVENT_MARK=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
+GENERIC_DOCUMENT_TYPES_MARKED=Type de document marqué
+GENERIC_LABELLING=Indication
+GENERIC_ADRESS_TYPE=Type d'adresse
+GENERIC_CHARSET=Jeu de caractères
+GENERIC_FORMAT=Format
+GENERIC_PARTNER_DOCUMENT=Document pour partenaire
+GENERIC_SORT=Trier
+GENERIC_SIGN=Signe
+GENERIC_GA=GA
+GENERIC_SD=SD
+GENERIC_BUSINESS=Commercial
+GENERIC_PRIVATE=Privé
+GENERIC_MORE=Autre
+GENERIC_LATIN=Latin
+kyrillisch=Cyrillique
+chinesisch=Chinois
+eswurdeeindokumenttypgeloscht=Il a été effacé un type des documents
+eswurdeeinneuerdokumenttypangelegt=Il a été créé un nouveau type des documents
 
-#Administration/Kategorien
-Kategorien=Cat\u00E9gories
-MarkierteKategorie=Cat\u00E9gorie s\u00E9lectionn\u00E9e (s)
-Kennzeichen=marque
-Rang=rang
-Veranstaltung=\u00C9v\u00E9nement (s)
-Kategorie=cat\u00E9gorie
-Ereignis=\u00C9v\u00E9nement (s)
-Diplo,Corps=Diplo, Corps
-F\u00FCralleVeranstaltungen=Tous les \u00E9v\u00E9nements
+# ADMINISTRATION/E-MAIL-POSTAUSGANG
+GENERIC_STATUS=Statut
+GENERIC_TO=A
+GENERIC_SUBJECT=Objet
+GENERIC_ERROR=Erreur
+e-mails=E-mails
+GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE=insérer message d'erreur technique
+GENERIC_ERROR_DESCRIPTION=Description d'erreur
 
-#Administration/Mandanten
-Mandanten=clients
-Markierte(n)Mandanten=Marqu\u00E9s (s) des clients
-Mandant=client
-NichtMandantenzugeordneteDaten=Donn\u00E9es non clients associ\u00E9s
-Personen:=personnes:
-ImportVorg\u00E4nge:=Les op\u00E9rations d'importation:
-Veranstaltungorte:=lieux:
-Kategorien:=Cat\u00E9gories:
-Veranstaltungen:=\u00E9v\u00E9nements:
-ImportPersonen:=Importer personnes:
-Verteiler:=distributeur:
-Benutzer:=utilisateur:
-Mandantenzuordnen=Affectation de clients
-Mandant:=client:
+# ADMINISTRATION/E-MAIL-VORLAGEN
+e-mail-vorlagen=Modèle d'e-mail
+GENERIC_MARKED_TEMPLATES_PP=Modèle(s) marqué
+GENERIC_INSERT_NEW_TEMPLATES=Créé nouvel modèle
+GENERIC_TEMPLATE_NAME=Nom de modèle
+eswurdeeineneuevorlageangelegt=Il a été créé un nouvel modèle.
+GENERIC_TEXT=Texte
+GENERIC_PLACEHOLDER=Marque de réservation
+GENERIC_ADD=Ajouter
+GENERIC_BACK_TO_TEMPLATES_LIST=Retourner à la liste des modèles
 
-#Administration/Programmeinstellungen
-Programmeinstellungen=les param\u00E8tres du programme
-StandardAuswahlvonTabulatoren=S\u00E9lection standard de tabulations
-Haupttabs=onglets principaux
-Personendaten=donn\u00E9es personnelles
-Anschriften=adresses
-Subtabsvon\u00E2\u0080\u009EPersonendaten\u00E2\u0080\u009D=Sous-onglets de \u00C2\u00ABdonn\u00C3\u00A9es personnelles\u00C2\u00BB
-Hauptperson=personnage Principal
-partner=partenaire
-Subtabsvon\u00E2\u0080\u009EAnschriften\u00E2\u0080\u009D=Sous-onglets de "adresses"
-Gesch\u00E4ftlich=entreprise
-Privat=en priv\u00E9
-Weitere=autre
-StandardAuswahlderSelectbox\u00E2\u0080\u009EZeichensatz\u00E2\u0080\u009D=S\u00C3\u00A9lection standard de bo\u00C3\u00AEte de s\u00C3\u00A9lection "jeu de caract\u00C3\u00A8res"
-Latein=Latin
-Zeichensatz1=Charset 1
-Zeichensatz2=Charset 2
-Standard-AnredenundFreitextfelder:=Style et texte libre Champs standar:
-Standaerd-Anrede:=Standaerd-titre:=
-Standard-AnredePartner:=Les partenaires informels standard:
-Freitextfeld-Verbinder:=Gratuites connecteurs de champ de texte:
-Freitextfeld(Anzeige):=Champ de texte libre (d'affichage):
-Freitextfeld(G\u00E4steliste):=Champ de texte libre (liste des invit\u00E9s):
-Hilfe=Aide
-Hilfe-Link:=Aide lien:
-Hilfe-Fenster:=Aide fen\u00EAtre:
-AktuellesBrowser-Fensterverwenden.=Utilisez la fen\u00EAtre du navigateur.
-ProAufrufeinneuesBrowser-Fenster\u00F6ffnen.=Appel Pro ouvre une nouvelle fen\u00EAtre du navigateur.
-BeijedemAufrufdasselbeBrowser-Fenster(nichtdasaktuelle).=Chaque fois que vous appelez la m\u00EAme fen\u00EAtre du navigateur (pas le courant).
-Sonstiges:=Autres:
-Fax-DN(@fax.aa):=Fax DN (@ fax.aa):
-\u00E4nderungsprotokoll:=Changez Connexion:
-VorhaltezeitderProtokolldaten(Jahre/Monate/Tage):=D\u00E9riv\u00E9 de journaux de donn\u00E9es (ann\u00E9e / mois / jour):
-GebenSiedieAufbewahrungsfristein:=Entrez la p\u00E9riode de r\u00E9tention a:
-Jahre=ann\u00E9es
-MOnate=mois
-Tage=jour
-Hauptperson:=Personnage Principal:
-partner:=partenaire:
-AnschriftGesch\u00E4ftlich:=Adresse d'affaires:
-AnschriftPrivat:=Adresse priv\u00E9e:
-AnschriftWeitere:=Autre adresse:
-ZeichensatzLatein:=Jeu de caract\u00E8res latins:
-ZeichensatzAlternative1:=Charset Alternative 1:
-ZeichensatzAlternative2:=Charset Alternative 2:
-Adresszusatz1:=Compl\u00E9ment d'adresse 1:
-Adresszusatz2:=Compl\u00E9ment d'adresse 2:
+# ADMINISTRATION/FARBEN
+GENERIC_COLOR_PLURAL=Couleurs
+GENERIC_CHROMATICITY=Valeur de la couleur
+LETTERS_CHROMATICITY=R V B
 
-#Administration/Reports
-Reports=rapports
-Hinweis=note
-Abh\u00E4ngigvomausgew\u00E4hltenZeitraumundderdarausresultierendenAnzahlDaten,kanndieErzeugungdesBerichtsrelativlangedauern.HabenSiebitteeinwenigGeduld.=Selon la p\u00E9riode s\u00E9lectionn\u00E9e et le nombre r\u00E9sultant des donn\u00E9es, la g\u00E9n\u00E9ration du rapport peut prendre un certain temps. S'il vous pla\u00EEt avoir un peu de patience.
-DatumBeginn:=Date de d\u00E9but:
-DatumEnde:=Date de fin:
-Felderzur\u00FCcksetzen=r\u00E9initialisation des champs
-Reporterzeugen=Cr\u00E9er un rapport
+# ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
+markiertebezeichnung=Désignation marqué
+GENERIC_LABELLING=Désignation
+eswurdeeineneuefunktion/amtsbezeichnungangelegt=Il a été créé un nouvel fonction/titre.
+eswurdeeinefunktion/amtsbezeichnunggeloscht=Il a été effacé und fonction/titre.
 
-#Administration/Stellvertretungen
-Stellvertretungen=Les d\u00E9l\u00E9gu\u00E9s
-G\u00FCltigkeitsfilter=filtres de validit\u00E9
-alleVertretungen=toutes les missions
-keineabgelaufenenVertretungen=pas de missions pr\u00E9c\u00E9dentes
-nuraktuelleVertretungen=seulement les missions actuelles
-Rolle*=R\u00F4le *
-Vertreter*=Repr\u00E9sentants *
-G\u00FCltigab=valide \u00E0 partir de
-G\u00FCltigbis=Date d'expiration
-KeineDatengefunden.=Aucune donn\u00E9e disponible.
+# ADMINISTRATION/KATEGORIEN
+GENERIC_CATEGORY_PLURAL=catégorie
+markiertekategorie=Catégorie(s) marqué
+GENERIC_MARK_LONG=Signe de reconnaissance
+GENERIC_RANK=Rang
+GENERIC_EVENTS_PP=Manifestations
+GENERIC_CATEGORY_SINGULAR=Catégorie
+GENERIC_OCCASION=Evénement
 
-#Administration/Veranstaltungsorte
-Markierte=Marqu\u00E9 (s) Lieu (x)
-NeuenVeranstaltungsorthinzuf\u00FCgen=Ajouter un nouvel \u00E9v\u00E9nement
-ID=ID
-Bezeichnung=d\u00E9signation*
-Ansprechpartner=contact
-Stra\u00DFe=route
-PLZ=code postal
-Ort=endroit
-E-Mail=E-Mails
-Bemerkung=remarque
-URL=URL
-GPS-Daten=Donn\u00E9es GPS
-Raumnummer=num\u00E9ro d'appartement
+# ADMINISTRATION/MANDANTEN
+GENERIC_CLIENT_PLURAL=Mandants
+markierte(n)mandanten=Mandant(s) marqué
+GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Données pas dédié au mandants
+personen=Personnes
+GENERIC_IMPORT_PROCEDURES=Importation des processus
+veranstaltungorte=Lieux de la manifestation
+GENERIC_IMPORT_PERSONS=Importation des Personnes
+GENERIC_DISTRIBUTOR_SINGULAR=Distributeur
+GENERIC_USER=Utilisateur
+GENERIC_ASSIGN_CLIENTS=Classer mandants
+GENERIC_CLIENT_SINGULAR=Mandant
 
+# ADMINISTRATION/PROGRAMMEINSTELLUNGEN
+programeinstellungen=Réglage de programme
+GENERIC_STANDARD_TABULATOR_CHOICE=Sélection standard de tabulations
+GENERIC_MAIN_TABS=Onglets principaux
+GENERIC_PERSONS_DATA=Données personelles
+GENERIC_MAILING_ADDRESSES=Adresses
+GENERIC_SUBTABS_OF_PERSONS_DATA=Sous-onglets de \u00E2\u0080\u009Edonnées personelles\u00E2\u0080\u009C
+GENERIC_MAIN_PERSON=Personnage central
+GENERIC_PARTNER=Partenaire
+GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Sous-onglets de \u00E2\u0080\u009EAdresses\u00E2\u0080\u009C
+GENERIC_BUSINESS=Commercial
+GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Choix standard der Selectbox \u00E2\u0080\u009EZeichensatz\u00E2\u0080\u009C
+GENERIC_CHARSET=Jeu de caractères
+GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Titres standard et Champs de texte libre
+GENERIC_STANDARD_SALUTATION=Titre standard
+GENERIC_STANDARD_SALUTATION_PARTNER=Titre standard Partenaire
+GENERIC_FREE_TEXT_FIELD=Champ de texte libre
+GENERIC_FREE_TEXT_FIELDS=Champs de texte libres
+GENERIC_FREE_TEXT_FIELD_CONNECTOR=Connecteur des champs de texte libre
+GENERIC_SHOW=affichage
+GENERIC_HELP=Aide
+GENERIC_HELP_LINK=Lien d'aide
+GENERIC_HELP_WINDOW=Fenêtre d'aide
+GENERIC_USE_CURRENT_BROWSER_WINDOW=Utiliser la fenêtre de navigateur actuelle
+GENERIC_OPEN_NEW_BROWSER_WINDOW_PER_REQUEST=Ouvrir nouvelle fenêtre de navigateur par appel
+OPTION_HELP_WINDOW_3=Chaque fois que vous appelez la même fenêtre du navigateur ( pas le courant )
+GENERIC_MISCELLANEOUS=Autres
+GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
+GENERIC_PROTOCOL_TIME_CHANGE=Historique des modifications
+GENERIC_PROTOCOL_COMMISIONING_TIME=Dérivée de données du journal
+HINT_GIVE_THE_RETENTION_PERIOD=Entrez la période de rétention
+GENERIC_YEARS=Ans
+GENERIC_MONTHS=Mois
+GENERIC_DAYS=Jours
+GENERIC_MAILING_ADDRESS_BUSINESS=Adresse d'affaires
+GENERIC_MAILING_ADDRESS_PRIVATE=adresse Téléphone
+GENERIC_MAILING_ADDRESS_OTHERS=Autre Adresse
+GENERIC_LABELLING_LATIN=Jeu de caractères latins
+GENERIC_LABELLING_ALTERNATIVE=Jeu de caractères alternative
+GENERIC_ADDRESS_ADDITIONAL=Complément d'adresse
 
-#Verwaltung/Einstellungen
-Verwaltung=gestion
-Einstellungen=param\u00E8tres
-Personendetailansicht=Personnes Vue d\u00E9taill\u00E9e
-StandardAuswahlvonTabulatoren=S\u00E9lection standard de tabulations
-Haupttabs=onglets principaux
-Personendaten=donn\u00E9es personnelles
-Anschriften=adresses
+# ADMINISTRATION/REPORTS
+GENERIC_REPORTS=Rapports
+MESSAGE_WAITING_MESSAGE_LOG_REPORT=Selon la période sélectionnée et le nombre résultant des données, la génération du rapport peut prendre un certain temps. S'il vous plaît avoir un peu de patience.
+GENERIC_DATE_BEGIN=Date de début
+GENERIC_DATE_END=Date de fin
+GENERIC_BACKUP_FIEDS=Réinitialiser les champs
+GENERIC_GENERATE_REPORT=Créer un rapport
 
-Subtabsvon\u00E2\u0080\u009EPersonendaten\u00E2\u0080\u009D=Sous-onglets de \u00C2\u00ABdonn\u00C3\u00A9es personnelles\u00C2\u00BB
-Hauptperson=personnage Principal
-partner=partenaire
-Subtabsvon\u00E2\u0080\u009EAnschriften\u00E2\u0080\u009D=Sous-onglets de "adresses"
-Gesch\u00E4sftlich=entreprise
-Privat=en priv\u00E9
-Weitere=autre
-G\u00E4ssteliste=la liste des invit\u00E9s
-Zus\u00E4stzlicheFelder=des champs suppl\u00E9mentaires
-Funktion=fonction
-PLZ/Ort=NPA / Ville
-telefon=t\u00E9l\u00E9phone
-Personenliste=Liste des individus
-Zus\u00E4stzlicheFelder=des champs suppl\u00E9mentaires
-Bundesland=\u00E9tat
-StandardAuswahlderSelectbox\u00E2\u0080\u009EZeichensatz\u00E2\u0080\u009D=S\u00C3\u00A9lection standard de bo\u00C3\u00AEte de s\u00C3\u00A9lection "jeu de caract\u00C3\u00A8res"
-Latein=Latin
-Zeichensatz1=Charset 1
-Zeichensatz2=Charset 2
-Einstellungenwurdenerfolgreichgespeichert=Param\u00E8tres ont \u00E9t\u00E9 enregistr\u00E9s avec succ\u00E8s
+# ADMINISTRATION/STELLVERTRETUNGEN
+GENERIC_REPRESENTATIVES=Les délégués
+GENERIC_AVAILABILITY_FILTER=filtres de validité
+GENERIC_REPRESENTATIVES_ALL=Toutes les délégués
+GENERIC_NO_REPRESENTATION_EXPIRED=Pas de missions passées
+GENERIC_ONLY_CURRENT_REPRESENTATIONS=Seules les missions actuelles
+GENERIC_ROLE=Rôle
+GENERIC_REPRESENTATIVE=Représentant
+gultigab=Valable à partir du
+GENERIC_VALID_TILL=Expire
+GENERIC_NO_DATA_FOUND=Aucune donnée trouvée
 
-#Verwaltung/Vertretungen
-Vertretungen=repr\u00E9sentations
-G\u00FCltigkeitsfilter=filtres de validit\u00E9
-alleVertretungen=toutes les missions
-keineabgelaufenenVertretungen=pas de missions pr\u00E9c\u00E9dentes
-nuraktuelleVertretungen=seulement les missions actuelles
-MarkierteVertretung=Repr\u00E9sentation marqu\u00E9e (s)
-L\u00E4schen=effacer
-ID=ID
-Vertreter*=repr\u00E9sentants *
-G\u00FCltigab=valide \u00E0 partir de
-G\u00FCltigbis=Date d'expiration
-neu=nouveau
-von=de
-Vertreter=repr\u00E9sentant
-EswurdeeineneueVertretungangelegt=Il a \u00E9t\u00E9 une nouvelle agence cr\u00E9\u00E9e
-EswurdeeineVertretunggel\u00E4scht=Il a \u00E9t\u00E9 un repr\u00E9sentant supprim\u00E9
-Siem\u00FCsseneineVertretereingeben=Vous devez entrer un repr\u00E9sentant
-DerBeginnderVertretungmussvordemEndeliegen=Le d\u00E9but de la repr\u00E9sentation doit \u00EAtre avant la fin de
-Eswurden=Il y avait
-Vertretungengel\u00E4scht=organismes supprim\u00E9s
-KeineDatengefunden.=Aucune donn\u00E9e disponible.
+# ADMINISTRATION/VERANSTALTUNGSORTE
+markierte=Lieu(x) marqué(s)
+GENERIC_ADD_NEW_EVENT_LOCATIONS=Ajouter un nouveau lieu
+GENERIC_ID=ID
+GENERIC_CONTACT_PERSON=contact
+GENERIC_TELEFON=Phone
+GENERIC_FAX=Fax
+e-mail=E-Mail
+GENERIC_REMARK=remarque
+GENERIC_URL=URL
+gps-daten=Les données GPS
+GENERIC_ROOM_NUMBER=numéro d'appartement
+EVENT_PLACES_CONFIRM_DELETE=S'il vous plaît confirmer la suppression de lieux
 
-#Verwaltung/Info
-Verwaltung=gestion
-Info=infos
-InformationenzuVerA.web=\u00C0 propos de VerA.web
-VerA.web=VerA.web
-Version:=Version
-Build:=construire
-Datenbank=Base de donn\u00E9es
-Version:=Version
-Zeichensatz:=Charset
-Benutzer=utilisateur
-Login:=Login:
-Rolle:=r\u00F4le
-Mandant:=client
-Gruppen:=groupes
-E-Mail:=E-Mail
-nichtverf\u00FCgbar=indisponible
+# VERWALTUNG/EINSTELLUNGEN
+GENERIC_MANAGEMENT=gestion
+GENERIC_OPTIONS=paramètres
+GENERIC_SUBTABS_OF=Sous-onglets de
+GENERIC_PERSONAL_DETAILED_VIEW=Les gens de Vue détaillée
+GENERIC_LIST_OF_GUESTS=la liste des invités
+zusatzlichefelder=champs supplémentaires
+GENERIC_FUNCTION_SINGULAR=Fonction
+GENERIC_POSTNUMBER_AND_CITY=Code Postale / Ville
+GENERIC_LIST_OF_PERSONS=Liste des individus
+GENERIC_FEDERAL_STATE=état
+MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=Paramètres ont été enregistrés avec succès.
 
+# VERWALTUNG/VERTRETUNGEN
+GENERIC_REPRESENTATIVE_PLURAL=représentations
+markiertevertretung=Représentations marquées
+GENERIC_DELETE=Effacer
+GENERIC_NEW=Nouvel
+eswurdeeineneuevertretungangelegt=Il a été une nouvelle agence créée
+eswurdeeinevertretunggeloscht=Il a été un représentant supprimé
+siemuseneinevertretereingeben=Vous devez entrer un représentant
+derbeginndervertretungmusvordemendeliegen=Le début de la représentation doit être avant la fin
+MESSAGE_REPORT_NUMBER_PART_1=Il y avait
+vertretungengeloscht=Représentations supprimés
+# VERWALTUNG/INFO
+GENERIC_INFO=Info
+GENERIC_INFORMATION_ABOUT_VERAWEB=Infos á VerA.web
+veraweb=VerA.web
+GENERIC_VERSION=Version
+build=Build
+GENERIC_BUILD_NUMBER=Buildnummer
+GENERIC_BUILD_TIME=Buildzeit
+GENERIC_DATABASE=Datenbank
+GENERIC_LOGIN=Ouvrir
+GENERIC_GROUPS=Groupes
+GENERIC_NOT_AVAILABLE=indisponible
 
-#Allgemein
-siesindhier=Vous \u00EAtes ici
-Ja=oui
-Nein=non
-Home=accueil
+# ALLGEMEIN
+GENERIC_YOU_ARE_HERE=Vous êtes ici
+GENERIC_HOME=Home
 
-#Tabellen
-ID=ID
-Datum=date
-Arbeitsbereich=Espace de travail
-Nachname=nom de famille
-Vorname=pr\u00E9nom
-Amtsbezeichnung=titre officiel
-Firma/Institution=Soci\u00E9t\u00E9 / Institution (G)
-Stra\u00DFe=Stra \u00DFe (G)
-PLZ=ZIP (G)
-Ort=Place (G)
-MarkiertePerson=Personne (s) marqu\u00E9
-Loschen=effacer
-Expotieren=animaux de l'Expo
-Kategorienzuordnen=Attribuer cat\u00E9gories
-Kategorienentfernen=Retirer Cat\u00E9gories
-Arbeitsbereichzuordnen=Attribuer espace de travail
-Arbeitsbereichentfernen=Retirer Workspace
-Durchf\u00FChren=conduite
-von=de
-Personen|AnzahlproSeite=Personnes | Nombre par page
-Alle=tous
-Seite=page
-G\u00FCltigbis=Date d'expiration
-Geburtsdatum=date de naissance
-Geburtsort=lieu de naissance
-Nationalit\u00E4t/Staatsangeh\u00E4rigkeit=Nationalit\u00E9 / citoyennet\u00E9
-Sprachen=langues
-Hinweisf\u00FCrGastgeber=Remarque pour les h\u00F4tes
-Akkreditierungsdatum=Date d'accr\u00E9ditation
-um=sur
-Uhr=horloge
-Datenherkunft=RecordSource
-Person=personne
+# TABELLEN
+GENERIC_DATE=date
+GENERIC_WORKAREA_SINGULAR=Espace de travail
+GENERIC_LASTNAME=nom de famille
+GENERIC_FIRSTNAME=prénom
+akwritemtsbezeichnung=Nom officiel
+GENERIC_COMPANY_INSTITUTION=Société / Institution
+GENERIC_STREET=Rue
+GENERIC_POST_NUMBER=code postal
+GENERIC_CITY=Lieu
+GENERIC_MARKED_PERSONS_PP=personne(s) marquée(s)
+expotieren=Export
+GENERIC_ASSIGN_CATEGORIES=attribuer des catégories
+GENERIC_REMOVE_CATEGORIES=Retirer Catégories
+GENERIC_ASSING_WORKAREA=Attribuer espace de travail
+GENERIC_REMOVE_WORKAREA=Retirer espace de travail
+GENERIC_EXECUTE=comportement
+personenanzahlproseite=Personnes | Afficher par page
+GENERIC_ALL=Tout
+seite=Seite
+GENERIC_PAGE=date de naissance
+GENERIC_PLACE_OF_BIRTH=Lieu de naissance
+GENERIC_NATIONALITY=nationalité
+GENERIC_CITIZENSHIP=nationalité
+GENERIC_LANGUAGES=Langues
+GENERIC_HINT_FOR_HOST=Remarque pour les hôtes
+GENERIC_ACCOUNT_OPENING_DATE=Date d'accréditation
+GENERIC_AT=à
+GENERIC_OCLOCK=heure
+GENERIC_ORIGIN_DATA=origine des données
+GENERIC_PERSON_SINGULAR=Personne
 
-#Dateityp
-CSV=CSV (Comma-Separated-Values)
-XML=XML (VerA.web-XML)
-ZKM=ZKM (VerA.web-XML via le module de communication central)
-MAdLAN-Personen=Personne MAdLAN (MAdLAN personne Importer)
-MAdLAN-Firmen=MAdLAN entreprises (entreprises de MAdLAN importer)
-X-Manage-CSV=X-Manage-CSV (X-Manage Contacts)
-CSVPersdat+Anschrift+Doktyp=CSVDonn\u00E9espersonnelles+Adresse+DocType (Comma-Separated-Values)
-CSVPersdat+Doktyp=CSVDonn\u00E9espersonnelles+DocType (Comma-Separated-Values)
-CSVPersdat+Doktyp1.0=CSVDonn\u00E9espersonnelles+DocType 1.0 (Comma-Separated-Values)
-CSVPersdat+Kategorien=CSVDonn\u00E9espersonnelles+Cat\u00E9gories (Comma-Separated-Values)
-CSV-ISO-8859-15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
+# DATEITYP
+csv=CSV (Comma-Separated-Values)
+xml=XML (VerA.web-XML)
+zkm=ZKM (VerA.web-XML \u00FCber das Zentrale Kommunikationsmodul)
+madlan-personen=MAdLAN-Personen (MAdLAN-Personen-Import)
+madlan-firmen=MAdLAN-Firmen (MAdLAN-Firmen-Import)
+x-manage-csv=X-Manage-CSV (X-Manage Kontakte)
+csvpersdatanschriftdoktyp=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
+csvpersdatdoktyp=CSVPersdat+Doktyp (Comma-Separated-Values)
+csvpersdatdoktyp10=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
+csvpersdatkategorien=CSVPersdat+Kategorien (Comma-Separated-Values)
+csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 
-#Personen/Personen\u00FCbersicht
-Personen\u00FCbersicht=Les gens \ Pr\u00E9sentation
-Personensuchen=recherche de personnes
-NeuePersonanlegen=Cr\u00E9ation d'une nouvelle personne
-Direkteinsprung=aller \u00E0
+# PERSONEN/PERSONENUEBERSICHT
+GENERIC_PERSON_SUMMARY=Vue d'ensemble des personnes
+GENERIC_SEARCH_PERSONS=recherche de personne
+GENERIC_CREATE_PERSON=Nouvel personne
+GENERIC_PERSONS_DELETED=personnes supprimés
 
-#Personen/Personen\u00FCbersicht/Person bearbeiten
-Personbearbeiten:=Modifier Personne:
-Erfa\u00DFtam/von=Enregistr\u00E9 le / par
-Zuletztge\u00E4ndertam/von=Derni\u00E8re mise \u00E0 jour / par
-Personen-ID=People-ID
-Online-AnmeldungBenutzername=Connexion ligne Nom d'utilisateur
-ZudieserPersonwurdedasentsprechendeVorschaufeldnochnichterzeugt.=La fen\u00EAtre de pr\u00E9visualisation correspondant n'a pas encore \u00E9t\u00E9 g\u00E9n\u00E9r\u00E9 pour cet individu.
-Personkopieren=copie personne
-Etiketterzeugen=\u00E9tiquette Produce
-EinerVeranstaltungzuordnen=Affectation d'un \u00E9v\u00E9nement
-Personl\u00E4schen=supprimer une personne
-Statistik=statistiques
-AusStammdatenhinzuf\u00FCgen=Ajouter \u00E0 partir des donn\u00E9es de base
+# PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN
+GENERIC_EDIT_PERSON=Editer personne
+GENERIC_DOCUMENTED_ON=entrée sur
+GENERIC_LAST_EDITED_ON=Dernière modification le
+GENERIC_PERSONS_ID=Personnes-ID
+GENERIC_OA_USERNAME=Nom d'utilisateur (connection online)
+freifeld-vorschaufuretikett="Champ libre aperçu f\u00C3\u00BCr \u00E2\u0080\u009Eétiquette\u00E2\u0080\u009C"
+zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=La fenêtre de prévisualisation correspondant n'a pas encore été généré pour cet individu.
+GENERIC_COPY_PERSON=copie personne
+GENERIC_CREATE_TAG=étiquette Produce
+GENERIC_ASSIGN_AN_EVENT=Attribution d' un événement
+GENERIC_DELETE_PERSON=Afficher personne
+GENERIC_STATISTIC=Statistique
+ausstammdatenhinzufugen=Ajouter à partir des données de base
 
-#Personen/Personen\u00FCbersicht/Personbearbeiten/Dokumenttypen
-dokumenttyp=type De Document
-alleerzeugen=produisent tous
-#Personen/Personen\u00FCbersicht/Personbearbeiten/Kategorien
-kategorienundereigni\u00DFe=cat\u00E9gories et \u00E9v\u00E9nements
-#Personen/Personen\u00FCbersicht/Personbearbeiten/Statistik
-\u00FCbersicht\u00FCberalleVeranstaltungeneinesGastes.=aper\u00E7u de tous les \u00E9v\u00E9nements d'un invit\u00E9.
-Ab=de
-Statistikf\u00FCrGast:=Statistiques de clients:
-Veranstaltung=\u00E9v\u00E9nement
-Beginn=d\u00E9but
-Status=statut
-partner=partenaire
+# PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
+GENERIC_DOCUMENT_TYPE_SINGULAR=type de document
+GENERIC_GENERATE_ALL=générer tous
 
-#Personen/Personensuche
-Personensuche=Recherche de personnes
-Suche=recherche
-ErweiterteSuche=Recherche Avanc\u00E9e
-HinweisSiek\u00E4nnenbeiderSuchesogenanntePlatzhalterverwenden,der*stehtf\u00FCrmehrereunddas?f\u00FCreinzelneZeichen.DieSucheerfolgtimVornamen,Nachnamen,Ort,PLZ,Stra\u00DFe,Firma/Institution,Telefon,Fax,Mobil,E-Mail,Bemerkungen,Kategorien,ArbeitsbereicheundAmtsbezeichnung/Funktion.=Remarque Vous pouvez utiliser soi-disant wildcards dans la recherche, l'* repr\u00E9sente un chiffre, et que? pour les caract\u00E8res individuels. La recherche est effectu\u00E9e dans le pr\u00E9nom, le nom, ville, zip, rue, soci\u00E9t\u00E9 / institution, t\u00E9l\u00E9phone, fax, mobile, e-mail, des commentaires, des cat\u00E9gories, des zones de travail et titre / fonction.
+# PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
+GENERIC_CATEGORIES_AND_OCCASIONS=Catégories et événements
 
-#Personen/Neue Person anlegen
-NeuePersonanlegen=Cr\u00E9ation d'une nouvelle personne
-Personendaten=donn\u00E9es personnelles
-Hauptperson=personnage Principal
-partner=partenaire
-IstFirma=est Soci\u00E9t\u00E9
-Zeichensatz=Charset
-Latein=Latin
-Kyrillisch=cyrillique
-Chinesisch=chinois
-Anrede=salutation
-Frau=femme
-Herr=M.
-Lady=dame
-Sir=monsieur
-Bittew\u00E4hlenSie=Choisissez s'il vous pla\u00EEt
-G\u00FCltigbis=Date d'expiration
-Akad.Titel=Acad\u00E9mique. titre
-Geburtsdatum=date de naissance
-Vorname=pr\u00E9nom
-Nachname=nom de famille
-Nationalit\u00E4t/Staatsangeh\u00E4rigkeit=Nationalit\u00E9 / citoyennet\u00E9
-Sprachen=langues
-Inland=accueil
-Sprachen=langues
-Geschlecht=sexe
-M\u00E4nnlich=m\u00E2le
-Weiblich=femme
-Akkreditierungsdatum=Date d'accr\u00E9ditation
-Uhr=horloge
-Bemerkung=remarque
-Hinweisf\u00FCrOrga=Avis \u00E0 l'organisation
-Hinweisf\u00FCrGastgeber=Remarque pour les h\u00F4tes
-Anschriften=adresses
-Amtsbezeichnung/Funktion=Description officielle / Fonction
-Firma/Institution=Soci\u00E9t\u00E9 / Institution
-Stra\u00DFe=route
-PLZ/Ort=NPA / Ville
-Bundesland=\u00E9tat
-Land=pays
-PLZ/Postfach=Zip / code postal
-IBAN=IBAN
-telefon=t\u00E9l\u00E9phone
-BIC=BIC
-E-Mail=E-Mail
-Mobil=portable
-www=www
-Privat=en priv\u00E9
-Weitere=autre
-Dublettenpr\u00FCfungdurchf\u00FChren=Dublettenpr\u00FCfung durchf\u00FChren
-ZurPersonen\u00FCbersicht=Pour les personnes Pr\u00E9sentation
+# PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/STATISTIK
+ubersichtuberalleveranstaltungeneinesgastes=Vue d'ensemble de tous les événements d'un invité.
+GENERIC_VIEW_OVER_GUEST_EVENT=de
+statistikfurgast=Statistique pour invité
+GENERIC_EVENT=Evénement
+GENERIC_BEGIN=commençant
 
-#Personen/Suchen & Ersetzen in Personendaten
-Suchen&ErsetzeninPersonendaten=Rechercher et remplacer des donn\u00E9es personnelles
-HinweisWennSiedenPlatzhalter*verwenden,werdenauchTeilst\u00FCckeersetzt,sonstnurvollst\u00E4ndigeDatenfelder.=Note * Si vous utilisez le joker, et les articles peuvent \u00EAtre remplac\u00E9s, sinon seuls les champs de donn\u00E9es compl\u00E8tes.
-Suchen*=Recherche *
-Ersetzen=remplacer
-InfolgendenFeldern*=Dans les champs suivants *
-Vorname=pr\u00E9nom
-markiertenmandantenwirklichloschen=TEST
-Nachname=nom de famille
-Anrede/Titel=Civilit\u00E9 / Titre
-Freitextfelder=Champs de texte libre
-Amtsbezeichn.=titre officiel
-Institution=institution
-Adre\u00DFeadresse
-PLZ/Ort=NPA / Ville
-Telefon/Fax=T\u00E9l\u00E9phone / Fax
-E-Mail=E-Mail
-www=www
-Suchen=recherche
-Einzelnersetzen=remplacer simple
-Alleersetzen=Remplace Tout
-Felderleeren=Les champs vides
+# PERSONEN/PERSONENSUCHE
+GENERIC_SEARCH_PERSON=Recherche de personnes
+GENERIC_SEARCH=Recherche
+GENERIC_VALIDITY_DATE=date d'effet
+GENERIC_ADVANCED_SEARCH=Recherche avancée
+HINT_PLACEHOLDER=Remarque Vous pouvez utiliser soi-disant wildcards dans la recherche, l' * représente un chiffre, et que ? pour les caractères individuels
 
-#Personen/Dublettensuche
-Dublettensuche=Dublettensuche
-HinweisBeachtenSie,da\u00DF\u00E4mitae,\u00E4mitoe,\u00FCmitueund\u00DFmit\u00DFverglichenwird.=Remarque Notez qu'avec \u00E4 \u00FC, \u00DF avec oe, ue est compar\u00E9 avec UE et \u00DF avec les art.
+# PERSONEN/NEUE PERSON ANLEGEN
+MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=Die Anmeldedaten wurden erfolgreich erzeugt.
+MESSAGE_OSIAM_LOGIN_DATA_EXIST=Les pouvoirs ont été produits avec succès .
 
-#Personen/Export von Personendaten
-ExportvonPersonendaten=Exporter des donn\u00E9es personnelles
-HinweisSieexportierenmitdieserFunktionau\u00DFchlie\u00DFlichPersonenausIhremaktuellenMandanten.=Remarque Pour exporter cette fonction seulement les gens de vos clients actuels.
-Veranstaltung=\u00E9v\u00E9nement
-Kategorie=cat\u00E9gorie
-Alle=tous
-ohne=sans
-Botschaften=ambassades
-Finanzamt\u00DFprecher=Porte-parole du minist\u00E8re des Finances
-Journalisten=journalistes
-Lieferant=fournisseur
-NOGs=NOGs
-Politik=politique
-Pre\u00DFevertreter=repr\u00E9sentants de la presse
-Wirtschaft=\u00E9conomie
-CSV:Anmerkung=CSV: Remarque
-JenachMengederexportiertenFelder(insbesondereistdiesvonderAnzahlexportierterDokumenttypenundKategorienabh\u00E4ngig)kannespa\u00DFieren,da\u00DFMSExcelundOOCalcdieexportiertenDatennichtvollst\u00E4ndiglesenk\u00E4nnen.=Selon la quantit\u00E9 de champs export\u00E9s (en particulier, cela d\u00E9pend du nombre de types de documents export\u00E9s et cat\u00E9gories), il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent pas enti\u00E8rement lu.
-Exportstarten=D\u00E9marrer l'exportation
+# PERSONEN/NEUE PERSON ANLEGEN
+GENERIC_IS_COMPANY=est une société
+GENERIC_SALUTATION_SINGULAR=Salutation
+frau=Madamme
+herr=Monsieur
+lady=Lady
+sir=Sir
+GENERIC_PLEASE_CHOOSE=S'il vous plaît sélectionnez
+GENERIC_ACAD_TITLE=Niveau académique
+GENERIC_IN_COUNTRY=maison
+GENERIC_HINT_FOR_ORGA=Avis à l'organisation
+GENERIC_COMPANY_SINGULAR=Société
+GENERIC_COUNTRY=pays
+plz/postfach=code postale / boîte de bureau de poste
+GENERIC_POST_OFFICE_BOX=boîte de bureau de poste
+iban=IBAN
+bic=BIC
+GENERIC_MOBILE=Mobile
+LETTERS_WWW=WWW
+dublettenprufungdurchfuhren=Effectuer la vérification en double
+zurpersonenubersicht=Pour les personnes Présentation
 
-#Personen/Import von Personendaten
-ImportvonPersonendaten=Importer des donn\u00E9es personnelles
-HinweisBeimImportk\u00E4nnenFeldinhalte,diel\u00E4ngeralsbeiVerA.webvorgesehensind,gek\u00FCrzt\u00FCbernommenwerden.=Remarque Lors de l'importation au champ contenu qui sont fournis pour plus de VerA.web \u00EAtre adopt\u00E9es raccourcie.
-Datenherkunft*=Source des donn\u00E9es *
-Zielmandant=client cible
-Import-Datei*=Importer un fichier *
-Dateityp=Type de fichier
-Zielmandant=client cible
-Dateiausw\u00E4hlen=Choisissez un fichier
-Keineausgew\u00E4hlt=Aucune s\u00E9lection
-Importstarten=D\u00E9marrer l'importation
+# PERSONEN/SUCHEN & ERSETZEN IN PERSONENDATEN
+suchen&ersetzeninpersonendaten=Rechercher et remplacer des données personnelles
+hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Note * Si vous utilisez le caractère générique, évite également être remplacé, sinon seuls les champs de données complètes.
+GENERIC_SEARCH_V=Recherche
+GENERIC_REPLACE=Remplacé
+GENERIC_IN_THE_FOLLOWING_FIELDS=Dans les champs suivants
+anrede/titel=Salutation / Titre
+GENERIC_EMPLOYMENT_TITLE_SHORT=Nom officiel
+GENERIC_INSTITUTION_SINGULAR=Institution
+GENERIC_ADDRESSES=Adresse
+telefon/fax=Telefon / Fax
+GENERIC_REPLACE_INDIVIDUALLY=remplacer l'unité
+GENERIC_REPLACE_ALL=remplacer tout
 
-#anmeldung
-login=se connecter
-benutzername=nom d'utilisateur
-pa\u00DFwort=mot de passe
-invertretunganmelden=signer dans la repr\u00E9sentation
-anmelden=se connecter
-felderleeren=champs vides
-hinweis=note
-bitteverwendensieihreorganisationskennzeichenodervorname.nachnamealsbenutzernamen=S'il vous pla\u00EEt utilisez votre organisation comme identification ou nom d'utilisateur firstname.lastname
+# PERSONEN/DUBLETTENSUCHE
+GENERIC_DUPLICATE_SEARCH=Recherche Duplicate
 
-#mainpage
-personen=personnes
-veranstaltungen=\u00E9v\u00E9nements
-verwaltung=gestion
-administration=administration
-benutzer=utilisateur
-hilfe=Aidez-Moi
-abmelden=annuler
-WillkomenbeiVerA.web=Bienvenue au VerA.web
-SiehabenhierdieM\u00E4glichkeit,StammdatenvonundBemerkungenzuPersonenundVeranstaltungenanzuzeigen,zuex-undimportieren,zubearbeitenundzul\u00E4schen.Weiterhink\u00E4nnenSiemandantenspezifischeundglobaleEinstellungeneinsehenundbearbeiten.SolltenSieweitereInformationenben\u00E4tigen,findenSiedieseaufderSeiteHilfe.=Ici vous avez la possibilit\u00E9 de ma\u00EEtriser les donn\u00E9es et observations montrent des gens et des \u00E9v\u00E9nements, d'exporter et d'importer, modifier et supprimer. Vous pouvez \u00E9galement afficher et modifier les param\u00E8tres client-sp\u00E9cifiques et globaux. Si vous avez besoin de plus amples informations, s'il vous pla\u00EEt consulter la page Aide.
+# PERSONEN/EXPORT VON PERSONENDATEN
+exportvonpersonendaten=Exporter des données personnelles
+HINT_EXPORT_MANDANT_PERSON=Avec cette fonction vous exportez seulement les gens de vos clients actuels.
+GENERIC_WITHOUT=sans
+botschaften=ambassades
+finanzamtsprecher=Porte-parole du ministère des Finances
+journalisten=Journalistes
+lieferant=Fournisseur
+nogs=NOGs
+politik=Politique
+pressevertreter=représentants de la presse
+wirtschaft=économie
+GENERIC_START_EXPORT=Démarrer l'exportation
+ENCODING_TYPE_CYRILLIC=cyrillique
+ENCODING_TYPE_WEST=ouest
+ENCODING_TYPE_BALTIC=Baltique
+ENCODING_TYPE_EAST=est
+ENCODING_TYPE_TURKISH=turc
+EXPORT_DATA_TYPE_CSV=CSV (Comma-Separated-Values)
+EXPORT_DATA_TYPE_XML=XML (VerA.web-XML)
+EXPORT_DATA_TYPE_ZKM=ZKM (VerA.web-XML \u00FCber das Zentrale Kommunikationsmodul)
+EXPORT_DATA_TYPE_MADLAN_PERSON=MAdLAN-Personen (MAdLAN-Personen-Import)
+EXPORT_DATA_TYPE_MADLAN_COMPANY=MAdLAN-Firmen (MAdLAN-Firmen-Import)
+EXPORT_DATA_TYPE_X_MANAGE_CSV=X-Manage-CSV (X-Manage Kontakte)
+EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE=CSVPersdat+Doktyp (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Kategorien (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
+EXPORT_TITLE_CSV=CSV
+EXPORT_TITLE_XML=XML
+EXPORT_TITLE_ZKM=ZKM
+EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Personen
+EXPORT_TITLE_MADLAN_COMPANY=MAdLAN-Firmen
+EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
+EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV données personnelles+Adresses+Type de document
+EXPORT_TITLE_CSVPERSDATA_DOCTYPE=CSV données personnelles+typ de document
+EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV données personnelles+type de document 1.0
+EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV données personnelles+categories
+EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
+LABEL_EXPORT_ZKM=Ziel (ZKM-K\u00FCrzel)
+LABEL_EXPORT_MADLAN_ENCODING=Encoding
+LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Encoding (kyrillisch)
+HINT_EXPORT_CSV=Selon la quantité de champs exportés (en particulier, cela dépend du nombre de types de documents exportés et catégories), il peut arriver que MS Excel et Calc OO les données exportées ne peuvent être lus complètement.
+HINT_EXPORT_ZKM=Le fichier d'exportation est stocké à la fois au dossier de sortie que ZKM à votre disposition pour contrôler le téléchargement. Téléchargement Vous pouvez interrompre en toute sécurité.
+HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Il sera exporté que les blancs avec les onglets "données personnelles", "adresses", "types de document" et leurs onglets subordonnés. Selon la quantité de champs exportés (en particulier le nombre des types de documents exportés dépend) il peut arriver que MS Excel et Calc OO les données exportées ne peuvent être lus complètement.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE=Il sera exporté que les blancs avec les onglets "de données à caractère personnel", "types de document" et leurs onglets subordonnés. Selon la quantité de champs exportés (en particulier le nombre des types de documents exportés dépend) il peut arriver que MS Excel et Calc OO les données exportées ne peuvent être lus complètement.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Il sera exporté que les blancs avec les onglets "de données à caractère personnel", " types de document » et leurs onglets subordonnés . Selon la quantité de champs exportés (en particulier le nombre des types de documents exportés dépend) il peut arriver que MS Excel et Calc OO les données exportées ne peuvent être lus complètement.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Il sera exporté que les blancs avec les onglets "de données à caractère personnel" , "Catégories" et ses onglets subordonnés. Selon la quantité de champs exportés (en particulier, cela est exporté à partir du nombre de catégories en fonction), il peut arriver que MS Excel et Calc OO les données exportées ne peuvent être lus complètement.
+HINT_EXPORT_CSV_ISO_8859_15=Ce format est adapté à l'importation / exportation dans les applications MS Office qui utilisent le jeu de caractères ISO - 8859-15. Selon la quantité de champs exportés (en particulier, cela dépend du nombre de types de documents exportés et catégories), il peut arriver que MS Excel et Calc OO les données exportées ne peuvent être lus complètement.
 
-#personendropdown
-personen\u00FCbersicht=Pr\u00E9sentation des personnes
-personensuche=Recherche de personnes
-neueperson=nouvelle personne
+# PERSONEN/IMPORT VON PERSONENDATEN
+GENERIC_IMPORT_FROM_PERSONS_DATA=Importer des données personnelles
+HINT_IMPORT_SHORT_CONTENT=Remarque Lors de l'importation à des contenus sur le terrain , qui sont fournis plus de VerA.web être adoptées raccourcie.
+GENERIC_TARGET_CLIENT=client cible
+GENERIC_IMPORT_DATA=Importer un fichier
+GENERIC_DATA_TYPE=Type de fichier
+dateiauswahlen=Choisissez Fichier
+keineausgewahlt=pas sélectionné
+GENERIC_START_IMPORT=Démarrage de l' importation
+
+# PERSONENDROPDOWN
+GENERIC_NEW_PERSON=nouvelle personne
 suchen&ersetzen=Rechercher et remplacer
-dublettensuche=Recherche Duplicate
-personenexport=personnes exportent
-personenimport=l'importation personnelle
+GENERIC_EXPORT_PERSONS=Les gens Export
+GENERIC_IMPORT_PERSONS=Les gens d'importation
 
-#veranstaltungendropdown
-veranstaltungs\u00FCbersicht=Pr\u00E9sentation de l'\u00E9v\u00E9nement
-veranstaltung\u00DFuche=recherche d'un \u00E9v\u00E9nement
-neueveranstaltung=nouvel \u00E9v\u00E8nement
-verteiler=distributeur
-statistiken=statistiques
+# VERANSTALTUNGENDROPDOWN
+GENERIC_EVENT_VIEW=Présentation de l'événement
+veranstaltunguuche=Rechercher des évènements
+GENERIC_NEW_EVENT=Nouvel événement
+GENERIC_STATISTICS=Statistiques
 
-#verwaltungdropdown
-einstellungen=param\u00E8tres
-vertretungen=repr\u00E9sentations
-info=infos
+# ADMINISTRATIONDROPDOWN
+GENERIC_SALUTATIONS=adresse
+GENERIC_WORKAREA_PLURAL=Espaces de travail
+GENERIC_DOCUMENT_TYPE_PLURAL=Types de document
+e-mail-postausgang=E -mail d'envoi
+GENERIC_PROGRAM_PERFERENCES=préférences
+GENERIC_EVENT_LOCATION_PLURAL=Lieux
 
-#administrationdropdown
-anreden=salutations
-arbeitsbereiche=Espaces de travail
-benutzer=utilisateur
-dokumenttypen=Types de documents
-e-mail-postausgang=Email envoi
-e-mail-vorlagen=des mod\u00E8les d'e-mail
-farben=couleurs
-funktionen/amtsbezeichnungen=Caract\u00E9ristiques / titres officiels
-kategorien=Cat\u00E9gories
-mandanten=clients
-programmeinstellungen=les param\u00E8tres du programme
-reports=rapports
-stellvertretungen=Les d\u00E9l\u00E9gu\u00E9s
-veranstaltungsorte=lieux
+# VERANSTALTUNGSUEBERSICHT
+GENERIC_END=Fin
+GENERIC_HOST=Gastgeber
+GENERIC_EVENT_LOCATION_SINGULAR=Lieu de la manifestation
+GENERIC_EVENT_SEARCH=Recherche événement
+GENERIC_CREATE_NEW_EVENT=Créer un nouvel événement
+GENERIC_NUMBER_PER_PAGE=Afficher par page
+seitexvony=Page x de y
 
-#Veranstaltungs\u00FCbersicht
-veranstaltungs\u00FCbersicht=Pr\u00E9sentation de l'\u00E9v\u00E9nement
-id=id
-GENERIC_NAME=nom
-beginn=d\u00E9but
-ende=fin
-gastgeber=h\u00F4te
-veranstaltungsort=lieu
-veranstaltungsuchen=Recherche \u00E9v\u00E9nement
-neueveranstaltunganlegen=Cr\u00E9er nouvel \u00E9v\u00E9nement
-von=de
-veranstaltungen=\u00E9v\u00E9nements
-anzahlproseite=Afficher par page
-seitexvony=page x de y
+# EVENT HEADER
+EVENT_ID=ID d'événement
+EVENT_NAME=Nom de l'événement
+EVENT_URL=URL de l'événement
+EVENT_URL_MEDIA_REPRESENTATIVE=URl pour les représentants des médias
+EVENT_MAX_GUEST=Nombre maximum de personnes
+EVENT_MAX_RESERVE=Nombre maximum de la liste d'attente
+EVENT_INVITATION_TYPE=style Invitation
+EVENT_INVITATION_TYPE_WITHOUT_PARTNER=sans Partenaires
+EVENT_INVITATION_TYPE_ONLY_PARTNER=seulement Partenaire
+EVENT_INVITATION_TYPE_WITH_PARTNER=avec Partenaire
 
-#veranstaltungbearbeiten:/allgemein
-veranstaltungbearbeiten=Modifier l'\u00E9v\u00E9nement
-veranstaltungs-id=ID d'\u00E9v\u00E9nement
-veranstaltungsname=nom de l'\u00E9v\u00E9nement
-veranstaltungs-URL=URL de l'\u00E9v\u00E9nement
-URlf\u00FCrpre\u00DFevertreter=URL de repr\u00E9sentants de la presse
-zurg\u00E4steverwaltung=\u00E0 la gestion des clients
-allgemein=g\u00E9n\u00E9ral
-dokumenttypen=Types de documents
-aufgaben=t\u00E2ches
-zus\u00E4tzlichepersonendaten=donn\u00E9es \u00E0 caract\u00E8re personnel suppl\u00E9mentaire
-funktionen/amtsbezeichnungen=Caract\u00E9ristiques / titres officiels
-kategorien=Cat\u00E9gories
-kurzbereichnung=planification \u00E0 court terme
-einladungsart=le style d'invitation
-offeneveranstaltung=\u00E9v\u00E9nement ouvert
-umxuhr=x \u00E0 l'horloge
-maximalanzahlg\u00E4ste=Nombre maximum d'invit\u00E9s
-veranstalgungsort=lieu
-gastgebersuchen=Recherche Host
-gastgeberentfernen=Retirer h\u00F4tes
-gastgeber-partner=partenaire d'accueil
-bemerkung=remarque
-loginnotwendig=login requis
-anmeldungvonpre\u00DFevertreternm\u00E4glich=Inscription de repr\u00E9sentants possibles de presse
-veranstaltungspeichern=Sauvegarder \u00E9v\u00E9nement
-zurveranstaltungs\u00FCbersicht=Tous les \u00E9v\u00E9nements \u00E0
+# VERANSTALTUNG BEARBEITEN/ALLGEMEIN
+GENERIC_EDIT_EVENT=Modifier cet événement
+GENERIC_TO_GUEST_MANAGEMENT=Pour la gestion des clients
+GENERIC_GENERAL=généralement
+GENERIC_TASK_PLURAL=tâches
+GENERIC_ADDITIONAL_PERSONS_DATA=Les informations personnelles supplémentaires
+kurzbereichnung=court terme
+GENERIC_OPEN_EVENT=open Event
+umxuhr=À x heures
+veranstalgungsort=lieu de la manifestation
+GENERIC_SEARCH_FOR_HOST=Recherche hôte
+GENERIC_DELETE_HOST=Retirer hôte
+GENERIC_HOST_PARTNER=Partenaire Hôte
+GENERIC_LOGIN_REQUIRED=Connexion requise
+GENERIC_SUBSCRIPTION_OF_PRESS_REPRESENTATIVES_POSSIBLE=Enregistrement de représentants possibles de presse
+GENERIC_SAVE_EVENT=Sauvegarder événement
+GENERIC_TO_EVENT_VIEW=Pour aperçu de l'événement
 
-#veranstaltung bearbeiten: /dokumenttypen
-markiertedokumenttypen=les types de documents marqu\u00E9s
-entfernen=supprimer
-neuendokumenttyphinzuf\u00FCgen=Ajouter un nouveau type de document
-id=id
-bezeichnung=d\u00E9signation
-xvonydokumenttypen=x y de types de documents
-anzahlproseite=Afficher par page
+# VERANSTALTUNG BEARBEITEN/DOKUMENTTYPEN
+GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Supprimer la sélection type de document
+GENERIC_DELETE=Supprimer
+GENERIC_ADD_NEW_DOCUMENT_TYPE=Ajouter un nouveau type de document
+xvonydokumenttypen=x de y types de document
 
-#veranstaltung bearbeiten: /aufgaben
-neueaufgabeanlegen=Cr\u00E9er nouvelle t\u00E2che
-esliegenkeineaufgabenf\u00FCrdieseveranstaltungvor=Il n'y a pas de t\u00E2ches pour cet \u00E9v\u00E9nement avant
-ausgew\u00E4hlteeintr\u00E4ge=entr\u00E9es s\u00E9lectionn\u00E9es
-l\u00E4schen=supprimer
-titel=titre
-status=statut
-verantwortlicher=responsable
+# VERANSTALTUNG BEARBEITEN/AUFGABEN
+GENERIC_ADD_NEW_TASK=Création d'une nouvelle tâche
+MESSAGE_NO_TASKS_FOR_THIS_EVENT=Il n'y a pas de tâches pour cet événement avant
+GENERIC_SELECTED_ENTRIES=entrées sélectionnées
+GENERIC_TITLE=Titre
+GENERIC_RESPONSIBLE=responsable
 
-#veranstaltungbearbeiten:/aufgaben/aufgabeanlegen
-aufgaben-id=ID de la t\u00E2che
-fertigstellung=ach\u00E8vement
-priorit\u00E4t=priorit\u00E9
-veranstwortlicher=responsable
-beschreibung=description
-verantwortlichenhinzuf\u00FCgen=Ajouter la charge
-verantwortlichenentfernen=Supprimer responsable
-aufgabespeichern=sauvegarder
-zur\u00FCckzuraufgaben\u00FCbersicht=Retour \u00E0 la liste des t\u00E2ches
+# VERANSTALTUNG BEARBEITEN/AUFGABEN/AUFGABE ANLEGEN
+GENERIC_TASKS_ID=Tâche-ID
+GENERIC_COMPLETION=achèvement
+GENERIC_PRIORITY=priorité
+GENERIC_DESCRIPTION=description
+GENERIC_ADD_RESPONSIBLES=Ajouter la charge
+verantwortlichenentfernen=Retirez la charge
+GENERIC_SAVE_TASK=Enregistrer la propriété
+GENERIC_BACK_TO_TASKS_VIEW=Retour à la liste des tâches
 
-#veranstaltung bearbeiten: /funktionen/amtsbezeichnungen
-neueamtsbezeichnunghinzuf\u00FCgen=Ajouter un nouveau titre officiel
-eswurdenkeineamtsbezeichnungengefunden.=Pas de titres officiels ont \u00E9t\u00E9 trouv\u00E9es.
+# VERANSTALTUNG BEARBEITEN/FUNKTIONEN/AMTSBEZEICHNUNGEN
+GENERIC_ADD_NEW_EMPLOYMENT_TITLE=Nouveau titre officielle
+MESSAGE_NO_EMPLOYMENT_TITLES_FOUND=Pas de titres officiels ont été trouvées .
 
-#veranstaltung bearbeiten: /kategorien
-neuekategoriehinzuf\u00FCgen=Ajouter une nouvelle cat\u00E9gorie
+# VERANSTALTUNG BEARBEITEN/KATEGORIEN
+GENERIC_ADD_NEW_KATEGORIES=Ajouter une nouvelle catégorie
 
-#veranstaltung\u00DFuche
-suche=recherche
-datum=Date (d\u00E9but)
-nurinzuk\u00FCnftigenveranstaltungensuchen=Rechercher uniquement dans les \u00E9v\u00E9nements futurs
-siek\u00E4nnenbeidersuchesogenannteplatzhalterverwenden,der+stehtf\u00FCrmehreredas?f\u00FCreinzelne=Vous pouvez utiliser dans la recherche de soi-disant espace r\u00E9serv\u00E9 + repr\u00E9sente le nombre? pour les caract\u00E8res individuels
-#veranstaltung\u00DFuche /suchergebnis
-suchergebnis:Veranstaltungen=R\u00E9sultats de la recherche: \u00C9v\u00E9nements
+# VERANSTALTUNG BEARBEITEN/VORBEDINGUNGEN
+GENERIC_PRECONDITION_PLURAL=Conditions préalables
+EVENT_PRECONDITION_MARKED=Conditions préalables marquées
+EVENT_PRECONDITION_ADD=ajouter la condition
+EVENT_PRECONDITION_INVITATIONSTATUS=participation Statut
+EVENT_PRECONDITION_STARTDATE=date de début
+EVENT_PRECONDITION_NOT_FOUND=Pas de conditions préalables ont été trouvés
 
-# neue veranstaltung anlegen
-einladungsart=le style d'invitation
-mitpartner=avec un partenaire
-offeneveranstaltung=\u00E9v\u00E9nement ouvert
-eswurdeeineneueveranstaltungangelegt.=il a \u00E9t\u00E9 cr\u00E9\u00E9 un nouvel \u00E9v\u00E9nement.
+# VERANSTALTUNGSSUCHE
+nurinzukunftigenveranstaltungensuchen=Nur in zuk\u00FCnftigen Veranstaltungen suchen
+siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Sie k\u00F6nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00FCr mehrere das ? f\u00FCr einzelne
 
-#verteiler
-verteiler=distributeur
-angelegtvon=cr\u00E9\u00E9 par
-angelegtam=cr\u00E9\u00E9 sur
-erzeugtausveranstaltung=g\u00E9n\u00E9r\u00E9e \u00E0 partir de l'\u00E9v\u00E9nement
+# NEUE VERANSTALTUNG ANLEGEN
+mitpartner=Mit Partner
+eswurdeeineneueveranstaltungangelegt=Es wurde eine neue Veranstaltung angelegt.
 
-#statistiken
-statistiken=statistiques
-statistikauffolgendenzeitrahmeneinschr\u00E4nken:=Statistiques Restreindre calendrier suivant:
-statistiktypausw\u00E4hlen:=S\u00E9lectionnez type de statistique:
-zeitrahmen-beginn=D\u00E9lai de d\u00E9marrage
-zeitrahmen-ende=Calendrier-end
-Gesamt\u00FCbersicht\u00FCberdieAnzahlderVeranstaltungenproJahr.=R\u00E9sum\u00E9 g\u00E9n\u00E9ral du nombre d'\u00E9v\u00E9nements par ann\u00E9e.
-Gesamt\u00FCbersicht\u00FCberdieAnzahlderVeranstaltungenproMonat.=R\u00E9sum\u00E9 g\u00E9n\u00E9ral du nombre d'\u00E9v\u00E9nements par mois.
-Gesamt\u00FCbersicht\u00FCberalleVeranstaltungen,gruppiertnachGastgeber.=Aper\u00E7u complet de tous les \u00E9v\u00E9nements, regroup\u00E9s par h\u00F4te.
-\u00FCbersicht\u00FCberalleVeranstaltungeneinesGastgebers(mitSuche).=Vue d'ensemble de tous les \u00E9v\u00E9nements d'un h\u00F4te (avec recherche).
-\u00FCbersicht\u00FCberalleVeranstaltungeneinesGastes(mitSuche).=Vue d'ensemble de tous les \u00E9v\u00E9nements d'un invit\u00E9 (avec recherche).
-\u00FCbersicht\u00FCberalleVeranstaltungensortiertnachVeranstaltungsort.=Vue d'ensemble de tous les \u00E9v\u00E9nements tri\u00E9s par lieu.
-statistikerstellen=Cr\u00E9er des statistiques
+# VERTEILER
+GENERIC_CREATED_FROM=cr�e par
+GENERIC_CREATED_ON=cr�e 
+GENERIC_GENERATED_FROM_EVENT=Création de l'événement
 
-#G\u00E4steverwaltung der veranstaltung
-G\u00E4steverwaltungderveranstaltung:=L'administration des clients de l'\u00E9v\u00E9nement:
-veranstaltungsname:=Nom de l'\u00E9v\u00E9nement:
-max.anzahlg\u00E4ste:=max. nombre d'invit\u00E9s:
-g\u00E4steliste=liste des invit\u00E9s
-einladungsart=le style d'invitation
-g\u00E4stedetails=Invit\u00E9 D\u00E9tails
-dokumenttypen=Types de documents
-offen=ouvert
-zusagen=appel
+# STATISTIKEN
+statistikauffolgendenzeitrahmeneinschranken=Crée limite de statistiques des événements sur le calendrier suivant
+statistiktypauswahlen=Sélectionnez le type de statistiques
+zeitrahmenbeginn=Échéancier début
+zeitrahmenende=Échéancier fin
+STATISTIC_RADIO_PER_YEAR=Résumé général du nombre d'événements par année
+STATISTIC_RADIO_PER_MONTH=Résumé général du nombre d'événements par mois
+STATISTIC_RADIO_GROUPED_BY_HOST=Aperçu complet de tous les événements , regroupés par hôte
+STATISTIC_RADIO_PER_HOST=Vue d'ensemble des événements d'un hôte (avec recherche )
+STATISTIC_RADIO_PER_GUEST=Vue d'ensemble de tous les événements d'un invité (avec recherche )
+STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE=Vue d'ensemble de tous les événements triés par lieu
+statistikerstellen=Partager Statistiques
+
+# GAESTEVERWALTUNG DER VERANSTALTUNG
+gasteverwaltungderveranstaltung=L'administration des clients de l'événement
+maxanzahlgaste=Nombre maximum de personnes
+gastedetails=Invité Détails
+offen=ouvrir
+zusagen=engagements
 absagen=annuler
-teilnahmen=particip\u00E9
-aufplatz=\u00E0 la Place
-aufreserve=r\u00E9server
-filter=filtre
-platzwahl=lancer en l'air
-status=statut
-lfd.-nr.=lfd.-nr.
-firma=entreprise
-GENERIC_NAME=nom
-vorname=pr\u00E9nom
-e-mail=e-mail
-hauptperson=personnage principal
-partner=partenaire
-nichteingeladen=pas invit\u00E9
-laufendenummerberechnen=calculer le nombre s\u00E9quentiel
-allestammdatenneuladen=tous Recharger des donn\u00E9es de base
-direkteinsprung:istnurbeieinersortierungnachname,vornameodere-mailm\u00F6glich.=Navigation rapide est possible seulement quand vous triez par nom, pr\u00E9nom ou par e-mail.
-beimerstellenvonSteuerdateienoderG\u00E4stelistenwirdIhrobenausgew\u00E4hlterFilterber\u00FCcksichtigt.=lors de la cr\u00E9ation des fichiers de contr\u00F4le ou les listes d'invit\u00E9s de filtres s\u00E9lectionn\u00E9s est consid\u00E9r\u00E9 comme votre top.
-WennSieeinzelneG\u00E4stemarkieren,werdennurdieseexportiert,ansonstendievollst\u00E4ndigeListe.=Si vous marquez les clients individuels, seuls ceux qui sont export\u00E9s, sinon la liste compl\u00E8te.
+teilnahmen=participations
+aufplatz=a place
+aufreserve=sur la réserve
+filter=Filter
+platzwahl=?
+lfdnr=Numéro de série
+nichteingeladen=pas invités
+laufendenummerberechnen=Calculer le nombre de série
+allestammdatenneuladen=Recharger tout données de base
+HINT_ENTRY_POINT=Direkteinsprung: Il est possible pour quelqu'un ou seulement à un nom prénom - après le tri.
+HINT_GUEST_MANAGEMENT_FILTER=Lors de la création des fichiers de contrôle ou les listes d'invités de filtres sélectionnés est considéré comme votre top.
+HINT_GUEST_MANAGEMENT_MARKED=Si vous marquez les clients individuels, seuls ceux qui sont exportés, sinon la liste complète.
+TABLE_BEFORE_GUEST=Invité précédent
+TABLE_FIRST_GUEST=Invité principal
+TABLE_LAST_GUEST=dernier invité
+TABLE_NEXT_GUEST=Suivant invité
 
-#G\u00E4steliste erstellen
-GUEST_LIST_CREATE=Cr\u00E9ez la liste des invit\u00E9s
-SELECT_OUTPUT_FORMAT=S\u00E9lectionnez le format de sortie
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Liste Group\u00E9s par cat\u00E9gories - avec des partenaires
-LIST_GROUP_BY_CATEGORY_WITH_TEL=Liste Group\u00E9s par cat\u00E9gories - avec Tel et le t\u00E9l\u00E9phone mobile.
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Liste Group\u00E9s par cat\u00E9gories - avec son partenaire et fax
-LIST_SORT_PARTNER_TEL=Liste en triant -avec partenaire, t1\u00E9l. et t\u00E9l\u00E9phone mobile
-SORT_CRITERIA=crit\u00E8res de tri
-SORT_CRITERIA=Trier par
-CONTINUAL_NUMBER=num\u00E9ro actuel
-anschlie\u00DFendnach=suivie par
-zus\u00E4tzlichesortierungnach=tri suppl\u00E9mentaire par
-arbeitsbereich=Espace de travail
+# GAESTELISTE
+GUEST_LIST_ALL_GUEST=tous les invitées
+GUEST_LIST_ALL_GUEST_ON_PLACE=Tous les invités sur la place
+GUEST_LIST_ALL_GUEST_ON_RESERVE=Tous les invités de réserver
+GUEST_LIST_APPLY_GUEST_FROM_EVENT=Prenez des invités de l'événement
+GUEST_LIST_CATEGORY_ASSIGN=attribuer des catégories
+GUEST_LIST_CATEGORY_REMOVE=Retirer Catégories
+GUEST_LIST_DISTRIBUTOR_CREATE=Créer la distribution
+GUEST_LIST_DATA_EXPORT=Fichier de contrôle de l'exportation
+GUEST_LIST_CONFIRM_ACTION=S'il vous plaît confirmer l'action suivante
+GUEST_LIST_DIDNT_CHANGE=La liste des invités n'a pas été modifié
+GUEST_LIST_EXPAND_ONE=La liste des invités a été élargi à un invité
+GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=La liste des invités a été
+GUEST_LIST_EXPAND_MULTIPLE_PART_TWO=élargi à un invité
+GUEST_LIST_HINT_EXPORT_GUEST=Si vous marquez les clients individuels, seuls ceux qui sont exportés, sinon la liste complète
+GUEST_LIST_HINT_FILTER=Lors de la création des fichiers de contrôle ou les listes d'invités ausgewälter filtrer votre top est considéré
+GUEST_LIST_HINT_RED_PERSON=Rouge déposé gens étaient déjà en tant que "supprimer" marqué
+GUEST_LIST_CREATED_NO_PERSON=a été créé sans que les gens
+GUEST_LIST_CREATED_ONE_PERSON=a été créée avec une persone
+GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE=a été
+GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO=créée avec une persone
+GUEST_LIST_NO_GUEST_INVITED=Aucun client étaient encore invités
+GUEST_LIST_NUMBER_CALCULATE=Calculer le nombre de série
+GUEST_LIST_NUMBER_CALCULATED_SAVED=Le " numéro de série " était pour tous les clients calculées et stockées nouvelle
+GUEST_LIST_ONLY_OPEN=Ouvrir seulement
+GUEST_LIST_ONLY_ACCEPT=seuls engagements
+GUEST_LIST_ONLY_DECLINED=seulement refus
+GUEST_LIST_ONLY_PARTICIPATE=seulement la participation
+GUEST_LIST_PERSON_DATA_RELOAD=Recharger Tout données de base
+GUEST_LIST_RESERVE=R
+GUEST_LIST_SEARCH_PERSON_ADD=Trouver des gens et l'ajouter à la liste des invités
 
-#gastdetails
-gastdetails=Invit\u00E9 D\u00E9tails
-funktion=fonction
-Siebearbeitenhierau\u00DFchlie\u00DFlichPersonendatenimRahmenderaktuellenVeranstaltung,keinegrundlegendenStammdaten.=Modifier ici exclusivement des donn\u00E9es personnelles dans le contexte de l'actualit\u00E9, pas de donn\u00E9es de base de base.
-istgastgeber:=h\u00F4tes:
-reserve=r\u00E9serve
-aufstammdatenzur\u00FCcksetzen=Reset pour Master Data
-stammdatenbearbeiten=Modification des donn\u00E9es de base
+# GAESTELISTE ERSTELLEN
+GUEST_LIST_CREATE=Créer une liste d'invités
+SELECT_OUTPUT_FORMAT=Sélectionnez le format de sortie
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Liste regroupés par catégories - avec des partenaires
+LIST_GROUP_BY_CATEGORY_WITH_TEL=Liste regroupés par catégories - avec Tel et le téléphone mobile.
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Liste regroupés par catégories - avec les partenaires et Fax
+LIST_SORT_PARTNER_TEL=Liste par tri -avec Partner , Tél . Et téléphone mobile
+SORT_CRITERIA=Les critères de tri
+SORT_AFTER=Trier par
+CONTINUAL_NUMBER=numéro de série
+anschliesendnach=puis, après
+zusatzlichesortierungnach=Supplémentaires Trier par
 
-#dokumenttypen
-dokumenttypw\u00E4hlen=S\u00E9lectionnez Type de document
-mitgliedsausweis=carte de membre
-etikett=\u00E9tiquette
-tischkarte=carte d'endroit
-adre\u00DFtypundzeichensatzw\u00E4hlen=Type d'adresse et de choisir le jeu de caract\u00E8res
-adre\u00DFtyp=Type d'adresse
-zeichensatz=Charset
+# GASTDETAILS
+GUEST_DETAIL_HINT_GUEST_HOST=Comment hôtes
+GUEST_DETAIL_HINT_ORGANISATION_TEAM=Comment Organisation
+GUEST_DETAIL_INVITATION_STATUS=Statut d'invitation
+GUEST_DETAIL_SEAT_NUMBER=Numéro de table
+GUEST_DETAIL_TABLE_NUMBER=Numéro de cours
+gastdetails=Invité Détails
+HINT_GUEST_LIST_EDIT_PERSONDATA=Modifier ici les données personnelles exclusivement dans le contexte des événements actuels, pas de données de base de base.
+istgastgeber=l'hôte
+reserve=Reserve
+aufstammdatenzurucksetzen=Revenir aux données de base
+stammdatenbearbeiten=Modification des données de base
+
+# DOKUMENTTYPEN
+dokumenttypwahlen=Sélectionnez le type de document
+mitgliedsausweis=la carte de membre
+etikett=étiquette
+tischkarte=lieu carte
+adresstypundzeichensatzwahlen=Choisissez le type d'adresse et jeu de caractères
+adresstyp=type d'adresse
 datenbearbeiten=Modifier les informations
-verbinder=connecteur
-freitextfeld=champ de texte libre
-freitextfeld=champ de texte libre (Partner)
-anrede=Salutation (Partner)
-Aka.titel=Alias. Titre (Partner)
-vorname=pr\u00E9nom (Partner)
-nachname=Nom (Partner)
+verbinder=interconnexions
+freitextfeldpartner=Champ de texte libre (Partenaire)
+akatitel=Niveau académique (Partenaire)
 kontaktdaten=contact
-stra\u00DFe=rue
-plz=code postal
-ort=lieu
-postfachplz=CP CP
-nummer=num\u00E9ro
-iban=iban
-bic=bic
-land=pays
-telefon=t\u00E9l\u00E9phone
-fax=Fax
-e-mail=e-mail
-www=www
-mobil=portable
-zur\u00FCckzudenveranstaltungsdetails=Retour aux d\u00E9tails de l'\u00E9v\u00E9nement
+strase=Rue
+postfachplz=boîte de bureau de poste / code postale
+nummer=Nombre
+zuruckzudenveranstaltungsdetails=Retour aux détails de l'événement
 
-#personbearbeiten/dokumenttypen/bearbeiten
-dokumenttypbearbeiten=Type de document \u00C9dition
-dokument-id=Document ID
-dokument-name=Nom du document
-dokumenttypspeichern=Document de magasin de type
-zur\u00FCckzurdokumenttypenliste=Retour \u00E0 la liste Type de document
-anmeldedatenerzeugen=g\u00E9n\u00E9rer des informations d'identification
-personkopieren=copie personne
-etiketterzeugen=\u00E9tiquette de produits
-einerveranstaltungzuordnen=Affectation d'un \u00E9v\u00E9nement
-personl\u00F6schen=supprimer une personne
-statistik=statistiques
-EsliegenkeineKategorienundEreigni\u00DFevor=Il n'y a pas de cat\u00E9gories et d'\u00E9v\u00E9nements avant
-Beigr\u00FCnhinterlegtenEintr\u00E4genhandeltessichumwiederkehrendeEreigni\u00DFe.=En vert soulign\u00E9 entr\u00E9es est \u00E9v\u00E9nements r\u00E9currents.
+# PERSON BEARBEITEN/DOKUMENTTYPEN/BEARBEITEN
+dokumenttypbearbeiten=Modifier le type de document
+dokument-id=Document-ID
+dokument-name=Document-Nom
+dokumenttypspeichern=Enregistrer Type de document
+zuruckzurdokumenttypenliste=Retour à la liste Type de document
+anmeldedatenerzeugen=Générer des informations d'identification
+esliegenkeinekategorienundereignissevor=Il n'y a pas de catégories et d'événements avant
+beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=En vert souligné entrées est événements récurrents.
 
-#suchen&ersetzeninpersonendaten
-einzelnersetzen=remplacer individuellement
-alleersetzen=Remplace Tout
+# SUCHEN & ERSETZEN IN PERSONENDATEN
 
-#verteilerdetails
-verteilerdetails:=D\u00E9tails de distribution:
+# VERTEILERDETAILS
+verteilerdetails=Détails de la répartition
 verteilerversenden=Envoyer distribution
-e-mail-clientaufrufen=client appelant e-mail
+e-mail-clientaufrufen=Appel client E -mail
 
-WillkommenbeiVerAweb=Bienvenue \u00E0 VerA.web
-WELCOME_TEXT_ONE=Avec VerA.web, vous pouvez exporter et importer les donn\u00E9es de r\u00E9f\u00E9rence et les remarques personnelles,
-WELCOME_TEXT_TWO= afficher les informations des \u00E9v\u00E8nements, les modifier ou les supprimer. En outre, vous pouvez afficher et modifier les options globales des mandants.
-WELCOME_TEXT_THREE=Pour obtenir des renseignements suppl\u00E9mentaires, veuillez presser sur "Aide".
-WELCOME_TEXT_FOUR=
-WELCOME_TEXT_FIVE=
-WELCOME_TEXT_SIX=
-WELCOME_TEXT_SEVEN=
-WELCOME_TEXT_EIGHT=
-WELCOME_TEXT_TEN=
-WELCOME_TEXT_ELEVEN=
-WELCOME_TEXT_AND=
-WELCOME_TEXT_TWELVE=
-WELCOME_TEXT_THIRTEEN=
-WELCOME_TEXT_FOURTEEN=
-WELCOME_TEXT_FIFTEEN=
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# FEHLEND
+zurstartseite=Page d'accueil
+solldieneuekategorie=Si la nouvelle catégorie
+einsortiertwerden=être triés?
+pflichtfelder=Les champs obligatoires
+markiertekategorien=Catégorie sélectionnée
+markiertekategorienloschen=Supprimer Catégories sélectionnés
+alledemarkieren=Marque tout
+furalleveranstaltungen=Pour tous les événements
+speichern=Sauver
+anderungsprotokollfurdenzeitraum=Changez Connexion pour la période
+objekt=propriété
+objektid=propriété-Id
+artderanderung=Type de changement
+geandertefelder=champs modifiés
+datumauswahlen=choisir une date
+folgendeaktionen=les actions suivantes
+wurden=ÉTAIENT
+durchgefuhrt=accompli
+konnen=boîte
+aktuallisieren=Actualiser
+cleanupjetztunwiderruflichdurchfuhren=Nettoyage désormais effectuer de manière irrévocable.
+essindderzeitkeinecleanupsmoglichnotig=Il n'y a pas de nettoyages possibles / nécessaires
+nochkeineauswahlgetroffen=Aucune sélection
+oberflachenbeschriftungen=les étiquettes de surface
+zusatzfelder=champs supplémentaires
+eswurdeeinzusatzfeld=Il y avait un champ supplémentaire
+angelegt=établi
+geandert=modifié
+geloscht=supprimé
+feldbezeichnung=nom de domaine
+eingabetyp=Type d'entrée
+erfolgreichgespeichert=Enregistrée avec succès !
+markiertendokumenttypen=Favoris type de document
+eigenesdokumentfurpartner=Document privé pour les partenaires
+sortierreihenfolge=L'ordre de tri
+gastgebermitausgeben=Hôtes avec sortie
+iststandardfursteuerdatei=Est la norme pour le fichier de contrôle
+format=Format
+HINT_EXPORT_FORMAT=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei),xls steht f\u00FCr Microsoft Office (xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
+HINT_EVENT_IDENTIFICATION=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
+wirklichloschen=Wirklich l\u00F6schen
+zumpersonenimport=Pour les personnes -Import
+importstatus=Importer Statut
+importstatusvorhandenedublettenbearbeiten=Importer Statut : modifier les doublons existants
+bittemarkierensiediezuimportierendenpersonen=S'il vous plaît choisir d'importer personnes .
+dublettendiedurchden=Doublons générés par le
+importhinzugefugtwerdenwurden=Importer serait ajouté
+sindmiteinercheckboxgekennzeichnetdarunterbefindensichdiebereitsimsystemvorhandenenentsprechendendatensatze=,sont marqués avec une case à cocher. Parmi ceux-ci sont déjà présents dans le système, les enregistrements correspondants.
+umeinedubletteindenimportzuintegrierenmussensiesieubernehmen=Pour intégrer un doublet dans l'importation, vous devez prendre en charge.
+alsdubletteubernehmen=Prenez comme un doublon
+markiertepersonenalsdubletteubernehmen=Prenez personne(s) sélectionné en tant que duplicata
+anzahlzuspeicherndedubletten=Nombre de stocker les doublons
+eswurdenkeineeintragegefunden=Aucun élément n'a été trouvé.
+zuruckzumpersonenimport=Retour aux personnes importation
+fehlermeldung=Message d'erreur
+beiderbearbeitungihreranfrageisteinfehleraufgetretenbittemeldensiediesihremadministrator=Traitement de votre demande une erreur est survenue. S'il vous plaît le signaler à votre administrateur.
+unbekannterfehler=Erreur inconnue.
+markiertenkategorien=Catégories marques
+markiertenkategorienentfernen=Supprimer l'utilisateur sélectionné catégorie 
+bitteauswahlen=S'il vous plaît sélectionnez
+dieveranstaltungandersiegeradegearbeitethabenwurdevoneinemanderenanwendergeloschtsiekonnennuneineneueveranstaltunganlegenoderanderweitigmitverawebarbeiten=L'événement , auquel vous venez travaillé , a été supprimé par un autre utilisateur . Vous pouvez maintenant créer un nouvel événement ou travailler autrement VerA.web .
+bittebestatigensiedasspeicherndieserveranstaltung=S'il vous plaît confirmer l'enregistrement de cet événement
+keingastgeberausgewahlt=Aucun hôte sélectionnée
+kurzbezeichnung=court terme
+maximalelangederwarteliste=La longueur maximale de la liste d'attente
+sollendiestammdatenumdiesenorterweitertwerden=Si les données de base est étendue à un certain endroit
+markiertendokumenttypenentfernen=Supprimer la sélection type de document
+eswurdenkeinedokumenttypengefunden=Pas de types de documents ont été trouvés.
+markiertenamtsbezeichnungen=Titre officiel Sélectionné
+markiertenamtsbezeichnungenentfernen=Supprimer Titre officiel Sélectionné
+zurveranstaltungssuche=Pour la recherche de l'événement
+veranstaltungssuche=recherche de l'événement
+suchergebnis=Résultat de la recherche
+bitteklickensieeinederaufgelistetenveranstaltungenanumdiegastezuubernehmen=S'il vous plaît cliquer sur l'un des événements énumérés à recevoir des visiteurs.
+bitteklickensieeinederaufgelistetenveranstaltungenanumdiepersondieserveranstaltungzuzuordnen=S'il vous plaît cliquer sur l'un des événements énumérés à associer la personne de cet événement .
+bitteklickensieeinederaufgelistetenpersonenanumdiesealsgastgeberzuuebernehmen=S'il vous plaît cliquer sur l'une des personnes énumérées dans le but de mettre en œuvre ce que un hôte.
+loschenvonveranstaltungenistnichtmoglich=Suppression des événements est pas possible
+weiteremeldungen=plusieurs messages.
+bittebestatigensiedasloschendermarkiertenveranstaltungen=S'il vous plaît confirmer la suppression des événements sélectionnés !
+markierteveranstaltungloschen=Supprimer l'événement sélectionné
+abbrechen=avorter
+markierteveranstaltungen=Événement sélectionné 
+markierteveranstaltungenloschen=Supprimer les événements sélectionnés
+zuruckzurgasteverwaltung=Retour à Gestion des clients
+zuruckzurgasteliste=Retour à la liste des invités
+zuruckzurveranstaltungsdetails=Retour aux détails de l'événement
+zuruckzurveranstaltungsstatistiken=Retour à Statistiques de l'événement
+zuruckzurveranstaltungsaufgabe=Retour à la tâche d'événement
+zuruckzurpersonensuche=Retour à la recherche de personnes
+zuruckzusuchenundersetzen=Retour à la recherche , et son remplacement par ce
+zuruckzurveranstaltungssuche=Retour à la recherche de l'événement
+wahlensiebittezunachsteineodermehrereveranstaltungenaus=S'il vous plaît d'abord choisir à partir d'un ou plusieurs événements .
+nurinzuunftigenveranstaltungensuchen=Rechercher Seuls les événements futurs
+zuruck=antérieur
+siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehrereunddasfureinzelnezeichen=Vous pouvez trouver une utilisation dite espace réservé * représente un nombre et la ? pour les caractères individuels.
+bittebestatigensiedasspeicherndieseraufgabe=S'il vous plaît confirmer que vous enregistrez cet objet
+verantworlichenhinzufugen=Ajouter partie responsable
+verantworlichenentfernen=Retirer partie responsable
+loschenvonaufgabenistnichtmoglich=Parti supprimer responsable supprimer des tâches est pas possible
+bittebestatigensiedasloschenvonaufgaben=S'il vous plaît confirmer la suppression de tâches
+ausgewahlteeintrageloschen=Supprimer les éléments sélectionnés
+start=Démarrer
+zursuche=aller à la recherche
+siesindalsvolladministratorangemeldetundexportierenhiermitmandantenubergreifend=Ils sont connus comme compte "pleine administrateur" et l'exportation par les présentes à travers clients.
+sieexportierenmitdieserfunktionausschlieszlichpersonenausihremaktuellenmandanten=Exporter cette fonction seulement les gens de vos clients actuels.
+event=Evénement
+keine=Non
+category=Categorie
+weitereoptionen=plus d'options
+anmerkung=note
+anmerkungen=notes
+markiertebezeichnunge=nom sélectionné
+markierteeintrageentfernen=Supprimer les éléments sélectionnés
+eswurdenkeinedatengefunden=Aucune donnée trouvée
 
 
 
