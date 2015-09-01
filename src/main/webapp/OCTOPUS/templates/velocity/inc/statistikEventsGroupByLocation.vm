@@ -12,7 +12,7 @@
         </td>
 		<td class="kategorieName" style="width: 25%;">
             <nobr>
-                <strong>${placeholderWithTranslation.gastgeber}</strong>
+                <strong>${placeholderWithTranslation.GENERIC_HOST}</strong>
             </nobr>
         </td>
 		<td class="kategorieName" style="width: 15%;">

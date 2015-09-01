@@ -7,7 +7,7 @@
         </td>
 		<td class="kategorieName" style="width: 15%;">
             <nobr>
-                <strong>${placeholderWithTranslation.beginn}</strong>
+                <strong>${placeholderWithTranslation.GENERIC_BEGIN}</strong>
             </nobr>
         </td>
 		##<td class="kategorieName" style="width: 15%;">
@@ -51,7 +51,7 @@
 			#set($count = 0)
 			#set($subhead = 0)
 			<div class="kategorie">
-                <em>${placeholderWithTranslation.GENERIC_NO_GUST_FOUND}</em>
+                <em>${placeholderWithTranslation.GENERIC_NO_GUEST_FOUND}</em>
             </div>
 		#elseif($bean.subhead)
 			#if($count > 0)

@@ -6,7 +6,7 @@
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}" > ${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.programmeinstellungen} </span>
+        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}" > ${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_PROGRAM_PREFERENCES} </span>
     </div>
 
     <h1>${placeholderWithTranslation.GENERIC_PROGRAM_PERFERENCES}</h1>
@@ -141,7 +141,7 @@
                 		</td>
                 	</tr>
                 	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD}-${placeholderWithTranslation.CONNECTOR}:</td>
+                		<td class="bold width25">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD}-${placeholderWithTranslation.GENERIC_CONNECTOR}:</td>
                 		<td><input type="text" name="freitextfeldverbinder" maxlength="300" value="$!message.plain($config.freitextfeldverbinder)" ></td>
                 	</tr>
                 	<tr>

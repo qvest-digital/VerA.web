@@ -72,10 +72,10 @@
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
+                            			<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                             			<option value="table">${placeholderWithTranslation.tisch}</option>
                             ## modified to support workareas as per change request for version 1.2.0
                             ## cklein
@@ -84,10 +84,10 @@
                             #else
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
+                            			<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                             			<option value="table">${placeholderWithTranslation.tisch}</option>
                             ## modified to support workareas as per change request for version 1.2.0
                             ## cklein
@@ -105,10 +105,10 @@
                             #if($search.listorder == "lastname_a_e1" || $search.listorder == "firstname_a_e1" || $search.listorder == "mail_a_e1")
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name">${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
+                            			<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
                             			<option value="category" selected>${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                             			<option value="table">${placeholderWithTranslation.tisch}</option>
                             ## modified to support workareas as per change request for version 1.2.0
                             ## cklein
@@ -117,10 +117,10 @@
                             #else
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
+                            			<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                             			<option value="table">${placeholderWithTranslation.tisch}</option>
                             ## modified to support workareas as per change request for version 1.2.0
                             ## cklein
@@ -138,10 +138,10 @@
                             			<option value=""></option>
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
+                            			<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                             			<option value="table">${placeholderWithTranslation.tisch}</option>
                             ## modified to support workareas as per change request for version 1.2.0
                             ## cklein
@@ -151,10 +151,10 @@
                             			<option value="" selected></option>
                             			<option value="orderno">${placeholderWithTranslation.CONTINUAL_NUMBER}</option>
                             			<option value="name" selected>${placeholderWithTranslation.GENERIC_NAME}</option>
-                            			<option value="country">${placeholderWithTranslation.land}</option>
-                            			<option value="zipcode">${placeholderWithTranslation.plz}</option>
+                            			<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+                            			<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
                             			<option value="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</option>
-                            			<option value="rank">${placeholderWithTranslation.rang}</option>
+                            			<option value="rank">${placeholderWithTranslation.GENERIC_RANK}</option>
                             			<option value="table">${placeholderWithTranslation.tisch}</option>
                             ## modified to support workareas as per change request for version 1.2.0
                             ## cklein

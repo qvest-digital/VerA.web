@@ -1001,9 +1001,9 @@ eswurdenkeinedatengefunden=No se han encontrado datos
 
 eswurdenkeinedatengefunden=No se han encontrado datos
 siehabenkeinedatenherkunftangegeben=Los datos de origen no han sido especificados.
-HINT_EXPORT_NOT_POSSIBLE_OPENOFFICE=Ha intentado importar un archivo de OpenOffice. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web. Por favor, guarde su archivo como archivo-CSV mediante su programa de hojas de c\u00E1lculo.
-HINT_EXPORT_NOT_POSSIBLE_STAROFFICE=Ha intentado importar un archivo de StarOffice. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web. Por favor, guarde su archivo como archivo-CSV mediante su programa de hojas de c\u00E1lculo.
-HINT_EXPORT_NOT_POSSIBLE_EXCEL=Ha intentado importar un archivo Excel. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web. Por favor, guarde su archivo como archivo-CSV mediante su programa de hojas de c\u00E1lculo.
+HINT_IMPORT_NOT_POSSIBLE_OPENOFFICE=Ha intentado importar un archivo de OpenOffice. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web. Por favor, guarde su archivo como archivo-CSV mediante su programa de hojas de c\u00E1lculo.
+HINT_IMPORT_NOT_POSSIBLE_STAROFFICE=Ha intentado importar un archivo de StarOffice. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web. Por favor, guarde su archivo como archivo-CSV mediante su programa de hojas de c\u00E1lculo.
+HINT_IMPORT_NOT_POSSIBLE_EXCEL=Ha intentado importar un archivo Excel. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web. Por favor, guarde su archivo como archivo-CSV mediante su programa de hojas de c\u00E1lculo.
 HINT_IMPORT_NOT_POSSIBLE_PDF=Ha intentado importar un archivo PDF. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web.
 HINT_IMPORT_NOT_POSSIBLE_ZIP=Ha intentado importar un archivo ZIP. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web.
 HINT_IMPORT_NOT_POSSIBLE_EXE=Ha intentado importar un archivo EXE. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web.
@@ -1487,7 +1487,7 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=\u00BFUtilizar los datos de rango de 
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reiniciar todos los valores mediante datos maestros
 GUEST_LIST_EDIT_MASTER_DATA=Editar datos maestros de personas
 GUEST=Invitad
-GENERIC_OF_Capital=de
+GENERIC_OF_CAPITAL=de
 GENERIC_ASSIGN=Aceptar
 GENERIC_CANCEL=Cancelar
 GENERIC_DELETE=Eliminar
@@ -1707,3 +1707,4 @@ PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=\u00BFDebe la persona actua
 
 # PERSON HEADER TEXTS
 PERSON_HEADER_NO_DOCTYPE_CONFIG=No se ha configurado ning\u00FAn tipo de documento.
+

@@ -8,7 +8,7 @@
 
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
     </div>
     <h1>${placeholderWithTranslation.gasteverwaltungderveranstaltung}: $!message.plain($event.shortname)</h1>
 
@@ -87,7 +87,7 @@
 							<select id="select-locale" name="select-locale">
                     			<option value="1" #if($guestdoctype.locale == 1) selected#end>${placeholderWithTranslation.GENERIC_LATIN}</option>
                     			<option value="2" #if($guestdoctype.locale == 2) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 1</option>
-                    			<option value="3" #if($guestdoctype.locale == 3) selected#end>${placeholderWithTranslation.zeichenstaz} 2</option>
+                    			<option value="3" #if($guestdoctype.locale == 3) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 2</option>
                     		</select>
 
 						</div>
@@ -102,7 +102,7 @@
 				<div class="table width100 marginBottom40">
 					<div class="tableRow">
 						<div class="tableCell width50">
-							<label for="guestdoctype-textfield">${placeholderWithTranslation.freitextfeld}</label>
+							<label for="guestdoctype-textfield">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD}</label>
 							<textarea id="guestdoctype-textfield" name="guestdoctype-textfield" >$!message.textarea($guestdoctype.textfield)</textarea>
 						</div>
 						<div class="tableCell width50">
@@ -131,7 +131,7 @@
 						</div>
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-titel">${placeholderWithTranslation.akadtitel}</label>
+								<label for="guestdoctype-titel">${placeholderWithTranslation.GENERIC_ACAD_TITLE}</label>
 								<input type="text" id="guestdoctype-titel" maxlength="250" name="guestdoctype-titel" value="$!message.text($guestdoctype.titel)" />
 							</div>
 						</div>
@@ -167,25 +167,25 @@
 					<div class="table width100">
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-salutation_p">${placeholderWithTranslation.GENERIC_SALUTATION_SINGULAR} (${placeholderWithTranslation.PARTNER})</label>
+								<label for="guestdoctype-salutation_p">${placeholderWithTranslation.GENERIC_SALUTATION_SINGULAR} (${placeholderWithTranslation.GENERIC_PARTNER})</label>
 								<input type="text" id="guestdoctype-salutation_p" maxlength="50" name="guestdoctype-salutation_p" value="$!message.text($guestdoctype.salutation_p)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-titel_p">${placeholderWithTranslation.akadtitel} (${placeholderWithTranslation.GENERIC_PARTNER})</label>
+								<label for="guestdoctype-titel_p">${placeholderWithTranslation.GENERIC_ACAD_TITLE} (${placeholderWithTranslation.GENERIC_PARTNER})</label>
 								<input type="text" id="guestdoctype-titel_p" maxlength="250" name="guestdoctype-titel_p" value="$!message.text($guestdoctype.titel_p)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-firstname_p">${placeholderWithTranslation.GENERIC_FIRSTNAME} (${placeholderWithTranslation.PARTNER})</label>
+								<label for="guestdoctype-firstname_p">${placeholderWithTranslation.GENERIC_FIRSTNAME} (${placeholderWithTranslation.GENERIC_PARTNER})</label>
 								<input type="text" id="guestdoctype-firstname_p"maxlength="100" name="guestdoctype-firstname_p" value="$!message.text($guestdoctype.firstname_p)" />
 							</div>
 						</div>
 						<div class="tableRow">
 							<div class="tableCell">
-								<label for="guestdoctype-lastname_p">${placeholderWithTranslation.GENERIC_LASTNAME} (${placeholderWithTranslation.PARTNER})</label>
+								<label for="guestdoctype-lastname_p">${placeholderWithTranslation.GENERIC_LASTNAME} (${placeholderWithTranslation.GENERIC_PARTNER})</label>
 								<input type="text" id="guestdoctype-lastname_p" maxlength="100" name="guestdoctype-lastname_p" value="$!message.text($guestdoctype.lastname_p)" />
 							</div>
 						</div>
@@ -242,7 +242,7 @@
 								<input type="text" id="guestdoctype-suffix1" maxlength="100" name="guestdoctype-suffix1" value="$!message.text($guestdoctype.suffix1)" />
 							</div>
 							<div class="tableCell width50">
-								<label for="guestdoctype-www">${placeholderWithTranslation.www}</label>
+								<label for="guestdoctype-www">${placeholderWithTranslation.LETTERS_WWW}</label>
 								<input type="text" maxlength="250" id="guestdoctype-www" name="guestdoctype-www" value="$!message.text($guestdoctype.www)" >
 							</div>
 						</div>
@@ -252,7 +252,7 @@
 								<input type="text" id="guestdoctype-suffix2" maxlength="100" name="guestdoctype-suffix2" value="$!message.text($guestdoctype.suffix2)" />
 							</div>
 							<div class="tableCell width50">
-								<label for="guestdoctype-mobil">${placeholderWithTranslation.mobil}</label>
+								<label for="guestdoctype-mobil">${placeholderWithTranslation.GENERIC_MOBILE}</label>
 								<input type="text" maxlength="100" id="guestdoctype-mobil" name="guestdoctype-mobil" value="$!message.text($guestdoctype.mobil)" />
 							</div>
 						</div>

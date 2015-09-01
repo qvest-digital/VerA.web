@@ -999,9 +999,9 @@ markiertebezeichnunge=Markierte Bezeichnung(en)
 markierteeintrageentfernen=Markierte Eintr\u00E4ge entfernen
 eswurdenkeinedatengefunden=Es wurden keine Daten gefunden
 siehabenkeinedatenherkunftangegeben=Sie haben keine Datenherkunft angegeben.
-HINT_EXPORT_NOT_POSSIBLE_OPENOFFICE=Sie haben versucht eine OpenOffice-Datei zu importieren.Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
-HINT_EXPORT_NOT_POSSIBLE_STAROFFICE=Sie haben versucht eine StarOffice-Datei zu importieren.Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
-HINT_EXPORT_NOT_POSSIBLE_EXCEL=Sie haben versucht eine Microsoft Excel-Datei zu importieren.Der direkte Import von Excel-Dokumenten ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
+HINT_IMPORT_NOT_POSSIBLE_OPENOFFICE=Sie haben versucht eine OpenOffice-Datei zu importieren.Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
+HINT_IMPORT_NOT_POSSIBLE_STAROFFICE=Sie haben versucht eine StarOffice-Datei zu importieren.Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
+HINT_IMPORT_NOT_POSSIBLE_EXCEL=Sie haben versucht eine Microsoft Excel-Datei zu importieren.Der direkte Import von Excel-Dokumenten ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
 HINT_IMPORT_NOT_POSSIBLE_PDF=Sie haben versucht eine PDF-Datei zu importieren.Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
 HINT_IMPORT_NOT_POSSIBLE_ZIP=Sie haben versucht eine ZIP-Datei zu importieren.Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
 HINT_IMPORT_NOT_POSSIBLE_EXE=Sie haben versucht eine EXE-Datei zu importieren.Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
@@ -1484,7 +1484,7 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Soll der Rang der Kategorie aus den S
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zur\u00FCcksetzen
 GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
 GUEST=Gast
-GENERIC_OF_Capital=Von
+GENERIC_OF_CAPITAL=Von
 GENERIC_ASSIGN=Zuweisen
 GENERIC_CANCEL=Abbrechen
 GENERIC_DELETE=Entfernen
@@ -1704,3 +1704,4 @@ PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=Soll diese Person wirklich 
 
 # PERSON HEADER TEXTS
 PERSON_HEADER_NO_DOCTYPE_CONFIG=Es wurde kein Dokumenttyp zur Vorschauanzeige konfiguriert.
+

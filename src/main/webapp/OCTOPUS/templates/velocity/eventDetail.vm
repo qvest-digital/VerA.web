@@ -177,7 +177,7 @@
 
 							<div class="tableRow">
 								<div class="tableCell width50">
-									<label for="event-invitationtype">${placeholderWithTranslation.einladungsart}</label>
+									<label for="event-invitationtype">${placeholderWithTranslation.EVENT_INVITATION_TYPE}</label>
 									<select onchange="setModified();" class="autoWidth" id="event-invitationtype" name="event-invitationtype">
 										<option #if($event.invitationtype && $event.invitationtype == 1) selected #end value="1">${placeholderWithTranslation.EVENT_INVITATION_TYPE_WITH_PARTNER}</option>
 										<option #if($event.invitationtype && $event.invitationtype == 2) selected #end value="2">${placeholderWithTranslation.EVENT_INVITATION_TYPE_WITHOUT_PARTNER}</option>
@@ -202,7 +202,7 @@
 
 							<div class="tableRow">
 								<div class="tableCell width50">
-									<label for="event-maxguest">${placeholderWithTranslation.maximalanzahlgaste}</label>
+									<label for="event-maxguest">${placeholderWithTranslation.EVENT_MAX_GUEST}</label>
 									<input type="text" onchange="setModified();" class="int" id="event-maxguest" value="$!message.plain($event.maxguest)" name="event-maxguest">
 								</div>
 								<div class="tableCell width50 inlineLabel">

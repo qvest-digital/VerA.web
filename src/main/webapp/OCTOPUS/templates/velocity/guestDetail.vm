@@ -7,7 +7,7 @@
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
-            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.veranstaltungbearbeiten}</span>
+            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
     </div>
     <h1>${placeholderWithTranslation.gasteverwaltungderveranstaltung}: $!message.plain($event.shortname)</h1>
 
@@ -229,7 +229,7 @@
                                	${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_MAIN_PERSON}.
 				${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PERSON_PART1}
                                 <a href="javascript:setGuestInvitationtype(1);">
-				${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PERSON_PART_BUTTON}
+				${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON}
 				</a>?
                             </vera-info>
                         </div>

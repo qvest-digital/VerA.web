@@ -159,7 +159,7 @@
 
 
 	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > #if($person && $person.id)${placeholderWithTranslation.personbearbeiten}#else ${placeholderWithTranslation.personanlegen}#end</span>
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > #if($person && $person.id)${placeholderWithTranslation.GENERIC_EDIT_PERSON}#else ${placeholderWithTranslation.personanlegen}#end</span>
 	</div>
 
 	<h1>$title</h1>
