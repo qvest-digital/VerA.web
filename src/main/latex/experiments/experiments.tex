@@ -19,6 +19,7 @@
 % of said person’s immediate fault when using the work as intended.
 
 \documentclass{tarentanleitung}
+\usepackage{tikz}
 \begin{document}
 
 \input{version.inc}
@@ -29,6 +30,11 @@
 \input{toc.inc}
 
 \section{Experimente}
+
+\subsection{tikz/pgf}
+
+\tikz \draw[thick,rounded corners=8pt]
+  (0,0) -- (0,2) -- (1,3.25) -- (2,2) -- (2,0) -- (0,2) -- (2,2) -- (0,0) -- (2,0);
 
 \subsection{Seitenbreite}
 
