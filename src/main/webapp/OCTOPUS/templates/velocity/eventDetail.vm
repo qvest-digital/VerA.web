@@ -150,7 +150,7 @@
 													</script>
 												</span>
 											#end
-										um <input type="text" name="event-begintime" id="event-begintime" #if($event-beginhastime) value="$!message.date("TIME", $event.begin)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-begintime">${placeholderWithTranslation.GENERIC_OCLOCK}</label>
+										${placeholderWithTranslation.GENERIC_AT} <input type="text" name="event-begintime" id="event-begintime" #if($event-beginhastime) value="$!message.date("TIME", $event.begin)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-begintime">${placeholderWithTranslation.GENERIC_OCLOCK}</label>
 									</div>
 
 									<label for="event-end">${placeholderWithTranslation.GENERIC_END}</label>
@@ -170,7 +170,7 @@
 													</script>
 												</span>
 											#end
-										um <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-endtime">${placeholderWithTranslation.GENERIC_OCLOCK}</label>
+										${placeholderWithTranslation.GENERIC_AT} <input type="text" name="event-endtime" id="event-endtime" #if($event-endhastime) value="$!message.date("TIME", $event.end)" #else value="" #end class="width15" onchange="setModified();"> <label class="inline" for="event-endtime">${placeholderWithTranslation.GENERIC_OCLOCK}</label>
 									</div>
 								</div>
 							</div>
