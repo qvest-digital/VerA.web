@@ -1,39 +1,36 @@
 <form action="default" method="post" target="_top" onsubmit="if(document.getElementById('loginasproxy').checked) { this.action = 'LoginAsProxy'; this.task.value = 'LoginAsProxy'; }">
-<h1 class="marginTop25">Iniciar sesión</h1>
+<h1 class="marginTop25">Se connecter</h1>
 
 <div class="table">
     <div class="tableRow">
         <div class="tableCell">
-        	<label for="input.username">Nombre de usuario</label>
+        	<label for="input.username">Nom d'utilisateur</label>
         	<input type="text" id="input.username" name="username">
         </div>
     </div>
     <div class="tableRow">
         <div class="tableCell">
-        	<label for="input.password">Contraseña</label>
+        	<label for="input.password">Mot de passe</label>
         	<input type="password" id="input.password" name="password">
         </div>
     </div>
     <div class="tableRow">
         <div class="tableCell inlineLabel">
-        	<label for="loginasproxy">Acceder como representante</label>
+        	<label for="loginasproxy">Se connecter en tant que représentant</label>
         	<input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
         </div>
     </div>
 </div>
 
 <div id="buttonPanel-bottom" class="marginTop5 marginBottom20">
-	<input type="submit" class="mainButton" value="Acceder" title="${placeholderWithTranslation.GENERIC_LOGIN}" name="submit" id="button.login" />
-	<input type="reset" class="mainButton" value="Borrar" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" name="cancel" id="button.clearFields" />
+	<input type="submit" class="mainButton" value="Connexion" title="Connexion" name="submit" id="button.login" />
+	<input type="reset" class="mainButton" value="Vider" title="Vider les champs" name="cancel" id="button.clearFields" />
 </div>
 
 <div class="hinweis grayBorder marginBottom20 notBold">
-    <strong>AUF FRANZÖSICH!!!! Hinweis FR</strong>
-    <p>AUF FRANZÖSICH!!!! Bitte verwenden Sie Ihr Organisationskennzeichen oder <strong>vorname.nachname</strong> als Benutzernamen</p>
+    <strong>Remarque</strong>
+    <p>S'il vous plaît, veuillez utiliser le signe de votre organisation ou votre prénom.nom comme nom d'utilisateur.</p>
 </div>
-<vera-info vera-stay>
-	${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_ONE} <strong>${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_TWO}</strong> ${placeholderWithTranslation.HINT_LOGIN_ORGANISATION_THREE}
-</vera-info>
 
 <input name="task" type="hidden" value="default">
 <input name="loginlanguage" type="hidden" value="fr_FR">
@@ -41,7 +38,7 @@
 
 #if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin" && $octopusRequest.loginlanguage == "fr_FR")
 <vera-warn>
-	${placeholderWithTranslation.LOGIN_ERROR}
+	Il y avait une erreur lors de l'inscription. S'il vous pla\u00EEt v\u00E9rifier votre nom d'utilisateur et mot de passe.
 </vera-warn>
 #end
 </form>

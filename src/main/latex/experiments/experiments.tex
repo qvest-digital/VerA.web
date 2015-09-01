@@ -19,6 +19,8 @@
 % of said person’s immediate fault when using the work as intended.
 
 \documentclass{tarentanleitung}
+\usepackage{tikz}
+\usetikzlibrary{arrows,backgrounds,fit}
 \begin{document}
 
 \input{version.inc}
@@ -29,6 +31,43 @@
 \input{toc.inc}
 
 \section{Experimente}
+
+\subsection{tikz/pgf}
+
+\begin{tikzpicture}[
+  every node/.style={thick,text=black},
+  every rectangle node/.style={above right,minimum height=10mm},
+  apache/.style={rectangle,draw=Goldenrod,minimum width=35mm},
+  microsvc/.style={rectangle,draw=Orange,minimum width=40mm},
+  webapp/.style={rectangle,draw=red,minimum width=40mm},
+  syssvc/.style={rectangle,draw=Violet,minimum width=25mm},
+  script/.style={rectangle,draw=black,minimum width=25mm},
+  people/.style={rectangle,draw=CornflowerBlue,minimum width=25mm},
+  cloud/.style={circle,draw=green,minimum size=5mm},
+ ]
+
+  \node[apache]   (alam)   at ( 90mm,85mm) {LDAP Account Mgr};
+  \node[apache]   (acore)  at ( 90mm,70mm) {VerA.web-core};
+  \node[apache]   (avwor)  at ( 90mm,55mm) {REST-API};
+  \node[apache]   (avwoa)  at ( 90mm,40mm) {Online-Anmeldung};
+  \node[apache]   (aosiam) at ( 90mm,10mm) {OSIAM} [minimum height=25mm];
+  \node[microsvc] (svwoa)  at ( 40mm,40mm) {VWOA};
+  \node[webapp]   (score)  at ( 40mm,70mm) {core};
+  \node[webapp]   (svwor)  at ( 40mm,55mm) {VWOR};
+  \node[webapp]   (sauth)  at ( 40mm,25mm) {auth-server};
+  \node[webapp]   (srsrc)  at ( 40mm,10mm) {resource-server};
+  \node[syssvc]   (ldap)   at (  5mm,85mm) {LDAP-Server};
+  \node[syssvc]   (dbvw)   at (  5mm,65mm) {veraweb DB};
+  \node[syssvc]   (dbong)  at (  5mm,20mm) {ong DB};
+  \node[script]   (usql)   at (  5mm,50mm) {upgrade.sql};
+  \node[script]   (riosh)  at (140mm,10mm) {register-into-osiam.sh};
+  \node[people]   (admins) at (140mm,85mm) {Admins};
+  \node[people]   (sb)     at (140mm,70mm) {Sachbearbeiter};
+  \node[people]   (guests) at (140mm,40mm) {Gäste};
+  \node[cloud]    (inet)   at (132.5mm,47.5mm) {};
+
+
+\end{tikzpicture}
 
 \subsection{Seitenbreite}
 
@@ -99,9 +138,9 @@ Allerdings will ich den Umbruch und die Verweise testen, daher
 brauche ich hier einen Seitenumbruch.
 
 \begin{figure}[h!]
- \centering\includegraphics[width=.95\textwidth]{tarentlogo}
+ \centering\includegraphics[width=\textwidth]{tarentlogo}
 % \\\the\textwidth
- \caption{Das tarent-Logo auf 95\% Breite}
+ \caption{Das tarent-Logo auf 100\% Breite}
  \label{fig:logotarent}
 \end{figure}
 

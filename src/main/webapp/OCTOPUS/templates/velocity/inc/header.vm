@@ -46,7 +46,7 @@
                                 <div class="inline" id="languagede"><strong>Sprache:</strong></div>
                                 <div class="inline" id="languageen"><strong>Language:</strong></div>
                                 <div class="inline" id="languagees"><strong>Idioma:</strong></div>
-                                <div class="inline" id="languagefr"><strong>SpracheFR:</strong></div>
+                                <div class="inline" id="languagefr"><strong>Langue:</strong></div>
                                 	#if ($translatedNames)
                                 		<select id="languageSelector" name="languageSelector" onchange="changeLanguage(this); changeLoginLanguage(this);">
 											<option value="de_DE"
