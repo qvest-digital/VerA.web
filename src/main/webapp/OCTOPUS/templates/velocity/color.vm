@@ -48,7 +48,7 @@
 			<table>
 				<tr>
 					<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
-					<th class="width15 textCenter">${placeholderWithTranslation.GENERIC_CHROMATICITY}
+					<th class="width20 textCenter">${placeholderWithTranslation.GENERIC_CHROMATICITY}
 					(${placeholderWithTranslation.LETTERS_CHROMATICITY})</th>
 				</tr>
 

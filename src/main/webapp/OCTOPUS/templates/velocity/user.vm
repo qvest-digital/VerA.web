@@ -14,8 +14,8 @@
 
 ##Values in per cent for table columns width
 #set($column0 = 3)
-#set($column1 = 5)
-#set($column2 = 40)
+#set($column1 = 8)
+#set($column2 = 37)
 #set($column3 = 27)
 #set($column4 = 27)
 

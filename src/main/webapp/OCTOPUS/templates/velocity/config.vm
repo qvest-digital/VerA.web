@@ -6,7 +6,7 @@
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
-        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}" > ${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_PROGRAM_PREFERENCES} </span>
+        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}" > ${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_PROGRAM_PERFERENCES} </span>
     </div>
 
     <h1>${placeholderWithTranslation.GENERIC_PROGRAM_PERFERENCES}</h1>

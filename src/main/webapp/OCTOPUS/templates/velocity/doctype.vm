@@ -6,9 +6,9 @@
 
 ##Values in per cent for table columns width
 #set($column0 = 3)
-#set($column1 = 5)
-#set($column2 = 26)
-#set($column3 = 21)
+#set($column1 = 8)
+#set($column2 = 28)
+#set($column3 = 16)
 #set($column4 = 21)
 #set($column5 = 11)
 #set($column6 = 9)
