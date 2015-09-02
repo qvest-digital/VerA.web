@@ -412,6 +412,9 @@ public class ImportPersonsWorker {
                 personDoctype.textfield = (String) importPersonDoctype.get("textfield");
                 personDoctype.textfieldJoin = (String) importPersonDoctype.get("textfieldJoin");
                 personDoctype.textfieldPartner = (String) importPersonDoctype.get("textfieldPartner");
+                personDoctype.addresstype = doctype.addresstype;
+                personDoctype.locale = doctype.locale;
+
                 personDoctype.verify();
                 database.saveBean(personDoctype, context, false);
             }
