@@ -391,34 +391,47 @@ public class ImportPersonsWorker {
      * @param personId ID der Person, als die die ImportPerson importiert wird
      */
     private static void createPersonDoctypes(Database database, ExecutionContext context, Integer importPersonId, Integer personId) throws BeanException, IOException {
-        ImportPersonDoctype sample = (ImportPersonDoctype) database.createBean("ImportPersonDoctype");
-        Select select = database.getSelect(sample);
+        final ImportPersonDoctype sample = (ImportPersonDoctype) database.createBean("ImportPersonDoctype");
+        final Select select = database.getSelect(sample);
         select.where(Expr.equal(database.getProperty(sample, "importperson"), importPersonId));
 
-        List importPersonDoctypes = database.getList(select, context);
+        final List importPersonDoctypes = database.getList(select, context);
         for (Iterator itImportPersonDoctypes = importPersonDoctypes.iterator(); itImportPersonDoctypes.hasNext(); ) {
-            Map importPersonDoctype = (Map) itImportPersonDoctypes.next();
-            String name = (String)importPersonDoctype.get("name");
-            if (name != null) {
-                Doctype doctype = (Doctype) database.getBean("Doctype",
-                        database.getSelect("Doctype").where(Expr.equal("docname", name)), context);
-                if (doctype == null) {
-                	LOGGER.warn( "Der Dokumenttyp '" + name + "' existiert nicht mehr und wird nicht importiert." );
-                    continue;
-                }
-                PersonDoctype personDoctype = (PersonDoctype) database.createBean("PersonDoctype");
-                personDoctype.doctype = doctype.id;
-                personDoctype.person = personId;
-                personDoctype.textfield = (String) importPersonDoctype.get("textfield");
-                personDoctype.textfieldJoin = (String) importPersonDoctype.get("textfieldJoin");
-                personDoctype.textfieldPartner = (String) importPersonDoctype.get("textfieldPartner");
-                personDoctype.addresstype = doctype.addresstype;
-                personDoctype.locale = doctype.locale;
-
-                personDoctype.verify();
-                database.saveBean(personDoctype, context, false);
+            final Map importPersonDoctype = (Map) itImportPersonDoctypes.next();
+            final String doctypeName = (String)importPersonDoctype.get("name");
+            if (doctypeName != null) {
+                handlePersonDoctypeCreation(database, context, personId, importPersonDoctype, doctypeName);
             }
         }
+    }
+
+    private static void handlePersonDoctypeCreation(Database database, ExecutionContext context, Integer personId, Map importPersonDoctype, String name) throws BeanException, IOException {
+        final Doctype doctype = getDoctypeByName(database, context, name);
+        if (doctype == null) {
+            LOGGER.warn( "Der Dokumenttyp '" + name + "' existiert nicht mehr und wird nicht importiert." );
+            return;
+        }
+        final PersonDoctype personDoctype = initPersonDoctype(database, personId, importPersonDoctype, doctype);
+        personDoctype.verify();
+
+        database.saveBean(personDoctype, context, false);
+    }
+
+    private static Doctype getDoctypeByName(Database database, ExecutionContext context, String name) throws BeanException, IOException {
+        final Select getDoctypeByNameStatement = database.getSelect("Doctype").where(Expr.equal("docname", name));
+        return (Doctype) database.getBean("Doctype", getDoctypeByNameStatement, context);
+    }
+
+    private static PersonDoctype initPersonDoctype(Database database, Integer personId, Map importPersonDoctype, Doctype doctype) throws BeanException {
+        final PersonDoctype personDoctype = (PersonDoctype) database.createBean("PersonDoctype");
+        personDoctype.doctype = doctype.id;
+        personDoctype.person = personId;
+        personDoctype.textfield = (String) importPersonDoctype.get("textfield");
+        personDoctype.textfieldJoin = (String) importPersonDoctype.get("textfieldJoin");
+        personDoctype.textfieldPartner = (String) importPersonDoctype.get("textfieldPartner");
+        personDoctype.addresstype = doctype.addresstype;
+        personDoctype.locale = doctype.locale;
+        return personDoctype;
     }
 
     /**
