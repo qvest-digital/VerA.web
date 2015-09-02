@@ -1,4 +1,5 @@
 language=Deutsch
+language_short=de
 
 # BROWSER TAB-TITLE
 BROWSER_TITLE_CATEGORY=Kategorien

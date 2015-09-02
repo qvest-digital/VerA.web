@@ -1,4 +1,5 @@
 language=Espa\u00F1ol
+language_short=es
 
 # BROWSER TAB-TITLE
 BROWSER_TITLE_CATEGORY=Categor\u00EDas

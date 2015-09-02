@@ -14,7 +14,7 @@
 		## Calendar
 		<script type="text/javascript" src="${paths.staticWeb}jscalendar/calendar.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}jscalendar/calendar-setup.js"></script>
-		<script type="text/javascript" src="${paths.staticWeb}jscalendar/lang/calendar-de.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}jscalendar/lang/calendar-${placeholderWithTranslation.language_short}.js"></script>
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}jscalendar/calendar-win2k-cold-1.css" media="all">
 		## Browser-Cache deaktivieren
 		<meta http-equiv="expires" content="0">

@@ -17,7 +17,7 @@
 ##		Calendar (http://www.dynarch.com/projects/calendar/)
 		<script type="text/javascript" src="${paths.staticWeb}jscalendar/calendar.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}jscalendar/calendar-setup.js"></script>
-		<script type="text/javascript" src="${paths.staticWeb}jscalendar/lang/calendar-de.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}jscalendar/lang/calendar-${placeholderWithTranslation.language_short}.js"></script>
 		<script>
 			document.createElement("header");
 			document.createElement("nav");

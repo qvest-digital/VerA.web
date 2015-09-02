@@ -1,4 +1,5 @@
 language=Fran\u00E7ais
+language_short=fr
 
 # BROWSER TAB-TITLE
 BROWSER_TITLE_CATEGORY=Cat\u00E9gorie
