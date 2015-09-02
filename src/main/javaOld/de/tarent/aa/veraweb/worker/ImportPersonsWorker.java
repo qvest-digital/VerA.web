@@ -104,36 +104,37 @@ public class ImportPersonsWorker {
 				Expr.equal("fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()),
 				Expr.equal("deleted", PersonConstants.DELETED_FALSE));
 
-		String fn = sample.firstname_a_e1;
-		String ln = sample.lastname_a_e1;
+		String firstname = sample.firstname_a_e1;
+		String lastname = sample.lastname_a_e1;
 
-		Clause normalNamesClause = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
-		Clause revertedNamesClause = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
-		Clause checkMixChanges = Where.or(normalNamesClause,revertedNamesClause);
+		Clause normalNamesClause = Where.and(Expr.equal("lastname_a_e1", firstname), Expr.equal("firstname_a_e1", lastname));
+		Clause revertedNamesClause = Where.and(Expr.equal("lastname_a_e1", lastname), Expr.equal("firstname_a_e1", firstname));
+		Clause checkMixChanges = Where.or(normalNamesClause, revertedNamesClause);
 
 		Clause dupNormalCheck = Where.and(clause, checkMixChanges);
 
 		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
 
-		if (cpr.propertiesAreAvailable() && (ln != null || fn != null)) {
+		if (cpr.propertiesAreAvailable() && (lastname != null || firstname != null)) {
 			for (final String key: cpr.properties.stringPropertyNames()) {
 				String value = cpr.properties.getProperty(key);
-
-                if (ln.contains(value)) {
-                    ln = ln.replaceAll(value, key);
-                } else if (ln.contains(key)) {
-                    ln = ln.replaceAll(key, value);
+                if (lastname != null) {
+                    if (lastname.contains(value)) {
+                        lastname = lastname.replaceAll(value, key);
+                    } else if (lastname.contains(key)) {
+                        lastname = lastname.replaceAll(key, value);
+                    }
                 }
 
-                if (fn.contains(value)) {
-                    fn = fn.replaceAll(value, key);
-                } else if (fn.contains(key)) {
-                    fn = fn.replaceAll(key, value);
+                if (firstname.contains(value)) {
+                    firstname = firstname.replaceAll(value, key);
+                } else if (firstname.contains(key)) {
+                    firstname = firstname.replaceAll(key, value);
                 }
             }
 		}
-		Clause normalNamesEncoding = Where.and(Expr.equal("lastname_a_e1", fn), Expr.equal("firstname_a_e1", ln));
-		Clause revertedNamesEncoding = Where.and(Expr.equal("lastname_a_e1", ln), Expr.equal("firstname_a_e1", fn));
+		Clause normalNamesEncoding = Where.and(Expr.equal("lastname_a_e1", firstname), Expr.equal("firstname_a_e1", lastname));
+		Clause revertedNamesEncoding = Where.and(Expr.equal("lastname_a_e1", lastname), Expr.equal("firstname_a_e1", firstname));
 		Clause checkMixChangesEncoding = Where.or(normalNamesEncoding,revertedNamesEncoding);
 		// With encoding changes
 		Where.or(dupNormalCheck, checkMixChangesEncoding);
