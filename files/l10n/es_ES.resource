@@ -429,7 +429,7 @@ MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=La configuraci\u00F3n se ha guardado sat
 # VERWALTUNG/VERTRETUNGEN
 GENERIC_REPRESENTATIVE_PLURAL=Representaciones
 markiertevertretung=Representaciones seleccionadas
-GENERIC_DELETE=Eliminar
+GENERIC_REMOVE=Elimniar
 GENERIC_NEW=Nuevo
 eswurdeeineneuevertretungangelegt=Se ha creado una nueva representaci\u00F3n
 eswurdeeinevertretunggeloscht=Se ha eliminado una representaci\u00F3n
@@ -706,7 +706,7 @@ GENERIC_TO_EVENT_VIEW=Lista de eventos
 
 # VERANSTALTUNG BEARBEITEN/DOKUMENTTYPEN
 GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Eliminar tipo(s) de documento seleccionado(s)
-GENERIC_DELETE=Eliminar
+GENERIC_REMOVE=Eliminar
 GENERIC_ADD_NEW_DOCUMENT_TYPE=A\u00F1adir nuevo tipo de documento
 xvonydokumenttypen=x de y tipos de documento
 

@@ -706,7 +706,7 @@ GENERIC_TO_EVENT_VIEW=Zur Veranstaltungs\u00FCbersicht
 
 # VERANSTALTUNG BEARBEITEN/DOKUMENTTYPEN
 GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Markierte(n) Dokumenttyp(en) entfernen
-GENERIC_DELETE=Entfernen
+GENERIC_REMOVE=Entfernen
 GENERIC_ADD_NEW_DOCUMENT_TYPE=Neuen Dokumenttyp hinzuf\u00FCgen
 xvonydokumenttypen=x von y Dokumenttypen
 
@@ -1488,7 +1488,7 @@ GUEST=Gast
 GENERIC_OF_CAPITAL=Von
 GENERIC_ASSIGN=Zuweisen
 GENERIC_CANCEL=Abbrechen
-GENERIC_DELETE=Entfernen
+GENERIC_REMOVE=Entfernen
 GENERIC_CONNECTOR=Verbinder
 
 # GUEST DETAIL TEXTS

@@ -706,7 +706,7 @@ GENERIC_TO_EVENT_VIEW=To event view
 
 # VERANSTALTUNG BEARBEITEN/DOKUMENTTYPEN
 GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Delete marked document type(s)
-GENERIC_DELETE=Delete
+GENERIC_REMOVE=Remove
 GENERIC_ADD_NEW_DOCUMENT_TYPE=Add new document type
 xvonydokumenttypen=x of y documenttypes
 

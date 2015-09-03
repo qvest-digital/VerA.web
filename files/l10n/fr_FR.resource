@@ -706,7 +706,7 @@ GENERIC_TO_EVENT_VIEW=Pour aper\u00E7u de l'\u00E9v\u00E9nement
 
 # VERANSTALTUNG BEARBEITEN/DOKUMENTTYPEN
 GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Supprimer la s\u00E9lection type de document
-GENERIC_DELETE=Supprimer
+GENERIC_REMOVE=Supprimer
 GENERIC_ADD_NEW_DOCUMENT_TYPE=Ajouter un nouveau type de document
 xvonydokumenttypen=x de y types de document
 

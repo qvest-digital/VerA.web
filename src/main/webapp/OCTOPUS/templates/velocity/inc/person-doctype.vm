@@ -18,7 +18,7 @@
     #if($grants.mayWrite())
         <span id="actionPanel" class="inlineLabel">
             <label>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPES_MARKED}
-                <input type="submit" title="${placeholderWithTranslation.GENERIC_DOCUMENT_TYPES_MARKED_DELETE}" value="${placeholderWithTranslation.GENERIC_DELETE}" name="remove" />
+                <input type="submit" title="${placeholderWithTranslation.GENERIC_DOCUMENT_TYPES_MARKED_DELETE}" value="${placeholderWithTranslation.GENERIC_REMOVE}" name="remove" />
             </label>
         </span>
 
