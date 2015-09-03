@@ -658,7 +658,7 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 					<span id="buttonPanel-top" class="textRight" style="margin-left:886px">
 				#end
 				#if($action != "guest" && $action != "host")
-					<span id="buttonPanel-top" class="textRight floatRight">
+					<span id="buttonPanel-top" class="textRight floatRight" style="margin-bottom: 10px;">
 				#end
 				#if($action != "guest")
 					<input type="button" id="button.searchPerson" name="button.searchPerson" value="${placeholderWithTranslation.GENERIC_SEARCH_PERSONS}" title="${placeholderWithTranslation.GENERIC_SEARCH_PERSONS}" class="mainButton" onclick="window.location.href='ShowPersonSearch?search=clear';" />
@@ -687,9 +687,9 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 				<input type="hidden" name="list" value="$bean.id">
 			#end
 
-			<div id="main_content">
+			<div id="main_content" style="padding-right: 1px;">
 
-				<table class="sortable fixed">
+				<table class="sortable">
 					##Set column size
 					<col width="$column0%" />
     				<col width="$column1%" />
