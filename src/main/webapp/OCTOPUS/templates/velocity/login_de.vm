@@ -34,7 +34,7 @@
 
 <input name="task" type="hidden" value="default">
 <input name="loginlanguage" type="hidden" value="de_DE">
-<input name="languageSelector" type="hidden" value="Deutsch">
+<input name="languageSelector" type="hidden" value="de_DE">
 
 #if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin" && $octopusRequest.loginlanguage == "de_DE")
 <vera-warn>

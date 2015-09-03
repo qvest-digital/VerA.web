@@ -245,7 +245,7 @@
 			<action name="load" worker="SecurityWorker"/>
 			<action name="load" worker="ConfigWorker"/>
 			<action name="load" worker="UserConfigWorker"/>
-            <action name="load" worker="LanguageProvider" />
+            <action name="load" worker="LanguageProvider"/>
 		</task>
 
 		<task name="LoadStammdaten" access="private" groups="User,SystemUser">

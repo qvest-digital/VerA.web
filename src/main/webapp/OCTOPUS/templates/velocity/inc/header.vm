@@ -33,7 +33,6 @@
 ##		Style
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
 		<!--link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all"-->
-		<!--link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/screen.css" media="screen,projection" title="${placeholderWithTranslation.auswertigesamtintranetstil}"-->
 	</head>
 	<body>
 		<div id="container" #if($event) class="event" #end>

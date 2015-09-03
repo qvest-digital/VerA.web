@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2015 tarent solutions GmbH
- *
+ * <p/>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p/>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -128,15 +128,15 @@ public class EventDelegationWorker {
         final ResultList result = database.getList(selectTypesStatement, database);
         final List<Integer> OptionalFieldTypesIds = new ArrayList<Integer>();
 
-        for (final Iterator<ResultMap> iterator = result.iterator(); iterator.hasNext();) {
+        for (final Iterator<ResultMap> iterator = result.iterator(); iterator.hasNext(); ) {
             final ResultMap object = iterator.next();
-            OptionalFieldTypesIds.add((Integer)object.get("fk_event"));
+            OptionalFieldTypesIds.add((Integer) object.get("fk_event"));
         }
 
         octopusContext.setContent("OptionalFieldTypesIds", OptionalFieldTypesIds);
     }
 
-    private  List<OptionalFieldType> getAllTypesAsList(Select selectTypesStatement) throws SQLException {
+    private List<OptionalFieldType> getAllTypesAsList(Select selectTypesStatement) throws SQLException {
         final List<OptionalFieldType> allTypesAsList = new ArrayList<OptionalFieldType>();
         final ResultSet types = (ResultSet) ((Result) selectTypesStatement.execute()).resultSet();
         while (types.next()) {
@@ -241,10 +241,10 @@ public class EventDelegationWorker {
     }
 
     private void getFieldsLabelsWithTypeContents(OctopusContext octopusContext,
-            final List<OptionalField> delegationFieldsLabels,
-            final List<OptionalDelegationField> delegationFieldsWithTypeContents) throws BeanException, IOException {
+                                                 final List<OptionalField> delegationFieldsLabels,
+                                                 final List<OptionalDelegationField> delegationFieldsWithTypeContents) throws BeanException, IOException {
         for (final Iterator iterator = delegationFieldsLabels.iterator(); iterator
-                .hasNext();) {
+                .hasNext(); ) {
             final OptionalField optionalField = (OptionalField) iterator.next();
             final List<OptionalFieldTypeContent> optionalFieldTypeContents =
                     getOptionalFieldTypeContentsFromLabel(octopusContext, optionalField.getId());
@@ -286,7 +286,7 @@ public class EventDelegationWorker {
     private List<OptionalFieldTypeContent> getOptionalFieldsTypeContentsAsList(ResultList result) {
         final List<OptionalFieldTypeContent> oftc = new ArrayList<OptionalFieldTypeContent>();
 
-        for (final Iterator<ResultMap> iterator = result.iterator(); iterator.hasNext();) {
+        for (final Iterator<ResultMap> iterator = result.iterator(); iterator.hasNext(); ) {
             final ResultMap object = iterator.next();
             final OptionalFieldTypeContent optionalFieldTypeContent = new OptionalFieldTypeContent();
             optionalFieldTypeContent.setContent((String) object.get("content"));
@@ -350,7 +350,7 @@ public class EventDelegationWorker {
 
     private void saveSingleFieldTypeContent(OctopusContext octopusContext, Map<String, String> allRequestParams,
                                             String key, OptionalFieldSummary optionalFieldSummary)
-                                                        throws BeanException, IOException, SQLException {
+            throws BeanException, IOException, SQLException {
 
         final Database database = new DatabaseVeraWeb(octopusContext);
         final TransactionContext transactionalContext = database.getTransactionContext();
@@ -363,7 +363,7 @@ public class EventDelegationWorker {
         final List<OptionalField> changedFields = optionalFieldSummary.getChangedFields();
         final List<OptionalField> deletedFields = optionalFieldSummary.getDeletedFields();
         final OptionalField changedField = checkChangedOptionsToSupportSummary(octopusContext, deletedFields, changedFields, typeContentId, optionalFieldTypeContent);
-        if(changedField != null) {
+        if (changedField != null) {
             optionalFieldSummary.addChangedOptionalField(changedField);
         }
 
@@ -374,7 +374,7 @@ public class EventDelegationWorker {
 
     private Update optionalFieldUpdateStatement(Database database, Integer valuePart, OptionalFieldTypeContent optionalFieldTypeContent) {
         final Update update = SQL.Update(database);
-        update.table( "veraweb.toptional_field_type_content" );
+        update.table("veraweb.toptional_field_type_content");
         update.update("content", optionalFieldTypeContent.getContent());
         update.where(Expr.equal("pk", valuePart));
         return update;
@@ -401,7 +401,7 @@ public class EventDelegationWorker {
         return null;
     }
 
-    private Boolean getFieldChangedStatus(List<OptionalField>  changedFields, Integer optionalFieldId) {
+    private Boolean getFieldChangedStatus(List<OptionalField> changedFields, Integer optionalFieldId) {
         Boolean changed = false;
         if (changedFields != null) {
             for (OptionalField changedField : changedFields) {
@@ -417,7 +417,7 @@ public class EventDelegationWorker {
     private OptionalField addChangedOptionalFieldToSummary(OctopusContext octopusContext,
                                                            List<OptionalField> deletedFields,
                                                            Integer optionalFieldId) throws BeanException, SQLException {
-        final OptionalField optionalField = getRelatedOptionalFieldByTypeContent(octopusContext,optionalFieldId);
+        final OptionalField optionalField = getRelatedOptionalFieldByTypeContent(octopusContext, optionalFieldId);
         if (deletedFields == null || !deletedFields.contains(optionalField)) {
             return optionalField;
         }
@@ -448,7 +448,7 @@ public class EventDelegationWorker {
 
         OptionalFieldTypeContent optionalFieldTypeContent = null;
 
-        while(resultSet.next()) {
+        while (resultSet.next()) {
             Integer pk = resultSet.getInt("pk");
             Integer fkOptionalField = resultSet.getInt("fk_optional_field");
             String content = resultSet.getString("content");
@@ -473,10 +473,10 @@ public class EventDelegationWorker {
         OptionalField optionalField = null;
 
         while (resultSet.next()) {
-            optionalField= new OptionalField(resultSet);
+            optionalField = new OptionalField(resultSet);
         }
 
-        return  optionalField;
+        return optionalField;
     }
 
     private void saveField(Integer eventId, OptionalFieldsWorker optionalFieldsWorker,
@@ -506,12 +506,10 @@ public class EventDelegationWorker {
             if (oldField.getId() == optionalField.getId()) {
                 if ("".equals(oldField.getLabel()) && !"".equals(optionalField.getLabel())) {
                     optionalFieldSummary.addCreatedOptionalField(optionalField);
-                }
-                else if (!"".equals(oldField.getLabel()) && "".equals(optionalField.getLabel())) {
+                } else if (!"".equals(oldField.getLabel()) && "".equals(optionalField.getLabel())) {
                     optionalFieldSummary.addDeletedOptionalField(optionalField);
                     optionalField.setFkType(OptionalFieldTypeFacade.inputfield.getValue());
-                }
-                else if (!oldField.getLabel().equals(optionalField.getLabel()) || !oldField.getFkType().equals(optionalField.getFkType())) {
+                } else if (!oldField.getLabel().equals(optionalField.getLabel()) || !oldField.getFkType().equals(optionalField.getFkType())) {
                     optionalFieldSummary.addChangedOptionalField(optionalField);
                 }
             }
