@@ -1400,6 +1400,7 @@
 			<description>
 				Speichert die Informationen eines Gastes.
 			</description>
+			<action name="load" worker="LanguageProvider" />
 			<action name="saveDetail" worker="GuestDetailWorker"/>
 			<doTask name="ShowGuestDetail"/>
 		</task>
