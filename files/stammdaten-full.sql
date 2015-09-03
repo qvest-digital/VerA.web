@@ -31,7 +31,7 @@ INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALU
 INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALUES (NULL, NULL, 'Nichtraucher', 0, 30);
 
 -- DELETE FROM veraweb.tdoctype;
-INSERT INTO veraweb.tdoctype (docname, addresstype, locale, sortorder, flags, isdefault, partner, host, format) VALUES ('Gästeliste', 0, 0, 0, 99, 0, 0, 0, 'ods-document');
+INSERT INTO veraweb.tdoctype (docname, addresstype, locale, sortorder, flags, isdefault, partner, host, format) VALUES ('Gästeliste', 0, 0, 0, 99, 1, 0, 0, 'csv');
 INSERT INTO veraweb.tdoctype (docname, addresstype, locale, sortorder, flags, isdefault, partner, host, format) VALUES ('Etikett', 2, 1, 1, 99, 0, 0, 0, 'ods-document');
 INSERT INTO veraweb.tdoctype (docname, addresstype, locale, sortorder, flags, isdefault, partner, host, format) VALUES ('Ausweis2', 1, 2, NULL, NULL, 0, 0, 0, 'ods-document');
 INSERT INTO veraweb.tdoctype (docname, addresstype, locale, sortorder, flags, isdefault, partner, host, format) VALUES ('Tischkarte', 1, 1, NULL, NULL, 0, 0, 0, 'ods-document');
