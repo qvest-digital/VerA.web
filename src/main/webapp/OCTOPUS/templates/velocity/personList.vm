@@ -269,8 +269,8 @@
 			#foreach($bean in $list)
 				'$bean.id' : {
 					expired : expired("$!bean.dateexpire"),
-					firstName: '$!message.plain($bean.firstname_a_e1)',
-					lastName: '$!message.plain($bean.lastname_a_e1)',
+					firstName: "$!message.plain($bean.firstname_a_e1)",
+					lastName: "$!message.plain($bean.lastname_a_e1)",
 					ongoingEvent: ongoingEvent("$!bean.eventmaxenddate"),
 					ongoingTaskEvent: ongoingEvent("$!bean.taskeventmaxenddate")
 				},
