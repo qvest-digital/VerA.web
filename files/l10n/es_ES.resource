@@ -515,7 +515,7 @@ freifeld-vorschaufuretikett="Campo de vista previa para \u00E2\u0080\u009EEtique
 zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Para esta persona, la vista previa correspondiente no ha sido generada.
 GENERIC_COPY_PERSON=Copiar persona
 GENERIC_CREATE_TAG=Crear etiqueta
-GENERIC_ASSIGN_AN_EVENT=Asignar un evento
+GENERIC_ASSIGN_TO_EVENT=Asignar un evento
 GENERIC_DELETE_PERSON=Eliminar persona
 GENERIC_STATISTIC=Estad\u00EDsticas
 ausstammdatenhinzufugen=Obtener de los datos maestros
@@ -1710,4 +1710,6 @@ PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=\u00BFDebe la persona actua
 
 # PERSON HEADER TEXTS
 PERSON_HEADER_NO_DOCTYPE_CONFIG=No se ha configurado ning\u00FAn tipo de documento.
+GENERIC_COPY_CURRENT_PERSON=TRANSLATE PLEASE
+GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT=TRANSLATE PLEASE
 

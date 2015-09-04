@@ -63,11 +63,11 @@
 				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified()) { createOsiamUser(); }" />
 			#end
 			#if($grants.mayWrite())
-				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" title="Aktuelle Person kopieren" onclick="if (checkModified()) { copyPerson(); }" />
+				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" title="${placeholderWithTranslation.GENERIC_COPY_CURRENT_PERSON}" onclick="if (checkModified()) { copyPerson(); }" />
 			#end
 			<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" title="${placeholderWithTranslation.etikettfuraktuellepersonerzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 			#if($grants.mayWrite())
-				<input type="button" name="event" class="mainButton" value="${placeholderWithTranslation.GENERIC_ASSIGN_AN_EVENT}" title="Aktuelle Person einer Veranstaltung zuordnen" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }"/>
+				<input type="button" name="event" class="mainButton" value="${placeholderWithTranslation.GENERIC_ASSIGN_TO_EVENT}" title="${placeholderWithTranslation.GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }"/>
 				<input type="button" name="remove" class="mainButton" value="${placeholderWithTranslation.GENERIC_DELETE_PERSON}" title="${placeholderWithTranslation.aktuellepersonloschenundzurpersonenlistezuruckkehren}." onclick="if (checkModified()) { removePerson(); }" />
 			#end
 		#end

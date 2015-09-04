@@ -515,7 +515,7 @@ freifeld-vorschaufuretikett="Freifeld-Vorschau f\u00C3\u00BCr \u00E2\u0080\u009E
 zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
 GENERIC_COPY_PERSON=Copy person
 GENERIC_CREATE_TAG=Create tag
-GENERIC_ASSIGN_AN_EVENT=Assign to event
+GENERIC_ASSIGN_TO_EVENT=Assign to event
 GENERIC_DELETE_PERSON=Delete person
 GENERIC_STATISTIC=Statistics
 ausstammdatenhinzufugen=Aus Stammdaten hinzuf\u00FCgen
@@ -1710,3 +1710,5 @@ PERSON_HEADER_NO_DOCTYPE_CONFIG=Es wurde kein Dokumenttyp zur Vorschauanzeige ko
 
 #LAST ADDED
 GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=Generate login credentials for the Online-Registration
+GENERIC_COPY_CURRENT_PERSON=Copy current person
+GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT=Assign current person to an event
