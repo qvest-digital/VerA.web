@@ -21,7 +21,7 @@
 
         <div class="tableRow">
             <div class="tableCell width50">
-                <label for="persondoctype-textfield">${placeholderWithTranslation.EXPORT_HEADER_FREETEXT_FIELD}</label>
+                <label for="persondoctype-textfield">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD}</label>
                 <textarea id="persondoctype-textfield" name="persondoctype-textfield" #if($grants.mayWrite())  #else class="textdisabled" vera-disabled #end>
                     $!message.textarea($persondoctype.textfield)
                 </textarea>
