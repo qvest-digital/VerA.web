@@ -1708,3 +1708,5 @@ PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=Would you really like to de
 # PERSON HEADER TEXTS
 PERSON_HEADER_NO_DOCTYPE_CONFIG=Es wurde kein Dokumenttyp zur Vorschauanzeige konfiguriert.
 
+#LAST ADDED
+GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=Generate login credentials for the Online-Registration

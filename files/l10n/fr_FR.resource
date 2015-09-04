@@ -756,3 +756,4 @@ eswurdeeineneueveranstaltungangelegt=Es wurde eine neue Veranstaltung angelegt.
 #LINE 1493-1494
 GENERIC_VIEW_DOCUMENT_TYPE=Montrer le type du document
 GENERIC_GENERATE_DOCUMENT-TYPE=g\U00E9n\U00E9rer un nouveau type de document
+GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=g\U00E9n\U00E9rer les donn\U00E9s d\U0027enregistration pour l\U0027OA

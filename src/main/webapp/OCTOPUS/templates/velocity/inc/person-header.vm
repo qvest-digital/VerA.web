@@ -3,7 +3,7 @@
 #if($action == "guest")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($online-registration.activated && !$person.username)
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified()) { createOsiamUser(); }" />
 		#end
 		#if($person && $person.id)
 			<input type="button" name="add" value="${placeholderWithTranslation.GENERIC_APPLY_TO_GUESTLIST}" title="${placeholderWithTranslation.GENERIC_APPLY_GUEST_TO_GUESTLIST}" class="mainButton" onclick="addToGuestList();">
@@ -16,7 +16,7 @@
 #elseif($action == "host")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($online-registration.activated && !$person.username)
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified()) { createOsiamUser(); }" />
 		#end
 		#if($person && $person.id)
 			<input type="button" name="set" class="mainButton" value="${placeholderWithTranslation.GENERIC_APPLY}" title="${placeholderWithTranslation.GENERIC_APPLY_PERSON_AS_HOST}" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventDetail?hostid=$!person.id';">
@@ -34,7 +34,7 @@
 #elseif($action == "event")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($online-registration.activated && !$person.username)
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified()) { createOsiamUser(); }" />
 		#end
 		#if($grants.mayWrite())
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified()) { copyPerson(); }" />
@@ -60,7 +60,7 @@
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($person && $person.id)
 			#if($online-registration.activated && !$person.username)
-				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="Anmeldedaten für die Online-Anmeldung erzeugen " onclick="if (checkModified()) { createOsiamUser(); }" />
+				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified()) { createOsiamUser(); }" />
 			#end
 			#if($grants.mayWrite())
 				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" title="Aktuelle Person kopieren" onclick="if (checkModified()) { copyPerson(); }" />
