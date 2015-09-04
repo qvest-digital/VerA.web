@@ -518,7 +518,7 @@ GENERIC_CREATE_TAG=Create tag
 GENERIC_ASSIGN_TO_EVENT=Assign to event
 GENERIC_DELETE_PERSON=Delete person
 GENERIC_STATISTIC=Statistics
-ausstammdatenhinzufugen=Aus Stammdaten hinzuf\u00FCgen
+ausstammdatenhinzufugen=Add from main data
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
 GENERIC_DOCUMENT_TYPE_SINGULAR=Dokument type
@@ -569,7 +569,7 @@ zurpersonenubersicht=To Person view
 
 # PERSONEN/SUCHEN & ERSETZEN IN PERSONENDATEN
 suchen&ersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
-hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Hinweis Wenn Sie den Platzhalter * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
+hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Hinweis Wenn Sie den Placeholder * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
 GENERIC_SEARCH_V=Search
 GENERIC_REPLACE=Replace
 GENERIC_IN_THE_FOLLOWING_FIELDS=In the following fields
@@ -744,7 +744,7 @@ GENERIC_ADD_NEW_KATEGORIES=Add new categorie
 
 # VERANSTALTUNGSSUCHE
 nurinzukunftigenveranstaltungensuchen=Nur in zuk\u00FCnftigen Veranstaltungen suchen
-siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Sie k\u00F6nnen bei der Suche sogenannte Platzhalter verwenden, der * steht f\u00FCr mehrere das ? f\u00FCr einzelne
+siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Sie k\u00F6nnen bei der Suche sogenannte Placeholder verwenden, der * steht f\u00FCr mehrere das ? f\u00FCr einzelne
 
 # NEUE VERANSTALTUNG ANLEGEN
 mitpartner=Mit Partner
@@ -956,7 +956,7 @@ eswurdenkeinedokumenttypengefunden=No document types found.
 markiertenamtsbezeichnungen=marked employment titles
 markiertenamtsbezeichnungenentfernen=remove marked employment titles
 zurveranstaltungssuche=To event search
-veranstaltungssuche=event search
+veranstaltungssuche=Event search
 suchergebnis=search result
 bitteklickensieeinederaufgelistetenveranstaltungenanumdiegastezuubernehmen=Please click one of the listed events to apply the guestlist.
 bitteklickensieeinederaufgelistetenveranstaltungenanumdiepersondieserveranstaltungzuzuordnen=Please click one of the listed events to assign the person.
@@ -966,16 +966,16 @@ weiteremeldungen=more notifications.
 bittebestatigensiedasloschendermarkiertenveranstaltungen=Please confirm to delete the selected events!
 markierteveranstaltungloschen=delete selected event
 abbrechen=Cancel
-markierteveranstaltungen=selected events
-markierteveranstaltungenloschen=delete selected events
-zuruckzurgasteverwaltung=Back to guestmanagement
+markierteveranstaltungen=Selected event(s)
+markierteveranstaltungenloschen=Delete selected event(s)
+zuruckzurgasteverwaltung=Back to guest management
 zuruckzurgasteliste=Back to guestlist
 zuruckzurveranstaltungsdetails=Back to event details
 zuruckzurveranstaltungsstatistiken=Back to event statistics
 zuruckzurveranstaltungsaufgabe=Back to event task
 zuruckzurpersonensuche=Back to people search
 zuruckzusuchenundersetzen=Back to search and replace
-zuruckzurveranstaltungssuche=Bac to event search
+zuruckzurveranstaltungssuche=Back to event search
 wahlensiebittezunachsteineodermehrereveranstaltungenaus=Please select one or more events first
 nurinzuunftigenveranstaltungensuchen=Only search future events
 zuruck=Back
@@ -1218,7 +1218,7 @@ aufreservesetzen=Set as reserve
 delegationanmelden=Register delegation
 alledemarkiereninklpartnerwenneingeladen=All (un)marked (incl. Partner, if invited)
 arbeitsshybereich=Workarea
-amtsbeshyzeichnung=amtsbezeichnung
+amtsbeshyzeichnung=Employment title
 eswurdenkeineeintraegegefunden=No entries were found.
 suchenersetzen=Search & replace
 suchenersetzeninpersonendaten=Search & replace in persons data
@@ -1324,10 +1324,10 @@ anderungenspeichern=Save changes
 senden=Send
 
 # GENERIC
-GENERIC_UPLOAD_BUTTON=select file
+GENERIC_UPLOAD_BUTTON=Select file
 GENERIC_TO=to
-GENERIC_FEDERAL_STATE=federal state
-GENERIC_PERSONAL_DATA=personal data
+GENERIC_FEDERAL_STATE=Federal state
+GENERIC_PERSONAL_DATA=Personal data
 GENERIC_NUMBER_OF_GUESTS=Number of guests
 GENERIC_TELEFON=Telephone
 
@@ -1706,7 +1706,7 @@ PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION=If you want to stop the deletion, pl
 PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=Would you really like to delete this person?
 
 # PERSON HEADER TEXTS
-PERSON_HEADER_NO_DOCTYPE_CONFIG=Es wurde kein Dokumenttyp zur Vorschauanzeige konfiguriert.
+PERSON_HEADER_NO_DOCTYPE_CONFIG=No document type was configured to be shown.
 
 #LAST ADDED
 GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=Generate login credentials for the Online-Registration
