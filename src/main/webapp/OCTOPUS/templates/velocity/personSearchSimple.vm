@@ -41,8 +41,8 @@
         </form>
     </div>
     <vera-info vera-stay>
-	    ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen}. <br/>
-        ${placeholderWithTranslation.HINT_SEARCH_WHERE}<br/>
+	    ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen}.
+        ${placeholderWithTranslation.HINT_SEARCH_WHERE}
 		${placeholderWithTranslation.undamtsbezeichnungfunktion}.
     </vera-info>
 </div>

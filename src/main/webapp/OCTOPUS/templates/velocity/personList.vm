@@ -557,7 +557,7 @@
 
 				<span id="actionPanel" class="inlineLabel">
 					<label> ${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
-						<input type="button" value="Ersetzen" title="${placeholderWithTranslation.GENERIC_REPLACE}" onclick="submitFormWithGivenAction('SaveReplacePersonList');" />
+						<input type="button" value="${placeholderWithTranslation.GENERIC_REPLACE}" title="${placeholderWithTranslation.GENERIC_REPLACE}" onclick="submitFormWithGivenAction('SaveReplacePersonList');" />
 					</label>
 				</span>
 
