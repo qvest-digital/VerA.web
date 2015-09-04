@@ -7,7 +7,7 @@
 		<tr>
 			<td>
 				<span id="listnavitext" class="listnavitext" style="margin-right: 15px;">
-                    $start - $stop ${placeholderWithTranslation.GENERIC_FROM} $listparam.count
+                    $start - $stop ${placeholderWithTranslation.GENERIC_OF} $listparam.count
                 </span>
 
 				#if($listparam.start == $listparam.first)

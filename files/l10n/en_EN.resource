@@ -862,18 +862,18 @@ verbinder=connector
 freitextfeldpartner=free text field(partner)
 akatitel=aka title (partner)
 kontaktdaten=contact data
-strase=street
+strase=Street
 postfachplz=PO Box Postcode
 nummer=number
-zuruckzudenveranstaltungsdetails=back to eventdetails
+zuruckzudenveranstaltungsdetails=Back to eventdetails
 
 # PERSON BEARBEITEN/DOKUMENTTYPEN/BEARBEITEN
-dokumenttypbearbeiten=edit document type
-dokument-id=document-id
-dokument-name=document-name
-dokumenttypspeichern=save document type
-zuruckzurdokumenttypenliste=back to document type list
-anmeldedatenerzeugen=create login data
+dokumenttypbearbeiten=Edit document type
+dokument-id=Document-id
+dokument-name=Document-name
+dokumenttypspeichern=Save document type
+zuruckzurdokumenttypenliste=Back to document type list
+anmeldedatenerzeugen=Create login data
 esliegenkeinekategorienundereignissevor=there are no categories and occasions
 beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=green highlighted entried are recuring occasions
 
@@ -1318,10 +1318,10 @@ zurueckzumverteiler=Back to contributor
 markiertenveranstaltungsorte=selected venue(s)
 hinweis=note
 inaktiv=inactive
-aktionen=actions
-anschrift=address
-anderungenspeichern=save changes
-senden=send
+aktionen=Actions
+anschrift=Address
+anderungenspeichern=Save changes
+senden=Send
 
 # GENERIC
 GENERIC_UPLOAD_BUTTON=select file
@@ -1490,6 +1490,8 @@ GENERIC_ASSIGN=assign
 GENERIC_CANCEL=Cancel
 GENERIC_DELETE=Delete
 GENERIC_CONNECTOR=Connector
+GENERIC_VIEW_DOCUMENT_TYPE=View Document type
+GENERIC_GENERATE_DOCUMENT_TYPE=generate document type
 
 # GUEST DETAIL TEXTS
 GUEST_DETAIL_PARTNER=the partner

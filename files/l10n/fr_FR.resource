@@ -751,3 +751,8 @@ mitpartner=Mit Partner
 eswurdeeineneueveranstaltungangelegt=Es wurde eine neue Veranstaltung angelegt.
 
 # VERTEILER
+
+#RECENTLY ADDED: DO NOT DELETE!!!!!!
+#LINE 1493-1494
+GENERIC_VIEW_DOCUMENT_TYPE=Montrer le type du document
+GENERIC_GENERATE_DOCUMENT-TYPE=g\U00E9n\U00E9rer un nouveau type de document
