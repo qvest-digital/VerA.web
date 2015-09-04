@@ -1712,3 +1712,7 @@ PERSON_HEADER_NO_DOCTYPE_CONFIG=No document type was configured to be shown.
 GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=Generate login credentials for the Online-Registration
 GENERIC_COPY_CURRENT_PERSON=Copy current person
 GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT=Assign current person to an event
+GENERIC_PREVIOUS_PAGE=Previous page
+GENERIC_PREVIOUS_PERSON=Previous person
+GENERIC_FIRST_PAGE=Next page
+GENERIC_FIRST_PERSON=Next person
