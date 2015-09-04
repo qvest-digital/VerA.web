@@ -11,14 +11,14 @@
                 </span>
 
 				#if($listparam.start == $listparam.first)
-					<a id="page-first" class="listnavilinkinactiv" title="Erste Seite">&laquo;&laquo;</a>
+					<a id="page-first" class="listnavilinkinactiv" title="${placeholderWithTranslation.GENERIC_FIRST_PAGE}">&laquo;&laquo;</a>
 				#else
-					<a id="page-first" href="javascript:navigateList($listparam.first);" class="listnavilink" title="Erste Seite">&laquo;&laquo;</a>
+					<a id="page-first" href="javascript:navigateList($listparam.first);" class="listnavilink" title="${placeholderWithTranslation.GENERIC_FIRST_PAGE}">&laquo;&laquo;</a>
 				#end
 				#if($listparam.start == $listparam.prev)
-					<a id="page-previous" class="listnavilinkinactiv" title="Vorherige Seite">&laquo;</a>
+					<a id="page-previous" class="listnavilinkinactiv" title="${placeholderWithTranslation.GENERIC_PREVIOUS_PAGE}">&laquo;</a>
 				#else
-					<a id="page-previous" href="javascript:navigateList($listparam.prev);" class="listnavilink" title="Vorherige Seite">&laquo;</a>
+					<a id="page-previous" href="javascript:navigateList($listparam.prev);" class="listnavilink" title="${placeholderWithTranslation.GENERIC_PREVIOUS_PAGE}">&laquo;</a>
 				#end
 
 				#set($ol = $listparam.start + ($listparam.limit * -5))

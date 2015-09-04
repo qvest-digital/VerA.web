@@ -1712,3 +1712,7 @@ PERSON_HEADER_NO_DOCTYPE_CONFIG=Es wurde kein Dokumenttyp zur Vorschauanzeige ko
 GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=Anmeldedaten f\u00FCr die Online-Anmeldung erzeugen
 GENERIC_COPY_CURRENT_PERSON=Aktuelle Person kopieren
 GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT=Aktuelle Person einer Veranstaltung zuordnen
+GENERIC_PREVIOUS_PAGE=Vorherige Seite
+GENERIC_PREVIOUS_PERSON=Vorherige Person
+GENERIC_FIRST_PAGE=Erste Seite
+GENERIC_FIRST_PERSON=Erste Person
