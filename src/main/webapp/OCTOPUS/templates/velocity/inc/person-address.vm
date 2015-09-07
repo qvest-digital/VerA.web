@@ -70,12 +70,12 @@
 		<div class="tableRow">
 
 			<div class="tableCell width50">
-				<label for="person-suffix1$!message.plain($ext)">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1</label>
+				<label for="person-suffix1$!message.plain($ext)">$!message.plain($config.suffix1)</label>
 				<input type="text" id="person-suffix1$!message.plain($ext)" name="person-suffix1$!message.plain($ext)" value="$!message.text($facade.Suffix1)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
 
 			<div class="tableCell width50">
-				<label for="person-suffix2$!message.plain($ext)">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2</label>
+				<label for="person-suffix2$!message.plain($ext)">$!message.plain($config.suffix2)</label>
 				<input type="text" id="person-suffix2$!message.plain($ext)" name="person-suffix2$!message.plain($ext)" value="$!message.text($facade.Suffix2)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
 
