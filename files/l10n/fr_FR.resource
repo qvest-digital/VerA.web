@@ -763,3 +763,14 @@ GENERIC_PREVIOUS_PAGE=Page pr\U00E9c\U00E9dente
 GENERIC_PREVIOUS_PERSON=Personne pr\U00E9c\U00E9dente
 GENERIC_FIRST_PAGE=Premi\U00E8re page
 GENERIC_FIRST_PERSON=Premi\U00E8re personne
+
+
+GENERIC_INPUT_FIELD=Input field
+GENERIC_SIMPLE_COMBOBOX=Simple combobox
+GENERIC_MULTIPLE_COMBOBOX=Multiple combobox
+
+# EVENT LOCATIONS (Veranstaltungsort)
+HINT_DELETE_NOT_POSSIBLE_ONE=Eliminer le lieu '
+HINT_DELETE_NOT_POSSIBLE_TWO='n'est pas possible, puisque celui-ci est en rapport avec un événement au moins.
+CONFIRMATION_CREATE_LOCATION_ONE=Voulez-vous éliminer le lieu '
+CONFIRMATION_CREATE_LOCATION_TWO='?
