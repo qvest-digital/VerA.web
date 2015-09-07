@@ -771,6 +771,6 @@ GENERIC_MULTIPLE_COMBOBOX=Multiple combobox
 
 # EVENT LOCATIONS (Veranstaltungsort)
 HINT_DELETE_NOT_POSSIBLE_ONE=Eliminer le lieu '
-HINT_DELETE_NOT_POSSIBLE_TWO='n'est pas possible, puisque celui-ci est en rapport avec un événement au moins.
-CONFIRMATION_CREATE_LOCATION_ONE=Voulez-vous éliminer le lieu '
+HINT_DELETE_NOT_POSSIBLE_TWO='n'est pas possible, puisque celui-ci est en rapport avec un \u00E9v\u00E9nement au moins.
+CONFIRMATION_CREATE_LOCATION_ONE=Voulez-vous \u00E9liminer le lieu '
 CONFIRMATION_CREATE_LOCATION_TWO='?
