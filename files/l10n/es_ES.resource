@@ -1720,3 +1720,6 @@ GENERIC_PREVIOUS_PERSON=Persona anterior
 GENERIC_FIRST_PAGE=P\u00E1gina inicial
 GENERIC_FIRST_PERSON=Primera persona
 
+GENERIC_INPUT_FIELD=Campo de texto
+GENERIC_SIMPLE_COMBOBOX=Campo de selecci\u00F3n simple
+GENERIC_MULTIPLE_COMBOBOX=Campo de selecci\u00F3n m\u00FAltiple
