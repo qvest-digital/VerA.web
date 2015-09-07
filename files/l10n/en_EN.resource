@@ -847,7 +847,7 @@ gastdetails=guestdetails
 HINT_GUEST_LIST_EDIT_PERSONDATA=Here you are only editing persondata within the current event, not general core data
 istgastgeber=is host
 reserve=reserve
-aufstammdatenzurucksetzen=reset to core data
+aufstammdatenzurucksetzen=Reset to core data
 stammdatenbearbeiten=edit core data
 
 # DOKUMENTTYPEN
