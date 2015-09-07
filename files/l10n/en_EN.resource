@@ -1716,3 +1716,9 @@ GENERIC_PREVIOUS_PAGE=Previous page
 GENERIC_PREVIOUS_PERSON=Previous person
 GENERIC_FIRST_PAGE=Next page
 GENERIC_FIRST_PERSON=Next person
+
+# EVENT LOCATIONS (Veranstaltungsort)
+HINT_DELETE_NOT_POSSIBLE_ONE=It is not possible to delete the location '
+HINT_DELETE_NOT_POSSIBLE_TWO=', because it is related, at least, to one event.
+CONFIRMATION_CREATE_LOCATION_ONE=Do you really want to delete the location '
+CONFIRMATION_CREATE_LOCATION_TWO='?
