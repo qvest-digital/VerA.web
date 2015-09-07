@@ -858,7 +858,7 @@ tischkarte=place card
 adresstypundzeichensatzwahlen=choose address type and charset
 adresstyp=address type
 datenbearbeiten=edit data
-verbinder=connector
+verbinder=Connector
 freitextfeldpartner=free text field(partner)
 akatitel=aka title (partner)
 kontaktdaten=contact data
@@ -1295,7 +1295,7 @@ verawebdetailansicht=VerA.web :: Details
 datensatzbearbeiten=edit dataset
 zuruecksetzen=reset
 datensatzloeschen=remove dataset
-
+siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen= For searching purposes you can use so-called placeholders: * is used to replace more than one character and ? for exactly one character
 undamtsbezeichnungfunktion=and employment title/function
 HINT_SEARCH_WHERE=Searching in first name, last name, city, zip, street, company/institution, telephone, fax, mobile, e-mail,notes, categories, workareas
 neuenorteingeben=enter new city
@@ -1716,6 +1716,10 @@ GENERIC_PREVIOUS_PAGE=Previous page
 GENERIC_PREVIOUS_PERSON=Previous person
 GENERIC_FIRST_PAGE=Next page
 GENERIC_FIRST_PERSON=Next person
+
+GENERIC_INPUT_FIELD=Input field
+GENERIC_SIMPLE_COMBOBOX=Simple combobox
+GENERIC_MULTIPLE_COMBOBOX=Multiple combobox
 
 # EVENT LOCATIONS (Veranstaltungsort)
 HINT_DELETE_NOT_POSSIBLE_ONE=It is not possible to delete the location '

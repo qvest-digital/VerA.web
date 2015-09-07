@@ -1717,6 +1717,10 @@ GENERIC_PREVIOUS_PERSON=Vorherige Person
 GENERIC_FIRST_PAGE=Erste Seite
 GENERIC_FIRST_PERSON=Erste Person
 
+GENERIC_INPUT_FIELD=Eingabefeld
+GENERIC_SIMPLE_COMBOBOX=Einfaches Auswahlfeld
+GENERIC_MULTIPLE_COMBOBOX=Mehrfaches Auswahlfeld
+
 # EVENT LOCATIONS (Veranstaltungsort)
 HINT_DELETE_NOT_POSSIBLE_ONE=Der Ort '
 HINT_DELETE_NOT_POSSIBLE_TWO=' kannt nicht gel\u00f6scht werden, da er von mindestenes einer Veranstaltung verwendet wird.
