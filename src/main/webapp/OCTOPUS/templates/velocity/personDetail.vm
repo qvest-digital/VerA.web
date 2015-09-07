@@ -200,8 +200,8 @@
 
 	<div class="tabsSub" vera-content="personendaten">
 		<ul class="marginBottom20" vera-tab-group>
-			<li vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" ><div>${placeholderWithTranslation.GENERIC_MAIN_PERSON}</div></li>
-			<li vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" ><div>${placeholderWithTranslation.GENERIC_PARTNER}</div></li>
+			<li vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" ><div>$!config.main</div></li>
+			<li vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" ><div>$!config.partner</div></li>
 		</ul>
 
 		<hr />
@@ -210,11 +210,11 @@
 			<label for="encoding">${placeholderWithTranslation.GENERIC_CHARSET}</label>
 			<select vera-select name="encoding" id="encoding">
 				<option value="person$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end 
-				onclick="$('#personLocaleTab').attr('value', '1');" ><div>${placeholderWithTranslation.GENERIC_LATIN}</div></option>
+				onclick="$('#personLocaleTab').attr('value', '1');" ><div>$!config.latin</div></option>
 				<option value="person$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end 
-				onclick="$('#personLocaleTab').attr('value', '2');" ><div>${placeholderWithTranslation.GENERIC_CHARSET} 1</div></option>
+				onclick="$('#personLocaleTab').attr('value', '2');" ><div>$!config.extra1</div></option>
 				<option value="person$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end 
-				onclick="$('#personLocaleTab').attr('value', '3');" ><div>${placeholderWithTranslation.GENERIC_CHARSET} 2</div></option>
+				onclick="$('#personLocaleTab').attr('value', '3');" ><div>$!config.extra2</div></option>
 			</select>
 		</div>
 	</div>
@@ -264,9 +264,9 @@
 
 	<div class="tabsSub" vera-content="anschriften">
 		<ul class="marginBottom20" vera-tab-group>
-			<li vera-tab="geschaeftlich" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" ><div>${placeholderWithTranslation.GENERIC_BUSINESS}</div></li>
-			<li vera-tab="privat" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "2") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '2');" ><div>${placeholderWithTranslation.privat}</div></li>
-			<li vera-tab="weitere" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "3") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '3');" ><div>${placeholderWithTranslation.GENERIC_MORE}</div></li>
+<li vera-tab="geschaeftlich" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" ><div>$!config.business</div></li>
+			<li vera-tab="privat" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "2") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '2');" ><div>$!config.private</div></li>
+			<li vera-tab="weitere" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "3") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '3');" ><div>$!config.other</div></li>
 		</ul>
 
 		<hr />
@@ -274,9 +274,9 @@
 		<div class="CharSet">
 			<label for="encoding">${placeholderWithTranslation.GENERIC_CHARSET}</label>
 			<select vera-select name="encoding" id="encoding">
-				<option value="address$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '1');" ><div>${placeholderWithTranslation.GENERIC_LATIN}</div></option>
-				<option value="address$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '2');" ><div>${placeholderWithTranslation.GENERIC_CHARSET} 1</div></option>
-				<option value="address$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '3');" ><div>${placeholderWithTranslation.GENERIC_CHARSET} 2</div></option>
+				<option value="address$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '1');" ><div>$!config.latin</div></option>
+				<option value="address$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '2');" ><div>$!config.extra1</div></option>
+				<option value="address$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end onclick="$('#personLocaleTab').attr('value', '3');" ><div>$!config.extra2</div></option>
 			</select>
 		</div>
 	</div>
