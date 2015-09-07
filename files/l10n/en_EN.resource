@@ -1295,7 +1295,7 @@ verawebdetailansicht=VerA.web :: Details
 datensatzbearbeiten=edit dataset
 zuruecksetzen=reset
 datensatzloeschen=remove dataset
-
+siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen= For searching purposes you can use so-called placeholders: * is used to replace more than one character and ? for exactly one character
 undamtsbezeichnungfunktion=and employment title/function
 HINT_SEARCH_WHERE=Searching in first name, last name, city, zip, street, company/institution, telephone, fax, mobile, e-mail,notes, categories, workareas
 neuenorteingeben=enter new city
