@@ -652,7 +652,7 @@ GENERIC_EXPORT_PERSONS=Export persons
 GENERIC_IMPORT_PERSONS=Import persons
 
 # VERANSTALTUNGENDROPDOWN
-GENERIC_EVENT_VIEW=Event view
+GENERIC_EVENT_VIEW=Events summary
 veranstaltunguuche=Veranstaltungssuche
 GENERIC_NEW_EVENT=New event
 GENERIC_STATISTICS=Statistics
