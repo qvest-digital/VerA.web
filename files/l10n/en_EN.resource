@@ -1730,9 +1730,12 @@ INSERT_FUNCTION_FROM_MAIN_DATA=Add function from main data
 INSERT_COMPANY_FROM_MAIN_DATA=Add company from main data
 
 #GENERAL MESSAGE
-GM_PART_1=You have
+GM_PART1=You have
+GM_PART1_S=
+GM_NONE_1=No
+GM_NONE_2=were
 GM_ACTION_DELETED=deleted
 GM_ACTION_INSERTED=inserted
 GM_ACTION_MODIFIED=modified
-GM_ENTRY_OF=entry of
+GM_ENTRY_OF=one entry of
 GM_ENTRIES_OF=entries of

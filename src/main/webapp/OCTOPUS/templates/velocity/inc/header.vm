@@ -175,6 +175,8 @@
 					#end
 			#end
 
+			#set($lang = "${placeholderWithTranslation.language_short}")
+
 			##needed: (S.P.) number (vowel) fr. (none) fr. (language) entryof (none & spanish) action before
 			
 			#if($countInsert)
@@ -202,85 +204,69 @@
 			#end
 
 			#if($countRemove || $countUpdate || $countInsert)
-				#if("${placeholderWithTranslation.language_short}" == "de")
-					#set($firstpart = "${placeholderWithTranslation.GM_PART1}")
+				#if($lang == "de")
 					#if($count == 1)
-						#set($firstpart = "${placeholderWithTranslation.GM_PART1_S}")
+						#set($verb = "${placeholderWithTranslation.GM_PART1_S}")
+					#else
+						#set($verb = "${placeholderWithTranslation.GM_PART1}")
 					#end
-					<vera-success>
-					## GERMAN GRAMMATIC
-					$firstpart $number $element $action
-					</vera-success>
-				#else
-				## Spanish singular after entries of (registro de evento)		
-				#if("${placeholderWithTranslation.language_short}" == "es")
-					#set($entryof = "${placeholderWithTranslation.singular}")
-				#end
+					<vera-success> $verb $number $element $action </vera-success>
+
+				#elseif($lang == "en")
+
+					#set($firstpart = "${placeholderWithTranslation.GM_NONE_1}")
+					#set($secondpart = "${placeholderWithTranslation.GM_NONE_2}")
+					#set($verb = "${placeholderWithTranslation.GM_PART1}")
+					#set($entity = $severalElements)
+					
 					#if($count == 0)
-						#if("${placeholderWithTranslation.language_short}" == "fr")
-							#set($firstpart = "${placeholderWithTranslation.youhavenot}")
-						#end
-						<vera-success>
-						## OTHER LANGUAGES GRAMMATIC FOR NONE
-						$firstpart $action $number $entryof $element
-						</vera-success>
+						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
+						<vera-success> $firstpart $entryof $element $secondpart $action </vera-success>
+					#elseif($count == 1)
+						#set($entryof = "${placeholderWithTranslation.GM_ENTRY_OF}")
+						<vera-success> $verb $action $number $entryof $entity </vera-success>
 					#else
-						#if("${placeholderWithTranslation.language_short}" == "es")
-							#set($entity = "${placeholderWithTranslation.hasbeen}")
-						#end
-						#if("${placeholderWithTranslation.language_short}" == "fr")
-							#set($firstpart = "${placeholderWithTranslation.youhavenot}")
-						#end
-						<vera-success>
-						## OTHER LANGUAGES GRAMMATIC FOR NONE
-						$firstpart $action $number $entryof $element
-						</vera-success>
+						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
+						<vera-success> $verb $action $number $entryof $entity </vera-success>
+					#end
+	
+				#elseif($lang == "fr")
+
+					#set($firstpart = "${placeholderWithTranslation.GM_NONE_1}")
+					#set($verb = "${placeholderWithTranslation.GM_PART1}")
+					#set($entity = $severalElements)
+					
+					#if($count == 0)
+						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
+						<vera-success> $firstpart $entryof $element $secondpart $action </vera-success>
+					#elseif($count == 1)
+						#set($entryof = "${placeholderWithTranslation.GM_ENTRY_OF}")
+						<vera-success> $verb $action $entryof $entity </vera-success>
+					#else
+						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
+						<vera-success> $verb $action $number $entryof $entity </vera-success>
+					#end
+
+				#elseif($lang == "es")
+
+					#set($firstpart = "${placeholderWithTranslation.GM_NONE_1}")
+					#set($entity = $elementNameSingular)
+					
+					#if($count == 0)
+						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
+						<vera-success> $firstpart $action $entryof $element </vera-success>
+					#elseif($count == 1)
+						#set($verb = "${placeholderWithTranslation.GM_PART1_S}")
+						#set($entryof = "${placeholderWithTranslation.GM_ENTRY_OF}")
+						<vera-success> $verb $action $entryof $entity </vera-success>
+					#else
+						#set($verb = "${placeholderWithTranslation.GM_PART1}")
+						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
+						<vera-success> $verb $action $number $entryof $entity </vera-success>
 					#end
 				#end
 			#end
 
-
-				
-
-			#if($countInsert && $countInsert > 0)
-				<vera-success>
-					#if($countInsert == 0)
-						${placeholderWithTranslation.HEADER_COUNT_INSERT_ZERO_PART_ONE} $noNewElement ${placeholderWithTranslation.HEADER_COUNT_INSERT_ZERO_PART_TWO}
-					#elseif($countInsert == 1)
-			${placeholderWithTranslation.HEADER_COUNT_INSERT_ONE_PART_ONE} $oneNewElement ${placeholderWithTranslation.HEADER_COUNT_INSERT_ONE_PART_TWO}
-					#else
-                        ${placeholderWithTranslation.HEADER_COUNT_INSERT_ELSE_PART_ONE} $countInsert $severalNewElements ${placeholderWithTranslation.HEADER_COUNT_INSERT_ELSE_PART_TWO}
-					#end
-				</vera-success>
-			#end
-			#if($countUpdate && $countUpdate > 0)
-				<vera-success>
-					#if($countUpdate == 0)
-                        ${placeholderWithTranslation.HEADER_COUNT_UPDATE_ZERO_PART_ONE} $noElement ${placeholderWithTranslation.HEADER_COUNT_UPDATE_ZERO_PART_TWO}
-					#elseif($countUpdate == 1)
-                        ${placeholderWithTranslation.HEADER_COUNT_UPDATE_ONE_PART_ONE} $oneElement ${placeholderWithTranslation.HEADER_COUNT_UPDATE_ONE_PART_TWO}
-					#else
-                        ${placeholderWithTranslation.HEADER_COUNT_UPDATE_ELSE_PART_ONE} $countUpdate $severalElements ${placeholderWithTranslation.HEADER_COUNT_UPDATE_ELSE_PART_TWO}
-					#end
-				</vera-success>
-			#end
-			#if($countRemove && $countRemove >= 0)
-	                ##Extra If-Verzweigung um überflüssige Success Meldung von Löschen von Personen(Aus Detailansicht) auszublenden
-				#if($noElement && $noElement == "$prefNo ${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
-
-				#else
-                   		 <vera-success>
-                   		     #if($countRemove == 0)
-                   		         ${placeholderWithTranslation.HEADER_COUNT_REMOVE_ZERO_PART_ONE} $noElement ${placeholderWithTranslation.HEADER_COUNT_REMOVE_ZERO_PART_TWO}
-                   		     #elseif($countRemove == 1)
-                   		         ${placeholderWithTranslation.HEADER_COUNT_REMOVE_ONE_PART_ONE} $oneElement ${placeholderWithTranslation.HEADER_COUNT_REMOVE_ONE_PART_TWO}
-                   		     #else
-                   		         ${placeholderWithTranslation.HEADER_COUNT_REMOVE_ELSE_PART_ONE} $countRemove $severalElements ${placeholderWithTranslation.HEADER_COUNT_REMOVE_ELSE_PART_TWO}
-                   		     #end
-                   		 </vera-success>
-				#end
-
-			#end
 
             <script type="text/javascript">
                 function changeLanguage(selectedLanguage) {

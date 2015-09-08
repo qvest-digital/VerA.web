@@ -1726,12 +1726,15 @@ HINT_DELETE_NOT_POSSIBLE_TWO=' kannt nicht gel\u00f6scht werden, da er von minde
 CONFIRMATION_CREATE_LOCATION_ONE=Soll der Veranstaltungsort '
 CONFIRMATION_CREATE_LOCATION_TWO=' wirklich gel\u00f6scht werden?
 
-INSERT_FUNCTION_FROM_MAIN_DATA=Amtsbezeichnung aus Stammdaten hinzufügen
-INSERT_COMPANY_FROM_MAIN_DATA=Firma aus Stammdaten hinzufügen
+INSERT_FUNCTION_FROM_MAIN_DATA=Amtsbezeichnung aus Stammdaten hinzuf\u00FCgen
+INSERT_COMPANY_FROM_MAIN_DATA=Firma aus Stammdaten hinzuf\u00FCgen
 
 #GENERAL MESSAGE
 GM_PART1=Es wurden
 GM_PART1_S=Es wurde
+GM_PART1_NONE=
 GM_ACTION_DELETED=gel\u00F6scht
 GM_ACTION_INSERTED=angelegt
 GM_ACTION_MODIFIED=ge\u00E4ndert
+GM_ENTRY_OF=
+GM_ENTRIES_OF=

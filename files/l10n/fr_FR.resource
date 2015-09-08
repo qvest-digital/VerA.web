@@ -738,7 +738,7 @@ GENERIC_ADD_NEW_KATEGORIES=Ajouter une nouvelle cat\u00E9gorie
 GENERIC_PRECONDITION_PLURAL=Conditions pr\u00E9alables
 EVENT_PRECONDITION_MARKED=Conditions pr\u00E9alables marqu\u00E9es
 EVENT_PRECONDITION_ADD=ajouter la condition
-EVENT_PRECONDITION_INVITATIONSTATUS=participation Statut
+EVENT_PRECONDITION_INVITATIONSTATUS=participation Status
 EVENT_PRECONDITION_STARTDATE=date de d\u00E9but
 EVENT_PRECONDITION_NOT_FOUND=Pas de conditions pr\u00E9alables ont \u00E9t\u00E9 trouv\u00E9s
 
@@ -774,3 +774,14 @@ HINT_DELETE_NOT_POSSIBLE_ONE=Eliminer le lieu '
 HINT_DELETE_NOT_POSSIBLE_TWO='n'est pas possible, puisque celui-ci est en rapport avec un \u00E9v\u00E9nement au moins.
 CONFIRMATION_CREATE_LOCATION_ONE=Voulez-vous \u00E9liminer le lieu '
 CONFIRMATION_CREATE_LOCATION_TWO='?
+
+#GENERAL MESSAGE
+GM_PART1=Vous avez
+GM_PART1_S=
+GM_NONE_1=Aucune
+GM_NONE_2=a \u00E9t\u00E9
+GM_ACTION_DELETED=\u00E9limin\u00E9
+GM_ACTION_INSERTED=ins\u00E9r\u00E9
+GM_ACTION_MODIFIED=modifi\u00E9
+GM_ENTRY_OF=une entr\u00E9e de
+GM_ENTRIES_OF=entr\u00E9es de
