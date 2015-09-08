@@ -1727,5 +1727,8 @@ HINT_DELETE_NOT_POSSIBLE_TWO=' kannt nicht gel\u00f6scht werden, da er von minde
 CONFIRMATION_CREATE_LOCATION_ONE=Soll der Veranstaltungsort '
 CONFIRMATION_CREATE_LOCATION_TWO=' wirklich gel\u00f6scht werden?
 
-INSERT_FUNCTION_FROM_MAIN_DATA=Amtsbezeichnung aus Stammdaten hinzufügen
-INSERT_COMPANY_FROM_MAIN_DATA=Firma aus Stammdaten hinzufügen
+INSERT_FUNCTION_FROM_MAIN_DATA=Amtsbezeichnung aus Stammdaten hinzuf\u00FCgen
+INSERT_COMPANY_FROM_MAIN_DATA=Firma aus Stammdaten hinzuf\u00FCgen
+
+HINT_GUEST_ALREADY_INVITED_SINGULAR=Ein Gast stand bereits auf der G\u00E4steliste.
+HINT_GUEST_ALREADY_INVITED_PLURAL=G\u00E4ste standen bereits auf der G\u00E4steliste.
