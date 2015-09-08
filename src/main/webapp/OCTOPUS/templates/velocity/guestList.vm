@@ -40,6 +40,7 @@
 		#end
 	#end
 
+	##IMPLEMENTNEWMESSAGEMETHOD
 	#if($invited)
 		<vera-success>
 			#if($invited == 0)

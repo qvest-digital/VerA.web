@@ -40,7 +40,7 @@
 #end
 
 <div id="content_container">
-
+##IMPLEMENTNEWMESSAGEMETHOD
 #if($octopusRequest.task == "AddPersonToEventDetail")
 	<vera-success>
 		#if($invited == 1)
