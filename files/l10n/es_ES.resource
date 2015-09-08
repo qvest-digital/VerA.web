@@ -1728,3 +1728,6 @@ HINT_DELETE_NOT_POSSIBLE_ONE=La localizaci\u00F3n '
 HINT_DELETE_NOT_POSSIBLE_TWO=' no ha podido ser eliminada, debido a que se encuentra relacionada con al menos un evento.
 CONFIRMATION_CREATE_LOCATION_ONE=\u00BFDesea realmente eliminar la localizaci\u00F3n '
 CONFIRMATION_CREATE_LOCATION_TWO='?
+
+INSERT_FUNCTION_FROM_MAIN_DATA=Tomar función desde datos maestros
+INSERT_COMPANY_FROM_MAIN_DATA=Tomar empresa desde datos maestros
