@@ -489,11 +489,11 @@ public class EventDelegationWorker {
         optionalField.setId(Integer.parseInt(splitted[1]));
         final String typeValue = allRequestParams.get("optionalFieldType-" + splitted[1]);
 
-        if (typeValue.equals(OptionalFieldTypeFacade.inputfield.getText())) {
+        if (typeValue.equals(OptionalFieldTypeFacade.inputfield.getValue().toString())) {
             optionalField.setFkType(OptionalFieldTypeFacade.inputfield.getValue());
-        } else if (typeValue.equals(OptionalFieldTypeFacade.simple_combobox.getText())) {
+        } else if (typeValue.equals(OptionalFieldTypeFacade.simple_combobox.getValue().toString())) {
             optionalField.setFkType(OptionalFieldTypeFacade.simple_combobox.getValue());
-        } else if (typeValue.equals(OptionalFieldTypeFacade.multiple_combobox.getText())) {
+        } else if (typeValue.equals(OptionalFieldTypeFacade.multiple_combobox.getValue().toString())) {
             optionalField.setFkType(OptionalFieldTypeFacade.multiple_combobox.getValue());
         }
 

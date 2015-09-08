@@ -127,11 +127,11 @@
 				                <select name="optionalFieldType-$field.fkDelegationField">
 								    #foreach($type in $fieldTypes)
 								    	#if($type.description == 'Eingabefeld')
-				                	   		<option name="optionalFieldtype-$type.id" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>${placeholderWithTranslation.GENERIC_INPUT_FIELD}</option>
+				                	   		<option name="optionalFieldtype-$type.id" value="1" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>${placeholderWithTranslation.GENERIC_INPUT_FIELD}</option>
 								    	#elseif($type.description == 'Einfaches Auswahlfeld')
-				                	   		<option name="optionalFieldtype-$type.id" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>${placeholderWithTranslation.GENERIC_SIMPLE_COMBOBOX}</option>
+				                	   		<option name="optionalFieldtype-$type.id" value="2" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>${placeholderWithTranslation.GENERIC_SIMPLE_COMBOBOX}</option>
 								    	#elseif($type.description == 'Mehrfaches Auswahlfeld')
-				                	   		<option name="optionalFieldtype-$type.id" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>${placeholderWithTranslation.GENERIC_MULTIPLE_COMBOBOX}</option>
+				                	   		<option name="optionalFieldtype-$type.id" value="3" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>${placeholderWithTranslation.GENERIC_MULTIPLE_COMBOBOX}</option>
 				                	   	#end
 								    #end
 								</select>
