@@ -4,7 +4,7 @@
 
 <div class="textRight marginBottom20" id="buttonPanel-bottom">
 	#if($grants.mayWrite())
-		<input type="button" name="refresh" value="${placeholderWithTranslation.aufstammdatenzurucksetzen}" title="${GUEST_LIST_RESET_ALL_TO_MASTER_DATA}" onclick="reloadGuestData();" />
+		<input type="button" name="refresh" value="${placeholderWithTranslation.aufstammdatenzurucksetzen}" title="${placeholderWithTranslation.GUEST_LIST_RESET_ALL_TO_MASTER_DATA}" onclick="reloadGuestData();" />
 	#end
 		<input type="button" name="persondata" value="${placeholderWithTranslation.GUEST_LIST_EDIT_MASTER_DATA}" title="${placeholderWithTranslation.GUEST_LIST_EDIT_MASTER_DATA}" onclick="shwoPersonDetail();" />
 </div>

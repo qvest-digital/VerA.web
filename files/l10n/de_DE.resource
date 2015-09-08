@@ -1716,7 +1716,18 @@ GENERIC_PREVIOUS_PAGE=Vorherige Seite
 GENERIC_PREVIOUS_PERSON=Vorherige Person
 GENERIC_FIRST_PAGE=Erste Seite
 GENERIC_FIRST_PERSON=Erste Person
+GENERIC_INPUT_FIELD=Eingabefeld
+GENERIC_SIMPLE_COMBOBOX=Einfaches Auswahlfeld
+GENERIC_MULTIPLE_COMBOBOX=Mehrfaches Auswahlfeld
 
+# EVENT LOCATIONS (Veranstaltungsort)
+HINT_DELETE_NOT_POSSIBLE_ONE=Der Ort '
+HINT_DELETE_NOT_POSSIBLE_TWO=' kannt nicht gel\u00f6scht werden, da er von mindestenes einer Veranstaltung verwendet wird.
+CONFIRMATION_CREATE_LOCATION_ONE=Soll der Veranstaltungsort '
+CONFIRMATION_CREATE_LOCATION_TWO=' wirklich gel\u00f6scht werden?
+
+INSERT_FUNCTION_FROM_MAIN_DATA=Amtsbezeichnung aus Stammdaten hinzufügen
+INSERT_COMPANY_FROM_MAIN_DATA=Firma aus Stammdaten hinzufügen
 
 #GENERAL MESSAGE
 GM_PART1=Es wurden
@@ -1724,4 +1735,3 @@ GM_PART1_S=Es wurde
 GM_ACTION_DELETED=gel\u00F6scht
 GM_ACTION_INSERTED=angelegt
 GM_ACTION_MODIFIED=ge\u00E4ndert
-

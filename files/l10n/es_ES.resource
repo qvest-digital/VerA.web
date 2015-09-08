@@ -117,8 +117,8 @@ GENERIC_GUEST_SINGULAR=Invitado
 GENERIC_GUEST_PLURAL=Invitados
 GENERIC_INSTITUTION_SINGULAR=Instituci\u00F3n
 GENERIC_INSTITUTION_PLURAL=Instituciones
-GENERIC_MAIL_DRAFT_SINGULAR=Presentaci\u00F3n
-GENERIC_MAIL_DRAFT_PLURAL=Presentaciones
+GENERIC_MAIL_DRAFT_SINGULAR=plantilla
+GENERIC_MAIL_DRAFT_PLURAL=plantillas
 GENERIC_OFFICIAL_TITLE_SINGULAR=T\u00EDtulo
 GENERIC_OFFICIAL_TITLE_PLURAL=T\u00EDtulos
 GENERIC_PERSON_SINGULAR=Persona
@@ -146,7 +146,7 @@ HEADER_COUNT_INSERT_ELSE_PART_ONE=Se han creado
 HEADER_COUNT_INSERT_ZERO_PART_TWO=
 HEADER_COUNT_INSERT_ONE_PART_TWO=
 HEADER_COUNT_INSERT_ELSE_PART_TWO=
-HEADER_COUNT_REMOVE_ZERO_PART_ONE=Se ha eliminado
+HEADER_COUNT_REMOVE_ZERO_PART_ONE=No se ha eliminado
 HEADER_COUNT_REMOVE_ONE_PART_ONE=Se ha eliminado
 HEADER_COUNT_REMOVE_ELSE_PART_ONE=Se han eliminado
 HEADER_COUNT_REMOVE_ZERO_PART_TWO=
@@ -161,7 +161,7 @@ HEADER_COUNT_UPDATE_ELSE_PART_TWO=
 HEADER_ELEMENT_FEMALE_NO=ninguna
 HEADER_ELEMENT_FEMALE_ONE=un
 HEADER_ELEMENT_FEMALE_NEW=
-HEADER_ELEMENT_MALE_NO=ning\u00FAn
+HEADER_ELEMENT_MALE_NO=
 HEADER_ELEMENT_MALE_ONE=un registro de
 HEADER_ELEMENT_MALE_NEW=
 HEADER_ELEMENT_NO_RECORD_SINGULAR=ning\u00FAn registro
@@ -349,7 +349,7 @@ GENERIC_MAIN_PERSON=Persona principal
 GENERIC_PARTNER=Partner
 GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subpesta\u00F1as de \u00E2\u0080\u009EDirecciones\u00E2\u0080\u009C
 GENERIC_BUSINESS=Negocio
-GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Elecci\u00F3n est\u00E1ndar sobre el selector de \u00E2\u0080\u009Echarset\u00E2\u0080\u009C
+GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Elecci\u00F3n est\u00E1ndar sobre el selector de conjuntos de caracteres
 GENERIC_CHARSET=Conjunto de caracteres
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Denominaciones est\u00E1ndar y campos de texto libre
 GENERIC_STANDARD_SALUTATION=Denominaci\u00F3n est\u00E1ndar
@@ -521,7 +521,7 @@ GENERIC_STATISTIC=Estad\u00EDsticas
 ausstammdatenhinzufugen=Obtener de los datos maestros
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
-GENERIC_DOCUMENT_TYPE_SINGULAR=Tipo de documento
+GENERIC_DOCUMENT_TYPE_SINGULAR=tipo de documento
 GENERIC_GENERATE_ALL=Generar todos
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
@@ -886,8 +886,8 @@ e-mail-clientaufrufen=Redactar E-Mail a cliente
 
 # FEHLEND
 zurstartseite=Inicio
-solldieneuekategorie=\u00BFDeber\u00EDa filtrarse 
-einsortiertwerden=la nueva categor\u00EDa?
+solldieneuekategorie=\u00BFDesea crear la nueva categor\u00EDa
+einsortiertwerden=?
 pflichtfelder=Campos obligatorios
 markiertekategorien=Categor\u00EDas seleccionadas
 markiertekategorienloschen=Eliminar las categor\u00EDas seleccionadas
@@ -1719,4 +1719,15 @@ GENERIC_PREVIOUS_PAGE=P\u00E1gina anterior
 GENERIC_PREVIOUS_PERSON=Persona anterior
 GENERIC_FIRST_PAGE=P\u00E1gina inicial
 GENERIC_FIRST_PERSON=Primera persona
+GENERIC_INPUT_FIELD=Campo de texto
+GENERIC_SIMPLE_COMBOBOX=Campo de selecci\u00F3n simple
+GENERIC_MULTIPLE_COMBOBOX=Campo de selecci\u00F3n m\u00FAltiple
 
+# EVENT LOCATIONS (Veranstaltungsort)
+HINT_DELETE_NOT_POSSIBLE_ONE=La localizaci\u00F3n '
+HINT_DELETE_NOT_POSSIBLE_TWO=' no ha podido ser eliminada, debido a que se encuentra relacionada con al menos un evento.
+CONFIRMATION_CREATE_LOCATION_ONE=\u00BFDesea realmente eliminar la localizaci\u00F3n '
+CONFIRMATION_CREATE_LOCATION_TWO='?
+
+INSERT_FUNCTION_FROM_MAIN_DATA=Tomar función desde datos maestros
+INSERT_COMPANY_FROM_MAIN_DATA=Tomar empresa desde datos maestros

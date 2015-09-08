@@ -126,7 +126,13 @@
 								<span>${placeholderWithTranslation.eingabetyp}</span>
 				                <select name="optionalFieldType-$field.fkDelegationField">
 								    #foreach($type in $fieldTypes)
-				                	   	<option name="optionalFieldtype-$type.id" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>$type.description</option>
+								    	#if($type.description == 'Eingabefeld')
+				                	   		<option name="optionalFieldtype-$type.id" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>${placeholderWithTranslation.GENERIC_INPUT_FIELD}</option>
+								    	#elseif($type.description == 'Einfaches Auswahlfeld')
+				                	   		<option name="optionalFieldtype-$type.id" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>${placeholderWithTranslation.GENERIC_SIMPLE_COMBOBOX}</option>
+								    	#elseif($type.description == 'Mehrfaches Auswahlfeld')
+				                	   		<option name="optionalFieldtype-$type.id" id="$type.id" #if($field.fkType == $type.id)selected="true"#end>${placeholderWithTranslation.GENERIC_MULTIPLE_COMBOBOX}</option>
+				                	   	#end
 								    #end
 								</select>
 							</div>
@@ -134,7 +140,7 @@
 
 						<div class="tableRow">
 							#if($field.fkType == 2 || $field.fkType == 3)
-								<!-- BBB: -->
+
 								#set($fieldvalue = 0)
 								#foreach( $typeContent in $field.optionalFieldTypeContents )
 									<div class="tableCell width25">

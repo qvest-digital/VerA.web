@@ -8,7 +8,7 @@
 				<textarea rows="2" col="20" id="person-function$!message.plain($ext)" name="person-function$!message.plain($ext)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end>$!message.textarea($facade.Function)</textarea>
 				#if(!$createNewPerson && $grants.mayWrite())
 					<div class="addButton">
-						<input type="button" value="${placeholderWithTranslation.ausstammdatenhinzufugen}" title="Amtsbezeichnung aus Stammdaten hinzufügen" onclick="selectFunction('${paths.staticWeb}do/', 'person-function$ext');"/>
+						<input type="button" value="${placeholderWithTranslation.ausstammdatenhinzufugen}" title="${placeholderWithTranslation.INSERT_FUNCTION_FROM_MAIN_DATA}" onclick="selectFunction('${paths.staticWeb}do/', 'person-function$ext');"/>
 					</div>
 				#end
 			</div>
@@ -18,7 +18,7 @@
 				<input type="text" id="person-company$!message.plain($ext)" name="person-company$!message.plain($ext)" value="$!message.text($facade.Company)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 				#if(!$createNewPerson && $grants.mayWrite())
 					<div class="addButton">
-						<input type="button" value="${placeholderWithTranslation.ausstammdatenhinzufugen}" title="Firma aus Stammdaten hinzufügen" onclick="selectCompany('${paths.staticWeb}do/', 'person-company$!message.plain($ext)');"/>
+						<input type="button" value="${placeholderWithTranslation.ausstammdatenhinzufugen}" title="${placeholderWithTranslation.INSERT_COMPANY_FROM_MAIN_DATA}" onclick="selectCompany('${paths.staticWeb}do/', 'person-company$!message.plain($ext)');"/>
 					</div>
 				#end
 			</div>
@@ -70,12 +70,12 @@
 		<div class="tableRow">
 
 			<div class="tableCell width50">
-				<label for="person-suffix1$!message.plain($ext)">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1</label>
+				<label for="person-suffix1$!message.plain($ext)">$!message.plain($config.suffix1)</label>
 				<input type="text" id="person-suffix1$!message.plain($ext)" name="person-suffix1$!message.plain($ext)" value="$!message.text($facade.Suffix1)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
 
 			<div class="tableCell width50">
-				<label for="person-suffix2$!message.plain($ext)">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2</label>
+				<label for="person-suffix2$!message.plain($ext)">$!message.plain($config.suffix2)</label>
 				<input type="text" id="person-suffix2$!message.plain($ext)" name="person-suffix2$!message.plain($ext)" value="$!message.text($facade.Suffix2)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
 

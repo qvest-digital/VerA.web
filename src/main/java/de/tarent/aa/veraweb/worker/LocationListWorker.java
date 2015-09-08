@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Location;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -80,7 +82,7 @@ public class LocationListWorker extends ListWorkerVeraWeb {
      * Bestimmt ob ein Veranstaltungsort aufgrund bestimmter Kriterien gelöscht wird oder nicht
      */
     @Override
-    protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
+    protected int removeSelection(OctopusContext octopusContext, List errors, List selection, TransactionContext context) throws BeanException, IOException {
 
         int count = 0;
         if (selection == null || selection.size() == 0) {
@@ -98,21 +100,28 @@ public class LocationListWorker extends ListWorkerVeraWeb {
         List locationList = database.getBeanList("Location", select);
 
         for (Iterator it = locationList.iterator(); it.hasNext(); ) {
-            location = (Location)it.next();
+            location = (Location) it.next();
 
             Integer countReferences = database.getCount(database.getCount("Event").where(Expr.equal("fk_location", location.id)));
+            LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+            LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
 
             if (countReferences != null && countReferences > 0) {
-                errors.add("Der Ort '" + location.name + "' kannt nicht gel\u00f6scht werden, da er von mindestenes einer Veranstaltung verwendet wird.");
-            } else if (cntx.requestAsBoolean("remove-location" + location.id).booleanValue()) {
+                errors.add(languageProvider.getProperty("HINT_DELETE_NOT_POSSIBLE_ONE") +
+                        location.name +
+                        languageProvider.getProperty("HINT_DELETE_NOT_POSSIBLE_TWO"));
+            } else if (octopusContext.requestAsBoolean("remove-location" + location.id).booleanValue()) {
                 removeLocations.add(location.id);
             } else {
-                questions.put("remove-location" + location.id, "Soll der Veranstaltungsort '" + location.name + "' wirklich gel\u00f6scht werden?");
+                questions.put("remove-location" + location.id,
+                        languageProvider.getProperty("CONFIRMATION_CREATE_LOCATION_ONE") +
+                                location.name +
+                                languageProvider.getProperty("CONFIRMATION_CREATE_LOCATION_TWO"));
             }
         }
 
         if (errors.isEmpty() && !questions.isEmpty()) {
-            cntx.setContent("listquestions", questions);
+            octopusContext.setContent("listquestions", questions);
         }
 
         if (removeLocations.size() > 0) {
@@ -128,7 +137,7 @@ public class LocationListWorker extends ListWorkerVeraWeb {
                     data = (Map)it.next();
                     location.id = (Integer)data.get("id");
 
-                    if (removeBean(cntx, location, context)) {
+                    if (removeBean(octopusContext, location, context)) {
                         selection.remove(location.id);
                         count++;
                     }

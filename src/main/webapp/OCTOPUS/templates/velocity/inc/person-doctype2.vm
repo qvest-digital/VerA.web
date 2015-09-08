@@ -22,15 +22,11 @@
         <div class="tableRow">
             <div class="tableCell width50">
                 <label for="persondoctype-textfield">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD}</label>
-                <textarea id="persondoctype-textfield" name="persondoctype-textfield" #if($grants.mayWrite())  #else class="textdisabled" vera-disabled #end>
-                    $!message.textarea($persondoctype.textfield)
-                </textarea>
+                <textarea id="persondoctype-textfield" name="persondoctype-textfield" #if($grants.mayWrite())  #else class="textdisabled" vera-disabled #end>$!message.textarea($persondoctype.textfield)</textarea>
             </div>
             <div class="tableCell width50">
                 <label for="persondoctype-textfieldPartner">${placeholderWithTranslation.GENERIC_PARTNER_FREETEXTFIELD}</label>
-                <textarea id="persondoctype-textfieldPartner" name="persondoctype-textfieldPartner" #if($grants.mayWrite())  #else class="textdisabled" vera-disabled #end>
-                    $!message.textarea($persondoctype.textfieldPartner)
-                </textarea>
+                <textarea id="persondoctype-textfieldPartner" name="persondoctype-textfieldPartner" #if($grants.mayWrite())  #else class="textdisabled" vera-disabled #end>$!message.textarea($persondoctype.textfieldPartner)</textarea>
             </div>
         </div>
         <div class="tableRow">

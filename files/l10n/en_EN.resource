@@ -521,7 +521,7 @@ GENERIC_STATISTIC=Statistics
 ausstammdatenhinzufugen=Add from main data
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
-GENERIC_DOCUMENT_TYPE_SINGULAR=Dokument type
+GENERIC_DOCUMENT_TYPE_SINGULAR=Document type
 GENERIC_GENERATE_ALL=Generate all
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
@@ -619,9 +619,9 @@ EXPORT_TITLE_ZKM=ZKM
 EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Persons
 EXPORT_TITLE_MADLAN_COMPANY=MAdLAN-Companies
 EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
-EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV Persons data+mailing boxes+Dokument types
+EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV Persons data+mailing boxes+Document types
 EXPORT_TITLE_CSVPERSDATA_DOCTYPE=CSV Persons data+Document types
-EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV Persons data+Dokument types 1.0
+EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV Persons data+Document types 1.0
 EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV Persons data+Categories
 EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
 LABEL_EXPORT_ZKM=Ziel (ZKM-Code)
@@ -652,7 +652,7 @@ GENERIC_EXPORT_PERSONS=Export persons
 GENERIC_IMPORT_PERSONS=Import persons
 
 # VERANSTALTUNGENDROPDOWN
-GENERIC_EVENT_VIEW=Event view
+GENERIC_EVENT_VIEW=Events summary
 veranstaltunguuche=Veranstaltungssuche
 GENERIC_NEW_EVENT=New event
 GENERIC_STATISTICS=Statistics
@@ -660,7 +660,7 @@ GENERIC_STATISTICS=Statistics
 # ADMINISTRATIONDROPDOWN
 GENERIC_SALUTATIONS=Salutations
 GENERIC_WORKAREA_PLURAL=Work areas
-GENERIC_DOCUMENT_TYPE_PLURAL=Dokument types
+GENERIC_DOCUMENT_TYPE_PLURAL=Document types
 e-mail-postausgang=E-Mail outbox
 GENERIC_PROGRAM_PERFERENCES=Program preferences
 GENERIC_EVENT_LOCATION_PLURAL=Event locations
@@ -847,7 +847,7 @@ gastdetails=guestdetails
 HINT_GUEST_LIST_EDIT_PERSONDATA=Here you are only editing persondata within the current event, not general core data
 istgastgeber=is host
 reserve=reserve
-aufstammdatenzurucksetzen=reset to core data
+aufstammdatenzurucksetzen=Reset to core data
 stammdatenbearbeiten=edit core data
 
 # DOKUMENTTYPEN
@@ -858,7 +858,7 @@ tischkarte=place card
 adresstypundzeichensatzwahlen=choose address type and charset
 adresstyp=address type
 datenbearbeiten=edit data
-verbinder=connector
+verbinder=Connector
 freitextfeldpartner=free text field(partner)
 akatitel=aka title (partner)
 kontaktdaten=contact data
@@ -1295,7 +1295,7 @@ verawebdetailansicht=VerA.web :: Details
 datensatzbearbeiten=edit dataset
 zuruecksetzen=reset
 datensatzloeschen=remove dataset
-
+siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen= For searching purposes you can use so-called placeholders: * is used to replace more than one character and ? for exactly one character
 undamtsbezeichnungfunktion=and employment title/function
 HINT_SEARCH_WHERE=Searching in first name, last name, city, zip, street, company/institution, telephone, fax, mobile, e-mail,notes, categories, workareas
 neuenorteingeben=enter new city
@@ -1716,6 +1716,18 @@ GENERIC_PREVIOUS_PAGE=Previous page
 GENERIC_PREVIOUS_PERSON=Previous person
 GENERIC_FIRST_PAGE=Next page
 GENERIC_FIRST_PERSON=Next person
+GENERIC_INPUT_FIELD=Input field
+GENERIC_SIMPLE_COMBOBOX=Simple combobox
+GENERIC_MULTIPLE_COMBOBOX=Multiple combobox
+
+# EVENT LOCATIONS (Veranstaltungsort)
+HINT_DELETE_NOT_POSSIBLE_ONE=It is not possible to delete the location '
+HINT_DELETE_NOT_POSSIBLE_TWO=', because it is related, at least, to one event.
+CONFIRMATION_CREATE_LOCATION_ONE=Do you really want to delete the location '
+CONFIRMATION_CREATE_LOCATION_TWO='?
+
+INSERT_FUNCTION_FROM_MAIN_DATA=Add function from main data
+INSERT_COMPANY_FROM_MAIN_DATA=Add company from main data
 
 #GENERAL MESSAGE
 GM_PART_1=You have
