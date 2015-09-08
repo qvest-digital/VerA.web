@@ -158,9 +158,9 @@
 
 			#if($action != "guest" && $action != "addperson" && !$searchTask )
 				<span id="" class="buttonPanel-top textRight floatRight">
-					<input type="button" name="" value="${placeholderWithTranslation.GENERIC_EVENT_SEARCH}" class="mainButton" onclick="window.location.href='ShowEventSearch?action=event';"/>
+					<input type="button" title="${placeholderWithTranslation.GENERIC_EVENT_SEARCH}" name="" value="${placeholderWithTranslation.GENERIC_EVENT_SEARCH}" class="mainButton" onclick="window.location.href='ShowEventSearch?action=event';"/>
 					#if($grants.mayWrite())
-						<input type="button" name="" value="${placeholderWithTranslation.GENERIC_CREATE_NEW_EVENT}" class="mainButton" onclick="window.location.href='CreateEvent?action=event';"/>
+						<input type="button" title="${placeholderWithTranslation.GENERIC_CREATE_NEW_EVENT}" name="" value="${placeholderWithTranslation.GENERIC_CREATE_NEW_EVENT}" class="mainButton" onclick="window.location.href='CreateEvent?action=event';"/>
 					#end
 				</span>
 			#end
