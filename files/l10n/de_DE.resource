@@ -1738,8 +1738,8 @@ MESSAGE_REPLACED_PERSON_TWO=Personen ersetzt.
 MESSAGE_FOUND_PERSON_ONE=Es wurden
 MESSAGE_FOUND_PERSON_TWO=Personen gefunden.
 
-
-Sie haben ${count} Person(en) ausgew\u00E4hlt. Abh\u00E4ngig von der Anzahl der ausgew\u00E4hlten Personen kann die Aktion eine gewisse Zeit in Anspruch nehmen.
-
 HINT_POPUP_CATEGORY_SELECTION_ONE=Sie haben
 HINT_POPUP_CATEGORY_SELECTION_TWO=Person(en) ausgew\u00E4hlt. Abh\u00E4ngig von der Anzahl der ausgew\u00E4hlten Personen kann die Aktion eine gewisse Zeit in Anspruch nehmen.
+
+DELETE_DISTRIBUTOR=Soll der markierte Verteiler entfernt werden?
+DELETE_DISTRIBUTORS=Sollen die markierten Verteiler entfernt werden?

@@ -23,10 +23,11 @@
     				n++;
     	}
     	var check = false;
-    	if (n == 1)
-    		check = confirm("Soll der markierte Verteiler entfernt werden?");
-    	else if (n > 1)
-    		check = confirm("Sollen die markierten Verteiler entfernt werden?");
+    	if (n == 1) {
+    		check = confirm("${placeholderWithTranslation.DELETE_DISTRIBUTOR}");
+		} else if (n > 1) {
+    		check = confirm("${placeholderWithTranslation.DELETE_DISTRIBUTORS}");
+		}
     	if (check == true) {
     		document.getElementById('remove').name = 'remove';
     		document.formlist.submit();
