@@ -1069,8 +1069,8 @@ zurpersonenuebersicht=To persons overview
 zurueckzurveranstaltung=Back to Event
 zurdublettensuche=To duplicates
 zurckzumsuchergebnis=Back to search results
-diesepersonwurdeerfolgreichzurgaestelistederveranstaltung= This person was successfully added to the guest list.
-hinzugefuegt=added
+diesepersonwurdeerfolgreichzurgaestelistederveranstaltung=This person was successfully added to the event
+hinzugefuegt=
 diesepersonwurdenichthinzugefuegtdasiebereitsaufdergaestelistesteht=This person was not added, since he/she is already on the guest list.
 diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt=This person is already marked as deleted and will not be shown in search anymore.
 personanlegen=Create person
@@ -1729,3 +1729,6 @@ CONFIRMATION_CREATE_LOCATION_TWO='?
 
 INSERT_FUNCTION_FROM_MAIN_DATA=Add function from main data
 INSERT_COMPANY_FROM_MAIN_DATA=Add company from main data
+
+HINT_GUEST_ALREADY_INVITED_SINGULAR=One guest was already invited to the event.
+HINT_GUEST_ALREADY_INVITED_PLURAL=guests were already invited to the event.

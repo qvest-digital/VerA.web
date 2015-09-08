@@ -1487,7 +1487,7 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=\u00BFUtilizar los datos de rango de 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reiniciar todos los valores mediante datos maestros
 GUEST_LIST_EDIT_MASTER_DATA=Editar datos maestros de personas
-GUEST=Invitad
+GUEST=Invitado
 GENERIC_OF_CAPITAL=de
 GENERIC_ASSIGN=Aceptar
 GENERIC_CANCEL=Cancelar
@@ -1729,5 +1729,8 @@ HINT_DELETE_NOT_POSSIBLE_TWO=' no ha podido ser eliminada, debido a que se encue
 CONFIRMATION_CREATE_LOCATION_ONE=\u00BFDesea realmente eliminar la localizaci\u00F3n '
 CONFIRMATION_CREATE_LOCATION_TWO='?
 
-INSERT_FUNCTION_FROM_MAIN_DATA=Tomar función desde datos maestros
+INSERT_FUNCTION_FROM_MAIN_DATA=Tomar funci\u00F3n desde datos maestros
 INSERT_COMPANY_FROM_MAIN_DATA=Tomar empresa desde datos maestros
+
+HINT_GUEST_ALREADY_INVITED_SINGULAR=Un invitado ya se encontraba en la lista de invitados.
+HINT_GUEST_ALREADY_INVITED_PLURAL=invitados ya se encontraban en la lista de invitados.
