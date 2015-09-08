@@ -1743,5 +1743,5 @@ MESSAGE_FOUND_PERSON_TWO=personas.
 HINT_POPUP_CATEGORY_SELECTION_ONE=Ha seleccionado
 HINT_POPUP_CATEGORY_SELECTION_TWO=persona(s). Dependiendo del n\u00FAmero de personas seleccionadas, el proceso puede durar un poco m\u00E1s.
 
-DELETE_DISTRIBUTOR=¿Desea realmente eliminar el distribuidor seleccionado?
-DELETE_DISTRIBUTORS=¿Desea realmente eliminar los distribuidores seleccionados?
+DELETE_DISTRIBUTOR=\u00BFDesea realmente eliminar el distribuidor seleccionado?
+DELETE_DISTRIBUTORS=\u00BFDesea realmente eliminar los distribuidores seleccionados?
