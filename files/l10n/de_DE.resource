@@ -1732,3 +1732,6 @@ INSERT_COMPANY_FROM_MAIN_DATA=Firma aus Stammdaten hinzuf\u00FCgen
 
 HINT_GUEST_ALREADY_INVITED_SINGULAR=Ein Gast stand bereits auf der G\u00E4steliste.
 HINT_GUEST_ALREADY_INVITED_PLURAL=G\u00E4ste standen bereits auf der G\u00E4steliste.
+
+DELETE_DISTRIBUTOR=Soll der markierte Verteiler entfernt werden?
+DELETE_DISTRIBUTORS=Sollen die markierten Verteiler entfernt werden?

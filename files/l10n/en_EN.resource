@@ -1732,3 +1732,6 @@ INSERT_COMPANY_FROM_MAIN_DATA=Add company from main data
 
 HINT_GUEST_ALREADY_INVITED_SINGULAR=One guest was already invited to the event.
 HINT_GUEST_ALREADY_INVITED_PLURAL=guests were already invited to the event.
+
+DELETE_DISTRIBUTOR=Do you really want to delete the selected distributor?
+DELETE_DISTRIBUTORS=Do you really want to delete the selected distributors?

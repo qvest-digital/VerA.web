@@ -1734,3 +1734,7 @@ INSERT_COMPANY_FROM_MAIN_DATA=Tomar empresa desde datos maestros
 
 HINT_GUEST_ALREADY_INVITED_SINGULAR=Un invitado ya se encontraba en la lista de invitados.
 HINT_GUEST_ALREADY_INVITED_PLURAL=invitados ya se encontraban en la lista de invitados.
+
+DELETE_DISTRIBUTOR=¿Desea realmente eliminar el distribuidor seleccionado?
+DELETE_DISTRIBUTORS=¿Desea realmente eliminar los distribuidores seleccionados?
+
