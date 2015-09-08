@@ -893,7 +893,7 @@ markiertekategorien=marked categories
 markiertekategorienloschen=delete marked categories
 alledemarkieren=(un)check all
 furalleveranstaltungen=for all events
-speichern=save
+speichern=Save
 anderungsprotokollfurdenzeitraum=changelog for period
 objekt=object
 objektid=object-id
@@ -1732,3 +1732,12 @@ INSERT_COMPANY_FROM_MAIN_DATA=Add company from main data
 
 HINT_GUEST_ALREADY_INVITED_SINGULAR=One guest was already invited to the event.
 HINT_GUEST_ALREADY_INVITED_PLURAL=guests were already invited to the event.
+
+MESSAGE_REPLACED_PERSON_ONE=There were
+MESSAGE_REPLACED_PERSON_TWO=persons replaced.
+MESSAGE_FOUND_PERSON_ONE=There were
+MESSAGE_FOUND_PERSON_TWO=persons found.
+
+HINT_POPUP_CATEGORY_SELECTION_ONE=You chose
+HINT_POPUP_CATEGORY_SELECTION_TWO=person(s). Depending on the amount of persons, this action could take a while.
+

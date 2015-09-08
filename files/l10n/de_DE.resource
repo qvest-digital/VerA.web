@@ -1732,3 +1732,14 @@ INSERT_COMPANY_FROM_MAIN_DATA=Firma aus Stammdaten hinzuf\u00FCgen
 
 HINT_GUEST_ALREADY_INVITED_SINGULAR=Ein Gast stand bereits auf der G\u00E4steliste.
 HINT_GUEST_ALREADY_INVITED_PLURAL=G\u00E4ste standen bereits auf der G\u00E4steliste.
+
+MESSAGE_REPLACED_PERSON_ONE=Es wurden
+MESSAGE_REPLACED_PERSON_TWO=Personen ersetzt.
+MESSAGE_FOUND_PERSON_ONE=Es wurden
+MESSAGE_FOUND_PERSON_TWO=Personen gefunden.
+
+
+Sie haben ${count} Person(en) ausgew\u00E4hlt. Abh\u00E4ngig von der Anzahl der ausgew\u00E4hlten Personen kann die Aktion eine gewisse Zeit in Anspruch nehmen.
+
+HINT_POPUP_CATEGORY_SELECTION_ONE=Sie haben
+HINT_POPUP_CATEGORY_SELECTION_TWO=Person(en) ausgew\u00E4hlt. Abh\u00E4ngig von der Anzahl der ausgew\u00E4hlten Personen kann die Aktion eine gewisse Zeit in Anspruch nehmen.
