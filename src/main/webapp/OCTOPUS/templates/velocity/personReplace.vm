@@ -70,7 +70,7 @@
 				#elseif($snr-count == 1)
 					<vera-success>${placeholderWithTranslation.eswurdeeinepersonersetzt}</vera-success>
 				#else
-					<vera-success>${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $!snr-count ${placeholderWithTranslation.personenersetzt}</vera-success>
+					<vera-success>${placeholderWithTranslation.MESSAGE_REPLACED_PERSON_ONE} $!snr-count ${placeholderWithTranslation.MESSAGE_REPLACED_PERSON_TWO}</vera-success>
 				#end
 			#elseif($snr-action == "count")
 				#if(!$snr-count)
@@ -86,7 +86,7 @@
 				#elseif($snr-count == 1)
 					<vera-success>${placeholderWithTranslation.eswurdeeinepersongefunden}</vera-success>
 				#else
-					<vera-success>${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $!snr-count ${placeholderWithTranslation.personengefunden}</vera-success>
+					<vera-success>${placeholderWithTranslation.MESSAGE_FOUND_PERSON_ONE} $!snr-count ${placeholderWithTranslation.MESSAGE_FOUND_PERSON_TWO}</vera-success>
 				#end
 			#end
 

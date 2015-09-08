@@ -1487,7 +1487,7 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=\u00BFUtilizar los datos de rango de 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reiniciar todos los valores mediante datos maestros
 GUEST_LIST_EDIT_MASTER_DATA=Editar datos maestros de personas
-GUEST=Invitad
+GUEST=Invitado
 GENERIC_OF_CAPITAL=de
 GENERIC_ASSIGN=Aceptar
 GENERIC_CANCEL=Cancelar
@@ -1731,6 +1731,20 @@ CONFIRMATION_CREATE_LOCATION_TWO='?
 
 INSERT_FUNCTION_FROM_MAIN_DATA=Tomar funci\u00F3n desde datos maestros
 INSERT_COMPANY_FROM_MAIN_DATA=Tomar empresa desde datos maestros
+
+HINT_GUEST_ALREADY_INVITED_SINGULAR=Un invitado ya se encontraba en la lista de invitados.
+HINT_GUEST_ALREADY_INVITED_PLURAL=invitados ya se encontraban en la lista de invitados.
+
+MESSAGE_REPLACED_PERSON_ONE=Se han reemplazado
+MESSAGE_REPLACED_PERSON_TWO=personas.
+MESSAGE_FOUND_PERSON_ONE=Se han encontrado
+MESSAGE_FOUND_PERSON_TWO=personas.
+
+HINT_POPUP_CATEGORY_SELECTION_ONE=Ha seleccionado
+HINT_POPUP_CATEGORY_SELECTION_TWO=persona(s). Dependiendo del n\u00FAmero de personas seleccionadas, el proceso puede durar un poco m\u00E1s.
+
+DELETE_DISTRIBUTOR=\u00BFDesea realmente eliminar el distribuidor seleccionado?
+DELETE_DISTRIBUTORS=\u00BFDesea realmente eliminar los distribuidores seleccionados?
 
 #GENERAL MESSAGE
 GM_PART1=Se han

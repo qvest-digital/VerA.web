@@ -620,9 +620,9 @@
 		showWarning('Sie haben keine Person ausgewählt.');
 	#elseif($notInvited)
 		#if($notInvited == 1)
-			showWarning('Ein Gast stand bereits auf der Gästeliste.');
+			showWarning('${placeholderWithTranslation.HINT_GUEST_ALREADY_INVITED_SINGULAR}');
 		#elseif($notInvited > 1)
-			showWarning('$!notInvited Gäste standen bereits auf der Gästeliste.');
+			showWarning('$!notInvited' + ' ' + '${placeholderWithTranslation.HINT_GUEST_ALREADY_INVITED_PLURAL}');
 		#end
 	#end
 
