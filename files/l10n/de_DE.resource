@@ -1746,7 +1746,8 @@ DELETE_DISTRIBUTORS=Sollen die markierten Verteiler entfernt werden?
 #GENERAL MESSAGE
 GM_PART1=Es wurden
 GM_PART1_S=Es wurde
-GM_PART1_NONE=
+GM_NONE_1=
+GM_NONE_2=
 GM_ACTION_DELETED=gel\u00F6scht
 GM_ACTION_INSERTED=angelegt
 GM_ACTION_MODIFIED=ge\u00E4ndert
