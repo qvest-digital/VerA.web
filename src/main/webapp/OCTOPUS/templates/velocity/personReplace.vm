@@ -55,6 +55,7 @@
 				</div>
 			</div>
 
+			##IMPLEMENTNEWMESSAGEMETHOD
 			#if($snr-action == "replace" || $snr-action == "replaceAll")
 				#if(!$snr-count)
 					<vera-warn>

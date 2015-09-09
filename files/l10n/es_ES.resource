@@ -162,7 +162,7 @@ HEADER_ELEMENT_FEMALE_NO=ninguna
 HEADER_ELEMENT_FEMALE_ONE=un
 HEADER_ELEMENT_FEMALE_NEW=
 HEADER_ELEMENT_MALE_NO=
-HEADER_ELEMENT_MALE_ONE=un registro de
+HEADER_ELEMENT_MALE_ONE=un
 HEADER_ELEMENT_MALE_NEW=
 HEADER_ELEMENT_NO_RECORD_SINGULAR=ning\u00FAn registro
 HEADER_ELEMENT_NO_NEW_RECORD_SINGULAR=ning\u00FAn nuevo registro
@@ -1745,3 +1745,14 @@ HINT_POPUP_CATEGORY_SELECTION_TWO=persona(s). Dependiendo del n\u00FAmero de per
 
 DELETE_DISTRIBUTOR=\u00BFDesea realmente eliminar el distribuidor seleccionado?
 DELETE_DISTRIBUTORS=\u00BFDesea realmente eliminar los distribuidores seleccionados?
+
+#GENERAL MESSAGE
+GM_PART1=Se han
+GM_PART1_S=Se ha
+GM_NONE_1=No se han
+GM_NONE_2=
+GM_ACTION_DELETED=eliminado
+GM_ACTION_INSERTED=creado
+GM_ACTION_MODIFIED=modificado
+GM_ENTRY_OF=un registro de
+GM_ENTRIES_OF=registros de

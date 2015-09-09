@@ -1716,7 +1716,6 @@ GENERIC_PREVIOUS_PAGE=Vorherige Seite
 GENERIC_PREVIOUS_PERSON=Vorherige Person
 GENERIC_FIRST_PAGE=Erste Seite
 GENERIC_FIRST_PERSON=Erste Person
-
 GENERIC_INPUT_FIELD=Eingabefeld
 GENERIC_SIMPLE_COMBOBOX=Einfaches Auswahlfeld
 GENERIC_MULTIPLE_COMBOBOX=Mehrfaches Auswahlfeld
@@ -1743,3 +1742,14 @@ HINT_POPUP_CATEGORY_SELECTION_TWO=Person(en) ausgew\u00E4hlt. Abh\u00E4ngig von 
 
 DELETE_DISTRIBUTOR=Soll der markierte Verteiler entfernt werden?
 DELETE_DISTRIBUTORS=Sollen die markierten Verteiler entfernt werden?
+
+#GENERAL MESSAGE
+GM_PART1=Es wurden
+GM_PART1_S=Es wurde
+GM_NONE_1=
+GM_NONE_2=
+GM_ACTION_DELETED=gel\u00F6scht
+GM_ACTION_INSERTED=angelegt
+GM_ACTION_MODIFIED=ge\u00E4ndert
+GM_ENTRY_OF=
+GM_ENTRIES_OF=
