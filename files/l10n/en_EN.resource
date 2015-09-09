@@ -997,7 +997,7 @@ weitereoptionen=more options
 anmerkung=note
 anmerkungen=notes
 markiertebezeichnunge=Selected description(s)
-markierteeintrageentfernen=Remove selected entries
+markierteeintrageentfernen=Delete selected entries
 eswurdenkeinedatengefunden=No data found
 siehabenkeinedatenherkunftangegeben=You have not inserted any data origin.
 HINT_IMPORT_NOT_POSSIBLE_OPENOFFICE=You are trying to import an OpenOffice file. The direct import is in the current version of VerA.web unfortunately not possible. Please save the file with your table calculation program as a .csv file.
@@ -1271,7 +1271,7 @@ zuordnen=Assign
 markierteanreden=selected salutations
 markierteanredenloeschen=delete selected salutations
 markiertenarbeitsbereiche=Selected workarea(s)
-markierteeintraegeentfernen=Remove selected entries
+markierteeintraegeentfernen=Delete selected entries
 emailpostausgang=E-mail outbox
 markierteemailsloeschen=remove selecte e-mails
 markierteemails=selected e-mail(s)
@@ -1477,7 +1477,7 @@ GENERIC_TO_EVENTDETAIL=To eventdetails
 GENERIC_INSERT_CURRENT_MONTH=insert current month
 GENERIC_SELECT_FUNCTION=select function
 diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten=This guest\U0027s core data has been deleted. You can only edit the data for the purposes of this event
-DELETE_SELECTED_MANDATOR=Remove selected client(s)
+DELETE_SELECTED_MANDATOR=Delete selected client(s)
 PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Shall the category\U0027s rank be applied from the core data?
 
 
