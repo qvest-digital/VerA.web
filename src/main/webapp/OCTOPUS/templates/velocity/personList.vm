@@ -169,17 +169,6 @@
 		</vera-info>
 	#end
 
-	#if($deleted)
-		<script>
-			#if($deleted == 1)
-				showSuccess(' ${placeholderWithTranslation.eswurdeeinepersongeloscht} ');
-			#elseif($deleted > 1)
-				showSuccess(' ${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $deleted ${placeholderWithTranslation.GENERIC_PERSONS_DELETED} ');
-			#end
-		</script>
-	#end
-
-
 	#if($workareaAssigned )
 		<script>
 			#if($workareaAssigned == "assign")

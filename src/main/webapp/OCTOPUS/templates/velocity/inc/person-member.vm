@@ -177,9 +177,7 @@
 			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
 					<label for="person-note$!message.plain($ext)">${placeholderWithTranslation.GENERIC_REMARK}</label>
-					<textarea  rows="3" cols="20" id="person-note$!message.plain($ext)" name="person-note$!message.plain($ext)" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >
-                        $!message.textarea($facade.Note)#else vera-disabled>#end
-                    </textarea>
+					<textarea  rows="3" cols="20" id="person-note$!message.plain($ext)" name="person-note$!message.plain($ext)" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >$!message.textarea($facade.Note)#else vera-disabled>#end</textarea>
 				#end
 			</div>
 
@@ -218,18 +216,14 @@
 			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
 					<label for="person-noteorga$!message.plain($ext)">${placeholderWithTranslation.GENERIC_HINT_FOR_ORGA}</label>
-					<textarea rows="3" cols="20" id="person-noteorga$!message.plain($ext)" name="person-noteorga$!message.plain($ext)" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >
-                        $!message.textarea($facade.NoteOrga)#else vera-disabled>#end
-                    </textarea>
+					<textarea rows="3" cols="20" id="person-noteorga$!message.plain($ext)" name="person-noteorga$!message.plain($ext)" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >$!message.textarea($facade.NoteOrga)#else vera-disabled>#end</textarea>
 				#end
 			</div>
 
 			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
 					<label for="person-notehost$!message.plain($ext)">${placeholderWithTranslation.GENERIC_HINT_FOR_HOST}</label>
-					<textarea rows="3" cols="20" id="person-notehost$!message.plain($ext)" name="person-notehost$!message.plain($ext)" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >
-                        $!message.textarea($facade.NoteHost)#else vera-disabled>#end
-                    </textarea>
+					<textarea rows="3" cols="20" id="person-notehost$!message.plain($ext)" name="person-notehost$!message.plain($ext)" onchange="setModified();" #if($grants.mayReadRemarkFields()) #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end >$!message.textarea($facade.NoteHost)#else vera-disabled>#end</textarea>
 				#end
 			</div>
 		</div>
