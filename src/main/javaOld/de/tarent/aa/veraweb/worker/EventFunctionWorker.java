@@ -26,8 +26,12 @@ import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.log4j.Logger;
 
@@ -73,7 +77,25 @@ public class EventFunctionWorker extends ListWorkerVeraWeb {
         }
     }
 
-    private Event getEvent(OctopusContext cntx) {
-        return (Event)cntx.contentAsObject("event");
+    private Event getEvent(OctopusContext octopusContext) {
+        Event event = (Event)octopusContext.contentAsObject("event");
+
+        if (event == null) {
+
+            Database database = new DatabaseVeraWeb(octopusContext);
+            Request request = new RequestVeraWeb(octopusContext);
+
+            String eventId = octopusContext.getRequestObject().get("add-event");
+            try {
+                event = (Event) database.getBean("Event", Integer.valueOf(eventId));
+            } catch (BeanException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return event;
     }
 }
