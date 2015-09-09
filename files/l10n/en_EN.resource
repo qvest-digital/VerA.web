@@ -1505,7 +1505,7 @@ GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=on seat
 GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Changes have not been saved.
 
 # GUEST TEXTS
-GUEST_CALC_SERIALNO=This is event is in the past already. Do you wish to recalculate the serial number anyway?
+GUEST_CALC_SERIALNO=This event is in the past already. Do you wish to recalculate the serial number anyway?
 
 # MAILING LIST TEXTS
 MAILING_LIST_NO_ADDRESSES=Failed to apply a new contributor, due to selected person\U0027s missing address-data
@@ -1529,7 +1529,7 @@ EXPORT_HEADER_PARTNER_FREETEXT_FIELD=Partner_free_text_field
 EXPORT_HEADER_INTERCONNECTS=Connector
 EXPORT_HEADER_ADDRESS=Address
 EXPORT_HEADER_CHARSET=Charset\u0009
-EXPORT_HEADER_FUNCTION=funktion
+EXPORT_HEADER_FUNCTION=fonction
 EXPORT_HEADER_TITLE=Title
 EXPORT_HEADER_FIRSTNAME=First_name
 EXPORT_HEADER_LASTNAME=Last_name
@@ -1591,7 +1591,7 @@ EXPORT_HEADER_EVENT_LOCATION=Event_location
 EXPORT_HEADER_OBSERVATION=Observation
 
 # MAIN DATA (STAMMDATEN-WORKER) TEXTS
-MAIN_DATA_WARN_ALREADY_EXISTS=A core-date entry with this name already exists
+MAIN_DATA_WARN_ALREADY_EXISTS=A master data entry with this name already exists
 
 # STATS (Statistik Worker)
 STATS_COLUMN_EVENT_NAME=Event name
@@ -1625,7 +1625,7 @@ VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO=) does not match the version expected 
 VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Your database configuration does not support the expected charset (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Your database configuration does not support the expected rules for text comparison(LC_COLLATE=
-VERIFY_ERROR_XML=An error occured while creating a XM-test document.(
+VERIFY_ERROR_XML=An error occured while creating a XML-test document.(
 VERIFY_ERROR_JAVA_ONE=The installed java-version (
 VERIFY_ERROR_JAVA_TWO=) does not match the expected version (1.4).
 
@@ -1653,7 +1653,7 @@ DATE_HELPER_INCORRECT_DATE= is not a valid date. Please use the format DD.MM.YYY
 
 #WIP
 GENERIC_SHOW_CURRENT_EVENTS=Show current event
-GENERIC_FURTHER_PROCEEDING=Further proceeding
+GENERIC_FURTHER_PROCEEDING=Next steps
 
 LETTER_MAIN_PERSON=M
 LETTER_PARTNER=P

@@ -751,29 +751,997 @@ mitpartner=Mit Partner
 eswurdeeineneueveranstaltungangelegt=Es wurde eine neue Veranstaltung angelegt.
 
 # VERTEILER
+angelegtvon=créé par
+angelegtam=créé le
+erzeugtausveranstaltung=Création de l'événement
 
-#RECENTLY ADDED: DO NOT DELETE!!!!!!
-#LINE 1493-1494
+# STATISTIKEN
+statistikauffolgendenzeitrahmeneinschranken=Crée limite de statistiques des événements sur le calendrier suivant
+statistiktypauswahlen=Sélectionnez le type de statistiques
+zeitrahmenbeginn=Échéancier début
+zeitrahmenende=Échéancier fin
+STATISTIC_RADIO_PER_YEAR=Résumé général du nombre d'événements par année
+STATISTIC_RADIO_PER_MONTH=Résumé général du nombre d'événements par mois
+STATISTIC_RADIO_GROUPED_BY_HOST=Aperçu complet de tous les événements , regroupés par hôte
+STATISTIC_RADIO_PER_HOST=Vue d'ensemble des événements d'un hôte (avec recherche )
+STATISTIC_RADIO_PER_GUEST=Vue d'ensemble de tous les événements d'un invité (avec recherche )
+STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE=Vue d'ensemble de tous les événements triés par lieu
+statistikerstellen=Partager Statistiques
+
+# GAESTEVERWALTUNG DER VERANSTALTUNG
+gasteverwaltungderveranstaltung=L'administration des clients de l'événement
+maxanzahlgaste=Nombre maximum de personnes
+gastedetails=Invité Détails
+offen=ouvrir
+zusagen=engagements
+absagen=annuler
+teilnahmen=participations
+aufplatz=a place
+aufreserve=sur la réserve
+filter=Filter
+platzwahl=?
+lfdnr=Numéro de série
+nichteingeladen=pas invités
+laufendenummerberechnen=Calculer le nombre de série
+allestammdatenneuladen=Recharger tout données de base
+HINT_ENTRY_POINT=Direkteinsprung: Il est possible pour quelqu'un ou seulement à un nom prénom - après le tri.
+HINT_GUEST_MANAGEMENT_FILTER=Lors de la création des fichiers de contrôle ou les listes d'invités de filtres sélectionnés est considéré comme votre top.
+HINT_GUEST_MANAGEMENT_MARKED=Si vous marquez les clients individuels, seuls ceux qui sont exportés, sinon la liste complète.
+TABLE_BEFORE_GUEST=Invité précédent
+TABLE_FIRST_GUEST=Invité principal
+TABLE_LAST_GUEST=dernier invité
+TABLE_NEXT_GUEST=Suivant invité
+
+# GAESTELISTE
+GUEST_LIST_ALL_GUEST=tous les invitées
+GUEST_LIST_ALL_GUEST_ON_PLACE=Tous les invités sur la place
+GUEST_LIST_ALL_GUEST_ON_RESERVE=Tous les invités de réserver
+GUEST_LIST_APPLY_GUEST_FROM_EVENT=Prenez des invités de l'événement
+GUEST_LIST_CATEGORY_ASSIGN=attribuer des catégories
+GUEST_LIST_CATEGORY_REMOVE=Retirer Catégories
+GUEST_LIST_DISTRIBUTOR_CREATE=Créer la distribution
+GUEST_LIST_DATA_EXPORT=Fichier de contrôle de l'exportation
+GUEST_LIST_CONFIRM_ACTION=S'il vous plaît confirmer l'action suivante
+GUEST_LIST_DIDNT_CHANGE=La liste des invités n'a pas été modifié
+GUEST_LIST_EXPAND_ONE=La liste des invités a été élargi à un invité
+GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=La liste des invités a été
+GUEST_LIST_EXPAND_MULTIPLE_PART_TWO=élargi à un invité
+GUEST_LIST_HINT_EXPORT_GUEST=Si vous marquez les clients individuels, seuls ceux qui sont exportés, sinon la liste complète
+GUEST_LIST_HINT_FILTER=Lors de la création des fichiers de contrôle ou les listes d'invités ausgewälter filtrer votre top est considéré
+GUEST_LIST_HINT_RED_PERSON=Rouge déposé gens étaient déjà en tant que "supprimer" marqué
+GUEST_LIST_CREATED_NO_PERSON=a été créé sans que les gens
+GUEST_LIST_CREATED_ONE_PERSON=a été créée avec une persone
+GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE=a été
+GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO=créée avec une persone
+GUEST_LIST_NO_GUEST_INVITED=Aucun client étaient encore invités
+GUEST_LIST_NUMBER_CALCULATE=Calculer le nombre de série
+GUEST_LIST_NUMBER_CALCULATED_SAVED=Le " numéro de série " était pour tous les clients calculées et stockées nouvelle
+GUEST_LIST_ONLY_OPEN=Ouvrir seulement
+GUEST_LIST_ONLY_ACCEPT=seuls engagements
+GUEST_LIST_ONLY_DECLINED=seulement refus
+GUEST_LIST_ONLY_PARTICIPATE=seulement la participation
+GUEST_LIST_PERSON_DATA_RELOAD=Recharger Tout données de base
+GUEST_LIST_RESERVE=R
+GUEST_LIST_SEARCH_PERSON_ADD=Trouver des gens et l'ajouter à la liste des invités
+
+# GAESTELISTE ERSTELLEN
+GUEST_LIST_CREATE=Créer une liste d'invités
+SELECT_OUTPUT_FORMAT=Sélectionnez le format de sortie
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Liste regroupés par catégories - avec des partenaires
+LIST_GROUP_BY_CATEGORY_WITH_TEL=Liste regroupés par catégories - avec Tel et le téléphone mobile.
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Liste regroupés par catégories - avec les partenaires et Fax
+LIST_SORT_PARTNER_TEL=Liste par tri -avec Partner , Tél . Et téléphone mobile
+SORT_CRITERIA=Les critères de tri
+SORT_AFTER=Trier par
+CONTINUAL_NUMBER=numéro de série
+anschliesendnach=puis, après
+zusatzlichesortierungnach=Supplémentaires Trier par
+
+# GASTDETAILS
+GUEST_DETAIL_HINT_GUEST_HOST=Comment hôtes
+GUEST_DETAIL_HINT_ORGANISATION_TEAM=Comment Organisation
+GUEST_DETAIL_INVITATION_STATUS=Statut d'invitation
+GUEST_DETAIL_SEAT_NUMBER=Numéro de table
+GUEST_DETAIL_TABLE_NUMBER=Numéro de cours
+gastdetails=Invité Détails
+HINT_GUEST_LIST_EDIT_PERSONDATA=Modifier ici les données personnelles exclusivement dans le contexte des événements actuels, pas de données de base de base.
+istgastgeber=l'hôte
+reserve=Reserve
+aufstammdatenzurucksetzen=Revenir aux données de base
+stammdatenbearbeiten=Modification des données de base
+
+# DOKUMENTTYPEN
+dokumenttypwahlen=Sélectionnez le type de document
+mitgliedsausweis=la carte de membre
+etikett=étiquette
+tischkarte=lieu carte
+adresstypundzeichensatzwahlen=Choisissez le type d'adresse et jeu de caractères
+adresstyp=type d'adresse
+datenbearbeiten=Modifier les informations
+verbinder=interconnexions
+freitextfeldpartner=Champ de texte libre (Partenaire)
+akatitel=Niveau académique (Partenaire)
+kontaktdaten=contact
+strase=Rue
+postfachplz=boîte de bureau de poste / code postale
+nummer=Nombre
+zuruckzudenveranstaltungsdetails=Retour aux détails de l'événement
+
+# PERSON BEARBEITEN/DOKUMENTTYPEN/BEARBEITEN
+dokumenttypbearbeiten=Modifier le type de document
+dokument-id=Document-ID
+dokument-name=Document-Nom
+dokumenttypspeichern=Enregistrer Type de document
+zuruckzurdokumenttypenliste=Retour à la liste Type de document
+anmeldedatenerzeugen=Générer des informations d'identification
+esliegenkeinekategorienundereignissevor=Il n'y a pas de catégories et d'événements avant
+beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=En vert souligné entrées est événements récurrents.
+
+# SUCHEN & ERSETZEN IN PERSONENDATEN
+
+# VERTEILERDETAILS
+verteilerdetails=Détails de la répartition
+verteilerversenden=Envoyer distribution
+e-mail-clientaufrufen=Appel client E -mail
+
+# FEHLEND
+zurstartseite=Page d'accueil
+solldieneuekategorie=Si la nouvelle catégorie
+einsortiertwerden=être triés?
+pflichtfelder=Les champs obligatoires
+markiertekategorien=Catégorie sélectionnée
+markiertekategorienloschen=Supprimer Catégories sélectionnés
+alledemarkieren=Marque tout
+furalleveranstaltungen=Pour tous les événements
+speichern=Sauver
+anderungsprotokollfurdenzeitraum=Changez Connexion pour la période
+objekt=propriété
+objektid=propriété-Id
+artderanderung=Type de changement
+geandertefelder=champs modifiés
+datumauswahlen=choisir une date
+folgendeaktionen=les actions suivantes
+wurden=ÉTAIENT
+durchgefuhrt=accompli
+konnen=boîte
+aktuallisieren=Actualiser
+cleanupjetztunwiderruflichdurchfuhren=Nettoyage désormais effectuer de manière irrévocable.
+essindderzeitkeinecleanupsmoglichnotig=Il n'y a pas de nettoyages possibles / nécessaires
+nochkeineauswahlgetroffen=Aucune sélection
+oberflachenbeschriftungen=les étiquettes de surface
+zusatzfelder=champs supplémentaires
+eswurdeeinzusatzfeld=Il y avait un champ supplémentaire
+angelegt=établi
+geandert=modifié
+geloscht=supprimé
+feldbezeichnung=nom de domaine
+eingabetyp=Type d'entrée
+erfolgreichgespeichert=Enregistrée avec succès !
+markiertendokumenttypen=Favoris type de document
+eigenesdokumentfurpartner=Document privé pour les partenaires
+sortierreihenfolge=L'ordre de tri
+gastgebermitausgeben=Hôtes avec sortie
+iststandardfursteuerdatei=Est la norme pour le fichier de contrôle
+format=Format
+HINT_EXPORT_FORMAT=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei),xls steht f\u00FCr Microsoft Office (xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
+HINT_EVENT_IDENTIFICATION=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
+wirklichloschen=Wirklich l\u00F6schen
+zumpersonenimport=Pour les personnes -Import
+importstatus=Importer Statut
+importstatusvorhandenedublettenbearbeiten=Importer Statut : modifier les doublons existants
+bittemarkierensiediezuimportierendenpersonen=S'il vous plaît choisir d'importer personnes .
+dublettendiedurchden=Doublons générés par le
+importhinzugefugtwerdenwurden=Importer serait ajouté
+sindmiteinercheckboxgekennzeichnetdarunterbefindensichdiebereitsimsystemvorhandenenentsprechendendatensatze=,sont marqués avec une case à cocher. Parmi ceux-ci sont déjà présents dans le système, les enregistrements correspondants.
+umeinedubletteindenimportzuintegrierenmussensiesieubernehmen=Pour intégrer un doublet dans l'importation, vous devez prendre en charge.
+alsdubletteubernehmen=Prenez comme un doublon
+markiertepersonenalsdubletteubernehmen=Prenez personne(s) sélectionné en tant que duplicata
+anzahlzuspeicherndedubletten=Nombre de stocker les doublons
+eswurdenkeineeintragegefunden=Aucun élément n'a été trouvé.
+zuruckzumpersonenimport=Retour aux personnes importation
+fehlermeldung=Message d'erreur
+beiderbearbeitungihreranfrageisteinfehleraufgetretenbittemeldensiediesihremadministrator=Traitement de votre demande une erreur est survenue. S'il vous plaît le signaler à votre administrateur.
+unbekannterfehler=Erreur inconnue.
+markiertenkategorien=Catégories marques
+markiertenkategorienentfernen=Supprimer l'utilisateur sélectionné catégorie 
+bitteauswahlen=S'il vous plaît sélectionnez
+dieveranstaltungandersiegeradegearbeitethabenwurdevoneinemanderenanwendergeloschtsiekonnennuneineneueveranstaltunganlegenoderanderweitigmitverawebarbeiten=L'événement , auquel vous venez travaillé , a été supprimé par un autre utilisateur . Vous pouvez maintenant créer un nouvel événement ou travailler autrement VerA.web .
+bittebestatigensiedasspeicherndieserveranstaltung=S'il vous plaît confirmer l'enregistrement de cet événement
+keingastgeberausgewahlt=Aucun hôte sélectionnée
+kurzbezeichnung=court terme
+maximalelangederwarteliste=La longueur maximale de la liste d'attente
+sollendiestammdatenumdiesenorterweitertwerden=Si les données de base est étendue à un certain endroit
+markiertendokumenttypenentfernen=Supprimer la sélection type de document
+eswurdenkeinedokumenttypengefunden=Pas de types de documents ont été trouvés.
+markiertenamtsbezeichnungen=Titre officiel Sélectionné
+markiertenamtsbezeichnungenentfernen=Supprimer Titre officiel Sélectionné
+zurveranstaltungssuche=Pour la recherche de l'événement
+veranstaltungssuche=recherche de l'événement
+suchergebnis=Résultat de la recherche
+bitteklickensieeinederaufgelistetenveranstaltungenanumdiegastezuubernehmen=S'il vous plaît cliquer sur l'un des événements énumérés à recevoir des visiteurs.
+bitteklickensieeinederaufgelistetenveranstaltungenanumdiepersondieserveranstaltungzuzuordnen=S'il vous plaît cliquer sur l'un des événements énumérés à associer la personne de cet événement .
+bitteklickensieeinederaufgelistetenpersonenanumdiesealsgastgeberzuuebernehmen=S'il vous plaît cliquer sur l'une des personnes énumérées dans le but de mettre en ½uvre ce que un hôte.
+loschenvonveranstaltungenistnichtmoglich=Suppression des événements est pas possible
+weiteremeldungen=plusieurs messages.
+bittebestatigensiedasloschendermarkiertenveranstaltungen=S'il vous plaît confirmer la suppression des événements sélectionnés !
+markierteveranstaltungloschen=Supprimer l'événement sélectionné
+abbrechen=avorter
+markierteveranstaltungen=Événement sélectionné 
+markierteveranstaltungenloschen=Supprimer les événements sélectionnés
+zuruckzurgasteverwaltung=Retour à Gestion des clients
+zuruckzurgasteliste=Retour à la liste des invités
+zuruckzurveranstaltungsdetails=Retour aux détails de l'événement
+zuruckzurveranstaltungsstatistiken=Retour à Statistiques de l'événement
+zuruckzurveranstaltungsaufgabe=Retour à la tâche d'événement
+zuruckzurpersonensuche=Retour à la recherche de personnes
+zuruckzusuchenundersetzen=Retour à la recherche , et son remplacement par ce
+zuruckzurveranstaltungssuche=Retour à la recherche de l'événement
+wahlensiebittezunachsteineodermehrereveranstaltungenaus=S'il vous plaît d'abord choisir à partir d'un ou plusieurs événements .
+nurinzuunftigenveranstaltungensuchen=Rechercher Seuls les événements futurs
+zuruck=antérieur
+siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehrereunddasfureinzelnezeichen=Vous pouvez trouver une utilisation dite espace réservé * représente un nombre et la ? pour les caractères individuels.
+bittebestatigensiedasspeicherndieseraufgabe=S'il vous plaît confirmer que vous enregistrez cet objet
+verantworlichenhinzufugen=Ajouter partie responsable
+verantworlichenentfernen=Retirer partie responsable
+loschenvonaufgabenistnichtmoglich=Parti supprimer responsable supprimer des tâches est pas possible
+bittebestatigensiedasloschenvonaufgaben=S'il vous plaît confirmer la suppression de tâches
+ausgewahlteeintrageloschen=Supprimer les éléments sélectionnés
+start=Démarrer
+zursuche=aller à la recherche
+siesindalsvolladministratorangemeldetundexportierenhiermitmandantenubergreifend=Ils sont connus comme compte "pleine administrateur" et l'exportation par les présentes à travers clients.
+sieexportierenmitdieserfunktionausschlieszlichpersonenausihremaktuellenmandanten=Exporter cette fonction seulement les gens de vos clients actuels.
+event=Evénement
+keine=Non
+category=Categorie
+weitereoptionen=plus d'options
+anmerkung=note
+anmerkungen=notes
+markiertebezeichnunge=nom sélectionné
+markierteeintrageentfernen=Supprimer les éléments sélectionnés
+eswurdenkeinedatengefunden=Aucune donnée trouvée
+siehabenkeinedatenherkunftangegeben=Vous n'avez pas déclarer l'origine des données.
+HINT_EXPORT_NOT_POSSIBLE_OPENOFFICE=Vous avez essayé d'importer un fichier OpenOffice. L'importation directe n'est pas possible dans la version actuelle de VerA.web. Enregistrer ce fichier d'abord de votre feuille de calcul en tant que fichier-.csv s'il vous plaît.
+HINT_EXPORT_NOT_POSSIBLE_STAROFFICE=Vous avez essayé d'importer un fichier StarOffice. L'importation directe n'est pas possible dans la version actuelle de VerA.web. Enregistrer ce fichier d'abord de votre feuille de calcul en tant que fichier-.csv s'il vous plaît.
+HINT_EXPORT_NOT_POSSIBLE_EXCEL=Vous avez essayé d'importer un fichier Microsoft Excel. L'importation directe n'est pas possible dans la version actuelle de VerA.web. Enregistrer ce fichier d'abord de votre feuille de calcul en tant que fichier-.csv s'il vous plaît.
+HINT_IMPORT_NOT_POSSIBLE_PDF=Vous avez essayé d' importer un fichier PDF. Malheureusement ce n'est pas possible dans la version actuelle de VerA.web.
+HINT_IMPORT_NOT_POSSIBLE_ZIP=Vous avez essayé d' importer un fichier ZIP. Malheureusement ce n'est pas possible dans la version actuelle de VerA.web.
+HINT_IMPORT_NOT_POSSIBLE_EXE=Vous avez essayé d' importer un fichier EXE. Malheureusement ce n'est pas possible dans la version actuelle de VerA.web.
+siehabenversuchteinedateimitderendung=Vous avez essayé d'importer un fichier avec l'extension
+zuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich=Malheureusement ce n'est pas possible dans la version actuelle de VerA.web.
+siehabenkeinedateiausgewahltoderdiesewarleer=Vous n'avez pas sélectionné un fichier ou c'était vide .
+esisteinunerwarteterfehlerbeimimportiereneinerdateiaufgetreten=Une erreur inattendue est survenue lors de l'importation d'un fichier.
+vermutlichbefindetsichdieimportdateinichtimvomsystemerwartemformat=Probablement, le fichier d'importation n'est pas dans le format prévu du système.
+detailsanzeigen=Afficher les détails
+beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden=Lors de l'importation, les contenus de champs peuvent fourni plus de VerA.web être adoptée raccourcie.
+alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden=Tous les types de documents à importer personnes doivent être présents dans le système. Si l'importation maintenant être lancé ?
+umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=Pour faire des doublons stockés, ils doivent d'abord être adoptées dans le domaine de \u00E2\u0080\u009Edoublons existants\u00E2\u0080\u009C \u00C3.
+HINT_UMLAUT_COMPARISON=Notez que les trémas sont comparé comme ça: \u00E4 avec ae, \u00F6 avec oe, \u00FC avec ue et \u00DF avec ss.
+derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=L'importation est terminée lorsque le bouton \u00E2\u0080\u009EFin de l'importation\u00E2\u0080\u009C a été cliqué.
+derimportkannerstabgeschlossenwerdenwennspeicherbaredatensatzevorhandensind=L'importation ne peut être effectuée lorsque les dossiers enregistrables existent.
+vorhandenedubletten=Doublons existants
+vorhandenedublettenbearbeiten=Modifier les doublons existants
+zuimportierendedatensatzeinsgesamt=Enregistrements au total pour importer
+davondubletten=Doublons
+davonspeicherbar=mémorisable
+ignoriertefehlerdatensatze=Enregistrements d'erreur ignorer
+importabschlieszen=clôturer l'importation
+siehabenkeinendatensatzimportiert=Vous avez importé aucun enregistrement.
+siehabeneinendatensatzimportiert=Vous avez importé un enregistrement
+siehaben=Vous avez
+datensatzeimportiert=importé des enregistrements.
+informationennichtverfugbar=Information non disponible
+nichtgewahlt=pas choisi
+verfugbarerollen=Rôles disponibles
+passowrt=Mot de passe
+inverteretunganmelden=Connectez-vous en représentation
+vornamenachname=Prénom.Nom
+alsbenutzernamen=Comme nom d'utilisateur
+emailvorlage=Modèle de courrier électronique
+amtsbezfunktion=Nom officiel/Fonction
+postfachnummer=Numero du boîte de bureau de poste
+email=E-Mail
+verteileranlegen=Création du distributeur
+sielegeneinenneuenverteilerausderveranstaltung=Créer une nouvelle distribution de l'événement
+mit=avec
+einerperson=une personne
+verteilername=nom du distributeur
+verteilerspeichern=Sauvegarder le distributeur
+markierteadressen=Adresses marqué
+markierteadressenausdemverteilerloschen=Effacer les Adresses marqué
+analleadressenversenden=Envoyer à toutes les adresses
+emailclientaufrufen=Appel client E -mail
+esliegenkeineadressdatenfurdiesenverteilervor=Il n'y a aucune information d'adresse pour cette distribution.
+esliegenkeineadressenfurdiesenverteilervor=Il n'y a aucune adresse pour cette distribution.
+esliegenkeinevorlagenvor=Il n'y a aucun modèle disponible
+zuruckzurverteilerubersicht=Retour à l'aperçu de distributeur
+eswurdekeineemailzumversendengespeichert=Il a été sauvegardé aucun e-mail pour envoyer
+eswurdeeineemailzumversendengespeichertdiesewirdnunautomatischversendet=Il a été stocké un email automatiquement. Ceci enverra automatiquement maintenant.
+emailszumversendengespeichertdiesewerdennunautomatischversendet=Enregistré automatiquement les emails à envoyer. Ceux-ci sont maintenant automatiquement envoyés.
+markiertenverteiler=Distribution sélectionnée
+markierteverteilerloschen=Supprimer la distribution sélectionnée
+persondendaten=Données de la personne
+solldiesergastaufplatzgesetztwerden=Doit être utilisé ce guest sur un lieu?
+solldiepartnerinderpartnermiteingeladenwerden=Les partenaires devraient être invités?
+aktuellepersonwirklichentfernen=Enlever vraiment personne actuelle?
+personspeichern=Sauvegardé la personne
+zurpersonenliste=À la liste de personne
+zurpersonenuebersicht=À la résumée de personne
+zurueckzurveranstaltung=Retour à l'événement
+zurdublettensuche=À la recherche de double
+zurckzumsuchergebnis=Retour aux résultats de la recherche
+diesepersonwurdeerfolgreichzurgaestelistederveranstaltung=Cette personne a été correctement ajoutée à la liste des invités pour l'événement
+hinzugefuegt=
+diesepersonwurdenichthinzugefuegtdasiebereitsaufdergaestelistesteht=Cette personne n'était pas ajoutée car elle est déjà sur la liste des invités.
+diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt=Cette personne a été marquée comme étant supprimé et n'est plus affichée lors de la recherche.
+personanlegen=Création d'une personne
+eswurdenkeinedublettengefundensiekoennenjetztweiteredateneingebenunddiedatenspeichern=Aucun doublon n'a été trouvé. Vous pouvez entrer davantage de données et enregistrer les données
+bittegebensiezunaechstden=Tout d'abord préciser le prénom et le nom et effectuer la vérification des doublons.
+vorundnachnamen=
+anundfuhrendiedublettenprufungdurch=
+beifirmenwaehlensiediecheckbox=Quand les entreprises choisissent la case à cocher et puis entrez le nom de l'entreprise. Ensuite, le système vérifie vos entrées sur les doublons.
+undtragendanndenfirmennameneindassystempruftihreangabendaraufhinaufdubletten=
+liegtkeinedublettevorkoennensieweiteredateneingebenunddiedatenspeichern=Aucun doublon n'existe, vous pouvez entrer davantage de données et stocker les données.
+geschaeftlich=pour les entreprises
+privat=privé
+zurueckzurpersonensuche=Retour à la recherche de personne
+zurueck=Retour
+dublettenpruefungdurchfuehren=Effectuer la vérification des doublons
+zurueckzumsuchergebnis=Retour aux résultats de la recherche
+personspeicherndublettenpruefung=Sauver la personne - vérification des doublons
+neueneintraganlegen=Création d'une nouvelle entrée
+existierendeneintragbearbeiten=Modifier l'entrée existante
+eswurdenkeinedublettengefunden=Aucun doublon n'ont été trouvés.
+hinzufuegen=Ajouter
+ausgewaehltepersonenzurveranstaltunghinzufuegen=Ajouter des personnes à l'événement.
+personerfassen=Saisir personne
+dublettenanlegen=Création de doublons
+abbrechenundzurueck=Annuler et retourner
+gastsuchenveranstaltung=Chercher invité - Événement
+gastsuchen=Chercher invité
+verantwortlichenfueraufgabesuchen=La recherche de ceux chargés de tâche
+verantwortlichenfueraufgabehinzufugen=Ajouter responsable pour tâche
+gastgeberhinzufuegen=Ajouter des hôtes
+personensuchegastgeberhinzufugen=Recherche de personne: Ajouter des hôtes
+gasthinzufuegen=Ajouter invité
+personensuchegasthinzufugen=Recherche de personne: Ajouter invité
+personfirma=Personne/Compagnie
+weitereangaben=Plus d'informations
+keinekategoriezugeordnet=Sans catégorie
+keinarbeitsbereichzugeordnet=Aucun espace de travail assigné
+keinarbeitsbereich=Aucun espace de travail
+gueltigkeitsdatum=Date d'effet
+biszudiesemdatum=Jusqu'à cette date
+abdiesemdatum=De cette date
+angenaudiesemdatum=A exactement cette date
+datumauswaehlen=choisir une date
+HINT_SEARCH_MULTIPLE=La recherche prend en charge la recherche des catégories multiples. Pour sélectionner plusieurs catégories, s'il vous plaît maintenez enfoncé le bouton de la souris et faites glisser le vol stationnaire sur dans la recherche de considérer les catégories. Par ailleurs, CTRL-clic avec le bouton gauche de la souris, vous pouvez cliquer sur les catégories à prendre en considération. Veuillez noter que les deux catégories du pseudo « All » et « None » ainsi que d'autres catégories ne peuvent pas être sélectionnées
+waehlensiebittezunaechsteinekategorieaus=Veuillez d'abord sélectionner une catégorie.
+wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Vous souhaitez attribuer à cette personne ou cet invité de la catégorie sélectionnée?
+eswurdekeinekategoriezugeordnet=Il était associé à aucune catégorie
+wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen=Vous voulez supprimer ${count} les personnes ou l'invité de la catégorie sélectionnée ?
+eswurdenkeinekategorienzugeordnet=Aucune catégorie n'était associés
+eswurdenkeinekategoriengefunden=Aucuns catégories ne trouvées
+wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen=Voulez-vous supprimer cette personne ou cette invité à partir de la catégorie sélectionnée
+eswurdekeinekategorieentfernt=Il n'y a aucune catégorie enlevé.
+wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen=Vous voulez enlever ${count} personnes ou invitées de la catégorie sélectionnée ?
+eswurdenkeinekategorienentfernt=Pas de catégories ont été supprimées.
+zuweisen=assigner
+waehlensieeinekategorieauswelchesie=Sélectionnez une catégorie que vous souhaitez.
+moechten=
+alleentfernen=Supprimer tous
+siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=Vous avez configuré aucun les catégories. Vous pouvez définir dans le panneau d'Administration en vertu de l'article.
+definieren=
+siehabenpersonenausgewaehltabhaengigvonderanzahlderausgewaehltenpersonenkanndieaktioneinegewissezeitinanspruchnehmen=Vous avez sélectionné ${count} personne(s). Selon le nombre de personnes sélectionnées, l'action peut prendre un certain temps.
+waehlensiebittezunaechsteinenarbeitsbereichaus=Veuillez d'abord sélectionner un espace de travail.
+wollensiediesepersonbzwdiesengastdenausgewaehltenarbeitsbereichzuordnen=À attribuer à cette personne ou cet invité de l'espace de travail sélectionné?
+eswurdekeinarbeitsbereichzugeordnet=Il a été associé aucun espace de travail.
+wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen=À attribuer à ces personnes ou ces invités de l'espace de travail sélectionné?
+eswurdenkeinearbeitsbereichzugeordnet=Aucun espaces de travail n'étaient associés
+wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben=Souhaitez vous dissocier de cette personne ou cet invité à l'espace de travail sélectionné?
+eswurdekeinarbeitsbereichaufgehoben=Il était à présent levé pas un espace de travail
+wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Wollen Sie die Zuordnung von ${count} Personen bzw. G\u00E4sten zum ausgew\u00E4hlten Arbeitsbereich aufheben
+wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Vous souhaitez attribuer à cette personne ou cet invité de l'espace de travail sélectionné?
+wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=À attribuer ${count} personnes ou invités de l'espace de travail sélectionné?
+waehlensieeinenarbeitsbereichauswelchensie=Sélectionnez un espace de travail, qui vous
+siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=Vous n'avez pas configuré des espaces de travail. Vous pouvez le faire dans le panneau d'Administration en vertu de l'article
+administrationallestellvertretungenimmandanten=Administration - tous les délégués dans le client
+administrationallestellvertretungen=Administration - tous les délégués
+verwaltungpersoenlichevertretungen=Gestion - représentants personnels
+vertretung=Représentation
+markiertevertretungen=Représentation(s) marqué
+loeschen=Effacer
+markiertevertretungenloeschen=Effacer des représentations sélectionnées
+gueltigab=valable à partir de
+gueltigbis=valable jusqu'au
+bitteauswaehlen=Veuillez sélectionner
+gaestelisteerstellenfuerveranstaltungeventshortname=Créer la liste des invités pour l'événement: $!event.shortname
+gaesteverwaltungderveranstaltung=Gestion des invités de l'événement
+gaestelisteerstellen=Créer une liste d'invités
+ausgabeformatwaehlen=Sélectionnez le format de sortie
+listenachkategoriengruppiertmitpartner=Liste regroupées par catégories - avec partenaire
+listenachkategoriengruppiertmittelundmobiltelefon=Liste regroupées par catégories - avec téléphone et téléphone portable
+listenachkategoriengruppiertmitpartnerundfax=Liste regroupées par catégories - avec partenaire et fax
+listenachsortierungmitpartnertelundmobiltelefon=Liste triée - avec les partenaires, téléphone et téléphone portable
+tisch=Table
+zusaetzlichesortierungnach=Un tri supplémentaire
+zurueckzurgaesteverwaltung=Retour à la gestion des invités
+verwaltungallebenutzerimmandanten=Gestion - tous les utilisateurs du mandant
+verwaltungallebenutzer=Gestion - tous les utilisateurs
+markiertenbenutzer=Utilisateurs marqué
+markiertenbenutzerloeschen=Effacer l'utilisateur sélectionné
+leseneingeschraenkt=Lecture restreinte
+lesenuneingeschraenkt=Lecture plein
+lesenundschreibeneingeschraenkt=Lire et écrire restreint
+lesenundschreibenuneingeschraenkt=Lire et écrire sans limitation
+mandantadministrieren=Administration mandant
+administrieren=Administration
+stellvertretung=Délégué
+bittewahlensiedierolleausdiesievertretenmochten=S'il vous plaît sélectionnez le rôle que vous souhaitez représenter.
+benutzerrolle=Rôle d'utilisateur
+vertreten=représentée
+statistikfurgastgeber=Statistiques pour les hôtes
+imzeitraumvom=Dans la période allant du
+biszum=jusqu'à la
+bis=à
+auswartigesamtintranetstil=Ministère des affaires étrangères intranet-style
+klickensieeinederaufgelistetenpersonenanumsiederaufgabehinzuzufugen=Cliquez sur une des personnes inscrites pour les ajouter à la tâche
+eswurdeeinepersongeloscht=Elle a été supprimée une personne
+eswurdekeinepersongeloscht=Elle a été supprimée aucune personne
+personengelouscht=personnes effacés
+derarbeitsbereichwurdeerfolgreichhinzugefugt=L'aire de travail a été ajouté avec succès.
+diearbeitsbereichewurdenerfolgreichentfernt=Les domaines d'activité ont été correctement supprimés.
+diekategoriewurdeerfolgreichhinzugefugt=La catégorie a été ajoutée avec succès.
+diekategorienwurdenerfolgreichentfernt=La catégorie a été effacée avec succès.
+siehabenkeineausreichendeberechtigungmpersonenzuentfernen=Vous n'avez pas les autorisations nécessaires pour supprimer les gens.
+wauhlensiebittezunauchsteineodermehrerepersonenaus=S'il vous plaît d'abord choisir à partir d'une ou plusieurs personnes.
+beidenfolgendenpersonenliegtdasgultigkeitsdatuminderzukunft=L'entrée en vigueur à l'avenir est les personnes suivantes.
+folgendepersonensindmindestenseinerlaufendenoderzukumnftigenveranstaltung=Les personnes suivantes sont associées au moins un événement actuel ou futur.
+zugeordnetdetailinformationenkoennensieueberdiegaestelistender=Vous pouvez récupérer des informations sur les listes d'invités des événements respectifs.
+jeweiligenveranstaltungenabrufendiepersonenwerdenausallengastelisten=Les gens sont issus de toutes les listes d'invités
+folgendepersonensindmindestenseineraufgabeinmindestenseinerlaufendenoder=Les personnes suivantes sont associés au moins une tâche dans au moins un événement actuel ou futur.
+zukunftigenveranstaltungzugeordnetdetailinformationenrufensiebitteuberdie=Composez des détails de la liste des tâches des événements respectifs.
+aufgabenlistenderjeweiligenveranstaltungenaufdiepersonenwerdenausallen=Les gens sont retirés de toutes les tâches.
+aufgabenentfernt=
+wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab=Si vous souhaitez personnaliser votre sélection, vous annulez la suppression.
+sollenallemarkiertenpersonengeloeschtwerden=Pour supprimer toutes les gens?
+dieseaktionkannnichtrueckgaungiggemachtwerden=Cette action ne peut pas être annulée.
+bittebestaetigensiedasloeschendermarkiertenpersonen=Veuillez confirmer la suppression des personnes sélectionnées!
+loeschenvonpersonenistnichtmoeglich=Suppression des personnes n'est pas possible
+markiertepersonenzurveranstaltunghinzufuegen=Ajouter des personnes marqués à l'événement
+zudieserpersonistkeinehauptpersoneingetragen=Aucune entité n'est inscrite à cette personne.
+diesepersonkannnichtaufreservegesetztwerdendadienotwendigendaten=Cette personne ne peut pas être sur la réserve, que les données nécessaires 
+nichtvollstaendigerfasstwurden=n'étaient pas intégralement enregistrées.
+waehlensiebittezunaechsteineodermehrerepersonenaus=Sélectionnez une ou plusieurs personnes au début.
+exportieren=Exporter
+einladen=inviter
+aufreservesetzen=Situé sur la réserve
+delegationanmelden=Inscrivez délégation
+alledemarkiereninklpartnerwenneingeladen=Marque de tous (y compris les partenaires, s'ils sont invités)
+arbeitsshybereich=Espace de travail
+amtsbeshyzeichnung=Titre officiel
+eswurdenkeineeintraegegefunden=Aucuns entrées ne trouvées
+suchenersetzen=Recherche et remplacement
+suchenersetzeninpersonendaten=Rechercher et remplacer dans les données personnel
+vornamederhauptpersonunddespartners=Prénom de la personne et du partenaire
+nachnamederhauptpersonunddespartners=Nom de la personne et du partenaire
+anredetitel=Formule de politesse / Titre
+anredeundtitel=Formule de politesse et titre
+straszligeadresszusatzundland=Rue, adresse et pays
+plzortundplzpostfach=Code postal / ville et code postal / boîte postale
+telefontelefaxundmobiltelefon=Téléphone, fax et téléphone mobile
+telefonfax=Téléphone / fax
+emailadresse=Adresse électronique
+internetadresse=Adresse internet
+ihresuchemussausmindestenseinembuchstabenbestehen=Votre recherche doit contenir au moins une lettre.
+siemuessenmindestenseinfeldausgewhlthaben=Vous devez sélectionner au moins un champ.
+eswurdekeinepersonersetzt=Il n'y avait pas personne remplacé
+eswurdeeinepersonersetzt=Il y avait une personne remplacé
+personenersetzt=personne remplacé
+siemuessenmindestenseinfeldausgewaehlthaben=Vous devez sélectionner au moins un champ.
+eswurdekeinepersongefunden=Il n'a pas été trouvé toute personne.
+eswurdeeinepersongefunden=On a constaté une personne.
+personengefunden=personnes trouvé
+einzelneeinzraegezumersetzenselektieren=Sélectionner des entrées individuelles pour remplacer
+allesofortersetzen=Remplacez immédiatement
+wennsiedenplatzhalterverwendenwerdenauchteilstueckeersetztsonstnurvollstaendigedatenfelder=Wenn Sie den Platzhalter * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
+siemuessendasdatumdeszeitrahmensimformatttmmjjjjangeben=Vous aurez besoin de la date de l'échéancier au format JJ.MM.AAAA
+markierteanredenloschen=Supprimez l'adresse sélectionnée
+markiertendokumenttypenloschen=Supprimer des types de documents sélectionnés
+markierteveranstaltungsorteloschen=Supprimer les lieux sélectionnés
+markiertevorlagenloschen=Supprimer des modèles sélectionnés
+keinedateigefunden=Aucun fichier trouvé.
+standardauswahlderselectboxbdquozeichensatzrdquo=Catalogue standard Selectbox \u00E2\u0080\u009EJeu de caractères\u00E2\u0080\u009C !!!
+zusaetzlichefelder=champs supplémentaires
+postausgang=Boîte d'envoi
+beimversendendieseremailisteinfehleraufgetreten=Une erreur s'est produite lors de l'envoi de l'email.
+siekonnendiesejetztbearbeitenunderneutsenden=Vous pouvez maintenant modifier et renvoyer.
+dieseemailwartetaufihrefertigstellungdurcheinenbenutzer=Cet E-Mail est en attente pour sa réalisation par un utilisateur.
+dieseemailwartetaufihreversendung=Cet E-Mail est en attente pour leur expédition.
+dieseemailwirdgeradeversendetundsollte=Cet e-mail est envoyé seulement et ne devrait pas être modifié.
+nichtbearbeitet=
+werden=
+dieseemailwurdebereitsversendetundsollte=Cet e-mail a été envoyé déjà et devrait ne plus être édité.
+nichtmehrbearbeitet=
+technischefehlermeldungausblenden=Erreur technique message cacher
+markiertenmandanten=Mandant(s) marqué(s)
+markiertenmandantenwirklichloschen=Supprimer les mandant(s) marqués?
+alledatensatzewurdenerfolgreichmandantenzugeordnet=Tous les enregistrements ont été alloués avec succès à un mandant.
+esexistiertnochkeinmandant=Il n'y a toujours aucun client.
+zuordnen=associer à
+markierteanreden=Titre(s) marqué(s)
+markierteanredenloeschen=Supprimer les titre(s) marqué(s)
+markiertenarbeitsbereiche=Espace(s) de travail marqué(s)
+markierteeintraegeentfernen=Supprimer les entrées sélectionnées
+emailpostausgang=Boîte d'envoi d'email
+markierteemailsloeschen=Supprimer les emails marqués
+markierteemails=Email(s) marqué(s)
+wartet=attente
+wirdversendet=Sont expédiés
+gesendet=Envoyé
+unbekannt=inconnu
+firmainstitutionauswaehlen=Sélectionnez l'entreprise / institution
+bittewaehlensieeinefirmainstitutionaus=Veuillez sélectionner une entreprise / institution
+schliessen=Fermer
+verawebuebersicht=VerA.web :: Vue d'ensemble
+uebersichtanzeigen=Voir la vue d'ensemble
+neuendatensatzanlegen=Création d'un nouvel enregistrement de données
+openofficedateiherrunterladen=Télécharger le fichier OpenOffice
+keinedatensaetzegefunden=Aucun enregistrement trouvé
+einendatensatzgefunden=Un enregistrement trouvé
+datensaetzegefunden=Enregistrements trouvés
+anzeigen=afficher
+wollensiediesendatensatzunwiderruflichentfernen=Supprimer définitivement cet enregistrement
+verawebdetailansicht=VerA.web :: Vue de détail
+datensatzbearbeiten=Modifier enregistrement
+zuruecksetzen=réinitialisation
+datensatzloeschen=Supprimer l'enregistrement
+siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen=Vous pouvez utiliser soi-disant wildcards dans la recherche, l' * représente un chiffre, et que ? pour les caractères individuels.
+undamtsbezeichnungfunktion=et titre/fonction
+HINT_SEARCH_WHERE=La recherche s'effectue dans les prénom, nom, ville, code postal, rue, société, téléphone, fax, e-mail mobile, commentaires, catégories, espaces de travail.
+neuenorteingeben=Entrez un nouveau lieu
+bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=S'il vous plaît entrer un nouvel lieu et cliquez sur "Ajouter"
+neuerveranstaltungsort=nouveau lieu de l'événement 
+markierenundkopierensiefolgendesadressetikett=Sélectionnez et copiez l'étiquette adresse suivante
+personenetikett=Étiquette de personnes
+zuruckzurubersicht=Retour à la vue d'ensemble
+gpsdaten=Données GPS
+platzhalterintexteinfuegen=Insérer le texte d'espace réservé
+intexteinfuegen=insérer dans le texte
+emailvorlagen=Modèles de courrier électronique
+vorhandenevorlagen=Modèles existants
+bitteauswhaelengt=Veuillez sélectionner
+vorlageladen=Télécharger modèles
+neuevorlagename=nouveau modèle (nom)
+neuevorlagespeichern=Enregistrer nouveau modèle
+neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten=Nouveaux modèles doivent contenir un objet et le texte.
+zurueckzumverteiler=Retour au distributeur
+markiertenveranstaltungsorte=Markierte(r) Veranstaltungsort(e)
+hinweis=Conseil
+inaktiv=inactif
+aktionen=Actiones
+anschrift=Adresse
+anderungenspeichern=Enregistrer les modifications
+senden=Envoyer
+
+# GENERIC
+GENERIC_UPLOAD_BUTTON=Sélectionnez le fichier
+GENERIC_TO=à
+GENERIC_FEDERAL_STATE=Département
+GENERIC_PERSONAL_DATA=Données personnel
+GENERIC_NUMBER_OF_GUESTS=Nombre d'invités
+GENERIC_TELEFON=Téléphone
+
+# MESSAGES
+MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Ce client a été invité sans personne principale.
+MESSAGE_INVITATION_WITHOUT_PARTNER=Ce client a été invité sans partenaire.
+MESSAGE_INVITATION_WITHOUT_PERSON_PART1=Vous ensuite invite maintenant eux?
+MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON=
+MESSAGE_END_AND_START_DATE=La fin de l'événement doit être temporisée jusqu'au début de l'événement.
+MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=L'événement ne peut pas être enregistré. S'il vous plaît donner un nom court.
+MESSAGE_EVENT_WRING_DATE_FORMAT=Vous avez besoin au début de l'événement dans le format jj.mm.aaaa spécifier.
+MESSAGE_GENERIC_MISSING_DESCRIPTION=Vous devez entrer un indication.
+MESSAGE_COLOR_MISSING_NAME=Vous devez entrer un nom.
+MESSAGE_EVENTCATEGORY_ASSIGNMENT_WRONG=L'attribution d'une catégorie à un événement est défectueux .
+MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=L'attribution d'un type de document à un événement est défectueux.
+MESSAGE_EVENT_LOCATION_TITLE_EMPTY=Le lieu ne peut pas être enregistré. Décerner un titre s'il vous plaît.
+MESSAGE_EVENT_LOCATION_MAX_REMARK_REACHED=Le contenu du champ "remarque" ne peut pas dépasser 1000 caractères.
+MESSAGE_EMAIL_DRAFT_NAME_MISSING=Vous devez donner un nom de la modèle de courrier électronique.
+MESSAGE_EMAIL_DRAFT_SUBJECT_MISSING=Ils ont donné le modèle e -mail sans sujet .
+MESSAGE_EMAIL_DRAFT_TEXT_MISSING=Vous ne saisissez du texte dans le modèle e-mail.
+MESSAGE_EMAIL_LIST_NAME_EMPTY=euillez entrer un nom de distribution.
+MESSAGE_TASK_TIME_WITHOUT_DATE=Entrez un temps sans une date correspondante n'est pas autorisée.
+MESSAGE_TASK_END_DATE_NOT_FUTURE=La tâche ne peut pas être enregistrée. La date de fin doit être à l'avenir.
+MESSAGE_TASK_END_DATE_WITHOUT_BEGIN_DATE=La tâche ne peut pas être enregistrée. Veuillez également indiquer une date de début, en plus de la date de fin.
+MESSAGE_TASK_BEGIN_DATE_BEFORE_END_DATE=La tâche ne peut pas être enregistrée. La date de début doit être avant la date de fin.
+MESSAGE_TASK_NO_SHORTNAME=La tâche ne peut pas être enregistrée. S'il vous plaît donner un nom court.
+MESSAGE_TASK_MAX_REMARK_REACHED=La tâche ne peut pas être enregistrée. Le champ description est autorisé à avoir plus de 1000 caractères.
+MESSAGE_TASK_EMAIL_WITHOUT_SENDER=L'e-mail ne peuvent être transmis sans expéditeur.
+MESSAGE_TASK_EMAIL_WITHOUT_RECEIVER=L'e-mail ne peuvent être transmis sans récepteur.
+MESSAGE_TASK_EMAIL_WITHOUT_SUBJECT=L'e-mail ne peuvent être transmis sans sujet.
+MESSAGE_ORG_UNIT_NO_NAME=Vous devez entrer un nom
+MESSAGE_PERSON_MAX_COMPANY_REACHED=Vous pouvez spécifier jusqu'à 100 caractères pour la société.
+MESSAGE_PERSON_MAX_NAME_REACHED=Vous pouvez spécifier un maximum de 100 caractères pour le nom du personnage principal.
+MESSAGE_PERSON_MAX_LASTNAME_REACHED=Vous pouvez spécifier un maximum de 100 caractères pour le prénom du personnage principal .
+MESSAGE_PERSON_NO_COMPANY_NAME=Vous devez spécifier un nom pour l'entreprise / institution.
+MESSAGE_PERSON_NO_NAME_LAST_NAME=Vous devez spécifier un prénom et un nom .
+MESSAGE_PERSON_NO_NAME=Vous devez spécifier un prénom.
+MESSAGE_PERSON_NO_LASTNAME=Vous devez spécifier un nom .
+MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=Impossible d'enregistrer la connexion entre la personne et la catégorie .
+MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=Le connecteur peut être jusqu'à 50 caractères de long .
+MESSAGE_PROXY_NO_REPRESENTATIVE=Vous devez entrer un représentant.
+MESSAGE_PROXY_NO_ROLE=Vous devez entrer un rôle.
+MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=Le début de la représentation doit être avant la fin.
+MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG=L'attribution d'une fonction / titre officiel pour un événement est défectueux.
+MESSAGE_FUNCTION_MISSING_NAME=Vous devez donner un nom à la fonction.
+MESSAGE_GUEST_DOCTYPE_CITYNAME_MAX_LENGTH=Le nom de la ville peut être jusqu'à 100 caractères.
+MESSAGE_GUEST_DOCTYPE_COMPANYNAME_MAX_LENGTH=Le nom de l'entreprise peut être jusqu'à 250 caractères.
+MESSAGE_GUEST_DOCTYPE_COUNTRYNAME_MAX_LENGTH=Le nom du pays peut être jusqu'à 100 caractères.
+MESSAGE_GUEST_DOCTYPE_FAX_MAX_LENGTH=Le numéro de fax peut être jusqu'à 100 caractères.
+MESSAGE_GUEST_DOCTYPE_FIRSTNAME_MAX_LENGTH=Le prénom peut être jusqu'à 100 caractères.
+MESSAGE_GUEST_DOCTYPE_LASTNAME_MAX_LENGTH=Le nom peut être jusqu'à 100 caractères.
+MESSAGE_GUEST_DOCTYPE_FIRSTNAME_PARTNER_MAX_LENGTH=Le prénom du partenaire ne peut pas dépasser 100 caractères.
+MESSAGE_GUEST_DOCTYPE_LASTNAME_PARTNER_MAX_LENGTH=Le nom du partenaire ne peut pas dépasser 100 caractères.
+MESSAGE_GUEST_DOCTYPE_PHONE_MAX_LENGTH=Le numéro de téléphone peut être jusqu'à 100 caractères.
+MESSAGE_GUEST_DOCTYPE_FUNCTION_MAX_LENGTH=Le nom de fonction peut contenir jusqu'à 250 caractères.
+MESSAGE_GUEST_DOCTYPE_EMAIL_MAX_LENGTH=L'adresse de courriel peut être jusqu'à 250 caractères.
+MESSAGE_GUEST_DOCTYPE_MOBILE_MAX_LENGTH=Le numéro de téléphone mobile peut être jusqu'à 100 caractères.
+MESSAGE_GUEST_DOCTYPE_POBOX_MAX_LENGTH=Le numéro de case postale peut être jusqu'à 50 caractères.
+MESSAGE_GUEST_DOCTYPE_POBOX_ZIP_MAX_LENGTH=Le code postal pour le P.O. doit être un caisse longue 50 caractères au maximum.
+MESSAGE_GUEST_DOCTYPE_SALUTATION_MAX_LENGTH=Le titre peut être jusqu'à 50 caractères.
+MESSAGE_GUEST_DOCTYPE_SALUTATION_PARTNER_MAX_LENGTH=Le titre des partenaires doit être de 50 caractères ou moins.
+MESSAGE_GUEST_DOCTYPE_STREET_MAX_LENGTH=Le nom de la rue ne peut pas dépasser 100 caractères.
+MESSAGE_GUEST_DOCTYPE_SUFFIX1_MAX_LENGTH=Le premier suffixe ne peut pas dépasser 100 caractères.
+MESSAGE_GUEST_DOCTYPE_SUFFIX2_MAX_LENGTH=Le deuxième suffixe ne peut pas dépasser 100 caractères.
+MESSAGE_GUEST_DOCTYPE_TEXTJOIN_MAX_LENGTH=Le connecteur doit être 50 caractères ou moins.
+MESSAGE_GUEST_DOCTYPE_TITLE_MAX_LENGTH=Le titre peut contenir jusqu'à 250 caractères.
+MESSAGE_GUEST_DOCTYPE_TITLEPARTNER_MAX_LENGTH=Le titre du partenaire peut être jusqu'à 250 caractères.
+MESSAGE_GUEST_DOCTYPE_URL_MAX_LENGTH=Le WWW URL peut être jusqu'à 250 caractères.
+MESSAGE_GUEST_DOCTYPE_ZIP_MAX_LENGTH=Le code postal doit contenir 50 caractères ou moins.
+MESSAGE_USER_MISSING_ROLE=Vous devez taper un nom de rôle d'utilisateur.
+
+# EVENT LIST TEXTS
+EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Au moins un événement marqué s'exécute actuellement ou dans l'avenir.
+EVENT_LIST_WARNING_SELECTION_CHANGING=Si vous souhaitez personnaliser votre sélection, vous annulez la suppression.
+EVENT_LIST_DELETE_CONFIRMATION_MESSAGE=Veuillez supprimer tous les événements sélectionnés? Cette action ne peut pas être annulée.
+
+# PERSON LIST TEXTS
+PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE=Vous n'êtes pas autorisé à supprimer des personnes.
+PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Vous pouvez supprimer qu'une seule personne. S'il vous plaît sélectionner qu'une seule entrée, ou contactez votre administrateur.
+PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Pour supprimer toutes les gens?
+
+# EVENT DETAIL SITE TEXTS
+EVENT_DETAIL_ALREADY_EXISTS_ONE=Un événement avec le nom '
+EVENT_DETAIL_ALREADY_EXISTS_TWO=' déjà existe. Le nouvel événement sauverait encore?
+
+# CATEGORY TEXTS
+CATEGORY_DETAIL_ALREADY_EXISTS=Une entrée de données maître sous le nom déjà existe.
+
+# CHANGELOG REPORTS TEXTS
+CHANGELOG_NO_PROTOCOL_AVAILABLE=Il y a aucune donnée de journaux est disponible.
+
+# BROWSER TITLES
+BROWSER_TITLE_REPORTS=Reportage
+
+
+#NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Réinitialiser toutes les valeurs sur les données de base
+GUEST_LIST_EDIT_MASTER_DATA=Modifier les données de base des personnes
+GUEST=Invité
+GENERIC_OF=de
+
+
+TOOLTIP_EDIT_HEADLINES=Vous pouvez toujours modifier les rubriques avant de l'imprimer en cliquant sur le lien /u0022modifier/u0022. S'il vous plaît enregistrer cette avant l'impression.
+GENERIC_NEXT_PAGE=Page suivante
+GENERIC_PREVIOUS_PAGE=Page précédente
+GENERIC_APPLY_TO_GUESTLIST=Prendre dans la liste des invités
+GENERIC_APPLY_GUEST_TO_GUESTLIST=Prenez invité directement à la liste des invités
+GENERIC_APPLY=Reprendre
+GENERIC_APPLY_PERSON_AS_HOST=Prenez personne directement en tant qu'hôte
+etikettfuraktuellepersonerzeugen=Produire étiquette pour personne actuelle
+
+aktuellepersonloschenundzurpersonenlistezuruckkehren=Supprimer la personne en cours et revenir à la liste des personnes
+freifeldvorschaufur=Champ libre aperçu
+zudieserpersonwurdedasentsprechendevorschaufeldnochncihterzeugt=À cette personne la case aperçu n'a pas encore créée.
+GENERIC_LAST_PAGE=Dernière page
+siemussendierolleangebenunterdersieverawebnutzenmochten=Vous devez spécifier le rôle, dans lesquelles vous souhaitez utiliser VerA.web.
+GENERIC_CHOOSE=Choisir
+GENERIC_RESET=Réinitialiser
+siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=Vous n'avez pas les autorisations nécessaires pour supprimer les invités
+wahlensiebittezunachsteineodermehreregastelistenaus=Sélectionner les premiers hôtes - un ou plusieurs
+bittebestatigensiedasloschendermarkiertengasteliste=Veuillez confirmer la suppression des invités marqué!
+GENERIC_NO_GUESTLIST_DELETED=Aucun invités ont été supprimées
+
+
+EVENT_DOCTYPE_RESET_INFO=Vérifier si les types de documents sont déjà attribuées à cet événement. Si tel est le cas, vous devrez recréer les types de documents pour ce client. Pour ce faire, cliquez sur "Réinitialiser les données de base"
+
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Ceci est possible via l'administration d'élément de menu / réglages de programme
+            
+GENERIC_CHOSEN_GUESTLIST=Invités sélectionnés            
+exportierfahigegasteliste=Invités exportables
+unvollstandigegasteliste=Invités incomplètes
+
+GUESTLIST_FILTER_EXPORT_INFO=Si vous avez frappé un filtrage dans la liste des invités, exporter seulement certaines invités
+
+GUEST_CANNOT_BE_EXPORTED_1=Un invité
+GUEST_CANNOT_BE_EXPORTED_2=ne peut
+GUEST_CANNOT_BE_EXPORTED_3=pas être
+GUEST_CANNOT_BE_EXPORTED_4=exporté
+PERSON_MISSING_DOCTYPE_SPECIFIC_DATA=car aucun correspondant du document spécifique au type données ont été stockées à cette personne
+
+GUESTS_CANNOT_BE_EXPORTED_1=Invités ne
+GUESTS_CANNOT_BE_EXPORTED_2=peuvent pas
+GUESTS_CANNOT_BE_EXPORTED_3=être
+GUESTS_CANNOT_BE_EXPORTED_4=exportées
+PERSONS_MISSING_DOCTYPE_SPECIFIC_DATA=car aucun correspondant du document spécifique au type données ont été stockées à cette personne
+GENERIC_TO_EVENTDETAIL=Détails administratifs
+GENERIC_INSERT_CURRENT_MONTH=Insérer le mois en cours
+GENERIC_SELECT_FUNCTION=Choisissez la fonction
+diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten=Les données de base de cet invité sont effacées. Vous ne pouvez modifier les données dans le cadre de cet événement
+DELETE_SELECTED_MANDATOR=Supprimer clients sélectionnés
+PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Si le rang de la catégorie à prendre?
+
+
+# NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Réinitialiser toutes les données sur Master Data
+GUEST_LIST_EDIT_MASTER_DATA=Modifier les données de base des personnes
+GUEST=Invité
+GENERIC_OF=de
+GENERIC_ASSIGN=Assigner
+GENERIC_CANCEL=Suspendre
+GENERIC_DELETE=Enlever
+GENERIC_CONNECTOR=Connecteur
 GENERIC_VIEW_DOCUMENT_TYPE=Montrer le type du document
 GENERIC_GENERATE_DOCUMENT-TYPE=g\U00E9n\U00E9rer un nouveau type de document
-GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=g\U00E9n\U00E9rer les donn\U00E9s d\U0027enregistration pour l\U0027OA
-GENERIC_COPY_CURRENT_PERSON=TRANSLATE PLEASE
-GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT=TRANSLATE PLEASE
-GENERIC_PREVIOUS_PAGE=Page pr\U00E9c\U00E9dente
-GENERIC_PREVIOUS_PERSON=Personne pr\U00E9c\U00E9dente
-GENERIC_FIRST_PAGE=Premi\U00E8re page
-GENERIC_FIRST_PERSON=Premi\U00E8re personne
+
+# GUEST DETAIL TEXTS
+GUEST_DETAIL_PARTNER=le partenaire
+GUEST_DETAIL_PARTNER_GENITIV=les partenaire
+GUEST_DETAIL_MAINPERSON=la personne principale
+
+GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Veuillez changer la place
+GUEST_DETAIL_DUP_SEAT_ERROR_TWO=de
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=vis à vis la liste des invités. Cette personne se trouve actuellement
+GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=à la place
+GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Les modifications ne sont pas sauvegardées.
+
+# GUEST TEXTS
+GUEST_CALC_SERIALNO=Cet événement est déjà fini dans le passé. En tout cas, Voulez-vous recalculer le numéro de série?
+
+# MAILING LIST TEXTS
+MAILING_LIST_NO_ADDRESSES=Désigner un nouveau collaborateur n\u0027était pas possible à cause de l\u0027absence de l\u0027adresse
+
+# ORG UNIT LIST TEXTS
+ORG_UNIT_NO_MANDANT_ID=Le Client à insérer ne devrait pas avoir un numéro d\u0027identité
+ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=Le Client à insérer
+ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO=existe déjà.
+ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Le Client à modifier
+ORG_UNIT_MANDANT_ID_COMPULSORY_TWO=devrait avoir un numéro d\u0027identité
+ORG_UNIT_MANDANT_EXISTS_ONE=Un client dont le nom
+ORG_UNIT_MANDANT_EXISTS_TWO=existe déjà.
+
+# PERSON CATEGORIES TEXTS
+PERSON_CATEGORIES_SELECT_WARNING=Pour ajouter une catégorie, veuillez choisir une. (vous n\u0027avez choisie qu\u0027un rang.)
+
+# EXPORT FILE HEADERS
+EXPORT_HEADER_DOCUMENT_TYPE=type_de_document
+EXPORT_HEADER_FREETEXT_FIELD=champs_de_texte_libre
+EXPORT_HEADER_PARTNER_FREETEXT_FIELD=Patenaire_champs_de_texte_libre
+EXPORT_HEADER_INTERCONNECTS=Connecteur
+EXPORT_HEADER_ADDRESS=Adresse
+EXPORT_HEADER_CHARSET=Charset\u0009
+EXPORT_HEADER_FUNCTION=fonction
+EXPORT_HEADER_TITLE=Titre
+EXPORT_HEADER_FIRSTNAME=Prénom
+EXPORT_HEADER_LASTNAME=Surnom
+EXPORT_HEADER_PARTNER_TITLE=Partenaire_titre
+EXPORT_HEADER_PARTNER_ACADEMIC_TITLE=Partnaire_Titre_académique
+EXPORT_HEADER_PARTNER_FIRSTNAME=Partenaire_prénom
+EXPORT_HEADER_PARTNER_LASTNAME=Partenaire_surnom
+EXPORT_HEADER_POSTALCODE=Code_postal
+EXPORT_HEADER_CITY=Ville
+EXPORT_HEADER_STREET=Rue
+EXPORT_HEADER_COUNTRY=Pays
+EXPORT_HEADER_ADDITIONAL_ADDRESS_ONE=Adresse_extension_1
+EXPORT_HEADER_ADDITIONAL_ADDRESS_TWO=Adresse_extension_2
+EXPORT_HEADER_CITY_OF_BORN=Lieu_de_naissance
+EXPORT_HEADER_TELEPHONE=Téléphone
+EXPORT_HEADER_FAX=Fax
+EXPORT_HEADER_EMAIL=E-mail
+EXPORT_HEADER_WWW=WWW
+EXPORT_HEADER_MOBILE=Portable
+EXPORT_HEADER_COMPANY=Entreprise
+EXPORT_HEADER_POST_OFFICE_BOX_NUMBER=Numéro_de_la_boîte_à_lettre
+EXPORT_HEADER_POST_OFFICE_BOX_PLZ=Code_postal
+EXPORT_HEADER_WORK_AREA=Secteur_de_travail
+EXPORT_HEADER_CATEGORY=Categorie
+EXPORT_HEADER_CATEGORY_RANG=Categorie_rang
+EXPORT_HEADER_RANG=Rang
+EXPORT_HEADER_RESERVE=Reserve
+EXPORT_HEADER_STATUS=Statut
+EXPORT_HEADER_TABLE=Table
+EXPORT_HEADER_SEAT=Place
+EXPORT_HEADER_CURRENT_NUMBER=Numéro_de_série
+EXPORT_HEADER_COLOUR=Couleur
+EXPORT_HEADER_IN_COUNTRY=domestique
+EXPORT_HEADER_LANGUAGES=Langues
+EXPORT_HEADER_SEX=Sexe
+EXPORT_HEADER_NATIONALITY=Nationalité
+EXPORT_HEADER_HINT_RESPONSIBLE=Conseil_hôte
+EXPORT_HEADER_HINT_ORG_TEAM=Conseil_équipe_org
+EXPORT_HEADER_PARTNER_STATUS=Partenaire_statut
+EXPORT_HEADER_PARTNER_TABLE=Partenaire_table
+EXPORT_HEADER_PARTNER_SEAT=Partenaire_place
+EXPORT_HEADER_PARTNER_CURRENT_NUMBER=Partenaire_numéro_de_série
+EXPORT_HEADER_PARTNER_COLOUR=Partenaire_couleur
+EXPORT_HEADER_PARTNER_IN_COUNTRY=domestique
+EXPORT_HEADER_PARTNER_LANGUAGES=Partenaire_langues
+EXPORT_HEADER_PARTNER_SEX=Partenaire_sexe
+EXPORT_HEADER_PARTNER_NATIONALITY=Partenaire_nationalité
+EXPORT_HEADER_PARTNER_HINT_RESPONSIBLE=Partenaire_conseil_hôte
+EXPORT_HEADER_PARTNER_HINT_ORG_TEAM=Partenaire_conseil_équipe_org
+EXPORT_HEADER_ACCEPT=Numéro_acceptations
+EXPORT_HEADER_DECLINE=Numéro_declinaison
+EXPORT_HEADER_OPEN=Numéro_ouvert
+EXPORT_HEADER_GUEST_IN_PLACE=Numéro_d\u0027invités_sur_place
+EXPORT_HEADER_GUEST_IN_RESERVE=Numéro_d\u0027invités_en_reserve
+EXPORT_HEADER_EVENT_NAME=Nom_de_l\u0027événement
+EXPORT_HEADER_EVENT_BEGIN=Début_de_l\u0027événements
+EXPORT_HEADER_EVENT_END=Fin_de_l\u0027événement
+EXPORT_HEADER_EVENT_LOCATION=Lieu_de_l\u0027événement
+EXPORT_HEADER_OBSERVATION=Observation
+
+# MAIN DATA (STAMMDATEN-WORKER) TEXTS
+MAIN_DATA_WARN_ALREADY_EXISTS=Une donnée de base avec ce nom existe déjà.
+
+# STATS (Statistik Worker)
+STATS_COLUMN_EVENT_NAME=Nom de l\u0027événement
+STATS_COLUMN_DATE_BEGIN=Début
+STATS_COLUMN_INVITATION_TYPE=Type d\u0027invitation
+STATS_COLUMN_INVITATION_STATUS=Statut
+STATS_COLUMN_INVITATION_STATUS_PARTNER=Statut du partnenaire
+STATS_COLUMN_YEAR=Année
+STATS_COLUMN_MONTH=Mois
+STATS_COLUMN_EVENTS=Événement
+STATS_NOT_INVITED=Pas invité
+
+# USER LIST TEXTS
+USER_LIST_WARN_MANDANT_ONE=L\u0027utilisateur à insérer est déjà associer au client
+USER_LIST_WARN_MANDANT_TWO=.
+USER_LIST_WARN_ALREADY_USER=L\u0027utilisateur à insérer est déjà associer VerA.web.
+USER_LIST_WARN_NO_ID=L\u0027utilisateur à insérer ne devrait pas avoir un numéro d\u0027identité
+
+# WORKAREA TEXTS
+WORKAREA_ERROR_INCORRECT_NAME_ONE=La création du secteur du travail \U0027
+WORKAREA_ERROR_INCORRECT_NAME_TWO=\U0027 n\u0027est pas possible. Veuillez associer un client à priori.
+
+# VERIFY TEXTS
+VERIFY_ERROR_ACCESS_TO_DB_UNABLE=L\u0027établissement de la connexion à la base de donnée n\u0027a pas été possible.
+VERIFY_ERROR_ACCESS_TO_DB_INTERRUPTED=La connexion à la base de donnée a été interrompu.
+VERIFY_ERROR_ACCESS_TO_DB_NOT_INTERRUPTED=Échec de l\u0027interruption de la connexion à la base de donnée.
+VERIFY_ERROR_DB_NOT_ACCESSIBLE=Échec de la connexion à la base de donnée.
+VERIFY_ERROR_DB_VERSION_NOT_DETERMINED=La détermination de la version du schéma de la base de donnée n\u0027était pas possible.
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE=La version du schéma de la base de donnée (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO=) est différente de la version de VerA.web (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
+VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Votre configuration de la base de donnée ne supporte pas let charset (LC_CTYPE=
+VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=La configuration de votre base de donnée ne supporte pas les règles attendu pour la comparaison du texte (LC_COLLATE=
+VERIFY_ERROR_XML=Une erreur est survenue, pendant la creation du document test-XML.(
+VERIFY_ERROR_JAVA_ONE=La version de JAVA installé (
+VERIFY_ERROR_JAVA_TWO=) est différente de la version attendu (1.4).
+
+#TO BE DELETED
+inlandjageschlechtweiblich=In Country: Yes - Sex:Female
+inlandjageschlechtmannlich=In Country: Yes - Sex:Male
+inlandneingeschlechtweiblich=In Country: No - Sex:Female
+inlandneingeschlechtmannlich=In Country: No - Sex:Male
+
+# GENERIC DIALOG MESSAGES
+GENERIC_PLEASE_WAIT_HEADER=Veuillez patienter...
+GENERIC_PLEASE_WAIT_MESSAGE=Le processus pourrait prendre un peu de temps.
+
+# WORK AREA (Bean) TEXTS
+WORKAREA_ERROR_MISSING_NAME=Le secteur de travail doit avoir un nom différent.
 
 
-GENERIC_INPUT_FIELD=Input field
-GENERIC_SIMPLE_COMBOBOX=Simple combobox
-GENERIC_MULTIPLE_COMBOBOX=Multiple combobox
+zurpersonensuche=à recherche personnes
+steuerdatei=le fichier de contrôle
+dokumenttypauswahlen=Choisir le type du document
+EVENT_NO_DOCTYPES_ASSIGNED=Aucun type de document a été associé à cet événement
+
+# DATE HELPER TEXTS
+DATE_HELPER_INCORRECT_DATE= n\u0027est pas une date valide. Veuillez insérer und date du format JJ.MM.AAAA!
+
+#WIP
+GENERIC_SHOW_CURRENT_EVENTS=Montrer l\u0027événement actuel
+GENERIC_FURTHER_PROCEEDING=Étapes prochaines
+
+LETTER_MAIN_PERSON=PP
+LETTER_PARTNER=P
+LETTER_RESERVE=R
+LETTER_DELEGATION=D
+LETTER_HOST=H
+
+GENERIC_LASTNAME_WITH_SOFT_HYPHEN=Surnom
+GENERIC_FIRSTNAME_WITH_SOFT_HYPHEN=Prénom
+
+GENERIC_LOAD_EXISTING_IMPORTPROCESS=Charger un procéssus d\u0027importation disponible
+GENERIC_IMPORTID=Importation-id
+GENERIC_YEAR=Année
+GENERIC_COUNT=Nombre
+GENERIC_PARTICIPATION=Participation
+GENERIC_NOT_ASSIGNED_TO_CATEGORY=Aucune catégorie attribué
+GENERIC_NOT_ASSIGNED_TO_WORKAREA=Aucun secteur de travail attribué
+GENERIC_NO_HOST_ASSIGNED=Aucun hôte attribué
+GENERIC_NO_GUEST_FOUND=Aucun invité trouvé
+
+GENERIC_PHONE_NUMBER_SHORT=Numéro de téléphone
+GENERIC_FAX_NUMBER_SHORT=Numéro du Fax
+
+GENERIC_MONTH_YEAR=Mois/Année
+GENERIC_LOOK_AT=regarder
+GENERIC_MOBILE_PHONE=Portable
+
+PHONE_OFFICIAL=Téléphone officiel
+PHONE_PRIVATE=Téléphone privé
+PHONE_MOBILE=Téléphone portable
+
+GENERIC_PARTNER_FREETEXTFIELD=Champs de texte libre du partenaire
+GENERIC_VENUE=Lieu de l\u0027événement
+
+GENERIC_TOTAL=Total
+OPTION_MARK_ADMINISTRATION_CATEGORY_1=Categorie
+OPTION_MARK_ADMINISTRATION_CATEGORY_2=Occasion
+OPTION_MARK_ADMINISTRATION_CATEGORY_3=Diplo. Corps
+
+GENERIC_IMPORTID_HYPHEN=Importation-id
+
+GENERIC_SUBSTITUTED_BY=substituté par
+GENERIC_NONE=Aucun
+GENERIC_ADDRESS_BLOCK=Le block d\u0027adresse
+
+GENERIC_CONTEXT_PLURAL=Le contexte
+
+PERSON_DETAIL_DELETE_PERSON_HEADER=Veuillez confirmer l\u0027élimination de cette person!
+PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION=Si vous voulez garder cetter personne, veuillez annuler l\u0027élimination.
+PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=Voulez vous éliminer cetter personne?
+
+# PERSON HEADER TEXTS
+PERSON_HEADER_NO_DOCTYPE_CONFIG=Aucun type de document est configuré pour être afficher.
+
+#LAST ADDED
+GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=Génerer des données de connexion pour l\u0027Enregistrement en Ligne
+GENERIC_COPY_CURRENT_PERSON=Copier la personne actuelle
+GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT=Associer la personne actuelle à un événement
+GENERIC_PREVIOUS_PAGE=Page précédente
+GENERIC_PREVIOUS_PERSON=Personne précédente
+GENERIC_FIRST_PAGE=Page suivante
+GENERIC_FIRST_PERSON=Personne suivante
+GENERIC_INPUT_FIELD=Champs de saisie
+GENERIC_SIMPLE_COMBOBOX=Zone de liste déroulante simple
+GENERIC_MULTIPLE_COMBOBOX=Zone de liste déroulante multiple
 
 # EVENT LOCATIONS (Veranstaltungsort)
-HINT_DELETE_NOT_POSSIBLE_ONE=Eliminer le lieu '
-HINT_DELETE_NOT_POSSIBLE_TWO='n'est pas possible, puisque celui-ci est en rapport avec un \u00E9v\u00E9nement au moins.
-CONFIRMATION_CREATE_LOCATION_ONE=Voulez-vous \u00E9liminer le lieu '
-CONFIRMATION_CREATE_LOCATION_TWO='?
+HINT_DELETE_NOT_POSSIBLE_ONE=L\u0027élimination du lieu de l\u0027événement \u0027
+HINT_DELETE_NOT_POSSIBLE_TWO=\u0027 n\u0027est pas possible, puisque ce dernier est en rapport avec, au moins, un autre événement.
+CONFIRMATION_CREATE_LOCATION_ONE=Voulez-vous supprimer le lieu de l\u0027événement \u0027
+CONFIRMATION_CREATE_LOCATION_TWO=\u0027?
+
+INSERT_FUNCTION_FROM_MAIN_DATA=Ajouter une fonction des données principales
+INSERT_COMPANY_FROM_MAIN_DATA=Ajouter une entreprise des données principales
+
+HINT_GUEST_ALREADY_INVITED_SINGULAR=Une personne est déjà invité à l\u0027événement.
+HINT_GUEST_ALREADY_INVITED_PLURAL=Des pesonnes sont déjà invité à l\u0027événement.
+
+MESSAGE_REPLACED_PERSON_ONE=
+MESSAGE_REPLACED_PERSON_TWO=personnes remplacées.
+MESSAGE_FOUND_PERSON_ONE=
+MESSAGE_FOUND_PERSON_TWO=personnes trouvées.
+
+HINT_POPUP_CATEGORY_SELECTION_ONE=Vous avez choisi
+HINT_POPUP_CATEGORY_SELECTION_TWO=personne(s). Le processus pourrait durer, selon le nombre des personnes choisis.
+
+DELETE_DISTRIBUTOR=Voulez-vous supprimer le distributeur seléctionné?
+DELETE_DISTRIBUTORS=Voulez-vous supprimer les distributeurs seléctionnés?
 
 #GENERAL MESSAGE
 GM_PART1=Vous avez
