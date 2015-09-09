@@ -301,9 +301,9 @@
 
 		<div class="textRight">
 			#if($action == "guest" && !$searchTask)
-				<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzurveranstaltungssuche}" onclick="window.location.href='ShowGuestList?selectNone=true';" class="mainButton">
+				<input type="button" name="cancel" title="${placeholderWithTranslation.zuruckzurveranstaltungssuche}" value="${placeholderWithTranslation.zuruckzurveranstaltungssuche}" onclick="window.location.href='ShowGuestList?selectNone=true';" class="mainButton">
 			#elseif($action == "addperson" || $searchTask)
-				<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzurveranstaltungssuche}" onclick="window.location.href='ShowEventSearch';" class="mainButton">
+				<input type="button" name="cancel" title="${placeholderWithTranslation.zuruckzurveranstaltungssuche}" value="${placeholderWithTranslation.zuruckzurveranstaltungssuche}" onclick="window.location.href='ShowEventSearch';" class="mainButton">
 			#end
 		</div>
 	</form>
