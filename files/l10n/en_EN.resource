@@ -1721,10 +1721,10 @@ GENERIC_SIMPLE_COMBOBOX=Simple combobox
 GENERIC_MULTIPLE_COMBOBOX=Multiple combobox
 
 # EVENT LOCATIONS (Veranstaltungsort)
-HINT_DELETE_NOT_POSSIBLE_ONE=It is not possible to delete the location '
-HINT_DELETE_NOT_POSSIBLE_TWO=', because it is related, at least, to one event.
-CONFIRMATION_CREATE_LOCATION_ONE=Do you really want to delete the location '
-CONFIRMATION_CREATE_LOCATION_TWO='?
+HINT_DELETE_NOT_POSSIBLE_ONE=It is not possible to delete the location \u0027
+HINT_DELETE_NOT_POSSIBLE_TWO=\u0027, because it is related, at least, to one event.
+CONFIRMATION_CREATE_LOCATION_ONE=Do you really want to delete the location \u0027
+CONFIRMATION_CREATE_LOCATION_TWO=\u0027?
 
 INSERT_FUNCTION_FROM_MAIN_DATA=Add function from main data
 INSERT_COMPANY_FROM_MAIN_DATA=Add company from main data
