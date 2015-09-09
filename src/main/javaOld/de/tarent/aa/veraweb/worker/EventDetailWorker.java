@@ -88,13 +88,20 @@ public class EventDetailWorker {
      *  so wird nichts geliefert
 	 */
 	public void showDetail(OctopusContext octopusContext, Integer id, Task task, Integer eventId) throws BeanException, IOException {
-		if (task != null) {
+        if (eventId==null) {
+            eventId = Integer.valueOf(octopusContext.getRequestObject().get("id").toString());
+        }
+
+        if (task != null) {
 			id = task.getEventId();
 		} else if (eventId != null) {
 			id = eventId;
 		}
+
 		Event event = getEvent(octopusContext, id);
-		if (event != null) {
+
+        if (event != null) {
+
 			octopusContext.setContent("event", event);
 			// OR Control
 			if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
