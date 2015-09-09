@@ -187,10 +187,12 @@
 
 	<div id="tabsMain">
 		<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-			<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>${placeholderWithTranslation.GENERIC_PERSONS_DATA}</div>
-			</li><li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</div>
-			</li>#if($personDB)<li class="inactive" id="dokumenttypen" onclick="showDoctypes();"><div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
-			</li><li class="inactive" id="kategorien" onclick="showCategories();"><div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div></li>#end
+			<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>${placeholderWithTranslation.GENERIC_PERSONS_DATA}</div></li>
+			<li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</div></li>
+			#if($personDB)
+				<li class="inactive" id="dokumenttypen" onclick="showDoctypes();"><div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div></li>
+				<li class="inactive" id="kategorien" onclick="showCategories();"><div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div></li>
+			#end
 		</ul>
 	</div>
 
@@ -450,14 +452,19 @@
 			return;
 		#end
 
-		var msg = '';
-		msg += '<br><span class="notBold"> ${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION} </span><br>'+ ' ${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING} ' +
-                            ' ${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden} <br>';
+		var msg = "";
+
+		var textCancelDeletion = encodeURIComponent("${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION}");
+		var textConfirmDeletion = encodeURIComponent("${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING}");
+		var textWarnNoBack = encodeURIComponent("${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden}");
+
+		msg += '<br><span class="notBold">' + textCancelDeletion + ' </span><br>' + textConfirmDeletion + ' ' + textWarnNoBack + ' <br>';
 
         $(".errormsg").remove();
 		$(".successmsg").remove();
 
-		showConfirmYesNo(' ${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_HEADER}', msg,
+		var question = encodeURIComponent("${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_HEADER}");
+		showConfirmYesNo(question, msg,
 			 // Ja, Person löschen
 			function () {
 				window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
