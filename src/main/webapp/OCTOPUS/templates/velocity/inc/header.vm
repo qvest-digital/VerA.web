@@ -156,7 +156,7 @@
 						#set($count= 2)
 					#end
 			#elseif($countUpdate && $countUpdate > 0)
-				#set($action = "${placeholderWithTranslation.GM_ACTION_UPDATED}")
+				#set($action = "${placeholderWithTranslation.GM_ACTION_MODIFIED}")
 					#if($countUpdate== 0)
 						#set($count= 0)
 					#elseif($countUpdate == 1)
@@ -224,10 +224,10 @@
 						<vera-success> $firstpart $entryof $element $secondpart $action </vera-success>
 					#elseif($count == 1)
 						#set($entryof = "${placeholderWithTranslation.GM_ENTRY_OF}")
-						<vera-success> $verb $action $number $entryof $entity </vera-success>
+						<vera-success> One $elementNameSingular successfully $action</vera-success>
 					#else
 						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
-						<vera-success> $verb $action $number $entryof $entity </vera-success>
+						<vera-success> $count $elementNamePlural successfully $action</vera-success>
 					#end
 	
 				#elseif($lang == "fr")
