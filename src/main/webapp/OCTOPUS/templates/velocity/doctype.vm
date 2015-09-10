@@ -1,6 +1,7 @@
 #set($activeMenu = "Administration")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_DOCUMENT_TYPES}")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_DOCUMENT_TYPE}")
+#set($entity="DOCUMENT_TYPE")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}")
 

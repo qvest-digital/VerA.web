@@ -1753,3 +1753,6 @@ GM_ACTION_INSERTED=angelegt
 GM_ACTION_MODIFIED=ge\u00E4ndert
 GM_ENTRY_OF=
 GM_ENTRIES_OF=
+GM_PERSON_MODIFY_S=es wurde eine Person ge\u00E4ndert
+GM_PERSON_INSERT_S=es wurde eine Person angelegt
+GM_PERSON_DELETE_P=es wurden %s Personen gel\u00FCscht

@@ -1,6 +1,7 @@
 #set($activeMenu = "Administration")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_COLOURS}")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_COLOR}")
+#set($entity="COLOR")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_COLOR_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_COLOR_PLURAL}")
 #parse("inc/header.vm")

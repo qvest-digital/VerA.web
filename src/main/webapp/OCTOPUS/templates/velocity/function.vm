@@ -1,6 +1,7 @@
 #set($activeMenu = "Administration")
 #set($title = "${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_FUNCTION_OFFICIAL_TITLE}")
+#set($entity="OFFICIAL_TITLE")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}")
 

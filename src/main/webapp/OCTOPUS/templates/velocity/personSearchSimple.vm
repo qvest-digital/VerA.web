@@ -5,6 +5,7 @@
 #end
 
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+#set($entity="PERSON")
 #set($elementNameSingular = "GENERIC_PERSON_SINGULAR")
 #set($elementNamePlural = "GENERIC_PERSON_PLURAL")
 #parse("inc/header.vm")

@@ -1,6 +1,7 @@
 #set($activeMenu = "Administration")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_DATA_SALUTATION}")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_SALUTATION}")
+#set($entity="SALUTATION")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_SALUTATION_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_SALUTATION_PLURAL}")
 

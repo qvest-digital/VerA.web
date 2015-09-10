@@ -1,6 +1,7 @@
 #set($activeMenu = "Administration")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_OUTBOX}")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_EMAIL}")
+#set($entity="EMAIL")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_EMAIL_PLURAL}")
 

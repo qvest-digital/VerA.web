@@ -13,6 +13,7 @@
 	#set($title = "${placeholderWithTranslation.GENERIC_REPRESENTATIVES}")
 #end
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_REPRESENTATIVE}")
+#set($entity="REPRESENTATIVE")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_REPRESENTATIVE_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_REPRESENTATIVE_PLURAL}")
 #parse("inc/header.vm")

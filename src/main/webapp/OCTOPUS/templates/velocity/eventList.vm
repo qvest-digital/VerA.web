@@ -35,6 +35,7 @@
 #end
 
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_EVENT}")
+#set($entity="EVENT")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_EVENT_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_EVENT_PLURAL}")
 #parse("inc/header.vm")

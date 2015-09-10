@@ -19,10 +19,12 @@
  */
 package de.tarent.aa.veraweb.utils.i18n;
 
+import de.tarent.aa.veraweb.utils.LanguageHelper;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -186,6 +188,7 @@ public class LanguageProvider {
         }
         octopusContext.setContent("language", octopusContext.sessionAsString("sessionLanguage"));
         octopusContext.setContent("placeholderWithTranslation", placeholderWithTranslation);
+        octopusContext.setContent("helper", new LanguageHelper());
     }
 
     //Set language names (language parameter of language data) from all

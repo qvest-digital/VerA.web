@@ -3,6 +3,7 @@
 #set($title = "${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}")
 
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_CLIENT}")
+#set($entity="CLIENT")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}")
 #parse("inc/header.vm")

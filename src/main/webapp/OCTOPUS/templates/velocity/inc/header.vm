@@ -147,7 +147,7 @@
 
 			## ACTION 
 			#if($countInsert && $countInsert > 0)
-				#set($action = "${placeholderWithTranslation.GM_ACTION_INSERTED}")
+				#set($messageAction = "INSERT")
 					#if($countInsert == 0)
 		      				#set($count = 0)
 					#elseif($countInsert == 1)
@@ -156,7 +156,7 @@
 						#set($count= 2)
 					#end
 			#elseif($countUpdate && $countUpdate > 0)
-				#set($action = "${placeholderWithTranslation.GM_ACTION_MODIFIED}")
+				#set($messageAction = "MODIFY")
 					#if($countUpdate== 0)
 						#set($count= 0)
 					#elseif($countUpdate == 1)
@@ -165,7 +165,7 @@
 						#set($count= 2)
 					#end
 			#elseif($countRemove && $countRemove >= 0)
-				#set($action = "${placeholderWithTranslation.GM_ACTION_DELETED}")
+				#set($messageAction = "DELETE")
 					#if($countRemove == 0)
 						#set($count= 0)
 					#elseif($countRemove == 1)
@@ -174,98 +174,14 @@
 						#set($count= 2)
 					#end
 			#end
-
-			#set($lang = "${placeholderWithTranslation.language_short}")
-
-			##needed: (S.P.) number (vowel) fr. (none) fr. (language) entryof (none & spanish) action before
-			
-			#if($countInsert)
-				#if($count == 0)
-					#set($element = $noNewElement)
-				#elseif($count == 1)
-					#set($element = $oneNewElement)
-				#else
-					#set($element = $severalNewElements)
-				#end
-			#else
-				#if($count == 0)
-					#set($element = $noElement)
-				#elseif($count == 1)
-					#set($element = $oneElement)
-				#else
-					#set($element = $severalElements)
-				#end
-			#end
-
-			#if($count == 0 || $count == 1)
-				#set($number="")
-			#else
-				#set($number = $count)
-			#end
-
 			#if($countRemove || $countUpdate || $countInsert)
-				#if($lang == "de")
-					#if($count == 1)
-						#set($verb = "${placeholderWithTranslation.GM_PART1_S}")
-					#else
-						#set($verb = "${placeholderWithTranslation.GM_PART1}")
-					#end
-					<vera-success> $verb $number $element $action </vera-success>
-
-				#elseif($lang == "en")
-
-					#set($firstpart = "${placeholderWithTranslation.GM_NONE_1}")
-					#set($secondpart = "${placeholderWithTranslation.GM_NONE_2}")
-					#set($verb = "${placeholderWithTranslation.GM_PART1}")
-					#set($entity = $severalElements)
-					
-					#if($count == 0)
-						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
-						<vera-success> $firstpart $entryof $element $secondpart $action </vera-success>
-					#elseif($count == 1)
-						#set($entryof = "${placeholderWithTranslation.GM_ENTRY_OF}")
-						<vera-success> One $elementNameSingular successfully $action</vera-success>
-					#else
-						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
-						<vera-success> $count $elementNamePlural successfully $action</vera-success>
-					#end
-	
-				#elseif($lang == "fr")
-
-					#set($firstpart = "${placeholderWithTranslation.GM_NONE_1}")
-					#set($verb = "${placeholderWithTranslation.GM_PART1}")
-					#set($entity = $severalElements)
-					
-					#if($count == 0)
-						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
-						<vera-success> $firstpart $entryof $element $secondpart $action </vera-success>
-					#elseif($count == 1)
-						#set($entryof = "${placeholderWithTranslation.GM_ENTRY_OF}")
-						<vera-success> $verb $action $entryof $entity </vera-success>
-					#else
-						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
-						<vera-success> $verb $action $number $entryof $entity </vera-success>
-					#end
-
-				#elseif($lang == "es")
-
-					#set($firstpart = "${placeholderWithTranslation.GM_NONE_1}")
-					#set($entity = $elementNameSingular)
-					
-					#if($count == 0)
-						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
-						<vera-success> $firstpart $action $entryof $element </vera-success>
-					#elseif($count == 1)
-						#set($verb = "${placeholderWithTranslation.GM_PART1_S}")
-						#set($entryof = "${placeholderWithTranslation.GM_ENTRY_OF}")
-						<vera-success> $verb $action $entryof $entity </vera-success>
-					#else
-						#set($verb = "${placeholderWithTranslation.GM_PART1}")
-						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
-						<vera-success> $verb $action $number $entryof $entity </vera-success>
-					#end
-				#end
+				#set($generalMessage=${helper.createMessage($messageAction,$count,$entity,$placeholderWithTranslation)})
+				##action: $action
+				##count: $count
+				##entity: $entity
+				<vera-success> $generalMessage </vera-success>
 			#end
+
 
 
             <script type="text/javascript">

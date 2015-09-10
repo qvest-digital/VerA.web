@@ -9,6 +9,7 @@
 #set($title = "${placeholderWithTranslation.GENERIC_USER}")
 #end
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_USER}")
+#set($entity="USER")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_USER_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_USER_PLURAL}")
 

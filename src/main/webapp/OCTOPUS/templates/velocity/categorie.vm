@@ -1,6 +1,7 @@
 #set($activeMenu = "${placeholderWithTranslation.MENU_ADMINISTRATION}")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_CATEGORY}")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_CATEGORY}")
+#set($entity="CATEGORY")
 #set($elementNameSingular = ">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}<")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
 

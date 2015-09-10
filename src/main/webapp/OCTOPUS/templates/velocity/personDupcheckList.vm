@@ -1,6 +1,7 @@
 #set($activeMenu = "Personen")
 #set($title = "${placeholderWithTranslation.personspeicherndublettenpruefung}")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+#set($entity="PERSON")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 

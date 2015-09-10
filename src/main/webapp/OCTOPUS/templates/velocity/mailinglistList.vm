@@ -1,6 +1,7 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_DISTRIBUTOR_LIST}")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_DISTRIBUTOR}")
+#set($entity="DISTRIBUTOR")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_PLURAL}")
 

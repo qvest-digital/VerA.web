@@ -1,6 +1,7 @@
 #set($activeMenu = "Veranstaltungen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_EDIT}: $!message.plain($event.shortname)")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_DOCUMENT_TYPE}")
+#set($entity="DOCUMENT_TYPE")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}")
 
