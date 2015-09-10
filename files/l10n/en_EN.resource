@@ -228,7 +228,7 @@ GENERIC_AVAILABLE_DUPLICATES=Available duplicates
 
 # ADMINISTRATION/ANREDEN
 GENERIC_SALUTATIONS=Salutations
-GENERIC_SALUTATIONS_MARKED=Marked salutation(s)
+GENERIC_SALUTATIONS_MARKED=selected salutation(s)
 GENERIC_ID=ID
 GENERIC_MAIN_FORM=Base form
 GENERIC_GENDER=Gender
@@ -247,11 +247,11 @@ GENERIC_NEW=New
 
 # ADMINISTRATION/ARBEITSBEREICHE
 GENERIC_WORK_FIELDS=Working areas
-GENERIC_WORK_FIELDS_MARKED=Selected working area(s)
+GENERIC_WORK_FIELDS_MARKED=Selected work area(s)
 MESSAGE_MISSING_DATA=No data was found
-MESSAGE_INSERT_WORK_FIELD=A new working area has been created
-MESSAGE_FAIL_DELETE_WORK_FIELD=No working area has been deleted
-MESSAGE_SUCCESS_DELETE_WORK_FIELD=A working area has been deleted
+MESSAGE_INSERT_WORK_FIELD=A new work area has been created
+MESSAGE_FAIL_DELETE_WORK_FIELD=No work area has been deleted
+MESSAGE_SUCCESS_DELETE_WORK_FIELD=A work area has been deleted
 
 # ADMINISTRATION/BENUTZER
 GENERIC_USER=User
@@ -456,7 +456,7 @@ GENERIC_HOME=Home
 
 # TABELLEN
 GENERIC_DATE=Date
-GENERIC_WORKAREA_SINGULAR=Field of work
+GENERIC_WORKAREA_SINGULAR=work area
 GENERIC_LASTNAME=Lastname
 GENERIC_FIRSTNAME=Firstname
 akwritemtsbezeichnung=Official title
@@ -468,8 +468,8 @@ GENERIC_MARKED_PERSONS_PP=Selected person(s)
 expotieren=Export
 GENERIC_ASSIGN_CATEGORIES=Assign category
 GENERIC_REMOVE_CATEGORIES=Remove category
-GENERIC_ASSING_WORKAREA=Assign field of work
-GENERIC_REMOVE_WORKAREA=Remove field of work
+GENERIC_ASSING_WORKAREA=Assign work area
+GENERIC_REMOVE_WORKAREA=Remove work area
 GENERIC_EXECUTE=Execute
 personenanzahlproseite=Persons | Number per site
 GENERIC_ALL=All
@@ -539,7 +539,7 @@ GENERIC_SEARCH_PERSON=Search for person
 GENERIC_SEARCH=Search
 GENERIC_VALIDITY_DATE=Validity date
 GENERIC_ADVANCED_SEARCH=Advanced search
-HINT_PLACEHOLDER=Hint With the Search, you can use Placeholder, where * stands for several and the Question mark ? for singular. This search could be used in Surnames, Last names, City, Zip code, Street, Company/Institution, telefon, fax, mobile, E-mail, remarks, categories, working areas and employment title/function.
+HINT_PLACEHOLDER=Hint With the Search, you can use Placeholder, where * stands for several and the Question mark ? for singular. This search could be used in Surnames, Last names, City, Zip code, Street, Company/Institution, telefon, fax, mobile, E-mail, remarks, categories, work areas and employment title/function.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=The login credentials have been created successfully.
@@ -1107,8 +1107,8 @@ personensuchegasthinzufugen=Search person: Add guest
 personfirma=Person/Company
 weitereangaben=More Tasks
 keinekategoriezugeordnet=No Category was assigned
-keinarbeitsbereichzugeordnet=No workarea assigned
-keinarbeitsbereich=No workarea
+keinarbeitsbereichzugeordnet=No work area assigned
+keinarbeitsbereich=No work area
 gueltigkeitsdatum=Validity date
 biszudiesemdatum=Till this date
 abdiesemdatum=From this date
@@ -1132,18 +1132,18 @@ alleentfernen=Delete all
 siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=you have no configured category. These you can define under Administrationsarea
 definieren=.
 siehabenpersonenausgewaehltabhaengigvonderanzahlderausgewaehltenpersonenkanndieaktioneinegewissezeitinanspruchnehmen=You chose persons. Depending on the amount of persons, this action could take a while.
-waehlensiebittezunaechsteinenarbeitsbereichaus=Please, choose a workarea.
-wollensiediesepersonbzwdiesengastdenausgewaehltenarbeitsbereichzuordnen=Would you like to assign the chosen workarea to this person (i.e guest)
-eswurdekeinarbeitsbereichzugeordnet=No workarea was assigned
-wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen=Would you like to assign the chosen workare to these persons (i.e. guests)
-eswurdenkeinearbeitsbereichzugeordnet=no workareas were assigned
-wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben=Would you like to revoke the workarea assignment of this person (i.e. guest)
-eswurdekeinarbeitsbereichaufgehoben=No workarea revoked
-wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Would you like to revoke the selected workarea assignment of the persons (i.e. guests) 
-wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Would you like to assign the selected workarea to this person (i.e. guest)
-wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=Would you like assign the selected workarea to the persons (i.e. guests)
-waehlensieeinenarbeitsbereichauswelchensie=Choose a workarea, which
-siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=You haven't configured any workarea. You can these under Administrationsarea
+waehlensiebittezunaechsteinenarbeitsbereichaus=Please, choose a work area.
+wollensiediesepersonbzwdiesengastdenausgewaehltenarbeitsbereichzuordnen=Would you like to assign the chosen work area to this person (i.e guest)
+eswurdekeinarbeitsbereichzugeordnet=No work area was assigned
+wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen=Would you like to assign the chosen work area to these persons (i.e. guests)
+eswurdenkeinearbeitsbereichzugeordnet=no work areas were assigned
+wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben=Would you like to revoke the work area assignment of this person (i.e. guest)
+eswurdekeinarbeitsbereichaufgehoben=No work area revoked
+wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Would you like to revoke the selected work area assignment of the persons (i.e. guests) 
+wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Would you like to assign the selected work area to this person (i.e. guest)
+wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=Would you like assign the selected work area to the persons (i.e. guests)
+waehlensieeinenarbeitsbereichauswelchensie=Choose a work area, which
+siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=You haven't configured any work area. You can these under Administrationsarea
 administrationallestellvertretungenimmandanten=Administration - all representations in clients
 administrationallestellvertretungen=Administration - all representations
 verwaltungpersoenlichevertretungen=Administration - personal representation
@@ -1188,8 +1188,8 @@ klickensieeinederaufgelistetenpersonenanumsiederaufgabehinzuzufugen=Klick on a l
 eswurdeeinepersongeloscht=A person was deleted
 eswurdekeinepersongeloscht=No person was deleted
 personengelouscht=person deleted.
-derarbeitsbereichwurdeerfolgreichhinzugefugt=The workarea was added successfully.
-diearbeitsbereichewurdenerfolgreichentfernt=The workareas were deleted successfully.
+derarbeitsbereichwurdeerfolgreichhinzugefugt=The work area was added successfully.
+diearbeitsbereichewurdenerfolgreichentfernt=The work areas were deleted successfully.
 diekategoriewurdeerfolgreichhinzugefugt=The category was added successfully.
 diekategorienwurdenerfolgreichentfernt=The categories were added successfully.
 siehabenkeineausreichendeberechtigungmpersonenzuentfernen=You have no permission to delete a person.
@@ -1270,7 +1270,7 @@ esexistiertnochkeinmandant=No client existing yet.
 zuordnen=Assign
 markierteanreden=selected salutations
 markierteanredenloeschen=delete selected salutations
-markiertenarbeitsbereiche=Selected workarea(s)
+markiertenarbeitsbereiche=Selected work area(s)
 markierteeintraegeentfernen=Delete selected entries
 emailpostausgang=E-mail outbox
 markierteemailsloeschen=remove selecte e-mails
@@ -1297,7 +1297,7 @@ zuruecksetzen=reset
 datensatzloeschen=remove dataset
 siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen= For searching purposes you can use so-called placeholders: * is used to replace more than one character and ? for exactly one character
 undamtsbezeichnungfunktion=and employment title/function
-HINT_SEARCH_WHERE=Searching in first name, last name, city, zip, street, company/institution, telephone, fax, mobile, e-mail,notes, categories, workareas
+HINT_SEARCH_WHERE=Searching in first name, last name, city, zip, street, company/institution, telephone, fax, mobile, e-mail,notes, categories, work areas
 neuenorteingeben=enter new city
 bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Please enter a new city and click on "add"
 neuerveranstaltungsort=new venue
@@ -1425,7 +1425,7 @@ BROWSER_TITLE_REPORTS=Reports
 
 #NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reset all values to core data
-GUEST_LIST_EDIT_MASTER_DATA=edit person-core data
+GUEST_LIST_EDIT_MASTER_DATA=edit person core data
 GUEST=guest
 GENERIC_OF=of
 
@@ -1483,7 +1483,7 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Shall the category's rank be applied 
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reset all values to core data
-GUEST_LIST_EDIT_MASTER_DATA=Edit Person-core-data
+GUEST_LIST_EDIT_MASTER_DATA=Edit Person core-data
 GUEST=Guest
 GENERIC_OF_CAPITAL=Of
 GENERIC_ASSIGN=assign
@@ -1665,7 +1665,7 @@ GENERIC_LASTNAME_WITH_SOFT_HYPHEN=Last Name
 GENERIC_FIRSTNAME_WITH_SOFT_HYPHEN=First Name
 
 GENERIC_LOAD_EXISTING_IMPORTPROCESS=Load existing import process
-GENERIC_IMPORTID=Import-id
+GENERIC_IMPORTID=Import id
 GENERIC_YEAR=Year
 GENERIC_COUNT=Count
 GENERIC_PARTICIPATION=Participation
@@ -1693,7 +1693,7 @@ OPTION_MARK_ADMINISTRATION_CATEGORY_1=Category
 OPTION_MARK_ADMINISTRATION_CATEGORY_2=Occasion
 OPTION_MARK_ADMINISTRATION_CATEGORY_3=Diplo. Corps
 
-GENERIC_IMPORTID_HYPHEN=Import-id
+GENERIC_IMPORTID_HYPHEN=Import id
 
 GENERIC_SUBSTITUTED_BY=substituted by
 GENERIC_NONE=none
