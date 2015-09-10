@@ -75,7 +75,7 @@ public class ImportPersonsWorker {
     /** Octopus-Eingabe-Parameter für {@link #importStoredRecord(OctopusContext, Integer)} */
     public static final String[] INPUT_importStoredRecord = { "REQUEST:importId" };
     /** Octopus-Eingabe-Parameter-Pflicht für {@link #importStoredRecord(OctopusContext, Integer)} */
-    public static final boolean[] MANDATORY_importStoredRecord = { true };
+    public static final boolean[] MANDATORY_importStoredRecord = { false };
     /** Octopus-Ausgabe-Parameter für {@link #importStoredRecord(OctopusContext, Integer)} */
     public static final String OUTPUT_importStoredRecord = "importStatus";
     /**
@@ -91,7 +91,10 @@ public class ImportPersonsWorker {
      * @throws IOException
      */
 	public Map importStoredRecord(OctopusContext cntx, Integer importId) throws BeanException, IOException {
-		//Initialisiere Datenbank
+
+        importId = getImportIdentifier(cntx, importId);
+
+        //Initialisiere Datenbank
 		Database database = new DatabaseVeraWeb(cntx);
         ImportPerson sample = (ImportPerson) database.createBean("ImportPerson");
 		//Erstelle SELECT-Anfrage, die die Anzahl der Datensätze liest.
@@ -183,7 +186,7 @@ public class ImportPersonsWorker {
     /** Octopus-Eingabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)} */
     public static final String[] INPUT_finalise = { "REQUEST:importId", "CONFIG:ignorePersonFields", "CONFIG:importTextfieldMapping" };
     /** Octopus-Eingabe-Parameter-Pflicht für {@link #finalise(OctopusContext, Integer, List, Map)} */
-    public static final boolean[] MANDATORY_finalise = { true, true, true };
+    public static final boolean[] MANDATORY_finalise = { false, true, true };
     /** Octopus-Ausgabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)} */
     public static final String OUTPUT_finalise = "importStatus";
     /**
@@ -203,7 +206,11 @@ public class ImportPersonsWorker {
      */
 	public Map finalise(OctopusContext cntx, Integer importId, List ignorePersonFields, Map importTextfieldMapping) throws BeanException, IOException {
 		//Initialisiere Datenbank und lese die ID für den Importvorgang
-		Database database = new DatabaseVeraWeb(cntx);
+
+        importId = getImportIdentifier(cntx, importId);
+
+
+        Database database = new DatabaseVeraWeb(cntx);
 		TransactionContext context = database.getTransactionContext();
 
 		List cleanupOrgunits = new ArrayList();
@@ -305,6 +312,14 @@ public class ImportPersonsWorker {
 			throw new BeanException( "Die Personendaten konnten nicht importiert werden.", e );
 		}
 	}
+
+    private Integer getImportIdentifier(OctopusContext cntx, Integer importId) {
+        if (importId == null) {
+            Long importIdL = (Long) cntx.sessionAsObject("importId");
+            importId = importIdL.intValue();
+        }
+        return importId;
+    }
 
     /**
      * Cleaning the data stored in the session to allow the importing process

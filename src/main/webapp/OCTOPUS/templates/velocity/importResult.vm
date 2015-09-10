@@ -53,7 +53,7 @@
 
 	</div>
 
-	<form action="ImportPersonsFinalise" method="post">
+	<form action="ImportPersonsFinalise?$!importStatus.id" method="post">
 		<span class="textRight floatRight">
 			#if($importStatus.saveCount  && $importStatus.saveCount != 0)
                 <input type="hidden" name="importId" value="$!importStatus.id"/>

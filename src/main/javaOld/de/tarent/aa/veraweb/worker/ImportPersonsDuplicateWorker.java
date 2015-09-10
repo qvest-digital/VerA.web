@@ -67,6 +67,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 	 */
 	@Override
     public List showList(OctopusContext cntx) throws BeanException, IOException {
+
 		Map importDuplicatesProperties = (Map) cntx.moduleConfig().getParams().get("importDuplicatesProperties");
 		if (importDuplicatesProperties == null)
 			ImportPersonsWorker.LOGGER.warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
@@ -131,7 +132,8 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 			TransactionContext context = database.getTransactionContext();
 
 			ImportPerson sample = new ImportPerson();
-			Long importId = new Long(cntx.requestAsString("importId"));
+			Long importId = getImportIdentifier(cntx);
+
 
 			try {
 				// Entfernt alle markierungen in der Datenbank.
@@ -175,6 +177,20 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 		}
 	}
 
+	private Long getImportIdentifier(OctopusContext cntx) {
+		String importIdS = cntx.requestAsString("importId");
+		Long importId = null;
+		if (importIdS != null) {
+			importId = new Long(cntx.requestAsString("importId"));
+		}
+		if (importId != null) {
+            cntx.setSession("importId", importId);
+        } else {
+            importId = new Long(cntx.sessionAsObject("importId").toString());
+        }
+		return importId;
+	}
+
 	/**
 	 * Bedingung:
 	 * Es existieren Duplikate zu dem Datensatz.
@@ -185,7 +201,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
 		Database database = getDatabase(cntx);
 		ImportPerson sample = new ImportPerson();
-		Long importId = new Long(cntx.requestAsString("importId"));
+		Long importId = getImportIdentifier(cntx);
 
 		try {
 			WhereList list = new WhereList();
