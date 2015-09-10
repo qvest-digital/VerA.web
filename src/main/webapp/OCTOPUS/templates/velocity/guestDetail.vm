@@ -327,7 +327,7 @@ false
     ##wenn andere Kategorie ausgewaehlt wird, evtl. Rang aus Stammdaten laden
     function askPreSave() {
         if (isModified('categorie') && document.getElementById('guest-rank').value == '') {
-              htmlConfirm('${placeholderWithTranslation.PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA}', new Array('Ja', 'Nein'), new Array("saveDocWithMasterDataRank('true');", "saveDocWithMasterDataRank('false');"));
+              htmlConfirm("${placeholderWithTranslation.PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA}", new Array('Ja', 'Nein'), new Array("saveDocWithMasterDataRank('true');", "saveDocWithMasterDataRank('false');"));
         }
         else {
             saveDocWithMasterDataRank('false');
