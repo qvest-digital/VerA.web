@@ -1,5 +1,5 @@
 <form action="default" method="post" target="_top" onsubmit="if(document.getElementById('loginasproxy').checked) { this.action = 'LoginAsProxy'; this.task.value = 'LoginAsProxy'; }">
-<h1 class="marginTop25">Se connecter</h1>
+<h1 class="marginTop25">Connexion</h1>
 
 <div class="table">
     <div class="tableRow">
@@ -16,7 +16,7 @@
     </div>
     <div class="tableRow">
         <div class="tableCell inlineLabel">
-        	<label for="loginasproxy">Se connecter en tant que représentant</label>
+        	<label for="loginasproxy">Connectez-vous en représentation</label>
         	<input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
         </div>
     </div>

@@ -78,7 +78,7 @@ public class EventFunctionWorker extends ListWorkerVeraWeb {
     }
 
     private Event getEvent(OctopusContext octopusContext) {
-        Event event = (Event)octopusContext.contentAsObject("event");
+        Event event = (Event) octopusContext.contentAsObject("event");
 
         if (event == null) {
 
@@ -89,11 +89,10 @@ public class EventFunctionWorker extends ListWorkerVeraWeb {
             try {
                 event = (Event) database.getBean("Event", Integer.valueOf(eventId));
             } catch (BeanException e) {
-                e.printStackTrace();
+                LOGGER.error("Fehler beim speichern der neuen Amtsbezeichnung/Funktion", e);
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error("Fehler beim speichern der neuen Amtsbezeichnung/Funktion", e);
             }
-
         }
 
         return event;

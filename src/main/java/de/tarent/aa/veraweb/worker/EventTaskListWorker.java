@@ -85,7 +85,10 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
         WhereList where = new WhereList();
         String strEventId = cntx.getRequestObject().getParamAsString("id");
-        Integer eventId = Integer.valueOf(strEventId);
+        Integer eventId = null;
+        if (strEventId != null && !strEventId.equals("")) {
+            eventId = Integer.valueOf(strEventId);
+        }
         where.addAnd(Expr.equal("fk_event", eventId));
         select.where(where);
     }

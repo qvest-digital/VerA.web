@@ -232,7 +232,7 @@ public class EventTaskDetailWorker {
 			if (task != null && task.personId != null) {
 				Person person = getPersonFromDB(octopusContext, task.personId);
 				octopusContext.getContentObject().setField("refPerson", person);
-			};
+			}
 
 			context.commit();
 		} catch (BeanException e) {

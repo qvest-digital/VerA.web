@@ -18,7 +18,7 @@
 	#set($completeEventHeader = false)
 	#parse("inc/event-header.vm")
 
-	<form id="formlist" name="formlist" action="ShowEventCategory" method="POST" onsubmit="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');">
+	<form id="formlist" name="formlist" action="ShowEventCategory?id=$!event.id" method="POST" onsubmit="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');">
 		<input type="hidden" name="id" value="$!event.id"/>
 		<input type="hidden" name="start" value=""/>
 		<input type="hidden" name="limit" value=""/>

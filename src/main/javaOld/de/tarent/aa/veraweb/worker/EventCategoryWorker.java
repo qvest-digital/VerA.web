@@ -25,8 +25,12 @@ import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
+import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.log4j.Logger;
 
@@ -44,20 +48,20 @@ public class EventCategoryWorker extends ListWorkerVeraWeb {
     }
 
     @Override
-    protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-        select.where(Expr.equal("tevent_category.fk_event", getEvent(cntx).id));
+    protected void extendAll(OctopusContext octopusContext, Select select) throws BeanException, IOException {
+        select.where(Expr.equal("tevent_category.fk_event", getEvent(octopusContext).id));
     }
 
     @Override
-    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
+    protected void extendColumns(OctopusContext octopusContext, Select select) throws BeanException {
         select.join("veraweb.tcategorie", "tevent_category.fk_category", "tcategorie.pk");
         select.selectAs("tcategorie.catname", "name");
         select.orderBy(Order.asc("name"));
     }
 
     @Override
-    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
-        select.where(Expr.equal("tevent_category.fk_event", getEvent(cntx).id));
+    protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
+        select.where(Expr.equal("tevent_category.fk_event", getEvent(octopusContext).id));
     }
 
     @Override
@@ -71,7 +75,22 @@ public class EventCategoryWorker extends ListWorkerVeraWeb {
         }
     }
 
-    private Event getEvent(OctopusContext cntx) {
-        return (Event)cntx.contentAsObject("event");
+    private Event getEvent(OctopusContext octopusContext) {
+        Event event = (Event) octopusContext.contentAsObject("event");
+
+        if (event == null) {
+            Database database = new DatabaseVeraWeb(octopusContext);
+            Request request = new RequestVeraWeb(octopusContext);
+
+            String eventId = octopusContext.getRequestObject().get("add-event");
+            try {
+                event = (Event) database.getBean("Event", Integer.valueOf(eventId));
+            } catch (BeanException e) {
+                LOGGER.error("Fehler beim speichern der neuen Kategorie", e);
+            } catch (IOException e) {
+                LOGGER.error("Fehler beim speichern der neuen Kategorie", e);
+            }
+        }
+        return event;
     }
 }
