@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2015 tarent solutions GmbH
- *
+ * <p/>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p/>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -49,180 +49,183 @@ import de.tarent.octopus.server.OctopusContext;
  * @author hendrik
  */
 public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
-	//
-	// Konstruktoren
-	//
-	/**
-	 * Der Konstruktor legt den Bean-Namen fest.
-	 */
-	public ImportPersonsDuplicateWorker() {
-		super("ImportPerson");
-	}
+    //
+    // Konstruktoren
+    //
 
-	//
-	// Oberklasse BeanListWorker
-	//
-	/**
-	 * @see de.tarent.octopus.beans.BeanListWorker#showList(de.tarent.octopus.server.OctopusContext)
-	 */
-	@Override
-    public List showList(OctopusContext cntx) throws BeanException, IOException {
+    /**
+     * Der Konstruktor legt den Bean-Namen fest.
+     */
+    public ImportPersonsDuplicateWorker() {
+        super("ImportPerson");
+    }
 
-		Map importDuplicatesProperties = (Map) cntx.moduleConfig().getParams().get("importDuplicatesProperties");
-		if (importDuplicatesProperties == null)
-			ImportPersonsWorker.LOGGER.warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
-		if (cntx.sessionAsObject("limit" + BEANNAME) == null)
-			cntx.setSession("limit" + BEANNAME, new Integer(Integer.parseInt((String) importDuplicatesProperties.get("dsCount"))));
+    //
+    // Oberklasse BeanListWorker
+    //
 
-		List beans = super.showList(cntx);
+    /**
+     * @see de.tarent.octopus.beans.BeanListWorker#showList(de.tarent.octopus.server.OctopusContext)
+     */
+    @Override
+    public List showList(OctopusContext octopusContext) throws BeanException, IOException {
 
-		// Zu den Duplikatdatensätzen noch einige Beispiel-Duplikate hinzufügen.
-		int dsCount = -1;
-		if (importDuplicatesProperties != null)
-			dsCount = Integer.parseInt((String) importDuplicatesProperties.get("dupCount"));
+        Map importDuplicatesProperties = (Map) octopusContext.moduleConfig().getParams().get("importDuplicatesProperties");
+        if (importDuplicatesProperties == null)
+            ImportPersonsWorker.LOGGER.
+                    warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
+        if (octopusContext.sessionAsObject("limit" + BEANNAME) == null)
+            octopusContext.
+                    setSession("limit" + BEANNAME,
+                            new Integer(Integer.parseInt((String) importDuplicatesProperties.get("dsCount"))));
 
-		Database database = getDatabase(cntx);
-		if (beans != null) {
-			for(Iterator it = beans.iterator(); it.hasNext(); ) {
-				ImportPerson importPerson = (ImportPerson) it.next();
-				importPerson.setMoreDuplicates(false);
+        List beans = super.showList(octopusContext);
 
-				if (importPerson.getDuplicateList() == null) {
-					List dups = null;
-					StringTokenizer tokenizer = new StringTokenizer(
-							importPerson.duplicates,
-							Character.toString(ImportPerson.PK_SEPERATOR_CHAR));
+        // Zu den Duplikatdatensätzen noch einige Beispiel-Duplikate hinzufügen.
+        int dsCount = -1;
+        if (importDuplicatesProperties != null)
+            dsCount = Integer.parseInt((String) importDuplicatesProperties.get("dupCount"));
 
-					int count = 0;
-					while (tokenizer.hasMoreTokens()) {
-						if (dsCount != -1 && count >= dsCount) {
-							importPerson.setMoreDuplicates(true);
-							break;
-						}
-						Integer pk = new Integer(tokenizer.nextToken());
+        Database database = getDatabase(octopusContext);
+        if (beans != null) {
+            for (Iterator it = beans.iterator(); it.hasNext(); ) {
+                ImportPerson importPerson = (ImportPerson) it.next();
+                importPerson.setMoreDuplicates(false);
 
-						Person person = new Person();
-						person.setField("id", pk);
-						Select select = database.getSelect(person);
-						select.where(Where.and(
-								Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-								database.getWhere(person)));
-						person = (Person) database.getBean("Person", select);
-						if (dups == null) {
-							dups = new LinkedList();
-						}
-						if (person.getId() != null) {
-							dups.add(person);
-							count++;
-						}
-					}
-					if (dups == null)
-						dups = Collections.EMPTY_LIST;
-					importPerson.setDuplicateList(dups);
-				}
-			}
-		}
-		return beans;
-	}
+                if (importPerson.getDuplicateList() == null) {
+                    List dups = null;
+                    StringTokenizer tokenizer = new StringTokenizer(
+                            importPerson.duplicates,
+                            Character.toString(ImportPerson.PK_SEPERATOR_CHAR));
 
-	@Override
-    public void saveList(OctopusContext cntx) throws BeanException, IOException {
-		if (cntx.requestContains(INPUT_BUTTON_SAVE)) {
-			Database database = getDatabase(cntx);
-			TransactionContext context = database.getTransactionContext();
+                    int count = 0;
+                    while (tokenizer.hasMoreTokens()) {
+                        if (dsCount != -1 && count >= dsCount) {
+                            importPerson.setMoreDuplicates(true);
+                            break;
+                        }
+                        Integer pk = new Integer(tokenizer.nextToken());
 
-			ImportPerson sample = new ImportPerson();
-			Long importId = getImportIdentifier(cntx);
+                        Person person = new Person();
+                        person.setField("id", pk);
+                        Select select = database.getSelect(person);
+                        select.where(Where.and(
+                                Expr.equal("deleted", PersonConstants.DELETED_FALSE),
+                                database.getWhere(person)));
+                        person = (Person) database.getBean("Person", select);
+                        if (dups == null) {
+                            dups = new LinkedList();
+                        }
+                        if (person.getId() != null) {
+                            dups.add(person);
+                            count++;
+                        }
+                    }
+                    if (dups == null)
+                        dups = Collections.EMPTY_LIST;
+                    importPerson.setDuplicateList(dups);
+                }
+            }
+        }
+        return beans;
+    }
+
+    @Override
+    public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
+        if (octopusContext.requestContains(INPUT_BUTTON_SAVE)) {
+            Database database = getDatabase(octopusContext);
+            TransactionContext context = database.getTransactionContext();
+
+            ImportPerson sample = new ImportPerson();
+            Long importId = getImportIdentifier(octopusContext);
 
 
-			try {
-				// Entfernt alle markierungen in der Datenbank.
-				Update update = SQL.Update( context );
-				update.table(database.getProperty(sample, "table"));
-				update.update("dupcheckstatus", ImportPerson.FALSE);
-				update.where(Where.and(
-						Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-						Expr.equal("fk_import", importId)));
-				context.execute(update);
-				List selection = getSelection(cntx, null);
+            try {
+                // Entfernt alle markierungen in der Datenbank.
+                Update update = SQL.Update(context);
+                update.table(database.getProperty(sample, "table"));
+                update.update("dupcheckstatus", ImportPerson.FALSE);
+                update.where(Where.and(
+                        Expr.equal("deleted", PersonConstants.DELETED_FALSE),
+                        Expr.equal("fk_import", importId)));
+                context.execute(update);
+                List selection = getSelection(octopusContext, null);
 
-				// Markierungen wieder setzten.
-				if (selection != null && selection.size() > 0) {
-					update = SQL.Update( context );
-					update.table(database.getProperty(sample, "table"));
-					update.update("dupcheckstatus", ImportPerson.TRUE);
-					update.where(Where.and(Where.and(
-							Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-							Expr.equal("fk_import", importId)),
-							Expr.in("pk", selection)));
-					context.execute(update);
-				}
-				else {
-					cntx.setContent("noDupsSelected", true);
-				}
-				context.commit();
+                // Markierungen wieder setzten.
+                if (selection != null && selection.size() > 0) {
+                    update = SQL.Update(context);
+                    update.table(database.getProperty(sample, "table"));
+                    update.update("dupcheckstatus", ImportPerson.TRUE);
+                    update.where(Where.and(Where.and(
+                                    Expr.equal("deleted", PersonConstants.DELETED_FALSE),
+                                    Expr.equal("fk_import", importId)),
+                            Expr.in("pk", selection)));
+                    context.execute(update);
+                } else {
+                    octopusContext.setContent("noDupsSelected", true);
+                }
+                context.commit();
 
-				cntx.setContent("countUpdate", selection.size());
+                octopusContext.setContent("countUpdate", selection.size());
 //						database.getCount(
 //						database.getCount(sample).where(Where.and(
 //								Expr.equal("deleted", PersonConstants.DELETED_FALSE),
 //								Expr.equal("fk_import", importId)))));
-			}
-			catch(BeanException e)
-			{
-				// failed to commit
-				context.rollBack();
-				throw new BeanException("Die \u00c4nderungen an der Duplikatliste konnten nicht \u00fcbernommen werden.", e);
-			}
-		}
-	}
-
-	private Long getImportIdentifier(OctopusContext cntx) {
-		String importIdS = cntx.requestAsString("importId");
-		Long importId = null;
-		if (importIdS != null) {
-			importId = new Long(cntx.requestAsString("importId"));
-		}
-		if (importId != null) {
-            cntx.setSession("importId", importId);
-        } else {
-            importId = new Long(cntx.sessionAsObject("importId").toString());
+            } catch (BeanException e) {
+                // failed to commit
+                context.rollBack();
+                throw new BeanException(
+                        "Die \u00c4nderungen an der Duplikatliste konnten nicht \u00fcbernommen werden.", e);
+            }
         }
-		return importId;
-	}
+    }
 
-	/**
-	 * Bedingung:
-	 * Es existieren Duplikate zu dem Datensatz.
-	 * Datensatz wurde noch nicht festgeschrieben.
-	 * Nur Datensätze von dem aktuellen Importvorgang.
-	 */
-	@Override
-    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
-		Database database = getDatabase(cntx);
-		ImportPerson sample = new ImportPerson();
-		Long importId = getImportIdentifier(cntx);
+    private Long getImportIdentifier(OctopusContext octopusContext) {
+        String importIdS = octopusContext.requestAsString("importId");
+        Long importId = null;
+        if (importIdS != null) {
+            importId = new Long(octopusContext.requestAsString("importId"));
+        }
+        if (importId != null) {
+            octopusContext.setSession("importId", importId);
+        } else {
+            importId = new Long(octopusContext.sessionAsObject("importId").toString());
+        }
+        return importId;
+    }
 
-		try {
-			WhereList list = new WhereList();
-			list.addAnd(Expr.isNotNull(database.getProperty(sample, "duplicates")));
-			list.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
-			list.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
-			select.where(list);
-		} catch (IOException e) {
-			throw new BeanException("Fehler beim Lesen von Bean-Parametern", e);
-		}
+    /**
+     * Bedingung:
+     * Es existieren Duplikate zu dem Datensatz.
+     * Datensatz wurde noch nicht festgeschrieben.
+     * Nur Datensätze von dem aktuellen Importvorgang.
+     */
+    @Override
+    protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
+        Database database = getDatabase(octopusContext);
+        ImportPerson sample = new ImportPerson();
+        Long importId = getImportIdentifier(octopusContext);
 
-		cntx.setContent("importId", importId);
-	}
+        try {
+            WhereList list = new WhereList();
+            list.addAnd(Expr.isNotNull(database.getProperty(sample, "duplicates")));
+            list.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
+            list.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
+            select.where(list);
+        } catch (IOException e) {
+            throw new BeanException("Fehler beim Lesen von Bean-Parametern", e);
+        }
 
-	@Override
-    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
-		Database database = getDatabase(cntx);
-		try {
-			select.orderBy(Order.asc(database.getProperty(database.createBean(BEANNAME), "lastname_a_e1")));
-		} catch (IOException e) {
-			throw new BeanException("Fehler beim Lesen von Bean-Parametern", e);
-		}
-	}
+        octopusContext.setContent("importId", importId);
+    }
+
+    @Override
+    protected void extendColumns(OctopusContext octopusContext, Select select) throws BeanException {
+        Database database = getDatabase(octopusContext);
+        try {
+            select.orderBy(Order.asc(database.getProperty(database.createBean(BEANNAME), "lastname_a_e1")));
+        } catch (IOException e) {
+            throw new BeanException("Fehler beim Lesen von Bean-Parametern", e);
+        }
+    }
 }

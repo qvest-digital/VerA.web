@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2015 tarent solutions GmbH
- *
+ * <p/>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p/>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -64,7 +64,7 @@ public class ImportPersonsWorker {
     /** Logger dieser Klasse */
     public static final Logger LOGGER = Logger.getLogger(ImportPersonsWorker.class.getName());
 
-	//
+    //
     // Öffentliche Konstanten
     //
     /***/
@@ -73,16 +73,17 @@ public class ImportPersonsWorker {
     // Octopus-Aktionen
     //
     /** Octopus-Eingabe-Parameter für {@link #importStoredRecord(OctopusContext, Integer)} */
-    public static final String[] INPUT_importStoredRecord = { "REQUEST:importId" };
+    public static final String[] INPUT_importStoredRecord = {"REQUEST:importId"};
     /** Octopus-Eingabe-Parameter-Pflicht für {@link #importStoredRecord(OctopusContext, Integer)} */
-    public static final boolean[] MANDATORY_importStoredRecord = { false };
+    public static final boolean[] MANDATORY_importStoredRecord = {false};
     /** Octopus-Ausgabe-Parameter für {@link #importStoredRecord(OctopusContext, Integer)} */
     public static final String OUTPUT_importStoredRecord = "importStatus";
+
     /**
      * Diese Octopus-Aktion liefert zum Import mit der übergebenen ID die
      * Import-Statistik-Daten
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @param importId Import-ID
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
@@ -90,37 +91,37 @@ public class ImportPersonsWorker {
      * @throws BeanException
      * @throws IOException
      */
-	public Map importStoredRecord(OctopusContext cntx, Integer importId) throws BeanException, IOException {
+    public Map importStoredRecord(OctopusContext octopusContext, Integer importId) throws BeanException, IOException {
 
-        importId = getImportIdentifier(cntx, importId);
+        importId = getImportIdentifier(octopusContext, importId);
 
         //Initialisiere Datenbank
-		Database database = new DatabaseVeraWeb(cntx);
+        Database database = new DatabaseVeraWeb(octopusContext);
         ImportPerson sample = (ImportPerson) database.createBean("ImportPerson");
-		//Erstelle SELECT-Anfrage, die die Anzahl der Datensätze liest.
-		Select select = database.getCount(sample);
-		WhereList where = new WhereList();
-			//Bed: Datensatz wurde noch nicht festgeschrieben
-		////////
+        //Erstelle SELECT-Anfrage, die die Anzahl der Datensätze liest.
+        Select select = database.getCount(sample);
+        WhereList where = new WhereList();
+        //Bed: Datensatz wurde noch nicht festgeschrieben
+        ////////
 
-		Clause clause = Where.and(
-				Expr.equal("fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()),
-				Expr.equal("deleted", PersonConstants.DELETED_FALSE));
+        Clause clause = Where.and(
+                Expr.equal("fk_orgunit", ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId()),
+                Expr.equal("deleted", PersonConstants.DELETED_FALSE));
 
-		String firstname = sample.firstname_a_e1;
-		String lastname = sample.lastname_a_e1;
+        String firstname = sample.firstname_a_e1;
+        String lastname = sample.lastname_a_e1;
 
-		Clause normalNamesClause = Where.and(Expr.equal("lastname_a_e1", firstname), Expr.equal("firstname_a_e1", lastname));
-		Clause revertedNamesClause = Where.and(Expr.equal("lastname_a_e1", lastname), Expr.equal("firstname_a_e1", firstname));
-		Clause checkMixChanges = Where.or(normalNamesClause, revertedNamesClause);
+        Clause normalNamesClause = Where.and(Expr.equal("lastname_a_e1", firstname), Expr.equal("firstname_a_e1", lastname));
+        Clause revertedNamesClause = Where.and(Expr.equal("lastname_a_e1", lastname), Expr.equal("firstname_a_e1", firstname));
+        Clause checkMixChanges = Where.or(normalNamesClause, revertedNamesClause);
 
-		Clause dupNormalCheck = Where.and(clause, checkMixChanges);
+        Clause dupNormalCheck = Where.and(clause, checkMixChanges);
 
-		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
+        CharacterPropertiesReader cpr = new CharacterPropertiesReader();
 
-		if (cpr.propertiesAreAvailable() && (lastname != null || firstname != null)) {
-			for (final String key: cpr.properties.stringPropertyNames()) {
-				String value = cpr.properties.getProperty(key);
+        if (cpr.propertiesAreAvailable() && (lastname != null || firstname != null)) {
+            for (final String key : cpr.properties.stringPropertyNames()) {
+                String value = cpr.properties.getProperty(key);
                 if (lastname != null) {
                     if (lastname.contains(value)) {
                         lastname = lastname.replaceAll(value, key);
@@ -135,66 +136,67 @@ public class ImportPersonsWorker {
                     firstname = firstname.replaceAll(key, value);
                 }
             }
-		}
-		Clause normalNamesEncoding = Where.and(Expr.equal("lastname_a_e1", firstname), Expr.equal("firstname_a_e1", lastname));
-		Clause revertedNamesEncoding = Where.and(Expr.equal("lastname_a_e1", lastname), Expr.equal("firstname_a_e1", firstname));
-		Clause checkMixChangesEncoding = Where.or(normalNamesEncoding,revertedNamesEncoding);
-		// With encoding changes
-		Where.or(dupNormalCheck, checkMixChangesEncoding);
+        }
+        Clause normalNamesEncoding = Where.and(Expr.equal("lastname_a_e1", firstname), Expr.equal("firstname_a_e1", lastname));
+        Clause revertedNamesEncoding = Where.and(Expr.equal("lastname_a_e1", lastname), Expr.equal("firstname_a_e1", firstname));
+        Clause checkMixChangesEncoding = Where.or(normalNamesEncoding, revertedNamesEncoding);
+        // With encoding changes
+        Where.or(dupNormalCheck, checkMixChangesEncoding);
 
-		////////
-		where.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
-			//Bed: Nur Datensätze von dem aktuellen Importvorgang
-		where.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
-		select.where(where);
-		Integer dsCount = database.getCount(select);
+        ////////
+        where.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
+        //Bed: Nur Datensätze von dem aktuellen Importvorgang
+        where.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
+        select.where(where);
+        Integer dsCount = database.getCount(select);
 
-		//Erstelle SELECT-Anfrage, die die Anzahl der Datensätze mit Duplikaten liest.
-		select = database.getCount(sample);
-		where = new WhereList();
-			//Bed: Es existieren Duplikate zu dem Datensatz
-		where.addAnd(Expr.isNotNull(database.getProperty(sample, "duplicates")));
-			//Bed: Datensatz wurde noch nicht festgeschrieben
-		where.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
-			//Bed: Nur Datensätze von dem aktuellen Importvorgang
-		where.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
-		select.where(where);
-		Integer dupCount = database.getCount(select);
+        //Erstelle SELECT-Anfrage, die die Anzahl der Datensätze mit Duplikaten liest.
+        select = database.getCount(sample);
+        where = new WhereList();
+        //Bed: Es existieren Duplikate zu dem Datensatz
+        where.addAnd(Expr.isNotNull(database.getProperty(sample, "duplicates")));
+        //Bed: Datensatz wurde noch nicht festgeschrieben
+        where.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
+        //Bed: Nur Datensätze von dem aktuellen Importvorgang
+        where.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
+        select.where(where);
+        Integer dupCount = database.getCount(select);
 
-		//Erstelle SELECT-Anfrage, die die Anzahl der zum Speichern freigegebenen Datensätze liest.
-		select = database.getCount(sample);
-		where = new WhereList();
-		where.addAnd(
-				Where.or(
-						//Bed: Es existieren keine Duplikate zu dem Datensatz
-						Expr.isNull(database.getProperty(sample, "duplicates")),
-						//Bed: Datensatz explizit zum speichern gekennzeichnet
-						Expr.equal(database.getProperty(sample, "dupcheckstatus"), ImportPerson.TRUE)
-		));
-			//Bed: Datensatz wurde noch nicht festgeschrieben
-		where.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
-			//Bed: Nur Datensätze von dem aktuellen Importvorgang
-		where.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
-		select.where(where);
-		Integer saveCount = database.getCount(select);
+        //Erstelle SELECT-Anfrage, die die Anzahl der zum Speichern freigegebenen Datensätze liest.
+        select = database.getCount(sample);
+        where = new WhereList();
+        where.addAnd(
+                Where.or(
+                        //Bed: Es existieren keine Duplikate zu dem Datensatz
+                        Expr.isNull(database.getProperty(sample, "duplicates")),
+                        //Bed: Datensatz explizit zum speichern gekennzeichnet
+                        Expr.equal(database.getProperty(sample, "dupcheckstatus"), ImportPerson.TRUE)
+                ));
+        //Bed: Datensatz wurde noch nicht festgeschrieben
+        where.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
+        //Bed: Nur Datensätze von dem aktuellen Importvorgang
+        where.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
+        select.where(where);
+        Integer saveCount = database.getCount(select);
 
-		cntx.setContent("selectNone", cntx.getRequestObject().getParam("selectNone"));
+        octopusContext.setContent("selectNone", octopusContext.getRequestObject().getParam("selectNone"));
 
         return DataExchangeWorker.createImportStats(dsCount.intValue(), dupCount.intValue(), saveCount.intValue(), importId);
-	}
+    }
 
     /** Octopus-Eingabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)} */
-    public static final String[] INPUT_finalise = { "REQUEST:importId", "CONFIG:ignorePersonFields", "CONFIG:importTextfieldMapping" };
+    public static final String[] INPUT_finalise = {"REQUEST:importId", "CONFIG:ignorePersonFields", "CONFIG:importTextfieldMapping"};
     /** Octopus-Eingabe-Parameter-Pflicht für {@link #finalise(OctopusContext, Integer, List, Map)} */
-    public static final boolean[] MANDATORY_finalise = { false, true, true };
+    public static final boolean[] MANDATORY_finalise = {false, true, true};
     /** Octopus-Ausgabe-Parameter für {@link #finalise(OctopusContext, Integer, List, Map)} */
     public static final String OUTPUT_finalise = "importStatus";
+
     /**
      * Diese Octopus-Aktion finalisiert einen Import. Hierbei wird als Nebeneffekt in
      * den Content unter dem Schlüssel {@link #FIELD_IMPORTED_COUNT "imported"} die Anzahl
      * der tatsächlich importierten Datensätze eingetragen.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @param importId ID eines früheren Imports
      * @param ignorePersonFields
      * @param importTextfieldMapping Map für das Mapping der Adressfreitextfelder
@@ -204,118 +206,115 @@ public class ImportPersonsWorker {
      * @throws BeanException
      * @throws IOException
      */
-	public Map finalise(OctopusContext cntx, Integer importId, List ignorePersonFields, Map importTextfieldMapping) throws BeanException, IOException {
-		//Initialisiere Datenbank und lese die ID für den Importvorgang
+    public Map finalise(OctopusContext octopusContext, Integer importId, List ignorePersonFields, Map importTextfieldMapping) throws BeanException, IOException {
+        //Initialisiere Datenbank und lese die ID für den Importvorgang
 
-        importId = getImportIdentifier(cntx, importId);
+        importId = getImportIdentifier(octopusContext, importId);
 
 
-        Database database = new DatabaseVeraWeb(cntx);
-		TransactionContext context = database.getTransactionContext();
+        Database database = new DatabaseVeraWeb(octopusContext);
+        TransactionContext context = database.getTransactionContext();
 
-		List cleanupOrgunits = new ArrayList();
+        List cleanupOrgunits = new ArrayList();
 
-		try {
-	    	int dsCount=0;
+        try {
+            int dsCount = 0;
 
             ImportPerson sampleImportPerson = new ImportPerson();
             // importTextfieldMapping analysieren, Doctypes holen...
             List personDoctypeCreators = parseTextfieldMapping(database, context, importTextfieldMapping);
-			//Erstelle SELECT-Anfrage, die die einzufügenden Datensätze liest.
-			Select select = database.getSelect(sampleImportPerson);
-			WhereList where = new WhereList();
+            //Erstelle SELECT-Anfrage, die die einzufügenden Datensätze liest.
+            Select select = database.getSelect(sampleImportPerson);
+            WhereList where = new WhereList();
             //Bed: Nur Datensätze von dem aktuellen Importvorgang
-			where.addAnd(Expr.equal(database.getProperty(sampleImportPerson, "fk_import"), importId));
-			where.addAnd(
-					Where.or(
-							//Bed: Es existieren keine Duplikate zu dem Datensatz (NULL wird gefordert!!!)
-							Expr.isNull(database.getProperty(sampleImportPerson, "duplicates")),
-							//Bed: Datensatz explizit zum speichern gekennzeichnet
-							Expr.equal(database.getProperty(sampleImportPerson, "dupcheckstatus"), ImportPerson.TRUE)
-			));
-			//Bed: Datensatz wurde noch nicht festgeschrieben
-			where.addAnd(Expr.equal(database.getProperty(sampleImportPerson, "dupcheckaction"), ImportPerson.FALSE));
-			select.where(where);
+            where.addAnd(Expr.equal(database.getProperty(sampleImportPerson, "fk_import"), importId));
+            where.addAnd(
+                    Where.or(
+                            //Bed: Es existieren keine Duplikate zu dem Datensatz (NULL wird gefordert!!!)
+                            Expr.isNull(database.getProperty(sampleImportPerson, "duplicates")),
+                            //Bed: Datensatz explizit zum speichern gekennzeichnet
+                            Expr.equal(database.getProperty(sampleImportPerson, "dupcheckstatus"), ImportPerson.TRUE)
+                    ));
+            //Bed: Datensatz wurde noch nicht festgeschrieben
+            where.addAnd(Expr.equal(database.getProperty(sampleImportPerson, "dupcheckaction"), ImportPerson.FALSE));
+            select.where(where);
 
-			//Hole die festzuschreibenden Datensätze und schreiben diese iterativ in die Personen-Tabellen
-			List result = database.getList(select, database);
-			for (Iterator it=result.iterator(); it.hasNext(); ) {
-				Map importPerson = (Map) it.next();
-				Integer ipID = (Integer)importPerson.get("id");
+            //Hole die festzuschreibenden Datensätze und schreiben diese iterativ in die Personen-Tabellen
+            List result = database.getList(select, database);
+            for (Iterator it = result.iterator(); it.hasNext(); ) {
+                Map importPerson = (Map) it.next();
+                Integer ipID = (Integer) importPerson.get("id");
 
-				// Import-Bean auf Personen-Bean mappen
-				Person person = new Person();
-				for (Iterator fieldIt = person.getFields().iterator(); fieldIt.hasNext(); ) {
-					String key = (String) fieldIt.next();
-					if (!ignorePersonFields.contains(key))
-						person.setField(key, importPerson.get(key));
-				}
-				AddressHelper.copyAddressData(cntx, person, null);
+                // Import-Bean auf Personen-Bean mappen
+                Person person = new Person();
+                for (Iterator fieldIt = person.getFields().iterator(); fieldIt.hasNext(); ) {
+                    String key = (String) fieldIt.next();
+                    if (!ignorePersonFields.contains(key))
+                        person.setField(key, importPerson.get(key));
+                }
+                AddressHelper.copyAddressData(octopusContext, person, null);
 
 				/* assign default workarea = 0 in case that person.workarea is null
-				 *
+                 *
 				 * modified as per change request for version 1.2.0
 				 * cklein 2008-03-27
 				 */
-				if ( person.workarea == null )
-				{
-					person.workarea = new Integer( 0 );
-				}
+                if (person.workarea == null) {
+                    person.workarea = new Integer(0);
+                }
 
-				// Neue Person speichern
-				person.verify();
-				if (person.isCorrect()) {
-					database.saveBean(person, context, true);
+                // Neue Person speichern
+                person.verify();
+                if (person.isCorrect()) {
+                    database.saveBean(person, context, true);
 
-					if (!cleanupOrgunits.contains(person.orgunit))
-						cleanupOrgunits.add(person.orgunit);
+                    if (!cleanupOrgunits.contains(person.orgunit))
+                        cleanupOrgunits.add(person.orgunit);
 
-	                // Importierte Kategorien zu Personen erzeugen
-	                createPersonCategories(database, context, (Integer)importPerson.get("id"), person);
-	                // TODO: auslagern in MAdLANImporter
-	                if (importPerson.get("category") != null && ((String)importPerson.get("category")).length() != 0)
-	                    createPersonCategories(database, context, ((String)importPerson.get("category")).split("\n"), person, new Integer(Categorie.FLAG_DEFAULT));
+                    // Importierte Kategorien zu Personen erzeugen
+                    createPersonCategories(database, context, (Integer) importPerson.get("id"), person);
+                    // TODO: auslagern in MAdLANImporter
+                    if (importPerson.get("category") != null && ((String) importPerson.get("category")).length() != 0)
+                        createPersonCategories(database, context, ((String) importPerson.get("category")).split("\n"), person, new Integer(Categorie.FLAG_DEFAULT));
 
-	                if (importPerson.get("occasion") != null && ((String)importPerson.get("occasion")).length() != 0)
-	                    createPersonCategories(database, context, ((String)importPerson.get("occasion")).split("\n"), person, new Integer(Categorie.FLAG_EVENT));
+                    if (importPerson.get("occasion") != null && ((String) importPerson.get("occasion")).length() != 0)
+                        createPersonCategories(database, context, ((String) importPerson.get("occasion")).split("\n"), person, new Integer(Categorie.FLAG_EVENT));
 
-	                // Importierte Dokumenttypen zu Personen erzeugen
-	                createPersonDoctypes(database, context, ipID, person.id);
-	                // TODO: auslagern in MAdLANImporter
-	                Iterator itPersonDoctypeCreators = personDoctypeCreators.iterator();
-	                while (itPersonDoctypeCreators.hasNext())
+                    // Importierte Dokumenttypen zu Personen erzeugen
+                    createPersonDoctypes(database, context, ipID, person.id);
+                    // TODO: auslagern in MAdLANImporter
+                    Iterator itPersonDoctypeCreators = personDoctypeCreators.iterator();
+                    while (itPersonDoctypeCreators.hasNext())
                         ((PersonDoctypeImporter) itPersonDoctypeCreators.next()).createFor(importPerson, person.id);
 
-	                // Restlichen Personen Dokumenttypen erzeugen
-	                PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
+                    // Restlichen Personen Dokumenttypen erzeugen
+                    PersonDoctypeWorker.createPersonDoctype(octopusContext, database, context, person);
 
-					// Datensatz als festgeschrieben markieren
-					context.execute(database.getUpdate("ImportPerson").update("dupcheckaction", ImportPerson.TRUE).
+                    // Datensatz als festgeschrieben markieren
+                    context.execute(database.getUpdate("ImportPerson").update("dupcheckaction", ImportPerson.TRUE).
                             where(Expr.equal(database.getProperty(sampleImportPerson, "id"), ipID)));
 
-					// Datensatz erfolgreich bearbeitet
-					dsCount++;
-				}
-			}
+                    // Datensatz erfolgreich bearbeitet
+                    dsCount++;
+                }
+            }
             context.commit();
 
-            emptyImportingSession(cntx);
+            emptyImportingSession(octopusContext);
 
-            cntx.setContent(FIELD_IMPORTED_COUNT, new Integer(dsCount));
-            cntx.setContent("cleanupOrgunits", cleanupOrgunits);
+            octopusContext.setContent(FIELD_IMPORTED_COUNT, new Integer(dsCount));
+            octopusContext.setContent("cleanupOrgunits", cleanupOrgunits);
 
-    		return importStoredRecord(cntx, importId);
-		}
-		catch ( BeanException e )
-		{
-			context.rollBack();
-			throw new BeanException( "Die Personendaten konnten nicht importiert werden.", e );
-		}
-	}
+            return importStoredRecord(octopusContext, importId);
+        } catch (BeanException e) {
+            context.rollBack();
+            throw new BeanException("Die Personendaten konnten nicht importiert werden.", e);
+        }
+    }
 
-    private Integer getImportIdentifier(OctopusContext cntx, Integer importId) {
+    private Integer getImportIdentifier(OctopusContext octopusContext, Integer importId) {
         if (importId == null) {
-            Long importIdL = (Long) cntx.sessionAsObject("importId");
+            Long importIdL = (Long) octopusContext.sessionAsObject("importId");
             importId = importIdL.intValue();
         }
         return importId;
@@ -337,6 +336,7 @@ public class ImportPersonsWorker {
     //
     // Hilfsmethoden
     //
+
     /**
      * Diese Methode erzeugt zu einer Person und einer Menge Kategoriennamen
      * passende {@link PersonCategorie}-Instanzen. Gegebenenfalls werden hierbei
@@ -347,26 +347,28 @@ public class ImportPersonsWorker {
      * @param person Person
      * @param flags Art der gesuchten und gegebenenfalls erzeugten Kategorie
      */
-    private static void createPersonCategories(Database database, ExecutionContext context, String[] categoryNames, Person person, Integer flags) throws BeanException, IOException {
+    private static void createPersonCategories(Database database, ExecutionContext executionContext,
+                                               String[] categoryNames, Person person, Integer flags)
+            throws BeanException, IOException {
         for (int i = 0; i < categoryNames.length; i++) {
             String categoryName = categoryNames[i].trim();
             if (categoryName.length() != 0) {
                 Categorie category = (Categorie) database.getBean("Categorie",
                         database.getSelect("Categorie").where(Where.and(
                                 Expr.equal("catname", categoryName), Where.and(
-                                Expr.equal("flags", flags),
-                                Expr.equal("fk_orgunit", person.orgunit)))), context);
+                                        Expr.equal("flags", flags),
+                                        Expr.equal("fk_orgunit", person.orgunit)))), executionContext);
                 if (category == null) {
                     category = (Categorie) database.createBean("Categorie");
                     category.flags = flags;
                     category.name = categoryName;
                     category.orgunit = person.orgunit;
-                    database.saveBean(category, context, true);
+                    database.saveBean(category, executionContext, true);
                 }
                 PersonCategorie personCategory = new PersonCategorie();
                 personCategory.categorie = category.id;
                 personCategory.person = person.id;
-                database.saveBean(personCategory, context, false);
+                database.saveBean(personCategory, executionContext, false);
             }
         }
     }
@@ -380,32 +382,34 @@ public class ImportPersonsWorker {
      * @param importPersonId ID einer ImportPerson
      * @param person Person, als die die ImportPerson importiert wird
      */
-    private static void createPersonCategories(Database database, ExecutionContext context, Integer importPersonId, Person person) throws BeanException, IOException {
+    private static void createPersonCategories(Database database, ExecutionContext executionContext,
+                                               Integer importPersonId, Person person)
+            throws BeanException, IOException {
         ImportPersonCategorie sample = new ImportPersonCategorie();
         Select select = database.getSelect(sample);
         select.where(Expr.equal(database.getProperty(sample, "importperson"), importPersonId));
 
-        List importPersonCategories = database.getBeanList("ImportPersonCategorie", select, context);
+        List importPersonCategories = database.getBeanList("ImportPersonCategorie", select, executionContext);
         for (Iterator itImportPersonCategories = importPersonCategories.iterator(); itImportPersonCategories.hasNext(); ) {
             ImportPersonCategorie importPersonCategorie = (ImportPersonCategorie) itImportPersonCategories.next();
             if (importPersonCategorie.name != null) {
                 Categorie category = (Categorie) database.getBean("Categorie",
                         database.getSelect("Categorie").where(Where.and(
-                            Expr.equal("catname", importPersonCategorie.name),
-                            Expr.equal("fk_orgunit", person.orgunit))), context);
+                                Expr.equal("catname", importPersonCategorie.name),
+                                Expr.equal("fk_orgunit", person.orgunit))), executionContext);
                 if (category == null) {
                     category = (Categorie) database.createBean("Categorie");
                     category.flags = importPersonCategorie.flags;
                     category.name = importPersonCategorie.name;
                     category.rank = importPersonCategorie.rank;
                     category.orgunit = person.orgunit;
-                    database.saveBean(category, context, true);
+                    database.saveBean(category, executionContext, true);
                 }
                 PersonCategorie personCategory = new PersonCategorie();
                 personCategory.categorie = category.id;
                 personCategory.person = person.id;
                 personCategory.rank = importPersonCategorie.rank;
-                database.saveBean(personCategory, context, false);
+                database.saveBean(personCategory, executionContext, false);
             }
         }
     }
@@ -419,39 +423,45 @@ public class ImportPersonsWorker {
      * @param importPersonId ID einer ImportPerson
      * @param personId ID der Person, als die die ImportPerson importiert wird
      */
-    private static void createPersonDoctypes(Database database, ExecutionContext context, Integer importPersonId, Integer personId) throws BeanException, IOException {
+    private static void createPersonDoctypes(Database database, ExecutionContext executionContext,
+                                             Integer importPersonId, Integer personId)
+            throws BeanException, IOException {
         final ImportPersonDoctype sample = (ImportPersonDoctype) database.createBean("ImportPersonDoctype");
         final Select select = database.getSelect(sample);
         select.where(Expr.equal(database.getProperty(sample, "importperson"), importPersonId));
 
-        final List importPersonDoctypes = database.getList(select, context);
+        final List importPersonDoctypes = database.getList(select, executionContext);
         for (Iterator itImportPersonDoctypes = importPersonDoctypes.iterator(); itImportPersonDoctypes.hasNext(); ) {
             final Map importPersonDoctype = (Map) itImportPersonDoctypes.next();
-            final String doctypeName = (String)importPersonDoctype.get("name");
+            final String doctypeName = (String) importPersonDoctype.get("name");
             if (doctypeName != null) {
-                handlePersonDoctypeCreation(database, context, personId, importPersonDoctype, doctypeName);
+                handlePersonDoctypeCreation(database, executionContext, personId, importPersonDoctype, doctypeName);
             }
         }
     }
 
-    private static void handlePersonDoctypeCreation(Database database, ExecutionContext context, Integer personId, Map importPersonDoctype, String name) throws BeanException, IOException {
-        final Doctype doctype = getDoctypeByName(database, context, name);
+    private static void handlePersonDoctypeCreation(Database database, ExecutionContext executionContext,
+                                                    Integer personId, Map importPersonDoctype, String name)
+            throws BeanException, IOException {
+        final Doctype doctype = getDoctypeByName(database, executionContext, name);
         if (doctype == null) {
-            LOGGER.warn( "Der Dokumenttyp '" + name + "' existiert nicht mehr und wird nicht importiert." );
+            LOGGER.warn("Der Dokumenttyp '" + name + "' existiert nicht mehr und wird nicht importiert.");
             return;
         }
         final PersonDoctype personDoctype = initPersonDoctype(database, personId, importPersonDoctype, doctype);
         personDoctype.verify();
 
-        database.saveBean(personDoctype, context, false);
+        database.saveBean(personDoctype, executionContext, false);
     }
 
-    private static Doctype getDoctypeByName(Database database, ExecutionContext context, String name) throws BeanException, IOException {
+    private static Doctype getDoctypeByName(Database database, ExecutionContext executionContext, String name)
+            throws BeanException, IOException {
         final Select getDoctypeByNameStatement = database.getSelect("Doctype").where(Expr.equal("docname", name));
-        return (Doctype) database.getBean("Doctype", getDoctypeByNameStatement, context);
+        return (Doctype) database.getBean("Doctype", getDoctypeByNameStatement, executionContext);
     }
 
-    private static PersonDoctype initPersonDoctype(Database database, Integer personId, Map importPersonDoctype, Doctype doctype) throws BeanException {
+    private static PersonDoctype initPersonDoctype(Database database, Integer personId, Map importPersonDoctype,
+                                                   Doctype doctype) throws BeanException {
         final PersonDoctype personDoctype = (PersonDoctype) database.createBean("PersonDoctype");
         personDoctype.doctype = doctype.id;
         personDoctype.person = personId;
@@ -474,7 +484,8 @@ public class ImportPersonsWorker {
      * @throws IOException
      * @throws BeanException
      */
-    private static List parseTextfieldMapping(Database database, ExecutionContext context, Map importTextfieldMapping) throws BeanException, IOException {
+    private static List parseTextfieldMapping(Database database, ExecutionContext executionContext,
+                                              Map importTextfieldMapping) throws BeanException, IOException {
         assert database != null;
         if (importTextfieldMapping == null)
             return Collections.EMPTY_LIST;
@@ -487,7 +498,7 @@ public class ImportPersonsWorker {
                 String keyPerson = indexString + ":Person";
                 String keyPartner = indexString + ":Partner";
                 String keyJoin = indexString + ":Join";
-                result.add(new PersonDoctypeImporter(database, context,
+                result.add(new PersonDoctypeImporter(database, executionContext,
                         (String) importTextfieldMapping.get(keyDoctype),
                         (String) importTextfieldMapping.get(keyPerson),
                         (String) importTextfieldMapping.get(keyPartner),
@@ -497,9 +508,10 @@ public class ImportPersonsWorker {
         return result;
     }
 
-	//
+    //
     // innere Klassen
     //
+
     /**
      * Diese Klasse dient dem Erzeugen von {@link PersonDoctype}-Instanzen zu
      * {@link ImportPerson}s.
@@ -508,22 +520,25 @@ public class ImportPersonsWorker {
         //
         // Konstruktoren
         //
-        private PersonDoctypeImporter(Database database, ExecutionContext context, String doctypeName, String personField, String partnerField, String join) throws BeanException, IOException {
+        private PersonDoctypeImporter(Database database, ExecutionContext executionContext,
+                                      String doctypeName, String personField, String partnerField, String join)
+                throws BeanException, IOException {
             this.database = database;
-            this.context = context;
+            this.context = executionContext;
             this.personField = personField;
             this.partnerField = partnerField;
             this.join = join;
-            doctype = (Doctype) database.getBean("Doctype", database.getSelect("Doctype").where(Expr.equal("docname", doctypeName)), context);
+            doctype = (Doctype) database.getBean("Doctype", database.getSelect("Doctype").where(Expr.equal("docname", doctypeName)), executionContext);
             if (doctype == null)
                 LOGGER.warn("F\u00fcr den Import konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
         }
+
         //
         // Methoden
         //
         private void createFor(Map importPerson, Integer personId) throws BeanException, IOException {
-            String personText = (String)importPerson.get(personField);
-            String partnerText = (String)importPerson.get(partnerField);
+            String personText = (String) importPerson.get(personField);
+            String partnerText = (String) importPerson.get(partnerField);
             if (doctype != null && ((personText != null && personText.length() > 0) || (partnerText != null && partnerText.length() > 0))) {
                 PersonDoctype personDoctype = new PersonDoctype();
                 personDoctype.person = personId;
