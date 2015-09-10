@@ -911,7 +911,7 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 							<th title="${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}"><a href="javascript:orderPersonList('workarea_name');">${placeholderWithTranslation.arbeitsshybereich}</a></th>
 							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>
 							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
-							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbeshyzeichnung}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
 							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
 							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.GENERIC_STREET}

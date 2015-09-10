@@ -74,9 +74,9 @@
 						<th>${placeholderWithTranslation.GENERIC_ID}</th>
 						<th>${placeholderWithTranslation.GENERIC_NAME}</th>
 						<th>${placeholderWithTranslation.GENERIC_FIRSTNAME}</th>
-						<th>${placeholderWithTranslation.amtsbezeichnung}</th>
+						<th>${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}</th>
 						<th>${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</th>
-						<th>${placeholderWithTranslation.GENERIC_STREET}Stra&szlig;e</th>
+						<th>${placeholderWithTranslation.GENERIC_STREET}</th>
 						<th>${placeholderWithTranslation.GENERIC_POST_NUMBER}</th>
 						<th>${placeholderWithTranslation.GENERIC_CITY}</th>
 					</tr>
