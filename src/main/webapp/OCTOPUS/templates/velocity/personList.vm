@@ -274,14 +274,14 @@
         #if(!$grants.mayWrite())
             $(".errormsg").remove();
             $(".successmsg").remove();
-            showWarning(' ${placeholderWithTranslation.siehabenkeineausreichendeberechtigungmpersonenzuentfernen} ');
+            showWarning(" ${placeholderWithTranslation.siehabenkeineausreichendeberechtigungmpersonenzuentfernen} ");
             return;
         #end
         var checkBoxes = $('input:checkbox[name$="-select"]:checked');
         if (checkBoxes.length === 0) {
             $(".errormsg").remove();
             $(".successmsg").remove();
-            showWarning(' ${placeholderWithTranslation.wauhlensiebittezunauchsteineodermehrerepersonenaus}');
+            showWarning(" ${placeholderWithTranslation.wauhlensiebittezunauchsteineodermehrerepersonenaus}");
         } else {
 
             // get array of selected person ids
@@ -311,7 +311,7 @@
 
             var msg = '';
             if (notExpiredPersonIds.length > 0) {
-                msg += '<br><span class="notBold"> ${placeholderWithTranslation.beidenfolgendenpersonenliegtdasgultigkeitsdatuminderzukunft}: </span> <ul class="text">';
+                msg += '<br><span class="notBold">' + "${placeholderWithTranslation.beidenfolgendenpersonenliegtdasgultigkeitsdatuminderzukunft}" + ': </span> <ul class="text">';
                 $ .each(notExpiredPersonIds, function (index, id) {
                     var person = personModel[id];
                     msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
@@ -320,9 +320,9 @@
 
             }
             if (ongoingEventPersonIds.length > 0) {
-                msg += '<br><span class="notBold"> ${placeholderWithTranslation.folgendepersonensindmindestenseinerlaufendenoderzukumnftigenveranstaltung} ' +
-                        ' ${placeholderWithTranslation.zugeordnetdetailinformationenkoennensieueberdiegaestelistender} ' +
-                        ' ${placeholderWithTranslation.jeweiligenveranstaltungenabrufendiepersonenwerdenausallengastelisten} ' +
+                msg += '<br><span class="notBold">' +  "${placeholderWithTranslation.folgendepersonensindmindestenseinerlaufendenoderzukumnftigenveranstaltung} " +
+                        " ${placeholderWithTranslation.zugeordnetdetailinformationenkoennensieueberdiegaestelistender} " +
+                        " ${placeholderWithTranslation.jeweiligenveranstaltungenabrufendiepersonenwerdenausallengastelisten} " +
                         'entfernt:</span><br><ul class="text">';
                 $ .each(ongoingEventPersonIds, function (index, id) {
                     var person = personModel[id];
@@ -332,23 +332,24 @@
 
             }
             if (ongoingTaskEventPersonIds.length > 0) {
-                msg += '<br><span class="notBold">${placeholderWithTranslation.folgendepersonensindmindestenseineraufgabeinmindestenseinerlaufendenoder} ' +
-                        ' ${placeholderWithTranslation.zukunftigenveranstaltungzugeordnetdetailinformationenrufensiebitteuberdie} ' +
-                        ' ${placeholderWithTranslation.aufgabenlistenderjeweiligenveranstaltungenaufdiepersonenwerdenausallen} ' +
-                        ' ${placeholderWithTranslation.aufgabenentfernt}: </span><br><ul class="text">';
+                msg += '<br><span class="notBold">' + "${placeholderWithTranslation.folgendepersonensindmindestenseineraufgabeinmindestenseinerlaufendenoder} " +
+                        " ${placeholderWithTranslation.zukunftigenveranstaltungzugeordnetdetailinformationenrufensiebitteuberdie} " +
+                        " ${placeholderWithTranslation.aufgabenlistenderjeweiligenveranstaltungenaufdiepersonenwerdenausallen} " +
+                        " ${placeholderWithTranslation.aufgabenentfernt}" + ': </span><br><ul class="text">';
                 $ .each(ongoingTaskEventPersonIds, function (index, id) {
                     var person = personModel[id];
                     msg += '<li>' + person.firstName + ' ' + person.lastName + ' (ID: ' + id + ')</li>';
                 });
                 msg += '</ul>';
             }
-            msg += '<br><span class="notBold"> ${placeholderWithTranslation.wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab} </span><br>'+ ' ${placeholderWithTranslation.sollenallemarkiertenpersonengeloeschtwerden} ' +
-                    ' ${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden} <br>';
+            msg += 	'<br><span class="notBold">' + " ${placeholderWithTranslation.wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab} </span><br>"+
+            		" ${placeholderWithTranslation.sollenallemarkiertenpersonengeloeschtwerden} " +
+                    " ${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden} <br>";
             // disable all checkboxes while confirmation is visible
             $('input:checkbox').prop('disabled', true);
             $(".errormsg").remove();
             $(".successmsg").remove();
-	    showConfirmYesNo(' ${placeholderWithTranslation.bittebestaetigensiedasloeschendermarkiertenpersonen}',
+	    showConfirmYesNo(" ${placeholderWithTranslation.bittebestaetigensiedasloeschendermarkiertenpersonen}",
 	        msg,
 
 	        function () { // Ja
@@ -365,11 +366,11 @@
 		function () { // Nein
 	            $(".errormsg").remove();
 	            $(".successmsg").remove();
-	            showSuccess(' ${placeholderWithTranslation.eswurdekeinepersongeloscht}');
+	            showSuccess(" ${placeholderWithTranslation.eswurdekeinepersongeloscht}");
 	            $('input:checkbox').prop('disabled', false);
 	        },
-		'${placeholderWithTranslation.GENERIC_DELETE}',
-		'${placeholderWithTranslation.abbrechen}'
+		"${placeholderWithTranslation.GENERIC_DELETE}",
+		"${placeholderWithTranslation.abbrechen}"
 	    );
         }
     };
@@ -381,10 +382,10 @@
                 $(".errormsg").remove();
 
                 #if($assignmentActionForWorkarea == "assign")
-                    showSuccess(' ${placeholderWithTranslation.derarbeitsbereichwurdeerfolgreichhinzugefugt} ');
+                    showSuccess(" ${placeholderWithTranslation.derarbeitsbereichwurdeerfolgreichhinzugefugt} ");
 
                 #elseif($assignmentActionForWorkarea == "unassign")
-                    showSuccess(' ${placeholderWithTranslation.diearbeitsbereichewurdenerfolgreichentfernt} ');
+                    showSuccess(" ${placeholderWithTranslation.diearbeitsbereichewurdenerfolgreichentfernt} ");
                 #end
         //	});
         // };
@@ -479,7 +480,7 @@
 						if (document.getElementById(box).checked) {
 							$(".errormsg").remove();
 							$(".successmsg").remove();
-							showWarning(' ${placeholderWithTranslation.zudieserpersonistkeinehauptpersoneingetragen} ');
+							showWarning(" ${placeholderWithTranslation.zudieserpersonistkeinehauptpersoneingetragen} ");
 							document.getElementById(box).checked = false;
 						}
 					}
@@ -912,7 +913,7 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 							<th title="${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}"><a href="javascript:orderPersonList('workarea_name');">${placeholderWithTranslation.arbeitsshybereich}</a></th>
 							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME}</a></th>
 							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
-							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.amtsbezeichnung}</a></th>
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('function_a_e1');">${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}</a></th>
 							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}</a></th>
 							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('street_a_e1');">${placeholderWithTranslation.GENERIC_STREET}

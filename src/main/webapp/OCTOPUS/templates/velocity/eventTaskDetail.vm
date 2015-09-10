@@ -30,7 +30,7 @@
 
 	<h1>${placeholderWithTranslation.GENERIC_EDIT_EVENT} $!message.plain($event.shortname)</h1>
 
-    <form id="formlist" name="formlist" action="" method="POST">
+    <form id="formlist" name="formlist" action="SaveEventTask?id=$!eventId" method="POST">
         <input type="hidden" id="a" name="a" value="taskReferencePerson" />
         <input type="hidden" id="modified" name="task-modified" value= #if (($refPerson.id && !$task.personId) || $refPerson.id != $task.personId) "true" #else "false" #end />
         <input type="hidden" name="savetask" value="true" />
@@ -207,14 +207,14 @@
                 <div class="textRight" id="buttonPanel-bottom">
                     #if($event && $event.id)
         				#if($grants.mayWrite())
-        					<input id="button.save" tabindex="11" type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_TASK}" title="${placeholderWithTranslation.GENERIC_SAVE_TASK}" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
+        					<input id="button.save" tabindex="11" type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_TASK}" title="${placeholderWithTranslation.GENERIC_SAVE_TASK}" onclick="document.getElementById('formlist').action='SaveEventTask?id=$!event.id';" class="mainButton" />
         				#end
-                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
+                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" goto="${paths.staticWeb}do/ShowEventTasks?id=$!event.id&selectNone=true">
                     #else
         				#if($grants.mayWrite())
-        					<input id="button.save" tabindex="11" type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_TASK}" title="${placeholderWithTranslation.GENERIC_SAVE_TASK}" onclick="document.getElementById('formlist').action='SaveEventTask';" class="mainButton" />
+        					<input id="button.save" tabindex="11" type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_TASK}" title="${placeholderWithTranslation.GENERIC_SAVE_TASK}" onclick="document.getElementById('formlist').action='SaveEventTask?id=$!event.id';" class="mainButton" />
         				#end
-                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
+                        <input id="button.back" tabindex="12" type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TASKS_VIEW}" goto="${paths.staticWeb}do/ShowEventTasks?id=$!event.id&selectNone=true">
                     #end
                 </div>
 			</div>

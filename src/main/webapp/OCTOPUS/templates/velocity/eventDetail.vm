@@ -26,7 +26,7 @@
 			<h1>${placeholderWithTranslation.GENERIC_CREATE_NEW_EVENT}</h1>
 	#end
 
-	<form id="formlist" name="formlist" action="" method="POST">
+	<form id="formlist" name="formlist" action="SaveEvent?id=$!event.id" method="POST">
 		<input type="hidden" id="a" name="a" value="">
 		<input type="hidden" id="modified" name="event-modified" value="false">
 		<input type="hidden" name="saveevent" value="true">
@@ -194,7 +194,7 @@
 									#if($grants.mayWrite())
 									<div class="addButton">
 										<input type="button" value="${placeholderWithTranslation.GENERIC_SEARCH_FOR_HOST}" title="${placeholderWithTranslation.GENERIC_SEARCH_FOR_HOST}" onclick="document.getElementById('formlist').action='SetHostToEventSearch'; document.getElementById('a').value='host'; document.getElementById('formlist').submit();">
-										<input type="button" value="${placeholderWithTranslation.GENERIC_DELETE_HOST}" title="${placeholderWithTranslation.GENERIC_DELETE_HOST}" onclick="removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent'; document.getElementById('formlist').submit();">
+										<input type="button" value="${placeholderWithTranslation.GENERIC_DELETE_HOST}" title="${placeholderWithTranslation.GENERIC_DELETE_HOST}" onclick="removeHost(); setModified(); document.getElementById('formlist').action='SaveEvent?id=$!event.id'; document.getElementById('formlist').submit();">
 									</div>
 									#end
 								</div>
@@ -320,7 +320,7 @@
 		<span class="floatRight" id="buttonPanel-bottom">
 			<!-- Show the save button -->
 			#if($grants.mayWrite())
-				<input type="submit" class="mainButton" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" title="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" name="save" onclick="document.getElementById('formlist').action='SaveEvent';">
+				<input type="submit" class="mainButton" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" title="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" name="save" onclick="document.getElementById('formlist').action='SaveEvent?id=$!event.id';">
 			#end
 
 			#if($event && $event.id)
