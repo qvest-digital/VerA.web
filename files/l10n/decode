@@ -8,4 +8,7 @@ case $(locale charmap) in
 (*) echo >&2 "E: fix your locale!"; exit 1 ;;
 esac
 cd "$(dirname "$0")"
-perl -C -pi -e 's/\\u([0-9A-Fa-f]{4})/chr(hex($1))/eg' *.resource
+test -n "$1" || set -- *.resource
+echo >&2 I: $# files to convert
+perl -C -pi -e 's/\\u([0-9A-Fa-f]{4})/chr(hex($1))/eg' "$@"
+echo >&2 I: all done.
