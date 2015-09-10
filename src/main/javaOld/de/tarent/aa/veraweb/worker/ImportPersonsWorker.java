@@ -292,6 +292,8 @@ public class ImportPersonsWorker {
 			}
             context.commit();
 
+            emptyImportingSession(cntx);
+
             cntx.setContent(FIELD_IMPORTED_COUNT, new Integer(dsCount));
             cntx.setContent("cleanupOrgunits", cleanupOrgunits);
 
@@ -303,6 +305,19 @@ public class ImportPersonsWorker {
 			throw new BeanException( "Die Personendaten konnten nicht importiert werden.", e );
 		}
 	}
+
+    /**
+     * Cleaning the data stored in the session to allow the importing process
+     *
+     * @param octopusContext
+     */
+    private void emptyImportingSession(OctopusContext octopusContext) {
+        octopusContext.setSession("importProperties", null);
+        octopusContext.setSession("orgUnit", null);
+        octopusContext.setSession("importSource", null);
+        octopusContext.setSession("formatKey", null);
+        octopusContext.setSession("stream", null);
+    }
 
     //
     // Hilfsmethoden

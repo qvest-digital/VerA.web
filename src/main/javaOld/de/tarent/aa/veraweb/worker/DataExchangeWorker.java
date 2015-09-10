@@ -246,7 +246,7 @@ public class DataExchangeWorker {
      * Diese Octopus-Aktion importiert die Personen einer Datei in den Transit-Bereich,
      * also die Tabelle <code>timportperson</code>.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @param stream Datei-Upload-Map (enthält unter "ContentStream" einen <code>InputStream</code>)
      * @param formatKey Schlüssel der Datenformatbeschreibung in der Modulkonfiguration
      * @param importSource Importquellenbeschreibung
@@ -258,128 +258,145 @@ public class DataExchangeWorker {
      * @throws IOException
      * @throws TcContentProzessException
      */
-    public Map importToTransit(OctopusContext cntx, Map stream, String formatKey, String importSource, Integer orgUnit, Map importProperties) throws BeanException, IOException, TcContentProzessException {
+    public Map importToTransit(OctopusContext octopusContext, Map stream, String formatKey, String importSource,
+                               Integer orgUnit, Map importProperties)
+                                throws BeanException, IOException, TcContentProzessException {
 
+        stream = getStream(octopusContext, stream);
+        formatKey = getFormatKey(octopusContext, formatKey);
+        importSource = getImportSource(octopusContext, importSource);
+        orgUnit = getOrgUnit(octopusContext, orgUnit);
+        importProperties = getImportProperties(octopusContext, importProperties);
 
-        if (stream != null) {
-            cntx.setSession("stream", stream);
-        }
-        else {
-            stream = (HashMap) cntx.sessionAsObject("stream");
-        }
-
-        if (formatKey != null) {
-            cntx.setSession("formatKey", formatKey);
-        }
-        else {
-            formatKey = cntx.sessionAsString("formatKey");
-        }
-
-        if (importSource != null) {
-            cntx.setSession("importSource", importSource);
-        }
-        else {
-            importSource = cntx.sessionAsString("importSource");
-        }
-
-        if (orgUnit != null) {
-            cntx.setSession("orgUnit", orgUnit);
-        }
-        else {
-            orgUnit = (Integer) cntx.sessionAsObject("orgUnit");
-        }
-
-        if (importProperties != null) {
-            cntx.setSession("importProperties", importProperties);
-        }
-        else {
-            importProperties = (HashMap) cntx.sessionAsObject("importProperties");
-        }
-
-        TcModuleConfig moduleConfig = cntx.moduleConfig();
+        TcModuleConfig moduleConfig = octopusContext.moduleConfig();
         assert moduleConfig != null;
         // Zunächst mal die benötigten Objekte erstellen
-        ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, cntx.getRequestObject().getRequestParameters());
+        ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, octopusContext.getRequestObject().getRequestParameters());
         if (format == null)
-            throw new TcContentProzessException("Unbekannter Importformatschl\u00fcssel '" +  formatKey + "'.");
+            throw new TcContentProzessException("Unbekannter Importformatschl\u00fcssel '" + formatKey + "'.");
         if (importSource == null || importSource.length() == 0) {
-        	Map status = new HashMap();
-        	status.put("invalidData", "importSource");
-        	cntx.setStatus("invalidData");
-        	return status;
+            Map status = new HashMap();
+            status.put("invalidData", "importSource");
+            octopusContext.setStatus("invalidData");
+            return status;
         }
 
-        String filename = (String)stream.get("ContentName");
+        String filename = (String) stream.get("ContentName");
         if (filename != null && filename.length() != 0) {
-        	String suffix = filename.lastIndexOf(".") == -1 ? null :
-        		filename.substring(filename.lastIndexOf(".") + 1);
-        	if (suffix != null) suffix.toLowerCase();
+            String suffix = filename.lastIndexOf(".") == -1 ? null :
+                    filename.substring(filename.lastIndexOf(".") + 1);
+            if (suffix != null) suffix.toLowerCase();
 
             if (suffix == null || suffix.length() == 0) {
-        		if (logger.isEnabledFor(Level.DEBUG))
-        			logger.log(Level.DEBUG, "Endung der Import-Datei '" + filename + "' konnte nicht festgestellt werden.");
-        	} else if (
-        			suffix.equals("ods") ||
-        			suffix.equals("sxc") ||
-        			suffix.equals("xls") ||
-        			suffix.equals("pdf") ||
-        			suffix.equals("zip") ||
-        			suffix.equals("exe")) {
-            	Map status = new HashMap();
-            	status.put("invalidData", "fileExtension");
-            	status.put("fileextension", suffix);
-            	cntx.setStatus("invalidData");
-            	return status;
-        	}
+                if (logger.isEnabledFor(Level.DEBUG))
+                    logger.log(Level.DEBUG, "Endung der Import-Datei '" + filename + "' konnte nicht festgestellt werden.");
+            } else if (
+                    suffix.equals("ods") ||
+                            suffix.equals("sxc") ||
+                            suffix.equals("xls") ||
+                            suffix.equals("pdf") ||
+                            suffix.equals("zip") ||
+                            suffix.equals("exe")) {
+                Map status = new HashMap();
+                status.put("invalidData", "fileExtension");
+                status.put("fileextension", suffix);
+                octopusContext.setStatus("invalidData");
+                return status;
+            }
         }
 
         InputStream istream = (InputStream) stream.get("ContentStream");
         if (istream == null || istream.available() <= 0) {
-        	Map status = new HashMap();
-        	status.put("invalidData", "inputStream");
-        	cntx.setStatus("invalidData");
-        	return status;
+            Map status = new HashMap();
+            status.put("invalidData", "inputStream");
+            octopusContext.setStatus("invalidData");
+            return status;
         }
 
-        Database database = new DatabaseVeraWeb(cntx);
+        Database database = new DatabaseVeraWeb(octopusContext);
         TransactionContext context = database.getTransactionContext();
         try {
-	        if (cntx.personalConfig() instanceof PersonalConfigAA) {
-	            PersonalConfigAA aaConfig = (PersonalConfigAA)cntx.personalConfig();
-	            if (orgUnit == null || orgUnit.intValue() == 0 || !aaConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
-	                orgUnit = aaConfig.getOrgUnitId();
-	        } else
-	            throw new TcContentProzessException("Fehlende Benutzerinformation.");
+            if (octopusContext.personalConfig() instanceof PersonalConfigAA) {
+                PersonalConfigAA aaConfig = (PersonalConfigAA) octopusContext.personalConfig();
+                if (orgUnit == null || orgUnit.intValue() == 0 || !aaConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
+                    orgUnit = aaConfig.getOrgUnitId();
+            } else
+                throw new TcContentProzessException("Fehlende Benutzerinformation.");
 
-	        Importer importer = createImporter(format, context, istream);
-	        Import importInstance = createImport(context, formatKey, importSource, orgUnit);
-	        VerawebDigester digester = new VerawebDigester(cntx, context, importProperties, importSource, importInstance);
+            Importer importer = createImporter(format, context, istream);
+            Import importInstance = createImport(context, formatKey, importSource, orgUnit);
+            VerawebDigester digester = new VerawebDigester(octopusContext, context, importProperties, importSource, importInstance);
 
-	        importer.importAll(digester);
+            importer.importAll(digester);
 
-        	context.commit();
+            context.commit();
 
-        	// force gc after import
-        	System.gc();
+            // force gc after import
+            System.gc();
             istream.reset();
             return digester.getImportStats();
 
         } catch (Exception e) {
-        	logger.error("Fehler beim Import aufgetreten.", e);
-        	CharArrayWriter caw = new CharArrayWriter();
-        	PrintWriter pw = new PrintWriter(caw);
-        	e.printStackTrace(pw);
-        	pw.close();
+            logger.error("Fehler beim Import aufgetreten.", e);
+            CharArrayWriter caw = new CharArrayWriter();
+            PrintWriter pw = new PrintWriter(caw);
+            e.printStackTrace(pw);
+            pw.close();
 
-        	Map status = new HashMap();
-        	status.put("invalidData", "errorOnImport");
-        	status.put("exception", caw.toString());
-        	status.put("message", e.getLocalizedMessage());
-        	cntx.setStatus("invalidData");
-        	return status;
+            Map status = new HashMap();
+            status.put("invalidData", "errorOnImport");
+            status.put("exception", caw.toString());
+            status.put("message", e.getLocalizedMessage());
+            octopusContext.setStatus("invalidData");
+            return status;
         } finally {
-        	context.rollBack();
+            context.rollBack();
         }
+    }
+
+    private Map getImportProperties(OctopusContext cntx, Map importProperties) {
+        if (importProperties != null) {
+            cntx.setSession("importProperties", importProperties);
+        } else {
+            importProperties = (HashMap) cntx.sessionAsObject("importProperties");
+        }
+        return importProperties;
+    }
+
+    private Integer getOrgUnit(OctopusContext cntx, Integer orgUnit) {
+        if (orgUnit != null) {
+            cntx.setSession("orgUnit", orgUnit);
+        } else {
+            orgUnit = (Integer) cntx.sessionAsObject("orgUnit");
+        }
+        return orgUnit;
+    }
+
+    private String getImportSource(OctopusContext cntx, String importSource) {
+        if (importSource != null) {
+            cntx.setSession("importSource", importSource);
+        } else {
+            importSource = cntx.sessionAsString("importSource");
+        }
+        return importSource;
+    }
+
+    private String getFormatKey(OctopusContext cntx, String formatKey) {
+        if (formatKey != null) {
+            cntx.setSession("formatKey", formatKey);
+        } else {
+            formatKey = cntx.sessionAsString("formatKey");
+        }
+        return formatKey;
+    }
+
+    private Map getStream(OctopusContext cntx, Map stream) {
+        if (stream != null) {
+            cntx.setSession("stream", stream);
+        } else {
+            stream = (HashMap) cntx.sessionAsObject("stream");
+        }
+        return stream;
     }
 
     //
