@@ -239,7 +239,7 @@ public class DataExchangeWorker {
     /** Octopus-Eingabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
     public static final String[] INPUT_importToTransit = { "importfile", "format", "importSource", "orgUnit", "CONFIG:importProperties" };
     /** Octopus-Eingabe-Parameter-Pflicht für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
-    public static final boolean[] MANDATORY_importToTransit = { false, true, true, false, true };
+    public static final boolean[] MANDATORY_importToTransit = { false, false, false, false, false };
     /** Octopus-Ausgabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
     public static final String OUTPUT_importToTransit = "importStatus";
     /**
@@ -259,6 +259,43 @@ public class DataExchangeWorker {
      * @throws TcContentProzessException
      */
     public Map importToTransit(OctopusContext cntx, Map stream, String formatKey, String importSource, Integer orgUnit, Map importProperties) throws BeanException, IOException, TcContentProzessException {
+
+
+        if (stream != null) {
+            cntx.setSession("stream", stream);
+        }
+        else {
+            stream = (HashMap) cntx.sessionAsObject("stream");
+        }
+
+        if (formatKey != null) {
+            cntx.setSession("formatKey", formatKey);
+        }
+        else {
+            formatKey = cntx.sessionAsString("formatKey");
+        }
+
+        if (importSource != null) {
+            cntx.setSession("importSource", importSource);
+        }
+        else {
+            importSource = cntx.sessionAsString("importSource");
+        }
+
+        if (orgUnit != null) {
+            cntx.setSession("orgUnit", orgUnit);
+        }
+        else {
+            orgUnit = (Integer) cntx.sessionAsObject("orgUnit");
+        }
+
+        if (importProperties != null) {
+            cntx.setSession("importProperties", importProperties);
+        }
+        else {
+            importProperties = (HashMap) cntx.sessionAsObject("importProperties");
+        }
+
         TcModuleConfig moduleConfig = cntx.moduleConfig();
         assert moduleConfig != null;
         // Zunächst mal die benötigten Objekte erstellen
@@ -324,7 +361,9 @@ public class DataExchangeWorker {
 
         	// force gc after import
         	System.gc();
+            istream.reset();
             return digester.getImportStats();
+
         } catch (Exception e) {
         	logger.error("Fehler beim Import aufgetreten.", e);
         	CharArrayWriter caw = new CharArrayWriter();
