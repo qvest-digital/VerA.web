@@ -297,7 +297,7 @@
         </div>
 
         <div id="buttonPanel-bottom" class="textRight marginTop10">
-            <input type="submit" name="submit" value="${placeholderWithTranslation.GENERIC_START_EXPORT}" class="mainButton" />
+            <input type="submit" name="submit" value="${placeholderWithTranslation.GENERIC_START_EXPORT}" title="${placeholderWithTranslation.GENERIC_START_EXPORT}" class="mainButton" />
         </div>
     </form>
 </div>

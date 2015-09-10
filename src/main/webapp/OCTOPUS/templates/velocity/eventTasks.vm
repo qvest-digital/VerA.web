@@ -34,7 +34,7 @@
 	#parse("inc/event-header.vm")
 
 	<div class="marginBottom10 marginTop20 textRight" id="buttonPanel-top">
-		<input type="button" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
+		<input type="button" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" title="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
 	</div>
 
 	<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
@@ -209,9 +209,9 @@
 	 </div>
 			<span id="buttonPanel-bottom" class="floatRight">
 				#if($grants.mayWrite())
-					<input type="button" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" class="mainButton" onclick="showSuccess(' ${placeholderWithTranslation.erfolgreichgespeichert} ');">
+					<input type="button" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" title="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" class="mainButton" onclick="showSuccess(' ${placeholderWithTranslation.erfolgreichgespeichert} ');">
 				#end
-				<input type="reset" name="cancel" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
+				<input type="reset" name="cancel" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" title="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
 
 			</span>
 	</form>

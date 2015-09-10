@@ -106,7 +106,7 @@
                             <input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*" onChange="fileSelected();"/>
                         </div>
 
-                        <div class="button" style="
+                        <div class="button" title="${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}" style="
 text-align: center;
 margin-right: 10px;
 float:left;
