@@ -33,7 +33,7 @@
 		<input type="hidden" name="doRemove" value="true"/>
 
 	<div class="textRight marginBottom10 marginTop20" id="buttonPanel-top">
-		<input type="button" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
+		<input type="button" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" title="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';"/>
 	</div>
 
 		<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
@@ -153,9 +153,9 @@
 
 		<span id="buttonPanel-bottom" class="floatRight">
 			#if($grants.mayWrite())
-				<input type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" class="mainButton"/>
+				<input type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" title="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" class="mainButton"/>
 			#end
-			<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
+			<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" title="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
 		</span>
 
 	</form>

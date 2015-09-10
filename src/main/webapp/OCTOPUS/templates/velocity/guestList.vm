@@ -199,7 +199,7 @@
 									<option value="3">${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
 									<option value="4">${placeholderWithTranslation.GUEST_LIST_DATA_EXPORT}</option>
 								</select>
-								<input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.GENERIC_EXECUTE}" class="autoWidth">
+								<input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.GENERIC_EXECUTE}" title="${placeholderWithTranslation.GENERIC_EXECUTE}" class="autoWidth">
 						</div>
 						<div class="tableCell textRight" style="vertical-align:bottom; padding-bottom:0">
 							#if($grants.mayWrite())

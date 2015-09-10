@@ -108,7 +108,7 @@
 
         <div class="marginBottom10 marginTop20 textRight" id="buttonPanel-top">
             <input type="button" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" name="guestlist"
-                   onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
+                   title="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
         </div>
 
         <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
@@ -190,7 +190,7 @@
                 	title="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" onclick="document.getElementById('formlist1').action='$formurl?eventId=$!event.id';" />
             #end
             <input type="reset" name="cancel" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" class="mainButton"
-                   onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
+                   title="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
         </span>
 		</div>
 	</form>

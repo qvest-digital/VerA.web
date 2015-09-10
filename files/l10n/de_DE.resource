@@ -1722,9 +1722,9 @@ GENERIC_MULTIPLE_COMBOBOX=Mehrfaches Auswahlfeld
 
 # EVENT LOCATIONS (Veranstaltungsort)
 HINT_DELETE_NOT_POSSIBLE_ONE=Der Ort '
-HINT_DELETE_NOT_POSSIBLE_TWO=' kannt nicht gel\u00f6scht werden, da er von mindestenes einer Veranstaltung verwendet wird.
+HINT_DELETE_NOT_POSSIBLE_TWO=' kannt nicht gel\u00F6scht werden, da er von mindestenes einer Veranstaltung verwendet wird.
 CONFIRMATION_CREATE_LOCATION_ONE=Soll der Veranstaltungsort '
-CONFIRMATION_CREATE_LOCATION_TWO=' wirklich gel\u00f6scht werden?
+CONFIRMATION_CREATE_LOCATION_TWO=' wirklich gel\u00F6scht werden?
 
 INSERT_FUNCTION_FROM_MAIN_DATA=Amtsbezeichnung aus Stammdaten hinzuf\u00FCgen
 INSERT_COMPANY_FROM_MAIN_DATA=Firma aus Stammdaten hinzuf\u00FCgen
