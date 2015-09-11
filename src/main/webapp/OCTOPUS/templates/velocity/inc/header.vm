@@ -145,6 +145,7 @@
 				#set($severalNewElements = "${placeholderWithTranslation.HEADER_ELEMENT_NEW_PLURAL}")
 			#end
 
+			#set($count=-1)
 			## ACTION
 			#if($countInsert && $countInsert > 0)
 				#set($messageAction = "INSERT")
@@ -156,7 +157,7 @@
 				#set($messageAction = "DELETE")
 				#set($count= $countRemove)
 			#end
-			#if($count)
+			#if($count>=0)
 				#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
 				<vera-success> $generalMessage. </vera-success>
 			#end
