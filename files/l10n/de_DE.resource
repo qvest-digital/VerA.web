@@ -1406,8 +1406,8 @@ PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Sie d\u00FCrfen immer nur eine Person
 PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Sollen alle markierten Personen gel\u00F6scht werden?
 
 # EVENT DETAIL SITE TEXTS
-EVENT_DETAIL_ALREADY_EXISTS_ONE=Eine Verstaltung mit dem Namen '
-EVENT_DETAIL_ALREADY_EXISTS_TWO=' existiert bereits. M\u00F6chten Sie die neue Veranstaltung dennoch speichern?
+EVENT_DETAIL_ALREADY_EXISTS_ONE=Eine Verstaltung mit dem Namen \u201E
+EVENT_DETAIL_ALREADY_EXISTS_TWO=\u201C existiert bereits. M\u00F6chten Sie die neue Veranstaltung dennoch speichern?
 
 # CATEGORY TEXTS
 CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen
@@ -1607,8 +1607,8 @@ USER_LIST_WARN_ALREADY_USER=Einzuf\u00FCgender Benutzer ist bereits VerA.web zug
 USER_LIST_WARN_NO_ID=Einzuf\u00FCgender Benutzer darf keine ID haben
 
 # WORKAREA TEXTS
-WORKAREA_ERROR_INCORRECT_NAME_ONE=Der Arbeitsbereich mit dem Namen '
-WORKAREA_ERROR_INCORRECT_NAME_TWO=' konnte nicht angelegt werden. Bitte weisen Sie sich zuerst einen Mandanten zu.
+WORKAREA_ERROR_INCORRECT_NAME_ONE=Der Arbeitsbereich mit dem Namen \u201E
+WORKAREA_ERROR_INCORRECT_NAME_TWO=\u201C konnte nicht angelegt werden. Bitte weisen Sie sich zuerst einen Mandanten zu.
 
 # VERIFY TEXTS
 VERIFY_ERROR_ACCESS_TO_DB_UNABLE=Die Verbindung zur Datenbank wurde nicht erfolgreich hergestellt.
@@ -1717,10 +1717,10 @@ GENERIC_SIMPLE_COMBOBOX=Einfaches Auswahlfeld
 GENERIC_MULTIPLE_COMBOBOX=Mehrfaches Auswahlfeld
 
 # EVENT LOCATIONS (Veranstaltungsort)
-HINT_DELETE_NOT_POSSIBLE_ONE=Der Ort '
-HINT_DELETE_NOT_POSSIBLE_TWO=' kannt nicht gel\u00F6scht werden, da er von mindestenes einer Veranstaltung verwendet wird.
-CONFIRMATION_CREATE_LOCATION_ONE=Soll der Veranstaltungsort '
-CONFIRMATION_CREATE_LOCATION_TWO=' wirklich gel\u00F6scht werden?
+HINT_DELETE_NOT_POSSIBLE_ONE=Der Ort \u201E
+HINT_DELETE_NOT_POSSIBLE_TWO=\u201C kannt nicht gel\u00F6scht werden, da er von mindestenes einer Veranstaltung verwendet wird.
+CONFIRMATION_CREATE_LOCATION_ONE=Soll der Veranstaltungsort \u201E
+CONFIRMATION_CREATE_LOCATION_TWO=\u201C wirklich gel\u00F6scht werden?
 
 INSERT_FUNCTION_FROM_MAIN_DATA=Amtsbezeichnung aus Stammdaten hinzuf\u00FCgen
 INSERT_COMPANY_FROM_MAIN_DATA=Firma aus Stammdaten hinzuf\u00FCgen

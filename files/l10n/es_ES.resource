@@ -568,7 +568,7 @@ dublettenprufungdurchfuhren=Examinar duplicados
 zurpersonenubersicht=Listado de personas
 
 # PERSONEN/SUCHEN UND ERSETZEN IN PERSONENDATEN
-hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Aviso: al utilizar el comod\u00EDn '*', ser\u00E1n reemplazadas todas las que contengan las secciones del texto de b\u00FAsqueda (orden inclu\u00EDdo), si no se reemplazar\u00E1n aquellas que coincidan ex\u00E1ctamente con el texto de b\u00FAsqueda.
+hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Aviso: al utilizar el comod\u00EDn \u2018*\u2019, ser\u00E1n reemplazadas todas las que contengan las secciones del texto de b\u00FAsqueda (orden inclu\u00EDdo), si no se reemplazar\u00E1n aquellas que coincidan ex\u00E1ctamente con el texto de b\u00FAsqueda.
 GENERIC_SEARCH_V=Buscar
 GENERIC_REPLACE=Reemplazar
 GENERIC_IN_THE_FOLLOWING_FIELDS=En los pr\u00F3ximos campos
@@ -975,7 +975,7 @@ zuruckzurveranstaltungssuche=B\u00FAsqueda de eventos
 wahlensiebittezunachsteineodermehrereveranstaltungenaus=Por favor, comience por seleccionar uno o m\u00E1s eventos.
 nurinzuunftigenveranstaltungensuchen=Buscar s\u00F3lo en eventos futuros
 zuruck=Volver
-siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehrereunddasfureinzelnezeichen=Puede utilizar comodines en la b\u00FAsqueda. Al utilizar el comod\u00EDn '*', ser\u00E1n seleccionadas todas las que contengan las secciones del texto de b\u00FAsqueda (orden inclu\u00EDdo), as\u00ED como podr\u00E1 realizar b\u00FAsquedas individuales mediante el comod\u00EDn '?'.
+siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehrereunddasfureinzelnezeichen=Puede utilizar comodines en la b\u00FAsqueda. Al utilizar el comod\u00EDn \u2018*\u2019, ser\u00E1n seleccionadas todas las que contengan las secciones del texto de b\u00FAsqueda (orden inclu\u00EDdo), as\u00ED como podr\u00E1 realizar b\u00FAsquedas individuales mediante el comod\u00EDn \u2018?\u2019.
 bittebestatigensiedasspeicherndieseraufgabe=Por favor, confirme la actualizaci\u00F3n sobre la tarea actual
 verantworlichenhinzufugen=A\u00F1adir responsables
 verantworlichenentfernen=Eliminar responsables
@@ -1409,8 +1409,8 @@ PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Debe eliminar siempre s\u00F3lo una p
 PERSON_LIST_QUESTION_DELETE_CONFIRMATION=\u00BFDeben eliminarse todas las personas seleccionados?
 
 # EVENT DETAIL SITE TEXTS
-EVENT_DETAIL_ALREADY_EXISTS_ONE=Ya existe un evento con el nombre '
-EVENT_DETAIL_ALREADY_EXISTS_TWO='. \u00BFDesea de todas formas guardar el evento nuevo?
+EVENT_DETAIL_ALREADY_EXISTS_ONE=Ya existe un evento con el nombre \u201C
+EVENT_DETAIL_ALREADY_EXISTS_TWO=\u201D. \u00BFDesea de todas formas guardar el evento nuevo?
 
 # CATEGORY TEXTS
 CATEGORY_DETAIL_ALREADY_EXISTS=Ya existe una entrada de datos maestros bajo el nombre
@@ -1610,8 +1610,8 @@ USER_LIST_WARN_ALREADY_USER=El usuario a insertar ya existe en VerA.web.
 USER_LIST_WARN_NO_ID=El usuario a insertar no debe tener ID
 
 # WORKAREA TEXTS
-WORKAREA_ERROR_INCORRECT_NAME_ONE=El \u00E1rea de trabajo con el nombre '
-WORKAREA_ERROR_INCORRECT_NAME_TWO=' no se ha podido crear. Por favor, identifique en primer lugar un mandante.
+WORKAREA_ERROR_INCORRECT_NAME_ONE=El \u00E1rea de trabajo con el nombre \u201C
+WORKAREA_ERROR_INCORRECT_NAME_TWO=\u201D no se ha podido crear. Por favor, identifique en primer lugar un mandante.
 
 # VERIFY TEXTS
 VERIFY_ERROR_ACCESS_TO_DB_UNABLE=No ha podido establecerse conexi\u00F3n con la base de datos.
@@ -1720,10 +1720,10 @@ GENERIC_SIMPLE_COMBOBOX=Campo de selecci\u00F3n simple
 GENERIC_MULTIPLE_COMBOBOX=Campo de selecci\u00F3n m\u00FAltiple
 
 # EVENT LOCATIONS (Veranstaltungsort)
-HINT_DELETE_NOT_POSSIBLE_ONE=La localizaci\u00F3n '
-HINT_DELETE_NOT_POSSIBLE_TWO=' no ha podido ser eliminada, debido a que se encuentra relacionada con al menos un evento.
-CONFIRMATION_CREATE_LOCATION_ONE=\u00BFDesea realmente eliminar la localizaci\u00F3n '
-CONFIRMATION_CREATE_LOCATION_TWO='?
+HINT_DELETE_NOT_POSSIBLE_ONE=La localizaci\u00F3n \u201C
+HINT_DELETE_NOT_POSSIBLE_TWO=\u201D no ha podido ser eliminada, debido a que se encuentra relacionada con al menos un evento.
+CONFIRMATION_CREATE_LOCATION_ONE=\u00BFDesea realmente eliminar la localizaci\u00F3n \u201C
+CONFIRMATION_CREATE_LOCATION_TWO=\u201D?
 
 INSERT_FUNCTION_FROM_MAIN_DATA=Tomar funci\u00F3n desde datos maestros
 INSERT_COMPANY_FROM_MAIN_DATA=Tomar empresa desde datos maestros
