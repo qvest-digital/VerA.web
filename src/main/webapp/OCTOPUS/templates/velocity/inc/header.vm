@@ -148,38 +148,17 @@
 			## ACTION 
 			#if($countInsert && $countInsert > 0)
 				#set($messageAction = "INSERT")
-					#if($countInsert == 0)
-		      				#set($count = 0)
-					#elseif($countInsert == 1)
-						#set($count = 1)
-					#elseif($countInsert > 1)
-						#set($count= 2)
-					#end
+				#set($count = $countInsert)
 			#elseif($countUpdate && $countUpdate > 0)
 				#set($messageAction = "MODIFY")
-					#if($countUpdate== 0)
-						#set($count= 0)
-					#elseif($countUpdate == 1)
-						#set($count= 1)
-					#elseif($countUpdate > 1)
-						#set($count= 2)
-					#end
+				#set($count = $countUpdate)
 			#elseif($countRemove && $countRemove >= 0)
 				#set($messageAction = "DELETE")
-					#if($countRemove == 0)
-						#set($count= 0)
-					#elseif($countRemove == 1)
-						#set($count= 1)
-					#elseif($countRemove > 1)
-						#set($count= 2)
-					#end
+				#set($count= $countRemove)
 			#end
 			#if($countRemove || $countUpdate || $countInsert)
-				#set($generalMessage=${helper.createMessage($messageAction,$count,$entity,$placeholderWithTranslation)})
-				##action: $action
-				##count: $count
-				##entity: $entity
-				<vera-success> $generalMessage </vera-success>
+				#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
+				<vera-success> $generalMessage. </vera-success>
 			#end
 
 

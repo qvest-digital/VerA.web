@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class LanguageHelper {
 	
-	public String createMessage (String action, String count, String entity, Map<String,String> placeholderWithTranslation) {
+	public String createMessage (String entity, String action, String count, Map<String,String> placeholderWithTranslation) {
 		
 		String message;
 		// singular or plural
@@ -22,11 +22,12 @@ public class LanguageHelper {
 		}
 		
 		String placeholdername = "GM_"+ entity + "_" + action + "_" + singularOrPluralOrNone;
-		message = placeholderWithTranslation.get(placeholdername);
 		if(singularOrPluralOrNone.equals("P")) {
-			message = String.format(message, count);
+			message = String.format(placeholderWithTranslation.get(placeholdername), count);
+		} else {
+			message = placeholderWithTranslation.get(placeholdername);
 		}
-		
+//		return placeholdername;
 		return message;
 	}
 	

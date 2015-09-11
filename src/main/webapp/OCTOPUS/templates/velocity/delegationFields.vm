@@ -43,60 +43,27 @@
 	#if ($optionalFieldsSummary.createdFields.size()>0 || $optionalFieldsSummary.changedFields.size()>0 || $optionalFieldsSummary.deletedFields.size()>0)
 		<div id="message-container" class="msg successmsg">
 			#if ($optionalFieldsSummary.createdFields.size()>0)
-				#set($action = "${placeholderWithTranslation.GM_ACTION_INSERTED}")
-				#set($created = $optionalFieldsSummary.createdFields.size())
+				#set($messageAction = "INSERT")
+				#set($count = $optionalFieldsSummary.createdFields.size())
 				<div>
-					#if ($created == 1)
-						#if($lang == "de")
-							${placeholderWithTranslation.GM_PART1_S} ${placeholderWithTranslation.GM_AN_ADDITIONAL_FIELD} $action
-						#else
-							${placeholderWithTranslation.GM_PART1_S} $action ${placeholderWithTranslation.GM_AN_ADDITIONAL_FIELD}
-						#end
-					#elseif ($created > 1)
-						#if($lang == "de")
-							${placeholderWithTranslation.GM_PART1} $created ${placeholderWithTranslation.zusatzfelder} $action
-						#else
-							${placeholderWithTranslation.GM_PART1} $action $created ${placeholderWithTranslation.zusatzfelder} 
-						#end
-					#end
+					#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
+					<vera-success> $generalMessage. </vera-success>
 				</div>
 			#end
 			#if ($optionalFieldsSummary.changedFields.size()>0)
-				#set($action = "${placeholderWithTranslation.GM_ACTION_MODIFIED}")
-				#set($changed = $optionalFieldsSummary.changedFields.size())
+				#set($messageAction = "MODIFY")
+				#set($count = $optionalFieldsSummary.changedFields.size())
 				<div>
-					#if ($changed == 1)
-						#if($lang == "de")
-							${placeholderWithTranslation.GM_PART1_S} ${placeholderWithTranslation.GM_AN_ADDITIONAL_FIELD} $action
-						#else
-							${placeholderWithTranslation.GM_PART1_S} $action ${placeholderWithTranslation.GM_AN_ADDITIONAL_FIELD}
-						#end
-					#elseif ($changed > 1)
-						#if($lang == "de")
-							${placeholderWithTranslation.GM_PART1} $changed ${placeholderWithTranslation.zusatzfelder} $action
-						#else
-							${placeholderWithTranslation.GM_PART1} $action $changed ${placeholderWithTranslation.zusatzfelder} 
-						#end
-					#end
+					#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
+					<vera-success> $generalMessage. </vera-success>
 				</div>
 			#end
 			#if ($optionalFieldsSummary.deletedFields.size()>0)
-				#set($action = "${placeholderWithTranslation.GM_ACTION_DELETED}")
-				#set($deleted = $optionalFieldsSummary.deletedFields.size())
+				#set($messageAction = "DELETE")
+				#set($count = $optionalFieldsSummary.deletedFields.size())
 				<div>
-					#if ($deleted == 1)
-						#if($lang == "de")
-							${placeholderWithTranslation.GM_PART1_S} ${placeholderWithTranslation.GM_AN_ADDITIONAL_FIELD} $action
-						#else
-							${placeholderWithTranslation.GM_PART1_S} $action ${placeholderWithTranslation.GM_AN_ADDITIONAL_FIELD}
-						#end
-					#elseif ($deleted > 1)
-						#if($lang == "de")
-							${placeholderWithTranslation.GM_PART1} $changed ${placeholderWithTranslation.zusatzfelder} $action
-						#else
-							${placeholderWithTranslation.GM_PART1} $action $changed ${placeholderWithTranslation.zusatzfelder} 
-						#end
-					#end
+					#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
+					<vera-success> $generalMessage. </vera-success>
 				</div>
 			#end
 		</div>
