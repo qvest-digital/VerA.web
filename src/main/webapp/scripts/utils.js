@@ -143,7 +143,7 @@ $.fn.veraDisable = function() {
  * Also focus will be disabled (which is not possible with attribute "readonly").
  **/
 $(function () {
-    $(':input[vera-disabled]').veraDisable();
+  //  $(':input[vera-disabled]').veraDisable();
 });
 
 function disableForm(frm) {

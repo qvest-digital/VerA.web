@@ -18,13 +18,15 @@
 <script type="text/javascript">
 	function toogleOptionalFields() {
 		var types = document.getElementById('typeSelect');
-		var selectedValue = types.options[types.selectedIndex].value;
+		if (types != null) {
+			var selectedValue = types.options[types.selectedIndex].value;
 
-		if (selectedValue == 'Eingabefeld') {
-			$("#optionsArea").hide();
-		}
-		else {
-			$("#optionsArea").hide();
+			if (selectedValue == 'Eingabefeld') {
+				$("#optionsArea").hide();
+			}
+			else {
+				$("#optionsArea").hide();
+			}
 		}
 	}
 </script>
@@ -200,11 +202,6 @@
 
 <script type="text/javascript">
 
-$(document).ready(function() {
-	if ($showSuccessMessage == true) {
-		showSuccess(' ${placeholderWithTranslation.erfolgreichgespeichert} ');
-	}
-});
 
 </script>
 
