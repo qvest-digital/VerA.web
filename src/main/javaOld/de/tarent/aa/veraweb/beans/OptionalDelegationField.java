@@ -90,12 +90,12 @@ public class OptionalDelegationField extends AbstractHistoryBean {
 	public List<OptionalFieldTypeContent> getOptionalFieldTypeContents() {
 		return optionalFieldTypeContents;
 	}
-	
+
 	public boolean equals(OptionalDelegationField optionalDelegationField) {
 		if (this.getFkDelegationField() == optionalDelegationField.getFkDelegationField() && this.getFkType().intValue() == 3 && optionalDelegationField.getFkType().intValue()==3) {
 			return true;
 		}
-		
+
 		return false;
 	}
 }

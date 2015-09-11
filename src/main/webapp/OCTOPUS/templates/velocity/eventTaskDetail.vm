@@ -223,7 +223,7 @@
 
 		<span id="buttonPanel-bottom" class="floatRight">
             #if($grants.mayWrite())
-			    <input type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" class="mainButton" onclick="document.getElementById('formlist').action='SaveEventTask';">
+			    <input type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" title="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" class="mainButton" onclick="document.getElementById('formlist').action='SaveEventTask';">
             #end
 			<input type="reset" name="cancel" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
         </span>

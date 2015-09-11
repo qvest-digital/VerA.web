@@ -27,7 +27,7 @@ import java.util.Map;
 import de.tarent.octopus.content.TcContentProzessException;
 import de.tarent.octopus.server.OctopusContext;
 
-/** 
+/**
  * Diese Klasse stellt einen Octopus-Worker dar, der Anwendungskontexte verwalten kann.
  * Anwendungskontexte bestehen aus einem Task und einer Menge Bezeichner mit zugeordneten
  * Objekten. Solche Kontexte können auf einen Stapel ge-PUSH-t und von ihm ge-POP-t werden.<br>

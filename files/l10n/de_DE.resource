@@ -47,12 +47,12 @@ BROWSER_TITLE_GUEST_ADD_EVENT=Gast hinzuf\u00FCgen zu
 BROWSER_TITLE_GUEST_HOST_ADD_EVENT=Gastgeber ausw\u00E4hlen f\u00FCr
 BROWSER_TITLE_GUEST_SELECT=Gast ausw\u00E4hlen
 BROWSER_TITLE_GUEST_HOST_SELECT=Gastgeber ausw\u00E4hlen
-BROWSER_TITLE_SEARCH_REPLACE_PERSONDATA=Suchen & Ersetzen in Personendaten
+BROWSER_TITLE_SEARCH_REPLACE_PERSONDATA=Suchen und Ersetzen in Personendaten
 BROWSER_TITLE_DUPLICATE_SEARCH=Dublettensuche
 BROWSER_TITLE_TASK_ADD_RESPONSIBLE=Verantwortlichen f\u00FCr Aufgabe ausw\u00E4hlen
 BROWSER_TITLE_PERSON_DELETE=Person l\u00F6schen
 BROWSER_TITLE_PERSON_LIST=Personen\u00FCbersicht
-BROWSER_TITLE_SEARCH_REPLACE=Suchen & Ersetzen
+BROWSER_TITLE_SEARCH_REPLACE=Suchen und Ersetzen
 BROWSER_TITLE_GUEST_HOST_SEARCH=Gastgeber suchen
 BROWSER_TITLE_PERSON_SEARCH=Person suchen
 BROWSER_TITLE_PERSON_DATA_SALUTATION=Stammdaten - Anreden
@@ -511,7 +511,6 @@ GENERIC_DOCUMENTED_ON=Erfasst am
 GENERIC_LAST_EDITED_ON=Zuletzt ge\u00E4ndert am
 GENERIC_PERSONS_ID=Personen-ID
 GENERIC_OA_USERNAME=Online-Anmeldung Benutzername
-freifeld-vorschaufuretikett=Freifeld-Vorschau f\u00FCr \u201EEtikett\u201C
 zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
 GENERIC_COPY_PERSON=Person kopieren
 GENERIC_CREATE_TAG=Etikett erzeugen
@@ -567,8 +566,7 @@ LETTERS_WWW=WWW
 dublettenprufungdurchfuhren=Dublettenpr\u00FCfung durchf\u00FChren
 zurpersonenubersicht=Zur Personen\u00FCbersicht
 
-# PERSONEN/SUCHEN & ERSETZEN IN PERSONENDATEN
-suchen&ersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
+# PERSONEN/SUCHEN UND ERSETZEN IN PERSONENDATEN
 hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Hinweis Wenn Sie den Platzhalter * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
 GENERIC_SEARCH_V=Suchen
 GENERIC_REPLACE=Ersetzen
@@ -629,10 +627,10 @@ LABEL_EXPORT_MADLAN_ENCODING=Encoding
 LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Encoding (kyrillisch)
 HINT_EXPORT_CSV=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_ZKM=Die Exportdatei wird sowohl im ZKM-Ausgangsordner abgelegt als auch Ihnen zur Kontrolle zum Herunterladen angeboten. Das Herunterladen k\u00F6nnen Sie bedenkenlos abbrechen.
-HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Es werden nur die Felder aus den Karteireitern "Personendaten", "Anschriften", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE=Es werden nur die Felder aus den Karteireitern "Personendaten", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Es werden nur die Felder aus den Karteireitern "Personendaten", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern "Personendaten", "Kategorien" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EAnschriften\u201C, \u201EDokumenttypen\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EDokumenttypen\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EDokumenttypen\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EKategorien\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSV_ISO_8859_15=Dieses Format ist f\u00FCr Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
@@ -647,7 +645,6 @@ GENERIC_START_IMPORT=Import starten
 
 # PERSONENDROPDOWN
 GENERIC_NEW_PERSON=Neue Person
-suchen&ersetzen=Suchen & ersetzen
 GENERIC_EXPORT_PERSONS=Personenexport
 GENERIC_IMPORT_PERSONS=Personenimport
 
@@ -808,14 +805,14 @@ GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=Die G\u00E4steliste wurde um
 GUEST_LIST_EXPAND_MULTIPLE_PART_TWO=G\u00E4ste erweitert
 GUEST_LIST_HINT_EXPORT_GUEST=Wenn Sie einzelne G\u00E4ste markieren, werden nur diese exportiert, ansonsten die vollst\u00E4ndige Liste
 GUEST_LIST_HINT_FILTER=Beim Erstellen von Steuerdateien oder G\u00E4stelisten wird Ihr oben ausgew\u00E4hlter Filter ber\u00FCcksichtigt
-GUEST_LIST_HINT_RED_PERSON=Rot hinterlegte Personen wurden bereits als "zu l\u00F6schen" markiert
+GUEST_LIST_HINT_RED_PERSON=Rot hinterlegte Personen wurden bereits als \u201Ezu l\u00F6schen\u201C markiert
 GUEST_LIST_CREATED_NO_PERSON=wurde ohne Personen angelegt
 GUEST_LIST_CREATED_ONE_PERSON=wurde mit einer Person angelegt
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE=wurde mit
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO=Personen angelegt
 GUEST_LIST_NO_GUEST_INVITED=Es wurden noch keine G\u00E4ste eingeladen
 GUEST_LIST_NUMBER_CALCULATE=Laufende Nummer berechnen
-GUEST_LIST_NUMBER_CALCULATED_SAVED=Die "Laufende Nummer" wurde f\u00FCr alle G\u00E4ste neu berechnet und gespeichert
+GUEST_LIST_NUMBER_CALCULATED_SAVED=Die \u201ELaufende Nummer\u201C wurde f\u00FCr alle G\u00E4ste neu berechnet und gespeichert
 GUEST_LIST_ONLY_OPEN=nur Offene
 GUEST_LIST_ONLY_ACCEPT=nur Zusagen
 GUEST_LIST_ONLY_DECLINED=nur Absagen
@@ -876,8 +873,6 @@ zuruckzurdokumenttypenliste=Zur\u00FCck zur Dokumenttypenliste
 anmeldedatenerzeugen=Anmeldedaten erzeugen
 esliegenkeinekategorienundereignissevor=Es liegen keine Kategorien und Ereignisse vor
 beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=Bei gr\u00FCn hinterlegten Eintr\u00E4gen handelt es sich um wiederkehrende Ereignisse.
-
-# SUCHEN & ERSETZEN IN PERSONENDATEN
 
 # VERTEILERDETAILS
 verteilerdetails=Verteilerdetails
@@ -988,7 +983,7 @@ bittebestatigensiedasloschenvonaufgaben=Bitte best\u00E4tigen Sie das L\u00F6sch
 ausgewahlteeintrageloschen=Ausgew\u00E4hlte Eintr\u00E4ge l\u00F6schen
 start=Start
 zursuche=Zur Suche
-siesindalsvolladministratorangemeldetundexportierenhiermitmandantenubergreifend=Sie sind als "Voll-Administrator" angemeldet und exportieren hiermit Mandanten\u00FCbergreifend.
+siesindalsvolladministratorangemeldetundexportierenhiermitmandantenubergreifend=Sie sind als \u201EVoll-Administrator\u201C angemeldet und exportieren hiermit Mandanten\u00FCbergreifend.
 sieexportierenmitdieserfunktionausschlieszlichpersonenausihremaktuellenmandanten=Sie exportieren mit dieser Funktion ausschlie\u00DFlich Personen aus Ihrem aktuellen Mandanten.
 event=Veranstaltung
 keine=Keine
@@ -1114,7 +1109,7 @@ biszudiesemdatum=Bis zu diesem Datum
 abdiesemdatum=Ab diesem Datum
 angenaudiesemdatum=An genau diesem Datum
 datumauswaehlen=Datum ausw\u00E4hlen
-HINT_SEARCH_MULTIPLE=Die Suche unterst\u00FCtzt auch die Mehrfachsuche nach Kategorien. Um mehrere Kategorien auszuw\u00E4hlen, halten Sie bitte die Maustaste gedr\u00FCckt und ziehen Sie den Mauszeiger \u00FCber die in der Suche zu ber\u00FCcksichtigenden Kategorien. Alternativ k\u00F6nnen Sie bei gedr\u00FCckter STRG-Taste mit der linken Maustaste auf die zu ber\u00FCcksichtigenden Kategorien klicken. Beachten Sie bitte, dass die beiden Pseudokategorien "Alle" und "Keine" nicht zusammen mit anderen Kategorien ausgew\u00E4hlt werden k\u00F6nnen.
+HINT_SEARCH_MULTIPLE=Die Suche unterst\u00FCtzt auch die Mehrfachsuche nach Kategorien. Um mehrere Kategorien auszuw\u00E4hlen, halten Sie bitte die Maustaste gedr\u00FCckt und ziehen Sie den Mauszeiger \u00FCber die in der Suche zu ber\u00FCcksichtigenden Kategorien. Alternativ k\u00F6nnen Sie bei gedr\u00FCckter STRG-Taste mit der linken Maustaste auf die zu ber\u00FCcksichtigenden Kategorien klicken. Beachten Sie bitte, dass die beiden Pseudokategorien \u201EAlle\u201C und \u201EKeine\u201C nicht zusammen mit anderen Kategorien ausgew\u00E4hlt werden k\u00F6nnen.
 waehlensiebittezunaechsteinekategorieaus=W\u00E4hlen Sie bitte zun\u00E4chst eine Kategorie aus.
 wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Wollen Sie diese Person bzw. diesen Gast der ausgew\u00E4hlten Kategorie zuordnen
 eswurdekeinekategoriezugeordnet=Es wurde keine Kategorie zugeordnet
@@ -1220,8 +1215,8 @@ alledemarkiereninklpartnerwenneingeladen=Alle (de)markieren (inkl. Partner, wenn
 arbeitsshybereich=Arbeits\u00ADbereich
 amtsbeshyzeichnung=Amtsbe\u00ADzeichnung
 eswurdenkeineeintraegegefunden=Es wurden keine Eintr\u00E4ge gefunden.
-suchenersetzen=Suchen & Ersetzen
-suchenersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
+suchenersetzen=Suchen und Ersetzen
+suchenersetzeninpersonendaten=Suchen und Ersetzen in Personendaten
 vornamederhauptpersonunddespartners=Vorname der Hauptperson und des Partners
 nachnamederhauptpersonunddespartners=Nachname der Hauptperson und des Partners
 anredetitel=Anrede / Titel
@@ -1299,7 +1294,7 @@ siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuer
 undamtsbezeichnungfunktion=und Amtsbezeichnung/Funktion
 HINT_SEARCH_WHERE=Die Suche erfolgt im Vornamen, Nachnamen, Ort, PLZ, Stra\u00DFe, Firma/Institution, Telefon, Fax, Mobil, E-Mail, Bemerkungen, Kategorien, Arbeitsbereiche
 neuenorteingeben=Neuen Ort eingeben
-bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Bitte geben Sie einen neuen Ort ein und klicken Sie auf "Hinzuf\u00FCgen"
+bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Bitte geben Sie einen neuen Ort ein und klicken Sie auf \u201EHinzuf\u00FCgen\u201C
 neuerveranstaltungsort=Neuer Veranstaltungsort
 markierenundkopierensiefolgendesadressetikett=Markieren und kopieren Sie folgendes Adress-Etikett
 personenetikett=Personen-Etikett
@@ -1406,12 +1401,12 @@ EVENT_LIST_DELETE_CONFIRMATION_MESSAGE=Sollen alle markierten Veranstaltungen ge
 
 # PERSON LIST TEXTS
 PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE=Sie haben keine Berechtigung Personen zu l\u00F6schen.
-PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Sie d\u00FCrfen immer nur eine Person l\u00F6schen.\n Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.
+PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Sie d\u00FCrfen immer nur eine Person l\u00F6schen. Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.
 PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Sollen alle markierten Personen gel\u00F6scht werden?
 
 # EVENT DETAIL SITE TEXTS
-EVENT_DETAIL_ALREADY_EXISTS_ONE=Eine Verstaltung mit dem Namen '
-EVENT_DETAIL_ALREADY_EXISTS_TWO=' existiert bereits. M\u00F6chten Sie die neue Veranstaltung dennoch speichern?
+EVENT_DETAIL_ALREADY_EXISTS_ONE=Eine Verstaltung mit dem Namen \u201E
+EVENT_DETAIL_ALREADY_EXISTS_TWO=\u201C existiert bereits. M\u00F6chten Sie die neue Veranstaltung dennoch speichern?
 
 # CATEGORY TEXTS
 CATEGORY_DETAIL_ALREADY_EXISTS=Es existiert bereits ein Stammdaten-Eintrag unter dem Namen
@@ -1430,12 +1425,12 @@ GUEST=Gast
 GENERIC_OF=von
 
 
-TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \U00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den "Bearbeiten"-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
+TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \u00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den \u201EBearbeiten\u201C-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
 GENERIC_NEXT_PAGE=N\u00E4chste Seite
 GENERIC_PREVIOUS_PAGE=Vorherige Seite
 GENERIC_APPLY_TO_GUESTLIST=In G\u00E4steliste \u00FCbernehmen
 GENERIC_APPLY_GUEST_TO_GUESTLIST=Gast direkt in G\u00E4steliste \u00FCbernehmen
-GENERIC_APPLY=\U00DCbernehmen
+GENERIC_APPLY=\u00DCbernehmen
 GENERIC_APPLY_PERSON_AS_HOST=Person direkt als Gastgeber \u00FCbernehmen
 etikettfuraktuellepersonerzeugen=Etikett f\u00FCr aktuelle Person erzeugen
 
@@ -1447,14 +1442,14 @@ siemussendierolleangebenunterdersieverawebnutzenmochten=Sie m\u00FCssen die Roll
 GENERIC_CHOOSE=ausw\u00E4hlen
 GENERIC_RESET=Zur\u00FCcksetzen
 siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=Sie haben keine ausreichende Berechtigung um die G\u00E4ste zu entfernen
-wahlensiebittezunachsteineodermehreregastelistenaus=W\u00E4hlen Sie bitte zun\u00E4chst eine oder mehrere G\u00E4sten aus
+wahlensiebittezunachsteinenodermehreregasteaus=W\u00E4hlen Sie bitte zun\u00E4chst einen oder mehrere G\u00E4ste aus
 bittebestatigensiedasloschendermarkiertengasteliste=Bitte best\u00E4tigen Sie das L\u00F6schen der markierten G\u00E4ste!
 GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00F6scht.
 
 
-EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf "Auf Stammdaten zur\u00FCcksetzen".
+EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf \u201EAuf Stammdaten zur\u00FCcksetzen\u201C.
 
-diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00FCber den Men\u00FCpunkt Administration > Programmeinstellungen m\u00F6glich.
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00FCber den Men\u00FCpunkt Administration \u2192 Programmeinstellungen m\u00F6glich.
 
 GENERIC_CHOSEN_GUESTLIST=Ausgew\u00E4hlte G\u00E4ste
 exportierfahigegasteliste=Exportierf\u00E4hige G\u00E4ste
@@ -1611,8 +1606,8 @@ USER_LIST_WARN_ALREADY_USER=Einzuf\u00FCgender Benutzer ist bereits VerA.web zug
 USER_LIST_WARN_NO_ID=Einzuf\u00FCgender Benutzer darf keine ID haben
 
 # WORKAREA TEXTS
-WORKAREA_ERROR_INCORRECT_NAME_ONE=Der Arbeitsbereich mit dem Namen '
-WORKAREA_ERROR_INCORRECT_NAME_TWO=' konnte nicht angelegt werden. Bitte weisen Sie sich zuerst einen Mandanten zu.
+WORKAREA_ERROR_INCORRECT_NAME_ONE=Der Arbeitsbereich mit dem Namen \u201E
+WORKAREA_ERROR_INCORRECT_NAME_TWO=\u201C konnte nicht angelegt werden. Bitte weisen Sie sich zuerst einen Mandanten zu.
 
 # VERIFY TEXTS
 VERIFY_ERROR_ACCESS_TO_DB_UNABLE=Die Verbindung zur Datenbank wurde nicht erfolgreich hergestellt.
@@ -1721,10 +1716,10 @@ GENERIC_SIMPLE_COMBOBOX=Einfaches Auswahlfeld
 GENERIC_MULTIPLE_COMBOBOX=Mehrfaches Auswahlfeld
 
 # EVENT LOCATIONS (Veranstaltungsort)
-HINT_DELETE_NOT_POSSIBLE_ONE=Der Ort '
-HINT_DELETE_NOT_POSSIBLE_TWO=' kannt nicht gel\u00F6scht werden, da er von mindestenes einer Veranstaltung verwendet wird.
-CONFIRMATION_CREATE_LOCATION_ONE=Soll der Veranstaltungsort '
-CONFIRMATION_CREATE_LOCATION_TWO=' wirklich gel\u00F6scht werden?
+HINT_DELETE_NOT_POSSIBLE_ONE=Der Ort \u201E
+HINT_DELETE_NOT_POSSIBLE_TWO=\u201C kannt nicht gel\u00F6scht werden, da er von mindestenes einer Veranstaltung verwendet wird.
+CONFIRMATION_CREATE_LOCATION_ONE=Soll der Veranstaltungsort \u201E
+CONFIRMATION_CREATE_LOCATION_TWO=\u201C wirklich gel\u00F6scht werden?
 
 INSERT_FUNCTION_FROM_MAIN_DATA=Amtsbezeichnung aus Stammdaten hinzuf\u00FCgen
 INSERT_COMPANY_FROM_MAIN_DATA=Firma aus Stammdaten hinzuf\u00FCgen

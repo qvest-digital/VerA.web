@@ -64,11 +64,11 @@ public class OptionalField extends AbstractHistoryBean {
 	public void setFkEvent(int fkEvent) {
 		this.fkEvent = fkEvent;
 	}
-	
+
 	public Integer getFkType() {
 		return fkType;
 	}
-	
+
 	public void setFkType(Integer fkType) {
 		this.fkType = fkType;
 	}

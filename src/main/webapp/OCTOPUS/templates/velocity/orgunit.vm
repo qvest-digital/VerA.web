@@ -58,7 +58,7 @@
 
     		<span class="inlineLabel" id="actionPanel">
             	<strong>${placeholderWithTranslation.markiertenmandanten}</strong>
-            	<input type="submit" onclick="return confirm('${placeholderWithTranslation.markiertenmandantenwirklichloschen}?');" title="${placeholderWithTranslation.DELETE_SELECTED_MANDATOR}" name="remove" 
+            	<input type="submit" onclick="return confirm('${placeholderWithTranslation.markiertenmandantenwirklichloschen}?');" title="${placeholderWithTranslation.DELETE_SELECTED_MANDATOR}" name="remove"
 		value="${placeholderWithTranslation.GENERIC_DELETE}" />
             </span>
             <table class="fixed">

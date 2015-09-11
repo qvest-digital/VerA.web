@@ -357,12 +357,12 @@
 	                $('form').append('<input type="hidden" name="remove-expire-' + id + '" value="true" >');
 	                $('form').append('<input type="hidden" name="deleted" value="'+notExpiredPersonIds.length+'" >');
 	            });
-	
+
 	            $('input[name=remove-person]').val('true');
 	            $('input:checkbox').prop('disabled', false);
 	            $('form').append('<input type="hidden" name="remove" value="Ja" >').submit();
-	        }, 
-		
+	        },
+
 		function () { // Nein
 	            $(".errormsg").remove();
 	            $(".successmsg").remove();
@@ -636,7 +636,7 @@
 							</select>
 							<input type="button" value="${placeholderWithTranslation.GENERIC_EXECUTE}" title="${placeholderWithTranslation.GENERIC_EXECUTE}" id="button.execute" name="button.execute" />
 						#elseif($exportFormat && $grants.mayExport())
-i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}	
+i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 							<input type="button" value="Exportieren" title="${placeholderWithTranslation.exportieren}" onclick="selectedActionExportPerson();" />
 						#else &nbsp; #end
 					</label>
@@ -739,7 +739,7 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
 							</a></th>
-							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION} 
+							<th title="${placeholderWithTranslation.GENERIC_BUSINESS}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('company_a_e1');">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}
 								${placeholderWithTranslation.LETTER_COMMERCIAL}
 								#if($personSearchField == 'company_a_e1')
 									#if ($personSearchOrder == 'ASC')
@@ -1233,7 +1233,7 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 		</div>
 
 	#end
-	
+
 	## Zurück-Button
 	<span id="buttonPanel-top" class="textRight floatRight">
 		#if($action == "guest")

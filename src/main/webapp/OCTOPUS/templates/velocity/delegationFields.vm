@@ -19,13 +19,15 @@
 <script type="text/javascript">
 	function toogleOptionalFields() {
 		var types = document.getElementById('typeSelect');
-		var selectedValue = types.options[types.selectedIndex].value;
+		if (types != null) {
+			var selectedValue = types.options[types.selectedIndex].value;
 
-		if (selectedValue == 'Eingabefeld') {
-			$("#optionsArea").hide();
-		}
-		else {
-			$("#optionsArea").hide();
+			if (selectedValue == 'Eingabefeld') {
+				$("#optionsArea").hide();
+			}
+			else {
+				$("#optionsArea").hide();
+			}
 		}
 	}
 </script>
@@ -56,7 +58,7 @@
 						#if($lang == "de")
 							${placeholderWithTranslation.GM_PART1} $created ${placeholderWithTranslation.zusatzfelder} $action
 						#else
-							${placeholderWithTranslation.GM_PART1} $action $created ${placeholderWithTranslation.zusatzfelder} 
+							${placeholderWithTranslation.GM_PART1} $action $created ${placeholderWithTranslation.zusatzfelder}
 						#end
 					#end
 				</div>
@@ -75,7 +77,7 @@
 						#if($lang == "de")
 							${placeholderWithTranslation.GM_PART1} $changed ${placeholderWithTranslation.zusatzfelder} $action
 						#else
-							${placeholderWithTranslation.GM_PART1} $action $changed ${placeholderWithTranslation.zusatzfelder} 
+							${placeholderWithTranslation.GM_PART1} $action $changed ${placeholderWithTranslation.zusatzfelder}
 						#end
 					#end
 				</div>
@@ -94,7 +96,7 @@
 						#if($lang == "de")
 							${placeholderWithTranslation.GM_PART1} $changed ${placeholderWithTranslation.zusatzfelder} $action
 						#else
-							${placeholderWithTranslation.GM_PART1} $action $changed ${placeholderWithTranslation.zusatzfelder} 
+							${placeholderWithTranslation.GM_PART1} $action $changed ${placeholderWithTranslation.zusatzfelder}
 						#end
 					#end
 				</div>
@@ -201,11 +203,6 @@
 
 <script type="text/javascript">
 
-$(document).ready(function() {
-	if ($showSuccessMessage == true) {
-		showSuccess(' ${placeholderWithTranslation.erfolgreichgespeichert} ');
-	}
-});
 
 </script>
 

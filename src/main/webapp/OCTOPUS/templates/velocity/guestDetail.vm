@@ -49,7 +49,7 @@
         <div id="tabsMain">
             <ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
                 <li id="gaesteliste" class="inactive"><div>${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}</div>
-                </li><li id="gastdetails" #if($responseTab == "detail") vera-tab-default #end class="active"><div>${placeholderWithTranslation.gastdetails}</div>
+                </li><li id="gastdetails" #if($responseTab == "detail") vera-tab-default #end class="active"><div>${placeholderWithTranslation.gastedetails}</div>
                 </li><li id="dokumenttypen" class="inactive"><div>${placeholderWithTranslation.BROWSER_TITLE_DOCUMENT_TYPES}</div></li>
             </ul>
         </div>
@@ -58,7 +58,7 @@
 
             #parse("inc/guest-detail-header.vm")
 
-            <form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
+            <form id="GuestForm" name="GuestForm" action="SaveGuestDetail?id=$!guest.id" method="post">
             <input type="hidden" name="tab" id="tab" value="$tab" />
             <div class="contentBox grayBorder tabs marginBottom10" vera-content="">
                 <div id="tabsMain2">
@@ -82,7 +82,7 @@
                         <input type="hidden" name="guest-orderno_b" value="$!guest.orderno_b">
                         <input type="hidden" name="categorie-modified" id="categorie-modified" value="false">
                         <input type="hidden" name="fetchRankFromMasterData" id="fetchRankFromMasterData" value="false">
-                        
+
 
 
                         #if($person.deleted == "t")
@@ -150,11 +150,11 @@
                                         <input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)">
                                     </div>
 
-                                    
-                                    
-                                    
-                                    
-                                    <div class="tableCell"></div> 
+
+
+
+
+                                    <div class="tableCell"></div>
                                 </div>
                                     #if ($guest.delegation)
                                         #set( $idcounter = 0)
@@ -176,8 +176,8 @@
                                                 #elseif($field.fkType == 2)
                                                     <select name="optional-field-dropdown-$field.fkDelegationField">
                                                          #foreach ($typeContentEntry in $field.optionalFieldTypeContents)
-                                                            <option 
-                                                                #if ($typeContentEntry.isSelected) 
+                                                            <option
+                                                                #if ($typeContentEntry.isSelected)
                                                                     selected
                                                                 #end
                                                                 value="$typeContentEntry.content" >$typeContentEntry.content</option>
@@ -186,8 +186,8 @@
                                                 #elseif($field.fkType == 3)
                                                     <select multiple name="optional-field-multipledropdown-$field.fkDelegationField">
                                                          #foreach ($typeContentEntry in $field.optionalFieldTypeContents)
-                                                            <option 
-                                                                #if ($typeContentEntry.isSelected) 
+                                                            <option
+                                                                #if ($typeContentEntry.isSelected)
                                                                     selected
                                                                 #end
                                                             value="$typeContentEntry.content">$typeContentEntry.content</option>
@@ -202,7 +202,7 @@
                                                 </div>
                                             #end
                                         #end
-                                    
+
                                     #end
                                 </div>
                         #closeContentBlock()
@@ -273,7 +273,7 @@
                         <div id="detail-3-reload-block" #if($guest.invitationtype != 2) style="display: none;"#end>
                             <vera-info vera-stay>
 			    	<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
-				${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PARTNER}.	
+				${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PARTNER}.
                                 ${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PERSON_PART1}
 				<a href="javascript:setGuestInvitationtype(1);">
                                 ${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON}</a>?
@@ -287,7 +287,7 @@
 
                     <span id="buttonPanel-bottom" class="floatRight posAb" style="right: -1px; bottom: -40px;">
                         #if($grants.mayWrite())
-                            <input type="button" name="save" value="${placeholderWithTranslation.speichern}"  class="mainButton" onClick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" />
+                            <input type="button" name="save" title="${placeholderWithTranslation.speichern}" value="${placeholderWithTranslation.speichern}"  class="mainButton" onClick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" />
                         #end
                         <input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" title="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
                     </span>
