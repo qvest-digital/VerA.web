@@ -1402,7 +1402,7 @@ EVENT_LIST_DELETE_CONFIRMATION_MESSAGE=Sollen alle markierten Veranstaltungen ge
 
 # PERSON LIST TEXTS
 PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE=Sie haben keine Berechtigung Personen zu l\u00F6schen.
-PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Sie d\u00FCrfen immer nur eine Person l\u00F6schen.\n Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.
+PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Sie d\u00FCrfen immer nur eine Person l\u00F6schen. Bitte markieren Sie nur einen Eintrag, oder wenden Sie sich an Ihren Administrator.
 PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Sollen alle markierten Personen gel\u00F6scht werden?
 
 # EVENT DETAIL SITE TEXTS
@@ -1426,12 +1426,12 @@ GUEST=Gast
 GENERIC_OF=von
 
 
-TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \U00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den "Bearbeiten"-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
+TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \u00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den "Bearbeiten"-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
 GENERIC_NEXT_PAGE=N\u00E4chste Seite
 GENERIC_PREVIOUS_PAGE=Vorherige Seite
 GENERIC_APPLY_TO_GUESTLIST=In G\u00E4steliste \u00FCbernehmen
 GENERIC_APPLY_GUEST_TO_GUESTLIST=Gast direkt in G\u00E4steliste \u00FCbernehmen
-GENERIC_APPLY=\U00DCbernehmen
+GENERIC_APPLY=\u00DCbernehmen
 GENERIC_APPLY_PERSON_AS_HOST=Person direkt als Gastgeber \u00FCbernehmen
 etikettfuraktuellepersonerzeugen=Etikett f\u00FCr aktuelle Person erzeugen
 

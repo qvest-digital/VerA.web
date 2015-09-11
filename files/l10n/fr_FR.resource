@@ -1487,7 +1487,7 @@ GENERIC_CANCEL=Suspendre
 GENERIC_DELETE=Supprimer
 GENERIC_CONNECTOR=Connecteur
 GENERIC_VIEW_DOCUMENT_TYPE=Montrer le type du document
-GENERIC_GENERATE_DOCUMENT-TYPE=g\U00E9n\U00E9rer un nouveau type de document
+GENERIC_GENERATE_DOCUMENT-TYPE=g\u00E9n\u00E9rer un nouveau type de document
 
 # GUEST DETAIL TEXTS
 GUEST_DETAIL_PARTNER=le partenaire
@@ -1607,8 +1607,8 @@ USER_LIST_WARN_ALREADY_USER=L\u2019utilisateur \u00E0 ins\u00E9rer est d\u00E9j\
 USER_LIST_WARN_NO_ID=L\u2019utilisateur \u00E0 ins\u00E9rer ne devrait pas avoir un num\u00E9ro d\u2019identit\u00E9
 
 # WORKAREA TEXTS
-WORKAREA_ERROR_INCORRECT_NAME_ONE=La cr\u00E9ation du secteur du travail \U0027
-WORKAREA_ERROR_INCORRECT_NAME_TWO=\U0027 n\u2019est pas possible. Veuillez associer un client \u00E0 priori.
+WORKAREA_ERROR_INCORRECT_NAME_ONE=La cr\u00E9ation du secteur du travail \u00AB
+WORKAREA_ERROR_INCORRECT_NAME_TWO=\u00BB n\u2019est pas possible. Veuillez associer un client \u00E0 priori.
 
 # VERIFY TEXTS
 VERIFY_ERROR_ACCESS_TO_DB_UNABLE=L\u2019\u00E9tablissement de la connexion \u00E0 la base de donn\u00E9e n\u2019a pas \u00E9t\u00E9 possible.
