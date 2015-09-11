@@ -8,7 +8,28 @@ case $(locale charmap) in
 (*) echo >&2 "E: fix your locale!"; exit 1 ;;
 esac
 cd "$(dirname "$0")"
+vgrep() {
+	eval "grep $verbose \"\$@\""
+}
+if test x"$1" = x"-v"; then
+	shift
+	verbose='>&2' # enabled
+else
+	verbose='-l'  # disabled
+fi
 test -n "$1" || set -- *.resource
 echo >&2 I: $# files to convert
 perl -C -pi -e 's/\\u([0-9A-Fa-f]{4})/chr(hex($1))/eg' "$@"
-echo >&2 I: all done.
+printf >&2 '%s' 'I: all done, checking for specials…'
+if x=$(vgrep '[-	-"&'\''<>\]' "$@"); then
+	echo >&2
+	echo >&2 "E: invalid characters found in:" $x
+	echo >&2 "N: fix them! these are:"
+	echo >&2 "N: - control characters excluding newline (including tab)"
+	echo >&2 "N: - HTML specials: < > &"
+	echo >&2 "N: - JS specials: \" '"
+	echo >&2 "N: - Java specials: \\"
+	exit 1
+fi
+echo >&2 " done"
+exit 0
