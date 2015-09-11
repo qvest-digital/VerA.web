@@ -1449,7 +1449,7 @@ GENERIC_NO_GUESTLIST_DELETED=Aucun invit\u00E9s ont \u00E9t\u00E9 supprim\u00E9e
 
 EVENT_DOCTYPE_RESET_INFO=V\u00E9rifier si les types de documents sont d\u00E9j\u00E0 attribu\u00E9es \u00E0 cet \u00E9v\u00E9nement. Si tel est le cas, vous devrez recr\u00E9er les types de documents pour ce client. Pour ce faire, cliquez sur \u00ABR\u00E9initialiser les donn\u00E9es de base\u00BB
 
-diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Ceci est possible via l\u2019administration d\u2019\u00E9l\u00E9ment de menu / r\u00E9glages de programme
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Ceci est possible via l\u2019administration d\u2019\u00E9l\u00E9ment de menu \u2192 r\u00E9glages de programme
 
 GENERIC_CHOSEN_GUESTLIST=Invit\u00E9s s\u00E9lectionn\u00E9s
 exportierfahigegasteliste=Invit\u00E9s exportables

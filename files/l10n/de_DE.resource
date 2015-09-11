@@ -1449,7 +1449,7 @@ GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00F6scht.
 
 EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf \u201EAuf Stammdaten zur\u00FCcksetzen\u201C.
 
-diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00FCber den Men\u00FCpunkt Administration > Programmeinstellungen m\u00F6glich.
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00FCber den Men\u00FCpunkt Administration \u2192 Programmeinstellungen m\u00F6glich.
 
 GENERIC_CHOSEN_GUESTLIST=Ausgew\u00E4hlte G\u00E4ste
 exportierfahigegasteliste=Exportierf\u00E4hige G\u00E4ste

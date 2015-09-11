@@ -1452,7 +1452,7 @@ GENERIC_NO_GUESTLIST_DELETED=No se han eliminado invitados.
 
 EVENT_DOCTYPE_RESET_INFO=Por favor, compruebe que el evento tiene asociados los tipos de documento. Si este fuera el caso, necesita volver a crear los tipos de documento para los invitados, haciendo clic en \u201CRestablecer datos maestros\u201D.
 
-diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Se encuentra dentro del men\u00FA \u201CAdministraci\u00F3n > Preferencias de programa\u201D.
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Se encuentra dentro del men\u00FA \u201CAdministraci\u00F3n \u2192 Preferencias de programa\u201D.
 
 GENERIC_CHOSEN_GUESTLIST=Invitados seleccionados
 exportierfahigegasteliste=Invitados exportables

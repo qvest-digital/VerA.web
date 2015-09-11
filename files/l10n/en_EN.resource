@@ -1449,7 +1449,7 @@ GENERIC_NO_GUESTLIST_DELETED=No guests have been removed.
 
 EVENT_DOCTYPE_RESET_INFO=Please check if there already are document types assigned to this event. If so you have to recreate the document types for this guest by clicking \u201Creset to core data\u201D.
 
-diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=To do so, navigate to the menu administration > program settings.
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=To do so, navigate to the menu administration \u2192 program settings.
 
 GENERIC_CHOSEN_GUESTLIST=Selected guest list
 exportierfahigegasteliste=exportable guest list
