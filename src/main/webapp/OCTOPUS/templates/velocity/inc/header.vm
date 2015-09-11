@@ -156,7 +156,7 @@
 				#set($messageAction = "DELETE")
 				#set($count= $countRemove)
 			#end
-			#if($countRemove || $countUpdate || $countInsert)
+			#if($count)
 				#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
 				<vera-success> $generalMessage. </vera-success>
 			#end
