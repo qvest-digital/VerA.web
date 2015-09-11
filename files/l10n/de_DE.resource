@@ -47,12 +47,12 @@ BROWSER_TITLE_GUEST_ADD_EVENT=Gast hinzuf\u00FCgen zu
 BROWSER_TITLE_GUEST_HOST_ADD_EVENT=Gastgeber ausw\u00E4hlen f\u00FCr
 BROWSER_TITLE_GUEST_SELECT=Gast ausw\u00E4hlen
 BROWSER_TITLE_GUEST_HOST_SELECT=Gastgeber ausw\u00E4hlen
-BROWSER_TITLE_SEARCH_REPLACE_PERSONDATA=Suchen & Ersetzen in Personendaten
+BROWSER_TITLE_SEARCH_REPLACE_PERSONDATA=Suchen und Ersetzen in Personendaten
 BROWSER_TITLE_DUPLICATE_SEARCH=Dublettensuche
 BROWSER_TITLE_TASK_ADD_RESPONSIBLE=Verantwortlichen f\u00FCr Aufgabe ausw\u00E4hlen
 BROWSER_TITLE_PERSON_DELETE=Person l\u00F6schen
 BROWSER_TITLE_PERSON_LIST=Personen\u00FCbersicht
-BROWSER_TITLE_SEARCH_REPLACE=Suchen & Ersetzen
+BROWSER_TITLE_SEARCH_REPLACE=Suchen und Ersetzen
 BROWSER_TITLE_GUEST_HOST_SEARCH=Gastgeber suchen
 BROWSER_TITLE_PERSON_SEARCH=Person suchen
 BROWSER_TITLE_PERSON_DATA_SALUTATION=Stammdaten - Anreden
@@ -567,8 +567,7 @@ LETTERS_WWW=WWW
 dublettenprufungdurchfuhren=Dublettenpr\u00FCfung durchf\u00FChren
 zurpersonenubersicht=Zur Personen\u00FCbersicht
 
-# PERSONEN/SUCHEN & ERSETZEN IN PERSONENDATEN
-suchen&ersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
+# PERSONEN/SUCHEN UND ERSETZEN IN PERSONENDATEN
 hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Hinweis Wenn Sie den Platzhalter * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
 GENERIC_SEARCH_V=Suchen
 GENERIC_REPLACE=Ersetzen
@@ -647,7 +646,6 @@ GENERIC_START_IMPORT=Import starten
 
 # PERSONENDROPDOWN
 GENERIC_NEW_PERSON=Neue Person
-suchen&ersetzen=Suchen & ersetzen
 GENERIC_EXPORT_PERSONS=Personenexport
 GENERIC_IMPORT_PERSONS=Personenimport
 
@@ -876,8 +874,6 @@ zuruckzurdokumenttypenliste=Zur\u00FCck zur Dokumenttypenliste
 anmeldedatenerzeugen=Anmeldedaten erzeugen
 esliegenkeinekategorienundereignissevor=Es liegen keine Kategorien und Ereignisse vor
 beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=Bei gr\u00FCn hinterlegten Eintr\u00E4gen handelt es sich um wiederkehrende Ereignisse.
-
-# SUCHEN & ERSETZEN IN PERSONENDATEN
 
 # VERTEILERDETAILS
 verteilerdetails=Verteilerdetails
@@ -1220,8 +1216,8 @@ alledemarkiereninklpartnerwenneingeladen=Alle (de)markieren (inkl. Partner, wenn
 arbeitsshybereich=Arbeits\u00ADbereich
 amtsbeshyzeichnung=Amtsbe\u00ADzeichnung
 eswurdenkeineeintraegegefunden=Es wurden keine Eintr\u00E4ge gefunden.
-suchenersetzen=Suchen & Ersetzen
-suchenersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
+suchenersetzen=Suchen und Ersetzen
+suchenersetzeninpersonendaten=Suchen und Ersetzen in Personendaten
 vornamederhauptpersonunddespartners=Vorname der Hauptperson und des Partners
 nachnamederhauptpersonunddespartners=Nachname der Hauptperson und des Partners
 anredetitel=Anrede / Titel

@@ -567,8 +567,7 @@ LETTERS_WWW=WWW\u000D
 dublettenprufungdurchfuhren=Effectuer la v\u00E9rification en double\u000D
 zurpersonenubersicht=Vue d'esnemble des personnes\u000D
 \u000D
-# PERSONEN/SUCHEN & ERSETZEN IN PERSONENDATEN\u000D
-suchen&ersetzeninpersonendaten=Rechercher et remplacer des donn\u00E9es personnelles\u000D
+# PERSONEN/SUCHEN UND ERSETZEN IN PERSONENDATEN\u000D
 hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Note * Si vous utilisez le caract\u00E8re g\u00E9n\u00E9rique, \u00E9vite \u00E9galement \u00EAtre remplac\u00E9, sinon seuls les champs de donn\u00E9es compl\u00E8tes.\u000D
 GENERIC_SEARCH_V=Recherche\u000D
 GENERIC_REPLACE=Remplac\u00E9\u000D
@@ -647,7 +646,6 @@ GENERIC_START_IMPORT=D\u00E9marrage de l' importation\u000D
 \u000D
 # PERSONENDROPDOWN\u000D
 GENERIC_NEW_PERSON=Nouvelle personne\u000D
-suchen&ersetzen=Rechercher et remplacer\u000D
 GENERIC_EXPORT_PERSONS=Exportation des personnes\u000D
 GENERIC_IMPORT_PERSONS=Importation des personnes\u000D
 \u000D
@@ -876,8 +874,6 @@ zuruckzurdokumenttypenliste=Liste des Types de document\u000D
 anmeldedatenerzeugen=G\u00E9n\u00E9rer des informations d'identification\u000D
 esliegenkeinekategorienundereignissevor=Il n'y a pas de cat\u00E9gories et d'\u00E9v\u00E9nements avant.\u000D
 beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=En vert soulign\u00E9 entr\u00E9es est \u00E9v\u00E9nements r\u00E9currents.\u000D
-\u000D
-# SUCHEN & ERSETZEN IN PERSONENDATEN\u000D
 \u000D
 # VERTEILERDETAILS\u000D
 verteilerdetails=D\u00E9tails de la r\u00E9partition\u000D

@@ -47,12 +47,12 @@ BROWSER_TITLE_GUEST_ADD_EVENT=Add guest to
 BROWSER_TITLE_GUEST_HOST_ADD_EVENT=Choose host for
 BROWSER_TITLE_GUEST_SELECT=Select guest
 BROWSER_TITLE_GUEST_HOST_SELECT=Select host
-BROWSER_TITLE_SEARCH_REPLACE_PERSONDATA=Search & replace in personal data
+BROWSER_TITLE_SEARCH_REPLACE_PERSONDATA=Search and replace in personal data
 BROWSER_TITLE_DUPLICATE_SEARCH=Duplicate search
 BROWSER_TITLE_TASK_ADD_RESPONSIBLE=Add responsible for task
 BROWSER_TITLE_PERSON_DELETE=Delete person
 BROWSER_TITLE_PERSON_LIST=Person summary
-BROWSER_TITLE_SEARCH_REPLACE=Search & replace
+BROWSER_TITLE_SEARCH_REPLACE=Search and replace
 BROWSER_TITLE_GUEST_HOST_SEARCH=Search host
 BROWSER_TITLE_PERSON_SEARCH=Search person
 BROWSER_TITLE_PERSON_DATA_SALUTATION=Master data - salutation
@@ -567,8 +567,7 @@ LETTERS_WWW=WWW
 dublettenprufungdurchfuhren=Dublettenpr\u00FCfung durchf\u00FChren
 zurpersonenubersicht=To Person view
 
-# PERSONEN/SUCHEN & ERSETZEN IN PERSONENDATEN
-suchen&ersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
+# PERSONEN/SUCHEN UND ERSETZEN IN PERSONENDATEN
 hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Hinweis Wenn Sie den Placeholder * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
 GENERIC_SEARCH_V=Search
 GENERIC_REPLACE=Replace
@@ -647,7 +646,6 @@ GENERIC_START_IMPORT=Start import
 
 # PERSONENDROPDOWN
 GENERIC_NEW_PERSON=New person
-suchen&ersetzen=Search & replace
 GENERIC_EXPORT_PERSONS=Export persons
 GENERIC_IMPORT_PERSONS=Import persons
 
@@ -876,8 +874,6 @@ zuruckzurdokumenttypenliste=Back to document type list
 anmeldedatenerzeugen=Create login data
 esliegenkeinekategorienundereignissevor=there are no categories and occasions
 beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=green highlighted entried are recuring occasions
-
-# SUCHEN & ERSETZEN IN PERSONENDATEN
 
 # VERTEILERDETAILS
 verteilerdetails=distributor details
@@ -1220,8 +1216,8 @@ alledemarkiereninklpartnerwenneingeladen=All (de)selected (incl. Partner, if inv
 arbeitsshybereich=Work area
 amtsbeshyzeichnung=Employment title
 eswurdenkeineeintraegegefunden=No entries were found.
-suchenersetzen=Search & replace
-suchenersetzeninpersonendaten=Search & replace in persons data
+suchenersetzen=Search and replace
+suchenersetzeninpersonendaten=Search and replace in persons data
 vornamederhauptpersonunddespartners=First name of the main person and his/her partner
 nachnamederhauptpersonunddespartners=Family name of the main person and his/her parnter
 anredetitel=Salutation / Title

@@ -567,8 +567,7 @@ LETTERS_WWW=WWW
 dublettenprufungdurchfuhren=Examinar duplicados
 zurpersonenubersicht=Listado de personas
 
-# PERSONEN/SUCHEN & ERSETZEN IN PERSONENDATEN
-suchen&ersetzeninpersonendaten=Buscar y reemplazar datos de personas
+# PERSONEN/SUCHEN UND ERSETZEN IN PERSONENDATEN
 hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Aviso: al utilizar el comod\u00EDn '*', ser\u00E1n reemplazadas todas las que contengan las secciones del texto de b\u00FAsqueda (orden inclu\u00EDdo), si no se reemplazar\u00E1n aquellas que coincidan ex\u00E1ctamente con el texto de b\u00FAsqueda.
 GENERIC_SEARCH_V=Buscar
 GENERIC_REPLACE=Reemplazar
@@ -647,7 +646,6 @@ GENERIC_START_IMPORT=Comenzar importaci\u00F3n
 
 # PERSONENDROPDOWN
 GENERIC_NEW_PERSON=Nueva persona
-suchen&ersetzen=Buscar y reemplazar
 GENERIC_EXPORT_PERSONS=Exportaci\u00F3n de personas
 GENERIC_IMPORT_PERSONS=Importaci\u00F3n de personas
 
@@ -876,8 +874,6 @@ zuruckzurdokumenttypenliste=Volver a tipos de documento
 anmeldedatenerzeugen=Generar datos de acceso
 esliegenkeinekategorienundereignissevor=No se presentan categor\u00EDas y sucesos
 beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=En verde se resaltan las entradas de sucesos repetidos.
-
-# SUCHEN & ERSETZEN IN PERSONENDATEN
 
 # VERTEILERDETAILS
 verteilerdetails=Detalles de la distribuci\u00F3n
