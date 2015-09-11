@@ -57,7 +57,7 @@
 
             #parse("inc/guest-detail-header.vm")
 
-            <form id="GuestForm" name="GuestForm" action="SaveGuestDetail" method="post">
+            <form id="GuestForm" name="GuestForm" action="SaveGuestDetail?id=$!guest.id" method="post">
             <input type="hidden" name="tab" id="tab" value="$tab" />
             <div class="contentBox grayBorder tabs marginBottom10" vera-content="">
                 <div id="tabsMain2">

@@ -64,9 +64,7 @@
 	<div class="tableRow">
 		<div class="tableCell width50">
 			<label for="guest-notehost$ext">${placeholderWithTranslation.GUEST_DETAIL_HINT_GUEST_HOST}</label>
-			<textarea id="guest-notehost$ext" name="guest-notehost$ext" #if($grants.mayReadRemarkFields())>
-                $!message.textarea($facade.NoteHost)#else vera-disabled class="textdisabled">#end
-            </textarea>
+			<textarea id="guest-notehost$ext" name="guest-notehost$ext" #if($grants.mayReadRemarkFields())>$!message.textarea($facade.NoteHost)#else vera-disabled class="textdisabled">#end</textarea>
 		</div>
 		<div class="tableCell width50">
 			<label for="guest-noteorga$ext">${placeholderWithTranslation.GUEST_DETAIL_HINT_ORGANISATION_TEAM}</label>

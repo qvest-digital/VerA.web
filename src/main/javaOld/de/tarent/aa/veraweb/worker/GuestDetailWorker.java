@@ -32,6 +32,7 @@ import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.statement.Delete;
+import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
@@ -229,6 +230,11 @@ public class GuestDetailWorker extends GuestListWorker {
         try
         {
             Guest guest = (Guest) request.getBean("Guest", "guest");
+
+            if (guest.id == null) {
+                Integer guestId = Integer.valueOf(allRequestParams.get("id").toString());
+                guest = (Guest) database.getBean("Guest", guestId);
+            }
 
             //Check for duplicate reservation (guest and partner).
             LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
