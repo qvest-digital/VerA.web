@@ -1002,7 +1002,7 @@ HINT_IMPORT_NOT_POSSIBLE_EXCEL=You are trying to import a Microsoft Excel file. 
 HINT_IMPORT_NOT_POSSIBLE_PDF=You are trying to import a PDF file. This import is unfortunately in the current version of VerA.web not possible.
 HINT_IMPORT_NOT_POSSIBLE_ZIP=You are trying to import a ZIP file. This import is unfortunately in the current version of VerA.web not possible.
 HINT_IMPORT_NOT_POSSIBLE_EXE=You are trying to import a EXE file. This import is unfortunately in the current version of VerA.web not possible.
-siehabenversuchteinedateimitderendung=You are trying to import  a data with the extension 
+siehabenversuchteinedateimitderendung=You are trying to import  a data with the extension
 zuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich=.This is unfortunately in the cuurent version of VerA.web not available.
 siehabenkeinedateiausgewahltoderdiesewarleer=You have either selected an empty file or have not selected any at all.
 esisteinunerwarteterfehlerbeimimportiereneinerdateiaufgetreten=An error has occured while importing the file.
@@ -1049,7 +1049,7 @@ emailclientaufrufen=Invoke E-mail client
 esliegenkeineadressdatenfurdiesenverteilervor=No addresses exist for this distributor
 esliegenkeineadressenfurdiesenverteilervor=No addresses exist for this distributor
 esliegenkeinevorlagenvor=There are no templates.
-zuruckzurverteilerubersicht=back to distributor summary 
+zuruckzurverteilerubersicht=back to distributor summary
 eswurdekeineemailzumversendengespeichert=No E-mails to be sent were saved
 eswurdeeineemailzumversendengespeichertdiesewirdnunautomatischversendet=An E-mail was saved automatically. This will be sent automatically.
 emailszumversendengespeichertdiesewerdennunautomatischversendet=E-mails to be sent are automatically saved. These will be automatially sent.
@@ -1135,7 +1135,7 @@ wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen=Wou
 eswurdenkeinearbeitsbereichzugeordnet=no work areas were assigned
 wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben=Would you like to revoke the work area assignment of this person (i.e. guest)
 eswurdekeinarbeitsbereichaufgehoben=No work area revoked
-wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Would you like to revoke the selected work area assignment of the persons (i.e. guests) 
+wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Would you like to revoke the selected work area assignment of the persons (i.e. guests)
 wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Would you like to assign the selected work area to this person (i.e. guest)
 wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=Would you like assign the selected work area to the persons (i.e. guests)
 waehlensieeinenarbeitsbereichauswelchensie=Choose a work area, which
@@ -1330,7 +1330,7 @@ GENERIC_TELEFON=Telephone
 # MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=This guest has been invited without main person
 MESSAGE_INVITATION_WITHOUT_PARTNER=This guest has been invited without partner
-MESSAGE_INVITATION_WITHOUT_PERSON_PART1=Do you want to 
+MESSAGE_INVITATION_WITHOUT_PERSON_PART1=Do you want to
 MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON=invite these subsequently
 MESSAGE_END_AND_START_DATE=The event's end-date needs to be after the beginning-date chronologically
 MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=The event can not be saved, please give a short description
@@ -1406,7 +1406,7 @@ PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=You are only allowed to delete one pe
 PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Delete all selected people?
 
 # EVENT DETAIL SITE TEXTS
-EVENT_DETAIL_ALREADY_EXISTS_ONE=An event with the name' 
+EVENT_DETAIL_ALREADY_EXISTS_ONE=An event with the name'
 EVENT_DETAIL_ALREADY_EXISTS_TWO=' already exists. Do you wish to save the new event anyway?
 
 # CATEGORY TEXTS
@@ -1451,8 +1451,8 @@ GENERIC_NO_GUESTLIST_DELETED=No guests have been removed.
 EVENT_DOCTYPE_RESET_INFO=Please check if there already are document types assigned to this event. If so you have to recreate the document types for this guest by clicking "reset to core data".
 
 diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=To do so, navigate to the menu administration > program settings.
-            
-GENERIC_CHOSEN_GUESTLIST=Selected guest list            
+
+GENERIC_CHOSEN_GUESTLIST=Selected guest list
 exportierfahigegasteliste=exportable guest list
 unvollstandigegasteliste=incomplete guest list
 
@@ -1495,8 +1495,8 @@ GUEST_DETAIL_PARTNER_GENITIV=of the partner
 GUEST_DETAIL_MAINPERSON=of the main person
 
 GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Please first change the seat at
-GUEST_DETAIL_DUP_SEAT_ERROR_TWO=from 
-GUEST_DETAIL_DUP_SEAT_ERROR_THREE=vie the guest list. This person currently sits at 
+GUEST_DETAIL_DUP_SEAT_ERROR_TWO=from
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=vie the guest list. This person currently sits at
 GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=on seat
 GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Changes have not been saved.
 
@@ -1524,7 +1524,7 @@ EXPORT_HEADER_FREETEXT_FIELD=free_text_field
 EXPORT_HEADER_PARTNER_FREETEXT_FIELD=Partner_free_text_field
 EXPORT_HEADER_INTERCONNECTS=Connector
 EXPORT_HEADER_ADDRESS=Address
-EXPORT_HEADER_CHARSET=Charset\u0009
+EXPORT_HEADER_CHARSET=Charset
 EXPORT_HEADER_FUNCTION=fonction
 EXPORT_HEADER_TITLE=Title
 EXPORT_HEADER_FIRSTNAME=First_name
@@ -1607,7 +1607,7 @@ USER_LIST_WARN_ALREADY_USER=User to be inserted is already assigned to VerA.web.
 USER_LIST_WARN_NO_ID=User to be inserted must not have an id
 
 # WORKAREA TEXTS
-WORKAREA_ERROR_INCORRECT_NAME_ONE=The work area named' 
+WORKAREA_ERROR_INCORRECT_NAME_ONE=The work area named'
 WORKAREA_ERROR_INCORRECT_NAME_TWO=' could not be created. Please assign a client first.
 
 # VERIFY TEXTS

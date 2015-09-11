@@ -507,8 +507,8 @@ GENERIC_PERSONS_DELETED=personas
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN
 GENERIC_EDIT_PERSON=Editar persona
-GENERIC_DOCUMENTED_ON=Documentado el 
-GENERIC_LAST_EDITED_ON=\u00DAltima edici\u00F3n el 
+GENERIC_DOCUMENTED_ON=Documentado el
+GENERIC_LAST_EDITED_ON=\u00DAltima edici\u00F3n el
 GENERIC_PERSONS_ID=Identificador de personas
 GENERIC_OA_USERNAME=Nombre de usuario para aplicaci\u00F3n en l\u00EDnea
 freifeld-vorschaufuretikett="Campo de vista previa para \u00E2\u0080\u009EEtiqueta\u00E2\u0080\u009C"
@@ -535,7 +535,7 @@ GENERIC_EVENT=Evento
 GENERIC_BEGIN=Comienzo
 
 # PERSONEN/PERSONENSUCHE
-GENERIC_SEARCH_PERSON=B\u00FAsqueda de personas 
+GENERIC_SEARCH_PERSON=B\u00FAsqueda de personas
 GENERIC_SEARCH=B\u00FAsqueda
 GENERIC_VALIDITY_DATE=Fecha de disponibilidad
 GENERIC_ADVANCED_SEARCH=B\u00FAsqueda avanzada
@@ -802,14 +802,14 @@ GUEST_LIST_DATA_EXPORT=Exportar archivo de control
 GUEST_LIST_CONFIRM_ACTION=Por favor, confirme la siguiente acci\u00F3n
 GUEST_LIST_DIDNT_CHANGE=No se ha modificado la lista de invitados
 GUEST_LIST_EXPAND_ONE=Se ha a\u00F1adido un invitado a la lista
-GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=Se han a\u00F1adido 
+GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=Se han a\u00F1adido
 GUEST_LIST_EXPAND_MULTIPLE_PART_TWO=invitados a la lista
 GUEST_LIST_HINT_EXPORT_GUEST=Si selecciona un s\u00F3lo invitado, ser\u00E1 el \u00FAnico en ser exportado. De lo contrario, se exportar\u00E1 el listado completo
 GUEST_LIST_HINT_FILTER=Para la generaci\u00F3n del archivo de control o listado de invitados se considerara el criterio establecido en el filtro superior.
 GUEST_LIST_HINT_RED_PERSON=Las personas con fondo de color rojo ser\u00E1n marcadas como personas "a borrar"
 GUEST_LIST_CREATED_NO_PERSON=creado sin personas
 GUEST_LIST_CREATED_ONE_PERSON=creado con una persona
-GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE=creado con 
+GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE=creado con
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO=personas
 GUEST_LIST_NO_GUEST_INVITED=A\u00FAn no se han a\u00F1adido invitadoseingeladen
 GUEST_LIST_NUMBER_CALCULATE=Calcular n\u00FAmero de serie
@@ -906,7 +906,7 @@ essindderzeitkeinecleanupsmoglichnotig=No es posible/necesario realizar un clean
 nochkeineauswahlgetroffen=A\u00FAn no se dispone de selecci\u00F3n
 oberflachenbeschriftungen=Etiquetas visualizables
 zusatzfelder=Campos adicionales
-eswurdeeinzusatzfeld=Se ha creado 
+eswurdeeinzusatzfeld=Se ha creado
 angelegt=un campo adicional
 geandert=modificado
 geloscht=eliminado
@@ -926,7 +926,7 @@ zumpersonenimport=Volver a Importar-Personas
 importstatus=Estado de la importaci\u00F3n
 importstatusvorhandenedublettenbearbeiten=Estado de la importaci\u00F3n: editar duplicados existentes
 bittemarkierensiediezuimportierendenpersonen=Por favor, realice su selecci\u00F3n para importar personas.
-dublettendiedurchden=Duplicados, los cuales ser\u00E1n a\u00F1adidos 
+dublettendiedurchden=Duplicados, los cuales ser\u00E1n a\u00F1adidos
 importhinzugefugtwerdenwurden=a trav\u00E9s de la importaci\u00F3n
 sindmiteinercheckboxgekennzeichnetdarunterbefindensichdiebereitsimsystemvorhandenenentsprechendendatensatze=, se encuentra remarados mediante un checkbox. Seguidamente se muestran los datos ya almacenados dentro del sistema.
 umeinedubletteindenimportzuintegrierenmussensiesieubernehmen=Deber\u00E1 escoger los duplicados para integrarlos en la importaci\u00F3n.
@@ -1004,7 +1004,7 @@ HINT_IMPORT_NOT_POSSIBLE_EXCEL=Ha intentado importar un archivo Excel. La import
 HINT_IMPORT_NOT_POSSIBLE_PDF=Ha intentado importar un archivo PDF. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web.
 HINT_IMPORT_NOT_POSSIBLE_ZIP=Ha intentado importar un archivo ZIP. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web.
 HINT_IMPORT_NOT_POSSIBLE_EXE=Ha intentado importar un archivo EXE. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web.
-siehabenversuchteinedateimitderendung=Ha intentado importar un archivo con la extensi\u00F3n 
+siehabenversuchteinedateimitderendung=Ha intentado importar un archivo con la extensi\u00F3n
 zuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich=Eso no es posible en la versi\u00F3n actual de VerA.web.
 siehabenkeinedateiausgewahltoderdiesewarleer=No ha selecionado ning\u00FAn archivo o el archivo seleccionado est\u00E1 vac\u00EDo.
 esisteinunerwarteterfehlerbeimimportiereneinerdateiaufgetreten=Ha ocurrido un error inesperado al importar un archivo.
@@ -1073,8 +1073,8 @@ diesepersonwurdenichthinzugefuegtdasiebereitsaufdergaestelistesteht=La persona n
 diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt=La persona actual ser\u00E1 marcada como borrada. Por tanto, no ser\u00E1 posible acceder a ella mediante la b\u00FAsqueda de personas.
 personanlegen=Crear persona
 eswurdenkeinedublettengefundensiekoennenjetztweiteredateneingebenunddiedatenspeichern=No se han encontrado duplicados. Usted podr\u00E1 ahora rellenar la informaci\u00F3n para almacenarla.
-bittegebensiezunaechstden=Por favor, primero indique 
-vorundnachnamen= nombre y apellidos 
+bittegebensiezunaechstden=Por favor, primero indique
+vorundnachnamen= nombre y apellidos
 anundfuhrendiedublettenprufungdurch=e inicie la b\u00FAsqueda de duplicados.
 beifirmenwaehlensiediecheckbox=Para empresas, seleccione el check correspondiente
 undtragendanndenfirmennameneindassystempruftihreangabendaraufhinaufdubletten=e introduzca el nombre de la empresa. El sistema comprobar\u00E1 la existencia de duplicados.
@@ -1124,10 +1124,10 @@ eswurdekeinekategorieentfernt=No se han eliminado categor\u00EDas
 wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen=Desea desasignar la categor\u00EDa seleccionada a ${count} personas/invitados
 eswurdenkeinekategorienentfernt=No se han eliminado categor\u00EDas.
 zuweisen=Asignar
-waehlensieeinekategorieauswelchesie=Seleccione una categor\u00EDa, la que 
+waehlensieeinekategorieauswelchesie=Seleccione una categor\u00EDa, la que
 moechten=desee
 alleentfernen=Eliminar todas
-siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=No ha configurado categor\u00EDas. Mediante el apartado "Administraci\u00F3n" es posible 
+siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=No ha configurado categor\u00EDas. Mediante el apartado "Administraci\u00F3n" es posible
 definieren=definirlas.
 siehabenpersonenausgewaehltabhaengigvonderanzahlderausgewaehltenpersonenkanndieaktioneinegewissezeitinanspruchnehmen=Ha seleccionado ${count} personas. Dependiendo del n\u00FAmero de personas seleccionadas, el proceso puede durar un poco m\u00E1s.
 waehlensiebittezunaechsteinenarbeitsbereichaus=Seleccione un \u00E1rea de trabajo.
@@ -1140,8 +1140,8 @@ eswurdekeinarbeitsbereichaufgehoben=No se han eliminado \u00E1reas de trabajo
 wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Desea desasignar del \u00E1rea de trabajo seleccionada a estas personas/invitados
 wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Desea asignar el \u00E1rea de trabajo seleccionada a la persona/invitado actual
 wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=Desea asignar el \u00E1rea de trabajo seleccionada a ${count} personas/invitados
-waehlensieeinenarbeitsbereichauswelchensie=Seleccione un \u00E1rea de trabajo, el que 
-siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=No ha configurado \u00E1reas de trabajo. Mediante el apartado "Administraci\u00F3n" es posible 
+waehlensieeinenarbeitsbereichauswelchensie=Seleccione un \u00E1rea de trabajo, el que
+siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=No ha configurado \u00E1reas de trabajo. Mediante el apartado "Administraci\u00F3n" es posible
 administrationallestellvertretungenimmandanten=Administraci\u00F3n - todos los delegados del mandante
 administrationallestellvertretungen=Administraci\u00F3n - todos los delegados
 verwaltungpersoenlichevertretungen=Gesti\u00F3n - delegados personales
@@ -1178,7 +1178,7 @@ bittewahlensiedierolleausdiesievertretenmochten=Por favor, seleccione los roles 
 benutzerrolle=Rol de usuario
 vertreten=Representar
 statistikfurgastgeber=Estad\u00EDsticas para el anfitri\u00F3n
-imzeitraumvom=En el per\u00EDodo comprendido entre 
+imzeitraumvom=En el per\u00EDodo comprendido entre
 biszum=a
 bis=hasta
 auswartigesamtintranetstil=Intranet relaciones exteriores
@@ -1195,10 +1195,10 @@ wauhlensiebittezunauchsteineodermehrerepersonenaus=Por favor, seleccione una o m
 beidenfolgendenpersonenliegtdasgultigkeitsdatuminderzukunft=La fecha de vigencia corresponde a las siguientes personas en el futuro
 folgendepersonensindmindestenseinerlaufendenoderzukumnftigenveranstaltung=Las siguientes personas est\u00E1n registradas en eventos actuales o futuros
 zugeordnetdetailinformationenkoennensieueberdiegaestelistender=asignado. Puede encontrar informaci\u00F3n detallada a trav\u00E9s de la lista de invitados de los
-jeweiligenveranstaltungenabrufendiepersonenwerdenausallengastelisten=respectivos eventos. Las personas de todos los eventos ser\u00E1n 
-folgendepersonensindmindestenseineraufgabeinmindestenseinerlaufendenoder=Las siguientes personas poseen, al menos, una tarea en al menos un 
+jeweiligenveranstaltungenabrufendiepersonenwerdenausallengastelisten=respectivos eventos. Las personas de todos los eventos ser\u00E1n
+folgendepersonensindmindestenseineraufgabeinmindestenseinerlaufendenoder=Las siguientes personas poseen, al menos, una tarea en al menos un
 zukunftigenveranstaltungzugeordnetdetailinformationenrufensiebitteuberdie=evento futuro. Para m\u00E1s informaci\u00F3n, por favor acceda a la
-aufgabenlistenderjeweiligenveranstaltungenaufdiepersonenwerdenausallen=lista de tareas de los respectivos eventos. Las personas de todos los eventos ser\u00E1n 
+aufgabenlistenderjeweiligenveranstaltungenaufdiepersonenwerdenausallen=lista de tareas de los respectivos eventos. Las personas de todos los eventos ser\u00E1n
 aufgabenentfernt=Tarea eliminada
 wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab=Si usted quiere modificar su selecci\u00F3n, por favor, cancele la eliminaci\u00F3n.
 sollenallemarkiertenpersonengeloeschtwerden=\u00BFDebe ser eliminadas las personas seleccionadas?
@@ -1256,11 +1256,11 @@ beimversendendieseremailisteinfehleraufgetreten=Error al enviar el correo electr
 siekonnendiesejetztbearbeitenunderneutsenden=Ahora puede editarlo y enviar de nuevo.
 dieseemailwartetaufihrefertigstellungdurcheinenbenutzer=\u00C9ste correo electr\u00F3nico se encuentra a la espera de terminaci\u00F3n por parte de un usuario.
 dieseemailwartetaufihreversendung=\u00C9ste correo electr\u00F3nico se encuentra a la espera de env\u00EDo.
-dieseemailwirdgeradeversendetundsollte=\u00C9ste correo electr\u00F3nico ser\u00E1 enviado y deber\u00EDa 
-nichtbearbeitet=no ser 
+dieseemailwirdgeradeversendetundsollte=\u00C9ste correo electr\u00F3nico ser\u00E1 enviado y deber\u00EDa
+nichtbearbeitet=no ser
 werden=modificado.
-dieseemailwurdebereitsversendetundsollte=\u00C9ste correo electr\u00F3nico ser\u00E1 enviado y deber\u00EDa 
-nichtmehrbearbeitet=no volver a ser 
+dieseemailwurdebereitsversendetundsollte=\u00C9ste correo electr\u00F3nico ser\u00E1 enviado y deber\u00EDa
+nichtmehrbearbeitet=no volver a ser
 technischefehlermeldungausblenden=Ocultar error t\u00E9cnico
 markiertenmandanten=Mandante(s) seleccionado(s)
 markiertenmandantenwirklichloschen=Eliminar realmente mandante(s) seleccionado(s)
@@ -1333,7 +1333,7 @@ GENERIC_TELEFON=Tel\u00E9fono
 # MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Este invitado ser\u00E1 inclu\u00EDdo sin persona principal
 MESSAGE_INVITATION_WITHOUT_PARTNER=Este invitado ser\u00E1 inclu\u00EDdo sin partner
-MESSAGE_INVITATION_WITHOUT_PERSON_PART1=Desea ahora 
+MESSAGE_INVITATION_WITHOUT_PERSON_PART1=Desea ahora
 MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON=invitar posteriormente
 MESSAGE_END_AND_START_DATE=La fecha fin del evento deber\u00E1 ubicarse temporalmente despu\u00E9s que la fecha de inicio.
 MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=No se ha podido guardar el evento. Por favor, introduzca una descripci\u00F3n corta.
@@ -1413,7 +1413,7 @@ EVENT_DETAIL_ALREADY_EXISTS_ONE=Ya existe un evento con el nombre '
 EVENT_DETAIL_ALREADY_EXISTS_TWO='. \u00BFDesea de todas formas guardar el evento nuevo?
 
 # CATEGORY TEXTS
-CATEGORY_DETAIL_ALREADY_EXISTS=Ya existe una entrada de datos maestros bajo el nombre 
+CATEGORY_DETAIL_ALREADY_EXISTS=Ya existe una entrada de datos maestros bajo el nombre
 
 # CHANGELOG REPORTS TEXTS
 CHANGELOG_NO_PROTOCOL_AVAILABLE=No existen datos hist\u00F3ricos.
@@ -1439,7 +1439,7 @@ GENERIC_APPLY_PERSON_AS_HOST=Seleccionar persona directamente como anfitri\u00F3
 etikettfuraktuellepersonerzeugen=Generar etiqueta para la persona actual
 
 aktuellepersonloschenundzurpersonenlistezuruckkehren=Eliminar persona actual y volver a la lista de personas
-freifeldvorschaufur=Campo libre-Vista previa para 
+freifeldvorschaufur=Campo libre-Vista previa para
 zudieserpersonwurdedasentsprechendevorschaufeldnochncihterzeugt=El campo Vista Previa no ser\u00E1 generado para esta persona
 GENERIC_LAST_PAGE=\u00FAltima p\u00E1gina
 siemussendierolleangebenunterdersieverawebnutzenmochten=Debe introducir los roles que desea utilizar en VerA.web.
@@ -1461,9 +1461,9 @@ unvollstandigegasteliste=Invitados incompletos
 
 GUESTLIST_FILTER_EXPORT_INFO=S\u00F3lo ser\u00E1n exportados los invitados seleccionados a trav\u00E9s del filtro ejecutado sobre la lista de invitados.
 
-GUEST_CANNOT_BE_EXPORTED_1=Un invitado 
-GUEST_CANNOT_BE_EXPORTED_2=no se ha 
-GUEST_CANNOT_BE_EXPORTED_3=podido 
+GUEST_CANNOT_BE_EXPORTED_1=Un invitado
+GUEST_CANNOT_BE_EXPORTED_2=no se ha
+GUEST_CANNOT_BE_EXPORTED_3=podido
 GUEST_CANNOT_BE_EXPORTED_4=exportar
 PERSON_MISSING_DOCTYPE_SPECIFIC_DATA=porque para esa persona no se han guardado datos espec\u00EDficos del tipo de documento
 
@@ -1499,7 +1499,7 @@ GUEST_DETAIL_MAINPERSON=la persona principal
 
 GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Por favor, modifique el asiento por
 GUEST_DETAIL_DUP_SEAT_ERROR_TWO=de
-GUEST_DETAIL_DUP_SEAT_ERROR_THREE=sobre la lista de invitados. Esta persona se sienta actualmente en 
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=sobre la lista de invitados. Esta persona se sienta actualmente en
 GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=el asiento introducido
 GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. El cambio no se ha producidoDie \u00C4nderung wurde nicht gespeichert.
 
@@ -1515,7 +1515,7 @@ ORG_UNIT_MANDANT_ALREADY_EXISTS_ONE=El mandante a insertar
 ORG_UNIT_MANDANT_ALREADY_EXISTS_TWO=ya existe.
 ORG_UNIT_MANDANT_ID_COMPULSORY_ONE=Actualizar mandante
 ORG_UNIT_MANDANT_ID_COMPULSORY_TWO= debe tener un ID
-ORG_UNIT_MANDANT_EXISTS_ONE=Un mandante con el nombre 
+ORG_UNIT_MANDANT_EXISTS_ONE=Un mandante con el nombre
 ORG_UNIT_MANDANT_EXISTS_TWO=ya existe.
 
 # PERSON CATEGORIES TEXTS
@@ -1604,7 +1604,7 @@ STATS_COLUMN_EVENTS=Eventos
 STATS_NOT_INVITED=no invitado
 
 # USER LIST TEXTS
-USER_LIST_WARN_MANDANT_ONE=El usuario a insertar ya se encuentra asignado al mandante 
+USER_LIST_WARN_MANDANT_ONE=El usuario a insertar ya se encuentra asignado al mandante
 USER_LIST_WARN_MANDANT_TWO=.
 USER_LIST_WARN_ALREADY_USER=El usuario a insertar ya existe en VerA.web.
 USER_LIST_WARN_NO_ID=El usuario a insertar no debe tener ID
@@ -1694,7 +1694,7 @@ OPTION_MARK_ADMINISTRATION_CATEGORY_3=Diplo. Corps
 
 GENERIC_IMPORTID_HYPHEN=Import-ID
 
-GENERIC_SUBSTITUTED_BY=representado por 
+GENERIC_SUBSTITUTED_BY=representado por
 GENERIC_NONE=Ning\u00FAn
 GENERIC_ADDRESS_BLOCK=Bloque de direcci\u00F3n
 
