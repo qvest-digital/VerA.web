@@ -145,7 +145,7 @@
 				#set($severalNewElements = "${placeholderWithTranslation.HEADER_ELEMENT_NEW_PLURAL}")
 			#end
 
-			## ACTION 
+			## ACTION
 			#if($countInsert && $countInsert > 0)
 				#set($action = "${placeholderWithTranslation.GM_ACTION_INSERTED}")
 					#if($countInsert == 0)
@@ -178,7 +178,7 @@
 			#set($lang = "${placeholderWithTranslation.language_short}")
 
 			##needed: (S.P.) number (vowel) fr. (none) fr. (language) entryof (none & spanish) action before
-			
+
 			#if($countInsert)
 				#if($count == 0)
 					#set($element = $noNewElement)
@@ -218,7 +218,7 @@
 					#set($secondpart = "${placeholderWithTranslation.GM_NONE_2}")
 					#set($verb = "${placeholderWithTranslation.GM_PART1}")
 					#set($entity = $severalElements)
-					
+
 					#if($count == 0)
 						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
 						<vera-success> $firstpart $entryof $element $secondpart $action </vera-success>
@@ -229,13 +229,13 @@
 						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
 						<vera-success> $count $elementNamePlural successfully $action</vera-success>
 					#end
-	
+
 				#elseif($lang == "fr")
 
 					#set($firstpart = "${placeholderWithTranslation.GM_NONE_1}")
 					#set($verb = "${placeholderWithTranslation.GM_PART1}")
 					#set($entity = $severalElements)
-					
+
 					#if($count == 0)
 						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
 						<vera-success> $firstpart $entryof $element $secondpart $action </vera-success>
@@ -251,7 +251,7 @@
 
 					#set($firstpart = "${placeholderWithTranslation.GM_NONE_1}")
 					#set($entity = $elementNameSingular)
-					
+
 					#if($count == 0)
 						#set($entryof = "${placeholderWithTranslation.GM_ENTRIES_OF}")
 						<vera-success> $firstpart $action $entryof $element </vera-success>

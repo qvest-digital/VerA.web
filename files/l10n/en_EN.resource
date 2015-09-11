@@ -1442,7 +1442,7 @@ siemussendierolleangebenunterdersieverawebnutzenmochten=You need to state the ro
 GENERIC_CHOOSE=choose
 GENERIC_RESET=reset
 siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=You do not have sufficient permissions to remove guests
-wahlensiebittezunachsteineodermehreregastelistenaus=Please choose one or more guest lists first
+wahlensiebittezunachsteinenodermehreregasteaus=Please choose one or more guests first
 bittebestatigensiedasloschendermarkiertengasteliste=Please confirm removing the selected guests!
 GENERIC_NO_GUESTLIST_DELETED=No guests have been removed.
 

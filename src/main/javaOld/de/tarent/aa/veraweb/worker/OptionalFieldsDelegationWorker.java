@@ -150,7 +150,7 @@ public class OptionalFieldsDelegationWorker {
             getListWithTypeContents(resultSet, optionalFieldsWithTypeContents);
         }
         convertToSingleMultipleChoiceField(optionalFieldsWithTypeContents);
-        
+
         return cleanUpMultipleOptionalFields(optionalFieldsWithTypeContents);
     }
 
@@ -160,7 +160,7 @@ public class OptionalFieldsDelegationWorker {
 
         for (final Iterator<OptionalDelegationField> iterator = optionalFieldsWithTypeContents.iterator(); iterator.hasNext();) {
             final OptionalDelegationField optionalDelegationField = (OptionalDelegationField) iterator.next();
-	        
+
 	        if (isMultipleChoiceField(optionalDelegationField.getFkDelegationField())) {
 	        	// Unifying selected options in the same field
 	        	unifySelectedOptions(optionalFieldsAltList, optionalDelegationField);
@@ -172,7 +172,7 @@ public class OptionalFieldsDelegationWorker {
             OptionalDelegationField optionalDelegationField) {
 	    for (int i = 0; i < optionalFieldsAltList.size(); i++) {
 	        if ((optionalFieldsAltList.get(i).getFkDelegationField() == optionalDelegationField.getFkDelegationField())) {
-	        	
+
 	        	for (int j = 0; j < optionalFieldsAltList.get(i).getOptionalFieldTypeContents().size(); j++) {
 	        		if (optionalFieldsAltList.get(i).getOptionalFieldTypeContents().get(j).getIsSelected() &&
 	        			!optionalDelegationField.getOptionalFieldTypeContents().get(j).getIsSelected()){
@@ -182,7 +182,7 @@ public class OptionalFieldsDelegationWorker {
 	        }
 	    }
     }
-	
+
 	private List<OptionalDelegationField> cleanUpMultipleOptionalFields(List<OptionalDelegationField> optionalFields) {
 		boolean removed = false;
 		for (int i = 0; i < optionalFields.size(); i++) {
@@ -199,19 +199,19 @@ public class OptionalFieldsDelegationWorker {
                 }
             }
         }
-		
+
 		return optionalFields;
 	}
-	
+
 	private boolean isMultipleChoiceField(final Integer optionalFieldId) throws BeanException {
 
 		final Select select = SQL.Select(database).
 		        select("toptional_fields.*").
 		        from("veraweb.toptional_fields").
 		        whereAndEq("toptional_fields.pk", optionalFieldId);
-		
+
 		final ResultList resultList = database.getList(select, database);
-		
+
 		for (final Iterator<ResultMap> iterator = resultList.iterator(); iterator.hasNext();) {
 			final ResultMap object = (ResultMap) iterator.next();
 			final Integer type = (Integer) object.get("fk_type");
@@ -219,7 +219,7 @@ public class OptionalFieldsDelegationWorker {
 				return true;
 			}
         }
-		
+
 		return false;
 	}
 
@@ -242,9 +242,9 @@ public class OptionalFieldsDelegationWorker {
 		    optionalFieldTypeContent.setContent((String) object.get("content"));
 		    optionalFieldTypeContent.setId((Integer) object.get("pk"));
 		    optionalFieldTypeContent.setFk_optional_field((Integer) object.get("fk_optional_field"));
-		    
+
 		    checkSelectedValues(optionalDelegationField, object, optionalFieldTypeContent);
-		    
+
 		    typeContents.add(optionalFieldTypeContent);
 		}
 		return typeContents;
@@ -273,7 +273,7 @@ public class OptionalFieldsDelegationWorker {
 		        whereAndEq("toptional_field_type_content.fk_optional_field", fkDelegationField).
 		        whereAnd(clauseToEmptyContent).
 				whereAnd(clauseNotNullContent);
-		
+
 		final ResultList resultListWithTypeContents = database.getList(select, database);
 		return resultListWithTypeContents;
 	}

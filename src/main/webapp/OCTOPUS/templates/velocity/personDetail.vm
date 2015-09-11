@@ -211,11 +211,11 @@
 		<div class="CharSet">
 			<label for="encoding">${placeholderWithTranslation.GENERIC_CHARSET}</label>
 			<select vera-select name="encoding" id="encoding">
-				<option value="person$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end 
+				<option value="person$extEncoding1" #if(!$thisPersonLocaleTab || $thisPersonLocaleTab == "1") selected="selected" #end
 				onclick="$('#personLocaleTab').attr('value', '1');" ><div>$!config.latin</div></option>
-				<option value="person$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end 
+				<option value="person$extEncoding2" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "2") selected="selected" #end
 				onclick="$('#personLocaleTab').attr('value', '2');" ><div>$!config.extra1</div></option>
-				<option value="person$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end 
+				<option value="person$extEncoding3" #if($thisPersonLocaleTab && $thisPersonLocaleTab == "3") selected="selected" #end
 				onclick="$('#personLocaleTab').attr('value', '3');" ><div>$!config.extra2</div></option>
 			</select>
 		</div>

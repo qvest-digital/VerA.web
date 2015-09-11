@@ -1,4 +1,4 @@
-/**ver
+/**
  * veraweb, platform independent webservice-based event management
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH

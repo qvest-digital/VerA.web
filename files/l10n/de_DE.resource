@@ -1442,7 +1442,7 @@ siemussendierolleangebenunterdersieverawebnutzenmochten=Sie m\u00FCssen die Roll
 GENERIC_CHOOSE=ausw\u00E4hlen
 GENERIC_RESET=Zur\u00FCcksetzen
 siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=Sie haben keine ausreichende Berechtigung um die G\u00E4ste zu entfernen
-wahlensiebittezunachsteineodermehreregastelistenaus=W\u00E4hlen Sie bitte zun\u00E4chst eine oder mehrere G\u00E4sten aus
+wahlensiebittezunachsteinenodermehreregasteaus=W\u00E4hlen Sie bitte zun\u00E4chst einen oder mehrere G\u00E4ste aus
 bittebestatigensiedasloschendermarkiertengasteliste=Bitte best\u00E4tigen Sie das L\u00F6schen der markierten G\u00E4ste!
 GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00F6scht.
 
