@@ -286,7 +286,7 @@
 
                     <span id="buttonPanel-bottom" class="floatRight posAb" style="right: -1px; bottom: -40px;">
                         #if($grants.mayWrite())
-                            <input type="button" name="save" value="${placeholderWithTranslation.speichern}"  class="mainButton" onClick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" />
+                            <input type="button" name="save" title="${placeholderWithTranslation.speichern}" value="${placeholderWithTranslation.speichern}"  class="mainButton" onClick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" />
                         #end
                         <input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" title="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
                     </span>
