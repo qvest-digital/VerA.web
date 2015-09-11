@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2015 tarent solutions GmbH
- *
+ * <p/>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p/>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -64,13 +64,17 @@ import org.osiam.bundled.org.apache.commons.codec.language.bm.Lang;
  * Dieser Octopus-Worker dient der Anzeige und Bearbeitung von Details von Gästen.
  */
 public class GuestDetailWorker extends GuestListWorker {
-    //
+
     // Octopus-Aktionen
-    //
-    /** Eingabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Integer)} */
-    public static final String INPUT_showDetail[] = { "id", "offset" };
-    /** Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Integer)} */
-    public static final boolean MANDATORY_showDetail[] = { false, false };
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Integer)}
+     */
+    public static final String INPUT_showDetail[] = {"id", "offset"};
+    /**
+     * Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Integer)}
+     */
+    public static final boolean MANDATORY_showDetail[] = {false, false};
+
     /**
      * Diese Octopus-Aktion lädt Details zu einem Gast, der über ID oder über Position in der Ergebnisliste zu einer
      * aktuellen Gästesuche identifiziert wird.<br>
@@ -84,22 +88,20 @@ public class GuestDetailWorker extends GuestListWorker {
      * <li> "address" mit der Facade zur Adresse zum Standard-Freitextfeld
      * </ul>
      *
-     * @param cntx
-     *          Octopus-Kontext
-     * @param guestid
-     *          ID des Gasts
-     * @param offset
-     *          alternativ: Offset des Gasts in der aktuellen Gästesuche
+     * @param octopusContext Octopus-Kontext
+     * @param guestid        ID des Gasts
+     * @param offset         alternativ: Offset des Gasts in der aktuellen Gästesuche
      */
     @SuppressWarnings("unchecked")
-    public void showDetail(OctopusContext cntx, Integer guestid, Integer offset) throws BeanException, IOException {
-        Database database = getDatabase(cntx);
+    public void showDetail(OctopusContext octopusContext, Integer guestid, Integer offset)
+            throws BeanException, IOException {
+        Database database = getDatabase(octopusContext);
 
-        Guest guest = getGuest(cntx, guestid, offset);
+        Guest guest = getGuest(octopusContext, guestid, offset);
 
-        Person person = getPerson(cntx, database, guest);
+        Person person = getPerson(octopusContext, database, guest);
 
-        Integer freitextfeld = ConfigWorker.getInteger(cntx, "freitextfeld");
+        Integer freitextfeld = ConfigWorker.getInteger(octopusContext, "freitextfeld");
         Doctype doctype = (Doctype) database.getBean("Doctype", freitextfeld);
 
         Integer addresstype = doctype != null ? doctype.addresstype : null;
@@ -107,39 +109,40 @@ public class GuestDetailWorker extends GuestListWorker {
 
         Categorie category = (Categorie) database.getBean("Categorie", guest.category);
 
-        setGeneralContentForOctopusContext(cntx, guest, person, addresstype, locale, category);
+        setGeneralContentForOctopusContext(octopusContext, guest, person, addresstype, locale, category);
 
         // Getting persons category
-        getPersonCategories(person.id, cntx);
+        getPersonCategories(person.id, octopusContext);
 
         // Bug 1591 Im Kopf der Gaesteliste sollen nicht die Stammdaten, sondern die
         // Daten der Gaesteliste angezeigt werden
         try {
-            setGuestContentForOctopusContext(cntx, database, guest, freitextfeld);
+            setGuestContentForOctopusContext(octopusContext, database, guest, freitextfeld);
         } catch (Exception e) {
-            logger.warn("zum Gast: " + guestid + " und Doctyp: " + freitextfeld + " kann Bean 'GuestDoctype' nicht geladen werden", e);
-            cntx.setContent("showGuestListData", new Boolean(false));
+            logger.warn("zum Gast: " + guestid + " und Doctyp: " + freitextfeld +
+                    " kann Bean 'GuestDoctype' nicht geladen werden", e);
+            octopusContext.setContent("showGuestListData", new Boolean(false));
         }
     }
 
-    private void setGuestContentForOctopusContext(OctopusContext cntx, Database database, Guest guest,
-            Integer freitextfeld) throws BeanException, IOException {
+    private void setGuestContentForOctopusContext(OctopusContext octopusContext, Database database, Guest guest,
+                                                  Integer freitextfeld) throws BeanException, IOException {
         if (freitextfeld == null) {
             //Kopfdaten der Gaesteliste: Anzeige der Stammdaten oder Kopien fuer Gaesteliste
-            cntx.setContent("showGuestListData", new Boolean(false));
+            octopusContext.setContent("showGuestListData", new Boolean(false));
         } else {
             GuestDoctype guestDoctype = new GuestDoctype();
 
             guestDoctype = getGuestDoctypeFromDatabase(database, guest, freitextfeld, guestDoctype);
 
-            cntx.setContent("showGuestListData", new Boolean(guestDoctype != null));
-            cntx.setContent("guestListData", guestDoctype);
+            octopusContext.setContent("showGuestListData", new Boolean(guestDoctype != null));
+            octopusContext.setContent("guestListData", guestDoctype);
 
         }
     }
 
     private GuestDoctype getGuestDoctypeFromDatabase(Database database, Guest guest, Integer freitextfeld,
-            GuestDoctype guestDoctype) throws BeanException, IOException {
+                                                     GuestDoctype guestDoctype) throws BeanException, IOException {
         Select select = database.getSelect(guestDoctype);
         guestDoctype.doctype = freitextfeld;
         guestDoctype.guest = guest.id;
@@ -149,8 +152,8 @@ public class GuestDetailWorker extends GuestListWorker {
         return guestDoctype;
     }
 
-    private void setGeneralContentForOctopusContext(OctopusContext cntx, Guest guest, Person person, Integer addresstype,
-            Integer locale, Categorie category) {
+    private void setGeneralContentForOctopusContext(OctopusContext cntx, Guest guest, Person person,
+                                                    Integer addresstype, Integer locale, Categorie category) {
         cntx.setContent("guest", guest);
         cntx.setContent("person", person);
         cntx.setContent("main", person.getMemberFacade(true, locale));
@@ -162,22 +165,24 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
-    private Person getPerson(OctopusContext cntx, Database database, Guest guest) throws BeanException, IOException {
+    private Person getPerson(OctopusContext octopusContext, Database database, Guest guest)
+            throws BeanException, IOException {
         Person person = (Person) database.getBean("Person", guest.person);
         if (person == null) {
             logger.error("showDetail konnte Person #" + guest.person + " unerwartet nicht laden.");
-            cntx.setStatus("notfound");
+            octopusContext.setStatus("notfound");
         }
 
         return person;
     }
 
-    private Guest getGuest(OctopusContext cntx, Integer guestid, Integer offset) throws BeanException, IOException {
-        GuestSearch search = getSearch(cntx);
-        Guest guest = getGuest(cntx, search.event, guestid, offset);
+    private Guest getGuest(OctopusContext octopusContext, Integer guestid, Integer offset)
+            throws BeanException, IOException {
+        GuestSearch search = getSearch(octopusContext);
+        Guest guest = getGuest(octopusContext, search.event, guestid, offset);
         if (guest == null) {
             logger.error("showDetail konnte Gast #" + guestid + " unerwartet nicht laden.");
-            cntx.setStatus("notfound");
+            octopusContext.setStatus("notfound");
         }
 
         return guest;
@@ -186,75 +191,69 @@ public class GuestDetailWorker extends GuestListWorker {
     /**
      * Getting the categories for one person/guest
      *
-     * @param cntx OctopusContext
+     * @param octopusContext OctopusContext
      * @throws BeanException
      * @throws IOException
      */
-    private void getPersonCategories(Integer personId, OctopusContext ctx) throws BeanException, IOException {
-        final Database database = getDatabase(ctx);
-        List<Categorie> categories = database.getBeanList( "Categorie",
-            database.getSelect( "Categorie" ).
-            joinLeftOuter("tperson_categorie", "tcategorie.pk", "tperson_categorie.fk_categorie").
-            joinLeftOuter("tperson", "tperson_categorie.fk_person", "tperson.pk").
-            whereAndEq("tperson.pk", personId).
-            orderBy(null));
+    private void getPersonCategories(Integer personId, OctopusContext octopusContext)
+            throws BeanException, IOException {
+        final Database database = getDatabase(octopusContext);
+        List<Categorie> categories = database.getBeanList("Categorie",
+                database.getSelect("Categorie").
+                        joinLeftOuter("tperson_categorie", "tcategorie.pk", "tperson_categorie.fk_categorie").
+                        joinLeftOuter("tperson", "tperson_categorie.fk_person", "tperson.pk").
+                        whereAndEq("tperson.pk", personId).
+                        orderBy(null));
 
-        ctx.setContent("personCategories", categories);
+        octopusContext.setContent("personCategories", categories);
     }
 
 
-
-    /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext)} */
-    public static final String INPUT_saveDetail[] = {};
     /**
-         * Diese Methode speichert Details zu einem Gast.<br>
-         * Der Gast wird aus dem Octopus-Request gelesen. Je nach Einladungsart und -status werden dann Korrekturen an den
-         * laufenden Nummern ausgeführt und die Bean wird geprüft ({@link BeanException} falls sie unvollständig ist oder
-         * ungültige Einträge enthält). Schließlich wird sie gespeichert und passend wird im Octopus-Content unter
-         * "countInsert" oder "countUpdate" 1 eingetragen.
-         * Wenn der Nutzer dies im GUI bestaetigt hat, wird der Rang der Kategorie aus den Stammdaten der Person uebernommen.
-         *
-         * @param cntx
-         *          Octopus-Content
-         * @throws BeanException
-         *           bei ungültigen oder unvollständigen Einträgen
-         */
-    public void saveDetail(OctopusContext cntx) throws BeanException, IOException, Exception
-    {
-        Request request = getRequest(cntx);
-        Database database = getDatabase(cntx);
+     * Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext)}
+     */
+    public static final String INPUT_saveDetail[] = {};
+
+    /**
+     * Diese Methode speichert Details zu einem Gast.<br>
+     * Der Gast wird aus dem Octopus-Request gelesen. Je nach Einladungsart und -status werden dann Korrekturen an den
+     * laufenden Nummern ausgeführt und die Bean wird geprüft ({@link BeanException} falls sie unvollständig ist oder
+     * ungültige Einträge enthält). Schließlich wird sie gespeichert und passend wird im Octopus-Content unter
+     * "countInsert" oder "countUpdate" 1 eingetragen.
+     * Wenn der Nutzer dies im GUI bestaetigt hat, wird der Rang der Kategorie aus den Stammdaten der Person
+     * uebernommen.
+     *
+     * @param octopusContext Octopus-Content
+     * @throws BeanException bei ungültigen oder unvollständigen Einträgen
+     */
+    public void saveDetail(OctopusContext octopusContext) throws Exception {
+        Request request = getRequest(octopusContext);
+        Database database = getDatabase(octopusContext);
         TransactionContext context = database.getTransactionContext();
 
-        final Map<String, Object> allRequestParams = cntx.getRequestObject().getRequestParameters();
+        final Map<String, Object> allRequestParams = octopusContext.getRequestObject().getRequestParameters();
 
-        try
-        {
-            Guest guest = (Guest) request.getBean("Guest", "guest");
-
-            if (guest.id == null) {
-                Integer guestId = Integer.valueOf(allRequestParams.get("id").toString());
-                guest = (Guest) database.getBean("Guest", guestId);
-            }
+        try {
+            Guest guest = getGuestEntity(request, database, allRequestParams);
 
             //Check for duplicate reservation (guest and partner).
             LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-            LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+            LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
 
             List<String> duplicateErrorList = reservationDupCheck(database, guest, languageProvider);
 
             //In case duplications were found show the errors and do not proceed with saving
-            if(duplicateErrorList != null && !duplicateErrorList.isEmpty()){
-                cntx.setContent("duplicateErrorList", duplicateErrorList);
+            if (duplicateErrorList != null && !duplicateErrorList.isEmpty()) {
+                octopusContext.setContent("duplicateErrorList", duplicateErrorList);
                 return;
             }
 
-            if (guest.reserve != null && guest.reserve.booleanValue())
-            {
+            if (guest.reserve != null && guest.reserve.booleanValue()) {
                 guest.orderno_a = null;
                 guest.orderno_b = null;
             }
 
-            getGuestRankType(cntx, database, guest);
+            getGuestRankType(octopusContext, database, guest);
 
             setGuestOrderno(guest);
 
@@ -264,12 +263,12 @@ public class GuestDetailWorker extends GuestListWorker {
              * modified to support change logging
              * cklein 2008-02-12
              */
-            BeanChangeLogger clogger = new BeanChangeLogger( database, context );
+            BeanChangeLogger clogger = new BeanChangeLogger(database, context);
 
             if (guest.id == null) {
-                insertGuestRemoveNotehost(cntx, database, context, guest, clogger);
+                insertGuestRemoveNotehost(octopusContext, database, context, guest, clogger);
             } else {
-                updateGuestRemoveNotehost(cntx, database, context, guest, clogger);
+                updateGuestRemoveNotehost(octopusContext, database, context, guest, clogger);
             }
 
             updateDelegationFields(context, allRequestParams, guest.id);
@@ -280,49 +279,59 @@ public class GuestDetailWorker extends GuestListWorker {
         // 2008-02-13
         // prior to the change, there was a finally here
         // which caused the transaction to be always rolled back
-        catch( BeanException e )
-        {
+        catch (BeanException e) {
             context.rollBack();
         }
     }
 
-    private void updateGuestRemoveNotehost(OctopusContext cntx, Database database, TransactionContext context,
-            Guest guest, BeanChangeLogger clogger) throws BeanException, IOException {
-        Guest guestOld = ( Guest ) database.getBean( "Guest", guest.id, context);
+    private Guest getGuestEntity(Request request, Database database, Map<String, Object> allRequestParams) throws BeanException, IOException {
+        Guest guest = (Guest) request.getBean("Guest", "guest");
 
-        cntx.setContent("countUpdate", new Integer(1));
+        if (guest.id == null) {
+            Integer guestId = Integer.valueOf(allRequestParams.get("id").toString());
+            guest = (Guest) database.getBean("Guest", guestId);
+        }
+        return guest;
+    }
+
+    private void updateGuestRemoveNotehost(OctopusContext octopusContext, Database database,
+                                           TransactionContext transactionContext, Guest guest, BeanChangeLogger clogger)
+            throws BeanException, IOException {
+        Guest guestOld = (Guest) database.getBean("Guest", guest.id, transactionContext);
+
+        octopusContext.setContent("countUpdate", new Integer(1));
         Update update = database.getUpdate(guest);
-        if (!((PersonalConfigAA) cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
+        if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
             update.remove("notehost_a");
             update.remove("notehost_b");
             update.remove("noteorga_a");
             update.remove("noteorga_b");
         }
-        context.execute(update);
+        transactionContext.execute(update);
 
         // retrieve old instance of guest for update logging
         // we will quietly ignore non existing old entities and simply omit logging
-        if ( guestOld != null )
-        {
-            clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
+        if (guestOld != null) {
+            clogger.logUpdate(octopusContext.personalConfig().getLoginname(), guestOld, guest);
         }
     }
 
-    private void insertGuestRemoveNotehost(OctopusContext cntx, Database database, TransactionContext context,
-            Guest guest, BeanChangeLogger clogger) throws BeanException, IOException {
-        cntx.setContent("countInsert", new Integer(1));
-        database.getNextPk(guest, context);
+    private void insertGuestRemoveNotehost(OctopusContext octopusContext, Database database,
+                                           TransactionContext transactionContext, Guest guest, BeanChangeLogger clogger)
+            throws BeanException, IOException {
+        octopusContext.setContent("countInsert", new Integer(1));
+        database.getNextPk(guest, transactionContext);
         Insert insert = database.getInsert(guest);
         insert.insert("pk", guest.id);
-        if (!((PersonalConfigAA) cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
+        if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
             insert.remove("notehost_a");
             insert.remove("notehost_b");
             insert.remove("noteorga_a");
             insert.remove("noteorga_b");
         }
-        context.execute(insert);
+        transactionContext.execute(insert);
 
-        clogger.logInsert( cntx.personalConfig().getLoginname(), guest );
+        clogger.logInsert(octopusContext.personalConfig().getLoginname(), guest);
     }
 
     private void setGuestOrderno(Guest guest) {
@@ -345,14 +354,14 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
-    private void getGuestRankType(OctopusContext cntx, Database database, Guest guest) {
+    private void getGuestRankType(OctopusContext octopusContext, Database database, Guest guest) {
         try {
             // Der Rang der Kategorie wird aus den Stammdaten der Person gezogen,
             // wenn Nutzer dies will und wenn kein Rang vorbelegt ist.
-            if (cntx.requestAsBoolean("fetchRankFromMasterData").booleanValue() && guest.rank == null) {
+            if (octopusContext.requestAsBoolean("fetchRankFromMasterData").booleanValue() && guest.rank == null) {
                 if (guest.person != null && guest.category != null) {
                     Select sel = database.getSelect("PersonCategorie").where(
-                        Where.and(Expr.equal("fk_person", guest.person), Expr.equal("fk_categorie", guest.category)));
+                            Where.and(Expr.equal("fk_person", guest.person), Expr.equal("fk_categorie", guest.category)));
                     sel.orderBy(null); //im Bean.property steht ein Verweis auf andere Tabelle!
 
                     PersonCategorie perCat = (PersonCategorie) database.getBean("PersonCategorie", sel);
@@ -366,34 +375,37 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
-    private void updateDelegationFields(TransactionContext context, Map<String, Object> allRequestParams, Integer guestId) throws BeanException {
+    private void updateDelegationFields(TransactionContext transactionContext, Map<String, Object> allRequestParams,
+                                        Integer guestId) throws BeanException {
         // TODO Implement update the right way!!!
         // delete contents by guestId id from toptional_field_delegation_content
-        deleteExistingDelegationFieldContent(context, guestId);
+        deleteExistingDelegationFieldContent(transactionContext, guestId);
 
         for (Map.Entry<String, Object> entry : allRequestParams.entrySet()) {
-            if (entry.getKey().startsWith("optional-field-input-") || entry.getKey().startsWith("optional-field-dropdown-")) {
-                handleSingleValueEntry(context, allRequestParams, guestId, entry);
+            if (entry.getKey().startsWith("optional-field-input-") ||
+                    entry.getKey().startsWith("optional-field-dropdown-")) {
+                handleSingleValueEntry(transactionContext, allRequestParams, guestId, entry);
             } else if (entry.getKey().startsWith("optional-field-multipledropdown-")) {
                 try {
-                    handleMultipleDropdown(context, guestId, entry);
+                    handleMultipleDropdown(transactionContext, guestId, entry);
                 } catch (ClassCastException e) {
                     // TODO Implement better (without Exceptions)
                     // Throwing ClassCastException means that we have a String value into the entry.
                     // Otherwise, we cast the value to a List<String>
-                    handleSingleValueEntry(context, allRequestParams, guestId, entry);
+                    handleSingleValueEntry(transactionContext, allRequestParams, guestId, entry);
                 }
             }
         }
     }
 
-    private void handleMultipleDropdown(TransactionContext context, Integer guestId, Map.Entry<String, Object> entry) throws BeanException {
+    private void handleMultipleDropdown(TransactionContext transactionContext, Integer guestId, Map.Entry<String,
+            Object> entry) throws BeanException {
         final String[] keyParts = entry.getKey().split("-");
         final Integer fieldId = new Integer(keyParts[3]);
         final String[] fieldContents = (String[]) entry.getValue();
 
         for (String fieldContent : fieldContents) {
-            insertNewDelegationContent(context, guestId, fieldId, fieldContent);
+            insertNewDelegationContent(transactionContext, guestId, fieldId, fieldContent);
         }
     }
 
@@ -402,9 +414,9 @@ public class GuestDetailWorker extends GuestListWorker {
      * one selected option.
      *
      * @param transactionContext The {@link TransactionContext}
-     * @param allRequestParams All request parameters submittet by the form
-     * @param guestId The guest id for the current guest
-     * @param entry Current entry
+     * @param allRequestParams   All request parameters submittet by the form
+     * @param guestId            The guest id for the current guest
+     * @param entry              Current entry
      * @throws BeanException TODO
      */
     private void handleSingleValueEntry(final TransactionContext transactionContext,
@@ -418,48 +430,51 @@ public class GuestDetailWorker extends GuestListWorker {
         insertNewDelegationContent(transactionContext, guestId, fieldId, fieldContent);
     }
 
-    private void insertNewDelegationContent(TransactionContext context, Integer guestId, Integer fieldId, String fieldContent) throws BeanException {
-        final Insert insert = SQL.Insert(context);
+    private void insertNewDelegationContent(TransactionContext transactionContext, Integer guestId, Integer fieldId,
+                                            String fieldContent) throws BeanException {
+        final Insert insert = SQL.Insert(transactionContext);
         insert.table("veraweb.toptional_fields_delegation_content");
         insert.
                 insert("toptional_fields_delegation_content.fk_guest", guestId).
                 insert("toptional_fields_delegation_content.fk_delegation_field", fieldId).
                 insert("toptional_fields_delegation_content.value", fieldContent);
 
-        context.execute(insert);
+        transactionContext.execute(insert);
     }
 
-    private void deleteExistingDelegationFieldContent(final TransactionContext context, final Integer guestId) throws BeanException {
-        final Delete deleteStatement = SQL.Delete(context);
-        deleteStatement.from("toptional_fields_delegation_content").whereAndEq("toptional_fields_delegation_content.fk_guest", guestId);
-        context.execute(deleteStatement);
+    private void deleteExistingDelegationFieldContent(final TransactionContext transactionContext,
+                                                      final Integer guestId) throws BeanException {
+        final Delete deleteStatement = SQL.Delete(transactionContext);
+        deleteStatement.from("toptional_fields_delegation_content").
+                whereAndEq("toptional_fields_delegation_content.fk_guest", guestId);
+        transactionContext.execute(deleteStatement);
     }
 
 
     public static final String INPUT_reservationDupCheck[] = {};
 
     /**
-     * This method returns list of error messages in the case where duplicate reservation for the guest ("Hauptperson") or its partner
-     * (or both) were found in the database table tguest. Duplicate reservation applies if an seat (with empty or 0 table) or table and seat is already
-     * reserved by another guest or its partner.
+     * This method returns list of error messages in the case where duplicate reservation for the guest ("Hauptperson")
+     * or its partner (or both) were found in the database table tguest. Duplicate reservation applies if an seat
+     * (with empty or 0 table) or table and seat is alreadyreserved by another guest or its partner.
+     *
      * @param database
      * @param guest
      * @return Returns list of error messages in case duplicate reservation were found
      * @throws BeanException
      * @throws IOException
      */
-    public List<String> reservationDupCheck(Database database, Guest guest, final LanguageProvider languageProvider) throws BeanException, IOException {
+    public List<String> reservationDupCheck(Database database, Guest guest, final LanguageProvider languageProvider)
+            throws BeanException, IOException {
 
         List<String> duplicateErrorList = new ArrayList<String>();
 
         return duplicateGuestAndPartnerList(database, guest, duplicateErrorList, languageProvider);
     }
 
-    private List<String> duplicateGuestAndPartnerList(Database database, Guest guest,
-            List<String> duplicateErrorList, final LanguageProvider languageProvider) throws BeanException, IOException {
-
-
-
+    private List<String> duplicateGuestAndPartnerList(Database database, Guest guest, List<String> duplicateErrorList,
+                                                      final LanguageProvider languageProvider)
+            throws BeanException, IOException {
 
 
         //SCENARIO 1 - The seat (or table and seat) of the guest ("Hauptperson") is already reserved by another guest
@@ -469,7 +484,7 @@ public class GuestDetailWorker extends GuestListWorker {
         selectPartnerAddDuplicateGuestList(database, guest, duplicateErrorList, languageProvider);
 
 
-        if(guest.getIsPartnerInvited()){
+        if (guest.getIsPartnerInvited()) {
             //SCENARIO 3 - The seat (or table and seat) of the partner is already reserved by another guest
             selectGuestAddPartnerDuplicateList(database, guest, duplicateErrorList, languageProvider);
 
@@ -496,12 +511,12 @@ public class GuestDetailWorker extends GuestListWorker {
 
             Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
-            if(duplicatePerson != null){
+            if (duplicatePerson != null) {
                 duplicateErrorList.add(
                         getDuplicateSeatErrorMessage(duplicatePerson,
-                                                     languageProvider.getProperty("GUEST_DETAIL_PARTNER"),
-                                                     languageProvider.getProperty("GUEST_DETAIL_PARTNER_GENITIV"),
-                                                     languageProvider)
+                                languageProvider.getProperty("GUEST_DETAIL_PARTNER"),
+                                languageProvider.getProperty("GUEST_DETAIL_PARTNER_GENITIV"),
+                                languageProvider)
                 );
             }
         } else {
@@ -513,7 +528,7 @@ public class GuestDetailWorker extends GuestListWorker {
 
             Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
-            if(duplicatePerson != null){
+            if (duplicatePerson != null) {
                 duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
                         languageProvider.getProperty("GUEST_DETAIL_PARTNER"),
                         languageProvider.getProperty("GUEST_DETAIL_PARTNER_GENITIV"), languageProvider));
@@ -521,9 +536,7 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
-    private void selectGuestAddPartnerDuplicateList(Database database,
-                                                    Guest guest,
-                                                    List<String> duplicateErrorList,
+    private void selectGuestAddPartnerDuplicateList(Database database, Guest guest, List<String> duplicateErrorList,
                                                     final LanguageProvider languageProvider)
             throws BeanException, IOException {
         if (guest.seatno_b != null && guest.seatno_b > 0) {
@@ -538,7 +551,7 @@ public class GuestDetailWorker extends GuestListWorker {
 
                 Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
-                if(duplicatePerson != null){
+                if (duplicatePerson != null) {
                     duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
                             languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
                             languageProvider.getProperty("GUEST_DETAIL_PARTNER_GENITIV"),
@@ -553,7 +566,7 @@ public class GuestDetailWorker extends GuestListWorker {
 
                 Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
-                if(duplicatePerson != null){
+                if (duplicatePerson != null) {
                     duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
                             languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
                             languageProvider.getProperty("GUEST_DETAIL_PARTNER_GENITIV"),
@@ -579,7 +592,7 @@ public class GuestDetailWorker extends GuestListWorker {
 
                 Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
-                if(duplicatePerson != null){
+                if (duplicatePerson != null) {
                     duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
                             languageProvider.getProperty("GUEST_DETAIL_PARTNER"),
                             languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
@@ -595,7 +608,7 @@ public class GuestDetailWorker extends GuestListWorker {
 
                 Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
-                if(duplicatePerson != null){
+                if (duplicatePerson != null) {
                     duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
                             languageProvider.getProperty("GUEST_DETAIL_PARTNER"),
                             languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
@@ -621,11 +634,11 @@ public class GuestDetailWorker extends GuestListWorker {
 
                 Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
-                if(duplicatePerson != null){
+                if (duplicatePerson != null) {
                     duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
-                                           languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
-                                           languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
-                                           languageProvider));
+                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                            languageProvider));
                 }
             } else {
                 Select select = database.getSelect("Guest")
@@ -637,25 +650,24 @@ public class GuestDetailWorker extends GuestListWorker {
 
                 Person duplicatePerson = checkForDuplicateSeatPerson(database, select);
 
-                if(duplicatePerson != null){
+                if (duplicatePerson != null) {
                     duplicateErrorList.add(getDuplicateSeatErrorMessage(duplicatePerson,
-                                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
-                                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
-                                            languageProvider));
+                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                            languageProvider.getProperty("GUEST_DETAIL_MAINPERSON"),
+                            languageProvider));
                 }
             }
         }
     }
 
     /**
-     *
      * @param database
      * @param select
      * @return
      * @throws BeanException
      * @throws IOException
      */
-    private Person checkForDuplicateSeatPerson(Database database, Select select) throws BeanException, IOException{
+    private Person checkForDuplicateSeatPerson(Database database, Select select) throws BeanException, IOException {
         Person duplicatePersonResult = null;
 
         List resultList = database.getBeanList("Guest", select);
@@ -677,39 +689,43 @@ public class GuestDetailWorker extends GuestListWorker {
     private String getDuplicateSeatErrorMessage(Person duplicatePerson,
                                                 String changeSeatFor,
                                                 String collidesWithSeatOf,
-                                                final LanguageProvider languageProvider){
+                                                final LanguageProvider languageProvider) {
 
         return languageProvider.getProperty("GUEST_DETAIL_DUP_SEAT_ERROR_ONE") +
                 changeSeatFor +
                 languageProvider.getProperty("GUEST_DETAIL_DUP_SEAT_ERROR_TWO") +
                 duplicatePerson.firstname_a_e1 + " " + duplicatePerson.lastname_a_e1 +
-                " (" + duplicatePerson.id    + ") " +
+                " (" + duplicatePerson.id + ") " +
                 languageProvider.getProperty("GUEST_DETAIL_DUP_SEAT_ERROR_THREE") +
                 languageProvider.getProperty("GUEST_DETAIL_DUP_SEAT_ERROR_FOUR") +
                 collidesWithSeatOf + languageProvider.getProperty("GUEST_DETAIL_DUP_SEAT_ERROR_FIVE");
     }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #showTestGuest(OctopusContext)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #showTestGuest(OctopusContext)}
+     */
     public static final String INPUT_showTestGuest[] = {};
+
     /**
      * Diese Octopus-Aktion liefert Details zu einem Test-Gast. Dieser wird unter
      * "guest" im Octopus-Content eingetragen.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      */
-    public void showTestGuest(OctopusContext cntx) throws BeanException {
+    public void showTestGuest(OctopusContext octopusContext) throws BeanException {
         Guest guest = new Guest();
         int random = new Random().nextInt(10000);
         String suffix = " [test-" + random + "]";
         showTestGuest(guest.getMain(), suffix + " (Hauptperson)", random);
         showTestGuest(guest.getPartner(), suffix + " (Partner)", random);
         guest.verify();
-        cntx.setContent("guest", guest);
+        octopusContext.setContent("guest", guest);
     }
 
     //
     // Hilfsmethoden
     //
+
     /**
      * Diese Methode erzeugt Test-Gast-Daten in einer Gast-Member-Facade.
      *
@@ -737,18 +753,18 @@ public class GuestDetailWorker extends GuestListWorker {
      * anhand dieser selektiert, sonst wird er über den übergebenen Offset in der
      * Ergebnisliste zur aktuellen Gastsuche ausgewählt.<br>
      *
-     * @param cntx Octopus-Kontext
-     * @param eventid Veranstaltungs-ID für Selektion über ID
-     * @param guestid Gast-ID für Selektion über ID
-     * @param offset Gast-Offset für Selektion über Offset in Suchergebnisliste
+     * @param octopusContext Octopus-Kontext
+     * @param eventid        Veranstaltungs-ID für Selektion über ID
+     * @param guestid        Gast-ID für Selektion über ID
+     * @param offset         Gast-Offset für Selektion über Offset in Suchergebnisliste
      * @return der selektierte Gast oder <code>null</code>
-    */
-    protected Guest getGuest(OctopusContext cntx, Integer eventid, Integer guestid, Integer offset)
+     */
+    protected Guest getGuest(OctopusContext octopusContext, Integer eventid, Integer guestid, Integer offset)
             throws BeanException, IOException {
-        Database database = getDatabase(cntx);
+        Database database = getDatabase(octopusContext);
 
         // Offset aus der GuestListSearch lesen
-        GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
+        GuestSearch search = (GuestSearch) octopusContext.contentAsObject("search");
 
         // Offset in den aktuellen Suchfilter-Bereich legen.
         if (offset == null || offset.intValue() < 1) {
@@ -756,7 +772,7 @@ public class GuestDetailWorker extends GuestListWorker {
         }
 
         Select select = database.getCount(BEANNAME);
-        extendWhere(cntx, select);
+        extendWhere(octopusContext, select);
         Integer count = database.getCount(select);
         offset = getOffsetNumber(offset, count);
 
@@ -767,7 +783,7 @@ public class GuestDetailWorker extends GuestListWorker {
         // Select bauen das entweder ID oder das Offset verwenden um einen Gast zu laden
         select = database.getSelect(BEANNAME);
         selectColors(select);
-        extendColumns(cntx, select);
+        extendColumns(octopusContext, select);
 
         if (guestid != null && guestid.intValue() != 0) {
             if (logger.isEnabledFor(Priority.DEBUG))
@@ -776,9 +792,9 @@ public class GuestDetailWorker extends GuestListWorker {
                     Expr.equal("tguest.pk", guestid),
                     Expr.equal("tguest.fk_event", eventid)));
 
-            Guest guest = (Guest)database.getBean(BEANNAME, select);
+            Guest guest = (Guest) database.getBean(BEANNAME, select);
             if (guest != null) {
-                getGuestListPositionById(cntx, guestid, database, search);
+                getGuestListPositionById(octopusContext, guestid, database, search);
 
                 return guest;
             }
@@ -792,21 +808,22 @@ public class GuestDetailWorker extends GuestListWorker {
         addGuestListFilter(search, list);
         select.where(list);
         select.Limit(new Limit(new Integer(1), new Integer(offset.intValue() - 1)));
-        return (Guest)database.getBean(BEANNAME, select);
+        return (Guest) database.getBean(BEANNAME, select);
     }
 
-    private void getGuestListPositionById(OctopusContext cntx, Integer guestid, Database database, GuestSearch search)
+    private void getGuestListPositionById(OctopusContext octopusContext, Integer guestid, Database database,
+                                          GuestSearch search)
             throws BeanException, IOException {
         // Gast wurde gefunden. Durch diese Suche (per ID) konnte sich aber ggf. die
         // Position innerhalb der Liste verändert werden, daher wird diese nun neu
         // Kalkuliert.
         Select selectForPosition = database.getSelect("Guest");
-        extendColumns(cntx, selectForPosition);
-        extendWhere(cntx, selectForPosition);
+        extendColumns(octopusContext, selectForPosition);
+        extendWhere(octopusContext, selectForPosition);
 
         int newOffset = 1;
         for (Iterator it = database.getList(selectForPosition, database).iterator(); it.hasNext(); ) {
-            Integer id = (Integer)((Map)it.next()).get("id");
+            Integer id = (Integer) ((Map) it.next()).get("id");
             if (id.intValue() == guestid.intValue()) {
                 search.offset = new Integer(newOffset);
                 break;
@@ -825,13 +842,14 @@ public class GuestDetailWorker extends GuestListWorker {
     private Integer getOffsetNumber(Integer offset, Integer count) {
         if (offset == null || offset.intValue() < 1) {
             offset = new Integer(1);
-        }
-        else if (offset.intValue() > count.intValue()) {
+        } else if (offset.intValue() > count.intValue()) {
             offset = count;
         }
         return offset;
     }
 
-    /** Logger dieser Klasse */
+    /**
+     * Logger dieser Klasse
+     */
     public static final Logger logger = Logger.getLogger(GuestDetailWorker.class);
 }
