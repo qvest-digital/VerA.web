@@ -222,7 +222,7 @@ WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Usted tiene la posibilidad de visualiz
 WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO=Tambi\u00E9n puede visualizar y editar la configuraci\u00F3n del mandante.
 WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Usted tiene la posibilidad de visualizar, exportar, importar, editar y eliminar los datos maestros y observaciones de personas y eventos.
 WELCOME_TEXT_GRANT_ADMIN_PART_TWO=Tambi\u00E9n puede visualizar y editar la configuraci\u00F3n global y por mandante.
-WELCOME_TEXT_HELP=Si necesita m\u00E1s informaci\u00F3n, por favor visite la p\u00E1gina de "Ayuda".
+WELCOME_TEXT_HELP=Si necesita m\u00E1s informaci\u00F3n, por favor visite la p\u00E1gina de \u201CAyuda\u201D.
 WELCOME_TEXT_NO_ROLE=Su acceso no dispone de rol para utilizar VerA.web. Por favor, cierre su sesi\u00F3n y vuelva a intentarlo con una cuenta de usuario habilitada en VerA.web.
 GENERIC_AVAILABLE_DUPLICATES=Duplicados existentes
 
@@ -511,7 +511,6 @@ GENERIC_DOCUMENTED_ON=Documentado el
 GENERIC_LAST_EDITED_ON=\u00DAltima edici\u00F3n el
 GENERIC_PERSONS_ID=Identificador de personas
 GENERIC_OA_USERNAME=Nombre de usuario para aplicaci\u00F3n en l\u00EDnea
-freifeld-vorschaufuretikett="Campo de vista previa para \u00E2\u0080\u009EEtiqueta\u00E2\u0080\u009C"
 zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Para esta persona, la vista previa correspondiente no ha sido generada.
 GENERIC_COPY_PERSON=Copiar persona
 GENERIC_CREATE_TAG=Crear etiqueta
@@ -628,10 +627,10 @@ LABEL_EXPORT_MADLAN_ENCODING=Codificaci\u00F3n
 LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Codificaci\u00F3n (Cir\u00EDlica)
 HINT_EXPORT_CSV=Dependiendo de la cantidad de datos exportados (mediante el n\u00FAmero de categor\u00EDas y tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
 HINT_EXPORT_ZKM=El archivo de exportaci\u00F3n ser\u00E1 almacenado en la carpeta de salida ZKM como se podr\u00E1 gestionar un control sobre la descarga. La descarga se podr\u00E1 abortar de forma segura.
-HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as "Datos de personas", "Direcciones", "Tipos de documento" y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as "Datos de personas", "Tipos de documento" y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as "Datos de personas", "Tipos de documento" y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
-HINT_EXPORT_CSVPERSDATA_CATEGORY=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as "Datos de personas", "Tipos de documento" y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de categor\u00EDas), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as \u201CDatos de personas\u201D, \u201CDirecciones\u201D, \u201CTipos de documento\u201D y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as \u201CDatos de personas\u201D, \u201CTipos de documento\u201D y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as \u201CDatos de personas\u201D, \u201CTipos de documento\u201D y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as \u201CDatos de personas\u201D, \u201CTipos de documento\u201D y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de categor\u00EDas), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
 HINT_EXPORT_CSV_ISO_8859_15=Este formato es adecuado para la importaci\u00F3n/exportaci\u00F3n sobre aplicaciones como MS Office, las cuales utilizan el juego de caracteres ISO-8859-15. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de categor\u00EDas y tipos de documento), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
@@ -806,14 +805,14 @@ GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=Se han a\u00F1adido
 GUEST_LIST_EXPAND_MULTIPLE_PART_TWO=invitados a la lista
 GUEST_LIST_HINT_EXPORT_GUEST=Si selecciona un s\u00F3lo invitado, ser\u00E1 el \u00FAnico en ser exportado. De lo contrario, se exportar\u00E1 el listado completo
 GUEST_LIST_HINT_FILTER=Para la generaci\u00F3n del archivo de control o listado de invitados se considerara el criterio establecido en el filtro superior.
-GUEST_LIST_HINT_RED_PERSON=Las personas con fondo de color rojo ser\u00E1n marcadas como personas "a borrar"
+GUEST_LIST_HINT_RED_PERSON=Las personas con fondo de color rojo ser\u00E1n marcadas como personas \u201Ca borrar\u201D
 GUEST_LIST_CREATED_NO_PERSON=creado sin personas
 GUEST_LIST_CREATED_ONE_PERSON=creado con una persona
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE=creado con
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO=personas
 GUEST_LIST_NO_GUEST_INVITED=A\u00FAn no se han a\u00F1adido invitadoseingeladen
 GUEST_LIST_NUMBER_CALCULATE=Calcular n\u00FAmero de serie
-GUEST_LIST_NUMBER_CALCULATED_SAVED=El "n\u00FAmero de serie" ser\u00E1 recalculado y guardado para todos los invitados
+GUEST_LIST_NUMBER_CALCULATED_SAVED=El \u201Cn\u00FAmero de serie\u201D ser\u00E1 recalculado y guardado para todos los invitados
 GUEST_LIST_ONLY_OPEN=s\u00F3lo pendientes
 GUEST_LIST_ONLY_ACCEPT=s\u00F3lo aceptados
 GUEST_LIST_ONLY_DECLINED=s\u00F3lo rechazados
@@ -1012,9 +1011,9 @@ vermutlichbefindetsichdieimportdateinichtimvomsystemerwartemformat=Presumiblemen
 detailsanzeigen=Mostrar detalles
 beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden=Al importar datos con gran longitud, es posible que sean acortados para ser visualizados en VerA.web.
 alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden=Todos los tipos de documento para la importaci\u00F3n de personas deber\u00E1n estar habilitados en el sistema. \u00BFComenzar proceso de importaci\u00F3n?
-umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=Para hacer a un duplicado almacenable, deber\u00E1 seleccionarlos como almacenables mediante la opci\u00F3n "duplicados existentes".
+umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=Para hacer a un duplicado almacenable, deber\u00E1 seleccionarlos como almacenables mediante la opci\u00F3n \u201Cduplicados existentes\u201D.
 HINT_UMLAUT_COMPARISON=Tenga en cuenta, que los caracteres \u00E4, \u00F6, \u00FC y \u00DF ser\u00E1n tratados como ae, oe, ue y ss, respectivamente.
-derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=La importaci\u00F3n terminar\u00E1 una vez pulse sobre el bot\u00F3n "Finalizar exportaci\u00F3n".
+derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=La importaci\u00F3n terminar\u00E1 una vez pulse sobre el bot\u00F3n \u201CFinalizar exportaci\u00F3n\u201D.
 derimportkannerstabgeschlossenwerdenwennspeicherbaredatensatzevorhandensind=El proceso puede ser finalizado en caso de que los registros almacenables se hayan guardado.
 vorhandenedubletten=Duplicados existentes
 vorhandenedublettenbearbeiten=Editar duplicados existentes
@@ -1112,7 +1111,7 @@ biszudiesemdatum=Hasta la fecha
 abdiesemdatum=Desde la fecha
 angenaudiesemdatum=Exactamente en la fecha
 datumauswaehlen=Seleccionar fecha
-HINT_SEARCH_MULTIPLE=La b\u00FAsqueda tambi\u00E9n es compatible con la b\u00FAsqueda m\u00FAltiple por categor\u00EDa. Por favor, seleccione varias categor\u00EDas, mantenga presionado el bot\u00F3n del rat\u00F3n y arrastre su selecci\u00F3n hacia la b\u00FAsqueda de categor\u00EDas. Como alternativa, puede hacer clic mientras mantiene pulsada la tecla "Ctrl" con el bot\u00F3n izquierdo del rat\u00F3n. Tenga en cuenta que las pseudocategor\u00EDas "Todas" y "Ninguna" no son seleccionables.
+HINT_SEARCH_MULTIPLE=La b\u00FAsqueda tambi\u00E9n es compatible con la b\u00FAsqueda m\u00FAltiple por categor\u00EDa. Por favor, seleccione varias categor\u00EDas, mantenga presionado el bot\u00F3n del rat\u00F3n y arrastre su selecci\u00F3n hacia la b\u00FAsqueda de categor\u00EDas. Como alternativa, puede hacer clic mientras mantiene pulsada la tecla \u201CCtrl\u201D con el bot\u00F3n izquierdo del rat\u00F3n. Tenga en cuenta que las pseudocategor\u00EDas \u201CTodas\u201D y \u201CNinguna\u201D no son seleccionables.
 waehlensiebittezunaechsteinekategorieaus=Por favor, seleccione una categor\u00EDa.
 wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Desea asignar la categor\u00EDa asignada a la persona/invitado
 eswurdekeinekategoriezugeordnet=No se han asignado categor\u00EDas
@@ -1127,7 +1126,7 @@ zuweisen=Asignar
 waehlensieeinekategorieauswelchesie=Seleccione una categor\u00EDa, la que
 moechten=desee
 alleentfernen=Eliminar todas
-siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=No ha configurado categor\u00EDas. Mediante el apartado "Administraci\u00F3n" es posible
+siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=No ha configurado categor\u00EDas. Mediante el apartado \u201CAdministraci\u00F3n\u201D es posible
 definieren=definirlas.
 siehabenpersonenausgewaehltabhaengigvonderanzahlderausgewaehltenpersonenkanndieaktioneinegewissezeitinanspruchnehmen=Ha seleccionado ${count} personas. Dependiendo del n\u00FAmero de personas seleccionadas, el proceso puede durar un poco m\u00E1s.
 waehlensiebittezunaechsteinenarbeitsbereichaus=Seleccione un \u00E1rea de trabajo.
@@ -1141,7 +1140,7 @@ wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben
 wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Desea asignar el \u00E1rea de trabajo seleccionada a la persona/invitado actual
 wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=Desea asignar el \u00E1rea de trabajo seleccionada a ${count} personas/invitados
 waehlensieeinenarbeitsbereichauswelchensie=Seleccione un \u00E1rea de trabajo, el que
-siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=No ha configurado \u00E1reas de trabajo. Mediante el apartado "Administraci\u00F3n" es posible
+siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=No ha configurado \u00E1reas de trabajo. Mediante el apartado \u201CAdministraci\u00F3n\u201D es posible
 administrationallestellvertretungenimmandanten=Administraci\u00F3n - todos los delegados del mandante
 administrationallestellvertretungen=Administraci\u00F3n - todos los delegados
 verwaltungpersoenlichevertretungen=Gesti\u00F3n - delegados personales
@@ -1298,7 +1297,7 @@ siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuer
 undamtsbezeichnungfunktion=y t\u00EDtulo/funci\u00F3n
 HINT_SEARCH_WHERE=La b\u00FAsqueda se basa en nombres, apellidos, localizaci\u00F3n, c\u00F3digo postal, calle, empresa/instituci\u00F3n, tel\u00E9fono, fax, m\u00F3vil, e-mail, observaciones, categor\u00EDas y \u00E1reas de trabajo
 neuenorteingeben=Asignar nueva localizaci\u00F3n
-bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Por favor, introduzca una nueva localizaci\u00F3n y presione sobre "Asignar"
+bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Por favor, introduzca una nueva localizaci\u00F3n y presione sobre \u201CAsignar\u201D
 neuerveranstaltungsort=Nueva localizaci\u00F3n
 markierenundkopierensiefolgendesadressetikett=Seleccionar y copiar las siguientes etiquetas de direcci\u00F3n
 personenetikett=Etiquetas-Personas
@@ -1429,7 +1428,7 @@ GUEST=Invitado
 GENERIC_OF=de
 
 
-TOOLTIP_EDIT_HEADLINES=Usted puede modificar los encabezados antes de imprimir pulsando sobre "Editar". Por favor, guarde antes de imprimir.
+TOOLTIP_EDIT_HEADLINES=Usted puede modificar los encabezados antes de imprimir pulsando sobre \u201CEditar\u201D. Por favor, guarde antes de imprimir.
 GENERIC_NEXT_PAGE=P\u00E1gina siguiente
 GENERIC_PREVIOUS_PAGE=P\u00E1gina anterior
 GENERIC_APPLY_TO_GUESTLIST=A\u00F1adir a la lista de invitados
@@ -1451,9 +1450,9 @@ bittebestatigensiedasloschendermarkiertengasteliste=Por favor, \u00A1confirme la
 GENERIC_NO_GUESTLIST_DELETED=No se han eliminado invitados.
 
 
-EVENT_DOCTYPE_RESET_INFO=Por favor, compruebe que el evento tiene asociados los tipos de documento. Si este fuera el caso, necesita volver a crear los tipos de documento para los invitados, haciendo clic en "Restablecer datos maestros".
+EVENT_DOCTYPE_RESET_INFO=Por favor, compruebe que el evento tiene asociados los tipos de documento. Si este fuera el caso, necesita volver a crear los tipos de documento para los invitados, haciendo clic en \u201CRestablecer datos maestros\u201D.
 
-diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Se encuentra dentro del men\u00FA "Administraci\u00F3n > Preferencias de programa".
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Se encuentra dentro del men\u00FA \u201CAdministraci\u00F3n > Preferencias de programa\u201D.
 
 GENERIC_CHOSEN_GUESTLIST=Invitados seleccionados
 exportierfahigegasteliste=Invitados exportables

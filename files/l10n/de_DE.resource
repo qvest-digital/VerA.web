@@ -511,7 +511,6 @@ GENERIC_DOCUMENTED_ON=Erfasst am
 GENERIC_LAST_EDITED_ON=Zuletzt ge\u00E4ndert am
 GENERIC_PERSONS_ID=Personen-ID
 GENERIC_OA_USERNAME=Online-Anmeldung Benutzername
-freifeld-vorschaufuretikett=Freifeld-Vorschau f\u00FCr \u201EEtikett\u201C
 zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
 GENERIC_COPY_PERSON=Person kopieren
 GENERIC_CREATE_TAG=Etikett erzeugen
@@ -628,10 +627,10 @@ LABEL_EXPORT_MADLAN_ENCODING=Encoding
 LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Encoding (kyrillisch)
 HINT_EXPORT_CSV=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_ZKM=Die Exportdatei wird sowohl im ZKM-Ausgangsordner abgelegt als auch Ihnen zur Kontrolle zum Herunterladen angeboten. Das Herunterladen k\u00F6nnen Sie bedenkenlos abbrechen.
-HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Es werden nur die Felder aus den Karteireitern "Personendaten", "Anschriften", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE=Es werden nur die Felder aus den Karteireitern "Personendaten", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Es werden nur die Felder aus den Karteireitern "Personendaten", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern "Personendaten", "Kategorien" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EAnschriften\u201C, \u201EDokumenttypen\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EDokumenttypen\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EDokumenttypen\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EKategorien\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSV_ISO_8859_15=Dieses Format ist f\u00FCr Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
@@ -806,14 +805,14 @@ GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=Die G\u00E4steliste wurde um
 GUEST_LIST_EXPAND_MULTIPLE_PART_TWO=G\u00E4ste erweitert
 GUEST_LIST_HINT_EXPORT_GUEST=Wenn Sie einzelne G\u00E4ste markieren, werden nur diese exportiert, ansonsten die vollst\u00E4ndige Liste
 GUEST_LIST_HINT_FILTER=Beim Erstellen von Steuerdateien oder G\u00E4stelisten wird Ihr oben ausgew\u00E4hlter Filter ber\u00FCcksichtigt
-GUEST_LIST_HINT_RED_PERSON=Rot hinterlegte Personen wurden bereits als "zu l\u00F6schen" markiert
+GUEST_LIST_HINT_RED_PERSON=Rot hinterlegte Personen wurden bereits als \u201Ezu l\u00F6schen\u201C markiert
 GUEST_LIST_CREATED_NO_PERSON=wurde ohne Personen angelegt
 GUEST_LIST_CREATED_ONE_PERSON=wurde mit einer Person angelegt
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE=wurde mit
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO=Personen angelegt
 GUEST_LIST_NO_GUEST_INVITED=Es wurden noch keine G\u00E4ste eingeladen
 GUEST_LIST_NUMBER_CALCULATE=Laufende Nummer berechnen
-GUEST_LIST_NUMBER_CALCULATED_SAVED=Die "Laufende Nummer" wurde f\u00FCr alle G\u00E4ste neu berechnet und gespeichert
+GUEST_LIST_NUMBER_CALCULATED_SAVED=Die \u201ELaufende Nummer\u201C wurde f\u00FCr alle G\u00E4ste neu berechnet und gespeichert
 GUEST_LIST_ONLY_OPEN=nur Offene
 GUEST_LIST_ONLY_ACCEPT=nur Zusagen
 GUEST_LIST_ONLY_DECLINED=nur Absagen
@@ -984,7 +983,7 @@ bittebestatigensiedasloschenvonaufgaben=Bitte best\u00E4tigen Sie das L\u00F6sch
 ausgewahlteeintrageloschen=Ausgew\u00E4hlte Eintr\u00E4ge l\u00F6schen
 start=Start
 zursuche=Zur Suche
-siesindalsvolladministratorangemeldetundexportierenhiermitmandantenubergreifend=Sie sind als "Voll-Administrator" angemeldet und exportieren hiermit Mandanten\u00FCbergreifend.
+siesindalsvolladministratorangemeldetundexportierenhiermitmandantenubergreifend=Sie sind als \u201EVoll-Administrator\u201C angemeldet und exportieren hiermit Mandanten\u00FCbergreifend.
 sieexportierenmitdieserfunktionausschlieszlichpersonenausihremaktuellenmandanten=Sie exportieren mit dieser Funktion ausschlie\u00DFlich Personen aus Ihrem aktuellen Mandanten.
 event=Veranstaltung
 keine=Keine
@@ -1110,7 +1109,7 @@ biszudiesemdatum=Bis zu diesem Datum
 abdiesemdatum=Ab diesem Datum
 angenaudiesemdatum=An genau diesem Datum
 datumauswaehlen=Datum ausw\u00E4hlen
-HINT_SEARCH_MULTIPLE=Die Suche unterst\u00FCtzt auch die Mehrfachsuche nach Kategorien. Um mehrere Kategorien auszuw\u00E4hlen, halten Sie bitte die Maustaste gedr\u00FCckt und ziehen Sie den Mauszeiger \u00FCber die in der Suche zu ber\u00FCcksichtigenden Kategorien. Alternativ k\u00F6nnen Sie bei gedr\u00FCckter STRG-Taste mit der linken Maustaste auf die zu ber\u00FCcksichtigenden Kategorien klicken. Beachten Sie bitte, dass die beiden Pseudokategorien "Alle" und "Keine" nicht zusammen mit anderen Kategorien ausgew\u00E4hlt werden k\u00F6nnen.
+HINT_SEARCH_MULTIPLE=Die Suche unterst\u00FCtzt auch die Mehrfachsuche nach Kategorien. Um mehrere Kategorien auszuw\u00E4hlen, halten Sie bitte die Maustaste gedr\u00FCckt und ziehen Sie den Mauszeiger \u00FCber die in der Suche zu ber\u00FCcksichtigenden Kategorien. Alternativ k\u00F6nnen Sie bei gedr\u00FCckter STRG-Taste mit der linken Maustaste auf die zu ber\u00FCcksichtigenden Kategorien klicken. Beachten Sie bitte, dass die beiden Pseudokategorien \u201EAlle\u201C und \u201EKeine\u201C nicht zusammen mit anderen Kategorien ausgew\u00E4hlt werden k\u00F6nnen.
 waehlensiebittezunaechsteinekategorieaus=W\u00E4hlen Sie bitte zun\u00E4chst eine Kategorie aus.
 wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Wollen Sie diese Person bzw. diesen Gast der ausgew\u00E4hlten Kategorie zuordnen
 eswurdekeinekategoriezugeordnet=Es wurde keine Kategorie zugeordnet
@@ -1295,7 +1294,7 @@ siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuer
 undamtsbezeichnungfunktion=und Amtsbezeichnung/Funktion
 HINT_SEARCH_WHERE=Die Suche erfolgt im Vornamen, Nachnamen, Ort, PLZ, Stra\u00DFe, Firma/Institution, Telefon, Fax, Mobil, E-Mail, Bemerkungen, Kategorien, Arbeitsbereiche
 neuenorteingeben=Neuen Ort eingeben
-bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Bitte geben Sie einen neuen Ort ein und klicken Sie auf "Hinzuf\u00FCgen"
+bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Bitte geben Sie einen neuen Ort ein und klicken Sie auf \u201EHinzuf\u00FCgen\u201C
 neuerveranstaltungsort=Neuer Veranstaltungsort
 markierenundkopierensiefolgendesadressetikett=Markieren und kopieren Sie folgendes Adress-Etikett
 personenetikett=Personen-Etikett
@@ -1426,7 +1425,7 @@ GUEST=Gast
 GENERIC_OF=von
 
 
-TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \u00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den "Bearbeiten"-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
+TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \u00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den \u201EBearbeiten\u201C-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
 GENERIC_NEXT_PAGE=N\u00E4chste Seite
 GENERIC_PREVIOUS_PAGE=Vorherige Seite
 GENERIC_APPLY_TO_GUESTLIST=In G\u00E4steliste \u00FCbernehmen
@@ -1448,7 +1447,7 @@ bittebestatigensiedasloschendermarkiertengasteliste=Bitte best\u00E4tigen Sie da
 GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00F6scht.
 
 
-EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf "Auf Stammdaten zur\u00FCcksetzen".
+EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf \u201EAuf Stammdaten zur\u00FCcksetzen\u201C.
 
 diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Dies ist \u00FCber den Men\u00FCpunkt Administration > Programmeinstellungen m\u00F6glich.
 

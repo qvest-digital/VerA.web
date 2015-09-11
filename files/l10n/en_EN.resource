@@ -511,7 +511,6 @@ GENERIC_DOCUMENTED_ON=Documented on
 GENERIC_LAST_EDITED_ON=Last edited on
 GENERIC_PERSONS_ID=Persons-ID
 GENERIC_OA_USERNAME=Online-registration username
-freifeld-vorschaufuretikett="Freifeld-Vorschau f\u00C3\u00BCr \u00E2\u0080\u009EEtikett\u00E2\u0080\u009C"
 zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
 GENERIC_COPY_PERSON=Copy person
 GENERIC_CREATE_TAG=Create tag
@@ -628,10 +627,10 @@ LABEL_EXPORT_MADLAN_ENCODING=Encoding
 LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Encoding (Cyrillic)
 HINT_EXPORT_CSV=Depending on the amount of the exported fields (especially the amount of Document types and categories), MS Excel and OO Calc may not be able to read the exported data entirely.
 HINT_EXPORT_ZKM=The export file will be stored in the ZKM-folder and provided to download for control purposes.The Download can be cancelled at any time.
-HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Only the fields from the "Personal data", "Addresses" and "Document types" tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
-Es werden nur die Felder aus den Karteireitern "Personendaten", "Anschriften", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Only the fields from the "Personal data" and "Document types" tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
-HINT_EXPORT_CSVPERSDATA_CATEGORY=Only the fields from the "Personal data" and "Categories" tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
+HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Only the fields from the \u201CPersonal data\u201D, \u201CAddresses\u201D and \u201CDocument types\u201D tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
+Es werden nur die Felder aus den Karteireitern \u201CPersonendaten\u201D, \u201CAnschriften\u201D, \u201CDokumenttypen\u201D und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Only the fields from the \u201CPersonal data\u201D and \u201CDocument types\u201D tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Only the fields from the \u201CPersonal data\u201D and \u201CCategories\u201D tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
 HINT_EXPORT_CSV_ISO_8859_15=This format is for Im-/Export compatible with MS Office Applications, which use a Character set of ISO-8859-15. Depending on the amount of the exported fields (especially the amount of Doc    ument types), MS Excel and OO Calc may not be able to read the exported data entirely.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
@@ -1012,7 +1011,7 @@ beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommen
 alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden=All documenttypes of the imported persons musst be in the system. Would you like to start the import?
 umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=In order to be able save duplicates, they first have to be applied in the available duplicates.
 HINT_UMLAUT_COMPARISON=Please note, that the special characters \u00E4, \u00F6, \u00FC and \u00DF will be compared with ae,oe,ue and ss.
-derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=In order to complete the import process, please click on "Complete import".
+derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=In order to complete the import process, please click on \u201CComplete import\u201D.
 derimportkannerstabgeschlossenwerdenwennspeicherbaredatensatzevorhandensind=The import will be completed only when storable datasets are available.
 vorhandenedubletten=Available duplicates
 vorhandenedublettenbearbeiten=Edit available duplicates
@@ -1110,7 +1109,7 @@ biszudiesemdatum=Till this date
 abdiesemdatum=From this date
 angenaudiesemdatum=On this date
 datumauswaehlen=Select date
-HINT_SEARCH_MULTIPLE=You can search also for multiple categories. To select multiple categories, please click and hold with your mouse and drag it over the categories. Alternatively, you can press the Ctrl button and hold while choosing the desired categories. Please note that both pseudocategories "All" and "None" cannot be selected with other categories.
+HINT_SEARCH_MULTIPLE=You can search also for multiple categories. To select multiple categories, please click and hold with your mouse and drag it over the categories. Alternatively, you can press the Ctrl button and hold while choosing the desired categories. Please note that both pseudocategories \u201CAll\u201D and \u201CNone\u201D cannot be selected with other categories.
 waehlensiebittezunaechsteinekategorieaus=Please choose a categorie.
 wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Would you like to assign a categorie to this person (i.e. guest)
 eswurdekeinekategoriezugeordnet=No categories were assigned
@@ -1246,7 +1245,7 @@ markiertendokumenttypenloschen=Delete selected document type(s)
 markierteveranstaltungsorteloschen=Delete selected event location(s)
 markiertevorlagenloschen=Delete selected attachements
 keinedateigefunden=No file found.
-standardauswahlderselectboxbdquozeichensatzrdquo=Default selection "character set"
+standardauswahlderselectboxbdquozeichensatzrdquo=Default selection \u201Ccharacter set\u201D
 zusaetzlichefelder=additional fields
 postausgang=outbox
 beimversendendieseremailisteinfehleraufgetreten=An error occured while sending the email.
@@ -1295,7 +1294,7 @@ siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuer
 undamtsbezeichnungfunktion=and employment title/function
 HINT_SEARCH_WHERE=Searching in first name, last name, city, zip, street, company/institution, telephone, fax, mobile, e-mail,notes, categories, work areas
 neuenorteingeben=enter new city
-bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Please enter a new city and click on "add"
+bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Please enter a new city and click on \u201Cadd\u201D
 neuerveranstaltungsort=new venue
 markierenundkopierensiefolgendesadressetikett=select and copy the following address-label
 personenetikett=Person label
@@ -1426,7 +1425,7 @@ GUEST=guest
 GENERIC_OF=of
 
 
-TOOLTIP_EDIT_HEADLINES=You can still edit the headlines before printing by clicking the "edit" button. Please save before printing.
+TOOLTIP_EDIT_HEADLINES=You can still edit the headlines before printing by clicking the \u201Cedit\u201D button. Please save before printing.
 GENERIC_NEXT_PAGE=Next Page
 GENERIC_PREVIOUS_PAGE=Previous Page
 GENERIC_APPLY_TO_GUESTLIST=Apply to guestlist
@@ -1448,7 +1447,7 @@ bittebestatigensiedasloschendermarkiertengasteliste=Please confirm removing the 
 GENERIC_NO_GUESTLIST_DELETED=No guests have been removed.
 
 
-EVENT_DOCTYPE_RESET_INFO=Please check if there already are document types assigned to this event. If so you have to recreate the document types for this guest by clicking "reset to core data".
+EVENT_DOCTYPE_RESET_INFO=Please check if there already are document types assigned to this event. If so you have to recreate the document types for this guest by clicking \u201Creset to core data\u201D.
 
 diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=To do so, navigate to the menu administration > program settings.
 
