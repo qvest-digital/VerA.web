@@ -21,7 +21,7 @@
     	<div id="tabsMain">
     		<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
     			<li id="gaesteliste" class="inactive"><div>${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}</div>
-    			</li><li id="gastdetails" class="inactive"><div>${placeholderWithTranslation.gastdetails}</div>
+    			</li><li id="gastdetails" class="inactive"><div>${placeholderWithTranslation.gastedetails}</div>
     			</li><li id="dokumenttypen" class="active"><div>${placeholderWithTranslation.BROWSER_TITLE_DOCUMENT_TYPES}</div>
     			</li>
     		</ul>
