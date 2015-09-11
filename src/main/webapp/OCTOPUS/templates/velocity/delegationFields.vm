@@ -55,7 +55,7 @@
 						#if($lang == "de")
 							${placeholderWithTranslation.GM_PART1} $created ${placeholderWithTranslation.zusatzfelder} $action
 						#else
-							${placeholderWithTranslation.GM_PART1} $action $created ${placeholderWithTranslation.zusatzfelder} 
+							${placeholderWithTranslation.GM_PART1} $action $created ${placeholderWithTranslation.zusatzfelder}
 						#end
 					#end
 				</div>
@@ -74,7 +74,7 @@
 						#if($lang == "de")
 							${placeholderWithTranslation.GM_PART1} $changed ${placeholderWithTranslation.zusatzfelder} $action
 						#else
-							${placeholderWithTranslation.GM_PART1} $action $changed ${placeholderWithTranslation.zusatzfelder} 
+							${placeholderWithTranslation.GM_PART1} $action $changed ${placeholderWithTranslation.zusatzfelder}
 						#end
 					#end
 				</div>
@@ -93,7 +93,7 @@
 						#if($lang == "de")
 							${placeholderWithTranslation.GM_PART1} $changed ${placeholderWithTranslation.zusatzfelder} $action
 						#else
-							${placeholderWithTranslation.GM_PART1} $action $changed ${placeholderWithTranslation.zusatzfelder} 
+							${placeholderWithTranslation.GM_PART1} $action $changed ${placeholderWithTranslation.zusatzfelder}
 						#end
 					#end
 				</div>

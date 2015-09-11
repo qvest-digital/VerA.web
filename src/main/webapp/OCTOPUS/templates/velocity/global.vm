@@ -43,7 +43,7 @@
 #end
 
 #macro(textAddresstype $current)
-	#if($current == 1) ${placeholderWithTranslation.GENERIC_BUSINESS} 
+	#if($current == 1) ${placeholderWithTranslation.GENERIC_BUSINESS}
 	#elseif($current == 2) ${placeholderWithTranslation.privat}
 	#elseif($current == 3) ${placeholderWithTranslation.GENERIC_MORE}
 	#else ${placeholderWithTranslation.GENERIC_ERROR}
@@ -51,7 +51,7 @@
 #end
 
 #macro(textLocale)
-	#if($current == 1) ${placeholderWithTranslation.GENERIC_LATIN} 
+	#if($current == 1) ${placeholderWithTranslation.GENERIC_LATIN}
 	#elseif($current == 2) ${placeholderWithTranslation.GENERIC_CHARSET} 1
 	#elseif($current == 3) ${placeholderWithTranslation.GENERIC_CHARSET} 2
 	#else ${placeholderWithTranslation.GENERIC_ERROR}

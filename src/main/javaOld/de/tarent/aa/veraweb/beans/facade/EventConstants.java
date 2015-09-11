@@ -43,6 +43,6 @@ public interface EventConstants {
 
 	/** Status: Absage */
 	static public final int STATUS_REFUSE = 2;
-	
+
 	static public final String EVENT_TYPE_OPEN_EVENT = "Offene Veranstaltung";
 }

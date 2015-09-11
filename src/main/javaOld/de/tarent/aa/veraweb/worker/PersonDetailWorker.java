@@ -132,7 +132,7 @@ public class PersonDetailWorker implements PersonConstants {
 
 		/**
 		 * BUGFIX: 18738
-		 * 
+		 *
 		 */
 		Person originalPerson = (Person)database.getBean("Person", id);
 		if(originalPerson != null) {
@@ -144,7 +144,7 @@ public class PersonDetailWorker implements PersonConstants {
 
 		/**
 		 * BUGFIX: 18738
-		 * 
+		 *
 		 */
 		if (person != null) {
 			cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));

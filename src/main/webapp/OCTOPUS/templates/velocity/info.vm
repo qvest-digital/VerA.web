@@ -122,13 +122,13 @@
     #if($octopusConfig.personalConfig.proxy)
     	<tr>
     		<td>${placeholderWithTranslation.GENERIC_SUBSTITUTED_BY}:</td>
-    		<td>$octopusConfig.personalConfig.proxy</td> 
-	</tr> 
-    #end 
-    #if($octopusConfig.personalConfig.roles) 
-	<tr> 
+    		<td>$octopusConfig.personalConfig.proxy</td>
+	</tr>
+    #end
+    #if($octopusConfig.personalConfig.roles)
+	<tr>
 		<td>${placeholderWithTranslation.verfugbarerollen}:
-		</td> 
+		</td>
 	<td>
      #foreach($gg in $octopusConfig.personalConfig.roles)
      $gg

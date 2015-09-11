@@ -81,7 +81,7 @@
                         <input type="hidden" name="guest-orderno_b" value="$!guest.orderno_b">
                         <input type="hidden" name="categorie-modified" id="categorie-modified" value="false">
                         <input type="hidden" name="fetchRankFromMasterData" id="fetchRankFromMasterData" value="false">
-                        
+
 
 
                         #if($person.deleted == "t")
@@ -149,11 +149,11 @@
                                         <input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)">
                                     </div>
 
-                                    
-                                    
-                                    
-                                    
-                                    <div class="tableCell"></div> 
+
+
+
+
+                                    <div class="tableCell"></div>
                                 </div>
                                     #if ($guest.delegation)
                                         #set( $idcounter = 0)
@@ -175,8 +175,8 @@
                                                 #elseif($field.fkType == 2)
                                                     <select name="optional-field-dropdown-$field.fkDelegationField">
                                                          #foreach ($typeContentEntry in $field.optionalFieldTypeContents)
-                                                            <option 
-                                                                #if ($typeContentEntry.isSelected) 
+                                                            <option
+                                                                #if ($typeContentEntry.isSelected)
                                                                     selected
                                                                 #end
                                                                 value="$typeContentEntry.content" >$typeContentEntry.content</option>
@@ -185,8 +185,8 @@
                                                 #elseif($field.fkType == 3)
                                                     <select multiple name="optional-field-multipledropdown-$field.fkDelegationField">
                                                          #foreach ($typeContentEntry in $field.optionalFieldTypeContents)
-                                                            <option 
-                                                                #if ($typeContentEntry.isSelected) 
+                                                            <option
+                                                                #if ($typeContentEntry.isSelected)
                                                                     selected
                                                                 #end
                                                             value="$typeContentEntry.content">$typeContentEntry.content</option>
@@ -201,7 +201,7 @@
                                                 </div>
                                             #end
                                         #end
-                                    
+
                                     #end
                                 </div>
                         #closeContentBlock()
@@ -272,7 +272,7 @@
                         <div id="detail-3-reload-block" #if($guest.invitationtype != 2) style="display: none;"#end>
                             <vera-info vera-stay>
 			    	<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
-				${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PARTNER}.	
+				${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PARTNER}.
                                 ${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PERSON_PART1}
 				<a href="javascript:setGuestInvitationtype(1);">
                                 ${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON}</a>?

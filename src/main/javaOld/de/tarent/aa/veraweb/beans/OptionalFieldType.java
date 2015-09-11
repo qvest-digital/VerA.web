@@ -30,10 +30,10 @@ public class OptionalFieldType extends AbstractHistoryBean {
 	private Integer id;
 	/* description */
 	private String description;
-	
+
 	public OptionalFieldType() {
 	}
-	
+
 	public OptionalFieldType(String description) {
 		this.description = description;
 	}
@@ -55,7 +55,7 @@ public class OptionalFieldType extends AbstractHistoryBean {
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
 	}

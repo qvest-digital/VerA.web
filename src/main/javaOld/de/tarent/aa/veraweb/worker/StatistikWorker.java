@@ -160,7 +160,7 @@ public class StatistikWorker {
 				sdf.parse(begin);
 				sdf.parse(end);
 			}
-			
+
 			Date filterBegin = (Date)BeanFactory.transform(begin, Date.class);
 			Date filterEnd = (Date)BeanFactory.transform(end, Date.class);
 
