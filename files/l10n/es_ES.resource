@@ -1445,7 +1445,7 @@ siemussendierolleangebenunterdersieverawebnutzenmochten=Debe introducir los role
 GENERIC_CHOOSE=seleccionar
 GENERIC_RESET=Reiniciar
 siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=No tiene permisos para eliminar invitados
-wahlensiebittezunachsteineodermehreregastelistenaus=Por favor, seleccione uno o m\u00E1s invitados
+wahlensiebittezunachsteinenodermehreregasteaus=Por favor, seleccione uno o m\u00E1s invitados
 bittebestatigensiedasloschendermarkiertengasteliste=Por favor, \u00A1confirme la eliminaci\u00F3n de los invitados seleccionados!
 GENERIC_NO_GUESTLIST_DELETED=No se han eliminado invitados.
 

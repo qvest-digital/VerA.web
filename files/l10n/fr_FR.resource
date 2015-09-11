@@ -1442,7 +1442,7 @@ siemussendierolleangebenunterdersieverawebnutzenmochten=Vous devez sp\u00E9cifie
 GENERIC_CHOOSE=Choisir
 GENERIC_RESET=R\u00E9initialiser
 siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=Vous n\u2019avez pas les autorisations n\u00E9cessaires pour supprimer les invit\u00E9s
-wahlensiebittezunachsteineodermehreregastelistenaus=S\u00E9lectionner les premiers h\u00F4tes - un ou plusieurs
+wahlensiebittezunachsteinenodermehreregasteaus=S\u00E9lectionner les premiers h\u00F4tes - un ou plusieurs
 bittebestatigensiedasloschendermarkiertengasteliste=Veuillez confirmer la suppression des invit\u00E9s marqu\u00E9!
 GENERIC_NO_GUESTLIST_DELETED=Aucun invit\u00E9s ont \u00E9t\u00E9 supprim\u00E9es
 

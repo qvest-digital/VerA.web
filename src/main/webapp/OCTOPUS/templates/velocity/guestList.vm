@@ -222,7 +222,7 @@
 						if (checkBoxes.length === 0) {
 							$(".errormsg").remove();
 							$(".successmsg").remove();
-							showWarning('${placeholderWithTranslation.wahlensiebittezunachsteineodermehreregastelistenaus}.');
+							showWarning('${placeholderWithTranslation.wahlensiebittezunachsteinenodermehreregasteaus}.');
 						} else {
 							$(".errormsg").remove();
 							$(".successmsg").remove();
@@ -273,7 +273,7 @@
 						} else {
 							$(".errormsg").remove();
 							$(".successmsg").remove();
-							showWarning( "${placeholderWithTranslation.wahlensiebittezunachsteineodermehreregastelistenaus}." );
+							showWarning( "${placeholderWithTranslation.wahlensiebittezunachsteinenodermehreregasteaus}." );
 						}
 					});
 				});
