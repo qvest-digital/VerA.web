@@ -49,7 +49,7 @@
 				#set($count = $optionalFieldsSummary.createdFields.size())
 				<div>
 					#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
-					<vera-success> $generalMessage. </vera-success>
+					$generalMessage.
 				</div>
 			#end
 			#if ($optionalFieldsSummary.changedFields.size()>0)
@@ -57,7 +57,7 @@
 				#set($count = $optionalFieldsSummary.changedFields.size())
 				<div>
 					#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
-					<vera-success> $generalMessage. </vera-success>
+					$generalMessage.
 				</div>
 			#end
 			#if ($optionalFieldsSummary.deletedFields.size()>0)
@@ -65,7 +65,7 @@
 				#set($count = $optionalFieldsSummary.deletedFields.size())
 				<div>
 					#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
-					<vera-success> $generalMessage. </vera-success>
+					$generalMessage.
 				</div>
 			#end
 		</div>

@@ -116,7 +116,7 @@
 						function () {
 							$(".errormsg").remove();
 							$(".successmsg").remove();
-							showSuccess(' ${placeholderWithTranslation.eswurdekeinepersongeloscht}');
+							showSuccess(' ${placeholderWithTranslation.GM_PERSON_DELETE_N}');
 							$('input:checkbox').prop('disabled', false);
 						},
 						'${placeholderWithTranslation.GENERIC_DELETE}',
