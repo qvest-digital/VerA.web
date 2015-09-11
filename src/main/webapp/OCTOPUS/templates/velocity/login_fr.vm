@@ -29,7 +29,7 @@
 
 <div class="hinweis grayBorder marginBottom20 notBold">
     <strong>Remarque</strong>
-    <p>S'il vous plaît, veuillez utiliser le signe de votre organisation ou votre prénom.nom comme nom d'utilisateur.</p>
+    <p>Veuillez utiliser le signe de votre organisation ou votre prénom.nom comme nom d'utilisateur.</p>
 </div>
 
 <input name="task" type="hidden" value="default">

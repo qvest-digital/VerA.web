@@ -228,7 +228,7 @@ GENERIC_AVAILABLE_DUPLICATES=Available duplicates
 
 # ADMINISTRATION/ANREDEN
 GENERIC_SALUTATIONS=Salutations
-GENERIC_SALUTATIONS_MARKED=selected salutation(s)
+GENERIC_SALUTATIONS_MARKED=Selected salutation(s)
 GENERIC_ID=ID
 GENERIC_MAIN_FORM=Base form
 GENERIC_GENDER=Gender
@@ -483,7 +483,7 @@ GENERIC_HINT_FOR_HOST=Hint for host
 GENERIC_ACCOUNT_OPENING_DATE=Account opening date
 GENERIC_AT=at
 GENERIC_OCLOCK=oclock
-GENERIC_ORIGIN_DATA=data origin
+GENERIC_ORIGIN_DATA=Data origin
 GENERIC_PERSON_SINGULAR=Person
 
 # DATEITYP
@@ -934,11 +934,11 @@ dublettendiedurchden=duplicates which
 importhinzugefugtwerdenwurden=have been added by the import
 sindmiteinercheckboxgekennzeichnetdarunterbefindensichdiebereitsimsystemvorhandenenentsprechendendatensatze=, are marked with a checkbox. They contain the correspondant data sets already existing in the system.
 umeinedubletteindenimportzuintegrierenmussensiesieubernehmen=In order to integrate a duplicate into the import, you need to apply it first.
-alsdubletteubernehmen=apply as duplicate
+alsdubletteubernehmen=Apply as duplicate
 markiertepersonenalsdubletteubernehmen=apply selected people as duplicates
-anzahlzuspeicherndedubletten=count of duplicates to save
+anzahlzuspeicherndedubletten=Count of duplicates to save
 eswurdenkeineeintragegefunden=No entries found.
-zuruckzumpersonenimport=Back to person import
+zuruckzumpersonenimport=Back to import persons
 fehlermeldung=Errormessage
 beiderbearbeitungihreranfrageisteinfehleraufgetretenbittemeldensiediesihremadministrator=An Error occured while processing your request. Please report this to your administrator.
 unbekannterfehler=unknown error.
@@ -1217,7 +1217,7 @@ einladen=Invite
 aufreservesetzen=Set as reserve
 delegationanmelden=Register delegation
 alledemarkiereninklpartnerwenneingeladen=All (de)selected (incl. Partner, if invited)
-arbeitsshybereich=Workarea
+arbeitsshybereich=Work area
 amtsbeshyzeichnung=Employment title
 eswurdenkeineeintraegegefunden=No entries were found.
 suchenersetzen=Search & replace
