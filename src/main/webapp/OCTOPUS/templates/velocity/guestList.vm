@@ -78,7 +78,7 @@
 				#if($list.size() > 0)
 				</li>
                 <li id="gastdetails" class="inactive">
-                    <div>${placeholderWithTranslation.gastdetails}</div>
+                    <div>${placeholderWithTranslation.gastedetails}</div>
 				</li>
                 <li id="dokumenttypen" class="inactive">
                     <div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>

@@ -47,12 +47,12 @@ BROWSER_TITLE_GUEST_ADD_EVENT=Add guest to
 BROWSER_TITLE_GUEST_HOST_ADD_EVENT=Choose host for
 BROWSER_TITLE_GUEST_SELECT=Select guest
 BROWSER_TITLE_GUEST_HOST_SELECT=Select host
-BROWSER_TITLE_SEARCH_REPLACE_PERSONDATA=Search & replace in personal data
+BROWSER_TITLE_SEARCH_REPLACE_PERSONDATA=Search and replace in personal data
 BROWSER_TITLE_DUPLICATE_SEARCH=Duplicate search
 BROWSER_TITLE_TASK_ADD_RESPONSIBLE=Add responsible for task
 BROWSER_TITLE_PERSON_DELETE=Delete person
 BROWSER_TITLE_PERSON_LIST=Person summary
-BROWSER_TITLE_SEARCH_REPLACE=Search & replace
+BROWSER_TITLE_SEARCH_REPLACE=Search and replace
 BROWSER_TITLE_GUEST_HOST_SEARCH=Search host
 BROWSER_TITLE_PERSON_SEARCH=Search person
 BROWSER_TITLE_PERSON_DATA_SALUTATION=Master data - salutation
@@ -213,14 +213,14 @@ administration=Administration
 bittewaehlensieeineamtsbezeichnungfunktionaus=Please choose an official title / role
 eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator=Unexpected errors may occur. Please contact your admin.
 willkommenbeiveraweb=Welcome to VerA.web
-WELCOME_TEXT_GRANT_READ_STANDARD_FIELDS=Here you've got the possibility to show and export master data of persons and events.
-WELCOME_TEXT_GRANT_READ_REMARK_FIELDS=Here you've got the possibility to show and export master data of - and comments about - persons and events.
-WELCOME_TEXT_GRANT_EXPORT_PART_ONE=Here you've got the possibility to show, change, delete and to ex- or import
+WELCOME_TEXT_GRANT_READ_STANDARD_FIELDS=Here you\u2019ve got the possibility to show and export master data of persons and events.
+WELCOME_TEXT_GRANT_READ_REMARK_FIELDS=Here you\u2019ve got the possibility to show and export master data of - and comments about - persons and events.
+WELCOME_TEXT_GRANT_EXPORT_PART_ONE=Here you\u2019ve got the possibility to show, change, delete and to ex- or import
 WELCOME_TEXT_GRANT_WRITE_FULL=master data of - and comments about -
 WELCOME_TEXT_GRANT_EXPORT_PART_TWO=persons and events.
-WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Here you've got the possibility to show, change, delete and to ex- or import master data of - and comments about - persons and events.
+WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Here you\u2019ve got the possibility to show, change, delete and to ex- or import master data of - and comments about - persons and events.
 WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO=Furthermore client-specific settings can be inspected and edited.
-WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Here you've got the possibility to show, change, delete and to ex- or import master data of - and comments about - persons and events.
+WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Here you\u2019ve got the possibility to show, change, delete and to ex- or import master data of - and comments about - persons and events.
 WELCOME_TEXT_GRANT_ADMIN_PART_TWO=Furthermore client-specific and global settings can be inspected and edited.
 WELCOME_TEXT_HELP=For further information please go to the \u201CHelp\u201D page.
 WELCOME_TEXT_NO_ROLE=There are no existing roles for you login with which you can operate in VerA.web. Please relog with a user- or rolename that is suitable for VerA.web.
@@ -264,8 +264,8 @@ MESSAGE_FILL_USER_ROLE=You need to enter a user role designation
 
 # ADMINISTRATION/DOKUMENTTYPEN
 GENERIC_TOOLTIP=Tooltip
-HINT_FORMAT_INFO=OOo 1.1 stands for OpenOffice 1.1 (.sxc file), OOo 2.0 for OpenOffice 2.0 (.ods file), xls stands for Microsoft Office registration mark: marks 50 and 99 are automatically added to new events. Using mark 50 won't create a free text field (.xls file). CSV stands for CSV file format.
-HINT_EVENT_MARK=Marks 50 and 99 will automatically be addedto new events. Using mark 50 won't create a free text field.
+HINT_FORMAT_INFO=OOo 1.1 stands for OpenOffice 1.1 (.sxc file), OOo 2.0 for OpenOffice 2.0 (.ods file), xls stands for Microsoft Office registration mark: marks 50 and 99 are automatically added to new events. Using mark 50 won\u2019t create a free text field (.xls file). CSV stands for CSV file format.
+HINT_EVENT_MARK=Marks 50 and 99 will automatically be addedto new events. Using mark 50 won\u2019t create a free text field.
 GENERIC_DOCUMENT_TYPES_MARKED=Selected document type(s)
 GENERIC_LABELLING=Label
 GENERIC_ADRESS_TYPE=Address type
@@ -344,12 +344,12 @@ GENERIC_STANDARD_TABULATOR_CHOICE=Standard choice of tabulators
 GENERIC_MAIN_TABS=Main tabs
 GENERIC_PERSONS_DATA=Personal data
 GENERIC_MAILING_ADDRESSES=Addresses
-GENERIC_SUBTABS_OF_PERSONS_DATA=Subtabs of \u00E2\u0080\u009Epersonal data\u00E2\u0080\u009C
+GENERIC_SUBTABS_OF_PERSONS_DATA=Subtabs of \u201Cpersonal data\u201D
 GENERIC_MAIN_PERSON=Main person
 GENERIC_PARTNER=Partner
-GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subtabs of \u00E2\u0080\u009Eaddresses\u00E2\u0080\u009C
+GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subtabs of \u201Caddresses\u201D
 GENERIC_BUSINESS=Business
-GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Standard choice of selectbox \u00E2\u0080\u009Echarset\u00E2\u0080\u009C
+GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Standard choice of selectbox \u201Ccharset\u201D
 GENERIC_CHARSET=Charset
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Standard salutations and free text fields
 GENERIC_STANDARD_SALUTATION=Standard salutations
@@ -511,7 +511,6 @@ GENERIC_DOCUMENTED_ON=Documented on
 GENERIC_LAST_EDITED_ON=Last edited on
 GENERIC_PERSONS_ID=Persons-ID
 GENERIC_OA_USERNAME=Online-registration username
-freifeld-vorschaufuretikett="Freifeld-Vorschau f\u00C3\u00BCr \u00E2\u0080\u009EEtikett\u00E2\u0080\u009C"
 zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
 GENERIC_COPY_PERSON=Copy person
 GENERIC_CREATE_TAG=Create tag
@@ -567,8 +566,7 @@ LETTERS_WWW=WWW
 dublettenprufungdurchfuhren=Dublettenpr\u00FCfung durchf\u00FChren
 zurpersonenubersicht=To Person view
 
-# PERSONEN/SUCHEN & ERSETZEN IN PERSONENDATEN
-suchen&ersetzeninpersonendaten=Suchen & Ersetzen in Personendaten
+# PERSONEN/SUCHEN UND ERSETZEN IN PERSONENDATEN
 hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Hinweis Wenn Sie den Placeholder * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
 GENERIC_SEARCH_V=Search
 GENERIC_REPLACE=Replace
@@ -629,10 +627,10 @@ LABEL_EXPORT_MADLAN_ENCODING=Encoding
 LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Encoding (Cyrillic)
 HINT_EXPORT_CSV=Depending on the amount of the exported fields (especially the amount of Document types and categories), MS Excel and OO Calc may not be able to read the exported data entirely.
 HINT_EXPORT_ZKM=The export file will be stored in the ZKM-folder and provided to download for control purposes.The Download can be cancelled at any time.
-HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Only the fields from the "Personal data", "Addresses" and "Document types" tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
-Es werden nur die Felder aus den Karteireitern "Personendaten", "Anschriften", "Dokumenttypen" und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Only the fields from the "Personal data" and "Document types" tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
-HINT_EXPORT_CSVPERSDATA_CATEGORY=Only the fields from the "Personal data" and "Categories" tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
+HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Only the fields from the \u201CPersonal data\u201D, \u201CAddresses\u201D and \u201CDocument types\u201D tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
+Es werden nur die Felder aus den Karteireitern \u201CPersonendaten\u201D, \u201CAnschriften\u201D, \u201CDokumenttypen\u201D und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Only the fields from the \u201CPersonal data\u201D and \u201CDocument types\u201D tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Only the fields from the \u201CPersonal data\u201D and \u201CCategories\u201D tabs will be exported and their subtabs. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
 HINT_EXPORT_CSV_ISO_8859_15=This format is for Im-/Export compatible with MS Office Applications, which use a Character set of ISO-8859-15. Depending on the amount of the exported fields (especially the amount of Doc    ument types), MS Excel and OO Calc may not be able to read the exported data entirely.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
@@ -647,7 +645,6 @@ GENERIC_START_IMPORT=Start import
 
 # PERSONENDROPDOWN
 GENERIC_NEW_PERSON=New person
-suchen&ersetzen=Search & replace
 GENERIC_EXPORT_PERSONS=Export persons
 GENERIC_IMPORT_PERSONS=Import persons
 
@@ -763,8 +760,8 @@ zeitrahmenende=timeframe-end
 STATISTIC_RADIO_PER_YEAR=overall view of events per year
 STATISTIC_RADIO_PER_MONTH=overall view of events per month
 STATISTIC_RADIO_GROUPED_BY_HOST=overall view of events, grouped by host
-STATISTIC_RADIO_PER_HOST=overall view of one host's events(with search)
-STATISTIC_RADIO_PER_GUEST=overall view of one guest's events(with search)
+STATISTIC_RADIO_PER_HOST=overall view of one host\u2019s events(with search)
+STATISTIC_RADIO_PER_GUEST=overall view of one guest\u2019s events(with search)
 STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE=overall view of events ordered by venue
 statistikerstellen=create statistics
 
@@ -808,14 +805,14 @@ GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=The guestlist has been expanded by
 GUEST_LIST_EXPAND_MULTIPLE_PART_TWO=guests
 GUEST_LIST_HINT_EXPORT_GUEST=select guests to be exported, otherwise the whole list will be exported
 GUEST_LIST_HINT_FILTER=When creating control data or guestlists, the filter selected above will be included
-GUEST_LIST_HINT_RED_PERSON=Persons highlighted in red were already selected 'to be delete'd
+GUEST_LIST_HINT_RED_PERSON=Persons highlighted in red were already selected \u201Cto be delete\u201Dd
 GUEST_LIST_CREATED_NO_PERSON=has been created without persons
 GUEST_LIST_CREATED_ONE_PERSON=has been created with one person
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE=has been created with
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO=persons
 GUEST_LIST_NO_GUEST_INVITED=No guests were invited yet
 GUEST_LIST_NUMBER_CALCULATE=calculate serial number
-GUEST_LIST_NUMBER_CALCULATED_SAVED=The 'serial number' has been recalculated and saved for all guests
+GUEST_LIST_NUMBER_CALCULATED_SAVED=The \u201Cserial number\u201D has been recalculated and saved for all guests
 GUEST_LIST_ONLY_OPEN=open only
 GUEST_LIST_ONLY_ACCEPT=accepted only
 GUEST_LIST_ONLY_DECLINED=declined only
@@ -843,7 +840,7 @@ GUEST_DETAIL_HINT_ORGANISATION_TEAM=Hint organisation team
 GUEST_DETAIL_INVITATION_STATUS=invitation status
 GUEST_DETAIL_SEAT_NUMBER=seat number
 GUEST_DETAIL_TABLE_NUMBER=table number
-gastdetails=guestdetails
+gastdetails=guest details
 HINT_GUEST_LIST_EDIT_PERSONDATA=Here you are only editing persondata within the current event, not general core data
 istgastgeber=is host
 reserve=reserve
@@ -876,8 +873,6 @@ zuruckzurdokumenttypenliste=Back to document type list
 anmeldedatenerzeugen=Create login data
 esliegenkeinekategorienundereignissevor=there are no categories and occasions
 beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=green highlighted entried are recuring occasions
-
-# SUCHEN & ERSETZEN IN PERSONENDATEN
 
 # VERTEILERDETAILS
 verteilerdetails=distributor details
@@ -988,7 +983,7 @@ bittebestatigensiedasloschenvonaufgaben=Please confirm removing tasks
 ausgewahlteeintrageloschen=delete selected entries
 start=start
 zursuche=To search
-siesindalsvolladministratorangemeldetundexportierenhiermitmandantenubergreifend=You are logged in as 'full-administrator' and about to export across clients.
+siesindalsvolladministratorangemeldetundexportierenhiermitmandantenubergreifend=You are logged in as \u201Cfull-administrator\u201D and about to export across clients.
 sieexportierenmitdieserfunktionausschlieszlichpersonenausihremaktuellenmandanten=With this function you exclusively export People from your current client.
 event=event
 keine=none
@@ -1006,7 +1001,7 @@ HINT_IMPORT_NOT_POSSIBLE_EXCEL=You are trying to import a Microsoft Excel file. 
 HINT_IMPORT_NOT_POSSIBLE_PDF=You are trying to import a PDF file. This import is unfortunately in the current version of VerA.web not possible.
 HINT_IMPORT_NOT_POSSIBLE_ZIP=You are trying to import a ZIP file. This import is unfortunately in the current version of VerA.web not possible.
 HINT_IMPORT_NOT_POSSIBLE_EXE=You are trying to import a EXE file. This import is unfortunately in the current version of VerA.web not possible.
-siehabenversuchteinedateimitderendung=You are trying to import  a data with the extension 
+siehabenversuchteinedateimitderendung=You are trying to import  a data with the extension
 zuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich=.This is unfortunately in the cuurent version of VerA.web not available.
 siehabenkeinedateiausgewahltoderdiesewarleer=You have either selected an empty file or have not selected any at all.
 esisteinunerwarteterfehlerbeimimportiereneinerdateiaufgetreten=An error has occured while importing the file.
@@ -1016,7 +1011,7 @@ beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommen
 alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden=All documenttypes of the imported persons musst be in the system. Would you like to start the import?
 umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=In order to be able save duplicates, they first have to be applied in the available duplicates.
 HINT_UMLAUT_COMPARISON=Please note, that the special characters \u00E4, \u00F6, \u00FC and \u00DF will be compared with ae,oe,ue and ss.
-derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=In order to complete the import process, please click on "Complete import".
+derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=In order to complete the import process, please click on \u201CComplete import\u201D.
 derimportkannerstabgeschlossenwerdenwennspeicherbaredatensatzevorhandensind=The import will be completed only when storable datasets are available.
 vorhandenedubletten=Available duplicates
 vorhandenedublettenbearbeiten=Edit available duplicates
@@ -1053,7 +1048,7 @@ emailclientaufrufen=Invoke E-mail client
 esliegenkeineadressdatenfurdiesenverteilervor=No addresses exist for this distributor
 esliegenkeineadressenfurdiesenverteilervor=No addresses exist for this distributor
 esliegenkeinevorlagenvor=There are no templates.
-zuruckzurverteilerubersicht=back to distributor summary 
+zuruckzurverteilerubersicht=back to distributor summary
 eswurdekeineemailzumversendengespeichert=No E-mails to be sent were saved
 eswurdeeineemailzumversendengespeichertdiesewirdnunautomatischversendet=An E-mail was saved automatically. This will be sent automatically.
 emailszumversendengespeichertdiesewerdennunautomatischversendet=E-mails to be sent are automatically saved. These will be automatially sent.
@@ -1114,7 +1109,7 @@ biszudiesemdatum=Till this date
 abdiesemdatum=From this date
 angenaudiesemdatum=On this date
 datumauswaehlen=Select date
-HINT_SEARCH_MULTIPLE=You can search also for multiple categories. To select multiple categories, please click and hold with your mouse and drag it over the categories. Alternatively, you can press the Ctrl button and hold while choosing the desired categories. Please note that both pseudocategories "All" and "None" cannot be selected with other categories.
+HINT_SEARCH_MULTIPLE=You can search also for multiple categories. To select multiple categories, please click and hold with your mouse and drag it over the categories. Alternatively, you can press the Ctrl button and hold while choosing the desired categories. Please note that both pseudocategories \u201CAll\u201D and \u201CNone\u201D cannot be selected with other categories.
 waehlensiebittezunaechsteinekategorieaus=Please choose a categorie.
 wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Would you like to assign a categorie to this person (i.e. guest)
 eswurdekeinekategoriezugeordnet=No categories were assigned
@@ -1139,11 +1134,11 @@ wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen=Wou
 eswurdenkeinearbeitsbereichzugeordnet=no work areas were assigned
 wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben=Would you like to revoke the work area assignment of this person (i.e. guest)
 eswurdekeinarbeitsbereichaufgehoben=No work area revoked
-wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Would you like to revoke the selected work area assignment of the persons (i.e. guests) 
+wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Would you like to revoke the selected work area assignment of the persons (i.e. guests)
 wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Would you like to assign the selected work area to this person (i.e. guest)
 wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=Would you like assign the selected work area to the persons (i.e. guests)
 waehlensieeinenarbeitsbereichauswelchensie=Choose a work area, which
-siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=You haven't configured any work area. You can these under Administrationsarea
+siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=You haven\u2019t configured any work area. You can these under Administrationsarea
 administrationallestellvertretungenimmandanten=Administration - all representations in clients
 administrationallestellvertretungen=Administration - all representations
 verwaltungpersoenlichevertretungen=Administration - personal representation
@@ -1220,8 +1215,8 @@ alledemarkiereninklpartnerwenneingeladen=All (de)selected (incl. Partner, if inv
 arbeitsshybereich=Work area
 amtsbeshyzeichnung=Employment title
 eswurdenkeineeintraegegefunden=No entries were found.
-suchenersetzen=Search & replace
-suchenersetzeninpersonendaten=Search & replace in persons data
+suchenersetzen=Search and replace
+suchenersetzeninpersonendaten=Search and replace in persons data
 vornamederhauptpersonunddespartners=First name of the main person and his/her partner
 nachnamederhauptpersonunddespartners=Family name of the main person and his/her parnter
 anredetitel=Salutation / Title
@@ -1250,7 +1245,7 @@ markiertendokumenttypenloschen=Delete selected document type(s)
 markierteveranstaltungsorteloschen=Delete selected event location(s)
 markiertevorlagenloschen=Delete selected attachements
 keinedateigefunden=No file found.
-standardauswahlderselectboxbdquozeichensatzrdquo=Default selection "character set"
+standardauswahlderselectboxbdquozeichensatzrdquo=Default selection \u201Ccharacter set\u201D
 zusaetzlichefelder=additional fields
 postausgang=outbox
 beimversendendieseremailisteinfehleraufgetreten=An error occured while sending the email.
@@ -1299,7 +1294,7 @@ siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuer
 undamtsbezeichnungfunktion=and employment title/function
 HINT_SEARCH_WHERE=Searching in first name, last name, city, zip, street, company/institution, telephone, fax, mobile, e-mail,notes, categories, work areas
 neuenorteingeben=enter new city
-bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Please enter a new city and click on "add"
+bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Please enter a new city and click on \u201Cadd\u201D
 neuerveranstaltungsort=new venue
 markierenundkopierensiefolgendesadressetikett=select and copy the following address-label
 personenetikett=Person label
@@ -1334,9 +1329,9 @@ GENERIC_TELEFON=Telephone
 # MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=This guest has been invited without main person
 MESSAGE_INVITATION_WITHOUT_PARTNER=This guest has been invited without partner
-MESSAGE_INVITATION_WITHOUT_PERSON_PART1=Do you want to 
+MESSAGE_INVITATION_WITHOUT_PERSON_PART1=Do you want to
 MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON=invite these subsequently
-MESSAGE_END_AND_START_DATE=The event's end-date needs to be after the beginning-date chronologically
+MESSAGE_END_AND_START_DATE=The event\u2019s end-date needs to be after the beginning-date chronologically
 MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=The event can not be saved, please give a short description
 MESSAGE_EVENT_WRING_DATE_FORMAT=You need to state the event-beginn formatted like DD.MM.YYYY
 MESSAGE_GENERIC_MISSING_DESCRIPTION=You need to provide a description.
@@ -1355,13 +1350,13 @@ MESSAGE_TASK_END_DATE_WITHOUT_BEGIN_DATE=The tast can not be saved. Please provi
 MESSAGE_TASK_BEGIN_DATE_BEFORE_END_DATE=The tast can not be saved. The begin-date needs to be before the end-date chronologically.
 MESSAGE_TASK_NO_SHORTNAME=Tha task can not be saved. Please provide a short description.
 MESSAGE_TASK_MAX_REMARK_REACHED=The task can not be saved. The description-field is restricted to 1000 characters.
-MESSAGE_TASK_EMAIL_WITHOUT_SENDER=The e-mail can not be sent without a sender's address.
+MESSAGE_TASK_EMAIL_WITHOUT_SENDER=The e-mail can not be sent without a sender\u2019s address.
 MESSAGE_TASK_EMAIL_WITHOUT_RECEIVER=The e-mail can not be sent without a recipient.
 MESSAGE_TASK_EMAIL_WITHOUT_SUBJECT=The e-mail can not be sent without a subject.
 MESSAGE_ORG_UNIT_NO_NAME=You need to provide a name.
 MESSAGE_PERSON_MAX_COMPANY_REACHED=Company/institution is restricted to 100 characters.
-MESSAGE_PERSON_MAX_NAME_REACHED=The main person's first name is restricted to 100 characters.
-MESSAGE_PERSON_MAX_LASTNAME_REACHED=The main person's last name is restricted to 100 characters.
+MESSAGE_PERSON_MAX_NAME_REACHED=The main person\u2019s first name is restricted to 100 characters.
+MESSAGE_PERSON_MAX_LASTNAME_REACHED=The main person\u2019s last name is restricted to 100 characters.
 MESSAGE_PERSON_NO_COMPANY_NAME=You need to provide a name for the company/institution.
 MESSAGE_PERSON_NO_NAME_LAST_NAME=You need to provide a first- and last name.
 MESSAGE_PERSON_NO_NAME=You need to provide a first name.
@@ -1370,31 +1365,31 @@ MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=Connection between person 
 MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=The connector is limited to 50 characters.
 MESSAGE_PROXY_NO_REPRESENTATIVE=You need to assign a representative.
 MESSAGE_PROXY_NO_ROLE=You need to provide a role.
-MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=The representative's begin needs to be before the end chronologically.
+MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=The representative\u2019s begin needs to be before the end chronologically.
 MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG=A function/employment title is incorrectly assigned to an event.
 MESSAGE_FUNCTION_MISSING_NAME=You need to provide a name for the function.
-MESSAGE_GUEST_DOCTYPE_CITYNAME_MAX_LENGTH=The city's name is restricted to 100 characters.
-MESSAGE_GUEST_DOCTYPE_COMPANYNAME_MAX_LENGTH=The company's name is restricted to 250 characters.
-MESSAGE_GUEST_DOCTYPE_COUNTRYNAME_MAX_LENGTH=The country's name is restricted to 100 characters.
+MESSAGE_GUEST_DOCTYPE_CITYNAME_MAX_LENGTH=The city\u2019s name is restricted to 100 characters.
+MESSAGE_GUEST_DOCTYPE_COMPANYNAME_MAX_LENGTH=The company\u2019s name is restricted to 250 characters.
+MESSAGE_GUEST_DOCTYPE_COUNTRYNAME_MAX_LENGTH=The country\u2019s name is restricted to 100 characters.
 MESSAGE_GUEST_DOCTYPE_FAX_MAX_LENGTH=The fax-number is restricted to 100 characters.
 MESSAGE_GUEST_DOCTYPE_FIRSTNAME_MAX_LENGTH=The first name is restricted to 100 characters.
 MESSAGE_GUEST_DOCTYPE_LASTNAME_MAX_LENGTH=The last name is restricted to 100 characters.
-MESSAGE_GUEST_DOCTYPE_FIRSTNAME_PARTNER_MAX_LENGTH=The partner's first name is restricted to 100 characters.
-MESSAGE_GUEST_DOCTYPE_LASTNAME_PARTNER_MAX_LENGTH=The partner's last name is restricted to 100 characters.
+MESSAGE_GUEST_DOCTYPE_FIRSTNAME_PARTNER_MAX_LENGTH=The partner\u2019s first name is restricted to 100 characters.
+MESSAGE_GUEST_DOCTYPE_LASTNAME_PARTNER_MAX_LENGTH=The partner\u2019s last name is restricted to 100 characters.
 MESSAGE_GUEST_DOCTYPE_PHONE_MAX_LENGTH=The telephone number is restricted to 100 characters.
 MESSAGE_GUEST_DOCTYPE_FUNCTION_MAX_LENGTH=The function designator is restricted to 250 characters.
 MESSAGE_GUEST_DOCTYPE_EMAIL_MAX_LENGTH=The e-mail address is restricted to 250 characters.
 MESSAGE_GUEST_DOCTYPE_MOBILE_MAX_LENGTH=The mobile phone number is restricted to 100 characters.
 MESSAGE_GUEST_DOCTYPE_POBOX_MAX_LENGTH=The PO Box is restricted to 50 characters.
-MESSAGE_GUEST_DOCTYPE_POBOX_ZIP_MAX_LENGTH=The PO Box' zip-code is restricted to 50 characters.
+MESSAGE_GUEST_DOCTYPE_POBOX_ZIP_MAX_LENGTH=The PO Box\u2019 zip-code is restricted to 50 characters.
 MESSAGE_GUEST_DOCTYPE_SALUTATION_MAX_LENGTH=The salutation is restricted to 50 characters.
-MESSAGE_GUEST_DOCTYPE_SALUTATION_PARTNER_MAX_LENGTH=The partner's salutation is restricted to 50 characters.
+MESSAGE_GUEST_DOCTYPE_SALUTATION_PARTNER_MAX_LENGTH=The partner\u2019s salutation is restricted to 50 characters.
 MESSAGE_GUEST_DOCTYPE_STREET_MAX_LENGTH=The street-name is restricted to 100 characters.
 MESSAGE_GUEST_DOCTYPE_SUFFIX1_MAX_LENGTH=The first suffix is restricted to 100 characters.
 MESSAGE_GUEST_DOCTYPE_SUFFIX2_MAX_LENGTH=The second suffix is restricted to 100 characters.
 MESSAGE_GUEST_DOCTYPE_TEXTJOIN_MAX_LENGTH=The connector is restricted to 50 characters.
 MESSAGE_GUEST_DOCTYPE_TITLE_MAX_LENGTH=The title is restricted to 250 characters.
-MESSAGE_GUEST_DOCTYPE_TITLEPARTNER_MAX_LENGTH=The partner's title is restricted to 250 characters.
+MESSAGE_GUEST_DOCTYPE_TITLEPARTNER_MAX_LENGTH=The partner\u2019s title is restricted to 250 characters.
 MESSAGE_GUEST_DOCTYPE_URL_MAX_LENGTH=The www-url is restricted to 250 characters.
 MESSAGE_GUEST_DOCTYPE_ZIP_MAX_LENGTH=The zip code is restricted to 50 characters.
 MESSAGE_USER_MISSING_ROLE=You need to provide a description for a user role.
@@ -1410,8 +1405,8 @@ PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=You are only allowed to delete one pe
 PERSON_LIST_QUESTION_DELETE_CONFIRMATION=Delete all selected people?
 
 # EVENT DETAIL SITE TEXTS
-EVENT_DETAIL_ALREADY_EXISTS_ONE=An event with the name' 
-EVENT_DETAIL_ALREADY_EXISTS_TWO=' already exists. Do you wish to save the new event anyway?
+EVENT_DETAIL_ALREADY_EXISTS_ONE=An event with the name \u201C
+EVENT_DETAIL_ALREADY_EXISTS_TWO=\u201D already exists. Do you wish to save the new event anyway?
 
 # CATEGORY TEXTS
 CATEGORY_DETAIL_ALREADY_EXISTS=A core-data entry with this name already exists
@@ -1430,7 +1425,7 @@ GUEST=guest
 GENERIC_OF=of
 
 
-TOOLTIP_EDIT_HEADLINES=You can still edit the headlines before printing by clicking the "edit" button. Please save before printing.
+TOOLTIP_EDIT_HEADLINES=You can still edit the headlines before printing by clicking the \u201Cedit\u201D button. Please save before printing.
 GENERIC_NEXT_PAGE=Next Page
 GENERIC_PREVIOUS_PAGE=Previous Page
 GENERIC_APPLY_TO_GUESTLIST=Apply to guestlist
@@ -1452,11 +1447,11 @@ bittebestatigensiedasloschendermarkiertengasteliste=Please confirm removing the 
 GENERIC_NO_GUESTLIST_DELETED=No guests have been removed.
 
 
-EVENT_DOCTYPE_RESET_INFO=Please check if there already are document types assigned to this event. If so you have to recreate the document types for this guest by clicking "reset to core data".
+EVENT_DOCTYPE_RESET_INFO=Please check if there already are document types assigned to this event. If so you have to recreate the document types for this guest by clicking \u201Creset to core data\u201D.
 
-diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=To do so, navigate to the menu administration > program settings.
-            
-GENERIC_CHOSEN_GUESTLIST=Selected guest list            
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=To do so, navigate to the menu administration \u2192 program settings.
+
+GENERIC_CHOSEN_GUESTLIST=Selected guest list
 exportierfahigegasteliste=exportable guest list
 unvollstandigegasteliste=incomplete guest list
 
@@ -1476,9 +1471,9 @@ PERSONS_MISSING_DOCTYPE_SPECIFIC_DATA=because according document-type-specific d
 GENERIC_TO_EVENTDETAIL=To eventdetails
 GENERIC_INSERT_CURRENT_MONTH=insert current month
 GENERIC_SELECT_FUNCTION=select function
-diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten=This guest's core data has been deleted. You can only edit the data for the purposes of this event
+diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten=This guest\u2019s core data has been deleted. You can only edit the data for the purposes of this event
 DELETE_SELECTED_MANDATOR=Delete selected client(s)
-PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Shall the category's rank be applied from the core data?
+PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Shall the category\u2019s rank be applied from the core data?
 
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
@@ -1499,8 +1494,8 @@ GUEST_DETAIL_PARTNER_GENITIV=of the partner
 GUEST_DETAIL_MAINPERSON=of the main person
 
 GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Please first change the seat at
-GUEST_DETAIL_DUP_SEAT_ERROR_TWO=from 
-GUEST_DETAIL_DUP_SEAT_ERROR_THREE=vie the guest list. This person currently sits at 
+GUEST_DETAIL_DUP_SEAT_ERROR_TWO=from
+GUEST_DETAIL_DUP_SEAT_ERROR_THREE=vie the guest list. This person currently sits at
 GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=on seat
 GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Changes have not been saved.
 
@@ -1508,7 +1503,7 @@ GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Changes have not been saved.
 GUEST_CALC_SERIALNO=This event is in the past already. Do you wish to recalculate the serial number anyway?
 
 # MAILING LIST TEXTS
-MAILING_LIST_NO_ADDRESSES=Failed to apply a new contributor, due to selected person's missing address-data
+MAILING_LIST_NO_ADDRESSES=Failed to apply a new contributor, due to selected person\u2019s missing address-data
 
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=Client to be inserted must not have an id
@@ -1528,7 +1523,7 @@ EXPORT_HEADER_FREETEXT_FIELD=free_text_field
 EXPORT_HEADER_PARTNER_FREETEXT_FIELD=Partner_free_text_field
 EXPORT_HEADER_INTERCONNECTS=Connector
 EXPORT_HEADER_ADDRESS=Address
-EXPORT_HEADER_CHARSET=Charset\u0009
+EXPORT_HEADER_CHARSET=Charset
 EXPORT_HEADER_FUNCTION=fonction
 EXPORT_HEADER_TITLE=Title
 EXPORT_HEADER_FIRSTNAME=First_name
@@ -1611,8 +1606,8 @@ USER_LIST_WARN_ALREADY_USER=User to be inserted is already assigned to VerA.web.
 USER_LIST_WARN_NO_ID=User to be inserted must not have an id
 
 # WORKAREA TEXTS
-WORKAREA_ERROR_INCORRECT_NAME_ONE=The work area named' 
-WORKAREA_ERROR_INCORRECT_NAME_TWO=' could not be created. Please assign a client first.
+WORKAREA_ERROR_INCORRECT_NAME_ONE=The work area named \u201C
+WORKAREA_ERROR_INCORRECT_NAME_TWO=\u201D could not be created. Please assign a client first.
 
 # VERIFY TEXTS
 VERIFY_ERROR_ACCESS_TO_DB_UNABLE=Could not establish connection to database.
@@ -1620,7 +1615,7 @@ VERIFY_ERROR_ACCESS_TO_DB_INTERRUPTED=Connection to database interrupted.
 VERIFY_ERROR_ACCESS_TO_DB_NOT_INTERRUPTED=Failed to interrupt database connection.
 VERIFY_ERROR_DB_NOT_ACCESSIBLE=Failed to connect to database.
 VERIFY_ERROR_DB_VERSION_NOT_DETERMINED=Could not determine version of database-schema.
-VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE=The database schema's version (
+VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE=The database schema\u2019s version (
 VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO=) does not match the version expected by VerA.web (
 VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Your database configuration does not support the expected charset (LC_CTYPE=
@@ -1721,10 +1716,10 @@ GENERIC_SIMPLE_COMBOBOX=Simple combobox
 GENERIC_MULTIPLE_COMBOBOX=Multiple combobox
 
 # EVENT LOCATIONS (Veranstaltungsort)
-HINT_DELETE_NOT_POSSIBLE_ONE=It is not possible to delete the location '
-HINT_DELETE_NOT_POSSIBLE_TWO=', because it is related, at least, to one event.
-CONFIRMATION_CREATE_LOCATION_ONE=Do you really want to delete the location '
-CONFIRMATION_CREATE_LOCATION_TWO='?
+HINT_DELETE_NOT_POSSIBLE_ONE=It is not possible to delete the location \u201C
+HINT_DELETE_NOT_POSSIBLE_TWO=\u201D, because it is related, at least, to one event.
+CONFIRMATION_CREATE_LOCATION_ONE=Do you really want to delete the location \u201C
+CONFIRMATION_CREATE_LOCATION_TWO=\u201D?
 
 INSERT_FUNCTION_FROM_MAIN_DATA=Add function from main data
 INSERT_COMPANY_FROM_MAIN_DATA=Add company from main data
