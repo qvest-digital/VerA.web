@@ -74,13 +74,14 @@
                 <td>
                     <select id="${bean.id}-locale" name="${bean.id}-locale" onchange="setModified('${bean.id}')" #if(!$bean.id) vera-disabled #end>
                         #if($bean.locale && $bean.locale != 0)
-                            <option value="1" #if($bean.locale == 1) selected#end>${placeholderWithTranslation.GENERIC_LATIN}</option>
-                            <option value="2" #if($bean.locale == 2) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 1</option>
-                            <option value="3" #if($bean.locale == 3) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 2</option>
+                        $!message.text($!config.extra1)
+                            <option value="1" #if($bean.locale == 1) selected#end>$!message.text($!config.latin)</option>
+                            <option value="2" #if($bean.locale == 2) selected#end>$!message.text($!config.extra1)</option>
+                            <option value="3" #if($bean.locale == 3) selected#end>$!message.text($!config.extra2)</option>
                         #else
-                            <option value="1" #if($bean.doctypeLocale == 1) selected#end>${placeholderWithTranslation.GENERIC_LATIN}</option>
-                            <option value="2" #if($bean.doctypeLocale == 2) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 1</option>
-                            <option value="3" #if($bean.doctypeLocale == 3) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 2</option>
+                            <option value="1" #if($bean.doctypeLocale == 1) selected#end>$!message.text($!config.latin)</option>
+                            <option value="2" #if($bean.doctypeLocale == 2) selected#end>$!message.text($!config.extra1)</option>
+                            <option value="3" #if($bean.doctypeLocale == 3) selected#end>$!message.text($!config.extra2)</option>
                         #end
                     </select>
                 </td>

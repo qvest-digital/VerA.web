@@ -98,9 +98,9 @@
 					</td>
 					<td>
 						<select name="add-locale" onchange="setModified('add')">
-							<option value="1">${placeholderWithTranslation.GENERIC_LATIN}</option>
-							<option value="2">${placeholderWithTranslation.GENERIC_CHARSET} 1</option>
-							<option value="3">${placeholderWithTranslation.GENERIC_CHARSET} 2</option>
+							<option value="1">$!message.text($!config.latin)</option>
+							<option value="2">$!message.text($!config.extra1)</option>
+							<option value="3">$!message.text($!config.extra2)</option>
 						</select>
 					</td>
 					<td>
@@ -131,9 +131,9 @@
 					</td>
 					<td>
 						<select name="${bean.id}-locale" onchange="setModified('$!bean.id')">
-							<option value="1"#if($bean.locale == 1) selected#end>${placeholderWithTranslation.GENERIC_LATIN}</option>
-							<option value="2"#if($bean.locale == 2) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 1</option>
-							<option value="3"#if($bean.locale == 3) selected#end>${placeholderWithTranslation.GENERIC_CHARSET} 2</option>
+							<option value="1"#if($bean.locale == 1) selected#end>$!message.text($!config.latin)</option>
+							<option value="2"#if($bean.locale == 2) selected#end>$!message.text($!config.extra1)</option>
+							<option value="3"#if($bean.locale == 3) selected#end>$!message.text($!config.extra2)</option>
 						</select>
 					</td>
 					<td>
