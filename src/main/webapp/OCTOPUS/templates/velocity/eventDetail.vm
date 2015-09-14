@@ -18,7 +18,7 @@
 		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
 		</div>
-			<h1>${placeholderWithTranslation.GENERIC_EDIT_EVENT} $!message.plain($event.shortname)</h1>
+			<h1>${placeholderWithTranslation.GENERIC_EDIT_EVENT}: $!message.plain($event.shortname)</h1>
 	#else
 		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_NEW_EVENT}</span>
@@ -110,7 +110,7 @@
 						<div class="table width100">
 							<div class="tableRow">
 								<div class="tableCell width50">
-									<label for="event-shortname">${placeholderWithTranslation.kurzbezeichnung}</label>
+									<label for="event-shortname">${placeholderWithTranslation.kurzbezeichnung}*</label>
 									<input type="text" onchange="setModified();" maxlength="50" id="event-shortname" value="$!message.text($event.shortname)" name="event-shortname"/>
 								</div>
 
