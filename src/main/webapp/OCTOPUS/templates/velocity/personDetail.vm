@@ -74,7 +74,7 @@
 		<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="false"/>
 	#end
 
-	#if(!$isEntityModified)
+	#if(!$isEntityModified && !$createNewPerson)
 		<vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
 	#end
 
