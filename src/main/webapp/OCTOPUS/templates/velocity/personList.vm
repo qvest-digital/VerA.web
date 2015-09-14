@@ -175,7 +175,7 @@
 			#if($workareaAssigned == "assign")
 				$(".errormsg").remove();
 				$(".successmsg").remove();
-				showSuccess('.');
+				showSuccess(' ${placeholderWithTranslation.derarbeitsbereichwurdeerfolgreichhinzugefugt} ');
 			#elseif($workareaAssigned == "unassign")
 				$(".errormsg").remove();
 				$(".successmsg").remove();
