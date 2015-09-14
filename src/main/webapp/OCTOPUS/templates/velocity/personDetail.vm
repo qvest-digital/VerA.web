@@ -73,7 +73,12 @@
 	#else
 		<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="false"/>
 	#end
-	<input type="hidden" id="saveperson" name="saveperson" value="true"/> 
+
+	#if(!$isEntityModified)
+		<vera-success> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-success>
+	#end
+
+	<input type="hidden" id="saveperson" name="saveperson" value="true"/>
 	<input type="hidden" id="company" name="company" value=""/>
 	<input type="hidden" id="companyfield" name="companyfield" value=""/>
 	<input type="hidden" id="inviteGuestReserve" name="inviteGuestReserve" value="false"/>

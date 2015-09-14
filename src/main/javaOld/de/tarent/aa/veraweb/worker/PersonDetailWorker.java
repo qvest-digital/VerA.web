@@ -82,14 +82,16 @@ import java.util.UUID;
  * @author Stefan Weiz, tarent solutions GmbH
  */
 public class PersonDetailWorker implements PersonConstants {
-    /** Logger dieser Klasse */
+    /**
+     * Logger dieser Klasse
+     */
     private static final Logger LOGGER = Logger.getLogger(PersonDetailWorker.class);
 
     /**
      * Example Property file: client.id=example-client client.secret=secret
      * client
      * .redirect_uri=http://osiam-test.lan.tarent.de:8080/addon-administration/
-     *
+     * <p/>
      * osiam.server.resource=http://osiam-test.lan.tarent.de:8080/osiam-resource
      * -server/
      * osiam.server.auth=http://osiam-test.lan.tarent.de:8080/osiam-auth-server/
@@ -103,11 +105,17 @@ public class PersonDetailWorker implements PersonConstants {
     //
     // Octopus-Aktionen
     //
-    /** Eingabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Person)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Person)}
+     */
     public static final String INPUT_showDetail[] = {"id", "person"};
-    /** Ausgabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Person)} */
+    /**
+     * Ausgabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Person)}
+     */
     public static final String OUTPUT_showDetail = "person";
-    /** Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Person)} */
+    /**
+     * Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Person)}
+     */
     public static final boolean MANDATORY_showDetail[] = {false, false};
 
     /**
@@ -119,15 +127,15 @@ public class PersonDetailWorker implements PersonConstants {
      * die Person durch sie identifiziert wurde) in der Session unter "person-id"
      * abgelegt.
      *
-     * @param cntx Octopus-Kontext
-     * @param id ID der Person
-     * @param person Person
+     * @param octopusContext Octopus-Kontext
+     * @param id             ID der Person
+     * @param person         Person
      */
-    public Person showDetail(OctopusContext cntx, Integer id, Person person) throws BeanException, IOException {
-        Database database = new DatabaseVeraWeb(cntx);
+    public Person showDetail(OctopusContext octopusContext, Integer id, Person person) throws BeanException, IOException {
+        Database database = new DatabaseVeraWeb(octopusContext);
 
         if (person == null) {
-            id = getPersonId(cntx, id, false);
+            id = getPersonId(octopusContext, id, false);
             person = (Person) database.getBean("Person", id);
         }
 
@@ -148,34 +156,36 @@ public class PersonDetailWorker implements PersonConstants {
          *
          */
         if (person != null) {
-            cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
+            octopusContext.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
         }
 
-        Map map = (Map) cntx.sessionAsObject("statistikSettings");
+        Map map = (Map) octopusContext.sessionAsObject("statistikSettings");
         if (map == null) {
             map = new HashMap();
-            cntx.setSession("statistikSettings", map);
+            octopusContext.setSession("statistikSettings", map);
         }
 
 		/*
          * added for support of direct search result list navigation, see below
 		 * cklein 2008-03-12
 		 */
-        this.restoreNavigation(cntx, person, database);
+        this.restoreNavigation(octopusContext, person, database);
 
         setCurrentTimeForPersonInMap(person, map);
 
-        cntx.setContent("personTab", cntx.requestAsString("personTab"));
-        cntx.setContent("personMemberTab", cntx.requestAsString("personMemberTab"));
-        cntx.setContent("personAddresstypeTab", cntx.requestAsString("personAddresstypeTab"));
-        cntx.setContent("personLocaleTab", cntx.requestAsString("personLocaleTab"));
+        octopusContext.setContent("personTab", octopusContext.requestAsString("personTab"));
+        octopusContext.setContent("personMemberTab", octopusContext.requestAsString("personMemberTab"));
+        octopusContext.setContent("personAddresstypeTab", octopusContext.requestAsString("personAddresstypeTab"));
+        octopusContext.setContent("personLocaleTab", octopusContext.requestAsString("personLocaleTab"));
+
+        octopusContext.setContent("isEntityModified", true);
 
         return person;
     }
 
     private void setCurrentTimeForPersonInMap(Person person, Map map) {
         /*
-		 * modified to support a direct statistics access from the detail view as per the change request for version 1.2.0
+         * modified to support a direct statistics access from the detail view as per the change request for version 1.2.0
 		 * cklein
 		 * 2008-02-21
 		 */
@@ -333,9 +343,13 @@ public class PersonDetailWorker implements PersonConstants {
         return result;
     }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #copyPerson(OctopusContext, Integer)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #copyPerson(OctopusContext, Integer)}
+     */
     public static final String INPUT_copyPerson[] = {"id"};
-    /** Eingabe-Parameterzwang der Octopus-Aktion {@link #copyPerson(OctopusContext, Integer)} */
+    /**
+     * Eingabe-Parameterzwang der Octopus-Aktion {@link #copyPerson(OctopusContext, Integer)}
+     */
     public static final boolean MANDATORY_copyPerson[] = {false};
 
     /**
@@ -356,7 +370,7 @@ public class PersonDetailWorker implements PersonConstants {
      * {@link Person#importsource}.
      *
      * @param cntx Octopus-Kontext
-     * @param id Personen-ID
+     * @param id   Personen-ID
      */
     public void copyPerson(OctopusContext cntx, Integer id) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(cntx);
@@ -412,7 +426,9 @@ public class PersonDetailWorker implements PersonConstants {
         return person;
     }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #showTestPerson(OctopusContext)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #showTestPerson(OctopusContext)}
+     */
     public static final String INPUT_showTestPerson[] = {};
 
     /**
@@ -432,7 +448,9 @@ public class PersonDetailWorker implements PersonConstants {
         cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
     }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #getDoctype(OctopusContext)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #getDoctype(OctopusContext)}
+     */
     public static final String INPUT_getDoctype[] = {};
 
     /**
@@ -477,7 +495,9 @@ public class PersonDetailWorker implements PersonConstants {
         }
     }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #createExport(OctopusContext)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #createExport(OctopusContext)}
+     */
     public static final String INPUT_createExport[] = {};
 
     /**
@@ -579,9 +599,13 @@ public class PersonDetailWorker implements PersonConstants {
         cntx.setContent("personExport", buffer.toString());
     }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #prepareSaveDetail(OctopusContext, Boolean)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #prepareSaveDetail(OctopusContext, Boolean)}
+     */
     public static final String INPUT_prepareSaveDetail[] = {"saveperson"};
-    /** Eingabe-Parameterzwang der Octopus-Aktion {@link #prepareSaveDetail(OctopusContext, Boolean)} */
+    /**
+     * Eingabe-Parameterzwang der Octopus-Aktion {@link #prepareSaveDetail(OctopusContext, Boolean)}
+     */
     public static final boolean MANDATORY_prepareSaveDetail[] = {false};
 
     /**
@@ -619,11 +643,17 @@ public class PersonDetailWorker implements PersonConstants {
         }
     }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)}
+     */
     public static final String INPUT_saveDetail[] = {"person"};
-    /** Ausgabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)} */
+    /**
+     * Ausgabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)}
+     */
     public static final String OUTPUT_saveDetail = "person";
-    /** Eingabe-Parameterzwang der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)} */
+    /**
+     * Eingabe-Parameterzwang der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)}
+     */
     public static final boolean MANDATORY_saveDetail[] = {false};
 
     /**
@@ -658,40 +688,43 @@ public class PersonDetailWorker implements PersonConstants {
                 person = (Person) request.getBean("Person", "person");
             }
 
+            if (person.isModified()) {
+                octopusContext.setContent("isEntityModified", true);
+
 			/* fix for bug 1013
 			 * cklein 2008-03-12
 			 */
-            person.verify(octopusContext);
-            if (!person.isCorrect()) {
-                octopusContext.setStatus("notcorrect");
+                person.verify(octopusContext);
+                if (!person.isCorrect()) {
+                    octopusContext.setStatus("notcorrect");
 
-                // is this a new record?
-                if (person.id == null) {
+                    // is this a new record?
+                    if (person.id == null) {
                     /*
                      * 2009-06-08 cklein fixing issue with new persons losing
                      * all state and data when entering an invalid date and
                      * trying to store the person part of fix to issue #1529, as
                      * it first showed up when testing the fixes to that issue
                      */
-                    // we transfer the errors from the
-                    // person to the template parameter newPersonErrors
-                    octopusContext.setContent("newPersonErrors", person.getErrors());
+                        // we transfer the errors from the
+                        // person to the template parameter newPersonErrors
+                        octopusContext.setContent("newPersonErrors", person.getErrors());
+                    }
+
+                    return person;
                 }
 
-                return person;
-            }
-
-            if (octopusContext.requestAsBoolean("forcedupcheck").booleanValue()) {
-                return person;
-            }
+                if (octopusContext.requestAsBoolean("forcedupcheck").booleanValue()) {
+                    return person;
+                }
 
 			/* person was copied
 			 * fix for bug 1011
 			 * cklein 2008-03-12
 			 */
-            if (originalPersonId != null && originalPersonId > 0) {
-                person.setModified(true);
-            }
+                if (originalPersonId != null && originalPersonId > 0) {
+                    person.setModified(true);
+                }
 
 			/*
 			 * added support for workarea assignment
@@ -699,9 +732,12 @@ public class PersonDetailWorker implements PersonConstants {
 			 * cklein
 			 * 2008-02-20
 			 */
-            person.workarea = octopusContext.requestAsInteger("workarea-id");
+                person.workarea = octopusContext.requestAsInteger("workarea-id");
 
-            savePersonDetail(octopusContext, person, database, context, originalPersonId);
+                savePersonDetail(octopusContext, person, database, context, originalPersonId);
+            } else {
+                octopusContext.setContent("isEntityModified", false);
+            }
         } catch (BeanException e) {
             context.rollBack();
             throw new BeanException("Die Person konnte nicht gespeichert werden.", e);
@@ -844,14 +880,10 @@ public class PersonDetailWorker implements PersonConstants {
     /**
      * kopiert alle Kategorie-Relationen der original-Person an die new-Person
      *
-     * @param originalPersonId
-     *          Id der original-Person
-     * @param newPersonId
-     *          Id der new-Person
-     * @param database
-     *          Datenbank
-     * @param context
-     *          Transaktionskontext der Datenbank
+     * @param originalPersonId Id der original-Person
+     * @param newPersonId      Id der new-Person
+     * @param database         Datenbank
+     * @param context          Transaktionskontext der Datenbank
      * @throws IOException
      */
     private void copyCategories(Integer originalPersonId, Integer newPersonId, Database database, TransactionContext context) throws IOException {
@@ -884,9 +916,13 @@ public class PersonDetailWorker implements PersonConstants {
         }
     }
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #updatePerson(OctopusContext, Person, Integer)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #updatePerson(OctopusContext, Person, Integer)}
+     */
     public static final String INPUT_updatePerson[] = {"person", "person-id"};
-    /** Eingabe-Parameterzwang der Octopus-Aktion {@link #updatePerson(OctopusContext, Person, Integer)} */
+    /**
+     * Eingabe-Parameterzwang der Octopus-Aktion {@link #updatePerson(OctopusContext, Person, Integer)}
+     */
     public static final boolean MANDATORY_updatePerson[] = {false, false};
 
     /**
@@ -894,8 +930,8 @@ public class PersonDetailWorker implements PersonConstants {
      * übergebenen ID (es wird die übergebene genommen oder eine Instanz aus der DB
      * geladen).
      *
-     * @param cntx Octopus-Kontext
-     * @param person Person; wird benutzt, falls sie die richtige ID hat
+     * @param cntx     Octopus-Kontext
+     * @param person   Person; wird benutzt, falls sie die richtige ID hat
      * @param personId Personen-ID
      */
     public void updatePerson(OctopusContext cntx, Person person, Integer personId) throws BeanException, IOException {
@@ -932,7 +968,7 @@ public class PersonDetailWorker implements PersonConstants {
      * Diese Methode erzeugt eine Test-Person und liefert diese zurück.
      *
      * @param partner bei "only" werden nur Daten zur Partnerperson, bei "without"
-     *  nur Daten zur Hauptperson und sonst Daten zu beiden erzeugt.
+     *                nur Daten zur Hauptperson und sonst Daten zu beiden erzeugt.
      */
     public static Person getTestPerson(String partner) throws BeanException {
         Person person = new Person();
@@ -1017,10 +1053,10 @@ public class PersonDetailWorker implements PersonConstants {
      * Die übergebene ID wird genutzt, wenn sie nicht <code>null</code> ist oder
      * der Parameter <code>forceset</code> <code>true</code> ist.
      *
-     * @param cntx Octopus-Kontext
-     * @param id neue aktuelle ID
+     * @param cntx     Octopus-Kontext
+     * @param id       neue aktuelle ID
      * @param forceSet erzwingt das Nutzen der übergebenen ID, selbst wenn sie
-     *  <code>null</code> ist.
+     *                 <code>null</code> ist.
      * @return die aktuelle Personen-ID
      */
     private Integer getPersonId(OctopusContext cntx, Integer id, boolean forceSet) {
@@ -1044,7 +1080,7 @@ public class PersonDetailWorker implements PersonConstants {
      * mehr berücksichtigt.
      * </p>
      *
-     * @param cntx Aktueller Octopus Kontext
+     * @param cntx     Aktueller Octopus Kontext
      * @param personid PK aus tperson, dessen Eintrag gelöscht werden soll.
      * @throws BeanException inkl. Datenbank-Fehler
      * @throws IOException
@@ -1095,11 +1131,17 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)}
+     */
     public static final String INPUT_createOsiamUser[] = {"personId"};
-    /** Ausgabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
+    /**
+     * Ausgabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)}
+     */
     public static final String OUTPUT_createOsiamUser = "person";
-    /** Eingabe-Parameterzwang der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)} */
+    /**
+     * Eingabe-Parameterzwang der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)}
+     */
     public static final boolean MANDATORY_createOsiamUser[] = {false};
 
     /**
@@ -1157,7 +1199,7 @@ public class PersonDetailWorker implements PersonConstants {
     /**
      * Deletes an OSIAM user with the given username.
      *
-     * @param cntx The {@link de.tarent.octopus.server.OctopusContext}
+     * @param cntx     The {@link de.tarent.octopus.server.OctopusContext}
      * @param username The username
      */
     public void deleteOsiamUser(OctopusContext cntx, String username) {

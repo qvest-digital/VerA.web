@@ -157,11 +157,11 @@
 				#set($messageAction = "DELETE")
 				#set($count= $countRemove)
 			#end
+
 			#if($count>=0)
 				#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
 				<vera-success> $generalMessage. </vera-success>
 			#end
-
 
             <script type="text/javascript">
                 function changeLanguage(selectedLanguage) {

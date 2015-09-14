@@ -1901,3 +1901,6 @@ GM_WORKAREA_DELETE_N=No work areas were deleted
 GM_WORKAREA_INSERT_S=One work area successfully inserted
 GM_WORKAREA_INSERT_P=%s work areas successfully inserted
 GM_WORKAREA_INSERT_N=No work areas were inserted
+
+GM_NO_CHANGES=You have made no changes.
+
