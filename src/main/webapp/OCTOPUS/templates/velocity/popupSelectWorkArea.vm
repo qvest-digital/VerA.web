@@ -73,9 +73,9 @@
 						}, function () { //nein
 							showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichaufgehoben}');
 						},
-						${placeholderWithTranslation.GENERIC_DELETE},
-						${placeholderWithTranslation.GENERIC_CANCEL}
-						);
+						'${placeholderWithTranslation.GENERIC_DELETE}',
+						'${placeholderWithTranslation.GENERIC_CANCEL}'
+					);
         			#else
 						showAllocateRemove('${placeholderWithTranslation.wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben}',
 						function () { // Ja
@@ -89,8 +89,8 @@
 						}, function () { //nein
 							showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichaufgehoben}');
 						},
-						${placeholderWithTranslation.GENERIC_DELETE},
-						${placeholderWithTranslation.GENERIC_CANCEL}
+						'${placeholderWithTranslation.GENERIC_DELETE}',
+						'${placeholderWithTranslation.GENERIC_CANCEL}'
 						);
         			#end
     			};

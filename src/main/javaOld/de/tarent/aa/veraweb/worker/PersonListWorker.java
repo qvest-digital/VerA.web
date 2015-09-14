@@ -292,7 +292,11 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	public void unassignWorkArea(OctopusContext cntx, List<Integer> personIds, Integer workAreaId) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
 		TransactionContext context = database.getTransactionContext();
-		PersonListWorker.unassignWorkArea(context, workAreaId, personIds);
+		if (workAreaId > 0) {
+			unassignWorkArea(context, workAreaId, personIds);
+		} else {
+			unassignAllWorkAreas(context, personIds);
+		}
 		try {
 			context.commit();
 		} catch (Exception e) {
@@ -330,6 +334,16 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		Update stmt = context.getDatabase().getUpdate("Person");
 		stmt.update("tperson.fk_workarea", 0);
 		stmt.where(Expr.equal("tperson.fk_workarea", workAreaId));
+		if (personIds != null && personIds.size() > 0) {
+			stmt.whereAnd(Expr.in("tperson.pk", personIds));
+		}
+		context.execute(stmt);
+	}
+
+
+	private static void unassignAllWorkAreas(TransactionContext context, List<Integer> personIds) throws IOException, BeanException {
+		final Update stmt = context.getDatabase().getUpdate("Person");
+		stmt.update("tperson.fk_workarea", 0);
 		if (personIds != null && personIds.size() > 0) {
 			stmt.whereAnd(Expr.in("tperson.pk", personIds));
 		}
