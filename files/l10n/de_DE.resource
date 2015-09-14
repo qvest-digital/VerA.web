@@ -668,7 +668,7 @@ GENERIC_HOST=Gastgeber
 GENERIC_EVENT_LOCATION_SINGULAR=Veranstaltungsort
 GENERIC_EVENT_SEARCH=Veranstaltung suchen
 GENERIC_CREATE_NEW_EVENT=Neue Veranstaltung anlegen
-GENERIC_NUMBER_PER_PAGE=Anzahl pro seite
+GENERIC_NUMBER_PER_PAGE=Anzahl pro Seite
 seitexvony=Seite x von y
 
 # EVENT HEADER

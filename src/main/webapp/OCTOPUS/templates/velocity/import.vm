@@ -78,7 +78,7 @@
                 <div class="tableRow">
                     <div class="tableCell width50">
                         <label for="importSource">
-                            ${placeholderWithTranslation.GENERIC_ORIGIN_DATA}
+                            ${placeholderWithTranslation.GENERIC_ORIGIN_DATA}*
                         </label>
                         <input type="text" name="importSource" id="importSource" value="$!message.text($importSource)">
                     </div>

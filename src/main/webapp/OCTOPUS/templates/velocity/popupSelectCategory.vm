@@ -178,13 +178,9 @@
         <form>
             <div class="contentBoxColored grayBorder">
 
-                    <h1>${placeholderWithTranslation.waehlensieeinekategorieauswelchesie}
-                        #if( $assignmentAction == "assign" )
-                            ${placeholderWithTranslation.zuweisen}
-                        #else
-                            ${placeholderWithTranslation.GENERIC_DELETE}
-                        #end
-                    ${placeholderWithTranslation.moechten}:</h1>
+                    <h1>${placeholderWithTranslation.waehlensieeinekategorieauswelchesie}#if( $assignmentAction == "assign" )${placeholderWithTranslation.zuweisen}#else${placeholderWithTranslation.GENERIC_DELETE}#end
+                        <!-- DEBUG "${placeholderWithTranslation.moechten}" -->
+                    	#if(${placeholderWithTranslation.moechten} && ${placeholderWithTranslation.moechten}!="")${placeholderWithTranslation.moechten}#end:</h1>
 
 
                     #if( $allCategorie.size() > 0 )

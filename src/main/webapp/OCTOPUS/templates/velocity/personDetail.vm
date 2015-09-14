@@ -455,16 +455,16 @@
 
 		var msg = "";
 
-		var textCancelDeletion = encodeURIComponent("${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION}");
-		var textConfirmDeletion = encodeURIComponent("${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING}");
-		var textWarnNoBack = encodeURIComponent("${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden}");
+		var textCancelDeletion = "${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION}";
+		var textConfirmDeletion = "${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING}";
+		var textWarnNoBack = "${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden}";
 
 		msg += '<br><span class="notBold">' + textCancelDeletion + ' </span><br>' + textConfirmDeletion + ' ' + textWarnNoBack + ' <br>';
-
+		
         $(".errormsg").remove();
 		$(".successmsg").remove();
 
-		var question = encodeURIComponent("${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_HEADER}");
+		var question = "${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_HEADER}";
 		showConfirmYesNo(question, msg,
 			 // Ja, Person löschen
 			function () {

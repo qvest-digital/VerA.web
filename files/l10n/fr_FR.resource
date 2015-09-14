@@ -1486,7 +1486,7 @@ GENERIC_CANCEL=Suspendre
 GENERIC_DELETE=Supprimer
 GENERIC_CONNECTOR=Connecteur
 GENERIC_VIEW_DOCUMENT_TYPE=Montrer le type du document
-GENERIC_GENERATE_DOCUMENT-TYPE=g\u00E9n\u00E9rer un nouveau type de document
+GENERIC_GENERATE_DOCUMENT_TYPE=g\u00E9n\u00E9rer un nouveau type de document
 
 # GUEST DETAIL TEXTS
 GUEST_DETAIL_PARTNER=le partenaire
