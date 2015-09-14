@@ -32,8 +32,8 @@
 						}, function () { //nein
 							showSuccess('${placeholderWithTranslation.eswurdekeinarbeitsbereichzugeordnet}');
 						},
-			    			${placeholderWithTranslation.GENERIC_ASSIGN},
-			    			${placeholderWithTranslation.GENERIC_CANCEL}
+			    			'${placeholderWithTranslation.GENERIC_ASSIGN}',
+			    			'${placeholderWithTranslation.GENERIC_CANCEL}'
 			    	);
         			#else
         				showAllocateAssign('${placeholderWithTranslation.wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen}',
@@ -48,8 +48,8 @@
 						}, function () { //nein
 							showSuccess('${placeholderWithTranslation.eswurdenkeinearbeitsbereichzugeordnet}');
 						},
-			    ${placeholderWithTranslation.GENERIC_ASSIGN},
-			    ${placeholderWithTranslation.GENERIC_CANCEL}
+			    	'${placeholderWithTranslation.GENERIC_ASSIGN}',
+			    	'${placeholderWithTranslation.GENERIC_CANCEL}'
 			    );
         			#end
     			};
