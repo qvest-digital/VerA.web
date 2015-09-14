@@ -30,7 +30,7 @@ public class LanguageHelper {
         } else {
             message = placeholderWithTranslation.get(placeholdername);
         }
-//		return placeholdername;
+        
         return message;
     }
 
