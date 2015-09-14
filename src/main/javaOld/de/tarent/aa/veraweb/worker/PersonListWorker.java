@@ -263,21 +263,25 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
 		// does the user request workareas to be assigned or unassigned?
 		else if (workareaAssignmentAction != null && workareaAssignmentAction.length() > 0) {
-			Database database = getDatabase(cntx);
-			List<Integer> selection = getSelection(cntx, getCount(cntx, database));
-			if (!selection.isEmpty()) {
-				cntx.setContent("deleted", selection.size());
-				Integer workareaId = cntx.requestAsInteger("workareaAssignmentId");
-				if ("assign".compareTo(workareaAssignmentAction) == 0) {
-					assignWorkArea(cntx, selection, workareaId);
-				} else if ("unassign".compareTo(workareaAssignmentAction) == 0) {
-					unassignWorkArea(cntx, selection, workareaId);
-				}
-				selection.clear();
-			}
+			handleWorkareaActions(cntx, workareaAssignmentAction);
 		} else {
 			super.saveList(cntx);
 		}
+	}
+
+	private void handleWorkareaActions(OctopusContext cntx, String workareaAssignmentAction) throws BeanException, IOException {
+		final Database database = getDatabase(cntx);
+		final List<Integer> selection = getSelection(cntx, getCount(cntx, database));
+		if (!selection.isEmpty()) {
+            cntx.setContent("deleted", selection.size());
+            final Integer workareaId = cntx.requestAsInteger("workareaAssignmentId");
+            if ("assign".compareTo(workareaAssignmentAction) == 0) {
+                assignWorkArea(cntx, selection, workareaId);
+            } else if ("unassign".compareTo(workareaAssignmentAction) == 0) {
+                unassignWorkArea(cntx, selection, workareaId);
+            }
+            selection.clear();
+        }
 	}
 
 	/**
@@ -290,17 +294,21 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 * @throws IOException
 	 */
 	public void unassignWorkArea(OctopusContext cntx, List<Integer> personIds, Integer workAreaId) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
-		TransactionContext context = database.getTransactionContext();
-		if (workAreaId > 0) {
-			unassignWorkArea(context, workAreaId, personIds);
-		} else {
-			unassignAllWorkAreas(context, personIds);
-		}
+		final Database database = getDatabase(cntx);
+		final TransactionContext context = database.getTransactionContext();
+		handleUnassignWorkarea(personIds, workAreaId, context);
 		try {
 			context.commit();
 		} catch (Exception e) {
 			context.rollBack();
+		}
+	}
+
+	private void handleUnassignWorkarea(List<Integer> personIds, Integer workAreaId, TransactionContext context) throws BeanException, IOException {
+		if (workAreaId > 0) {
+			unassignWorkArea(context, workAreaId, personIds);
+		} else if (workAreaId == 0) {
+			unassignAllWorkAreas(context, personIds);
 		}
 	}
 

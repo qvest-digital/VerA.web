@@ -668,7 +668,7 @@ GENERIC_HOST=Gastgeber
 GENERIC_EVENT_LOCATION_SINGULAR=Veranstaltungsort
 GENERIC_EVENT_SEARCH=Veranstaltung suchen
 GENERIC_CREATE_NEW_EVENT=Neue Veranstaltung anlegen
-GENERIC_NUMBER_PER_PAGE=Anzahl pro seite
+GENERIC_NUMBER_PER_PAGE=Anzahl pro Seite
 seitexvony=Seite x von y
 
 # EVENT HEADER
@@ -1120,9 +1120,9 @@ wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen=Wollen 
 eswurdekeinekategorieentfernt=Es wurde keine Kategorie entfernt
 wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen=Wollen Sie ${count} Personen bzw. G\u00E4ste aus der ausgew\u00E4hlten Kategorie entfernen
 eswurdenkeinekategorienentfernt=Es wurden keine Kategorien entfernt.
-zuweisen=Zuweisen
+zuweisen=\u00A0zuweisen
 waehlensieeinekategorieauswelchesie=W\u00E4hlen Sie eine Kategorie aus, welche Sie
-moechten=m\u00F6chten
+moechten=\u00A0m\u00F6chten
 alleentfernen=Alle entfernen
 siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=Sie haben keine Kategorien konfiguriert. Diese k\u00F6nnen Sie im Administrationsbereich unter dem Punkt
 definieren=definieren.

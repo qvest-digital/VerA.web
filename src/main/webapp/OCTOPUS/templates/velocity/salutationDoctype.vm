@@ -11,7 +11,7 @@
     <div id="content_container">
 
     	<div id="breadcrumb marginBottom10" class="textRight">
-    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="index.html">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration}> ${placeholderWithTranslation.GENERIC_SALUTATIONS}/span>
+    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="index.html">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration}> ${placeholderWithTranslation.GENERIC_SALUTATIONS}</span>
     	</div>
 
     	<h1>${placeholderWithTranslation.GENERIC_SALUTATIONS}</h1>
