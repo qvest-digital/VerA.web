@@ -545,7 +545,7 @@ MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=The login credentials have been created succe
 MESSAGE_OSIAM_LOGIN_DATA_EXIST=Login credentials for this person already exist.
 
 # PERSONEN/NEUE PERSON ANLEGEN
-GENERIC_IS_COMPANY=Is compnay
+GENERIC_IS_COMPANY=Is company
 GENERIC_SALUTATION_SINGULAR=Salutation
 frau=Frau
 herr=Herr
@@ -1073,9 +1073,9 @@ eswurdenkeinedublettengefundensiekoennenjetztweiteredateneingebenunddiedatenspei
 bittegebensiezunaechstden=Please give
 vorundnachnamen=first and last name
 anundfuhrendiedublettenprufungdurch=and search for duplicates.
-beifirmenwaehlensiediecheckbox=By companies, choose the checkbox
-undtragendanndenfirmennameneindassystempruftihreangabendaraufhinaufdubletten=and input the company name. The system checks your inputs for duplicates.
-liegtkeinedublettevorkoennensieweiteredateneingebenunddiedatenspeichern=There are no duplicates, you can input more data and save.
+beifirmenwaehlensiediecheckbox=For companies, choose the checkbox
+undtragendanndenfirmennameneindassystempruftihreangabendaraufhinaufdubletten=and input the company name. The system checks your input for duplicates.
+liegtkeinedublettevorkoennensieweiteredateneingebenunddiedatenspeichern=If there are no duplicates, you can input more data and save.
 geschaeftlich=Business
 privat=Private
 zurueckzurpersonensuche=Back to person search
