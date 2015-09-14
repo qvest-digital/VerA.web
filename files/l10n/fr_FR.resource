@@ -1180,7 +1180,7 @@ biszum=jusqu\u2019\u00E0 la
 bis=\u00E0
 auswartigesamtintranetstil=Minist\u00E8re des affaires \u00E9trang\u00E8res intranet-style
 klickensieeinederaufgelistetenpersonenanumsiederaufgabehinzuzufugen=Cliquez sur une des personnes inscrites pour les ajouter \u00E0 la t\u00E2che
-eswurdeeinepersongeloscht=Aucune personne a été supprimé
+eswurdeeinepersongeloscht=Aucune personne a \u00E9t\u00E9 supprim\u00E9
 eswurdekeinepersongeloscht=Elle a \u00E9t\u00E9 supprim\u00E9e aucune personne
 personengelouscht=personnes effac\u00E9s
 derarbeitsbereichwurdeerfolgreichhinzugefugt=L\u2019aire de travail a \u00E9t\u00E9 ajout\u00E9 avec succ\u00E8s.
@@ -1901,3 +1901,6 @@ GM_WORKAREA_DELETE_N=Aucun domaine d\u2019activit\u00E9 a \u00E9t\u00E9 elimin\u
 GM_WORKAREA_INSERT_S=Vous avez cr\u00E9\u00E9 un domaine d\u2019activit\u00E9
 GM_WORKAREA_INSERT_P=Vous avez cr\u00E9\u00E9 %s domaines d\u2019activit\u00E9
 GM_WORKAREA_INSERT_N=Aucun domaine d\u2019activit\u00E9 a \u00E9t\u00E9 cr\u00E9\u00E9
+
+GM_NO_CHANGES=Vous avez apport\u00E9 aucune modification.
+
