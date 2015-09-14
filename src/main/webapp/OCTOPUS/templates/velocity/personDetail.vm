@@ -75,7 +75,7 @@
 	#end
 
 	#if(!$isEntityModified)
-		<vera-success> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-success>
+		<vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
 	#end
 
 	<input type="hidden" id="saveperson" name="saveperson" value="true"/>
