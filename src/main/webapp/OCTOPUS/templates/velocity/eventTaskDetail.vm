@@ -148,7 +148,7 @@
                     </div>
                     <div class="tableRow">
                         <div class="tableCell">
-                            <label for="task-title">${placeholderWithTranslation.kurzbezeichnung}</label>
+                            <label for="task-title">${placeholderWithTranslation.kurzbezeichnung}*</label>
                             <input tabindex="1" type="text" name="task-title" value="$!message.text($task.title)" id="task-title" maxlength="100" onchange="setModified();"></div>
                         <div class="tableCell">
                             <label for="task-enddate">${placeholderWithTranslation.GENERIC_END}</label>
