@@ -1658,7 +1658,7 @@ LETTER_HOST=H
 
 GENERIC_LASTNAME_WITH_SOFT_HYPHEN=Surnom
 GENERIC_FIRSTNAME_WITH_SOFT_HYPHEN=Pr\u00E9nom
-
+GENERIC_RELOAD=Recharger
 GENERIC_LOAD_EXISTING_IMPORTPROCESS=Charger un proc\u00E9ssus d\u2019importation disponible
 GENERIC_IMPORTID=Importation-id
 GENERIC_YEAR=Ann\u00E9e
@@ -1737,6 +1737,7 @@ HINT_POPUP_CATEGORY_SELECTION_TWO=personne(s). Le processus pourrait durer, selo
 
 DELETE_DISTRIBUTOR=Voulez-vous supprimer le distributeur sel\u00E9ctionn\u00E9?
 DELETE_DISTRIBUTORS=Voulez-vous supprimer les distributeurs sel\u00E9ctionn\u00E9s?
+PLACEHOLDER_DATE_FORMAT=jj.mm.aaaa
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=Vous avez modifi\u00E9 une cat\u00E9gorie

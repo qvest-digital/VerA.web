@@ -21,7 +21,7 @@
 
 						<label for="begin">${placeholderWithTranslation.zeitrahmenbeginn}</label>
 						<span id="showBegin" class="datepickerContainer">
-						<input type="text" name="begin" placeholder="TT.MM.JJJJ" id="begin" class="datepicker">
+						<input type="text" name="begin" placeholder="${placeholderWithTranslation.PLACEHOLDER_DATE_FORMAT}" id="begin" class="datepicker">
 						<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}">
 						<script type="text/javascript">
 							Calendar.setup({
@@ -35,7 +35,7 @@
 				##		(<a href="javascript:document.getElementById('begin').value='$!message.date("DATE", $firstDayInMonth)'; document.getElementById('end').value='$!message.date("DATE", $lastDayInMonth)';">${placeholderWithTranslation.GENERIC_INSERT_CURRENT_MONTH}</a>)
 						<label for="end">${placeholderWithTranslation.zeitrahmenende}</label>
 						<span id="showEnd" class="datepickerContainer">
-						<input type="text" name="end" placeholder="TT.MM.JJJJ" id="end" class="datepicker">
+						<input type="text" name="end" placeholder="${placeholderWithTranslation.PLACEHOLDER_DATE_FORMAT}" id="end" class="datepicker">
 						<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}">
 						<script type="text/javascript">
 							Calendar.setup({

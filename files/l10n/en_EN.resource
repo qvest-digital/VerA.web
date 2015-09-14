@@ -1333,7 +1333,7 @@ MESSAGE_INVITATION_WITHOUT_PERSON_PART1=Do you want to
 MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON=invite these subsequently
 MESSAGE_END_AND_START_DATE=The event\u2019s end-date needs to be after the beginning-date chronologically
 MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=The event can not be saved, please give a short description
-MESSAGE_EVENT_WRING_DATE_FORMAT=You need to state the event-beginn formatted like DD.MM.YYYY
+MESSAGE_EVENT_WRING_DATE_FORMAT=You need to state the event-beginn formatted like dd.mm.yyyy
 MESSAGE_GENERIC_MISSING_DESCRIPTION=You need to provide a description.
 MESSAGE_COLOR_MISSING_NAME=You need to provide a name.
 MESSAGE_EVENTCATEGORY_ASSIGNMENT_WRONG=A category is incorrectly assigned to an event.
@@ -1658,7 +1658,7 @@ LETTER_HOST=H
 
 GENERIC_LASTNAME_WITH_SOFT_HYPHEN=Last Name
 GENERIC_FIRSTNAME_WITH_SOFT_HYPHEN=First Name
-
+GENERIC_RELOAD=Reload
 GENERIC_LOAD_EXISTING_IMPORTPROCESS=Load existing import process
 GENERIC_IMPORTID=Import id
 GENERIC_YEAR=Year
@@ -1737,6 +1737,7 @@ HINT_POPUP_CATEGORY_SELECTION_TWO=person(s). Depending on the amount of persons,
 
 DELETE_DISTRIBUTOR=Do you really want to delete the selected distributor?
 DELETE_DISTRIBUTORS=Do you really want to delete the selected distributors?
+PLACEHOLDER_DATE_FORMAT=dd.mm.yyyy
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=One category successfully modified
