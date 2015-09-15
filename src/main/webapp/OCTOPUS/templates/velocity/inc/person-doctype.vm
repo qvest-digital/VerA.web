@@ -15,6 +15,10 @@
         #end
     #end
 
+    #if(!$isEntityModified && !$createNewPerson)
+        <vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
+    #end
+
     #if($grants.mayWrite())
         <span id="actionPanel" class="inlineLabel">
             <label>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPES_MARKED}
@@ -61,13 +65,13 @@
                 <td>
                     <select id="${bean.id}-addresstype" name="${bean.id}-addresstype" onchange="setModified('${bean.id}')" #if(!$bean.id) vera-disabled #end>
                         #if($bean.addresstype && $bean.addresstype != 0)
-                            <option value="1" #if($bean.addresstype == 1) selected#end>${placeholderWithTranslation.GENERIC_BUSINESS}</option>
-                            <option value="2" #if($bean.addresstype == 2) selected#end>${placeholderWithTranslation.privat}</option>
-                            <option value="3" #if($bean.addresstype == 3) selected#end>${placeholderWithTranslation.GENERIC_MORE}</option>
+                            <option value="1" #if($bean.addresstype == 1) selected#end>$!config.business</option>
+                            <option value="2" #if($bean.addresstype == 2) selected#end>$!config.private</option>
+                            <option value="3" #if($bean.addresstype == 3) selected#end>$!config.other</option>
                         #else
-                            <option value="1" #if($bean.doctypeAddresstype == 1) selected#end>${placeholderWithTranslation.GENERIC_BUSINESS}</option>
-                            <option value="2" #if($bean.doctypeAddresstype == 2) selected#end>${placeholderWithTranslation.privat}</option>
-                            <option value="3" #if($bean.doctypeAddresstype == 3) selected#end>${placeholderWithTranslation.GENERIC_MORE}</option>
+                            <option value="1" #if($bean.doctypeAddresstype == 1) selected#end>$!config.business</option>
+                            <option value="2" #if($bean.doctypeAddresstype == 2) selected#end>$!config.private</option>
+                            <option value="3" #if($bean.doctypeAddresstype == 3) selected#end>$!config.other</option>
                         #end
                     </select>
                 </td>

@@ -93,7 +93,7 @@
 
 						</div>
 						<div class="tableCell" style="vertical-align:bottom;">
-							<input type="button" name="create" value="Neu laden" onclick="reloadGuestDoctype();">
+							<input type="button" name="create" value="${placeholderWithTranslation.GENERIC_RELOAD}" onclick="reloadGuestDoctype();">
 						</div>
 					</div>
 				</div>
@@ -259,7 +259,7 @@
 						</div>
 						<div class="tableRow">
 							<div class="tableCell width50">
-								<label for="guestdoctype-country">${placeholderWithTranslation.land}</label>
+								<label for="guestdoctype-country">${placeholderWithTranslation.GENERIC_COUNTRY}</label>
 								<input type="text" id="guestdoctype-country" maxlength="100" name="guestdoctype-country" value="$!message.text($guestdoctype.country)" />
 							</div>
 							<div class="tabelCell"></div>
