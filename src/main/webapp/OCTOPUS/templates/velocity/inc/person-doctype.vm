@@ -15,10 +15,6 @@
         #end
     #end
 
-    #if(!$isEntityModified && !$createNewPerson)
-        <vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
-    #end
-
     #if($grants.mayWrite())
         <span id="actionPanel" class="inlineLabel">
             <label>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPES_MARKED}

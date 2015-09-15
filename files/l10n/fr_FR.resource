@@ -1905,3 +1905,4 @@ GM_WORKAREA_INSERT_N=Aucun domaine d\u2019activit\u00E9 a \u00E9t\u00E9 cr\u00E9
 
 GM_NO_CHANGES=Vous avez apport\u00E9 aucune modification.
 
+GM_CONFIRMATION_EMAIL_DISTRIBUTOR=Voulez-vous importer les addresses \u00E9l\u00E9ctroniques du distributeur?

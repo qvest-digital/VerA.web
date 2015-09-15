@@ -66,34 +66,34 @@ public class PersonGuestListWorker extends PersonListWorker {
      * "addguest-invitepartner", "addguest-selectreserve" und "addguest-invitecategory"
      * abgelegt.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
 	 */
-	public void extendGuestSelection(OctopusContext cntx) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
-		Event event = (Event)cntx.contentAsObject("event");
-		PersonSearch search = getSearch(cntx);
+	public void extendGuestSelection(OctopusContext octopusContext) throws BeanException, IOException {
+		Database database = getDatabase(octopusContext);
+		Event event = (Event)octopusContext.contentAsObject("event");
+		PersonSearch search = getSearch(octopusContext);
 		// IDs der sichtbaren Personen
-		List ids = (List)BeanFactory.transform(cntx.requestAsObject(INPUT_LIST), List.class);
+		List ids = (List)BeanFactory.transform(octopusContext.requestAsObject(INPUT_LIST), List.class);
 		// IDs der selektierten Personen
-		List invitemain = (List)cntx.sessionAsObject("selectionPerson");
+		List invitemain = (List)octopusContext.sessionAsObject("selectionPerson");
 		// IDs der Personen mit Partner
-		List invitepartner = (List)cntx.sessionAsObject("addguest-invitepartner");
+		List invitepartner = (List)octopusContext.sessionAsObject("addguest-invitepartner");
 		// IDs der Personen deren Reserve selektiert ist
-		List selectreserve = (List)cntx.sessionAsObject("addguest-selectreserve");
+		List selectreserve = (List)octopusContext.sessionAsObject("addguest-selectreserve");
 		// IDs der Personen, welche als delegation selektiert sind
-		List selectdelegation = (List)cntx.sessionAsObject("addguest-selectdelegation");
+		List selectdelegation = (List)octopusContext.sessionAsObject("addguest-selectdelegation");
 
-		Map invitecategory = (Map)cntx.sessionAsObject("addguest-invitecategory");
+		Map invitecategory = (Map)octopusContext.sessionAsObject("addguest-invitecategory");
 
-		cntx.getContentObject().setField("action", "guest");
+		octopusContext.getContentObject().setField("action", "guest");
 
-		if ("reset".equals(cntx.requestAsString("search"))) {
+		if ("reset".equals(octopusContext.requestAsString("search"))) {
 			if (invitemain.size() == 1) {
-				cntx.getRequestObject().setParam(INPUT_SELECTALL, Boolean.TRUE);
+				octopusContext.getRequestObject().setParam(INPUT_SELECTALL, Boolean.TRUE);
 			}
 
 			Select select = database.getSelectIds(database.createBean(BEANNAME));
-			Clause clause = getPersonListFilter(cntx, false);
+			Clause clause = getPersonListFilter(octopusContext, false);
 			if (search.categoriesSelection != null && search.categorie2 != null) {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat2", "tperson.pk", "cat2.fk_person");
@@ -154,13 +154,13 @@ public class PersonGuestListWorker extends PersonListWorker {
 			if (invitecategory == null) invitecategory = new HashMap();
 		}
 
-		if (cntx.requestAsBoolean(INPUT_SELECTNONE).booleanValue()) {
+		if (octopusContext.requestAsBoolean(INPUT_SELECTNONE).booleanValue()) {
 			// Leere Liste anlegen.
 			invitemain = new ArrayList();
 			invitepartner = new ArrayList();
 			selectreserve = new ArrayList();
 			selectdelegation = new ArrayList();
-		} else if (cntx.requestAsBoolean(INPUT_SELECTALL).booleanValue()) {
+		} else if (octopusContext.requestAsBoolean(INPUT_SELECTALL).booleanValue()) {
 			// Alle IDs aus der Datenbank in die Liste kopieren.
 			invitepartner = new ArrayList();
 			selectreserve = new ArrayList();
@@ -181,7 +181,7 @@ public class PersonGuestListWorker extends PersonListWorker {
 			} else {
 				select.selectAs("NULL", "category");
 			}
-			Clause clause = getPersonListFilter(cntx, false);
+			Clause clause = getPersonListFilter(octopusContext, false);
 			if (event.invitationtype.intValue() != EventConstants.TYPE_NURPARTNER) {
 				select.where(Where.and(clause, Where.or(
 						Expr.greater("lastname_a_e1", ""),
@@ -200,12 +200,12 @@ public class PersonGuestListWorker extends PersonListWorker {
 				select.where(Where.and(clause, Where.or(
 						Expr.greater("lastname_b_e1", ""),
 						Expr.greater("firstname_b_e1", ""))));
-				extendSelectByMultipleCategorySearch( cntx, search, select );
+				extendSelectByMultipleCategorySearch( octopusContext, search, select );
 				for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 					invitepartner.add(((Map)it.next()).get("id"));
 				}
 			}
-		} else {
+		} else if (invitepartner != null || selectreserve != null || selectdelegation != null) {
 			// IDs zusammenführen.
 			if (invitepartner == null) invitepartner = new ArrayList();
 			if (selectreserve == null) selectreserve = new ArrayList();
@@ -214,19 +214,19 @@ public class PersonGuestListWorker extends PersonListWorker {
 
 			for (Iterator it = ids.iterator(); it.hasNext(); ) {
 				Integer id = new Integer((String)it.next());
-				if (cntx.requestAsBoolean(id + "-partner").booleanValue()) {
+				if (octopusContext.requestAsBoolean(id + "-partner").booleanValue()) {
 					if (invitepartner.indexOf(id) == -1)
 						invitepartner.add(id);
 				} else {
 					invitepartner.remove(id);
 				}
-				if (cntx.requestAsBoolean(id + "-reserve").booleanValue()) {
+				if (octopusContext.requestAsBoolean(id + "-reserve").booleanValue()) {
 					if (selectreserve.indexOf(id) == -1)
 						selectreserve.add(id);
 				} else {
 					selectreserve.remove(id);
 				}
-				if (cntx.requestAsBoolean(id + "-delegation").booleanValue()) {
+				if (octopusContext.requestAsBoolean(id + "-delegation").booleanValue()) {
 					if (selectdelegation.indexOf(id) == -1)
 						selectdelegation.add(id);
 				} else {
@@ -238,21 +238,21 @@ public class PersonGuestListWorker extends PersonListWorker {
 
 		for (Iterator it = ids.iterator(); it.hasNext(); ) {
 			Integer id = new Integer((String)it.next());
-			invitecategory.put(id, cntx.requestAsInteger(id + "-category"));
+			invitecategory.put(id, octopusContext.requestAsInteger(id + "-category"));
 		}
 
-		cntx.setSession("selection" + BEANNAME, invitemain);
-		cntx.setSession("addguest-invitepartner", invitepartner);
-		cntx.setSession("addguest-selectreserve", selectreserve);
-		cntx.setSession("addguest-selectdelegation", selectdelegation);
-		cntx.setSession("addguest-invitecategory", invitecategory);
-		cntx.setContent("invitepartner", invitepartner);
-		cntx.setContent("selectreserve", selectreserve);
-		cntx.setContent("selectdelegation", selectdelegation);
-		cntx.setContent("invitecategory", invitecategory);
+		octopusContext.setSession("selection" + BEANNAME, invitemain);
+		octopusContext.setSession("addguest-invitepartner", invitepartner);
+		octopusContext.setSession("addguest-selectreserve", selectreserve);
+		octopusContext.setSession("addguest-selectdelegation", selectdelegation);
+		octopusContext.setSession("addguest-invitecategory", invitecategory);
+		octopusContext.setContent("invitepartner", invitepartner);
+		octopusContext.setContent("selectreserve", selectreserve);
+		octopusContext.setContent("selectdelegation", selectdelegation);
+		octopusContext.setContent("invitecategory", invitecategory);
 
-		cntx.setContent("personCategorie", new PersonCategorie(database));
-		cntx.setContent("search", search);
+		octopusContext.setContent("personCategorie", new PersonCategorie(database));
+		octopusContext.setContent("search", search);
 	}
 
     /** Eingabe-PArameter für die Octopus-Aktion {@link #clearGuestSelection(OctopusContext)} */

@@ -1904,3 +1904,5 @@ GM_WORKAREA_INSERT_P=Es wurden %s Arbeitsbereiche angelegt
 GM_WORKAREA_INSERT_N=Es wurde kein Arbeitsbereich angelegt
 
 GM_NO_CHANGES=Sie haben keine \u00C4nderungen vorgenommen.
+
+GM_CONFIRMATION_EMAIL_DISTRIBUTOR=E-mail addressen aus Verteiler \u00FCbernehmen?

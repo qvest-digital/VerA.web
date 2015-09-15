@@ -8,10 +8,6 @@
     <input type="hidden" name="persondoctype-person" value="$!persondoctype.person">
     <input type="hidden" name="persondoctype-doctype" value="$!persondoctype.doctype">
 
-    #if(!$isEntityModified && !$createNewPerson)
-        <vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
-    #end
-
     <h3>${placeholderWithTranslation.dokumenttypbearbeiten}</h3>
     <div class="table width100 notBold">
         <div class="tableRow">
