@@ -326,7 +326,7 @@
 			#if($event && $event.id)
 				<input type="reset" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" title="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" name="cancel" onclick="window.location.href='SearchEvent?action=event&selectNone=true';">
 			#else
-				<input type="reset" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" title="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" name="cancel" onclick="if (checkModified()) { window.location.href='ShowEventSearch?action=event'; }">
+				<input type="button" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" title="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" name="cancel" onclick="if (checkModified()) { window.location.href='SearchEvent?action=event&search=reset&selectNone=true'; }">
 			#end
 		</span>
 
