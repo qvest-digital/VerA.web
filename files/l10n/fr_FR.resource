@@ -103,8 +103,8 @@ GENERIC_DELEGATION_FIELD_SINGULAR=Champ suppl\u00E9mentaire
 GENERIC_DELEGATION_FIELD_PLURAL=Champs suppl\u00E9mentaire
 GENERIC_DISTRIBUTOR_SINGULAR=Distributeur
 GENERIC_DISTRIBUTOR_PLURAL=Distributeurs
-GENERIC_DOCUMENT_TYPE_SINGULAR=Type de document
-GENERIC_DOCUMENT_TYPE_PLURAL=Types de document
+GENERIC_DOCUMENT_TYPE_SINGULAR=Type de documents
+GENERIC_DOCUMENT_TYPE_PLURAL=Types de documents
 GENERIC_EMAIL_SINGULAR=E-mail
 GENERIC_EMAIL_PLURAL=E-mails
 GENERIC_EVENT_SINGULAR=\u00C9v\u00E9nement
@@ -178,7 +178,7 @@ LETTER_COMMERCIAL=(C)
 GENERIC_WRITE_EMAIL=Ecrire e-mail
 GENERIC_SEARCH_FOR_PERSON=Chercher une personne
 GENERIC_CHOOSE_ROLE=Choisir r\u00F4le
-GENERIC_EVENT=\u00C9v\u00E9nements
+GENERIC_EVENT=\u00C9v\u00E9nement
 GENERIC_EVENTS=\u00C9v\u00E9nements
 SHOW_ALL_RECORDS=Afficher tout les enregistrements
 SHOW_RECORDS=Afficher les enregistrements
@@ -266,7 +266,7 @@ MESSAGE_FILL_USER_ROLE=Entrez un nom de r\u00F4le d\u2019utilisateur s\u2019il v
 GENERIC_TOOLTIP=Remarque
 HINT_FORMAT_INFO=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei), xls steht f\u00FCr Microsoft Office Kennzeichen: Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.(xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
 HINT_EVENT_MARK=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
-GENERIC_DOCUMENT_TYPES_MARKED=Type de document marqu\u00E9
+GENERIC_DOCUMENT_TYPES_MARKED=Type(s) de documents marqu\u00E9(s)
 GENERIC_LABELLING=Indication
 GENERIC_ADRESS_TYPE=Type d\u2019adresse
 GENERIC_CHARSET=Jeu de caract\u00E8res
@@ -482,7 +482,7 @@ GENERIC_LANGUAGES=Langues
 GENERIC_HINT_FOR_HOST=Remarque pour l\u2019h\u00F4te
 GENERIC_ACCOUNT_OPENING_DATE=Date d\u2019accr\u00E9ditation
 GENERIC_AT=\u00E0
-GENERIC_OCLOCK=heure
+GENERIC_OCLOCK=h
 GENERIC_ORIGIN_DATA=Origine des donn\u00E9es
 GENERIC_PERSON_SINGULAR=Personne
 
@@ -520,7 +520,7 @@ GENERIC_STATISTIC=Statistique
 ausstammdatenhinzufugen=Ajouter \u00E0 partir des donn\u00E9es de base
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
-GENERIC_DOCUMENT_TYPE_SINGULAR=type de document
+GENERIC_DOCUMENT_TYPE_SINGULAR=type de documents
 GENERIC_GENERATE_ALL=g\u00E9n\u00E9rer tous
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
@@ -530,8 +530,8 @@ GENERIC_CATEGORIES_AND_OCCASIONS=Cat\u00E9gories et \u00E9v\u00E9nements
 ubersichtuberalleveranstaltungeneinesgastes=Vue d\u2019ensemble de tous les \u00E9v\u00E9nements d\u2019un invit\u00E9.
 GENERIC_VIEW_OVER_GUEST_EVENT=de
 statistikfurgast=Statistique pour invit\u00E9
-GENERIC_EVENT=Ev\u00E9nement
-GENERIC_BEGIN=Commencement
+GENERIC_EVENT=\u00C9v\u00E9nement
+GENERIC_BEGIN=D\u00E9but
 
 # PERSONEN/PERSONENSUCHE
 GENERIC_SEARCH_PERSON=Recherche des personnes
@@ -551,7 +551,7 @@ frau=Madamme
 herr=Monsieur
 lady=Lady
 sir=Sir
-GENERIC_PLEASE_CHOOSE=S\u2019il vous pla\u00EEt s\u00E9lectionnez
+GENERIC_PLEASE_CHOOSE=Veuillez s\u00E9lectionner
 GENERIC_ACAD_TITLE=Niveau acad\u00E9mique
 GENERIC_IN_COUNTRY=Domestique
 GENERIC_HINT_FOR_ORGA=Avis \u00E0 l\u2019organisation
@@ -617,9 +617,9 @@ EXPORT_TITLE_ZKM=ZKM
 EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Personen
 EXPORT_TITLE_MADLAN_COMPANY=MAdLAN-Firmen
 EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
-EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV donn\u00E9es personnelles+Adresses+Type de document
-EXPORT_TITLE_CSVPERSDATA_DOCTYPE=CSV donn\u00E9es personnelles+typ de document
-EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV donn\u00E9es personnelles+type de document 1.0
+EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV donn\u00E9es personnelles+Adresses+Type de documents
+EXPORT_TITLE_CSVPERSDATA_DOCTYPE=CSV donn\u00E9es personnelles+typ de documents
+EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV donn\u00E9es personnelles+type de documents 1.0
 EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV donn\u00E9es personnelles+categories
 EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
 LABEL_EXPORT_ZKM=Ziel (ZKM-K\u00FCrzel)
@@ -627,9 +627,9 @@ LABEL_EXPORT_MADLAN_ENCODING=Encoding
 LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Encoding (kyrillisch)
 HINT_EXPORT_CSV=Selon la quantit\u00E9 de champs export\u00E9s (en particulier, cela d\u00E9pend du nombre de types de documents export\u00E9s et cat\u00E9gories), il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 HINT_EXPORT_ZKM=Le fichier d\u2019exportation est stock\u00E9 \u00E0 la fois au dossier de sortie que ZKM \u00E0 votre disposition pour contr\u00F4ler le t\u00E9l\u00E9chargement. T\u00E9l\u00E9chargement Vous pouvez interrompre en toute s\u00E9curit\u00E9.
-HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Il sera export\u00E9 que les blancs avec les onglets \u00ABdonn\u00E9es personnelles\u00BB, \u00ABadresses\u00BB, \u00ABtypes de document\u00BB et leurs onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s (en particulier le nombre des types de documents export\u00E9s d\u00E9pend) il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE=Il sera export\u00E9 que les blancs avec les onglets \u00ABde donn\u00E9es \u00E0 caract\u00E8re personnel\u00BB, \u00ABtypes de document\u00BB et leurs onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s (en particulier le nombre des types de documents export\u00E9s d\u00E9pend) il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Il sera export\u00E9 que les blancs avec les onglets \u00ABde donn\u00E9es \u00E0 caract\u00E8re personnel\u00BB, \u00ABtypes de document\u00BB et leurs onglets subordonn\u00E9s . Selon la quantit\u00E9 de champs export\u00E9s (en particulier le nombre des types de documents export\u00E9s d\u00E9pend) il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
+HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Il sera export\u00E9 que les blancs avec les onglets \u00ABdonn\u00E9es personnelles\u00BB, \u00ABadresses\u00BB, \u00ABtypes de documents\u00BB et leurs onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s (en particulier le nombre des types de documents export\u00E9s d\u00E9pend) il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE=Il sera export\u00E9 que les blancs avec les onglets \u00ABde donn\u00E9es \u00E0 caract\u00E8re personnel\u00BB, \u00ABtypes de documents\u00BB et leurs onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s (en particulier le nombre des types de documents export\u00E9s d\u00E9pend) il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Il sera export\u00E9 que les blancs avec les onglets \u00ABde donn\u00E9es \u00E0 caract\u00E8re personnel\u00BB, \u00ABtypes de documents\u00BB et leurs onglets subordonn\u00E9s . Selon la quantit\u00E9 de champs export\u00E9s (en particulier le nombre des types de documents export\u00E9s d\u00E9pend) il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Il sera export\u00E9 que les blancs avec les onglets \u00ABde donn\u00E9es \u00E0 caract\u00E8re personnel\u00BB , \u00ABCat\u00E9gories\u00BB et ses onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s (en particulier, cela est export\u00E9 \u00E0 partir du nombre de cat\u00E9gories en fonction), il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 HINT_EXPORT_CSV_ISO_8859_15=Ce format est adapt\u00E9 \u00E0 l\u2019importation / exportation dans les applications MS Office qui utilisent le jeu de caract\u00E8res ISO - 8859-15. Selon la quantit\u00E9 de champs export\u00E9s (en particulier, cela d\u00E9pend du nombre de types de documents export\u00E9s et cat\u00E9gories), il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 
@@ -650,14 +650,14 @@ GENERIC_IMPORT_PERSONS=Importation des personnes
 
 # VERANSTALTUNGENDROPDOWN
 GENERIC_EVENT_VIEW=Vue d\u2019ensemble des \u00E9v\u00E9nements
-veranstaltunguuche=Rechercher des \u00E9v\u00E8nements
+veranstaltunguuche=Rechercher des \u00E9v\u00E9nements
 GENERIC_NEW_EVENT=Nouvel \u00E9v\u00E9nement
 GENERIC_STATISTICS=Statistiques
 
 # ADMINISTRATIONDROPDOWN
 GENERIC_SALUTATIONS=Formules de politesse
 GENERIC_WORKAREA_PLURAL=Espaces de travail
-GENERIC_DOCUMENT_TYPE_PLURAL=Types de document
+GENERIC_DOCUMENT_TYPE_PLURAL=Types de documents
 e-mail-postausgang=E -mail d\u2019envoi
 GENERIC_PROGRAM_PERFERENCES=Pr\u00E9f\u00E9rences
 GENERIC_EVENT_LOCATION_PLURAL=Lieux des \u00E9v\u00E9nements
@@ -672,21 +672,21 @@ GENERIC_NUMBER_PER_PAGE=Afficher par page
 seitexvony=Page x de y
 
 # EVENT HEADER
-EVENT_ID=ID d\u2019\u00E9v\u00E9nement
+EVENT_ID=ID de l\u2019\u00E9v\u00E9nement
 EVENT_NAME=Nom de l\u2019\u00E9v\u00E9nement
 EVENT_URL=URL de l\u2019\u00E9v\u00E9nement
 EVENT_URL_MEDIA_REPRESENTATIVE=URl pour les repr\u00E9sentants des m\u00E9dias
 EVENT_MAX_GUEST=Nombre maximum des invit\u00E9s
 EVENT_MAX_RESERVE=Nombre maximum sur la liste d\u2019attente
 EVENT_INVITATION_TYPE=Type d\u2019invitation
-EVENT_INVITATION_TYPE_WITHOUT_PARTNER=sans Partenaires
+EVENT_INVITATION_TYPE_WITHOUT_PARTNER=sans Partenaire
 EVENT_INVITATION_TYPE_ONLY_PARTNER=seulement Partenaire
 EVENT_INVITATION_TYPE_WITH_PARTNER=avec Partenaire
 
 # VERANSTALTUNG BEARBEITEN/ALLGEMEIN
 GENERIC_EDIT_EVENT=Modifier l\u2019\u00E9v\u00E9nement
 GENERIC_TO_GUEST_MANAGEMENT=Gestion des clients
-GENERIC_GENERAL=g\u00E9n\u00E9ralement
+GENERIC_GENERAL=G\u00E9n\u00E9ral
 GENERIC_TASK_PLURAL=t\u00E2ches
 GENERIC_ADDITIONAL_PERSONS_DATA=Informations personnelles suppl\u00E9mentaires
 kurzbereichnung=Nom court
@@ -699,18 +699,18 @@ GENERIC_HOST_PARTNER=Partenaire H\u00F4te
 GENERIC_LOGIN_REQUIRED=Connexion requise
 GENERIC_SUBSCRIPTION_OF_PRESS_REPRESENTATIVES_POSSIBLE=Enregistrement des repr\u00E9sentants de presse est possible.
 GENERIC_SAVE_EVENT=Sauvegarder \u00E9v\u00E9nement
-GENERIC_TO_EVENT_VIEW=Vue d\u2019ensemble des \u00C9v\u00E9nements
+GENERIC_TO_EVENT_VIEW=Vue d\u2019ensemble des \u00E9v\u00E9nements
 
 # VERANSTALTUNG BEARBEITEN/DOKUMENTTYPEN
-GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Supprimer la s\u00E9lection type de document
+GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Supprimer la s\u00E9lection type de documents
 GENERIC_REMOVE=Supprimer
-GENERIC_ADD_NEW_DOCUMENT_TYPE=Nouveau type de document
-xvonydokumenttypen=x de y types de document
+GENERIC_ADD_NEW_DOCUMENT_TYPE=Nouveau type de documents
+xvonydokumenttypen=x de y types de documents
 
 # VERANSTALTUNG BEARBEITEN/AUFGABEN
 GENERIC_ADD_NEW_TASK=Cr\u00E9ation d\u2019une nouvelle t\u00E2che
 MESSAGE_NO_TASKS_FOR_THIS_EVENT=Il n\u2019y a pas de t\u00E2ches pour cet \u00E9v\u00E9nement.
-GENERIC_SELECTED_ENTRIES=entr\u00E9es s\u00E9lectionn\u00E9es
+GENERIC_SELECTED_ENTRIES=Entr\u00E9e(s) s\u00E9lectionn\u00E9e(s)
 GENERIC_TITLE=Titre
 GENERIC_RESPONSIBLE=responsable
 
@@ -726,7 +726,7 @@ GENERIC_BACK_TO_TASKS_VIEW=Liste des t\u00E2ches
 
 # VERANSTALTUNG BEARBEITEN/FUNKTIONEN/AMTSBEZEICHNUNGEN
 GENERIC_ADD_NEW_EMPLOYMENT_TITLE=Nouveau titre officielle
-MESSAGE_NO_EMPLOYMENT_TITLES_FOUND=Pas de titres officiels ont \u00E9t\u00E9 trouv\u00E9es .
+MESSAGE_NO_EMPLOYMENT_TITLES_FOUND=Pas de titres officiels ont \u00E9t\u00E9 trouv\u00E9s.
 
 # VERANSTALTUNG BEARBEITEN/KATEGORIEN
 GENERIC_ADD_NEW_KATEGORIES=Nouvelle cat\u00E9gorie
@@ -754,7 +754,7 @@ erzeugtausveranstaltung=Cr\u00E9ation de l\u2019\u00E9v\u00E9nement
 
 # STATISTIKEN
 statistikauffolgendenzeitrahmeneinschranken=Cr\u00E9e limite de statistiques des \u00E9v\u00E9nements sur le calendrier suivant
-statistiktypauswahlen=S\u00E9lectionnez le type de statistiques
+statistiktypauswahlen=S\u00E9lectionner le type de statistiques
 zeitrahmenbeginn=\u00C9ch\u00E9ancier d\u00E9but
 zeitrahmenende=\u00C9ch\u00E9ancier fin
 STATISTIC_RADIO_PER_YEAR=R\u00E9sum\u00E9 g\u00E9n\u00E9ral du nombre des \u00E9v\u00E9nements par ann\u00E9e
@@ -790,9 +790,9 @@ TABLE_LAST_GUEST=Dernier invit\u00E9
 TABLE_NEXT_GUEST=Suivant invit\u00E9
 
 # GAESTELISTE
-GUEST_LIST_ALL_GUEST=Tous les invit\u00E9es
-GUEST_LIST_ALL_GUEST_ON_PLACE=Tous les invit\u00E9s sur la place
-GUEST_LIST_ALL_GUEST_ON_RESERVE=Tous les invit\u00E9s de r\u00E9server
+GUEST_LIST_ALL_GUEST=Tous les invit\u00E9s
+GUEST_LIST_ALL_GUEST_ON_PLACE=Tous les invit\u00E9s sur place
+GUEST_LIST_ALL_GUEST_ON_RESERVE=Tous les invit\u00E9s comme r\u00E9serve
 GUEST_LIST_APPLY_GUEST_FROM_EVENT=Prenez des invit\u00E9s de l\u2019\u00E9v\u00E9nement
 GUEST_LIST_CATEGORY_ASSIGN=Attribuer des cat\u00E9gories
 GUEST_LIST_CATEGORY_REMOVE=Retirer Cat\u00E9gories
@@ -800,7 +800,7 @@ GUEST_LIST_DISTRIBUTOR_CREATE=Cr\u00E9er la distribution
 GUEST_LIST_DATA_EXPORT=Fichier de contr\u00F4le de l\u2019exportation
 GUEST_LIST_CONFIRM_ACTION=S\u2019il vous pla\u00EEt confirmer l\u2019action suivante
 GUEST_LIST_DIDNT_CHANGE=La liste des invit\u00E9s n\u2019a pas \u00E9t\u00E9 modifi\u00E9
-GUEST_LIST_EXPAND_ONE=La liste des invit\u00E9s a \u00E9t\u00E9 \u00E9largi \u00E0 un invit\u00E9
+GUEST_LIST_EXPAND_ONE=Une personne a \u00E9t\u00E9 ajout\u00E9 a la liste des invit\u00E9
 GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=La liste des invit\u00E9s a \u00E9t\u00E9
 GUEST_LIST_EXPAND_MULTIPLE_PART_TWO=\u00E9largi \u00E0 un invit\u00E9
 GUEST_LIST_HINT_EXPORT_GUEST=Si vous marquez les clients individuels, seul ceux qui sont export\u00E9s, sinon la liste compl\u00E8te
@@ -823,7 +823,7 @@ GUEST_LIST_SEARCH_PERSON_ADD=Trouver des gens et l\u2019ajouter \u00E0 la liste 
 
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=Cr\u00E9er une liste d\u2019invit\u00E9s
-SELECT_OUTPUT_FORMAT=S\u00E9lectionnez le format de sortie
+SELECT_OUTPUT_FORMAT=S\u00E9lectionner le format de sortie
 LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Liste regroup\u00E9s par cat\u00E9gories - avec des partenaires
 LIST_GROUP_BY_CATEGORY_WITH_TEL=Liste regroup\u00E9s par cat\u00E9gories - avec Tel et le t\u00E9l\u00E9phone mobile.
 LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Liste regroup\u00E9s par cat\u00E9gories - avec les partenaires et Fax
@@ -848,7 +848,7 @@ aufstammdatenzurucksetzen=Revenir aux donn\u00E9es de base
 stammdatenbearbeiten=Modification des donn\u00E9es de base
 
 # DOKUMENTTYPEN
-dokumenttypwahlen=S\u00E9lectionnez le type de document
+dokumenttypwahlen=S\u00E9lectionner le type de documents
 mitgliedsausweis=Carte de membre
 etikett=\u00C9tiquette
 tischkarte=Carte de table
@@ -865,11 +865,11 @@ nummer=Nombre
 zuruckzudenveranstaltungsdetails=Retour aux d\u00E9tails de l\u2019\u00E9v\u00E9nement
 
 # PERSON BEARBEITEN/DOKUMENTTYPEN/BEARBEITEN
-dokumenttypbearbeiten=Modifier le type de document
+dokumenttypbearbeiten=Modifier le type de documents
 dokument-id=Document-ID
 dokument-name=Document-Nom
-dokumenttypspeichern=Enregistrer Type de document
-zuruckzurdokumenttypenliste=Liste des Types de document
+dokumenttypspeichern=Enregistrer Type de documents
+zuruckzurdokumenttypenliste=Liste des Types de documents
 anmeldedatenerzeugen=G\u00E9n\u00E9rer des informations d\u2019identification
 esliegenkeinekategorienundereignissevor=Il n\u2019y a pas de cat\u00E9gories et d\u2019\u00E9v\u00E9nements avant.
 beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=En vert soulign\u00E9 entr\u00E9es est \u00E9v\u00E9nements r\u00E9currents.
@@ -912,7 +912,7 @@ geloscht=supprim\u00E9
 feldbezeichnung=Nom de domaine
 eingabetyp=Type d\u2019entr\u00E9e
 erfolgreichgespeichert=Enregistr\u00E9e avec succ\u00E8s !
-markiertendokumenttypen=Favoris type de document
+markiertendokumenttypen=Favoris type de documents
 eigenesdokumentfurpartner=Document priv\u00E9 pour les partenaires
 sortierreihenfolge=L\u2019ordre de tri
 gastgebermitausgeben=H\u00F4tes avec sortie
@@ -939,14 +939,14 @@ beiderbearbeitungihreranfrageisteinfehleraufgetretenbittemeldensiediesihremadmin
 unbekannterfehler=Erreur inconnue.
 markiertenkategorien=Cat\u00E9gories marques
 markiertenkategorienentfernen=Supprimer l\u2019utilisateur s\u00E9lectionn\u00E9 cat\u00E9gorie
-bitteauswahlen=S\u2019il vous pla\u00EEt s\u00E9lectionnez
+bitteauswahlen=Veuillez s\u00E9lectionner
 dieveranstaltungandersiegeradegearbeitethabenwurdevoneinemanderenanwendergeloschtsiekonnennuneineneueveranstaltunganlegenoderanderweitigmitverawebarbeiten=L\u2019\u00E9v\u00E9nement , auquel vous venez travaill\u00E9 , a \u00E9t\u00E9 supprim\u00E9 par un autre utilisateur . Vous pouvez maintenant cr\u00E9er un nouvel \u00E9v\u00E9nement ou travailler autrement VerA.web .
 bittebestatigensiedasspeicherndieserveranstaltung=S\u2019il vous pla\u00EEt confirmer l\u2019enregistrement de cet \u00E9v\u00E9nement
-keingastgeberausgewahlt=Aucun h\u00F4te s\u00E9lectionn\u00E9e
+keingastgeberausgewahlt=Aucun h\u00F4te s\u00E9lectionn\u00E9
 kurzbezeichnung=Nom court
 maximalelangederwarteliste=La longueur maximale de la liste d\u2019attente
 sollendiestammdatenumdiesenorterweitertwerden=Si les donn\u00E9es de base est \u00E9tendue \u00E0 un certain endroit
-markiertendokumenttypenentfernen=Supprimer la s\u00E9lection type de document
+markiertendokumenttypenentfernen=Supprimer la s\u00E9lection type de documents
 eswurdenkeinedokumenttypengefunden=Pas de types de documents ont \u00E9t\u00E9 trouv\u00E9s.
 markiertenamtsbezeichnungen=Titre officiel S\u00E9lectionn\u00E9
 markiertenamtsbezeichnungenentfernen=Supprimer Titre officiel S\u00E9lectionn\u00E9
@@ -960,8 +960,8 @@ loschenvonveranstaltungenistnichtmoglich=Suppression des \u00E9v\u00E9nements es
 weiteremeldungen=plusieurs messages.
 bittebestatigensiedasloschendermarkiertenveranstaltungen=S\u2019il vous pla\u00EEt confirmer la suppression des \u00E9v\u00E9nements s\u00E9lectionn\u00E9s !
 markierteveranstaltungloschen=Supprimer l\u2019\u00E9v\u00E9nement s\u00E9lectionn\u00E9
-abbrechen=avorter
-markierteveranstaltungen=\u00C9v\u00E9nement s\u00E9lectionn\u00E9
+abbrechen=Annuler
+markierteveranstaltungen=\u00C9v\u00E9nement(s) s\u00E9lectionn\u00E9(s)
 markierteveranstaltungenloschen=Supprimer les \u00E9v\u00E9nements s\u00E9lectionn\u00E9s
 zuruckzurgasteverwaltung=Retour \u00E0 Gestion des clients
 zuruckzurgasteliste=Liste des invit\u00E9s
@@ -981,7 +981,7 @@ verantworlichenentfernen=Retirer personne responsable
 loschenvonaufgabenistnichtmoglich=Parti supprimer responsable supprimer des t\u00E2ches est pas possible
 bittebestatigensiedasloschenvonaufgaben=S\u2019il vous pla\u00EEt confirmer la suppression des t\u00E2ches
 ausgewahlteeintrageloschen=Supprimer les \u00E9l\u00E9ments s\u00E9lectionn\u00E9s
-start=D\u00E9marrer
+start=D\u00E9but
 zursuche=aller \u00E0 la recherche
 siesindalsvolladministratorangemeldetundexportierenhiermitmandantenubergreifend=Vous \u00EAtes connect\u00E9 comme \u00ABpleine administrateur\u00BB et l\u2019exportation par les pr\u00E9sentes \u00E0 travers clients.
 sieexportierenmitdieserfunktionausschlieszlichpersonenausihremaktuellenmandanten=Avec cette fonction vous exportez seulement les personnes de votre client actuel.
@@ -1121,7 +1121,7 @@ eswurdekeinekategorieentfernt=Il n\u2019y a aucune cat\u00E9gorie enlev\u00E9.
 wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen=Vous voulez supprimer ${count} personnes ou invit\u00E9es de la cat\u00E9gorie s\u00E9lectionn\u00E9e ?
 eswurdenkeinekategorienentfernt=Pas de cat\u00E9gories ont \u00E9t\u00E9 supprim\u00E9es.
 zuweisen=assigner
-waehlensieeinekategorieauswelchesie=S\u00E9lectionnez une cat\u00E9gorie que vous souhaitez.
+waehlensieeinekategorieauswelchesie=S\u00E9lectionner une cat\u00E9gorie que vous souhaitez.
 moechten=
 alleentfernen=Supprimer tous
 siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=Vous avez configur\u00E9 aucun les cat\u00E9gories. Vous pouvez d\u00E9finir dans le panneau d\u2019administration en vertu de l\u2019article.
@@ -1137,7 +1137,7 @@ eswurdekeinarbeitsbereichaufgehoben=Il \u00E9tait \u00E0 pr\u00E9sent lev\u00E9 
 wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Wollen Sie die Zuordnung von ${count} Personen bzw. G\u00E4sten zum ausgew\u00E4hlten Arbeitsbereich aufheben
 wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Vous souhaitez attribuer \u00E0 cette personne ou cet invit\u00E9 de l\u2019espace de travail s\u00E9lectionn\u00E9?
 wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=\u00C0 attribuer ${count} personnes ou invit\u00E9s de l\u2019espace de travail s\u00E9lectionn\u00E9?
-waehlensieeinenarbeitsbereichauswelchensie=S\u00E9lectionnez un espace de travail, qui vous
+waehlensieeinenarbeitsbereichauswelchensie=S\u00E9lectionner un espace de travail, qui vous
 siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=Vous n\u2019avez pas configur\u00E9 des espaces de travail. Vous pouvez le faire dans le panneau d\u2019administration en vertu de l\u2019article
 administrationallestellvertretungenimmandanten=Administration - tous les d\u00E9l\u00E9gu\u00E9s dans le client
 administrationallestellvertretungen=Administration - tous les d\u00E9l\u00E9gu\u00E9s
@@ -1152,7 +1152,7 @@ bitteauswaehlen=Veuillez s\u00E9lectionner
 gaestelisteerstellenfuerveranstaltungeventshortname=Cr\u00E9er la liste des invit\u00E9s pour l\u2019\u00E9v\u00E9nement: $!event.shortname
 gaesteverwaltungderveranstaltung=Gestion des invit\u00E9s de l\u2019\u00E9v\u00E9nement
 gaestelisteerstellen=Cr\u00E9er une liste d\u2019invit\u00E9s
-ausgabeformatwaehlen=S\u00E9lectionnez le format de sortie
+ausgabeformatwaehlen=S\u00E9lectionner le format de sortie
 listenachkategoriengruppiertmitpartner=Liste regroup\u00E9es par cat\u00E9gories - avec partenaire
 listenachkategoriengruppiertmittelundmobiltelefon=Liste regroup\u00E9es par cat\u00E9gories - avec t\u00E9l\u00E9phone et t\u00E9l\u00E9phone portable
 listenachkategoriengruppiertmitpartnerundfax=Liste regroup\u00E9es par cat\u00E9gories - avec partenaire et fax
@@ -1171,7 +1171,7 @@ lesenundschreibenuneingeschraenkt=Lire et \u00E9crire sans limitation
 mandantadministrieren=Administration mandant
 administrieren=Administration
 stellvertretung=D\u00E9l\u00E9gu\u00E9
-bittewahlensiedierolleausdiesievertretenmochten=S\u2019il vous pla\u00EEt s\u00E9lectionnez le r\u00F4le que vous souhaitez repr\u00E9senter.
+bittewahlensiedierolleausdiesievertretenmochten=Veuillez s\u00E9lectionner le r\u00F4le que vous souhaitez repr\u00E9senter.
 benutzerrolle=R\u00F4le d\u2019utilisateur
 vertreten=repr\u00E9sent\u00E9e
 statistikfurgastgeber=Statistiques pour les h\u00F4tes
@@ -1180,7 +1180,7 @@ biszum=jusqu\u2019\u00E0 la
 bis=\u00E0
 auswartigesamtintranetstil=Minist\u00E8re des affaires \u00E9trang\u00E8res intranet-style
 klickensieeinederaufgelistetenpersonenanumsiederaufgabehinzuzufugen=Cliquez sur une des personnes inscrites pour les ajouter \u00E0 la t\u00E2che
-eswurdeeinepersongeloscht=Aucune personne a été supprimé
+eswurdeeinepersongeloscht=Aucune personne a \u00E9t\u00E9 supprim\u00E9
 eswurdekeinepersongeloscht=Elle a \u00E9t\u00E9 supprim\u00E9e aucune personne
 personengelouscht=personnes effac\u00E9s
 derarbeitsbereichwurdeerfolgreichhinzugefugt=L\u2019aire de travail a \u00E9t\u00E9 ajout\u00E9 avec succ\u00E8s.
@@ -1206,7 +1206,7 @@ markiertepersonenzurveranstaltunghinzufuegen=Ajouter des personnes s\u00E9lectio
 zudieserpersonistkeinehauptpersoneingetragen=Aucune entit\u00E9 n\u2019est inscrite \u00E0 cette personne.
 diesepersonkannnichtaufreservegesetztwerdendadienotwendigendaten=Cette personne ne peut pas \u00EAtre sur la r\u00E9serve, que les donn\u00E9es n\u00E9cessaires
 nichtvollstaendigerfasstwurden=n\u2019\u00E9taient pas int\u00E9gralement enregistr\u00E9es.
-waehlensiebittezunaechsteineodermehrerepersonenaus=S\u00E9lectionnez une ou plusieurs personnes au d\u00E9but.
+waehlensiebittezunaechsteineodermehrerepersonenaus=S\u00E9lectionner une ou plusieurs personnes au d\u00E9but.
 exportieren=Exporter
 einladen=inviter
 aufreservesetzen=Situ\u00E9 sur la r\u00E9serve
@@ -1274,7 +1274,7 @@ wartet=attente
 wirdversendet=Sont exp\u00E9di\u00E9s
 gesendet=Envoy\u00E9
 unbekannt=inconnu
-firmainstitutionauswaehlen=S\u00E9lectionnez l\u2019entreprise / institution
+firmainstitutionauswaehlen=S\u00E9lectionner l\u2019entreprise / institution
 bittewaehlensieeinefirmainstitutionaus=Veuillez s\u00E9lectionner une entreprise / institution
 schliessen=Fermer
 verawebuebersicht=VerA.web :: Vue d\u2019ensemble
@@ -1296,7 +1296,7 @@ HINT_SEARCH_WHERE=La recherche s\u2019effectue dans les pr\u00E9nom, nom, ville,
 neuenorteingeben=Entrez un nouveau lieu
 bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=S\u2019il vous pla\u00EEt entrer un nouvel lieu et cliquez sur \u00ABAjouter\u00BB
 neuerveranstaltungsort=Nouveau lieu de l\u2019\u00E9v\u00E9nement
-markierenundkopierensiefolgendesadressetikett=S\u00E9lectionnez et copiez l\u2019\u00E9tiquette adresse suivante
+markierenundkopierensiefolgendesadressetikett=S\u00E9lectionner et copiez l\u2019\u00E9tiquette adresse suivante
 personenetikett=\u00C9tiquette de personnes
 zuruckzurubersicht=Vue d\u2019ensemble
 gpsdaten=Donn\u00E9es GPS
@@ -1319,7 +1319,7 @@ anderungenspeichern=Enregistrer les modifications
 senden=Envoyer
 
 # GENERIC
-GENERIC_UPLOAD_BUTTON=S\u00E9lectionnez le fichier
+GENERIC_UPLOAD_BUTTON=S\u00E9lectionner le fichier
 GENERIC_TO=\u00E0
 GENERIC_FEDERAL_STATE=D\u00E9partement
 GENERIC_PERSONAL_DATA=Donn\u00E9es personnel
@@ -1337,7 +1337,7 @@ MESSAGE_EVENT_WRING_DATE_FORMAT=Vous avez besoin au d\u00E9but de l\u2019\u00E9v
 MESSAGE_GENERIC_MISSING_DESCRIPTION=Vous devez entrer un indication.
 MESSAGE_COLOR_MISSING_NAME=Vous devez entrer un nom.
 MESSAGE_EVENTCATEGORY_ASSIGNMENT_WRONG=L\u2019attribution d\u2019une cat\u00E9gorie \u00E0 un \u00E9v\u00E9nement est d\u00E9fectueux .
-MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=L\u2019attribution d\u2019un type de document \u00E0 un \u00E9v\u00E9nement est d\u00E9fectueux.
+MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=L\u2019attribution d\u2019un type de documents \u00E0 un \u00E9v\u00E9nement est d\u00E9fectueux.
 MESSAGE_EVENT_LOCATION_TITLE_EMPTY=Le lieu ne peut pas \u00EAtre enregistr\u00E9. D\u00E9cerner un titre s\u2019il vous pla\u00EEt.
 MESSAGE_EVENT_LOCATION_MAX_REMARK_REACHED=Le contenu du champ \u00ABRemarque\u00BB ne peut pas d\u00E9passer 1000 caract\u00E8res.
 MESSAGE_EMAIL_DRAFT_NAME_MISSING=Vous devez donner un nom de la mod\u00E8le de courrier \u00E9lectronique.
@@ -1486,7 +1486,7 @@ GENERIC_CANCEL=Suspendre
 GENERIC_DELETE=Supprimer
 GENERIC_CONNECTOR=Connecteur
 GENERIC_VIEW_DOCUMENT_TYPE=Montrer le type du document
-GENERIC_GENERATE_DOCUMENT-TYPE=g\u00E9n\u00E9rer un nouveau type de document
+GENERIC_GENERATE_DOCUMENT-TYPE=g\u00E9n\u00E9rer un nouveau type de documents
 
 # GUEST DETAIL TEXTS
 GUEST_DETAIL_PARTNER=le partenaire
@@ -1641,7 +1641,7 @@ WORKAREA_ERROR_MISSING_NAME=Le secteur de travail doit avoir un nom diff\u00E9re
 zurpersonensuche=Recherche des personnes
 steuerdatei=le fichier de contr\u00F4le
 dokumenttypauswahlen=Choisir le type du document
-EVENT_NO_DOCTYPES_ASSIGNED=Aucun type de document a \u00E9t\u00E9 associ\u00E9 \u00E0 cet \u00E9v\u00E9nement
+EVENT_NO_DOCTYPES_ASSIGNED=Aucun type de documents a \u00E9t\u00E9 associ\u00E9 \u00E0 cet \u00E9v\u00E9nement
 
 # DATE HELPER TEXTS
 DATE_HELPER_INCORRECT_DATE= n\u2019est pas une date valide. Veuillez ins\u00E9rer und date du format JJ.MM.AAAA!
@@ -1701,7 +1701,7 @@ PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION=Si vous voulez garder cetter personn
 PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING=Voulez vous \u00E9liminer cetter personne?
 
 # PERSON HEADER TEXTS
-PERSON_HEADER_NO_DOCTYPE_CONFIG=Aucun type de document est configur\u00E9 pour \u00EAtre afficher.
+PERSON_HEADER_NO_DOCTYPE_CONFIG=Aucun type de documents est configur\u00E9 pour \u00EAtre afficher.
 
 #LAST ADDED
 GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=G\u00E9nerer des donn\u00E9es de connexion pour l\u2019Enregistrement en Ligne
@@ -1785,15 +1785,15 @@ GM_DISTRIBUTOR_DELETE_N=Aucun distributeur a \u00E9t\u00E9 elimin\u00E9
 GM_DISTRIBUTOR_INSERT_S=Vous avez cr\u00E9\u00E9 un distributeur
 GM_DISTRIBUTOR_INSERT_P=Vous avez cr\u00E9\u00E9 %s distributeurs
 GM_DISTRIBUTOR_INSERT_N=Aucun distributeur a \u00E9t\u00E9 cr\u00E9\u00E9
-GM_DOCUMENT_TYPE_MODIFY_S=Vous avez modifi\u00E9 un type de document
-GM_DOCUMENT_TYPE_MODIFY_P=Vous avez modifi\u00E9 %s types de document
-GM_DOCUMENT_TYPE_MODIFY_N=Aucun type de document a \u00E9t\u00E9 modifi\u00E9
-GM_DOCUMENT_TYPE_DELETE_S=Vous avez elimin\u00E9 un type de document
-GM_DOCUMENT_TYPE_DELETE_P=Vous avez elimin\u00E9 %s types de document
-GM_DOCUMENT_TYPE_DELETE_N=Aucun type de document a \u00E9t\u00E9 elimin\u00E9
-GM_DOCUMENT_TYPE_INSERT_S=Vous avez cr\u00E9\u00E9 un type de document
-GM_DOCUMENT_TYPE_INSERT_P=Vous avez cr\u00E9\u00E9 %s types de document
-GM_DOCUMENT_TYPE_INSERT_N=Aucun type de document a \u00E9t\u00E9 cr\u00E9\u00E9
+GM_DOCUMENT_TYPE_MODIFY_S=Vous avez modifi\u00E9 un type de documents
+GM_DOCUMENT_TYPE_MODIFY_P=Vous avez modifi\u00E9 %s types de documents
+GM_DOCUMENT_TYPE_MODIFY_N=Aucun type de documents a \u00E9t\u00E9 modifi\u00E9
+GM_DOCUMENT_TYPE_DELETE_S=Vous avez elimin\u00E9 un type de documents
+GM_DOCUMENT_TYPE_DELETE_P=Vous avez elimin\u00E9 %s types de documents
+GM_DOCUMENT_TYPE_DELETE_N=Aucun type de documents a \u00E9t\u00E9 elimin\u00E9
+GM_DOCUMENT_TYPE_INSERT_S=Vous avez cr\u00E9\u00E9 un type de documents
+GM_DOCUMENT_TYPE_INSERT_P=Vous avez cr\u00E9\u00E9 %s types de documents
+GM_DOCUMENT_TYPE_INSERT_N=Aucun type de documents a \u00E9t\u00E9 cr\u00E9\u00E9
 GM_EMAIL_MODIFY_S=Vous avez modifi\u00E9 un email
 GM_EMAIL_MODIFY_P=Vous avez modifi\u00E9 %s emails
 GM_EMAIL_MODIFY_N=Aucun email a \u00E9t\u00E9 modifi\u00E9
@@ -1813,13 +1813,13 @@ GM_EVENT_INSERT_S=Vous avez cr\u00E9\u00E9 un \u00E9v\u00E9nement
 GM_EVENT_INSERT_P=Vous avez cr\u00E9\u00E9 %s \u00E9v\u00E9nements
 GM_EVENT_INSERT_N=Aucun \u00E9v\u00E9nement a \u00E9t\u00E9 cr\u00E9\u00E9
 GM_EVENT_LOCATION_MODIFY_S=Vous avez modifi\u00E9 un lieu de l\u2019\u00E9v\u00E9nement
-GM_EVENT_LOCATION_MODIFY_P=Vous avez modifi\u00E9 %s lieux d\u2019\u00E9venements
+GM_EVENT_LOCATION_MODIFY_P=Vous avez modifi\u00E9 %s lieux d\u2019\u00E9v\u00E9nements
 GM_EVENT_LOCATION_MODIFY_N=Aucun lieu de l\u2019\u00E9v\u00E9nement a \u00E9t\u00E9 modifi\u00E9
 GM_EVENT_LOCATION_DELETE_S=Vous avez elimin\u00E9 un lieu de l\u2019\u00E9v\u00E9nement
-GM_EVENT_LOCATION_DELETE_P=Vous avez elimin\u00E9 %s lieux d\u2019\u00E9venements
+GM_EVENT_LOCATION_DELETE_P=Vous avez elimin\u00E9 %s lieux d\u2019\u00E9v\u00E9nements
 GM_EVENT_LOCATION_DELETE_N=Aucun lieu de l\u2019\u00E9v\u00E9nement a \u00E9t\u00E9 elimin\u00E9
 GM_EVENT_LOCATION_INSERT_S=Vous avez cr\u00E9\u00E9 un lieu de l\u2019\u00E9v\u00E9nement
-GM_EVENT_LOCATION_INSERT_P=Vous avez cr\u00E9\u00E9 %s lieux d\u2019\u00E9venements
+GM_EVENT_LOCATION_INSERT_P=Vous avez cr\u00E9\u00E9 %s lieux d\u2019\u00E9v\u00E9nements
 GM_EVENT_LOCATION_INSERT_N=Aucun lieu de l\u2019\u00E9v\u00E9nement a \u00E9t\u00E9 cr\u00E9\u00E9
 GM_GUEST_MODIFY_S=Vous avez modifi\u00E9 un invit\u00E9
 GM_GUEST_MODIFY_P=Vous avez modifi\u00E9 %s invit\u00E9s
