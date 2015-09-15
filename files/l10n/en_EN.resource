@@ -660,12 +660,12 @@ GENERIC_WORKAREA_PLURAL=Work areas
 GENERIC_DOCUMENT_TYPE_PLURAL=Document types
 e-mail-postausgang=E-Mail outbox
 GENERIC_PROGRAM_PERFERENCES=Program settings
-GENERIC_EVENT_LOCATION_PLURAL=Event locations
+GENERIC_EVENT_LOCATION_PLURAL=Venues
 
 # VERANSTALTUNGSUEBERSICHT
 GENERIC_END=End
 GENERIC_HOST=Host
-GENERIC_EVENT_LOCATION_SINGULAR=Event location
+GENERIC_EVENT_LOCATION_SINGULAR=Venue
 GENERIC_EVENT_SEARCH=Search for event
 GENERIC_CREATE_NEW_EVENT=Create new event
 GENERIC_NUMBER_PER_PAGE=Count per page
@@ -692,7 +692,7 @@ GENERIC_ADDITIONAL_PERSONS_DATA=Additional persons data
 kurzbereichnung=Kurzbereichnung
 GENERIC_OPEN_EVENT=Open event
 umxuhr=Um x uhr
-veranstalgungsort=Event location
+veranstalgungsort=Venue
 GENERIC_SEARCH_FOR_HOST=Search for host
 GENERIC_DELETE_HOST=Delete host
 GENERIC_HOST_PARTNER=Host-partner
@@ -1008,7 +1008,7 @@ esisteinunerwarteterfehlerbeimimportiereneinerdateiaufgetreten=An error has occu
 vermutlichbefindetsichdieimportdateinichtimvomsystemerwartemformat=Probably the import file is not in the expected format.
 detailsanzeigen=Show details
 beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden=While importing, the input fields content might be shortened.
-alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden=All documenttypes of the imported persons musst be in the system. Would you like to start the import?
+alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden=All documenttypes of the imported persons must be in the system. Would you like to start the import?
 umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=In order to be able save duplicates, they first have to be applied in the available duplicates.
 HINT_UMLAUT_COMPARISON=Please note, that the special characters \u00E4, \u00F6, \u00FC and \u00DF will be compared with ae,oe,ue and ss.
 derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=In order to complete the import process, please click on \u201CComplete import\u201D.
@@ -1242,7 +1242,7 @@ wennsiedenplatzhalterverwendenwerdenauchteilstueckeersetztsonstnurvollstaendiged
 siemuessendasdatumdeszeitrahmensimformatttmmjjjjangeben=You should input a date in the DD.MM.JJJJ format
 markierteanredenloschen=Delete selected salutation(s)
 markiertendokumenttypenloschen=Delete selected document type(s)
-markierteveranstaltungsorteloschen=Delete selected event location(s)
+markierteveranstaltungsorteloschen=Delete selected Venue(s)
 markiertevorlagenloschen=Delete selected templates
 keinedateigefunden=No file found.
 standardauswahlderselectboxbdquozeichensatzrdquo=Default selection \u201Ccharacter set\u201D
@@ -1333,7 +1333,7 @@ MESSAGE_INVITATION_WITHOUT_PERSON_PART1=Do you want to
 MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON=invite these subsequently
 MESSAGE_END_AND_START_DATE=The event\u2019s end-date needs to be after the beginning-date chronologically
 MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=The event can not be saved, please give a short description
-MESSAGE_EVENT_WRING_DATE_FORMAT=You need to state the event-beginn formatted like DD.MM.YYYY
+MESSAGE_EVENT_WRING_DATE_FORMAT=You need to state the event-beginn formatted like dd.mm.yyyy
 MESSAGE_GENERIC_MISSING_DESCRIPTION=You need to provide a description.
 MESSAGE_COLOR_MISSING_NAME=You need to provide a name.
 MESSAGE_EVENTCATEGORY_ASSIGNMENT_WRONG=A category is incorrectly assigned to an event.
@@ -1582,7 +1582,7 @@ EXPORT_HEADER_GUEST_IN_RESERVE=Number_guests_on_reserve
 EXPORT_HEADER_EVENT_NAME=Event_name
 EXPORT_HEADER_EVENT_BEGIN=Event_begin
 EXPORT_HEADER_EVENT_END=Event_end
-EXPORT_HEADER_EVENT_LOCATION=Event_location
+EXPORT_HEADER_EVENT_LOCATION=Venue
 EXPORT_HEADER_OBSERVATION=Observation
 
 # MAIN DATA (STAMMDATEN-WORKER) TEXTS
@@ -1658,7 +1658,7 @@ LETTER_HOST=H
 
 GENERIC_LASTNAME_WITH_SOFT_HYPHEN=Last Name
 GENERIC_FIRSTNAME_WITH_SOFT_HYPHEN=First Name
-
+GENERIC_RELOAD=Reload
 GENERIC_LOAD_EXISTING_IMPORTPROCESS=Load existing import process
 GENERIC_IMPORTID=Import id
 GENERIC_YEAR=Year
@@ -1716,9 +1716,9 @@ GENERIC_SIMPLE_COMBOBOX=Simple combobox
 GENERIC_MULTIPLE_COMBOBOX=Multiple combobox
 
 # EVENT LOCATIONS (Veranstaltungsort)
-HINT_DELETE_NOT_POSSIBLE_ONE=It is not possible to delete the location \u201C
+HINT_DELETE_NOT_POSSIBLE_ONE=It is not possible to delete the Venue \u201C
 HINT_DELETE_NOT_POSSIBLE_TWO=\u201D, because it is related, at least, to one event.
-CONFIRMATION_CREATE_LOCATION_ONE=Do you really want to delete the location \u201C
+CONFIRMATION_CREATE_LOCATION_ONE=Do you really want to delete the Venue \u201C
 CONFIRMATION_CREATE_LOCATION_TWO=\u201D?
 
 INSERT_FUNCTION_FROM_MAIN_DATA=Add function from main data
@@ -1737,6 +1737,7 @@ HINT_POPUP_CATEGORY_SELECTION_TWO=person(s). Depending on the amount of persons,
 
 DELETE_DISTRIBUTOR=Do you really want to delete the selected distributor?
 DELETE_DISTRIBUTORS=Do you really want to delete the selected distributors?
+PLACEHOLDER_DATE_FORMAT=dd.mm.yyyy
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=One category successfully modified

@@ -1661,7 +1661,7 @@ LETTER_HOST=A
 
 GENERIC_LASTNAME_WITH_SOFT_HYPHEN=Nach\u00ADname
 GENERIC_FIRSTNAME_WITH_SOFT_HYPHEN=Vor\u00ADname
-
+GENERIC_RELOAD=Recargar
 GENERIC_LOAD_EXISTING_IMPORTPROCESS=Cargar proceso de importaci\u00F3n existente
 GENERIC_IMPORTID=ImportID
 GENERIC_YEAR=A\u00F1o
@@ -1740,6 +1740,7 @@ HINT_POPUP_CATEGORY_SELECTION_TWO=persona(s). Dependiendo del n\u00FAmero de per
 
 DELETE_DISTRIBUTOR=\u00BFDesea realmente eliminar el distribuidor seleccionado?
 DELETE_DISTRIBUTORS=\u00BFDesea realmente eliminar los distribuidores seleccionados?
+PLACEHOLDER_DATE_FORMAT=dd.mm.aaaa
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=Se ha modificado una categor\u00EDa

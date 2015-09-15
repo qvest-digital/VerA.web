@@ -91,9 +91,9 @@
 					<td class="textCenter"><input type="text" name="add-name" maxlength="200" value="" onchange="setModified('add')"></td>
 					<td>
 						<select name="add-addresstype" onchange="setModified('add')">
-							<option value="1">${placeholderWithTranslation.GENERIC_BUSINESS}</option>
-							<option value="2">${placeholderWithTranslation.privat}</option>
-							<option value="3">${placeholderWithTranslation.GENERIC_MORE}</option>
+							<option value="1">$!config.business</option>
+							<option value="2">$!config.private</option>
+							<option value="3">$!config.other</option>
 						</select>
 					</td>
 					<td>
@@ -124,9 +124,9 @@
 					<td class="textCenter"><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" onchange="setModified('$!bean.id')"></td>
 					<td>
 						<select name="${bean.id}-addresstype"  onchange="setModified('$!bean.id')">
-							<option value="1"#if($bean.addresstype == 1) selected#end>${placeholderWithTranslation.GENERIC_BUSINESS}</option>
-							<option value="2"#if($bean.addresstype == 2) selected#end>${placeholderWithTranslation.privat}</option>
-							<option value="3"#if($bean.addresstype == 3) selected#end>${placeholderWithTranslation.GENERIC_MORE}</option>
+							<option value="1"#if($bean.addresstype == 1) selected#end>$!config.business</option>
+							<option value="2"#if($bean.addresstype == 2) selected#end>$!config.private</option>
+							<option value="3"#if($bean.addresstype == 3) selected#end>$!config.other</option>
 						</select>
 					</td>
 					<td>
