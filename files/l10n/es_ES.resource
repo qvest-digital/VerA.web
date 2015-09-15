@@ -1908,3 +1908,5 @@ GM_WORKAREA_INSERT_N=No se han creado \u00E1reas de trabajo
 
 GM_NO_CHANGES=No se han producido cambios.
 
+GM_CONFIRMATION_EMAIL_DISTRIBUTOR=\u00BFCrear correo electr\u00F3nico de distribuci\u00F3n?
+

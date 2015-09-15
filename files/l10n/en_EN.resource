@@ -1905,3 +1905,4 @@ GM_WORKAREA_INSERT_N=No work areas were inserted
 
 GM_NO_CHANGES=You have made no changes.
 
+GM_CONFIRMATION_EMAIL_DISTRIBUTOR=Create distribution E-Mail?
