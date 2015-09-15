@@ -58,6 +58,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -143,33 +144,35 @@ public class GuestWorker {
 			// prepare third step, fill in missing data into guest tupels
 			StringBuffer updateGuestStatement = new StringBuffer();
             try {
-                // not optimized due to dynamic creation of doctype content from configuration
-                // must still instantiate person beans from database, which may lead to destabilization
-                // of the system once more
-                List<Person> persons = database.getBeanList("Person", database.getSelect("Person").
-                        where(new RawClause("tperson.pk in (" + personIds + ") and tperson.deleted='f'"
-                                + " and tperson.pk not in (select fk_person from tguest where fk_event = " + event.id + ")"
-                        )));
+				if (!personIds.equals("NULL")) {
+					// not optimized due to dynamic creation of doctype content from configuration
+					// must still instantiate person beans from database, which may lead to destabilization
+					// of the system once more
+					List<Person> persons = database.getBeanList("Person", database.getSelect("Person").
+							where(new RawClause("tperson.pk in (" + personIds + ") and tperson.deleted='f'"
+									+ " and tperson.pk not in (select fk_person from tguest where fk_event = " + event.id + ")"
+							)));
 
-                for (int i = 0; i < persons.size(); i++) {
-                    Person person = persons.get(i);
-                    PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
+					for (int i = 0; i < persons.size(); i++) {
+						Person person = persons.get(i);
+						PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
 
-                    Integer fk_category = (Integer) invitecategory.get(person.id);
-                    if (fk_category != null && fk_category.intValue() == 0) {
-                        fk_category = null;
-                    }
+						Integer fk_category = (Integer) invitecategory.get(person.id);
+						if (fk_category != null && fk_category.intValue() == 0) {
+							fk_category = null;
+						}
 
-                    updateGuestStatement.append(UPDATE_PERSON_TO_GUEST_LIST_FORMAT.format(new Object[]{
-							fk_category != null ? fk_category.toString() : null,
-							new Integer(invitepartner.indexOf(person.id) != -1 ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER),
-							(selectreserve.indexOf(person.id) != -1) ? 1 : 0,
-							(selectdelegation.indexOf(person.id) != -1) ? "'" + UUID.randomUUID() + "'" : null,
-							person.id.toString(), event.id.toString()
-					}));
-                    updateGuestStatement.append(';');
-                }
-                context.commit();
+						updateGuestStatement.append(UPDATE_PERSON_TO_GUEST_LIST_FORMAT.format(new Object[]{
+								fk_category != null ? fk_category.toString() : null,
+								new Integer(invitepartner.indexOf(person.id) != -1 ? EventConstants.TYPE_MITPARTNER : EventConstants.TYPE_OHNEPARTNER),
+								(selectreserve.indexOf(person.id) != -1) ? 1 : 0,
+								(selectdelegation.indexOf(person.id) != -1) ? "'" + UUID.randomUUID() + "'" : null,
+								person.id.toString(), event.id.toString()
+						}));
+						updateGuestStatement.append(';');
+					}
+					context.commit();
+				}
             } catch (BeanException e) {
                 // will silently fail here as the following transaction
                 // must be run under all cases, even if individual
@@ -186,10 +189,10 @@ public class GuestWorker {
                 System.gc();
             }
 
-
-			addGuests(cntx, database, context, event, personIds, updateGuestStatement);
-
-			updateDoctype(context, event);
+			if (!personIds.equals("NULL")) {
+				addGuests(cntx, database, context, event, personIds, updateGuestStatement);
+				updateDoctype(context, event);
+			}
 
 			// TODO bulk log guest create event
 
