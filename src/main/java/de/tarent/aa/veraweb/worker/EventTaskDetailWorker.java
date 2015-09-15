@@ -193,6 +193,7 @@ public class EventTaskDetailWorker {
 				octopusContext.setStatus("notsaved");
 			}
 			octopusContext.setContent(PARAM_TASK, task);
+			octopusContext.setContent("eventId", octopusContext.requestAsInteger("id"));
 			octopusContext.setContent("task-starthastime",	Boolean.valueOf(DateHelper.isTimeInDate(task.getStartdate())));
 			octopusContext.setContent("task-endhastime", DateHelper.isTimeInDate(task.getEnddate()));
 

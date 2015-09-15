@@ -92,7 +92,7 @@
                     </li><li id="showEventTasks" class="active" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true"><div>${placeholderWithTranslation.GENERIC_TASK_PLURAL}</div>
                     </li>
                     #if($online-registration.activated)
-                    	<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.GENERIC_ADDITIONAL_PERSONS_DATA}</div>
+                    	<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$eventId'"><div>${placeholderWithTranslation.GENERIC_ADDITIONAL_PERSONS_DATA}</div>
                         </li>
                         <li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
                         </li>
