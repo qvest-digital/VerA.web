@@ -205,6 +205,11 @@ public class EventTaskDetailWorker {
 							.mayReadRemarkFields()) {
 						insert.remove("note");
 					}
+
+					if(task.getEventId() == null) {
+						insert.remove("fk_event");
+						insert.insert("fk_event", octopusContext.requestAsInteger("id"));
+					}
 					context.execute(insert);
 
 					clogger.logInsert(octopusContext.personalConfig().getLoginname(),
