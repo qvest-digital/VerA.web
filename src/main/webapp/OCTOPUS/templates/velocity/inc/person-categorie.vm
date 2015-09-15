@@ -18,6 +18,10 @@
 	<input type="hidden" name="list" value="$bean.id">
 #end
 
+#if(!$isEntityModified)
+    <vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
+#end
+
 <span id="actionPanel" class="inlineLabel">
 	#if($grants.mayWrite())
 		${placeholderWithTranslation.markiertekategorien}
