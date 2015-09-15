@@ -1905,3 +1905,6 @@ GM_WORKAREA_DELETE_N=No se han eliminado \u00E1reas de trabajo
 GM_WORKAREA_INSERT_S=Se ha creado una \u00E1rea de trabajo
 GM_WORKAREA_INSERT_P=Se han creado %s \u00E1reas de trabajo
 GM_WORKAREA_INSERT_N=No se han creado \u00E1reas de trabajo
+
+GM_NO_CHANGES=No se han producido cambios.
+

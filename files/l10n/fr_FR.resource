@@ -1486,7 +1486,7 @@ GENERIC_CANCEL=Suspendre
 GENERIC_DELETE=Supprimer
 GENERIC_CONNECTOR=Connecteur
 GENERIC_VIEW_DOCUMENT_TYPE=Montrer le type du document
-GENERIC_GENERATE_DOCUMENT-TYPE=g\u00E9n\u00E9rer un nouveau type de documents
+GENERIC_GENERATE_DOCUMENT_TYPE=g\u00E9n\u00E9rer un nouveau type de documents
 
 # GUEST DETAIL TEXTS
 GUEST_DETAIL_PARTNER=le partenaire
@@ -1640,7 +1640,7 @@ WORKAREA_ERROR_MISSING_NAME=Le secteur de travail doit avoir un nom diff\u00E9re
 
 zurpersonensuche=Recherche des personnes
 steuerdatei=le fichier de contr\u00F4le
-dokumenttypauswahlen=Choisir le type du document
+dokumenttypauswahlen=Choisir le type du documents
 EVENT_NO_DOCTYPES_ASSIGNED=Aucun type de documents a \u00E9t\u00E9 associ\u00E9 \u00E0 cet \u00E9v\u00E9nement
 
 # DATE HELPER TEXTS
@@ -1902,3 +1902,6 @@ GM_WORKAREA_DELETE_N=Aucun domaine d\u2019activit\u00E9 a \u00E9t\u00E9 elimin\u
 GM_WORKAREA_INSERT_S=Vous avez cr\u00E9\u00E9 un domaine d\u2019activit\u00E9
 GM_WORKAREA_INSERT_P=Vous avez cr\u00E9\u00E9 %s domaines d\u2019activit\u00E9
 GM_WORKAREA_INSERT_N=Aucun domaine d\u2019activit\u00E9 a \u00E9t\u00E9 cr\u00E9\u00E9
+
+GM_NO_CHANGES=Vous avez apport\u00E9 aucune modification.
+
