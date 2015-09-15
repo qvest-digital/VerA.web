@@ -28,7 +28,7 @@
     </div>
     #end
 
-	<h1>${placeholderWithTranslation.GENERIC_EDIT_EVENT} $!message.plain($event.shortname)</h1>
+	<h1>${placeholderWithTranslation.GENERIC_EDIT_EVENT}: $!message.plain($event.shortname)</h1>
 
     <form id="formlist" name="formlist" action="SaveEventTask?id=$!eventId" method="POST">
         <input type="hidden" id="a" name="a" value="taskReferencePerson" />
