@@ -327,28 +327,28 @@
 					<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 			#if($search.listorder == "lastname_a_e1")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
-					<th class="textCenter smallCell" title="${placeholderWithTranslation.GUEST_LIST_RESERVE} / ${placeholderWithTranslation.GENERIC_PLACE}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+					<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');" style="color: #000000;">${placeholderWithTranslation.GENERIC_NAME}</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
 					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#elseif($search.listorder == "firstname_a_e1")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
-					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+					<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');" style="color: #000000;">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
 					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#elseif($search.listorder == "mail_a_e1")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
-					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+					<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
 					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#elseif($search.listorder == "companyname")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
-					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+					<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
@@ -356,14 +356,14 @@
 
 			#elseif($search.listorder == "orderno")
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
-					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+					<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
 					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
 			#else
 					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
-					<th class="textCenter smallCell" title="Auf Reserve / Platz"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+					<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
 					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
 					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>

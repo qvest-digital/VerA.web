@@ -1793,9 +1793,9 @@ GM_DOCUMENT_TYPE_MODIFY_N=No se han modificado tipos de documento
 GM_DOCUMENT_TYPE_DELETE_S=Se ha eliminado un tipo de documento
 GM_DOCUMENT_TYPE_DELETE_P=Se han eliminado %s tipos de documento
 GM_DOCUMENT_TYPE_DELETE_N=No se han eliminado tipos de documento
-GM_DOCUMENT_TYPE_INSERT_S=Se ha creado un tipo de documento
-GM_DOCUMENT_TYPE_INSERT_P=Se han creado %s tipos de documento
-GM_DOCUMENT_TYPE_INSERT_N=No se han creado tipos de documento
+GM_DOCUMENT_TYPE_INSERT_S=Se ha a\u00F1adido un tipo de documento
+GM_DOCUMENT_TYPE_INSERT_P=Se han a\u00F1adido %s tipos de documento
+GM_DOCUMENT_TYPE_INSERT_N=No se han a\u00F1adido tipos de documento
 GM_EMAIL_MODIFY_S=Se ha modificado un e-mail
 GM_EMAIL_MODIFY_P=Se han modificado %s e-mails
 GM_EMAIL_MODIFY_N=No se han modificado e-mails
@@ -1906,4 +1906,6 @@ GM_WORKAREA_INSERT_P=Se han creado %s \u00E1reas de trabajo
 GM_WORKAREA_INSERT_N=No se han creado \u00E1reas de trabajo
 
 GM_NO_CHANGES=No se han producido cambios.
+
+GM_CONFIRMATION_EMAIL_DISTRIBUTOR=\u00BFCrear correo electr\u00F3nico de distribuci\u00F3n?
 

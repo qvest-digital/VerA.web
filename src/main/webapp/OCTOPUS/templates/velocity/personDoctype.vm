@@ -33,6 +33,10 @@
 
     #parse("inc/person-header.vm")
 
+    #if(!$isEntityModified)
+		<vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
+	#end
+
     <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
 
 

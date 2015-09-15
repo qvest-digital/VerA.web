@@ -461,13 +461,14 @@ public class PersonDetailWorker implements PersonConstants {
      * Wenn zu dieser Person noch kein entsprechender Eintrag existiert
      * wird die einfache Form eines Dokumenttypens zurückgegeben.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      */
-    public void getDoctype(OctopusContext cntx) throws BeanException, IOException {
-        Database database = new DatabaseVeraWeb(cntx);
+    public void getDoctype(OctopusContext octopusContext) throws BeanException, IOException {
+        Database database = new DatabaseVeraWeb(octopusContext);
 
-        Person person = (Person) cntx.contentAsObject("person");
-        Integer freitextfeld = ConfigWorker.getInteger(cntx, "freitextfeld");
+        Person person = (Person) octopusContext.contentAsObject("person");
+        Integer freitextfeld = ConfigWorker.getInteger(octopusContext, "freitextfeld");
+
 
         PersonDoctype personDoctype = null;
         if (!(person == null || person.id == null || freitextfeld == null)) {
@@ -485,13 +486,13 @@ public class PersonDetailWorker implements PersonConstants {
                                             Expr.equal("fk_doctype", freitextfeld))));
         }
         if (personDoctype != null) {
-            cntx.setContent("doctype", personDoctype);
+            octopusContext.setContent("doctype", personDoctype);
         } else if (freitextfeld != null) {
             Doctype doctype = (Doctype)
                     database.getBean("Doctype",
                             database.getSelect("Doctype").
                                     where(Expr.equal("pk", freitextfeld)));
-            cntx.setContent("doctype", doctype);
+            octopusContext.setContent("doctype", doctype);
         }
     }
 
@@ -612,12 +613,12 @@ public class PersonDetailWorker implements PersonConstants {
      * Diese Octopus-Aktion testet das übergebene Flag; falls es gesetzt
      * ist, wird der Status "saveperson" gesetzt.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @throws BeanException
      */
-    public void prepareSaveDetail(OctopusContext cntx, Boolean saveperson) throws BeanException {
+    public void prepareSaveDetail(OctopusContext octopusContext, Boolean saveperson) throws BeanException {
         if (saveperson != null && saveperson.booleanValue()) {
-            cntx.setStatus("saveperson");
+            octopusContext.setStatus("saveperson");
         }
     }
 
