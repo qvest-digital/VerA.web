@@ -1,7 +1,7 @@
 #set($activeMenu = "Administration")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_SUBMISSION}")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_MAIL_DRAFT}")
-#set($entity="MAILDRAFT")
+#set($entity="MAIL_DRAFT")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_PLURAL}")
 
