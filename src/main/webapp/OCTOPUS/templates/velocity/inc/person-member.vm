@@ -118,7 +118,7 @@
 
 			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_b_e1" )
-					<label for="person-nationality$!message.plain($ext)">${placeholderWithTranslation.GENERIC_NATIONALITY}/${placeholderWithTranslation.GENERIC_CITIZENSHIP}</label>
+					<label for="person-nationality$!message.plain($ext)">${placeholderWithTranslation.GENERIC_NATIONALITY_CITIZENSHIP}</label>
 					<input  type="text" id="person-nationality$!message.plain($ext)" name="person-nationality$!message.plain($ext)" value="$!message.text($facade.Nationality)" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
 				#end
 			</div>
