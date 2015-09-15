@@ -1741,6 +1741,9 @@ DELETE_DISTRIBUTOR=\u00BFDesea realmente eliminar el distribuidor seleccionado?
 DELETE_DISTRIBUTORS=\u00BFDesea realmente eliminar los distribuidores seleccionados?
 PLACEHOLDER_DATE_FORMAT=dd.mm.aaaa
 
+GM_NO_CHANGES=No se han producido cambios.
+GM_CONFIRMATION_EMAIL_DISTRIBUTOR=\u00BFCrear correo electr\u00F3nico de distribuci\u00F3n?
+
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=Se ha modificado una categor\u00EDa
 GM_CATEGORY_MODIFY_P=Se han modificado %s categor\u00EDas
@@ -1748,9 +1751,9 @@ GM_CATEGORY_MODIFY_N=No se han modificado categor\u00EDas
 GM_CATEGORY_DELETE_S=Se ha eliminado una categor\u00EDa
 GM_CATEGORY_DELETE_P=Se han eliminado %s categor\u00EDas
 GM_CATEGORY_DELETE_N=No se han eliminado categor\u00EDas
-GM_CATEGORY_INSERT_S=Se ha creado una categor\u00EDa
-GM_CATEGORY_INSERT_P=Se han creado %s categor\u00EDas
-GM_CATEGORY_INSERT_N=No se han creado categor\u00EDas
+GM_CATEGORY_INSERT_S=Se ha a\u00F1adido una categor\u00EDa
+GM_CATEGORY_INSERT_P=Se han a\u00F1adido %s categor\u00EDas
+GM_CATEGORY_INSERT_N=No se han a\u00F1adido categor\u00EDas
 GM_CLIENT_MODIFY_S=Se ha modificado un mandante
 GM_CLIENT_MODIFY_P=Se han modificado %s mandantes
 GM_CLIENT_MODIFY_N=No se han modificado mandantes
@@ -1820,18 +1823,18 @@ GM_EVENT_LOCATION_MODIFY_N=No se han modificado localizaciones de evento
 GM_EVENT_LOCATION_DELETE_S=Se ha eliminado una localizaci\u00F3n de evento
 GM_EVENT_LOCATION_DELETE_P=Se han eliminado %s localizaciones de evento
 GM_EVENT_LOCATION_DELETE_N=No se han eliminado localizaciones de evento
-GM_EVENT_LOCATION_INSERT_S=Se ha creado una localizaci\u00F3n de evento
-GM_EVENT_LOCATION_INSERT_P=Se han creado %s localizaciones de evento
-GM_EVENT_LOCATION_INSERT_N=No se han creado localizaciones de evento
+GM_EVENT_LOCATION_INSERT_S=Se ha a\u00F1adido una localizaci\u00F3n de evento
+GM_EVENT_LOCATION_INSERT_P=Se han a\u00F1adido %s localizaciones de evento
+GM_EVENT_LOCATION_INSERT_N=No se han a\u00F1adido localizaciones de evento
 GM_GUEST_MODIFY_S=Se ha modificado un invitado
 GM_GUEST_MODIFY_P=Se han modificado %s invitados
 GM_GUEST_MODIFY_N=No se han modificado invitados
 GM_GUEST_DELETE_S=Se ha eliminado un invitado
 GM_GUEST_DELETE_P=Se han eliminado %s invitados
 GM_GUEST_DELETE_N=No se han eliminado invitados
-GM_GUEST_INSERT_S=Se ha creado un invitado
-GM_GUEST_INSERT_P=Se han creado %s invitados
-GM_GUEST_INSERT_N=No se han creado invitados
+GM_GUEST_INSERT_S=Se ha a\u00F1adido un invitado
+GM_GUEST_INSERT_P=Se han a\u00F1adido %s invitados
+GM_GUEST_INSERT_N=No se han a\u00F1adido invitados
 GM_MAIL_DRAFT_MODIFY_S=Se ha modificado un asunto
 GM_MAIL_DRAFT_MODIFY_P=Se han modificado %s asuntos
 GM_MAIL_DRAFT_MODIFY_N=No se han modificado asuntos
@@ -1904,8 +1907,3 @@ GM_WORKAREA_DELETE_N=No se han eliminado \u00E1reas de trabajo
 GM_WORKAREA_INSERT_S=Se ha creado una \u00E1rea de trabajo
 GM_WORKAREA_INSERT_P=Se han creado %s \u00E1reas de trabajo
 GM_WORKAREA_INSERT_N=No se han creado \u00E1reas de trabajo
-
-GM_NO_CHANGES=No se han producido cambios.
-
-GM_CONFIRMATION_EMAIL_DISTRIBUTOR=\u00BFCrear correo electr\u00F3nico de distribuci\u00F3n?
-
