@@ -65,8 +65,8 @@
 				#if($save)
 					<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" title="${placeholderWithTranslation.speichern}">
 				#end
-				<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" onclick="window.location.href='ShowEvent?id=$!event.id';">
-			</div>
+				<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" onclick="$('.errormsg').remove();">
+			</vera-confirm>
 
 		#end
 

@@ -88,7 +88,7 @@ public class EventDetailWorker {
      *  so wird nichts geliefert
 	 */
 	public void showDetail(OctopusContext octopusContext, Integer id, Task task, Integer eventId) throws BeanException, IOException {
-        if (eventId==null) {
+        if (eventId == null && !octopusContext.getRequestObject().get("id").toString().equals("")) {
             eventId = Integer.valueOf(octopusContext.getRequestObject().get("id").toString());
         }
 
