@@ -30,7 +30,7 @@ betrieben werden, allerdings geht diese Installationsanleitung von
 der empfohlenen Systemumgebung aus.
 
 Für VerA.web core benötigen Sie mindestens 512 MiB Arbeitsspeicher;
-1 GiB wird empfohlen. Wir empfehlen mindestens 2 GiB Festplatte,
+1 GiB oder mehr wird empfohlen. Wir empfehlen mindestens 2 GiB Festplatte,
 besser 8 GiB.
 
 In dieser Anleitung sowie den Systemvoraussetzungen wird weiterhin
