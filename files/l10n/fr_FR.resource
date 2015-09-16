@@ -1739,6 +1739,9 @@ DELETE_DISTRIBUTOR=Voulez-vous supprimer le distributeur sel\u00E9ctionn\u00E9?
 DELETE_DISTRIBUTORS=Voulez-vous supprimer les distributeurs sel\u00E9ctionn\u00E9s?
 PLACEHOLDER_DATE_FORMAT=jj.mm.aaaa
 
+DELETE_EVENT_TASKS_FIRST_LINE=Veuillez confirmer la suppression des t\u00E2ches s\u00E9lectionn\u00E9es!
+DELETE_EVENT_TASKS_SECOND_LINE=Supprimer toutes les t\u00E2ches s\u00E9lectionn\u00E9es? Cette action ne peut pas \u00EAtre annul\u00E9e.
+
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=Vous avez modifi\u00E9 une cat\u00E9gorie
 GM_CATEGORY_MODIFY_P=Vous avez modifi\u00E9 %s cat\u00E9gories

@@ -1739,6 +1739,9 @@ DELETE_DISTRIBUTOR=Do you really want to delete the selected distributor?
 DELETE_DISTRIBUTORS=Do you really want to delete the selected distributors?
 PLACEHOLDER_DATE_FORMAT=dd.mm.yyyy
 
+DELETE_EVENT_TASKS_FIRST_LINE=Please confirm to delete the selected events!
+DELETE_EVENT_TASKS_SECOND_LINE=Delete all selected events? This action can not be undone.
+
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=One category successfully modified
 GM_CATEGORY_MODIFY_P=%s categorys successfully modified

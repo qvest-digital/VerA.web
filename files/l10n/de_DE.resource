@@ -1739,6 +1739,9 @@ DELETE_DISTRIBUTOR=Soll der markierte Verteiler entfernt werden?
 DELETE_DISTRIBUTORS=Sollen die markierten Verteiler entfernt werden?
 PLACEHOLDER_DATE_FORMAT=TT.MM.JJJJ
 
+DELETE_EVENT_TASKS_FIRST_LINE=Bitte best\u00E4tigen Sie das L\u00F6schen der markierten Aufgaben!
+DELETE_EVENT_TASKS_SECOND_LINE=Sollen alle markierten Aufgaben gel\u00F6scht werden? Diese Aktion kann nicht r\u00FCckg\u00E4ngig gemacht werden.
+
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=Es wurde eine Kategorie ge\u00E4ndert
 GM_CATEGORY_MODIFY_P=Es wurden %s Kategorien ge\u00E4ndert
