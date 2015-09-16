@@ -21,6 +21,9 @@
 
 <div id="content_container">
 
+	#if(!$isEntityModified)
+		<vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
+	#end
 
 	<div id="breadcrumb" class="textRight marginBottom10">
 		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
@@ -210,7 +213,7 @@
 	 </div>
 			<span id="buttonPanel-bottom" class="floatRight">
 				#if($grants.mayWrite())
-					<input type="button" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" title="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" class="mainButton" onclick="showSuccess(' ${placeholderWithTranslation.erfolgreichgespeichert} ');">
+					<input type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" title="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" class="mainButton">
 				#end
 				<input type="reset" name="cancel" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" title="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
 

@@ -43,8 +43,6 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class EventTaskListWorker extends ListWorkerVeraWeb {
 
-
-
 	/**
 	 * Load and return all tasks of the event with the given id.
 	 *
@@ -52,28 +50,27 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
 	 * @param eventId
 	 * @return
 	 */
-
-    //
-    // Konstruktoren
-    //
     /** Default-Kontruktor der den Beannamen festlegt. */
     public EventTaskListWorker() {
         super("Task");
     }
 
     @Override
-    public List<Task> showList(OctopusContext cntx) throws IOException, BeanException {
-        List<Task> list = super.showList(cntx);
+    public List<Task> showList(OctopusContext octopusContext) throws IOException, BeanException {
 
-        cntx.setContent("id", cntx.requestAsString("id"));
+        sendNoChangesMessage(octopusContext);
 
-        Database database = new DatabaseVeraWeb(cntx);
+        List<Task> list = super.showList(octopusContext);
+
+        octopusContext.setContent("id", octopusContext.requestAsString("id"));
+
+        Database database = new DatabaseVeraWeb(octopusContext);
 
         for (Task task : list) {
             Person person = (Person) database.getBean("Person", task.getPersonId());
             // Select statement bauen um  person mit 'personId' aus der db zu holen
 
-            if(person != null){
+            if (person != null) {
                 task.setPersonName(person.lastname_a_e1 + ", " + person.firstname_a_e1);
             }
         }
@@ -81,10 +78,19 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
         return list;
     }
 
+    private void sendNoChangesMessage(OctopusContext octopusContext) {
+        if (octopusContext.getContextField("remove-task") != null &&
+                octopusContext.getContextField("remove-task").equals("true")) {
+            octopusContext.setContent("isEntityModified", true);
+        } else if (octopusContext.getContextField("remove-task") != null) {
+            octopusContext.setContent("isEntityModified", false);
+        }
+    }
+
     @Override
-    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
+    protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
         WhereList where = new WhereList();
-        String strEventId = cntx.getRequestObject().getParamAsString("id");
+        String strEventId = octopusContext.getRequestObject().getParamAsString("id");
         Integer eventId = null;
         if (strEventId != null && !strEventId.equals("")) {
             eventId = Integer.valueOf(strEventId);
@@ -97,37 +103,35 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
      * Bestimmt ob eine Aufgabe aufgrund bestimmter Kriterien gelöscht wird oder nicht.
      */
     @Override
-    protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
+    protected int removeSelection(OctopusContext octopusContext, List errors, List selection,
+                                  TransactionContext transactionContext) throws BeanException, IOException {
 
         int count = 0;
         if (selection == null || selection.size() == 0) {
-        	return count;
+            return count;
         }
-        Database database = context.getDatabase();
+        Database database = transactionContext.getDatabase();
 
-        Task task = (Task)database.createBean("Task");
+        Task task = (Task) database.createBean("Task");
         Clause clause = Expr.in("pk", selection);
         Select select = database.getSelectIds(task).where(clause);
 
-        if(!selection.isEmpty()) {
-            try
-            {
+        if (!selection.isEmpty()) {
+            try {
 
                 Map data;
-                for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
-                    data = (Map)it.next();
-                    task.id = (Integer)data.get("id");
-                    if (removeBean(cntx, task, context)) {
+                for (Iterator it = database.getList(select, transactionContext).iterator(); it.hasNext(); ) {
+                    data = (Map) it.next();
+                    task.id = (Integer) data.get("id");
+                    if (removeBean(octopusContext, task, transactionContext)) {
                         selection.remove(task.id);
                         count++;
                     }
                 }
-                context.commit();
-            }
-            catch ( BeanException e )
-            {
-                context.rollBack();
-                throw new BeanException( "Die Aufgabe(n) konnten nicht gel\u00f6scht werden.", e );
+                transactionContext.commit();
+            } catch (BeanException e) {
+                transactionContext.rollBack();
+                throw new BeanException("Die Aufgabe(n) konnten nicht gel\u00f6scht werden.", e);
             }
         }
         return count;

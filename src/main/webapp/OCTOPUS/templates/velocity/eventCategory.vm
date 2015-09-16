@@ -9,6 +9,10 @@
 
 <div id="content_container">
 
+	#if(!$isEntityModified)
+		<vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
+	#end
+
 	<div id="breadcrumb" class="textRight marginBottom10">
 		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
 	</div>

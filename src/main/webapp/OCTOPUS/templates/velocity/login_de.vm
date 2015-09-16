@@ -38,7 +38,7 @@
 
 #if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin" && $octopusRequest.loginlanguage == "de_DE")
 <vera-warn>
-	Es ist ein Fehler bei der Anmeldung aufgetreten. Bitte \u00FCberprufen Sie Ihren Benutzernamen und Ihr Passwort.
+	Es ist ein Fehler bei der Anmeldung aufgetreten. Bitte überprufen Sie Ihren Benutzernamen und Ihr Passwort.
 </vera-warn>
 #end
 

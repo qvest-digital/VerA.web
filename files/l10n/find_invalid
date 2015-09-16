@@ -1,0 +1,61 @@
+#!/bin/sh
+case $(locale charmap) in
+(UTF-8) ;;
+(*) LC_ALL=C.UTF-8; export LC_ALL ;;
+esac
+case $(locale charmap) in
+(UTF-8) ;;
+(*) echo >&2 "E: fix your locale!"; exit 1 ;;
+esac
+cd "$(dirname "$0")"
+
+test -x /usr/bin/isutf8 || {
+	echo >&2 E: apt-get install moreutils
+	exit 1
+}
+
+verbose=false
+if test x"$1" = x"-v"; then
+	verbose=true
+	shift
+fi
+test -n "$1" || set -- *.resource
+echo >&2 I: $# files to check
+
+rv=0
+for f in "$@"; do
+	printf >&2 'Checking %s...\r' "$f"
+	isutf8 -q "$f" || {
+		printf >&2 'E: %s is not UTF-8, cannot check\n' "$f"
+		rv=1
+		continue
+	}
+	perl -C -pi -e 's/\\u([0-9A-Fa-f]{4})/chr(hex($1))/eg' "$f"
+	isutf8 -q "$f" || {
+		printf >&2 'E: %s is not UTF-8 after decoding, contact mirabilos\n' "$f"
+		exit 255
+	}
+	xhtml=$(grep '[&<>]' "$f") || xhtml=
+	xattr=$(grep \[\"\'] "$f") || xattr=
+	xjava=$(grep -F \\ "$f") || xjava=
+	perl -C -pi -e 's/[^\n -~]/"\\u" . sprintf("%04X", ord($&))/eg' "$f"
+	xctrl=$(grep '\\u00[0189]' "$f") || xctrl=
+	if test -z "$xhtml$xattr$xjava$xctrl"; then
+		printf >&2 'Checked %s - no problems found\n' "$f"
+		continue
+	fi
+	problems=
+	test -z "$xctrl" || problems="$problems, Control Characters"
+	test -z "$xhtml" || problems="$problems, HTML specials (<>&)"
+	test -z "$xattr" || problems="$problems, HTML/JS quotes ('\")"
+	test -z "$xjava" || problems="$problems, Java specials (\\)"
+	echo >&2 "W: found ${problems#, } in $f"
+	if $verbose; then
+		test -z "$xctrl" || printf '%s\n' "$xctrl" | sed 's/^/N: CTRL: /' >&2
+		test -z "$xhtml" || printf '%s\n' "$xhtml" | sed 's/^/N: HTML: /' >&2
+		test -z "$xattr" || printf '%s\n' "$xattr" | sed 's/^/N: ATTR: /' >&2
+		test -z "$xjava" || printf '%s\n' "$xjava" | sed 's/^/N: JAVA: /' >&2
+	fi
+done
+echo >&2 I: all done
+exit $rv
