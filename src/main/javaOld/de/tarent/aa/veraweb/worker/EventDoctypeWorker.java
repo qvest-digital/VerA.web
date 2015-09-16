@@ -58,12 +58,12 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
     // Oberklasse BeanListWorker
     //
 	@Override
-    protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-		select.where(Expr.equal("fk_event", getEvent(cntx).id));
+    protected void extendAll(OctopusContext octopusContext, Select select) throws BeanException, IOException {
+		select.where(Expr.equal("fk_event", getEvent(octopusContext).id));
 	}
 
 	@Override
-    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
+    protected void extendColumns(OctopusContext octopusContext, Select select) throws BeanException {
 		select.join("veraweb.tdoctype", "tevent_doctype.fk_doctype", "tdoctype.pk");
 		select.selectAs("tdoctype.docname", "name");
 		select.selectAs("tdoctype.sortorder", "sortorder");
@@ -74,6 +74,11 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
 	@Override
 	public List showList(OctopusContext octopusContext) throws IOException, BeanException {
 
+		sendNoChangesMessage(octopusContext);
+		return super.showList(octopusContext);
+	}
+
+	private void sendNoChangesMessage(OctopusContext octopusContext) {
 		Integer countRemove = (Integer) octopusContext.getContextField("countRemove");
 		Integer countUpdate = (Integer) octopusContext.getContextField("countUpdate");
 		Integer countInsert = (Integer) octopusContext.getContextField("countInsert");
@@ -86,8 +91,6 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
 				octopusContext.getRequestObject().get("remove") == null) {
 			octopusContext.setContent("isEntityModified", false);
 		}
-
-		return super.showList(octopusContext);
 	}
 
 	@Override
@@ -96,26 +99,26 @@ public class EventDoctypeWorker extends ListWorkerVeraWeb {
 	}
 
 	@Override
-    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context)
+    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext)
 			throws BeanException, IOException {
 
-		Database database = context.getDatabase();
+		Database database = transactionContext.getDatabase();
 		((EventDoctype) bean).verify(octopusContext);
-		super.saveBean(octopusContext, bean, context);
+		super.saveBean(octopusContext, bean, transactionContext);
 		List list =
 				database.getList(
 						database.getSelectIds(new Guest()).
-								where(Expr.equal("fk_event", ((EventDoctype) bean).event)), context);
+								where(Expr.equal("fk_event", ((EventDoctype) bean).event)), transactionContext);
 		GuestWorker worker = WorkerFactory.getGuestWorker(octopusContext);
 		for (Iterator it = list.iterator(); it.hasNext(); ) {
-			worker.refreshDoctypes(octopusContext, database, context, (Integer) ((Map) it.next()).get("id"));
+			worker.refreshDoctypes(octopusContext, database, transactionContext, (Integer) ((Map) it.next()).get("id"));
 		}
 	}
 
     //
     // Hilfsmethoden
     //
-	protected Event getEvent(OctopusContext cntx) {
-		return (Event)cntx.contentAsObject("event");
+	protected Event getEvent(OctopusContext octopusContext) {
+		return (Event)octopusContext.contentAsObject("event");
 	}
 }

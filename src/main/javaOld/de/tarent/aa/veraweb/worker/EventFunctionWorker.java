@@ -49,10 +49,15 @@ public class EventFunctionWorker extends ListWorkerVeraWeb {
         super("EventFunction");
     }
 
+    /**
+     * We are controlling if there are not changes to show the "no changes message"
+     *
+     * @param octopusContext octopus context
+     * @return List the functions
+     */
     @Override
     public List showList(OctopusContext octopusContext) throws IOException, BeanException {
-
-
+        
         Integer countRemove = (Integer) octopusContext.getContextField("countRemove");
         Integer countUpdate = (Integer) octopusContext.getContextField("countUpdate");
         Integer countInsert = (Integer) octopusContext.getContextField("countInsert");
@@ -69,29 +74,28 @@ public class EventFunctionWorker extends ListWorkerVeraWeb {
         return super.showList(octopusContext);
     }
 
-
     @Override
-    protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-        select.where(Expr.equal("fk_event", getEvent(cntx).id));
+    protected void extendAll(OctopusContext octopusContext, Select select) throws BeanException, IOException {
+        select.where(Expr.equal("fk_event", getEvent(octopusContext).id));
     }
 
     @Override
-    protected void extendColumns(OctopusContext cntx, Select select) throws BeanException {
+    protected void extendColumns(OctopusContext octopusContext, Select select) throws BeanException {
         select.join("veraweb.tfunction", "tevent_function.fk_function", "tfunction.pk");
         select.selectAs("tfunction.functionname", "name");
         select.orderBy(Order.asc("name"));
     }
 
     @Override
-    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
-        select.where(Expr.equal("fk_event", getEvent(cntx).id));
+    protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
+        select.where(Expr.equal("fk_event", getEvent(octopusContext).id));
     }
 
     @Override
-    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context) {
+    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext) {
         try {
             ((EventFunction) bean).verify(octopusContext);
-            super.saveBean(octopusContext, bean, context);
+            super.saveBean(octopusContext, bean, transactionContext);
         } catch (BeanException e) {
             LOGGER.error("Fehler beim speichern der neuen Amtsbezeichnung/Funktion", e);
         } catch (IOException e) {
