@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>VerA.web - $!title</title>
+		<title>VerA.web</title>
 ##		Browser-Cache deaktivieren
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="cache-control" content="no-cache">
