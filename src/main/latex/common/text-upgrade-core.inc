@@ -43,7 +43,9 @@ generell mehr Vorsicht walten zu lassen.
 
 Für weitergehenden Installationssupport, insbesondere bei Systemen,
 die nicht nach dieser oder einer ähnlichen Anleitung installiert
-wurden, kontaktieren Sie bitte unseren Produktvertrieb.
+wurden, kontaktieren Sie bitte unseren Produktvertrieb oder, falls
+Sie bereits einen bestehenden Wartungsvertrag haben, unser Service-
+und Wartungsteam.
 
 \subsection{Dateien VerA.web-core}\label{subsec:upgrade-core-files}
 

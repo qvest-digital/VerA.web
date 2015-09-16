@@ -35,6 +35,9 @@ nicht mehr vorliegen, können Sie jederzeit über
 \href{mailto:wartung@tarent.de}{wartung@tarent.de} eine Kopie
 davon anfordern.
 
+Falls Sie noch keinen Service- und Wartungsvertrag mit uns abgeschlossen
+haben, kontaktieren Sie bitte unseren Produktvertrieb.
+
 \section{Links}\label{sec:links}
 
 \begin{itemize}
