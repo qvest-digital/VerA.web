@@ -224,7 +224,7 @@ WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Avec VerA.web, vous pouvez afficher, modifier,
 WELCOME_TEXT_GRANT_ADMIN_PART_TWO=En outre, vous pouvez afficher et modifier les options globales et celles des clients.
 WELCOME_TEXT_HELP=Pour obtenir des renseignements suppl\u00E9mentaires, veuillez presser sur \u00ABAide\u00BB.
 WELCOME_TEXT_NO_ROLE=Aucun role est disponible pour votre connexion \u00E1 VerA.web. Veuillez conn\u00E9cter de nouveau avec un utilisateur ayant
-GENERIC_AVAILABLE_DUPLICATES=Vorhandene Dubletten
+GENERIC_AVAILABLE_DUPLICATES=Doublons disponibles
 
 # ADMINISTRATION/ANREDEN
 GENERIC_SALUTATIONS=Titres
@@ -540,8 +540,8 @@ GENERIC_ADVANCED_SEARCH=Recherche avanc\u00E9e
 HINT_PLACEHOLDER=Remarque: Vous pouvez utiliser soi-disant wildcards dans la recherche, le * repr\u00E9sente un chiffre, et le ? les caract\u00E8res individuels
 
 # PERSONEN/NEUE PERSON ANLEGEN
-MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=Die Anmeldedaten wurden erfolgreich erzeugt.
-MESSAGE_OSIAM_LOGIN_DATA_EXIST=Les pouvoirs ont \u00E9t\u00E9 produits avec succ\u00E8s .
+MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=Les donn\u00E9es de connexion ont \u00E9t\u00E9 cr\u00E9\u00E9 avec succ\u00E8s.
+MESSAGE_OSIAM_LOGIN_DATA_EXIST=Les pouvoirs ont \u00E9t\u00E9 produits avec succ\u00E8s.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Est une soci\u00E9t\u00E9
@@ -739,12 +739,12 @@ EVENT_PRECONDITION_STARTDATE=Date de d\u00E9but
 EVENT_PRECONDITION_NOT_FOUND=Aucune condition pr\u00E9alables trouv\u00E9e
 
 # VERANSTALTUNGSSUCHE
-nurinzukunftigenveranstaltungensuchen=Nur in zuk\u00FCnftigen Veranstaltungen suchen
+nurinzukunftigenveranstaltungensuchen=Recherche des \u00E9v\u00E9nements dans le futur uniquement
 siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Vous pouvez utiliser soi-disant wildcards dans la recherche, le * repr\u00E9sente un chiffre, et le ? les caract\u00E8res individuels.
 
 # NEUE VERANSTALTUNG ANLEGEN
-mitpartner=Mit Partner
-eswurdeeineneueveranstaltungangelegt=Es wurde eine neue Veranstaltung angelegt.
+mitpartner=Avec partenaire
+eswurdeeineneueveranstaltungangelegt=
 
 # VERTEILER
 angelegtvon=Cr\u00E9\u00E9e par
@@ -919,7 +919,7 @@ iststandardfursteuerdatei=Est la norme pour le fichier de contr\u00F4le
 format=Format
 HINT_EXPORT_FORMAT=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei),xls steht f\u00FCr Microsoft Office (xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
 HINT_EVENT_IDENTIFICATION=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
-wirklichloschen=Wirklich l\u00F6schen
+wirklichloschen=Vraiment supprimer
 zumpersonenimport=Pour les personnes -Import
 importstatus=Importer Statut
 importstatusvorhandenedublettenbearbeiten=Importer Statut : modifier les doublons existants
