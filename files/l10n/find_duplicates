@@ -1,0 +1,27 @@
+#!/bin/sh
+LC_ALL=C
+export LC_ALL
+unset LANGUAGE
+
+cd "$(dirname "$0")"
+verbose=false
+if test x"$1" = x"-v"; then
+	verbose=true
+	shift
+fi
+test -n "$1" || set -- *.resource
+echo >&2 I: $# files to check
+
+for f in "$@"; do
+	printf >&2 'Checking %s...\r' "$f"
+	x=$(sed -n '/^\([,-<>-~]*\)=.*$/s//\1/p' <"$f" | sort)
+	xo=$(printf '%s\n' "$x" | wc -l)
+	xu=$(printf '%s\n' "$x" | uniq | wc -l)
+	if test $xo = $xu; then
+		printf >&2 'Checked %s - no duplicates found\n' "$f"
+	else
+		printf >&2 'W: %d duplicates found in %s\n' $((xo - xu)) "$f"
+		$verbose && printf '%s\n' "$x" | uniq -dc | sed 's/^/N: /' >&2
+	fi
+done
+echo >&2 I: all done
