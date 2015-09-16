@@ -36,7 +36,7 @@
                             }, function () { //nein
                                 showSuccess('${placeholderWithTranslation.eswurdekeinekategoriezugeordnet}');
                             },
-                            '${placeholderWithTranslation.GENERIC_ASSIGN}',
+                            '${placeholderWithTranslation.zuordnen}',
                             '${placeholderWithTranslation.GENERIC_CANCEL}'
                             );
                         #else
@@ -52,7 +52,7 @@
                             }, function () { //nein
                                 showSuccess('${placeholderWithTranslation.eswurdenkeinekategorienzugeordnet}');
                             },
-                            '${placeholderWithTranslation.GENERIC_ASSIGN}',
+                            '${placeholderWithTranslation.zuordnen}',
                             '${placeholderWithTranslation.GENERIC_CANCEL}'
                             );
                         #end
@@ -178,7 +178,7 @@
         <form>
             <div class="contentBoxColored grayBorder">
 
-                    <h1>${placeholderWithTranslation.waehlensieeinekategorieauswelchesie}#if( $assignmentAction == "assign" )${placeholderWithTranslation.zuweisen}#else${placeholderWithTranslation.GENERIC_DELETE}#end${placeholderWithTranslation.moechten}:</h1>
+                    <h1>${placeholderWithTranslation.waehlensieeinekategorieauswelchesie}#if( $assignmentAction == "assign" )${placeholderWithTranslation.zuordnen}#else${placeholderWithTranslation.GENERIC_DELETE}#end${placeholderWithTranslation.moechten}:</h1>
 
                     #if( $allCategorie.size() > 0 )
                         <label for="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
@@ -197,12 +197,12 @@
 
 
                 <div class="textRight marginTop5" id="buttonPanel-bottom">
-                    <input id="0" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.abbrechen}" onClick="restore();closePopup();">
                     #if( $assignmentAction == "assign" && $allCategorie.size() > 0 )
-                        <input id="1" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.zuweisen}" onClick="showCategory();">
+                        <input id="1" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.zuordnen}" onClick="showCategory();">
                     #elseif ( $allCategorie.size() > 0 )
                         <input id="2" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.GENERIC_DELETE}" onClick="showRemoveCategory();">
                     #end
+                    <input id="0" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.abbrechen}" onClick="restore();closePopup();">
                 </div>
             </div>
         </form>

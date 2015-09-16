@@ -224,7 +224,7 @@ WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Avec VerA.web, vous pouvez afficher, modifier,
 WELCOME_TEXT_GRANT_ADMIN_PART_TWO=En outre, vous pouvez afficher et modifier les options globales et celles des clients.
 WELCOME_TEXT_HELP=Pour obtenir des renseignements suppl\u00E9mentaires, veuillez presser sur \u00ABAide\u00BB.
 WELCOME_TEXT_NO_ROLE=Aucun role est disponible pour votre connexion \u00E1 VerA.web. Veuillez conn\u00E9cter de nouveau avec un utilisateur ayant
-GENERIC_AVAILABLE_DUPLICATES=Vorhandene Dubletten
+GENERIC_AVAILABLE_DUPLICATES=Doublons disponibles
 
 # ADMINISTRATION/ANREDEN
 GENERIC_SALUTATIONS=Titres
@@ -540,8 +540,8 @@ GENERIC_ADVANCED_SEARCH=Recherche avanc\u00E9e
 HINT_PLACEHOLDER=Remarque: Vous pouvez utiliser soi-disant wildcards dans la recherche, le * repr\u00E9sente un chiffre, et le ? les caract\u00E8res individuels
 
 # PERSONEN/NEUE PERSON ANLEGEN
-MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=Die Anmeldedaten wurden erfolgreich erzeugt.
-MESSAGE_OSIAM_LOGIN_DATA_EXIST=Les pouvoirs ont \u00E9t\u00E9 produits avec succ\u00E8s .
+MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL=Les donn\u00E9es de connexion ont \u00E9t\u00E9 cr\u00E9\u00E9 avec succ\u00E8s.
+MESSAGE_OSIAM_LOGIN_DATA_EXIST=Les pouvoirs ont \u00E9t\u00E9 produits avec succ\u00E8s.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Est une soci\u00E9t\u00E9
@@ -739,12 +739,12 @@ EVENT_PRECONDITION_STARTDATE=Date de d\u00E9but
 EVENT_PRECONDITION_NOT_FOUND=Aucune condition pr\u00E9alables trouv\u00E9e
 
 # VERANSTALTUNGSSUCHE
-nurinzukunftigenveranstaltungensuchen=Nur in zuk\u00FCnftigen Veranstaltungen suchen
+nurinzukunftigenveranstaltungensuchen=Recherche des \u00E9v\u00E9nements dans le futur uniquement
 siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Vous pouvez utiliser soi-disant wildcards dans la recherche, le * repr\u00E9sente un chiffre, et le ? les caract\u00E8res individuels.
 
 # NEUE VERANSTALTUNG ANLEGEN
-mitpartner=Mit Partner
-eswurdeeineneueveranstaltungangelegt=Es wurde eine neue Veranstaltung angelegt.
+mitpartner=Avec partenaire
+eswurdeeineneueveranstaltungangelegt=
 
 # VERTEILER
 angelegtvon=Cr\u00E9\u00E9e par
@@ -919,7 +919,7 @@ iststandardfursteuerdatei=Est la norme pour le fichier de contr\u00F4le
 format=Format
 HINT_EXPORT_FORMAT=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei),xls steht f\u00FCr Microsoft Office (xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
 HINT_EVENT_IDENTIFICATION=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
-wirklichloschen=Wirklich l\u00F6schen
+wirklichloschen=Vraiment supprimer
 zumpersonenimport=Pour les personnes -Import
 importstatus=Importer Statut
 importstatusvorhandenedublettenbearbeiten=Importer Statut : modifier les doublons existants
@@ -1110,16 +1110,18 @@ angenaudiesemdatum=A exactement cette date
 datumauswaehlen=choisir une date
 HINT_SEARCH_MULTIPLE=La recherche prend en charge la recherche des cat\u00E9gories multiples. Pour s\u00E9lectionner plusieurs cat\u00E9gories, s\u2019il vous pla\u00EEt maintenez enfonc\u00E9 le bouton de la souris et faites glisser le vol stationnaire sur dans la recherche de consid\u00E9rer les cat\u00E9gories. Par ailleurs, CTRL-clic avec le bouton gauche de la souris, vous pouvez cliquer sur les cat\u00E9gories \u00E0 prendre en consid\u00E9ration. Veuillez noter que les deux cat\u00E9gories du pseudo \u00AB All \u00BB et \u00AB None \u00BB ainsi que d\u2019autres cat\u00E9gories ne peuvent pas \u00EAtre s\u00E9lectionn\u00E9es
 waehlensiebittezunaechsteinekategorieaus=Veuillez d\u2019abord s\u00E9lectionner une cat\u00E9gorie.
-wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Vous souhaitez attribuer \u00E0 cette personne ou cet invit\u00E9 de la cat\u00E9gorie s\u00E9lectionn\u00E9e?
+wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Voulez-vous assigner la cat\u00E9gorie s\u00E9l\u00E9ctionn\u00E9e \u00E0 la personne
+Vous souhaitez attribuer \u00E0 cette personne ou cet invit\u00E9 de la cat\u00E9gorie s\u00E9lectionn\u00E9e?
 eswurdekeinekategoriezugeordnet=Il \u00E9tait associ\u00E9 \u00E0 aucune cat\u00E9gorie
-wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen=Vous voulez supprimer ${count} les personnes ou l\u2019invit\u00E9 de la cat\u00E9gorie s\u00E9lectionn\u00E9e ?
+wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen=Voulez-vous assigner la cat\u00E9gorie s\u00E9l\u00E9ctionn\u00E9e aux personnes
+Vous voulez supprimer ${count} les personnes ou l\u2019invit\u00E9 de la cat\u00E9gorie s\u00E9lectionn\u00E9e ?
 eswurdenkeinekategorienzugeordnet=Aucune cat\u00E9gorie n\u2019\u00E9tait associ\u00E9s
 eswurdenkeinekategoriengefunden=Aucune cat\u00E9gorie trouv\u00E9e
 wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen=Voulez-vous supprimer cette personne ou cette invit\u00E9 \u00E0 partir de la cat\u00E9gorie s\u00E9lectionn\u00E9e
 eswurdekeinekategorieentfernt=Il n\u2019y a aucune cat\u00E9gorie enlev\u00E9.
 wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen=Vous voulez supprimer ${count} personnes ou invit\u00E9es de la cat\u00E9gorie s\u00E9lectionn\u00E9e ?
 eswurdenkeinekategorienentfernt=Pas de cat\u00E9gories ont \u00E9t\u00E9 supprim\u00E9es.
-zuweisen=assigner
+zuweisen=Assigner
 waehlensieeinekategorieauswelchesie=S\u00E9lectionner une cat\u00E9gorie que vous souhaitez.
 moechten=
 alleentfernen=Supprimer tous
@@ -1261,7 +1263,7 @@ markiertenmandanten=Mandant(s) s\u00E9l\u00E9ctionn\u00E9(s)
 markiertenmandantenwirklichloschen=Supprimer les mandant(s) s\u00E9l\u00E9ctionn\u00E9(s)?
 alledatensatzewurdenerfolgreichmandantenzugeordnet=Tous les enregistrements ont \u00E9t\u00E9 allou\u00E9s avec succ\u00E8s \u00E0 un mandant.
 esexistiertnochkeinmandant=Il n\u2019y a toujours aucun client.
-zuordnen=Associer \u00E0
+zuordnen=Assigner
 markierteanreden=Titre(s) s\u00E9l\u00E9ctionn\u00E9(s)
 markierteanredenloeschen=Supprimer les titre(s) s\u00E9l\u00E9ctionn\u00E9(s)
 markiertenarbeitsbereiche=Espace(s) de travail s\u00E9l\u00E9ctionn\u00E9(s)
@@ -1481,7 +1483,7 @@ GUEST_LIST_EDIT_MASTER_DATA=Modifier les donn\u00E9es de base des personnes
 GUEST=Invit\u00E9
 GENERIC_OF=de
 GENERIC_ASSIGN=Assigner
-GENERIC_CANCEL=Suspendre
+GENERIC_CANCEL=Annuler
 GENERIC_DELETE=Supprimer
 GENERIC_CONNECTOR=Connecteur
 GENERIC_VIEW_DOCUMENT_TYPE=Montrer le type du document
