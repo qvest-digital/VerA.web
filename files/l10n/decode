@@ -20,6 +20,8 @@
 #-
 # Decode files from Java .properties (\uNNNN) escapes to UTF-8. Also
 # does some minimal sanity checks on the output.
+#
+# Syntax: ./decode [*.resource]
 
 case $(locale charmap) in
 (UTF-8) ;;

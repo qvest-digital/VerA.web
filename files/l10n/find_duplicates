@@ -19,6 +19,9 @@
 # of said person’s immediate fault when using the work as intended.
 #-
 # Find duplicate translation keys (left-hand side).
+#
+# Syntax: ./find_duplicates [-v] [*.resource]
+# -v: verbose output (list the actual duplicates and their count)
 
 LC_ALL=C
 export LC_ALL

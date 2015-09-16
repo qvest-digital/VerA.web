@@ -24,6 +24,9 @@
 # • HTML specials (< > &)
 # • JavaScript specials (' ")
 # • Java specials (\)
+#
+# Syntax: ./find_invalid [-v] [*.resource]
+# -v: verbose output (show the actual lines containing bad characters)
 
 case $(locale charmap) in
 (UTF-8) ;;

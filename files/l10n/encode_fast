@@ -20,6 +20,8 @@
 #-
 # Convert files from UTF-8 to Java .properties (\uNNNN) escapes. Bad
 # input causes an error (see ./encode for that).
+#
+# Syntax: ./encode_fast [*.resource]
 
 case $(locale charmap) in
 (UTF-8) ;;
