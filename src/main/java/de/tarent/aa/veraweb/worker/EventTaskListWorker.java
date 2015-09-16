@@ -62,18 +62,27 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
     }
 
     @Override
-    public List<Task> showList(OctopusContext cntx) throws IOException, BeanException {
-        List<Task> list = super.showList(cntx);
+    public List<Task> showList(OctopusContext octopusContext) throws IOException, BeanException {
 
-        cntx.setContent("id", cntx.requestAsString("id"));
+        if (octopusContext.getContextField("remove-task") != null &&
+                octopusContext.getContextField("remove-task").equals("true")) {
+            octopusContext.setContent("isEntityModified", true);
+        }
+        else if (octopusContext.getContextField("remove-task") != null) {
+            octopusContext.setContent("isEntityModified", false);
+        }
 
-        Database database = new DatabaseVeraWeb(cntx);
+        List<Task> list = super.showList(octopusContext);
+
+        octopusContext.setContent("id", octopusContext.requestAsString("id"));
+
+        Database database = new DatabaseVeraWeb(octopusContext);
 
         for (Task task : list) {
             Person person = (Person) database.getBean("Person", task.getPersonId());
             // Select statement bauen um  person mit 'personId' aus der db zu holen
 
-            if(person != null){
+            if (person != null) {
                 task.setPersonName(person.lastname_a_e1 + ", " + person.firstname_a_e1);
             }
         }

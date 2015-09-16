@@ -52,6 +52,7 @@ public class EventFunctionWorker extends ListWorkerVeraWeb {
     @Override
     public List showList(OctopusContext octopusContext) throws IOException, BeanException {
 
+
         Integer countRemove = (Integer) octopusContext.getContextField("countRemove");
         Integer countUpdate = (Integer) octopusContext.getContextField("countUpdate");
         Integer countInsert = (Integer) octopusContext.getContextField("countInsert");
@@ -60,7 +61,8 @@ public class EventFunctionWorker extends ListWorkerVeraWeb {
                 ((countUpdate != null) && !(countUpdate.equals(0))) ||
                 ((countInsert != null) && !(countInsert.equals(0)))) {
             octopusContext.setContent("isEntityModified", true);
-        } else if (countRemove != null || countUpdate != null || countInsert != null) {
+        } else if ((countRemove != null || countUpdate != null || countInsert != null) &&
+                octopusContext.getRequestObject().get("remove") == null) {
             octopusContext.setContent("isEntityModified", false);
         }
 

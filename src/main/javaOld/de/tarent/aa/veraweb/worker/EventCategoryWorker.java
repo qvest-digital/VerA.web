@@ -59,7 +59,8 @@ public class EventCategoryWorker extends ListWorkerVeraWeb {
                 ((countUpdate != null) && !(countUpdate.equals(0))) ||
                 ((countInsert != null) && !(countInsert.equals(0)))) {
             octopusContext.setContent("isEntityModified", true);
-        } else if (countRemove != null || countUpdate != null || countInsert != null) {
+        } else if ((countRemove != null || countUpdate != null || countInsert != null) &&
+                octopusContext.getRequestObject().get("remove") == null) {
             octopusContext.setContent("isEntityModified", false);
         }
 

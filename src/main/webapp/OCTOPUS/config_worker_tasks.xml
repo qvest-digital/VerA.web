@@ -1276,8 +1276,8 @@
 			</description>
 			<doTask name="Load"/>
 			<action name="saveList" worker="EventTaskListWorker" />
-			<action name="showList" worker="EventTaskListWorker" />
 			<action name="showDetail" worker="EventDetailWorker" />
+			<action name="showList" worker="EventTaskListWorker" />
 			<response type="velocity" name="eventTasks">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
