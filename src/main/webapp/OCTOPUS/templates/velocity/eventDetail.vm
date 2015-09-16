@@ -13,6 +13,10 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_EVENT_PLURAL}")
 #parse("inc/header.vm")
 
+#if(!$isEntityModified && !$isNewEvent)
+	<vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
+#end
+
 <div id="content_container">
 	#if($event && $event.id)
 		<div id="breadcrumb" class="textRight marginBottom10">

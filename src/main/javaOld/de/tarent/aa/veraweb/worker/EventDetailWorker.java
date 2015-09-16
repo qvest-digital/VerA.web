@@ -112,6 +112,7 @@ public class EventDetailWorker {
 			}
 			//
 		}
+        octopusContext.setContent("isEntityModified", true);
 	}
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Boolean)} */
@@ -221,6 +222,7 @@ public class EventDetailWorker {
             /** Veranstaltung speichern */
             event.verify(octopusContext);
             if (event.isModified() && event.isCorrect() && questions.isEmpty()) {
+                octopusContext.setContent("isEntityModified", true);
             /*
              * modified to support change logging
              * cklein 2008-02-12
@@ -306,6 +308,7 @@ public class EventDetailWorker {
                     // TODO refactor and centralize in EventDetailWorker
                 }
             } else {
+                octopusContext.setContent("isEntityModified", false);
                 octopusContext.setStatus("notsaved");
                 if (oldEvent != null && oldEvent.mediarepresentatives != null && event.mediarepresentatives != null) {
                 	event.mediarepresentatives = oldEvent.mediarepresentatives;

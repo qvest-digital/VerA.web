@@ -232,7 +232,7 @@ $(function () {
 			e.preventDefault();
 			return;
 		}
-		var task = confirm('Ausgewählte Einträge wirklich entfernen?');
+		var task = confirm('${placeholderWithTranslation.DELETE_EVENT_TASKS_FIRST_LINE} \n\n${placeholderWithTranslation.DELETE_EVENT_TASKS_SECOND_LINE}');
 		$('#remove-task').val(task);
 		if (!task) {
 			e.preventDefault();
