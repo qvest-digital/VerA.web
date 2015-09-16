@@ -134,8 +134,8 @@ sinnvoll, ein Backup zu machen):
 \begin{lstlisting}[language=sh]
 sudo service tomcat7 stop
 sudo rm -rf /var/lib/tomcat7/webapps/veraweb*
-sudo rm -rf /var/lib/tomcat7/webapps/vwor*
 \end{lstlisting}
+%sudo rm -rf /var/lib/tomcat7/webapps/vwor*
 
 Bitte beachten Sie, daß der Tomcat-Dienst ggfs. noch einige Sekunden
 weiterläuft, nachdem der Stop-Befehl abgeschickt wurde; im Zweifelsfalls
