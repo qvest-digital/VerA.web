@@ -35,9 +35,9 @@ public class OptionalFieldSummary {
     public Integer totalChangedFields = 0;
     public Integer totalDeletedFields = 0;
 
-    public List<OptionalField> createdFields;
-    public List<OptionalField> changedFields;
-    public List<OptionalField> deletedFields;
+    public List<OptionalField> createdFields = new ArrayList<OptionalField>();
+    public List<OptionalField> changedFields = new ArrayList<OptionalField>();
+    public List<OptionalField> deletedFields = new ArrayList<OptionalField>();;
 
     public Integer getTotalCreatedFields() {
         if (this.createdFields != null) {

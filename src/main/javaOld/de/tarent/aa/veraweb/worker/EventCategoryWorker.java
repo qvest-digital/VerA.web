@@ -35,6 +35,7 @@ import de.tarent.octopus.server.OctopusContext;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -45,6 +46,24 @@ public class EventCategoryWorker extends ListWorkerVeraWeb {
 
     public EventCategoryWorker() {
         super("EventCategory");
+    }
+
+    @Override
+    public List showList(OctopusContext octopusContext) throws IOException, BeanException {
+
+        Integer countRemove = (Integer) octopusContext.getContextField("countRemove");
+        Integer countUpdate = (Integer) octopusContext.getContextField("countUpdate");
+        Integer countInsert = (Integer) octopusContext.getContextField("countInsert");
+
+        if (((countRemove != null) && !(countRemove.equals(0))) ||
+                ((countUpdate != null) && !(countUpdate.equals(0))) ||
+                ((countInsert != null) && !(countInsert.equals(0)))) {
+            octopusContext.setContent("isEntityModified", true);
+        } else if (countRemove != null || countUpdate != null || countInsert != null) {
+            octopusContext.setContent("isEntityModified", false);
+        }
+
+        return super.showList(octopusContext);
     }
 
     @Override
