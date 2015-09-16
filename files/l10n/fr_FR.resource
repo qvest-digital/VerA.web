@@ -1264,6 +1264,7 @@ markiertenmandantenwirklichloschen=Supprimer les mandant(s) s\u00E9l\u00E9ctionn
 alledatensatzewurdenerfolgreichmandantenzugeordnet=Tous les enregistrements ont \u00E9t\u00E9 allou\u00E9s avec succ\u00E8s \u00E0 un mandant.
 esexistiertnochkeinmandant=Il n\u2019y a toujours aucun client.
 zuordnen=Assigner
+zuordnen_klein=assigner
 markierteanreden=Titre(s) s\u00E9l\u00E9ctionn\u00E9(s)
 markierteanredenloeschen=Supprimer les titre(s) s\u00E9l\u00E9ctionn\u00E9(s)
 markiertenarbeitsbereiche=Espace(s) de travail s\u00E9l\u00E9ctionn\u00E9(s)

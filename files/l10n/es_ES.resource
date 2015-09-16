@@ -1265,6 +1265,7 @@ markiertenmandantenwirklichloschen=Eliminar realmente mandante(s) seleccionado(s
 alledatensatzewurdenerfolgreichmandantenzugeordnet=Todos los registros han sido asignados a un mandante satisfactoriamente.
 esexistiertnochkeinmandant=A\u00FAn no existen mandantes.
 zuordnen=Asignar
+zuordnen_klein=asignar
 markierteanreden=Denominaciones seleccionadas
 markierteanredenloeschen=Eliminar denominaciones seleccionadas
 markiertenarbeitsbereiche=\u00C1rea(s) de trabajo seleccionada(s)

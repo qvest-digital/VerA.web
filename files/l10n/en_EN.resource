@@ -1262,6 +1262,7 @@ markiertenmandantenwirklichloschen=delete selected client(s)
 alledatensatzewurdenerfolgreichmandantenzugeordnet=All datasets were succesfully assigned to a client
 esexistiertnochkeinmandant=No client existing yet.
 zuordnen=Assign
+zuordnen_klein=assign
 markierteanreden=selected salutations
 markierteanredenloeschen=delete selected salutations
 markiertenarbeitsbereiche=Selected work area(s)
