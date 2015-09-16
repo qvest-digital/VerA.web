@@ -1738,6 +1738,9 @@ DELETE_DISTRIBUTOR=Soll der markierte Verteiler entfernt werden?
 DELETE_DISTRIBUTORS=Sollen die markierten Verteiler entfernt werden?
 PLACEHOLDER_DATE_FORMAT=TT.MM.JJJJ
 
+DELETE_EVENT_TASKS_FIRST_LINE=Bitte best\u00E4tigen Sie das L\u00F6schen der markierten Aufgaben!
+DELETE_EVENT_TASKS_SECOND_LINE=Sollen alle markierten Aufgaben gel\u00F6scht werden? Diese Aktion kann nicht r\u00FCckg\u00E4ngig gemacht werden.
+
 GM_NO_CHANGES=Sie haben keine \u00C4nderungen vorgenommen.
 GM_CONFIRMATION_EMAIL_DISTRIBUTOR=E-mail addressen aus Verteiler \u00FCbernehmen?
 

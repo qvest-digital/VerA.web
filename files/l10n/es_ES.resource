@@ -1741,6 +1741,9 @@ DELETE_DISTRIBUTOR=\u00BFDesea realmente eliminar el distribuidor seleccionado?
 DELETE_DISTRIBUTORS=\u00BFDesea realmente eliminar los distribuidores seleccionados?
 PLACEHOLDER_DATE_FORMAT=dd.mm.aaaa
 
+DELETE_EVENT_TASKS_FIRST_LINE=Por favor, \u00A1confirme la eliminaci\u00F3n de las tareas seleccionados!
+DELETE_EVENT_TASKS_SECOND_LINE=\u00BFDeben eliminarse todos las tareas seleccionados? Esta acci\u00F3n no se podr\u00E1 deshacer.
+
 GM_NO_CHANGES=No se han producido cambios.
 GM_CONFIRMATION_EMAIL_DISTRIBUTOR=\u00BFCrear correo electr\u00F3nico de distribuci\u00F3n?
 

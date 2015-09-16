@@ -1723,6 +1723,32 @@ CONFIRMATION_CREATE_LOCATION_TWO=\u201D?
 INSERT_FUNCTION_FROM_MAIN_DATA=Add function from main data
 INSERT_COMPANY_FROM_MAIN_DATA=Add company from main data
 
+<<<<<<< HEAD
+HINT_GUEST_ALREADY_INVITED_SINGULAR=One guest was already invited to the event.
+HINT_GUEST_ALREADY_INVITED_PLURAL=guests were already invited to the event.
+
+MESSAGE_REPLACED_PERSON_ONE=There were
+MESSAGE_REPLACED_PERSON_TWO=persons replaced.
+MESSAGE_FOUND_PERSON_ONE=There were
+MESSAGE_FOUND_PERSON_TWO=persons found.
+
+HINT_POPUP_CATEGORY_SELECTION_ONE=You chose
+HINT_POPUP_CATEGORY_SELECTION_TWO=person(s). Depending on the amount of persons, this action could take a while.
+
+DELETE_DISTRIBUTOR=Do you really want to delete the selected distributor?
+DELETE_DISTRIBUTORS=Do you really want to delete the selected distributors?
+PLACEHOLDER_DATE_FORMAT=dd.mm.yyyy
+
+DELETE_EVENT_TASKS_FIRST_LINE=Please confirm to delete the selected events!
+DELETE_EVENT_TASKS_SECOND_LINE=Delete all selected events? This action can not be undone.
+
+GM_NO_CHANGES=You have made no changes.
+GM_CONFIRMATION_EMAIL_DISTRIBUTOR=Create distribution E-Mail?
+
+#GENERAL MESSAGE
+GM_CATEGORY_MODIFY_S=One category successfully modified
+GM_CATEGORY_MODIFY_P=%s categorys successfully modified
+GM_CATEGORY_MODIFY_N=No categorys were modified
 ATEGORY_MODIFY_S=One category successfully modified
 GM_CATEGORY_MODIFY_P=%s categories successfully modified
 GM_CATEGORY_MODIFY_N=No categories were modified
@@ -1899,8 +1925,4 @@ DELETE_DISTRIBUTOR=Do you really want to delete the selected distributor?
 DELETE_DISTRIBUTORS=Do you really want to delete the selected distributors?
 PLACEHOLDER_DATE_FORMAT=dd.mm.yyyy
 
-GM_NO_CHANGES=You have made no changes.
-GM_CONFIRMATION_EMAIL_DISTRIBUTOR=Create distribution E-Mail?
-
 #GENERAL MESSAGE
-
