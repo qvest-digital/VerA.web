@@ -1723,7 +1723,6 @@ CONFIRMATION_CREATE_LOCATION_TWO=\u201D?
 INSERT_FUNCTION_FROM_MAIN_DATA=Add function from main data
 INSERT_COMPANY_FROM_MAIN_DATA=Add company from main data
 
-<<<<<<< HEAD
 HINT_GUEST_ALREADY_INVITED_SINGULAR=One guest was already invited to the event.
 HINT_GUEST_ALREADY_INVITED_PLURAL=guests were already invited to the event.
 
@@ -1749,12 +1748,12 @@ GM_CONFIRMATION_EMAIL_DISTRIBUTOR=Create distribution E-Mail?
 GM_CATEGORY_MODIFY_S=One category successfully modified
 GM_CATEGORY_MODIFY_P=%s categorys successfully modified
 GM_CATEGORY_MODIFY_N=No categorys were modified
-ATEGORY_MODIFY_S=One category successfully modified
+GM_CATEGORY_MODIFY_S=One category successfully modified
 GM_CATEGORY_MODIFY_P=%s categories successfully modified
 GM_CATEGORY_MODIFY_N=No categories were modified
 GM_CATEGORY_DELETE_S=One category successfully deleted
 GM_CATEGORY_DELETE_P=%s categories successfully deleted
-GM_CATEGORY_DELETE_N=No categories were deleted
+GM_CATEGORY_DELETE_N=Please select one or more categories
 GM_CATEGORY_INSERT_S=One new category successfully created
 GM_CATEGORY_INSERT_P=%s new categories successfully created
 GM_CATEGORY_INSERT_N=No new categories were created
@@ -1799,7 +1798,7 @@ GM_DOCUMENT_TYPE_MODIFY_P=%s document types successfully modified
 GM_DOCUMENT_TYPE_MODIFY_N=No document types were modified
 GM_DOCUMENT_TYPE_DELETE_S=One document type successfully deleted
 GM_DOCUMENT_TYPE_DELETE_P=%s document types successfully deleted
-GM_DOCUMENT_TYPE_DELETE_N=No document types were deleted
+GM_DOCUMENT_TYPE_DELETE_N=Please select one or more document types
 GM_DOCUMENT_TYPE_INSERT_S=One new document type successfully added
 GM_DOCUMENT_TYPE_INSERT_P=%s new document types successfully added
 GM_DOCUMENT_TYPE_INSERT_N=No new document types were added
@@ -1911,18 +1910,3 @@ GM_WORKAREA_DELETE_N=No work areas were deleted
 GM_WORKAREA_INSERT_S=One new work area successfully created
 GM_WORKAREA_INSERT_P=%s new work areas successfully created
 GM_WORKAREA_INSERT_N=No new work areas were created
-HINT_GUEST_ALREADY_INVITED_PLURAL=guests were already invited to the event.
-
-MESSAGE_REPLACED_PERSON_ONE=There were
-MESSAGE_REPLACED_PERSON_TWO=persons replaced.
-MESSAGE_FOUND_PERSON_ONE=There were
-MESSAGE_FOUND_PERSON_TWO=persons found.
-
-HINT_POPUP_CATEGORY_SELECTION_ONE=You chose
-HINT_POPUP_CATEGORY_SELECTION_TWO=person(s). Depending on the amount of persons, this action could take a while.
-
-DELETE_DISTRIBUTOR=Do you really want to delete the selected distributor?
-DELETE_DISTRIBUTORS=Do you really want to delete the selected distributors?
-PLACEHOLDER_DATE_FORMAT=dd.mm.yyyy
-
-#GENERAL MESSAGE
