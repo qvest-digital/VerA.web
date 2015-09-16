@@ -57,7 +57,7 @@
 			#end
 		</div>
 		<div class="tableCell width50">
-			<label for="guest-nationality$ext">${placeholderWithTranslation.GENERIC_NATIONALITY}/${placeholderWithTranslation.GENERIC_CITIZENSHIP}</label>
+			<label for="guest-nationality$ext">${placeholderWithTranslation.GENERIC_NATIONALITY_CITIZENSHIP}</label>
 			<input type="text" id="guest-nationality$ext" name="guest-nationality$ext" value="$!message.text($facade.Nationality)" >
 		</div>
 	</div>
