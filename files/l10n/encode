@@ -21,6 +21,10 @@
 # Convert files from UTF-8 to Java .properties (\uNNNN) escapes. Bad
 # input is handled as CP1252 (Latin1) instead and warned about. Does
 # not handle SMP Unicode (> U+FFFD) yet.
+#
+# WARNING: this script is slow (takes several minutes per file)!
+#
+# Syntax: ./encode [*.resource]
 
 export LC_ALL=C.UTF-8
 set -U

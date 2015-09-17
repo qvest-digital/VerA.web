@@ -181,7 +181,9 @@ GENERIC_CHOOSE_ROLE=Rolle w\u00E4hlen
 GENERIC_EVENT=Veranstaltung
 GENERIC_EVENTS=Veranstaltungen
 SHOW_ALL_RECORDS=Alle Datens\u00E4tze anzeigen lassen
-SHOW_RECORDS=Datens\u00E4tze anzeigen lassen
+SHOW_RECORDS_1=
+SHOW_RECORDS_2=Datens\u00E4tze anzeigen lassen
+GENERIC_NO_WORKAREA_TEXT=Kein
 
 # GENERALLY USED
 GENERIC_EMAIL_ADDRESS=E-Mail-Adresse

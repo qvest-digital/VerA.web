@@ -49,7 +49,7 @@ dorthin:
 
 \begin{lstlisting}[language=sh]
 sudo mkdir -p /etc/veraweb/l10n
-sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
+sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
 \end{lstlisting}
 \end{minipage}
 
