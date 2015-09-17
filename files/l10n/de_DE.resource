@@ -182,6 +182,7 @@ GENERIC_EVENT=Veranstaltung
 GENERIC_EVENTS=Veranstaltungen
 SHOW_ALL_RECORDS=Alle Datens\u00E4tze anzeigen lassen
 SHOW_RECORDS=Datens\u00E4tze anzeigen lassen
+GENERIC_NO_WORKAREA_TEXT=Kein
 
 # GENERALLY USED
 GENERIC_EMAIL_ADDRESS=E-Mail-Adresse

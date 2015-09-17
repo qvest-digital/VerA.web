@@ -182,6 +182,7 @@ GENERIC_EVENT=\u00C9v\u00E9nement
 GENERIC_EVENTS=\u00C9v\u00E9nements
 SHOW_ALL_RECORDS=Afficher tout les enregistrements
 SHOW_RECORDS=Afficher les enregistrements
+GENERIC_NO_WORKAREA_TEXT=Aucun
 
 # GENERALLY USED
 GENERIC_EMAIL_ADDRESS=Adresse \u00E9lectronique

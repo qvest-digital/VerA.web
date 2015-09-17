@@ -182,6 +182,7 @@ GENERIC_EVENT=Evento
 GENERIC_EVENTS=Eventos
 SHOW_ALL_RECORDS=Mostrar todos los registros
 SHOW_RECORDS=Mostrar registros
+GENERIC_NO_WORKAREA_TEXT=-
 
 # GENERALLY USED
 GENERIC_EMAIL_ADDRESS=Direcci\u00F3n de correo electr\u00F3nico
