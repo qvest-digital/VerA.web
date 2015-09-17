@@ -19,7 +19,7 @@
 % of said person’s immediate fault when using the work as intended.
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{2.1}
+\newcommand{\vwiaversfassungnr}{2.2}
 \newcommand{\vwiaversfassungmonat}{September}
 \newcommand{\vwiaversfassungjahr}{2015}
 
