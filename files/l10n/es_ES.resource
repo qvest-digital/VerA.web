@@ -181,7 +181,8 @@ GENERIC_CHOOSE_ROLE=Seleccionar rol
 GENERIC_EVENT=Evento
 GENERIC_EVENTS=Eventos
 SHOW_ALL_RECORDS=Mostrar todos los registros
-SHOW_RECORDS=Mostrar registros
+SHOW_RECORDS_1=Mostrar
+SHOW_RECORDS_2=registros
 GENERIC_NO_WORKAREA_TEXT=-
 
 # GENERALLY USED
