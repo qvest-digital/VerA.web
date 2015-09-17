@@ -75,7 +75,11 @@ sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
 \end{lstlisting}
 \end{minipage}
 
-\ifvwconfigsinetcalready\else
+\ifvwconfigsinetcalready
+Diese Fassung der Upgradeanleitung geht davon aus, daß Sie die
+Konfigurationsdateien bereits in \texttt{/etc/veraweb} haben
+(VerA.web 1.4.3.5 oder 1.5.1.4 und neuer).
+\else
 Falls Sie von einer VerA.web-Version, die die Konfigurationsdateien
 noch nicht in \texttt{/etc/veraweb} ablegt, aktualisieren, müssen Sie
 dort zunächst die angepaßten Dateien aus dem Verzeichnis
