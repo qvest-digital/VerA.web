@@ -35,6 +35,9 @@ nicht mehr vorliegen, können Sie jederzeit über
 \href{mailto:wartung@tarent.de}{wartung@tarent.de} eine Kopie
 davon anfordern.
 
+Falls Sie noch keinen Service- und Wartungsvertrag mit uns abgeschlossen
+haben, kontaktieren Sie bitte unseren Produktvertrieb.
+
 \section{Links}\label{sec:links}
 
 \begin{itemize}
@@ -43,7 +46,3 @@ davon anfordern.
  \item{\href{https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=blob_plain;f=src/main/webapp/doc/Benutzerhandbuch.pdf;hb=HEAD}{Benutzerhandbuch}
   (aktuelle Version, online)}
 \end{itemize}
-
-\section{Sonstiges}\label{sec:sonstiges}
-
-Diese Anleitung wurde mit \LaTeX{} in Museo Sans gesetzt.

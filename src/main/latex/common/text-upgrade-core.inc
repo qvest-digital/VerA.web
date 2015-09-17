@@ -43,7 +43,9 @@ generell mehr Vorsicht walten zu lassen.
 
 Für weitergehenden Installationssupport, insbesondere bei Systemen,
 die nicht nach dieser oder einer ähnlichen Anleitung installiert
-wurden, kontaktieren Sie bitte unseren Produktvertrieb.
+wurden, kontaktieren Sie bitte unseren Produktvertrieb oder, falls
+Sie bereits einen bestehenden Wartungsvertrag haben, unser Service-
+und Wartungsteam.
 
 \subsection{Dateien VerA.web-core}\label{subsec:upgrade-core-files}
 
@@ -67,7 +69,7 @@ legen Sie es an. Kopieren Sie dann die aktuellen Sprachdateien dorthin:
 
 \begin{lstlisting}[language=sh]
 sudo mkdir -p /etc/veraweb/l10n
-sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
+sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
 \end{lstlisting}
 \end{minipage}
 
@@ -134,8 +136,8 @@ sinnvoll, ein Backup zu machen):
 \begin{lstlisting}[language=sh]
 sudo service tomcat7 stop
 sudo rm -rf /var/lib/tomcat7/webapps/veraweb*
-sudo rm -rf /var/lib/tomcat7/webapps/vwor*
 \end{lstlisting}
+%sudo rm -rf /var/lib/tomcat7/webapps/vwor*
 
 Bitte beachten Sie, daß der Tomcat-Dienst ggfs. noch einige Sekunden
 weiterläuft, nachdem der Stop-Befehl abgeschickt wurde; im Zweifelsfalls
