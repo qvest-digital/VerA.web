@@ -637,7 +637,7 @@ HINT_EXPORT_CSV_ISO_8859_15=This format is for Im-/Export compatible with MS Off
 GENERIC_IMPORT_FROM_PERSONS_DATA=Import of persons data
 HINT_IMPORT_SHORT_CONTENT=Hint With the Import, the input fields which are longer than VerA.web expects, will be shortened.
 GENERIC_TARGET_CLIENT=Target client
-GENERIC_IMPORT_DATA=Import Data
+GENERIC_IMPORT_DATA=Import data
 GENERIC_DATA_TYPE=Data type
 dateiauswahlen=Datei ausw\u00E4hlen
 keineausgewahlt=Keine ausgew\u00E4hlt
@@ -1740,8 +1740,8 @@ DELETE_DISTRIBUTOR=Do you really want to delete the selected distributor?
 DELETE_DISTRIBUTORS=Do you really want to delete the selected distributors?
 PLACEHOLDER_DATE_FORMAT=dd.mm.yyyy
 
-DELETE_EVENT_TASKS_FIRST_LINE=Please confirm to delete the selected events!
-DELETE_EVENT_TASKS_SECOND_LINE=Delete all selected events? This action can not be undone.
+DELETE_EVENT_TASKS_FIRST_LINE=Please confirm to delete the selected tasks!
+DELETE_EVENT_TASKS_SECOND_LINE=Delete all selected tasks? This action can not be undone.
 
 GM_NO_CHANGES=You have made no changes.
 GM_CONFIRMATION_EMAIL_DISTRIBUTOR=Create distribution E-Mail?
