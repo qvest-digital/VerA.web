@@ -143,7 +143,7 @@ psql -U veraweb -h 127.0.0.1 -W veraweb
 \end{lstlisting}
 \end{minipage}
 
-Falls Sie einen anderen Datenbankserver, Port, Benutzer oder Datenbank
+Falls Sie andere Werte für Datenbankserver, Port, Benutzer oder Datenbankname
 verwenden müssen Sie diese hier selbstverständlich anpassen.
 
 \begin{minipage}{\textwidth}
@@ -315,7 +315,7 @@ auf das Veranstaltungsmanagement zugreifen und sich einloggen.
 
 \begin{minipage}{\textwidth}
 Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
-mehr und können sie entfernen:
+mehr; diese können nun entfernt werden:
 
 \begin{lstlisting}[language=sh]
 cd ..
