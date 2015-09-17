@@ -126,7 +126,7 @@ Loggen Sie sich auf der Datenbank ein und starten Sie das Upgrade-SQL:
 psql -U veraweb -h 127.0.0.1 -W veraweb <upgrade.sql
 \end{lstlisting}
 
-Falls Sie einen anderen Datenbankserver, Port, Benutzer oder Datenbank
+Falls Sie andere Werte für Datenbankserver, Port, Benutzer oder Datenbankname
 verwenden müssen Sie diese hier selbstverständlich anpassen.
 \end{minipage}
 
@@ -159,7 +159,7 @@ sudo service tomcat7 start
 
 \begin{minipage}{\textwidth}
 Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
-mehr und können sie entfernen:
+mehr; diese können nun entfernt werden:
 
 \begin{lstlisting}[language=sh]
 cd ..
