@@ -29,3 +29,7 @@
 
 % OSIAM Version
 \newcommand{\vwiaversosiam}{2.0}
+
+% Upgrade von /etc/veraweb (1.4.3.5 oder 1.5.1.4+)
+\newif\ifvwconfigsinetcalready
+\vwconfigsinetcalreadyfalse

@@ -37,9 +37,11 @@ Falls Sie weitergehende Anpassungen, z.B. an den Velocity-Templates
 für die Webseiten, vorgenommen haben müssen Sie die Änderungen
 manuell nachpflegen.
 
+\ifvwconfigsinetcalready\else
 Upgrades von VerA.web 1.3.15 und neuer werden unterstützt. Bei einem
 Upgrade von einer älteren Version als 1.5 (also 1.3.15 und 1.4) ist
 generell mehr Vorsicht walten zu lassen.
+\fi
 
 Für weitergehenden Installationssupport, insbesondere bei Systemen,
 die nicht nach dieser oder einer ähnlichen Anleitung installiert
@@ -73,6 +75,7 @@ sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
 \end{lstlisting}
 \end{minipage}
 
+\ifvwconfigsinetcalready\else
 Falls Sie von einer VerA.web-Version, die die Konfigurationsdateien
 noch nicht in \texttt{/etc/veraweb} ablegt, aktualisieren, müssen Sie
 dort zunächst die angepaßten Dateien aus dem Verzeichnis
@@ -112,6 +115,7 @@ Sie überhaupt Änderungen durchführen müssen, und wenn ja, welche.
 Die Datei \texttt{config\_ldap\_access.xml} wurde in manchen
 Versionen als \texttt{config\_ldap\_access.xml.dist} und/oder
 als separater Download angeboten.
+\fi
 
 \subsection{Datenbank VerA.web-core}\label{subsec:upgrade-core-db}
 
