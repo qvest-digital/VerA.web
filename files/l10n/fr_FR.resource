@@ -183,6 +183,7 @@ GENERIC_EVENTS=\u00C9v\u00E9nements
 SHOW_ALL_RECORDS=Afficher tout les enregistrements
 SHOW_RECORDS_1=Afficher
 SHOW_RECORDS_2=enregistrements
+GENERIC_NO_WORKAREA_TEXT=Aucun
 
 # GENERALLY USED
 GENERIC_EMAIL_ADDRESS=Adresse \u00E9lectronique
@@ -1821,12 +1822,12 @@ GM_EVENT_DELETE_N=Aucun \u00E9v\u00E9nement a \u00E9t\u00E9 supprim\u00E9
 GM_EVENT_INSERT_S=Un \u00E9v\u00E9nement a \u00E9t\u00E9 cr\u00E9\u00E9
 GM_EVENT_INSERT_P=%s \u00E9v\u00E9nements ont \u00E9t\u00E9 cr\u00E9\u00E9
 GM_EVENT_INSERT_N=Aucun \u00E9v\u00E9nement a \u00E9t\u00E9 cr\u00E9\u00E9
-GM_EVENT_LOCATION_MODIFY_S=Un lieu de l\u2019\u00E9v\u00E9nement a \u00E9t\u00E9 modifi\u00E9
+GM_EVENT_LOCATION_MODIFY_S=Vous avez modifi\u00E9 un lieu de l\u2019\u00E9v\u00E9nement
 GM_EVENT_LOCATION_MODIFY_P=%s lieux des \u00E9v\u00E9nements ont \u00E9t\u00E9 modifi\u00E9
 GM_EVENT_LOCATION_MODIFY_N=Aucun lieu de l\u2019\u00E9v\u00E9nement a \u00E9t\u00E9 modifi\u00E9
-GM_EVENT_LOCATION_DELETE_S=Un lieu de l\u2019\u00E9v\u00E9nement a \u00E9t\u00E9 supprim\u00E9
-GM_EVENT_LOCATION_DELETE_P=%s lieux des \u00E9v\u00E9nements ont \u00E9t\u00E9 supprim\u00E9
-GM_EVENT_LOCATION_DELETE_N=Aucun lieu de l\u2019\u00E9v\u00E9nement a \u00E9t\u00E9 supprim\u00E9
+GM_EVENT_LOCATION_DELETE_S=Vous avez elimin\u00E9 un lieu de l\u2019\u00E9v\u00E9nement
+GM_EVENT_LOCATION_DELETE_P=Vous avez elimin\u00E9 %s lieux d\u2019\u00E9v\u00E9nements
+GM_EVENT_LOCATION_DELETE_N=Aucun lieu de l\u2019\u00E9v\u00E9nement a \u00E9t\u00E9 elimin\u00E9
 GM_EVENT_LOCATION_INSERT_S=Un lieu de l\u2019\u00E9v\u00E9nement a \u00E9t\u00E9 cr\u00E9\u00E9
 GM_EVENT_LOCATION_INSERT_P=%s lieux des \u00E9v\u00E9nements ont \u00E9t\u00E9 cr\u00E9\u00E9
 GM_EVENT_LOCATION_INSERT_N=Aucun lieu de l\u2019\u00E9v\u00E9nement a \u00E9t\u00E9 cr\u00E9\u00E9

@@ -183,6 +183,7 @@ GENERIC_EVENTS=Events
 SHOW_ALL_RECORDS=Show all data records
 SHOW_RECORDS_1=show
 SHOW_RECORDS_2=data records
+GENERIC_NO_WORKAREA_TEXT=None
 
 # GENERALLY USED
 GENERIC_EMAIL_ADDRESS=E-mail address
@@ -1822,12 +1823,12 @@ GM_EVENT_DELETE_N=No events were deleted
 GM_EVENT_INSERT_S=One new event successfully created
 GM_EVENT_INSERT_P=%s new events successfully created
 GM_EVENT_INSERT_N=No new events were created
-GM_EVENT_LOCATION_MODIFY_S=One Venue successfully modified
+GM_EVENT_LOCATION_MODIFY_S=One event location successfully modified
 GM_EVENT_LOCATION_MODIFY_P=%s Venues successfully modified
 GM_EVENT_LOCATION_MODIFY_N=No Venues were modified
-GM_EVENT_LOCATION_DELETE_S=One Venue successfully deleted
-GM_EVENT_LOCATION_DELETE_P=%s Venues successfully deleted
-GM_EVENT_LOCATION_DELETE_N=No Venues were deleted
+GM_EVENT_LOCATION_DELETE_S=One event location successfully deleted
+GM_EVENT_LOCATION_DELETE_P=%s event locations successfully deleted
+GM_EVENT_LOCATION_DELETE_N=No event locations were deleted
 GM_EVENT_LOCATION_INSERT_S=One new Venue successfully created
 GM_EVENT_LOCATION_INSERT_P=%s new Venues successfully created
 GM_EVENT_LOCATION_INSERT_N=No new Venues were created

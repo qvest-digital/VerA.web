@@ -1182,7 +1182,13 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 								#end
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.date("DATE", $bean.created)</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.workarea_name)</td>
+
+								#if ($bean.workarea_name == "Kein")
+									<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">${placeholderWithTranslation.GENERIC_NO_WORKAREA_TEXT}</td>
+								#else
+									<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.workarea_name)</td>
+								#end
+
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.lastname_a_e1)</td>
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.firstname_a_e1)</td>
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.function_a_e1)</td>
@@ -1198,7 +1204,13 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 									<td><input type="checkbox" name="${bean.id}-select" value="true" onChange="selectionChange( this );" #if($listselection.indexOf($bean.id) != -1) checked#end></td>
 								#end
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!{bean.id}</td>
-								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.workarea_name)</td>
+
+								#if ($bean.workarea_name == "Kein")
+									<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">${placeholderWithTranslation.GENERIC_NO_WORKAREA_TEXT}</td>
+								#else
+									<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&action=$!{action}&searchTask=$!searchTask';">$!message.plain($bean.workarea_name)</td>
+								#end
+
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.lastname_a_e1)</td>
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.firstname_a_e1)</td>
 								<td onclick="window.location.href='ShowPerson?id=$!{bean.id}&searchTask=$!searchTask';">$!message.plain($bean.function_a_e1)</td>

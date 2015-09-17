@@ -183,6 +183,7 @@ GENERIC_EVENTS=Veranstaltungen
 SHOW_ALL_RECORDS=Alle Datens\u00E4tze anzeigen lassen
 SHOW_RECORDS_1=
 SHOW_RECORDS_2=Datens\u00E4tze anzeigen lassen
+GENERIC_NO_WORKAREA_TEXT=Kein
 
 # GENERALLY USED
 GENERIC_EMAIL_ADDRESS=E-Mail-Adresse
@@ -1819,7 +1820,7 @@ GM_EVENT_DELETE_N=Es wurde keine Veranstaltung gel\u00F6scht
 GM_EVENT_INSERT_S=Es wurde eine neue Veranstaltung angelegt
 GM_EVENT_INSERT_P=Es wurden %s neuen Veranstaltungen angelegt
 GM_EVENT_INSERT_N=Es wurde keine neue Veranstaltung angelegt
-GM_EVENT_LOCATION_MODIFY_S=Es wurde ein Veranstaltungsort ge\u00E4ndert
+GM_EVENT_LOCATION_MODIFY_S=Es wurde ein Veranstaltungsort ge\u00E4ndert.
 GM_EVENT_LOCATION_MODIFY_P=Es wurden %s Veranstaltungsorte ge\u00E4ndert
 GM_EVENT_LOCATION_MODIFY_N=Es wurde kein Veranstaltungsort ge\u00E4ndert
 GM_EVENT_LOCATION_DELETE_S=Es wurde ein Veranstaltungsort gel\u00F6scht

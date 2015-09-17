@@ -108,13 +108,16 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 */
 	public List showList(OctopusContext cntx) throws BeanException, IOException {
 		Database database = getDatabase(cntx);
-		cntx.setContent("searchTask", cntx.requestAsObject("searchTask"));
+		if (cntx.getRequestObject().get("searchTask") == null) {
+			cntx.setContent("searchTask", "personSearchTask");
+		} else {
+			cntx.setContent("searchTask", cntx.requestAsObject("searchTask"));
+		}
 
 		/* modified (refactored part of behaviour to prepareShowList for additional reuse) as per change request for version 1.2.0
 		 * cklein
 		 * 2008-02-21
 		 */
-//		cntx.setContent( "action", ( String ) null ); // reset action
 		Select personSelect = this.prepareShowList( cntx, database );
 		Map param = ( Map )cntx.contentAsObject( OUTPUT_showListParams );
 		personSelect.Limit(new Limit((Integer)param.get("limit"), (Integer)param.get("start")));
