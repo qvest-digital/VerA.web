@@ -147,10 +147,10 @@
 
 			#set($count=-1)
 			## ACTION
-			#if($countInsert && $countInsert > 0)
+			#if($countInsert && $countInsert >= 0)
 				#set($messageAction = "INSERT")
 				#set($count = $countInsert)
-			#elseif($countUpdate && $countUpdate > 0)
+			#elseif($countUpdate && $countUpdate >= 0)
 				#set($messageAction = "MODIFY")
 				#set($count = $countUpdate)
 			#elseif($countRemove && $countRemove >= 0)
