@@ -1,3 +1,10 @@
+	##Values in per cent for table columns width
+	#set($column0 = 3)
+	#set($column1 = 70)
+	#set($column2 = 16)
+	#set($column3 = 16)
+	#set($column4 = 5)
+
 <form id="formlist" name="formlist" action="${paths.staticWeb}do/ShowPersonDoctypeList" method="post">
     <input type="hidden" name="id" value="$!person.id">
     <input type="hidden" name="start" value="">
@@ -30,6 +37,11 @@
 
 
     <table class="notBold">
+    				<col width="$column0%" />
+    				<col width="$column1%" />
+    				<col width="$column2%" />
+    				<col width="$column3%" />
+    				<col width="$column4%" />
         <tr>
             #if($grants.mayWrite())
                 <th class="textCenter smallCell"><input type="checkbox" name="" id="toggleAllSelect" title="Alle (de)markieren" #if($listselection.size() == $list.size()) checked#end #if(!$grants.mayWrite()) vera-disabled#end /></th>
