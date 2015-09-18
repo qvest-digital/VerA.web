@@ -151,12 +151,15 @@
 			##countUpdate is $countUpdate<br/>
 			##countRemove is $countRemove<br/>
 			## ACTION
-			#if($countInsert && $countInsert >= 0)
+			#if($countInsert && $countInsert > 0)
 				#set($messageAction = "INSERT")
 				#set($count = $countInsert)
 			#elseif($countUpdate && $countUpdate >= 0)
 				#set($messageAction = "MODIFY")
 				#set($count = $countUpdate)
+			#elseif($countInsert && $countInsert == 0)
+				#set($messageAction = "INSERT")
+				#set($count = $countInsert)
 			#elseif($countRemove && $countRemove >= 0)
 				#set($messageAction = "DELETE")
 				#set($count= $countRemove)
