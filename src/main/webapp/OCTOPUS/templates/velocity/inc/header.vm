@@ -146,6 +146,10 @@
 			#end
 
 			#set($count=-1)
+			##COUNT IS $count<br/>
+			##countInsert is $countInsert<br/>
+			##countUpdate is $countUpdate<br/>
+			##countRemove is $countRemove<br/>
 			## ACTION
 			#if($countInsert && $countInsert >= 0)
 				#set($messageAction = "INSERT")
