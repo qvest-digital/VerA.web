@@ -263,95 +263,99 @@ public class DataExchangeWorker {
                                 throws BeanException, IOException, TcContentProzessException {
 
         stream = getStream(octopusContext, stream);
-        formatKey = getFormatKey(octopusContext, formatKey);
-        importSource = getImportSource(octopusContext, importSource);
-        orgUnit = getOrgUnit(octopusContext, orgUnit);
-        importProperties = getImportProperties(octopusContext, importProperties);
+        if (!octopusContext.getStatus().equals("streamClose")) {
+            formatKey = getFormatKey(octopusContext, formatKey);
+            importSource = getImportSource(octopusContext, importSource);
+            orgUnit = getOrgUnit(octopusContext, orgUnit);
+            importProperties = getImportProperties(octopusContext, importProperties);
 
-        TcModuleConfig moduleConfig = octopusContext.moduleConfig();
-        assert moduleConfig != null;
-        // Zunächst mal die benötigten Objekte erstellen
-        ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, octopusContext.getRequestObject().getRequestParameters());
-        if (format == null)
-            throw new TcContentProzessException("Unbekannter Importformatschl\u00fcssel '" + formatKey + "'.");
-        if (importSource == null || importSource.length() == 0) {
-            Map status = new HashMap();
-            status.put("invalidData", "importSource");
-            octopusContext.setStatus("invalidData");
-            return status;
-        }
-
-        String filename = (String) stream.get("ContentName");
-        if (filename != null && filename.length() != 0) {
-            String suffix = filename.lastIndexOf(".") == -1 ? null :
-                    filename.substring(filename.lastIndexOf(".") + 1);
-            if (suffix != null) suffix.toLowerCase();
-
-            if (suffix == null || suffix.length() == 0) {
-                if (logger.isEnabledFor(Level.DEBUG))
-                    logger.log(Level.DEBUG, "Endung der Import-Datei '" + filename + "' konnte nicht festgestellt werden.");
-            } else if (
-                    suffix.equals("ods") ||
-                            suffix.equals("sxc") ||
-                            suffix.equals("xls") ||
-                            suffix.equals("pdf") ||
-                            suffix.equals("zip") ||
-                            suffix.equals("exe")) {
+            TcModuleConfig moduleConfig = octopusContext.moduleConfig();
+            assert moduleConfig != null;
+            // Zunächst mal die benötigten Objekte erstellen
+            ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, octopusContext.getRequestObject().getRequestParameters());
+            if (format == null)
+                throw new TcContentProzessException("Unbekannter Importformatschl\u00fcssel '" + formatKey + "'.");
+            if (importSource == null || importSource.length() == 0) {
                 Map status = new HashMap();
-                status.put("invalidData", "fileExtension");
-                status.put("fileextension", suffix);
+                status.put("invalidData", "importSource");
                 octopusContext.setStatus("invalidData");
                 return status;
             }
+
+            String filename = (String) stream.get("ContentName");
+            if (filename != null && filename.length() != 0) {
+                String suffix = filename.lastIndexOf(".") == -1 ? null :
+                        filename.substring(filename.lastIndexOf(".") + 1);
+                if (suffix != null) suffix.toLowerCase();
+
+                if (suffix == null || suffix.length() == 0) {
+                    if (logger.isEnabledFor(Level.DEBUG))
+                        logger.log(Level.DEBUG, "Endung der Import-Datei '" + filename + "' konnte nicht festgestellt werden.");
+                } else if (
+                        suffix.equals("ods") ||
+                                suffix.equals("sxc") ||
+                                suffix.equals("xls") ||
+                                suffix.equals("pdf") ||
+                                suffix.equals("zip") ||
+                                suffix.equals("exe")) {
+                    Map status = new HashMap();
+                    status.put("invalidData", "fileExtension");
+                    status.put("fileextension", suffix);
+                    octopusContext.setStatus("invalidData");
+                    return status;
+                }
+            }
+
+            InputStream istream = (InputStream) stream.get("ContentStream");
+
+            if (istream == null || istream.available() <= 0) {
+                Map status = new HashMap();
+                status.put("invalidData", "inputStream");
+                octopusContext.setStatus("invalidData");
+                return status;
+            }
+
+            Database database = new DatabaseVeraWeb(octopusContext);
+            TransactionContext context = database.getTransactionContext();
+            try {
+                if (octopusContext.personalConfig() instanceof PersonalConfigAA) {
+                    PersonalConfigAA aaConfig = (PersonalConfigAA) octopusContext.personalConfig();
+                    if (orgUnit == null || orgUnit.intValue() == 0 || !aaConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
+                        orgUnit = aaConfig.getOrgUnitId();
+                } else
+                    throw new TcContentProzessException("Fehlende Benutzerinformation.");
+
+                Importer importer = createImporter(format, context, istream);
+                Import importInstance = createImport(context, formatKey, importSource, orgUnit);
+                VerawebDigester digester = new VerawebDigester(octopusContext, context, importProperties, importSource, importInstance);
+
+                importer.importAll(digester);
+
+                context.commit();
+
+                // force gc after import
+                System.gc();
+
+                return digester.getImportStats();
+
+            } catch (Exception e) {
+                logger.error("Fehler beim Import aufgetreten.", e);
+                CharArrayWriter caw = new CharArrayWriter();
+                PrintWriter pw = new PrintWriter(caw);
+                e.printStackTrace(pw);
+                pw.close();
+
+                Map status = new HashMap();
+                status.put("invalidData", "errorOnImport");
+                status.put("exception", caw.toString());
+                status.put("message", e.getLocalizedMessage());
+                octopusContext.setStatus("invalidData");
+                return status;
+            } finally {
+                context.rollBack();
+            }
         }
-
-        InputStream istream = (InputStream) stream.get("ContentStream");
-        if (istream == null || istream.available() <= 0) {
-            Map status = new HashMap();
-            status.put("invalidData", "inputStream");
-            octopusContext.setStatus("invalidData");
-            return status;
-        }
-
-        Database database = new DatabaseVeraWeb(octopusContext);
-        TransactionContext context = database.getTransactionContext();
-        try {
-            if (octopusContext.personalConfig() instanceof PersonalConfigAA) {
-                PersonalConfigAA aaConfig = (PersonalConfigAA) octopusContext.personalConfig();
-                if (orgUnit == null || orgUnit.intValue() == 0 || !aaConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
-                    orgUnit = aaConfig.getOrgUnitId();
-            } else
-                throw new TcContentProzessException("Fehlende Benutzerinformation.");
-
-            Importer importer = createImporter(format, context, istream);
-            Import importInstance = createImport(context, formatKey, importSource, orgUnit);
-            VerawebDigester digester = new VerawebDigester(octopusContext, context, importProperties, importSource, importInstance);
-
-            importer.importAll(digester);
-
-            context.commit();
-
-            // force gc after import
-            System.gc();
-            istream.reset();
-            return digester.getImportStats();
-
-        } catch (Exception e) {
-            logger.error("Fehler beim Import aufgetreten.", e);
-            CharArrayWriter caw = new CharArrayWriter();
-            PrintWriter pw = new PrintWriter(caw);
-            e.printStackTrace(pw);
-            pw.close();
-
-            Map status = new HashMap();
-            status.put("invalidData", "errorOnImport");
-            status.put("exception", caw.toString());
-            status.put("message", e.getLocalizedMessage());
-            octopusContext.setStatus("invalidData");
-            return status;
-        } finally {
-            context.rollBack();
-        }
+        return null;
     }
 
     private Map getImportProperties(OctopusContext cntx, Map importProperties) {
@@ -394,7 +398,7 @@ public class DataExchangeWorker {
         if (stream != null) {
             cntx.setSession("stream", stream);
         } else {
-            stream = (HashMap) cntx.sessionAsObject("stream");
+            cntx.setStatus("streamClose");
         }
         return stream;
     }
