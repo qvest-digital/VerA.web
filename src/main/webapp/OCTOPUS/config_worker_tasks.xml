@@ -949,6 +949,9 @@
 			</description>
 			<doTask name="Load"/>
 			<action name="importToTransit" worker="DataExchangeWorker"/>
+			<status equals="streamClose">
+				<doTask name="ImportPersons"/>
+			</status>
 			<status equals="invalidData">
 				<doTask name="ImportPersons"/>
 			</status>
