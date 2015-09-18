@@ -40,7 +40,7 @@ function setModified(id) {
 
 function checkModified(id) {
 	if (isModified(id)) {
-		return confirm('Bearbeitung verwerfen?');
+		return confirm('${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}');
 	} else {
 		return true;
 	}

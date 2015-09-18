@@ -455,6 +455,7 @@ GENERIC_NOT_AVAILABLE=Not available
 # ALLGEMEIN
 GENERIC_YOU_ARE_HERE=You are here
 GENERIC_HOME=Home
+GENERIC_DISCARD_CHANGES=Discard changes?
 
 # TABELLEN
 GENERIC_DATE=Date
@@ -629,7 +630,7 @@ LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Encoding (Cyrillic)
 HINT_EXPORT_CSV=Depending on the amount of the exported fields (especially the amount of Document types and categories), MS Excel and OO Calc may not be able to read the exported data entirely.
 HINT_EXPORT_ZKM=The export file will be stored in the ZKM-folder and provided to download for control purposes.The Download can be cancelled at any time.
 HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Only the fields from the \u201CPersonal data\u201D, \u201CAddresses\u201D and \u201CDocument types\u201D tabs with their subtabs will be exported. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE=Es werden nur die Felder aus den Karteireitern \u201CPersonendaten\u201D, \u201CAnschriften\u201D, \u201CDokumenttypen\u201D und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_DOCTYPE=Only the fields from the \u201CPersonal data\u201D, \u201CAddresses\u201D and \u201CDocument types\u201D tabs with their subtabs will be exported. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
 HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Only the fields from the \u201CPersonal data\u201D and \u201CDocument types\u201D tabs with their subtabs will be exported. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Only the fields from the \u201CPersonal data\u201D and \u201CCategories\u201D tabs with their subtabs will be exported. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
 HINT_EXPORT_CSV_ISO_8859_15=This format is Im-/Export compatible with MS Office Applications, which use a Character set of ISO-8859-15. Depending on the amount of the exported fields (especially the amount of Doc    ument types), MS Excel and OO Calc may not be able to read the exported data entirely.

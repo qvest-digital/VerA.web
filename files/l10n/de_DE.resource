@@ -368,7 +368,7 @@ OPTION_HELP_WINDOW_2=Pro Aufruf ein neues Browser-Fenster \u00F6ffnen
 OPTION_HELP_WINDOW_3=Bei jedem Aufruf das selbe Browser-Fenster (nicht das aktuelle)
 GENERIC_MISCELLANEOUS=Sonstiges
 GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
-GENERIC_PROTOCOL_TIME_CHANGE=\u00E4nderungsprotokoll
+GENERIC_PROTOCOL_TIME_CHANGE=\u00C4nderungsprotokoll
 GENERIC_PROTOCOL_COMMISIONING_TIME=Vorhaltezeit der Protokolldaten
 HINT_GIVE_THE_RETENTION_PERIOD=Geben Sie die Aufbewahrungsfrist ein
 GENERIC_YEARS=Jahre
@@ -455,6 +455,7 @@ GENERIC_NOT_AVAILABLE=Nicht verf\u00FCgbar
 # ALLGEMEIN
 GENERIC_YOU_ARE_HERE=Sie sind hier
 GENERIC_HOME=Home
+GENERIC_DISCARD_CHANGES=Bearbeitung verwerfen?
 
 # TABELLEN
 GENERIC_DATE=Datum
