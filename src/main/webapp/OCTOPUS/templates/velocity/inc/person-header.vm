@@ -3,26 +3,26 @@
 #if($action == "guest")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($online-registration.activated && !$person.username)
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified()) { createOsiamUser(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
 		#end
 		#if($person && $person.id)
 			<input type="button" name="add" value="${placeholderWithTranslation.GENERIC_APPLY_TO_GUESTLIST}" title="${placeholderWithTranslation.GENERIC_APPLY_GUEST_TO_GUESTLIST}" class="mainButton" onclick="addToGuestList();">
 		#end
 		#if($grants.mayWrite())
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified()) { copyPerson(); }"/>
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { copyPerson(); }"/>
 		#end
 		<input type="button" name="export" class="mainButton"value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 	</div>
 #elseif($action == "host")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($online-registration.activated && !$person.username)
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified()) { createOsiamUser(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
 		#end
 		#if($person && $person.id)
 			<input type="button" name="set" class="mainButton" value="${placeholderWithTranslation.GENERIC_APPLY}" title="${placeholderWithTranslation.GENERIC_APPLY_PERSON_AS_HOST}" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventDetail?hostid=$!person.id';">
 		#end
 		#if($grants.mayWrite())
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified()) { copyPerson(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { copyPerson(); }" />
 		#end
 		<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 
@@ -34,10 +34,10 @@
 #elseif($action == "event")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($online-registration.activated && !$person.username)
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified()) { createOsiamUser(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
 		#end
 		#if($grants.mayWrite())
-			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified()) { copyPerson(); }" />
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { copyPerson(); }" />
 		#end
 		<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 
@@ -60,15 +60,15 @@
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($person && $person.id)
 			#if($online-registration.activated && !$person.username)
-				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified()) { createOsiamUser(); }" />
+				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
 			#end
 			#if($grants.mayWrite())
-				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" title="${placeholderWithTranslation.GENERIC_COPY_CURRENT_PERSON}" onclick="if (checkModified()) { copyPerson(); }" />
+				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" title="${placeholderWithTranslation.GENERIC_COPY_CURRENT_PERSON}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { copyPerson(); }" />
 			#end
 			<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" title="${placeholderWithTranslation.etikettfuraktuellepersonerzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 			#if($grants.mayWrite())
-				<input type="button" name="event" class="mainButton" value="${placeholderWithTranslation.GENERIC_ASSIGN_TO_EVENT}" title="${placeholderWithTranslation.GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }"/>
-				<input type="button" name="remove" class="mainButton" value="${placeholderWithTranslation.GENERIC_DELETE_PERSON}" title="${placeholderWithTranslation.aktuellepersonloschenundzurpersonenlistezuruckkehren}." onclick="if (checkModified()) { removePerson(); }" />
+				<input type="button" name="event" class="mainButton" value="${placeholderWithTranslation.GENERIC_ASSIGN_TO_EVENT}" title="${placeholderWithTranslation.GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }"/>
+				<input type="button" name="remove" class="mainButton" value="${placeholderWithTranslation.GENERIC_DELETE_PERSON}" title="${placeholderWithTranslation.aktuellepersonloschenundzurpersonenlistezuruckkehren}." onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { removePerson(); }" />
 			#end
 		#end
 

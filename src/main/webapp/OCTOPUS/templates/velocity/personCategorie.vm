@@ -140,16 +140,16 @@
         #elseif($action == "event")
         	<input type="button" name="cancel" value="${placeholderWithTranslation.zurpersonenuebersicht}" title="${placeholderWithTranslation.zurpersonenuebersicht}" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';"/>
 			#if($octopusRequest.show && $octopusRequest.show == 'doctype')
-				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurveranstaltung}" title="${placeholderWithTranslation.zurueckzurveranstaltung}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDoctype'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurveranstaltung}" title="${placeholderWithTranslation.zurueckzurveranstaltung}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/ShowGuestDoctype'; }">
 			#else
-				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurveranstaltung}" title="${placeholderWithTranslation.zurueckzurveranstaltung}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurveranstaltung}" title="${placeholderWithTranslation.zurueckzurveranstaltung}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">
 			#end
 		#elseif($action == "duplicateSearch")
             <input type="button" name="cancel" value="${placeholderWithTranslation.zurdublettensuche}" title="${placeholderWithTranslation.zurdublettensuche}" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/PersonDuplicateSearch?selectnNone=true';">
         #elseif($searchTask && $searchTask == "personSearchTask")
-            <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzumsuchergebnis}" title="${placeholderWithTranslation.zurueckzumsuchergebnis}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask&selectNone=true'; }">
+            <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzumsuchergebnis}" title="${placeholderWithTranslation.zurueckzumsuchergebnis}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask&selectNone=true'; }">
         #else
-            <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurpersonenuebersicht}" title="${placeholderWithTranslation.zurpersonenuebersicht}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
+            <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurpersonenuebersicht}" title="${placeholderWithTranslation.zurpersonenuebersicht}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
 		#end
     </span>
 

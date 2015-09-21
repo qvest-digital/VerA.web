@@ -38,9 +38,9 @@ function setModified(id) {
 	document.getElementById(id).value = 'true';
 }
 
-function checkModified(id) {
+function checkModified(id, message) {
 	if (isModified(id)) {
-		return confirm('${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}');
+		return confirm(message);
 	} else {
 		return true;
 	}
