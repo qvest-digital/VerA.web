@@ -20,6 +20,10 @@
 
 	<h1>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</h1>
 
+	<div style="visibility:hidden"class="msgEmpty msg errormsg">
+		${placeholderWithTranslation.LABELLING_MUST_NOT_BE_EMPTY}
+	</div>
+	
 	<form id="formlist" name="formlist" action="Function" method="POST">
 		<input type="hidden" name="doInsert" value="true">
 		<input type="hidden" name="doUpdate" value="true">
@@ -42,7 +46,6 @@
 				#end
 			</vera-warn>
 			#end
-
 			#foreach($bean in $list)
 			<input type="hidden" name="list" value="$bean.id">
 			#end
@@ -60,14 +63,14 @@
 				<tr>
 					<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" style="display: none;"></td>
 					<td class="textCenter"><input type="hidden" name="add-id" value=""><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
-					<td><input type="text" name="add-name" maxlength="300" value=""></td>
+					<td><input type="text" id="new-name" name="add-name" maxlength="300" value=""></td>
 
 				</tr>
 				#foreach($bean in $list)
-				<tr>
+				<tr class="existingEntries">
 					<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
 					<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
-					<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" onchange="setModified('$!bean.id')"></td>
+					<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" onkeyup="checkIfEmpty(this);" onchange="setModified('$!bean.id');"></td>
 				</tr>
 				#end
 
@@ -84,7 +87,7 @@
 
 
 			<div class="textRight marginTop10" id="buttonPanel-bottom">
-				<input id="buttonSave" type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton">
+				<input id="buttonSave" type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" onClick="checkForNewEntry()" class="mainButton">
 			</div>
 
 		</div>
@@ -93,16 +96,34 @@
 </div>
 
 <script>
+var emptyInputs=[];
 $(function () {
     $('[name=add-name]').keydown(function (event) {
         if(event.which === 13){
             event.preventDefault();
             $('#buttonSave').trigger('click');
-        } else {
-            setModified('add');
-        }
+        } 
     });
 });
+
+function checkForNewEntry(){
+ 	var newName = document.getElementById('new-name').value;
+	if(newName.length>0)
+            setModified('add');
+	};
+	
+function checkIfEmpty(e){
+	if(e.value.length>0){
+		document.getElementsByClassName('msgEmpty')[0].style.visibility='hidden';
+		document.getElementById('buttonSave').disabled=false;
+	}else{
+		emptyInputs.push(e.name);
+		alert(emptyInputs.indexOf(e.name));
+		document.getElementsByClassName('msgEmpty')[0].style.visibility='visible';
+		document.getElementById('buttonSave').disabled=true;
+	}
+	
+ };
 </script>
 
 #parse("inc/footer.vm")
