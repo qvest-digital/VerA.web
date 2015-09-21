@@ -3,7 +3,7 @@
 
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>rest-api-common</artifactId>
-    <version>1.6.31.2</version>
+    <version>1.6.31.3-SNAPSHOT</version>
     <description>REST-API VerA.web common files</description>
 
     <packaging>jar</packaging>
