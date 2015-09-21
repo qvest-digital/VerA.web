@@ -207,11 +207,17 @@ public class LocationListWorker extends ListWorkerVeraWeb {
     public List showList(OctopusContext octopusContext) throws BeanException, IOException {
     	Boolean noneChecked = true;
     	if(octopusContext.getRequestObject().getParam("list") != null) {
-	    	String[]  listOfIds = (String[]) octopusContext.getRequestObject().getParam("list");
-	    	for (String id : listOfIds) {
-				if(octopusContext.getRequestObject().containsParam(id+"-select")){
-					noneChecked = false;
-					break;
+    		String[] listOfIds = null;
+    		if(octopusContext.getRequestObject().getParam("list").getClass().getName().equals("java.lang.String")) {
+    		listOfIds = new String[1];
+    		listOfIds[0]= (String) octopusContext.getRequestObject().getParam("list");
+    		} else {
+		    	listOfIds = (String[]) octopusContext.getRequestObject().getParam("list");
+    		}
+		    	for (String id : listOfIds) {
+					if(octopusContext.getRequestObject().containsParam(id+"-select")){
+						noneChecked = false;
+						break;
 				}
 			}
     	}
