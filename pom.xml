@@ -4,7 +4,7 @@
 
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>online-anmeldung</artifactId>
-    <version>1.6.31.2</version>
+    <version>1.6.31.3-SNAPSHOT</version>
     <description>VerA.web Online-Registrierung</description>
 
     <properties>
