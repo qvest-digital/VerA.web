@@ -50,7 +50,7 @@ public class LanguageHelper {
         } else {
             message = placeholderWithTranslation.get(placeholdername);
         }
-        
+
         return message;
     }
 
@@ -59,12 +59,12 @@ public class LanguageHelper {
     }
     
     public String makeFirstLetterLowerCase (String input) {
-    	Locale.setDefault(new Locale("en"));
-    	char c[]=input.toCharArray();
-    	c[0]=Character.toLowerCase(c[0]);
-    	String LowerCase=new String(c);
-    	
-    	return LowerCase;
+        Locale.setDefault(new Locale("en"));
+        char c[] = input.toCharArray();
+        c[0] = Character.toLowerCase(c[0]);
+        String LowerCase = new String(c);
+
+        return LowerCase;
     }
 
 

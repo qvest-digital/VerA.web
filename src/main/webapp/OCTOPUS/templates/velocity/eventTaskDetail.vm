@@ -234,12 +234,12 @@
 <script type="text/javascript">
     $(function () { // on dom ready
         $("a").click(function (e) {
-            if (!checkModified()) {
+            if (!checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) {
                 e.preventDefault(); // do not follow link
             }
         });
         $("#showEvent, #showEventDoctype, #showEventTasks, input[type=button]").not("#addRemoveRefPerson, #linkRemoveRefPerson").click(function (e) {
-           if (checkModified()) {
+           if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) {
                 window.location.href = $(this).attr('goto');
            }
         });

@@ -208,8 +208,8 @@
 
 	<div class="tabsSub" vera-content="personendaten">
 		<ul class="marginBottom20" vera-tab-group>
-			<li vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" ><div>$!config.main</div></li>
-			<li vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" ><div>$!config.partner</div></li>
+			<li style="display:inline-table; width:89%" vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" ><div>$!config.main</div></li>
+			<li style="display:inline-table; width:89%" vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" ><div>$!config.partner</div></li>
 		</ul>
 
 		<hr />
@@ -361,7 +361,7 @@
 			#if($grants.mayWrite())
 				<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.personspeichern}" title="${placeholderWithTranslation.personspeichern}"/>
 			#end
-			<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurpersonensuche}" title="${placeholderWithTranslation.zurueckzurpersonensuche}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/AddPersonToEventList?searchTask=personSearchTask'; }">
+			<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurpersonensuche}" title="${placeholderWithTranslation.zurueckzurpersonensuche}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/AddPersonToEventList?searchTask=personSearchTask'; }">
 		</span>
 
 	#elseif($action == "host")
@@ -370,7 +370,7 @@
 			#if($grants.mayWrite())
 				<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.personspeichern}" title="${placeholderWithTranslation.personspeichern}" />
 			#end
-			<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SetHostToEventList'; }">
+			<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueck}" title="${placeholderWithTranslation.zurueck}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/SetHostToEventList'; }">
 		</span>
 
 	#elseif($action == "event")
@@ -378,11 +378,11 @@
 			#if($grants.mayWrite())
 				<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.personspeichern}" title="${placeholderWithTranslation.personspeichern}" />
 			#end
-			<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurpersonenuebersicht}" title="${placeholderWithTranslation.zurpersonenuebersicht}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
+			<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurpersonenuebersicht}" title="${placeholderWithTranslation.zurpersonenuebersicht}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
 			#if($octopusRequest.show && $octopusRequest.show == 'doctype')
-				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurveranstaltung}" title="${placeholderWithTranslation.zurueckzurveranstaltung}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDoctype'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurveranstaltung}" title="${placeholderWithTranslation.zurueckzurveranstaltung}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/ShowGuestDoctype'; }">
 			#else
-				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurveranstaltung}" title="${placeholderWithTranslation.zurueckzurveranstaltung}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurveranstaltung}" title="${placeholderWithTranslation.zurueckzurveranstaltung}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">
 			#end
 		</span>
 
@@ -397,11 +397,11 @@
 				#end
 			#end
 			#if($action == "duplicateSearch")
-				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurdublettensuche}" title="${placeholderWithTranslation.zurdublettensuche}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch?selectNone=true'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurdublettensuche}" title="${placeholderWithTranslation.zurdublettensuche}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/PersonDuplicateSearch?selectNone=true'; }">
 			#elseif($searchTask && $searchTask == "personSearchTask")
-				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzumsuchergebnis}" title="${placeholderWithTranslation.zurueckzumsuchergebnis}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask&selectNone=true'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzumsuchergebnis}" title="${placeholderWithTranslation.zurueckzumsuchergebnis}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask&selectNone=true'; }">
 			#else
-				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurpersonenuebersicht}" title="${placeholderWithTranslation.zurpersonenuebersicht}" onclick="if (checkModified()) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurpersonenuebersicht}" title="${placeholderWithTranslation.zurpersonenuebersicht}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
 			#end
 		</span>
 
