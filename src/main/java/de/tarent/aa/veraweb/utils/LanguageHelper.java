@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.utils;
 
 import java.util.Map;
+import java.util.Locale;
 /*
  * Language Helper was implemented to create a general message when deleting, creating or updating any entity
  * This utility is called from velocity through sending it to the OctopusContext
@@ -49,12 +50,22 @@ public class LanguageHelper {
         } else {
             message = placeholderWithTranslation.get(placeholdername);
         }
-        
+
         return message;
     }
 
     public String give(String enter) {
         return enter;
     }
+    
+    public String makeFirstLetterLowerCase (String input) {
+        Locale.setDefault(new Locale("en"));
+        char c[] = input.toCharArray();
+        c[0] = Character.toLowerCase(c[0]);
+        String LowerCase = new String(c);
+
+        return LowerCase;
+    }
+
 
 }

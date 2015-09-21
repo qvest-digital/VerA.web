@@ -57,14 +57,14 @@
 			#if($save)
 				<input type="submit" class="button" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" title="${placeholderWithTranslation.markierteveranstaltungsorteloschen}"> &nbsp;
 			#end
-				<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" onclick="window.location.href='Location?selectNone=true';"> &nbsp;
+				<input type="button" class="cancel" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" onclick="window.location.href='Location?selectNone=true&noneDeleted=true';"> &nbsp;
 			</vera-confirm>
 		#end
 
 		#foreach($bean in $list)
 			<input type="hidden" name="list" value="$bean.id">
 		#end
-
+		##set($selectNone=false)
 		<span id="actionPanel" class="inlineLabel">
 			<label>${placeholderWithTranslation.markiertenveranstaltungsorte}
 				<input type="submit" id="remove" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markierteveranstaltungsorteloschen}" />

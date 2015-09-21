@@ -31,7 +31,7 @@
 
 		<span class="inlineLabel" id="actionPanel">
 			<strong>${placeholderWithTranslation.markiertenarbeitsbereiche}</strong>
-			<input type="submit" name="remove" value="${placeholderWithTranslation.loeschen}" class="button" title="${placeholderWithTranslation.markierteeintraegeentfernen}" />
+			<input type="submit" id="removebutton" name="remove" value="${placeholderWithTranslation.loeschen}" class="button" title="${placeholderWithTranslation.markierteeintraegeentfernen}" />
 		</span>
 
 		<div id="main_content">
@@ -61,13 +61,13 @@
 				<tr>
 					<td class="textCenter""><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
 					<td class="textCenter"><input type="hidden" name="add-id" value=""><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
-					<td><input type="text" name="add-name" maxlength="250" value="" onchange="setModified('add')"></td>
+					<td><input type="text" class="edit-name" name="add-name" maxlength="250" value="" onchange="setModified('add')"></td>
 				</tr>
 				#foreach($bean in $list)
 				<tr>
 					<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
 					<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
-					<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)"  onchange="setModified('$!bean.id')"></td>
+					<td><input type="text" class="edit-name" name="${bean.id}-name" value="$!message.text($bean.name)"  onchange="setModified('$!bean.id')"></td>
 				</tr>
 				#end
     			#if ($listparam.count == 0)
@@ -83,7 +83,7 @@
 			</table>
 
 			<div class="textRight marginTop10" id="buttonPanel-bottom">
-				<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+				<input type="submit" id="savebutton" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
 			</div>
 
 		</div>
@@ -91,3 +91,19 @@
 </div>
 
 #parse("inc/footer.vm")
+
+<script>	
+	$(document).ready(function(){
+	    $('.add-name').keypress(function(e){
+	      if(e.keyCode==13){
+	      	$('#savebutton').click();
+		    return false;
+	      }
+	    });
+	    $('.edit-name').keypress(function(e){
+	      if(e.keyCode==13){
+		      return false;
+	      }
+	    });
+	});
+</script>

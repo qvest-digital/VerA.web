@@ -25,7 +25,7 @@
 <span id="actionPanel" class="inlineLabel">
 	#if($grants.mayWrite())
 		${placeholderWithTranslation.markiertekategorien}
-        <input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_REMOVE}" title="Markierte Kategorie(n) entfernen"/>
+        <input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_REMOVE}" title="${placeholderWithTranslation.markiertenkategorienentfernen}"/>
 	#end
 </span>
 <div class="buttonPanel-top floatRight">

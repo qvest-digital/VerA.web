@@ -59,9 +59,9 @@ jedoch nicht dem von uns empfohlenen Setup.
 Die Installation des Webservers (SSL/TLS-Zertifikat, Zugangskontrollen,
 falls nötig vhosts) liegt außerhalb des Rahmens dieses Dokuments. Es
 wird davon ausgegangen, daß Apache so weit eingerichtet wird, daß er
-statische Webseiten ausliefern kann, und nur die Integration mit dem
-Veranstaltungsmanagement beschrieben. (Vergessen Sie bei Debian nicht,
-\texttt{sudo a2enmod ssl} auszuführen.)
+statische Webseiten ausliefern kann; in diesem Dokument wird nur die
+Integration mit dem Veranstaltungsmanagement beschrieben. (Vergessen
+Sie bei Debian nicht, \texttt{sudo a2enmod ssl} auszuführen.)
 
 \begin{minipage}{\textwidth}
 Auf einem Debian 7 „wheezy“-System können Sie diese sowie den

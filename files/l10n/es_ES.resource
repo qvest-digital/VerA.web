@@ -455,6 +455,7 @@ GENERIC_NOT_AVAILABLE=No disponible
 # ALLGEMEIN
 GENERIC_YOU_ARE_HERE=Usted se encuentra aqu\u00ED
 GENERIC_HOME=Inicio
+GENERIC_DISCARD_CHANGES=Descartar cambios
 
 # TABELLEN
 GENERIC_DATE=Fecha
@@ -1183,8 +1184,8 @@ biszum=a
 bis=hasta
 auswartigesamtintranetstil=Intranet relaciones exteriores
 klickensieeinederaufgelistetenpersonenanumsiederaufgabehinzuzufugen=Haga clic sobre unas de las personas de la lista para asignar una tarea
-eswurdeeinepersongeloscht=Se ha eliminado una persona
-eswurdekeinepersongeloscht=No se han eliminado personas
+eswurdeeinepersongeloscht=Se ha eliminado una persona.
+eswurdekeinepersongeloscht=No se han eliminado personas.
 personengelouscht=personas eliminadas.
 derarbeitsbereichwurdeerfolgreichhinzugefugt=\u00C1rea de trabajo creada satisfactoriamente.
 diearbeitsbereichewurdenerfolgreichentfernt=El \u00E1rea de trabajo se ha eliminado satisfactoriamente.

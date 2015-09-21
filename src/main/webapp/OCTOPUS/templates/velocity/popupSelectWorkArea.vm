@@ -183,7 +183,7 @@
 <div class="contentBoxColored grayBorder">
 		<h1>${placeholderWithTranslation.waehlensieeinenarbeitsbereichauswelchensie}
 	#if( $assignmentAction == "assign" )
-		${placeholderWithTranslation.zuweisen}
+		${placeholderWithTranslation.zuordnen_klein}
 	#else
 		${placeholderWithTranslation.GENERIC_DELETE}
 	#end

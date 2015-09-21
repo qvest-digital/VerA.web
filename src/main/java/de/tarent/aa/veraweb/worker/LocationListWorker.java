@@ -57,41 +57,46 @@ public class LocationListWorker extends ListWorkerVeraWeb {
     }
 
     @Override
-    protected void extendWhere(final OctopusContext cntx, final Select select) throws BeanException, IOException {
-        select.where(Expr.equal("tlocation.fk_orgunit", ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId()));
+    protected void extendWhere(final OctopusContext octopusContext, final Select select)
+            throws BeanException, IOException {
+        select.where(Expr.equal("tlocation.fk_orgunit",
+                ((PersonalConfigAA) (octopusContext.personalConfig())).getOrgUnitId()));
     }
 
     @Override
-    protected void extendAll(final OctopusContext cntx, final Select select) throws BeanException, IOException {
-        select.where(Expr.equal("tlocation.fk_orgunit", ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId()));
+    protected void extendAll(final OctopusContext octopusContext, final Select select)
+            throws BeanException, IOException {
+        select.where(Expr.equal("tlocation.fk_orgunit",
+                ((PersonalConfigAA) (octopusContext.personalConfig())).getOrgUnitId()));
     }
 
-    protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
-        Database database = getDatabase(cntx);
+    protected Integer getAlphaStart(OctopusContext octopusContext, String start) throws BeanException, IOException {
+        Database database = getDatabase(octopusContext);
         Select select = database.getCount(BEANNAME);
-        extendWhere(cntx, select);
+        extendWhere(octopusContext, select);
         if (start != null && start.length() > 0) {
             select.whereAnd(Expr.less("tlocation.locationname", Escaper.escape(start)));
         }
 
         Integer i = database.getCount(select);
-        return new Integer(i.intValue() - (i.intValue() % getLimit(cntx).intValue()));
+        return new Integer(i.intValue() - (i.intValue() % getLimit(octopusContext).intValue()));
     }
 
     /**
      * Bestimmt ob ein Veranstaltungsort aufgrund bestimmter Kriterien gelöscht wird oder nicht
      */
     @Override
-    protected int removeSelection(OctopusContext octopusContext, List errors, List selection, TransactionContext context) throws BeanException, IOException {
+    protected int removeSelection(OctopusContext octopusContext, List errors, List selection,
+                                  TransactionContext transactionContext) throws BeanException, IOException {
 
         int count = 0;
         if (selection == null || selection.size() == 0) {
             return count;
         }
-        Database database = context.getDatabase();
+        Database database = transactionContext.getDatabase();
         Map questions = new HashMap();
 
-        Location location = (Location)database.createBean("Location");
+        Location location = (Location) database.createBean("Location");
         Clause clause = Expr.in("pk", selection);
         Select select = database.getSelect("Location").where(clause);
 
@@ -133,19 +138,19 @@ public class LocationListWorker extends ListWorkerVeraWeb {
         if (!removeLocations.isEmpty()) {
             try {
                 Map data;
-                for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
-                    data = (Map)it.next();
-                    location.id = (Integer)data.get("id");
+                for (Iterator it = database.getList(select, transactionContext).iterator(); it.hasNext(); ) {
+                    data = (Map) it.next();
+                    location.id = (Integer) data.get("id");
 
-                    if (removeBean(octopusContext, location, context)) {
+                    if (removeBean(octopusContext, location, transactionContext)) {
                         selection.remove(location.id);
                         count++;
                     }
                 }
-                context.commit();
-            } catch ( BeanException e ) {
-                context.rollBack();
-                throw new BeanException( "Der Veranstaltungsort konnten nicht gel\u00f6scht werden.", e );
+                transactionContext.commit();
+            } catch (BeanException e) {
+                transactionContext.rollBack();
+                throw new BeanException("Der Veranstaltungsort konnten nicht gel\u00f6scht werden.", e);
             }
         }
         return count;
@@ -155,39 +160,68 @@ public class LocationListWorker extends ListWorkerVeraWeb {
      * Temporarily method for inserting a {@link Location}. <br/>
      * TODO: move this method to LocationDetailWorker!
      *
-     * @param cntx
+     * @param octopusContext
      *            Octopus context
      * @param errors
      *            list of errors
      * @param location
      *            bean {@link Location}
-     * @param context
+     * @param transactionContext
      *            database transaction context
      * @throws BeanException
      *             exception
      * @throws IOException
      *             exception
      */
-    protected void insertBean(final OctopusContext cntx, final List<String> errors, final Location location,
-            final TransactionContext context) throws BeanException, IOException {
+    protected void insertBean(final OctopusContext octopusContext, final List<String> errors, final Location location,
+                              final TransactionContext transactionContext) throws BeanException, IOException {
         if (location.isModified() && location.isCorrect()) {
-            Database database = context.getDatabase();
+            Database database = transactionContext.getDatabase();
 
             String orgunit = database.getProperty(location, "orgunit");
             Clause clause = Expr.equal(database.getProperty(location, "name"), location.getField("name"));
             if (orgunit != null) {
-                clause = Where.and(Expr.equal(orgunit, ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId()),
+                clause = Where.and(Expr.equal(orgunit, ((PersonalConfigAA) (octopusContext.personalConfig())).getOrgUnitId()),
                         clause);
             }
 
-            Integer exist = database.getCount(database.getCount(location).where(clause), context);
+            Integer exist = database.getCount(database.getCount(location).where(clause), transactionContext);
             if (exist.intValue() != 0) {
                 errors.add("Es existiert bereits ein Veranstaltungsort unter dem Namen '" + location.getField("name")
                         + "'.");
             } else {
-                context.getDatabase().saveBean(location, context, location.isModified());
+                transactionContext.getDatabase().saveBean(location, transactionContext, location.isModified());
             }
         }
     }
-
+    
+    @Override
+    public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
+    	if(octopusContext.getRequestObject().containsParam("noneDeleted")) {
+    		octopusContext.setContent("countRemove", 0);
+    	}
+    	super.saveList(octopusContext);
+    }
+    
+    @Override
+    public List showList(OctopusContext octopusContext) throws BeanException, IOException {
+    	Boolean noneChecked = true;
+    	if(octopusContext.getRequestObject().getParam("list") != null) {
+	    	String[]  listOfIds = (String[]) octopusContext.getRequestObject().getParam("list");
+	    	for (String id : listOfIds) {
+				if(octopusContext.getRequestObject().containsParam(id+"-select")){
+					noneChecked = false;
+					break;
+				}
+			}
+    	}
+    if(octopusContext.getRequestObject().get("remove") != null 
+    		&& !octopusContext.getRequestObject().get("remove").equals("Ja")
+    		&& !noneChecked) {
+    	Boolean noMessage = null;
+    	octopusContext.setContent("countRemove", noMessage);
+    }
+    	
+    return super.showList(octopusContext);
+    }
 }
