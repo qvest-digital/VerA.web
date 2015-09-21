@@ -34,6 +34,7 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.server.OctopusContext;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Diese Liste zeigt eine Liste von Funktionen an.
@@ -65,7 +66,22 @@ public class FunctionWorker extends StammdatenWorker {
 
     @Override
     protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
-        super.saveBean(cntx, bean, context);
+    	Function test = (Function) bean;
+    	if(test.name != ""){
+    		super.saveBean(cntx, bean, context);
+    	} else {
+    		return ;
+    	}
+    }
+    
+    @Override 
+    public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
+    	super.saveList(octopusContext); 
+    }
+    
+    @Override 
+    public List showList(OctopusContext octopusContext) throws BeanException, IOException {
+    	return super.showList(octopusContext);
     }
 
 }
