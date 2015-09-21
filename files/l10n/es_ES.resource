@@ -1432,7 +1432,6 @@ GENERIC_OF=de
 
 
 TOOLTIP_EDIT_HEADLINES=Usted puede modificar los encabezados antes de imprimir pulsando sobre \u201CEditar\u201D. Por favor, guarde antes de imprimir.
-GENERIC_NEXT_PAGE=P\u00E1gina siguiente
 GENERIC_PREVIOUS_PAGE=P\u00E1gina anterior
 GENERIC_APPLY_TO_GUESTLIST=A\u00F1adir a la lista de invitados
 GENERIC_APPLY_GUEST_TO_GUESTLIST=Seleccionar invitado directamente desde la lista de invitados
@@ -1443,7 +1442,6 @@ etikettfuraktuellepersonerzeugen=Generar etiqueta para la persona actual
 aktuellepersonloschenundzurpersonenlistezuruckkehren=Eliminar persona actual y volver a la lista de personas
 freifeldvorschaufur=Campo libre-Vista previa para
 zudieserpersonwurdedasentsprechendevorschaufeldnochncihterzeugt=El campo Vista Previa no ser\u00E1 generado para esta persona
-GENERIC_LAST_PAGE=\u00FAltima p\u00E1gina
 siemussendierolleangebenunterdersieverawebnutzenmochten=Debe introducir los roles que desea utilizar en VerA.web.
 GENERIC_CHOOSE=seleccionar
 GENERIC_RESET=Reiniciar
@@ -1717,6 +1715,10 @@ GENERIC_PREVIOUS_PAGE=P\u00E1gina anterior
 GENERIC_PREVIOUS_PERSON=Persona anterior
 GENERIC_FIRST_PAGE=P\u00E1gina inicial
 GENERIC_FIRST_PERSON=Primera persona
+GENERIC_LAST_PAGE=\u00FAltima p\u00E1gina
+GENERIC_LAST_PERSON=\u00FAltima persona
+GENERIC_NEXT_PAGE=P\u00E1gina siguiente
+GENERIC_NEXT_PERSON=Persona siguiente
 GENERIC_INPUT_FIELD=Campo de texto
 GENERIC_SIMPLE_COMBOBOX=Campo de selecci\u00F3n simple
 GENERIC_MULTIPLE_COMBOBOX=Campo de selecci\u00F3n m\u00FAltiple

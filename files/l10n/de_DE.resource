@@ -1429,8 +1429,6 @@ GENERIC_OF=von
 
 
 TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \u00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den \u201EBearbeiten\u201C-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
-GENERIC_NEXT_PAGE=N\u00E4chste Seite
-GENERIC_PREVIOUS_PAGE=Vorherige Seite
 GENERIC_APPLY_TO_GUESTLIST=In G\u00E4steliste \u00FCbernehmen
 GENERIC_APPLY_GUEST_TO_GUESTLIST=Gast direkt in G\u00E4steliste \u00FCbernehmen
 GENERIC_APPLY=\u00DCbernehmen
@@ -1440,7 +1438,6 @@ etikettfuraktuellepersonerzeugen=Etikett f\u00FCr aktuelle Person erzeugen
 aktuellepersonloschenundzurpersonenlistezuruckkehren=Aktuelle Person l\u00F6schen und zur Personenliste zur\u00FCckkehren
 freifeldvorschaufur=Freifeld-Vorschau f\u00FCr
 zudieserpersonwurdedasentsprechendevorschaufeldnochncihterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt
-GENERIC_LAST_PAGE=letzte Seite
 siemussendierolleangebenunterdersieverawebnutzenmochten=Sie m\u00FCssen die Rolle angeben, unter der Sie VerA.web nutzen m\u00F6chten.
 GENERIC_CHOOSE=ausw\u00E4hlen
 GENERIC_RESET=Zur\u00FCcksetzen
@@ -1714,6 +1711,10 @@ GENERIC_PREVIOUS_PAGE=Vorherige Seite
 GENERIC_PREVIOUS_PERSON=Vorherige Person
 GENERIC_FIRST_PAGE=Erste Seite
 GENERIC_FIRST_PERSON=Erste Person
+GENERIC_LAST_PAGE=Letzte Seite
+GENERIC_LAST_PERSON=Letzte Person
+GENERIC_NEXT_PAGE=N\u00E4chste Seite
+GENERIC_NEXT_PERSON=N\u00E4chste Person
 GENERIC_INPUT_FIELD=Eingabefeld
 GENERIC_SIMPLE_COMBOBOX=Einfaches Auswahlfeld
 GENERIC_MULTIPLE_COMBOBOX=Mehrfaches Auswahlfeld
