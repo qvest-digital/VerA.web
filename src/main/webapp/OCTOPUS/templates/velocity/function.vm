@@ -70,7 +70,7 @@
 				<tr class="existingEntries">
 					<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
 					<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
-					<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" onkeyup="checkIfEmpty(this);" onchange="setModified('$!bean.id');"></td>
+					<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" onkeyup="$(this).trigger('change');" onchange="setModified('$!bean.id');checkIfEmpty(this)"></td>
 				</tr>
 				#end
 
@@ -105,6 +105,9 @@ $(function () {
         } 
     });
 });
+$( document ).ready(function() {
+		$('.msgEmpty').hide();
+});
 
 function checkForNewEntry(){
  	var newName = document.getElementById('new-name').value;
@@ -113,16 +116,30 @@ function checkForNewEntry(){
 	};
 	
 function checkIfEmpty(e){
-	if(e.value.length>0){
-		document.getElementsByClassName('msgEmpty')[0].style.visibility='hidden';
-		document.getElementById('buttonSave').disabled=false;
-	}else{
-		emptyInputs.push(e.name);
-		alert(emptyInputs.indexOf(e.name));
-		document.getElementsByClassName('msgEmpty')[0].style.visibility='visible';
-		document.getElementById('buttonSave').disabled=true;
-	}
+	var i;
 	
+	
+	if(e.value.length>0){
+		if(emptyInputs.length>0){
+			if(jQuery.inArray(e.name, emptyInputs) !== -1){
+				emptyInputs.splice(jQuery.inArray(e.name, emptyInputs), 1);
+			}
+		}
+	}else{
+		if(jQuery.inArray(e.name, emptyInputs) !== -1){}
+		else{
+			emptyInputs.push(e.name);
+		}
+	}
+	if(emptyInputs.length>0){
+		document.getElementsByClassName('msgEmpty')[0].style.visibility='visible';
+		$('.msgEmpty').show();
+		document.getElementById('buttonSave').disabled=true;
+	}else{
+		document.getElementsByClassName('msgEmpty')[0].style.visibility='hidden';
+		$('.msgEmpty').hide();
+		document.getElementById('buttonSave').disabled=false;
+	}
  };
 </script>
 
