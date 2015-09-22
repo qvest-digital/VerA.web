@@ -23,9 +23,9 @@
 \newcommand{\vwiaversfassungmonat}{September}
 \newcommand{\vwiaversfassungjahr}{2015}
 
-% VerA.web Version (ohne und mit Buildnummer)
+% VerA.web Version (ohne und mit „Buildnummer“)
 \newcommand{\vwiaverspo}{1.6.31}
-\newcommand{\vwiaverssw}{1.6.31.1}
+\newcommand{\vwiaverssw}{1.6.31.2}
 
 % OSIAM Version
 \newcommand{\vwiaversosiam}{2.0}

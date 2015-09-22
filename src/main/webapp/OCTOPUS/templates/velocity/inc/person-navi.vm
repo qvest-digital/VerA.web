@@ -55,12 +55,12 @@
 		#if(!$navigation.last)
 			<li class="img inactive">
                 <a>
-                    <img src="${paths.staticWeb}images/paging_arrow_right_last.png" title="Letzte Person" style="cursor: pointer;">
+                    <img src="${paths.staticWeb}images/paging_arrow_right_last.png" title="${placeholderWithTranslation.GENERIC_LAST_PERSON}" style="cursor: pointer;">
                 </a>
             </li>
         #else
 			<li class="img">
-                <a href="${paths.staticWeb}do/ShowPerson?id=${navigation.last.person.id}#if ( $navigation.meta.action && $navigation.meta.action != "" )&action=${navigation.meta.action}#end"><img src="${paths.staticWeb}images/paging_arrow_right_last_active.png" title="Letzte Person" style="cursor: pointer;">
+                <a href="${paths.staticWeb}do/ShowPerson?id=${navigation.last.person.id}#if ( $navigation.meta.action && $navigation.meta.action != "" )&action=${navigation.meta.action}#end"><img src="${paths.staticWeb}images/paging_arrow_right_last_active.png" title="${placeholderWithTranslation.GENERIC_LAST_PERSON}" style="cursor: pointer;">
                 </a>
             </li>
         #end

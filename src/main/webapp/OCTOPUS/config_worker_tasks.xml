@@ -695,6 +695,7 @@
 			<action name="getAll" worker="SalutationWorker"/>
 			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="getDoctype" worker="PersonDetailWorker" />
+			<doTask name="ShowPerson"/>
 			<response type="velocity" name="personDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
