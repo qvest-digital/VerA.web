@@ -287,5 +287,9 @@ public class VerawebMessages {
         return languageProvider.getProperty("WORKAREA_ERROR_MISSING_NAME");
     }
 
+    public String getMessageNoChanges() {
+        return languageProvider.getProperty("GM_NO_CHANGES");
+    }
+
 
 }
