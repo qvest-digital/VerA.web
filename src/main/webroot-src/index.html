@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="onlineRegApp" flow-init>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>{{'BROWSER_TITLE'|translate}}</title>
+
+		<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="bower_components/bootstrapvalidator/dist/css/bootstrapValidator.min.css" rel="stylesheet">
+
+		<!--
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="bootstrap/validator/css/bootstrapValidator.min.css" rel="stylesheet">
+		-->
+
+		<link href="css/style.css" rel="stylesheet">
+
+		<!-- CSS from File Upload plugin
+			<link href="styles/jquery.fileupload.css" rel="stylesheet">
+			<link href="styles/jquery.fileupload-ui.css" rel="stylesheet">
+			<link href="styles/jquery.fileupload-noscript.css" rel="stylesheet">
+			<link href="styles/jquery.fileupload-ui-noscript.css" rel="stylesheet">
+		End of CSS from File Upload plugin -->
+	</head>
+
+
+	 	<div class="maincontainer"  ng-controller="DirectLoginController">
+			<div ng-include src="'partials/header.html'"></div>
+			<div ng-include src="'partials/navigation.html'"></div>
+
+			<div class="container">
+				<div ng-if="$parent.status != null">
+					<div class="alert alert-{{$parent.status}}" role="alert">
+
+						<span ng-if="$parent.status == 'danger'" class="glyphicon glyphicon-remove-sign">&nbsp;</span>
+						<span ng-if="$parent.status == 'info'" class="glyphicon glyphicon-info-sign">&nbsp;</span>
+						<span ng-if="$parent.status == 'success'" class="glyphicon glyphicon-ok-sign">&nbsp;</span>
+						<span ng-if="$parent.status == 'warning'" class="glyphicon glyphicon-warning-sign">&nbsp;</span>
+						{{$parent.messageContent}}
+					</div>
+				</div>
+
+			<div ng-view></div>
+			</div>
+		</div>
+
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/momentjs/min/moment-with-locales.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+	<script src="bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="bower_components/angular-translate/angular-translate.min.js"></script>
+
+	<script src="js/onlinereg.js"></script>
+
+	<!--
+	<script src="scripts/jquery-1.10.2.min.js"></script>
+		<script src="scripts/angular.min.js"></script>
+		<script src="scripts/angular-translate.min.js"></script>
+		<script src="scripts/angular-translate-loader-static-files.min.js"></script>
+		<script src="scripts/angular-route.min.js"></script>
+		<script src="scripts/ui-bootstrap-tpls.min.js"></script>
+		<script src="scripts/moment.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="bootstrap/validator/js/bootstrapValidator.min.js"></script>
+	-->
+
+		<!-- File Upload Plugin imports-->
+
+			<!--<script src="scripts/fileupload/ng-file-upload-shim.min.js"></script>-->
+			<!--<script src="scripts/fileupload/ng-file-upload.min.js"></script>-->
+
+		<!-- End File Upload imports -->
+
+	<!--
+	<script src="scripts/fileupload/ng-flow.min.js"></script>
+	<script src="scripts/fileupload/ng-flow-standalone.min.js"></script>
+	-->
+
+		<script>
+			$(document).ready(function () {
+				// VerA.web brand logo bar
+				$('.navbar-lower').affix({
+					offset: {top: 100}
+				});
+			});
+		</script>
+	</body>
+</html>

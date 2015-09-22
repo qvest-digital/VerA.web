@@ -1,0 +1,31 @@
+<h2>{{'MEDIA_REPRESENTATIVES_TITLE'|translate}}</h2>
+<form role="form" id="delegation-form" class="form-signin">
+
+    <div class="form-group container">
+        <div class="row">
+			<div ng-if="success" class="alert alert-success" role="alert">{{success}}</div>
+		    <div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+
+            <select class="form-control" id="gender" ng-model="gender" ng-options="option.name | translate for option in genderOptions" />
+
+            <input type="text" class="form-control" id="firstname" placeholder="{{'GENERIC_FIRSTNAME'|translate}}" ng-model="firstname">
+
+            <input type="text" class="form-control" id="lastname" placeholder="{{'GENERIC_LASTNAME'|translate}}" ng-model="lastname">
+
+            <input type="text" class="form-control" id="email" placeholder="{{'GENERIC_EMAIL'|translate}}" ng-model="email">
+
+            <input type="text" class="form-control" id="address" placeholder="{{'GENERIC_ADDRESS'|translate}}" ng-model="address">
+
+            <input type="text" class="form-control" id="plz" placeholder="{{'GENERIC_ZIP_CODE'|translate}}" ng-model="plz">
+
+            <input type="text" class="form-control" id="city" placeholder="{{'GENERIC_CITY'|translate}}" ng-model="city">
+
+            <input type="text" class="form-control" id="country" placeholder="{{'GENERIC_COUNTRY'|translate}}" ng-model="country">
+
+            <br/>
+
+            <button type="submit" class="btn btn-custom center-block" ng-disabled="button" ng-click="register_pressevertreter()">{{'GENERIC_REGISTER'|translate}}</button>
+        </div>
+    </div>
+</form>
+<hr/>

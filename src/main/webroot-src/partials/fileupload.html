@@ -1,0 +1,23 @@
+<div ng-controller="DelegationController">
+
+
+        <!--<span ng-show="imageError"><h3>{{imageError}}</h3></span>-->
+        <div flow-files-submitted="$flow.upload();">
+
+            <div class="img-thumbnail" ng-hide="image">
+                <img src="images/default.png" ng-if="!loadingphoto"/>
+                <img src="images/loading.gif" ng-if="loadingphoto"/>
+                <div class="row">
+                    <span class="btn btn-custom marginL25 marginT10" flow-btn>{{'DELEGATION_PHOTO_NEW'|translate}}</span>
+                </div>
+
+            </div>
+            <div class="img-thumbnail" ng-if="image != null">
+                <img id="personalphoto" ng-src="{{image}}" ng-if="!loadingphoto"/>
+                <img src="images/loading.gif" ng-if="loadingphoto"/>
+                <div class="row">
+                    <span class="btn btn-custom marginL25 marginT10" flow-btn>{{'DELEGATION_PHOTO_EXIST'|translate}}</span>
+                </div>
+            </div>
+        </div>
+</div>
