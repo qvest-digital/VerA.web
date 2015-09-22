@@ -31,8 +31,7 @@ word() {
 }
 
 #ADDED SECTION
-added DOCUMENT_TYPE
-added GUEST
+. ./added.sh
 
 #ENTITIES
 word f CATEGORY catégorie
