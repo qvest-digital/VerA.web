@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<maven2-moduleset>
+  <actions/>
+  <description>OCTOPUS core für VerA.Web</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Run.Update:tglase</permission>
+      <permission>hudson.model.Item.Workspace:tglase</permission>
+      <permission>hudson.model.Item.Build:tglase</permission>
+      <permission>hudson.model.Item.Delete:tglase</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:tglase</permission>
+      <permission>hudson.model.Run.Delete:tglase</permission>
+      <permission>hudson.model.Item.Configure:tglase</permission>
+      <permission>hudson.scm.SCM.Tag:tglase</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name></name>
+        <refspec></refspec>
+        <url>git+ssh://maven@evolvis.org/scmrepos/git/veraweb/octopus-veraweb.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/octopus-core/1.6.2veraweb</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <localBranch>octopus-core/1.6.2veraweb</localBranch>
+    <disableSubmodules>false</disableSubmodules>
+    <recursiveSubmodules>false</recursiveSubmodules>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <authorOrCommitter>false</authorOrCommitter>
+    <clean>false</clean>
+    <wipeOutWorkspace>false</wipeOutWorkspace>
+    <pruneBranches>false</pruneBranches>
+    <remotePoll>false</remotePoll>
+    <ignoreNotifyCommit>false</ignoreNotifyCommit>
+    <useShallowClone>false</useShallowClone>
+    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+    <gitTool>Default</gitTool>
+    <browser class="hudson.plugins.git.browser.GitWeb">
+      <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/octopus-veraweb.git</url>
+    </browser>
+    <submoduleCfg class="list"/>
+    <relativeTargetDir></relativeTargetDir>
+    <reference></reference>
+    <excludedRegions></excludedRegions>
+    <excludedUsers></excludedUsers>
+    <gitConfigName></gitConfigName>
+    <gitConfigEmail></gitConfigEmail>
+    <skipTag>false</skipTag>
+    <includedRegions></includedRegions>
+    <scmName></scmName>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>(Default)</jdk>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <rootModule>
+    <groupId>de.tarent.octopus</groupId>
+    <artifactId>octopus-core</artifactId>
+  </rootModule>
+  <goals>install</goals>
+  <mavenName>Maven2.2.1</mavenName>
+  <mavenOpts>-Xmx3072m -XX:MaxPermSize=128m -XX:+UseCompressedOops -Xincgc</mavenOpts>
+  <aggregatorStyleBuild>true</aggregatorStyleBuild>
+  <incrementalBuild>false</incrementalBuild>
+  <usePrivateRepository>false</usePrivateRepository>
+  <perModuleEmail>true</perModuleEmail>
+  <ignoreUpstremChanges>false</ignoreUpstremChanges>
+  <archivingDisabled>false</archivingDisabled>
+  <resolveDependencies>false</resolveDependencies>
+  <processPlugins>false</processPlugins>
+  <mavenValidationLevel>-1</mavenValidationLevel>
+  <runHeadless>false</runHeadless>
+  <settingConfigId></settingConfigId>
+  <globalSettingConfigId></globalSettingConfigId>
+  <reporters/>
+  <publishers/>
+  <buildWrappers>
+    <org.jvnet.hudson.plugins.m2release.M2ReleaseBuildWrapper>
+      <releaseGoals>-Dresume=false release:prepare release:perform</releaseGoals>
+      <selectCustomScmCommentPrefix>false</selectCustomScmCommentPrefix>
+      <selectAppendHudsonUsername>false</selectAppendHudsonUsername>
+    </org.jvnet.hudson.plugins.m2release.M2ReleaseBuildWrapper>
+  </buildWrappers>
+  <prebuilders/>
+  <postbuilders/>
+  <runPostStepsIfResult>
+    <name>FAILURE</name>
+    <ordinal>2</ordinal>
+    <color>RED</color>
+  </runPostStepsIfResult>
+</maven2-moduleset>
