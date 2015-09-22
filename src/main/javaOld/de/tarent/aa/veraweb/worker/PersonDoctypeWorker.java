@@ -29,6 +29,7 @@ import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonDoctype;
 import de.tarent.aa.veraweb.beans.facade.PersonDoctypeFacade;
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -207,12 +208,9 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
         Integer countUpdate = (Integer) octopusContext.getContextField("countUpdate");
         Integer countInsert = (Integer) octopusContext.getContextField("countInsert");
 
-        if (((countRemove != null) && !(countRemove.equals(0))) ||
-                ((countUpdate != null) && !(countUpdate.equals(0))) ||
-                ((countInsert != null) && !(countInsert.equals(0)))) {
-            octopusContext.setContent("isEntityModified", true);
-        } else if (countRemove != null || countUpdate != null || countInsert != null) {
-            octopusContext.setContent("isEntityModified", false);
+        if (countRemove != null || countUpdate != null || countInsert != null) {
+            VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+            octopusContext.setContent("noChangesMessage", verawebMessages.getMessageNoChanges());
         }
 
         return super.showList(octopusContext);

@@ -26,6 +26,7 @@ import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
@@ -93,14 +94,10 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
         Integer countUpdate = (Integer) octopusContext.getContextField("countUpdate");
         Integer countInsert = (Integer) octopusContext.getContextField("countInsert");
 
-        if (((countRemove != null) && !(countRemove.equals(0))) ||
-                ((countUpdate != null) && !(countUpdate.equals(0))) ||
-                ((countInsert != null) && !(countInsert.equals(0)))) {
-            octopusContext.setContent("isEntityModified", true);
-        } else if (countRemove != null || countUpdate != null || countInsert != null) {
-            octopusContext.setContent("isEntityModified", false);
+        if (countRemove != null || countUpdate != null || countInsert != null) {
+            VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+            octopusContext.setContent("noChangesMessage", verawebMessages.getMessageNoChanges());
         }
-
     }
 
     private void handleRemoveCategoriesFromGuest(OctopusContext octopusContext) throws BeanException {

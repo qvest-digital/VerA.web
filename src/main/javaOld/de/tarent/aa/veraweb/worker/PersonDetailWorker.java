@@ -35,6 +35,7 @@ import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.OsiamLoginCreator;
 import de.tarent.aa.veraweb.utils.OsiamLoginRemover;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -177,8 +178,6 @@ public class PersonDetailWorker implements PersonConstants {
         octopusContext.setContent("personMemberTab", octopusContext.requestAsString("personMemberTab"));
         octopusContext.setContent("personAddresstypeTab", octopusContext.requestAsString("personAddresstypeTab"));
         octopusContext.setContent("personLocaleTab", octopusContext.requestAsString("personLocaleTab"));
-
-        octopusContext.setContent("isEntityModified", true);
 
         return person;
     }
@@ -690,8 +689,6 @@ public class PersonDetailWorker implements PersonConstants {
             }
 
             if (person.isModified()) {
-                octopusContext.setContent("isEntityModified", true);
-
 			/* fix for bug 1013
 			 * cklein 2008-03-12
 			 */
@@ -737,7 +734,8 @@ public class PersonDetailWorker implements PersonConstants {
 
                 savePersonDetail(octopusContext, person, database, context, originalPersonId);
             } else {
-                octopusContext.setContent("isEntityModified", false);
+                VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
+                octopusContext.setContent("noChangesMessage", verawebMessages.getMessageNoChanges());
             }
         } catch (BeanException e) {
             context.rollBack();
