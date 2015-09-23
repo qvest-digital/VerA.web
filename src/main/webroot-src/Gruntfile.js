@@ -65,7 +65,7 @@ module.exports = function (grunt) {
             'partials/{,*/}*.*',
             'js/{,*/}*.*',
             'css/{,*/}*.*',
-            'bower_components/{,*/}*.*'
+            'bower_components/**'
           ]
         }]
       }
