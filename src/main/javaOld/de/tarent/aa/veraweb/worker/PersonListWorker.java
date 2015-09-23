@@ -131,7 +131,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * 10 entries in the underlying resultset as is defined by the query.
 		 */
 		Map<Integer, Map> result = new LinkedHashMap<Integer, Map>();
-		if(cntx.requestAsString("search") != null && cntx.requestAsString("search").equals("reset")) { 
+		PersonSearch search = (PersonSearch) cntx.contentAsObject("search");
+		if(search.listorder == null) { 
 			personSelect.addOrderBy(new Order().asc("lastname_a_e1").andAsc("firstname_a_e1"));
 		}
 		List personList = getResultList( database, personSelect );
@@ -434,7 +435,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		select.setDistinct(true);
 		String searchFiled = cntx.getRequestObject().getParamAsString("searchField");
 		
-		if(cntx.requestAsString("search") != null && cntx.requestAsString("search").equals("reset")) {
+		if(search.listorder == null) {
 			cntx.getContentObject().setField("personSearchField", "lastname_a_e1");
 	        cntx.getContentObject().setField("personSearchOrder", "ASC");
 		}
