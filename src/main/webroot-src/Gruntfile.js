@@ -12,7 +12,7 @@ module.exports = function (grunt) {
   // dist muss später "../resources..." sein
   var appConfig = {
     app: '.',
-    dist: 'dist'
+    dist: '../resources/webroot'
   };
 
   // Define the configuration for all the tasks

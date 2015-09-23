@@ -8,15 +8,22 @@
 
 		<title>{{'BROWSER_TITLE'|translate}}</title>
 
+		<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="bower_components/bootstrapvalidator/dist/css/bootstrapValidator.min.css" rel="stylesheet">
+
+		<!--
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="bootstrap/validator/css/bootstrapValidator.min.css"/>
-		<link href="styles/style.css" rel="stylesheet">
-		<!-- CSS from File Upload plugin -->
+		<link href="bootstrap/validator/css/bootstrapValidator.min.css" rel="stylesheet">
+		-->
+
+		<link href="css/style.css" rel="stylesheet">
+
+		<!-- CSS from File Upload plugin
 			<link href="styles/jquery.fileupload.css" rel="stylesheet">
 			<link href="styles/jquery.fileupload-ui.css" rel="stylesheet">
 			<link href="styles/jquery.fileupload-noscript.css" rel="stylesheet">
 			<link href="styles/jquery.fileupload-ui-noscript.css" rel="stylesheet">
-		<!-- End of CSS from File Upload plugin -->
+		End of CSS from File Upload plugin -->
 	</head>
 
 
@@ -40,16 +47,46 @@
 			</div>
 		</div>
 
-		<script src="scripts/jquery-1.10.2.min.js"></script>
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/momentjs/min/moment-with-locales.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+	<script src="bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="bower_components/angular-translate/angular-translate.min.js"></script>
+	<script src="bower_components/ng-flow/dist/ng-flow.min.js"></script>
+	<script src="bower_components/flow.js/dist/flow.min.js"></script>
+	<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+
+	<script src="js/onlinereg.js"></script>
+	<script src="js/controllers/delegationController.js"></script>
+	<script src="js/controllers/directLoginController.js"></script>
+	<script src="js/controllers/eventController.js"></script>
+	<script src="js/controllers/freeVisitorController.js"></script>
+	<script src="js/controllers/languageSelectController.js"></script>
+	<script src="js/controllers/loginController.js"></script>
+	<script src="js/controllers/mediaController.js"></script>
+	<script src="js/controllers/pageNotFoundController.js"></script>
+	<script src="js/controllers/registerController.js"></script>
+	<script src="js/controllers/registerUserController.js"></script>
+	<script src="js/controllers/resetPasswordController.js"></script>
+	<script src="js/controllers/updateController.js"></script>
+	<script src="js/controllers/veranstaltungsController.js"></script>
+
+	<!--
+	<script src="scripts/jquery-1.10.2.min.js"></script>
 		<script src="scripts/angular.min.js"></script>
 		<script src="scripts/angular-translate.min.js"></script>
 		<script src="scripts/angular-translate-loader-static-files.min.js"></script>
 		<script src="scripts/angular-route.min.js"></script>
 		<script src="scripts/ui-bootstrap-tpls.min.js"></script>
 		<script src="scripts/moment.min.js"></script>
-		<script src="scripts/onlinereg.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
 		<script src="bootstrap/validator/js/bootstrapValidator.min.js"></script>
+	-->
+
 		<!-- File Upload Plugin imports-->
 
 			<!--<script src="scripts/fileupload/ng-file-upload-shim.min.js"></script>-->
@@ -57,8 +94,10 @@
 
 		<!-- End File Upload imports -->
 
+	<!--
 	<script src="scripts/fileupload/ng-flow.min.js"></script>
 	<script src="scripts/fileupload/ng-flow-standalone.min.js"></script>
+	-->
 
 		<script>
 			$(document).ready(function () {
