@@ -929,7 +929,17 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 							#if($grants.mayWrite() || ($exportFormat && $grants.mayExport()) || $action == "replace")
 								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 							#end
-							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.GENERIC_ID}</a></th>
+							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.GENERIC_ID}
+								#if($personSearchField == 'id')
+										#if ($personSearchOrder == 'ASC')
+											<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
+										#else
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+										#end
+									#else
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+									#end
+							</a></th>
 							<th title="${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}"><a href="javascript:orderPersonList('workarea_name');">${placeholderWithTranslation.arbeitsshybereich}
 									#if($personSearchField == 'workarea_name')
 										#if ($personSearchOrder == 'ASC')
