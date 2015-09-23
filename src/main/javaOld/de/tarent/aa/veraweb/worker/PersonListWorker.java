@@ -34,6 +34,7 @@ import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
+import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.StatementList;
 import de.tarent.dblayer.sql.clause.Where;
@@ -130,6 +131,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * 10 entries in the underlying resultset as is defined by the query.
 		 */
 		Map<Integer, Map> result = new LinkedHashMap<Integer, Map>();
+		if(cntx.requestAsString("search") != null && cntx.requestAsString("search").equals("reset")) { 
+			personSelect.addOrderBy(new Order().asc("lastname_a_e1").andAsc("firstname_a_e1"));
+		}
 		List personList = getResultList( database, personSelect );
 
 		for ( int i = 0; i < personList.size(); i++ ) {
@@ -429,6 +433,11 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
 		select.setDistinct(true);
 		String searchFiled = cntx.getRequestObject().getParamAsString("searchField");
+		
+		if(cntx.requestAsString("search") != null && cntx.requestAsString("search").equals("reset")) {
+			cntx.getContentObject().setField("personSearchField", "lastname_a_e1");
+	        cntx.getContentObject().setField("personSearchOrder", "ASC");
+		}
 
 
 		/*
@@ -757,6 +766,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         search.sortList = sortList;
 
         cntx.setSession("search" + BEANNAME, search);
+
         cntx.getContentObject().setField("personSearchField", search.listorder);
         cntx.getContentObject().setField("personSearchOrder", search.sort);
         return search;
