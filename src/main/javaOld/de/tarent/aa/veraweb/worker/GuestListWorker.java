@@ -23,13 +23,11 @@ import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
 import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
-import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
@@ -60,7 +58,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * Verwaltet eine Gästeliste.
@@ -246,57 +243,35 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         final List order = new ArrayList();
 		order.add("ishost");
 
-        if (search.sortDirection == null || search.lastlistorder == null || !search.lastlistorder.equals(search.listorder)) {
-            search.sortDirection = "ASC";
-//            order.add("ASC");
-        } else if ("ASC".equals(search.sortDirection) && search.lastlistorder.equals(search.lastlistorder)) {
-            search.sortDirection = "DESC";
-//            order.add("DESC");
-        } else if ("DESC".equals(search.sortDirection) && search.lastlistorder.equals(search.lastlistorder)) {
-            search.sortDirection = "ASC";
-//            order.add("ASC");
-        }
-
+        getSortDirection(search);
         octopusContext.setSession("search" + BEANNAME, search);
-
 
 		if (search == null || search.listorder == null) {
 			order.add("someorderno");
 			order.add("tcategorie.rank");
 			order.add("tguest.rank");
 			if (freitextfeld != null) {
-				order.add("lastname_a_gd");
-				order.add("firstname_a_gd");
+                setOrderOfGastgeberNames(search, order);
 			} else {
-				order.add("lastname_a_e1");
-				order.add("firstname_a_e1");
+                setOrderOfNames(search, order);
 			}
 		} else if (search.listorder.equals("orderno")) {
                 order.add("someorderno");
                 order.add(search.sortDirection);
         } else if (search.listorder.equals("lastname_a_e1")) {
 			if (freitextfeld != null) {
-				order.add("lastname_a_gd");
-                order.add(search.sortDirection);
-				order.add("firstname_a_gd");
-                order.add(search.sortDirection);
-			} else {
-				order.add("lastname_a_e1");
-                order.add(search.sortDirection);
-				order.add("firstname_a_e1");
-                order.add(search.sortDirection);
+                setOrderOfGastgeberNames(search, order);
+            } else {
+                setOrderOfNames(search, order);
 			}
 
 		} else if (search.listorder.equals("firstname_a_e1")) {
 			if (freitextfeld != null) {
-				order.add("firstname_a_gd");
-                order.add(search.sortDirection);
-				order.add("lastname_a_gd");
-                order.add(search.sortDirection);
+                setOrderOfGastgeberNames(search, order);
 			} else {
 				order.add("firstname_a_e1");
                 order.add(search.sortDirection);
-				order.add("lastname_a_e1");
+                order.add("lastname_a_e1");
                 order.add(search.sortDirection);
 			}
 
@@ -304,34 +279,46 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 			order.add("mail_a_e1");
             order.add(search.sortDirection);
 			if (freitextfeld != null) {
-				order.add("lastname_a_gd");
-                order.add(search.sortDirection);
-				order.add("firstname_a_gd");
-                order.add(search.sortDirection);
+                setOrderOfGastgeberNames(search, order);
 			} else {
-				order.add("lastname_a_e1");
-                order.add(search.sortDirection);
-				order.add("firstname_a_e1");
-                order.add(search.sortDirection);
+                setOrderOfNames(search, order);
 			}
 
 		} else if(search.listorder.equals("companyname")) {
             order.add("company_a_e1");
             order.add(search.sortDirection);
             if (freitextfeld != null) {
-                order.add("lastname_a_gd");
-                order.add(search.sortDirection);
-                order.add("firstname_a_gd");
-                order.add(search.sortDirection);
+                setOrderOfGastgeberNames(search, order);
             } else {
-                order.add("lastname_a_e1");
-                order.add(search.sortDirection);
-                order.add("firstname_a_e1");
-                order.add(search.sortDirection);
+                setOrderOfNames(search, order);
             }
 
         }
         return order;
+    }
+
+    private void setOrderOfNames(GuestSearch search, List order) {
+        order.add("lastname_a_e1");
+        order.add(search.sortDirection);
+        order.add("firstname_a_e1");
+        order.add(search.sortDirection);
+    }
+
+    private void setOrderOfGastgeberNames(GuestSearch search, List order) {
+        order.add("lastname_a_gd");
+        order.add(search.sortDirection);
+        order.add("firstname_a_gd");
+        order.add(search.sortDirection);
+    }
+
+    private void getSortDirection(GuestSearch search) {
+        if (search.sortDirection == null || search.lastlistorder == null || !search.lastlistorder.equals(search.listorder)) {
+            search.sortDirection = "ASC";
+        } else if ("ASC".equals(search.sortDirection) && search.lastlistorder.equals(search.lastlistorder)) {
+            search.sortDirection = "DESC";
+        } else if ("DESC".equals(search.sortDirection) && search.lastlistorder.equals(search.lastlistorder)) {
+            search.sortDirection = "ASC";
+        }
     }
 
     private void buildGuestSelect(Select select, Integer freitextfeld) {

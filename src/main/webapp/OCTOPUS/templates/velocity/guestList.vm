@@ -337,7 +337,6 @@
 							#else
 								<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 							#end
-
 						</a></th>
 
 						<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
@@ -347,12 +346,11 @@
 								style="color: #000000;"
 							#end
 						><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr>
-
-						#if($search.listorder == 'companyname')
-							#showSortArrows($search.sortDirection)
-						#else
-							<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-						#end
+							#if($search.listorder == 'companyname')
+								#showSortArrows($search.sortDirection)
+							#else
+								<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+							#end
 						</a></th>
 
 						<th><a href="javascript:orderGuestList('lastname_a_e1');"
