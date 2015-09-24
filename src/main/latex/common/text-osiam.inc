@@ -30,9 +30,9 @@ RAM: 960 nur OSIAM (1536 rec), 1024 mit VW+VWOA (2048 rec)
 
 Downloads:
 
-http://maven-repo.evolvis.org/releases/org/osiam/osiam-auth-server/\vwiaversosiam{}/osiam-auth-server-\vwiaversosiam{}.war
+http://maven-repo.evolvis.org/releases/org/osiam/auth-server/\vwiaversosiam{}/auth-server-\vwiaversosiam{}.war
 
-http://maven-repo.evolvis.org/releases/org/osiam/osiam-resource-server/\vwiaversosiam{}/osiam-resource-server-\vwiaversosiam{}.war
+http://maven-repo.evolvis.org/releases/org/osiam/resource-server/\vwiaversosiam{}/resource-server-\vwiaversosiam{}.war
 
 DB-Konfig (Default-PW ong):
 
@@ -52,6 +52,7 @@ Anpassen: /etc/tomcat7/catalina.properties /^shared.loader=/s!$!,/etc/osiam!
 Anpassen: /etc/default/tomcat7 /-Xmx128m/ entweder /-Xmx512m/ (bis 1¼ GiB RAM) oder /-Xms512m -Xmx1024m/ (ab 1¼ GiB RAM)
 
 Tomcat neustarten, dann WARs rein als osiam-auth-server.war und osiam-resource-server.war umbenannt.
+XXX tbd: auch nach dem Rename?
 
 Wait until deployed (takes more than 3 minutes).
 Check if started: curl http://localhost:8080/osiam-resource-server/ServiceProviderConfigs
