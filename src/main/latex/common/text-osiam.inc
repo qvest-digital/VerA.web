@@ -52,7 +52,6 @@ Anpassen: /etc/tomcat7/catalina.properties /^shared.loader=/s!$!,/etc/osiam!
 Anpassen: /etc/default/tomcat7 /-Xmx128m/ entweder /-Xmx512m/ (bis 1¼ GiB RAM) oder /-Xms512m -Xmx1024m/ (ab 1¼ GiB RAM)
 
 Tomcat neustarten, dann WARs rein als osiam-auth-server.war und osiam-resource-server.war umbenannt.
-XXX tbd: auch nach dem Rename?
 
 Wait until deployed (takes more than 3 minutes).
 Check if started: curl http://localhost:8080/osiam-resource-server/ServiceProviderConfigs
