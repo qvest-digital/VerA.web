@@ -23,6 +23,7 @@ import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Person;
+import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
@@ -236,15 +237,29 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
         buildGuestSelect(select, freitextfeld);
 
-        final List order = buildOrderedGuestList(search, freitextfeld);
+        final List order = buildOrderedGuestList(cntx, search, freitextfeld);
 
 		select.orderBy(DatabaseHelper.getOrder(order));
 	}
 
-    private List buildOrderedGuestList(final GuestSearch search, Integer freitextfeld) {
+    private List buildOrderedGuestList(OctopusContext octopusContext, final GuestSearch search, Integer freitextfeld) {
         final List order = new ArrayList();
 		order.add("ishost");
-		order.add("ASC");
+
+        if (search.sortDirection == null || search.lastlistorder == null || !search.lastlistorder.equals(search.listorder)) {
+            search.sortDirection = "ASC";
+//            order.add("ASC");
+        } else if ("ASC".equals(search.sortDirection) && search.lastlistorder.equals(search.lastlistorder)) {
+            search.sortDirection = "DESC";
+//            order.add("DESC");
+        } else if ("DESC".equals(search.sortDirection) && search.lastlistorder.equals(search.lastlistorder)) {
+            search.sortDirection = "ASC";
+//            order.add("ASC");
+        }
+
+        octopusContext.setSession("search" + BEANNAME, search);
+
+
 		if (search == null || search.listorder == null) {
 			order.add("someorderno");
 			order.add("tcategorie.rank");
@@ -258,40 +273,63 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 			}
 		} else if (search.listorder.equals("orderno")) {
                 order.add("someorderno");
+                order.add(search.sortDirection);
         } else if (search.listorder.equals("lastname_a_e1")) {
 			if (freitextfeld != null) {
 				order.add("lastname_a_gd");
+                order.add(search.sortDirection);
 				order.add("firstname_a_gd");
+                order.add(search.sortDirection);
 			} else {
 				order.add("lastname_a_e1");
+                order.add(search.sortDirection);
 				order.add("firstname_a_e1");
+                order.add(search.sortDirection);
 			}
+
 		} else if (search.listorder.equals("firstname_a_e1")) {
 			if (freitextfeld != null) {
 				order.add("firstname_a_gd");
+                order.add(search.sortDirection);
 				order.add("lastname_a_gd");
+                order.add(search.sortDirection);
 			} else {
 				order.add("firstname_a_e1");
+                order.add(search.sortDirection);
 				order.add("lastname_a_e1");
+                order.add(search.sortDirection);
 			}
+
 		} else if (search.listorder.equals("mail_a_e1")) {
 			order.add("mail_a_e1");
+            order.add(search.sortDirection);
 			if (freitextfeld != null) {
 				order.add("lastname_a_gd");
+                order.add(search.sortDirection);
 				order.add("firstname_a_gd");
+                order.add(search.sortDirection);
 			} else {
 				order.add("lastname_a_e1");
+                order.add(search.sortDirection);
 				order.add("firstname_a_e1");
+                order.add(search.sortDirection);
 			}
+
 		} else if(search.listorder.equals("companyname")) {
             order.add("company_a_e1");
+            order.add(search.sortDirection);
             if (freitextfeld != null) {
                 order.add("lastname_a_gd");
+                order.add(search.sortDirection);
                 order.add("firstname_a_gd");
+                order.add(search.sortDirection);
             } else {
                 order.add("lastname_a_e1");
+                order.add(search.sortDirection);
                 order.add("firstname_a_e1");
+                order.add(search.sortDirection);
             }
+
         }
         return order;
     }
@@ -581,6 +619,15 @@ public class GuestListWorker extends ListWorkerVeraWeb {
          */
         if (search == null) {
             search = new GuestSearch();
+        }
+
+
+        GuestSearch sessionSearchGuest = (GuestSearch) cntx.sessionAsObject("search" + BEANNAME);
+
+        if (sessionSearchGuest != null) {
+            search.lastlistorder = sessionSearchGuest.listorder; /* Gets the last string order of the session SearchPerson object
+            and set it to the new session. */
+            search.sortDirection = sessionSearchGuest.sortDirection;
         }
 
         cntx.setSession("search" + BEANNAME, search);

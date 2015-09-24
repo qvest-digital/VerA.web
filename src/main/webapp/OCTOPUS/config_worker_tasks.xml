@@ -1354,7 +1354,9 @@
 			<doTask name="Load"/>
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker" />
-			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<status equals="noevent">
+					<doTask name="CreateEvent"/>
+			</status>
 			<action name="saveList" worker="GuestListWorker"/>
 			<action name="showList" worker="GuestListWorker"/>
 			<action name="getSums" worker="GuestListWorker"/>

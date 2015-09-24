@@ -57,3 +57,12 @@
 	#else ${placeholderWithTranslation.GENERIC_ERROR}
 	#end
 #end
+
+#macro(showSortArrows $direction)
+	#if ($direction == 'ASC')
+		<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
+	#elseif ($direction == 'DESC')
+		<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+	#end
+#end
+

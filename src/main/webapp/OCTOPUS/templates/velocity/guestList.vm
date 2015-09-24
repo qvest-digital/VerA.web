@@ -107,7 +107,7 @@
 				<input type="hidden" name="selectAll" value="false">
 				<input type="hidden" name="selectNone" value="true">
 				<input type="hidden" name="search-event" value="$search.event">
-				<input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder">
+				<input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder"/>
 
 				<h3 class="marginBottom0">${placeholderWithTranslation.filter}</h3>
 
@@ -324,51 +324,74 @@
    				<col width="$column8%" />
 
 				<tr>
-					<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
-			#if($search.listorder == "lastname_a_e1")
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
-					<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
-					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
-					<th><a href="javascript:orderGuestList('lastname_a_e1');" style="color: #000000;">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
-					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
-			#elseif($search.listorder == "firstname_a_e1")
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
-					<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
-					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
-					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');" style="color: #000000;">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
-					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
-			#elseif($search.listorder == "mail_a_e1")
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
-					<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
-					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
-					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
-					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');" style="color: #000000;">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
-			#elseif($search.listorder == "companyname")
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
-					<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
-					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
-					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
-					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
+					<!-- BEGIN OF COLUMNS TO ORDER -->
+						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 
-			#elseif($search.listorder == "orderno")
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
-					<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
-					<th><a href="javascript:orderGuestList('companyname');"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
-					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
-					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
-			#else
-					<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');" style="color: #000000;"><nobr>${placeholderWithTranslation.lfdnr}</nobr></a></th>
-					<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
-					<th><a href="javascript:orderGuestList('companyname');" style="color: #000000;"><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr></a></th>
-					<th><a href="javascript:orderGuestList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_NAME}</a></th>
-					<th><a href="javascript:orderGuestList('firstname_a_e1');">${placeholderWithTranslation.GENERIC_FIRSTNAME}</a></th>
-					<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}</a></th>
-			#end
+						<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"
+							#if($search.listorder == "orderno")
+								style="color: #000000;"
+							#end
+						><nobr>${placeholderWithTranslation.lfdnr}</nobr>
+							#if($search.listorder == 'orderno')
+								#showSortArrows($search.sortDirection)
+							#else
+								<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+							#end
+
+						</a></th>
+
+						<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+
+						<th><a href="javascript:orderGuestList('companyname');"
+							#if($search.listorder == "companyname")
+								style="color: #000000;"
+							#end
+						><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr>
+
+						#if($search.listorder == 'companyname')
+							#showSortArrows($search.sortDirection)
+						#else
+							<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+						#end
+						</a></th>
+
+						<th><a href="javascript:orderGuestList('lastname_a_e1');"
+							#if($search.listorder == "lastname_a_e1")
+								style="color: #000000;"
+							#end
+						>${placeholderWithTranslation.GENERIC_NAME}
+							#if($search.listorder == 'lastname_a_e1')
+								#showSortArrows($search.sortDirection)
+							#else
+								<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+							#end
+						</a></th>
+
+						<th><a href="javascript:orderGuestList('firstname_a_e1');"
+							#if($search.listorder == "firstname_a_e1")
+								style="color: #000000;"
+							#end
+						>${placeholderWithTranslation.GENERIC_FIRSTNAME}
+							#if($search.listorder == 'firstname_a_e1')
+								#showSortArrows($search.sortDirection)
+							#else
+								<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+							#end
+						</a></th>
+
+						<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');"
+							#if($search.listorder == "mail_a_e1")
+								style="color: #000000;"
+							#end
+						>${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}
+						#if($search.listorder == 'mail_a_e1')
+							#showSortArrows($search.sortDirection)
+						#else
+							<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+						#end
+
+						</a></th>
+					<!-- END OF COLUMNS TO ORDER -->
 
 			#if($userConfig.guestListFunction)
 					<th style="padding: 10px">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</th>
