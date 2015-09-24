@@ -30,14 +30,22 @@ public class GuestSearch extends AbstractBean {
 	public Integer event;
 	public Integer offset;
 	public Integer count;
-	/** Gibt an ob nach Platz / Reserve gefiltert werden soll. */
+	/**
+	 * Gibt an ob nach Platz / Reserve gefiltert werden soll.
+	 */
 	public Integer reserve;
-	/** Gibt an ob nach Offene / Zusagen / Absagen gefiltert werden soll. */
+	/**
+	 * Gibt an ob nach Offene / Zusagen / Absagen gefiltert werden soll.
+	 */
 	public Integer invitationstatus;
-	/** Gibt an in welcher Sortierreihenfolge die Gästeliste angezeigt werden soll.*/
+	/**
+	 * Gibt an in welcher Sortierreihenfolge die Gästeliste angezeigt werden soll.
+	 */
 	public String listorder; // orderno, lastname, firstname, email
 	public String lastlistorder;
 	public String sortDirection; // ASC, DESC
-	/** Gibt an nach welcher kategorie gefiltert werden soll*/
+	/**
+	 * Gibt an nach welcher kategorie gefiltert werden soll
+	 */
 	public String category;
 }
