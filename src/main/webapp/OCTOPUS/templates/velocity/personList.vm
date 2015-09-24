@@ -32,16 +32,13 @@
 	#set($column9 = 0)
 	#set($column10 = 0)
 
-
 #elseif($action == "statistikGuest")
 	#set($activeMenu = "Veranstaltungen")
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_GUEST_SELECT}")
 
-
 #elseif($action == "statistikHost")
 	#set($activeMenu = "Veranstaltungen")
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_GUEST_HOST_SELECT}")
-
 
 #elseif($action == "replace")
 	#set($activeMenu = "Personen")
@@ -60,7 +57,6 @@
 	#set($column9 = 13)
 	#set($column10 = 0)
 
-
 #elseif($action == "duplicateSearch")
 	#set($activeMenu = "Personen")
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_DUPLICATE_SEARCH}")
@@ -78,7 +74,6 @@
 	#set($column9 = 7)
 	#set($column10 = 13)
 
-
 #elseif($action == "taskReferencePerson")
 	#set($activeMenu = "Veranstaltungen")
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_TASK_ADD_RESPONSIBLE}")
@@ -95,7 +90,6 @@
 	#set($column8 = 0)
 	#set($column9 = 0)
 	#set($column10 = 0)
-
 
 #else
 	#set($activeMenu = "Personen")
@@ -233,10 +227,6 @@
 		<input type="hidden" name="searchField" value="$octopusRequest.getParam("searchField")" />
 	#end
 
-
-
-
-
 			## Handler für selektierte Aktion
 <script>
 	var personModel = (function () {
@@ -268,7 +258,6 @@
 		};
 
 	}());
-
 
     var showDeleteMessages = function () {
         #if(!$grants.mayWrite())
