@@ -313,13 +313,15 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     }
 
     private void getSortDirection(GuestSearch search) {
-        if (search.sortDirection == null || search.lastlistorder == null || !search.lastlistorder.equals(search.listorder)) {
-            search.sortDirection = "ASC";
-        } else if ("ASC".equals(search.sortDirection) && search.lastlistorder.equals(search.lastlistorder)) {
-            search.sortDirection = "DESC";
-        } else if ("DESC".equals(search.sortDirection) && search.lastlistorder.equals(search.lastlistorder)) {
-            search.sortDirection = "ASC";
-        }
+    	if (search.sortList) {
+	        if (search.sortDirection == null || search.lastlistorder == null || !search.lastlistorder.equals(search.listorder)) {
+	            search.sortDirection = "ASC";
+	        } else if ("ASC".equals(search.sortDirection)) {
+	            search.sortDirection = "DESC";
+	        } else if ("DESC".equals(search.sortDirection)) {
+	            search.sortDirection = "ASC";
+	        } 
+    	}
     }
 
     private void buildGuestSelect(Select select, Integer freitextfeld) {
@@ -587,6 +589,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      */
     public GuestSearch getSearch(OctopusContext octopusContext) throws BeanException {
         PropertiesReader propertiesReader = new PropertiesReader();
+        Boolean sortList = octopusContext.requestAsBoolean("sortList");
+
 
         if (propertiesReader.propertiesAreAvailable()) {
             octopusContext.setContent("delegationCanBeUsed", true);
@@ -621,10 +625,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         GuestSearch sessionSearchGuest = (GuestSearch) octopusContext.sessionAsObject("search" + BEANNAME);
 
         if (sessionSearchGuest != null) {
-            search.lastlistorder = sessionSearchGuest.listorder; /* Gets the last string order of the session SearchPerson object
-            and set it to the new session. */
+        	/* 
+        	 * Gets the last string order of the session SearchPerson object and set it to the new session. 
+            */
+            search.lastlistorder = sessionSearchGuest.listorder; 
             search.sortDirection = sessionSearchGuest.sortDirection;
         }
+        search.sortList = sortList;
 
         octopusContext.setSession("search" + BEANNAME, search);
         return search;

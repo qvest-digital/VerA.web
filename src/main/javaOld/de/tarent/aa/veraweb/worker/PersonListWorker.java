@@ -424,11 +424,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			if (personSearch.sort == null || personSearch.lastlistorder == null ||
 					!personSearch.lastlistorder.equals(personSearch.listorder)) {
 				personSearch.sort = "ASC";
-			} else if ("ASC".equals(personSearch.sort) &&
-					personSearch.lastlistorder.equals(personSearch.lastlistorder)) {
+			} else if ("ASC".equals(personSearch.sort)) {
 				personSearch.sort = "DESC";
-			} else if ("DESC".equals(personSearch.sort) &&
-					personSearch.lastlistorder.equals(personSearch.lastlistorder)) {
+			} else if ("DESC".equals(personSearch.sort)) {
 				personSearch.sort = "ASC";
 			}
 		}

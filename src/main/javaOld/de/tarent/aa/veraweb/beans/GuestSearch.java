@@ -48,4 +48,5 @@ public class GuestSearch extends AbstractBean {
 	 * Gibt an nach welcher kategorie gefiltert werden soll
 	 */
 	public String category;
+	public Boolean sortList;
 }
