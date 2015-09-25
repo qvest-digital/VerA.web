@@ -426,7 +426,7 @@
                     </execution>
                     <execution>
                         <id>exec-bower-install</id>
-                        <phase></phase>
+                        <phase>initialize</phase>
                         <configuration>
                             <workingDirectory>src/main/webroot-src/</workingDirectory>
                             <executable>bower</executable>
