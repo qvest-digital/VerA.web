@@ -1,6 +1,7 @@
 FROM debian:jessie
 
-MAINTAINER Christian Luginbühl <dinkel@pimprecords.com>
+MAINTAINER Dmytro Pishchukhin <dp@knowhowlab.org>
+#MAINTAINER Christian Luginbühl <dinkel@pimprecords.com>
 
 ENV OPENLDAP_VERSION 2.4.40
 
@@ -14,7 +15,7 @@ RUN mv /etc/ldap /etc/ldap.dist
 
 EXPOSE 389
 
-VOLUME ["/etc/ldap", "/var/lib/ldap"]
+VOLUME ["/etc/ldap", "/var/lib/ldap", "/bootstrap/data"]
 
 COPY modules/ /etc/ldap.dist/modules
 

@@ -80,6 +80,14 @@ EOF
         done
     fi
 
+    if [[ -n "$SLAPD_BOOTSTRAP_DATA_FILES" ]]; then
+        IFS=","; declare -a datafiles=($SLAPD_BOOTSTRAP_DATA_FILES)
+
+        for datafile in "${datafiles[@]}"; do
+             slapadd -n1 -F /etc/ldap/slapd.d -l "/bootstrap/data/${datafile}.ldif" >/dev/null 2>&1
+        done
+    fi
+
     chown -R openldap:openldap /etc/ldap/slapd.d/
 else
     slapd_configs_in_env=`env | grep 'SLAPD_'`

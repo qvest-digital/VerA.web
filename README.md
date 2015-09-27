@@ -11,18 +11,24 @@ NOTE: On purpose, there is no secured channel (TLS/SSL), because I believe that
 this service should never be exposed to the internet, but only be used directly
 by other Docker containers using the `--link` option.
 
+New features
+------------
+
+Additionally to original image [dinkel/openldap](https://hub.docker.com/r/dinkel/openldap/), 
+a new volume `/bootstrap/data` and a new variable `SLAPD_BOOTSTRAP_DATA_FILES` added.
+
 Usage
 -----
 
 The most simple form would be to start the application like so (however this is
 not the recommended way - see below):
 
-    docker run -d -p 389:389 -e SLAPD_PASSWORD=mysecretpassword -e SLAPD_DOMAIN=ldap.example.org dinkel/openldap
+    docker run -d -p 389:389 -e SLAPD_PASSWORD=mysecretpassword -e SLAPD_DOMAIN=ldap.example.org knowhowlab/openldap
 
 To get the full potential this image offers, one should first create a data-only
 container (see "Data persistence" below), start the OpenLDAP daemon as follows:
 
-    docker run -d -name openldap --volumes-from your-data-container dinkel/openldap
+    docker run -d -name openldap --volumes-from your-data-container knowhowlab/openldap
 
 An application talking to OpenLDAP should then `--link` the container:
 
@@ -66,7 +72,7 @@ installed using the
 
     SLAPD_ADDITIONAL_SCHEMAS
 
-environment variable with comma-separated enties. As of writing these
+environment variable with comma-separated entries. As of writing these
 instructions, there are the following additional schemas available:
 `collective`, `corba`, `duaconf`, `dyngroup`, `java`, `misc`, `openldap`, `pmi`
 and `ppolicy`.
@@ -78,18 +84,27 @@ called
 
     SLAPD_ADDITIONAL_MODULES
 
-which can hold comma-separated enties. It will try to run `.ldif` files with
-a corresponsing name from the `module` directory. Currently only `memberof` is
-avaliable.
+which can hold comma-separated entries. It will try to run `.ldif` files with
+a corresponding name from the `module` directory. Currently only `memberof` is
+available.
+
+
+A container could be initialized with data files that are stored in volume `/bootstrap/data`
+and configured with an optional environment variable called
+
+    SLAPD_BOOTSTRAP_DATA_FILES
+    
+which can hold comma-separated entries. It will try to run `.ldif` files with
+a corresponding name from `/bootstrap/data` directory. 
 
 After the first start of the image (and the initial configuration), these
-envirnonment variables are not evaluated anymore.
+environment variables are not evaluated anymore.
 
 Data persistence
 ----------------
 
-The image exposes two directories (`VOLUME ["/etc/ldap", "/var/lib/ldap"]`).
+The image exposes three directories (`VOLUME ["/etc/ldap", "/var/lib/ldap", "/bootstrap/data"]`).
 The first holds the "static" configuration while the second holds the actual
 database. Please make sure that these two directories are saved (in a data-only
 container or alike) in order to make sure that everything is restored after a
-restart of the container.
+restart of the container. The third one is used only during initialization phase. 
