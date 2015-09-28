@@ -48,5 +48,5 @@
     "type": "simple"
   },
   "verawebEndpoint": "https://HOSTNAME/vwor",
-  "filesLocation": "/tmp/"
+  "filesLocation": "/var/lib/vwoa/files/"
 }
