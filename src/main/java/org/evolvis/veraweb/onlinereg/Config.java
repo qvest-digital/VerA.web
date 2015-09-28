@@ -45,9 +45,6 @@ public class Config extends Configuration {
     
     @JsonProperty
     private AuthConfig restauth;
-
-	@JsonProperty
-	private String filesLocation;
     
     @Valid
     @NotNull
@@ -78,6 +75,4 @@ public class Config extends Configuration {
 	public AuthConfig getRestauth() {
 		return restauth;
 	}
-
-	public String getFilesLocation() { return filesLocation; }
 }
