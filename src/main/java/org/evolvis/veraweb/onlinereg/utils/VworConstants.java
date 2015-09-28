@@ -24,9 +24,6 @@ package org.evolvis.veraweb.onlinereg.utils;
  */
 public class VworConstants {
 
-    /** Destination folder to store Photos */
-        public static final String DESTINY_PATH_FILE_UPLOAD = "/tmp/";
-
     /** Responses from File upload mechanismus */
         public static final String UPLOAD_OK = "OK";
         public static final String UPLOAD_ERROR = "FILE_UPLOAD_ERROR";

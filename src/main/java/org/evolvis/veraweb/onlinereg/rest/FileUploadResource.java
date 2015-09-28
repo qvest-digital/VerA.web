@@ -31,6 +31,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -49,17 +50,18 @@ public class FileUploadResource extends AbstractResource {
     /**
      * Storing incomming image into file system
      *
-     * @param image the image
-     * @param extension the extension (.jpg, .jpeg or .png)
-     * @param imgUUID the uuid of the photo (by guest)
-     * @param personId the person ID of the guest
-     * @return the response string
+     * @param imageStringData
+     * @param extension
+     * @param imgUUID
+     * @param filesLocation
+     * @throws IOException
      */
     @POST
     @Path("/save")
     public void saveImageIntoDataSystem(@FormParam("imageStringData") String imageStringData,
                                         @FormParam("extension") String extension,
-                                        @FormParam("imageUUID") String imgUUID) throws IOException {
+                                        @FormParam("imageUUID") String imgUUID,
+                                        @FormParam("filesLocation") String filesLocation) throws IOException {
 
         BufferedImage image = null;
         byte[] imageByte;
@@ -82,7 +84,7 @@ public class FileUploadResource extends AbstractResource {
         }
 
         String imageName = generateImageName(imgUUID);
-        File fileToStore = new File(VworConstants.DESTINY_PATH_FILE_UPLOAD + imageName);
+        File fileToStore = new File(filesLocation + imageName);
         ImageIO.write(image, VworConstants.EXTENSION_JPG, fileToStore);
 
     }
@@ -93,9 +95,11 @@ public class FileUploadResource extends AbstractResource {
      * @return Base64 data
      */
     @GET
-    @Path("/download/{imgUUID}")
-    public String getImageByUUID(@PathParam("imgUUID") String imgUUID) throws IOException {
-        File file = new File(VworConstants.DESTINY_PATH_FILE_UPLOAD + generateImageName(imgUUID));
+    @Path("/download")
+    public String getImageByUUID(@QueryParam("imgUUID") String imgUUID, @QueryParam("filesLocation") String filesLocation)
+            throws IOException {
+
+        File file = new File(filesLocation + generateImageName(imgUUID));
 
         BufferedImage image = ImageIO.read(file);
 
