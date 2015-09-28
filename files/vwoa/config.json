@@ -1,5 +1,4 @@
 {
-  "filesLocation": "/var/lib/vwoa/files/",
   "logging": {
     "appenders": [
       {
