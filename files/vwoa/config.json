@@ -1,4 +1,5 @@
 {
+  "filesLocation": "/var/lib/vwoa/files/",
   "logging": {
     "appenders": [
       {
@@ -47,6 +48,5 @@
     },
     "type": "simple"
   },
-  "verawebEndpoint": "https://HOSTNAME/vwor",
-  "filesLocation": "/var/lib/vwoa/files/"
+  "verawebEndpoint": "https://HOSTNAME/vwor"
 }
