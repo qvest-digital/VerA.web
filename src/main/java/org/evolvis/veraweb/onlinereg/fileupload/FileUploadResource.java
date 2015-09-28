@@ -112,9 +112,8 @@ public class FileUploadResource {
 	@Path("/download/{imgUUID}")
 	public String downloadGuestImage(@PathParam("imgUUID") String imgUUID) throws IOException {
 
-
 		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/fileupload/download")
-				.queryParam("imgUUID", imgUUID).queryParam("filesLocation", config.getFilesLocation());
+				.queryParam("imgUUID", imgUUID);
 
 		String encodedImage = null;
 
@@ -140,13 +139,13 @@ public class FileUploadResource {
 		postBody.add("imageStringData", imageStringData);
 		postBody.add("extension", extension);
 		postBody.add("imageUUID", imgUUID);
-		postBody.add("filesLocation", config.getFilesLocation());
 
 		resource.post(postBody);
 	}
      
 	private String removeHeaderFromImage(String imageString) {
-		if (getImageType(imageString).equals(VerawebConstants.EXTENSION_JPG) || getImageType(imageString).equals(VerawebConstants.EXTENSION_PNG))
+		if (getImageType(imageString).equals(VerawebConstants.EXTENSION_JPG) ||
+				getImageType(imageString).equals(VerawebConstants.EXTENSION_PNG))
 			return imageString.substring(22);
 		if (getImageType(imageString).equals(VerawebConstants.EXTENSION_JPEG))
 			return imageString.substring(23);
