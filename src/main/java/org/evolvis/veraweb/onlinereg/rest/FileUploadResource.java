@@ -21,6 +21,7 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
+import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -39,6 +40,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Properties;
 
 /**
  * @author Jon Nuñez, tarent solutions GmbH on 02.07.15.
@@ -53,15 +55,17 @@ public class FileUploadResource extends AbstractResource {
      * @param imageStringData
      * @param extension
      * @param imgUUID
-     * @param filesLocation
      * @throws IOException
      */
     @POST
     @Path("/save")
     public void saveImageIntoDataSystem(@FormParam("imageStringData") String imageStringData,
                                         @FormParam("extension") String extension,
-                                        @FormParam("imageUUID") String imgUUID,
-                                        @FormParam("filesLocation") String filesLocation) throws IOException {
+                                        @FormParam("imageUUID") String imgUUID) throws IOException {
+
+        VworPropertiesReader vworPropertiesReader = new VworPropertiesReader();
+        String filesLocation = vworPropertiesReader.getProperty("filesLocation");
+
 
         BufferedImage image = null;
         byte[] imageByte;
@@ -96,8 +100,11 @@ public class FileUploadResource extends AbstractResource {
      */
     @GET
     @Path("/download")
-    public String getImageByUUID(@QueryParam("imgUUID") String imgUUID, @QueryParam("filesLocation") String filesLocation)
+    public String getImageByUUID(@QueryParam("imgUUID") String imgUUID)
             throws IOException {
+
+        VworPropertiesReader vworPropertiesReader = new VworPropertiesReader();
+        String filesLocation = vworPropertiesReader.getProperty("filesLocation");
 
         File file = new File(filesLocation + generateImageName(imgUUID));
 
