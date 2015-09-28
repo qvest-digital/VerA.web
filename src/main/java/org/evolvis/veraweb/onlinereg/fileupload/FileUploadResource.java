@@ -112,7 +112,10 @@ public class FileUploadResource {
 	@Path("/download/{imgUUID}")
 	public String downloadGuestImage(@PathParam("imgUUID") String imgUUID) throws IOException {
 
-		WebResource resource = client.resource(path("fileupload","download", imgUUID));
+
+		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/fileupload/download")
+				.queryParam("imgUUID", imgUUID).queryParam("filesLocation", config.getFilesLocation());
+
 		String encodedImage = null;
 
 		try {
@@ -137,6 +140,7 @@ public class FileUploadResource {
 		postBody.add("imageStringData", imageStringData);
 		postBody.add("extension", extension);
 		postBody.add("imageUUID", imgUUID);
+		postBody.add("filesLocation", config.getFilesLocation());
 
 		resource.post(postBody);
 	}
