@@ -10,8 +10,6 @@ restauth:
   username: veraweb
   password: veraweb
 
-filesLocation: /tmp/
-
 ## start WireMock:
 # cd src/test/resources/wiremock
 # java -jar /path/to/wirekmock.jar --port 9090
