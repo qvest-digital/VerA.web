@@ -22,6 +22,8 @@
 
 Pakete: openjdk-7-jre-headless apache2-mpm-prefork apache2 libapache2-mod-jk daemontools-run
 
+mkdir /var/lib/vwoa/files (Owner: der, als der VWOA läuft)
+
 Kann anderes System als -core sein. Falls ja, Apache gleich aufsetzen.
 
 a2enmod proxy\_http
