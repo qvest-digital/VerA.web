@@ -19,8 +19,22 @@
  */
 package de.tarent.aa.veraweb.worker;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.UniformInterfaceException;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
+import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.octopus.server.OctopusContext;
+import org.evolvis.veraweb.onlinereg.entities.Event;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.*;
+import java.util.List;
 
 /**
  * Einfacher Worker, der User-Aktionen verwaltet und dazu den
@@ -36,6 +50,7 @@ public class ActionWorker {
 	public static final boolean[] MANDATORY_load = { false };
     /** Octopus-Ausgabe-Parameter für {@link #load(OctopusContext, String)} */
 	public static final String OUTPUT_load = "action";
+	public static final String[] INPUT_test= {};
 
     /**
      * Diese Worker-Aktion ermittelt aus Request und Session die aktuelle
@@ -89,4 +104,6 @@ public class ActionWorker {
 	private void loadOnlineRegistrationConfig(OctopusContext cntx) {
 		cntx.setContent(ONLINEREG_ACTIVATION, OnlineRegistrationHelper.isOnlineregActive(cntx));
 	}
+
+
 }
