@@ -32,7 +32,6 @@ import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.statement.Delete;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
@@ -58,7 +57,6 @@ import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.server.OctopusContext;
-import org.osiam.bundled.org.apache.commons.codec.language.bm.Lang;
 
 /**
  * Dieser Octopus-Worker dient der Anzeige und Bearbeitung von Details von Gästen.
@@ -228,6 +226,10 @@ public class GuestDetailWorker extends GuestListWorker {
      */
     public void saveDetail(OctopusContext octopusContext) throws Exception {
         Request request = getRequest(octopusContext);
+
+        String base64Image = getBase64Image(request);
+        // TODO Save the image using REST API (vvwor) - WIP
+
         Database database = getDatabase(octopusContext);
         TransactionContext context = database.getTransactionContext();
 
@@ -282,6 +284,15 @@ public class GuestDetailWorker extends GuestListWorker {
         catch (BeanException e) {
             context.rollBack();
         }
+    }
+
+    private String getBase64Image(Request request) throws BeanException {
+        String[] imageInfo = (String[]) request.getField("baseInfoImage");
+        if (imageInfo != null) {
+            return imageInfo[0];
+        }
+
+        return null;
     }
 
     private Guest getGuestEntity(Request request, Database database, Map<String, Object> allRequestParams) throws BeanException, IOException {

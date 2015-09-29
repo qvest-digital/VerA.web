@@ -1,6 +1,32 @@
+<script type="text/javascript">
+   function readImage(input) {
+       if ( input.files && input.files[0] ) {
+           var FR= new FileReader();
+           FR.onload = function(e) {
+                $('#img').attr( "src", e.target.result );
+                $('#base').val(e.target.result);
+           };
+           FR.readAsDataURL( input.files[0] );
+       }
+   }
+
+   $("#asd").change(function(){
+       readImage( this );
+   });
+</script>
+
 <div class="table width100">
 	<div>
-		<div class="tableCell width20"><img src="/veraweb/images/boy-silhouette.jpg"/></div>
+		<!-- <div class="tableCell width20"><img src="/veraweb/images/boy-silhouette.jpg"/></div> -->
+
+		<div class="tableCell width20">
+			<img id="img" src="/veraweb/images/boy-silhouette.jpg" /><br/>
+			<input type="file" id="asd" /><br/>
+			<input id="base" type="hidden" name="baseInfoImage" />
+		</div>
+
+
+
 		<div class="tableCell width80">
 			<div class="tableRow">
         		<div class="tableCell width50">
