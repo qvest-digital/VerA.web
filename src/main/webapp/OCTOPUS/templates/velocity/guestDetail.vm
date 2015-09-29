@@ -216,15 +216,16 @@
                             #end
                         #end
 
-                        #if($person.deleted != "t" && $guest.invitationtype != 3)
-                            #parse("inc/guestMasterDataNote.vm")
-                        #end
-
                         <div id="detail-2-data-block" #if($guest.invitationtype == 3) style="display: none;"#end>
                         #set($ext = "_a")
                         #set($facade = $guest.Main)
                         #parse("inc/guest-member.vm")
                         </div>
+
+                        #if($person.deleted != "t" && $guest.invitationtype != 3)
+                            #parse("inc/guestMasterDataNote.vm")
+                        #end
+
                         <div id="detail-2-reload-block" #if($guest.invitationtype != 3) style="display: none;"#end>
                             <vera-info vera-stay>
                                	${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_MAIN_PERSON}.
