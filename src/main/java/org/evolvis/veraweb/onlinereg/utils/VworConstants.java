@@ -20,7 +20,7 @@
 package org.evolvis.veraweb.onlinereg.utils;
 
 /**
- * @Author Jon Nuñez, tarent solutions GmbH on 02.07.15.
+ * @author Jon Nuñez, tarent solutions GmbH on 02.07.15.
  */
 public class VworConstants {
 
