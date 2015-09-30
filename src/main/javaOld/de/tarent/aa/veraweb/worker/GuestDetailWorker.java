@@ -305,11 +305,12 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void setGuestImageUUID(VworUtils vworUtils, Guest guest) throws IOException, BeanException {
         if (guest.image_uuid == null) {
-            guest.image_uuid = vworUtils.generateImageUUID(); 
+            guest.image_uuid = vworUtils.generateImageUUID();
         }
     }
 
-    private void sendImageToVwor(VworUtils vworUtils, String extension, String imageData, String imageUUID) throws IOException {
+    private void sendImageToVwor(VworUtils vworUtils, String extension, String imageData, String imageUUID)
+            throws IOException {
         final Client client = Client.create();
         client.addFilter(new HTTPBasicAuthFilter("veraweb", "veraweb"));
 
@@ -332,14 +333,10 @@ public class GuestDetailWorker extends GuestListWorker {
         return null;
     }
 
-    private Guest getGuestEntity(Request request, Database database, Map<String, Object> allRequestParams) throws BeanException, IOException {
-//        Guest guest = (Guest) request.getBean("Guest", "guest");
-
-//        if (guest.id == null) {
-            Integer guestId = Integer.valueOf(allRequestParams.get("guest-id").toString());
-            Guest guest = (Guest) database.getBean("Guest", guestId);
-//        }
-        return guest;
+    private Guest getGuestEntity(Request request, Database database, Map<String, Object> allRequestParams)
+            throws BeanException, IOException {
+        Integer guestId = Integer.valueOf(allRequestParams.get("guest-id").toString());
+        return (Guest) database.getBean("Guest", guestId);
     }
 
     private void updateGuestRemoveNotehost(OctopusContext octopusContext, Database database,

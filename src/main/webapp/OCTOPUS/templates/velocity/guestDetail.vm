@@ -74,7 +74,6 @@
                         <input type="hidden" name="guestId" value="$!guest.id">
                         <input type="hidden" name="eventId" value="$!event.id">
                         <input type="hidden" name="id" value="$!guest.id">
-                        <!-- <input type="hidden" name="guest-id" value="$!guest.id"> -->
                         <input type="hidden" name="guest-event" value="$!guest.event">
                         <input type="hidden" name="guest-person" value="$!guest.person">
                         <input type="hidden" name="guest-orderno_a" value="$!guest.orderno_a">
@@ -88,8 +87,6 @@
                             ${placeholderWithTranslation.diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten}.
                         </vera-info>
                         #end
-
-
 
                         #openContentBlock("detail-1-block")
 
