@@ -25,13 +25,17 @@
 Im folgenden wird das Upgrade der einzelnen Komponenten
 nach erfolgtem Download der Installationspakete beschrieben.
 
-Hierbei wird davon ausgegangen, daß VerA.web gemäß dem Abschnitt
-\nameref{sec:setup-int} der vorliegenden Anleitung, oder einer
-ähnlich aufgebauten Anleitung einer Vorgängerversion, auf einem
-Debian Linux 7 „wheezy“-System eingerichtet wurde. Installationen
-gemäß früherer Anleitungen der tarent solutions GmbH, die abweichende
-Verfahren z.B. in der Webserverkonfiguration benutzten, werden
-ebenfalls unterstützt, benötigen aber ggfs. Anpassungen.
+Hierbei wird davon ausgegangen, daß VerA.web gemäß
+ \ifupgradeanleitung
+  unserer Installationsanleitung
+ \else
+  dem Abschnitt \nameref{sec:setup-int} der vorliegenden Anleitung,
+  oder einer ähnlich aufgebauten Anleitung einer Vorgängerversion,
+ \fi
+auf einem Debian Linux 7 „wheezy“-System eingerichtet wurde.
+Installationen gemäß früherer Anleitungen der tarent solutions GmbH,
+die abweichende Verfahren z.B. in der Webserverkonfiguration benutzten,
+werden ebenfalls unterstützt, benötigen aber ggfs. Anpassungen.
 
 Falls Sie weitergehende Anpassungen, z.B. an den Velocity-Templates
 für die Webseiten, vorgenommen haben müssen Sie die Änderungen
