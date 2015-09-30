@@ -232,13 +232,6 @@ public class DelegationResource {
 		return person;
 	}
 
-	/**
-	 *
-	 * @param uuid
-	 * @param personId
-	 * @return
-	 * @throws IOException
-	 */
 	@GET
 	@Path("/load/category/{uuid}/{personId}")
     public String loadDelegateCategory(@PathParam("uuid") String uuid, @PathParam("personId") String personId)
