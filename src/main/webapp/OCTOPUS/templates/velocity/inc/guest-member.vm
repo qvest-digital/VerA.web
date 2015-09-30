@@ -12,14 +12,28 @@
 
    $("#asd").change(function(){
        readImage( this );
+        $('div.fakeButton').text('${placeholderWithTranslation.CONTACT_PICTURE_CHANGE}');
    });
+
+
+   function upload(){
+	   document.getElementById('asd').click();
+   }
 </script>
 
 <div class="table width100">
 	<div>
 		<div class="tableCell width20">
-			<img id="img" src="/veraweb/images/boy-silhouette.jpg" /><br/>
-			<input type="file" id="asd" /><br/>
+			<img id="img" src="/veraweb/images/boy-silhouette.jpg" style="border: 1px solid #000; width: 186px;"/><br/>
+
+			<div id="input_container" style="width: 0px; height: 0px;">
+				<input name="asd" id="asd" type="file" size="30" maxlength="100000" accept="accept="png|jpg"/>
+			</div>
+
+			<div class="button fakeButton" title="${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}" style="width: 174px;" onclick="upload();">
+					${placeholderWithTranslation.CONTACT_PICTURE_UPLOAD}
+             </div>
+
 			<input id="base" type="hidden" name="baseInfoImage" />
 		</div>
 
