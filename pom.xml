@@ -1,12 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>online-anmeldung</artifactId>
     <version>1.6.31.6-SNAPSHOT</version>
     <description>VerA.web Online-Registrierung</description>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dropwizard.version>0.7.1</dropwizard.version>
@@ -18,18 +15,15 @@
         <sonar.jacoco.reportPath>${basedir}/target/jacoco-unit.exec</sonar.jacoco.reportPath>
         <releaseVersion>${project.version}</releaseVersion>
     </properties>
-
     <organization>
         <name>tarent solutions GmbH, Germany</name>
         <url>http://www.tarent.de/</url>
     </organization>
-
     <scm>
         <developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/online-anmeldung.git</developerConnection>
         <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/online-anmeldung.git</url>
-      <tag>HEAD</tag>
-  </scm>
-
+        <tag>HEAD</tag>
+    </scm>
     <repositories>
         <repository>
             <id>evolvis-release-repository</id>
@@ -48,28 +42,24 @@
             </snapshots>
         </repository>
     </repositories>
-
     <distributionManagement>
         <repository>
             <id>evolvis-release-repository</id>
             <name>evolvis.org release repository</name>
             <url>sftp://maven-repo.evolvis.org/var/www/maven_repo/releases</url>
         </repository>
-
         <snapshotRepository>
             <id>evolvis-snapshot-repository</id>
             <name>evolvis.org snapshot repository</name>
             <url>sftp://maven-repo.evolvis.org/var/www/maven_repo/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.evolvis.veraweb</groupId>
             <artifactId>rest-api-common</artifactId>
             <version>${releaseVersion}</version>
         </dependency>
-
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
@@ -80,66 +70,55 @@
             <artifactId>dropwizard-auth</artifactId>
             <version>${dropwizard.version}</version>
         </dependency>
-
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-client</artifactId>
             <version>${dropwizard.version}</version>
         </dependency>
-
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-assets</artifactId>
             <version>${dropwizard.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
         </dependency>
-
         <!-- @Data,Getter,Setter annotations -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
-
         <!-- test dependencies -->
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-testing</artifactId>
             <version>${dropwizard.version}</version>
         </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>com.vaadin.external.google</groupId>
             <artifactId>android-json</artifactId>
             <version>${json.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.osiam</groupId>
             <artifactId>connector4java</artifactId>
             <version>${osiam.connector4java.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-multipart</artifactId>
             <version>2.16</version>
         </dependency>
-
     </dependencies>
-
     <profiles>
         <profile>
             <!-- run karma tests only on demand -->
@@ -166,7 +145,6 @@
                             </execution>
                         </executions>
                     </plugin>
-
                     <plugin>
                         <groupId>com.kelveden</groupId>
                         <artifactId>maven-karma-plugin</artifactId>
@@ -188,10 +166,8 @@
             </build>
         </profile>
     </profiles>
-
     <build>
         <finalName>vw-online-registration</finalName>
-
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -203,7 +179,6 @@
                     <debug>true</debug>
                 </configuration>
             </plugin>
-
             <plugin>
                 <inherited>false</inherited>
                 <groupId>com.mycila.maven-license-plugin</groupId>
@@ -224,7 +199,6 @@
                     <strictCheck>true</strictCheck>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -238,7 +212,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -252,13 +225,14 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
-                    <descriptors><descriptor>assembly.xml</descriptor></descriptors>
+                    <descriptors>
+                        <descriptor>assembly.xml</descriptor>
+                    </descriptors>
                     <tarLongFileMode>posix</tarLongFileMode>
                 </configuration>
                 <executions>
@@ -271,7 +245,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
@@ -280,7 +253,6 @@
                     <tagNameFormat>@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
-
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.4</version>
@@ -305,7 +277,6 @@
                     </archive>
                 </configuration>
             </plugin>
-
             <!-- required for deployment to maven repo via ssh/sftp with maven 3 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -319,7 +290,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
             <!-- shade plugin for fat JARs -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -346,7 +316,7 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.evolvis.veraweb.onlinereg.Main</mainClass>
                                 </transformer>
@@ -355,8 +325,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -368,7 +336,6 @@
                     </includes>
                 </configuration>
             </plugin>
-
             <!-- JaCoCo: allows code coverage analysis in Sonar -->
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -381,7 +348,6 @@
                     </excludes-->
                 </configuration>
                 <executions>
-
                     <execution>
                         <id>jacoco-initialize</id>
                         <goals>
@@ -391,7 +357,6 @@
                             <destFile>${sonar.jacoco.reportPath}</destFile>
                         </configuration>
                     </execution>
-
                     <execution>
                         <id>jacoco-site</id>
                         <phase>package</phase>
@@ -402,7 +367,6 @@
                             <dataFile>${sonar.jacoco.reportPath}</dataFile>
                         </configuration>
                     </execution>
-
                 </executions>
             </plugin>
         </plugins>
