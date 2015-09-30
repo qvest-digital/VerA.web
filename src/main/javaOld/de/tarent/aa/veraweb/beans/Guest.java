@@ -238,6 +238,8 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 			return fk_color_a;
 		}
 
+		public String getImageUuid() { return image_uuid; }
+
 		public void setInvitationType(Integer value) {
 			invitationtype = value;
 		}
@@ -289,6 +291,8 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 		public void setColorFK(Integer value) {
 			fk_color_a = value;
 		}
+
+		public void setImageUuid(String value) { image_uuid = value; }
 	}
 
 	/**
@@ -398,5 +402,9 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 		public void setColorFK(Integer value) {
 			fk_color_b = value;
 		}
+
+		public String getImageUuid() { return image_uuid; }
+
+		public void setImageUuid(String value) { image_uuid = value; }
 	}
 }
