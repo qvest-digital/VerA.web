@@ -4,7 +4,7 @@
 
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>online-anmeldung</artifactId>
-    <version>1.6.31.3-SNAPSHOT</version>
+    <version>1.6.31.5</version>
     <description>VerA.web Online-Registrierung</description>
 
     <properties>
@@ -27,7 +27,8 @@
     <scm>
         <developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/online-anmeldung.git</developerConnection>
         <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/online-anmeldung.git</url>
-    </scm>
+      <tag>1.6.31.5</tag>
+  </scm>
 
     <repositories>
         <repository>
