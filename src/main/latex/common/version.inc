@@ -33,3 +33,7 @@
 % Upgrade von /etc/veraweb (1.4.3.5 oder 1.5.1.4+)
 \newif\ifvwconfigsinetcalready
 \vwconfigsinetcalreadyfalse
+
+% Installationsanleitung oder nur Upgrade?
+\newif\ifupgradeanleitung
+\upgradeanleitungtrue
