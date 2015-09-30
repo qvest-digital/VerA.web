@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>rest-api</artifactId>
-    <version>1.6.31.3-SNAPSHOT</version>
+    <version>1.6.31.3</version>
     <description>REST-API VerA.web Serverseite</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,7 +18,8 @@
     <scm>
         <developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/rest-api.git</developerConnection>
         <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/rest-api.git</url>
-    </scm>
+      <tag>1.6.31.3</tag>
+  </scm>
 
     <repositories>
         <repository>
