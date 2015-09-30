@@ -9,11 +9,14 @@ import com.sun.jersey.api.client.WebResource;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.UUID;
 
 /**
  * Created by csalib on 29.09.15.
  */
 public class VworUtils {
+
+    final private static String BASE_RESOURCE = "/rest";
 
     /** Jackson Object mapper */
     private ObjectMapper mapper = new ObjectMapper();
@@ -25,7 +28,7 @@ public class VworUtils {
      * @return Path of the saved images of the guests
      * @throws IOException
      */
-    public String getProperty() throws IOException {
+    public String getVworEndPoint() throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
         String vwor = propertiesReader.getProperty("vwor.endpoint");
         return vwor;
@@ -55,4 +58,50 @@ public class VworUtils {
             throw uie;
         }
     }
+
+    public String getImageType(String imageString) {
+        String imageHeader = imageString.substring(0, 15);
+        if (imageHeader.contains("data:image/jpg")) {
+            return "jpg";
+        } else if (imageHeader.contains("data:image/jpeg")) {
+            return "jpeg";
+        } else if (imageHeader.contains("data:image/png")) {
+            return "png";
+        }
+
+        return "ERROR_PARSING_IMAGE_TYPE";
+    }
+
+    public String removeHeaderFromImage(String imageString) {
+        if (getImageType(imageString).equals("jpg") || getImageType(imageString).equals("png")) {
+            return imageString.substring(22);
+        }
+        if (getImageType(imageString).equals("jpeg")) {
+            return imageString.substring(23);
+        }
+
+        return "ERROR REMOVING HEADER FROM IMAGE";
+    }
+
+    /**
+     * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
+     *
+     * @param path path fragments
+     * @return complete path as string
+     */
+    public String path(Object... path) throws IOException {
+        String r = getVworEndPoint() + BASE_RESOURCE;
+
+        for (Object p : path) {
+            r += "/" + p;
+        }
+
+        return r;
+    }
+
+    public String generateImageUUID() {
+        UUID imageUUID = UUID.randomUUID();
+        return imageUUID.toString();
+    }
+
 }
