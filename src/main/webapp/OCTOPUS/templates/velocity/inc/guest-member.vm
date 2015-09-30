@@ -20,7 +20,11 @@
 		<!-- <div class="tableCell width20"><img src="/veraweb/images/boy-silhouette.jpg"/></div> -->
 
 		<div class="tableCell width20">
-			<img id="img" src="/veraweb/images/boy-silhouette.jpg" /><br/>
+			#if($guestImage)
+				<img id="img" src="$guestImage"/>
+			#else
+				<img id="img" src="/veraweb/images/boy-silhouette.jpg" /><br/>
+			#end
 			<input type="file" id="asd" /><br/>
 			<input id="base" type="hidden" name="baseInfoImage" />
 		</div>

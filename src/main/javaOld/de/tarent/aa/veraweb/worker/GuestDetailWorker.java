@@ -26,8 +26,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.sun.jersey.api.client.UniformInterfaceException;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import de.tarent.aa.veraweb.beans.Categorie;
 
+import de.tarent.aa.veraweb.utils.PropertiesReader;
+import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
@@ -121,6 +127,32 @@ public class GuestDetailWorker extends GuestListWorker {
                     " kann Bean 'GuestDoctype' nicht geladen werden", e);
             octopusContext.setContent("showGuestListData", new Boolean(false));
         }
+
+
+        //downloadImage(octopusContext, guest.UUID);
+    }
+
+    public void downloadImage(OctopusContext octopusContext,String UUID) throws IOException {
+        String path = this.path("fileupload","download");
+        TypeReference<String> type = new TypeReference<String>() {};
+        VworUtils vworUtils = new VworUtils();
+
+        String encodedImage = vworUtils.readResource(path, type);
+        if(encodedImage != null) {
+            octopusContext.setContent("guestImage", encodedImage);
+        }
+    }
+
+    private String path(Object... path) {
+        PropertiesReader propertiesReader = new PropertiesReader();
+        final String BASE_RESOURCE = "/rest";
+        String r = propertiesReader.getProperty("vwor.endpoint") + BASE_RESOURCE;
+
+        for (Object p : path) {
+            r += "/" + p;
+        }
+
+        return r;
     }
 
     private void setGuestContentForOctopusContext(OctopusContext octopusContext, Database database, Guest guest,

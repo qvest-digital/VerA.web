@@ -35,12 +35,7 @@ import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
-import de.tarent.aa.veraweb.utils.DateHelper;
-import de.tarent.aa.veraweb.utils.EventURLHandler;
-import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
-import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
-import de.tarent.aa.veraweb.utils.PropertiesReader;
-import de.tarent.aa.veraweb.utils.URLGenerator;
+import de.tarent.aa.veraweb.utils.*;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
@@ -75,6 +70,7 @@ public class EventDetailWorker {
 	public static final String INPUT_showDetail[] = { "id", "task", "eventId" };
     /** Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer)} */
 	public static final boolean MANDATORY_showDetail[] = { false, false, false };
+    public static final String INPUT_downloadImage[] = {};
 
 	public static final String VWOR_ACTIVE = "online-registration.activated";
 	/**
@@ -525,6 +521,7 @@ public class EventDetailWorker {
 			cntx.setContent("saveevent", Boolean.TRUE);
 		}
 	}
+
 
     //
     // Hilfsmethoden
