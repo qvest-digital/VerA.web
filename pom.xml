@@ -3,7 +3,7 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-core</artifactId>
 	<packaging>war</packaging>
-	<version>1.6.31.5</version>
+	<version>1.6.31.6-SNAPSHOT</version>
 	<name>veraweb-evolvis-war</name>
 	<description>Veranstaltungsmanagment VerA.web</description>
 	<inceptionYear>2005</inceptionYear>
@@ -37,7 +37,7 @@
 	<scm>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/veraweb.git</developerConnection>
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git</url>
-	  <tag>1.6.31.5</tag>
+	  <tag>HEAD</tag>
   </scm>
 	<repositories>
 		<repository>
