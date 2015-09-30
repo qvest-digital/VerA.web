@@ -1749,6 +1749,9 @@ DELETE_EVENT_TASKS_SECOND_LINE=Delete all selected tasks? This action can not be
 GM_NO_CHANGES=You have made no changes.
 GM_CONFIRMATION_EMAIL_DISTRIBUTOR=Create distribution E-Mail?
 
+CONTACT_PICTURE_UPLOAD=Upload picture
+CONTACT_PICTURE_CHANGE=Change picture
+
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=One category successfully modified
 GM_CATEGORY_MODIFY_P=%s categorys successfully modified
