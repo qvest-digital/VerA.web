@@ -13,7 +13,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -25,6 +25,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -53,6 +54,23 @@ public class VworUtils {
         return vwor;
     }
 
+    public HTTPBasicAuthFilter getAuthorization() {
+        // FIXME We have to uncomment this line and delete the next line to allow HTTPBasicAuth as configurable
+//        return new HTTPBasicAuthFilter(getVworAuthUsername(),getVworAuthPassword());
+        return new HTTPBasicAuthFilter("veraweb", "veraweb");
+    }
+
+    private String getVworAuthUsername() {
+        PropertiesReader propertiesReader = new PropertiesReader();
+        String vworUser = propertiesReader.getProperty("vwor.auth.user");
+        return vworUser;
+    }
+
+    private String getVworAuthPassword() {
+        PropertiesReader propertiesReader = new PropertiesReader();
+        String vworPassword = propertiesReader.getProperty("vwor.auth.password");
+        return vworPassword;
+    }
     /**
      * Method sending Requests to VWOR
      * @return Entities from the Vwor component
@@ -78,30 +96,6 @@ public class VworUtils {
         }
     }
 
-    public String getImageType(String imageString) {
-        String imageHeader = imageString.substring(0, 15);
-        if (imageHeader.contains("data:image/jpg")) {
-            return "jpg";
-        } else if (imageHeader.contains("data:image/jpeg")) {
-            return "jpeg";
-        } else if (imageHeader.contains("data:image/png")) {
-            return "png";
-        }
-
-        return "ERROR_PARSING_IMAGE_TYPE";
-    }
-
-    public String removeHeaderFromImage(String imageString) {
-        if (getImageType(imageString).equals("jpg") || getImageType(imageString).equals("png")) {
-            return imageString.substring(22);
-        }
-        if (getImageType(imageString).equals("jpeg")) {
-            return imageString.substring(23);
-        }
-
-        return "ERROR REMOVING HEADER FROM IMAGE";
-    }
-
     /**
      * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
      *
@@ -116,11 +110,6 @@ public class VworUtils {
         }
 
         return r;
-    }
-
-    public String generateImageUUID() {
-        UUID imageUUID = UUID.randomUUID();
-        return imageUUID.toString();
     }
 
 }
