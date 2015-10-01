@@ -19,6 +19,7 @@
  */
 package de.tarent.aa.veraweb.utils;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
@@ -27,11 +28,14 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 
+
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
 /**
  * Created by csalib on 29.09.15.
+ * @author csalib
+ * @author jnunez
  */
 public class VworUtils {
 
@@ -41,8 +45,12 @@ public class VworUtils {
     private ObjectMapper mapper = new ObjectMapper();
 
     /** Jersey Client */
-    final Client client = Client.create();
+    private Client client;
 
+    public VworUtils() {
+        client = Client.create();
+        client.addFilter(getAuthorization());
+    }
 
     /**
      * @return Path of the saved images of the guests
@@ -65,17 +73,20 @@ public class VworUtils {
     private String getVworAuthUsername() {
         PropertiesReader propertiesReader = new PropertiesReader();
         String vworUser = propertiesReader.getProperty("vwor.auth.user");
+
         return vworUser;
     }
 
     private String getVworAuthPassword() {
         PropertiesReader propertiesReader = new PropertiesReader();
         String vworPassword = propertiesReader.getProperty("vwor.auth.password");
+
         return vworPassword;
     }
 
     /**
      * Method sending Requests to VWOR
+     *
      * @return Entities from the Vwor component
      * @throws IOException
      */
@@ -84,13 +95,21 @@ public class VworUtils {
         try {
             resource = client.resource(path);
             final String json = resource.get(String.class);
-            return mapper.readValue(json, type);
+            try {
+                return mapper.readValue(json, type);
+            } catch (JsonParseException jpe) {
+                return (T) json;
+            }
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
                 //FIXME some times open, pooled connections time out and generate errors
                 resource = client.resource(path);
                 final String json = resource.get(String.class);
-                return mapper.readValue(json, type);
+                try {
+                    return mapper.readValue(json, type);
+                } catch (JsonParseException jpe) {
+                    return (T) json;
+                }
             } else {
                 throw che;
             }
@@ -114,5 +133,4 @@ public class VworUtils {
 
         return r;
     }
-
 }
