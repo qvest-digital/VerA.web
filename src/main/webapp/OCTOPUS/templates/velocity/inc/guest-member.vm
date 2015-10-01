@@ -12,7 +12,6 @@
 
    $("#asd").change(function(){
        readImage( this );
-       $('div.fakeButton').text('${placeholderWithTranslation.CONTACT_PICTURE_CHANGE}');
    });
 
    function upload(){
@@ -24,9 +23,14 @@
 	  var img =  document.getElementById('contactPhoto');
 	  var width = img.clientWidth;
 	  var height = img.clientHeight;
+
+	  var imageSource = $('#contactPhoto').attr("src");
+
 	  if ((width > 0 && width != 186) || (height > 0 && height != 245)) {
-	  	$('#detail-2-data-block').prepend("<div class=\"msg errormsg\">Das Bild entspricht nicht die erlaubte Größe von 186x245 Pixel.</div>");
+	  	$('#detail-2-data-block').prepend("<div class=\"msg errormsg\">${placeholderWithTranslation.CONTACT_PICTURE_WRONG_SIZE}</div>");
 	  	$('#contactPhoto').attr("src", "/veraweb/images/boy-silhouette.jpg");
+	  } else if(imageSource != "/veraweb/images/boy-silhouette.jpg")  {
+	  	$('div.fakeButton').text('${placeholderWithTranslation.CONTACT_PICTURE_CHANGE}');
 	  }
    }
 </script>
