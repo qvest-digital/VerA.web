@@ -116,6 +116,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	public String login_required_uuid;
 	public String image_uuid;
 
+
     @Override
     public void verify() throws BeanException {
 		if (ishost == null) ishost = new Integer(0);

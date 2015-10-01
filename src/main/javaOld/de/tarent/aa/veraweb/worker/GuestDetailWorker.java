@@ -26,18 +26,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
-import de.tarent.aa.veraweb.beans.Categorie;
-
-import de.tarent.aa.veraweb.utils.FileUploadUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.sun.jersey.api.client.UniformInterfaceException;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
-import de.tarent.aa.veraweb.beans.Categorie;
 
+import de.tarent.aa.veraweb.beans.Categorie;
+import de.tarent.aa.veraweb.utils.FileUploadUtils;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
@@ -69,6 +65,7 @@ import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.server.OctopusContext;
+
 
 /**
  * Dieser Octopus-Worker dient der Anzeige und Bearbeitung von Details von Gästen.
@@ -140,26 +137,20 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     public void downloadImage(OctopusContext octopusContext,String imageUUID) throws IOException {
-        String path = this.path("fileupload","download",imageUUID);
-        TypeReference<String> type = new TypeReference<String>() {};
+        TypeReference<String> stringType = new TypeReference<String>() {};
         VworUtils vworUtils = new VworUtils();
-        vworUtils.getAuthorization();
+        String URI = vworUtils.path("fileupload", "download", imageUUID);
 
-        String encodedImage = vworUtils.readResource(path, type);
+
+        String encodedImage = vworUtils.readResource(URI, stringType);
         if(encodedImage != null) {
             octopusContext.setContent("guestImage", encodedImage);
         }
     }
 
-    private String path(Object... path) {
+    private String getImagePath() {
         PropertiesReader propertiesReader = new PropertiesReader();
-        final String BASE_RESOURCE = "/rest";
-        String r = propertiesReader.getProperty("vwor.endpoint") + BASE_RESOURCE;
-
-        for (Object p : path) {
-            r += "/" + p;
-        }
-
+        String r = propertiesReader.getProperty("vwor.endpoint");
         return r;
     }
 
@@ -344,6 +335,7 @@ public class GuestDetailWorker extends GuestListWorker {
     private void sendImageToVwor(String extension, String imageData, String imageUUID) throws IOException {
         final VworUtils vworUtils = new VworUtils();
         final Client client = Client.create();
+
         client.addFilter(vworUtils.getAuthorization());
 
         final WebResource resource = client.resource(vworUtils.path("fileupload", "save"));

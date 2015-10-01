@@ -30,7 +30,6 @@
 	  }
    }
 </script>
-GUEST IMAGE $guestImage
 
 <div class="table width100">
 	<div>
@@ -91,7 +90,7 @@ GUEST IMAGE $guestImage
         		<div class="tableCell width50">
         			<label for="guest-language$ext">${placeholderWithTranslation.GENERIC_LANGUAGES}</label>
         			<input type="text" id="guest-language$ext" name="guest-language$ext" value="$!message.text($facade.Languages)" />
-        		</div>
+        		</div>++6
         	</div>
         	<div class="tableRow">
         		<div class="tableCell width50 inlineLabel">
