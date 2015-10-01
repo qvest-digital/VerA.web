@@ -99,8 +99,8 @@ public class FileUploadResource extends AbstractResource {
      * @return Base64 data
      */
     @GET
-    @Path("/download")
-    public String getImageByUUID(@QueryParam("imgUUID") String imgUUID)
+    @Path("/download/{imgUUID}")
+    public String getImageByUUID(@PathParam("imgUUID") String imgUUID)
             throws IOException {
 
         VworPropertiesReader vworPropertiesReader = new VworPropertiesReader();
