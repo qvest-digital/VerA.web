@@ -1751,6 +1751,7 @@ GM_CONFIRMATION_EMAIL_DISTRIBUTOR=E-mail addressen aus Verteiler \u00FCbernehmen
 
 CONTACT_PICTURE_UPLOAD=Kontaktofoto hochladen
 CONTACT_PICTURE_CHANGE=Kontaktofoto \u00E4ndern
+CONTACT_PICTURE_WRONG_SIZE=Das Bild entspricht nicht die erlaubte Gr\u00F6\u00DFe von 186x245 Pixel.
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=Es wurde eine Kategorie ge\u00E4ndert

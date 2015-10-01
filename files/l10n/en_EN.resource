@@ -1751,6 +1751,7 @@ GM_CONFIRMATION_EMAIL_DISTRIBUTOR=Create distribution E-Mail?
 
 CONTACT_PICTURE_UPLOAD=Upload picture
 CONTACT_PICTURE_CHANGE=Change picture
+CONTACT_PICTURE_WRONG_SIZE=Picture size should be exactly 186x245 pixels.
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=One category successfully modified
