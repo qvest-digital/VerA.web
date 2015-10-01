@@ -134,14 +134,16 @@ public class GuestDetailWorker extends GuestListWorker {
             octopusContext.setContent("showGuestListData", new Boolean(false));
         }
 
-
-        //downloadImage(octopusContext, guest.UUID);
+        if(guest.image_uuid != null) {
+            downloadImage(octopusContext, guest.image_uuid);
+        }
     }
 
-    public void downloadImage(OctopusContext octopusContext,String UUID) throws IOException {
-        String path = this.path("fileupload","download");
+    public void downloadImage(OctopusContext octopusContext,String imageUUID) throws IOException {
+        String path = this.path("fileupload","download",imageUUID);
         TypeReference<String> type = new TypeReference<String>() {};
         VworUtils vworUtils = new VworUtils();
+        vworUtils.getAuthorization();
 
         String encodedImage = vworUtils.readResource(path, type);
         if(encodedImage != null) {
