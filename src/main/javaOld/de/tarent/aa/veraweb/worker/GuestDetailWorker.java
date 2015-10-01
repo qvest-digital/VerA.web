@@ -28,10 +28,10 @@ import java.util.Random;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.jersey.api.representation.Form;
 import de.tarent.aa.veraweb.beans.Categorie;
 
+import de.tarent.aa.veraweb.utils.FileUploadUtils;
 import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
@@ -290,29 +290,26 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void uploadImage(Map<String, Object> allRequestParams, Guest guest) throws IOException, BeanException {
-
-        final VworUtils vworUtils = new VworUtils();
-
         String base64Image = getBase64Image(allRequestParams);
         if (base64Image != null) {
-            String extension = vworUtils.getImageType(base64Image);
-            String imageData = vworUtils.removeHeaderFromImage(base64Image);
+            String extension = FileUploadUtils.getImageType(base64Image);
+            String imageData = FileUploadUtils.removeHeaderFromImage(base64Image);
 
-            setGuestImageUUID(vworUtils, guest);
-            sendImageToVwor(vworUtils, extension, imageData, guest.image_uuid);
+            setGuestImageUUID(guest);
+            sendImageToVwor(extension, imageData, guest.image_uuid);
         }
     }
 
-    private void setGuestImageUUID(VworUtils vworUtils, Guest guest) throws IOException, BeanException {
+    private void setGuestImageUUID(Guest guest) throws IOException, BeanException {
         if (guest.image_uuid == null) {
-            guest.image_uuid = vworUtils.generateImageUUID();
+            guest.image_uuid = FileUploadUtils.generateImageUUID();
         }
     }
 
-    private void sendImageToVwor(VworUtils vworUtils, String extension, String imageData, String imageUUID)
-            throws IOException {
+    private void sendImageToVwor(String extension, String imageData, String imageUUID) throws IOException {
+        final VworUtils vworUtils = new VworUtils();
         final Client client = Client.create();
-        client.addFilter(new HTTPBasicAuthFilter("veraweb", "veraweb"));
+        client.addFilter(vworUtils.getAuthorization());
 
         final WebResource resource = client.resource(vworUtils.path("fileupload", "save"));
         final Form postBody = new Form();
@@ -520,7 +517,6 @@ public class GuestDetailWorker extends GuestListWorker {
     private List<String> duplicateGuestAndPartnerList(Database database, Guest guest, List<String> duplicateErrorList,
                                                       final LanguageProvider languageProvider)
             throws BeanException, IOException {
-
 
         //SCENARIO 1 - The seat (or table and seat) of the guest ("Hauptperson") is already reserved by another guest
         selectGuestAddDuplicateGuestList(database, guest, duplicateErrorList, languageProvider);
