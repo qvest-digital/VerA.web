@@ -26,6 +26,7 @@
 	  var height = img.clientHeight;
 	  if ((width > 0 && width != 186) || (height > 0 && height != 245)) {
 	  	$('#detail-2-data-block').prepend("<div class=\"msg errormsg\">Das Bild entspricht nicht die erlaubte Größe von 186x245 Pixel.</div>");
+	  	$('#contactPhoto').attr("src", "/veraweb/images/boy-silhouette.jpg");
 	  }
    }
 </script>
