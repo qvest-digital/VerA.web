@@ -3,7 +3,7 @@
        if ( input.files && input.files[0] ) {
            var FR= new FileReader();
            FR.onload = function(e) {
-                $('#img').attr( "src", e.target.result );
+                $('#contactPhoto').attr( "src", e.target.result );
                 $('#base').val(e.target.result);
            };
            FR.readAsDataURL( input.files[0] );
@@ -12,19 +12,28 @@
 
    $("#asd").change(function(){
        readImage( this );
-        $('div.fakeButton').text('${placeholderWithTranslation.CONTACT_PICTURE_CHANGE}');
+       $('div.fakeButton').text('${placeholderWithTranslation.CONTACT_PICTURE_CHANGE}');
    });
-
 
    function upload(){
 	   document.getElementById('asd').click();
+   }
+
+   function checkPictureSize() {
+	  $( "#detail-2-data-block>").remove(".errormsg");
+	  var img =  document.getElementById('contactPhoto');
+	  var width = img.clientWidth;
+	  var height = img.clientHeight;
+	  if ((width > 0 && width != 186) || (height > 0 && height != 245)) {
+	  	$('#detail-2-data-block').prepend("<div class=\"msg errormsg\">Das Bild entspricht nicht die erlaubte Größe von 186x245 Pixel.</div>");
+	  }
    }
 </script>
 
 <div class="table width100">
 	<div>
 		<div class="tableCell width20">
-			<img id="img" src="/veraweb/images/boy-silhouette.jpg" style="border: 1px solid #000; width: 186px;"/><br/>
+			<img id="contactPhoto" src="/veraweb/images/boy-silhouette.jpg" style="border: 1px solid #000; width: 186px;" onload="checkPictureSize()"/><br/>
 
 			<div id="input_container" style="width: 0px; height: 0px;">
 				<input name="asd" id="asd" type="file" size="30" maxlength="100000" accept="image/png,image/jpg,image/jpeg"/>
