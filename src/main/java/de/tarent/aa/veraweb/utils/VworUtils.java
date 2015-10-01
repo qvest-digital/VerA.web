@@ -45,14 +45,15 @@ public class VworUtils {
     /** Jersey Client */
     final Client client = Client.create();
 
+
     /**
      * @return Path of the saved images of the guests
      * @throws IOException
      */
     public String getVworEndPoint() throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
-        String vwor = propertiesReader.getProperty("vwor.endpoint");
-        return vwor;
+        String imagePath = propertiesReader.getProperty("vwor.endpoint");
+        return imagePath;
     }
 
     public HTTPBasicAuthFilter getAuthorization() {
@@ -81,7 +82,7 @@ public class VworUtils {
      * @return Entities from the Vwor component
      * @throws IOException
      */
-    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
+    public <T> T readResource(String path, TypeReference<T> type) throws IOException {
         WebResource resource;
         try {
             resource = client.resource(path);

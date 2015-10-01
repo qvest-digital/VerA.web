@@ -96,9 +96,24 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	public Integer fk_color_b;
 	public String osiam_login;
 
+	public String getImage_uuid() {
+		return image_uuid;
+	}
+
+	public void setImage_uuid(String image_uuid) {
+		this.image_uuid = image_uuid;
+	}
+
+	public String getLogin_required_uuid() {
+		return login_required_uuid;
+	}
+
+	public void setLogin_required_uuid(String login_required_uuid) {
+		this.login_required_uuid = login_required_uuid;
+	}
+
 	// UUID to allow registration to events without login
 	public String login_required_uuid;
-
 	public String image_uuid;
 
     @Override

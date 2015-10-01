@@ -30,19 +30,23 @@
 	  }
    }
 </script>
+GUEST IMAGE $guestImage
 
 <div class="table width100">
 	<div>
 		<div class="tableCell width20">
-			<img id="contactPhoto" src="/veraweb/images/boy-silhouette.jpg" style="border: 1px solid #000; width: 186px;" onload="checkPictureSize()"/><br/>
-
+			#if($guestImage)
+				<img id="img" src="$guestImage" style="border: 1px solid #000; width: 186px;" onload="checkPictureSize()" /><br/>
+			#else
+				<img id="img" src="/veraweb/images/boy-silhouette.jpg" style="border: 1px solid #000; width: 186px;" onload="checkPictureSize()" /><br/>
+			#end
 			<div id="input_container" style="width: 0px; height: 0px;">
 				<input name="asd" id="asd" type="file" size="30" maxlength="100000" accept="image/png,image/jpg,image/jpeg"/>
 			</div>
 
 			<div class="button fakeButton" title="${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}" style="width: 174px;" onclick="upload();">
 					${placeholderWithTranslation.CONTACT_PICTURE_UPLOAD}
-             </div>
+       		 </div>
 
 			<input id="base" type="hidden" name="baseInfoImage" />
 		</div>
