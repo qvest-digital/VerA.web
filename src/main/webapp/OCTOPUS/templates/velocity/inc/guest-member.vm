@@ -19,7 +19,6 @@
    }
 
    function checkPictureSize() {
-	  $( "#detail-2-data-block>").remove(".errormsg");
 	  var img =  document.getElementById('contactPhoto');
 	  var width = img.clientWidth;
 	  var height = img.clientHeight;
@@ -31,6 +30,7 @@
 	  	$('#contactPhoto').attr("src", "/veraweb/images/boy-silhouette.jpg");
 	  } else if(imageSource != "/veraweb/images/boy-silhouette.jpg")  {
 	  	$('div.fakeButton').text('${placeholderWithTranslation.CONTACT_PICTURE_CHANGE}');
+	  	$( "#detail-2-data-block>").remove(".errormsg");
 	  }
    }
 </script>
