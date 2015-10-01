@@ -58,7 +58,7 @@
 
             #parse("inc/guest-detail-header.vm")
 
-            <form id="GuestForm" name="GuestForm" action="SaveGuestDetail?id=$!guest.id" method="post">
+            <form id="GuestForm" name="GuestForm" action="SaveGuestDetail?guest-id=$!guest.id" method="post">
             <input type="hidden" name="tab" id="tab" value="$tab" />
             <div class="contentBox grayBorder tabs marginBottom10" vera-content="">
                 <div id="tabsMain2">
@@ -70,28 +70,23 @@
                     </ul>
                 </div>
 
-
                     <div class="tabsContent contentBox">
                         <input type="hidden" name="guestId" value="$!guest.id">
                         <input type="hidden" name="eventId" value="$!event.id">
                         <input type="hidden" name="id" value="$!guest.id">
-                        <input type="hidden" name="guest-id" value="$!guest.id">
                         <input type="hidden" name="guest-event" value="$!guest.event">
                         <input type="hidden" name="guest-person" value="$!guest.person">
                         <input type="hidden" name="guest-orderno_a" value="$!guest.orderno_a">
                         <input type="hidden" name="guest-orderno_b" value="$!guest.orderno_b">
                         <input type="hidden" name="categorie-modified" id="categorie-modified" value="false">
                         <input type="hidden" name="fetchRankFromMasterData" id="fetchRankFromMasterData" value="false">
-
-
+                        <input type="hidden" name="image-uuid" value="$!guest.image_uuid">
 
                         #if($person.deleted == "t")
                         <vera-info>
                             ${placeholderWithTranslation.diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten}.
                         </vera-info>
                         #end
-
-
 
                         #openContentBlock("detail-1-block")
 

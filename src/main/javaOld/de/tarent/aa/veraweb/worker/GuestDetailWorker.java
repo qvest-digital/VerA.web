@@ -26,12 +26,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
-import de.tarent.aa.veraweb.beans.Categorie;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.representation.Form;
 
+
+import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
@@ -259,9 +262,6 @@ public class GuestDetailWorker extends GuestListWorker {
     public void saveDetail(OctopusContext octopusContext) throws Exception {
         Request request = getRequest(octopusContext);
 
-        String base64Image = getBase64Image(request);
-        // TODO Save the image using REST API (vvwor) - WIP
-
         Database database = getDatabase(octopusContext);
         TransactionContext context = database.getTransactionContext();
 
@@ -269,6 +269,7 @@ public class GuestDetailWorker extends GuestListWorker {
 
         try {
             Guest guest = getGuestEntity(request, database, allRequestParams);
+            uploadImage(allRequestParams, guest);
 
             //Check for duplicate reservation (guest and partner).
             LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
@@ -318,8 +319,44 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
-    private String getBase64Image(Request request) throws BeanException {
-        String[] imageInfo = (String[]) request.getField("baseInfoImage");
+    private void uploadImage(Map<String, Object> allRequestParams, Guest guest) throws IOException, BeanException {
+
+        final VworUtils vworUtils = new VworUtils();
+
+        String base64Image = getBase64Image(allRequestParams);
+        if (base64Image != null) {
+            String extension = vworUtils.getImageType(base64Image);
+            String imageData = vworUtils.removeHeaderFromImage(base64Image);
+
+            setGuestImageUUID(vworUtils, guest);
+            sendImageToVwor(vworUtils, extension, imageData, guest.image_uuid);
+        }
+    }
+
+    private void setGuestImageUUID(VworUtils vworUtils, Guest guest) throws IOException, BeanException {
+        if (guest.image_uuid == null) {
+            guest.image_uuid = vworUtils.generateImageUUID();
+        }
+    }
+
+    private void sendImageToVwor(VworUtils vworUtils, String extension, String imageData, String imageUUID)
+            throws IOException {
+        final Client client = Client.create();
+        //FIXME change to getAuthorization()
+        client.addFilter(new HTTPBasicAuthFilter("veraweb", "veraweb"));
+
+        final WebResource resource = client.resource(vworUtils.path("fileupload", "save"));
+        final Form postBody = new Form();
+
+        postBody.add("imageUUID", imageUUID);
+        postBody.add("imageStringData", imageData);
+        postBody.add("extension", extension);
+
+        resource.post(postBody);
+    }
+
+    private String getBase64Image(Map<String, Object> allRequestParams) throws BeanException {
+        String[] imageInfo = (String[]) allRequestParams.get("baseInfoImage");
         if (imageInfo != null) {
             return imageInfo[0];
         }
@@ -327,14 +364,10 @@ public class GuestDetailWorker extends GuestListWorker {
         return null;
     }
 
-    private Guest getGuestEntity(Request request, Database database, Map<String, Object> allRequestParams) throws BeanException, IOException {
-        Guest guest = (Guest) request.getBean("Guest", "guest");
-
-        if (guest.id == null) {
-            Integer guestId = Integer.valueOf(allRequestParams.get("id").toString());
-            guest = (Guest) database.getBean("Guest", guestId);
-        }
-        return guest;
+    private Guest getGuestEntity(Request request, Database database, Map<String, Object> allRequestParams)
+            throws BeanException, IOException {
+        Integer guestId = Integer.valueOf(allRequestParams.get("guest-id").toString());
+        return (Guest) database.getBean("Guest", guestId);
     }
 
     private void updateGuestRemoveNotehost(OctopusContext octopusContext, Database database,

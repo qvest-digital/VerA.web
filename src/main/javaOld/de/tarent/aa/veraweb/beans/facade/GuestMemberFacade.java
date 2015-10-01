@@ -102,4 +102,8 @@ public interface GuestMemberFacade extends EventConstants {
 
 	/** Ändert Farbe */
 	public void setColorFK(Integer value);
+
+	public String getImageUuid();
+
+	public void setImageUuid(String value);
 }

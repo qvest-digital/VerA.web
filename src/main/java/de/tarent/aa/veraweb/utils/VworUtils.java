@@ -1,3 +1,22 @@
+/**
+ * veraweb, platform independent webservice-based event management
+ * (Veranstaltungsmanagment VerA.web), is
+ * Copyright © 2004–2008 tarent GmbH
+ * Copyright © 2013–2015 tarent solutions GmbH
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, see: http://www.gnu.org/licenses/
+ */
 package de.tarent.aa.veraweb.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -7,8 +26,6 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
-import de.tarent.octopus.server.OctopusContext;
-
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -17,6 +34,8 @@ import java.net.SocketTimeoutException;
  * Created by csalib on 29.09.15.
  */
 public class VworUtils {
+
+    final private static String BASE_RESOURCE = "/rest";
 
     /** Jackson Object mapper */
     private ObjectMapper mapper = new ObjectMapper();
@@ -29,12 +48,31 @@ public class VworUtils {
      * @return Path of the saved images of the guests
      * @throws IOException
      */
-    private String getImagePath() throws IOException {
+
+    public String getVworEndPoint() throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
         String imagePath = propertiesReader.getProperty("vwor.endpoint");
         return imagePath;
     }
 
+
+    public HTTPBasicAuthFilter getAuthorization() {
+        // FIXME We have to uncomment this line and delete the next line to allow HTTPBasicAuth as configurable
+//        return new HTTPBasicAuthFilter(getVworAuthUsername(),getVworAuthPassword());
+        return new HTTPBasicAuthFilter("veraweb", "veraweb");
+    }
+
+    private String getVworAuthUsername() {
+        PropertiesReader propertiesReader = new PropertiesReader();
+        String vworUser = propertiesReader.getProperty("vwor.auth.user");
+        return vworUser;
+    }
+
+    private String getVworAuthPassword() {
+        PropertiesReader propertiesReader = new PropertiesReader();
+        String vworPassword = propertiesReader.getProperty("vwor.auth.password");
+        return vworPassword;
+    }
 
     /**
      * Method sending Requests to VWOR
@@ -60,4 +98,21 @@ public class VworUtils {
             throw uie;
         }
     }
+
+    /**
+     * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
+     *
+     * @param path path fragments
+     * @return complete path as string
+     */
+    public String path(Object... path) throws IOException {
+        String r = getVworEndPoint() + BASE_RESOURCE;
+
+        for (Object p : path) {
+            r += "/" + p;
+        }
+
+        return r;
+    }
+
 }

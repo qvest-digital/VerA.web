@@ -446,7 +446,7 @@ veraweb=VerA.web
 GENERIC_VERSION=Versi\u00F3n
 build=Compilaci\u00F3n
 GENERIC_BUILD_NUMBER=N\u00FAmero de compilaci\u00F3n
-GENERIC_BUILD_TIME=Tiempo de compilaci\u00F3n
+GENERIC_BUILD_TIME=Tiempo de compilaci\u00F3n (UTC)
 GENERIC_DATABASE=Base de datos
 GENERIC_LOGIN=Login
 GENERIC_GROUPS=Grupos
@@ -1752,6 +1752,9 @@ DELETE_EVENT_TASKS_SECOND_LINE=\u00BFDeben eliminarse todos las tareas seleccion
 
 GM_NO_CHANGES=No se han producido cambios.
 GM_CONFIRMATION_EMAIL_DISTRIBUTOR=\u00BFCrear correo electr\u00F3nico de distribuci\u00F3n?
+
+CONTACT_PICTURE_UPLOAD=Subir foto
+CONTACT_PICTURE_CHANGE=Modificar foto
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=Se ha modificado una categor\u00EDa

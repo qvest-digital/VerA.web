@@ -12,24 +12,36 @@
 
    $("#asd").change(function(){
        readImage( this );
+        $('div.fakeButton').text('${placeholderWithTranslation.CONTACT_PICTURE_CHANGE}');
    });
+
+
+   function upload(){
+	   document.getElementById('asd').click();
+   }
 </script>
 
 <div class="table width100">
 	<div>
-		<!-- <div class="tableCell width20"><img src="/veraweb/images/boy-silhouette.jpg"/></div> -->
-
 		<div class="tableCell width20">
 			#if($guestImage)
-				<img id="img" src="$guestImage"/>
+				<img id="img" src="$guestImage" style="border: 1px solid #000; width: 186px;/><br/>
 			#else
-				<img id="img" src="/veraweb/images/boy-silhouette.jpg" /><br/>
+				<img id="img" src="/veraweb/images/boy-silhouette.jpg" style="border: 1px solid #000; width: 186px;/><br/>
 			#end
 			<input type="file" id="asd" /><br/>
-			<input id="base" type="hidden" name="baseInfoImage" />
+			<div id="input_container" style="width: 0px; height: 0px;">
+            <input name="asd" id="asd" type="file" size="30" maxlength="100000" accept="image/png,image/jpg,image/jpeg"/>
+			<input id="base" type="hidden" name="baseInfoImage" />##CHECK IF USED
 		</div>
 
 
+			<div class="button fakeButton" title="${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}" style="width: 174px;" onclick="upload();">
+					${placeholderWithTranslation.CONTACT_PICTURE_UPLOAD}
+             </div>
+
+			<input id="base" type="hidden" name="baseInfoImage" />
+		</div>
 
 		<div class="tableCell width80">
 			<div class="tableRow">
@@ -71,7 +83,7 @@
         		<div class="tableCell width50">
         			<label for="guest-language$ext">${placeholderWithTranslation.GENERIC_LANGUAGES}</label>
         			<input type="text" id="guest-language$ext" name="guest-language$ext" value="$!message.text($facade.Languages)" />
-        		</div>
+        		</div>++6
         	</div>
         	<div class="tableRow">
         		<div class="tableCell width50 inlineLabel">
