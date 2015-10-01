@@ -27,7 +27,7 @@
 			<img id="img" src="/veraweb/images/boy-silhouette.jpg" style="border: 1px solid #000; width: 186px;"/><br/>
 
 			<div id="input_container" style="width: 0px; height: 0px;">
-				<input name="asd" id="asd" type="file" size="30" maxlength="100000" accept="accept="png|jpg"/>
+				<input name="asd" id="asd" type="file" size="30" maxlength="100000" accept="image/png,image/jpg,image/jpeg"/>
 			</div>
 
 			<div class="button fakeButton" title="${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}" style="width: 174px;" onclick="upload();">
