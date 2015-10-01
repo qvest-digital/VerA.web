@@ -3,10 +3,9 @@ package de.tarent.aa.veraweb.utils;
 import java.util.UUID;
 
 /**
- * Created by Jon Nuñez, tarent solutions GmbH on 01.10.15.
+ * @author jnunez Jon Nuñez, tarent solutions GmbH on 01.10.15.
  */
 public class FileUploadUtils {
-
 
     public static String getImageType(String imageString) {
         String imageHeader = imageString.substring(0, 15);

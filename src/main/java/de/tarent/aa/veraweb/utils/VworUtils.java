@@ -29,10 +29,11 @@ import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
-import java.util.UUID;
 
 /**
  * Created by csalib on 29.09.15.
+ * @author csalib
+ * @author jnunez
  */
 public class VworUtils {
 
@@ -63,16 +64,20 @@ public class VworUtils {
     private String getVworAuthUsername() {
         PropertiesReader propertiesReader = new PropertiesReader();
         String vworUser = propertiesReader.getProperty("vwor.auth.user");
+
         return vworUser;
     }
 
     private String getVworAuthPassword() {
         PropertiesReader propertiesReader = new PropertiesReader();
         String vworPassword = propertiesReader.getProperty("vwor.auth.password");
+
         return vworPassword;
     }
+
     /**
      * Method sending Requests to VWOR
+     *
      * @return Entities from the Vwor component
      * @throws IOException
      */
@@ -111,5 +116,4 @@ public class VworUtils {
 
         return r;
     }
-
 }
