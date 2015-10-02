@@ -45,6 +45,7 @@ import lombok.extern.java.Log;
 @Produces(MediaType.APPLICATION_JSON)
 @Log
 public class VeranstaltungenResource {
+
 	 /**
      * base path of all resource
      */
@@ -53,18 +54,17 @@ public class VeranstaltungenResource {
     /**
      * Event type
      */
-    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {
-    };
+    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {};
+
     /**
      * List of Events type
      */
-    private static final TypeReference<List<Event>> EVENT_LIST = new TypeReference<List<Event>>() {
-    };
+    private static final TypeReference<List<Event>> EVENT_LIST = new TypeReference<List<Event>>() {};
+
     /**
      * Guest type
      */
-    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {
-    };
+    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
 
     /**
      * Jersey client

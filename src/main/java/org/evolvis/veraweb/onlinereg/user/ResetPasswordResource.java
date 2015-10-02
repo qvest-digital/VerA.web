@@ -83,6 +83,7 @@ public class ResetPasswordResource {
     public ResetPasswordResource(Config config, Client client) {
         this.client = client;
         this.config = config;
+        System.out.println();
     }
 
     /**

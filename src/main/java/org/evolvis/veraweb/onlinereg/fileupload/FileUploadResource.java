@@ -81,7 +81,7 @@ public class FileUploadResource {
 		String extension = getImageType(imageString);
 		String imageStringData = removeHeaderFromImage(imageString);
 
-		uploadImage(imageStringData,extension,imgUUID);
+		uploadImage(imageStringData, extension, imgUUID);
 
 		return StatusConverter.convertStatus("OK");
 	}
@@ -91,14 +91,14 @@ public class FileUploadResource {
 	public String getImageUUIDByUser(@PathParam("delegationUUID") String delegationUUID,
 									 @PathParam("personId") Integer personId) {
 
-		WebResource resource = client.resource(path("guest","image", delegationUUID, personId));
+		WebResource resource = client.resource(path("guest", "image", delegationUUID, personId));
 		String imageUUID = null;
 
 		try {
 			imageUUID = resource.get(String.class);
 		} catch (UniformInterfaceException e) {
 			int statusCode = e.getResponse().getStatus();
-			if(statusCode == 204) {
+			if (statusCode == 204) {
 				return null;
 			}
 
@@ -112,16 +112,15 @@ public class FileUploadResource {
 	@Path("/download/{imgUUID}")
 	public String downloadGuestImage(@PathParam("imgUUID") String imgUUID) throws IOException {
 
-		WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/fileupload/download")
-				.queryParam("imgUUID", imgUUID);
+		WebResource resource = client.resource(config.getVerawebEndpoint() + BASE_RESOURCE +
+				"/fileupload/download/" + imgUUID);
 
-		String encodedImage = null;
-
+		String encodedImage;
 		try {
 			encodedImage = resource.get(String.class);
 		} catch (UniformInterfaceException e) {
 			int statusCode = e.getResponse().getStatus();
-			if(statusCode == 204) {
+			if (statusCode == 204) {
 				return null;
 			}
 
@@ -142,7 +141,7 @@ public class FileUploadResource {
 
 		resource.post(postBody);
 	}
-     
+
 	private String removeHeaderFromImage(String imageString) {
 		if (getImageType(imageString).equals(VerawebConstants.EXTENSION_JPG) ||
 				getImageType(imageString).equals(VerawebConstants.EXTENSION_PNG))
@@ -152,7 +151,7 @@ public class FileUploadResource {
 
 		return "ERROR REMOVING HEADER FROM IMAGE";
 	}
-     
+
 	private String getImageType(String imageString) {
 		String imageHeader = imageString.substring(0, 15);
 		if (imageHeader.contains(VerawebConstants.JPG)) {
@@ -181,34 +180,4 @@ public class FileUploadResource {
 		return r;
 	}
 
-	/**
-	 * Reads the resource at given path and returns the entity.
-	 *
-	 * @param path path
-	 * @param type TypeReference of requested entity
-	 * @param <T>  Type of requested entity
-	 * @return requested resource
-	 * @throws IOException
-	 */
-	private <T> T readResource(String path, TypeReference<T> type) throws IOException {
-		WebResource resource;
-		try {
-			resource = client.resource(path);
-			final String json = resource.get(String.class);
-			return mapper.readValue(json, type);
-		} catch (ClientHandlerException che) {
-			if (che.getCause() instanceof SocketTimeoutException) {
-				//FIXME some times open, pooled connections time out and generate errors
-				log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
-				resource = client.resource(path);
-				final String json = resource.get(String.class);
-				return mapper.readValue(json, type);
-			} else {
-				throw che;
-			}
-		} catch (UniformInterfaceException uie) {
-			log.warning(uie.getResponse().getEntity(String.class));
-			throw uie;
-		}
-	}
 }

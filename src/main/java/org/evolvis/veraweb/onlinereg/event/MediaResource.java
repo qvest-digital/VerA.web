@@ -72,8 +72,7 @@ public class MediaResource {
     /**
      * Default constructor.
      */
-    public MediaResource() {
-    }
+    public MediaResource() {}
 
     /**
      * Alternative constructor.
@@ -124,9 +123,10 @@ public class MediaResource {
             @FormParam("country") String country) throws IOException {
 
         final Boolean delegationIsFound = checkForExistingPressEvent(uuid);
-        
-        if(delegationIsFound) {
-        	final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email, address, plz, city, country, usernameGenerator());
+
+        if (delegationIsFound) {
+            final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
+                    address, plz, city, country, usernameGenerator());
             return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
         }
 
@@ -134,20 +134,19 @@ public class MediaResource {
     }
 
     private String createAndAssignMediaRepresentativeGuest(PressTransporter transporter) throws IOException {
-    	// Assing person to event as guest
+        // Assing person to event as guest
         final Integer eventId = getEventIdFromUuid(transporter.getUuid());
-    	// Store in tperson
+        // Store in tperson
         final Integer personId = createPerson(eventId, transporter);
 
-        if (eventId==null) {
+        if (eventId == null) {
             return "NO_EVENT_DATA";
         }
-        addGuestToEvent(transporter.getUuid(), String.valueOf(eventId), String.valueOf(personId), transporter.getGender(), transporter.getUsername());
+        addGuestToEvent(transporter.getUuid(), String.valueOf(eventId), String.valueOf(personId),
+                transporter.getGender(), transporter.getUsername());
 
         return "OK";
     }
-
-
 
     /**
      * Includes a new guest in the database - Table "tguest"
@@ -158,7 +157,8 @@ public class MediaResource {
      * @param gender gender
      * @throws IOException
      */
-    private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String username) throws IOException {
+    private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String username)
+            throws IOException {
         final Integer categoryID = getCategoryIdFromCatname("Pressevertreter", uuid);
         final WebResource resource = client.resource(path("guest", uuid, "register"));
         final Form postBody = new Form();
@@ -178,14 +178,14 @@ public class MediaResource {
      * Searching an event ID using the UUID
      */
     private Integer getEventIdFromUuid(String uuid) throws IOException {
-		return readResource(path("event", "require", uuid), INTEGER);
-	}
+        return readResource(path("event", "require", uuid), INTEGER);
+    }
 
     /**
      * Searching the ID of one category using the catname
      */
     private Integer getCategoryIdFromCatname(String catname, String uuid) throws IOException {
-    	return readResource(path("category", catname, uuid), INTEGER);
+        return readResource(path("category", catname, uuid), INTEGER);
     }
     /**
      * Includes a new person in the database - Table "tperson"
@@ -203,25 +203,21 @@ public class MediaResource {
         postBody.add("username", transporter.getUsername());
         postBody.add("firstname", transporter.getVorname());
         postBody.add("lastname", transporter.getNachname());
-	    postBody.add("gender", correctGender(transporter.getGender()));
-	    postBody.add("email", transporter.getEmail());
-	    postBody.add("address", transporter.getAddress());
-	    postBody.add("plz", transporter.getPlz());
-	    postBody.add("city", transporter.getCity());
-	    postBody.add("country", transporter.getCountry());
+        postBody.add("gender", correctGender(transporter.getGender()));
+        postBody.add("email", transporter.getEmail());
+        postBody.add("address", transporter.getAddress());
+        postBody.add("plz", transporter.getPlz());
+        postBody.add("city", transporter.getCity());
+        postBody.add("country", transporter.getCountry());
 
         final Person person = resource.post(Person.class, postBody);
 
-    	return person.getPk();
+        return person.getPk();
     }
-
-
 
     private Boolean checkForExistingPressEvent(String uuid) throws IOException {
-    	return readResource(path("event","exist", uuid), BOOLEAN);
+        return readResource(path("event", "exist", uuid), BOOLEAN);
     }
-
-
 
     /**
      * Reads the resource at given path and returns the entity.
@@ -272,19 +268,18 @@ public class MediaResource {
     private String usernameGenerator() {
         final Date current = new Date();
 
-    	return "press" + current.getTime();
+        return "press" + current.getTime();
     }
 
     private String correctGender(String gender) {
-		String dbGender = null;
-		if (gender.equals("Herr")) {
-			dbGender = "m";
-		}
-		else {
-			dbGender = "f";
-		}
+        String dbGender = null;
+        if (gender.equals("Herr")) {
+            dbGender = "m";
+        } else {
+            dbGender = "f";
+        }
 
-		return dbGender;
-	}
+        return dbGender;
+    }
 
 }
