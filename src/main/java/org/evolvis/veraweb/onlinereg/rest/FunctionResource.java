@@ -36,6 +36,7 @@ import org.hibernate.Session;
 @Path("/function")
 @Produces(MediaType.APPLICATION_JSON)
 public class FunctionResource extends AbstractResource {
+
 	/**
 	 * Get function name by event hash
 	 *
@@ -45,7 +46,7 @@ public class FunctionResource extends AbstractResource {
 	@GET
     @Path("/fields/list/function/{eventId}")
     public List<String> getFunctionsByEventId(@PathParam("eventId") int eventId) {
-    	final Session session = openSession();
+        final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Function.findFunctionNamesByEventId");
             query.setInteger("eventId", eventId);
@@ -53,7 +54,7 @@ public class FunctionResource extends AbstractResource {
             final List<String> functionName = (List<String>) query.list();
 
             //TODO NULL-Check?
-           	return functionName ;
+            return functionName;
         } finally {
             session.close();
         }

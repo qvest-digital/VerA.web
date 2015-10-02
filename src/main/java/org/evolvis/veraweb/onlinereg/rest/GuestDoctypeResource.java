@@ -65,31 +65,29 @@ public class GuestDoctypeResource extends AbstractResource {
 		}
 	}
 
-	private GuestDoctype handleCreateGuestDoctype(int fkGuest,
-			int fkDoctype, int addresstype, int locale,
-			String firstname, String lastname, Session session) {
+	private GuestDoctype handleCreateGuestDoctype(int fkGuest, int fkDoctype, int addresstype, int locale,
+												  String firstname, String lastname, Session session) {
 
 		final GuestDoctype guestDoctype = new GuestDoctype(fkGuest, fkDoctype, addresstype, locale);
 		guestDoctype.setFirstname(firstname);
 		guestDoctype.setLastname(lastname);
-		final Query query = getSelectGuestDoctypeByDoctypeIdAndPersonIdQuery(guestDoctype,  session);
-		
+		final Query query = getSelectGuestDoctypeByDoctypeIdAndPersonIdQuery(guestDoctype, session);
+
 		if (!query.list().isEmpty()) {
 			// user already exists
 			return null;
 		}
-		
+
 		persistGuestDoctype(guestDoctype, session);
 		return guestDoctype;
 	}
 
 	private void persistGuestDoctype(GuestDoctype guestDoctype, Session session) {
-	    session.persist(guestDoctype);
-	    session.flush();		   
+		session.persist(guestDoctype);
+		session.flush();
 	}
 
-	private Query getSelectGuestDoctypeByDoctypeIdAndPersonIdQuery(
-			GuestDoctype guestDoctype, Session session) {
+	private Query getSelectGuestDoctypeByDoctypeIdAndPersonIdQuery(GuestDoctype guestDoctype, Session session) {
 
 		final Query query = session
 				.getNamedQuery("GuestDoctype.findByDoctypeIdAndGuestId");

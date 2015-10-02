@@ -39,9 +39,8 @@ public class PersonCategoryResource extends AbstractResource {
 
 	@POST
 	@Path("/add")
-	public PersonCategory createPersonCategory(
-			@FormParam("personId") Integer personId,
-			@FormParam("categoryId") Integer categoryId) {
+	public PersonCategory createPersonCategory(@FormParam("personId") Integer personId,
+											   @FormParam("categoryId") Integer categoryId) {
 
 		final Session session = openSession();
 

@@ -163,7 +163,9 @@ public class DelegationResource extends AbstractResource {
         return fieldsList;
     }
 
-    private OptionalFieldValue initOptionalField(Session session, OptionalField field, List<Delegation> delegationContents) {
+    private OptionalFieldValue initOptionalField(Session session,
+                                                 OptionalField field,
+                                                 List<Delegation> delegationContents) {
         final List<OptionalFieldTypeContentFacade> typeContentsFacade = convertTypeContentsToDisplay(session, field);
         OptionalFieldValue optionalFieldValue = null;
         if (field.getFk_type() == 1) {
@@ -174,7 +176,8 @@ public class DelegationResource extends AbstractResource {
         return optionalFieldValue;
     }
 
-    private OptionalFieldValue initDropdown(OptionalField field, List<Delegation> delegationContents, List<OptionalFieldTypeContentFacade> typeContentsFacade) {
+    private OptionalFieldValue initDropdown(OptionalField field, List<Delegation> delegationContents,
+                                            List<OptionalFieldTypeContentFacade> typeContentsFacade) {
         OptionalFieldValue newOptionalFieldValue = new OptionalFieldValue(field, null);
         markOptionsAsSelected(delegationContents, typeContentsFacade);
         newOptionalFieldValue.setOptionalFieldTypeContentsFacade(typeContentsFacade);
@@ -188,7 +191,8 @@ public class DelegationResource extends AbstractResource {
         return newOptionalFieldValue;
     }
 
-    private void markOptionsAsSelected(final List<Delegation> delegationContents, final List<OptionalFieldTypeContentFacade> typeContentsFacade) {
+    private void markOptionsAsSelected(final List<Delegation> delegationContents,
+                                       final List<OptionalFieldTypeContentFacade> typeContentsFacade) {
         for (Delegation delegationContent : delegationContents) {
             for (int i = 0; i < typeContentsFacade.size(); i++) {
                 if (delegationContent.getValue().equals(typeContentsFacade.get(i).getContent())) {
@@ -198,7 +202,8 @@ public class DelegationResource extends AbstractResource {
         }
     }
 
-    private List<OptionalFieldTypeContentFacade> convertTypeContentsToDisplay(final Session session, final OptionalField field) {
+    private List<OptionalFieldTypeContentFacade> convertTypeContentsToDisplay(final Session session,
+                                                                              final OptionalField field) {
         final List<OptionalFieldTypeContent> typeContents = getTypeContentsByField(session, field);
         final List<OptionalFieldTypeContentFacade> typeContentsFacade = new ArrayList<OptionalFieldTypeContentFacade>();
         for (OptionalFieldTypeContent typeContent : typeContents) {
@@ -209,7 +214,8 @@ public class DelegationResource extends AbstractResource {
     }
 
     private List<OptionalFieldTypeContent> getTypeContentsByField(final Session session, final OptionalField field) {
-        final Query getTypeContentsQuery = session.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField");
+        final Query getTypeContentsQuery =
+                session.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField");
         getTypeContentsQuery.setInteger("optionalFieldId", field.getPk());
         return (List<OptionalFieldTypeContent>) getTypeContentsQuery.list();
     }

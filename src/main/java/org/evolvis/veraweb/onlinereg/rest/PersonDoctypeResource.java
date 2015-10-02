@@ -39,10 +39,9 @@ public class PersonDoctypeResource extends AbstractResource {
 
 	@POST
 	@Path("/")
-	public PersonDoctype createPersonDoctype(
-			@FormParam("personId") int personId,
-			@FormParam("firstName") String firstName,
-			@FormParam("lastName") String lastName) {
+	public PersonDoctype createPersonDoctype(@FormParam("personId") int personId,
+											 @FormParam("firstName") String firstName,
+											 @FormParam("lastName") String lastName) {
 		int fk_doctype = 1;
 		int addresstype = 1;
 		int locale = 1;
@@ -58,35 +57,35 @@ public class PersonDoctypeResource extends AbstractResource {
 		}
 	}
 
-	private PersonDoctype handleCreatePersonDoctype(int fk_person,
-			int fk_doctype, int addresstype, int locale, String textfield,
-			Session session) {
-		
+	private PersonDoctype handleCreatePersonDoctype(int fk_person, int fk_doctype, int addresstype, int locale,
+													String textfield, Session session) {
+
 		PersonDoctype personDoctype = new PersonDoctype(fk_person, fk_doctype, addresstype, locale);
 		personDoctype.setTextfield(textfield);
-		
-		Query query = getSelectPersonDoctypeByDoctypeIdAndPersonIdQuery(personDoctype,  session);
-		
+
+		Query query = getSelectPersonDoctypeByDoctypeIdAndPersonIdQuery(personDoctype, session);
+
 		if (!query.list().isEmpty()) {
 			// user already exists
 			return null;
 		}
-		
+
 		persistPersonDoctype(personDoctype, session);
+		
 		return personDoctype;
 	}
 
 	private void persistPersonDoctype(PersonDoctype personDoctype, Session session) {
-	    session.persist(personDoctype);
-	    session.flush();		   
+		session.persist(personDoctype);
+		session.flush();
 	}
 
-	private Query getSelectPersonDoctypeByDoctypeIdAndPersonIdQuery(
-			PersonDoctype personDoctype, Session session) {
+	private Query getSelectPersonDoctypeByDoctypeIdAndPersonIdQuery(PersonDoctype personDoctype, Session session) {
 
 		Query query = session.getNamedQuery("PersonDoctype.findByDoctypeIdAndPersonId");
 		query.setInteger("fk_person", personDoctype.getFk_person());
 		query.setInteger("fk_doctype", personDoctype.getFk_doctype());
+
 		return query;
 	}
 }

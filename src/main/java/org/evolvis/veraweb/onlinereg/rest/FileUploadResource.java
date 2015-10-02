@@ -82,7 +82,7 @@ public class FileUploadResource extends AbstractResource {
         if (extension.equals(VworConstants.EXTENSION_PNG)) {
 
             BufferedImage newImage = new BufferedImage(image.getWidth(),
-            image.getHeight(), BufferedImage.TYPE_INT_RGB);
+                    image.getHeight(), BufferedImage.TYPE_INT_RGB);
             newImage.createGraphics().drawImage(image, 0, 0, Color.WHITE, null);
             image = newImage;
         }
@@ -100,8 +100,7 @@ public class FileUploadResource extends AbstractResource {
      */
     @GET
     @Path("/download/{imgUUID}")
-    public String getImageByUUID(@PathParam("imgUUID") String imgUUID)
-            throws IOException {
+    public String getImageByUUID(@PathParam("imgUUID") String imgUUID) throws IOException {
 
         VworPropertiesReader vworPropertiesReader = new VworPropertiesReader();
         String filesLocation = vworPropertiesReader.getProperty("filesLocation");

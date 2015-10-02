@@ -40,8 +40,8 @@ public class HealthResource extends AbstractResource {
 
             Query q = session.getNamedQuery("Config.find");
             q.setString("key", "SCHEMA_VERSION");
-            Config c = (Config)q.uniqueResult();
-            if( c != null) {
+            Config c = (Config) q.uniqueResult();
+            if (c != null) {
                 return "OK";
             } else {
                 return "NO SCHEMA_VERSION";

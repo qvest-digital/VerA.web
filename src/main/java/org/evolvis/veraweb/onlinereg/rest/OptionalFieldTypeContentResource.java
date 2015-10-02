@@ -43,7 +43,8 @@ public class OptionalFieldTypeContentResource extends AbstractResource {
 	 */
 	@GET
 	@Path("/{optionalFieldId}")
-	public List<OptionalFieldTypeContent> getTypeContentsByOptionalField(@PathParam("optionalFieldId") Integer optionalFieldId) {
+	public List<OptionalFieldTypeContent> getTypeContentsByOptionalField(
+            @PathParam("optionalFieldId") Integer optionalFieldId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField");
@@ -54,5 +55,5 @@ public class OptionalFieldTypeContentResource extends AbstractResource {
         } finally {
             session.close();
         }
-	}
+    }
 }

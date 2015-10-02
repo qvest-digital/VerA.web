@@ -54,14 +54,12 @@ public class FreeVisitorsResource extends AbstractResource {
         } finally {
             session.close();
         }
-
     }
 
     /**
      * Get guest by login_required_uuid
      *
      * @param noLoginRequiredUUID No login required UUD for tguest.login_required_uuid
-     *
      * @return FIXME
      */
     @Path("/noLoginRequired/{noLoginRequiredUUID}")

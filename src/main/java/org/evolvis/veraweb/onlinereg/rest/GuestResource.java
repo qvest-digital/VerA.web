@@ -515,9 +515,9 @@ public class GuestResource extends AbstractResource{
                                 @FormParam("hostNode") String nodeHost,
                                 @FormParam("reserve") Integer reserve) {
         final Session session = openSession();
-        
-		try {
-            final Guest guest = initGuest(null,eventId, userId, invitationstatus, invitationtype, gender, category,
+
+        try {
+            final Guest guest = initGuest(null, eventId, userId, invitationstatus, invitationtype, gender, category,
                     username, nodeHost, reserve);
 
             final Query query = session.getNamedQuery("Guest.findIdByEventAndUser");
@@ -529,12 +529,12 @@ public class GuestResource extends AbstractResource{
             }
 
             session.saveOrUpdate(guest);
-			session.flush();
+            session.flush();
 
-			return guest;
-		} finally {
-			session.close();
-		}
+            return guest;
+        } finally {
+            session.close();
+        }
     }
 
     /**

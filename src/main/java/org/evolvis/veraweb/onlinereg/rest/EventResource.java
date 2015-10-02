@@ -87,23 +87,23 @@ public class EventResource extends AbstractResource {
     @Path("/userid/{username}")
     @GET
     public Integer getPersonIdByUsername(@PathParam("username") String username) {
-    	final Session session = openSession();
-    	
-    	try {
+        final Session session = openSession();
+
+        try {
             final Query query = session.getNamedQuery("Person.findPersonIdByUsername");
             query.setString("username", username);
             if (query.list().isEmpty()) {
                 // user does not exists
-            	// MUST NOT HAPPEN, BUT IT IS A PREVENTION
+                // MUST NOT HAPPEN, BUT IT IS A PREVENTION
                 return null;
             } else {
                 final Integer personId = (Integer) query.uniqueResult();
                 return personId;
             }
-    	} finally {
-    		session.close();
-    	}
-    	
+        } finally {
+            session.close();
+        }
+
     }
 
     /**
@@ -140,8 +140,8 @@ public class EventResource extends AbstractResource {
             final Query query = session.getNamedQuery("Event.guestByUUID");
             query.setString("uuid", uuid);
             final BigInteger numberFoundDelegations = (BigInteger) query.uniqueResult();
-            if(numberFoundDelegations.intValue() >= 1) {
-            	return true;
+            if (numberFoundDelegations.intValue() >= 1) {
+                return true;
             }
             return false;
         } finally {
@@ -165,7 +165,7 @@ public class EventResource extends AbstractResource {
 
             final Integer eventId = (Integer) query.uniqueResult();
             return eventId;
-            
+
         } finally {
             session.close();
         }
@@ -180,18 +180,18 @@ public class EventResource extends AbstractResource {
     @GET
     @Path("/isopen/{eventId}")
     public Boolean isOpenEvent(@PathParam("eventId") Integer eventId) {
-    	final Session session = openSession();
+        final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Event.isOpen");
             query.setInteger("eventId", eventId);
 
             final BigInteger counter = (BigInteger) query.uniqueResult();
-            
+
             if (counter.longValue() > 0) {
-            	return true;
+                return true;
             }
             return false;
-            
+
         } finally {
             session.close();
         }
@@ -230,10 +230,10 @@ public class EventResource extends AbstractResource {
             if (counter.longValue() > 0) {
                 return true;
             }
-            return false;
 
+            return false;
         } finally {
-           session.close();
+            session.close();
         }
     }
 
@@ -247,6 +247,7 @@ public class EventResource extends AbstractResource {
     private List<Event> getUsersEvents(Session session, int personId) {
         final Query query = session.getNamedQuery("Event.list.userevents");
         query.setInteger("fk_person", personId);
+
         return query.list();
     }
 }
