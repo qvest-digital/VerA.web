@@ -35,6 +35,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.utils.FileUploadUtils;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
+import de.tarent.aa.veraweb.utils.VworConstants;
 import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
@@ -81,9 +82,7 @@ public class GuestDetailWorker extends GuestListWorker {
      * Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Integer)}
      */
     public static final boolean MANDATORY_showDetail[] = {false, false};
-    public static final String DOWNLOAD = "download";
-    public static final String FILEUPLOAD = "fileupload";
-    public static final String SAVE = "save";
+
 
     /**
      * Diese Octopus-Aktion lädt Details zu einem Gast, der über ID oder über Position in der Ergebnisliste zu einer
@@ -142,7 +141,7 @@ public class GuestDetailWorker extends GuestListWorker {
     public void downloadImage(OctopusContext octopusContext,String imageUUID) throws IOException {
         TypeReference<String> stringType = new TypeReference<String>() {};
         VworUtils vworUtils = new VworUtils();
-        String URI = vworUtils.path(FILEUPLOAD, DOWNLOAD, imageUUID);
+        String URI = vworUtils.path(VworConstants.FILEUPLOAD, VworConstants.DOWNLOAD, imageUUID);
 
 
         String encodedImage = vworUtils.readResource(URI, stringType);
@@ -239,7 +238,6 @@ public class GuestDetailWorker extends GuestListWorker {
 
         octopusContext.setContent("personCategories", categories);
     }
-
 
     /**
      * Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext)}
@@ -341,9 +339,8 @@ public class GuestDetailWorker extends GuestListWorker {
 
         client.addFilter(vworUtils.getAuthorization());
 
-        final WebResource resource = client.resource(vworUtils.path(FILEUPLOAD, SAVE));
+        final WebResource resource = client.resource(vworUtils.path(VworConstants.FILEUPLOAD, VworConstants.SAVE));
         final Form postBody = new Form();
-
 
         postBody.add("imageUUID", imageUUID);
         postBody.add("imageStringData", imageData);
@@ -434,7 +431,8 @@ public class GuestDetailWorker extends GuestListWorker {
             if (octopusContext.requestAsBoolean("fetchRankFromMasterData").booleanValue() && guest.rank == null) {
                 if (guest.person != null && guest.category != null) {
                     Select sel = database.getSelect("PersonCategorie").where(
-                            Where.and(Expr.equal("fk_person", guest.person), Expr.equal("fk_categorie", guest.category)));
+                            Where.and(Expr.equal("fk_person", guest.person),
+                                      Expr.equal("fk_categorie", guest.category)));
                     sel.orderBy(null); //im Bean.property steht ein Verweis auf andere Tabelle!
 
                     PersonCategorie perCat = (PersonCategorie) database.getBean("PersonCategorie", sel);
