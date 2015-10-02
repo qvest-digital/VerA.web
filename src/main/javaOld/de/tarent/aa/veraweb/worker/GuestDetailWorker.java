@@ -81,6 +81,9 @@ public class GuestDetailWorker extends GuestListWorker {
      * Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Integer)}
      */
     public static final boolean MANDATORY_showDetail[] = {false, false};
+    public static final String DOWNLOAD = "download";
+    public static final String FILEUPLOAD = "fileupload";
+    public static final String SAVE = "save";
 
     /**
      * Diese Octopus-Aktion lädt Details zu einem Gast, der über ID oder über Position in der Ergebnisliste zu einer
@@ -139,7 +142,7 @@ public class GuestDetailWorker extends GuestListWorker {
     public void downloadImage(OctopusContext octopusContext,String imageUUID) throws IOException {
         TypeReference<String> stringType = new TypeReference<String>() {};
         VworUtils vworUtils = new VworUtils();
-        String URI = vworUtils.path("fileupload", "download", imageUUID);
+        String URI = vworUtils.path(FILEUPLOAD, DOWNLOAD, imageUUID);
 
 
         String encodedImage = vworUtils.readResource(URI, stringType);
@@ -338,8 +341,9 @@ public class GuestDetailWorker extends GuestListWorker {
 
         client.addFilter(vworUtils.getAuthorization());
 
-        final WebResource resource = client.resource(vworUtils.path("fileupload", "save"));
+        final WebResource resource = client.resource(vworUtils.path(FILEUPLOAD, SAVE));
         final Form postBody = new Form();
+
 
         postBody.add("imageUUID", imageUUID);
         postBody.add("imageStringData", imageData);
