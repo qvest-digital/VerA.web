@@ -138,11 +138,10 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
-    public void downloadImage(OctopusContext octopusContext,String imageUUID) throws IOException {
+    private void downloadImage(OctopusContext octopusContext,String imageUUID) throws IOException {
         TypeReference<String> stringType = new TypeReference<String>() {};
         VworUtils vworUtils = new VworUtils();
         String URI = vworUtils.path(VworConstants.FILEUPLOAD, VworConstants.DOWNLOAD, imageUUID);
-
 
         String encodedImage = vworUtils.readResource(URI, stringType);
         if(encodedImage != null) {
