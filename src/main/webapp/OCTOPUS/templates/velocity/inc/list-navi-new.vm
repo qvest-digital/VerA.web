@@ -11,8 +11,12 @@
                 #if(${language} == "de_DE")
 	            	$itemName
 	            #else
-	                #set($itemNameLowerCase=${helper.makeFirstLetterLowerCase($itemName)})
-	                $itemNameLowerCase
+	            	#if($itemName != ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_PLURAL})
+	                	#set($itemNameLowerCase=${helper.makeFirstLetterLowerCase($itemName)})
+	                	$itemNameLowerCase
+	                #else
+	                	$itemName
+	                #end
 	            #end
 	            | ${placeholderWithTranslation.GENERIC_NUMBER_PER_PAGE}
 				<input type="button" #if($listparam.limit == 10) class="active"#end value="10" title="${placeholderWithTranslation.SHOW_RECORDS_1} 10 ${placeholderWithTranslation.SHOW_RECORDS_2}" onclick="navigateLimit(10);"/>
