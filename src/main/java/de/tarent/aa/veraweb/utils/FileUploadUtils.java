@@ -8,15 +8,17 @@ import java.util.UUID;
 public class FileUploadUtils {
 
     public static String getImageType(String imageString) {
-        String imageHeader = imageString.substring(0, 15);
-        if (imageHeader.contains("data:image/jpg")) {
-            return "jpg";
-        } else if (imageHeader.contains("data:image/jpeg")) {
-            return "jpeg";
-        } else if (imageHeader.contains("data:image/png")) {
-            return "png";
-        }
+        if (imageString != null && !imageString.equals("")) {
+            String imageHeader = imageString.substring(0, 15);
+            if (imageHeader.contains("data:image/jpg")) {
+                return "jpg";
+            } else if (imageHeader.contains("data:image/jpeg")) {
+                return "jpeg";
+            } else if (imageHeader.contains("data:image/png")) {
+                return "png";
+            }
 
+        }
         return "ERROR_PARSING_IMAGE_TYPE";
     }
 

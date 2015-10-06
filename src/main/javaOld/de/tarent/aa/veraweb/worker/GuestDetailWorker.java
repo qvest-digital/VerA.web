@@ -317,7 +317,7 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void uploadImage(Map<String, Object> allRequestParams, Guest guest) throws IOException, BeanException {
         String base64Image = getBase64Image(allRequestParams);
-        if (base64Image != null) {
+        if (base64Image != null && !base64Image.equals("")) {
             String extension = FileUploadUtils.getImageType(base64Image);
             String imageData = FileUploadUtils.removeHeaderFromImage(base64Image);
 

@@ -28,6 +28,7 @@
 	  if ((width > 0 && width != 186) || (height > 0 && height != 245)) {
 	  	$('#detail-2-data-block').prepend("<div class=\"msg errormsg\">${placeholderWithTranslation.CONTACT_PICTURE_WRONG_SIZE}</div>");
 	  	$('#contactPhoto').attr("src", "/veraweb/images/boy-silhouette.jpg");
+	  	$('#base').val(null);
 	  } else if(imageSource != "/veraweb/images/boy-silhouette.jpg")  {
 	  	$('div.fakeButton').text('${placeholderWithTranslation.CONTACT_PICTURE_CHANGE}');
 	  	$( "#detail-2-data-block>").remove(".errormsg");
