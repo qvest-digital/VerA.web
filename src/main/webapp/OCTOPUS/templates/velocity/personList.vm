@@ -693,7 +693,17 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 									<th class="textCenter smallCell" title="${placeholderWithTranslation.delegationanmelden}">${placeholderWithTranslation.LETTER_DELEGATION}</th>
 								#end
 							#end
-							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.GENERIC_ID}</a></th>
+							<th class="textCenter smallCell"><a href="javascript:orderPersonList('id');">${placeholderWithTranslation.GENERIC_ID}
+								#if($personSearchField == 'id')
+									#if ($personSearchOrder == 'ASC')
+										<span class="floatRight"><img border="0" alt="ASC" src="${paths.staticWeb}images/sort_up.gif"></img></span>
+									#else
+										<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
+									#end
+								#else
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+								#end
+							</a></th>
 							<th title="${placeholderWithTranslation.GENERIC_MAIN_PERSON}, ${placeholderWithTranslation.GENERIC_CHARSET} 1"><a href="javascript:orderPersonList('lastname_a_e1');">${placeholderWithTranslation.GENERIC_LASTNAME_WITH_SOFT_HYPHEN}
 								#if($personSearchField == 'lastname_a_e1')
 									#if ($personSearchOrder == 'ASC')
