@@ -121,8 +121,7 @@ public class Main extends Application<Config> {
      * @param environment
      * @param client
      */
-	private void initAPIResources(final Config configuration,
-			final Environment environment, final Client client) {
+	private void initAPIResources(final Config configuration, final Environment environment, final Client client) {
 		environment.jersey().register(setEventResource(new EventResource(configuration, client)));
         environment.jersey().register(userResource = new UserResource(configuration, client));
         environment.jersey().register(loginResource = new LoginResource(configuration, client));
