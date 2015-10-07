@@ -1,10 +1,8 @@
-
 <script type="text/javascript">
    function readImage(input) {
        if ( input.files && input.files[0] ) {
            var FR= new FileReader();
            FR.onload = function(e) {
-
             if ($('#tab').val() == 'detail-3') {
 				$('#contactPhotoPartner').attr( "src", e.target.result );
 				$('#basePartner').val(e.target.result);
@@ -19,7 +17,7 @@
    }
 
 	$(function(){
-	   $("#asd").change(function(){
+	   $("#asd").change(function() {
 		   readImage( this );
 	   });
 
