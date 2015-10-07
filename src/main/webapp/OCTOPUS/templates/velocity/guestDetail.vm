@@ -214,6 +214,7 @@
                         <div id="detail-2-data-block" #if($guest.invitationtype == 3) style="display: none;"#end>
                         #set($ext = "_a")
                         #set($facade = $guest.Main)
+                        #set($isPartner = false)
                         #parse("inc/guest-member.vm")
                         </div>
 
@@ -264,6 +265,7 @@
                         <div id="detail-3-data-block" #if($guest.invitationtype == 2) style="display: none;"#end>
                         #set($ext = "_b")
                         #set($facade = $guest.Partner)
+                        #set($isPartner = true)
                         #parse("inc/guest-member.vm")
                         </div>
                         <div id="detail-3-reload-block" #if($guest.invitationtype != 2) style="display: none;"#end>

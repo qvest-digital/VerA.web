@@ -63,8 +63,8 @@ public class VworUtils {
 
     public HTTPBasicAuthFilter getAuthorization() {
         // FIXME We have to uncomment this line and delete the next line to allow HTTPBasicAuth as configurable
-//        return new HTTPBasicAuthFilter(getVworAuthUsername(),getVworAuthPassword());
-        return new HTTPBasicAuthFilter("veraweb", "veraweb");
+        return new HTTPBasicAuthFilter(getVworAuthUsername(),getVworAuthPassword());
+//        return new HTTPBasicAuthFilter("veraweb", "veraweb");
     }
 
     private String getVworAuthUsername() {

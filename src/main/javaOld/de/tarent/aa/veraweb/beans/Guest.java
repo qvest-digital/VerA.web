@@ -80,6 +80,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	public String domestic_a;
 	public String color_a;
 	public Integer fk_color_a;
+	public String image_uuid;
 
 	// Partner
 	public Integer invitationstatus_b;
@@ -95,6 +96,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	public String color_b;
 	public Integer fk_color_b;
 	public String osiam_login;
+	public String image_uuid_p;
 
 	public String getImage_uuid() {
 		return image_uuid;
@@ -114,7 +116,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 
 	// UUID to allow registration to events without login
 	public String login_required_uuid;
-	public String image_uuid;
+
 
 
     @Override
@@ -419,8 +421,8 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 			fk_color_b = value;
 		}
 
-		public String getImageUuid() { return image_uuid; }
+		public String getImageUuid() { return image_uuid_p; }
 
-		public void setImageUuid(String value) { image_uuid = value; }
+		public void setImageUuid(String value) { image_uuid_p = value; }
 	}
 }

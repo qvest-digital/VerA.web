@@ -104,6 +104,9 @@ public class GuestDetailWorker extends GuestListWorker {
     @SuppressWarnings("unchecked")
     public void showDetail(OctopusContext octopusContext, Integer guestid, Integer offset)
             throws BeanException, IOException {
+
+        Boolean isPartner = false;
+
         Database database = getDatabase(octopusContext);
 
         Guest guest = getGuest(octopusContext, guestid, offset);
@@ -133,20 +136,21 @@ public class GuestDetailWorker extends GuestListWorker {
             octopusContext.setContent("showGuestListData", new Boolean(false));
         }
 
-        if(guest.image_uuid != null) {
-            downloadImage(octopusContext, guest.image_uuid);
+        if (guest.image_uuid != null) {
+            octopusContext.setContent("guestImage", downloadGuestImage(octopusContext, guest.image_uuid));
         }
+        if (guest.image_uuid_p != null) {
+            octopusContext.setContent("guestPartnerImage", downloadGuestImage(octopusContext, guest.image_uuid_p));
+        }
+
     }
 
-    private void downloadImage(OctopusContext octopusContext,String imageUUID) throws IOException {
+    private String downloadGuestImage(OctopusContext octopusContext, String imageUUID) throws IOException {
         TypeReference<String> stringType = new TypeReference<String>() {};
         VworUtils vworUtils = new VworUtils();
         String URI = vworUtils.path(VworConstants.FILEUPLOAD, VworConstants.DOWNLOAD, imageUUID);
 
-        String encodedImage = vworUtils.readResource(URI, stringType);
-        if(encodedImage != null) {
-            octopusContext.setContent("guestImage", encodedImage);
-        }
+        return vworUtils.readResource(URI, stringType);
     }
 
     private String getImagePath() {
@@ -265,7 +269,8 @@ public class GuestDetailWorker extends GuestListWorker {
 
         try {
             Guest guest = getGuestEntity(request, database, allRequestParams);
-            uploadImage(allRequestParams, guest);
+            uploadGuestImage(allRequestParams, guest);
+            uploadPartnerImage(allRequestParams, guest);
 
             //Check for duplicate reservation (guest and partner).
             LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
@@ -315,8 +320,9 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
-    private void uploadImage(Map<String, Object> allRequestParams, Guest guest) throws IOException, BeanException {
-        String base64Image = getBase64Image(allRequestParams);
+    private void uploadGuestImage(Map<String, Object> allRequestParams, Guest guest) throws IOException, BeanException {
+        String base64Image = getBase64Image(allRequestParams, "baseInfoImage");
+
         if (base64Image != null && !base64Image.equals("")) {
             String extension = FileUploadUtils.getImageType(base64Image);
             String imageData = FileUploadUtils.removeHeaderFromImage(base64Image);
@@ -326,9 +332,26 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
+    private void uploadPartnerImage(Map<String, Object> allRequestParams, Guest guest)
+            throws IOException, BeanException {
+        String base64Image = getBase64Image(allRequestParams, "baseInfoImagePartner");
+        if (base64Image != null && !base64Image.equals("")) {
+            String extension = FileUploadUtils.getImageType(base64Image);
+            String imageData = FileUploadUtils.removeHeaderFromImage(base64Image);
+
+            setPartnerImageUUID(guest);
+            sendImageToVwor(extension, imageData, guest.image_uuid_p);
+        }
+    }
+
     private void setGuestImageUUID(Guest guest) throws IOException, BeanException {
         if (guest.image_uuid == null) {
             guest.image_uuid = FileUploadUtils.generateImageUUID();
+        }
+    }
+    private void setPartnerImageUUID(Guest guest) throws IOException, BeanException {
+        if (guest.image_uuid_p == null) {
+            guest.image_uuid_p = FileUploadUtils.generateImageUUID();
         }
     }
 
@@ -348,8 +371,8 @@ public class GuestDetailWorker extends GuestListWorker {
         resource.post(postBody);
     }
 
-    private String getBase64Image(Map<String, Object> allRequestParams) throws BeanException {
-        String[] imageInfo = (String[]) allRequestParams.get("baseInfoImage");
+    private String getBase64Image(Map<String, Object> allRequestParams, String imageKey) throws BeanException {
+        String[] imageInfo = (String[]) allRequestParams.get(imageKey);
         if (imageInfo != null) {
             return imageInfo[0];
         }
