@@ -467,6 +467,22 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
+	-- 1.6.31.6
+    	vnewvsn := '2015-10-07';
+    	IF vcurvsn < vnewvsn THEN
+    		vmsg := 'begin.update(1.6.31.6)';
+    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+
+    		-- New column to identify Guest-Partner-Photo
+    		ALTER TABLE tguest add column image_uuid_p character varying(100);
+
+    		-- post-upgrade 1.6.31.6
+    		vmsg := 'end.update(1.6.31.6)';
+    		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+    		vcurvsn := vnewvsn;
+    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+    	END IF;
+
 	-- end
 	IF vcurvsn <> vversion THEN
 		RAISE WARNING 'Database version after upgrade (%) does not match target (%)',
