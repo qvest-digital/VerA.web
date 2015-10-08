@@ -146,7 +146,7 @@
                                 <a id="menu.function" href="${paths.staticWeb}do/Function?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</a>
                             </li>
 						#end
-						#if($grants.isAdmin())
+						#if($grants.isAdmin() || $grants.isPartialAdmin())
 							<li>
                                 <a id="menu.category" href="${paths.staticWeb}do/Categorie?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</a>
                             </li>
