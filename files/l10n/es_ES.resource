@@ -658,7 +658,7 @@ GENERIC_STATISTICS=Estad\u00EDsticas
 
 # ADMINISTRATIONDROPDOWN
 GENERIC_SALUTATIONS=Denominaciones
-GENERIC_WORKAREA_PLURAL=\u00C1rea de trabajo
+GENERIC_WORKAREA_PLURAL=\u00C1reas de trabajo
 GENERIC_DOCUMENT_TYPE_PLURAL=Tipos de documento
 e-mail-postausgang=E-Mail-Buz\u00F3n de salida
 GENERIC_PROGRAM_PERFERENCES=Preferencias de programa
