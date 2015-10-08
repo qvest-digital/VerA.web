@@ -106,20 +106,15 @@ public class GuestDetailWorker extends GuestListWorker {
     public void showDetail(OctopusContext octopusContext, Integer guestid, Integer offset)
             throws BeanException, IOException {
 
-        Boolean isPartner = false;
-
         Database database = getDatabase(octopusContext);
 
         Guest guest = getGuest(octopusContext, guestid, offset);
-
         Person person = getPerson(octopusContext, database, guest);
 
         Integer freitextfeld = ConfigWorker.getInteger(octopusContext, "freitextfeld");
         Doctype doctype = (Doctype) database.getBean("Doctype", freitextfeld);
-
         Integer addresstype = doctype != null ? doctype.addresstype : null;
         Integer locale = doctype != null ? doctype.locale : null;
-
         Categorie category = (Categorie) database.getBean("Categorie", guest.category);
 
         setGeneralContentForOctopusContext(octopusContext, guest, person, addresstype, locale, category);
@@ -138,15 +133,15 @@ public class GuestDetailWorker extends GuestListWorker {
         }
 
         if (guest.image_uuid != null) {
-            octopusContext.setContent("guestImage", downloadGuestImage(octopusContext, guest.image_uuid));
+            octopusContext.setContent("guestImage", downloadGuestImage(guest.image_uuid));
         }
         if (guest.image_uuid_p != null) {
-            octopusContext.setContent("guestPartnerImage", downloadGuestImage(octopusContext, guest.image_uuid_p));
+            octopusContext.setContent("guestPartnerImage", downloadGuestImage(guest.image_uuid_p));
         }
 
     }
 
-    private String downloadGuestImage(OctopusContext octopusContext, String imageUUID) throws IOException {
+    private String downloadGuestImage(String imageUUID) throws IOException {
         TypeReference<String> stringType = new TypeReference<String>() {};
         VworUtils vworUtils = new VworUtils();
         String URI = vworUtils.path(VworConstants.FILEUPLOAD, VworConstants.DOWNLOAD, imageUUID);
@@ -163,11 +158,6 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
-    private String getImagePath() {
-        PropertiesReader propertiesReader = new PropertiesReader();
-        String r = propertiesReader.getProperty("vwor.endpoint");
-        return r;
-    }
 
     private void setGuestContentForOctopusContext(OctopusContext octopusContext, Database database, Guest guest,
                                                   Integer freitextfeld) throws BeanException, IOException {
