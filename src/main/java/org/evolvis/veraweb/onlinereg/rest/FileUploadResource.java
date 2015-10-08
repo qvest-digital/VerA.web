@@ -100,31 +100,33 @@ public class FileUploadResource extends AbstractResource {
      */
     @GET
     @Path("/download/{imgUUID}")
-    public String getImageByUUID(@PathParam("imgUUID") String imgUUID) throws IOException {
+    public String getImageByUUID(@PathParam("imgUUID") String imgUUID) {
 
         VworPropertiesReader vworPropertiesReader = new VworPropertiesReader();
         String filesLocation = vworPropertiesReader.getProperty("filesLocation");
 
         File file = new File(filesLocation + generateImageName(imgUUID));
 
-        BufferedImage image = ImageIO.read(file);
-
-        String imageString = null;
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
         StringBuilder encodedImage = null;
         try {
+            BufferedImage image = ImageIO.read(file);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ImageIO.write(image, "jpg", bos);
             byte[] imageBytes = bos.toByteArray();
-
             BASE64Encoder encoder = new BASE64Encoder();
-            imageString = encoder.encode(imageBytes);
+            String imageString = encoder.encode(imageBytes);
 
             encodedImage = new StringBuilder("data:image/jpg;base64,").append(imageString);
             bos.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            // image not found
+            // 1. Delete imageUUID
+
         }
-        return encodedImage.toString();
+        if (encodedImage != null) {
+            return encodedImage.toString();
+        }
+        return null;
     }
 
     public String generateImageName(String imgUUID) {
