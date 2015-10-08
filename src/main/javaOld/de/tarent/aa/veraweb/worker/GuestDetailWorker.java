@@ -28,6 +28,7 @@ import java.util.Random;
 
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -150,7 +151,16 @@ public class GuestDetailWorker extends GuestListWorker {
         VworUtils vworUtils = new VworUtils();
         String URI = vworUtils.path(VworConstants.FILEUPLOAD, VworConstants.DOWNLOAD, imageUUID);
 
-        return vworUtils.readResource(URI, stringType);
+        try {
+            return vworUtils.readResource(URI, stringType);
+        } catch (UniformInterfaceException e) {
+            int statusCode = e.getResponse().getStatus();
+            if(statusCode == 204) {
+                return null;
+            }
+
+            return null;
+        }
     }
 
     private String getImagePath() {
