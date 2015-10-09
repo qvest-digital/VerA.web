@@ -74,9 +74,13 @@ module.exports = function (grunt) {
     cssmin: {
       dist: {
         files: {
+          '<%= appConfig.dist %>/css/vendor.css': [
+            'bower_components/bootstrap/dist/css/bootstrap.min.css',
+            'bower_components/bootstrapvalidator/dist/css/bootstrapValidator.min.css'
+          ],
           '<%= appConfig.dist %>/css/site.css': [
              'css/style.css'
-           ]
+          ]
         }
       }
     },
@@ -84,23 +88,38 @@ module.exports = function (grunt) {
     uglify: {
        dist: {
          files: {
-           '<%= appConfig.dist %>/js/site.js': [
-              'bower_components/jquery/dist/jquery.min.js',
-              'bower_components/angular/angular.min.js',
-              'bower_components/angular-route/angular-route.min.js',
-              'bower_components/momentjs/min/moment-with-locales.min.js',
-              'bower_components/bootstrap/dist/js/bootstrap.min.js',
-              'bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js',
-              'bower_components/ng-file-upload/ng-file-upload-all.min.js',
-              'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-              'bower_components/angular-translate/angular-translate.min.js',
-              'bower_components/ng-flow/dist/ng-flow.min.js',
-              'bower_components/flow.js/dist/flow.min.js',
-              'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
+              '<%= appConfig.dist %>/js/vendor.js': [
+                 'bower_components/jquery/dist/jquery.min.js',
+                 'bower_components/angular/angular.min.js',
+                 'bower_components/angular-route/angular-route.min.js',
+                 'bower_components/momentjs/min/moment-with-locales.min.js',
+                 'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                 'bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js',
+                 'bower_components/ng-file-upload/ng-file-upload-all.min.js',
+                 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                 'bower_components/angular-translate/angular-translate.min.js',
+                 'bower_components/ng-flow/dist/ng-flow.min.js',
+                 'bower_components/flow.js/dist/flow.min.js',
+                 'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js'
+            ],
+            '<%= appConfig.dist %>/js/site.js': [
               'js/onlinereg.js',
               'js/controllers/*.js'
-           ]
+            ]
          }
+       }
+     },
+
+    // ng-annotate tries to make the code safe for minification automatically
+    // by using the Angular long form for dependency injection.
+     ngAnnotate: {
+       dist: {
+         files: [{
+           expand: true,
+           cwd: '/js',
+           src: ['onlinereg.js','/controllers/*.js'],
+           dest: '<%= appConfig.dist %>/js/'
+         }]
        }
      },
 
@@ -129,6 +148,11 @@ module.exports = function (grunt) {
             'css/{,*/}*.*',
             'bower_components/**'
           ]
+        }, {
+          expand: true,
+          cwd: './bower_components/bootstrap/fonts/',
+          src: '*',
+          dest: '<%= appConfig.dist %>/fonts/'
         }]
       }
     }
@@ -138,6 +162,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'update',
+    'ngAnnotate',
     'copy:dist',
     'useminPrepare',
     'concat',
