@@ -86,29 +86,46 @@ module.exports = function (grunt) {
     },
 
     uglify: {
-       dist: {
-         files: {
-              '<%= appConfig.dist %>/js/vendor.js': [
-                 'bower_components/jquery/dist/jquery.min.js',
-                 'bower_components/angular/angular.min.js',
-                 'bower_components/angular-route/angular-route.min.js',
-                 'bower_components/momentjs/min/moment-with-locales.min.js',
-                 'bower_components/bootstrap/dist/js/bootstrap.min.js',
-                 'bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js',
-                 'bower_components/ng-file-upload/ng-file-upload-all.min.js',
-                 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                 'bower_components/angular-translate/angular-translate.min.js',
-                 'bower_components/ng-flow/dist/ng-flow.min.js',
-                 'bower_components/flow.js/dist/flow.min.js',
-                 'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js'
+        options: {
+          mangle: false
+        },
+        dist: {
+          files: {
+            '<%= appConfig.dist %>/js/vendor.js': [
+            'bower_components/jquery/dist/jquery.min.js',
+            'bower_components/angular/angular.min.js',
+            'bower_components/angular-route/angular-route.min.js',
+            'bower_components/momentjs/min/moment-with-locales.min.js',
+            'bower_components/bootstrap/dist/js/bootstrap.min.js',
+            'bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js',
+            'bower_components/ng-file-upload/ng-file-upload-all.min.js',
+            'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+            'bower_components/angular-translate/angular-translate.min.js',
+            'bower_components/ng-flow/dist/ng-flow.min.js',
+            'bower_components/flow.js/dist/flow.min.js',
+            'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js'
             ],
             '<%= appConfig.dist %>/js/site.js': [
               'js/onlinereg.js',
               'js/controllers/*.js'
             ]
-         }
-       }
+          }
+        }
      },
+
+    // Automatically inject Bower components into the app
+    wiredep: {
+      app: {
+        src: ['<%= appConfig.app %>/{index,404,header,footer}.{html,ejs}'],
+        ignorePath:  /\.\.\//,
+        exclude: [/bootstrap-sass-official\//]
+      },
+      sass: {
+        src: ['<%= appConfig.app %>/css/{,*/}*.{scss,sass}'],
+        ignorePath: /(\.\.\/){1,2}bower_components\//,
+        exclude: [/bootstrap-sass-official\//]
+      }
+    },
 
     // ng-annotate tries to make the code safe for minification automatically
     // by using the Angular long form for dependency injection.
@@ -162,6 +179,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'update',
+    'wiredep',
     'ngAnnotate',
     'copy:dist',
     'useminPrepare',
