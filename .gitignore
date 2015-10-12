@@ -13,4 +13,3 @@ pom.xml.versionsBackup
 .factorypath
 src/main/resources/webroot/
 nave.sh
-node_modules/
