@@ -87,33 +87,33 @@ public class DatabaseHelper {
 			int pos = 0;
 			Order order = null;
 			if (list.size() > 1) {
-				if (list.get(0) != null && "DESC".equalsIgnoreCase((String)list.get(1))) {
+				if ("DESC".equalsIgnoreCase((String)list.get(1))) {
 					order = Order.desc((String)list.get(0));
 					pos += 2;
-				} else if (list.get(0) != null && "ASC".equalsIgnoreCase((String)list.get(1))) {
+				} else if ("ASC".equalsIgnoreCase((String)list.get(1))) {
 					order = Order.asc((String)list.get(0));
 					pos += 2;
-				} else if (list.get(0) != null) {
+				} else {
 					order = Order.asc((String)list.get(0));
 					pos += 1;
 				}
-			} else if (list.get(0) != null){
+			} else {
 				order = Order.asc((String)list.get(0));
 				pos++;
 			}
 			while (pos < list.size()) {
 				if (pos < list.size() - 1) {
-					if (list.get(pos) != null && "DESC".equalsIgnoreCase((String)list.get(pos + 1))) {
-						order = order.andDesc((String) list.get(pos));
+					if ("DESC".equalsIgnoreCase((String)list.get(pos + 1))) {
+						order = order.andDesc((String)list.get(pos));
 						pos += 2;
-					} else if (list.get(pos) != null && "ASC".equalsIgnoreCase((String)list.get(pos + 1))) {
+					} else if ("ASC".equalsIgnoreCase((String)list.get(pos + 1))) {
 						order = order.andAsc((String)list.get(pos));
 						pos += 2;
-					} else if (list.get(pos) != null){
+					} else {
 						order = order.andAsc((String)list.get(pos));
 						pos += 1;
 					}
-				} else if (list.get(pos) != null) {
+				} else {
 					order = order.andAsc((String)list.get(pos));
 					pos++;
 				}
