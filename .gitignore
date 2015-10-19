@@ -11,4 +11,5 @@ pom.xml.versionsBackup
 *.iml
 /.apt_generated/
 .factorypath
-
+src/main/resources/webroot/
+nave.sh
