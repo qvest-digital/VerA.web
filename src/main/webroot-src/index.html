@@ -8,10 +8,14 @@
 
 		<title>{{'BROWSER_TITLE'|translate}}</title>
 
+		<!-- build:css css/vendor.css -->
 		<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="bower_components/bootstrapvalidator/dist/css/bootstrapValidator.min.css" rel="stylesheet">
-
+		<!-- endbuild -->
+		<!-- build:css css/site.css -->
 		<link href="css/style.css" rel="stylesheet">
+		<!-- endbuild -->
+
 	</head>
 	<body>
 	 	<div class="maincontainer"  ng-controller="DirectLoginController">
@@ -34,6 +38,7 @@
 			</div>
 		</div>
 
+		<!-- build:js js/vendor.js -->
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/angular/angular.min.js"></script>
 		<script src="bower_components/angular-route/angular-route.min.js"></script>
@@ -46,7 +51,8 @@
 		<script src="bower_components/ng-flow/dist/ng-flow.min.js"></script>
 		<script src="bower_components/flow.js/dist/flow.min.js"></script>
 		<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
-
+		<!-- endbuild -->
+		<!-- build:js js/site.js -->
 		<script src="js/onlinereg.js"></script>
 		<script src="js/controllers/delegationController.js"></script>
 		<script src="js/controllers/directLoginController.js"></script>
@@ -61,6 +67,7 @@
 		<script src="js/controllers/resetPasswordController.js"></script>
 		<script src="js/controllers/updateController.js"></script>
 		<script src="js/controllers/veranstaltungsController.js"></script>
+		<!-- endbuild -->
 
 		<script>
 			$(document).ready(function () {
