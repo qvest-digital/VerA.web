@@ -73,13 +73,13 @@ public class FreeVisitorsResource {
 	@GET
     @Path("/{uuid}")
     public String getEvenByUUId(@PathParam("uuid") String uuid) throws IOException {
-    	final WebResource resource = client.resource(path("freevisitors", uuid));
+        final WebResource resource = client.resource(path("freevisitors", uuid));
         try {
             return StatusConverter.convertStatus(String.valueOf(resource.get(Event.class).getPk()));
         } catch (UniformInterfaceException e) {
             return StatusConverter.convertStatus("ERROR");
         }
-	}
+    }
 
     /**
      * Get
@@ -90,7 +90,8 @@ public class FreeVisitorsResource {
      */
     @GET
     @Path("/{uuid}/{noLoginRequiredUUID}")
-    public String getEvenByUUId(@PathParam("uuid") String uuid, @PathParam("noLoginRequiredUUID") String noLoginRequiredUUID) throws IOException {
+    public String getEvenByUUId(@PathParam("uuid") String uuid,
+                                @PathParam("noLoginRequiredUUID") String noLoginRequiredUUID) throws IOException {
         final Integer guestId = checkGuestExistsByNoLoginRequiredUUID(noLoginRequiredUUID);
         final WebResource resource = client.resource(path("freevisitors", uuid));
         final Integer eventId = resource.get(Event.class).getPk();
@@ -104,7 +105,7 @@ public class FreeVisitorsResource {
     private Integer checkGuestExistsByNoLoginRequiredUUID(String noLoginRequiredUUID) {
         final WebResource resource = client.resource(path("freevisitors", "noLoginRequired", noLoginRequiredUUID));
         final Integer guestId = resource.get(Integer.class);
-        if (guestId > 0 ) {
+        if (guestId > 0) {
             return guestId;
         }
         return null;

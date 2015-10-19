@@ -514,8 +514,7 @@ public class DelegationResource {
     }
 
     private String updateImageUUID(Guest guest) {
-        String imgUUID;
-        imgUUID = generateImageUUID();
+        String imgUUID = generateImageUUID();
         updateGuestEntity(guest.getPk(), imgUUID);
         return imgUUID;
     }

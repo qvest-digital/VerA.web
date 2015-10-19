@@ -75,5 +75,4 @@ public class Config extends Configuration {
 	public AuthConfig getRestauth() {
 		return restauth;
 	}
-
 }
