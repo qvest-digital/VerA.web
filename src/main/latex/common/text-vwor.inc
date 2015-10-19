@@ -20,6 +20,10 @@
 %-
 % im Moment nur Notizen
 
+mkdir -p /var/lib/veraweb/uploaded/ # writable for tomcat7
+
+install core-files/vwor.properties to /etc/veraweb/
+
 TODO auch in -core: starting the JVM with -Dfile.encoding=UTF-8
 
 TODO auch in -core: JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
