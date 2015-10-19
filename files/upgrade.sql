@@ -6,6 +6,12 @@
 --
 -- This file is part of VerA.web and published under the same licence.
 
+-- Entwicklernotiz: bei Hinzufügen einer neuen Version muß an drei
+-- Stellen was geändert werden:
+-- ① vversion in Zeile 28
+-- ② rechtr nah am Ende der Datei (vor „-- end“)
+-- ③ in ../src/main/resources/de/tarent/aa/veraweb/veraweb.properties
+
 CREATE OR REPLACE FUNCTION serv_vwdbupgrade() RETURNS VARCHAR AS $$
 
 DECLARE
