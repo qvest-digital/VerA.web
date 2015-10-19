@@ -67,16 +67,9 @@ public class LoginResource {
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
 
     /**
-     * String
-     */
-    private static final TypeReference<String> STRING = new TypeReference<String>() {
-    };
-
-    /**
      * key name for access tokens
      */
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
-
 
     /**
      * Jackson Object Mapper
@@ -106,8 +99,6 @@ public class LoginResource {
         this.client = client;
     }
 
-
-
     /**
      * Logs a user in.
      *
@@ -120,47 +111,47 @@ public class LoginResource {
 	public String login(@PathParam("username") String userName,
 			@FormParam("password") String password, 
 			@FormParam("delegation") String delegation) throws IOException {
-		if (userName == null || password == null) {
-			return null;
-		}
-		Boolean isRegisterdForDelegationEvent = true;
-		if (delegation != null && !"".equals(delegation)) {
-			isRegisterdForDelegationEvent = 
-					readResource(path("guest" , "registered", "delegation", userName, delegation), BOOLEAN);
-		}
-		
-		if (isRegisterdForDelegationEvent) {
-		
-			try {
-				String accessToken = config.getOsiam().getClient(client)
-						.getAccessTokenUserPass(userName, password, "POST");
-				context.setAttribute(USERNAME, userName);
-				context.setAttribute(ACCESS_TOKEN, accessToken);
-	
-				WebResource resource;
-	
-	            resource = client.resource(path("person", "userinfo", userName));
-	            String returnedValue;
-	
-	            try {
-	            	returnedValue = resource.get(String.class);
-	            } catch (UniformInterfaceException e) {
-	               int statusCode = e.getResponse().getStatus();
-	               if(statusCode == 204) {
-	               		return StatusConverter.convertStatus(userName);
-	               }
-	
-	               return null;
-	            }
-	
-				return StatusConverter.convertStatus(returnedValue);
-			} catch (ConnectionInitializationException cie) {
-				return null;
-			}
-		} else {
-			return null;
-		}
-	}
+        if (userName == null || password == null) {
+            return null;
+        }
+        Boolean isRegisterdForDelegationEvent = true;
+        if (delegation != null && !"".equals(delegation)) {
+            isRegisterdForDelegationEvent =
+                    readResource(path("guest", "registered", "delegation", userName, delegation), BOOLEAN);
+        }
+
+        if (isRegisterdForDelegationEvent) {
+
+            try {
+                String accessToken = config.getOsiam().getClient(client)
+                        .getAccessTokenUserPass(userName, password, "POST");
+                context.setAttribute(USERNAME, userName);
+                context.setAttribute(ACCESS_TOKEN, accessToken);
+
+                WebResource resource;
+
+                resource = client.resource(path("person", "userinfo", userName));
+                String returnedValue;
+
+                try {
+                    returnedValue = resource.get(String.class);
+                } catch (UniformInterfaceException e) {
+                    int statusCode = e.getResponse().getStatus();
+                    if (statusCode == 204) {
+                        return StatusConverter.convertStatus(userName);
+                    }
+
+                    return null;
+                }
+
+                return StatusConverter.convertStatus(returnedValue);
+            } catch (ConnectionInitializationException cie) {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 
     /**
      * Test if user is logged in.
@@ -205,7 +196,6 @@ public class LoginResource {
         context.removeAttribute(ACCESS_TOKEN);
     }
 
-
     /**
      * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
      *
@@ -219,7 +209,6 @@ public class LoginResource {
         }
         return r;
     }
-
 
     /**
      * Reads the resource at given path and returns the entity.

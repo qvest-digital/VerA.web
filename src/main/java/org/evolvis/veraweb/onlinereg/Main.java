@@ -95,8 +95,8 @@ public class Main extends Application<Config> {
                 .build("jerseyClient");
 
         try {
-            client.addFilter(
-                    new HTTPBasicAuthFilter(configuration.getRestauth().getUsername(), configuration.getRestauth().getPassword()));
+            client.addFilter(new HTTPBasicAuthFilter(configuration.getRestauth().getUsername(),
+                                                     configuration.getRestauth().getPassword()));
         } catch (NullPointerException e) {
             e.printStackTrace();
             log.warning("REST-Auth Konfiguration in config.json prüfen!");
@@ -104,7 +104,8 @@ public class Main extends Application<Config> {
 
         environment.jersey().setUrlPattern("/api/*");
 
-        environment.healthChecks().register("veraweb availability", health = new Health(client, configuration.getVerawebEndpoint()));
+        environment.healthChecks().register("veraweb availability",
+                health = new Health(client, configuration.getVerawebEndpoint()));
 
 //        environment.jersey().register(new OsiamAuthProvider("OSIAM protected"));
 
@@ -120,8 +121,7 @@ public class Main extends Application<Config> {
      * @param environment
      * @param client
      */
-	private void initAPIResources(final Config configuration,
-			final Environment environment, final Client client) {
+	private void initAPIResources(final Config configuration, final Environment environment, final Client client) {
 		environment.jersey().register(setEventResource(new EventResource(configuration, client)));
         environment.jersey().register(userResource = new UserResource(configuration, client));
         environment.jersey().register(loginResource = new LoginResource(configuration, client));

@@ -198,7 +198,7 @@ public class EventResource {
      * @param eventId
      * @param notehost
      * @param noLoginRequiredUUID
-     * @return
+     * @return updated status string
      * @throws IOException
      */
     @POST

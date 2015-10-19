@@ -94,36 +94,35 @@ public class UserResource {
         if (user != null) {
             return StatusConverter.convertStatus("USER_EXISTS");
         }
-        
+
         WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
         Form postBody = new Form();
-        
+
         postBody.add("username", osiam_username);
         postBody.add("firstname", osiam_firstname);
         postBody.add("lastname", osiam_secondname);
-        
-        Person person = new Person();
+
+        Person person;
         try {
-             person = r.post(Person.class, postBody);
+            person = r.post(Person.class, postBody);
         } catch (UniformInterfaceException e) {
             int statusCode = e.getResponse().getStatus();
-            if(statusCode == 204) {
-            	return StatusConverter.convertStatus("USER_EXISTS");
+            if (statusCode == 204) {
+                return StatusConverter.convertStatus("USER_EXISTS");
             }
 
             return StatusConverter.convertStatus("USER_NOT_CREATED");
         }
 
-		user = new User.Builder(osiam_username)
+        user = new User.Builder(osiam_username)
                 .setName(new Name.Builder().setGivenName(osiam_firstname).setFamilyName(osiam_secondname).build())
                 .setPassword(osiam_password1)
                 .setActive(true)
-                .addExtension(new Extension.Builder(VERAWEB_SCHEME).setField("tpersonid", BigInteger.valueOf(person.getPk())).build())
-                .build();              
-        
+                .addExtension(new Extension.Builder(VERAWEB_SCHEME)
+                        .setField("tpersonid", BigInteger.valueOf(person.getPk())).build())
+                .build();
 
-        osiamClient.createUser(accessToken, user);      
-       
+        osiamClient.createUser(accessToken, user);
 
         return StatusConverter.convertStatus("OK");
     }
