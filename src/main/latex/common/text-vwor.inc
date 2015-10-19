@@ -24,6 +24,10 @@ mkdir -p /var/lib/veraweb/uploaded/ # writable for tomcat7
 
 install core-files/vwor.properties to /etc/veraweb/
 
+install core-files/veraweb.properties (if not OA) or
+oa-files/core/veraweb.properties (if OA) to /etc/veraweb/
+after substitution
+
 TODO auch in -core: starting the JVM with -Dfile.encoding=UTF-8
 
 TODO auch in -core: JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
@@ -41,7 +45,7 @@ Bearbeiten /etc/tomcat7/tomcat-users.xml vor das schließende </tomcat-users> am
   <role rolename="veraweb"/>
   <user username="veraweb" password="veraweb" roles="veraweb"/>
 
-Anpassen username/password (spätere HTTP Basic Auth-Absicherung der API)!
+Anpassen username/password (spätere HTTP Basic Auth-Absicherung der API)! ⇒ veraweb.properties
 
 Tomcat neustarten.
 
