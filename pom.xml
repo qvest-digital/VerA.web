@@ -331,7 +331,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.13</version>
                 <configuration>
-                    <argLine>${argLine} -XX:-UseSplitVerifier</argLine>
                     <includes>
                         <include>**/TestSuite.java</include>
                     </includes>
