@@ -327,7 +327,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     	}
         /* default if anything else fails */
         if (search.sortDirection == null) {
-            logger.warning("search.sortDirection is nil");
+            logger.warn("search.sortDirection is nil");
             search.sortDirection = "ASC";
         }
     }
