@@ -258,16 +258,17 @@
                             #end
                         #end
 
-                        #if($person.deleted != "t" && $guest.invitationtype != 2)
-                            #parse("inc/guestMasterDataNote.vm")
-                        #end
-
                         <div id="detail-3-data-block" #if($guest.invitationtype == 2) style="display: none;"#end>
                         #set($ext = "_b")
                         #set($facade = $guest.Partner)
                         #set($isPartner = true)
                         #parse("inc/guest-member.vm")
                         </div>
+
+                        #if($person.deleted != "t" && $guest.invitationtype != 2)
+                            #parse("inc/guestMasterDataNote.vm")
+                        #end
+
                         <div id="detail-3-reload-block" #if($guest.invitationtype != 2) style="display: none;"#end>
                             <vera-info vera-stay>
 			    	<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
@@ -290,7 +291,6 @@
                         <input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" title="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
                     </span>
                   </form>
-
 
         </div><!--End class="tabsContent" -->
 
