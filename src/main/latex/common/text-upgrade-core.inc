@@ -18,7 +18,7 @@
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
 %-
-% Textabschnitt 4.1-4.3: Upgrade VerA.web-core
+% Textabschnitt 4.1-4.4: Upgrade VerA.web-core
 
 \section{Upgrade internes VerA.web-System}\label{sec:upgrade-int}
 
@@ -55,19 +55,7 @@ und Wartungsteam.
 
 \subsection{Dateien VerA.web-core}\label{subsec:upgrade-core-files}
 
-\begin{minipage}{\textwidth}
-Benennen Sie die Datei \texttt{veraweb-core-\vwiaverssw{}.war}
-in \texttt{veraweb.war} um. Entpacken Sie die Datei
-\texttt{veraweb-core-\vwiaverssw{}-files.tgz} (oder
-\texttt{.zip}) und wechseln Sie in das angelegte neue Verzeichnis
-(im Beispiel wird die Unix-Variante mit \texttt{.tgz} verwendet):
-
-\begin{lstlisting}[language=sh]
-mv veraweb-core-〈\vwiaverssw{}〉.war veraweb.war
-tar -xzf veraweb-core-〈\vwiaverssw{}〉-files.tgz
-cd veraweb-core-〈\vwiaverssw{}〉
-\end{lstlisting}
-\end{minipage}
+\input{text-extract.inc}
 
 \begin{minipage}{\textwidth}
 Falls das Verzeichnis \texttt{/etc/veraweb/l10n} noch nicht existiert,
@@ -125,6 +113,30 @@ Versionen als \texttt{config\_ldap\_access.xml.dist} und/oder
 als separater Download angeboten.
 \fi
 
+\subsection{Upgrade von 1.6.31 oder älter}\label{subsec:upgrade-1631}
+
+\input{text-1631-f.inc}
+
+\begin{minipage}{\textwidth}
+Installieren Sie nun die Konfigurationsdateien für die REST-API:
+
+\begin{lstlisting}[language=sh]
+sudo install -c -o 0 -g 0 -m 644 *.properties /etc/veraweb/
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Fügen Sie folgende Zeile der Apache-vhost-Konfiguration hinzu:
+
+\begin{lstlisting}
+JkMount /vwor* ajp13_worker
+\end{lstlisting}
+\end{minipage}
+
+Starten Sie den Webserver neu, um die Änderungen wirksam zu machen.
+
+\input{text-1631-t.inc}
+
 \subsection{Datenbank VerA.web-core}\label{subsec:upgrade-core-db}
 
 \begin{minipage}{\textwidth}
@@ -148,8 +160,8 @@ sinnvoll, ein Backup zu machen):
 \begin{lstlisting}[language=sh]
 sudo service tomcat7 stop
 sudo rm -rf /var/lib/tomcat7/webapps/veraweb*
+sudo rm -rf /var/lib/tomcat7/webapps/vwor*
 \end{lstlisting}
-%sudo rm -rf /var/lib/tomcat7/webapps/vwor*
 
 Bitte beachten Sie, daß der Tomcat-Dienst ggfs. noch einige Sekunden
 weiterläuft, nachdem der Stop-Befehl abgeschickt wurde; im Zweifelsfalls
@@ -157,10 +169,12 @@ können Sie mit \texttt{ps ax | grep java} prüfen, ob noch Prozesse laufen.
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-Dann starten Sie den Server wieder und deployen die VerA.web-Anwendung:
+Dann starten Sie den Server wieder und deployen die VerA.web-Anwendung
+und die REST-API:
 
 \begin{lstlisting}[language=sh]
 sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
+sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
 sudo service tomcat7 start
 \end{lstlisting}
 \end{minipage}
@@ -171,6 +185,6 @@ mehr; diese können nun entfernt werden:
 
 \begin{lstlisting}[language=sh]
 cd ..
-rm -rf veraweb-core-〈\vwiaverssw{}〉* veraweb.war
+rm -rf veraweb-core-〈\vwiaverssw{}〉* veraweb.war vwor.war
 \end{lstlisting}
 \end{minipage}

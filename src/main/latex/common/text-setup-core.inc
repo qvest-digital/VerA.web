@@ -18,7 +18,7 @@
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
 %-
-% Textabschnitt 3.1-3.5: Setup VerA.web-core
+% Textabschnitt 3.1-3.6: Setup VerA.web-core
 
 \section{Installation internes VerA.web-System}\label{sec:setup-int}
 
@@ -28,52 +28,8 @@ Installation der einzelnen Komponenten beschrieben.
 
 \subsection{Dateien VerA.web-core und REST-API}\label{subsec:setup-core-files}
 
-\begin{minipage}{\textwidth}
-Benennen Sie die Datei \texttt{veraweb-core-\vwiaverssw{}.war}
-in \texttt{veraweb.war} sowie \texttt{rest-api-\vwiaverssw{}.war}
-in \texttt{vwor.war} um. Entpacken Sie die Datei
-\texttt{veraweb-core-\vwiaverssw{}-files.tgz} (oder
-\texttt{.zip}) und wechseln Sie in das angelegte neue Verzeichnis
-(im Beispiel wird die Unix-Variante mit \texttt{.tgz} verwendet):
-
-\begin{lstlisting}[language=sh]
-mv veraweb-core-〈\vwiaverssw{}〉.war veraweb.war
-mv rest-api-〈\vwiaverssw{}〉.war vwor.war
-tar -xzf veraweb-core-〈\vwiaverssw{}〉-files.tgz
-cd veraweb-core-〈\vwiaverssw{}〉
-\end{lstlisting}
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Passen Sie in der \texttt{veraweb.properties} bitte den Hostnamen
-in der \texttt{vwor.endpoint}-Eigenschaft an und tragen Sie die
-Zugangsdaten für die REST-API (siehe \nameref{subsec:intro-restapi})
-als \texttt{vwor.auth.user} und \texttt{vwor.auth.password} ein.
-
-\ifoa
-\Warning \emph{Achtung:} Bei Installation mit Online-Anmeldung
-benutzen Sie bitte die \texttt{core/veraweb.properties} aus dem
-Dateipaket der Online-Anmeldung, die mehr Einstellungen enthält!
-\fi
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Legen Sie ein neues Verzeichnis an, in dem Sie die hochgeladenen
-Bilddateien speichern wollen (wir empfehlen ein Unterverzeichnis,
-sodaß es später möglich ist, weitere Strukturen aufzubauen), und
-machen Sie es für den Tomcat-Nutzer schreibbar:
-
-\begin{lstlisting}[language=sh]
-sudo mkdir -p /var/lib/veraweb/uploaded
-sudo chgrp tomcat7 /var/lib/veraweb/uploaded
-sudo chmod 2770 /var/lib/veraweb/uploaded
-\end{lstlisting}
-
-Falls Sie ein anderes Verzeichnis als das obige verwenden passen
-Sie bitte die Eigenschaft \texttt{filesLocation} in der Datei
-\texttt{vwor.properties} an; bitte achten Sie darauf, daß der
-Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
-\end{minipage}
+\input{text-extract.inc}
+\input{text-1631-f.inc}
 
 \begin{minipage}{\textwidth}
 Legen Sie ein neues Verzeichnis \texttt{/etc/veraweb} mit einem
@@ -283,44 +239,7 @@ des Webservers zu sehen sein.
 
 \subsection{Applikationsserver REST-API}\label{subsec:setup-vwor-tomcat}
 
-\begin{minipage}{\textwidth}
-Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat7} (wenn Sie
-nicht Debian benutzen, an einer äquivalenten Stelle) folgende Zeilen ein,
-um weitere JVM-Startoptionen zu setzen:
-
-\begin{lstlisting}[language=sh]
-JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
-JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
-\end{lstlisting}
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat7/context.xml} vor
-das schließende \texttt{</Context>}-Tag folgendes Tag ein, um die
-\nameref{subsec:setup-core-db} für die REST-API verfügbar zu machen:
-
-\begin{lstlisting}[language=XML]
-<Resource name="jdbc/vwonlinereg" auth="Container" type="javax.sql.DataSource"
- driverClassName="org.postgresql.Driver" username="veraweb" password="veraweb"
- url="jdbc:postgresql://localhost:5432/veraweb" maxActive="8" maxIdle="4" />
-\end{lstlisting}
-
-Ersetzen Sie jeweils für „veraweb“ den Benutzernamen, das Paßwort und den
-Datenbanknamen, die Sie verwendet haben, falls Sie von den Standardvorgaben
-in Kapitel \ref{subsec:setup-core-db} abgewichen sind.
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat7/tomcat-users.xml} vor
-das schließende \texttt{</tomcat-users>}-Tag folgende Tags ein, setzen dabei
-aber die von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
-\ref{subsec:intro-restapi} ein:
-
-\begin{lstlisting}[language=XML]
-<role rolename="veraweb" />
-<user roles="veraweb" username="veraweb" password="veraweb" />
-\end{lstlisting}
-\end{minipage}
+\input{text-1631-t.inc}
 
 \subsection{Applikationsserver VerA.web-core}\label{subsec:setup-core-tomcat}
 
