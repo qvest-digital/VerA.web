@@ -33,15 +33,17 @@ unterstützt.
 
 Dieses Dokument beschreibt, wie VerA.web core (die eigentliche
 Veranstaltungsmanagementsoftware) durch einen Systemadministrator
-eigenständig installiert werden kann. Hierbei wird eine Installation
-nach empfohlenen Verfahrensweisen beschrieben; ein Betrieb ist auch
-mit abweichender Konfiguration (z.B. Trennung von Core und REST-API)
-möglich, aber nicht durch dieses Dokument unterstützt.
+eigenständig installiert werden kann. Hierbei wird eine empfohlene
+Installation beschrieben; ein Betrieb ist auch mit abweichender
+Konfiguration (z.B. Trennung von Core und REST-API) möglich, aber
+nicht durch dieses Dokument abgedeckt.
 
 \subsection{Konzepte}\label{subsec:concepts}
 
 Der Kern von VerA.web besteht aus zwei Webanwendungen, die in einem
-Java-Applikationsserver (Apache Tomcat) laufen:
+Java-Applikationsserver (Apache Tomcat) laufen. Diese beiden Komponenten
+werden in der Regel auf demselben Server installiert und greifen auf
+dieselbe Datenbank zu.
 
 \begin{itemize}
  \item{\texttt{veraweb.war}: Die eigentliche Veranstaltungsmanagementsoftware,
@@ -49,9 +51,6 @@ Java-Applikationsserver (Apache Tomcat) laufen:
  \item{\texttt{vwor.war}: Die sogenannte „REST-API“; eine Funktionssammlung,
   welche Dienste für sowohl VerA.web als auch die Online-Anmeldung bereitstellt.}
 \end{itemize}
-
-Diese beiden Komponenten werden in der Regel auf demselben Server
-installiert und greifen auf dieselbe Datenbank zu.
 
 \subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
 
@@ -66,9 +65,7 @@ an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
 
 \section{Systemvoraussetzungen}\label{sec:requirements}
 
-Im folgenden werden die Systemvoraussetzungen und empfohlene Umgebung
-für VerA.web beschrieben, zunächst kurz tabellarisch, dann im Fließtext.
-
+% Voraussetzungen für VerA.web ohne Online-Anmeldung:
 \begin{tabular}{| r || l | l |}\hline
                  & Minimum    & empfohlen\\\hline\hline
  CPU             & 1          & 1\\\hline
@@ -76,5 +73,5 @@ für VerA.web beschrieben, zunächst kurz tabellarisch, dann im Fließtext.
  Festplatte      & 2 GB       & 8 GB\\\hline
  Betriebssystem  & Debian 7   & Debian 7 oder 8\Hair\textsuperscript{\ref{fn:jessie}}\\\hline
  Webserver       & Apache 2.2 & Apache 2.2 oder 2.4\Hair\textsuperscript{\ref{fn:apache}}\\\hline
- Java Runtime    & OpenJDK 7  & OpenJDK 7\\\hline
+ Java Runtime    & OpenJDK 7  & OpenJDK 7 oder 8\\\hline
 \end{tabular}
