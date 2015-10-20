@@ -54,27 +54,30 @@
 			imageSource = $('#contactPhoto').attr("src");
 		}
 
-		if ((width > 0 && width != 186) || (height > 0 && height != 245)) {
-			$('#detail-2-data-block').prepend("<div class=\"msg errormsg\">${placeholderWithTranslation.CONTACT_PICTURE_WRONG_SIZE}</div>");
+		if ($('#contactPhoto').attr("src") != '/veraweb/images/boy-silhouette.jpg') {
+			imageSourceGuest = $('#contactPhoto').attr("src");
+			$('#fakeGuestButton').text('${placeholderWithTranslation.CONTACT_PICTURE_CHANGE}');
+		}
+		if ($('#contactPhotoPartner').attr("src") != '/veraweb/images/boy-silhouette.jpg') {
+			imageSourcePartner = $('#contactPhotoPartner').attr("src");
+			$('#fakePartnerButton').text('${placeholderWithTranslation.CONTACT_PICTURE_CHANGE}');
+		}
 
-			if (isPartner) {
+		if(isPartner) {
+			if ((width > 0 && width != 186) || (height > 0 && height != 245)) {
+            	$('#detail-3-data-block').prepend("<div class=\"msg errormsg\">${placeholderWithTranslation.CONTACT_PICTURE_WRONG_SIZE}</div>");
 				$('#contactPhotoPartner').attr("src", "/veraweb/images/boy-silhouette.jpg");
-			}
-			else {
+            } else {
+           		$( "#detail-3-data-block>").remove(".errormsg");
+            }
+		} else {
+			if ((width > 0 && width != 186) || (height > 0 && height != 245)) {
+				$('#detail-2-data-block').prepend("<div class=\"msg errormsg\">${placeholderWithTranslation.CONTACT_PICTURE_WRONG_SIZE}</div>");
 				$('#contactPhoto').attr("src", "/veraweb/images/boy-silhouette.jpg");
+			} else {
+				$( "#detail-2-data-block>").remove(".errormsg");
 			}
 
-			$('#base').val(null);
-		} else if(imageSource != "/veraweb/images/boy-silhouette.jpg")  {
-
-			if (isPartner) {
-				$('#fakePartnerButton').text('${placeholderWithTranslation.CONTACT_PICTURE_CHANGE}');
-			}
-			else {
-				$('#fakeGuestButton').text('${placeholderWithTranslation.CONTACT_PICTURE_CHANGE}');
-			}
-
-			$( "#detail-2-data-block>").remove(".errormsg");
 		}
 	}
 </script>
