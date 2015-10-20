@@ -91,6 +91,7 @@ Distribution“) von tarent beziehen:
   \emph{oder} \texttt{veraweb-core-\vwiaverssw{}-files.zip}}
   \\(der Inhalt dieser Dateien ist identisch, nur anders verpackt)
  \item{\texttt{veraweb-core-\vwiaverssw{}.war}}
+ \item{\texttt{rest-api-\vwiaverssw{}.war}}
 \end{itemize}
 
 Bitte wenden Sie sich hierzu an unseren Produktvertrieb.

@@ -22,7 +22,7 @@
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
 %-
-% Textabschnitt 1: Einleitung
+% Textabschnitt 1-2: Einleitung
 
 \section{Einleitung}\label{sec:intro}
 
@@ -32,6 +32,29 @@ Durchführung von Anlässen, Konferenzen und anderen Veranstaltungen maßgeblich
 unterstützt. Dieses Dokument beschreibt, wie VerA.web core (die eigentliche
 Veranstaltungsmanagementsoftware) durch einen Systemadministrator eigenständig
 installiert werden kann.
+
+\subsection{Konzepte}\label{subsec:concepts}
+
+Der Kern von VerA.web besteht aus zwei Webanwendungen, die in einem
+Java-Applikationsserver (Apache Tomcat) laufen:
+
+\begin{itemize}
+ \item{\texttt{veraweb.war}: Die eigentliche Veranstaltungsmanagementsoftware,
+  welche später über einen Apache-Webserver von Sachbearbeitern bedient wird.}
+ \item{\texttt{vwor.war}: Die sogenannte „REST-API“; eine Funktionssammlung,
+  welche Dienste für sowohl VerA.web als auch die Online-Anmeldung bereitstellt.}
+\end{itemize}
+
+\subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
+
+Die Aufrufe der REST-API werden durch HTTP Basic Authentication mit einem
+(Maschinen-)Benutzernamen und Paßwort gesichert, welche bei den aufrufenden
+Anwendungen (der Veranstaltungsmanagementsoftware und, sofern vorhanden, der
+Online-Anmeldung) hinterlegt wird; die REST-API wird niemals direkt durch
+einen Menschen bedient. Es wird standardmäßig der Benutzer \texttt{veraweb}
+mit dem Paßwort \texttt{veraweb} verwendet; eine Änderung der Zugangsdaten
+ist \emph{dringend empfohlen}, um die Betriebssicherheit zu gewährleisten;
+an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
 
 \section{Systemvoraussetzungen}\label{sec:requirements}
 
