@@ -24,7 +24,7 @@
 \newcommand{\vwiaversfassungjahr}{2015}
 
 % VerA.web Version (ohne und mit „Buildnummer“)
-\newcommand{\vwiaverspo}{1.6.31}
+\newcommand{\vwiaverspo}{1.6.31+WIP}
 \newcommand{\vwiaverssw}{1.6.31.2}
 
 % OSIAM Version (Auth-/Resource-Server, nicht Distribution)
