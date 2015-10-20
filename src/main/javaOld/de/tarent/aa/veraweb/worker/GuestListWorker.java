@@ -320,7 +320,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	            search.sortDirection = "DESC";
 	        } else if ("DESC".equals(search.sortDirection)) {
 	            search.sortDirection = "ASC";
-	        } 
+	        }
     	}
     }
 
@@ -625,10 +625,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         GuestSearch sessionSearchGuest = (GuestSearch) octopusContext.sessionAsObject("search" + BEANNAME);
 
         if (sessionSearchGuest != null) {
-        	/* 
-        	 * Gets the last string order of the session SearchPerson object and set it to the new session. 
+        	/*
+        	 * Gets the last string order of the session SearchPerson object and set it to the new session.
             */
-            search.lastlistorder = sessionSearchGuest.listorder; 
+            search.lastlistorder = sessionSearchGuest.listorder;
             search.sortDirection = sessionSearchGuest.sortDirection;
         }
         search.sortList = sortList;
