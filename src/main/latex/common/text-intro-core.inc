@@ -29,9 +29,14 @@
 „VerA.web“ steht für Veranstaltungs- und Adreßverwaltung im „web“ (Internet).
 VerA.web ist eine Open Source-Webanwendung, die die IT-gestützte Planung und
 Durchführung von Anlässen, Konferenzen und anderen Veranstaltungen maßgeblich
-unterstützt. Dieses Dokument beschreibt, wie VerA.web core (die eigentliche
-Veranstaltungsmanagementsoftware) durch einen Systemadministrator eigenständig
-installiert werden kann.
+unterstützt.
+
+Dieses Dokument beschreibt, wie VerA.web core (die eigentliche
+Veranstaltungsmanagementsoftware) durch einen Systemadministrator
+eigenständig installiert werden kann. Hierbei wird eine Installation
+nach empfohlenen Verfahrensweisen beschrieben; ein Betrieb ist auch
+mit abweichender Konfiguration (z.B. Trennung von Core und REST-API)
+möglich, aber nicht durch dieses Dokument unterstützt.
 
 \subsection{Konzepte}\label{subsec:concepts}
 
@@ -44,6 +49,9 @@ Java-Applikationsserver (Apache Tomcat) laufen:
  \item{\texttt{vwor.war}: Die sogenannte „REST-API“; eine Funktionssammlung,
   welche Dienste für sowohl VerA.web als auch die Online-Anmeldung bereitstellt.}
 \end{itemize}
+
+Diese beiden Komponenten werden in der Regel auf demselben Server
+installiert und greifen auf dieselbe Datenbank zu.
 
 \subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
 

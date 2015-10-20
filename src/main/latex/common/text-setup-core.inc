@@ -44,10 +44,18 @@ cd veraweb-core-〈\vwiaverssw{}〉
 \end{lstlisting}
 \end{minipage}
 
+\begin{minipage}{\textwidth}
 Passen Sie in der \texttt{veraweb.properties} bitte den Hostnamen
 in der \texttt{vwor.endpoint}-Eigenschaft an und tragen Sie die
 Zugangsdaten für die REST-API (siehe \nameref{subsec:intro-restapi})
 als \texttt{vwor.auth.user} und \texttt{vwor.auth.password} ein.
+
+\ifoa
+\Warning \emph{Achtung:} Bei Installation mit Online-Anmeldung
+benutzen Sie bitte die \texttt{core/veraweb.properties} aus dem
+Dateipaket der Online-Anmeldung, die mehr Einstellungen enthält!
+\fi
+\end{minipage}
 
 \begin{minipage}{\textwidth}
 Legen Sie ein neues Verzeichnis an, in dem Sie die hochgeladenen
@@ -207,7 +215,7 @@ SELECT veraweb.serv_build_sequences();
 
 Damit ist die Einrichtung der Datenbank abgeschlossen.
 
-\subsection{Webserver VerA.web-core}\label{subsec:setup-core-apache}
+\subsection{Webserver VerA.web-core und REST-API}\label{subsec:setup-core-apache}
 
 \begin{minipage}{\textwidth}
 Aktivieren Sie zunächst das \texttt{jk}-Modul, welches benutzt wird,
@@ -220,14 +228,15 @@ sudo a2enmod jk
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-Dann tragen Sie folgende Zeile in die vhost-Konfiguration ein:
+Dann tragen Sie folgende Zeilen in die vhost-Konfiguration ein:
 
 \begin{lstlisting}
 JkMount /veraweb* ajp13_worker
+JkMount /vwor* ajp13_worker
 \end{lstlisting}
 \end{minipage}
 
-Diese Zeile sollte z.B. in der mitgelieferten Standardkonfiguration
+Diese Zeilen sollte z.B. in der mitgelieferten Standardkonfiguration
 des Webservers unter Debian
 \texttt{/etc/apache2/sites-available/default-ssl}, welche mit einem
 \texttt{sudo a2ensite default-ssl} aktiviert wird, vor das
@@ -272,13 +281,55 @@ on the wrong port}“ sehen. Hingegen sollte unter der URL
 \texttt{https://veraweb.lan.tarent.de/index.html} weiterhin die Standardseite
 des Webservers zu sehen sein.
 
+\subsection{Applikationsserver REST-API}\label{subsec:setup-vwor-tomcat}
+
+\begin{minipage}{\textwidth}
+Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat7} (wenn Sie
+nicht Debian benutzen, an einer äquivalenten Stelle) folgende Zeilen ein,
+um weitere JVM-Startoptionen zu setzen:
+
+\begin{lstlisting}[language=sh]
+JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
+JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat7/context.xml} vor
+das schließende \texttt{</Context>}-Tag folgendes Tag ein, um die
+\nameref{subsec:setup-core-db} für die REST-API verfügbar zu machen:
+
+\begin{lstlisting}[language=XML]
+<Resource name="jdbc/vwonlinereg" auth="Container" type="javax.sql.DataSource"
+ driverClassName="org.postgresql.Driver" username="veraweb" password="veraweb"
+ url="jdbc:postgresql://localhost:5432/veraweb" maxActive="8" maxIdle="4" />
+\end{lstlisting}
+
+Ersetzen Sie jeweils für „veraweb“ den Benutzernamen, das Paßwort und den
+Datenbanknamen, die Sie verwendet haben, falls Sie von den Standardvorgaben
+in Kapitel \ref{subsec:setup-core-db} abgewichen sind.
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat7/tomcat-users.xml} vor
+das schließende \texttt{</tomcat-users>}-Tag folgende Tags ein, setzen dabei
+aber die von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
+\ref{subsec:intro-restapi} ein:
+
+\begin{lstlisting}[language=XML]
+<role rolename="veraweb" />
+<user roles="veraweb" username="veraweb" password="veraweb" />
+\end{lstlisting}
+\end{minipage}
+
 \subsection{Applikationsserver VerA.web-core}\label{subsec:setup-core-tomcat}
 
 \begin{minipage}{\textwidth}
-Deployen Sie die VerA.web-Anwendung in den Applikationsserver Tomcat:
+Deployen Sie die VerA.web-Anwendung und die REST-API in den Applikationsserver:
 
 \begin{lstlisting}[language=sh]
 sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
+sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
 \end{lstlisting}
 \end{minipage}
 
@@ -328,6 +379,11 @@ hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
 \end{lstlisting}
 \end{minipage}
 
+Bitte beachten Sie, daß Sie den Tomcat-Anwendungsserver auch neustarten
+müssen, wenn Sie diese Konfigurationsänderungen bereits vorgenommen haben,
+damit die unter \nameref{subsec:setup-vwor-tomcat} beschriebenen Änderungen
+aktiv werden, da sonst die REST-API nicht einsatzbereit ist.
+
 \begin{minipage}{\textwidth}
 Nun können Sie den Server wieder starten:
 
@@ -345,6 +401,6 @@ mehr; diese können nun entfernt werden:
 
 \begin{lstlisting}[language=sh]
 cd ..
-rm -rf veraweb-core-〈\vwiaverssw{}〉* veraweb.war
+rm -rf veraweb-core-〈\vwiaverssw{}〉* veraweb.war vwor.war
 \end{lstlisting}
 \end{minipage}

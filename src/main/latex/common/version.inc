@@ -37,3 +37,7 @@
 % Installationsanleitung oder nur Upgrade?
 \newif\ifupgradeanleitung
 \upgradeanleitungtrue
+
+% Textweiche mit/ohne OA
+\newif\ifoa
+\oafalse
