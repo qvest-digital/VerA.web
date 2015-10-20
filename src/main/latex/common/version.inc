@@ -19,13 +19,13 @@
 % of said person’s immediate fault when using the work as intended.
 
 % VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{2.2}
-\newcommand{\vwiaversfassungmonat}{September}
+\newcommand{\vwiaversfassungnr}{3.0}
+\newcommand{\vwiaversfassungmonat}{October}
 \newcommand{\vwiaversfassungjahr}{2015}
 
 % VerA.web Version (ohne und mit „Buildnummer“)
-\newcommand{\vwiaverspo}{1.6.31+WIP}
-\newcommand{\vwiaverssw}{1.6.31.2}
+\newcommand{\vwiaverspo}{1.6.32}
+\newcommand{\vwiaverssw}{1.6.32.1}
 
 % OSIAM Version (Auth-/Resource-Server, nicht Distribution)
 \newcommand{\vwiaversosiam}{2.2}
