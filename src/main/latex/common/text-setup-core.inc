@@ -66,7 +66,7 @@ Falls Sie ein anderes Verzeichnis als das obige verwenden passen
 Sie bitte die Eigenschaft \texttt{filesLocation} in der Datei
 \texttt{vwor.properties} an; bitte achten Sie darauf, daß der
 Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
-\end{minipage}  
+\end{minipage}
 
 \begin{minipage}{\textwidth}
 Legen Sie ein neues Verzeichnis \texttt{/etc/veraweb} mit einem
