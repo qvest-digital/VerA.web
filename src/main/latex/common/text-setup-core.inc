@@ -26,29 +26,56 @@ Nach dem erfolgten Aufsetzen des Systems mit den Basispaketen
 und dem Download der Installationspakete wird im folgenden die
 Installation der einzelnen Komponenten beschrieben.
 
-\subsection{Dateien VerA.web-core}\label{subsec:setup-core-files}
+\subsection{Dateien VerA.web-core und REST-API}\label{subsec:setup-core-files}
 
 \begin{minipage}{\textwidth}
 Benennen Sie die Datei \texttt{veraweb-core-\vwiaverssw{}.war}
-in \texttt{veraweb.war} um. Entpacken Sie die Datei
+in \texttt{veraweb.war} um. Benennen Sie außerdem die Datei
+\texttt{rest-api-\vwiaverssw{}.war} in \texttt{vwor.war} um.
+Entpacken Sie die Datei
 \texttt{veraweb-core-\vwiaverssw{}-files.tgz} (oder
 \texttt{.zip}) und wechseln Sie in das angelegte neue Verzeichnis
 (im Beispiel wird die Unix-Variante mit \texttt{.tgz} verwendet):
 
 \begin{lstlisting}[language=sh]
 mv veraweb-core-〈\vwiaverssw{}〉.war veraweb.war
+mv rest-api-〈\vwiaverssw{}〉.war vwor.war
 tar -xzf veraweb-core-〈\vwiaverssw{}〉-files.tgz
 cd veraweb-core-〈\vwiaverssw{}〉
 \end{lstlisting}
 \end{minipage}
 
+Passen Sie in der \texttt{veraweb.properties} bitte den Hostnamen
+in der \texttt{vwor.endpoint}-Eigenschaft an und tragen Sie die
+Zugangsdaten für die REST-API (siehe \nameref{subsec:intro-restapi})
+als \texttt{vwor.auth.user} und \texttt{vwor.auth.password} ein.
+
+\begin{minipage}{\textwidth}
+Legen Sie ein neues Verzeichnis an, in dem Sie die hochgeladenen
+Bilddateien speichern wollen (wir empfehlen ein Unterverzeichnis,
+sodaß es später möglich ist, weitere Strukturen aufzubauen), und
+machen Sie es für den Tomcat-Nutzer schreibbar:
+
+\begin{lstlisting}[language=sh]
+sudo mkdir -p /var/lib/veraweb/uploaded
+sudo chgrp tomcat7 /var/lib/veraweb/uploaded
+sudo chmod 2770 /var/lib/veraweb/uploaded
+\end{lstlisting}
+
+Falls Sie ein anderes Verzeichnis als das obige verwenden passen
+Sie bitte die Eigenschaft \texttt{filesLocation} in der Datei
+\texttt{vwor.properties} an; bitte achten Sie darauf, daß der
+Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
+\end{minipage}  
+
 \begin{minipage}{\textwidth}
 Legen Sie ein neues Verzeichnis \texttt{/etc/veraweb} mit einem
-Unterverzeichnis \texttt{l10n} an und kopieren Sie die Sprachdateien
-dorthin:
+Unterverzeichnis \texttt{l10n} an und kopieren Sie die Konfigurations-
+und Sprachdateien dorthin:
 
 \begin{lstlisting}[language=sh]
 sudo mkdir -p /etc/veraweb/l10n
+sudo install -c -o 0 -g 0 -m 644 *.properties /etc/veraweb/
 sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
 \end{lstlisting}
 \end{minipage}

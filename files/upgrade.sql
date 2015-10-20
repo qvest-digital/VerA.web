@@ -6,6 +6,12 @@
 --
 -- This file is part of VerA.web and published under the same licence.
 
+-- Entwicklernotiz: bei Hinzufügen einer neuen Version muß an drei
+-- Stellen was geändert werden:
+-- ① vversion in Zeile 28
+-- ② rechtr nah am Ende der Datei (vor „-- end“)
+-- ③ in ../src/main/resources/de/tarent/aa/veraweb/veraweb.properties
+
 CREATE OR REPLACE FUNCTION serv_vwdbupgrade() RETURNS VARCHAR AS $$
 
 DECLARE
@@ -467,23 +473,25 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
-	-- 1.6.31.6
-    	vnewvsn := '2015-10-07';
-    	IF vcurvsn < vnewvsn THEN
-    		vmsg := 'begin.update(1.6.31.6)';
-    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	-- anything after the old SQL files
 
-    		-- New column to identify Guest-Partner-Photo
-    		ALTER TABLE tguest add column image_uuid_p character varying(100);
+	vnewvsn := '2015-10-07';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
-    		-- post-upgrade 1.6.31.6
-    		vmsg := 'end.update(1.6.31.6)';
-    		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-    		vcurvsn := vnewvsn;
-    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-    	END IF;
+		-- New column to identify Guest-Partner-Photo
+		ALTER TABLE tguest add column image_uuid_p character varying(100);
+
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
 	-- end
+
 	IF vcurvsn <> vversion THEN
 		RAISE WARNING 'Database version after upgrade (%) does not match target (%)',
 		    vcurvsn, vversion
