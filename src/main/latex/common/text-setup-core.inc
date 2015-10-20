@@ -30,9 +30,8 @@ Installation der einzelnen Komponenten beschrieben.
 
 \begin{minipage}{\textwidth}
 Benennen Sie die Datei \texttt{veraweb-core-\vwiaverssw{}.war}
-in \texttt{veraweb.war} um. Benennen Sie außerdem die Datei
-\texttt{rest-api-\vwiaverssw{}.war} in \texttt{vwor.war} um.
-Entpacken Sie die Datei
+in \texttt{veraweb.war} sowie \texttt{rest-api-\vwiaverssw{}.war}
+in \texttt{vwor.war} um. Entpacken Sie die Datei
 \texttt{veraweb-core-\vwiaverssw{}-files.tgz} (oder
 \texttt{.zip}) und wechseln Sie in das angelegte neue Verzeichnis
 (im Beispiel wird die Unix-Variante mit \texttt{.tgz} verwendet):

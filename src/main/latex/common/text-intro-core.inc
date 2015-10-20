@@ -66,7 +66,7 @@ für VerA.web beschrieben, zunächst kurz tabellarisch, dann im Fließtext.
  CPU             & 1          & 1\\\hline
  Arbeitsspeicher & 512 MiB    & 1 GiB, besser mehr\\\hline
  Festplatte      & 2 GB       & 8 GB\\\hline
- Betriebssystem  & Debian 7   & Debian 7 oder 8\textsuperscript{\ref{fn:jessie}}\\\hline
- Webserver       & Apache 2.2 & Apache 2.2 oder 2.4\textsuperscript{\ref{fn:apache}}\\\hline
+ Betriebssystem  & Debian 7   & Debian 7 oder 8\Hair\textsuperscript{\ref{fn:jessie}}\\\hline
+ Webserver       & Apache 2.2 & Apache 2.2 oder 2.4\Hair\textsuperscript{\ref{fn:apache}}\\\hline
  Java Runtime    & OpenJDK 7  & OpenJDK 7\\\hline
 \end{tabular}

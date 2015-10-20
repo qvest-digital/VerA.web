@@ -39,9 +39,9 @@ derselben VM wie die interne Veranstaltungs- und Adreßverwaltung läuft.
 
 Desweiteren benötigen Sie den Apache 2 Webserver (idealerweise mit
 dem \texttt{prefork} MPM; in dieser Anleitung gehen wir von einem
-Setup mit Apache 2.2\footnote{\label{fn:apache}Debian 7 „wheezy“
-wird mit Apache 2.2 ausgeliefert, Debian 8 „jessie“\textsuperscript{\ref{fn:jessie}}
-mit Apache 2.4} auf Debian wheezy\footnote{\label{fn:jessie}Diese
+Setup mit Apache 2.2\Hair\footnote{\label{fn:apache}Debian 7 „wheezy“
+wird mit Apache 2.2 ausgeliefert, Debian 8 „jessie“\Hair\textsuperscript{\ref{fn:jessie}}
+mit Apache 2.4} auf Debian wheezy\Hair\footnote{\label{fn:jessie}Diese
 Installationsanleitung beschreibt aktuell nur den Betrieb unter
 Debian 7 „wheezy“.} aus) und \texttt{mod\_jk}, Tomcat 7 mit Java™ 7.
 

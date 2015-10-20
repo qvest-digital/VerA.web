@@ -110,8 +110,8 @@ Je nach Datei gibt es hierbei einige Besonderheiten zu beachten:
 
 Die anderen Dateien erhalten generell wenig Anpassungen, allerdings
 wurde vor VerA.web 1.5 das Encoding auf UTF-8 geändert. Es wird
-empfohlen, an diesen Dateien – außer \texttt{config\_ldap\_access.xml}
-und ggfs. \texttt{config\_database\_pools.xml} – nichts zu ändern,
+empfohlen, an diesen Dateien \dash außer \texttt{config\_ldap\_access.xml}
+und ggfs. \texttt{config\_database\_pools.xml} \dash nichts zu ändern,
 sondern \texttt{config\_override.xml} anzupassen, wenn möglich.
 
 \emph{Tip:} Entpacken Sie (mit \texttt{unzip}) \texttt{veraweb.war}
