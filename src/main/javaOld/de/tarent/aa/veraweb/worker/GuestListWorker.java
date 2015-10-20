@@ -322,6 +322,11 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	            search.sortDirection = "ASC";
 	        }
     	}
+        /* default if anything else fails */
+        if (search.sortDirection == null) {
+            logger.warning("search.sortDirection is nil");
+            search.sortDirection = "ASC";
+        }
     }
 
     private void buildGuestSelect(Select select, Integer freitextfeld) {
