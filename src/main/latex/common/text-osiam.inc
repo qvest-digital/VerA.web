@@ -64,3 +64,4 @@ Apache-Konfig (XXX wollen wir das wirklich exponieren? Zugriffsschutz wie?)
 Absicherung: ja, hier nur Verbindungen von vwor und vwoa zulassen (tbd)
 
 UPGRADE von 1.6.32: mindestens OSIAM 2.4 (Server 2.3) nötig
+Warnung: OSIAM-Server 2.3 bricht VerA.web 1.6.32 oder älter…
