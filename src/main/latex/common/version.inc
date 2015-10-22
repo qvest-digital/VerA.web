@@ -28,7 +28,7 @@
 \newcommand{\vwiaverssw}{1.6.32.1}
 
 % OSIAM Version (Auth-/Resource-Server, nicht Distribution)
-\newcommand{\vwiaversosiam}{2.2}
+\newcommand{\vwiaversosiam}{2.3}
 
 % Upgrade von /etc/veraweb (1.4.3.5 oder 1.5.1.4+)
 \newif\ifvwconfigsinetcalready

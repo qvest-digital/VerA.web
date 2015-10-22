@@ -62,3 +62,5 @@ Apache-Konfig (XXX wollen wir das wirklich exponieren? Zugriffsschutz wie?)
 	JkMount /osiam-auth-server* ajp13_worker
 	JkMount /osiam-resource-server* ajp13_worker
 Absicherung: ja, hier nur Verbindungen von vwor und vwoa zulassen (tbd)
+
+UPGRADE von 1.6.32: mindestens OSIAM 2.4 (Server 2.3) nötig
