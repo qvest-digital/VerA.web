@@ -1753,7 +1753,7 @@ GM_CONFIRMATION_EMAIL_DISTRIBUTOR=Voulez-vous importer les addresses \u00E9l\u00
 
 CONTACT_PICTURE_UPLOAD=T\u00E9l\u00E9charger une photo
 CONTACT_PICTURE_CHANGE=Changer la photo
-CONTACT_PICTURE_WRONG_SIZE=Les dimensions de l'image doivent \u00EAtre exactement 186x245 pixels.
+CONTACT_PICTURE_WRONG_SIZE=Les dimensions de l\u2019image doivent \u00EAtre exactement 186x245 pixels.
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=Une cat\u00E9gorie a \u00E9t\u00E9 modifi\u00E9
