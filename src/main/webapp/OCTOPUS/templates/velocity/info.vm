@@ -44,6 +44,11 @@
         </tr><tr>
             <td class="width15 bold">${placeholderWithTranslation.GENERIC_BUILD_TIME}:</td>
             <td>$properties.getString("pobuildts")</td>
+    #if($online-registration.activated)
+        </tr><tr>
+            <td class="width15 bold">${placeholderWithTranslation.GENERIC_OA}:</td>
+            <td>${placeholderWithTranslation.aktiv}</td>
+    #end
         </tr>
     </table>
     <br>
