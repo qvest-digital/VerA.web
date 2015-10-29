@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>online-anmeldung</artifactId>
-    <version>1.6.34.1-SNAPSHOT</version>
+    <version>1.6.34.1</version>
     <description>VerA.web Online-Registrierung</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,7 +23,7 @@
     <scm>
         <developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/online-anmeldung.git</developerConnection>
         <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/online-anmeldung.git</url>
-        <tag>HEAD</tag>
+        <tag>1.6.34.1</tag>
     </scm>
     <repositories>
         <repository>
@@ -333,7 +333,7 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.evolvis.veraweb.onlinereg.Main</mainClass>
                                 </transformer>
