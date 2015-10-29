@@ -1,7 +1,6 @@
 FROM debian:jessie
 
-MAINTAINER Dmytro Pishchukhin <dp@knowhowlab.org>
-#MAINTAINER Christian Luginbühl <dinkel@pimprecords.com>
+MAINTAINER Veraweb Team <veraweb@tarent.de>
 
 ENV OPENLDAP_VERSION 2.4.40
 
