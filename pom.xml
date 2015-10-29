@@ -76,7 +76,7 @@
                     <target>1.7</target>
                     <encoding>UTF-8</encoding>
                     <debug>true</debug>
-                    <compilerArgument/>
+                    <compilerArgument />
                 </configuration>
             </plugin>
             <plugin>
