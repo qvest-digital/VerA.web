@@ -6,6 +6,7 @@ RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
         apache2 libapache2-mod-jk && \
     a2enmod jk && a2enmod ssl && \
+    a2dissite 000-default && a2ensite default-ssl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
