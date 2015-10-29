@@ -11,6 +11,6 @@ RUN apt-get update && \
 
 EXPOSE 443
 
-VOLUME ["/etc/apache2"]
+VOLUME ["/etc/apache2", "/etc/libapache2-mod-jk"]
 
 CMD ["slapd", "-d", "32768", "-u", "openldap", "-g", "openldap"]
