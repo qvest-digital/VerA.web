@@ -83,8 +83,8 @@ public class LDAPManagerAA extends LDAPManager {
      */
     public Map getUserData(String userName) throws LDAPException {
         try {
-            String dn = getUserDN(userName);
-    		return LDAPUtil.toMap(lctx.getAttributes(dn + relativeUser + baseDN));
+            String dn = fullUserDN(userName);
+    		return LDAPUtil.toMap(lctx.getAttributes(dn));
         } catch (NamingException e) {
             throw new LDAPException("Es ist ein Fehler beim Holen der Userdaten aufgetreten!", e);
         }

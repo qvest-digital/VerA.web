@@ -627,7 +627,7 @@ public void setAllUsers(Map map) {
 		while(it.hasNext()){
 			String adduser = (String) it.next();
 			try {
-			    String adduser2 = manager.getUserDN(adduser)+manager.relativeUser+manager.baseDN; //$NON-NLS-1$
+			    String adduser2 = manager.fullUserDN(adduser); //$NON-NLS-1$
 			    users.add(adduser2);
 			}catch(LDAPException le) {
 			    logger.log(Level.WARNING, "User " + adduser + " existiert im LDAP leider nicht! Bitte bereinigen Sie die User.");

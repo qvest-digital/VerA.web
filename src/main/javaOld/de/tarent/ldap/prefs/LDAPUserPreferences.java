@@ -119,7 +119,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 		String relativeOld = ldm.getRelative();
 		String dn = null;
 		try {
-			dn = ldm.getUserDN(user);
+			dn = ldm.partialUserDN(user);
 		} catch (LDAPException e) {
 			throw new BackingStoreException(e);
 		}
@@ -143,7 +143,7 @@ public class LDAPUserPreferences extends AbstractPreferences {
 		String relative = ldm.getRelativeUser();
 		String dn = null;
 		try {
-			dn = ldm.getUserDN(user);
+			dn = ldm.partialUserDN(user);
 		} catch (LDAPException e) {
 			throw new BackingStoreException(e);
 		}
