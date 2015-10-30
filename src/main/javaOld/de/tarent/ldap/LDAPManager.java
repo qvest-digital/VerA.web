@@ -778,6 +778,7 @@ public class LDAPManager {
 				throw new LDAPException(Messages.getString("LDAPManager.95")); //$NON-NLS-1$
 			}
 			SearchResult search = (SearchResult) ne.next();
+logger.log(Level.WARNING, "NiN: " + search.getNameInNamespace());
 			dn = search.getName();
 			if (ne.hasMore()) {
 				throw new LDAPException(Messages.getString("LDAPManager.96")); //$NON-NLS-1$
