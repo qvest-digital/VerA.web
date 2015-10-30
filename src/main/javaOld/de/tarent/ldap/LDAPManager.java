@@ -246,6 +246,7 @@ public class LDAPManager {
     public LDAPManager login(String username, String passwort, String authType) throws LDAPException {
         try {
             String security_principal = getUserDN(username, null) + relativeUser + baseDN;
+	    logger.log(Level.WARNING, "security_principal: " + security_principal);
             Object ldapUrl = lctx.getEnvironment().get(Context.PROVIDER_URL);
             if (ldapUrl == null)
                 throw new LDAPException("Konnte LDAP-Url nicht ermitteln");
@@ -784,6 +785,7 @@ public class LDAPManager {
 		} catch (NamingException e) {
 			throw new LDAPException(Messages.getString("LDAPManager.97"), e); //$NON-NLS-1$
 		}
+		logger.log(Level.WARNING, "UID '" + uid + "' -> DN: " + dn);
 		return dn;
 	}
 
