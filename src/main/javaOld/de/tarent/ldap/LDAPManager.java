@@ -778,13 +778,16 @@ public class LDAPManager {
 			}
 			SearchResult search = (SearchResult) ne.next();
 			dn = search.getNameInNamespace();
+			dn = dn.replace("/", "\\2F");
+			if (logger.isLoggable(Level.INFO))
+				logger.log(Level.INFO, "Found LDAP DN \"" + dn + "\".");
 			if (ne.hasMore()) {
 				throw new LDAPException(Messages.getString("LDAPManager.96")); //$NON-NLS-1$
 			}
 		} catch (NamingException e) {
 			throw new LDAPException(Messages.getString("LDAPManager.97"), e); //$NON-NLS-1$
 		}
-		return dn.replace("/", "\\2F");
+		return dn;
 	}
 
 	public String searchSystemPreferenceNode(String key, String value) throws LDAPException {
