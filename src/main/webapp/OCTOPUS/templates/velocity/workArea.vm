@@ -59,7 +59,7 @@
 					<th>${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}</th>
 				</tr>
 				<tr>
-					<td class="textCenter""><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
+					<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
 					<td class="textCenter"><input type="hidden" name="add-id" value=""><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
 					<td><input type="text" class="edit-name" name="add-name" maxlength="250" value="" onchange="setModified('add')"></td>
 				</tr>
