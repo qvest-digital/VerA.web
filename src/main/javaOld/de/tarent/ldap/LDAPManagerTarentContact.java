@@ -170,13 +170,13 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         }
         try {
         	//FIXME: ueberarbeiten!!!
-        	String dn = getUserDN(uid);
+        	String dn = fullUserDN(uid);
         	if(use_tarent_objectclass){
                 Attribute objectClass;
                 Vector mods = new Vector();
                 try {
                     String[] objectClassA = {"objectClass"};
-                    objectClass = lctx.getAttributes(dn+relative+baseDN, objectClassA).get("objectClass");
+                    objectClass = lctx.getAttributes(dn, objectClassA).get("objectClass");
                 } catch (NamingException e1) {
                     throw new LDAPException(e1);
                 }
@@ -185,10 +185,10 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
                 }
                 mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, objectClass));
                 logger.log(Level.FINE, mods.toString());
-                lctx.modifyAttributes(dn+relative+baseDN, (ModificationItem[]) mods.toArray(new ModificationItem[1]));
+                lctx.modifyAttributes(dn, (ModificationItem[]) mods.toArray(new ModificationItem[1]));
         	}else{
         		if(really_delete){
-        			lctx.destroySubcontext(dn+relative + baseDN);
+        			lctx.destroySubcontext(dn);
         		}
         	}
         } catch (NamingException e) {
@@ -339,7 +339,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         modified = false;
         for (int i = 0; i < ldc.getUsers().size(); i++) {
             try {
-                String value = getUserDN(ldc.getUsers().get(i).toString()) + relativeUser + baseDN;
+                String value = fullUserDN(ldc.getUsers().get(i).toString());
                 if (!checkAttribute(contact, "member", value)) {
                     member.add(value);
                     modified = true;
@@ -398,7 +398,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     }
 
     public ContactUser getContactUser(String uid) throws LDAPException {
-        return new ContactUser(getEntry(getUserDN(uid) + relativeUser + baseDN));
+        return new ContactUser(getEntry(fullUserDN(uid)));
     }
 
 
@@ -408,9 +408,9 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
      */
     public Map getUserData(String userName) throws LDAPException {
         Map userdata = new HashMap();
-        String dn = getUserDN(userName);
+        String dn = fullUserDN(userName);
         try {
-            Attributes attr = lctx.getAttributes(dn+relative+baseDN);
+            Attributes attr = lctx.getAttributes(dn);
             Attribute vorname = null, nachname = null, name = null, mail=null;
             Attribute adminflag = null;
             if(attr.get("givenname")!=null) {vorname = attr.get("givenname");}
@@ -519,7 +519,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         Attribute objectClass;
         try {
             String[] objectClassA = {"objectClass"};
-            objectClass = lctx.getAttributes(getUserDN(userid)+relative+baseDN, objectClassA).get("objectClass");
+            objectClass = lctx.getAttributes(fullUserDN(userid), objectClassA).get("objectClass");
         } catch (NamingException e1) {
             throw new LDAPException(e1);
         }
@@ -553,7 +553,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         }
         try {
             logger.log(Level.FINE, mods.toString());
-            lctx.modifyAttributes(getUserDN(userid)+relative+baseDN, (ModificationItem[]) mods.toArray(new ModificationItem[1]));
+            lctx.modifyAttributes(fullUserDN(userid), (ModificationItem[]) mods.toArray(new ModificationItem[1]));
         } catch (NamingException e2) {
             throw new LDAPException(e2);
         }
@@ -605,7 +605,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         if(!mods.isEmpty()){
             try {
                 logger.log(Level.FINE, mods.toString());
-                lctx.modifyAttributes(getUserDN(userid)+relative+baseDN, (ModificationItem[]) mods.toArray(new ModificationItem[1]));
+                lctx.modifyAttributes(fullUserDN(userid), (ModificationItem[]) mods.toArray(new ModificationItem[1]));
             } catch (NamingException e2) {
                 throw new LDAPException(e2);
             }

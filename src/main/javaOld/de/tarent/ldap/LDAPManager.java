@@ -211,7 +211,7 @@ public class LDAPManager {
      * Diese Methode liefert die aktuellen Vorgabe-Objektklassen für Benutzer.
      *
      * @return Vorgabe-Objektklassen für Benutzer
-     * @see #getUserDN(String)
+     * @see #fullUserDN(String)
      */
     protected String[] getDefaultObjectClasses() {
         return defaultObjectClasses;
@@ -221,7 +221,7 @@ public class LDAPManager {
      * Diese Methode setzt die aktuellen Vorgabe-Objektklassen für Benutzer.
      *
      * @param newDefault neue Vorgabe-Objektklassen für Benutzer
-     * @see #getUserDN(String)
+     * @see #fullUserDN(String)
      */
     protected void setDefaultObjectClasses(String[] newDefault) {
         defaultObjectClasses = newDefault;
@@ -245,7 +245,7 @@ public class LDAPManager {
      */
     public LDAPManager login(String username, String passwort, String authType) throws LDAPException {
         try {
-            String security_principal = getUserDN(username, null) + relativeUser + baseDN;
+            String security_principal = fullUserDN(username, null);
             Object ldapUrl = lctx.getEnvironment().get(Context.PROVIDER_URL);
             if (ldapUrl == null)
                 throw new LDAPException("Konnte LDAP-Url nicht ermitteln");
@@ -298,7 +298,7 @@ public class LDAPManager {
 			while (it.hasNext()) {
 				String adduser = (String) it.next();
 				try {
-					String adduser2 = getUserDN(adduser) + relativeUser + baseDN;
+					String adduser2 = fullUserDN(adduser);
 					users.add(adduser2);
 				} catch (LDAPException le) {
 					logger.log(Level.WARNING, Messages.getString("LDAPManager.76") + adduser
@@ -362,7 +362,7 @@ public class LDAPManager {
 		boolean vorhanden = false;
 		try {
 			//Zu suchende Attribute zusammenbauen
-			Attributes attributes = lctx.getAttributes(getUserDN(name) + relative + baseDN);
+			Attributes attributes = lctx.getAttributes(fullUserDN(name));
 			//hole Attrbute
 			Attribute tester = attributes.get(attribute);
 			NamingEnumeration liste = null;
@@ -663,7 +663,7 @@ public class LDAPManager {
 		//member neu bauen
 		for (int i = 0; i < user.size(); i++) {
 			try {
-				member.add(getUserDN(user.get(i).toString()) + relativeUser + baseDN);
+				member.add(fullUserDN(user.get(i).toString()));
 			} catch (LDAPException le) {
 				logger.log(Level.WARNING, Messages.getString("LDAPManager.87")); //$NON-NLS-1$
 			}
@@ -751,33 +751,36 @@ public class LDAPManager {
 		return attrs;
 	}
 
-    public String getUserDN(String uid) throws LDAPException {
-        return getUserDN(uid, defaultObjectClasses);
-    }
+	public String fullUserDN(String uid) throws LDAPException {
+		return fullUserDN(uid, defaultObjectClasses);
+	}
 
-	public String getUserDN(String uid, String[] objectClasses) throws LDAPException {
+	public String fullUserDN(String uid, String[] objectClasses) throws LDAPException {
 		String dn = null;
 		Attributes attr = new BasicAttributes();
 		attr.put("uid", uid); //$NON-NLS-1$
-        if (objectClasses != null && objectClasses.length > 0) {
-            Attribute att = new BasicAttribute("objectclass");
-            for (int i = 0; i < objectClasses.length; i++)
-                att.add(objectClasses[i]);
-            attr.put(att);
-        }
+		if (objectClasses != null && objectClasses.length > 0) {
+			Attribute att = new BasicAttribute("objectclass");
+			for (int i = 0; i < objectClasses.length; i++)
+				att.add(objectClasses[i]);
+			attr.put(att);
+		}
 		try {
-    		String name = relativeUser.substring(1) + baseDN;
-    		String filter = filterTemplate.format(new Object[]{uid});
+			String name = relativeUser.substring(1) + baseDN;
+			String filter = filterTemplate.format(new Object[]{uid});
 			SearchControls cons = new SearchControls();
-    		this.initializeSearchControls( cons );
-    		if (logger.isLoggable(Level.INFO))
-    			logger.log(Level.INFO, "Search LDAP account in \"" + name + "\" with filter \"" + filter + "\".");
-    		NamingEnumeration ne = lctx.search(name, filter, cons);
+			this.initializeSearchControls( cons );
+			if (logger.isLoggable(Level.INFO))
+				logger.log(Level.INFO, "Search LDAP account in \"" + name + "\" with filter \"" + filter + "\".");
+			NamingEnumeration ne = lctx.search(name, filter, cons);
 			if (!ne.hasMore()) {
 				throw new LDAPException(Messages.getString("LDAPManager.95")); //$NON-NLS-1$
 			}
 			SearchResult search = (SearchResult) ne.next();
-			dn = search.getName();
+			dn = search.getNameInNamespace();
+			dn = dn.replace("/", "\\2F");
+			if (logger.isLoggable(Level.INFO))
+				logger.log(Level.INFO, "Found LDAP DN \"" + dn + "\".");
 			if (ne.hasMore()) {
 				throw new LDAPException(Messages.getString("LDAPManager.96")); //$NON-NLS-1$
 			}
@@ -1228,8 +1231,8 @@ public class LDAPManager {
 	public Object getUserParam(String userID, String paramname) throws TcSecurityException{
         Attribute temp = null;
         try {
-        	String dn = getUserDN(userID);
-            Attributes attr = lctx.getAttributes(dn+relative+baseDN);
+        	String dn = fullUserDN(userID);
+            Attributes attr = lctx.getAttributes(dn);
             if(attr.get(paramname)!=null) {temp = attr.get(paramname);}
 			return temp!=null?temp.get():null;
         } catch (NamingException e) {
