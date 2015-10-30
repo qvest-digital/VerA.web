@@ -1612,6 +1612,7 @@ USER_LIST_WARN_ALREADY_USER=El usuario a insertar ya existe en VerA.web.
 USER_LIST_WARN_NO_ID=El usuario a insertar no debe tener ID
 
 # WORKAREA TEXTS
+WORKAREA_NEED_MANDANT=No pueden crear una \u00E1rea del trabajo porque usted no est\u00E1n identificado con un mandante.
 WORKAREA_ERROR_INCORRECT_NAME_ONE=El \u00E1rea de trabajo con el nombre \u201C
 WORKAREA_ERROR_INCORRECT_NAME_TWO=\u201D no se ha podido crear. Por favor, identifique en primer lugar un mandante.
 

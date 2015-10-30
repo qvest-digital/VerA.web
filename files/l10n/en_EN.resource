@@ -1608,6 +1608,7 @@ USER_LIST_WARN_ALREADY_USER=User to be inserted is already assigned to VerA.web.
 USER_LIST_WARN_NO_ID=User to be inserted must not have an id
 
 # WORKAREA TEXTS
+WORKAREA_NEED_MANDANT=You cannot create any work areas because your user account is not assigned to a client.
 WORKAREA_ERROR_INCORRECT_NAME_ONE=The work area named \u201C
 WORKAREA_ERROR_INCORRECT_NAME_TWO=\u201D could not be created. Please assign a client first.
 

@@ -1608,6 +1608,7 @@ USER_LIST_WARN_ALREADY_USER=Einzuf\u00FCgender Benutzer ist bereits VerA.web zug
 USER_LIST_WARN_NO_ID=Einzuf\u00FCgender Benutzer darf keine ID haben
 
 # WORKAREA TEXTS
+WORKAREA_NEED_MANDANT=Sie k\u00F6nnen keine Arbeitsbereiche anlegen, weil Sie keinem Mandanten zugeordnet sind.
 WORKAREA_ERROR_INCORRECT_NAME_ONE=Der Arbeitsbereich mit dem Namen \u201E
 WORKAREA_ERROR_INCORRECT_NAME_TWO=\u201C konnte nicht angelegt werden. Bitte weisen Sie sich zuerst einen Mandanten zu.
 
