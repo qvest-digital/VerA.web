@@ -784,7 +784,7 @@ public class LDAPManager {
 		} catch (NamingException e) {
 			throw new LDAPException(Messages.getString("LDAPManager.97"), e); //$NON-NLS-1$
 		}
-		return dn;
+		return dn.replace("/", "\\2F");
 	}
 
 	public String searchSystemPreferenceNode(String key, String value) throws LDAPException {
