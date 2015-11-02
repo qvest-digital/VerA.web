@@ -1,5 +1,5 @@
 FROM java:7
-MAINTAINER Veraweb Team <veraweb@tarent.de>
+MAINTAINER VerA.web Team <veraweb-discuss@lists.evolvis.org>
 
 RUN mkdir -p /opt/online-anmeldung
 
