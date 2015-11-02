@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-MAINTAINER Veraweb Team <veraweb@tarent.de>
+MAINTAINER VerA.web Team <veraweb-discuss@lists.evolvis.org>
 
 ENV OPENLDAP_VERSION 2.4.40
 
