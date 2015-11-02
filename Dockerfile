@@ -5,7 +5,7 @@ MAINTAINER VerA.web Team <veraweb-discuss@lists.evolvis.org>
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
         apache2 libapache2-mod-jk ldap-account-manager && \
-    a2enmod jk && a2enmod ssl && \
+    a2enmod jk && a2enmod ssl && a2enmod php5 && \
     a2dissite 000-default && a2ensite default-ssl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
