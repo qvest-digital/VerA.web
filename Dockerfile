@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-MAINTAINER Veraweb Team <veraweb@tarent.de>
+MAINTAINER VerA.web Team <veraweb-discuss@lists.evolvis.org>
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
