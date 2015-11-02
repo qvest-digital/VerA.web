@@ -12,7 +12,8 @@ RUN apt-get update && \
 
 EXPOSE 443
 
-VOLUME ["/etc/apache2", "/etc/libapache2-mod-jk"]
+VOLUME ["/etc/apache2", "/etc/libapache2-mod-jk", \
+    "/var/lib/ldap-account-manager/config"]
 
 CMD ["/usr/bin/env", "-i", "LANG=C", \
     "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", \
