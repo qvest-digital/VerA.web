@@ -4,7 +4,7 @@
 	<groupId>de.tarent.octopus</groupId>
 	<artifactId>octopus-ext-beans</artifactId>
 	<packaging>jar</packaging>
-	<version>1.6.2verawebpl4</version>
+	<version>1.6.2verawebpl5</version>
 
 	<name>tarent-octopus bean extension</name>
 
