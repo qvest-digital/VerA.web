@@ -5,4 +5,4 @@ RUN mkdir -p /opt/online-anmeldung
 
 ADD ./target/vw-online-registration.jar /opt/online-anmeldung/
 
-CMD ["java",  "-jar", "/opt/online-anmeldung/vw-online-registration.jar", "server", "/opt/online-anmeldung/config.yaml"]  
+CMD ["java",  "-jar", "/opt/online-anmeldung/vw-online-registration.jar", "server", "/root/veraweb-oa/veraweb-oa-config.yml"]  
