@@ -169,7 +169,7 @@ public class MapBean extends AbstractMap implements Bean {
 					value = BeanFactory.transform(value, field.getType());
 					field.set(this, value);
 				} catch (BeanException e) {
-                    logger.log(Level.WARNING, "Fehler beim indirekten Setzen des Inhalts des Felds " + key + "mittels Setter", e);
+                    logger.log(Level.WARNING, "Fehler beim indirekten Setzen des Inhalts des Felds " + key + " mittels Setter", e);
 					addError(e.getLocalizedMessage());
 				}
 			} else {
