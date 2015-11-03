@@ -1610,7 +1610,7 @@ USER_LIST_WARN_ALREADY_USER=L\u2019utilisateur \u00E0 ins\u00E9rer est d\u00E9j\
 USER_LIST_WARN_NO_ID=L\u2019utilisateur \u00E0 ins\u00E9rer ne devrait pas avoir un num\u00E9ro d\u2019identit\u00E9
 
 # WORKAREA TEXTS
-WORKAREA_NEED_MANDANT=Vous ne pouvez pas cr\u00E9er des espaces de travail, parce que vous n'\u00EAtes pas assign\u00E9 \u00E0 des clients.
+WORKAREA_NEED_MANDANT=Vous ne pouvez pas cr\u00E9er des espaces de travail, parce que vous n\u2019\u00EAtes pas assign\u00E9 \u00E0 des clients.
 WORKAREA_ERROR_INCORRECT_NAME_ONE=La cr\u00E9ation du secteur du travail \u00AB
 WORKAREA_ERROR_INCORRECT_NAME_TWO=\u00BB n\u2019est pas possible. Veuillez associer un client \u00E0 priori.
 
