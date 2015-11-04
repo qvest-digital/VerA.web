@@ -25,7 +25,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2015-10-07';
+	vversion := '2015-11-04';
 
 	-- initialisation
 	vint := 0;
@@ -482,6 +482,25 @@ BEGIN
 
 		-- New column to identify Guest-Partner-Photo
 		ALTER TABLE tguest add column image_uuid_p character varying(100);
+
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
+
+	vnewvsn := '2015-11-04';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+
+		-- add a constraint which should have long existed
+		UPDATE veraweb.tuser SET fk_orgunit=NULL
+		    WHERE NOT EXISTS (SELECT pk FROM veraweb.torgunit WHERE pk=fk_orgunit);
+		ALTER TABLE veraweb.tuser ADD CONSTRAINT tuser_fkey_orgunit
+		    FOREIGN KEY (fk_orgunit) REFERENCES veraweb.torgunit(pk)
+		    MATCH FULL ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 		-- post-upgrade
 		vmsg := 'end.update(' || vnewvsn || ')';
