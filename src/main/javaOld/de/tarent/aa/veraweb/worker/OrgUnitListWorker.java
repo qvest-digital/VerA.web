@@ -29,12 +29,14 @@ import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
+import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Insert;
+import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
@@ -249,6 +251,14 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
     protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException
 	{
 		Database database = context.getDatabase();
+
+		Select select = SQL.Select(database);
+		select.from("veraweb.tuser");
+		select.select("COUNT(*)");
+		select.where(Expr.equal("fk_orgunit", ((OrgUnit)bean).id));
+		if (database.getCount(select) > 0) {
+			throw new BeanException("Cannot delete Mandant while there are still users assigned to it");
+		}
 
 		// first remove all workArea assignments from all persons
 		WorkAreaWorker.removeAllWorkAreasFromOrgUnit( cntx, context, ( ( OrgUnit ) bean ).id );
