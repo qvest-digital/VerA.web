@@ -265,7 +265,6 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 			}
 			final VerawebMessages messages = new VerawebMessages(cntx);
 			this.tmp_errors.add(messages.getMessageOrgUnitBusy());
-this.tmp_errors.add("debug");
 			return false;
 		}
 
@@ -320,6 +319,20 @@ this.tmp_errors.add("debug");
 		context.execute(insertStatement);
 	}
 
+	/**
+	 * Stellt für die Dauer der Bean-Löschung durch die Elternmethode
+	 * {@link de.tarent.octopus.beans.BeanListWorker#removeSelection(OctopusContext, List, List, TransactionContext)
+	 * der #removeBean(OctopusContext, Bean, TransactionContext) Methode
+	 * die Fehlerliste zum Auffüllen zur Verfügung.
+	 *
+	 * @param cntx		OctopusContext
+	 * @param errors	kumulierte Fehlerliste
+	 * @param selection	zu löschende Auswahl
+	 * @param context	TransactionContext
+	 * @return Anzahl erfolgreich gelöschter Beans
+	 * @throws BeanException
+	 * @throws IOException
+	 */
 	@Override
 	protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
 		this.tmp_errors = errors;
