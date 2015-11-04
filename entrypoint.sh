@@ -4,6 +4,7 @@
 # slapd is absurdly high. See https://github.com/docker/docker/issues/8231
 [[ $(ulimit -n) -gt 8192 ]] && ulimit -n 8192
 
+set -x
 
 set -e
 
@@ -39,7 +40,7 @@ if [[ ! -d /etc/ldap/slapd.d ]]; then
         slapd slapd/move_old_database boolean true
 EOF
 
-    dpkg-reconfigure -f noninteractive slapd >/dev/null 2>&1
+    dpkg-reconfigure -f noninteractive slapd
 
     dc_string=""
 
@@ -61,14 +62,14 @@ EOF
         slapcat -n0 -F /etc/ldap/slapd.d -l /tmp/config.ldif
         sed -i "s/\(olcRootDN: cn=admin,cn=config\)/\1\nolcRootPW: ${sed_safe_password_hash}/g" /tmp/config.ldif
         rm -rf /etc/ldap/slapd.d/*
-        slapadd -n0 -F /etc/ldap/slapd.d -l /tmp/config.ldif >/dev/null 2>&1
+        slapadd -n0 -F /etc/ldap/slapd.d -l /tmp/config.ldif
     fi
 
     if [[ -n "$SLAPD_ADDITIONAL_SCHEMAS" ]]; then
         IFS=","; declare -a schemas=($SLAPD_ADDITIONAL_SCHEMAS)
 
         for schema in "${schemas[@]}"; do
-            slapadd -n0 -F /etc/ldap/slapd.d -l "/etc/ldap/schema/${schema}.ldif" >/dev/null 2>&1
+            slapadd -n0 -F /etc/ldap/slapd.d -l "/etc/ldap/schema/${schema}.ldif"
         done
     fi
 
@@ -76,7 +77,7 @@ EOF
         IFS=","; declare -a modules=($SLAPD_ADDITIONAL_MODULES)
 
         for module in "${modules[@]}"; do
-             slapadd -n0 -F /etc/ldap/slapd.d -l "/etc/ldap/modules/${module}.ldif" >/dev/null 2>&1
+             slapadd -n0 -F /etc/ldap/slapd.d -l "/etc/ldap/modules/${module}.ldif"
         done
     fi
 
@@ -84,7 +85,7 @@ EOF
         IFS=","; declare -a datafiles=($SLAPD_BOOTSTRAP_DATA_FILES)
 
         for datafile in "${datafiles[@]}"; do
-             slapadd -n1 -F /etc/ldap/slapd.d -l "/bootstrap/data/${datafile}.ldif" >/dev/null 2>&1
+             slapadd -n1 -F /etc/ldap/slapd.d -l "/bootstrap/data/${datafile}.ldif"
         done
     fi
 
