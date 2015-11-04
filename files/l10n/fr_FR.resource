@@ -1400,6 +1400,7 @@ MESSAGE_GUEST_DOCTYPE_TITLEPARTNER_MAX_LENGTH=Le titre du partenaire peut \u00EA
 MESSAGE_GUEST_DOCTYPE_URL_MAX_LENGTH=Le WWW URL peut \u00EAtre jusqu\u2019\u00E0 250 caract\u00E8res.
 MESSAGE_GUEST_DOCTYPE_ZIP_MAX_LENGTH=Le code postal doit contenir 50 caract\u00E8res ou moins.
 MESSAGE_USER_MISSING_ROLE=Vous devez taper un nom de r\u00F4le d\u2019utilisateur.
+MESSAGE_ORGUNIT_BUSY=XXX TODO: While the client is still assigned users it cannot be deleted.
 
 # EVENT LIST TEXTS
 EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Au moins un \u00E9v\u00E9nement marqu\u00E9 s\u2019ex\u00E9cute actuellement ou dans l\u2019avenir.

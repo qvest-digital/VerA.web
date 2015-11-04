@@ -1398,6 +1398,7 @@ MESSAGE_GUEST_DOCTYPE_TITLEPARTNER_MAX_LENGTH=The partner\u2019s title is restri
 MESSAGE_GUEST_DOCTYPE_URL_MAX_LENGTH=The www-url is restricted to 250 characters.
 MESSAGE_GUEST_DOCTYPE_ZIP_MAX_LENGTH=The zip code is restricted to 50 characters.
 MESSAGE_USER_MISSING_ROLE=You need to provide a description for a user role.
+MESSAGE_ORGUNIT_BUSY=While the client is still assigned users it cannot be deleted.
 
 # EVENT LIST TEXTS
 EVENT_LIST_WARNING_EVENTS_IN_FUTURE=At least one of the selected events is in process or in the future.

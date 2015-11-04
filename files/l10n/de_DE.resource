@@ -1398,6 +1398,7 @@ MESSAGE_GUEST_DOCTYPE_TITLEPARTNER_MAX_LENGTH=Die Titelbezeichnung des Partners 
 MESSAGE_GUEST_DOCTYPE_URL_MAX_LENGTH=Die WWW URL darf maximal 250 Zeichen lang sein.
 MESSAGE_GUEST_DOCTYPE_ZIP_MAX_LENGTH=Die Postleitzahl darf maximal 50 Zeichen lang sein.
 MESSAGE_USER_MISSING_ROLE=Sie m\u00FCssen eine Benutzerrollenbezeichnung eingeben.
+MESSAGE_ORGUNIT_BUSY=Solange dem Mandanten noch Benutzer zugeordnet sind k\u00F6nnen Sie ihn nicht l\u00F6schen.
 
 # EVENT LIST TEXTS
 EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Mindestens eine markierte Veranstaltung l\u00E4uft aktuell oder liegt in der Zukunft.

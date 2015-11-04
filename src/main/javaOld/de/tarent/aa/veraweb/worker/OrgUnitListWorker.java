@@ -27,6 +27,7 @@ import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.OrgUnit;
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
@@ -54,6 +55,8 @@ import de.tarent.octopus.server.OctopusContext;
  * @author mikel
  */
 public class OrgUnitListWorker extends ListWorkerVeraWeb {
+    protected List tmp_errors = null;
+
     //
     // Konstruktoren
     //
@@ -257,7 +260,13 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 		select.select("COUNT(*)");
 		select.where(Expr.equal("fk_orgunit", ((OrgUnit)bean).id));
 		if (database.getCount(select) > 0) {
-			throw new BeanException("Cannot delete Mandant while there are still users assigned to it");
+			if (this.tmp_errors == null) {
+				throw new BeanException("Cannot delete Mandant while there are still users assigned to it");
+			}
+			final VerawebMessages messages = new VerawebMessages(cntx);
+			this.tmp_errors.add(messages.getMessageOrgUnitBusy());
+this.tmp_errors.add("debug");
+			return false;
 		}
 
 		// first remove all workArea assignments from all persons
@@ -309,6 +318,14 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 		final Insert insertStatement = database.getInsert(category);
 
 		context.execute(insertStatement);
+	}
+
+	@Override
+	protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
+		this.tmp_errors = errors;
+		int count = super.removeSelection(cntx, errors, selection, context);
+		this.tmp_errors = null;
+		return count;
 	}
 
 }

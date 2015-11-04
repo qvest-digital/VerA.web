@@ -291,5 +291,8 @@ public class VerawebMessages {
         return languageProvider.getProperty("GM_NO_CHANGES");
     }
 
+    public String getMessageOrgUnitBusy() {
+        return languageProvider.getProperty("MESSAGE_ORGUNIT_BUSY");
+    }
 
 }
