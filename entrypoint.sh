@@ -27,7 +27,7 @@ if [[ ! -d /etc/ldap/slapd.d ]]; then
 
     cp -a /etc/ldap.dist/* /etc/ldap
 
-    cat <<-EOF | debconf-set-selections
+    debconf-set-selections <<-EOF
         slapd slapd/no_configuration boolean false
         slapd slapd/password1 password $SLAPD_PASSWORD
         slapd slapd/password2 password $SLAPD_PASSWORD
