@@ -833,7 +833,7 @@ LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Liste nach Kategorien gruppiert - mi
 LIST_SORT_PARTNER_TEL=Liste nach sortierung -mit Partner, Tel. und Mobiltelefon
 SORT_CRITERIA=Sortierkriterien
 SORT_AFTER=Sortieren nach
-CONTINUAL_NUMBER=Laufende nummer
+CONTINUAL_NUMBER=Laufende Nummer
 anschliesendnach=Anschlie\u00DFend nach
 zusatzlichesortierungnach=Zus\u00E4tzliche sortierung nach
 
@@ -1756,6 +1756,8 @@ GM_CONFIRMATION_EMAIL_DISTRIBUTOR=E-mail addressen aus Verteiler \u00FCbernehmen
 CONTACT_PICTURE_UPLOAD=Kontaktfoto hochladen
 CONTACT_PICTURE_CHANGE=Kontaktfoto \u00E4ndern
 CONTACT_PICTURE_WRONG_SIZE=Das Bild entspricht nicht der erlaubten Gr\u00F6\u00DFe von 186x245 Pixeln.
+
+NO_PARTNER_IN_MASTERDATA=Kein Partner in Stammdaten hinterlegt
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=Es wurde eine Kategorie ge\u00E4ndert

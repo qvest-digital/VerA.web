@@ -100,16 +100,34 @@
                             #parse("inc/guestMasterDataNote.vm")
                         #end
 
+                            #set($facade = $partner)
+                            #if(($facade.Firstname && $facade.Firstname.length() > 0 )|| ($facade.Lastname && $facade.Lastname.length() > 0))
+                                #set($withoutPartner=false)
+                            #else
+                                 #set($withoutPartner=true)
+                            #end
+
                             <div class="table width100">
                                 <div class="tableRow">
                                     <div class="tableCell width40">
                                         <label for="guest-invitationtype">${placeholderWithTranslation.EVENT_INVITATION_TYPE}:</label>
                                         <select id="guest-invitationtype" name="guest-invitationtype" onchange="setGuestInvitationtype(this.value);">
-                                            <option value="1"#if($guest.invitationtype && $guest.invitationtype == 1) selected#end>${placeholderWithTranslation.EVENT_INVITATION_TYPE_WITH_PARTNER}</option>
+                                            #if($withoutPartner)
+                                                <option disabled value="1"#if($guest.invitationtype && $guest.invitationtype == 1) selected#end>${placeholderWithTranslation.NO_PARTNER_IN_MASTERDATA}</option>
+                                            #else
+                                                <option value="1"#if($guest.invitationtype && $guest.invitationtype == 1) selected#end>${placeholderWithTranslation.EVENT_INVITATION_TYPE_WITH_PARTNER}</option>
+                                            #end
                                             <option value="2"#if($guest.invitationtype && $guest.invitationtype == 2) selected#end>${placeholderWithTranslation.EVENT_INVITATION_TYPE_WITHOUT_PARTNER}</option>
-                                            <option value="3"#if($guest.invitationtype && $guest.invitationtype == 3) selected#end>${placeholderWithTranslation.EVENT_INVITATION_TYPE_ONLY_PARTNER}</option>
+                                             #if($withoutPartner)
+                                                <option disabled value="3"#if($guest.invitationtype && $guest.invitationtype == 3) selected#end>${placeholderWithTranslation.NO_PARTNER_IN_MASTERDATA}</option>
+                                             #else
+                                                <option value="3"#if($guest.invitationtype && $guest.invitationtype == 3) selected#end>${placeholderWithTranslation.EVENT_INVITATION_TYPE_ONLY_PARTNER}</option>
+                                             #end
                                         </select>
                                     </div>
+
+
+
 
                                     <div class="tableCell width25 inlineLabel" style="border-left: 1px solid #C1C1C1; border-right: 1px solid #C1C1C1; padding-left: 30px; vertical-align:middle;">
                                         <label for="showguest-ishost" style="white-space:nowrap">${placeholderWithTranslation.istgastgeber}:

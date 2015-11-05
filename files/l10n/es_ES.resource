@@ -1761,6 +1761,8 @@ CONTACT_PICTURE_UPLOAD=Subir foto
 CONTACT_PICTURE_CHANGE=Modificar foto
 CONTACT_PICTURE_WRONG_SIZE=La foto debe comprender las dimensiones 186x245 pixels.
 
+NO_PARTNER_IN_MASTERDATA=Kein Partner in Stammdaten hinterlegt
+
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=Se ha modificado una categor\u00EDa
 GM_CATEGORY_MODIFY_P=Se han modificado %s categor\u00EDas

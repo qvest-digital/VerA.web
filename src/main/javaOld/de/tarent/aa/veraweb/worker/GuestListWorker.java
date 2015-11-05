@@ -342,6 +342,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         select.select("lastname_a_e1");
         select.select("firstname_b_e1");
         select.select("lastname_b_e1");
+        select.select("firstname_b_e2");
+        select.select("lastname_b_e2");
+        select.select("firstname_b_e3");
+        select.select("lastname_b_e3");
         select.select("function_a_e1");
         select.select("tperson.company_a_e1");
         select.select("tperson.company_a_e2");
