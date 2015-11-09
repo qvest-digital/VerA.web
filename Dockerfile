@@ -7,4 +7,7 @@ ADD ./target/vw-online-registration.jar /opt/online-anmeldung/
 
 EXPOSE 8181
 
-CMD ["java",  "-jar", "/opt/online-anmeldung/vw-online-registration.jar", "server", "/root/veraweb-oa/veraweb-oa-config.json"]  
+CMD ["java", "-Dfile.encoding=UTF-8", "-Djava.awt.headless=true", \
+    "-Djava.security.egd=file:/dev/./urandom", "-Xmx128m", \
+    "-jar", "/opt/online-anmeldung/vw-online-registration.jar", \
+    "server", "/root/veraweb-oa/veraweb-oa-config.json"]
