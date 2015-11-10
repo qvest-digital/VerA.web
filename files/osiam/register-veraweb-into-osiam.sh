@@ -148,7 +148,8 @@ EOD
 	exit 1
 fi
 
-if [[ $x != '{'*'"id":"online-registration"'* ]]; then
+x=$(print -r -- "$x" | tr -d '\r')
+if [[ $x != *"$nl$nl{"*'"id":"online-registration"'* ]]; then
 	print -u2 E: invalid register response
 	[[ $x = *'500 Internal Server Error'* ]] && x=${x%%$nl*}
 	print -ru2 "N: got: $x"
