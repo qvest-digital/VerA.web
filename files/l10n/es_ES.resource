@@ -105,8 +105,6 @@ GENERIC_DISTRIBUTOR_SINGULAR=Distribuidor
 GENERIC_DISTRIBUTOR_PLURAL=Distribuidores
 GENERIC_DOCUMENT_TYPE_SINGULAR=Tipo de documento
 GENERIC_DOCUMENT_TYPE_PLURAL=Tipos de documento
-GENERIC_EMAIL_SINGULAR=E-Mail
-GENERIC_EMAIL_PLURAL=E-Mails
 GENERIC_EVENT_SINGULAR=evento
 GENERIC_EVENT_PLURAL=eventos
 GENERIC_EVENT_LOCATION_SINGULAR=Localizaci\u00F3n del evento
@@ -174,7 +172,6 @@ HEADER_ELEMENT_NEW_PLURAL=nuevos registros
 # FIXES
 GENERIC_EDIT=Editar
 GENERIC_OFFICIAL_TITLE_SHORT=T\u00EDtulo
-LETTER_COMMERCIAL=(G)
 GENERIC_WRITE_EMAIL=Redactar E-mail
 GENERIC_SEARCH_FOR_PERSON=Buscar persona
 GENERIC_CHOOSE_ROLE=Seleccionar rol
@@ -231,7 +228,6 @@ GENERIC_AVAILABLE_DUPLICATES=Duplicados existentes
 # ADMINISTRATION/ANREDEN
 GENERIC_SALUTATIONS=Denominaciones
 GENERIC_SALUTATIONS_MARKED=Denominaciones seleccionadas
-GENERIC_ID=ID
 GENERIC_MAIN_FORM=Descripci\u00F3n
 GENERIC_GENDER=G\u00E9nero
 GENERIC_GENDER_FEMALE=Mujer
@@ -241,7 +237,6 @@ MESSAGE_SUCCESS_INSERT_SALUTATION=Denominaci\u00F3n creada satisfactoriamente
 QUESTION_DELETE=\u00BFRealmente desea eliminar su selecci\u00F3n?
 GENERIC_NEW_PLURAL=nuevas
 GENERIC_YES=S\u00ED
-GENERIC_NO=No
 MESSAGE_SUCCESS_DELETE_SALUTATION=Denominaci\u00F3n eliminada satisfactoriamente
 MESSAGE_EXIST_MASTER_DATA_ENTRY=Ya existe una denominaci\u00F3n con el nombre
 GENERIC_NAME=Nombre
@@ -276,8 +271,6 @@ GENERIC_FORMAT=Formato
 GENERIC_PARTNER_DOCUMENT=Documento para partner
 GENERIC_SORT=Selecc.
 GENERIC_SIGN=Signo
-GENERIC_GA=GA
-GENERIC_SD=SD
 GENERIC_BUSINESS=Negocio
 GENERIC_PRIVATE=Privado
 GENERIC_MORE=Adicionales
@@ -291,8 +284,6 @@ eswurdeeinneuerdokumenttypangelegt=Nuevo tipo de documento creado satisfactoriam
 GENERIC_STATUS=Estado
 GENERIC_TO=Para
 GENERIC_SUBJECT=Asunto
-GENERIC_ERROR=Error
-e-mails=E-Mails
 GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE=Combinar error t\u00E9cnicoTechnische Fehlermeldung einblenden
 GENERIC_ERROR_DESCRIPTION=Descripci\u00F3n del error
 
@@ -308,9 +299,7 @@ GENERIC_ADD=A\u00F1adir
 GENERIC_BACK_TO_TEMPLATES_LIST=Volver al listado de plantillas
 
 # ADMINISTRATION/FARBEN
-GENERIC_COLOR_PLURAL=Colores
 GENERIC_CHROMATICITY=Cromaticidad
-LETTERS_CHROMATICITY=R G B
 
 # ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
 markiertebezeichnung=Denominaciones seleccionadas
@@ -319,26 +308,20 @@ eswurdeeineneuefunktion/amtsbezeichnungangelegt=Se ha creado una nueva funci\u00
 eswurdeeinefunktion/amtsbezeichnunggeloscht=Se ha eliminado una funci\u00F3n/denominaci\u00F3n.
 
 # ADMINISTRATION/KATEGORIEN
-GENERIC_CATEGORY_PLURAL=Categor\u00EDas
 markiertekategorie=Categor\u00EDa(s) seleccionada(s)
 GENERIC_MARK_LONG=Clase
 GENERIC_RANK=Rango
 GENERIC_EVENTS_PP=Evento(s)
-GENERIC_CATEGORY_SINGULAR=Categor\u00EDa
 GENERIC_OCCASION=Suceso
 
 # ADMINISTRATION/MANDANTEN
-GENERIC_CLIENT_PLURAL=Mandantes
 markierte(n)mandanten=Mandante(s) seleccionado(s)
 GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Datos de mandantes no asociados
 personen=Personas
 GENERIC_IMPORT_PROCEDURES=Importar procesos
 veranstaltungorte=Localizaci\u00F3n del evento
 GENERIC_IMPORT_PERSONS=Importar personas
-GENERIC_DISTRIBUTOR_SINGULAR=Distribuidor
-GENERIC_USER=Usuario
 GENERIC_ASSIGN_CLIENTS=Asignar mandantes
-GENERIC_CLIENT_SINGULAR=Mandante
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
 programeinstellungen=Configuraci\u00F3n del sistema
@@ -348,11 +331,8 @@ GENERIC_PERSONS_DATA=Datos de personas
 GENERIC_MAILING_ADDRESSES=Direcciones
 GENERIC_SUBTABS_OF_PERSONS_DATA=Subpesta\u00F1as de \u201CDatos de personas\u201D
 GENERIC_MAIN_PERSON=Persona principal
-GENERIC_PARTNER=Partner
 GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subpesta\u00F1as de \u201CDirecciones\u201D
-GENERIC_BUSINESS=Negocio
 GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Elecci\u00F3n est\u00E1ndar sobre el selector de conjuntos de caracteres
-GENERIC_CHARSET=Conjunto de caracteres
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Denominaciones est\u00E1ndar y campos de texto libre
 GENERIC_STANDARD_SALUTATION=Denominaci\u00F3n est\u00E1ndar
 GENERIC_STANDARD_SALUTATION_PARTNER=Demoninaci\u00F3n est\u00E1ndar del partner
@@ -367,7 +347,6 @@ OPTION_HELP_WINDOW_1=Utilizar ventana de ayuda actual
 OPTION_HELP_WINDOW_2=Abrir una nueva ventana navegador por llamada
 OPTION_HELP_WINDOW_3=La misma ventana de ayuda por llamada (no la actual)
 GENERIC_MISCELLANEOUS=Otros
-GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
 GENERIC_PROTOCOL_TIME_CHANGE=Historial de cambios
 GENERIC_PROTOCOL_COMMISIONING_TIME=Intervalo del registro de datos
 HINT_GIVE_THE_RETENTION_PERIOD=Indique el per\u00EDodo de retenci\u00F3n
@@ -404,11 +383,8 @@ GENERIC_NO_DATA_FOUND=No se han encontrado datos
 # ADMINISTRATION/VERANSTALTUNGSORTE
 markierte=Localizaciones de eventos seleccionadas
 GENERIC_ADD_NEW_EVENT_LOCATIONS=Crear nueva localizaci\u00F3n para evento
-GENERIC_ID=ID
 GENERIC_CONTACT_PERSON=Persona de contacto
 GENERIC_TELEFON=Tel\u00E9fono
-GENERIC_FAX=Fax
-e-mail=E-Mail
 GENERIC_REMARK=Observaciones
 GENERIC_URL=Enlace
 gps-daten=Datos de localizaci\u00F3n (GPS)
@@ -422,7 +398,6 @@ GENERIC_SUBTABS_OF=Subpesta\u00F1as de
 GENERIC_PERSONAL_DETAILED_VIEW=Vista detalle de personas
 GENERIC_LIST_OF_GUESTS=Lista de invitados
 zusatzlichefelder=Campos adicionales
-GENERIC_FUNCTION_SINGULAR=Funci\u00F3n
 GENERIC_POSTNUMBER_AND_CITY=C\u00F3digo postal / Ciudad
 GENERIC_LIST_OF_PERSONS=Lista de personas
 GENERIC_FEDERAL_STATE=Provincia
@@ -442,13 +417,11 @@ vertretungengeloscht=representaciones
 # VERWALTUNG/INFO
 GENERIC_INFO=Informaci\u00F3n
 GENERIC_INFORMATION_ABOUT_VERAWEB=Acerca de VerA.web
-veraweb=VerA.web
 GENERIC_VERSION=Versi\u00F3n
 build=Compilaci\u00F3n
 GENERIC_BUILD_NUMBER=N\u00FAmero de compilaci\u00F3n
 GENERIC_BUILD_TIME=Tiempo de compilaci\u00F3n (UTC)
 GENERIC_DATABASE=Base de datos
-GENERIC_LOGIN=Login
 GENERIC_GROUPS=Grupos
 GENERIC_NOT_AVAILABLE=No disponible
 
@@ -459,7 +432,6 @@ GENERIC_DISCARD_CHANGES=Descartar cambios
 
 # TABELLEN
 GENERIC_DATE=Fecha
-GENERIC_WORKAREA_SINGULAR=\u00C1rea de trabajo
 GENERIC_LASTNAME=Apellido
 GENERIC_FIRSTNAME=Nombre
 amtsbezeichnung=T\u00EDtulo
@@ -489,17 +461,11 @@ GENERIC_ORIGIN_DATA=Origen de los datos
 GENERIC_PERSON_SINGULAR=persona
 
 # DATEITYP
-csv=CSV (Comma-Separated-Values)
-xml=XML (VerA.web-XML)
 zkm=ZKM (VerA.web-XML sobre el m\u00F3dulo central de comunicaci\u00F3n)
 madlan-personen=MAdLAN-Personas (MAdLAN-Importar-Personas)
 madlan-firmen=MAdLAN-Empresas (MAdLAN-Importar-Empresas)
 x-manage-csv=X-Manage-CSV (X-Manage Contactos)
-csvpersdatanschriftdoktyp=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
-csvpersdatdoktyp=CSVPersdat+Doktyp (Comma-Separated-Values)
-csvpersdatdoktyp10=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
 csvpersdatkategorien=CSVPersdat+Categor\u00EDas (Comma-Separated-Values)
-csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 
 # PERSONEN/PERSONENUEBERSICHT
 GENERIC_PERSON_SUMMARY=Lista de personas
@@ -533,7 +499,6 @@ GENERIC_CATEGORIES_AND_OCCASIONS=Categor\u00EDas y sucesos
 ubersichtuberalleveranstaltungeneinesgastes=Lista de todos los eventos por invitado
 GENERIC_VIEW_OVER_GUEST_EVENT=Desde
 statistikfurgast=Estad\u00EDsticas para invitado
-GENERIC_EVENT=Evento
 GENERIC_BEGIN=Comienzo
 
 # PERSONEN/PERSONENSUCHE
@@ -549,7 +514,6 @@ MESSAGE_OSIAM_LOGIN_DATA_EXIST=Ya existen datos de acceso para esta persona.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Empresa
-GENERIC_SALUTATION_SINGULAR=Denominaci\u00F3n
 frau=Sra.
 herr=D.
 lady=Srta.
@@ -558,14 +522,10 @@ GENERIC_PLEASE_CHOOSE=Por favor, seleccione
 GENERIC_ACAD_TITLE=T\u00EDtulo acad\u00E9mico
 GENERIC_IN_COUNTRY=En el pa\u00EDs
 GENERIC_HINT_FOR_ORGA=Aviso para la organizaci\u00F3n
-GENERIC_COMPANY_SINGULAR=Empresa
 GENERIC_COUNTRY=Pa\u00EDs
 plz/postfach=C\u00F3digo postal/apartado de correos
 GENERIC_POST_OFFICE_BOX=Apartado de correos
-iban=IBAN
-bic=BIC
 GENERIC_MOBILE=M\u00F3vil
-LETTERS_WWW=WWW
 dublettenprufungdurchfuhren=Examinar duplicados
 zurpersonenubersicht=Listado de personas
 
@@ -576,7 +536,6 @@ GENERIC_REPLACE=Reemplazar
 GENERIC_IN_THE_FOLLOWING_FIELDS=En los pr\u00F3ximos campos
 anrede/titel=Denominaci\u00F3n / T\u00EDtulo
 GENERIC_EMPLOYMENT_TITLE_SHORT=Cargo
-GENERIC_INSTITUTION_SINGULAR=Instituci\u00F3n
 GENERIC_ADDRESSES=Direcci\u00F3n
 telefon/fax=Tel\u00E9fono / fax
 GENERIC_REPLACE_INDIVIDUALLY=Reemplazar individualmente
@@ -603,28 +562,19 @@ ENCODING_TYPE_WEST=Del oeste
 ENCODING_TYPE_BALTIC=B\u00E1ltico
 ENCODING_TYPE_EAST=Del este
 ENCODING_TYPE_TURKISH=Turco
-EXPORT_DATA_TYPE_CSV=CSV (Comma-Separated-Values)
-EXPORT_DATA_TYPE_XML=XML (VerA.web-XML)
 EXPORT_DATA_TYPE_ZKM=ZKM (VerA.web-XML mediante el m\u00F3dulo de comunicaci\u00F3n central)
 EXPORT_DATA_TYPE_MADLAN_PERSON=MAdLAN-Personas (MAdLAN-Importar-Personas)
 EXPORT_DATA_TYPE_MADLAN_COMPANY=MAdLAN-Empresas (MAdLAN-Importar-Empresas)
-EXPORT_DATA_TYPE_X_MANAGE_CSV=X-Manage-CSV (X-Manage Kontakte)
 EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE=CSVPersdat+Direcci\u00F3n+TipoDocumento (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE=CSVPersdat+TipoDocumento (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+TipoDocumento 1.0 (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Categor\u00EDas (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
-EXPORT_TITLE_CSV=CSV
-EXPORT_TITLE_XML=XML
-EXPORT_TITLE_ZKM=ZKM
 EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Personas
 EXPORT_TITLE_MADLAN_COMPANY=MAdLAN-Empresas
-EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
 EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV DatosPersonas+Direcciones+TiposDocumentos
 EXPORT_TITLE_CSVPERSDATA_DOCTYPE=CSV DatosPersonas+TiposDocumentos
 EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV DatosPersonas+TiposDocumentos 1.0
 EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV DatosPersonas+Categor\u00EDas
-EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
 LABEL_EXPORT_ZKM=Ziel (ZKM-Abreviatura)
 LABEL_EXPORT_MADLAN_ENCODING=Codificaci\u00F3n
 LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Codificaci\u00F3n (Cir\u00EDlica)
@@ -658,9 +608,6 @@ GENERIC_NEW_EVENT=Nuevo evento
 GENERIC_STATISTICS=Estad\u00EDsticas
 
 # ADMINISTRATIONDROPDOWN
-GENERIC_SALUTATIONS=Denominaciones
-GENERIC_WORKAREA_PLURAL=\u00C1reas de trabajo
-GENERIC_DOCUMENT_TYPE_PLURAL=Tipos de documento
 e-mail-postausgang=E-Mail-Buz\u00F3n de salida
 GENERIC_PROGRAM_PERFERENCES=Preferencias de programa
 GENERIC_EVENT_LOCATION_PLURAL=Localizaciones de eventos
@@ -668,7 +615,6 @@ GENERIC_EVENT_LOCATION_PLURAL=Localizaciones de eventos
 # VERANSTALTUNGSUEBERSICHT
 GENERIC_END=Fin
 GENERIC_HOST=Anfitri\u00F3n
-GENERIC_EVENT_LOCATION_SINGULAR=Localizaci\u00F3n del evento
 GENERIC_EVENT_SEARCH=Buscar eventos
 GENERIC_CREATE_NEW_EVENT=Crear nuevo evento
 GENERIC_NUMBER_PER_PAGE=Total por p\u00E1gina
@@ -689,8 +635,6 @@ EVENT_INVITATION_TYPE_WITH_PARTNER=Con partner
 # VERANSTALTUNG BEARBEITEN/ALLGEMEIN
 GENERIC_EDIT_EVENT=Editar evento
 GENERIC_TO_GUEST_MANAGEMENT=Gesti\u00F3n de invitados
-GENERIC_GENERAL=General
-GENERIC_TASK_PLURAL=Tareas
 GENERIC_ADDITIONAL_PERSONS_DATA=Datos adicionales
 kurzbereichnung=Abreviatura
 GENERIC_OPEN_EVENT=Evento abierto
@@ -821,7 +765,6 @@ GUEST_LIST_ONLY_ACCEPT=s\u00F3lo aceptados
 GUEST_LIST_ONLY_DECLINED=s\u00F3lo rechazados
 GUEST_LIST_ONLY_PARTICIPATE=s\u00F3lo participantes
 GUEST_LIST_PERSON_DATA_RELOAD=Recargar todos los datos maestros
-GUEST_LIST_RESERVE=R
 GUEST_LIST_SEARCH_PERSON_ADD=Buscar personas y a\u00F1adirlas a la lista de invitados
 
 # GAESTELISTE ERSTELLEN
@@ -998,7 +941,6 @@ markiertebezeichnunge=Denominaciones seleccionadas
 markierteeintrageentfernen=Eliminar denominaciones seleccionadas
 eswurdenkeinedatengefunden=No se han encontrado datos
 
-eswurdenkeinedatengefunden=No se han encontrado datos
 siehabenkeinedatenherkunftangegeben=Los datos de origen no han sido especificados.
 HINT_IMPORT_NOT_POSSIBLE_OPENOFFICE=Ha intentado importar un archivo de OpenOffice. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web. Por favor, guarde su archivo como archivo-CSV mediante su programa de hojas de c\u00E1lculo.
 HINT_IMPORT_NOT_POSSIBLE_STAROFFICE=Ha intentado importar un archivo de StarOffice. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web. Por favor, guarde su archivo como archivo-CSV mediante su programa de hojas de c\u00E1lculo.
@@ -1039,7 +981,6 @@ alsbenutzernamen=Como nombre de usuario
 emailvorlage=Modelo E-Mail
 amtsbezfunktion=T\u00EDtulo/Funci\u00F3n
 postfachnummer=C\u00F3digo postal
-email=E-Mail
 verteileranlegen=Crear distribuci\u00F3n
 sielegeneinenneuenverteilerausderveranstaltung=Se crea un nuevo distribuidor para el evento
 mit=con
@@ -1070,7 +1011,6 @@ zurueckzurveranstaltung=Volver a eventos
 zurdublettensuche=B\u00FAsqueda de duplicados
 zurckzumsuchergebnis=Resultados de b\u00FAsqueda
 diesepersonwurdeerfolgreichzurgaestelistederveranstaltung=La persona ha sido invitada satisfactoriamente al evento
-hinzugefuegt=
 diesepersonwurdenichthinzugefuegtdasiebereitsaufdergaestelistesteht=La persona no ser\u00E1 invitada, puesto que ya se encuentra en la lista de invitados.
 diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt=La persona actual ser\u00E1 marcada como borrada. Por tanto, no ser\u00E1 posible acceder a ella mediante la b\u00FAsqueda de personas.
 personanlegen=Crear persona
@@ -1127,7 +1067,6 @@ wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen=Desea desasignar
 eswurdenkeinekategorienentfernt=No se han eliminado categor\u00EDas.
 zuweisen=Asignar
 waehlensieeinekategorieauswelchesie=Seleccione una categor\u00EDa a
-moechten=
 alleentfernen=Eliminar todas
 siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=No ha configurado categor\u00EDas. Mediante el apartado \u201CAdministraci\u00F3n\u201D es posible
 definieren=definirlas.
@@ -1329,10 +1268,8 @@ senden=Enviar
 # GENERIC
 GENERIC_UPLOAD_BUTTON=Seleccionar archivo
 GENERIC_TO=para
-GENERIC_FEDERAL_STATE=Provincia
 GENERIC_PERSONAL_DATA=Datos personales
 GENERIC_NUMBER_OF_GUESTS=N\u00FAmero de invitados
-GENERIC_TELEFON=Tel\u00E9fono
 
 # MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Este invitado ser\u00E1 inclu\u00EDdo sin persona principal
@@ -1424,7 +1361,6 @@ CATEGORY_DETAIL_ALREADY_EXISTS=Ya existe una entrada de datos maestros bajo el n
 CHANGELOG_NO_PROTOCOL_AVAILABLE=No existen datos hist\u00F3ricos.
 
 # BROWSER TITLES
-BROWSER_TITLE_REPORTS=Reports
 
 
 #NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
@@ -1485,8 +1421,6 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=\u00BFUtilizar los datos de rango de 
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reiniciar todos los valores mediante datos maestros
-GUEST_LIST_EDIT_MASTER_DATA=Editar datos maestros de personas
-GUEST=Invitado
 GENERIC_OF_CAPITAL=de
 GENERIC_ASSIGN=Aceptar
 GENERIC_CANCEL=Cancelar
@@ -1530,7 +1464,6 @@ EXPORT_HEADER_FREETEXT_FIELD=Campo_libre
 EXPORT_HEADER_PARTNER_FREETEXT_FIELD=Campo_libre_Partner
 EXPORT_HEADER_INTERCONNECTS=Conector
 EXPORT_HEADER_ADDRESS=Direcci\u00F3n
-EXPORT_HEADER_CHARSET=Charset
 EXPORT_HEADER_FUNCTION=Funci\u00F3n
 EXPORT_HEADER_TITLE=G\u00E9nero
 EXPORT_HEADER_FIRSTNAME=Nombre
@@ -1547,9 +1480,6 @@ EXPORT_HEADER_ADDITIONAL_ADDRESS_ONE=Direcci\u00F3n_adicional_1
 EXPORT_HEADER_ADDITIONAL_ADDRESS_TWO=Direcci\u00F3n_adicional_2
 EXPORT_HEADER_CITY_OF_BORN=Lugar_nacimiento
 EXPORT_HEADER_TELEPHONE=Tel\u00E9fono
-EXPORT_HEADER_FAX=Fax
-EXPORT_HEADER_EMAIL=Email
-EXPORT_HEADER_WWW=WWW
 EXPORT_HEADER_MOBILE=M\u00F3vil
 EXPORT_HEADER_COMPANY=Empresa
 EXPORT_HEADER_POST_OFFICE_BOX_NUMBER=Apt_Correos
@@ -1563,7 +1493,6 @@ EXPORT_HEADER_STATUS=Estado
 EXPORT_HEADER_TABLE=Mesa
 EXPORT_HEADER_SEAT=Sitio
 EXPORT_HEADER_CURRENT_NUMBER=N\u00FAmero_serie
-EXPORT_HEADER_COLOUR=Color
 EXPORT_HEADER_IN_COUNTRY=En_pa\u00EDs
 EXPORT_HEADER_LANGUAGES=Idiomas
 EXPORT_HEADER_SEX=G\u00E9nero
@@ -1608,7 +1537,6 @@ STATS_NOT_INVITED=no invitado
 
 # USER LIST TEXTS
 USER_LIST_WARN_MANDANT_ONE=El usuario a insertar ya se encuentra asignado al mandante
-USER_LIST_WARN_MANDANT_TWO=.
 USER_LIST_WARN_ALREADY_USER=El usuario a insertar ya existe en VerA.web.
 USER_LIST_WARN_NO_ID=El usuario a insertar no debe tener ID
 
@@ -1625,7 +1553,6 @@ VERIFY_ERROR_DB_NOT_ACCESSIBLE=No ha podido establecerse conexi\u00F3n con la ba
 VERIFY_ERROR_DB_VERSION_NOT_DETERMINED=No se pudo determinar la versi\u00F3n del esquema de la base de datos.
 VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE=La versi\u00F3n del esquema de base de datos (
 VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO=) no es la esperada por VerA.web (
-VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Su configuraci\u00F3n actual de base de datos no puede interpretar el conjunto de caracteres (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=Su configuraci\u00F3n actual de base de datos no puede interpretar las reglas de comparaci\u00F3n de texto (LC_COLLATE=
 VERIFY_ERROR_XML=Se ha producido un error al generar un documento XML de prueba. (
@@ -1659,16 +1586,10 @@ GENERIC_SHOW_CURRENT_EVENTS=Mostrar eventos actuales
 GENERIC_FURTHER_PROCEEDING=Acciones posteriores
 
 LETTER_MAIN_PERSON=PP
-LETTER_PARTNER=P
-LETTER_RESERVE=R
-LETTER_DELEGATION=D
 LETTER_HOST=A
 
-GENERIC_LASTNAME_WITH_SOFT_HYPHEN=Nach\u00ADname
-GENERIC_FIRSTNAME_WITH_SOFT_HYPHEN=Vor\u00ADname
 GENERIC_RELOAD=Recargar
 GENERIC_LOAD_EXISTING_IMPORTPROCESS=Cargar proceso de importaci\u00F3n existente
-GENERIC_IMPORTID=ImportID
 GENERIC_YEAR=A\u00F1o
 GENERIC_COUNT=Total
 GENERIC_PARTICIPATION=Participaci\u00F3n
@@ -1691,12 +1612,9 @@ PHONE_MOBILE=Tlf. m\u00F3vil
 GENERIC_PARTNER_FREETEXTFIELD=Campo de texto libre para partner
 GENERIC_VENUE=Localizaci\u00F3n del evento
 
-GENERIC_TOTAL=Total
 OPTION_MARK_ADMINISTRATION_CATEGORY_1=Categor\u00EDa
 OPTION_MARK_ADMINISTRATION_CATEGORY_2=Suceso
-OPTION_MARK_ADMINISTRATION_CATEGORY_3=Diplo. Corps
 
-GENERIC_IMPORTID_HYPHEN=Import-ID
 
 GENERIC_SUBSTITUTED_BY=representado por
 GENERIC_NONE=Ning\u00FAn
@@ -1715,7 +1633,6 @@ PERSON_HEADER_NO_DOCTYPE_CONFIG=No se ha configurado ning\u00FAn tipo de documen
 GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=Datos de acceso para la aplicaci\u00F3n en l\u00EDnea
 GENERIC_COPY_CURRENT_PERSON=Copiar persona actual
 GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT=Invitar persona al evento
-GENERIC_PREVIOUS_PAGE=P\u00E1gina anterior
 GENERIC_PREVIOUS_PERSON=Persona anterior
 GENERIC_FIRST_PAGE=P\u00E1gina inicial
 GENERIC_FIRST_PERSON=Primera persona
@@ -1731,7 +1648,6 @@ GENERIC_MULTIPLE_COMBOBOX=Campo de selecci\u00F3n m\u00FAltiple
 HINT_DELETE_NOT_POSSIBLE_ONE=La localizaci\u00F3n \u201C
 HINT_DELETE_NOT_POSSIBLE_TWO=\u201D no ha podido ser eliminada, debido a que se encuentra relacionada con al menos un evento.
 CONFIRMATION_CREATE_LOCATION_ONE=\u00BFDesea realmente eliminar la localizaci\u00F3n \u201C
-CONFIRMATION_CREATE_LOCATION_TWO=\u201D?
 
 INSERT_FUNCTION_FROM_MAIN_DATA=Tomar funci\u00F3n desde datos maestros
 INSERT_COMPANY_FROM_MAIN_DATA=Tomar empresa desde datos maestros
@@ -1761,7 +1677,6 @@ CONTACT_PICTURE_UPLOAD=Subir foto
 CONTACT_PICTURE_CHANGE=Modificar foto
 CONTACT_PICTURE_WRONG_SIZE=La foto debe comprender las dimensiones 186x245 pixels.
 
-NO_PARTNER_IN_MASTERDATA=Kein Partner in Stammdaten hinterlegt
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=Se ha modificado una categor\u00EDa

@@ -3,7 +3,6 @@ language_short=fr
 
 # BROWSER TAB-TITLE
 BROWSER_TITLE_CATEGORY=Cat\u00E9gorie
-BROWSER_TITLE_CLEANUP=Cleanup
 BROWSER_TITLE_COLOURS=Couleurs
 BROWSER_TITLE_GENERAL_CONFIGS=Configurations g\u00E9n\u00E9ral
 BROWSER_TITLE_TASKS=Devoirs
@@ -93,7 +92,6 @@ GENDER_TYPE_WORKAREA=Masculin
 GENERIC_ADDRESS_DATA_PLURAL=Coordonn\u00E9es
 GENERIC_CATEGORY_SINGULAR=Cat\u00E9gorie
 GENERIC_CATEGORY_PLURAL=Cat\u00E9gories
-GENERIC_CLIENT_SINGULAR=Mandant
 GENERIC_CLIENT_PLURAL=Mandants
 GENERIC_COLOR_SINGULAR=Couleur
 GENERIC_COLOR_PLURAL=Couleurs
@@ -115,8 +113,6 @@ GENERIC_FUNCTION_SINGULAR=Fonction
 GENERIC_FUNCTION_PLURAL=Fonctions
 GENERIC_GUEST_SINGULAR=Invit\u00E9
 GENERIC_GUEST_PLURAL=Invit\u00E9s
-GENERIC_INSTITUTION_SINGULAR=Institution
-GENERIC_INSTITUTION_PLURAL=Institutions
 GENERIC_MAIL_DRAFT_SINGULAR=Mod\u00E8le
 GENERIC_MAIL_DRAFT_PLURAL=Mod\u00E8les
 GENERIC_OFFICIAL_TITLE_SINGULAR=D\u00E9signation officielle
@@ -162,7 +158,6 @@ HEADER_ELEMENT_FEMALE_NO=pas de
 HEADER_ELEMENT_FEMALE_ONE=une
 HEADER_ELEMENT_FEMALE_NEW=nouvelle
 HEADER_ELEMENT_MALE_NO=pas de
-HEADER_ELEMENT_MALE_ONE=un
 HEADER_ELEMENT_MALE_NEW=nouveau
 HEADER_ELEMENT_NO_RECORD_SINGULAR=aucun enregistrement
 HEADER_ELEMENT_NO_NEW_RECORD_SINGULAR=aucun enregistrement nouvel
@@ -174,7 +169,6 @@ HEADER_ELEMENT_NEW_PLURAL=Nouveaux Enregistrements
 # FIXES
 GENERIC_EDIT=Modifier
 GENERIC_OFFICIAL_TITLE_SHORT=D\u00E9sign. d. fonction
-LETTER_COMMERCIAL=(C)
 GENERIC_WRITE_EMAIL=Ecrire e-mail
 GENERIC_SEARCH_FOR_PERSON=Chercher une personne
 GENERIC_CHOOSE_ROLE=Choisir r\u00F4le
@@ -187,18 +181,14 @@ GENERIC_NO_WORKAREA_TEXT=Aucun
 
 # GENERALLY USED
 GENERIC_EMAIL_ADDRESS=Adresse \u00E9lectronique
-GENERIC_FROM=De
 GENERIC_LANGUAGE=Langue
 GENERIC_LOGOUT=Fermeture de session
 GENERIC_ON=A
-GENERIC_PAGE=Page
-GENERIC_PLACE=Place
 
 # MENU
 MENU_PERSONS=Personnes
 MENU_EVENTS=\u00C9v\u00E9nements
 MENU_MANAGEMENT=Gestion
-MENU_ADMINISTRATION=Administration
 
 # ANMELDUNG
 LOGIN_ERROR=Il y avait une erreur lors de l\u2019inscription. S\u2019il vous pla\u00EEt v\u00E9rifier votre nom d\u2019utilisateur et mot de passe.
@@ -211,7 +201,6 @@ HINT_LOGIN_ORGANISATION_TWO=Pr\u00E9nom.nom
 HINT_LOGIN_ORGANISATION_THREE=comme nom d\u2019utilisateur s\u2019il vous pla\u00EEt.
 
 # WELCOME SITE: FIRST PAGE AFTER LOGIN
-administration=Administration
 bittewaehlensieeineamtsbezeichnungfunktionaus=Choisissez un d\u00E9signation officielle s\u2019il vous pla\u00EEt
 eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator=Il peut entra\u00EEner des erreurs inattendues. Contactez votre administrateur s\u2019il vous pla\u00EEt.
 willkommenbeiveraweb=Bienvenu \u00E0 VerA.web
@@ -231,7 +220,6 @@ GENERIC_AVAILABLE_DUPLICATES=Doublons disponibles
 # ADMINISTRATION/ANREDEN
 GENERIC_SALUTATIONS=Titres
 GENERIC_SALUTATIONS_MARKED=Titre(s) s\u00E9l\u00E9ctionn\u00E9(s)
-GENERIC_ID=ID
 GENERIC_MAIN_FORM=Forme de base
 GENERIC_GENDER=Sexe
 GENERIC_GENDER_FEMALE=F\u00E9minin
@@ -266,22 +254,15 @@ MESSAGE_FILL_USER_ROLE=Entrez un nom de r\u00F4le d\u2019utilisateur s\u2019il v
 
 # ADMINISTRATION/DOKUMENTTYPEN
 GENERIC_TOOLTIP=Remarque
-HINT_FORMAT_INFO=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei), xls steht f\u00FCr Microsoft Office Kennzeichen: Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.(xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
-HINT_EVENT_MARK=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
 GENERIC_DOCUMENT_TYPES_MARKED=Type(s) de documents s\u00E9l\u00E9ctionn\u00E9(s)
 GENERIC_LABELLING=Indication
 GENERIC_ADRESS_TYPE=Type d\u2019adresse
 GENERIC_CHARSET=Jeu de caract\u00E8res
-GENERIC_FORMAT=Format
 GENERIC_PARTNER_DOCUMENT=Document pour partenaire
 GENERIC_SORT=Trier
 GENERIC_SIGN=Signe
-GENERIC_GA=GA
-GENERIC_SD=SD
-GENERIC_BUSINESS=Commercial
 GENERIC_PRIVATE=Priv\u00E9
 GENERIC_MORE=Autre
-GENERIC_LATIN=Latin
 kyrillisch=Cyrillique
 chinesisch=Chinois
 eswurdeeindokumenttypgeloscht=Il a \u00E9t\u00E9 effac\u00E9 un type des documents
@@ -292,7 +273,6 @@ GENERIC_STATUS=Statut
 GENERIC_TO=A
 GENERIC_SUBJECT=Objet
 GENERIC_ERROR=Erreur
-e-mails=E-mails
 GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE=ins\u00E9rer message d\u2019erreur technique
 GENERIC_ERROR_DESCRIPTION=Description d\u2019erreur
 
@@ -308,7 +288,6 @@ GENERIC_ADD=Ajouter
 GENERIC_BACK_TO_TEMPLATES_LIST=Retourner \u00E0 la liste des mod\u00E8les
 
 # ADMINISTRATION/FARBEN
-GENERIC_COLOR_PLURAL=Couleurs
 GENERIC_CHROMATICITY=Valeur de la couleur
 LETTERS_CHROMATICITY=R V B
 
@@ -319,26 +298,19 @@ eswurdeeineneuefunktion/amtsbezeichnungangelegt=Il a \u00E9t\u00E9 cr\u00E9\u00E
 eswurdeeinefunktion/amtsbezeichnunggeloscht=Il a \u00E9t\u00E9 effac\u00E9 und fonction/titre.
 
 # ADMINISTRATION/KATEGORIEN
-GENERIC_CATEGORY_PLURAL=Cat\u00E9gories
 markiertekategorie=Cat\u00E9gorie(s) s\u00E9l\u00E9ctionn\u00E9e(s)
 GENERIC_MARK_LONG=Signe de reconnaissance
-GENERIC_RANK=Rang
 GENERIC_EVENTS_PP=\u00C9v\u00E9nements
-GENERIC_CATEGORY_SINGULAR=Cat\u00E9gorie
 GENERIC_OCCASION=Ev\u00E9nement
 
 # ADMINISTRATION/MANDANTEN
-GENERIC_CLIENT_PLURAL=Mandants
 markierte(n)mandanten=Mandant(s) s\u00E9l\u00E9ctionn\u00E9(s)
 GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Donn\u00E9es pas d\u00E9di\u00E9 au mandants
 personen=Personnes
 GENERIC_IMPORT_PROCEDURES=Processus d\u2019importation
 veranstaltungorte=Lieux des \u00E9v\u00E9nements
 GENERIC_IMPORT_PERSONS=Importation des Personnes
-GENERIC_DISTRIBUTOR_SINGULAR=Distributeur
-GENERIC_USER=Utilisateur
 GENERIC_ASSIGN_CLIENTS=Classer mandants
-GENERIC_CLIENT_SINGULAR=Mandant
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
 programeinstellungen=R\u00E9glage de programme
@@ -350,9 +322,7 @@ GENERIC_SUBTABS_OF_PERSONS_DATA=Sous-onglets des \u00ABdonn\u00E9es personelles\
 GENERIC_MAIN_PERSON=Personnage principal
 GENERIC_PARTNER=Partenaire
 GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Sous-onglets des \u00ABAdresses\u00BB
-GENERIC_BUSINESS=Commercial
 GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Choix standard der Selectbox \u00ABZeichensatz\u00BB
-GENERIC_CHARSET=Jeu de caract\u00E8res
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Titres standard et Champs de texte libre
 GENERIC_STANDARD_SALUTATION=Titre standard
 GENERIC_STANDARD_SALUTATION_PARTNER=Titre standard Partenaire
@@ -367,7 +337,6 @@ OPTION_HELP_WINDOW_1=Utiliser la fen\u00EAtre de navigateur actuelle
 OPTION_HELP_WINDOW_2=Ouvrir nouvelle fen\u00EAtre de navigateur par appel
 OPTION_HELP_WINDOW_3=Chaque fois que vous appelez la m\u00EAme fen\u00EAtre du navigateur ( pas le courant )
 GENERIC_MISCELLANEOUS=Autres
-GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
 GENERIC_PROTOCOL_TIME_CHANGE=Historique des modifications
 GENERIC_PROTOCOL_COMMISIONING_TIME=D\u00E9riv\u00E9e de donn\u00E9es du journal
 HINT_GIVE_THE_RETENTION_PERIOD=Entrez la p\u00E9riode de r\u00E9tention
@@ -404,13 +373,8 @@ GENERIC_NO_DATA_FOUND=Aucune donn\u00E9e trouv\u00E9e
 # ADMINISTRATION/VERANSTALTUNGSORTE
 markierte=Lieu(x) marqu\u00E9(s)
 GENERIC_ADD_NEW_EVENT_LOCATIONS=Nouveau lieu
-GENERIC_ID=ID
 GENERIC_CONTACT_PERSON=contact
-GENERIC_TELEFON=Phone
-GENERIC_FAX=Fax
-e-mail=E-Mail
 GENERIC_REMARK=Remarque
-GENERIC_URL=URL
 gps-daten=Les donn\u00E9es GPS
 GENERIC_ROOM_NUMBER=Num\u00E9ro d\u2019appartement
 EVENT_PLACES_CONFIRM_DELETE=S\u2019il vous pla\u00EEt confirmer la suppression des lieux
@@ -422,7 +386,6 @@ GENERIC_SUBTABS_OF=Sous-onglets de
 GENERIC_PERSONAL_DETAILED_VIEW=Vue d\u00E9taill\u00E9e des personnes
 GENERIC_LIST_OF_GUESTS=Liste des invit\u00E9s
 zusatzlichefelder=champs suppl\u00E9mentaires
-GENERIC_FUNCTION_SINGULAR=Fonction
 GENERIC_POSTNUMBER_AND_CITY=Code Postale / Ville
 GENERIC_LIST_OF_PERSONS=Liste des individus
 GENERIC_FEDERAL_STATE=\u00E9tat
@@ -432,7 +395,6 @@ MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=Param\u00E8tres ont \u00E9t\u00E9 enregi
 GENERIC_REPRESENTATIVE_PLURAL=Repr\u00E9sentations
 markiertevertretung=Repr\u00E9sentations marqu\u00E9es
 GENERIC_DELETE=Supprimer
-GENERIC_NEW=Nouvel
 eswurdeeineneuevertretungangelegt=Il a \u00E9t\u00E9 une nouvelle agence cr\u00E9\u00E9e
 eswurdeeinevertretunggeloscht=Il a \u00E9t\u00E9 un repr\u00E9sentant supprim\u00E9
 siemuseneinevertretereingeben=Vous devez entrer un repr\u00E9sentant
@@ -440,15 +402,10 @@ derbeginndervertretungmusvordemendeliegen=Le d\u00E9but de la repr\u00E9sentatio
 MESSAGE_REPORT_NUMBER_PART_1=Il y avait
 vertretungengeloscht=Repr\u00E9sentations supprim\u00E9s
 # VERWALTUNG/INFO
-GENERIC_INFO=Info
 GENERIC_INFORMATION_ABOUT_VERAWEB=Infos \u00E0 VerA.web
-veraweb=VerA.web
-GENERIC_VERSION=Version
-build=Build
 GENERIC_BUILD_NUMBER=Num\u00E9ro de Build
 GENERIC_BUILD_TIME=Temps de Build (TUC)
 GENERIC_DATABASE=Base de donn\u00E9es
-GENERIC_LOGIN=Ouvrir
 GENERIC_GROUPS=Groupes
 GENERIC_NOT_AVAILABLE=indisponible
 
@@ -468,7 +425,6 @@ GENERIC_STREET=Rue
 GENERIC_POST_NUMBER=Code postal
 GENERIC_CITY=Domicile
 GENERIC_MARKED_PERSONS_PP=Personne(s) S\u00E9l\u00E9ctionn\u00E9e(s)
-expotieren=Export
 GENERIC_ASSIGN_CATEGORIES=Attribuer des cat\u00E9gories
 GENERIC_REMOVE_CATEGORIES=Retirer Cat\u00E9gories
 GENERIC_ASSING_WORKAREA=Attribuer espace de travail
@@ -476,7 +432,6 @@ GENERIC_REMOVE_WORKAREA=Retirer espace de travail
 GENERIC_EXECUTE=\u00C9xecuter
 personenanzahlproseite=Personnes | Afficher par page
 GENERIC_ALL=Tout
-seite=Seite
 GENERIC_DATE_OF_BIRTH=date de naissance
 GENERIC_PLACE_OF_BIRTH=Lieu de naissance
 GENERIC_NATIONALITY_CITIZENSHIP=Nationalit\u00E9
@@ -486,20 +441,8 @@ GENERIC_ACCOUNT_OPENING_DATE=Date d\u2019accr\u00E9ditation
 GENERIC_AT=\u00E0
 GENERIC_OCLOCK=h
 GENERIC_ORIGIN_DATA=Origine des donn\u00E9es
-GENERIC_PERSON_SINGULAR=Personne
 
 # DATEITYP
-csv=CSV (Comma-Separated-Values)
-xml=XML (VerA.web-XML)
-zkm=ZKM (VerA.web-XML \u00FCber das Zentrale Kommunikationsmodul)
-madlan-personen=MAdLAN-Personen (MAdLAN-Personen-Import)
-madlan-firmen=MAdLAN-Firmen (MAdLAN-Firmen-Import)
-x-manage-csv=X-Manage-CSV (X-Manage Kontakte)
-csvpersdatanschriftdoktyp=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
-csvpersdatdoktyp=CSVPersdat+Doktyp (Comma-Separated-Values)
-csvpersdatdoktyp10=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
-csvpersdatkategorien=CSVPersdat+Kategorien (Comma-Separated-Values)
-csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 
 # PERSONEN/PERSONENUEBERSICHT
 GENERIC_PERSON_SUMMARY=Vue d\u2019ensemble des personnes
@@ -533,7 +476,6 @@ GENERIC_CATEGORIES_AND_OCCASIONS=Cat\u00E9gories et \u00E9v\u00E9nements
 ubersichtuberalleveranstaltungeneinesgastes=Vue d\u2019ensemble de tous les \u00E9v\u00E9nements d\u2019un invit\u00E9.
 GENERIC_VIEW_OVER_GUEST_EVENT=de
 statistikfurgast=Statistique pour invit\u00E9
-GENERIC_EVENT=\u00C9v\u00E9nement
 GENERIC_BEGIN=D\u00E9but
 
 # PERSONEN/PERSONENSUCHE
@@ -549,11 +491,8 @@ MESSAGE_OSIAM_LOGIN_DATA_EXIST=Les pouvoirs ont \u00E9t\u00E9 produits avec succ
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Est une soci\u00E9t\u00E9
-GENERIC_SALUTATION_SINGULAR=Salutation
 frau=Madamme
 herr=Monsieur
-lady=Lady
-sir=Sir
 GENERIC_PLEASE_CHOOSE=Veuillez s\u00E9lectionner
 GENERIC_ACAD_TITLE=Niveau acad\u00E9mique
 GENERIC_IN_COUNTRY=Domestique
@@ -562,10 +501,6 @@ GENERIC_COMPANY_SINGULAR=Soci\u00E9t\u00E9
 GENERIC_COUNTRY=Pays
 plz/postfach=Code postal / Bo\u00EEte postale
 GENERIC_POST_OFFICE_BOX=Bo\u00EEte postale
-iban=IBAN
-bic=BIC
-GENERIC_MOBILE=Mobile
-LETTERS_WWW=WWW
 dublettenprufungdurchfuhren=Effectuer la v\u00E9rification en double
 zurpersonenubersicht=Vue d\u2019esnemble des personnes
 
@@ -576,9 +511,6 @@ GENERIC_REPLACE=Substitution
 GENERIC_IN_THE_FOLLOWING_FIELDS=Dans les champs suivants
 anrede/titel=Salutation / Titre
 GENERIC_EMPLOYMENT_TITLE_SHORT=Nom officiel
-GENERIC_INSTITUTION_SINGULAR=Institution
-GENERIC_ADDRESSES=Adresse
-telefon/fax=Telefon / Fax
 GENERIC_REPLACE_INDIVIDUALLY=Remplacer l\u2019unit\u00E9
 GENERIC_REPLACE_ALL=Remplacer tout
 
@@ -593,7 +525,6 @@ botschaften=ambassades
 finanzamtsprecher=Porte-parole du minist\u00E8re des Finances
 journalisten=Journalistes
 lieferant=Fournisseur
-nogs=NOGs
 politik=Politique
 pressevertreter=repr\u00E9sentants de la presse
 wirtschaft=\u00E9conomie
@@ -603,31 +534,10 @@ ENCODING_TYPE_WEST=ouest
 ENCODING_TYPE_BALTIC=Baltique
 ENCODING_TYPE_EAST=est
 ENCODING_TYPE_TURKISH=turc
-EXPORT_DATA_TYPE_CSV=CSV (Comma-Separated-Values)
-EXPORT_DATA_TYPE_XML=XML (VerA.web-XML)
-EXPORT_DATA_TYPE_ZKM=ZKM (VerA.web-XML \u00FCber das Zentrale Kommunikationsmodul)
-EXPORT_DATA_TYPE_MADLAN_PERSON=MAdLAN-Personen (MAdLAN-Personen-Import)
-EXPORT_DATA_TYPE_MADLAN_COMPANY=MAdLAN-Firmen (MAdLAN-Firmen-Import)
-EXPORT_DATA_TYPE_X_MANAGE_CSV=X-Manage-CSV (X-Manage Kontakte)
-EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE=CSVPersdat+Doktyp (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Kategorien (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
-EXPORT_TITLE_CSV=CSV
-EXPORT_TITLE_XML=XML
-EXPORT_TITLE_ZKM=ZKM
-EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Personen
-EXPORT_TITLE_MADLAN_COMPANY=MAdLAN-Firmen
-EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
 EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV donn\u00E9es personnelles+Adresses+Type de documents
 EXPORT_TITLE_CSVPERSDATA_DOCTYPE=CSV donn\u00E9es personnelles+typ de documents
 EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV donn\u00E9es personnelles+type de documents 1.0
 EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV donn\u00E9es personnelles+categories
-EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
-LABEL_EXPORT_ZKM=Ziel (ZKM-K\u00FCrzel)
-LABEL_EXPORT_MADLAN_ENCODING=Encoding
-LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Encoding (kyrillisch)
 HINT_EXPORT_CSV=Selon la quantit\u00E9 de champs export\u00E9s (cela d\u00E9pend particuli\u00E8rement du nombre de types de documents export\u00E9s et cat\u00E9gories), c\u2019est possible que MS Excel et Calc OO ne pourraient pas lire les donn\u00E9es export\u00E9es compl\u00E8tement.
 HINT_EXPORT_ZKM=Le fichier d\u2019exportation est stock\u00E9 \u00E0 la fois au dossier de sortie que ZKM \u00E0 votre disposition pour contr\u00F4ler le t\u00E9l\u00E9chargement. T\u00E9l\u00E9chargement Vous pouvez interrompre en toute s\u00E9curit\u00E9.
 HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Il sera export\u00E9 que les blancs avec les onglets \u00ABdonn\u00E9es personnelles\u00BB, \u00ABadresses\u00BB, \u00ABtypes de documents\u00BB et leurs onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s (particuli\u00E8rement du nombre des types de documents export\u00E9s d\u00E9pend) il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
@@ -660,15 +570,11 @@ GENERIC_STATISTICS=Statistiques
 # ADMINISTRATIONDROPDOWN
 GENERIC_SALUTATIONS=Formules de politesse
 GENERIC_WORKAREA_PLURAL=Espaces de travail
-GENERIC_DOCUMENT_TYPE_PLURAL=Types de documents
 e-mail-postausgang=E -mail d\u2019envoi
 GENERIC_PROGRAM_PERFERENCES=Pr\u00E9f\u00E9rences
-GENERIC_EVENT_LOCATION_PLURAL=Lieux des \u00E9v\u00E9nements
 
 # VERANSTALTUNGSUEBERSICHT
-GENERIC_END=Fin
 GENERIC_HOST=H\u00F4te
-GENERIC_EVENT_LOCATION_SINGULAR=Lieu de l\u2019\u00E9v\u00E9nement
 GENERIC_EVENT_SEARCH=Recherche \u00E9v\u00E9nement
 GENERIC_CREATE_NEW_EVENT=Cr\u00E9er un nouvel \u00E9v\u00E9nement
 GENERIC_NUMBER_PER_PAGE=Afficher par page
@@ -690,7 +596,6 @@ EVENT_INVITATION_TYPE_WITH_PARTNER=avec Partenaire
 GENERIC_EDIT_EVENT=Modifier l\u2019\u00E9v\u00E9nement
 GENERIC_TO_GUEST_MANAGEMENT=Gestion des clients
 GENERIC_GENERAL=G\u00E9n\u00E9ral
-GENERIC_TASK_PLURAL=t\u00E2ches
 GENERIC_ADDITIONAL_PERSONS_DATA=Informations personnelles suppl\u00E9mentaires
 kurzbereichnung=Nom court
 GENERIC_OPEN_EVENT=\u00C9v\u00E9nement ouvert
@@ -775,10 +680,8 @@ gastedetails=Invit\u00E9 D\u00E9tails
 offen=ouvrir
 zusagen=engagements
 absagen=annuler
-teilnahmen=participations
 aufplatz=a place
 aufreserve=sur la r\u00E9serve
-filter=Filter
 platzwahl=Choix de l\u2019emplacement
 lfdnr=Num\u00E9ro de s\u00E9rie
 nichteingeladen=pas invit\u00E9(e)
@@ -821,7 +724,6 @@ GUEST_LIST_ONLY_ACCEPT=seuls engagements
 GUEST_LIST_ONLY_DECLINED=seulement refus
 GUEST_LIST_ONLY_PARTICIPATE=seulement la participation
 GUEST_LIST_PERSON_DATA_RELOAD=Recharger tout donn\u00E9es de base
-GUEST_LIST_RESERVE=R
 GUEST_LIST_SEARCH_PERSON_ADD=Trouver des gens et l\u2019ajouter \u00E0 la liste des invit\u00E9s
 
 # GAESTELISTE ERSTELLEN
@@ -846,7 +748,6 @@ GUEST_DETAIL_TABLE_NUMBER=Num\u00E9ro de cours
 gastdetails=D\u00E9tails des invit\u00E9s
 HINT_GUEST_LIST_EDIT_PERSONDATA=Modifier ici les donn\u00E9es personnelles exclusivement dans le contexte des \u00E9v\u00E9nements actuels, pas des donn\u00E9es de base.
 istgastgeber=H\u00F4te
-reserve=Reserve
 aufstammdatenzurucksetzen=Revenir aux donn\u00E9es de base
 stammdatenbearbeiten=Modification des donn\u00E9es de base
 
@@ -920,9 +821,6 @@ eigenesdokumentfurpartner=Document priv\u00E9 pour les partenaires
 sortierreihenfolge=L\u2019ordre de tri
 gastgebermitausgeben=H\u00F4tes avec sortie
 iststandardfursteuerdatei=Est la norme pour le fichier de contr\u00F4le
-format=Format
-HINT_EXPORT_FORMAT=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei),xls steht f\u00FCr Microsoft Office (xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
-HINT_EVENT_IDENTIFICATION=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
 wirklichloschen=Vraiment supprimer
 zumpersonenimport=Pour les personnes -Import
 importstatus=Importer Statut
@@ -992,8 +890,6 @@ event=\u00C9v\u00E9nement
 keine=Non
 category=Categorie
 weitereoptionen=plus d\u2019options
-anmerkung=note
-anmerkungen=notes
 markiertebezeichnunge=Nom s\u00E9lectionn\u00E9
 markierteeintrageentfernen=Supprimer les \u00E9l\u00E9ments s\u00E9lectionn\u00E9s
 eswurdenkeinedatengefunden=Aucune donn\u00E9e trouv\u00E9e
@@ -1037,7 +933,6 @@ alsbenutzernamen=Comme nom d\u2019utilisateur
 emailvorlage=Mod\u00E8le de courrier \u00E9lectronique
 amtsbezfunktion=Nom officiel/Fonction
 postfachnummer=Numero du bo\u00EEte postale
-email=E-Mail
 verteileranlegen=Cr\u00E9ation du distributeur
 sielegeneinenneuenverteilerausderveranstaltung=Cr\u00E9er une nouvelle distribution de l\u2019\u00E9v\u00E9nement
 mit=avec
@@ -1068,7 +963,6 @@ zurueckzurveranstaltung=Retour \u00E0 l\u2019\u00E9v\u00E9nement
 zurdublettensuche=\u00C0 la recherche de double
 zurckzumsuchergebnis=Retour aux r\u00E9sultats de la recherche
 diesepersonwurdeerfolgreichzurgaestelistederveranstaltung=Cette personne a \u00E9t\u00E9 correctement ajout\u00E9e \u00E0 la liste des invit\u00E9s pour l\u2019\u00E9v\u00E9nement
-hinzugefuegt=
 diesepersonwurdenichthinzugefuegtdasiebereitsaufdergaestelistesteht=Cette personne n\u2019\u00E9tait pas ajout\u00E9e car elle est d\u00E9j\u00E0 sur la liste des invit\u00E9s.
 diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt=Cette personne a \u00E9t\u00E9 marqu\u00E9 comme \u00E9tant supprim\u00E9 et n\u2019est plus affich\u00E9e lors de la recherche.
 personanlegen=Cr\u00E9ation d\u2019une personne
@@ -1127,7 +1021,6 @@ wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen=Vous voulez supp
 eswurdenkeinekategorienentfernt=Pas de cat\u00E9gories ont \u00E9t\u00E9 supprim\u00E9es.
 zuweisen=Assigner
 waehlensieeinekategorieauswelchesie=S\u00E9lectionner une cat\u00E9gorie que vous souhaitez
-moechten=
 alleentfernen=Supprimer tous
 siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=Vous avez configur\u00E9 aucun les cat\u00E9gories. Vous pouvez d\u00E9finir dans le panneau d\u2019administration en vertu de l\u2019article.
 definieren=
@@ -1139,7 +1032,6 @@ wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen=\u0
 eswurdenkeinearbeitsbereichzugeordnet=Aucun espaces de travail n\u2019\u00E9taient associ\u00E9s
 wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben=Souhaitez vous dissocier de cette personne ou cet invit\u00E9 \u00E0 l\u2019espace de travail s\u00E9lectionn\u00E9?
 eswurdekeinarbeitsbereichaufgehoben=Il \u00E9tait \u00E0 pr\u00E9sent lev\u00E9 pas un espace de travail
-wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Wollen Sie die Zuordnung von ${count} Personen bzw. G\u00E4sten zum ausgew\u00E4hlten Arbeitsbereich aufheben
 wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Vous souhaitez attribuer \u00E0 cette personne ou cet invit\u00E9 de l\u2019espace de travail s\u00E9lectionn\u00E9?
 wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=\u00C0 attribuer ${count} personnes ou invit\u00E9s de l\u2019espace de travail s\u00E9lectionn\u00E9?
 waehlensieeinenarbeitsbereichauswelchensie=S\u00E9lectionner un espace de travail, qui vous
@@ -1162,7 +1054,6 @@ listenachkategoriengruppiertmitpartner=Liste regroup\u00E9es par cat\u00E9gories
 listenachkategoriengruppiertmittelundmobiltelefon=Liste regroup\u00E9es par cat\u00E9gories - avec t\u00E9l\u00E9phone et t\u00E9l\u00E9phone portable
 listenachkategoriengruppiertmitpartnerundfax=Liste regroup\u00E9es par cat\u00E9gories - avec partenaire et fax
 listenachsortierungmitpartnertelundmobiltelefon=Liste tri\u00E9e - avec les partenaires, t\u00E9l\u00E9phone et t\u00E9l\u00E9phone portable
-tisch=Table
 zusaetzlichesortierungnach=Un tri suppl\u00E9mentaire
 zurueckzurgaesteverwaltung=Gestion des invit\u00E9s
 verwaltungallebenutzerimmandanten=Gestion - tous les utilisateurs du mandant
@@ -1243,7 +1134,6 @@ eswurdeeinepersongefunden=On a constat\u00E9 une personne.
 personengefunden=personnes trouv\u00E9
 einzelneeinzraegezumersetzenselektieren=S\u00E9lectionner des entr\u00E9es individuelles pour remplacer
 allesofortersetzen=Remplacez imm\u00E9diatement
-wennsiedenplatzhalterverwendenwerdenauchteilstueckeersetztsonstnurvollstaendigedatenfelder=Wenn Sie den Platzhalter * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
 siemuessendasdatumdeszeitrahmensimformatttmmjjjjangeben=Vous aurez besoin de la date de l\u2019\u00E9ch\u00E9ancier au format JJ.MM.AAAA
 markierteanredenloschen=Supprimez l\u2019adresse s\u00E9lectionn\u00E9e
 markiertendokumenttypenloschen=Supprimer des types de documents s\u00E9lectionn\u00E9s
@@ -1259,7 +1149,6 @@ dieseemailwartetaufihrefertigstellungdurcheinenbenutzer=Cet E-Mail est en attent
 dieseemailwartetaufihreversendung=Cet E-Mail est en attente pour leur exp\u00E9dition.
 dieseemailwirdgeradeversendetundsollte=Cet e-mail est envoy\u00E9 seulement et ne devrait pas \u00EAtre modifi\u00E9.
 nichtbearbeitet=
-werden=
 dieseemailwurdebereitsversendetundsollte=Cet e-mail a \u00E9t\u00E9 envoy\u00E9 d\u00E9j\u00E0 et devrait ne plus \u00EAtre \u00E9dit\u00E9.
 nichtmehrbearbeitet=
 technischefehlermeldungausblenden=Erreur technique message cacher
@@ -1400,7 +1289,6 @@ MESSAGE_GUEST_DOCTYPE_TITLEPARTNER_MAX_LENGTH=Le titre du partenaire peut \u00EA
 MESSAGE_GUEST_DOCTYPE_URL_MAX_LENGTH=Le WWW URL peut \u00EAtre jusqu\u2019\u00E0 250 caract\u00E8res.
 MESSAGE_GUEST_DOCTYPE_ZIP_MAX_LENGTH=Le code postal doit contenir 50 caract\u00E8res ou moins.
 MESSAGE_USER_MISSING_ROLE=Vous devez taper un nom de r\u00F4le d\u2019utilisateur.
-MESSAGE_ORGUNIT_BUSY=XXX TODO: While the client is still assigned users it cannot be deleted.
 
 # EVENT LIST TEXTS
 EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Au moins un \u00E9v\u00E9nement marqu\u00E9 s\u2019ex\u00E9cute actuellement ou dans l\u2019avenir.
@@ -1430,7 +1318,6 @@ BROWSER_TITLE_REPORTS=Rapports
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=R\u00E9initialiser toutes les valeurs sur les donn\u00E9es de base
 GUEST_LIST_EDIT_MASTER_DATA=Modifier les donn\u00E9es de base des personnes
 GUEST=Invit\u00E9
-GENERIC_OF=de
 
 
 TOOLTIP_EDIT_HEADLINES=Vous pouvez toujours modifier les rubriques avant de l\u2019imprimer en cliquant sur le lien /u0022modifier/u0022. S\u2019il vous pla\u00EEt enregistrer cette avant l\u2019impression.
@@ -1483,12 +1370,8 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Si le rang de la cat\u00E9gorie \u00E
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=R\u00E9initialiser toutes les donn\u00E9es sur Master Data
-GUEST_LIST_EDIT_MASTER_DATA=Modifier les donn\u00E9es de base des personnes
-GUEST=Invit\u00E9
-GENERIC_OF=de
 GENERIC_ASSIGN=Assigner
 GENERIC_CANCEL=Annuler
-GENERIC_DELETE=Supprimer
 GENERIC_CONNECTOR=Connecteur
 GENERIC_VIEW_DOCUMENT_TYPE=Montrer le type du document
 GENERIC_GENERATE_DOCUMENT_TYPE=g\u00E9n\u00E9rer un nouveau type de documents
@@ -1499,7 +1382,6 @@ GUEST_DETAIL_PARTNER_GENITIV=les partenaire
 GUEST_DETAIL_MAINPERSON=la personne principale
 
 GUEST_DETAIL_DUP_SEAT_ERROR_ONE=Veuillez changer la place
-GUEST_DETAIL_DUP_SEAT_ERROR_TWO=de
 GUEST_DETAIL_DUP_SEAT_ERROR_THREE=vis \u00E0 vis la liste des invit\u00E9s. Cette personne se trouve actuellement
 GUEST_DETAIL_DUP_SEAT_ERROR_FOUR=\u00E0 la place
 GUEST_DETAIL_DUP_SEAT_ERROR_FIVE=. Les modifications ne sont pas sauvegard\u00E9es.
@@ -1528,8 +1410,6 @@ EXPORT_HEADER_FREETEXT_FIELD=champs_de_texte_libre
 EXPORT_HEADER_PARTNER_FREETEXT_FIELD=Patenaire_champs_de_texte_libre
 EXPORT_HEADER_INTERCONNECTS=Connecteur
 EXPORT_HEADER_ADDRESS=Adresse
-EXPORT_HEADER_CHARSET=Charset
-EXPORT_HEADER_FUNCTION=fonction
 EXPORT_HEADER_TITLE=Titre
 EXPORT_HEADER_FIRSTNAME=Pr\u00E9nom
 EXPORT_HEADER_LASTNAME=Surnom
@@ -1545,9 +1425,6 @@ EXPORT_HEADER_ADDITIONAL_ADDRESS_ONE=Adresse_extension_1
 EXPORT_HEADER_ADDITIONAL_ADDRESS_TWO=Adresse_extension_2
 EXPORT_HEADER_CITY_OF_BORN=Lieu_de_naissance
 EXPORT_HEADER_TELEPHONE=T\u00E9l\u00E9phone
-EXPORT_HEADER_FAX=Fax
-EXPORT_HEADER_EMAIL=E-mail
-EXPORT_HEADER_WWW=WWW
 EXPORT_HEADER_MOBILE=Portable
 EXPORT_HEADER_COMPANY=Entreprise
 EXPORT_HEADER_POST_OFFICE_BOX_NUMBER=Num\u00E9ro_de_la_bo\u00EEte_\u00E0_lettre
@@ -1555,10 +1432,7 @@ EXPORT_HEADER_POST_OFFICE_BOX_PLZ=Code_postal
 EXPORT_HEADER_WORK_AREA=Secteur_de_travail
 EXPORT_HEADER_CATEGORY=Categorie
 EXPORT_HEADER_CATEGORY_RANG=Categorie_rang
-EXPORT_HEADER_RANG=Rang
-EXPORT_HEADER_RESERVE=Reserve
 EXPORT_HEADER_STATUS=Statut
-EXPORT_HEADER_TABLE=Table
 EXPORT_HEADER_SEAT=Place
 EXPORT_HEADER_CURRENT_NUMBER=Num\u00E9ro_de_s\u00E9rie
 EXPORT_HEADER_COLOUR=Couleur
@@ -1588,7 +1462,6 @@ EXPORT_HEADER_EVENT_NAME=Nom_de_l\u2019\u00E9v\u00E9nement
 EXPORT_HEADER_EVENT_BEGIN=D\u00E9but_de_l\u2019\u00E9v\u00E9nements
 EXPORT_HEADER_EVENT_END=Fin_de_l\u2019\u00E9v\u00E9nement
 EXPORT_HEADER_EVENT_LOCATION=Lieu_de_l\u2019\u00E9v\u00E9nement
-EXPORT_HEADER_OBSERVATION=Observation
 
 # MAIN DATA (STAMMDATEN-WORKER) TEXTS
 MAIN_DATA_WARN_ALREADY_EXISTS=Une donn\u00E9e de base avec ce nom existe d\u00E9j\u00E0.
@@ -1606,7 +1479,6 @@ STATS_NOT_INVITED=Pas invit\u00E9
 
 # USER LIST TEXTS
 USER_LIST_WARN_MANDANT_ONE=L\u2019utilisateur \u00E0 ins\u00E9rer est d\u00E9j\u00E0 associer au client
-USER_LIST_WARN_MANDANT_TWO=.
 USER_LIST_WARN_ALREADY_USER=L\u2019utilisateur \u00E0 ins\u00E9rer est d\u00E9j\u00E0 associer VerA.web.
 USER_LIST_WARN_NO_ID=L\u2019utilisateur \u00E0 ins\u00E9rer ne devrait pas avoir un num\u00E9ro d\u2019identit\u00E9
 
@@ -1623,7 +1495,6 @@ VERIFY_ERROR_DB_NOT_ACCESSIBLE=\u00C9chec de la connexion \u00E0 la base de donn
 VERIFY_ERROR_DB_VERSION_NOT_DETERMINED=La d\u00E9termination de la version du sch\u00E9ma de la base de donn\u00E9e n\u2019\u00E9tait pas possible.
 VERIFY_ERROR_DB_VERSION_INCONSISTENCE_ONE=La version du sch\u00E9ma de la base de donn\u00E9e (
 VERIFY_ERROR_DB_VERSION_INCONSISTENCE_TWO=) est diff\u00E9rente de la version de VerA.web (
-VERIFY_ERROR_DB_VERSION_INCONSISTENCE_THREE=).
 VERIFY_ERROR_DB_LC_CTYPE_NOT_WANTED=Votre configuration de la base de donn\u00E9e ne supporte pas let charset (LC_CTYPE=
 VERIFY_ERROR_DB_LC_COLLATE_NOT_WANTED=La configuration de votre base de donn\u00E9e ne supporte pas les r\u00E8gles attendu pour la comparaison du texte (LC_COLLATE=
 VERIFY_ERROR_XML=Une erreur est survenue, pendant la creation du document test-XML.(
@@ -1631,10 +1502,6 @@ VERIFY_ERROR_JAVA_ONE=La version de JAVA install\u00E9 (
 VERIFY_ERROR_JAVA_TWO=) est diff\u00E9rente de la version attendu (1.4).
 
 #TO BE DELETED
-inlandjageschlechtweiblich=In Country: Yes - Sex:Female
-inlandjageschlechtmannlich=In Country: Yes - Sex:Male
-inlandneingeschlechtweiblich=In Country: No - Sex:Female
-inlandneingeschlechtmannlich=In Country: No - Sex:Male
 
 # GENERIC DIALOG MESSAGES
 GENERIC_PLEASE_WAIT_HEADER=Veuillez patienter...
@@ -1656,11 +1523,6 @@ DATE_HELPER_INCORRECT_DATE= n\u2019est pas une date valide. Veuillez ins\u00E9re
 GENERIC_SHOW_CURRENT_EVENTS=Montrer l\u2019\u00E9v\u00E9nement actuel
 GENERIC_FURTHER_PROCEEDING=\u00C9tapes prochaines
 
-LETTER_MAIN_PERSON=PP
-LETTER_PARTNER=P
-LETTER_RESERVE=R
-LETTER_DELEGATION=D
-LETTER_HOST=H
 
 GENERIC_LASTNAME_WITH_SOFT_HYPHEN=Surnom
 GENERIC_FIRSTNAME_WITH_SOFT_HYPHEN=Pr\u00E9nom
@@ -1669,7 +1531,6 @@ GENERIC_LOAD_EXISTING_IMPORTPROCESS=Charger un proc\u00E9ssus d\u2019importation
 GENERIC_IMPORTID=Importation-id
 GENERIC_YEAR=Ann\u00E9e
 GENERIC_COUNT=Nombre
-GENERIC_PARTICIPATION=Participation
 GENERIC_NOT_ASSIGNED_TO_CATEGORY=Aucune cat\u00E9gorie attribu\u00E9
 GENERIC_NOT_ASSIGNED_TO_WORKAREA=Aucun secteur de travail attribu\u00E9
 GENERIC_NO_HOST_ASSIGNED=Aucun h\u00F4te attribu\u00E9
@@ -1689,10 +1550,7 @@ PHONE_MOBILE=T\u00E9l\u00E9phone portable
 GENERIC_PARTNER_FREETEXTFIELD=Champs de texte libre du partenaire
 GENERIC_VENUE=Lieu de l\u2019\u00E9v\u00E9nement
 
-GENERIC_TOTAL=Total
 OPTION_MARK_ADMINISTRATION_CATEGORY_1=Categorie
-OPTION_MARK_ADMINISTRATION_CATEGORY_2=Occasion
-OPTION_MARK_ADMINISTRATION_CATEGORY_3=Diplo. Corps
 
 GENERIC_IMPORTID_HYPHEN=Importation-id
 
@@ -1759,7 +1617,6 @@ CONTACT_PICTURE_UPLOAD=T\u00E9l\u00E9charger une photo
 CONTACT_PICTURE_CHANGE=Changer la photo
 CONTACT_PICTURE_WRONG_SIZE=Les dimensions de l\u2019image doivent \u00EAtre exactement 186x245 pixels.
 
-NO_PARTNER_IN_MASTERDATA=Kein Partner in Stammdaten hinterlegt
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=Une cat\u00E9gorie a \u00E9t\u00E9 modifi\u00E9

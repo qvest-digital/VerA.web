@@ -308,37 +308,29 @@ GENERIC_ADD=Hinzuf\u00FCgen
 GENERIC_BACK_TO_TEMPLATES_LIST=Zur\u00FCck zur Vorlagenliste
 
 # ADMINISTRATION/FARBEN
-GENERIC_COLOR_PLURAL=Farben
 GENERIC_CHROMATICITY=Farbwert
 LETTERS_CHROMATICITY=R G B
 
 # ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
 markiertebezeichnung=Markierte Bezeichnung(en)
-GENERIC_LABELLING=Bezeichnung
 eswurdeeineneuefunktion/amtsbezeichnungangelegt=Es wurde eine neue Funktion/Amtsbezeichnung angelegt.
 eswurdeeinefunktion/amtsbezeichnunggeloscht=Es wurde eine Funktion/Amtsbezeichnung gel\u00F6scht.
 
 # ADMINISTRATION/KATEGORIEN
-GENERIC_CATEGORY_PLURAL=Kategorien
 markiertekategorie=Markierte Kategorie(n)
 GENERIC_MARK_LONG=Kennzeichen
 GENERIC_RANK=Rang
 GENERIC_EVENTS_PP=Veranstaltung(en)
-GENERIC_CATEGORY_SINGULAR=Kategorie
 GENERIC_OCCASION=Ereignis
 
 # ADMINISTRATION/MANDANTEN
-GENERIC_CLIENT_PLURAL=Mandanten
 markierte(n)mandanten=Markierte(n) Mandanten
 GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Nicht Mandanten zugeordnete Daten
 personen=Personen
 GENERIC_IMPORT_PROCEDURES=Import Vorg\u00E4nge
 veranstaltungorte=Veranstaltungorte
 GENERIC_IMPORT_PERSONS=Import Personen
-GENERIC_DISTRIBUTOR_SINGULAR=Verteiler
-GENERIC_USER=Benutzer
 GENERIC_ASSIGN_CLIENTS=Mandanten zuordnen
-GENERIC_CLIENT_SINGULAR=Mandant
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
 programeinstellungen=Programeinstellungen
@@ -350,9 +342,7 @@ GENERIC_SUBTABS_OF_PERSONS_DATA=Subtabs von \u201EPersonendaten\u201C
 GENERIC_MAIN_PERSON=Hauptperson
 GENERIC_PARTNER=Partner
 GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subtabs von \u201EAnschriften\u201C
-GENERIC_BUSINESS=Gesch\u00E4ftlich
 GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Standard Auswahl der Selectbox \u201EZeichensatz\u201C
-GENERIC_CHARSET=Zeichensatz
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Standard-Anreden und Freitextfelder
 GENERIC_STANDARD_SALUTATION=Standard-Anrede
 GENERIC_STANDARD_SALUTATION_PARTNER=Standard-Anrede Partner
@@ -404,7 +394,6 @@ GENERIC_NO_DATA_FOUND=Keine Daten gefunden
 # ADMINISTRATION/VERANSTALTUNGSORTE
 markierte=Markierte(n) Veranstaltungsort(e)
 GENERIC_ADD_NEW_EVENT_LOCATIONS=Neuen Veranstaltungsort hinzuf\u00FCgen
-GENERIC_ID=ID
 GENERIC_CONTACT_PERSON=Ansprechpartner
 GENERIC_TELEFON=Telefon
 GENERIC_FAX=Fax
@@ -422,17 +411,14 @@ GENERIC_SUBTABS_OF=Subtabs von
 GENERIC_PERSONAL_DETAILED_VIEW=Personendetailansicht
 GENERIC_LIST_OF_GUESTS=G\u00E4steliste
 zusatzlichefelder=Zus\u00E4tzliche Felder
-GENERIC_FUNCTION_SINGULAR=Funktion
 GENERIC_POSTNUMBER_AND_CITY=PLZ / Ort
 GENERIC_LIST_OF_PERSONS=Personenliste
 GENERIC_FEDERAL_STATE=Bundesland
 MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=Einstellungen wurden erfolgreich gespeichert.
 
 # VERWALTUNG/VERTRETUNGEN
-GENERIC_REPRESENTATIVE_PLURAL=Vertretungen
 markiertevertretung=Markierte Vertretung(en)
 GENERIC_DELETE=L\u00F6schen
-GENERIC_NEW=Neu
 eswurdeeineneuevertretungangelegt=Es wurde eine neue Vertretung angelegt
 eswurdeeinevertretunggeloscht=Es wurde eine Vertretung gel\u00E4scht
 siemuseneinevertretereingeben=Sie m\u00FCssen eine Vertreter eingeben
@@ -459,7 +445,6 @@ GENERIC_DISCARD_CHANGES=Bearbeitung verwerfen?
 
 # TABELLEN
 GENERIC_DATE=Datum
-GENERIC_WORKAREA_SINGULAR=Arbeitsbereich
 GENERIC_LASTNAME=Nachname
 GENERIC_FIRSTNAME=Vorname
 amtsbezeichnung=Amtsbezeichnung
@@ -486,7 +471,6 @@ GENERIC_ACCOUNT_OPENING_DATE=Akkreditierungsdatum
 GENERIC_AT=um
 GENERIC_OCLOCK=Uhr
 GENERIC_ORIGIN_DATA=Datenherkunft
-GENERIC_PERSON_SINGULAR=Person
 
 # DATEITYP
 csv=CSV (Comma-Separated-Values)
@@ -523,7 +507,6 @@ GENERIC_STATISTIC=Statistik
 ausstammdatenhinzufugen=Aus Stammdaten hinzuf\u00FCgen
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
-GENERIC_DOCUMENT_TYPE_SINGULAR=Dokumenttyp
 GENERIC_GENERATE_ALL=Alle erzeugen
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
@@ -533,7 +516,6 @@ GENERIC_CATEGORIES_AND_OCCASIONS=Kategorien und Ereignisse
 ubersichtuberalleveranstaltungeneinesgastes=\u00FCbersicht \u00FCber alle Veranstaltungen eines Gastes.
 GENERIC_VIEW_OVER_GUEST_EVENT=Ab
 statistikfurgast=Statistik f\u00FCr Gast
-GENERIC_EVENT=Veranstaltung
 GENERIC_BEGIN=Beginn
 
 # PERSONEN/PERSONENSUCHE
@@ -549,7 +531,6 @@ MESSAGE_OSIAM_LOGIN_DATA_EXIST=Anmeldedaten f\u00FCr diese Person sind bereits v
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Ist Firma
-GENERIC_SALUTATION_SINGULAR=Anrede
 frau=Frau
 herr=Herr
 lady=Lady
@@ -558,7 +539,6 @@ GENERIC_PLEASE_CHOOSE=Bitte w\u00E4hlen Sie
 GENERIC_ACAD_TITLE=Akad. Titel
 GENERIC_IN_COUNTRY=Inland
 GENERIC_HINT_FOR_ORGA=Hinweis f\u00FCr Orga
-GENERIC_COMPANY_SINGULAR=Firma
 GENERIC_COUNTRY=Land
 plz/postfach=PLZ / Postfach
 GENERIC_POST_OFFICE_BOX=Postfach
@@ -576,7 +556,6 @@ GENERIC_REPLACE=Ersetzen
 GENERIC_IN_THE_FOLLOWING_FIELDS=In folgenden Feldern
 anrede/titel=Anrede / Titel
 GENERIC_EMPLOYMENT_TITLE_SHORT=Amtsbezeichn.
-GENERIC_INSTITUTION_SINGULAR=Institution
 GENERIC_ADDRESSES=Adresse
 telefon/fax=Telefon / Fax
 GENERIC_REPLACE_INDIVIDUALLY=Einzeln ersetzen
@@ -658,17 +637,12 @@ GENERIC_NEW_EVENT=Neue Veranstaltung
 GENERIC_STATISTICS=Statistiken
 
 # ADMINISTRATIONDROPDOWN
-GENERIC_SALUTATIONS=Anreden
-GENERIC_WORKAREA_PLURAL=Arbeitsbereiche
-GENERIC_DOCUMENT_TYPE_PLURAL=Dokumenttypen
 e-mail-postausgang=E-Mail-Postausgang
 GENERIC_PROGRAM_PERFERENCES=Programmeinstellungen
-GENERIC_EVENT_LOCATION_PLURAL=Veranstaltungsorte
 
 # VERANSTALTUNGSUEBERSICHT
 GENERIC_END=Ende
 GENERIC_HOST=Gastgeber
-GENERIC_EVENT_LOCATION_SINGULAR=Veranstaltungsort
 GENERIC_EVENT_SEARCH=Veranstaltung suchen
 GENERIC_CREATE_NEW_EVENT=Neue Veranstaltung anlegen
 GENERIC_NUMBER_PER_PAGE=Anzahl pro Seite
@@ -690,7 +664,6 @@ EVENT_INVITATION_TYPE_WITH_PARTNER=Mit Partner
 GENERIC_EDIT_EVENT=Veranstaltung bearbeiten
 GENERIC_TO_GUEST_MANAGEMENT=Zur G\u00E4steverwaltung
 GENERIC_GENERAL=Allgemein
-GENERIC_TASK_PLURAL=Aufgaben
 GENERIC_ADDITIONAL_PERSONS_DATA=Zus\u00E4tzliche Personendaten
 kurzbereichnung=Kurzbereichnung
 GENERIC_OPEN_EVENT=Offene Veranstaltung
@@ -1325,11 +1298,8 @@ senden=Senden
 
 # GENERIC
 GENERIC_UPLOAD_BUTTON=Datei ausw\u00E4hlen
-GENERIC_TO=An
-GENERIC_FEDERAL_STATE=Bundesland
 GENERIC_PERSONAL_DATA=Pers\u00F6nliche Daten
 GENERIC_NUMBER_OF_GUESTS=G\u00E4steanzahl
-GENERIC_TELEFON=Telefon
 
 # MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Dieser Gast wurde ohne Hauptperson eingeladen
@@ -1480,13 +1450,9 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Soll der Rang der Kategorie aus den S
 
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
-GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zur\u00FCcksetzen
-GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
-GUEST=Gast
 GENERIC_OF_CAPITAL=Von
 GENERIC_ASSIGN=Zuweisen
 GENERIC_CANCEL=Abbrechen
-GENERIC_REMOVE=Entfernen
 GENERIC_CONNECTOR=Verbinder
 GENERIC_VIEW_DOCUMENT_TYPE=Dokumenttyp ansehen
 GENERIC_GENERATE_DOCUMENT_TYPE=Dokumenttyp erzeugen
