@@ -90,6 +90,7 @@ EOF
     fi
 
     chown -R openldap:openldap /etc/ldap/slapd.d/
+    chown -R openldap:openldap /var/lib/ldap/
 else
     slapd_configs_in_env=`env | grep 'SLAPD_'`
 
