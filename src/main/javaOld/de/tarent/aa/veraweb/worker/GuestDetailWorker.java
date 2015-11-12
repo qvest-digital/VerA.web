@@ -288,6 +288,34 @@ public class GuestDetailWorker extends GuestListWorker {
                 guest.orderno_a = null;
                 guest.orderno_b = null;
             }
+//
+            if(Integer.parseInt(allRequestParams.get("guest-invitationstatus_b").toString())!=guest.invitationstatus_b) {
+                guest.invitationstatus_b = Integer.parseInt(allRequestParams.get("guest-invitationstatus_b").toString());
+            }
+            if(Integer.parseInt(allRequestParams.get("guest-tableno_b").toString())!=guest.tableno_b) {
+                guest.tableno_b = Integer.parseInt(allRequestParams.get("guest-tableno_b").toString());
+            }
+            if(Integer.parseInt(allRequestParams.get("guest-seatno_b").toString())!=guest.seatno_b) {
+                guest.seatno_b = Integer.parseInt(allRequestParams.get("guest-seatno_b").toString());
+            }
+            if(allRequestParams.get("guest-language_b")!=guest.language_b) {
+                guest.language_b = allRequestParams.get("guest-language_b").toString();
+            }
+            if(allRequestParams.get("guest-nationality_b")!=guest.nationality_b) {
+                guest.nationality_b = allRequestParams.get("guest-nationality_b").toString();
+            }
+            if(allRequestParams.get("guest-noteorga_b")!=guest.noteorga_b) {
+                guest.noteorga_b = allRequestParams.get("guest-noteorga_b").toString();
+            }
+            if(allRequestParams.get("guest-notehost_b")!=guest.notehost_b) {
+                guest.notehost_b = allRequestParams.get("guest-notehost_b").toString();
+            }
+            if(allRequestParams.get("guest-domestic_b")!=guest.domestic_b) {
+                guest.domestic_b = allRequestParams.get("guest-domestic_b").toString();
+            }
+            if(allRequestParams.get("guest-sex_b")!=guest.sex_b) {
+                guest.sex_b = allRequestParams.get("guest-sex_b").toString();
+            }
 
             getGuestRankType(octopusContext, database, guest);
 

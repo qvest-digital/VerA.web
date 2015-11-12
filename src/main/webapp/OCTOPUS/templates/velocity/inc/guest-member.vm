@@ -130,11 +130,11 @@
         		</div>
         		<div class="tableCell width50">
         			<div style="display: inline-block; width: 49%;">
-        				<label for="guest-tableno$ext">${placeholderWithTranslation.GUEST_DETAIL_SEAT_NUMBER}</label>
+        				<label for="guest-tableno$ext">${placeholderWithTranslation.GUEST_DETAIL_TABLE_NUMBER}</label>
         				<input type="text" id="guest-tableno$ext" name="guest-tableno$ext" value="$!message.text($facade.TableNo)" />
         			</div>
         			<div style="width: 49%; float: right;">
-        				<label for="guest-seatno$ext">${placeholderWithTranslation.GUEST_DETAIL_TABLE_NUMBER}</label>
+        				<label for="guest-seatno$ext">${placeholderWithTranslation.GUEST_DETAIL_SEAT_NUMBER}</label>
         				<input type="text" id="guest-seatno$ext" name="guest-seatno$ext" value="$!message.text($facade.SeatNo)" />
         			</div>
         		</div>
