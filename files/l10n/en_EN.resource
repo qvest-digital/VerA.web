@@ -247,7 +247,6 @@ GENERIC_CHARSET=Charset
 GENERIC_PARTNER_DOCUMENT=Document for partner
 GENERIC_SORT=Sort
 GENERIC_SIGN=Reg. mark
-GENERIC_BUSINESS=Commercial
 GENERIC_PRIVATE=Private
 GENERIC_MORE=More
 GENERIC_LATIN=Latin
@@ -279,7 +278,6 @@ GENERIC_CHROMATICITY=Chromatic value
 
 # ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
 markiertebezeichnung=Selected title(s)
-GENERIC_LABELLING=Title
 eswurdeeineneuefunktion/amtsbezeichnungangelegt=A new function/official title has been created
 eswurdeeinefunktion/amtsbezeichnunggeloscht=A function/offical title has been deleted
 
@@ -360,7 +358,6 @@ GENERIC_NO_DATA_FOUND=No data found
 markierte=Selected venue(s)
 GENERIC_ADD_NEW_EVENT_LOCATIONS=Add new venue
 GENERIC_CONTACT_PERSON=Contact
-GENERIC_TELEFON=Phone
 e-mail=E-mail
 GENERIC_REMARK=Comment
 gps-daten=GPS data
@@ -376,11 +373,9 @@ GENERIC_LIST_OF_GUESTS=Guest list
 zusatzlichefelder=Additional fields
 GENERIC_POSTNUMBER_AND_CITY=Postal code / City
 GENERIC_LIST_OF_PERSONS=List of persons
-GENERIC_FEDERAL_STATE=State
 MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=Options were saved successfully.
 
 # VERWALTUNG/VERTRETUNGEN
-GENERIC_REPRESENTATIVE_PLURAL=Representations
 markiertevertretung=Selected representation(s)
 GENERIC_DELETE=Delete
 eswurdeeineneuevertretungangelegt=A new representation has been created
@@ -403,7 +398,6 @@ GENERIC_DISCARD_CHANGES=Discard changes?
 
 # TABELLEN
 GENERIC_DATE=Date
-GENERIC_WORKAREA_SINGULAR=work area
 GENERIC_LASTNAME=Lastname
 GENERIC_FIRSTNAME=Firstname
 akwritemtsbezeichnung=Official title
@@ -556,7 +550,6 @@ GENERIC_NEW_EVENT=New event
 GENERIC_STATISTICS=Statistics
 
 # ADMINISTRATIONDROPDOWN
-GENERIC_WORKAREA_PLURAL=Work areas
 e-mail-postausgang=E-Mail outbox
 GENERIC_PROGRAM_PERFERENCES=Program settings
 
@@ -1211,7 +1204,6 @@ senden=Send
 
 # GENERIC
 GENERIC_UPLOAD_BUTTON=Select file
-GENERIC_TO=to
 GENERIC_FEDERAL_STATE=Federal state
 GENERIC_PERSONAL_DATA=Personal data
 GENERIC_NUMBER_OF_GUESTS=Number of guests
@@ -1365,8 +1357,6 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Shall the category\u2019s rank be app
 
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
-GUEST_LIST_EDIT_MASTER_DATA=Edit Person core-data
-GUEST=Guest
 GENERIC_OF_CAPITAL=Of
 GENERIC_ASSIGN=assign
 GENERIC_CANCEL=Cancel
@@ -1635,8 +1625,6 @@ CONTACT_PICTURE_WRONG_SIZE=Picture size must be exactly 186x245 pixels.
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=One category successfully modified
-GM_CATEGORY_MODIFY_P=%s categorys successfully modified
-GM_CATEGORY_MODIFY_N=No categorys were modified
 GM_CATEGORY_MODIFY_P=%s categories successfully modified
 GM_CATEGORY_MODIFY_N=No categories were modified
 GM_CATEGORY_DELETE_S=One category successfully deleted

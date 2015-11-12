@@ -95,7 +95,6 @@ GENERIC_CATEGORY_PLURAL=Cat\u00E9gories
 GENERIC_CLIENT_PLURAL=Mandants
 GENERIC_COLOR_SINGULAR=Couleur
 GENERIC_COLOR_PLURAL=Couleurs
-GENERIC_COMPANY_SINGULAR=Enterprise
 GENERIC_COMPANY_PLURAL=Enterprises
 GENERIC_DELEGATION_FIELD_SINGULAR=Champ suppl\u00E9mentaire
 GENERIC_DELEGATION_FIELD_PLURAL=Champs suppl\u00E9mentaire
@@ -255,7 +254,6 @@ MESSAGE_FILL_USER_ROLE=Entrez un nom de r\u00F4le d\u2019utilisateur s\u2019il v
 # ADMINISTRATION/DOKUMENTTYPEN
 GENERIC_TOOLTIP=Remarque
 GENERIC_DOCUMENT_TYPES_MARKED=Type(s) de documents s\u00E9l\u00E9ctionn\u00E9(s)
-GENERIC_LABELLING=Indication
 GENERIC_ADRESS_TYPE=Type d\u2019adresse
 GENERIC_CHARSET=Jeu de caract\u00E8res
 GENERIC_PARTNER_DOCUMENT=Document pour partenaire
@@ -270,7 +268,6 @@ eswurdeeinneuerdokumenttypangelegt=Il a \u00E9t\u00E9 cr\u00E9\u00E9 un nouveau 
 
 # ADMINISTRATION/E-MAIL-POSTAUSGANG
 GENERIC_STATUS=Statut
-GENERIC_TO=A
 GENERIC_SUBJECT=Objet
 GENERIC_ERROR=Erreur
 GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE=ins\u00E9rer message d\u2019erreur technique
@@ -309,7 +306,6 @@ GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Donn\u00E9es pas d\u00E9di\u00E9 au mandant
 personen=Personnes
 GENERIC_IMPORT_PROCEDURES=Processus d\u2019importation
 veranstaltungorte=Lieux des \u00E9v\u00E9nements
-GENERIC_IMPORT_PERSONS=Importation des Personnes
 GENERIC_ASSIGN_CLIENTS=Classer mandants
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
@@ -388,11 +384,9 @@ GENERIC_LIST_OF_GUESTS=Liste des invit\u00E9s
 zusatzlichefelder=champs suppl\u00E9mentaires
 GENERIC_POSTNUMBER_AND_CITY=Code Postale / Ville
 GENERIC_LIST_OF_PERSONS=Liste des individus
-GENERIC_FEDERAL_STATE=\u00E9tat
 MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=Param\u00E8tres ont \u00E9t\u00E9 enregistr\u00E9s avec succ\u00E8s.
 
 # VERWALTUNG/VERTRETUNGEN
-GENERIC_REPRESENTATIVE_PLURAL=Repr\u00E9sentations
 markiertevertretung=Repr\u00E9sentations marqu\u00E9es
 GENERIC_DELETE=Supprimer
 eswurdeeineneuevertretungangelegt=Il a \u00E9t\u00E9 une nouvelle agence cr\u00E9\u00E9e
@@ -416,7 +410,6 @@ GENERIC_DISCARD_CHANGES=annuler les modifications
 
 # TABELLEN
 GENERIC_DATE=date
-GENERIC_WORKAREA_SINGULAR=Espace de travail
 GENERIC_LASTNAME=Nom
 GENERIC_FIRSTNAME=Pr\u00E9nom
 akwritemtsbezeichnung=Nom officiel
@@ -466,7 +459,6 @@ GENERIC_STATISTIC=Statistique
 ausstammdatenhinzufugen=Ajouter \u00E0 partir des donn\u00E9es de base
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
-GENERIC_DOCUMENT_TYPE_SINGULAR=type de documents
 GENERIC_GENERATE_ALL=g\u00E9n\u00E9rer tous
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
@@ -568,8 +560,6 @@ GENERIC_NEW_EVENT=Nouvel \u00E9v\u00E9nement
 GENERIC_STATISTICS=Statistiques
 
 # ADMINISTRATIONDROPDOWN
-GENERIC_SALUTATIONS=Formules de politesse
-GENERIC_WORKAREA_PLURAL=Espaces de travail
 e-mail-postausgang=E -mail d\u2019envoi
 GENERIC_PROGRAM_PERFERENCES=Pr\u00E9f\u00E9rences
 
@@ -1369,7 +1359,6 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Si le rang de la cat\u00E9gorie \u00E
 
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
-GUEST_LIST_RESET_ALL_TO_MASTER_DATA=R\u00E9initialiser toutes les donn\u00E9es sur Master Data
 GENERIC_ASSIGN=Assigner
 GENERIC_CANCEL=Annuler
 GENERIC_CONNECTOR=Connecteur

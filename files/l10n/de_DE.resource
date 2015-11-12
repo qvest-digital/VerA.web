@@ -329,7 +329,6 @@ GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Nicht Mandanten zugeordnete Daten
 personen=Personen
 GENERIC_IMPORT_PROCEDURES=Import Vorg\u00E4nge
 veranstaltungorte=Veranstaltungorte
-GENERIC_IMPORT_PERSONS=Import Personen
 GENERIC_ASSIGN_CLIENTS=Mandanten zuordnen
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
@@ -434,7 +433,6 @@ build=Build
 GENERIC_BUILD_NUMBER=Buildnummer
 GENERIC_BUILD_TIME=Buildzeit (GMT)
 GENERIC_DATABASE=Datenbank
-GENERIC_LOGIN=Login
 GENERIC_GROUPS=Gruppen
 GENERIC_NOT_AVAILABLE=Nicht verf\u00FCgbar
 

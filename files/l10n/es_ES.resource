@@ -240,7 +240,7 @@ GENERIC_YES=S\u00ED
 MESSAGE_SUCCESS_DELETE_SALUTATION=Denominaci\u00F3n eliminada satisfactoriamente
 MESSAGE_EXIST_MASTER_DATA_ENTRY=Ya existe una denominaci\u00F3n con el nombre
 GENERIC_NAME=Nombre
-GENERIC_NEW=Nueva
+GENERIC_NEW=Nueva/o
 
 # ADMINISTRATION/ARBEITSBEREICHE
 GENERIC_WORK_FIELDS=\u00C1reas de trabajo
@@ -282,7 +282,6 @@ eswurdeeinneuerdokumenttypangelegt=Nuevo tipo de documento creado satisfactoriam
 
 # ADMINISTRATION/E-MAIL-POSTAUSGANG
 GENERIC_STATUS=Estado
-GENERIC_TO=Para
 GENERIC_SUBJECT=Asunto
 GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE=Combinar error t\u00E9cnicoTechnische Fehlermeldung einblenden
 GENERIC_ERROR_DESCRIPTION=Descripci\u00F3n del error
@@ -303,7 +302,6 @@ GENERIC_CHROMATICITY=Cromaticidad
 
 # ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
 markiertebezeichnung=Denominaciones seleccionadas
-GENERIC_LABELLING=Denominaci\u00F3n
 eswurdeeineneuefunktion/amtsbezeichnungangelegt=Se ha creado una nueva funci\u00F3n/denominaci\u00F3n.
 eswurdeeinefunktion/amtsbezeichnunggeloscht=Se ha eliminado una funci\u00F3n/denominaci\u00F3n.
 
@@ -320,7 +318,6 @@ GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Datos de mandantes no asociados
 personen=Personas
 GENERIC_IMPORT_PROCEDURES=Importar procesos
 veranstaltungorte=Localizaci\u00F3n del evento
-GENERIC_IMPORT_PERSONS=Importar personas
 GENERIC_ASSIGN_CLIENTS=Asignar mandantes
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
@@ -404,10 +401,7 @@ GENERIC_FEDERAL_STATE=Provincia
 MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=La configuraci\u00F3n se ha guardado satisfactoriamente.
 
 # VERWALTUNG/VERTRETUNGEN
-GENERIC_REPRESENTATIVE_PLURAL=Representaciones
 markiertevertretung=Representaciones seleccionadas
-GENERIC_REMOVE=Elimniar
-GENERIC_NEW=Nuevo
 eswurdeeineneuevertretungangelegt=Se ha creado una nueva representaci\u00F3n
 eswurdeeinevertretunggeloscht=Se ha eliminado una representaci\u00F3n
 siemuseneinevertretereingeben=Debe seleccionar un representante
@@ -458,7 +452,6 @@ GENERIC_ACCOUNT_OPENING_DATE=Fecha de acreditaci\u00F3n
 GENERIC_AT=a las
 GENERIC_OCLOCK=horas
 GENERIC_ORIGIN_DATA=Origen de los datos
-GENERIC_PERSON_SINGULAR=persona
 
 # DATEITYP
 zkm=ZKM (VerA.web-XML sobre el m\u00F3dulo central de comunicaci\u00F3n)
@@ -489,7 +482,6 @@ GENERIC_STATISTIC=Estad\u00EDsticas
 ausstammdatenhinzufugen=Obtener de los datos maestros
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
-GENERIC_DOCUMENT_TYPE_SINGULAR=tipo de documento
 GENERIC_GENERATE_ALL=Generar todos
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
@@ -610,7 +602,6 @@ GENERIC_STATISTICS=Estad\u00EDsticas
 # ADMINISTRATIONDROPDOWN
 e-mail-postausgang=E-Mail-Buz\u00F3n de salida
 GENERIC_PROGRAM_PERFERENCES=Preferencias de programa
-GENERIC_EVENT_LOCATION_PLURAL=Localizaciones de eventos
 
 # VERANSTALTUNGSUEBERSICHT
 GENERIC_END=Fin
@@ -1364,7 +1355,6 @@ CHANGELOG_NO_PROTOCOL_AVAILABLE=No existen datos hist\u00F3ricos.
 
 
 #NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
-GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reiniciar todos los valores de los datos maestros
 GUEST_LIST_EDIT_MASTER_DATA=Editar datos maestros de personas
 GUEST=Invitado
 GENERIC_OF=de
