@@ -379,6 +379,7 @@ false
 
     function validateGuestData()
     {
+
         var check = new Array( 'guest-tableno_a', 'guest-tableno_b', 'guest-seatno_a', 'guest-seatno_b' );
         var msgs = new Array( 'Tischnummer der Hauptperson', 'Tischnummer des Partners', 'Platznummer der Hauptperson', 'Platznummer des Partners' );
         var regexp = /^\d+$/;
@@ -398,6 +399,9 @@ false
                     }
                     msg += '\t' + msgs[ i ];
                 }
+            }
+            else{
+                document.getElementById( check[ i ] ).value=0;
             }
         }
 
