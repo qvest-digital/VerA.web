@@ -276,7 +276,13 @@
                             #end
                         #end
 
-                        <div id="detail-3-data-block" #if($guest.invitationtype == 2) style="display: none;"#end>
+                       #if(${guest.invitationstatus_b}!=0||${guest.tableno_b}!=0||${guest.seatno_b}!=0||${guest.language_b}!=""||${guest.nationality_b}!=""||${guest.notehost_b}!=""||${guest.noteorga_b}!="")
+                           #set($partner_invited=1)
+                        #else
+                            #set($partner_invited=0)
+                       #end
+
+                        <div id="detail-3-data-block" #if($guest.invitationtype == 2 && $partner_invited==0) style="display: none;"#end>
                         #set($ext = "_b")
                         #set($facade = $guest.Partner)
                         #set($isPartner = true)
@@ -287,7 +293,7 @@
                             #parse("inc/guestMasterDataNote.vm")
                         #end
 
-                        <div id="detail-3-reload-block" #if($guest.invitationtype != 2) style="display: none;"#end>
+                        <div id="detail-3-reload-block" #if($guest.invitationtype != 2 || $partner_invited==1) style="display: none;"#end>
                             <vera-info vera-stay>
 			    	<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
 				${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PARTNER}.
