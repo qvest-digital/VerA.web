@@ -430,7 +430,6 @@ GENERIC_INFORMATION_ABOUT_VERAWEB=Informationen zu VerA.web
 veraweb=VerA.web
 GENERIC_VERSION=Version
 build=Build
-GENERIC_BUILD_NUMBER=Buildnummer
 GENERIC_BUILD_TIME=Buildzeit (GMT)
 GENERIC_DATABASE=Datenbank
 GENERIC_GROUPS=Gruppen
