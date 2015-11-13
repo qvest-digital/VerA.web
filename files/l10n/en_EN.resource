@@ -3,7 +3,6 @@ language_short=en
 
 # BROWSER TAB-TITLE
 BROWSER_TITLE_CATEGORY=Categories
-BROWSER_TITLE_CLEANUP=Cleanup
 BROWSER_TITLE_COLOURS=Colours
 BROWSER_TITLE_GENERAL_CONFIGS=General Configuration
 BROWSER_TITLE_TASKS=Tasks
@@ -70,24 +69,6 @@ BROWSER_TITLE_OVERVIEW_EVENTS_SORT_PLACE=Summary of all events, sorted by venue
 BROWSER_TITLE_OVERVIEW_EVENTS_UNKNOWN_STATISTIC=UNKNOWN STATISTIC
 
 # YOU MUST SET THESE PLACEHOLDERS WITH THE GENDER TYPE OF YOUR LANGUAGE FOR EACH OBJECT AS MALE OR FEMALE
-GENDER_TYPE_CATEGORY=Female
-GENDER_TYPE_CLIENT=Male
-GENDER_TYPE_COLOR=Female
-GENDER_TYPE_DELEGATION_FIELD=Female
-GENDER_TYPE_DISTRIBUTOR=Male
-GENDER_TYPE_DOCUMENT_TYPE=Male
-GENDER_TYPE_EMAIL=Female
-GENDER_TYPE_EVENT=Female
-GENDER_TYPE_EVENT_LOCATION=Male
-GENDER_TYPE_FUNCTION_OFFICIAL_TITLE=Female
-GENDER_TYPE_GUEST=Male
-GENDER_TYPE_MAIL_DRAFT=Female
-GENDER_TYPE_PERSON=Female
-GENDER_TYPE_REPRESENTATIVE=Female
-GENDER_TYPE_SALUTATION=Female
-GENDER_TYPE_TASK=Female
-GENDER_TYPE_USER=Male
-GENDER_TYPE_WORKAREA=Male
 
 # REPETITIVE OBJECTS IN THER SINGULAR- AND PLURAL-TYPE
 GENERIC_ADDRESS_DATA_PLURAL=Address data
@@ -105,8 +86,6 @@ GENERIC_DISTRIBUTOR_SINGULAR=Distribution list
 GENERIC_DISTRIBUTOR_PLURAL=Distributions lists
 GENERIC_DOCUMENT_TYPE_SINGULAR=Document type
 GENERIC_DOCUMENT_TYPE_PLURAL=Document types
-GENERIC_EMAIL_SINGULAR=E-Mail
-GENERIC_EMAIL_PLURAL=E-Mails
 GENERIC_EVENT_SINGULAR=Event
 GENERIC_EVENT_PLURAL=events
 GENERIC_EVENT_LOCATION_SINGULAR=Venue
@@ -115,13 +94,11 @@ GENERIC_FUNCTION_SINGULAR=Function
 GENERIC_FUNCTION_PLURAL=Functions
 GENERIC_GUEST_SINGULAR=Guest
 GENERIC_GUEST_PLURAL=Guests
-GENERIC_INSTITUTION_SINGULAR=Institution
 GENERIC_INSTITUTION_PLURAL=Institutions
 GENERIC_MAIL_DRAFT_SINGULAR=template
 GENERIC_MAIL_DRAFT_PLURAL=templates
 GENERIC_OFFICIAL_TITLE_SINGULAR=Official title
 GENERIC_OFFICIAL_TITLE_PLURAL=Official titles
-GENERIC_PERSON_SINGULAR=Person
 GENERIC_PERSON_PLURAL=Persons
 GENERIC_REPRESENTATIVE_SINGULAR=Representative
 GENERIC_REPRESENTATIVE_PLURAL=Representatives
@@ -198,20 +175,17 @@ GENERIC_PLACE=Place
 MENU_PERSONS=Persons
 MENU_EVENTS=Events
 MENU_MANAGEMENT=Management
-MENU_ADMINISTRATION=Administration
 
 # ANMELDUNG
 LOGIN_ERROR=An error occurred during the login process. Please check your username and password.
 GENERIC_PASSWORD=Password
 LOGIN_REPRESENTATION=Login as representative
-GENERIC_LOGIN=Login
 GENERIC_CLEAR_FIELDS=Clear fields
 HINT_LOGIN_ORGANISATION_ONE=Please use your organizational ID or
 HINT_LOGIN_ORGANISATION_TWO=firstname.lastname
 HINT_LOGIN_ORGANISATION_THREE=as username
 
 # WELCOME SITE: FIRST PAGE AFTER LOGIN
-administration=Administration
 bittewaehlensieeineamtsbezeichnungfunktionaus=Please choose an official title / role
 eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator=Unexpected errors may occur. Please contact your admin.
 willkommenbeiveraweb=Welcome to VerA.web
@@ -231,7 +205,6 @@ GENERIC_AVAILABLE_DUPLICATES=Available duplicates
 # ADMINISTRATION/ANREDEN
 GENERIC_SALUTATIONS=Salutations
 GENERIC_SALUTATIONS_MARKED=Selected salutation(s)
-GENERIC_ID=ID
 GENERIC_MAIN_FORM=Base form
 GENERIC_GENDER=Gender
 GENERIC_GENDER_FEMALE=Female
@@ -244,7 +217,6 @@ GENERIC_YES=Yes
 GENERIC_NO=No
 MESSAGE_SUCCESS_DELETE_SALUTATION=An salutation has been deleted
 MESSAGE_EXIST_MASTER_DATA_ENTRY=A master data record with the same name allready exists
-GENERIC_NAME=Name
 GENERIC_NEW=New
 
 # ADMINISTRATION/ARBEITSBEREICHE
@@ -272,13 +244,9 @@ GENERIC_DOCUMENT_TYPES_MARKED=Selected document type(s)
 GENERIC_LABELLING=Label
 GENERIC_ADRESS_TYPE=Address type
 GENERIC_CHARSET=Charset
-GENERIC_FORMAT=Format
 GENERIC_PARTNER_DOCUMENT=Document for partner
 GENERIC_SORT=Sort
 GENERIC_SIGN=Reg. mark
-GENERIC_GA=GA
-GENERIC_SD=SD
-GENERIC_BUSINESS=Commercial
 GENERIC_PRIVATE=Private
 GENERIC_MORE=More
 GENERIC_LATIN=Latin
@@ -288,7 +256,6 @@ eswurdeeindokumenttypgeloscht=A document type has been deleted.
 eswurdeeinneuerdokumenttypangelegt=A new document type has been created.
 
 # ADMINISTRATION/E-MAIL-POSTAUSGANG
-GENERIC_STATUS=Status
 GENERIC_TO=To
 GENERIC_SUBJECT=Subject
 GENERIC_ERROR=Error
@@ -302,43 +269,33 @@ GENERIC_MARKED_TEMPLATES_PP=Selected template(s)
 GENERIC_INSERT_NEW_TEMPLATES=Create new template
 GENERIC_TEMPLATE_NAME=Name of template
 eswurdeeineneuevorlageangelegt=A new template has been created
-GENERIC_TEXT=Text
 GENERIC_PLACEHOLDER=Placeholder
 GENERIC_ADD=Add
 GENERIC_BACK_TO_TEMPLATES_LIST=Back to list of templates
 
 # ADMINISTRATION/FARBEN
-GENERIC_COLOR_PLURAL=Colours
 GENERIC_CHROMATICITY=Chromatic value
-LETTERS_CHROMATICITY=R G B
 
 # ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
 markiertebezeichnung=Selected title(s)
-GENERIC_LABELLING=Title
 eswurdeeineneuefunktion/amtsbezeichnungangelegt=A new function/official title has been created
 eswurdeeinefunktion/amtsbezeichnunggeloscht=A function/offical title has been deleted
 
 # ADMINISTRATION/KATEGORIEN
-GENERIC_CATEGORY_PLURAL=Categories
 markiertekategorie=Selected categorie(s)
 GENERIC_MARK_LONG=Mark
 GENERIC_RANK=Rank
 GENERIC_EVENTS_PP=Event(s)
-GENERIC_CATEGORY_SINGULAR=Category
 GENERIC_OCCASION=Occasion
 
 # ADMINISTRATION/MANDANTEN
-GENERIC_CLIENT_PLURAL=Clients
 markierte(n)mandanten=Selected client(s)
 GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Data not assigned to clients
 personen=Persons
 GENERIC_IMPORT_PROCEDURES=Import procedures
 veranstaltungorte=Venues
 GENERIC_IMPORT_PERSONS=Import persons
-GENERIC_DISTRIBUTOR_SINGULAR=Distribution list
-GENERIC_USER=User
 GENERIC_ASSIGN_CLIENTS=Assign clients
-GENERIC_CLIENT_SINGULAR=Client
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
 programeinstellungen=Settings
@@ -348,11 +305,9 @@ GENERIC_PERSONS_DATA=Personal data
 GENERIC_MAILING_ADDRESSES=Addresses
 GENERIC_SUBTABS_OF_PERSONS_DATA=Subtabs of \u201Cpersonal data\u201D
 GENERIC_MAIN_PERSON=Main person
-GENERIC_PARTNER=Partner
 GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subtabs of \u201Caddresses\u201D
 GENERIC_BUSINESS=Business
 GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Standard choice of selectbox \u201Ccharset\u201D
-GENERIC_CHARSET=Charset
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Standard salutations and free text fields
 GENERIC_STANDARD_SALUTATION=Standard salutations
 GENERIC_STANDARD_SALUTATION_PARTNER=Standard form of address: partner
@@ -367,7 +322,6 @@ OPTION_HELP_WINDOW_1=Use current browser window
 OPTION_HELP_WINDOW_2=Open new browser window per request
 OPTION_HELP_WINDOW_3=Same browser window for each request (not the current one)
 GENERIC_MISCELLANEOUS=Miscellaneous
-GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
 GENERIC_PROTOCOL_TIME_CHANGE=Protocol of amendment
 GENERIC_PROTOCOL_COMMISIONING_TIME=Derivative time of protocol data
 HINT_GIVE_THE_RETENTION_PERIOD=Please enter the retention period
@@ -382,7 +336,6 @@ GENERIC_LABELLING_ALTERNATIVE=Charset alternative
 GENERIC_ADDRESS_ADDITIONAL=Addition to address
 
 # ADMINISTRATION/REPORTS
-GENERIC_REPORTS=Reports
 MESSAGE_WAITING_MESSAGE_LOG_REPORT=Depending on the chosen period of time and the amount of data resulting from that, the report creation may take a while. Please be patient.
 GENERIC_DATE_BEGIN=Start date
 GENERIC_DATE_END=End date
@@ -404,13 +357,9 @@ GENERIC_NO_DATA_FOUND=No data found
 # ADMINISTRATION/VERANSTALTUNGSORTE
 markierte=Selected venue(s)
 GENERIC_ADD_NEW_EVENT_LOCATIONS=Add new venue
-GENERIC_ID=ID
 GENERIC_CONTACT_PERSON=Contact
-GENERIC_TELEFON=Phone
-GENERIC_FAX=Fax
 e-mail=E-mail
 GENERIC_REMARK=Comment
-GENERIC_URL=URL
 gps-daten=GPS data
 GENERIC_ROOM_NUMBER=Room number
 EVENT_PLACES_CONFIRM_DELETE=Please confirm the deletion of venues
@@ -422,17 +371,13 @@ GENERIC_SUBTABS_OF=Subtabs of
 GENERIC_PERSONAL_DETAILED_VIEW=Personal detailed view
 GENERIC_LIST_OF_GUESTS=Guest list
 zusatzlichefelder=Additional fields
-GENERIC_FUNCTION_SINGULAR=Function
 GENERIC_POSTNUMBER_AND_CITY=Postal code / City
 GENERIC_LIST_OF_PERSONS=List of persons
-GENERIC_FEDERAL_STATE=State
 MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=Options were saved successfully.
 
 # VERWALTUNG/VERTRETUNGEN
-GENERIC_REPRESENTATIVE_PLURAL=Representations
 markiertevertretung=Selected representation(s)
 GENERIC_DELETE=Delete
-GENERIC_NEW=New
 eswurdeeineneuevertretungangelegt=A new representation has been created
 eswurdeeinevertretunggeloscht=One representation has been deleted
 siemuseneinevertretereingeben=You need to enter a representation
@@ -440,26 +385,19 @@ derbeginndervertretungmusvordemendeliegen=The start date of the representation h
 MESSAGE_REPORT_NUMBER_PART_1=There were
 vertretungengeloscht=Representations deleted
 # VERWALTUNG/INFO
-GENERIC_INFO=Info
 GENERIC_INFORMATION_ABOUT_VERAWEB=Informations about VerA.web
-veraweb=VerA.web
-GENERIC_VERSION=Version
-build=Build
 GENERIC_BUILD_NUMBER=Build number
 GENERIC_BUILD_TIME=Build time (UTC)
 GENERIC_DATABASE=Database
-GENERIC_LOGIN=Login
 GENERIC_GROUPS=Groups
 GENERIC_NOT_AVAILABLE=Not available
 
 # ALLGEMEIN
 GENERIC_YOU_ARE_HERE=You are here
-GENERIC_HOME=Home
 GENERIC_DISCARD_CHANGES=Discard changes?
 
 # TABELLEN
 GENERIC_DATE=Date
-GENERIC_WORKAREA_SINGULAR=work area
 GENERIC_LASTNAME=Lastname
 GENERIC_FIRSTNAME=Firstname
 akwritemtsbezeichnung=Official title
@@ -486,20 +424,12 @@ GENERIC_ACCOUNT_OPENING_DATE=Account opening date
 GENERIC_AT=at
 GENERIC_OCLOCK=oclock
 GENERIC_ORIGIN_DATA=Data origin
-GENERIC_PERSON_SINGULAR=Person
 
 # DATEITYP
-csv=CSV (Comma-Separated-Values)
-xml=XML (VerA.web-XML)
 zkm=ZKM (VerA.web-XML by central communications module)
 madlan-personen=MAdLAN-Persons (MAdLAN-Person-Import)
 madlan-firmen=MAdLAN-Companies (MAdLAN-Company-Import)
 x-manage-csv=X-Manage-CSV (X-Manage Contacts)
-csvpersdatanschriftdoktyp=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
-csvpersdatdoktyp=CSVPersdat+Doktyp (Comma-Separated-Values)
-csvpersdatdoktyp10=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
-csvpersdatkategorien=CSVPersdat+Kategorien (Comma-Separated-Values)
-csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 
 # PERSONEN/PERSONENUEBERSICHT
 GENERIC_PERSON_SUMMARY=Persons summary
@@ -514,7 +444,6 @@ GENERIC_LAST_EDITED_ON=Last edited on
 GENERIC_PERSONS_ID=Persons-ID
 GENERIC_OA=Online-registration
 GENERIC_OA_USERNAME=Online-registration username
-zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
 GENERIC_COPY_PERSON=Copy person
 GENERIC_CREATE_TAG=Create tag
 GENERIC_ASSIGN_TO_EVENT=Assign to event
@@ -523,17 +452,13 @@ GENERIC_STATISTIC=Statistics
 ausstammdatenhinzufugen=Add from main data
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
-GENERIC_DOCUMENT_TYPE_SINGULAR=Document type
 GENERIC_GENERATE_ALL=Generate all
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
 GENERIC_CATEGORIES_AND_OCCASIONS=Categories and occasions
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/STATISTIK
-ubersichtuberalleveranstaltungeneinesgastes=\u00FCbersicht \u00FCber alle Veranstaltungen eines Gastes.
 GENERIC_VIEW_OVER_GUEST_EVENT=From
-statistikfurgast=Statistik f\u00FCr Gast
-GENERIC_EVENT=Event
 GENERIC_BEGIN=Start
 
 # PERSONEN/PERSONENSUCHE
@@ -549,24 +474,14 @@ MESSAGE_OSIAM_LOGIN_DATA_EXIST=Login credentials for this person already exist.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Is company
-GENERIC_SALUTATION_SINGULAR=Salutation
-frau=Frau
-herr=Herr
-lady=Lady
-sir=Sir
 GENERIC_PLEASE_CHOOSE=Please choose
 GENERIC_ACAD_TITLE=Acad. title
 GENERIC_IN_COUNTRY=In country
 GENERIC_HINT_FOR_ORGA=Hint for Orga
-GENERIC_COMPANY_SINGULAR=Company
 GENERIC_COUNTRY=Country
 plz/postfach=Zip code/ post office box
 GENERIC_POST_OFFICE_BOX=Post office box
-iban=IBAN
-bic=BIC
 GENERIC_MOBILE=Mobile
-LETTERS_WWW=WWW
-dublettenprufungdurchfuhren=Dublettenpr\u00FCfung durchf\u00FChren
 zurpersonenubersicht=To Person view
 
 # PERSONEN/SUCHEN UND ERSETZEN IN PERSONENDATEN
@@ -576,7 +491,6 @@ GENERIC_REPLACE=Replace
 GENERIC_IN_THE_FOLLOWING_FIELDS=In the following fields
 anrede/titel=Salutations / title
 GENERIC_EMPLOYMENT_TITLE_SHORT=Empl. title
-GENERIC_INSTITUTION_SINGULAR=Institution
 GENERIC_ADDRESSES=Addresses
 telefon/fax=Phone / Fax
 GENERIC_REPLACE_INDIVIDUALLY=Replace individually
@@ -586,25 +500,14 @@ GENERIC_REPLACE_ALL=Replace all
 GENERIC_DUPLICATE_SEARCH=Search for duplicates
 
 # PERSONEN/EXPORT VON PERSONENDATEN
-exportvonpersonendaten=Export von Personendaten
 HINT_EXPORT_MANDANT_PERSON=You export with this function only persons from the current client.
 GENERIC_WITHOUT=Without
-botschaften=Botschaften
-finanzamtsprecher=Finanzamtsprecher
-journalisten=Journalisten
-lieferant=Lieferant
-nogs=NOGs
-politik=Politik
-pressevertreter=Pressevertreter
-wirtschaft=Wirtschaft
 GENERIC_START_EXPORT=Start export
 ENCODING_TYPE_CYRILLIC=Cyrillic
 ENCODING_TYPE_WEST=Westerly
 ENCODING_TYPE_BALTIC=Baltic
 ENCODING_TYPE_EAST=Eastly
 ENCODING_TYPE_TURKISH=Turkish
-EXPORT_DATA_TYPE_CSV=CSV (Comma-Separated-Values)
-EXPORT_DATA_TYPE_XML=XML (VerA.web-XML)
 EXPORT_DATA_TYPE_ZKM=ZKM (VerA.web-XML over the Central Communication module)
 EXPORT_DATA_TYPE_MADLAN_PERSON=MAdLAN-Persons (MAdLAN-Persons-Import)
 EXPORT_DATA_TYPE_MADLAN_COMPANY=MAdLAN-companies (MAdLAN-Companies-Import)
@@ -613,20 +516,13 @@ EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE=CSVPersdat+Mailing box+Doctype (Com
 EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE=CSVPersdat+Doktype (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+Doktype 1.0 (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Categories (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
-EXPORT_TITLE_CSV=CSV
-EXPORT_TITLE_XML=XML
-EXPORT_TITLE_ZKM=ZKM
 EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Persons
 EXPORT_TITLE_MADLAN_COMPANY=MAdLAN-Companies
-EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
 EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV Persons data+mailing boxes+Document types
 EXPORT_TITLE_CSVPERSDATA_DOCTYPE=CSV Persons data+Document types
 EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV Persons data+Document types 1.0
 EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV Persons data+Categories
-EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
 LABEL_EXPORT_ZKM=Ziel (ZKM-Code)
-LABEL_EXPORT_MADLAN_ENCODING=Encoding
 LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC=Encoding (Cyrillic)
 HINT_EXPORT_CSV=Depending on the amount of the exported fields (especially the amount of Document types and categories), MS Excel and OO Calc may not be able to read the exported data entirely.
 HINT_EXPORT_ZKM=The export file will be stored in the ZKM-folder and provided to download for control purposes.The Download can be cancelled at any time.
@@ -642,37 +538,27 @@ HINT_IMPORT_SHORT_CONTENT=Hint With the Import, the input fields which are longe
 GENERIC_TARGET_CLIENT=Target client
 GENERIC_IMPORT_DATA=Import data
 GENERIC_DATA_TYPE=Data type
-dateiauswahlen=Datei ausw\u00E4hlen
-keineausgewahlt=Keine ausgew\u00E4hlt
 GENERIC_START_IMPORT=Start import
 
 # PERSONENDROPDOWN
 GENERIC_NEW_PERSON=New person
 GENERIC_EXPORT_PERSONS=Export persons
-GENERIC_IMPORT_PERSONS=Import persons
 
 # VERANSTALTUNGENDROPDOWN
 GENERIC_EVENT_VIEW=Events summary
-veranstaltunguuche=Veranstaltungssuche
 GENERIC_NEW_EVENT=New event
 GENERIC_STATISTICS=Statistics
 
 # ADMINISTRATIONDROPDOWN
-GENERIC_SALUTATIONS=Salutations
-GENERIC_WORKAREA_PLURAL=Work areas
-GENERIC_DOCUMENT_TYPE_PLURAL=Document types
 e-mail-postausgang=E-Mail outbox
 GENERIC_PROGRAM_PERFERENCES=Program settings
-GENERIC_EVENT_LOCATION_PLURAL=Venues
 
 # VERANSTALTUNGSUEBERSICHT
 GENERIC_END=End
 GENERIC_HOST=Host
-GENERIC_EVENT_LOCATION_SINGULAR=Venue
 GENERIC_EVENT_SEARCH=Search for event
 GENERIC_CREATE_NEW_EVENT=Create new event
 GENERIC_NUMBER_PER_PAGE=Count per page
-seitexvony=Seite x von y
 
 # EVENT HEADER
 EVENT_ID=Event-ID
@@ -690,11 +576,8 @@ EVENT_INVITATION_TYPE_WITH_PARTNER=With Partner
 GENERIC_EDIT_EVENT=Edit event
 GENERIC_TO_GUEST_MANAGEMENT=To guest management
 GENERIC_GENERAL=General
-GENERIC_TASK_PLURAL=Tasks
 GENERIC_ADDITIONAL_PERSONS_DATA=Additional persons data
-kurzbereichnung=Kurzbereichnung
 GENERIC_OPEN_EVENT=Open event
-umxuhr=Um x uhr
 veranstalgungsort=Venue
 GENERIC_SEARCH_FOR_HOST=Search for host
 GENERIC_DELETE_HOST=Delete host
@@ -743,12 +626,9 @@ GENERIC_ADD_NEW_KATEGORIES=Add new categorie
 #EVENT_PRECONDITION_NOT_FOUND=Es wurden keine Vorbedingungen gefunden
 
 # VERANSTALTUNGSSUCHE
-nurinzukunftigenveranstaltungensuchen=Nur in zuk\u00FCnftigen Veranstaltungen suchen
 siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Sie k\u00F6nnen bei der Suche sogenannte Placeholder verwenden, der * steht f\u00FCr mehrere das ? f\u00FCr einzelne
 
 # NEUE VERANSTALTUNG ANLEGEN
-mitpartner=Mit Partner
-eswurdeeineneueveranstaltungangelegt=Es wurde eine neue Veranstaltung angelegt.
 
 # VERTEILER
 angelegtvon=applied by
@@ -821,7 +701,6 @@ GUEST_LIST_ONLY_ACCEPT=accepted only
 GUEST_LIST_ONLY_DECLINED=declined only
 GUEST_LIST_ONLY_PARTICIPATE=participations only
 GUEST_LIST_PERSON_DATA_RELOAD=reload all core data
-GUEST_LIST_RESERVE=R
 GUEST_LIST_SEARCH_PERSON_ADD=Search and add people to guest list
 
 # GAESTELISTE ERSTELLEN
@@ -1325,7 +1204,6 @@ senden=Send
 
 # GENERIC
 GENERIC_UPLOAD_BUTTON=Select file
-GENERIC_TO=to
 GENERIC_FEDERAL_STATE=Federal state
 GENERIC_PERSONAL_DATA=Personal data
 GENERIC_NUMBER_OF_GUESTS=Number of guests
@@ -1421,7 +1299,6 @@ CATEGORY_DETAIL_ALREADY_EXISTS=A core-data entry with this name already exists
 CHANGELOG_NO_PROTOCOL_AVAILABLE=No log data available.
 
 # BROWSER TITLES
-BROWSER_TITLE_REPORTS=Reports
 
 
 #NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
@@ -1480,13 +1357,9 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Shall the category\u2019s rank be app
 
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
-GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reset all values to core data
-GUEST_LIST_EDIT_MASTER_DATA=Edit Person core-data
-GUEST=Guest
 GENERIC_OF_CAPITAL=Of
 GENERIC_ASSIGN=assign
 GENERIC_CANCEL=Cancel
-GENERIC_DELETE=Delete
 GENERIC_CONNECTOR=Connector
 GENERIC_VIEW_DOCUMENT_TYPE=View Document type
 GENERIC_GENERATE_DOCUMENT_TYPE=generate document type
@@ -1543,9 +1416,7 @@ EXPORT_HEADER_ADDITIONAL_ADDRESS_ONE=Address_extension_1
 EXPORT_HEADER_ADDITIONAL_ADDRESS_TWO=Address_extension_2
 EXPORT_HEADER_CITY_OF_BORN=Place_of_birth
 EXPORT_HEADER_TELEPHONE=Phone
-EXPORT_HEADER_FAX=Fax
 EXPORT_HEADER_EMAIL=E-mail
-EXPORT_HEADER_WWW=WWW
 EXPORT_HEADER_MOBILE=Mobile
 EXPORT_HEADER_COMPANY=Company
 EXPORT_HEADER_POST_OFFICE_BOX_NUMBER=PO_box_number
@@ -1555,7 +1426,6 @@ EXPORT_HEADER_CATEGORY=Category
 EXPORT_HEADER_CATEGORY_RANG=Category_rank
 EXPORT_HEADER_RANG=rank
 EXPORT_HEADER_RESERVE=reserve
-EXPORT_HEADER_STATUS=Status
 EXPORT_HEADER_TABLE=Table
 EXPORT_HEADER_SEAT=Seat
 EXPORT_HEADER_CURRENT_NUMBER=Serial_number
@@ -1595,7 +1465,6 @@ MAIN_DATA_WARN_ALREADY_EXISTS=A master data entry with this name already exists
 STATS_COLUMN_EVENT_NAME=Event name
 STATS_COLUMN_DATE_BEGIN=Begin
 STATS_COLUMN_INVITATION_TYPE=Invitation type
-STATS_COLUMN_INVITATION_STATUS=Status
 STATS_COLUMN_INVITATION_STATUS_PARTNER=Status partner
 STATS_COLUMN_YEAR=Year
 STATS_COLUMN_MONTH=Month
@@ -1655,9 +1524,6 @@ GENERIC_SHOW_CURRENT_EVENTS=Show current event
 GENERIC_FURTHER_PROCEEDING=Next steps
 
 LETTER_MAIN_PERSON=M
-LETTER_PARTNER=P
-LETTER_RESERVE=R
-LETTER_DELEGATION=D
 LETTER_HOST=H
 
 GENERIC_LASTNAME_WITH_SOFT_HYPHEN=Last Name
@@ -1690,7 +1556,6 @@ GENERIC_VENUE=Venue
 GENERIC_TOTAL=Total
 OPTION_MARK_ADMINISTRATION_CATEGORY_1=Category
 OPTION_MARK_ADMINISTRATION_CATEGORY_2=Occasion
-OPTION_MARK_ADMINISTRATION_CATEGORY_3=Diplo. Corps
 
 GENERIC_IMPORTID_HYPHEN=Import id
 
@@ -1757,12 +1622,8 @@ CONTACT_PICTURE_UPLOAD=Upload picture
 CONTACT_PICTURE_CHANGE=Change picture
 CONTACT_PICTURE_WRONG_SIZE=Picture size must be exactly 186x245 pixels.
 
-NO_PARTNER_IN_MASTERDATA=Kein Partner in Stammdaten hinterlegt
 
 #GENERAL MESSAGE
-GM_CATEGORY_MODIFY_S=One category successfully modified
-GM_CATEGORY_MODIFY_P=%s categorys successfully modified
-GM_CATEGORY_MODIFY_N=No categorys were modified
 GM_CATEGORY_MODIFY_S=One category successfully modified
 GM_CATEGORY_MODIFY_P=%s categories successfully modified
 GM_CATEGORY_MODIFY_N=No categories were modified
