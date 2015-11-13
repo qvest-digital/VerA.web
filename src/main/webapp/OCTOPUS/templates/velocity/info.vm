@@ -36,17 +36,14 @@
         <col width="$column1%" />
 
         <tr>
-            <td class="width15 bold">${placeholderWithTranslation.GENERIC_VERSION}:</td>
-            <td>$properties.getString("poversion")</td>
+            <td class="width10 bold">${placeholderWithTranslation.GENERIC_VERSION}:</td>
+            <td>$properties.getString("version")</td>
         </tr><tr>
-            <td class="width15 bold">${placeholderWithTranslation.GENERIC_BUILD_NUMBER}:</td>
-            <td>$properties.getString("pobuildnr")</td>
-        </tr><tr>
-            <td class="width15 bold">${placeholderWithTranslation.GENERIC_BUILD_TIME}:</td>
-            <td>$properties.getString("pobuildts")</td>
+            <td class="width10 bold">${placeholderWithTranslation.GENERIC_BUILD_TIME}:</td>
+            <td>$properties.getString("build")</td>
     #if($online-registration.activated)
         </tr><tr>
-            <td class="width15 bold">${placeholderWithTranslation.GENERIC_OA}:</td>
+            <td class="width10 bold">${placeholderWithTranslation.GENERIC_OA}:</td>
             <td>${placeholderWithTranslation.aktiv}</td>
     #end
         </tr>

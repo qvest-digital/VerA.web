@@ -386,7 +386,6 @@ MESSAGE_REPORT_NUMBER_PART_1=There were
 vertretungengeloscht=Representations deleted
 # VERWALTUNG/INFO
 GENERIC_INFORMATION_ABOUT_VERAWEB=Informations about VerA.web
-GENERIC_BUILD_NUMBER=Build number
 GENERIC_BUILD_TIME=Build time (UTC)
 GENERIC_DATABASE=Database
 GENERIC_GROUPS=Groups

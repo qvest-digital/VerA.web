@@ -296,30 +296,6 @@
 							</sources>
 						</configuration>
 					</execution>
-					<execution>
-						<id>versionsnummern</id>
-						<goals>
-							<goal>regex-properties</goal>
-						</goals>
-						<configuration>
-							<regexPropertySettings>
-								<regexPropertySetting>
-									<name>po-version</name>
-									<value>${project.version}</value>
-									<regex>^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)(-SNAPSHOT)?$</regex>
-									<replacement>$1.$2.$3$5</replacement>
-									<failIfNoMatch>true</failIfNoMatch>
-								</regexPropertySetting>
-								<regexPropertySetting>
-									<name>po-buildnummer</name>
-									<value>${project.version}</value>
-									<regex>^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)(-SNAPSHOT)?$</regex>
-									<replacement>$4</replacement>
-									<failIfNoMatch>true</failIfNoMatch>
-								</regexPropertySetting>
-							</regexPropertySettings>
-						</configuration>
-					</execution>
 				</executions>
 			</plugin>
 			<plugin>
