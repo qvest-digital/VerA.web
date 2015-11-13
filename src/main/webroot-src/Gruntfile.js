@@ -47,6 +47,99 @@ module.exports = function (grunt) {
       }
     },
 
+// watches files for changes and runs tasks based on the changed files
+    watch: {
+        bower: {
+            files: ['bower.json'],
+            tasks: ['wiredep']
+        },
+        js: {
+            files: ['<%= appConfig.app %>/js/{,*/}*.js'],
+            tasks: ['newer:jshint:all'],
+            options: {
+                livereload: '<%= connect.options.livereload %>'
+            }
+        },
+        compass: {
+            files: ['<%= appConfig.app %>/css/{,*/}*.{scss,sass}'],
+            tasks: ['compass:server', 'autoprefixer']
+        },
+        gruntfile: {
+            files: ['Gruntfile.js']
+        },
+        template: {
+            files: ['<%= appConfig.app %>/{,*}*.ejs'],
+            tasks: ['template']
+        },
+        livereload: {
+            options: {
+                livereload: '<%= connect.options.livereload %>'
+            },
+            files: [
+                '<%= appConfig.app %>/{,*/}*.html',
+                '.tmp/css/{,*/}*.css',
+                '.tmp/{,*/}*.html',
+                '<%= appConfig.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+            ]
+        }
+    },
+
+    // The actual grunt server settings
+    connect: {
+        options: {
+            port: 9100,
+            hostname: '0.0.0.0',
+            livereload: 35729
+        },
+        livereload: {
+            options: {
+                open: false, // Open default browser after grunt start
+                middleware: function (connect) {
+                    return [
+                        connect.static('../resources/webroot'),
+                        connect().use(
+                            '/bower_components',
+                            connect.static('./bower_components')
+                        ),
+                        connect().use(
+                            '/fonts',
+                            connect.static('../resources/webroot/fonts')
+                        ),
+                        connect().use(
+                            '/js',
+                            connect.static('./webroot-src/js')
+                        ),
+                        connect.static(appConfig.app),
+                        function(req, res) {
+                            if (req.url.match(/\/api\/entry\/.*$/)) {
+                                // serve /api fixtures from dev_fixtures/api/
+                                res.setHeader("Content-Type", "application/json");
+                                res.end(grunt.file.read("dev_fixtures/entry/" + req.url.replace("/api/entry/","") + "_" + req.method + ".json"));
+                            } else if (req.url.match(/\/api\/user$/) || req.url.match(/\/user\/.*$/)) {
+                                // serve /api fixtures from dev_fixtures/api/
+                                res.setHeader("Content-Type", "application/json");
+                                res.end(grunt.file.read("dev_fixtures/user/" + req.url.replace("/api/user/","") + "_" + req.method + ".json"));
+                            } else if (req.url.match(/\/api\/payment$/) || req.url.match(/\/payment\/.*$/)) {
+                                // serve /api fixtures from dev_fixtures/api/
+                                res.setHeader("Content-Type", "application/json");
+                                res.end(grunt.file.read("dev_fixtures/payment/" + req.url.replace("/api/payment/","") + "_" + req.method + ".json"));
+                            } else if (! req.url.match(/\/$|\./)) {
+                                // always return index, if not a file or directory is requested
+                                res.end(grunt.file.read('../resources/webroot/index.html'));
+                            } else {
+                                res.statusCode = 404;
+                                // use index also on 404:
+                                // Our client side routing takes care of displaying an apropriate error
+                                // message
+                                res.end(grunt.file.read('../resources/webroot/index.html'));
+                            }
+                        }
+                    ];
+                }
+            }
+            }
+        },
+
     useminPrepare: {
         html: ['partials/*.html'],
         options: {
@@ -193,5 +286,17 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'build'
   ]);
+
+  grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
+      if (target === 'dist') {
+          return grunt.task.run(['build', 'connect:dist:keepalive']);
+      }
+
+      grunt.task.run([
+          'connect:livereload',
+          'watch'
+      ]);
+  });
+
 
 };
