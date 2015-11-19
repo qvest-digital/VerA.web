@@ -311,273 +311,273 @@
 						document.formlist.submit();
 				}
 			</script>
+				<div id="guestListWrapper">
+					<table class="sortable">
+						##Set column size
+						<col width="$column0%" />
+						<col width="$column1%" />
+						<col width="$column2%" />
+						<col width="$column3%" />
+						<col width="$column4%" />
+						<col width="$column5%" />
+						<col width="$column6%" />
+						<col width="$column7%" />
+						<col width="$column8%" />
 
-			<table class="sortable">
-				##Set column size
-				<col width="$column0%" />
-   				<col width="$column1%" />
-   				<col width="$column2%" />
-   				<col width="$column3%" />
-   				<col width="$column4%" />
-   				<col width="$column5%" />
-   				<col width="$column6%" />
-   				<col width="$column7%" />
-   				<col width="$column8%" />
+						<tr>
+							<!-- BEGIN OF COLUMNS TO ORDER -->
+								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 
-				<tr>
-					<!-- BEGIN OF COLUMNS TO ORDER -->
-						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
-
-						<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"
-							#if($search.listorder == "orderno")
-								style="color: #000000;"
-							#end
-						><nobr>${placeholderWithTranslation.lfdnr}</nobr>
-							#if($search.listorder == 'orderno')
-								#showSortArrows($search.sortDirection)
-							#else
-								<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-							#end
-						</a></th>
-
-						<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
-
-						<th><a href="javascript:orderGuestList('companyname');"
-							#if($search.listorder == "companyname")
-								style="color: #000000;"
-							#end
-						><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr>
-							#if($search.listorder == 'companyname')
-								#showSortArrows($search.sortDirection)
-							#else
-								<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-							#end
-						</a></th>
-
-						<th><a href="javascript:orderGuestList('lastname_a_e1');"
-							#if($search.listorder == "lastname_a_e1")
-								style="color: #000000;"
-							#end
-						>${placeholderWithTranslation.GENERIC_NAME}
-							#if($search.listorder == 'lastname_a_e1')
-								#showSortArrows($search.sortDirection)
-							#else
-								<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-							#end
-						</a></th>
-
-						<th><a href="javascript:orderGuestList('firstname_a_e1');"
-							#if($search.listorder == "firstname_a_e1")
-								style="color: #000000;"
-							#end
-						>${placeholderWithTranslation.GENERIC_FIRSTNAME}
-							#if($search.listorder == 'firstname_a_e1')
-								#showSortArrows($search.sortDirection)
-							#else
-								<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-							#end
-						</a></th>
-
-						<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');"
-							#if($search.listorder == "mail_a_e1")
-								style="color: #000000;"
-							#end
-						>${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}
-						#if($search.listorder == 'mail_a_e1')
-							#showSortArrows($search.sortDirection)
-						#else
-							<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-						#end
-
-						</a></th>
-					<!-- END OF COLUMNS TO ORDER -->
-
-			#if($userConfig.guestListFunction)
-					<th style="padding: 10px">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</th>
-			#end
-
-			#if($userConfig.guestListCity)
-					<th style="padding: 10px">${placeholderWithTranslation.GENERIC_POST_NUMBER} / ${placeholderWithTranslation.GENERIC_CITY}</th>
-			#end
-
-			#if($userConfig.guestListPhone)
-					<th style="padding: 10px">${placeholderWithTranslation.GENERIC_TELEFON}</th>
-			#end
-					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_MAIN_PERSON}</span></th>
-					<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_PARTNER}</span></th>
-				</tr>
-
-				#set($deletedperson = false)
-
-				#foreach($bean in $list)
-					#if ($bean.deleted == "t")
-						#set($deletedperson = true)
-					#end
-
-				#set($offset = $listparam.start + $velocityCount)
-
-				<tr>
-					<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" onChange="selectionChange( this );" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/></td>
-					<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
-						#if($bean.ishost && $bean.ishost == 1)
-							<em>${placeholderWithTranslation.GENERIC_HOST}</em>
-						#elseif($bean.someorderno)
-							$bean.someorderno
-						#else
-							<em>${placeholderWithTranslation.keine}</em>
-						#end
-					</td>
-
-					#if($bean.reserve == 1)
-						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufreserve}"><strong>${placeholderWithTranslation.GUEST_LIST_RESERVE}</strong></td>
-					#else
-						<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufplatz}">&nbsp;</td>
-					#end
-
-					#if($bean.company_a_e1 != "")
-						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">$bean.company_a_e1</td>
-					#else
-						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">&nbsp;</td>
-					#end
-
-					#if($bean.iscompany == "t" && $bean.delegation != "" && $bean.invitationtype != 4)
-						<td></td>
-						<td></td>
-						<td></td>
-						#if($userConfig.guestListFunction)
-							<td></td>
-						#end
-
-						#if($userConfig.guestListCity)
-							<td></td>
-						#end
-
-						#if($userConfig.guestListPhone)
-							<td></td>
-						#end
-						<td></td>
-						<td></td>
-					#else
-						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
-							#if($bean.invitationtype != 3)
-								#if($bean.showdoctype)
-									$!message.plain($bean.lastname_a_gd)
-								#else
-									$!message.plain($bean.lastname_a_e1)
-								#end
-							#else
-								#if($bean.showdoctype)
-									$!message.plain($bean.lastname_b_gd)
-								#else
-									$!message.plain($bean.lastname_b_e1)
-								#end
-							#end
-						</td>
-						<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
-							#if($bean.invitationtype != 3)
-								#if($bean.showdoctype)$!message.plain($bean.firstname_a_gd)#else$!message.plain($bean.firstname_a_e1)#end
-							#else
-								#if($bean.showdoctype)$!message.plain($bean.firstname_b_gd)#else$!message.plain($bean.firstname_b_e1)#end
-							#end
-						</td>
-						<td class="textCenter">
-							<div class="cutOff">
-								#if($bean.showdoctype)
-									#if($bean.mail_a_gd.length() > 0)
-										<a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
+								<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"
+									#if($search.listorder == "orderno")
+										style="color: #000000;"
+									#end
+								><nobr>${placeholderWithTranslation.lfdnr}</nobr>
+									#if($search.listorder == 'orderno')
+										#showSortArrows($search.sortDirection)
 									#else
-										&nbsp;
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
-								#else
-									#if($bean.mail_a_e1.length() > 0)
-										<a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
+								</a></th>
+
+								<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+
+								<th><a href="javascript:orderGuestList('companyname');"
+									#if($search.listorder == "companyname")
+										style="color: #000000;"
+									#end
+								><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr>
+									#if($search.listorder == 'companyname')
+										#showSortArrows($search.sortDirection)
 									#else
-										&nbsp;
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 									#end
-								#end
-							</div>
-						</td>
-						#if($userConfig.guestListFunction)
-							<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
-						#end
-						#if($userConfig.guestListCity)
-							<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
-						#end
-						#if($userConfig.guestListPhone)
-							<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
-						#end
-						<td class="textCenter">
-							#if($bean.invitationtype != 3)
-								#if($grants.mayWrite())
-								<select name="${bean.id}-invitationstatus_a" onchange="setModified('${bean.id}')">
-									<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_STATUS_OPEN}</option>
-									<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 1) selected#end value="1">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
-									<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 2) selected#end value="2">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
-									<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 3) selected#end value="3">${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}</option>
-								</select>
-								#else
-									#if($bean.invitationstatus_a && $bean.invitationstatus_a == 0)
-                                        ${placeholderWithTranslation.GENERIC_STATUS_OPEN}
-									#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 1)
-                                        ${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}
-									#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 2)
-                                        ${placeholderWithTranslation.GENERIC_STATUS_DECLINE}
-									#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 3)
-                                        ${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}
-									#end
-								#end
-							#else
-								<input type="hidden" name="${bean.id}-invitationstatus_a" value="$!bean.invitationstatus_a">${placeholderWithTranslation.nichteingeladen}</input>
-							#end
-						</td>
+								</a></th>
 
-						<td class="textCenter">
-							#if($bean.invitationtype != 2)
-								#if($grants.mayWrite())
-									<select name="${bean.id}-invitationstatus_b" onchange="setModified('${bean.id}')">
-										<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_STATUS_OPEN}</option>
-										<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 1) selected#end value="1">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
-										<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 2) selected#end value="2">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
-										<option #if($bean.invitationstatus_a && $bean.invitationstatus_b == 3) selected#end value="3">${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}</option>
-									</select>
-								#else
-									#if($bean.invitationstatus_b && $bean.invitationstatus_b == 0)
-                                        ${placeholderWithTranslation.GENERIC_STATUS_OPEN}
-									#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 1)
-                                        ${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}
-									#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 2)
-                                        ${placeholderWithTranslation.GENERIC_STATUS_DECLINE}
-									#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 3)
-                                        ${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}
+								<th><a href="javascript:orderGuestList('lastname_a_e1');"
+									#if($search.listorder == "lastname_a_e1")
+										style="color: #000000;"
 									#end
+								>${placeholderWithTranslation.GENERIC_NAME}
+									#if($search.listorder == 'lastname_a_e1')
+										#showSortArrows($search.sortDirection)
+									#else
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+									#end
+								</a></th>
+
+								<th><a href="javascript:orderGuestList('firstname_a_e1');"
+									#if($search.listorder == "firstname_a_e1")
+										style="color: #000000;"
+									#end
+								>${placeholderWithTranslation.GENERIC_FIRSTNAME}
+									#if($search.listorder == 'firstname_a_e1')
+										#showSortArrows($search.sortDirection)
+									#else
+										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+									#end
+								</a></th>
+
+								<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');"
+									#if($search.listorder == "mail_a_e1")
+										style="color: #000000;"
+									#end
+								>${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}
+								#if($search.listorder == 'mail_a_e1')
+									#showSortArrows($search.sortDirection)
+								#else
+									<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
 								#end
-							#else
-								<input type="hidden" name="${bean.id}-invitationstatus_b" value="$!bean.invitationstatus_b">${placeholderWithTranslation.nichteingeladen}</input>
-							#end
-						</td>
+
+								</a></th>
+							<!-- END OF COLUMNS TO ORDER -->
+
+					#if($userConfig.guestListFunction)
+							<th style="padding: 10px">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</th>
 					#end
-				</tr>
-				#end
 
-				#if ($listparam.count == 0)
-					<tr class="colspan"><td colspan="99">${placeholderWithTranslation.GUEST_LIST_NO_GUEST_INVITED}</td></tr>
-				#end
+					#if($userConfig.guestListCity)
+							<th style="padding: 10px">${placeholderWithTranslation.GENERIC_POST_NUMBER} / ${placeholderWithTranslation.GENERIC_CITY}</th>
+					#end
 
-				#set($itemName = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
-				#parse("inc/list-navi-new.vm")
+					#if($userConfig.guestListPhone)
+							<th style="padding: 10px">${placeholderWithTranslation.GENERIC_TELEFON}</th>
+					#end
+							<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_MAIN_PERSON}</span></th>
+							<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_PARTNER}</span></th>
+						</tr>
 
-				#if($search.listorder)
-					#parse("inc/list-direct-new.vm")
-				#else
-					<tr class="colspan">
-						<td colspan="99" class="textCenter">
-							<strong>${placeholderWithTranslation.GENERIC_TOOLTIP}:</strong> ${placeholderWithTranslation.HINT_ENTRY_POINT}
-						</td>
-					</tr>
-				#end
+						#set($deletedperson = false)
 
-			</table>
+						#foreach($bean in $list)
+							#if ($bean.deleted == "t")
+								#set($deletedperson = true)
+							#end
 
+						#set($offset = $listparam.start + $velocityCount)
+
+						<tr>
+							<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" onChange="selectionChange( this );" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/></td>
+							<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
+								#if($bean.ishost && $bean.ishost == 1)
+									<em>${placeholderWithTranslation.GENERIC_HOST}</em>
+								#elseif($bean.someorderno)
+									$bean.someorderno
+								#else
+									<em>${placeholderWithTranslation.keine}</em>
+								#end
+							</td>
+
+							#if($bean.reserve == 1)
+								<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufreserve}"><strong>${placeholderWithTranslation.GUEST_LIST_RESERVE}</strong></td>
+							#else
+								<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufplatz}">&nbsp;</td>
+							#end
+
+							#if($bean.company_a_e1 != "")
+								<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">$bean.company_a_e1</td>
+							#else
+								<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">&nbsp;</td>
+							#end
+
+							#if($bean.iscompany == "t" && $bean.delegation != "" && $bean.invitationtype != 4)
+								<td></td>
+								<td></td>
+								<td></td>
+								#if($userConfig.guestListFunction)
+									<td></td>
+								#end
+
+								#if($userConfig.guestListCity)
+									<td></td>
+								#end
+
+								#if($userConfig.guestListPhone)
+									<td></td>
+								#end
+								<td></td>
+								<td></td>
+							#else
+								<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
+									#if($bean.invitationtype != 3)
+										#if($bean.showdoctype)
+											$!message.plain($bean.lastname_a_gd)
+										#else
+											$!message.plain($bean.lastname_a_e1)
+										#end
+									#else
+										#if($bean.showdoctype)
+											$!message.plain($bean.lastname_b_gd)
+										#else
+											$!message.plain($bean.lastname_b_e1)
+										#end
+									#end
+								</td>
+								<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
+									#if($bean.invitationtype != 3)
+										#if($bean.showdoctype)$!message.plain($bean.firstname_a_gd)#else$!message.plain($bean.firstname_a_e1)#end
+									#else
+										#if($bean.showdoctype)$!message.plain($bean.firstname_b_gd)#else$!message.plain($bean.firstname_b_e1)#end
+									#end
+								</td>
+								<td class="textCenter">
+									<div class="cutOff">
+										#if($bean.showdoctype)
+											#if($bean.mail_a_gd.length() > 0)
+												<a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
+											#else
+												&nbsp;
+											#end
+										#else
+											#if($bean.mail_a_e1.length() > 0)
+												<a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
+											#else
+												&nbsp;
+											#end
+										#end
+									</div>
+								</td>
+								#if($userConfig.guestListFunction)
+									<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
+								#end
+								#if($userConfig.guestListCity)
+									<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
+								#end
+								#if($userConfig.guestListPhone)
+									<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
+								#end
+								<td class="textCenter">
+									#if($bean.invitationtype != 3)
+										#if($grants.mayWrite())
+										<select name="${bean.id}-invitationstatus_a" onchange="setModified('${bean.id}')">
+											<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_STATUS_OPEN}</option>
+											<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 1) selected#end value="1">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
+											<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 2) selected#end value="2">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
+											<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 3) selected#end value="3">${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}</option>
+										</select>
+										#else
+											#if($bean.invitationstatus_a && $bean.invitationstatus_a == 0)
+												${placeholderWithTranslation.GENERIC_STATUS_OPEN}
+											#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 1)
+												${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}
+											#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 2)
+												${placeholderWithTranslation.GENERIC_STATUS_DECLINE}
+											#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 3)
+												${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}
+											#end
+										#end
+									#else
+										<input type="hidden" name="${bean.id}-invitationstatus_a" value="$!bean.invitationstatus_a">${placeholderWithTranslation.nichteingeladen}</input>
+									#end
+								</td>
+
+								<td class="textCenter">
+									#if($bean.invitationtype != 2)
+										#if($grants.mayWrite())
+											<select name="${bean.id}-invitationstatus_b" onchange="setModified('${bean.id}')">
+												<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_STATUS_OPEN}</option>
+												<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 1) selected#end value="1">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
+												<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 2) selected#end value="2">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
+												<option #if($bean.invitationstatus_a && $bean.invitationstatus_b == 3) selected#end value="3">${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}</option>
+											</select>
+										#else
+											#if($bean.invitationstatus_b && $bean.invitationstatus_b == 0)
+												${placeholderWithTranslation.GENERIC_STATUS_OPEN}
+											#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 1)
+												${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}
+											#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 2)
+												${placeholderWithTranslation.GENERIC_STATUS_DECLINE}
+											#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 3)
+												${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}
+											#end
+										#end
+									#else
+										<input type="hidden" name="${bean.id}-invitationstatus_b" value="$!bean.invitationstatus_b">${placeholderWithTranslation.nichteingeladen}</input>
+									#end
+								</td>
+							#end
+						</tr>
+						#end
+
+						#if ($listparam.count == 0)
+							<tr class="colspan"><td colspan="99">${placeholderWithTranslation.GUEST_LIST_NO_GUEST_INVITED}</td></tr>
+						#end
+
+						#set($itemName = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
+						#parse("inc/list-navi-new.vm")
+
+						#if($search.listorder)
+							#parse("inc/list-direct-new.vm")
+						#else
+							<tr class="colspan">
+								<td colspan="99" class="textCenter">
+									<strong>${placeholderWithTranslation.GENERIC_TOOLTIP}:</strong> ${placeholderWithTranslation.HINT_ENTRY_POINT}
+								</td>
+							</tr>
+						#end
+
+					</table>
+				</div>
 			<div class="textRight marginTop10 marginBottom20">
 				<input type="button" name="calcSerialNumber" value="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" title="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" onclick="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}'); window.location.href='CalcSerialNumber';" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
 				<input type="button" name="reloadAllGuestData" value="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" title="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>

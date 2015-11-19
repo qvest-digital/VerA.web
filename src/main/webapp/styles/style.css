@@ -1050,6 +1050,10 @@ td {
 td[onclick]
  {cursor:pointer;}
 
+#guestListWrapper {
+    overflow-x:auto;
+}
+
 /************* =8.1 CSS tables *****************/
 .table {display:table;}
 
