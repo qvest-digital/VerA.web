@@ -138,9 +138,11 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
     });
 
     if ($rootScope.user_logged_in == null) {
-        $scope.setNextPage('delegation/' + $routeParams.uuid);
         lastPageRegisterPath = $location.path();
-        $location.path('/login/' + $routeParams.uuid);
+        if ($routeParams.uuid != null) {
+            $scope.setNextPage('delegation/' + $routeParams.uuid);
+            $location.path('/login/' + $routeParams.uuid);
+        }
     } else {
         $scope.genderOptions = [
             {id: 0, name:"GENERIC_PLEASE_SELECT"},
