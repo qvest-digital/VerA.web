@@ -23,10 +23,18 @@
 \begin{minipage}{\textwidth}
 Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat7} (wenn Sie
 nicht Debian benutzen, an einer äquivalenten Stelle) folgende Zeilen ein,
-um weitere JVM-Startoptionen zu setzen:
+um weitere JVM-Startoptionen zu setzen. Die erste setzen Sie bitte in
+jedem Fall:
 
 \begin{lstlisting}[language=sh]
 JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Die zweite ist Linux-spezifisch, spart aber Zeit u.a. beim Start:
+
+\begin{lstlisting}[language=sh]
 JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 \end{lstlisting}
 \end{minipage}
