@@ -1760,6 +1760,8 @@ GM_CONFIRMATION_EMAIL_DISTRIBUTOR=\u00BFCrear correo electr\u00F3nico de distrib
 CONTACT_PICTURE_UPLOAD=Subir foto
 CONTACT_PICTURE_CHANGE=Modificar foto
 CONTACT_PICTURE_WRONG_SIZE=La foto debe comprender las dimensiones 186x245 pixels.
+PICTURE_SIZE=tama\u00F1o de la imagen
+PIXELS=pixels
 
 NO_PARTNER_IN_MASTERDATA=Kein Partner in Stammdaten hinterlegt
 

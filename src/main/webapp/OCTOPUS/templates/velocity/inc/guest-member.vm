@@ -100,7 +100,7 @@
 					<input name="asd" id="asd" type="file" size="30" maxlength="100000" accept="image/png,image/jpg,image/jpeg"/>
 				</div>
 				<a href="#">
-					<div id="fakeGuestButton" class="button fakeButton" title="${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}" style="width: 174px;" onclick="upload();">
+					<div id="fakeGuestButton" class="button fakeButton" title="${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}(${placeholderWithTranslation.PICTURE_SIZE}: 186*245 ${placeholderWithTranslation.PIXELS})" style="width: 174px;" onclick="upload();">
 						${placeholderWithTranslation.CONTACT_PICTURE_UPLOAD}
 					</div>
 				</a>
@@ -108,7 +108,7 @@
 				<div id="input_container" style="width: 0px; height: 0px;">
 					<input name="asdp" id="asdp" type="file" size="30" maxlength="100000" accept="image/png,image/jpg,image/jpeg"/>
 				</div>
-				<div id="fakePartnerButton" class="button fakeButton" title="${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}" style="width: 174px;" onclick="upload();">
+				<div id="fakePartnerButton" class="button fakeButton" title="${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}(${placeholderWithTranslation.PICTURE_SIZE}: 186*245 ${placeholderWithTranslation.PIXELS})" style="width: 174px;" onclick="upload();">
 					${placeholderWithTranslation.CONTACT_PICTURE_UPLOAD}
 				</div>
 			#end

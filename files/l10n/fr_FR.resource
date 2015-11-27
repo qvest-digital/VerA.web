@@ -1758,6 +1758,8 @@ GM_CONFIRMATION_EMAIL_DISTRIBUTOR=Voulez-vous importer les addresses \u00E9l\u00
 CONTACT_PICTURE_UPLOAD=T\u00E9l\u00E9charger une photo
 CONTACT_PICTURE_CHANGE=Changer la photo
 CONTACT_PICTURE_WRONG_SIZE=Les dimensions de l\u2019image doivent \u00EAtre exactement 186x245 pixels.
+PICTURE_SIZE=taille de l\u2019image
+PIXELS=pixels
 
 NO_PARTNER_IN_MASTERDATA=Kein Partner in Stammdaten hinterlegt
 

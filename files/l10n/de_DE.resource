@@ -1719,6 +1719,8 @@ GM_CONFIRMATION_EMAIL_DISTRIBUTOR=E-mail addressen aus Verteiler \u00FCbernehmen
 CONTACT_PICTURE_UPLOAD=Kontaktfoto hochladen
 CONTACT_PICTURE_CHANGE=Kontaktfoto \u00E4ndern
 CONTACT_PICTURE_WRONG_SIZE=Das Bild entspricht nicht der erlaubten Gr\u00F6\u00DFe von 186x245 Pixeln.
+PICTURE_SIZE=Bildgr\u00F6\u00DFe
+PIXELS=Pixel
 
 NO_PARTNER_IN_MASTERDATA=Kein Partner in Stammdaten hinterlegt
 
