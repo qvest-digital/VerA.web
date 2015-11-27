@@ -28,8 +28,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{tarentstyle}
 
-% not in lenny
-%\RequirePackage{accsupp}
+\RequirePackage{accsupp}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[pdftex]{graphics}
 \RequirePackage{ngerman}
@@ -89,9 +88,8 @@
  \makebox[1.4em][c]{%
  \makebox[0pt][c]{\raisebox{.1em}{\footnotesize!}}%
  \makebox[0pt][c]{\color{red}\huge$\bigtriangleup$}}}%
-% not in lenny
-%\usepackage{newunicodechar}
-%\newunicodechar{⚠}{\Warning}
+\usepackage{newunicodechar}
+\newunicodechar{⚠}{\Warning}
 
 \usepackage{wasysym} % TeX sucks ☺
 \newcommand{\ankreuzen}{Bitte zum Beispiel so → \CheckedBox\hspace{0.05cm} ← ankreuzen!}
@@ -112,7 +110,7 @@
 }
 
 \usepackage{longtable}
-%\usepackage{tabu} % not in lenny
+\usepackage{tabu}
 \usepackage{wrapfig}
 \usepackage{ltablex}
 \usepackage{listings}
