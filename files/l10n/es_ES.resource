@@ -431,7 +431,6 @@ build=Compilaci\u00F3n
 GENERIC_BUILD_NUMBER=N\u00FAmero de compilaci\u00F3n
 GENERIC_BUILD_TIME=Tiempo de compilaci\u00F3n (UTC)
 GENERIC_DATABASE=Base de datos
-GENERIC_LOGIN=Login
 GENERIC_GROUPS=Grupos
 GENERIC_NOT_AVAILABLE=No disponible
 

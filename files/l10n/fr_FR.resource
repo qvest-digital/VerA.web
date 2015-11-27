@@ -392,7 +392,6 @@ GENERIC_NO_DATA_FOUND=Aucune donn\u00E9e trouv\u00E9e
 markierte=Lieu(x) marqu\u00E9(s)
 GENERIC_ADD_NEW_EVENT_LOCATIONS=Nouveau lieu
 GENERIC_CONTACT_PERSON=contact
-GENERIC_TELEFON=Phone
 GENERIC_FAX=Fax
 e-mail=E-Mail
 GENERIC_REMARK=Remarque
@@ -526,7 +525,6 @@ MESSAGE_OSIAM_LOGIN_DATA_EXIST=Les pouvoirs ont \u00E9t\u00E9 produits avec succ
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Est une soci\u00E9t\u00E9
-GENERIC_SALUTATION_SINGULAR=Salutation
 frau=Madamme
 herr=Monsieur
 lady=Lady
