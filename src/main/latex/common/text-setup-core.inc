@@ -293,7 +293,7 @@ Dann suchen Sie folgenden auskommentierten Abschnitt (ca. 20 Zeilen weiter):
 Entfernen Sie hier die Kommentarzeichen und fügen Sie ein weiteres Attribut
 hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
 
-\begin{lstlisting}[language=XML,basicstyle=\footnotesize\ttfamily]
+\begin{lstlisting}[language=XML]
 <Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
 \end{lstlisting}
 \end{minipage}
