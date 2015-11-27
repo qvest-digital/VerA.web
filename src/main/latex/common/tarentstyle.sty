@@ -54,6 +54,7 @@
 \linespread{1.15}
 \RequirePackage{pxfonts}
 \renewcommand{\familydefault}{\sfdefault}
+\RequirePackage{inconsolata}
 \hypersetup{
 	colorlinks = true,
 	linkcolor = blue,
@@ -64,16 +65,6 @@
 \clubpenalty10000
 \widowpenalty10000
 \displaywidowpenalty=10000
-
-\newcommand\0{\scalebox{-1}[1]{0}}
-\let\svttfamily\ttfamily
-\let\svtexttt\texttt
-\catcode`0=\active
-\def0{\0}
-\renewcommand\ttfamily{\svttfamily\catcode`0=\active }
-\renewcommand\texttt{\bgroup\ttfamily\texttthelp}
-\def\texttthelp#1{#1\egroup}
-\catcode`0=12
 
 \DeclareGraphicsExtensions{.pdf,.eps,.png,.jpg}
 
@@ -131,7 +122,6 @@
 	showtabs=false,
 	showspaces=false,
 	showstringspaces=false,
-	literate={0}{\0}1{0\ }{\0\ }2,
 	escapeinside={〈}{〉},
 	% die nächsten vielleicht anpassen?
 	keywordstyle=\color[rgb]{0,0,1},
