@@ -27,6 +27,7 @@ unset LANGUAGE
 cd "$(dirname "$0")"
 test -n "$1" || set -- *.resource
 
+# warning: this Perl snippet handles only one file per call correctly!
 for x in "$@"; do
 	perl -pi -e 'next unless m/=/; $_="" if $x{$_}; $x{$_}++;' "$x"
 done
