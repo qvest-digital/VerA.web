@@ -149,6 +149,9 @@ Abbildung~\ref{fig:logotarent} verweist auf das neue tarent-Logo.
 
 \subsection{Listing Copy \& Paste}
 
+\begin{minipage}{\textwidth}
+Fixed:
+
 \begin{lstlisting}[language=sh,columns=fixed]
 sudo mkdir -p /etc/veraweb/l10n
 sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
@@ -173,5 +176,64 @@ sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
 +---------------------------------------------------+
 
 \end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Flexible:
+
+\begin{lstlisting}[language=sh,columns=flexible]
+sudo mkdir -p /etc/veraweb/l10n
+sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
+sudo install -c -o 0 -g 0 -m 644 config_ldap_access.xml /etc/veraweb/
+sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
+
++---------------------------------------------------+
+|                                                   |
+| meh                                               |
+| meow                                              |
+| meh x                                             |
+| ieh x                                             |
+| iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii |
+| i     i     i     i     i       i       i       i |
+| i i i i i i i i i i i i i i i i i i i i i i i i i |
+| x x x x x x x x x x x x x x x x x x x x x x x x x |
+| m m m m m m m m m m m m m m m m m m m m m m m m m |
+| mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm |
+| xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx |
+| a!b"c#d$e%f&g'h(i)j*k+l-m/n^o_p`q~r\s[t{u|v?w^x<y |
+| a b c d e f g h i j k l m n o p q r s t u v w x y |
++---------------------------------------------------+
+
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Full Flexible:
+
+\begin{lstlisting}[language=sh,columns=fullflexible]
+sudo mkdir -p /etc/veraweb/l10n
+sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
+sudo install -c -o 0 -g 0 -m 644 config_ldap_access.xml /etc/veraweb/
+sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
+
++---------------------------------------------------+
+|                                                   |
+| meh                                               |
+| meow                                              |
+| meh x                                             |
+| ieh x                                             |
+| iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii |
+| i     i     i     i     i       i       i       i |
+| i i i i i i i i i i i i i i i i i i i i i i i i i |
+| x x x x x x x x x x x x x x x x x x x x x x x x x |
+| m m m m m m m m m m m m m m m m m m m m m m m m m |
+| mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm |
+| xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx |
+| a!b"c#d$e%f&g'h(i)j*k+l-m/n^o_p`q~r\s[t{u|v?w^x<y |
+| a b c d e f g h i j k l m n o p q r s t u v w x y |
++---------------------------------------------------+
+
+\end{lstlisting}
+\end{minipage}
 
 \end{document}
