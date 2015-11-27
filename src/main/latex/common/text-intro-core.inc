@@ -49,7 +49,8 @@ dieselbe Datenbank zu.
  \item{\texttt{veraweb.war}: Die eigentliche Veranstaltungsmanagementsoftware,
   welche später über einen Apache-Webserver von Sachbearbeitern bedient wird.}
  \item{\texttt{vwor.war}: Die sogenannte „REST-API“; eine Funktionssammlung,
-  welche Dienste für sowohl VerA.web als auch die Online-Anmeldung bereitstellt.}
+  welche Dienste für sowohl VerA.web als auch die (optionale) Online-Anmeldung
+  bereitstellt.}
 \end{itemize}
 
 \subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}

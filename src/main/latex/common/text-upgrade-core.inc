@@ -113,9 +113,9 @@ Versionen als \texttt{config\_ldap\_access.xml.dist} und/oder
 als separater Download angeboten.
 \fi
 
-\subsection{Upgrade von 1.6.31 oder älter}\label{subsec:upgrade-1631}
+\subsection{Upgrade von Versionen vor 1.6.32}\label{subsec:upgrade-1632}
 
-\input{text-1631-f.inc}
+\input{text-1632-f.inc}
 
 \begin{minipage}{\textwidth}
 Installieren Sie nun die Konfigurationsdateien für die REST-API:
@@ -135,7 +135,7 @@ JkMount /vwor* ajp13_worker
 
 Starten Sie den Webserver neu, um die Änderungen wirksam zu machen.
 
-\input{text-1631-t.inc}
+\input{text-1632-t.inc}
 
 \subsection{Datenbank VerA.web-core}\label{subsec:upgrade-core-db}
 

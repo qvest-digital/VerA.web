@@ -29,7 +29,7 @@ Installation der einzelnen Komponenten beschrieben.
 \subsection{Dateien VerA.web-core und REST-API}\label{subsec:setup-core-files}
 
 \input{text-extract.inc}
-\input{text-1631-f.inc}
+\input{text-1632-f.inc}
 
 \begin{minipage}{\textwidth}
 Legen Sie ein neues Verzeichnis \texttt{/etc/veraweb} mit einem
@@ -239,7 +239,7 @@ des Webservers zu sehen sein.
 
 \subsection{Applikationsserver REST-API}\label{subsec:setup-vwor-tomcat}
 
-\input{text-1631-t.inc}
+\input{text-1632-t.inc}
 
 \subsection{Applikationsserver VerA.web-core}\label{subsec:setup-core-tomcat}
 
