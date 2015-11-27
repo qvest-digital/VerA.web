@@ -308,7 +308,6 @@ GENERIC_ADD=Add
 GENERIC_BACK_TO_TEMPLATES_LIST=Back to list of templates
 
 # ADMINISTRATION/FARBEN
-GENERIC_COLOR_PLURAL=Colours
 GENERIC_CHROMATICITY=Chromatic value
 LETTERS_CHROMATICITY=R G B
 
@@ -319,26 +318,20 @@ eswurdeeineneuefunktion/amtsbezeichnungangelegt=A new function/official title ha
 eswurdeeinefunktion/amtsbezeichnunggeloscht=A function/offical title has been deleted
 
 # ADMINISTRATION/KATEGORIEN
-GENERIC_CATEGORY_PLURAL=Categories
 markiertekategorie=Selected categorie(s)
 GENERIC_MARK_LONG=Mark
 GENERIC_RANK=Rank
 GENERIC_EVENTS_PP=Event(s)
-GENERIC_CATEGORY_SINGULAR=Category
 GENERIC_OCCASION=Occasion
 
 # ADMINISTRATION/MANDANTEN
-GENERIC_CLIENT_PLURAL=Clients
 markierte(n)mandanten=Selected client(s)
 GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Data not assigned to clients
 personen=Persons
 GENERIC_IMPORT_PROCEDURES=Import procedures
 veranstaltungorte=Venues
 GENERIC_IMPORT_PERSONS=Import persons
-GENERIC_DISTRIBUTOR_SINGULAR=Distribution list
-GENERIC_USER=User
 GENERIC_ASSIGN_CLIENTS=Assign clients
-GENERIC_CLIENT_SINGULAR=Client
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
 programeinstellungen=Settings
@@ -352,7 +345,6 @@ GENERIC_PARTNER=Partner
 GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subtabs of \u201Caddresses\u201D
 GENERIC_BUSINESS=Business
 GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Standard choice of selectbox \u201Ccharset\u201D
-GENERIC_CHARSET=Charset
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Standard salutations and free text fields
 GENERIC_STANDARD_SALUTATION=Standard salutations
 GENERIC_STANDARD_SALUTATION_PARTNER=Standard form of address: partner
@@ -404,7 +396,6 @@ GENERIC_NO_DATA_FOUND=No data found
 # ADMINISTRATION/VERANSTALTUNGSORTE
 markierte=Selected venue(s)
 GENERIC_ADD_NEW_EVENT_LOCATIONS=Add new venue
-GENERIC_ID=ID
 GENERIC_CONTACT_PERSON=Contact
 GENERIC_TELEFON=Phone
 GENERIC_FAX=Fax
@@ -422,7 +413,6 @@ GENERIC_SUBTABS_OF=Subtabs of
 GENERIC_PERSONAL_DETAILED_VIEW=Personal detailed view
 GENERIC_LIST_OF_GUESTS=Guest list
 zusatzlichefelder=Additional fields
-GENERIC_FUNCTION_SINGULAR=Function
 GENERIC_POSTNUMBER_AND_CITY=Postal code / City
 GENERIC_LIST_OF_PERSONS=List of persons
 GENERIC_FEDERAL_STATE=State
@@ -432,7 +422,6 @@ MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=Options were saved successfully.
 GENERIC_REPRESENTATIVE_PLURAL=Representations
 markiertevertretung=Selected representation(s)
 GENERIC_DELETE=Delete
-GENERIC_NEW=New
 eswurdeeineneuevertretungangelegt=A new representation has been created
 eswurdeeinevertretunggeloscht=One representation has been deleted
 siemuseneinevertretereingeben=You need to enter a representation
@@ -448,7 +437,6 @@ build=Build
 GENERIC_BUILD_NUMBER=Build number
 GENERIC_BUILD_TIME=Build time (UTC)
 GENERIC_DATABASE=Database
-GENERIC_LOGIN=Login
 GENERIC_GROUPS=Groups
 GENERIC_NOT_AVAILABLE=Not available
 
@@ -486,7 +474,6 @@ GENERIC_ACCOUNT_OPENING_DATE=Account opening date
 GENERIC_AT=at
 GENERIC_OCLOCK=oclock
 GENERIC_ORIGIN_DATA=Data origin
-GENERIC_PERSON_SINGULAR=Person
 
 # DATEITYP
 csv=CSV (Comma-Separated-Values)
@@ -523,7 +510,6 @@ GENERIC_STATISTIC=Statistics
 ausstammdatenhinzufugen=Add from main data
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
-GENERIC_DOCUMENT_TYPE_SINGULAR=Document type
 GENERIC_GENERATE_ALL=Generate all
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
@@ -533,7 +519,6 @@ GENERIC_CATEGORIES_AND_OCCASIONS=Categories and occasions
 ubersichtuberalleveranstaltungeneinesgastes=\u00FCbersicht \u00FCber alle Veranstaltungen eines Gastes.
 GENERIC_VIEW_OVER_GUEST_EVENT=From
 statistikfurgast=Statistik f\u00FCr Gast
-GENERIC_EVENT=Event
 GENERIC_BEGIN=Start
 
 # PERSONEN/PERSONENSUCHE
@@ -549,7 +534,6 @@ MESSAGE_OSIAM_LOGIN_DATA_EXIST=Login credentials for this person already exist.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Is company
-GENERIC_SALUTATION_SINGULAR=Salutation
 frau=Frau
 herr=Herr
 lady=Lady
@@ -558,7 +542,6 @@ GENERIC_PLEASE_CHOOSE=Please choose
 GENERIC_ACAD_TITLE=Acad. title
 GENERIC_IN_COUNTRY=In country
 GENERIC_HINT_FOR_ORGA=Hint for Orga
-GENERIC_COMPANY_SINGULAR=Company
 GENERIC_COUNTRY=Country
 plz/postfach=Zip code/ post office box
 GENERIC_POST_OFFICE_BOX=Post office box
@@ -576,7 +559,6 @@ GENERIC_REPLACE=Replace
 GENERIC_IN_THE_FOLLOWING_FIELDS=In the following fields
 anrede/titel=Salutations / title
 GENERIC_EMPLOYMENT_TITLE_SHORT=Empl. title
-GENERIC_INSTITUTION_SINGULAR=Institution
 GENERIC_ADDRESSES=Addresses
 telefon/fax=Phone / Fax
 GENERIC_REPLACE_INDIVIDUALLY=Replace individually
@@ -649,7 +631,6 @@ GENERIC_START_IMPORT=Start import
 # PERSONENDROPDOWN
 GENERIC_NEW_PERSON=New person
 GENERIC_EXPORT_PERSONS=Export persons
-GENERIC_IMPORT_PERSONS=Import persons
 
 # VERANSTALTUNGENDROPDOWN
 GENERIC_EVENT_VIEW=Events summary
@@ -658,17 +639,13 @@ GENERIC_NEW_EVENT=New event
 GENERIC_STATISTICS=Statistics
 
 # ADMINISTRATIONDROPDOWN
-GENERIC_SALUTATIONS=Salutations
 GENERIC_WORKAREA_PLURAL=Work areas
-GENERIC_DOCUMENT_TYPE_PLURAL=Document types
 e-mail-postausgang=E-Mail outbox
 GENERIC_PROGRAM_PERFERENCES=Program settings
-GENERIC_EVENT_LOCATION_PLURAL=Venues
 
 # VERANSTALTUNGSUEBERSICHT
 GENERIC_END=End
 GENERIC_HOST=Host
-GENERIC_EVENT_LOCATION_SINGULAR=Venue
 GENERIC_EVENT_SEARCH=Search for event
 GENERIC_CREATE_NEW_EVENT=Create new event
 GENERIC_NUMBER_PER_PAGE=Count per page
@@ -690,7 +667,6 @@ EVENT_INVITATION_TYPE_WITH_PARTNER=With Partner
 GENERIC_EDIT_EVENT=Edit event
 GENERIC_TO_GUEST_MANAGEMENT=To guest management
 GENERIC_GENERAL=General
-GENERIC_TASK_PLURAL=Tasks
 GENERIC_ADDITIONAL_PERSONS_DATA=Additional persons data
 kurzbereichnung=Kurzbereichnung
 GENERIC_OPEN_EVENT=Open event
@@ -1480,13 +1456,11 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Shall the category\u2019s rank be app
 
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
-GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reset all values to core data
 GUEST_LIST_EDIT_MASTER_DATA=Edit Person core-data
 GUEST=Guest
 GENERIC_OF_CAPITAL=Of
 GENERIC_ASSIGN=assign
 GENERIC_CANCEL=Cancel
-GENERIC_DELETE=Delete
 GENERIC_CONNECTOR=Connector
 GENERIC_VIEW_DOCUMENT_TYPE=View Document type
 GENERIC_GENERATE_DOCUMENT_TYPE=generate document type
@@ -1765,7 +1739,6 @@ NO_PARTNER_IN_MASTERDATA=Kein Partner in Stammdaten hinterlegt
 GM_CATEGORY_MODIFY_S=One category successfully modified
 GM_CATEGORY_MODIFY_P=%s categorys successfully modified
 GM_CATEGORY_MODIFY_N=No categorys were modified
-GM_CATEGORY_MODIFY_S=One category successfully modified
 GM_CATEGORY_MODIFY_P=%s categories successfully modified
 GM_CATEGORY_MODIFY_N=No categories were modified
 GM_CATEGORY_DELETE_S=One category successfully deleted
