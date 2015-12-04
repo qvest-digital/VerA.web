@@ -152,7 +152,7 @@ Abbildung~\ref{fig:logotarent} verweist auf das neue tarent-Logo.
 \begin{minipage}{\textwidth}
 Fixed:
 
-\begin{lstlisting}[language=sh,columns=fixed]
+\begin{lstdump}[language=sh,columns=fixed]{with fixed}
 sudo mkdir -p /etc/veraweb/l10n
 sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
 sudo install -c -o 0 -g 0 -m 644 config_ldap_access.xml /etc/veraweb/
@@ -175,13 +175,13 @@ sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
 | a b c d e f g h i j k l m n o p q r s t u v w x y |
 +---------------------------------------------------+
 
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
 Flexible:
 
-\begin{lstlisting}[language=sh,columns=flexible]
+\begin{lstdump}[language=sh,columns=flexible]{with flexible}
 sudo mkdir -p /etc/veraweb/l10n
 sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
 sudo install -c -o 0 -g 0 -m 644 config_ldap_access.xml /etc/veraweb/
@@ -204,13 +204,13 @@ sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
 | a b c d e f g h i j k l m n o p q r s t u v w x y |
 +---------------------------------------------------+
 
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
 Full Flexible:
 
-\begin{lstlisting}[language=sh,columns=fullflexible]
+\begin{lstdump}[language=sh,columns=fullflexible]{with fullflexible}
 sudo mkdir -p /etc/veraweb/l10n
 sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
 sudo install -c -o 0 -g 0 -m 644 config_ldap_access.xml /etc/veraweb/
@@ -233,7 +233,7 @@ sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
 | a b c d e f g h i j k l m n o p q r s t u v w x y |
 +---------------------------------------------------+
 
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \section{Nicht-ASCII-Zeichen in Listings}
@@ -241,13 +241,13 @@ sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
 \begin{minipage}{\textwidth}
 Ein minimaler – deutsche Umlaute, sonstige häufige Zeichen – Test:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{non-ASCII chars}
 # © 2015 “mirabilos”™ -- tarent §1 20°
 echo 'Ah nah, "dummlicher" FuB. Uberdem droge Arbeit. Teste: |'
 echo 'Äh näh, „dümmlicher“ Fuß. Überdem dröge Arbeit. Teste: |'
 echo 'oO0 Il1 – ‘`’ ist doof. Öh… mach’ halt mal. Alignment: |'
 echo "oO0 Il1 - '`' ist doof. Oh. mach' halt mal. Alignment: |"
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \end{document}

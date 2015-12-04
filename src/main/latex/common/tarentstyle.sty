@@ -58,7 +58,7 @@
 \usepackage{tabu}
 \usepackage{wrapfig}
 \usepackage{ltablex}
-\usepackage{listings}
+\usepackage[writefile]{listings}
 \usepackage{tocloft}
 \usepackage{float}
 \usepackage{lastpage}
@@ -108,6 +108,23 @@
   \fancyfoot{}%
  \fi%
 }
+
+\newcounter{lstdumps}
+\setcounter{lstdumps}{0}
+\newcommand{\lstdumpname}{}
+\lstnewenvironment{lstdump}[3][]
+	{\lst@TestEOLChar{#3}%
+	 \lstset{#1}%
+	 \stepcounter{lstdumps}%
+	 \renewcommand{\lstdumpname}{ (#2)}%
+	 \lst@BeginAlsoWriteFile{\jobname.lst}%
+	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
+	}
+	{
+	 \immediate\write\lst@WF{-----END LISTING \thelstdumps\lstdumpname-----}%
+	 \immediate\write\lst@WF{}%
+	 \endgroup%
+	}
 
 \lstset{
 	backgroundcolor=\color{tarentgrau},

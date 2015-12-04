@@ -61,10 +61,10 @@ und Wartungsteam.
 Falls das Verzeichnis \texttt{/etc/veraweb/l10n} noch nicht existiert,
 legen Sie es an. Kopieren Sie dann die aktuellen Sprachdateien dorthin:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Entpacken}
 sudo mkdir -p /etc/veraweb/l10n
 sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \ifvwconfigsinetcalready
@@ -120,17 +120,17 @@ als separater Download angeboten.
 \begin{minipage}{\textwidth}
 Installieren Sie nun die Konfigurationsdateien für die REST-API:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{/etc/veraweb/*.properties}
 sudo install -c -o 0 -g 0 -m 644 *.properties /etc/veraweb/
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
 Fügen Sie folgende Zeile der Apache-vhost-Konfiguration hinzu:
 
-\begin{lstlisting}
+\begin{lstdump}{AJP Worker VWOR}
 JkMount /vwor* ajp13_worker
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 Starten Sie den Webserver neu, um die Änderungen wirksam zu machen.
@@ -142,9 +142,9 @@ Starten Sie den Webserver neu, um die Änderungen wirksam zu machen.
 \begin{minipage}{\textwidth}
 Loggen Sie sich auf der Datenbank ein und starten Sie das Upgrade-SQL:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{DB-Upgrade}
 psql -U veraweb -h 127.0.0.1 -W veraweb <upgrade.sql
-\end{lstlisting}
+\end{lstdump}
 
 Falls Sie andere Werte für Datenbankserver, Port, Benutzer oder Datenbankname
 verwenden müssen Sie diese hier selbstverständlich anpassen.
@@ -157,11 +157,11 @@ Stoppen Sie bitte zunächst den Applikationsserver und löschen
 ggfs. alle vorherigen VerA.web-Webapps (es ist vielleicht
 sinnvoll, ein Backup zu machen):
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Tomcat undeploy}
 sudo service tomcat7 stop
 sudo rm -rf /var/lib/tomcat7/webapps/veraweb*
 sudo rm -rf /var/lib/tomcat7/webapps/vwor*
-\end{lstlisting}
+\end{lstdump}
 
 Bitte beachten Sie, daß der Tomcat-Dienst ggfs. noch einige Sekunden
 weiterläuft, nachdem der Stop-Befehl abgeschickt wurde; im Zweifelsfalls
@@ -172,19 +172,19 @@ können Sie mit \texttt{ps ax | grep java} prüfen, ob noch Prozesse laufen.
 Dann starten Sie den Server wieder und deployen die VerA.web-Anwendung
 und die REST-API:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Tomcat deploy}
 sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
 sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
 sudo service tomcat7 start
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
 Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
 mehr; diese können nun entfernt werden:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Aufraeumen}
 cd ..
 rm -rf veraweb-core-〈\vwiaverssw{}〉* veraweb.war vwor.war
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}

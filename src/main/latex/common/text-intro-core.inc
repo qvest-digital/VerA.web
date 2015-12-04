@@ -31,12 +31,20 @@ VerA.web ist eine Open Source-Webanwendung, die die IT-gestützte Planung und
 Durchführung von Anlässen, Konferenzen und anderen Veranstaltungen maßgeblich
 unterstützt.
 
+\subsection{Über diese Anleitung}\label{subsec:aboutmanual}
+
 Dieses Dokument beschreibt, wie VerA.web core (die eigentliche
 Veranstaltungsmanagementsoftware) durch einen Systemadministrator
 eigenständig installiert werden kann. Hierbei wird eine empfohlene
 Installation beschrieben; ein Betrieb ist auch mit abweichender
 Konfiguration (z.B. Trennung von Core und REST-API) möglich, aber
 nicht durch dieses Dokument abgedeckt.
+
+Alle Code-Listings finden Sie auch nochmal als Plaintext unter
+\texttt{\jobname.lst} im „files“-Tarball
+(\texttt{veraweb-core-\vwiaverssw{}-files.tgz} \emph{oder}
+\texttt{veraweb-core-\vwiaverssw{}-files.zip}, siehe
+\hyperlink{manual:distro}{Die VerA.web-Distribution}).
 
 \subsection{Konzepte}\label{subsec:concepts}
 

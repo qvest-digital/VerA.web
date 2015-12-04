@@ -26,17 +26,17 @@ nicht Debian benutzen, an einer äquivalenten Stelle) folgende Zeilen ein,
 um weitere JVM-Startoptionen zu setzen. Die erste setzen Sie bitte in
 jedem Fall:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Tomcat Encoding setzen}
 JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
 Die zweite ist Linux-spezifisch, spart aber Zeit u.a. beim Start:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Tomcat /dev/urandom}
 JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
@@ -49,11 +49,11 @@ das schließende \texttt{</Context>}-Tag folgendes Tag ein, um die
  \fi
 für die REST-API verfügbar zu machen:
 
-\begin{lstlisting}[language=XML]
+\begin{lstdump}[language=XML]{Tomcat VWOR JDBC}
 <Resource name="jdbc/vwonlinereg" auth="Container" type="javax.sql.DataSource"
  driverClassName="org.postgresql.Driver" username="veraweb" password="veraweb"
  url="jdbc:postgresql://localhost:5432/veraweb" maxActive="8" maxIdle="4" />
-\end{lstlisting}
+\end{lstdump}
 
 Ersetzen Sie jeweils für „veraweb“ den Benutzernamen, das Paßwort und den
 Datenbanknamen, die Sie verwendet haben, falls Sie von den Standardvorgaben
@@ -71,8 +71,8 @@ das schließende \texttt{</tomcat-users>}-Tag folgende Tags ein, setzen dabei
 aber die von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
 \ref{subsec:intro-restapi} ein:
 
-\begin{lstlisting}[language=XML]
+\begin{lstdump}[language=XML]{Tomcat VWOR Auth}
 <role rolename="veraweb" />
 <user roles="veraweb" username="veraweb" password="veraweb" />
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}

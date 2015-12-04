@@ -72,10 +72,10 @@ Auf einem Debian 7 „wheezy“-System können Sie den Datenbankserver,
 die Java™-Laufzeitumgebung, den Applikationsserver und den Webserver
 wie folgt lokal installieren:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Pakete installieren}
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
     apache2-mpm-prefork apache2 libapache2-mod-jk
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
@@ -83,11 +83,12 @@ Bitte achten Sie darauf, daß keine ältere Version des JDK verwendet
 wird (hier werden die in „wheezy“ vorhandenen älteren Versionen
 deinstalliert):
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{altes Java entfernen}
 sudo apt-get purge openjdk-6-jre-headless gcj-4.6-jdk gcj-4.7-jdk
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
+\hypertarget{manual:distro}{}
 Zur Installation müssen Sie folgende Dateien („die VerA.web-core
 Distribution“) von tarent beziehen:
 

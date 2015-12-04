@@ -39,11 +39,11 @@ Bilddateien speichern wollen (wir empfehlen ein Unterverzeichnis,
 sodaß es später möglich ist, weitere Strukturen aufzubauen), und
 machen Sie es für den Tomcat-Nutzer schreibbar:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Uploaded anlegen}
 sudo mkdir -p /var/lib/veraweb/uploaded
 sudo chgrp tomcat7 /var/lib/veraweb/uploaded
 sudo chmod 2770 /var/lib/veraweb/uploaded
-\end{lstlisting}
+\end{lstdump}
 
 Falls Sie ein anderes Verzeichnis als das obige verwenden passen
 Sie bitte die Eigenschaft \texttt{filesLocation} in der Datei

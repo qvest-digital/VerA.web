@@ -28,10 +28,10 @@ in \texttt{vwor.war} um. Entpacken Sie die Datei
 \texttt{.zip}) und wechseln Sie in das angelegte neue Verzeichnis
 (im Beispiel wird die Unix-Variante mit \texttt{.tgz} verwendet):
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Entpacken}
 mv veraweb-core-〈\vwiaverssw{}〉.war veraweb.war
 mv rest-api-〈\vwiaverssw{}〉.war vwor.war
 tar -xzf veraweb-core-〈\vwiaverssw{}〉-files.tgz
 cd veraweb-core-〈\vwiaverssw{}〉
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}

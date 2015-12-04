@@ -36,11 +36,11 @@ Legen Sie ein neues Verzeichnis \texttt{/etc/veraweb} mit einem
 Unterverzeichnis \texttt{l10n} an und kopieren Sie die Konfigurations-
 und Sprachdateien dorthin:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{/etc/veraweb fuellen}
 sudo mkdir -p /etc/veraweb/l10n
 sudo install -c -o 0 -g 0 -m 644 *.properties /etc/veraweb/
 sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 Die weiteren Dateien werden im folgenden verwendet. Falls Sie möchten
@@ -70,9 +70,9 @@ benutzen zu können. Dies sind insbesondere die folgenden Parameter:
 \begin{minipage}{\textwidth}
 Danach installieren Sie die angepaßte Konfigurationsdatei:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{config_ldap_access.xml installieren}
 sudo install -c -o 0 -g 0 -m 644 config_ldap_access.xml /etc/veraweb/
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 Hiermit ist die LDAP-Konfiguration abgeschlossen.
@@ -93,10 +93,10 @@ ebenfalls einen solchen Zugang einrichten). Diese benötigen wir später.
 \begin{minipage}{\textwidth}
 Legen Sie zunächst den Datenbankbenutzer und die Datenbank an:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{DB erstellen}
 sudo -u postgres createuser -D -P -R -S veraweb
 sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
@@ -105,19 +105,19 @@ anderweitig von den Standardvorgaben (lokale PostgreSQL, Standardport 5432,
 Datenbankname \texttt{veraweb}, Datenbankbenutzer \texttt{veraweb}) müssen
 Sie noch eine Konfigurationsdatei anpassen. Entpacken Sie diese zunächst:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{config_database_pools.xml entpacken}
 unzip -j ../veraweb.war OCTOPUS/config_database_pools.xml
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
 Bearbeiten Sie danach die Datei \texttt{config\_database\_pools.xml} und
 installieren Sie sie schließlich nach \texttt{/etc/veraweb}:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{config_database_pools.xml installieren}
 $EDITOR config_database_pools.xml
 sudo install -c -o 0 -g 0 -m 644 config_database_pools.xml /etc/veraweb/
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 Nun können Sie das Datenbankschema anlegen und die Stammdaten importieren.
@@ -128,9 +128,9 @@ lediglich einen Minimalsatz zu laden (\texttt{stammdaten-colours.sql} statt
 \begin{minipage}{\textwidth}
 Loggen Sie sich zunächst auf der Datenbank ein:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{DB Login}
 psql -U veraweb -h 127.0.0.1 -W veraweb
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 Falls Sie andere Werte für Datenbankserver, Port, Benutzer oder Datenbankname
@@ -139,11 +139,11 @@ verwenden müssen Sie diese hier selbstverständlich anpassen.
 \begin{minipage}{\textwidth}
 Dann setzen Sie folgende SQL-Kommandos ab:
 
-\begin{lstlisting}[language=SQL]
+\begin{lstdump}[language=SQL]{DB Schema Init Beginn}
 \i schema.sql
 SELECT serv_verawebschema(1);
 \i stammdaten-full.sql
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
@@ -151,10 +151,10 @@ Danach müssen Sie diejenigen LDAP-Benutzer, die initial als Administratoren
 agieren sollen, bekanntgeben. Setzen Sie hierzu für jeden Benutzer eine
 Zeile entsprechend der folgenden ab (\texttt{vnnnnn} sei das LDAP-Kürzel):
 
-\begin{lstlisting}[language=SQL]
+\begin{lstdump}[language=SQL]{DB Admin-User anlegen}
 INSERT INTO veraweb.tuser (fk_orgunit, username, role)
     VALUES (NULL, 'vnnnnn', 5);
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
@@ -162,11 +162,11 @@ Schließlich müssen einige Sequenzen initialisiert und das Datenbankschema
 auf die jeweils aktuelle Version aktualisiert werden; danach können Sie
 den \texttt{psql}-Client wieder verlassen:
 
-\begin{lstlisting}[language=SQL]
+\begin{lstdump}[language=SQL]{DB Schema Init Ende}
 SELECT veraweb.serv_build_sequences();
 \i upgrade.sql
 \q
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 Damit ist die Einrichtung der Datenbank abgeschlossen.
@@ -178,18 +178,18 @@ Aktivieren Sie zunächst das \texttt{jk}-Modul, welches benutzt wird,
 um vermittels des AJP-Protokolls Anfragen an den Webserver an Tomcat
 durchzureichen:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{a2enmod jk}
 sudo a2enmod jk
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
 Dann tragen Sie folgende Zeilen in die vhost-Konfiguration ein:
 
-\begin{lstlisting}
+\begin{lstdump}{AJP workers}
 JkMount /veraweb* ajp13_worker
 JkMount /vwor* ajp13_worker
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 Diese Zeilen sollte z.B. in der mitgelieferten Standardkonfiguration
@@ -206,26 +206,26 @@ Ihres Servers (FQDN) ein.
 \begin{minipage}{\textwidth}
 In \texttt{/etc/apache2/sites-available/default-ssl} (HTTPS):
 
-\begin{lstlisting}
+\begin{lstdump}{Redirect von /}
 RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/veraweb/
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
 Desweiteren \texttt{/etc/apache2/sites-available/default} (HTTP):
 
-\begin{lstlisting}
+\begin{lstdump}{Redirect HTTP -> HTTPS}
 RedirectMatch 301 . https://veraweb.lan.tarent.de/veraweb/
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
 Abschließend starten Sie bitte den Webserver neu:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Apache neustarten}
 sudo service apache2 stop
 sudo service apache2 start
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 Ein Aufruf von z.B. \texttt{https://veraweb.lan.tarent.de/veraweb/} sollte
@@ -246,10 +246,10 @@ des Webservers zu sehen sein.
 \begin{minipage}{\textwidth}
 Deployen Sie die VerA.web-Anwendung und die REST-API in den Applikationsserver:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Tomcat deploy}
 sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
 sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 Nun können Sie bereits über \texttt{http://localhost:8080/veraweb/} auf
@@ -260,9 +260,9 @@ in \texttt{/var/log/tomcat7/catalina.out} auftauchende Meldungen.
 \begin{minipage}{\textwidth}
 Stoppen Sie bitte nun den Applikationsserver:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Tomcat stop}
 sudo service tomcat7 stop
-\end{lstlisting}
+\end{lstdump}
 
 Bitte beachten Sie, daß der Tomcat-Dienst ggfs. noch einige Sekunden
 weiterläuft, nachdem der Stop-Befehl abgeschickt wurde; im Zweifelsfalls
@@ -275,27 +275,27 @@ von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
 (eine einfache Suche nach „8080“ findet ihn) und kommentieren ihn aus,
 indem Sie davor \texttt{<!-{}-} und dahinter \texttt{-{}->} schreiben:
 
-\begin{lstlisting}[language=XML]
+\begin{lstdump}[language=XML]{Tomcat HTTP-Connector}
 <Connector port="8080" protocol="HTTP/1.1"
            connectionTimeout="20000"
            URIEncoding="UTF-8"
            redirectPort="8443" />
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
 Dann suchen Sie folgenden auskommentierten Abschnitt (ca. 20 Zeilen weiter):
 
-\begin{lstlisting}[language=XML]
+\begin{lstdump}[language=XML]{Tomcat AJP-Connector orig}
 <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
-\end{lstlisting}
+\end{lstdump}
 
 Entfernen Sie hier die Kommentarzeichen und fügen Sie ein weiteres Attribut
 hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
 
-\begin{lstlisting}[language=XML]
+\begin{lstdump}[language=XML]{Tomcat AJP-Connector wanted}
 <Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 Bitte beachten Sie, daß Sie den Tomcat-Anwendungsserver auch neustarten
@@ -306,9 +306,9 @@ aktiv werden, da sonst die REST-API nicht einsatzbereit ist.
 \begin{minipage}{\textwidth}
 Nun können Sie den Server wieder starten:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Tomcat start}
 sudo service tomcat7 start
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 Jetzt können Sie z.B. über \texttt{https://veraweb.lan.tarent.de/veraweb/}
@@ -318,8 +318,8 @@ auf das Veranstaltungsmanagement zugreifen und sich einloggen.
 Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
 mehr; diese können nun entfernt werden:
 
-\begin{lstlisting}[language=sh]
+\begin{lstdump}[language=sh]{Aufraeumen}
 cd ..
 rm -rf veraweb-core-〈\vwiaverssw{}〉* veraweb.war vwor.war
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
