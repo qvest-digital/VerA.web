@@ -178,9 +178,9 @@ Aktivieren Sie zunächst das \texttt{jk}-Modul, welches benutzt wird,
 um vermittels des AJP-Protokolls Anfragen an den Webserver an Tomcat
 durchzureichen:
 
-\begin{lstdump}[language=sh]{a2enmod jk}
+\begin{lstdumpx}[language=sh]
 sudo a2enmod jk
-\end{lstdump}
+\end{lstdumpx}
 \end{minipage}
 
 \begin{minipage}{\textwidth}

@@ -125,6 +125,19 @@
 	 \immediate\write\lst@WF{}%
 	 \endgroup%
 	}
+\lstnewenvironment{lstdumpx}[2][]
+	{\lst@TestEOLChar{#2}%
+	 \lstset{#1}%
+	 \stepcounter{lstdumps}%
+	 \renewcommand{\lstdumpname}{ [unnamed]}%
+	 \lst@BeginAlsoWriteFile{\jobname.lst}%
+	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
+	}
+	{
+	 \immediate\write\lst@WF{-----END LISTING \thelstdumps\lstdumpname-----}%
+	 \immediate\write\lst@WF{}%
+	 \endgroup%
+	}
 
 \lstset{
 	backgroundcolor=\color{tarentgrau},
