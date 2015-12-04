@@ -20,7 +20,7 @@
 
 \documentclass{tarentanleitung}
 \usepackage{tikz}
-\usetikzlibrary{arrows,backgrounds,fit}
+\usetikzlibrary{arrows,backgrounds,fit,positioning,shapes}
 \begin{document}
 
 \input{version.inc}
@@ -37,13 +37,13 @@
 \begin{tikzpicture}[
   every node/.style={thick,text=black},
   every rectangle node/.style={above right,minimum height=10mm},
-  apache/.style={rectangle,draw=Goldenrod,minimum width=35mm},
+  apache/.style={rectangle,draw=Dandelion,minimum width=35mm},
   microsvc/.style={rectangle,draw=Orange,minimum width=40mm},
   webapp/.style={rectangle,draw=red,minimum width=40mm},
   syssvc/.style={rectangle,draw=Violet,minimum width=25mm},
   script/.style={rectangle,draw=black,minimum width=25mm},
   people/.style={rectangle,draw=CornflowerBlue,minimum width=25mm},
-  cloud/.style={circle,draw=green,minimum size=5mm},
+  acloud/.style={cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
  ]
 
   \node[apache]   (alam)   at ( 90mm,85mm) {LDAP Account Mgr};
@@ -63,8 +63,8 @@
   \node[script]   (riosh)  at (140mm,10mm) {register-into-osiam.sh};
   \node[people]   (admins) at (140mm,85mm) {Admins};
   \node[people]   (sb)     at (140mm,70mm) {Sachbearbeiter};
-  \node[people]   (guests) at (140mm,40mm) {Gäste};
-  \node[cloud]    (inet)   at (132.5mm,47.5mm) {};
+  \node[people]   (guests) at (158mm,40mm) {Gäste} [minimum width=15mm];
+  \node[acloud]   (inet)   at (137mm,42mm) {};
 
 
 \end{tikzpicture}
