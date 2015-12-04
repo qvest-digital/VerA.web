@@ -115,6 +115,7 @@
 \lstnewenvironment{lstdump}[3][]
 	{\lst@TestEOLChar{#3}%
 	 \lstset{#1}%
+	 \csname\@lst @SetFirstNumber\endcsname%
 	 \stepcounter{lstdumps}%
 	 \renewcommand{\lstdumpname}{ (#2)}%
 	 \lst@BeginAlsoWriteFile{\jobname.lst}%
@@ -124,10 +125,12 @@
 	 \immediate\write\lst@WF{-----END LISTING \thelstdumps\lstdumpname-----}%
 	 \immediate\write\lst@WF{}%
 	 \endgroup%
+	 \csname\@lst @SaveFirstNumber\endcsname%
 	}
 \lstnewenvironment{lstdumpx}[2][]
 	{\lst@TestEOLChar{#2}%
 	 \lstset{#1}%
+	 \csname\@lst @SetFirstNumber\endcsname%
 	 \stepcounter{lstdumps}%
 	 \renewcommand{\lstdumpname}{ [unnamed]}%
 	 \lst@BeginAlsoWriteFile{\jobname.lst}%
@@ -137,6 +140,7 @@
 	 \immediate\write\lst@WF{-----END LISTING \thelstdumps\lstdumpname-----}%
 	 \immediate\write\lst@WF{}%
 	 \endgroup%
+	 \csname\@lst @SaveFirstNumber\endcsname%
 	}
 
 \lstset{
