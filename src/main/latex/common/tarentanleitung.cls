@@ -32,10 +32,9 @@
 
 \RequirePackage{tarentstyle}
 
+%XXX always (before hyperref), plus conflicts with scrartcl
 \usepackage{fancyhdr}
-\usepackage{lastpage}
-\usepackage{calc}
-\usepackage{ifthen}
+
 \newlength{\myheight}
 \pagestyle{fancy}
 \fancyhf{}
