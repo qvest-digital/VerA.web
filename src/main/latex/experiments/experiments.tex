@@ -236,4 +236,18 @@ sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
 \end{lstlisting}
 \end{minipage}
 
+\section{Nicht-ASCII-Zeichen in Listings}
+
+\begin{minipage}{\textwidth}
+Ein minimaler – deutsche Umlaute, sonstige häufige Zeichen – Test:
+
+\begin{lstlisting}[language=sh]
+# © 2015 “mirabilos”™ -- tarent §1 20°
+echo 'Ah nah, "dummlicher" FuB. Uberdem droge Arbeit. Teste: |'
+echo 'Äh näh, „dümmlicher“ Fuß. Überdem dröge Arbeit. Teste: |'
+echo 'oO0 Il1 – ‘`’ ist doof. Öh… mach’ halt mal. Alignment: |'
+echo "oO0 Il1 - '`' ist doof. Oh. mach' halt mal. Alignment: |"
+\end{lstlisting}
+\end{minipage}
+
 \end{document}
