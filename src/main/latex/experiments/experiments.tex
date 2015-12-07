@@ -37,13 +37,14 @@
 \begin{tikzpicture}[
   >=stealth',
   every node/.style={thick,text=black},
-  every rectangle node/.style={above right,minimum height=10mm},
-  apache/.style={rectangle,draw=Dandelion,minimum width=35mm},
-  microsvc/.style={rectangle,draw=Orange,minimum width=32mm},
-  webapp/.style={rectangle,draw=red,minimum width=32mm},
-  syssvc/.style={rectangle,draw=Violet,minimum width=25mm},
-  script/.style={rectangle,draw=black,minimum width=25mm},
-  people/.style={rectangle,draw=CornflowerBlue,minimum width=12mm},
+  every rectangle node/.style={minimum height=10mm},
+  apache/.style={above right,rectangle,draw=Dandelion,minimum width=35mm},
+  microsvc/.style={above right,rectangle,draw=Orange,minimum width=32mm},
+  webapp/.style={above right,rectangle,draw=red,minimum width=32mm},
+  syssvc/.style={above right,rectangle,draw=Violet,minimum width=25mm},
+  scrptr/.style={above right,rectangle,draw=black,minimum width=25mm},
+  scrptl/.style={above left,rectangle,draw=black,minimum width=25mm},
+  people/.style={above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
   acloud/.style={cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
  ]
 
@@ -62,16 +63,16 @@
   \node[syssvc]   (ldap)   at (  5mm,99mm) {LDAP-Server};
   \node[syssvc]   (dbvw)   at (  5mm,53mm) {veraweb DB};
   \node[syssvc]   (dbong)  at (  5mm,19mm) {ong DB};
-  \node[script]   (usql)   at (  5mm,38mm) {upgrade.sql};
-  \node[script]   (riosh)  at (130mm,19mm) {register-into-osiam.sh};
-  \node[people]   (admins) at (130mm,99mm) {Admins};
-  \node[people]   (sb)     at (130mm,82mm) {Sachbearbeiter};
-  \node[people]   (guests) at (155mm,46mm) {Gäste};
+  \node[scrptr]   (usql)   at (  5mm,38mm) {upgrade.sql};
+  \node[scrptl]   (riosh)  at (168mm,19mm) {register-into-osiam.sh};
+  \node[people]   (admins) at (168mm,99mm) {Admins};
+  \node[people]   (sb)     at (168mm,82mm) {Sachbearbeiter};
+  \node[people]   (guests) at (168mm,46mm) {Gäste};
   \node[acloud]   (inet)   at (130mm,48mm) {};
 
   \draw[thick,->] (admins) -- ([yshift=3mm]alam);
   \draw[thick,->] (alam) -- (ldap);
-  \draw[thick,->] ([yshift=-3mm]admins) -| +(-15mm,0mm) |- ([yshift=3mm]acore);
+  \draw[thick,->] ([yshift=-6mm]admins) -| +(-32mm,0mm) |- ([yshift=3mm]acore);
   \draw[thick,->] (acore) -- (score);
   \draw[thick,->] ([yshift=3mm]score) -| (ldap);
   \draw[thick,->] (sb) -- (acore);
