@@ -39,59 +39,59 @@
   every node/.style={thick,text=black},
   every rectangle node/.style={above right,minimum height=10mm},
   apache/.style={rectangle,draw=Dandelion,minimum width=35mm},
-  microsvc/.style={rectangle,draw=Orange,minimum width=40mm},
-  webapp/.style={rectangle,draw=red,minimum width=40mm},
+  microsvc/.style={rectangle,draw=Orange,minimum width=32mm},
+  webapp/.style={rectangle,draw=red,minimum width=32mm},
   syssvc/.style={rectangle,draw=Violet,minimum width=25mm},
   script/.style={rectangle,draw=black,minimum width=25mm},
-  people/.style={rectangle,draw=CornflowerBlue,minimum width=25mm},
+  people/.style={rectangle,draw=CornflowerBlue,minimum width=12mm},
   acloud/.style={cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
  ]
 
   \draw (0mm,0mm) -- (0mm,120mm) -- (175mm,120mm) -- (175mm,0mm) -- (0mm,0mm);
 
-  \node[apache]   (alam)   at ( 90mm,85mm) {LDAP Account Mgr};
-  \node[apache]   (acore)  at ( 90mm,70mm) {VerA.web-core};
-  \node[apache]   (avwor)  at ( 90mm,55mm) {REST-API};
-  \node[apache]   (avwoa)  at ( 90mm,40mm) {Online-Anmeldung};
-  \node[apache]   (aosiam) at ( 90mm,10mm) {OSIAM} [minimum height=25mm];
-  \node[microsvc] (svwoa)  at ( 40mm,40mm) {VWOA};
-  \node[webapp]   (score)  at ( 40mm,70mm) {core};
-  \node[webapp]   (svwor)  at ( 40mm,55mm) {VWOR};
-  \node[webapp]   (sauth)  at ( 40mm,25mm) {auth-server};
+  \node[apache]   (alam)   at ( 80mm,99mm) {LDAP Account Mgr};
+  \node[apache]   (acore)  at ( 80mm,82mm) {VerA.web-core};
+  \node[apache]   (avwor)  at ( 80mm,64mm) {REST-API};
+  \node[apache]   (avwoa)  at ( 80mm,46mm) {Online-Anmeldung};
+  \node[apache]   (aosiam) at ( 80mm,19mm) {OSIAM};
+  \node[microsvc] (svwoa)  at ( 40mm,46mm) {VWOA};
+  \node[webapp]   (score)  at ( 40mm,82mm) {core};
+  \node[webapp]   (svwor)  at ( 40mm,64mm) {VWOR};
+  \node[webapp]   (sauth)  at ( 40mm,28mm) {auth-server};
   \node[webapp]   (srsrc)  at ( 40mm,10mm) {resource-server};
-  \node[syssvc]   (ldap)   at (  5mm,85mm) {LDAP-Server};
-  \node[syssvc]   (dbvw)   at (  5mm,65mm) {veraweb DB};
-  \node[syssvc]   (dbong)  at (  5mm,20mm) {ong DB};
-  \node[script]   (usql)   at (  5mm,50mm) {upgrade.sql};
-  \node[script]   (riosh)  at (140mm,10mm) {register-into-osiam.sh};
-  \node[people]   (admins) at (140mm,85mm) {Admins};
-  \node[people]   (sb)     at (140mm,70mm) {Sachbearbeiter};
-  \node[people]   (guests) at (158mm,40mm) {Gäste} [minimum width=15mm];
-  \node[acloud]   (inet)   at (137mm,42mm) {};
+  \node[syssvc]   (ldap)   at (  5mm,99mm) {LDAP-Server};
+  \node[syssvc]   (dbvw)   at (  5mm,53mm) {veraweb DB};
+  \node[syssvc]   (dbong)  at (  5mm,19mm) {ong DB};
+  \node[script]   (usql)   at (  5mm,38mm) {upgrade.sql};
+  \node[script]   (riosh)  at (130mm,19mm) {register-into-osiam.sh};
+  \node[people]   (admins) at (130mm,99mm) {Admins};
+  \node[people]   (sb)     at (130mm,82mm) {Sachbearbeiter};
+  \node[people]   (guests) at (155mm,46mm) {Gäste};
+  \node[acloud]   (inet)   at (130mm,48mm) {};
 
-  \draw[thick,->] (admins) -- (alam);
+  \draw[thick,->] (admins) -- ([yshift=3mm]alam);
   \draw[thick,->] (alam) -- (ldap);
-  \draw[thick,->] (admins) |- +(-2cm,-7.5mm) -| (acore);
+  \draw[thick,->] ([yshift=-3mm]admins) -| +(-15mm,0mm) |- ([yshift=3mm]acore);
   \draw[thick,->] (acore) -- (score);
-  \draw[thick,->] (score) |- +(-2.5cm,7.5mm) -| (ldap);
+  \draw[thick,->] ([yshift=3mm]score) -| (ldap);
   \draw[thick,->] (sb) -- (acore);
-  \draw[thick,->] (score) -| +(-2.5cm,3mm) -| (dbvw);
-  \draw[thick,->] ([xshift=4mm]score) |- ++(12.2cm,-6mm) |- ++(-2cm,-4cm) -| ([xshift=4mm]aosiam);
-  \draw[thick,->] (score) |- +(2.5cm,-7.5mm) -| (avwor);
+  \draw[thick,->] ([yshift=-3mm]score) -| (dbvw);
+  \draw[thick,->] ([xshift=4mm]score) |- ++(112mm,-8mm) |- ++(-20mm,-38mm) -| ([xshift=6mm]aosiam);
+  \draw[thick,->] (score) |- +(25mm,-10mm) -| (avwor);
   \draw[thick,->] (guests) -- (inet);
   \draw[thick,->] (inet) -- (avwoa);
   \draw[thick,->] (avwoa) -- (svwoa);
-  \draw[thick,->] (svwoa) |- +(2.5cm,7.5mm) -| (avwor);
+  \draw[thick,->] (svwoa) |- +(25mm,9mm) -| (avwor);
   \draw[thick,->] (avwor) -- (svwor);
-  \draw[thick,->] (svwor) -| +(-2.5cm,5mm) |- (dbvw);
+  \draw[thick,->] (svwor) -| ([xshift=6mm]dbvw);
   \draw[thick,->] (usql) -- (dbvw);
-  \draw[thick,<->] ([xshift=-4mm]aosiam) |- +(-2.5cm,7.5mm) -| (sauth);
-  \draw[thick,<->] (aosiam) -- (srsrc);
-  \draw[thick,->] (sauth) -| +(-2.5cm,3mm) -| (dbong);
-  \draw[thick,->] (srsrc) -| ([xshift=2mm]dbong);
-  \draw[thick,->] (riosh) -- +(0mm,-7.5mm) -| ([xshift=-2mm]dbong);
+  \draw[thick,<->] ([yshift=3mm]aosiam) -| (sauth);
+  \draw[thick,<->] ([yshift=-3mm]aosiam) -| (srsrc);
+  \draw[thick,->] (sauth) -| (dbong);
+  \draw[thick,->] (srsrc) -| ([xshift=3mm]dbong);
+  \draw[thick,->] (riosh) -- +(0mm,-17mm) -| ([xshift=-3mm]dbong);
   \draw[thick,->] (riosh) -- (aosiam);
-  \draw[thick,->] (svwoa) |- +(2.5cm,-7.5mm) -| (aosiam);
+  \draw[thick,->] (svwoa) |- +(20mm,-10mm) -| (aosiam);
 
 \end{tikzpicture}
 
