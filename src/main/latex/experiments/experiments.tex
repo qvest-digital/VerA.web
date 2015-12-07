@@ -69,29 +69,27 @@
 
   \draw[thick,->] (admins) -- (alam);
   \draw[thick,->] (alam) -- (ldap);
-  \draw[thick,->] (admins) -- (acore);
+  \draw[thick,->] (admins) |- +(-2cm,-7.5mm) -| (acore);
   \draw[thick,->] (acore) -- (score);
-  \draw[thick,->] (score) -- (ldap);
+  \draw[thick,->] (score) |- +(-2.5cm,7.5mm) -| (ldap);
   \draw[thick,->] (sb) -- (acore);
-  \draw[thick,->] (score) -- (dbvw);
-  \draw[thick,->] (score) -- (aosiam);
-  \draw[thick,->] (score) -- (avwor);
+  \draw[thick,->] (score) -| +(-2.5cm,3mm) -| (dbvw);
+  \draw[thick,->] ([xshift=4mm]score) |- ++(12.2cm,-6mm) |- ++(-2cm,-4cm) -| ([xshift=4mm]aosiam);
+  \draw[thick,->] (score) |- +(2.5cm,-7.5mm) -| (avwor);
   \draw[thick,->] (guests) -- (inet);
   \draw[thick,->] (inet) -- (avwoa);
   \draw[thick,->] (avwoa) -- (svwoa);
-  \draw[thick,->] (svwoa) -- (avwor);
+  \draw[thick,->] (svwoa) |- +(2.5cm,7.5mm) -| (avwor);
   \draw[thick,->] (avwor) -- (svwor);
-  \draw[thick,->] (svwor) -- (dbvw);
+  \draw[thick,->] (svwor) -| +(-2.5cm,5mm) |- (dbvw);
   \draw[thick,->] (usql) -- (dbvw);
-  \draw[thick,->] (aosiam) -- (sauth);
-  \draw[thick,->] (aosiam) -- (srsrc);
-  \draw[thick,->] (sauth) -- (dbong);
-  \draw[thick,->] (srsrc) -- (dbong);
-  \draw[thick,->] (riosh) -- (dbong);
-  \draw[thick,->] (sauth) -- (aosiam);
-  \draw[thick,->] (srsrc) -- (aosiam);
+  \draw[thick,<->] ([xshift=-4mm]aosiam) |- +(-2.5cm,7.5mm) -| (sauth);
+  \draw[thick,<->] (aosiam) -- (srsrc);
+  \draw[thick,->] (sauth) -| +(-2.5cm,3mm) -| (dbong);
+  \draw[thick,->] (srsrc) -| ([xshift=2mm]dbong);
+  \draw[thick,->] (riosh) -- +(0mm,-7.5mm) -| ([xshift=-2mm]dbong);
   \draw[thick,->] (riosh) -- (aosiam);
-  \draw[thick,->] (svwoa) -- (aosiam);
+  \draw[thick,->] (svwoa) |- +(2.5cm,-7.5mm) -| (aosiam);
 
 \end{tikzpicture}
 
