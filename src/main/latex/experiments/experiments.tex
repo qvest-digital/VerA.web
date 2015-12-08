@@ -34,6 +34,8 @@
 
 \subsection{tikz/pgf}
 
+\begin{minipage}{\textwidth}
+
 \begin{tikzpicture}[
   >=stealth',
   every node/.style={thick,text=black,fill=white,drop shadow},
@@ -48,7 +50,7 @@
   acloud/.style={cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
  ]
 
-  \draw (0mm,0mm) -- (0mm,120mm) -- (175mm,120mm) -- (175mm,0mm) -- (0mm,0mm);
+% \draw (0mm,0mm) -- (0mm,120mm) -- (175mm,120mm) -- (175mm,0mm) -- (0mm,0mm);
 
   \fill[red!20] (3mm,3mm) -- (170mm,3mm) -- (170mm,40mm) -- (37mm,40mm) -- (37mm,34mm) -- (3mm,34mm);
   \fill[yellow!40] (37mm,43mm) -- (122mm,43mm) -- (122mm,58mm) -- (37mm,58mm);
@@ -101,27 +103,40 @@
 
 \end{tikzpicture}
 
-\begin{tabu} to \linewidth {rl}
-\rowfont\bfseries\multicolumn{2}{c}{Legende}\\
- Erste Spalte: & \tikz \node[thick,rectangle,draw=Violet] {};
-		 PostgreSQL-Datenbank;
-		 \tikz \node[thick,rectangle,draw=black] {};
-		 Skript (Installation/Upgrade)\\
-Zweite Spalte: & \tikz \node[thick,rectangle,draw=red] {};
-		 Webservice (WAR) in Tomcat;
-		 \tikz \node[thick,rectangle,draw=Orange] {};
-		 Microservice (JAR)\\
-Dritte Spalte: & \tikz \node[thick,rectangle,draw=Dandelion] {};
-		 Apache Webserver (SSL, mod\_jk oder mod\_proxy\_http)\\
-Vierte Spalte: & \tikz \node[thick,rectangle,draw=CornflowerBlue] {};
-		 Nutzergruppe (per Webbrowser);
-		 \tikz \node[thick,rectangle,draw=black] {};
-		 Skript (Installation/Upgrade)\\
- Schattierung: & \tikz \node[rectangle,fill=red!20] {}; OSIAM;
-		 \tikz \node[rectangle,fill=yellow!40] {}; Online-Anmeldung;
-		 \tikz \node[rectangle,fill=green!20] {}; VerA.web core;
-		 \tikz \node[rectangle,fill=blue!20] {}; LDAP\\
+\vspace{0.3cm}
+
+\begin{tabu} to \linewidth {rllll}
+\rowfont\bfseries\multicolumn{5}{c}{Legende}\\[0.2cm]
+ Erste Spalte: & \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=Violet] {};
+			PostgreSQL-Datenbank} &
+		 \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=black] {};
+			Skript (Installation/Upgrade)}\\
+Zweite Spalte: & \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=red] {};
+			Webservice (WAR) in Tomcat} &
+		 \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=Orange] {};
+			Microservice (JAR)}\\
+Dritte Spalte: & \multicolumn{4}{l}{%
+			\tikz \node[thick,rectangle,draw=Dandelion] {};
+			 Apache Webserver (SSL, mod\_jk oder mod\_proxy\_http)}\\
+Vierte Spalte: & \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=CornflowerBlue] {};
+			 Nutzergruppe (per Webbrowser)} &
+		 \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=black] {};
+			Skript (Installation/Upgrade)}\\
+ Schattierung: & \tikz \node[rectangle,fill=red!30] {}; OSIAM &
+		 \tikz \node[rectangle,fill=yellow!60] {}; Online-Anmeldung &
+		 \tikz \node[rectangle,fill=green!30] {}; VerA.web core &
+		 \tikz \node[rectangle,fill=blue!30] {}; LDAP\\
+\multicolumn{5}{l}{\footnotesize Zugang für Gäste durch das Internet (Wolke);
+		   Administratoren und Sachbearbeiter via Intranet/DMZ/VPN}\\
 \end{tabu}
+
+\end{minipage}
 
 \subsection{Seitenbreite}
 
