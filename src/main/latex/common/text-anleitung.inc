@@ -22,6 +22,25 @@
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
 
+\ifupgradeanleitung
+ \ifoa
+  \newcommand{\vwianame}{Upgradeanleitung VerA.web-full}
+ \else% ifupgradeanleitung !ifoa
+  \newcommand{\vwianame}{Upgradeanleitung VerA.web-core}
+ \fi% ifupgradeanleitung !ifoa
+\else% !ifupgradeanleitung
+ \ifoa
+  \newcommand{\vwianame}{Installationsanleitung VerA.web-full}
+ \else% !ifupgradeanleitung !ifoa
+  \newcommand{\vwianame}{Installationsanleitung VerA.web-core}
+ \fi% !ifupgradeanleitung !ifoa
+\fi% !ifupgradeanleitung
+
+\tarentanleitung{\vwianame}{\vwiaverssw}
+ {\vwiaversfassungnr}{\vwiaversfassungmonat}{\vwiaversfassungjahr}{veraweblogo}
+
+\input{toc.inc}
+
 \section{Einleitung}\label{sec:intro}
 
 „VerA.web“ steht für Veranstaltungs- und Adreßverwaltung im „web“ (Internet).
