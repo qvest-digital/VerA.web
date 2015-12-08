@@ -101,6 +101,28 @@
 
 \end{tikzpicture}
 
+\begin{tabu} to \linewidth {rl}
+\rowfont\bfseries\multicolumn{2}{c}{Legende}\\
+ Erste Spalte: & \tikz \node[thick,rectangle,draw=Violet] {};
+		 PostgreSQL-Datenbank;
+		 \tikz \node[thick,rectangle,draw=black] {};
+		 Skript (Installation/Upgrade)\\
+Zweite Spalte: & \tikz \node[thick,rectangle,draw=red] {};
+		 Webservice (WAR) in Tomcat;
+		 \tikz \node[thick,rectangle,draw=Orange] {};
+		 Microservice (JAR)\\
+Dritte Spalte: & \tikz \node[thick,rectangle,draw=Dandelion] {};
+		 Apache Webserver (SSL, mod\_jk oder mod\_proxy\_http)\\
+Vierte Spalte: & \tikz \node[thick,rectangle,draw=CornflowerBlue] {};
+		 Nutzergruppe (per Webbrowser);
+		 \tikz \node[thick,rectangle,draw=black] {};
+		 Skript (Installation/Upgrade)\\
+ Schattierung: & \tikz \node[rectangle,fill=red!20] {}; OSIAM;
+		 \tikz \node[rectangle,fill=yellow!40] {}; Online-Anmeldung;
+		 \tikz \node[rectangle,fill=green!20] {}; VerA.web core;
+		 \tikz \node[rectangle,fill=blue!20] {}; LDAP\\
+\end{tabu}
+
 \subsection{Seitenbreite}
 
 Wie breit ist die Seite? % 497.92325pt ~= 175 mm (5 Nullen nach dem Komma)
