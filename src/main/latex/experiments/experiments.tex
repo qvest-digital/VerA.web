@@ -34,6 +34,97 @@
 
 \subsection{tikz/pgf}
 
+Bitte umblättern…
+
+\newpage
+
+\subsubsection{Systemübersicht}
+
+\begin{minipage}{\textwidth}
+
+\begin{tikzpicture}[
+  >=stealth',
+  people/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
+  acloud/.style={thick,text=black,fill=white,drop shadow,cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
+ ]
+
+  \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (3mm,75mm) {LDAP};
+  \node[above right,rectangle,fill=green!20,minimum width=119mm,minimum height=15mm] (web) at (3mm,56mm) {VerA.web Webanwendung};
+  \node[above right,rectangle,fill=yellow!40,minimum width=119mm,minimum height=15mm] (oa) at (3mm,10mm) {VerA.web Online-Anmeldung};
+  \node[above right,rectangle,fill=red!20,minimum width=99mm,minimum height=15mm] (osiam) at (23mm,37mm) {OSIAM};
+
+  \node[people]   (sb)     at (168mm,60mm) {Mitarbeiter};
+  \node[people]   (guests) at (168mm,13mm) {Gäste};
+  \node[acloud]   (inet)   at (130mm,15mm) {};
+
+  \draw[thick,->] (web) -- (ldap);
+  \draw[thick,->] (sb.west) -- (sb-|web.east);
+  \draw[thick,->] (web.south) -- (web|-osiam.north);
+  \draw[thick,->] (guests) -- (inet);
+  \draw[thick,->] (inet) -- (oa);
+  \draw[thick,->] ([xshift=-5cm]oa.north) -- ([xshift=-5cm]oa|-web.south);
+  \draw[thick,->] (oa.north) -- (oa|-osiam.south);
+
+  \node[above right,inner sep=0pt] at (140mm,33mm) {internes Netz};
+  \node[below right,inner sep=0pt] at (140mm,31mm) {extern erreichbar};
+  \draw[dashed]   (0mm,32mm) -- (175mm,32mm);
+
+\end{tikzpicture}
+
+\end{minipage}
+
+\subsubsection{Detailübersicht}
+
+\begin{minipage}{\textwidth}
+
+\begin{tikzpicture}[
+  >=stealth',
+  microsvc/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above right,rectangle,draw=Orange,minimum width=76mm},
+  webapp/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above right,rectangle,draw=red,minimum width=76mm},
+  syssvc/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above right,rectangle,draw=Violet,minimum width=25mm},
+  scrptr/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above right,rectangle,draw=black,minimum width=25mm},
+  scrptl/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=black,minimum width=25mm},
+  people/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
+  acloud/.style={thick,text=black,fill=white,drop shadow,cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
+ ]
+
+  \fill[yellow!40] (3mm,33mm) -- (122mm,33mm) -- (122mm,48mm) -- (3mm,48mm);
+  \fill[green!20] (3mm,50mm) -- (122mm,50mm) -- (122mm,94mm) -- (3mm,94mm);
+
+  \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (3mm,96mm) {LDAP};
+  \node[above right,rectangle,fill=red!20,minimum width=169mm,minimum height=15mm] (osiam) at (3mm,10mm) {OSIAM};
+
+  \node[microsvc] (svwoa)  at ( 40mm,36mm) {VerA.web Online-Anmeldung};
+  \node[webapp]   (score)  at ( 40mm,82mm) {VerA.web Webanwendung};
+  \node[webapp]   (svwor)  at ( 40mm,64mm) {VerA.web REST-API};
+  \node[syssvc]   (dbvw)   at (  5mm,53mm) {veraweb DB};
+  \node[people]   (admins) at (168mm,99mm) {Admins};
+  \node[people]   (sb)     at (168mm,82mm) {Sachbearbeiter};
+  \node[people]   (guests) at (168mm,36mm) {Gäste};
+  \node[acloud]   (inet)   at (130mm,38mm) {};
+
+  \draw[thick,->] (admins) -- ([yshift=3mm]ldap);
+  \draw[thick,->] ([yshift=-6mm]admins) -| +(-32mm,0mm) |- ([yshift=3mm]score);
+  \draw[thick,->] ([yshift=3mm]score.west) -| ([xshift=-60mm]ldap);
+  \draw[thick,->] (sb) -- (score);
+  \draw[thick,->] ([yshift=-3mm]score) -| (dbvw);
+  \draw[thick,->] ([xshift=4mm]score) |- ++(89mm,-8mm) |- ++(-20mm,-48mm) -| ([xshift=6mm]osiam);
+  \draw[thick,->] (score.south) -- (score|-svwor.north);
+  \draw[thick,->] (guests) -- (inet);
+  \draw[thick,->] (inet) -- (svwoa);
+  \draw[thick,->] (svwoa) -- (svwor);
+  \draw[thick,->] (svwor) -| ([xshift=6mm]dbvw);
+  \draw[thick,->] (svwoa.south) -- (svwoa|-osiam.north);
+
+\end{tikzpicture}
+
+{\footnotesize Zugang für Gäste via DMZ durch das Internet (Wolke);
+ Administratoren und Sachbearbeiter via Intranet/VPN}
+
+\end{minipage}
+
+\subsubsection{Komponentendiagramm}
+
 \begin{minipage}{\textwidth}
 
 \begin{tikzpicture}[
@@ -132,8 +223,9 @@ Vierte Spalte: & \multicolumn{2}{l}{%
 		 \tikz \node[rectangle,fill=yellow!60] {}; Online-Anmeldung &
 		 \tikz \node[rectangle,fill=green!30] {}; VerA.web core &
 		 \tikz \node[rectangle,fill=blue!30] {}; LDAP\\
-\multicolumn{5}{l}{\footnotesize Zugang für Gäste durch das Internet (Wolke);
-		   Administratoren und Sachbearbeiter via Intranet/DMZ/VPN}\\
+\multicolumn{5}{l}{\footnotesize
+		   Zugang für Gäste via DMZ durch das Internet (Wolke);
+		   Administratoren und Sachbearbeiter via Intranet/VPN}\\
 \end{tabu}
 
 \end{minipage}
