@@ -9,6 +9,12 @@
 			<directory>files</directory>
 			<outputDirectory></outputDirectory>
 		</fileSet>
+		<fileSet>
+			<directory>target/latex</directory>
+			<outputDirectory></outputDirectory>
+			<includes><include>*/*.lst</include></includes>
+			<excludes><exclude>experiments/*.lst</exclude></excludes>
+		</fileSet>
 	</fileSets>
 	<files>
 		<file>
@@ -22,14 +28,6 @@
 		</file>
 		<file>
 			<source>src/main/webapp/doc/Benutzerhandbuch.pdf</source>
-			<outputDirectory></outputDirectory>
-		</file>
-		<file>
-			<source>target/latex/installationsanleitung-core/installationsanleitung-core.lst</source>
-			<outputDirectory></outputDirectory>
-		</file>
-		<file>
-			<source>target/latex/upgradeanleitung-core/upgradeanleitung-core.lst</source>
 			<outputDirectory></outputDirectory>
 		</file>
 	</files>
