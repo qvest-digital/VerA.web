@@ -20,7 +20,7 @@
 
 \documentclass{tarentanleitung}
 \usepackage{tikz}
-\usetikzlibrary{arrows,backgrounds,fit}
+\usetikzlibrary{arrows,backgrounds,fit,positioning,shapes,shadows}
 \begin{document}
 
 \input{version.inc}
@@ -34,40 +34,201 @@
 
 \subsection{tikz/pgf}
 
+Bitte umblättern…
+
+\newpage
+
+\subsubsection{Systemübersicht}
+
+\begin{minipage}{\textwidth}
+
 \begin{tikzpicture}[
-  every node/.style={thick,text=black},
-  every rectangle node/.style={above right,minimum height=10mm},
-  apache/.style={rectangle,draw=Goldenrod,minimum width=35mm},
-  microsvc/.style={rectangle,draw=Orange,minimum width=40mm},
-  webapp/.style={rectangle,draw=red,minimum width=40mm},
-  syssvc/.style={rectangle,draw=Violet,minimum width=25mm},
-  script/.style={rectangle,draw=black,minimum width=25mm},
-  people/.style={rectangle,draw=CornflowerBlue,minimum width=25mm},
-  cloud/.style={circle,draw=green,minimum size=5mm},
+  >=stealth',
+  people/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
+  acloud/.style={thick,text=black,fill=white,drop shadow,cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
  ]
 
-  \node[apache]   (alam)   at ( 90mm,85mm) {LDAP Account Mgr};
-  \node[apache]   (acore)  at ( 90mm,70mm) {VerA.web-core};
-  \node[apache]   (avwor)  at ( 90mm,55mm) {REST-API};
-  \node[apache]   (avwoa)  at ( 90mm,40mm) {Online-Anmeldung};
-  \node[apache]   (aosiam) at ( 90mm,10mm) {OSIAM} [minimum height=25mm];
-  \node[microsvc] (svwoa)  at ( 40mm,40mm) {VWOA};
-  \node[webapp]   (score)  at ( 40mm,70mm) {core};
-  \node[webapp]   (svwor)  at ( 40mm,55mm) {VWOR};
-  \node[webapp]   (sauth)  at ( 40mm,25mm) {auth-server};
-  \node[webapp]   (srsrc)  at ( 40mm,10mm) {resource-server};
-  \node[syssvc]   (ldap)   at (  5mm,85mm) {LDAP-Server};
-  \node[syssvc]   (dbvw)   at (  5mm,65mm) {veraweb DB};
-  \node[syssvc]   (dbong)  at (  5mm,20mm) {ong DB};
-  \node[script]   (usql)   at (  5mm,50mm) {upgrade.sql};
-  \node[script]   (riosh)  at (140mm,10mm) {register-into-osiam.sh};
-  \node[people]   (admins) at (140mm,85mm) {Admins};
-  \node[people]   (sb)     at (140mm,70mm) {Sachbearbeiter};
-  \node[people]   (guests) at (140mm,40mm) {Gäste};
-  \node[cloud]    (inet)   at (132.5mm,47.5mm) {};
+  \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (3mm,75mm) {LDAP};
+  \node[above right,rectangle,fill=green!20,minimum width=119mm,minimum height=15mm] (web) at (3mm,56mm) {VerA.web Webanwendung};
+  \node[above right,rectangle,fill=yellow!40,minimum width=119mm,minimum height=15mm] (oa) at (3mm,10mm) {VerA.web Online-Anmeldung};
+  \node[above right,rectangle,fill=red!20,minimum width=99mm,minimum height=15mm] (osiam) at (23mm,37mm) {OSIAM};
 
+  \node[people]   (sb)     at (168mm,60mm) {Mitarbeiter};
+  \node[people]   (guests) at (168mm,13mm) {Gäste};
+  \node[acloud]   (inet)   at (130mm,15mm) {};
+
+  \draw[thick,->] (web) -- (ldap);
+  \draw[thick,->] (sb.west) -- (sb-|web.east);
+  \draw[thick,->] (web.south) -- (web|-osiam.north);
+  \draw[thick,->] (guests) -- (inet);
+  \draw[thick,->] (inet) -- (oa);
+  \draw[thick,->] ([xshift=-5cm]oa.north) -- ([xshift=-5cm]oa|-web.south);
+  \draw[thick,->] (oa.north) -- (oa|-osiam.south);
+
+  \node[above right,inner sep=0pt] at (140mm,33mm) {internes Netz};
+  \node[below right,inner sep=0pt] at (140mm,31mm) {extern erreichbar};
+  \draw[dashed]   (0mm,32mm) -- (175mm,32mm);
 
 \end{tikzpicture}
+
+\end{minipage}
+
+\subsubsection{Detailübersicht}
+
+\begin{minipage}{\textwidth}
+
+\begin{tikzpicture}[
+  >=stealth',
+  microsvc/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above right,rectangle,draw=Orange,minimum width=76mm},
+  webapp/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above right,rectangle,draw=red,minimum width=76mm},
+  syssvc/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above right,rectangle,draw=Violet,minimum width=25mm},
+  scrptr/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above right,rectangle,draw=black,minimum width=25mm},
+  scrptl/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=black,minimum width=25mm},
+  people/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
+  acloud/.style={thick,text=black,fill=white,drop shadow,cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
+ ]
+
+  \fill[yellow!40] (3mm,33mm) -- (122mm,33mm) -- (122mm,48mm) -- (3mm,48mm);
+  \fill[green!20] (3mm,50mm) -- (122mm,50mm) -- (122mm,94mm) -- (3mm,94mm);
+
+  \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (3mm,96mm) {LDAP};
+  \node[above right,rectangle,fill=red!20,minimum width=169mm,minimum height=15mm] (osiam) at (3mm,10mm) {OSIAM};
+
+  \node[microsvc] (svwoa)  at ( 40mm,36mm) {VerA.web Online-Anmeldung};
+  \node[webapp]   (score)  at ( 40mm,82mm) {VerA.web Webanwendung};
+  \node[webapp]   (svwor)  at ( 40mm,64mm) {VerA.web REST-API};
+  \node[syssvc]   (dbvw)   at (  5mm,53mm) {veraweb DB};
+  \node[people]   (admins) at (168mm,99mm) {Admins};
+  \node[people]   (sb)     at (168mm,82mm) {Sachbearbeiter};
+  \node[people]   (guests) at (168mm,36mm) {Gäste};
+  \node[acloud]   (inet)   at (130mm,38mm) {};
+
+  \draw[thick,->] (admins) -- ([yshift=3mm]ldap);
+  \draw[thick,->] ([yshift=-6mm]admins) -| +(-32mm,0mm) |- ([yshift=3mm]score);
+  \draw[thick,->] ([yshift=3mm]score.west) -| ([xshift=-60mm]ldap);
+  \draw[thick,->] (sb) -- (score);
+  \draw[thick,->] ([yshift=-3mm]score) -| (dbvw);
+  \draw[thick,->] ([xshift=4mm]score) |- ++(89mm,-8mm) |- ++(-20mm,-48mm) -| ([xshift=6mm]osiam);
+  \draw[thick,->] (score.south) -- (score|-svwor.north);
+  \draw[thick,->] (guests) -- (inet);
+  \draw[thick,->] (inet) -- (svwoa);
+  \draw[thick,->] (svwoa) -- (svwor);
+  \draw[thick,->] (svwor) -| ([xshift=6mm]dbvw);
+  \draw[thick,->] (svwoa.south) -- (svwoa|-osiam.north);
+
+\end{tikzpicture}
+
+{\footnotesize Zugang für Gäste via DMZ durch das Internet (Wolke);
+ Administratoren und Sachbearbeiter via Intranet/VPN}
+
+\end{minipage}
+
+\subsubsection{Komponentendiagramm}
+
+\begin{minipage}{\textwidth}
+
+\begin{tikzpicture}[
+  >=stealth',
+  every node/.style={thick,text=black,fill=white,drop shadow},
+  every rectangle node/.style={minimum height=10mm},
+  apache/.style={above right,rectangle,draw=Dandelion,minimum width=35mm},
+  microsvc/.style={above right,rectangle,draw=Orange,minimum width=32mm},
+  webapp/.style={above right,rectangle,draw=red,minimum width=32mm},
+  syssvc/.style={above right,rectangle,draw=Violet,minimum width=25mm},
+  scrptr/.style={above right,rectangle,draw=black,minimum width=25mm},
+  scrptl/.style={above left,rectangle,draw=black,minimum width=25mm},
+  people/.style={above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
+  acloud/.style={cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
+ ]
+
+% \draw (0mm,0mm) -- (0mm,120mm) -- (175mm,120mm) -- (175mm,0mm) -- (0mm,0mm);
+
+  \fill[red!20] (3mm,3mm) -- (172mm,3mm) -- (172mm,40mm) -- (37mm,40mm) -- (37mm,35mm) -- (3mm,35mm);
+  \fill[yellow!40] (37mm,43mm) -- (122mm,43mm) -- (122mm,58mm) -- (37mm,58mm);
+  \fill[green!20] (3mm,36mm) -- (34mm,36mm) -- (34mm,61mm) -- (122mm,61mm) -- (122mm,94mm) -- (3mm,94mm);
+  \fill[blue!20] (3mm,96mm) -- (122mm,96mm) -- (122mm,111mm) -- (3mm,111mm);
+
+  \node[apache]   (alam)   at ( 80mm,99mm) {LDAP Account Mgr};
+  \node[apache]   (acore)  at ( 80mm,82mm) {VerA.web-core};
+  \node[apache]   (avwor)  at ( 80mm,64mm) {REST-API};
+  \node[apache]   (avwoa)  at ( 80mm,46mm) {Online-Anmeldung};
+  \node[apache]   (aosiam) at ( 80mm,19mm) {OSIAM};
+  \node[microsvc] (svwoa)  at ( 40mm,46mm) {VWOA};
+  \node[webapp]   (score)  at ( 40mm,82mm) {core};
+  \node[webapp]   (svwor)  at ( 40mm,64mm) {VWOR};
+  \node[webapp]   (sauth)  at ( 40mm,28mm) {auth-server};
+  \node[webapp]   (srsrc)  at ( 40mm,10mm) {resource-server};
+  \node[syssvc]   (ldap)   at (  5mm,99mm) {LDAP-Server};
+  \node[syssvc]   (dbvw)   at (  5mm,53mm) {veraweb DB};
+  \node[syssvc]   (dbong)  at (  5mm,19mm) {ong DB};
+  \node[scrptr]   (usql)   at (  5mm,38mm) {upgrade.sql};
+  \node[scrptl]   (riosh)  at (168mm,19mm) {register-into-osiam.sh};
+  \node[people]   (admins) at (168mm,99mm) {Admins};
+  \node[people]   (sb)     at (168mm,82mm) {Sachbearbeiter};
+  \node[people]   (guests) at (168mm,46mm) {Gäste};
+  \node[acloud]   (inet)   at (130mm,48mm) {};
+
+  \draw[thick,->] (admins) -- ([yshift=3mm]alam);
+  \draw[thick,->] (alam) -- (ldap);
+  \draw[thick,->] ([yshift=-6mm]admins) -| +(-32mm,0mm) |- ([yshift=3mm]acore);
+  \draw[thick,->] (acore) -- (score);
+  \draw[thick,->] ([yshift=3mm]score) -| (ldap);
+  \draw[thick,->] (sb) -- (acore);
+  \draw[thick,->] ([yshift=-3mm]score) -| (dbvw);
+  \draw[thick,->] ([xshift=4mm]score) |- ++(112mm,-8mm) |- ++(-20mm,-38mm) -| ([xshift=6mm]aosiam);
+  \draw[thick,->] (score) |- +(25mm,-10mm) -| (avwor);
+  \draw[thick,->] (guests) -- (inet);
+  \draw[thick,->] (inet) -- (avwoa);
+  \draw[thick,->] (avwoa) -- (svwoa);
+  \draw[thick,->] (svwoa) |- +(25mm,9mm) -| (avwor);
+  \draw[thick,->] (avwor) -- (svwor);
+  \draw[thick,->] (svwor) -| ([xshift=6mm]dbvw);
+  \draw[thick,->] (usql) -- (dbvw);
+  \draw[thick,<->] ([yshift=3mm]aosiam) -| (sauth);
+  \draw[thick,<->] ([yshift=-3mm]aosiam) -| (srsrc);
+  \draw[thick,->] (sauth) -| (dbong);
+  \draw[thick,->] (srsrc) -| ([xshift=3mm]dbong);
+  \draw[thick,->] (riosh) -- +(0mm,-17mm) -| ([xshift=-3mm]dbong);
+  \draw[thick,->] (riosh) -- (aosiam);
+  \draw[thick,->] (svwoa) |- +(20mm,-10mm) -| (aosiam);
+
+\end{tikzpicture}
+
+\vspace{0.3cm}
+
+\begin{tabu} to \linewidth {rllll}
+\rowfont\bfseries\multicolumn{5}{c}{Legende}\\[0.2cm]
+ Erste Spalte: & \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=Violet] {};
+			PostgreSQL-Datenbank} &
+		 \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=black] {};
+			Skript (Installation/Upgrade)}\\
+Zweite Spalte: & \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=red] {};
+			Webservice (WAR) in Tomcat} &
+		 \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=Orange] {};
+			Microservice (JAR)}\\
+Dritte Spalte: & \multicolumn{4}{l}{%
+			\tikz \node[thick,rectangle,draw=Dandelion] {};
+			 Apache Webserver (SSL, mod\_jk oder mod\_proxy\_http)}\\
+Vierte Spalte: & \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=CornflowerBlue] {};
+			 Nutzergruppe (per Webbrowser)} &
+		 \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=black] {};
+			Skript (Installation/Upgrade)}\\
+ Schattierung: & \tikz \node[rectangle,fill=red!30] {}; OSIAM &
+		 \tikz \node[rectangle,fill=yellow!60] {}; Online-Anmeldung &
+		 \tikz \node[rectangle,fill=green!30] {}; VerA.web core &
+		 \tikz \node[rectangle,fill=blue!30] {}; LDAP\\
+\multicolumn{5}{l}{\footnotesize
+		   Zugang für Gäste via DMZ durch das Internet (Wolke);
+		   Administratoren und Sachbearbeiter via Intranet/VPN}\\
+\end{tabu}
+
+\end{minipage}
 
 \subsection{Seitenbreite}
 
@@ -152,7 +313,7 @@ Abbildung~\ref{fig:logotarent} verweist auf das neue tarent-Logo.
 \begin{minipage}{\textwidth}
 Fixed:
 
-\begin{lstlisting}[language=sh,columns=fixed]
+\begin{lstdump}[language=sh,columns=fixed]{with fixed}
 sudo mkdir -p /etc/veraweb/l10n
 sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
 sudo install -c -o 0 -g 0 -m 644 config_ldap_access.xml /etc/veraweb/
@@ -175,13 +336,13 @@ sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
 | a b c d e f g h i j k l m n o p q r s t u v w x y |
 +---------------------------------------------------+
 
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
 Flexible:
 
-\begin{lstlisting}[language=sh,columns=flexible]
+\begin{lstdump}[language=sh,columns=flexible]{with flexible}
 sudo mkdir -p /etc/veraweb/l10n
 sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
 sudo install -c -o 0 -g 0 -m 644 config_ldap_access.xml /etc/veraweb/
@@ -204,13 +365,13 @@ sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
 | a b c d e f g h i j k l m n o p q r s t u v w x y |
 +---------------------------------------------------+
 
-\end{lstlisting}
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
 Full Flexible:
 
-\begin{lstlisting}[language=sh,columns=fullflexible]
+\begin{lstdump}[language=sh,columns=fullflexible]{with fullflexible}
 sudo mkdir -p /etc/veraweb/l10n
 sudo install -c -o 0 -g 0 -m 644 l10n/* /etc/veraweb/l10n/
 sudo install -c -o 0 -g 0 -m 644 config_ldap_access.xml /etc/veraweb/
@@ -233,7 +394,21 @@ sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
 | a b c d e f g h i j k l m n o p q r s t u v w x y |
 +---------------------------------------------------+
 
-\end{lstlisting}
+\end{lstdump}
+\end{minipage}
+
+\section{Nicht-ASCII-Zeichen in Listings}
+
+\begin{minipage}{\textwidth}
+Ein minimaler – deutsche Umlaute, sonstige häufige Zeichen – Test:
+
+\begin{lstdump}[language=sh]{non-ASCII chars}
+# © 2015 “mirabilos”™ -- tarent §1 20°
+echo 'Ah nah, "dummlicher" FuB. Uberdem droge Arbeit. Teste: |'
+echo 'Äh näh, „dümmlicher“ Fuß. Überdem dröge Arbeit. Teste: |'
+echo 'oO0 Il1 – ‘`’ ist doof. Öh… mach’ halt mal. Alignment: |'
+echo "oO0 Il1 - '`' ist doof. Oh. mach' halt mal. Alignment: |"
+\end{lstdump}
 \end{minipage}
 
 \end{document}

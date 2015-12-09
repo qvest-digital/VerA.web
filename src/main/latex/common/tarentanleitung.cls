@@ -32,10 +32,9 @@
 
 \RequirePackage{tarentstyle}
 
+%XXX always (before hyperref), plus conflicts with scrartcl
 \usepackage{fancyhdr}
-\usepackage{lastpage}
-\usepackage{calc}
-\usepackage{ifthen}
+
 \newlength{\myheight}
 \pagestyle{fancy}
 \fancyhf{}
@@ -43,7 +42,7 @@
 \renewcommand{\footrulewidth}{0.6pt}
 \fancyhead[L]{\headmark}
 \fancyhead[R]{\tarentlogo[5.25cm]{}}
-\fancyfoot[L]{\footnotesize\copyright tarent}
+\fancyfoot[L]{\footnotesize\textcopyright tarent}
 \fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
 \fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
 
@@ -55,7 +54,7 @@
 \renewcommand{\footrulewidth}{0.6pt}
 \fancyhead[L]{#1}
 \fancyhead[R]{\tarentlogo[5.25cm]{}}
-\fancyfoot[L]{\footnotesize\copyright #2 tarent}
+\fancyfoot[L]{\footnotesize\textcopyright #2 tarent}
 \fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
 \fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
 }

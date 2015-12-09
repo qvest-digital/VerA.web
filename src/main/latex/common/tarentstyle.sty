@@ -28,16 +28,15 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{tarentstyle}
 
+\RequirePackage{graphicx}
 \RequirePackage{accsupp}
 \RequirePackage[utf8]{inputenc}
-\RequirePackage[pdftex]{graphics}
 \RequirePackage{ngerman}
 \RequirePackage[ngerman]{babel}
 \RequirePackage{color}
 \RequirePackage[usenames,dvipsnames]{xcolor}
-\RequirePackage[T1]{fontenc}
+\RequirePackage[LY1,TS1,T1]{fontenc}
 \RequirePackage{textcomp}
-\RequirePackage{graphicx}
 \RequirePackage{ifpdf}
 \IfFileExists{pdf14.sty}{\RequirePackage{pdf14}}{}
 \RequirePackage{aeguill}
@@ -49,12 +48,25 @@
 \RequirePackage[a4paper,includeheadfoot,inner=2.1cm,outer=1.4cm,top=1.78cm,bottom=1.5cm,twoside,headheight=1.1cm,headsep=0.9cm,foot=1.2cm]{geometry}
 \savegeometry{tarentstyle}
 \RequirePackage{framed}
-\ifpdf \RequirePackage[pdftex]{hyperref}
-\else  \RequirePackage[dvips,dviwindo,hypertex]{hyperref} \fi
 \linespread{1.15}
 \RequirePackage{pxfonts}
 \renewcommand{\familydefault}{\sfdefault}
-\RequirePackage{inconsolata}
+\RequirePackage[varqu,varl]{inconsolata}
+\usepackage{newunicodechar}
+\usepackage{wasysym}
+\usepackage{longtable}
+\usepackage{tabu}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{ltablex}
+\usepackage[writefile]{listings}
+\usepackage{tocloft}
+\usepackage{float}
+\usepackage{lastpage}
+\usepackage{calc}
+\usepackage{ifthen}
+\ifpdf \RequirePackage[pdftex]{hyperref}
+\else  \RequirePackage[dvips,dviwindo,hypertex]{hyperref} \fi
 \hypersetup{
 	colorlinks = true,
 	linkcolor = blue,
@@ -79,10 +91,8 @@
  \makebox[1.4em][c]{%
  \makebox[0pt][c]{\raisebox{.1em}{\footnotesize!}}%
  \makebox[0pt][c]{\color{red}\huge$\bigtriangleup$}}}%
-\usepackage{newunicodechar}
 \newunicodechar{⚠}{\Warning}
 
-\usepackage{wasysym} % TeX sucks ☺
 \newcommand{\ankreuzen}{Bitte zum Beispiel so → \CheckedBox\hspace{0.05cm} ← ankreuzen!}
 \newcommand{\ankreuzkaestchen}{\Square\hspace{0.1cm}}
 
@@ -100,11 +110,40 @@
  \fi%
 }
 
-\usepackage{longtable}
-\usepackage{tabu}
-\usepackage{wrapfig}
-\usepackage{ltablex}
-\usepackage{listings}
+\newcounter{lstdumps}
+\setcounter{lstdumps}{0}
+\newcommand{\lstdumpname}{}
+\lstnewenvironment{lstdump}[3][]
+	{\lst@TestEOLChar{#3}%
+	 \lstset{#1}%
+	 \csname\@lst @SetFirstNumber\endcsname%
+	 \stepcounter{lstdumps}%
+	 \renewcommand{\lstdumpname}{ (#2)}%
+	 \lst@BeginAlsoWriteFile{\jobname.lst}%
+	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
+	}
+	{
+	 \immediate\write\lst@WF{-----END LISTING \thelstdumps\lstdumpname-----}%
+	 \immediate\write\lst@WF{}%
+	 \endgroup%
+	 \csname\@lst @SaveFirstNumber\endcsname%
+	}
+\lstnewenvironment{lstdumpx}[2][]
+	{\lst@TestEOLChar{#2}%
+	 \lstset{#1}%
+	 \csname\@lst @SetFirstNumber\endcsname%
+	 \stepcounter{lstdumps}%
+	 \renewcommand{\lstdumpname}{ [unnamed]}%
+	 \lst@BeginAlsoWriteFile{\jobname.lst}%
+	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
+	}
+	{
+	 \immediate\write\lst@WF{-----END LISTING \thelstdumps\lstdumpname-----}%
+	 \immediate\write\lst@WF{}%
+	 \endgroup%
+	 \csname\@lst @SaveFirstNumber\endcsname%
+	}
+
 \lstset{
 	backgroundcolor=\color{tarentgrau},
 	tabsize=4,
@@ -112,6 +151,8 @@
 	language=python,
 	basicstyle=\ttfamily,
 	upquote=true,
+	keepspaces,
+	literate={ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {ß}{{\ss}}1 {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1 {©}{{\textcopyright}}1 {‘}{{\textquoteleft}}1 {’}{{\textquoteright}}1 {…}{{\fontencoding{LY1}\selectfont\symbol{'205}}}1 {„}{{\quotedblbase}}1 {“}{{\textquotedblleft}}1 {”}{{\textquotedblright}}1 {–}{-}1 {™}{\texttrademark}1 {°}{\textdegree{}}1 {§}{\S}1,
 	aboveskip={1.5\baselineskip},
 	columns=flexible,
 	showstringspaces=false,
@@ -123,10 +164,9 @@
 	showspaces=false,
 	showstringspaces=false,
 	escapeinside={〈}{〉},
-	% die nächsten vielleicht anpassen?
-	keywordstyle=\color[rgb]{0,0,1},
-	commentstyle=\color[rgb]{0.133,0.545,0.133},
-	stringstyle=\color[rgb]{0.627,0.126,0.941},
+	keywordstyle=\color{blue},
+	commentstyle=\color{ForestGreen},
+	stringstyle=\color{RedOrange},
 }
 
 % Use Museo Sans by default
@@ -136,9 +176,6 @@
 \renewcommand{\rmdefault}{comic}
 % default font is sans-serif, i.e. Museo Sans
 \renewcommand*{\familydefault}{\sfdefault}
-
-\usepackage{tocloft}
-\usepackage{float}
 
 \def\dash{\unskip\kern.16667em\textemdash\penalty\exhyphenpenalty\hskip.16667em\relax}
 % for footnotes
