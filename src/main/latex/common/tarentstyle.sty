@@ -119,7 +119,7 @@
 	 \csname\@lst @SetFirstNumber\endcsname%
 	 \stepcounter{lstdumps}%
 	 \renewcommand{\lstdumpname}{ (#2)}%
-	 \lst@BeginAlsoWriteFile{../\jobname.lst}%
+	 \lst@BeginAlsoWriteFile{\jobname.lst}%
 	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
 	}
 	{
@@ -134,7 +134,7 @@
 	 \csname\@lst @SetFirstNumber\endcsname%
 	 \stepcounter{lstdumps}%
 	 \renewcommand{\lstdumpname}{ [unnamed]}%
-	 \lst@BeginAlsoWriteFile{../\jobname.lst}%
+	 \lst@BeginAlsoWriteFile{\jobname.lst}%
 	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
 	}
 	{

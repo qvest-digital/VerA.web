@@ -12,8 +12,8 @@
 		<fileSet>
 			<directory>target/latex</directory>
 			<outputDirectory></outputDirectory>
-			<includes><include>*.lst</include></includes>
-			<excludes><exclude>experiments.lst</exclude></excludes>
+			<includes><include>*/*.lst</include></includes>
+			<excludes><exclude>experiments/*.lst</exclude></excludes>
 		</fileSet>
 	</fileSets>
 	<files>
