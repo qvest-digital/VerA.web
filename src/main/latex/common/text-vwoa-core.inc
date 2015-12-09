@@ -28,3 +28,5 @@
 
 /etc/veraweb/config_override.xml anpassen oder Beispiel aus OA files.tgz übernehmen
 		<param name="online-registration.activated" value="true"/>
+
+TODO: add slapd+lam initial setup
