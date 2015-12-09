@@ -244,10 +244,13 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			PersonCategorieWorker personCategoryWorker = WorkerFactory.getPersonCategorieWorker(octopusContext);
 			Integer categoryId = octopusContext.requestAsInteger("categoryAssignmentId");
 			List selection = this.getSelection(octopusContext, this.getCount(octopusContext, database));
-			Iterator iter = selection.iterator();
+//			Iterator iter = selection.iterator();
 			PersonCategorie category = null;
-			while (iter.hasNext()) {
-				Integer personId = (Integer) iter.next();
+			for (Object id : selection) {
+
+//			while (iter.hasNext()) {
+//				Integer personId = (Integer) iter.next();
+				Integer personId = (Integer) id;
 				if ("assign".compareTo(categoryAssignmentAction) == 0 && categoryId.intValue() > 0) {
 					category = personCategoryWorker.addCategoryAssignment(octopusContext, categoryId, personId,
 							database, transactionContext, false);
@@ -263,7 +266,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 								transactionContext);
 					}
 				}
-				iter.remove();
+//				iter.remove();
 			}
 			try {
 				transactionContext.commit();
@@ -630,8 +633,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 										where(new RawClause(
 												"dateexpire >= " + Format.format(new Date()) +
 														" AND pk IN " + new StatementList(subList))));
-				for (Iterator it = personExpireInFuture.iterator(); it.hasNext(); ) {
-					Person person = (Person) it.next();
+				for (Object singlePerson : personExpireInFuture) {
+//				for (Iterator it = personExpireInFuture.iterator(); it.hasNext(); ) {
+					Person person = (Person) singlePerson;
 					if (getContextAsBoolean(octopusContext, "remove-expire-" + person.id)) {
 						octopusContext.setContent("remove-person", Boolean.TRUE);
 					} else {
@@ -663,8 +667,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if ((user || admin) && !selectionRemove.isEmpty() && getContextAsBoolean(octopusContext, "remove-person")) {
 			try {
 				PersonDetailWorker personDetailWorker = WorkerFactory.getPersonDetailWorker(octopusContext);
-				for (Iterator it = selectionRemove.iterator(); it.hasNext(); ) {
-					Integer id = (Integer) it.next();
+				for (Object personId : selectionRemove) {
+
+//				for (Iterator it = selectionRemove.iterator(); it.hasNext(); ) {
+					Integer id = (Integer) personId;
 
 					/*
 					 * updated to reflect interface changes on removePerson
@@ -672,7 +678,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					 */
 					Person person = (Person) database.getBean("Person", id);
 					personDetailWorker.removePerson(octopusContext, transactionContext, id, person.username);
-					it.remove();
 					selection.remove(id);
 					count++;
 				}
