@@ -555,7 +555,7 @@ und Wartungsteam.
 Falls das Verzeichnis \texttt{/etc/veraweb/l10n} noch nicht existiert,
 legen Sie es an. Kopieren Sie dann die aktuellen Sprachdateien dorthin:
 
-\begin{lstdump}[language=sh]{Entpacken}
+\begin{lstdump}[language=sh]{/etc/veraweb/l10n fuellen}
 sudo mkdir -p /etc/veraweb/l10n
 sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
 \end{lstdump}
