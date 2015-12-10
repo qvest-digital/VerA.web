@@ -81,7 +81,7 @@ dieselbe Datenbank zu.
 \subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
 
 Die Aufrufe der REST-API werden durch HTTP Basic Authentication mit einem
-(Maschinen-)Benutzernamen und Paßwort gesichert, welche bei den aufrufenden
+(Maschinen‑)Benutzernamen und Paßwort gesichert, welche bei den aufrufenden
 Anwendungen (der Veranstaltungsmanagementsoftware und, sofern vorhanden, der
 Online-Anmeldung) hinterlegt wird; die REST-API wird niemals direkt durch
 einen Menschen bedient. Es wird standardmäßig der Benutzer \texttt{veraweb}
