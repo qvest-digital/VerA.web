@@ -709,7 +709,7 @@ haben, kontaktieren Sie bitte unseren Produktvertrieb.
 \section{Weitere Ressourcen und Links}\label{sec:links}
 
 \begin{itemize}
- \item{\href{https://www.tarent.de/de/produkte/veraweb}{https://www.tarent.de/de/produkte/veraweb}
+ \item{\href{https://www.tarent.de/de/angebot/produkte/veraweb}{https://www.tarent.de/de/angebot/produkte/veraweb}
   \dash VerA.web Produktwebseite}
  \item{\href{https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=blob_plain;f=src/main/webapp/doc/Benutzerhandbuch.pdf;hb=HEAD}{Benutzerhandbuch}
   (aktuelle Version, online)}
