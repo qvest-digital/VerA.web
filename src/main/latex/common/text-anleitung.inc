@@ -187,7 +187,7 @@ sudo apt-get purge openjdk-6-jre-headless gcj-4.6-jdk gcj-4.7-jdk
 
 \hypertarget{manual:distro}{}
 Zur Installation müssen Sie folgende Dateien („die VerA.web-core
-Distribution“) von tarent beziehen:
+Distribution“) von tarent beziehen:\keinumbruch
 
 \begin{itemize}
  \item{\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
@@ -238,7 +238,7 @@ während der Benutzung von VerA.web jederzeit durch einen Klick erreichbar.
 
 Bearbeiten Sie die Datei \texttt{config\_ldap\_access.xml}, indem Sie
 dort die nötigen Angaben eintragen, um Ihren LDAP-Verzeichnisdienst
-benutzen zu können. Dies sind insbesondere die folgenden Parameter:
+benutzen zu können. Dies sind insbesondere die folgenden Parameter:\keinumbruch
 
 \begin{itemize}
  \item{\texttt{ldapurl}: LDAP-Server, zum Beispiel:
@@ -579,7 +579,7 @@ Das neue Konfigurationsschema wurde mit VerA.web 1.5.1.4 eingeführt,
 war jedoch bereits in VerA.web 1.4.3.5 (und \emph{nur} dieser Version
 aus dem 1.4-Zweig) verfügbar.
 
-Je nach Datei gibt es hierbei einige Besonderheiten zu beachten:
+Je nach Datei gibt es hierbei einige Besonderheiten zu beachten:\keinumbruch
 
 \begin{itemize}
  \item{\texttt{config.xml}: kann nicht in \texttt{/etc/veraweb}
