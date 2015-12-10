@@ -566,6 +566,9 @@ Diese Fassung der Upgradeanleitung geht davon aus, daß Sie die
 Konfigurationsdateien bereits in \texttt{/etc/veraweb} haben
 (VerA.web 1.4.3.5 oder 1.5.1.4 und neuer).
 \else% !ifvwconfigsinetcalready
+
+\subsection{Upgrade von Versionen vor 1.5.1.4}\label{subsec:upgrade-1514}
+
 Falls Sie von einer VerA.web-Version, die die Konfigurationsdateien
 noch nicht in \texttt{/etc/veraweb} ablegt, aktualisieren, müssen Sie
 dort zunächst die angepaßten Dateien aus dem Verzeichnis
