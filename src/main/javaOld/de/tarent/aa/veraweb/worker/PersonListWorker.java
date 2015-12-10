@@ -684,7 +684,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					selection.remove(id);
 					count++;
 				}
-
 				transactionContext.commit();
 
 			} catch (BeanException e) {
