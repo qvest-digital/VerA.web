@@ -38,9 +38,11 @@ import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.Statement;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
 import de.tarent.dblayer.sql.clause.Where;
+import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
@@ -118,6 +120,15 @@ public class PersonDetailWorker implements PersonConstants {
      * Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Person)}
      */
     public static final boolean MANDATORY_showDetail[] = {false, false};
+    private static Database database;
+    private TransactionContext transactionalContext;
+    private static Update updateEventStatement = SQL.Update(database).table("veraweb.tevent").update("fk_host", null).update("hostname", null);
+    private static final Update deletePerson = SQL.Update(database).table("veraweb.tperson").update("deleted", PersonConstants.DELETED_TRUE);
+    private static final Delete deleteGuest = SQL.Delete(database).from("veraweb.tguest");;
+    private static final Delete deletePersonTasks = SQL.Delete(database).from("veraweb.ttask");
+    private static final Delete deletePersonMailinglist = SQL.Delete(database).from("veraweb.tperson_mailinglist");
+    private static final Delete deletePersonDoctype = SQL.Delete(database).from("veraweb.tperson_doctype");
+    private static final Delete deletePersonCategory = SQL.Delete(database).from("veraweb.tperson_categorie");
 
     /**
      * Diese Octopus Aktion nimmt die übergebene Person oder die Person zu der
@@ -1094,52 +1105,78 @@ public class PersonDetailWorker implements PersonConstants {
      * @throws BeanException inkl. Datenbank-Fehler
      * @throws IOException
      */
-    void removePerson(OctopusContext octopusContext, TransactionContext transactionContext, Integer personid,
-                      String username) throws BeanException, IOException {
-        Database database = transactionContext.getDatabase();
-
-        Person oldPerson = (Person) database.getBean("Person", personid, transactionContext);
+    void removePerson(OctopusContext octopusContext, Person person, String username) throws BeanException, IOException {
         // Datenbank-Einträge inkl. Abhängigkeiten löschen.
         if (LOGGER.isEnabledFor(Priority.DEBUG)) {
-            LOGGER.log(Priority.DEBUG, "Person l\u00f6schen: Person #" + personid + " wird vollst\u00e4ndig gel\u00f6scht.");
+            LOGGER.log(Priority.DEBUG, "Person l\u00f6schen: Person #" + person.id + " wird vollst\u00e4ndig gel\u00f6scht.");
         }
 
-        transactionContext.execute(SQL.Delete(database).
-                from("veraweb.tperson_categorie").
-                where(Expr.equal("fk_person", personid)));
-        transactionContext.execute(SQL.Delete(database).
-                from("veraweb.tperson_doctype").
-                where(Expr.equal("fk_person", personid)));
-        transactionContext.execute(SQL.Delete(database).
-                from("veraweb.tperson_mailinglist").
-                where(Expr.equal("fk_person", personid)));
-        transactionContext.execute(SQL.Delete(database).
-                from("veraweb.ttask").
-                where(Expr.equal("fk_person", personid)));
-
-        deleteOsiamUser(octopusContext, username);
-
-        transactionContext.execute(SQL.Delete(database).
-                from("veraweb.tguest").
-                where(Expr.equal("fk_person", personid)));
-        transactionContext.execute(SQL.Update(database).
-                table("veraweb.tperson").
-                update("deleted", PersonConstants.DELETED_TRUE).
-                where(Expr.equal("pk", personid)));
-        transactionContext.execute(SQL.Update(database).
-                table("veraweb.tevent").
-                update("fk_host", null).
-                update("hostname", null).
-                where(Expr.equal("fk_host", personid)));
+        executeDeleteStatements(octopusContext, person.id, username);
+        executeUpdateStatements(person.id);
 
 		/*
          * modified to support change logging
 		 * cklein 2008-02-12
 		 */
-        BeanChangeLogger clogger = new BeanChangeLogger(database, transactionContext);
-        clogger.logDelete(octopusContext.personalConfig().getLoginname(), oldPerson);
+        BeanChangeLogger clogger = new BeanChangeLogger(database, transactionalContext);
+        clogger.logDelete(octopusContext.personalConfig().getLoginname(), person);
     }
 
+    private void executeUpdateStatements(Integer personid) throws BeanException {
+        updatePerson(personid);
+        updateEvent(personid);
+    }
+
+    private void updateEvent(Integer personid) throws BeanException {
+        final Statement fullUpdateEventStatement = updateEventStatement.where(Expr.equal("fk_host", personid));
+        transactionalContext.execute(fullUpdateEventStatement);
+    }
+
+    /**
+     * Die Person wird nicht wirklich gelöscht, sondern als gelöscht markiert.
+     *
+     * @param personid Die ID von der Person
+     *
+     * @throws BeanException Falls das update doch nicht funktioniert
+     */
+    private void updatePerson(Integer personid) throws BeanException {
+        final Statement fullDeletePersonStatement = deletePerson.where(Expr.equal("pk", personid));
+        transactionalContext.execute(fullDeletePersonStatement);
+    }
+
+    private void executeDeleteStatements(OctopusContext octopusContext, Integer personid, String username) throws BeanException {
+        deletePersonCategory(personid);
+        deletePersonDoctype(personid);
+        deletePersonMailingList(personid);
+        deletePersonTasks(personid);
+        deleteOsiamUser(octopusContext, username);
+        deleteGuest(personid);
+    }
+
+    private void deleteGuest(Integer personid) throws BeanException {
+        final Delete fillDeleteGuestStatement = deleteGuest.where(Expr.equal("fk_person", personid));
+        transactionalContext.execute(fillDeleteGuestStatement);
+    }
+
+    private void deletePersonTasks(Integer personid) throws BeanException {
+        final Delete deleteTaskFullStatement = deletePersonTasks.where(Expr.equal("fk_person", personid));
+        transactionalContext.execute(deleteTaskFullStatement);
+    }
+
+    private void deletePersonMailingList(Integer personid) throws BeanException {
+        final Delete fullDeletePersonMailingListStatement = deletePersonMailinglist.where(Expr.equal("fk_person", personid));
+        transactionalContext.execute(fullDeletePersonMailingListStatement);
+    }
+
+    private void deletePersonDoctype(Integer personid) throws BeanException {
+        final Delete fullDeletePersonDoctypeStatement = deletePersonDoctype.where(Expr.equal("fk_person", personid));
+        transactionalContext.execute(fullDeletePersonDoctypeStatement);
+    }
+
+    private void deletePersonCategory(Integer personid) throws BeanException {
+        final Delete currentDeletePersonCategoryStatement = deletePersonCategory.where(Expr.equal("fk_person", personid));
+        transactionalContext.execute(currentDeletePersonCategoryStatement);
+    }
 
     /**
      * Eingabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)}
@@ -1294,5 +1331,13 @@ public class PersonDetailWorker implements PersonConstants {
         UUID uuid = UUID.randomUUID();
 
         return uuid.toString();
+    }
+
+    public void setDatabase(Database database) {
+        this.database = database;
+    }
+
+    public void setTransactionalContext(TransactionContext transactionalContext) {
+        this.transactionalContext = transactionalContext;
     }
 }

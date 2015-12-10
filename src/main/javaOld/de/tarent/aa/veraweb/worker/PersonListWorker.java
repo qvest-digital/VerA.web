@@ -245,14 +245,14 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			Integer categoryId = octopusContext.requestAsInteger("categoryAssignmentId");
 			List selection = this.getSelection(octopusContext, this.getCount(octopusContext, database));
 //			Iterator iter = selection.iterator();
-			PersonCategorie category = null;
+
 			for (Object id : selection) {
 
 //			while (iter.hasNext()) {
 //				Integer personId = (Integer) iter.next();
 				Integer personId = (Integer) id;
 				if ("assign".compareTo(categoryAssignmentAction) == 0 && categoryId.intValue() > 0) {
-					category = personCategoryWorker.addCategoryAssignment(octopusContext, categoryId, personId,
+					PersonCategorie category = personCategoryWorker.addCategoryAssignment(octopusContext, categoryId, personId,
 							database, transactionContext, false);
 					if (category != null) {
 						database.saveBean(category, transactionContext, false);
@@ -435,7 +435,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		}
 		octopusContext.getContentObject().setField("personSearchOrder", personSearch.sort);
 
-		if (personSearch != null && personSearch.listorder != null && personSearch.listorder != "") {
+		if (personSearch != null && personSearch.listorder != null && !personSearch.listorder.equals("")) {
 			order.add(personSearch.listorder);
 			order.add(personSearch.sort);
 		}
@@ -587,11 +587,12 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 	 */
 	protected int removeSelection(OctopusContext octopusContext, List errors, List selection,
 								  TransactionContext transactionContext) throws BeanException, IOException {
+
 		int count = 0;
 		if (selection == null || selection.size() == 0) return count;
 		List selectionRemove = new ArrayList(selection);
 
-		Database database = transactionContext.getDatabase();
+		final Database database = transactionContext.getDatabase();
 		Map questions = new HashMap();
 
 		List groups = Arrays.asList(octopusContext.personalConfig().getUserGroups());
@@ -663,13 +664,15 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			octopusContext.setContent("listquestions", questions);
 		}
 
+
 		/** Löscht Personen aus VerA.web */
 		if ((user || admin) && !selectionRemove.isEmpty() && getContextAsBoolean(octopusContext, "remove-person")) {
 			try {
 				PersonDetailWorker personDetailWorker = WorkerFactory.getPersonDetailWorker(octopusContext);
-				for (Object personId : selectionRemove) {
+				personDetailWorker.setDatabase(database);
+				personDetailWorker.setTransactionalContext(transactionContext);
 
-//				for (Iterator it = selectionRemove.iterator(); it.hasNext(); ) {
+				for (Object personId : selectionRemove) {
 					Integer id = (Integer) personId;
 
 					/*
@@ -677,12 +680,12 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 					 * cklein 2008-02-12
 					 */
 					Person person = (Person) database.getBean("Person", id);
-					personDetailWorker.removePerson(octopusContext, transactionContext, id, person.username);
+					personDetailWorker.removePerson(octopusContext, person, person.username);
 					selection.remove(id);
 					count++;
 				}
-				transactionContext.commit();
 
+				transactionContext.commit();
 
 			} catch (BeanException e) {
 				transactionContext.rollBack();
@@ -697,7 +700,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * cklein 2008-03-12
 		 */
 		octopusContext.setSession("selection" + BEANNAME, selection);
-
 		return count;
 	}
 
@@ -729,14 +731,13 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      */
     public PersonSearch getSearch(OctopusContext octopusContext) throws BeanException {
 
-		if (octopusContext.contentContains("search") &&
-				octopusContext.contentAsObject("search") instanceof PersonSearch) {
+		if (octopusContext.contentContains("search") && octopusContext.contentAsObject("search") instanceof PersonSearch) {
 			return (PersonSearch) octopusContext.contentAsObject("search");
 		}
 
 		String param = octopusContext.requestAsString("search");
 		Boolean sortList = octopusContext.requestAsBoolean("sortList");
-		PersonSearch personSearch = null;
+		PersonSearch personSearch;
 
 		if ("clear".equals(param))
 			personSearch = new PersonSearch();
