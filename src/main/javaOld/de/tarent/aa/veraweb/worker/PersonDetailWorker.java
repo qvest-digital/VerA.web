@@ -1101,7 +1101,7 @@ public class PersonDetailWorker implements PersonConstants {
      * </p>
      *
      * @param octopusContext     Aktueller Octopus Kontext
-     * @param personid PK aus tperson, dessen Eintrag gelöscht werden soll.
+     * @param person Die zu löschende Person
      * @throws BeanException inkl. Datenbank-Fehler
      * @throws IOException
      */
@@ -1113,6 +1113,7 @@ public class PersonDetailWorker implements PersonConstants {
 
         executeDeleteStatements(octopusContext, person.id, username);
         executeUpdateStatements(person.id);
+        transactionalContext.commit();
 
 		/*
          * modified to support change logging
