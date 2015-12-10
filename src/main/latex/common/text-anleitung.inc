@@ -706,7 +706,7 @@ davon anfordern.
 Falls Sie noch keinen Service- und Wartungsvertrag mit uns abgeschlossen
 haben, kontaktieren Sie bitte unseren Produktvertrieb.
 
-\section{Links}\label{sec:links}
+\section{Weitere Ressourcen und Links}\label{sec:links}
 
 \begin{itemize}
  \item{\href{https://www.tarent.de/de/produkte/veraweb}{https://www.tarent.de/de/produkte/veraweb}
