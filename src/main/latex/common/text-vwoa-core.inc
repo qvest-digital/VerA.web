@@ -30,3 +30,5 @@
 		<param name="online-registration.activated" value="true"/>
 
 TODO: add slapd+lam initial setup
+
+TODO: /vwor/rest/available/ → "OK" ⇒ Test ob REST-API da ist
