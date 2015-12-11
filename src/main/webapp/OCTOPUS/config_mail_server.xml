@@ -11,9 +11,9 @@
 	<params>
 		<param name="mailServer" type="map">
 			<!-- die Wartezeit zwischen dem Versendenden verschiedener E-Mails in Sekunden. -->
-			<param name="waitBetweenJobs" value="60"/>
+			<param name="waitBetweenJobs" value="3"/>
 			<!-- der SMTP-Server. -->
-			<param name="host" value="mail.example.com"/>
+			<param name="host" value="localhost"/>
 			<!--
 				Der Absender, wenn zum versendenden Benutzer keine E-Mail-Adresse im LDAP gefunden wird.
 				Hier kann "$role" als Platzhalter für die Rolle des versendenden Benutzers genutzt werden.
