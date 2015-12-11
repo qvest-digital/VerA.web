@@ -15,12 +15,15 @@
 			<!-- der SMTP-Server. -->
 			<param name="host" value="localhost"/>
 			<!--
-				Der Absender, wenn zum versendenden Benutzer keine E-Mail-Adresse im LDAP gefunden wird.
-				Hier kann "$role" als Platzhalter für die Rolle des versendenden Benutzers genutzt werden.
+				Der Absender, wenn zum versendenden Benutzer
+				keine E-Mail-Adresse im Attribut "mail" im
+				LDAP gefunden wird. Hier kann "$role" als
+				Platzhalter für die Rolle des versendenden
+				Benutzers genutzt werden.
 			-->
 			<param name="from" value="$role@example.com"/>
 		</param>
-		<!-- maximale Länge, die eine "mailto:..."-URL annehmen darf; "-1"  steht für keine Beschränkung. -->
+		<!-- maximale Länge, die eine "mailto:..."-URL annehmen darf (Internetstandard: 1024); "-1" steht für keine Beschränkung. -->
 		<param name="mailToUrlMaxSize" value="1024"/>
 	</params>
 </tcModuleConfig>
