@@ -319,6 +319,7 @@ public class GuestDetailWorker extends GuestListWorker {
 
             getGuestRankType(octopusContext, database, guest);
 
+            setGuestCategory(allRequestParams, guest);
             setGuestOrderno(guest);
 
             guest.verify();
@@ -345,6 +346,12 @@ public class GuestDetailWorker extends GuestListWorker {
         // which caused the transaction to be always rolled back
         catch (BeanException e) {
             context.rollBack();
+        }
+    }
+
+    private void setGuestCategory(Map<String, Object> allRequestParams, Guest guest) {
+        if(allRequestParams.get("guest-category")!=null&& allRequestParams.get("guest-category")!=guest.sex_b) {
+            guest.category = Integer.parseInt(allRequestParams.get("guest-category").toString());
         }
     }
 
