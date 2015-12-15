@@ -34,7 +34,7 @@
 
 <div id="content_container">
 
-	#if ($optionalFieldsSummary.createdFields.size() == 0 && $optionalFieldsSummary.changedFields.size() == 0 && $optionalFieldsSummary.deletedFields.size() == 0)
+	#if ($optionalFieldsSummary && $optionalFieldsSummary.createdFields.size() == 0 && $optionalFieldsSummary.changedFields.size() == 0 && $optionalFieldsSummary.deletedFields.size() == 0)
 		<vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
 	#end
 
@@ -46,7 +46,7 @@
 
     #set($lang = "${placeholderWithTranslation.language_short}")
 
-	#if ($optionalFieldsSummary.createdFields.size()>0 || $optionalFieldsSummary.changedFields.size()>0 || $optionalFieldsSummary.deletedFields.size()>0)
+	#if ($optionalFieldsSummary && ($optionalFieldsSummary.createdFields.size() > 0 || $optionalFieldsSummary.changedFields.size() > 0 || $optionalFieldsSummary.deletedFields.size() > 0))
 		<div id="message-container" class="msg successmsg">
 			#if ($optionalFieldsSummary.createdFields.size()>0)
 				#set($messageAction = "INSERT")
