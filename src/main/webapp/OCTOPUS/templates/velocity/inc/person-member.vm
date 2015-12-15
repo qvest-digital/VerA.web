@@ -150,7 +150,7 @@
 			<div class="tableCell width50 ">
 				#if($ext == "_a_e1")
 					<label for="workarea-id">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</label>
-					<select  name="workarea-id" id="workarea-id" onchange="setModified('workarea')" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end>
+					<select  name="workarea-id" id="workarea-id"  onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end>
 						<option value="">${placeholderWithTranslation.keinarbeitsbereich}</option>
 						#foreach($workArea in $allWorkArea)
 							<option value="$workArea.id" #if($person.workarea == $workArea.id) selected#end>$!message.text($workArea.name)</option>
