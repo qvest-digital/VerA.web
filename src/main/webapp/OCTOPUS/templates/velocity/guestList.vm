@@ -329,11 +329,11 @@
 								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
 
 								<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"
-									#if($search.listorder == "orderno")
+									#if($search.listorder && $search.listorder == "orderno")
 										style="color: #000000;"
 									#end
 								><nobr>${placeholderWithTranslation.lfdnr}</nobr>
-									#if($search.listorder == 'orderno')
+									#if($search.listorder && $search.listorder == 'orderno')
 										#showSortArrows($search.sortDirection)
 									#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
@@ -343,11 +343,11 @@
 								<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 
 								<th><a href="javascript:orderGuestList('companyname');"
-									#if($search.listorder == "companyname")
+									#if($search.listorder && $search.listorder == "companyname")
 										style="color: #000000;"
 									#end
 								><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr>
-									#if($search.listorder == 'companyname')
+									#if($search.listorder && $search.listorder == 'companyname')
 										#showSortArrows($search.sortDirection)
 									#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
@@ -355,11 +355,11 @@
 								</a></th>
 
 								<th><a href="javascript:orderGuestList('lastname_a_e1');"
-									#if($search.listorder == "lastname_a_e1")
+									#if($search.listorder && $search.listorder == "lastname_a_e1")
 										style="color: #000000;"
 									#end
 								>${placeholderWithTranslation.GENERIC_NAME}
-									#if($search.listorder == 'lastname_a_e1')
+									#if($search.listorder && $search.listorder == 'lastname_a_e1')
 										#showSortArrows($search.sortDirection)
 									#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
@@ -367,11 +367,11 @@
 								</a></th>
 
 								<th><a href="javascript:orderGuestList('firstname_a_e1');"
-									#if($search.listorder == "firstname_a_e1")
+									#if($search.listorder && $search.listorder == "firstname_a_e1")
 										style="color: #000000;"
 									#end
 								>${placeholderWithTranslation.GENERIC_FIRSTNAME}
-									#if($search.listorder == 'firstname_a_e1')
+									#if($search.listorder && $search.listorder == 'firstname_a_e1')
 										#showSortArrows($search.sortDirection)
 									#else
 										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
@@ -379,11 +379,11 @@
 								</a></th>
 
 								<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');"
-									#if($search.listorder == "mail_a_e1")
+									#if($search.listorder && $search.listorder == "mail_a_e1")
 										style="color: #000000;"
 									#end
 								>${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}
-								#if($search.listorder == 'mail_a_e1')
+								#if($search.listorder && $search.listorder == 'mail_a_e1')
 									#showSortArrows($search.sortDirection)
 								#else
 									<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
