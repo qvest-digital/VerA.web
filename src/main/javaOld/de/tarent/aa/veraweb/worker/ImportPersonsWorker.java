@@ -92,8 +92,9 @@ public class ImportPersonsWorker {
      * @throws IOException
      */
     public Map importStoredRecord(OctopusContext octopusContext, Integer importId) throws BeanException, IOException {
-
-        importId = getImportIdentifier(octopusContext, importId);
+        if (importId == null) {
+            importId = getImportIdFromSession(octopusContext);
+        }
 
         //Initialisiere Datenbank
         Database database = new DatabaseVeraWeb(octopusContext);
@@ -208,9 +209,9 @@ public class ImportPersonsWorker {
      */
     public Map finalise(OctopusContext octopusContext, Integer importId, List ignorePersonFields, Map importTextfieldMapping) throws BeanException, IOException {
         //Initialisiere Datenbank und lese die ID für den Importvorgang
-
-        importId = getImportIdentifier(octopusContext, importId);
-
+        if (importId == null) {
+            importId = getImportIdFromSession(octopusContext);
+        }
 
         Database database = new DatabaseVeraWeb(octopusContext);
         TransactionContext context = database.getTransactionContext();
@@ -241,8 +242,8 @@ public class ImportPersonsWorker {
 
             //Hole die festzuschreibenden Datensätze und schreiben diese iterativ in die Personen-Tabellen
             List result = database.getList(select, database);
-            for (Iterator it = result.iterator(); it.hasNext(); ) {
-                Map importPerson = (Map) it.next();
+            for (Object singleResult : result) {
+                Map importPerson = (Map) singleResult;
                 Integer ipID = (Integer) importPerson.get("id");
 
                 // Import-Bean auf Personen-Bean mappen
@@ -312,12 +313,9 @@ public class ImportPersonsWorker {
         }
     }
 
-    private Integer getImportIdentifier(OctopusContext octopusContext, Integer importId) {
-        if (importId == null) {
-            Long importIdL = (Long) octopusContext.sessionAsObject("importId");
-            importId = importIdL.intValue();
-        }
-        return importId;
+    private Integer getImportIdFromSession(OctopusContext octopusContext) {
+        final Long importId = (Long) octopusContext.sessionAsObject("importId");
+        return importId.intValue();
     }
 
     /**
@@ -390,7 +388,7 @@ public class ImportPersonsWorker {
         select.where(Expr.equal(database.getProperty(sample, "importperson"), importPersonId));
 
         List importPersonCategories = database.getBeanList("ImportPersonCategorie", select, executionContext);
-        for (Iterator itImportPersonCategories = importPersonCategories.iterator(); itImportPersonCategories.hasNext(); ) {
+              for (Iterator itImportPersonCategories = importPersonCategories.iterator(); itImportPersonCategories.hasNext(); ) {
             ImportPersonCategorie importPersonCategorie = (ImportPersonCategorie) itImportPersonCategories.next();
             if (importPersonCategorie.name != null) {
                 Categorie category = (Categorie) database.getBean("Categorie",
