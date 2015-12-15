@@ -36,7 +36,7 @@
 <input name="loginlanguage" type="hidden" value="en_EN">
 <input name="languageSelector" type="hidden" value="en_EN">
 
-#if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin" && $octopusRequest.loginlanguage == "en_EN")
+#if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin" && $octopusRequest.loginlanguage && $octopusRequest.loginlanguage == "en_EN")
 <vera-warn>
 	An error occurred. Please, check your credentials and try again.
 </vera-warn>

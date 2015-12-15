@@ -6,7 +6,7 @@
 	#if($grants && $grants.isAuthenticated())
 		<ul>
 			#if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
-				<li #if ($activeMenu == "Personen") class="active" #end >
+				<li #if ($activeMenu && $activeMenu == "Personen") class="active" #end >
 					<span>${placeholderWithTranslation.MENU_PERSONS}</span>
 					<ul>
 						<li>
@@ -42,7 +42,7 @@
 						#end
 					</ul>
 				</li>
-                <li #if ($activeMenu == "Veranstaltungen") class="active" #end >
+                <li #if ($activeMenu && $activeMenu == "Veranstaltungen") class="active" #end >
 					<span>${placeholderWithTranslation.MENU_EVENTS}</span>
 					<ul>
 						<li>
@@ -69,7 +69,7 @@
 					</ul>
 				</li>
             #end
-            <li #if ($activeMenu == "Verwaltung") class="active" #end >
+            <li #if ($activeMenu && $activeMenu == "Verwaltung") class="active" #end >
 				<span>${placeholderWithTranslation.MENU_MANAGEMENT}</span>
 				<ul>
 					#if($grants.isUser())
@@ -93,7 +93,7 @@
 			</li>
             ##if($grants.isUser() || $grants.isSystemUser())
             #if($grants.isPartialAdmin())
-                <li #if ($activeMenu == "Administration") class="active" #end >
+                <li #if ($activeMenu && $activeMenu == "Administration") class="active" #end >
 					<span>${placeholderWithTranslation.MENU_ADMINISTRATION}</span>
 					<ul>
 						#if($grants.isAdmin())

@@ -36,7 +36,7 @@
 <input name="loginlanguage" type="hidden" value="es_ES">
 <input name="languageSelector" type="hidden" value="es_ES">
 
-#if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin" && $octopusRequest.loginlanguage == "es_ES")
+#if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin" && $octopusRequest.loginlanguage && $octopusRequest.loginlanguage == "es_ES")
 <vera-warn>
 	El nombre de usuario y contraseña son incorrectos. Por favor, vuelva a introducir los datos de acceso.
 </vera-warn>

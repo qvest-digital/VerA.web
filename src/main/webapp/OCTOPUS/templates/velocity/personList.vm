@@ -370,10 +370,10 @@
                 document.getElementsByName("workareaAssignmentAction").value = "${assignmentActionForWorkarea}";
                 $(".errormsg").remove();
 
-                #if($assignmentActionForWorkarea == "assign")
+                #if($assignmentActionForWorkarea && $assignmentActionForWorkarea == "assign")
                     showSuccess(" ${placeholderWithTranslation.derarbeitsbereichwurdeerfolgreichhinzugefugt} ");
 
-                #elseif($assignmentActionForWorkarea == "unassign")
+                #elseif($assignmentActionForWorkarea && $assignmentActionForWorkarea == "unassign")
                     showSuccess(" ${placeholderWithTranslation.diearbeitsbereichewurdenerfolgreichentfernt} ");
                 #end
         //	});
