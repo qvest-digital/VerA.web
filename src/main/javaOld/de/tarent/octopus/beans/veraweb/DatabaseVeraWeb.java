@@ -58,7 +58,7 @@ public class DatabaseVeraWeb extends Database {
     public static final String BEANPACKAGE = "de.tarent.aa.veraweb.beans";
 
     private final OctopusContext cntx;
-    private Connection defaultcon = null;
+    private Connection defaultConnection = null;
 
     //
     // Konstruktor
@@ -228,21 +228,22 @@ public class DatabaseVeraWeb extends Database {
     }
 
 	public Connection getDefaultConnection() throws SQLException {
-		if(defaultcon==null||defaultcon.isClosed()){
-			defaultcon = getPool().getConnection();
-            if (Context.getActive() != null)
-                Context.getActive().addCleanupCode(new DBConnectionCloser(defaultcon));
-            else
-            	logger.log(Level.WARNING, getClass().getName() + " - getDefaultConnection(): No active context set.");
+		if(defaultConnection ==null|| defaultConnection.isClosed()){
+			defaultConnection = getPool().getConnection();
+//            if (Context.getActive() != null) {
+//                Context.getActive().addCleanupCode(new DBConnectionCloser(defaultConnection));
+//            } else {
+//                logger.log(Level.WARNING, getClass().getName() + " - getDefaultConnection(): No active context set.");
+//            }
 		}
-		return defaultcon;
+		return defaultConnection;
 	}
 
 	public void close() {
         try {
-            if(defaultcon != null && ! defaultcon.isClosed()) {
-                defaultcon.close();
-                defaultcon = null;
+            if(defaultConnection != null && ! defaultConnection.isClosed()) {
+                defaultConnection.close();
+                defaultConnection = null;
             }
         } catch (SQLException e) {
 			logger.log(Level.WARNING, e.getLocalizedMessage(), e);
