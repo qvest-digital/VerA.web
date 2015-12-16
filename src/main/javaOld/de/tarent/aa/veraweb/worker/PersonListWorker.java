@@ -131,13 +131,27 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * when entering the view although, upon exiting this method the first time that it is called, will return
 		 * the correct resultlist with at most 10 entries in the underlying resultset as is defined by the query.
 		 */
-		Map<Integer, Map> result = new LinkedHashMap<Integer, Map>();
 		PersonSearch search = (PersonSearch) octopusContext.contentAsObject("search");
 		if (search.listorder == null) {
 			personSelect.addOrderBy(new Order().asc("lastname_a_e1").andAsc("firstname_a_e1"));
 		}
 		List personList = getResultList(database, personSelect);
 
+		Map<Integer, Map> result = getUserData(database, personList);
+
+		octopusContext.setContent(OUTPUT_getSelection, getSelection(octopusContext, getCount(octopusContext, database)));
+
+		octopusContext.setContent("deleted", octopusContext.getRequestObject().getParamAsInt("deleted"));
+
+		octopusContext.setContent("workareaAssigned", octopusContext.requestAsObject("workareaAssigned"));
+
+		octopusContext.setContent("categoryAssigned", octopusContext.requestAsObject("categoryAssigned"));
+
+		return new ArrayList(result.values());
+	}
+
+	private Map<Integer, Map> getUserData(Database database, List personList) throws BeanException, IOException {
+		Map<Integer, Map> result = new LinkedHashMap<Integer, Map>();
 		for (int i = 0; i < personList.size(); i++) {
 			HashMap<String, Object> tmp = new HashMap<String, Object>();
 			Set<String> keys = ((ResultMap) personList.get(i)).keySet();
@@ -221,15 +235,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 			}
 		}
 
-		octopusContext.setContent(OUTPUT_getSelection, getSelection(octopusContext, getCount(octopusContext, database)));
-
-		octopusContext.setContent("deleted", octopusContext.getRequestObject().getParamAsInt("deleted"));
-
-		octopusContext.setContent("workareaAssigned", octopusContext.requestAsObject("workareaAssigned"));
-
-		octopusContext.setContent("categoryAssigned", octopusContext.requestAsObject("categoryAssigned"));
-
-		return new ArrayList(result.values());
+		return result;
 	}
 
 	@Override
