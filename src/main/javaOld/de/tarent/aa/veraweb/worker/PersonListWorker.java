@@ -122,6 +122,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 */
 		Select personSelect = this.prepareShowList(octopusContext, database);
 		Map param = (Map) octopusContext.contentAsObject(OUTPUT_showListParams);
+
+		filterByFirstCharacterOfLastname(octopusContext, personSelect);
+
 		personSelect.Limit(new Limit((Integer) param.get("limit"), (Integer) param.get("start")));
 
 		/* FIXME remove this temporary fix ASAP
@@ -148,6 +151,20 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		octopusContext.setContent("categoryAssigned", octopusContext.requestAsObject("categoryAssigned"));
 
 		return new ArrayList(result.values());
+	}
+
+	private void filterByFirstCharacterOfLastname(OctopusContext octopusContext, Select personSelect) {
+		final Map allRequestParameters = octopusContext.getRequestObject().getRequestParameters();
+		if (allRequestParameters.get("start") != null) {
+			addClauseLastnameFirstCharacter(personSelect, allRequestParameters);
+		}
+	}
+
+	private void addClauseLastnameFirstCharacter(Select personSelect, Map allRequestParameters) {
+		final String charachterFilter = allRequestParameters.get("start").toString();
+		final WhereList whereLastnameClause = new WhereList();
+		whereLastnameClause.add(Expr.like("lastname_a_e1", charachterFilter + "%"));
+		personSelect.whereAnd(whereLastnameClause);
 	}
 
 	private Map<Integer, Map> getUserData(Database database, List personList) throws BeanException, IOException {
