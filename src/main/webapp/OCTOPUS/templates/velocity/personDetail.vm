@@ -63,7 +63,7 @@
 	#if($person.username)
 		<input type="hidden" name="person-username" value="$!person.username"/>
 	#end
-	#if($octopusRequest.task == "LoadPersonCompany" || $octopusRequest.forcedupcheck == "true")
+	#if($octopusRequest.task == "LoadPersonCompany" || ($octopusRequest.forcedupcheck && $octopusRequest.forcedupcheck == "true"))
 		<input type="hidden" name="person-modified" id="modified" value="true"/>
 	#else
 		<input type="hidden" name="person-modified" id="modified" value="false"/>
@@ -116,7 +116,7 @@
 		#set($thisPersonLocaleTab = $config.personLocaleTab) ## config
 	#end
 
-	#if($showAdressTab == 'true')
+	#if($showAdressTab && $showAdressTab == 'true')
 		#set($thisPersonTab = '2')
 	#end
 
@@ -171,7 +171,7 @@
 	<h1>$title</h1>
 
 	#if($createNewPerson || !$personDB)
-			#if($octopusRequest.forcedupcheck == "true" && $errors.isEmpty())
+			#if($octopusRequest.forcedupcheck && $octopusRequest.forcedupcheck == "true" && $errors.isEmpty())
 			<vera-success>
 				${placeholderWithTranslation.eswurdenkeinedublettengefundensiekoennenjetztweiteredateneingebenunddiedatenspeichern}
 			</vera-success>
