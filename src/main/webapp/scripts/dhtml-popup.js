@@ -74,8 +74,11 @@ function returnFunction(url, id) {
 	if (window.opener) {
 		var field = getParameter('field');
 		var content = document.getElementById('function_' + id).innerHTML;
-		window.opener.document.getElementById(field).value = content;
-		window.opener.document.getElementById(field).focus();
+		var e = new Event("change");
+		var inputElement = window.opener.document.getElementById(field);
+		inputElement.value = content;
+		inputElement.focus();
+		inputElement.dispatchEvent(e);
 		return true;
 	}
 }
