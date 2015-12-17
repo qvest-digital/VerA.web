@@ -202,8 +202,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         final TransactionContext context = database.getTransactionContext();
 
         try {
-            for (Integer personId : guestIds) {
-                final Guest guest = (Guest) database.getBean(BEANNAME, personId);
+            for (Integer guestId : guestIds) {
+                final Guest guest = (Guest) database.getBean(BEANNAME, guestId);
                 final Person person = (Person) database.getBean("Person", guest.person);
                 if (person != null && person.workarea.intValue() != workAreaId.intValue()) {
                     person.workarea = workAreaId;
@@ -685,22 +685,34 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @throws SQLException
      */
     public void getAllCategories(OctopusContext octopusContext) throws BeanException, IOException, SQLException {
-        final Database database = new DatabaseVeraWeb(octopusContext);
-
-        final Select select = SQL.Select( database ).from("veraweb.tcategorie");
-		select.select("catname");
-		select.setDistinctOn("catname");
-
-        final ResultList result = database.getList(select, database);
-        final List<String> catnames = new ArrayList<String>();
-
-		for (final Iterator<ResultMap> iterator = result.iterator(); iterator.hasNext();) {
-            final ResultMap object = iterator.next();
-			catnames.add((String)object.get("catname"));
-		}
-
-		octopusContext.setContent("categories", catnames);
+        final ResultList categories = getCategoriesForCurrentOrgunit(octopusContext);
+        final List<String> categoryNames = getCategoryNames(categories);
+		octopusContext.setContent("categories", categoryNames);
 	}
+
+    private List<String> getCategoryNames(ResultList categories) {
+        final List<String> catnames = new ArrayList<String>();
+        for (Object category : categories) {
+            final String currentCategory = ((ResultMap) category).get("catname").toString();
+            catnames.add(currentCategory);
+        }
+        return catnames;
+    }
+
+    private ResultList getCategoriesForCurrentOrgunit(OctopusContext octopusContext) throws BeanException {
+        final Database database = new DatabaseVeraWeb(octopusContext);
+        final Integer eventId = ((Event) octopusContext.contentAsObject("event")).orgunit;
+        final Select select = buildSelectStatement(database, eventId);
+        return database.getList(select, database);
+    }
+
+    private Select buildSelectStatement(Database database, Integer eventId) {
+        final Select select = SQL.Select( database ).from("veraweb.tcategorie");
+        select.select("catname");
+        select.setDistinctOn("catname");
+        select.whereAnd(Expr.equal("fk_orgunit", eventId));
+        return select;
+    }
 
     /**
      * Diese Methode überträgt Gästesuchkriterien aus einer {@link GuestSearch}-Instanz
