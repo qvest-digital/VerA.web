@@ -388,7 +388,7 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void setGuestCategory(Map<String, Object> allRequestParams, Guest guest) {
-        if(allRequestParams.get("guest-category")!=null&& allRequestParams.get("guest-category")!=guest.sex_b) {
+        if (allRequestParams.get("guest-category") != null && allRequestParams.get("guest-category") != guest.category) {
             guest.category = Integer.parseInt(allRequestParams.get("guest-category").toString());
         }
     }
