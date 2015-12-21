@@ -737,11 +737,13 @@ weiterläuft, nachdem der Stop-Befehl abgeschickt wurde; im Zweifelsfalls
 können Sie mit \texttt{ps ax | grep java} prüfen, ob noch Prozesse laufen.
 \end{minipage}
 
-Zum Starten verwenden Sie äquivalent:\keinumbruch
+\begin{minipage}{\textwidth}
+Zum Starten verwenden Sie äquivalent:
 
 \begin{lstdump}[language=sh]{Tomcat start}
 sudo service tomcat7 start
 \end{lstdump}
+\end{minipage}
 
 \subsubsection{Tomcat überall}\label{subsub:allg-tomcat-allg}
 
