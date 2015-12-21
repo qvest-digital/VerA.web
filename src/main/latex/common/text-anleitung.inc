@@ -451,7 +451,7 @@ mehr; diese können nun entfernt werden:
 
 \begin{lstdump}[language=sh]{Aufraeumen}
 cd ..
-rm -rf veraweb-core-〈\vwiaverssw{}〉* veraweb.war vwor.war
+rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 \end{lstdump}
 \end{minipage}
 
@@ -653,7 +653,7 @@ mehr; diese können nun entfernt werden:
 
 \begin{lstdump}[language=sh]{Aufraeumen}
 cd ..
-rm -rf veraweb-core-〈\vwiaverssw{}〉* veraweb.war vwor.war
+rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 \end{lstdump}
 \end{minipage}
 
@@ -683,19 +683,19 @@ und wechseln Sie in das angelegte neue Verzeichnis:
 
 \ifoa
 \begin{lstdump}[language=sh]{Entpacken}
-mv veraweb-core-〈\vwiaverssw{}〉.war veraweb.war
-mv rest-api-〈\vwiaverssw{}〉.war vwor.war
-tar -xzf veraweb-core-〈\vwiaverssw{}〉-files.tgz
-cd veraweb-core-〈\vwiaverssw{}〉
-tar -xzf ../online-anmeldung-〈\vwiaverssw{}〉-files.tgz
-mv online-anmeldung-〈\vwiaverssw{}〉/core/* .
+mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
+mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
+tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
+cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
+tar -xzf ../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
+mv online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/core/* .
 \end{lstdump}
 \else% !oa
 \begin{lstdump}[language=sh]{Entpacken}
-mv veraweb-core-〈\vwiaverssw{}〉.war veraweb.war
-mv rest-api-〈\vwiaverssw{}〉.war vwor.war
-tar -xzf veraweb-core-〈\vwiaverssw{}〉-files.tgz
-cd veraweb-core-〈\vwiaverssw{}〉
+mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
+mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
+tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
+cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
 \end{lstdump}
 \fi% !oa
 \end{minipage}
