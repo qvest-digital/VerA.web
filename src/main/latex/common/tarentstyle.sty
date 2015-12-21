@@ -146,7 +146,12 @@
 	 \endgroup%
 	 \csname\@lst @SaveFirstNumber\endcsname%
 	}
-\newcommand{\lstdumpesc}[1]{\lst@WFAppend{#1}#1}
+% usage: \lstdumpesc[file]{pdf} or \lstdumpesc{bothfileandpdf}
+\makeatletter
+\def\lstdumpesc{\@ifnextchar[{\lstdumpesc@two}{\lstdumpesc@one}}
+\def\lstdumpesc@one#1{\lst@WFAppend{#1}#1}
+\def\lstdumpesc@two[#1]#2{\lst@WFAppend{#1}#2}
+\makeatother
 
 \lstset{
 	backgroundcolor=\color{tarentgrau},
