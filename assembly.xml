@@ -21,6 +21,10 @@
 			<destName>COPYING</destName>
 		</file>
 		<file>
+			<source>src/main/webapp/OCTOPUS/config_database_pools.xml</source>
+			<outputDirectory></outputDirectory>
+		</file>
+		<file>
 			<source>src/main/webapp/doc/Benutzerhandbuch.pdf</source>
 			<outputDirectory></outputDirectory>
 		</file>
