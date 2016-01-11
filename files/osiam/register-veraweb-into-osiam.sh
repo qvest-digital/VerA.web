@@ -25,6 +25,8 @@
 
 # -*- configuration -*-
 
+# OSIAM database name
+dbname=ong
 # OSIAM authentication (base64 of "example-client:secret")
 serverauth=ZXhhbXBsZS1jbGllbnQ6c2VjcmV0
 # VerA.web application secret (change it!)
@@ -109,7 +111,7 @@ function json_escape {
 
 print -u2 I: updating database
 cd /
-sudo -u postgres psql ong <<'EOF'
+sudo -u postgres psql "$dbname" <<'EOF'
 INSERT INTO scim_extension
     SELECT (SELECT MAX(internal_id) + 1 FROM scim_extension),
 	'urn:scim:schemas:veraweb:1.5:Person'
