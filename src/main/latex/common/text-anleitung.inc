@@ -23,6 +23,9 @@
 % of said person’s immediate fault when using the work as intended.
 %-
 % TODO: slapd, lam, MTA
+% TODO: graphics from experiments.tex for overall concepts
+% TODO core: curl https://veraweb:veraweb@veraweb-ohne.lan.tarent.de/vwor/rest/available/;echo ⇒ OK
+% TODO vwoa: primer on service management with DJB dæmontools
 
 \ifupgradeanleitung
  \ifoa

@@ -1,6 +1,6 @@
 % VerA.web (public) Installationsanleitungstextteil
 %
-% Copyright © 2015
+% Copyright © 2015, 2016
 %	Thorsten Glaser <t.glaser@tarent.de>
 %
 % Provided that these terms and disclaimer and all copyright notices
@@ -21,13 +21,9 @@
 % im Moment nur Notizen
 
 /etc/veraweb/veraweb.properties aus OA files.tgz anpassen und installieren
-→ osiam.client.secret = clientSecret in config.json
+→ osiam.client.secret = clientSecret in config.json = register-into-osiam vwsecret
 → osiam.server.* HOSTNAME = osiam
 → veraweb.onlinereg.host HOSTNAME = vwoa
 
 /etc/veraweb/config_override.xml anpassen oder Beispiel aus OA files.tgz übernehmen
 		<param name="online-registration.activated" value="true"/>
-
-TODO: add slapd+lam initial setup
-
-TODO: /vwor/rest/available/ → "OK" ⇒ Test ob REST-API da ist

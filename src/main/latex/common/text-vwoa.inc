@@ -1,6 +1,6 @@
 % VerA.web (public) Installationsanleitungstextteil
 %
-% Copyright © 2015
+% Copyright © 2015, 2016
 %	Thorsten Glaser <t.glaser@tarent.de>
 %
 % Provided that these terms and disclaimer and all copyright notices
@@ -46,11 +46,11 @@ Temporäres Verzeichnis ~/vwoa anlegen und populieren:
 - vwoa/run 0:0 755 aus files.tgz
 
 XXX TODO: als regulärer User rennen! ⚠⚠⚠ SECURITY ⚠⚠⚠
+XXX hierfür /var/log/vwoa/ nehmen sollte reichen… testen!
 
 Nachdem fertig: mv vwoa /etc/service/ und beten.
+XXX /service/
 
 svstat /etc/service/vwoa
 
 less /var/log/vwoa.log
-
-TODO: add a primer on service management with DJB dæmontools
