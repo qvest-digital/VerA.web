@@ -225,9 +225,12 @@ ebenfalls einen solchen Zugang einrichten). Diese benötigen wir später.
 Dann müssen Sie einige Konfigurationsanpassungen vornehmen.
 
 Passen Sie in der \texttt{veraweb.properties} bitte den Hostnamen
-in der \texttt{vwor.endpoint}-Eigenschaft an und tragen Sie die
-Zugangsdaten für die REST-API (siehe \nameref{subsec:intro-restapi})
-als \texttt{vwor.auth.user} und \texttt{vwor.auth.password} ein.
+in der \texttt{vwor.endpoint}-Eigenschaft an (ersetzen Sie
+\texttt{HOSTNAME-REST} durch den FQDN des Servers, über den die
+REST-API erreichbar ist, üblicherweise also den Hostnamen vom
+core-System) und tragen Sie die Zugangsdaten für die REST-API
+(siehe \nameref{subsec:intro-restapi}) als \texttt{vwor.auth.user}
+und \texttt{vwor.auth.password} ein.
 
 \begin{minipage}{\textwidth}
 Legen Sie ein neues Verzeichnis an, in dem Sie die hochgeladenen
@@ -561,9 +564,12 @@ als separater Download angeboten.
 Die neu hinzugekommene Komponente REST-API muß konfiguriert werden.
 
 Passen Sie in der \texttt{veraweb.properties} bitte den Hostnamen
-in der \texttt{vwor.endpoint}-Eigenschaft an und tragen Sie die
-Zugangsdaten für die REST-API (siehe \nameref{subsec:intro-restapi})
-als \texttt{vwor.auth.user} und \texttt{vwor.auth.password} ein.
+in der \texttt{vwor.endpoint}-Eigenschaft an (ersetzen Sie
+\texttt{HOSTNAME-REST} durch den FQDN des Servers, über den die
+REST-API erreichbar ist, üblicherweise also den Hostnamen vom
+core-System) und tragen Sie die Zugangsdaten für die REST-API
+(siehe \nameref{subsec:intro-restapi}) als \texttt{vwor.auth.user}
+und \texttt{vwor.auth.password} ein.
 
 \begin{minipage}{\textwidth}
 Legen Sie ein neues Verzeichnis an, in dem Sie die hochgeladenen
