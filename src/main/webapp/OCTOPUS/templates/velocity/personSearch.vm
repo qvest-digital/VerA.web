@@ -174,7 +174,7 @@
 							<option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
 							<option value="0">${placeholderWithTranslation.keinarbeitsbereichzugeordnet}</option>
 							#foreach($workArea in $allWorkArea)
-							    <option value="$!workArea.id" #if($search.workarea == $!workArea.id) selected #end>$!message.plain($!workArea.name)</option>
+							    <option value="$!workArea.id" #if($search.workarea && $search.workarea == $!workArea.id) selected #end>$!message.plain($!workArea.name)</option>
 							#end
 							</select>
 
@@ -201,9 +201,9 @@
                         <div class="tableCell width30">
                             <label for="validtype">${placeholderWithTranslation.GENERIC_VALIDITY_DATE}</label>
                             <select name="validtype" id="validtype" >
-                                <option value="1" #if($search.validtype == 1) selected #end>${placeholderWithTranslation.biszudiesemdatum}</option>
-                                <option value="2" #if($search.validtype == 2) selected #end>${placeholderWithTranslation.abdiesemdatum}</option>
-                                <option value="3" #if($search.validtype == 3) selected #end>${placeholderWithTranslation.angenaudiesemdatum}</option>
+                                <option value="1" #if($search.validtype && $search.validtype == 1) selected #end>${placeholderWithTranslation.biszudiesemdatum}</option>
+                                <option value="2" #if($search.validtype && $search.validtype == 2) selected #end>${placeholderWithTranslation.abdiesemdatum}</option>
+                                <option value="3" #if($search.validtype && $search.validtype == 3) selected #end>${placeholderWithTranslation.angenaudiesemdatum}</option>
                             </select>
 
 							<div class="calendarContainer">
