@@ -1,4 +1,4 @@
-#!/bin/mksh
+#!/bin/sh
 #-
 # Copyright (c) 2015, 2016
 #	Thorsten Glaser <t.glaser@tarent.de>
@@ -31,6 +31,15 @@ serverauth=ZXhhbXBsZS1jbGllbnQ6c2VjcmV0
 osiamsecret=geheim
 
 # -*- do not change below this point -*-
+
+case ${KSH_VERSION:-} in
+(*MIRBSD\ KSH*) ;;
+(*)
+	command -v mksh >/dev/null 2>&1 && exec mksh "$0" "$@"
+	echo >&2 "E: missing tool: mksh"
+	exit 1
+	;;
+esac
 
 nl='
 '
