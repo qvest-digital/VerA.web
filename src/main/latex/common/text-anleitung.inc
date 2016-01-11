@@ -113,6 +113,11 @@ sich nur Ihre Sachbearbeiter einloggen). Sie verfügt über keine eigene
 Datenbank und greift auf OSIAM und die VerA.web REST-API zu.
 \fi% oa
 
+Es wird empfohlen, nur mit der Administration der Systeme betreuten
+Personen Zugriff auf die Systeme auf Shell-Ebene zu gewähren, und
+ggfs. weitere geeignete Maßnahmen zur Absicherung zu treffen.
+%XXX TODO: Konfigs/Logs prüfen, ggf. chgrp/chmod-Befehle zufügen
+
 \subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
 
 Die Aufrufe der REST-API werden durch HTTP Basic Authentication mit einem
