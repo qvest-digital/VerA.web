@@ -1,6 +1,6 @@
 #!/bin/mksh
 #-
-# Copyright (c) 2015
+# Copyright (c) 2015, 2016
 #	Thorsten Glaser <t.glaser@tarent.de>
 # Copyright (c) 2013
 #	mirabilos <tg@mirbsd.org>
@@ -22,8 +22,6 @@
 #-
 # Register VerA.web into OSIAM. Mostly idempotent, except OSIAM bug:
 # https://github.com/osiam/auth-server/issues/54
-#
-#XXX TODO: use https-only for OSIAM
 
 # -*- configuration -*-
 
@@ -36,6 +34,29 @@ osiamsecret=geheim
 
 nl='
 '
+
+print -u2 I: checking for prerequisites
+have_tools=1
+for tool in sudo psql curl; do
+	whence -p "$tool" >/dev/null && continue
+	have_tools=0
+	print -ru2 "E: missing tool: $tool"
+done
+(( have_tools )) || exit 1
+
+print -u2 I: validating hostname
+if ! fqhn=$(hostname -f) || [[ $fqhn != *.* ]] || \
+    [[ $fqhn = *.@(invalid|local|lan|home) ]]; then
+	print -ru2 "E: invalid hostname/FQDN: '$fqdn'"
+	exit 1
+fi
+print -u2 I: checking whether OSIAM is running
+# no simple check for auth-server, we try that below
+if ! x=$(curl "https://$fqhn/osiam-resource-server/ServiceProviderConfigs") || \
+    [[ $x != *'"specUrl":"http://tools.ietf.org/html/rfc6749"'* ]]; then
+	print -ru2 "E: OSIAM resource-server not running: $x"
+	exit 1
+fi
 
 # escape string into JSON string (with surrounding quotes)
 function json_escape {
@@ -101,7 +122,7 @@ EOF
 print -u2 I: downloading auth token
 if ! x=$(curl -H "Authorization: Basic $serverauth" -X POST \
     -d "grant_type=client_credentials&scope=GET POST PUT DELETE" \
-    http://localhost:8080/osiam-auth-server/oauth/token); then
+    "https://$fqhn/osiam-auth-server/oauth/token"); then
 	print -u2 E: cannot retrieve auth token
 	exit 1
 fi
@@ -119,7 +140,7 @@ print -u2 I: registering client
 if ! x=$(curl -i -H "Accept: application/json" \
     -H "Content-type: application/json" \
     -H "Authorization: Bearer $tok" -X POST --data-binary @- \
-    http://localhost:8080/osiam-auth-server/Client <<EOD
+    "https://$fqhn/osiam-auth-server/Client" <<EOD
 {
   "accessTokenValiditySeconds": "5000",
   "client_secret": $(json_escape "$osiamsecret"),
