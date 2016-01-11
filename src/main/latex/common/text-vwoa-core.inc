@@ -22,7 +22,6 @@
 
 /etc/veraweb/veraweb.properties aus OA files.tgz anpassen und installieren
 → osiam.client.secret = clientSecret in config.json
-→ osiam.client.redirect_uri HOSTNAME = core
 → osiam.server.* HOSTNAME = osiam
 → veraweb.onlinereg.host HOSTNAME = vwoa
 
