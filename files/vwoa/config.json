@@ -3,8 +3,8 @@
     "appenders": [
       {
         "archivedFileCount": 7,
-        "archivedLogFilenamePattern": "/var/log/vwoa.log.%d.gz",
-        "currentLogFilename": "/var/log/vwoa.log",
+        "archivedLogFilenamePattern": "/var/log/vwoa/vwoa.log.%d.gz",
+        "currentLogFilename": "/var/log/vwoa/vwoa.log",
         "timeZone": "UTC",
         "type": "file"
       }
@@ -37,8 +37,8 @@
         {
           "archive": true,
           "archivedFileCount": 7,
-          "archivedLogFilenamePattern": "/var/log/vwoa.log.%d.gz",
-          "currentLogFilename": "/var/log/vwoa.log",
+          "archivedLogFilenamePattern": "/var/log/vwoa/vwoa.log.%d.gz",
+          "currentLogFilename": "/var/log/vwoa/vwoa.log",
           "threshold": "ALL",
           "type": "file"
         }
