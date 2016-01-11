@@ -34,7 +34,7 @@ Temporäres Verzeichnis ~/vwoa anlegen und populieren:
 - vwoa/ 0:0 755
 - vwoa/vwoa.jar 0:0 644
   von https://maven-repo.evolvis.org/releases/org/evolvis/veraweb/online-anmeldung/\vwiaverssw{}/online-anmeldung-\vwiaverssw{}.jar
-- vwoa/config.json 0:0 644
+- vwoa/config.json 0:vwoa 640
   aus files.tgz, anzupassen:
   * osiam/{clientSecret,endpoint}
     → osiamsecret in register-veraweb-into-osiam.sh
@@ -45,12 +45,9 @@ Temporäres Verzeichnis ~/vwoa anlegen und populieren:
     → https://HOSTNAME/vwor
 - vwoa/run 0:0 755 aus files.tgz
 
-XXX TODO: als regulärer User rennen! ⚠⚠⚠ SECURITY ⚠⚠⚠
-XXX hierfür /var/log/vwoa/ nehmen sollte reichen… testen!
-
 Nachdem fertig: mv vwoa /etc/service/ und beten.
 XXX /service/
 
 svstat /etc/service/vwoa
 
-less /var/log/vwoa.log
+less /var/log/vwoa/vwoa.log

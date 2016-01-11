@@ -387,6 +387,7 @@ sudo mkdir -p /etc/osiam
 sudo install -c -o 0 -g 0 -m 644 *.properties /etc/osiam/
 \end{lstdump}
 \end{minipage}
+%XXX /etc/osiam contains DB secrets, consider protecting
 
 Folgen Sie bitte der allgemeinen \nameref{subsec:allg-tomcat} und
 den spezifischen Anweisungen für OSIAM. Danach starten Sie den
@@ -683,6 +684,7 @@ sudo install -c -o 0 -g 0 -m 644 *.properties /etc/veraweb/
 sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
 \end{lstdump}
 \end{minipage}
+%XXX /etc/veraweb contains secrets, consider protecting
 
 Richten Sie bitte Tomcat wie im Kapitel \nameref{subsec:allg-tomcat}
 beschrieben ein und starten ihn neu.
