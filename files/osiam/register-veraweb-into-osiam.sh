@@ -30,7 +30,7 @@ dbname=ong
 # OSIAM authentication (base64 of "example-client:secret")
 serverauth=ZXhhbXBsZS1jbGllbnQ6c2VjcmV0
 # VerA.web application secret (change it!)
-osiamsecret=geheim
+vwsecret=geheim
 
 # -*- do not change below this point -*-
 
@@ -154,7 +154,7 @@ if ! x=$(curl -i -H "Accept: application/json" \
     "https://$fqhn/osiam-auth-server/Client" <<EOD
 {
   "accessTokenValiditySeconds": "5000",
-  "client_secret": $(json_escape "$osiamsecret"),
+  "client_secret": $(json_escape "$vwsecret"),
   "grants": [
     "authorization_code",
     "client_credentials",
