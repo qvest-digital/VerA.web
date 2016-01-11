@@ -1,6 +1,6 @@
 % VerA.web (public) Installationsanleitung
 %
-% Copyright © 2015
+% Copyright © 2015, 2016
 %	Thorsten Glaser <t.glaser@tarent.de>
 % Copyright © 2014, 2015
 %	Thorsten “mirabilos” Glaser <thorsten.glaser@teckids.org>
@@ -50,10 +50,23 @@ VerA.web ist eine Open Source-Webanwendung, die die IT-gestützte Planung und
 Durchführung von Anlässen, Konferenzen und anderen Veranstaltungen maßgeblich
 unterstützt.
 
+\ifoa
+Die „Online-Anmeldung“ ermöglicht es Gästen, sich selbst zu Veranstaltungen
+anzumelden, die für diese Prozedur freigeschaltet sind, sowie zu einer
+Veranstaltung angemeldeten Delegationen, ihre Mitglieder selbst zu melden.
+\fi% oa
+
 \subsection{Über diese Anleitung}\label{subsec:aboutmanual}
 
+\ifoa
+Dieses Dokument beschreibt, wie das Veranstaltungsmanagement
+VerA.web mit Online-Anmeldung und (falls nötig) das
+Identitätsmanagementsystem OSIAM
+\else% !oa
 Dieses Dokument beschreibt, wie VerA.web core (die eigentliche
-Veranstaltungsmanagementsoftware) durch einen Systemadministrator
+Veranstaltungsmanagementsoftware)
+\endif% !oa
+durch einen Systemadministrator
 eigenständig installiert werden kann. Hierbei wird eine empfohlene
 Installation beschrieben; ein Betrieb ist auch mit abweichender
 Konfiguration (z.B. Trennung von Core und REST-API) möglich, aber
@@ -80,6 +93,23 @@ dieselbe Datenbank zu.
   bereitstellt.}
 \end{itemize}
 
+\ifoa
+VerA.web mit Online-Anmeldung benutzt OSIAM zur sicheren Identitätsverwaltung.
+Eine funktionierende OSIAM-Installation ist Voraussetzung für den Betrieb von
+VerA.web mit Online-Anmeldung; sollten Sie jedoch noch keine OSIAM-Instanz bei
+Ihnen betreiben wird eine für VerA.web taugliche Kurzinstallation erläutert.
+OSIAM kann auf einem separaten System oder zusammen mit VerA.web core laufen
+und benötigt eine eigene Datenbank, die aber im selben PostgreSQL-Cluster
+liegen kann (und, bei Installation auf demselben Server, sollte). OSIAM für
+VerA.web ist ein reines „Backend“ ohne Weboberfläche.
+
+Die Online-Anmeldung wird üblicherweise auf einem separaten System
+installiert, da auf diese Komponente durch Dritte über das Internet
+zugegriffen werden soll (im Gegensatz zu VerA.web core, auf welchem
+sich nur Ihre Sachbearbeiter einloggen). Sie verfügt über keine eigene
+Datenbank und greift auf OSIAM und die VerA.web REST-API zu.
+\fi% oa
+
 \subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
 
 Die Aufrufe der REST-API werden durch HTTP Basic Authentication mit einem
@@ -93,6 +123,32 @@ an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
 
 \section{Systemvoraussetzungen}\label{sec:requirements}
 
+\ifoa
+
+Die Systemvoraussetzungen unterscheiden sich je nachdem wie Sie die
+Komponenten trennen. Im folgenden werden empfohlene Werte für zwei
+mögliche Installationsvarianten angegeben (OSIAM getrennt oder mit
+auf dem core-System); die Online-Anmeldung („OA“) wird als getrenntes
+System ausgeführt, bei einer Zusammenlegung mit dem core-System
+sind die Werte in der Spalte „empfohlen“ als Minimum zu verstehen.
+
+\begin{tabular}{| r || l | l |}\hline
+                 & Minimum    & empfohlen\\\hline\hline
+ CPU je VM       & 1          & 1\\\hline
+ RAM OSIAM       & 960 MiB    & 1536 MiB\\\hline
+ RAM core        & 512 MiB    & 1024 MiB, besser mehr\\\hline
+ RAM zusammen    & 1024 MiB   & 2048 MiB, besser mehr\\\hline
+ RAM OA          & 512 MiB    & 768 MiB\\\hline
+ HDD OSIAM       & 2 GB       & 4 GB\\\hline
+ HDD core        & 2 GB       & 8 GB\\\hline
+ HDD zusammen    & 3 GB       & 10 GB\\\hline
+ HDD OA          & 1½ GB      & 3 GB\\\hline
+ Betriebssystem  & Debian 7   & Debian 7 oder 8\Hair\textsuperscript{\ref{fn:jessie}}\\\hline
+ Webserver       & Apache 2.2 & Apache 2.2 oder 2.4\Hair\textsuperscript{\ref{fn:apache}}\\\hline
+ Java Runtime    & OpenJDK 7  & OpenJDK 7 oder 8\\\hline
+\end{tabular}
+
+\else% !oa
 % Voraussetzungen für VerA.web ohne Online-Anmeldung:
 \begin{tabular}{| r || l | l |}\hline
                  & Minimum    & empfohlen\\\hline\hline
@@ -103,6 +159,7 @@ an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
  Webserver       & Apache 2.2 & Apache 2.2 oder 2.4\Hair\textsuperscript{\ref{fn:apache}}\\\hline
  Java Runtime    & OpenJDK 7  & OpenJDK 7 oder 8\\\hline
 \end{tabular}
+\fi% !oa
 
 \subsection{LDAP-Verzeichnisdienst}\label{subsec:req-ldap}
 
@@ -117,27 +174,39 @@ Für eine kleine Site ist es möglich, den LDAP-Server (Debian-Pakete
 \texttt{slapd} und \texttt{ldap-utils} sowie, als einfach bedienbare
 Oberfläche, \texttt{ldap-account-manager}) auf demselben Server wie
 die interne Veranstaltungs- und Adreßverwaltung laufenzulassen; dies
-erhöht die Systemvoraussetzungen nicht.
+erhöht die Systemvoraussetzungen nicht nennenswert.
 
 \subsection{Interne Veranstaltungs- und Adreßverwaltung}\label{subsec:req-core}
 
 Zum Betrieb von VerA.web core empfehlen wir eine eigenständige VM
+\ifoa
+je Komponente (core, Online-Anmeldung; OSIAM kann auf dem core-System
+mitinstalliert werden, wenn es nur für VerA.web verwendet wird)
+\fi% oa
 mit Debian Linux 7 „wheezy“ als Betriebssystem. Zwar \emph{kann}
 die Software auch mit einer anderen Debian-basierten Distribution
 (z.B. Ubuntu 14.04 „trusty“) oder einer anderen Java/Tomcat-Umgebung
 betrieben werden, allerdings geht diese Installationsanleitung von
 der empfohlenen Systemumgebung aus. Eine graphische Oberfläche auf
-dem Server wird zum Betrieb nicht benötigt.
+dem Server wird zum Betrieb nicht benötigt. Eine Installation mit
+Debian 8 „jessie“ wird in einer späteren Version dieser Anleitung
+berücksichtigt werden.%XXX TODO
 
+\ifoa\else% !oa
 Für VerA.web core benötigen Sie mindestens 512 MiB Arbeitsspeicher;
 1 GiB oder mehr wird empfohlen. Wir empfehlen mindestens 2 GiB Festplatte,
 besser 8 GiB.
+\fi% !oa
 
 In dieser Anleitung sowie den Systemvoraussetzungen wird weiterhin
 angenommen, daß der notwendige Datenbankserver (PostgreSQL) auf
 derselben VM wie die interne Veranstaltungs- und Adreßverwaltung läuft;
 falls nicht ändern Sie bitte an den relevanten Stellen den Hostnamen,
 ggfs. Port, und Datenbanknamen in den Konfigurationsdateien.
+\ifoa
+Der PostgreSQL-Datenbankserver für OSIAM muß hingegen aus Gründen der
+Einfachheit auf demselben System wie der OSIAM-Anwendungsserver laufen.
+\fi% oa
 
 Desweiteren benötigen Sie den Apache 2 Webserver (idealerweise mit
 dem \texttt{prefork} MPM; in dieser Anleitung gehen wir von einem
@@ -148,6 +217,12 @@ Installationsanleitung beschreibt aktuell nur den Betrieb unter
 Debian 7 „wheezy“.} aus) und \texttt{mod\_jk} sowie den
 Applikationsserver Tomcat 7 mit der Java™ 7 Laufzeitumgebung (OpenJDK)
 ohne GUI (headless).
+\ifoa
+Es wird je eine Installation des Webservers pro VM benötigt, da in
+der von uns empfohlenen Installationemethode die Komponenten auch
+untereinander ausschließlich verschlüsselt und sicher über HTTPS
+miteinander kommunizieren.
+\fi% oa
 
 \Warning \emph{Achtung:} Java™ 6 oder älter wird nicht unterstützt
 und führt während der Installation zu Fehlern!
@@ -167,6 +242,7 @@ Integration mit dem Veranstaltungsmanagement beschrieben. (Vergessen
 Sie bei Debian \texttt{sudo a2enmod ssl} nicht.)
 
 \begin{minipage}{\textwidth}
+\hypertarget{manual:aptget}{}
 Auf einem Debian 7 „wheezy“-System können Sie den Datenbankserver,
 die Java™-Laufzeitumgebung, den Applikationsserver und den Webserver
 wie folgt lokal installieren:
@@ -193,10 +269,18 @@ VerA.web-core Distribution“) von tarent beziehen:\keinumbruch
 
 \begin{itemize}
  \item{\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
-  \emph{oder} \texttt{veraweb-core-\vwiaverssw{}-files.zip}}
-  \\(der Inhalt dieser Dateien ist identisch, nur anders verpackt)
+  \emph{oder} \texttt{veraweb-core-\vwiaverssw{}-files.zip}
+  \\(der Inhalt dieser Dateien ist identisch, nur anders verpackt)}
+\ifoa
+ \item{\texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
+  \emph{oder} \texttt{online-anmeldung-\vwiaverssw{}-files.zip}
+  \\(diese beiden Dateien sind ebenfalls identisch)}
+\fi% oa
  \item{\texttt{veraweb-core-\vwiaverssw{}.war}}
  \item{\texttt{rest-api-\vwiaverssw{}.war}}
+\ifoa
+ \item{\texttt{online-anmeldung-\vwiaverssw{}.jar}}
+\fi% oa
 \end{itemize}
 
 Bitte wenden Sie sich hierzu an unseren Produktvertrieb.
@@ -208,11 +292,172 @@ durchgeführt, kann aber auch als \texttt{root} durchlaufen werden.
 \ifupgradeanleitung
 \else
 
+\ifoa
+\section{Installation OSIAM-System}\label{sec:setup-osiam}
+
+Dieser Abschnitt gliedert sich in zwei Teile: die generelle Installation
+von OSIAM, sofern Sie noch keine laufende OSIAM-Installation haben, und
+die Registration der VerA.web Online-Anmeldung beim OSIAM-Server.
+
+\begin{minipage}{\textwidth}
+Kopieren Sie bitte zunächst \texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
+auf den OSIAM-Server, entpacken Sie diese Datei und wechseln in das
+Unterverzeichnis mit den OSIAM-Dateien:
+
+\begin{lstdump}[language=sh]{Entpacken OSIAM}
+tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
+cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files/osiam
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Installieren Sie nun einige notwendige Pakete, sofern noch nicht vorhanden:
+
+\begin{lstdump}[language=sh]{Pakete OSIAM}
+sudo apt-get install curl mksh
+\end{lstdump}
+\end{minipage}
+
+\subsection{OSIAM-Server Schnellinstallation}\label{subsec:setup-osiam-fast}
+
+Diesen Abschnitt können Sie \hyperlink{subsec:setup-osiam-register}
+{überspringen}, falls Sie bereits eine lauffähige OSIAM-Installation
+besitzen; demfalls stellen Sie bitte sicher, daß auf die vorhandene
+Installation über HTTPS zugegriffen werden kann.
+
+VerA.web benötigt aktuell OSIAM auth-server und resource-server in
+der Version \vwiaversosiam{} (enthalten in der OSIAM Distribution
+Version \vwiaversodist{}) und ist \emph{nur} mit dieser Version
+getestet worden.
+\\% XXX TODO besser in Upgradeanleitung, sobald es die gibt
+\Warning \emph{Achtung:} OSIAM Server 2.3 und neuer können
+nicht von VerA.web-Versionen bevor 1.6.34 angesprochen werden.
+
+Sofern Sie noch nicht über eine OSIAM-Installation besitzen, bereiten
+Sie bitte zunächst das System wie \hyperlink{manual:aptget}{oben}
+beschrieben vor, indem Sie PostgreSQL, OpenJDK, Tomcat und Apache 2
+installieren und alte Java-Versionen deinstallieren.
+
+\begin{minipage}{\textwidth}
+In der Apache-Konfiguration äquivalent zu \nameref{subsec:setup-core-apache}
+mit \texttt{mod\_jk} sind folgende vhost-Einträge für OSIAM nötig:
+
+\begin{lstdump}{AJP workers OSIAM}
+JkMount /osiam-auth-server* ajp13_worker
+JkMount /osiam-resource-server* ajp13_worker
+\end{lstdump}
+\end{minipage}
+
+Schützen Sie das System bitte firewalltechnisch oder mit Hilfe von
+Apache-Direktiven so, daß Zugriffe auf diese beiden Pfade (oder den
+gesamten OSIAM-Server) nur von der lokalen Maschine (mit vollem
+Hostnamen, also ggfs. über die externe IP, nicht \texttt{127.0.0.1}),
+dem core/REST-API-System und der Online-Anmeldung möglich sind.
+
+\begin{minipage}{\textwidth}
+Legen Sie jetzt den Datenbankbenutzer und die Datenbank an:
+
+\begin{lstdump}[language=sh]{DB erstellen OSIAM}
+sudo -u postgres createuser -D -P -R -S ong
+sudo -u postgres createdb -E UTF-8 -O ong -T template0 ong
+\end{lstdump}
+
+Falls Sie hierbei ein anderes Paßwort als \texttt{ong} für
+den Datenbanknutzer vergeben müssen Sie die Angaben in
+\texttt{auth-server.properties} und \texttt{resource-server.properties}
+entsprechend anpassen.
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+In den Dateien \texttt{auth-server.properties} und
+\texttt{resource-server.properties} ersetzen Sie bitte an allen
+Stellen \texttt{HOSTNAME-OSIAM} durch den vollen Hostnamen des
+OSIAM-Servers. Danach installieren Sie diese:
+
+\begin{lstdump}[language=sh]{/etc/osiam fuellen}
+sudo mkdir -p /etc/osiam
+sudo install -c -o 0 -g 0 -m 644 *.properties /etc/osiam/
+\end{lstdump}
+\end{minipage}
+
+Folgen Sie bitte der allgemeinen \nameref{subsec:allg-tomcat} und
+den spezifischen Anweisungen für OSIAM. Danach starten Sie den
+Tomcat-Anwendungsserver auf jeden Fall neu, bevor Sie mit der
+Installation von OSIAM fortfahren, damit die neuen Einstellungen
+direkt verfügbar sind.
+
+\begin{minipage}{\textwidth}
+Nun müssen Sie die OSIAM-Installationsdateien herunterladen
+und installieren:
+
+\begin{lstdump}[language=sh]{OSIAM herunterladen}
+curl -o osiam-auth-server.war https://maven-repo.evolvis.org/releases/org/osiam/auth-server/〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
+curl -o osiam-resource-server.war https://maven-repo.evolvis.org/releases/org/osiam/resource-server/〈\lstdumpesc{\vwiaversosiam}〉/resource-server-〈\lstdumpesc{\vwiaversosiam}〉.war
+sudo install -c -o 0 -g 0 -m 644 *.war /var/lib/tomcat7/webapps/
+\end{lstdump}
+\end{minipage}
+
+Warten Sie einige Zeit, bis beide Artefakte deployt wurden; in
+\texttt{/var/log/tomcat7/catalina.out} befinden sich die Logs.
+
+\begin{minipage}{\textwidth}
+Nach einem erfolgreichen Start können Sie prüfen, ob sich der
+Server ansprechen läßt:
+
+\begin{lstdump}[language=sh]{OSIAM ansprechen}
+curl https://$(hostname -f)/osiam-resource-server/ServiceProviderConfigs; echo
+\end{lstdump}
+
+Sie sollten hier eine Ausgabe im JSON-Format sehen, die erwähnt,
+daß OAuth 2 verwendet wird.
+\end{minipage}
+
+Im Abschnitt \nameref{sec:links} finden Sie einen Link auf die
+offizielle OSIAM-Installationsanleitung mit weitergehenden
+Informationen, u.a. wie man den Standardzugang ändert.
+
+\subsection{Registrierung von VerA.web mit OSIAM}\label{subsec:setup-osiam-register}
+
+Die Datei \texttt{register-veraweb-into-osiam.sh} muß nun
+gegebenenfalls angepaßt werden: rund um Zeile 30 finden Sie
+Standardwerte für den Datenbanknamen (\texttt{ong}) und den
+OSIAM-Standardzugang, die Sie ändern müssen, falls Ihr System
+dem nicht entspricht, sowie das Paßwort, mit dem sich später
+die VerA.web Online-Anmeldung bei OSIAM einloggen kann, und
+welches Sie auf jeden Fall ändern sollten.
+
+\begin{minipage}{\textwidth}
+Nun rufen Sie dieses Skript bitte auf:
+
+\begin{lstdump}[language=sh]{register VW into OSIAM}
+sudo mksh register-veraweb-into-osiam.sh
+\end{lstdump}
+\end{minipage}
+
+Das Skript fügt zunächst die VerA.web-spezifischen Daten
+zum SCIM-Schema hinzu und benötigt daher Datenbankzugriff
+(weshalb die Datenbank für die vereinfachte Installation
+auf demselben Server laufen muß wie OSIAM selbst) und
+registriert danach über die REST-Schnittstelle von OSIAM
+VerA.web als Client.
+
+\begin{minipage}{\textwidth}
+Nach erfolgreichem Abschluß können Sie nun die
+Installationsdateien löschen:
+
+\begin{lstdump}[language=sh]{Aufraeumen OSIAM}
+cd ../..
+rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
+\end{lstdump}
+\end{minipage}
+
+\fi% oa
+
 \section{Installation internes VerA.web-System}\label{sec:setup-int}
 
-Nach dem erfolgten Aufsetzen des Systems mit den Basispaketen
-und dem Download der Installationspakete wird im folgenden die
-Installation der einzelnen Komponenten beschrieben.
+Nach dem erfolgten \hyperlink{manual:aptget}{Aufsetzen des Systems
+mit den Basispaketen} und dem Download der Installationspakete wird
+im folgenden die Installation der einzelnen Komponenten beschrieben.
 
 Bevor Sie beginnen informieren Sie sich bitte über die LDAP-Kürzel
 (Unix-Loginnamen) der Nutzer, die zunächst einen Administratorenzugang
@@ -462,6 +707,8 @@ Damit ist die Installation abgeschlossen.
 
 \fi% !ifupgradeanleitung
 
+\ifoa\else% !ifoa - XXX FIXME Upgrade für OA schreiben
+
 \section{Upgrade internes VerA.web-System}\label{sec:upgrade-int}
 
 Im folgenden wird das Upgrade der einzelnen Komponenten
@@ -665,6 +912,8 @@ rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 
 Damit ist das Upgrade abgeschlossen.
 
+\fi% !ifoa - XXX FIXME
+
 \section{Allgemeine Prozeduren}\label{sec:allg}
 
 In diesem Kapitel finden Sie Prozeduren, die während der Installation
@@ -804,6 +1053,27 @@ hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
 \end{lstdump}
 \end{minipage}
 
+\ifoa
+
+\subsubsection{Tomcat OSIAM}\label{subsub:allg-tomcat-osiam}
+
+\begin{minipage}{\textwidth}
+Suchen Sie bitte in der Datei \texttt{/etc/tomcat7/catalina.properties}
+die Zeile, die mit \texttt{shared.loader=} beginnt, und hängen Sie am
+Ende der Zeile \texttt{,/etc/osiam} an; das könnte dann wie folgt aussehen:
+
+\begin{lstdump}{Tomcat OSIAM shared.loader}
+shared.loader=/var/lib/tomcat7/shared/classes,/var/lib/tomcat7/shared/*.jar,/etc/osiam
+\end{lstdump}
+\end{minipage}
+
+Suchen Sie in der Datei \texttt{/etc/default/tomcat7} die Stelle, wo
+\texttt{-Xmx128m} in den \texttt{JAVA_OPTS} gesetzt wird. Ändern Sie
+diesen Wert auf \texttt{-Xms512m -Xmx1024m} falls die VM über mehr als
+1280 MiB RAM verfügt, \texttt{-Xmx512m} andernfalls.
+
+\fi% oa
+
 \subsubsection{Tomcat REST-API}\label{subsub:allg-tomcat-vwor}
 
 \begin{minipage}{\textwidth}
@@ -872,4 +1142,8 @@ haben, kontaktieren Sie bitte unseren Produktvertrieb.
   Service, Wartung und Hosting}
  \item{\href{https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=blob_plain;f=src/main/webapp/doc/Benutzerhandbuch.pdf;hb=HEAD}{Benutzerhandbuch}
   (aktuelle Version, online)}
+\ifoa
+ \item{\href{https://github.com/osiam/osiam/blob/master/docs/detailed-reference-installation.md}{https://github.com/osiam/osiam/blob/master/docs/detailed-reference-installation.md}
+  \dash Detaillierte OSIAM-Referenzinstallationsanleitung}
+\fi% oa
 \end{itemize}

@@ -1,6 +1,6 @@
 % VerA.web (public) Installationsanleitung
 %
-% Copyright © 2015, 2016
+% Copyright © 2016
 %	Thorsten Glaser <t.glaser@tarent.de>
 %
 % Provided that these terms and disclaimer and all copyright notices
@@ -18,27 +18,12 @@
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
 
-% VerA.web Fassung der Installationsanleitung
-\newcommand{\vwiaversfassungnr}{3.2+WIP}
-\newcommand{\vwiaversfassungmonat}{Januar}
-\newcommand{\vwiaversfassungjahr}{2016}
+\documentclass{tarentanleitung}
+\begin{document}
 
-% VerA.web Version
-\newcommand{\vwiaverssw}{1.7.4-SNAPSHOT}
+\input{version.inc}
+\oatrue
+\upgradeanleitungfalse
+\input{text-anleitung.inc}
 
-% OSIAM Version (Auth-/Resource-Server, nicht Distribution)
-\newcommand{\vwiaversosiam}{2.3}
-% zugehörige Distribution
-\newcommand{\vwiaversodist}{2.4}
-
-% Upgrade von /etc/veraweb (1.4.3.5 oder 1.5.1.4+)
-\newif\ifvwconfigsinetcalready
-\vwconfigsinetcalreadyfalse
-
-% Installationsanleitung oder nur Upgrade?
-\newif\ifupgradeanleitung
-\upgradeanleitungtrue
-
-% Textweiche mit/ohne OA
-\newif\ifoa
-\oafalse
+\end{document}
