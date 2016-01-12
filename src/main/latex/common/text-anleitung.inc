@@ -356,7 +356,7 @@ Unterverzeichnis mit den OSIAM-Dateien:
 
 \begin{lstdump}{Entpacken OSIAM}
 tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files/osiam
+cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/osiam
 chmod go-x .
 \end{lstdump}
 \end{minipage}
@@ -791,7 +791,7 @@ relevanten Dateien:
 
 \begin{lstdump}{Entpacken OA}
 tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files/vwoa
+cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/vwoa
 chmod go-x .
 \end{lstdump}
 \end{minipage}
