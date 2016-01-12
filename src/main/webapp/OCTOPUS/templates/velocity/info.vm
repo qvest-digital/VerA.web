@@ -41,6 +41,7 @@
         </tr><tr>
             <td class="width10 bold">${placeholderWithTranslation.GENERIC_BUILD_TIME}:</td>
             <td>$properties.getString("build")</td>
+<!-- XXX TODO: insert "REST-API verfuegbar?" (OK/Fehler) here: /vwor/rest/available/ -->
     #if($online-registration.activated)
         </tr><tr>
             <td class="width10 bold">${placeholderWithTranslation.GENERIC_OA}:</td>
