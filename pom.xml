@@ -105,6 +105,11 @@
 											<type>pdf</type>
 											<classifier>installationsanleitung-core</classifier>
 										</artifact>
+										<artifact>
+											<file>target/latex/installationsanleitung-core/installationsanleitung-full.pdf</file>
+											<type>pdf</type>
+											<classifier>installationsanleitung-full</classifier>
+										</artifact>
 									</artifacts>
 								</configuration>
 							</execution>

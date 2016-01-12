@@ -33,6 +33,10 @@
 			<outputDirectory></outputDirectory>
 		</file>
 		<file>
+			<source>target/latex/installationsanleitung-full/installationsanleitung-full.lst</source>
+			<outputDirectory></outputDirectory>
+		</file>
+		<file>
 			<source>target/latex/upgradeanleitung-core/upgradeanleitung-core.lst</source>
 			<outputDirectory></outputDirectory>
 		</file>
