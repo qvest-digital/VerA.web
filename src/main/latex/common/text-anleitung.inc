@@ -835,10 +835,11 @@ mv vwoa /service/vwoa
 \end{minipage}
 
 Danach können Sie mit \texttt{svstat /service/vwoa} den Zustand
-des Dienstes prüfen; unter \texttt{/var/log/vwoa/vwoa.log} finden
-Sie die Logausgaben der Online-Anmeldung. Mit dem Befehl \texttt{svc}
-können Sie den Dienst kontrollieren. Weitergehende Angaben hierzu
-finden Sie in der Dokumentation der DJB daemontools.
+des Dienstes (\texttt{up} oder \texttt{down}) prüfen; unter
+\texttt{/var/log/vwoa/vwoa.log} finden Sie die Logausgaben der
+Online-Anmeldung. Mit dem Befehl \texttt{svc} können Sie den Dienst
+kontrollieren. Weitergehende Angaben hierzu finden Sie in der
+Dokumentation der DJB daemontools.
 %XXX add a primer here
 
 \begin{minipage}{\textwidth}
