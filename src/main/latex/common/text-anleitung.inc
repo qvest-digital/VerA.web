@@ -24,7 +24,6 @@
 %-
 % TODO: slapd, lam, MTA
 % TODO: graphics from experiments.tex for more detailed concepts
-% TODO core: curl https://veraweb:veraweb@veraweb-ohne.lan.tarent.de/vwor/rest/available/;echo ⇒ OK
 % TODO vwoa: primer on service management with DJB dæmontools
 
 \ifupgradeanleitung
@@ -353,6 +352,7 @@ Unterverzeichnis mit den OSIAM-Dateien:
 \begin{lstdump}[language=sh]{Entpacken OSIAM}
 tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files/osiam
+chmod go-x .
 \end{lstdump}
 \end{minipage}
 
@@ -746,6 +746,18 @@ sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
 \end{lstdump}
 \end{minipage}
 
+\begin{minipage}{\textwidth}
+Die Lauffähigkeit der REST-API können Sie z.B. mit cURL prüfen:
+
+\begin{lstdump}[language=sh]{REST-API check}
+curl https://veraweb:veraweb@$(hostname -f)/vwor/rest/available/; echo
+\end{lstdump}
+
+Dieser Befehl gibt \texttt{OK} aus, wenn die REST-API läuft und
+Benutzername und Paßwort (die beiden \texttt{veraweb} hinter
+dem \texttt{https://}) korrekt sind.
+\end{minipage}
+
 Jetzt können Sie z.B. über \texttt{https://veraweb.lan.tarent.de/veraweb/}
 auf das Veranstaltungsmanagement zugreifen und sich einloggen. Falls
 hierbei Fehler auftauchen prüfen Sie bitte den LDAP-Zugriff und eventuell
@@ -775,6 +787,7 @@ relevanten Dateien:
 \begin{lstdump}[language=sh]{Entpacken OA}
 tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files/vwoa
+chmod go-x .
 \end{lstdump}
 \end{minipage}
 
@@ -1094,6 +1107,7 @@ tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
 tar -xzf ../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 mv online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/core/* .
+chmod go-x .
 \end{lstdump}
 \else% !oa
 \begin{lstdump}[language=sh]{Entpacken}
@@ -1101,9 +1115,15 @@ mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
 mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
 tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
+chmod go-x .
 \end{lstdump}
 \fi% !oa
 \end{minipage}
+
+Der \texttt{chmod}-Aufruf dient dazu, anderen auf demselben System
+eingeloggten Nutzern den Zugriff auf die Konfigurationsdateien zu
+verweigern während Sie sie bearbeiten, da sie später Paßwörter
+enthalten werden.
 
 Die meisten enthaltenen Dateien werden im Verlauf der Einrichtung
 verwendet; alle übrigen dienen als Beispiele, Vorlagen oder Hilfen
