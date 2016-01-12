@@ -115,6 +115,7 @@
 		<vera-info vera-stay>
 			<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
 			${placeholderWithTranslation.siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehrereunddasfureinzelnezeichen}
+			<img src="../images/dialog_close.png" id="close-info" style="top:-32px;" onclick="$(this).parent().get(0).remove()" />
 		</vera-info>
 
 		##<br><a href="SearchEvent?search=current">${placeholderWithTranslation.GENERIC_SHOW_CURRENT_EVENTS}</a><br><br>

@@ -45,6 +45,7 @@
 	    ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen}.
         ${placeholderWithTranslation.HINT_SEARCH_WHERE}
 		${placeholderWithTranslation.undamtsbezeichnungfunktion}.
+		<img src="../images/dialog_close.png" id="close-info" style="top:-28px;" onclick="$(this).parent().get(0).remove()" />
     </vera-info>
 </div>
 

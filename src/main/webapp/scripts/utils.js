@@ -296,7 +296,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
                 }
             });
         };
-        formatElements('vera-info', createInfoHtml, true);
+        formatElements('vera-info', createInfoHtml, false);
         formatElements('vera-warn', createWarnHtml);
         formatElements('vera-success', createSuccessHtml);
         formatElements('vera-confirm', createConfirmHtml);

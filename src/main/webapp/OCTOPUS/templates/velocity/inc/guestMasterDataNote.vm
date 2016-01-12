@@ -1,5 +1,5 @@
 <vera-info vera-stay>
-	${placeholderWithTranslation.HINT_GUEST_LIST_EDIT_PERSONDATA}
+	${placeholderWithTranslation.HINT_GUEST_LIST_EDIT_PERSONDATA} <img src="../images/dialog_close.png" id="close-info" style="top:-9px;" onclick="$(this).parent().get(0).remove()" />
 </vera-info>
 
 <div class="textRight marginBottom20" id="buttonPanel-bottom">

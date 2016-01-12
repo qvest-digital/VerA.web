@@ -197,6 +197,7 @@
 				#else
 					<vera-info vera-stay>
 						${placeholderWithTranslation.MESSAGE_NO_TASKS_FOR_THIS_EVENT}
+						<img src="../images/dialog_close.png" id="close-info" style="top:-9px;" onclick="$(this).parent().get(0).remove()" />
 					</vera-info>
 				#end
 

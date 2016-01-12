@@ -586,6 +586,7 @@
 			<vera-info vera-stay>
                 ${placeholderWithTranslation.GUEST_LIST_HINT_FILTER}.<br>
                 ${placeholderWithTranslation.GUEST_LIST_HINT_EXPORT_GUEST}.
+                <img src="../images/dialog_close.png" id="close-info" style="top:-28px;" onclick="$(this).parent().get(0).remove()" />
 			</vera-info>
 
 			#if($deletedperson)

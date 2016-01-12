@@ -117,5 +117,6 @@
 
     <vera-info vera-stay>
         ${placeholderWithTranslation.beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse}
+         <img src="../images/dialog_close.png" id="close-info" style="top:-9px;" onclick="$(this).parent().get(0).remove()" />
     </vera-info>
 #end

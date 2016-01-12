@@ -517,6 +517,12 @@ nav a, #nav a {
     min-height: 100%;
     padding: 10px;
 }
+
+#close-info{
+    float:right;
+    position:relative;
+    right:-19px;
+}
 /************* End infoboxes *************/
 
 
@@ -559,7 +565,7 @@ nav a, #nav a {
 }
 
 .hinweis {
-    background-image: url("../images/dialog_close.png");
+  /*  background-image: url("../images/dialog_close.png");*/
     background-position: right top;
     background-repeat: no-repeat;
     background-size: 21px auto;
