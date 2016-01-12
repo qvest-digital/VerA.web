@@ -189,6 +189,7 @@ sind die Werte in der Spalte „empfohlen“ als Minimum zu verstehen.
  HDD zusammen    & 3 GB       & 10 GB\\\hline
  HDD OA          & 1½ GB      & 3 GB\\\hline
  Betriebssystem  & Debian 7   & Debian 7\Hair\textsuperscript{\ref{fn:jessie}}\\\hline
+%XXX jessie mit sysvinit vielleicht? Testen!
  Webserver       & Apache 2.2 & Apache 2.2 oder 2.4\Hair\textsuperscript{\ref{fn:apache}}\\\hline
  Java Runtime    & OpenJDK 7  & OpenJDK 7 oder 8\\\hline
 \end{tabular}
@@ -333,6 +334,10 @@ Bitte wenden Sie sich hierzu an unseren Produktvertrieb.
 Die Installation wird als regulärer Benutzer, der sich vermittels
 des Programms \texttt{sudo} Superuserrechte verschaffen kann,
 durchgeführt, kann aber auch als \texttt{root} durchlaufen werden.
+\ifoa
+Das OSIAM-Registrationsskript benutzt \texttt{sudo} intern, daher
+muß letzteres auf dem OSIAM-Server in jedem Fall verfügbar sein.
+\fi% oa
 
 \ifupgradeanleitung
 \else
@@ -366,11 +371,6 @@ sudo apt-get install curl mksh
 
 \subsection{OSIAM-Server Schnellinstallation}\label{subsec:setup-osiam-fast}
 
-Diesen Abschnitt können Sie \hyperlink{subsec:setup-osiam-register}
-{überspringen}, falls Sie bereits eine lauffähige OSIAM-Installation
-besitzen; demfalls stellen Sie bitte sicher, daß auf die vorhandene
-Installation über HTTPS zugegriffen werden kann.
-
 VerA.web benötigt aktuell OSIAM auth-server und resource-server in
 der Version \vwiaversosiam{} (enthalten in der OSIAM Distribution
 Version \vwiaversodist{}) und ist \emph{nur} mit dieser Version
@@ -378,6 +378,11 @@ getestet worden.
 \\% XXX TODO besser in Upgradeanleitung, sobald es die gibt
 \Warning \emph{Achtung:} OSIAM Server 2.3 und neuer können
 nicht von VerA.web-Versionen bevor 1.6.34 angesprochen werden.
+
+Falls Sie bereits eine lauffähige OSIAM-Installation besitzen stellen
+Sie bitte sicher, daß auf die vorhandene Installation über HTTPS
+zugegriffen werden kann; danach können Sie direkt zum Abschnitt
+\nameref{subsec:setup-osiam-register} überspringen.
 
 Sofern Sie noch nicht über eine OSIAM-Installation besitzen, bereiten
 Sie bitte zunächst das System wie \hyperlink{manual:aptget}{oben}
@@ -1091,7 +1096,11 @@ VerA.web-Installationsdateien} für die korrekte Version vollständig
 erhalten zu haben, und kopieren Sie die Dateien auf den Server,
 auf dem Sie das VerA.web-Veranstaltungsmanagement installieren
 oder aktualisieren möchten. Alle weiteren Schritte werden auf
-dem Server ausgeführt.
+dem Server
+\ifoa
+für VerA.web-core
+\fi% oa
+ausgeführt.
 
 \begin{minipage}{\textwidth}
 Benennen Sie die Applikationsdateien in später leicher zu
