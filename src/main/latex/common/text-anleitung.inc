@@ -485,6 +485,14 @@ REST-API erreichbar ist, üblicherweise also den Hostnamen vom
 core-System) und tragen Sie die Zugangsdaten für die REST-API
 (siehe \nameref{subsec:intro-restapi}) als \texttt{vwor.auth.user}
 und \texttt{vwor.auth.password} ein.
+\ifoa
+Desweiteren ersetzen Sie bitte \texttt{HOSTNAME-OSIAM} und
+\texttt{HOSTNAME-OA} an allen Stellen durch die Hostnamen
+des OSIAM- bzw. des Online-Anmeldungssystems. Schließlich
+tragen Sie für \texttt{osiam.client.secret} denselben Wert
+ein, den Sie bei der \nameref{subsec:setup-osiam-register}
+als \texttt{vwsecret} gesetzt haben.
+\fi% oa
 
 \begin{minipage}{\textwidth}
 Legen Sie ein neues Verzeichnis an, in dem Sie die hochgeladenen
