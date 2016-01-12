@@ -152,7 +152,7 @@ public class DelegationResource extends AbstractResource {
         for (OptionalField field : fields) {
             final List<Delegation> delegationContents = getDelegationContentsByGuest(guestId, session, field);
 
-            if (delegationContents != null && field != null && (!delegationContents.isEmpty() || field.getFk_type() != 1)) {
+            if (!delegationContents.isEmpty() || field.getFk_type() != 1) {
                 final OptionalFieldValue newOptionalFieldValue = initOptionalField(session, field, delegationContents);
                 fieldsList.add(newOptionalFieldValue);
             } else {
