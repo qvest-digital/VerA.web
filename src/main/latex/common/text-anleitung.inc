@@ -116,7 +116,6 @@ Datenbank und greift auf OSIAM und die VerA.web REST-API zu.
 Es wird empfohlen, nur mit der Administration der Systeme betreuten
 Personen Zugriff auf die Systeme auf Shell-Ebene zu gewähren, und
 ggfs. weitere geeignete Maßnahmen zur Absicherung zu treffen.
-%XXX TODO: Konfigs/Logs prüfen, ggf. chgrp/chmod-Befehle zufügen
 
 \subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
 
@@ -384,10 +383,11 @@ OSIAM-Servers. Danach installieren Sie diese:
 
 \begin{lstdump}[language=sh]{/etc/osiam fuellen}
 sudo mkdir -p /etc/osiam
-sudo install -c -o 0 -g 0 -m 644 *.properties /etc/osiam/
+sudo chown 0:tomcat7 /etc/osiam
+sudo chmod 2750 /etc/osiam
+sudo install -c -o 0 -g tomcat7 -m 640 *.properties /etc/osiam/
 \end{lstdump}
 \end{minipage}
-%XXX /etc/osiam contains DB secrets, consider protecting
 
 Folgen Sie bitte der allgemeinen \nameref{subsec:allg-tomcat} und
 den spezifischen Anweisungen für OSIAM. Danach starten Sie den
@@ -679,12 +679,13 @@ und Sprachdateien dorthin:
 
 \begin{lstdump}[language=sh]{/etc/veraweb fuellen}
 sudo mkdir -p /etc/veraweb/l10n
-sudo install -c -o 0 -g 0 -m 644 config_*.xml /etc/veraweb/
-sudo install -c -o 0 -g 0 -m 644 *.properties /etc/veraweb/
+sudo chown 0:tomcat7 /etc/veraweb
+sudo chmod 2750 /etc/veraweb
+sudo install -c -o 0 -g tomcat7 -m 640 config_*.xml /etc/veraweb/
+sudo install -c -o 0 -g tomcat7 -m 640 *.properties /etc/veraweb/
 sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
 \end{lstdump}
 \end{minipage}
-%XXX /etc/veraweb contains secrets, consider protecting
 
 Richten Sie bitte Tomcat wie im Kapitel \nameref{subsec:allg-tomcat}
 beschrieben ein und starten ihn neu.
@@ -850,7 +851,7 @@ Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
 Installieren Sie nun die Konfigurationsdateien für die REST-API:
 
 \begin{lstdump}[language=sh]{/etc/veraweb/*.properties}
-sudo install -c -o 0 -g 0 -m 644 *.properties /etc/veraweb/
+sudo install -c -o 0 -g tomcat7 -m 640 *.properties /etc/veraweb/
 \end{lstdump}
 \end{minipage}
 
