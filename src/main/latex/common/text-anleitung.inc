@@ -293,7 +293,7 @@ Auf einem Debian 7 „wheezy“-System können Sie den Datenbankserver,
 die Java™-Laufzeitumgebung, den Applikationsserver und den Webserver
 wie folgt lokal installieren:
 
-\begin{lstdump}[language=sh]{Pakete installieren}
+\begin{lstdump}{Pakete installieren}
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
     apache2-mpm-prefork apache2 libapache2-mod-jk
 \end{lstdump}
@@ -304,7 +304,7 @@ Bitte achten Sie darauf, daß keine ältere Version des JDK verwendet
 wird (hier werden die in „wheezy“ vorhandenen älteren Versionen
 deinstalliert):
 
-\begin{lstdump}[language=sh]{altes Java entfernen}
+\begin{lstdump}{altes Java entfernen}
 sudo apt-get purge openjdk-6-jre-headless gcj-4.6-jdk gcj-4.7-jdk
 \end{lstdump}
 \end{minipage}
@@ -354,7 +354,7 @@ Kopieren Sie bitte zunächst \texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
 auf den OSIAM-Server, entpacken Sie diese Datei und wechseln in das
 Unterverzeichnis mit den OSIAM-Dateien:
 
-\begin{lstdump}[language=sh]{Entpacken OSIAM}
+\begin{lstdump}{Entpacken OSIAM}
 tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files/osiam
 chmod go-x .
@@ -364,7 +364,7 @@ chmod go-x .
 \begin{minipage}{\textwidth}
 Installieren Sie nun einige notwendige Pakete, sofern noch nicht vorhanden:
 
-\begin{lstdump}[language=sh]{Pakete OSIAM}
+\begin{lstdump}{Pakete OSIAM}
 sudo apt-get install curl mksh
 \end{lstdump}
 \end{minipage}
@@ -408,7 +408,7 @@ dem core/REST-API-System und der Online-Anmeldung möglich sind.
 \begin{minipage}{\textwidth}
 Legen Sie jetzt den Datenbankbenutzer und die Datenbank an:
 
-\begin{lstdump}[language=sh]{DB erstellen OSIAM}
+\begin{lstdump}{DB erstellen OSIAM}
 sudo -u postgres createuser -D -P -R -S ong
 sudo -u postgres createdb -E UTF-8 -O ong -T template0 ong
 \end{lstdump}
@@ -425,7 +425,7 @@ In den Dateien \texttt{auth-server.properties} und
 Stellen \texttt{HOSTNAME-OSIAM} durch den vollen Hostnamen des
 OSIAM-Servers. Danach installieren Sie diese:
 
-\begin{lstdump}[language=sh]{/etc/osiam fuellen}
+\begin{lstdump}{/etc/osiam fuellen}
 sudo mkdir -p /etc/osiam
 sudo chown 0:tomcat7 /etc/osiam
 sudo chmod 2750 /etc/osiam
@@ -443,7 +443,7 @@ direkt verfügbar sind.
 Nun müssen Sie die OSIAM-Installationsdateien herunterladen
 und installieren:
 
-\begin{lstdump}[language=sh]{OSIAM herunterladen}
+\begin{lstdump}{OSIAM herunterladen}
 curl -o osiam-auth-server.war https://maven-repo.evolvis.org/releases/org/osiam/auth-server/〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
 curl -o osiam-resource-server.war https://maven-repo.evolvis.org/releases/org/osiam/resource-server/〈\lstdumpesc{\vwiaversosiam}〉/resource-server-〈\lstdumpesc{\vwiaversosiam}〉.war
 sudo install -c -o 0 -g 0 -m 644 *.war /var/lib/tomcat7/webapps/
@@ -457,7 +457,7 @@ Warten Sie einige Zeit, bis beide Artefakte deployt wurden; in
 Nach einem erfolgreichen Start können Sie prüfen, ob sich der
 Server ansprechen läßt:
 
-\begin{lstdump}[language=sh]{OSIAM ansprechen}
+\begin{lstdump}{OSIAM ansprechen}
 curl https://$(hostname -f)/osiam-resource-server/ServiceProviderConfigs; echo
 \end{lstdump}
 
@@ -482,7 +482,7 @@ welches Sie auf jeden Fall ändern sollten.
 \begin{minipage}{\textwidth}
 Nun rufen Sie dieses Skript bitte auf:
 
-\begin{lstdump}[language=sh]{register VW into OSIAM}
+\begin{lstdump}{register VW into OSIAM}
 sudo mksh register-veraweb-into-osiam.sh
 \end{lstdump}
 \end{minipage}
@@ -498,7 +498,7 @@ VerA.web als Client.
 Nach erfolgreichem Abschluß können Sie nun die
 Installationsdateien löschen:
 
-\begin{lstdump}[language=sh]{Aufraeumen OSIAM}
+\begin{lstdump}{Aufraeumen OSIAM}
 cd ../..
 rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
 \end{lstdump}
@@ -544,7 +544,7 @@ Bilddateien speichern wollen (wir empfehlen ein Unterverzeichnis,
 sodaß es später möglich ist, weitere Strukturen aufzubauen), und
 machen Sie es für den Tomcat-Nutzer schreibbar:
 
-\begin{lstdump}[language=sh]{Uploaded anlegen}
+\begin{lstdump}{Uploaded anlegen}
 sudo mkdir -p /var/lib/veraweb/uploaded
 sudo chgrp tomcat7 /var/lib/veraweb/uploaded
 sudo chmod 2770 /var/lib/veraweb/uploaded
@@ -586,7 +586,7 @@ ausgegangen.
 \begin{minipage}{\textwidth}
 Legen Sie zunächst den Datenbankbenutzer und die Datenbank an:
 
-\begin{lstdump}[language=sh]{DB erstellen}
+\begin{lstdump}{DB erstellen}
 sudo -u postgres createuser -D -P -R -S veraweb
 sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
 \end{lstdump}
@@ -613,7 +613,7 @@ lediglich einen Minimalsatz zu laden (\texttt{stammdaten-colours.sql} statt
 \begin{minipage}{\textwidth}
 Loggen Sie sich zunächst auf der Datenbank ein:
 
-\begin{lstdump}[language=sh]{DB Login}
+\begin{lstdump}{DB Login}
 psql -U veraweb -h 127.0.0.1 -W veraweb
 \end{lstdump}
 \end{minipage}
@@ -624,7 +624,7 @@ verwenden müssen Sie diese hier selbstverständlich anpassen.
 \begin{minipage}{\textwidth}
 Dann setzen Sie folgende SQL-Kommandos ab:
 
-\begin{lstdump}[language=SQL]{DB Schema Init Beginn}
+\begin{lstdump}{DB Schema Init Beginn}
 \i schema.sql
 SELECT serv_verawebschema(1);
 \i stammdaten-full.sql
@@ -649,7 +649,7 @@ Schließlich müssen einige Sequenzen initialisiert und das Datenbankschema
 auf die jeweils aktuelle Version aktualisiert werden; danach können Sie
 den \texttt{psql}-Client wieder verlassen:
 
-\begin{lstdump}[language=SQL]{DB Schema Init Ende}
+\begin{lstdump}{DB Schema Init Ende}
 SELECT veraweb.serv_build_sequences();
 \i upgrade.sql
 \q
@@ -663,7 +663,7 @@ Aktivieren Sie zunächst das \texttt{jk}-Modul, welches benutzt wird,
 um vermittels des AJP-Protokolls Anfragen an den Webserver an Tomcat
 durchzureichen:
 
-\begin{lstdumpx}[language=sh]
+\begin{lstdumpx}
 sudo a2enmod jk
 \end{lstdumpx}
 \end{minipage}
@@ -707,7 +707,7 @@ RedirectMatch 301 . https://veraweb.lan.tarent.de/veraweb/
 \begin{minipage}{\textwidth}
 Abschließend starten Sie bitte den Webserver neu:
 
-\begin{lstdump}[language=sh]{Apache neustarten}
+\begin{lstdump}{Apache neustarten}
 sudo service apache2 stop
 sudo service apache2 start
 \end{lstdump}
@@ -729,7 +729,7 @@ Legen Sie ein neues Verzeichnis \texttt{/etc/veraweb} mit einem
 Unterverzeichnis \texttt{l10n} an und kopieren Sie die Konfigurations-
 und Sprachdateien dorthin:
 
-\begin{lstdump}[language=sh]{/etc/veraweb fuellen}
+\begin{lstdump}{/etc/veraweb fuellen}
 sudo mkdir -p /etc/veraweb/l10n
 sudo chown 0:tomcat7 /etc/veraweb
 sudo chmod 2750 /etc/veraweb
@@ -745,7 +745,7 @@ beschrieben ein und starten ihn neu.
 \begin{minipage}{\textwidth}
 Deployen Sie die VerA.web-Anwendung und die REST-API in den Applikationsserver:
 
-\begin{lstdump}[language=sh]{Tomcat deploy}
+\begin{lstdump}{Tomcat deploy}
 sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
 sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
 \end{lstdump}
@@ -754,7 +754,7 @@ sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
 \begin{minipage}{\textwidth}
 Die Lauffähigkeit der REST-API können Sie z.B. mit cURL prüfen:
 
-\begin{lstdump}[language=sh]{REST-API check}
+\begin{lstdump}{REST-API check}
 curl https://veraweb:veraweb@$(hostname -f)/vwor/rest/available/; echo
 \end{lstdump}
 
@@ -772,7 +772,7 @@ in \texttt{/var/log/tomcat7/catalina.out} auftauchende Meldungen.
 Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
 mehr; diese können nun entfernt werden:
 
-\begin{lstdump}[language=sh]{Aufraeumen}
+\begin{lstdump}{Aufraeumen}
 cd ..
 rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 \end{lstdump}
@@ -789,7 +789,7 @@ auf den Server, auf dem Sie die Online-Anmeldung installieren möchten,
 entpacken Sie diese Datei und wechseln in das Unterverzeichnis mit den
 relevanten Dateien:
 
-\begin{lstdump}[language=sh]{Entpacken OA}
+\begin{lstdump}{Entpacken OA}
 tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files/vwoa
 chmod go-x .
@@ -799,7 +799,7 @@ chmod go-x .
 \begin{minipage}{\textwidth}
 Setzen Sie nun die benötigten Pakete und Vorbedingungen auf:
 
-\begin{lstdump}[language=sh]{Pakete OA}
+\begin{lstdump}{Prereqs OA}
 sudo apt-get install daemontools-run openjdk-7-jre-headless \
     adduser apache2-mpm-prefork apache2
 sudo adduser --system --home /etc/service/vwoa --shell /bin/sh \
@@ -813,7 +813,7 @@ sudo ln -sf etc/service /service
 Setzen Sie den Webserver äquivalent zu \nameref{subsec:setup-core-apache}
 auf, allerdings nicht mit dem \texttt{jk}-Modul sondern mit:
 
-\begin{lstdumpx}[language=sh]
+\begin{lstdumpx}
 a2enmod proxy_http
 \end{lstdumpx}
 \end{minipage}
@@ -863,7 +863,7 @@ Dokumentation der DJB daemontools.
 \begin{minipage}{\textwidth}
 Schließlich können Sie die Installationsdateien löschen:
 
-\begin{lstdump}[language=sh]{Aufraeumen OA}
+\begin{lstdump}{Aufraeumen OA}
 cd ../..
 rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
 \end{lstdump}
@@ -918,7 +918,7 @@ und Wartungsteam.
 Falls das Verzeichnis \texttt{/etc/veraweb/l10n} noch nicht existiert,
 legen Sie es an. Kopieren Sie dann die aktuellen Sprachdateien dorthin:
 
-\begin{lstdump}[language=sh]{/etc/veraweb/l10n fuellen}
+\begin{lstdump}{/etc/veraweb/l10n fuellen}
 sudo mkdir -p /etc/veraweb/l10n
 sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
 \end{lstdump}
@@ -992,7 +992,7 @@ Bilddateien speichern wollen (wir empfehlen ein Unterverzeichnis,
 sodaß es später möglich ist, weitere Strukturen aufzubauen), und
 machen Sie es für den Tomcat-Nutzer schreibbar:
 
-\begin{lstdump}[language=sh]{Uploaded anlegen}
+\begin{lstdump}{Uploaded anlegen}
 sudo mkdir -p /var/lib/veraweb/uploaded
 sudo chgrp tomcat7 /var/lib/veraweb/uploaded
 sudo chmod 2770 /var/lib/veraweb/uploaded
@@ -1007,7 +1007,7 @@ Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
 \begin{minipage}{\textwidth}
 Installieren Sie nun die Konfigurationsdateien für die REST-API:
 
-\begin{lstdump}[language=sh]{/etc/veraweb/*.properties}
+\begin{lstdump}{/etc/veraweb/*.properties}
 sudo install -c -o 0 -g tomcat7 -m 640 *.properties /etc/veraweb/
 \end{lstdump}
 \end{minipage}
@@ -1031,7 +1031,7 @@ Kapitel \nameref{subsub:allg-tomcat-vwor} vor.
 \begin{minipage}{\textwidth}
 Loggen Sie sich auf der Datenbank ein und starten Sie das Upgrade-SQL:
 
-\begin{lstdump}[language=sh]{DB-Upgrade}
+\begin{lstdump}{DB-Upgrade}
 psql -U veraweb -h 127.0.0.1 -W veraweb <upgrade.sql
 \end{lstdump}
 
@@ -1046,7 +1046,7 @@ Stoppen Sie bitte zunächst den Applikationsserver und löschen
 ggfs. alle vorherigen VerA.web-Webapps (es ist vielleicht
 sinnvoll, ein Backup zu machen):
 
-\begin{lstdump}[language=sh]{Tomcat undeploy}
+\begin{lstdump}{Tomcat undeploy}
 sudo service tomcat7 stop
 sudo rm -rf /var/lib/tomcat7/webapps/veraweb*
 sudo rm -rf /var/lib/tomcat7/webapps/vwor*
@@ -1061,7 +1061,7 @@ können Sie mit \texttt{ps ax | grep java} prüfen, ob noch Prozesse laufen.
 Dann starten Sie den Server wieder und deployen die VerA.web-Anwendung
 und die REST-API:
 
-\begin{lstdump}[language=sh]{Tomcat deploy}
+\begin{lstdump}{Tomcat deploy}
 sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
 sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
 sudo service tomcat7 start
@@ -1072,7 +1072,7 @@ sudo service tomcat7 start
 Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
 mehr; diese können nun entfernt werden:
 
-\begin{lstdump}[language=sh]{Aufraeumen}
+\begin{lstdump}{Aufraeumen}
 cd ..
 rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 \end{lstdump}
@@ -1109,7 +1109,7 @@ Beispiel wird die Unix-Variante mit \texttt{.tgz} verwendet)
 und wechseln Sie in das angelegte neue Verzeichnis:
 
 \ifoa
-\begin{lstdump}[language=sh]{Entpacken}
+\begin{lstdump}{Entpacken}
 mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
 mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
 tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
@@ -1119,7 +1119,7 @@ mv online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/core/* .
 chmod go-x .
 \end{lstdump}
 \else% !oa
-\begin{lstdump}[language=sh]{Entpacken}
+\begin{lstdump}{Entpacken}
 mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
 mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
 tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
@@ -1162,7 +1162,7 @@ und starten ihn am Ende erst wieder.
 \begin{minipage}{\textwidth}
 Zum Stoppen des Anwendungsservers benutzen Sie folgenden Befehl:
 
-\begin{lstdump}[language=sh]{Tomcat stop}
+\begin{lstdump}{Tomcat stop}
 sudo service tomcat7 stop
 \end{lstdump}
 
@@ -1174,7 +1174,7 @@ können Sie mit \texttt{ps ax | grep java} prüfen, ob noch Prozesse laufen.
 \begin{minipage}{\textwidth}
 Zum Starten verwenden Sie äquivalent:
 
-\begin{lstdump}[language=sh]{Tomcat start}
+\begin{lstdump}{Tomcat start}
 sudo service tomcat7 start
 \end{lstdump}
 \end{minipage}
@@ -1189,7 +1189,7 @@ Stelle) folgende Zeilen ein, um weitere JVM-Startoptionen zu setzen.
 Diese Option setzen Sie bitte in jedem Fall, um eine korrekte
 Kodierung von Dateien, Logs und internen Abläufen zu gewährleisten:
 
-\begin{lstdump}[language=sh]{Tomcat Encoding setzen}
+\begin{lstdump}{Tomcat Encoding setzen}
 JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
 \end{lstdump}
 \end{minipage}
@@ -1198,7 +1198,7 @@ JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
 Diese (Linux-spezifische) Option spart u.a. beim Starten Zeit,
 indem sie eine nichtblockierende Quelle für Zufallszahlen auswählt:
 
-\begin{lstdump}[language=sh]{Tomcat /dev/urandom}
+\begin{lstdump}{Tomcat /dev/urandom}
 JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 \end{lstdump}
 \end{minipage}
