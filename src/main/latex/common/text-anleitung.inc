@@ -150,7 +150,7 @@ sind die Werte in der Spalte „empfohlen“ als Minimum zu verstehen.
  HDD core        & 2 GB       & 8 GB\\\hline
  HDD zusammen    & 3 GB       & 10 GB\\\hline
  HDD OA          & 1½ GB      & 3 GB\\\hline
- Betriebssystem  & Debian 7   & Debian 7 oder 8\Hair\textsuperscript{\ref{fn:jessie}}\\\hline
+ Betriebssystem  & Debian 7   & Debian 7\Hair\textsuperscript{\ref{fn:jessie}}\\\hline
  Webserver       & Apache 2.2 & Apache 2.2 oder 2.4\Hair\textsuperscript{\ref{fn:apache}}\\\hline
  Java Runtime    & OpenJDK 7  & OpenJDK 7 oder 8\\\hline
 \end{tabular}
