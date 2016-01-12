@@ -1103,10 +1103,13 @@ in der Anleitung verwiesen.
 
 Vergewissern Sie sich zunächst, \hyperlink{manual:distro}{die
 VerA.web-Installationsdateien} für die korrekte Version vollständig
-erhalten zu haben, und kopieren Sie die Dateien auf den Server,
-auf dem Sie das VerA.web-Veranstaltungsmanagement installieren
-oder aktualisieren möchten. Alle weiteren Schritte werden auf
-dem Server
+erhalten zu haben, und kopieren Sie die Dateien
+\ifoa
+(außer \texttt{online-anmeldung-\vwiaverssw{}.jar})
+\fi% oa
+auf den Server, auf dem Sie das VerA.web-Veranstaltungsmanagement
+installieren oder aktualisieren möchten. Alle weiteren Schritte
+werden auf dem Server
 \ifoa
 für VerA.web-core
 \fi% oa
