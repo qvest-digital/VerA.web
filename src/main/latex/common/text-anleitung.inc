@@ -837,6 +837,19 @@ ProxyPassReverse /vwor-app/ http://localhost:8081/
 \end{lstdump}
 \end{minipage}
 
+Im Regelfall haben Sie die Online-Anmeldung auf einem getrennten
+Webserver installiert; da sie sich URL-mäßig unterhalb von
+\texttt{/vwor-app/} befindet ist auch hier, ähnlich dem core,
+eine Weiterleitung von \texttt{/} sinnvoll.
+
+\begin{minipage}{\textwidth}
+Der hierzu nötige vhost-Eintrag ist:
+
+\begin{lstdump}{OA redirect}
+RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/vwor-app/
+\end{lstdump}
+\end{minipage}
+
 Bearbeiten Sie jetzt die \texttt{config.json}, indem Sie wieder
 \texttt{HOSTNAME-OSIAM} und \texttt{HOSTNAME-REST} durch die
 entsprechenden Hostnamen ersetzen; für \texttt{clientSecret}
