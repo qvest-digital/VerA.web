@@ -23,7 +23,7 @@
 % of said person’s immediate fault when using the work as intended.
 %-
 % TODO: slapd, lam, MTA
-% TODO: graphics from experiments.tex for overall concepts
+% TODO: graphics from experiments.tex for more detailed concepts
 % TODO core: curl https://veraweb:veraweb@veraweb-ohne.lan.tarent.de/vwor/rest/available/;echo ⇒ OK
 % TODO vwoa: primer on service management with DJB dæmontools
 
@@ -127,6 +127,45 @@ einen Menschen bedient. Es wird standardmäßig der Benutzer \texttt{veraweb}
 mit dem Paßwort \texttt{veraweb} verwendet; eine Änderung der Zugangsdaten
 ist \emph{dringend empfohlen}, um die Betriebssicherheit zu gewährleisten;
 an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
+
+\ifoa
+
+\subsection{Systemübersicht}\label{subsec:intro-overview-blocks}
+
+\begin{minipage}{\textwidth}
+
+\begin{tikzpicture}[
+  >=stealth',
+  people/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
+  acloud/.style={thick,text=black,fill=white,drop shadow,cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
+ ]
+
+  \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (3mm,75mm) {LDAP};
+  \node[above right,rectangle,fill=green!20,minimum width=119mm,minimum height=15mm] (web) at (3mm,56mm) {VerA.web Webanwendung};
+  \node[above right,rectangle,fill=yellow!40,minimum width=119mm,minimum height=15mm] (oa) at (3mm,10mm) {VerA.web Online-Anmeldung};
+  \node[above right,rectangle,fill=red!20,minimum width=99mm,minimum height=15mm] (osiam) at (23mm,37mm) {OSIAM};
+
+  \node[people]   (sb)     at (168mm,60mm) {Mitarbeiter};
+  \node[people]   (guests) at (168mm,13mm) {Gäste};
+  \node[acloud]   (inet)   at (130mm,15mm) {};
+
+  \draw[thick,->] (web) -- (ldap);
+  \draw[thick,->] (sb.west) -- (sb-|web.east);
+  \draw[thick,->] (web.south) -- (web|-osiam.north);
+  \draw[thick,->] (guests) -- (inet);
+  \draw[thick,->] (inet) -- (oa);
+  \draw[thick,->] ([xshift=-5cm]oa.north) -- ([xshift=-5cm]oa|-web.south);
+  \draw[thick,->] (oa.north) -- (oa|-osiam.south);
+
+  \node[above right,inner sep=0pt] at (140mm,33mm) {internes Netz};
+  \node[below right,inner sep=0pt] at (140mm,31mm) {extern erreichbar};
+  \draw[dashed]   (0mm,32mm) -- (175mm,32mm);
+
+\end{tikzpicture}
+
+\end{minipage}
+
+\fi% oa
 
 \section{Systemvoraussetzungen}\label{sec:requirements}
 
