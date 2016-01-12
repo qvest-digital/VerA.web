@@ -722,6 +722,92 @@ rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 \end{lstdump}
 \end{minipage}
 
+\ifoa
+
+\section{Installation Online-Anmeldung}\label{sec:setup-oa}
+
+\begin{minipage}{\textwidth}
+Kopieren Sie bitte zunächst \texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
+und \texttt{online-anmeldung-\vwiaverssw{}.jar}
+auf den Server, auf dem Sie die Online-Anmeldung installieren möchten,
+entpacken Sie diese Datei und wechseln in das Unterverzeichnis mit den
+relevanten Dateien:
+
+\begin{lstdump}[language=sh]{Entpacken OA}
+tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
+cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files/vwoa
+\end{lstdump}
+\end{minipage}
+
+tglase@tglase:~ $ sudo adduser --system --home /etc/service/vwoa --shell /bin/sh \
+> --no-create-home --gecos 'VerA.web Online-Anmeldung' --group --disabled-login vwoa
+
+
+\begin{minipage}{\textwidth}
+Setzen Sie nun die benötigten Pakete und Vorbedingungen auf:
+
+\begin{lstdump}[language=sh]{Pakete OA}
+sudo apt-get install daemontools-run openjdk-7-jre-headless \
+    adduser apache2-mpm-prefork apache2
+sudo adduser --system --home /etc/service/vwoa --shell /bin/sh \
+    --no-create-home --gecos 'VerA.web Online-Anmeldung' --group \
+    --disabled-password --disabled-login vwoa
+sudo ln -sf etc/service /service
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Setzen Sie den Webserver äquivalent zu \nameref{subsec:setup-core-apache}
+auf, allerdings nicht mit dem \texttt{jk}-Modul sondern mit:
+
+\begin{lstdumpx}[language=sh]
+a2enmod proxy_http
+\end{lstdumpx}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Die vhost-Einträge sind:
+
+\begin{lstdump}{OA workers}
+ProxyPass /vwor-app/ http://localhost:8081/
+ProxyPassReverse /vwor-app/ http://localhost:8081/
+\end{lstdump}
+\end{minipage}
+
+Bearbeiten Sie jetzt die \texttt{config.json}, indem Sie wieder
+\texttt{HOSTNAME-OSIAM} und \texttt{HOSTNAME-REST} durch die
+entsprechenden Hostnamen ersetzen; für \texttt{clientSecret}
+tragen Sie denselben Wert ein, den Sie bei der
+\nameref{subsec:setup-osiam-register} als \texttt{vwsecret}
+gesetzt haben; unterhalb von \texttt{restauth} tragen Sie die
+von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
+\ref{subsec:intro-restapi} ein.
+
+\begin{minipage}{\textwidth}
+Nun richten Sie den Dienst für die Online-Anmeldung ein:
+
+\begin{lstdump}{OA service}
+mkdir vwoa
+mv ../../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar vwoa/vwoa.jar
+mv config.json run vwoa/
+chown -R 0:0 vwoa
+chgrp vwoa vwoa/config.json
+chmod 644 vwoa/*
+chmod 755 vwoa vwoa/run
+chmod 640 vwoa/config.json
+mv vwoa /service/vwoa
+\end{lstdump}
+\end{minipage}
+
+Danach können Sie mit \texttt{svstat /service/vwoa} den Zustand
+des Dienstes prüfen; unter \texttt{/var/log/vwoa/vwoa.log} finden
+Sie die Logausgaben der Online-Anmeldung. Mit dem Befehl \texttt{svc}
+können Sie den Dienst kontrollieren. Weitergehende Angaben hierzu
+finden Sie in der Dokumentation der DJB daemontools.
+%XXX add a primer here
+
+\fi% oa
+
 Damit ist die Installation abgeschlossen.
 
 \fi% !ifupgradeanleitung
