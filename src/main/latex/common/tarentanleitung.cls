@@ -4,7 +4,7 @@
 %
 % abgeleitet von der Dokumentenklasse pubmat des Teckids e.V.
 % Copyright © 2014, 2015
-%	Thorsten “mirabilos” Glaser <thorsten.glaser@teckids.org>
+%	Thorsten Glaser <thorsten.glaser@teckids.org>
 % Copyright © 2013, 2014
 %	Dominik George <nik@naturalnet.de>
 %

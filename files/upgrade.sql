@@ -1,7 +1,7 @@
 -- Schema-Upgrade VerA.web Datenbank
 --
 -- Copyright © 2015
---	Thorsten “mirabilos” Glaser <t.glaser@tarent.de>
+--	Thorsten Glaser <t.glaser@tarent.de>
 -- Copyright © 2013–2015 tarent solutions GmbH
 --
 -- This file is part of VerA.web and published under the same licence.
