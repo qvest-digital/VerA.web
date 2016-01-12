@@ -916,10 +916,10 @@ Konfigurationsdateien bereits in \texttt{/etc/veraweb} haben
 
 Falls Sie von einer VerA.web-Version, die die Konfigurationsdateien
 noch nicht in \texttt{/etc/veraweb} ablegt, aktualisieren, müssen Sie
-dort zunächst (nur) die gegenüber den in der \texttt{veraweb.war}
-ausgelieferten Dateien angepaßten Konfigurationen aus dem Verzeichnis
+dort zunächst (nur) die Dateien hinkopieren, die sich unter
 \texttt{/var/lib/tomcat7/webapps/veraweb/OCTOPUS/config\_*.xml}
-Ihrer alten Installation hinkopieren.
+befinden und gegenüber den in der alten Version der \texttt{veraweb.war}
+ausgelieferten Dateien angepaßt wurden.
 
 Das neue Konfigurationsschema wurde mit VerA.web 1.5.1.4 eingeführt,
 war jedoch bereits in VerA.web 1.4.3.5 (und \emph{nur} dieser Version
