@@ -774,10 +774,18 @@ in \texttt{/var/log/tomcat7/catalina.out} auftauchende Meldungen.
 Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
 mehr; diese können nun entfernt werden:
 
+\ifoa
+\begin{lstdump}{Aufraeumen}
+cd ..
+rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
+rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
+\end{lstdump}
+\else% !oa
 \begin{lstdump}{Aufraeumen}
 cd ..
 rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 \end{lstdump}
+\fi% !oa
 \end{minipage}
 
 \ifoa
