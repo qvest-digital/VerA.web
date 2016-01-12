@@ -1205,6 +1205,19 @@ JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 \end{lstdump}
 \end{minipage}
 
+Falls Sie mehrere Webanwendungen im selben Applikationsserver
+betreiben kann es sein, daß Sie den sogenannten PermGen-Space
+erhöhen müssen, da der Standardwert von \texttt{64m} nicht
+mehr ausreicht. Dies betrifft nur Java vor Version 8.
+
+\begin{minipage}{\textwidth}
+Hierzu fügen Sie z.B. folgende Zeile hinzu (oder auch \texttt{128m}):
+
+\begin{lstdump}{Tomcat PermGen-Space}
+JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=96m"
+\end{lstdump}
+\end{minipage}
+
 \begin{minipage}{\textwidth}
 Nun bearbeiten Sie die Datei \texttt{/etc/tomcat7/server.xml}, um Tomcat
 von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
