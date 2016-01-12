@@ -357,7 +357,7 @@ Unterverzeichnis mit den OSIAM-Dateien:
 \begin{lstdump}{Entpacken OSIAM}
 tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/osiam
-chmod go-x .
+chmod go-rwx .
 \end{lstdump}
 \end{minipage}
 
@@ -792,7 +792,7 @@ relevanten Dateien:
 \begin{lstdump}{Entpacken OA}
 tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/vwoa
-chmod go-x .
+chmod go-rwx .
 \end{lstdump}
 \end{minipage}
 
@@ -1116,7 +1116,7 @@ tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
 tar -xzf ../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 mv online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/core/* .
-chmod go-x .
+chmod go-rwx .
 \end{lstdump}
 \else% !oa
 \begin{lstdump}{Entpacken}
@@ -1124,7 +1124,7 @@ mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
 mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
 tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
-chmod go-x .
+chmod go-rwx .
 \end{lstdump}
 \fi% !oa
 \end{minipage}
