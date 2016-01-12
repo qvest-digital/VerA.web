@@ -356,8 +356,8 @@ Unterverzeichnis mit den OSIAM-Dateien:
 
 \begin{lstdump}{Entpacken OSIAM}
 tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files/osiam
-chmod go-x .
+cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/osiam
+chmod go-rwx .
 \end{lstdump}
 \end{minipage}
 
@@ -718,9 +718,11 @@ nun einen Fehlercode 503 „Service Temporarily Unavailable“ zurückliefern.
 Im \texttt{/var/log/apache2/mod\_jk.log} sollten Sie eine Notiz
 „\texttt{ajp\_send\_request::jk\_ajp\_common.c (1630): (ajp13\_worker)
 connecting to backend failed. Tomcat is probably not started or is listening
-on the wrong port}“ sehen. Hingegen sollte unter der URL
-\texttt{https://veraweb.lan.tarent.de/index.html} weiterhin die Standardseite
-des Webservers zu sehen sein.
+on the wrong port}“ sehen. (Alternativ, falls Tomcat läuft, kann auch ein
+{\large HTTP Status 404} mit \textbf{description} \ul{The requested
+resource (/veraweb/) is not available.} gezeigt werden.) Hingegen sollte
+unter der URL \texttt{https://veraweb.lan.tarent.de/index.html} weiterhin
+die Standardseite des Webservers zu sehen sein.
 
 \subsection{Applikationsserver VerA.web-core und REST-API}\label{subsec:setup-core-tomcat}
 
@@ -772,10 +774,18 @@ in \texttt{/var/log/tomcat7/catalina.out} auftauchende Meldungen.
 Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
 mehr; diese können nun entfernt werden:
 
+\ifoa
+\begin{lstdump}{Aufraeumen}
+cd ..
+rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
+rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
+\end{lstdump}
+\else% !oa
 \begin{lstdump}{Aufraeumen}
 cd ..
 rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 \end{lstdump}
+\fi% !oa
 \end{minipage}
 
 \ifoa
@@ -791,8 +801,8 @@ relevanten Dateien:
 
 \begin{lstdump}{Entpacken OA}
 tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files/vwoa
-chmod go-x .
+cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/vwoa
+chmod go-rwx .
 \end{lstdump}
 \end{minipage}
 
@@ -809,6 +819,10 @@ sudo ln -sf etc/service /service
 \end{lstdump}
 \end{minipage}
 
+\Warning \emph{Achtung:} Das \texttt{daemontools-run}-Paket bedingt
+die Nutzung von SysV init (Paket \texttt{sysvinit-core} ab Debian 8
+„jessie“\Hair\textsuperscript{\ref{fn:jessie}}) statt systemd!
+
 \begin{minipage}{\textwidth}
 Setzen Sie den Webserver äquivalent zu \nameref{subsec:setup-core-apache}
 auf, allerdings nicht mit dem \texttt{jk}-Modul sondern mit:
@@ -824,6 +838,19 @@ Die vhost-Einträge sind:
 \begin{lstdump}{OA workers}
 ProxyPass /vwor-app/ http://localhost:8081/
 ProxyPassReverse /vwor-app/ http://localhost:8081/
+\end{lstdump}
+\end{minipage}
+
+Im Regelfall haben Sie die Online-Anmeldung auf einem getrennten
+Webserver installiert; da sie sich URL-mäßig unterhalb von
+\texttt{/vwor-app/} befindet ist auch hier, ähnlich dem core,
+eine Weiterleitung von \texttt{/} sinnvoll.
+
+\begin{minipage}{\textwidth}
+Der hierzu nötige vhost-Eintrag ist:
+
+\begin{lstdump}{OA redirect}
+RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/vwor-app/
 \end{lstdump}
 \end{minipage}
 
@@ -1093,10 +1120,13 @@ in der Anleitung verwiesen.
 
 Vergewissern Sie sich zunächst, \hyperlink{manual:distro}{die
 VerA.web-Installationsdateien} für die korrekte Version vollständig
-erhalten zu haben, und kopieren Sie die Dateien auf den Server,
-auf dem Sie das VerA.web-Veranstaltungsmanagement installieren
-oder aktualisieren möchten. Alle weiteren Schritte werden auf
-dem Server
+erhalten zu haben, und kopieren Sie die Dateien
+\ifoa
+(außer \texttt{online-anmeldung-\vwiaverssw{}.jar})
+\fi% oa
+auf den Server, auf dem Sie das VerA.web-Veranstaltungsmanagement
+installieren oder aktualisieren möchten. Alle weiteren Schritte
+werden auf dem Server
 \ifoa
 für VerA.web-core
 \fi% oa
@@ -1116,7 +1146,7 @@ tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
 tar -xzf ../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 mv online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/core/* .
-chmod go-x .
+chmod go-rwx .
 \end{lstdump}
 \else% !oa
 \begin{lstdump}{Entpacken}
@@ -1124,7 +1154,7 @@ mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
 mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
 tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
-chmod go-x .
+chmod go-rwx .
 \end{lstdump}
 \fi% !oa
 \end{minipage}
@@ -1200,6 +1230,19 @@ indem sie eine nichtblockierende Quelle für Zufallszahlen auswählt:
 
 \begin{lstdump}{Tomcat /dev/urandom}
 JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
+\end{lstdump}
+\end{minipage}
+
+Falls Sie mehrere Webanwendungen im selben Applikationsserver
+betreiben kann es sein, daß Sie den sogenannten PermGen-Space
+erhöhen müssen, da der Standardwert von \texttt{64m} nicht
+mehr ausreicht. Dies betrifft nur Java vor Version 8.
+
+\begin{minipage}{\textwidth}
+Hierzu fügen Sie z.B. folgende Zeile hinzu (oder auch \texttt{128m}):
+
+\begin{lstdump}{Tomcat PermGen-Space}
+JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=96m"
 \end{lstdump}
 \end{minipage}
 
