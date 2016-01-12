@@ -819,6 +819,10 @@ sudo ln -sf etc/service /service
 \end{lstdump}
 \end{minipage}
 
+\Warning \emph{Achtung:} Das \texttt{daemontools-run}-Paket bedingt
+die Nutzung von SysV init (Paket \texttt{sysvinit-core} ab Debian 8
+„jessie“\Hair\textsuperscript{\ref{fn:jessie}}) statt systemd!
+
 \begin{minipage}{\textwidth}
 Setzen Sie den Webserver äquivalent zu \nameref{subsec:setup-core-apache}
 auf, allerdings nicht mit dem \texttt{jk}-Modul sondern mit:
