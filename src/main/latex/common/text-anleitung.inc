@@ -718,9 +718,11 @@ nun einen Fehlercode 503 „Service Temporarily Unavailable“ zurückliefern.
 Im \texttt{/var/log/apache2/mod\_jk.log} sollten Sie eine Notiz
 „\texttt{ajp\_send\_request::jk\_ajp\_common.c (1630): (ajp13\_worker)
 connecting to backend failed. Tomcat is probably not started or is listening
-on the wrong port}“ sehen. Hingegen sollte unter der URL
-\texttt{https://veraweb.lan.tarent.de/index.html} weiterhin die Standardseite
-des Webservers zu sehen sein.
+on the wrong port}“ sehen. (Alternativ, falls Tomcat läuft, kann auch ein
+{\large HTTP Status 404} mit \textbf{description} \ul{The requested
+resource (/veraweb/) is not available.} gezeigt werden.) Hingegen sollte
+unter der URL \texttt{https://veraweb.lan.tarent.de/index.html} weiterhin
+die Standardseite des Webservers zu sehen sein.
 
 \subsection{Applikationsserver VerA.web-core und REST-API}\label{subsec:setup-core-tomcat}
 
