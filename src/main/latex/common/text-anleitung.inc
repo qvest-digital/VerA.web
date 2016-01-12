@@ -739,10 +739,6 @@ cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files/vwoa
 \end{lstdump}
 \end{minipage}
 
-tglase@tglase:~ $ sudo adduser --system --home /etc/service/vwoa --shell /bin/sh \
-> --no-create-home --gecos 'VerA.web Online-Anmeldung' --group --disabled-login vwoa
-
-
 \begin{minipage}{\textwidth}
 Setzen Sie nun die benötigten Pakete und Vorbedingungen auf:
 
@@ -805,6 +801,15 @@ Sie die Logausgaben der Online-Anmeldung. Mit dem Befehl \texttt{svc}
 können Sie den Dienst kontrollieren. Weitergehende Angaben hierzu
 finden Sie in der Dokumentation der DJB daemontools.
 %XXX add a primer here
+
+\begin{minipage}{\textwidth}
+Schließlich können Sie die Installationsdateien löschen:
+
+\begin{lstdump}[language=sh]{Aufraeumen OA}
+cd ../..
+rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
+\end{lstdump}
+\end{minipage}
 
 \fi% oa
 
