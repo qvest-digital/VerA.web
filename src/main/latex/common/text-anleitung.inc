@@ -68,7 +68,7 @@ Identitätsmanagementsystem OSIAM
 \else% !oa
 Dieses Dokument beschreibt, wie VerA.web core (die eigentliche
 Veranstaltungsmanagementsoftware)
-\endif% !oa
+\fi% !oa
 durch einen Systemadministrator
 eigenständig installiert werden kann. Hierbei wird eine empfohlene
 Installation beschrieben; ein Betrieb ist auch mit abweichender
@@ -1079,7 +1079,7 @@ shared.loader=/var/lib/tomcat7/shared/classes,/var/lib/tomcat7/shared/*.jar,/etc
 \end{minipage}
 
 Suchen Sie in der Datei \texttt{/etc/default/tomcat7} die Stelle, wo
-\texttt{-Xmx128m} in den \texttt{JAVA_OPTS} gesetzt wird. Ändern Sie
+\texttt{-Xmx128m} in den \texttt{JAVA\_OPTS} gesetzt wird. Ändern Sie
 diesen Wert auf \texttt{-Xms512m -Xmx1024m} falls die VM über mehr als
 1280 MiB RAM verfügt, \texttt{-Xmx512m} andernfalls.
 
