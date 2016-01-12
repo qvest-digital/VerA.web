@@ -3,7 +3,7 @@
 # Copyright (c) 2015, 2016
 #	Thorsten Glaser <t.glaser@tarent.de>
 # Copyright (c) 2013
-#	mirabilos <tg@mirbsd.org>
+#	mirabilos <m@mirbsd.org>
 #
 # Provided that these terms and disclaimer and all copyright notices
 # are retained or reproduced in an accompanying document, permission
@@ -20,8 +20,7 @@
 # damage or existence of a defect, except proven that it results out
 # of said person's immediate fault when using the work as intended.
 #-
-# Register VerA.web into OSIAM. Mostly idempotent, except OSIAM bug:
-# https://github.com/osiam/auth-server/issues/54
+# Register VerA.web into OSIAM. Should be idempotent.
 
 # -*- configuration -*-
 
