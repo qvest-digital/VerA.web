@@ -28,6 +28,7 @@ import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
+import org.osiam.resources.scim.Email;
 import org.osiam.resources.scim.Extension;
 import org.osiam.resources.scim.Name;
 import org.osiam.resources.scim.User;
@@ -81,29 +82,26 @@ public class UserResource {
     public String registerUser(@PathParam("osiam_username") String osiam_username,
                                @FormParam("osiam_firstname") String osiam_firstname,
                                @FormParam("osiam_secondname") String osiam_secondname,
-                               @FormParam("osiam_password1") String osiam_password1) throws IOException {
+                               @FormParam("osiam_password1") String osiam_password1,
+                               @FormParam("osiam_email") String email) throws IOException {
 
         if (!osiam_username.matches("\\w+")) {
             return StatusConverter.convertStatus("INVALID_USERNAME");
         }
 
-        OsiamClient osiamClient = config.getOsiam().getClient(client);
-        String accessToken = osiamClient.getAccessTokenClientCred("GET", "POST");
+        final OsiamClient osiamClient = config.getOsiam().getClient(client);
+        final String accessToken = osiamClient.getAccessTokenClientCred("GET", "POST");
 
         User user = osiamClient.getUser(accessToken, osiam_username);
         if (user != null) {
             return StatusConverter.convertStatus("USER_EXISTS");
         }
 
-        WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
-        Form postBody = new Form();
+        final Form postBody = createPersonPostBody(osiam_username, osiam_firstname, osiam_secondname);
 
-        postBody.add("username", osiam_username);
-        postBody.add("firstname", osiam_firstname);
-        postBody.add("lastname", osiam_secondname);
-
-        Person person;
+        final Person person;
         try {
+            final WebResource r = client.resource(config.getVerawebEndpoint() + "/rest/person/");
             person = r.post(Person.class, postBody);
         } catch (UniformInterfaceException e) {
             int statusCode = e.getResponse().getStatus();
@@ -114,16 +112,43 @@ public class UserResource {
             return StatusConverter.convertStatus("USER_NOT_CREATED");
         }
 
+        user = initUser(osiam_username, osiam_firstname, osiam_secondname, osiam_password1, email, person.getPk());
+        osiamClient.createUser(accessToken, user);
+
+        return StatusConverter.convertStatus("OK");
+    }
+
+    private Form createPersonPostBody(@PathParam("osiam_username") String osiam_username, @FormParam("osiam_firstname") String osiam_firstname, @FormParam("osiam_secondname") String osiam_secondname) {
+        final Form postBody = new Form();
+        postBody.add("username", osiam_username);
+        postBody.add("firstname", osiam_firstname);
+        postBody.add("lastname", osiam_secondname);
+        return postBody;
+    }
+
+    private User initUser(@PathParam("osiam_username") String osiam_username,
+                          @FormParam("osiam_firstname") String osiam_firstname,
+                          @FormParam("osiam_secondname") String osiam_secondname,
+                          @FormParam("osiam_password1") String osiam_password1,
+                          @FormParam("email") String email,
+                          Integer personId) {
+        User user;
+        final Email userEmail = buildUserEmail(email);
         user = new User.Builder(osiam_username)
                 .setName(new Name.Builder().setGivenName(osiam_firstname).setFamilyName(osiam_secondname).build())
                 .setPassword(osiam_password1)
                 .setActive(true)
-                .addExtension(new Extension.Builder(VERAWEB_SCHEME)
-                        .setField("tpersonid", BigInteger.valueOf(person.getPk())).build())
+                .addEmail(userEmail)
+                .addExtension(
+                    new Extension.Builder(VERAWEB_SCHEME).setField("tpersonid", BigInteger.valueOf(personId)).build()
+                )
                 .build();
+        return user;
+    }
 
-        osiamClient.createUser(accessToken, user);
-
-        return StatusConverter.convertStatus("OK");
+    private Email buildUserEmail(@FormParam("email") String email) {
+        return new Email.Builder()
+            .setType(Email.Type.HOME)
+            .setValue(email).build();
     }
 }

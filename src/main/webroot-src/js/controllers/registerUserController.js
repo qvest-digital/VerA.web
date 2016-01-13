@@ -14,7 +14,8 @@ onlineRegApp.controller('RegisterUserController', function($scope, $http, $locat
                 data: $.param({
                 osiam_firstname: $scope.osiam.firstName,
                 osiam_secondname: $scope.osiam.lastName,
-                osiam_password1: $scope.osiam.password
+                osiam_password1: $scope.osiam.password,
+                osiam_email: $scope.osiam.email
             })
         }).success(function (result) {
             switch(result.status) {
