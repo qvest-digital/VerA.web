@@ -1,9 +1,9 @@
-#!/bin/mksh
+#!/bin/sh
 #-
-# Copyright (c) 2015
+# Copyright (c) 2015, 2016
 #	Thorsten Glaser <t.glaser@tarent.de>
 # Copyright (c) 2013
-#	mirabilos <tg@mirbsd.org>
+#	mirabilos <m@mirbsd.org>
 #
 # Provided that these terms and disclaimer and all copyright notices
 # are retained or reproduced in an accompanying document, permission
@@ -20,22 +20,53 @@
 # damage or existence of a defect, except proven that it results out
 # of said person's immediate fault when using the work as intended.
 #-
-# Register VerA.web into OSIAM. Mostly idempotent, except OSIAM bug:
-# https://github.com/osiam/auth-server/issues/54
-#
-#XXX TODO: use https-only for OSIAM
+# Register VerA.web into OSIAM. Should be idempotent.
 
 # -*- configuration -*-
 
+# OSIAM database name
+dbname=ong
 # OSIAM authentication (base64 of "example-client:secret")
 serverauth=ZXhhbXBsZS1jbGllbnQ6c2VjcmV0
 # VerA.web application secret (change it!)
-osiamsecret=geheim
+vwsecret=geheim
 
 # -*- do not change below this point -*-
 
+case ${KSH_VERSION:-} in
+(*MIRBSD\ KSH*) ;;
+(*)
+	command -v mksh >/dev/null 2>&1 && exec mksh "$0" "$@"
+	echo >&2 "E: missing tool: mksh"
+	exit 1
+	;;
+esac
+
 nl='
 '
+
+print -u2 I: checking for prerequisites
+have_tools=1
+for tool in sudo psql curl; do
+	whence -p "$tool" >/dev/null && continue
+	have_tools=0
+	print -ru2 "E: missing tool: $tool"
+done
+(( have_tools )) || exit 1
+
+print -u2 I: validating hostname
+if ! fqhn=$(hostname -f) || [[ $fqhn != *.* ]] || \
+    [[ $fqhn = *.@(invalid|local|lan|home) ]]; then
+	print -ru2 "E: invalid hostname/FQDN: '$fqdn'"
+	exit 1
+fi
+print -u2 I: checking whether OSIAM is running
+# no simple check for auth-server, we try that below
+if ! x=$(curl "https://$fqhn/osiam-resource-server/ServiceProviderConfigs") || \
+    [[ $x != *'"specUrl":"http://tools.ietf.org/html/rfc6749"'* ]]; then
+	print -ru2 "E: OSIAM resource-server not running: $x"
+	exit 1
+fi
 
 # escape string into JSON string (with surrounding quotes)
 function json_escape {
@@ -79,7 +110,7 @@ function json_escape {
 
 print -u2 I: updating database
 cd /
-sudo -u postgres psql ong <<'EOF'
+sudo -u postgres psql "$dbname" <<'EOF'
 INSERT INTO scim_extension
     SELECT (SELECT MAX(internal_id) + 1 FROM scim_extension),
 	'urn:scim:schemas:veraweb:1.5:Person'
@@ -101,7 +132,7 @@ EOF
 print -u2 I: downloading auth token
 if ! x=$(curl -H "Authorization: Basic $serverauth" -X POST \
     -d "grant_type=client_credentials&scope=GET POST PUT DELETE" \
-    http://localhost:8080/osiam-auth-server/oauth/token); then
+    "https://$fqhn/osiam-auth-server/oauth/token"); then
 	print -u2 E: cannot retrieve auth token
 	exit 1
 fi
@@ -119,10 +150,10 @@ print -u2 I: registering client
 if ! x=$(curl -i -H "Accept: application/json" \
     -H "Content-type: application/json" \
     -H "Authorization: Bearer $tok" -X POST --data-binary @- \
-    http://localhost:8080/osiam-auth-server/Client <<EOD
+    "https://$fqhn/osiam-auth-server/Client" <<EOD
 {
   "accessTokenValiditySeconds": "5000",
-  "client_secret": $(json_escape "$osiamsecret"),
+  "client_secret": $(json_escape "$vwsecret"),
   "grants": [
     "authorization_code",
     "client_credentials",
