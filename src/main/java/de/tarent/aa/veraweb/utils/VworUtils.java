@@ -35,6 +35,7 @@ import java.net.SocketTimeoutException;
  * Created by csalib on 29.09.15.
  * @author csalib
  * @author jnunez
+ * @author tglase
  */
 public class VworUtils {
 
@@ -64,7 +65,6 @@ public class VworUtils {
     public HTTPBasicAuthFilter getAuthorization() {
         // FIXME We have to uncomment this line and delete the next line to allow HTTPBasicAuth as configurable
         return new HTTPBasicAuthFilter(getVworAuthUsername(),getVworAuthPassword());
-//        return new HTTPBasicAuthFilter("veraweb", "veraweb");
     }
 
     private String getVworAuthUsername() {
@@ -84,29 +84,37 @@ public class VworUtils {
     /**
      * Method sending Requests to VWOR
      *
+     * @param path URI from VworUtils.path()
+     * @param type desired result type from JSON mapping
      * @return Entities from the Vwor component
      * @throws IOException
      */
     public <T> T readResource(String path, TypeReference<T> type) throws IOException {
+        final String json = readResource(path);
+        try {
+            return mapper.readValue(json, type);
+        } catch (JsonParseException jpe) {
+            return (T) json;
+        }
+    }
+
+    /**
+     * Method sending Requests to VWOR
+     *
+     * @param path URI from VworUtils.path()
+     * @return String from the Vwor component
+     * @throws IOException
+     */
+    public String readResource(String path) throws IOException {
         WebResource resource;
         try {
             resource = client.resource(path);
-            final String json = resource.get(String.class);
-            try {
-                return mapper.readValue(json, type);
-            } catch (JsonParseException jpe) {
-                return (T) json;
-            }
+            return resource.get(String.class);
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
                 //FIXME some times open, pooled connections time out and generate errors
                 resource = client.resource(path);
-                final String json = resource.get(String.class);
-                try {
-                    return mapper.readValue(json, type);
-                } catch (JsonParseException jpe) {
-                    return (T) json;
-                }
+                return resource.get(String.class);
             } else {
                 throw che;
             }
