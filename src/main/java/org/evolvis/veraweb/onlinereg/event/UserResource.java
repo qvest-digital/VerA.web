@@ -137,7 +137,7 @@ public class UserResource {
         user = new User.Builder(osiam_username)
                 .setName(new Name.Builder().setGivenName(osiam_firstname).setFamilyName(osiam_secondname).build())
                 .setPassword(osiam_password1)
-                .setActive(true)
+                .setActive(false)
                 .addEmail(userEmail)
                 .addExtension(
                     new Extension.Builder(VERAWEB_SCHEME).setField("tpersonid", BigInteger.valueOf(personId)).build()
