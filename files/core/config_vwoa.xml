@@ -2,14 +2,11 @@
 <!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
 
 <!--
-	OCTOPUS config_override.xml
+	OCTOPUS config_vwoa.xml
 
-	copy this file to /etc/veraweb/ and change things there,
-	as config.xml itself cannot be moved
+	enable Online-Anmeldung
 -->
 <tcModuleConfig>
-
-	<!-- e.g. you can change this -->
 	<params>
 		<!-- wird die Online-Anmeldung auch ausgeführt -->
 		<param name="online-registration.activated" value="true"/>
