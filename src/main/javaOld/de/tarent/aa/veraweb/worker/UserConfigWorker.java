@@ -27,6 +27,9 @@ import java.util.Map;
 import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.beans.User;
 import de.tarent.aa.veraweb.beans.UserConfig;
+import de.tarent.aa.veraweb.utils.LocaleMessage;
+import de.tarent.aa.veraweb.utils.VworConstants;
+import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
@@ -74,6 +77,30 @@ public class UserConfigWorker {
 			Map data = (Map)it.next();
 			result.put(data.get("key"), data.get("value"));
 		}
+
+		/* check if REST API is available */
+		VworUtils vworUtils = new VworUtils();
+		String vworAvailable;
+		try {
+			vworAvailable = LocaleMessage.formatTextToHtmlString(vworUtils.readResource(vworUtils.path(VworConstants.AVAILABLE)));
+		} catch (Exception e) {
+			StringBuilder sb = new StringBuilder();
+			final String emsg = e.getMessage();
+			final String elmsg = e.getLocalizedMessage();
+
+			if (emsg != null && !emsg.equals(elmsg)) {
+				sb.append(LocaleMessage.formatTextToHtmlString(e.toString() + " (" + emsg + ")"));
+			} else {
+				sb.append(LocaleMessage.formatTextToHtmlString(e.toString()));
+			}
+
+			for (StackTraceElement element : e.getStackTrace()) {
+				sb.append("<br />");
+				sb.append(LocaleMessage.formatTextToHtmlString(element.toString()));
+			}
+			vworAvailable = sb.toString();
+		}
+		result.put("restApiAvail", vworAvailable);
 
 		/*
 		 * modified to support display of orgunit as per change request for version 1.2.0
