@@ -1,9 +1,0 @@
-filesLocation=/tmp/
-
-# Properties for the email verification
-mail.smtp.host=host.de
-mail.smtp.port=25
-mail.smtp.user=foo
-mail.smtp.password=bar
-mail.subject=subject
-mail.content=content
