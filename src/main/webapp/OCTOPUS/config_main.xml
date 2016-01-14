@@ -28,8 +28,6 @@
 		<param name="defaultEncoding" value="UTF-8"/>
 		<!-- der Name des Skripts für die Darstellung von Fehlerseiten; "error" referenziert bei obigen Einstellungen "templates/velocity/error.vm". -->
 		<param name="defaultErrorDescriptionName" value="error"/>
-		<!-- wird die Online-Anmeldung auch ausgeführt -->
-		<param name="online-registration.activated" value="false"/>
 
 		<!-- ************************************************ -->
 		<!-- *** Automatisches Kopieren von Personendaten *** -->
