@@ -8,6 +8,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jacoco.version>0.7.1.201405082137</jacoco.version>
         <releaseVersion>${project.version}</releaseVersion>
+        <javax.mail.version>1.4.7</javax.mail.version>
     </properties>
     <organization>
         <name>tarent solutions GmbH, Germany</name>
@@ -114,6 +115,11 @@
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>${javax.mail.version}</version>
         </dependency>
     </dependencies>
     <build>
