@@ -146,6 +146,9 @@ public class LoginResource {
 
                 return StatusConverter.convertStatus(returnedValue);
             } catch (ConnectionInitializationException cie) {
+                if(cie.getMessage().endsWith("is disabled!")){
+                    return StatusConverter.convertStatus("disabled");
+                }
                 return null;
             }
         } else {

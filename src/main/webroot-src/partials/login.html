@@ -1,5 +1,6 @@
 <div class="login-container">
-	<div ng-show="status == 1" class="alert alert-success text-center" role="alert">{{'REGISTER_USER_MESSAGE_SUCCESS'|translate}}</div>
+    <div ng-show="status == 1" class="alert alert-success text-center" role="alert">{{'REGISTER_USER_MESSAGE_SUCCESS'|translate}}</div>
+    <div ng-show="status == 42" class="alert alert-success text-center" role="alert">{{'REGISTER_USER_MESSAGE_NOT_YET_ACTIVATED_ERROR'|translate}}&nbsp;<a href="">{{'REGISTER_USER_MESSAGE_ACTIVATION_MAIL_SEND_AGAIN'|translate}}</a></div>
 
     <h2 class="form-signin-heading">{{'LOGIN_TITLE'|translate}}</h2>
     <form class="form-signin" role="form" >

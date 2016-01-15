@@ -73,6 +73,9 @@
   "REGISTER_USER_MESSAGE_USER_EXISTS_ERROR": "A user with this username already exists.",
   "REGISTER_USER_MESSAGE_VALIDATION_ERROR": "The username should only contain letters and numbers.",
   "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Passwords do not match!",
+  
+  "REGISTER_USER_MESSAGE_NOT_YET_ACTIVATED_ERROR": "You need to activate your account first.",
+  "REGISTER_USER_MESSAGE_ACTIVATION_MAIL_SEND_AGAIN": "Send confirmation-mail again.",
 
   "REGISTER_USER_MESSAGE_EVENT_FULL": "This event is fully booked. Please, try to register yourself in another event of your interest by using the list of open events.",
   "REGISTER_USER_MESSAGE_TO_RESERVE_LIST": "This event is fully booked. You are registered as a backup in the waiting list. We will inform you in case of available places.",

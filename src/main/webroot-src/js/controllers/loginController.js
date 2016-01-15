@@ -20,12 +20,22 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
         }).success(function (result) {
             $scope.error = null;
             $scope.button = false;
-            if (result != "") {
-                $rootScope.user_logged_in = $scope.username;
-                $rootScope.userinfo = result.status;
-                $rootScope.status = null;
-                $rootScope.messageContent = null;
-                $location.path($scope.nextPage);
+           console.log(result);
+           if (result != "") {//result=object
+               if(result.status.localeCompare("disabled")||result.status=="disabled"){
+                   $rootScope.status = 42;
+                   $scope.status=42;
+                   setStatus=42;
+                   $scope.setStatus=42;
+                    //  $rootScope.messageContent = "test";
+                   $location.path($scope.nextPage);
+               }else{
+                   $rootScope.user_logged_in = $scope.username;
+                   $rootScope.userinfo = result.status;
+                   $rootScope.status = null;
+                   $rootScope.messageContent = null;
+                   $location.path($scope.nextPage);
+               }
             } else {
                 $rootScope.status = "danger";
                 $translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {

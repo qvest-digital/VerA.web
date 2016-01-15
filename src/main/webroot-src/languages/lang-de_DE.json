@@ -82,6 +82,8 @@
   "REGISTER_USER_MESSAGE_USER_EXISTS_ERROR": "Ein Benutzer mit diesem Anmeldenamen existiert bereits.",
   "REGISTER_USER_MESSAGE_VALIDATION_ERROR": "Der Anmeldename darf nur Buchstaben und Zahlen enthalten.",
   "REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR": "Die Passwörter stimmen nicht überein.",
+  "REGISTER_USER_MESSAGE_NOT_YET_ACTIVATED_ERROR": "Sie müssen ihren Account erst freischalten.",
+  "REGISTER_USER_MESSAGE_ACTIVATION_MAIL_SEND_AGAIN": "Bestätigungs-Email erneut senden.",
 
   "REGISTER_USER_MESSAGE_EVENT_FULL": "Leider ist diese Veranstaltung bereits ausgebucht. Schauen Sie doch unter offene Veranstaltungen nach anderen interessanten Veranstaltungen.",
   "REGISTER_USER_MESSAGE_TO_RESERVE_LIST": "Leider ist die Veranstaltung bereits ausgebucht. Sie sind auf die Warteliste gesetzt worden. Wir informieren Sie, wenn Sie nachrücken können.",
