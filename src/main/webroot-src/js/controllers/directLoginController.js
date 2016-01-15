@@ -40,11 +40,16 @@ onlineRegApp.controller('DirectLoginController',
             $scope.button = false;
             $rootScope.error = null;
             if (result != "") {
-                $rootScope.userinfo = result.status;
-                $rootScope.user_logged_in = $scope.directusername;
-                $rootScope.status = null;
-                $rootScope.messageContent = null;
-                $location.path($scope.nextPage);
+              if(result.status.localeCompare("disabled")||result.status=="disabled"){
+                   $scope.status=42;
+                   $location.path($scope.nextPage);
+               }else{
+                    $rootScope.userinfo = result.status;
+                    $rootScope.user_logged_in = $scope.directusername;
+                    $rootScope.status = null;
+                    $rootScope.messageContent = null;
+                    $location.path($scope.nextPage);
+                }
             } else {
                 $rootScope.userinfo = null;
                 $translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
