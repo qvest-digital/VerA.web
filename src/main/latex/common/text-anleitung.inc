@@ -81,6 +81,8 @@ Alle Code-Listings finden Sie auch nochmal als Plaintext unter
 (\texttt{veraweb-core-\vwiaverssw{}-files.tgz} \emph{oder}
 \texttt{veraweb-core-\vwiaverssw{}-files.zip}, siehe
 \hyperlink{manual:distro}{Die VerA.web-Distribution}).
+Zwecks Zuordnung finden Sie die Listing-Nummern am äußeren
+Seitenrand bzw. als Teil der Überschrift in der Listing-Datei.
 
 \subsection{Konzepte}\label{subsec:concepts}
 
@@ -141,6 +143,8 @@ an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
   acloud/.style={thick,text=black,fill=white,drop shadow,cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
  ]
 
+% \draw (0mm,0mm) -- (0mm,120mm) -- (173mm,120mm) -- (173mm,0mm) -- (0mm,0mm);
+
   \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (3mm,75mm) {LDAP};
   \node[above right,rectangle,fill=green!20,minimum width=119mm,minimum height=15mm] (web) at (3mm,56mm) {VerA.web Webanwendung};
   \node[above right,rectangle,fill=yellow!40,minimum width=119mm,minimum height=15mm] (oa) at (3mm,10mm) {VerA.web Online-Anmeldung};
@@ -160,7 +164,7 @@ an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
 
   \node[above right,inner sep=0pt] at (140mm,33mm) {internes Netz};
   \node[below right,inner sep=0pt] at (140mm,31mm) {extern erreichbar};
-  \draw[dashed]   (0mm,32mm) -- (175mm,32mm);
+  \draw[dashed]   (0mm,32mm) -- (173mm,32mm);
 
 \end{tikzpicture}
 

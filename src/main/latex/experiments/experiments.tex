@@ -48,6 +48,8 @@ Bitte umblättern…
   acloud/.style={thick,text=black,fill=white,drop shadow,cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
  ]
 
+ \draw (0mm,0mm) -- (0mm,120mm) -- (173mm,120mm) -- (173mm,0mm) -- (0mm,0mm);
+
   \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (3mm,75mm) {LDAP};
   \node[above right,rectangle,fill=green!20,minimum width=119mm,minimum height=15mm] (web) at (3mm,56mm) {VerA.web Webanwendung};
   \node[above right,rectangle,fill=yellow!40,minimum width=119mm,minimum height=15mm] (oa) at (3mm,10mm) {VerA.web Online-Anmeldung};
@@ -67,7 +69,7 @@ Bitte umblättern…
 
   \node[above right,inner sep=0pt] at (140mm,33mm) {internes Netz};
   \node[below right,inner sep=0pt] at (140mm,31mm) {extern erreichbar};
-  \draw[dashed]   (0mm,32mm) -- (175mm,32mm);
+  \draw[dashed]   (0mm,32mm) -- (173mm,32mm);
 
 \end{tikzpicture}
 
@@ -88,20 +90,22 @@ Bitte umblättern…
   acloud/.style={thick,text=black,fill=white,drop shadow,cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
  ]
 
-  \fill[yellow!40] (3mm,33mm) -- (122mm,33mm) -- (122mm,48mm) -- (3mm,48mm);
-  \fill[green!20] (3mm,50mm) -- (122mm,50mm) -- (122mm,94mm) -- (3mm,94mm);
+ \draw (0mm,0mm) -- (0mm,120mm) -- (173mm,120mm) -- (173mm,0mm) -- (0mm,0mm);
 
-  \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (3mm,96mm) {LDAP};
-  \node[above right,rectangle,fill=red!20,minimum width=169mm,minimum height=15mm] (osiam) at (3mm,10mm) {OSIAM};
+  \fill[yellow!40] (2mm,33mm) -- (121mm,33mm) -- (121mm,48mm) -- (2mm,48mm);
+  \fill[green!20] (2mm,50mm) -- (121mm,50mm) -- (121mm,94mm) -- (2mm,94mm);
 
-  \node[microsvc] (svwoa)  at ( 40mm,36mm) {VerA.web Online-Anmeldung};
-  \node[webapp]   (score)  at ( 40mm,82mm) {VerA.web Webanwendung};
-  \node[webapp]   (svwor)  at ( 40mm,64mm) {VerA.web REST-API};
-  \node[syssvc]   (dbvw)   at (  5mm,53mm) {veraweb DB};
-  \node[people]   (admins) at (168mm,99mm) {Admins};
-  \node[people]   (sb)     at (168mm,82mm) {Sachbearbeiter};
-  \node[people]   (guests) at (168mm,36mm) {Gäste};
-  \node[acloud]   (inet)   at (130mm,38mm) {};
+  \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (2mm,96mm) {LDAP};
+  \node[above right,rectangle,fill=red!20,minimum width=169mm,minimum height=15mm] (osiam) at (2mm,10mm) {OSIAM};
+
+  \node[microsvc] (svwoa)  at ( 39mm,36mm) {VerA.web Online-Anmeldung};
+  \node[webapp]   (score)  at ( 39mm,82mm) {VerA.web Webanwendung};
+  \node[webapp]   (svwor)  at ( 39mm,64mm) {VerA.web REST-API};
+  \node[syssvc]   (dbvw)   at (  4mm,53mm) {veraweb DB};
+  \node[people]   (admins) at (167mm,99mm) {Admins};
+  \node[people]   (sb)     at (167mm,82mm) {Sachbearbeiter};
+  \node[people]   (guests) at (167mm,36mm) {Gäste};
+  \node[acloud]   (inet)   at (129mm,38mm) {};
 
   \draw[thick,->] (admins) -- ([yshift=3mm]ldap);
   \draw[thick,->] ([yshift=-6mm]admins) -| +(-32mm,0mm) |- ([yshift=3mm]score);
@@ -141,32 +145,32 @@ Bitte umblättern…
   acloud/.style={cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
  ]
 
-% \draw (0mm,0mm) -- (0mm,120mm) -- (175mm,120mm) -- (175mm,0mm) -- (0mm,0mm);
+ \draw (0mm,0mm) -- (0mm,120mm) -- (173mm,120mm) -- (173mm,0mm) -- (0mm,0mm);
 
-  \fill[red!20] (3mm,3mm) -- (172mm,3mm) -- (172mm,40mm) -- (37mm,40mm) -- (37mm,35mm) -- (3mm,35mm);
-  \fill[yellow!40] (37mm,43mm) -- (122mm,43mm) -- (122mm,58mm) -- (37mm,58mm);
-  \fill[green!20] (3mm,36mm) -- (34mm,36mm) -- (34mm,61mm) -- (122mm,61mm) -- (122mm,94mm) -- (3mm,94mm);
-  \fill[blue!20] (3mm,96mm) -- (122mm,96mm) -- (122mm,111mm) -- (3mm,111mm);
+  \fill[red!20] (2mm,3mm) -- (171mm,3mm) -- (171mm,40mm) -- (36mm,40mm) -- (36mm,35mm) -- (2mm,35mm);
+  \fill[yellow!40] (36mm,43mm) -- (121mm,43mm) -- (121mm,58mm) -- (36mm,58mm);
+  \fill[green!20] (2mm,36mm) -- (33mm,36mm) -- (33mm,61mm) -- (121mm,61mm) -- (121mm,94mm) -- (2mm,94mm);
+  \fill[blue!20] (2mm,96mm) -- (121mm,96mm) -- (121mm,111mm) -- (2mm,111mm);
 
-  \node[apache]   (alam)   at ( 80mm,99mm) {LDAP Account Mgr};
-  \node[apache]   (acore)  at ( 80mm,82mm) {VerA.web-core};
-  \node[apache]   (avwor)  at ( 80mm,64mm) {REST-API};
-  \node[apache]   (avwoa)  at ( 80mm,46mm) {Online-Anmeldung};
-  \node[apache]   (aosiam) at ( 80mm,19mm) {OSIAM};
-  \node[microsvc] (svwoa)  at ( 40mm,46mm) {VWOA};
-  \node[webapp]   (score)  at ( 40mm,82mm) {core};
-  \node[webapp]   (svwor)  at ( 40mm,64mm) {VWOR};
-  \node[webapp]   (sauth)  at ( 40mm,28mm) {auth-server};
-  \node[webapp]   (srsrc)  at ( 40mm,10mm) {resource-server};
-  \node[syssvc]   (ldap)   at (  5mm,99mm) {LDAP-Server};
-  \node[syssvc]   (dbvw)   at (  5mm,53mm) {veraweb DB};
-  \node[syssvc]   (dbong)  at (  5mm,19mm) {ong DB};
-  \node[scrptr]   (usql)   at (  5mm,38mm) {upgrade.sql};
-  \node[scrptl]   (riosh)  at (168mm,19mm) {register-into-osiam.sh};
-  \node[people]   (admins) at (168mm,99mm) {Admins};
-  \node[people]   (sb)     at (168mm,82mm) {Sachbearbeiter};
-  \node[people]   (guests) at (168mm,46mm) {Gäste};
-  \node[acloud]   (inet)   at (130mm,48mm) {};
+  \node[apache]   (alam)   at ( 79mm,99mm) {LDAP Account Mgr};
+  \node[apache]   (acore)  at ( 79mm,82mm) {VerA.web-core};
+  \node[apache]   (avwor)  at ( 79mm,64mm) {REST-API};
+  \node[apache]   (avwoa)  at ( 79mm,46mm) {Online-Anmeldung};
+  \node[apache]   (aosiam) at ( 79mm,19mm) {OSIAM};
+  \node[microsvc] (svwoa)  at ( 39mm,46mm) {VWOA};
+  \node[webapp]   (score)  at ( 39mm,82mm) {core};
+  \node[webapp]   (svwor)  at ( 39mm,64mm) {VWOR};
+  \node[webapp]   (sauth)  at ( 39mm,28mm) {auth-server};
+  \node[webapp]   (srsrc)  at ( 39mm,10mm) {resource-server};
+  \node[syssvc]   (ldap)   at (  4mm,99mm) {LDAP-Server};
+  \node[syssvc]   (dbvw)   at (  4mm,53mm) {veraweb DB};
+  \node[syssvc]   (dbong)  at (  4mm,19mm) {ong DB};
+  \node[scrptr]   (usql)   at (  4mm,38mm) {upgrade.sql};
+  \node[scrptl]   (riosh)  at (167mm,19mm) {register-into-osiam.sh};
+  \node[people]   (admins) at (167mm,99mm) {Admins};
+  \node[people]   (sb)     at (167mm,82mm) {Sachbearbeiter};
+  \node[people]   (guests) at (167mm,46mm) {Gäste};
+  \node[acloud]   (inet)   at (129mm,48mm) {};
 
   \draw[thick,->] (admins) -- ([yshift=3mm]alam);
   \draw[thick,->] (alam) -- (ldap);
@@ -236,6 +240,8 @@ Wie breit ist die Seite? % 497.92325pt ~= 175 mm (5 Nullen nach dem Komma)
 % ein Teχ-Punkt (pt) ist exakt 2540/7227 mm = 0.3̅5̅1̅4̅5̅9̅8̅0̅ mm
 % ein Teχ-Punkt (pt) ist exakt 800/803 PostScript-Punkt (pt, Teχ bp) = 0.9̅9̅6̅2̅6̅4̅0̅0̅ bp
 % Teχ rechnet intern nur auf ca. 6 Stellen genau, fixed-point, daher vmtl. exakt
+%
+% nach letzter Breitenanpassung: 492.23235 pt ~= 173 mm
 
 \the\textwidth
 

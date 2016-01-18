@@ -42,9 +42,9 @@
 \RequirePackage[shortcuts]{extdash}
 % (tarent-Logo ist knapp 0.89 cm hoch bei 5¼ cm Breite, x horizontal 0.68 cm)
 % Einstellungen für: (gerade Seiten gespiegelt)
-% Seitenrand oben 1.78 cm, unten 1.5 cm, links 2.1 cm, rechts 1.4 cm
+% Seitenrand oben 1.78 cm, unten 1.5 cm, links 2.1 cm, rechts 1.6 cm
 % Kopfzeile 1.1 cm (Abstand 0.6 cm); Fußzeile 0.6 cm (Abstand 0.6 cm)
-\RequirePackage[a4paper,includeheadfoot,inner=2.1cm,outer=1.4cm,top=1.78cm,bottom=1.5cm,twoside,headheight=1.1cm,headsep=0.9cm,foot=1.2cm,marginparsep=2.5mm]{geometry}
+\RequirePackage[a4paper,includeheadfoot,inner=2.1cm,outer=1.6cm,top=1.78cm,bottom=1.5cm,twoside,headheight=1.1cm,headsep=0.9cm,foot=1.2cm,marginparsep=2.5mm]{geometry}
 \savegeometry{tarentstyle}
 \RequirePackage{framed}
 \linespread{1.15}
@@ -136,7 +136,7 @@
 	 \lstset{#1}%
 	 \csname\@lst @SetFirstNumber\endcsname%
 	 \stepcounter{lstdumps}%
-	 \marginnote{{\Huge\color{Gray}\thelstdumps}}%
+	 \marginnote{{\huge\color{Gray}\thelstdumps}}%
 	 \renewcommand{\lstdumpname}{ (#2)}%
 	 \lst@BeginAlsoWriteFile{\jobname.lst}%
 	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
@@ -152,7 +152,7 @@
 	 \lstset{#1}%
 	 \csname\@lst @SetFirstNumber\endcsname%
 	 \stepcounter{lstdumps}%
-	 \marginnote{{\Huge\color{Gray}\thelstdumps}}%
+	 \marginnote{{\huge\color{Gray}\thelstdumps}}%
 	 \renewcommand{\lstdumpname}{ [unnamed]}%
 	 \lst@BeginAlsoWriteFile{\jobname.lst}%
 	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
