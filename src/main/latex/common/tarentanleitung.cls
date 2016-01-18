@@ -1,5 +1,5 @@
 % Dokumentklasse „Anleitung“ für tarent solutions GmbH
-% Copyright © 2015
+% Copyright © 2015, 2016
 %	Thorsten Glaser <t.glaser@tarent.de>
 %
 % abgeleitet von der Dokumentenklasse pubmat des Teckids e.V.
@@ -32,19 +32,23 @@
 
 \RequirePackage{tarentstyle}
 
-%XXX always (before hyperref), plus conflicts with scrartcl
-\usepackage{fancyhdr}
+% Fixup KOMA-Script fonts: \defaultcolor and \color{black} break page layout
+% Default is: \normalfont\normalcolor\slshape (but we add \upshape anyway)
+\setkomafont{pageheadfoot}{\normalfont\upshape}
+% Default is: \normalfont\normalcolor
+\setkomafont{pagenumber}{\normalfont}
 
 \newlength{\myheight}
 \pagestyle{fancy}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0.6pt}
-\fancyhead[L]{\headmark}
-\fancyhead[R]{\tarentlogo[5.25cm]{}}
-\fancyfoot[L]{\footnotesize\textcopyright tarent}
-\fancyfoot[C]{\ifnum\ztotpages=1\else{\scriptsize\thepage/\ztotpages}\fi}
-\fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
+\renewcommand*\pagemark{{\usekomafont{pagenumber}\ifnum\ztotpages=1\else\thepage/\ztotpages\fi}}
+\fancyhead[L]{\usekomafont{pageheadfoot}\headmark}
+\fancyhead[R]{\usekomafont{pageheadfoot}\tarentlogo[5.25cm]{}}
+\fancyfoot[L]{\usekomafont{pageheadfoot}{\footnotesize\textcopyright tarent}}
+\fancyfoot[C]{\usekomafont{pageheadfoot}\pagemark}
+\fancyfoot[R]{\usekomafont{pageheadfoot}\href{https://www.tarent.de/}{www.tarent.de}}
 
 % Name Jahr
 \newcommand{\tarentohnedeckblatt}[2]{
@@ -52,11 +56,11 @@
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0.6pt}
-\fancyhead[L]{#1}
-\fancyhead[R]{\tarentlogo[5.25cm]{}}
-\fancyfoot[L]{\footnotesize\textcopyright #2 tarent}
-\fancyfoot[C]{\ifnum\ztotpages=1\else{\scriptsize\thepage/\ztotpages}\fi}
-\fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
+\fancyhead[L]{\usekomafont{pageheadfoot}#1}
+\fancyhead[R]{\usekomafont{pageheadfoot}\tarentlogo[5.25cm]{}}
+\fancyfoot[L]{\usekomafont{pageheadfoot}{\footnotesize\textcopyright #2 tarent}}
+\fancyfoot[C]{\usekomafont{pageheadfoot}\pagemark}
+\fancyfoot[R]{\usekomafont{pageheadfoot}\href{https://www.tarent.de/}{www.tarent.de}}
 }
 
 % Name Version Fassung vom Jahr Bild
