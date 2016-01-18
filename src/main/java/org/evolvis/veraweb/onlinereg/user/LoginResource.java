@@ -31,6 +31,8 @@ import lombok.Getter;
 import lombok.extern.java.Log;
 
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.mail.EmailValidator;
+import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.osiam.client.exception.ConnectionInitializationException;
 import org.osiam.resources.scim.User;
@@ -114,6 +116,15 @@ public class LoginResource {
         if (userName == null || password == null) {
             return null;
         }
+
+        if(EmailValidator.isValidEmailAddress(userName)){
+            OsiamClient osiamClient = config.getOsiam().getClient(this.client);
+            String accessToken = osiamClient.getAccessTokenClientCred("GET", "POST");
+            User userNameFromEmail = osiamClient.getUserByEmail(accessToken,userName);
+            userName=userNameFromEmail.getUserName();
+
+        }
+
         Boolean isRegisterdForDelegationEvent = true;
         if (delegation != null && !"".equals(delegation)) {
             isRegisterdForDelegationEvent =
