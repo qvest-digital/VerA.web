@@ -100,16 +100,6 @@
 \newcommand{\ankreuzen}{Bitte zum Beispiel so → \CheckedBox\hspace{0.05cm} ← ankreuzen!}
 \newcommand{\ankreuzkaestchen}{\Square\hspace{0.1cm}}
 
-\newcommand{\keineseitenzahlenbeginn}{%
- \usepackage{fancyhdr}%
- \setlength{\headheight}{0pt}%
- \pagestyle{fancy}%
- \fancyhead{}%
- \fancyfoot[C]{\ifnum\ztotpages=1\else\thepage\fi}%
- \renewcommand{\headrulewidth}{0pt}%
-}
-\newcommand{\keineseitenzahlenende}{}
-
 \newcounter{lstdumps}
 \setcounter{lstdumps}{0}
 \newcommand{\lstdumpname}{}
