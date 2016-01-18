@@ -22,6 +22,13 @@
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
 %-
+% Characters requiring escaping:
+% • { } # & _ % $ ⇒ quote by prepending a backslash \
+% • \ → \textbackslash
+% • ~ → \textasciitilde
+% • (nbsp) → ~
+% • (en dash) → \dash
+%-
 % TODO: slapd, lam, MTA
 % TODO: graphics from experiments.tex for more detailed concepts
 % TODO vwoa: primer on service management with DJB dæmontools
