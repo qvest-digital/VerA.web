@@ -43,7 +43,7 @@
 \fancyhead[L]{\headmark}
 \fancyhead[R]{\tarentlogo[5.25cm]{}}
 \fancyfoot[L]{\footnotesize\textcopyright tarent}
-\fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
+\fancyfoot[C]{{\scriptsize\thepage/\ztotpages}}
 \fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
 
 % Name Jahr
@@ -55,7 +55,7 @@
 \fancyhead[L]{#1}
 \fancyhead[R]{\tarentlogo[5.25cm]{}}
 \fancyfoot[L]{\footnotesize\textcopyright #2 tarent}
-\fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
+\fancyfoot[C]{{\scriptsize\thepage/\ztotpages}}
 \fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
 }
 
