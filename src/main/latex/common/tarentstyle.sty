@@ -28,7 +28,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{tarentstyle}
 
-\RequirePackage{graphicx}
 \RequirePackage{accsupp}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{german}
@@ -67,7 +66,6 @@
 \usepackage{ifthen}
 \usepackage{scalerel}
 \usepackage{soul}
-\usepackage{fancyhdr}
 \ifpdf \RequirePackage[pdftex]{hyperref}
 \else  \RequirePackage[dvips,dviwindo,hypertex]{hyperref} \fi
 \hypersetup{
@@ -77,9 +75,33 @@
 	pdfauthor = {tarent solutions GmbH}
 }
 
+% Fixup KOMA-Script fonts: \defaultcolor and \color{black} break page layout
+% Default is: \normalfont\normalcolor\slshape (but we add \upshape anyway)
+\setkomafont{pageheadfoot}{\normalfont\upshape}
+% Default is: \normalfont\normalcolor
+\setkomafont{pagenumber}{\normalfont}
+
+% Set default page style
+\pagestyle{fancy}
+\newcommand{\tarenthdr}[2][]{
+ \fancyhf{}
+ \renewcommand{\headrulewidth}{0pt}
+ \renewcommand{\footrulewidth}{0.6pt}
+ \renewcommand*\pagemark{{\usekomafont{pagenumber}\ifnum\ztotpages=1\else\thepage/\ztotpages\fi}}
+ \fancyhead[L]{\usekomafont{pageheadfoot}#2}
+ \fancyhead[R]{\usekomafont{pageheadfoot}\tarentlogo[5.25cm]{}}
+ \fancyfoot[L]{\usekomafont{pageheadfoot}{\footnotesize\textcopyright #1 tarent}}
+ \fancyfoot[C]{\usekomafont{pageheadfoot}\pagemark}
+ \fancyfoot[R]{\usekomafont{pageheadfoot}\href{https://www.tarent.de/}{www.tarent.de}}
+}
+\tarenthdr{\headmark}
+
+% Hurenkinder und Schusterjungen
 \clubpenalty10000
 \widowpenalty10000
 \displaywidowpenalty=10000
+
+% Allgemeine Einstellungen
 
 \DeclareGraphicsExtensions{.pdf,.eps,.png,.jpg}
 
@@ -100,6 +122,8 @@
 
 \newcommand{\ankreuzen}{Bitte zum Beispiel so → \CheckedBox\hspace{0.05cm} ← ankreuzen!}
 \newcommand{\ankreuzkaestchen}{\Square\hspace{0.1cm}}
+
+% Listings
 
 \newcounter{lstdumps}
 \setcounter{lstdumps}{0}
@@ -171,6 +195,7 @@
 % default font is sans-serif, i.e. Museo Sans
 \renewcommand*{\familydefault}{\sfdefault}
 
+% em dash
 \def\dash{\unskip\kern.16667em\textemdash\penalty\exhyphenpenalty\hskip.16667em\relax}
 % for footnotes
 \newcommand{\Hair}{\kern.16667em}

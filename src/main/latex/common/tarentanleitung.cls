@@ -28,39 +28,15 @@
 \ProvidesClass{tarentanleitung}
 
 \PassOptionsToPackage{paper=a4}{typearea}
+\RequirePackage{graphicx}
+\RequirePackage{fancyhdr}
 \LoadClass{scrartcl}
-
 \RequirePackage{tarentstyle}
-
-% Fixup KOMA-Script fonts: \defaultcolor and \color{black} break page layout
-% Default is: \normalfont\normalcolor\slshape (but we add \upshape anyway)
-\setkomafont{pageheadfoot}{\normalfont\upshape}
-% Default is: \normalfont\normalcolor
-\setkomafont{pagenumber}{\normalfont}
-
-\newlength{\myheight}
-\pagestyle{fancy}
-\fancyhf{}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0.6pt}
-\renewcommand*\pagemark{{\usekomafont{pagenumber}\ifnum\ztotpages=1\else\thepage/\ztotpages\fi}}
-\fancyhead[L]{\usekomafont{pageheadfoot}\headmark}
-\fancyhead[R]{\usekomafont{pageheadfoot}\tarentlogo[5.25cm]{}}
-\fancyfoot[L]{\usekomafont{pageheadfoot}{\footnotesize\textcopyright tarent}}
-\fancyfoot[C]{\usekomafont{pageheadfoot}\pagemark}
-\fancyfoot[R]{\usekomafont{pageheadfoot}\href{https://www.tarent.de/}{www.tarent.de}}
 
 % Name Jahr
 \newcommand{\tarentohnedeckblatt}[2]{
 \loadgeometry{tarentstyle}
-\fancyhf{}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0.6pt}
-\fancyhead[L]{\usekomafont{pageheadfoot}#1}
-\fancyhead[R]{\usekomafont{pageheadfoot}\tarentlogo[5.25cm]{}}
-\fancyfoot[L]{\usekomafont{pageheadfoot}{\footnotesize\textcopyright #2 tarent}}
-\fancyfoot[C]{\usekomafont{pageheadfoot}\pagemark}
-\fancyfoot[R]{\usekomafont{pageheadfoot}\href{https://www.tarent.de/}{www.tarent.de}}
+\tarenthdr[#2]{#1}
 }
 
 % Name Version Fassung vom Jahr Bild
