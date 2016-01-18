@@ -29,10 +29,13 @@ import com.sun.jersey.api.client.Client;
 
 import lombok.extern.java.Log;
 
+import org.osiam.resources.scim.Email;
 import org.osiam.resources.scim.SCIMSearchResult;
 import org.osiam.resources.scim.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -129,9 +132,43 @@ public class OsiamClient {
 	}
 
 	/**
+	 * Get all users.
+	 *
+	 * @param accessTokenAsString Access token
+	 */
+	public List<User> getAllUsers(String accessTokenAsString) {
+		AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
+		return this.connector.getAllUsers(accessToken);
+	}
+
+	/**
+	 * Get user by email.
+	 *
+	 * @param accessTokenAsString Access token
+	 * @param email Email of the user
+	 */
+	public User getUserByEmail(String accessTokenAsString, String email) {
+		final AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
+		final List<User> allUsers = this.connector.getAllUsers(accessToken);
+		for (User user : allUsers) {
+			return findUserByEmail(user, email);
+		}
+		return null;
+	}
+
+	private User findUserByEmail(User user, String email) {
+		final List<Email> emails = user.getEmails();
+		for (Email userEmail : emails) {
+            if(userEmail.getValue().equals(email)) {
+				return user;
+			}
+        }
+		return null;
+	}
+
+	/**
 	 * Delete osiam user
 	 *
-
 	 */
 	public void deleteUser(String id, AccessToken accessToken) {
 		this.connector.deleteUser(id, accessToken);
