@@ -132,6 +132,7 @@
 \newcounter{lstdumps}
 \setcounter{lstdumps}{0}
 \newcommand{\lstdumpname}{}
+\xdef\lstdumpsection{\@empty}%
 \lstnewenvironment{lstdump}[3][]
 	{\lst@TestEOLChar{#3}%
 	 \lstset{#1}%
@@ -140,6 +141,14 @@
 	 \marginnote{{\huge\color{Gray}\thelstdumps}}%
 	 \renewcommand{\lstdumpname}{ (#2)}%
 	 \lst@BeginAlsoWriteFile{\jobname.lst}%
+	 \ifx\lstdumpsection\@currentlabel\else%
+	  \ifx\lstdumpsection\@empty%
+	   \immediate\write\lst@WF{Listing dump for \jobname.tex}%
+	   \immediate\write\lst@WF{}%
+	  \fi%
+	  \immediate\write\lst@WF{>>> (\@currentlabel) \@currentlabelname}%
+	  \immediate\write\lst@WF{}%
+	 \fi%
 	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
 	}
 	{
@@ -147,6 +156,7 @@
 	 \immediate\write\lst@WF{}%
 	 \endgroup%
 	 \csname\@lst @SaveFirstNumber\endcsname%
+	 \xdef\lstdumpsection{\@currentlabel}%
 	}
 \lstnewenvironment{lstdumpx}[2][]
 	{\lst@TestEOLChar{#2}%
@@ -156,6 +166,14 @@
 	 \marginnote{{\huge\color{Gray}\thelstdumps}}%
 	 \renewcommand{\lstdumpname}{ [unnamed]}%
 	 \lst@BeginAlsoWriteFile{\jobname.lst}%
+	 \ifx\lstdumpsection\@currentlabel\else%
+	  \ifx\lstdumpsection\@empty%
+	   \immediate\write\lst@WF{Listing dump for \jobname.tex}%
+	   \immediate\write\lst@WF{}%
+	  \fi%
+	  \immediate\write\lst@WF{>>> (\@currentlabel) \@currentlabelname}%
+	  \immediate\write\lst@WF{}%
+	 \fi%
 	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
 	}
 	{
@@ -163,6 +181,7 @@
 	 \immediate\write\lst@WF{}%
 	 \endgroup%
 	 \csname\@lst @SaveFirstNumber\endcsname%
+	 \xdef\lstdumpsection{\@currentlabel}%
 	}
 % usage: \lstdumpesc[file]{pdf} or \lstdumpesc{bothfileandpdf}
 \def\lstdumpesc{\@ifnextchar[{\lstdumpesc@two}{\lstdumpesc@one}}

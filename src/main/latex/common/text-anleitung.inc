@@ -32,7 +32,6 @@
 % TODO: slapd, lam, MTA
 % TODO: graphics from experiments.tex for more detailed concepts
 % TODO vwoa: primer on service management with DJB dæmontools
-% TODO sty: lines between chapters for *.lst file
 % TODO: do not use cross-references; duplicate content (KISS)
 
 \ifupgradeanleitung
