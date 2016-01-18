@@ -28,6 +28,8 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
                if(result.status.localeCompare("disabled")||result.status=="disabled"){
                    setStatus=42;
                    $scope.status=42;
+                   $rootScope.status= null;
+                   $rootScope.error=null;
                    $location.path($scope.nextPage);
                }else{
                    $rootScope.user_logged_in = $scope.username;
@@ -38,6 +40,8 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
                }
             } else {
                 $rootScope.status = "danger";
+                setStatus=null;
+                $scope.status=null;
                 $translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
                     $rootScope.messageContent = text;
                 });
