@@ -151,19 +151,23 @@ public class OsiamClient {
 		final AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
 		final List<User> allUsers = this.connector.getAllUsers(accessToken);
 		for (User user : allUsers) {
-			return findUserByEmail(user, email);
+			final List<Email> emails = user.getEmails();
+			if (emails.size() > 0) {
+				if (findUserByEmail(email, emails)) {
+					return user;
+				}
+			}
 		}
 		return null;
 	}
 
-	private User findUserByEmail(User user, String email) {
-		final List<Email> emails = user.getEmails();
+	private boolean findUserByEmail(String email, List<Email> emails) {
 		for (Email userEmail : emails) {
             if(userEmail.getValue().equals(email)) {
-				return user;
-			}
+				return true;
+            }
         }
-		return null;
+		return false;
 	}
 
 	/**
