@@ -118,9 +118,7 @@ public class LoginResource {
         }
 
         if(EmailValidator.isValidEmailAddress(userName)){
-            OsiamClient osiamClient = config.getOsiam().getClient(this.client);
-            String accessToken = osiamClient.getAccessTokenClientCred("GET", "POST");
-            User userNameFromEmail = osiamClient.getUserByEmail(accessToken,userName);
+            User userNameFromEmail = config.getOsiam().getClient(this.client).getUserByEmail(userName);
             userName=userNameFromEmail.getUserName();
 
         }
