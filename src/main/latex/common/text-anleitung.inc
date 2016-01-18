@@ -29,10 +29,17 @@
 % • (nbsp) → ~
 % • (en dash) → \dash
 %-
-% TODO: slapd, lam, MTA
-% TODO: graphics from experiments.tex for more detailed concepts
-% TODO vwoa: primer on service management with DJB dæmontools
-% TODO: do not use cross-references; duplicate content (KISS)
+% TODO tglase:
+% - Struktur: do not use cross-references; duplicate content (KISS)
+% - Mail (alt); MTA setup
+% - Graphiken, Texte, … (graphics from experiments.tex for more detailed concepts)
+% - Apache, SSL, …
+% - LDAP: slapd, lam
+% - svc: primer on service management with DJB dæmontools
+% - Upgradeanleitung wenn mit OA
+% - Debian jessie-tauglich machen
+% TODO Team:
+% - neuer Mail-Kram
 
 \ifupgradeanleitung
  \ifoa
