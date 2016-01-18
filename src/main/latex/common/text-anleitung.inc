@@ -961,12 +961,12 @@ Konfigurationsdateien bereits in \texttt{/etc/veraweb} haben
 
 \subsection{Upgrade von Versionen vor 1.5.1.4}\label{subsec:upgrade-1514}
 
-Falls Sie von einer VerA.web-Version, die die Konfigurationsdateien
-noch nicht in \texttt{/etc/veraweb} ablegt, aktualisieren, müssen Sie
-dort zunächst (nur) die Dateien hinkopieren, die sich unter
+Falls Sie von einer VerA.web-Version, die die Konfigurationsdateien noch
+nicht in \texttt{/etc/veraweb} ablegt, aktualisieren, müssen Sie dort
+zunächst (nur) die gegenüber den in der alten Version der \texttt{veraweb.war}
+ausgelieferten Dateien angepaßten Konfigurationen aus dem Verzeichnis
 \texttt{/var/lib/tomcat7/webapps/veraweb/OCTOPUS/config\_*.xml}
-befinden und gegenüber den in der alten Version der \texttt{veraweb.war}
-ausgelieferten Dateien angepaßt wurden.
+Ihrer alten Installation hinkopieren.
 
 Das neue Konfigurationsschema wurde mit VerA.web 1.5.1.4 eingeführt,
 war jedoch bereits in VerA.web 1.4.3.5 (und \emph{nur} dieser Version
