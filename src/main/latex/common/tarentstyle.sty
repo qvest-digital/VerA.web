@@ -88,11 +88,11 @@
  \renewcommand{\headrulewidth}{0pt}
  \renewcommand{\footrulewidth}{0.6pt}
  \renewcommand*\pagemark{{\usekomafont{pagenumber}\ifnum\ztotpages=1\else\thepage/\ztotpages\fi}}
- \fancyhead[L]{\usekomafont{pageheadfoot}#2}
- \fancyhead[R]{\usekomafont{pageheadfoot}\tarentlogo[5.25cm]{}}
- \fancyfoot[L]{\usekomafont{pageheadfoot}{\footnotesize\textcopyright #1 tarent}}
+ \fancyhead[LO,RE]{\usekomafont{pageheadfoot}\tarentlogo[5.25cm]{}}
+ \fancyhead[RO,LE]{\usekomafont{pageheadfoot}#2}
+ \fancyfoot[LO,RE]{\usekomafont{pageheadfoot}{\footnotesize\textcopyright #1 tarent}}
  \fancyfoot[C]{\usekomafont{pageheadfoot}\pagemark}
- \fancyfoot[R]{\usekomafont{pageheadfoot}\href{https://www.tarent.de/}{www.tarent.de}}
+ \fancyfoot[RO,LE]{\usekomafont{pageheadfoot}\href{https://www.tarent.de/}{www.tarent.de}}
 }
 \tarenthdr{\headmark}
 
