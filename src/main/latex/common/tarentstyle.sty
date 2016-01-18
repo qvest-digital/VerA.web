@@ -105,14 +105,10 @@
  \setlength{\headheight}{0pt}%
  \pagestyle{fancy}%
  \fancyhead{}%
- \fancyfoot[C]{\thepage}%
+ \fancyfoot[C]{\ifnum\ztotpages=1\else\thepage\fi}%
  \renewcommand{\headrulewidth}{0pt}%
 }
-\newcommand{\keineseitenzahlenende}{%
- \ifnum\thepage=1%
-  \fancyfoot{}%
- \fi%
-}
+\newcommand{\keineseitenzahlenende}{}
 
 \newcounter{lstdumps}
 \setcounter{lstdumps}{0}
