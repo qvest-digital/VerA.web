@@ -17,19 +17,19 @@ import java.util.Date;
 @Table(name = "tosiam_user_activation")
 public class OsiamUserActivation {
     @Id
-    private String activationToken;
+    private String activation_token;
     private String username;
-    private Date expirationDate;
+    private Date expiration_date;
 
     public OsiamUserActivation() {
     }
 
-    public String getActivationToken() {
-        return activationToken;
+    public String getActivation_token() {
+        return activation_token;
     }
 
-    public void setActivationToken(String activationToken) {
-        this.activationToken = activationToken;
+    public void setActivation_token(String activation_token) {
+        this.activation_token = activation_token;
     }
 
     public String getUsername() {
@@ -40,11 +40,11 @@ public class OsiamUserActivation {
         this.username = username;
     }
 
-    public Date getExpirationDate() {
-        return expirationDate;
+    public Date getExpiration_date() {
+        return expiration_date;
     }
 
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
+    public void setExpiration_date(Date expiration_date) {
+        this.expiration_date = expiration_date;
     }
 }
