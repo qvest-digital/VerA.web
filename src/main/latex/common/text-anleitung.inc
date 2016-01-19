@@ -85,8 +85,8 @@ Veranstaltungsmanagementsoftware)
 durch einen Systemadministrator
 eigenständig installiert werden kann. Hierbei wird eine empfohlene
 Installation beschrieben; ein Betrieb ist auch mit abweichender
-Konfiguration (z.B. Trennung von Core und REST-API) möglich, aber
-nicht durch dieses Dokument abgedeckt.
+Konfiguration (z.B. ohne Apache) möglich, aber nicht durch dieses
+Dokument abgedeckt.
 
 Alle Code-Listings finden Sie auch nochmal als Plaintext unter
 \texttt{\jobname.lst} im „files“-Tarball
@@ -95,6 +95,36 @@ Alle Code-Listings finden Sie auch nochmal als Plaintext unter
 \nameref{subsec:intro-distro}).
 Zwecks Zuordnung finden Sie die Listing-Nummern am äußeren
 Seitenrand bzw. als Teil der Überschrift in der Listing-Datei.
+
+Die Installation von VerA.web ist äußerst flexibel und anpaßbar.
+In dieser Anleitung haben wir daher einige Annahmen getroffen, um
+sie nicht wegen kombinatorischer Explosion der Möglichkeiten noch
+unverständlicher zu machen. Hierzu gehören:\keinumbruch
+
+\begin{itemize}
+ \item{Die Installation wird auf nicht anderweitig verwendeten,
+  frischen (virtuellen) Maschinen durchgeführt.}
+ \item{Als Betriebssystem wird Debian 7 „wheezy“ eingesetzt; an
+  den Stellen, wo Konfigurationsdateien angepaßt werden müssen,
+  können wir die Debian-Standardwerte voraussetzen.}
+ \item{Das System ist grundsätzlich installiert, betriebsbereit
+  und rebootfest; Firewalleinstellungen sind hinreichend getroffen.
+  Für jede Maschine ist ein gültiges SSL-Zertifikat vorhanden.}
+ \item{Die PostgreSQL-Datenbank für VerA.web wird auf dem System
+  lokal installiert.}
+ \item{Die REST-API wird nicht vom VerA.web core getrennt.}
+\ifoa
+ \item{OSIAM ist entweder vorhanden, oder wird auf einem eigenen
+  System installiert, oder wird auf demselben System wie VerA.web
+  core installiert.}
+ \item{Die PostgreSQL-Datenbank für OSIAM wird auf demselben
+  System lokal installiert.}
+ \item{Die Online-Anmeldung wird entweder auf einem eigenen System
+  (Regelfall) oder auf demselben System wie VerA.web core betrieben.}
+ \item{Alle Komponenten kommunizieren auch untereinander über mit
+  HTTPS gesicherte Verbindungen und durch die Apache-Frontends.}
+\fi% oa
+\end{itemize}
 
 \subsection{Konzepte}\label{subsec:concepts}
 
@@ -205,9 +235,17 @@ sicherheitsrelevante Einstellungen richten wir im Apache Webserver ein,
 auch um die Angriffsoberfläche zu reduzieren und besser getesteten und
 weiter verbreiteten Code zu verwenden, und weil die Administration der
 genannten Features in Apache bekannter und erprobter ist als in den
-individuellen Anwendungsservern. Sie \emph{können} Tomcat auch direkt
+individuellen Anwendungsservern. Sie \emph{können} die Dienste auch direkt
 über HTTP ansprechen, dies widerspricht jedoch unserem empfohlenen Setup.
 
+\ifoa
+Es wird je eine Installation des Webservers pro VM benötigt, da in
+der von uns empfohlenen Installationemethode die Komponenten auch
+untereinander ausschließlich verschlüsselt und sicher über HTTPS
+miteinander kommunizieren.
+\fi% oa
+
+%TODO weg mit diesem Absatz
 Die Installation des Webservers (SSL/TLS-Zertifikat, Zugangskontrollen,
 falls nötig vhosts) liegt außerhalb des Rahmens dieses Dokuments. Es
 wird davon ausgegangen, daß Apache so weit eingerichtet wird, daß er
@@ -424,6 +462,36 @@ VerA.web-core Distribution“) von tarent beziehen:\keinumbruch
 
 Bitte wenden Sie sich hierzu an unseren Produktvertrieb.
 
+\subsection{Installationsvorgehen}\label{subsec:intro-install}
+
+Installation und Upgrade von VerA.web funktionieren, indem
+zunächst Teile der Distribution (siehe oben) auf den Server
+kopiert werden, und alle weiteren Schritte dann auf dem System
+stattfinden. Die Beispiele sind so gehalten, daß die gesamte
+Installation entweder als normaler Benutzer (auf dem Server),
+der sich vermittels \texttt{sudo} Superuserrechte verschaffen
+kann, oder als \texttt{root} durchlaufen werden kann (hierzu
+installieren Sie \texttt{sudo} \dash die Standardkonfiguration
+erlaubt \texttt{root} unbegrenzten Zugriff \dash oder lassen
+das Wort \texttt{sudo} in allen Codebeispielen weg).
+
+Die weiteren Schritte, die auf dem Server durchzuführen sind,
+involvieren:\keinumbruch
+
+\begin{itemize}
+ \item{Entpacken der \texttt{files}-Archive}
+ \item{Wechseln in ein spezifisches Unterverzeichnis \dash
+  alle weiteren Schritte nehmen an, daß dieses Unterverzeichnis
+  Ihr aktuelles Arbeitsverzeichnis ist; sollten Sie zwischendurch
+  das Verzeichnis wechseln müssen, wechseln Sie einfach zurück,
+  bevor Sie den jeweils nächsten Schritt angehen.}
+ \item{Anpassen von (Konfigurations-)Dateien}
+ \item{Installation von Dateien und Neustart von Diensten}
+ \item{Löschen der ausgepackten Dateien und Installationsarchive}
+\end{itemize}
+
+Bei einem Upgrade möchten Sie ggfs. vorher eine Sicherung erstellen.
+
 \section{Systemvoraussetzungen}\label{sec:requirements}
 
 \ifoa
@@ -477,6 +545,15 @@ Sie benötigen ein LDAP-Verzeichnis, in dem Sie die Zugänge (user
 accounts) für die Sachbearbeiter, die VerA.web benutzen sollen,
 sowie Administratorenzugänge pflegen. Hierfür wird OpenLDAP empfohlen.
 
+VerA.web hat keine eigene Benutzerverwaltung sondern fragt beim
+Login eines Nutzers das LDAP-Verzeichnis ab, ob die Kombination
+aus Benutzernamen und Paßwort gültig ist. Nur die Zuordnung von
+Benutzern (identifiziert durch den Unix-Benutzernamen bzw. die
+\texttt{uid}) zu Benutzerrechten (z.B. Administrator oder Lesen
+eingeschränkt) und Mandanten wird durch VerA.web gespeichert;
+Näheres finden Sie in Kapitel 6.2 (Administration → Benutzer)
+im VerA.web-Benutzerhandbuch.
+
 Die Einrichtung eines solchen LDAP-Verzeichnisses ist aktuell
 außerhalb des Rahmens dieser Installationsanleitung.
 
@@ -525,37 +602,9 @@ Installationsanleitung beschreibt aktuell nur den Betrieb unter
 Debian 7 „wheezy“.} aus) und \texttt{mod\_jk} sowie den
 Applikationsserver Tomcat 7 mit der Java™ 7 Laufzeitumgebung (OpenJDK)
 ohne GUI (headless).
-\ifoa
-Es wird je eine Installation des Webservers pro VM benötigt, da in
-der von uns empfohlenen Installationemethode die Komponenten auch
-untereinander ausschließlich verschlüsselt und sicher über HTTPS
-miteinander kommunizieren.
-\fi% oa
 
 \Warning \emph{Achtung:} Java™ 6 oder älter wird nicht unterstützt
 und führt während der Installation zu Fehlern!
-
-\begin{minipage}{\textwidth}
-\hypertarget{manual:aptget}{}
-Auf einem Debian 7 „wheezy“-System können Sie den Datenbankserver,
-die Java™-Laufzeitumgebung, den Applikationsserver und den Webserver
-wie folgt lokal installieren:
-
-\begin{lstdump}{Pakete installieren}
-sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
-    apache2-mpm-prefork apache2 libapache2-mod-jk
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Bitte achten Sie darauf, daß keine ältere Version des JDK verwendet
-wird (hier werden die in „wheezy“ vorhandenen älteren Versionen
-deinstalliert):
-
-\begin{lstdump}{altes Java entfernen}
-sudo apt-get purge openjdk-6-jre-headless gcj-4.6-jdk gcj-4.7-jdk
-\end{lstdump}
-\end{minipage}
 
 \ifoa
 
@@ -571,18 +620,22 @@ Die Online-Anmeldung hat relativ bescheidene Voraussetzungen
 und kann bereits mit 512 MiB Arbeitsspeicher und 1½ GB Festplatte
 betrieben werden; die Werte steigen je nach Auslastung entsprechend.
 
-\subsection{Installation}\label{subseq:req-install}
+Auch hier benötigen Sie den Apache Webserver und die Java™ 7
+Laufzeitumgebung, allerdings keinen Tomcat-Applikationsserver, da
+die Online-Anmeldung als sogenannter Microservice implementiert wurde.
 
-Die Installation wird als regulärer Benutzer, der sich vermittels
-des Programms \texttt{sudo} Superuserrechte verschaffen kann,
-durchgeführt, kann aber auch als \texttt{root} durchlaufen werden.
-\ifoa
-Das OSIAM-Registrationsskript benutzt \texttt{sudo} intern, daher
-muß letzteres auf dem OSIAM-Server in jedem Fall verfügbar sein.
 \fi% oa
 
 \ifupgradeanleitung
 \else
+
+\subsection{Bevor Sie beginnen}\label{subsec:req-prereq}
+
+Im Verlauf der Installation werden Sie mindestens einen Useraccount
+in VerA.web als Administrator anlegen. Hierfür informieren Sie sich
+bitte vorab über die LDAP-Kürzel (Unix-Loginnamen, üblicherweise das
+Attribut \texttt{uid}) des oder der Benutzer, die initial als
+VerA.web-Administratoren dienen sollen.
 
 \ifoa
 \section{Installation OSIAM-System}\label{sec:setup-osiam}
@@ -591,9 +644,13 @@ Dieser Abschnitt gliedert sich in zwei Teile: die generelle Installation
 von OSIAM, sofern Sie noch keine laufende OSIAM-Installation haben, und
 die Registration der VerA.web Online-Anmeldung beim OSIAM-Server.
 
+Kopieren Sie jedoch bitte zunächst die Datei
+\texttt{online-anmeldung-\vwiaverssw{}-files.tgz} (oder ihr
+ZIP-Äquivalent; in dieser Anleitung verwenden wir exemplarisch
+aber die tar.gz-Variante) auf den OSIAM-Server.
+
 \begin{minipage}{\textwidth}
-Kopieren Sie bitte zunächst \texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
-auf den OSIAM-Server, entpacken Sie diese Datei und wechseln in das
+Entpacken Sie das \texttt{files}-Archiv und wechseln in das
 Unterverzeichnis mit den OSIAM-Dateien:
 
 \begin{lstdump}{Entpacken OSIAM}
@@ -606,13 +663,10 @@ chmod go-rwx .
 Alle weiteren Schritte in diesem Kapitel nehmen an, daß dieses
 Unterverzeichnis Ihr aktuelles Arbeitsverzeichnis ist.
 
-\begin{minipage}{\textwidth}
-Installieren Sie nun einige notwendige Pakete, sofern noch nicht vorhanden:
-
-\begin{lstdump}{Pakete OSIAM}
-sudo apt-get install curl mksh
-\end{lstdump}
-\end{minipage}
+Der \texttt{chmod}-Aufruf dient dazu, anderen auf demselben System
+eingeloggten Nutzern den Zugriff auf die Konfigurationsdateien zu
+verweigern während Sie sie bearbeiten, da sie später Paßwörter
+enthalten werden.
 
 \subsection{OSIAM-Server Schnellinstallation}\label{subsec:setup-osiam-fast}
 
@@ -626,13 +680,166 @@ nicht von VerA.web-Versionen bevor 1.6.34 angesprochen werden.
 
 Falls Sie bereits eine lauffähige OSIAM-Installation besitzen stellen
 Sie bitte sicher, daß auf die vorhandene Installation über HTTPS
-zugegriffen werden kann; danach können Sie direkt zum Abschnitt
-\nameref{subsec:setup-osiam-register} überspringen.
+zugegriffen werden kann; danach können Sie direkt im nächsten Abschnitt
+(\nameref{subsec:setup-osiam-register}) weiterlesen.
 
+\begin{minipage}{\textwidth}
 Sofern Sie noch nicht über eine OSIAM-Installation besitzen, bereiten
-Sie bitte zunächst das System wie \hyperlink{manual:aptget}{oben}
-beschrieben vor, indem Sie PostgreSQL, OpenJDK, Tomcat und Apache 2
-installieren und alte Java-Versionen deinstallieren.
+Sie bitte zunächst das System vor, indem Sie einige Pakete installieren:
+
+\begin{lstdump}{Pakete OSIAM}
+sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
+    apache2-mpm-prefork apache2 libapache2-mod-jk curl
+\end{lstdump}
+\end{minipage}
+
+Jetzt sind der Datenbankserver, die Java™-Laufzeitumgebung (in der
+Version für Server und Webanwendungen), der Tomcat-Applikationsserver,
+der Webserver sowie Hilfsprogramme installiert.
+
+\begin{minipage}{\textwidth}
+Stellen Sie nun sicher, daß keine ältere Java-Version installiert
+ist, damit sie nicht versehentlich verwendet werden kann\Hair\textsuperscript{\ref{fn:jessie}}:
+
+\begin{lstdump}{altes Java entfernen}
+sudo apt-get purge openjdk-6-jre-headless gcj-4.6-base gcj-4.7-base
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Legen Sie den Datenbankbenutzer und die Datenbank an:
+
+\begin{lstdump}{DB erstellen OSIAM}
+# createuser fragt nach einem zu vergebenden Paßwort
+sudo -u postgres createuser -D -P -R -S ong
+sudo -u postgres createdb -E UTF-8 -O ong -T template0 ong
+\end{lstdump}
+
+Falls Sie hierbei ein anderes Paßwort als \texttt{ong} für
+den Datenbanknutzer vergeben müssen Sie jetzt die Angaben
+in den Dateien \texttt{auth-server.properties} und
+\texttt{resource-server.properties} entsprechend anpassen.
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+In den Dateien \texttt{auth-server.properties} und
+\texttt{resource-server.properties} ersetzen Sie bitte an allen
+Stellen \texttt{HOSTNAME-OSIAM} durch den vollen Hostnamen des
+OSIAM-Servers. Danach installieren Sie diese:
+
+\begin{lstdump}{/etc/osiam fuellen}
+sudo mkdir -p /etc/osiam
+sudo chown 0:tomcat7 /etc/osiam
+sudo chmod 2750 /etc/osiam
+sudo install -c -o 0 -g tomcat7 -m 640 *.properties /etc/osiam/
+\end{lstdump}
+\end{minipage}
+
+Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat7}
+einige Zeilen ein, um weitere JVM-Startoptionen zu setzen.
+
+\begin{minipage}{\textwidth}
+Diese Option setzen Sie bitte in jedem Fall, um eine korrekte
+Kodierung von Dateien, Logs und internen Abläufen zu gewährleisten:
+
+\begin{lstdump}{Tomcat Encoding setzen}
+JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Diese (Linux-spezifische) Option spart u.a. beim Starten Zeit,
+indem sie eine nichtblockierende Quelle für Zufallszahlen auswählt:
+
+\begin{lstdump}{Tomcat /dev/urandom}
+JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
+\end{lstdump}
+\end{minipage}
+
+Suchen Sie die Stelle, wo \texttt{-Xmx128m} in den \texttt{JAVA\_OPTS}
+gesetzt wird. \Warning \emph{Achtung:} das erste Vorkommnis dieser
+Option ist ein Kommentar und nicht die gesuchte Stelle! Ändern Sie
+diesen Wert auf \texttt{-Xms512m -Xmx1024m} falls die VM über mehr
+als 1280 MiB RAM verfügt, \texttt{-Xmx512m} andernfalls.
+
+Falls Sie mehrere Webanwendungen im selben Applikationsserver
+betreiben kann es sein, daß Sie den sogenannten PermGen-Space
+erhöhen müssen, da der Standardwert von \texttt{64m} nicht
+mehr ausreicht. Dies betrifft nur Java vor Version 8.
+
+\begin{minipage}{\textwidth}
+Hierzu fügen Sie z.B. folgende Zeile hinzu (oder auch \texttt{128m}):
+
+\begin{lstdump}{Tomcat PermGen-Space}
+JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=96m"
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Nun bearbeiten Sie die Datei \texttt{/etc/tomcat7/server.xml}, um Tomcat
+von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
+(eine einfache Suche nach „8080“ findet ihn) und kommentieren ihn aus,
+indem Sie davor \texttt{<!‑‑} und dahinter \texttt{‑‑>} schreiben:
+
+\begin{lstdump}[language=XML]{Tomcat HTTP-Connector}
+<Connector port="8080" protocol="HTTP/1.1"
+           connectionTimeout="20000"
+           URIEncoding="UTF-8"
+           redirectPort="8443" />
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Dann suchen Sie folgenden auskommentierten Abschnitt (ca. 20 Zeilen weiter):
+
+\begin{lstdump}[language=XML]{Tomcat AJP-Connector orig}
+<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+\end{lstdump}
+
+Entfernen Sie hier die Kommentarzeichen und fügen Sie ein weiteres Attribut
+hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
+
+\begin{lstdump}[language=XML]{Tomcat AJP-Connector wanted}
+<Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Suchen Sie bitte in der Datei \texttt{/etc/tomcat7/catalina.properties}
+die Zeile, die mit \texttt{shared.loader=} beginnt, und hängen Sie am
+Ende der Zeile \texttt{,/etc/osiam} an; das könnte dann wie folgt aussehen:
+
+\begin{lstdump}{Tomcat OSIAM shared.loader}
+shared.loader=/var/lib/tomcat7/shared/classes,/var/lib/tomcat7/shared/*.jar,/etc/osiam
+\end{lstdump}
+\end{minipage}
+
+Nun starten Sie den Anwendungsserver neu, um die geänderten
+Einstellungen wirksam zu machen. Beachten Sie dabei, daß der
+Tomcat-Dienst ggfs. noch einige Sekunden weiterläuft, nachdem
+der Stop-Befehl abgeschickt wurde; im Zweifelsfalle prüfen Sie
+explizit, ob noch \texttt{java}-Prozesse laufen.\keinumbruch
+
+\begin{minipage}{\textwidth}
+\begin{lstdump}{Tomcat restart}
+sudo service tomcat7 stop
+ps ax | grep java # sollte maximal grep anzeigen
+sudo service tomcat7 start
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Jetzt laden Sie die OSIAM-Anwendungen herunter und installieren Sie sie:
+
+\begin{lstdump}{OSIAM herunterladen}
+curl -o osiam-auth-server.war https://maven-repo.evolvis.org/releases/org/osiam/auth-server/〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
+curl -o osiam-resource-server.war https://maven-repo.evolvis.org/releases/org/osiam/resource-server/〈\lstdumpesc{\vwiaversosiam}〉/resource-server-〈\lstdumpesc{\vwiaversosiam}〉.war
+sudo install -c -o 0 -g 0 -m 644 *.war /var/lib/tomcat7/webapps/
+\end{lstdump}
+\end{minipage}
+
+Warten Sie einige Zeit, bis beide Artefakte deployt wurden; in
+\texttt{/var/log/tomcat7/catalina.out} befinden sich die Logs.
 
 \begin{minipage}{\textwidth}
 In der Apache-Konfiguration äquivalent zu \nameref{subsec:setup-core-apache}
@@ -651,56 +858,8 @@ Hostnamen, also ggfs. über die externe IP, nicht \texttt{127.0.0.1}),
 dem core/REST-API-System und der Online-Anmeldung möglich sind.
 
 \begin{minipage}{\textwidth}
-Legen Sie jetzt den Datenbankbenutzer und die Datenbank an:
-
-\begin{lstdump}{DB erstellen OSIAM}
-sudo -u postgres createuser -D -P -R -S ong
-sudo -u postgres createdb -E UTF-8 -O ong -T template0 ong
-\end{lstdump}
-
-Falls Sie hierbei ein anderes Paßwort als \texttt{ong} für
-den Datenbanknutzer vergeben müssen Sie die Angaben in
-\texttt{auth-server.properties} und \texttt{resource-server.properties}
-entsprechend anpassen.
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-In den Dateien \texttt{auth-server.properties} und
-\texttt{resource-server.properties} ersetzen Sie bitte an allen
-Stellen \texttt{HOSTNAME-OSIAM} durch den vollen Hostnamen des
-OSIAM-Servers. Danach installieren Sie diese:
-
-\begin{lstdump}{/etc/osiam fuellen}
-sudo mkdir -p /etc/osiam
-sudo chown 0:tomcat7 /etc/osiam
-sudo chmod 2750 /etc/osiam
-sudo install -c -o 0 -g tomcat7 -m 640 *.properties /etc/osiam/
-\end{lstdump}
-\end{minipage}
-
-Folgen Sie bitte der allgemeinen \nameref{subsec:allg-tomcat} und
-den spezifischen Anweisungen für OSIAM. Danach starten Sie den
-Tomcat-Anwendungsserver auf jeden Fall neu, bevor Sie mit der
-Installation von OSIAM fortfahren, damit die neuen Einstellungen
-direkt verfügbar sind.
-
-\begin{minipage}{\textwidth}
-Nun müssen Sie die OSIAM-Installationsdateien herunterladen
-und installieren:
-
-\begin{lstdump}{OSIAM herunterladen}
-curl -o osiam-auth-server.war https://maven-repo.evolvis.org/releases/org/osiam/auth-server/〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
-curl -o osiam-resource-server.war https://maven-repo.evolvis.org/releases/org/osiam/resource-server/〈\lstdumpesc{\vwiaversosiam}〉/resource-server-〈\lstdumpesc{\vwiaversosiam}〉.war
-sudo install -c -o 0 -g 0 -m 644 *.war /var/lib/tomcat7/webapps/
-\end{lstdump}
-\end{minipage}
-
-Warten Sie einige Zeit, bis beide Artefakte deployt wurden; in
-\texttt{/var/log/tomcat7/catalina.out} befinden sich die Logs.
-
-\begin{minipage}{\textwidth}
 Nach einem erfolgreichen Start können Sie prüfen, ob sich der
-Server ansprechen läßt:
+Dienst ansprechen läßt:
 
 \begin{lstdump}{OSIAM ansprechen}
 curl https://$(hostname -f)/osiam-resource-server/ServiceProviderConfigs; echo
@@ -716,13 +875,31 @@ Informationen, u.a. wie man den Standardzugang ändert.
 
 \subsection{Registrierung von VerA.web mit OSIAM}\label{subsec:setup-osiam-register}
 
-Die Datei \texttt{register-veraweb-into-osiam.sh} muß nun
-gegebenenfalls angepaßt werden: rund um Zeile 30 finden Sie
-Standardwerte für den Datenbanknamen (\texttt{ong}) und den
-OSIAM-Standardzugang, die Sie ändern müssen, falls Ihr System
-dem nicht entspricht, sowie das Paßwort, mit dem sich später
-die VerA.web Online-Anmeldung bei OSIAM einloggen kann, und
-welches Sie auf jeden Fall ändern sollten.
+Falls Sie die Installation bisher als \texttt{root} und ohne
+\texttt{sudo} durchgeführt haben vergewissern Sie sich bitte,
+daß \texttt{sudo} dennoch verfügbar ist; ggfs. fügen Sie den
+Paketnamen (\texttt{sudo} oder \texttt{sudo-ldap}, je nach
+Ihrer Umgebung) der untenstehenden Installationszeile hinzu.
+
+\begin{minipage}{\textwidth}
+Zunächst müssen einige benötigte Hilfsprogramme installiert werden:
+
+\begin{lstdump}{Pakete register-into-osiam}
+sudo apt-get install curl mksh
+\end{lstdump}
+\end{minipage}
+
+In der Datei \texttt{register-veraweb-into-osiam.sh} finden
+Sie nun einige ggfs. zu ändernde Stellen rund um Zeile 30:
+\keinumbruch
+
+\begin{itemize}
+ \item{\texttt{dbname}: der Datenbankname von OSIAM}
+ \item{\texttt{serverauth}: der OSIAM-Standardzugang,
+  falls nicht geändert}
+ \item{\texttt{vwsecret}: das Paßwort, mit dem sich
+  hinterher VerA.web bei OSIAM identifizieren wird}
+\end{itemize}
 
 \begin{minipage}{\textwidth}
 Nun rufen Sie dieses Skript bitte auf:
@@ -733,8 +910,8 @@ sudo mksh register-veraweb-into-osiam.sh
 \end{minipage}
 
 Das Skript fügt zunächst die VerA.web-spezifischen Daten
-zum SCIM-Schema hinzu und benötigt daher Datenbankzugriff
-(weshalb die Datenbank für die vereinfachte Installation
+zum SCIM-Schema hinzu (und benötigt daher Datenbankzugriff,
+weshalb die Datenbank für die vereinfachte Installation
 auf demselben Server laufen muß wie OSIAM selbst) und
 registriert danach über die REST-Schnittstelle von OSIAM
 VerA.web als Client.
@@ -753,19 +930,159 @@ rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
 
 \section{Installation internes VerA.web-System}\label{sec:setup-int}
 
-Nach dem erfolgten \hyperlink{manual:aptget}{Aufsetzen des Systems
-mit den Basispaketen} und dem Download der Installationspakete wird
-im folgenden die Installation der einzelnen Komponenten beschrieben.
+Kopieren Sie bitte zunächst die Dateien
+\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
+\ifoa
+und \texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
+\fi% oa
+(oder deren ZIP-Äquivalent; in dieser Anleitung verwenden wir
+die tar.gz-Variante), \texttt{veraweb-core-\vwiaverssw{}.war}
+und \texttt{rest-api-\vwiaverssw{}.war} auf den core-Server.
 
-Bevor Sie beginnen informieren Sie sich bitte über die LDAP-Kürzel
-(Unix-Loginnamen) der Nutzer, die zunächst einen Administratorenzugang
-zu VerA.web erhalten sollen (idealerweise sollten Sie sich selbst
-ebenfalls einen solchen Zugang einrichten). Diese benötigen wir später.
+\begin{minipage}{\textwidth}
+Benennen Sie die Applikationsdateien in später leicher zu
+verwendende Namen um, entpacken Sie das Zusatzarchiv und
+wechseln Sie in das Unterverzeichnis mit den core-Dateien:
 
-\subsection{Dateien VerA.web-core und REST-API}\label{subsec:setup-core-files}
+\ifoa
+\begin{lstdump}{Entpacken}
+mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
+mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
+tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
+cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
+tar -xzf ../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
+mv online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/core/* .
+chmod go-rwx .
+\end{lstdump}
+\else% !oa
+\begin{lstdump}{Entpacken}
+mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
+mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
+tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
+cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
+chmod go-rwx .
+\end{lstdump}
+\fi% !oa
+\end{minipage}
 
-\nameref{subsec:allg-entpacken} Sie zunächst die Distribution.
-Dann müssen Sie einige Konfigurationsanpassungen vornehmen.
+Alle weiteren Schritte in diesem Kapitel nehmen an, daß dieses
+Unterverzeichnis Ihr aktuelles Arbeitsverzeichnis ist.
+
+Der \texttt{chmod}-Aufruf dient dazu, anderen auf demselben System
+eingeloggten Nutzern den Zugriff auf die Konfigurationsdateien zu
+verweigern während Sie sie bearbeiten, da sie später Paßwörter
+enthalten werden.
+
+Die meisten enthaltenen Dateien werden im Verlauf der Einrichtung
+verwendet; alle übrigen dienen als Beispiele, Vorlagen oder Hilfen
+bei der Anpassung; zusätzlich ist das Benutzerhandbuch, welches
+später in der Anwendung auch als Online-Hilfe verfügbar ist, als
+\texttt{Benutzerhandbuch.pdf} mitgeliefert, sodaß Sie dieses bereits
+vorab Ihren Sachbearbeitern zukommen lassen können.
+
+\begin{minipage}{\textwidth}
+Installieren Sie einige Pakete:
+
+\begin{lstdump}{Pakete core}
+sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
+    apache2-mpm-prefork apache2 libapache2-mod-jk curl
+\end{lstdump}
+\end{minipage}
+
+Jetzt sind der Datenbankserver, die Java™-Laufzeitumgebung (in der
+Version für Server und Webanwendungen), der Tomcat-Applikationsserver,
+der Webserver sowie Hilfsprogramme installiert.
+
+\begin{minipage}{\textwidth}
+Stellen Sie nun sicher, daß keine ältere Java-Version installiert
+ist, damit sie nicht versehentlich verwendet werden kann\Hair\textsuperscript{\ref{fn:jessie}}:
+
+\begin{lstdump}{altes Java entfernen}
+sudo apt-get purge openjdk-6-jre-headless gcj-4.6-base gcj-4.7-base
+\end{lstdump}
+\end{minipage}
+
+\subsection{Datenbank VerA.web-core}\label{subsec:setup-core-db}
+
+Im folgenden Abschnitt wird die Datenbank für VerA.web mit dem
+Datenbankschema sowie den Stammdaten und Fachadministratorenzugängen
+eingerichtet.
+
+\begin{minipage}{\textwidth}
+Legen Sie zunächst den Datenbankbenutzer und die Datenbank an:
+
+\begin{lstdump}{DB erstellen}
+# createuser fragt nach einem zu vergebenden Paßwort
+sudo -u postgres createuser -D -P -R -S veraweb
+sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
+\end{lstdump}
+\end{minipage}
+
+Falls Sie eine Datenbank auf einem anderen Server verwenden, lassen
+Sie den dortigen DBA bitte folgendes anlegen: eine Rolle mit
+Login-Berechtigung (hier: Benutzer „veraweb“, Paßwort „veraweb“)
+und eine Datenbank (hier: Name „veraweb“) in der Kodierung UTF-8,
+die der o.a. Rolle gehört.
+
+Falls Sie als Datenbankpaßwort \emph{nicht} \texttt{veraweb} benutzen oder
+anderweitig von den Standardvorgaben (lokale PostgreSQL, Standardport 5432,
+Datenbankname \texttt{veraweb}, Datenbankbenutzer \texttt{veraweb}) müssen
+Sie noch die Werte für \texttt{serverName}, \texttt{portNumber},
+\texttt{databaseName}, \texttt{user} und/oder \texttt{password} in der
+Datei \texttt{config\_database\_pools.xml} anpassen.
+
+Nun können Sie das Datenbankschema anlegen und die Stammdaten importieren.
+Bei letzteren haben Sie die Möglichkeit, statt der vorgegebenen Stammdaten
+lediglich einen Minimalsatz zu laden (\texttt{stammdaten-colours.sql} statt
+\texttt{stammdaten-full.sql}).
+
+\begin{minipage}{\textwidth}
+Loggen Sie sich zunächst auf der Datenbank ein:
+
+\begin{lstdump}{DB Login}
+psql -U veraweb -h 127.0.0.1 -W veraweb
+\end{lstdump}
+\end{minipage}
+
+Falls Sie andere Werte für Datenbankserver, Port, Benutzer oder Datenbankname
+verwenden müssen Sie diese hier selbstverständlich anpassen.
+
+\begin{minipage}{\textwidth}
+Dann setzen Sie im PostgreSQL-Client folgende Kommandos ab:
+
+\begin{lstdump}{DB Schema Init Beginn}
+\i schema.sql
+SELECT serv_verawebschema(1);
+\i stammdaten-full.sql
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Nun müssen Sie diejenigen LDAP-Benutzer, die initial als Administratoren
+agieren sollen, der Software bekanntgeben. Setzen Sie hierzu für jeden
+LDAP-Benutzer einen SQL-Befehl entsprechend dem folgenden ab, wobei Sie
+statt \texttt{vnnnnn} das LDAP-Kürzel (Unix-Username, \texttt{uid}) des
+jeweiligen Benutzers einseitzen:
+
+\begin{lstdump}[language=SQL]{DB Admin-User anlegen}
+INSERT INTO veraweb.tuser (fk_orgunit, username, role)
+    VALUES (NULL, 'vnnnnn', 5);
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Schließlich müssen einige Sequenzen initialisiert und das Datenbankschema
+auf die jeweils aktuelle Version aktualisiert werden; danach können Sie
+den \texttt{psql}-Client wieder verlassen:
+
+\begin{lstdump}{DB Schema Init Ende}
+SELECT veraweb.serv_build_sequences();
+\i upgrade.sql
+\q
+\end{lstdump}
+\end{minipage}
+
+\subsection{Konfiguration VerA.web-core und REST-API}\label{subsec:setup-core-files}
 
 Passen Sie in der \texttt{veraweb.properties} bitte den Hostnamen
 in der \texttt{vwor.endpoint}-Eigenschaft an (ersetzen Sie
@@ -820,86 +1137,140 @@ benutzen zu können. Dies sind insbesondere die folgenden Parameter:\keinumbruch
   innehaben; Standardwert: \texttt{person}}
 \end{itemize}
 
-\subsection{Datenbank VerA.web-core}\label{subsec:setup-core-db}
-
-Im folgenden Abschnitt wird die Datenbank für VerA.web mit dem
-Datenbankschema sowie den Stammdaten und Fachadministratorenzugängen
-eingerichtet. Hierbei wird prinzipiell von einer auf demselben Server
-im Debian-Stil installierten und betriebsbereiten PostgreSQL-Datenbank
-ausgegangen.
+\subsection{Applikationsserver VerA.web-core und REST-API}\label{subsec:setup-core-tomcat}
 
 \begin{minipage}{\textwidth}
-Legen Sie zunächst den Datenbankbenutzer und die Datenbank an:
+Legen Sie ein neues Verzeichnis \texttt{/etc/veraweb} mit einem
+Unterverzeichnis \texttt{l10n} an und kopieren Sie die Konfigurations-
+und Sprachdateien dorthin:
 
-\begin{lstdump}{DB erstellen}
-sudo -u postgres createuser -D -P -R -S veraweb
-sudo -u postgres createdb -E UTF-8 -O veraweb -T template0 veraweb
+\begin{lstdump}{/etc/veraweb fuellen}
+sudo mkdir -p /etc/veraweb/l10n
+sudo chown 0:tomcat7 /etc/veraweb
+sudo chmod 2750 /etc/veraweb
+sudo install -c -o 0 -g tomcat7 -m 640 config_*.xml /etc/veraweb/
+sudo install -c -o 0 -g tomcat7 -m 640 *.properties /etc/veraweb/
+sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
 \end{lstdump}
 \end{minipage}
 
-Falls Sie eine Datenbank auf einem anderen Server verwenden, lassen
-Sie den dortigen DBA bitte folgendes anlegen: eine Rolle mit
-Login-Berechtigung (hier: Benutzer „veraweb“, Paßwort „veraweb“)
-und eine Datenbank (hier: Name „veraweb“) in der Kodierung UTF-8,
-die der o.a. Rolle gehört.
-
-Falls Sie als Datenbankpaßwort \emph{nicht} \texttt{veraweb} benutzen oder
-anderweitig von den Standardvorgaben (lokale PostgreSQL, Standardport 5432,
-Datenbankname \texttt{veraweb}, Datenbankbenutzer \texttt{veraweb}) müssen
-Sie noch die Werte für \texttt{serverName}, \texttt{portNumber},
-\texttt{databaseName}, \texttt{user} und/oder \texttt{password} in der
-Datei \texttt{config\_database\_pools.xml} anpassen.
-
-Nun können Sie das Datenbankschema anlegen und die Stammdaten importieren.
-Bei letzteren haben Sie die Möglichkeit, statt der vorgegebenen Stammdaten
-lediglich einen Minimalsatz zu laden (\texttt{stammdaten-colours.sql} statt
-\texttt{stammdaten-full.sql}).
+Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat7}
+einige Zeilen ein, um weitere JVM-Startoptionen zu setzen.
 
 \begin{minipage}{\textwidth}
-Loggen Sie sich zunächst auf der Datenbank ein:
+Diese Option setzen Sie bitte in jedem Fall, um eine korrekte
+Kodierung von Dateien, Logs und internen Abläufen zu gewährleisten:
 
-\begin{lstdump}{DB Login}
-psql -U veraweb -h 127.0.0.1 -W veraweb
-\end{lstdump}
-\end{minipage}
-
-Falls Sie andere Werte für Datenbankserver, Port, Benutzer oder Datenbankname
-verwenden müssen Sie diese hier selbstverständlich anpassen.
-
-\begin{minipage}{\textwidth}
-Dann setzen Sie folgende SQL-Kommandos ab:
-
-\begin{lstdump}{DB Schema Init Beginn}
-\i schema.sql
-SELECT serv_verawebschema(1);
-\i stammdaten-full.sql
+\begin{lstdump}{Tomcat Encoding setzen}
+JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
 \end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-Nun müssen Sie diejenigen LDAP-Benutzer, die initial als Administratoren
-agieren sollen, der Software bekanntgeben. Setzen Sie hierzu für jeden
-LDAP-Benutzer eine Zeile entsprechend der folgenden ab, wobei Sie statt
-\texttt{vnnnnn} das LDAP-Kürzel (Unix-Username) des jeweiligen Benutzers
-einseitzen:
+Diese (Linux-spezifische) Option spart u.a. beim Starten Zeit,
+indem sie eine nichtblockierende Quelle für Zufallszahlen auswählt:
 
-\begin{lstdump}[language=SQL]{DB Admin-User anlegen}
-INSERT INTO veraweb.tuser (fk_orgunit, username, role)
-    VALUES (NULL, 'vnnnnn', 5);
+\begin{lstdump}{Tomcat /dev/urandom}
+JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 \end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-Schließlich müssen einige Sequenzen initialisiert und das Datenbankschema
-auf die jeweils aktuelle Version aktualisiert werden; danach können Sie
-den \texttt{psql}-Client wieder verlassen:
+Nun bearbeiten Sie die Datei \texttt{/etc/tomcat7/server.xml}, um Tomcat
+von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
+(eine einfache Suche nach „8080“ findet ihn) und kommentieren ihn aus,
+indem Sie davor \texttt{<!‑‑} und dahinter \texttt{‑‑>} schreiben:
 
-\begin{lstdump}{DB Schema Init Ende}
-SELECT veraweb.serv_build_sequences();
-\i upgrade.sql
-\q
+\begin{lstdump}[language=XML]{Tomcat HTTP-Connector}
+<Connector port="8080" protocol="HTTP/1.1"
+           connectionTimeout="20000"
+           URIEncoding="UTF-8"
+           redirectPort="8443" />
 \end{lstdump}
 \end{minipage}
+
+\begin{minipage}{\textwidth}
+Dann suchen Sie folgenden auskommentierten Abschnitt (ca. 20 Zeilen weiter):
+
+\begin{lstdump}[language=XML]{Tomcat AJP-Connector orig}
+<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+\end{lstdump}
+
+Entfernen Sie hier die Kommentarzeichen und fügen Sie ein weiteres Attribut
+hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
+
+\begin{lstdump}[language=XML]{Tomcat AJP-Connector wanted}
+<Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat7/context.xml} vor
+das schließende \texttt{</Context>}-Tag folgendes Tag ein, um die
+ \ifupgradeanleitung
+  Datenbank VerA.web-core
+ \else
+  \nameref{subsec:setup-core-db}
+ \fi
+für die REST-API verfügbar zu machen:
+
+\begin{lstdump}[language=XML]{Tomcat VWOR JDBC}
+<Resource name="jdbc/vwonlinereg" auth="Container" type="javax.sql.DataSource"
+ driverClassName="org.postgresql.Driver" username="veraweb" password="veraweb"
+ url="jdbc:postgresql://localhost:5432/veraweb" maxActive="8" maxIdle="4" />
+\end{lstdump}
+
+Ersetzen Sie jeweils für „veraweb“ den Benutzernamen, das Paßwort und den
+Datenbanknamen, die Sie verwendet haben, falls Sie von den Standardvorgaben
+ \ifupgradeanleitung
+  im Datenbankkapitel
+ \else
+  in Kapitel \ref{subsec:setup-core-db}
+ \fi
+abgewichen sind.
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat7/tomcat-users.xml} vor
+das schließende \texttt{</tomcat-users>}-Tag folgende Tags ein, setzen dabei
+aber die von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
+\ref{subsec:intro-restapi} ein:
+
+\begin{lstdump}[language=XML]{Tomcat VWOR Auth}
+<role rolename="veraweb" />
+<user roles="veraweb" username="veraweb" password="veraweb" />
+\end{lstdump}
+\end{minipage}
+
+Nun starten Sie den Anwendungsserver neu, um die geänderten
+Einstellungen wirksam zu machen. Beachten Sie dabei, daß der
+Tomcat-Dienst ggfs. noch einige Sekunden weiterläuft, nachdem
+der Stop-Befehl abgeschickt wurde; im Zweifelsfalle prüfen Sie
+explizit, ob noch \texttt{java}-Prozesse laufen.\keinumbruch
+
+\begin{minipage}{\textwidth}
+\begin{lstdump}{Tomcat restart}
+sudo service tomcat7 stop
+ps ax | grep java # sollte maximal grep anzeigen
+sudo service tomcat7 start
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Deployen Sie die VerA.web-Anwendung und die REST-API in den Applikationsserver:
+
+\begin{lstdump}{Tomcat deploy}
+sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
+sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
+\end{lstdump}
+\end{minipage}
+
+Warten Sie ca. ½ Minute, bis beide Artefakte deployt wurden; in
+\texttt{/var/log/tomcat7/catalina.out} befinden sich die Logs.
+\ifoa
+Falls OSIAM (oder andere Webanwendungen) auf demselben System
+installiert werden kann der Startvorgang deutlich länger dauern.
+\fi% oa
 
 \subsection{Webserver VerA.web-core und REST-API}\label{subsec:setup-core-apache}
 
@@ -958,48 +1329,10 @@ sudo service apache2 start
 \end{lstdump}
 \end{minipage}
 
-Ein Aufruf von z.B. \texttt{https://veraweb.lan.tarent.de/veraweb/} sollte
-nun einen Fehlercode 503 „Service Temporarily Unavailable“ zurückliefern.
-Im \texttt{/var/log/apache2/mod\_jk.log} sollten Sie eine Notiz
-„\texttt{ajp\_send\_request::jk\_ajp\_common.c (1630): (ajp13\_worker)
-connecting to backend failed. Tomcat is probably not started or is listening
-on the wrong port}“ sehen. (Alternativ, falls Tomcat läuft, kann auch ein
-{\large HTTP Status 404} mit \textbf{description} \ul{The requested
-resource (/veraweb/) is not available.} gezeigt werden.) Hingegen sollte
-unter der URL \texttt{https://veraweb.lan.tarent.de/index.html} weiterhin
-die Standardseite des Webservers zu sehen sein.
-
-\subsection{Applikationsserver VerA.web-core und REST-API}\label{subsec:setup-core-tomcat}
+\subsection{Funktionstest}\label{subsec:setup-core-check}
 
 \begin{minipage}{\textwidth}
-Legen Sie ein neues Verzeichnis \texttt{/etc/veraweb} mit einem
-Unterverzeichnis \texttt{l10n} an und kopieren Sie die Konfigurations-
-und Sprachdateien dorthin:
-
-\begin{lstdump}{/etc/veraweb fuellen}
-sudo mkdir -p /etc/veraweb/l10n
-sudo chown 0:tomcat7 /etc/veraweb
-sudo chmod 2750 /etc/veraweb
-sudo install -c -o 0 -g tomcat7 -m 640 config_*.xml /etc/veraweb/
-sudo install -c -o 0 -g tomcat7 -m 640 *.properties /etc/veraweb/
-sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
-\end{lstdump}
-\end{minipage}
-
-Richten Sie bitte Tomcat wie im Kapitel \nameref{subsec:allg-tomcat}
-beschrieben ein und starten ihn neu.
-
-\begin{minipage}{\textwidth}
-Deployen Sie die VerA.web-Anwendung und die REST-API in den Applikationsserver:
-
-\begin{lstdump}{Tomcat deploy}
-sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
-sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Die Lauffähigkeit der REST-API können Sie z.B. mit cURL prüfen:
+Nun können Sie die Lauffähigkeit der REST-API z.B. mit cURL prüfen:
 
 \begin{lstdump}{REST-API check}
 curl https://veraweb:veraweb@$(hostname -f)/vwor/rest/available/; echo
@@ -1012,8 +1345,7 @@ dem \texttt{https://}) korrekt sind.
 
 Jetzt können Sie z.B. über \texttt{https://veraweb.lan.tarent.de/veraweb/}
 auf das Veranstaltungsmanagement zugreifen und sich einloggen. Falls
-hierbei Fehler auftauchen prüfen Sie bitte den LDAP-Zugriff und eventuell
-in \texttt{/var/log/tomcat7/catalina.out} auftauchende Meldungen.
+hierbei Fehler auftauchen prüfen Sie bitte den LDAP-Zugriff und die Logs.
 
 \begin{minipage}{\textwidth}
 Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
@@ -1039,7 +1371,7 @@ rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 
 \begin{minipage}{\textwidth}
 Kopieren Sie bitte zunächst \texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
-und \texttt{online-anmeldung-\vwiaverssw{}.jar}
+(oder das ZIP-Äquivalent) und \texttt{online-anmeldung-\vwiaverssw{}.jar}
 auf den Server, auf dem Sie die Online-Anmeldung installieren möchten,
 entpacken Sie diese Datei und wechseln in das Unterverzeichnis mit den
 relevanten Dateien:
@@ -1047,16 +1379,24 @@ relevanten Dateien:
 \begin{lstdump}{Entpacken OA}
 tar -xzf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
 cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/vwoa
-chmod go-rwx .
+chmod go-rwx ..
 \end{lstdump}
 \end{minipage}
+
+Alle weiteren Schritte in diesem Kapitel nehmen an, daß dieses
+Unterverzeichnis Ihr aktuelles Arbeitsverzeichnis ist.
+
+Der \texttt{chmod}-Aufruf dient dazu, anderen auf demselben System
+eingeloggten Nutzern den Zugriff auf die Konfigurationsdateien zu
+verweigern während Sie sie bearbeiten, da sie später Paßwörter
+enthalten werden.
 
 \begin{minipage}{\textwidth}
 Setzen Sie nun die benötigten Pakete und Vorbedingungen auf:
 
 \begin{lstdump}{Prereqs OA}
-sudo apt-get install daemontools-run openjdk-7-jre-headless \
-    adduser apache2-mpm-prefork apache2
+sudo apt-get install openjdk-7-jre-headless \
+    apache2-mpm-prefork apache2 daemontools-run adduser
 sudo adduser --system --home /etc/service/vwoa --shell /bin/sh \
     --no-create-home --gecos 'VerA.web Online-Anmeldung' --group \
     --disabled-password --disabled-login vwoa
@@ -1067,6 +1407,42 @@ sudo ln -sf etc/service /service
 \Warning \emph{Achtung:} Das \texttt{daemontools-run}-Paket bedingt
 die Nutzung von SysV init (Paket \texttt{sysvinit-core} ab Debian 8
 „jessie“\Hair\textsuperscript{\ref{fn:jessie}}) statt systemd!
+
+Bearbeiten Sie jetzt die \texttt{config.json}, indem Sie wieder
+\texttt{HOSTNAME-OSIAM} und \texttt{HOSTNAME-REST} durch die
+entsprechenden Hostnamen ersetzen; für \texttt{clientSecret}
+tragen Sie denselben Wert ein, den Sie bei der
+\nameref{subsec:setup-osiam-register} als \texttt{vwsecret}
+gesetzt haben; unterhalb von \texttt{restauth} tragen Sie die
+von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
+\ref{subsec:intro-restapi} ein.
+
+\begin{minipage}{\textwidth}
+Nun richten Sie den Dienst für die Online-Anmeldung ein und
+löschen danach die Installationsdateien:
+
+\begin{lstdump}{OA service}
+mv ../../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar vwoa.jar
+mv config.json run vwoa/
+chown -R 0:0 .
+chgrp vwoa config.json
+chmod 644 *
+chmod 755 vwoa run
+chmod 640 config.json
+cd ..
+mv vwoa /service/vwoa
+cd ..
+rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
+\end{lstdump}
+\end{minipage}
+
+Danach können Sie mit \texttt{svstat /service/vwoa} den Zustand
+des Dienstes (\texttt{up} oder \texttt{down}) prüfen; unter
+\texttt{/var/log/vwoa/vwoa.log} finden Sie die Logausgaben der
+Online-Anmeldung. Mit dem Befehl \texttt{svc} können Sie den Dienst
+kontrollieren. Weitergehende Angaben hierzu finden Sie in der
+Dokumentation der DJB daemontools.
+%XXX add a primer here
 
 \begin{minipage}{\textwidth}
 Setzen Sie den Webserver äquivalent zu \nameref{subsec:setup-core-apache}
@@ -1096,48 +1472,6 @@ Der hierzu nötige vhost-Eintrag ist:
 
 \begin{lstdump}{OA redirect}
 RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/vwor-app/
-\end{lstdump}
-\end{minipage}
-
-Bearbeiten Sie jetzt die \texttt{config.json}, indem Sie wieder
-\texttt{HOSTNAME-OSIAM} und \texttt{HOSTNAME-REST} durch die
-entsprechenden Hostnamen ersetzen; für \texttt{clientSecret}
-tragen Sie denselben Wert ein, den Sie bei der
-\nameref{subsec:setup-osiam-register} als \texttt{vwsecret}
-gesetzt haben; unterhalb von \texttt{restauth} tragen Sie die
-von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
-\ref{subsec:intro-restapi} ein.
-
-\begin{minipage}{\textwidth}
-Nun richten Sie den Dienst für die Online-Anmeldung ein:
-
-\begin{lstdump}{OA service}
-mkdir vwoa
-mv ../../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar vwoa/vwoa.jar
-mv config.json run vwoa/
-chown -R 0:0 vwoa
-chgrp vwoa vwoa/config.json
-chmod 644 vwoa/*
-chmod 755 vwoa vwoa/run
-chmod 640 vwoa/config.json
-mv vwoa /service/vwoa
-\end{lstdump}
-\end{minipage}
-
-Danach können Sie mit \texttt{svstat /service/vwoa} den Zustand
-des Dienstes (\texttt{up} oder \texttt{down}) prüfen; unter
-\texttt{/var/log/vwoa/vwoa.log} finden Sie die Logausgaben der
-Online-Anmeldung. Mit dem Befehl \texttt{svc} können Sie den Dienst
-kontrollieren. Weitergehende Angaben hierzu finden Sie in der
-Dokumentation der DJB daemontools.
-%XXX add a primer here
-
-\begin{minipage}{\textwidth}
-Schließlich können Sie die Installationsdateien löschen:
-
-\begin{lstdump}{Aufraeumen OA}
-cd ../..
-rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
 \end{lstdump}
 \end{minipage}
 
@@ -1184,7 +1518,48 @@ und Wartungsteam.
 
 \subsection{Dateien VerA.web-core}\label{subsec:upgrade-core-files}
 
-\nameref{subsec:allg-entpacken} Sie zunächst die Distribution.
+Kopieren Sie bitte zunächst die Dateien
+\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
+\ifoa
+und \texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
+\fi% oa
+(oder deren ZIP-Äquivalent; in dieser Anleitung verwenden wir
+die tar.gz-Variante), \texttt{veraweb-core-\vwiaverssw{}.war}
+und \texttt{rest-api-\vwiaverssw{}.war} auf den core-Server.
+
+\begin{minipage}{\textwidth}
+Benennen Sie die Applikationsdateien in später leicher zu
+verwendende Namen um, entpacken Sie das Zusatzarchiv und
+wechseln Sie in das Unterverzeichnis mit den core-Dateien:
+
+\ifoa
+\begin{lstdump}{Entpacken}
+mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
+mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
+tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
+cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
+tar -xzf ../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
+mv online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/core/* .
+chmod go-rwx .
+\end{lstdump}
+\else% !oa
+\begin{lstdump}{Entpacken}
+mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
+mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
+tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
+cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
+chmod go-rwx .
+\end{lstdump}
+\fi% !oa
+\end{minipage}
+
+Alle weiteren Schritte in diesem Kapitel nehmen an, daß dieses
+Unterverzeichnis Ihr aktuelles Arbeitsverzeichnis ist.
+
+Der \texttt{chmod}-Aufruf dient dazu, anderen auf demselben System
+eingeloggten Nutzern den Zugriff auf die Konfigurationsdateien zu
+verweigern während Sie sie bearbeiten, da sie später Paßwörter
+enthalten werden.
 
 \begin{minipage}{\textwidth}
 Falls das Verzeichnis \texttt{/etc/veraweb/l10n} noch nicht existiert,
@@ -1294,171 +1669,9 @@ JkMount /vwor* ajp13_worker
 
 Starten Sie den Webserver neu, um die Änderungen wirksam zu machen.
 
-Das Upgrade beïnhaltet die Installation der REST-API im Tomcat;
-nehmen Sie bitte neben den allgemeinen auch die Einstellungen im
-Kapitel \nameref{subsub:allg-tomcat-vwor} vor.
-
-\subsection{Datenbank VerA.web-core}\label{subsec:upgrade-core-db}
-
-\begin{minipage}{\textwidth}
-Loggen Sie sich auf der Datenbank ein und starten Sie das Upgrade-SQL:
-
-\begin{lstdump}{DB-Upgrade}
-psql -U veraweb -h 127.0.0.1 -W veraweb <upgrade.sql
-\end{lstdump}
-
-Falls Sie andere Werte für Datenbankserver, Port, Benutzer oder Datenbankname
-verwenden müssen Sie diese hier selbstverständlich anpassen.
-\end{minipage}
-
-\subsection{Applikationsserver VerA.web-core}\label{subsec:upgrade-core-tomcat}
-
-\begin{minipage}{\textwidth}
-Stoppen Sie bitte zunächst den Applikationsserver und löschen
-ggfs. alle vorherigen VerA.web-Webapps (es ist vielleicht
-sinnvoll, ein Backup zu machen):
-
-\begin{lstdump}{Tomcat undeploy}
-sudo service tomcat7 stop
-sudo rm -rf /var/lib/tomcat7/webapps/veraweb*
-sudo rm -rf /var/lib/tomcat7/webapps/vwor*
-\end{lstdump}
-
-Bitte beachten Sie, daß der Tomcat-Dienst ggfs. noch einige Sekunden
-weiterläuft, nachdem der Stop-Befehl abgeschickt wurde; im Zweifelsfalls
-können Sie mit \texttt{ps ax | grep java} prüfen, ob noch Prozesse laufen.
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Dann starten Sie den Server wieder und deployen die VerA.web-Anwendung
-und die REST-API:
-
-\begin{lstdump}{Tomcat deploy}
-sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
-sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
-sudo service tomcat7 start
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
-mehr; diese können nun entfernt werden:
-
-\begin{lstdump}{Aufraeumen}
-cd ..
-rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
-\end{lstdump}
-\end{minipage}
-
-Damit ist das Upgrade abgeschlossen.
-
-\fi% !ifoa - XXX FIXME
-
-\section{Allgemeine Prozeduren}\label{sec:allg}
-
-In diesem Kapitel finden Sie Prozeduren, die während der Installation
-oder des Upgrades mehrfach verwendet werden, der Übersichtlichkeit
-halber ein einzelne Unterkapitel ausgelagert. Auf sie wird weiter oben
-in der Anleitung verwiesen.
-
-\subsection{Entpacken}\label{subsec:allg-entpacken}
-
-Vergewissern Sie sich zunächst, die VerA.web-Installationsdateien
-(siehe \nameref{subsec:intro-distro}) für die korrekte Version
-vollständig erhalten zu haben, und kopieren Sie die Dateien
-\ifoa
-(außer \texttt{online-anmeldung-\vwiaverssw{}.jar})
-\fi% oa
-auf den Server, auf dem Sie das VerA.web-Veranstaltungsmanagement
-installieren oder aktualisieren möchten. Alle weiteren Schritte
-werden auf dem Server
-\ifoa
-für VerA.web-core
-\fi% oa
-ausgeführt.
-
-\begin{minipage}{\textwidth}
-Benennen Sie die Applikationsdateien in später leicher zu
-verwendende Namen um, entpacken Sie das Zusatzarchiv (im
-Beispiel wird die Unix-Variante mit \texttt{.tgz} verwendet)
-und wechseln Sie in das angelegte neue Verzeichnis:
-
-\ifoa
-\begin{lstdump}{Entpacken}
-mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
-mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
-tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
-tar -xzf ../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-mv online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/core/* .
-chmod go-rwx .
-\end{lstdump}
-\else% !oa
-\begin{lstdump}{Entpacken}
-mv veraweb-core-〈\lstdumpesc{\vwiaverssw}〉.war veraweb.war
-mv rest-api-〈\lstdumpesc{\vwiaverssw}〉.war vwor.war
-tar -xzf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉-files.tgz
-cd veraweb-core-〈\lstdumpesc{\vwiaverssw}〉
-chmod go-rwx .
-\end{lstdump}
-\fi% !oa
-\end{minipage}
-
-Der \texttt{chmod}-Aufruf dient dazu, anderen auf demselben System
-eingeloggten Nutzern den Zugriff auf die Konfigurationsdateien zu
-verweigern während Sie sie bearbeiten, da sie später Paßwörter
-enthalten werden.
-
-Die meisten enthaltenen Dateien werden im Verlauf der Einrichtung
-verwendet; alle übrigen dienen als Beispiele, Vorlagen oder Hilfen
-bei der Anpassung; zusätzlich ist das Benutzerhandbuch, welches
-später in der Anwendung auch als Online-Hilfe verfügbar ist, als
-\texttt{Benutzerhandbuch.pdf} mitgeliefert, sodaß Sie dieses bereits
-vorab Ihren Sachbearbeitern zukommen lassen können.
-
-\subsection{Tomcat-Einrichtung}\label{subsec:allg-tomcat}
-
-Der folgende Abschnitt gilt für alle Tomcat-Applikationsserver,
-die Sie im Rahmen der VerA.web-Installation einrichten. Darauf
-folgen applikationsserverspezifische Einstellungen, die Sie nur
-auf den jeweils angegebenen Systemen durchführen müssen.
-
-Im folgenden wird von einer Standard-Debian-Installation ausgegangen;
-passen Sie gegebenenfalls in \texttt{tomcat7} die Versionsnummer an.
-Falls Sie nicht den in Debian paketierten Tomcat-Server verwenden
-passen Sie bitte alle Anleitungen entsprechend Ihren lokalen Systemen an.
-
-Nach einer Konfigurationsänderung müssen Sie \emph{auf jeden
-Fall} den Applikationsserver neustarten. Es bietet sich an,
-den gesamten Installationsprozeß bei ausgeschaltetem Server
-durchzuführen, d.h. Sie stoppen ihn zu Beginn der Installation
-und starten ihn am Ende erst wieder.
-
-\begin{minipage}{\textwidth}
-Zum Stoppen des Anwendungsservers benutzen Sie folgenden Befehl:
-
-\begin{lstdump}{Tomcat stop}
-sudo service tomcat7 stop
-\end{lstdump}
-
-Bitte beachten Sie, daß der Tomcat-Dienst ggfs. noch einige Sekunden
-weiterläuft, nachdem der Stop-Befehl abgeschickt wurde; im Zweifelsfalls
-können Sie mit \texttt{ps ax | grep java} prüfen, ob noch Prozesse laufen.
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Zum Starten verwenden Sie äquivalent:
-
-\begin{lstdump}{Tomcat start}
-sudo service tomcat7 start
-\end{lstdump}
-\end{minipage}
-
-\subsubsection{Tomcat überall}\label{subsub:allg-tomcat-allg}
-
-Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat7} (oder
-tomcat8; oder, falls Sie nicht Debian benutzen, an einer äquivalenten
-Stelle) folgende Zeilen ein, um weitere JVM-Startoptionen zu setzen.
+Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat7}
+einige Zeilen ein, um weitere JVM-Startoptionen zu setzen, die
+in alten Installationen ggfs. noch nicht gesetzt waren.
 
 \begin{minipage}{\textwidth}
 Diese Option setzen Sie bitte in jedem Fall, um eine korrekte
@@ -1478,70 +1691,8 @@ JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 \end{lstdump}
 \end{minipage}
 
-Falls Sie mehrere Webanwendungen im selben Applikationsserver
-betreiben kann es sein, daß Sie den sogenannten PermGen-Space
-erhöhen müssen, da der Standardwert von \texttt{64m} nicht
-mehr ausreicht. Dies betrifft nur Java vor Version 8.
-
-\begin{minipage}{\textwidth}
-Hierzu fügen Sie z.B. folgende Zeile hinzu (oder auch \texttt{128m}):
-
-\begin{lstdump}{Tomcat PermGen-Space}
-JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=96m"
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Nun bearbeiten Sie die Datei \texttt{/etc/tomcat7/server.xml}, um Tomcat
-von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
-(eine einfache Suche nach „8080“ findet ihn) und kommentieren ihn aus,
-indem Sie davor \texttt{<!‑‑} und dahinter \texttt{‑‑>} schreiben:
-
-\begin{lstdump}[language=XML]{Tomcat HTTP-Connector}
-<Connector port="8080" protocol="HTTP/1.1"
-           connectionTimeout="20000"
-           URIEncoding="UTF-8"
-           redirectPort="8443" />
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Dann suchen Sie folgenden auskommentierten Abschnitt (ca. 20 Zeilen weiter):
-
-\begin{lstdump}[language=XML]{Tomcat AJP-Connector orig}
-<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
-\end{lstdump}
-
-Entfernen Sie hier die Kommentarzeichen und fügen Sie ein weiteres Attribut
-hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
-
-\begin{lstdump}[language=XML]{Tomcat AJP-Connector wanted}
-<Connector address="127.0.0.1" port="8009" protocol="AJP/1.3" redirectPort="8443" />
-\end{lstdump}
-\end{minipage}
-
-\ifoa
-
-\subsubsection{Tomcat OSIAM}\label{subsub:allg-tomcat-osiam}
-
-\begin{minipage}{\textwidth}
-Suchen Sie bitte in der Datei \texttt{/etc/tomcat7/catalina.properties}
-die Zeile, die mit \texttt{shared.loader=} beginnt, und hängen Sie am
-Ende der Zeile \texttt{,/etc/osiam} an; das könnte dann wie folgt aussehen:
-
-\begin{lstdump}{Tomcat OSIAM shared.loader}
-shared.loader=/var/lib/tomcat7/shared/classes,/var/lib/tomcat7/shared/*.jar,/etc/osiam
-\end{lstdump}
-\end{minipage}
-
-Suchen Sie in der Datei \texttt{/etc/default/tomcat7} die Stelle, wo
-\texttt{-Xmx128m} in den \texttt{JAVA\_OPTS} gesetzt wird. Ändern Sie
-diesen Wert auf \texttt{-Xms512m -Xmx1024m} falls die VM über mehr als
-1280 MiB RAM verfügt, \texttt{-Xmx512m} andernfalls.
-
-\fi% oa
-
-\subsubsection{Tomcat REST-API}\label{subsub:allg-tomcat-vwor}
+Nun muß noch die Konfiguration von Tomcat für die neu hinzugekommene
+REST-API vorgenommen werden.
 
 \begin{minipage}{\textwidth}
 Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat7/context.xml} vor
@@ -1581,6 +1732,61 @@ aber die von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
 \end{lstdump}
 \end{minipage}
 
+\subsection{Datenbank VerA.web-core}\label{subsec:upgrade-core-db}
+
+\begin{minipage}{\textwidth}
+Loggen Sie sich auf der Datenbank ein und starten Sie das Upgrade-SQL:
+
+\begin{lstdump}{DB-Upgrade}
+psql -U veraweb -h 127.0.0.1 -W veraweb <upgrade.sql
+\end{lstdump}
+
+Falls Sie andere Werte für Datenbankserver, Port, Benutzer oder Datenbankname
+verwenden müssen Sie diese hier selbstverständlich anpassen.
+\end{minipage}
+
+\subsection{Applikationsserver VerA.web-core}\label{subsec:upgrade-core-tomcat}
+
+\begin{minipage}{\textwidth}
+Stoppen Sie bitte zunächst den Applikationsserver:
+
+\begin{lstdump}{Tomcat undeploy}
+sudo service tomcat7 stop
+ps ax | grep java # sollte maximal grep anzeigen
+\end{lstdump}
+
+Beachten Sie dabei, daß der Tomcat-Dienst ggfs. noch einige Sekunden
+weiterläuft, nachdem der Stop-Befehl abgeschickt wurde; im Zweifelsfalle
+prüfen Sie explizit, ob noch \texttt{java}-Prozesse laufen.
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Dann löschen Sie die alten und deployen die neuen Fassungen der
+VerA.web-Kernanwendung und der REST-API und starten den Server wieder:
+
+\begin{lstdump}{Tomcat deploy}
+sudo rm -rf /var/lib/tomcat7/webapps/veraweb*
+sudo rm -rf /var/lib/tomcat7/webapps/vwor*
+sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
+sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
+sudo service tomcat7 start
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
+mehr; diese können nun entfernt werden:
+
+\begin{lstdump}{Aufraeumen}
+cd ..
+rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
+\end{lstdump}
+\end{minipage}
+
+Damit ist das Upgrade abgeschlossen.
+
+\fi% !ifoa - XXX FIXME
+
 \section{Weitere Fragen}\label{sec:outro}
 
 Wenn Sie einen Service- und Wartungsvertrag mit uns abgeschlossen
@@ -1614,3 +1820,169 @@ haben, kontaktieren Sie bitte unseren Produktvertrieb.
   \dash Detaillierte OSIAM-Referenzinstallationsanleitung}
 \fi% oa
 \end{itemize}
+
+\section{Referenzkonfigurationen}\label{sec:refcfg}
+
+In diesem Kapitel finden Sie Beispiele für Konfigurationsdateien
+auf einem Testsystem (eine VM). Hierbei wurden an allen Stellen
+die Standardpaßwörter gewählt; diese Beispiele sind strikt als
+nicht-normative Dokumentation zu verstehen.
+
+% Ab hier keine minipages mehr drumherum
+% (außer um ganz kleine Beispieldateien?)
+\lstset{backgroundcolor=\color{black!7},frame=none}
+
+\subsection{/etc/apache2/sites-enabled/000-default}\label{subsec:refcfg-apache-default}
+
+Diese Datei ist quasi identisch, nur das Ziel der Weiterleitung
+unterscheidet sich, je nach Host.
+\ifoa
+Betrifft: alle
+\fi% oa
+
+\begin{lstdump}{/etc/apache2/sites-enabled/000-default}
+%TODO
+\end{lstdump}
+
+\ifoa
+\subsection{/etc/apache2/sites-enabled/default-ssl}\label{subsec:refcfg-apache-defssl}
+
+Dieser vhost enthält kommentierte Alternativen für den core
+(mit und ohne OSIAM) und die Online-Anmeldung (separat oder
+auf dem core-System mitinstalliert). Bitte beachten Sie die
+inline-Kommentare genau! Betrifft: alle
+
+\begin{lstdump}{/etc/apache2/sites-enabled/default-ssl +OA}
+%TODO
+\end{lstdump}
+
+\subsection{/etc/default/tomcat7}\label{subsec:refcfg-tcdef}
+
+Dieses Beispiel ermöglicht es, alles auf einer VM zu betreiben;
+siehe auch inline-Kommentare. Betrifft: OSIAM, core
+
+\begin{lstdump}{/etc/default/tomcat7 all-in-one}
+%TODO
+\end{lstdump}
+
+\else% !oa
+
+\subsection{/etc/apache2/sites-enabled/default-ssl}\label{subsec:refcfg-apache-defssl}
+
+\begin{lstdump}{/etc/apache2/sites-enabled/default-ssl}
+%TODO
+\end{lstdump}
+
+\subsection{/etc/default/tomcat7}\label{subsec:refcfg-tcdef}
+
+\begin{lstdump}{/etc/default/tomcat7}
+%TODO
+\end{lstdump}
+
+\fi% !oa
+% ↑ shared; ↓ OSIAM/OA-specific
+\ifoa
+
+\subsection{/etc/osiam/auth-server.properties}\label{subsec:refcfg-osiam-auth}
+
+Betrifft: OSIAM
+
+\begin{lstdump}{/etc/osiam/auth-server.properties}
+%TODO
+\end{lstdump}
+
+\subsection{/etc/osiam/resource-server.properties}\label{subsec:refcfg-osiam-rsrc}
+
+Betrifft: OSIAM
+
+\begin{lstdump}{/etc/osiam/resource-server.properties}
+%TODO
+\end{lstdump}
+
+\subsection{/etc/service/vwoa/config.json}\label{subsec:refcfg-oa-cfg}
+
+Betrifft: Online-Anmeldung
+
+\begin{lstdump}{/etc/service/vwoa/config.json}
+%TODO
+\end{lstdump}
+
+\subsection{/etc/tomcat7/catalina.properties}\label{subsec:refcfg-tc-prop}
+
+Betrifft: OSIAM
+
+\begin{lstdump}{/etc/tomcat7/catalina.properties}
+%TODO
+\end{lstdump}
+
+\fi% oa
+
+\subsection{/etc/tomcat7/context.xml}\label{subsec:refcfg-tc-ctx}
+
+\ifoa
+Betrifft: core
+\fi% oa
+
+\begin{lstdump}{/etc/tomcat7/context.xml}
+%TODO
+\end{lstdump}
+
+\subsection{/etc/tomcat7/server.xml}\label{subsec:refcfg-tc-server}
+
+\ifoa
+Betrifft: OSIAM, core
+\fi
+
+\begin{lstdump}{/etc/tomcat7/server.xml}
+%TODO
+\end{lstdump}
+
+\subsection{/etc/tomcat7/tomcat-users.xml}\label{subsec:refcfg-tc-users}
+
+\ifoa
+Betrifft: core
+\fi% oa
+
+\begin{lstdump}{/etc/tomcat7/tomcat-users.xml}
+%TODO
+\end{lstdump}
+
+\subsection{/etc/veraweb/config\_ldap\_access.xml}\label{subsec:refcfg-vw-cfgldap}
+
+\ifoa
+Betrifft: core
+\fi% oa
+
+\begin{lstdump}{/etc/veraweb/config_ldap_access.xml}
+%TODO
+\end{lstdump}
+
+\ifoa
+
+\subsection{/etc/veraweb/veraweb.properties}\label{subsec:refcfg-vw-vwprop}
+
+Betrifft: core
+
+\begin{lstdump}{/etc/veraweb/veraweb.properties +OA}
+%TODO
+\end{lstdump}
+
+\else% !oa
+
+\subsection{/etc/veraweb/veraweb.properties}\label{subsec:refcfg-vw-vwprop}
+
+\begin{lstdump}{/etc/veraweb/veraweb.properties}
+%TODO
+\end{lstdump}
+
+\fi% !oa
+
+\subsection{/etc/veraweb/vwor.properties}\label{subsec:refcfg-vw-vworprop}
+
+\ifoa
+Betrifft: core
+\fi% oa
+
+\begin{lstdump}{/etc/veraweb/vwor.properties}
+%TODO
+\end{lstdump}
