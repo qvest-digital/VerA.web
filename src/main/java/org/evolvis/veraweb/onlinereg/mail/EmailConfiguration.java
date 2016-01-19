@@ -20,7 +20,11 @@ public class EmailConfiguration {
             vworPropertiesReader = new VworPropertiesReader();
         }
         this.host = vworPropertiesReader.getProperty("mail.smtp.host");
-        this.port = new Integer(vworPropertiesReader.getProperty("mail.smtp.port"));
+        if (vworPropertiesReader.getProperty("mail.smtp.port") == null) {
+            this.port = 25;
+        } else {
+            this.port = new Integer(vworPropertiesReader.getProperty("mail.smtp.port"));
+        }
         this.security = vworPropertiesReader.getProperty("mail.smtp.security");
         this.username = vworPropertiesReader.getProperty("mail.smtp.user");
         this.password = vworPropertiesReader.getProperty("mail.smtp.password");

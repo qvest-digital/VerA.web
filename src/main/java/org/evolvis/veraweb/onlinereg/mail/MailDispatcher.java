@@ -61,9 +61,7 @@ public class MailDispatcher {
         if (username != null && password != null) {
             properties.put("mail.smtp.auth", "true");
         }
-        if (port != null) {
-            setPortProperties(properties);
-        }
+        setPortProperties(properties);
 
         return Session.getInstance(properties);
     }
