@@ -12,7 +12,6 @@
 -- ② recht nah am Ende der Datei (vor „-- end“)
 -- ③ in ../src/main/resources/de/tarent/aa/veraweb/veraweb.properties
 
-
 CREATE OR REPLACE FUNCTION serv_vwdbupgrade() RETURNS VARCHAR AS $$
 
 DECLARE
@@ -513,12 +512,15 @@ BEGIN
 	vnewvsn := '2016-01-19';
 	IF vcurvsn < vnewvsn THEN
 		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+
 		-- Create table "tosiam_user_activation"
-    		CREATE TABLE veraweb.tosiam_user_activation (
-    		    username character varying(100) NOT NULL,
-    		    expiration_date date NOT NULL,
-    		    pk activation_token character varying(100) NOT NULL
-    		);
+		CREATE TABLE veraweb.tosiam_user_activation (
+		    username character varying(100) NOT NULL,
+		    expiration_date date NOT NULL,
+		    pk activation_token character varying(100) NOT NULL
+		);
+
 		-- post-upgrade
 		vmsg := 'end.update(' || vnewvsn || ')';
 		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
