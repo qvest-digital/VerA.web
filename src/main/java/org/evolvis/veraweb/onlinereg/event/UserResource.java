@@ -19,6 +19,7 @@
  */
 package org.evolvis.veraweb.onlinereg.event;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
@@ -27,6 +28,7 @@ import com.sun.jersey.api.representation.Form;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
+import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.osiam.resources.scim.Email;
 import org.osiam.resources.scim.Extension;
@@ -55,6 +57,8 @@ public class UserResource {
     private static final String VERAWEB_SCHEME = "urn:scim:schemas:veraweb:1.5:Person";
 	private Config config;
     private Client client;
+    private ObjectMapper mapper = new ObjectMapper();
+    private static final String BASE_RESOURCE = "/rest";
 
     /**
      * Creates new UserResource
@@ -114,11 +118,19 @@ public class UserResource {
 
         user = initUser(osiam_username, osiam_firstname, osiam_secondname, osiam_password1, email, person.getPk());
         osiamClient.createUser(accessToken, user);
+        sendEmailVerification(email);
 
         return StatusConverter.convertStatus("OK");
     }
 
-    private Form createPersonPostBody(@PathParam("osiam_username") String osiam_username, @FormParam("osiam_firstname") String osiam_firstname, @FormParam("osiam_secondname") String osiam_secondname) {
+    private void sendEmailVerification(String email) {
+        final Form postBody = new Form();
+        postBody.add("email", email);
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/email/confirmation/send");
+        resource.post(postBody);
+    }
+
+    private Form createPersonPostBody(String osiam_username, String osiam_firstname, String osiam_secondname) {
         final Form postBody = new Form();
         postBody.add("username", osiam_username);
         postBody.add("firstname", osiam_firstname);
