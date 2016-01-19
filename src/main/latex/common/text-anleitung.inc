@@ -490,8 +490,8 @@ erhöht die Systemvoraussetzungen nicht nennenswert.
 
 Zum Betrieb von VerA.web core empfehlen wir eine eigenständige VM
 \ifoa
-je Komponente (core, Online-Anmeldung; OSIAM kann auf dem core-System
-mitinstalliert werden, wenn es nur für VerA.web verwendet wird)
+(OSIAM kann auf dem System mitinstalliert werden, wenn es nur für
+VerA.web verwendet wird)
 \fi% oa
 mit Debian Linux 7 „wheezy“ als Betriebssystem. Zwar \emph{kann}
 die Software auch mit einer anderen Debian-basierten Distribution
@@ -502,11 +502,9 @@ dem Server wird zum Betrieb nicht benötigt. Eine Installation mit
 Debian 8 „jessie“ wird in einer späteren Version dieser Anleitung
 berücksichtigt werden.%XXX TODO
 
-\ifoa\else% !oa
 Für VerA.web core benötigen Sie mindestens 512 MiB Arbeitsspeicher;
-1 GiB oder mehr wird empfohlen. Wir empfehlen mindestens 2 GiB Festplatte,
-besser 8 GiB.
-\fi% !oa
+1 GiB oder mehr wird empfohlen. Wir empfehlen eine Festplattengröße
+von mindestens 2 GB, besser 8 GB.
 
 In dieser Anleitung sowie den Systemvoraussetzungen wird weiterhin
 angenommen, daß der notwendige Datenbankserver (PostgreSQL) auf
@@ -558,6 +556,22 @@ deinstalliert):
 sudo apt-get purge openjdk-6-jre-headless gcj-4.6-jdk gcj-4.7-jdk
 \end{lstdump}
 \end{minipage}
+
+\ifoa
+
+\subsection{Online-Anmeldung}\label{subseq:req-oa}
+
+Zum Betrieb der Online-Anmeldung empfehlen wir ebenfalls eine
+eigenständige VM; sie kann allerdings auch auf demselben System
+wie der VerA.web core eingerichtet werden. Auch hier wird eine
+Installation von Debian Linux 7 „wheezy“ ohne graphisch Oberfläche
+vorausgesetzt.
+
+Die Online-Anmeldung hat relativ bescheidene Voraussetzungen
+und kann bereits mit 512 MiB Arbeitsspeicher und 1½ GB Festplatte
+betrieben werden; die Werte steigen je nach Auslastung entsprechend.
+
+\subsection{Installation}\label{subseq:req-install}
 
 Die Installation wird als regulärer Benutzer, der sich vermittels
 des Programms \texttt{sudo} Superuserrechte verschaffen kann,
