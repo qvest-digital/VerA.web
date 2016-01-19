@@ -26,6 +26,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
@@ -44,6 +45,7 @@ import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.UUID;
 
 import lombok.Getter;
 
@@ -118,16 +120,28 @@ public class UserResource {
 
         user = initUser(osiam_username, osiam_firstname, osiam_secondname, osiam_password1, email, person.getPk());
         osiamClient.createUser(accessToken, user);
-        sendEmailVerification(email);
+        final UUID activation_token = UUID.randomUUID();
+        passUsernameToOsiamUserActivation(osiam_username, activation_token);
+        sendEmailVerification(email, activation_token);
 
         return StatusConverter.convertStatus("OK");
     }
 
-    private void sendEmailVerification(String email) {
+    private void sendEmailVerification(String email, UUID activation_token) {
         final Form postBody = new Form();
         postBody.add("email", email);
+        postBody.add("activation_token", activation_token.toString());
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/email/confirmation/send");
         resource.post(postBody);
+    }
+
+    private void passUsernameToOsiamUserActivation(String username, UUID activation_token) {
+        final Form postBody = new Form();
+        postBody.add("username", username);
+        postBody.add("activation_token", activation_token.toString());
+        final OsiamUserActivation oua;
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiamUserActivation/user/new");
+        oua=resource.post(OsiamUserActivation.class,postBody);
     }
 
     private Form createPersonPostBody(String osiam_username, String osiam_firstname, String osiam_secondname) {
