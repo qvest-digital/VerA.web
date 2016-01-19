@@ -24,6 +24,12 @@ public class OsiamUserActivation {
     public OsiamUserActivation() {
     }
 
+    public OsiamUserActivation(String username, Date expiration_date, String activation_token) {
+        this.username=username;
+        this.expiration_date=expiration_date;
+        this.activation_token=activation_token;
+    }
+
     public String getActivation_token() {
         return activation_token;
     }
