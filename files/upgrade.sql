@@ -2,7 +2,7 @@
 --
 -- Copyright © 2015
 --	Thorsten Glaser <t.glaser@tarent.de>
--- Copyright © 2013–2015 tarent solutions GmbH
+-- Copyright © 2013–2016 tarent solutions GmbH
 --
 -- This file is part of VerA.web and published under the same licence.
 
