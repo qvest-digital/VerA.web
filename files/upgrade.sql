@@ -518,7 +518,9 @@ BEGIN
 		CREATE TABLE veraweb.tosiam_user_activation (
 		    username character varying(100) NOT NULL,
 		    expiration_date date NOT NULL,
-		    pk activation_token character varying(100) NOT NULL
+		    activation_token character varying(100) NOT NULL,
+
+		    CONSTRAINT tosiam_user_activation_pk PRIMARY KEY (activation_token)
 		);
 
 		-- post-upgrade
