@@ -12,6 +12,7 @@
 -- ② recht nah am Ende der Datei (vor „-- end“)
 -- ③ in ../src/main/resources/de/tarent/aa/veraweb/veraweb.properties
 
+
 CREATE OR REPLACE FUNCTION serv_vwdbupgrade() RETURNS VARCHAR AS $$
 
 DECLARE
@@ -25,7 +26,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2015-11-04';
+	vversion := '2016-01-19';
 
 	-- initialisation
 	vint := 0;
@@ -502,6 +503,22 @@ BEGIN
 		    FOREIGN KEY (fk_orgunit) REFERENCES veraweb.torgunit(pk)
 		    MATCH FULL ON DELETE RESTRICT ON UPDATE RESTRICT;
 
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
+
+	vnewvsn := '2016-01-19';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+		-- Create table "tosiam_user_activation"
+    		CREATE TABLE veraweb.tosiam_user_activation (
+    		    username character varying(100) NOT NULL,
+    		    expiration_date date NOT NULL,
+    		    pk activation_token character varying(100) NOT NULL
+    		);
 		-- post-upgrade
 		vmsg := 'end.update(' || vnewvsn || ')';
 		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
