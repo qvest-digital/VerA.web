@@ -61,13 +61,13 @@ public class MailDispatcher {
         if (username != null && password != null) {
             properties.put("mail.smtp.auth", "true");
         }
-        setPortProperties(properties);
+        properties.put("mail.smtp.port", port);
+        setSecurityProperties(properties);
 
         return Session.getInstance(properties);
     }
 
-    private void setPortProperties(Properties properties) {
-        properties.put("mail.smtp.port", port);
+    private void setSecurityProperties(Properties properties) {
         if (security.equals("starttls")) {
             properties.put("mail.smtp.starttls.enable", true);
         } else if (security.equals("ssl")) {
