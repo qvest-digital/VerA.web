@@ -1,10 +1,13 @@
 onlineRegApp.controller('LoginController', function ($scope, $location, $http, $rootScope, $translate, $routeParams) {
-    //setStatus will be setted from RegisterUserController, if
+    //setStatus will be set to 1 by RegisterUserController, if
     //registering was successful
-    if(setStatus == 1) {
-        $scope.status = 1;
+    if(setStatus == 1|| setStatus==42) {
+        $scope.status = setStatus;
         setStatus = null;
+    }else{
+        $scope.status=null;
     }
+
 
     $scope.login = function () {
         $scope.button = true;
@@ -23,7 +26,10 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
            console.log(result);
            if (result != "") {//result=object
                if(result.status.localeCompare("disabled")||result.status=="disabled"){
+                   setStatus=42;
                    $scope.status=42;
+                   $rootScope.status= null;
+                   $rootScope.error=null;
                    $location.path($scope.nextPage);
                }else{
                    $rootScope.user_logged_in = $scope.username;
@@ -34,6 +40,8 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
                }
             } else {
                 $rootScope.status = "danger";
+                setStatus=null;
+                $scope.status=null;
                 $translate('GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG').then(function (text) {
                     $rootScope.messageContent = text;
                 });

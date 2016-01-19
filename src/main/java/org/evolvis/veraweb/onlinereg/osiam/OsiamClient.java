@@ -147,7 +147,8 @@ public class OsiamClient {
 	 * @param accessTokenAsString Access token
 	 * @param email Email of the user
 	 */
-	public User getUserByEmail(String accessTokenAsString, String email) {
+	public User getUserByEmail(String email) throws IOException {
+		final String accessTokenAsString = getAccessTokenClientCred("GET", "POST");
 		final AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
 		final List<User> allUsers = this.connector.getAllUsers(accessToken);
 		for (User user : allUsers) {

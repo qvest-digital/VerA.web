@@ -12,7 +12,7 @@ public class EmailValidator {
      * @param email String with possible e-mail address
      * @return      boolean if e-mail address is valid or not
      */
-    public boolean isValidEmailAddress(String email){
+    public static boolean isValidEmailAddress(String email){
 
         try {
             new InternetAddress(email).validate();
