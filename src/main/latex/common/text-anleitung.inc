@@ -32,7 +32,6 @@
 % TODO tglase:
 % - Struktur: do not use cross-references; duplicate content (KISS)
 % - Mail (alt); MTA setup
-% - Graphiken, Texte, … (graphics from experiments.tex for more detailed concepts)
 % - Apache, SSL, …
 % - LDAP: slapd, lam
 % - svc: primer on service management with DJB dæmontools
@@ -93,7 +92,7 @@ Alle Code-Listings finden Sie auch nochmal als Plaintext unter
 \texttt{\jobname.lst} im „files“-Tarball
 (\texttt{veraweb-core-\vwiaverssw{}-files.tgz} \emph{oder}
 \texttt{veraweb-core-\vwiaverssw{}-files.zip}, siehe
-\hyperlink{manual:distro}{Die VerA.web-Distribution}).
+\nameref{subsec:intro-distro}).
 Zwecks Zuordnung finden Sie die Listing-Nummern am äußeren
 Seitenrand bzw. als Teil der Überschrift in der Listing-Datei.
 
@@ -112,6 +111,9 @@ dieselbe Datenbank zu.
   bereitstellt.}
 \end{itemize}
 
+VerA.web authentifiziert Sachbearbeiter über einen \nameref{subsec:req-ldap}.
+Ein LDAP-Server ist Voraussetzung für den Betrieb von VerA.web.
+
 \ifoa
 VerA.web mit Online-Anmeldung benutzt OSIAM zur sicheren Identitätsverwaltung.
 Eine funktionierende OSIAM-Installation ist Voraussetzung für den Betrieb von
@@ -122,7 +124,7 @@ und benötigt eine eigene Datenbank, die aber im selben PostgreSQL-Cluster
 liegen kann (und, bei Installation auf demselben Server, sollte). OSIAM für
 VerA.web ist ein reines „Backend“ ohne Weboberfläche.
 
-Die Online-Anmeldung wird üblicherweise auf einem separaten System
+Die Online-Anmeldung selber wird üblicherweise auf einem separaten System
 installiert, da auf diese Komponente durch Dritte über das Internet
 zugegriffen werden soll (im Gegensatz zu VerA.web core, auf welchem
 sich nur Ihre Sachbearbeiter einloggen). Sie verfügt über keine eigene
@@ -147,6 +149,9 @@ an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
 \ifoa
 
 \subsection{Systemübersicht}\label{subsec:intro-overview-blocks}
+
+Im folgenden finden Sie eine grobe Übersicht über die einzelnen oben
+erwähnten Komponenten und ihr Zusammenspiel:\keinumbruch
 
 \begin{minipage}{\textwidth}
 
@@ -184,6 +189,240 @@ an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
 \end{minipage}
 
 \fi% oa
+
+\subsection{Apache als Frontend}\label{subsec:intro-apache}
+
+Wir setzen unsere Systeme üblicherweise aus Sicherheitsgründen so auf,
+daß HTTPS-Verbindungen im Apache Webserver terminiert werden und von
+diesem an die einzelnen Anwendungsserver (über das AJP-Protokoll an
+\ifoa
+Tomcat und als HTTP-Proxy an den Microservice der Online-Anmeldung)
+\else% !oa
+Tomcat)
+\fi% !oa
+weitergereicht werden. Sämtliche SSL/TLS-Keys, -Features und weitere
+sicherheitsrelevante Einstellungen richten wir im Apache Webserver ein,
+auch um die Angriffsoberfläche zu reduzieren und besser getesteten und
+weiter verbreiteten Code zu verwenden, und weil die Administration der
+genannten Features in Apache bekannter und erprobter ist als in den
+individuellen Anwendungsservern. Sie \emph{können} Tomcat auch direkt
+über HTTP ansprechen, dies widerspricht jedoch unserem empfohlenen Setup.
+
+Die Installation des Webservers (SSL/TLS-Zertifikat, Zugangskontrollen,
+falls nötig vhosts) liegt außerhalb des Rahmens dieses Dokuments. Es
+wird davon ausgegangen, daß Apache so weit eingerichtet wird, daß er
+statische Webseiten ausliefern kann; in diesem Dokument wird nur die
+Integration mit dem Veranstaltungsmanagement beschrieben. (Vergessen
+Sie bei Debian \texttt{sudo a2enmod ssl} nicht.)
+
+\ifoa
+
+\subsubsection{Detailübersicht}\label{subsubsec:intro-overview-coarse}
+
+In der nächsten Graphik werden die zu VerA.web gehörenden Komponenten
+mit mehr Detailtiefe aufgeschlüsselt:\keinumbruch
+
+\begin{minipage}{\textwidth}
+
+\begin{tikzpicture}[
+  >=stealth',
+  microsvc/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above right,rectangle,draw=Orange,minimum width=76mm},
+  webapp/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above right,rectangle,draw=red,minimum width=76mm},
+  syssvc/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above right,rectangle,draw=Violet,minimum width=25mm},
+  scrptr/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above right,rectangle,draw=black,minimum width=25mm},
+  scrptl/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=black,minimum width=25mm},
+  people/.style={thick,text=black,fill=white,drop shadow,minimum height=10mm,above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
+  acloud/.style={thick,text=black,fill=white,drop shadow,cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
+ ]
+
+% \draw (0mm,0mm) -- (0mm,120mm) -- (173mm,120mm) -- (173mm,0mm) -- (0mm,0mm);
+
+  \fill[yellow!40] (2mm,33mm) -- (121mm,33mm) -- (121mm,48mm) -- (2mm,48mm);
+  \fill[green!20] (2mm,50mm) -- (121mm,50mm) -- (121mm,94mm) -- (2mm,94mm);
+
+  \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (2mm,96mm) {LDAP};
+  \node[above right,rectangle,fill=red!20,minimum width=169mm,minimum height=15mm] (osiam) at (2mm,10mm) {OSIAM};
+
+  \node[microsvc] (svwoa)  at ( 39mm,36mm) {VerA.web Online-Anmeldung};
+  \node[webapp]   (score)  at ( 39mm,82mm) {VerA.web Webanwendung};
+  \node[webapp]   (svwor)  at ( 39mm,64mm) {VerA.web REST-API};
+  \node[syssvc]   (dbvw)   at (  4mm,53mm) {veraweb DB};
+  \node[people]   (admins) at (167mm,99mm) {Admins};
+  \node[people]   (sb)     at (167mm,82mm) {Sachbearbeiter};
+  \node[people]   (guests) at (167mm,36mm) {Gäste};
+  \node[acloud]   (inet)   at (129mm,38mm) {};
+
+  \draw[thick,->] (admins) -- ([yshift=3mm]ldap);
+  \draw[thick,->] ([yshift=-6mm]admins) -| +(-32mm,0mm) |- ([yshift=3mm]score);
+  \draw[thick,->] ([yshift=3mm]score.west) -| ([xshift=-60mm]ldap);
+  \draw[thick,->] (sb) -- (score);
+  \draw[thick,->] ([yshift=-3mm]score) -| (dbvw);
+  \draw[thick,->] ([xshift=4mm]score) |- ++(89mm,-8mm) |- ++(-20mm,-48mm) -| ([xshift=6mm]osiam);
+  \draw[thick,->] (score.south) -- (score|-svwor.north);
+  \draw[thick,->] (guests) -- (inet);
+  \draw[thick,->] (inet) -- (svwoa);
+  \draw[thick,->] (svwoa) -- (svwor);
+  \draw[thick,->] (svwor) -| ([xshift=6mm]dbvw);
+  \draw[thick,->] (svwoa.south) -- (svwoa|-osiam.north);
+
+\end{tikzpicture}
+
+{\footnotesize Zugang für Gäste via DMZ durch das Internet (Wolke);
+ Administratoren und Sachbearbeiter via Intranet/VPN}
+
+\end{minipage}
+
+Auch in dieser Abbildung werden LDAP und OSIAM als Blackbox
+dargestellt. Um Verwirrung zu vermeiden muß aber bereits hier
+erwähnt werden, daß sowohl der LDAP-Server als auch OSIAM ihre
+eigene Datenhaltung betreiben – die LDAP-Datenbank für slapd
+(der OpenLDAP-Server), und eine separate PostgreSQL-Datenbank
+für OSIAM.
+
+\subsubsection{Komponentendiagramm}\label{subsubsec:intro-overview-fine}
+
+In dieser Darstellung schlüsseln wir die verwendeten Komponenten
+detailliert auf. In der linken Spalte finden Sie jeweils die
+Datenbasis (LDAP-Server oder PostgreSQL-Datenbank), in der zweiten
+Spalte finden Sie die eigentlichen Dienste, in der dritten Spalte
+die zugehörigen Apache-Frontends, und in der vierten Spalte die
+Benutzer. In schwarzen Kästen befinden sich jeweils zugehörige
+Skripte.
+
+\begin{minipage}{\textwidth}
+
+\begin{tikzpicture}[
+  >=stealth',
+  every node/.style={thick,text=black,fill=white,drop shadow},
+  every rectangle node/.style={minimum height=10mm},
+  apache/.style={above right,rectangle,draw=Dandelion,minimum width=35mm},
+  microsvc/.style={above right,rectangle,draw=Orange,minimum width=32mm},
+  webapp/.style={above right,rectangle,draw=red,minimum width=32mm},
+  syssvc/.style={above right,rectangle,draw=Violet,minimum width=25mm},
+  scrptr/.style={above right,rectangle,draw=black,minimum width=25mm},
+  scrptl/.style={above left,rectangle,draw=black,minimum width=25mm},
+  people/.style={above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
+  acloud/.style={cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
+ ]
+
+% \draw (0mm,0mm) -- (0mm,120mm) -- (173mm,120mm) -- (173mm,0mm) -- (0mm,0mm);
+
+  \fill[red!20] (2mm,3mm) -- (171mm,3mm) -- (171mm,40mm) -- (36mm,40mm) -- (36mm,35mm) -- (2mm,35mm);
+  \fill[yellow!40] (36mm,43mm) -- (121mm,43mm) -- (121mm,58mm) -- (36mm,58mm);
+  \fill[green!20] (2mm,36mm) -- (33mm,36mm) -- (33mm,61mm) -- (121mm,61mm) -- (121mm,94mm) -- (2mm,94mm);
+  \fill[blue!20] (2mm,96mm) -- (121mm,96mm) -- (121mm,111mm) -- (2mm,111mm);
+
+  \node[apache]   (alam)   at ( 79mm,99mm) {LDAP Account Mgr};
+  \node[apache]   (acore)  at ( 79mm,82mm) {VerA.web-core};
+  \node[apache]   (avwor)  at ( 79mm,64mm) {REST-API};
+  \node[apache]   (avwoa)  at ( 79mm,46mm) {Online-Anmeldung};
+  \node[apache]   (aosiam) at ( 79mm,19mm) {OSIAM};
+  \node[microsvc] (svwoa)  at ( 39mm,46mm) {VWOA};
+  \node[webapp]   (score)  at ( 39mm,82mm) {core};
+  \node[webapp]   (svwor)  at ( 39mm,64mm) {VWOR};
+  \node[webapp]   (sauth)  at ( 39mm,28mm) {auth-server};
+  \node[webapp]   (srsrc)  at ( 39mm,10mm) {resource-server};
+  \node[syssvc]   (ldap)   at (  4mm,99mm) {LDAP-Server};
+  \node[syssvc]   (dbvw)   at (  4mm,53mm) {veraweb DB};
+  \node[syssvc]   (dbong)  at (  4mm,19mm) {ong DB};
+  \node[scrptr]   (usql)   at (  4mm,38mm) {upgrade.sql};
+  \node[scrptl]   (riosh)  at (167mm,19mm) {register-into-osiam.sh};
+  \node[people]   (admins) at (167mm,99mm) {Admins};
+  \node[people]   (sb)     at (167mm,82mm) {Sachbearbeiter};
+  \node[people]   (guests) at (167mm,46mm) {Gäste};
+  \node[acloud]   (inet)   at (129mm,48mm) {};
+
+  \draw[thick,->] (admins) -- ([yshift=3mm]alam);
+  \draw[thick,->] (alam) -- (ldap);
+  \draw[thick,->] ([yshift=-6mm]admins) -| +(-32mm,0mm) |- ([yshift=3mm]acore);
+  \draw[thick,->] (acore) -- (score);
+  \draw[thick,->] ([yshift=3mm]score) -| (ldap);
+  \draw[thick,->] (sb) -- (acore);
+  \draw[thick,->] ([yshift=-3mm]score) -| (dbvw);
+  \draw[thick,->] ([xshift=4mm]score) |- ++(112mm,-8mm) |- ++(-20mm,-38mm) -| ([xshift=6mm]aosiam);
+  \draw[thick,->] (score) |- +(25mm,-10mm) -| (avwor);
+  \draw[thick,->] (guests) -- (inet);
+  \draw[thick,->] (inet) -- (avwoa);
+  \draw[thick,->] (avwoa) -- (svwoa);
+  \draw[thick,->] (svwoa) |- +(25mm,9mm) -| (avwor);
+  \draw[thick,->] (avwor) -- (svwor);
+  \draw[thick,->] (svwor) -| ([xshift=6mm]dbvw);
+  \draw[thick,->] (usql) -- (dbvw);
+  \draw[thick,<->] ([yshift=3mm]aosiam) -| (sauth);
+  \draw[thick,<->] ([yshift=-3mm]aosiam) -| (srsrc);
+  \draw[thick,->] (sauth) -| (dbong);
+  \draw[thick,->] (srsrc) -| ([xshift=3mm]dbong);
+  \draw[thick,->] (riosh) -- +(0mm,-17mm) -| ([xshift=-3mm]dbong);
+  \draw[thick,->] (riosh) -- (aosiam);
+  \draw[thick,->] (svwoa) |- +(20mm,-10mm) -| (aosiam);
+
+\end{tikzpicture}
+
+\vspace{0.3cm}
+
+\begin{tabu} to \linewidth {rllll}
+\rowfont\bfseries\multicolumn{5}{c}{Legende}\\[0.2cm]
+ Erste Spalte: & \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=Violet] {};
+			PostgreSQL-Datenbank} &
+		 \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=black] {};
+			Skript (Installation/Upgrade)}\\
+Zweite Spalte: & \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=red] {};
+			Webservice (WAR) in Tomcat} &
+		 \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=Orange] {};
+			Microservice (JAR)}\\
+Dritte Spalte: & \multicolumn{4}{l}{%
+			\tikz \node[thick,rectangle,draw=Dandelion] {};
+			 Apache Webserver (SSL, mod\_jk oder mod\_proxy\_http)}\\
+Vierte Spalte: & \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=CornflowerBlue] {};
+			 Nutzergruppe (per Webbrowser)} &
+		 \multicolumn{2}{l}{%
+			\tikz \node[thick,rectangle,draw=black] {};
+			Skript (Installation/Upgrade)}\\
+ Schattierung: & \tikz \node[rectangle,fill=red!30] {}; OSIAM &
+		 \tikz \node[rectangle,fill=yellow!60] {}; Online-Anmeldung &
+		 \tikz \node[rectangle,fill=green!30] {}; VerA.web core &
+		 \tikz \node[rectangle,fill=blue!30] {}; LDAP\\
+\multicolumn{5}{l}{\footnotesize
+		   Zugang für Gäste via DMZ durch das Internet (Wolke);
+		   Administratoren und Sachbearbeiter via Intranet/VPN}\\
+\end{tabu}
+
+\end{minipage}
+
+Die WAR- und JAR-Dateien aus der zweiten Spalte finden Sie im
+nächsten Abschnitt als individuelle Einträge (bzw. bei OSIAM
+im entsprechenden Kapitel direkt als Download). Die schwarz
+umrahmten Skripte befinden sich in den \texttt{files}-Archiven.
+
+\fi% oa
+
+\subsection{Die VerA.web-Distribution}\label{subsec:intro-distro}
+
+Zur Installation bzw. Upgrade müssen Sie folgende Dateien („die
+VerA.web-core Distribution“) von tarent beziehen:\keinumbruch
+
+\begin{itemize}
+ \item{\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
+  \emph{oder} \texttt{veraweb-core-\vwiaverssw{}-files.zip}
+  \\(der Inhalt dieser Dateien ist identisch, nur anders verpackt)}
+\ifoa
+ \item{\texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
+  \emph{oder} \texttt{online-anmeldung-\vwiaverssw{}-files.zip}
+  \\(diese beiden Dateien sind ebenfalls identisch)}
+\fi% oa
+ \item{\texttt{veraweb-core-\vwiaverssw{}.war}}
+ \item{\texttt{rest-api-\vwiaverssw{}.war}}
+\ifoa
+ \item{\texttt{online-anmeldung-\vwiaverssw{}.jar}}
+\fi% oa
+\end{itemize}
+
+Bitte wenden Sie sich hierzu an unseren Produktvertrieb.
 
 \section{Systemvoraussetzungen}\label{sec:requirements}
 
@@ -292,20 +531,6 @@ miteinander kommunizieren.
 \Warning \emph{Achtung:} Java™ 6 oder älter wird nicht unterstützt
 und führt während der Installation zu Fehlern!
 
-Wir setzen unsere Systeme üblicherweise aus Sicherheitsgründen so auf,
-daß HTTPS-Verbindungen im Apache Webserver terminiert werden und über
-das AJP-Protokoll von diesem an Tomcat weitergereicht werden. Sämtliche
-SSL/TLS-Keys, -Features und weitere sicherheitsrelevante Einstellungen
-richten wir im Apache Webserver ein. Sie \emph{können} Tomcat auch direkt
-über HTTP ansprechen, dies widerspricht jedoch unserem empfohlenen Setup.
-
-Die Installation des Webservers (SSL/TLS-Zertifikat, Zugangskontrollen,
-falls nötig vhosts) liegt außerhalb des Rahmens dieses Dokuments. Es
-wird davon ausgegangen, daß Apache so weit eingerichtet wird, daß er
-statische Webseiten ausliefern kann; in diesem Dokument wird nur die
-Integration mit dem Veranstaltungsmanagement beschrieben. (Vergessen
-Sie bei Debian \texttt{sudo a2enmod ssl} nicht.)
-
 \begin{minipage}{\textwidth}
 \hypertarget{manual:aptget}{}
 Auf einem Debian 7 „wheezy“-System können Sie den Datenbankserver,
@@ -327,28 +552,6 @@ deinstalliert):
 sudo apt-get purge openjdk-6-jre-headless gcj-4.6-jdk gcj-4.7-jdk
 \end{lstdump}
 \end{minipage}
-
-\hypertarget{manual:distro}{}
-Zur Installation bzw. Upgrade müssen Sie folgende Dateien („die
-VerA.web-core Distribution“) von tarent beziehen:\keinumbruch
-
-\begin{itemize}
- \item{\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
-  \emph{oder} \texttt{veraweb-core-\vwiaverssw{}-files.zip}
-  \\(der Inhalt dieser Dateien ist identisch, nur anders verpackt)}
-\ifoa
- \item{\texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
-  \emph{oder} \texttt{online-anmeldung-\vwiaverssw{}-files.zip}
-  \\(diese beiden Dateien sind ebenfalls identisch)}
-\fi% oa
- \item{\texttt{veraweb-core-\vwiaverssw{}.war}}
- \item{\texttt{rest-api-\vwiaverssw{}.war}}
-\ifoa
- \item{\texttt{online-anmeldung-\vwiaverssw{}.jar}}
-\fi% oa
-\end{itemize}
-
-Bitte wenden Sie sich hierzu an unseren Produktvertrieb.
 
 Die Installation wird als regulärer Benutzer, der sich vermittels
 des Programms \texttt{sudo} Superuserrechte verschaffen kann,
@@ -1137,9 +1340,9 @@ in der Anleitung verwiesen.
 
 \subsection{Entpacken}\label{subsec:allg-entpacken}
 
-Vergewissern Sie sich zunächst, \hyperlink{manual:distro}{die
-VerA.web-Installationsdateien} für die korrekte Version vollständig
-erhalten zu haben, und kopieren Sie die Dateien
+Vergewissern Sie sich zunächst, die VerA.web-Installationsdateien
+(siehe \nameref{subsec:intro-distro}) für die korrekte Version
+vollständig erhalten zu haben, und kopieren Sie die Dateien
 \ifoa
 (außer \texttt{online-anmeldung-\vwiaverssw{}.jar})
 \fi% oa
