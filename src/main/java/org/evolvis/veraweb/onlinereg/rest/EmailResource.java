@@ -25,7 +25,7 @@ public class EmailResource extends AbstractResource {
 
     @POST
     @Path("/confirmation/send")
-    public void sendEmailVerification(@FormParam("email") String email) throws MessagingException {
+    public void sendEmailVerification(@FormParam("email") String email, @FormParam("activation_token") String activation_token) throws MessagingException {
         if (emailConfiguration == null) {
             emailConfiguration = new EmailConfiguration();
         }
@@ -33,6 +33,7 @@ public class EmailResource extends AbstractResource {
             mailDispatcher = new MailDispatcher();
         }
         mailDispatcher.send(email, emailConfiguration.getSubject(), emailConfiguration.getContent());
+
     }
 
     public EmailConfiguration getEmailConfiguration() {
