@@ -20,14 +20,19 @@ public class MailDispatcher {
     private MailDateFormat dateFormat = new MailDateFormat();
 
     private String host;
-    private  String username;
-    private  String password;
     private Integer port;
+    private String security;
+    private String username;
+    private String password;
 
     public MailDispatcher() {
         final EmailConfiguration emailConfiguration = new EmailConfiguration();
         this.host = emailConfiguration.getHost();
         this.port = emailConfiguration.getPort();
+        this.security = emailConfiguration.getSecurity();
+        if (this.security == null) {
+            this.security = "none";
+        }
         this.username = emailConfiguration.getUsername();
         this.password = emailConfiguration.getPassword();
     }
@@ -65,9 +70,9 @@ public class MailDispatcher {
 
     private void setPortProperties(Properties properties) {
         properties.put("mail.smtp.port", port);
-        if (port.equals(578)) {
+        if (security.equals("starttls")) {
             properties.put("mail.smtp.starttls.enable", true);
-        } else if (port.equals(465)) {
+        } else if (security.equals("ssl")) {
             properties.put("mail.smtp.ssl.enable", true);
         }
     }

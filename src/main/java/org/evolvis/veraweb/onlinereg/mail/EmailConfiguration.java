@@ -8,6 +8,7 @@ import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
 public class EmailConfiguration {
     private String host;
     private Integer port;
+    private String security;
     private String username;
     private String password;
     private String subject;
@@ -20,6 +21,7 @@ public class EmailConfiguration {
         }
         this.host = vworPropertiesReader.getProperty("mail.smtp.host");
         this.port = new Integer(vworPropertiesReader.getProperty("mail.smtp.port"));
+        this.security = vworPropertiesReader.getProperty("mail.smtp.security");
         this.username = vworPropertiesReader.getProperty("mail.smtp.user");
         this.password = vworPropertiesReader.getProperty("mail.smtp.password");
         this.subject = vworPropertiesReader.getProperty("mail.subject");
@@ -40,6 +42,14 @@ public class EmailConfiguration {
 
     public void setPort(Integer port) {
         this.port = port;
+    }
+
+    public String getSecurity() {
+        return security;
+    }
+
+    public void setSecurity(String security) {
+        this.security = security;
     }
 
     public String getUsername() {
