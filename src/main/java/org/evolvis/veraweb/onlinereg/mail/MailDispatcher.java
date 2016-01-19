@@ -1,6 +1,7 @@
 package org.evolvis.veraweb.onlinereg.mail;
 
 import com.sun.mail.smtp.SMTPMessage;
+import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
 
 import javax.mail.Message;
 import javax.mail.Message.RecipientType;
@@ -18,22 +19,30 @@ import java.util.Properties;
 public class MailDispatcher {
     private MailDateFormat dateFormat = new MailDateFormat();
 
-    protected String host;
-    protected String username;
-    protected String password;
+    private String host;
+    private  String username;
+    private  String password;
+    private Integer port;
 
-    public void send(String from, String to, String subject, String text) throws MessagingException {
+    public MailDispatcher() {
+        final EmailConfiguration emailConfiguration = new EmailConfiguration();
+        this.host = emailConfiguration.getHost();
+        this.port = emailConfiguration.getPort();
+        this.username = emailConfiguration.getUsername();
+        this.password = emailConfiguration.getPassword();
+    }
+
+    public void send(String to, String subject, String text) throws MessagingException {
         final Session session = getSession();
-        final Message message = getMessage(session, from, to, subject, text);
+        final Message message = getMessage(session, to, subject, text);
         final Transport transport = session.getTransport("smtp");
         transport.connect(host, username, password);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
     }
 
-    protected Message getMessage(Session session, String from, String to, String subject, String text) throws MessagingException {
+    protected Message getMessage(Session session, String to, String subject, String text) throws MessagingException {
         final Message message = new SMTPMessage(session);
-        message.setFrom(new InternetAddress(from));
         message.addRecipient(RecipientType.TO, new InternetAddress(to));
         message.setSubject(subject);
         message.setText(text);
@@ -47,6 +56,19 @@ public class MailDispatcher {
         if (username != null && password != null) {
             properties.put("mail.smtp.auth", "true");
         }
-        return Session.getDefaultInstance(properties);
+        if (port != null) {
+            setPortProperties(properties);
+        }
+
+        return Session.getInstance(properties);
+    }
+
+    private void setPortProperties(Properties properties) {
+        properties.put("mail.smtp.port", port);
+        if (port.equals(578)) {
+            properties.put("mail.smtp.starttls.enable", true);
+        } else if (port.equals(465)) {
+            properties.put("mail.smtp.ssl.enable", true);
+        }
     }
 }
