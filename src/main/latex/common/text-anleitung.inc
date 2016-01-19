@@ -432,25 +432,31 @@ Die Systemvoraussetzungen unterscheiden sich je nachdem wie Sie die
 Komponenten trennen. Im folgenden werden empfohlene Werte für zwei
 mögliche Installationsvarianten angegeben (OSIAM getrennt oder mit
 auf dem core-System); die Online-Anmeldung („OA“) wird als getrenntes
-System ausgeführt, bei einer Zusammenlegung mit dem core-System
-sind die Werte in der Spalte „empfohlen“ als Minimum zu verstehen.
+System ausgeführt, bei einer Zusammenlegung der Online-Anmeldung mit
+dem core-System erhöhen sich die Anforderungen minimal.
 
 \begin{tabular}{| r || l | l |}\hline
-                 & Minimum    & empfohlen\\\hline\hline
- CPU je VM       & 1          & 1\\\hline
- RAM OSIAM       & 960 MiB    & 1536 MiB\\\hline
- RAM core        & 512 MiB    & 1024 MiB, besser mehr\\\hline
- RAM zusammen    & 1024 MiB   & 2048 MiB, besser mehr\\\hline
- RAM OA          & 512 MiB    & 768 MiB\\\hline
- HDD OSIAM       & 2 GB       & 4 GB\\\hline
- HDD core        & 2 GB       & 8 GB\\\hline
- HDD zusammen    & 3 GB       & 10 GB\\\hline
- HDD OA          & 1½ GB      & 3 GB\\\hline
- Betriebssystem  & Debian 7   & Debian 7\Hair\textsuperscript{\ref{fn:jessie}}\\\hline
+                  & Minimum    & empfohlen\\\hline\hline
+ CPU je VM        & 1          & 1\\\hline
+ RAM OSIAM        & 960 MiB    & 1536 MiB\\\hline
+ RAM core         & 512 MiB    & 1024 MiB, besser mehr\\\hline
+ RAM core + OSIAM & 1024 MiB   & 2048 MiB, besser mehr\\\hline
+ RAM OA           & 512 MiB    & 768 MiB\\\hline
+ HDD OSIAM        & 2 GB       & 4 GB\\\hline
+ HDD core         & 2 GB       & 8 GB\\\hline
+ HDD core + OSIAM & 3 GB       & 10 GB\\\hline
+ HDD OA           & 1½ GB      & 3 GB\\\hline
+ Betriebssystem   & Debian 7   & Debian 7\Hair\textsuperscript{\ref{fn:jessie}}\\\hline
 %XXX jessie mit sysvinit vielleicht? Testen!
- Webserver       & Apache 2.2 & Apache 2.2 oder 2.4\Hair\textsuperscript{\ref{fn:apache}}\\\hline
- Java Runtime    & OpenJDK 7  & OpenJDK 7 oder 8\\\hline
+ Webserver        & Apache 2.2 & Apache 2.2 oder 2.4\Hair\textsuperscript{\ref{fn:apache}}\\\hline
+ Java Runtime     & OpenJDK 7  & OpenJDK 7 oder 8\\\hline
 \end{tabular}
+
+Bitte beachten Sie bei der Dimensionierung der Maschinen und der
+Netzwerkanbindung, daß das Veranstaltungsmanagement (core) nur
+durch Ihre Mitarbeiter bedient wird, während die Online-Anmeldung
+üblicherweise offen im Internet steht und entsprechender Last
+ausgesetzt sein \emph{kann}.
 
 \else% !oa
 % Voraussetzungen für VerA.web ohne Online-Anmeldung:
@@ -582,6 +588,9 @@ cd online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉/osiam
 chmod go-rwx .
 \end{lstdump}
 \end{minipage}
+
+Alle weiteren Schritte in diesem Kapitel nehmen an, daß dieses
+Unterverzeichnis Ihr aktuelles Arbeitsverzeichnis ist.
 
 \begin{minipage}{\textwidth}
 Installieren Sie nun einige notwendige Pakete, sofern noch nicht vorhanden:
