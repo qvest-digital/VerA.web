@@ -144,31 +144,17 @@ public class OsiamClient {
 	/**
 	 * Get user by email.
 	 *
-	 * @param accessTokenAsString Access token
 	 * @param email Email of the user
 	 */
 	public User getUserByEmail(String email) throws IOException {
 		final String accessTokenAsString = getAccessTokenClientCred("GET", "POST");
 		final AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
-		final List<User> allUsers = this.connector.getAllUsers(accessToken);
-		for (User user : allUsers) {
-			final List<Email> emails = user.getEmails();
-			if (emails.size() > 0) {
-				if (findUserByEmail(email, emails)) {
-					return user;
-				}
-			}
+		final Query query = new QueryBuilder().filter("emails.value eq \"" + email +"\"").build();
+		final List<User> resources = connector.searchUsers(query, accessToken).getResources();
+		if (resources.size() == 1) {
+			return resources.get(0);
 		}
 		return null;
-	}
-
-	private boolean findUserByEmail(String email, List<Email> emails) {
-		for (Email userEmail : emails) {
-            if(userEmail.getValue().equals(email)) {
-				return true;
-            }
-        }
-		return false;
 	}
 
 	/**
