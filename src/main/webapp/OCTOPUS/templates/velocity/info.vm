@@ -41,7 +41,14 @@
         </tr><tr>
             <td class="width10 bold">${placeholderWithTranslation.GENERIC_BUILD_TIME}:</td>
             <td>$properties.getString("build")</td>
-<!-- XXX TODO: insert "REST-API verfuegbar?" (OK/Fehler) here: /vwor/rest/available/ -->
+        </tr><tr>
+            <td class="width10 bold">${placeholderWithTranslation.GENERIC_REST_API}:</td>
+    ## this catches both null pointer and empty string
+    #if("$!userConfig.restApiAvail" == "")
+            <td>${placeholderWithTranslation.GENERIC_ERROR}</td>
+    #else
+            <td>$userConfig.restApiAvail</td>
+    #end
     #if($online-registration.activated)
         </tr><tr>
             <td class="width10 bold">${placeholderWithTranslation.GENERIC_OA}:</td>

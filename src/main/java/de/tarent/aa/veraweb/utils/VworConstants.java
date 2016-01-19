@@ -26,6 +26,9 @@ package de.tarent.aa.veraweb.utils;
  */
 public class VworConstants {
 
+    // REST: service status
+    public static final String AVAILABLE = "available";
+
     // REST: File Upload mechanism
     public static final String DOWNLOAD = "download";
     public static final String FILEUPLOAD = "fileupload";

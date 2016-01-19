@@ -22,11 +22,24 @@
 % damage or existence of a defect, except proven that it results out
 % of said person’s immediate fault when using the work as intended.
 %-
-% TODO: slapd, lam, MTA
-% TODO: graphics from experiments.tex for more detailed concepts
-% TODO vwoa: primer on service management with DJB dæmontools
-% TODO sty: lines between chapters for *.lst file
-% TODO: do not use cross-references; duplicate content (KISS)
+% Characters requiring escaping:
+% • { } # & _ % $ ⇒ quote by prepending a backslash \
+% • \ → \textbackslash
+% • ~ → \textasciitilde
+% • (nbsp) → ~
+% • (en dash) → \dash
+%-
+% TODO tglase:
+% - Struktur: do not use cross-references; duplicate content (KISS)
+% - Mail (alt); MTA setup
+% - Graphiken, Texte, … (graphics from experiments.tex for more detailed concepts)
+% - Apache, SSL, …
+% - LDAP: slapd, lam
+% - svc: primer on service management with DJB dæmontools
+% - Upgradeanleitung wenn mit OA
+% - Debian jessie-tauglich machen
+% TODO Team:
+% - neuer Mail-Kram
 
 \ifupgradeanleitung
  \ifoa
@@ -81,6 +94,8 @@ Alle Code-Listings finden Sie auch nochmal als Plaintext unter
 (\texttt{veraweb-core-\vwiaverssw{}-files.tgz} \emph{oder}
 \texttt{veraweb-core-\vwiaverssw{}-files.zip}, siehe
 \hyperlink{manual:distro}{Die VerA.web-Distribution}).
+Zwecks Zuordnung finden Sie die Listing-Nummern am äußeren
+Seitenrand bzw. als Teil der Überschrift in der Listing-Datei.
 
 \subsection{Konzepte}\label{subsec:concepts}
 
@@ -141,6 +156,8 @@ an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
   acloud/.style={thick,text=black,fill=white,drop shadow,cloud,cloud puffs=9,draw=green,above right,minimum width=20mm,minimum height=10mm},
  ]
 
+% \draw (0mm,0mm) -- (0mm,120mm) -- (173mm,120mm) -- (173mm,0mm) -- (0mm,0mm);
+
   \node[above right,rectangle,fill=blue!20,minimum width=119mm,minimum height=15mm] (ldap) at (3mm,75mm) {LDAP};
   \node[above right,rectangle,fill=green!20,minimum width=119mm,minimum height=15mm] (web) at (3mm,56mm) {VerA.web Webanwendung};
   \node[above right,rectangle,fill=yellow!40,minimum width=119mm,minimum height=15mm] (oa) at (3mm,10mm) {VerA.web Online-Anmeldung};
@@ -160,7 +177,7 @@ an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
 
   \node[above right,inner sep=0pt] at (140mm,33mm) {internes Netz};
   \node[below right,inner sep=0pt] at (140mm,31mm) {extern erreichbar};
-  \draw[dashed]   (0mm,32mm) -- (175mm,32mm);
+  \draw[dashed]   (0mm,32mm) -- (173mm,32mm);
 
 \end{tikzpicture}
 
@@ -961,12 +978,12 @@ Konfigurationsdateien bereits in \texttt{/etc/veraweb} haben
 
 \subsection{Upgrade von Versionen vor 1.5.1.4}\label{subsec:upgrade-1514}
 
-Falls Sie von einer VerA.web-Version, die die Konfigurationsdateien
-noch nicht in \texttt{/etc/veraweb} ablegt, aktualisieren, müssen Sie
-dort zunächst (nur) die Dateien hinkopieren, die sich unter
+Falls Sie von einer VerA.web-Version, die die Konfigurationsdateien noch
+nicht in \texttt{/etc/veraweb} ablegt, aktualisieren, müssen Sie dort
+zunächst (nur) die gegenüber den in der alten Version der \texttt{veraweb.war}
+ausgelieferten Dateien angepaßten Konfigurationen aus dem Verzeichnis
 \texttt{/var/lib/tomcat7/webapps/veraweb/OCTOPUS/config\_*.xml}
-befinden und gegenüber den in der alten Version der \texttt{veraweb.war}
-ausgelieferten Dateien angepaßt wurden.
+Ihrer alten Installation hinkopieren.
 
 Das neue Konfigurationsschema wurde mit VerA.web 1.5.1.4 eingeführt,
 war jedoch bereits in VerA.web 1.4.3.5 (und \emph{nur} dieser Version

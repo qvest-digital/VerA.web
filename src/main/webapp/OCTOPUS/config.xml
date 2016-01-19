@@ -17,5 +17,6 @@
 	<include systempath="/etc/veraweb" file="config_ldap_access.xml" />
 	<include systempath="/etc/veraweb" file="config_mail_server.xml" />
 	<include systempath="/etc/veraweb" file="config_worker_tasks.xml" />
+	<include systempath="/etc/veraweb" file="config_vwoa.xml" />
 	<include systempath="/etc/veraweb" file="config_override.xml" />
 </tcModuleConfig>

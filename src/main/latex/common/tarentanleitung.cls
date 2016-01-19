@@ -1,5 +1,5 @@
 % Dokumentklasse „Anleitung“ für tarent solutions GmbH
-% Copyright © 2015
+% Copyright © 2015, 2016
 %	Thorsten Glaser <t.glaser@tarent.de>
 %
 % abgeleitet von der Dokumentenklasse pubmat des Teckids e.V.
@@ -28,42 +28,22 @@
 \ProvidesClass{tarentanleitung}
 
 \PassOptionsToPackage{paper=a4}{typearea}
+\RequirePackage{graphicx}
+\RequirePackage{fancyhdr}
 \LoadClass{scrartcl}
-
 \RequirePackage{tarentstyle}
-
-%XXX always (before hyperref), plus conflicts with scrartcl
-\usepackage{fancyhdr}
-
-\newlength{\myheight}
-\pagestyle{fancy}
-\fancyhf{}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0.6pt}
-\fancyhead[L]{\headmark}
-\fancyhead[R]{\tarentlogo[5.25cm]{}}
-\fancyfoot[L]{\footnotesize\textcopyright tarent}
-\fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
-\fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
 
 % Name Jahr
 \newcommand{\tarentohnedeckblatt}[2]{
 \loadgeometry{tarentstyle}
-\fancyhf{}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0.6pt}
-\fancyhead[L]{#1}
-\fancyhead[R]{\tarentlogo[5.25cm]{}}
-\fancyfoot[L]{\footnotesize\textcopyright #2 tarent}
-\fancyfoot[C]{{\scriptsize\thepage{}/\pageref*{LastPage}}}
-\fancyfoot[R]{\href{https://www.tarent.de/}{www.tarent.de}}
+\tarenthdr[#2]{#1}
 }
 
 % Name Version Fassung vom Jahr Bild
 \newcommand{\tarentanleitung}[6]{
  \newcommand{\produktversion}{#2}
 % 1. Seite: keine Kopfzeile; Fußzeile 1.1 cm (Abstand 0.6 cm); mehr Rand
-\newgeometry{includeheadfoot,inner=2.1cm,outer=1.4cm,top=2cm,bottom=4cm,twoside,headheight=0cm,headsep=0cm,foot=1.7cm}
+\newgeometry{includeheadfoot,inner=2.1cm,outer=1.6cm,top=2cm,bottom=4cm,twoside,headheight=0cm,headsep=0cm,foot=1.7cm,marginparsep=2.5mm}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}

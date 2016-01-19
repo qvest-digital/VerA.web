@@ -28,7 +28,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{tarentstyle}
 
-\RequirePackage{graphicx}
 \RequirePackage{accsupp}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{german}
@@ -43,9 +42,9 @@
 \RequirePackage[shortcuts]{extdash}
 % (tarent-Logo ist knapp 0.89 cm hoch bei 5¼ cm Breite, x horizontal 0.68 cm)
 % Einstellungen für: (gerade Seiten gespiegelt)
-% Seitenrand oben 1.78 cm, unten 1.5 cm, links 2.1 cm, rechts 1.4 cm
+% Seitenrand oben 1.78 cm, unten 1.5 cm, links 2.1 cm, rechts 1.6 cm
 % Kopfzeile 1.1 cm (Abstand 0.6 cm); Fußzeile 0.6 cm (Abstand 0.6 cm)
-\RequirePackage[a4paper,includeheadfoot,inner=2.1cm,outer=1.4cm,top=1.78cm,bottom=1.5cm,twoside,headheight=1.1cm,headsep=0.9cm,foot=1.2cm]{geometry}
+\RequirePackage[a4paper,includeheadfoot,inner=2.1cm,outer=1.6cm,top=1.78cm,bottom=1.5cm,twoside,headheight=1.1cm,headsep=0.9cm,foot=1.2cm,marginparsep=2.5mm]{geometry}
 \savegeometry{tarentstyle}
 \RequirePackage{framed}
 \linespread{1.15}
@@ -62,11 +61,12 @@
 \usepackage[writefile]{listings}
 \usepackage{tocloft}
 \usepackage{float}
-\usepackage{lastpage}
+\usepackage[totpages,user]{zref}
 \usepackage{calc}
 \usepackage{ifthen}
 \usepackage{scalerel}
 \usepackage{soul}
+\usepackage{marginnote}
 \ifpdf \RequirePackage[pdftex]{hyperref}
 \else  \RequirePackage[dvips,dviwindo,hypertex]{hyperref} \fi
 \hypersetup{
@@ -76,9 +76,30 @@
 	pdfauthor = {tarent solutions GmbH}
 }
 
+% Set default page style
+\pagestyle{fancy}
+\addtokomafont{pageheadfoot}{\upshape}
+\newcommand{\tarenthdr}[2][]{
+ \fancyhf{}
+ \renewcommand{\headrulewidth}{0pt}
+ \renewcommand{\footrulewidth}{0.6pt}
+ \renewcommand*\pagemark{\leavevmode\usekomafont{pagenumber}\ifnum\ztotpages=1\else\thepage/\ztotpages\fi}
+ \fancyhead[LO,RE]{\leavevmode\usekomafont{pageheadfoot}\tarentlogo[5.25cm]{}}
+ \fancyhead[RO,LE]{\leavevmode\usekomafont{pageheadfoot}#2}
+ \fancyfoot[LO,RE]{\leavevmode\usekomafont{pageheadfoot}{\footnotesize\textcopyright #1 tarent}}
+ \fancyfoot[C]{\leavevmode\usekomafont{pageheadfoot}\pagemark}
+ \fancyfoot[RO,LE]{\leavevmode\usekomafont{pageheadfoot}\href{https://www.tarent.de/}{www.tarent.de}}
+}
+\tarenthdr{\headmark}
+
+% Hurenkinder und Schusterjungen
 \clubpenalty10000
 \widowpenalty10000
 \displaywidowpenalty=10000
+% Zu lange Zeilen
+\emergencystretch 5em%
+
+% Allgemeine Einstellungen
 
 \DeclareGraphicsExtensions{.pdf,.eps,.png,.jpg}
 
@@ -100,30 +121,29 @@
 \newcommand{\ankreuzen}{Bitte zum Beispiel so → \CheckedBox\hspace{0.05cm} ← ankreuzen!}
 \newcommand{\ankreuzkaestchen}{\Square\hspace{0.1cm}}
 
-\newcommand{\keineseitenzahlenbeginn}{%
- \usepackage{fancyhdr}%
- \setlength{\headheight}{0pt}%
- \pagestyle{fancy}%
- \fancyhead{}%
- \fancyfoot[C]{\thepage}%
- \renewcommand{\headrulewidth}{0pt}%
-}
-\newcommand{\keineseitenzahlenende}{%
- \ifnum\thepage=1%
-  \fancyfoot{}%
- \fi%
-}
+% Listings
 
+\makeatletter
 \newcounter{lstdumps}
 \setcounter{lstdumps}{0}
 \newcommand{\lstdumpname}{}
+\xdef\lstdumpsection{\@empty}%
 \lstnewenvironment{lstdump}[3][]
 	{\lst@TestEOLChar{#3}%
 	 \lstset{#1}%
 	 \csname\@lst @SetFirstNumber\endcsname%
 	 \stepcounter{lstdumps}%
+	 \marginnote{{\huge\color{Gray}\thelstdumps}}%
 	 \renewcommand{\lstdumpname}{ (#2)}%
 	 \lst@BeginAlsoWriteFile{\jobname.lst}%
+	 \ifx\lstdumpsection\@currentlabel\else%
+	  \ifx\lstdumpsection\@empty%
+	   \immediate\write\lst@WF{Listing dump for \jobname.tex}%
+	   \immediate\write\lst@WF{}%
+	  \fi%
+	  \immediate\write\lst@WF{>>> (\@currentlabel) \@currentlabelname}%
+	  \immediate\write\lst@WF{}%
+	 \fi%
 	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
 	}
 	{
@@ -131,14 +151,24 @@
 	 \immediate\write\lst@WF{}%
 	 \endgroup%
 	 \csname\@lst @SaveFirstNumber\endcsname%
+	 \xdef\lstdumpsection{\@currentlabel}%
 	}
 \lstnewenvironment{lstdumpx}[2][]
 	{\lst@TestEOLChar{#2}%
 	 \lstset{#1}%
 	 \csname\@lst @SetFirstNumber\endcsname%
 	 \stepcounter{lstdumps}%
+	 \marginnote{{\huge\color{Gray}\thelstdumps}}%
 	 \renewcommand{\lstdumpname}{ [unnamed]}%
 	 \lst@BeginAlsoWriteFile{\jobname.lst}%
+	 \ifx\lstdumpsection\@currentlabel\else%
+	  \ifx\lstdumpsection\@empty%
+	   \immediate\write\lst@WF{Listing dump for \jobname.tex}%
+	   \immediate\write\lst@WF{}%
+	  \fi%
+	  \immediate\write\lst@WF{>>> (\@currentlabel) \@currentlabelname}%
+	  \immediate\write\lst@WF{}%
+	 \fi%
 	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
 	}
 	{
@@ -146,9 +176,9 @@
 	 \immediate\write\lst@WF{}%
 	 \endgroup%
 	 \csname\@lst @SaveFirstNumber\endcsname%
+	 \xdef\lstdumpsection{\@currentlabel}%
 	}
 % usage: \lstdumpesc[file]{pdf} or \lstdumpesc{bothfileandpdf}
-\makeatletter
 \def\lstdumpesc{\@ifnextchar[{\lstdumpesc@two}{\lstdumpesc@one}}
 \def\lstdumpesc@one#1{\lst@WFAppend{#1}#1}
 \def\lstdumpesc@two[#1]#2{\lst@WFAppend{#1}#2}
@@ -160,7 +190,24 @@
 	basicstyle=\ttfamily,
 	upquote=true,
 	keepspaces,
-	literate={ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {ß}{{\ss}}1 {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1 {©}{{\textcopyright}}1 {‘}{{\textquoteleft}}1 {’}{{\textquoteright}}1 {…}{{\fontencoding{LY1}\selectfont\symbol{'205}}}1 {„}{{\quotedblbase}}1 {“}{{\textquotedblleft}}1 {”}{{\textquotedblright}}1 {–}{-}1 {™}{\texttrademark}1 {°}{\textdegree{}}1 {§}{\S}1 {«}{\guillemotleft}1 {»}{\guillemotright}1,
+	literate=
+		{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+		{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+		{à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+		{À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+		{ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+		{Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+		{â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+		{Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+		{æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1 {œ}{{\oe}}1 {Œ}{{\OE}}1
+		{ő}{{\H{o}}}1 {Ő}{{\H{O}}}1 {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1
+		{å}{{\r a}}1 {Å}{{\r A}}1 {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1
+		{©}{{\textcopyright}}1 {™}{\texttrademark}1 {–}{-}1 {§}{\S}1
+		{£}{{\pounds}}1 {°}{\textdegree{}}1 {„}{{\quotedblbase}}1
+		{“}{{\textquotedblleft}}1 {”}{{\textquotedblright}}1
+		{‘}{{\textquoteleft}}1 {’}{{\textquoteright}}1
+		{«}{\guillemotleft}1 {»}{\guillemotright}1
+		{…}{{\fontencoding{LY1}\selectfont\symbol{'205}}}1,
 	columns=flexible,
 	showstringspaces=false,
 	extendedchars=true,
@@ -184,6 +231,7 @@
 % default font is sans-serif, i.e. Museo Sans
 \renewcommand*{\familydefault}{\sfdefault}
 
+% em dash
 \def\dash{\unskip\kern.16667em\textemdash\penalty\exhyphenpenalty\hskip.16667em\relax}
 % for footnotes
 \newcommand{\Hair}{\kern.16667em}
