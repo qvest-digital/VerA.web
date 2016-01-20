@@ -34,7 +34,6 @@
 % - Apache, SSL, …
 % - LDAP: slapd, lam
 % - svc: primer on service management with DJB dæmontools
-% - Upgradeanleitung wenn mit OA
 % - Debian jessie-tauglich machen
 % TODO Team:
 % - neuer Mail-Kram
@@ -641,8 +640,7 @@ die Online-Anmeldung als sogenannter Microservice implementiert wurde.
 
 \fi% oa
 
-\ifupgradeanleitung
-\else
+\ifupgradeanleitung\else% !upgradeanleitung
 
 \subsection{Bevor Sie beginnen}\label{subsec:req-prereq}
 
@@ -689,9 +687,6 @@ VerA.web benötigt aktuell OSIAM auth-server und resource-server in
 der Version \vwiaversosiam{} (enthalten in der OSIAM Distribution
 Version \vwiaversodist{}) und ist \emph{nur} mit dieser Version
 getestet worden.
-\\% XXX TODO besser in Upgradeanleitung, sobald es die gibt
-\Warning \emph{Achtung:} OSIAM Server 2.3 und neuer können
-nicht von VerA.web-Versionen bevor 1.6.34 angesprochen werden.
 
 Falls Sie bereits eine lauffähige OSIAM-Installation besitzen stellen
 Sie bitte sicher, daß auf die vorhandene Installation über HTTPS
@@ -874,7 +869,7 @@ dem core/REST-API-System und der Online-Anmeldung möglich sind.
 
 \begin{minipage}{\textwidth}
 Nach einem erfolgreichen Start können Sie prüfen, ob sich der
-Dienst ansprechen läßt:
+Dienst\Hair\textsuperscript{\ref{fn:osiamsvcchk}} ansprechen läßt:
 
 \begin{lstdump}{OSIAM ansprechen}
 curl https://$(hostname -f)/osiam-resource-server/ServiceProviderConfigs; echo
@@ -1228,9 +1223,9 @@ Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat7/context.xml} vor
 das schließende \texttt{</Context>}-Tag folgendes Tag ein, um die
  \ifupgradeanleitung
   Datenbank VerA.web-core
- \else
+ \else% !upgradeanleitung
   \nameref{subsec:setup-core-db}
- \fi
+ \fi% !upgradeanleitung
 für die REST-API verfügbar zu machen:
 
 \begin{lstdump}[language=XML]{Tomcat VWOR JDBC}
@@ -1243,9 +1238,9 @@ Ersetzen Sie jeweils für „veraweb“ den Benutzernamen, das Paßwort und den
 Datenbanknamen, die Sie verwendet haben, falls Sie von den Standardvorgaben
  \ifupgradeanleitung
   im Datenbankkapitel
- \else
+ \else% !upgradeanleitung
   in Kapitel \ref{subsec:setup-core-db}
- \fi
+ \fi% !upgradeanleitung
 abgewichen sind.
 \end{minipage}
 
@@ -1500,20 +1495,63 @@ Damit ist die Installation abgeschlossen.
 
 \fi% !ifupgradeanleitung
 
-\ifoa\else% !ifoa - XXX FIXME Upgrade für OA schreiben
+\ifoa
+
+\section{Upgrade OSIAM-System}\label{sec:upgrade-osiam}
+
+VerA.web benötigt aktuell OSIAM auth-server und resource-server in
+der Version \vwiaversosiam{} (enthalten in der OSIAM Distribution
+Version \vwiaversodist{}) und ist \emph{nur} mit dieser Version
+getestet worden.\keinumbruch
+
+\Warning \emph{Achtung:} OSIAM Server 2.3 und neuer können
+nicht von VerA.web-Versionen bevor 1.6.34 angesprochen werden.
+
+Dieses Kapitel beschreibt, wie ein für VerA.web installiertes,
+ansonsten minimales, OSIAM auf die neue Version aktualisiert
+werden kann. Falls Sie weitere OSIAM-Komponenten (wie z.B.
+das \texttt{addon-administration}) installiert haben, OSIAM
+anders installiert oder die Installation manuell in einem
+über diese Anleitung hinausgehenden Umfang angepaßt haben
+folgen Sie bitte den offiziellen Anleitungen, die auf der
+Seite \href{http://osiam.org/}{osiam.org} publiziert werden.
+
+\begin{minipage}{\textwidth}
+Für ein Upgrade einer minimalen OSIAM-Installation müssen Sie
+lediglich, während der Tomcat-Anwendungsserver heruntergefahren
+ist, die Webapplikationsarchive durch die neuen Versionen tauschen:
+
+\begin{lstdump}{OSIAM Upgrade}
+sudo service tomcat7 stop
+ps ax | grep java # sollte maximal grep anzeigen
+cd /var/lib/tomcat7/webapps
+rm -rf osiam-auth-server osiam-resource-server
+curl -o osiam-auth-server.war https://maven-repo.evolvis.org/releases/org/osiam/auth-server/〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
+curl -o osiam-resource-server.war https://maven-repo.evolvis.org/releases/org/osiam/resource-server/〈\lstdumpesc{\vwiaversosiam}〉/resource-server-〈\lstdumpesc{\vwiaversosiam}〉.war
+cd -
+sudo service tomcat7 start
+\end{lstdump}
+\end{minipage}
+
+Prüfen Sie ggfs. die Logausgaben\Hair\textsuperscript{\ref{fn:tomcatlogs}}
+und Verfügbarkeit\Hair\footnote{\label{fn:osiamcheck}mit
+\texttt{curl https://\$(hostname -f)/osiam-resource-server/ServiceProviderConfigs; echo}%
+} des OSIAM-Dienstes\Hair\footnote{\label{fn:osiamsvcchk}nur der
+Resource-Server; der Auth-Server bietet aktuell keine einfache Prüfmethode an}.
+
+\fi% oa
 
 \section{Upgrade internes VerA.web-System}\label{sec:upgrade-int}
 
-Im folgenden wird das Upgrade der einzelnen Komponenten
-nach erfolgtem Download der Installationspakete beschrieben.
-
+Im folgenden wird beschrieben, wie Sie die Installation von
+VerA.web-core auf den neuesten Stand bringen.
 Hierbei wird davon ausgegangen, daß VerA.web gemäß
  \ifupgradeanleitung
   unserer Installationsanleitung
- \else
+ \else% !upgradeanleitung
   dem Abschnitt \nameref{sec:setup-int} der vorliegenden Anleitung,
   oder einer ähnlich aufgebauten Anleitung einer Vorgängerversion,
- \fi
+ \fi% !upgradeanleitung
 auf einem Debian Linux 7 „wheezy“-System eingerichtet wurde.
 Installationen gemäß früherer Anleitungen der tarent solutions GmbH,
 die abweichende Verfahren z.B. in der Webserverkonfiguration benutzten,
@@ -1523,7 +1561,7 @@ Falls Sie weitergehende Anpassungen, z.B. an den Velocity-Templates
 für die Webseiten, vorgenommen haben müssen Sie die Änderungen
 manuell nachpflegen.
 
-\ifvwconfigsinetcalready\else
+\ifvwconfigsinetcalready\else% !vwconfigsinetcalready
 Upgrades von VerA.web 1.3.15 und neuer werden unterstützt. Bei einem
 Upgrade von einer älteren Version als 1.5 (also 1.3.15 und 1.4) ist
 generell mehr Vorsicht walten zu lassen.
@@ -1534,6 +1572,25 @@ die nicht nach dieser oder einer ähnlichen Anleitung installiert
 wurden, kontaktieren Sie bitte unseren Produktvertrieb oder, falls
 Sie bereits einen bestehenden Wartungsvertrag haben, unser Service-
 und Wartungsteam.
+
+\subsection{Bevor Sie beginnen}\label{subsec:upgrade-core-pre}
+
+Es empfiehlt sich, eine Sicherung von \texttt{/etc/veraweb} und
+\texttt{/var/lib/tomcat7/webapps} zu erstellen.
+
+\begin{minipage}{\textwidth}
+Bevor Sie mit dem eigentlichen Upgrade des VerA.web-core-Systems beginnen
+fahren Sie bitte den dort laufenden Tomcat-Applikationsserver herunter:
+
+\begin{lstdump}{Tomcat undeploy}
+sudo service tomcat7 stop
+ps ax | grep java # sollte maximal grep anzeigen
+\end{lstdump}
+
+Beachten Sie dabei, daß der Tomcat-Dienst ggfs. noch einige Sekunden
+weiterläuft, nachdem der Stop-Befehl abgeschickt wurde; im Zweifelsfalle
+prüfen Sie explizit, ob noch \texttt{java}-Prozesse laufen.
+\end{minipage}
 
 \subsection{Dateien VerA.web-core}\label{subsec:upgrade-core-files}
 
@@ -1655,6 +1712,14 @@ REST-API erreichbar ist, üblicherweise also den Hostnamen vom
 core-System) und tragen Sie die Zugangsdaten für die REST-API
 (siehe \nameref{subsec:intro-restapi}) als \texttt{vwor.auth.user}
 und \texttt{vwor.auth.password} ein.
+\ifoa
+Desweiteren ersetzen Sie bitte \texttt{HOSTNAME-OSIAM} und
+\texttt{HOSTNAME-OA} an allen Stellen durch die Hostnamen
+des OSIAM- bzw. des Online-Anmeldungssystems. Schließlich
+tragen Sie für \texttt{osiam.client.secret} denselben Wert
+ein, den Sie bei der \nameref{subsec:setup-osiam-register}
+als \texttt{vwsecret} gesetzt hatten.
+\fi% oa
 
 \begin{minipage}{\textwidth}
 Legen Sie ein neues Verzeichnis an, in dem Sie die hochgeladenen
@@ -1718,13 +1783,13 @@ Nun muß noch die Konfiguration von Tomcat für die neu hinzugekommene
 REST-API vorgenommen werden.
 
 \begin{minipage}{\textwidth}
-Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat7/context.xml} vor
+Fügen Sie bitte am Ende der Datei\texttt{/etc/tomcat7/context.xml} vor
 das schließende \texttt{</Context>}-Tag folgendes Tag ein, um die
  \ifupgradeanleitung
   Datenbank VerA.web-core
- \else
+ \else% !upgradeanleitung
   \nameref{subsec:setup-core-db}
- \fi
+ \fi% !upgradeanleitung
 für die REST-API verfügbar zu machen:
 
 \begin{lstdump}[language=XML]{Tomcat VWOR JDBC}
@@ -1737,9 +1802,9 @@ Ersetzen Sie jeweils für „veraweb“ den Benutzernamen, das Paßwort und den
 Datenbanknamen, die Sie verwendet haben, falls Sie von den Standardvorgaben
  \ifupgradeanleitung
   im Datenbankkapitel
- \else
+ \else% !upgradeanleitung
   in Kapitel \ref{subsec:setup-core-db}
- \fi
+ \fi% !upgradeanleitung
 abgewichen sind.
 \end{minipage}
 
@@ -1754,6 +1819,39 @@ aber die von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
 <user roles="veraweb" username="veraweb" password="veraweb" />
 \end{lstdump}
 \end{minipage}
+
+\ifoa\ifupgradeanleitung\else% oa !upgradeanleitung
+
+\subsection{Upgrade einer Installation ohne Online-Anmeldung}
+
+Passen Sie in der \texttt{veraweb.properties} bitte den Hostnamen
+in der \texttt{vwor.endpoint}-Eigenschaft an (ersetzen Sie
+\texttt{HOSTNAME-REST} durch den FQDN des Servers, über den die
+REST-API erreichbar ist, üblicherweise also den Hostnamen vom
+core-System) und tragen Sie die Zugangsdaten für die REST-API
+(siehe \nameref{subsec:intro-restapi}) als \texttt{vwor.auth.user}
+und \texttt{vwor.auth.password} ein.
+Desweiteren ersetzen Sie bitte \texttt{HOSTNAME-OSIAM} und
+\texttt{HOSTNAME-OA} an allen Stellen durch die Hostnamen
+des OSIAM- bzw. des Online-Anmeldungssystems. Schließlich
+tragen Sie für \texttt{osiam.client.secret} denselben Wert
+ein, den Sie bei der \nameref{subsec:setup-osiam-register}
+als \texttt{vwsecret} gesetzt haben.
+
+\begin{minipage}{\textwidth}
+Dann installieren Sie die neuen Konfigurationsdateien:
+
+\begin{lstdump}{core add OA}
+sudo install -c -o 0 -g tomcat7 -m 640 config_vwoa.xml /etc/veraweb/
+sudo install -c -o 0 -g tomcat7 -m 640 veraweb.properties /etc/veraweb/
+\end{lstdump}
+\end{minipage}
+
+Richten Sie die beiden anderen Systeme wie in den Kapiteln
+\nameref{sec:setup-osiam} und \nameref{sec:setup-oa} beschrieben
+äquivalent zu einer Neuinstallation ein.
+
+\fi\fi% oa !upgradeanleitung
 
 \subsection{Datenbank VerA.web-core}\label{subsec:upgrade-core-db}
 
@@ -1771,21 +1869,9 @@ verwenden müssen Sie diese hier selbstverständlich anpassen.
 \subsection{Applikationsserver VerA.web-core}\label{subsec:upgrade-core-tomcat}
 
 \begin{minipage}{\textwidth}
-Stoppen Sie bitte zunächst den Applikationsserver:
-
-\begin{lstdump}{Tomcat undeploy}
-sudo service tomcat7 stop
-ps ax | grep java # sollte maximal grep anzeigen
-\end{lstdump}
-
-Beachten Sie dabei, daß der Tomcat-Dienst ggfs. noch einige Sekunden
-weiterläuft, nachdem der Stop-Befehl abgeschickt wurde; im Zweifelsfalle
-prüfen Sie explizit, ob noch \texttt{java}-Prozesse laufen.
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Dann löschen Sie die alten und deployen die neuen Fassungen der
-VerA.web-Kernanwendung und der REST-API und starten den Server wieder:
+Löschen Sie die alten und deployen die neuen Fassungen der
+VerA.web-Kernanwendung und der REST-API und starten den
+Tomcat-Applikationsserver wieder:
 
 \begin{lstdump}{Tomcat deploy}
 sudo rm -rf /var/lib/tomcat7/webapps/veraweb*
@@ -1806,9 +1892,53 @@ rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 \end{lstdump}
 \end{minipage}
 
-Damit ist das Upgrade abgeschlossen.
+Prüfen Sie ggfs. die Logausgaben\Hair\footnote{\label{fn:tomcatlogs}in
+\texttt{/var/log/tomcat7/catalina.out}}, ob die REST-API verfügbar
+ist\Hair\footnote{\label{fn:vworcheck}mit
+\texttt{curl https://veraweb:veraweb@\$(hostname -f)/vwor/rest/available/; echo}%
+}, und, über die Weboberfläche, die Verfügbarkeit von VerA.web-core.
 
-\fi% !ifoa - XXX FIXME
+\ifoa
+
+\section{Upgrade Online-Anmeldung}\label{sec:upgrade-oa}
+
+Im folgenden wird beschrieben, wie Sie die Installation der
+VerA.web-Online-Anmeldung auf den neuesten Stand bringen.
+Hierbei wird davon ausgegangen, daß diese gemäß
+ \ifupgradeanleitung
+  unserer Installationsanleitung ab Version 1.7.4
+ \else% !upgradeanleitung
+  dem Abschnitt \nameref{sec:setup-oa} der vorliegenden Anleitung,
+  mindestens Version 1.7.4,
+ \fi% !upgradeanleitung
+auf einem Debian Linux 7 „wheezy“-System eingerichtet wurde.
+Falls Sie eine ältere Installation der Online-Anmeldung besitzen
+empfehlen wir Ihnen stattdessen eine Neuinstallation, da die
+Installationsmethode seinerzeit noch nicht ausgereift war.
+
+\begin{minipage}{\textwidth}
+Kopieren Sie bitte die Datei \texttt{online-anmeldung-\vwiaverssw{}.jar}
+auf den Server, auf dem die Online-Anmeldung betrieben wird, und führen
+Sie dort folgende Befehle aus:
+
+\begin{lstdump}{Upgrade OA}
+mv online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar vwoa.jar
+sudo install -c -o 0 -g 0 -m 644 vwoa.jar /service/vwoa/
+sudo svc -t /service/vwoa
+rm -f vwoa.jar
+\end{lstdump}
+\end{minipage}
+
+Mit dem Befehl \texttt{svstat /service/vwoa} sollten Sie danach
+festellen können, daß der Dienst vor wenigen Sekunden neugestartet
+wurde, aber nicht in eine Endlos-Neustartschleife läuft (also
+die Sekunden weiterhin hochgezählt werden). Prüfen Sie ggfs. die
+Logausgaben\Hair\footnote{in \texttt{/var/log/vwoa/vwoa.log}}
+und die Verfügbarkeit des Dienstes über die Weboberfläche.
+
+\fi% oa
+
+Damit ist das Upgrade abgeschlossen.
 
 \section{Weitere Fragen}\label{sec:outro}
 
@@ -1843,6 +1973,8 @@ haben, kontaktieren Sie bitte unseren Produktvertrieb.
   \dash Detaillierte OSIAM-Referenzinstallationsanleitung}
 \fi% oa
 \end{itemize}
+
+\ifupgradeanleitung\else% !upgradeanleitung
 
 \section{Referenzkonfigurationen}\label{sec:refcfg}
 
@@ -1953,7 +2085,7 @@ Betrifft: core
 
 \ifoa
 Betrifft: OSIAM, core
-\fi
+\fi% oa
 
 \begin{lstdump}{/etc/tomcat7/server.xml}
 %TODO
@@ -2008,3 +2140,5 @@ Betrifft: core
 \begin{lstdump}{/etc/veraweb/vwor.properties}
 %TODO
 \end{lstdump}
+
+\fi% !upgradeanleitung
