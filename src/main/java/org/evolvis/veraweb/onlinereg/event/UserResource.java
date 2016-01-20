@@ -123,7 +123,7 @@ public class UserResource {
 
         final String activationToken = UUID.randomUUID().toString();
         sendEmailVerification(email, activationToken);
-        addOsiamUserActivationEntry(activationToken);
+        addOsiamUserActivationEntry(osiam_username, activationToken);
 
         return StatusConverter.convertStatus("OK");
     }
@@ -136,8 +136,12 @@ public class UserResource {
     }
 
 
-    private void addOsiamUserActivationEntry(String activationToken) {
+    private void addOsiamUserActivationEntry(String osiamUsername, String activationToken) {
         final Form postBody = new Form();
+        postBody.add("activation_token", activationToken);
+        postBody.add("username", osiamUsername);
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/activation");
+        resource.post(postBody);
     }
 
     private void sendEmailVerification(String email, String activationToken) {
