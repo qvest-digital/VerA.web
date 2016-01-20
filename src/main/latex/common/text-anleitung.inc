@@ -939,13 +939,17 @@ rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
 
 \section{Installation internes VerA.web-System}\label{sec:setup-int}
 
-Kopieren Sie bitte zunächst die Dateien
-\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
 \ifoa
-und \texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
-\fi% oa
-(oder deren ZIP-Äquivalent; in dieser Anleitung verwenden wir
-die tar.gz-Variante), \texttt{veraweb-core-\vwiaverssw{}.war}
+Kopieren Sie bitte zunächst die „\texttt{files}-Dateien“
+\texttt{veraweb-core-\vwiaverssw{}-files.tgz} und\linebreak[1]
+\texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
+\else% !oa
+Kopieren Sie bitte zunächst die Datei
+\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
+\fi% !oa
+(oder deren ZIP-Äquivalent; in dieser Anleitung verwenden
+wir die tar.gz-Variante) sowie die Installationsarchive
+\texttt{veraweb-core-\vwiaverssw{}.war}
 und \texttt{rest-api-\vwiaverssw{}.war} auf den core-Server.
 
 \begin{minipage}{\textwidth}
@@ -1527,13 +1531,17 @@ und Wartungsteam.
 
 \subsection{Dateien VerA.web-core}\label{subsec:upgrade-core-files}
 
-Kopieren Sie bitte zunächst die Dateien
-\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
 \ifoa
-und \texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
-\fi% oa
-(oder deren ZIP-Äquivalent; in dieser Anleitung verwenden wir
-die tar.gz-Variante), \texttt{veraweb-core-\vwiaverssw{}.war}
+Kopieren Sie bitte zunächst die „\texttt{files}-Dateien“
+\texttt{veraweb-core-\vwiaverssw{}-files.tgz} und\linebreak[1]
+\texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
+\else% !oa
+Kopieren Sie bitte zunächst die Datei
+\texttt{veraweb-core-\vwiaverssw{}-files.tgz}
+\fi% !oa
+(oder deren ZIP-Äquivalent; in dieser Anleitung verwenden
+wir die tar.gz-Variante) sowie die Installationsarchive
+\texttt{veraweb-core-\vwiaverssw{}.war}
 und \texttt{rest-api-\vwiaverssw{}.war} auf den core-Server.
 
 \begin{minipage}{\textwidth}
