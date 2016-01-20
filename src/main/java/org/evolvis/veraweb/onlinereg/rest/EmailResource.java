@@ -27,19 +27,18 @@ public class EmailResource extends AbstractResource {
 
     @POST
     @Path("/confirmation/send")
-    public void sendEmailVerification(@FormParam("email") String email, @FormParam("endpoint") String endpoint) throws MessagingException {
+    public void sendEmailVerification(@FormParam("email") String email, @FormParam("endpoint") String endpoint, @FormParam("activation_token") String activation_token) throws MessagingException {
         if (emailConfiguration == null) {
             emailConfiguration = new EmailConfiguration();
         }
         if (mailDispatcher == null) {
             mailDispatcher = new MailDispatcher();
         }
-        mailDispatcher.send(email, emailConfiguration.getSubject(), emailConfiguration.getContent(), getActivationLink(endpoint));
+        mailDispatcher.send(email, emailConfiguration.getSubject(), emailConfiguration.getContent(), getActivationLink(endpoint, activation_token));
     }
 
-    private String getActivationLink(String endpoint) {
-        final UUID uuid = UUID.randomUUID();
-        return endpoint + "user/activate/" + uuid;
+    private String getActivationLink(String endpoint, String activation_token) {
+        return endpoint + "user/activate/" + activation_token;
     }
 
     public EmailConfiguration getEmailConfiguration() {
