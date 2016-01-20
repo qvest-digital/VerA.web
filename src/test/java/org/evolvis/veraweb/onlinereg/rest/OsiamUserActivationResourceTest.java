@@ -1,0 +1,63 @@
+package org.evolvis.veraweb.onlinereg.rest;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.servlet.ServletContext;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+/**
+ * @author Atanas Alexandrov, tarent solutions GmbH
+ */
+@RunWith(MockitoJUnitRunner.class)
+public class OsiamUserActivationResourceTest {
+
+    private OsiamUserActivationResource osiamUserActivationResource;
+    @Mock
+    private static SessionFactory sessionFactory;
+    @Mock
+    private static Session session;
+
+    @Before
+    public void setUp() throws Exception {
+        osiamUserActivationResource = new OsiamUserActivationResource();
+        osiamUserActivationResource.context = mock(ServletContext.class);
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        sessionFactory.close();
+
+        session.disconnect();
+        session.close();
+    }
+
+    private void prepareSession() {
+        when(osiamUserActivationResource.context.getAttribute("SessionFactory")).thenReturn(sessionFactory);
+        when(sessionFactory.openSession()).thenReturn(session);
+    }
+
+    @Test
+    public void testAddOsiamUserActivationEntry() throws Exception {
+        // GIVEN
+        prepareSession();
+
+        // WHEN
+        osiamUserActivationResource.addOsiamUserActivationEntry("username", "token");
+
+        // THEN
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
+    }
+}
