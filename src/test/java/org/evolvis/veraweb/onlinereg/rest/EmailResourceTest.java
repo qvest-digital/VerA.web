@@ -37,10 +37,10 @@ public class EmailResourceTest {
 
     @Test
     public void testSendEmailVerification() throws Exception {
-        emailResource.sendEmailVerification("test@test.com");
-        doNothing().when(mailDispatcher).send(any(String.class),any(String.class),any(String.class));
+        emailResource.sendEmailVerification("test@test.com", "http://endpoint.de/rest/");
+        doNothing().when(mailDispatcher).send(any(String.class),any(String.class),any(String.class),any(String.class));
 
-        verify(mailDispatcher, times(1)).send(any(String.class),any(String.class),any(String.class));
+        verify(mailDispatcher, times(1)).send(any(String.class),any(String.class),any(String.class),any(String.class));
         verify(emailConfiguration, times(1)).getSubject();
         verify(emailConfiguration, times(1)).getContent();
     }

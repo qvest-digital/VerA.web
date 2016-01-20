@@ -12,6 +12,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MailDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.UUID;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -37,9 +38,10 @@ public class MailDispatcher {
         this.password = emailConfiguration.getPassword();
     }
 
-    public void send(String to, String subject, String text) throws MessagingException {
+    public void send(String to, String subject, String text, String link) throws MessagingException {
+        final String emailContent = text.replace("${link}", link);
         final Session session = getSession();
-        final Message message = getMessage(session, to, subject, text);
+        final Message message = getMessage(session, to, subject, emailContent);
         final Transport transport = session.getTransport("smtp");
         transport.connect(host, username, password);
         transport.sendMessage(message, message.getAllRecipients());
