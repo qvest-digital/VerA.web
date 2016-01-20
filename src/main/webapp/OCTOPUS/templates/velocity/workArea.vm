@@ -98,7 +98,7 @@
 
 #parse("inc/footer.vm")
 
-<script>	
+<script>
 	$(document).ready(function(){
 	    $('.add-name').keypress(function(e){
 	      if(e.keyCode==13){

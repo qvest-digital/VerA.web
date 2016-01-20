@@ -27,7 +27,7 @@ word() {
 
 	allwords="$allwords $keyword"
 	eval g_$2=\$gender kwS$2=\$singular kwP$2=\$plural kwN$2=\$singular
-	
+
 }
 
 #ADDED SECTION

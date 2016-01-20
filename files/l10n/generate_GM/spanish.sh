@@ -29,7 +29,7 @@ word() {
 
 	allwords="$allwords $keyword"
 	eval g_$2=\$gender kwS$2=\$singular kwP$2=\$plural kwN$2=\$plural
-	
+
 }
 
 #ADDED SECTION
@@ -45,7 +45,7 @@ word m DOCUMENT_TYPE "tipo de documento" "tipos de documento"
 word m EMAIL e-mail
 word m EVENT evento
 word f EVENT_LOCATION "localización de evento" "localizaciones de evento"
-word m GUEST invitado 
+word m GUEST invitado
 word m MAIL_DRAFT asunto
 word m OFFICIAL_TITLE título
 word f PERSON persona

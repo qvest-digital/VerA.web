@@ -465,7 +465,7 @@
 		var textWarnNoBack = "${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden}";
 
 		msg += '<br><span class="notBold">' + textCancelDeletion + ' </span><br>' + textConfirmDeletion + ' ' + textWarnNoBack + ' <br>';
-		
+
         $(".errormsg").remove();
 		$(".successmsg").remove();
 

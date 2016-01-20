@@ -7,7 +7,7 @@
 		<td colspan="99">
 
 			<span class="amount" id="listnavitext">
-                $start - $stop ${placeholderWithTranslation.GENERIC_OF} $listparam.count  
+                $start - $stop ${placeholderWithTranslation.GENERIC_OF} $listparam.count
                 #if(${language} == "de_DE")
 	            	$itemName
 	            #else

@@ -73,13 +73,13 @@ public class FunctionWorker extends StammdatenWorker {
     		return ;
     	}
     }
-    
-    @Override 
+
+    @Override
     public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
-    	super.saveList(octopusContext); 
+    	super.saveList(octopusContext);
     }
-    
-    @Override 
+
+    @Override
     public List showList(OctopusContext octopusContext) throws BeanException, IOException {
     	return super.showList(octopusContext);
     }

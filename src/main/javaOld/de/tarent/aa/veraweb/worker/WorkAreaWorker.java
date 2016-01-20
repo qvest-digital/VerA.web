@@ -191,7 +191,7 @@ public class WorkAreaWorker extends StammdatenWorker
 			cntx.setContent( "count", count );
 		}
 	}
-	
+
 	@Override
 	public List showList(OctopusContext octopusContext) throws BeanException, IOException {
 		if(octopusContext.getContextField("listerrors") != null){
@@ -201,7 +201,7 @@ public class WorkAreaWorker extends StammdatenWorker
 		}
 		return super.showList(octopusContext);
 	}
-	
+
 	@Override
 	public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
 		super.saveList(octopusContext);

@@ -57,7 +57,7 @@ public class EventFunctionWorker extends ListWorkerVeraWeb {
      */
     @Override
     public List showList(OctopusContext octopusContext) throws IOException, BeanException {
-        
+
         Integer countRemove = (Integer) octopusContext.getContextField("countRemove");
         Integer countUpdate = (Integer) octopusContext.getContextField("countUpdate");
         Integer countInsert = (Integer) octopusContext.getContextField("countInsert");

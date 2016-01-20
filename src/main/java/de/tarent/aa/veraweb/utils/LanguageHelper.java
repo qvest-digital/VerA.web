@@ -57,7 +57,7 @@ public class LanguageHelper {
     public String give(String enter) {
         return enter;
     }
-    
+
     public String makeFirstLetterLowerCase (String input) {
         Locale.setDefault(new Locale("en"));
         char c[] = input.toCharArray();

@@ -28,7 +28,7 @@ word() {
 	keyword=$1
 	singular=$2
 	plural=${3:-$singular}s
-	
+
 	allwords="$allwords $keyword"
 	eval g_$1=\$gender kwS$1=\$singular kwP$1=\$plural kwN$1=\$plural
 }
@@ -65,7 +65,7 @@ for x in $allwords; do
 				case "$addedwords" in *"$x"*)
 					eval "echo GM_${x}_${y}_${z}=\$kw$z \$new_$y \$kw$z$x \$ve$z \$kw_$y."
 				esac
-			else 
+			else
 				eval "echo GM_${x}_${y}_${z}=\$kw$z \$new_$y \$kw$z$x \$ve$z \$kw_$y."
 			fi
 		done

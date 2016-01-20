@@ -23,7 +23,7 @@
 	<div style="visibility:hidden"class="msgEmpty msg errormsg">
 		${placeholderWithTranslation.LABELLING_MUST_NOT_BE_EMPTY}
 	</div>
-	
+
 	<form id="formlist" name="formlist" action="Function" method="POST">
 		<input type="hidden" name="doInsert" value="true">
 		<input type="hidden" name="doUpdate" value="true">
@@ -102,7 +102,7 @@ $(function () {
         if(event.which === 13){
             event.preventDefault();
             $('#buttonSave').trigger('click');
-        } 
+        }
     });
 });
 $( document ).ready(function() {
@@ -114,11 +114,11 @@ function checkForNewEntry(){
 	if(newName.length>0)
             setModified('add');
 	};
-	
+
 function checkIfEmpty(e){
 	var i;
-	
-	
+
+
 	if(e.value.length>0){
 		if(emptyInputs.length>0){
 			if(jQuery.inArray(e.name, emptyInputs) !== -1){
