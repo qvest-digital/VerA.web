@@ -121,7 +121,9 @@ public class UserResource {
         user = initUser(osiam_username, osiam_firstname, osiam_secondname, osiam_password1, email, person.getPk());
         osiamClient.createUser(accessToken, user);
 
-        sendEmailVerification(email);
+        final String activationToken = UUID.randomUUID().toString();
+        sendEmailVerification(email, activationToken);
+        addOsiamUserActivationEntry(activationToken);
 
         return StatusConverter.convertStatus("OK");
     }
@@ -133,11 +135,16 @@ public class UserResource {
         return StatusConverter.convertStatus("OK");
     }
 
-    private void sendEmailVerification(String email) {
+
+    private void addOsiamUserActivationEntry(String activationToken) {
+        final Form postBody = new Form();
+    }
+
+    private void sendEmailVerification(String email, String activationToken) {
         final Form postBody = new Form();
         postBody.add("email", email);
         postBody.add("endpoint", config.getOnlineRegistrationEndpoint());
-        postBody.add("activation_token", UUID.randomUUID());
+        postBody.add("activation_token", activationToken);
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/email/confirmation/send");
         resource.post(postBody);
     }
