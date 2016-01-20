@@ -402,7 +402,7 @@ Skripte.
 \rowfont\bfseries\multicolumn{5}{c}{Legende}\\[0.2cm]
  Erste Spalte: & \multicolumn{2}{l}{%
 			\tikz \node[thick,rectangle,draw=Violet] {};
-			PostgreSQL-Datenbank} &
+			Systemdienst (LDAP, PostgreSQL)} &
 		 \multicolumn{2}{l}{%
 			\tikz \node[thick,rectangle,draw=black] {};
 			Skript (Installation/Upgrade)}\\
