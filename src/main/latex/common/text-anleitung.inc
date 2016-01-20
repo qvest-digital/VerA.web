@@ -610,7 +610,7 @@ Debian 7 „wheezy“.} aus) und \texttt{mod\_jk} sowie den
 Applikationsserver Tomcat 7 mit der Java™ 7 Laufzeitumgebung (OpenJDK)
 ohne GUI (headless).
 
-\Warning \emph{Achtung:} Java™ 6 oder älter wird nicht unterstützt
+⚠ \emph{Achtung:} Java™ 6 oder älter wird nicht unterstützt
 und führt während der Installation zu Fehlern!
 
 \subsubsection{Mailserver (MTA)}\label{subsubsec:req-core-mta}
@@ -767,7 +767,7 @@ JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 \end{minipage}
 
 Suchen Sie die Stelle, wo \texttt{-Xmx128m} in den \texttt{JAVA\_OPTS}
-gesetzt wird. \Warning \emph{Achtung:} das erste Vorkommnis dieser
+gesetzt wird. ⚠ \emph{Achtung:} das erste Vorkommnis dieser
 Option ist ein Kommentar und nicht die gesuchte Stelle! Ändern Sie
 diesen Wert auf \texttt{-Xms512m -Xmx1024m} falls die VM über mehr
 als 1280 MiB RAM verfügt, \texttt{-Xmx512m} andernfalls.
@@ -1418,7 +1418,7 @@ sudo ln -sf etc/service /service
 \end{lstdump}
 \end{minipage}
 
-\Warning \emph{Achtung:} Das \texttt{daemontools-run}-Paket bedingt
+⚠ \emph{Achtung:} Das \texttt{daemontools-run}-Paket bedingt
 die Nutzung von SysV init (Paket \texttt{sysvinit-core} ab Debian 8
 „jessie“\Hair\textsuperscript{\ref{fn:jessie}}) statt systemd!
 
@@ -1504,8 +1504,8 @@ der Version \vwiaversosiam{} (enthalten in der OSIAM Distribution
 Version \vwiaversodist{}) und ist \emph{nur} mit dieser Version
 getestet worden.\keinumbruch
 
-\Warning \emph{Achtung:} OSIAM Server 2.3 und neuer können
-nicht von VerA.web-Versionen bevor 1.6.34 angesprochen werden.
+⚠ \emph{Achtung:} OSIAM Server 2.3 und neuer können nicht von
+VerA.web-Versionen bevor 1.6.34 angesprochen werden.
 
 Dieses Kapitel beschreibt, wie ein für VerA.web installiertes,
 ansonsten minimales, OSIAM auf die neue Version aktualisiert
