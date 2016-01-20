@@ -31,7 +31,6 @@
 %-
 % TODO tglase:
 % - Struktur: do not use cross-references; duplicate content (KISS)
-% - Mail (alt); MTA setup
 % - Apache, SSL, …
 % - LDAP: slapd, lam
 % - svc: primer on service management with DJB dæmontools
@@ -320,8 +319,8 @@ für OSIAM.
 \subsubsection{Komponentendiagramm}\label{subsubsec:intro-overview-fine}
 
 In dieser Darstellung schlüsseln wir die verwendeten Komponenten
-detailliert auf. In der linken Spalte finden Sie jeweils die
-Datenbasis (LDAP-Server oder PostgreSQL-Datenbank), in der zweiten
+detailliert auf. In der linken Spalte finden Sie Systemdienste
+(LDAP, Mailserver) und PostgreSQL-Datenbanken, in der zweiten
 Spalte finden Sie die eigentlichen Dienste, in der dritten Spalte
 die zugehörigen Apache-Frontends, und in der vierten Spalte die
 Benutzer. In schwarzen Kästen befinden sich jeweils zugehörige
@@ -337,6 +336,7 @@ Skripte.
   microsvc/.style={above right,rectangle,draw=Orange,minimum width=32mm},
   webapp/.style={above right,rectangle,draw=red,minimum width=32mm},
   syssvc/.style={above right,rectangle,draw=Violet,minimum width=25mm},
+  sysmta/.style={above right,rectangle,draw=Violet,minimum width=15mm},
   scrptr/.style={above right,rectangle,draw=black,minimum width=25mm},
   scrptl/.style={above left,rectangle,draw=black,minimum width=25mm},
   people/.style={above left,rectangle,draw=CornflowerBlue,minimum width=12mm},
@@ -345,46 +345,49 @@ Skripte.
 
 % \draw (0mm,0mm) -- (0mm,120mm) -- (173mm,120mm) -- (173mm,0mm) -- (0mm,0mm);
 
-  \fill[red!20] (2mm,3mm) -- (171mm,3mm) -- (171mm,40mm) -- (36mm,40mm) -- (36mm,35mm) -- (2mm,35mm);
-  \fill[yellow!40] (36mm,43mm) -- (121mm,43mm) -- (121mm,58mm) -- (36mm,58mm);
-  \fill[green!20] (2mm,36mm) -- (33mm,36mm) -- (33mm,61mm) -- (121mm,61mm) -- (121mm,94mm) -- (2mm,94mm);
+  \fill[red!20] (2mm,3mm) -- (171mm,3mm) -- (171mm,39mm) -- (36mm,39mm) -- (36mm,34mm) -- (2mm,34mm);
+  \fill[yellow!40] (36mm,42mm) -- (121mm,42mm) -- (121mm,57mm) -- (36mm,57mm);
+  \fill[green!20] (2mm,35mm) -- (33mm,35mm) -- (33mm,61mm) -- (121mm,61mm) -- (121mm,94mm) -- (2mm,94mm);
   \fill[blue!20] (2mm,96mm) -- (121mm,96mm) -- (121mm,111mm) -- (2mm,111mm);
 
   \node[apache]   (alam)   at ( 79mm,99mm) {LDAP Account Mgr};
   \node[apache]   (acore)  at ( 79mm,82mm) {VerA.web-core};
-  \node[apache]   (avwor)  at ( 79mm,64mm) {REST-API};
-  \node[apache]   (avwoa)  at ( 79mm,46mm) {Online-Anmeldung};
-  \node[apache]   (aosiam) at ( 79mm,19mm) {OSIAM};
-  \node[microsvc] (svwoa)  at ( 39mm,46mm) {VWOA};
+  \node[apache]   (avwor)  at ( 79mm,63mm) {REST-API};
+  \node[apache]   (avwoa)  at ( 79mm,45mm) {Online-Anmeldung};
+  \node[apache]   (aosiam) at ( 79mm,18mm) {OSIAM};
+  \node[microsvc] (svwoa)  at ( 39mm,45mm) {VWOA};
   \node[webapp]   (score)  at ( 39mm,82mm) {core};
-  \node[webapp]   (svwor)  at ( 39mm,64mm) {VWOR};
-  \node[webapp]   (sauth)  at ( 39mm,28mm) {auth-server};
-  \node[webapp]   (srsrc)  at ( 39mm,10mm) {resource-server};
+  \node[webapp]   (svwor)  at ( 39mm,63mm) {VWOR};
+  \node[webapp]   (sauth)  at ( 39mm,27mm) {auth-server};
+  \node[webapp]   (srsrc)  at ( 39mm, 9mm) {resource-server};
   \node[syssvc]   (ldap)   at (  4mm,99mm) {LDAP-Server};
-  \node[syssvc]   (dbvw)   at (  4mm,53mm) {veraweb DB};
-  \node[syssvc]   (dbong)  at (  4mm,19mm) {ong DB};
-  \node[scrptr]   (usql)   at (  4mm,38mm) {upgrade.sql};
-  \node[scrptl]   (riosh)  at (167mm,19mm) {register-into-osiam.sh};
+  \node[syssvc]   (dbvw)   at (  4mm,52mm) {veraweb DB};
+  \node[syssvc]   (dbong)  at (  4mm,18mm) {ong DB};
+  \node[sysmta]   (mta)    at ( 14mm,71mm) {MTA};
+  \node[scrptr]   (usql)   at (  4mm,37mm) {upgrade.sql};
+  \node[scrptl]   (riosh)  at (167mm,18mm) {register-into-osiam.sh};
   \node[people]   (admins) at (167mm,99mm) {Admins};
   \node[people]   (sb)     at (167mm,82mm) {Sachbearbeiter};
-  \node[people]   (guests) at (167mm,46mm) {Gäste};
-  \node[acloud]   (inet)   at (129mm,48mm) {};
+  \node[people]   (guests) at (167mm,45mm) {Gäste};
+  \node[acloud]   (inet)   at (129mm,47mm) {};
 
   \draw[thick,->] (admins) -- ([yshift=3mm]alam);
   \draw[thick,->] (alam) -- (ldap);
   \draw[thick,->] ([yshift=-6mm]admins) -| +(-32mm,0mm) |- ([yshift=3mm]acore);
   \draw[thick,->] (acore) -- (score);
-  \draw[thick,->] ([yshift=3mm]score) -| (ldap);
+  \draw[thick,->] ([yshift=5mm]score) -| (ldap);
   \draw[thick,->] (sb) -- (acore);
-  \draw[thick,->] ([yshift=-3mm]score) -| (dbvw);
-  \draw[thick,->] ([xshift=4mm]score) |- ++(112mm,-8mm) |- ++(-20mm,-38mm) -| ([xshift=6mm]aosiam);
-  \draw[thick,->] (score) |- +(25mm,-10mm) -| (avwor);
+  \draw[thick,->] (score) -| ([xshift=-7mm]dbvw.north);
+  \draw[thick,->] ([yshift=-5mm]score) -| (mta);
+  \draw[thick,->] (svwor) -| (mta);
+  \draw[thick,->] ([xshift=4mm]score) |- ++(112mm,-8mm) |- ++(-20mm,-39mm) -| ([xshift=6mm]aosiam);
+  \draw[thick,->] (score) |- +(25mm,-11mm) -| (avwor);
   \draw[thick,->] (guests) -- (inet);
   \draw[thick,->] (inet) -- (avwoa);
   \draw[thick,->] (avwoa) -- (svwoa);
   \draw[thick,->] (svwoa) |- +(25mm,9mm) -| (avwor);
   \draw[thick,->] (avwor) -- (svwor);
-  \draw[thick,->] (svwor) -| ([xshift=6mm]dbvw);
+  \draw[thick,->] ([yshift=-4mm]svwor) -| ([xshift=6mm]dbvw);
   \draw[thick,->] (usql) -- (dbvw);
   \draw[thick,<->] ([yshift=3mm]aosiam) -| (sauth);
   \draw[thick,<->] ([yshift=-3mm]aosiam) -| (srsrc);
@@ -400,12 +403,11 @@ Skripte.
 
 \begin{tabu} to \linewidth {rllll}
 \rowfont\bfseries\multicolumn{5}{c}{Legende}\\[0.2cm]
- Erste Spalte: & \multicolumn{2}{l}{%
+ Erste Spalte: & \tikz \node[thick,rectangle,draw=black] {}; Skript &
+		 \multicolumn{3}{l}{%
 			\tikz \node[thick,rectangle,draw=Violet] {};
-			Systemdienst (LDAP, PostgreSQL)} &
-		 \multicolumn{2}{l}{%
-			\tikz \node[thick,rectangle,draw=black] {};
-			Skript (Installation/Upgrade)}\\
+			Systemdienst (LDAP, Mailserver,
+			PostgreSQL-Datenbank)}\\
 Zweite Spalte: & \multicolumn{2}{l}{%
 			\tikz \node[thick,rectangle,draw=red] {};
 			Webservice (WAR) in Tomcat} &
@@ -605,6 +607,13 @@ ohne GUI (headless).
 
 \Warning \emph{Achtung:} Java™ 6 oder älter wird nicht unterstützt
 und führt während der Installation zu Fehlern!
+
+\subsubsection{Mailserver (MTA)}\label{subsubsec:req-core-mta}
+
+Auf dem Server für VerA.web core und REST-API muß ein Mailserver
+installiert sein, der lokale Verbindungen auf Port 25 entgegennimmt
+und die eingehenden Nachrichten, ggfs. über einen als Smarthost
+eingestellten anderen Mailserver, zustellt.
 
 \ifoa
 
