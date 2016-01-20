@@ -12,25 +12,31 @@ import java.util.Date;
 /**
  * Created by tzimme on 19.01.16.
  */
-@Path("/osiamUserActivation")
+@Path("/osiam/user/activation")
 public class OsiamUserActivationResource extends AbstractResource {
 
+    private Integer linkValidityPeriodInDays;
+
     @POST
-    @Path("/user/new")
-    public void persistNewUser(@FormParam("username") String username, @FormParam("activation_token") String activation_token) {
-        int linkValidityPeriod = 3;//days
-        Date expiration_date=getExpirationDate(linkValidityPeriod);
-        OsiamUserActivation newUser=new OsiamUserActivation(username,expiration_date,activation_token);
+    @Path("/")
+    public void persistNewUser(@FormParam("username") String username, @FormParam("activation_token") String activationToken) {
         final Session session = openSession();
-        session.persist(newUser);
-        session.flush();
+        try {
+            final Date expirationDate = getExpirationDate();
+            final OsiamUserActivation osiamUserActivationEntry = new OsiamUserActivation(username, expirationDate, activationToken);
+            session.persist(osiamUserActivationEntry);
+            session.flush();
+        } finally {
+            session.close();
+        }
     }
 
-    public Date getExpirationDate(int validityPeriod){
-        Date today= new Date();
-        Calendar c=Calendar.getInstance();
-        c.setTime(today);
-        c.add(Calendar.DATE, validityPeriod);
-        return c.getTime();
+    private Date getExpirationDate(){
+        linkValidityPeriodInDays = 3;
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE, linkValidityPeriodInDays);
+
+        return calendar.getTime();
     }
 }
