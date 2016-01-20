@@ -1834,10 +1834,9 @@ nicht-normative Dokumentation zu verstehen.
 
 \subsection{/etc/apache2/sites-enabled/000-default}\label{subsec:refcfg-apache-default}
 
-Diese Datei ist quasi identisch, nur das Ziel der Weiterleitung
-unterscheidet sich, je nach Host.
 \ifoa
-Betrifft: alle
+Diese Datei ist quasi identisch, nur das Ziel der Weiterleitung
+unterscheidet sich, je nach Host. Betrifft: alle
 \fi% oa
 
 \begin{lstdump}{/etc/apache2/sites-enabled/000-default}
