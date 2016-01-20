@@ -1534,7 +1534,7 @@ sudo service tomcat7 start
 \end{minipage}
 
 Prüfen Sie ggfs. die Logausgaben\Hair\textsuperscript{\ref{fn:tomcatlogs}}
-und Verfügbarkeit\Hair\footnote{\label{fn:osiamcheck}mit
+und Verfügbarkeit\Hair\footnote{\label{fn:osiamcheck}mit:
 \texttt{curl https://\$(hostname -f)/osiam-resource-server/ServiceProviderConfigs; echo}%
 } des OSIAM-Dienstes\Hair\footnote{\label{fn:osiamsvcchk}nur der
 Resource-Server; der Auth-Server bietet aktuell keine einfache Prüfmethode an}.
@@ -1894,7 +1894,7 @@ rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 
 Prüfen Sie ggfs. die Logausgaben\Hair\footnote{\label{fn:tomcatlogs}in
 \texttt{/var/log/tomcat7/catalina.out}}, ob die REST-API verfügbar
-ist\Hair\footnote{\label{fn:vworcheck}mit
+ist\Hair\footnote{\label{fn:vworcheck}mit:
 \texttt{curl https://veraweb:veraweb@\$(hostname -f)/vwor/rest/available/; echo}%
 }, und, über die Weboberfläche, die Verfügbarkeit von VerA.web-core.
 
