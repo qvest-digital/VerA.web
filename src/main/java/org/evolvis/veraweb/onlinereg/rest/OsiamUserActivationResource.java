@@ -19,7 +19,7 @@ public class OsiamUserActivationResource extends AbstractResource {
 
     @POST
     @Path("/")
-    public void persistNewUser(@FormParam("username") String username, @FormParam("activation_token") String activationToken) {
+    public void addOsiamUserActivationEntry(@FormParam("username") String username, @FormParam("activation_token") String activationToken) {
         final Session session = openSession();
         try {
             final Date expirationDate = getExpirationDate();
