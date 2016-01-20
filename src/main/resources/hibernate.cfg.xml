@@ -28,6 +28,7 @@
         <mapping class="org.evolvis.veraweb.onlinereg.entities.PersonCategory"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalFieldType"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent"/>
+        <mapping class="org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation"/>
 
     </session-factory>
 </hibernate-configuration>

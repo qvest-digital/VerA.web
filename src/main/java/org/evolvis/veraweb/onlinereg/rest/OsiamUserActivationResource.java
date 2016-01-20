@@ -12,13 +12,13 @@ import java.util.Date;
 /**
  * Created by tzimme on 19.01.16.
  */
-@Path("/osiam/user/activation")
+@Path("/osiam/user")
 public class OsiamUserActivationResource extends AbstractResource {
 
     private Integer linkValidityPeriodInDays;
 
     @POST
-    @Path("/")
+    @Path("/activation")
     public void addOsiamUserActivationEntry(@FormParam("username") String username, @FormParam("activation_token") String activationToken) {
         final Session session = openSession();
         try {
