@@ -87,6 +87,7 @@ Installation beschrieben; ein Betrieb ist auch mit abweichender
 Konfiguration (z.B. ohne Apache) möglich, aber nicht durch dieses
 Dokument abgedeckt.
 
+\begin{minipage}{\textwidth}
 Alle Code-Listings finden Sie auch nochmal als Plaintext unter
 \texttt{\jobname.lst} im „files“-Tarball
 (\texttt{veraweb-core-\vwiaverssw{}-files.tgz} \emph{oder}
@@ -94,6 +95,11 @@ Alle Code-Listings finden Sie auch nochmal als Plaintext unter
 \nameref{subsec:intro-distro}).
 Zwecks Zuordnung finden Sie die Listing-Nummern am äußeren
 Seitenrand bzw. als Teil der Überschrift in der Listing-Datei.
+
+\begin{lstdumpx}
+Dies ist beispielsweise Listing 1.
+\end{lstdumpx}
+\end{minipage}
 
 Die Installation von VerA.web ist äußerst flexibel und anpaßbar.
 In dieser Anleitung haben wir daher einige Annahmen getroffen, um
