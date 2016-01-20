@@ -37,6 +37,7 @@ import org.osiam.resources.scim.User;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -118,14 +119,23 @@ public class UserResource {
 
         user = initUser(osiam_username, osiam_firstname, osiam_secondname, osiam_password1, email, person.getPk());
         osiamClient.createUser(accessToken, user);
+
         sendEmailVerification(email);
 
+        return StatusConverter.convertStatus("OK");
+    }
+
+    @GET
+    @Path("/activate/{activationToken}")
+    public String activateUser(@PathParam("activationToken") String activationToken) {
+        System.out.println("Mockup...");
         return StatusConverter.convertStatus("OK");
     }
 
     private void sendEmailVerification(String email) {
         final Form postBody = new Form();
         postBody.add("email", email);
+        postBody.add("endpoint", config.getOnlineRegistrationEndpoint());
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/email/confirmation/send");
         resource.post(postBody);
     }
