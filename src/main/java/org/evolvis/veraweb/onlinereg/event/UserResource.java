@@ -45,6 +45,7 @@ import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.UUID;
 
 import lombok.Getter;
 
@@ -136,6 +137,7 @@ public class UserResource {
         final Form postBody = new Form();
         postBody.add("email", email);
         postBody.add("endpoint", config.getOnlineRegistrationEndpoint());
+        postBody.add("activation_token", UUID.randomUUID());
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/email/confirmation/send");
         resource.post(postBody);
     }

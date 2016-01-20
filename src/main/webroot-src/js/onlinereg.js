@@ -74,6 +74,9 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
     }).when('/page_not_found', {
         templateUrl: 'partials/page_not_found.html',
         controller: 'PageNotFoundController'
+    }).when('/user/activate/:activation_token', {
+        template: "",
+        controller: 'UserActivationController'
     }).otherwise({
       redirectTo: '/event'
     })
@@ -122,5 +125,3 @@ onlineRegApp.directive('equals', function() {
         }
     }
 });
-
-
