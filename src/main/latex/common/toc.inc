@@ -21,6 +21,8 @@
 % include with 「\input{toc.inc}」 after \tarentanleitung{…}…
 
 \addtocontents{toc}{\protect\thispagestyle{fancy}}
+\addtolength{\cftsubsecnumwidth}{0.5em}
+\addtolength{\cftsubsubsecindent}{0.5em}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \hypersetup{linkcolor = black}
 \tableofcontents
