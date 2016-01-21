@@ -34,7 +34,7 @@ public class EmailResource extends AbstractResource {
         if (mailDispatcher == null) {
             mailDispatcher = new MailDispatcher();
         }
-        mailDispatcher.send(email, emailConfiguration.getSubject(), emailConfiguration.getContent(), getActivationLink(endpoint, activation_token));
+        mailDispatcher.send(emailConfiguration.getFrom(), email, emailConfiguration.getSubject(), emailConfiguration.getContent(), getActivationLink(endpoint, activation_token));
     }
 
     private String getActivationLink(String endpoint, String activation_token) {

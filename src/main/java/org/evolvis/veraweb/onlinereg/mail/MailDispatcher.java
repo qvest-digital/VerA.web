@@ -38,20 +38,20 @@ public class MailDispatcher {
         this.password = emailConfiguration.getPassword();
     }
 
-    public void send(String to, String subject, String text, String link) throws MessagingException {
+    public void send(String from, String to, String subject, String text, String link) throws MessagingException {
         final String emailContent = text.replace("${link}", link);
         final Session session = getSession();
-        final Message message = getMessage(session, to, subject, emailContent);
+        final Message message = getMessage(session, from, to, subject, emailContent);
         final Transport transport = session.getTransport("smtp");
         transport.connect(host, username, password);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
     }
 
-    protected Message getMessage(Session session, String to, String subject, String text) throws MessagingException {
+    protected Message getMessage(Session session, String from, String to, String subject, String text) throws MessagingException {
         final Message message = new SMTPMessage(session);
+        message.setFrom(new InternetAddress(from));
         message.addRecipient(RecipientType.TO, new InternetAddress(to));
-        message.setFrom(new InternetAddress("no-reply@tarent.de"));
         message.setSubject(subject);
         message.setText(text);
         message.setHeader("Date", dateFormat.format(new Date(System.currentTimeMillis())));
