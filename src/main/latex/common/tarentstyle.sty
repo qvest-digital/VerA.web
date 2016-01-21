@@ -36,8 +36,7 @@
 \RequirePackage[usenames,dvipsnames]{xcolor}
 \RequirePackage[LY1,TS1,T1]{fontenc}
 \RequirePackage{textcomp}
-\RequirePackage{ifpdf}
-\IfFileExists{pdf14.sty}{\RequirePackage{pdf14}}{}
+\RequirePackage{pdf14}
 \RequirePackage{aeguill}
 \RequirePackage[shortcuts]{extdash}
 % (tarent-Logo ist knapp 0.89 cm hoch bei 5¼ cm Breite, x horizontal 0.68 cm)
@@ -67,8 +66,7 @@
 \usepackage{scalerel}
 \usepackage{soul}
 \usepackage[noadjust]{marginnote}
-\ifpdf \RequirePackage[pdftex]{hyperref}
-\else  \RequirePackage[dvips,dviwindo,hypertex]{hyperref} \fi
+\RequirePackage[pdftex]{hyperref}
 \hypersetup{
 	colorlinks = true,
 	linkcolor = blue,
