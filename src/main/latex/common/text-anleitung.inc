@@ -559,7 +559,11 @@ Benutzern (identifiziert durch den Unix-Benutzernamen bzw. die
 \texttt{uid}) zu Benutzerrechten (z.B. Administrator oder Lesen
 eingeschränkt) und Mandanten wird durch VerA.web gespeichert;
 Näheres finden Sie in Kapitel 6.2 (Administration → Benutzer)
-im VerA.web-Benutzerhandbuch.
+im \href
+{https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=blob_plain;f=src/main/webapp/doc/Benutzerhandbuch.pdf;hb=HEAD#6.2 Benutzer}
+{VerA.web-Benutzerhandbuch}. Einige weitere LDAP-Attribute wie
+\texttt{givenName} und \texttt{sn} werden ebenfalls verwendet,
+sowie \texttt{mail} als Absender beim Versand von eMails.
 
 Die Einrichtung eines solchen LDAP-Verzeichnisses ist aktuell
 außerhalb des Rahmens dieser Installationsanleitung.
