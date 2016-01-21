@@ -11,8 +11,9 @@
 
 <div ng-show="status == 42" class="alert alert-danger" role="alert">
     <span class="glyphicon glyphicon-remove-sign">&nbsp;</span>
-    {{'REGISTER_USER_MESSAGE_NOT_YET_ACTIVATED_ERROR'|translate}}&nbsp;<a href="">{{'REGISTER_USER_MESSAGE_ACTIVATION_MAIL_SEND_AGAIN'|translate}}</a>
+    {{'REGISTER_USER_MESSAGE_NOT_YET_ACTIVATED_ERROR'|translate}}&nbsp;<a href="/resend/confirmationmail/{{$parent.inactiveLoginAttemptBy}}">{{'REGISTER_USER_MESSAGE_ACTIVATION_MAIL_SEND_AGAIN'|translate}}</a>
 </div>
+
 
 <div class="login-container">
     <h2 class="form-signin-heading">{{'LOGIN_TITLE'|translate}}</h2>

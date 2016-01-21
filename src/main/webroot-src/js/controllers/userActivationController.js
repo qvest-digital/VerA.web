@@ -13,4 +13,5 @@ onlineRegApp.controller('UserActivationController', function($http, $scope, $roo
             $rootScope.error = text;
         });
     });
+
 });

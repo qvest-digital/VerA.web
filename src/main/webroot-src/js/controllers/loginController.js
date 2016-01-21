@@ -23,13 +23,13 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
         }).success(function (result) {
             $scope.error = null;
             $scope.button = false;
-           console.log(result);
            if (result != "") {//result=object
                if(result.status.localeCompare("disabled")||result.status=="disabled"){
                    setStatus=42;
                    $scope.status=42;
                    $rootScope.status= null;
                    $rootScope.error=null;
+                   $rootScope.inactiveLoginAttemptBy=$scope.username;
                    $location.path($scope.nextPage);
                }else{
                    $rootScope.user_logged_in = $scope.username;
@@ -53,5 +53,13 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
                 $rootScope.messageContent = text;
             });
         });
+
+        $rootScope.resendConfirmationMail = function() {
+          username=$rootScope.inactiveLoginAttemptBy;
+          //change token+sxp date
+          //getnewurl
+          //sendmail
+          //confirm msg
+        }
     }
 });

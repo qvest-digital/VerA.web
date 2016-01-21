@@ -44,12 +44,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.UUID;
-<<<<<<< HEAD
-
-import lombok.Getter;
-=======
->>>>>>> dc3e5f1973bac595030b99460e1e57950e2ebc05
 
 /**
  * Resource to register new users in OSIAM backend
@@ -134,6 +130,20 @@ public class UserResource {
     public String activateUser(@PathParam("activationToken") String activationToken) {
         System.out.println("Mockup...");
         return StatusConverter.convertStatus("OK");
+    }
+
+    @GET
+    @Path("/resend/confirmationmail/{userName}")
+    public void resendActivationToken(@PathParam("userName") String username) {
+
+        final Form postBody = new Form();
+        final String activationToken = UUID.randomUUID().toString();
+
+        postBody.add("activation_token", activationToken);
+        postBody.add("username", username);
+
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/resetactivation");
+        resource.post(postBody);
     }
 
     private void addOsiamUserActivationEntry(String osiamUsername, String activationToken) {
