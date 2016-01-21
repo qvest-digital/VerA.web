@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
@@ -15,6 +17,9 @@ import java.util.Date;
 @XmlRootElement
 @Entity
 @Table(name = "tosiam_user_activation")
+@NamedQueries(value = {
+        @NamedQuery(name = "OsiamUserActivation.getOsiamUserActivationEntryByToken", query = "SELECT oua FROM OsiamUserActivation oua where activation_token=:activation_token")
+})
 public class OsiamUserActivation {
     @Id
     private String activation_token;
