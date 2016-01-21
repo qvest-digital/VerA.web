@@ -48,5 +48,5 @@
     "type": "simple"
   },
   "verawebEndpoint": "https://HOSTNAME-REST/vwor",
-  "onlineRegistrationEndpoint": "http://HOSTNAME-ONLINE-REGISTRATION/#/"
+  "onlineRegistrationEndpoint": "https://HOSTNAME-OA/vwor-app/#/"
 }
