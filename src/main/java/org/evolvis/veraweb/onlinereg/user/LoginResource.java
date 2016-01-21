@@ -118,8 +118,8 @@ public class LoginResource {
         }
 
         if(EmailValidator.isValidEmailAddress(userName)){
-            User userNameFromEmail = config.getOsiam().getClient(this.client).getUserByEmail(userName);
-            userName=userNameFromEmail.getUserName();
+            User userByEmail = config.getOsiam().getClient(this.client).getUserByEmail(userName);
+            userName = userByEmail.getUserName();
         }
 
         Boolean isRegisterdForDelegationEvent = true;

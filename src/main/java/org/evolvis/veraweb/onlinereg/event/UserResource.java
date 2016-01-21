@@ -122,7 +122,6 @@ public class UserResource {
 
         user = initUser(osiam_username, osiam_firstname, osiam_secondname, osiam_password1, email, person.getPk());
         osiamClient.createUser(accessToken, user);
-
         final String activationToken = UUID.randomUUID().toString();
         sendEmailVerification(email, activationToken);
         addOsiamUserActivationEntry(osiam_username, activationToken);
@@ -161,8 +160,7 @@ public class UserResource {
         final String osiamUserActivationPath = resourceReader.constructPath(BASE_RESOURCE, "osiam", "user", "get", "activation", activationToken);
         return resourceReader.readStringResource(osiamUserActivationPath, OSIAM_USER_ACTIVATION);
     }
-
-
+ 
     private void addOsiamUserActivationEntry(String osiamUsername, String activationToken) {
         final Form postBody = new Form();
         postBody.add("activation_token", activationToken);
@@ -178,6 +176,15 @@ public class UserResource {
         postBody.add("activation_token", activationToken);
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/email/confirmation/send");
         resource.post(postBody);
+    }
+
+    private void passUsernameToOsiamUserActivation(String username, UUID activation_token) {
+        final Form postBody = new Form();
+        postBody.add("username", username);
+        postBody.add("activation_token", activation_token.toString());
+        final OsiamUserActivation oua;
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiamUserActivation/user/new");
+        oua=resource.post(OsiamUserActivation.class,postBody);
     }
 
     private Form createPersonPostBody(String osiam_username, String osiam_firstname, String osiam_secondname) {
