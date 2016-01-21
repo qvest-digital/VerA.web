@@ -24,11 +24,10 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
-
+import lombok.Getter;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
-import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.osiam.resources.scim.Email;
 import org.osiam.resources.scim.Extension;
@@ -36,18 +35,15 @@ import org.osiam.resources.scim.Name;
 import org.osiam.resources.scim.User;
 
 import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.UUID;
-
-import lombok.Getter;
 
 /**
  * Resource to register new users in OSIAM backend
