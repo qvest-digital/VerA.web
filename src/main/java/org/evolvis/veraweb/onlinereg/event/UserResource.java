@@ -36,6 +36,7 @@ import org.osiam.client.oauth.AccessToken;
 import org.osiam.resources.scim.Email;
 import org.osiam.resources.scim.Extension;
 import org.osiam.resources.scim.Name;
+import org.osiam.resources.scim.UpdateUser;
 import org.osiam.resources.scim.User;
 
 import javax.ws.rs.FormParam;
@@ -143,12 +144,14 @@ public class UserResource {
     }
 
     private void setOsiamUserAsActive(String username) throws IOException {
-        final String accessTokenAsString = osiamClient.getAccessTokenClientCred("GET", "POST", "DELETE", "UPDATE");
+        final String accessTokenAsString = osiamClient.getAccessTokenClientCred("GET", "POST", "DELETE", "PATCH", "PUT");
         final AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
         final User user = osiamClient.getUser(accessTokenAsString, username);
-        final User updatedUser = new User.Builder(user).setActive(true).build();
-        osiamClient.deleteUser(user.getId(), accessToken);
-        osiamClient.createUser(accessTokenAsString, updatedUser);
+        final User activeUser = new User.Builder(user).setActive(true).build();
+//        osiamClient.deleteUser(user.getId(), accessToken);
+//        osiamClient.createUser(accessTokenAsString, activeUser);
+        final UpdateUser updatedUser = new UpdateUser.Builder().updateActive(true).build();
+        osiamClient.updateUser(user.getId(), updatedUser, accessToken);
     }
 
     private void removeOsiamUserActivationEntry(String activationToken) throws IOException {

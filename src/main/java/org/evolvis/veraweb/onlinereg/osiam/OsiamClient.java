@@ -31,8 +31,10 @@ import lombok.extern.java.Log;
 
 import org.osiam.resources.scim.Email;
 import org.osiam.resources.scim.SCIMSearchResult;
+import org.osiam.resources.scim.UpdateUser;
 import org.osiam.resources.scim.User;
 
+import javax.persistence.Access;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -163,6 +165,10 @@ public class OsiamClient {
 	 */
 	public void deleteUser(String id, AccessToken accessToken) {
 		this.connector.deleteUser(id, accessToken);
+	}
+
+	public void updateUser(String id, UpdateUser updateUser, AccessToken accessToken) {
+		this.connector.updateUser(id, updateUser, accessToken);
 	}
 
 	public OsiamConnector getConnector() {
