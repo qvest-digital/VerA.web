@@ -32,6 +32,7 @@ import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
+import org.osiam.client.oauth.AccessToken;
 import org.osiam.resources.scim.Email;
 import org.osiam.resources.scim.Extension;
 import org.osiam.resources.scim.Name;
@@ -142,9 +143,11 @@ public class UserResource {
     }
 
     private void setOsiamUserAsActive(String username) throws IOException {
-        final String accessTokenAsString = osiamClient.getAccessTokenClientCred("GET", "POST");
+        final String accessTokenAsString = osiamClient.getAccessTokenClientCred("GET", "POST", "DELETE", "UPDATE");
+        final AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
         final User user = osiamClient.getUser(accessTokenAsString, username);
         final User updatedUser = new User.Builder(user).setActive(true).build();
+        osiamClient.deleteUser(user.getId(), accessToken);
         osiamClient.createUser(accessTokenAsString, updatedUser);
     }
 
@@ -160,7 +163,7 @@ public class UserResource {
         final String osiamUserActivationPath = resourceReader.constructPath(BASE_RESOURCE, "osiam", "user", "get", "activation", activationToken);
         return resourceReader.readStringResource(osiamUserActivationPath, OSIAM_USER_ACTIVATION);
     }
- 
+
     private void addOsiamUserActivationEntry(String osiamUsername, String activationToken) {
         final Form postBody = new Form();
         postBody.add("activation_token", activationToken);
