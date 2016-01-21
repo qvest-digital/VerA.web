@@ -29,6 +29,7 @@
 		<menu name="Dokumentation">
 			<item name="Wiki" href="https://evolvis.org/plugins/mediawiki/wiki/veraweb/index.php/Main_Page" />
 			<item name="Benutzerhandbuch (PDF)" href="doc/Benutzerhandbuch_1.2.pdf" />
+			<!-- XXX TODO: add Installationshandbuch somehow -->
 		</menu>
 
 		<menu name="Supported by">

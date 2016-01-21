@@ -40,5 +40,9 @@
 			<source>target/latex/upgradeanleitung-core/upgradeanleitung-core.lst</source>
 			<outputDirectory></outputDirectory>
 		</file>
+		<file>
+			<source>target/latex/upgradeanleitung-full/upgradeanleitung-full.lst</source>
+			<outputDirectory></outputDirectory>
+		</file>
 	</files>
 </assembly>
