@@ -15,7 +15,7 @@ import java.util.Date;
 @Path("/osiam/user")
 public class OsiamUserActivationResource extends AbstractResource {
 
-    private Integer linkValidityPeriodInDays;
+    private static final Integer LINK_VALIDITY_PERIOD_IN_DAYS = 3;
 
     @POST
     @Path("/activation")
@@ -34,10 +34,9 @@ public class OsiamUserActivationResource extends AbstractResource {
     }
 
     private Date getExpirationDate(){
-        linkValidityPeriodInDays = 3;
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
-        calendar.add(Calendar.DATE, linkValidityPeriodInDays);
+        calendar.add(Calendar.DATE, LINK_VALIDITY_PERIOD_IN_DAYS);
 
         return calendar.getTime();
     }
