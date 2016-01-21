@@ -45,11 +45,6 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.UUID;
-<<<<<<< HEAD
-
-import lombok.Getter;
-=======
->>>>>>> dc3e5f1973bac595030b99460e1e57950e2ebc05
 
 /**
  * Resource to register new users in OSIAM backend
