@@ -11,6 +11,7 @@ public class EmailConfiguration {
     private String security;
     private String username;
     private String password;
+    private String from;
     private String subject;
     private String content;
     private VworPropertiesReader vworPropertiesReader;
@@ -28,6 +29,7 @@ public class EmailConfiguration {
         this.security = vworPropertiesReader.getProperty("mail.smtp.security");
         this.username = vworPropertiesReader.getProperty("mail.smtp.user");
         this.password = vworPropertiesReader.getProperty("mail.smtp.password");
+        this.from = vworPropertiesReader.getProperty("mail.smtp.from");
         this.subject = vworPropertiesReader.getProperty("mail.subject");
         this.content = vworPropertiesReader.getProperty("mail.content");
     }
@@ -70,6 +72,14 @@ public class EmailConfiguration {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
     }
 
     public String getSubject() {
