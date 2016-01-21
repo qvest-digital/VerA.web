@@ -15,6 +15,7 @@
       "org.hibernate.SQL": "ALL"
     }
   },
+  "onlineRegistrationEndpoint": "https://HOSTNAME-OA/vwor-app/#/",
   "osiam": {
     "clientId": "online-registration",
     "clientSecret": "geheim",
@@ -47,6 +48,5 @@
     },
     "type": "simple"
   },
-  "verawebEndpoint": "https://HOSTNAME-REST/vwor",
-  "onlineRegistrationEndpoint": "https://HOSTNAME-OA/vwor-app/#/"
+  "verawebEndpoint": "https://HOSTNAME-REST/vwor"
 }
