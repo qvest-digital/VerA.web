@@ -19,6 +19,7 @@
  */
 package org.evolvis.veraweb.onlinereg.event;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.UniformInterfaceException;
@@ -26,8 +27,10 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 import lombok.Getter;
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
+import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.osiam.resources.scim.Email;
 import org.osiam.resources.scim.Extension;
@@ -42,6 +45,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.util.UUID;
 
@@ -57,6 +61,8 @@ public class UserResource {
     private Client client;
     private ObjectMapper mapper = new ObjectMapper();
     private static final String BASE_RESOURCE = "/rest";
+    private static final TypeReference<OsiamUserActivation> OSIAM_USER_ACTIVATION = new TypeReference<OsiamUserActivation>() {};
+    private OsiamClient osiamClient;
 
     /**
      * Creates new UserResource
@@ -67,6 +73,7 @@ public class UserResource {
     public UserResource(Config config, Client client) {
         this.config = config;
         this.client = client;
+        osiamClient = config.getOsiam().getClient(client);
     }
 
     /**
@@ -91,7 +98,6 @@ public class UserResource {
             return StatusConverter.convertStatus("INVALID_USERNAME");
         }
 
-        final OsiamClient osiamClient = config.getOsiam().getClient(client);
         final String accessToken = osiamClient.getAccessTokenClientCred("GET", "POST");
 
         User user = osiamClient.getUser(accessToken, osiam_username);
@@ -126,9 +132,34 @@ public class UserResource {
 
     @GET
     @Path("/activate/{activationToken}")
-    public String activateUser(@PathParam("activationToken") String activationToken) {
-        System.out.println("Mockup...");
+    public String activateUser(@PathParam("activationToken") String activationToken) throws IOException {
+        final OsiamUserActivation osiamUserActivation = getOsiamUserActivationByToken(activationToken);
+        if (osiamUserActivation == null) {
+            return StatusConverter.convertStatus("LINK_INVALID");
+        }
+        removeOsiamUserActivationEntry(activationToken);
+        setOsiamUserAsActive(osiamUserActivation.getUsername());
         return StatusConverter.convertStatus("OK");
+    }
+
+    private void setOsiamUserAsActive(String username) throws IOException {
+        final String accessTokenAsString = osiamClient.getAccessTokenClientCred("GET", "POST");
+        final User user = osiamClient.getUser(accessTokenAsString, username);
+        final User updatedUser = new User.Builder(user).setActive(true).build();
+        osiamClient.createUser(accessTokenAsString, updatedUser);
+    }
+
+    private void removeOsiamUserActivationEntry(String activationToken) throws IOException {
+        final Form postBody = new Form();
+        postBody.add("osiam_user_activation", activationToken);
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/activate");
+        resource.post(postBody);
+    }
+
+    private OsiamUserActivation getOsiamUserActivationByToken(String activationToken) throws IOException {
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String osiamUserActivationPath = resourceReader.constructPath(BASE_RESOURCE, "osiam", "user", "get", "activation", activationToken);
+        return resourceReader.readStringResource(osiamUserActivationPath, OSIAM_USER_ACTIVATION);
     }
 
 
@@ -136,7 +167,7 @@ public class UserResource {
         final Form postBody = new Form();
         postBody.add("activation_token", activationToken);
         postBody.add("username", osiamUsername);
-        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/activation");
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/create");
         resource.post(postBody);
     }
 
