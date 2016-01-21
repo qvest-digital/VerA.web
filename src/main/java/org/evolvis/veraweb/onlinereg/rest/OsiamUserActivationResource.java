@@ -15,6 +15,7 @@ import java.util.Date;
 @Path("/osiam/user")
 public class OsiamUserActivationResource extends AbstractResource {
 
+    // FIXME Set the value via properties file
     private static final Integer LINK_VALIDITY_PERIOD_IN_DAYS = 3;
 
     @POST
