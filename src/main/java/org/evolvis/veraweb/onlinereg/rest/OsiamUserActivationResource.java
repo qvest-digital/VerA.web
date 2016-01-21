@@ -1,6 +1,7 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import javax.ws.rs.FormParam;
@@ -26,6 +27,7 @@ public class OsiamUserActivationResource extends AbstractResource {
             final OsiamUserActivation osiamUserActivationEntry = new OsiamUserActivation(username, expirationDate, activationToken);
             session.persist(osiamUserActivationEntry);
             session.flush();
+            session.close();
 
             return osiamUserActivationEntry;
         } finally {
@@ -40,5 +42,19 @@ public class OsiamUserActivationResource extends AbstractResource {
         calendar.add(Calendar.DATE, linkValidityPeriodInDays);
 
         return calendar.getTime();
+    }
+
+    @POST
+    @Path("/osiam/user/resetactivation")
+    public void removeActivationdataByUsername(@FormParam("username") String username, @FormParam("activation_token") String activationToken) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Delegation.deleteOptionalFieldsByGuestId");
+            query.setString("username", username);
+            query.setInteger("activation_token", activationToken);
+            query.executeUpdate();
+        } finally {
+            session.close();
+        }
     }
 }
