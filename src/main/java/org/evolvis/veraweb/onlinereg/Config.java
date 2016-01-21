@@ -40,6 +40,9 @@ public class Config extends Configuration {
     @JsonProperty
     private String verawebEndpoint;
 
+	@JsonProperty
+	private String onlineRegistrationEndpoint;
+
     @JsonProperty
     private OsiamConfig osiam;
     
@@ -74,5 +77,13 @@ public class Config extends Configuration {
 
 	public AuthConfig getRestauth() {
 		return restauth;
+	}
+
+	public String getOnlineRegistrationEndpoint() {
+		return onlineRegistrationEndpoint;
+	}
+
+	public void setOnlineRegistrationEndpoint(String onlineRegistrationEndpoint) {
+		this.onlineRegistrationEndpoint = onlineRegistrationEndpoint;
 	}
 }

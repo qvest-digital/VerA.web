@@ -24,12 +24,11 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
-
+import lombok.Getter;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
-import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.osiam.resources.scim.Email;
 import org.osiam.resources.scim.Extension;
@@ -37,17 +36,20 @@ import org.osiam.resources.scim.Name;
 import org.osiam.resources.scim.User;
 
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.UUID;
+<<<<<<< HEAD
 
 import lombok.Getter;
+=======
+>>>>>>> dc3e5f1973bac595030b99460e1e57950e2ebc05
 
 /**
  * Resource to register new users in OSIAM backend
@@ -120,17 +122,33 @@ public class UserResource {
 
         user = initUser(osiam_username, osiam_firstname, osiam_secondname, osiam_password1, email, person.getPk());
         osiamClient.createUser(accessToken, user);
-        final UUID activation_token = UUID.randomUUID();
-        passUsernameToOsiamUserActivation(osiam_username, activation_token);
-        sendEmailVerification(email, activation_token);
+        final String activationToken = UUID.randomUUID().toString();
+        sendEmailVerification(email, activationToken);
+        addOsiamUserActivationEntry(osiam_username, activationToken);
 
         return StatusConverter.convertStatus("OK");
     }
 
-    private void sendEmailVerification(String email, UUID activation_token) {
+    @GET
+    @Path("/activate/{activationToken}")
+    public String activateUser(@PathParam("activationToken") String activationToken) {
+        System.out.println("Mockup...");
+        return StatusConverter.convertStatus("OK");
+    }
+
+    private void addOsiamUserActivationEntry(String osiamUsername, String activationToken) {
+        final Form postBody = new Form();
+        postBody.add("activation_token", activationToken);
+        postBody.add("username", osiamUsername);
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/activation");
+        resource.post(postBody);
+    }
+
+    private void sendEmailVerification(String email, String activationToken) {
         final Form postBody = new Form();
         postBody.add("email", email);
-        postBody.add("activation_token", activation_token.toString());
+        postBody.add("endpoint", config.getOnlineRegistrationEndpoint());
+        postBody.add("activation_token", activationToken);
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/email/confirmation/send");
         resource.post(postBody);
     }
