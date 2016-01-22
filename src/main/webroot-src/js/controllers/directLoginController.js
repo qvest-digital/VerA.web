@@ -40,7 +40,7 @@ onlineRegApp.controller('DirectLoginController',
             $scope.button = false;
             $rootScope.error = null;
             if (result != "") {
-              if(result.status.localeCompare("disabled")||result.status=="disabled"){
+              if(result.status.localeCompare("disabled")==0){
                     setStatus=42;
                    $scope.status=42;
                    $rootScope.status= null;
