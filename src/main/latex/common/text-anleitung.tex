@@ -576,7 +576,7 @@ aus Benutzernamen und Paßwort gültig ist. Nur die Zuordnung von
 Benutzern (identifiziert durch den Unix-Benutzernamen bzw. die
 \texttt{uid}) zu Benutzerrechten (z.B. Administrator oder Lesen
 eingeschränkt) und Mandanten wird durch VerA.web gespeichert;
-Näheres finden Sie in Kapitel 6.2 (Administration → Benutzer)
+Näheres finden Sie in Kapitel 6.2 (Administration > Benutzer)
 im \href
 {https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=blob_plain;f=src/main/webapp/doc/Benutzerhandbuch.pdf;hb=HEAD#6.2 Benutzer}
 {VerA.web-Benutzerhandbuch}. Einige weitere LDAP-Attribute wie
@@ -589,7 +589,7 @@ einfach bedienbare Oberfläche, \texttt{ldap-account-manager}) auf
 demselben Server wie die interne Veranstaltungs- und Adreßverwaltung
 laufenzulassen; dies erhöht die Systemvoraussetzungen nicht nennenswert.
 \ifupgradeanleitung\else% !upgradeanleitung
-Alle weiteren Informationen hierzu finden Sie in Kapitel \ref{sec:setup-lam}.
+Alle Informationen hierzu finden Sie in Kapitel \ref{sec:setup-lam}.
 \fi
 
 \subsection{Interne Veranstaltungs- und Adreßverwaltung}\label{subsec:req-core}
@@ -729,7 +729,10 @@ Nun müssen Sie den LDAP-Account-Manager „lam“ \dash eine Weboberfläche,
 die zum vereinfachten Anlegen von Benutzern im LDAP dienen kann \dash
 einrichten. Benutzen Sie zu diesem Zweck einen Webbrowser, in dem Sie
 das Verzeichnis \texttt{/lam/} auf dem neuen Server aufrufen, also zum
-Beispiel: \texttt{http://veraweb.lan.tarent.de/lam/}
+Beispiel \texttt{http://veraweb.lan.tarent.de/lam/} \dash leider läßt
+die Einrichtung sich nicht sinnvoll über Konfigurationsdateiänderungen
+automatisieren sondern muß manuell mit einem Webbrowser durchgeführt
+werden.
 
 Dort klicken Sie zunächst oben rechts auf:
 \myinlinepic[LAM configuration]{lam-tools}
