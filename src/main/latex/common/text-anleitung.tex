@@ -32,11 +32,15 @@
 % TODO tglase:
 % - Struktur: do not use cross-references; duplicate content (KISS)
 % - Apache, SSL, …
-% - LDAP: slapd, lam
 % - svc: primer on service management with DJB dæmontools
 % - Debian jessie-tauglich machen
 % TODO Team:
 % - neuer Mail-Kram
+
+\makeatletter%
+\newcommand{\myinlinepic}[2][\@empty]{\mbox{\resizebox{!}{1.25ex}%
+{\includegraphics{#2}}\ifx#1\@empty\else{ #1}\fi}}%
+\makeatother%
 
 \ifupgradeanleitung
  \ifoa
@@ -554,7 +558,7 @@ ausgesetzt sein \emph{kann}.
 
 Sie benötigen ein LDAP-Verzeichnis, in dem Sie die Zugänge (user
 accounts) für die Sachbearbeiter, die VerA.web benutzen sollen,
-sowie Administratorenzugänge pflegen. Hierfür wird OpenLDAP empfohlen.
+sowie Administratorenzugänge pflegen.
 
 VerA.web hat keine eigene Benutzerverwaltung sondern fragt beim
 Login eines Nutzers das LDAP-Verzeichnis ab, ob die Kombination
@@ -569,14 +573,14 @@ im \href
 \texttt{givenName} und \texttt{sn} werden ebenfalls verwendet,
 sowie \texttt{mail} als Absender beim Versand von eMails.
 
-Die Einrichtung eines solchen LDAP-Verzeichnisses ist aktuell
-außerhalb des Rahmens dieser Installationsanleitung.
-
 Für eine kleine Site ist es möglich, den LDAP-Server (Debian-Pakete
-\texttt{slapd} und \texttt{ldap-utils} sowie, als einfach bedienbare
-Oberfläche, \texttt{ldap-account-manager}) auf demselben Server wie
-die interne Veranstaltungs- und Adreßverwaltung laufenzulassen; dies
-erhöht die Systemvoraussetzungen nicht nennenswert.
+\texttt{slapd} (OpenLDAP-Server) und \texttt{ldap-utils} sowie, als
+einfach bedienbare Oberfläche, \texttt{ldap-account-manager}) auf
+demselben Server wie die interne Veranstaltungs- und Adreßverwaltung
+laufenzulassen; dies erhöht die Systemvoraussetzungen nicht nennenswert.
+\ifupgradeanleitung\else% !upgradeanleitung
+Alle weiteren Informationen hierzu finden Sie in Kapitel \ref{sec:setup-lam}.
+\fi
 
 \subsection{Interne Veranstaltungs- und Adreßverwaltung}\label{subsec:req-core}
 
@@ -655,8 +659,135 @@ die Online-Anmeldung als sogenannter Microservice implementiert wurde.
 Im Verlauf der Installation werden Sie mindestens einen Useraccount
 in VerA.web als Administrator anlegen. Hierfür informieren Sie sich
 bitte vorab über die LDAP-Kürzel (Unix-Loginnamen, üblicherweise das
-Attribut \texttt{uid}) des oder der Benutzer, die initial als
+Attribut \texttt{uid}) des oder der Benutzer, der/die initial als
 VerA.web-Administratoren dienen sollen.
+
+\section{Installation OpenLDAP und LDAP-Account-Manager}\label{sec:setup-lam}
+
+Falls Sie bereits über einen \nameref{subsec:req-ldap} verfügen
+überspringen Sie dieses Kapitel bitte und lesen Sie direkt im Kapitel
+\ifoa
+ \nameref{sec:setup-osiam}
+\else% !oa
+ \nameref{sec:setup-int}
+\fi% !oa
+weiter.
+
+Diese Installation wird auf dem Server durchgeführt, auf dem Sie
+später auch VerA.web-core installieren möchten.
+
+\subsection{Installation OpenLDAP-Server}\label{subsec:setup-lam-slapd}
+
+\begin{minipage}{\textwidth}
+Installieren Sie zunächst die nötigen Pakete:
+
+\begin{lstdump}{Install LDAP}
+sudo apt-get install slapd ldap-utils ldap-account-manager
+\end{lstdump}
+
+Vergeben Sie ein Administratorpaßwort für das LDAP und merken
+Sie sich es gut!
+\end{minipage}
+
+In der Datei \texttt{/etc/ldap/slapd.d/cn=config/olcDatabase=\{1\}mdb.ldif}
+finden Sie jetzt einen Eintrag \texttt{olcSuffix}. Notieren Sie sich den
+Teil hinter dem Doppelpunkt (und Leerzeichen); dies ist Ihr sogenannter
+„Base DN“. In dieser Dokumentation wird \texttt{dc=lan,dc=tarent,dc=de} als
+Beispiel verwendet.
+
+Bearbeiten Sie die Datei \texttt{/etc/ldap/ldap.conf} und fügen Sie eine
+Zeile ein, die mit dem Wort \texttt{BASE} in Großbuchstaben beginnt und dann
+hinter einem Leerzeichen (ohne Doppelpunkt, diesmal) den Base DN enthält.
+Danach können Sie mit dem Befehl \texttt{ldapsearch -x} bereits die in
+Ihrem neuen LDAP-Verzeichnis enthaltenen Einträge sehen; dies ist initial
+lediglich der Wurzelknoten \texttt{dc=lan,dc=tarent,dc=de} sowie der
+LDAP-Administrator \texttt{cn=admin,dc=lan,dc=tarent,dc=de}.
+
+\begin{minipage}{\textwidth}
+\begin{lstdump}{LDAP-Clientkonfiguration}
+cfg=/etc/ldap/slapd.d/cn=config/olcDatabase={1}mdb.ldif
+basedn=$(sudo sed -n '/^olcSuffix: */s///p' "$cfg")
+echo "Der Base DN ist: $basedn"
+sudo sh -c "echo 'BASE $basedn' >>/etc/ldap/ldap.conf"
+\end{lstdump}
+\end{minipage}
+
+\subsection{Konfiguration LDAP-Account-Manager}\label{subsec:setup-lam-cfg}
+
+Nun müssen Sie den LDAP-Account-Manager „lam“ \dash eine Weboberfläche,
+die zum vereinfachten Anlegen von Benutzern im LDAP dienen kann \dash
+einrichten. Benutzen Sie zu diesem Zweck einen Webbrowser, in dem Sie
+das Verzeichnis \texttt{/lam/} auf dem neuen Server aufrufen, also zum
+Beispiel: \texttt{http://veraweb.lan.tarent.de/lam/}
+
+Dort klicken Sie zunächst oben rechts auf:
+\myinlinepic[LAM configuration]{lam-tools}
+
+Unterhalb von \myinlinepic[Edit general settings]{lam-tools} finden
+Sie, nachdem Sie sich mit dem Master-Paßwort „lam“ authentifiziert
+haben, ganz unten auf der Seite die Möglichkeit, ebendieses zu ändern.
+
+Nach dem Speichern wählen Sie wieder:
+\myinlinepic[LAM configuration]{lam-tools}
+
+Nun finden Sie unter \myinlinepic[Edit server profiles]{lam-profiles}
+einige weitere Einstellungen. Geben Sie zunächst im dritten Feld
+(Tree suffix) Ihren Base DN ein, und unten bei „List of valid users“
+unterhalb von \myinlinepic[Security settings]{lam-security} den DN
+des LDAP-Administrators\Hair\footnote{hier
+\texttt{cn=admin,dc=lan,dc=tarent,dc=de} \dash zu sehen mit
+\texttt{ldapsearch -x} \dash vgl. Kapitel \ref{subsec:setup-lam-slapd}}.
+
+Sie brauchen an dieser Stelle noch nicht zu speichern. Wählen Sie oben
+den Registerreiter \myinlinepic[Account types]{lam-gear} aus. Klicken
+Sie auf das Lösch-Icon \myinlinepic{lam-del} neben den Einträgen
+\myinlinepic[Hosts]{lam-host} und \myinlinepic[Samba domains]
+{lam-smbDomain}, um die weitere Verwaltung zu vereinfachen. Ändern Sie
+den „LDAP suffix“ für \myinlinepic[Users]{lam-user} in \texttt{ou=Users}
+gefolgt von einem Komma und Ihrem Base DN, und den „LDAP suffix“ für
+\myinlinepic[Groups]{lam-group} in \texttt{ou=group} gefolgt von einem
+Komma und Ihrem Base DN.
+
+Fahren Sie im Registerreiter \myinlinepic[Modules]{lam-modules} fort,
+indem Sie jeweils „Samba 3 (sambaSamAccount)“ (Users) und „Samba 3
+(sambaGroupMapping)“ nach \myinlinepic{lam-forward} rechts schieben.
+Unter \myinlinepic[Module settings]{lam-modules} können Sie, falls
+gewünscht, einzelne Felder aus der Anzeige ausblenden, um die spätere
+Benutzung weiter zu vereinfachen.
+
+Jetzt können Sie mit \myinlinepic[Save]{lam-save} speichern. Dann können
+Sie sich auf der nun erscheinenden regulären Loginmaske mit dem Paßwort
+des LDAP-Administrators anmelden. Beim ersten Login erscheint eine
+Abfrage „The following suffixes are missing in LDAP. LAM can create them
+for you.“, welche Sie mit „Create“ bestätigen. Jetzt müssen Sie noch
+unter \myinlinepic[Groups]{lam-group} eine Gruppe erstellen, der später
+alle User standardmäßig zugeordnet werden; klicken Sie hierzu auf
+\myinlinepic[New group]{lam-add} und geben als „Group name“ einfach
+„ldapusers“ an und klicken oben links auf \myinlinepic[Save]{lam-save}.
+
+Damit ist die Ersteinrichtung des LDAP-Account-Managers abgeschlossen.
+
+\subsection{LDAP-Nutzer anlegen}\label{subsec:setup-lam-adduser}
+
+Um einen Benutzer im LDAP anzulegen müssen Sie sich ggfs. (außer direkt
+nach der Ersteinrichtung) wieder mit dem Paßwort des LDAP-Administrators
+anmelden; sonst wählen Sie den Registerreiter \myinlinepic[Users]{lam-user}.
+Klicken Sie dann auf \myinlinepic[New user]{lam-add}.
+
+In der folgenden Maske müssen Sie mindestens den „Last Name“ ausfüllen;
+die „Email address“ ist zwar keine Pflicht, aber sinnvoll.
+Klicken Sie dann links auf \myinlinepic[Unix]{lam-tux} und tragen im Feld
+„User name“ ein geeignetes Kürzel (⚠ nur Kleinbuchstaben und Zahlen) ein;
+mit diesem Kürzel kann sich später der Nutzer bei VerA.web anmelden. Nun
+wählen Sie noch \myinlinepic[Set password]{lam-key}, tragen es (in beide
+Felder) ein, klicken im Dialog auf „Ok“ und dann oben links wieder auf
+\myinlinepic[Save]{lam-save}.
+
+Jetzt erscheint die Meldung „Account was created successfully.“ in einem
+blauen Kasten; damit ist dieser Nutzer angelegt und kann in VerA.web core
+freigeschaltet werden, entweder, bei der Erstinstallation, über die
+Datenbank (siehe Kapitel \ref{manual:db-user}), oder, später, über die
+Weboberfläche (siehe Benutzerhandbuch).
 
 \ifoa
 \section{Installation OSIAM-System}\label{sec:setup-osiam}
@@ -1089,7 +1220,7 @@ jeweiligen Benutzers einseitzen:
 \begin{lstdump}[language=SQL]{DB Admin-User anlegen}
 INSERT INTO veraweb.tuser (fk_orgunit, username, role)
     VALUES (NULL, 'vnnnnn', 5);
-\end{lstdump}
+\end{lstdump}\label{manual:db-user}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
