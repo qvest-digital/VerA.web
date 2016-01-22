@@ -49,6 +49,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -135,12 +136,15 @@ public class UserResource {
     @Path("/activate/{activationToken}")
     public String activateUser(@PathParam("activationToken") String activationToken) throws IOException {
         final OsiamUserActivation osiamUserActivation = getOsiamUserActivationByToken(activationToken);
-        if (osiamUserActivation == null) {
+        if (osiamUserActivation.getUsername() == null) {
             return StatusConverter.convertStatus("LINK_INVALID");
+        } else if (osiamUserActivation.getExpiration_date().before(new Date())) {
+            return StatusConverter.convertStatus("LINK_EXPIRED");
+        } else {
+            removeOsiamUserActivationEntry(activationToken);
+            setOsiamUserAsActive(osiamUserActivation.getUsername());
+            return StatusConverter.convertStatus("OK");
         }
-        removeOsiamUserActivationEntry(activationToken);
-        setOsiamUserAsActive(osiamUserActivation.getUsername());
-        return StatusConverter.convertStatus("OK");
     }
 
     private void setOsiamUserAsActive(String username) throws IOException {
