@@ -25,7 +25,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
             $scope.button = false;
            console.log(result);
            if (result != "") {//result=object
-               if(result.status.localeCompare("disabled")||result.status=="disabled"){
+               if(result.status.localeCompare("disabled")==0){
                    setStatus=42;
                    $scope.status=42;
                    $rootScope.status= null;
