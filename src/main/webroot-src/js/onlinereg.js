@@ -77,8 +77,11 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
     }).when('/user/activate/:activation_token', {
         template: "",
         controller: 'UserActivationController'
+    }).when('/user/resend/confirmationmail/:userName', {
+        template: "",
+        controller: 'UserRefreshActivationController'
     }).otherwise({
-      redirectTo: '/event'
+        redirectTo: '/event'
     })
 
     $translateProvider.useStaticFilesLoader({

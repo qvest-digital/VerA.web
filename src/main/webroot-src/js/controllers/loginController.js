@@ -56,6 +56,8 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
 
         $rootScope.resendConfirmationMail = function() {
           username=$rootScope.inactiveLoginAttemptBy;
+
+          $location.path('/login');
           //change token+sxp date
           //getnewurl
           //sendmail
