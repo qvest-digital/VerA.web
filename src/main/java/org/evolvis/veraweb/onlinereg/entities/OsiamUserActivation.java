@@ -17,8 +17,12 @@ import java.util.Date;
 @XmlRootElement
 @Entity
 @Table(name = "tosiam_user_activation")
-@NamedQueries(value = {
-        @NamedQuery(name = "OsiamUserActivation.getOsiamUserActivationEntryByToken", query = "SELECT oua FROM OsiamUserActivation oua where activation_token=:activation_token")
+@NamedQueries({
+        @NamedQuery(name = "OsiamUserActivation.getOsiamUserActivationEntryByToken",
+                    query = "SELECT oua FROM OsiamUserActivation oua where activation_token=:activation_token"),
+        @NamedQuery(name = "OsiamUserActivation.refreshOsiamUserActivationByUsername",
+                    query = "UPDATE OsiamUserActivation oua SET activation_token=:activation_token, expiration_date=:expiration_date" +
+                            "WHERE username=:username")
 })
 public class OsiamUserActivation {
     @Id
