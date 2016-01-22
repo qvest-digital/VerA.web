@@ -34,6 +34,7 @@
 % - Apache, SSL, …
 % - svc: primer on service management with DJB dæmontools
 % - Debian jessie-tauglich machen
+% - alle nameref/ref print-tauglich machen/prüfen
 % TODO Team:
 % - neuer Mail-Kram
 
@@ -153,9 +154,10 @@ unverständlicher zu machen. Hierzu gehören:\keinumbruch
 \begin{itemize}
  \item{Die Installation wird auf nicht anderweitig verwendeten,
   frischen (virtuellen) Maschinen durchgeführt.}
- \item{Als Betriebssystem wird Debian 7 „wheezy“ eingesetzt; an
-  den Stellen, wo Konfigurationsdateien angepaßt werden müssen,
-  können wir die Debian-Standardwerte voraussetzen.}
+ \item{Als Betriebssystem wird Debian 7 „wheezy“ oder Debian 8
+  „jessie“ eingesetzt; an den Stellen, wo Konfigurationsdateien
+  angepaßt werden müssen, können wir die Debian-Standardwerte
+  als Grundlage voraussetzen.}
  \item{Das System ist grundsätzlich installiert, betriebsbereit
   und rebootfest; Firewalleinstellungen sind hinreichend getroffen.
   Für jede Maschine ist ein gültiges SSL-Zertifikat vorhanden.}
@@ -566,8 +568,7 @@ dem core-System erhöhen sich die Anforderungen minimal.
  HDD core         & 2 GB       & 8 GB\\\hline
  HDD core + OSIAM & 3 GB       & 10 GB\\\hline
  HDD OA           & 1½ GB      & 3 GB\\\hline
- Betriebssystem   & Debian 7   & Debian 7\Hair\textsuperscript{\ref{fn:jessie}}\\\hline
-%XXX jessie mit sysvinit vielleicht? Testen!
+ Betriebssystem   & Debian 7/8 & Debian 7 oder 8\\\hline
  Webserver        & Apache 2.2 & Apache 2.2 oder 2.4\Hair\textsuperscript{\ref{fn:apache}}\\\hline
  Java Runtime     & OpenJDK 7  & OpenJDK 7 oder 8\\\hline
 \end{tabular}
@@ -585,7 +586,7 @@ ausgesetzt sein \emph{kann}.
  CPU             & 1          & 1\\\hline
  Arbeitsspeicher & 512 MiB    & 1 GiB, besser mehr\\\hline
  Festplatte      & 2 GB       & 8 GB\\\hline
- Betriebssystem  & Debian 7   & Debian 7 oder 8\Hair\textsuperscript{\ref{fn:jessie}}\\\hline
+ Betriebssystem  & Debian 7/8 & Debian 7 oder 8\\\hline
  Webserver       & Apache 2.2 & Apache 2.2 oder 2.4\Hair\textsuperscript{\ref{fn:apache}}\\\hline
  Java Runtime    & OpenJDK 7  & OpenJDK 7 oder 8\\\hline
 \end{tabular}
@@ -626,14 +627,13 @@ Zum Betrieb von VerA.web core empfehlen wir eine eigenständige VM
 (OSIAM kann auf dem System mitinstalliert werden, wenn es nur für
 VerA.web verwendet wird)
 \fi% oa
-mit Debian Linux 7 „wheezy“ als Betriebssystem. Zwar \emph{kann}
+mit einer der stabilen Versionen Debian Linux 7 „wheezy“ oder Debian
+Linux 8 „jessie“ als Betriebssystem. Zwar \emph{kann}
 die Software auch mit einer anderen Debian-basierten Distribution
 (z.B. Ubuntu 14.04 „trusty“) oder einer anderen Java/Tomcat-Umgebung
 betrieben werden, allerdings geht diese Installationsanleitung von
 der empfohlenen Systemumgebung aus. Eine graphische Oberfläche auf
-dem Server wird zum Betrieb nicht benötigt. Eine Installation mit
-Debian 8 „jessie“ wird in einer späteren Version dieser Anleitung
-berücksichtigt werden.%XXX TODO
+dem Server wird zum Betrieb nicht benötigt.
 
 Für VerA.web core benötigen Sie mindestens 512 MiB Arbeitsspeicher;
 1 GiB oder mehr wird empfohlen. Wir empfehlen eine Festplattengröße
@@ -649,15 +649,15 @@ Der PostgreSQL-Datenbankserver für OSIAM muß hingegen aus Gründen der
 Einfachheit auf demselben System wie der OSIAM-Anwendungsserver laufen.
 \fi% oa
 
-Desweiteren benötigen Sie den Apache 2 Webserver (idealerweise mit
-dem \texttt{prefork} MPM; in dieser Anleitung gehen wir von einem
-Setup mit Apache 2.2\Hair\footnote{\label{fn:apache}Debian 7 „wheezy“
-wird mit Apache 2.2 ausgeliefert, Debian 8 „jessie“\Hair\textsuperscript{\ref{fn:jessie}}
-mit Apache 2.4} auf Debian wheezy\Hair\footnote{\label{fn:jessie}Diese
-Installationsanleitung beschreibt aktuell nur den Betrieb unter
-Debian 7 „wheezy“.} aus) und \texttt{mod\_jk} sowie den
-Applikationsserver Tomcat 7 mit der Java™ 7 Laufzeitumgebung (OpenJDK)
-ohne GUI (headless).
+Desweiteren benötigen Sie den Webserver Apache 2\Hair\footnote
+{\label{fn:apache}Debian 7 „wheezy“ wird mit Apache httpd 2.2
+ausgeliefert, Debian 8 „jessie“ mit Apache httpd 2.4} mit
+\ifoa
+\texttt{mod\_proxy\_http},
+\fi% oa
+\texttt{mod\_jk} und SSL, sowie den Applikationsserver Tomcat 7
+mit einer Java™-Laufzeitumgebung (OpenJDK) ab Version 7, ohne GUI
+(headless JRE).
 
 ⚠ \emph{Achtung:} Java™ 6 oder älter wird nicht unterstützt
 und führt während der Installation zu Fehlern!
@@ -677,14 +677,14 @@ eingestellten anderen Mailserver, zustellt.
 Zum Betrieb der Online-Anmeldung empfehlen wir ebenfalls eine
 eigenständige VM; sie kann allerdings auch auf demselben System
 wie der VerA.web core eingerichtet werden. Auch hier wird eine
-Installation von Debian Linux 7 „wheezy“ ohne graphisch Oberfläche
-vorausgesetzt.
+Installation von Debian Linux 7 „wheezy“ oder Debian Linux 8
+„jessie“ ohne graphische Oberfläche vorausgesetzt.
 
 Die Online-Anmeldung hat relativ bescheidene Voraussetzungen
 und kann bereits mit 512 MiB Arbeitsspeicher und 1½ GB Festplatte
 betrieben werden; die Werte steigen je nach Auslastung entsprechend.
 
-Auch hier benötigen Sie den Apache Webserver und die Java™ 7
+Auch hier benötigen Sie den Apache Webserver und die Java™ 7 oder 8
 Laufzeitumgebung, allerdings keinen Tomcat-Applikationsserver, da
 die Online-Anmeldung als sogenannter Microservice implementiert wurde.
 
@@ -891,9 +891,18 @@ zugegriffen werden kann; danach können Sie direkt im nächsten Abschnitt
 Sofern Sie noch nicht über eine OSIAM-Installation besitzen, bereiten
 Sie bitte zunächst das System vor, indem Sie einige Pakete installieren:
 
-\begin{lstdump}{Pakete OSIAM}
+\begin{lstdump}{Pakete OSIAM/wheezy}
+# Debian 7 (wheezy)
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
     apache2-mpm-prefork apache2 libapache2-mod-jk curl
+\end{lstdump}
+
+\begin{lstdump}{Pakete OSIAM/jessie}
+# Debian 8 (jessie)
+sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
+    apache2 libapache2-mod-jk curl
+sudo a2dismod mpm_event
+sudo a2enmod mpm_prefork
 \end{lstdump}
 \end{minipage}
 
@@ -905,8 +914,14 @@ der Webserver sowie Hilfsprogramme installiert.
 Stellen Sie nun sicher, daß keine ältere Java-Version installiert
 ist, damit sie nicht versehentlich verwendet werden kann\Hair\textsuperscript{\ref{fn:jessie}}:
 
-\begin{lstdump}{altes Java entfernen}
+\begin{lstdump}{altes Java entfernen/wheezy}
+# Debian 7 (wheezy)
 sudo apt-get purge openjdk-6-jre-headless gcj-4.6-base gcj-4.7-base
+\end{lstdump}
+
+\begin{lstdump}{altes Java entfernen/jessie}
+# Debian 8 (jessie)
+sudo apt-get purge gcj-4.8-jre-headless gcj-4.9-jre-headless
 \end{lstdump}
 \end{minipage}
 
@@ -1044,6 +1059,13 @@ sudo install -c -o 0 -g 0 -m 644 *.war /var/lib/tomcat7/webapps/
 
 Warten Sie einige Zeit, bis beide Artefakte deployt wurden; in
 \texttt{/var/log/tomcat7/catalina.out} befinden sich die Logs.
+Seit Debian 8 „jessie“ finden sich dort Erfolgsmeldungen, z.B.
+{\ttfamily INFO: Deployment of web application archive
+/var/lib/tomcat7/webapps/osiam-auth-server.war has finished
+in 12,338 ms} (eine separate solche Zeile pro Applikationsarchiv).
+
+Diese Anleitung ist \emph{wip}\Hair\footnote{\label{fn:jessie}und
+diese Fußnote nicht definitert, im Moment} und nicht zu benutzen⚠
 
 \begin{minipage}{\textwidth}
 In der Apache-Konfiguration äquivalent zu \nameref{subsec:setup-core-apache}
@@ -1191,9 +1213,18 @@ vorab Ihren Sachbearbeitern zukommen lassen können.
 \begin{minipage}{\textwidth}
 Installieren Sie einige Pakete:
 
-\begin{lstdump}{Pakete core}
+\begin{lstdump}{Pakete core/wheezy}
+# Debian 7 (wheezy)
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
     apache2-mpm-prefork apache2 libapache2-mod-jk curl
+\end{lstdump}
+
+\begin{lstdump}{Pakete core/jessie}
+# Debian 8 (jessie)
+sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
+    apache2 libapache2-mod-jk curl
+sudo a2dismod mpm_event
+sudo a2enmod mpm_prefork
 \end{lstdump}
 \end{minipage}
 
@@ -1600,11 +1631,29 @@ verweigern während Sie sie bearbeiten, da sie später Paßwörter
 enthalten werden.
 
 \begin{minipage}{\textwidth}
-Setzen Sie nun die benötigten Pakete und Vorbedingungen auf:
+Installieren Sie nun die benötigten Pakete:
 
-\begin{lstdump}{Prereqs OA}
+\begin{lstdump}{Pakete OA/wheezy}
+# Debian 7 (wheezy)
 sudo apt-get install openjdk-7-jre-headless \
     apache2-mpm-prefork apache2 daemontools-run adduser
+\end{lstdump}
+
+\begin{lstdump}{Pakete OA/jessie}
+# Debian 8 (jessie)
+sudo apt-get install openjdk-7-jre-headless \
+    apache2 daemontools-run adduser
+sudo a2dismod mpm_event
+sudo a2enmod mpm_prefork
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Richten Sie das Standardverzeichnis für die DJB dæmontools
+ein und legen Sie einen Benutzeraccount an, unter dem die
+Online-Anmeldung ausgeführt werden kann:
+
+\begin{lstdump}{Prereqs OA}
 sudo adduser --system --home /etc/service/vwoa --shell /bin/sh \
     --no-create-home --gecos 'VerA.web Online-Anmeldung' --group \
     --disabled-password --disabled-login vwoa
