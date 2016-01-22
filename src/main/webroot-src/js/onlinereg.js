@@ -18,6 +18,8 @@ onlineRegApp.run(function ($rootScope) {
         $rootScope.status = null;
         $rootScope.previousMessage = null;
         $rootScope.messageContent = null;
+        $rootScope.error=null;
+        $rootScope.success=null;
     }
 
     $rootScope.cleanImageControls = function () {

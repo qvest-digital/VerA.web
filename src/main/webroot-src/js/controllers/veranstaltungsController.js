@@ -1,12 +1,7 @@
 onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $rootScope, $location) {
     $scope.success = null;
-    if($rootScope.previousErrorMessage != null && $rootScope.previousErrorMessage != "") {
-        $scope.error = $rootScope.previousErrorMessage;
-    } else {
-        $scope.error = null;
-    }
-
-    $rootScope.previousErrorMessage = null;
+    $scope.error = null;
+    $rootScope.cleanMessages();
 
     if ($rootScope.user_logged_in == null) {
         lastPageRegisterPath = $location.path();
