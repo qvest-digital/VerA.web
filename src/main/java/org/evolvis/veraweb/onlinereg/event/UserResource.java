@@ -151,9 +151,6 @@ public class UserResource {
         final String accessTokenAsString = osiamClient.getAccessTokenClientCred("GET", "POST", "DELETE", "PATCH", "PUT");
         final AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
         final User user = osiamClient.getUser(accessTokenAsString, username);
-        final User activeUser = new User.Builder(user).setActive(true).build();
-//        osiamClient.deleteUser(user.getId(), accessToken);
-//        osiamClient.createUser(accessTokenAsString, activeUser);
         final UpdateUser updatedUser = new UpdateUser.Builder().updateActive(true).build();
         osiamClient.updateUser(user.getId(), updatedUser, accessToken);
     }
