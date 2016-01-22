@@ -673,6 +673,20 @@ bitte vorab über die LDAP-Kürzel (Unix-Loginnamen, üblicherweise das
 Attribut \texttt{uid}) des oder der Benutzer, der/die initial als
 VerA.web-Administratoren dienen sollen.
 
+Plazieren Sie bitte für jede VM das zugehörige SSL-Zertifikat als
+\texttt{/etc/ssl/vwserver.cer}, den privaten Schlüssel als
+\texttt{/etc/ssl/private/vwserver.key}, und, sofern vorhanden, die
+Zertifikatskette als \texttt{/etc/ssl/vwchain.cer}. Setzen Sie die
+Rechte entsprechend:\keinumbruch
+
+\begin{minipage}{\textwidth}
+\begin{lstdump}{SSL-Zertifikate}
+sudo chown 0:ssl-cert /etc/ssl/vw*.cer /etc/ssl/private/vwserver.key
+sudo chmod 644 /etc/ssl/vw*.cer
+sudo chmod 640 /etc/ssl/private/vwserver.key
+\end{lstdump}
+\end{minipage}
+
 \section{Installation OpenLDAP und LDAP-Account-Manager}\label{sec:setup-lam}
 
 Falls Sie bereits über einen \nameref{subsec:req-ldap} verfügen
