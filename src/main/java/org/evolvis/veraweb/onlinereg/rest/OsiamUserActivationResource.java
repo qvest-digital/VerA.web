@@ -33,8 +33,6 @@ public class OsiamUserActivationResource extends AbstractResource {
             final OsiamUserActivation osiamUserActivationEntry = new OsiamUserActivation(username, expirationDate, activationToken);
             session.persist(osiamUserActivationEntry);
             session.flush();
-            session.close();
-
             return osiamUserActivationEntry;
         } finally {
             session.close();
@@ -80,13 +78,14 @@ public class OsiamUserActivationResource extends AbstractResource {
     }
 
     @POST
-    @Path("/osiam/user/resetactivation")
-    public void removeActivationdataByUsername(@FormParam("username") String username, @FormParam("activation_token") String activationToken) {
+    @Path("/osiam/user/refreshactivationdata")
+    public void refreshActivationdataByUsername(@FormParam("username") String username, @FormParam("activation_token") String activationToken) {
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("Delegation.deleteOptionalFieldsByGuestId");
+            final Query query = session.getNamedQuery("OsiamUserActivation.refreshOsiamUserActivationByUsername");
             query.setString("username", username);
-            query.setInteger("activation_token", activationToken);
+            query.setString("activation_token", activationToken);
+            query.setDate("expiration_date",getExpirationDate());
             query.executeUpdate();
         } finally {
             session.close();
