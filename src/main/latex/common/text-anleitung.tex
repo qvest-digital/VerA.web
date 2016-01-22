@@ -46,7 +46,7 @@
 \newsavebox{\myinlinebox}%
 \newcommand{\myinlinepic}[2][\@empty]{%
  % first, generate a box with square content and w/o padding
- \savebox{\myinlinebox}{\ovalbox{\strut\hspace{1.5ex}}}%
+ \savebox{\myinlinebox}{\ovalbox{\strut\hspace{1.25ex}}}%
  % get its real height (Teχ height + depth)
  \myinlinesep=\ht\myinlinebox%
  \advance\myinlinesep by \dp\myinlinebox%
@@ -60,13 +60,8 @@
   \hspace{\myinlinesep}%
   % ensure standard height
   \strut%
-  % move the graphic ⅓ \strut depth down (ca. 10% of \baselineskip)
-  % due to raising picture size from 1¼ex to 1½ex breaking vertical centering
-  \raisebox{-\depth/3}{%
-   \strut%
-   % the graphic
-   \resizebox{!}{1.5ex}{\includegraphics{#2}}%
-  }%
+  % the graphic
+  \resizebox{!}{1.25ex}{\includegraphics{#2}}%
   % the text, if any
   \ifx#1\@empty\else{ #1}\fi%
   % right padding
