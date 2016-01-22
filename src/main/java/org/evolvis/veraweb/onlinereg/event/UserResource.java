@@ -136,12 +136,15 @@ public class UserResource {
     @Path("/activate/{activationToken}")
     public String activateUser(@PathParam("activationToken") String activationToken) throws IOException {
         final OsiamUserActivation osiamUserActivation = getOsiamUserActivationByToken(activationToken);
-        if (osiamUserActivation == null) {
+        if (osiamUserActivation.getUsername() == null) {
             return StatusConverter.convertStatus("LINK_INVALID");
+        } else if (osiamUserActivation.getExpiration_date().before(new Date())) {
+            return StatusConverter.convertStatus("LINK_EXPIRED");
+        } else {
+            removeOsiamUserActivationEntry(activationToken);
+            setOsiamUserAsActive(osiamUserActivation.getUsername());
+            return StatusConverter.convertStatus("OK");
         }
-        removeOsiamUserActivationEntry(activationToken);
-        setOsiamUserAsActive(osiamUserActivation.getUsername());
-        return StatusConverter.convertStatus("OK");
     }
 
     @POST
@@ -169,9 +172,6 @@ public class UserResource {
         final String accessTokenAsString = osiamClient.getAccessTokenClientCred("GET", "POST", "DELETE", "PATCH", "PUT");
         final AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
         final User user = osiamClient.getUser(accessTokenAsString, username);
-        final User activeUser = new User.Builder(user).setActive(true).build();
-//        osiamClient.deleteUser(user.getId(), accessToken);
-//        osiamClient.createUser(accessTokenAsString, activeUser);
         final UpdateUser updatedUser = new UpdateUser.Builder().updateActive(true).build();
         osiamClient.updateUser(user.getId(), updatedUser, accessToken);
     }
