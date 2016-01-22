@@ -67,7 +67,7 @@ public class OsiamUserActivationResource extends AbstractResource {
         } finally {
             session.close();
         }
-        return null;
+        return new OsiamUserActivation();
     }
 
     private Date getExpirationDate(){
