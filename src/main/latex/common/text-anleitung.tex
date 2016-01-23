@@ -35,9 +35,8 @@
 % - svc: primer on service management with DJB dæmontools
 % - Debian jessie-tauglich machen
 %   + sudo apt-get install libpostgresql-jdbc-java
-%   + sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat7/common/
-%   + sudo rm /var/lib/tomcat7/webapps/vwor/WEB-INF/lib/postgresql-9.1-901-1.jdbc4.jar
-%   ⇒ all fail⚠
+%   + sudo mkdir -p /var/lib/tomcat7/lib
+%   + sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat7/lib/
 % - alle nameref/ref print-tauglich machen/prüfen
 % TODO Team:
 % - neuer Mail-Kram
