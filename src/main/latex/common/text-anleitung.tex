@@ -34,6 +34,10 @@
 % - Apache, SSL, …
 % - svc: primer on service management with DJB dæmontools
 % - Debian jessie-tauglich machen
+%   + sudo apt-get install libpostgresql-jdbc-java
+%   + sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat7/common/
+%   + sudo rm /var/lib/tomcat7/webapps/vwor/WEB-INF/lib/postgresql-9.1-901-1.jdbc4.jar
+%   ⇒ all fail⚠
 % - alle nameref/ref print-tauglich machen/prüfen
 % TODO Team:
 % - neuer Mail-Kram
@@ -157,7 +161,8 @@ unverständlicher zu machen. Hierzu gehören:\keinumbruch
  \item{Als Betriebssystem wird Debian 7 „wheezy“ oder Debian 8
   „jessie“ eingesetzt; an den Stellen, wo Konfigurationsdateien
   angepaßt werden müssen, können wir die Debian-Standardwerte
-  als Grundlage voraussetzen.}
+  als Grundlage voraussetzen. \texttt{sudo} ist installiert
+  und eingerichtet.}
  \item{Das System ist grundsätzlich installiert, betriebsbereit
   und rebootfest; Firewalleinstellungen sind hinreichend getroffen.
   Für jede Maschine ist ein gültiges SSL-Zertifikat vorhanden.}
@@ -216,17 +221,6 @@ Es wird empfohlen, nur mit der Administration der Systeme betreuten
 Personen Zugriff auf die Systeme auf Shell-Ebene zu gewähren, und
 ggfs. weitere geeignete Maßnahmen zur Absicherung zu treffen.
 
-\subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
-
-Die Aufrufe der REST-API werden durch HTTP Basic Authentication mit einem
-(Maschinen‑)Benutzernamen und Paßwort gesichert, welche bei den aufrufenden
-Anwendungen (der Veranstaltungsmanagementsoftware und, sofern vorhanden, der
-Online-Anmeldung) hinterlegt wird; die REST-API wird niemals direkt durch
-einen Menschen bedient. Es wird standardmäßig der Benutzer \texttt{veraweb}
-mit dem Paßwort \texttt{veraweb} verwendet; eine Änderung der Zugangsdaten
-ist \emph{dringend empfohlen}, um die Betriebssicherheit zu gewährleisten;
-an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
-
 \ifoa
 
 \subsection{Systemübersicht}\label{subsec:intro-overview-blocks}
@@ -271,42 +265,20 @@ erwähnten Komponenten und ihr Zusammenspiel:\keinumbruch
 
 \fi% oa
 
-\subsection{Apache als Frontend}\label{subsec:intro-apache}
+\subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
 
-Wir setzen unsere Systeme üblicherweise aus Sicherheitsgründen so auf,
-daß HTTPS-Verbindungen im Apache Webserver terminiert werden und von
-diesem an die einzelnen Anwendungsserver (über das AJP-Protokoll an
-\ifoa
-Tomcat und als HTTP-Proxy an den Microservice der Online-Anmeldung)
-\else% !oa
-Tomcat)
-\fi% !oa
-weitergereicht werden. Sämtliche SSL/TLS-Keys, -Features und weitere
-sicherheitsrelevante Einstellungen richten wir im Apache Webserver ein,
-auch um die Angriffsoberfläche zu reduzieren und besser getesteten und
-weiter verbreiteten Code zu verwenden, und weil die Administration der
-genannten Features in Apache bekannter und erprobter ist als in den
-individuellen Anwendungsservern. Sie \emph{können} die Dienste auch direkt
-über HTTP ansprechen, dies widerspricht jedoch unserem empfohlenen Setup.
-
-\ifoa
-Es wird je eine Installation des Webservers pro VM benötigt, da in
-der von uns empfohlenen Installationemethode die Komponenten auch
-untereinander ausschließlich verschlüsselt und sicher über HTTPS
-miteinander kommunizieren.
-\fi% oa
-
-%TODO weg mit diesem Absatz
-Die Installation des Webservers (SSL/TLS-Zertifikat, Zugangskontrollen,
-falls nötig vhosts) liegt außerhalb des Rahmens dieses Dokuments. Es
-wird davon ausgegangen, daß Apache so weit eingerichtet wird, daß er
-statische Webseiten ausliefern kann; in diesem Dokument wird nur die
-Integration mit dem Veranstaltungsmanagement beschrieben. (Vergessen
-Sie bei Debian \texttt{sudo a2enmod ssl} nicht.)
+Die Aufrufe der REST-API werden durch HTTP Basic Authentication mit einem
+(Maschinen‑)Benutzernamen und Paßwort gesichert, welche bei den aufrufenden
+Anwendungen (der Veranstaltungsmanagementsoftware und, sofern vorhanden, der
+Online-Anmeldung) hinterlegt wird; die REST-API wird niemals direkt durch
+einen Menschen bedient. Es wird standardmäßig der Benutzer \texttt{veraweb}
+mit dem Paßwort \texttt{veraweb} verwendet; eine Änderung der Zugangsdaten
+ist \emph{dringend empfohlen}, um die Betriebssicherheit zu gewährleisten;
+an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
 
 \ifoa
 
-\subsubsection{Detailübersicht}\label{subsubsec:intro-overview-coarse}
+\subsection{Detailübersicht}\label{subsec:intro-overview-coarse}
 
 In der nächsten Graphik werden die zu VerA.web gehörenden Komponenten
 mit mehr Detailtiefe aufgeschlüsselt:\keinumbruch
@@ -368,7 +340,36 @@ eigene Datenhaltung betreiben – die LDAP-Datenbank für slapd
 (der OpenLDAP-Server), und eine separate PostgreSQL-Datenbank
 für OSIAM.
 
-\subsubsection{Komponentendiagramm}\label{subsubsec:intro-overview-fine}
+\fi% oa
+
+\subsection{Apache als Frontend}\label{subsec:intro-apache}
+
+Wir setzen unsere Systeme üblicherweise aus Sicherheitsgründen so auf,
+daß HTTPS-Verbindungen im Apache Webserver terminiert werden und von
+diesem an die einzelnen Anwendungsserver (über das AJP-Protokoll an
+\ifoa
+Tomcat und als HTTP-Proxy an den Microservice der Online-Anmeldung)
+\else% !oa
+Tomcat)
+\fi% !oa
+weitergereicht werden. Sämtliche SSL/TLS-Keys, -Features und weitere
+sicherheitsrelevante Einstellungen richten wir im Apache Webserver ein,
+auch um die Angriffsoberfläche zu reduzieren und besser getesteten und
+weiter verbreiteten Code zu verwenden, und weil die Administration der
+genannten Features in Apache bekannter und erprobter ist als in den
+individuellen Anwendungsservern. Sie \emph{können} die Dienste auch direkt
+über HTTP ansprechen, dies widerspricht jedoch unserem empfohlenen Setup.
+
+\ifoa
+Es wird je eine Installation des Webservers pro VM benötigt, da in
+der von uns empfohlenen Installationemethode die Komponenten auch
+untereinander ausschließlich verschlüsselt und sicher über HTTPS
+miteinander kommunizieren.
+\fi% oa
+
+\ifoa
+
+\subsection{Komponentendiagramm}\label{subsec:intro-overview-fine}
 
 In dieser Darstellung schlüsseln wir die verwendeten Komponenten
 detailliert auf. In der linken Spalte finden Sie Systemdienste
@@ -522,12 +523,12 @@ Installation und Upgrade von VerA.web funktionieren, indem
 zunächst Teile der Distribution (siehe oben) auf den Server
 kopiert werden, und alle weiteren Schritte dann auf dem System
 stattfinden. Die Beispiele sind so gehalten, daß die gesamte
-Installation entweder als normaler Benutzer (auf dem Server),
-der sich vermittels \texttt{sudo} Superuserrechte verschaffen
-kann, oder als \texttt{root} durchlaufen werden kann (hierzu
-installieren Sie \texttt{sudo} \dash die Standardkonfiguration
-erlaubt \texttt{root} unbegrenzten Zugriff \dash oder lassen
-das Wort \texttt{sudo} in allen Codebeispielen weg).
+Installation als normaler Benutzer oder \texttt{root} auf dem
+\ifoa
+jeweiligen
+\fi% oa
+Server durchgeführt werden kann, und privilegierte Operationen
+mit Hilfe des Programms \texttt{sudo} durchgeführt werden.
 
 Die weiteren Schritte, die auf dem Server durchzuführen sind,
 involvieren:\keinumbruch
@@ -627,10 +628,10 @@ Zum Betrieb von VerA.web core empfehlen wir eine eigenständige VM
 (OSIAM kann auf dem System mitinstalliert werden, wenn es nur für
 VerA.web verwendet wird)
 \fi% oa
-mit einer der stabilen Versionen Debian Linux 7 „wheezy“ oder Debian
-Linux 8 „jessie“ als Betriebssystem. Zwar \emph{kann}
-die Software auch mit einer anderen Debian-basierten Distribution
-(z.B. Ubuntu 14.04 „trusty“) oder einer anderen Java/Tomcat-Umgebung
+mit einer der stabilen Versionen Debian 7 „wheezy“ oder Debian 8
+„jessie“ als Betriebssystem. Zwar \emph{kann} die Software auch
+mit einer anderen Debian-basierten Distribution (z.B. Ubuntu 14.04
+„trusty“) oder einer anderen Java/Tomcat-Umgebung (z.B. Solaris)
 betrieben werden, allerdings geht diese Installationsanleitung von
 der empfohlenen Systemumgebung aus. Eine graphische Oberfläche auf
 dem Server wird zum Betrieb nicht benötigt.
@@ -677,8 +678,8 @@ eingestellten anderen Mailserver, zustellt.
 Zum Betrieb der Online-Anmeldung empfehlen wir ebenfalls eine
 eigenständige VM; sie kann allerdings auch auf demselben System
 wie der VerA.web core eingerichtet werden. Auch hier wird eine
-Installation von Debian Linux 7 „wheezy“ oder Debian Linux 8
-„jessie“ ohne graphische Oberfläche vorausgesetzt.
+Installation von Debian 7 „wheezy“ oder Debian 8 „jessie“ ohne
+graphische Oberfläche vorausgesetzt.
 
 Die Online-Anmeldung hat relativ bescheidene Voraussetzungen
 und kann bereits mit 512 MiB Arbeitsspeicher und 1½ GB Festplatte
@@ -887,18 +888,20 @@ Sie bitte sicher, daß auf die vorhandene Installation über HTTPS
 zugegriffen werden kann; danach können Sie direkt im nächsten Abschnitt
 (\nameref{subsec:setup-osiam-register}) weiterlesen.
 
+\subsubsection{System vorbereiten}\label{subsubsec:setup-osiam-prepare}
+
 \begin{minipage}{\textwidth}
 Sofern Sie noch nicht über eine OSIAM-Installation besitzen, bereiten
 Sie bitte zunächst das System vor, indem Sie einige Pakete installieren:
 
 \begin{lstdump}{Pakete OSIAM/wheezy}
-# Debian 7 (wheezy)
+### Debian 7 „wheezy“
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
     apache2-mpm-prefork apache2 libapache2-mod-jk curl
 \end{lstdump}
 
 \begin{lstdump}{Pakete OSIAM/jessie}
-# Debian 8 (jessie)
+### Debian 8 „jessie“
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
     apache2 libapache2-mod-jk curl
 sudo a2dismod mpm_event
@@ -912,18 +915,30 @@ der Webserver sowie Hilfsprogramme installiert.
 
 \begin{minipage}{\textwidth}
 Stellen Sie nun sicher, daß keine ältere Java-Version installiert
-ist, damit sie nicht versehentlich verwendet werden kann\Hair\textsuperscript{\ref{fn:jessie}}:
+ist, damit sie nicht versehentlich verwendet werden kann:
 
 \begin{lstdump}{altes Java entfernen/wheezy}
-# Debian 7 (wheezy)
+### Debian 7 „wheezy“
 sudo apt-get purge openjdk-6-jre-headless gcj-4.6-base gcj-4.7-base
+java -version
+### sollte etwa ausgeben:
+# java version "1.7.0_91"
+# OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb7u1)
+# OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
 \end{lstdump}
 
 \begin{lstdump}{altes Java entfernen/jessie}
-# Debian 8 (jessie)
+### Debian 8 „jessie“
 sudo apt-get purge gcj-4.8-jre-headless gcj-4.9-jre-headless
+java -version
+### sollte etwa ausgeben:
+# java version "1.7.0_91"
+# OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb8u1)
+# OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
 \end{lstdump}
 \end{minipage}
+
+\subsubsection{Datenbank}\label{subsubsec:setup-osiam-db}
 
 \begin{minipage}{\textwidth}
 Legen Sie den Datenbankbenutzer und die Datenbank an:
@@ -939,6 +954,10 @@ den Datenbanknutzer vergeben müssen Sie jetzt die Angaben
 in den Dateien \texttt{auth-server.properties} und
 \texttt{resource-server.properties} entsprechend anpassen.
 \end{minipage}
+
+Das Datenbankschema wird durch OSIAM selbst automatisch verwaltet.
+
+\subsubsection{Applikationsserver}\label{subsubsec:setup-osiam-tomcat}
 
 \begin{minipage}{\textwidth}
 In den Dateien \texttt{auth-server.properties} und
@@ -1047,6 +1066,8 @@ sudo service tomcat7 start
 \end{lstdump}
 \end{minipage}
 
+\subsubsection{Download von OSIAM}\label{subsubsec:setup-osiam-download}
+
 \begin{minipage}{\textwidth}
 Jetzt laden Sie die OSIAM-Anwendungen herunter und installieren Sie sie:
 
@@ -1064,12 +1085,23 @@ Seit Debian 8 „jessie“ finden sich dort Erfolgsmeldungen, z.B.
 /var/lib/tomcat7/webapps/osiam-auth-server.war has finished
 in 12,338 ms} (eine separate solche Zeile pro Applikationsarchiv).
 
-Diese Anleitung ist \emph{wip}\Hair\footnote{\label{fn:jessie}und
-diese Fußnote nicht definitert, im Moment} und nicht zu benutzen⚠
+\subsubsection{Webserver}\label{subsubsec:setup-osiam-apache}
 
 \begin{minipage}{\textwidth}
-In der Apache-Konfiguration äquivalent zu \nameref{subsec:setup-core-apache}
-mit \texttt{mod\_jk} sind folgende vhost-Einträge für OSIAM nötig:
+Jetzt richten Sie den Webserver ein:
+
+\begin{lstdump}{Apache OSIAM}
+sudo a2enmod jk
+sudo a2enmod ssl
+sudo a2ensite default-ssl
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl}
+(Debian 7 „wheezy“) oder \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
+(Debian 8 „jessie“) fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
+\texttt{DocumentRoot}), folgende Zeilen ein:
 
 \begin{lstdump}{AJP workers OSIAM}
 JkMount /osiam-auth-server* ajp13_worker
@@ -1077,11 +1109,37 @@ JkMount /osiam-resource-server* ajp13_worker
 \end{lstdump}
 \end{minipage}
 
-Schützen Sie das System bitte firewalltechnisch oder mit Hilfe von
-Apache-Direktiven so, daß Zugriffe auf diese beiden Pfade (oder den
-gesamten OSIAM-Server) nur von der lokalen Maschine (mit vollem
-Hostnamen, also ggfs. über die externe IP, nicht \texttt{127.0.0.1}),
-dem core/REST-API-System und der Online-Anmeldung möglich sind.
+\begin{minipage}{\textwidth}
+Einige Zeilen weiter unten ersetzen Sie bitte die bestehenden
+Angaben durch die folgenden:
+
+\begin{lstdump}{SSL OSIAM}
+SSLCertificateFile /etc/ssl/vwserver.cer
+SSLCertificateKeyFile /etc/ssl/private/vwserver.key
+SSLCertificateChainFile /etc/ssl/vwchain.cer
+\end{lstdump}
+
+⚠ \emph{Achtung:} Die letzte Zeile ist standardmäßig auskommentiert;
+entfernen Sie beim Anpassen das Kommentarzeichen \texttt{\#}. Falls
+Ihnen Ihre Zertifizierungsstelle keine Zertifikatskette bereitgestellt
+hat lassen Sie die letzte Zeile einfach weg.
+\end{minipage}
+
+Schützen Sie bitte das System, sodaß Zugriffe auf den Server (genauer,
+die Pfade \texttt{/osiam-auth-server} und \texttt{/osiam-resource-server})
+über HTTPS nur vom OSIAM-Server selber, dem core/REST-API-System und der
+Online-Anmeldung möglich sind, z.B. durch Apache-Direktiven oder Firewalling.
+
+\begin{minipage}{\textwidth}
+Nun starten Sie den Webserver neu:
+
+\begin{lstdump}{Apache restart OSIAM}
+sudo service apache2 stop
+sudo service apache2 start
+\end{lstdump}
+\end{minipage}
+
+\subsubsection{Funktionstest}\label{subsubsec:setup-osiam-check}
 
 \begin{minipage}{\textwidth}
 Nach einem erfolgreichen Start können Sie prüfen, ob sich der
@@ -1100,12 +1158,6 @@ offizielle OSIAM-Installationsanleitung mit weitergehenden
 Informationen, u.a. wie man den Standardzugang ändert.
 
 \subsection{Registrierung von VerA.web mit OSIAM}\label{subsec:setup-osiam-register}
-
-Falls Sie die Installation bisher als \texttt{root} und ohne
-\texttt{sudo} durchgeführt haben vergewissern Sie sich bitte,
-daß \texttt{sudo} dennoch verfügbar ist; ggfs. fügen Sie den
-Paketnamen (\texttt{sudo} oder \texttt{sudo-ldap}, je nach
-Ihrer Umgebung) der untenstehenden Installationszeile hinzu.
 
 \begin{minipage}{\textwidth}
 Zunächst müssen einige benötigte Hilfsprogramme installiert werden:
@@ -1214,13 +1266,13 @@ vorab Ihren Sachbearbeitern zukommen lassen können.
 Installieren Sie einige Pakete:
 
 \begin{lstdump}{Pakete core/wheezy}
-# Debian 7 (wheezy)
+### Debian 7 „wheezy“
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
     apache2-mpm-prefork apache2 libapache2-mod-jk curl
 \end{lstdump}
 
 \begin{lstdump}{Pakete core/jessie}
-# Debian 8 (jessie)
+### Debian 8 „jessie“
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
     apache2 libapache2-mod-jk curl
 sudo a2dismod mpm_event
@@ -1234,10 +1286,26 @@ der Webserver sowie Hilfsprogramme installiert.
 
 \begin{minipage}{\textwidth}
 Stellen Sie nun sicher, daß keine ältere Java-Version installiert
-ist, damit sie nicht versehentlich verwendet werden kann\Hair\textsuperscript{\ref{fn:jessie}}:
+ist, damit sie nicht versehentlich verwendet werden kann:
 
-\begin{lstdump}{altes Java entfernen}
+\begin{lstdump}{altes Java entfernen/wheezy}
+### Debian 7 „wheezy“
 sudo apt-get purge openjdk-6-jre-headless gcj-4.6-base gcj-4.7-base
+java -version
+### sollte etwa ausgeben:
+# java version "1.7.0_91"
+# OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb7u1)
+# OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
+\end{lstdump}
+
+\begin{lstdump}{altes Java entfernen/jessie}
+### Debian 8 „jessie“
+sudo apt-get purge gcj-4.8-jre-headless gcj-4.9-jre-headless
+java -version
+### sollte etwa ausgeben:
+# java version "1.7.0_91"
+# OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb8u1)
+# OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
 \end{lstdump}
 \end{minipage}
 
@@ -1478,7 +1546,7 @@ aber die von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
 \begin{lstdump}[language=XML]{Tomcat VWOR Auth}
 <role rolename="veraweb" />
 <user roles="veraweb" username="veraweb" password="veraweb" />
-\end{lstdump}
+\end{lstdump}\label{manual:restpw}
 \end{minipage}
 
 Nun starten Sie den Anwendungsserver neu, um die geänderten
@@ -1510,59 +1578,86 @@ Warten Sie ca. ½ Minute, bis beide Artefakte deployt wurden; in
 Falls OSIAM (oder andere Webanwendungen) auf demselben System
 installiert werden kann der Startvorgang deutlich länger dauern.
 \fi% oa
+Seit Debian 8 „jessie“ finden sich dort Erfolgsmeldungen, z.B.
+{\ttfamily INFO: Deployment of web application archive
+/var/lib/tomcat7/webapps/veraweb.war has finished in 2,151 ms}
+(eine separate solche Zeile pro Applikationsarchiv).
 
 \subsection{Webserver VerA.web-core und REST-API}\label{subsec:setup-core-apache}
 
 \begin{minipage}{\textwidth}
-Aktivieren Sie zunächst das \texttt{jk}-Modul, welches benutzt wird,
-um vermittels des AJP-Protokolls Anfragen an den Webserver an Tomcat
-durchzureichen:
+Jetzt richten Sie den Webserver ein:
 
-\begin{lstdumpx}
+\begin{lstdump}{Apache core}
 sudo a2enmod jk
-\end{lstdumpx}
+sudo a2enmod ssl
+sudo a2ensite default-ssl
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-Dann tragen Sie folgende Zeilen in die vhost-Konfiguration ein:
+In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl}
+(Debian 7 „wheezy“) oder \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
+(Debian 8 „jessie“) fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
+\texttt{DocumentRoot}), folgende Zeilen ein:
 
-\begin{lstdump}{AJP workers}
+\begin{lstdump}{AJP workers core}
 JkMount /veraweb* ajp13_worker
 JkMount /vwor* ajp13_worker
 \end{lstdump}
 \end{minipage}
 
-Diese Zeilen sollte z.B. in der mitgelieferten Standardkonfiguration
-des Webservers unter Debian
-\texttt{/etc/apache2/sites-available/default-ssl}, welche mit einem
-\texttt{sudo a2ensite default-ssl} aktiviert wird, vor das
-\texttt{DocumentRoot /var/www} geschrieben werden.
+\begin{minipage}{\textwidth}
+Desweiteren richten wir üblicherweise eine Weiterleitung von der
+Startseite des Servers auf die VerA.web-Anwendung ein, an derselben Stelle:
 
-Desweiteren richten wir üblicherweise eine Weiterleitung auf die Startseite
-sowie eine von HTTP nach HTTPS ein; beide an der jeweils selben Stelle;
-anstelle von \texttt{veraweb.lan.tarent.de} tragen Sie bitte den Namen
-Ihres Servers (FQDN) ein.
+\begin{lstdump}{redirect core}
+RedirectMatch 301 ^/*$ https://HOSTNAME-CORE/veraweb/
+\end{lstdump}
+\end{minipage}
+
+Ersetzen Sie wie üblich \texttt{HOSTNAME-CORE} durch den vollen
+Hostnamen (mit Domainteil) \dash den sogenannten FQDN \dash des
+core-Systems.
 
 \begin{minipage}{\textwidth}
-In \texttt{/etc/apache2/sites-available/default-ssl} (HTTPS):
+Einige Zeilen weiter unten ersetzen Sie bitte die bestehenden
+Angaben durch die folgenden:
 
-\begin{lstdump}{Redirect von /}
-RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/veraweb/
+\begin{lstdump}{SSL core}
+SSLCertificateFile /etc/ssl/vwserver.cer
+SSLCertificateKeyFile /etc/ssl/private/vwserver.key
+SSLCertificateChainFile /etc/ssl/vwchain.cer
+\end{lstdump}
+
+⚠ \emph{Achtung:} Die letzte Zeile ist standardmäßig auskommentiert;
+entfernen Sie beim Anpassen das Kommentarzeichen \texttt{\#}. Falls
+Ihnen Ihre Zertifizierungsstelle keine Zertifikatskette bereitgestellt
+hat lassen Sie die letzte Zeile einfach weg.
+\end{minipage}
+
+Der Zugriff auf den Pfad \texttt{/vwor} wird durch die REST-API bereits
+mit dem Paßwort, das Sie in Kapitel \ref{manual:restpw} vergeben haben,
+abgesichert; schützen Sie ggfs. das gesamte System, z.B. durch Firewalling
+oder Apache-Direktiven, sodaß Zugriffe nur durch das core/REST-API-System
+selber, die Online-Anmeldung, und autorisierte Personen (Administratoren
+und Sachbearbeiter) möglich sind.
+
+\begin{minipage}{\textwidth}
+In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/000-default}
+(Debian 7 „wheezy“) oder \texttt{/etc/apache2/sites-enabled/000-default.conf}
+(Debian 8 „jessie“) fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
+\texttt{DocumentRoot}), eine Weiterleitung von HTTP auf HTTPS ein:
+
+\begin{lstdump}{redirect http}
+RedirectMatch 301 . https://HOSTNAME-CORE/
 \end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-Desweiteren \texttt{/etc/apache2/sites-available/default} (HTTP):
+Nun starten Sie den Webserver neu:
 
-\begin{lstdump}{Redirect HTTP -> HTTPS}
-RedirectMatch 301 . https://veraweb.lan.tarent.de/veraweb/
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Abschließend starten Sie bitte den Webserver neu:
-
-\begin{lstdump}{Apache neustarten}
+\begin{lstdump}{Apache restart core}
 sudo service apache2 stop
 sudo service apache2 start
 \end{lstdump}
@@ -1571,20 +1666,22 @@ sudo service apache2 start
 \subsection{Funktionstest}\label{subsec:setup-core-check}
 
 \begin{minipage}{\textwidth}
-Nun können Sie die Lauffähigkeit der REST-API z.B. mit cURL prüfen:
+Nun können Sie die Lauffähigkeit der REST-API z.B. mit cURL prüfen;
+ersetzen Sie hierbei \texttt{veraweb:veraweb@} durch die in Kapitel
+\ref{manual:restpw} vergebenen Zugangsdaten für die REST-API (im
+Format {\itshape Benutzername + Doppelpunkt + Paßwort + Klammeraffe}):
 
 \begin{lstdump}{REST-API check}
 curl https://veraweb:veraweb@$(hostname -f)/vwor/rest/available/; echo
 \end{lstdump}
 
 Dieser Befehl gibt \texttt{OK} aus, wenn die REST-API läuft und
-Benutzername und Paßwort (die beiden \texttt{veraweb} hinter
-dem \texttt{https://}) korrekt sind.
+Benutzername und Paßwort korrekt sind.
 \end{minipage}
 
-Jetzt können Sie z.B. über \texttt{https://veraweb.lan.tarent.de/veraweb/}
-auf das Veranstaltungsmanagement zugreifen und sich einloggen. Falls
-hierbei Fehler auftauchen prüfen Sie bitte den LDAP-Zugriff und die Logs.
+Jetzt können Sie über einen Webbrowser auf das Veranstaltungsmanagement
+zugreifen und sich einloggen. Falls hierbei Fehler auftauchen prüfen Sie
+bitte den LDAP-Zugriff und die Logs\Hair\textsuperscript{\ref{fn:tomcatlogs}}.
 
 \begin{minipage}{\textwidth}
 Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
@@ -1634,13 +1731,13 @@ enthalten werden.
 Installieren Sie nun die benötigten Pakete:
 
 \begin{lstdump}{Pakete OA/wheezy}
-# Debian 7 (wheezy)
+### Debian 7 „wheezy“
 sudo apt-get install openjdk-7-jre-headless \
     apache2-mpm-prefork apache2 daemontools-run adduser
 \end{lstdump}
 
 \begin{lstdump}{Pakete OA/jessie}
-# Debian 8 (jessie)
+### Debian 8 „jessie“
 sudo apt-get install openjdk-7-jre-headless \
     apache2 daemontools-run adduser
 sudo a2dismod mpm_event
@@ -1795,7 +1892,7 @@ Hierbei wird davon ausgegangen, daß VerA.web gemäß
   dem Abschnitt \nameref{sec:setup-int} der vorliegenden Anleitung,
   oder einer ähnlich aufgebauten Anleitung einer Vorgängerversion,
  \fi% !upgradeanleitung
-auf einem Debian Linux 7 „wheezy“-System eingerichtet wurde.
+auf einem Debian 7 „wheezy“-System eingerichtet wurde.
 Installationen gemäß früherer Anleitungen der tarent solutions GmbH,
 die abweichende Verfahren z.B. in der Webserverkonfiguration benutzten,
 werden ebenfalls unterstützt, benötigen aber ggfs. Anpassungen.
@@ -2154,7 +2251,7 @@ Hierbei wird davon ausgegangen, daß diese gemäß
   dem Abschnitt \nameref{sec:setup-oa} der vorliegenden Anleitung,
   mindestens Version 1.7.4,
  \fi% !upgradeanleitung
-auf einem Debian Linux 7 „wheezy“-System eingerichtet wurde.
+auf einem Debian 7 „wheezy“-System eingerichtet wurde.
 Falls Sie eine ältere Installation der Online-Anmeldung besitzen
 empfehlen wir Ihnen stattdessen eine Neuinstallation, da die
 Installationsmethode seinerzeit noch nicht ausgereift war.
