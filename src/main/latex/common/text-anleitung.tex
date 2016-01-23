@@ -34,10 +34,10 @@
 % - Apache, SSL, …
 % - svc: primer on service management with DJB dæmontools
 % - Debian jessie-tauglich machen
-%   + sudo apt-get install libpostgresql-jdbc-java
-%   + sudo mkdir -p /var/lib/tomcat7/lib
-%   + sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat7/lib/
 % - alle nameref/ref print-tauglich machen/prüfen
+% - user/verz. vorgeben?
+% - wo sind PWs hinterlegt? (Übersicht)
+% - inet-Zugang/Download oSIAM
 % TODO Team:
 % - neuer Mail-Kram
 
@@ -1244,7 +1244,9 @@ sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
 \begin{lstdump}{Pakete core/jessie}
 ### Debian 8 „jessie“
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
-    apache2 libapache2-mod-jk curl
+    libpostgresql-jdbc-java apache2 libapache2-mod-jk curl
+sudo mkdir -p /var/lib/tomcat7/lib
+sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat7/lib/
 sudo a2dismod mpm_event
 sudo a2enmod mpm_prefork
 \end{lstdump}
@@ -1697,21 +1699,48 @@ eingeloggten Nutzern den Zugriff auf die Konfigurationsdateien zu
 verweigern während Sie sie bearbeiten, da sie später Paßwörter
 enthalten werden.
 
+\subsection{System vorbereiten}\label{subsec:setup-oa-prep}
+
 \begin{minipage}{\textwidth}
 Installieren Sie nun die benötigten Pakete:
 
-\begin{lstdump}{Pakete OA/wheezy}
+\begin{lstdump}{Pakete OSIAM/wheezy}
 ### Debian 7 „wheezy“
-sudo apt-get install openjdk-7-jre-headless \
-    apache2-mpm-prefork apache2 daemontools-run adduser
+sudo apt-get install adduser openjdk-7-jre-headless \
+    apache2-mpm-prefork apache2 daemontools-run
 \end{lstdump}
 
-\begin{lstdump}{Pakete OA/jessie}
+\begin{lstdump}{Pakete OSIAM/jessie}
 ### Debian 8 „jessie“
-sudo apt-get install openjdk-7-jre-headless \
-    apache2 daemontools-run adduser
+sudo apt-get install adduser openjdk-7-jre-headless \
+    apache2 daemontools-run
 sudo a2dismod mpm_event
 sudo a2enmod mpm_prefork
+\end{lstdump}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+Stellen Sie nun sicher, daß keine ältere Java-Version installiert
+ist, damit sie nicht versehentlich verwendet werden kann:
+
+\begin{lstdump}{altes Java entfernen/wheezy}
+### Debian 7 „wheezy“
+sudo apt-get purge openjdk-6-jre-headless gcj-4.6-base gcj-4.7-base
+java -version
+### sollte etwa ausgeben:
+# java version "1.7.0_91"
+# OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb7u1)
+# OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
+\end{lstdump}
+
+\begin{lstdump}{altes Java entfernen/jessie}
+### Debian 8 „jessie“
+sudo apt-get purge gcj-4.8-jre-headless gcj-4.9-jre-headless
+java -version
+### sollte etwa ausgeben:
+# java version "1.7.0_91"
+# OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb8u1)
+# OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
 \end{lstdump}
 \end{minipage}
 
@@ -1728,9 +1757,7 @@ sudo ln -sf etc/service /service
 \end{lstdump}
 \end{minipage}
 
-⚠ \emph{Achtung:} Das \texttt{daemontools-run}-Paket bedingt
-die Nutzung von SysV init (Paket \texttt{sysvinit-core} ab Debian 8
-„jessie“\Hair\textsuperscript{\ref{fn:jessie}}) statt systemd!
+\subsection{Microservice installieren}\label{subsec:setup-oa-svc}
 
 Bearbeiten Sie jetzt die \texttt{config.json}, indem Sie wieder
 \texttt{HOSTNAME-OSIAM} und \texttt{HOSTNAME-REST} durch die
@@ -1747,14 +1774,13 @@ löschen danach die Installationsdateien:
 
 \begin{lstdump}{OA service}
 mv ../../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar vwoa.jar
-mv config.json run vwoa/
-chown -R 0:0 .
-chgrp vwoa config.json
-chmod 644 *
-chmod 755 vwoa run
-chmod 640 config.json
+sudo chown -R 0:0 .
+sudo chgrp vwoa config.json
+sudo chmod 644 *
+sudo chmod 755 . run
+sudo chmod 640 config.json
 cd ..
-mv vwoa /service/vwoa
+sudo mv vwoa /service/vwoa
 cd ..
 rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
 \end{lstdump}
@@ -1768,40 +1794,103 @@ kontrollieren. Weitergehende Angaben hierzu finden Sie in der
 Dokumentation der DJB daemontools.
 %XXX add a primer here
 
-\begin{minipage}{\textwidth}
-Setzen Sie den Webserver äquivalent zu \nameref{subsec:setup-core-apache}
-auf, allerdings nicht mit dem \texttt{jk}-Modul sondern mit:
+\subsection{Webserver}\label{subsec:setup-oa-apache}
 
-\begin{lstdumpx}
-a2enmod proxy_http
-\end{lstdumpx}
+\begin{minipage}{\textwidth}
+Jetzt richten Sie den Webserver ein:
+
+\begin{lstdump}{Apache core}
+sudo a2enmod proxy_http
+sudo a2enmod ssl
+sudo a2ensite default-ssl
+\end{lstdump}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-Die vhost-Einträge sind:
+In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl}
+(Debian 7 „wheezy“) oder \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
+(Debian 8 „jessie“) fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
+\texttt{DocumentRoot}), folgende Zeilen ein:
 
-\begin{lstdump}{OA workers}
+\begin{lstdump}{AJP workers core}
 ProxyPass /vwor-app/ http://localhost:8081/
 ProxyPassReverse /vwor-app/ http://localhost:8081/
 \end{lstdump}
 \end{minipage}
 
-Im Regelfall haben Sie die Online-Anmeldung auf einem getrennten
-Webserver installiert; da sie sich URL-mäßig unterhalb von
-\texttt{/vwor-app/} befindet ist auch hier, ähnlich dem core,
-eine Weiterleitung von \texttt{/} sinnvoll.
-
 \begin{minipage}{\textwidth}
-Der hierzu nötige vhost-Eintrag ist:
+Desweiteren richten wir üblicherweise eine Weiterleitung von der
+Startseite des Servers auf die VerA.web Online-Anmeldung ein, an
+derselben Stelle, aber nur, falls sie sich nicht den Server mit
+der Kernanwendung teilt:
 
-\begin{lstdump}{OA redirect}
-RedirectMatch 301 ^/*$ https://veraweb.lan.tarent.de/vwor-app/
+\begin{lstdump}{redirect core}
+RedirectMatch 301 ^/*$ https://HOSTNAME-OA/vwor-app/
 \end{lstdump}
 \end{minipage}
+
+Ersetzen Sie wie üblich \texttt{HOSTNAME-OA} durch den vollen
+Hostnamen (mit Domainteil) \dash den sogenannten FQDN \dash der
+Online-Anmeldung.
+
+\begin{minipage}{\textwidth}
+Einige Zeilen weiter unten ersetzen Sie bitte die bestehenden
+Angaben durch die folgenden:
+
+\begin{lstdump}{SSL core}
+SSLCertificateFile /etc/ssl/vwserver.cer
+SSLCertificateKeyFile /etc/ssl/private/vwserver.key
+SSLCertificateChainFile /etc/ssl/vwchain.cer
+\end{lstdump}
+
+⚠ \emph{Achtung:} Die letzte Zeile ist standardmäßig auskommentiert;
+entfernen Sie beim Anpassen das Kommentarzeichen \texttt{\#}. Falls
+Ihnen Ihre Zertifizierungsstelle keine Zertifikatskette bereitgestellt
+hat lassen Sie die letzte Zeile einfach weg.
+\end{minipage}
+
+Der Zugriff auf die Online-Anmeldung muß für Ihre Gäste aus dem Internet
+möglich sein, sowohl bei der Delegationsanmeldung als auch insbesondere
+bei der Anmeldung zu offenen Veranstaltungen.
+
+\begin{minipage}{\textwidth}
+In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/000-default}
+(Debian 7 „wheezy“) oder \texttt{/etc/apache2/sites-enabled/000-default.conf}
+(Debian 8 „jessie“) fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
+\texttt{DocumentRoot}), eine Weiterleitung von HTTP auf HTTPS ein:
+
+\begin{lstdump}{redirect http}
+RedirectMatch 301 . https://HOSTNAME-OA/
+\end{lstdump}
+\end{minipage}
+
+Falls sich die Online-Anmeldung den Server mit dem core-System teilt ist
+diese Anpassung natürlich hinfällig, da bereits erledigt.
+
+\begin{minipage}{\textwidth}
+Nun starten Sie den Webserver neu:
+
+\begin{lstdump}{Apache restart core}
+sudo service apache2 stop
+sudo service apache2 start
+\end{lstdump}
+\end{minipage}
+
+\subsection{Funktionstest}\label{subsec:setup-oa-check}
+
+Jetzt können Sie \dash z.B. unter der URL
+\texttt{https://veraweb.lan.tarent.de/vwor-app/} \dash mit einem
+Webbrowser testen, ob die Online-Anmeldung verfügbar ist, ansonsten
+prüfen Sie die Logs\Hair\textsuperscript{\ref{fn:vwoalogs}}.
 
 \fi% oa
 
 Damit ist die Installation abgeschlossen.
+
+⚠ \emph{Achtung:} diese Anleitung ist WIP, nicht verwenden!
+
+% Seitenumbruch zwischen Installation und Upgrade forçieren
+\newpage
 
 \fi% !ifupgradeanleitung
 
@@ -1862,8 +1951,8 @@ Hierbei wird davon ausgegangen, daß VerA.web gemäß
   dem Abschnitt \nameref{sec:setup-int} der vorliegenden Anleitung,
   oder einer ähnlich aufgebauten Anleitung einer Vorgängerversion,
  \fi% !upgradeanleitung
-auf einem Debian 7 „wheezy“-System eingerichtet wurde.
-Installationen gemäß früherer Anleitungen der tarent solutions GmbH,
+auf einem Debian 7 „wheezy“- oder Debian 8 „jessie“-System eingerichtet
+wurde. Installationen gemäß früherer Anleitungen der tarent solutions,
 die abweichende Verfahren z.B. in der Webserverkonfiguration benutzten,
 werden ebenfalls unterstützt, benötigen aber ggfs. Anpassungen.
 
@@ -2020,14 +2109,19 @@ in der \texttt{vwor.endpoint}-Eigenschaft an (ersetzen Sie
 \texttt{HOSTNAME-REST} durch den FQDN des Servers, über den die
 REST-API erreichbar ist, üblicherweise also den Hostnamen vom
 core-System) und tragen Sie die Zugangsdaten für die REST-API
-(siehe \nameref{subsec:intro-restapi}) als \texttt{vwor.auth.user}
+(siehe \nameref{manual:restpw}) als \texttt{vwor.auth.user}
 und \texttt{vwor.auth.password} ein.
 \ifoa
 Desweiteren ersetzen Sie bitte \texttt{HOSTNAME-OSIAM} und
 \texttt{HOSTNAME-OA} an allen Stellen durch die Hostnamen
 des OSIAM- bzw. des Online-Anmeldungssystems. Schließlich
 tragen Sie für \texttt{osiam.client.secret} denselben Wert
-ein, den Sie bei der \nameref{subsec:setup-osiam-register}
+ein, den Sie bei der
+ \ifupgradeanleitung
+  Registrierung von VerA.web mit OSIAM
+ \else% !upgradeanleitung
+  \nameref{subsec:setup-osiam-register}
+ \fi% !upgradeanleitung
 als \texttt{vwsecret} gesetzt hatten.
 \fi% oa
 
@@ -2130,6 +2224,21 @@ aber die von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
 \end{lstdump}
 \end{minipage}
 
+\subsection{Upgrade von Debian 7 „wheezy“ auf Debian 8 „jessie“}
+
+Nachdem Sie das System regulär auf die neue Version von Debian
+aktualisiert und die Konfigurationen (z.B. Apache Webserver)
+angepaßt haben müssen Sie auf dem System, auf dem die REST-API
+installiert ist, noch folgende Anpassungen tätigen:\keinumbruch
+
+\begin{minipage}{\textwidth}
+\begin{lstdump}{Upgrade core wheezy/jessie}
+sudo apt-get install libpostgresql-jdbc-java
+sudo mkdir -p /var/lib/tomcat7/lib
+sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat7/lib/
+\end{lstdump}
+\end{minipage}
+
 \ifoa\ifupgradeanleitung\else% oa !upgradeanleitung
 
 \subsection{Upgrade einer Installation ohne Online-Anmeldung}
@@ -2206,7 +2315,11 @@ Prüfen Sie ggfs. die Logausgaben\Hair\footnote{\label{fn:tomcatlogs}in
 \texttt{/var/log/tomcat7/catalina.out}}, ob die REST-API verfügbar
 ist\Hair\footnote{\label{fn:vworcheck}mit:
 \texttt{curl https://veraweb:veraweb@\$(hostname -f)/vwor/rest/available/; echo}%
-}, und, über die Weboberfläche, die Verfügbarkeit von VerA.web-core.
+\dash ersetzen Sie in dieser Kommandozeile den Teil \texttt{veraweb:veraweb@}
+durch die in Kapitel \ref{manual:restpw} vergebenen Zugangsdaten für die
+REST-API (im Format {\itshape Benutzername + Doppelpunkt + Paßwort +
+Klammeraffe})}, und, über die Weboberfläche, die Verfügbarkeit von
+VerA.web-core.
 
 \ifoa
 
@@ -2243,8 +2356,9 @@ Mit dem Befehl \texttt{svstat /service/vwoa} sollten Sie danach
 festellen können, daß der Dienst vor wenigen Sekunden neugestartet
 wurde, aber nicht in eine Endlos-Neustartschleife läuft (also
 die Sekunden weiterhin hochgezählt werden). Prüfen Sie ggfs. die
-Logausgaben\Hair\footnote{in \texttt{/var/log/vwoa/vwoa.log}}
-und die Verfügbarkeit des Dienstes über die Weboberfläche.
+Logausgaben\Hair\footnote{\label{fn:vwoalogs}in
+\texttt{/var/log/vwoa/vwoa.log}} und die Verfügbarkeit des Dienstes
+über die Weboberfläche.
 
 \fi% oa
 
