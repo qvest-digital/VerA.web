@@ -34,7 +34,6 @@
 % - Apache, SSL, …
 % - svc: primer on service management with DJB dæmontools
 % - Debian jessie-tauglich machen
-% - alle nameref/ref print-tauglich machen/prüfen
 % - user/verz. vorgeben?
 % - wo sind PWs hinterlegt? (Übersicht)
 % - inet-Zugang/Download oSIAM
@@ -236,6 +235,7 @@ erwähnten Komponenten und ihr Zusammenspiel:\keinumbruch
 \fi% oa
 
 \subsection{Die Rolle der REST-API}\label{subsec:intro-restapi}
+\ifupgradeanleitung\label{manual:restpw}\fi% upgradeanleitung
 
 Die Aufrufe der REST-API werden durch HTTP Basic Authentication mit einem
 (Maschinen‑)Benutzernamen und Paßwort gesichert, welche bei den aufrufenden
@@ -1368,7 +1368,7 @@ in der \texttt{vwor.endpoint}-Eigenschaft an (ersetzen Sie
 \texttt{HOSTNAME-REST} durch den FQDN des Servers, über den die
 REST-API erreichbar ist, üblicherweise also den Hostnamen vom
 core-System) und tragen Sie die Zugangsdaten für die REST-API
-(siehe \nameref{subsec:intro-restapi}) als \texttt{vwor.auth.user}
+(siehe \nameref{manual:restpw}) als \texttt{vwor.auth.user}
 und \texttt{vwor.auth.password} ein.
 \ifoa
 Desweiteren ersetzen Sie bitte \texttt{HOSTNAME-OSIAM} und
@@ -1518,7 +1518,8 @@ aber die von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
 \begin{lstdump}[language=XML]{Tomcat VWOR Auth}
 <role rolename="veraweb" />
 <user roles="veraweb" username="veraweb" password="veraweb" />
-\end{lstdump}\label{manual:restpw}
+\end{lstdump}
+\ifupgradeanleitung\else\label{manual:restpw}\fi% !upgradeanleitung
 \end{minipage}
 
 Nun starten Sie den Anwendungsserver neu, um die geänderten
@@ -1766,7 +1767,7 @@ tragen Sie denselben Wert ein, den Sie bei der
 \nameref{subsec:setup-osiam-register} als \texttt{vwsecret}
 gesetzt haben; unterhalb von \texttt{restauth} tragen Sie die
 von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
-\ref{subsec:intro-restapi} ein.
+\ref{manual:restpw} ein.
 
 \begin{minipage}{\textwidth}
 Nun richten Sie den Dienst für die Online-Anmeldung ein und
@@ -2248,7 +2249,7 @@ in der \texttt{vwor.endpoint}-Eigenschaft an (ersetzen Sie
 \texttt{HOSTNAME-REST} durch den FQDN des Servers, über den die
 REST-API erreichbar ist, üblicherweise also den Hostnamen vom
 core-System) und tragen Sie die Zugangsdaten für die REST-API
-(siehe \nameref{subsec:intro-restapi}) als \texttt{vwor.auth.user}
+(siehe \nameref{manual:restpw}) als \texttt{vwor.auth.user}
 und \texttt{vwor.auth.password} ein.
 Desweiteren ersetzen Sie bitte \texttt{HOSTNAME-OSIAM} und
 \texttt{HOSTNAME-OA} an allen Stellen durch die Hostnamen
