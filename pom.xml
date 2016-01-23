@@ -346,7 +346,7 @@
 				<version>1.4.2</version>
 				<configuration>
 					<forceBuild>true</forceBuild>
-					<extraRuns>1</extraRuns>
+					<extraRuns>2</extraRuns>
 				</configuration>
 			</plugin>
 		</plugins>
