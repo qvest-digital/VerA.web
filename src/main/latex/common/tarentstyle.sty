@@ -239,5 +239,38 @@
 \newcommand{\keinumbruch}{\par\nobreak\@afterheading}
 \makeatother
 
+% for nice inline pictures in boxen with rounded corners
+\makeatletter%
+% fbox and ovalbox line will be inside the box
+\setlength{\fboxsep}{-2\fboxrule}%
+% to calculate horizontal padding inside the frame
+\newdimen{\inlinebildsep}%
+% to store dimensions of box without padding
+\newsavebox{\inlinebildbox}%
+\newcommand{\inlinebild}[2][\@empty]{%
+ % first, generate a box with square content and w/o padding
+ \savebox{\inlinebildbox}{\ovalbox{\strut\hspace{1.25ex}}}%
+ % get its real height (Teχ height + depth)
+ \inlinebildsep=\ht\inlinebildbox%
+ \advance\inlinebildsep by \dp\inlinebildbox%
+ % subtract its real width
+ \advance\inlinebildsep by -\wd\inlinebildbox%
+ % we want half of it on either side
+ \divide\inlinebildsep by 2%
+ % now render the actual box
+ \ovalbox{%
+  % left padding
+  \hspace{\inlinebildsep}%
+  % ensure standard height
+  \strut%
+  % the graphic
+  \resizebox{!}{1.25ex}{\includegraphics{#2}}%
+  % the text, if any
+  \ifx#1\@empty\else{ #1}\fi%
+  % right padding
+  \hspace{\inlinebildsep}%
+}}%
+\makeatother%
+
 % figure out overfull hbox
 %\overfullrule=2cm

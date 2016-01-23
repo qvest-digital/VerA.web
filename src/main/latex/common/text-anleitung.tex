@@ -41,38 +41,6 @@
 % TODO Team:
 % - neuer Mail-Kram
 
-\makeatletter%
-% fbox and ovalbox line will be inside the box
-\setlength{\fboxsep}{-2\fboxrule}%
-% to calculate horizontal padding inside the frame
-\newdimen{\myinlinesep}%
-% to store dimensions of box without padding
-\newsavebox{\myinlinebox}%
-\newcommand{\myinlinepic}[2][\@empty]{%
- % first, generate a box with square content and w/o padding
- \savebox{\myinlinebox}{\ovalbox{\strut\hspace{1.25ex}}}%
- % get its real height (Teχ height + depth)
- \myinlinesep=\ht\myinlinebox%
- \advance\myinlinesep by \dp\myinlinebox%
- % subtract its real width
- \advance\myinlinesep by -\wd\myinlinebox%
- % we want half of it on either side
- \divide\myinlinesep by 2%
- % now render the actual box
- \ovalbox{%
-  % left padding
-  \hspace{\myinlinesep}%
-  % ensure standard height
-  \strut%
-  % the graphic
-  \resizebox{!}{1.25ex}{\includegraphics{#2}}%
-  % the text, if any
-  \ifx#1\@empty\else{ #1}\fi%
-  % right padding
-  \hspace{\myinlinesep}%
-}}%
-\makeatother%
-
 \ifupgradeanleitung
  \ifoa
   \newcommand{\vwianame}{Upgradeanleitung VerA.web-full}
@@ -776,49 +744,49 @@ automatisieren sondern muß manuell mit einem Webbrowser durchgeführt
 werden.
 
 Dort klicken Sie zunächst oben rechts auf:
-\myinlinepic[LAM configuration]{lam-tools}
+\inlinebild[LAM configuration]{lam-tools}
 
-Unterhalb von \myinlinepic[Edit general settings]{lam-tools} finden
+Unterhalb von \inlinebild[Edit general settings]{lam-tools} finden
 Sie, nachdem Sie sich mit dem Master-Paßwort „lam“ authentifiziert
 haben, ganz unten auf der Seite die Möglichkeit, ebendieses zu ändern.
 
 Nach dem Speichern wählen Sie wieder:
-\myinlinepic[LAM configuration]{lam-tools}
+\inlinebild[LAM configuration]{lam-tools}
 
-Nun finden Sie unter \myinlinepic[Edit server profiles]{lam-profiles}
+Nun finden Sie unter \inlinebild[Edit server profiles]{lam-profiles}
 einige weitere Einstellungen. Geben Sie zunächst im dritten Feld
 (Tree suffix) Ihren Base DN ein, und unten bei „List of valid users“
-unterhalb von \myinlinepic[Security settings]{lam-security} den DN
+unterhalb von \inlinebild[Security settings]{lam-security} den DN
 des LDAP-Administrators\Hair\footnote{hier
 \texttt{cn=admin,dc=lan,dc=tarent,dc=de} \dash zu sehen mit
 \texttt{ldapsearch -x} \dash vgl. Kapitel \ref{subsec:setup-lam-slapd}}.
 
 Sie brauchen an dieser Stelle noch nicht zu speichern. Wählen Sie oben
-den Registerreiter \myinlinepic[Account types]{lam-gear} aus. Klicken
-Sie auf das Lösch-Icon \myinlinepic{lam-del} neben den Einträgen
-\myinlinepic[Hosts]{lam-host} und \myinlinepic[Samba domains]
+den Registerreiter \inlinebild[Account types]{lam-gear} aus. Klicken
+Sie auf das Lösch-Icon \inlinebild{lam-del} neben den Einträgen
+\inlinebild[Hosts]{lam-host} und \inlinebild[Samba domains]
 {lam-smbDomain}, um die weitere Verwaltung zu vereinfachen. Ändern Sie
-den „LDAP suffix“ für \myinlinepic[Users]{lam-user} in \texttt{ou=Users}
+den „LDAP suffix“ für \inlinebild[Users]{lam-user} in \texttt{ou=Users}
 gefolgt von einem Komma und Ihrem Base DN, und den „LDAP suffix“ für
-\myinlinepic[Groups]{lam-group} in \texttt{ou=group} gefolgt von einem
+\inlinebild[Groups]{lam-group} in \texttt{ou=group} gefolgt von einem
 Komma und Ihrem Base DN.
 
-Fahren Sie im Registerreiter \myinlinepic[Modules]{lam-modules} fort,
+Fahren Sie im Registerreiter \inlinebild[Modules]{lam-modules} fort,
 indem Sie jeweils „Samba 3 (sambaSamAccount)“ (Users) und „Samba 3
-(sambaGroupMapping)“ nach \myinlinepic{lam-forward} rechts schieben.
-Unter \myinlinepic[Module settings]{lam-modules} können Sie, falls
+(sambaGroupMapping)“ nach \inlinebild{lam-forward} rechts schieben.
+Unter \inlinebild[Module settings]{lam-modules} können Sie, falls
 gewünscht, einzelne Felder aus der Anzeige ausblenden, um die spätere
 Benutzung weiter zu vereinfachen.
 
-Jetzt können Sie mit \myinlinepic[Save]{lam-save} speichern. Dann können
+Jetzt können Sie mit \inlinebild[Save]{lam-save} speichern. Dann können
 Sie sich auf der nun erscheinenden regulären Loginmaske mit dem Paßwort
 des LDAP-Administrators anmelden. Beim ersten Login erscheint eine
 Abfrage „The following suffixes are missing in LDAP. LAM can create them
 for you.“, welche Sie mit „Create“ bestätigen. Jetzt müssen Sie noch
-unter \myinlinepic[Groups]{lam-group} eine Gruppe erstellen, der später
+unter \inlinebild[Groups]{lam-group} eine Gruppe erstellen, der später
 alle User standardmäßig zugeordnet werden; klicken Sie hierzu auf
-\myinlinepic[New group]{lam-add} und geben als „Group name“ einfach
-„ldapusers“ an und klicken oben links auf \myinlinepic[Save]{lam-save}.
+\inlinebild[New group]{lam-add} und geben als „Group name“ einfach
+„ldapusers“ an und klicken oben links auf \inlinebild[Save]{lam-save}.
 
 Damit ist die Ersteinrichtung des LDAP-Account-Managers abgeschlossen.
 
@@ -826,17 +794,17 @@ Damit ist die Ersteinrichtung des LDAP-Account-Managers abgeschlossen.
 
 Um einen Benutzer im LDAP anzulegen müssen Sie sich ggfs. (außer direkt
 nach der Ersteinrichtung) wieder mit dem Paßwort des LDAP-Administrators
-anmelden; sonst wählen Sie den Registerreiter \myinlinepic[Users]{lam-user}.
-Klicken Sie dann auf \myinlinepic[New user]{lam-add}.
+anmelden; sonst wählen Sie den Registerreiter \inlinebild[Users]{lam-user}.
+Klicken Sie dann auf \inlinebild[New user]{lam-add}.
 
 In der folgenden Maske müssen Sie mindestens den „Last Name“ ausfüllen;
 die „Email address“ ist zwar keine Pflicht, aber sinnvoll.
-Klicken Sie dann links auf \myinlinepic[Unix]{lam-tux} und tragen im Feld
+Klicken Sie dann links auf \inlinebild[Unix]{lam-tux} und tragen im Feld
 „User name“ ein geeignetes Kürzel (⚠ nur Kleinbuchstaben und Zahlen) ein;
 mit diesem Kürzel kann sich später der Nutzer bei VerA.web anmelden. Nun
-wählen Sie noch \myinlinepic[Set password]{lam-key}, tragen es (in beide
+wählen Sie noch \inlinebild[Set password]{lam-key}, tragen es (in beide
 Felder) ein, klicken im Dialog auf „Ok“ und dann oben links wieder auf
-\myinlinepic[Save]{lam-save}.
+\inlinebild[Save]{lam-save}.
 
 Jetzt erscheint die Meldung „Account was created successfully.“ in einem
 blauen Kasten; damit ist dieser Nutzer angelegt und kann in VerA.web core
