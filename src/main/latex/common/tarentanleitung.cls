@@ -43,7 +43,7 @@
 \newcommand{\tarentanleitung}[6]{
  \newcommand{\produktversion}{#2}
 % 1. Seite: keine Kopfzeile; Fußzeile 1.1 cm (Abstand 0.6 cm); mehr Rand
-\newgeometry{includeheadfoot,inner=2.1cm,outer=1.6cm,top=2cm,bottom=4cm,twoside,headheight=0cm,headsep=0cm,foot=1.7cm,marginparsep=2.5mm}
+\newgeometry{includeheadfoot,inner=1.9cm,outer=1.8cm,top=2cm,bottom=4cm,twoside,headheight=0cm,headsep=0cm,foot=1.7cm,marginparsep=2.5mm}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
