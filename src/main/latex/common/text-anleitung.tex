@@ -878,33 +878,14 @@ zugegriffen werden kann; danach können Sie direkt im nächsten Abschnitt
 
 \begin{minipage}{\textwidth}
 Sofern Sie noch nicht über eine OSIAM-Installation besitzen, bereiten
-Sie bitte zunächst das System vor, indem Sie einige Pakete installieren:
+Sie bitte zunächst das System vor, indem Sie einige Pakete installieren
+und sicherstellen, daß keine ältere Java-Version installiert ist bzw.
+versehentlich verwendet wird:
 
 \begin{lstdump}{Pakete OSIAM/wheezy}
 ### Debian 7 „wheezy“
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
     apache2-mpm-prefork apache2 libapache2-mod-jk curl
-\end{lstdump}
-
-\begin{lstdump}{Pakete OSIAM/jessie}
-### Debian 8 „jessie“
-sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
-    apache2 libapache2-mod-jk curl
-sudo a2dismod mpm_event
-sudo a2enmod mpm_prefork
-\end{lstdump}
-\end{minipage}
-
-Jetzt sind der Datenbankserver, die Java™-Laufzeitumgebung (in der
-Version für Server und Webanwendungen), der Tomcat-Applikationsserver,
-der Webserver sowie Hilfsprogramme installiert.
-
-\begin{minipage}{\textwidth}
-Stellen Sie nun sicher, daß keine ältere Java-Version installiert
-ist, damit sie nicht versehentlich verwendet werden kann:
-
-\begin{lstdump}{altes Java entfernen/wheezy}
-### Debian 7 „wheezy“
 sudo apt-get purge openjdk-6-jre-headless gcj-4.6-base gcj-4.7-base
 java -version
 ### sollte etwa ausgeben:
@@ -913,8 +894,12 @@ java -version
 # OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
 \end{lstdump}
 
-\begin{lstdump}{altes Java entfernen/jessie}
+\begin{lstdump}{Pakete OSIAM/jessie}
 ### Debian 8 „jessie“
+sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
+    apache2 libapache2-mod-jk curl
+sudo a2dismod mpm_event
+sudo a2enmod mpm_prefork
 sudo apt-get purge gcj-4.8-jre-headless gcj-4.9-jre-headless
 java -version
 ### sollte etwa ausgeben:
@@ -923,6 +908,10 @@ java -version
 # OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
 \end{lstdump}
 \end{minipage}
+
+Jetzt sind der Datenbankserver, die Java™-Laufzeitumgebung (in der
+Version für Server und Webanwendungen), der Tomcat-Applikationsserver,
+der Webserver sowie Hilfsprogramme installiert.
 
 \subsubsection{Datenbank}\label{subsubsec:setup-osiam-db}
 
@@ -1249,12 +1238,19 @@ später in der Anwendung auch als Online-Hilfe verfügbar ist, als
 vorab Ihren Sachbearbeitern zukommen lassen können.
 
 \begin{minipage}{\textwidth}
-Installieren Sie einige Pakete:
+Installieren Sie einige Pakete und stellen Sie sicher, daß keine
+ältere Java-Version installiert ist bzw. versehentlich verwendet wird:
 
 \begin{lstdump}{Pakete core/wheezy}
 ### Debian 7 „wheezy“
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
     apache2-mpm-prefork apache2 libapache2-mod-jk curl
+sudo apt-get purge openjdk-6-jre-headless gcj-4.6-base gcj-4.7-base
+java -version
+### sollte etwa ausgeben:
+# java version "1.7.0_91"
+# OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb7u1)
+# OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
 \end{lstdump}
 
 \begin{lstdump}{Pakete core/jessie}
@@ -1265,29 +1261,6 @@ sudo mkdir -p /var/lib/tomcat7/lib
 sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat7/lib/
 sudo a2dismod mpm_event
 sudo a2enmod mpm_prefork
-\end{lstdump}
-\end{minipage}
-
-Jetzt sind der Datenbankserver, die Java™-Laufzeitumgebung (in der
-Version für Server und Webanwendungen), der Tomcat-Applikationsserver,
-der Webserver sowie Hilfsprogramme installiert.
-
-\begin{minipage}{\textwidth}
-Stellen Sie nun sicher, daß keine ältere Java-Version installiert
-ist, damit sie nicht versehentlich verwendet werden kann:
-
-\begin{lstdump}{altes Java entfernen/wheezy}
-### Debian 7 „wheezy“
-sudo apt-get purge openjdk-6-jre-headless gcj-4.6-base gcj-4.7-base
-java -version
-### sollte etwa ausgeben:
-# java version "1.7.0_91"
-# OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb7u1)
-# OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
-\end{lstdump}
-
-\begin{lstdump}{altes Java entfernen/jessie}
-### Debian 8 „jessie“
 sudo apt-get purge gcj-4.8-jre-headless gcj-4.9-jre-headless
 java -version
 ### sollte etwa ausgeben:
@@ -1296,6 +1269,10 @@ java -version
 # OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
 \end{lstdump}
 \end{minipage}
+
+Jetzt sind der Datenbankserver, die Java™-Laufzeitumgebung (in der
+Version für Server und Webanwendungen), der Tomcat-Applikationsserver,
+der Webserver sowie Hilfsprogramme installiert.
 
 \subsection{Datenbank VerA.web-core}\label{subsec:setup-core-db}
 
@@ -1719,29 +1696,13 @@ enthalten werden.
 \subsection{System vorbereiten}\label{subsec:setup-oa-prep}
 
 \begin{minipage}{\textwidth}
-Installieren Sie nun die benötigten Pakete:
+Installieren Sie nun die benötigten Pakete und stellen Sie sicher, daß keine
+ältere Java-Version installiert ist bzw. versehentlich verwendet wird:
 
-\begin{lstdump}{Pakete OSIAM/wheezy}
+\begin{lstdump}{Pakete OA/wheezy}
 ### Debian 7 „wheezy“
 sudo apt-get install adduser openjdk-7-jre-headless \
     apache2-mpm-prefork apache2 daemontools-run
-\end{lstdump}
-
-\begin{lstdump}{Pakete OSIAM/jessie}
-### Debian 8 „jessie“
-sudo apt-get install adduser openjdk-7-jre-headless \
-    apache2 daemontools-run
-sudo a2dismod mpm_event
-sudo a2enmod mpm_prefork
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Stellen Sie nun sicher, daß keine ältere Java-Version installiert
-ist, damit sie nicht versehentlich verwendet werden kann:
-
-\begin{lstdump}{altes Java entfernen/wheezy}
-### Debian 7 „wheezy“
 sudo apt-get purge openjdk-6-jre-headless gcj-4.6-base gcj-4.7-base
 java -version
 ### sollte etwa ausgeben:
@@ -1750,8 +1711,12 @@ java -version
 # OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
 \end{lstdump}
 
-\begin{lstdump}{altes Java entfernen/jessie}
+\begin{lstdump}{Pakete OA/jessie}
 ### Debian 8 „jessie“
+sudo apt-get install adduser openjdk-7-jre-headless \
+    apache2 daemontools-run
+sudo a2dismod mpm_event
+sudo a2enmod mpm_prefork
 sudo apt-get purge gcj-4.8-jre-headless gcj-4.9-jre-headless
 java -version
 ### sollte etwa ausgeben:
