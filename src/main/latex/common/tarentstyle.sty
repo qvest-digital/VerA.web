@@ -272,5 +272,13 @@
 }}%
 \makeatother%
 
+% \hyperfootnotetext is what \footnotetext is supposed to be
+\makeatletter%
+\newcommand\hyperfootnotetext[1]{{%
+ \renewcommand{\@makefnmark}{}%
+ \footnote{#1}%
+}}%
+\makeatother%
+
 % figure out overfull hbox
 %\overfullrule=2cm
