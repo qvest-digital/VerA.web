@@ -31,7 +31,6 @@
 %-
 % TODO tglase:
 % - svc: primer on service management with DJB dæmontools
-% - Java 8
 % - user/verz. vorgeben?
 % - wo sind PWs hinterlegt? (Übersicht)
 % - inet-Zugang/Download oSIAM
@@ -894,8 +893,8 @@ java -version
 # OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
 \end{lstdump}
 
-\begin{lstdump}{Pakete OSIAM/jessie}
-### Debian 8 „jessie“
+\begin{lstdump}{Pakete OSIAM/jessie7}
+### Debian 8 „jessie“ / Java 7
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
     apache2 libapache2-mod-jk curl
 sudo a2dismod mpm_event
@@ -906,6 +905,22 @@ java -version
 # java version "1.7.0_91"
 # OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb8u1)
 # OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
+\end{lstdump}
+
+\begin{lstdump}{Pakete OSIAM/jessie8}
+### Debian 8 „jessie“ / Java 8
+sudo apt-get -t jessie-backports install openjdk-8-jre-headless
+sudo apt-get install postgresql tomcat7 \
+    apache2 libapache2-mod-jk curl
+sudo a2dismod mpm_event
+sudo a2enmod mpm_prefork
+sudo apt-get purge openjdk-7-jre-headless \
+    gcj-4.8-jre-headless gcj-4.9-jre-headless
+java -version
+### sollte etwa ausgeben:
+# openjdk version "1.8.0_66-internal"
+# OpenJDK Runtime Environment (build 1.8.0_66-internal-b17)
+# OpenJDK 64-Bit Server VM (build 25.66-b17, mixed mode)
 \end{lstdump}
 \end{minipage}
 
@@ -1253,8 +1268,8 @@ java -version
 # OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
 \end{lstdump}
 
-\begin{lstdump}{Pakete core/jessie}
-### Debian 8 „jessie“
+\begin{lstdump}{Pakete core/jessie7}
+### Debian 8 „jessie“ / Java 7
 sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
     libpostgresql-jdbc-java apache2 libapache2-mod-jk curl
 sudo mkdir -p /var/lib/tomcat7/lib
@@ -1267,6 +1282,24 @@ java -version
 # java version "1.7.0_91"
 # OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb8u1)
 # OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
+\end{lstdump}
+
+\begin{lstdump}{Pakete core/jessie8}
+### Debian 8 „jessie“ / Java 8
+sudo apt-get -t jessie-backports install openjdk-8-jre-headless
+sudo apt-get install postgresql tomcat7 \
+    libpostgresql-jdbc-java apache2 libapache2-mod-jk curl
+sudo mkdir -p /var/lib/tomcat7/lib
+sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat7/lib/
+sudo a2dismod mpm_event
+sudo a2enmod mpm_prefork
+sudo apt-get purge openjdk-7-jre-headless \
+    gcj-4.8-jre-headless gcj-4.9-jre-headless
+java -version
+### sollte etwa ausgeben:
+# openjdk version "1.8.0_66-internal"
+# OpenJDK Runtime Environment (build 1.8.0_66-internal-b17)
+# OpenJDK 64-Bit Server VM (build 25.66-b17, mixed mode)
 \end{lstdump}
 \end{minipage}
 
@@ -1711,8 +1744,8 @@ java -version
 # OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
 \end{lstdump}
 
-\begin{lstdump}{Pakete OA/jessie}
-### Debian 8 „jessie“
+\begin{lstdump}{Pakete OA/jessie7}
+### Debian 8 „jessie“ / Java 7
 sudo apt-get install adduser openjdk-7-jre-headless \
     apache2 daemontools-run
 sudo a2dismod mpm_event
@@ -1723,6 +1756,21 @@ java -version
 # java version "1.7.0_91"
 # OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb8u1)
 # OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
+\end{lstdump}
+
+\begin{lstdump}{Pakete OA/jessie8}
+### Debian 8 „jessie“ / Java 8
+sudo apt-get -t jessie-backports install openjdk-8-jre-headless
+sudo apt-get install adduser apache2 daemontools-run
+sudo a2dismod mpm_event
+sudo a2enmod mpm_prefork
+sudo apt-get purge openjdk-7-jre-headless \
+    gcj-4.8-jre-headless gcj-4.9-jre-headless
+java -version
+### sollte etwa ausgeben:
+# openjdk version "1.8.0_66-internal"
+# OpenJDK Runtime Environment (build 1.8.0_66-internal-b17)
+# OpenJDK 64-Bit Server VM (build 25.66-b17, mixed mode)
 \end{lstdump}
 \end{minipage}
 
