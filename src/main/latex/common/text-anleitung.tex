@@ -29,9 +29,7 @@
 % • (nbsp) → ~
 % • (en dash) → \dash
 %-
-% TODO tglase:
-% - svc: primer on service management with DJB dæmontools
-% TODO Team:
+% TODO:
 % - neuer Mail-Kram
 % - Bug: Kategorie „Keine“ → Exception in GuestDetailWorker.setGuestCategory:392 parseInt(string "")
 
@@ -121,7 +119,7 @@ unverständlicher zu machen. Hierzu gehören:\keinumbruch
 
 \begin{itemize}
  \item{Die Installation wird auf nicht anderweitig verwendeten,
-  frischen (virtuellen) Maschinen durchgeführt.}
+  sauberen oder frisch installierten (virtuellen) Maschinen durchgeführt.}
  \item{Als Betriebssystem wird Debian 7 „wheezy“ oder Debian 8
   „jessie“ eingesetzt; an den Stellen, wo Konfigurationsdateien
   angepaßt werden müssen, können wir die Debian-Standardwerte
@@ -535,6 +533,97 @@ involvieren:\keinumbruch
 
 Bei einem Upgrade möchten Sie ggfs. vorher eine Sicherung erstellen.
 
+\ifoa
+
+\subsection{Dienste verwalten mit DJB daemontools}\label{subsec:intro-svc}
+
+Die VerA.web Online-Anmeldung wird als sogenannter Microservice
+ausgeführt, im Gegensatz zu den anderen Komponenten, die als
+Webarchive in einem Java-Applikationsserver laufen. Ein Microservice
+ist hier im wesentlichen ein Java-Archiv (\texttt{*.jar}), das einen
+„\texttt{main}“-Einsprungspunkt hat (ähnlich einem C-Programm) und ab
+da selbständig lauffähig ist und seinen eigenen Server mitbringt. Er
+wird also zum Beispiel von Hand gestartet, indem man einfach dem JRE
+sagt „führ mal diesen Code aus“, und schreibt seine Logs auf die
+Standardausgabe.
+
+Dies paßt natürlich nicht ins Dienstekonzept von normalen Distributionen,
+die für alle Dienste Initskripte mitliefern, mithilfe derer sie gestartet,
+gestoppt, ihr Status geprüft, usw. werden können und im Hintergrund laufen.
+Als Abhilfe nutzen wir die sogenannten dæmontools von DJB (Professor Daniel
+J. Bernstein), die exakt dem Zweck dienen, von Hand gestartete und im
+Vordergrund laufende Prozesse in Dienste zu überführen. Als hilfreichen
+Nebeneffekt starten die dæmontools einen abgestürzten Dienst automatisch neu.
+
+Dies bedingt natürlich neuer Tools. In Debian haben wir Initskripte in
+\texttt{/etc/init.d} \dash zum Beispiel \texttt{/etc/init.d/ssh} \dash
+und in manchen neueren Installationen systemd-Units \dash zum Beispiel
+\texttt{/lib/systemd/system/ssh.service} \dash welche alle Informationen
+enthalten, die einen Dienst ausmachen. Über den Basisnamen, in unserem
+Beispiel \texttt{ssh}, kann man den Dienst steuern: \texttt{sudo service
+ssh start}, oder stop, oder status.
+
+In DJB dæmontools werden die Informationen zu Diensten, und manchmal auch
+die Logs und/oder die Programme selber, als Verzeichnisse unterhalb von
+\texttt{/service}\Hair\footnote{in Debian \texttt{/etc/service}, um dem
+Dateisystemhierarchiestandard zu genügen, aber ein Symlink, der von
+\texttt{/service} nach \texttt{/etc/service} zeigt, ist schnell gesetzt
+und Teil unserer Installationsanleitung} abgelegt. So befinden sich die
+Informationen der VerA.web Online-Anmeldung unter \texttt{/service/vwoa/}.
+
+Die Nutzung des Verzeichnisses \texttt{/service} ist ein Standard und
+Konsens, und nur Dienste, die dort abgelegt werden, werden beim Systemstart
+automatisch gestartet, aber grundsätzlich verwenden die dæmontools immer
+den vollen Pfad, und so könnte man auch andere Verzeichnisse verwenden.
+Aber unser Ziel hier ist ja, ein rebootfestes System einzurichten.
+
+Beginnen wir mit \texttt{sudo svstat /service/vwoa/} \dash dieser Befehl
+zeigt uns an, ob der Service läuft (\texttt{up}) oder nicht (\texttt{down});
+falls er läuft, welche Prozeß-ID (\texttt{pid}) er besitzt (dies ist für
+Sie nicht weiter relevant); wie lange er bereits in diesem Zustand ist,
+und, falls der aktuelle Zustand nicht der Standardzustand\Hair\footnote
+{wenn Sie eine Datei \texttt{/service/vwoa/down} anlegen wird der Dienst
+nicht mehr automatisch gestartet; Sie können ihn dann immer noch manuell
+mit \texttt{svc} starten oder den Standardzustand wieder auf \texttt{up}
+stellen, indem Sie die Datei \texttt{down} entfernen und rebooten} ist,
+ebendies.
+
+Für die eigentliche Verwaltung eines Dienstes gibt es den Befehl
+\texttt{svc}. So wird ein Dienst, der \texttt{down} ist, mit dem Befehl
+\texttt{sudo svc -u /service/vwoa} gestartet (das \texttt{u} steht für
+„\emph{u}p“, also „hochgefahren“).
+
+Wenn der Dienst nicht richtig konfiguriert ist und gar nicht erst hochkommt
+wird er danach trotzdem immer wieder neugestartet; Sie sehen das in der
+Ausgabe von \texttt{svstat} daran, daß der Dienst zwar \texttt{up} ist,
+aber mit einer sehr kleinen Sekundenzahl, die immer wieder auf 0 zurückkehrt.
+
+Sie können einen Dienst, der \texttt{down} ist, auch mit dem Befehl
+\texttt{sudo svc -o /service/vwoa} hochfahren \dash das \texttt{o} steht
+hier für „\emph{o}nce“, also „einmalig“. Der Dienst wird gestartet; wenn
+er läuft bleibt er laufen (bis er sich selber beendet oder abstürzt), und
+wenn er nicht startet ist er danach wieder \texttt{down}. Wenn der Dienst
+sauber läuft können Sie das Feature des automatischen Neustarts durch ein
+einfaches \texttt{sudo svc -u /service/vwoa} auch aktivieren, während er
+durch \texttt{svc -o} gestartet wurde.
+
+Um einen Dienst neuzustarten nutzen Sie \texttt{sudo svc -t /service/vwoa}
+\dash das \texttt{t} steht für „\emph{t}erminate“, also „beenden“. Ein wenig
+seltsam, bis man sich erinnert, daß beendete Dienste automatisch neugestartet
+werden (außer sie wurden mit \texttt{svc -o} gestartet), diese Aktion ist
+also vielmehr ein Stoppen, auf das implizit der automatische Neustart folgt.
+
+Wenn Sie einen Dienst nun wirklich stoppen wollen benutzen Sie den Befehl
+\texttt{sudo svc -d /service/vwoa} \dash \texttt{d} wie „\emph{d}own“, also
+„heruntergefahren“. Beachten Sie aber, daß der Dienst beim nächsten Reboot
+automatisch wieder gestartet wird, solange keine Datei (kann auch leer sein)
+\texttt{/service/vwoa/down} existiert.
+
+\texttt{man svc} zeigt noch einige weitere Optionen, aber die hier erwähnten
+sind die, die ein Systemadministrator im normalen Betrieb benötigt.
+
+\fi% oa
+
 \section{Systemvoraussetzungen}\label{sec:requirements}
 
 In der Angabe für den benötigten Festplattenplatz ist die
@@ -588,15 +677,15 @@ ausgesetzt sein \emph{kann}.
 \fi% !oa
 
 \hyperfootnotetext{\label{fn:req-tst-notmore}%
- Wir haben keine größere Konfiguration getestet; eine praktische
+ wir haben keine größere Konfiguration getestet; eine praktische
  Obergrenze anzugeben ist jedoch unrealistisch}%
 \hyperfootnotetext{\label{fn:req-nolimit}%
- Keine praktische Begrenzung}%
+ keine praktische Begrenzung}%
 \hyperfootnotetext{\label{fn:req-notmore}%
- Neuere Versionen wurden nicht getestet oder existierten zum
+ neuere Versionen wurden nicht getestet oder existierten zum
  Testzeitpunkt nicht}%
 \hyperfootnotetext{\label{fn:req-nonewer}%
- Neuere Versionen funktionieren \emph{nicht}!}%
+ neuere Versionen funktionieren \emph{nicht}!}%
 
 \subsection{LDAP-Verzeichnisdienst}\label{subsec:req-ldap}
 
@@ -1836,13 +1925,11 @@ rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
 \end{lstdump}
 \end{minipage}
 
-Danach können Sie mit \texttt{svstat /service/vwoa} den Zustand
-des Dienstes (\texttt{up} oder \texttt{down}) prüfen; unter
-\texttt{/var/log/vwoa/vwoa.log} finden Sie die Logausgaben der
-Online-Anmeldung. Mit dem Befehl \texttt{svc} können Sie den Dienst
-kontrollieren. Weitergehende Angaben hierzu finden Sie in der
-Dokumentation der DJB daemontools.
-%XXX add a primer here
+Danach können Sie mit \texttt{svstat /service/vwoa} festellen,
+daß der Dienst vor wenigen Sekunden gestartet wurde; siehe
+auch die Anleitung in Kapitel \nameref{subsec:intro-svc}.
+Unterhalb von \texttt{/var/log/vwoa/vwoa.log} finden Sie die
+Logdateien der Online-Anmeldung.
 
 \subsection{Webserver}\label{subsec:setup-oa-apache}
 
@@ -2407,13 +2494,14 @@ rm -f online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar
 \end{lstdump}
 \end{minipage}
 
-Mit dem Befehl \texttt{svstat /service/vwoa} sollten Sie danach
-festellen können, daß der Dienst vor wenigen Sekunden neugestartet
-wurde, aber nicht in eine Endlos-Neustartschleife läuft (also
-die Sekunden weiterhin hochgezählt werden). Prüfen Sie ggfs. die
+Mit dem Befehl \texttt{svstat /service/vwoa} sollten Sie
+danach festellen können, daß der Dienst vor wenigen Sekunden
+neugestartet wurde, aber nicht in eine Endlos-Neustartschleife
+läuft (also die Sekunden weiterhin hochgezählt werden; siehe
+auch Kapitel \ref{subsec:intro-svc}). Prüfen Sie ggfs. die
 Logausgaben\Hair\footnote{\label{fn:vwoalogs}in
-\texttt{/var/log/vwoa/vwoa.log}} und die Verfügbarkeit des Dienstes
-über die Weboberfläche.
+\texttt{/var/log/vwoa/vwoa.log}} und die Verfügbarkeit des
+Dienstes über die Weboberfläche.
 
 \fi% oa
 
@@ -2427,11 +2515,11 @@ Sie können nun mit den \nameref{sec:test} fortfahren.
 \fi% oa
 
 Öffnen Sie die Startseite des VerA.web Veranstaltungsmanagements mit
-einem Webbrowser\Hair\footnote{Falls diese nicht erscheint prüfen Sie
+einem Webbrowser\Hair\footnote{falls diese nicht erscheint prüfen Sie
 bitte das korrekte Deployment\Hair\textsuperscript{\ref{fn:tomcatlogs}}
 der \texttt{veraweb.war} und daß das Apache-Webfrontend läuft und die
 Anfragen\Hair\textsuperscript{\ref{fn:apachelogs}} an Tomcat durchreicht}.
-Loggen Sie sich mit Ihrem Administratorzugang ein\Hair\footnote{Falls
+Loggen Sie sich mit Ihrem Administratorzugang ein\Hair\footnote{falls
 Sie sich nicht einloggen können prüfen Sie bitte die LDAP-Einstellungen
 und die Kommunikation zwischen VerA.web und dem LDAP-Server}.
 
@@ -2457,10 +2545,10 @@ und wählen Sie die Testperson aus, indem Sie den Haken in der Spalte
 Es erscheint wieder die Gästeverwaltung der Testkonferenz. Klicken Sie
 in der Tabelle auf die Zeile der Testperson, wählen den Registerreiter
 \inlinekasten{Hauptperson} aus und klicken links unter dem Platzhalter
-für das Bild auf \inlinekasten{Kontaktfoto hochladen}. Wählen Sie die
-Datei \texttt{testpic.jpg} aus dem „files“-Archiv
-(\texttt{veraweb-core-\vwiaverssw{}-files.tgz} \emph{oder}
-\texttt{veraweb-core-\vwiaverssw{}-files.zip}) und bestätigen Sie, dann
+für das Bild auf \inlinekasten{Kontaktfoto hochladen}. Wählen Sie eine
+Datei\Hair\footnote{\label{fn:testpic}z.B. \texttt{testpic.jpg} aus dem
+„files“-Archiv (\texttt{veraweb-core-\vwiaverssw{}-files.tgz} \emph{oder}
+\texttt{veraweb-core-\vwiaverssw{}-files.zip})} und bestätigen Sie, dann
 klicken Sie ganz unten rechts auf \inlinekasten{Speichern}.
 
 %TODO Exception, weil im Registerreiter Allgemein unter Kategorie
@@ -2468,7 +2556,7 @@ klicken Sie ganz unten rechts auf \inlinekasten{Speichern}.
 ⚠ VerA.web Bug – WIP
 
 Danach sollte das Bild beim erneuten Öffnen der Gästedetails für
-die Hauptperson zu sehen sein\Hair\footnote{Falls das Bild nicht
+die Hauptperson zu sehen sein\Hair\footnote{falls das Bild nicht
 zu sehen ist funktioniert die \texttt{vwor.war} (REST-API) nicht
 korrekt\Hair\textsuperscript{\ref{fn:tomcatlogs}}}.
 
@@ -2505,15 +2593,15 @@ diese nicht erscheint prüfen Sie, daß das Apache-Webfrontend läuft und
 Anfragen\Hair\textsuperscript{\ref{fn:apachelogs}} an den Microservice
 durchreicht und dessen Logs\Hair\textsuperscript{\ref{fn:vwoalogs}}})
 und loggen Sie sich dort mit den Daten aus den Spalten „Anmeldename“
-und „Passwort“ ein\Hair\footnote{\label{fn:inttst-osiam}Falls Sie sich
+und „Passwort“ ein\Hair\footnote{\label{fn:inttst-osiam}falls Sie sich
 dort nicht einloggen können oder keine Veranstaltungsdetails sehen
 prüfen Sie, ob OSIAM\Hair\textsuperscript{\ref{fn:tomcatlogs}}, ggfs.
 samt Apache-Frontend\Hair\textsuperscript{\ref{fn:apachelogs}}, korrekt
 eingerichtet ist und die Kommunikation zwischen VerA.web-core und der
 REST-API sowie der Online-Anmeldung und OSIAM funktioniert}. Dann können
 Sie einen Delegierten anmelden, indem Sie Stammdaten (Geschlecht, Name)
-und ein Kontaktfoto\Hair\footnote{wieder \texttt{testpic.jpg} aus dem
-„files“-Archiv} eingeben und auf \inlinekasten{Speichern} klicken.
+eingeben und ein Kontaktfoto\Hair\textsuperscript{\ref{fn:testpic}}
+hochladen und auf \inlinekasten{Speichern} klicken.
 Unter „Bereits angemeldet:“ sollte nun Ihr Eintrag zu sehen sein.
 
 Zurück in der VerA.web-Hauptanwendung wählen Sie die Testkonferenz
@@ -2596,6 +2684,8 @@ u.a. an folgenden Stellen:\keinumbruch
   sowie \texttt{/etc/ldap-account-manager} und
   \texttt{/var/lib/ldap-account-manager}}
  \item{in der PostgreSQL-Datenbank \texttt{veraweb}}
+ \item{\texttt{/etc/tomcat7/context.xml}}
+ \item{\texttt{/etc/tomcat7/tomcat-users.xml}}
  \item{\texttt{/etc/veraweb/config\_*.xml}}
  \item{\texttt{/etc/veraweb/veraweb.properties}}
  \item{in Logdateien unterhalb von \texttt{/var/log/apache2/}
