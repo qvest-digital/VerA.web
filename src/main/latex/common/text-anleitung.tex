@@ -31,7 +31,6 @@
 %-
 % TODO tglase:
 % - svc: primer on service management with DJB dæmontools
-% - wo sind PWs hinterlegt? (Übersicht)
 % TODO Team:
 % - neuer Mail-Kram
 % - Bug: Kategorie „Keine“ → Exception in GuestDetailWorker.setGuestCategory:392 parseInt(string "")
@@ -2568,6 +2567,8 @@ haben, kontaktieren Sie bitte unseren Produktvertrieb.
 
 \section{Weitere Ressourcen und Links}\label{sec:links}
 
+\subsection{Weblinks}\label{subsec:links-web}
+
 \begin{itemize}
  \item{\href{https://www.tarent.de/de/angebot/produkte/veraweb}{https://www.tarent.de/de/angebot/produkte/veraweb}
   \dash VerA.web Produktwebseite}
@@ -2581,6 +2582,55 @@ haben, kontaktieren Sie bitte unseren Produktvertrieb.
   \dash Detaillierte OSIAM-Referenzinstallationsanleitung}
 \fi% oa
 \end{itemize}
+
+\subsection{Absicherung}\label{subsec:links-sec}
+
+Auf einer Installation von VerA.web core und REST-API befinden sich
+Paßwörter, personenbezogene oder andere sicherheitsrelevante Daten
+u.a. an folgenden Stellen:\keinumbruch
+
+\begin{itemize}
+ \item{im LDAP-Verzeichnis}
+ \item{auf dem LDAP-Server in \texttt{/etc/ldap/slapd.d},
+  \texttt{/var/lib/ldap} und ggfs. \texttt{/var/lib/slapd},
+  sowie \texttt{/etc/ldap-account-manager} und
+  \texttt{/var/lib/ldap-account-manager}}
+ \item{in der PostgreSQL-Datenbank \texttt{veraweb}}
+ \item{\texttt{/etc/veraweb/config\_*.xml}}
+ \item{\texttt{/etc/veraweb/veraweb.properties}}
+ \item{in Logdateien unterhalb von \texttt{/var/log/apache2/}
+  und \texttt{/var/log/tomcat7/}}
+ \item{Bilddateien in \texttt{/var/lib/veraweb/uploaded/}}
+\end{itemize}
+
+VerA.web core und die REST-API laufen als Webarchive im
+Tomcat-Applikationsserver und somit mit dessen Rechten,
+d.h. als Unix-Nutzer \texttt{tomcat7}.
+
+\ifoa
+
+Die Online-Anmeldung läuft als separater Unix-Nutzer \texttt{vwoa}
+und hält folgende sicherheitsrelevanten Daten vor:\keinumbruch
+
+\begin{itemize}
+ \item{\texttt{/etc/service/vwoa/config.json}}
+ \item{in Logdateien unterhalb von \texttt{/var/log/apache2/}
+  und \texttt{/var/log/vwoa/}}
+\end{itemize}
+
+OSIAM ist eine „Blackbox“, daher kann keine genaue Aussage hierüber getroffen
+werden, zudem dies versionsabhängig ist; die aktuelle Version von OSIAM läuft
+auch im \texttt{tomcat7}, und bekannte Stellen sind hier:\keinumbruch
+
+\begin{itemize}
+ \item{in der PostgreSQL-Datenbank \texttt{ong}}
+ \item{\texttt{/etc/osiam/auth-server.properties}}
+ \item{\texttt{/etc/osiam/resource-server.properties}}
+ \item{in Logdateien unterhalb von \texttt{/var/log/apache2/}
+  und \texttt{/var/log/tomcat7/}}
+\end{itemize}
+
+\fi% oa
 
 \ifupgradeanleitung\else% !upgradeanleitung
 
