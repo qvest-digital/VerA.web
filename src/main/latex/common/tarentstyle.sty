@@ -272,12 +272,21 @@
 }}%
 \makeatother%
 
-% \hyperfootnotetext is what \footnotetext is supposed to be
 \makeatletter%
-\newcommand\hyperfootnotetext[1]{{%
- \renewcommand{\@makefnmark}{}%
- \footnote{#1}%
-}}%
+% \hyperfootnotetext is what \footnotetext is supposed to be:
+% like \footnote except not rendering anything (it still leaves vmode,
+% so it must still be used inside a paragraph or it will open its own)
+\newcommand\hyperfootnotetext[1]{%
+ % new local scope
+ {%
+  % temporarily redefine this macro to empty
+  \renewcommand{\@makefnmark}{}%
+  % call the original \footnote macro
+  \footnote{#1}%
+  % exit the local scope with the redefined macro
+ }%
+ % end of command
+}%
 \makeatother%
 
 % figure out overfull hbox
