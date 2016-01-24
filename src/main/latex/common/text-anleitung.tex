@@ -37,6 +37,7 @@
 % - inet-Zugang/Download oSIAM
 % TODO Team:
 % - neuer Mail-Kram
+% - Bug: Kategorie „Keine“ → Exception in GuestDetailWorker.setGuestCategory:392 parseInt(string "")
 
 \ifupgradeanleitung
  \ifoa
@@ -1901,8 +1902,8 @@ prüfen Sie die Logs\Hair\textsuperscript{\ref{fn:vwoalogs}}.
 
 \fi% oa
 
-Damit ist die Installation abgeschlossen. Sie können nun im
-Kapitel \nameref{sec:test} fortfahren.
+Damit ist die Installation abgeschlossen.
+Sie können nun im Kapitel \nameref{sec:test} fortfahren.
 
 % Seitenumbruch zwischen Installation und Upgrade forçieren
 \newpage
@@ -2384,10 +2385,134 @@ Logausgaben\Hair\footnote{\label{fn:vwoalogs}in
 \fi% oa
 
 Damit ist das Upgrade abgeschlossen.
+Sie können nun mit den \nameref{sec:test} fortfahren.
 
 \section{Integrationstest}\label{sec:test}
 
-%XXX TODO
+\ifoa
+\subsection{VerA.web core und REST-API}
+\fi% oa
+
+Öffnen Sie die Startseite des VerA.web Veranstaltungsmanagements mit
+einem Webbrowser\Hair\footnote{Falls diese nicht erscheint prüfen Sie
+bitte das korrekte Deployment\Hair\textsuperscript{\ref{fn:tomcatlogs}}
+der \texttt{veraweb.war} und daß das Apache-Webfrontend läuft und die
+Anfragen\Hair\textsuperscript{\ref{fn:apachelogs}} an Tomcat durchreicht}.
+Loggen Sie sich mit Ihrem Administratorzugang ein\Hair\footnote{Falls
+Sie sich nicht einloggen können prüfen Sie bitte die LDAP-Einstellungen
+und die Kommunikation zwischen VerA.web und dem LDAP-Server}.
+
+% man kann keine Fußnoten in Fußnoten definieren, grml…
+\hyperfootnotetext{\label{fn:apachelogs}in \texttt{/var/log/apache2/}}%
+
+Wählen Sie oben \inlinekasten{Personen} / \inlinekasten{Neue Person}
+und legen Sie eine Testperson an, indem Sie einen Vor- und Nachnamen
+eingeben, auf \inlinekasten{Dublettenprüfung durchführen} und
+\inlinekasten{Person speichern} klicken.
+
+Wählen Sie oben \inlinekasten{Veranstaltungen} / \inlinekasten{Neue
+Veranstaltung} und legen Sie eine Testveranstaltung an, indem Sie eine
+Kurzbezeichnung („Testkonferenz“) und einen (in der Zukunft liegenden)
+Beginn eingeben und auf \inlinekasten{Veranstaltung speichern} klicken.
+
+Klicken Sie dann rechts auf \inlinekasten{Zur Gästeverwaltung} und auf
+\inlinekasten{Gast hinzufügen}, dann unten auf \inlinekasten{Suchen}
+und wählen Sie die Testperson aus, indem Sie den Haken in der Spalte
+\inlinekasten{H} (erste Spalte) setzen und direkt über der Tabelle auf
+\inlinekasten{Hinzufügen} klicken.
+
+Es erscheint wieder die Gästeverwaltung der Testkonferenz. Klicken Sie
+in der Tabelle auf die Zeile der Testperson, wählen den Registerreiter
+\inlinekasten{Hauptperson} aus und klicken links unter dem Platzhalter
+für das Bild auf \inlinekasten{Kontaktfoto hochladen}. Wählen Sie die
+Datei \texttt{testpic.jpg} aus dem „files“-Archiv
+(\texttt{veraweb-core-\vwiaverssw{}-files.tgz} \emph{oder}
+\texttt{veraweb-core-\vwiaverssw{}-files.zip}) und bestätigen Sie, dann
+klicken Sie ganz unten rechts auf \inlinekasten{Speichern}.
+
+%TODO Exception, weil im Registerreiter Allgemein unter Kategorie
+% nur „Keine“ auswählbar ist und die knallt.
+⚠ VerA.web Bug – WIP
+
+Danach sollte das Bild beim erneuten Öffnen der Gästedetails für
+die Hauptperson zu sehen sein\Hair\footnote{Falls das Bild nicht
+zu sehen ist funktioniert die \texttt{vwor.war} (REST-API) nicht
+korrekt\Hair\textsuperscript{\ref{fn:tomcatlogs}}}.
+
+\ifoa
+\subsection{Online-Anmeldung mit Delegationsanmeldung}
+
+Wählen Sie oben \inlinekasten{Personen} / \inlinekasten{Neue Person}
+und legen Sie eine Testfirma an, indem Sie einen Haken bei „Ist Firma“
+setzen und unter „Firma/Institution“ z.B. „Testfirma“ eingeben, unten
+rechts auf \inlinekasten{Dublettenprüfung durchführen} und danach auf
+\inlinekasten{Person speichern} klicken.
+
+Wählen Sie oben \inlinekasten{Veranstaltungen} /
+\inlinekasten{Veranstaltungsübersicht}, klicken Sie auf die Zeile mit
+der Testkonferenz, dann rechts auf \inlinekasten{Zur Gästeverwaltung}
+und auf \inlinekasten{Gast hinzufügen}, machen diesmal einen Haken bei
+„Ist Firma“, klicken unten rechts auf \inlinekasten{Suchen} und wählen
+die Testfirma aus, indem Sie den Haken in der Spalte \inlinekasten{D}
+(vierte Spalte) setzen und direkt über der Tabelle auf
+\inlinekasten{Hinzufügen} klicken.
+
+Wählen Sie nun in der Gästeliste die Testfirma aus, indem Sie in der
+ersten Spalte einen Haken setzen, und dann direkt über der Tabelle
+bei „Markierte Person(en)“ im Dropdown-Menü „Steuerdatei exportieren“
+auswählen, dann klicken Sie direkt rechts neben dem Dropdown-Menü auf
+\inlinekasten{Durchführen} und in der erscheinenden Maske unten rechts
+auf \inlinekasten{Exportieren}. Speichern Sie die CSV-Datei und öffnen
+Sie sie mit einer Tabellenkalkulation.
+
+Die CSV-Datei enthält neben den Spaltenüberschriften nur eine Zeile.
+Öffnen Sie den Link aus der Spalte „URL“ in einem neuen Browser-Tab
+(dieser verweist direkt auf die Online-Anmeldung\Hair\footnote{falls
+diese nicht erscheint prüfen Sie, daß das Apache-Webfrontend läuft und
+Anfragen\Hair\textsuperscript{\ref{fn:apachelogs}} an den Microservice
+durchreicht und dessen Logs\Hair\textsuperscript{\ref{fn:vwoalogs}}})
+und loggen Sie sich dort mit den Daten aus den Spalten „Anmeldename“
+und „Passwort“ ein\Hair\footnote{\label{fn:inttst-osiam}Falls Sie sich
+dort nicht einloggen können oder keine Veranstaltungsdetails sehen
+prüfen Sie, ob OSIAM\Hair\textsuperscript{\ref{fn:tomcatlogs}}, ggfs.
+samt Apache-Frontend\Hair\textsuperscript{\ref{fn:apachelogs}}, korrekt
+eingerichtet ist und die Kommunikation zwischen VerA.web-core und der
+REST-API sowie der Online-Anmeldung und OSIAM funktioniert}. Dann können
+Sie einen Delegierten anmelden, indem Sie Stammdaten (Geschlecht, Name)
+und ein Kontaktfoto\Hair\footnote{wieder \texttt{testpic.jpg} aus dem
+„files“-Archiv} eingeben und auf \inlinekasten{Speichern} klicken.
+Unter „Bereits angemeldet:“ sollte nun Ihr Eintrag zu sehen sein.
+
+Zurück in der VerA.web-Hauptanwendung wählen Sie die Testkonferenz
+wieder aus der \inlinekasten{Veranstaltungsübersicht} aus und gehen
+erneut \inlinekasten{Zur Gästeverwaltung}. Der von Ihnen eben angemeldete
+Delegierte taucht nun in der Liste auf; wenn Sie auf die Zeile klicken
+finden Sie im Registerreiter „Hauptperson“ das ausgewählte Kontaktfoto.
+
+\subsection{Online-Anmeldung zu einer offenen Veranstaltung}
+
+Wählen Sie oben \inlinekasten{Veranstaltungen} / \inlinekasten{Neue
+Veranstaltung} und legen Sie eine Testveranstaltung an, indem Sie eine
+Kurzbezeichnung („Testflohmarkt“) und einen (in der Zukunft liegenden)
+Beginn eingeben, ein Häkchen bei „Offene Veranstaltung“ setzen, und
+auf \inlinekasten{Veranstaltung speichern} klicken.
+
+Öffnen Sie nun die Startseite (\texttt{https://HOSTNAME-OA/vwor-app/})
+der Online-Anmeldung im Browser. Unter „Veranstaltungen“ sehen Sie
+den Testflohmarkt\Hair\textsuperscript{\ref{fn:inttst-osiam}} und
+einen Button \inlinekasten{Zur Veranstaltung anmelden}, den Sie bitte
+betätigen. Dann klicken Sie unten auf den Link „Konto erstellen“.
+Geben Sie Daten eines fiktiven Gastes ein und bestätigen Sie; daraufhin
+erscheint\Hair\textsuperscript{\ref{fn:inttst-osiam}} eine grüne Box
+„Benutzerdaten wurden gespeichert.“ und wieder die Loginmaske, auf der
+Sie sich nun mit dem gerade angegebenen Benutzernamen und Paßwort
+anmelden können. Nun können Sie einen Vermerk eintragen und dem
+Testflohmarkt \inlinekasten{Verbindlich zusagen}.
+
+Zurück in VerA.web-core gehen Sie \inlinekasten{Zur Gästeverwaltung}
+und finden den gerade angelegten Benutzer in der Gästeliste.
+
+\fi% oa
 
 \section{Weitere Fragen}\label{sec:outro}
 

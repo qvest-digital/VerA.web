@@ -272,6 +272,31 @@
 }}%
 \makeatother%
 
+% for nice inline boxen with square corners
+\makeatletter%
+\newcommand{\inlinekasten}[1]{%
+ % first, generate a box with square content and w/o padding
+ \savebox{\inlinebildbox}{\fbox{\strut\hspace{1.25ex}}}%
+ % get its real height (Teχ height + depth)
+ \inlinebildsep=\ht\inlinebildbox%
+ \advance\inlinebildsep by \dp\inlinebildbox%
+ % subtract its real width
+ \advance\inlinebildsep by -\wd\inlinebildbox%
+ % we want half of it on either side
+ \divide\inlinebildsep by 2%
+ % now render the actual box
+ \fbox{%
+  % left padding
+  \hspace{\inlinebildsep}%
+  % ensure standard height
+  \strut%
+  % the text
+  #1%
+  % right padding
+  \hspace{\inlinebildsep}%
+}}%
+\makeatother%
+
 \makeatletter%
 % \hyperfootnotetext is what \footnotetext is supposed to be:
 % like \footnote except not rendering anything (it will not
