@@ -32,7 +32,6 @@
 % TODO tglase:
 % - svc: primer on service management with DJB dæmontools
 % - wo sind PWs hinterlegt? (Übersicht)
-% - inet-Zugang/Download oSIAM
 % TODO Team:
 % - neuer Mail-Kram
 % - Bug: Kategorie „Keine“ → Exception in GuestDetailWorker.setGuestCategory:392 parseInt(string "")
@@ -483,6 +482,29 @@ VerA.web-core Distribution“) von tarent beziehen:\keinumbruch
 \end{itemize}
 
 Bitte wenden Sie sich hierzu an unseren Produktvertrieb.
+
+\ifoa
+
+\subsubsection{Die OSIAM-Distribution}\label{subsubsec:intro-distro-ong}
+
+Falls Sie während des Aufsetzens von VerA.web eine eigene Installation
+von OSIAM einrichten möchten benötigen Sie hierfür auf dem System, auf
+dem OSIAM installiert werden soll, Internetzugang, da die notwendigen
+Installationspakete (vgl. Kapitel
+\ifupgradeanleitung\else% !ifupgradeanleitung
+\ref{subsubsec:setup-osiam-download} und
+\fi% !ifupgradeanleitung
+\ref{sec:upgrade-osiam}) „live“ über HTTPS heruntergeladen werden. Nach
+erfolgtem Download der Installationspakete während einer Erstinstallation
+oder eines Upgrades von OSIAM ist dieser Zugriff selbstverständlich nicht
+mehr nötig.
+
+OSIAM ist \emph{nicht} Teil des Veranstaltungsmanagements VerA.web sondern
+eine separate Software, die durch VerA.web lediglich verwendet wird, daher
+ist OSIAM ebensowenig Teil der VerA.web-Distribution wie zum Beispiel ein
+Mailserver oder ein LDAP-Server.
+
+\fi% oa
 
 \subsection{Installationsvorgehen}\label{subsec:intro-install}
 
