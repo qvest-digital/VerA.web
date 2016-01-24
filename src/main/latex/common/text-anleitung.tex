@@ -30,10 +30,8 @@
 % • (en dash) → \dash
 %-
 % TODO tglase:
-% - Struktur: do not use cross-references; duplicate content (KISS)
-% - Apache, SSL, …
 % - svc: primer on service management with DJB dæmontools
-% - Debian jessie-tauglich machen
+% - Java 8
 % - user/verz. vorgeben?
 % - wo sind PWs hinterlegt? (Übersicht)
 % - inet-Zugang/Download oSIAM
@@ -1902,9 +1900,8 @@ prüfen Sie die Logs\Hair\textsuperscript{\ref{fn:vwoalogs}}.
 
 \fi% oa
 
-Damit ist die Installation abgeschlossen.
-
-⚠ \emph{Achtung:} diese Anleitung ist WIP, nicht verwenden!
+Damit ist die Installation abgeschlossen. Sie können nun im
+Kapitel \nameref{sec:test} fortfahren.
 
 % Seitenumbruch zwischen Installation und Upgrade forçieren
 \newpage
@@ -2125,9 +2122,9 @@ Passen Sie in der \texttt{veraweb.properties} bitte den Hostnamen
 in der \texttt{vwor.endpoint}-Eigenschaft an (ersetzen Sie
 \texttt{HOSTNAME-REST} durch den FQDN des Servers, über den die
 REST-API erreichbar ist, üblicherweise also den Hostnamen vom
-core-System) und tragen Sie die Zugangsdaten für die REST-API
-(siehe \nameref{manual:restpw}) als \texttt{vwor.auth.user}
-und \texttt{vwor.auth.password} ein.
+core-System) und tragen Sie von Ihnen gewählte Zugangsdaten für
+die REST-API (siehe Kapitel \ref{subsec:intro-restapi}) als
+\texttt{vwor.auth.user} und \texttt{vwor.auth.password} ein.
 \ifoa
 Desweiteren ersetzen Sie bitte \texttt{HOSTNAME-OSIAM} und
 \texttt{HOSTNAME-OA} an allen Stellen durch die Hostnamen
@@ -2232,8 +2229,8 @@ abgewichen sind.
 \begin{minipage}{\textwidth}
 Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat7/tomcat-users.xml} vor
 das schließende \texttt{</tomcat-users>}-Tag folgende Tags ein, setzen dabei
-aber die von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
-\ref{subsec:intro-restapi} ein:
+aber die von Ihnen am Anfang dieses Unterkapitels gewählten Zugangsdaten der
+REST-API ein:
 
 \begin{lstdump}[language=XML]{Tomcat VWOR Auth}
 <role rolename="veraweb" />
@@ -2258,7 +2255,13 @@ sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat7/lib/
 
 \ifoa\ifupgradeanleitung\else% oa !upgradeanleitung
 
-\subsection{Upgrade einer Installation ohne Online-Anmeldung}
+\subsection{Ausbau einer bestehenden Basisinstallation um die Online-Anmeldung}
+
+Richten Sie zunächst die Systeme für OSIAM und die Online-Anmeldung
+äquivalent zu einer Neuinstallation \dash wie in den Kapiteln
+\nameref{sec:setup-osiam} und \nameref{sec:setup-oa} beschrieben
+\dash ein. Dann können Sie VerA.web-core um die Funktionalität der
+Online-Anmeldung ergänzen:
 
 Passen Sie in der \texttt{veraweb.properties} bitte den Hostnamen
 in der \texttt{vwor.endpoint}-Eigenschaft an (ersetzen Sie
@@ -2275,17 +2278,13 @@ ein, den Sie bei der \nameref{subsec:setup-osiam-register}
 als \texttt{vwsecret} gesetzt haben.
 
 \begin{minipage}{\textwidth}
-Dann installieren Sie die neuen Konfigurationsdateien:
+Schließlich installieren Sie die neuen Konfigurationsdateien:
 
 \begin{lstdump}{core add OA}
 sudo install -c -o 0 -g tomcat7 -m 640 config_vwoa.xml /etc/veraweb/
 sudo install -c -o 0 -g tomcat7 -m 640 veraweb.properties /etc/veraweb/
 \end{lstdump}
 \end{minipage}
-
-Richten Sie die beiden anderen Systeme wie in den Kapiteln
-\nameref{sec:setup-osiam} und \nameref{sec:setup-oa} beschrieben
-äquivalent zu einer Neuinstallation ein.
 
 \fi\fi% oa !upgradeanleitung
 
@@ -2303,6 +2302,11 @@ verwenden müssen Sie diese hier selbstverständlich anpassen.
 \end{minipage}
 
 \subsection{Applikationsserver VerA.web-core}\label{subsec:upgrade-core-tomcat}
+
+⚠ \emph{Achtung:} Falls Sie zwischendurch den Applikationsserver
+Tomcat wieder gestartet hatten fahren Sie ihn bitte (siehe Kapitel
+\ref{subsec:upgrade-core-pre}) für den nächsten Schritt zunächst
+wieder herunter.
 
 \begin{minipage}{\textwidth}
 Löschen Sie die alten und deployen die neuen Fassungen der
@@ -2362,10 +2366,9 @@ auf den Server, auf dem die Online-Anmeldung betrieben wird, und führen
 Sie dort folgende Befehle aus:
 
 \begin{lstdump}{Upgrade OA}
-mv online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar vwoa.jar
-sudo install -c -o 0 -g 0 -m 644 vwoa.jar /service/vwoa/
+sudo install -c -o 0 -g 0 -m 644 online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar /service/vwoa/vwoa.jar
 sudo svc -t /service/vwoa
-rm -f vwoa.jar
+rm -f online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar
 \end{lstdump}
 \end{minipage}
 
