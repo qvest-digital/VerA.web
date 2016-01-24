@@ -274,13 +274,18 @@
 
 \makeatletter%
 % \hyperfootnotetext is what \footnotetext is supposed to be:
-% like \footnote except not rendering anything (it still leaves vmode,
-% so it must still be used inside a paragraph or it will open its own)
+% like \footnote except not rendering anything (it will not
+% generate a paragraph if you append % to all lines)
 \newcommand\hyperfootnotetext[1]{%
  % new local scope
  {%
   % temporarily redefine this macro to empty
   \renewcommand{\@makefnmark}{}%
+  % temporarily prevent leaving vmode
+  \renewcommand{\leavevmode}{}%
+  % this also means we cannot create a(n empty) hyperlink
+  \renewcommand{\hyper@linkstart}[2]{}%
+  \renewcommand{\hyper@linkend}{}%
   % call the original \footnote macro
   \footnote{#1}%
   % exit the local scope with the redefined macro
