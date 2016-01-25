@@ -1,22 +1,20 @@
 onlineRegApp.controller('UserRefreshActivationController', function($http, $scope, $rootScope, $routeParams, $location, $translate) {
-    var resetUserActivationUrl = 'api/user/refreshactivationdata/';
-        $location.path('/login');
-        $test=$rootScope.inactiveLoginAttemptBy;
+    var resetUserActivationUrl = 'api/user/refreshactivationdata';
+    $location.path('/login');
     $http({
         method: 'POST',
         url: resetUserActivationUrl,
         headers: {"Content-Type" : undefined},
         data: $.param({
-            username: $test
+            username: $routeParams.userName
         })
     }).success(function (result) {
-      $translate('ACTIVATION_USER_MESSAGE_SUCCESS').then(function (text) {
+      $translate('ACTIVATION_RESEND_USER_MESSAGE_SUCCESS').then(function (text) {
           $rootScope.success = text;
       });
     }).error(function (data, status, headers, config) {
-      $translate('ACTIVATION_USER_MESSAGE_FAILED').then(function (text) {
+      $translate('ACTIVATION_RESEND_USER_MESSAGE_FAILED').then(function (text) {
           $rootScope.error = text;
       });
     });
-
 });

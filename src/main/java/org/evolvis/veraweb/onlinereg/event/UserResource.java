@@ -29,6 +29,7 @@ import lombok.Getter;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.mail.EmailValidator;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
@@ -47,7 +48,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.UUID;
@@ -149,19 +149,25 @@ public class UserResource {
 
     @POST
     @Path("/refreshactivationdata")
-    public String refreshActivationToken(@FormParam("username") String userName) {
+    public String refreshActivationToken(@FormParam("username") String userName) throws IOException {
 
         final Form postBody = new Form();
         final String activationToken = UUID.randomUUID().toString();
 
         postBody.add("activation_token", activationToken);
-        postBody.add("username", userName);
 
-        //TODO:
-        //refresh token+date(/)
-        //get emailaddress( )
-        //sendEmailVerification(String email, String activationToken)( )
+        String email = null;
+        User user = osiamClient.getUser(osiamClient.getAccessTokenClientCred("GET", "POST", "DELETE", "PATCH", "PUT"), userName);
+        if(!EmailValidator.isValidEmailAddress(userName)){
+            email = user.getEmails().get(0).getValue();
+            postBody.add("username", userName);
+        } else {
+            email = userName;
+            postBody.add("username", user.getUserName());
+        }
 
+        postBody.add("email", email);
+        postBody.add("endpoint", config.getOnlineRegistrationEndpoint());
 
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/refresh/activation/data");
         resource.post(postBody);
