@@ -2527,6 +2527,18 @@ und die Kommunikation zwischen VerA.web und dem LDAP-Server}.
 % man kann keine Fußnoten in Fußnoten definieren, grml…
 \hyperfootnotetext{\label{fn:apachelogs}in \texttt{/var/log/apache2/}}%
 
+Wählen Sie oben \inlinekasten{Verwaltung} / \inlinekasten{Info}. Hier
+finden Sie Informationen zur laufenden VerA.web-Version,
+\ifoa
+ob die Online-Anmeldung im VerA.web-core aktiviert wurde,
+\fi% oa
+ob die REST-API verfügbar ist, und die installierte Version des
+Datenbankschemas, einige Zeichensatz-/Lokalisierungsinformationen sowie
+mit welchem Benutzerzugang Sie eingeloggt sind, welche eMail-Adresse
+dieser hat (was für das Versenden von eMails als Absenderadresse
+verwendet wird), welchem Mandant dieser zugeordnet ist und welche
+Gruppen (Rechte) er hat.
+
 Wählen Sie oben \inlinekasten{Personen} / \inlinekasten{Neue Person}
 und legen Sie eine Testperson an, indem Sie einen Vor- und Nachnamen
 eingeben, auf \inlinekasten{Dublettenprüfung durchführen} und
@@ -2551,7 +2563,6 @@ Datei\Hair\footnote{\label{fn:testpic}z.B. \texttt{testpic.jpg} aus dem
 „files“-Archiv (\texttt{veraweb-core-\vwiaverssw{}-files.tgz} \emph{oder}
 \texttt{veraweb-core-\vwiaverssw{}-files.zip})} und bestätigen Sie, dann
 klicken Sie ganz unten rechts auf \inlinekasten{Speichern}.
-
 Danach sollte das Bild beim erneuten Öffnen der Gästedetails für
 die Hauptperson zu sehen sein\Hair\footnote{falls das Bild nicht
 zu sehen ist funktioniert die \texttt{vwor.war} (REST-API) nicht
