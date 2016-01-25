@@ -148,7 +148,7 @@ public class UserResource {
     }
 
     @POST
-    @Path("/refreshactivationdata")
+    @Path("/update/activation/data")
     public String refreshActivationToken(@FormParam("username") String userName) throws IOException {
 
         final Form postBody = new Form();

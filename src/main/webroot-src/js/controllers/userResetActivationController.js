@@ -1,5 +1,5 @@
 onlineRegApp.controller('UserRefreshActivationController', function($http, $scope, $rootScope, $routeParams, $location, $translate) {
-    var resetUserActivationUrl = 'api/user/refreshactivationdata';
+    var resetUserActivationUrl = 'api/user/update/activation/data';
     $location.path('/login');
     $http({
         method: 'POST',
