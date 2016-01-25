@@ -163,7 +163,7 @@ public class UserResource {
         //sendEmailVerification(String email, String activationToken)( )
 
 
-        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/refreshactivationdata");
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/refresh/activation/data");
         resource.post(postBody);
         return StatusConverter.convertStatus("OK");
     }
