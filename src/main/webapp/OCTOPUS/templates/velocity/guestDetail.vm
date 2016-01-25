@@ -152,7 +152,7 @@
                                     <div class="tableCell paddingTop10">
                                         <label for="guest-category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}:</label>
                                         <select name="guest-category" id="guest-category" onchange="setModified('categorie')">
-                                            <option value="">${placeholderWithTranslation.GENERIC_NONE}</option>
+                                            <option value="0">${placeholderWithTranslation.GENERIC_NONE}</option>
                                             #foreach($category in $personCategories)
                                                 <option value="$category.id" #if($guest.category == $category.id) selected#end>$!message.plain($category.name)</option>
                                             #end
