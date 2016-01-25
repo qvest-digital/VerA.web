@@ -77,6 +77,8 @@
   "REGISTER_USER_MESSAGE_ACTIVATION_MAIL_SEND_AGAIN": "Send confirmation-mail again.",
   "ACTIVATION_USER_MESSAGE_SUCCESS": "Bestätigungs-Email erneut senden.",
   "ACTIVATION_USER_MESSAGE_FAILED": "Activation failed.",
+  "ACTIVATION_RESEND_USER_MESSAGE_SUCCESS": "New confirmation email was sent successfully.",
+  "ACTIVATION_RESEND_USER_MESSAGE_FAILED": "Confirmation email could not be sent again.",
 
   "REGISTER_USER_MESSAGE_EVENT_FULL": "This event is fully booked. Please, try to register yourself in another event of your interest by using the list of open events.",
   "REGISTER_USER_MESSAGE_TO_RESERVE_LIST": "This event is fully booked. You are registered as a backup in the waiting list. We will inform you in case of available places.",

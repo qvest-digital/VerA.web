@@ -88,6 +88,8 @@
   "ACTIVATION_USER_MESSAGE_FAILED": "Sie konnten nicht freigeschaltet werden.",
   "ACTIVATION_USER_MESSAGE_LINK_INVALID": "Sie haben Ihre Anmeldung bereits bestätigt.",
   "ACTIVATION_USER_MESSAGE_LINK_EXPIRED": "Der Link ist nicht mehr gültig.",
+  "ACTIVATION_RESEND_USER_MESSAGE_SUCCESS": "Eine Bestätigungsemail wurde erneut gesendet, bestätigen Sie ihren Account",
+  "ACTIVATION_RESEND_USER_MESSAGE_FAILED": "Erneutes Versenden der Bestätigungsemail ist fehlgeschlagen.",
 
   "REGISTER_USER_MESSAGE_EVENT_FULL": "Leider ist diese Veranstaltung bereits ausgebucht. Schauen Sie doch unter offene Veranstaltungen nach anderen interessanten Veranstaltungen.",
   "REGISTER_USER_MESSAGE_TO_RESERVE_LIST": "Leider ist die Veranstaltung bereits ausgebucht. Sie sind auf die Warteliste gesetzt worden. Wir informieren Sie, wenn Sie nachrücken können.",
