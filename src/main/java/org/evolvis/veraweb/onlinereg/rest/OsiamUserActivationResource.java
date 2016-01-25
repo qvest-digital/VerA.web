@@ -4,6 +4,7 @@ import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.mail.MessagingException;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -78,8 +79,8 @@ public class OsiamUserActivationResource extends AbstractResource {
     }
 
     @POST
-    @Path("/osiam/user/refresh/activation/data")
-    public void refreshActivationdataByUsername(@FormParam("username") String username, @FormParam("activation_token") String activationToken) {
+    @Path("/refresh/activation/data")
+    public void refreshActivationdataByUsername(@FormParam("email") String email, @FormParam("username") String username, @FormParam("activation_token") String activationToken, @FormParam("endpoint") String endpoint) throws MessagingException {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("OsiamUserActivation.refreshOsiamUserActivationByUsername");
@@ -87,6 +88,10 @@ public class OsiamUserActivationResource extends AbstractResource {
             query.setString("activation_token", activationToken);
             query.setDate("expiration_date",getExpirationDate());
             query.executeUpdate();
+
+            // Resend mail
+            EmailResource emailResource = new EmailResource();
+            emailResource.sendEmailVerification(email, endpoint, activationToken);
         } finally {
             session.close();
         }
