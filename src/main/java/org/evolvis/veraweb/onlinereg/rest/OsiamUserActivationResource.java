@@ -78,7 +78,7 @@ public class OsiamUserActivationResource extends AbstractResource {
     }
 
     @POST
-    @Path("/osiam/user/refreshactivationdata")
+    @Path("/osiam/user/refresh/activation/data")
     public void refreshActivationdataByUsername(@FormParam("username") String username, @FormParam("activation_token") String activationToken) {
         final Session session = openSession();
         try {
