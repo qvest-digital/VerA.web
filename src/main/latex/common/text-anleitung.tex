@@ -654,7 +654,7 @@ dem core-System erhöhen sich die Anforderungen minimal.
  Betriebssystem        & Debian 7   & Debian 7 oder 8     & Debian unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
  Webserver             & Apache 2.2 & Apache 2.2 oder 2.4 & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
  Java Laufzeitumgebung & OpenJDK 7  & OpenJDK 8           & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Applikationsserver    & Tomcat 7   & Tomcat 7            & Tomcat 7\Hair\textsuperscript{\ref{fn:req-nonewer}}\\\hline
+ Applikationsserver    & Tomcat 7   & Tomcat 7            & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
 \end{tabular}
 
 Bitte beachten Sie bei der Dimensionierung der Maschinen und der
@@ -673,7 +673,7 @@ ausgesetzt sein \emph{kann}.
  Betriebssystem        & Debian 7   & Debian 7 oder 8     & Debian unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
  Webserver             & Apache 2.2 & Apache 2.2 oder 2.4 & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
  Java Laufzeitumgebung & OpenJDK 7  & OpenJDK 8           & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Applikationsserver    & Tomcat 7   & Tomcat 7            & Tomcat 7\Hair\textsuperscript{\ref{fn:req-nonewer}}\\\hline
+ Applikationsserver    & Tomcat 7   & Tomcat 7            & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
 \end{tabular}
 \fi% !oa
 
@@ -752,8 +752,9 @@ ausgeliefert, Debian 8 „jessie“ mit Apache httpd 2.4} mit
 \texttt{mod\_proxy\_http},
 \fi% oa
 \texttt{mod\_jk} und SSL, sowie den Applikationsserver Tomcat 7
-mit einer Java™-Laufzeitumgebung (OpenJDK) ab Version 7, ohne GUI
-(headless JRE).
+(falls Sie Tomcat 8 benutzen müssen Sie das in allen Listings
+entsprechend anpassen) mit einer Java™-Laufzeitumgebung (OpenJDK)
+ab Version 7, ohne GUI (headless JRE).
 
 ⚠ \emph{Achtung:} Java™ 6 oder älter wird nicht unterstützt
 und führt während der Installation zu Fehlern!
