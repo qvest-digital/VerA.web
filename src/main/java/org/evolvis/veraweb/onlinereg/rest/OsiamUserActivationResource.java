@@ -70,6 +70,23 @@ public class OsiamUserActivationResource extends AbstractResource {
         return new OsiamUserActivation();
     }
 
+    @GET
+    @Path("/get/activation/byusername/{username}")
+    public OsiamUserActivation getOsiamUserActivationByUsername(@PathParam("username") String username) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("OsiamUserActivation.getOsiamUserActivationEntryByUsername");
+            query.setString("username", username);
+            final OsiamUserActivation osiamUserActivation = (OsiamUserActivation) query.uniqueResult();
+            if (osiamUserActivation != null) {
+                return osiamUserActivation;
+            }
+        } finally {
+            session.close();
+        }
+        return new OsiamUserActivation();
+    }
+
     private Date getExpirationDate(){
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
