@@ -77,7 +77,7 @@
   "MEDIA_REPRESENTATIVES_TITLE": "Als Pressevertreter anmelden:",
   "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE": "Ihre Daten werden nun überprüft, eine Zusage erfolgt nach positiver Überprüfung.",
 
-
+  "REGISTER_USER_MESSAGE_CONTENT": "Bitte bestätigen Sie Ihre Registrierung. Nutzen Sie hierfür folgenden ${link}.",
   "REGISTER_USER_MESSAGE_SUCCESS": "Benutzerdaten wurden gespeichert. Bitte bestätigen Sie ihren Account, Sie haben eine E-Mail erhalten",
   "REGISTER_USER_MESSAGE_USER_EXISTS_ERROR": "Ein Benutzer mit diesem Anmeldenamen existiert bereits.",
   "REGISTER_USER_MESSAGE_VALIDATION_ERROR": "Der Anmeldename darf nur Buchstaben und Zahlen enthalten.",

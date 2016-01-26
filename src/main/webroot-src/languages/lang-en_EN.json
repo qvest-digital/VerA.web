@@ -69,6 +69,8 @@
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Sign up for the event",
   "MEDIA_REPRESENTATIVES_TITLE": "Register as media representative:",
   "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE": "Your data is being reviewed. Confirmation depends on a positive result.",
+
+  "REGISTER_USER_MESSAGE_CONTENT": "To confirm your registration, please use the following link: ${link}",
   "REGISTER_USER_MESSAGE_SUCCESS": "User data has been saved successfully. Please confirm your account, you received an email",
   "REGISTER_USER_MESSAGE_USER_EXISTS_ERROR": "A user with this username already exists.",
   "REGISTER_USER_MESSAGE_VALIDATION_ERROR": "The username should only contain letters and numbers.",
