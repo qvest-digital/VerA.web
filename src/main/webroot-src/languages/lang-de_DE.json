@@ -86,7 +86,7 @@
   "REGISTER_USER_MESSAGE_ACTIVATION_MAIL_SEND_AGAIN": "Bestätigungs-Email erneut senden.",
   "ACTIVATION_USER_MESSAGE_SUCCESS": "Vielen Dank, Sie sind nun freigeschaltet und können sich anmelden.",
   "ACTIVATION_USER_MESSAGE_FAILED": "Sie konnten nicht freigeschaltet werden.",
-  "ACTIVATION_USER_MESSAGE_LINK_INVALID": "Sie haben Ihre Anmeldung bereits bestätigt.",
+  "ACTIVATION_USER_MESSAGE_LINK_INVALID": "Sie haben Ihre Anmeldung bereits bestätigt oder einen neuen Aktivierungslink angefordert.",
   "ACTIVATION_USER_MESSAGE_LINK_EXPIRED": "Der Link ist nicht mehr gültig.",
   "ACTIVATION_RESEND_USER_MESSAGE_SUCCESS": "Eine Bestätigungsemail wurde erneut gesendet, bestätigen Sie ihren Account",
   "ACTIVATION_RESEND_USER_MESSAGE_FAILED": "Erneutes Versenden der Bestätigungsemail ist fehlgeschlagen.",
