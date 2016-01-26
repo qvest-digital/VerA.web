@@ -31,8 +31,9 @@ import lombok.Getter;
 import lombok.extern.java.Log;
 
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.mail.EmailValidator;
-import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
+import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.osiam.client.exception.ConnectionInitializationException;
 import org.osiam.resources.scim.User;
@@ -48,6 +49,7 @@ import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.net.URL;
 
 /**
  * Created by mley on 26.08.14.
@@ -67,6 +69,8 @@ public class LoginResource {
 
     // TYPE REFERENCES
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
+    private static final TypeReference<OsiamUserActivation> OSIAM_USER_ACTIVATION = new TypeReference<OsiamUserActivation>() {};
+
 
     /**
      * key name for access tokens
@@ -154,7 +158,14 @@ public class LoginResource {
                 return StatusConverter.convertStatus(returnedValue);
             } catch (ConnectionInitializationException cie) {
                 if(cie.getMessage().endsWith("is disabled!")){
-                    return StatusConverter.convertStatus("disabled");
+                    final OsiamUserActivation osiamUserActivation = getOsiamUserActivationByUsername(userName);
+                    final String link = buildLink(config.getOnlineRegistrationEndpoint(), osiamUserActivation.getActivation_token());
+                    final URL website = new URL(link);
+                    final String protocol = website.getProtocol();
+                    final String host = website.getHost();
+                    final Integer port = website.getPort();
+                    final String suffix = getSuffix(link, host, port);
+                    return StatusConverter.convertStatusWithLink("disabled", protocol, host, port, suffix);
                 }
                 return null;
             }
@@ -204,6 +215,26 @@ public class LoginResource {
     public void logout() {
         context.removeAttribute(USERNAME);
         context.removeAttribute(ACCESS_TOKEN);
+    }
+
+    private String getSuffix(String link, String host, Integer port) {
+        final String suffix;
+        if (port > 0) {
+            suffix = link.substring(link.indexOf(port.toString())+port.toString().length(), link.length());
+        } else {
+            suffix = link.substring(link.indexOf(host)+host.toString().length(), link.length());
+        }
+        return suffix;
+    }
+
+    private String buildLink(String endpoint, String activation_token) {
+        return endpoint + "user/activate/" + activation_token;
+    }
+
+    private OsiamUserActivation getOsiamUserActivationByUsername(String username) throws IOException {
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String osiamUserActivationPath = resourceReader.constructPath(BASE_RESOURCE, "osiam", "user", "get", "activation", "byusername", username);
+        return resourceReader.readStringResource(osiamUserActivationPath, OSIAM_USER_ACTIVATION);
     }
 
     /**

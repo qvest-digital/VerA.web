@@ -38,4 +38,21 @@ public class StatusConverter {
             return null;
         }
     }
+
+    public static String convertStatusWithLink(String responseStatus, String protocol, String host, Integer port, String suffix) {
+        try {
+            final JSONObject jsonObject = new JSONObject();
+            jsonObject.put("status", responseStatus);
+            jsonObject.put("protocol", protocol);
+            jsonObject.put("host", host);
+            if (port > 0) {
+                jsonObject.put("port", port);
+            }
+            jsonObject.put("suffix", suffix);
+            return jsonObject.toString();
+        } catch (JSONException e) {
+            /* cannot happen, as "status" is not null */
+            return null;
+        }
+    }
 }
