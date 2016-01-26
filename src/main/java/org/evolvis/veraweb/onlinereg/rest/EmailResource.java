@@ -22,14 +22,14 @@ public class EmailResource extends AbstractResource {
 
     @POST
     @Path("/confirmation/send")
-    public void sendEmailVerification(@FormParam("email") String email, @FormParam("endpoint") String endpoint, @FormParam("activation_token") String activation_token) throws MessagingException {
+    public void sendEmailVerification(@FormParam("email") String email, @FormParam("endpoint") String endpoint, @FormParam("activation_token") String activation_token, @FormParam("subject") String subject, @FormParam("content") String content) throws MessagingException {
         if (emailConfiguration == null) {
             emailConfiguration = new EmailConfiguration();
         }
         if (mailDispatcher == null) {
             mailDispatcher = new MailDispatcher();
         }
-        mailDispatcher.send(emailConfiguration.getFrom(), email, "Subject", "Content with ${link}" , getActivationLink(endpoint, activation_token));
+        mailDispatcher.send(emailConfiguration.getFrom(), email, subject, content, getActivationLink(endpoint, activation_token));
     }
 
     private String getActivationLink(String endpoint, String activation_token) {

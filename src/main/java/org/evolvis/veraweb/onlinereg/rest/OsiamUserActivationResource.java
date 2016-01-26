@@ -108,7 +108,7 @@ public class OsiamUserActivationResource extends AbstractResource {
 
             // Resend mail
             EmailResource emailResource = new EmailResource();
-            emailResource.sendEmailVerification(email, endpoint, activationToken);
+            emailResource.sendEmailVerification(email, endpoint, activationToken, "Refresh activation", "Refresh activation mit ${link}");
         } finally {
             session.close();
         }
