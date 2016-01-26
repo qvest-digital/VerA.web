@@ -6,13 +6,15 @@ onlineRegApp.controller('UserRefreshActivationController', function($http, $scop
         url: resetUserActivationUrl,
         headers: {"Content-Type" : undefined},
         data: $.param({
-            username: $routeParams.userName
+            activation_token: $routeParams.activation_token
         })
     }).success(function (result) {
+      $rootScope.error = null;
       $translate('ACTIVATION_RESEND_USER_MESSAGE_SUCCESS').then(function (text) {
           $rootScope.success = text;
       });
     }).error(function (data, status, headers, config) {
+      $rootScope.success = null;
       $translate('ACTIVATION_RESEND_USER_MESSAGE_FAILED').then(function (text) {
           $rootScope.error = text;
       });

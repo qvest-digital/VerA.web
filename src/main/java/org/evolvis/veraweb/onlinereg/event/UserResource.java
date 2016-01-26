@@ -149,23 +149,19 @@ public class UserResource {
 
     @POST
     @Path("/update/activation/data")
-    public String refreshActivationToken(@FormParam("username") String userName) throws IOException {
+    public String refreshActivationToken(@FormParam("activation_token") String oldActivationToken) throws IOException {
 
         final Form postBody = new Form();
         final String activationToken = UUID.randomUUID().toString();
 
         postBody.add("activation_token", activationToken);
 
-        String email = null;
-        User user = osiamClient.getUser(osiamClient.getAccessTokenClientCred("GET", "POST", "DELETE", "PATCH", "PUT"), userName);
-        if(!EmailValidator.isValidEmailAddress(userName)){
-            email = user.getEmails().get(0).getValue();
-            postBody.add("username", userName);
-        } else {
-            email = userName;
-            postBody.add("username", user.getUserName());
-        }
+        final OsiamUserActivation osiamUserActivation = getOsiamUserActivationByToken(oldActivationToken);
 
+        final String osiamUsername = osiamUserActivation.getUsername();
+        final User user = osiamClient.getUser(osiamClient.getAccessTokenClientCred("GET", "POST", "DELETE", "PATCH", "PUT"), osiamUsername);
+        final String email = user.getEmails().get(0).getValue().toString();
+        postBody.add("username", osiamUsername);
         postBody.add("email", email);
         postBody.add("endpoint", config.getOnlineRegistrationEndpoint());
 

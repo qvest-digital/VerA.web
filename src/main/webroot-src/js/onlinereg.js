@@ -79,7 +79,7 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
     }).when('/user/activate/:activation_token', {
         template: "",
         controller: 'UserActivationController'
-    }).when('/user/resend/confirmationmail/:userName', {
+    }).when('/user/resend/confirmationmail/:activation_token', {
         template: "",
         controller: 'UserRefreshActivationController'
     }).otherwise({

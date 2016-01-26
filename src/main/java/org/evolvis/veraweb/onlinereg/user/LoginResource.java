@@ -227,8 +227,8 @@ public class LoginResource {
         return suffix;
     }
 
-    private String buildLink(String endpoint, String activation_token) {
-        return endpoint + "user/activate/" + activation_token;
+    private String buildLink(String endpoint, String activationToken) {
+        return endpoint + "user/resend/confirmationmail/" + activationToken;
     }
 
     private OsiamUserActivation getOsiamUserActivationByUsername(String username) throws IOException {
