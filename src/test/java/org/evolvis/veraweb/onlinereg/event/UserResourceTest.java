@@ -61,7 +61,7 @@ public class UserResourceTest {
     	//Benutzer wird durch Test angelegt, aber nicht mehr gelöscht -> Erneutes Ausführen des Tests schlägt fehl
     	long zeit = Calendar.getInstance().getTimeInMillis();
 
-        String result = ur.registerUser("newusertest" + zeit, "firstnametest" + zeit, "secondnametest" + zeit, "passwordtest" + zeit, "email" + zeit);
+        String result = ur.registerUser("newusertest" + zeit, "firstnametest" + zeit, "secondnametest" + zeit, "passwordtest" + zeit, "email" + zeit, "subject", "content with ${link}");
         assertEquals(StatusConverter.convertStatus("OK"), result);
     }
 
@@ -88,13 +88,13 @@ public class UserResourceTest {
 
     @Test
     public void testRegisterUserInvaldUsername() throws IOException {
-        String result = ur.registerUser("invalid_username%&/", "firstname", "secondname", "password", "email");
+        String result = ur.registerUser("invalid_username%&/", "firstname", "secondname", "password", "email", "subject", "content with ${link}");
         assertEquals(StatusConverter.convertStatus("INVALID_USERNAME"), result);
     }
 
     @Test@Ignore
     public void testRegisterExistingUser() throws IOException {
-        String result = ur.registerUser("existing", "firstname", "secondname", "password", "email");
+        String result = ur.registerUser("existing", "firstname", "secondname", "password", "email", "subject", "content with ${link}");
         assertEquals(StatusConverter.convertStatus("USER_EXISTS"), result);
     }
 

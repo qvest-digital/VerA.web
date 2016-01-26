@@ -15,7 +15,9 @@ onlineRegApp.controller('RegisterUserController', function($scope, $http, $locat
                 osiam_firstname: $scope.osiam.firstName,
                 osiam_secondname: $scope.osiam.lastName,
                 osiam_password1: $scope.osiam.password,
-                osiam_email: $scope.osiam.email
+                osiam_email: $scope.osiam.email,
+                email_subject: "registerUserController.js subject",
+                email_content: "registerUserController.js content with ${link}"
             })
         }).success(function (result) {
             switch(result.status) {
