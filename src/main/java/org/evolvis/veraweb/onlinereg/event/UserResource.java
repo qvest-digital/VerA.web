@@ -95,7 +95,8 @@ public class UserResource {
                                @FormParam("osiam_firstname") String osiam_firstname,
                                @FormParam("osiam_secondname") String osiam_secondname,
                                @FormParam("osiam_password1") String osiam_password1,
-                               @FormParam("osiam_email") String email) throws IOException {
+                               @FormParam("osiam_email") String email,
+                               @FormParam("current_language") String currentLanguageKey) throws IOException {
 
         if (!osiam_username.matches("\\w+")) {
             return StatusConverter.convertStatus("INVALID_USERNAME");
@@ -126,7 +127,7 @@ public class UserResource {
         user = initUser(osiam_username, osiam_firstname, osiam_secondname, osiam_password1, email, person.getPk());
         osiamClient.createUser(accessToken, user);
         final String activationToken = UUID.randomUUID().toString();
-        sendEmailVerification(email, activationToken);
+        sendEmailVerification(email, activationToken, currentLanguageKey);
         addOsiamUserActivationEntry(osiam_username, activationToken);
 
         return StatusConverter.convertStatus("OK");
@@ -199,11 +200,12 @@ public class UserResource {
         resource.post(postBody);
     }
 
-    private void sendEmailVerification(String email, String activationToken) {
+    private void sendEmailVerification(String email, String activationToken, String currentLanguageKey) {
         final Form postBody = new Form();
         postBody.add("email", email);
         postBody.add("endpoint", config.getOnlineRegistrationEndpoint());
         postBody.add("activation_token", activationToken);
+        postBody.add("language", currentLanguageKey);
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/email/confirmation/send");
         resource.post(postBody);
     }

@@ -1,4 +1,4 @@
-onlineRegApp.controller('RegisterUserController', function($scope, $http, $location, $rootScope) {
+onlineRegApp.controller('RegisterUserController', function($scope, $http, $location, $rootScope, $translate) {
     $scope.success = null;
     $scope.error = null;
     $rootScope.cleanMessages();
@@ -15,7 +15,8 @@ onlineRegApp.controller('RegisterUserController', function($scope, $http, $locat
                 osiam_firstname: $scope.osiam.firstName,
                 osiam_secondname: $scope.osiam.lastName,
                 osiam_password1: $scope.osiam.password,
-                osiam_email: $scope.osiam.email
+                osiam_email: $scope.osiam.email,
+                current_language: $translate.use()
             })
         }).success(function (result) {
             switch(result.status) {
