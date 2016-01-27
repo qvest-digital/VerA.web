@@ -1,7 +1,11 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
+import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
+import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 import javax.mail.MessagingException;
 import javax.ws.rs.FormParam;
@@ -9,6 +13,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.UUID;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -29,7 +34,7 @@ public class EmailResource extends AbstractResource {
         if (mailDispatcher == null) {
             mailDispatcher = new MailDispatcher();
         }
-        mailDispatcher.send(emailConfiguration.getFrom(), email, "Subject", "Content with ${link}" , getActivationLink(endpoint, activation_token));
+        mailDispatcher.send(emailConfiguration.getFrom(), email, emailConfiguration.getSubject(), emailConfiguration.getContent(), getActivationLink(endpoint, activation_token));
     }
 
     private String getActivationLink(String endpoint, String activation_token) {
