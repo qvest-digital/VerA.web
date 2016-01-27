@@ -26,8 +26,7 @@ public class MailDispatcher {
     private String username;
     private String password;
 
-    public MailDispatcher() {
-        final EmailConfiguration emailConfiguration = new EmailConfiguration();
+    public MailDispatcher(final EmailConfiguration emailConfiguration) {
         this.host = emailConfiguration.getHost();
         this.port = emailConfiguration.getPort();
         this.security = emailConfiguration.getSecurity();

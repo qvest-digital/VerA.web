@@ -27,12 +27,12 @@ public class EmailResource extends AbstractResource {
 
     @POST
     @Path("/confirmation/send")
-    public void sendEmailVerification(@FormParam("email") String email, @FormParam("endpoint") String endpoint, @FormParam("activation_token") String activation_token) throws MessagingException {
+    public void sendEmailVerification(@FormParam("email") String email, @FormParam("endpoint") String endpoint, @FormParam("activation_token") String activation_token, @FormParam("language") String currentLanguageKey) throws MessagingException {
         if (emailConfiguration == null) {
-            emailConfiguration = new EmailConfiguration();
+            emailConfiguration = new EmailConfiguration(currentLanguageKey);
         }
         if (mailDispatcher == null) {
-            mailDispatcher = new MailDispatcher();
+            mailDispatcher = new MailDispatcher(emailConfiguration);
         }
         mailDispatcher.send(emailConfiguration.getFrom(), email, emailConfiguration.getSubject(), emailConfiguration.getContent(), getActivationLink(endpoint, activation_token));
     }

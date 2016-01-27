@@ -37,7 +37,7 @@ public class EmailResourceTest {
 
     @Test
     public void testSendEmailVerification() throws Exception {
-        emailResource.sendEmailVerification("test@test.com", "http://endpoint.de/rest/", "activation_token");
+        emailResource.sendEmailVerification("test@test.com", "http://endpoint.de/rest/", "activation_token", "de_DE");
         doNothing().when(mailDispatcher).send(any(String.class),any(String.class),any(String.class),any(String.class),any(String.class));
 
         verify(mailDispatcher, times(1)).send(any(String.class),any(String.class),any(String.class),any(String.class),any(String.class));

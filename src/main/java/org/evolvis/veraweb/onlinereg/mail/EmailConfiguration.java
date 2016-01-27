@@ -16,7 +16,7 @@ public class EmailConfiguration {
     private String content;
     private VworPropertiesReader vworPropertiesReader;
 
-    public EmailConfiguration() {
+    public EmailConfiguration(String currentLanguageKey) {
         if (vworPropertiesReader == null) {
             vworPropertiesReader = new VworPropertiesReader();
         }
@@ -30,8 +30,8 @@ public class EmailConfiguration {
         this.username = vworPropertiesReader.getProperty("mail.smtp.user");
         this.password = vworPropertiesReader.getProperty("mail.smtp.password");
         this.from = vworPropertiesReader.getProperty("mail.smtp.from");
-        this.subject = vworPropertiesReader.getProperty("mail.subject");
-        this.content = vworPropertiesReader.getProperty("mail.content");
+        this.subject = vworPropertiesReader.getProperty("mail.subject." + currentLanguageKey);
+        this.content = vworPropertiesReader.getProperty("mail.content." + currentLanguageKey);
     }
 
     public String getHost() {
