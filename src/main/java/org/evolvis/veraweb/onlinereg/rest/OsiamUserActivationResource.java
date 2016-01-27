@@ -97,7 +97,12 @@ public class OsiamUserActivationResource extends AbstractResource {
 
     @POST
     @Path("/refresh/activation/data")
-    public void refreshActivationdataByUsername(@FormParam("email") String email, @FormParam("username") String username, @FormParam("activation_token") String activationToken, @FormParam("endpoint") String endpoint) throws MessagingException {
+    public void refreshActivationdataByUsername(
+            @FormParam("email") String email,
+            @FormParam("username") String username,
+            @FormParam("activation_token") String activationToken,
+            @FormParam("endpoint") String endpoint,
+            @FormParam("language") String currentLanguageKey) throws MessagingException {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("OsiamUserActivation.refreshOsiamUserActivationByUsername");
@@ -108,7 +113,7 @@ public class OsiamUserActivationResource extends AbstractResource {
 
             // Resend mail
             EmailResource emailResource = new EmailResource();
-            emailResource.sendEmailVerification(email, endpoint, activationToken, "TODO");
+            emailResource.sendEmailVerification(email, endpoint, activationToken, currentLanguageKey);
         } finally {
             session.close();
         }
