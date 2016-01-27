@@ -6,7 +6,8 @@ onlineRegApp.controller('UserRefreshActivationController', function($http, $scop
         url: resetUserActivationUrl,
         headers: {"Content-Type" : undefined},
         data: $.param({
-            activation_token: $routeParams.activation_token
+            activation_token: $routeParams.activation_token,
+            language: $translate.use()
         })
     }).success(function (result) {
       $rootScope.error = null;

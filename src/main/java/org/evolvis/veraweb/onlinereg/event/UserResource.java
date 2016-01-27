@@ -150,7 +150,7 @@ public class UserResource {
 
     @POST
     @Path("/update/activation/data")
-    public String refreshActivationToken(@FormParam("activation_token") String oldActivationToken) throws IOException {
+    public String refreshActivationToken(@FormParam("activation_token") String oldActivationToken, @FormParam("language") String currentLanguageKey) throws IOException {
 
         final Form postBody = new Form();
         final String activationToken = UUID.randomUUID().toString();
@@ -165,6 +165,7 @@ public class UserResource {
         postBody.add("username", osiamUsername);
         postBody.add("email", email);
         postBody.add("endpoint", config.getOnlineRegistrationEndpoint());
+        postBody.add("language", currentLanguageKey);
 
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/refresh/activation/data");
         resource.post(postBody);
