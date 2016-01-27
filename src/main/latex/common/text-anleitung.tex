@@ -27,31 +27,15 @@
 % • \ → \textbackslash
 % • ~ → \textasciitilde
 % • (nbsp) → ~
-% • (en dash) → \dash
+% • (em dash) → \dash
 %-
 % TODO:
-% - neuer Mail-Kram
 % - Unterkapitel "Securing OSIAM", mit den Berlinern zusammen, nach der Schnellinstallation
 
-\ifupgradeanleitung
- \ifoa
-  \newcommand{\vwianame}{Upgradeanleitung VerA.web-full}
- \else% ifupgradeanleitung !ifoa
-  \newcommand{\vwianame}{Upgradeanleitung VerA.web-core}
- \fi% ifupgradeanleitung !ifoa
-\else% !ifupgradeanleitung
- \ifoa
-  \newcommand{\vwianame}{Installationsanleitung VerA.web-full}
- \else% !ifupgradeanleitung !ifoa
-  \newcommand{\vwianame}{Installationsanleitung VerA.web-core}
- \fi% !ifupgradeanleitung !ifoa
-\fi% !ifupgradeanleitung
+\newcommand{\vwianame}{Gesamtanleitung VerA.web}
 
 \tarentanleitung{\vwianame}{\vwiaverssw}
  {\vwiaversfassungnr}{\vwiaversfassungmonat}{\vwiaversfassungjahr}{veraweblogo}
-
-% uncomment if this is a WIP that should not be published
-\fancyfoot[RO,LE]{\leavevmode\usekomafont{pageheadfoot}⚠ Work in Progress, do not use}
 
 \input{toc.tex}
 
@@ -684,8 +668,6 @@ ausgesetzt sein \emph{kann}.
 \hyperfootnotetext{\label{fn:req-notmore}%
  neuere Versionen wurden nicht getestet oder existierten zum
  Testzeitpunkt nicht}%
-\hyperfootnotetext{\label{fn:req-nonewer}%
- neuere Versionen funktionieren \emph{nicht}!}%
 
 \subsection{LDAP-Verzeichnisdienst}\label{subsec:req-ldap}
 
@@ -2404,7 +2386,7 @@ als \texttt{vwsecret} gesetzt haben.
 Schließlich installieren Sie die neuen Konfigurationsdateien:
 
 \begin{lstdump}{core add OA}
-sudo install -c -o 0 -g tomcat7 -m 640 config_vwoa.xml /etc/veraweb/
+sudo install -c -o 0 -g tomcat7 -m 640 config_override.xml /etc/veraweb/
 sudo install -c -o 0 -g tomcat7 -m 640 veraweb.properties /etc/veraweb/
 \end{lstdump}
 \end{minipage}
@@ -2559,9 +2541,8 @@ Es erscheint wieder die Gästeverwaltung der Testkonferenz. Klicken Sie
 in der Tabelle auf die Zeile der Testperson, wählen den Registerreiter
 \inlinekasten{Hauptperson} aus und klicken links unter dem Platzhalter
 für das Bild auf \inlinekasten{Kontaktfoto hochladen}. Wählen Sie eine
-Datei\Hair\footnote{\label{fn:testpic}z.B. \texttt{testpic.jpg} aus dem
-„files“-Archiv (\texttt{veraweb-core-\vwiaverssw{}-files.tgz} \emph{oder}
-\texttt{veraweb-core-\vwiaverssw{}-files.zip})} und bestätigen Sie, dann
+Datei\Hair\footnote{\label{fn:testpic}ein JPEG- oder PNG-Bild von exakt
+186x245 Pixeln Größe} und bestätigen Sie, dann
 klicken Sie ganz unten rechts auf \inlinekasten{Speichern}.
 Danach sollte das Bild beim erneuten Öffnen der Gästedetails für
 die Hauptperson zu sehen sein\Hair\footnote{falls das Bild nicht
