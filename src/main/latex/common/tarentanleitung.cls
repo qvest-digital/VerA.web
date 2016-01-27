@@ -24,7 +24,6 @@
 % of said person’s immediate fault when using the work as intended.
 
 \NeedsTeXFormat{LaTeX2e}
-\NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{tarentanleitung}
 
 \PassOptionsToPackage{paper=a4}{typearea}
