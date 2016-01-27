@@ -1533,6 +1533,18 @@ Sie bitte nun die Eigenschaft \texttt{filesLocation} in der Datei
 Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
 \end{minipage}
 
+\ifoa
+
+Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
+\texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die bei
+der Versendung von Bestätigungsnachrichten bei der Online-Anmeldung
+als Absenderadresse verwendet wird. Die \texttt{subject}- und
+\texttt{content}-Parameter enthalten den Nachrichtenbetreff und
+-inhalt; diese können Sie bei Bedarf anpassen; stellen Sie dabei
+sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
+
+\fi% oa
+
 \subsection{LDAP-Anbindung VerA.web-core}\label{subsec:setup-core-ldap}
 
 Bearbeiten Sie die Datei \texttt{config\_ldap\_access.xml}, indem Sie
@@ -1900,6 +1912,7 @@ sudo ln -sf etc/service /service
 \subsection{Microservice installieren}\label{subsec:setup-oa-svc}
 
 Bearbeiten Sie jetzt die \texttt{config.json}, indem Sie wieder
+\texttt{HOSTNAME-OA},
 \texttt{HOSTNAME-OSIAM} und \texttt{HOSTNAME-REST} durch die
 entsprechenden Hostnamen ersetzen; für \texttt{clientSecret}
 tragen Sie denselben Wert ein, den Sie bei der
@@ -2280,6 +2293,18 @@ Sie bitte die Eigenschaft \texttt{filesLocation} in der Datei
 Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
 \end{minipage}
 
+\ifoa
+
+Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
+\texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die bei
+der Versendung von Bestätigungsnachrichten bei der Online-Anmeldung
+als Absenderadresse verwendet wird. Die \texttt{subject}- und
+\texttt{content}-Parameter enthalten den Nachrichtenbetreff und
+-inhalt; diese können Sie bei Bedarf anpassen; stellen Sie dabei
+sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
+
+\fi% oa
+
 \begin{minipage}{\textwidth}
 Installieren Sie nun die Konfigurationsdateien für die REST-API:
 
@@ -2360,6 +2385,25 @@ REST-API ein:
 <user roles="veraweb" username="veraweb" password="veraweb" />
 \end{lstdump}
 \end{minipage}
+
+\ifoa
+
+\subsection{Upgrade von Versionen vor 1.8.1}\label{subsec:upgrade-181}
+
+Passen Sie bitte die mitgelieferte \texttt{vwor.properties} so an,
+daß sie der \texttt{/etc/veraweb/vwor.properties} für die
+dort bereits enthaltenen Einträge entspricht. Dann passen Sie noch
+die neuen Einträge an:
+
+Ändern Sie die Eigenschaft \texttt{mail.smtp.from}: tragen Sie hier
+eine Adresse ein, die bei der Versendung von Bestätigungsnachrichten
+bei der Online-Anmeldung als Absenderadresse verwendet wird. Die
+\texttt{subject}- und \texttt{content}-Parameter enthalten den
+Nachrichtenbetreff und -inhalt; diese können Sie bei Bedarf anpassen;
+stellen Sie dabei sicher, daß der Platzhalter \texttt{\$\{link\}}
+erhalten bleibt.
+
+\fi% oa
 
 \subsection{Upgrade von Debian 7 „wheezy“ auf Debian 8 „jessie“}
 
@@ -2482,6 +2526,16 @@ auf einem Debian 7 „wheezy“-System eingerichtet wurde.
 Falls Sie eine ältere Installation der Online-Anmeldung besitzen
 empfehlen wir Ihnen stattdessen eine Neuinstallation, da die
 Installationsmethode seinerzeit noch nicht ausgereift war.
+
+\subsection{Upgrade von Versionen vor 1.8.1}\label{subsec:upgrade-oa-181}
+
+In der mitgelieferten \texttt{config.json} befindet sich eine neue
+Zeile \texttt{onlineRegistrationEndpoint}. Ändern Sie dort den Text
+\texttt{HOSTNAME-OA} in den vollen Hostnamen (FQDN) der Online-Anmeldung
+und fügen Sie diese Zeile an der entsprechenden Stelle in Ihrer
+\texttt{/service/vwoa/config.json} ein.
+
+\subsection{Softwareaktualisierung}\label{subsec:upgrade-oa-software}
 
 \begin{minipage}{\textwidth}
 Kopieren Sie bitte die Datei \texttt{online-anmeldung-\vwiaverssw{}.jar}
@@ -3347,6 +3401,7 @@ Betrifft: Online-Anmeldung
       "org.hibernate.SQL": "ALL"
     }
   },
+  "onlineRegistrationEndpoint": "https://「vwoa.lan.tarent.de」/vwor-app/#/",
   "osiam": {
     "clientId": "online-registration",
     "clientSecret": "〔geheim〕",
