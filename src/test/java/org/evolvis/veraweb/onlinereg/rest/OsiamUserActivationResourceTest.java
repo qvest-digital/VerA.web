@@ -100,5 +100,20 @@ public class OsiamUserActivationResourceTest {
         assertNull(osiamUserActivation.getExpiration_date());
     }
 
+    @Test
+    public void testGetOsiamUserActivationByUsername() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        OsiamUserActivation osiamUserActivation = mock(OsiamUserActivation.class);
+        when(session.getNamedQuery("OsiamUserActivation.getOsiamUserActivationEntryByUsername")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(osiamUserActivation);
 
+        // WHEN
+        osiamUserActivationResource.getOsiamUserActivationByUsername("username");
+
+        // THEN
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
+    }
 }
