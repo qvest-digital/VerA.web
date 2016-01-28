@@ -16,9 +16,6 @@ public class EmailConfiguration {
     private String content;
     private VworPropertiesReader vworPropertiesReader;
 
-    public EmailConfiguration() {
-    }
-
     public EmailConfiguration(String currentLanguageKey) {
         final VworPropertiesReader propertiesReader = getVworPropertiesReader();
         readProperties(currentLanguageKey, propertiesReader);
