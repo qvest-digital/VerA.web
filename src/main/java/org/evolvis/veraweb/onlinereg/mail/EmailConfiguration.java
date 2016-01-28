@@ -23,10 +23,11 @@ public class EmailConfiguration {
 
     public void readProperties(String currentLanguageKey, VworPropertiesReader propertiesReader) {
         this.host = propertiesReader.getProperty("mail.smtp.host");
-        if (propertiesReader.getProperty("mail.smtp.port") == null) {
+        final String smtpPort = propertiesReader.getProperty("mail.smtp.port");
+        if (smtpPort == null) {
             this.port = 25;
         } else {
-            this.port = new Integer(propertiesReader.getProperty("mail.smtp.port"));
+            this.port = new Integer(smtpPort);
         }
         this.security = propertiesReader.getProperty("mail.smtp.security");
         this.username = propertiesReader.getProperty("mail.smtp.user");

@@ -14,6 +14,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -34,9 +35,23 @@ public class EmailConfigurationTest {
 
     @Test
     public void testReadProperties() throws Exception {
+        // WHEN
         emailConfiguration.readProperties("de_DE", propertiesReader);
 
+        // THEN
         verify(propertiesReader, atLeast(7)).getProperty(any(String.class));
         verify(propertiesReader, atMost(8)).getProperty(any(String.class));
+    }
+
+    @Test
+    public void testReadPropertiesTheSecond() throws Exception {
+        // GIVEN
+        when(propertiesReader.getProperty("mail.smtp.port")).thenReturn("25");
+
+        // WHEN
+        emailConfiguration.readProperties("de_DE", propertiesReader);
+
+        // THEN
+        verify(propertiesReader, times(8)).getProperty(any(String.class));
     }
 }
