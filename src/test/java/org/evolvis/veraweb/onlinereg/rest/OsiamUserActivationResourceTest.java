@@ -11,9 +11,14 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletContext;
 
+import java.util.Date;
+
 import static org.junit.Assert.assertNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -62,6 +67,22 @@ public class OsiamUserActivationResourceTest {
         assertNull(osiamUserActivation.getUsername());
         assertNull(osiamUserActivation.getActivation_token());
         assertNull(osiamUserActivation.getExpiration_date());
+    }
+
+    @Test
+    public void testRefreshActivationdataByUsername() throws MessagingException {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(session.getNamedQuery("OsiamUserActivation.refreshOsiamUserActivationByUsername")).thenReturn(query);
+
+        // WHEN
+        osiamUserActivationResource.refreshActivationdataByUsername("email", "username", "token", "endpoint", "de_DE");
+
+        // THEN
+        verify(query, times(2)).setString(any(String.class), any(String.class));
+        verify(query, times(1)).setDate(any(String.class), (Date) anyObject());
+        verify(query, times(1)).executeUpdate();
     }
 
     private void prepareSession() {

@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletContext;
 
 import static org.junit.Assert.*;
@@ -102,6 +103,21 @@ public class OsiamUserActivationResourceSessionsTest {
 
         // WHEN
         osiamUserActivationResource.getOsiamUserActivationByUsername("username");
+
+        // THEN
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
+    }
+
+    @Test
+    public void testRefreshActivationdataByUsername() throws MessagingException {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(session.getNamedQuery("OsiamUserActivation.refreshOsiamUserActivationByUsername")).thenReturn(query);
+
+        // WHEN
+        osiamUserActivationResource.refreshActivationdataByUsername("email", "username", "token", "endpoint", "de_DE");
 
         // THEN
         verify(sessionFactory, times(1)).openSession();
