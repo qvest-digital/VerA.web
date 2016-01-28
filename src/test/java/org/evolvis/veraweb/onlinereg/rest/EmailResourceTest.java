@@ -23,23 +23,25 @@ import static org.mockito.Mockito.when;
 public class EmailResourceTest {
 
     private EmailResource emailResource;
-    @Mock
-    private EmailConfiguration emailConfiguration;
-    @Mock
-    private MailDispatcher mailDispatcher;
 
     @Before
     public void setUp() throws Exception {
         emailResource = new EmailResource();
-        emailResource.setMailDispatcher(mailDispatcher);
-        emailResource.setEmailConfiguration(emailConfiguration);
     }
 
     @Test
     public void testSendEmailVerification() throws Exception {
-        emailResource.sendEmailVerification("test@test.com", "http://endpoint.de/rest/", "activation_token", "de_DE");
+        // GIVEN
+        final MailDispatcher mailDispatcher = mock(MailDispatcher.class);
+        final EmailConfiguration emailConfiguration = mock(EmailConfiguration.class);
+        emailResource.setMailDispatcher(mailDispatcher);
+        emailResource.setEmailConfiguration(emailConfiguration);
         doNothing().when(mailDispatcher).send(any(String.class),any(String.class),any(String.class),any(String.class),any(String.class));
 
+        // WHEN
+        emailResource.sendEmailVerification("test@test.com", "http://endpoint.de/rest/", "activation_token", "de_DE");
+
+        // THEN
         verify(mailDispatcher, times(1)).send(any(String.class),any(String.class),any(String.class),any(String.class),any(String.class));
         verify(emailConfiguration, times(1)).getSubject();
         verify(emailConfiguration, times(1)).getContent();
