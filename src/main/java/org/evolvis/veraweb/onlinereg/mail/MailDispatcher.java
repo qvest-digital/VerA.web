@@ -47,7 +47,7 @@ public class MailDispatcher {
         transport.close();
     }
 
-    protected Message getMessage(Session session, String from, String to, String subject, String text) throws MessagingException {
+    private Message getMessage(Session session, String from, String to, String subject, String text) throws MessagingException {
         final Message message = new SMTPMessage(session);
         message.setFrom(new InternetAddress(from));
         message.addRecipient(RecipientType.TO, new InternetAddress(to));
@@ -58,7 +58,7 @@ public class MailDispatcher {
         return message;
     }
 
-    protected Session getSession() {
+    private Session getSession() {
         final Properties properties = System.getProperties();
         if (username != null && password != null) {
             properties.put("mail.smtp.auth", "true");
