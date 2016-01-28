@@ -79,4 +79,26 @@ public class OsiamUserActivationResourceTest {
         verify(sessionFactory, times(2)).openSession();
         verify(session, times(2)).close();
     }
+
+    @Test
+    public void testRemoveOsiamUserActivationEntryTheSecond() throws Exception {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        OsiamUserActivation osiamUserActivation = mock(OsiamUserActivation.class);
+        when(session.getNamedQuery("OsiamUserActivation.getOsiamUserActivationEntryByToken")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(null);
+
+        // WHEN
+        osiamUserActivationResource.removeOsiamUserActivationEntry("token");
+
+        // THEN
+        verify(sessionFactory, times(2)).openSession();
+        verify(session, times(2)).close();
+        assertNull(osiamUserActivation.getUsername());
+        assertNull(osiamUserActivation.getActivation_token());
+        assertNull(osiamUserActivation.getExpiration_date());
+    }
+
+
 }
