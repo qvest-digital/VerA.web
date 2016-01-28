@@ -16,22 +16,27 @@ public class EmailConfiguration {
     private String content;
     private VworPropertiesReader vworPropertiesReader;
 
+    public EmailConfiguration() {
+    }
+
     public EmailConfiguration(String currentLanguageKey) {
-        if (vworPropertiesReader == null) {
-            vworPropertiesReader = new VworPropertiesReader();
-        }
-        this.host = vworPropertiesReader.getProperty("mail.smtp.host");
-        if (vworPropertiesReader.getProperty("mail.smtp.port") == null) {
+        final VworPropertiesReader propertiesReader = getVworPropertiesReader();
+        readProperties(currentLanguageKey, propertiesReader);
+    }
+
+    public void readProperties(String currentLanguageKey, VworPropertiesReader propertiesReader) {
+        this.host = propertiesReader.getProperty("mail.smtp.host");
+        if (propertiesReader.getProperty("mail.smtp.port") == null) {
             this.port = 25;
         } else {
-            this.port = new Integer(vworPropertiesReader.getProperty("mail.smtp.port"));
+            this.port = new Integer(propertiesReader.getProperty("mail.smtp.port"));
         }
-        this.security = vworPropertiesReader.getProperty("mail.smtp.security");
-        this.username = vworPropertiesReader.getProperty("mail.smtp.user");
-        this.password = vworPropertiesReader.getProperty("mail.smtp.password");
-        this.from = vworPropertiesReader.getProperty("mail.smtp.from");
-        this.subject = vworPropertiesReader.getProperty("mail.subject." + currentLanguageKey);
-        this.content = vworPropertiesReader.getProperty("mail.content." + currentLanguageKey);
+        this.security = propertiesReader.getProperty("mail.smtp.security");
+        this.username = propertiesReader.getProperty("mail.smtp.user");
+        this.password = propertiesReader.getProperty("mail.smtp.password");
+        this.from = propertiesReader.getProperty("mail.smtp.from");
+        this.subject = propertiesReader.getProperty("mail.subject." + currentLanguageKey);
+        this.content = propertiesReader.getProperty("mail.content." + currentLanguageKey);
     }
 
     public String getHost() {
@@ -64,5 +69,16 @@ public class EmailConfiguration {
 
     public String getContent() {
         return content;
+    }
+
+    public VworPropertiesReader getVworPropertiesReader() {
+        if (vworPropertiesReader == null) {
+            vworPropertiesReader = new VworPropertiesReader();
+        }
+        return vworPropertiesReader;
+    }
+
+    public void setVworPropertiesReader(VworPropertiesReader vworPropertiesReader) {
+        this.vworPropertiesReader = vworPropertiesReader;
     }
 }
