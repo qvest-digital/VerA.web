@@ -1,5 +1,7 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
+import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.AfterClass;
@@ -59,5 +61,22 @@ public class OsiamUserActivationResourceTest {
         // THEN
         verify(sessionFactory, times(1)).openSession();
         verify(session, times(1)).close();
+    }
+
+    @Test
+    public void testRemoveOsiamUserActivationEntry() throws Exception {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        OsiamUserActivation osiamUserActivation = mock(OsiamUserActivation.class);
+        when(session.getNamedQuery("OsiamUserActivation.getOsiamUserActivationEntryByToken")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(osiamUserActivation);
+
+        // WHEN
+        osiamUserActivationResource.removeOsiamUserActivationEntry("token");
+
+        // THEN
+        verify(sessionFactory, times(2)).openSession();
+        verify(session, times(2)).close();
     }
 }
