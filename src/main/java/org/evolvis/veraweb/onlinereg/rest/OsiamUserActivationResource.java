@@ -24,6 +24,7 @@ public class OsiamUserActivationResource extends AbstractResource {
 
     // FIXME Set the value via properties file
     private static final Integer LINK_VALIDITY_PERIOD_IN_DAYS = 3;
+    private EmailResource emailResource;
 
     @POST
     @Path("/create")
@@ -112,10 +113,21 @@ public class OsiamUserActivationResource extends AbstractResource {
             query.executeUpdate();
 
             // Resend mail
-            EmailResource emailResource = new EmailResource();
+            emailResource = getEmailResource();
             emailResource.sendEmailVerification(email, endpoint, activationToken, currentLanguageKey);
         } finally {
             session.close();
         }
+    }
+
+    public EmailResource getEmailResource() {
+        if (emailResource == null) {
+            return new EmailResource();
+        }
+        return emailResource;
+    }
+
+    public void setEmailResource(EmailResource emailResource) {
+        this.emailResource = emailResource;
     }
 }

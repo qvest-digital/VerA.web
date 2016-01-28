@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -19,6 +20,7 @@ import java.util.Date;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyObject;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -73,8 +75,11 @@ public class OsiamUserActivationResourceTest {
     public void testRefreshActivationdataByUsername() throws MessagingException {
         // GIVEN
         prepareSession();
+        final EmailResource emailResource = mock(EmailResource.class);
+        osiamUserActivationResource.setEmailResource(emailResource);
         Query query = mock(Query.class);
         when(session.getNamedQuery("OsiamUserActivation.refreshOsiamUserActivationByUsername")).thenReturn(query);
+        doNothing().when(emailResource).sendEmailVerification(any(String.class), any(String.class), any(String.class), any(String.class));
 
         // WHEN
         osiamUserActivationResource.refreshActivationdataByUsername("email", "username", "token", "endpoint", "de_DE");
