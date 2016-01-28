@@ -38,24 +38,12 @@ public class EmailConfiguration {
         return host;
     }
 
-    public void setHost(String host) {
-        this.host = host;
-    }
-
     public Integer getPort() {
         return port;
     }
 
-    public void setPort(Integer port) {
-        this.port = port;
-    }
-
     public String getSecurity() {
         return security;
-    }
-
-    public void setSecurity(String security) {
-        this.security = security;
     }
 
     public String getUsername() {
@@ -70,39 +58,15 @@ public class EmailConfiguration {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getFrom() {
         return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
     }
 
     public String getSubject() {
         return subject;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public VworPropertiesReader getVworPropertiesReader() {
-        return vworPropertiesReader;
-    }
-
-    public void setVworPropertiesReader(VworPropertiesReader vworPropertiesReader) {
-        this.vworPropertiesReader = vworPropertiesReader;
     }
 }
