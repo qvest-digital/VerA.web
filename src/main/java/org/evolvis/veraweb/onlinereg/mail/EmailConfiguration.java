@@ -21,6 +21,17 @@ public class EmailConfiguration {
         readProperties(currentLanguageKey, propertiesReader);
     }
 
+    public EmailConfiguration(String host, Integer port, String security, String username, String password, String from, String subject, String content) {
+        this.host = host;
+        this.port = port;
+        this.security = security;
+        this.username = username;
+        this.password = password;
+        this.from = from;
+        this.subject = subject;
+        this.content = content;
+    }
+
     public void readProperties(String currentLanguageKey, VworPropertiesReader propertiesReader) {
         this.host = propertiesReader.getProperty("mail.smtp.host");
         final String smtpPort = propertiesReader.getProperty("mail.smtp.port");
