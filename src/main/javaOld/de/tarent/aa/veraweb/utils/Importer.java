@@ -19,6 +19,9 @@
  */
 package de.tarent.aa.veraweb.utils;
 
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.TransactionContext;
+
 import java.io.IOException;
 
 /**
@@ -36,5 +39,5 @@ public interface Importer {
      *  verarbeitet.
      * @throws IOException
      */
-    public void importAll(ImportDigester digester) throws IOException;
+    public void importAll(ImportDigester digester, TransactionContext transactionContext) throws IOException, BeanException;
 }

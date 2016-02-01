@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import de.tarent.octopus.beans.TransactionContext;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
@@ -163,11 +164,12 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
      * @throws IOException
      * @see de.tarent.aa.veraweb.utils.Importer#importAll(de.tarent.aa.veraweb.utils.ImportDigester)
      */
-    public void importAll(ImportDigester digester) throws IOException {
+    public void importAll(ImportDigester digester, TransactionContext transactionContext) throws IOException, BeanException {
         try {
             XMLReader parser = XMLReaderFactory.createXMLReader();
             parser.setContentHandler(new VerawebContentHandler(digester));
             parser.parse(source != null ? source : new InputSource(inputStream));
+            transactionContext.commit();
         } catch (SAXException e) {
             IOException ioe = new IOException("SAXException: " + e.getMessage());
             ioe.initCause(e);

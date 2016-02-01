@@ -42,6 +42,7 @@ import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.data.exchange.MappingException;
 import de.tarent.data.exchange.FieldMapping.Entity;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.utils.CSVFileReader;
 
 /**
@@ -73,7 +74,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
      * @throws IOException
      * @see de.tarent.aa.veraweb.utils.Importer#importAll(de.tarent.aa.veraweb.utils.ImportDigester)
      */
-    public void importAll(ImportDigester digester) throws IOException {
+    public void importAll(ImportDigester digester, TransactionContext transactionContext) throws IOException {
         if (exchangeFormat == null)
             throw new IOException("Für einen Import muß ein Format angegeben sein.");
         if (exchangeFormat.getProperties() == null)
@@ -87,7 +88,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
             initReader();
             readHeader();
             fieldMapping.extendCategoryImport(headers);
-            importRows(digester);
+            importRows(digester, transactionContext);
             csvReader.close();
         } catch (MappingException e) {
             IOException ioe = new IOException("Fehler im Feldmapping");
@@ -134,7 +135,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
      * @throws IOException
      * @throws BeanException
      */
-    void importRows(ImportDigester digester) throws IOException, BeanException {
+    void importRows(ImportDigester digester, TransactionContext transactionContext) throws IOException, BeanException {
         assert headers != null;
         assert digester != null;
         RowEntity row = new RowEntity();
@@ -143,6 +144,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         while ((rawRow = csvReader.readFields()) != null) {
             row.parseRow(rawRow);
             digestRow(digester, row);
+            transactionContext.commit();
         }
         digester.endImport();
     }

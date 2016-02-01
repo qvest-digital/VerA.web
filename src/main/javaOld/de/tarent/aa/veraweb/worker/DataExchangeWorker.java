@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2016 tarent solutions GmbH
- *
+ * <p/>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p/>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -102,11 +102,12 @@ public class DataExchangeWorker {
     // Octopus-Aktionen
     //
     /** Octopus-Eingabe-Parameter für {@link #getFormats(OctopusContext, String)} */
-    public static final String[] INPUT_getFormats = { "formatEnumKey" };
+    public static final String[] INPUT_getFormats = {"formatEnumKey"};
     /** Octopus-Eingabepflicht-Parameter für {@link #getFormats(OctopusContext, String)} */
-    public static final boolean[] MANDATORY_getFormats = { false };
+    public static final boolean[] MANDATORY_getFormats = {false};
     /** Octopus-Ausgabe-Parameter für {@link #getFormats(OctopusContext, String)} */
     public static final String OUTPUT_getFormats = "formats";
+
     /**
      * Diese Octopus-Aktion liefert eine {@link Map} mit verfügbaren Austauschformaten.
      *
@@ -143,11 +144,12 @@ public class DataExchangeWorker {
     }
 
     /** Octopus-Eingabe-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)} */
-    public static final String[] INPUT_export = { "format", "exportFilter", "exportEvent", "exportCategory", "domain" };
+    public static final String[] INPUT_export = {"format", "exportFilter", "exportEvent", "exportCategory", "domain"};
     /** Octopus-Eingabepflicht-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)} */
-    public static final boolean[] MANDATORY_export = { true, false, false, false, false };
+    public static final boolean[] MANDATORY_export = {true, false, false, false, false};
     /** Octopus-Ausgabe-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)} */
     public static final String OUTPUT_export = "stream";
+
     /**
      * Diese Octopus-Aktion führt einen Export von Personendaten durch. Dies geschieht
      * in einem konfigurierten Format. Der Exportdatenstrom wird in den Content geschrieben.
@@ -170,7 +172,7 @@ public class DataExchangeWorker {
         // Zunächst mal die benötigten Objekte erstellen
         final ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, cntx.getRequestObject().getRequestParameters());
         if (format == null)
-            throw new TcContentProzessException("Unbekannter Exportformatschlüssel '" +  formatKey + "'.");
+            throw new TcContentProzessException("Unbekannter Exportformatschlüssel '" + formatKey + "'.");
         final Database database = new DatabaseVeraWeb(cntx);
 
         final MultiOutputStream mos = new MultiOutputStream();
@@ -179,69 +181,70 @@ public class DataExchangeWorker {
         mos.add(pos);
 
         new Thread(new Runnable() {
-        	public void run() {
-        		Context.addActive(cntx);
+            public void run() {
+                Context.addActive(cntx);
 
-        		Exporter exporter = null;
-        		try {
-	                exporter = createExporter(format, database, mos);
-	                if (exporter instanceof AlternativeDestination) {
-	                    AlternativeDestination altdest = (AlternativeDestination) exporter;
-	                    mos.add(altdest.getAlternativeOutputStream());
-	                }
+                Exporter exporter = null;
+                try {
+                    exporter = createExporter(format, database, mos);
+                    if (exporter instanceof AlternativeDestination) {
+                        AlternativeDestination altdest = (AlternativeDestination) exporter;
+                        mos.add(altdest.getAlternativeOutputStream());
+                    }
 
-	                // Mandantenbeschränkung
-	                TcPersonalConfig pConfig = cntx.personalConfig();
-	                Integer orgUnit = null;
-	                if (pConfig instanceof PersonalConfigAA) {
-	                    PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
-	                    if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN)))
-	                        orgUnit = aaConfig.getOrgUnitId();
-	                } else
-	                    throw new BeanException("Missing user information");
+                    // Mandantenbeschränkung
+                    TcPersonalConfig pConfig = cntx.personalConfig();
+                    Integer orgUnit = null;
+                    if (pConfig instanceof PersonalConfigAA) {
+                        PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
+                        if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN)))
+                            orgUnit = aaConfig.getOrgUnitId();
+                    } else
+                        throw new BeanException("Missing user information");
 
-	                // Beschränkung auf Kategorie, wenn Benutzer eine ausgewählt hat
-	                Integer categoryId = null;
-	                if (EXPORT_FILTER_CATEGORY.equals(filter)) // category == null bedeutet: in irgendeiner Kategorie, = 0 bedeutet: in keiner Kategorie
-	                	categoryId = category;
+                    // Beschränkung auf Kategorie, wenn Benutzer eine ausgewählt hat
+                    Integer categoryId = null;
+                    if (EXPORT_FILTER_CATEGORY.equals(filter)) // category == null bedeutet: in irgendeiner Kategorie, = 0 bedeutet: in keiner Kategorie
+                        categoryId = category;
 
-	                //Den Exporter auf Mandant und Kategorie einschränken. Ist für den CSV-Exporter notwendig, damit keine überflüssigen überschriften erzeugt werden.
-	                exporter.setOrgUnitId(orgUnit);
-	                exporter.setCategoryId(categoryId);
+                    //Den Exporter auf Mandant und Kategorie einschränken. Ist für den CSV-Exporter notwendig, damit keine überflüssigen überschriften erzeugt werden.
+                    exporter.setOrgUnitId(orgUnit);
+                    exporter.setCategoryId(categoryId);
 
-	                // Dann exportieren
-	                exporter.startExport();
-	                if (EXPORT_FILTER_EVENT.equals(filter)) // event == null bedeutet: in irgendeiner Veranstaltung, = 0 bedeutet: in keiner Veranstaltung
-	                    exportEvent(database, event, exporter, orgUnit);
-	                else if (EXPORT_FILTER_CATEGORY.equals(filter)) // category == null bedeutet: in irgendeiner Kategorie, = 0 bedeutet: in keiner Kategorie
-	                    exportCategory(database, category, exporter, orgUnit);
-	                else // guter Default?
-	                    exportAll(database, exporter, orgUnit);
-	                exporter.endExport();
-        		} catch (Throwable t) {
-        			logger.error("Fehler beim Erstellen des Exports aufgetreten.", t);
-        			// This will force a log output.
-        			t.printStackTrace(System.out);
-        			t.printStackTrace(System.err);
-        			mos.close();
-        			if (exporter instanceof AlternativeDestination) {
-        				((AlternativeDestination)exporter).rollback();
-        			}
-        		} finally {
-       				mos.close();
-        		}
-        	}
+                    // Dann exportieren
+                    exporter.startExport();
+                    if (EXPORT_FILTER_EVENT.equals(filter)) // event == null bedeutet: in irgendeiner Veranstaltung, = 0 bedeutet: in keiner Veranstaltung
+                        exportEvent(database, event, exporter, orgUnit);
+                    else if (EXPORT_FILTER_CATEGORY.equals(filter)) // category == null bedeutet: in irgendeiner Kategorie, = 0 bedeutet: in keiner Kategorie
+                        exportCategory(database, category, exporter, orgUnit);
+                    else // guter Default?
+                        exportAll(database, exporter, orgUnit);
+                    exporter.endExport();
+                } catch (Throwable t) {
+                    logger.error("Fehler beim Erstellen des Exports aufgetreten.", t);
+                    // This will force a log output.
+                    t.printStackTrace(System.out);
+                    t.printStackTrace(System.err);
+                    mos.close();
+                    if (exporter instanceof AlternativeDestination) {
+                        ((AlternativeDestination) exporter).rollback();
+                    }
+                } finally {
+                    mos.close();
+                }
+            }
         }).start();
 
         return createBinaryResponse(getFilename(cntx, format), format.getMimeType(), pis);
     }
 
     /** Octopus-Eingabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
-    public static final String[] INPUT_importToTransit = { "importfile", "format", "importSource", "orgUnit", "CONFIG:importProperties" };
+    public static final String[] INPUT_importToTransit = {"importfile", "format", "importSource", "orgUnit", "CONFIG:importProperties"};
     /** Octopus-Eingabe-Parameter-Pflicht für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
-    public static final boolean[] MANDATORY_importToTransit = { false, false, false, false, false };
+    public static final boolean[] MANDATORY_importToTransit = {false, false, false, false, false};
     /** Octopus-Ausgabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
     public static final String OUTPUT_importToTransit = "importStatus";
+
     /**
      * Diese Octopus-Aktion importiert die Personen einer Datei in den Transit-Bereich,
      * also die Tabelle <code>timportperson</code>.
@@ -260,7 +263,7 @@ public class DataExchangeWorker {
      */
     public Map importToTransit(OctopusContext octopusContext, Map stream, String formatKey, String importSource,
                                Integer orgUnit, Map importProperties)
-                                throws BeanException, IOException, TcContentProzessException {
+            throws BeanException, IOException, TcContentProzessException {
 
         stream = getStream(octopusContext, stream);
         if (!octopusContext.getStatus().equals("streamClose")) {
@@ -316,7 +319,7 @@ public class DataExchangeWorker {
             }
 
             Database database = new DatabaseVeraWeb(octopusContext);
-            TransactionContext context = database.getTransactionContext();
+            TransactionContext transactionContext = database.getTransactionContext();
             try {
                 if (octopusContext.personalConfig() instanceof PersonalConfigAA) {
                     PersonalConfigAA aaConfig = (PersonalConfigAA) octopusContext.personalConfig();
@@ -325,13 +328,13 @@ public class DataExchangeWorker {
                 } else
                     throw new TcContentProzessException("Fehlende Benutzerinformation.");
 
-                Importer importer = createImporter(format, context, istream);
-                Import importInstance = createImport(context, formatKey, importSource, orgUnit);
-                VerawebDigester digester = new VerawebDigester(octopusContext, context, importProperties, importSource, importInstance);
+                Importer importer = createImporter(format, transactionContext, istream);
+                Import importInstance = createImport(transactionContext, formatKey, importSource, orgUnit);
+                VerawebDigester digester = new VerawebDigester(octopusContext, transactionContext, importProperties, importSource, importInstance);
 
-                importer.importAll(digester);
+                importer.importAll(digester, transactionContext);
 
-                context.commit();
+                transactionContext.commit();
 
                 // force gc after import
                 System.gc();
@@ -352,7 +355,7 @@ public class DataExchangeWorker {
                 octopusContext.setStatus("invalidData");
                 return status;
             } finally {
-                context.rollBack();
+                transactionContext.rollBack();
             }
         }
         return null;
@@ -406,6 +409,7 @@ public class DataExchangeWorker {
     //
     // geschützte Hilfsmethoden
     //
+
     /**
      * Diese Methode erstellt eine {@link Map}, aus der die
      * {@link TcBinaryResponseEngine} die Daten für ihre
@@ -451,7 +455,7 @@ public class DataExchangeWorker {
         if (choicesObject instanceof Map && params != null) {
             String prefix = "format-" + formatKey + '-';
             Map applicableParams = new HashMap();
-            for (Iterator itChoiceKeys = ((Map)choicesObject).keySet().iterator(); itChoiceKeys.hasNext(); ) {
+            for (Iterator itChoiceKeys = ((Map) choicesObject).keySet().iterator(); itChoiceKeys.hasNext(); ) {
                 Object choiceKey = itChoiceKeys.next();
                 Object param = params.get(prefix + choiceKey);
                 if (param != null)
@@ -527,38 +531,38 @@ public class DataExchangeWorker {
         Bean samplePerson = database.createBean("Person");
         Bean sampleGuest = database.createBean("Guest");
 
-        Select outer = database.getSelect( "Person" );
+        Select outer = database.getSelect("Person");
         Select inner = new Select(false).
-        		from(database.getProperty(sampleGuest, "table")).
-        		selectAs(database.getProperty(sampleGuest, "person"), "person");
+                from(database.getProperty(sampleGuest, "table")).
+                selectAs(database.getProperty(sampleGuest, "person"), "person");
 
         WhereList outerWhere = new WhereList();
         outerWhere.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
         if (orgUnit != null) {
-        	outerWhere.addAnd(Expr.equal("tperson.fk_orgunit", orgUnit));
+            outerWhere.addAnd(Expr.equal("tperson.fk_orgunit", orgUnit));
         }
 
 		/*
-		 * cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
+         * cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
 		 * jetty used for testing made it a valid integer object of value 0, which broke
 		 * existing code relying on the fact that the request parameter would be null.
 		 * Keine/None now equals -1.
 		 */
         if (event == null || event.intValue() == 0) {
-        	outerWhere.addAnd(Expr.in(
-        			database.getProperty(samplePerson, "id"),
-        			new RawClause('(' + inner.toString() + ')')));
+            outerWhere.addAnd(Expr.in(
+                    database.getProperty(samplePerson, "id"),
+                    new RawClause('(' + inner.toString() + ')')));
         } else if (event.intValue() == -1) {
-        	outerWhere.addAnd(new RawClause("NOT " + Expr.in(
-        			database.getProperty(samplePerson, "id"),
+            outerWhere.addAnd(new RawClause("NOT " + Expr.in(
+                    database.getProperty(samplePerson, "id"),
                     new RawClause('(' + inner.toString() + ')')).clauseToString()));
         } else {
             inner.where(Expr.equal(
-            		database.getProperty(sampleGuest, "event"),
-            		event));
+                    database.getProperty(sampleGuest, "event"),
+                    event));
             outerWhere.addAnd(Expr.in(
-            		database.getProperty(samplePerson, "id"),
-            		new RawClause('(' + inner.toString() + ')')));
+                    database.getProperty(samplePerson, "id"),
+                    new RawClause('(' + inner.toString() + ')')));
         }
 
         exportSelect(database, outer.where(outerWhere), exporter);
@@ -583,15 +587,15 @@ public class DataExchangeWorker {
         Bean samplePerson = database.createBean("Person");
         Bean samplePersonCategory = database.createBean("PersonCategorie");
 
-        Select outer = database.getSelect( samplePerson );
+        Select outer = database.getSelect(samplePerson);
         Select inner = new Select(false).
-        		from(database.getProperty(samplePersonCategory, "table")).
-        		selectAs(database.getProperty(samplePersonCategory, "person"), "person");
+                from(database.getProperty(samplePersonCategory, "table")).
+                selectAs(database.getProperty(samplePersonCategory, "person"), "person");
 
         WhereList outerWhere = new WhereList();
         outerWhere.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
         if (orgUnit != null) {
-        	outerWhere.addAnd(Expr.equal("tperson.fk_orgunit", orgUnit));
+            outerWhere.addAnd(Expr.equal("tperson.fk_orgunit", orgUnit));
         }
 
 		/*
@@ -602,22 +606,22 @@ public class DataExchangeWorker {
 		 */
         if (category == null || category.intValue() == 0) {
             outerWhere.addAnd(Expr.in(
-            		database.getProperty(samplePerson, "id"),
-            		new RawClause('(' + inner.toString() + ')')));
+                    database.getProperty(samplePerson, "id"),
+                    new RawClause('(' + inner.toString() + ')')));
         } else if (category.intValue() == -1) {
             outerWhere.addAnd(new RawClause("NOT " + Expr.in(
-            		database.getProperty(samplePerson, "id"),
-            		new RawClause('(' + inner.toString() + ')')).clauseToString()));
+                    database.getProperty(samplePerson, "id"),
+                    new RawClause('(' + inner.toString() + ')')).clauseToString()));
         } else {
             inner.where(Expr.equal(
-            		database.getProperty(samplePersonCategory, "categorie"),
-            		category));
+                    database.getProperty(samplePersonCategory, "categorie"),
+                    category));
             outerWhere.addAnd(Expr.in(
-            		database.getProperty(samplePerson, "id"),
-            		new RawClause('(' + inner.toString() + ')')));
+                    database.getProperty(samplePerson, "id"),
+                    new RawClause('(' + inner.toString() + ')')));
         }
 
-        exportSelect(database, outer.where(outerWhere).orderBy( Order.asc( "tperson.pk" ) ), exporter);
+        exportSelect(database, outer.where(outerWhere).orderBy(Order.asc("tperson.pk")), exporter);
     }
 
     /**
@@ -632,11 +636,11 @@ public class DataExchangeWorker {
         assert exporter != null;
         Bean samplePerson = database.createBean("Person");
 
-        Select outer = database.getSelect( "Person" );
+        Select outer = database.getSelect("Person");
         WhereList outerWhere = new WhereList();
         outerWhere.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
         if (orgUnit != null) {
-        	outerWhere.addAnd(Expr.equal("tperson.fk_orgunit", orgUnit));
+            outerWhere.addAnd(Expr.equal("tperson.fk_orgunit", orgUnit));
         }
 
         exportSelect(database, outer.where(outerWhere), exporter);
@@ -655,28 +659,22 @@ public class DataExchangeWorker {
         assert select != null;
         assert exporter != null;
 
-        try
-        {
-        	ResultSet rs =  ( ResultSet ) ( ( Result ) select.execute() ).resultSet();
-        	ResultSetMetaData rsm = rs.getMetaData();
-        	Set< String > keys = new HashSet< String >();
-    		for ( int i = 1; i <= rsm.getColumnCount(); i++ )
-    		{
-    			keys.add( rsm.getColumnName( i ) );
-    		}
-        	while ( rs.next() )
-        	{
-        		Person person = new Person();
-	       		for ( String key : keys )
-	       		{
-	       			person.setField( key, rs.getObject( key ) );
-	       		}
-	       		exporter.exportPerson(person);
-	        }
-        }
-        catch ( SQLException e )
-        {
-        	throw new BeanException( e.getMessage(), e );
+        try {
+            ResultSet rs = (ResultSet) ((Result) select.execute()).resultSet();
+            ResultSetMetaData rsm = rs.getMetaData();
+            Set<String> keys = new HashSet<String>();
+            for (int i = 1; i <= rsm.getColumnCount(); i++) {
+                keys.add(rsm.getColumnName(i));
+            }
+            while (rs.next()) {
+                Person person = new Person();
+                for (String key : keys) {
+                    person.setField(key, rs.getObject(key));
+                }
+                exporter.exportPerson(person);
+            }
+        } catch (SQLException e) {
+            throw new BeanException(e.getMessage(), e);
         }
     }
 

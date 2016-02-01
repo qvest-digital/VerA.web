@@ -36,6 +36,7 @@ import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.data.exchange.Exchanger;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.TransactionContext;
 
 /**
  * Diese Klasse dient dem Import eines MAdLAN-CSV-Exports über den
@@ -119,7 +120,7 @@ public class MAdLANImporter implements Importer, Exchanger {
      *  verarbeitet.
      * @see de.tarent.aa.veraweb.utils.Importer#importAll(de.tarent.aa.veraweb.utils.ImportDigester)
      */
-    public void importAll(ImportDigester digester) throws IOException {
+    public void importAll(ImportDigester digester, TransactionContext transactionContext) throws IOException {
         if (format == null)
             throw new IOException("Für einen Import muß ein Format angegeben sein.");
         if (format.getProperties() == null)
@@ -233,6 +234,7 @@ public class MAdLANImporter implements Importer, Exchanger {
                 }
 
                 digester.importPerson(importPerson, null);
+                transactionContext.commit();
             }
             digester.endImport();
         } catch (BeanException e) {
