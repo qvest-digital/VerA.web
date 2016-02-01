@@ -41,7 +41,12 @@ public class VworPropertiesReader {
     }
 
     public String getProperty(String key) {
-        return this.properties.getProperty(key);
+        if (this.properties != null) {
+            return this.properties.getProperty(key);
+        } else {
+            System.out.println("Propery " + key + " is null.");
+        }
+        return null;
     }
 
     public boolean propertiesAreAvailable() {
