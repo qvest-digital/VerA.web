@@ -1,7 +1,6 @@
 package org.evolvis.veraweb.onlinereg.mail;
 
-import com.sun.mail.smtp.SMTPMessage;
-import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
+import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 
 import javax.mail.Message;
 import javax.mail.Message.RecipientType;
@@ -10,9 +9,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MailDateFormat;
+import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
-import java.util.UUID;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -37,24 +36,33 @@ public class MailDispatcher {
         this.password = emailConfiguration.getPassword();
     }
 
-    public void send(String from, String to, String subject, String text, String link) throws MessagingException {
+    public void send(String from, String to, String subject, String text, String link, String contentType) throws MessagingException {
         final String emailContent = text.replace("${link}", link);
         final Session session = getSession();
-        final Message message = getMessage(session, from, to, subject, emailContent);
+        final Message message = getMessage(session, from, to, subject, emailContent, contentType);
         final Transport transport = session.getTransport("smtp");
         transport.connect(host, username, password);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
     }
 
-    private Message getMessage(Session session, String from, String to, String subject, String text) throws MessagingException {
-        final Message message = new SMTPMessage(session);
+    private Message getMessage(Session session, String from, String to, String subject, String text, String contentType) throws MessagingException {
+        final MimeMessage message = initMessage(text, contentType, session);
         message.setFrom(new InternetAddress(from));
         message.addRecipient(RecipientType.TO, new InternetAddress(to));
         message.setSubject(subject);
-        message.setText(text);
         message.setHeader("Date", dateFormat.format(new Date(System.currentTimeMillis())));
         message.saveChanges();
+        return message;
+    }
+
+    private MimeMessage initMessage(String text, String contentType, Session session) throws MessagingException {
+        final MimeMessage message = new MimeMessage(session);
+        if (contentType.equalsIgnoreCase("html")) {
+            message.setContent(text, VworConstants.HTML_CONTENT_TYPE);
+        } else {
+            message.setContent(text, VworConstants.PLAINTEXT_CONTENT_TYPE);
+        }
         return message;
     }
 

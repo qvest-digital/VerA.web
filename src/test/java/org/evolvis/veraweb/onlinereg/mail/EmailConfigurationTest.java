@@ -7,9 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.times;
@@ -39,8 +37,8 @@ public class EmailConfigurationTest {
         emailConfiguration.readProperties("de_DE", propertiesReader);
 
         // THEN
-        verify(propertiesReader, atLeast(7)).getProperty(any(String.class));
-        verify(propertiesReader, atMost(8)).getProperty(any(String.class));
+        verify(propertiesReader, atLeast(8)).getProperty(any(String.class));
+        verify(propertiesReader, atMost(9)).getProperty(any(String.class));
     }
 
     @Test
@@ -52,6 +50,6 @@ public class EmailConfigurationTest {
         emailConfiguration.readProperties("de_DE", propertiesReader);
 
         // THEN
-        verify(propertiesReader, times(8)).getProperty(any(String.class));
+        verify(propertiesReader, times(9)).getProperty(any(String.class));
     }
 }

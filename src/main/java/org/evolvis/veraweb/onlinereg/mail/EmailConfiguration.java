@@ -14,6 +14,7 @@ public class EmailConfiguration {
     private String from;
     private String subject;
     private String content;
+    private String contentType;
     private VworPropertiesReader vworPropertiesReader;
 
     public EmailConfiguration(String currentLanguageKey) {
@@ -44,6 +45,7 @@ public class EmailConfiguration {
         this.username = propertiesReader.getProperty("mail.smtp.user");
         this.password = propertiesReader.getProperty("mail.smtp.password");
         this.from = propertiesReader.getProperty("mail.smtp.from");
+        this.contentType = propertiesReader.getProperty("mail.content.type");
         this.subject = propertiesReader.getProperty("mail.subject." + currentLanguageKey);
         this.content = propertiesReader.getProperty("mail.content." + currentLanguageKey);
     }
@@ -89,5 +91,13 @@ public class EmailConfiguration {
 
     public void setVworPropertiesReader(VworPropertiesReader vworPropertiesReader) {
         this.vworPropertiesReader = vworPropertiesReader;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 }
