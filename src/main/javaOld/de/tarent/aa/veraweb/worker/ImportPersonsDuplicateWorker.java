@@ -70,33 +70,34 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
     @Override
     public List showList(OctopusContext octopusContext) throws BeanException, IOException {
 
-        Map importDuplicatesProperties = (Map) octopusContext.moduleConfig().getParams().get("importDuplicatesProperties");
-        if (importDuplicatesProperties == null)
-            ImportPersonsWorker.LOGGER.
-                    warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
-        if (octopusContext.sessionAsObject("limit" + BEANNAME) == null)
-            octopusContext.
-                    setSession("limit" + BEANNAME,
-                            new Integer(Integer.parseInt((String) importDuplicatesProperties.get("dsCount"))));
+        final Map importDuplicatesProperties = (Map) octopusContext.moduleConfig().getParams().get("importDuplicatesProperties");
+        if (importDuplicatesProperties == null) {
+            ImportPersonsWorker.LOGGER.warn("Konfiguration für die Duplikatbearbeitung beim Personen-Import wurde nicht gefunden.");
+        }
+        if (octopusContext.sessionAsObject("limit" + BEANNAME) == null) {
+            octopusContext.setSession("limit" + BEANNAME, Integer.parseInt((String) importDuplicatesProperties.get("dsCount")));
+        }
 
-        List beans = super.showList(octopusContext);
+        final List beans = super.showList(octopusContext);
 
         // Zu den Duplikatdatensätzen noch einige Beispiel-Duplikate hinzufügen.
         int dsCount = -1;
-        if (importDuplicatesProperties != null)
+        if (importDuplicatesProperties != null) {
             dsCount = Integer.parseInt((String) importDuplicatesProperties.get("dupCount"));
+        }
 
-        Database database = getDatabase(octopusContext);
+        final Database database = getDatabase(octopusContext);
         if (beans != null) {
             for (Iterator it = beans.iterator(); it.hasNext(); ) {
-                ImportPerson importPerson = (ImportPerson) it.next();
+                final ImportPerson importPerson = (ImportPerson) it.next();
                 importPerson.setMoreDuplicates(false);
 
                 if (importPerson.getDuplicateList() == null) {
                     List dups = null;
                     StringTokenizer tokenizer = new StringTokenizer(
                             importPerson.duplicates,
-                            Character.toString(ImportPerson.PK_SEPERATOR_CHAR));
+                            Character.toString(ImportPerson.PK_SEPERATOR_CHAR)
+                    );
 
                     int count = 0;
                     while (tokenizer.hasMoreTokens()) {
@@ -121,8 +122,9 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
                             count++;
                         }
                     }
-                    if (dups == null)
+                    if (dups == null) {
                         dups = Collections.EMPTY_LIST;
+                    }
                     importPerson.setDuplicateList(dups);
                 }
             }
@@ -133,41 +135,24 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
     @Override
     public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
         if (octopusContext.requestContains(INPUT_BUTTON_SAVE)) {
-            Database database = getDatabase(octopusContext);
-            TransactionContext transactionContext = database.getTransactionContext();
-
-            ImportPerson sample = new ImportPerson();
-            Long importId = getImportIdentifier(octopusContext);
-
+            final Database database = getDatabase(octopusContext);
+            final TransactionContext transactionContext = database.getTransactionContext();
+            final ImportPerson sample = new ImportPerson();
+            final Long importId = getImportIdentifier(octopusContext);
 
             try {
-                // Entfernt alle markierungen in der Datenbank.
-                Update update = SQL.Update(transactionContext);
-                update.table(database.getProperty(sample, "table"));
-                update.update("dupcheckstatus", ImportPerson.FALSE);
-                update.where(Where.and(
-                        Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-                        Expr.equal("fk_import", importId)));
-                transactionContext.execute(update);
-                List selection = getSelection(octopusContext, null);
+                final Where whereClause = getWhereClause(importId);
+                clearDuplicateFlags(database, transactionContext, sample, whereClause);
 
-                // Markierungen wieder setzten.
+                final List selection = getSelection(octopusContext, null);
+
                 if (selection != null && selection.size() > 0) {
-                    update = SQL.Update(transactionContext);
-                    update.table(database.getProperty(sample, "table"));
-                    update.update("dupcheckstatus", ImportPerson.TRUE);
-                    update.where(Where.and(Where.and(
-                                    Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-                                    Expr.equal("fk_import", importId)),
-                            Expr.in("pk", selection)));
-                    transactionContext.execute(update);
-                    transactionContext.commit();
+                    setDuplicateFlag(database, transactionContext, sample, whereClause, selection);
                 } else {
                     octopusContext.setContent("noDupsSelected", true);
                     transactionContext.commit();
                 }
-
-                octopusContext.setContent("countUpdate", selection.size());
+                setUpdateCounterInContext(octopusContext, selection);
             } catch (BeanException e) {
                 // failed to commit
                 transactionContext.rollBack();
@@ -177,10 +162,40 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
         }
     }
 
+    private void setUpdateCounterInContext(OctopusContext octopusContext, List selection) {
+        if (selection != null) {
+            octopusContext.setContent("countUpdate", selection.size());
+        }
+    }
+
+    private void setDuplicateFlag(Database database, TransactionContext transactionContext, ImportPerson sample, Where whereClause, List selection) throws IOException, BeanException {
+        // Markierungen wieder setzten.
+        final Update update = SQL.Update(transactionContext);
+        update.table(database.getProperty(sample, "table"));
+        update.update("dupcheckstatus", ImportPerson.TRUE);
+        update.where(Where.and(whereClause, Expr.in("pk", selection)));
+        transactionContext.execute(update);
+        transactionContext.commit();
+    }
+
+    private void clearDuplicateFlags(Database database, TransactionContext transactionContext, ImportPerson sample, Where whereClause) throws IOException, BeanException {
+        // Entfernt alle markierungen in der Datenbank.
+        final Update update = SQL.Update(transactionContext);
+        update.table(database.getProperty(sample, "table"));
+        update.update("dupcheckstatus", ImportPerson.FALSE);
+        update.where(whereClause);
+        transactionContext.execute(update);
+        transactionContext.commit();
+    }
+
+    private Where getWhereClause(Long importId) {
+        return Where.and(Expr.equal("deleted", PersonConstants.DELETED_FALSE), Expr.equal("fk_import", importId));
+    }
+
     private Long getImportIdentifier(OctopusContext octopusContext) {
-        String importIdS = octopusContext.requestAsString("importId");
+        final String importIdFromContext = octopusContext.requestAsString("importId");
         Long importId = null;
-        if (importIdS != null) {
+        if (importIdFromContext != null) {
             importId = new Long(octopusContext.requestAsString("importId"));
         }
         if (importId != null) {
@@ -199,12 +214,12 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
-        Database database = getDatabase(octopusContext);
-        ImportPerson sample = new ImportPerson();
-        Long importId = getImportIdentifier(octopusContext);
+        final Database database = getDatabase(octopusContext);
+        final ImportPerson sample = new ImportPerson();
+        final Long importId = getImportIdentifier(octopusContext);
 
         try {
-            WhereList list = new WhereList();
+            final WhereList list = new WhereList();
             list.addAnd(Expr.isNotNull(database.getProperty(sample, "duplicates")));
             list.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
             list.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
@@ -218,7 +233,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 
     @Override
     protected void extendColumns(OctopusContext octopusContext, Select select) throws BeanException {
-        Database database = getDatabase(octopusContext);
+        final Database database = getDatabase(octopusContext);
         try {
             select.orderBy(Order.asc(database.getProperty(database.createBean(BEANNAME), "lastname_a_e1")));
         } catch (IOException e) {
