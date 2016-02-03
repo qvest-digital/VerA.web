@@ -106,17 +106,9 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
                             break;
                         }
                         Integer pk = new Integer(tokenizer.nextToken());
-
-                        Person person = new Person();
-                        person.setField("id", pk);
-                        Select select = database.getSelect(person);
-                        select.where(Where.and(
-                                Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-                                database.getWhere(person)));
-                        person = (Person) database.getBean("Person", select);
-                        if (dups == null) {
-                            dups = new LinkedList();
-                        }
+                        final Select select = getPersonSelect(database, pk);
+                        final Person person = (Person) database.getBean("Person", select);
+                        dups = new LinkedList();
                         if (person.getId() != null) {
                             dups.add(person);
                             count++;
@@ -130,6 +122,16 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
             }
         }
         return beans;
+    }
+
+    private Select getPersonSelect(Database database, Integer pk) throws BeanException, IOException {
+        Person person = new Person();
+        person.setField("id", pk);
+        Select select = database.getSelect(person);
+        select.where(Where.and(
+                Expr.equal("deleted", PersonConstants.DELETED_FALSE),
+                database.getWhere(person)));
+        return select;
     }
 
     @Override
@@ -219,16 +221,21 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
         final Long importId = getImportIdentifier(octopusContext);
 
         try {
-            final WhereList list = new WhereList();
-            list.addAnd(Expr.isNotNull(database.getProperty(sample, "duplicates")));
-            list.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
-            list.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
+            final WhereList list = getWhereList(database, sample, importId);
             select.where(list);
         } catch (IOException e) {
             throw new BeanException("Fehler beim Lesen von Bean-Parametern", e);
         }
 
         octopusContext.setContent("importId", importId);
+    }
+
+    private WhereList getWhereList(Database database, ImportPerson sample, Long importId) throws IOException {
+        final WhereList list = new WhereList();
+        list.addAnd(Expr.isNotNull(database.getProperty(sample, "duplicates")));
+        list.addAnd(Expr.equal(database.getProperty(sample, "dupcheckaction"), ImportPerson.FALSE));
+        list.addAnd(Expr.equal(database.getProperty(sample, "fk_import"), importId));
+        return list;
     }
 
     @Override
