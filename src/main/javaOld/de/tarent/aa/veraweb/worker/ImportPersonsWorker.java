@@ -214,7 +214,7 @@ public class ImportPersonsWorker {
         }
 
         Database database = new DatabaseVeraWeb(octopusContext);
-        TransactionContext context = database.getTransactionContext();
+        TransactionContext transactionContext = database.getTransactionContext();
 
         List cleanupOrgunits = new ArrayList();
 
@@ -223,7 +223,7 @@ public class ImportPersonsWorker {
 
             ImportPerson sampleImportPerson = new ImportPerson();
             // importTextfieldMapping analysieren, Doctypes holen...
-            List personDoctypeCreators = parseTextfieldMapping(database, context, importTextfieldMapping);
+            List personDoctypeCreators = parseTextfieldMapping(database, transactionContext, importTextfieldMapping);
             //Erstelle SELECT-Anfrage, die die einzufügenden Datensätze liest.
             Select select = database.getSelect(sampleImportPerson);
             WhereList where = new WhereList();
@@ -267,39 +267,44 @@ public class ImportPersonsWorker {
                 // Neue Person speichern
                 person.verify();
                 if (person.isCorrect()) {
-                    database.saveBean(person, context, true);
+                    database.saveBean(person, transactionContext, true);
+                    transactionContext.commit();
 
-                    if (!cleanupOrgunits.contains(person.orgunit))
+                    if (!cleanupOrgunits.contains(person.orgunit)) {
                         cleanupOrgunits.add(person.orgunit);
+                    }
 
                     // Importierte Kategorien zu Personen erzeugen
-                    createPersonCategories(database, context, (Integer) importPerson.get("id"), person);
+                    createPersonCategories(database, transactionContext, (Integer) importPerson.get("id"), person);
                     // TODO: auslagern in MAdLANImporter
-                    if (importPerson.get("category") != null && ((String) importPerson.get("category")).length() != 0)
-                        createPersonCategories(database, context, ((String) importPerson.get("category")).split("\n"), person, new Integer(Categorie.FLAG_DEFAULT));
+                    if (importPerson.get("category") != null && ((String) importPerson.get("category")).length() != 0) {
+                        createPersonCategories(database, transactionContext, ((String) importPerson.get("category")).split("\n"), person, new Integer(Categorie.FLAG_DEFAULT));
+                    }
 
-                    if (importPerson.get("occasion") != null && ((String) importPerson.get("occasion")).length() != 0)
-                        createPersonCategories(database, context, ((String) importPerson.get("occasion")).split("\n"), person, new Integer(Categorie.FLAG_EVENT));
+                    if (importPerson.get("occasion") != null && ((String) importPerson.get("occasion")).length() != 0) {
+                        createPersonCategories(database, transactionContext, ((String) importPerson.get("occasion")).split("\n"), person, new Integer(Categorie.FLAG_EVENT));
+                    }
 
                     // Importierte Dokumenttypen zu Personen erzeugen
-                    createPersonDoctypes(database, context, ipID, person.id);
+                    createPersonDoctypes(database, transactionContext, ipID, person.id);
                     // TODO: auslagern in MAdLANImporter
                     Iterator itPersonDoctypeCreators = personDoctypeCreators.iterator();
-                    while (itPersonDoctypeCreators.hasNext())
-                        ((PersonDoctypeImporter) itPersonDoctypeCreators.next()).createFor(importPerson, person.id);
+                    while (itPersonDoctypeCreators.hasNext()) {
+                        ((PersonDoctypeImporter) itPersonDoctypeCreators.next()).createFor(importPerson, person.id, transactionContext);
+                    }
 
                     // Restlichen Personen Dokumenttypen erzeugen
-                    PersonDoctypeWorker.createPersonDoctype(octopusContext, database, context, person);
+                    PersonDoctypeWorker.createPersonDoctype(octopusContext, database, transactionContext, person);
 
                     // Datensatz als festgeschrieben markieren
-                    context.execute(database.getUpdate("ImportPerson").update("dupcheckaction", ImportPerson.TRUE).
+                    transactionContext.execute(database.getUpdate("ImportPerson").update("dupcheckaction", ImportPerson.TRUE).
                             where(Expr.equal(database.getProperty(sampleImportPerson, "id"), ipID)));
 
                     // Datensatz erfolgreich bearbeitet
                     dsCount++;
                 }
             }
-            context.commit();
+            transactionContext.commit();
 
             emptyImportingSession(octopusContext);
 
@@ -308,7 +313,7 @@ public class ImportPersonsWorker {
 
             return importStoredRecord(octopusContext, importId);
         } catch (BeanException e) {
-            context.rollBack();
+            transactionContext.rollBack();
             throw new BeanException("Die Personendaten konnten nicht importiert werden.", e);
         }
     }
@@ -348,6 +353,7 @@ public class ImportPersonsWorker {
     private static void createPersonCategories(Database database, ExecutionContext executionContext,
                                                String[] categoryNames, Person person, Integer flags)
             throws BeanException, IOException {
+        final TransactionContext transactionContext = executionContext.getDatabase().getTransactionContext();
         for (int i = 0; i < categoryNames.length; i++) {
             String categoryName = categoryNames[i].trim();
             if (categoryName.length() != 0) {
@@ -362,11 +368,13 @@ public class ImportPersonsWorker {
                     category.name = categoryName;
                     category.orgunit = person.orgunit;
                     database.saveBean(category, executionContext, true);
+                    transactionContext.commit();
                 }
                 PersonCategorie personCategory = new PersonCategorie();
                 personCategory.categorie = category.id;
                 personCategory.person = person.id;
                 database.saveBean(personCategory, executionContext, false);
+                transactionContext.commit();
             }
         }
     }
@@ -387,6 +395,8 @@ public class ImportPersonsWorker {
         Select select = database.getSelect(sample);
         select.where(Expr.equal(database.getProperty(sample, "importperson"), importPersonId));
 
+        final TransactionContext transactionContext = executionContext.getDatabase().getTransactionContext();
+
         List importPersonCategories = database.getBeanList("ImportPersonCategorie", select, executionContext);
               for (Iterator itImportPersonCategories = importPersonCategories.iterator(); itImportPersonCategories.hasNext(); ) {
             ImportPersonCategorie importPersonCategorie = (ImportPersonCategorie) itImportPersonCategories.next();
@@ -402,12 +412,14 @@ public class ImportPersonsWorker {
                     category.rank = importPersonCategorie.rank;
                     category.orgunit = person.orgunit;
                     database.saveBean(category, executionContext, true);
+                    transactionContext.commit();
                 }
                 PersonCategorie personCategory = new PersonCategorie();
                 personCategory.categorie = category.id;
                 personCategory.person = person.id;
                 personCategory.rank = importPersonCategorie.rank;
                 database.saveBean(personCategory, executionContext, false);
+                transactionContext.commit();
             }
         }
     }
@@ -448,8 +460,9 @@ public class ImportPersonsWorker {
         }
         final PersonDoctype personDoctype = initPersonDoctype(database, personId, importPersonDoctype, doctype);
         personDoctype.verify();
-
         database.saveBean(personDoctype, executionContext, false);
+        final TransactionContext transactionContext = executionContext.getDatabase().getTransactionContext();
+        transactionContext.commit();
     }
 
     private static Doctype getDoctypeByName(Database database, ExecutionContext executionContext, String name)
@@ -534,7 +547,7 @@ public class ImportPersonsWorker {
         //
         // Methoden
         //
-        private void createFor(Map importPerson, Integer personId) throws BeanException, IOException {
+        private void createFor(Map importPerson, Integer personId, TransactionContext transactionContext) throws BeanException, IOException {
             String personText = (String) importPerson.get(personField);
             String partnerText = (String) importPerson.get(partnerField);
             if (doctype != null && ((personText != null && personText.length() > 0) || (partnerText != null && partnerText.length() > 0))) {
@@ -550,6 +563,7 @@ public class ImportPersonsWorker {
                 personDoctype.textfieldPartner = partnerText;
                 personDoctype.textfieldJoin = join;
                 database.saveBean(personDoctype, context, false);
+                transactionContext.commit();
             }
         }
 

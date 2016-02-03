@@ -134,7 +134,7 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
     public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
         if (octopusContext.requestContains(INPUT_BUTTON_SAVE)) {
             Database database = getDatabase(octopusContext);
-            TransactionContext context = database.getTransactionContext();
+            TransactionContext transactionContext = database.getTransactionContext();
 
             ImportPerson sample = new ImportPerson();
             Long importId = getImportIdentifier(octopusContext);
@@ -142,38 +142,35 @@ public class ImportPersonsDuplicateWorker extends ListWorkerVeraWeb {
 
             try {
                 // Entfernt alle markierungen in der Datenbank.
-                Update update = SQL.Update(context);
+                Update update = SQL.Update(transactionContext);
                 update.table(database.getProperty(sample, "table"));
                 update.update("dupcheckstatus", ImportPerson.FALSE);
                 update.where(Where.and(
                         Expr.equal("deleted", PersonConstants.DELETED_FALSE),
                         Expr.equal("fk_import", importId)));
-                context.execute(update);
+                transactionContext.execute(update);
                 List selection = getSelection(octopusContext, null);
 
                 // Markierungen wieder setzten.
                 if (selection != null && selection.size() > 0) {
-                    update = SQL.Update(context);
+                    update = SQL.Update(transactionContext);
                     update.table(database.getProperty(sample, "table"));
                     update.update("dupcheckstatus", ImportPerson.TRUE);
                     update.where(Where.and(Where.and(
                                     Expr.equal("deleted", PersonConstants.DELETED_FALSE),
                                     Expr.equal("fk_import", importId)),
                             Expr.in("pk", selection)));
-                    context.execute(update);
+                    transactionContext.execute(update);
+                    transactionContext.commit();
                 } else {
                     octopusContext.setContent("noDupsSelected", true);
+                    transactionContext.commit();
                 }
-                context.commit();
 
                 octopusContext.setContent("countUpdate", selection.size());
-//						database.getCount(
-//						database.getCount(sample).where(Where.and(
-//								Expr.equal("deleted", PersonConstants.DELETED_FALSE),
-//								Expr.equal("fk_import", importId)))));
             } catch (BeanException e) {
                 // failed to commit
-                context.rollBack();
+                transactionContext.rollBack();
                 throw new BeanException(
                         "Die \u00c4nderungen an der Duplikatliste konnten nicht \u00fcbernommen werden.", e);
             }
