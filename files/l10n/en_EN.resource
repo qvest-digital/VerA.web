@@ -851,6 +851,8 @@ beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=green highli
 verteilerdetails=distribution details
 verteilerversenden=dispatch contributor
 e-mail-clientaufrufen=open e-mail client
+mailclient_other=Other Mailclient
+mailclient_msoutlook=Microsoft Outlook
 
 # FEHLEND
 zurstartseite=Home
