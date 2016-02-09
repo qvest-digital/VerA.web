@@ -852,6 +852,8 @@ beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=Bei gr\u00FC
 verteilerdetails=Verteilerdetails
 verteilerversenden=Verteiler versenden
 e-mail-clientaufrufen=E-Mail-Client aufrufen
+mailclient_other=Anderer Mailclient
+mailclient_msoutlook=Microsoft Outlook
 
 # FEHLEND
 zurstartseite=Zur Startseite

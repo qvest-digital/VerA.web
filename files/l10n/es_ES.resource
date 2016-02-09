@@ -851,6 +851,8 @@ beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=En verde se 
 verteilerdetails=Detalles de la distribuci\u00F3n
 verteilerversenden=Enviar distribuci\u00F3n
 e-mail-clientaufrufen=Redactar E-Mail a cliente
+mailclient_other=Otro Mailcliente
+mailclient_msoutlook=Microsoft Outlook
 
 # FEHLEND
 zurstartseite=Inicio

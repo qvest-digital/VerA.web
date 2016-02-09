@@ -18,9 +18,11 @@
     function openNewEmail() {
     	var check = confirm("${placeholderWithTranslation.GM_CONFIRMATION_EMAIL_DISTRIBUTOR}");
     	if (check == true) {
-    #foreach ($address in $mailAddresses)
-    		window.location.href = "$!address";
-    #end
+        #foreach ($address in $mailAddresses)
+                var selectedSeparator = document.getElementById('selectSeparation').value;
+                var newAddress = (selectedSeparator==',') ? "$!address" : "$!address".replace(',', selectedSeparator);
+                window.location.href = newAddress;
+        #end
     	}
     }
 </script>
@@ -55,6 +57,10 @@
 			#if($grants.mayReadStandardFields())
         		<span id="buttonPanel_top" class="textRight floatRight">
         			<input type="button" name="send" value="${placeholderWithTranslation.verteilerversenden}" onclick="window.location.href='MailinglistWrite';" title="${placeholderWithTranslation.analleadressenversenden}" class="mainButton"/>
+        			<select id="selectSeparation" name="selectSeparation" style="margin-left: 20px">
+                      <option value=",">${placeholderWithTranslation.mailclient_other}</option>
+                      <option value=";">${placeholderWithTranslation.mailclient_msoutlook}</option>
+                    </select>
 					<input type="button" name="openMailClient" value="${placeholderWithTranslation.emailclientaufrufen}" onclick="javascript:openNewEmail();" title="${placeholderWithTranslation.emailclientaufrufen}" class="mainButton"/>
         		</span>
 			#end

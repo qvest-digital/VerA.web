@@ -723,6 +723,8 @@ eswurdeeineneueveranstaltungangelegt=
 angelegtvon=Cr\u00E9\u00E9e par
 angelegtam=Cr\u00E9\u00E9e le
 erzeugtausveranstaltung=Cr\u00E9ation de l\u2019\u00E9v\u00E9nement
+mailclient_other=Autre Mailclient
+mailclient_msoutlook=Microsoft Outlook
 
 # STATISTIKEN
 statistikauffolgendenzeitrahmeneinschranken=Cr\u00E9e limite de statistiques des \u00E9v\u00E9nements sur le calendrier suivant
