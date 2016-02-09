@@ -238,11 +238,11 @@ public class DataExchangeWorker {
         return createBinaryResponse(getFilename(cntx, format), format.getMimeType(), pis);
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
-    public static final String[] INPUT_importToTransit = {"importfile", "format", "importSource", "orgUnit", "CONFIG:importProperties"};
-    /** Octopus-Eingabe-Parameter-Pflicht für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
-    public static final boolean[] MANDATORY_importToTransit = {false, false, false, false, false};
-    /** Octopus-Ausgabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Map)} */
+    /** Octopus-Eingabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)} */
+    public static final String[] INPUT_importToTransit = {"importfile", "format", "importSource", "orgUnit", "targetOrgUnit","CONFIG:importProperties"};
+    /** Octopus-Eingabe-Parameter-Pflicht für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)} */
+    public static final boolean[] MANDATORY_importToTransit = {false, false, false, false, false, false};
+    /** Octopus-Ausgabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)} */
     public static final String OUTPUT_importToTransit = "importStatus";
 
     /**
@@ -254,6 +254,7 @@ public class DataExchangeWorker {
      * @param formatKey Schlüssel der Datenformatbeschreibung in der Modulkonfiguration
      * @param importSource Importquellenbeschreibung
      * @param orgUnit Ziel-Mandant; nur bei Super-Admins beachtetg
+     * @param targetOrgUnit Ziel-Mandant, wenn das Import über das CLI-Tool erfolgt
      * @param importProperties Einstellungen zum Import
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
@@ -261,15 +262,25 @@ public class DataExchangeWorker {
      * @throws IOException
      * @throws TcContentProzessException
      */
-    public Map importToTransit(OctopusContext octopusContext, Map stream, String formatKey, String importSource,
-                               Integer orgUnit, Map importProperties)
+    public Map importToTransit(OctopusContext octopusContext,
+                               Map stream,
+                               String formatKey,
+                               String importSource,
+                               Integer orgUnit,
+                               Integer targetOrgUnit,
+                               Map importProperties)
             throws BeanException, IOException, TcContentProzessException {
 
         stream = getStream(octopusContext, stream);
         if (!octopusContext.getStatus().equals("streamClose")) {
             formatKey = getFormatKey(octopusContext, formatKey);
             importSource = getImportSource(octopusContext, importSource);
-            orgUnit = getOrgUnit(octopusContext, orgUnit);
+            Integer mandantId = null;
+            if (targetOrgUnit != null) {
+                mandantId = targetOrgUnit;
+            } else {
+                mandantId = getOrgUnit(octopusContext, orgUnit);
+            }
             importProperties = getImportProperties(octopusContext, importProperties);
 
             TcModuleConfig moduleConfig = octopusContext.moduleConfig();
@@ -323,13 +334,13 @@ public class DataExchangeWorker {
             try {
                 if (octopusContext.personalConfig() instanceof PersonalConfigAA) {
                     PersonalConfigAA aaConfig = (PersonalConfigAA) octopusContext.personalConfig();
-                    if (orgUnit == null || orgUnit.intValue() == 0 || !aaConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
-                        orgUnit = aaConfig.getOrgUnitId();
+                    if (mandantId == null || mandantId.intValue() == 0 || !aaConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
+                        mandantId = aaConfig.getOrgUnitId();
                 } else
                     throw new TcContentProzessException("Fehlende Benutzerinformation.");
 
                 Importer importer = createImporter(format, transactionContext, istream);
-                Import importInstance = createImport(transactionContext, formatKey, importSource, orgUnit);
+                Import importInstance = createImport(transactionContext, formatKey, importSource, mandantId);
                 VerawebDigester digester = new VerawebDigester(octopusContext, transactionContext, importProperties, importSource, importInstance);
 
                 importer.importAll(digester, transactionContext);
