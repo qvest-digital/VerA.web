@@ -22,7 +22,7 @@ public class EmailConfiguration {
         readProperties(currentLanguageKey, propertiesReader);
     }
 
-    public EmailConfiguration(String host, Integer port, String security, String username, String password, String from, String subject, String content) {
+    public EmailConfiguration(String host, Integer port, String security, String username, String password, String from, String subject, String content, String contentType) {
         this.host = host;
         this.port = port;
         this.security = security;
@@ -31,6 +31,7 @@ public class EmailConfiguration {
         this.from = from;
         this.subject = subject;
         this.content = content;
+        this.contentType = contentType;
     }
 
     public void readProperties(String currentLanguageKey, VworPropertiesReader propertiesReader) {
