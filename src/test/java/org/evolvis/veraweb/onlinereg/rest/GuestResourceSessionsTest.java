@@ -50,9 +50,9 @@ import static org.mockito.Mockito.when;
 public class GuestResourceSessionsTest {
 
     @Mock
-    private static SessionFactory mockitoSessionFactory;
+    private static SessionFactory sessionFactory;
     @Mock
-    private static Session mockitoSession;
+    private static Session session;
 
     GuestResource guestResource;
 
@@ -63,10 +63,10 @@ public class GuestResourceSessionsTest {
 
     @AfterClass
     public static void tearDown() {
-        mockitoSessionFactory.close();
+        sessionFactory.close();
 
-        mockitoSession.disconnect();
-        mockitoSession.close();
+        session.disconnect();
+        session.close();
     }
 
     @Test
@@ -74,15 +74,15 @@ public class GuestResourceSessionsTest {
         // GIVEN
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.findByEventAndUser")).thenReturn(query);
+        when(session.getNamedQuery("Guest.findByEventAndUser")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(mock(Guest.class));
 
         // WHEN
         guestResource.getGuest(1, 1, 0);
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test@Ignore
@@ -90,15 +90,15 @@ public class GuestResourceSessionsTest {
         // GIVEN
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.findByEventAndUser")).thenReturn(query);
+        when(session.getNamedQuery("Guest.findByEventAndUser")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(mock(Guest.class));
 
         // WHEN
         guestResource.updateGuest(1, 1, 1, "notehost");
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -106,15 +106,15 @@ public class GuestResourceSessionsTest {
         // GIVEN
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.checkUserRegistration")).thenReturn(query);
+        when(session.getNamedQuery("Guest.checkUserRegistration")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(BigInteger.valueOf(1));
 
         // WHEN
         guestResource.isUserRegisteredintoEvent("username", 1);
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -122,15 +122,15 @@ public class GuestResourceSessionsTest {
         // GIVEN
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.checkUserRegistration")).thenReturn(query);
+        when(session.getNamedQuery("Guest.checkUserRegistration")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(BigInteger.valueOf(0));
 
         // WHEN
         guestResource.isUserRegisteredintoEvent("username", 1);
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -138,15 +138,15 @@ public class GuestResourceSessionsTest {
         // GIVEN
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.findIdByEventAndUser")).thenReturn(query);
+        when(session.getNamedQuery("Guest.findIdByEventAndUser")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(1);
 
         // WHEN
         guestResource.getGuestId(1,1);
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -154,17 +154,17 @@ public class GuestResourceSessionsTest {
         // GIVEN
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.findByEventAndUser")).thenReturn(query);
+        when(session.getNamedQuery("Guest.findByEventAndUser")).thenReturn(query);
         Guest guest = mock(Guest.class);
         when(query.uniqueResult()).thenReturn(guest);
-        doNothing().when(mockitoSession).update(guest);
+        doNothing().when(session).update(guest);
 
         // WHEN
         guestResource.saveGuest(1, 1, 1, "host", 0);
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -173,7 +173,7 @@ public class GuestResourceSessionsTest {
         String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.findEventIdByDelegationUUID")).thenReturn(query);
+        when(session.getNamedQuery("Guest.findEventIdByDelegationUUID")).thenReturn(query);
         Guest guest = mock(Guest.class);
         when(query.uniqueResult()).thenReturn(guest);
 
@@ -181,8 +181,8 @@ public class GuestResourceSessionsTest {
         guestResource.findGuestByEventWithDelegationUUID(uuid);
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -191,7 +191,7 @@ public class GuestResourceSessionsTest {
         String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.findByDelegationAndUser")).thenReturn(query);
+        when(session.getNamedQuery("Guest.findByDelegationAndUser")).thenReturn(query);
         Guest guest = mock(Guest.class);
         when(query.uniqueResult()).thenReturn(guest);
 
@@ -199,8 +199,8 @@ public class GuestResourceSessionsTest {
         guestResource.findGuestByDelegationAndPerson(uuid, 1);
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -209,15 +209,15 @@ public class GuestResourceSessionsTest {
         String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.guestByUUID")).thenReturn(query);
+        when(session.getNamedQuery("Guest.guestByUUID")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(new BigInteger(String.valueOf(1)));
 
         // WHEN
         guestResource.existEventIdByDelegation(uuid);
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -226,15 +226,15 @@ public class GuestResourceSessionsTest {
         String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.guestByUUID")).thenReturn(query);
+        when(session.getNamedQuery("Guest.guestByUUID")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(new BigInteger(String.valueOf(2)));
 
         // WHEN
         guestResource.existEventIdByDelegation(uuid);
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -247,8 +247,8 @@ public class GuestResourceSessionsTest {
         guestResource.addGuestToEvent(uuid,1,1,1,1,"m",1,"","testusername");
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -258,15 +258,15 @@ public class GuestResourceSessionsTest {
 
         // QUERIES
         Query findIdByEventAndUserQuery = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.findIdByEventAndUser")).thenReturn(findIdByEventAndUserQuery);
+        when(session.getNamedQuery("Guest.findIdByEventAndUser")).thenReturn(findIdByEventAndUserQuery);
         when(findIdByEventAndUserQuery.uniqueResult()).thenReturn(null);
 
         // WHEN
         guestResource.addGuestToEvent(1, 1, 1, 1, "Herr", 1, "username", "nodehost", 0);
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -276,15 +276,15 @@ public class GuestResourceSessionsTest {
         prepareSession();
         Query query = mock(Query.class);
         Guest guest = mock(Guest.class);
-        when(mockitoSession.getNamedQuery("Guest.findByDelegationUUID")).thenReturn(query);
+        when(session.getNamedQuery("Guest.findByDelegationUUID")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(guest);
 
         // WHEN
         Guest guestResult = guestResource.findGuestByDelegationUUID(uuid);
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -294,15 +294,15 @@ public class GuestResourceSessionsTest {
         prepareSession();
         Query query = mock(Query.class);
         Guest guest = mock(Guest.class);
-        when(mockitoSession.getNamedQuery("Guest.findByNoLoginUUID")).thenReturn(query);
+        when(session.getNamedQuery("Guest.findByNoLoginUUID")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(guest);
 
         // WHEN
         guestResource.updateGuestWithoutLogin(uuid, 1, "Notiz");
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -311,7 +311,7 @@ public class GuestResourceSessionsTest {
         String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.checkUserRegistrationWithoutLogin")).thenReturn(query);
+        when(session.getNamedQuery("Guest.checkUserRegistrationWithoutLogin")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(new BigInteger("1"));
 
         // WHEN
@@ -319,8 +319,8 @@ public class GuestResourceSessionsTest {
 
         // THEN
         assertTrue(userRegisteredintoEventByUUID);
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -329,7 +329,7 @@ public class GuestResourceSessionsTest {
         String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.checkUserRegistrationWithoutLogin")).thenReturn(query);
+        when(session.getNamedQuery("Guest.checkUserRegistrationWithoutLogin")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(new BigInteger("0"));
 
         // WHEN
@@ -337,8 +337,8 @@ public class GuestResourceSessionsTest {
 
         // THEN
         assertFalse(userRegisteredintoEventByUUID);
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
     
     @Test
@@ -348,7 +348,7 @@ public class GuestResourceSessionsTest {
         String username = "username";
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.isGuestForEvent")).thenReturn(query);
+        when(session.getNamedQuery("Guest.isGuestForEvent")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(new BigInteger("1"));
 
         // WHEN
@@ -357,8 +357,8 @@ public class GuestResourceSessionsTest {
 
         // THEN
         assertTrue(isUserRegisteredintoEventByDelegation);
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -368,7 +368,7 @@ public class GuestResourceSessionsTest {
         String username = "username";
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.isGuestForEvent")).thenReturn(query);
+        when(session.getNamedQuery("Guest.isGuestForEvent")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(new BigInteger("0"));
 
         // WHEN
@@ -377,8 +377,8 @@ public class GuestResourceSessionsTest {
 
         // THEN
         assertFalse(isUserRegisteredintoEventByDelegation);
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -386,15 +386,15 @@ public class GuestResourceSessionsTest {
         // GIVEN
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.findImageByDelegationAndUser")).thenReturn(query);
+        when(session.getNamedQuery("Guest.findImageByDelegationAndUser")).thenReturn(query);
         when(query.uniqueResult()).thenReturn("1");
 
         // WHEN
         guestResource.getGuestImageUUID("delegationUUID", 2);
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
     }
 
     @Test
@@ -403,7 +403,7 @@ public class GuestResourceSessionsTest {
         prepareSession();
         Query query = mock(Query.class);
         Guest guest = mock(Guest.class);
-        when(mockitoSession.getNamedQuery("Guest.getGuestById")).thenReturn(query);
+        when(session.getNamedQuery("Guest.getGuestById")).thenReturn(query);
         when(query.uniqueResult()).thenReturn(guest);
         doNothing().when(guest).setImage_uuid(String.valueOf(any(String.class)));
 
@@ -411,14 +411,14 @@ public class GuestResourceSessionsTest {
         guestResource.updateGuestEntity(2, "delegationUUID");
 
         // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
-        verify(mockitoSession, times(1)).flush();
-        verify(mockitoSession, times(1)).update(anyObject());
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
+        verify(session, times(1)).flush();
+        verify(session, times(1)).update(anyObject());
     }
     
     private void prepareSession() {
-        when(guestResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
-        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(guestResource.context.getAttribute("SessionFactory")).thenReturn(sessionFactory);
+        when(sessionFactory.openSession()).thenReturn(session);
     }
 }
