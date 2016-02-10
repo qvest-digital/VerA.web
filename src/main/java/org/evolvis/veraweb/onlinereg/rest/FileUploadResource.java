@@ -48,11 +48,11 @@ import java.io.IOException;
 public class FileUploadResource extends AbstractResource {
 
     /**
-     * Storing incomming image into file system
+     * Storing incomming image into file system.
      *
-     * @param imageStringData
-     * @param extension
-     * @param imgUUID
+     * @param imageStringData Image as String
+     * @param extension Png or jpg
+     * @param imgUUID Image UUID
      * @throws IOException
      */
     @POST
@@ -61,34 +61,23 @@ public class FileUploadResource extends AbstractResource {
                                         @FormParam("extension") String extension,
                                         @FormParam("imageUUID") String imgUUID) throws IOException {
 
-        VworPropertiesReader vworPropertiesReader = new VworPropertiesReader();
-        String filesLocation = vworPropertiesReader.getProperty("filesLocation");
-
+        final VworPropertiesReader vworPropertiesReader = new VworPropertiesReader();
+        final String filesLocation = vworPropertiesReader.getProperty("filesLocation");
 
         BufferedImage image = null;
-        byte[] imageByte;
         try {
-            BASE64Decoder decoder = new BASE64Decoder();
-            imageByte = decoder.decodeBuffer(imageStringData);
-            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
-            image = ImageIO.read(bis);
-            bis.close();
+            image = createTempImage(imageStringData);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // save png as jpg file
-        if (extension.equals(VworConstants.EXTENSION_PNG)) {
 
-            BufferedImage newImage = new BufferedImage(image.getWidth(),
-                    image.getHeight(), BufferedImage.TYPE_INT_RGB);
-            newImage.createGraphics().drawImage(image, 0, 0, Color.WHITE, null);
-            image = newImage;
+        if (extension.equals(VworConstants.EXTENSION_PNG)) {
+            image = convertTempImageToJpg(image);
         }
 
-        String imageName = generateImageName(imgUUID);
-        File fileToStore = new File(filesLocation + imageName);
+        final String imageName = generateImageName(imgUUID);
+        final File fileToStore = new File(filesLocation + imageName);
         ImageIO.write(image, VworConstants.EXTENSION_JPG, fileToStore);
-
     }
 
     /**
@@ -99,32 +88,52 @@ public class FileUploadResource extends AbstractResource {
     @GET
     @Path("/download/{imgUUID}")
     public String getImageByUUID(@PathParam("imgUUID") String imgUUID) {
-
-        VworPropertiesReader vworPropertiesReader = new VworPropertiesReader();
-        String filesLocation = vworPropertiesReader.getProperty("filesLocation");
-
-        File file = new File(filesLocation + generateImageName(imgUUID));
-
         StringBuilder encodedImage = null;
         try {
-            BufferedImage image = ImageIO.read(file);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ImageIO.write(image, "jpg", bos);
-            byte[] imageBytes = bos.toByteArray();
-            BASE64Encoder encoder = new BASE64Encoder();
-            String imageString = encoder.encode(imageBytes);
-
-            encodedImage = new StringBuilder("data:image/jpg;base64,").append(imageString);
-            bos.close();
+            encodedImage = getImage(imgUUID);
         } catch (IOException e) {
             // image not found
             // 1. Delete imageUUID
-
         }
         if (encodedImage != null) {
             return encodedImage.toString();
         }
         return null;
+    }
+
+    private BufferedImage createTempImage(String imageStringData) throws IOException {
+        final BASE64Decoder decoder = new BASE64Decoder();
+        byte[] imageBytes = decoder.decodeBuffer(imageStringData);
+        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
+        BufferedImage image = ImageIO.read(byteArrayInputStream);
+        byteArrayInputStream.close();
+        return image;
+    }
+
+    private BufferedImage convertTempImageToJpg(BufferedImage pngImage) {
+        final BufferedImage jpgImage = new BufferedImage(pngImage.getWidth(), pngImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+        jpgImage.createGraphics().drawImage(pngImage, 0, 0, Color.WHITE, null);
+        return jpgImage;
+    }
+
+    private StringBuilder getImage(String imgUUID) throws IOException {
+        final File file = getFile(imgUUID);
+
+        final BufferedImage image = ImageIO.read(file);
+        final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(image, "jpg", byteArrayOutputStream);
+        final byte[] imageBytes = byteArrayOutputStream.toByteArray();
+        final BASE64Encoder encoder = new BASE64Encoder();
+        final String imageString = encoder.encode(imageBytes);
+        final StringBuilder encodedImage = new StringBuilder("data:image/jpg;base64,").append(imageString);
+        byteArrayOutputStream.close();
+        return encodedImage;
+    }
+
+    private File getFile(String imgUUID) {
+        final VworPropertiesReader vworPropertiesReader = new VworPropertiesReader();
+        final String filesLocation = vworPropertiesReader.getProperty("filesLocation");
+        return new File(filesLocation + generateImageName(imgUUID));
     }
 
     public String generateImageName(String imgUUID) {
