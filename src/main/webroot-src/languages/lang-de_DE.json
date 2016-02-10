@@ -43,6 +43,11 @@
   "GENERIC_FUNCTION": "Funktion/Amtsbezeichnung",
   "GENERIC_CLEAR_FIELDS": "Leeren",
   "GENERIC_PAGE_NOT_FOUND": "Die gesuchte Seite wurde nicht gefunden",
+  "GENERIC_LANGUAGES": "Sprachen",
+  "GENERIC_BIRTHDAY": "Geburtstag",
+  "GENERIC_NATIONALITY": "Nationalität/Staatsangehörigkeit",
+  "GENERIC_TITLE": "Akademischer Titel",
+  "GENERIC_SALUTATION": "Anrede",
 
   "BROWSER_TITLE": "VerA.web Online-Registrierung",
 
@@ -109,5 +114,7 @@
   "DELEGATION_EXTRA_FIELDS_TITLE": "Weitere Felder",
   "DELEGATION_EMPTY_FIELDS": "Möchten Sie wirklich die Felder leeren?",
   "DELEGATION_PHOTO_NEW": "Kontaktfoto hochladen",
-  "DELEGATION_PHOTO_EXIST": "Kontaktfoto ändern"
+  "DELEGATION_PHOTO_EXIST": "Kontaktfoto ändern",
+
+  "USER_ACCOUNT_CORE_DATA_UPDATE": "Stammdaten aktualisieren"
 }

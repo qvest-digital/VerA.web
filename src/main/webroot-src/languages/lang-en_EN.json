@@ -44,6 +44,12 @@
   "GENERIC_FUNCTION": "Function",
   "GENERIC_CLEAR_FIELDS": "Clear",
   "GENERIC_PAGE_NOT_FOUND": "Page not found",
+  "GENERIC_LANGUAGES": "Languages",
+  "GENERIC_BIRTHDAY": "Date of birth",
+  "GENERIC_NATIONALITY": "Nationality/Citizenship",
+  "GENERIC_TITLE": "Academic title",
+  "GENERIC_SALUTATION": "Salutation",
+
   "BROWSER_TITLE": "VerA.web Online-Registration",
   "LOGIN_TITLE": "Please log in",
   "USER_EVENT_REGISTER_TITLE": "Register",
@@ -97,5 +103,7 @@
   "DELEGATION_EXTRA_FIELDS_TITLE": "Extra fields",
   "DELEGATION_EMPTY_FIELDS": "Do you really want to clear the fields?",
   "DELEGATION_PHOTO_NEW": "Upload contact photo",
-  "DELEGATION_PHOTO_EXIST": "Change contact photo"
+  "DELEGATION_PHOTO_EXIST": "Change contact photo",
+
+  "USER_ACCOUNT_CORE_DATA_UPDATE": "Update core data"
 }
