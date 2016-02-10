@@ -26,6 +26,7 @@
     "bootstrapvalidator": "^0.5.0",
     "flow.js": "^2.9.0",
     "jquery": "^1.10.2",
+    "jquery-ui": "^1.11.4",
     "momentjs": "^2.5.1",
     "ng-file-upload": "^5.0.9",
     "ng-flow": "^2.6.1"
