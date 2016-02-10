@@ -21,7 +21,6 @@ package org.evolvis.veraweb.onlinereg;
 
 import org.evolvis.veraweb.onlinereg.rest.AbstractResource;
 import org.hibernate.SessionFactory;
-import org.junit.Ignore;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
@@ -37,8 +36,8 @@ import static org.mockito.Mockito.when;
 /**
  * Created by mley on 02.09.14.
  */
-@Ignore
 public class AbstractResourceTest<T extends AbstractResource> {
+
 
     public static SessionFactory sessionFactory;
 
