@@ -85,13 +85,16 @@ public class GuestResourceSessionsTest {
         verify(session, times(1)).close();
     }
 
-    @Test@Ignore
+    @Test
     public void testUpdateGuest() {
         // GIVEN
         prepareSession();
+        final BigInteger maxGuests = getMaxGuests();
+
         Query query = mock(Query.class);
+        final Guest guest = mock(Guest.class);
         when(session.getNamedQuery("Guest.findByEventAndUser")).thenReturn(query);
-        when(query.uniqueResult()).thenReturn(mock(Guest.class));
+        when(query.uniqueResult()).thenReturn(guest);
 
         // WHEN
         guestResource.updateGuest(1, 1, 1, "notehost");
@@ -99,6 +102,16 @@ public class GuestResourceSessionsTest {
         // THEN
         verify(sessionFactory, times(1)).openSession();
         verify(session, times(1)).close();
+        verify(session, times(1)).update(anyObject());
+        verify(session, times(1)).flush();
+    }
+
+    private BigInteger getMaxGuests() {
+        final Query query = mock(Query.class);
+        final BigInteger maxGuests = new BigInteger(String.valueOf(100));
+        when(session.getNamedQuery("Event.checkMaxGuestLimit")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(maxGuests);
+        return maxGuests;
     }
 
     @Test
