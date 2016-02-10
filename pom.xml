@@ -244,6 +244,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.13</version>
                 <configuration>
+                    <argLine>${argLine} -XX:-UseSplitVerifier</argLine>
                     <includes>
                         <!-- By default only files ending in 'Test' will be included, so also include support for Spock style naming convention -->
                         <!-- Oddly enough for Groovy files, *Spec.groovy does not work, but *Spec.java does -->
@@ -252,7 +253,28 @@
                     </includes>
                 </configuration>
             </plugin>
-            
+            <!-- JaCoCo: allows code coverage analysis in Sonar -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <configuration>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
