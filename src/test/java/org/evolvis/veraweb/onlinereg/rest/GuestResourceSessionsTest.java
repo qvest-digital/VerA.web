@@ -33,9 +33,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 import javax.servlet.ServletContext;
 import java.math.BigInteger;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -380,7 +381,42 @@ public class GuestResourceSessionsTest {
         verify(mockitoSession, times(1)).close();
     }
 
+    @Test
+    public void testGetGuestImageUUID() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Guest.findImageByDelegationAndUser")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn("1");
 
+        // WHEN
+        guestResource.getGuestImageUUID("delegationUUID", 2);
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testUpdateGuestEntity() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        Guest guest = mock(Guest.class);
+        when(mockitoSession.getNamedQuery("Guest.getGuestById")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(guest);
+        doNothing().when(guest).setImage_uuid(String.valueOf(any(String.class)));
+
+        // WHEN
+        guestResource.updateGuestEntity(2, "delegationUUID");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+        verify(mockitoSession, times(1)).flush();
+        verify(mockitoSession, times(1)).update(anyObject());
+    }
+    
     private void prepareSession() {
         when(guestResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
