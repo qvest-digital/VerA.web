@@ -247,6 +247,20 @@
                     <argLine>${argLine} -XX:-UseSplitVerifier</argLine>
                 </configuration>
             </plugin>
+            
+            <!-- Needed to get correct code coverage from java and groovy tests -->
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- JaCoCo: allows code coverage analysis in Sonar -->
             <plugin>
                 <groupId>org.jacoco</groupId>
