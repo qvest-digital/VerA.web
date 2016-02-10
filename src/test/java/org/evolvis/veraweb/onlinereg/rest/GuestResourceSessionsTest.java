@@ -34,6 +34,7 @@ import javax.servlet.ServletContext;
 import java.math.BigInteger;
 
 import static org.hamcrest.CoreMatchers.any;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyObject;
@@ -428,6 +429,56 @@ public class GuestResourceSessionsTest {
         verify(session, times(1)).close();
         verify(session, times(1)).flush();
         verify(session, times(1)).update(anyObject());
+    }
+
+    @Test
+    public void testIsUserRegisteredintoEventToAccept() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(session.getNamedQuery("Guest.checkUserRegistrationToAccept")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(new BigInteger(String.valueOf(1)));
+
+        // WHEN
+        guestResource.isUserRegisteredintoEventToAccept("username", 1);
+
+        // THEN
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
+    }
+
+    @Test
+    public void testIsReserveTheFirst() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(session.getNamedQuery("Guest.isReserve")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(1);
+
+        // WHEN
+        final Boolean isReserve = guestResource.isReserve(1, "username");
+
+        // THEN
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
+        assertEquals(true, isReserve);
+    }
+
+    @Test
+    public void testIsReserveTheSecond() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(session.getNamedQuery("Guest.isReserve")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(0);
+
+        // WHEN
+        final Boolean isReserve = guestResource.isReserve(1, "username");
+
+        // THEN
+        verify(sessionFactory, times(1)).openSession();
+        verify(session, times(1)).close();
+        assertEquals(false, isReserve);
     }
     
     private void prepareSession() {
