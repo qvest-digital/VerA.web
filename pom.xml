@@ -9,6 +9,8 @@
         <jacoco.version>0.7.1.201405082137</jacoco.version>
         <releaseVersion>${project.version}</releaseVersion>
         <javax.mail.version>1.4.7</javax.mail.version>
+        <groovy-all.version>2.4.5</groovy-all.version>
+        <spock-core.version>1.0-groovy-2.4</spock-core.version>
     </properties>
     <organization>
         <name>tarent solutions GmbH, Germany</name>
@@ -120,6 +122,16 @@
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>${javax.mail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy-all.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>${spock-core.version}</version>
         </dependency>
     </dependencies>
     <build>

@@ -47,6 +47,8 @@ import java.io.IOException;
 @Produces(MediaType.APPLICATION_JSON)
 public class FileUploadResource extends AbstractResource {
 
+    private VworPropertiesReader vworPropertiesReader;
+
     /**
      * Storing incomming image into file system.
      *
@@ -61,9 +63,10 @@ public class FileUploadResource extends AbstractResource {
                                         @FormParam("extension") String extension,
                                         @FormParam("imageUUID") String imgUUID) throws IOException {
 
-        final VworPropertiesReader vworPropertiesReader = new VworPropertiesReader();
-        final String filesLocation = vworPropertiesReader.getProperty("filesLocation");
-
+        if (vworPropertiesReader == null) {
+            vworPropertiesReader = new VworPropertiesReader();
+        }
+        final String filesLocation = getFilesLocation();
         BufferedImage image = null;
         try {
             image = createTempImage(imageStringData);
@@ -99,6 +102,16 @@ public class FileUploadResource extends AbstractResource {
             return encodedImage.toString();
         }
         return null;
+    }
+
+    private String getFilesLocation() {
+        final String filesLocation;
+        if (vworPropertiesReader.getProperty("filesLocation") != null) {
+            filesLocation = vworPropertiesReader.getProperty("filesLocation");
+        } else {
+            filesLocation = "/tmp/";
+        }
+        return filesLocation;
     }
 
     private BufferedImage createTempImage(String imageStringData) throws IOException {
