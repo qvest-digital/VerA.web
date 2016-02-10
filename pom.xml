@@ -256,14 +256,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <configuration>
-                    <instrumentation>
-                        <excludes>
-                            <exclude>de/tarent/vox/Constants*.class</exclude>
-                        </excludes>
-                    </instrumentation>
-                    <check/>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.pitest</groupId>
