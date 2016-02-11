@@ -236,7 +236,7 @@ public class PersonResource extends AbstractResource {
     }
 
     /**
-     * GET user data by usermane
+     * GET user data by username
      *
      * @param username String
      * @return Person

@@ -361,7 +361,7 @@ public class GuestResource extends AbstractResource{
     }
 
     /**
-     * Checking if the current user is already registered for the curren event
+     * Checking if the current user is already registered for the current event
      *
      * @param username OSIAM username
      * @param eventId ID of event
@@ -389,7 +389,7 @@ public class GuestResource extends AbstractResource{
 
 
     /**
-     * Checking if the current user is already registered for the curren event
+     * Checking if the current user is already registered for the current event
      *
      * @param username OSIAM username
      * @param eventId ID of event
