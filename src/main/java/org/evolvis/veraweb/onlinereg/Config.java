@@ -57,33 +57,40 @@ public class Config extends Configuration {
     public String getVerawebEndpoint() {
     	return this.verawebEndpoint;
     }
+
+	public String getOnlineRegistrationEndpoint() {
+		return this.onlineRegistrationEndpoint;
+	}
     
     public OsiamConfig getOsiam() {
-		return osiam;
-	}
-
-	public JerseyClientConfiguration getJerseyClientConfiguration() {
-		return jerseyClientConfiguration;
-	}
-
-	public void setJerseyClientConfiguration( // TODO remove?
-			JerseyClientConfiguration jerseyClientConfiguration) {
-		this.jerseyClientConfiguration = jerseyClientConfiguration;
-	}
-
-	public void setVerawebEndpoint(String verawebEndpoint) {// TODO remove?
-		this.verawebEndpoint = verawebEndpoint;
+		return this.osiam;
 	}
 
 	public AuthConfig getRestauth() {
-		return restauth;
+		return this.restauth;
 	}
 
-	public String getOnlineRegistrationEndpoint() {
-		return onlineRegistrationEndpoint;
+	public JerseyClientConfiguration getJerseyClientConfiguration() {
+		return this.jerseyClientConfiguration;
 	}
 
 	public void setOnlineRegistrationEndpoint(String onlineRegistrationEndpoint) {
 		this.onlineRegistrationEndpoint = onlineRegistrationEndpoint;
 	}
+
+	// TODO remove?
+	public void setJerseyClientConfiguration(JerseyClientConfiguration jerseyClientConfiguration) {
+		this.jerseyClientConfiguration = jerseyClientConfiguration;
+	}
+
+	// TODO remove?
+	public void setVerawebEndpoint(String verawebEndpoint) {
+		this.verawebEndpoint = verawebEndpoint;
+	}
+
+
+
+
+
+
 }
