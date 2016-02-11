@@ -2,7 +2,15 @@
 # Import person script for VerA.web
 
 usage() {
-	echo "Benutzung: $0 [-u <BENUTZERNAME>] [-p <PASSWORT>] [-f <IMPORT_DATEI>] [-n <IMPORT_NAME>] [-m <MANDANT_ID>] [-i <VERAWEB_INSTANZ>]" 1>&2; exit 1; 
+	echo -e "========================================================================================================================================"
+	echo    "|                                                 Importscript für VerA.web                                                             |"
+	echo    "|                                                                                                                                       |"
+	echo    "|                                                 WICHTIG:                                                                              |"
+	echo    "|                                                  - Im Dateinamen der Importdatei darf kein Leerzeichen vorkommen                      |"
+	echo    "|                                                  - Das Zielinstanz muss am Ende / enthalten, z.B. https://host/veraweb/               |"
+    echo    "========================================================================================================================================"
+    echo -e "\nBenutzung: $0 [-u <BENUTZERNAME>] [-p <PASSWORT>] [-f <IMPORT_DATEI>] [-n <IMPORT_NAME>] [-m <MANDANT_ID>] [-i <VERAWEB_INSTANZ>]\n"
+	echo -e "Beispiel: $0 -u admin -p geheim -f datei.csv -n testname -m 2 -i https://host/veraweb/\n" 1>&2; exit 1; 
 }
 
 start_import() {
