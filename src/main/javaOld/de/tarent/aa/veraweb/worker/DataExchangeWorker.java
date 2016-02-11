@@ -336,8 +336,9 @@ public class DataExchangeWorker {
                     PersonalConfigAA aaConfig = (PersonalConfigAA) octopusContext.personalConfig();
                     if (mandantId == null || mandantId.intValue() == 0 || !aaConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
                         mandantId = aaConfig.getOrgUnitId();
-                } else
+                } else {
                     throw new TcContentProzessException("Fehlende Benutzerinformation.");
+                }
 
                 Importer importer = createImporter(format, transactionContext, istream);
                 Import importInstance = createImport(transactionContext, formatKey, importSource, mandantId);
