@@ -7,7 +7,7 @@ usage() {
 
 start_import() {
 	TEMP_OUTPUT=/tmp/veraweb-import-cli.log
-	rm -rf $TEMP_OUTPUT
+	rm -f $TEMP_OUTPUT
     curl -s -F username=$1 -F password=$2 --form "importfile=@$3" --form importSource=$4 --form format=formatCSV --form targetOrgUnit=$5 $6do/ImportPersonsFile > $TEMP_OUTPUT  
 	TOTAL_ENTRIES="$(cat $TEMP_OUTPUT | grep 'Zu importierende Datensätze insgesamt' | grep -Eo '[0-9]{1,10}<' | grep -Eo '[0-9]{1,10}')"
 	IMPORT_ID="$(cat $TEMP_OUTPUT | grep 'Import-ID' | grep -Eo '[0-9]{1,10}')"
