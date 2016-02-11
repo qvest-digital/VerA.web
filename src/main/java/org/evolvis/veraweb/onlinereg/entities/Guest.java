@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by mley on 03.08.14.
  * @author jnunez
+ * @author sweiz 
  */
 @Data
 @XmlRootElement
@@ -64,6 +65,10 @@ import javax.xml.bind.annotation.XmlRootElement;
                     "FROM tevent e JOIN tguest g on g.fk_event = e.pk JOIN tperson tp on g.fk_person = tp.pk " +
                     "WHERE (CURRENT_TIMESTAMP < e.datebegin OR CURRENT_TIMESTAMP < e.dateend) " +
                     "AND tp.pk = :fk_person ORDER BY e.datebegin ASC", resultClass=Event.class),
+    @NamedNativeQuery(name="Event.count.userevents",
+            query = "SELECT count(e.*) " +
+                    "FROM tevent e JOIN tguest g on g.fk_event = e.pk JOIN tperson tp on g.fk_person = tp.pk " +
+                    "WHERE tp.pk = :fk_person "),
     @NamedNativeQuery(name="Guest.guestByUUID",
             query = "SELECT count(g.*) FROM tguest g LEFT JOIN tperson on tperson.pk=g.fk_person " +
                     "WHERE delegation=:uuid AND tperson.iscompany='t'"),
