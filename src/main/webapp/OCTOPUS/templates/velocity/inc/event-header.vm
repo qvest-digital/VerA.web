@@ -1,6 +1,13 @@
 ##Add whitespace to values to cut them
 #set($eventnamecut = $event.eventname.replaceAll("(.{42})", "$1 "))
 
+#set($iAmActivated = $!online-registration.activated)
+#foreach($mandant in $mandanten-online-registration.deactivated)
+    #if($mandant == $octopusConfig.personalConfig.orgUnitId)
+        #set($iAmActivated = false)
+    #end
+#end
+
 <div class="contentBoxColored grayBorder" id="eventTop">
 	<div class="table width100">
 		<div class="tableRow">
@@ -35,7 +42,7 @@
 			</div>
 		</div>
 		<div class="tableRow">
-			#if($online-registration.activated)
+			#if($iAmActivated)
 				<div class="tableCell width30">
 					<strong style="vertical-align: inherit;">${placeholderWithTranslation.EVENT_URL}:</strong> <pre>$!message.textarea($eventUrl)</pre>
 				</div>
@@ -43,7 +50,7 @@
 		</div>
 		<div class="tableRow">
 			<div class="tableCell width30">
-				#if($online-registration.activated)
+				#if($iAmActivated)
 					<strong>${placeholderWithTranslation.EVENT_URL_MEDIA_REPRESENTATIVE}:</strong><br/>
 					#if($pressevertreterUrl && $pressevertreterUrl != "" && $event.mediarepresentatives && $event.mediarepresentatives != "f")
 						$pressevertreterUrl
