@@ -62,10 +62,14 @@ public class OnlineRegistrationHelper {
 	public static int[] getDeactivatedMandantsAsArray(OctopusContext cntx) {
 
 		final String list = cntx.moduleConfig().getParam(MANDANTEN_PARAM);
+
+        if (list == null){
+            return new int[] {0};
+        }
+        
 		final String[] sepList = list.split(",");
 
 		int[] result = new int[sepList.length];
-
 
         for (int i = 0; i < result.length; i++) {
             try {
