@@ -59,7 +59,7 @@ public class EventResource extends AbstractResource {
 
     /**
      * Getting the list of events of a person using the username (by previous getting of the id)
-     * 
+     *
      * @param username String
      * @return List<Event> List of events
      */
@@ -81,7 +81,31 @@ public class EventResource extends AbstractResource {
         } finally {
             session.close();
         }
+    }
 
+    /**
+     * Checks if a person is registered to at least one event using the username
+     *
+     * @param username String
+     * @return Boolean true, if user is registered to at least one event
+     */
+    @Path("/userevents/existing/{username}")
+    @GET
+    public Boolean checkUserRegistrationToEvents(@PathParam("username") String username) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Person.findPersonIdByUsername");
+            query.setString("username", username);
+            if (query.list().isEmpty()) {
+                // user does not exists
+                return false;
+            } else {
+                final int personId = (int) query.uniqueResult();
+                return hasUserRegistrationToEvents(session, personId);
+            }
+        } finally {
+            session.close();
+        }
     }
     
     @Path("/userid/{username}")
@@ -249,5 +273,20 @@ public class EventResource extends AbstractResource {
         query.setInteger("fk_person", personId);
 
         return query.list();
+    }
+
+    /**
+     * Checks the quantity of events associated to a person
+     *
+     * @param session Session
+     * @param personId ID
+     * @return Boolean true, if user is registered to minimum one event
+     */
+    private Boolean hasUserRegistrationToEvents(Session session, int personId) {
+        final Query query = session.getNamedQuery("Event.count.userevents");
+        query.setInteger("fk_person", personId);
+        final BigInteger isUserRegisteredToEvent = (BigInteger) query.uniqueResult();
+
+        return isUserRegisteredToEvent.signum() == 1;
     }
 }
