@@ -22,14 +22,15 @@ package org.evolvis.veraweb.onlinereg.event;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 import lombok.Getter;
+import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
-import org.evolvis.veraweb.onlinereg.mail.EmailValidator;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
@@ -49,12 +50,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.UUID;
 
 /**
  * Resource to register new users in OSIAM backend
  */
+@Log
 @Getter
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
@@ -172,6 +175,41 @@ public class UserResource {
         return StatusConverter.convertStatus("OK");
     }
 
+    @GET
+    @Path("/userdata/existing/event/{username}")
+    public String isUserRegisteredToEvents(@PathParam("username") String username) {
+        WebResource resource;
+
+        resource = client.resource(path("event", "userevents", "existing", username));
+        return getUserRegisteredToEvents(resource);
+    }
+
+    @POST
+    @Path("/userdata/update/{username}")
+    public String updateUserCoreData(@PathParam("username") String username) {
+        final Person person = new Person();
+
+       /* person.setSalutation;
+        person.setTitle;
+        person.setFirstName("");
+        person.setLastName("");
+        person.setBirthday;
+        person.setNationality;
+        person.setLanguages;
+        person.setSex_a_e1("");
+
+
+                person.salutation,
+                n.title,
+                erson.firstName,
+                rson.lastName,
+                rson.birthday,
+        .person.nationality,
+                erson.languages,
+                on.gender,*/
+        return "";
+    }
+
     private void setOsiamUserAsActive(String username) throws IOException {
         final String accessTokenAsString = osiamClient.getAccessTokenClientCred("GET", "POST", "DELETE", "PATCH", "PUT");
         final AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
@@ -252,5 +290,54 @@ public class UserResource {
         return new Email.Builder()
             .setType(Email.Type.HOME)
             .setValue(email).build();
+    }
+
+    private String getUserRegisteredToEvents(WebResource resource) {
+        try {
+            if(resource.get(Boolean.class) == true) {
+                return StatusConverter.convertStatus("OK");
+            } else {
+                return StatusConverter.convertStatus("ERROR");
+            }
+        } catch (UniformInterfaceException e) {
+            int statusCode = e.getResponse().getStatus();
+            if(statusCode == 204) {
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    private String path(Object... path) {
+        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
+
+        for (Object p : path) {
+            r += "/" + p;
+        }
+
+        return r;
+    }
+
+    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
+        WebResource resource;
+        try {
+            resource = client.resource(path);
+            final String json = resource.get(String.class);
+            return mapper.readValue(json, type);
+        } catch (ClientHandlerException che) {
+            if (che.getCause() instanceof SocketTimeoutException) {
+                //FIXME some times open, pooled connections time out and generate errors
+                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
+                resource = client.resource(path);
+                final String json = resource.get(String.class);
+                return mapper.readValue(json, type);
+            } else {
+                throw che;
+            }
+        } catch (UniformInterfaceException uie) {
+            log.warning(uie.getResponse().getEntity(String.class));
+            throw uie;
+        }
     }
 }
