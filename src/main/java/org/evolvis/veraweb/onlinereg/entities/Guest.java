@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by mley on 03.08.14.
  * @author jnunez
- * @author sweiz 
+ * @author sweiz
  */
 @Data
 @XmlRootElement
