@@ -105,5 +105,6 @@
   "DELEGATION_PHOTO_NEW": "Upload contact photo",
   "DELEGATION_PHOTO_EXIST": "Change contact photo",
 
+  "USER_ACCOUNT_CORE_DATA_NO_EVENT": "To modify your data, you have to be registered to at least one event.",
   "USER_ACCOUNT_CORE_DATA_UPDATE": "Update core data"
 }

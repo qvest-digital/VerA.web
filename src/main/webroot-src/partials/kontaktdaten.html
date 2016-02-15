@@ -1,3 +1,89 @@
-<div>
+<div class="container panel panel-body">
 	<h2 class="form-signin-heading">{{'GENERIC_USER_ACCOUNT'|translate}}</h2>
+
+	<form id="updateUserCoreData" name="updateUserCoreData" class="form-horizontal" role="form" ng-submit="updateUserCoreData()">
+		<div ng-show="status == 'e'" class="alert alert-danger" role="alert">{{'GENERIC_ERROR'|translate}}</div>
+		<div ng-show="status == 'e1'" class="alert alert-danger" role="alert">{{'REGISTER_USER_MESSAGE_USER_EXISTS_ERROR'|translate}}</div>
+		<div ng-show="status == 'e2'" class="alert alert-danger" role="alert">{{'REGISTER_USER_MESSAGE_VALIDATION_ERROR'|translate}}</div>
+
+		<div ng-show="userHasNoEvents" class="alert alert-danger" role="alert">{{'USER_ACCOUNT_CORE_DATA_NO_EVENT'|translate}}</div>
+
+		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.salutation.$valid ? 'has-success' : 'has-error')">
+			<label class="col-lg-4 control-label" for="salutation">{{'GENERIC_SALUTATION'|translate}}</label>
+			<div class="col-lg-3">
+				<select class="form-control" id="salutation" name="salutation" ng-model="osiam.salutation"
+						ng-options="option.name | translate for option in genderOptions" ng-disabled="userHasNoEvents" />
+			</div>
+		</div>
+
+		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.title.$valid ? 'has-success' : 'has-error')">
+			<label class="col-lg-4 control-label" for="title">{{'GENERIC_TITLE'|translate}}</label>
+			<div class="col-lg-3">
+				<input id="title" class="form-control" type="text" ng-model="osiam.title" name="title" ng-readonly="userHasNoEvents" />
+			</div>
+		</div>
+
+		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.firstName.$valid ? 'has-success' : 'has-error')">
+			<label class="col-lg-4 control-label" for="firstName">{{'GENERIC_FIRSTNAME'|translate}}</label>
+			<div class="col-lg-3">
+				<input id="firstName" class="form-control" type="text" ng-model="osiam.firstName" name="firstName" required="" ng-readonly="userHasNoEvents" />
+
+				<div ng-show="updateStammdatenREPLACE.$submitted || updateStammdatenREPLACE.firstName.$touched">
+					<div class="help-block" ng-show="updateStammdatenREPLACE.firstName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.lastName.$valid ? 'has-success' : 'has-error')">
+			<label class="col-lg-4 control-label" for="lastName">{{'GENERIC_LASTNAME'|translate}}</label>
+			<div class="col-lg-3">
+				<input id="lastName" class="form-control" type="text" ng-model="osiam.lastName" name="lastName" required="" ng-readonly="userHasNoEvents" />
+
+				<div ng-show="updateStammdatenREPLACE.$submitted || updateStammdatenREPLACE.lastName.$touched">
+					<div class="help-block" ng-show="updateStammdatenREPLACE.lastName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.birthday.$valid ? 'has-success' : 'has-error')">
+			<label class="col-lg-4 control-label" for="birthday">{{'GENERIC_BIRTHDAY'|translate}}</label>
+			<div class="col-lg-3">
+				<input data-provide="datepicker" id="birthday" class="form-control" type="text" ng-model="osiam.birthday" name="birthday" ng-readonly="userHasNoEvents" />
+			</div>
+		</div>
+
+
+		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.nationality.$valid ? 'has-success' : 'has-error')">
+			<label class="col-lg-4 control-label" for="nationality">{{'GENERIC_NATIONALITY'|translate}}</label>
+			<div class="col-lg-3">
+				<input id="nationality" class="form-control" type="text" ng-model="osiam.nationality" name="nationality" ng-readonly="userHasNoEvents" />
+			</div>
+		</div>
+
+		<hr>
+		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.languages.$valid ? 'has-success' : 'has-error')">
+
+			<label class="col-lg-4 control-label" for="languages">{{'GENERIC_LANGUAGES'|translate}}</label>
+			<div class="col-lg-3">
+				<input id="languages" class="form-control" type="languages" ng-model="osiam.languages" name="languages" ng-readonly="userHasNoEvents" />
+			</div>
+		</div>
+
+		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.gender.$valid ? 'has-success' : 'has-error')">
+			<label class="col-lg-4 control-label" for="gender">{{'GENERIC_GENDER'|translate}}</label>
+			<div class="col-lg-3">
+				<select class="form-control" id="gender" name="gender"
+						ng-model="gender"
+						ng-options="option.name | translate for option in genderOptions" ng-disabled="userHasNoEvents" />
+			</div>
+		</div>
+
+		<div ng-show="!userHasNoEvents" class="form-group">
+			<div class="col-lg-3 col-lg-offset-4">
+				<button type="submit" class="btn btn-lg btn-primary btn-block btn-custom">
+					{{'USER_ACCOUNT_CORE_DATA_UPDATE'|translate}}
+				</button>
+			</div>
+		</div>
+	</form>
 </div>

@@ -116,5 +116,6 @@
   "DELEGATION_PHOTO_NEW": "Kontaktfoto hochladen",
   "DELEGATION_PHOTO_EXIST": "Kontaktfoto ändern",
 
+  "USER_ACCOUNT_CORE_DATA_NO_EVENT": "Um Ihre Daten zu ändern, müssen Sie an einer Veranstaltung angemeldet sein.",
   "USER_ACCOUNT_CORE_DATA_UPDATE": "Stammdaten aktualisieren"
 }
