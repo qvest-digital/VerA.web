@@ -28,6 +28,7 @@ import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
 import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
+import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
@@ -456,20 +457,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     private List getAllGuests(Database database, Select select) throws BeanException {
         final ResultList allResults = database.getList(select, database);
-        return copyResultSetToArrayList(allResults);
-    }
-
-    private List copyResultSetToArrayList(ResultList allResults) {
-        final ArrayList fullList = new ArrayList();
-        final int size = allResults.size();
-        for (int i = 0; i < size; i++) {
-            final ResultMap resultMap = (ResultMap) allResults.get(i);
-            final HashMap map = new HashMap();
-            map.putAll(resultMap);
-            fullList.add(map);
-        }
-
-        return fullList;
+        return VerawebUtils.copyResultListToArrayList(allResults);
     }
 
     protected int removeSelection(OctopusContext octopusContext, List errors, List selection,

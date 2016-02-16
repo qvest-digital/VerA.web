@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.tarent.aa.veraweb.utils.VerawebUtils;
 import org.apache.log4j.Logger;
 
 import de.tarent.aa.veraweb.beans.MailDraft;
@@ -179,8 +180,8 @@ public class MailDispatchWorker implements Runnable {
 	 * Versendet alle offenen eMails.
 	 */
 	public void sendMails() {
-		Database db = new DatabaseVeraWeb( this.octopusContext);
-		Select select = SQL.Select( db ).
+		final Database db = new DatabaseVeraWeb( this.octopusContext);
+		final Select select = SQL.Select( db ).
 				from("veraweb.tmailoutbox").
 				selectAs("pk", "id").
 				selectAs("status", "status").
@@ -193,41 +194,55 @@ public class MailDispatchWorker implements Runnable {
 		select.orderBy(Order.asc("lastupdate"));
 		select.Limit(new Limit(new Integer(1), new Integer(0)));
 
-		Result r = null;
-		ResultSet rs = null;
 		for (boolean found = true; found; ) {
-			try {
-				found = false;
-				r = ( Result ) select.execute();
-				rs = r.resultSet();
-
-				for (Iterator it = new ResultList(rs).iterator(); it.hasNext(); ) {
-					Map data = (Map)it.next();
-					found = true;
-					sendMail((Integer)data.get("id"),
-							(Integer)data.get("status"),
-							(String)data.get("from"),
-							(String)data.get("to"),
-							(String)data.get("subject"),
-							(String)data.get("text"));
-				}
-			} catch (SQLException e) {
-				logger.error("Fehler beim Abholen der zu ausgehenden eMails.", e);
-			} finally {
-				if (rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException e) {
-					}
-				}
-				if (r != null) {
-					r.closeAll();
-				}
-			}
+            found = handleSendEmail(select, found);
 		}
 	}
 
-	/**
+    private boolean handleSendEmail(Select select, boolean found) {
+        ResultSet resultSet = null;
+        Result result = null;
+        try {
+            found = false;
+            result = (Result) select.execute();
+            resultSet = result.resultSet();
+            List allRecipients = VerawebUtils.copyResultListToArrayList(new ResultList(resultSet));
+            for (int i = 0; i < allRecipients.size(); i++) {
+                final HashMap recipient = (HashMap) allRecipients.get(0);
+                executeMailSend(recipient);
+            }
+        } catch (SQLException e) {
+            logger.error("Fehler beim Abholen der zu ausgehenden eMails.", e);
+        } finally {
+            if (resultSet != null) {
+                closeResultSet(resultSet);
+            }
+            if (result != null) {
+                result.closeAll();
+            }
+        }
+        return found;
+    }
+
+    private void executeMailSend(HashMap recipient) {
+        final Integer id = (Integer) recipient.get("id");
+        final Integer status = (Integer) recipient.get("status");
+        final String from = (String) recipient.get("from");
+        final String to = (String) recipient.get("to");
+        final String subject = (String) recipient.get("subject");
+        final String text = (String) recipient.get("text");
+        sendMail(id, status, from, to, subject, text);
+    }
+
+    private void closeResultSet(ResultSet rs) {
+        try {
+            rs.close();
+        } catch (SQLException e) {
+            logger.error("Closing ResulSet failed", e);
+        }
+    }
+
+    /**
 	 * Versendet eine einzelne eMail.
 	 *
 	 * @param id
