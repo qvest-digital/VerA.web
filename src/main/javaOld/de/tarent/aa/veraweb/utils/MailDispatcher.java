@@ -51,40 +51,7 @@ public class MailDispatcher {
 
 	/** Passwort zum versenden über SSMTP */
 	protected String password;
-
-	/**
-	 * Test-Main-Funktion.
-	 *
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			MailDispatcher dispatcher = new MailDispatcher();
-			dispatcher.setHost("hermes.tarent.de");
-			dispatcher.send(getUserMail(), getUserMail(), "Betreff",
-					"Toller Text\n" +
-					"Noch mehr toller Text.\n\n" +
-					"-- \n" +
-					"powered by veraweb :o)");
-		} catch (AddressException e) {
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-	}
-
-    /**
-     * Diese Methode liefert eine Mail-Adresse zum Benutzer, in dessen Kontext
-     * dieses Programm läuft. Hierzu wird der Benutzername als Mailadresse in
-     * der Domäne tarent.de interpretiert.
-     *
-     * @return Mailadresse zum Benutzer in tarent.de
-     */
-	private static final String getUserMail() {
-		String name = System.getProperty("user.name");
-		return name + " <" + name + "@tarent.de>";
-	}
-
+    
 	/**
 	 * Sendet eine eMail an die übergebene eMail-Adresse und dem übergebenem
 	 * Betreff und Text.
