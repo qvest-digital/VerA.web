@@ -88,10 +88,6 @@ public class MailDispatchWorker implements Runnable {
 
 	private OctopusContext octopusContext;
 
-	//
-	// OCTOPUS-AKTIONEN ZUM STARTEN UND STOPPEN DES VERSENDE THREADS.
-	//
-
 	/** Octopus-Eingabe-Parameter für {@link #load(OctopusContext)} */
 	public static final String INPUT_load[] = {};
 	/**
@@ -100,27 +96,13 @@ public class MailDispatchWorker implements Runnable {
 	 * @param octopusContext Octopus-Context
 	 */
 	public void load(OctopusContext octopusContext) {
-
 		this.octopusContext = octopusContext;
-
 		logger.info("MailDispatcher wird im Hintergrund gestartet.");
-
 		moduleName = octopusContext.getModuleName();
 
-		Map settings = (Map)octopusContext.moduleConfig().getParamAsObject("mailServer");
+		final Map settings = (Map)octopusContext.moduleConfig().getParamAsObject("mailServer");
 		if (settings != null) {
-			// Settingsladen
-			dispatcher.setHost((String)settings.get("host"));
-			setAuthData(settings);
-			try {
-				waitMillis = new Integer((String)settings.get("waitBetweenJobs")).intValue() * 1000;
-			} catch (NumberFormatException e) {
-				logger.warn("MailDispatcher konnte Parameter 'waitBetweenJobs' nicht parsen (" + settings.get("waitBetweenJobs") + "). Es wird der Default Wert (60 Sekunden) verwendet.");
-				waitMillis = 60000; // default: 1 Minute
-			} catch (NullPointerException e) {
-				logger.warn("MailDispatcher konnte Parameter 'waitBetweenJobs' nicht finden. Es wird der Default Wert (60 Sekunden) verwendet.");
-				waitMillis = 60000; // default: 1 Minute
-			}
+			loadSettings(settings);
 
 			// Server status
 			if (!keeprunning) {
@@ -131,6 +113,25 @@ public class MailDispatchWorker implements Runnable {
 		} else {
 			unload(octopusContext);
 		}
+	}
+
+	private void loadSettings(Map settings) {
+		// Settingsladen
+		dispatcher.setHost((String)settings.get("host"));
+		setAuthData(settings);
+		setWaitInterval(settings);
+	}
+
+	private void setWaitInterval(Map settings) {
+		try {
+            waitMillis = new Integer((String)settings.get("waitBetweenJobs")).intValue() * 1000;
+        } catch (NumberFormatException e) {
+            logger.warn("MailDispatcher konnte Parameter 'waitBetweenJobs' nicht parsen (" + settings.get("waitBetweenJobs") + "). Es wird der Default Wert (60 Sekunden) verwendet.");
+            waitMillis = 60000; // default: 1 Minute
+        } catch (NullPointerException e) {
+            logger.warn("MailDispatcher konnte Parameter 'waitBetweenJobs' nicht finden. Es wird der Default Wert (60 Sekunden) verwendet.");
+            waitMillis = 60000; // default: 1 Minute
+        }
 	}
 
 	private void setAuthData(Map settings) {
@@ -152,7 +153,9 @@ public class MailDispatchWorker implements Runnable {
 		keeprunning = false;
 	}
 
-	/** @see Runnable#run() */
+	/**
+	 * @see Runnable#run()
+	 */
 	public void run() {
 		try {
 			isworking = true;
@@ -162,11 +165,10 @@ public class MailDispatchWorker implements Runnable {
 				} catch (Exception e) {
 					logger.error("Allgemeiner Fehler beim Versenden einer eMail.", e);
 				}
-				try {
-					Thread.sleep(waitMillis < 1000 ? 1000 : waitMillis);
-				} catch (InterruptedException e) {
-				}
+				Thread.sleep(waitMillis < 1000 ? 1000 : waitMillis);
 			}
+		} catch (InterruptedException e) {
+			logger.error("Thread.sleep failed.", e);
 		} finally {
 			isworking = false;
 			thread = null;
