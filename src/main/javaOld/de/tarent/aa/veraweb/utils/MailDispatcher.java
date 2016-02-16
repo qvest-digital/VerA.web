@@ -39,6 +39,19 @@ import com.sun.mail.smtp.SMTPMessage;
  * @author Christoph Jerolimov
  */
 public class MailDispatcher {
+
+	/** Hilfsklasse zum RFC-Konformen formatieren eines Datums. */
+	private MailDateFormat dateFormat = new MailDateFormat();
+
+	/** SMTP-Servername */
+	protected String host;
+
+	/** Benutzername zum versenden über SSMTP */
+	protected String username;
+
+	/** Passwort zum versenden über SSMTP */
+	protected String password;
+
 	/**
 	 * Test-Main-Funktion.
 	 *
@@ -72,23 +85,6 @@ public class MailDispatcher {
 		return name + " <" + name + "@tarent.de>";
 	}
 
-	/** Hilfsklasse zum RFC-Konformen formatieren eines Datums. */
-	private MailDateFormat dateFormat = new MailDateFormat();
-
-	/** SMTP-Servername */
-	protected String host;
-	/** Benutzername zum versenden über SSMTP */
-	protected String username;
-	/** Passwort zum versenden über SSMTP */
-	protected String password;
-
-	/**
-	 * @param host SMTP-Servername
-	 */
-	public void setHost(String host) {
-		this.host = host;
-	}
-
 	/**
 	 * Sendet eine eMail an die übergebene eMail-Adresse und dem übergebenem
 	 * Betreff und Text.
@@ -116,7 +112,6 @@ public class MailDispatcher {
 		message.setSubject(subject);
 		message.setText(text);
 		message.setHeader("Date", dateFormat.format(new Date(System.currentTimeMillis())));
-//		message.setHeader("X-Mailer", "colibri.org");
 		message.saveChanges();
 		return message;
 	}
@@ -127,5 +122,29 @@ public class MailDispatcher {
 			properties.put("mail.smtp.auth", "true");
 		}
 		return Session.getDefaultInstance(properties);
+	}
+
+	public String getHost() {
+		return host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }
