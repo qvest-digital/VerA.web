@@ -111,6 +111,7 @@ public class MailDispatchWorker implements Runnable {
 		if (settings != null) {
 			// Settingsladen
 			dispatcher.setHost((String)settings.get("host"));
+			setAuthData(settings);
 			try {
 				waitMillis = new Integer((String)settings.get("waitBetweenJobs")).intValue() * 1000;
 			} catch (NumberFormatException e) {
@@ -130,6 +131,13 @@ public class MailDispatchWorker implements Runnable {
 		} else {
 			unload(octopusContext);
 		}
+	}
+
+	private void setAuthData(Map settings) {
+		if ((String)settings.get("host") != null && (String)settings.get("password") != null) {
+            dispatcher.setUsername((String)settings.get("username"));
+            dispatcher.setPassword((String)settings.get("password"));
+        }
 	}
 
 	/** Octopus-Eingabe-Parameter für {@link #unload(OctopusContext)} */
