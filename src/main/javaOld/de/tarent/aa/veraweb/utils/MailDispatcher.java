@@ -19,19 +19,17 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.util.Date;
-import java.util.Properties;
+import com.sun.mail.smtp.SMTPMessage;
 
 import javax.mail.Message;
+import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.Message.RecipientType;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MailDateFormat;
-
-import com.sun.mail.smtp.SMTPMessage;
+import java.util.Date;
+import java.util.Properties;
 
 /**
  * Klasse zum versenden von eMails über einen SMTP-Server.
@@ -41,16 +39,16 @@ import com.sun.mail.smtp.SMTPMessage;
 public class MailDispatcher {
 
 	/** Hilfsklasse zum RFC-Konformen formatieren eines Datums. */
-	private MailDateFormat dateFormat = new MailDateFormat();
+	private final MailDateFormat dateFormat = new MailDateFormat();
 
 	/** SMTP-Servername */
-	protected String host;
+	private String host;
 
 	/** Benutzername zum versenden über SSMTP */
-	protected String username;
+    private String username;
 
 	/** Passwort zum versenden über SSMTP */
-	protected String password;
+    private String password;
     
 	/**
 	 * Sendet eine eMail an die übergebene eMail-Adresse und dem übergebenem
@@ -60,10 +58,9 @@ public class MailDispatcher {
 	 * @param to Empfänger eMail-Adresse
 	 * @param subject Betreff
 	 * @param text Text
-	 * @throws AddressException Wenn Adresse ungültig ist
 	 * @throws MessagingException Wenn beim Versenden ein Fehler aufgetreten ist.
 	 */
-	public void send(String from, String to, String subject, String text) throws AddressException, MessagingException {
+	public void send(String from, String to, String subject, String text) throws MessagingException {
 		Session session = getSession();
 		Message message = getMessage(session, from, to, subject, text);
 		Transport transport = session.getTransport("smtp");
@@ -72,7 +69,7 @@ public class MailDispatcher {
 		transport.close();
 	}
 
-	protected Message getMessage(Session session, String from, String to, String subject, String text) throws AddressException, MessagingException {
+    private Message getMessage(Session session, String from, String to, String subject, String text) throws MessagingException {
 		Message message = new SMTPMessage(session);
 		message.setFrom(new InternetAddress(from));
 		message.addRecipient(RecipientType.TO, new InternetAddress(to));
@@ -83,7 +80,7 @@ public class MailDispatcher {
 		return message;
 	}
 
-	protected Session getSession() {
+    private Session getSession() {
 		Properties properties = System.getProperties();
 		if (username != null && password != null) {
 			properties.put("mail.smtp.auth", "true");
@@ -91,24 +88,12 @@ public class MailDispatcher {
 		return Session.getDefaultInstance(properties);
 	}
 
-	public String getHost() {
-		return host;
-	}
-
 	public void setHost(String host) {
 		this.host = host;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
 	}
 
 	public void setPassword(String password) {
