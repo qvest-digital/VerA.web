@@ -108,15 +108,6 @@
   <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
   <reporters/>
   <publishers>
-    <hudson.tasks.BuildTrigger>
-      <childProjects>veraweb-dev-core</childProjects>
-      <threshold>
-        <name>SUCCESS</name>
-        <ordinal>0</ordinal>
-        <color>BLUE</color>
-        <completeBuild>true</completeBuild>
-      </threshold>
-    </hudson.tasks.BuildTrigger>
     <hudson.plugins.jabber.im.transport.JabberPublisher plugin="jabber@1.35">
       <targets>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
@@ -138,7 +129,7 @@
           <value>ldegen@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
       </targets>
-      <strategy>ALL</strategy>
+      <strategy>STATECHANGE_ONLY</strategy>
       <notifyOnBuildStart>false</notifyOnBuildStart>
       <notifySuspects>false</notifySuspects>
       <notifyCulprits>false</notifyCulprits>

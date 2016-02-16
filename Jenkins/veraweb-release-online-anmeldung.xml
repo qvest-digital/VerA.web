@@ -129,7 +129,7 @@
           <value>ldegen@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
       </targets>
-      <strategy>ALL</strategy>
+      <strategy>STATECHANGE_ONLY</strategy>
       <notifyOnBuildStart>false</notifyOnBuildStart>
       <notifySuspects>false</notifySuspects>
       <notifyCulprits>false</notifyCulprits>

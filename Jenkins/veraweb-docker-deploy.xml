@@ -106,7 +106,7 @@ ssh -l root veraweb-tools.lan.tarent.de /root/jenkins-tmp/env/dockerdeploy.sh $V
           <value>ldegen@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
       </targets>
-      <strategy>ALL</strategy>
+      <strategy>STATECHANGE_ONLY</strategy>
       <notifyOnBuildStart>false</notifyOnBuildStart>
       <notifySuspects>false</notifySuspects>
       <notifyCulprits>false</notifyCulprits>
