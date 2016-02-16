@@ -86,7 +86,7 @@ public class MailDispatchWorker implements Runnable {
 	/** Gibt die Wartezeit zwischen zwei Dispatch aufrufen an. */
 	protected int waitMillis = 0;
 
-	private OctopusContext cntx;
+	private OctopusContext octopusContext;
 
 	//
 	// OCTOPUS-AKTIONEN ZUM STARTEN UND STOPPEN DES VERSENDE THREADS.
@@ -97,17 +97,17 @@ public class MailDispatchWorker implements Runnable {
 	/**
 	 * Startet das automatische versenden von eMails im Hintergrund.
 	 *
-	 * @param cntx Octopus-Context
+	 * @param octopusContext Octopus-Context
 	 */
-	public void load(OctopusContext cntx) {
+	public void load(OctopusContext octopusContext) {
 
-		this.cntx = cntx;
+		this.octopusContext = octopusContext;
 
 		logger.info("MailDispatcher wird im Hintergrund gestartet.");
 
-		moduleName = cntx.getModuleName();
+		moduleName = octopusContext.getModuleName();
 
-		Map settings = (Map)cntx.moduleConfig().getParamAsObject("mailServer");
+		Map settings = (Map)octopusContext.moduleConfig().getParamAsObject("mailServer");
 		if (settings != null) {
 			// Settingsladen
 			dispatcher.setHost((String)settings.get("host"));
@@ -128,7 +128,7 @@ public class MailDispatchWorker implements Runnable {
 				thread.start();
 			}
 		} else {
-			unload(cntx);
+			unload(octopusContext);
 		}
 	}
 
@@ -169,7 +169,7 @@ public class MailDispatchWorker implements Runnable {
 	 * Versendet alle offenen eMails.
 	 */
 	public void sendMails() {
-		Database db = new DatabaseVeraWeb( this.cntx );
+		Database db = new DatabaseVeraWeb( this.octopusContext);
 		Select select = SQL.Select( db ).
 				from("veraweb.tmailoutbox").
 				selectAs("pk", "id").
@@ -246,7 +246,7 @@ public class MailDispatchWorker implements Runnable {
 		if (error != null && error.length() > 200) {
 			error = error.substring(0, 195) + "\n...";
 		}
-		Database db = new DatabaseVeraWeb( this.cntx );
+		Database db = new DatabaseVeraWeb( this.octopusContext);
 		DB.update(moduleName, SQL.Update( db ).
 				table("veraweb.tmailoutbox").
 				update("status", new Integer(status)).
@@ -256,7 +256,7 @@ public class MailDispatchWorker implements Runnable {
 	}
 
 	protected void deleteMail(Integer id) throws SQLException {
-		Database db = new DatabaseVeraWeb( this.cntx );
+		Database db = new DatabaseVeraWeb( this.octopusContext);
 		DB.update(moduleName, SQL.Delete( db ).
 				from("veraweb.tmailoutbox").
 				where(Expr.equal("pk", id)));
