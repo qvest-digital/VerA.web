@@ -274,9 +274,13 @@ public class MailDispatchWorker implements Runnable {
 
     private void deleteMail(Integer id) throws SQLException {
 		Database db = new DatabaseVeraWeb( this.octopusContext);
-		DB.update(moduleName, SQL.Delete( db ).
-				from("veraweb.tmailoutbox").
-				where(Expr.equal("pk", id)));
+        final TransactionContext transactionContext = db.getTransactionContext();
+        try {
+            transactionContext.execute(SQL.Delete(db).from("veraweb.tmailoutbox").where(Expr.equal("pk", id)));
+            transactionContext.commit();
+        } catch (BeanException e) {
+            logger.error("Mail outbox could not be deleted", e);
+        }
 	}
 
 
