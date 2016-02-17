@@ -227,9 +227,9 @@ public class MailDispatchWorker implements Runnable {
         sendMail(id, from, to, subject, text);
     }
 
-    private void closeResultSet(ResultSet rs) {
+    private void closeResultSet(ResultSet resultSet) {
         try {
-            rs.close();
+            resultSet.close();
         } catch (SQLException e) {
             logger.error("Closing ResulSet failed", e);
         }
@@ -246,25 +246,25 @@ public class MailDispatchWorker implements Runnable {
 	 */
     private void sendMail(Integer id, String from, String to, String subject, String text) {
 		try {
-			updateMail(id, MailOutbox.STATUS_INPROCESS, null);
+			updateMailOutbox(id, MailOutbox.STATUS_INPROCESS, null);
 			dispatcher.send(from, to, subject, text);
-			deleteMail(id);
+			deleteMailOutbox(id);
 		} catch (Exception e) {
 			logger.error("Es ist ein Fehler beim versenden einer E-Mail aufgetreten.", e);
 			try {
-				updateMail(id, MailOutbox.STATUS_ERROR, e.getLocalizedMessage());
+				updateMailOutbox(id, MailOutbox.STATUS_ERROR, e.getLocalizedMessage());
 			} catch (SQLException e1) {
 				logger.error("Es ist ein Fehler beim versenden einer E-Mail aufgetreten.", e);
 			}
 		}
 	}
 
-    private void updateMail(Integer id, int status, String error) throws SQLException {
+    private void updateMailOutbox(Integer id, int status, String error) throws SQLException {
 		if (error != null && error.length() > 200) {
 			error = error.substring(0, 195) + "\n...";
 		}
-		Database db = new DatabaseVeraWeb( this.octopusContext);
-		DB.update(moduleName, SQL.Update( db ).
+		final Database database = new DatabaseVeraWeb( this.octopusContext);
+		DB.update(moduleName, SQL.Update( database ).
 				table("veraweb.tmailoutbox").
 				update("status", status).
 				update("lastupdate", new Timestamp(System.currentTimeMillis())).
@@ -272,11 +272,11 @@ public class MailDispatchWorker implements Runnable {
 				where(Expr.equal("pk", id)));
 	}
 
-    private void deleteMail(Integer id) throws SQLException {
-		Database db = new DatabaseVeraWeb( this.octopusContext);
-        final TransactionContext transactionContext = db.getTransactionContext();
+    private void deleteMailOutbox(Integer id) throws SQLException {
+        final Database database = new DatabaseVeraWeb( this.octopusContext);
+        final TransactionContext transactionContext = database.getTransactionContext();
         try {
-            transactionContext.execute(SQL.Delete(db).from("veraweb.tmailoutbox").where(Expr.equal("pk", id)));
+            transactionContext.execute(SQL.Delete(database).from("veraweb.tmailoutbox").where(Expr.equal("pk", id)));
             transactionContext.commit();
         } catch (BeanException e) {
             logger.error("Mail outbox could not be deleted", e);
