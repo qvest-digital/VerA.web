@@ -83,10 +83,6 @@ public class GuestWorker {
 	/**
 	 * Diese Octopus-Aktion fügt eine Reihe von Gästen einer
 	 * Veranstaltung hinzu.<br>
-	 *
-	 * @param cntx OctopusContext
-	 * @throws BeanException
-	 * @throws IOException
 	 */
 	protected static final String COUNT_INVITED_NOT_INVITED_2_PATTERN =
 		"select (select count(*) from tperson p where p.pk not in (select fk_person from tguest "
@@ -314,10 +310,6 @@ public class GuestWorker {
 	public static final String INPUT_addEvent[] = { "id" };
 	/**
 	 * Fügt die Gäste einer Veranstaltung einer anderen Veranstaltung hinzu.
-	 *
-	 * @param cntx
-	 * @throws BeanException
-	 * @throws IOException
 	 */
 	protected static final String COUNT_INVITED_NOT_INVITED_PATTERN =
 		"select (select count(*) from tguest g left join tperson p on g.fk_person = p.pk "

@@ -26,9 +26,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Helper to play with the Online-Application Configuration.
- *
- * @return true if activated, otherwise false
+ * Helper to play with the Online-Application Configuration. True if activated, otherwise false.
  *
  * @author jnunez
  * @author Atanas Alexandrov, tarent solutions GmbH

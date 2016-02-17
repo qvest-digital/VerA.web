@@ -124,7 +124,7 @@ public class DateHelper {
      * In VerA.web wird als Zeit 00:00:30 eingetragen, um darzustellen,
      * dass <e>keine</e> Zeitangabe im Datum vorliegt, während im Falle
      * vorhandener Zeitangaben nur Stunden- und Minutenangaben eingetragen
-     * werden, vergleiche {@link #addTimeToDate(Date, String, List)}.
+     * werden, vergleiche {@link #addTimeToDate(Timestamp, String, List)}.
      *
      * @param date zu testendes {@link Date}-Objekts
      * @return <code>true</code> genau dann, wenn das Datum den
