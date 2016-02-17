@@ -223,6 +223,8 @@
 
 % Use Museo Sans by default
 \renewcommand{\sfdefault}{museo}
+% sans-serif fonts should not use italic as emphasis
+\renewcommand{\emph}[1]{\textbf{#1}}
 % Use Comic Sans MS as “roman” font, because we have to use the
 % sans-serif font always, and like this, we spot errors easily
 \renewcommand{\rmdefault}{comic}

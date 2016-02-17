@@ -48,7 +48,7 @@ import de.tarent.octopus.server.OctopusContext;
 
 /**
  * Diese Klasse dient als Importziel für die Methode
- * {@link DataExchangeWorker#importToTransit(OctopusContext, Map, String, String, Integer, Map)}.
+ * {@link DataExchangeWorker#importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)}.
  */
 public class VerawebDigester implements ImportDigester {
 

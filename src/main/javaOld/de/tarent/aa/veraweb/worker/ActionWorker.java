@@ -69,6 +69,8 @@ public class ActionWorker {
 	public static final String OUTPUT_remove = "action";
 	/** Octopus-Config for Online Registration plattform activation */
 	public static final String ONLINEREG_ACTIVATION = "online-registration.activated";
+	/** Octopus-Config for Online Registration mandant deactivation */
+	public static final String ONLINEREG_MANDANT_DEACTIVATION = "mandanten-online-registration.deactivated";
     /**
      * Diese Methode löscht die aktuelle Aktion und ersetzt sie gegebenenfalls
      * durch die übergebene.
@@ -81,13 +83,14 @@ public class ActionWorker {
 		cntx.setSession("action", action);
 		return action;
 	}
-	/**
+	/*
 	 * Setting Online Registration Config
 	 *
 	 * @param cntx OctopusContext
 	 */
 	private void loadOnlineRegistrationConfig(OctopusContext cntx) {
 		cntx.setContent(ONLINEREG_ACTIVATION, OnlineRegistrationHelper.isOnlineregActive(cntx));
+		cntx.setContent(ONLINEREG_MANDANT_DEACTIVATION, OnlineRegistrationHelper.getDeactivatedMandantsAsArray(cntx));
 	}
 
 

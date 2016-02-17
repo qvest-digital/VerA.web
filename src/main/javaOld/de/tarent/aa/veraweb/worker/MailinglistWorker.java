@@ -82,8 +82,8 @@ public class MailinglistWorker {
 
 			result.put("count",
 					database.getCount(
-					database.getCount("Guest").
-					where(list)));
+							database.getCount("Guest").
+									where(list)));
 		}
 		return result;
 	}

@@ -162,7 +162,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
      * aufgerufen und soll das übergebene Bean als neuen Eintrag speichern.
      *
-     * @see #saveBean(OctopusContext, Bean)
+     * @see #saveBean(OctopusContext, Bean, TransactionContext)
      *
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
@@ -222,13 +222,12 @@ public class UserListWorker extends ListWorkerVeraWeb {
     }
 
     /**
-     * Wird von {@link de.tarent.octopus.beans.BeanListWorker#removeSelection(OctopusContext)}
+     * Wird von {@link de.tarent.octopus.beans.BeanListWorker#removeSelection(OctopusContext, List, List, TransactionContext)}
      * aufgerufen und soll das übergebene Bean löschen.
      *
-     * @see #removeBean(OctopusContext, Bean)
+     * @see #removeBean(OctopusContext, Bean, TransactionContext)
      *
      * @param cntx Octopus-Kontext
-     * @param errors kummulierte Fehlerliste
      * @param bean zu löschende Bean
      * @throws BeanException
      * @throws IOException

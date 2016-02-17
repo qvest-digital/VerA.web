@@ -1475,6 +1475,8 @@ GUEST_CALC_SERIALNO=Cet \u00E9v\u00E9nement est d\u00E9j\u00E0 fini dans le pass
 
 # MAILING LIST TEXTS
 MAILING_LIST_NO_ADDRESSES=D\u00E9signer un nouveau collaborateur n\u2019\u00E9tait pas possible \u00E0 cause de l\u2019absence de l\u2019adresse
+MAILING_LIST_SELECTED_FILE=Fichier s\u00E9lectionn\u00E9
+MAILING_LIST_ALREADY_SELECTED_FILE=Ce fichier a d\u00E9j\u00E0 \u00E9t\u00E9 s\u00E9lectionn\u00E9
 
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=Le Client \u00E0 ins\u00E9rer ne devrait pas avoir un num\u00E9ro d\u2019identit\u00E9

@@ -19,26 +19,13 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.log4j.Logger;
-
 import de.tarent.aa.veraweb.beans.MailDraft;
 import de.tarent.aa.veraweb.beans.MailOutbox;
 import de.tarent.aa.veraweb.beans.Mailinglist;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonDoctypeFacade;
 import de.tarent.aa.veraweb.utils.MailDispatcher;
+import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.helper.ResultList;
@@ -57,6 +44,19 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.log4j.Logger;
+
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Octopus-Worker der das versenden von eMails verwaltet.
@@ -74,52 +74,35 @@ public class MailDispatchWorker implements Runnable {
 	private final Pattern mailtags = Pattern.compile("<[A-Za-z]+>");
 
 	/** Modulnamen für den Datenbank-Pool */
-	protected String moduleName;
+	private String moduleName;
 	/** Thread in dem das eigentliche versenden ausgeführt wird. */
-	protected Thread thread;
+    private Thread thread;
 	/** MailDispatcher der den Versand an den SMTP-Server vornimmt. */
-	protected MailDispatcher dispatcher = new MailDispatcher();
+    private final MailDispatcher dispatcher = new MailDispatcher();
 	/** Gibt an ob der Dispatcher weitere eMails verschicken soll. */
-	protected boolean keeprunning = false;
+    private boolean keeprunning = false;
 	/** Gibt an ob der Dispatcher gerade eMails verschickt. */
-	protected boolean isworking = false;
+    private boolean isworking = false;
 	/** Gibt die Wartezeit zwischen zwei Dispatch aufrufen an. */
-	protected int waitMillis = 0;
+    private int waitMillis = 0;
 
-	private OctopusContext cntx;
-
-	//
-	// OCTOPUS-AKTIONEN ZUM STARTEN UND STOPPEN DES VERSENDE THREADS.
-	//
+	private OctopusContext octopusContext;
 
 	/** Octopus-Eingabe-Parameter für {@link #load(OctopusContext)} */
 	public static final String INPUT_load[] = {};
 	/**
 	 * Startet das automatische versenden von eMails im Hintergrund.
 	 *
-	 * @param cntx Octopus-Context
+	 * @param octopusContext Octopus-Context
 	 */
-	public void load(OctopusContext cntx) {
-
-		this.cntx = cntx;
-
+	public void load(OctopusContext octopusContext) {
+		this.octopusContext = octopusContext;
 		logger.info("MailDispatcher wird im Hintergrund gestartet.");
+		moduleName = octopusContext.getModuleName();
 
-		moduleName = cntx.getModuleName();
-
-		Map settings = (Map)cntx.moduleConfig().getParamAsObject("mailServer");
+		final Map settings = (Map)octopusContext.moduleConfig().getParamAsObject("mailServer");
 		if (settings != null) {
-			// Settingsladen
-			dispatcher.setHost((String)settings.get("host"));
-			try {
-				waitMillis = new Integer((String)settings.get("waitBetweenJobs")).intValue() * 1000;
-			} catch (NumberFormatException e) {
-				logger.warn("MailDispatcher konnte Parameter 'waitBetweenJobs' nicht parsen (" + settings.get("waitBetweenJobs") + "). Es wird der Default Wert (60 Sekunden) verwendet.");
-				waitMillis = 60000; // default: 1 Minute
-			} catch (NullPointerException e) {
-				logger.warn("MailDispatcher konnte Parameter 'waitBetweenJobs' nicht finden. Es wird der Default Wert (60 Sekunden) verwendet.");
-				waitMillis = 60000; // default: 1 Minute
-			}
+			loadSettings(settings);
 
 			// Server status
 			if (!keeprunning) {
@@ -128,23 +111,50 @@ public class MailDispatchWorker implements Runnable {
 				thread.start();
 			}
 		} else {
-			unload(cntx);
+			unload();
 		}
 	}
 
-	/** Octopus-Eingabe-Parameter für {@link #unload(OctopusContext)} */
+	private void loadSettings(Map settings) {
+		// Settingsladen
+		dispatcher.setHost((String)settings.get("host"));
+		setAuthData(settings);
+		setWaitInterval(settings);
+	}
+
+	private void setWaitInterval(Map settings) {
+		try {
+            waitMillis = Integer.parseInt((String)settings.get("waitBetweenJobs")) * 1000;
+        } catch (NumberFormatException e) {
+            logger.warn("MailDispatcher konnte Parameter 'waitBetweenJobs' nicht parsen (" + settings.get("waitBetweenJobs") + "). Es wird der Default Wert (60 Sekunden) verwendet.");
+            waitMillis = 60000; // default: 1 Minute
+        } catch (NullPointerException e) {
+            logger.warn("MailDispatcher konnte Parameter 'waitBetweenJobs' nicht finden. Es wird der Default Wert (60 Sekunden) verwendet.");
+            waitMillis = 60000; // default: 1 Minute
+        }
+	}
+
+	private void setAuthData(Map settings) {
+		if (settings.get("host") != null && settings.get("password") != null) {
+            dispatcher.setUsername((String)settings.get("username"));
+            dispatcher.setPassword((String)settings.get("password"));
+        }
+	}
+
+	/** Octopus-Eingabe-Parameter für {@link #unload()} */
 	public static final String INPUT_unload[] = {};
 	/**
 	 * Stopppt das automatische versenden von eMails im Hintergrund.
 	 *
-	 * @param cntx Octopus-Context
 	 */
-	public void unload(OctopusContext cntx) {
+    private void unload() {
 		logger.info("MailDispatcher wird im Hintergrund gestoppt.");
 		keeprunning = false;
 	}
 
-	/** @see Runnable#run() */
+	/**
+	 * @see Runnable#run()
+	 */
 	public void run() {
 		try {
 			isworking = true;
@@ -154,11 +164,10 @@ public class MailDispatchWorker implements Runnable {
 				} catch (Exception e) {
 					logger.error("Allgemeiner Fehler beim Versenden einer eMail.", e);
 				}
-				try {
-					Thread.sleep(waitMillis < 1000 ? 1000 : waitMillis);
-				} catch (InterruptedException e) {
-				}
+				Thread.sleep(waitMillis < 1000 ? 1000 : waitMillis);
 			}
+		} catch (InterruptedException e) {
+			logger.error("Thread.sleep failed.", e);
 		} finally {
 			isworking = false;
 			thread = null;
@@ -168,9 +177,9 @@ public class MailDispatchWorker implements Runnable {
 	/**
 	 * Versendet alle offenen eMails.
 	 */
-	public void sendMails() {
-		Database db = new DatabaseVeraWeb( this.cntx );
-		Select select = SQL.Select( db ).
+    private void sendMails() {
+		final Database db = new DatabaseVeraWeb( this.octopusContext);
+		final Select select = SQL.Select( db ).
 				from("veraweb.tmailoutbox").
 				selectAs("pk", "id").
 				selectAs("status", "status").
@@ -179,87 +188,99 @@ public class MailDispatchWorker implements Runnable {
 				selectAs("subject", "subject").
 				selectAs("content", "text");
 
-		select.where(Expr.equal("status", new Integer(MailOutbox.STATUS_WAIT)));
+		select.where(Expr.equal("status", MailOutbox.STATUS_WAIT));
 		select.orderBy(Order.asc("lastupdate"));
 		select.Limit(new Limit(new Integer(1), new Integer(0)));
 
-		Result r = null;
-		ResultSet rs = null;
-		for (boolean found = true; found; ) {
-			try {
-				found = false;
-				r = ( Result ) select.execute();
-				rs = r.resultSet();
-
-				for (Iterator it = new ResultList(rs).iterator(); it.hasNext(); ) {
-					Map data = (Map)it.next();
-					found = true;
-					sendMail((Integer)data.get("id"),
-							(Integer)data.get("status"),
-							(String)data.get("from"),
-							(String)data.get("to"),
-							(String)data.get("subject"),
-							(String)data.get("text"));
-				}
-			} catch (SQLException e) {
-				logger.error("Fehler beim Abholen der zu ausgehenden eMails.", e);
-			} finally {
-				if (rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException e) {
-					}
-				}
-				if (r != null) {
-					r.closeAll();
-				}
-			}
-		}
+        handleSendEmail(select);
 	}
 
-	/**
+    private void handleSendEmail(Select select) {
+        ResultSet resultSet = null;
+        Result result = null;
+        try {
+            result = (Result) select.execute();
+            resultSet = result.resultSet();
+            List allRecipients = VerawebUtils.copyResultListToArrayList(new ResultList(resultSet));
+            for (int i = 0; i < allRecipients.size(); i++) {
+                final HashMap recipient = (HashMap) allRecipients.get(0);
+                executeMailSend(recipient);
+            }
+        } catch (SQLException e) {
+            logger.error("Fehler beim Abholen der zu ausgehenden eMails.", e);
+        } finally {
+            if (resultSet != null) {
+                closeResultSet(resultSet);
+            }
+            if (result != null) {
+                result.closeAll();
+            }
+        }
+    }
+
+    private void executeMailSend(HashMap recipient) {
+        final Integer id = (Integer) recipient.get("id");
+        final String from = (String) recipient.get("from");
+        final String to = (String) recipient.get("to");
+        final String subject = (String) recipient.get("subject");
+        final String text = (String) recipient.get("text");
+        sendMail(id, from, to, subject, text);
+    }
+
+    private void closeResultSet(ResultSet resultSet) {
+        try {
+            resultSet.close();
+        } catch (SQLException e) {
+            logger.error("Closing ResulSet failed", e);
+        }
+    }
+
+    /**
 	 * Versendet eine einzelne eMail.
 	 *
 	 * @param id
-	 * @param status
 	 * @param from
 	 * @param to
 	 * @param subject
 	 * @param text
 	 */
-	protected void sendMail(Integer id, Integer status, String from, String to, String subject, String text) {
+    private void sendMail(Integer id, String from, String to, String subject, String text) {
 		try {
-			updateMail(id, MailOutbox.STATUS_INPROCESS, null);
+			updateMailOutbox(id, MailOutbox.STATUS_INPROCESS, null);
 			dispatcher.send(from, to, subject, text);
-			deleteMail(id);
+			deleteMailOutbox(id);
 		} catch (Exception e) {
 			logger.error("Es ist ein Fehler beim versenden einer E-Mail aufgetreten.", e);
 			try {
-				updateMail(id, MailOutbox.STATUS_ERROR, e.getLocalizedMessage());
+				updateMailOutbox(id, MailOutbox.STATUS_ERROR, e.getLocalizedMessage());
 			} catch (SQLException e1) {
 				logger.error("Es ist ein Fehler beim versenden einer E-Mail aufgetreten.", e);
 			}
 		}
 	}
 
-	protected void updateMail(Integer id, int status, String error) throws SQLException {
+    private void updateMailOutbox(Integer id, int status, String error) throws SQLException {
 		if (error != null && error.length() > 200) {
 			error = error.substring(0, 195) + "\n...";
 		}
-		Database db = new DatabaseVeraWeb( this.cntx );
-		DB.update(moduleName, SQL.Update( db ).
+		final Database database = new DatabaseVeraWeb( this.octopusContext);
+		DB.update(moduleName, SQL.Update( database ).
 				table("veraweb.tmailoutbox").
-				update("status", new Integer(status)).
+				update("status", status).
 				update("lastupdate", new Timestamp(System.currentTimeMillis())).
 				update("errortext", error).
 				where(Expr.equal("pk", id)));
 	}
 
-	protected void deleteMail(Integer id) throws SQLException {
-		Database db = new DatabaseVeraWeb( this.cntx );
-		DB.update(moduleName, SQL.Delete( db ).
-				from("veraweb.tmailoutbox").
-				where(Expr.equal("pk", id)));
+    private void deleteMailOutbox(Integer id) throws SQLException {
+        final Database database = new DatabaseVeraWeb( this.octopusContext);
+        final TransactionContext transactionContext = database.getTransactionContext();
+        try {
+            transactionContext.execute(SQL.Delete(database).from("veraweb.tmailoutbox").where(Expr.equal("pk", id)));
+            transactionContext.commit();
+        } catch (BeanException e) {
+            logger.error("Mail outbox could not be deleted", e);
+        }
 	}
 
 
@@ -272,19 +293,19 @@ public class MailDispatchWorker implements Runnable {
 	/**
 	 * Octopus-Aktion zur Verwaltung einer 'in process' eMail.
 	 */
-	public void writeMail(OctopusContext cntx) throws BeanException, IOException {
-		Request request = new RequestVeraWeb(cntx);
-		Database database = new DatabaseVeraWeb(cntx);
+	public void writeMail(OctopusContext octopusContext) throws BeanException, IOException {
+		Request request = new RequestVeraWeb(octopusContext);
+		Database database = new DatabaseVeraWeb(octopusContext);
 		List errors = new ArrayList();
 
 		MailDraft mail = (MailDraft)request.getBean("MailDraft", "mail");
 
-		if (cntx.requestAsBoolean("loaddraft").booleanValue()) {
-			Integer draftId = cntx.requestAsInteger("mail-draft");
+		if (octopusContext.requestAsBoolean("loaddraft")) {
+			Integer draftId = octopusContext.requestAsInteger("mail-draft");
 			if (draftId != null) {
 				mail = (MailDraft)database.getBean("MailDraft", draftId);
 			}
-		} else if (cntx.requestAsBoolean("savedraft").booleanValue()) {
+		} else if (octopusContext.requestAsBoolean("savedraft")) {
 			if (mail.isCorrect()) {
 				database.saveBean(mail);
 			} else {
@@ -292,8 +313,8 @@ public class MailDispatchWorker implements Runnable {
 			}
 		}
 
-		cntx.setContent("mail", mail);
-		cntx.setContent("errors", errors);
+		octopusContext.setContent("mail", mail);
+		octopusContext.setContent("errors", errors);
 	}
 
 	/** Octopus-Eingabe-Parameter für die Aktion {@link #sendMail(OctopusContext)} */
@@ -301,62 +322,80 @@ public class MailDispatchWorker implements Runnable {
 	/**
 	 * Octopus-Aktion zum versenden einer eMail an einen Verteiler.
 	 */
-	public void sendMail(OctopusContext cntx) throws BeanException, IOException {
-		Request request = new RequestVeraWeb(cntx);
-		Database database = new DatabaseVeraWeb(cntx);
-		TransactionContext context  =database.getTransactionContext();
-		Mailinglist mailinglist = (Mailinglist)cntx.contentAsObject("mailinglist");
-		MailDraft mail = (MailDraft)request.getBean("MailDraft", "mail");
-		List selection = (List)cntx.contentAsObject("listselection");
-		Integer freitextfeld = ConfigWorker.getInteger(cntx, "freitextfeld");
-
-		Select select = database.getSelect("MailinglistAddress");
-		if (selection == null || selection.size() == 0) {
-			select.where(Expr.equal("fk_mailinglist", mailinglist.id));
-		} else {
-			select.where(Where.and(
-					Expr.equal("fk_mailinglist", mailinglist.id),
-					Expr.in("pk", selection)));
-		}
-
-		MailOutbox outbox = new MailOutbox();
-		outbox.status = new Integer(MailOutbox.STATUS_WAIT);
-		outbox.from = getMailAddress(cntx);
-		outbox.subject = mail.subject;
-		outbox.lastupdate = new Timestamp(System.currentTimeMillis());
+	public void sendMail(OctopusContext octopusContext) throws BeanException, IOException {
+        final MailDraft mail = getMailDraft(octopusContext);
+        final Database database = new DatabaseVeraWeb(octopusContext);
+        final TransactionContext transactionContext = database.getTransactionContext();
 
 		try {
-			int savedMails = 0;
-			for (Iterator it = database.getList(select, context).iterator(); it.hasNext(); ) {
-				Map data = (Map)it.next();
-				Person person = (Person)database.getBean("Person", (Integer)data.get("person"), context);
+			int savedMailsCounter = 0;
+            final ResultList resultList = getResultList(database, octopusContext, transactionContext);
+            final List allRecipients = VerawebUtils.copyResultListToArrayList(resultList);
+            for (Object recipient : allRecipients) {
+                final HashMap currentRecipient = (HashMap) recipient;
+                final Person person = (Person)database.getBean("Person", (Integer) currentRecipient.get("person"), transactionContext);
+                final MailOutbox outbox = createMailOutbox(octopusContext, database, transactionContext, mail, currentRecipient, person);
 
-				outbox.text = getMailText(mail.text, getPersonFacade(cntx, database, context, freitextfeld, person));
-				outbox.to = (String)data.get("address");
+                try {
+                    transactionContext.execute(database.getInsert(outbox));
+                    savedMailsCounter++;
+                } catch (BeanException e) {
+                    logger.error("Fehler beim anlegen einer E-Mail.", e);
+                } catch (IOException e) {
+                    logger.error("Fehler beim anlegen einer E-Mail.", e);
+                }
 
-				try {
-					context.execute(database.getInsert(outbox));
-	//				database.execute(database.getInsert(outbox));
-					savedMails++;
-				} catch (BeanException e) {
-					logger.error("Fehler beim anlegen einer E-Mail.", e);
-				} catch (IOException e) {
-					logger.error("Fehler beim anlegen einer E-Mail.", e);
-				}
-			}
-			context.commit();
-			Map result = new HashMap();
-			result.put("count", new Integer(savedMails));
-			cntx.setContent("maildispatchParams", result);
-		}
-		catch ( BeanException e )
-		{
-			context.rollBack();
-		}
+            }
+			transactionContext.commit();
+			final Map result = new HashMap();
+			result.put("count", savedMailsCounter);
+			octopusContext.setContent("maildispatchParams", result);
+		} catch (BeanException e) {
+            transactionContext.rollBack();
+        }
 
 	}
 
-	protected PersonDoctypeFacade getPersonFacade(OctopusContext cntx, Database database, Integer doctypeId, Person person) throws BeanException {
+    private ResultList getResultList(Database database, OctopusContext octopusContext, TransactionContext transactionContext) throws BeanException, IOException {
+        final Select select = getMailinglistSelectStatement(octopusContext, database);
+        return database.getList(select, transactionContext);
+    }
+
+    private MailDraft getMailDraft(OctopusContext octopusContext) throws BeanException {
+        final Request request = new RequestVeraWeb(octopusContext);
+        return (MailDraft)request.getBean("MailDraft", "mail");
+    }
+
+    private MailOutbox createMailOutbox(OctopusContext octopusContext, Database database, TransactionContext transactionContext, MailDraft mail, HashMap currentRecipient, Person person) throws BeanException, IOException {
+        final Integer freitextfeld = ConfigWorker.getInteger(octopusContext, "freitextfeld");
+        final MailOutbox outbox = new MailOutbox();
+        outbox.status = MailOutbox.STATUS_WAIT;
+        outbox.from = getMailAddress(octopusContext);
+        outbox.subject = mail.subject;
+        outbox.lastupdate = new Timestamp(System.currentTimeMillis());
+        outbox.text = getMailText(mail.text, getPersonFacade(octopusContext, database, transactionContext, freitextfeld, person));
+        outbox.to = (String) currentRecipient.get("address");
+        return outbox;
+    }
+
+    private Select getMailinglistSelectStatement(OctopusContext octopusContext, Database database) throws BeanException, IOException {
+        final Mailinglist mailinglist = (Mailinglist)octopusContext.contentAsObject("mailinglist");
+        final List selection = (List)octopusContext.contentAsObject("listselection");
+        final Select selectStatement = database.getSelect("MailinglistAddress");
+        if (selection == null || selection.size() == 0) {
+            selectStatement.where(Expr.equal("fk_mailinglist", mailinglist.id));
+        } else {
+            selectStatement.where(
+                Where.and(
+                    Expr.equal("fk_mailinglist", mailinglist.id),
+                    Expr.in("pk", selection)
+                )
+            );
+        }
+        return selectStatement;
+    }
+
+    protected PersonDoctypeFacade getPersonFacade(OctopusContext cntx, Database database, Integer doctypeId, Person person) throws BeanException {
 		PersonDoctypeFacade facade = new PersonDoctypeFacade(cntx, person);
 		if (doctypeId == null) {
 			facade.setFacade(null, null, true);
@@ -393,7 +432,7 @@ public class MailDispatchWorker implements Runnable {
 		return facade;
 	}
 
-	protected PersonDoctypeFacade getPersonFacade(OctopusContext cntx, Database database, ExecutionContext context, Integer doctypeId, Person person) throws BeanException {
+    private PersonDoctypeFacade getPersonFacade(OctopusContext cntx, Database database, ExecutionContext context, Integer doctypeId, Person person) throws BeanException {
 		PersonDoctypeFacade facade = new PersonDoctypeFacade(cntx, person);
 		if (doctypeId == null) {
 			facade.setFacade(null, null, true);
@@ -442,7 +481,7 @@ public class MailDispatchWorker implements Runnable {
 	 */
 	protected String getMailText(String text, PersonDoctypeFacade facade) throws BeanException, IOException {
 		if (text == null) return "";
-		StringBuffer buffer = new StringBuffer(text.length());
+		StringBuilder buffer = new StringBuilder(text.length());
 		Matcher matcher = mailtags.matcher(text);
 		String group;
 		String entry;
@@ -453,9 +492,9 @@ public class MailDispatchWorker implements Runnable {
 				group = matcher.group();
 				group = group.substring(1, group.length() - 1);
 				entry = facade.getField(group);
-				if (entry == group) {
+				if (entry.equals(group)) {
 					buffer.append("<").append(entry).append(">");
-				} else if (entry != null) {
+				} else if (!entry.equals("")) {
 					buffer.append(entry);
 				}
 				last = matcher.end();
@@ -474,7 +513,7 @@ public class MailDispatchWorker implements Runnable {
 	 * @param cntx Octopus-Context
 	 * @return eMail-Adresse
 	 */
-	protected String getMailAddress(OctopusContext cntx) {
+    private String getMailAddress(OctopusContext cntx) {
 		String from = cntx.personalConfig().getEmail();
 		if (from != null && from.length() != 0) {
 			logger.info("Verwende E-Mail-Adresse aus dem LDAP: " + from);
@@ -483,7 +522,7 @@ public class MailDispatchWorker implements Runnable {
 
 		Map settings = (Map)cntx.moduleConfig().getParamAsObject("mailServer");
 		from = (String)settings.get("from");
-		if (from.indexOf("$role") != -1) {
+		if (from.contains("$role")) {
 			from = from.replaceAll("(\\$role)", ((PersonalConfigAA)cntx.personalConfig()).getRole());
 		}
 		logger.info("Verwende E-Mail-Adresse aus der Konfigurationsdatei: " + from);

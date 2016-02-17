@@ -20,11 +20,13 @@
 package de.tarent.aa.veraweb.utils;
 
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.log4j.Logger;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
- * Helper to play with the Online-Application Configuration.
- *
- * @return true if activated, otherwise false
+ * Helper to play with the Online-Application Configuration. True if activated, otherwise false.
  *
  * @author jnunez
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -33,6 +35,11 @@ public class OnlineRegistrationHelper {
 
 	private static final String VWOR_PARAM = "online-registration.activated";
 	private static final String VWOR_VALUE_TRUE = "true";
+
+	private static final String MANDANTEN_PARAM = "mandanten-online-registration.deactivated";
+
+    /** Logger für diese Klasse */
+    private final static Logger logger = Logger.getLogger(OnlineRegistrationHelper.class);
 
 	/**
 	 * Check for enabled online registration module.
@@ -48,5 +55,29 @@ public class OnlineRegistrationHelper {
 			return true;
 		}
 		return false;
+	}
+
+	public static int[] getDeactivatedMandantsAsArray(OctopusContext cntx) {
+
+		final String list = cntx.moduleConfig().getParam(MANDANTEN_PARAM);
+
+        if (list == null){
+            return new int[] {0};
+        }
+        
+		final String[] sepList = list.split(",");
+
+		int[] result = new int[sepList.length];
+
+        for (int i = 0; i < result.length; i++) {
+            try {
+                result[i] = Integer.parseInt(sepList[i].trim());
+            } catch (NumberFormatException ex) {
+                result[i] = 0;
+                logger.error("PARAM \"mandanten-online-registration.deactivated\" in config_override.xml set wrong!", ex);
+            }
+        }
+
+		return result;
 	}
 }

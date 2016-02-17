@@ -45,7 +45,6 @@ public class Duration extends AbstractBean
 	/**
 	 *
 	 * @param value a string value representing a serialized period in the form P[y]Y[m]M[d]D, e.g. P5Y2M1D or P2M3D
-	 * @return
 	 */
 	public static Duration fromString( String value )
 	{
