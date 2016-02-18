@@ -83,7 +83,12 @@ public class Person {
     private String zipcode_a_e1;
     private String city_a_e1;
     private String country_a_e1;
-    private String sex_a_e1;
+	private String sex_a_e1;
+	private String salutation_a_e1;
+	private String title_a_e1;
+	private Date birthday_a_e1;
+	private String languages_a_e1;
+	private String nationality_a_e1;
 
     private String company_a_e1;
 
@@ -305,4 +310,44 @@ public class Person {
  	public void setFk_workarea(int fk_workarea) {
  		this.fk_workarea = fk_workarea;
  	}
+
+	public String getSalutation_a_e1() {
+		return salutation_a_e1;
+	}
+
+	public void setSalutaton_a_e1(String salutation_a_e1) {
+		this.salutation_a_e1 = salutation_a_e1;
+	}
+
+	public String getTitle_a_e1() {
+		return title_a_e1;
+	}
+
+	public void setTitle_a_e1(String title_a_e1) {
+		this.title_a_e1 = title_a_e1;
+	}
+
+	public Date getBirthday_a_e1() {
+		return birthday_a_e1;
+	}
+
+	public void setBirthday_a_e1(Date birthday_a_e1) {
+		this.birthday_a_e1 = birthday_a_e1;
+	}
+
+	public void setLanguages_a_e1(String languages_a_e1) {
+		this.languages_a_e1 = languages_a_e1;
+	}
+
+	public String getLanguages_a_e1() {
+		return languages_a_e1;
+	}
+
+	public void setNationality_a_e1(String nationality_a_e1) {
+		this.nationality_a_e1 = nationality_a_e1;
+	}
+
+	public String getNationality_a_e1() {
+		return nationality_a_e1;
+	}
 }
