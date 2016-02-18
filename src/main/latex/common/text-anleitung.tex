@@ -2711,7 +2711,7 @@ Datei gesetzt werden.
 Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_override.xml}
 indem Sie die folgenden zwei Parameter hinzufügen oder ggf. anpassen.
 
-\begin{lstdump}{OA komplett}
+\begin{lstdump}[language=XML]{OA komplett}
 <?xml version="1.0" encoding="utf-8"?>
 <!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
 
@@ -2742,7 +2742,7 @@ indem Sie die folgenden zwei Parameter hinzufügen oder ggf. anpassen.
 Tragen Sie jedoch anstelle von "MANDANTEN" die einzelnen ID's der zu
 deaktivierenden Mandanten, als Komma getrennte Liste, ein.
 
-\begin{lstdump}{OA einzelnd}
+\begin{lstdump}[language=XML]{OA einzelnd}
 <?xml version="1.0" encoding="utf-8"?>
 <!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
 
@@ -2755,7 +2755,7 @@ deaktivierenden Mandanten, als Komma getrennte Liste, ein.
 \end{lstdump}
 
 Mögliche Beispiel Konfigurationen:
-\begin{lstdump}{OA Beispiel}
+\begin{lstdump}[language=XML]{OA Beispiel}
             <param name="mandanten-online-registration.deactivated" value=""/>
             <param name="mandanten-online-registration.deactivated" value="3"/>
             <param name="mandanten-online-registration.deactivated" value="3,4"/>
