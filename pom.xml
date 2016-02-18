@@ -2,13 +2,16 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>rest-api</artifactId>
-    <version>1.7.5-SNAPSHOT</version>
+    <version>1.8.5-SNAPSHOT</version>
     <description>REST-API VerA.web Serverseite</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jacoco.version>0.7.1.201405082137</jacoco.version>
         <releaseVersion>${project.version}</releaseVersion>
         <javax.mail.version>1.4.7</javax.mail.version>
+        <groovy-all.version>2.4.5</groovy-all.version>
+        <spock-core.version>1.0-groovy-2.4</spock-core.version>
+        <commons-io.version>2.4</commons-io.version>
     </properties>
     <organization>
         <name>tarent solutions GmbH, Germany</name>
@@ -120,6 +123,21 @@
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>${javax.mail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy-all.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>${spock-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
     </dependencies>
     <build>
@@ -234,6 +252,20 @@
                 <configuration>
                     <argLine>${argLine} -XX:-UseSplitVerifier</argLine>
                 </configuration>
+            </plugin>
+            
+            <!-- Needed to get correct code coverage from java and groovy tests -->
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!-- JaCoCo: allows code coverage analysis in Sonar -->
             <plugin>
