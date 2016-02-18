@@ -401,7 +401,10 @@
                 submitFormWithGivenAction('SaveReplacePersonList');
             } else if (selectValue == "7") {
                 submitFormWithGivenAction('AddPersonToEventGuestList');
-            }
+            } else if (selectValue == "8") {
+				$('#selectNone').val('false');
+				submitFormWithGivenAction('CreateMailinglist', $grants.mayWrite());
+		  	}
         });
     });
 
@@ -622,7 +625,7 @@
 								<option value="3">${placeholderWithTranslation.GENERIC_REMOVE_CATEGORIES}</option>
 								<option value="4">${placeholderWithTranslation.GENERIC_ASSING_WORKAREA}</option>
 								<option value="5">${placeholderWithTranslation.GENERIC_REMOVE_WORKAREA}</option>
-								<option value="6">${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
+								<option value="8">${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
 							</select>
 							<input type="button" value="${placeholderWithTranslation.GENERIC_EXECUTE}" title="${placeholderWithTranslation.GENERIC_EXECUTE}" id="button.execute" name="button.execute" />
 						#elseif($exportFormat && $grants.mayExport())
