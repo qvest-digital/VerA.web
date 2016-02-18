@@ -11,22 +11,22 @@
 		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.salutation.$valid ? 'has-success' : 'has-error')">
 			<label class="col-lg-4 control-label" for="salutation">{{'GENERIC_SALUTATION'|translate}}</label>
 			<div class="col-lg-3">
-				<select class="form-control" id="salutation" name="salutation" ng-model="osiam.salutation"
-						ng-options="option.name | translate for option in genderOptions" ng-disabled="userHasNoEvents" />
+				<select class="form-control" id="salutation" name="salutation" ng-model="person.salutation_a_e1"
+						ng-options="option.name | translate for option in salutationOptions" ng-disabled="userHasNoEvents" />
 			</div>
 		</div>
 
 		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.title.$valid ? 'has-success' : 'has-error')">
 			<label class="col-lg-4 control-label" for="title">{{'GENERIC_TITLE'|translate}}</label>
 			<div class="col-lg-3">
-				<input id="title" class="form-control" type="text" ng-model="osiam.title" name="title" ng-readonly="userHasNoEvents" />
+				<input id="title" class="form-control" type="text" ng-model="person.title_a_e1" name="title" ng-readonly="userHasNoEvents" />
 			</div>
 		</div>
 
 		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.firstName.$valid ? 'has-success' : 'has-error')">
 			<label class="col-lg-4 control-label" for="firstName">{{'GENERIC_FIRSTNAME'|translate}}</label>
 			<div class="col-lg-3">
-				<input id="firstName" class="form-control" type="text" ng-model="osiam.firstName" name="firstName" required="" ng-readonly="userHasNoEvents" />
+				<input id="firstName" class="form-control" type="text" ng-model="person.firstname_a_e1" name="firstName" required="" ng-readonly="userHasNoEvents" />
 
 				<div ng-show="updateStammdatenREPLACE.$submitted || updateStammdatenREPLACE.firstName.$touched">
 					<div class="help-block" ng-show="updateStammdatenREPLACE.firstName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
@@ -37,7 +37,7 @@
 		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.lastName.$valid ? 'has-success' : 'has-error')">
 			<label class="col-lg-4 control-label" for="lastName">{{'GENERIC_LASTNAME'|translate}}</label>
 			<div class="col-lg-3">
-				<input id="lastName" class="form-control" type="text" ng-model="osiam.lastName" name="lastName" required="" ng-readonly="userHasNoEvents" />
+				<input id="lastName" class="form-control" type="text" ng-model="person.lastname_a_e1" name="lastName" required="" ng-readonly="userHasNoEvents" />
 
 				<div ng-show="updateStammdatenREPLACE.$submitted || updateStammdatenREPLACE.lastName.$touched">
 					<div class="help-block" ng-show="updateStammdatenREPLACE.lastName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
@@ -46,17 +46,17 @@
 		</div>
 
 		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.birthday.$valid ? 'has-success' : 'has-error')">
-			<label class="col-lg-4 control-label" for="birthday">{{'GENERIC_BIRTHDAY'|translate}}</label>
-			<div class="col-lg-3">
-				<input data-provide="datepicker" id="birthday" class="form-control" type="text" ng-model="osiam.birthday" name="birthday" ng-readonly="userHasNoEvents" />
+			<div class="form-group">
+				<label class="col-lg-4 control-label">{{'GENERIC_BIRTHDAY'|translate}}</label>
+				<!-- implement: md-datepicker-invalid (maybe a ng-mpdule is needed) -->
+				<md-datepicker class="col-lg-3" id="birthday" ng-model="birthdayFormatted" date-parser="dd.MM.yyyy" md-placeholder="Enter date" md-max-date="maxBirthdayDate" md- ng-disabled="userHasNoEvents"></md-datepicker>
 			</div>
 		</div>
-
 
 		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.nationality.$valid ? 'has-success' : 'has-error')">
 			<label class="col-lg-4 control-label" for="nationality">{{'GENERIC_NATIONALITY'|translate}}</label>
 			<div class="col-lg-3">
-				<input id="nationality" class="form-control" type="text" ng-model="osiam.nationality" name="nationality" ng-readonly="userHasNoEvents" />
+				<input id="nationality" class="form-control" type="text" ng-model="person.nationality_a_e1" name="nationality" ng-readonly="userHasNoEvents" />
 			</div>
 		</div>
 
@@ -65,7 +65,7 @@
 
 			<label class="col-lg-4 control-label" for="languages">{{'GENERIC_LANGUAGES'|translate}}</label>
 			<div class="col-lg-3">
-				<input id="languages" class="form-control" type="languages" ng-model="osiam.languages" name="languages" ng-readonly="userHasNoEvents" />
+				<input id="languages" class="form-control" type="languages" ng-model="person.languages_a_e1" name="languages" ng-readonly="userHasNoEvents" />
 			</div>
 		</div>
 
@@ -73,8 +73,8 @@
 			<label class="col-lg-4 control-label" for="gender">{{'GENERIC_GENDER'|translate}}</label>
 			<div class="col-lg-3">
 				<select class="form-control" id="gender" name="gender"
-						ng-model="gender"
-						ng-options="option.name | translate for option in genderOptions" ng-disabled="userHasNoEvents" />
+						ng-model="person.sex_a_e1"
+						ng-options="option.name | translate for option in genderOptions" ng-disabled="userHasNoEvents"></select>
 			</div>
 		</div>
 

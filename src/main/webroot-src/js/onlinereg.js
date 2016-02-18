@@ -2,7 +2,17 @@
  * Created by mley on 21.07.14.
  */
 
-var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate', 'flow', 'flow.img', 'flow.init', 'flow.provider' ]);
+var onlineRegApp = angular.module('onlineRegApp', [
+    'ngRoute',
+    'ngMaterial',
+    'ngAnimate',
+    'ngAria',
+    'pascalprecht.translate',
+    'ui.bootstrap',
+    'flow',
+    'flow.img',
+    'flow.init',
+    'flow.provider' ]);
 
 onlineRegApp.run(function ($rootScope) {
     $rootScope.parseDate = function (dt) {
@@ -11,7 +21,7 @@ onlineRegApp.run(function ($rootScope) {
 
     $rootScope.isUserLoged = function () {
         return $rootScope.user_logged_in != null;
-    }
+    };
 
     $rootScope.cleanMessages = function() {
         $rootScope.button = false;
@@ -20,12 +30,12 @@ onlineRegApp.run(function ($rootScope) {
         $rootScope.messageContent = null;
         $rootScope.error=null;
         $rootScope.success=null;
-    }
+    };
 
     $rootScope.cleanImageControls = function () {
         $rootScope.correctImageFormat = true;
         $rootScope.correctImageSize = true;
-    }
+    };
     //Only required for LoginController
     setStatus = null;
 });
@@ -84,7 +94,7 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
         controller: 'UserRefreshActivationController'
     }).otherwise({
         redirectTo: '/event'
-    })
+    });
 
     $translateProvider.useStaticFilesLoader({
         prefix: 'languages/lang-',
@@ -92,7 +102,6 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
     });
 
     $translateProvider.preferredLanguage('de_DE');
-
 });
 
 
@@ -105,6 +114,19 @@ onlineRegApp.config(['flowFactoryProvider', function (flowFactoryProvider) {
         singleFile: true
     };
 }]);
+
+onlineRegApp.config(function($mdDateLocaleProvider) {
+    $mdDateLocaleProvider.firstDayOfWeek = 1;
+
+    $mdDateLocaleProvider.parseDate = function(dateString) {
+        var m = moment(dateString, 'L', true);
+        return m.isValid() ? m.toDate() : new Date(NaN);
+    };
+
+    $mdDateLocaleProvider.formatDate = function(date) {
+        return moment(date).format('L');
+    };
+});
 
 onlineRegApp.directive('equals', function() {
     return {

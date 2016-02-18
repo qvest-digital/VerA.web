@@ -62,6 +62,9 @@ import java.util.UUID;
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
+    /** Person type */
+    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
+
     private static final String VERAWEB_SCHEME = "urn:scim:schemas:veraweb:1.5:Person";
 	private Config config;
     private Client client;
@@ -80,6 +83,25 @@ public class UserResource {
         this.config = config;
         this.client = client;
         osiamClient = config.getOsiam().getClient(client);
+    }
+
+    /**
+     * Get Person object by username
+     *
+     * @param username Username
+     * @return Person, if person exists
+     * @throws IOException TODO
+     */
+    @GET
+    @Path("/userdata/{username}")
+    public Person getUserByUsername(@PathParam("username") String username) throws IOException {
+        final Person person = getUserData(username);
+
+        if (person != null) {
+            return person;
+        }
+
+        return null;
     }
 
     /**
@@ -189,25 +211,27 @@ public class UserResource {
     public String updateUserCoreData(@PathParam("username") String username) {
         final Person person = new Person();
 
-       /* person.setSalutation;
+        /* person.setSalutation;
         person.setTitle;
         person.setFirstName("");
         person.setLastName("");
         person.setBirthday;
         person.setNationality;
         person.setLanguages;
-        person.setSex_a_e1("");
+        person.setSex_a_e1(""); */
 
-
-                person.salutation,
-                n.title,
-                erson.firstName,
-                rson.lastName,
-                rson.birthday,
-        .person.nationality,
-                erson.languages,
-                on.gender,*/
         return "";
+    }
+
+    /**
+     * Get Person instance from one username
+     *
+     * @param username Username
+     * @return Person
+     * @throws IOException TODO
+     */
+    private Person getUserData(String username) throws IOException {
+        return readResource(path("person", "userdata", username), PERSON);
     }
 
     private void setOsiamUserAsActive(String username) throws IOException {
