@@ -2697,6 +2697,78 @@ und finden den gerade angelegten Benutzer in der Gästeliste.
 
 \fi% oa
 
+\ifoa
+\section{Deaktivierung der Online-Anmeldung}\label{sec:deactivate-oa}
+
+Die Online-Anmeldung kann nach einer erfolgreichen Installation
+wieder komplett oder für einzelne Mandanten deaktiviert werden.
+Hierzu müssen zwei Parameter in der \texttt{config\_override.xml}
+Datei gesetzt werden.
+
+\subsection{Deaktivierung der Online-Anmeldung für die ganze Installation}
+
+\begin{minipage}{\textwidth}
+Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_override.xml}
+indem Sie die folgenden zwei Parameter hinzufügen oder ggf. anpassen.
+
+\begin{lstdump}{OA komplett}
+<?xml version="1.0" encoding="utf-8"?>
+<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
+
+<tcModuleConfig>
+    <params>
+		    <param name="online-registration.activated" value="false"/>
+		    <param name="mandanten-online-registration.deactivated" value=""/>
+    </params>
+</tcModuleConfig>
+\end{lstdump}
+\end{minipage}
+
+Nach der deaktivierung verhält sich die VerA.web Installation wie eine
+Installation ohne Online-Anmeldung.
+
+\subsection{Deaktivierung der Online-Anmeldung für einzelne Mandanten}
+
+Um die Online-Anmeldung nur für einzelne Mandanten zu deaktivieren,
+werden die ID's diese Mandanten benötigt.
+
+Eine Übersicht über alle Mandanten findet der Administrator Benutzer
+auf der Web Oberfläche unter dem Menüpunkt Administration -> Mandanten.
+
+\begin{minipage}{\textwidth}
+Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_override.xml}
+indem Sie die folgenden zwei Parameter hinzufügen oder ggf. anpassen.
+
+Tragen Sie jedoch anstelle von "MANDANTEN" die einzelnen ID's der zu
+deaktivierenden Mandanten, als Komma getrennte Liste, ein.
+
+\begin{lstdump}{OA einzelnd}
+<?xml version="1.0" encoding="utf-8"?>
+<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
+
+<tcModuleConfig>
+    <params>
+		    <param name="online-registration.activated" value="true"/>
+		    <param name="mandanten-online-registration.deactivated" value="MANDANTEN"/>
+    </params>
+</tcModuleConfig>
+\end{lstdump}
+
+Mögliche Beispiel Konfigurationen:
+\begin{lstdump}{OA Beispiel}
+            <param name="mandanten-online-registration.deactivated" value=""/>
+            <param name="mandanten-online-registration.deactivated" value="3"/>
+            <param name="mandanten-online-registration.deactivated" value="3,4"/>
+            <param name="mandanten-online-registration.deactivated" value="3, 4, 5"/>
+\end{lstdump}
+\end{minipage}
+
+Nach der deaktivierung der einzelnen Mandanten ist die Online-Anmeldung noch aktiv,
+nur werden bei den Veranstaltungen deaktivierter Mandaten die Links zur Online-Anmeldung
+nicht mehr angezeigt.
+
+\fi% oa
+
 \section{Weitere Fragen}\label{sec:outro}
 
 Wenn Sie einen Service- und Wartungsvertrag mit uns abgeschlossen
