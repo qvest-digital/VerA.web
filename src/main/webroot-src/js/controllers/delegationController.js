@@ -146,8 +146,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
     } else {
         $scope.genderOptions = [
             {id: 0, name:"GENERIC_PLEASE_SELECT"},
-            {id: 1, name:"GENERIC_GENDER_MALE"},
-            {id: 2, name:"GENERIC_GENDER_FEMALE"}
+            {id: 1, name:"GENERIC_SALUTATION_MALE"},
+            {id: 2, name:"GENERIC_SALUTATION_FEMALE"}
         ];
 
         $scope.categoryNames = [];

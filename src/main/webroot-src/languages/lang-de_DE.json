@@ -27,8 +27,8 @@
   "GENERIC_ERROR": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.",
   "GENERIC_GENDER": "Geschlecht",
   "GENERIC_PLEASE_SELECT": "Bitte wählen",
-  "GENERIC_GENDER_MALE": "Herr",
-  "GENERIC_GENDER_FEMALE": "Frau",
+  "GENERIC_SALUTATION_MALE": "Herr",
+  "GENERIC_SALUTATION_FEMALE": "Frau",
   "GENERIC_MISSING_GENDER_MESSAGE": "Bitte wählen Sie ein Geschlecht aus.",
   "GENERIC_IMAGE_SIZE_FALSE": "Das Bild muss 186 Pixel weit und 245 Pixel hoch sein!",
   "GENERIC_IMAGE_FORMAT_FALSE": "Es werden nur die Dateiformate: \"jpeg, jpg und png\" unterstützt!",
@@ -48,6 +48,9 @@
   "GENERIC_NATIONALITY": "Nationalität/Staatsangehörigkeit",
   "GENERIC_TITLE": "Akademischer Titel",
   "GENERIC_SALUTATION": "Anrede",
+  "GENERIC_NOT_SELECT": "Nicht gewählt",
+  "GENERIC_GENDER_MALE": "Männlich",
+  "GENERIC_GENDER_FEMALE": "Weiblich",
 
   "BROWSER_TITLE": "VerA.web Online-Registrierung",
 
