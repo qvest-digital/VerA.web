@@ -42,7 +42,7 @@ public class MediaRepresentativesUtilities {
     public void setUrlForMediaRepresentatives() throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
 
-        if(propertiesReader.propertiesAreAvailable() && event.mediarepresentatives != null) {
+        if(event != null && propertiesReader.propertiesAreAvailable() && event.mediarepresentatives != null) {
             Properties properties = propertiesReader.getProperties();
             URLGenerator url = new URLGenerator(properties);
             url.getURLForMediaRepresentatives();
