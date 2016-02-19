@@ -13,6 +13,8 @@
 
 	<h1>${placeholderWithTranslation.verteileranlegen}</h1>
 
+	<!-- TODO NEUE PLACHOLDER ERSTELLEN UND EINFÜGEN-->
+
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
 
 		<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
