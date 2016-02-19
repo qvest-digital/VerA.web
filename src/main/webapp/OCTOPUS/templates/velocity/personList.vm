@@ -402,8 +402,7 @@
             } else if (selectValue == "7") {
                 submitFormWithGivenAction('AddPersonToEventGuestList');
             } else if (selectValue == "8") {
-				$('#selectNone').val('false');
-				submitFormWithGivenAction('CreateMailinglist', $grants.mayWrite());
+            	buildMailinglist();
 		  	}
         });
     });
@@ -603,6 +602,17 @@
 					function assignWorkarea() {
 						if ( hasSelection() ) {
 							selectPersonWorkarea( "${paths.staticWeb}do/popupAssignPersonWorkarea?count=" + selectedCount );
+						} else {
+							$(".errormsg").remove();
+							$(".successmsg").remove();
+							showWarning( "${placeholderWithTranslation.waehlensiebittezunaechsteineodermehrerepersonenaus}" );
+						}
+					}
+
+					function buildMailinglist() {
+						if ( hasSelection() ) {
+							$('#selectNone').val('false');
+                            submitFormWithGivenAction('CreateMailinglistFromPerson', $grants.mayWrite());
 						} else {
 							$(".errormsg").remove();
 							$(".successmsg").remove();

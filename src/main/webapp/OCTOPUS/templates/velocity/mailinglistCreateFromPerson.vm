@@ -17,7 +17,7 @@
 
 		<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
-    		<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');">
+    		<form action="SaveMailinglistFromPerson" name="mailinglists" method="POST" onsubmit="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');">
 
         		#if($mailinglist.errors.size() > 0)
             		<vera-warn>
@@ -46,7 +46,7 @@
 
         	<div class="textRight">
         		<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.verteilerspeichern}" title="${placeholderWithTranslation.verteilerspeichern}">
-        		<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zuruckzurgasteverwaltung}" title="${placeholderWithTranslation.zuruckzurgasteverwaltung}" onclick="window.location.href='ShowGuestList?selectNone=true';">
+        		<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zuruckzurpersonensuche}" title="${placeholderWithTranslation.zuruckzurpersonensuche}" onclick="window.location.href='ShowPersonSearchSimple?action=person&search=clear';">
         	</div>
 		</form>
 </div><!-- end #content_container -->
