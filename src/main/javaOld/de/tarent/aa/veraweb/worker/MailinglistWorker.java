@@ -25,10 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import de.tarent.aa.veraweb.beans.Doctype;
-import de.tarent.aa.veraweb.beans.GuestSearch;
-import de.tarent.aa.veraweb.beans.Mailinglist;
-import de.tarent.aa.veraweb.beans.MailinglistAddress;
+import de.tarent.aa.veraweb.beans.*;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
@@ -43,6 +40,7 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.log4j.Logger;
 
 /**
  * Dieser Octopus-Worker stellt Aktionen zur Verwaltung (erstellen
@@ -52,6 +50,9 @@ import de.tarent.octopus.server.OctopusContext;
  * @version $Revision: 1.1 $
  */
 public class MailinglistWorker {
+
+	private static final Logger logger = Logger.getLogger(MailinglistWorker.class);
+
 	/** Octopus-Eingabe-Parameter für {@link #guessMaillinglist(OctopusContext)} */
 	public static final String INPUT_guessMaillinglist[] = {};
 	/** Octopus-Ausgabe-Parameter für {@link #guessMaillinglist(OctopusContext)} */
@@ -70,20 +71,16 @@ public class MailinglistWorker {
 	public Map guessMaillinglist(OctopusContext cntx) throws BeanException, IOException {
 		Map result = (Map)cntx.contentAsObject("mailinglistParams");
 		if (result == null) result = new HashMap();
-		Database database = new DatabaseVeraWeb(cntx);
-		GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
 
 		List selection = (List)cntx.contentAsObject("listselection");
-		if (selection != null && selection.size() != 0) {
+		if (selection != null) {
 			result.put("count", new Integer(selection.size()));
-		} else {
-			WhereList list = new WhereList();
-			GuestListWorker.addGuestListFilter(search, list);
+			// falls nix ausgewählt ist, fängt der js code das ab,
+			// und wenn nix ausgewählt ist, ist ja nix ausgewählt,
+			// dann soll er nicht selber in der datenbank suchen
 
-			result.put("count",
-					database.getCount(
-							database.getCount("Guest").
-									where(list)));
+			// sollte es doch irgendwie zu der ausführung ges codes kommen,
+			// kann ja ruhig in der MAP count=0 stehen, oder?
 		}
 		return result;
 	}
@@ -107,7 +104,8 @@ public class MailinglistWorker {
 	 */
 	public Map createMailinglist(OctopusContext cntx, Mailinglist mailinglist) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
-		GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
+//		GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
+//		PersonSearch search = (PersonSearch)cntx.contentAsObject("search");
 
 		// Adresstype und Locale laden
 		Integer addresstype = new Integer(PersonConstants.ADDRESSTYPE_BUSINESS);
@@ -126,19 +124,23 @@ public class MailinglistWorker {
 		}
 
 		// Bedingung des Verteilers definieren
+		int savedAddresses = 0;
 		Clause clause;
 		List selection = (List)cntx.contentAsObject("listselection");
 		if (selection != null && selection.size() != 0) {
-			clause = Where.and(
-					Expr.equal("tguest.fk_event", search.event),
-					Expr.in("tguest.pk", selection));
-		} else {
-			clause = new WhereList();
-			GuestListWorker.addGuestListFilter(search, (WhereList)clause);
+			if(cntx.contentAsObject("search") instanceof PersonSearch){
+				clause = Expr.in("tperson.pk", selection);
+				// Personen hinzufügen
+				savedAddresses = addMailinglistFromPerson(cntx, mailinglist, addresstype, locale, clause);
+			}
+			if(cntx.contentAsObject("search") instanceof GuestSearch){
+				GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
+				clause = Where.and(Expr.equal("tguest.fk_event", search.event), Expr.in("tguest.pk", selection));
+				// Personen hinzufügen
+				savedAddresses = addMailinglistFromGuest(cntx, mailinglist, freitextfeld, addresstype, locale, clause);
+			}
 		}
-
-		// Personen hinzufügen
-		int savedAddresses = addMailinglist(cntx, mailinglist, freitextfeld, addresstype, locale, clause);
+		// hier das gleiche, kann nicht 0 sein, und wenn doch... siehe oben
 
 		if (savedAddresses == 0) {
 
@@ -171,6 +173,52 @@ public class MailinglistWorker {
 	 *
 	 * @param cntx Octopus-Context
 	 * @param mailinglist Verteiler dem Gäste hinzugefügt werden sollen.
+	 * @param addresstype Adresstyp
+	 * @param locale Zeichensatz
+	 * @param clause Bedingung
+	 * @return Anzahl der hinzugefügten Adressen.
+	 * @throws BeanException
+	 * @throws IOException
+	 */
+	protected int addMailinglistFromPerson(OctopusContext cntx, Mailinglist mailinglist, Integer addresstype, Integer locale, Clause clause) throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(cntx);
+		String personMail = getMailColumn(addresstype, locale);
+		String personFax = getFaxColumn(addresstype, locale);
+
+		Select select = SQL.Select(database).setDistinct(true).
+				from("veraweb.tperson").
+				selectAs("tperson.pk", "person").
+				selectAs(personMail, "mail2").
+				selectAs(personFax, "fax2").
+				selectAs("tperson.mail_a_e1", "mail3").
+				selectAs("tperson.fax_a_e1", "fax3");
+
+		select.selectAs("FALSE", "hasguestdoctype");
+		select.selectAs("NULL", "mail1");
+		select.selectAs("NULL", "fax1");
+
+		select.where(new RawClause("(" + clause.clauseToString(database) + ") AND (" +
+				"length(" + personMail + ") != 0 OR " +
+				"length(" + personFax + ") != 0 OR " +
+				"length(tperson.mail_a_e1) != 0 OR " +
+				"length(tperson.fax_a_e1) != 0)"));
+
+		return addMailinglist(cntx, mailinglist, select);
+	}
+
+	/**
+	 * Fügt Gäste einem bestehendem Verteiler anhand der übergebenen Bedingung
+	 * <code>clause</code> hinzu. Die Bedingung darf dabei Einschränkungen auf
+	 * die Tabellen <code>tguest</code> und <code>tperson</code> vornehmen.
+	 * <br><br>
+	 * Die Adresse die in den entsprechenden Verteiler eingetragen wird, wird
+	 * aus dem entsprechenden Personen-Dokumenttyp 'Freitextfeld' gewählt.
+	 * Sollte dieser nicht existieren wird entsprechend des übergebenen
+	 * Adresstyps und Zeichensatzes in den normalen Personen Datengesucht. (Im
+	 * Zweifel wird auf die geschäftlichen lateinischen Daten zurückgegriffen.)
+	 *
+	 * @param cntx Octopus-Context
+	 * @param mailinglist Verteiler dem Gäste hinzugefügt werden sollen.
 	 * @param doctype ID des Dokumenttypes der verwendet werden soll.
 	 * @param addresstype Adresstyp
 	 * @param locale Zeichensatz
@@ -179,10 +227,8 @@ public class MailinglistWorker {
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	protected int addMailinglist(OctopusContext cntx, Mailinglist mailinglist, Integer doctype, Integer addresstype, Integer locale, Clause clause) throws BeanException, IOException {
+	protected int addMailinglistFromGuest(OctopusContext cntx, Mailinglist mailinglist, Integer doctype, Integer addresstype, Integer locale, Clause clause) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
-		int savedAddresses = 0;
-
 		String personMail = getMailColumn(addresstype, locale);
 		String personFax = getFaxColumn(addresstype, locale);
 
@@ -208,12 +254,25 @@ public class MailinglistWorker {
 		}
 
 		select.where(new RawClause("(" + clause.clauseToString(database) + ") AND (" +
-						"length(tguest_doctype.mail) != 0 OR " +
-						"length(tguest_doctype.fax) != 0 OR " +
-						"length(" + personMail + ") != 0 OR " +
-						"length(" + personFax + ") != 0 OR " +
-						"length(tperson.mail_a_e1) != 0 OR " +
-						"length(tperson.fax_a_e1) != 0)"));
+				"length(tguest_doctype.mail) != 0 OR " +
+				"length(tguest_doctype.fax) != 0 OR " +
+				"length(" + personMail + ") != 0 OR " +
+				"length(" + personFax + ") != 0 OR " +
+				"length(tperson.mail_a_e1) != 0 OR " +
+				"length(tperson.fax_a_e1) != 0)"));
+
+		return addMailinglist(cntx, mailinglist, select);
+	}
+
+	/**
+	 * Hilfsfunktion für
+	 * addMailinglistFromPerson
+	 * und
+	 * addMailinglistFromGuest
+	 */
+	protected int addMailinglist(OctopusContext cntx, Mailinglist mailinglist, Select select) throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(cntx);
+		int savedAddresses = 0;
 
 		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
 			Map data = (Map)it.next();

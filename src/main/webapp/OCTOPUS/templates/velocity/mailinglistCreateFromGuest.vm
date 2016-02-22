@@ -17,7 +17,7 @@
 
 		<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
-    		<form action="SaveMailinglist" name="mailinglists" method="POST" onsubmit="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');">
+    		<form action="SaveMailinglistFromGuest" name="mailinglists" method="POST" onsubmit="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');">
 
         		#if($mailinglist.errors.size() > 0)
             		<vera-warn>

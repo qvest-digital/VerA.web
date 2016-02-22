@@ -996,7 +996,38 @@
 			</response>
 		</task>
 		<!-- Umsetzung VERTEILER -->
-		<task name="CreateMailinglist" access="public" groups="StandardFieldsReader">
+		<task name="CreateMailinglistFromPerson" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt einen Dialog zur Erstellung eines Mail-Verteilers an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="PersonListWorker"/>
+			<action name="showList" worker="PersonListWorker"/>
+			<action name="guessMaillinglist" worker="MailinglistWorker"/>
+			<response type="velocity" name="mailinglistCreateFromPerson">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SaveMailinglistFromPerson" access="public" groups="Writer">
+			<description>
+				Speichert einen Mail-Verteiler und zeigt anschließend die Gästeliste an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="PersonListWorker"/>
+			<action name="showList" worker="PersonListWorker"/>
+			<action name="saveDetail" worker="MailinglistDetailWorker"/>
+			<status equals="error">
+				<doTask name="CreateMailinglistFromPerson"/>
+			</status>
+			<action name="createMailinglist" worker="MailinglistWorker"/>
+			<status equals="error">
+				<doTask name="CreateMailinglistFromPerson"/>
+			</status>
+			<doTask name="ShowPersonSearchSimple"/>
+		</task>
+
+		<task name="CreateMailinglistFromGuest" access="public" groups="StandardFieldsReader">
 			<description>
 				Zeigt einen Dialog zur Erstellung eines Mail-Verteilers an.
 			</description>
@@ -1005,12 +1036,12 @@
 			<action name="getEvent" worker="GuestListWorker" />
 			<action name="showList" worker="GuestListWorker"/>
 			<action name="guessMaillinglist" worker="MailinglistWorker"/>
-			<response type="velocity" name="mailinglistCreate">
+			<response type="velocity" name="mailinglistCreateFromGuest">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
 
-		<task name="SaveMailinglist" access="public" groups="Writer">
+		<task name="SaveMailinglistFromGuest" access="public" groups="Writer">
 			<description>
 				Speichert einen Mail-Verteiler und zeigt anschließend die Gästeliste an.
 			</description>
@@ -1020,11 +1051,11 @@
 			<action name="showList" worker="GuestListWorker"/>
 			<action name="saveDetail" worker="MailinglistDetailWorker"/>
 			<status equals="error">
-				<doTask name="CreateMailinglist"/>
+				<doTask name="CreateMailinglistFromGuest"/>
 			</status>
 			<action name="createMailinglist" worker="MailinglistWorker"/>
 			<status equals="error">
-				<doTask name="CreateMailinglist"/>
+				<doTask name="CreateMailinglistFromGuest"/>
 			</status>
 			<doTask name="ShowGuestList"/>
 		</task>

@@ -267,7 +267,7 @@
 								unassignCategories();
 							} else if (selectValue == "3") {
 								$('#selectNone').val('false');
-								submitFormWithGivenAction('CreateMailinglist', $grants.mayWrite());
+								submitFormWithGivenAction('CreateMailinglistFromGuest', $grants.mayWrite());
 							} else if (selectValue == "4") {
 								$('#selectNone').val('false');
 								submitFormWithGivenAction('ShowExportGuestDoctype', $grants.mayExport());

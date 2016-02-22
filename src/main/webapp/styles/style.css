@@ -1148,3 +1148,7 @@ td[onclick]
     z-index: 1000;
     font-weight: normal;
 }
+
+.MultiFile-applied {
+    left: 0px;
+}
