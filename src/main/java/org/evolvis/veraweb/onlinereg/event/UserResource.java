@@ -158,6 +158,13 @@ public class UserResource {
         return StatusConverter.convertStatus("OK");
     }
 
+    /**
+     * Activates a user of the given activation token, if the link isn't expired
+     *
+     * @param activationToken
+     * @return result of activation. Values can be "OK", "LINK_INVALID" or "LINK_EXPIRED"
+     * @throws IOException
+     */
     @GET
     @Path("/activate/{activationToken}")
     public String activateUser(@PathParam("activationToken") String activationToken) throws IOException {
@@ -173,6 +180,14 @@ public class UserResource {
         }
     }
 
+    /**
+     * Sends a new E-Mail to the address of the user of the given activation_token
+     *
+     * @param oldActivationToken
+     * @param currentLanguageKey For the language, the E-Mail will be send
+     * @return result of post. Value can be "OK"
+     * @throws IOException
+     */
     @POST
     @Path("/update/activation/data")
     public String refreshActivationToken(@FormParam("activation_token") String oldActivationToken, @FormParam("language") String currentLanguageKey) throws IOException {
@@ -197,6 +212,12 @@ public class UserResource {
         return StatusConverter.convertStatus("OK");
     }
 
+    /**
+     * Checks if the user is registered to any events
+     *
+     * @param username
+     * @return Status of getUserRegisteredToEvents
+     */
     @GET
     @Path("/userdata/existing/event/{username}")
     public String isUserRegisteredToEvents(@PathParam("username") String username) {
@@ -206,21 +227,39 @@ public class UserResource {
         return getUserRegisteredToEvents(resource);
     }
 
+    /**
+     * Updates the core data of a user
+     *
+     * @param username
+     * @param fk_salutation
+     * @param salutation (salutation and fk_salutation are in the tperson table present)
+     * @param title
+     * @param firstName
+     * @param lastName
+     * @param birthday
+     * @param nationality
+     * @param languages
+     * @param gender
+     * @return result of update. Values can be "OK" and "USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE"
+     * @throws IOException
+     */
     @POST
     @Path("/userdata/update/{username}")
-    public String updateUserCoreData(@PathParam("username") String username) {
-        final Person person = new Person();
+    public String updateUserCoreData(@PathParam("username") String username,
+                                     @FormParam("person_fk_salutation") Integer fk_salutation,
+                                     @FormParam("person_salutation") String salutation,
+                                     @FormParam("person_title") String title,
+                                     @FormParam("person_firstName") String firstName,
+                                     @FormParam("person_lastName") String lastName,
+                                     @FormParam("person_birthday") Date birthday,
+                                     @FormParam("person_nationality") String nationality,
+                                     @FormParam("person_languages") String languages,
+                                     @FormParam("person_gender") Integer gender) throws IOException {
 
-        /* person.setSalutation;
-        person.setTitle;
-        person.setFirstName("");
-        person.setLastName("");
-        person.setBirthday;
-        person.setNationality;
-        person.setLanguages;
-        person.setSex_a_e1(""); */
+        final Form postBody = createUserCoreDataPostBody(username, fk_salutation, salutation, title, firstName,
+                lastName, birthday, nationality, languages, gender);
 
-        return "";
+        return updateUserCoreDataWithGivenValues(postBody);
     }
 
     /**
@@ -331,6 +370,51 @@ public class UserResource {
         }
 
         return null;
+    }
+
+    private Form createUserCoreDataPostBody(@PathParam("username") String username, @FormParam("person_fk_salutation") Integer fk_salutation, @FormParam("person_salutation") String salutation, @FormParam("person_title") String title, @FormParam("person_firstName") String firstName, @FormParam("person_lastName") String lastName, @FormParam("person_birthday") Date birthday, @FormParam("person_nationality") String nationality, @FormParam("person_languages") String languages, @FormParam("person_gender") Integer gender) {
+        final Form postBody = new Form();
+
+        postBody.add("username", username);
+        postBody.add("fk_salutation", fk_salutation);
+        postBody.add("salutation", salutation);
+        postBody.add("title", title);
+        postBody.add("firstName", firstName);
+        postBody.add("lastName", lastName);
+        //Can't post a date, but an epoch
+        postBody.add("birthday", birthday.getTime());
+        postBody.add("nationality", nationality);
+        postBody.add("languages", languages);
+        postBody.add("gender", resolveGenderValueFromOptionIds(gender));
+        return postBody;
+    }
+
+    private String updateUserCoreDataWithGivenValues(Form postBody) {
+        try {
+            final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/usercoredata/update/");
+            resource.post(postBody);
+        } catch (UniformInterfaceException e) {
+            int statusCode = e.getResponse().getStatus();
+            if (statusCode == 204) {
+                return StatusConverter.convertStatus("USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE");
+            }
+
+            return StatusConverter.convertStatus("USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE");
+        }
+
+        return StatusConverter.convertStatus("OK");
+    }
+
+    private String resolveGenderValueFromOptionIds(@FormParam("person_gender") Integer gender) {
+        String genderResolved = "";
+
+        //Handle gender ids of option select
+        if(gender == 1) {
+            genderResolved = "m";
+        } else if(gender == 2) {
+            genderResolved = "f";
+        }
+        return genderResolved;
     }
 
     private String path(Object... path) {
