@@ -2,15 +2,8 @@
  * Created by mley on 21.07.14.
  */
 
-var onlineRegApp = angular.module('onlineRegApp', [
-    'ngRoute',
-    'ngAnimate',
-    'ngAria',
-    'ngMessages',
-    'ngMaterial',
-    'pascalprecht.translate',
-    'ui.bootstrap',
-    'flow', 'flow.img', 'flow.init', 'flow.provider' ]);
+var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate',
+                                                    'flow', 'flow.img', 'flow.init', 'flow.provider' ]);
 
 onlineRegApp.run(function ($rootScope) {
     $rootScope.parseDate = function (dt) {
@@ -266,8 +259,8 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
 
     $scope.genderOptions = [
         {id: 0, name:"GENERIC_PLEASE_SELECT"},
-        {id: 1, name:"GENERIC_SALUTATION_MALE"},
-        {id: 2, name:"GENERIC_SALUTATION_FEMALE"}
+        {id: 1, name:"GENERIC_GENDER_MALE"},
+        {id: 2, name:"GENERIC_GENDER_FEMALE"}
     ];
 
     $scope.gender = $scope.genderOptions[0];
@@ -497,8 +490,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
     } else {
         $scope.genderOptions = [
             {id: 0, name:"GENERIC_PLEASE_SELECT"},
-            {id: 1, name:"GENERIC_SALUTATION_MALE"},
-            {id: 2, name:"GENERIC_SALUTATION_FEMALE"}
+            {id: 1, name:"GENERIC_GENDER_MALE"},
+            {id: 2, name:"GENERIC_GENDER_FEMALE"}
         ];
 
         $scope.categoryNames = [];
