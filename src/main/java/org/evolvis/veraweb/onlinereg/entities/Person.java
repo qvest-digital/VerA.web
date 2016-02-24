@@ -35,6 +35,7 @@ import java.util.Date;
 
 /**
  * Created by mley on 01.09.14.
+ * @author Stefan Weiz, tarent solutions GmbH
  */
 @Data
 @XmlRootElement
@@ -85,6 +86,7 @@ public class Person {
     private String country_a_e1;
 	private String sex_a_e1;
 	private String salutation_a_e1;
+	private Integer fk_salutation_a_e1;
 	private String title_a_e1;
 	private Date birthday_a_e1;
 	private String languages_a_e1;
@@ -315,8 +317,16 @@ public class Person {
 		return salutation_a_e1;
 	}
 
-	public void setSalutaton_a_e1(String salutation_a_e1) {
+	public void setSalutation_a_e1(String salutation_a_e1) {
 		this.salutation_a_e1 = salutation_a_e1;
+	}
+
+	public Integer getFk_salutation_a_e1() {
+		return fk_salutation_a_e1;
+	}
+
+	public void setFk_salutation_a_e1(Integer fk_salutation_a_e1) {
+		this.fk_salutation_a_e1 = fk_salutation_a_e1;
 	}
 
 	public String getTitle_a_e1() {
