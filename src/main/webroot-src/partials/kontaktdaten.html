@@ -1,7 +1,7 @@
 <div class="container panel panel-body">
 	<h2 class="form-signin-heading">{{'GENERIC_USER_ACCOUNT'|translate}}</h2>
 
-	<form id="updateUserCoreData" name="updateUserCoreData" class="form-horizontal" role="form" ng-submit="updateUserCoreData()">
+	<form id="updateUserCoreData" name="updateUserCoreData" class="form-horizontal" role="form">
 		<div ng-show="status == 'e'" class="alert alert-danger" role="alert">{{'GENERIC_ERROR'|translate}}</div>
 		<div ng-show="status == 'e1'" class="alert alert-danger" role="alert">{{'REGISTER_USER_MESSAGE_USER_EXISTS_ERROR'|translate}}</div>
 		<div ng-show="status == 'e2'" class="alert alert-danger" role="alert">{{'REGISTER_USER_MESSAGE_VALIDATION_ERROR'|translate}}</div>
@@ -11,8 +11,8 @@
 		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateStammdatenREPLACE.salutation.$valid ? 'has-success' : 'has-error')">
 			<label class="col-lg-4 control-label" for="salutation">{{'GENERIC_SALUTATION'|translate}}</label>
 			<div class="col-lg-3">
-				<select class="form-control" id="salutation" name="salutation" ng-model="person.salutation_a_e1"
-						ng-options="option.name | translate for option in salutationOptions" ng-disabled="userHasNoEvents" />
+				<select class="form-control" id="salutation" name="salutation" ng-model="salutation"
+						ng-options="salutation as salutation.name for salutation in salutations" ng-disabled="userHasNoEvents" />
 			</div>
 		</div>
 
@@ -49,7 +49,7 @@
 			<div class="form-group">
 				<label class="col-lg-4 control-label">{{'GENERIC_BIRTHDAY'|translate}}</label>
 				<!-- implement: md-datepicker-invalid (maybe a ng-mpdule is needed) -->
-				<md-datepicker class="col-lg-3" id="birthday" ng-model="birthdayFormatted" date-parser="dd.MM.yyyy" md-placeholder="Enter date" md-max-date="maxBirthdayDate" md- ng-disabled="userHasNoEvents"></md-datepicker>
+				<md-datepicker class="col-lg-3" id="birthday" ng-model="person.birthday_a_e1" md-placeholder="Enter date" md-max-date="maxBirthdayDate" ng-disabled="userHasNoEvents"></md-datepicker>
 			</div>
 		</div>
 
@@ -73,14 +73,14 @@
 			<label class="col-lg-4 control-label" for="gender">{{'GENERIC_GENDER'|translate}}</label>
 			<div class="col-lg-3">
 				<select class="form-control" id="gender" name="gender"
-						ng-model="person.sex_a_e1"
+						ng-model="gender"
 						ng-options="option.name | translate for option in genderOptions" ng-disabled="userHasNoEvents"></select>
 			</div>
 		</div>
 
 		<div ng-show="!userHasNoEvents" class="form-group">
 			<div class="col-lg-3 col-lg-offset-4">
-				<button type="submit" class="btn btn-lg btn-primary btn-block btn-custom">
+				<button type="submit" class="btn btn-lg btn-primary btn-block btn-custom" ng-click="update_user_core_data()">
 					{{'USER_ACCOUNT_CORE_DATA_UPDATE'|translate}}
 				</button>
 			</div>
