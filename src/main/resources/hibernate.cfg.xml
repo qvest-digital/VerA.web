@@ -24,6 +24,7 @@
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Function"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Delegation"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalField"/>
+        <mapping class="org.evolvis.veraweb.onlinereg.entities.Salutation"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.LinkUUID"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.PersonCategory"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalFieldType"/>
