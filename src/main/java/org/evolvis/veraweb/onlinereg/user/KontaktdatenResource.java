@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package org.evolvis.veraweb.onlinereg.event;
+package org.evolvis.veraweb.onlinereg.user;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -29,8 +29,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.evolvis.veraweb.onlinereg.Config;
-import org.evolvis.veraweb.onlinereg.entities.Event;
-import org.evolvis.veraweb.onlinereg.entities.Guest;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,7 +38,13 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 
 import lombok.extern.java.Log;
+import org.evolvis.veraweb.onlinereg.entities.Salutation;
 
+/**
+ * New functions according to the page where the user can change his core data
+ *
+ * @author sweiz, tarent solutions GmbH
+ */
 @Path("/kontaktdaten")
 @Produces(MediaType.APPLICATION_JSON)
 @Log
@@ -50,21 +54,8 @@ public class KontaktdatenResource {
      */
     public static final String BASE_RESOURCE = "/rest";
 
-    /**
-     * Event type
-     */
-    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {
-    };
-    /**
-     * List of Events type
-     */
-    private static final TypeReference<List<Event>> EVENT_LIST = new TypeReference<List<Event>>() {
-    };
-    /**
-     * Guest type
-     */
-    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {
-    };
+    /** List of Salutations with attributes */
+    private static final TypeReference<List<Salutation>> SALUTATION_LIST = new TypeReference<List<Salutation>>() {};
 
     /**
      * Jersey client
@@ -72,7 +63,7 @@ public class KontaktdatenResource {
     private Client client;
 
     /**
-     * configuration
+     * Configuration
      */
     private Config config;
 
@@ -82,7 +73,7 @@ public class KontaktdatenResource {
     private ObjectMapper mapper = new ObjectMapper();
 
     /**
-     * Creates a new EventResource
+     * Creates a new KontaktdatenResource with configuration and Jersey client
      *
      * @param client jersey client
      * @param config configuration
@@ -90,6 +81,24 @@ public class KontaktdatenResource {
     public KontaktdatenResource(Config config, Client client) {
         this.client = client;
         this.config = config;
+    }
+
+    /**
+     * Get all salutations
+     *
+     * @return List of all salutations, if salutations exists
+     * @throws IOException TODO
+     */
+    @GET
+    @Path("/getallsalutations")
+    public List<Salutation> getAllSalutations() throws IOException {
+        final List<Salutation> salutationList = readResource(path("salutation", "getallsalutations"), SALUTATION_LIST);
+
+        if (salutationList != null) {
+            return salutationList;
+        }
+
+        return null;
     }
 
     /**
@@ -136,17 +145,5 @@ public class KontaktdatenResource {
             log.warning(uie.getResponse().getEntity(String.class));
             throw uie;
         }
-    }
-
-    /**
-     * Returns a list of events
-     *
-     * @return List of Event objects
-     * @throws IOException
-     */
-    @GET
-    @Path("/dum")
-    public List<Event> getEvents() throws IOException {
-        return readResource(path("kontaktdaten"), EVENT_LIST);
     }
 }
