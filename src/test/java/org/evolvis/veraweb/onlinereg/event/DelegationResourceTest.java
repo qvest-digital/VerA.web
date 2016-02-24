@@ -19,7 +19,6 @@
  */
 package org.evolvis.veraweb.onlinereg.event;
 
-import junit.framework.Assert;
 import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.evolvis.veraweb.onlinereg.Main;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
@@ -30,7 +29,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.List;
 
-import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 
 public class DelegationResourceTest {
