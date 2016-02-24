@@ -19,8 +19,6 @@
  */
 package org.evolvis.veraweb.onlinereg;
 
-
-
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 
@@ -43,6 +41,7 @@ import org.evolvis.veraweb.onlinereg.event.UserResource;
 import org.evolvis.veraweb.onlinereg.fileupload.FileUploadResource;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
 import org.evolvis.veraweb.onlinereg.user.ResetPasswordResource;
+import org.evolvis.veraweb.onlinereg.user.KontaktdatenResource;
 
 @Getter
 @Log
@@ -54,6 +53,7 @@ public class Main extends Application<Config> {
 		private UserResource userResource;
 		private LoginResource loginResource;
 		private DelegationResource delegationResource;
+        private KontaktdatenResource kontaktdatenResource;
 		private MediaResource mediaResource;
 		private Health health;
 		private FreeVisitorsResource freeVisitorsResource;
@@ -126,6 +126,7 @@ public class Main extends Application<Config> {
         environment.jersey().register(userResource = new UserResource(configuration, client));
         environment.jersey().register(loginResource = new LoginResource(configuration, client));
         environment.jersey().register(delegationResource = new DelegationResource(configuration, client));
+        environment.jersey().register(kontaktdatenResource = new KontaktdatenResource(configuration, client));
         environment.jersey().register(mediaResource = new MediaResource(configuration, client));
         environment.jersey().register(freeVisitorsResource = new FreeVisitorsResource(configuration, client));
         environment.jersey().register(updateResource = new UpdateResource(configuration, client));
