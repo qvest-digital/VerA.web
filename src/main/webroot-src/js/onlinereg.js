@@ -5,6 +5,7 @@
 var onlineRegApp = angular.module('onlineRegApp', [
     'ngRoute',
     'ngMaterial',
+    'ngMessages',
     'ngAnimate',
     'ngAria',
     'pascalprecht.translate',
@@ -115,6 +116,7 @@ onlineRegApp.config(['flowFactoryProvider', function (flowFactoryProvider) {
     };
 }]);
 
+//Datepicker configuration
 onlineRegApp.config(function($mdDateLocaleProvider) {
     $mdDateLocaleProvider.firstDayOfWeek = 1;
 

@@ -60,7 +60,7 @@
 		</div>
 
 		<!-- Needs an extra <div> to show the error message in a new line -->
-		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateUserCoreData.birthday.$valid ? 'has-success' : 'has-error')">
+		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateUserCoreData.birthday.$valid ? '' : 'has-error')">
 			<label class="col-lg-4 control-label"></label>
 			<div class="validation-messages" ng-messages="updateUserCoreData.birthday.$error">
 				<div class="col-lg-4 help-block" ng-message="valid">{{'GENERIC_MESSAGE_NOT_A_DATE'|translate}}</div>

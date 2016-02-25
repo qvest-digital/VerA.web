@@ -191,6 +191,7 @@ module.exports = function (grunt) {
                         'bower_components/angular-route/angular-route.min.js',
                         'bower_components/momentjs/min/moment-with-locales.min.js',
                         'bower_components/angular-material/angular-material.min.js',
+                        'bower_components/angular-messages/angular-messages.min.js',
                         'bower_components/angular-animate/angular-animate.min.js',
                         'bower_components/angular-aria/angular-aria.min.js',
                         'bower_components/bootstrap/dist/js/bootstrap.min.js',
@@ -268,7 +269,6 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-newer');
     grunt.registerTask('build', [
         'update',
         'wiredep',
@@ -276,8 +276,8 @@ module.exports = function (grunt) {
         'copy:dist',
         'useminPrepare',
         'concat',
-        'newer:cssmin',
-        'newer:uglify',
+        'cssmin',
+        'uglify',
         'usemin'
     ]);
 
