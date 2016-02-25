@@ -121,6 +121,18 @@
 
 #parse("inc/header.vm")
 
+#if($mailinglistParams && $mailinglistParams.count)
+    <vera-success>
+        #if($mailinglistParams.count == 0)
+         ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR} &quot;$!message.plain($mailinglist.name)&quot; ${placeholderWithTranslation.GUEST_LIST_CREATED_NO_PERSON}.
+        #elseif($mailinglistParams.count == 1)
+            ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR} &quot;$!message.plain($mailinglist.name)&quot; ${placeholderWithTranslation.GUEST_LIST_CREATED_ONE_PERSON}.
+        #else
+            ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR} &quot;$!message.plain($mailinglist.name)&quot; ${placeholderWithTranslation.GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE} $!mailinglistParams.count ${placeholderWithTranslation.GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO}.
+        #end
+    </vera-success>
+#end
+
 <div id="content_container">
 	#if($action == "host")
 		<div id="breadcrumb" class="textRight marginBottom10">

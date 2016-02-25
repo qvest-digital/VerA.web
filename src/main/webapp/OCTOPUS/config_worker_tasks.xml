@@ -1004,7 +1004,7 @@
 			<action name="getSearch" worker="PersonListWorker"/>
 			<action name="showList" worker="PersonListWorker"/>
 			<action name="guessMaillinglist" worker="MailinglistWorker"/>
-			<response type="velocity" name="mailinglistCreateFromPerson">
+			<response type="velocity" name="mailinglistCreate">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
@@ -1024,7 +1024,7 @@
 			<status equals="error">
 				<doTask name="CreateMailinglistFromPerson"/>
 			</status>
-			<doTask name="ShowPersonSearchSimple"/>
+			<doTask name="SearchPerson"/>
 		</task>
 
 		<task name="CreateMailinglistFromGuest" access="public" groups="StandardFieldsReader">
@@ -1036,7 +1036,7 @@
 			<action name="getEvent" worker="GuestListWorker" />
 			<action name="showList" worker="GuestListWorker"/>
 			<action name="guessMaillinglist" worker="MailinglistWorker"/>
-			<response type="velocity" name="mailinglistCreateFromGuest">
+			<response type="velocity" name="mailinglistCreate">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
