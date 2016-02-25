@@ -19,6 +19,7 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
+import java.util.Date;
 import java.util.List;
 
 import org.evolvis.veraweb.onlinereg.entities.Event;
@@ -36,6 +37,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  * Created by mley on 01.09.14.
+ * @author sweiz - tarent solutions GmbH
  */
 @Path("/person")
 @Produces(MediaType.APPLICATION_JSON)
@@ -178,6 +180,50 @@ public class PersonResource extends AbstractResource {
         }
     }
 
+    /**
+     * Updates the core data of a person
+     *
+     * @param username username of a person
+     * @param salutation salutation of a person
+     * @param fk_salutation foreign key of salutation of a person
+     * @param title title of a person
+     * @param firstName firstName of a person
+     * @param lastName lastName of a person
+     * @param birthday birthday of a person as long timestamp
+     * @param nationality nationality of a person
+     * @param languages languages of a person
+     * @param gender gender of a person
+     *
+     */
+    @POST
+    @Path("/usercoredata/update/")
+    public void updatePersonCoreData(@FormParam("username") String username,
+                                     @FormParam("salutation") String salutation,
+                                     @FormParam("fk_salutation") Integer fk_salutation,
+                                     @FormParam("title") String title,
+                                     @FormParam("firstName") String firstName,
+                                     @FormParam("lastName") String lastName,
+                                     @FormParam("birthday") Long birthday,
+                                     @FormParam("nationality") String nationality,
+                                     @FormParam("languages") String languages,
+                                     @FormParam("gender") String gender) {
+        final Session session = openSession();
+
+        try {
+            prepareAndUpdatePersonCoreData(username, salutation, fk_salutation, title, firstName, lastName, birthday,
+                    nationality, languages, gender, session);
+        } finally {
+            session.close();
+        }
+    }
+
+    /**
+     * Gets the first and the last name of a person, by his username
+     *
+     * @param username username of person
+     *
+     * @return first name and last name in one string separated by a whitespace
+     */
 	@GET
 	@Path("/userinfo/{username}")
 	public String getFirstAndLastName(@PathParam("username") String username) {
@@ -185,7 +231,6 @@ public class PersonResource extends AbstractResource {
         try {
             final Query query = session.getNamedQuery("Person.getPersonNamesByUsername");
             query.setString("username", username);
-
             return (String) query.uniqueResult();
         } finally {
             session.close();
@@ -457,4 +502,35 @@ public class PersonResource extends AbstractResource {
         return person;
     }
 
+    private void prepareAndUpdatePersonCoreData(String username,
+                                                String salutation,
+                                                Integer fk_salutation,
+                                                String title,
+                                                String firstName,
+                                                String lastName,
+                                                Long birthday,
+                                                String nationality,
+                                                String languages,
+                                                String gender,
+                                                Session session) {
+        final Query query = getSelectPersonByUsernameQuery(username, session);
+        final Person person = (Person) query.uniqueResult();
+
+        Date birthdayDate = new Date(birthday);
+
+        if(fk_salutation != 0) {
+            person.setFk_salutation_a_e1(fk_salutation);
+            person.setSalutation_a_e1(salutation);
+        }
+        person.setTitle_a_e1(title);
+        person.setFirstname_a_e1(firstName);
+        person.setLastname_a_e1(lastName);
+        person.setBirthday_a_e1(birthdayDate);
+        person.setNationality_a_e1(nationality);
+        person.setLanguages_a_e1(languages);
+        person.setSex_a_e1(gender);
+
+        session.update(person);
+        session.flush();
+    }
 }
