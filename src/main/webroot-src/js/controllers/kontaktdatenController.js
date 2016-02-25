@@ -75,46 +75,67 @@ onlineRegApp.controller('KontaktdatenController', function($http, $rootScope, $t
                 $scope.maxBirthdayDate.getDate());
 
             $scope.update_user_core_data = function () {
-                $http({
-                    method: 'POST',
-                    url: 'api/user/userdata/update/' + encodeURIComponent($rootScope.user_logged_in) + '',
-                    headers: {"Content-Type": undefined},
-                    data: $.param({
-                        person_fk_salutation: $scope.salutation.id,
-                        person_salutation: $scope.salutation.name,
-                        person_title: $scope.person.title_a_e1,
-                        person_firstName: $scope.person.firstname_a_e1,
-                        person_lastName: $scope.person.lastname_a_e1,
-                        person_birthday: $scope.person.birthday_a_e1,
-                        person_nationality: $scope.person.nationality_a_e1,
-                        person_languages: $scope.person.languages_a_e1,
-                        person_gender: $scope.gender.id
-                    })
-                    //success/error stuff left (delegationController for example)
-                }).success(function (result) {
-                    switch (result.status) {
-                        case 'OK':
-                            $scope.status = 1;
+                $scope.success = null;
+                $scope.error = null;
+                $rootScope.cleanMessages();
 
-                            setStatus = 1;
+                if ($scope.person.firstname_a_e1 == null || $scope.person.firstname_a_e1.length == 0) {
+                    $translate('GENERIC_MESSAGE_MISSING_FIRSTNAME').then(function (text) {
+                        $scope.error = text;
+                    });
+                } else if ($scope.person.lastname_a_e1 == null || $scope.person.lastname_a_e1.length == 0) {
+                    $translate('GENERIC_MESSAGE_MISSING_LASTNAME').then(function (text) {
+                        $scope.error = text;
+                    });
+                } else if ($scope.person.firstname_a_e1.length > 35) {
+                    $translate('GENERIC_MESSAGE_FIRSTNAME_MAX').then(function (text) {
+                        $scope.error = text;
+                    });
+                } else if ($scope.person.lastname_a_e1.length > 35) {
+                    $translate('GENERIC_MESSAGE_LASTNAME_MAX').then(function (text) {
+                        $scope.error = text;
+                    });
+                } else {
+                    $http({
+                        method: 'POST',
+                        url: 'api/user/userdata/update/' + encodeURIComponent($rootScope.user_logged_in) + '',
+                        headers: {"Content-Type": undefined},
+                        data: $.param({
+                            person_fk_salutation: $scope.salutation.id,
+                            person_salutation: $scope.salutation.name,
+                            person_title: $scope.person.title_a_e1,
+                            person_firstName: $scope.person.firstname_a_e1,
+                            person_lastName: $scope.person.lastname_a_e1,
+                            person_birthday: $scope.person.birthday_a_e1,
+                            person_nationality: $scope.person.nationality_a_e1,
+                            person_languages: $scope.person.languages_a_e1,
+                            person_gender: $scope.gender.id
+                        })
+                    }).success(function (result) {
+                        switch (result.status) {
+                            case 'OK':
+                                $scope.status = 1;
 
-                            $scope.update = function (parm1, parm2) {
-                                $scope.status = parm1 + ": " + parm2;
-                            };
+                                setStatus = 1;
 
-                            break;
-                        default:
-                            $scope.status = 'e';
-                    }
+                                $scope.update = function (parm1, parm2) {
+                                    $scope.status = parm1 + ": " + parm2;
+                                };
 
-                    if ($scope.status == 1) {
-                        $location.path('/login');
-                    }
+                                break;
+                            default:
+                                $scope.status = 'e';
+                        }
 
-                }).error(function (data, status, headers, config) {
-                    $scope.status = 'e';
-                });
-            };
+                        if ($scope.status == 1) {
+                            $translate('USER_ACCOUNT_CORE_DATA_UPDATED').then(function (text) {
+                                $scope.success = text;
+                            });
+                        }
+                    }).error(function (data, status, headers, config) {
+                    });
+                }
+            }
         }
     }
 });
