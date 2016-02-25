@@ -24,6 +24,14 @@
 
             <br/>
 
+            <input type="text" class="form-control" id="userName" placeholder="{{'GENERIC_USERNAME'|translate}}" ng-model="osiam.userName">
+
+            <input type="password" class="form-control" id="password" placeholder="{{'GENERIC_PASSWORD'|translate}}" ng-model="osiam.password">
+
+            <input type="password" class="form-control" id="passwordRep" placeholder="{{'GENERIC_PASSWORD_CONFIRM'|translate}}" ng-model="osiam.passwordRep">
+
+            <br/>
+
             <button type="submit" class="btn btn-custom center-block" ng-disabled="button" ng-click="register_pressevertreter()">{{'GENERIC_REGISTER'|translate}}</button>
         </div>
     </div>
