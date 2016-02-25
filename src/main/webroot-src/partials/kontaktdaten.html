@@ -55,7 +55,7 @@
 		<div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateUserCoreData.birthday.$valid ? 'has-success' : 'has-error')">
 			<label class="col-lg-4 control-label">{{'GENERIC_BIRTHDAY'|translate}}</label>
 			<div class="col-lg-3">
-				<md-datepicker id="birthday" name="birthday" ng-model="person.birthday_a_e1" md-placeholder="Enter date" md-max-date="maxBirthdayDate" ng-disabled="userHasNoEvents"></md-datepicker>
+				<md-datepicker id="birthday" name="birthday" date-parser="{{dd.MM.yyyy}}" ng-model="person.birthday_a_e1" md-placeholder="Enter date" md-max-date="maxBirthdayDate" ng-disabled="userHasNoEvents"></md-datepicker>
 			</div>
 		</div>
 
