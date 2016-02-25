@@ -146,8 +146,8 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
     } else {
         $scope.genderOptions = [
             {id: 0, name:"GENERIC_PLEASE_SELECT"},
-            {id: 1, name:"GENERIC_GENDER_MALE"},
-            {id: 2, name:"GENERIC_GENDER_FEMALE"}
+            {id: 1, name:"GENERIC_SALUTATION_MALE"},
+            {id: 2, name:"GENERIC_SALUTATION_FEMALE"}
         ];
 
         $scope.categoryNames = [];
@@ -271,19 +271,19 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                     $scope.error = text;
                 });
             } else if ($scope.vorname == null) {
-                $translate('DELEGATION_MESSAGE_MISSING_FIRSTNAME').then(function (text) {
+                $translate('GENERIC_MESSAGE_MISSING_FIRSTNAME').then(function (text) {
                     $scope.error = text;
                 });
             } else if ($scope.nachname == null) {
-                $translate('DELEGATION_MESSAGE_MISSING_LASTNAME').then(function (text) {
+                $translate('GENERIC_MESSAGE_MISSING_LASTNAME').then(function (text) {
                     $scope.error = text;
                 });
             } else if($scope.vorname.length > 35) {
-                $translate('DELEGATION_MESSAGE_FIRSTNAME_MAX').then(function (text) {
+                $translate('GENERIC_MESSAGE_FIRSTNAME_MAX').then(function (text) {
                     $scope.error = text;
                 });
             } else if($scope.nachname.length > 35) {
-                $translate('DELEGATION_MESSAGE_LASTNAME_MAX').then(function (text) {
+                $translate('GENERIC_MESSAGE_LASTNAME_MAX').then(function (text) {
                     $scope.error = text;
                 });
             } else if ($scope.gender.id == 1 || $scope.gender.id == 2 && typeof $scope.vorname != "undefined" &&

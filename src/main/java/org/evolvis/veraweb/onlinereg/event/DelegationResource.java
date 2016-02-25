@@ -311,7 +311,7 @@ public class DelegationResource {
 
     }
     private String getGenderByLabel(String gender) {
-        if (gender.equals("GENERIC_GENDER_MALE")) {
+        if (gender.equals("GENERIC_SALUTATION_MALE")) {
             return "m";
         }
 

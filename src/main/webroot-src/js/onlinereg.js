@@ -2,7 +2,18 @@
  * Created by mley on 21.07.14.
  */
 
-var onlineRegApp = angular.module('onlineRegApp', [ 'ngRoute', 'ui.bootstrap', 'pascalprecht.translate', 'flow', 'flow.img', 'flow.init', 'flow.provider' ]);
+var onlineRegApp = angular.module('onlineRegApp', [
+    'ngRoute',
+    'ngMaterial',
+    'ngMessages',
+    'ngAnimate',
+    'ngAria',
+    'pascalprecht.translate',
+    'ui.bootstrap',
+    'flow',
+    'flow.img',
+    'flow.init',
+    'flow.provider' ]);
 
 onlineRegApp.run(function ($rootScope) {
     $rootScope.parseDate = function (dt) {
@@ -11,7 +22,7 @@ onlineRegApp.run(function ($rootScope) {
 
     $rootScope.isUserLoged = function () {
         return $rootScope.user_logged_in != null;
-    }
+    };
 
     $rootScope.cleanMessages = function() {
         $rootScope.button = false;
@@ -20,12 +31,12 @@ onlineRegApp.run(function ($rootScope) {
         $rootScope.messageContent = null;
         $rootScope.error=null;
         $rootScope.success=null;
-    }
+    };
 
     $rootScope.cleanImageControls = function () {
         $rootScope.correctImageFormat = true;
         $rootScope.correctImageSize = true;
-    }
+    };
     //Only required for LoginController
     setStatus = null;
 });
@@ -84,7 +95,7 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
         controller: 'UserRefreshActivationController'
     }).otherwise({
         redirectTo: '/event'
-    })
+    });
 
     $translateProvider.useStaticFilesLoader({
         prefix: 'languages/lang-',
@@ -92,7 +103,6 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
     });
 
     $translateProvider.preferredLanguage('de_DE');
-
 });
 
 

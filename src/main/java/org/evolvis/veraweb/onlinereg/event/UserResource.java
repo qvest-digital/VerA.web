@@ -22,14 +22,15 @@ package org.evolvis.veraweb.onlinereg.event;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 import lombok.Getter;
+import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
-import org.evolvis.veraweb.onlinereg.mail.EmailValidator;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
@@ -49,16 +50,21 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.UUID;
 
 /**
  * Resource to register new users in OSIAM backend
  */
+@Log
 @Getter
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
+    /** Person type */
+    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
+
     private static final String VERAWEB_SCHEME = "urn:scim:schemas:veraweb:1.5:Person";
 	private Config config;
     private Client client;
@@ -77,6 +83,25 @@ public class UserResource {
         this.config = config;
         this.client = client;
         osiamClient = config.getOsiam().getClient(client);
+    }
+
+    /**
+     * Get Person object by username
+     *
+     * @param username Username
+     * @return Person, if person exists
+     * @throws IOException TODO
+     */
+    @GET
+    @Path("/userdata/{username}")
+    public Person getUserByUsername(@PathParam("username") String username) throws IOException {
+        final Person person = getUserData(username);
+
+        if (person != null) {
+            return person;
+        }
+
+        return null;
     }
 
     /**
@@ -133,6 +158,13 @@ public class UserResource {
         return StatusConverter.convertStatus("OK");
     }
 
+    /**
+     * Activates a user of the given activation token, if the link isn't expired
+     *
+     * @param activationToken
+     * @return result of activation. Values can be "OK", "LINK_INVALID" or "LINK_EXPIRED"
+     * @throws IOException
+     */
     @GET
     @Path("/activate/{activationToken}")
     public String activateUser(@PathParam("activationToken") String activationToken) throws IOException {
@@ -148,6 +180,14 @@ public class UserResource {
         }
     }
 
+    /**
+     * Sends a new E-Mail to the address of the user of the given activation_token
+     *
+     * @param oldActivationToken
+     * @param currentLanguageKey For the language, the E-Mail will be send
+     * @return result of post. Value can be "OK"
+     * @throws IOException
+     */
     @POST
     @Path("/update/activation/data")
     public String refreshActivationToken(@FormParam("activation_token") String oldActivationToken, @FormParam("language") String currentLanguageKey) throws IOException {
@@ -170,6 +210,67 @@ public class UserResource {
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/refresh/activation/data");
         resource.post(postBody);
         return StatusConverter.convertStatus("OK");
+    }
+
+    /**
+     * Checks if the user is registered to any events
+     *
+     * @param username
+     * @return Status of getUserRegisteredToEvents
+     */
+    @GET
+    @Path("/userdata/existing/event/{username}")
+    public String isUserRegisteredToEvents(@PathParam("username") String username) {
+        WebResource resource;
+
+        resource = client.resource(path("event", "userevents", "existing", username));
+        return getUserRegisteredToEvents(resource);
+    }
+
+    /**
+     * Updates the core data of a user
+     *
+     * @param username
+     * @param fk_salutation
+     * @param salutation (salutation and fk_salutation are in the tperson table present)
+     * @param title
+     * @param firstName
+     * @param lastName
+     * @param birthday
+     * @param nationality
+     * @param languages
+     * @param gender
+     * @return result of update. Values can be "OK" and "USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE"
+     * @throws IOException
+     */
+    @POST
+    @Path("/userdata/update/{username}")
+    public String updateUserCoreData(@PathParam("username") String username,
+                                     @FormParam("person_fk_salutation") Integer fk_salutation,
+                                     @FormParam("person_salutation") String salutation,
+                                     @FormParam("person_title") String title,
+                                     @FormParam("person_firstName") String firstName,
+                                     @FormParam("person_lastName") String lastName,
+                                     @FormParam("person_birthday") Date birthday,
+                                     @FormParam("person_nationality") String nationality,
+                                     @FormParam("person_languages") String languages,
+                                     @FormParam("person_gender") Integer gender) throws IOException {
+
+        final Form postBody = createUserCoreDataPostBody(username, fk_salutation, salutation, title, firstName,
+                lastName, birthday, nationality, languages, gender);
+
+        return updateUserCoreDataWithGivenValues(postBody);
+    }
+
+    /**
+     * Get Person instance from one username
+     *
+     * @param username Username
+     * @return Person
+     * @throws IOException TODO
+     */
+    private Person getUserData(String username) throws IOException {
+        return readResource(path("person", "userdata", username), PERSON);
     }
 
     private void setOsiamUserAsActive(String username) throws IOException {
@@ -252,5 +353,99 @@ public class UserResource {
         return new Email.Builder()
             .setType(Email.Type.HOME)
             .setValue(email).build();
+    }
+
+    private String getUserRegisteredToEvents(WebResource resource) {
+        try {
+            if(resource.get(Boolean.class) == true) {
+                return StatusConverter.convertStatus("OK");
+            } else {
+                return StatusConverter.convertStatus("ERROR");
+            }
+        } catch (UniformInterfaceException e) {
+            int statusCode = e.getResponse().getStatus();
+            if(statusCode == 204) {
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    private Form createUserCoreDataPostBody(@PathParam("username") String username, @FormParam("person_fk_salutation") Integer fk_salutation, @FormParam("person_salutation") String salutation, @FormParam("person_title") String title, @FormParam("person_firstName") String firstName, @FormParam("person_lastName") String lastName, @FormParam("person_birthday") Date birthday, @FormParam("person_nationality") String nationality, @FormParam("person_languages") String languages, @FormParam("person_gender") Integer gender) {
+        final Form postBody = new Form();
+
+        postBody.add("username", username);
+        postBody.add("fk_salutation", fk_salutation);
+        postBody.add("salutation", salutation);
+        postBody.add("title", title);
+        postBody.add("firstName", firstName);
+        postBody.add("lastName", lastName);
+        //Can't post a date, but an epoch
+        postBody.add("birthday", birthday.getTime());
+        postBody.add("nationality", nationality);
+        postBody.add("languages", languages);
+        postBody.add("gender", resolveGenderValueFromOptionIds(gender));
+        return postBody;
+    }
+
+    private String updateUserCoreDataWithGivenValues(Form postBody) {
+        try {
+            final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/usercoredata/update/");
+            resource.post(postBody);
+        } catch (UniformInterfaceException e) {
+            int statusCode = e.getResponse().getStatus();
+            if (statusCode == 204) {
+                return StatusConverter.convertStatus("USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE");
+            }
+
+            return StatusConverter.convertStatus("USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE");
+        }
+
+        return StatusConverter.convertStatus("OK");
+    }
+
+    private String resolveGenderValueFromOptionIds(@FormParam("person_gender") Integer gender) {
+        String genderResolved = "";
+
+        //Handle gender ids of option select
+        if(gender == 1) {
+            genderResolved = "m";
+        } else if(gender == 2) {
+            genderResolved = "f";
+        }
+        return genderResolved;
+    }
+
+    private String path(Object... path) {
+        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
+
+        for (Object p : path) {
+            r += "/" + p;
+        }
+
+        return r;
+    }
+
+    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
+        WebResource resource;
+        try {
+            resource = client.resource(path);
+            final String json = resource.get(String.class);
+            return mapper.readValue(json, type);
+        } catch (ClientHandlerException che) {
+            if (che.getCause() instanceof SocketTimeoutException) {
+                //FIXME some times open, pooled connections time out and generate errors
+                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
+                resource = client.resource(path);
+                final String json = resource.get(String.class);
+                return mapper.readValue(json, type);
+            } else {
+                throw che;
+            }
+        } catch (UniformInterfaceException uie) {
+            log.warning(uie.getResponse().getEntity(String.class));
+            throw uie;
+        }
     }
 }
