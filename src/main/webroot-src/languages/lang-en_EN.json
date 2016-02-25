@@ -52,6 +52,12 @@
   "GENERIC_NOT_SELECT": "Not selected",
   "GENERIC_GENDER_MALE": "Male",
   "GENERIC_GENDER_FEMALE": "Female",
+  "GENERIC_MESSAGE_FIRSTNAME_MAX": "Please enter a firstname (max 35 characters)",
+  "GENERIC_MESSAGE_LASTNAME_MAX": "Please enter a lastname (max 35 characters)",
+  "GENERIC_MESSAGE_MISSING_FIRSTNAME": "Please enter a firstname.",
+  "GENERIC_MESSAGE_MISSING_LASTNAME": "Please enter a lastname.",
+  "GENERIC_MESSAGE_NO_FUTURE_DATE": "The date can't be in the future",
+  "GENERIC_MESSAGE_NOT_A_DATE": "Please verify the entered date.",
 
   "BROWSER_TITLE": "VerA.web Online-Registration",
   "LOGIN_TITLE": "Please log in",
@@ -94,10 +100,6 @@
 
   "DELEGATION_OPTION_CATEGORY": "Category",
   "DELEGATION_OPTION_FUNCTION": "Function",
-  "DELEGATION_MESSAGE_FIRSTNAME_MAX": "Please enter a firstname (max 35 characters)",
-  "DELEGATION_MESSAGE_LASTNAME_MAX": "Please enter a lastname (max 35 characters)",
-  "DELEGATION_MESSAGE_MISSING_FIRSTNAME": "Please enter a firstname.",
-  "DELEGATION_MESSAGE_MISSING_LASTNAME": "Please enter a lastname.",
   "DELEGATION_MESSAGE_DELEGATION_DOESNT_EXISTS": "Delegation does not exist!",
   "DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL": "Delegate data has been saved.",
   "DELEGATION_MESSAGE_NO_EXTRA_FIELDS": "No extra fields for this event available.",
@@ -110,5 +112,6 @@
 
   "USER_ACCOUNT_CORE_DATA_NO_EVENT": "To modify your data, you have to be registered to at least one event.",
   "USER_ACCOUNT_CORE_DATA_UPDATE": "Update core data",
+  "USER_ACCOUNT_CORE_DATA_UPDATED": "Your core data has been successfully updated.",
   "USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE": "Your core data couldn't be updated."
 }
