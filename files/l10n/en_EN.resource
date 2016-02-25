@@ -1011,6 +1011,7 @@ amtsbezfunktion=Empl. Title/funktion
 postfachnummer=Post office number
 email=E-mail
 verteileranlegen=Create distribution list
+sielegeneinenneuenverteilerausderpersonensuche=You are creating a new distribution list from the Person Search
 sielegeneinenneuenverteilerausderveranstaltung=You are creating a new distribution list from the Event
 mit=with
 einerperson=a person

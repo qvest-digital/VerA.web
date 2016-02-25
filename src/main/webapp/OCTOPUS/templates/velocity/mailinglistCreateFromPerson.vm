@@ -13,8 +13,6 @@
 
 	<h1>${placeholderWithTranslation.verteileranlegen}</h1>
 
-	<!-- TODO NEUE PLACHOLDER ERSTELLEN UND EINFÜGEN-->
-
 	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
 
 		<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
@@ -30,7 +28,7 @@
             		</vera-warn>
         		#end
 
-        		<p>${placeholderWithTranslation.sielegeneinenneuenverteilerausderveranstaltung} <strong>&quot;$!message.plain($event.shortname)&quot;</strong> ${placeholderWithTranslation.mit}
+        		<p>${placeholderWithTranslation.sielegeneinenneuenverteilerausderpersonensuche} ${placeholderWithTranslation.mit}
 
     			#if($mailinglistParams.count == 1)
         			${placeholderWithTranslation.einerperson}

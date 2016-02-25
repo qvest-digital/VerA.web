@@ -1010,6 +1010,7 @@ amtsbezfunktion=Nom officiel/Fonction
 postfachnummer=Numero du bo\u00EEte postale
 email=E-Mail
 verteileranlegen=Cr\u00E9ation du distributeur
+sielegeneinenneuenverteilerausderpersonensuche=Cr\u00E9er une nouvelle distribution de la recherche de personnes
 sielegeneinenneuenverteilerausderveranstaltung=Cr\u00E9er une nouvelle distribution de l\u2019\u00E9v\u00E9nement
 mit=avec
 einerperson=une personne

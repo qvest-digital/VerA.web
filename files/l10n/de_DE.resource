@@ -1012,6 +1012,7 @@ amtsbezfunktion=Amtsbez./Funktion
 postfachnummer=Postfach Nummer
 email=E-Mail
 verteileranlegen=Verteiler anlegen
+sielegeneinenneuenverteilerausderpersonensuche=Sie legen einen neuen Verteiler aus der Personen Suche
 sielegeneinenneuenverteilerausderveranstaltung=Sie legen einen neuen Verteiler aus der Veranstaltung
 mit=mit
 einerperson=einer Person

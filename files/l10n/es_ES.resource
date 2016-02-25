@@ -1012,6 +1012,7 @@ amtsbezfunktion=T\u00EDtulo/Funci\u00F3n
 postfachnummer=C\u00F3digo postal
 email=E-Mail
 verteileranlegen=Crear distribuci\u00F3n
+sielegeneinenneuenverteilerausderpersonensuche=Se crea un nuevo distribuidor de la B\u00FAsqueda de personas
 sielegeneinenneuenverteilerausderveranstaltung=Se crea un nuevo distribuidor para el evento
 mit=con
 einerperson=una persona
