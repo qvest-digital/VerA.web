@@ -24,63 +24,71 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                     $scope.error = text;
                 });
             } else if ($scope.gender.id == 1 || $scope.gender.id == 2){
-                if ($scope.lastname != null && $scope.firstname != null && $scope.email != null && $scope.address != null && $scope.plz != null && $scope.city != null && $scope.country != null) {
-                    $translate('GENERIC_ERROR').then(function (text) {
-                        var ERROR_TEXT = text;
-                    });
-                    $scope.button = true;
-                    $http({
-                        method: 'POST',
-                        url: 'api/media/' + $routeParams.uuid + '/register',
-                        headers: {"Content-Type" : undefined},
-                        data: $.param({
-                                nachname: $scope.lastname,
-                                vorname: $scope.firstname,
-                                gender: $scope.gender.label,
-                                email: $scope.email,
-                                address: $scope.address,
-                                plz: $scope.plz,
-                                city: $scope.city,
-                                country: $scope.country
-                        })
-                    }).success(function (result) {
-                        if (result.status === 'NO_EVENT_DATA') {
-                            $translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
-                                $scope.error = text;
-                            });
-                            $scope.success = null;
-                        }  else if (result.status === 'WRONG_EVENT') {
-                            $translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
-                                $scope.error = text;
-                            });
-                            $scope.success = null;
-                        } else if (result.status === 'OK') {
-                            $translate('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE').then(function (text) {
-                                $scope.success = text;
-                            });
-                            $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
-                                $scope.presentPersons = presentPersons.data;
-                            });
+                if (!!$scope.lastname && !!$scope.firstname && !!$scope.email && !!$scope.address && !!$scope.plz && !!$scope.city
+                    && !!$scope.country && !!$scope.osiam.userName && !!$scope.osiam.password && !!$scope.osiam.passwordRep) {
+                    if ($scope.osiam.password == $scope.osiam.passwordRep) {
+                        $translate('GENERIC_ERROR').then(function (text) {
+                            var ERROR_TEXT = text;
+                        });
+                        $scope.button = true;
+                        $http({
+                            method: 'POST',
+                            url: 'api/media/' + $routeParams.uuid + '/register',
+                            headers: {"Content-Type" : undefined},
+                            data: $.param({
+                                    nachname: $scope.lastname,
+                                    vorname: $scope.firstname,
+                                    gender: $scope.gender.label,
+                                    email: $scope.email,
+                                    address: $scope.address,
+                                    plz: $scope.plz,
+                                    city: $scope.city,
+                                    country: $scope.country
+                            })
+                        }).success(function (result) {
+                            if (result.status === 'NO_EVENT_DATA') {
+                                $translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
+                                    $scope.error = text;
+                                });
+                                $scope.success = null;
+                            }  else if (result.status === 'WRONG_EVENT') {
+                                $translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
+                                    $scope.error = text;
+                                });
+                                $scope.success = null;
+                            } else if (result.status === 'OK') {
+                                $translate('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE').then(function (text) {
+                                    $scope.error = null;
+                                    $scope.success = text;
+                                });
+                                $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
+                                    $scope.presentPersons = presentPersons.data;
+                                });
 
-                            $scope.lastname = null;
-                            $scope.firstname = null;
-                            $scope.gender = $scope.genderOptions[0];
-                            $scope.email = null;
-                            $scope.address = null;
-                            $scope.plz = null;
-                            $scope.city = null;
-                            $scope.country = null;
-                        } else {
+                                $scope.lastname = null;
+                                $scope.firstname = null;
+                                $scope.gender = $scope.genderOptions[0];
+                                $scope.email = null;
+                                $scope.address = null;
+                                $scope.plz = null;
+                                $scope.city = null;
+                                $scope.country = null;
+                            } else {
+                                $scope.error = ERROR_TEXT;
+                            }
+                            $scope.button = false;
+                        }).error(function (data, status, headers, config) {
                             $scope.error = ERROR_TEXT;
-                        }
-                        $scope.button = false;
-                    }).error(function (data, status, headers, config) {
-                        $scope.error = ERROR_TEXT;
-                        $scope.button = false;
-                    });
+                            $scope.button = false;
+                        });
+                    } else {
+                        $translate('REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR').then(function (text) {
+                        $scope.error = text;
+                        });
+                    }
                 } else {
                     $translate('GENERIC_MESSAGE_FILL_IN_ALL_FIELDS').then(function (text) {
-                        $scope.error = text;
+                    $scope.error = text;
                     });
                 }
             }
