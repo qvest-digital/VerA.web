@@ -1336,6 +1336,7 @@ MESSAGE_ORG_UNIT_NO_NAME=Vous devez entrer un nom
 MESSAGE_PERSON_MAX_COMPANY_REACHED=Vous pouvez sp\u00E9cifier jusqu\u2019\u00E0 100 caract\u00E8res pour la soci\u00E9t\u00E9.
 MESSAGE_PERSON_MAX_NAME_REACHED=Vous pouvez sp\u00E9cifier un maximum de 100 caract\u00E8res pour le nom du personnage principal.
 MESSAGE_PERSON_MAX_LASTNAME_REACHED=Vous pouvez sp\u00E9cifier un maximum de 100 caract\u00E8res pour le pr\u00E9nom du personnage principal .
+MESSAGE_PERSON_NO_MAIL=Vous devez sp\u00E9cifier une adresse e-mail .
 MESSAGE_PERSON_NO_COMPANY_NAME=Vous devez sp\u00E9cifier un nom pour l\u2019entreprise / institution.
 MESSAGE_PERSON_NO_NAME_LAST_NAME=Vous devez sp\u00E9cifier un pr\u00E9nom et un nom .
 MESSAGE_PERSON_NO_NAME=Vous devez sp\u00E9cifier un pr\u00E9nom.

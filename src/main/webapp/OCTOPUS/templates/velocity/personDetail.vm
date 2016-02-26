@@ -531,16 +531,14 @@
 		setSex('person-salutation_b_e1', 'person-sex_b_e1');
 	#end
 
-	//Show the company row (Firma/Institution) in the person detail view + mark email as mandatory if the "Ist Firma"
+	//Show the company row (Firma/Institution) in the person detail view if the "Ist Firma"
 	//checkbox was checked.
 	$("#person-iscompany:not([vera-disabled])").click(function() {
 		if (this.checked) {
-			$('#emailLabel').html("${placeholderWithTranslation.email}*");
 			$('#company-row').show();
 			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.GENERIC_FIRSTNAME}');
 			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.GENERIC_LASTNAME}');
 		} else {
-			$('#emailLabel').html("${placeholderWithTranslation.email}");
 			$('#company-row').hide();
 			$('label[for=person-firstname_a_e1]').html('${placeholderWithTranslation.GENERIC_FIRSTNAME}*');
 			$('label[for=person-lastname_a_e1]').html('${placeholderWithTranslation.GENERIC_LASTNAME}*');

@@ -1,3 +1,4 @@
+
 language=Deutsch
 language_short=de
 
@@ -1333,6 +1334,7 @@ MESSAGE_ORG_UNIT_NO_NAME=Sie m\u00FCssen einen Namen eingeben.
 MESSAGE_PERSON_MAX_COMPANY_REACHED=Sie d\u00FCrfen maximal 100 Zeichen f\u00FCr die Firma/Institution angeben.
 MESSAGE_PERSON_MAX_NAME_REACHED=Sie d\u00FCrfen maximal 100 Zeichen f\u00FCr den Vornamen der Hauptperson angeben.
 MESSAGE_PERSON_MAX_LASTNAME_REACHED=Sie d\u00FCrfen maximal 100 Zeichen f\u00FCr den Nachnamen der Hauptperson angeben.
+MESSAGE_PERSON_NO_MAIL=Sie m\u00FCssen eine Email-Adresse angeben.
 MESSAGE_PERSON_NO_COMPANY_NAME=Sie m\u00FCssen einen Namen f\u00FCr die Firma/Institution angeben.
 MESSAGE_PERSON_NO_NAME_LAST_NAME=Sie m\u00FCssen einen Vornamen und einen Nachnamen angeben.
 MESSAGE_PERSON_NO_NAME=Sie m\u00FCssen einen Vornamen angeben.

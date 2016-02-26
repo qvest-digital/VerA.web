@@ -1335,6 +1335,7 @@ MESSAGE_ORG_UNIT_NO_NAME=Debe introducir un nombre.
 MESSAGE_PERSON_MAX_COMPANY_REACHED=Podr\u00E1 introducir un m\u00E1ximo de 100 caracteres para la firma o instituci\u00F3n.
 MESSAGE_PERSON_MAX_NAME_REACHED=Podr\u00E1 introducir un m\u00E1ximo de 100 caracteres para el nombre de la persona principal.
 MESSAGE_PERSON_MAX_LASTNAME_REACHED=Podr\u00E1 introducir un m\u00E1ximo de 100 caracteres para el apellido de la persona principal.
+MESSAGE_PERSON_NO_MAIL=Debe introducir un correo electr\u00F3nico.
 MESSAGE_PERSON_NO_COMPANY_NAME=Debe introducir un nombre para la firma o instituci\u00F3n.
 MESSAGE_PERSON_NO_NAME_LAST_NAME=Debe introducir un nombre y apellidos.
 MESSAGE_PERSON_NO_NAME=Debe introducir un nombre.
