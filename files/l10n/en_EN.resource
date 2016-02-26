@@ -1334,6 +1334,7 @@ MESSAGE_ORG_UNIT_NO_NAME=You need to provide a name.
 MESSAGE_PERSON_MAX_COMPANY_REACHED=Company/institution is restricted to 100 characters.
 MESSAGE_PERSON_MAX_NAME_REACHED=The main person\u2019s first name is restricted to 100 characters.
 MESSAGE_PERSON_MAX_LASTNAME_REACHED=The main person\u2019s last name is restricted to 100 characters.
+MESSAGE_PERSON_NO_MAIL=You need to provide an email-address.
 MESSAGE_PERSON_NO_COMPANY_NAME=You need to provide a name for the company/institution.
 MESSAGE_PERSON_NO_NAME_LAST_NAME=You need to provide a first- and last name.
 MESSAGE_PERSON_NO_NAME=You need to provide a first name.

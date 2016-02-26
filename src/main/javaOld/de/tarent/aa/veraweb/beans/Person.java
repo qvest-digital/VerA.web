@@ -312,6 +312,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
             addError(messages.getMessagePersonMaxLastnameReached());
         }
 
+        if (mail_a_e1 == null || mail_a_e1.equals("")){
+            addError(messages.getMessageNoMail());
+        }
+
         if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {
             if (company_a_e1 == null || company_a_e1.equals("") || company_a_e1.trim().equals("")) {
                 addError(messages.getMessagePersonNoCompanyName());

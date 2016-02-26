@@ -146,6 +146,9 @@ public class VerawebMessages {
     public String getMessageNoNameLastName() {
         return languageProvider.getProperty("MESSAGE_PERSON_NO_NAME_LAST_NAME");
     }
+    public String getMessageNoMail() {
+        return languageProvider.getProperty("MESSAGE_PERSON_NO_MAIL");
+    }
 
     public String getMessageNoName() {
         return languageProvider.getProperty("MESSAGE_PERSON_NO_NAME");
