@@ -1,4 +1,3 @@
-
 language=Deutsch
 language_short=de
 
