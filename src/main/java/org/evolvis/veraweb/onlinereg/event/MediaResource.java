@@ -170,7 +170,7 @@ public class MediaResource {
         final Form postBody = createPersonPostBody(transporter, eventId);
         final Person person;
         try {
-            final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/press/");
+            final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/press");
             person = resource.post(Person.class, postBody);
         } catch (UniformInterfaceException e) {
             int statusCode = e.getResponse().getStatus();

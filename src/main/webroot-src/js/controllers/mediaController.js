@@ -45,7 +45,8 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                                     city: $scope.city,
                                     country: $scope.country,
                                     username: $scope.username,
-                                    password: $scope.password
+                                    password: $scope.password,
+                                    current_language: $translate.use()
                             })
                         }).success(function (result) {
                             if (result.status === 'NO_EVENT_DATA') {
@@ -74,6 +75,8 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                                 $scope.plz = null;
                                 $scope.city = null;
                                 $scope.country = null;
+                                $scope.username = null;
+                                $scope.password = null;
                             } else {
                                 $scope.error = ERROR_TEXT;
                             }
