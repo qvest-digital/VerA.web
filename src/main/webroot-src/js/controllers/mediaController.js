@@ -25,8 +25,8 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                 });
             } else if ($scope.gender.id == 1 || $scope.gender.id == 2){
                 if (!!$scope.lastname && !!$scope.firstname && !!$scope.email && !!$scope.address && !!$scope.plz && !!$scope.city
-                    && !!$scope.country && !!$scope.osiam.userName && !!$scope.osiam.password && !!$scope.osiam.passwordRep) {
-                    if ($scope.osiam.password == $scope.osiam.passwordRep) {
+                    && !!$scope.country && !!$scope.username && !!$scope.password && !!$scope.passwordRep) {
+                    if ($scope.password == $scope.passwordRep) {
                         $translate('GENERIC_ERROR').then(function (text) {
                             var ERROR_TEXT = text;
                         });
@@ -43,7 +43,9 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                                     address: $scope.address,
                                     plz: $scope.plz,
                                     city: $scope.city,
-                                    country: $scope.country
+                                    country: $scope.country,
+                                    username: $scope.username,
+                                    password: $scope.password
                             })
                         }).success(function (result) {
                             if (result.status === 'NO_EVENT_DATA') {

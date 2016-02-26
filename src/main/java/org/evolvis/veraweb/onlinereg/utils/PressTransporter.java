@@ -31,6 +31,8 @@ public class PressTransporter {
 	private String city;
 	private String country;
 	private String username;
+	private String password;
+    private String currentLanguageKey;
 	
 	/**
 	 * Empty constructor
@@ -38,12 +40,12 @@ public class PressTransporter {
 	public PressTransporter() {
 	}
 
-	/**
+    /**
 	 * Constructor with parameters 
 	 */
 	public PressTransporter(String uuid, String nachname, String vorname,
 			String gender, String email, String address, String plz,
-			String city, String country, String username) {
+			String city, String country, String username, String password, String currentLanguageKey) {
 		super();
 		this.uuid = uuid;
 		this.nachname = nachname;
@@ -55,6 +57,8 @@ public class PressTransporter {
 		this.city = city;
 		this.country = country;
 		this.username = username;
+		this.password = password;
+        this.currentLanguageKey = currentLanguageKey;
 	}
 
 	public String getUuid() {
@@ -136,5 +140,21 @@ public class PressTransporter {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+    public String getCurrentLanguageKey() {
+        return currentLanguageKey;
+    }
+
+    public void setCurrentLanguageKey(String currentLanguageKey) {
+        this.currentLanguageKey = currentLanguageKey;
+    }
 	
 }
