@@ -54,7 +54,7 @@
         	<div class="textRight">
         		<input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.verteilerspeichern}" title="${placeholderWithTranslation.verteilerspeichern}">
         		#if($action == "person")
-        		<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zuruckzurpersonensuche}" title="${placeholderWithTranslation.zuruckzurpersonensuche}" onclick="window.location.href='SearchPerson?search=reset&findAll=true&selectNone=true';">
+        		<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurpersonenuebersicht}" title="${placeholderWithTranslation.zurueckzurpersonenuebersicht}" onclick="window.location.href='SearchPerson?search=reset&findAll=true&selectNone=true';">
         		#elseif($action == "event" || $action == "guest")
         		<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zuruckzurgasteverwaltung}" title="${placeholderWithTranslation.zuruckzurgasteverwaltung}" onclick="window.location.href='ShowGuestList?selectNone=true';">
         		#end

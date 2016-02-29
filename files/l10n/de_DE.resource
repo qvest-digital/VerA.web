@@ -1056,6 +1056,7 @@ liegtkeinedublettevorkoennensieweiteredateneingebenunddiedatenspeichern=Liegt ke
 geschaeftlich=Gesch\u00E4ftlich
 privat=Privat
 zurueckzurpersonensuche=Zur\u00FCck zur Personensuche
+zurueckzurpersonenuebersicht=Zur\u00FCck zur Personen\u00FCbersicht
 zurueck=Zur\u00FCck
 dublettenpruefungdurchfuehren=Dublettenpr\u00FCfung durchf\u00FChren
 zurueckzumsuchergebnis=Zur\u00FCck zum Suchergebnis

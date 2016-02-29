@@ -1056,6 +1056,7 @@ liegtkeinedublettevorkoennensieweiteredateneingebenunddiedatenspeichern=No exist
 geschaeftlich=Negocio
 privat=Privado
 zurueckzurpersonensuche=Buscar personas
+zurueckzurpersonenuebersicht=Volver a persona Resumen
 zurueck=Volver
 dublettenpruefungdurchfuehren=Iniciar b\u00FAsqueda de duplicados
 zurueckzumsuchergebnis=Resultados de b\u00FAsqueda

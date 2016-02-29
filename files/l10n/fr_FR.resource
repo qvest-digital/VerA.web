@@ -1054,6 +1054,7 @@ liegtkeinedublettevorkoennensieweiteredateneingebenunddiedatenspeichern=Aucun do
 geschaeftlich=pour les entreprises
 privat=priv\u00E9
 zurueckzurpersonensuche=Recherche des personnes
+zurueckzurpersonenuebersicht=Retour au sommaire personne
 zurueck=Retour
 dublettenpruefungdurchfuehren=Effectuer la v\u00E9rification des doublons
 zurueckzumsuchergebnis=Retour aux r\u00E9sultats de la recherche

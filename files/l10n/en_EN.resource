@@ -1055,6 +1055,7 @@ liegtkeinedublettevorkoennensieweiteredateneingebenunddiedatenspeichern=If there
 geschaeftlich=Business
 privat=Private
 zurueckzurpersonensuche=Back to person search
+zurueckzurpersonenuebersicht=Back to person summary
 zurueck=Back
 dublettenpruefungdurchfuehren=Execute search for duplicates
 zurueckzumsuchergebnis=Back to search results
