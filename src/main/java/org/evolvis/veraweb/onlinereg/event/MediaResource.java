@@ -30,13 +30,8 @@ import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
-import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.evolvis.veraweb.onlinereg.utils.PressTransporter;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
-import org.osiam.resources.scim.Email;
-import org.osiam.resources.scim.Extension;
-import org.osiam.resources.scim.Name;
-import org.osiam.resources.scim.User;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -46,11 +41,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author jnunez
@@ -68,7 +61,6 @@ public class MediaResource {
     private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
     private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
     private static final String INVITATION_TYPE = "2";
-    private static final String VERAWEB_SCHEME = "urn:scim:schemas:veraweb:1.5:Person";
 
     /**
      * Jackson Object Mapper
@@ -76,7 +68,6 @@ public class MediaResource {
     private final ObjectMapper mapper = new ObjectMapper();
     private Config config;
     private Client client;
-    private OsiamClient osiamClient;
 
     /**
      * Default constructor.
@@ -93,7 +84,6 @@ public class MediaResource {
 		super();
 		this.config = config;
 		this.client = client;
-        osiamClient = config.getOsiam().getClient(client);
 	}
 
 	@GET
@@ -114,8 +104,6 @@ public class MediaResource {
      * @param plz      zip code
      * @param city     city
      * @param country  country
-     * @param username  username
-     * @param password  password
      *
      * @throws java.io.IOException If creating person and saving it as guest fails.
      *
@@ -132,16 +120,13 @@ public class MediaResource {
             @FormParam("address") String address,
             @FormParam("plz") String plz,
             @FormParam("city") String city,
-            @FormParam("country") String country,
-            @FormParam("username") String username,
-            @FormParam("password") String password,
-            @FormParam("current_language") String currentLanguageKey) throws IOException {
+            @FormParam("country") String country) throws IOException {
 
         final Boolean delegationIsFound = checkForExistingPressEvent(uuid);
 
         if (delegationIsFound) {
             final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
-                    address, plz, city, country, username, password, currentLanguageKey);
+                    address, plz, city, country, usernameGenerator());
             return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
         }
 
@@ -149,48 +134,16 @@ public class MediaResource {
     }
 
     private String createAndAssignMediaRepresentativeGuest(PressTransporter transporter) throws IOException {
-        // check if username is valid
-        if (!transporter.getUsername().matches("\\w+")) {
-            return "INVALID_USERNAME";
-        }
-
-        // get osiam AT
-        final String accessToken = osiamClient.getAccessTokenClientCred("GET", "POST");
-
-        // check if user already exists in OSIAM
-        User user = osiamClient.getUser(accessToken, transporter.getUsername());
-        if (user != null) {
-            return "USER_EXISTS";
-        }
-
         // Assing person to event as guest
         final Integer eventId = getEventIdFromUuid(transporter.getUuid());
-
         // Store in tperson
-        final Form postBody = createPersonPostBody(transporter, eventId);
-        final Person person;
-        try {
-            final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/press/");
-            person = resource.post(Person.class, postBody);
-        } catch (UniformInterfaceException e) {
-            int statusCode = e.getResponse().getStatus();
-            if (statusCode == 204) {
-                return "USER_EXISTS";
-            }
-            return "USER_NOT_CREATED";
-        }
+        final Integer personId = createPerson(eventId, transporter);
 
         if (eventId == null) {
             return "NO_EVENT_DATA";
         }
-        addGuestToEvent(transporter.getUuid(), String.valueOf(eventId), String.valueOf(person.getPk()),
+        addGuestToEvent(transporter.getUuid(), String.valueOf(eventId), String.valueOf(personId),
                 transporter.getGender(), transporter.getUsername());
-
-        user = initUser(transporter, person.getPk());
-        osiamClient.createUser(accessToken, user);
-        final String activationToken = UUID.randomUUID().toString();
-        sendEmailVerification(transporter, activationToken);
-        addOsiamUserActivationEntry(transporter, activationToken);
 
         return "OK";
     }
@@ -242,8 +195,10 @@ public class MediaResource {
      *
      * return primary key for a person
      */
-    private Form createPersonPostBody(PressTransporter transporter, Integer eventId) {
+    private Integer createPerson(Integer eventId, PressTransporter transporter) {
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/person/press/");
         final Form postBody = new Form();
+
         postBody.add("eventId", String.valueOf(eventId));
         postBody.add("username", transporter.getUsername());
         postBody.add("firstname", transporter.getVorname());
@@ -255,7 +210,9 @@ public class MediaResource {
         postBody.add("city", transporter.getCity());
         postBody.add("country", transporter.getCountry());
 
-        return postBody;
+        final Person person = resource.post(Person.class, postBody);
+
+        return person.getPk();
     }
 
     private Boolean checkForExistingPressEvent(String uuid) throws IOException {
@@ -308,6 +265,12 @@ public class MediaResource {
         return r;
     }
 
+    private String usernameGenerator() {
+        final Date current = new Date();
+
+        return "press" + current.getTime();
+    }
+
     private String correctGender(String gender) {
         String dbGender = null;
         if (gender.equals("Herr")) {
@@ -317,45 +280,6 @@ public class MediaResource {
         }
 
         return dbGender;
-    }
-
-    private User initUser(PressTransporter transporter, Integer personId) {
-        User user;
-        final Email userEmail = buildUserEmail(transporter.getEmail());
-        user = new User.Builder(transporter.getUsername())
-                .setName(new Name.Builder().setGivenName(transporter.getVorname()).setFamilyName(transporter.getNachname()).build())
-                .setPassword(transporter.getPassword())
-                .setActive(false)
-                .addEmail(userEmail)
-                .addExtension(
-                        new Extension.Builder(VERAWEB_SCHEME).setField("tpersonid", BigInteger.valueOf(personId)).build()
-                )
-                .build();
-        return user;
-    }
-
-    private Email buildUserEmail(String email) {
-        return new Email.Builder()
-                .setType(Email.Type.HOME)
-                .setValue(email).build();
-    }
-
-    private void sendEmailVerification(PressTransporter transporter, String activationToken) {
-        final Form postBody = new Form();
-        postBody.add("email", transporter.getEmail());
-        postBody.add("endpoint", config.getOnlineRegistrationEndpoint());
-        postBody.add("activation_token", activationToken);
-        postBody.add("language", transporter.getCurrentLanguageKey());
-        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/email/confirmation/send");
-        resource.post(postBody);
-    }
-
-    private void addOsiamUserActivationEntry(PressTransporter transporter, String activationToken) {
-        final Form postBody = new Form();
-        postBody.add("activation_token", activationToken);
-        postBody.add("username", transporter.getUsername());
-        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/create");
-        resource.post(postBody);
     }
 
 }
