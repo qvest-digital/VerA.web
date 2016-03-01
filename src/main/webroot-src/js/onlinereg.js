@@ -116,6 +116,11 @@ onlineRegApp.config(['flowFactoryProvider', function (flowFactoryProvider) {
     };
 }]);
 
+//Datepicker configuration
+onlineRegApp.config(function($mdDateLocaleProvider) {
+    $mdDateLocaleProvider.firstDayOfWeek = 1;
+});
+
 onlineRegApp.directive('equals', function() {
     return {
         restrict: 'A',

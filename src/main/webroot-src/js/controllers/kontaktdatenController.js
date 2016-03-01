@@ -1,4 +1,4 @@
-onlineRegApp.controller('KontaktdatenController', function($http, $rootScope, $translate, $location, $scope) {
+onlineRegApp.controller('KontaktdatenController', function($http, $rootScope, $translate, $location, $scope, $mdDateLocale) {
     if ($rootScope.user_logged_in == null) {
         $scope.setNextPage('kontaktdaten');
         $location.path('/login');
@@ -23,6 +23,16 @@ onlineRegApp.controller('KontaktdatenController', function($http, $rootScope, $t
         });
 
         if (!$scope.userHasNoEvents) {
+            //Datepicker localization
+            if($translate.use() == "de_DE") {
+                var localeDate = moment.localeData('de');
+            } else {
+                var localeDate = moment.localeData('en');
+            }
+
+            $mdDateLocale.shortMonths = localeDate._monthsShort;
+            $mdDateLocale.shortDays = localeDate._weekdaysMin;
+
             //Array have to be initialised, to push elements
             //So you can set the first value and then an array
             $scope.salutations = [];
