@@ -72,7 +72,7 @@ onlineRegApp.controller('KontaktdatenController', function($http, $rootScope, $t
                     }
                 });
 
-                if($scope.person.birthday_a_e1 && $scope.person.birthday_a_e1 > 0) {
+                if($scope.person.birthday_a_e1) {
                     //Cast epoch to Date
                     $scope.person.birthday_a_e1 = new Date($scope.person.birthday_a_e1);
                 }
