@@ -227,9 +227,9 @@ public class UserResource {
     @GET
     @Path("/userdata/existing/event/{username}")
     public String isUserRegisteredToEvents(@PathParam("username") String username) {
-        WebResource resource;
-
-        resource = client.resource(path("event", "userevents", "existing", username));
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "event", "userevents", "existing", username);
+        final WebResource resource = client.resource(path);
         return getUserRegisteredToEvents(resource);
     }
 
