@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -14,6 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @Table(name = "tmedia_representative_activation")
+@NamedQueries({
+        @NamedQuery(name = "MediaRepresentativeActivation.getEntryByEmailAndEventId",
+                query = "SELECT mra FROM MediaRepresentativeActivation mra where email=:email AND fk_event=:fk_event")
+})
 public class MediaRepresentativeActivation {
     @Id
     private String activation_token;
