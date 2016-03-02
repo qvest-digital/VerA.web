@@ -368,7 +368,16 @@ public class UserResource {
         return null;
     }
 
-    private Form createUserCoreDataPostBody(@PathParam("username") String username, @FormParam("person_fk_salutation") Integer fk_salutation, @FormParam("person_salutation") String salutation, @FormParam("person_title") String title, @FormParam("person_firstName") String firstName, @FormParam("person_lastName") String lastName, @FormParam("person_birthday") Date birthday, @FormParam("person_nationality") String nationality, @FormParam("person_languages") String languages, @FormParam("person_gender") Integer gender) {
+    private Form createUserCoreDataPostBody(String username,
+                                            Integer fk_salutation,
+                                            String salutation,
+                                            String title,
+                                            String firstName,
+                                            String lastName,
+                                            Date birthday,
+                                            String nationality,
+                                            String languages,
+                                            Integer gender) {
         final Form postBody = new Form();
 
         postBody.add("username", username);
