@@ -276,7 +276,9 @@ public class UserResource {
      * @throws IOException TODO
      */
     private Person getUserData(String username) throws IOException {
-        return readResource(path("person", "userdata", username), PERSON);
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String osiamUserActivationPath = resourceReader.constructPath(BASE_RESOURCE, "person", "userdata", username);
+        return resourceReader.readStringResource(osiamUserActivationPath, PERSON);
     }
 
     private void setOsiamUserAsActive(String username) throws IOException {
@@ -420,37 +422,5 @@ public class UserResource {
             genderResolved = "f";
         }
         return genderResolved;
-    }
-
-    private String path(Object... path) {
-        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
-
-        for (Object p : path) {
-            r += "/" + p;
-        }
-
-        return r;
-    }
-
-    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
-        WebResource resource;
-        try {
-            resource = client.resource(path);
-            final String json = resource.get(String.class);
-            return mapper.readValue(json, type);
-        } catch (ClientHandlerException che) {
-            if (che.getCause() instanceof SocketTimeoutException) {
-                //FIXME some times open, pooled connections time out and generate errors
-                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
-                resource = client.resource(path);
-                final String json = resource.get(String.class);
-                return mapper.readValue(json, type);
-            } else {
-                throw che;
-            }
-        } catch (UniformInterfaceException uie) {
-            log.warning(uie.getResponse().getEntity(String.class));
-            throw uie;
-        }
     }
 }
