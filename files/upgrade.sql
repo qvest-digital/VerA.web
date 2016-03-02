@@ -25,7 +25,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2016-01-19';
+	vversion := '2016-03-02';
 
 	-- initialisation
 	vint := 0;
@@ -529,6 +529,27 @@ BEGIN
 		vcurvsn := vnewvsn;
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
+
+	vnewvsn := '2016-03-02';
+    	IF vcurvsn < vnewvsn THEN
+    		vmsg := 'begin.update(' || vnewvsn || ')';
+    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+
+    		-- Create table "tosiam_user_activation"
+    		CREATE TABLE veraweb.tmedia_representative_activation (
+    		    email character varying(100) NOT NULL,
+    		    fk_event  serial NOT NULL,
+    		    activation_token character varying(100) NOT NULL,
+
+    		    CONSTRAINT tmedia_representative_activation_pk PRIMARY KEY (email, fk_event)
+    		);
+
+    		-- post-upgrade
+    		vmsg := 'end.update(' || vnewvsn || ')';
+    		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+    		vcurvsn := vnewvsn;
+    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+    	END IF;
 
 	-- end
 
