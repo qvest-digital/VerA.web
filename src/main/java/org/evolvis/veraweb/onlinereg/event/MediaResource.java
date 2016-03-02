@@ -143,8 +143,8 @@ public class MediaResource {
 
     private void addMediaRepresentativeActivationEntry(Integer eventId, String email, String activationToken) {
         final Form postBody = new Form();
-        postBody.add("eventId", activationToken);
-        postBody.add("email", activationToken);
+        postBody.add("eventId", eventId);
+        postBody.add("email", email);
         postBody.add("activation_token", activationToken);
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/press/activation/create");
         resource.post(postBody);
