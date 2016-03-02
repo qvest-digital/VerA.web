@@ -41,7 +41,8 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                                 address: $scope.address,
                                 plz: $scope.plz,
                                 city: $scope.city,
-                                country: $scope.country
+                                country: $scope.country,
+                                current_language: $translate.use()
                         })
                     }).success(function (result) {
                         if (result.status === 'NO_EVENT_DATA') {

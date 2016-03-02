@@ -44,6 +44,7 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author jnunez
@@ -120,17 +121,24 @@ public class MediaResource {
             @FormParam("address") String address,
             @FormParam("plz") String plz,
             @FormParam("city") String city,
-            @FormParam("country") String country) throws IOException {
+            @FormParam("country") String country,
+            @FormParam("current_language") String currentLanguageKey) throws IOException {
 
-        final Boolean delegationIsFound = checkForExistingPressEvent(uuid);
+        final Boolean mediaRepresentationIsFound = checkForExistingPressEvent(uuid);
 
-        if (delegationIsFound) {
+        if (mediaRepresentationIsFound) {
+            final String activationToken = UUID.randomUUID().toString();
+            // sendEmailVerification(email, activationToken, currentLanguageKey);
             final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
                     address, plz, city, country, usernameGenerator());
             return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
         }
 
         return StatusConverter.convertStatus("WRONG_EVENT");
+    }
+
+    private void sendEmailVerification(String email, String activationToken, String currentLanguageKey) {
+
     }
 
     private String createAndAssignMediaRepresentativeGuest(PressTransporter transporter) throws IOException {

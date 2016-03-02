@@ -31,7 +31,7 @@ import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
-import org.evolvis.veraweb.onlinereg.mail.EmailUtilities;
+import org.evolvis.veraweb.onlinereg.mail.EmailDispatcher;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
@@ -160,8 +160,8 @@ public class UserResource {
     }
 
     private void sendEmailVerification(String email, String currentLanguageKey, String activationToken) {
-        final EmailUtilities emailUtilities = new EmailUtilities(config, client);
-        emailUtilities.sendEmailVerification(email, activationToken, currentLanguageKey);
+        final EmailDispatcher emailDispatcher = new EmailDispatcher(config, client);
+        emailDispatcher.sendEmailVerification(email, activationToken, currentLanguageKey);
     }
 
     /**
