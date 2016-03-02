@@ -130,6 +130,8 @@ public class MediaResource {
 
         if (mediaRepresentationIsFound) {
             final String activationToken = UUID.randomUUID().toString();
+            final Integer integer = getEventIdFromUuid(uuid);
+            addMediaRepresentativeActivationEntry(integer, email, activationToken);
             sendEmailVerification(email, activationToken, currentLanguageKey);
             final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
                     address, plz, city, country, usernameGenerator());
@@ -137,6 +139,15 @@ public class MediaResource {
         }
 
         return StatusConverter.convertStatus("WRONG_EVENT");
+    }
+
+    private void addMediaRepresentativeActivationEntry(Integer eventId, String email, String activationToken) {
+        final Form postBody = new Form();
+        postBody.add("eventId", activationToken);
+        postBody.add("email", activationToken);
+        postBody.add("activation_token", activationToken);
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/press/activation/create");
+        resource.post(postBody);
     }
 
     private void sendEmailVerification(String email, String activationToken, String currentLanguageKey) {
