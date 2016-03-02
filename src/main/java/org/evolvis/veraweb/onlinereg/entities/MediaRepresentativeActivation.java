@@ -16,22 +16,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tmedia_representative_activation")
 public class MediaRepresentativeActivation {
     @Id
-    private String activationToken;
+    private String activation_token;
     private String email;
     private Integer fk_event;
 
-    public MediaRepresentativeActivation(String activationToken, String email, Integer fk_event) {
-        this.activationToken = activationToken;
+    public MediaRepresentativeActivation(String activation_token, String email, Integer fk_event) {
+        this.activation_token = activation_token;
         this.email = email;
         this.fk_event = fk_event;
     }
 
-    public String getActivationToken() {
-        return activationToken;
+    public String getActivation_token() {
+        return activation_token;
     }
 
-    public void setActivationToken(String activationToken) {
-        this.activationToken = activationToken;
+    public void setActivation_token(String activation_token) {
+        this.activation_token = activation_token;
     }
 
     public String getEmail() {
