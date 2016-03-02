@@ -516,16 +516,21 @@ public class PersonResource extends AbstractResource {
         final Query query = getSelectPersonByUsernameQuery(username, session);
         final Person person = (Person) query.uniqueResult();
 
-        Date birthdayDate = new Date(birthday);
+        if(birthday != null) {
+            final Date birthdayDate = new Date(birthday);
+            person.setBirthday_a_e1(birthdayDate);
+        } else {
+            person.setBirthday_a_e1(null);
+        }
 
         if(fk_salutation != 0) {
             person.setFk_salutation_a_e1(fk_salutation);
             person.setSalutation_a_e1(salutation);
         }
+
         person.setTitle_a_e1(title);
         person.setFirstname_a_e1(firstName);
         person.setLastname_a_e1(lastName);
-        person.setBirthday_a_e1(birthdayDate);
         person.setNationality_a_e1(nationality);
         person.setLanguages_a_e1(languages);
         person.setSex_a_e1(gender);
