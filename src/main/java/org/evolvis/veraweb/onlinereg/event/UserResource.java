@@ -31,6 +31,7 @@ import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.mail.EmailUtilities;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
@@ -152,10 +153,15 @@ public class UserResource {
         user = initUser(osiam_username, osiam_firstname, osiam_secondname, osiam_password1, email, person.getPk());
         osiamClient.createUser(accessToken, user);
         final String activationToken = UUID.randomUUID().toString();
-        sendEmailVerification(email, activationToken, currentLanguageKey);
+        sendEmailVerification(email, currentLanguageKey, activationToken);
         addOsiamUserActivationEntry(osiam_username, activationToken);
 
         return StatusConverter.convertStatus("OK");
+    }
+
+    private void sendEmailVerification(String email, String currentLanguageKey, String activationToken) {
+        final EmailUtilities emailUtilities = new EmailUtilities(config, client);
+        emailUtilities.sendEmailVerification(email, activationToken, currentLanguageKey);
     }
 
     /**
@@ -299,16 +305,6 @@ public class UserResource {
         postBody.add("activation_token", activationToken);
         postBody.add("username", osiamUsername);
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/create");
-        resource.post(postBody);
-    }
-
-    private void sendEmailVerification(String email, String activationToken, String currentLanguageKey) {
-        final Form postBody = new Form();
-        postBody.add("email", email);
-        postBody.add("endpoint", config.getOnlineRegistrationEndpoint());
-        postBody.add("activation_token", activationToken);
-        postBody.add("language", currentLanguageKey);
-        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/email/confirmation/send");
         resource.post(postBody);
     }
 
