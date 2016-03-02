@@ -22,8 +22,6 @@ package org.evolvis.veraweb.onlinereg.event;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 import lombok.extern.java.Log;
@@ -43,7 +41,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -130,8 +127,12 @@ public class MediaResource {
 
         if (mediaRepresentationIsFound) {
             final String activationToken = UUID.randomUUID().toString();
-            final Integer integer = getEventIdFromUuid(uuid);
-            addMediaRepresentativeActivationEntry(integer, email, activationToken);
+            final Integer eventId = getEventIdFromUuid(uuid);
+            final Boolean existinPressUser = checkForExistingPressUserActivation(email, eventId);
+            if (existinPressUser) {
+                return StatusConverter.convertStatus("PRESS_USER_EXISTS_ALREADY");
+            }
+            addMediaRepresentativeActivationEntry(eventId, email, activationToken);
             sendEmailVerification(email, activationToken, currentLanguageKey);
             final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
                     address, plz, city, country, usernameGenerator());
@@ -139,6 +140,12 @@ public class MediaResource {
         }
 
         return StatusConverter.convertStatus("WRONG_EVENT");
+    }
+
+    private Boolean checkForExistingPressUserActivation(String email, Integer eventId) throws IOException {
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "press", "activation", "exists", email, eventId);
+        return resourceReader.readStringResource(path, BOOLEAN);
     }
 
     private void addMediaRepresentativeActivationEntry(Integer eventId, String email, String activationToken) {

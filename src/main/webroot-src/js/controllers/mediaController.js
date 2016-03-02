@@ -37,7 +37,7 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                                 nachname: $scope.lastname,
                                 vorname: $scope.firstname,
                                 gender: $scope.gender.label,
-                                email: $scope.email,
+                                email: $scope.email.trim(),
                                 address: $scope.address,
                                 plz: $scope.plz,
                                 city: $scope.city,
@@ -71,6 +71,11 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                             $scope.plz = null;
                             $scope.city = null;
                             $scope.country = null;
+                        } else if (result.status === 'PRESS_USER_EXISTS_ALREADY') {
+                            $translate('MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_EXIST').then(function (text) {
+                                $scope.error = text;
+                            });
+                            $scope.success = null;
                         } else {
                             $scope.error = ERROR_TEXT;
                         }
