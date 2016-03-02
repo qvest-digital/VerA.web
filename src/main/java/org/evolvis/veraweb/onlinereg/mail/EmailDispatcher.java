@@ -8,12 +8,12 @@ import com.sun.jersey.api.client.Client;
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
-public class EmailUtilities {
+public class EmailDispatcher {
 
     private Config config;
     private Client client;
 
-    public EmailUtilities(Config config, Client client) {
+    public EmailDispatcher(Config config, Client client) {
         this.config = config;
         this.client = client;
     }
