@@ -22,15 +22,15 @@ package org.evolvis.veraweb.onlinereg.event;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.mail.EmailDispatcher;
 import org.evolvis.veraweb.onlinereg.utils.PressTransporter;
+import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
 import javax.ws.rs.FormParam;
@@ -41,9 +41,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author jnunez
@@ -120,17 +120,46 @@ public class MediaResource {
             @FormParam("address") String address,
             @FormParam("plz") String plz,
             @FormParam("city") String city,
-            @FormParam("country") String country) throws IOException {
+            @FormParam("country") String country,
+            @FormParam("current_language") String currentLanguageKey) throws IOException {
 
-        final Boolean delegationIsFound = checkForExistingPressEvent(uuid);
+        final Boolean mediaRepresentationIsFound = checkForExistingPressEvent(uuid);
 
-        if (delegationIsFound) {
+        if (mediaRepresentationIsFound) {
+            final String activationToken = UUID.randomUUID().toString();
+            final Integer eventId = getEventIdFromUuid(uuid);
+            final Boolean existinPressUser = checkForExistingPressUserActivation(email, eventId);
+            if (existinPressUser) {
+                return StatusConverter.convertStatus("PRESS_USER_EXISTS_ALREADY");
+            }
+            addMediaRepresentativeActivationEntry(eventId, email, activationToken);
+            sendEmailVerification(email, activationToken, currentLanguageKey);
             final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
                     address, plz, city, country, usernameGenerator());
             return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
         }
 
         return StatusConverter.convertStatus("WRONG_EVENT");
+    }
+
+    private Boolean checkForExistingPressUserActivation(String email, Integer eventId) throws IOException {
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "press", "activation", "exists", email, eventId);
+        return resourceReader.readStringResource(path, BOOLEAN);
+    }
+
+    private void addMediaRepresentativeActivationEntry(Integer eventId, String email, String activationToken) {
+        final Form postBody = new Form();
+        postBody.add("eventId", eventId);
+        postBody.add("email", email);
+        postBody.add("activation_token", activationToken);
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/press/activation/create");
+        resource.post(postBody);
+    }
+
+    private void sendEmailVerification(String email, String activationToken, String currentLanguageKey) {
+        final EmailDispatcher emailDispatcher = new EmailDispatcher(config, client);
+        emailDispatcher.sendEmailVerification(email, activationToken, currentLanguageKey);
     }
 
     private String createAndAssignMediaRepresentativeGuest(PressTransporter transporter) throws IOException {
@@ -160,7 +189,8 @@ public class MediaResource {
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String username)
             throws IOException {
         final Integer categoryID = getCategoryIdFromCatname("Pressevertreter", uuid);
-        final WebResource resource = client.resource(path("guest", uuid, "register"));
+
+        final WebResource resource = getAddGuestResource(uuid);
         final Form postBody = new Form();
 
         postBody.add("eventId", eventId);
@@ -174,18 +204,28 @@ public class MediaResource {
         resource.post(Guest.class, postBody);
     }
 
+    private WebResource getAddGuestResource(String uuid) {
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "guest", uuid, "register");
+        return client.resource(path);
+    }
+
     /**
      * Searching an event ID using the UUID
      */
     private Integer getEventIdFromUuid(String uuid) throws IOException {
-        return readResource(path("event", "require", uuid), INTEGER);
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "event", "require", uuid);
+        return resourceReader.readStringResource(path, INTEGER);
     }
 
     /**
      * Searching the ID of one category using the catname
      */
     private Integer getCategoryIdFromCatname(String catname, String uuid) throws IOException {
-        return readResource(path("category", catname, uuid), INTEGER);
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "category", catname, uuid);
+        return resourceReader.readStringResource(path, INTEGER);
     }
     /**
      * Includes a new person in the database - Table "tperson"
@@ -216,53 +256,9 @@ public class MediaResource {
     }
 
     private Boolean checkForExistingPressEvent(String uuid) throws IOException {
-        return readResource(path("event", "exist", uuid), BOOLEAN);
-    }
-
-    /**
-     * Reads the resource at given path and returns the entity.
-     *
-     * @param path path
-     * @param type TypeReference of requested entity
-     * @param <T>  Type of requested entity
-     * @return requested resource
-     * @throws IOException
-     */
-    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
-        WebResource resource;
-        try {
-            resource = client.resource(path);
-            final String json = resource.get(String.class);
-            return mapper.readValue(json, type);
-        } catch (ClientHandlerException che) {
-            if (che.getCause() instanceof SocketTimeoutException) {
-                //FIXME some times open, pooled connections time out and generate errors
-//                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
-                resource = client.resource(path);
-                final String json = resource.get(String.class);
-                return mapper.readValue(json, type);
-            } else {
-                throw che;
-            }
-
-        } catch (UniformInterfaceException uie) {
-//            log.warning(uie.getResponse().getEntity(String.class));
-            throw uie;
-        }
-    }
-
-    /**
-     * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
-     *
-     * @param path path fragments
-     * @return complete path as string
-     */
-    private String path(Object... path) {
-        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
-        for (Object p : path) {
-            r += "/" + p;
-        }
-        return r;
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "event", "exist", uuid);
+        return resourceReader.readStringResource(path, BOOLEAN);
     }
 
     private String usernameGenerator() {

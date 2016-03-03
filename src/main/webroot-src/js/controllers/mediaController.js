@@ -37,11 +37,12 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                                 nachname: $scope.lastname,
                                 vorname: $scope.firstname,
                                 gender: $scope.gender.label,
-                                email: $scope.email,
+                                email: $scope.email.trim(),
                                 address: $scope.address,
                                 plz: $scope.plz,
                                 city: $scope.city,
-                                country: $scope.country
+                                country: $scope.country,
+                                current_language: $translate.use()
                         })
                     }).success(function (result) {
                         if (result.status === 'NO_EVENT_DATA') {
@@ -51,6 +52,11 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                             $scope.success = null;
                         }  else if (result.status === 'WRONG_EVENT') {
                             $translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
+                                $scope.error = text;
+                            });
+                            $scope.success = null;
+                        } else if (result.status === 'PRESS_USER_EXISTS_ALREADY') {
+                            $translate('MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_EXIST').then(function (text) {
                                 $scope.error = text;
                             });
                             $scope.success = null;

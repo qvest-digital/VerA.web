@@ -31,6 +31,7 @@ import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.mail.EmailDispatcher;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
@@ -152,10 +153,15 @@ public class UserResource {
         user = initUser(osiam_username, osiam_firstname, osiam_secondname, osiam_password1, email, person.getPk());
         osiamClient.createUser(accessToken, user);
         final String activationToken = UUID.randomUUID().toString();
-        sendEmailVerification(email, activationToken, currentLanguageKey);
+        sendEmailVerification(email, currentLanguageKey, activationToken);
         addOsiamUserActivationEntry(osiam_username, activationToken);
 
         return StatusConverter.convertStatus("OK");
+    }
+
+    private void sendEmailVerification(String email, String currentLanguageKey, String activationToken) {
+        final EmailDispatcher emailDispatcher = new EmailDispatcher(config, client);
+        emailDispatcher.sendEmailVerification(email, activationToken, currentLanguageKey);
     }
 
     /**
@@ -221,9 +227,9 @@ public class UserResource {
     @GET
     @Path("/userdata/existing/event/{username}")
     public String isUserRegisteredToEvents(@PathParam("username") String username) {
-        WebResource resource;
-
-        resource = client.resource(path("event", "userevents", "existing", username));
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "event", "userevents", "existing", username);
+        final WebResource resource = client.resource(path);
         return getUserRegisteredToEvents(resource);
     }
 
@@ -270,7 +276,9 @@ public class UserResource {
      * @throws IOException TODO
      */
     private Person getUserData(String username) throws IOException {
-        return readResource(path("person", "userdata", username), PERSON);
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String osiamUserActivationPath = resourceReader.constructPath(BASE_RESOURCE, "person", "userdata", username);
+        return resourceReader.readStringResource(osiamUserActivationPath, PERSON);
     }
 
     private void setOsiamUserAsActive(String username) throws IOException {
@@ -299,16 +307,6 @@ public class UserResource {
         postBody.add("activation_token", activationToken);
         postBody.add("username", osiamUsername);
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiam/user/create");
-        resource.post(postBody);
-    }
-
-    private void sendEmailVerification(String email, String activationToken, String currentLanguageKey) {
-        final Form postBody = new Form();
-        postBody.add("email", email);
-        postBody.add("endpoint", config.getOnlineRegistrationEndpoint());
-        postBody.add("activation_token", activationToken);
-        postBody.add("language", currentLanguageKey);
-        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/email/confirmation/send");
         resource.post(postBody);
     }
 
@@ -427,37 +425,5 @@ public class UserResource {
             genderResolved = "f";
         }
         return genderResolved;
-    }
-
-    private String path(Object... path) {
-        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
-
-        for (Object p : path) {
-            r += "/" + p;
-        }
-
-        return r;
-    }
-
-    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
-        WebResource resource;
-        try {
-            resource = client.resource(path);
-            final String json = resource.get(String.class);
-            return mapper.readValue(json, type);
-        } catch (ClientHandlerException che) {
-            if (che.getCause() instanceof SocketTimeoutException) {
-                //FIXME some times open, pooled connections time out and generate errors
-                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
-                resource = client.resource(path);
-                final String json = resource.get(String.class);
-                return mapper.readValue(json, type);
-            } else {
-                throw che;
-            }
-        } catch (UniformInterfaceException uie) {
-            log.warning(uie.getResponse().getEntity(String.class));
-            throw uie;
-        }
     }
 }
