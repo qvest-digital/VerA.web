@@ -50,7 +50,12 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                                 $scope.error = text;
                             });
                             $scope.success = null;
-                        }  else if (result.status === 'WRONG_EVENT') {
+                        }  else if (result.status === 'WRONG_EMAIL') {
+                            $translate('GENERIC_MESSAGE_EMAIL_NOT_VALID').then(function (text) {
+                                $scope.error = text;
+                            });
+                            $scope.success = null;
+                        } else if (result.status === 'WRONG_EVENT') {
                             $translate('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS').then(function (text) {
                                 $scope.error = text;
                             });

@@ -57,6 +57,7 @@
   "GENERIC_MESSAGE_MISSING_LASTNAME": "Bitte geben Sie einen Nachnamen ein.",
   "GENERIC_MESSAGE_NO_FUTURE_DATE": "Das Datum darf nicht in der Zukunft liegen",
   "GENERIC_MESSAGE_NOT_A_DATE": "Bitte überprüfen Sie das eingegebene Datum.",
+  "GENERIC_MESSAGE_EMAIL_NOT_VALID": "Die eingegebene Email Adresse ist nicht gültig.",
 
   "BROWSER_TITLE": "VerA.web Online-Registrierung",
 

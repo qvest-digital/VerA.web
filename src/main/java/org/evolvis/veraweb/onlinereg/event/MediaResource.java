@@ -29,6 +29,7 @@ import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.mail.EmailDispatcher;
+import org.evolvis.veraweb.onlinereg.mail.EmailValidator;
 import org.evolvis.veraweb.onlinereg.utils.PressTransporter;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
@@ -123,28 +124,42 @@ public class MediaResource {
             @FormParam("country") String country,
             @FormParam("current_language") String currentLanguageKey) throws IOException {
 
-        final Boolean mediaRepresentationIsFound = checkForExistingPressEvent(uuid);
+        final Boolean emailValid = EmailValidator.isValidEmailAddress(email);
 
-        if (mediaRepresentationIsFound) {
-            final String activationToken = UUID.randomUUID().toString();
-            final Integer eventId = getEventIdFromUuid(uuid);
-            final Boolean existinPressUser = checkForExistingPressUserActivation(email, eventId);
-            if (existinPressUser) {
-                return StatusConverter.convertStatus("PRESS_USER_EXISTS_ALREADY");
+        if(emailValid) {
+            final Boolean mediaRepresentationIsFound = checkForExistingPressEvent(uuid);
+
+            if (mediaRepresentationIsFound) {
+                final String activationToken = UUID.randomUUID().toString();
+                final Integer eventId = getEventIdFromUuid(uuid);
+                final Boolean existinPressUser = checkForExistingPressUserActivation(email, eventId);
+                if (existinPressUser) {
+                    return StatusConverter.convertStatus("PRESS_USER_EXISTS_ALREADY");
+                }
+                addMediaRepresentativeActivationEntry(eventId, email, activationToken);
+                sendEmailVerification(email, activationToken, currentLanguageKey);
+                final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
+                        address, plz, city, country, usernameGenerator());
+                return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
             }
-            addMediaRepresentativeActivationEntry(eventId, email, activationToken);
-            sendEmailVerification(email, activationToken, currentLanguageKey);
-            final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
-                    address, plz, city, country, usernameGenerator());
-            return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
+
+            return StatusConverter.convertStatus("WRONG_EVENT");
         }
 
-        return StatusConverter.convertStatus("WRONG_EVENT");
+        return StatusConverter.convertStatus("WRONG_EMAIL");
     }
 
     private Boolean checkForExistingPressUserActivation(String email, Integer eventId) throws IOException {
         final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
-        final String path = resourceReader.constructPath(BASE_RESOURCE, "press", "activation", "exists", email, eventId);
+
+        final int atIndex = email.lastIndexOf('@');
+
+        final String emailUp = email.substring(0,atIndex);
+        final String emailDown = email.substring(atIndex+1);
+
+//        final String path = resourceReader.constructPath(BASE_RESOURCE, "press", "activation", "exists", email, eventId);
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "press", "activation", "exists", emailUp, emailDown, eventId);
+
         return resourceReader.readStringResource(path, BOOLEAN);
     }
 
