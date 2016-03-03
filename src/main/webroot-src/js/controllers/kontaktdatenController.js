@@ -105,7 +105,7 @@ onlineRegApp.controller('KontaktdatenController', function($http, $rootScope, $t
                     $translate('GENERIC_MESSAGE_LASTNAME_MAX').then(function (text) {
                         $scope.error = text;
                     });
-                } else {
+                } else if ($scope.updateUserCoreData.$valid) {
                     $http({
                         method: 'POST',
                         url: 'api/user/userdata/update/' + encodeURIComponent($rootScope.user_logged_in) + '',

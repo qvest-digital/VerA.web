@@ -389,10 +389,13 @@ public class UserResource {
         postBody.add("firstName", firstName);
         postBody.add("lastName", lastName);
         //Can't post a date, but an epoch
-        postBody.add("birthday", birthday.getTime());
+        if(birthday != null) {
+            postBody.add("birthday", birthday.getTime());
+        }
         postBody.add("nationality", nationality);
         postBody.add("languages", languages);
         postBody.add("gender", resolveGenderValueFromOptionIds(gender));
+
         return postBody;
     }
 
