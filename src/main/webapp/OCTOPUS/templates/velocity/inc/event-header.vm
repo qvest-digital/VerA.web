@@ -1,8 +1,6 @@
 ##Add whitespace to values to cut them
 #set($eventnamecut = $event.eventname.replaceAll("(.{42})", "$1 "))
 
-#parse("inc/check-oa-active.vm")
-
 <div class="contentBoxColored grayBorder" id="eventTop">
 	<div class="table width100">
 		<div class="tableRow">

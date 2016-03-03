@@ -1,7 +1,5 @@
 <!-- Nur in Bearbeiten Sicht -->
 
-#parse("inc/check-oa-active.vm")
-
 #if($action == "guest")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($iAmActivated && !$person.username)
