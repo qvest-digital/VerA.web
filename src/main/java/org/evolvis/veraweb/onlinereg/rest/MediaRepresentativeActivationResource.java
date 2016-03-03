@@ -52,8 +52,6 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
                 return true;
             }
             return false;
-        } catch (Exception e) {
-            return false;
         } finally {
             session.close();
         }
