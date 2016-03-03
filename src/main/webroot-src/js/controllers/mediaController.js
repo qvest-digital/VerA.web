@@ -55,6 +55,11 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                                 $scope.error = text;
                             });
                             $scope.success = null;
+                        } else if (result.status === 'PRESS_USER_EXISTS_ALREADY') {
+                            $translate('MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_EXIST').then(function (text) {
+                                $scope.error = text;
+                            });
+                            $scope.success = null;
                         } else if (result.status === 'OK') {
                             $translate('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE').then(function (text) {
                                 $scope.success = text;
@@ -71,11 +76,6 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                             $scope.plz = null;
                             $scope.city = null;
                             $scope.country = null;
-                        } else if (result.status === 'PRESS_USER_EXISTS_ALREADY') {
-                            $translate('MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_EXIST').then(function (text) {
-                                $scope.error = text;
-                            });
-                            $scope.success = null;
                         } else {
                             $scope.error = ERROR_TEXT;
                         }
