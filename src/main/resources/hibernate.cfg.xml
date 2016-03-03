@@ -30,6 +30,7 @@
         <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalFieldType"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation"/>
+        <mapping class="org.evolvis.veraweb.onlinereg.entities.MediaRepresentativeActivation"/>
 
     </session-factory>
 </hibernate-configuration>
