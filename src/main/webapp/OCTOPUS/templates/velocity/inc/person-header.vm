@@ -1,8 +1,10 @@
 <!-- Nur in Bearbeiten Sicht -->
 
+#parse("inc/check-oa-active.vm")
+
 #if($action == "guest")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
-		#if($online-registration.activated && !$person.username)
+		#if($iAmActivated && !$person.username)
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
 		#end
 		#if($person && $person.id)
@@ -15,7 +17,7 @@
 	</div>
 #elseif($action == "host")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
-		#if($online-registration.activated && !$person.username)
+		#if($iAmActivated && !$person.username)
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
 		#end
 		#if($person && $person.id)
@@ -33,7 +35,7 @@
 	</div>
 #elseif($action == "event")
 	<div id="buttonPanel-top" class="textRight marginBottom10">
-		#if($online-registration.activated && !$person.username)
+		#if($iAmActivated && !$person.username)
 			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
 		#end
 		#if($grants.mayWrite())
@@ -59,7 +61,7 @@
     #end
 	<div id="buttonPanel-top" class="textRight marginBottom10">
 		#if($person && $person.id)
-			#if($online-registration.activated && !$person.username)
+			#if($iAmActivated && !$person.username)
 				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
 			#end
 			#if($grants.mayWrite())
@@ -102,7 +104,7 @@
 							<strong>${placeholderWithTranslation.GENERIC_PERSONS_ID}</strong><br />#if($person.id)$!message.text($person.id)#end
 						</div>
 						<div class="tableCell width50">
-							#if($online-registration.activated)
+							#if($iAmActivated)
 								<strong>${placeholderWithTranslation.GENERIC_OA_USERNAME}</strong><br />
 								#if($person.username)
 									$person.username
