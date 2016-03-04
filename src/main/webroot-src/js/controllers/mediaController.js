@@ -69,6 +69,8 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                             $translate('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE').then(function (text) {
                                 $scope.success = text;
                             });
+                            $scope.error = null;
+
                             $http.get('api/delegation/' + $routeParams.uuid).then(function(presentPersons) {
                                 $scope.presentPersons = presentPersons.data;
                             });
