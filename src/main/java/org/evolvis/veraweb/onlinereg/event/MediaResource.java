@@ -42,6 +42,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -151,14 +152,8 @@ public class MediaResource {
 
     private Boolean checkForExistingPressUserActivation(String email, Integer eventId) throws IOException {
         final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
-
-        final int atIndex = email.lastIndexOf('@');
-
-        final String emailUp = email.substring(0,atIndex);
-        final String emailDown = email.substring(atIndex+1);
-
-//        final String path = resourceReader.constructPath(BASE_RESOURCE, "press", "activation", "exists", email, eventId);
-        final String path = resourceReader.constructPath(BASE_RESOURCE, "press", "activation", "exists", emailUp, emailDown, eventId);
+        final String encodedAddress = URLEncoder.encode(email, "utf8");
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "press", "activation", "exists", encodedAddress, eventId);
 
         return resourceReader.readStringResource(path, BOOLEAN);
     }
