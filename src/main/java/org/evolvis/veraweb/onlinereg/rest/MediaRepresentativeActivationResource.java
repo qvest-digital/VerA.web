@@ -39,14 +39,13 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
     }
 
     @GET
-    @Path("/exists/{emailUp}/{emailDown}/{eventId}")
-    public Boolean existEventIdByDelegation(@PathParam("emailUp") String emailUp, @PathParam("emailDown") String emailDown, @PathParam("eventId") String eventId) {
+    @Path("/exists/{encodedAddress}/{eventId}")
+    public Boolean existEventIdByDelegation(@PathParam("encodedAddress") String encodedAddress, @PathParam("eventId") String eventId) {
         final Session session = openSession();
-        final String email = emailUp + emailDown;
         try {
             final Query query = session.getNamedQuery("MediaRepresentativeActivation.getEntryByEmailAndEventId");
             query.setInteger("fk_event", Integer.parseInt(eventId));
-            query.setString("email", email);
+            query.setString("email", encodedAddress);
             final BigInteger activations = (BigInteger) query.uniqueResult();
             if (activations != null && activations.intValue() >= 1) {
                 return true;
