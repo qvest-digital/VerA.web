@@ -26,7 +26,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{tarentanleitung}
 
-\PassOptionsToPackage{paper=a4}{typearea}
+\PassOptionsToPackage{paper=21cm:28cm}{typearea}
 \RequirePackage{graphicx}
 \RequirePackage{fancyhdr}
 \LoadClass{scrartcl}
