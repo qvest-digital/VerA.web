@@ -771,6 +771,7 @@ public class PersonDetailWorker implements PersonConstants {
         DateHelper.addTimeToDate(person.diplodate_a_e1, octopusContext.requestAsString("person-diplotime_a_e1"), person.getErrors());
         person.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
         person.updateHistoryFields(null, ((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
+        setEntityCreationData(person, personOld);
         AddressHelper.checkPersonSalutation(person, database, transactionContext);
 
         updateExpireDate(person, personOld);
@@ -794,6 +795,11 @@ public class PersonDetailWorker implements PersonConstants {
          * cklein 2008-03-12
          */
         this.restoreNavigation(octopusContext, person, database);
+    }
+
+    private void setEntityCreationData(Person person, Person personOld) {
+        person.created = personOld.created;
+        person.createdby = personOld.createdby;
     }
 
     private void updateExpireDate(Person person, Person personOld) {
