@@ -103,7 +103,7 @@
                         			<label for="mail-name">${placeholderWithTranslation.neuevorlagename}*</label>
                         			<input type="text" id="mail-name" name="mail-name" value="$!message.text($mail.name)">
                         			<input type="button" name="savedraft" value="${placeholderWithTranslation.neuevorlagespeichern}" title="${placeholderWithTranslation.neuevorlagespeichern}" onclick="document.getElementById('savedraft').value='true'; document.getElementById('formlist').submit();" class="autoWidth">
-                                    <p class="mandatoryText"><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong>${placeholderWithTranslation.neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten}.</p>
+                                    <p class="mandatoryText"><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong> ${placeholderWithTranslation.neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten}.</p>
                         </div>
                         <br/><br/>
 

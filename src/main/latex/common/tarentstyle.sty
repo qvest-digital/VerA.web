@@ -43,7 +43,7 @@
 % Einstellungen für: (gerade Seiten gespiegelt)
 % Seitenrand oben 1.78 cm, unten 1.5 cm, links 1.9 cm, rechts 1.8 cm
 % Kopfzeile 1.1 cm (Abstand 0.6 cm); Fußzeile 0.6 cm (Abstand 0.6 cm)
-\RequirePackage[a4paper,includeheadfoot,inner=1.9cm,outer=1.8cm,top=1.78cm,bottom=1.5cm,twoside,headheight=1.1cm,headsep=0.9cm,foot=1.2cm,marginparsep=2.5mm]{geometry}
+\RequirePackage[paperwidth=21truecm,paperheight=28truecm,includeheadfoot,inner=1.9cm,outer=1.8cm,top=1.78cm,bottom=1.5cm,twoside,headheight=1.1cm,headsep=0.9cm,foot=1.2cm,marginparsep=2.5mm]{geometry}
 \savegeometry{tarentstyle}
 \RequirePackage{fancybox}
 \linespread{1.15}
@@ -205,6 +205,7 @@
 		{“}{{\textquotedblleft}}1 {”}{{\textquotedblright}}1
 		{‘}{{\textquoteleft}}1 {’}{{\textquoteright}}1
 		{«}{\guillemotleft}1 {»}{\guillemotright}1
+		{€}{{\fontencoding{LY1}\selectfont\symbol{'001}}}1
 		{…}{{\fontencoding{LY1}\selectfont\symbol{'205}}}1,
 	columns=flexible,
 	showstringspaces=false,
