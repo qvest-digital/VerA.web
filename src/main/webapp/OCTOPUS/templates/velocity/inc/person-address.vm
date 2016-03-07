@@ -120,7 +120,7 @@
 
 			<div class="tableCell width50">
 				<label for="person-url$!message.plain($ext)">${placeholderWithTranslation.LETTERS_WWW}</label>
-				<input type="url" id="person-url$!message.plain($ext)" name="person-url$!message.plain($ext)" value="$!message.text($facade.Url)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
+				<input type="text" id="person-url$!message.plain($ext)" name="person-url$!message.plain($ext)" value="$!message.text($facade.Url)" onchange="setModified();" #if($createNewPerson || !$grants.mayWrite()) vera-disabled#end/>
 			</div>
 
 			<div class="tableCell width50"></div>
