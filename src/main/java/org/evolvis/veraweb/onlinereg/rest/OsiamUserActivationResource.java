@@ -114,7 +114,7 @@ public class OsiamUserActivationResource extends AbstractResource {
 
             // Resend mail
             emailResource = getEmailResource();
-            emailResource.sendEmailVerification(email, endpoint, activationToken, currentLanguageKey);
+            emailResource.sendEmailVerification(email, endpoint, activationToken, currentLanguageKey, false);
         } finally {
             session.close();
         }

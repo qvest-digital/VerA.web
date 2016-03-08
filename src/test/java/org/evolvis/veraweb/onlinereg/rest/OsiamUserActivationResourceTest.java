@@ -79,7 +79,7 @@ public class OsiamUserActivationResourceTest {
         osiamUserActivationResource.setEmailResource(emailResource);
         Query query = mock(Query.class);
         when(session.getNamedQuery("OsiamUserActivation.refreshOsiamUserActivationByUsername")).thenReturn(query);
-        doNothing().when(emailResource).sendEmailVerification(any(String.class), any(String.class), any(String.class), any(String.class));
+        doNothing().when(emailResource).sendEmailVerification(any(String.class), any(String.class), any(String.class), any(String.class), false);
 
         // WHEN
         osiamUserActivationResource.refreshActivationdataByUsername("email", "username", "token", "endpoint", "de_DE");

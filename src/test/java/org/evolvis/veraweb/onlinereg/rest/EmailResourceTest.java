@@ -36,7 +36,7 @@ public class EmailResourceTest {
         doNothing().when(mailDispatcher).send(any(String.class), any(String.class), any(String.class), any(String.class), any(String.class), any(String.class));
 
         // WHEN
-        emailResource.sendEmailVerification("test@test.com", "http://endpoint.de/rest/", "activation_token", "de_DE");
+        emailResource.sendEmailVerification("test@test.com", "http://endpoint.de/rest/", "activation_token", "de_DE", false);
 
         // THEN
         verify(mailDispatcher, times(1)).send(any(String.class), any(String.class), any(String.class), any(String.class), any(String.class), any(String.class));
