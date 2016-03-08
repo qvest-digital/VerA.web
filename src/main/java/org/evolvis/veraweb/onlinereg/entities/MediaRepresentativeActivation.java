@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -16,9 +18,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @Table(name = "tmedia_representative_activation")
-@NamedQueries({
-        @NamedQuery(name = "MediaRepresentativeActivation.getEntryByEmailAndEventId",
-                query = "SELECT mra FROM MediaRepresentativeActivation mra where email=:email AND fk_event=:fk_event")
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "MediaRepresentativeActivation.getEntryByEmailAndEventId",
+                query = "SELECT count(m.*) FROM veraweb.tmedia_representative_activation m where m.email=:email AND m.fk_event=:fk_event"
+        )
 })
 public class MediaRepresentativeActivation {
     @Id
