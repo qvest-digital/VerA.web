@@ -90,7 +90,7 @@
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Zur Veranstaltung anmelden",
 
   "MEDIA_REPRESENTATIVES_TITLE": "Als Pressevertreter anmelden:",
-  "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE": "Ihre Daten werden nun überprüft, eine Zusage erfolgt nach positiver Überprüfung.",
+  "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE": "Ihre Daten wurden gespeichert. Bitte bestätigen Sie ihre Anmeldung, Sie haben eine E-Mail erhalten. Ihre Daten werden danach überprüft, eine Zusage erfolgt nach positiver Überprüfung.",
   "MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_EXIST": "Sie sind bereits für die Veranstaltung angemeldet. Bitte bestätigen Sie ihre Anmeldung, Sie haben eine E-Mail erhalten.",
 
   "REGISTER_USER_MESSAGE_SUCCESS": "Benutzerdaten wurden gespeichert. Bitte bestätigen Sie ihren Account, Sie haben eine E-Mail erhalten.",

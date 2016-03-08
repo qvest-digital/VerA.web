@@ -84,7 +84,7 @@
   "USER_PASSWORD_CHANGE_SUCCESS_MESSAGE": "Your password has been changed successfully!",
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Sign up for the event",
   "MEDIA_REPRESENTATIVES_TITLE": "Register as media representative:",
-  "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE": "Your data is being reviewed. Confirmation depends on a positive result.",
+  "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE": "Your registration was submited. Please confirm your registration, you received an email. Confirmation depends on a positive result.",
   "MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_EXIST": "You are already registered for this event. Please confirm your registration, you received an email",
 
   "REGISTER_USER_MESSAGE_SUCCESS": "User data has been saved successfully. Please confirm your account, you received an email",
