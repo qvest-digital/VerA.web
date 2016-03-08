@@ -27,6 +27,7 @@ import com.sun.jersey.api.representation.Form;
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.entities.MediaRepresentativeActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.mail.EmailDispatcher;
 import org.evolvis.veraweb.onlinereg.mail.EmailValidator;
@@ -143,15 +144,31 @@ public class MediaResource {
                 );
                 sendEmailVerification(email, activationToken, currentLanguageKey);
                 return StatusConverter.convertStatus("OK");
-//                final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
-//                        address, plz, city, country, usernameGenerator());
-//                return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
+
             }
 
             return StatusConverter.convertStatus("WRONG_EVENT");
         }
 
         return StatusConverter.convertStatus("WRONG_EMAIL");
+    }
+
+    // http://localhost:8181/#/media/activation/confirm/40a576c8-bac0-419f-b8a8-d68826e59613
+    @GET
+    @Path("/activation/confirm/{pressUserActivationToken}")
+    public String activateMediaUser(@PathParam("pressUserActivationToken") String activationToken) {
+        MediaRepresentativeActivation mediaRepresentativeActivation = getPressUserByActivationToken(activationToken);
+        if (mediaRepresentativeActivation.getActivation_token().equals(activationToken)) {
+//            final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
+//                        address, plz, city, country, usernameGenerator());
+//                return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
+            return StatusConverter.convertStatus("OK");
+        }
+        return StatusConverter.convertStatus("PRESS_USER_ALREADY_ACTIVATED");
+    }
+
+    private MediaRepresentativeActivation getPressUserByActivationToken(String activationToken) {
+        return null;
     }
 
     private Boolean checkForExistingPressUserActivation(String email, Integer eventId) throws IOException {
