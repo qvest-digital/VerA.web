@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2015 tarent solutions GmbH
- *
+ * <p/>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p/>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p/>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -137,11 +137,15 @@ public class MediaResource {
                 if (existinPressUser) {
                     return StatusConverter.convertStatus("PRESS_USER_EXISTS_ALREADY");
                 }
-                addMediaRepresentativeActivationEntry(eventId, email, activationToken);
+
+                addMediaRepresentativeActivationEntry(
+                        nachname, vorname, gender, email, address, plz, city, country, activationToken, eventId
+                );
                 sendEmailVerification(email, activationToken, currentLanguageKey);
-                final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
-                        address, plz, city, country, usernameGenerator());
-                return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
+//                final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
+//                        address, plz, city, country, usernameGenerator());
+//                return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
+                return StatusConverter.convertStatus("OK");
             }
 
             return StatusConverter.convertStatus("WRONG_EVENT");
@@ -158,11 +162,30 @@ public class MediaResource {
         return resourceReader.readStringResource(path, BOOLEAN);
     }
 
-    private void addMediaRepresentativeActivationEntry(Integer eventId, String email, String activationToken) {
+    private void addMediaRepresentativeActivationEntry(
+            final String lastname,
+            final String firstname,
+            final String gender,
+            final String email,
+            final String address,
+            final String zip,
+            final String city,
+            final String country,
+            final String activationToken,
+            final Integer eventId) {
+
         final Form postBody = new Form();
+        postBody.add("activationToken", activationToken);
+        postBody.add("address", address);
+        postBody.add("city", city);
+        postBody.add("country", country);
+        postBody.add("email",email);
         postBody.add("eventId", eventId);
-        postBody.add("email", email);
-        postBody.add("activation_token", activationToken);
+        postBody.add("firstname", firstname);
+        postBody.add("gender", gender);
+        postBody.add("lastname", lastname);
+        postBody.add("zip", zip);
+
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/press/activation/create");
         resource.post(postBody);
     }
@@ -237,6 +260,7 @@ public class MediaResource {
         final String path = resourceReader.constructPath(BASE_RESOURCE, "category", catname, uuid);
         return resourceReader.readStringResource(path, INTEGER);
     }
+
     /**
      * Includes a new person in the database - Table "tperson"
      *
