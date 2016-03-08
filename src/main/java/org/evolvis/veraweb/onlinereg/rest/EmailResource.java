@@ -49,8 +49,8 @@ public class EmailResource extends AbstractResource {
         mailDispatcher.send(from, email, subject, content, activationLink, contentType);
     }
 
-    private String getActivationLink(String endpoint, String activation_token, Boolean type) {
-        if(type) {
+    private String getActivationLink(String endpoint, String activation_token, Boolean isPressUser) {
+        if(isPressUser) {
             return endpoint + "media/activation/confirm/" + activation_token;
         }
         return endpoint + "user/activate/" + activation_token;
