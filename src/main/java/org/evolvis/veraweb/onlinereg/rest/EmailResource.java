@@ -51,9 +51,9 @@ public class EmailResource extends AbstractResource {
 
     private String getActivationLink(String endpoint, String activation_token, Boolean type) {
         if(type) {
-            return endpoint + "user/activate/" + activation_token;
+            return endpoint + "media/activation/confirm/" + activation_token;
         }
-        return endpoint + "press/activation/confirm" + activation_token;
+        return endpoint + "user/activate/" + activation_token;
     }
 
     public EmailConfiguration getEmailConfiguration() {
