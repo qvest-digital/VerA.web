@@ -23,13 +23,33 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
     @POST
     @Path("/create")
     public MediaRepresentativeActivation addOsiamUserActivationEntry(
-        @FormParam("eventId") Integer eventId,
-        @FormParam("email") String email,
-        @FormParam("activation_token") String activationToken) {
+            @FormParam("activationToken") String activationToken,
+            @FormParam("email") String email,
+            @FormParam("eventId") Integer eventId,
+            @FormParam("gender") String gender,
+            @FormParam("address") String address,
+            @FormParam("city") String city,
+            @FormParam("country") String country,
+            @FormParam("firstname") String firstname,
+            @FormParam("lastname") String lastname,
+            @FormParam("zip") Integer zip
+    ) {
 
         final Session session = openSession();
         try {
-            final MediaRepresentativeActivation mediaRepresentativeActivation = new MediaRepresentativeActivation(activationToken, email, eventId);
+
+            final MediaRepresentativeActivation mediaRepresentativeActivation = new MediaRepresentativeActivation();
+            mediaRepresentativeActivation.setActivation_token(activationToken);
+            mediaRepresentativeActivation.setEmail(email);
+            mediaRepresentativeActivation.setFk_event(eventId);
+            mediaRepresentativeActivation.setGender(gender);
+            mediaRepresentativeActivation.setAddress(address);
+            mediaRepresentativeActivation.setCity(city);
+            mediaRepresentativeActivation.setCountry(country);
+            mediaRepresentativeActivation.setFirstname(firstname);
+            mediaRepresentativeActivation.setLastname(lastname);
+            mediaRepresentativeActivation.setZip(zip);
+
             session.persist(mediaRepresentativeActivation);
             session.flush();
             return mediaRepresentativeActivation;
