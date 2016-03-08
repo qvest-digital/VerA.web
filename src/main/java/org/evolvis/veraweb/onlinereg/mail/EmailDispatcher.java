@@ -18,12 +18,13 @@ public class EmailDispatcher {
         this.client = client;
     }
 
-    public void sendEmailVerification(String email, String activationToken, String currentLanguageKey) {
+    public void sendEmailVerification(String email, String activationToken, String currentLanguageKey, Boolean isPressUser) {
         final Form postBody = new Form();
         postBody.add("email", email);
         postBody.add("endpoint", config.getOnlineRegistrationEndpoint());
         postBody.add("activation_token", activationToken);
         postBody.add("language", currentLanguageKey);
+        postBody.add("usertype", isPressUser);
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/email/confirmation/send");
         resource.post(postBody);
     }

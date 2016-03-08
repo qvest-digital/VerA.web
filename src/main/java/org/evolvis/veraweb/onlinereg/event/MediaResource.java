@@ -142,10 +142,10 @@ public class MediaResource {
                         nachname, vorname, gender, email, address, plz, city, country, activationToken, eventId
                 );
                 sendEmailVerification(email, activationToken, currentLanguageKey);
+                return StatusConverter.convertStatus("OK");
 //                final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
 //                        address, plz, city, country, usernameGenerator());
 //                return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
-                return StatusConverter.convertStatus("OK");
             }
 
             return StatusConverter.convertStatus("WRONG_EVENT");
@@ -192,7 +192,7 @@ public class MediaResource {
 
     private void sendEmailVerification(String email, String activationToken, String currentLanguageKey) {
         final EmailDispatcher emailDispatcher = new EmailDispatcher(config, client);
-        emailDispatcher.sendEmailVerification(email, activationToken, currentLanguageKey);
+        emailDispatcher.sendEmailVerification(email, activationToken, currentLanguageKey, true);
     }
 
     private String createAndAssignMediaRepresentativeGuest(PressTransporter transporter) throws IOException {

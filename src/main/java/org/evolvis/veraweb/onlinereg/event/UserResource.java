@@ -161,7 +161,7 @@ public class UserResource {
 
     private void sendEmailVerification(String email, String currentLanguageKey, String activationToken) {
         final EmailDispatcher emailDispatcher = new EmailDispatcher(config, client);
-        emailDispatcher.sendEmailVerification(email, activationToken, currentLanguageKey);
+        emailDispatcher.sendEmailVerification(email, activationToken, currentLanguageKey, false);
     }
 
     /**
