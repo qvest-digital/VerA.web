@@ -29,11 +29,15 @@ public class MediaRepresentativeActivation {
     private String activation_token;
     private String email;
     private Integer fk_event;
+    private String gender;
+    private String firstname;
+    private String lastname;
+    private String address;
+    private Integer zip;
+    private String city;
+    private String country;
 
-    public MediaRepresentativeActivation(String activation_token, String email, Integer fk_event) {
-        this.activation_token = activation_token;
-        this.email = email;
-        this.fk_event = fk_event;
+    public MediaRepresentativeActivation() {
     }
 
     public String getActivation_token() {
@@ -58,5 +62,61 @@ public class MediaRepresentativeActivation {
 
     public void setFk_event(Integer fk_event) {
         this.fk_event = fk_event;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getZip() {
+        return zip;
+    }
+
+    public void setZip(Integer zip) {
+        this.zip = zip;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
