@@ -38,24 +38,30 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
         final Session session = openSession();
         try {
 
-            final MediaRepresentativeActivation mediaRepresentativeActivation = new MediaRepresentativeActivation();
-            mediaRepresentativeActivation.setActivation_token(activationToken);
-            mediaRepresentativeActivation.setEmail(email);
-            mediaRepresentativeActivation.setFk_event(eventId);
-            mediaRepresentativeActivation.setGender(gender);
-            mediaRepresentativeActivation.setAddress(address);
-            mediaRepresentativeActivation.setCity(city);
-            mediaRepresentativeActivation.setCountry(country);
-            mediaRepresentativeActivation.setFirstname(firstname);
-            mediaRepresentativeActivation.setLastname(lastname);
-            mediaRepresentativeActivation.setZip(zip);
-
+            final MediaRepresentativeActivation mediaRepresentativeActivation = initMediaRepresentativeActivation(
+                    activationToken, email, eventId, gender, address, city, country, firstname, lastname, zip
+            );
             session.persist(mediaRepresentativeActivation);
             session.flush();
             return mediaRepresentativeActivation;
         } finally {
             session.close();
         }
+    }
+
+    private MediaRepresentativeActivation initMediaRepresentativeActivation(@FormParam("activationToken") String activationToken, @FormParam("email") String email, @FormParam("eventId") Integer eventId, @FormParam("gender") String gender, @FormParam("address") String address, @FormParam("city") String city, @FormParam("country") String country, @FormParam("firstname") String firstname, @FormParam("lastname") String lastname, @FormParam("zip") Integer zip) {
+        final MediaRepresentativeActivation mediaRepresentativeActivation = new MediaRepresentativeActivation();
+        mediaRepresentativeActivation.setActivation_token(activationToken);
+        mediaRepresentativeActivation.setEmail(email);
+        mediaRepresentativeActivation.setFk_event(eventId);
+        mediaRepresentativeActivation.setGender(gender);
+        mediaRepresentativeActivation.setAddress(address);
+        mediaRepresentativeActivation.setCity(city);
+        mediaRepresentativeActivation.setCountry(country);
+        mediaRepresentativeActivation.setFirstname(firstname);
+        mediaRepresentativeActivation.setLastname(lastname);
+        mediaRepresentativeActivation.setZip(zip);
+        return mediaRepresentativeActivation;
     }
 
     @GET
@@ -71,6 +77,22 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
                 return true;
             }
             return false;
+        } finally {
+            session.close();
+        }
+    }
+
+    @GET
+    @Path("/exists/{mediaRepresentativeActivationToken}")
+    public MediaRepresentativeActivation getMediaRepresentativeActivationByToken(
+            @PathParam("mediaRepresentativeActivationToken") String mediaRepresentativeActivationToken) {
+
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("MediaRepresentativeActivation.getActivationByActivationToken");
+            query.setString("activation_token", mediaRepresentativeActivationToken);
+            final MediaRepresentativeActivation activation = (MediaRepresentativeActivation) query.uniqueResult();
+            return activation;
         } finally {
             session.close();
         }
