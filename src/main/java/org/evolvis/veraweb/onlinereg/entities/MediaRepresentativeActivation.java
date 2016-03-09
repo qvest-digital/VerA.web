@@ -18,6 +18,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @Table(name = "tmedia_representative_activation")
+@NamedQueries({
+        @NamedQuery(name = "MediaRepresentativeActivation.getActivationByActivationToken",
+                query = "SELECT m FROM MediaRepresentativeActivation m where activation_token=:activation_token")
+})
 @NamedNativeQueries({
         @NamedNativeQuery(
                 name = "MediaRepresentativeActivation.getEntryByEmailAndEventId",
