@@ -93,6 +93,9 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
     }).when('/user/resend/confirmationmail/:activation_token', {
         template: "",
         controller: 'UserRefreshActivationController'
+    }).when('/media/activation/confirm/:pressUserActivationToken', {
+        template: "",
+        controller: 'MediaRepresentativeActivationController'
     }).otherwise({
         redirectTo: '/event'
     });

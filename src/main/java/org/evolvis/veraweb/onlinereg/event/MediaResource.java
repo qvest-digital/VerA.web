@@ -45,7 +45,6 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -62,7 +61,7 @@ public class MediaResource {
 
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
     private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
-    private static final TypeReference<List<Person>> GUEST_LIST = new TypeReference<List<Person>>() {};
+    private static final TypeReference<MediaRepresentativeActivation> MEDIA_REPRESENTATIVE_ACTIVATION = new TypeReference<MediaRepresentativeActivation>() {};
     private static final String INVITATION_TYPE = "2";
 
     /**
@@ -88,12 +87,6 @@ public class MediaResource {
 		this.config = config;
 		this.client = client;
 	}
-
-	@GET
-    @Path("/{uuid}")
-    public List<Person> getGuests(@PathParam("uuid") String uuid) throws IOException {
-		return null;
-    }
 
     /**
      * Adds delegate to event
@@ -156,9 +149,9 @@ public class MediaResource {
     // http://localhost:8181/#/media/activation/confirm/40a576c8-bac0-419f-b8a8-d68826e59613
     @GET
     @Path("/activation/confirm/{pressUserActivationToken}")
-    public String activateMediaUser(@PathParam("pressUserActivationToken") String activationToken) {
-        MediaRepresentativeActivation mediaRepresentativeActivation = getPressUserByActivationToken(activationToken);
-        if (mediaRepresentativeActivation.getActivation_token().equals(activationToken)) {
+    public String activateMediaUser(@PathParam("pressUserActivationToken") String expectedActivationToken) throws IOException {
+        final MediaRepresentativeActivation mediaRepresentativeActivation = getPressUserByActivationToken(expectedActivationToken);
+        if (mediaRepresentativeActivation != null) {
 //            final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
 //                        address, plz, city, country, usernameGenerator());
 //                return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
@@ -167,8 +160,10 @@ public class MediaResource {
         return StatusConverter.convertStatus("PRESS_USER_ALREADY_ACTIVATED");
     }
 
-    private MediaRepresentativeActivation getPressUserByActivationToken(String activationToken) {
-        return null;
+    private MediaRepresentativeActivation getPressUserByActivationToken(String activationToken) throws IOException {
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "press", "activation", "exists", activationToken);
+        return resourceReader.readStringResource(path, MEDIA_REPRESENTATIVE_ACTIVATION);
     }
 
     private Boolean checkForExistingPressUserActivation(String email, Integer eventId) throws IOException {
@@ -230,7 +225,7 @@ public class MediaResource {
     /**
      * Includes a new guest in the database - Table "tguest"
      *
-     * @param uuid
+     * @param uuid FIXME
      * @param eventId Event id
      * @param userId User id
      * @param gender gender
@@ -238,7 +233,7 @@ public class MediaResource {
      */
     private void addGuestToEvent(String uuid, String eventId, String userId, String gender, String username)
             throws IOException {
-        final Integer categoryID = getCategoryIdFromCatname("Pressevertreter", uuid);
+        final Integer categoryID = getCategoryIdFromCatname(uuid);
 
         final WebResource resource = getAddGuestResource(uuid);
         final Form postBody = new Form();
@@ -272,9 +267,9 @@ public class MediaResource {
     /**
      * Searching the ID of one category using the catname
      */
-    private Integer getCategoryIdFromCatname(String catname, String uuid) throws IOException {
+    private Integer getCategoryIdFromCatname(String uuid) throws IOException {
         final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
-        final String path = resourceReader.constructPath(BASE_RESOURCE, "category", catname, uuid);
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "category", "Pressevertreter", uuid);
         return resourceReader.readStringResource(path, INTEGER);
     }
 
@@ -319,7 +314,7 @@ public class MediaResource {
     }
 
     private String correctGender(String gender) {
-        String dbGender = null;
+        String dbGender;
         if (gender.equals("Herr")) {
             dbGender = "m";
         } else {
