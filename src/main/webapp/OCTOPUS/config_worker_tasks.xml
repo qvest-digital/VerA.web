@@ -1098,7 +1098,7 @@
 		</task>
 
 		<task name="MailinglistSend" access="public" groups="StandardFieldsReader">
-			<description>Versendet die eMails und wechselt zur Vrrteiler-Ansicht.</description>
+			<description>Versendet die eMails und wechselt zur Verteiler-Ansicht.</description>
 			<doTask name="Load"/>
 			<action name="showDetail" worker="MailinglistDetailWorker"/>
 			<action name="getSelection" worker="MailinglistDetailWorker"/>
