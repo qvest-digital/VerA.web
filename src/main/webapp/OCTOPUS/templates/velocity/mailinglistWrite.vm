@@ -107,10 +107,10 @@
                         </div>
                         <br/><br/>
 
-                        <input type="file" id="PortugueseFileUpload" />
+                        <input type="file" id="JMultiFileUpload" />
                         <script>
                             $(function(){
-                              $('#PortugueseFileUpload').MultiFile({
+                              $('#JMultiFileUpload').MultiFile({
                                 max:3,
                                 STRING: {
                                   remove:'${placeholderWithTranslation.GENERIC_DELETE}',
