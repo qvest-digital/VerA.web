@@ -9,6 +9,11 @@ onlineRegApp.controller('MediaRepresentativeActivationController', function($htt
                 $rootScope.success = text;
                 $rootScope.error = null;
             });
+        } else if (result.status == 'PRESS_USER_ALREADY_ACTIVATED') {
+            $translate('MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_ACTIVATED').then(function (text) {
+               $rootScope.success = text;
+               $rootScope.error = null;
+            });
         }
         $location.path('/login');
     }).error(function (data, status, headers, config) {

@@ -91,6 +91,7 @@
 
   "MEDIA_REPRESENTATIVES_TITLE": "Als Pressevertreter anmelden:",
   "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE": "Ihre Daten wurden gespeichert. Bitte bestätigen Sie ihre Anmeldung, Sie haben eine E-Mail erhalten. ",
+  "MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_ACTIVATED": "Sie haben Ihre Anmeldung bereits bestätigt. Die Zusage erfolgt nach positiver Überprüfung.",
   "MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_EXIST": "Sie sind bereits für die Veranstaltung angemeldet. Bitte bestätigen Sie ihre Anmeldung, Sie haben eine E-Mail erhalten.",
   "MEDIA_ACTIVATION_USER_MESSAGE_SUCCESS": "Die Anmeldung ist abgeschlossen. Ihre Daten werden überprüft, eine Zusage erfolgt nach positiver Überprüfung.",
 

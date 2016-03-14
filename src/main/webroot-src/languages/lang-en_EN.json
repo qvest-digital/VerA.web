@@ -85,6 +85,7 @@
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Sign up for the event",
   "MEDIA_REPRESENTATIVES_TITLE": "Register as media representative:",
   "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE": "Your registration was submited. Please confirm your registration, you received an email.",
+  "MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_ACTIVATED": "Your registration is already confirmed. The confirmation for the event depends on a positive result.",
   "MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_EXIST": "You are already registered for this event. Please confirm your registration, you received an email",
   "MEDIA_ACTIVATION_USER_MESSAGE_SUCCESS": "Your registration is successfull. Confirmation depends on a positive result.",
 
