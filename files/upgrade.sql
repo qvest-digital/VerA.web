@@ -561,18 +561,18 @@ BEGIN
 
         		-- Create table "tmedia_representative_activation"
         		CREATE TABLE veraweb.tmedia_representative_activation (
-        		      email character varying(100) NOT NULL,
-                        fk_event  serial NOT NULL,
-                        activation_token character varying(100) NOT NULL,
-                        gender character varying(10) NOT NULL,
-                        address character varying(100) NOT NULL,
-                        city character varying(100) NOT NULL,
-                        country character varying(100) NOT NULL,
-                        firstname character varying(100) NOT NULL,
-                        lastname character varying(100) NOT NULL,
-                        zip serial NOT NULL,
+        		    email character varying(100) NOT NULL,
+        		    fk_event  serial NOT NULL,
+                    activation_token character varying(100) NOT NULL,
+                    gender character varying(10) NOT NULL,
+                    address character varying(100) NOT NULL,
+                    city character varying(100) NOT NULL,
+                    country character varying(100) NOT NULL,
+                    firstname character varying(100) NOT NULL,
+                    lastname character varying(100) NOT NULL,
+                    zip serial NOT NULL,
 
-                        CONSTRAINT tmedia_representative_activation_pk PRIMARY KEY (email, fk_event)
+                    CONSTRAINT tmedia_representative_activation_pk PRIMARY KEY (email, fk_event)
         		);
 
         		-- post-upgrade
