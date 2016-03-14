@@ -20,7 +20,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tmedia_representative_activation")
 @NamedQueries({
         @NamedQuery(name = "MediaRepresentativeActivation.getActivationByActivationToken",
-                query = "SELECT m FROM MediaRepresentativeActivation m where activation_token=:activation_token")
+                query = "SELECT m FROM MediaRepresentativeActivation m where activation_token=:activation_token"),
+        @NamedQuery(name = "MediaRepresentativeActivation.activate",
+                query = "UPDATE MediaRepresentativeActivation m SET activated=1 WHERE fk_event=:fk_event AND email=:email")
 })
 @NamedNativeQueries({
         @NamedNativeQuery(
@@ -40,6 +42,7 @@ public class MediaRepresentativeActivation {
     private Integer zip;
     private String city;
     private String country;
+    private Integer activated;
 
     public MediaRepresentativeActivation() {
     }
@@ -122,5 +125,13 @@ public class MediaRepresentativeActivation {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Integer getActivated() {
+        return activated;
+    }
+
+    public void setActivated(Integer activated) {
+        this.activated = activated;
     }
 }
