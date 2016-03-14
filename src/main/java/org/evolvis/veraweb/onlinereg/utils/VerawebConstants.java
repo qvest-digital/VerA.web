@@ -45,4 +45,8 @@ public class VerawebConstants {
         public static final String WAITING_LIST_OK = "WAITING_LIST_OK";
         public static final String WAITING_LIST_FULL = "WAITING_LIST_FULL";
 
+    /** Press user activation */
+        public static final int MEDIA_REPRESENTATIVE_ACTIVE = 1;
+        public static final int MEDIA_REPRESENTATIVE_INACTIVE = 0;
+
 }

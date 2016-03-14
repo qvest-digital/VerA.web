@@ -26,6 +26,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.MediaRepresentativeActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
@@ -34,6 +35,7 @@ import org.evolvis.veraweb.onlinereg.mail.EmailValidator;
 import org.evolvis.veraweb.onlinereg.utils.PressTransporter;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
+import org.evolvis.veraweb.onlinereg.utils.VerawebConstants;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -61,6 +63,7 @@ public class MediaResource {
 
     private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
     private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
+    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {};
     private static final TypeReference<MediaRepresentativeActivation> MEDIA_REPRESENTATIVE_ACTIVATION = new TypeReference<MediaRepresentativeActivation>() {};
     private static final String INVITATION_TYPE = "2";
 
@@ -151,13 +154,44 @@ public class MediaResource {
     @Path("/activation/confirm/{pressUserActivationToken}")
     public String activateMediaUser(@PathParam("pressUserActivationToken") String expectedActivationToken) throws IOException {
         final MediaRepresentativeActivation mediaRepresentativeActivation = getPressUserByActivationToken(expectedActivationToken);
-        if (mediaRepresentativeActivation != null) {
-//            final PressTransporter transporter = new PressTransporter(uuid, nachname, vorname, gender, email,
-//                        address, plz, city, country, usernameGenerator());
-//                return StatusConverter.convertStatus(createAndAssignMediaRepresentativeGuest(transporter));
-            return StatusConverter.convertStatus("OK");
+        if (mediaRepresentativeActivation != null && mediaRepresentativeActivation.getActivated().equals(VerawebConstants.MEDIA_REPRESENTATIVE_INACTIVE)) {
+            setMediaUserAsActive(mediaRepresentativeActivation.getEmail(), mediaRepresentativeActivation.getFk_event());
+            final Event event = getEvent(mediaRepresentativeActivation.getFk_event());
+            final PressTransporter transporter = initPressTransporter(mediaRepresentativeActivation, event);
+            final String resultStatus = createAndAssignMediaRepresentativeGuest(transporter);
+            return StatusConverter.convertStatus(resultStatus);
         }
         return StatusConverter.convertStatus("PRESS_USER_ALREADY_ACTIVATED");
+    }
+
+    private void setMediaUserAsActive(String email, Integer eventId) {
+        final Form postBody = new Form();
+        postBody.add("email", email);
+        postBody.add("eventId", eventId);
+
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/press/activation/update");
+        resource.post(postBody);
+    }
+
+    private PressTransporter initPressTransporter(MediaRepresentativeActivation mediaRepresentativeActivation, Event event) {
+        return new PressTransporter(
+            event.getMediarepresentatives(),
+            mediaRepresentativeActivation.getLastname(),
+            mediaRepresentativeActivation.getFirstname(),
+            mediaRepresentativeActivation.getGender(),
+            mediaRepresentativeActivation.getEmail(),
+            mediaRepresentativeActivation.getAddress(),
+            mediaRepresentativeActivation.getZip().toString(),
+            mediaRepresentativeActivation.getCity(),
+            mediaRepresentativeActivation.getCountry(),
+            usernameGenerator()
+        );
+    }
+
+    private Event getEvent(Integer eventId) throws IOException {
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "event", eventId);
+        return resourceReader.readStringResource(path, EVENT);
     }
 
     private MediaRepresentativeActivation getPressUserByActivationToken(String activationToken) throws IOException {
