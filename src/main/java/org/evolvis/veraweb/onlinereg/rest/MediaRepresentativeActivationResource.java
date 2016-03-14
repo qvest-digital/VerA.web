@@ -83,6 +83,22 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
         }
     }
 
+    @POST
+    @Path("/update")
+    public void activatePressUser(@FormParam("email") String email, @FormParam("eventId") Integer eventId) {
+
+        final Session session = openSession();
+        try {
+            System.out.println("");
+            final Query query = session.getNamedQuery("MediaRepresentativeActivation.activate");
+            query.setString("email", email);
+            query.setInteger("fk_event", eventId);
+            query.executeUpdate();
+        } finally {
+            session.close();
+        }
+    }
+
     private MediaRepresentativeActivation initMediaRepresentativeActivation(
             String activationToken,
             String email,
