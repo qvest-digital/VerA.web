@@ -49,7 +49,17 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
         }
     }
 
-    private MediaRepresentativeActivation initMediaRepresentativeActivation(@FormParam("activationToken") String activationToken, @FormParam("email") String email, @FormParam("eventId") Integer eventId, @FormParam("gender") String gender, @FormParam("address") String address, @FormParam("city") String city, @FormParam("country") String country, @FormParam("firstname") String firstname, @FormParam("lastname") String lastname, @FormParam("zip") Integer zip) {
+    private MediaRepresentativeActivation initMediaRepresentativeActivation(
+            String activationToken,
+            String email,
+            Integer eventId,
+            String gender,
+            String address,
+            String city,
+            String country,
+            String firstname,
+            String lastname,
+            Integer zip) {
         final MediaRepresentativeActivation mediaRepresentativeActivation = new MediaRepresentativeActivation();
         mediaRepresentativeActivation.setActivation_token(activationToken);
         mediaRepresentativeActivation.setEmail(email);
