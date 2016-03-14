@@ -588,7 +588,7 @@ BEGIN
             		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
                     -- Add column to table "tmedia_representative_activation"
-                    ALTER TABLE veraweb.tmedia_representative_activation ADD COLUMN int4 DEFAULT 0;
+                    ALTER TABLE veraweb.tmedia_representative_activation ADD COLUMN ACTIVATED int4 DEFAULT 0;
 
             		-- post-upgrade
             		vmsg := 'end.update(' || vnewvsn || ')';
