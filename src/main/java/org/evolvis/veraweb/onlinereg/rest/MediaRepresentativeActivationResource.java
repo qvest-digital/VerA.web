@@ -89,7 +89,6 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
 
         final Session session = openSession();
         try {
-            System.out.println("");
             final Query query = session.getNamedQuery("MediaRepresentativeActivation.activate");
             query.setString("email", email);
             query.setInteger("fk_event", eventId);
@@ -121,6 +120,8 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
         mediaRepresentativeActivation.setFirstname(firstname);
         mediaRepresentativeActivation.setLastname(lastname);
         mediaRepresentativeActivation.setZip(zip);
+        mediaRepresentativeActivation.setActivated(0);
+        
         return mediaRepresentativeActivation;
     }
 }
