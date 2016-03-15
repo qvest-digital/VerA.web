@@ -771,7 +771,9 @@ public class PersonDetailWorker implements PersonConstants {
         DateHelper.addTimeToDate(person.diplodate_a_e1, octopusContext.requestAsString("person-diplotime_a_e1"), person.getErrors());
         person.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
         person.updateHistoryFields(null, ((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
-        setEntityCreationData(person, personOld);
+        if (personOld != null) {
+            setEntityCreationData(person, personOld);
+        }
         AddressHelper.checkPersonSalutation(person, database, transactionContext);
 
         updateExpireDate(person, personOld);
