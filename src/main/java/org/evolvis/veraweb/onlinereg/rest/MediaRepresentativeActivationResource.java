@@ -22,7 +22,7 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
 
     @POST
     @Path("/create")
-    public MediaRepresentativeActivation addOsiamUserActivationEntry(
+    public MediaRepresentativeActivation addMediaRepresentativeActivationEntry(
         @FormParam("activationToken") String activationToken,
         @FormParam("email") String email,
         @FormParam("eventId") Integer eventId,
