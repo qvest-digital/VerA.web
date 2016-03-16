@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2016 tarent solutions GmbH
- * <p/>
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * <p/>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p/>
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -74,59 +74,58 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     //
     // Konstruktoren
     //
-
     /**
      * Der Konstruktor legt den Bean-Namen fest.
      */
-    public PersonListWorker() {
-        super("Person");
-    }
+	public PersonListWorker() {
+		super("Person");
+	}
 
     //
     // Oberklasse BeanListWorker
     //
 
 
-    /**
-     * Should be after vera lifetime: 9999-12-01 GMT
-     */
-    private static final Timestamp INFINITY_TIMESTAMP = new Timestamp(253399622400000L);
+	/**
+	 * Should be after vera lifetime: 9999-12-01 GMT
+	 */
+	private static final Timestamp INFINITY_TIMESTAMP = new Timestamp(253399622400000L);
 
-    /**
-     * Octopus-Aktion die eine <strong>blätterbare</strong> Liste
-     * mit Beans aus der Datenbank in den Content stellt. Kann durch
-     * {@link #extendColumns(OctopusContext, Select)} erweitert bzw.
-     * {@link #extendWhere(OctopusContext, Select)} eingeschränkt werden.
-     *
-     * Lenkt hier die entsprechende getSelect - Anfrage an eine
-     * spezialisierte Form.
-     *
-     * @see #getSelection(OctopusContext, Integer)
-     *
-     * @param octopusContext Octopus-Context
-     * @return Liste mit Beans, nie null.
-     * @throws BeanException
-     * @throws IOException
-     */
-    public List showList(OctopusContext octopusContext) throws BeanException, IOException {
-        Database database = getDatabase(octopusContext);
-        if (octopusContext.getRequestObject().get("searchTask") == null) {
-            octopusContext.setContent("searchTask", "personSearchTask");
-        } else {
-            octopusContext.setContent("searchTask", octopusContext.requestAsObject("searchTask"));
-        }
+	/**
+	 * Octopus-Aktion die eine <strong>blätterbare</strong> Liste
+	 * mit Beans aus der Datenbank in den Content stellt. Kann durch
+	 * {@link #extendColumns(OctopusContext, Select)} erweitert bzw.
+	 * {@link #extendWhere(OctopusContext, Select)} eingeschränkt werden.
+	 *
+	 * Lenkt hier die entsprechende getSelect - Anfrage an eine
+	 * spezialisierte Form.
+	 *
+	 * @see #getSelection(OctopusContext, Integer)
+	 *
+	 * @param octopusContext Octopus-Context
+	 * @return Liste mit Beans, nie null.
+	 * @throws BeanException
+	 * @throws IOException
+	 */
+	public List showList(OctopusContext octopusContext) throws BeanException, IOException {
+		Database database = getDatabase(octopusContext);
+		if (octopusContext.getRequestObject().get("searchTask") == null) {
+			octopusContext.setContent("searchTask", "personSearchTask");
+		} else {
+			octopusContext.setContent("searchTask", octopusContext.requestAsObject("searchTask"));
+		}
 
 		/* modified (refactored part of behaviour to prepareShowList for additional reuse) as per change request
-         * for version 1.2.0
+		 * for version 1.2.0
 		 * cklein
 		 * 2008-02-21
 		 */
-        Select personSelect = this.prepareShowList(octopusContext, database);
-        Map param = (Map) octopusContext.contentAsObject(OUTPUT_showListParams);
+		Select personSelect = this.prepareShowList(octopusContext, database);
+		Map param = (Map) octopusContext.contentAsObject(OUTPUT_showListParams);
 
-        filterByFirstCharacterOfLastname(octopusContext, personSelect);
+		filterByFirstCharacterOfLastname(octopusContext, personSelect);
 
-        personSelect.Limit(new Limit((Integer) param.get("limit"), (Integer) param.get("start")));
+		personSelect.Limit(new Limit((Integer) param.get("limit"), (Integer) param.get("start")));
 
 		/* FIXME remove this temporary fix ASAP
 		 * cklein 2009-09-16
@@ -135,349 +134,349 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * when entering the view although, upon exiting this method the first time that it is called, will return
 		 * the correct resultlist with at most 10 entries in the underlying resultset as is defined by the query.
 		 */
-        PersonSearch search = (PersonSearch) octopusContext.contentAsObject("search");
-        if (search.listorder == null) {
-            personSelect.addOrderBy(new Order().asc("lastname_a_e1").andAsc("firstname_a_e1"));
-        }
-        List personList = getResultList(database, personSelect);
+		PersonSearch search = (PersonSearch) octopusContext.contentAsObject("search");
+		if (search.listorder == null) {
+			personSelect.addOrderBy(new Order().asc("lastname_a_e1").andAsc("firstname_a_e1"));
+		}
+		List personList = getResultList(database, personSelect);
 
-        Map<Integer, Map> result = getUserData(database, personList);
+		Map<Integer, Map> result = getUserData(database, personList);
 
-        octopusContext.setContent(OUTPUT_getSelection, getSelection(octopusContext, getCount(octopusContext, database)));
+		octopusContext.setContent(OUTPUT_getSelection, getSelection(octopusContext, getCount(octopusContext, database)));
 
-        octopusContext.setContent("deleted", octopusContext.getRequestObject().getParamAsInt("deleted"));
+		octopusContext.setContent("deleted", octopusContext.getRequestObject().getParamAsInt("deleted"));
 
-        octopusContext.setContent("workareaAssigned", octopusContext.requestAsObject("workareaAssigned"));
+		octopusContext.setContent("workareaAssigned", octopusContext.requestAsObject("workareaAssigned"));
 
-        octopusContext.setContent("categoryAssigned", octopusContext.requestAsObject("categoryAssigned"));
+		octopusContext.setContent("categoryAssigned", octopusContext.requestAsObject("categoryAssigned"));
 
-        return new ArrayList(result.values());
-    }
+		return new ArrayList(result.values());
+	}
 
-    private void filterByFirstCharacterOfLastname(OctopusContext octopusContext, Select personSelect) {
-        final Map allRequestParameters = octopusContext.getRequestObject().getRequestParameters();
-        if (allRequestParameters.get("start") != null && !allRequestParameters.get("start").equals("0")) {
-            addClauseLastnameFirstCharacter(personSelect, allRequestParameters);
-        }
-    }
+	private void filterByFirstCharacterOfLastname(OctopusContext octopusContext, Select personSelect) {
+		final Map allRequestParameters = octopusContext.getRequestObject().getRequestParameters();
+		if (allRequestParameters.get("start") != null && !allRequestParameters.get("start").equals("0")) {
+			addClauseLastnameFirstCharacter(personSelect, allRequestParameters);
+		}
+	}
 
-    private void addClauseLastnameFirstCharacter(Select personSelect, Map allRequestParameters) {
-        final String charachterFilter = allRequestParameters.get("start").toString();
-        final WhereList whereLastnameClause = new WhereList();
-        whereLastnameClause.add(Expr.like("lastname_a_e1", charachterFilter + "%"));
-        personSelect.whereAnd(whereLastnameClause);
-    }
+	private void addClauseLastnameFirstCharacter(Select personSelect, Map allRequestParameters) {
+		final String charachterFilter = allRequestParameters.get("start").toString();
+		final WhereList whereLastnameClause = new WhereList();
+		whereLastnameClause.add(Expr.like("lastname_a_e1", charachterFilter + "%"));
+		personSelect.whereAnd(whereLastnameClause);
+	}
 
-    private Map<Integer, Map> getUserData(Database database, List personList) throws BeanException, IOException {
-        Map<Integer, Map> result = new LinkedHashMap<Integer, Map>();
-        for (int i = 0; i < personList.size(); i++) {
-            HashMap<String, Object> tmp = new HashMap<String, Object>();
-            Set<String> keys = ((ResultMap) personList.get(i)).keySet();
+	private Map<Integer, Map> getUserData(Database database, List personList) throws BeanException, IOException {
+		Map<Integer, Map> result = new LinkedHashMap<Integer, Map>();
+		for (int i = 0; i < personList.size(); i++) {
+			HashMap<String, Object> tmp = new HashMap<String, Object>();
+			Set<String> keys = ((ResultMap) personList.get(i)).keySet();
 
-            Integer id = null;
-            for (String key : keys) {
-                Object val = ((ResultMap) personList.get(i)).get(key);
-                if ("id".equals(key)) {
-                    id = (Integer) val;
-                    tmp.put(key, val);
-                } else {
-                    tmp.put(key, val);
-                }
-            }
+			Integer id = null;
+			for (String key : keys) {
+				Object val = ((ResultMap) personList.get(i)).get(key);
+				if ("id".equals(key)) {
+					id = (Integer) val;
+					tmp.put(key, val);
+				} else {
+					tmp.put(key, val);
+				}
+			}
 
 			/* select all relevant event/task information for each person */
-            Integer personId = (Integer) tmp.get("id");
-            Select eventSelect = SQL.SelectDistinct(database).from("veraweb.tperson")
-                    .selectAs("tperson.pk", "id")
-                    .selectAs("tevent.dateend", "eventenddate")
-                    .selectAs("event2.dateend", "taskeventenddate")
-                    .selectAs("tevent.datebegin", "eventbegindate")
-                    .selectAs("event2.datebegin", "taskeventbegindate")
-                    .joinOuter("veraweb.tguest", "tguest.fk_person", "tperson.pk")
-                    .joinOuter("veraweb.tevent", "tevent.pk", "tguest.fk_event")
-                    .joinOuter("veraweb.ttask", "ttask.fk_person", "tperson.pk")
-                    .joinOuter("veraweb.tevent event2", "event2.pk", "ttask.fk_event")
-                    .where(Expr.equal("tperson.pk", personId));
+			Integer personId = (Integer) tmp.get("id");
+			Select eventSelect = SQL.SelectDistinct(database).from("veraweb.tperson")
+					.selectAs("tperson.pk", "id")
+					.selectAs("tevent.dateend", "eventenddate")
+					.selectAs("event2.dateend", "taskeventenddate")
+					.selectAs("tevent.datebegin", "eventbegindate")
+					.selectAs("event2.datebegin", "taskeventbegindate")
+					.joinOuter("veraweb.tguest", "tguest.fk_person", "tperson.pk")
+					.joinOuter("veraweb.tevent", "tevent.pk", "tguest.fk_event")
+					.joinOuter("veraweb.ttask", "ttask.fk_person", "tperson.pk")
+					.joinOuter("veraweb.tevent event2", "event2.pk", "ttask.fk_event")
+					.where(Expr.equal("tperson.pk", personId));
 
 
-            Timestamp eventBeginDate = null;
-            Timestamp eventEndDate = null;
-            Timestamp taskEventBeginDate = null;
-            Timestamp taskEventEndDate = null;
+			Timestamp eventBeginDate = null;
+			Timestamp eventEndDate = null;
+			Timestamp taskEventBeginDate = null;
+			Timestamp taskEventEndDate = null;
 
-            List eventList = getResultList(database, eventSelect);
-            for (int j = 0; j < eventList.size(); j++) {
-                keys = ((ResultMap) eventList.get(j)).keySet();
-                for (String key : keys) {
-                    Object val = ((ResultMap) eventList.get(j)).get(key);
-                    if ("id".equals(key)) {
-                        id = (Integer) val;
-                        tmp.put(key, val);
-                    } else if ("eventbegindate".equals(key)) {
-                        eventBeginDate = (Timestamp) val;
-                    } else if ("eventenddate".equals(key)) {
-                        eventEndDate = (Timestamp) val;
-                    } else if ("taskeventbegindate".equals(key)) {
-                        taskEventBeginDate = (Timestamp) val;
-                    } else if ("taskeventenddate".equals(key)) {
-                        taskEventEndDate = (Timestamp) val;
-                    }
-                }
-            }
+			List eventList = getResultList(database, eventSelect);
+			for (int j = 0; j < eventList.size(); j++) {
+				keys = ((ResultMap) eventList.get(j)).keySet();
+				for (String key : keys) {
+					Object val = ((ResultMap) eventList.get(j)).get(key);
+					if ("id".equals(key)) {
+						id = (Integer) val;
+						tmp.put(key, val);
+					} else if ("eventbegindate".equals(key)) {
+						eventBeginDate = (Timestamp) val;
+					} else if ("eventenddate".equals(key)) {
+						eventEndDate = (Timestamp) val;
+					} else if ("taskeventbegindate".equals(key)) {
+						taskEventBeginDate = (Timestamp) val;
+					} else if ("taskeventenddate".equals(key)) {
+						taskEventEndDate = (Timestamp) val;
+					}
+				}
+			}
 
 
-            if (eventBeginDate != null && eventEndDate == null) { // end = infinity
-                eventEndDate = INFINITY_TIMESTAMP;
-            }
-            if (taskEventBeginDate != null && taskEventEndDate == null) { // end = infinity
-                taskEventEndDate = INFINITY_TIMESTAMP;
-            }
-            if (eventEndDate != null) {
-                tmp.put("eventmaxenddate", eventEndDate);
-            }
-            if (taskEventEndDate != null) {
-                tmp.put("taskeventmaxenddate", taskEventEndDate);
-            }
-            if (!result.containsKey(id)) {
-                result.put(id, tmp);
-            } else {
-                Map map = result.get(id);
-                Timestamp date = (Timestamp) map.get("eventmaxenddate");
-                if (eventEndDate != null && (date == null || eventEndDate.after(date))) {
-                    map.put("eventmaxenddate", eventEndDate);
-                }
-                date = (Timestamp) map.get("taskeventmaxenddate");
-                if (taskEventEndDate != null && (date == null || taskEventEndDate.after(date))) {
-                    map.put("taskeventmaxenddate", taskEventEndDate);
-                }
-            }
-        }
+			if (eventBeginDate != null && eventEndDate == null) { // end = infinity
+				eventEndDate = INFINITY_TIMESTAMP;
+			}
+			if (taskEventBeginDate != null && taskEventEndDate == null) { // end = infinity
+				taskEventEndDate = INFINITY_TIMESTAMP;
+			}
+			if (eventEndDate != null) {
+				tmp.put("eventmaxenddate", eventEndDate);
+			}
+			if (taskEventEndDate != null) {
+				tmp.put("taskeventmaxenddate", taskEventEndDate);
+			}
+			if (!result.containsKey(id)) {
+				result.put(id, tmp);
+			} else {
+				Map map = result.get(id);
+				Timestamp date = (Timestamp) map.get("eventmaxenddate");
+				if (eventEndDate != null && (date == null || eventEndDate.after(date))) {
+					map.put("eventmaxenddate", eventEndDate);
+				}
+				date = (Timestamp) map.get("taskeventmaxenddate");
+				if (taskEventEndDate != null && (date == null || taskEventEndDate.after(date))) {
+					map.put("taskeventmaxenddate", taskEventEndDate);
+				}
+			}
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    @Override
-    public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
-        String categoryAssignmentAction = octopusContext.requestAsString("categoryAssignmentAction");
-        String workareaAssignmentAction = octopusContext.requestAsString("workareaAssignmentAction");
+	@Override
+	public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
+		String categoryAssignmentAction = octopusContext.requestAsString("categoryAssignmentAction");
+		String workareaAssignmentAction = octopusContext.requestAsString("workareaAssignmentAction");
 
-        // does the user request categories to be assigned or unassigned?
-        if (categoryAssignmentAction != null && categoryAssignmentAction.length() > 0) {
-            Database database = getDatabase(octopusContext);
-            TransactionContext transactionContext = database.getTransactionContext();
-            PersonCategorieWorker personCategoryWorker = WorkerFactory.getPersonCategorieWorker(octopusContext);
-            Integer categoryId = octopusContext.requestAsInteger("categoryAssignmentId");
-            List selection = this.getSelection(octopusContext, this.getCount(octopusContext, database));
+		// does the user request categories to be assigned or unassigned?
+		if (categoryAssignmentAction != null && categoryAssignmentAction.length() > 0) {
+			Database database = getDatabase(octopusContext);
+			TransactionContext transactionContext = database.getTransactionContext();
+			PersonCategorieWorker personCategoryWorker = WorkerFactory.getPersonCategorieWorker(octopusContext);
+			Integer categoryId = octopusContext.requestAsInteger("categoryAssignmentId");
+			List selection = this.getSelection(octopusContext, this.getCount(octopusContext, database));
 //			Iterator iter = selection.iterator();
 
-            for (Object id : selection) {
+			for (Object id : selection) {
 
 //			while (iter.hasNext()) {
 //				Integer personId = (Integer) iter.next();
-                Integer personId = (Integer) id;
-                if ("assign".compareTo(categoryAssignmentAction) == 0 && categoryId.intValue() > 0) {
-                    PersonCategorie category = personCategoryWorker.addCategoryAssignment(octopusContext, categoryId, personId,
-                            database, transactionContext, false);
-                    if (category != null) {
-                        database.saveBean(category, transactionContext, false);
-                    }
-                } else {
-                    if (categoryId.intValue() == 0) {
-                        personCategoryWorker.removeAllCategoryAssignments(octopusContext, personId, database,
-                                transactionContext);
-                    } else {
-                        personCategoryWorker.removeCategoryAssignment(octopusContext, categoryId, personId, database,
-                                transactionContext);
-                    }
-                }
+				Integer personId = (Integer) id;
+				if ("assign".compareTo(categoryAssignmentAction) == 0 && categoryId.intValue() > 0) {
+					PersonCategorie category = personCategoryWorker.addCategoryAssignment(octopusContext, categoryId, personId,
+							database, transactionContext, false);
+					if (category != null) {
+						database.saveBean(category, transactionContext, false);
+					}
+				} else {
+					if (categoryId.intValue() == 0) {
+						personCategoryWorker.removeAllCategoryAssignments(octopusContext, personId, database,
+								transactionContext);
+					} else {
+						personCategoryWorker.removeCategoryAssignment(octopusContext, categoryId, personId, database,
+								transactionContext);
+					}
+				}
 //				iter.remove();
-            }
-            try {
-                transactionContext.commit();
-            } catch (BeanException e) {
-                transactionContext.rollBack();
-                throw e;
-            }
-        }
+			}
+			try {
+				transactionContext.commit();
+			} catch (BeanException e) {
+				transactionContext.rollBack();
+				throw e;
+			}
+		}
 
-        // does the user request workareas to be assigned or unassigned?
-        else if (workareaAssignmentAction != null && workareaAssignmentAction.length() > 0) {
-            handleWorkareaActions(octopusContext, workareaAssignmentAction);
-        } else {
-            super.saveList(octopusContext);
-        }
-    }
+		// does the user request workareas to be assigned or unassigned?
+		else if (workareaAssignmentAction != null && workareaAssignmentAction.length() > 0) {
+			handleWorkareaActions(octopusContext, workareaAssignmentAction);
+		} else {
+			super.saveList(octopusContext);
+		}
+	}
 
-    private void handleWorkareaActions(OctopusContext octopusContext, String workareaAssignmentAction)
-            throws BeanException, IOException {
-        final Database database = getDatabase(octopusContext);
-        final List<Integer> selection = getSelection(octopusContext, getCount(octopusContext, database));
-        if (!selection.isEmpty()) {
-            octopusContext.setContent("deleted", selection.size());
-            final Integer workareaId = octopusContext.requestAsInteger("workareaAssignmentId");
-            if ("assign".compareTo(workareaAssignmentAction) == 0) {
-                assignWorkArea(octopusContext, selection, workareaId);
-            } else if ("unassign".compareTo(workareaAssignmentAction) == 0) {
-                unassignWorkArea(octopusContext, selection, workareaId);
-            }
-            selection.clear();
-        }
-    }
+	private void handleWorkareaActions(OctopusContext octopusContext, String workareaAssignmentAction)
+			throws BeanException, IOException {
+		final Database database = getDatabase(octopusContext);
+		final List<Integer> selection = getSelection(octopusContext, getCount(octopusContext, database));
+		if (!selection.isEmpty()) {
+			octopusContext.setContent("deleted", selection.size());
+			final Integer workareaId = octopusContext.requestAsInteger("workareaAssignmentId");
+			if ("assign".compareTo(workareaAssignmentAction) == 0) {
+				assignWorkArea(octopusContext, selection, workareaId);
+			} else if ("unassign".compareTo(workareaAssignmentAction) == 0) {
+				unassignWorkArea(octopusContext, selection, workareaId);
+			}
+			selection.clear();
+		}
+	}
 
-    /**
-     * Entfernt die Zuordnungen von Arbeitsbereichen der übergebenen Personen (IDs).
-     *
-     * @param cntx Octopus-Context
-     * @param personIds Liste von Personen IDs für die das entfernen der Zuordnung gilt
-     * @param workAreaId ID des Arbeitsbereiches deren Zuordnung entfernt werden soll
-     * @throws BeanException
-     * @throws IOException
-     */
-    public void unassignWorkArea(OctopusContext cntx, List<Integer> personIds, Integer workAreaId)
-            throws BeanException, IOException {
-        final Database database = getDatabase(cntx);
-        final TransactionContext transactionContext = database.getTransactionContext();
-        handleUnassignWorkarea(personIds, workAreaId, transactionContext);
-        try {
-            transactionContext.commit();
-        } catch (Exception e) {
-            transactionContext.rollBack();
-        }
-    }
+	/**
+	 * Entfernt die Zuordnungen von Arbeitsbereichen der übergebenen Personen (IDs).
+	 *
+	 * @param cntx Octopus-Context
+	 * @param personIds Liste von Personen IDs für die das entfernen der Zuordnung gilt
+	 * @param workAreaId ID des Arbeitsbereiches deren Zuordnung entfernt werden soll
+	 * @throws BeanException
+	 * @throws IOException
+	 */
+	public void unassignWorkArea(OctopusContext cntx, List<Integer> personIds, Integer workAreaId)
+			throws BeanException, IOException {
+		final Database database = getDatabase(cntx);
+		final TransactionContext transactionContext = database.getTransactionContext();
+		handleUnassignWorkarea(personIds, workAreaId, transactionContext);
+		try {
+			transactionContext.commit();
+		} catch (Exception e) {
+			transactionContext.rollBack();
+		}
+	}
 
-    private void handleUnassignWorkarea(List<Integer> personIds, Integer workAreaId,
-                                        TransactionContext transactionContext) throws BeanException, IOException {
-        if (workAreaId > 0) {
-            unassignWorkArea(transactionContext, workAreaId, personIds);
-        } else if (workAreaId == 0) {
-            unassignAllWorkAreas(transactionContext, personIds);
-        }
-    }
+	private void handleUnassignWorkarea(List<Integer> personIds, Integer workAreaId,
+										TransactionContext transactionContext) throws BeanException, IOException {
+		if (workAreaId > 0) {
+			unassignWorkArea(transactionContext, workAreaId, personIds);
+		} else if (workAreaId == 0) {
+			unassignAllWorkAreas(transactionContext, personIds);
+		}
+	}
 
-    /**
-     * Ordnet den übergebenen Arbeitsbereich der Liste von Personen hinzu.
-     *
-     * @param octopusContext OctopusContext
-     * @param personIds Liste von Personen IDs für die die neue Zuordnung gilt
-     * @param workAreaId ID des Arbeitsbereiches der zugeordnet werden soll
-     * @throws BeanException
-     * @throws IOException
-     */
-    public void assignWorkArea(OctopusContext octopusContext, List<Integer> personIds, Integer workAreaId)
-            throws BeanException, IOException {
-        Database database = getDatabase(octopusContext);
-        TransactionContext transactionContext = database.getTransactionContext();
-        PersonListWorker.assignWorkArea(transactionContext, workAreaId, personIds);
-        try {
-            transactionContext.commit();
-        } catch (Exception e) {
-            transactionContext.rollBack();
-        }
-    }
+	/**
+	 * Ordnet den übergebenen Arbeitsbereich der Liste von Personen hinzu.
+	 *
+	 * @param octopusContext OctopusContext
+	 * @param personIds Liste von Personen IDs für die die neue Zuordnung gilt
+	 * @param workAreaId ID des Arbeitsbereiches der zugeordnet werden soll
+	 * @throws BeanException
+	 * @throws IOException
+	 */
+	public void assignWorkArea(OctopusContext octopusContext, List<Integer> personIds, Integer workAreaId)
+			throws BeanException, IOException {
+		Database database = getDatabase(octopusContext);
+		TransactionContext transactionContext = database.getTransactionContext();
+		PersonListWorker.assignWorkArea(transactionContext, workAreaId, personIds);
+		try {
+			transactionContext.commit();
+		} catch (Exception e) {
+			transactionContext.rollBack();
+		}
+	}
 
-    /*
-     * 2009-05-12 cklein
-     * introduced as part of fix for issue #1530 - removal of orgunits, and subsequently also individual workareas
-     *
-     * unassigns from all persons the given workArea. Will not commit the query as this is left to the caller.
-     */
-    public static void unassignWorkArea(TransactionContext transactionContext, Integer workAreaId,
-                                        List<Integer> personIds) throws BeanException, IOException {
-        Update updateStatement = transactionContext.getDatabase().getUpdate("Person");
-        updateStatement.update("tperson.fk_workarea", 0);
-        updateStatement.where(Expr.equal("tperson.fk_workarea", workAreaId));
-        if (personIds != null && personIds.size() > 0) {
-            updateStatement.whereAnd(Expr.in("tperson.pk", personIds));
-        }
-        transactionContext.execute(updateStatement);
-    }
+	/*
+	 * 2009-05-12 cklein
+	 * introduced as part of fix for issue #1530 - removal of orgunits, and subsequently also individual workareas
+	 *
+	 * unassigns from all persons the given workArea. Will not commit the query as this is left to the caller.
+	 */
+	public static void unassignWorkArea(TransactionContext transactionContext, Integer workAreaId,
+										List<Integer> personIds) throws BeanException, IOException {
+		Update updateStatement = transactionContext.getDatabase().getUpdate("Person");
+		updateStatement.update("tperson.fk_workarea", 0);
+		updateStatement.where(Expr.equal("tperson.fk_workarea", workAreaId));
+		if (personIds != null && personIds.size() > 0) {
+			updateStatement.whereAnd(Expr.in("tperson.pk", personIds));
+		}
+		transactionContext.execute(updateStatement);
+	}
 
 
-    private static void unassignAllWorkAreas(TransactionContext transactionContext, List<Integer> personIds)
-            throws IOException, BeanException {
-        final Update updateStatement = transactionContext.getDatabase().getUpdate("Person");
-        updateStatement.update("tperson.fk_workarea", 0);
-        if (personIds != null && personIds.size() > 0) {
-            updateStatement.whereAnd(Expr.in("tperson.pk", personIds));
-        }
-        transactionContext.execute(updateStatement);
-    }
+	private static void unassignAllWorkAreas(TransactionContext transactionContext, List<Integer> personIds)
+			throws IOException, BeanException {
+		final Update updateStatement = transactionContext.getDatabase().getUpdate("Person");
+		updateStatement.update("tperson.fk_workarea", 0);
+		if (personIds != null && personIds.size() > 0) {
+			updateStatement.whereAnd(Expr.in("tperson.pk", personIds));
+		}
+		transactionContext.execute(updateStatement);
+	}
 
-    public static void assignWorkArea(TransactionContext transactionContext, Integer workAreaId,
-                                      List<Integer> personIds) throws BeanException, IOException {
-        Update updateStatement = transactionContext.getDatabase().getUpdate("Person");
-        updateStatement.update("tperson.fk_workarea", workAreaId);
-        if (personIds != null && personIds.size() > 0) {
-            updateStatement.whereAnd(Expr.in("tperson.pk", personIds));
-        }
+	public static void assignWorkArea(TransactionContext transactionContext, Integer workAreaId,
+									  List<Integer> personIds) throws BeanException, IOException {
+		Update updateStatement = transactionContext.getDatabase().getUpdate("Person");
+		updateStatement.update("tperson.fk_workarea", workAreaId);
+		if (personIds != null && personIds.size() > 0) {
+			updateStatement.whereAnd(Expr.in("tperson.pk", personIds));
+		}
 
-        transactionContext.execute(updateStatement);
-    }
+		transactionContext.execute(updateStatement);
+	}
 
-    public Select prepareShowList(OctopusContext octopusContext, Database database) throws BeanException, IOException {
-        Integer start = getStart(octopusContext);
-        Integer limit = getLimit(octopusContext);
-        Integer count = getCount(octopusContext, database);
-        Map param = getParamMap(start, limit, count);
-        Select select = getSelect(getSearch(octopusContext), database);
-        extendColumns(octopusContext, select);
-        extendWhere(octopusContext, select);
-        octopusContext.setContent(OUTPUT_showListParams, param);
+	public Select prepareShowList(OctopusContext octopusContext, Database database) throws BeanException, IOException {
+		Integer start = getStart(octopusContext);
+		Integer limit = getLimit(octopusContext);
+		Integer count = getCount(octopusContext, database);
+		Map param = getParamMap(start, limit, count);
+		Select select = getSelect(getSearch(octopusContext), database);
+		extendColumns(octopusContext, select);
+		extendWhere(octopusContext, select);
+		octopusContext.setContent(OUTPUT_showListParams, param);
 
-        return select;
-    }
+		return select;
+	}
 
-    protected void extendColumns(OctopusContext octopusContext, Select select) throws BeanException, IOException {
-        PersonSearch personSearch = getSearch(octopusContext);
-        select.selectAs("tworkarea.name", "workarea_name");
-        select.selectAs("dateexpire", "dateexpire");
+	protected void extendColumns(OctopusContext octopusContext, Select select) throws BeanException, IOException {
+		PersonSearch personSearch = getSearch(octopusContext);
+		select.selectAs("tworkarea.name", "workarea_name");
+		select.selectAs("dateexpire", "dateexpire");
 
 		/*
 		 * modified to support workarea display in the search result list as per change request for version 1.2.0
 		 * cklein 2008-02-12
 		 */
-        String searchFiled = octopusContext.getRequestObject().getParamAsString("searchField");
-        if (searchFiled == null) {
-            select.join("veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea");
-        }
+		String searchFiled = octopusContext.getRequestObject().getParamAsString("searchField");
+		if (searchFiled == null) {
+			select.join("veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea");
+		}
 
-        List<String> order = new ArrayList<String>();
+		List<String> order = new ArrayList<String>();
 
 		/*
 		 * TODO: Needed to optimise that snippet and move it to a
 		 * location where all List can use it for sortation
 		 */
-        if (personSearch.sortList) {
-            if (personSearch.sort == null || personSearch.lastlistorder == null ||
-                    !personSearch.lastlistorder.equals(personSearch.listorder)) {
-                personSearch.sort = "ASC";
-            } else if ("ASC".equals(personSearch.sort)) {
-                personSearch.sort = "DESC";
-            } else if ("DESC".equals(personSearch.sort)) {
-                personSearch.sort = "ASC";
-            }
-        }
-        octopusContext.getContentObject().setField("personSearchOrder", personSearch.sort);
+		if (personSearch.sortList) {
+			if (personSearch.sort == null || personSearch.lastlistorder == null ||
+					!personSearch.lastlistorder.equals(personSearch.listorder)) {
+				personSearch.sort = "ASC";
+			} else if ("ASC".equals(personSearch.sort)) {
+				personSearch.sort = "DESC";
+			} else if ("DESC".equals(personSearch.sort)) {
+				personSearch.sort = "ASC";
+			}
+		}
+		octopusContext.getContentObject().setField("personSearchOrder", personSearch.sort);
 
-        if (personSearch != null && personSearch.listorder != null && !personSearch.listorder.equals("")) {
-            order.add(personSearch.listorder);
-            order.add(personSearch.sort);
-        }
+		if (personSearch != null && personSearch.listorder != null && !personSearch.listorder.equals("")) {
+			order.add(personSearch.listorder);
+			order.add(personSearch.sort);
+		}
 
-        select.orderBy(DatabaseHelper.getOrder(order));
-    }
+		select.orderBy(DatabaseHelper.getOrder(order));
+	}
 
-    protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
-        PersonSearch personSearch = getSearch(octopusContext);
-        select.whereAnd(getPersonListFilter(octopusContext, true));
+	protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
+		PersonSearch personSearch = getSearch(octopusContext);
+		select.whereAnd(getPersonListFilter(octopusContext, true));
 
-        select.setDistinct(true);
-        String searchFiled = octopusContext.getRequestObject().getParamAsString("searchField");
+		select.setDistinct(true);
+		String searchFiled = octopusContext.getRequestObject().getParamAsString("searchField");
 
-        if (personSearch.listorder == null) {
-            octopusContext.getContentObject().setField("personSearchField", "lastname_a_e1");
-            octopusContext.getContentObject().setField("personSearchOrder", "ASC");
-        }
+		if (personSearch.listorder == null) {
+			octopusContext.getContentObject().setField("personSearchField", "lastname_a_e1");
+			octopusContext.getContentObject().setField("personSearchOrder", "ASC");
+		}
 
 		/*
 		 * extension to support for multiple categories at once
@@ -485,236 +484,236 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * cklein
 		 * 2008-02-20/26
 		 */
-        this.extendSelectByMultipleCategorySearch(octopusContext, personSearch, select);
-        if (personSearch.categorie2 != null) {
-            select.join("veraweb.tperson_categorie cat2", "cat2.fk_person", "tperson.pk");
-        } else if (searchFiled != null) {
-            select.joinOuter("veraweb.tperson_categorie cat2", "cat2.fk_person", "tperson.pk");
+		this.extendSelectByMultipleCategorySearch(octopusContext, personSearch, select);
+		if (personSearch.categorie2 != null) {
+			select.join("veraweb.tperson_categorie cat2", "cat2.fk_person", "tperson.pk");
+		} else if (searchFiled != null) {
+			select.joinOuter("veraweb.tperson_categorie cat2", "cat2.fk_person", "tperson.pk");
 
-        }
-        if (searchFiled != null) {
-            select.joinOuter("veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea");
-            select.joinOuter("veraweb.tcategorie", "tcategorie.pk", "cat2.fk_categorie");
-        }
-    }
+		}
+		if (searchFiled != null) {
+			select.joinOuter("veraweb.tworkarea", "tworkarea.pk", "tperson.fk_workarea");
+			select.joinOuter("veraweb.tcategorie", "tcategorie.pk", "cat2.fk_categorie");
+		}
+	}
 
-    /**
-     * Extends the select statement in order to allow search for multiple
-     * categories at once using either AND or OR.
-     *
-     * @param octopusContext
-     * @param personSearch
-     * @param select
-     */
-    protected void extendSelectByMultipleCategorySearch(OctopusContext octopusContext, PersonSearch personSearch,
-                                                        Select select) {
-        if
-                (
-                (personSearch.categoriesSelection != null) &&
-                        (personSearch.categoriesSelection.size() >= 1) &&
-                        (personSearch.categoriesSelection.get(0).toString().length() > 0) // workaround for octopus behaviour
-                ) {
-            if (((Integer) personSearch.categoriesSelection.get(0)).intValue() != 0) {
-                // FUTURE extension for supporting OR a/o AND
-                boolean isOr = false;
-                if (octopusContext.contentContains("disjunctCategorySearch")) {
-                    isOr = octopusContext.requestAsBoolean("disjunctCategorySearch").booleanValue();
-                }
-                if (isOr) {
-                    // FIXME does not work, misses join on tperson_categorie
-                    // any of the selected categories (OR clause)
-                    select.whereAnd(new RawClause("tperson.pk=cat1.fk_person"));
-                    select.whereAnd(Expr.in("cat1.fk_categorie", personSearch.categoriesSelection));
-                } else {
-                    // all of the selected categories (AND clause)
-                    Iterator iter = personSearch.categoriesSelection.iterator();
-                    int count = 0;
-                    while (iter.hasNext()) {
-                        String alias = "cat" + count;
-                        select.joinLeftOuter("veraweb.tperson_categorie " + alias, "tperson.pk", alias + ".fk_person");
-                        select.whereAnd(new RawClause(alias + ".fk_categorie=" + iter.next()));
-                        count++;
-                    }
-                }
-            } else {
-                // no categories assigned
-                Select subSelect = new Select(true);
-                subSelect.from("veraweb.tperson_categorie");
-                subSelect.selectAs("tperson_categorie.fk_person");
-                try {
-                    select.whereAnd(Expr.notIn("tperson.pk", new RawClause("(" + subSelect.statementToString() + ")")));
-                } catch (SyntaxErrorException e) {
-                    ;
-                    ; // just catch, will never happen
-                }
-            }
-        } else {
-            ;
-            ; // search in all categories
-        }
-    }
+	/**
+	 * Extends the select statement in order to allow search for multiple
+	 * categories at once using either AND or OR.
+	 *
+	 * @param octopusContext
+	 * @param personSearch
+	 * @param select
+	 */
+	protected void extendSelectByMultipleCategorySearch(OctopusContext octopusContext, PersonSearch personSearch,
+														Select select) {
+		if
+				(
+				(personSearch.categoriesSelection != null) &&
+						(personSearch.categoriesSelection.size() >= 1) &&
+						(personSearch.categoriesSelection.get(0).toString().length() > 0) // workaround for octopus behaviour
+				) {
+			if (((Integer) personSearch.categoriesSelection.get(0)).intValue() != 0) {
+				// FUTURE extension for supporting OR a/o AND
+				boolean isOr = false;
+				if (octopusContext.contentContains("disjunctCategorySearch")) {
+					isOr = octopusContext.requestAsBoolean("disjunctCategorySearch").booleanValue();
+				}
+				if (isOr) {
+					// FIXME does not work, misses join on tperson_categorie
+					// any of the selected categories (OR clause)
+					select.whereAnd(new RawClause("tperson.pk=cat1.fk_person"));
+					select.whereAnd(Expr.in("cat1.fk_categorie", personSearch.categoriesSelection));
+				} else {
+					// all of the selected categories (AND clause)
+					Iterator iter = personSearch.categoriesSelection.iterator();
+					int count = 0;
+					while (iter.hasNext()) {
+						String alias = "cat" + count;
+						select.joinLeftOuter("veraweb.tperson_categorie " + alias, "tperson.pk", alias + ".fk_person");
+						select.whereAnd(new RawClause(alias + ".fk_categorie=" + iter.next()));
+						count++;
+					}
+				}
+			} else {
+				// no categories assigned
+				Select subSelect = new Select(true);
+				subSelect.from("veraweb.tperson_categorie");
+				subSelect.selectAs("tperson_categorie.fk_person");
+				try {
+					select.whereAnd(Expr.notIn("tperson.pk", new RawClause("(" + subSelect.statementToString() + ")")));
+				} catch (SyntaxErrorException e) {
+					;
+					; // just catch, will never happen
+				}
+			}
+		} else {
+			;
+			; // search in all categories
+		}
+	}
 
-    protected Integer getAlphaStart(OctopusContext octopusContext, String start) throws BeanException, IOException {
-        Database database = getDatabase(octopusContext);
-        Select select = database.getCount(BEANNAME);
-        this.extendWhere(octopusContext, select);
-        if (start != null && start.length() > 0) {
-            select.whereAnd(Expr.less("tperson.lastname_a_e1", Escaper.escape(start)));
-        }
+	protected Integer getAlphaStart(OctopusContext octopusContext, String start) throws BeanException, IOException {
+		Database database = getDatabase(octopusContext);
+		Select select = database.getCount(BEANNAME);
+		this.extendWhere(octopusContext, select);
+		if (start != null && start.length() > 0) {
+			select.whereAnd(Expr.less("tperson.lastname_a_e1", Escaper.escape(start)));
+		}
 
-        Integer selectCounter = database.getCount(select);
+		Integer selectCounter = database.getCount(select);
 
-        return new Integer(selectCounter.intValue() - (selectCounter.intValue() % getLimit(octopusContext).intValue()));
-    }
+		return new Integer(selectCounter.intValue() - (selectCounter.intValue() % getLimit(octopusContext).intValue()));
+	}
 
-    protected Select getSelect(Database database) throws BeanException, IOException {
-        return getSelect(null, database);
-    }
+	protected Select getSelect(Database database) throws BeanException, IOException {
+		return getSelect(null, database);
+	}
 
-    protected Select getSelect(PersonSearch personSearch, Database database) throws BeanException, IOException {
-        Select select;
-        if (personSearch != null) {
-            select = new Select(personSearch.categoriesSelection != null || personSearch.categorie2 != null);
-        } else {
-            select = SQL.SelectDistinct(database);
-        }
+	protected Select getSelect(PersonSearch personSearch, Database database) throws BeanException, IOException {
+		Select select;
+		if (personSearch != null) {
+			select = new Select(personSearch.categoriesSelection != null || personSearch.categorie2 != null);
+		} else {
+			select = SQL.SelectDistinct(database);
+		}
 
-        return select.
-                from("veraweb.tperson").
-                selectAs("tperson.pk", "id").
-                select("firstname_a_e1").
-                select("lastname_a_e1").
-                select("firstname_b_e1").
-                select("lastname_b_e1").
-                select("function_a_e1").
-                select("company_a_e1").
-                select("street_a_e1").
-                select("zipcode_a_e1").
-                select("state_a_e1").
-                select("city_a_e1").
-                select("iscompany");
-    }
+		return select.
+				from("veraweb.tperson").
+				selectAs("tperson.pk", "id").
+				select("firstname_a_e1").
+				select("lastname_a_e1").
+				select("firstname_b_e1").
+				select("lastname_b_e1").
+				select("function_a_e1").
+				select("company_a_e1").
+				select("street_a_e1").
+				select("zipcode_a_e1").
+				select("state_a_e1").
+				select("city_a_e1").
+				select("iscompany");
+	}
 
-    protected List getResultList(Database database, Select select) throws BeanException, IOException {
-        return database.getList(select, database);
-    }
+	protected List getResultList(Database database, Select select) throws BeanException, IOException {
+		return database.getList(select, database);
+	}
 
-    /**
-     * Überprüft ob eine Person die nötigen Berechtigungen hat um Personen
-     * zu löschen und ob diese ggf. noch Veranstaltungen zugeordent sind.
-     *
-     * Bei Veränderungen an dieser Methode müssen diese ggf. auch in der
-     * personList.vm übernommen werden, dort werden entsprechende JavaScript
-     * Meldungen ausgegeben.
-     *
-     * siehe Anwendungsfall: UC.PERSON.LOESCH
-     */
-    protected int removeSelection(OctopusContext octopusContext, List errors, List selection,
-                                  TransactionContext transactionContext) throws BeanException, IOException {
+	/**
+	 * Überprüft ob eine Person die nötigen Berechtigungen hat um Personen
+	 * zu löschen und ob diese ggf. noch Veranstaltungen zugeordent sind.
+	 *
+	 * Bei Veränderungen an dieser Methode müssen diese ggf. auch in der
+	 * personList.vm übernommen werden, dort werden entsprechende JavaScript
+	 * Meldungen ausgegeben.
+	 *
+	 * siehe Anwendungsfall: UC.PERSON.LOESCH
+	 */
+	protected int removeSelection(OctopusContext octopusContext, List errors, List selection,
+								  TransactionContext transactionContext) throws BeanException, IOException {
 
-        int count = 0;
-        if (selection == null || selection.size() == 0) return count;
-        List selectionRemove = new ArrayList(selection);
+		int count = 0;
+		if (selection == null || selection.size() == 0) return count;
+		List selectionRemove = new ArrayList(selection);
 
-        final Database database = transactionContext.getDatabase();
-        Map questions = new HashMap();
+		final Database database = transactionContext.getDatabase();
+		Map questions = new HashMap();
 
-        List groups = Arrays.asList(octopusContext.personalConfig().getUserGroups());
-        boolean user = groups.contains(PersonalConfigAA.GROUP_WRITE);
-        boolean admin = groups.contains(PersonalConfigAA.GROUP_ADMIN) ||
-                groups.contains(PersonalConfigAA.GROUP_PARTIAL_ADMIN);
-        if (admin) user = false;
+		List groups = Arrays.asList(octopusContext.personalConfig().getUserGroups());
+		boolean user = groups.contains(PersonalConfigAA.GROUP_WRITE);
+		boolean admin = groups.contains(PersonalConfigAA.GROUP_ADMIN) ||
+				groups.contains(PersonalConfigAA.GROUP_PARTIAL_ADMIN);
+		if (admin) user = false;
 
-        LanguageProviderHelper languageProviderHelper = null;
-        LanguageProvider languageProvider = null;
+		LanguageProviderHelper languageProviderHelper = null;
+		LanguageProvider languageProvider = null;
 
-        if (!(user || admin)) {
-            languageProviderHelper = new LanguageProviderHelper();
-            languageProvider = languageProviderHelper.enableTranslation(octopusContext);
-            errors.add(languageProvider.getProperty("PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE"));
-            return count;
-        }
-        /** User dürfen immer nur eine Person gleichzeitig löschen. */
-        if (user && selectionRemove.size() > 1) {
-            if (languageProviderHelper == null) {
-                languageProviderHelper = new LanguageProviderHelper();
-                languageProvider = languageProviderHelper.enableTranslation(octopusContext);
-            }
-            errors.add(languageProvider.getProperty("PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON"));
-            octopusContext.setContent("listerrors", errors);
-            return count;
-        }
+		if (!(user || admin)) {
+			languageProviderHelper = new LanguageProviderHelper();
+			languageProvider = languageProviderHelper.enableTranslation(octopusContext);
+			errors.add(languageProvider.getProperty("PERSON_LIST_WARNING_NO_PERMISSION_TO_DELETE"));
+			return count;
+		}
+		/** User dürfen immer nur eine Person gleichzeitig löschen. */
+		if (user && selectionRemove.size() > 1) {
+			if (languageProviderHelper == null) {
+				languageProviderHelper = new LanguageProviderHelper();
+				languageProvider = languageProviderHelper.enableTranslation(octopusContext);
+			}
+			errors.add(languageProvider.getProperty("PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON"));
+			octopusContext.setContent("listerrors", errors);
+			return count;
+		}
 
-        int maxquestions = 0;
-        int subselectsize = 1000;
+		int maxquestions = 0;
+		int subselectsize = 1000;
 
-        /** Test ob Personen noch gültig sind und nicht gelöscht werden dürfen. */
-        if ((user || admin) && !selectionRemove.isEmpty()) {
-            for (int i = 0; i < selectionRemove.size(); i += subselectsize) {
-                List subList = selectionRemove.subList(i, i + subselectsize < selectionRemove.size() ? i + subselectsize : selectionRemove.size());
-                List personExpireInFuture =
-                        database.getBeanList("Person",
-                                database.getSelect("Person").
-                                        where(new RawClause(
-                                                "dateexpire >= " + Format.format(new Date()) +
-                                                        " AND pk IN " + new StatementList(subList))));
-                for (Object singlePerson : personExpireInFuture) {
+		/** Test ob Personen noch gültig sind und nicht gelöscht werden dürfen. */
+		if ((user || admin) && !selectionRemove.isEmpty()) {
+			for (int i = 0; i < selectionRemove.size(); i += subselectsize) {
+				List subList = selectionRemove.subList(i, i + subselectsize < selectionRemove.size() ? i + subselectsize : selectionRemove.size());
+				List personExpireInFuture =
+						database.getBeanList("Person",
+								database.getSelect("Person").
+										where(new RawClause(
+												"dateexpire >= " + Format.format(new Date()) +
+														" AND pk IN " + new StatementList(subList))));
+				for (Object singlePerson : personExpireInFuture) {
 //				for (Iterator it = personExpireInFuture.iterator(); it.hasNext(); ) {
-                    Person person = (Person) singlePerson;
-                    if (getContextAsBoolean(octopusContext, "remove-expire-" + person.id)) {
-                        octopusContext.setContent("remove-person", Boolean.TRUE);
-                    } else {
-                        if (maxquestions == 0 || questions.size() < maxquestions) {
-                            /**questions.put("remove-expire-" + person.id, "Das Gültigkeitsdatum der Person \"" + person.getMainLatin().getSaveAs()  + "\" liegt in der Zukunft. Soll die Person trotzdem gelöscht werden?");*/
-                            questions.put("remove-expire-" + person.id, person.getMainLatin().getSaveAs());
-                        }
-                        selectionRemove.remove(person.id);
-                        i--;
-                    }
-                }
-            }
-        }
+					Person person = (Person) singlePerson;
+					if (getContextAsBoolean(octopusContext, "remove-expire-" + person.id)) {
+						octopusContext.setContent("remove-person", Boolean.TRUE);
+					} else {
+						if (maxquestions == 0 || questions.size() < maxquestions) {
+							/**questions.put("remove-expire-" + person.id, "Das Gültigkeitsdatum der Person \"" + person.getMainLatin().getSaveAs()  + "\" liegt in der Zukunft. Soll die Person trotzdem gelöscht werden?");*/
+							questions.put("remove-expire-" + person.id, person.getMainLatin().getSaveAs());
+						}
+						selectionRemove.remove(person.id);
+						i--;
+					}
+				}
+			}
+		}
 
-        /** Fragen ob alle Personen wirklich gelöscht werden sollen. */
-        if (!getContextAsBoolean(octopusContext, "remove-person")) {
-            if (languageProviderHelper == null) {
-                languageProviderHelper = new LanguageProviderHelper();
-                languageProvider = languageProviderHelper.enableTranslation(octopusContext);
-            }
-            questions.put("remove-person", languageProvider.getProperty("PERSON_LIST_QUESTION_DELETE_CONFIRMATION"));
-        }
+		/** Fragen ob alle Personen wirklich gelöscht werden sollen. */
+		if (!getContextAsBoolean(octopusContext, "remove-person")) {
+			if (languageProviderHelper == null) {
+				languageProviderHelper = new LanguageProviderHelper();
+				languageProvider = languageProviderHelper.enableTranslation(octopusContext);
+			}
+			questions.put("remove-person", languageProvider.getProperty("PERSON_LIST_QUESTION_DELETE_CONFIRMATION"));
+		}
 
-        if (!questions.isEmpty()) {
-            octopusContext.setContent("listquestions", questions);
-        }
+		if (!questions.isEmpty()) {
+			octopusContext.setContent("listquestions", questions);
+		}
 
 
-        /** Löscht Personen aus VerA.web */
-        if ((user || admin) && !selectionRemove.isEmpty() && getContextAsBoolean(octopusContext, "remove-person")) {
-            try {
-                PersonDetailWorker personDetailWorker = WorkerFactory.getPersonDetailWorker(octopusContext);
-                personDetailWorker.setDatabase(database);
-                personDetailWorker.setTransactionalContext(transactionContext);
+		/** Löscht Personen aus VerA.web */
+		if ((user || admin) && !selectionRemove.isEmpty() && getContextAsBoolean(octopusContext, "remove-person")) {
+			try {
+				PersonDetailWorker personDetailWorker = WorkerFactory.getPersonDetailWorker(octopusContext);
+				personDetailWorker.setDatabase(database);
+				personDetailWorker.setTransactionalContext(transactionContext);
 
-                for (Object personId : selectionRemove) {
-                    Integer id = (Integer) personId;
+				for (Object personId : selectionRemove) {
+					Integer id = (Integer) personId;
 
 					/*
 					 * updated to reflect interface changes on removePerson
 					 * cklein 2008-02-12
 					 */
-                    Person person = (Person) database.getBean("Person", id);
-                    personDetailWorker.removePerson(octopusContext, person, person.username);
-                    selection.remove(id);
-                    count++;
-                }
-                transactionContext.commit();
+					Person person = (Person) database.getBean("Person", id);
+					personDetailWorker.removePerson(octopusContext, person, person.username);
+					selection.remove(id);
+					count++;
+				}
+				transactionContext.commit();
 
-            } catch (BeanException e) {
-                transactionContext.rollBack();
-                throw new BeanException("Die ausgew\u00e4hlten Personen konnten nicht gel\u00f6scht werden.", e);
-            }
-        }
+			} catch (BeanException e) {
+				transactionContext.rollBack();
+				throw new BeanException("Die ausgew\u00e4hlten Personen konnten nicht gel\u00f6scht werden.", e);
+			}
+		}
 
 		/* fix: selection remained active in session, causing lists to autoselect
 		 * individual entries in the lists, will remove the session variable
@@ -722,9 +721,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * session variable with the new selection list
 		 * cklein 2008-03-12
 		 */
-        octopusContext.setSession("selection" + BEANNAME, selection);
-        return count;
-    }
+		octopusContext.setSession("selection" + BEANNAME, selection);
+		return count;
+	}
 
     /**
      * Wirft eine BeanException, die Personen werden mit ihren Abhängigkeiten
@@ -742,7 +741,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     public static final String INPUT_getSearch[] = {};
     /** Octopus-Ausgabeparameter für {@link #getSearch(OctopusContext)} */
     public static final String OUTPUT_getSearch = "search";
-
     /**
      * Diese Octopus-Aktion liefert ein aktuelles {@link PersonSearch}-Objekt.
      * Dies wird aus dem Request geholt geholt, falls ein Requestparameter
@@ -755,105 +753,105 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      */
     public PersonSearch getSearch(OctopusContext octopusContext) throws BeanException {
 
-        if (octopusContext.contentContains("search") && octopusContext.contentAsObject("search") instanceof PersonSearch) {
-            return (PersonSearch) octopusContext.contentAsObject("search");
-        }
+		if (octopusContext.contentContains("search") && octopusContext.contentAsObject("search") instanceof PersonSearch) {
+			return (PersonSearch) octopusContext.contentAsObject("search");
+		}
 
-        String param = octopusContext.requestAsString("search");
-        Boolean sortList = octopusContext.requestAsBoolean("sortList");
-        PersonSearch personSearch;
+		String param = octopusContext.requestAsString("search");
+		Boolean sortList = octopusContext.requestAsBoolean("sortList");
+		PersonSearch personSearch;
 
-        if ("clear".equals(param))
-            personSearch = new PersonSearch();
-        else if ("reset".equals(param)) {
-            personSearch = (PersonSearch) getRequest(octopusContext).getBean("PersonSearch");
+		if ("clear".equals(param))
+			personSearch = new PersonSearch();
+		else if ("reset".equals(param)) {
+			personSearch = (PersonSearch) getRequest(octopusContext).getBean("PersonSearch");
 			/*
              * modified to support category multi selection
              * cklein
              * 2008-02-26
              */
-            List list = (List) BeanFactory.transform(octopusContext.requestAsObject("categoriesSelection"), List.class);
-            ArrayList<Integer> selection = new ArrayList<Integer>(list.size());
-            if (list.size() > 0 && list.get(0).toString().length() > 0) {
-                Iterator iter = list.iterator();
-                while (iter.hasNext()) {
-                    selection.add(new Integer((String) iter.next()));
-                }
-            }
-            personSearch.categoriesSelection = selection;
-        } else {
-            personSearch = (PersonSearch) getRequest(octopusContext).getBean("PersonSearch", "search");
-            PersonSearch searchFromRequest = personSearch;
-            personSearch = (PersonSearch) octopusContext.sessionAsObject("search" + BEANNAME);
-            if (searchFromRequest != null && searchFromRequest.listorder != null) {
-                personSearch.listorder = searchFromRequest.listorder;
-            }
-        }
-        if (personSearch == null) {
-            personSearch = new PersonSearch();
-        }
+			List list = (List) BeanFactory.transform(octopusContext.requestAsObject("categoriesSelection"), List.class);
+			ArrayList<Integer> selection = new ArrayList<Integer>(list.size());
+			if (list.size() > 0 && list.get(0).toString().length() > 0) {
+				Iterator iter = list.iterator();
+				while (iter.hasNext()) {
+					selection.add(new Integer((String) iter.next()));
+				}
+			}
+			personSearch.categoriesSelection = selection;
+		} else {
+			personSearch = (PersonSearch) getRequest(octopusContext).getBean("PersonSearch", "search");
+			PersonSearch searchFromRequest = personSearch;
+			personSearch = (PersonSearch) octopusContext.sessionAsObject("search" + BEANNAME);
+			if (searchFromRequest != null && searchFromRequest.listorder != null) {
+				personSearch.listorder = searchFromRequest.listorder;
+			}
+		}
+		if (personSearch == null) {
+			personSearch = new PersonSearch();
+		}
 
-        PersonSearch sessionSearchPerson = (PersonSearch) octopusContext.sessionAsObject("search" + BEANNAME);
+		PersonSearch sessionSearchPerson = (PersonSearch) octopusContext.sessionAsObject("search" + BEANNAME);
 
-        if (sessionSearchPerson != null) {
-            personSearch.lastlistorder = sessionSearchPerson.listorder;
+		if (sessionSearchPerson != null) {
+			personSearch.lastlistorder = sessionSearchPerson.listorder;
 			/* Gets the last string order of the session SearchPerson object and set it to the new session. */
-            personSearch.sort = sessionSearchPerson.sort;
-        }
-        personSearch.sortList = sortList;
+			personSearch.sort = sessionSearchPerson.sort;
+		}
+		personSearch.sortList = sortList;
 
-        octopusContext.setSession("search" + BEANNAME, personSearch);
+		octopusContext.setSession("search" + BEANNAME, personSearch);
 
-        octopusContext.getContentObject().setField("personSearchField", personSearch.listorder);
-        octopusContext.getContentObject().setField("personSearchOrder", personSearch.sort);
-        return personSearch;
-    }
+		octopusContext.getContentObject().setField("personSearchField", personSearch.listorder);
+		octopusContext.getContentObject().setField("personSearchOrder", personSearch.sort);
+		return personSearch;
+	}
 
     //
     // geschützte Hilfsmethoden
     //
-    private boolean getContextAsBoolean(OctopusContext octopusContext, String key) {
-        return Boolean.valueOf(octopusContext.contentAsString(key)).booleanValue() ?
-                true : octopusContext.requestAsBoolean(key).booleanValue();
-    }
+	private boolean getContextAsBoolean(OctopusContext octopusContext, String key) {
+		return Boolean.valueOf(octopusContext.contentAsString(key)).booleanValue() ?
+				true : octopusContext.requestAsBoolean(key).booleanValue();
+	}
 
-    /**
-     * Gibt eine Person-List-Filter Bedinung inkl. Mandanten Einschränkung zurück.
-     *
-     * @param octopusContext
-     * @throws BeanException
-     */
-    protected Clause getPersonListFilter(OctopusContext octopusContext, boolean status) throws BeanException {
-        WhereList list = new WhereList();
+	/**
+	 * Gibt eine Person-List-Filter Bedinung inkl. Mandanten Einschränkung zurück.
+	 *
+	 * @param octopusContext
+	 * @throws BeanException
+	 */
+	protected Clause getPersonListFilter(OctopusContext octopusContext, boolean status) throws BeanException {
+		WhereList list = new WhereList();
 
-        String searchFiled = octopusContext.getRequestObject().getParamAsString("searchField");
-        if (searchFiled == null) {
-            addPersonListFilter(octopusContext, list);
-        } else {
-            addPersonListFilterSimple(octopusContext, searchFiled, list, status);
-        }
+		String searchFiled = octopusContext.getRequestObject().getParamAsString("searchField");
+		if (searchFiled == null) {
+			addPersonListFilter(octopusContext, list);
+		} else {
+			addPersonListFilterSimple(octopusContext, searchFiled, list, status);
+		}
 
-        Where orgunitFilter = Expr.equal("tperson.fk_orgunit",
-                ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId());
-        if (list.size() == 0) {
-            return orgunitFilter;
-        } else {
-            return Where.and(orgunitFilter, list);
-        }
-    }
+		Where orgunitFilter = Expr.equal("tperson.fk_orgunit",
+				((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId());
+		if (list.size() == 0) {
+			return orgunitFilter;
+		} else {
+			return Where.and(orgunitFilter, list);
+		}
+	}
 
-    /**
-     * Erweitert die übergebene WhereList um Bedingungen der Suche.
-     * Die WhereList ist danach <strong>niemals</strong> leer.
-     *
-     * @param octopusContext
-     * @param list
-     * @throws BeanException
-     */
-    private void addPersonListFilter(OctopusContext octopusContext, WhereList list) throws BeanException {
-        final PersonSearch personSearch = getSearch(octopusContext);
+	/**
+	 * Erweitert die übergebene WhereList um Bedingungen der Suche.
+	 * Die WhereList ist danach <strong>niemals</strong> leer.
+	 *
+	 * @param octopusContext
+	 * @param list
+	 * @throws BeanException
+	 */
+	private void addPersonListFilter(OctopusContext octopusContext, WhereList list) throws BeanException {
+		PersonSearch personSearch = getSearch(octopusContext);
 
-        list.addAnd(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE));
+		list.addAnd(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE));
 
 		/*
 		 * modified to support search for individual workareas as per change request for version 1.2.0
@@ -1060,138 +1058,138 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		 * 2008-02-21
 		 */
 
-        WhereList list = new WhereList();
+		WhereList list = new WhereList();
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                "firstname_a_e1",
-                "firstname_a_e2",
-                "firstname_a_e3",
-                "firstname_b_e1",
-                "firstname_b_e2",
-                "firstname_b_e3"}));
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+				"firstname_a_e1",
+				"firstname_a_e2",
+				"firstname_a_e3",
+				"firstname_b_e1",
+				"firstname_b_e2",
+				"firstname_b_e3"}));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                "lastname_a_e1",
-                "lastname_a_e2",
-                "lastname_a_e3",
-                "lastname_b_e1",
-                "lastname_b_e2",
-                "lastname_b_e3"}));
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+				"lastname_a_e1",
+				"lastname_a_e2",
+				"lastname_a_e3",
+				"lastname_b_e1",
+				"lastname_b_e2",
+				"lastname_b_e3"}));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                "company_a_e1",
-                "company_a_e2",
-                "company_a_e3",
-                "company_b_e1",
-                "company_b_e2",
-                "company_b_e3",
-                "company_c_e1",
-                "company_c_e2",
-                "company_c_e3"}));
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+				"company_a_e1",
+				"company_a_e2",
+				"company_a_e3",
+				"company_b_e1",
+				"company_b_e2",
+				"company_b_e3",
+				"company_c_e1",
+				"company_c_e2",
+				"company_c_e3"}));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                "fon_a_e1",
-                "fon_a_e2",
-                "fon_a_e3",
-                "fon_b_e1",
-                "fon_b_e2",
-                "fon_b_e3",
-                "fon_c_e1",
-                "fon_c_e2",
-                "fon_c_e3"}));
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+				"fon_a_e1",
+				"fon_a_e2",
+				"fon_a_e3",
+				"fon_b_e1",
+				"fon_b_e2",
+				"fon_b_e3",
+				"fon_c_e1",
+				"fon_c_e2",
+				"fon_c_e3"}));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                "fax_a_e1",
-                "fax_a_e2",
-                "fax_a_e3",
-                "fax_b_e1",
-                "fax_b_e2",
-                "fax_b_e3",
-                "fax_c_e1",
-                "fax_c_e2",
-                "fax_c_e3"}));
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+				"fax_a_e1",
+				"fax_a_e2",
+				"fax_a_e3",
+				"fax_b_e1",
+				"fax_b_e2",
+				"fax_b_e3",
+				"fax_c_e1",
+				"fax_c_e2",
+				"fax_c_e3"}));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                "mobil_a_e1",
-                "mobil_a_e2",
-                "mobil_a_e3",
-                "mobil_b_e1",
-                "mobil_b_e2",
-                "mobil_b_e3",
-                "mobil_c_e1",
-                "mobil_c_e2",
-                "mobil_c_e3"}));
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+				"mobil_a_e1",
+				"mobil_a_e2",
+				"mobil_a_e3",
+				"mobil_b_e1",
+				"mobil_b_e2",
+				"mobil_b_e3",
+				"mobil_c_e1",
+				"mobil_c_e2",
+				"mobil_c_e3"}));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                "mail_a_e1",
-                "mail_a_e2",
-                "mail_a_e3",
-                "mail_b_e1",
-                "mail_b_e2",
-                "mail_b_e3",
-                "mail_c_e1",
-                "mail_c_e2",
-                "mail_c_e3"}));
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+				"mail_a_e1",
+				"mail_a_e2",
+				"mail_a_e3",
+				"mail_b_e1",
+				"mail_b_e2",
+				"mail_b_e3",
+				"mail_c_e1",
+				"mail_c_e2",
+				"mail_c_e3"}));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                "tcategorie.catname"}));
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+				"tcategorie.catname"}));
 
-        if (status) {
-            list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                    "tworkarea.name"}));
-        }
+		if (status) {
+			list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+					"tworkarea.name"}));
+		}
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                "function_a_e1",
-                "function_a_e2",
-                "function_a_e3",
-                "function_b_e1",
-                "function_b_e2",
-                "function_b_e3",
-                "function_c_e1",
-                "function_c_e2",
-                "function_c_e3"}));
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+				"function_a_e1",
+				"function_a_e2",
+				"function_a_e3",
+				"function_b_e1",
+				"function_b_e2",
+				"function_b_e3",
+				"function_c_e1",
+				"function_c_e2",
+				"function_c_e3"}));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                "note_a_e1",
-                "note_b_e1"}));
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+				"note_a_e1",
+				"note_b_e1"}));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                "city_a_e1",
-                "city_a_e2",
-                "city_a_e3",
-                "city_b_e1",
-                "city_b_e2",
-                "city_b_e3",
-                "city_c_e1",
-                "city_c_e2",
-                "city_c_e3"}));
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+				"city_a_e1",
+				"city_a_e2",
+				"city_a_e3",
+				"city_b_e1",
+				"city_b_e2",
+				"city_b_e3",
+				"city_c_e1",
+				"city_c_e2",
+				"city_c_e3"}));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                "street_a_e1",
-                "street_a_e2",
-                "street_a_e3",
-                "street_b_e1",
-                "street_b_e2",
-                "street_b_e3",
-                "street_c_e1",
-                "street_c_e2",
-                "street_c_e3"}));
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+				"street_a_e1",
+				"street_a_e2",
+				"street_a_e3",
+				"street_b_e1",
+				"street_b_e2",
+				"street_b_e3",
+				"street_c_e1",
+				"street_c_e2",
+				"street_c_e3"}));
 
-        list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
-                "zipcode_a_e1",
-                "zipcode_a_e2",
-                "zipcode_a_e3",
-                "zipcode_b_e1",
-                "zipcode_b_e2",
-                "zipcode_b_e3",
-                "zipcode_c_e1",
-                "zipcode_c_e2",
-                "zipcode_c_e3"}));
+		list.addOr(DatabaseHelper.getWhere(searchField, new String[]{
+				"zipcode_a_e1",
+				"zipcode_a_e2",
+				"zipcode_a_e3",
+				"zipcode_b_e1",
+				"zipcode_b_e2",
+				"zipcode_b_e3",
+				"zipcode_c_e1",
+				"zipcode_c_e2",
+				"zipcode_c_e3"}));
 
-        list2.addAnd(Where.and(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE), list));
+		list2.addAnd(Where.and(Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE), list));
 
-        return;
-    }
+		return;
+	}
 
 }
