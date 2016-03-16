@@ -92,6 +92,7 @@ GENDER_TYPE_WORKAREA=Male
 # REPETITIVE OBJECTS IN THER SINGULAR- AND PLURAL-TYPE
 GENERIC_ADDRESS_DATA_PLURAL=Adressdaten
 GENERIC_CATEGORY_SINGULAR=Kategorie
+GENERIC_KEYWORDS=Schl\u00FCsselw\u00F6rter
 GENERIC_CATEGORY_PLURAL=Kategorien
 GENERIC_CLIENT_SINGULAR=Mandant
 GENERIC_CLIENT_PLURAL=Mandanten
@@ -1287,7 +1288,7 @@ bitteauswhaelengt=Bitte ausw\u00E4hlen
 vorlageladen=Vorlage laden
 neuevorlagename=Neue Vorlage (Name)
 neuevorlagespeichern=Neue Vorlage speichern
-neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten=Neue Vorlagen m\u00FCssen sowohl einen Betreff als auch Text enthalten (Anhänge werden nicht gespeichert)
+neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten=Neue Vorlagen m\u00FCssen sowohl einen Betreff als auch Text enthalten (Anh\u00E4nge werden nicht gespeichert)
 zurueckzumverteiler=Zur\u00FCck zum Verteiler
 markiertenveranstaltungsorte=Markierte(r) Veranstaltungsort(e)
 hinweis=Hinweis
