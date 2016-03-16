@@ -106,6 +106,10 @@
                             <input type="text" name="company" id="company" value="$!message.text($search.company)"  />
                         </div>
                         <div class="tableCell width30">
+                            <label for="languages">${placeholderWithTranslation.GENERIC_LANGUAGES}</label>
+                            <input type="text" name="languages" id="languages" value="$!message.text($search.languages)"  />
+                        </div>
+                        <div class="tableCell width30">
                             <label for="iscompany">${placeholderWithTranslation.GENERIC_IS_COMPANY}</label>
                             <input type="checkbox" name="iscompany" id="iscompany" value="true"  #if($search.iscompany) checked #end />
                         </div>
