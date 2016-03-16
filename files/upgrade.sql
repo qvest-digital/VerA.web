@@ -582,20 +582,20 @@ BEGIN
         		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
         	END IF;
 
-     vnewvsn := '2016-03-14';
-            	IF vcurvsn < vnewvsn THEN
-            		vmsg := 'begin.update(' || vnewvsn || ')';
-            		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+    vnewvsn := '2016-03-14';
+            IF vcurvsn < vnewvsn THEN
+                vmsg := 'begin.update(' || vnewvsn || ')';
+                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+            
+                -- Add column to table "tmedia_representative_activation"
+                ALTER TABLE veraweb.tmedia_representative_activation ADD COLUMN int4 DEFAULT 0;
 
-                    -- Add column to table "tmedia_representative_activation"
-                    ALTER TABLE veraweb.tmedia_representative_activation ADD COLUMN ACTIVATED int4 DEFAULT 0;
-
-            		-- post-upgrade
-            		vmsg := 'end.update(' || vnewvsn || ')';
-            		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-            		vcurvsn := vnewvsn;
-            		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-            	END IF;
+                -- post-upgrade
+                vmsg := 'end.update(' || vnewvsn || ')';
+                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+                vcurvsn := vnewvsn;
+                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+            END IF;
 
 	-- end
 
