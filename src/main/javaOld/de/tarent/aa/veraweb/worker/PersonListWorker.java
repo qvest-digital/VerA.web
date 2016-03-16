@@ -918,18 +918,14 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         if (personSearch.state != null && personSearch.state.length() != 0) {
             list.addAnd(getStateFilter(personSearch));
         }
+        if (personSearch.languages != null && personSearch.languages.length() != 0) {
+            final LanguagesFilterFactory factory = new LanguagesFilterFactory();
+            list.addAnd(factory.createLanguagesFilter(personSearch));
+        }
         if (personSearch.onlyhosts != null && personSearch.onlyhosts.booleanValue()) {
             list.addAnd(Expr.in("tperson.pk", new RawClause(
                     "(SELECT fk_host FROM veraweb.tevent)")));
         }
-    }
-
-    private Clause getLaanguaagesFilter(PersonSearch personSearch) {
-        final String value = personSearch.languages;
-        final String[] columns = {
-                "languages_a_e1",
-                "languages_b_e1"};
-        return DatabaseHelper.getWhere(value, columns);
     }
 
     private Clause getStateFilter(PersonSearch personSearch) {

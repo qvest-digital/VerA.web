@@ -50,8 +50,9 @@ public class PersonSearch extends AbstractBean {
 	public String listorder;
 	public Boolean sortList;
 	public String sort;
+	public String languages;
 
-    /**
+	/**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
      * darf.<br>
      * Test ist, ob der Benutzer Standard-Reader ist.

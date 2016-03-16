@@ -538,6 +538,7 @@
 				<input name="Datenherkunft" type="xsd:string" optional="t" description="gesuchte Datenherkunft"/>
 				<input name="Gültigkeitsdatum" type="xsd:string" optional="t" description="gesuchtes Gültigkeitsdatum"/>
 				<input name="Gültigkeitstyp" type="xsd:string" optional="t" description="Art der Gültigkeitsdatumsangabe"/>
+				<input name="Sprachen" type="xsd:string" optional="t" description="gesuchte Sprachen"/>
 			</contract>
 			<doTask name="Load"/>
 			<action name="saveList" worker="PersonListWorker" />
