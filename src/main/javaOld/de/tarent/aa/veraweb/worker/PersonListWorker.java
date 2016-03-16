@@ -828,7 +828,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 		if (searchFiled == null) {
 			addPersonListFilter(octopusContext, list);
 		} else {
-			addPersonListFilterSimple(octopusContext, searchFiled, list, status);
+			addPersonListFilterSimple(searchFiled, list, status);
 		}
 
 		Where orgunitFilter = Expr.equal("tperson.fk_orgunit",
