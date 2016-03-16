@@ -25,7 +25,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2016-03-14';
+	vversion := '2016-03-16';
 
 	-- initialisation
 	vint := 0;
@@ -588,7 +588,22 @@ BEGIN
                 INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
             
                 -- Add column to table "tmedia_representative_activation"
-                ALTER TABLE veraweb.tmedia_representative_activation ADD COLUMN int4 DEFAULT 0;
+                ALTER TABLE veraweb.tmedia_representative_activation ADD COLUMN ACTIVATED int4 DEFAULT 0;
+
+                -- post-upgrade
+                vmsg := 'end.update(' || vnewvsn || ')';
+                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+                vcurvsn := vnewvsn;
+                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+            END IF;
+
+    vnewvsn := '2016-03-16';
+            IF vcurvsn < vnewvsn THEN
+                vmsg := 'begin.update(' || vnewvsn || ')';
+                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+
+                -- Add column for keywords
+                ALTER TABLE veraweb.tguest ADD COLUMN keywords character varying(1000);
 
                 -- post-upgrade
                 vmsg := 'end.update(' || vnewvsn || ')';
