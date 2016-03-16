@@ -1044,13 +1044,12 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * Erweitert die übergebene WhereList um Bedingungen der Suche.
      * Die WhereList ist danach <strong>niemals</strong> leer.
      *
-     * @param octopusContext
      * @param searchField
      * @throws BeanException
      */
-    private void addPersonListFilterSimple(OctopusContext octopusContext, String searchField, WhereList list2,
+    private void addPersonListFilterSimple(String searchField,
+										   WhereList list2,
                                            boolean status) throws BeanException {
-        PersonSearch personSearch = getSearch(octopusContext);
 
 		/*
 		 * modified to support search for individual workareas as per change request for version 1.2.0
@@ -1191,5 +1190,4 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
 		return;
 	}
-
 }
