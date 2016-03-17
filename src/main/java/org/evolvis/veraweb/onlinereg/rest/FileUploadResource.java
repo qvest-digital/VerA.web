@@ -22,8 +22,8 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+import org.jboss.logging.Logger;
+import org.postgresql.util.Base64;
 
 import javax.imageio.ImageIO;
 import javax.ws.rs.FormParam;
@@ -33,6 +33,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -46,7 +47,9 @@ import java.io.IOException;
 @Path("fileupload")
 @Produces(MediaType.APPLICATION_JSON)
 public class FileUploadResource extends AbstractResource {
-
+	private static final Logger LOGGER = Logger.getLogger(FileUploadResource.class);
+	private static final String FILES_LOCATION = "filesLocation";
+	
     private VworPropertiesReader vworPropertiesReader;
 
     /**
@@ -71,7 +74,7 @@ public class FileUploadResource extends AbstractResource {
         try {
             image = createTempImage(imageStringData);
         } catch (Exception e) {
-            e.printStackTrace();
+        	LOGGER.error("Could not create temp image", e);
         }
 
         if (extension.equals(VworConstants.EXTENSION_PNG)) {
@@ -95,6 +98,7 @@ public class FileUploadResource extends AbstractResource {
         try {
             encodedImage = getImage(imgUUID);
         } catch (IOException e) {
+        	LOGGER.error("Image not found");
             // image not found
             // 1. Delete imageUUID
         }
@@ -106,8 +110,8 @@ public class FileUploadResource extends AbstractResource {
 
     private String getFilesLocation() {
         final String filesLocation;
-        if (vworPropertiesReader.getProperty("filesLocation") != null) {
-            filesLocation = vworPropertiesReader.getProperty("filesLocation");
+        if (vworPropertiesReader.getProperty(FILES_LOCATION) != null) {
+            filesLocation = vworPropertiesReader.getProperty(FILES_LOCATION);
         } else {
             filesLocation = "/tmp/";
         }
@@ -115,8 +119,7 @@ public class FileUploadResource extends AbstractResource {
     }
 
     private BufferedImage createTempImage(String imageStringData) throws IOException {
-        final BASE64Decoder decoder = new BASE64Decoder();
-        byte[] imageBytes = decoder.decodeBuffer(imageStringData);
+        byte[] imageBytes = Base64.decode(imageStringData);
         final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
         BufferedImage image = ImageIO.read(byteArrayInputStream);
         byteArrayInputStream.close();
@@ -136,16 +139,15 @@ public class FileUploadResource extends AbstractResource {
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(image, "jpg", byteArrayOutputStream);
         final byte[] imageBytes = byteArrayOutputStream.toByteArray();
-        final BASE64Encoder encoder = new BASE64Encoder();
-        final String imageString = encoder.encode(imageBytes);
+        final String imageString = Base64.encodeBytes(imageBytes);
         final StringBuilder encodedImage = new StringBuilder("data:image/jpg;base64,").append(imageString);
         byteArrayOutputStream.close();
         return encodedImage;
     }
 
     private File getFile(String imgUUID) {
-        final VworPropertiesReader vworPropertiesReader = new VworPropertiesReader();
-        final String filesLocation = vworPropertiesReader.getProperty("filesLocation");
+        final VworPropertiesReader propertiesReader = new VworPropertiesReader();
+        final String filesLocation = propertiesReader.getProperty(FILES_LOCATION);
         return new File(filesLocation + generateImageName(imgUUID));
     }
 

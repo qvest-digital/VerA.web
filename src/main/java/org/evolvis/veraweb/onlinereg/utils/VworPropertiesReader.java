@@ -23,28 +23,30 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.jboss.logging.Logger;
+
 /**
  * Created by Jon Nuñez, tarent solutions GmbH on 28.09.15.
  */
 public class VworPropertiesReader {
-
+	private static final Logger LOGGER = Logger.getLogger(VworPropertiesReader.class);
     private static final String PROPERTY_FILE = "/etc/veraweb/vwor.properties";
 
     public Properties properties;
 
     public VworPropertiesReader() {
-        this.properties = this.loadProperties();
+        loadProperties();
     }
 
     public Properties getProperties() {
-        return this.properties;
+        return properties;
     }
 
     public String getProperty(String key) {
-        if (this.properties != null) {
-            return this.properties.getProperty(key);
+        if (properties != null) {
+            return properties.getProperty(key);
         } else {
-            System.out.println("Property " + key + " is null.");
+        	LOGGER.warn("Property " + key + " is null.");
         }
         return null;
     }
@@ -54,16 +56,23 @@ public class VworPropertiesReader {
     }
 
     private Properties loadProperties() {
-        final Properties properties = new Properties();
+        properties = new Properties();
 
         FileInputStream inputStream = null;
         try {
             inputStream = new FileInputStream(PROPERTY_FILE);
             properties.load(inputStream);
         } catch (IOException e) {
+        	LOGGER.warn("Could not read properties file", e);
             return null;
         } finally {
-            try { inputStream.close(); } catch (Exception e) { }
+            try {
+            	if(inputStream != null) {
+            		inputStream.close();
+            	}
+            } catch (Exception e) {
+            	LOGGER.warn("Could not close stream", e);
+            }
         }
 
         return properties;

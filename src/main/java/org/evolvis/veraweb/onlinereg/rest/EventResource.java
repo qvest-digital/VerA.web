@@ -28,6 +28,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import java.math.BigInteger;
 import java.util.List;
 
@@ -37,13 +38,16 @@ import java.util.List;
 @Path("/event")
 @Produces(MediaType.APPLICATION_JSON)
 public class EventResource extends AbstractResource {
+	private static final String PARAM_USERNAME = "username";
+	private static final String PARAM_UUID = "uuid";
+	private static final String PARAM_EVENT_ID = "eventId";
 
 	/**
 	 * Getting the list of openned Events
 	 * 
 	 * @return List<Event> List of events
 	 */
-    @Path("/")
+	@Path("/")
     @GET
     public List<Event> listEvents() {
         final Session session = openSession();
@@ -65,11 +69,11 @@ public class EventResource extends AbstractResource {
      */
     @Path("/userevents/{username}")
     @GET
-    public List<Event> listUsersEvents(@PathParam("username") String username) {
+    public List<Event> listUsersEvents(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.findPersonIdByUsername");
-            query.setString("username", username);
+            query.setString(PARAM_USERNAME, username);
             if (query.list().isEmpty()) {
                 // user does not exists
                 return null;
@@ -91,11 +95,11 @@ public class EventResource extends AbstractResource {
      */
     @Path("/userevents/existing/{username}")
     @GET
-    public Boolean checkUserRegistrationToEvents(@PathParam("username") String username) {
+    public Boolean checkUserRegistrationToEvents(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.findPersonIdByUsername");
-            query.setString("username", username);
+            query.setString(PARAM_USERNAME, username);
             if (query.list().isEmpty()) {
                 // user does not exists
                 return false;
@@ -110,19 +114,18 @@ public class EventResource extends AbstractResource {
     
     @Path("/userid/{username}")
     @GET
-    public Integer getPersonIdByUsername(@PathParam("username") String username) {
+    public Integer getPersonIdByUsername(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
 
         try {
             final Query query = session.getNamedQuery("Person.findPersonIdByUsername");
-            query.setString("username", username);
+            query.setString(PARAM_USERNAME, username);
             if (query.list().isEmpty()) {
                 // user does not exists
                 // MUST NOT HAPPEN, BUT IT IS A PREVENTION
                 return null;
             } else {
-                final Integer personId = (Integer) query.uniqueResult();
-                return personId;
+                return (Integer) query.uniqueResult();
             }
         } finally {
             session.close();
@@ -138,7 +141,7 @@ public class EventResource extends AbstractResource {
      */
     @Path("/{eventId}")
     @GET
-    public Event getEvent(@PathParam("eventId") int eventId) {
+    public Event getEvent(@PathParam(PARAM_EVENT_ID) int eventId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Event.getEvent");
@@ -158,11 +161,11 @@ public class EventResource extends AbstractResource {
      */
     @GET
     @Path("/exist/{uuid}")
-    public Boolean existEventIdByDelegation(@PathParam("uuid") String uuid) {
+    public Boolean existEventIdByDelegation(@PathParam(PARAM_UUID) String uuid) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Event.guestByUUID");
-            query.setString("uuid", uuid);
+            query.setString(PARAM_UUID, uuid);
             final BigInteger numberFoundDelegations = (BigInteger) query.uniqueResult();
             if (numberFoundDelegations.intValue() >= 1) {
                 return true;
@@ -181,14 +184,13 @@ public class EventResource extends AbstractResource {
      */
     @GET
     @Path("/require/{uuid}")
-    public Integer getEventIdByUUID(@PathParam("uuid") String uuid) {
+    public Integer getEventIdByUUID(@PathParam(PARAM_UUID) String uuid) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Event.getEventByUUID");
-            query.setString("uuid", uuid);
+            query.setString(PARAM_UUID, uuid);
 
-            final Integer eventId = (Integer) query.uniqueResult();
-            return eventId;
+            return (Integer) query.uniqueResult();
 
         } finally {
             session.close();
@@ -203,18 +205,15 @@ public class EventResource extends AbstractResource {
      */
     @GET
     @Path("/isopen/{eventId}")
-    public Boolean isOpenEvent(@PathParam("eventId") Integer eventId) {
+    public Boolean isOpenEvent(@PathParam(PARAM_EVENT_ID) Integer eventId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Event.isOpen");
-            query.setInteger("eventId", eventId);
+            query.setInteger(PARAM_EVENT_ID, eventId);
 
             final BigInteger counter = (BigInteger) query.uniqueResult();
 
-            if (counter.longValue() > 0) {
-                return true;
-            }
-            return false;
+            return (counter.longValue() > 0);
 
         } finally {
             session.close();
@@ -223,11 +222,11 @@ public class EventResource extends AbstractResource {
 
     @GET
     @Path("/guestlist/status/{eventId}")
-    public Boolean isGuestListFull(@PathParam("eventId") Integer eventId) {
+    public Boolean isGuestListFull(@PathParam(PARAM_EVENT_ID) Integer eventId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Event.checkMaxGuestLimit");
-            query.setInteger("eventId", eventId);
+            query.setInteger(PARAM_EVENT_ID, eventId);
 
             final BigInteger counter = (BigInteger) query.uniqueResult();
 
@@ -243,11 +242,11 @@ public class EventResource extends AbstractResource {
 
     @GET
     @Path("/reservelist/status/{eventId}")
-    public Boolean isReserveListFull(@PathParam("eventId") Integer eventId) {
+    public Boolean isReserveListFull(@PathParam(PARAM_EVENT_ID) Integer eventId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Event.checkMaxReserveLimit");
-            query.setInteger("eventId", eventId);
+            query.setInteger(PARAM_EVENT_ID, eventId);
 
             final BigInteger counter = (BigInteger) query.uniqueResult();
 
@@ -268,7 +267,7 @@ public class EventResource extends AbstractResource {
      * @param personId ID
      * @return List<Event> List of events
      */
-    private List<Event> getUsersEvents(Session session, int personId) {
+	private List<Event> getUsersEvents(Session session, int personId) {
         final Query query = session.getNamedQuery("Event.list.userevents");
         query.setInteger("fk_person", personId);
 
