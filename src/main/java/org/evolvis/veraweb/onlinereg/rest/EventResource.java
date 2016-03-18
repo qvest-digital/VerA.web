@@ -38,6 +38,7 @@ import java.util.List;
 @Path("/event")
 @Produces(MediaType.APPLICATION_JSON)
 public class EventResource extends AbstractResource {
+	private static final String QUERY_FIND_PERSON_ID_BY_USERNAME = "Person.findPersonIdByUsername";
 	private static final String PARAM_USERNAME = "username";
 	private static final String PARAM_UUID = "uuid";
 	private static final String PARAM_EVENT_ID = "eventId";
@@ -72,7 +73,7 @@ public class EventResource extends AbstractResource {
     public List<Event> listUsersEvents(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("Person.findPersonIdByUsername");
+            final Query query = session.getNamedQuery(QUERY_FIND_PERSON_ID_BY_USERNAME);
             query.setString(PARAM_USERNAME, username);
             if (query.list().isEmpty()) {
                 // user does not exists
@@ -81,7 +82,6 @@ public class EventResource extends AbstractResource {
                 final int personId = (int) query.uniqueResult();
                 return getUsersEvents(session, personId);
             }
-
         } finally {
             session.close();
         }
@@ -98,7 +98,7 @@ public class EventResource extends AbstractResource {
     public Boolean checkUserRegistrationToEvents(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("Person.findPersonIdByUsername");
+            final Query query = session.getNamedQuery(QUERY_FIND_PERSON_ID_BY_USERNAME);
             query.setString(PARAM_USERNAME, username);
             if (query.list().isEmpty()) {
                 // user does not exists
@@ -118,7 +118,7 @@ public class EventResource extends AbstractResource {
         final Session session = openSession();
 
         try {
-            final Query query = session.getNamedQuery("Person.findPersonIdByUsername");
+            final Query query = session.getNamedQuery(QUERY_FIND_PERSON_ID_BY_USERNAME);
             query.setString(PARAM_USERNAME, username);
             if (query.list().isEmpty()) {
                 // user does not exists
@@ -213,7 +213,7 @@ public class EventResource extends AbstractResource {
 
             final BigInteger counter = (BigInteger) query.uniqueResult();
 
-            return (counter.longValue() > 0);
+            return counter.longValue() > 0;
 
         } finally {
             session.close();
@@ -223,29 +223,26 @@ public class EventResource extends AbstractResource {
     @GET
     @Path("/guestlist/status/{eventId}")
     public Boolean isGuestListFull(@PathParam(PARAM_EVENT_ID) Integer eventId) {
-        final Session session = openSession();
-        try {
-            final Query query = session.getNamedQuery("Event.checkMaxGuestLimit");
-            query.setInteger(PARAM_EVENT_ID, eventId);
-
-            final BigInteger counter = (BigInteger) query.uniqueResult();
-
-            if (counter.longValue() > 0) {
-                return true;
-            }
-            return false;
-
-        } finally {
-            session.close();
-        }
+        return isListFull(eventId, "Event.checkMaxGuestLimit");
     }
 
     @GET
     @Path("/reservelist/status/{eventId}")
     public Boolean isReserveListFull(@PathParam(PARAM_EVENT_ID) Integer eventId) {
-        final Session session = openSession();
+    	return isListFull(eventId, "Event.checkMaxReserveLimit");
+    }
+
+	/**
+	 * Generalized method for isGuestListFull and isReserveListFull.
+	 * 
+	 * @param eventId
+	 * @param namedQuery
+	 * @return
+	 */
+	private Boolean isListFull(Integer eventId, String namedQuery) {
+		final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("Event.checkMaxReserveLimit");
+            final Query query = session.getNamedQuery(namedQuery);
             query.setInteger(PARAM_EVENT_ID, eventId);
 
             final BigInteger counter = (BigInteger) query.uniqueResult();
@@ -253,13 +250,13 @@ public class EventResource extends AbstractResource {
             if (counter.longValue() > 0) {
                 return true;
             }
-
             return false;
+
         } finally {
             session.close();
         }
-    }
-
+	}
+    
     /**
      * Get the events associated to a person
      *

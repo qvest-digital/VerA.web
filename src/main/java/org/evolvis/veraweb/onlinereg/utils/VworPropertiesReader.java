@@ -32,7 +32,7 @@ public class VworPropertiesReader {
 	private static final Logger LOGGER = Logger.getLogger(VworPropertiesReader.class);
     private static final String PROPERTY_FILE = "/etc/veraweb/vwor.properties";
 
-    public Properties properties;
+    private Properties properties;
 
     public VworPropertiesReader() {
         loadProperties();

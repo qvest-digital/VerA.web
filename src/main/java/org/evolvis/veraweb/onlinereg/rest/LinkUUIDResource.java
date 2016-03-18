@@ -46,8 +46,7 @@ public class LinkUUIDResource extends AbstractResource {
                 // user does not exists
                 return null;
             } else {
-                final Integer personId = (int) query.uniqueResult();
-                return personId;
+                return (int) query.uniqueResult();
             }
 
         } finally {

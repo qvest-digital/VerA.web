@@ -98,7 +98,7 @@ public class FileUploadResource extends AbstractResource {
         try {
             encodedImage = getImage(imgUUID);
         } catch (IOException e) {
-        	LOGGER.error("Image not found");
+        	LOGGER.error("Image not found", e);
             // image not found
             // 1. Delete imageUUID
         }

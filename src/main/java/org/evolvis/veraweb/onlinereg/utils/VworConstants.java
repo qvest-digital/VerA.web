@@ -23,6 +23,9 @@ package org.evolvis.veraweb.onlinereg.utils;
  * @author Jon Nuñez, tarent solutions GmbH on 02.07.15.
  */
 public class VworConstants {
+	
+	private VworConstants() {
+	}
 
     /**Responses from File upload mechanismus */
     public static final String UPLOAD_OK = "OK";

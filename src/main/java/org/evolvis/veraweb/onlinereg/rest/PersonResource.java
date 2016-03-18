@@ -43,7 +43,11 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class PersonResource extends AbstractResource {
 
-    /**
+    private static final String PARAM_PERSON_ID = "personId";
+	private static final String PARAM_UUID = "uuid";
+	private static final String PARAM_USERNAME = "username";
+
+	/**
      * Create person.
      *
      * @param username Username
@@ -54,13 +58,12 @@ public class PersonResource extends AbstractResource {
      */
     @POST
     @Path("/")
-    public Person createPerson(@FormParam("username") String username,
+    public Person createPerson(@FormParam(PARAM_USERNAME) String username,
     						   @FormParam("firstname") String firstName,
                                @FormParam("lastname") String lastname) {
         final Session session = openSession();
         try {
-            final Person person = handleCreatePerson(username, firstName, lastname, session);
-            return person;
+            return handleCreatePerson(username, firstName, lastname, session);
         } finally {
             session.close();
         }
@@ -81,7 +84,7 @@ public class PersonResource extends AbstractResource {
     @POST
     @Path("/delegate")
     public Person createDelegate(@FormParam("eventId") Integer eventId,
-						    		@FormParam("username") String username,
+						    		@FormParam(PARAM_USERNAME) String username,
 						    		@FormParam("firstname") String firstName,
 						    		@FormParam("lastname") String lastname,
 						    		@FormParam("gender") String gender,
@@ -91,9 +94,8 @@ public class PersonResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Integer mandantId = getOrgUnitId(session, eventId);
-            final Person person = handleCreatePersonDelegation(company, mandantId, username, firstName, lastname,
+            return handleCreatePersonDelegation(company, mandantId, username, firstName, lastname,
                     gender, session, function);
-            return person;
         } finally {
             session.close();
         }
@@ -115,13 +117,13 @@ public class PersonResource extends AbstractResource {
                                  @FormParam("lastname") String lastname,
                                  @FormParam("gender") String gender,
                                  @FormParam("function") String function,
-                                 @FormParam("personId") Integer personId) {
+                                 @FormParam(PARAM_PERSON_ID) Integer personId) {
 
         final Session session = openSession();
         try {
 
             final Query query = session.getNamedQuery("Person.findByPersonId");
-            query.setInteger("personId", personId);
+            query.setInteger(PARAM_PERSON_ID, personId);
 
             final Person person = (Person) query.uniqueResult();
 
@@ -158,7 +160,7 @@ public class PersonResource extends AbstractResource {
 	@POST
     @Path("/press")
     public Person createPersonPress(@FormParam("eventId") Integer eventId,
-                                    @FormParam("username") String username,
+                                    @FormParam(PARAM_USERNAME) String username,
                                     @FormParam("firstname") String firstName,
                                     @FormParam("lastname") String lastname,
                                     @FormParam("gender") String gender,
@@ -171,10 +173,8 @@ public class PersonResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Integer mandantId = getOrgUnitId(session, eventId);
-            final Person person = handleCreatePersonPress(mandantId, username, firstName, lastname, gender, email,
+            return handleCreatePersonPress(mandantId, username, firstName, lastname, gender, email,
                     address, zipCode, city, country, session);
-
-            return person;
         } finally {
             session.close();
         }
@@ -185,7 +185,7 @@ public class PersonResource extends AbstractResource {
      *
      * @param username username of a person
      * @param salutation salutation of a person
-     * @param fk_salutation foreign key of salutation of a person
+     * @param fkSalutation foreign key of salutation of a person
      * @param title title of a person
      * @param firstName firstName of a person
      * @param lastName lastName of a person
@@ -197,9 +197,9 @@ public class PersonResource extends AbstractResource {
      */
     @POST
     @Path("/usercoredata/update/")
-    public void updatePersonCoreData(@FormParam("username") String username,
+    public void updatePersonCoreData(@FormParam(PARAM_USERNAME) String username,
                                      @FormParam("salutation") String salutation,
-                                     @FormParam("fk_salutation") Integer fk_salutation,
+                                     @FormParam("fk_salutation") Integer fkSalutation,
                                      @FormParam("title") String title,
                                      @FormParam("firstName") String firstName,
                                      @FormParam("lastName") String lastName,
@@ -210,7 +210,7 @@ public class PersonResource extends AbstractResource {
         final Session session = openSession();
 
         try {
-            prepareAndUpdatePersonCoreData(username, salutation, fk_salutation, title, firstName, lastName, birthday,
+            prepareAndUpdatePersonCoreData(username, salutation, fkSalutation, title, firstName, lastName, birthday,
                     nationality, languages, gender, session);
         } finally {
             session.close();
@@ -226,11 +226,11 @@ public class PersonResource extends AbstractResource {
      */
 	@GET
 	@Path("/userinfo/{username}")
-	public String getFirstAndLastName(@PathParam("username") String username) {
+	public String getFirstAndLastName(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.getPersonNamesByUsername");
-            query.setString("username", username);
+            query.setString(PARAM_USERNAME, username);
             return (String) query.uniqueResult();
         } finally {
             session.close();
@@ -247,11 +247,11 @@ public class PersonResource extends AbstractResource {
      */
     @GET
     @Path("/{uuid}")
-    public List<Person> getDelegatesByUUID(@PathParam("uuid") String uuid) {
+    public List<Person> getDelegatesByUUID(@PathParam(PARAM_UUID) String uuid) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.getDelegatesByUUID");
-            query.setString("uuid", uuid);
+            query.setString(PARAM_UUID, uuid);
             return (List<Person>) query.list();
 
         } finally {
@@ -268,11 +268,11 @@ public class PersonResource extends AbstractResource {
      */
     @GET
     @Path("/company/{uuid}")
-    public Person getCompanyByUUID(@PathParam("uuid") String uuid) {
+    public Person getCompanyByUUID(@PathParam(PARAM_UUID) String uuid) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.getCompanyByUUID");
-            query.setString("uuid", uuid);
+            query.setString(PARAM_UUID, uuid);
 
             return (Person) query.uniqueResult();
         } finally {
@@ -288,11 +288,11 @@ public class PersonResource extends AbstractResource {
      */
     @GET
     @Path("/userdata/{username}")
-    public Person getPersonByUsername(@PathParam("username") String username) {
+    public Person getPersonByUsername(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.findByUsername");
-            query.setString("username", username);
+            query.setString(PARAM_USERNAME, username);
 
             return (Person) query.uniqueResult();
         } finally {
@@ -308,11 +308,11 @@ public class PersonResource extends AbstractResource {
      */
     @Path("/userdata/lite/{username}")
     @GET
-    public Integer getUserIdFromUsername(@PathParam("username") String username) {
+    public Integer getUserIdFromUsername(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.findPersonIdByUsername");
-            query.setString("username", username);
+            query.setString(PARAM_USERNAME, username);
             if (query.list().isEmpty()) {
                 // user does not exists
                 return null;
@@ -334,12 +334,12 @@ public class PersonResource extends AbstractResource {
      */
     @POST
     @Path("/update/orgunit")
-    public void updatePersonOrgunit(@FormParam("orgunit") Integer orgunit, @FormParam("personId") Integer personId) {
+    public void updatePersonOrgunit(@FormParam("orgunit") Integer orgunit, @FormParam(PARAM_PERSON_ID) Integer personId) {
         final Session session = openSession();
 
         try {
             final Query query = session.getNamedQuery("Person.findByPersonId");
-            query.setInteger("personId", personId);
+            query.setInteger(PARAM_PERSON_ID, personId);
 
             final Person person = (Person) query.uniqueResult();
             person.setFk_orgunit(orgunit);
@@ -357,16 +357,14 @@ public class PersonResource extends AbstractResource {
      */
     @GET
     @Path("/list/{personId}")
-    public Person getUsernameByUserId(@PathParam("personId") Integer personId) {
+    public Person getUsernameByUserId(@PathParam(PARAM_PERSON_ID) Integer personId) {
         final Session session = openSession();
 
         try {
             final Query query = session.getNamedQuery("Person.findByPersonId");
-            query.setInteger("personId", personId);
+            query.setInteger(PARAM_PERSON_ID, personId);
 
-            final Person person = (Person) query.uniqueResult();
-
-            return person;
+            return (Person) query.uniqueResult();
         } finally {
             session.close();
         }
@@ -386,9 +384,7 @@ public class PersonResource extends AbstractResource {
             return null;
         }
         persistPerson(username, firstName, lastname, session);
-        final Person person = (Person) query.uniqueResult();
-
-        return person;
+        return (Person) query.uniqueResult();
     }
 
     private Person handleCreatePersonDelegation(String company, Integer orgUnitId, String username, String firstName,
@@ -399,9 +395,7 @@ public class PersonResource extends AbstractResource {
             return null;
         }
         persistPersonDelegation(company, orgUnitId, username, firstName, lastname, gender, session, function);
-        final Person person = (Person) query.uniqueResult();
-
-        return person;
+        return (Person) query.uniqueResult();
     }
 
     private Person handleCreatePersonPress(Integer orgUnit, String username, String firstName, String lastname,
@@ -413,14 +407,12 @@ public class PersonResource extends AbstractResource {
             return null;
         }
         persistPersonPress(orgUnit, username, firstName, lastname, gender, email, address, plz, city, country, session);
-        final Person person = (Person) query.uniqueResult();
-
-        return person;
+        return (Person) query.uniqueResult();
     }
 
     private Query getSelectPersonByUsernameQuery(String username, Session session) {
         final Query query = session.getNamedQuery("Person.findByUsername");
-        query.setString("username", username);
+        query.setString(PARAM_USERNAME, username);
 
         return query;
     }

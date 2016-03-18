@@ -25,7 +25,7 @@ public class EmailResource extends AbstractResource {
     public void sendEmailVerification(
             @FormParam("email") String email,
             @FormParam("endpoint") String endpoint,
-            @FormParam("activation_token") String activation_token,
+            @FormParam("activation_token") String activationToken,
             @FormParam("language") String currentLanguageKey,
             @FormParam("usertype") Boolean isPressUser) throws MessagingException {
         if (emailConfiguration == null) {
@@ -34,13 +34,13 @@ public class EmailResource extends AbstractResource {
         if (mailDispatcher == null) {
             mailDispatcher = new MailDispatcher(emailConfiguration);
         }
-        executeSendEmail(email, endpoint, activation_token, isPressUser);
+        executeSendEmail(email, endpoint, activationToken, isPressUser);
     }
 
-    private void executeSendEmail(String email, String endpoint, String activation_token, Boolean isPressUser)
+    private void executeSendEmail(String email, String endpoint, String activationToken, Boolean isPressUser)
             throws MessagingException {
 
-        final String activationLink = getActivationLink(endpoint, activation_token, isPressUser);
+        final String activationLink = getActivationLink(endpoint, activationToken, isPressUser);
         final String from = emailConfiguration.getFrom();
         final String subject = emailConfiguration.getSubject();
         final String content = emailConfiguration.getContent();
@@ -49,11 +49,11 @@ public class EmailResource extends AbstractResource {
         mailDispatcher.send(from, email, subject, content, activationLink, contentType);
     }
 
-    private String getActivationLink(String endpoint, String activation_token, Boolean isPressUser) {
+    private String getActivationLink(String endpoint, String activationToken, Boolean isPressUser) {
         if(isPressUser) {
-            return endpoint + "media/activation/confirm/" + activation_token;
+            return endpoint + "media/activation/confirm/" + activationToken;
         }
-        return endpoint + "user/activate/" + activation_token;
+        return endpoint + "user/activate/" + activationToken;
     }
 
     public EmailConfiguration getEmailConfiguration() {

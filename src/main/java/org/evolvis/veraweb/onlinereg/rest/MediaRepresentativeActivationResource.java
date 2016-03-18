@@ -76,8 +76,7 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
         try {
             final Query query = session.getNamedQuery("MediaRepresentativeActivation.getActivationByActivationToken");
             query.setString("activation_token", mediaRepresentativeActivationToken);
-            final MediaRepresentativeActivation activation = (MediaRepresentativeActivation) query.uniqueResult();
-            return activation;
+            return (MediaRepresentativeActivation) query.uniqueResult();
         } finally {
             session.close();
         }

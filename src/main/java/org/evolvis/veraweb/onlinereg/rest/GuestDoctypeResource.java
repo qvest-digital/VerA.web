@@ -27,7 +27,6 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -57,9 +56,8 @@ public class GuestDoctypeResource extends AbstractResource {
 		final Session session = openSession();
 
 		try {
-			final GuestDoctype guestDoctype = handleCreateGuestDoctype(guestId,
+			return handleCreateGuestDoctype(guestId,
 					fkDoctype, addresstype, locale, firstName, lastName, session);
-			return guestDoctype;
 		} finally {
 			session.close();
 		}

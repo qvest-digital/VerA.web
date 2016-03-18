@@ -51,10 +51,7 @@ public class FunctionResource extends AbstractResource {
             final Query query = session.getNamedQuery("Function.findFunctionNamesByEventId");
             query.setInteger("eventId", eventId);
 
-            final List<String> functionName = (List<String>) query.list();
-
-            //TODO NULL-Check?
-            return functionName;
+            return (List<String>) query.list();
         } finally {
             session.close();
         }

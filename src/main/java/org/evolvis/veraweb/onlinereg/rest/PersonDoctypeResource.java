@@ -27,7 +27,6 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -49,18 +48,17 @@ public class PersonDoctypeResource extends AbstractResource {
 		Session session = openSession();
 
 		try {
-			PersonDoctype personDoctype = handleCreatePersonDoctype(personId,
+			return handleCreatePersonDoctype(personId,
 					fk_doctype, addresstype, locale, textfield, session);
-			return personDoctype;
 		} finally {
 			session.close();
 		}
 	}
 
-	private PersonDoctype handleCreatePersonDoctype(int fk_person, int fk_doctype, int addresstype, int locale,
+	private PersonDoctype handleCreatePersonDoctype(int fkPerson, int fkDoctype, int addresstype, int locale,
 													String textfield, Session session) {
 
-		PersonDoctype personDoctype = new PersonDoctype(fk_person, fk_doctype, addresstype, locale);
+		PersonDoctype personDoctype = new PersonDoctype(fkPerson, fkDoctype, addresstype, locale);
 		personDoctype.setTextfield(textfield);
 
 		Query query = getSelectPersonDoctypeByDoctypeIdAndPersonIdQuery(personDoctype, session);
