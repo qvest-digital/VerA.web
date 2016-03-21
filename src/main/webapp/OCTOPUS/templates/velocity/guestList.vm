@@ -112,7 +112,7 @@
 
 				<h3 class="marginBottom0">${placeholderWithTranslation.filter}</h3>
 
-				<div class="table width75">
+				<div class="table">
 					<div class="tableRow">
 						<div class="tableCell width25">
 							<label for="search-reserve">${placeholderWithTranslation.platzwahl}</label>
@@ -132,7 +132,7 @@
 								<option #if($search.invitationstatus && $search.invitationstatus == 4) selected#end value="4">${placeholderWithTranslation.GUEST_LIST_ONLY_PARTICIPATE}</option>
 							</select>
 						</div>
-						<div class="tableCell width50">
+						<div class="tableCell width25">
 							<label for="search-category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
 							<select name="search-category" id="search-category" onchange="submit();">
 								<option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
@@ -140,6 +140,10 @@
 									<option #if($search.category && $search.category == $category) selected#end value="$category">$category</option>
 								#end
 							</select>
+						</div>
+						<div class="tableCell width25">
+							<label for="search-keywords">${placeholderWithTranslation.GENERIC_KEYWORDS}</label>
+							<input type="text" id="search-keywords" name="search-keywords" value="${search.keywords}" />
 						</div>
 					</div>
 				</div>
