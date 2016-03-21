@@ -281,14 +281,11 @@ public class GuestDetailWorker extends GuestListWorker {
                 guest.orderno_b = null;
             }
 
-            if(allRequestParams.get("guest-keywords") !=null && allRequestParams.get("guest-keywords").toString() != guest.keywords) {
-                guest.keywords = allRequestParams.get("guest-keywords").toString();
-            }
-
             updatePartnerData(allRequestParams, guest);
             setGuestRankType(octopusContext, database, guest);
             setGuestCategory(allRequestParams, guest);
             setGuestOrderno(guest);
+            setKeywords(allRequestParams, guest);
 
             guest.verify();
 
@@ -314,6 +311,25 @@ public class GuestDetailWorker extends GuestListWorker {
             // which caused the transaction to be always rolled back
             transactionContext.rollBack();
         }
+    }
+
+    private void setKeywords(Map<String, Object> allRequestParams, Guest guest) {
+        if(allRequestParams.get("guest-keywords") !=null && allRequestParams.get("guest-keywords").toString() != guest.keywords) {
+            guest.keywords = clearKeywords(allRequestParams.get("guest-keywords").toString());
+        }
+    }
+
+    private String clearKeywords(String requestParameters) {
+        final String[] keywords = requestParameters.split("\\W+");
+        final StringBuffer finalKeywordList = new StringBuffer();
+        for (String keyword : keywords) {
+            if (finalKeywordList.length() == 0) {
+                finalKeywordList.append(keyword.trim());
+            } else {
+                finalKeywordList.append(",").append(keyword.trim());
+            }
+        }
+        return finalKeywordList.toString();
     }
 
     private void updateGuestAndPartnerImage(Map<String, Object> allRequestParams, Guest guest) throws IOException, BeanException {
