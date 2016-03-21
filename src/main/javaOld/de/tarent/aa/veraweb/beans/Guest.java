@@ -67,6 +67,8 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
     /** Delegation */
     public String delegation;
 
+	public String keywords;
+
 	// Hauptperson
 	public Integer invitationstatus_a;
 	public Integer tableno_a;

@@ -281,6 +281,10 @@ public class GuestDetailWorker extends GuestListWorker {
                 guest.orderno_b = null;
             }
 
+            if(allRequestParams.get("guest-keywords") !=null && allRequestParams.get("guest-keywords").toString() != guest.keywords) {
+                guest.keywords = allRequestParams.get("guest-keywords").toString();
+            }
+
             updatePartnerData(allRequestParams, guest);
             setGuestRankType(octopusContext, database, guest);
             setGuestCategory(allRequestParams, guest);

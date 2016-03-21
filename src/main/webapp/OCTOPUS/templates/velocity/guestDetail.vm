@@ -164,12 +164,8 @@
                                     </div>
                                     <div class="tableCell width20 paddingTop10">
                                         <label for="guest-keywords">${placeholderWithTranslation.GENERIC_KEYWORDS}:</label>
-                                        <input type="text" id="guest-keywords" name="guest-keywords" value="$!message.text($guest-keywords)">
+                                        <input type="text" id="guest-keywords" name="guest-keywords" value="$!message.text($guest.keywords)">
                                     </div>
-
-
-
-
                                     <div class="tableCell"></div>
                                 </div>
                                     #if ($guest.delegation)
