@@ -35,6 +35,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.utils.FileUploadUtils;
+import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.aa.veraweb.utils.VworConstants;
 import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
@@ -315,21 +316,8 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void setKeywords(Map<String, Object> allRequestParams, Guest guest) {
         if(allRequestParams.get("guest-keywords") !=null && allRequestParams.get("guest-keywords").toString() != guest.keywords) {
-            guest.keywords = clearKeywords(allRequestParams.get("guest-keywords").toString());
+            guest.keywords = VerawebUtils.clearCommaSeparatedString(allRequestParams.get("guest-keywords").toString());
         }
-    }
-
-    private String clearKeywords(String requestParameters) {
-        final String[] keywords = requestParameters.split("\\W+");
-        final StringBuffer finalKeywordList = new StringBuffer();
-        for (String keyword : keywords) {
-            if (finalKeywordList.length() == 0) {
-                finalKeywordList.append(keyword.trim());
-            } else {
-                finalKeywordList.append(",").append(keyword.trim());
-            }
-        }
-        return finalKeywordList.toString();
     }
 
     private void updateGuestAndPartnerImage(Map<String, Object> allRequestParams, Guest guest) throws IOException, BeanException {

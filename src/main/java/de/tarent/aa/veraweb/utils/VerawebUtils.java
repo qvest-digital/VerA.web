@@ -25,4 +25,17 @@ public class VerawebUtils {
         return fullList;
     }
 
+    public static String clearCommaSeparatedString(String inputStringWithSpacesAndCommas) {
+        final String[] keywords = inputStringWithSpacesAndCommas.split("\\W+");
+        final StringBuffer finalKeywordList = new StringBuffer();
+        for (String keyword : keywords) {
+            if (finalKeywordList.length() == 0) {
+                finalKeywordList.append(keyword.trim());
+            } else {
+                finalKeywordList.append(",").append(keyword.trim());
+            }
+        }
+        return finalKeywordList.toString();
+    }
+
 }
