@@ -17,3 +17,4 @@ src/main/webapp/OCTOPUS/config_ldap_access.xml
 src/main/webapp/OCTOPUS/module.wsdl
 src/main/webapp/WEB-INF/*.lck
 target/
+.externalToolBuilders

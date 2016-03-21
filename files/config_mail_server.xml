@@ -11,7 +11,7 @@
 			<param name="waitBetweenJobs" value="3"/>
 
 			<!-- SMTP-Server Einstellungen -->
-			<param name="host" value="localhost/>
+			<param name="host" value="localhost"/>
 			<!-- <param name="username" value="username"/> -->
 			<!-- <param name="password" value="password"/> -->
 

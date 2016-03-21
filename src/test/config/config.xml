@@ -49,4 +49,7 @@ und User/Password für schreibenden Zugriff auf die Kontaktdaten
 
     <param name="defaultModule" value="testModule"/>
   </application>
+  <modules>
+  	<param name="onlyNeededToConformWithDtd"></param>
+  </modules>
 </tcConfig>
