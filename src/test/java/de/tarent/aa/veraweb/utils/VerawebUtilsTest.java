@@ -12,7 +12,7 @@ public class VerawebUtilsTest {
     @Test
     public void testClearCommaSeparatedString() throws Exception {
         // WHEN
-        final String result = VerawebUtils.clearCommaSeparatedString("a,   b,   ,   d");
+        final String result = VerawebUtils.clearCommaSeparatedString("a,   b,   ,,,,,   d");
 
         // THEN
         assertEquals("a,b,d", result);
