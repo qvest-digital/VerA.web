@@ -259,24 +259,17 @@ public class GuestDetailWorker extends GuestListWorker {
      * @throws BeanException bei ungültigen oder unvollständigen Einträgen
      */
     public void saveDetail(OctopusContext octopusContext) throws Exception {
-        Request request = getRequest(octopusContext);
-
-        Database database = getDatabase(octopusContext);
-        TransactionContext context = database.getTransactionContext();
-
+        final Request request = getRequest(octopusContext);
+        final Database database = getDatabase(octopusContext);
+        final TransactionContext transactionContext = database.getTransactionContext();
         final Map<String, Object> allRequestParams = octopusContext.getRequestObject().getRequestParameters();
 
         try {
-            Guest guest = getGuestEntity(request, database, allRequestParams);
-            uploadGuestImage(allRequestParams, guest);
-            uploadPartnerImage(allRequestParams, guest);
+            final Guest guest = getGuestEntity(request, database, allRequestParams);
+            updateGuestAndPartnerImage(allRequestParams, guest);
 
             //Check for duplicate reservation (guest and partner).
-            LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-            LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
-
-            List<String> duplicateErrorList = reservationDupCheck(database, guest, languageProvider);
-
+            final List<String> duplicateErrorList = reservationDupCheck(database, guest, octopusContext);
             //In case duplications were found show the errors and do not proceed with saving
             if (duplicateErrorList != null && !duplicateErrorList.isEmpty()) {
                 octopusContext.setContent("duplicateErrorList", duplicateErrorList);
@@ -289,7 +282,6 @@ public class GuestDetailWorker extends GuestListWorker {
             }
 
             updatePartnerData(allRequestParams, guest);
-
             setGuestRankType(octopusContext, database, guest);
             setGuestCategory(allRequestParams, guest);
             setGuestOrderno(guest);
@@ -300,25 +292,29 @@ public class GuestDetailWorker extends GuestListWorker {
              * modified to support change logging
              * cklein 2008-02-12
              */
-            BeanChangeLogger clogger = new BeanChangeLogger(database, context);
+            final BeanChangeLogger clogger = new BeanChangeLogger(database, transactionContext);
 
             if (guest.id == null) {
-                insertGuestRemoveNotehost(octopusContext, database, context, guest, clogger);
+                insertGuestRemoveNotehost(octopusContext, database, transactionContext, guest, clogger);
             } else {
-                updateGuestRemoveNotehost(octopusContext, database, context, guest, clogger);
+                updateGuestRemoveNotehost(octopusContext, database, transactionContext, guest, clogger);
             }
 
-            updateDelegationFields(context, allRequestParams, guest.id);
+            updateDelegationFields(transactionContext, allRequestParams, guest.id);
 
-            context.commit();
+            transactionContext.commit();
+        } catch (BeanException e) {
+            // cklein
+            // 2008-02-13
+            // prior to the change, there was a finally here
+            // which caused the transaction to be always rolled back
+            transactionContext.rollBack();
         }
-        // cklein
-        // 2008-02-13
-        // prior to the change, there was a finally here
-        // which caused the transaction to be always rolled back
-        catch (BeanException e) {
-            context.rollBack();
-        }
+    }
+
+    private void updateGuestAndPartnerImage(Map<String, Object> allRequestParams, Guest guest) throws IOException, BeanException {
+        uploadGuestImage(allRequestParams, guest);
+        uploadPartnerImage(allRequestParams, guest);
     }
 
     private void updatePartnerData(Map<String, Object> allRequestParams, Guest guest) {
@@ -482,8 +478,11 @@ public class GuestDetailWorker extends GuestListWorker {
         }
     }
 
-    private void insertGuestRemoveNotehost(OctopusContext octopusContext, Database database,
-                                           TransactionContext transactionContext, Guest guest, BeanChangeLogger clogger)
+    private void insertGuestRemoveNotehost(OctopusContext octopusContext,
+                                           Database database,
+                                           TransactionContext transactionContext,
+                                           Guest guest,
+                                           BeanChangeLogger clogger)
             throws BeanException, IOException {
         octopusContext.setContent("countInsert", new Integer(1));
         database.getNextPk(guest, transactionContext);
@@ -631,11 +630,11 @@ public class GuestDetailWorker extends GuestListWorker {
      * @throws BeanException
      * @throws IOException
      */
-    public List<String> reservationDupCheck(Database database, Guest guest, final LanguageProvider languageProvider)
+    public List<String> reservationDupCheck(final Database database, final Guest guest, final OctopusContext octopusContext)
             throws BeanException, IOException {
-
-        List<String> duplicateErrorList = new ArrayList<String>();
-
+        final LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+        final LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
+        final List<String> duplicateErrorList = new ArrayList<String>();
         return duplicateGuestAndPartnerList(database, guest, duplicateErrorList, languageProvider);
     }
 
