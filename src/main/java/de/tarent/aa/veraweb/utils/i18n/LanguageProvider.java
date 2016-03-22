@@ -39,241 +39,237 @@ import java.util.*;
  * @author sweiz
  */
 public class LanguageProvider {
-	/**
-	 * Load standard language data (german)
-	 */
-	public LanguageProvider() {
-		this.properties = loadProperties(STANDARD_LANG_FILE);
-	}
+    /**
+     * Load standard language data (german)
+     */
+    public LanguageProvider() {
+        this.properties = loadProperties(STANDARD_LANG_FILE);
+    }
 
-	/**
-	 * Load language file into properties
-	 *
-	 * @param langFileName
-	 *            String name of language file
-	 */
-	public LanguageProvider(final String langFileName) {
-		this.properties = this.loadProperties(langFileName);
-	}
+    /**
+     * Load language file into properties
+     *
+     * @param langFileName
+     *            String name of language file
+     */
+    public LanguageProvider(final String langFileName) {
+        this.properties = this.loadProperties(langFileName);
+    }
 
-	/**
-	 * Octopus-Eingabeparameter für die Aktion {@link #load(OctopusContext)}
-	 */
-	public static final String INPUT_load[] = {};
-	/**
-	 * Language file constants
-	 */
-	public static final String STANDARD_LANG_FILE = "/etc/veraweb/l10n/de_DE.resource";
+    /**
+     * Octopus-Eingabeparameter für die Aktion {@link #load(OctopusContext)}
+     */
+    public static final String INPUT_load[] = {};
+    /**
+     * Language file constants
+     */
+    public static final String STANDARD_LANG_FILE = "/etc/veraweb/l10n/de_DE.resource";
 
-	public static final Logger LOGGER = Logger.getLogger(LanguageProvider.class.getName());
-	// Path of all language files
-	private static final String FILE_PATH = "/etc/veraweb/l10n/";
+    public static final Logger LOGGER = Logger.getLogger(LanguageProvider.class.getName());
+    // Path of all language files
+    private static final String FILE_PATH = "/etc/veraweb/l10n/";
 
-	/**
-	 * Content of selected language file will be saved in Properties object
-	 */
-	public Properties properties;
-	// Map with all language names and their filename
-	private Map<String, String> existingLanguagesAndFilenames = new TreeMap<String, String>();
-	// Selected language will be persist, to load it on recall of controller
-	private String lastSelectedLanguage = "";
+    /**
+     * Content of selected language file will be saved in Properties object
+     */
+    public Properties properties;
+    // Map with all language names and their filename
+    private Map<String, String> existingLanguagesAndFilenames = new TreeMap<String, String>();
+    // Selected language will be persist, to load it on recall of controller
+    private String lastSelectedLanguage = "";
 
-	/**
-	 * Getter for loaded properties
-	 *
-	 * @return loaded properties
-	 */
-	public Properties getProperties() {
-		return this.properties;
-	}
+    /**
+     * Getter for loaded properties
+     *
+     * @return loaded properties
+     */
+    public Properties getProperties() {
+        return this.properties;
+    }
 
-	/**
-	 * Get value from loaded property with key
-	 *
-	 * @param key
-	 *            String placeholder for translated text
-	 * @return value from key
-	 */
-	public String getProperty(String key) {
-		return this.properties.getProperty(key);
-	}
+    /**
+     * Get value from loaded property with key
+     *
+     * @param key
+     *            String placeholder for translated text
+     * @return value from key
+     */
+    public String getProperty(String key) {
+        return this.properties.getProperty(key);
+    }
 
-	/**
-	 * Checks, if the properties object is null
-	 *
-	 * @return false if properties object is null, else true
-	 */
-	public boolean propertiesAreAvailable() {
-		return (this.properties != null);
-	}
+    /**
+     * Checks, if the properties object is null
+     *
+     * @return false if properties object is null, else true
+     */
+    public boolean propertiesAreAvailable() {
+        return (this.properties != null);
+    }
 
-	/**
-	 * Load language names into Octopus Context
-	 *
-	 * @param octopusContext
-	 *            OctopusContext
-	 */
-	public void load(OctopusContext octopusContext) {
-		Map<String, String> languageOptions = this.getLanguageOptions();
-		octopusContext.setContent("translatedNames", languageOptions);
+    /**
+     * Load language names into Octopus Context
+     *
+     * @param octopusContext
+     *            OctopusContext
+     */
+    public void load(OctopusContext octopusContext) {
+        Map<String, String> languageOptions = this.getLanguageOptions();
+        octopusContext.setContent("translatedNames", languageOptions);
 
-		final Request request = new RequestVeraWeb(octopusContext);
+        final Request request = new RequestVeraWeb(octopusContext);
 
-		try {
-			if (request.getField("languageSelector") != null) {
-				octopusContext.setSession("sessionLanguage", request.getField("languageSelector"));
-			} else if (request.getField("languageSelector") == null
-					&& octopusContext.sessionAsString("sessionLanguage") == null) {
-				octopusContext.setSession("sessionLanguage", "de_DE");
-			}
-		} catch (BeanException e) {
-			// TODO NEVER
-			e.printStackTrace();
-		}
+        try {
+            if (request.getField("languageSelector") != null) {
+                octopusContext.setSession("sessionLanguage", request.getField("languageSelector"));
+            } else if (request.getField("languageSelector") == null && octopusContext.sessionAsString("sessionLanguage") == null) {
+                octopusContext.setSession("sessionLanguage", "de_DE");
+            }
+        } catch (BeanException e) {
+            // TODO NEVER
+            e.printStackTrace();
+        }
 
-		this.loadTranslations(octopusContext, languageOptions);
-	}
+        this.loadTranslations(octopusContext, languageOptions);
+    }
 
-	/**
-	 * Getting translation by key
-	 *
-	 * @param langFileName
-	 *            String with full name of data with translations
-	 * @param key
-	 *            String with placeholder for translation
-	 * @return out String translated placeholder
-	 */
-	public String getLocalizationValue(String langFileName, String key) {
-		if (this.propertiesAreAvailable()) {
-			return this.loadProperties(langFileName).getProperty(key);
-		}
+    /**
+     * Getting translation by key
+     *
+     * @param langFileName
+     *            String with full name of data with translations
+     * @param key
+     *            String with placeholder for translation
+     * @return out String translated placeholder
+     */
+    public String getLocalizationValue(String langFileName, String key) {
+        if (this.propertiesAreAvailable()) {
+            return this.loadProperties(langFileName).getProperty(key);
+        }
 
-		return key;
-	}
+        return key;
+    }
 
-	// Load content of language file into properties
-	private Properties loadProperties(final String langFileName0) {
+    // Load content of language file into properties
+    private Properties loadProperties(final String langFileName0) {
 
-		final Properties properties = new Properties();
-		final Properties overrides = new Properties();
+        final Properties properties = new Properties();
 
-		// work around some potential legacy weirdness: we make sure that
-		// langFileName is actually *always* the locale-name + suffix.
-		// No absolute path like /etc/yaddayadda or whatever
-		final String langFileName = langFileName0.substring(langFileName0.lastIndexOf(File.separatorChar) + 1);
+        // work around some potential legacy weirdness: we make sure that
+        // langFileName is actually *always* the locale-name + suffix.
+        // No absolute path like /etc/yaddayadda or whatever
+        final String langFileName = langFileName0.substring(langFileName0.lastIndexOf(File.separatorChar) + 1);
 
-			final String resource = "/l10n/" + langFileName;
-			final File file = new File(FILE_PATH, langFileName);
+        final String resource = "/l10n/" + langFileName;
+        final File file = new File(FILE_PATH, langFileName);
 
-			// First, load defaults from classpath.
-			Reader reader = null;
-			try {
-			reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(resource),
-					"utf-8");
-				properties.load(reader);
-			} catch (IOException uniqueLangFileException) {
-				LOGGER.warn(uniqueLangFileException);
-				LOGGER.warn("Could not read default language files!");
-			} finally {
-				try {
-					if(reader!=null){
-						reader.close();
-					}
-				} catch (Exception closeFileException) {
-					LOGGER.warn(closeFileException);
-					LOGGER.warn("Could not close data!");
-				}
-			}
-			//next, if override exists in /etc/veraweb/i10n, merge its contents
-			if (file.canRead()) {
-				Reader fileReader = null;
-				try{
-					fileReader = new InputStreamReader(new FileInputStream(file),"utf-8");
-					properties.load(fileReader);
-				}catch (IOException uniqueLangFileException) {
-					LOGGER.warn(uniqueLangFileException);
-					LOGGER.warn("Could not read language files! - "+file);
-				} finally {
-					try {
-						if(fileReader!=null){
-							fileReader.close();
-						}
-					} catch (Exception closeFileException) {
-						LOGGER.warn(closeFileException);
-						LOGGER.warn("Could not close data! - " + file);
-					}
-				}
-			}
-		
+        // First, load defaults from classpath.
+        Reader reader = null;
+        try {
+            reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(resource), "utf-8");
+            properties.load(reader);
+        } catch (IOException uniqueLangFileException) {
+            LOGGER.warn(uniqueLangFileException);
+            LOGGER.warn("Could not read default language files!");
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (Exception closeFileException) {
+                LOGGER.warn(closeFileException);
+                LOGGER.warn("Could not close data!");
+            }
+        }
+        // next, if override exists in /etc/veraweb/i10n, merge its contents
+        if (file.canRead()) {
+            Reader fileReader = null;
+            try {
+                fileReader = new InputStreamReader(new FileInputStream(file), "utf-8");
+                properties.load(fileReader);
+            } catch (IOException uniqueLangFileException) {
+                LOGGER.warn(uniqueLangFileException);
+                LOGGER.warn("Could not read language files! - " + file);
+            } finally {
+                try {
+                    if (fileReader != null) {
+                        fileReader.close();
+                    }
+                } catch (Exception closeFileException) {
+                    LOGGER.warn(closeFileException);
+                    LOGGER.warn("Could not close data! - " + file);
+                }
+            }
+        }
 
-		return properties;
-	}
+        return properties;
+    }
 
-	private void loadTranslations(OctopusContext octopusContext, Map<String, String> languageOptions) {
+    private void loadTranslations(OctopusContext octopusContext, Map<String, String> languageOptions) {
 
-		String filename = octopusContext.sessionAsString("sessionLanguage") + ".resource";
+        String filename = octopusContext.sessionAsString("sessionLanguage") + ".resource";
 
-		properties = new Properties();
-		properties = this.loadProperties(filename);
+        properties = new Properties();
+        properties = this.loadProperties(filename);
 
-		Map<String, String> placeholderWithTranslation = new HashMap<String, String>();
-		for (final String key : properties.stringPropertyNames()) {
-			placeholderWithTranslation.put(key, properties.getProperty(key));
-		}
-		octopusContext.setContent("language", octopusContext.sessionAsString("sessionLanguage"));
-		octopusContext.setContent("placeholderWithTranslation", placeholderWithTranslation);
-		octopusContext.setContent("helper", new LanguageHelper());
-	}
+        Map<String, String> placeholderWithTranslation = new HashMap<String, String>();
+        for (final String key : properties.stringPropertyNames()) {
+            placeholderWithTranslation.put(key, properties.getProperty(key));
+        }
+        octopusContext.setContent("language", octopusContext.sessionAsString("sessionLanguage"));
+        octopusContext.setContent("placeholderWithTranslation", placeholderWithTranslation);
+        octopusContext.setContent("helper", new LanguageHelper());
+    }
 
-	// Set language names (language parameter of language data) from all
-	// language data of the given directory
-	private Map<String, String> getLanguageOptions() {
-		existingLanguagesAndFilenames.clear();
-		List<String> propertyNames = getLanguageFileNames();
+    // Set language names (language parameter of language data) from all
+    // language data of the given directory
+    private Map<String, String> getLanguageOptions() {
+        existingLanguagesAndFilenames.clear();
+        List<String> propertyNames = getLanguageFileNames();
 
-		Map<String, String> newMap = new HashMap<String, String>();
-		for (String langFileName : propertyNames) {
-			String value = getLocalizationValue(langFileName, "language");
-			newMap.put(langFileName.substring(0, 5), value);
-			existingLanguagesAndFilenames.put(value, langFileName);
-		}
+        Map<String, String> newMap = new HashMap<String, String>();
+        for (String langFileName : propertyNames) {
+            String value = getLocalizationValue(langFileName, "language");
+            newMap.put(langFileName.substring(0, 5), value);
+            existingLanguagesAndFilenames.put(value, langFileName);
+        }
 
-		return newMap;
-	}
+        return newMap;
+    }
 
-	/**
-	 * Get list of files (only file names)
-	 *
-	 * @return list of file names
-	 */
-	private List<String> getLanguageFileNames() {
-		File folder = new File(FILE_PATH);
-		File[] listOfFiles = folder.listFiles();
-		List<String> languageFileNames = new ArrayList<String>();
+    /**
+     * Get list of files (only file names)
+     *
+     * @return list of file names
+     */
+    private List<String> getLanguageFileNames() {
+        File folder = new File(FILE_PATH);
+        File[] listOfFiles = folder.listFiles();
+        List<String> languageFileNames = new ArrayList<String>();
 
-		try {
-			for (File file : listOfFiles) {
-				if (file.isFile() && file.getName().endsWith(".resource")) {
-					languageFileNames.add(file.getName());
-				}
-			}
-		} catch (NullPointerException e) {
-			LOGGER.warn(e);
-			LOGGER.warn("Directory not found!");
-		}
+        try {
+            for (File file : listOfFiles) {
+                if (file.isFile() && file.getName().endsWith(".resource")) {
+                    languageFileNames.add(file.getName());
+                }
+            }
+        } catch (NullPointerException e) {
+            LOGGER.warn(e);
+            LOGGER.warn("Directory not found!");
+        }
 
-		return languageFileNames;
-	}
+        return languageFileNames;
+    }
 
-	private String getFileNameByLangText(String langName) {
-		return existingLanguagesAndFilenames.get(langName);
-	}
+    private String getFileNameByLangText(String langName) {
+        return existingLanguagesAndFilenames.get(langName);
+    }
 
-	public String getLastSelectedLanguage() {
-		return lastSelectedLanguage;
-	}
+    public String getLastSelectedLanguage() {
+        return lastSelectedLanguage;
+    }
 
-	public void setLastSelectedLanguage(String lastSelectedLanguage) {
-		this.lastSelectedLanguage = lastSelectedLanguage;
-	}
+    public void setLastSelectedLanguage(String lastSelectedLanguage) {
+        this.lastSelectedLanguage = lastSelectedLanguage;
+    }
 }
