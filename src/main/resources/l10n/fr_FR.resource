@@ -98,6 +98,7 @@ GENERIC_CLIENT_SINGULAR=Mandant
 GENERIC_CLIENT_PLURAL=Mandants
 GENERIC_COLOR_SINGULAR=Couleur
 GENERIC_COLOR_PLURAL=Couleurs
+GENERIC_COMPANY_SINGULAR=Enterprise
 GENERIC_COMPANY_PLURAL=Enterprises
 GENERIC_DELEGATION_FIELD_SINGULAR=Champ suppl\u00E9mentaire
 GENERIC_DELEGATION_FIELD_PLURAL=Champs suppl\u00E9mentaire
@@ -269,6 +270,7 @@ GENERIC_TOOLTIP=Remarque
 HINT_FORMAT_INFO=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei), xls steht f\u00FCr Microsoft Office Kennzeichen: Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.(xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
 HINT_EVENT_MARK=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
 GENERIC_DOCUMENT_TYPES_MARKED=Type(s) de documents s\u00E9l\u00E9ctionn\u00E9(s)
+GENERIC_LABELLING=Indication
 GENERIC_ADRESS_TYPE=Type d\u2019adresse
 GENERIC_CHARSET=Jeu de caract\u00E8res
 GENERIC_FORMAT=Format
@@ -288,6 +290,7 @@ eswurdeeinneuerdokumenttypangelegt=Il a \u00E9t\u00E9 cr\u00E9\u00E9 un nouveau 
 
 # ADMINISTRATION/E-MAIL-POSTAUSGANG
 GENERIC_STATUS=Statut
+GENERIC_TO=A
 GENERIC_SUBJECT=Objet
 GENERIC_ERROR=Erreur
 e-mails=E-mails
@@ -306,6 +309,7 @@ GENERIC_ADD=Ajouter
 GENERIC_BACK_TO_TEMPLATES_LIST=Retourner \u00E0 la liste des mod\u00E8les
 
 # ADMINISTRATION/FARBEN
+GENERIC_COLOR_PLURAL=Couleurs
 GENERIC_CHROMATICITY=Valeur de la couleur
 LETTERS_CHROMATICITY=R V B
 
@@ -316,19 +320,26 @@ eswurdeeineneuefunktion/amtsbezeichnungangelegt=Il a \u00E9t\u00E9 cr\u00E9\u00E
 eswurdeeinefunktion/amtsbezeichnunggeloscht=Il a \u00E9t\u00E9 effac\u00E9 und fonction/titre.
 
 # ADMINISTRATION/KATEGORIEN
+GENERIC_CATEGORY_PLURAL=Cat\u00E9gories
 markiertekategorie=Cat\u00E9gorie(s) s\u00E9l\u00E9ctionn\u00E9e(s)
 GENERIC_MARK_LONG=Signe de reconnaissance
 GENERIC_RANK=Rang
 GENERIC_EVENTS_PP=\u00C9v\u00E9nements
+GENERIC_CATEGORY_SINGULAR=Cat\u00E9gorie
 GENERIC_OCCASION=Ev\u00E9nement
 
 # ADMINISTRATION/MANDANTEN
+GENERIC_CLIENT_PLURAL=Mandants
 markierte(n)mandanten=Mandant(s) s\u00E9l\u00E9ctionn\u00E9(s)
 GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Donn\u00E9es pas d\u00E9di\u00E9 au mandants
 personen=Personnes
 GENERIC_IMPORT_PROCEDURES=Processus d\u2019importation
 veranstaltungorte=Lieux des \u00E9v\u00E9nements
+GENERIC_IMPORT_PERSONS=Importation des Personnes
+GENERIC_DISTRIBUTOR_SINGULAR=Distributeur
+GENERIC_USER=Utilisateur
 GENERIC_ASSIGN_CLIENTS=Classer mandants
+GENERIC_CLIENT_SINGULAR=Mandant
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
 programeinstellungen=R\u00E9glage de programme
@@ -340,7 +351,9 @@ GENERIC_SUBTABS_OF_PERSONS_DATA=Sous-onglets des \u00ABdonn\u00E9es personelles\
 GENERIC_MAIN_PERSON=Personnage principal
 GENERIC_PARTNER=Partenaire
 GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Sous-onglets des \u00ABAdresses\u00BB
+GENERIC_BUSINESS=Commercial
 GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Choix standard der Selectbox \u00ABZeichensatz\u00BB
+GENERIC_CHARSET=Jeu de caract\u00E8res
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Titres standard et Champs de texte libre
 GENERIC_STANDARD_SALUTATION=Titre standard
 GENERIC_STANDARD_SALUTATION_PARTNER=Titre standard Partenaire
@@ -392,7 +405,9 @@ GENERIC_NO_DATA_FOUND=Aucune donn\u00E9e trouv\u00E9e
 # ADMINISTRATION/VERANSTALTUNGSORTE
 markierte=Lieu(x) marqu\u00E9(s)
 GENERIC_ADD_NEW_EVENT_LOCATIONS=Nouveau lieu
+GENERIC_ID=ID
 GENERIC_CONTACT_PERSON=contact
+GENERIC_TELEFON=Phone
 GENERIC_FAX=Fax
 e-mail=E-Mail
 GENERIC_REMARK=Remarque
@@ -408,13 +423,17 @@ GENERIC_SUBTABS_OF=Sous-onglets de
 GENERIC_PERSONAL_DETAILED_VIEW=Vue d\u00E9taill\u00E9e des personnes
 GENERIC_LIST_OF_GUESTS=Liste des invit\u00E9s
 zusatzlichefelder=champs suppl\u00E9mentaires
+GENERIC_FUNCTION_SINGULAR=Fonction
 GENERIC_POSTNUMBER_AND_CITY=Code Postale / Ville
 GENERIC_LIST_OF_PERSONS=Liste des individus
+GENERIC_FEDERAL_STATE=\u00E9tat
 MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=Param\u00E8tres ont \u00E9t\u00E9 enregistr\u00E9s avec succ\u00E8s.
 
 # VERWALTUNG/VERTRETUNGEN
+GENERIC_REPRESENTATIVE_PLURAL=Repr\u00E9sentations
 markiertevertretung=Repr\u00E9sentations marqu\u00E9es
 GENERIC_DELETE=Supprimer
+GENERIC_NEW=Nouvel
 eswurdeeineneuevertretungangelegt=Il a \u00E9t\u00E9 une nouvelle agence cr\u00E9\u00E9e
 eswurdeeinevertretunggeloscht=Il a \u00E9t\u00E9 un repr\u00E9sentant supprim\u00E9
 siemuseneinevertretereingeben=Vous devez entrer un repr\u00E9sentant
@@ -431,6 +450,7 @@ GENERIC_BUILD_NUMBER=Num\u00E9ro de Build
 GENERIC_BUILD_TIME=Temps de Build (TUC)
 GENERIC_REST_API=API REST
 GENERIC_DATABASE=Base de donn\u00E9es
+GENERIC_LOGIN=Ouvrir
 GENERIC_GROUPS=Groupes
 GENERIC_NOT_AVAILABLE=indisponible
 
@@ -441,6 +461,7 @@ GENERIC_DISCARD_CHANGES=annuler les modifications
 
 # TABELLEN
 GENERIC_DATE=date
+GENERIC_WORKAREA_SINGULAR=Espace de travail
 GENERIC_LASTNAME=Nom
 GENERIC_FIRSTNAME=Pr\u00E9nom
 akwritemtsbezeichnung=Nom officiel
@@ -467,6 +488,7 @@ GENERIC_ACCOUNT_OPENING_DATE=Date d\u2019accr\u00E9ditation
 GENERIC_AT=\u00E0
 GENERIC_OCLOCK=h
 GENERIC_ORIGIN_DATA=Origine des donn\u00E9es
+GENERIC_PERSON_SINGULAR=Personne
 
 # DATEITYP
 csv=CSV (Comma-Separated-Values)
@@ -503,6 +525,7 @@ GENERIC_STATISTIC=Statistique
 ausstammdatenhinzufugen=Ajouter \u00E0 partir des donn\u00E9es de base
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
+GENERIC_DOCUMENT_TYPE_SINGULAR=type de documents
 GENERIC_GENERATE_ALL=g\u00E9n\u00E9rer tous
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
@@ -512,6 +535,7 @@ GENERIC_CATEGORIES_AND_OCCASIONS=Cat\u00E9gories et \u00E9v\u00E9nements
 ubersichtuberalleveranstaltungeneinesgastes=Vue d\u2019ensemble de tous les \u00E9v\u00E9nements d\u2019un invit\u00E9.
 GENERIC_VIEW_OVER_GUEST_EVENT=de
 statistikfurgast=Statistique pour invit\u00E9
+GENERIC_EVENT=\u00C9v\u00E9nement
 GENERIC_BEGIN=D\u00E9but
 
 # PERSONEN/PERSONENSUCHE
@@ -527,6 +551,7 @@ MESSAGE_OSIAM_LOGIN_DATA_EXIST=Les pouvoirs ont \u00E9t\u00E9 produits avec succ
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Est une soci\u00E9t\u00E9
+GENERIC_SALUTATION_SINGULAR=Salutation
 frau=Madamme
 herr=Monsieur
 lady=Lady
@@ -553,6 +578,7 @@ GENERIC_REPLACE=Substitution
 GENERIC_IN_THE_FOLLOWING_FIELDS=Dans les champs suivants
 anrede/titel=Salutation / Titre
 GENERIC_EMPLOYMENT_TITLE_SHORT=Nom officiel
+GENERIC_INSTITUTION_SINGULAR=Institution
 GENERIC_ADDRESSES=Adresse
 telefon/fax=Telefon / Fax
 GENERIC_REPLACE_INDIVIDUALLY=Remplacer l\u2019unit\u00E9
@@ -634,12 +660,17 @@ GENERIC_NEW_EVENT=Nouvel \u00E9v\u00E9nement
 GENERIC_STATISTICS=Statistiques
 
 # ADMINISTRATIONDROPDOWN
+GENERIC_SALUTATIONS=Formules de politesse
+GENERIC_WORKAREA_PLURAL=Espaces de travail
+GENERIC_DOCUMENT_TYPE_PLURAL=Types de documents
 e-mail-postausgang=E -mail d\u2019envoi
 GENERIC_PROGRAM_PERFERENCES=Pr\u00E9f\u00E9rences
+GENERIC_EVENT_LOCATION_PLURAL=Lieux des \u00E9v\u00E9nements
 
 # VERANSTALTUNGSUEBERSICHT
 GENERIC_END=Fin
 GENERIC_HOST=H\u00F4te
+GENERIC_EVENT_LOCATION_SINGULAR=Lieu de l\u2019\u00E9v\u00E9nement
 GENERIC_EVENT_SEARCH=Recherche \u00E9v\u00E9nement
 GENERIC_CREATE_NEW_EVENT=Cr\u00E9er un nouvel \u00E9v\u00E9nement
 GENERIC_NUMBER_PER_PAGE=Afficher par page
@@ -661,6 +692,7 @@ EVENT_INVITATION_TYPE_WITH_PARTNER=avec Partenaire
 GENERIC_EDIT_EVENT=Modifier l\u2019\u00E9v\u00E9nement
 GENERIC_TO_GUEST_MANAGEMENT=Gestion des clients
 GENERIC_GENERAL=G\u00E9n\u00E9ral
+GENERIC_TASK_PLURAL=t\u00E2ches
 GENERIC_ADDITIONAL_PERSONS_DATA=Informations personnelles suppl\u00E9mentaires
 kurzbereichnung=Nom court
 GENERIC_OPEN_EVENT=\u00C9v\u00E9nement ouvert
@@ -1457,8 +1489,13 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Si le rang de la cat\u00E9gorie \u00E
 
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=R\u00E9initialiser toutes les donn\u00E9es sur Master Data
+GUEST_LIST_EDIT_MASTER_DATA=Modifier les donn\u00E9es de base des personnes
+GUEST=Invit\u00E9
+GENERIC_OF=de
 GENERIC_ASSIGN=Assigner
 GENERIC_CANCEL=Annuler
+GENERIC_DELETE=Supprimer
 GENERIC_CONNECTOR=Connecteur
 GENERIC_VIEW_DOCUMENT_TYPE=Montrer le type du document
 GENERIC_GENERATE_DOCUMENT_TYPE=g\u00E9n\u00E9rer un nouveau type de documents
