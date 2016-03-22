@@ -12,9 +12,9 @@ public class VerawebUtilsTest {
     @Test
     public void testClearCommaSeparatedString() throws Exception {
         // WHEN
-        final String result = VerawebUtils.clearCommaSeparatedString("a,   b,   ,,,,,   d");
+        final String result = VerawebUtils.clearCommaSeparatedString("große, a, ä, ü,  ö, ß, b,   ,,,,,  ... d");
 
         // THEN
-        assertEquals("a,b,d", result);
+        assertEquals("große,a,ä,ü,ö,ß,b,d", result);
     }
 }
