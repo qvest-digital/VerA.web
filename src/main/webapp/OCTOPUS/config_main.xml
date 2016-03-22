@@ -81,5 +81,13 @@
 		<param name="encoding.input" value="ISO-8859-1"/>
 		<!-- der Ausgangszeichensatz bei einer Zeichensatzwandlung. -->
 		<param name="encoding.output" value="UTF-8"/>
+		
+		<!-- Liste der verfügbaren Sprachen -->
+		<param name="availableTranslations" type="array">
+			<value>de_DE</value>
+			<value>en_EN</value>
+			<value>es_ES</value>
+			<value>fr_FR</value>
+		</param>
 	</params>
 </tcModuleConfig>

@@ -114,7 +114,7 @@ public class LanguageProvider {
      *            OctopusContext
      */
     public void load(OctopusContext octopusContext) {
-        Map<String, String> languageOptions = this.getLanguageOptions();
+        Map<String, String> languageOptions = this.getLanguageOptions(octopusContext);
         octopusContext.setContent("translatedNames", languageOptions);
 
         final Request request = new RequestVeraWeb(octopusContext);
@@ -223,9 +223,9 @@ public class LanguageProvider {
 
     // Set language names (language parameter of language data) from all
     // language data of the given directory
-    private Map<String, String> getLanguageOptions() {
+    private Map<String, String> getLanguageOptions(OctopusContext octopusContext) {
         existingLanguagesAndFilenames.clear();
-        List<String> propertyNames = getLanguageFileNames();
+        List<String> propertyNames = getLanguageFileNames(octopusContext);
 
         Map<String, String> newMap = new HashMap<String, String>();
         for (String langFileName : propertyNames) {
@@ -239,25 +239,17 @@ public class LanguageProvider {
 
     /**
      * Get list of files (only file names)
+     * @param octopusContext 
      *
      * @return list of file names
      */
-    private List<String> getLanguageFileNames() {
-        File folder = new File(FILE_PATH);
-        File[] listOfFiles = folder.listFiles();
-        List<String> languageFileNames = new ArrayList<String>();
-
-        try {
-            for (File file : listOfFiles) {
-                if (file.isFile() && file.getName().endsWith(".resource")) {
-                    languageFileNames.add(file.getName());
-                }
-            }
-        } catch (NullPointerException e) {
-            LOGGER.warn(e);
-            LOGGER.warn("Directory not found!");
+    private List<String> getLanguageFileNames(OctopusContext octopusContext) {
+        final List<String> localeNames = (List<String>) octopusContext.getConfigObject().getModuleConfig().getParams().get("availableTranslations");
+        final List<String> languageFileNames = new ArrayList<String>();
+        for(String localeName:localeNames){
+            languageFileNames.add(localeName+".resource");
         }
-
+        
         return languageFileNames;
     }
 
