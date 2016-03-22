@@ -5,6 +5,7 @@ import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import javax.mail.Message;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -34,8 +35,10 @@ public class MailDispatcher {
     private String security;
     private String username;
     private String password;
+    private Transport transport;
+    private Session session;
 
-    public MailDispatcher(final EmailConfiguration emailConfiguration) {
+    public MailDispatcher(final EmailConfiguration emailConfiguration) throws NoSuchProviderException {
         this.host = emailConfiguration.getHost();
         this.port = emailConfiguration.getPort();
         this.security = emailConfiguration.getSecurity();
@@ -44,13 +47,13 @@ public class MailDispatcher {
         }
         this.username = emailConfiguration.getUsername();
         this.password = emailConfiguration.getPassword();
+        session = getSession();
+        transport = session.getTransport("smtp");
     }
 
     public void send(String from, String to, String subject, String text, String link, String contentType) throws MessagingException {
         final String emailContent = text.replace("${link}", link);
-        final Session session = getSession();
         final Message message = getMessage(session, from, to, subject, emailContent, contentType);
-        final Transport transport = session.getTransport("smtp");
         transport.connect(host, username, password);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
@@ -81,7 +84,9 @@ public class MailDispatcher {
         if (username != null && password != null) {
             properties.put(PROPERTY_MAIL_SMTP_AUTH, "true");
         }
-        properties.put(PROPERTY_MAIL_SMTP_PORT, port);
+        if (port != null) {
+            properties.put(PROPERTY_MAIL_SMTP_PORT, port);
+        }
         setSecurityProperties(properties);
 
         return Session.getInstance(properties);
@@ -93,5 +98,9 @@ public class MailDispatcher {
         } else if (TYPE_SSL.equals(security)) {
             properties.put(PROPERTY_MAIL_SMTP_SSL_ENABLE, true);
         }
+    }
+
+    public void setTransport(Transport transport) {
+        this.transport = transport;
     }
 }
