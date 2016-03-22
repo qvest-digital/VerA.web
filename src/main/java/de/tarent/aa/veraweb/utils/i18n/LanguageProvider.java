@@ -114,7 +114,7 @@ public class LanguageProvider {
      *            OctopusContext
      */
     public void load(OctopusContext octopusContext) {
-        Map<String, String> languageOptions = this.getLanguageOptions(octopusContext);
+        final Map<String, String> languageOptions = this.getLanguageOptions(octopusContext);
         octopusContext.setContent("translatedNames", languageOptions);
 
         final Request request = new RequestVeraWeb(octopusContext);
@@ -225,16 +225,16 @@ public class LanguageProvider {
     // language data of the given directory
     private Map<String, String> getLanguageOptions(OctopusContext octopusContext) {
         existingLanguagesAndFilenames.clear();
-        List<String> propertyNames = getLanguageFileNames(octopusContext);
+        final List<String> propertyNames = getLanguageFileNames(octopusContext);
 
-        Map<String, String> newMap = new HashMap<String, String>();
+        final Map<String, String> languages = new HashMap<String, String>();
         for (String langFileName : propertyNames) {
-            String value = getLocalizationValue(langFileName, "language");
-            newMap.put(langFileName.substring(0, 5), value);
+            final String value = getLocalizationValue(langFileName, "language");
+            languages.put(langFileName.substring(0, 5), value);
             existingLanguagesAndFilenames.put(value, langFileName);
         }
 
-        return newMap;
+        return languages;
     }
 
     /**
