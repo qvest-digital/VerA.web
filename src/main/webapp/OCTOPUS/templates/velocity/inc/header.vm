@@ -9,17 +9,19 @@
 ##		Utils
 		<!-- <script type="text/javascript" src="${paths.staticWeb}scripts/jquery.min.js"></script> -->
 		<script type="text/javascript" src="${paths.staticWeb}scripts/jquery.min.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}scripts/jquery.tagsinput.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/clipboard.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/jQuery.MultiFile.min.js"></script>
-##		Tabs und Popups
+		##		Tabs und Popups
 		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-tabs.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-dialogs.js"></script>
-##		Calendar (http://www.dynarch.com/projects/calendar/)
+		##		Calendar (http://www.dynarch.com/projects/calendar/)
 		<script type="text/javascript" src="${paths.staticWeb}jscalendar/calendar.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}jscalendar/calendar-setup.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}jscalendar/lang/calendar-${placeholderWithTranslation.language_short}.js"></script>
+
 		<script>
 			document.createElement("header");
 			document.createElement("nav");
@@ -34,6 +36,7 @@
 ##		<![endif]-->
 ##		Style
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/jquery.tagsinput.css" media="all" />
 		<!--link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all"-->
 	</head>
 	<body>

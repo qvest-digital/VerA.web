@@ -1,3 +1,9 @@
+$('#guest-keywords').tagsInput({width:'auto'});
+    $(function() {
+      $('#guest-keywords').tagsInput();
+    }
+);
+
 function getPosX(e) {
 	var x = 0;
 	while (e) {
