@@ -30,6 +30,8 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.*;
 
 /**
@@ -47,7 +49,8 @@ public class LanguageProvider {
     /**
      * Load language file into properties
      *
-     * @param langFileName String name of language file
+     * @param langFileName
+     *            String name of language file
      */
     public LanguageProvider(final String langFileName) {
         this.properties = this.loadProperties(langFileName);
@@ -63,16 +66,16 @@ public class LanguageProvider {
     public static final String STANDARD_LANG_FILE = "/etc/veraweb/l10n/de_DE.resource";
 
     public static final Logger LOGGER = Logger.getLogger(LanguageProvider.class.getName());
-    //Path of all language files
+    // Path of all language files
     private static final String FILE_PATH = "/etc/veraweb/l10n/";
 
     /**
      * Content of selected language file will be saved in Properties object
      */
     public Properties properties;
-    //Map with all language names and their filename
+    // Map with all language names and their filename
     private Map<String, String> existingLanguagesAndFilenames = new TreeMap<String, String>();
-    //Selected language will be persist, to load it on recall of controller
+    // Selected language will be persist, to load it on recall of controller
     private String lastSelectedLanguage = "";
 
     /**
@@ -87,7 +90,8 @@ public class LanguageProvider {
     /**
      * Get value from loaded property with key
      *
-     * @param key String placeholder for translated text
+     * @param key
+     *            String placeholder for translated text
      * @return value from key
      */
     public String getProperty(String key) {
@@ -106,7 +110,8 @@ public class LanguageProvider {
     /**
      * Load language names into Octopus Context
      *
-     * @param octopusContext OctopusContext
+     * @param octopusContext
+     *            OctopusContext
      */
     public void load(OctopusContext octopusContext) {
         Map<String, String> languageOptions = this.getLanguageOptions();
@@ -117,8 +122,7 @@ public class LanguageProvider {
         try {
             if (request.getField("languageSelector") != null) {
                 octopusContext.setSession("sessionLanguage", request.getField("languageSelector"));
-            } else if (request.getField("languageSelector") == null &&
-                    octopusContext.sessionAsString("sessionLanguage") == null) {
+            } else if (request.getField("languageSelector") == null && octopusContext.sessionAsString("sessionLanguage") == null) {
                 octopusContext.setSession("sessionLanguage", "de_DE");
             }
         } catch (BeanException e) {
@@ -132,8 +136,10 @@ public class LanguageProvider {
     /**
      * Getting translation by key
      *
-     * @param langFileName String with full name of data with translations
-     * @param key          String with placeholder for translation
+     * @param langFileName
+     *            String with full name of data with translations
+     * @param key
+     *            String with placeholder for translation
      * @return out String translated placeholder
      */
     public String getLocalizationValue(String langFileName, String key) {
@@ -144,31 +150,55 @@ public class LanguageProvider {
         return key;
     }
 
-    //Load content of language file into properties
-    private Properties loadProperties(final String langFileName) {
+    // Load content of language file into properties
+    private Properties loadProperties(final String langFileName0) {
+
         final Properties properties = new Properties();
 
-        FileInputStream inputStream = null;
+        // work around some potential legacy weirdness: we make sure that
+        // langFileName is actually *always* the locale-name + suffix.
+        // No absolute path like /etc/yaddayadda or whatever
+        final String langFileName = langFileName0.substring(langFileName0.lastIndexOf(File.separatorChar) + 1);
 
+        final String resource = "/l10n/" + langFileName;
+        final File file = new File(FILE_PATH, langFileName);
+
+        // First, load defaults from classpath.
+        Reader reader = null;
         try {
-            if (langFileName.equals(STANDARD_LANG_FILE)) {
-                //Standard language file
-                inputStream = new FileInputStream(langFileName);
-            } else {
-                //Language file from /etc/veraweb/l10n
-                inputStream = new FileInputStream(FILE_PATH + langFileName);
-            }
-
-            properties.load(inputStream);
+            reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(resource), "utf-8");
+            properties.load(reader);
         } catch (IOException uniqueLangFileException) {
             LOGGER.warn(uniqueLangFileException);
-            LOGGER.warn("Could not read language files!");
+            LOGGER.warn("Could not read default language files!");
         } finally {
             try {
-                inputStream.close();
+                if (reader != null) {
+                    reader.close();
+                }
             } catch (Exception closeFileException) {
                 LOGGER.warn(closeFileException);
-                LOGGER.warn("Could not close data! - " + inputStream);
+                LOGGER.warn("Could not close data!");
+            }
+        }
+        // next, if override exists in /etc/veraweb/i10n, merge its contents
+        if (file.canRead()) {
+            Reader fileReader = null;
+            try {
+                fileReader = new InputStreamReader(new FileInputStream(file), "utf-8");
+                properties.load(fileReader);
+            } catch (IOException uniqueLangFileException) {
+                LOGGER.warn(uniqueLangFileException);
+                LOGGER.warn("Could not read language files! - " + file);
+            } finally {
+                try {
+                    if (fileReader != null) {
+                        fileReader.close();
+                    }
+                } catch (Exception closeFileException) {
+                    LOGGER.warn(closeFileException);
+                    LOGGER.warn("Could not close data! - " + file);
+                }
             }
         }
 
@@ -191,8 +221,8 @@ public class LanguageProvider {
         octopusContext.setContent("helper", new LanguageHelper());
     }
 
-    //Set language names (language parameter of language data) from all
-    //language data of the given directory
+    // Set language names (language parameter of language data) from all
+    // language data of the given directory
     private Map<String, String> getLanguageOptions() {
         existingLanguagesAndFilenames.clear();
         List<String> propertyNames = getLanguageFileNames();

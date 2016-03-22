@@ -49,4 +49,5 @@ public class GuestSearch extends AbstractBean {
 	 */
 	public String category;
 	public Boolean sortList;
+	public String keywords;
 }

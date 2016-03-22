@@ -290,6 +290,7 @@ eswurdeeinneuerdokumenttypangelegt=Nuevo tipo de documento creado satisfactoriam
 
 # ADMINISTRATION/E-MAIL-POSTAUSGANG
 GENERIC_STATUS=Estado
+GENERIC_TO=Para
 GENERIC_SUBJECT=Asunto
 GENERIC_ERROR=Error
 e-mails=E-Mails
@@ -308,28 +309,37 @@ GENERIC_ADD=A\u00F1adir
 GENERIC_BACK_TO_TEMPLATES_LIST=Volver al listado de plantillas
 
 # ADMINISTRATION/FARBEN
+GENERIC_COLOR_PLURAL=Colores
 GENERIC_CHROMATICITY=Cromaticidad
 LETTERS_CHROMATICITY=R G B
 
 # ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
 markiertebezeichnung=Denominaciones seleccionadas
+GENERIC_LABELLING=Denominaci\u00F3n
 eswurdeeineneuefunktion/amtsbezeichnungangelegt=Se ha creado una nueva funci\u00F3n/denominaci\u00F3n.
 eswurdeeinefunktion/amtsbezeichnunggeloscht=Se ha eliminado una funci\u00F3n/denominaci\u00F3n.
 
 # ADMINISTRATION/KATEGORIEN
+GENERIC_CATEGORY_PLURAL=Categor\u00EDas
 markiertekategorie=Categor\u00EDa(s) seleccionada(s)
 GENERIC_MARK_LONG=Clase
 GENERIC_RANK=Rango
 GENERIC_EVENTS_PP=Evento(s)
+GENERIC_CATEGORY_SINGULAR=Categor\u00EDa
 GENERIC_OCCASION=Suceso
 
 # ADMINISTRATION/MANDANTEN
+GENERIC_CLIENT_PLURAL=Mandantes
 markierte(n)mandanten=Mandante(s) seleccionado(s)
 GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Datos de mandantes no asociados
 personen=Personas
 GENERIC_IMPORT_PROCEDURES=Importar procesos
 veranstaltungorte=Localizaci\u00F3n del evento
+GENERIC_IMPORT_PERSONS=Importar personas
+GENERIC_DISTRIBUTOR_SINGULAR=Distribuidor
+GENERIC_USER=Usuario
 GENERIC_ASSIGN_CLIENTS=Asignar mandantes
+GENERIC_CLIENT_SINGULAR=Mandante
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
 programeinstellungen=Configuraci\u00F3n del sistema
@@ -341,7 +351,9 @@ GENERIC_SUBTABS_OF_PERSONS_DATA=Subpesta\u00F1as de \u201CDatos de personas\u201
 GENERIC_MAIN_PERSON=Persona principal
 GENERIC_PARTNER=Partner
 GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subpesta\u00F1as de \u201CDirecciones\u201D
+GENERIC_BUSINESS=Negocio
 GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Elecci\u00F3n est\u00E1ndar sobre el selector de conjuntos de caracteres
+GENERIC_CHARSET=Conjunto de caracteres
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Denominaciones est\u00E1ndar y campos de texto libre
 GENERIC_STANDARD_SALUTATION=Denominaci\u00F3n est\u00E1ndar
 GENERIC_STANDARD_SALUTATION_PARTNER=Demoninaci\u00F3n est\u00E1ndar del partner
@@ -393,6 +405,7 @@ GENERIC_NO_DATA_FOUND=No se han encontrado datos
 # ADMINISTRATION/VERANSTALTUNGSORTE
 markierte=Localizaciones de eventos seleccionadas
 GENERIC_ADD_NEW_EVENT_LOCATIONS=Crear nueva localizaci\u00F3n para evento
+GENERIC_ID=ID
 GENERIC_CONTACT_PERSON=Persona de contacto
 GENERIC_TELEFON=Tel\u00E9fono
 GENERIC_FAX=Fax
@@ -410,13 +423,17 @@ GENERIC_SUBTABS_OF=Subpesta\u00F1as de
 GENERIC_PERSONAL_DETAILED_VIEW=Vista detalle de personas
 GENERIC_LIST_OF_GUESTS=Lista de invitados
 zusatzlichefelder=Campos adicionales
+GENERIC_FUNCTION_SINGULAR=Funci\u00F3n
 GENERIC_POSTNUMBER_AND_CITY=C\u00F3digo postal / Ciudad
 GENERIC_LIST_OF_PERSONS=Lista de personas
 GENERIC_FEDERAL_STATE=Provincia
 MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=La configuraci\u00F3n se ha guardado satisfactoriamente.
 
 # VERWALTUNG/VERTRETUNGEN
+GENERIC_REPRESENTATIVE_PLURAL=Representaciones
 markiertevertretung=Representaciones seleccionadas
+GENERIC_REMOVE=Elimniar
+GENERIC_NEW=Nuevo
 eswurdeeineneuevertretungangelegt=Se ha creado una nueva representaci\u00F3n
 eswurdeeinevertretunggeloscht=Se ha eliminado una representaci\u00F3n
 siemuseneinevertretereingeben=Debe seleccionar un representante
@@ -433,6 +450,7 @@ GENERIC_BUILD_NUMBER=N\u00FAmero de compilaci\u00F3n
 GENERIC_BUILD_TIME=Tiempo de compilaci\u00F3n (UTC)
 GENERIC_REST_API=API de REST
 GENERIC_DATABASE=Base de datos
+GENERIC_LOGIN=Login
 GENERIC_GROUPS=Grupos
 GENERIC_NOT_AVAILABLE=No disponible
 
@@ -443,6 +461,7 @@ GENERIC_DISCARD_CHANGES=Descartar cambios
 
 # TABELLEN
 GENERIC_DATE=Fecha
+GENERIC_WORKAREA_SINGULAR=\u00C1rea de trabajo
 GENERIC_LASTNAME=Apellido
 GENERIC_FIRSTNAME=Nombre
 amtsbezeichnung=T\u00EDtulo
@@ -469,6 +488,7 @@ GENERIC_ACCOUNT_OPENING_DATE=Fecha de acreditaci\u00F3n
 GENERIC_AT=a las
 GENERIC_OCLOCK=horas
 GENERIC_ORIGIN_DATA=Origen de los datos
+GENERIC_PERSON_SINGULAR=persona
 
 # DATEITYP
 csv=CSV (Comma-Separated-Values)
@@ -505,6 +525,7 @@ GENERIC_STATISTIC=Estad\u00EDsticas
 ausstammdatenhinzufugen=Obtener de los datos maestros
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/DOKUMENTTYPEN
+GENERIC_DOCUMENT_TYPE_SINGULAR=tipo de documento
 GENERIC_GENERATE_ALL=Generar todos
 
 # PERSONEN/PERSONENUEBERSICHT/PERSON BEARBEITEN/KATEGORIEN
@@ -514,6 +535,7 @@ GENERIC_CATEGORIES_AND_OCCASIONS=Categor\u00EDas y sucesos
 ubersichtuberalleveranstaltungeneinesgastes=Lista de todos los eventos por invitado
 GENERIC_VIEW_OVER_GUEST_EVENT=Desde
 statistikfurgast=Estad\u00EDsticas para invitado
+GENERIC_EVENT=Evento
 GENERIC_BEGIN=Comienzo
 
 # PERSONEN/PERSONENSUCHE
@@ -529,6 +551,7 @@ MESSAGE_OSIAM_LOGIN_DATA_EXIST=Ya existen datos de acceso para esta persona.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Empresa
+GENERIC_SALUTATION_SINGULAR=Denominaci\u00F3n
 frau=Sra.
 herr=D.
 lady=Srta.
@@ -537,6 +560,7 @@ GENERIC_PLEASE_CHOOSE=Por favor, seleccione
 GENERIC_ACAD_TITLE=T\u00EDtulo acad\u00E9mico
 GENERIC_IN_COUNTRY=En el pa\u00EDs
 GENERIC_HINT_FOR_ORGA=Aviso para la organizaci\u00F3n
+GENERIC_COMPANY_SINGULAR=Empresa
 GENERIC_COUNTRY=Pa\u00EDs
 plz/postfach=C\u00F3digo postal/apartado de correos
 GENERIC_POST_OFFICE_BOX=Apartado de correos
@@ -554,6 +578,7 @@ GENERIC_REPLACE=Reemplazar
 GENERIC_IN_THE_FOLLOWING_FIELDS=En los pr\u00F3ximos campos
 anrede/titel=Denominaci\u00F3n / T\u00EDtulo
 GENERIC_EMPLOYMENT_TITLE_SHORT=Cargo
+GENERIC_INSTITUTION_SINGULAR=Instituci\u00F3n
 GENERIC_ADDRESSES=Direcci\u00F3n
 telefon/fax=Tel\u00E9fono / fax
 GENERIC_REPLACE_INDIVIDUALLY=Reemplazar individualmente
@@ -635,12 +660,17 @@ GENERIC_NEW_EVENT=Nuevo evento
 GENERIC_STATISTICS=Estad\u00EDsticas
 
 # ADMINISTRATIONDROPDOWN
+GENERIC_SALUTATIONS=Denominaciones
+GENERIC_WORKAREA_PLURAL=\u00C1reas de trabajo
+GENERIC_DOCUMENT_TYPE_PLURAL=Tipos de documento
 e-mail-postausgang=E-Mail-Buz\u00F3n de salida
 GENERIC_PROGRAM_PERFERENCES=Preferencias de programa
+GENERIC_EVENT_LOCATION_PLURAL=Localizaciones de eventos
 
 # VERANSTALTUNGSUEBERSICHT
 GENERIC_END=Fin
 GENERIC_HOST=Anfitri\u00F3n
+GENERIC_EVENT_LOCATION_SINGULAR=Localizaci\u00F3n del evento
 GENERIC_EVENT_SEARCH=Buscar eventos
 GENERIC_CREATE_NEW_EVENT=Crear nuevo evento
 GENERIC_NUMBER_PER_PAGE=Total por p\u00E1gina
@@ -662,6 +692,7 @@ EVENT_INVITATION_TYPE_WITH_PARTNER=Con partner
 GENERIC_EDIT_EVENT=Editar evento
 GENERIC_TO_GUEST_MANAGEMENT=Gesti\u00F3n de invitados
 GENERIC_GENERAL=General
+GENERIC_TASK_PLURAL=Tareas
 GENERIC_ADDITIONAL_PERSONS_DATA=Datos adicionales
 kurzbereichnung=Abreviatura
 GENERIC_OPEN_EVENT=Evento abierto
@@ -971,6 +1002,7 @@ markiertebezeichnunge=Denominaciones seleccionadas
 markierteeintrageentfernen=Eliminar denominaciones seleccionadas
 eswurdenkeinedatengefunden=No se han encontrado datos
 
+eswurdenkeinedatengefunden=No se han encontrado datos
 siehabenkeinedatenherkunftangegeben=Los datos de origen no han sido especificados.
 HINT_IMPORT_NOT_POSSIBLE_OPENOFFICE=Ha intentado importar un archivo de OpenOffice. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web. Por favor, guarde su archivo como archivo-CSV mediante su programa de hojas de c\u00E1lculo.
 HINT_IMPORT_NOT_POSSIBLE_STAROFFICE=Ha intentado importar un archivo de StarOffice. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web. Por favor, guarde su archivo como archivo-CSV mediante su programa de hojas de c\u00E1lculo.
@@ -1303,8 +1335,10 @@ senden=Enviar
 # GENERIC
 GENERIC_UPLOAD_BUTTON=Seleccionar archivo
 GENERIC_TO=para
+GENERIC_FEDERAL_STATE=Provincia
 GENERIC_PERSONAL_DATA=Datos personales
 GENERIC_NUMBER_OF_GUESTS=N\u00FAmero de invitados
+GENERIC_TELEFON=Tel\u00E9fono
 
 # MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Este invitado ser\u00E1 inclu\u00EDdo sin persona principal
@@ -1401,6 +1435,7 @@ BROWSER_TITLE_REPORTS=Reports
 
 
 #NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
+GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reiniciar todos los valores de los datos maestros
 GUEST_LIST_EDIT_MASTER_DATA=Editar datos maestros de personas
 GUEST=Invitado
 GENERIC_OF=de
@@ -1457,6 +1492,8 @@ PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=\u00BFUtilizar los datos de rango de 
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reiniciar todos los valores mediante datos maestros
+GUEST_LIST_EDIT_MASTER_DATA=Editar datos maestros de personas
+GUEST=Invitado
 GENERIC_OF_CAPITAL=de
 GENERIC_ASSIGN=Aceptar
 GENERIC_CANCEL=Cancelar
@@ -1687,6 +1724,7 @@ PERSON_HEADER_NO_DOCTYPE_CONFIG=No se ha configurado ning\u00FAn tipo de documen
 GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=Datos de acceso para la aplicaci\u00F3n en l\u00EDnea
 GENERIC_COPY_CURRENT_PERSON=Copiar persona actual
 GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT=Invitar persona al evento
+GENERIC_PREVIOUS_PAGE=P\u00E1gina anterior
 GENERIC_PREVIOUS_PERSON=Persona anterior
 GENERIC_FIRST_PAGE=P\u00E1gina inicial
 GENERIC_FIRST_PERSON=Primera persona

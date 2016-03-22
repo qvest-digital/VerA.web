@@ -1896,3 +1896,6 @@ GM_WORKAREA_DELETE_N=Es wurde kein Arbeitsbereich gel\u00F6scht
 GM_WORKAREA_INSERT_S=Es wurde ein neuer Arbeitsbereich angelegt
 GM_WORKAREA_INSERT_P=Es wurden %s neuen Arbeitsbereiche angelegt
 GM_WORKAREA_INSERT_N=Es wurde kein neuer Arbeitsbereich angelegt
+
+
+
