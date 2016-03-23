@@ -25,6 +25,7 @@ import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.jboss.logging.Logger;
 
+@Path("/attachment")
 @Consumes({MediaType.MULTIPART_FORM_DATA})
 public class AttachmentResource extends AbstractResource {
     private static final Logger LOGGER = Logger.getLogger(AttachmentResource.class);
@@ -32,8 +33,6 @@ public class AttachmentResource extends AbstractResource {
     private String tmpPath = System.getProperty("java.io.tmpdir");
 
     @POST
-    @Path("/attachment")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadFile(final FormDataMultiPart formData) {
         final List<FormDataBodyPart> fields = formData.getFields("files");
         if (fields == null) {
