@@ -6,6 +6,8 @@ import javax.mail.Address
 import javax.mail.Message
 import javax.mail.Transport
 import javax.mail.internet.MimeMessage
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.sql.Array
 
 /**
@@ -21,7 +23,7 @@ class MailDispatcherGroovyTest extends Specification {
         dispatcher.setTransport(transport)
     }
 
-    void testSend() {
+    void testSendVerificationEmail() {
         given:
             def from = "from@tarent.de"
             def to = "to@tarent.de"
@@ -31,10 +33,41 @@ class MailDispatcherGroovyTest extends Specification {
             def contentType = "plaintext"
 
         when:
-            dispatcher.send(from, to, subject, text, link, contentType)
+            dispatcher.sendVerificationEmail(from, to, subject, text, link, contentType)
 
         then:
-//            1 * transport.sendMessage(any(), ['to@tarent.de'])
+            1 * transport.connect('host', 'username', 'password')
+            1 * transport.close()
+    }
+
+    void testSendEmailWithoutAttachments() {
+        given:
+            def from = "from@tarent.de"
+            def to = "to@tarent.de"
+            def subject = "subject"
+            def text = "mail content"
+
+        when:
+            dispatcher.sendEmailWithAttachments(from, to, subject, text, null)
+
+        then:
+            1 * transport.connect('host', 'username', 'password')
+            1 * transport.close()
+    }
+
+    void testSendEmailWithAttachments() {
+        given:
+            def from = "from@tarent.de"
+            def to = "to@tarent.de"
+            def subject = "subject"
+            def text = "mail content"
+            def attachments = new HashMap<String, File>()
+            attachments.put("1", Files.createTempFile(Paths.get("/tmp"), "testfile", ".tmp").toFile())
+
+        when:
+            dispatcher.sendEmailWithAttachments(from, to, subject, text, attachments)
+
+        then:
             1 * transport.connect('host', 'username', 'password')
             1 * transport.close()
     }

@@ -9,6 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 
+import javax.mail.NoSuchProviderException;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
@@ -57,7 +58,7 @@ public class AttachmentResourceTest {
     }
 
     @Test
-    public void uploadFile() throws IOException {
+    public void uploadFile() throws IOException, NoSuchProviderException {
         final StreamDataBodyPart filePart = new StreamDataBodyPart("files", new ByteArrayInputStream(TEST_DATA.getBytes()), FILE_NAME);
         final FormDataMultiPart formDataMultiPart = new FormDataMultiPart();
         final FormDataMultiPart multipart = (FormDataMultiPart) formDataMultiPart.field("file-name", FILE_NAME).bodyPart(filePart);

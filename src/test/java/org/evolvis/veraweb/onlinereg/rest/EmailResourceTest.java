@@ -33,13 +33,13 @@ public class EmailResourceTest {
         final EmailConfiguration emailConfiguration = mock(EmailConfiguration.class);
         emailResource.setMailDispatcher(mailDispatcher);
         emailResource.setEmailConfiguration(emailConfiguration);
-        doNothing().when(mailDispatcher).send(any(String.class), any(String.class), any(String.class), any(String.class), any(String.class), any(String.class));
+        doNothing().when(mailDispatcher).sendVerificationEmail(any(String.class), any(String.class), any(String.class), any(String.class), any(String.class), any(String.class));
 
         // WHEN
         emailResource.sendEmailVerification("test@test.com", "http://endpoint.de/rest/", "activation_token", "de_DE", false);
 
         // THEN
-        verify(mailDispatcher, times(1)).send(any(String.class), any(String.class), any(String.class), any(String.class), any(String.class), any(String.class));
+        verify(mailDispatcher, times(1)).sendVerificationEmail(any(String.class), any(String.class), any(String.class), any(String.class), any(String.class), any(String.class));
         verify(emailConfiguration, times(1)).getSubject();
         verify(emailConfiguration, times(1)).getContent();
     }

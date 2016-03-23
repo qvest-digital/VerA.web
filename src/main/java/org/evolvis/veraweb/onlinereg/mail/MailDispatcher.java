@@ -2,17 +2,26 @@ package org.evolvis.veraweb.onlinereg.mail;
 
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.Message;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MailDateFormat;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
+import java.io.File;
 import java.util.Date;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 /**
@@ -51,15 +60,40 @@ public class MailDispatcher {
         transport = session.getTransport("smtp");
     }
 
-    public void send(String from, String to, String subject, String text, String link, String contentType) throws MessagingException {
+    public void sendVerificationEmail(String from, String to, String subject, String text, String link, String contentType) throws MessagingException {
         final String emailContent = text.replace("${link}", link);
-        final Message message = getMessage(session, from, to, subject, emailContent, contentType);
+        final Message message;
+        if (TYPE_HTML.equalsIgnoreCase(contentType)) {
+            message = getMessage(session, from, to, subject, emailContent, VworConstants.HTML_CONTENT_TYPE);
+        } else {
+            message = getMessage(session, from, to, subject, emailContent, VworConstants.PLAINTEXT_CONTENT_TYPE);
+        }
         transport.connect(host, username, password);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
     }
 
-    private Message getMessage(Session session, String from, String to, String subject, String text, String contentType) throws MessagingException {
+    public void sendEmailWithAttachments(String from, String to, String subject, String emailContent, Map<String, File> attachments) throws MessagingException {
+        final Multipart multipart = new MimeMultipart();
+        final MimeBodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setText(emailContent);
+        multipart.addBodyPart(messageBodyPart);
+        if (attachments != null && !attachments.isEmpty()) {
+            for (Entry<String, File> entry : attachments.entrySet()) {
+                final DataSource attachment = new FileDataSource(entry.getValue());
+                final MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+                attachmentBodyPart.setDataHandler(new DataHandler(attachment));
+                attachmentBodyPart.setFileName(entry.getKey());
+                multipart.addBodyPart(attachmentBodyPart);
+            }
+        }
+        final Message message = getMessage(session, from, to, subject, multipart, multipart.getContentType());
+        transport.connect(host, username, password);
+        transport.sendMessage(message, message.getAllRecipients());
+        transport.close();
+    }
+
+    private Message getMessage(Session session, String from, String to, String subject, Object text, String contentType) throws MessagingException {
         final MimeMessage message = initMessage(text, contentType, session);
         message.setFrom(new InternetAddress(from));
         message.addRecipient(RecipientType.TO, new InternetAddress(to));
@@ -69,13 +103,9 @@ public class MailDispatcher {
         return message;
     }
 
-    private MimeMessage initMessage(String text, String contentType, Session session) throws MessagingException {
+    private MimeMessage initMessage(Object text, String contentType, Session session) throws MessagingException {
         final MimeMessage message = new MimeMessage(session);
-        if (TYPE_HTML.equalsIgnoreCase(contentType)) {
-            message.setContent(text, VworConstants.HTML_CONTENT_TYPE);
-        } else {
-            message.setContent(text, VworConstants.PLAINTEXT_CONTENT_TYPE);
-        }
+        message.setContent(text, contentType);
         return message;
     }
 
@@ -103,4 +133,5 @@ public class MailDispatcher {
     public void setTransport(Transport transport) {
         this.transport = transport;
     }
+
 }

@@ -21,7 +21,7 @@ public class EmailResource extends AbstractResource {
     private MailDispatcher mailDispatcher;
 
     @POST
-    @Path("/confirmation/send")
+    @Path("/confirmation/sendVerificationEmail")
     public void sendEmailVerification(
             @FormParam("email") String email,
             @FormParam("endpoint") String endpoint,
@@ -46,7 +46,7 @@ public class EmailResource extends AbstractResource {
         final String content = emailConfiguration.getContent();
         final String contentType = emailConfiguration.getContentType();
 
-        mailDispatcher.send(from, email, subject, content, activationLink, contentType);
+        mailDispatcher.sendVerificationEmail(from, email, subject, content, activationLink, contentType);
     }
 
     private String getActivationLink(String endpoint, String activationToken, Boolean isPressUser) {
