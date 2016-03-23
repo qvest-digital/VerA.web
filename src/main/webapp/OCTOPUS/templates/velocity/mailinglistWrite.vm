@@ -74,7 +74,6 @@
             			</div>
 
                         <div id="buttonPanel-bottom" class="textRight">
-                           	<input type="button" name="send" value="${placeholderWithTranslation.senden} als button" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth" onclick="document.getElementById('formlist').submit();">
                            	<input type="submit" name="send" value="${placeholderWithTranslation.senden} als submit" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth">
                            	<input type="reset"  name="clear"  value="${placeholderWithTranslation.zuruecksetzen}" title="${placeholderWithTranslation.zuruecksetzen}" class="mainButton autoWidth">
                         </div>
