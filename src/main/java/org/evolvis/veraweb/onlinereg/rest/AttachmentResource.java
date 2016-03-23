@@ -43,9 +43,26 @@ public class AttachmentResource {
         if (files.isEmpty()) {
             return Response.status(Status.BAD_REQUEST).build();
         }
-
-        sendEmail(files);
+        sendEmails(files);
         return Response.status(Status.OK).entity("").build();
+    }
+
+    private void sendEmails(Map<String, File> files) {
+        try {
+            handleSendEmail(files);
+        } finally {
+            removeAttachmentsFromFilesystem(files);
+        }
+    }
+
+    private void removeAttachmentsFromFilesystem(Map<String, File> files) {
+        for (File file : files.values()) {
+            try {
+                Files.deleteIfExists(file.toPath());
+            } catch (IOException e) {
+                LOGGER.error(new StringBuilder("The file ").append(file.toPath()).append("could not be deleted!"), e);
+            }
+        }
     }
 
     private Map<String, File> getFiles(List<FormDataBodyPart> fields) {
@@ -63,7 +80,7 @@ public class AttachmentResource {
         return files;
     }
 
-    private void sendEmail(Map<String, File> files) {
+    private void handleSendEmail(Map<String, File> files) {
         try {
             final EmailConfiguration emailConfiguration = initEmailConfiguration("de_DE");
             final MailDispatcher mailDispatcher = new MailDispatcher(emailConfiguration);
