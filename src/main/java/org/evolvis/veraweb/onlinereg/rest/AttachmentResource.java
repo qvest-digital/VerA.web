@@ -68,10 +68,9 @@ public class AttachmentResource {
     private Map<String, File> getFiles(List<FormDataBodyPart> fields) {
         final Map<String, File> files = new HashMap<>();
         for (final FormDataBodyPart part : fields) {
-            final String filename = part.getFormDataContentDisposition().getFileName();
             try {
-                final File destinationFile = saveTempFile(part, filename);
-                files.put(filename, destinationFile);
+                final File destinationFile = saveTempFile(part);
+                files.put(part.getFormDataContentDisposition().getFileName(), destinationFile);
             } catch (final IOException e) {
                 LOGGER.error(e);
                 return new HashMap<>();
@@ -91,7 +90,8 @@ public class AttachmentResource {
         }
     }
 
-    private File saveTempFile(FormDataBodyPart part, String filename) throws IOException {
+    private File saveTempFile(FormDataBodyPart part) throws IOException {
+        final String filename = part.getFormDataContentDisposition().getFileName();
         final File destinationFile = getTempFile(filename);
         final InputStream inStream = (InputStream) part.getEntity();
         writeToFile(inStream, destinationFile);
