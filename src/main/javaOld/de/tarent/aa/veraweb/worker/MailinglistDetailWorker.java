@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import de.tarent.aa.veraweb.utils.VworUtils;
 import org.apache.log4j.Logger;
 
 import de.tarent.aa.veraweb.beans.Mailinglist;
@@ -90,12 +91,12 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * Octopus-Request unter dem Schlüssel "id" angegebenen Primärschlüssel
      * unter "mailinglist" in Octopus-Content und -Session.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
 	 */
-	public void showDetail(OctopusContext cntx) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
+	public void showDetail(OctopusContext octopusContext) throws BeanException, IOException {
+		Database database = getDatabase(octopusContext);
 
-		Integer id = cntx.requestAsInteger("id");
+		Integer id = octopusContext.requestAsInteger("id");
 		Mailinglist mailinglist = (Mailinglist)
 				database.getBean("Mailinglist",
 				database.getSelect("Mailinglist").
@@ -105,10 +106,11 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
 				joinLeftOuter("veraweb.tevent", "tmailinglist.fk_vera", "tevent.pk").
 				where(Expr.equal("tmailinglist.pk", id)));
 		if (mailinglist == null) {
-			mailinglist = (Mailinglist)cntx.sessionAsObject("mailinglist");
+			mailinglist = (Mailinglist)octopusContext.sessionAsObject("mailinglist");
 		}
-		cntx.setContent("mailinglist", mailinglist);
-		cntx.setSession("mailinglist", mailinglist);
+		octopusContext.setContent("vworendpoint", new VworUtils().getVworEndPoint());
+		octopusContext.setContent("mailinglist", mailinglist);
+		octopusContext.setSession("mailinglist", mailinglist);
 	}
 
     /** Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext)} */

@@ -15,7 +15,7 @@
 	<h1>${placeholderWithTranslation.verteilerversenden}</h1>
 
 
-	<form id="formlist" name="formlist" action="MailinglistWrite" method="POST">
+	<form id="formlist" name="formlist" action="$vworendpoint/attachment/send" method="POST" enctype="multipart/form-data">
     	<input type="hidden" id="loaddraft" name="loaddraft" value="false">
     	<input type="hidden" id="savedraft" name="savedraft" value="false">
 
@@ -74,7 +74,8 @@
             			</div>
 
                         <div id="buttonPanel-bottom" class="textRight">
-                           	<input type="button" name="send" value="${placeholderWithTranslation.senden}" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth" onclick="document.getElementById('formlist').action='MailinglistSend'; document.getElementById('formlist').submit();">
+                           	<input type="button" name="send" value="${placeholderWithTranslation.senden} als button" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth" onclick="document.getElementById('formlist').submit();">
+                           	<input type="submit" name="send" value="${placeholderWithTranslation.senden} als submit" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth">
                            	<input type="reset"  name="clear"  value="${placeholderWithTranslation.zuruecksetzen}" title="${placeholderWithTranslation.zuruecksetzen}" class="mainButton autoWidth">
                         </div>
 					</div>

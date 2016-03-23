@@ -58,8 +58,8 @@ public class VworUtils {
      */
     public String getVworEndPoint() throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
-        String imagePath = propertiesReader.getProperty("vwor.endpoint");
-        return imagePath;
+        String endpoint = propertiesReader.getProperty("vwor.endpoint");
+        return endpoint;
     }
 
     public HTTPBasicAuthFilter getAuthorization() {
