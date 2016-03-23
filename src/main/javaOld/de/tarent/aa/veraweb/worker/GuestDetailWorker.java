@@ -978,7 +978,7 @@ public class GuestDetailWorker extends GuestListWorker {
         }
 
         WhereList list = new WhereList();
-        addGuestListFilter(search, list);
+        search.addGuestListFilter(list);
         select.where(list);
         select.Limit(new Limit(new Integer(1), new Integer(offset.intValue() - 1)));
         return (Guest) database.getBean(BEANNAME, select);

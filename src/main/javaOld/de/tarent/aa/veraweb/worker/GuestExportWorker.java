@@ -145,7 +145,7 @@ public class GuestExportWorker {
 
 		} else if (event != null && event.id != null && event.id.intValue() != 0) {
             final WhereList where = new WhereList();
-			GuestListWorker.addGuestListFilter(search, where);
+			search.addGuestListFilter(where);
 
 			total = database.getCount(
 					database.getCount("Guest").
@@ -242,7 +242,7 @@ public class GuestExportWorker {
 					"tguest_doctype.fk_guest = tguest.pk AND tguest_doctype.fk_doctype = " + doctype.id)));
 
             final WhereList list = new WhereList();
-			GuestListWorker.addGuestListFilter(search, list);
+			search.addGuestListFilter(list);
 			select.where(list);
 		} else {
 			logger.error("Konnte G\u00e4steliste nicht exportieren.");

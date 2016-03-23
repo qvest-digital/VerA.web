@@ -26,7 +26,7 @@ public class VerawebUtils {
     }
 
     public static String clearCommaSeparatedString(String inputStringWithSpacesAndCommas) {
-        final String[] keywords = inputStringWithSpacesAndCommas.split("[^\\p{L}\\p{Nd}]+");
+        final String[] keywords = splitKeywords(inputStringWithSpacesAndCommas);
         final StringBuffer finalKeywordList = new StringBuffer();
         for (String keyword : keywords) {
             if (finalKeywordList.length() == 0) {
@@ -36,6 +36,10 @@ public class VerawebUtils {
             }
         }
         return finalKeywordList.toString();
+    }
+
+    public static String[] splitKeywords(String inputStringWithSpacesAndCommas) {
+        return inputStringWithSpacesAndCommas.split("[^\\p{L}\\p{Nd}]+");
     }
 
 }
