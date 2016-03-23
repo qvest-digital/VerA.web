@@ -25,7 +25,8 @@ import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.jboss.logging.Logger;
 
-public class AttachmentResource {
+@Consumes({MediaType.MULTIPART_FORM_DATA})
+public class AttachmentResource extends AbstractResource {
     private static final Logger LOGGER = Logger.getLogger(AttachmentResource.class);
 
     private String tmpPath = System.getProperty("java.io.tmpdir");
