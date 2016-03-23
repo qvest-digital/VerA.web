@@ -41,8 +41,7 @@
 							#end
 						#end
 					</ul>
-				</li>
-                <li #if ($activeMenu && $activeMenu == "Veranstaltungen") class="active" #end >
+				</li><li #if ($activeMenu && $activeMenu == "Veranstaltungen") class="active" #end >
 					<span>${placeholderWithTranslation.MENU_EVENTS}</span>
 					<ul>
 						<li>
@@ -67,9 +66,7 @@
 							#end
 						#end
 					</ul>
-				</li>
-            #end
-            <li #if ($activeMenu && $activeMenu == "Verwaltung") class="active" #end >
+				</li>#end<li #if ($activeMenu && $activeMenu == "Verwaltung") class="active" #end >
 				<span>${placeholderWithTranslation.MENU_MANAGEMENT}</span>
 				<ul>
 					#if($grants.isUser())

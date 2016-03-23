@@ -162,7 +162,8 @@
                                         <label for="guest-rank">${placeholderWithTranslation.GENERIC_RANK}:</label>
                                         <input type="text" id="guest-rank" name="guest-rank" value="$!message.text($guest.rank)">
                                     </div>
-                                    <div class="tableCell width20 paddingTop10">
+
+                                    <div class="tableCell paddingTop10" style="padding-right: 10px">
                                         <label for="guest-keywords">${placeholderWithTranslation.GENERIC_KEYWORDS}:</label>
                                         <input class="tags" type="text" id="guest-keywords" name="guest-keywords" value="$!message.text($guest.keywords)">
                                     </div>
