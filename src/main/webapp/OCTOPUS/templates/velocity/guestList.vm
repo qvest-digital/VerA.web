@@ -143,7 +143,7 @@
 						</div>
 						<div class="tableCell width25">
 							<label for="search-keywords">${placeholderWithTranslation.GENERIC_KEYWORDS}</label>
-							<input type="text" id="search-keywords" name="search-keywords" value="${search.keywords}" />
+							<input type="text" id="search-keywords" name="search-keywords" #if($search.keywords) value="${search.keywords}" #end />
 						</div>
 					</div>
 				</div>
