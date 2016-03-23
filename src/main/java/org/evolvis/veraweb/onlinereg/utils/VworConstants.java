@@ -23,10 +23,6 @@ package org.evolvis.veraweb.onlinereg.utils;
  * @author Jon Nuñez, tarent solutions GmbH on 02.07.15.
  */
 public class VworConstants {
-	
-	private VworConstants() {
-	}
-
     /**Responses from File upload mechanismus */
     public static final String UPLOAD_OK = "OK";
     public static final String UPLOAD_ERROR = "FILE_UPLOAD_ERROR";
@@ -45,4 +41,7 @@ public class VworConstants {
      */
     public static final String HTML_CONTENT_TYPE = "text/html; charset=utf-8";
     public static final String PLAINTEXT_CONTENT_TYPE = "text/plain; charset=utf-8";
+
+    private VworConstants() {
+    }
 }
