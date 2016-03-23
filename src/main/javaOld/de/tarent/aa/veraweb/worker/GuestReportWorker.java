@@ -193,7 +193,7 @@ public class GuestReportWorker {
 
 		/** Nur die aktuelle Auswahl zurückgeben. */
 		WhereList where = new WhereList();
-		GuestListWorker.addGuestListFilter(search, where);
+		search.addGuestListFilter(where);
 		if (selection != null && selection.size() > 0) {
 			where.addAnd(Expr.in("tguest.pk", selection));
 		}

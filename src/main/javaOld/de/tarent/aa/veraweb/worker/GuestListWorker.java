@@ -221,7 +221,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         final GuestSearch search = getSearch(octopusContext);
 
         final WhereList list = new WhereList();
-        addGuestListFilter(search, list);
+        search.addGuestListFilter(list);
         select.where(list);
     }
 
@@ -404,7 +404,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         final GuestSearch search = getSearch(octopusContext);
 
         final WhereList list = new WhereList();
-        addGuestListFilter(search, list);
+        search.addGuestListFilter(list);
 
         final StringBuffer buffer = new StringBuffer();
         buffer.append("(");
@@ -705,76 +705,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     /**
      * Diese Methode überträgt Gästesuchkriterien aus einer {@link GuestSearch}-Instanz
      * in einer WHERE-Statement-Liste.
+     * @deprecated Use {@link GuestSearch#addGuestListFilter(GuestSearch,WhereList)} instead
      */
     public static void addGuestListFilter(GuestSearch guestSearch, WhereList where) {
-        where.addAnd(Expr.equal("tguest.fk_event", guestSearch.event));
-
-
-        if (guestSearch.category != null && !guestSearch.category.trim().equals("")) {
-            where.addAnd(new RawClause("fk_category IN (SELECT pk FROM veraweb.tcategorie WHERE catname = '" +
-                    Escaper.escape(guestSearch.category) + "')"));
-        }
-
-        if (guestSearch.reserve != null) {
-            switch (guestSearch.reserve.intValue()) {
-                case 1:
-                    where.addAnd(Expr.nullOrInt0("reserve"));
-                    break;
-                case 2:
-                    where.addAnd(Expr.equal("reserve", new Integer(1)));
-                    break;
-            }
-        }
-
-        if (guestSearch.invitationstatus != null) {
-            switch (guestSearch.invitationstatus.intValue()) {
-                case 1:
-                    // nur Offen
-                    where.addAnd(new RawClause("(" +
-                            // Mit Partner
-                            "(invitationtype = 1 AND (invitationstatus IS NULL OR invitationstatus=0 OR " +
-                            "invitationstatus_p IS NULL OR invitationstatus_p=0)) OR" +
-                            // Ohne Partner
-                            "(invitationtype = 2 AND (invitationstatus IS NULL OR invitationstatus=0)) OR" +
-                            // Nur Partner
-                            "(invitationtype = 3 AND (invitationstatus_p IS NULL OR invitationstatus_p=0))" +
-                            ")"));
-                    break;
-                case 2:
-                    // nur Zusagen
-                    where.addAnd(new RawClause("(" +
-                            // Mit Partner
-                            "(invitationtype = 1 AND (invitationstatus=1 OR invitationstatus_p=1)) OR" +
-                            // Ohne Partner
-                            "(invitationtype = 2 AND invitationstatus=1) OR" +
-                            // Nur Partner
-                            "(invitationtype = 3 AND invitationstatus_p=1)" +
-                            ")"));
-                    break;
-                case 3:
-                    // nur Absagen
-                    where.addAnd(new RawClause("(" +
-                            // Mit Partner
-                            "(invitationtype = 1 AND (invitationstatus=2 OR invitationstatus_p=2)) OR" +
-                            // Ohne Partner
-                            "(invitationtype = 2 AND invitationstatus=2) OR" +
-                            // Nur Partner
-                            "(invitationtype = 3 AND invitationstatus_p=2)" +
-                            ")"));
-                    break;
-                case 4:
-                    // nur Teilnahmen
-                    where.addAnd(new RawClause("(" +
-                            // Mit Partner
-                            "(invitationtype = 1 AND (invitationstatus=3 OR invitationstatus_p=3)) OR" +
-                            // Ohne Partner
-                            "(invitationtype = 2 AND invitationstatus=3) OR" +
-                            // Nur Partner
-                            "(invitationtype = 3 AND invitationstatus_p=3)" +
-                            ")"));
-                    break;
-            }
-        }
+        guestSearch.addGuestListFilter(where);
     }
 
 	/**
@@ -832,7 +766,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     private Select buildAndCountListFromGuests(Database database, GuestSearch guestSearch, List selection) {
         final WhereList where = new WhereList();
-        GuestListWorker.addGuestListFilter(guestSearch, where);
+        guestSearch.addGuestListFilter(where);
 
         if (selection != null && selection.size() != 0) {
             where.addAnd(Expr.in("tguest.pk", selection));
