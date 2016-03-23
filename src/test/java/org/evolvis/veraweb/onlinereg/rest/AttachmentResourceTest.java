@@ -71,7 +71,6 @@ public class AttachmentResourceTest {
         assertThat(response.getStatus(), equalTo(200));
 
         final String[] files = testFolder.getRoot().list();
-        assertThat(files.length, equalTo(1));
-        assertThat(files[0], startsWith(FILE_NAME));
+        assertThat(files.length, equalTo(0));
     }
 }

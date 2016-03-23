@@ -83,7 +83,7 @@ public class AttachmentResource {
         try {
             final EmailConfiguration emailConfiguration = initEmailConfiguration("de_DE");
             final MailDispatcher mailDispatcher = new MailDispatcher(emailConfiguration);
-            mailDispatcher.sendEmailWithAttachments("from", "to", "subject", "content", files);
+            mailDispatcher.sendEmailWithAttachments("from@tarent.de", "to@tarent.de", "subject", "content", files);
         } catch (MessagingException e) {
             LOGGER.error("Sending email failed", e);
             e.printStackTrace();
