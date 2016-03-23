@@ -61,6 +61,22 @@ public class CategoryResourceSessionsTest {
     }
 
     @Test
+    public void testGetCategoryByCatnameAndOrgunit() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Category.findCategoryByPersonIdAndCatname")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(1);
+
+        // WHEN
+        categoryResource.getCategoryByCatnameAndOrgunit("cat", "1");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
     public void testGetCategoryId() {
         // GIVEN
         String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
