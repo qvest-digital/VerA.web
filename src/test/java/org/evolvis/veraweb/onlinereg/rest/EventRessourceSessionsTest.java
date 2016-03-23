@@ -105,6 +105,40 @@ public class EventRessourceSessionsTest {
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }
+
+    @Test
+    public void testIsGuestListFullReturnTrue() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Event.checkMaxGuestLimit")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(new BigInteger("1"));
+
+        // WHEN
+        final Boolean guestListFull = eventResource.isGuestListFull(1);
+
+        // THEN
+        assertTrue(guestListFull);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testIsGuestListFullReturnFalse() {
+        // GIVEN
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Event.checkMaxGuestLimit")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(new BigInteger("0"));
+
+        // WHEN
+        final Boolean guestListFull = eventResource.isGuestListFull(1);
+
+        // THEN
+        assertFalse(guestListFull);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
     
     @Test
     public void testListUserEventsWithoutResults() {
@@ -122,6 +156,50 @@ public class EventRessourceSessionsTest {
 
         // THEN
         assertTrue(listEvents == null);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testCheckUserRegistrationToEvents() {
+        // GIVEN
+        prepareSession();
+        List resultList = mock(List.class);
+        Query query = mock(Query.class);
+        Query query1 = mock(Query.class);
+
+        when(mockitoSession.getNamedQuery("Person.findPersonIdByUsername")).thenReturn(query);
+        when(mockitoSession.getNamedQuery("Event.count.userevents")).thenReturn(query1);
+        when(query.list()).thenReturn(resultList);
+        when(resultList.isEmpty()).thenReturn(false);
+        when(query.uniqueResult()).thenReturn(42);
+        when(query1.uniqueResult()).thenReturn(new BigInteger("1"));
+
+        // WHEN
+        Boolean userHastEventRegistrations = eventResource.checkUserRegistrationToEvents("username");
+
+        // THEN
+        assertTrue(userHastEventRegistrations);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testCheckUserRegistrationToEventsReturnFalse() {
+        // GIVEN
+        prepareSession();
+        List resultList = mock(List.class);
+        Query query = mock(Query.class);
+
+        when(mockitoSession.getNamedQuery("Person.findPersonIdByUsername")).thenReturn(query);
+        when(query.list()).thenReturn(resultList);
+        when(resultList.isEmpty()).thenReturn(true);
+
+        // WHEN
+        Boolean userHastEventRegistrations = eventResource.checkUserRegistrationToEvents("username");
+
+        // THEN
+        assertFalse(userHastEventRegistrations);
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }
