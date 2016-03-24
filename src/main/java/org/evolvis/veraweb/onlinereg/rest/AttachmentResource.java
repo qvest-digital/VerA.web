@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.PersonMailinglist;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
@@ -28,7 +29,7 @@ import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.jboss.logging.Logger;
-
+//FIXME: it's not "attachment", actually this is the whole shebang, including body, subject, recipients etc...
 @Path("/attachment")
 @Consumes({ MediaType.MULTIPART_FORM_DATA })
 public class AttachmentResource extends AbstractResource {
@@ -72,8 +73,9 @@ public class AttachmentResource extends AbstractResource {
             final EmailConfiguration emailConfiguration = initEmailConfiguration("de_DE");
             final MailDispatcher mailDispatcher = new MailDispatcher(emailConfiguration);
             for (final PersonMailinglist recipient : recipients) {
+                
                 LOGGER.info("Recipient: " + recipient.getAddress());
-                mailDispatcher.sendEmailWithAttachments(emailConfiguration.getFrom(), recipient.getAddress(), subject, text, files);
+                mailDispatcher.sendEmailWithAttachments(emailConfiguration.getFrom(), recipient.getAddress(), subject, substitutePlaceholders(text,recipient.getPerson()), files);
             }
         } catch (final MessagingException e) {
             LOGGER.error("Sending email failed", e);
@@ -81,6 +83,10 @@ public class AttachmentResource extends AbstractResource {
         } finally {
             removeAttachmentsFromFilesystem(files);
         }
+    }
+
+    private String substitutePlaceholders(String text, Person person) {
+        return new PlaceholderSubstitution(person).apply(text);
     }
 
     private void removeAttachmentsFromFilesystem(final Map<String, File> files) {
