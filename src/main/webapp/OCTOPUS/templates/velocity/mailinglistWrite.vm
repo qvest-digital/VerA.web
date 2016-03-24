@@ -29,6 +29,7 @@
         #end
 
         <input type="hidden" name="mail-id" value="$!mail.id">
+        <input type="hidden" name="mailinglist-id" id="mailinglist-id" value="${mailinglist.id}">
 
     	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
 
@@ -107,7 +108,7 @@
                         </div>
                         <br/><br/>
 
-                        <input type="file" id="JMultiFileUpload" />
+                        <input type="file" id="JMultiFileUpload" name="files"/>
                         <script>
                             $(function(){
                               $('#JMultiFileUpload').MultiFile({
