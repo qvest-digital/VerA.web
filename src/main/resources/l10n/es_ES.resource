@@ -1520,6 +1520,7 @@ GUEST_CALC_SERIALNO=Este evento pertenece a una fecha en el pasado. Aun as\u00ED
 MAILING_LIST_NO_ADDRESSES=La creaci\u00F3n de un nuevo distribuidor finaliz\u00F3 con errores, debido a la inexistencia de datos de direcciones en las personas seleccionadas
 MAILING_LIST_SELECTED_FILE=El archivo seleccionado
 MAILING_LIST_ALREADY_SELECTED_FILE=Este archivo ya ha sido seleccionado
+MAILING_LIST_SELECTED_TOO_MANY=Hay demasiados archivos seleccionados
 
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=El mandante a insertar no deber\u00E1 tener ID

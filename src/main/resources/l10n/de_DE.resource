@@ -1479,6 +1479,7 @@ GUEST_CALC_SERIALNO=Diese Veranstaltung liegt bereits in der Vergangenheit, m\u0
 MAILING_LIST_NO_ADDRESSES=Das Anlegen eines neuen Verteilers ist fehlgeschlagen, da zu den ausgew\u00E4hlten Personen keine Adressdaten vorliegen
 MAILING_LIST_SELECTED_FILE=Ausgew\u00E4hlte Datei
 MAILING_LIST_ALREADY_SELECTED_FILE=Diese Datei ist bereits ausgew\u00E4hlt
+MAILING_LIST_SELECTED_TOO_MANY=Zu viele Dateien ausgew\u00E4hlt
 
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=Einzuf\u00FCgender Mandant darf keine ID haben

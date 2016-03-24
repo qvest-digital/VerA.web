@@ -115,7 +115,8 @@
                                 STRING: {
                                   remove:'${placeholderWithTranslation.GENERIC_DELETE}',
                                   selected:'${placeholderWithTranslation.MAILING_LIST_SELECTED_FILE}: $file',
-                                  duplicate:'${placeholderWithTranslation.MAILING_LIST_ALREADY_SELECTED_FILE}:\n$file!'
+                                  duplicate:'${placeholderWithTranslation.MAILING_LIST_ALREADY_SELECTED_FILE}:\n$file!',
+                                  toomany:'${placeholderWithTranslation.MAILING_LIST_SELECTED_TOO_MANY} (max: $max)'
                                 }
                               });
                             });
