@@ -19,21 +19,33 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.evolvis.veraweb.onlinereg.entities.PersonMailinglist;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
+import org.glassfish.jersey.media.multipart.BodyPartEntity;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.jboss.logging.Logger;
 
 @Path("/attachment")
-@Consumes({MediaType.MULTIPART_FORM_DATA})
+@Consumes({ MediaType.MULTIPART_FORM_DATA })
 public class AttachmentResource extends AbstractResource {
     private static final Logger LOGGER = Logger.getLogger(AttachmentResource.class);
 
     private String tmpPath = System.getProperty("java.io.tmpdir");
 
     @POST
+    @Path("/")
+    @Consumes({ MediaType.MULTIPART_FORM_DATA })
     public Response uploadFile(final FormDataMultiPart formData) {
+        final String subject = formData.getField("mail-subject").getEntityAs(String.class);
+        final String text = formData.getField("mail-text").getEntityAs(String.class);
+        final int mailinglistId = Integer.parseInt(formData.getField("mailinglist-id").getEntityAs(String.class));
+
+        final List<PersonMailinglist> recipients = getRecipients(mailinglistId);
+
         final List<FormDataBodyPart> fields = formData.getFields("files");
         if (fields == null) {
             return Response.noContent().build();
@@ -43,29 +55,45 @@ public class AttachmentResource extends AbstractResource {
         if (files.isEmpty()) {
             return Response.status(Status.BAD_REQUEST).build();
         }
-        sendEmails(files);
+        sendEmails(recipients, subject, text, files);
         return Response.status(Status.OK).entity("").build();
     }
 
-    private void sendEmails(Map<String, File> files) {
+    @SuppressWarnings("unchecked")
+    private List<PersonMailinglist> getRecipients(final int listId) {
+        final Session session = openSession();
+        final Query query = session.getNamedQuery("PersonMailinglist.findByMailinglist");
+        query.setParameter("listId", listId);
+        return query.list();
+    }
+
+    private void sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text, final Map<String, File> files) {
         try {
-            handleSendEmail(files);
+            final EmailConfiguration emailConfiguration = initEmailConfiguration("de_DE");
+            final MailDispatcher mailDispatcher = new MailDispatcher(emailConfiguration);
+            for (final PersonMailinglist recipient : recipients) {
+                LOGGER.info("Recipient: " + recipient.getAddress());
+                mailDispatcher.sendEmailWithAttachments(emailConfiguration.getFrom(), recipient.getAddress(), subject, text, files);
+            }
+        } catch (final MessagingException e) {
+            LOGGER.error("Sending email failed", e);
+            e.printStackTrace();
         } finally {
             removeAttachmentsFromFilesystem(files);
         }
     }
 
-    private void removeAttachmentsFromFilesystem(Map<String, File> files) {
-        for (File file : files.values()) {
+    private void removeAttachmentsFromFilesystem(final Map<String, File> files) {
+        for (final File file : files.values()) {
             try {
                 Files.deleteIfExists(file.toPath());
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 LOGGER.error(new StringBuilder("The file ").append(file.toPath()).append("could not be deleted!"), e);
             }
         }
     }
 
-    private Map<String, File> getFiles(List<FormDataBodyPart> fields) {
+    private Map<String, File> getFiles(final List<FormDataBodyPart> fields) {
         final Map<String, File> files = new HashMap<>();
         for (final FormDataBodyPart part : fields) {
             try {
@@ -79,26 +107,15 @@ public class AttachmentResource extends AbstractResource {
         return files;
     }
 
-    private void handleSendEmail(Map<String, File> files) {
-        try {
-            final EmailConfiguration emailConfiguration = initEmailConfiguration("de_DE");
-            final MailDispatcher mailDispatcher = new MailDispatcher(emailConfiguration);
-            mailDispatcher.sendEmailWithAttachments("from@tarent.de", "to@tarent.de", "subject", "content", files);
-        } catch (MessagingException e) {
-            LOGGER.error("Sending email failed", e);
-            e.printStackTrace();
-        }
-    }
-
-    private File saveTempFile(FormDataBodyPart part) throws IOException {
+    private File saveTempFile(final FormDataBodyPart part) throws IOException {
         final String filename = part.getFormDataContentDisposition().getFileName();
         final File destinationFile = getTempFile(filename);
-        final InputStream inStream = (InputStream) part.getEntity();
-        writeToFile(inStream, destinationFile);
+        final BodyPartEntity entity = (BodyPartEntity) part.getEntity();
+        writeToFile(entity.getInputStream(), destinationFile);
         return destinationFile;
     }
 
-    private EmailConfiguration initEmailConfiguration(String languageKey) {
+    private EmailConfiguration initEmailConfiguration(final String languageKey) {
         return new EmailConfiguration(languageKey);
     }
 

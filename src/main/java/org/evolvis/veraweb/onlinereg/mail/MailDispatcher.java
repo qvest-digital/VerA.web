@@ -1,6 +1,10 @@
 package org.evolvis.veraweb.onlinereg.mail;
 
-import org.evolvis.veraweb.onlinereg.utils.VworConstants;
+import java.io.File;
+import java.util.Date;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -18,49 +22,46 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
+import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
 public class MailDispatcher {
     private static final String PROPERTY_MAIL_SMTP_SSL_ENABLE = "mail.smtp.ssl.enable";
-	private static final String PROPERTY_MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
-	private static final String PROPERTY_MAIL_SMTP_PORT = "mail.smtp.port";
-	private static final String PROPERTY_MAIL_SMTP_AUTH = "mail.smtp.auth";
+    private static final String PROPERTY_MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
+    private static final String PROPERTY_MAIL_SMTP_PORT = "mail.smtp.port";
+    private static final String PROPERTY_MAIL_SMTP_AUTH = "mail.smtp.auth";
 
-	private static final String TYPE_SSL = "ssl";
-	private static final String TYPE_STARTTLS = "starttls";
-	private static final String TYPE_HTML = "html";
+    private static final String TYPE_SSL = "ssl";
+    private static final String TYPE_STARTTLS = "starttls";
+    private static final String TYPE_HTML = "html";
 
-	private MailDateFormat dateFormat = new MailDateFormat();
+    private final MailDateFormat dateFormat = new MailDateFormat();
 
-    private String host;
-    private Integer port;
+    private final String host;
+    private final Integer port;
     private String security;
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
     private Transport transport;
-    private Session session;
+    private final Session session;
 
     public MailDispatcher(final EmailConfiguration emailConfiguration) throws NoSuchProviderException {
-        this.host = emailConfiguration.getHost();
-        this.port = emailConfiguration.getPort();
-        this.security = emailConfiguration.getSecurity();
-        if (this.security == null) {
-            this.security = "none";
+        host = emailConfiguration.getHost();
+        port = emailConfiguration.getPort();
+        security = emailConfiguration.getSecurity();
+        if (security == null) {
+            security = "none";
         }
-        this.username = emailConfiguration.getUsername();
-        this.password = emailConfiguration.getPassword();
+        username = emailConfiguration.getUsername();
+        password = emailConfiguration.getPassword();
         session = getSession();
         transport = session.getTransport("smtp");
     }
 
-    public void sendVerificationEmail(String from, String to, String subject, String text, String link, String contentType) throws MessagingException {
+    public void sendVerificationEmail(final String from, final String to, final String subject, final String text, final String link,
+            final String contentType) throws MessagingException {
         final String emailContent = text.replace("${link}", link);
         final Message message;
         if (TYPE_HTML.equalsIgnoreCase(contentType)) {
@@ -73,13 +74,14 @@ public class MailDispatcher {
         transport.close();
     }
 
-    public void sendEmailWithAttachments(String from, String to, String subject, String emailContent, Map<String, File> attachments) throws MessagingException {
+    public void sendEmailWithAttachments(final String from, final String to, final String subject, final String emailContent,
+            final Map<String, File> attachments) throws MessagingException {
         final Multipart multipart = new MimeMultipart();
         final MimeBodyPart messageBodyPart = new MimeBodyPart();
         messageBodyPart.setText(emailContent);
         multipart.addBodyPart(messageBodyPart);
         if (attachments != null && !attachments.isEmpty()) {
-            for (Entry<String, File> entry : attachments.entrySet()) {
+            for (final Entry<String, File> entry : attachments.entrySet()) {
                 final DataSource attachment = new FileDataSource(entry.getValue());
                 final MimeBodyPart attachmentBodyPart = new MimeBodyPart();
                 attachmentBodyPart.setDataHandler(new DataHandler(attachment));
@@ -93,7 +95,8 @@ public class MailDispatcher {
         transport.close();
     }
 
-    private Message getMessage(Session session, String from, String to, String subject, Object text, String contentType) throws MessagingException {
+    private Message getMessage(final Session session, final String from, final String to, final String subject, final Object text,
+            final String contentType) throws MessagingException {
         final MimeMessage message = initMessage(text, contentType, session);
         message.setFrom(new InternetAddress(from));
         message.addRecipient(RecipientType.TO, new InternetAddress(to));
@@ -103,7 +106,7 @@ public class MailDispatcher {
         return message;
     }
 
-    private MimeMessage initMessage(Object text, String contentType, Session session) throws MessagingException {
+    private MimeMessage initMessage(final Object text, final String contentType, final Session session) throws MessagingException {
         final MimeMessage message = new MimeMessage(session);
         message.setContent(text, contentType);
         return message;
@@ -122,7 +125,7 @@ public class MailDispatcher {
         return Session.getInstance(properties);
     }
 
-    private void setSecurityProperties(Properties properties) {
+    private void setSecurityProperties(final Properties properties) {
         if (TYPE_STARTTLS.equals(security)) {
             properties.put(PROPERTY_MAIL_SMTP_STARTTLS_ENABLE, true);
         } else if (TYPE_SSL.equals(security)) {
@@ -130,7 +133,7 @@ public class MailDispatcher {
         }
     }
 
-    public void setTransport(Transport transport) {
+    public void setTransport(final Transport transport) {
         this.transport = transport;
     }
 
