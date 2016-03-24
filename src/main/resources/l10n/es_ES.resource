@@ -1521,7 +1521,7 @@ MAILING_LIST_NO_ADDRESSES=La creaci\u00F3n de un nuevo distribuidor finaliz\u00F
 MAILING_LIST_SELECTED_FILE=El archivo seleccionado
 MAILING_LIST_ALREADY_SELECTED_FILE=Este archivo ya ha sido seleccionado
 MAILING_LIST_SELECTED_TOO_MANY=Hay demasiados archivos seleccionados
-MAILING_LIST_SELECTED_TOO_BIG=Archivo es demasiado grande
+MAILING_LIST_SELECTED_TOO_BIG=El archivo es demasiado grande
 
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=El mandante a insertar no deber\u00E1 tener ID
