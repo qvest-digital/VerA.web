@@ -78,7 +78,6 @@ public class Person {
     private String lastname_a_e2;
     private String lastname_a_e3;
 
-    private String mail_a_e1;
     private String function_a_e1;
     private String street_a_e1;
     private String zipcode_a_e1;
@@ -93,7 +92,16 @@ public class Person {
 	private String nationality_a_e1;
 
     private String company_a_e1;
-
+    
+    private String poboxzipcode_a_e1;
+    private String  pobox_a_e1;
+    private String suffix1_a_e1;
+    private String suffix2_a_e1; 
+    private String fon_a_e1;
+    private String fax_a_e1; 
+    private String mobil_a_e1; 
+    private String mail_a_e1; 
+    private String url_a_e1;
     /* Username for the Onlinereg service */
     private String username;
 
