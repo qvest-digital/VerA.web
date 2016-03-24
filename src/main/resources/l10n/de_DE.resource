@@ -1480,6 +1480,7 @@ MAILING_LIST_NO_ADDRESSES=Das Anlegen eines neuen Verteilers ist fehlgeschlagen,
 MAILING_LIST_SELECTED_FILE=Ausgew\u00E4hlte Datei
 MAILING_LIST_ALREADY_SELECTED_FILE=Diese Datei ist bereits ausgew\u00E4hlt
 MAILING_LIST_SELECTED_TOO_MANY=Zu viele Dateien ausgew\u00E4hlt
+MAILING_LIST_SELECTED_TOO_BIG=Datei ist zu gro\u00DF
 
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=Einzuf\u00FCgender Mandant darf keine ID haben

@@ -1511,6 +1511,7 @@ MAILING_LIST_NO_ADDRESSES=Failed to apply a new contributor, due to selected per
 MAILING_LIST_SELECTED_FILE=Selected file
 MAILING_LIST_ALREADY_SELECTED_FILE=This file has already been selected
 MAILING_LIST_SELECTED_TOO_MANY=Too many files selected
+MAILING_LIST_SELECTED_TOO_BIG=File is too big
 
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=Client to be inserted must not have an id
