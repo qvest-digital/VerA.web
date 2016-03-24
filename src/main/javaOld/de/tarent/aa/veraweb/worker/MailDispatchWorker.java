@@ -203,7 +203,7 @@ public class MailDispatchWorker implements Runnable {
             resultSet = result.resultSet();
             List allRecipients = VerawebUtils.copyResultListToArrayList(new ResultList(resultSet));
             for (int i = 0; i < allRecipients.size(); i++) {
-                final HashMap recipient = (HashMap) allRecipients.get(0);
+                final HashMap recipient = (HashMap) allRecipients.get(i);
                 executeMailSend(recipient);
             }
         } catch (SQLException e) {
