@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.glassfish.jersey.media.multipart.file.StreamDataBodyPart;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -57,7 +58,9 @@ public class AttachmentResourceTest {
         }
     }
 
-    @Test@Ignore //FIXME: something is seriously broken with this test!
+    @Test
+    @Ignore
+    // FIXME: something is seriously broken with this test!
     public void uploadFile() throws IOException, NoSuchProviderException {
         final StreamDataBodyPart filePart = new StreamDataBodyPart("files", new ByteArrayInputStream(TEST_DATA.getBytes()), FILE_NAME);
         final FormDataMultiPart formDataMultiPart = new FormDataMultiPart();
