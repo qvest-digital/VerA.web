@@ -7,7 +7,8 @@
 #parse("inc/header.vm")
 
 <div id="content_container">
-
+	<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
+	
 	<div id="breadcrumb" class="textRight marginBottom10">
 		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>
 	</div>
@@ -129,6 +130,10 @@
 			</div>
 
 		</div>
+		
+		<div id="success" class="contentBoxColored grayBorder marginBottom10" style="display: none;">
+			<h1>${placeholderWithTranslation.verteilerverschickt}</h1>
+		</div>
 
 		<div id="buttonPanel-bottom" class="textRight">
 			<input type="button" name="cancel" value="${placeholderWithTranslation.zurueckzumverteiler}" title="${placeholderWithTranslation.zurueckzumverteiler}" class="mainButton" onclick="window.location.href='ShowMailinglistDetail';">
@@ -144,6 +149,18 @@
 			insertAtCursor(document.getElementById('mail-text'), '<' + text + '>');
 		}
 	}
+	
+	$(document).ready(function() { 
+		$('#formlist').ajaxForm({
+ 			error: function(){
+  				alert("${placeholderWithTranslation.verteilerfehler}");
+			},
+			success: function () {
+				$('#main_content').hide();
+				$('#success').show();
+        	}
+        });
+    });
 </script>
 
 #parse("inc/footer.vm")

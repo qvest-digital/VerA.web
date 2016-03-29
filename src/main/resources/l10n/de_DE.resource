@@ -855,6 +855,8 @@ verteilerversenden=Verteiler versenden
 e-mail-clientaufrufen=E-Mail-Client aufrufen
 mailclient_other=Anderer Mailclient
 mailclient_msoutlook=Microsoft Outlook
+verteilerverschickt=Der Verteiler wurde erfolgreich verschickt
+verteilerfehler=Der Verteiler konnte nicht erfolgreich verschickt werden, versuchen sie es sp\u00E4ter noch einmal.
 
 # FEHLEND
 zurstartseite=Zur Startseite
