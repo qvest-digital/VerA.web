@@ -29,11 +29,16 @@ import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.jboss.logging.Logger;
+
 //FIXME: it's not "attachment", actually this is the whole shebang, including body, subject, recipients etc...
 @Path("/attachment")
 @Consumes({ MediaType.MULTIPART_FORM_DATA })
 public class AttachmentResource extends AbstractResource {
     private static final Logger LOGGER = Logger.getLogger(AttachmentResource.class);
+
+    public static final String PARAM_MAILINGLIST_ID = "mailinglist-id";
+    public static final String PARAM_MAIL_TEXT = "mail-text";
+    public static final String PARAM_MAIL_SUBJECT = "mail-subject";
 
     private String tmpPath = System.getProperty("java.io.tmpdir");
 
@@ -41,21 +46,13 @@ public class AttachmentResource extends AbstractResource {
     @Path("/")
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
     public Response uploadFile(final FormDataMultiPart formData) {
-        final String subject = formData.getField("mail-subject").getEntityAs(String.class);
-        final String text = formData.getField("mail-text").getEntityAs(String.class);
-        final int mailinglistId = Integer.parseInt(formData.getField("mailinglist-id").getEntityAs(String.class));
+        final String subject = formData.getField(PARAM_MAIL_SUBJECT).getEntityAs(String.class);
+        final String text = formData.getField(PARAM_MAIL_TEXT).getEntityAs(String.class);
+        final int mailinglistId = Integer.parseInt(formData.getField(PARAM_MAILINGLIST_ID).getEntityAs(String.class));
 
         final List<PersonMailinglist> recipients = getRecipients(mailinglistId);
 
-        final List<FormDataBodyPart> fields = formData.getFields("files");
-        if (fields == null) {
-            return Response.noContent().build();
-        }
-
-        final Map<String, File> files = getFiles(fields);
-        if (files.isEmpty()) {
-            return Response.status(Status.BAD_REQUEST).build();
-        }
+        final Map<String, File> files = getFiles(formData.getFields("files"));
         sendEmails(recipients, subject, text, files);
         return Response.status(Status.OK).entity("").build();
     }
@@ -73,9 +70,9 @@ public class AttachmentResource extends AbstractResource {
             final EmailConfiguration emailConfiguration = initEmailConfiguration("de_DE");
             final MailDispatcher mailDispatcher = new MailDispatcher(emailConfiguration);
             for (final PersonMailinglist recipient : recipients) {
-                
                 LOGGER.info("Recipient: " + recipient.getAddress());
-                mailDispatcher.sendEmailWithAttachments(emailConfiguration.getFrom(), recipient.getAddress(), subject, substitutePlaceholders(text,recipient.getPerson()), files);
+                mailDispatcher.sendEmailWithAttachments(emailConfiguration.getFrom(), recipient.getAddress(), subject,
+                        substitutePlaceholders(text, recipient.getPerson()), files);
             }
         } catch (final MessagingException e) {
             LOGGER.error("Sending email failed", e);
@@ -85,7 +82,7 @@ public class AttachmentResource extends AbstractResource {
         }
     }
 
-    private String substitutePlaceholders(String text, Person person) {
+    private String substitutePlaceholders(final String text, final Person person) {
         return new PlaceholderSubstitution(person).apply(text);
     }
 
@@ -101,13 +98,18 @@ public class AttachmentResource extends AbstractResource {
 
     private Map<String, File> getFiles(final List<FormDataBodyPart> fields) {
         final Map<String, File> files = new HashMap<>();
-        for (final FormDataBodyPart part : fields) {
-            try {
-                final File destinationFile = saveTempFile(part);
-                files.put(part.getFormDataContentDisposition().getFileName(), destinationFile);
-            } catch (final IOException e) {
-                LOGGER.error(e);
-                return new HashMap<>();
+        if (fields != null) {
+            for (final FormDataBodyPart part : fields) {
+                if (part.getFormDataContentDisposition().getFileName() == null) {
+                    continue;
+                }
+                try {
+                    final File destinationFile = saveTempFile(part);
+                    files.put(part.getFormDataContentDisposition().getFileName(), destinationFile);
+                } catch (final IOException e) {
+                    LOGGER.error("Could not write data to temp file!", e);
+                    break;
+                }
             }
         }
         return files;
