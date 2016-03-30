@@ -124,25 +124,30 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * @param octopusContext
      *            Octopus-Kontext
      */
-    public void saveDetail(final OctopusContext octopusContext) throws BeanException, IOException {
+    public void saveDetail(final OctopusContext octopusContext) throws Exception {
         final Database database = getDatabase(octopusContext);
         final Request request = getRequest(octopusContext);
 
-        final Mailinglist mailinglist = (Mailinglist) request.getBean("Mailinglist", "mailinglist");
-        mailinglist.updateHistoryFields(null, ((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
-        mailinglist.user = ((PersonalConfigAA) octopusContext.personalConfig()).getVerawebId();
-        mailinglist.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
+        try {
+            final Mailinglist mailinglist = (Mailinglist) request.getBean("Mailinglist", "mailinglist");
+            mailinglist.updateHistoryFields(null, ((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
+            mailinglist.user = ((PersonalConfigAA) octopusContext.personalConfig()).getVerawebId();
+            mailinglist.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
 
-        octopusContext.setContent("mailinglist", mailinglist);
-        octopusContext.setSession("mailinglist", mailinglist);
+            octopusContext.setContent("mailinglist", mailinglist);
+            octopusContext.setSession("mailinglist", mailinglist);
 
-        mailinglist.verify(octopusContext);
+            mailinglist.verify(octopusContext);
 
-        if (mailinglist.isCorrect()) {
-            database.saveBean(mailinglist);
-        } else {
-            octopusContext.setStatus("error");
-            return;
+            if (mailinglist.isCorrect()) {
+                database.saveBean(mailinglist);
+            } else {
+                octopusContext.setStatus("error");
+                return;
+            }
+        } catch (final Exception e) {
+            logger.error("Could not save mailinglist", e);
+            throw e;
         }
     }
 
@@ -174,7 +179,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      * @throws IOException
      */
     public List getAddressList(final OctopusContext cntx, final Mailinglist mailinglist, final Integer mailToUrlMaxSize) throws BeanException,
-            IOException {
+    IOException {
         final Database database = getDatabase(cntx);
 
         final Select select = database.getSelect(BEANNAME);
