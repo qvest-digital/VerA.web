@@ -884,6 +884,8 @@ verteilerversenden=dispatch contributor
 e-mail-clientaufrufen=open e-mail client
 mailclient_other=Other Mailclient
 mailclient_msoutlook=Microsoft Outlook
+verteilerverschickt=The distribution was successfully sent
+verteilerfehler=The distribution was not sent successfully, try again later.
 
 # FEHLEND
 zurstartseite=Home

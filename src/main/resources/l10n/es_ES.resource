@@ -885,6 +885,8 @@ verteilerversenden=Enviar distribuci\u00F3n
 e-mail-clientaufrufen=Redactar E-Mail a cliente
 mailclient_other=Otro Mailcliente
 mailclient_msoutlook=Microsoft Outlook
+verteilerverschickt=El distribuidor ha sido enviado con \u00E9xito.
+verteilerfehler=El distribuidor no se pudo enviar con \u00E9xito, int\u00E9ntelo de nuevo m\u00E1s tarde.
 
 # FEHLEND
 zurstartseite=Inicio

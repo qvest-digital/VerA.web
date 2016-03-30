@@ -817,7 +817,7 @@ GUEST_LIST_CREATED_NO_PERSON=a \u00E9t\u00E9 cr\u00E9\u00E9e sans une personne
 GUEST_LIST_CREATED_ONE_PERSON=a \u00E9t\u00E9 cr\u00E9\u00E9e avec une persone
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE=a \u00E9t\u00E9
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO=cr\u00E9\u00E9e avec une persone
-GUEST_LIST_NO_GUEST_INVITED=Aucun client \u00E9taient encore invit\u00E9s ou vos paramètres de filtrage ne ​​montrent aucun résultat
+GUEST_LIST_NO_GUEST_INVITED=Aucun client \u00E9taient encore invit\u00E9s ou vos param\u00E8tres de filtrage ne \u200B\u200Bmontrent aucun r\u00E9sultat
 GUEST_LIST_NUMBER_CALCULATE=Calculer le nombre de s\u00E9rie
 GUEST_LIST_NUMBER_CALCULATED_SAVED=Le \u00ABnum\u00E9ro de s\u00E9rie\u00BB \u00E9tait pour tous les clients calcul\u00E9es et stock\u00E9es nouvelle
 GUEST_LIST_ONLY_OPEN=Ouvrir seulement
@@ -885,6 +885,10 @@ beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=En vert soul
 verteilerdetails=D\u00E9tails de la r\u00E9partition
 verteilerversenden=Envoyer distribution
 e-mail-clientaufrufen=Appel client E -mail
+mailclient_other=Autre client de messagerie
+mailclient_msoutlook=Microsoft Outlook
+verteilerverschickt=Le distributeur a \u00E9t\u00E9 envoy\u00E9 avec succ\u00E8s.
+verteilerfehler=Le distributeur n'a pas pu \u00EAtre envoy\u00E9 avec succ\u00E8s, r\u00E9essayer plus tard.
 
 # FEHLEND
 zurstartseite=Page d\u2019accueil
