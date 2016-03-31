@@ -19,65 +19,65 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import de.tarent.octopus.server.OctopusContext;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import de.tarent.aa.veraweb.worker.ActionWorker;
+import de.tarent.octopus.server.OctopusContext;
 
 /**
- * Helper to play with the Online-Application Configuration. True if activated, otherwise false.
+ * Helper to play with the Online-Application Configuration. True if activated,
+ * otherwise false.
  *
  * @author jnunez
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
 public class OnlineRegistrationHelper {
 
-	private static final String VWOR_PARAM = "online-registration.activated";
-	private static final String VWOR_VALUE_TRUE = "true";
-
-	private static final String MANDANTEN_PARAM = "mandanten-online-registration.deactivated";
+    private static final String VWOR_PARAM = "online-registration.activated";
+    private static final String VWOR_VALUE_TRUE = "true";
 
     /** Logger für diese Klasse */
     private final static Logger logger = Logger.getLogger(OnlineRegistrationHelper.class);
 
-	/**
-	 * Check for enabled online registration module.
-	 *
-	 * @param cntx The context
-	 * @return true if online registration is enabled, otherwise false
-	 */
-	public static Boolean isOnlineregActive(OctopusContext cntx) {
+    /**
+     * Check for enabled online registration module.
+     *
+     * @param cntx
+     *            The context
+     * @return true if online registration is enabled, otherwise false
+     */
+    public static Boolean isOnlineregActive(final OctopusContext cntx) {
 
-		final String active = cntx.moduleConfig().getParam(VWOR_PARAM);
+        final String active = cntx.moduleConfig().getParam(VWOR_PARAM);
 
-		if (active != null && VWOR_VALUE_TRUE.equals(active)) {
-			return true;
-		}
-		return false;
-	}
-
-	public static int[] getDeactivatedMandantsAsArray(OctopusContext cntx) {
-
-		final String list = cntx.moduleConfig().getParam(MANDANTEN_PARAM);
-
-        if (list == null){
-            return new int[] {0};
+        if (active != null && VWOR_VALUE_TRUE.equals(active)) {
+            return true;
         }
-        
-		final String[] sepList = list.split(",");
+        return false;
+    }
 
-		int[] result = new int[sepList.length];
+    public static int[] getDeactivatedMandantsAsArray(final OctopusContext cntx) {
+
+        final String list = cntx.moduleConfig().getParam(ActionWorker.ONLINEREG_MANDANT_DEACTIVATION);
+
+        if (StringUtils.isBlank(list)) {
+            return new int[] { 0 };
+        }
+
+        final String[] sepList = list.split(",");
+
+        final int[] result = new int[sepList.length];
 
         for (int i = 0; i < result.length; i++) {
             try {
                 result[i] = Integer.parseInt(sepList[i].trim());
-            } catch (NumberFormatException ex) {
+            } catch (final NumberFormatException ex) {
                 result[i] = 0;
                 logger.error("PARAM \"mandanten-online-registration.deactivated\" in config_override.xml set wrong!", ex);
             }
         }
 
-		return result;
-	}
+        return result;
+    }
 }
