@@ -116,7 +116,7 @@
 		<servlet-class>de.tarent.veraweb.proxy.ProxyServlet</servlet-class>
 		<init-param>
 			<param-name>targetPath</param-name>
-			<param-value>/rest/attachment</param-value>
+			<param-value>/rest/mailing</param-value>
 		</init-param>
 		<init-param>
 			<param-name>requiredGroup</param-name>
@@ -131,7 +131,7 @@
 
 	<servlet-mapping>
 		<servlet-name>Mail</servlet-name>
-		<url-pattern>/mail/*</url-pattern>
+		<url-pattern>/mailing/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>

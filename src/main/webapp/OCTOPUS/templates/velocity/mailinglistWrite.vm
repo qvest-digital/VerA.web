@@ -16,7 +16,7 @@
 	<h1>${placeholderWithTranslation.verteilerversenden}</h1>
 
 
-	<form id="formlist" name="formlist" action="${paths.staticWeb}/mail" method="POST" enctype="multipart/form-data">
+	<form id="formlist" name="formlist" action="${paths.staticWeb}/mailing" method="POST" enctype="multipart/form-data">
     	<input type="hidden" id="loaddraft" name="loaddraft" value="false">
     	<input type="hidden" id="savedraft" name="savedraft" value="false">
 
