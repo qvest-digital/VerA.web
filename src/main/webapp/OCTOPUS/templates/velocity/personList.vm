@@ -227,6 +227,7 @@
 		<form id="formlist" name="formlist" action="${paths.staticWeb}do/$octopusRequest.task" method="POST">
 			<input type="hidden" name="start" value="" />
 			<input type="hidden" name="limit" value="" />
+			<input type="hidden" name="filter" value="" />
 			<input type="hidden" name="selectNone" id="selectNone" value="true" />
 			<input type="hidden" name="doRemove" value="true" />
 			<input type="hidden" name="categoryAssignmentAction" value="" />

@@ -61,6 +61,18 @@ function isModified(id) {
 	}
 }
 
+function filterList(letter) {
+	$('input[name$="-select"]').prop('checked', false);
+	var form = document.getElementById('formlist');
+	if (form && form.elements['filter']) {
+		form.elements['filter'].value = letter;
+		form.elements['start'].value = 0;
+		form.submit();
+	} else {
+		alert('form or field filter NOT FOUND!');
+	}
+}
+
 function navigateList(start) {
 	$('input[name$="-select"]').prop('checked', false);
 	var form = document.getElementById('formlist');
