@@ -18,11 +18,11 @@ import org.junit.rules.TemporaryFolder;
  * .de/en/2012/05/writing-lightweight-rest-integration-tests
  * -with-the-jersey-test-framework/
  */
-public class AttachmentResourceTest {
+public class MailingResourceTest {
     private static final String[] PATHS = { "ab", "aa\\bb", "aa.bb", "aa..bb" };
     private static final String[] INVALID_PATHS = { "../ab", "/aa/bb", "./aa" };
 
-    private AttachmentResource objectToTest;
+    private MailingResource objectToTest;
     private String tmpPath;
 
     @Rule
@@ -30,7 +30,7 @@ public class AttachmentResourceTest {
 
     @Before
     public void setUp() throws IOException {
-        objectToTest = new AttachmentResource();
+        objectToTest = new MailingResource();
         tmpPath = testFolder.getRoot().getCanonicalPath();
         objectToTest.setTmpPath(tmpPath);
     }

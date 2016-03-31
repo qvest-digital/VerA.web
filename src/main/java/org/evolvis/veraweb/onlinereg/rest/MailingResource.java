@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response.Status;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.PersonMailinglist;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
+import org.evolvis.veraweb.onlinereg.mail.MailDispatchMonitor;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
 import org.glassfish.jersey.media.multipart.BodyPartEntity;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
@@ -31,10 +32,10 @@ import org.hibernate.Session;
 import org.jboss.logging.Logger;
 
 //FIXME: it's not "attachment", actually this is the whole shebang, including body, subject, recipients etc...
-@Path("/attachment")
+@Path("/mailing")
 @Consumes({ MediaType.MULTIPART_FORM_DATA })
-public class AttachmentResource extends AbstractResource {
-    private static final Logger LOGGER = Logger.getLogger(AttachmentResource.class);
+public class MailingResource extends AbstractResource {
+    private static final Logger LOGGER = Logger.getLogger(MailingResource.class);
 
     public static final String PARAM_MAILINGLIST_ID = "mailinglist-id";
     public static final String PARAM_MAIL_TEXT = "mail-text";
@@ -53,8 +54,8 @@ public class AttachmentResource extends AbstractResource {
         final List<PersonMailinglist> recipients = getRecipients(mailinglistId);
 
         final Map<String, File> files = getFiles(formData.getFields("files"));
-        sendEmails(recipients, subject, text, files);
-        return Response.status(Status.OK).entity("").build();
+        final String msg = sendEmails(recipients, subject, text, files);
+        return Response.status(Status.OK).entity(msg).build();
     }
 
     @SuppressWarnings("unchecked")
@@ -65,14 +66,15 @@ public class AttachmentResource extends AbstractResource {
         return query.list();
     }
 
-    private void sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text, final Map<String, File> files) {
+    private String  sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text, final Map<String, File> files) {
+        final StringBuilder sb = new StringBuilder();
         try {
             final EmailConfiguration emailConfiguration = initEmailConfiguration("de_DE");
             final MailDispatcher mailDispatcher = new MailDispatcher(emailConfiguration);
             for (final PersonMailinglist recipient : recipients) {
-                LOGGER.info("Recipient: " + recipient.getAddress());
-                mailDispatcher.sendEmailWithAttachments(emailConfiguration.getFrom(), recipient.getAddress(), subject,
+                final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(emailConfiguration.getFrom(), recipient.getAddress(), subject,
                         substitutePlaceholders(text, recipient.getPerson()), files);
+                sb.append(monitor.toString());
             }
         } catch (final MessagingException e) {
             LOGGER.error("Sending email failed", e);
@@ -80,6 +82,7 @@ public class AttachmentResource extends AbstractResource {
         } finally {
             removeAttachmentsFromFilesystem(files);
         }
+        return sb.toString();
     }
 
     private String substitutePlaceholders(final String text, final Person person) {

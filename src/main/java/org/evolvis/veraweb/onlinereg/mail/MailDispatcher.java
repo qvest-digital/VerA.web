@@ -16,6 +16,9 @@ import javax.mail.Multipart;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.event.ConnectionEvent;
+import javax.mail.event.ConnectionListener;
+import javax.mail.event.TransportListener;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MailDateFormat;
 import javax.mail.internet.MimeBodyPart;
@@ -74,7 +77,7 @@ public class MailDispatcher {
         transport.close();
     }
 
-    public void sendEmailWithAttachments(final String from, final String to, final String subject, final String emailContent,
+    public MailDispatchMonitor sendEmailWithAttachments(final String from, final String to, final String subject, final String emailContent,
             final Map<String, File> attachments) throws MessagingException {
         final Multipart multipart = new MimeMultipart();
         final MimeBodyPart messageBodyPart = new MimeBodyPart();
@@ -90,9 +93,14 @@ public class MailDispatcher {
             }
         }
         final Message message = getMessage(session, from, to, subject, multipart, multipart.getContentType());
+       
+        MailDispatchMonitor monitor = new MailDispatchMonitor();
+        transport.addConnectionListener(monitor);
+        transport.addTransportListener(monitor);
         transport.connect(host, username, password);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();
+        return monitor;
     }
 
     private Message getMessage(final Session session, final String from, final String to, final String subject, final Object text,
