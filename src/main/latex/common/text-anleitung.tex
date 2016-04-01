@@ -837,7 +837,8 @@ Vergeben Sie ein Administratorpaßwort für das LDAP und merken
 Sie sich es gut!
 \end{minipage}
 
-In der Datei \texttt{/etc/ldap/slapd.d/cn=config/olcDatabase=\{1\}mdb.ldif}
+In der Datei \texttt{/etc/ldap/slapd.d/cn=config/olcDatabase=\{1\}mdb.ldif}\Hair\footnote
+{kann, z.B. unter Debian wheezy, auch \texttt{hdb} statt \texttt{mdb} sein}
 finden Sie jetzt einen Eintrag \texttt{olcSuffix}. Notieren Sie sich den
 Teil hinter dem Doppelpunkt (und Leerzeichen); dies ist Ihr sogenannter
 „Base DN“. In dieser Dokumentation wird \texttt{dc=lan,dc=tarent,dc=de} als
@@ -853,6 +854,7 @@ LDAP-Administrator \texttt{cn=admin,dc=lan,dc=tarent,dc=de}.
 
 \begin{minipage}{\textwidth}
 \begin{lstdump}{LDAP-Clientkonfiguration}
+# kann auch hdb statt mdb sein, z.B. unter Debian wheezy
 cfg=/etc/ldap/slapd.d/cn=config/olcDatabase={1}mdb.ldif
 basedn=$(sudo sed -n '/^olcSuffix: */s///p' "$cfg")
 echo "Der Base DN ist: $basedn"
