@@ -125,6 +125,7 @@
                               });
                             });
                         </script>
+                        <div style="margin-top: 4px;">${placeholderWithTranslation.MAILING_LIST_SIZE_NOTICE}</div>
 					</div>
 				</div>
 			</div>
