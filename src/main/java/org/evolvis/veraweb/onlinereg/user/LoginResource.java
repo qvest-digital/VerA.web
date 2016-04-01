@@ -48,8 +48,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by mley on 26.08.14.
@@ -95,6 +97,8 @@ public class LoginResource {
     @Getter
     private ServletContext context;
 
+    private final ResourceReader resourceReader;
+
     /**
      * Creates a new LoginResource
      *
@@ -103,6 +107,7 @@ public class LoginResource {
     public LoginResource(Config config, Client client) {
         this.config = config;
         this.client = client;
+        this.resourceReader = new ResourceReader(client, mapper, config);
     }
 
     /**
@@ -232,7 +237,7 @@ public class LoginResource {
     }
 
     private OsiamUserActivation getOsiamUserActivationByUsername(String username) throws IOException {
-        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        
         final String osiamUserActivationPath = resourceReader.constructPath(BASE_RESOURCE, "osiam", "user", "get", "activation", "byusername", username);
         return resourceReader.readStringResource(osiamUserActivationPath, OSIAM_USER_ACTIVATION);
     }
@@ -244,11 +249,7 @@ public class LoginResource {
      * @return complete path as string
      */
     private String path(Object... path) {
-        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
-        for (Object p : path) {
-            r += "/" + p;
-        }
-        return r;
+        return resourceReader.constructPath(BASE_RESOURCE, path);
     }
 
     /**
@@ -261,26 +262,7 @@ public class LoginResource {
      * @throws IOException
      */
     private <T> T readResource(String path, TypeReference<T> type) throws IOException {
-        WebResource resource;
-        try {
-            resource = client.resource(path);
-            String json = resource.get(String.class);
-            return mapper.readValue(json, type);
-        } catch (ClientHandlerException che) {
-            if (che.getCause() instanceof SocketTimeoutException) {
-                //FIXME some times open, pooled connections time out and generate errors
-                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
-                resource = client.resource(path);
-                String json = resource.get(String.class);
-                return mapper.readValue(json, type);
-            } else {
-                throw che;
-            }
-
-        } catch (UniformInterfaceException uie) {
-            log.warning(uie.getResponse().getEntity(String.class));
-            throw uie;
-        }
+        return resourceReader.readStringResource(path, type);
     }
 
     public ServletContext getContext() {

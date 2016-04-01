@@ -28,7 +28,11 @@ import com.sun.jersey.api.client.WebResource;
 import org.evolvis.veraweb.onlinereg.Config;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.SocketTimeoutException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -45,9 +49,12 @@ public class ResourceReader {
     /**
      * Custom constructor.
      *
-     * @param client The {@link com.sun.jersey.api.client.Client}
-     * @param mapper The {@link com.fasterxml.jackson.databind.ObjectMapper}
-     * @param config The {@link org.evolvis.veraweb.onlinereg.Config}
+     * @param client
+     *            The {@link com.sun.jersey.api.client.Client}
+     * @param mapper
+     *            The {@link com.fasterxml.jackson.databind.ObjectMapper}
+     * @param config
+     *            The {@link org.evolvis.veraweb.onlinereg.Config}
      */
     public ResourceReader(Client client, ObjectMapper mapper, Config config) {
         this.client = client;
@@ -55,31 +62,57 @@ public class ResourceReader {
         this.config = config;
     }
 
-
     /**
-     * Constructs a pathParts from VerA.web endpint, BASE_RESOURCE and given pathParts fragmensts.
+     * Constructs a pathParts from VerA.web endpint, BASE_RESOURCE and given
+     * pathParts fragmensts.
      *
-     * @param pathParts pathParts fragments
-     * @param baseResource The base path to online registration app
+     * @param pathParts
+     *            pathParts fragments
+     * @param baseResource
+     *            The base path to online registration app
      *
      * @return Complete path as string
      */
     public String constructPath(String baseResource, Object... pathParts) {
-        String path = config.getVerawebEndpoint() + baseResource;
-        for (Object p : pathParts) {
-            path += "/" + p;
+        final URI base;
+       
+        try {
+            base = new URI(config.getVerawebEndpoint() + baseResource);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
         }
-        return path;
+      
+        final StringBuilder sb = new StringBuilder(base.getPath());
+        for (Object p : pathParts) {
+            // path segments must not include forward slashes. Period.
+            // path += "/" + URLEncoder.encode(p.toString(),"utf-8");
+            String segment = p.toString();
+            if (segment.contains("/")) {
+                throw new IllegalArgumentException("Don't include '/' in path segments!");
+            }
+            sb.append('/');
+            sb.append(segment);
+        }
+        
+        try {
+            return new URI(base.getScheme(),base.getUserInfo(),base.getHost(),base.getPort(),sb.toString(),base.getQuery(),base.getFragment()).toASCIIString();
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     /**
      * Reads the resource at given path and returns the entity.
      *
-     * @param path path
-     * @param type TypeReference of requested entity
-     * @param <T>  Type of requested entity
+     * @param path
+     *            path
+     * @param type
+     *            TypeReference of requested entity
+     * @param <T>
+     *            Type of requested entity
      * @return requested resource
-     * @throws java.io.IOException TODO
+     * @throws java.io.IOException
+     *             TODO
      */
     public <T> T readStringResource(String path, TypeReference<T> type) throws IOException {
         WebResource resource;
@@ -89,8 +122,10 @@ public class ResourceReader {
             return mapper.readValue(json, type);
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
-                //FIXME some times open, pooled connections time out and generate errors
-//                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
+                // FIXME some times open, pooled connections time out and
+                // generate errors
+                // log.warning("Retrying request to " + path + " once because of
+                // SocketTimeoutException");
                 resource = client.resource(path);
                 final String json = resource.get(String.class);
                 return mapper.readValue(json, type);
@@ -99,7 +134,7 @@ public class ResourceReader {
             }
 
         } catch (UniformInterfaceException uie) {
-//            log.warning(uie.getResponse().getEntity(String.class));
+            // log.warning(uie.getResponse().getEntity(String.class));
             throw uie;
         }
     }

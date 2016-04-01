@@ -35,6 +35,7 @@ import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.utils.EventTransporter;
+import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.evolvis.veraweb.onlinereg.utils.VerawebConstants;
 
@@ -102,6 +103,8 @@ public class EventResource {
     @Getter
     private ServletContext context;
 
+    private final ResourceReader resourceReader;
+
     /**
      * Creates a new EventResource
      *
@@ -111,6 +114,7 @@ public class EventResource {
     public EventResource(Config config, Client client) {
         this.client = client;
         this.config = config;
+        this.resourceReader = new ResourceReader(client, mapper, config);
     }
 
     /**
@@ -331,48 +335,12 @@ public class EventResource {
         return guest;
     }
 
-    /**
-     * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
-     *
-     * @param path path fragments
-     * @return complete path as string
-     */
-    private String path(Object... path) {
-        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
-        for (Object p : path) {
-            r += "/" + p;
-        }
-        return r;
+    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
+        return resourceReader.readStringResource(path, type);
     }
 
-    /**
-     * Reads the resource at given path and returns the entity.
-     *
-     * @param path path
-     * @param type TypeReference of requested entity
-     * @param <T>  Type of requested entity
-     * @return requested resource
-     * @throws IOException
-     */
-    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
-        WebResource resource;
-        try {
-            resource = client.resource(path);
-            final String json = resource.get(String.class);
-            return mapper.readValue(json, type);
-        } catch (ClientHandlerException che) {
-            if (che.getCause() instanceof SocketTimeoutException) {
-                //FIXME some times open, pooled connections time out and generate errors
-                resource = client.resource(path);
-                final String json = resource.get(String.class);
-                return mapper.readValue(json, type);
-            } else {
-                throw che;
-            }
-
-        } catch (UniformInterfaceException uie) {
-            throw uie;
-        }
+    private String path(Object... path) {
+        return resourceReader.constructPath(BASE_RESOURCE, path);
     }
 
     private EventTransporter createEventTransporter(String username, Iterator<Event> iterator) throws IOException {

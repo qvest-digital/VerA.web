@@ -39,6 +39,7 @@ import com.sun.jersey.api.client.WebResource;
 
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.entities.Salutation;
+import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 
 /**
  * New functions according to the page where the user can change his core data
@@ -49,13 +50,14 @@ import org.evolvis.veraweb.onlinereg.entities.Salutation;
 @Produces(MediaType.APPLICATION_JSON)
 @Log
 public class KontaktdatenResource {
-	 /**
+    /**
      * base path of all resource
      */
     public static final String BASE_RESOURCE = "/rest";
 
     /** List of Salutations with attributes */
-    private static final TypeReference<List<Salutation>> SALUTATION_LIST = new TypeReference<List<Salutation>>() {};
+    private static final TypeReference<List<Salutation>> SALUTATION_LIST = new TypeReference<List<Salutation>>() {
+    };
 
     /**
      * Jersey client
@@ -65,29 +67,35 @@ public class KontaktdatenResource {
     /**
      * Configuration
      */
-    private Config config;
+    final private Config config;
 
     /**
      * Jackson Object Mapper
      */
-    private ObjectMapper mapper = new ObjectMapper();
+    final private ObjectMapper mapper = new ObjectMapper();
+
+    final private ResourceReader resourceReader;
 
     /**
      * Creates a new KontaktdatenResource with configuration and Jersey client
      *
-     * @param client jersey client
-     * @param config configuration
+     * @param client
+     *            jersey client
+     * @param config
+     *            configuration
      */
     public KontaktdatenResource(Config config, Client client) {
         this.client = client;
         this.config = config;
+        this.resourceReader = new ResourceReader(client, mapper, config);
     }
 
     /**
      * Get all salutations
      *
      * @return List of all salutations, if salutations exists
-     * @throws IOException TODO
+     * @throws IOException
+     *             TODO
      */
     @GET
     @Path("/getallsalutations")
@@ -101,49 +109,11 @@ public class KontaktdatenResource {
         return null;
     }
 
-    /**
-     * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
-     *
-     * @param path path fragments
-     * @return complete path as string
-     */
     private String path(Object... path) {
-        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
-        for (Object p : path) {
-            r += "/" + p;
-        }
-        return r;
+        return resourceReader.constructPath(BASE_RESOURCE, path);
     }
 
-    /**
-     * Reads the resource at given path and returns the entity.
-     *
-     * @param path path
-     * @param type TypeReference of requested entity
-     * @param <T>  Type of requested entity
-     * @return requested resource
-     * @throws IOException
-     */
     private <T> T readResource(String path, TypeReference<T> type) throws IOException {
-        WebResource resource;
-        try {
-            resource = client.resource(path);
-            String json = resource.get(String.class);
-            return mapper.readValue(json, type);
-        } catch (ClientHandlerException che) {
-            if (che.getCause() instanceof SocketTimeoutException) {
-                //FIXME some times open, pooled connections time out and generate errors
-                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
-                resource = client.resource(path);
-                String json = resource.get(String.class);
-                return mapper.readValue(json, type);
-            } else {
-                throw che;
-            }
-
-        } catch (UniformInterfaceException uie) {
-            log.warning(uie.getResponse().getEntity(String.class));
-            throw uie;
-        }
+        return resourceReader.readStringResource(path, type);
     }
 }

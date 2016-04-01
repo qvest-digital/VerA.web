@@ -30,7 +30,7 @@ import com.sun.jersey.api.representation.Form;
 import lombok.extern.java.Log;
 
 import org.evolvis.veraweb.onlinereg.Config;
-
+import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.evolvis.veraweb.onlinereg.utils.VerawebConstants;
 
@@ -54,13 +54,15 @@ import java.net.SocketTimeoutException;
 public class FileUploadResource {
 
     /** Jersey client */
-    private Client client;
+    private final Client client;
 
     /** Configuration */
-    private Config config;
+    private final Config config;
 
 	/** Jackson Object Mapper */
 	private final ObjectMapper mapper = new ObjectMapper();
+
+    private final ResourceReader resourceReader;
 
     /** Base path of all resources. */
     private static final String BASE_RESOURCE = "/rest";
@@ -71,6 +73,7 @@ public class FileUploadResource {
     public FileUploadResource(Config config, Client client) {
         this.client = client;
         this.config = config;
+        this.resourceReader = new ResourceReader(client, mapper, config);
     }
 
 	@POST
@@ -164,20 +167,8 @@ public class FileUploadResource {
 		return "ERROR_PARSING_IMAGE_TYPE";
 	}
 
-	/**
-	 * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
-	 *
-	 * @param path path fragments
-	 * @return complete path as string
-	 */
 	private String path(Object... path) {
-		String r = config.getVerawebEndpoint() + BASE_RESOURCE;
-
-		for (Object p : path) {
-			r += "/" + p;
-		}
-
-		return r;
-	}
+        return resourceReader.constructPath(BASE_RESOURCE, path);
+    }
 
 }

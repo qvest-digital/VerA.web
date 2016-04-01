@@ -71,13 +71,9 @@ public class MediaResource {
      * Jackson Object Mapper
      */
     private final ObjectMapper mapper = new ObjectMapper();
-    private Config config;
-    private Client client;
-
-    /**
-     * Default constructor.
-     */
-    public MediaResource() {}
+    private final Config config;
+    private final Client client;
+    private final ResourceReader resourceReader;
 
     /**
      * Alternative constructor.
@@ -86,9 +82,9 @@ public class MediaResource {
      * @param client Client
      */
 	public MediaResource(Config config, Client client) {
-		super();
 		this.config = config;
 		this.client = client;
+		this.resourceReader= new ResourceReader(client, mapper, config);
 	}
 
     /**

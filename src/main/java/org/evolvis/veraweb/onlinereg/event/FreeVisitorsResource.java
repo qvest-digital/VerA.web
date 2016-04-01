@@ -37,6 +37,7 @@ import com.sun.jersey.api.client.WebResource;
 
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
 /**
@@ -55,12 +56,14 @@ public class FreeVisitorsResource {
      */
     private final ObjectMapper mapper = new ObjectMapper();
     
-    private Config config;
-	private Client client;
+    private final Config config;
+	private final Client client;
+    private final ResourceReader resourceReader;
     
     public FreeVisitorsResource(Config config, Client client) {
 		this.config = config;
 		this.client = client;
+		this.resourceReader = new ResourceReader(client, mapper, config);
 	}
     
     /**
@@ -111,17 +114,8 @@ public class FreeVisitorsResource {
         return null;
     }
 
-    /**
-     * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
-     *
-     * @param path path fragments
-     * @return complete path as string
-     */
+   
     private String path(Object... path) {
-        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
-        for (Object p : path) {
-            r += "/" + p;
-        }
-        return r;
+        return resourceReader.constructPath(BASE_RESOURCE, path);
     }
 }

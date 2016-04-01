@@ -35,6 +35,7 @@ import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.utils.EventTransporter;
+import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -49,7 +50,8 @@ import lombok.Getter;
 import lombok.extern.java.Log;
 
 /**
- * New functions according to the page where the user can change his status and message to an event
+ * New functions according to the page where the user can change his status and
+ * message to an event
  *
  * @author jnunez
  *
@@ -63,29 +65,29 @@ public class UpdateResource {
     public static final String BASE_RESOURCE = "/rest";
 
     /* Context data */
-    	public static final String USERNAME = "USERNAME";
+    public static final String USERNAME = "USERNAME";
     /* ************ */
 
     /* RETURN TYPES */
-	    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
-	    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
-	    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {};
-	    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {};
+    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {
+    };
+    private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {
+    };
+    private static final TypeReference<Event> EVENT = new TypeReference<Event>() {
+    };
+    private static final TypeReference<Guest> GUEST = new TypeReference<Guest>() {
+    };
     /* ************ */
 
     /* RESPONSE MESSAGES */
-	    private static final String RESPONSE_SUCCESS = "OK";
-	    private static final String RESPONSE_ERROR_NOT_REGISTERED = "NOT_REGISTERED";
+    private static final String RESPONSE_SUCCESS = "OK";
+    private static final String RESPONSE_ERROR_NOT_REGISTERED = "NOT_REGISTERED";
     /* ***************** */
 
-    /** Jersey client */
-    private Client client;
-
-    /** Configuration */
-    private Config config;
-
-    /** Jackson Object Mapper */
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
+    private final Config config;
+    private final Client client;
+    private final ResourceReader resourceReader;
 
     /** Servlet context */
     @javax.ws.rs.core.Context
@@ -95,28 +97,31 @@ public class UpdateResource {
     /**
      * Creates a new EventResource
      *
-     * @param client jersey client
-     * @param config configuration
+     * @param client
+     *            jersey client
+     * @param config
+     *            configuration
      */
     public UpdateResource(Config config, Client client) {
         this.client = client;
         this.config = config;
+        this.resourceReader = new ResourceReader(client, mapper, config);
     }
-
 
     /**
      * Returns an event with given id.
      *
-     * @param eventId event id
+     * @param eventId
+     *            event id
      * @return Event object
      * @throws IOException
      */
     @GET
     @Path("/{eventId}")
     public EventTransporter getEvent(@PathParam("eventId") int eventId) throws IOException {
-    	String username = (String) context.getAttribute(USERNAME);
+        String username = (String) context.getAttribute(USERNAME);
 
-    	EventTransporter transporter = getEventData(eventId, username);
+        EventTransporter transporter = getEventData(eventId, username);
 
         return transporter;
     }
@@ -124,58 +129,65 @@ public class UpdateResource {
     /**
      * Save the registration to an event
      *
-     * @param eventId          event id
-     * @param notehost         note to host
-     * @param invitationstatus status of user
+     * @param eventId
+     *            event id
+     * @param notehost
+     *            note to host
+     * @param invitationstatus
+     *            status of user
      * @return updated Guest object
      * @throws IOException
      */
     @POST
     @Path("/{eventId}/update")
-    public String update(
-    		@PathParam("eventId") String eventId,
-    		@FormParam("notehost") String notehost,
-    		@FormParam("invitationstatus") String invitationstatus) throws IOException {
+    public String update(@PathParam("eventId") String eventId, @FormParam("notehost") String notehost,
+            @FormParam("invitationstatus") String invitationstatus) throws IOException {
         String username = (String) context.getAttribute(USERNAME);
 
-    	// checking if the user is registered on the event
-    	if (isUserRegistered(username, eventId)) {
+        // checking if the user is registered on the event
+        if (isUserRegistered(username, eventId)) {
 
-    		Integer userId = getUserData(username);
+            Integer userId = getUserData(username);
 
-    		if (userId != null) {
-    			updateGuest(eventId, userId, invitationstatus, notehost);
-    		}
+            if (userId != null) {
+                updateGuest(eventId, userId, invitationstatus, notehost);
+            }
 
-    		return StatusConverter.convertStatus(RESPONSE_SUCCESS);
-    	}
+            return StatusConverter.convertStatus(RESPONSE_SUCCESS);
+        }
 
-    	return StatusConverter.convertStatus(RESPONSE_ERROR_NOT_REGISTERED);
+        return StatusConverter.convertStatus(RESPONSE_ERROR_NOT_REGISTERED);
     }
 
     /**
      * Checking if the guest is a reserve or not
      *
-     * @param eventId the event ID
-     * @param username the username - osiam_login
+     * @param eventId
+     *            the event ID
+     * @param username
+     *            the username - osiam_login
      */
     @GET
     @Path("/isreserve/{eventId}/{username}")
-    public Boolean isReserve(@PathParam("eventId") final Integer eventId,
-                             @PathParam("username") final String username) throws IOException {
+    public Boolean isReserve(@PathParam("eventId") final Integer eventId, @PathParam("username") final String username) throws IOException {
         return readResource(path("guest", "isreserve", eventId, username), BOOLEAN);
     }
+
     /**
      * Update guest
      *
-     * @param eventId int
-     * @param userId int
-     * @param invitationstatus String
-     * @param notehost String
+     * @param eventId
+     *            int
+     * @param userId
+     *            int
+     * @param invitationstatus
+     *            String
+     * @param notehost
+     *            String
      */
     private void updateGuest(String eventId, int userId, String invitationstatus, String notehost) {
-    	WebResource resource = client.resource(path("guest", "update", eventId, userId));
-		Form postBody = new Form();
+        WebResource resource = client.resource(path("guest", "update", eventId, userId));
+        Form postBody = new Form();
 
         postBody.add("invitationstatus", invitationstatus);
         postBody.add("notehost", notehost);
@@ -186,99 +198,67 @@ public class UpdateResource {
     /**
      * Checking if the user is registered
      *
-     * @param username String
-     * @param eventId String
+     * @param username
+     *            String
+     * @param eventId
+     *            String
      * @return Boolean
-     * @throws IOException the exception
+     * @throws IOException
+     *             the exception
      */
     private Boolean isUserRegistered(String username, String eventId) throws IOException {
-    	return readResource(path("guest", "registered", username, eventId), BOOLEAN);
+        return readResource(path("guest", "registered", username, eventId), BOOLEAN);
     }
 
     private Integer getUserData(String username) throws IOException {
-    	return readResource(path("person", "userdata", "lite", username), INTEGER);
+        return readResource(path("person", "userdata", "lite", username), INTEGER);
     }
 
     /**
      * Getting the transporter to show data according to the layout
      *
-     * @param eventId int
-     * @param username String
+     * @param eventId
+     *            int
+     * @param username
+     *            String
      * @return EventTransporter
      * @throws IOException
      */
-	private EventTransporter getEventData(int eventId, String username)
-			throws IOException {
+    private EventTransporter getEventData(int eventId, String username) throws IOException {
 
-		Integer personId = getUserData(username);
+        Integer personId = getUserData(username);
         Guest guest = readResource(path("guest", eventId, personId), GUEST);
-    	Event event = readResource(path("event", eventId), EVENT);
-    	EventTransporter transporter = createEventTransporter(guest, event);
+        Event event = readResource(path("event", eventId), EVENT);
+        EventTransporter transporter = createEventTransporter(guest, event);
 
-		return transporter;
-	}
-
-	/**
-	 * Converting Event-Guest to EventTransporter to show data into the layout
-	 *
-	 * @param guest Guest
-	 * @param event Event
-	 * @return EventTransporter
-	 */
-	private EventTransporter createEventTransporter(Guest guest, Event event) {
-		EventTransporter transporter = new EventTransporter();
-
-    	transporter.setDatebegin(event.getDatebegin());
-    	transporter.setMessage(guest.getNotehost());
-    	transporter.setShortname(event.getShortname());
-    	transporter.setStatus(guest.getInvitationstatus());
-
-		return transporter;
-	}
-
-    /**
-     * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
-     *
-     * @param path path fragments
-     * @return complete path as string
-     */
-    private String path(Object... path) {
-        String r = config.getVerawebEndpoint() + BASE_RESOURCE;
-        for (Object p : path) {
-            r += "/" + p;
-        }
-        return r;
+        return transporter;
     }
 
     /**
-     * Reads the resource at given path and returns the entity.
+     * Converting Event-Guest to EventTransporter to show data into the layout
      *
-     * @param path path
-     * @param type TypeReference of requested entity
-     * @param <T>  Type of requested entity
-     * @return requested resource
-     * @throws IOException
+     * @param guest
+     *            Guest
+     * @param event
+     *            Event
+     * @return EventTransporter
      */
-    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
-        WebResource resource;
-        try {
-            resource = client.resource(path);
-            String json = resource.get(String.class);
-            return mapper.readValue(json, type);
-        } catch (ClientHandlerException che) {
-            if (che.getCause() instanceof SocketTimeoutException) {
-                //FIXME some times open, pooled connections time out and generate errors
-//                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
-                resource = client.resource(path);
-                String json = resource.get(String.class);
-                return mapper.readValue(json, type);
-            } else {
-                throw che;
-            }
+    private EventTransporter createEventTransporter(Guest guest, Event event) {
+        EventTransporter transporter = new EventTransporter();
 
-        } catch (UniformInterfaceException uie) {
-//            log.warning(uie.getResponse().getEntity(String.class));
-            throw uie;
-        }
+        transporter.setDatebegin(event.getDatebegin());
+        transporter.setMessage(guest.getNotehost());
+        transporter.setShortname(event.getShortname());
+        transporter.setStatus(guest.getInvitationstatus());
+
+        return transporter;
+    }
+
+    private String path(Object... path) {
+        return resourceReader.constructPath(BASE_RESOURCE, path);
+    }
+
+    private <T> T readResource(String path, TypeReference<T> type) throws IOException {
+        return resourceReader.readStringResource(path, type);
     }
 }
