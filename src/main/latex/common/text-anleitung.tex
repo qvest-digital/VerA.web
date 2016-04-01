@@ -1111,7 +1111,7 @@ erhöhen müssen, da der Standardwert von \texttt{64m} nicht
 mehr ausreicht. Dies betrifft nur Java vor Version 8.
 
 \begin{minipage}{\textwidth}
-Hierzu fügen Sie z.B. folgende Zeile hinzu:
+Hierzu fügen Sie z.B. folgende Zeile hinzu (oder auch \texttt{256m}):
 
 \begin{lstdump}{Tomcat PermGen-Space}
 JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=128m"
@@ -3148,7 +3148,7 @@ JAVA_OPTS="-Djava.awt.headless=true 「-Xmx512m」 -XX:+UseConcMarkSweepGC"
 JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
 JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 # nur bei Java Version 7, nicht bei Java 8 oder neuer
-JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=96m"」
+JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=128m"」
 \end{lstdump}
 
 \else% !oa
