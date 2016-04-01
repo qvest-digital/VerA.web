@@ -1111,10 +1111,10 @@ erhöhen müssen, da der Standardwert von \texttt{64m} nicht
 mehr ausreicht. Dies betrifft nur Java vor Version 8.
 
 \begin{minipage}{\textwidth}
-Hierzu fügen Sie z.B. folgende Zeile hinzu (oder auch \texttt{128m}):
+Hierzu fügen Sie z.B. folgende Zeile hinzu:
 
 \begin{lstdump}{Tomcat PermGen-Space}
-JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=96m"
+JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=128m"
 \end{lstdump}
 \end{minipage}
 
