@@ -1947,7 +1947,7 @@ rm -rf online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉*
 \end{lstdump}
 \end{minipage}
 
-Danach können Sie mit \texttt{svstat /service/vwoa} festellen,
+Danach können Sie mit \texttt{sudo svstat /service/vwoa} festellen,
 daß der Dienst vor wenigen Sekunden gestartet wurde; siehe
 auch die Anleitung in Kapitel \nameref{subsec:intro-svc}.
 Unterhalb von \texttt{/var/log/vwoa/vwoa.log} finden Sie die
@@ -2557,7 +2557,7 @@ rm -f online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar
 \end{lstdump}
 \end{minipage}
 
-Mit dem Befehl \texttt{svstat /service/vwoa} sollten Sie
+Mit dem Befehl \texttt{sudo svstat /service/vwoa} sollten Sie
 danach festellen können, daß der Dienst vor wenigen Sekunden
 neugestartet wurde, aber nicht in eine Endlos-Neustartschleife
 läuft (also die Sekunden weiterhin hochgezählt werden; siehe
