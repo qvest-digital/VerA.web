@@ -21,7 +21,7 @@ public class EmailResource extends AbstractResource {
     private MailDispatcher mailDispatcher;
 
     @POST
-    @Path("/confirmation/sendVerificationEmail")
+    @Path("/confirmation/send")
     public void sendEmailVerification(
             @FormParam("email") String email,
             @FormParam("endpoint") String endpoint,
