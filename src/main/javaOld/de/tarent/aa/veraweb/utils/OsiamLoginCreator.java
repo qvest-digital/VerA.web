@@ -136,8 +136,8 @@ public class OsiamLoginCreator {
     private String generateShortUsername(final String firstname, final String lastname) {
         final CharacterPropertiesReader characterPropertiesReader = new CharacterPropertiesReader();
 
-        final String convertedFirstname = characterPropertiesReader.convertUmlauts(firstname);
-        final String convertedLastname = characterPropertiesReader.convertUmlauts(lastname);
+        final String convertedFirstname = characterPropertiesReader.convertUmlauts(firstname).replaceAll("\\s+", "");
+        final String convertedLastname = characterPropertiesReader.convertUmlauts(lastname).replaceAll("\\s+", "");
 
         String username = null;
         if (convertedLastname.length() >= 5) {

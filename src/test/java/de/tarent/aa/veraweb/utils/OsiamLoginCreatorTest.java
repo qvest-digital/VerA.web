@@ -105,6 +105,33 @@ public class OsiamLoginCreatorTest {
         assertEquals("mmuste1", username);
     }
 
+    
+    @Test
+    public void testGenerateUsernameNoWhitespace() throws Exception {
+        // GIVEN
+        OctopusContext oc = mock(OctopusContext.class);
+        AccessToken accessToken = mock(AccessToken.class);
+
+        // FIRST LOOP
+        SCIMSearchResult<User> scimUsersResults = mock(SCIMSearchResult.class);
+        Query query = new QueryBuilder().filter("userName eq \"hvande\"").attributes("id").build();
+        when(queryBuilder.filter("userName eq \"hvande\"")).thenReturn(queryBuilder);
+        when(queryBuilder.attributes("id")).thenReturn(queryBuilder);
+        when(queryBuilder.build()).thenReturn(query);
+        when(connector.searchUsers(query, accessToken)).thenReturn(scimUsersResults);
+        when(scimUsersResults.getTotalResults()).thenReturn(0l);
+
+        
+        when(connector.retrieveAccessToken(Scope.ALL)).thenReturn(accessToken);
+
+        // WHEN
+        String username = osiamLoginCreator.generateUsername("Henry", "Van de Velde", connector);
+
+        // THEN
+        assertEquals("hvande", username);
+    }
+    
+    
     @Test
     public void testGeneratePassword() throws Exception {
         for (int i = 0; i < 1000; i++) {
