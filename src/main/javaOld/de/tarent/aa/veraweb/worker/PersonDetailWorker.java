@@ -77,8 +77,8 @@ import java.util.Random;
 import java.util.UUID;
 
 /**
- * Octopus-Worker der Aktionen zur Detailansicht von Personen bereitstellt,
- * wie das {@link #showDetail(OctopusContext, Integer, Person) Laden} oder das
+ * Octopus-Worker der Aktionen zur Detailansicht von Personen bereitstellt, wie
+ * das {@link #showDetail(OctopusContext, Integer, Person) Laden} oder das
  * {@link #saveDetail(OctopusContext, Person) Speichern} von Daten.
  *
  * @author Christoph
@@ -109,17 +109,20 @@ public class PersonDetailWorker implements PersonConstants {
     // Octopus-Aktionen
     //
     /**
-     * Eingabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Person)}
+     * Eingabe-Parameter der Octopus-Aktion
+     * {@link #showDetail(OctopusContext, Integer, Person)}
      */
-    public static final String INPUT_showDetail[] = {"id", "person"};
+    public static final String INPUT_showDetail[] = { "id", "person" };
     /**
-     * Ausgabe-Parameter der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Person)}
+     * Ausgabe-Parameter der Octopus-Aktion
+     * {@link #showDetail(OctopusContext, Integer, Person)}
      */
     public static final String OUTPUT_showDetail = "person";
     /**
-     * Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Person)}
+     * Eingabe-Parameterzwang der Octopus-Aktion
+     * {@link #showDetail(OctopusContext, Integer, Person)}
      */
-    public static final boolean MANDATORY_showDetail[] = {false, false};
+    public static final boolean MANDATORY_showDetail[] = { false, false };
     private static Database database;
     private TransactionContext transactionalContext;
     private static Update updateEventStatement = SQL.Update(database).table("veraweb.tevent").update("fk_host", null).update("hostname", null);
@@ -133,18 +136,20 @@ public class PersonDetailWorker implements PersonConstants {
     /**
      * Diese Octopus Aktion nimmt die übergebene Person oder die Person zu der
      * übergebenen ID oder die Person zu der ID unter "person-id" in der Session
-     * und gibt sie zurück. Als Seiteneffekt wird (wenn die Person nicht null ist)
-     * im Octopus-Content unter "person-diplodatetime" ein Flag, ob das
-     * Akkreditierungsdatum einen Zeitanteil enthält, und die übergebene ID (falls
-     * die Person durch sie identifiziert wurde) in der Session unter "person-id"
-     * abgelegt.
+     * und gibt sie zurück. Als Seiteneffekt wird (wenn die Person nicht null
+     * ist) im Octopus-Content unter "person-diplodatetime" ein Flag, ob das
+     * Akkreditierungsdatum einen Zeitanteil enthält, und die übergebene ID
+     * (falls die Person durch sie identifiziert wurde) in der Session unter
+     * "person-id" abgelegt.
      *
-     * @param octopusContext Octopus-Kontext
-     * @param id             ID der Person
-     * @param person         Person
+     * @param octopusContext
+     *            Octopus-Kontext
+     * @param id
+     *            ID der Person
+     * @param person
+     *            Person
      */
-    public Person showDetail(OctopusContext octopusContext, Integer id, Person person)
-            throws BeanException, IOException {
+    public Person showDetail(OctopusContext octopusContext, Integer id, Person person) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
 
         if (person == null) {
@@ -163,8 +168,7 @@ public class PersonDetailWorker implements PersonConstants {
 
         /** BUGFIX: 18738 */
         if (person != null) {
-            octopusContext.setContent("person-diplodatetime",
-                    Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
+            octopusContext.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
         }
 
         Map map = (Map) octopusContext.sessionAsObject("statistikSettings");
@@ -173,10 +177,10 @@ public class PersonDetailWorker implements PersonConstants {
             octopusContext.setSession("statistikSettings", map);
         }
 
-		/*
+        /*
          * added for support of direct search result list navigation, see below
-		 * cklein 2008-03-12
-		 */
+         * cklein 2008-03-12
+         */
         this.restoreNavigation(octopusContext, person, database);
 
         setCurrentTimeForPersonInMap(person, map);
@@ -191,11 +195,9 @@ public class PersonDetailWorker implements PersonConstants {
 
     private void setCurrentTimeForPersonInMap(Person person, Map map) {
         /*
-         * modified to support a direct statistics access from the detail view as per the change request
-         * for version 1.2.0
-		 * cklein
-		 * 2008-02-21
-		 */
+         * modified to support a direct statistics access from the detail view
+         * as per the change request for version 1.2.0 cklein 2008-02-21
+         */
         map.put("statistik", "EventsGroupByGuest");
         Date d = new Date(System.currentTimeMillis());
 
@@ -207,8 +209,7 @@ public class PersonDetailWorker implements PersonConstants {
         map.put("begin", "01." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR));
     }
 
-    protected void restoreNavigation(OctopusContext octopusContext, Person person, Database database)
-            throws BeanException, IOException {
+    protected void restoreNavigation(OctopusContext octopusContext, Person person, Database database) throws BeanException, IOException {
         final String action = octopusContext.requestAsString("action");
         final Integer personId = octopusContext.requestAsInteger("id");
 
@@ -229,9 +230,8 @@ public class PersonDetailWorker implements PersonConstants {
         }
     }
 
-    private void fillNavigationWithPersonData(OctopusContext octopusContext, Person person, Database database,
-                                              final String action, final Integer personId, Select select)
-            throws SQLException {
+    private void fillNavigationWithPersonData(OctopusContext octopusContext, Person person, Database database, final String action,
+            final Integer personId, Select select) throws SQLException {
         Map<String, Map<String, Object>> navigation = new HashMap<String, Map<String, Object>>();
         Map<String, Object> entry = null;
 
@@ -254,8 +254,7 @@ public class PersonDetailWorker implements PersonConstants {
         octopusContext.setContent("navigation", navigation);
     }
 
-    private int setPersonMapSize(final Integer personId, Map<String, Map<String, Object>> navigation,
-                                 ResultList result, int size) {
+    private int setPersonMapSize(final Integer personId, Map<String, Map<String, Object>> navigation, ResultList result, int size) {
         int i;
         for (i = 0; i < size; i++) {
             Map cur = (Map) result.get(i);
@@ -312,7 +311,8 @@ public class PersonDetailWorker implements PersonConstants {
 
     private void setPersonsForNavigation(OctopusContext octopusContext, Select select) throws BeanException {
         // standard person list
-        // must navigate through all persons matching current search query filter
+        // must navigate through all persons matching current search query
+        // filter
         PersonListWorker w = WorkerFactory.getPersonListWorker(octopusContext);
         PersonSearch s = w.getSearch(octopusContext);
         w.extendWhere(octopusContext, select);
@@ -324,14 +324,15 @@ public class PersonDetailWorker implements PersonConstants {
         select.orderBy(Order.asc("tperson.lastname_a_e1").andAsc("tperson.firstname_a_e1"));
     }
 
-    private Select getPersonIdAndName(OctopusContext octopusContext, Database database, final String action,
-                                      final Integer personId) throws BeanException, IOException {
+    private Select getPersonIdAndName(OctopusContext octopusContext, Database database, final String action, final Integer personId)
+            throws BeanException, IOException {
         Select select;
-        //add the action and personId once again to the context
+        // add the action and personId once again to the context
         octopusContext.setContent("action", action);
         octopusContext.setContent("id", personId);
 
-        // must navigate through all persons matching duplicate search query filter
+        // must navigate through all persons matching duplicate search query
+        // filter
         PersonDuplicateSearchWorker w = WorkerFactory.getPersonDuplicateSearchWorker(octopusContext);
         // replaces the original select as it is very similar
         select = w.getSelect(database);
@@ -353,33 +354,32 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     /**
-     * Eingabe-Parameter der Octopus-Aktion {@link #copyPerson(OctopusContext, Integer)}
+     * Eingabe-Parameter der Octopus-Aktion
+     * {@link #copyPerson(OctopusContext, Integer)}
      */
-    public static final String INPUT_copyPerson[] = {"id"};
+    public static final String INPUT_copyPerson[] = { "id" };
     /**
-     * Eingabe-Parameterzwang der Octopus-Aktion {@link #copyPerson(OctopusContext, Integer)}
+     * Eingabe-Parameterzwang der Octopus-Aktion
+     * {@link #copyPerson(OctopusContext, Integer)}
      */
-    public static final boolean MANDATORY_copyPerson[] = {false};
+    public static final boolean MANDATORY_copyPerson[] = { false };
 
     /**
      * Kopiert die Personendaten, die der übergebenen ID zugeordnet sind oder
-     * sich im Octopus-Request unterhalb des Schlüssels "person" befinden,
-     * und stellt diese unter dem Schlüssel "person" und ein Flag, ob das
-     * Akkreditierungsdatum einen Zeitanteil enthält, unter "person-diplodatetime"
-     * in den Octopus-Content.<br>
+     * sich im Octopus-Request unterhalb des Schlüssels "person" befinden, und
+     * stellt diese unter dem Schlüssel "person" und ein Flag, ob das
+     * Akkreditierungsdatum einen Zeitanteil enthält, unter
+     * "person-diplodatetime" in den Octopus-Content.<br>
      * In der aktuellen Implementierung werden dabei neben den Teilpersonen- und
-     * Adressangaben in den Zusatzzeichensätzen lediglich folgende Felder
-     * auf <code>null</code> gesetzt:
-     * {@link Person#id},
-     * {@link Person#expire},
-     * {@link Person#created},
-     * {@link Person#createdby},
-     * {@link Person#changed},
-     * {@link Person#changedby} und
-     * {@link Person#importsource}.
+     * Adressangaben in den Zusatzzeichensätzen lediglich folgende Felder auf
+     * <code>null</code> gesetzt: {@link Person#id}, {@link Person#expire},
+     * {@link Person#created}, {@link Person#createdby}, {@link Person#changed},
+     * {@link Person#changedby} und {@link Person#importsource}.
      *
-     * @param octopusContext Octopus-Kontext
-     * @param id   Personen-ID
+     * @param octopusContext
+     *            Octopus-Kontext
+     * @param id
+     *            Personen-ID
      */
     public void copyPerson(OctopusContext octopusContext, Integer id) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
@@ -390,9 +390,7 @@ public class PersonDetailWorker implements PersonConstants {
         } else {
             Request request = new RequestVeraWeb(octopusContext);
             person = (Person) request.getBean("Person", "person");
-            DateHelper.addTimeToDate(person.diplodate_a_e1,
-                                     octopusContext.requestAsString("person-diplotime_a_e1"),
-                                     person.getErrors());
+            DateHelper.addTimeToDate(person.diplodate_a_e1, octopusContext.requestAsString("person-diplotime_a_e1"), person.getErrors());
         }
 
         person = createNewPersonOrClearData(database, person);
@@ -401,10 +399,10 @@ public class PersonDetailWorker implements PersonConstants {
         octopusContext.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
         octopusContext.setContent("originalPersonId", octopusContext.requestAsInteger("originalPersonId"));
 
-		/*
+        /*
          * added for support of direct search result list navigation, see below
-		 * cklein 2008-03-12
-		 */
+         * cklein 2008-03-12
+         */
         this.restoreNavigation(octopusContext, person, database);
     }
 
@@ -438,7 +436,8 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     /**
-     * Eingabe-Parameter der Octopus-Aktion {@link #showTestPerson(OctopusContext)}
+     * Eingabe-Parameter der Octopus-Aktion
+     * {@link #showTestPerson(OctopusContext)}
      */
     public static final String INPUT_showTestPerson[] = {};
 
@@ -450,14 +449,14 @@ public class PersonDetailWorker implements PersonConstants {
      * werden nur Daten zur Partnerperson ("only"), nur Daten zur Hauptperson
      * ("without") oder zu beiden (sonst) erzeugt.
      *
-     * @param octopusContext Octopus-Kontext
+     * @param octopusContext
+     *            Octopus-Kontext
      */
     public void showTestPerson(OctopusContext octopusContext) throws BeanException {
         String partner = octopusContext.requestAsString("partner");
         Person person = getTestPerson(partner);
         octopusContext.setContent("person", person);
-        octopusContext.setContent("person-diplodatetime",
-                Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
+        octopusContext.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
     }
 
     /**
@@ -470,10 +469,11 @@ public class PersonDetailWorker implements PersonConstants {
      * Person wird hierzu im Octopus-Content unter "person" und die ID des
      * Label-Dokumenttyps in der Konfiguration unter "freitextfeld" erwartet,
      * und der Dokumenttyp wird im Octopus-Content unter "doctype" abgelegt.<br>
-     * Wenn zu dieser Person noch kein entsprechender Eintrag existiert
-     * wird die einfache Form eines Dokumenttypens zurückgegeben.
+     * Wenn zu dieser Person noch kein entsprechender Eintrag existiert wird die
+     * einfache Form eines Dokumenttypens zurückgegeben.
      *
-     * @param octopusContext Octopus-Kontext
+     * @param octopusContext
+     *            Octopus-Kontext
      */
     public void getDoctype(OctopusContext octopusContext) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
@@ -481,47 +481,39 @@ public class PersonDetailWorker implements PersonConstants {
         Person person = (Person) octopusContext.contentAsObject("person");
         Integer freitextfeld = ConfigWorker.getInteger(octopusContext, "freitextfeld");
 
-
         PersonDoctype personDoctype = null;
         if (!(person == null || person.id == null || freitextfeld == null)) {
-            personDoctype = (PersonDoctype)
-                    database.getBean("PersonDoctype",
-                            database.getSelect("PersonDoctype").
-                                    join("veraweb.tdoctype", "fk_doctype", "tdoctype.pk").
-                                    selectAs("tdoctype.pk", "doctype").
-                                    selectAs("tdoctype.pk", "doctypeId").
-                                    selectAs("tdoctype.addresstype", "doctypeAddresstype").
-                                    selectAs("tdoctype.locale", "doctypeLocale").
-                                    selectAs("tdoctype.docname", "name").
-                                    where(Where.and(
-                                            Expr.equal("fk_person", person.id),
-                                            Expr.equal("fk_doctype", freitextfeld))));
+            personDoctype = (PersonDoctype) database.getBean("PersonDoctype",
+                    database.getSelect("PersonDoctype").join("veraweb.tdoctype", "fk_doctype", "tdoctype.pk").selectAs("tdoctype.pk", "doctype")
+                            .selectAs("tdoctype.pk", "doctypeId").selectAs("tdoctype.addresstype", "doctypeAddresstype")
+                            .selectAs("tdoctype.locale", "doctypeLocale").selectAs("tdoctype.docname", "name")
+                            .where(Where.and(Expr.equal("fk_person", person.id), Expr.equal("fk_doctype", freitextfeld))));
         }
         if (personDoctype != null) {
             octopusContext.setContent("doctype", personDoctype);
         } else if (freitextfeld != null) {
-            Doctype doctype = (Doctype)
-                    database.getBean("Doctype",
-                            database.getSelect("Doctype").
-                                    where(Expr.equal("pk", freitextfeld)));
+            Doctype doctype = (Doctype) database.getBean("Doctype", database.getSelect("Doctype").where(Expr.equal("pk", freitextfeld)));
             octopusContext.setContent("doctype", doctype);
         }
     }
 
     /**
-     * Eingabe-Parameter der Octopus-Aktion {@link #createExport(OctopusContext)}
+     * Eingabe-Parameter der Octopus-Aktion
+     * {@link #createExport(OctopusContext)}
      */
     public static final String INPUT_createExport[] = {};
 
     /**
      * Erstellt ein Personen-Etikett-Label, um damit in einer Textverarbeitung
-     * leicht einen Brief zu erstellen. Die Person wird hierzu im Octopus-Content
-     * unter "person", ein ({@link PersonDoctype Personen-}){@link Doctype Dokumenttyp}
-     * unter "doctype" und die ID des Label-Dokumenttyps (für den Fall, dass der
-     * Dokumenttyp nicht personalisiert wurde) in der Konfiguration unter "freitextfeld"
-     * erwartet, und das Erzeugnis wird im Octopus-Content unter "personExport" abgelegt.
+     * leicht einen Brief zu erstellen. Die Person wird hierzu im
+     * Octopus-Content unter "person", ein ({@link PersonDoctype Personen-})
+     * {@link Doctype Dokumenttyp} unter "doctype" und die ID des
+     * Label-Dokumenttyps (für den Fall, dass der Dokumenttyp nicht
+     * personalisiert wurde) in der Konfiguration unter "freitextfeld" erwartet,
+     * und das Erzeugnis wird im Octopus-Content unter "personExport" abgelegt.
      *
-     * @param octopusContext Octopus-Kontext
+     * @param octopusContext
+     *            Octopus-Kontext
      */
     public void createExport(OctopusContext octopusContext) throws BeanException, IOException {
         Person person = (Person) octopusContext.contentAsObject("person");
@@ -544,9 +536,8 @@ public class PersonDetailWorker implements PersonConstants {
         }
     }
 
-    private void setContentToFacades(OctopusContext octopusContext, Person person, Integer freitextfeld,
-                                     Integer addresstype, Integer locale, Object doctype)
-            throws BeanException, IOException {
+    private void setContentToFacades(OctopusContext octopusContext, Person person, Integer freitextfeld, Integer addresstype, Integer locale,
+            Object doctype) throws BeanException, IOException {
         String nl = "\n";
         StringBuffer buffer = new StringBuffer();
         PersonDoctypeFacade helper = new PersonDoctypeFacade(octopusContext, person);
@@ -558,8 +549,7 @@ public class PersonDetailWorker implements PersonConstants {
                 buffer.append(((PersonDoctype) doctype).textfield).append(nl);
             if (((PersonDoctype) doctype).textfieldJoin != null && ((PersonDoctype) doctype).textfieldJoin.length() > 0)
                 buffer.append(((PersonDoctype) doctype).textfieldJoin).append(nl);
-            if (((PersonDoctype) doctype).textfieldPartner != null &&
-                    ((PersonDoctype) doctype).textfieldPartner.length() > 0)
+            if (((PersonDoctype) doctype).textfieldPartner != null && ((PersonDoctype) doctype).textfieldPartner.length() > 0)
                 buffer.append(((PersonDoctype) doctype).textfieldPartner).append(nl).append(nl);
         } else {
             buffer.append(helper.getFreitext(freitextfeld, addresstype, locale, true)).append(nl);
@@ -578,11 +568,7 @@ public class PersonDetailWorker implements PersonConstants {
         // plz ort
         if (facade.getZipCode() != null)
             buffer.append(facade.getZipCode());
-        if (!(
-                facade.getZipCode() == null ||
-                        facade.getZipCode().length() == 0 ||
-                        facade.getCity() == null ||
-                        facade.getCity().length() == 0))
+        if (!(facade.getZipCode() == null || facade.getZipCode().length() == 0 || facade.getCity() == null || facade.getCity().length() == 0))
             buffer.append(' ');
         if (facade.getCity() != null)
             buffer.append(facade.getCity());
@@ -591,11 +577,8 @@ public class PersonDetailWorker implements PersonConstants {
         // plz postfach
         if (facade.getPOBoxZipCode() != null)
             buffer.append(facade.getPOBoxZipCode());
-        if (!(
-                facade.getPOBoxZipCode() == null ||
-                        facade.getPOBoxZipCode().length() == 0 ||
-                        facade.getPOBox() == null ||
-                        facade.getPOBox().length() == 0))
+        if (!(facade.getPOBoxZipCode() == null || facade.getPOBoxZipCode().length() == 0 || facade.getPOBox() == null
+                || facade.getPOBox().length() == 0))
             buffer.append(' ');
         if (facade.getPOBox() != null)
             buffer.append(facade.getPOBox());
@@ -615,19 +598,22 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     /**
-     * Eingabe-Parameter der Octopus-Aktion {@link #prepareSaveDetail(OctopusContext, Boolean)}
+     * Eingabe-Parameter der Octopus-Aktion
+     * {@link #prepareSaveDetail(OctopusContext, Boolean)}
      */
-    public static final String INPUT_prepareSaveDetail[] = {"saveperson"};
+    public static final String INPUT_prepareSaveDetail[] = { "saveperson" };
     /**
-     * Eingabe-Parameterzwang der Octopus-Aktion {@link #prepareSaveDetail(OctopusContext, Boolean)}
+     * Eingabe-Parameterzwang der Octopus-Aktion
+     * {@link #prepareSaveDetail(OctopusContext, Boolean)}
      */
-    public static final boolean MANDATORY_prepareSaveDetail[] = {false};
+    public static final boolean MANDATORY_prepareSaveDetail[] = { false };
 
     /**
-     * Diese Octopus-Aktion testet das übergebene Flag; falls es gesetzt
-     * ist, wird der Status "saveperson" gesetzt.
+     * Diese Octopus-Aktion testet das übergebene Flag; falls es gesetzt ist,
+     * wird der Status "saveperson" gesetzt.
      *
-     * @param octopusContext Octopus-Kontext
+     * @param octopusContext
+     *            Octopus-Kontext
      * @throws BeanException
      */
     public void prepareSaveDetail(OctopusContext octopusContext, Boolean saveperson) throws BeanException {
@@ -636,8 +622,8 @@ public class PersonDetailWorker implements PersonConstants {
         }
     }
 
-    public static final String INPUT_verify[] = {"person-nodupcheck"};
-    public static final boolean MANDATORY_verify[] = {false};
+    public static final String INPUT_verify[] = { "person-nodupcheck" };
+    public static final boolean MANDATORY_verify[] = { false };
 
     public void verify(final OctopusContext octopusContext, Boolean nodupcheck) throws BeanException {
         if (nodupcheck == null || (nodupcheck != null && !nodupcheck.booleanValue())) {
@@ -659,31 +645,35 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     /**
-     * Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)}
+     * Eingabe-Parameter der Octopus-Aktion
+     * {@link #saveDetail(OctopusContext, Person)}
      */
-    public static final String INPUT_saveDetail[] = {"person"};
+    public static final String INPUT_saveDetail[] = { "person" };
     /**
-     * Ausgabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)}
+     * Ausgabe-Parameter der Octopus-Aktion
+     * {@link #saveDetail(OctopusContext, Person)}
      */
     public static final String OUTPUT_saveDetail = "person";
     /**
-     * Eingabe-Parameterzwang der Octopus-Aktion {@link #saveDetail(OctopusContext, Person)}
+     * Eingabe-Parameterzwang der Octopus-Aktion
+     * {@link #saveDetail(OctopusContext, Person)}
      */
-    public static final boolean MANDATORY_saveDetail[] = {false};
+    public static final boolean MANDATORY_saveDetail[] = { false };
 
     /**
      * Diese Octopus-Aktions speichert die übergebenen Person oder die Person
-     * aus dem Octopus-Request unterhalb des Schlüssels "person" in der Datenbank.
-     * Hierbei werden gegebenenfalls änderungen im Latin-Zeichensatz in die anderen
-     * Zeichensätze übertragen.<br>
-     * Die gespeicherte Person wird zurückgegeben, "countInsert" oder "countUpdate"
-     * im Octopus-Content wird mit 1 und "person-diplodatetime" mit einem Flag, ob
-     * das Akkreditierungsdatum einen Zeitanteil hat, belegt, und die Werte unter
-     * "personTab", "personMemberTab", "personAddresstypeTab" und "personLocaleTab"
-     * im Octopus-Request werden unter den gleichen Schlüsseln in den -Content
-     * kopiert.
+     * aus dem Octopus-Request unterhalb des Schlüssels "person" in der
+     * Datenbank. Hierbei werden gegebenenfalls änderungen im Latin-Zeichensatz
+     * in die anderen Zeichensätze übertragen.<br>
+     * Die gespeicherte Person wird zurückgegeben, "countInsert" oder
+     * "countUpdate" im Octopus-Content wird mit 1 und "person-diplodatetime"
+     * mit einem Flag, ob das Akkreditierungsdatum einen Zeitanteil hat, belegt,
+     * und die Werte unter "personTab", "personMemberTab",
+     * "personAddresstypeTab" und "personLocaleTab" im Octopus-Request werden
+     * unter den gleichen Schlüsseln in den -Content kopiert.
      *
-     * @param octopusContext Octopus-Kontext
+     * @param octopusContext
+     *            Octopus-Kontext
      * @return die abgespeicherte Person
      */
     public Person saveDetail(final OctopusContext octopusContext, Person person) throws BeanException, IOException {
@@ -704,21 +694,22 @@ public class PersonDetailWorker implements PersonConstants {
             }
 
             if (person.isModified()) {
-            /* fix for bug 1013
-			 * cklein 2008-03-12
-			 */
+                /*
+                 * fix for bug 1013 cklein 2008-03-12
+                 */
                 person.verify(octopusContext);
                 if (!person.isCorrect()) {
                     octopusContext.setStatus("notcorrect");
 
                     // is this a new record?
                     if (person.id == null) {
-                    /*
-                     * 2009-06-08 cklein fixing issue with new persons losing
-                     * all state and data when entering an invalid date and
-                     * trying to store the person part of fix to issue #1529, as
-                     * it first showed up when testing the fixes to that issue
-                     */
+                        /*
+                         * 2009-06-08 cklein fixing issue with new persons
+                         * losing all state and data when entering an invalid
+                         * date and trying to store the person part of fix to
+                         * issue #1529, as it first showed up when testing the
+                         * fixes to that issue
+                         */
                         // we transfer the errors from the
                         // person to the template parameter newPersonErrors
                         octopusContext.setContent("newPersonErrors", person.getErrors());
@@ -731,20 +722,18 @@ public class PersonDetailWorker implements PersonConstants {
                     return person;
                 }
 
-			/* person was copied
-			 * fix for bug 1011
-			 * cklein 2008-03-12
-			 */
+                /*
+                 * person was copied fix for bug 1011 cklein 2008-03-12
+                 */
                 if (originalPersonId != null && originalPersonId > 0) {
                     person.setModified(true);
                 }
 
-			/*
-			 * added support for workarea assignment
-			 *
-			 * cklein
-			 * 2008-02-20
-			 */
+                /*
+                 * added support for workarea assignment
+                 *
+                 * cklein 2008-02-20
+                 */
                 person.workarea = octopusContext.requestAsInteger("workarea-id");
 
                 savePersonDetail(octopusContext, person, database, context, originalPersonId);
@@ -760,9 +749,8 @@ public class PersonDetailWorker implements PersonConstants {
         return person;
     }
 
-    private void savePersonDetail(final OctopusContext octopusContext, Person person, Database database,
-                                  TransactionContext transactionContext, Integer originalPersonId)
-            throws BeanException, IOException {
+    private void savePersonDetail(final OctopusContext octopusContext, Person person, Database database, TransactionContext transactionContext,
+            Integer originalPersonId) throws BeanException, IOException {
         Person personOld = null;
         if (person != null && person.id != null) {
             personOld = (Person) database.getBean("Person", person.id, transactionContext);
@@ -787,7 +775,8 @@ public class PersonDetailWorker implements PersonConstants {
         }
         transactionContext.commit();
 
-        // must reset the originalPersonId here, otherwise restoreNavigation will fail
+        // must reset the originalPersonId here, otherwise restoreNavigation
+        // will fail
         octopusContext.setContent("originalPersonId", (Integer) null);
 
         octopusContext.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
@@ -816,10 +805,8 @@ public class PersonDetailWorker implements PersonConstants {
             e1.setTimeInMillis(person.expire.getTime());
             e2.setTimeInMillis(personOld.expire.getTime());
 
-            boolean notModified =
-                    e1.get(Calendar.YEAR) == e2.get(Calendar.YEAR) &&
-                            e1.get(Calendar.MONTH) == e2.get(Calendar.MONTH) &&
-                            e1.get(Calendar.DAY_OF_MONTH) == e2.get(Calendar.DAY_OF_MONTH);
+            boolean notModified = e1.get(Calendar.YEAR) == e2.get(Calendar.YEAR) && e1.get(Calendar.MONTH) == e2.get(Calendar.MONTH)
+                    && e1.get(Calendar.DAY_OF_MONTH) == e2.get(Calendar.DAY_OF_MONTH);
 
             if (notModified && person.expire.getTime() < ty.getTimeInMillis()) {
                 person.expire = new Timestamp(ty.getTimeInMillis());
@@ -828,16 +815,14 @@ public class PersonDetailWorker implements PersonConstants {
         }
     }
 
-    private void createOrUpdatePerson(OctopusContext octopusContext, Person person, Database database,
-                                      TransactionContext transactionContext, Integer originalPersonId, Person personOld)
-            throws BeanException, IOException {
-        //Commented for Bugfix #19336
-        //checkConversionFromFirmaToPerson(person);
+    private void createOrUpdatePerson(OctopusContext octopusContext, Person person, Database database, TransactionContext transactionContext,
+            Integer originalPersonId, Person personOld) throws BeanException, IOException {
+        // Commented for Bugfix #19336
+        // checkConversionFromFirmaToPerson(person);
         AddressHelper.copyAddressData(octopusContext, person, personOld);
 
         /*
-         * modified to support change logging
-         * cklein 2008-02-12
+         * modified to support change logging cklein 2008-02-12
          */
         BeanChangeLogger clogger = new BeanChangeLogger(database, transactionContext);
         if (person.id == null) {
@@ -851,9 +836,8 @@ public class PersonDetailWorker implements PersonConstants {
         PersonDoctypeWorker.createPersonDoctype(octopusContext, database, transactionContext, person);
     }
 
-    private void updateExistingPerson(OctopusContext octopusContext, Person person, Database database,
-                                      TransactionContext transactionContext, Person personOld, BeanChangeLogger clogger)
-            throws BeanException, IOException {
+    private void updateExistingPerson(OctopusContext octopusContext, Person person, Database database, TransactionContext transactionContext,
+            Person personOld, BeanChangeLogger clogger) throws BeanException, IOException {
         octopusContext.setContent("countUpdate", new Integer(1));
         Update update = database.getUpdate(person);
         if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
@@ -869,9 +853,8 @@ public class PersonDetailWorker implements PersonConstants {
         clogger.logUpdate(octopusContext.personalConfig().getLoginname(), personOld, person);
     }
 
-    private void createNewPerson(OctopusContext octopusContext, Person person, Database database,
-                                 TransactionContext transactionContext, Integer originalPersonId,
-                                 BeanChangeLogger clogger) throws BeanException, IOException {
+    private void createNewPerson(OctopusContext octopusContext, Person person, Database database, TransactionContext transactionContext,
+            Integer originalPersonId, BeanChangeLogger clogger) throws BeanException, IOException {
         octopusContext.setContent("countInsert", new Integer(1));
         database.getNextPk(person, transactionContext);
         Insert insert = database.getInsert(person);
@@ -886,8 +869,8 @@ public class PersonDetailWorker implements PersonConstants {
         }
         transactionContext.execute(insert);
 
-        //Bug 1592 Wenn die person kopiert wurde, dann die Kategorien der
-        //original Person an neue Person kopieren
+        // Bug 1592 Wenn die person kopiert wurde, dann die Kategorien der
+        // original Person an neue Person kopieren
         if (originalPersonId != null && originalPersonId.intValue() != 0) {
             copyCategories(originalPersonId, person.id, database, transactionContext);
         }
@@ -895,46 +878,52 @@ public class PersonDetailWorker implements PersonConstants {
         clogger.logInsert(octopusContext.personalConfig().getLoginname(), person);
     }
 
-//	private void checkConversionFromFirmaToPerson(Person person) {
-//		if ((!person.company_a_e1.equals(null) || person.company_a_e1.equals(""))
-//				&& person.iscompany.equals("f")) {
-//			person.company_a_e1 = null;
-//		}
-//	}
-
+    // private void checkConversionFromFirmaToPerson(Person person) {
+    // if ((!person.company_a_e1.equals(null) || person.company_a_e1.equals(""))
+    // && person.iscompany.equals("f")) {
+    // person.company_a_e1 = null;
+    // }
+    // }
 
     /**
      * kopiert alle Kategorie-Relationen der original-Person an die new-Person
      *
-     * @param originalPersonId Id der original-Person
-     * @param newPersonId      Id der new-Person
-     * @param database         Datenbank
-     * @param transactionContext          Transaktionskontext der Datenbank
+     * @param originalPersonId
+     *            Id der original-Person
+     * @param newPersonId
+     *            Id der new-Person
+     * @param database
+     *            Datenbank
+     * @param transactionContext
+     *            Transaktionskontext der Datenbank
      * @throws IOException
      */
-    private void copyCategories(Integer originalPersonId, Integer newPersonId, Database database,
-                                TransactionContext transactionContext) throws IOException {
+    private void copyCategories(Integer originalPersonId, Integer newPersonId, Database database, TransactionContext transactionContext)
+            throws IOException {
         assert originalPersonId != null;
         assert newPersonId != null;
         assert database != null;
         assert transactionContext != null;
 
-        if (originalPersonId.equals(newPersonId)) return;
+        if (originalPersonId.equals(newPersonId))
+            return;
 
         Select select;
         try {
             select = database.getSelect("PersonCategorie").where(Expr.equal("fk_person", originalPersonId));
-            //order by geht auf andere Tabelle; ist nur fuer join gedacht
+            // order by geht auf andere Tabelle; ist nur fuer join gedacht
             select.orderBy(null);
             List result = database.getBeanList("PersonCategorie", select);
-            //if (result.isEmpty()) return;
+            // if (result.isEmpty()) return;
 
             Iterator i = result.iterator();
             while (i.hasNext()) {
                 PersonCategorie bean = (PersonCategorie) i.next();
                 bean.person = newPersonId;
-				/*obsolete, die vera-DB setzt den pk automatisch
-				database.getNextPk(bean, context);*/
+                /*
+                 * obsolete, die vera-DB setzt den pk automatisch
+                 * database.getNextPk(bean, context);
+                 */
                 Insert insert = database.getInsert(bean);
                 database.execute(insert);
             }
@@ -944,25 +933,29 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     /**
-     * Eingabe-Parameter der Octopus-Aktion {@link #updatePerson(OctopusContext, Person, Integer)}
+     * Eingabe-Parameter der Octopus-Aktion
+     * {@link #updatePerson(OctopusContext, Person, Integer)}
      */
-    public static final String INPUT_updatePerson[] = {"person", "person-id"};
+    public static final String INPUT_updatePerson[] = { "person", "person-id" };
     /**
-     * Eingabe-Parameterzwang der Octopus-Aktion {@link #updatePerson(OctopusContext, Person, Integer)}
+     * Eingabe-Parameterzwang der Octopus-Aktion
+     * {@link #updatePerson(OctopusContext, Person, Integer)}
      */
-    public static final boolean MANDATORY_updatePerson[] = {false, false};
+    public static final boolean MANDATORY_updatePerson[] = { false, false };
 
     /**
-     * Diese Octopus-Aktion aktualisiert die Historisierungsdaten der Person mit der
-     * übergebenen ID (es wird die übergebene genommen oder eine Instanz aus der DB
-     * geladen).
+     * Diese Octopus-Aktion aktualisiert die Historisierungsdaten der Person mit
+     * der übergebenen ID (es wird die übergebene genommen oder eine Instanz aus
+     * der DB geladen).
      *
-     * @param octopusContext     Octopus-Kontext
-     * @param person   Person; wird benutzt, falls sie die richtige ID hat
-     * @param personId Personen-ID
+     * @param octopusContext
+     *            Octopus-Kontext
+     * @param person
+     *            Person; wird benutzt, falls sie die richtige ID hat
+     * @param personId
+     *            Personen-ID
      */
-    public void updatePerson(OctopusContext octopusContext, Person person, Integer personId)
-            throws BeanException, IOException {
+    public void updatePerson(OctopusContext octopusContext, Person person, Integer personId) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
 
         if (person == null) {
@@ -995,8 +988,9 @@ public class PersonDetailWorker implements PersonConstants {
     /**
      * Diese Methode erzeugt eine Test-Person und liefert diese zurück.
      *
-     * @param partner bei "only" werden nur Daten zur Partnerperson, bei "without"
-     *                nur Daten zur Hauptperson und sonst Daten zu beiden erzeugt.
+     * @param partner
+     *            bei "only" werden nur Daten zur Partnerperson, bei "without"
+     *            nur Daten zur Hauptperson und sonst Daten zu beiden erzeugt.
      */
     public static Person getTestPerson(String partner) throws BeanException {
         Person person = new Person();
@@ -1033,7 +1027,8 @@ public class PersonDetailWorker implements PersonConstants {
     /**
      * Diese Methode füllt die Personen-Member-Facade mit Testwerten.
      *
-     * @param suffix Suffix für Text-wertige Attribute
+     * @param suffix
+     *            Suffix für Text-wertige Attribute
      */
     protected static void showTestPerson(PersonMemberFacade facade, String suffix) {
         facade.setBirthday(new Timestamp(System.currentTimeMillis()));
@@ -1052,7 +1047,8 @@ public class PersonDetailWorker implements PersonConstants {
     /**
      * Diese Methode füllt die Personen-Adress-Facade mit Testwerten.
      *
-     * @param suffix Suffix für Text-wertige Attribute
+     * @param suffix
+     *            Suffix für Text-wertige Attribute
      */
     protected static void showTestPerson(PersonAddressFacade facade, String suffix) {
         facade.setCity("Ort" + suffix);
@@ -1073,18 +1069,21 @@ public class PersonDetailWorker implements PersonConstants {
         facade.setState("Bundesland" + suffix);
     }
 
-
     /**
      * Diese Methode liefert eine aktuelle Personen-ID, wahlweise die übergebene
-     * oder die unter dem Schlüssel "person-id" in der Session. Falls die übergebene
-     * genommen wird, wird sie unter "person-id" in die Session geschrieben.<br>
+     * oder die unter dem Schlüssel "person-id" in der Session. Falls die
+     * übergebene genommen wird, wird sie unter "person-id" in die Session
+     * geschrieben.<br>
      * Die übergebene ID wird genutzt, wenn sie nicht <code>null</code> ist oder
      * der Parameter <code>forceset</code> <code>true</code> ist.
      *
-     * @param octopusContext     Octopus-Kontext
-     * @param id       neue aktuelle ID
-     * @param forceSet erzwingt das Nutzen der übergebenen ID, selbst wenn sie
-     *                 <code>null</code> ist.
+     * @param octopusContext
+     *            Octopus-Kontext
+     * @param id
+     *            neue aktuelle ID
+     * @param forceSet
+     *            erzwingt das Nutzen der übergebenen ID, selbst wenn sie
+     *            <code>null</code> ist.
      * @return die aktuelle Personen-ID
      */
     private Integer getPersonId(OctopusContext octopusContext, Integer id, boolean forceSet) {
@@ -1097,20 +1096,23 @@ public class PersonDetailWorker implements PersonConstants {
 
     /**
      * <p>
-     * Löscht eine Person aus der Tabelle <code>tperson</code>, wenn
-     * auf diese keine Referenzen mehr in <code>tguest</code> existieren.
-     * Dabei werden auch alle abhängigen Tabelleneinträge gelöscht.
+     * Löscht eine Person aus der Tabelle <code>tperson</code>, wenn auf diese
+     * keine Referenzen mehr in <code>tguest</code> existieren. Dabei werden
+     * auch alle abhängigen Tabelleneinträge gelöscht.
      * </p>
      * <p>
-     * Wenn entsprechende Einträge noch existieren, wird lediglich
-     * die Spalte <code>deleted</code> auf @link PersonConstants#DELETED_TRUE
-     * gesetzt, entsprechende Einträge werden bei der Suche, etc. nicht
-     * mehr berücksichtigt.
+     * Wenn entsprechende Einträge noch existieren, wird lediglich die Spalte
+     * <code>deleted</code> auf @link PersonConstants#DELETED_TRUE gesetzt,
+     * entsprechende Einträge werden bei der Suche, etc. nicht mehr
+     * berücksichtigt.
      * </p>
      *
-     * @param octopusContext     Aktueller Octopus Kontext
-     * @param person Die zu löschende Person
-     * @throws BeanException inkl. Datenbank-Fehler
+     * @param octopusContext
+     *            Aktueller Octopus Kontext
+     * @param person
+     *            Die zu löschende Person
+     * @throws BeanException
+     *             inkl. Datenbank-Fehler
      * @throws IOException
      */
     void removePerson(OctopusContext octopusContext, Person person, String username) throws BeanException, IOException {
@@ -1123,10 +1125,9 @@ public class PersonDetailWorker implements PersonConstants {
         executeUpdateStatements(person.id);
         transactionalContext.commit();
 
-		/*
-         * modified to support change logging
-		 * cklein 2008-02-12
-		 */
+        /*
+         * modified to support change logging cklein 2008-02-12
+         */
         BeanChangeLogger clogger = new BeanChangeLogger(database, transactionalContext);
         clogger.logDelete(octopusContext.personalConfig().getLoginname(), person);
     }
@@ -1144,9 +1145,11 @@ public class PersonDetailWorker implements PersonConstants {
     /**
      * Die Person wird nicht wirklich gelöscht, sondern als gelöscht markiert.
      *
-     * @param personid Die ID von der Person
+     * @param personid
+     *            Die ID von der Person
      *
-     * @throws BeanException Falls das update doch nicht funktioniert
+     * @throws BeanException
+     *             Falls das update doch nicht funktioniert
      */
     private void updatePerson(Integer personid) throws BeanException {
         final Statement fullDeletePersonStatement = deletePerson.where(Expr.equal("pk", personid));
@@ -1188,23 +1191,28 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     /**
-     * Eingabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)}
+     * Eingabe-Parameter der Octopus-Aktion
+     * {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)}
      */
-    public static final String INPUT_createOsiamUser[] = {"personId"};
+    public static final String INPUT_createOsiamUser[] = { "personId" };
     /**
-     * Ausgabe-Parameter der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)}
+     * Ausgabe-Parameter der Octopus-Aktion
+     * {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)}
      */
     public static final String OUTPUT_createOsiamUser = "person";
     /**
-     * Eingabe-Parameterzwang der Octopus-Aktion {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)}
+     * Eingabe-Parameterzwang der Octopus-Aktion
+     * {@link #createOsiamUser(OctopusContext, ExecutionContext, Person)}
      */
-    public static final boolean MANDATORY_createOsiamUser[] = {false};
+    public static final boolean MANDATORY_createOsiamUser[] = { false };
 
     /**
      * Creates an OSIAM user with random username and password.
      *
-     * @param octopusContext The {@link de.tarent.octopus.server.OctopusContext}
+     * @param octopusContext
+     *            The {@link de.tarent.octopus.server.OctopusContext}
      */
+    @SuppressWarnings("rawtypes")
     public Person createOsiamUser(OctopusContext octopusContext, Integer personId) throws BeanException, IOException {
 
         Person person = getPersonById(octopusContext, personId);
@@ -1228,6 +1236,20 @@ public class PersonDetailWorker implements PersonConstants {
 
             // Saving uuid to generate the reset-password url
             saveLinkUUID(personId, database);
+
+            try {
+                Object object = SQL.Select(database).from("veraweb.tperson").where(Expr.equal("pk", person.id)).add("username", String.class)
+                        .getList(database).get(0);
+                if (!username.equals(object)) {
+                    throw new RuntimeException("Somehow the username was not persisted?!");
+                }
+                if (SQL.Select(database).from("veraweb.link_uuid").select("pk").where(Expr.equal("personid", person.id)).getList(database).size() != 1) {
+                    throw new RuntimeException("Somehow the link was not persisted?!");
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
             octopusContext.setContent("osiam-user-created", true);
         } else {
             octopusContext.setContent("osiam-user-exists", true);
@@ -1243,20 +1265,18 @@ public class PersonDetailWorker implements PersonConstants {
      * @throws BeanException
      * @throws IOException
      */
-    private void saveLinkUUID(Integer personId, Database database)
-            throws BeanException, IOException {
-        database.execute(SQL.Insert(database).
-                table("veraweb.link_uuid").
-                insert("uuid", getNewPersonUUID()).
-                insert("linktype", LinkType.PASSWORDRESET.getText()).
-                insert("personid", personId));
+    private void saveLinkUUID(Integer personId, Database database) throws BeanException, IOException {
+        database.execute(SQL.Insert(database).table("veraweb.link_uuid").insert("uuid", getNewPersonUUID())
+                .insert("linktype", LinkType.PASSWORDRESET.getText()).insert("personid", personId));
     }
 
     /**
      * Deletes an OSIAM user with the given username.
      *
-     * @param octopusContext     The {@link de.tarent.octopus.server.OctopusContext}
-     * @param username The username
+     * @param octopusContext
+     *            The {@link de.tarent.octopus.server.OctopusContext}
+     * @param username
+     *            The username
      */
     public void deleteOsiamUser(OctopusContext octopusContext, String username) {
         if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
@@ -1267,27 +1287,21 @@ public class PersonDetailWorker implements PersonConstants {
         }
     }
 
-    private void updateUsernameInVeraweb(OctopusContext octopusContext, Person person)
-            throws BeanException, IOException {
+    private void updateUsernameInVeraweb(OctopusContext octopusContext, Person person) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
 
-        database.execute(SQL.Update(database).
-                table("veraweb.tperson").
-                update("username", person.username).
-                where(Expr.equal("pk", person.id)));
+        database.execute(SQL.Update(database).table("veraweb.tperson").update("username", person.username).where(Expr.equal("pk", person.id)));
     }
 
     private Boolean hasUsername(OctopusContext octopusContext, Integer personId) throws BeanException, IOException {
 
         final Database database = new DatabaseVeraWeb(octopusContext);
-        Integer counter = database.getCount(database.getCount("Person").
-                                    where(Where.and(Expr.equal("pk", personId), Expr.isNotNull("username"))));
+        Integer counter = database.getCount(database.getCount("Person").where(Where.and(Expr.equal("pk", personId), Expr.isNotNull("username"))));
 
         return (counter == 1);
     }
 
-    private Person getPersonById(OctopusContext octopusContext, Integer personId)
-            throws BeanException, IOException {
+    private Person getPersonById(OctopusContext octopusContext, Integer personId) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
         Person person = (Person) database.getBean("Person", personId);
         return person;
@@ -1313,22 +1327,13 @@ public class PersonDetailWorker implements PersonConstants {
     private OsiamConnector getConnector() {
         final Properties properties = getProperties();
 
-        final OsiamConnector connector = new OsiamConnector.Builder()
-                .setClientRedirectUri(
-                        properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
-                .setClientSecret(
-                        properties.getProperty(OSIAM_CLIENT_SECRET))
-                .setClientId(properties.getProperty(OSIAM_CLIENT_ID))
-                .setAuthServerEndpoint(
-                        properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
-                .setResourceServerEndpoint(
-                        properties
-                                .getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
-                .build();
+        final OsiamConnector connector = new OsiamConnector.Builder().setClientRedirectUri(properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
+                .setClientSecret(properties.getProperty(OSIAM_CLIENT_SECRET)).setClientId(properties.getProperty(OSIAM_CLIENT_ID))
+                .setAuthServerEndpoint(properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
+                .setResourceServerEndpoint(properties.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT)).build();
 
         return connector;
     }
-
 
     /**
      * New hash for persons
