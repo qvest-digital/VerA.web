@@ -1,4 +1,4 @@
-onlineRegApp.controller('LoginController', function ($scope, $location, $http, $rootScope, $translate, $routeParams) {
+module.exports = function($scope, $location, $http, $rootScope, $translate, $routeParams, param) {
     //setStatus will be set to 1 by RegisterUserController, if
     //registering was successful
     if(setStatus == 1|| setStatus==42) {
@@ -16,7 +16,7 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
             method: 'POST',
             url: 'api/idm/login/' + encodeURIComponent($scope.username),
             headers: {"Content-Type" : undefined},
-            data: $.param({
+            data: param({
                 password: $scope.password,
                 delegation: $routeParams.delegation
             })
@@ -68,4 +68,4 @@ onlineRegApp.controller('LoginController', function ($scope, $location, $http, $
           //confirm msg
         }
     }
-});
+};

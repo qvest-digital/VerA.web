@@ -1,4 +1,4 @@
-onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $rootScope, $location) {
+module.exports = function($scope, $http, $rootScope, $location) {
     $scope.success = null;
     $scope.error = null;
     $rootScope.cleanMessages();
@@ -13,4 +13,4 @@ onlineRegApp.controller('VeranstaltungsController', function ($scope, $http, $ro
             $scope.events = result;
         });
     }
-});
+};

@@ -1,4 +1,4 @@
-onlineRegApp.controller('UpdateController', function($scope, $rootScope, $location, $routeParams, $http, $translate) {
+module.exports = function($scope, $rootScope, $location, $routeParams, $http, $translate, param) {
     if ($rootScope.user_logged_in == null) {
 
         $scope.setNextPage('register/' + $routeParams.eventId);
@@ -39,7 +39,7 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
                 method: 'POST',
                 url: 'api/update/' + $routeParams.eventId + '/update',
                 headers: {"Content-Type" : undefined},
-                data: $.param({
+                data: param({
                         notehost: $scope.noteToHost,
                         invitationstatus: $scope.acceptance.id
                 })
@@ -59,4 +59,4 @@ onlineRegApp.controller('UpdateController', function($scope, $rootScope, $locati
             });
         }
     }
-});
+};

@@ -1,11 +1,11 @@
-onlineRegApp.controller('UserRefreshActivationController', function($http, $scope, $rootScope, $routeParams, $location, $translate) {
+module.exports = function($http, $scope, $rootScope, $routeParams, $location, $translate, param) {
     var resetUserActivationUrl = 'api/user/update/activation/data';
     $location.path('/login');
     $http({
         method: 'POST',
         url: resetUserActivationUrl,
         headers: {"Content-Type" : undefined},
-        data: $.param({
+        data: param({
             activation_token: $routeParams.activation_token,
             language: $translate.use()
         })
@@ -20,4 +20,4 @@ onlineRegApp.controller('UserRefreshActivationController', function($http, $scop
           $rootScope.error = text;
       });
     });
-});
+};

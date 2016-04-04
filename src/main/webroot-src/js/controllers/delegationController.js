@@ -1,4 +1,4 @@
-onlineRegApp.controller('DelegationController', function ($scope, $http, $rootScope, $location, $routeParams, $translate, $route, $timeout, $anchorScroll) {
+module.exports = function($scope, $http, $rootScope, $location, $routeParams, $translate, $route, $timeout, $anchorScroll, param) {
     $rootScope.cleanMessages();
     $rootScope.cleanImageControls();
 
@@ -203,7 +203,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                 headers: {
                     "Content-Type": undefined
                 },
-                data: $.param({
+                data: param({
                     file: $scope.image,
                     imgUUID: $scope.imgUUID
                 })
@@ -312,7 +312,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                             "Content-Type": undefined
                         },
 
-                        data: $.param({
+                        data: param({
                             firstname: $scope.vorname,
                             lastname: $scope.nachname,
                             gender: $scope.gender.name,
@@ -478,7 +478,7 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
                 method: 'POST',
                 url: 'api/delegation/'+ $routeParams.uuid + '/fields/save',
                 headers: {"Content-Type" : undefined},
-                data: $.param({
+                data: param({
                     fields: JSON.stringify($scope.labellist),
                     personId: $scope.targetPersonId
                 })
@@ -491,4 +491,4 @@ onlineRegApp.controller('DelegationController', function ($scope, $http, $rootSc
             });
         }
     }
-});
+};

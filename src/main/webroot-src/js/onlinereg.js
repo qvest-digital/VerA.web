@@ -1,21 +1,68 @@
 /**
  * Created by mley on 21.07.14.
  */
+var angular = require('angular');
+var bulk = require('bulk-require');
+var moment = require('moment');
+var param = require('jquery-param');
+var controllers = bulk(__dirname, ['controllers/*.js']).controllers;
+//there are some misbehaving angular modules that require us to 
+//get them via bower through the debowerify transform.... sigh....
 
-var onlineRegApp = angular.module('onlineRegApp', [
-    'ngRoute',
-    'ngMaterial',
-    'ngMessages',
-    'ngAnimate',
-    'ngAria',
-    'pascalprecht.translate',
-    'ui.bootstrap',
+//ng-flow expects a global variable Flow. Welcome to the ninetees :-&
+window.Flow = require('flow.js');
+var NGFlow = require('ng-flow');
+
+var app = angular.module('onlineRegApp', [
+    require('angular-route'),
+    require('angular-material'),
+    require('angular-messages'),
+    require('angular-animate'),
+    require('angular-aria'),
+    require('angular-bootstrap-npm'),
+    require('angular-translate'),
+    require('angular-translate-loader-static-files'),
+    //the following few are do not quite follow the usual conventions
+    //let's just hope everything works.
     'flow',
     'flow.img',
     'flow.init',
-    'flow.provider' ]);
+    'flow.provider' 
+    
+]);
+//register controllers
+/*
+[
+  'DelegationController',
+  'DirectLoginController',
+  'EventController',
+  'FreeVisitorController',
+  'KontaktdatenController',
+  'LanguageSelectController',
+  'LoginController',
+  'MediaController',
+  'MediaRepresentativeActivationController',
+  'PageNotFoundController',
+  'RegisterController',
+  'RegisterUserController',
+  'ResetPasswordController',
+  'UpdateController',
+  'UserActivationController',
+  'UserResetActivationController',
+  'VeranstaltungsController'
+].forEach(function(name){
+  var modulePath = "./controllers/"+name.substring(0,1).toLowerCase()+name.substring(1);
+  app.controller(name,require(modulePath));
+});
+*/
 
-onlineRegApp.run(function ($rootScope) {
+Object.keys(controllers).forEach(function(fileName){
+  var controllerName = fileName.substring(0,1).toUpperCase()+fileName.substring(1);
+  app.controller(controllerName,controllers[fileName]);
+});
+
+
+app.run(function ($rootScope) {
     $rootScope.parseDate = function (dt) {
             return moment(dt).toDate();
     };
@@ -41,7 +88,9 @@ onlineRegApp.run(function ($rootScope) {
     setStatus = null;
 });
 
-onlineRegApp.config(function ($routeProvider, $translateProvider) {
+
+
+app.config(function ($routeProvider, $translateProvider) {
     $routeProvider.when('/login', {
         templateUrl: 'partials/login.html',
         controller: 'LoginController'
@@ -109,7 +158,7 @@ onlineRegApp.config(function ($routeProvider, $translateProvider) {
 });
 
 
-onlineRegApp.config(['flowFactoryProvider', function (flowFactoryProvider) {
+app.config(['flowFactoryProvider', function (flowFactoryProvider) {
     flowFactoryProvider.defaults = {
         permanentErrors: [404, 500, 501],
         maxChunkRetries: 1,
@@ -120,11 +169,11 @@ onlineRegApp.config(['flowFactoryProvider', function (flowFactoryProvider) {
 }]);
 
 //Datepicker configuration
-onlineRegApp.config(function($mdDateLocaleProvider) {
+app.config(function($mdDateLocaleProvider) {
     $mdDateLocaleProvider.firstDayOfWeek = 1;
 });
 
-onlineRegApp.directive('equals', function() {
+app.directive('equals', function() {
     return {
         restrict: 'A',
         require: '?ngModel',
@@ -148,8 +197,10 @@ onlineRegApp.directive('equals', function() {
         }
     }
 });
-
-onlineRegApp.factory("vwoa", function($rootScope, $location, $timeout, $translate){
+app.factory("param", function(){
+  return param;
+});
+app.factory("vwoa", function($rootScope, $location, $timeout, $translate){
     var UnexpectedStatusError =  function(expectedStatus,actualStatus){
         this.expectedStatus=expectedStatus;
         this.status=actualStatus;

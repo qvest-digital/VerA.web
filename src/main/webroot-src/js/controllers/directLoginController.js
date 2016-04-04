@@ -1,5 +1,4 @@
-onlineRegApp.controller('DirectLoginController',
-                        function ($scope, $location, $http, $rootScope, $translate, $routeParams) {
+module.exports = function($scope, $location, $http, $rootScope, $translate, $routeParams, param) {
     $scope.button = false;
     $rootScope.cleanMessages();
 
@@ -32,7 +31,7 @@ onlineRegApp.controller('DirectLoginController',
             method: 'POST',
             url: 'api/idm/login/' + encodeURIComponent($scope.directusername),
             headers: {"Content-Type" : undefined},
-            data: $.param({
+            data: param({
                     password: $scope.directpassword,
                     delegation: $routeParams.delegation
             })
@@ -80,4 +79,4 @@ onlineRegApp.controller('DirectLoginController',
     $scope.setNextPage = function(value) {
         $scope.nextPage = "/" + value;
     }
-});
+};

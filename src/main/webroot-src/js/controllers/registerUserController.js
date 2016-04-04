@@ -1,4 +1,4 @@
-onlineRegApp.controller('RegisterUserController', function($scope, $http, $location, $rootScope, $translate) {
+module.exports = function($scope, $http, $location, $rootScope, $translate, param) {
     $scope.success = null;
     $scope.error = null;
     $rootScope.cleanMessages();
@@ -11,7 +11,7 @@ onlineRegApp.controller('RegisterUserController', function($scope, $http, $locat
             method: 'POST',
             url: 'api/user/register/' + encodeURIComponent($scope.osiam.userName) + '',
                 headers: {"Content-Type" : undefined},
-                data: $.param({
+                data: param({
                 osiam_firstname: $scope.osiam.firstName,
                 osiam_secondname: $scope.osiam.lastName,
                 osiam_password1: $scope.osiam.password,
@@ -48,4 +48,4 @@ onlineRegApp.controller('RegisterUserController', function($scope, $http, $locat
             $scope.status = 'e';
         });
     };
-});
+};

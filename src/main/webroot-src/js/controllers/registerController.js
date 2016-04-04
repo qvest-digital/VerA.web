@@ -1,4 +1,4 @@
-onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $location, $routeParams, $http, $translate) {
+module.exports = function($scope, $rootScope, $location, $routeParams, $http, $translate, param) {
     $scope.success = null;
     $scope.error = null;
     $scope.registerButton = true;
@@ -61,7 +61,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
                     method: 'POST',
                     url: 'api/event/' + $routeParams.eventId + '/register',
                     headers: {"Content-Type" : undefined},
-                    data: $.param({
+                    data: param({
                         notehost: $scope.noteToHost,
                         guestStatus: $scope.guestStatus
                     })
@@ -90,7 +90,7 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
                     method: 'POST',
                     url: 'api/event/' + $routeParams.eventId + '/register/nologin',
                     headers: {"Content-Type" : undefined},
-                    data: $.param({
+                    data: param({
                         notehost: $scope.noteToHost,
                         noLoginRequiredUUID: $scope.noLoginRequiredUUID
                     })
@@ -112,4 +112,4 @@ onlineRegApp.controller('RegisterController', function ($scope, $rootScope, $loc
 
         }
     }
-});
+};

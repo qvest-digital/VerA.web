@@ -1,4 +1,4 @@
-onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, $location, $routeParams, $translate) {
+module.exports = function($scope, $http, $rootScope, $location, $routeParams, $translate, param) {
     $scope.success = null;
     $scope.error = null;
 
@@ -33,7 +33,7 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
                         method: 'POST',
                         url: 'api/media/' + $routeParams.uuid + '/register',
                         headers: {"Content-Type" : undefined},
-                        data: $.param({
+                        data: param({
                                 nachname: $scope.lastname,
                                 vorname: $scope.firstname,
                                 gender: $scope.gender.label,
@@ -102,4 +102,4 @@ onlineRegApp.controller('MediaController', function ($scope, $http, $rootScope, 
     else {
         $location.path('/veranstaltungen');
     }
-});
+};

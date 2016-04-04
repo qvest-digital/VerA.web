@@ -1,4 +1,4 @@
-onlineRegApp.controller('UserActivationController', function($http, $scope, $rootScope, $routeParams, $location, $translate, vwoa) {
+module.exports = function($http, $scope, $rootScope, $routeParams, $location, $translate, vwoa) {
     var activateUserUrl = 'api/user/activate/' + $routeParams.activation_token
     $http({
         method: 'GET',
@@ -16,4 +16,4 @@ onlineRegApp.controller('UserActivationController', function($http, $scope, $roo
             LINK_EXPIRED: '/login'
         })
     );
-});
+};

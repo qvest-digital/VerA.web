@@ -1,4 +1,4 @@
-onlineRegApp.controller('ResetPasswordController', function($http, $scope, $routeParams, $location, $rootScope, $translate, $timeout, vwoa) {
+module.exports = function($http, $scope, $routeParams, $location, $rootScope, $translate, $timeout, vwoa, param) {
     $scope.resetPassword = function() {
         if ($scope.resetPasswordForm.password.$viewValue != $scope.resetPasswordForm.passwordRepeat.$viewValue) {
             $translate('REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR').then(function (text) {
@@ -10,7 +10,7 @@ onlineRegApp.controller('ResetPasswordController', function($http, $scope, $rout
                 method: 'POST',
                 url: 'api/reset/password/' + $routeParams.uuid,
                 headers: {"Content-Type" : undefined},
-                data: $.param({
+                data: param({
                     password: $scope.resetPasswordForm.password.$viewValue
                 })
             })
@@ -21,4 +21,4 @@ onlineRegApp.controller('ResetPasswordController', function($http, $scope, $rout
             );
         }
     }
-});
+};
