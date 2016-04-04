@@ -30,7 +30,6 @@
 % • (em dash) → \dash
 %-
 % TODO:
-% - neuer Mail-Kram
 % - Unterkapitel "Securing OSIAM", mit den Berlinern zusammen, nach der Schnellinstallation
 
 \ifupgradeanleitung
@@ -51,7 +50,7 @@
  {\vwiaversfassungnr}{\vwiaversfassungmonat}{\vwiaversfassungjahr}{veraweblogo}
 
 % uncomment if this is a WIP that should not be published
-\fancyfoot[RO,LE]{\leavevmode\usekomafont{pageheadfoot}⚠ Work in Progress, do not use}
+%\fancyfoot[RO,LE]{\leavevmode\usekomafont{pageheadfoot}⚠ Work in Progress, do not use}
 
 \input{toc.tex}
 
@@ -1576,8 +1575,8 @@ benutzen zu können. Dies sind insbesondere die folgenden Parameter:\keinumbruch
 
 \begin{minipage}{\textwidth}
 Legen Sie ein neues Verzeichnis \texttt{/etc/veraweb} mit einem
-Unterverzeichnis \texttt{l10n} an und kopieren Sie die Konfigurations-
-und Sprachdateien dorthin:
+Unterverzeichnis \texttt{l10n} an und kopieren Sie die
+Konfigurationsdateien dorthin:
 
 \begin{lstdump}{/etc/veraweb fuellen}
 sudo mkdir -p /etc/veraweb/l10n
@@ -1585,9 +1584,12 @@ sudo chown 0:tomcat7 /etc/veraweb
 sudo chmod 2750 /etc/veraweb
 sudo install -c -o 0 -g tomcat7 -m 640 config_*.xml /etc/veraweb/
 sudo install -c -o 0 -g tomcat7 -m 640 *.properties /etc/veraweb/
-sudo install -c -o 0 -g 0 -m 644 l10n/*.resource /etc/veraweb/l10n/
 \end{lstdump}
 \end{minipage}
+
+Im Verzeichnis \texttt{/etc/veraweb/l10n} können Anpassungen an
+den Übersetzungen abgelegt werden. %Das entsprechende Vorgehen wird
+%in \nameref{sec:l10n} beschrieben.
 
 Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat7}
 einige Zeilen ein, um weitere JVM-Startoptionen zu setzen.
@@ -2413,6 +2415,23 @@ erhalten bleibt.
 
 \fi% oa
 
+\subsection{Upgrade von Versionen vor 1.8.27}\label{subsec:upgrade-1827}
+
+\begin{minipage}{\textwidth}
+In der Version 1.8 wurden die Übersetzungsdateien des Core in die
+\texttt{war}-Datei integriert. Wenn keine Anpassungen an diesen Dateien
+gemacht wurden, müssen diese entfernt werden.
+
+\begin{lstdump}{Sprachdateien entfernen}
+sudo rm -f /etc/veraweb/l10n/*
+\end{lstdump}
+\end{minipage}
+
+\iffalse
+Wenn Anpassungen gemacht wurden, müssen diese entsprechend angepasst
+werden, wie es in \nameref{sec:l10n} beschrieben ist.
+\fi
+
 \subsection{Upgrade von Debian 7 „wheezy“ auf Debian 8 „jessie“}
 
 Nachdem Sie das System regulär auf die neue Version von Debian
@@ -2776,6 +2795,35 @@ nur werden bei den Veranstaltungen deaktivierter Mandaten die Links zur Online-A
 nicht mehr angezeigt.
 
 \fi% oa
+
+\iffalse% nach der Auslieferung zu diskutieren
+\section{Anpassung der Sprachdateien}\label{sec:l10n}
+
+Seit Version 1.8.27 ist das Anpassen der Sprachdateien vereinfacht.
+Die Standardübersetzungen sind jetzt fest in der \texttt{war}-Datei
+des Cores enthalten. Individuelle Anpassungen können in
+externen Dateien vorgenommen werden.
+
+Dazu schaut man sich die original Übersetzungsdateien im Verzeichnis
+\texttt{l10n} des \texttt{veraweb-core-\vwiaverssw{}-files.tgz}-Archives
+an. Die Datei mit den englischen Texten heißt beispielsweise
+\texttt{en\_EN.resource}. Darin sucht man sich den Text, den man
+anpassen will, z.B. \texttt{MENU\_PERSONS=people}. Der Teil vor dem
+\texttt{=} entspricht dabei dem Schlüssel, über den die Software den
+Text sucht und der hintere Teil ist der ensprechende Text. Es darf
+immer nur ein Text pro Zeile stehen.
+
+Nun legt man eine Datei \texttt{en\_EN.resource} im Verzeichnis
+\texttt{/etc/veraweb/l10n} an und fügt die eigene Anpassung dort ein.
+Passend zu unserem Beispiel könnte der Inhalt der Datei so aussehen:
+
+\begin{lstdumpx}
+MENU_PERSONS=People
+\end{lstdumpx}
+
+Tiefgreifendere Änderungen können über den Service- und Wartungsvertrag
+erledigt werden.
+\fi
 
 \section{Weitere Fragen}\label{sec:outro}
 
