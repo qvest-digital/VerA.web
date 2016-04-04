@@ -82,6 +82,8 @@
   "USER_PASSWORD_CHANGE": "Change password",
   "USER_PASSWORD_CHANGE_FAILED_MESSAGE": "Passwords do not match!",
   "USER_PASSWORD_CHANGE_SUCCESS_MESSAGE": "Your password has been changed successfully!",
+  "USER_PASSWORD_CHANGE_FAILED": "Changing password failed!",
+
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Sign up for the event",
   "MEDIA_REPRESENTATIVES_TITLE": "Register as media representative:",
   "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE": "Your registration was submited. Please confirm your registration, you received an email.",

@@ -33,6 +33,7 @@ import org.osiam.client.OsiamConnector;
 import org.osiam.client.oauth.AccessToken;
 import org.osiam.client.oauth.Scope;
 import org.osiam.resources.scim.Name;
+import org.osiam.resources.scim.UpdateUser;
 import org.osiam.resources.scim.User;
 
 import javax.servlet.ServletContext;
@@ -43,6 +44,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * This class is used for password reset actions (for example: reset password).
@@ -105,10 +107,22 @@ public class ResetPasswordResource {
         final Person person = getPerson(resourceReader, userId);
         final String username = person.getUsername();
 
-        deleteOsiamUser(username);
-        createOsiamUser(username, password);
+        return updateOsiamUser(username, password);
+    }
 
-        return StatusConverter.convertStatus("OK");
+    private String updateOsiamUser(String username, String password){
+        final OsiamClient osiamClient = config.getOsiam().getClient(client);
+        final OsiamConnector osiamConnector = osiamClient.getConnector();
+        final AccessToken accessToken = osiamConnector.retrieveAccessToken(Scope.ALL);
+        final String accessTokenAsString = accessToken.getToken();
+        try {
+            final User user = osiamClient.getUser(accessTokenAsString, username);
+            final UpdateUser updateUser = new UpdateUser.Builder().updatePassword(password).build();
+            osiamConnector.updateUser(user.getId(), updateUser, accessToken);
+            return StatusConverter.convertStatus("OK");
+        } catch (IOException e) {
+            return StatusConverter.convertStatus("GETTING_USER_FAILED");
+        }
     }
 
     private Person getPerson(ResourceReader resourceReader, Integer userId) throws IOException {
@@ -121,25 +135,25 @@ public class ResetPasswordResource {
         return resourceReader.readStringResource(pathForUserId, INTEGER);
     }
 
-    private void createOsiamUser(String username, String password) throws IOException {
-        final OsiamClient osiamClient = config.getOsiam().getClient(client);
-        final String accessTokenAsString = osiamClient.getAccessTokenClientCred("GET", "POST");
-
-        final User user = new User.Builder(username)
-                .setName(new Name.Builder().build())
-                .setPassword(password)
-                .setActive(true)
-                .build();
-
-        osiamClient.createUser(accessTokenAsString, user);
-    }
-
-    private void deleteOsiamUser(String username) throws IOException {
-        final OsiamClient osiamClient = config.getOsiam().getClient(client);
-        final OsiamConnector osiamConnector = osiamClient.getConnector();
-        final AccessToken accessToken = osiamConnector.retrieveAccessToken(Scope.ALL);
-        final String accessTokenAsString = accessToken.getToken();
-        final User user = osiamClient.getUser(accessTokenAsString, username);
-        osiamConnector.deleteUser(user.getId(), accessToken);
-    }
+//    private void createOsiamUser(String username, String password) throws IOException {
+//        final OsiamClient osiamClient = config.getOsiam().getClient(client);
+//        final String accessTokenAsString = osiamClient.getAccessTokenClientCred("GET", "POST");
+//
+//        final User user = new User.Builder(username)
+//                .setName(new Name.Builder().build())
+//                .setPassword(password)
+//                .setActive(true)
+//                .build();
+//
+//        osiamClient.createUser(accessTokenAsString, user);
+//    }
+//
+//    private void deleteOsiamUser(String username) throws IOException {
+//        final OsiamClient osiamClient = config.getOsiam().getClient(client);
+//        final OsiamConnector osiamConnector = osiamClient.getConnector();
+//        final AccessToken accessToken = osiamConnector.retrieveAccessToken(Scope.ALL);
+//        final String accessTokenAsString = accessToken.getToken();
+//        final User user = osiamClient.getUser(accessTokenAsString, username);
+//        osiamConnector.deleteUser(user.getId(), accessToken);
+//    }
 }

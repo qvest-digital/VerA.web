@@ -1,30 +1,19 @@
-onlineRegApp.controller('UserActivationController', function($http, $scope, $rootScope, $routeParams, $location, $translate) {
+onlineRegApp.controller('UserActivationController', function($http, $scope, $rootScope, $routeParams, $location, $translate, vwoa) {
     var activateUserUrl = 'api/user/activate/' + $routeParams.activation_token
     $http({
         method: 'GET',
         url: activateUserUrl
-    }).success(function (result) {
-        if (result.status == 'OK') {
-            $translate('ACTIVATION_USER_MESSAGE_SUCCESS').then(function (text) {
-                $rootScope.success = text;
-                $rootScope.error = null;
-            });
-        } else if (result.status == 'LINK_INVALID') {
-            $translate('ACTIVATION_USER_MESSAGE_LINK_INVALID').then(function (text) {
-                $rootScope.success = null;
-                $rootScope.error = text;
-            });
-        } else if (result.status == 'LINK_EXPIRED') {
-            $translate('ACTIVATION_USER_MESSAGE_LINK_EXPIRED').then(function (text) {
-                $rootScope.success = null;
-                $rootScope.error = text;
-            });
-        }
-        $location.path('/login');
-    }).error(function (data, status, headers, config) {
-        $translate('ACTIVATION_USER_MESSAGE_FAILED').then(function (text) {
-            $rootScope.error = text;
-        });
-    });
-
+    })
+    .then(vwoa.expectStatus('OK'))
+    .then(
+        vwoa.handleResponse('ACTIVATION_USER_MESSAGE_SUCCESS','/login'),
+        vwoa.handleResponse({
+            LINK_INVALID: 'ACTIVATION_USER_MESSAGE_LINK_INVALID',
+            LINK_EXPIRED: 'ACTIVATION_USER_MESSAGE_LINK_EXPIRED',
+            '*':'ACTIVATION_USER_MESSAGE_FAILED'
+        }, {
+            LINK_INVALID: '/login',
+            LINK_EXPIRED: '/login'
+        })
+    );
 });

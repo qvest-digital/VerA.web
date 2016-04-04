@@ -49,12 +49,9 @@ public class ResourceReader {
     /**
      * Custom constructor.
      *
-     * @param client
-     *            The {@link com.sun.jersey.api.client.Client}
-     * @param mapper
-     *            The {@link com.fasterxml.jackson.databind.ObjectMapper}
-     * @param config
-     *            The {@link org.evolvis.veraweb.onlinereg.Config}
+     * @param client The {@link com.sun.jersey.api.client.Client}
+     * @param mapper The {@link com.fasterxml.jackson.databind.ObjectMapper}
+     * @param config The {@link org.evolvis.veraweb.onlinereg.Config}
      */
     public ResourceReader(Client client, ObjectMapper mapper, Config config) {
         this.client = client;
@@ -66,11 +63,8 @@ public class ResourceReader {
      * Constructs a pathParts from VerA.web endpint, BASE_RESOURCE and given
      * pathParts fragmensts.
      *
-     * @param pathParts
-     *            pathParts fragments
-     * @param baseResource
-     *            The base path to online registration app
-     *
+     * @param pathParts    pathParts fragments
+     * @param baseResource The base path to online registration app
      * @return Complete path as string
      */
     public String constructPath(String baseResource, Object... pathParts) {

@@ -148,3 +148,57 @@ onlineRegApp.directive('equals', function() {
         }
     }
 });
+
+onlineRegApp.factory("vwoa", function($rootScope, $location, $timeout, $translate){
+    var UnexpectedStatusError =  function(expectedStatus,actualStatus){
+        this.expectedStatus=expectedStatus;
+        this.status=actualStatus;
+        this.message="Expected: "+expectedStatus+", actual: "+actualStatus;
+        this.name="UnexpectedStatusError";
+    };
+    UnexpectedStatusError.prototype = Error.prototype;
+
+    var expectStatus = function(expectedStatus, messages){
+        return function(result){
+            if (result.data.status != expectedStatus) {
+                throw new UnexpectedStatusError(expectedStatus,result.data.status);
+            }
+            return result;
+        };
+    };
+    
+    var lookup = function(obj){
+        if(typeof obj == "object"){
+            if(obj.hasOwnProperty(result.data.status)){
+                return obj[result.data.status];
+            } else if (obj.hasOwnProperty('*')){
+                return obj['*']
+            } else {
+                return null;
+            }
+        }
+
+        return obj;
+    };
+
+    var handleResponse = function(msg0,redirect0){
+        return function(result){
+            var message = lookup(msg0), redirect=lookup(redirect0);
+
+            $translate(message).then(function (text) {
+                $rootScope.success = text;
+                $timeout(function(){
+                    $rootScope.cleanMessages();
+                }, 5000);
+            });
+            if(redirect){
+                $location.path(redirect);
+            }
+        };
+    };
+
+    return {
+        expectStatus: expectStatus,
+        handleResponse: handleResponse
+    };
+});

@@ -1,4 +1,4 @@
-onlineRegApp.controller('ResetPasswordController', function($http, $scope, $routeParams, $location, $rootScope, $translate) {
+onlineRegApp.controller('ResetPasswordController', function($http, $scope, $routeParams, $location, $rootScope, $translate, $timeout, vwoa) {
     $scope.resetPassword = function() {
         if ($scope.resetPasswordForm.password.$viewValue != $scope.resetPasswordForm.passwordRepeat.$viewValue) {
             $translate('REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR').then(function (text) {
@@ -6,7 +6,6 @@ onlineRegApp.controller('ResetPasswordController', function($http, $scope, $rout
             });
         } else {
             $scope.error = null;
-
             $http({
                 method: 'POST',
                 url: 'api/reset/password/' + $routeParams.uuid,
@@ -14,12 +13,12 @@ onlineRegApp.controller('ResetPasswordController', function($http, $scope, $rout
                 data: $.param({
                     password: $scope.resetPasswordForm.password.$viewValue
                 })
-            }).success(function () {
-                $translate('USER_PASSWORD_CHANGE_SUCCESS_MESSAGE').then(function (text) {
-                    $rootScope.success = text;
-                });
-                $location.path('/event');
-            });
+            })
+            .then(vwoa.expectStatus('OK'))
+            .then(
+                vwoa.handleResponse('USER_PASSWORD_CHANGE_SUCCESS_MESSAGE','/event'),
+                vwoa.handleResponse('USER_PASSWORD_CHANGE_FAILED')
+            );
         }
     }
 });
