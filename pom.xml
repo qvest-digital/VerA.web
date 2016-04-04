@@ -385,12 +385,6 @@
 			<groupId>de.tarent.octopus</groupId>
 			<artifactId>octopus-ext-beans</artifactId>
 			<version>1.6.2verawebpl5</version>
-			<exclusions>
-				<exclusion>
-					<groupId>de.tarent.utils</groupId>
-					<artifactId>tarent-database</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.osiam</groupId>
