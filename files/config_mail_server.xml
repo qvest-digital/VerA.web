@@ -6,7 +6,7 @@
 	<!-- Die in diesem Element enthaltenen param-Elemente erlauben, gewisse Aspekte von VerA.web zu steuern. -->
 	<params>
 		<param name="mailServer" type="map">
-			
+
 			<!-- die Wartezeit zwischen dem Versendenden verschiedener E-Mails in Sekunden. -->
 			<param name="waitBetweenJobs" value="3"/>
 
