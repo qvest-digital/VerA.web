@@ -23,7 +23,7 @@
 				Benutzers genutzt werden.
 			-->
 
-			<param name="from" value="$role@yourcompany.com"/>
+			<param name="from" value="$role@example.com"/>
 		</param>
 
 		<!-- maximale Länge, die eine "mailto:..."-URL annehmen darf (Internetstandard: 1024); "-1" steht für keine Beschränkung. -->
