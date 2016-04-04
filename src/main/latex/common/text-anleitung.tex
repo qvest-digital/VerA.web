@@ -1165,7 +1165,7 @@ explizit, ob noch \texttt{java}-Prozesse laufen.\keinumbruch
 \begin{minipage}{\textwidth}
 \begin{lstdump}{Tomcat restart}
 sudo service tomcat7 stop
-ps ax | grep java # sollte maximal grep anzeigen
+ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
 sudo service tomcat7 start
 \end{lstdump}
 \end{minipage}
@@ -1689,7 +1689,7 @@ explizit, ob noch \texttt{java}-Prozesse laufen.\keinumbruch
 \begin{minipage}{\textwidth}
 \begin{lstdump}{Tomcat restart}
 sudo service tomcat7 stop
-ps ax | grep java # sollte maximal grep anzeigen
+ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
 sudo service tomcat7 start
 \end{lstdump}
 \end{minipage}
@@ -2082,7 +2082,7 @@ ist, die Webapplikationsarchive durch die neuen Versionen tauschen:
 
 \begin{lstdump}{OSIAM Upgrade}
 sudo service tomcat7 stop
-ps ax | grep java # sollte maximal grep anzeigen
+ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
 cd /var/lib/tomcat7/webapps
 rm -rf osiam-auth-server osiam-resource-server
 curl -o osiam-auth-server.war https://maven-repo.evolvis.org/releases/org/osiam/auth-server/〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
@@ -2143,7 +2143,7 @@ fahren Sie bitte den dort laufenden Tomcat-Applikationsserver herunter:
 
 \begin{lstdump}{Tomcat undeploy}
 sudo service tomcat7 stop
-ps ax | grep java # sollte maximal grep anzeigen
+ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
 \end{lstdump}
 
 Beachten Sie dabei, daß der Tomcat-Dienst ggfs. noch einige Sekunden
