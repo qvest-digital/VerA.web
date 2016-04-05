@@ -1,4 +1,4 @@
-module.exports = function($http, $rootScope, $translate, $location, $scope, $mdDateLocale, param) {
+module.exports = function($http, $rootScope, $translate, $location, $scope, $mdDateLocale, param, moment) {
     if ($rootScope.user_logged_in == null) {
         $scope.setNextPage('kontaktdaten');
         $location.path('/login');

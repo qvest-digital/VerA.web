@@ -13,6 +13,15 @@ var controllers = bulk(__dirname, ['controllers/*.js']).controllers;
 window.Flow = require('flow.js');
 var NGFlow = require('ng-flow');
 
+//Moment loads locales via dynamic require calls.
+//Since browserify cannot infer such dependencies, we need to help a bit
+//We could use bulkify to force them all to be loaded, but that seems a bit over the top?
+require('moment/locale/de');
+require('moment/locale/fr');
+require('moment/locale/es');
+
+
+
 var app = angular.module('onlineRegApp', [
     require('angular-route'),
     require('angular-material'),
@@ -199,6 +208,9 @@ app.directive('equals', function() {
 });
 app.factory("param", function(){
   return param;
+});
+app.factory("moment", function(){
+  return moment; 
 });
 app.factory("vwoa", function($rootScope, $location, $timeout, $translate){
     var UnexpectedStatusError =  function(expectedStatus,actualStatus){
