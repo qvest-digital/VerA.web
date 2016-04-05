@@ -3,12 +3,19 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "browserify": "browserify -d -t bulkify -t [ debowerify --preferNPM ] -e js/onlinereg.js  -o ../resources/webroot/js/app.js",
-    "server": "cd ../resources/webroot; http-server -P http://localhost:8181 -p 8182"
+    "bower": "bower install",
+    "copy": "mkdir -p dist && cp -R index.html images languages partials bower_components/bootstrap/fonts dist",
+    "site-css": "mkdir -p dist/css && cssmin css/*.css > dist/css/site.css",
+    "vendor-css": "mkdir -p dist/css && cat bower_components/bootstrap/dist/css/bootstrap.min.css bower_components/bootstrapvalidator/dist/css/bootstrapValidator.min.css node_modules/angular-material/angular-material.min.css > dist/css/vendor.css",
+    "browserify-dev": "mkdir -p dist/js && browserify -d -t bulkify -t [ debowerify --preferNPM ] -e js/onlinereg.js  -o dist/js/app.js",
+    "server": "cd dist; http-server -P http://localhost:8181 -p 8182",
+    "prepublish": "npm run bower && npm run copy && npm run site-css && npm run vendor-css && npm run browserify-dev"
   },
   "devDependencies": {
+    "bower": "^1.7.7",
     "browserify": "^13.0.0",
     "bulkify": "^1.2.0",
+    "cssmin": "^0.4.3",
     "debowerify": "^1.4.1",
     "expect.js": "0.3.1",
     "http-server": "^0.9.0",
