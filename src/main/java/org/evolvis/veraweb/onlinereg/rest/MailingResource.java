@@ -61,16 +61,20 @@ public class MailingResource extends AbstractResource {
     @SuppressWarnings("unchecked")
     private List<PersonMailinglist> getRecipients(final int listId) {
         final Session session = openSession();
-        final Query query = session.getNamedQuery("PersonMailinglist.findByMailinglist");
-        query.setParameter("listId", listId);
-        return query.list();
+        try {
+            final Query query = session.getNamedQuery("PersonMailinglist.findByMailinglist");
+            query.setParameter("listId", listId);
+            return query.list();
+        } finally {
+            session.close();
+        }
     }
 
     private String  sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text, final Map<String, File> files) {
         final StringBuilder sb = new StringBuilder();
         try {
             final EmailConfiguration emailConfiguration = initEmailConfiguration("de_DE");
-            final MailDispatcher mailDispatcher = new MailDispatcher(emailConfiguration);
+            MailDispatcher mailDispatcher = new MailDispatcher(emailConfiguration);
             for (final PersonMailinglist recipient : recipients) {
                 final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(emailConfiguration.getFrom(), recipient.getAddress(), subject,
                         substitutePlaceholders(text, recipient.getPerson()), files);
