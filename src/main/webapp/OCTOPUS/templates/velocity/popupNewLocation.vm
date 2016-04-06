@@ -5,6 +5,8 @@
 		## Style
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
+	    ## Abwärtskompatibilität
+	    <script type="text/javascript" src="${paths.staticWeb}scripts/jquery.tagsinput.js"></script>
 		## Utils
 		<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
 		## Tabs und Popups
