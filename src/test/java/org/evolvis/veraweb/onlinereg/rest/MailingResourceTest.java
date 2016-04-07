@@ -22,6 +22,7 @@ import java.util.Map;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.PersonMailinglist;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
+import org.evolvis.veraweb.onlinereg.mail.MailDispatchMonitor;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
@@ -93,7 +94,6 @@ public class MailingResourceTest {
     }
 
     @Test
-    @Ignore("Fehler auf CI: java.io.FileNotFoundException: /etc/veraweb/vwor.properties")
     public void testUploadFile() throws MessagingException {
         // GIVEN
         prepareSession();
@@ -115,6 +115,11 @@ public class MailingResourceTest {
         e.setPk(1);
         List ids = new ArrayList();
         ids.add(e);
+        final MailDispatcher mailDispatcher = mock(MailDispatcher.class);
+        objectToTest.setMailDispatcher(mailDispatcher);
+        objectToTest.setEmailConfiguration(mock(EmailConfiguration.class));
+        MailDispatchMonitor mailDispatchMonitor = mock(MailDispatchMonitor.class);
+        when(mailDispatcher.sendEmailWithAttachments(any(String.class), any(String.class), any(String.class), any(String.class), any(Map.class) )).thenReturn(mailDispatchMonitor);
         when(query.list()).thenReturn(ids);
 
         // WHEN
@@ -123,6 +128,7 @@ public class MailingResourceTest {
         // THEN
         verify(sessionFactory, times(1)).openSession();
         verify(session, times(1)).close();
+        verify(mailDispatcher, times(1)).sendEmailWithAttachments(any(String.class), any(String.class), any(String.class), any(String.class), any(Map.class));
     }
 
     private void prepareSession() {

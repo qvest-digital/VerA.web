@@ -33,7 +33,7 @@ import org.jboss.logging.Logger;
 
 //FIXME: it's not "attachment", actually this is the whole shebang, including body, subject, recipients etc...
 @Path("/mailing")
-@Consumes({ MediaType.MULTIPART_FORM_DATA })
+@Consumes({MediaType.MULTIPART_FORM_DATA})
 public class MailingResource extends AbstractResource {
     private static final Logger LOGGER = Logger.getLogger(MailingResource.class);
 
@@ -42,10 +42,12 @@ public class MailingResource extends AbstractResource {
     public static final String PARAM_MAIL_SUBJECT = "mail-subject";
 
     private String tmpPath = System.getProperty("java.io.tmpdir");
+    private MailDispatcher mailDispatcher;
+    private EmailConfiguration emailConfiguration;
 
     @POST
     @Path("/")
-    @Consumes({ MediaType.MULTIPART_FORM_DATA })
+    @Consumes({MediaType.MULTIPART_FORM_DATA})
     public Response uploadFile(final FormDataMultiPart formData) {
         final String subject = formData.getField(PARAM_MAIL_SUBJECT).getEntityAs(String.class);
         final String text = formData.getField(PARAM_MAIL_TEXT).getEntityAs(String.class);
@@ -70,11 +72,15 @@ public class MailingResource extends AbstractResource {
         }
     }
 
-    private String  sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text, final Map<String, File> files) {
+    private String sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text, final Map<String, File> files) {
         final StringBuilder sb = new StringBuilder();
         try {
-            final EmailConfiguration emailConfiguration = initEmailConfiguration("de_DE");
-            MailDispatcher mailDispatcher = new MailDispatcher(emailConfiguration);
+            if (emailConfiguration == null) {
+                emailConfiguration = initEmailConfiguration("de_DE");
+            }
+            if (mailDispatcher == null) {
+                mailDispatcher = new MailDispatcher(emailConfiguration);
+            }
             for (final PersonMailinglist recipient : recipients) {
                 final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(emailConfiguration.getFrom(), recipient.getAddress(), subject,
                         substitutePlaceholders(text, recipient.getPerson()), files);
@@ -131,7 +137,10 @@ public class MailingResource extends AbstractResource {
     }
 
     private EmailConfiguration initEmailConfiguration(final String languageKey) {
-        return new EmailConfiguration(languageKey);
+        final EmailConfiguration emailConfiguration = new EmailConfiguration();
+        emailConfiguration.loadProperties(languageKey);
+
+        return emailConfiguration;
     }
 
     public File getTempFile(final String filename) throws IOException {
@@ -158,5 +167,13 @@ public class MailingResource extends AbstractResource {
 
     public void setTmpPath(final String tmpPath) {
         this.tmpPath = tmpPath;
+    }
+
+    public void setMailDispatcher(MailDispatcher mailDispatcher) {
+        this.mailDispatcher = mailDispatcher;
+    }
+
+    public void setEmailConfiguration(EmailConfiguration emailConfiguration) {
+        this.emailConfiguration = emailConfiguration;
     }
 }

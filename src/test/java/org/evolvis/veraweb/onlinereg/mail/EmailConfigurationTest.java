@@ -27,7 +27,8 @@ public class EmailConfigurationTest {
 
     @Before
     public void setUp() throws Exception {
-        emailConfiguration = new EmailConfiguration("de_DE");
+        emailConfiguration = new EmailConfiguration();
+        emailConfiguration.loadProperties("de_DE");
         emailConfiguration.setVworPropertiesReader(propertiesReader);
     }
 

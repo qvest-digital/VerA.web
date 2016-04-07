@@ -17,9 +17,7 @@ public class EmailConfiguration {
     private String contentType;
     private VworPropertiesReader vworPropertiesReader;
 
-    public EmailConfiguration(String currentLanguageKey) {
-        final VworPropertiesReader propertiesReader = getVworPropertiesReader();
-        readProperties(currentLanguageKey, propertiesReader);
+    public EmailConfiguration() {
     }
 
     public EmailConfiguration(String host, Integer port, String security, String username, String password, String from, String subject, String content, String contentType) {
@@ -32,6 +30,11 @@ public class EmailConfiguration {
         this.subject = subject;
         this.content = content;
         this.contentType = contentType;
+    }
+
+    public void loadProperties(String currentLanguageKey) {
+        final VworPropertiesReader propertiesReader = getVworPropertiesReader();
+        readProperties(currentLanguageKey, propertiesReader);
     }
 
     public void readProperties(String currentLanguageKey, VworPropertiesReader propertiesReader) {
