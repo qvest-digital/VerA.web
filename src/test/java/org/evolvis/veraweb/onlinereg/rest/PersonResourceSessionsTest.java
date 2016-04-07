@@ -405,6 +405,23 @@ public class PersonResourceSessionsTest {
         verify(mockitoSession, times(1)).close();
     }
 
+    @Test
+    public void testUpdatePersonCoreData() {
+        // GIVEN
+        prepareSession();
+        Person person = mock(Person.class);
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(person);
+
+        // WHEN
+        personResource.updatePersonCoreData("username", "salutation", 1, "title", "firstname", "lastname", 1L, "de", "de", "gender");
+
+        // THEN
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
        private List<Person> getDummyDelegates() {
         List<Person> results = new ArrayList<Person>();
         results.add(mock(Person.class));
