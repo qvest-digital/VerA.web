@@ -130,6 +130,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         final Select select = (Select) personSelect.clone();
         select.clearColumnSelection();
         select.add("count(*)", Integer.class);
+        select.orderBy(null);
         final Integer count = database.getCount(select);
         final Map listParams = getParamMap(start, limit, count);
         octopusContext.setContent(OUTPUT_showListParams, listParams);
@@ -342,7 +343,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @throws IOException
      */
     public void unassignWorkArea(final OctopusContext cntx, final List<Integer> personIds, final Integer workAreaId) throws BeanException,
-    IOException {
+            IOException {
         final Database database = getDatabase(cntx);
         final TransactionContext transactionContext = database.getTransactionContext();
         handleUnassignWorkarea(personIds, workAreaId, transactionContext);
@@ -375,7 +376,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * @throws IOException
      */
     public void assignWorkArea(final OctopusContext octopusContext, final List<Integer> personIds, final Integer workAreaId) throws BeanException,
-    IOException {
+            IOException {
         final Database database = getDatabase(octopusContext);
         final TransactionContext transactionContext = database.getTransactionContext();
         PersonListWorker.assignWorkArea(transactionContext, workAreaId, personIds);
@@ -389,7 +390,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     /*
      * 2009-05-12 cklein introduced as part of fix for issue #1530 - removal of
      * orgunits, and subsequently also individual workareas
-     *
+     * 
      * unassigns from all persons the given workArea. Will not commit the query
      * as this is left to the caller.
      */
@@ -405,7 +406,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     }
 
     private static void unassignAllWorkAreas(final TransactionContext transactionContext, final List<Integer> personIds) throws IOException,
-    BeanException {
+            BeanException {
         final Update updateStatement = transactionContext.getDatabase().getUpdate("Person");
         updateStatement.update("tperson.fk_workarea", 0);
         if (personIds != null && personIds.size() > 0) {
@@ -487,7 +488,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
         /*
          * extension to support for multiple categories at once
-         *
+         * 
          * cklein 2008-02-20/26
          */
         extendSelectByMultipleCategorySearch(octopusContext, personSearch, select);
@@ -514,10 +515,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     protected void extendSelectByMultipleCategorySearch(final OctopusContext octopusContext, final PersonSearch personSearch, final Select select) {
         if ((personSearch.categoriesSelection != null) && (personSearch.categoriesSelection.size() >= 1)
                 && (personSearch.categoriesSelection.get(0).toString().length() > 0) // workaround
-                // for
-                // octopus
-                // behaviour
-                ) {
+        // for
+        // octopus
+        // behaviour
+        ) {
             if (((Integer) personSearch.categoriesSelection.get(0)).intValue() != 0) {
                 // FUTURE extension for supporting OR a/o AND
                 boolean isOr = false;
@@ -934,7 +935,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     private Clause getStateFilter(final PersonSearch personSearch) {
         final String value = personSearch.state;
         final String[] columns = { "state_a_e1", "state_a_e2", "state_a_e3", "state_b_e1", "state_b_e2", "state_b_e3", "state_c_e1", "state_c_e2",
-        "state_c_e3" };
+                "state_c_e3" };
         return DatabaseHelper.getWhere(value, columns);
     }
 
