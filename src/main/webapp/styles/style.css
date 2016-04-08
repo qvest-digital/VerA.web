@@ -175,6 +175,12 @@ ul.alphabet li {
 	border:1px solid #BDBDBD;
 }
 
+.paging li.img {
+    display: inline-block;
+    height: 19px;
+    width: 19px;
+}
+
 
 /************* End paging *************/
 
