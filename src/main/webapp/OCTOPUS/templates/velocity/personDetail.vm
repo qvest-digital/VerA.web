@@ -3,7 +3,7 @@
 	#set($personDB = true)
 	#set($activeMenu = "Personen")
 	#set($title = "${placeholderWithTranslation.GENERIC_EDIT_PERSON}: $!message.plain($person.MainLatin.SaveAs)")
-	#set($newPersonDialog = false)
+	#set($createPersonView = false)
 
 #else
 
@@ -26,7 +26,7 @@
 	#set($personAddresstypeTab = "1")
 	#set($personLocaleTab = "1")
 	#set($title = "${placeholderWithTranslation.GENERIC_CREATE_PERSON}")
-	#set($newPersonDialog = true)
+	#set($createPersonView = true)
 
 #end
 
@@ -409,7 +409,7 @@
 
 	#end
 
-	#if($newPersonDialog == false)
+	#if($createPersonView == false)
 		#if($navigation)
 			#parse("inc/person-navi.vm")
 		#end

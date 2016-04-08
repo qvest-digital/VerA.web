@@ -33,7 +33,9 @@
             </li>
         #end
 
-		${placeholderWithTranslation.GENERIC_PERSON_SINGULAR} ${navigation.meta.offset} ${placeholderWithTranslation.GENERIC_OF} ${navigation.meta.count}
+        <li>
+            ${placeholderWithTranslation.GENERIC_PERSON_SINGULAR} ${navigation.meta.offset} ${placeholderWithTranslation.GENERIC_OF} ${navigation.meta.count}
+        </li>
 
 		#if(!$navigation.next)
 			<li class="img inactive">
