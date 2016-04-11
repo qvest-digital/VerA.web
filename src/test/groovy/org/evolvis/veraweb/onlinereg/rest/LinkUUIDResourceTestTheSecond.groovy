@@ -26,7 +26,7 @@ class LinkUUIDResourceTestTheSecond extends Specification {
     void testUpdateUUID() {
         given:
             def query = Mock(Query)
-            session.getNamedQuery("LinkUUID.updateEntryByUUID") >> query
+            session.getNamedQuery("LinkUUID.updateUUIDByPersonid") >> query
 
         when:
             resource.updateUUID(1)
