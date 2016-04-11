@@ -31,27 +31,29 @@ public class EmailConfiguration {
         this.content = content;
         this.contentType = contentType;
     }
+//
+//    public void loadProperties(String currentLanguageKey) {
+//        readProperties(currentLanguageKey);
+//    }
 
-    public void loadProperties(String currentLanguageKey) {
+    public void readProperties(String currentLanguageKey) {
         final VworPropertiesReader propertiesReader = getVworPropertiesReader();
-        readProperties(currentLanguageKey, propertiesReader);
-    }
-
-    public void readProperties(String currentLanguageKey, VworPropertiesReader propertiesReader) {
-        this.host = propertiesReader.getProperty("mail.smtp.host");
-        final String smtpPort = propertiesReader.getProperty("mail.smtp.port");
-        if (smtpPort == null) {
-            this.port = 25;
-        } else {
-            this.port = new Integer(smtpPort);
+        if (this.host == null) {
+            this.host = propertiesReader.getProperty("mail.smtp.host");
+            final String smtpPort = propertiesReader.getProperty("mail.smtp.port");
+            if (smtpPort == null) {
+                this.port = 25;
+            } else {
+                this.port = new Integer(smtpPort);
+            }
+            this.security = propertiesReader.getProperty("mail.smtp.security");
+            this.username = propertiesReader.getProperty("mail.smtp.user");
+            this.password = propertiesReader.getProperty("mail.smtp.password");
+            this.from = propertiesReader.getProperty("mail.smtp.from");
+            this.contentType = propertiesReader.getProperty("mail.content.type");
+            this.subject = propertiesReader.getProperty("mail.subject." + currentLanguageKey);
+            this.content = propertiesReader.getProperty("mail.content." + currentLanguageKey);
         }
-        this.security = propertiesReader.getProperty("mail.smtp.security");
-        this.username = propertiesReader.getProperty("mail.smtp.user");
-        this.password = propertiesReader.getProperty("mail.smtp.password");
-        this.from = propertiesReader.getProperty("mail.smtp.from");
-        this.contentType = propertiesReader.getProperty("mail.content.type");
-        this.subject = propertiesReader.getProperty("mail.subject." + currentLanguageKey);
-        this.content = propertiesReader.getProperty("mail.content." + currentLanguageKey);
     }
 
     public String getHost() {

@@ -138,7 +138,7 @@ public class MailingResource extends AbstractResource {
 
     private EmailConfiguration initEmailConfiguration(final String languageKey) {
         final EmailConfiguration emailConfiguration = new EmailConfiguration();
-        emailConfiguration.loadProperties(languageKey);
+        emailConfiguration.readProperties(languageKey);
 
         return emailConfiguration;
     }
