@@ -56,14 +56,14 @@ public class LinkUUIDResource extends AbstractResource {
         }
     }
 
-    @Path("/update/{personid}")
+    @Path("/update/{personId}")
     @POST
-    public void updateUUID(@PathParam("personid") Integer personid) {
+    public void updateUUID(@PathParam("personId") Integer personId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("LinkUUID.updateUUIDByPersonid");
             query.setString("uuid", UUID.randomUUID().toString());
-            query.setInteger("personid", personid);
+            query.setInteger("personid", personId);
             query.executeUpdate();
         } finally {
             session.close();
