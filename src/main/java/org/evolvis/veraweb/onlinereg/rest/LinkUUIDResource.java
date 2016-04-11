@@ -23,10 +23,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.UUID;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -49,6 +51,20 @@ public class LinkUUIDResource extends AbstractResource {
                 return (int) query.uniqueResult();
             }
 
+        } finally {
+            session.close();
+        }
+    }
+
+    @Path("/update/{personid}")
+    @POST
+    public void deleteUUID(@PathParam("personid") Integer personid) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("LinkUUID.updateEntryByUUID");
+            query.setString("uuid", UUID.randomUUID().toString());
+            query.setInteger("personid", personid);
+            query.executeUpdate();
         } finally {
             session.close();
         }
