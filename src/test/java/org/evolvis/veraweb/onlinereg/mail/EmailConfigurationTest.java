@@ -10,6 +10,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atMost;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,15 +28,17 @@ public class EmailConfigurationTest {
 
     @Before
     public void setUp() throws Exception {
+        when(propertiesReader.getProperty(any(String.class))).thenReturn("42");
+
         emailConfiguration = new EmailConfiguration();
-        emailConfiguration.loadProperties("de_DE");
         emailConfiguration.setVworPropertiesReader(propertiesReader);
+        emailConfiguration.readProperties("de_DE");
     }
 
     @Test
     public void testReadProperties() throws Exception {
         // WHEN
-        emailConfiguration.readProperties("de_DE", propertiesReader);
+        emailConfiguration.readProperties("de_DE");
 
         // THEN
         verify(propertiesReader, atLeast(8)).getProperty(any(String.class));
@@ -48,7 +51,7 @@ public class EmailConfigurationTest {
         when(propertiesReader.getProperty("mail.smtp.port")).thenReturn("25");
 
         // WHEN
-        emailConfiguration.readProperties("de_DE", propertiesReader);
+        emailConfiguration.readProperties("de_DE");
 
         // THEN
         verify(propertiesReader, times(9)).getProperty(any(String.class));

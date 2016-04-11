@@ -30,7 +30,7 @@ public class EmailResource extends AbstractResource {
             @FormParam("usertype") Boolean isPressUser) throws MessagingException {
         if (emailConfiguration == null) {
             emailConfiguration = new EmailConfiguration();
-            emailConfiguration.loadProperties(currentLanguageKey);
+            emailConfiguration.readProperties(currentLanguageKey);
         }
         if (mailDispatcher == null) {
             mailDispatcher = new MailDispatcher(emailConfiguration);
