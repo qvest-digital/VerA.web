@@ -58,7 +58,7 @@ public class LinkUUIDResource extends AbstractResource {
 
     @Path("/update/{personid}")
     @POST
-    public void deleteUUID(@PathParam("personid") Integer personid) {
+    public void updateUUID(@PathParam("personid") Integer personid) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("LinkUUID.updateEntryByUUID");
