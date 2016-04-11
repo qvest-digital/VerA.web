@@ -31,6 +31,10 @@ public class EmailConfiguration {
         this.content = content;
         this.contentType = contentType;
     }
+//
+//    public void loadProperties(String currentLanguageKey) {
+//        readProperties(currentLanguageKey);
+//    }
 
     public void readProperties(String currentLanguageKey) {
         final VworPropertiesReader propertiesReader = getVworPropertiesReader();
