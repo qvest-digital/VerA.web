@@ -75,6 +75,8 @@ public class ResetPasswordResource {
     @Getter
     private ServletContext context;
 
+    private final ResourceReader resourceReader;
+
     /**
      * Creates a new EventResource
      *
@@ -82,6 +84,7 @@ public class ResetPasswordResource {
      * @param config configuration
      */
     public ResetPasswordResource(Config config, Client client) {
+        resourceReader = new ResourceReader(client, mapper, config);
         this.client = client;
         this.config = config;
         System.out.println();
@@ -101,9 +104,9 @@ public class ResetPasswordResource {
     @Path("/{uuid}")
     public String getEventByUUId(@PathParam("uuid") String uuid, @FormParam("password") String password)
             throws IOException {
-        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
-        final Integer userId = getUserId(uuid, resourceReader);
-        final Person person = getPerson(resourceReader, userId);
+
+        final Integer userId = getUserId(uuid);
+        final Person person = getPerson(userId);
         final String username = person.getUsername();
 
         return updateOsiamUser(username, password);
@@ -124,12 +127,12 @@ public class ResetPasswordResource {
         }
     }
 
-    private Person getPerson(ResourceReader resourceReader, Integer userId) throws IOException {
+    private Person getPerson(Integer userId) throws IOException {
         final String pathForPerson = resourceReader.constructPath(BASE_RESOURCE, "person", "list", userId);
         return resourceReader.readStringResource(pathForPerson, PERSON);
     }
 
-    private Integer getUserId(String uuid, ResourceReader resourceReader) throws IOException {
+    private Integer getUserId(String uuid) throws IOException {
         final String pathForUserId = resourceReader.constructPath(BASE_RESOURCE, "links", uuid);
         return resourceReader.readStringResource(pathForUserId, INTEGER);
     }
