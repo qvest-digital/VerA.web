@@ -22,7 +22,8 @@
 				<input type="button" #if($listparam.limit == 10) class="active"#end value="10" title="${placeholderWithTranslation.SHOW_RECORDS_1} 10 ${placeholderWithTranslation.SHOW_RECORDS_2}" onclick="navigateLimit(10);"/>
 				<input type="button" #if($listparam.limit == 25) class="active"#end value="25" title="${placeholderWithTranslation.SHOW_RECORDS_1} 25 ${placeholderWithTranslation.SHOW_RECORDS_2}" onclick="navigateLimit(25);"/>
 				<input type="button" #if($listparam.limit == 50) class="active"#end value="50" title="${placeholderWithTranslation.SHOW_RECORDS_1} 50 ${placeholderWithTranslation.SHOW_RECORDS_2}" onclick="navigateLimit(50);"/>
-				<input type="button" #if($listparam.limit == 9999999) class="active"#end value="${placeholderWithTranslation.GENERIC_ALL}" title="${placeholderWithTranslation.SHOW_ALL_RECORDS}" onclick="navigateLimit(9999999);"/>
+				<input type="button" #if($listparam.limit == 100) class="active"#end value="100" title="${placeholderWithTranslation.SHOW_RECORDS_1} 100 ${placeholderWithTranslation.SHOW_RECORDS_2}" onclick="navigateLimit(100);"/>
+				<input type="button" #if($listparam.limit == 1000) class="active"#end value="1000" title="${placeholderWithTranslation.SHOW_RECORDS_1} 1000 ${placeholderWithTranslation.SHOW_RECORDS_2}" onclick="navigateLimit(1000);"/>
 			</span>
 
 			#set($pageNumber = $listparam.start / $listparam.limit + 1)
