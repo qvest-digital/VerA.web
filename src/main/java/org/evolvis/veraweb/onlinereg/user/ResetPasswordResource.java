@@ -22,6 +22,8 @@ package org.evolvis.veraweb.onlinereg.user;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.representation.Form;
 import lombok.Getter;
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
@@ -32,7 +34,6 @@ import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.osiam.client.OsiamConnector;
 import org.osiam.client.oauth.AccessToken;
 import org.osiam.client.oauth.Scope;
-import org.osiam.resources.scim.Name;
 import org.osiam.resources.scim.UpdateUser;
 import org.osiam.resources.scim.User;
 
@@ -44,6 +45,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * This class is used for password reset actions (for example: reset password).
@@ -106,13 +108,16 @@ public class ResetPasswordResource {
             throws IOException {
 
         final Integer userId = getUserId(uuid);
+        if(userId == null) {
+            return StatusConverter.convertStatus("WRONG_LINK");
+        }
         final Person person = getPerson(userId);
         final String username = person.getUsername();
 
-        return updateOsiamUser(username, password);
+        return updateOsiamUser(username, password, userId);
     }
 
-    private String updateOsiamUser(String username, String password){
+    private String updateOsiamUser(String username, String password, Integer personId){
         final OsiamClient osiamClient = config.getOsiam().getClient(client);
         final OsiamConnector osiamConnector = osiamClient.getConnector();
         final AccessToken accessToken = osiamConnector.retrieveAccessToken(Scope.ALL);
@@ -121,10 +126,18 @@ public class ResetPasswordResource {
             final User user = osiamClient.getUser(accessTokenAsString, username);
             final UpdateUser updateUser = new UpdateUser.Builder().updatePassword(password).build();
             osiamConnector.updateUser(user.getId(), updateUser, accessToken);
+            updateResetPasswordUUID(personId);
             return StatusConverter.convertStatus("OK");
         } catch (IOException e) {
             return StatusConverter.convertStatus("GETTING_USER_FAILED");
         }
+    }
+
+    private void updateResetPasswordUUID(Integer personId) {
+        final WebResource updateEntryLinkUUID = client.resource(config.getVerawebEndpoint() + "/rest/links/update/" + personId);
+        final Form postBody = new Form();
+        postBody.add("personId", personId);
+        updateEntryLinkUUID.post(postBody);
     }
 
     private Person getPerson(Integer userId) throws IOException {

@@ -15,6 +15,7 @@ onlineRegApp.controller('ResetPasswordController', function($http, $scope, $rout
                     password: $scope.resetPasswordForm.password.$viewValue
                 })
             }).success(function () {
+                // TODO: für Status "WRONG_LINK", "OK" UND "GETTING_USER_FAILED" braucht man je eine Hinweismeldung
                 $translate('USER_PASSWORD_CHANGE_SUCCESS_MESSAGE').then(function (text) {
                     $rootScope.success = text;
                 });
