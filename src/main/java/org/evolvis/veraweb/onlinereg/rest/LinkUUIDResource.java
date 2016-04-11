@@ -61,7 +61,7 @@ public class LinkUUIDResource extends AbstractResource {
     public void updateUUID(@PathParam("personid") Integer personid) {
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("LinkUUID.updateEntryByUUID");
+            final Query query = session.getNamedQuery("LinkUUID.updateUUIDByPersonid");
             query.setString("uuid", UUID.randomUUID().toString());
             query.setInteger("personid", personid);
             query.executeUpdate();
