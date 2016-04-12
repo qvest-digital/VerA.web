@@ -132,8 +132,7 @@
 					#end
 
 					#set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
-					<!-- TEST -->
-					#tableFooter(11)
+					#tableFooter(9)
 
 					<tr class="colspan">
 						<td colspan="99">

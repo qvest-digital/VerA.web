@@ -190,7 +190,7 @@
 					#end
 
 					#set($itemName = "${placeholderWithTranslation.GENERIC_TASK_PLURAL}")
-					#parse("inc/list-navi-new.vm")
+					#tableFooter(8)
 					</tbody>
 				</table>
 

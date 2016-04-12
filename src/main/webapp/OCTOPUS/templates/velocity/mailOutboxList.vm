@@ -77,7 +77,7 @@
         		#end
 
     			#set($itemName = "${placeholderWithTranslation.GENERIC_EMAIL_PLURAL}")
-    			#parse("inc/list-navi-new.vm")
+				#tableFooter(5)
     			#parse("inc/list-direct-new.vm")
     		</table>
 

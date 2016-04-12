@@ -1260,7 +1260,7 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 					#end
 
 					#set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
-					#parse("inc/list-navi-new.vm")
+					#tableFooter(11)
 					#parse("inc/list-direct-new.vm")
 				</table>
 			</div>

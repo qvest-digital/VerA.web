@@ -124,7 +124,7 @@
 			#end
 
 			#set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
-			#parse("inc/list-navi-new.vm")
+			#tableFooter(9)
 		</table>
 
 		#set($disableListSelect = true)

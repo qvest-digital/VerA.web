@@ -175,7 +175,7 @@
     			#end
 
 			#set($itemName = "${placeholderWithTranslation.GENERIC_USER_PLURAL}")
-			#parse("inc/list-navi-new.vm")
+			#tableFooter(5)
 			#parse("inc/list-direct-new.vm")
 
 			</table>
