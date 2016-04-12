@@ -97,21 +97,19 @@ public class MailinglistWorker {
 	 * hinzugefügten Adressen in der Map <code>mailinglistParam</code>
 	 * im Content im Key <code>count</code>.
 	 *
-	 * @param cntx
+	 * @param octopusContext
 	 * @param mailinglist
 	 * @return Map mit dem Key <code>count</code>
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public Map createMailinglist(OctopusContext cntx, Mailinglist mailinglist) throws BeanException, IOException {
-		Database database = new DatabaseVeraWeb(cntx);
-//		GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
-//		PersonSearch search = (PersonSearch)cntx.contentAsObject("search");
+	public Map createMailinglist(OctopusContext octopusContext, Mailinglist mailinglist) throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(octopusContext);
 
 		// Adresstype und Locale laden
 		Integer addresstype = new Integer(PersonConstants.ADDRESSTYPE_BUSINESS);
 		Integer locale = new Integer(PersonConstants.LOCALE_LATIN);
-		Integer freitextfeld = ConfigWorker.getInteger(cntx, "freitextfeld");
+		Integer freitextfeld = ConfigWorker.getInteger(octopusContext, "freitextfeld");
 		Doctype doctype = (freitextfeld == null) ? null : (Doctype)
 				database.getBean("Doctype",
 				database.getSelect("Doctype").
@@ -127,18 +125,18 @@ public class MailinglistWorker {
 		// Bedingung des Verteilers definieren
 		int savedAddresses = 0;
 		Clause clause;
-		List selection = (List)cntx.contentAsObject("listselection");
+		List selection = (List)octopusContext.contentAsObject("listselection");
 		if (selection != null && selection.size() != 0) {
-			if(cntx.contentAsObject("search") instanceof PersonSearch){
+			if(octopusContext.contentAsObject("search") instanceof PersonSearch){
 				clause = Expr.in("tperson.pk", selection);
 				// Personen hinzufügen
-				savedAddresses = addMailinglistFromPerson(cntx, mailinglist, addresstype, locale, clause);
+				savedAddresses = addMailinglistFromPerson(octopusContext, mailinglist, addresstype, locale, clause);
 			}
-			if(cntx.contentAsObject("search") instanceof GuestSearch){
-				GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
+			if(octopusContext.contentAsObject("search") instanceof GuestSearch){
+				GuestSearch search = (GuestSearch)octopusContext.contentAsObject("search");
 				clause = Where.and(Expr.equal("tguest.fk_event", search.event), Expr.in("tguest.pk", selection));
 				// Personen hinzufügen
-				savedAddresses = addMailinglistFromGuest(cntx, mailinglist, freitextfeld, addresstype, locale, clause);
+				savedAddresses = addMailinglistFromGuest(octopusContext, mailinglist, freitextfeld, addresstype, locale, clause);
 			}
 		}
 		// hier das gleiche, kann nicht 0 sein, und wenn doch... siehe oben
@@ -146,8 +144,8 @@ public class MailinglistWorker {
 		if (savedAddresses == 0) {
 
 			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
-            cntx.setStatus("error");
+			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
+            octopusContext.setStatus("error");
             mailinglist.addError(languageProvider.getProperty("MAILING_LIST_NO_ADDRESSES"));
     		if (mailinglist.id != null) {
 				final TransactionContext transactionContext = database.getTransactionContext();
@@ -157,7 +155,7 @@ public class MailinglistWorker {
 		}
 
 		// Ergebnis ist Params eintragen
-		Map result = (Map)cntx.contentAsObject("mailinglistParams");
+		Map result = (Map)octopusContext.contentAsObject("mailinglistParams");
 		if (result == null) result = new HashMap();
 		result.put("count", new Integer(savedAddresses));
 		return result;
