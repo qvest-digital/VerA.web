@@ -355,7 +355,7 @@
 			<plugin>
 				<groupId>com.github.fracpete</groupId>
 				<artifactId>latex-maven-plugin</artifactId>
-				<version>1.4.2</version>
+				<version>1.4.3</version>
 				<configuration>
 					<forceBuild>true</forceBuild>
 					<extraRuns>2</extraRuns>
