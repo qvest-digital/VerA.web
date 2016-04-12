@@ -60,7 +60,7 @@ public class CleanupWorker {
 	 * @param cntx Octopus context
 	 */
 	public void summarizeCategories(OctopusContext cntx) throws BeanException, IOException {
-//		summarizeCategoriesA(cntx, new DatabaseVeraWeb(cntx));
+//		summarizeCategoriesA(octopusContext, new DatabaseVeraWeb(octopusContext));
 		summarizeCategoriesB(cntx, new DatabaseVeraWeb(cntx));
 	}
 

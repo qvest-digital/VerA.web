@@ -59,30 +59,30 @@ public class EventTaskDetailWorkerTest { //extends TestCase {
 //		Insert insert = mock(Insert.class);// ,, withSettings().verboseLogging());
 //		doReturn(insert).when(dbv).getInsert(isA(Task.class));
 //		EventTaskDetailWorker worker = new EventTaskDetailWorker(new DatabaseVeraWebFactoryMock(dbv));
-//		OctopusContext cntx = mock(OctopusContext.class);// , withSettings().verboseLogging());
+//		OctopusContext octopusContext = mock(OctopusContext.class);// , withSettings().verboseLogging());
 //		TcRequest request = mock(TcRequest.class);// , withSettings().verboseLogging());
-//		doReturn(request).when(cntx).getRequestObject();
+//		doReturn(request).when(octopusContext).getRequestObject();
 //		PersonalConfigAA personalConfig = mock(PersonalConfigAA.class);// , withSettings().verboseLogging());
 //		Grants grants = mock(Grants.class);// , withSettings().verboseLogging());
 //		doReturn(grants).when(personalConfig).getGrants();
-//		doReturn(personalConfig).when(cntx).personalConfig();
+//		doReturn(personalConfig).when(octopusContext).personalConfig();
 //		Task task = mock(Task.class);
-//		doReturn(task).when(cntx).contentAsObject("task");
+//		doReturn(task).when(octopusContext).contentAsObject("task");
 //		TcContent contentObject = mock(TcContent.class);
-//		doReturn(contentObject).when(cntx).getContentObject();
+//		doReturn(contentObject).when(octopusContext).getContentObject();
 //		doReturn("de_DE").when(contentObject).get("language");
-//		task.setMessages(new VerawebMessages(cntx));
+//		task.setMessages(new VerawebMessages(octopusContext));
 //
 //		// config
-//		doReturn(null).when(cntx).contentAsObject("task"); // assume no task is in content
+//		doReturn(null).when(octopusContext).contentAsObject("task"); // assume no task is in content
 //
 //		// no id
-//		putTaskInContextRequest(cntx, null, "Gäste einladen", "25.12.2011", "24.12.2011", "3",
+//		putTaskInContextRequest(octopusContext, null, "Gäste einladen", "25.12.2011", "24.12.2011", "3",
 //				"Einladungen verschicken", "20", "4", "user123", "user111", "26.12.2911", "23.12.2011", "true",
 //				"10:23", "09:34");
 //
 //		// call method which should be tested
-//		worker.saveDetail(cntx, true);
+//		worker.saveDetail(octopusContext, true);
 //
 //		Task t = new Task();
 //		t.setTitle("Gäste einladen");

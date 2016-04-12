@@ -35,19 +35,19 @@ public class DataExchangeHelper {
      * Diese Methode liefert zu einem Schlüssel ein {@link ExchangeFormat}
      * gemäß den Daten der Konfiguration des aktiven Octopus-Moduls.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @param key Schlüssel des Parameters der Modulkonfiguration, in dem
      *  das gesuchte Format definiert ist.
      * @return ein {@link ExchangeFormat} zum übergebenen Schlüssel oder
      *  <code>null</code>, falls der entsprechende Konfigurationseintrag
      *  nicht gefunden wird
      */
-    public static ExchangeFormat getFormat(OctopusContext cntx, String key) {
+    public static ExchangeFormat getFormat(OctopusContext octopusContext, String key) {
         if (key == null)
             return null;
-        assert cntx != null;
-        assert cntx.moduleConfig() != null;
-        Object configurationMap = cntx.moduleConfig().getParamAsObject(key);
+        assert octopusContext != null;
+        assert octopusContext.moduleConfig() != null;
+        Object configurationMap = octopusContext.moduleConfig().getParamAsObject(key);
         if (configurationMap instanceof Map)
             return new ConfiguredExchangeFormat((Map) configurationMap);
         return null;
@@ -58,7 +58,7 @@ public class DataExchangeHelper {
      * übergebenen Schlüssel gemäß den Daten der Konfiguration des aktiven
      * Octopus-Moduls.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @param key Schlüssel des Parameters der Modulkonfiguration, in dem
      *  das Format zum gesuchten Importer definiert ist.
      * @return ein {@link Importer} zum übergebenen Schlüssel oder <code>null</code>,
@@ -70,8 +70,8 @@ public class DataExchangeHelper {
      * @throws IllegalAccessException wenn Berechtigungsprobleme das Erzeugen einer
      *  {@link Importer}-Instanz verhindert haben.
      */
-    public static Importer getImporter(OctopusContext cntx, String key) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        ExchangeFormat format = getFormat(cntx, key);
+    public static Importer getImporter(OctopusContext octopusContext, String key) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        ExchangeFormat format = getFormat(octopusContext, key);
         if (format != null) {
             Class importerClass = format.getImporterClass();
             if (importerClass != null && Importer.class.isAssignableFrom(importerClass)) {
@@ -86,7 +86,7 @@ public class DataExchangeHelper {
      * übergebenen Schlüssel gemäß den Daten der Konfiguration des aktiven
      * Octopus-Moduls.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @param key Schlüssel des Parameters der Modulkonfiguration, in dem
      *  das Format zum gesuchten Exporter definiert ist.
      * @return ein {@link Exporter} zum übergebenen Schlüssel oder <code>null</code>,
@@ -98,8 +98,8 @@ public class DataExchangeHelper {
      * @throws IllegalAccessException wenn Berechtigungsprobleme das Erzeugen einer
      *  {@link Exporter}-Instanz verhindert haben.
      */
-    public static Exporter getExporter(OctopusContext cntx, String key) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        ExchangeFormat format = getFormat(cntx, key);
+    public static Exporter getExporter(OctopusContext octopusContext, String key) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        ExchangeFormat format = getFormat(octopusContext, key);
         if (format != null) {
             Class exporterClass = format.getExporterClass();
             if (exporterClass != null && Exporter.class.isAssignableFrom(exporterClass))

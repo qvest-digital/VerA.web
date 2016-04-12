@@ -123,7 +123,7 @@ public class CategorieWorker extends StammdatenWorker {
             cntx.setContent("count", count);
         }
 
-//        super.getAll(cntx);
+//        super.getAll(octopusContext);
         getAllAvailableEventCategories(cntx);
     }
 
@@ -131,7 +131,7 @@ public class CategorieWorker extends StammdatenWorker {
      * Returns all available person categories that have not been
      * assigned to a specific event.
      *
-     * @param cntx
+     * @param octopusContext
      * @throws BeanException
      * @throws IOException
      */

@@ -310,7 +310,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      * der #removeBean(OctopusContext, Bean, TransactionContext) Methode
      * die Fehlerliste zum Auffüllen zur Verfügung.
      *
-     * @param cntx        OctopusContext
+     * @param octopusContext        OctopusContext
      * @param errors    kumulierte Fehlerliste
      * @param selection    zu löschende Auswahl
      * @param context    TransactionContext

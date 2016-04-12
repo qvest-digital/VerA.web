@@ -55,18 +55,18 @@ public class EventURLHandler {
 	/**
      * URL Associated directly to the event.
      *
-     * @param cntx The {@link de.tarent.octopus.server.OctopusContext}
+     * @param octopusContext The {@link de.tarent.octopus.server.OctopusContext}
      * @param uuid The uuid to build URL for the free visitors.
      */
-    public void setEventUrl(OctopusContext cntx, String uuid) {
+    public void setEventUrl(OctopusContext octopusContext, String uuid) {
         if(propertiesReader.propertiesAreAvailable() && uuid != null) {
             final URLGenerator urlGenerator = getUrlGenerator();
-	        cntx.setContent("eventUrl", urlGenerator.getURLForFreeVisitors() + uuid);
+	        octopusContext.setContent("eventUrl", urlGenerator.getURLForFreeVisitors() + uuid);
         } else {
             LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-            LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+            LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
 
-	        cntx.setContent("eventUrl", languageProvider.getProperty("GENERIC_NOT_AVAILABLE"));
+	        octopusContext.setContent("eventUrl", languageProvider.getProperty("GENERIC_NOT_AVAILABLE"));
         }
     }
 

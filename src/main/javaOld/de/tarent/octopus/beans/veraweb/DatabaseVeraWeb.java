@@ -97,7 +97,7 @@ public class DatabaseVeraWeb extends Database {
     public void saveBean(Bean bean, ExecutionContext context, boolean updateID) throws BeanException, IOException {
 //        wird in getInsert / getUpdate gemacht
 //        if (bean instanceof AbstractBean)
-//            ((AbstractBean)bean).checkWrite(cntx);
+//            ((AbstractBean)bean).checkWrite(octopusContext);
         if (bean instanceof AbstractHistoryBean)
             ((AbstractHistoryBean)bean).updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
         super.saveBean(bean, context, updateID);

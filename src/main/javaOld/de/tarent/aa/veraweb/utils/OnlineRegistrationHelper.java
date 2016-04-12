@@ -43,13 +43,13 @@ public class OnlineRegistrationHelper {
     /**
      * Check for enabled online registration module.
      *
-     * @param cntx
+     * @param octopusContext
      *            The context
      * @return true if online registration is enabled, otherwise false
      */
-    public static Boolean isOnlineregActive(final OctopusContext cntx) {
+    public static Boolean isOnlineregActive(final OctopusContext octopusContext) {
 
-        final String active = cntx.moduleConfig().getParam(VWOR_PARAM);
+        final String active = octopusContext.moduleConfig().getParam(VWOR_PARAM);
 
         if (active != null && VWOR_VALUE_TRUE.equals(active)) {
             return true;
@@ -57,9 +57,9 @@ public class OnlineRegistrationHelper {
         return false;
     }
 
-    public static int[] getDeactivatedMandantsAsArray(final OctopusContext cntx) {
+    public static int[] getDeactivatedMandantsAsArray(final OctopusContext octopusContext) {
 
-        final String list = cntx.moduleConfig().getParam(ActionWorker.ONLINEREG_MANDANT_DEACTIVATION);
+        final String list = octopusContext.moduleConfig().getParam(ActionWorker.ONLINEREG_MANDANT_DEACTIVATION);
 
         if (StringUtils.isBlank(list)) {
             return new int[] { 0 };
