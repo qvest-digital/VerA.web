@@ -294,17 +294,14 @@ public class EventListWorker extends ListWorkerVeraWeb {
 						.from("veraweb.toptional_fields")
 						.where(new Where("pk", optionalField.getId(), "="))
 					);
+
+				transactionContext.commit();
 			}
 
 
 		} catch (SQLException e) {
 			throw new BeanException("SQL Exception while deleting OptionalFields from Event", e);
 		}
-
-
-
-
-
 		transactionContext.execute(
 		        SQL.Delete(database)
 		        .from("veraweb.ttask")
@@ -327,6 +324,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 				SQL.Delete( database ).
 				from("veraweb.tevent_doctype").
 				where(Expr.equal("fk_event", event.id)));
+		transactionContext.commit();
 		boolean result = super.removeBean(cntx, bean, transactionContext);
 		if ( result )
 		{

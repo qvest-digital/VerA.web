@@ -208,6 +208,7 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
             transactionContext.execute(
                     SQL.Delete(database).from("veraweb.tperson_categorie").where(Expr.equal("fk_person", personId))
             );
+            transactionContext.commit();
         } catch (BeanException e) {
             throw new BeanException("Die Kategoriezuweisungen konnte nicht aufgehoben werden.", e);
         }

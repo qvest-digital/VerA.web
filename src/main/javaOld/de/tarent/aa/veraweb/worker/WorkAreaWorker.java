@@ -136,6 +136,7 @@ public class WorkAreaWorker extends StammdatenWorker
 		Delete stmt = database.getDelete( "WorkArea" );
 		stmt.byId( "pk",  ( ( WorkArea ) bean ).id  );
 		transactionContext.execute( stmt );
+		transactionContext.commit();
 		return true;
 	}
 
@@ -161,6 +162,7 @@ public class WorkAreaWorker extends StammdatenWorker
 				Delete delstmt = transactionContext.getDatabase().getDelete( "WorkArea" );
 				delstmt.byId( "pk",  beans.getInt( "pk" ) );
 				transactionContext.execute( delstmt );
+				transactionContext.commit();
 			}
 		}
 		catch ( SQLException e )

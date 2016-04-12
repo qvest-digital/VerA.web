@@ -241,6 +241,7 @@ public class EventDetailWorker {
                         insert.remove("note");
                     }
                     transactionContext.execute(insert);
+                    transactionContext.commit();
 
                     clogger.logInsert( octopusContext.personalConfig().getLoginname(), event );
                 } else {
@@ -250,6 +251,7 @@ public class EventDetailWorker {
                         update.remove("note");
                     }
                     transactionContext.execute(update);
+                    transactionContext.commit();
 
                     clogger.logUpdate( octopusContext.personalConfig().getLoginname(), oldEvent, event );
                 }
@@ -291,6 +293,7 @@ public class EventDetailWorker {
                 } else if (updateHost) {
                     transactionContext.execute(SQL.Update(database).table("veraweb.tguest").update("ishost", new Integer(1)).update("invitationtype", invitationtype)
                             .where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host))));
+                    transactionContext.commit();
 
                     // TODO also modifies tguest, full change logging requires
                     // TODO refactor and centralize in GuestDetailWorker
@@ -299,6 +302,7 @@ public class EventDetailWorker {
                 if (oldEvent != null && !event.invitationtype.equals(oldEvent.invitationtype)) {
                     transactionContext.execute(SQL.Update(database).table("veraweb.tguest").update("invitationtype", event.invitationtype).where(
                             Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("ishost", new Integer(1)))));
+                    transactionContext.commit();
 
                     // TODO also modifies tevent, full change logging requires
                     // TODO refactor and centralize in EventDetailWorker
@@ -365,6 +369,7 @@ public class EventDetailWorker {
     private void initOptionalFields(Database database, TransactionContext transactionContext, Event event) throws BeanException {
         for(int i = 0; i < NUMBER_OPTIONAL_FIELDS; i++) {
             transactionContext.execute(SQL.Insert(database).table("veraweb.toptional_fields").insert("fk_event", event.id).insert("label", ""));
+            transactionContext.commit();
         }
     }
 

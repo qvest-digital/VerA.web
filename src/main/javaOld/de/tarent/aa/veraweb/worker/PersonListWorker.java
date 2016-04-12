@@ -403,6 +403,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             updateStatement.whereAnd(Expr.in("tperson.pk", personIds));
         }
         transactionContext.execute(updateStatement);
+        transactionContext.commit();
     }
 
     private static void unassignAllWorkAreas(final TransactionContext transactionContext, final List<Integer> personIds) throws IOException,
@@ -413,6 +414,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             updateStatement.whereAnd(Expr.in("tperson.pk", personIds));
         }
         transactionContext.execute(updateStatement);
+        transactionContext.commit();
     }
 
     public static void assignWorkArea(final TransactionContext transactionContext, final Integer workAreaId, final List<Integer> personIds)
@@ -424,6 +426,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         }
 
         transactionContext.execute(updateStatement);
+        transactionContext.commit();
     }
 
     public Select prepareShowList(final OctopusContext octopusContext, final Database database) throws BeanException, IOException {

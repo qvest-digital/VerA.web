@@ -849,6 +849,7 @@ public class PersonDetailWorker implements PersonConstants {
             update.remove("noteorga_b_e1");
         }
         transactionContext.execute(update);
+        transactionContext.commit();
 
         clogger.logUpdate(octopusContext.personalConfig().getLoginname(), personOld, person);
     }
@@ -868,6 +869,7 @@ public class PersonDetailWorker implements PersonConstants {
             insert.remove("noteorga_b_e1");
         }
         transactionContext.execute(insert);
+        transactionContext.commit();
 
         // Bug 1592 Wenn die person kopiert wurde, dann die Kategorien der
         // original Person an neue Person kopieren

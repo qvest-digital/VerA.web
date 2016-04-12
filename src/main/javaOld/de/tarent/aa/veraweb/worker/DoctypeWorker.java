@@ -89,6 +89,7 @@ public class DoctypeWorker extends StammdatenWorker {
 			transactionContext.execute(SQL.Update( database ).
 					table("veraweb.tdoctype").
 					update("isdefault", Boolean.FALSE));
+			transactionContext.commit();
 		}
 		if (doctype.id != null && doctype.flags != null && doctype.flags.intValue() == 50) {
 			Doctype old = (Doctype)database.getBean(BEANNAME, doctype.id);
@@ -103,6 +104,7 @@ public class DoctypeWorker extends StammdatenWorker {
 						update("textfield_p", "").
 						update("textjoin", "").
 						where(Expr.equal("fk_doctype", doctype.id)));
+				transactionContext.commit();
 			}
 		}
 

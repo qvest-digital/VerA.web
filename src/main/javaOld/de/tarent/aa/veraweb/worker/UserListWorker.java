@@ -245,6 +245,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
 
 	    	/* delete related user configurations */
 	    	transactionContext.execute(database.getDelete("UserConfig").where(Expr.equal("fk_user", userId)));
+            transactionContext.commit();
 	    }
     	return super.removeBean(cntx, bean, transactionContext);
     }

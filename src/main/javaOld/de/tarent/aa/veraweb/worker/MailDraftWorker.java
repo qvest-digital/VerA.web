@@ -91,6 +91,7 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 						update("name", mailDraft.name).
 						where(Expr.equal("pk", mailDraft.id)));
 				count++;
+				transactionContext.commit();
 			}
 		}
 		return count;

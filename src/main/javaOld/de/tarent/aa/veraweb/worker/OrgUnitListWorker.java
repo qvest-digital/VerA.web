@@ -258,6 +258,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
         final Delete deleteStatement = database.getDelete("OrgUnit");
         deleteStatement.byId("pk", ((OrgUnit) bean).id);
         transactionContext.execute(deleteStatement);
+        transactionContext.commit();
 
         // Remove category pressevertreter of the current mandant
         deletePressCategoryByOrgUnit(transactionContext, ((OrgUnit) bean).id);
@@ -281,6 +282,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
         deleteStatement.where(Where.and(Expr.equal("fk_orgunit", orgUnitId), Expr.equal("catname", "Pressevertreter")));
 
         transactionContext.execute(deleteStatement);
+        transactionContext.commit();
     }
 
     /**
@@ -302,6 +304,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
         final Insert insertStatement = database.getInsert(category);
 
         transactionContext.execute(insertStatement);
+        transactionContext.commit();
     }
 
     /**

@@ -314,6 +314,7 @@ public class CategorieWorker extends StammdatenWorker {
                     table("veraweb.tcategorie").
                     update("rank", new RawClause("rank + 1")).
                     where(Expr.greaterOrEqual("rank", bean.rank)));
+            transactionContext.commit();
         }
     }
 
@@ -338,6 +339,7 @@ public class CategorieWorker extends StammdatenWorker {
                         from("veraweb.tperson_categorie").
                         where(new RawClause("fk_categorie NOT IN (" +
                                 "SELECT pk FROM veraweb.tcategorie)")));
+        transactionContext.commit();
 
         return count;
     }

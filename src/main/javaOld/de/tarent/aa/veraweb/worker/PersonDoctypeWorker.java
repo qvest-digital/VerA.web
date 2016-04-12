@@ -129,6 +129,7 @@ public class PersonDoctypeWorker extends ListWorkerVeraWeb {
                     update("locale", personDoctype.locale).
                     where(Expr.equal("pk", personDoctype.id));
             transactionContext.execute(update);
+            transactionContext.commit();
         } else {
             super.saveBean(octopusContext, bean, transactionContext);
         }

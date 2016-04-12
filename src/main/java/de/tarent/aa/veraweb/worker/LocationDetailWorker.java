@@ -134,14 +134,14 @@ public class LocationDetailWorker {
                     insert.insert("pk", location.getId());
 
                     transactionContext.execute(insert);
+                    transactionContext.commit();
 
-                    clogger.logInsert(octopusContext.personalConfig().getLoginname(),
-                            location);
+                    clogger.logInsert(octopusContext.personalConfig().getLoginname(), location);
                 } else {
                     octopusContext.setContent("countUpdate", Integer.valueOf(1));
                     Update update = database.getUpdate(location);
                     transactionContext.execute(update);
-
+                    transactionContext.commit();
                 }
             } else {
                 octopusContext.setStatus("notsaved");
