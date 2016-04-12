@@ -73,19 +73,19 @@ public class ColorWorker {
 		cntx.setContent("color1",
 				database.getBean("Color",
 				database.getSelect("Color").
-				where(Expr.equal("pk", new Integer(1)))));
+				where(Expr.equal("pk", 1))));
 		cntx.setContent("color2",
 				database.getBean("Color",
 				database.getSelect("Color").
-				where(Expr.equal("pk", new Integer(2)))));
+				where(Expr.equal("pk", 2))));
 		cntx.setContent("color3",
 				database.getBean("Color",
 				database.getSelect("Color").
-				where(Expr.equal("pk", new Integer(3)))));
+				where(Expr.equal("pk", 3))));
 		cntx.setContent("color4",
 				database.getBean("Color",
 				database.getSelect("Color").
-				where(Expr.equal("pk", new Integer(4)))));
+				where(Expr.equal("pk", 4))));
 	}
 
 	/** Octopus-Eingabeparameter für die Aktion {@link #saveList(OctopusContext)} */
@@ -110,10 +110,10 @@ public class ColorWorker {
 		Color color3 = (Color)request.getBean("Color", "color3");
 		Color color4 = (Color)request.getBean("Color", "color4");
 
-		saveColor(octopusContext, database, new Integer(1), color1, errors);
-		saveColor(octopusContext, database, new Integer(2), color2, errors);
-		saveColor(octopusContext, database, new Integer(3), color3, errors);
-		saveColor(octopusContext, database, new Integer(4), color4, errors);
+		saveColor(octopusContext, database, 1, color1, errors);
+		saveColor(octopusContext, database, 2, color2, errors);
+		saveColor(octopusContext, database, 3, color3, errors);
+		saveColor(octopusContext, database, 4, color4, errors);
 
 		if (!errors.isEmpty()) {
 			octopusContext.setContent("errors", errors);
@@ -156,8 +156,8 @@ public class ColorWorker {
 	 */
 	public static Integer getColor(String domestic, String sex) {
 		if (PersonConstants.DOMESTIC_AUSLAND.equals(domestic))
-			return new Integer(PersonConstants.SEX_FEMALE.equals(sex) ? 3 : 4);
+			return PersonConstants.SEX_FEMALE.equals(sex) ? 3 : 4;
 		else
-			return new Integer(PersonConstants.SEX_FEMALE.equals(sex) ? 1 : 2);
+			return PersonConstants.SEX_FEMALE.equals(sex) ? 1 : 2;
 	}
 }

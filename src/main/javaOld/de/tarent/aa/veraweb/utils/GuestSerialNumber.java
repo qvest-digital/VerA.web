@@ -19,12 +19,6 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
@@ -36,8 +30,13 @@ import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.beans.BeanException;
-import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Diese Klasse sammelt Hilfsklassen zum Ermitteln laufender Nummern für Gäste.

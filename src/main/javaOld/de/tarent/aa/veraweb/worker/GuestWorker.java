@@ -58,7 +58,6 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -423,8 +422,8 @@ public class GuestWorker {
 
 			ResultSet rs = res.resultSet();
 			rs.first();
-			cntx.setContent( "invited", new Integer( rs.getInt( "invited" ) ) );
-			cntx.setContent( "notInvited", new Integer( rs.getInt( "notinvited" ) ) );
+			cntx.setContent("invited", rs.getInt("invited"));
+			cntx.setContent("notInvited", rs.getInt("notinvited"));
 			rs.close();
 
 			try
@@ -533,8 +532,8 @@ public class GuestWorker {
 			}
 
 			cntx.setContent("event", event);
-			cntx.setContent("invited", new Integer(invited));
-			cntx.setContent("notInvited", new Integer(notInvited));
+			cntx.setContent("invited", invited);
+			cntx.setContent("notInvited", notInvited);
 
 			context.commit();
 		}
@@ -747,7 +746,7 @@ public class GuestWorker {
 			guest = new Guest();
 			guest.event = event.id;
 	        guest.person = person.id;
-			guest.ishost = new Integer(ishost.booleanValue() ? 1 : 0);
+			guest.ishost = ishost.booleanValue() ? 1 : 0;
 			guest.reserve = reserve;
 			guest.invitationtype = invitationtype;
 

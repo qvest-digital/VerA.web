@@ -61,13 +61,13 @@ public class UserConfigWorker {
 	/**
 	 * Lädt die Konfiguration aus der Datenbank in die Session.
 	 *
-	 * @param cntx
+	 * @param octopusContext
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public Map init(OctopusContext cntx) throws BeanException, IOException {
-		Database database = new DatabaseVeraWeb(cntx);
-		Integer userId = ((PersonalConfigAA)cntx.personalConfig()).getVerawebId();
+	public Map init(OctopusContext octopusContext) throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(octopusContext);
+		Integer userId = ((PersonalConfigAA)octopusContext.personalConfig()).getVerawebId();
 		if (userId == null) return null;
 
 		Select select = database.getSelect("UserConfig");
@@ -117,8 +117,8 @@ public class UserConfigWorker {
 			orgUnit = ( OrgUnit ) database.getBean( "OrgUnit", user.orgunit );
 		}
 
-		cntx.setContent( "orgUnit", orgUnit );
-		cntx.setSession("userConfig", result);
+		octopusContext.setContent( "orgUnit", orgUnit );
+		octopusContext.setSession("userConfig", result);
 		return result;
 	}
 
@@ -129,14 +129,14 @@ public class UserConfigWorker {
 	/**
 	 * Lädt die Konfiguration aus der Session in den Content.
 	 *
-	 * @param cntx
+	 * @param octopusContext
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public Map load(OctopusContext cntx) throws BeanException, IOException {
-		Map result = (Map)cntx.sessionAsObject("userConfig");
+	public Map load(OctopusContext octopusContext) throws BeanException, IOException {
+		Map result = (Map)octopusContext.sessionAsObject("userConfig");
 		if (result == null) {
-			return init(cntx);
+			return init(octopusContext);
 		}
 		return result;
 	}
@@ -146,22 +146,22 @@ public class UserConfigWorker {
 	/**
 	 * Speichert die Benutzer Einstellungen in der Datenbank.
 	 *
-	 * @param cntx
+	 * @param octopusContext
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public void save(OctopusContext cntx) throws BeanException, IOException {
-		if (!cntx.requestContains("save")) {
+	public void save(OctopusContext octopusContext) throws BeanException, IOException {
+		if (!octopusContext.requestContains("save")) {
 			return;
 		}
 
-		Database database = new DatabaseVeraWeb(cntx);
-		Integer userId = ((PersonalConfigAA)cntx.personalConfig()).getVerawebId();
-		Map userConfig = (Map)cntx.contentAsObject("userConfig");
+		Database database = new DatabaseVeraWeb(octopusContext);
+		Integer userId = ((PersonalConfigAA)octopusContext.personalConfig()).getVerawebId();
+		Map userConfig = (Map)octopusContext.contentAsObject("userConfig");
 
 		for (int i = 0; i < PARAMS_STRING.length; i++) {
 			String key = PARAMS_STRING[i];
-			String value = cntx.requestAsString(key);
+			String value = octopusContext.requestAsString(key);
 
 			if (value == null) {
 			    continue;
@@ -171,7 +171,7 @@ public class UserConfigWorker {
 
 		for (int i = 0; i < PARAMS_BOOLEAN.length; i++) {
 			String key = PARAMS_BOOLEAN[i];
-			boolean value = cntx.requestAsBoolean(key).booleanValue();
+			boolean value = octopusContext.requestAsBoolean(key).booleanValue();
 			if (value) {
 				setUserSetting(database, userId, userConfig, key, "true");
 			} else {
@@ -179,7 +179,7 @@ public class UserConfigWorker {
 			}
 		}
 
-		cntx.setContent("saveSuccess", true);
+		octopusContext.setContent("saveSuccess", true);
 	}
 
 	protected void removeUserSetting(Database database, Integer userId, Map userConfig, String key) throws BeanException, IOException {
