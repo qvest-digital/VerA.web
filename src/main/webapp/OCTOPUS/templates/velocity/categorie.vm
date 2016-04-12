@@ -191,7 +191,7 @@
 			</tr>
 		#end
 		#set($itemName = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
-		#parse("inc/list-navi-new.vm")
+		#tableFooter(6)
 		#parse("inc/list-direct-new.vm")
 		</table>
 
