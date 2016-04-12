@@ -79,13 +79,13 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 	 * Updatet ausschließlich den Namen der in der Liste angezeigt wird.
 	 */
 	@Override
-    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext context) throws BeanException, IOException {
+    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext transactionContext) throws BeanException, IOException {
 		int count = 0;
 		for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
 			MailDraft mailDraft = (MailDraft)it.next();
 			if (mailDraft.isModified()) {
-				Database db = context.getDatabase();
-				context.execute(
+				Database db = transactionContext.getDatabase();
+				transactionContext.execute(
 						SQL.Update( db ).
 						table("veraweb.tmaildraft").
 						update("name", mailDraft.name).

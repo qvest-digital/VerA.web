@@ -36,6 +36,7 @@ import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -184,10 +185,14 @@ public class UserConfigWorker {
 	protected void removeUserSetting(Database database, Integer userId, Map userConfig, String key) throws BeanException, IOException {
 		String old = (String)userConfig.get(key);
 		if (old != null) {
-			database.execute(database.getDelete("UserConfig").
+
+			final TransactionContext transactionContext = database.getTransactionContext();
+			transactionContext.execute(database.getDelete("UserConfig").
 					where(Where.and(
 							Expr.equal("fk_user", userId),
 							Expr.equal("name", key))));
+			transactionContext.commit();
+
 			userConfig.remove(key);
 		}
 	}
@@ -204,11 +209,15 @@ public class UserConfigWorker {
 			database.saveBean(config);
 			userConfig.put(key, value);
 		} else if (!value.equals(old)) {
-			database.execute(database.getUpdate("UserConfig").
+
+			final TransactionContext transactionContext = database.getTransactionContext();
+			transactionContext.execute(database.getUpdate("UserConfig").
 					update("value", value).
 					where(Where.and(
-						Expr.equal("fk_user", userId),
-						Expr.equal("name", key))));
+							Expr.equal("fk_user", userId),
+							Expr.equal("name", key))));
+			transactionContext.commit();
+
 			userConfig.put(key, value);
 		}
 	}

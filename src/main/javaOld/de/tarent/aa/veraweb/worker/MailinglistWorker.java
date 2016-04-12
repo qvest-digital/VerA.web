@@ -38,6 +38,7 @@ import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.log4j.Logger;
@@ -149,7 +150,9 @@ public class MailinglistWorker {
             cntx.setStatus("error");
             mailinglist.addError(languageProvider.getProperty("MAILING_LIST_NO_ADDRESSES"));
     		if (mailinglist.id != null) {
-                database.execute(database.getDelete(mailinglist));
+				final TransactionContext transactionContext = database.getTransactionContext();
+				transactionContext.execute(database.getDelete(mailinglist));
+				transactionContext.commit();
     		}
 		}
 
@@ -393,13 +396,15 @@ public class MailinglistWorker {
 	 * @return True wenn ein entsprechender Eintrag gespeichert wurde.
 	 */
 	protected boolean savePerson(Database database, Integer mailinglist, Integer person, String address) throws BeanException, IOException {
-		MailinglistAddress mla = new MailinglistAddress();
-		mla.mailinglist = mailinglist;
-		mla.person = person;
-		mla.address = address;
-		mla.verify();
-		if (mla.isCorrect()) {
-			database.execute(database.getInsert(mla));
+		final MailinglistAddress mailinglistAddress = new MailinglistAddress();
+		mailinglistAddress.mailinglist = mailinglist;
+		mailinglistAddress.person = person;
+		mailinglistAddress.address = address;
+		mailinglistAddress.verify();
+		if (mailinglistAddress.isCorrect()) {
+			final TransactionContext transactionContext = database.getTransactionContext();
+			transactionContext.execute(database.getInsert(mailinglistAddress));
+			transactionContext.commit();
 			return true;
 		}
 		return false;

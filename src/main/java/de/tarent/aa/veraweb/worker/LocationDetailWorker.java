@@ -105,7 +105,7 @@ public class LocationDetailWorker {
         Request request = new RequestVeraWeb(octopusContext);
 
         Database database = databaseVeraWebFactory.createDatabaseVeraWeb(octopusContext);
-        TransactionContext context = database.getTransactionContext();
+        TransactionContext transactionContext = database.getTransactionContext();
 
         try {
             Location location = (Location) octopusContext.contentAsObject(PARAM_LOCATION);
@@ -115,9 +115,7 @@ public class LocationDetailWorker {
 
             location.verify(octopusContext);
 
-            List errors = location.getErrors();
-            Location oldlocation = (Location) database.getBean("Location", location.getId(),
-                    context);
+            Location oldlocation = (Location) database.getBean("Location", location.getId(),transactionContext);
 
             if(location.id == null || location.compareTo(oldlocation)!=0) {
                 location.setModified(true);
@@ -125,24 +123,24 @@ public class LocationDetailWorker {
 
             if (location.isModified() && location.isCorrect()) {
                 BeanChangeLogger clogger = new BeanChangeLogger(database,
-                        context);
+                        transactionContext);
                 if (location.getId() == null) {
                     octopusContext.setContent("countInsert", Integer.valueOf(1));
-                    database.getNextPk(location, context);
+                    database.getNextPk(location, transactionContext);
 
                     location.setOrgunit(((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId());
 
                     Insert insert = database.getInsert(location);
                     insert.insert("pk", location.getId());
 
-                    context.execute(insert);
+                    transactionContext.execute(insert);
 
                     clogger.logInsert(octopusContext.personalConfig().getLoginname(),
                             location);
                 } else {
                     octopusContext.setContent("countUpdate", Integer.valueOf(1));
                     Update update = database.getUpdate(location);
-                    context.execute(update);
+                    transactionContext.execute(update);
 
                 }
             } else {
@@ -151,9 +149,9 @@ public class LocationDetailWorker {
             octopusContext.setContent(PARAM_LOCATION, location);
 
 
-            context.commit();
+            transactionContext.commit();
         } catch (BeanException e) {
-            context.rollBack();
+            transactionContext.rollBack();
             // must report error to user
             throw new BeanException(
                     "Die location details konnten nicht gespeichert werden.", e);

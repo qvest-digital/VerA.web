@@ -33,6 +33,7 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.Request;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
@@ -120,9 +121,12 @@ public class ColorWorker {
 	}
 
 	protected void removeColor(Database database) throws BeanException {
-		Delete delete = SQL.Delete( database ).from("veraweb.tcolor");
+		final Delete delete = SQL.Delete( database ).from("veraweb.tcolor");
 		delete.where(new RawClause("pk NOT IN (1, 2, 3, 4)"));
-		database.execute(delete);
+
+		final TransactionContext transactionContext = database.getTransactionContext();
+		transactionContext.execute(delete);
+		transactionContext.commit();
 	}
 
 	protected void saveColor(OctopusContext octopusContext, Database database, Integer id, Color color, List errors)
@@ -130,7 +134,9 @@ public class ColorWorker {
 		color.verify(octopusContext);
 		if (color.id == null) {
 			if (color.isCorrect()) {
-				database.execute(database.getInsert(color).insert("pk", id));
+				final TransactionContext transactionContext = database.getTransactionContext();
+				transactionContext.execute(database.getInsert(color).insert("pk", id));
+				transactionContext.commit();
 			}
 		} else {
 			if (color.isCorrect()) {

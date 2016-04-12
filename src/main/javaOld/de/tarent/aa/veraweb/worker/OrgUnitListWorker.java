@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Categorie;
+import de.tarent.aa.veraweb.beans.LinkType;
 import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
@@ -189,55 +190,38 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 	 * Wenn der Parameter <code>orgunit</code> übergeben wird werden
 	 * alle Datensätze ohne gültigen Mandanten diesem zugeordnet.
 	 *
-	 * @param cntx Octopus-Context-Instanz
+	 * @param octopusContext Octopus-Context-Instanz
 	 * @param orgunit Neue Orgunit-ID
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public Map cleanupDatabase(OctopusContext cntx, Integer orgunit) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
-		Clause where = new RawClause("fk_orgunit IS NULL OR " +
-				"fk_orgunit NOT IN (SELECT pk FROM veraweb.torgunit)");
-
-		Map missingorgunit = new HashMap();
+	public Map cleanupDatabase(OctopusContext octopusContext, Integer orgunit) throws BeanException, IOException {
+		final Database database = getDatabase(octopusContext);
+		final Clause where = new RawClause("fk_orgunit IS NULL OR fk_orgunit NOT IN (SELECT pk FROM veraweb.torgunit)");
+		final Map missingorgunit = new HashMap();
 
 		if (orgunit != null) {
-			database.execute(database.getUpdate("Person").
-					update("fk_orgunit", orgunit).where(where));
-			database.execute(database.getUpdate("Event").
-					update("fk_orgunit", orgunit).where(where));
-			database.execute(database.getUpdate("Import").
-					update("fk_orgunit", orgunit).where(where));
-			database.execute(database.getUpdate("ImportPerson").
-					update("fk_orgunit", orgunit).where(where));
-			database.execute(database.getUpdate("Location").
-					update("fk_orgunit", orgunit).where(where));
-			database.execute(database.getUpdate("Mailinglist").
-					update("fk_orgunit", orgunit).where(where));
-			database.execute(database.getUpdate("Categorie").
-					update("fk_orgunit", orgunit).where(where));
-			database.execute(database.getUpdate("User").
-					update("fk_orgunit", orgunit).where(where));
-
+			final TransactionContext transactionContext = database.getTransactionContext();
+			transactionContext.execute(database.getUpdate("Person").update("fk_orgunit", orgunit).where(where));
+			transactionContext.execute(database.getUpdate("Event").update("fk_orgunit", orgunit).where(where));
+			transactionContext.execute(database.getUpdate("Import").update("fk_orgunit", orgunit).where(where));
+			transactionContext.execute(database.getUpdate("ImportPerson").update("fk_orgunit", orgunit).where(where));
+			transactionContext.execute(database.getUpdate("Location").update("fk_orgunit", orgunit).where(where));
+			transactionContext.execute(database.getUpdate("Mailinglist").update("fk_orgunit", orgunit).where(where));
+			transactionContext.execute(database.getUpdate("Categorie").update("fk_orgunit", orgunit).where(where));
+			transactionContext.execute(database.getUpdate("User").update("fk_orgunit", orgunit).where(where));
+			transactionContext.commit();
 			missingorgunit.put("result", "done");
 		}
 
-		missingorgunit.put("person", database.getCount(
-				database.getCount("Person").where(where)));
-		missingorgunit.put("event", database.getCount(
-				database.getCount("Event").where(where)));
-		missingorgunit.put("import", database.getCount(
-				database.getCount("Import").where(where)));
-		missingorgunit.put("importperson", database.getCount(
-				database.getCount("ImportPerson").where(where)));
-		missingorgunit.put("location", database.getCount(
-				database.getCount("Location").where(where)));
-		missingorgunit.put("mailinglist", database.getCount(
-				database.getCount("Mailinglist").where(where)));
-		missingorgunit.put("category", database.getCount(
-				database.getCount("Categorie").where(where)));
-		missingorgunit.put("user", database.getCount(
-				database.getCount("User").where(where)));
+		missingorgunit.put("person", database.getCount(database.getCount("Person").where(where)));
+		missingorgunit.put("event", database.getCount(database.getCount("Event").where(where)));
+		missingorgunit.put("import", database.getCount(database.getCount("Import").where(where)));
+		missingorgunit.put("importperson", database.getCount(database.getCount("ImportPerson").where(where)));
+		missingorgunit.put("location", database.getCount(database.getCount("Location").where(where)));
+		missingorgunit.put("mailinglist", database.getCount(database.getCount("Mailinglist").where(where)));
+		missingorgunit.put("category", database.getCount(database.getCount("Categorie").where(where)));
+		missingorgunit.put("user", database.getCount(database.getCount("User").where(where)));
 
 		return missingorgunit;
 	}
@@ -251,9 +235,9 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 	 * 2015-03-13 - We have one Press category for every Mandant. That will be deleted when we want to delete one of these mandants
 	 */
 	@Override
-    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException
+    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext) throws BeanException, IOException
 	{
-		Database database = context.getDatabase();
+		Database database = transactionContext.getDatabase();
 
 		Select select = SQL.Select(database);
 		select.from("veraweb.tuser");
@@ -269,13 +253,13 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 		}
 
 		// first remove all workArea assignments from all persons
-		WorkAreaWorker.removeAllWorkAreasFromOrgUnit( cntx, context, ( ( OrgUnit ) bean ).id );
+		WorkAreaWorker.removeAllWorkAreasFromOrgUnit( cntx, transactionContext, ( ( OrgUnit ) bean ).id );
 		final Delete deleteStatement = database.getDelete( "OrgUnit" );
 		deleteStatement.byId("pk", ((OrgUnit) bean).id);
-		context.execute( deleteStatement );
+		transactionContext.execute( deleteStatement );
 
 		// Remove category pressevertreter of the current mandant
-		deletePressCategoryByOrgUnit(cntx,context,((OrgUnit)bean).id);
+		deletePressCategoryByOrgUnit(cntx,transactionContext,((OrgUnit)bean).id);
 
 		return true;
 	}
@@ -284,29 +268,29 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 	 * Delete press category linked to the deleted mandant
 	 *
 	 * @param cntx OctopusContext
-	 * @param context TransactionContext
+	 * @param transactionContext TransactionContext
 	 * @param orgUnitId Integer
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	private void deletePressCategoryByOrgUnit(OctopusContext cntx, TransactionContext context, Integer orgUnitId) throws BeanException, IOException {
+	private void deletePressCategoryByOrgUnit(OctopusContext cntx, TransactionContext transactionContext, Integer orgUnitId) throws BeanException, IOException {
 
-		final Database database = context.getDatabase();
+		final Database database = transactionContext.getDatabase();
 
 		final Delete deleteStatement = database.getDelete("Categorie");
 		deleteStatement.where(Where.and(Expr.equal("fk_orgunit", orgUnitId), Expr.equal("catname", "Pressevertreter")));
 
-		context.execute(deleteStatement);
+		transactionContext.execute(deleteStatement);
 	}
 	/**
 	 * Creating presse category to every new Mandants
 	 * @param cntx OctopusContext
 	 * @param orgUnitId Integer
-	 * @param context TransactionContext
+	 * @param transactionContext TransactionContext
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	private void initPressCategory(OctopusContext cntx, Integer orgUnitId, TransactionContext context) throws BeanException, IOException {
+	private void initPressCategory(OctopusContext cntx, Integer orgUnitId, TransactionContext transactionContext) throws BeanException, IOException {
 		// Implementieren
 		final Database database = new DatabaseVeraWeb(cntx);
 		final Categorie category = new Categorie();
@@ -316,7 +300,7 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 
 		final Insert insertStatement = database.getInsert(category);
 
-		context.execute(insertStatement);
+		transactionContext.execute(insertStatement);
 	}
 
 	/**

@@ -145,9 +145,9 @@ public class WorkAreaWorker extends StammdatenWorker
 	 * introduced as part of fix for issue #1530 - deletion of orgunits and automatic deletion of associated work areas. will not commit itself.
 	 */
 	@SuppressWarnings("unchecked")
-	public static void removeAllWorkAreasFromOrgUnit( OctopusContext cntx, TransactionContext context, Integer orgUnitId ) throws BeanException, IOException
+	public static void removeAllWorkAreasFromOrgUnit( OctopusContext cntx, TransactionContext transactionContext, Integer orgUnitId ) throws BeanException, IOException
 	{
-		Select stmt = context.getDatabase().getSelect( "WorkArea" );
+		Select stmt = transactionContext.getDatabase().getSelect( "WorkArea" );
 		stmt.select( "pk" );
 		stmt.where( Expr.equal( "fk_orgunit", orgUnitId ) );
 
@@ -157,10 +157,10 @@ public class WorkAreaWorker extends StammdatenWorker
 			while ( beans.next() )
 			{
 				// first remove all workArea assignments from all persons
-				PersonListWorker.unassignWorkArea( context, beans.getInt( "pk" ), null );
-				Delete delstmt = context.getDatabase().getDelete( "WorkArea" );
+				PersonListWorker.unassignWorkArea( transactionContext, beans.getInt( "pk" ), null );
+				Delete delstmt = transactionContext.getDatabase().getDelete( "WorkArea" );
 				delstmt.byId( "pk",  beans.getInt( "pk" ) );
-				context.execute( delstmt );
+				transactionContext.execute( delstmt );
 			}
 		}
 		catch ( SQLException e )
