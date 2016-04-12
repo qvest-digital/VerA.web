@@ -145,7 +145,7 @@ public class WorkAreaWorker extends StammdatenWorker
 	 * introduced as part of fix for issue #1530 - deletion of orgunits and automatic deletion of associated work areas. will not commit itself.
 	 */
 	@SuppressWarnings("unchecked")
-	public static void removeAllWorkAreasFromOrgUnit( OctopusContext cntx, TransactionContext transactionContext, Integer orgUnitId ) throws BeanException, IOException
+	public static void removeAllWorkAreasFromOrgUnit(TransactionContext transactionContext, Integer orgUnitId ) throws BeanException, IOException
 	{
 		Select stmt = transactionContext.getDatabase().getSelect( "WorkArea" );
 		stmt.select( "pk" );
