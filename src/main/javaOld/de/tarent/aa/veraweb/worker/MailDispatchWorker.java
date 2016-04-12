@@ -272,7 +272,7 @@ public class MailDispatchWorker implements Runnable {
 				where(Expr.equal("pk", id)));
 	}
 
-    private void deleteMailOutbox(Integer id) throws SQLException {
+    private void deleteMailOutbox(Integer id) {
         final Database database = new DatabaseVeraWeb( this.octopusContext);
         final TransactionContext transactionContext = database.getTransactionContext();
         try {
