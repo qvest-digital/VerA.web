@@ -78,15 +78,15 @@ public class ChangeLogEntry extends AbstractBean
 	 * with the priviledge of the anonymous user group.
 	 */
 	@Override
-    public void checkWrite( OctopusContext cntx ) throws BeanException
+    public void checkWrite( OctopusContext octopusContext) throws BeanException
 	{
 		try
 		{
-			checkGroup( cntx, PersonalConfig.GROUP_ANONYMOUS );
+			checkGroup(octopusContext, PersonalConfig.GROUP_ANONYMOUS );
 		}
 		catch( BeanException e )
 		{
-			checkGroup( cntx, PersonalConfig.GROUP_USER );
+			checkGroup(octopusContext, PersonalConfig.GROUP_USER );
 		}
 	}
 }

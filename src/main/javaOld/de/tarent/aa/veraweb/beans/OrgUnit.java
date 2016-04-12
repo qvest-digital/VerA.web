@@ -65,13 +65,13 @@ public class OrgUnit extends AbstractBean {
      * werden darf.<br>
      * Test ist, ob der Benutzer Administrator ist.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public void checkWrite(OctopusContext cntx) throws BeanException
+    public void checkWrite(OctopusContext octopusContext) throws BeanException
     {
-    	checkGroups( cntx, new String[] { PersonalConfigAA.GROUP_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER } );
+    	checkGroups(octopusContext, new String[] { PersonalConfigAA.GROUP_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER } );
     }
 }

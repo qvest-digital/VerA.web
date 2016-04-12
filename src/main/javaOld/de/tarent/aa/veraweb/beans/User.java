@@ -68,13 +68,13 @@ public class User extends AbstractBean implements OrgUnitDependent {
      * werden darf.<br>
      * Test ist, ob der Benutzer Mandanten-Administrator oder der SystemUser ist.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      */
     @Override
-    public void checkWrite(OctopusContext cntx) throws BeanException
+    public void checkWrite(OctopusContext octopusContext) throws BeanException
     {
-		checkGroups( cntx, new String[] { PersonalConfigAA.GROUP_PARTIAL_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER } );
+		checkGroups(octopusContext, new String[] { PersonalConfigAA.GROUP_PARTIAL_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER } );
     }
 
     //

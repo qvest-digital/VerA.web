@@ -59,12 +59,12 @@ public class Salutation extends AbstractBean {
      * werden darf.<br>
      * Test ist, ob der Benutzer Teil-Admin ist.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public void checkWrite(OctopusContext cntx) throws BeanException {
-        checkGroup(cntx, PersonalConfigAA.GROUP_PARTIAL_ADMIN);
+    public void checkWrite(OctopusContext octopusContext) throws BeanException {
+        checkGroup(octopusContext, PersonalConfigAA.GROUP_PARTIAL_ADMIN);
     }
 }

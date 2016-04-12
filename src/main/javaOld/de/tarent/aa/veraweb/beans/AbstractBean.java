@@ -49,11 +49,11 @@ public abstract class AbstractBean extends MapBean {
 	 * werden darf.<br>
      * Default-Test ist, ob der Benutzer Administrator ist.
 	 *
-	 * @param cntx Octopus-Kontext
+	 * @param octopusContext Octopus-Kontext
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
 	 */
-	public void checkWrite(OctopusContext cntx) throws BeanException {
-		checkGroup(cntx, PersonalConfigAA.GROUP_ADMIN);
+	public void checkWrite(OctopusContext octopusContext) throws BeanException {
+		checkGroup(octopusContext, PersonalConfigAA.GROUP_ADMIN);
 	}
 
     /**
@@ -62,10 +62,10 @@ public abstract class AbstractBean extends MapBean {
      * (siehe {@link #checkWrite(OctopusContext)}), sollte die Bean hier nicht
      * verändert werden.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @throws BeanException bei Problemen mit der Bean
      */
-    public void clearRestrictedFields(OctopusContext cntx) throws BeanException {
+    public void clearRestrictedFields(OctopusContext octopusContext) throws BeanException {
     }
 
 	/**

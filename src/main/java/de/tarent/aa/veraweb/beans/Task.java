@@ -164,15 +164,15 @@ public class Task extends AbstractHistoryBean {
      * Checks whether logged in user in current context is allowed to read this bean.<br>
      * Group {@link PersonalConfigAA#GROUP_WRITE} is required.
      *
-     * @param cntx
+     * @param octopusContext
      *            Octopus context
      * @throws BeanException
      *             thrown exception if user is prohibited from writing this bean
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public void checkWrite(final OctopusContext cntx) throws BeanException {
-        checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
+    public void checkWrite(final OctopusContext octopusContext) throws BeanException {
+        checkGroup(octopusContext, PersonalConfigAA.GROUP_WRITE);
     }
 
     /**

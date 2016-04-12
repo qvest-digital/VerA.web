@@ -68,12 +68,12 @@ public class WorkArea extends AbstractBean {
     * Tests whether the user may write the bean
     * to the database.
     *
-    * @param cntx the current octopus context
+    * @param octopusContext the current octopus context
     * @throws BeanException
     * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
     */
    @Override
-   public void checkWrite( OctopusContext cntx ) throws BeanException {
-       checkGroups( cntx, new String[] {PersonalConfigAA.GROUP_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER} );
+   public void checkWrite( OctopusContext octopusContext) throws BeanException {
+       checkGroups(octopusContext, new String[] {PersonalConfigAA.GROUP_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER} );
    }
 }
