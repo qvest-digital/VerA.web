@@ -72,13 +72,13 @@ public class MailDraft extends AbstractHistoryBean {
 	 * darf.<br>
 	 * Test ist, ob der Benutzer Standard-Reader ist.
 	 *
-	 * @param cntx Octopus-Kontext
+	 * @param octopusContext Octopus-Kontext
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
 	 * @see AbstractBean#checkRead(OctopusContext)
 	 */
 	@Override
-    public void checkRead(OctopusContext cntx) throws BeanException {
-		checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
+    public void checkRead(OctopusContext octopusContext) throws BeanException {
+		checkGroup(octopusContext, PersonalConfigAA.GROUP_READ_STANDARD);
 	}
 
 	/**

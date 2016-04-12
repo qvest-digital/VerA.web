@@ -174,17 +174,17 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 		c.add( Calendar.DAY_OF_MONTH, -1 * this.retentionPolicy.days );
 		Date d = new Date( c.getTimeInMillis() );
 
-		TransactionContext context = ( new DatabaseVeraWeb( this.cntx ) ).getTransactionContext();
+		TransactionContext transactionContext = ( new DatabaseVeraWeb( this.cntx ) ).getTransactionContext();
 		try
 		{
-			Delete delete = context.getDatabase().getDelete( "ChangeLogEntry" );
+			Delete delete = transactionContext.getDatabase().getDelete( "ChangeLogEntry" );
 			delete.where( Expr.lessOrEqual( "date", d.toString() ) );
-			context.execute( delete );
-			context.commit();
+			transactionContext.execute( delete );
+			transactionContext.commit();
 		}
 		catch ( Throwable e )
 		{
-			context.rollBack();
+			transactionContext.rollBack();
 			logger.trace( "Das Changelog konnte nicht gel\u00f6scht werden.", e );
 		}
 	}

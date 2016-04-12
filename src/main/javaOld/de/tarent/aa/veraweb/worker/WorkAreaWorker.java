@@ -128,14 +128,14 @@ public class WorkAreaWorker extends StammdatenWorker
 	 *
 	 * fixed as part of issue #1530 - deletion of workareas and automatic unassignment from existing persons
 	 */
-    protected boolean removeBean( OctopusContext cntx, Bean bean, TransactionContext context ) throws BeanException, IOException
+    protected boolean removeBean( OctopusContext cntx, Bean bean, TransactionContext transactionContext ) throws BeanException, IOException
 	{
-		Database database = context.getDatabase();
+		Database database = transactionContext.getDatabase();
 		// first remove all workArea assignments from all persons
-		PersonListWorker.unassignWorkArea( context, ( ( WorkArea ) bean ).id, null );
+		PersonListWorker.unassignWorkArea( transactionContext, ( ( WorkArea ) bean ).id, null );
 		Delete stmt = database.getDelete( "WorkArea" );
 		stmt.byId( "pk",  ( ( WorkArea ) bean ).id  );
-		context.execute( stmt );
+		transactionContext.execute( stmt );
 		return true;
 	}
 

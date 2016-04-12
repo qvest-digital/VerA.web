@@ -66,9 +66,9 @@ public class ChangeLogEntry extends AbstractBean
 	 * Only admins may read the entity beans from the table.
 	 */
 	@Override
-    public void checkRead( OctopusContext cntx ) throws BeanException
+    public void checkRead( OctopusContext octopusContext) throws BeanException
 	{
-		checkGroup( cntx, PersonalConfigAA.GROUP_ADMIN );
+		checkGroup(octopusContext, PersonalConfigAA.GROUP_ADMIN );
 	}
 
 	/**

@@ -44,13 +44,13 @@ public class EventFunction extends AbstractBean {
      * darf.<br>
      * Test ist, ob der Benutzer Standard-Reader ist.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @throws de.tarent.octopus.beans.BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public void checkRead(OctopusContext cntx) throws BeanException {
-        checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
+    public void checkRead(OctopusContext octopusContext) throws BeanException {
+        checkGroup(octopusContext, PersonalConfigAA.GROUP_READ_STANDARD);
     }
 
     /**

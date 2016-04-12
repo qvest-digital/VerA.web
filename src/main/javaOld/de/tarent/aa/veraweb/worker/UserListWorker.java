@@ -233,19 +233,19 @@ public class UserListWorker extends ListWorkerVeraWeb {
      * @throws IOException
      */
    @Override
-   protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
+   protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
 	    if (bean != null && ((User)bean).id != null) {
 	        Integer userId = ((User)bean).id;
 
 	        /* delete related proxy configurations */
 		    Proxy proxy = new Proxy();
 		    proxy.user = userId;
-		    Database database = context.getDatabase();
-	    	context.execute(database.getDelete("Proxy").where(database.getWhere(proxy)));
+		    Database database = transactionContext.getDatabase();
+	    	transactionContext.execute(database.getDelete("Proxy").where(database.getWhere(proxy)));
 
 	    	/* delete related user configurations */
-	    	context.execute(database.getDelete("UserConfig").where(Expr.equal("fk_user", userId)));
+	    	transactionContext.execute(database.getDelete("UserConfig").where(Expr.equal("fk_user", userId)));
 	    }
-    	return super.removeBean(cntx, bean, context);
+    	return super.removeBean(cntx, bean, transactionContext);
     }
 }

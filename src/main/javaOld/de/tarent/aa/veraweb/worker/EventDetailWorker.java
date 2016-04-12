@@ -146,7 +146,7 @@ public class EventDetailWorker {
 
 		Request request = new RequestVeraWeb(octopusContext);
 		Database database = new DatabaseVeraWeb(octopusContext);
-		TransactionContext context = database.getTransactionContext();
+		TransactionContext transactionContext = database.getTransactionContext();
 
 		try
 		{
@@ -159,7 +159,7 @@ public class EventDetailWorker {
 			}
 			event.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
 
-			Event oldEvent = (Event) database.getBean("Event", event.id, context);
+			Event oldEvent = (Event) database.getBean("Event", event.id, transactionContext);
 
 			List errors = new ArrayList();
 			Map questions = new HashMap();
@@ -171,7 +171,7 @@ public class EventDetailWorker {
 
 			/** Wenn ein Gastgeber angegeben worden ist zu diesem die Personendaten laden. */
 			if (event.host != null) {
-                getHostPersonDetails(database, context, event);
+                getHostPersonDetails(database, transactionContext, event);
 			} else {
 				event.hostname = null;
 			}
@@ -230,17 +230,17 @@ public class EventDetailWorker {
 
                 // Allow event configrmation via online registration with/without login
                 setLoginRequired(octopusContext, event);
-                BeanChangeLogger clogger = new BeanChangeLogger( database, context );
+                BeanChangeLogger clogger = new BeanChangeLogger( database, transactionContext );
                 if (event.id == null) {
 
                     octopusContext.setContent("countInsert", new Integer(1));
-                    database.getNextPk(event, context);
+                    database.getNextPk(event, transactionContext);
                     Insert insert = database.getInsert(event);
                     insert.insert("pk", event.id);
                     if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
                         insert.remove("note");
                     }
-                    context.execute(insert);
+                    transactionContext.execute(insert);
 
                     clogger.logInsert( octopusContext.personalConfig().getLoginname(), event );
                 } else {
@@ -249,7 +249,7 @@ public class EventDetailWorker {
                     if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
                         update.remove("note");
                     }
-                    context.execute(update);
+                    transactionContext.execute(update);
 
                     clogger.logUpdate( octopusContext.personalConfig().getLoginname(), oldEvent, event );
                 }
@@ -258,7 +258,7 @@ public class EventDetailWorker {
                     List list = database.getBeanList("Doctype", database.getSelect("Doctype").where(
                                     Where
                                             .or(Expr.equal("flags", new Integer(Doctype.FLAG_IS_STANDARD)), Expr.equal("flags", new Integer(Doctype.FLAG_NO_FREITEXT)))),
-                            context);
+                            transactionContext);
                     for (Iterator it = list.iterator(); it.hasNext(); ) {
                         Doctype doctype = (Doctype) it.next();
                         EventDoctype eventDoctype = new EventDoctype();
@@ -266,11 +266,11 @@ public class EventDetailWorker {
                         eventDoctype.doctype = doctype.id;
                         if (eventDoctype.event != null && eventDoctype.doctype != null)
                         {
-                            database.saveBean(eventDoctype, context, false);
+                            database.saveBean(eventDoctype, transactionContext, false);
                         }
                     }
                     if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)){
-                    	initOptionalFields(database, context, event);
+                    	initOptionalFields(database, transactionContext, event);
                     }
                 }
 
@@ -281,15 +281,15 @@ public class EventDetailWorker {
                 // Alt: Veraltete Gastgeber zu Gästen machen
                 // Neu: gelöschten Gastgeber aus Veranstaltung entfernen.
                 if (removeHost) {
-                    handleRemoveHost(octopusContext, database, context, event);
+                    handleRemoveHost(octopusContext, database, transactionContext, event);
                 }
 
                 if (createHost) {
                     Boolean reserve = Boolean.FALSE;
-                    WorkerFactory.getGuestWorker(octopusContext).addGuest(octopusContext, database, context, event, event.host, null, reserve, invitationtype,
+                    WorkerFactory.getGuestWorker(octopusContext).addGuest(octopusContext, database, transactionContext, event, event.host, null, reserve, invitationtype,
                             Boolean.TRUE);
                 } else if (updateHost) {
-                    context.execute(SQL.Update(database).table("veraweb.tguest").update("ishost", new Integer(1)).update("invitationtype", invitationtype)
+                    transactionContext.execute(SQL.Update(database).table("veraweb.tguest").update("ishost", new Integer(1)).update("invitationtype", invitationtype)
                             .where(Where.and(Expr.equal("fk_event", event.id), Expr.equal("fk_person", event.host))));
 
                     // TODO also modifies tguest, full change logging requires
@@ -297,7 +297,7 @@ public class EventDetailWorker {
                 }
 
                 if (oldEvent != null && !event.invitationtype.equals(oldEvent.invitationtype)) {
-                    context.execute(SQL.Update(database).table("veraweb.tguest").update("invitationtype", event.invitationtype).where(
+                    transactionContext.execute(SQL.Update(database).table("veraweb.tguest").update("invitationtype", event.invitationtype).where(
                             Where.and(Expr.equal("fk_event", event.id), Expr.notEqual("ishost", new Integer(1)))));
 
                     // TODO also modifies tevent, full change logging requires
@@ -322,9 +322,9 @@ public class EventDetailWorker {
 			octopusContext.setContent("event-beginhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.begin)));
 			octopusContext.setContent("event-endhastime", Boolean.valueOf(DateHelper.isTimeInDate(event.end)));
 
-			context.commit();
+			transactionContext.commit();
         } catch (BeanException e) {
-            context.rollBack();
+            transactionContext.rollBack();
             // must report error to user
             throw new BeanException("Die Eventdetails konnten nicht gespeichert werden.", e);
         }
@@ -362,9 +362,9 @@ public class EventDetailWorker {
         }
     }
 
-    private void initOptionalFields(Database database, TransactionContext context, Event event) throws BeanException {
+    private void initOptionalFields(Database database, TransactionContext transactionContext, Event event) throws BeanException {
         for(int i = 0; i < NUMBER_OPTIONAL_FIELDS; i++) {
-            context.execute(SQL.Insert(database).table("veraweb.toptional_fields").insert("fk_event", event.id).insert("label", ""));
+            transactionContext.execute(SQL.Insert(database).table("veraweb.toptional_fields").insert("fk_event", event.id).insert("label", ""));
         }
     }
 

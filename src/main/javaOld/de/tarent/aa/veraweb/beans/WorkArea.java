@@ -55,13 +55,13 @@ public class WorkArea extends AbstractBean {
      * Tests whether the user may read the bean
      * from the database.
      *
-     * @param cntx the current octopus context
+     * @param octopusContext the current octopus context
      * @throws BeanException
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public void checkRead( OctopusContext cntx ) throws BeanException {
-        checkGroups( cntx, new String[] {PersonalConfigAA.GROUP_READ_STANDARD, PersonalConfigAA.GROUP_SYSTEM_USER} );
+    public void checkRead( OctopusContext octopusContext) throws BeanException {
+        checkGroups(octopusContext, new String[] {PersonalConfigAA.GROUP_READ_STANDARD, PersonalConfigAA.GROUP_SYSTEM_USER} );
     }
 
    /**

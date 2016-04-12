@@ -86,7 +86,7 @@ public class Proxy extends AbstractHistoryBean {
      * darf.<br>
      * Test ist leer.
      *
-     * @param cntx
+     * @param octopusContext
      *            Octopus-Kontext
      * @throws BeanException
      *             Wenn im angegebenen Kontext diese Bohne nicht gelesen werden
@@ -94,7 +94,7 @@ public class Proxy extends AbstractHistoryBean {
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public void checkRead(OctopusContext cntx) throws BeanException {
+    public void checkRead(OctopusContext octopusContext) throws BeanException {
     }
 
     /**

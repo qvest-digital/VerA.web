@@ -149,15 +149,15 @@ public class Task extends AbstractHistoryBean {
      * Checks whether logged in user in current context is allowed to read this bean.<br>
      * Group {@link PersonalConfigAA#GROUP_READ_STANDARD} is required.
      *
-     * @param cntx
+     * @param octopusContext
      *            Octopus context
      * @throws BeanException
      *             thrown exception if user is prohibited from reading this bean
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public void checkRead(final OctopusContext cntx) throws BeanException {
-        checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
+    public void checkRead(final OctopusContext octopusContext) throws BeanException {
+        checkGroup(octopusContext, PersonalConfigAA.GROUP_READ_STANDARD);
     }
 
     /**
