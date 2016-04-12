@@ -254,13 +254,13 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
         }
 
         // first remove all workArea assignments from all persons
-        WorkAreaWorker.removeAllWorkAreasFromOrgUnit(octopusContext, transactionContext, ((OrgUnit) bean).id);
+        WorkAreaWorker.removeAllWorkAreasFromOrgUnit(transactionContext, ((OrgUnit) bean).id);
         final Delete deleteStatement = database.getDelete("OrgUnit");
         deleteStatement.byId("pk", ((OrgUnit) bean).id);
         transactionContext.execute(deleteStatement);
 
         // Remove category pressevertreter of the current mandant
-        deletePressCategoryByOrgUnit(octopusContext, transactionContext, ((OrgUnit) bean).id);
+        deletePressCategoryByOrgUnit(transactionContext, ((OrgUnit) bean).id);
 
         return true;
     }

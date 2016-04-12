@@ -222,7 +222,7 @@ public class CleanupWorker {
 						" nach \"" + plainname + "\".");
 
 				if (isActivated(cntx)) {
-					renameCategorie(cntx, database, catpk, plainname);
+					renameCategorie(database, catpk, plainname);
 					cntx.setContent("cleanupdone", Boolean.TRUE);
 				}
 			}
