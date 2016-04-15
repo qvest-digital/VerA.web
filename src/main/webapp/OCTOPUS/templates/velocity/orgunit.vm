@@ -34,8 +34,11 @@
     <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
 		<div class="event" id="tabsMain">
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-				<li vera-tab-default="" vera-tab="mandanten" class="active"><div>${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</div>
-				</li><li class="inactive"><a href="OrgunitCleanup" class="noBorder"><div>${placeholderWithTranslation.GENERIC_DATABASE}</div></a>
+				<li vera-tab-default="" vera-tab="mandanten" class="active">
+					<div>${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</div>
+				</li>
+				<li class="inactive"><a href="OrgunitCleanup" class="noBorder">
+					<div>${placeholderWithTranslation.GENERIC_DATABASE}</div></a>
 				</li>
 			</ul>
 		</div>

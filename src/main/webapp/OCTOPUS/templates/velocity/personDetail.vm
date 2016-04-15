@@ -195,11 +195,19 @@
 
 	<div id="tabsMain">
 		<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-			<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');"><div>${placeholderWithTranslation.GENERIC_PERSONS_DATA}</div></li>
-			<li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');"><div>${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</div></li>
+			<li vera-tab="personendaten" #if(!$thisPersonTab || $thisPersonTab == "1") vera-tab-default #end onclick="$('#personTab').attr('value', '1');">
+				<div>${placeholderWithTranslation.GENERIC_PERSONS_DATA}</div>
+			</li>
+			<li vera-tab="anschriften" #if($thisPersonTab && $thisPersonTab == "2") vera-tab-default #end onclick="$('#personTab').attr('value', '2');">
+				<div>${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</div>
+			</li>
 			#if($personDB)
-				<li class="inactive" id="dokumenttypen" onclick="showDoctypes();"><div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div></li>
-				<li class="inactive" id="kategorien" onclick="showCategories();"><div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div></li>
+				<li class="inactive" id="dokumenttypen" onclick="showDoctypes();">
+					<div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
+				</li>
+				<li class="inactive" id="kategorien" onclick="showCategories();">
+					<div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div>
+				</li>
 			#end
 		</ul>
 	</div>
@@ -210,8 +218,12 @@
 
 	<div class="tabsSub" vera-content="personendaten">
 		<ul class="marginBottom20" vera-tab-group>
-			<li style="display:inline-table; width:89%" vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" ><div>$!config.main</div></li>
-			<li style="display:inline-table; width:89%" vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" ><div>$!config.partner</div></li>
+			<li style="display:inline-table; width:89%" vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" >
+			    <div>$!config.main</div>
+			</li>
+			<li style="display:inline-table; width:89%" vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" >
+			    <div>$!config.partner</div>
+			</li>
 		</ul>
 
 		<hr />
@@ -274,9 +286,15 @@
 
 	<div class="tabsSub" vera-content="anschriften">
 		<ul class="marginBottom20" vera-tab-group>
-<li vera-tab="geschaeftlich" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" ><div>$!config.business</div></li>
-			<li vera-tab="privat" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "2") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '2');" ><div>$!config.private</div></li>
-			<li vera-tab="weitere" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "3") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '3');" ><div>$!config.other</div></li>
+            <li vera-tab="geschaeftlich" #if(!$thisPersonAddresstypeTab || $thisPersonAddresstypeTab == "1") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '1');" >
+                <div>$!config.business</div>
+            </li>
+			<li vera-tab="privat" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "2") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '2');" >
+			    <div>$!config.private</div>
+			</li>
+			<li vera-tab="weitere" #if($thisPersonAddresstypeTab && $thisPersonAddresstypeTab == "3") vera-tab-default #end onclick="$('#personAddresstypeTab').attr('value', '3');" >
+			    <div>$!config.other</div>
+			</li>
 		</ul>
 
 		<hr />

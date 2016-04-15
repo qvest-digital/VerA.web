@@ -90,16 +90,24 @@
 			#if(!$isNewEvent)
 				<div id="tabsMain" class="event">
 					<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-						<li vera-tab="allgemein" vera-tab-default><div>${placeholderWithTranslation.GENERIC_GENERAL}</div>
-						</li><li onclick="showDoctypes();" class="inactive"><div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
-						</li><li class="inactive" #if ($event.id) onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';}" #end><div>${placeholderWithTranslation.GENERIC_TASK_PLURAL}</div>
+						<li vera-tab="allgemein" vera-tab-default>
+							<div>${placeholderWithTranslation.GENERIC_GENERAL}</div>
+						</li>
+						<li onclick="showDoctypes();" class="inactive">
+							<div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
+						</li>
+						<li class="inactive" #if ($event.id) onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';}" #end>
+							<div>${placeholderWithTranslation.GENERIC_TASK_PLURAL}</div>
 						</li>
 						#if ($online-registration.activated)
-							<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'"><div>${placeholderWithTranslation.GENERIC_ADDITIONAL_PERSONS_DATA}</div>
+							<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'">
+								<div>${placeholderWithTranslation.GENERIC_ADDITIONAL_PERSONS_DATA}</div>
 							</li>
-							<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
+							<li class="inactive" onclick="window.location.href='ShowEventFunction?id=$!event.id';">
+								<div>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</div>
 							</li>
-							<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';"><div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div>
+							<li class="inactive" onclick="window.location.href='ShowEventCategory?id=$!event.id';">
+								<div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div>
 							</li>
 						#end
 					</ul>
