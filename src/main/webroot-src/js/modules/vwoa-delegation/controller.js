@@ -33,7 +33,7 @@ module.exports = function($scope, delegationService, $routeParams, $http) {
     delegationService
       .savePerson($routeParams.uuid, $scope.person)
       .then(showSuccess,showError)
-      .fetchList($routeParams.uuid)
+      .then(function(){return delegationService.fetchList($routeParams.uuid);})
       .then(putInScope("presentPersons"), showError);
   };
   delegationService

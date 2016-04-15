@@ -25,6 +25,9 @@ module.exports = function() {
     controller: function($scope) {
       var fileReader = new FileReader();
       $scope.state = 'empty'
+      $scope.$watch('image',function(){
+        $scope.state = $scope.image ? "loaded" : "empty";
+      });
       $scope.inputChanged = function(event) {
         $scope.state = 'loading';
         fileReader.readAsDataURL(event.target.files[0]);
@@ -47,7 +50,6 @@ module.exports = function() {
 
           ctx.drawImage(image, 0, 0, image.width, image.height);
           $scope.image = canvas.toDataURL();
-          $scope.state = 'loaded';
         });
         image.src = fileReader.result;
       };

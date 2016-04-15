@@ -94,12 +94,28 @@ module.exports = function($q, $http, param) {
         }),
         $http.get('api/delegation/load/fields/' + uuid + '/' + pk)
         .then(transformResponse)
-        .then(decodeFieldValues)
+        .then(decodeFieldValues),
+        $http.get('api/fileupload/user/image/' + uuid + '/' + pk)
+        .then(transformResponse)
+        .then(function(data) {
+          return $http.get('api/fileupload/download/' + data.status);
+        })
+        .then(transformResponse)
+        .then(function(data) {
+          return data.status
+        }, function(error) {
+          console.log("fyi:", error);
+          //ignore errors at this point:
+          //  it may very well be that no image exists.
+          return null;
+        })
+
       ])
       .then(function(results) {
         var person = results[0];
         person.category = results[1];
         person.fields = results[2];
+        person.image = results[3];
         return person;
       });
   };
@@ -157,7 +173,7 @@ module.exports = function($q, $http, param) {
              *
              * Ziemlich verschroben, aber so scheint es bisher "funktioniert" zu haben.
              */
-            hasTempImage: false //TODO
+            hasTempImage: !!person.image
           })
         });
       })
@@ -169,8 +185,22 @@ module.exports = function($q, $http, param) {
           case 'WRONG_DELEGATION':
             throw new Error('DELEGATION_MESSAGE_NO_EXTRA_FIELDS');
           case 'OK':
-            break; //TODO data saved, no image uuid yet.
-          default: //TODO: data saved, server returns uuid that we should use *now* to upload the image.
+            break; 
+          default: 
+            var imageUuid = data.status;
+            return $http({
+                method: 'POST',
+                url: 'api/fileupload/save',
+                dataType: 'text',
+                headers: {
+                  "Content-Type": undefined
+                },
+                data: param({
+                  file: person.image,
+                  imgUUID: imageUuid
+                })
+              });
+            break;
         }
       });
   };
