@@ -17,10 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "flow.js": "^2.9.0",
-    "ng-flow": "^2.6.1",
     "bootstrap": "^3.3.6",
     "bootstrapvalidator": "^0.5.3"
-
   }
 }
