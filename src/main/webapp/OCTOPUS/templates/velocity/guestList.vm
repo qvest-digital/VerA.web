@@ -564,7 +564,7 @@
 						#end
 
 						#set($itemName = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
-						#parse("inc/list-navi-new.vm")
+						#tableFooter(12)
 
 						#if($search.listorder)
 							#parse("inc/list-direct-new.vm")

@@ -478,6 +478,7 @@ public class GuestDetailWorker extends GuestListWorker {
             update.remove("noteorga_b");
         }
         transactionContext.execute(update);
+        transactionContext.commit();
 
         // retrieve old instance of guest for update logging
         // we will quietly ignore non existing old entities and simply omit logging
@@ -503,6 +504,7 @@ public class GuestDetailWorker extends GuestListWorker {
             insert.remove("noteorga_b");
         }
         transactionContext.execute(insert);
+        transactionContext.commit();
 
         clogger.logInsert(octopusContext.personalConfig().getLoginname(), guest);
     }
@@ -614,6 +616,7 @@ public class GuestDetailWorker extends GuestListWorker {
                 insert("toptional_fields_delegation_content.value", fieldContent);
 
         transactionContext.execute(insert);
+        transactionContext.commit();
     }
 
     private void deleteExistingDelegationFieldContent(final TransactionContext transactionContext,
@@ -622,6 +625,7 @@ public class GuestDetailWorker extends GuestListWorker {
         deleteStatement.from("toptional_fields_delegation_content").
                 whereAndEq("toptional_fields_delegation_content.fk_guest", guestId);
         transactionContext.execute(deleteStatement);
+        transactionContext.commit();
     }
 
 

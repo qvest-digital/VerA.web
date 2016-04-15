@@ -360,13 +360,13 @@ public class PersonDuplicateCheckHelper {
 	/**
 	 * Gets all companies with duplicated names
 	 *
-	 * @param cntx
+	 * @param octopusContext
 	 * @param person
 	 * @return company name: company_a_e1
 	 */
-	public Clause getDuplicateExprCompany(OctopusContext cntx, Person person) {
+	public Clause getDuplicateExprCompany(OctopusContext octopusContext, Person person) {
 		Clause clause = Where.and(Expr.equal("fk_orgunit",
-						((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
+						((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId()),
 				Expr.equal("deleted", PersonConstants.DELETED_FALSE));
 		String companyName = person == null || person.company_a_e1 == null || person.company_a_e1.equals("") ? ""
 				: person.company_a_e1;

@@ -263,14 +263,14 @@ public class AddressHelper implements PersonConstants {
 	 * <li>Latein-Weitere nach Zeichensatz 1-Weitere und Zeichensatz 2-Weitere.</li>
 	 * </ul>
 	 *
-	 * @param cntx Octopus-Context
+	 * @param octopusContext Octopus-Context
 	 * @param person neuer Personen-Eintrag
 	 * @param personOld alter Personen Eintrag (oder null)
 	 */
-	public static void copyAddressData(OctopusContext cntx, Person person, Person personOld) {
+	public static void copyAddressData(OctopusContext octopusContext, Person person, Person personOld) {
 		final boolean forceCopy = false;
 
-		String l2e = cntx.moduleConfig().getParam("copyPersonDataLatinToExtra");
+		String l2e = octopusContext.moduleConfig().getParam("copyPersonDataLatinToExtra");
 		boolean l2eName =    l2e != null && (l2e.equals("all") || l2e.indexOf("name") != -1);
 		boolean l2eAddress = l2e != null && (l2e.equals("all") || l2e.indexOf("address") != -1);
 		boolean l2eContact = l2e != null && (l2e.equals("all") || l2e.indexOf("contact") != -1);

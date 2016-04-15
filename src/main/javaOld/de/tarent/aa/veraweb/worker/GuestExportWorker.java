@@ -30,6 +30,7 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import de.tarent.aa.veraweb.beans.*;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
 
+import de.tarent.octopus.beans.TransactionContext;
 import org.apache.log4j.Logger;
 
 import de.tarent.aa.veraweb.beans.Doctype;
@@ -1152,10 +1153,13 @@ public class GuestExportWorker {
 	}
 
 	private void updatePerson(final Database database, final Object username, final Integer personId) throws BeanException {
-		database.execute(SQL.Update( database ).
+
+		final TransactionContext transactionContext = database.getTransactionContext();
+		transactionContext.execute(SQL.Update( database ).
 				table("veraweb.tperson").
 				update("username", username).
 				where(Expr.equal("pk", personId)));
+		transactionContext.commit();
 	}
 
 	/**

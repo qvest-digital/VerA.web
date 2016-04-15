@@ -196,7 +196,7 @@ public class StatistikWorker {
 
 			// EXPORT IN EINE ODS-DATEI
 			//ResultList resultList = (ResultList)database.getList(select);
-			//cntx.setContent("stream", getExport(cntx, resultList.getResultSet()));
+			//octopusContext.setContent("stream", getExport(octopusContext, resultList.getResultSet()));
 
 			// EXPORT ÜBER EIN VELOCITY SCRIPT
 			cntx.setContent("begin", filterBegin);

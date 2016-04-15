@@ -123,7 +123,7 @@ public class CategorieWorker extends StammdatenWorker {
             cntx.setContent("count", count);
         }
 
-//        super.getAll(cntx);
+//        super.getAll(octopusContext);
         getAllAvailableEventCategories(cntx);
     }
 
@@ -131,7 +131,7 @@ public class CategorieWorker extends StammdatenWorker {
      * Returns all available person categories that have not been
      * assigned to a specific event.
      *
-     * @param cntx
+     * @param octopusContext
      * @throws BeanException
      * @throws IOException
      */
@@ -305,15 +305,16 @@ public class CategorieWorker extends StammdatenWorker {
      * @param bean
      * @throws BeanException
      */
-    protected void incorporateBean(OctopusContext cntx, Categorie bean, TransactionContext context) throws BeanException {
+    protected void incorporateBean(OctopusContext cntx, Categorie bean, TransactionContext transactionContext) throws BeanException {
         assert bean != null;
         assert cntx != null;
 
         if (bean.rank != null) {
-            context.execute(SQL.Update(context.getDatabase()).
+            transactionContext.execute(SQL.Update(transactionContext.getDatabase()).
                     table("veraweb.tcategorie").
                     update("rank", new RawClause("rank + 1")).
                     where(Expr.greaterOrEqual("rank", bean.rank)));
+            transactionContext.commit();
         }
     }
 
@@ -329,15 +330,16 @@ public class CategorieWorker extends StammdatenWorker {
     }
 
     @Override
-    protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
-        int count = super.removeSelection(cntx, errors, selection, context);
+    protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext transactionContext) throws BeanException, IOException {
+        int count = super.removeSelection(cntx, errors, selection, transactionContext);
 
         // now remove all stale person category assignments
-        context.execute(
-                SQL.Delete(context.getDatabase()).
+        transactionContext.execute(
+                SQL.Delete(transactionContext.getDatabase()).
                         from("veraweb.tperson_categorie").
                         where(new RawClause("fk_categorie NOT IN (" +
                                 "SELECT pk FROM veraweb.tcategorie)")));
+        transactionContext.commit();
 
         return count;
     }

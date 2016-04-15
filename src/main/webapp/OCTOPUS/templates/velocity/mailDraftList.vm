@@ -58,7 +58,7 @@
         	#end
 
         	#set($itemName = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_PLURAL}")
-        	#parse("inc/list-navi-new.vm")
+			#tableFooter(3)
         	#parse("inc/list-direct-new.vm")
             #if ($listparam.count == 0)
             	<tr><td colspan="3">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>

@@ -849,6 +849,7 @@ public class PersonDetailWorker implements PersonConstants {
             update.remove("noteorga_b_e1");
         }
         transactionContext.execute(update);
+        transactionContext.commit();
 
         clogger.logUpdate(octopusContext.personalConfig().getLoginname(), personOld, person);
     }
@@ -868,6 +869,7 @@ public class PersonDetailWorker implements PersonConstants {
             insert.remove("noteorga_b_e1");
         }
         transactionContext.execute(insert);
+        transactionContext.commit();
 
         // Bug 1592 Wenn die person kopiert wurde, dann die Kategorien der
         // original Person an neue Person kopieren
@@ -925,7 +927,8 @@ public class PersonDetailWorker implements PersonConstants {
                  * database.getNextPk(bean, context);
                  */
                 Insert insert = database.getInsert(bean);
-                database.execute(insert);
+                transactionContext.execute(insert);
+                transactionContext.commit();
             }
         } catch (BeanException e) {
             LOGGER.warn("Beim Kopieren einer Person konnten Kategorien nicht uebernommen werden", e);
@@ -972,7 +975,9 @@ public class PersonDetailWorker implements PersonConstants {
             update.update(database.getProperty(person, "changed"), person.changed);
             update.update(database.getProperty(person, "changedby"), person.changedby);
             update.where(Expr.equal(database.getProperty(person, "id"), person.id));
-            database.execute(update);
+            final TransactionContext transactionContext = database.getTransactionContext();
+            transactionContext.execute(update);
+            transactionContext.commit();
 
             // get the original version of the object for logging purposes
             Person personOld = (Person) database.getBean("Person", personId);
@@ -1266,8 +1271,13 @@ public class PersonDetailWorker implements PersonConstants {
      * @throws IOException
      */
     private void saveLinkUUID(Integer personId, Database database) throws BeanException, IOException {
-        database.execute(SQL.Insert(database).table("veraweb.link_uuid").insert("uuid", getNewPersonUUID())
-                .insert("linktype", LinkType.PASSWORDRESET.getText()).insert("personid", personId));
+        final TransactionContext transactionContext = database.getTransactionContext();
+        try {
+            transactionContext.execute(SQL.Insert(database).table("veraweb.link_uuid").insert("uuid", getNewPersonUUID()).insert("linktype", LinkType.PASSWORDRESET.getText()).insert("personid", personId));
+            transactionContext.commit();
+        } catch (BeanException e) {
+            LOGGER.error("Persisting uuid for link generation failed", e);
+        }
     }
 
     /**
@@ -1288,9 +1298,14 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     private void updateUsernameInVeraweb(OctopusContext octopusContext, Person person) throws BeanException, IOException {
-        Database database = new DatabaseVeraWeb(octopusContext);
-
-        database.execute(SQL.Update(database).table("veraweb.tperson").update("username", person.username).where(Expr.equal("pk", person.id)));
+        final Database database = new DatabaseVeraWeb(octopusContext);
+        final TransactionContext transactionContext = database.getTransactionContext();
+        try {
+            transactionContext.execute(SQL.Update(database).table("veraweb.tperson").update("username", person.username).where(Expr.equal("pk", person.id)));
+            transactionContext.commit();
+        } catch (BeanException e) {
+            LOGGER.error("Persisting username failed", e);
+        }
     }
 
     private Boolean hasUsername(OctopusContext octopusContext, Integer personId) throws BeanException, IOException {

@@ -273,8 +273,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	 * Löscht Veranstaltungen inkl. der zugehörigen Aufgaben und der zugeordneten Gäste.
 	 */
 	@Override
-    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
-		Database database = context.getDatabase();
+    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
+		Database database = transactionContext.getDatabase();
 		OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(cntx);
 
 		Event event = (Event)bean;
@@ -283,34 +283,31 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		try {
 			optionalFields = optionalFieldsWorker.getOptionalFieldsByEvent(event.id);
 			for (OptionalField optionalField : optionalFields) {
-				context.execute(
+				transactionContext.execute(
 					SQL.Delete(database)
 					.from("veraweb.toptional_fields_delegation_content")
 					.where(new Where("fk_delegation_field", optionalField.getId(), "="))
 				);
 
-				context.execute(
+				transactionContext.execute(
 						SQL.Delete(database)
 						.from("veraweb.toptional_fields")
 						.where(new Where("pk", optionalField.getId(), "="))
 					);
+
+				transactionContext.commit();
 			}
 
 
 		} catch (SQLException e) {
 			throw new BeanException("SQL Exception while deleting OptionalFields from Event", e);
 		}
-
-
-
-
-
-		context.execute(
+		transactionContext.execute(
 		        SQL.Delete(database)
 		        .from("veraweb.ttask")
 		        .where(Expr.equal("fk_event", event.id))
 		        );
-		context.execute(
+		transactionContext.execute(
 				SQL.Delete( database ).
 				from("veraweb.tguest_doctype").
 				where(Expr.in("fk_guest",
@@ -318,16 +315,17 @@ public class EventListWorker extends ListWorkerVeraWeb {
 						from("veraweb.tguest").
 						selectAs("pk", "id").
 						where(Expr.equal("fk_event", event.id)))));
-		context.execute(
+		transactionContext.execute(
 				SQL.Delete( database ).
 				from("veraweb.tguest").
 				where(Expr.equal("fk_event", event.id)));
 
-		context.execute(
+		transactionContext.execute(
 				SQL.Delete( database ).
 				from("veraweb.tevent_doctype").
 				where(Expr.equal("fk_event", event.id)));
-		boolean result = super.removeBean(cntx, bean, context);
+		transactionContext.commit();
+		boolean result = super.removeBean(cntx, bean, transactionContext);
 		if ( result )
 		{
 			BeanChangeLogger clogger = new BeanChangeLogger( database );

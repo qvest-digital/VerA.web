@@ -217,7 +217,7 @@
 		#end
 
 			#set($itemName = "${placeholderWithTranslation.GENERIC_REPRESENTATIVE_PLURAL}")
-			#parse("inc/list-navi-new.vm")
+			#tableFooter(7)
 			#parse("inc/list-direct-new.vm")
 		#if ($listparam.count == 0)
 			<tr><td colspan="5">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>

@@ -57,7 +57,7 @@ public class PersonDoctypeFacade {
 	/** Wird eingefügt wenn das Feld danach NICHT leer ist. */
 	public static final String CREATEDOCTYPE_NEXT = "NEXT:";
 
-	protected final OctopusContext cntx;
+	protected final OctopusContext octopusContext;
 	protected final Database database;
 	protected final List doctypeFormatA;
 	protected final List doctypeFormatB;
@@ -71,15 +71,15 @@ public class PersonDoctypeFacade {
 	/**
 	 * Konstruktor zur verwenden aus einem Octopus-Worker herraus.
 	 *
-	 * @param cntx Octopus-Context
+	 * @param octopusContext Octopus-Context
 	 * @param person Person-Eintrag, darf null sein.
 	 */
-	public PersonDoctypeFacade(OctopusContext cntx, Person person) {
-		this.cntx = cntx;
-		this.database = new DatabaseVeraWeb(this.cntx);
+	public PersonDoctypeFacade(OctopusContext octopusContext, Person person) {
+		this.octopusContext = octopusContext;
+		this.database = new DatabaseVeraWeb(this.octopusContext);
 		this.person = person != null ? person : new Person();
-		this.doctypeFormatA = cntx.moduleConfig().getParamAsList("createDoctypeFormat");
-		List format = cntx.moduleConfig().getParamAsList("createDoctypeFormatPartner");
+		this.doctypeFormatA = octopusContext.moduleConfig().getParamAsList("createDoctypeFormat");
+		List format = octopusContext.moduleConfig().getParamAsList("createDoctypeFormatPartner");
 		this.doctypeFormatB = format != null ? format : doctypeFormatA;
 	}
 
@@ -91,7 +91,7 @@ public class PersonDoctypeFacade {
 	 * @param doctypeFormatB
 	 */
 	public PersonDoctypeFacade(Person person, List doctypeFormatA, List doctypeFormatB) {
-		this.cntx = null;
+		this.octopusContext = null;
 		this.database = null;
 		this.person = person != null ? person : new Person();
 		this.doctypeFormatA = doctypeFormatA;
@@ -145,7 +145,7 @@ public class PersonDoctypeFacade {
 		if (isEmpty(main) || isEmpty(partner))
 			return "";
 
-		String verbinder = ConfigWorker.getString(cntx, "freitextfeldverbinder");
+		String verbinder = ConfigWorker.getString(octopusContext, "freitextfeldverbinder");
 		if (verbinder != null && verbinder.length() != 0)
 			return verbinder;
 		return "und";

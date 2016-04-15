@@ -103,7 +103,7 @@
         		#end
 
         		#set($itemName = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_PLURAL}")
-        		#parse("inc/list-navi-new.vm")
+				#tableFooter(7)
         		#parse("inc/list-direct-new.vm")
         	</table>
 

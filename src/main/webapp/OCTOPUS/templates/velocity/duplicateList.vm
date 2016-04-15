@@ -132,7 +132,7 @@
 					#end
 
 					#set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
-					#parse("inc/list-navi-new.vm")
+					#tableFooter(9)
 
 					<tr class="colspan">
 						<td colspan="99">

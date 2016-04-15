@@ -146,7 +146,7 @@
 					#end
 
 					#set($itemName = "${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}")
-					#parse("inc/list-navi-new.vm")
+					#tableFooter(3)
 
 				</table>
 				#end

@@ -81,31 +81,33 @@ public class DoctypeWorker extends StammdatenWorker {
 	}
 
 	@Override
-	protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext context) throws BeanException, IOException {
+	protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
 		Doctype doctype = (Doctype)bean;
 		Boolean isdefault = doctype.isdefault;
-		Database database = context.getDatabase();
+		Database database = transactionContext.getDatabase();
 		if (isdefault != null && isdefault.booleanValue()) {
-			context.execute(SQL.Update( database ).
+			transactionContext.execute(SQL.Update( database ).
 					table("veraweb.tdoctype").
 					update("isdefault", Boolean.FALSE));
+			transactionContext.commit();
 		}
 		if (doctype.id != null && doctype.flags != null && doctype.flags.intValue() == 50) {
 			Doctype old = (Doctype)database.getBean(BEANNAME, doctype.id);
 			if (old.flags == null || old.flags.intValue() != 50) {
-				context.execute(database.getUpdate("GuestDoctype").
+				transactionContext.execute(database.getUpdate("GuestDoctype").
 						update("textfield", "").
 						update("textfield_p", "").
 						update("textjoin", "").
 						where(Expr.equal("fk_doctype", doctype.id)));
-				context.execute(database.getUpdate("PersonDoctype").
+				transactionContext.execute(database.getUpdate("PersonDoctype").
 						update("textfield", "").
 						update("textfield_p", "").
 						update("textjoin", "").
 						where(Expr.equal("fk_doctype", doctype.id)));
+				transactionContext.commit();
 			}
 		}
 
-		super.saveBean(octopusContext, bean, context);
+		super.saveBean(octopusContext, bean, transactionContext);
 	}
 }

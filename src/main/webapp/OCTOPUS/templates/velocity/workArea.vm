@@ -83,7 +83,7 @@
     			#end
 
 				#set($itemName = "${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}")
-				#parse("inc/list-navi-new.vm")
+				#tableFooter(3)
 				#parse("inc/list-direct-new.vm")
 
 			</table>

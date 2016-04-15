@@ -351,13 +351,13 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
      * darf.<br>
      * Test ist, ob der Benutzer Standard-Reader ist.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public void checkRead(OctopusContext cntx) throws BeanException {
-        checkGroup(cntx, PersonalConfigAA.GROUP_READ_STANDARD);
+    public void checkRead(OctopusContext octopusContext) throws BeanException {
+        checkGroup(octopusContext, PersonalConfigAA.GROUP_READ_STANDARD);
     }
 
     /**
@@ -365,13 +365,13 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
      * werden darf.<br>
      * Test ist, ob der Benutzer Writer ist.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public void checkWrite(OctopusContext cntx) throws BeanException {
-        checkGroup(cntx, PersonalConfigAA.GROUP_WRITE);
+    public void checkWrite(OctopusContext octopusContext) throws BeanException {
+        checkGroup(octopusContext, PersonalConfigAA.GROUP_WRITE);
     }
 
     /**
@@ -379,13 +379,13 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
      * Hier sind es die Bemerkungsfelder, wenn der Benutzer nicht in der Gruppe
      * {@link PersonalConfigAA#GROUP_READ_REMARKS} der hierzu freigeschalteten ist.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @throws BeanException bei Problemen mit der Bean
      * @see de.tarent.aa.veraweb.beans.AbstractBean#clearRestrictedFields(de.tarent.octopus.server.OctopusContext)
      */
     @Override
-    public void clearRestrictedFields(OctopusContext cntx) throws BeanException {
-        PersonalConfig personalConfig = cntx != null ? cntx.personalConfig() : null;
+    public void clearRestrictedFields(OctopusContext octopusContext) throws BeanException {
+        PersonalConfig personalConfig = octopusContext != null ? octopusContext.personalConfig() : null;
         if (personalConfig == null || !personalConfig.isUserInGroup(PersonalConfigAA.GROUP_READ_REMARKS)) {
             note_a_e1 = null;
             note_b_e1 = null;
@@ -394,7 +394,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
             noteorga_a_e1 = null;
             noteorga_b_e1 = null;
         }
-        super.clearRestrictedFields(cntx);
+        super.clearRestrictedFields(octopusContext);
     }
 
     /**

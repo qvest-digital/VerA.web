@@ -86,7 +86,7 @@ public class ActionWorker {
 	/*
 	 * Setting Online Registration Config
 	 *
-	 * @param cntx OctopusContext
+	 * @param octopusContext OctopusContext
 	 */
 	private void loadOnlineRegistrationConfig(OctopusContext cntx) {
 		cntx.setContent(ONLINEREG_ACTIVATION, OnlineRegistrationHelper.isOnlineregActive(cntx));

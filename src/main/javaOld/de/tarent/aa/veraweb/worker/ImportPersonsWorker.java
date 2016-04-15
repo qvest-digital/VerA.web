@@ -299,7 +299,7 @@ public class ImportPersonsWorker {
                     // Datensatz als festgeschrieben markieren
                     transactionContext.execute(database.getUpdate("ImportPerson").update("dupcheckaction", ImportPerson.TRUE).
                             where(Expr.equal(database.getProperty(sampleImportPerson, "id"), ipID)));
-
+                    transactionContext.commit();
                     // Datensatz erfolgreich bearbeitet
                     dsCount++;
                 }

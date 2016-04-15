@@ -37,11 +37,11 @@ public abstract class AbstractBean extends MapBean {
 	 * darf.<br>
      * Default-Test ist, ob der Benutzer Administrator ist.
 	 *
-	 * @param cntx Octopus-Kontext
+	 * @param octopusContext Octopus-Kontext
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht gelesen werden darf.
 	 */
-	public void checkRead(OctopusContext cntx) throws BeanException {
-		checkGroup(cntx, PersonalConfigAA.GROUP_ADMIN);
+	public void checkRead(OctopusContext octopusContext) throws BeanException {
+		checkGroup(octopusContext, PersonalConfigAA.GROUP_ADMIN);
 	}
 
 	/**
@@ -49,11 +49,11 @@ public abstract class AbstractBean extends MapBean {
 	 * werden darf.<br>
      * Default-Test ist, ob der Benutzer Administrator ist.
 	 *
-	 * @param cntx Octopus-Kontext
+	 * @param octopusContext Octopus-Kontext
 	 * @throws BeanException Wenn im angegebenen Kontext diese Bohne nicht geschrieben werden darf.
 	 */
-	public void checkWrite(OctopusContext cntx) throws BeanException {
-		checkGroup(cntx, PersonalConfigAA.GROUP_ADMIN);
+	public void checkWrite(OctopusContext octopusContext) throws BeanException {
+		checkGroup(octopusContext, PersonalConfigAA.GROUP_ADMIN);
 	}
 
     /**
@@ -62,22 +62,22 @@ public abstract class AbstractBean extends MapBean {
      * (siehe {@link #checkWrite(OctopusContext)}), sollte die Bean hier nicht
      * verändert werden.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @throws BeanException bei Problemen mit der Bean
      */
-    public void clearRestrictedFields(OctopusContext cntx) throws BeanException {
+    public void clearRestrictedFields(OctopusContext octopusContext) throws BeanException {
     }
 
 	/**
 	 * Diese Methode testet, ob im aktuellen Kontext der User der übergebenen
 	 * Gruppe zugeordenet ist.
 	 *
-	 * @param cntx
+	 * @param octopusContext
 	 * @param group
 	 * @throws BeanException
 	 */
-	protected void checkGroup(OctopusContext cntx, String group) throws BeanException {
-		PersonalConfig personalConfig = cntx != null ? cntx.personalConfig() : null;
+	protected void checkGroup(OctopusContext octopusContext, String group) throws BeanException {
+		PersonalConfig personalConfig = octopusContext != null ? octopusContext.personalConfig() : null;
 		if (personalConfig == null)
 			throw new BeanException("No personal config");
 		if (!personalConfig.isUserInGroup(group))
@@ -87,14 +87,14 @@ public abstract class AbstractBean extends MapBean {
 	/**
 	 * Checks whether the user is a member of either of the specified groups.
 	 *
-	 * @param cntx
+	 * @param octopusContext
 	 * @param groups
 	 *
 	 * @throws BeanException
 	 */
-	protected void checkGroups(OctopusContext cntx, String... groups) throws BeanException
+	protected void checkGroups(OctopusContext octopusContext, String... groups) throws BeanException
 	{
-		PersonalConfig personalConfig = ( cntx != null ) ? cntx.personalConfig() : null;
+		PersonalConfig personalConfig = ( octopusContext != null ) ? octopusContext.personalConfig() : null;
 		if ( personalConfig == null )
 		{
 			throw new BeanException( "No personal config" );

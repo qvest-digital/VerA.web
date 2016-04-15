@@ -495,6 +495,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         final Update update = createGuestUpdateStatement(database, guest);
 
         transactionContext.execute(update);
+        transactionContext.commit();
 
 		/*
 		 * modified to support change logging
@@ -557,7 +558,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         transactionContext.execute(SQL.Delete(database).from("veraweb.tguest_doctype").
                 where(Expr.equal("fk_guest", ((Guest) bean).id)));
         transactionContext.execute(SQL.Delete(database).from("veraweb.tguest").where(Expr.equal("pk", ((Guest) bean).id)));
-
+        transactionContext.commit();
         return true;
     }
 

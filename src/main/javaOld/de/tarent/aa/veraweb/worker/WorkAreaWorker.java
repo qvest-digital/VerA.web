@@ -128,14 +128,15 @@ public class WorkAreaWorker extends StammdatenWorker
 	 *
 	 * fixed as part of issue #1530 - deletion of workareas and automatic unassignment from existing persons
 	 */
-    protected boolean removeBean( OctopusContext cntx, Bean bean, TransactionContext context ) throws BeanException, IOException
+    protected boolean removeBean( OctopusContext cntx, Bean bean, TransactionContext transactionContext ) throws BeanException, IOException
 	{
-		Database database = context.getDatabase();
+		Database database = transactionContext.getDatabase();
 		// first remove all workArea assignments from all persons
-		PersonListWorker.unassignWorkArea( context, ( ( WorkArea ) bean ).id, null );
+		PersonListWorker.unassignWorkArea( transactionContext, ( ( WorkArea ) bean ).id, null );
 		Delete stmt = database.getDelete( "WorkArea" );
 		stmt.byId( "pk",  ( ( WorkArea ) bean ).id  );
-		context.execute( stmt );
+		transactionContext.execute( stmt );
+		transactionContext.commit();
 		return true;
 	}
 
@@ -145,9 +146,9 @@ public class WorkAreaWorker extends StammdatenWorker
 	 * introduced as part of fix for issue #1530 - deletion of orgunits and automatic deletion of associated work areas. will not commit itself.
 	 */
 	@SuppressWarnings("unchecked")
-	public static void removeAllWorkAreasFromOrgUnit( OctopusContext cntx, TransactionContext context, Integer orgUnitId ) throws BeanException, IOException
+	public static void removeAllWorkAreasFromOrgUnit(TransactionContext transactionContext, Integer orgUnitId ) throws BeanException, IOException
 	{
-		Select stmt = context.getDatabase().getSelect( "WorkArea" );
+		Select stmt = transactionContext.getDatabase().getSelect( "WorkArea" );
 		stmt.select( "pk" );
 		stmt.where( Expr.equal( "fk_orgunit", orgUnitId ) );
 
@@ -157,10 +158,11 @@ public class WorkAreaWorker extends StammdatenWorker
 			while ( beans.next() )
 			{
 				// first remove all workArea assignments from all persons
-				PersonListWorker.unassignWorkArea( context, beans.getInt( "pk" ), null );
-				Delete delstmt = context.getDatabase().getDelete( "WorkArea" );
+				PersonListWorker.unassignWorkArea( transactionContext, beans.getInt( "pk" ), null );
+				Delete delstmt = transactionContext.getDatabase().getDelete( "WorkArea" );
 				delstmt.byId( "pk",  beans.getInt( "pk" ) );
-				context.execute( delstmt );
+				transactionContext.execute( delstmt );
+				transactionContext.commit();
 			}
 		}
 		catch ( SQLException e )

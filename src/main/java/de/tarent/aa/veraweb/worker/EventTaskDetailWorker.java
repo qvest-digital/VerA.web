@@ -259,7 +259,7 @@ public class EventTaskDetailWorker {
 
         addEventIdToInsertStatement(octopusContext, task, insert);
         transactionContext.execute(insert);
-
+        transactionContext.commit();
         clogger.logInsert(octopusContext.personalConfig().getLoginname(), task);
     }
 
@@ -271,6 +271,7 @@ public class EventTaskDetailWorker {
         }
 
         transactionContext.execute(update);
+        transactionContext.commit();
         clogger.logUpdate(octopusContext.personalConfig().getLoginname(), existingTask, task);
     }
 

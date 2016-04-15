@@ -19,12 +19,6 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
@@ -36,8 +30,13 @@ import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.beans.BeanException;
-import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Diese Klasse sammelt Hilfsklassen zum Ermitteln laufender Nummern für Gäste.
@@ -51,7 +50,7 @@ public class GuestSerialNumber {
      */
 	static public abstract class CalcSerialNumber {
 		protected int orderNo = 0;
-		protected ExecutionContext context;
+		protected ExecutionContext executionContext;
 		protected Event event;
 
         /**
@@ -59,7 +58,7 @@ public class GuestSerialNumber {
          * Benutzung bei der späteren Berechnung laufender Gästenummern.
          */
 		public CalcSerialNumber(ExecutionContext context, Event event) {
-			this.context = context;
+			this.executionContext = context;
 			this.event = event;
 		}
 
@@ -71,12 +70,12 @@ public class GuestSerialNumber {
 		public abstract void calcSerialNumber() throws BeanException, IOException;
 
 		protected void clearSerialNumber() throws BeanException {
-			Update update = SQL.Update(context).
+			Update update = SQL.Update(executionContext).
 					table("veraweb.tguest").
 					update("orderno", null).
 					update("orderno_p", null).
 					where(Expr.equal("fk_event", event.id));
-			context.execute(update);
+			executionContext.execute(update);
 		}
 
 		protected void setSerialNumber(Map guest) throws BeanException, IOException {
@@ -115,7 +114,7 @@ public class GuestSerialNumber {
 				throw new IOException("wrong invitationtype");
 			}
 
-			context.execute(SQL.Update(context).
+			executionContext.execute(SQL.Update(executionContext).
 					table("veraweb.tguest").
 					update("tguest.orderno", orderno_a).
 					update("tguest.orderno_p", orderno_b).
@@ -123,13 +122,13 @@ public class GuestSerialNumber {
 		}
 
 		protected void setSerialNumber(Select select) throws BeanException, IOException {
-			for (Iterator it = context.getDatabase().getList(select, context).iterator(); it.hasNext(); ) {
+			for (Iterator it = executionContext.getDatabase().getList(select, executionContext).iterator(); it.hasNext(); ) {
 				setSerialNumber((Map) it.next());
 			}
 		}
 
 		protected Select getSelect() {
-			return SQL.Select(context).
+			return SQL.Select(executionContext).
 					from("veraweb.tguest").
 					selectAs("tguest.pk", "id").
 					selectAs("tguest.invitationtype", "invitationtype").
@@ -173,12 +172,12 @@ public class GuestSerialNumber {
 			clearSerialNumber();
 			calcSerialNumberForGuestRank();
 
-			Select select = SQL.Select(context).
+			Select select = SQL.Select(executionContext).
 					from("veraweb.tcategorie").
 					selectAs("pk", "id").
 					selectAs("flags", "flag").
 					orderBy(Order.asc("rank").andAsc("catname"));
-			for (Iterator it = context.getDatabase().getList(select, context).iterator(); it.hasNext(); ) {
+			for (Iterator it = executionContext.getDatabase().getList(select, executionContext).iterator(); it.hasNext(); ) {
 				Map map = (Map) it.next();
 				if (((Integer) map.get("flag")).intValue() == Categorie.FLAG_DIPLO_CORPS) {
 					calcSerialNumberForDiploCorp((Integer) map.get("id"));

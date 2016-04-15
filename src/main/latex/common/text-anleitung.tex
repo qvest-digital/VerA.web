@@ -2575,12 +2575,26 @@ Logausgaben\Hair\footnote{\label{fn:vwoalogs}in
 \texttt{/var/log/vwoa/vwoa.log}} und die Verfügbarkeit des
 Dienstes über die Weboberfläche.
 
+⚠ \emph{Achtung:} Damit die neue Version der Anwendung auch
+benutzt wird müssen Sie im Webbrowser den Cache leeren; in
+der Regel reicht es, ihn zu beenden und neuzustarten, ggfs.
+auch (z.B. bei Mozilla™ Firefox™) die \inlinekasten{F5}-Taste
+zu drücken.
+
 \fi% oa
 
 Damit ist das Upgrade abgeschlossen.
 Sie können nun mit dem Kapitel \nameref{sec:test} fortfahren.
 
 \section{Integrationstest}\label{sec:test}
+
+Der Integrationstest dient zum Test der Kommunikation sowohl der
+verschiedenen Komponenten von VerA.web untereinander als auch der
+Zugreifbarkeit durch den Benutzer (z.B. Einloggen möglich); er ist auch
+ein sinnvoller Übergabepunkt von der technischen Systemadministration
+an die fachliche Administration des Veranstaltungsmanagements. Er wird
+üblicherweise nur nach Änderungen an der Netzwerkstruktur sowie wenn
+Komponenten hinzugekommen sind oder verändert wurden durchgeführt.
 
 \ifoa
 \subsection{VerA.web core und REST-API}

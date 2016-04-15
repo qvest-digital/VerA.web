@@ -58,7 +58,6 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -423,8 +422,8 @@ public class GuestWorker {
 
 			ResultSet rs = res.resultSet();
 			rs.first();
-			cntx.setContent( "invited", new Integer( rs.getInt( "invited" ) ) );
-			cntx.setContent( "notInvited", new Integer( rs.getInt( "notinvited" ) ) );
+			cntx.setContent("invited", rs.getInt("invited"));
+			cntx.setContent("notInvited", rs.getInt("notinvited"));
 			rs.close();
 
 			try
@@ -533,8 +532,8 @@ public class GuestWorker {
 			}
 
 			cntx.setContent("event", event);
-			cntx.setContent("invited", new Integer(invited));
-			cntx.setContent("notInvited", new Integer(notInvited));
+			cntx.setContent("invited", invited);
+			cntx.setContent("notInvited", notInvited);
 
 			context.commit();
 		}
@@ -706,7 +705,7 @@ public class GuestWorker {
 	 *
 	 * fixed as part of issue #1531 - personCategorie was always null due to malformed query
 	 */
-	protected boolean saveGuest(OctopusContext cntx, Database database, ExecutionContext context, Event event,
+	protected boolean saveGuest(OctopusContext cntx, Database database, ExecutionContext executionContext, Event event,
                                 Integer guestId, Integer personId, Integer categoryId, Boolean reserve,
                                 Integer invitationtype, Boolean ishost) throws BeanException, IOException {
 		if (event == null) {
@@ -719,7 +718,7 @@ public class GuestWorker {
 
 		// Keinen neuen Gast hinzufügen wenn diese Person bereits zugeordnet war.
 		if (guestId == null) {
-			if (getNumberOfGuests(database, context, event, personId) > 0) {
+			if (getNumberOfGuests(database, executionContext, event, personId) > 0) {
                 return false;
             }
 		}
@@ -727,7 +726,7 @@ public class GuestWorker {
 		Guest guest = null;
 		// Gast laden
 		if (guestId != null) {
-            guest = getGuestById(database, context, guestId);
+            guest = getGuestById(database, executionContext, guestId);
             if (guest == null) {
 				logger.warn("Gast #" + guestId + " konnte nicht gefunden werden.");
 				return false;
@@ -735,7 +734,7 @@ public class GuestWorker {
 			personId = guest.person;
 		}
 
-        Person person = getPersonById(database, context, personId);
+        Person person = getPersonById(database, executionContext, personId);
 
         if (person == null) {
 			logger.warn("Person #" + personId + " konnte nicht gefunden und daher der Veranstaltung #" + event.id + " nicht hinzugefügt werden.");
@@ -747,7 +746,7 @@ public class GuestWorker {
 			guest = new Guest();
 			guest.event = event.id;
 	        guest.person = person.id;
-			guest.ishost = new Integer(ishost.booleanValue() ? 1 : 0);
+			guest.ishost = ishost.booleanValue() ? 1 : 0;
 			guest.reserve = reserve;
 			guest.invitationtype = invitationtype;
 
@@ -767,7 +766,7 @@ public class GuestWorker {
 						select("tcategorie.rank").
 						select("tcategorie.catname").
 						joinLeftOuter("veraweb.tcategorie",
-								"tperson_categorie.fk_categorie", "tcategorie.pk"), context );
+								"tperson_categorie.fk_categorie", "tcategorie.pk"), executionContext );
 
 				if (personCategorie != null) {
 					guest.category = personCategorie.categorie;
@@ -804,7 +803,7 @@ public class GuestWorker {
 			 */
 			BeanChangeLogger clogger = new BeanChangeLogger( database );
 			if (guest.id == null) {
-				database.getNextPk(guest, context);
+				database.getNextPk(guest, executionContext);
 				Insert insert = database.getInsert(guest);
 				insert.insert("pk", guest.id);
 				if (!((PersonalConfigAA)cntx.personalConfig()).getGrants().mayReadRemarkFields()) {
@@ -813,7 +812,7 @@ public class GuestWorker {
 					insert.remove("noteorga_a");
 					insert.remove("noteorga_b");
 				}
-				context.execute(insert);
+				executionContext.execute(insert);
 
 				clogger.logInsert( cntx.personalConfig().getLoginname(), guest );
 			} else {
@@ -824,13 +823,13 @@ public class GuestWorker {
 					update.remove("noteorga_a");
 					update.remove("noteorga_b");
 				}
-				context.execute(update);
+				executionContext.execute(update);
 
 				Guest guestOld = ( Guest ) database.getBean( "Guest", guest.id );
 				clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
 			}
 
-			refreshDoctypes(cntx, database, context, guest, person);
+			refreshDoctypes(cntx, database, executionContext, guest, person);
 			return true;
 		}
 		return false;

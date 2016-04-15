@@ -41,13 +41,13 @@ public class OctopusHelper {
      * module/task/filename.txt?parameter
      * filename.txt
      *
-     * @param cntx  OctopusContext
+     * @param octopusContext  OctopusContext
      * @param ex    Erweiterung des gesuchten Dateinamens.-
      * @param def   Default Wert.
      * @return Dateiname
      */
-    public static String getFilename(OctopusContext cntx, String ex, String def) {
-        String file = cntx.requestAsString("pathInfo");
+    public static String getFilename(OctopusContext octopusContext, String ex, String def) {
+        String file = octopusContext.requestAsString("pathInfo");
         ex = '.' + ex;
         if (file != null && file.indexOf(ex) != -1) {
             int s = file.lastIndexOf('/', file.indexOf(ex));
@@ -64,15 +64,15 @@ public class OctopusHelper {
      * beachtet dabei die beiden Parameter "encoding.input" und
      * "encoding.output" aus der Modulconfiguration.
      *
-     * <code>encodeString(cntx, in, "default", "default");</code>
+     * <code>encodeString(octopusContext, in, "default", "default");</code>
      *
      * @see #encodeString(OctopusContext, String, String, String)
-     * @param cntx
+     * @param octopusContext
      * @param in Original String.
      * @return Encodeter String.
      */
-    public static String encodeString(OctopusContext cntx, String in) {
-        return encodeString(cntx, in, "default", "default");
+    public static String encodeString(OctopusContext octopusContext, String in) {
+        return encodeString(octopusContext, in, "default", "default");
     }
 
     /**
@@ -83,17 +83,17 @@ public class OctopusHelper {
      *
      * <code>new String(in.getBytes(encin), encout);</code>
      *
-     * @param cntx
+     * @param octopusContext
      * @param in Original String.
      * @param encin
      * @param encout
      * @return Encodeter String.
      */
-    public static String encodeString(OctopusContext cntx, String in, String encin, String encout) {
+    public static String encodeString(OctopusContext octopusContext, String in, String encin, String encout) {
         if (encin != null && encin.equals("default"))
-            encin = cntx.moduleConfig().getParam("encoding.input");
+            encin = octopusContext.moduleConfig().getParam("encoding.input");
         if (encout != null && encout.equals("default"))
-            encout = cntx.moduleConfig().getParam("encoding.output");
+            encout = octopusContext.moduleConfig().getParam("encoding.output");
         try {
             if (encin != null && encout != null)
                 return new String(in.getBytes(encin), encout);
