@@ -802,7 +802,6 @@ GUEST_LIST_APPLY_GUEST_FROM_EVENT=Aplicar invitados desde evento
 GUEST_LIST_CATEGORY_ASSIGN=Asignar categor\u00EDas
 GUEST_LIST_CATEGORY_REMOVE=Eliminar categor\u00EDas
 GUEST_LIST_DISTRIBUTOR_CREATE=Crear distribuidor
-GUEST_LIST_DATA_EXPORT=Exportar archivo de control
 GUEST_LIST_CONFIRM_ACTION=Por favor, confirme la siguiente acci\u00F3n
 GUEST_LIST_DIDNT_CHANGE=No se ha modificado la lista de invitados
 GUEST_LIST_EXPAND_ONE=Se ha a\u00F1adido un invitado a la lista

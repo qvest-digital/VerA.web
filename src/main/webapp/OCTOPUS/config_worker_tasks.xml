@@ -1620,34 +1620,6 @@
 
 
 		<!-- Umsetzung GAESTELISTE EXPORT -->
-		<task name="ShowExportGuestDoctype" access="public" groups="StandardFieldsReader">
-			<description>
-				Exportiert die Dokumenttypen eines Gastes.
-			</description>
-			<doTask name="Load"/>
-			<action name="getSearch" worker="GuestListWorker"/>
-			<action name="getEvent" worker="GuestListWorker" />
-			<action name="getSelection" worker="GuestListWorker"/>
-			<action name="getAll" worker="EventDoctypeWorker" />
-			<action name="calc" worker="GuestExportWorker" />
-			<response type="velocity" name="guestDoctypeExport">
-				<param name="ContentType" value="text/html;charset=UTF-8"/>
-			</response>
-		</task>
-
-		<task name="ExportGuestDoctype" access="public" groups="StandardFieldsReader">
-			<description>
-				Exportiert die Dokumenttypen eines Gastes.
-			</description>
-			<doTask name="Load"/>
-			<action name="getSearch" worker="GuestListWorker"/>
-			<action name="getEvent" worker="GuestListWorker" />
-			<action name="export" worker="GuestExportWorker" />
-			<response type="binary" name="stream">
-				<param name="CachingParam" value="nocachecontrol,nopragma"/>
-			</response>
-		</task>
-
 		<task name="ShowReportGuestList" access="public" groups="StandardFieldsReader">
 			<description>
 				Zeigt eine Auswahl von zur Verfügung stehenden Reporten an.

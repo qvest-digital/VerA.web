@@ -801,7 +801,6 @@ GUEST_LIST_APPLY_GUEST_FROM_EVENT=apply guests from event
 GUEST_LIST_CATEGORY_ASSIGN=assign categories
 GUEST_LIST_CATEGORY_REMOVE=remove categories
 GUEST_LIST_DISTRIBUTOR_CREATE=create distribution list
-GUEST_LIST_DATA_EXPORT=export control file
 GUEST_LIST_CONFIRM_ACTION=Please confirm the following action
 GUEST_LIST_DIDNT_CHANGE=The guest list did not change
 GUEST_LIST_EXPAND_ONE=The guestlist has been expanded by one guest

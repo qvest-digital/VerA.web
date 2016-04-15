@@ -804,7 +804,6 @@ GUEST_LIST_APPLY_GUEST_FROM_EVENT=Prenez des invit\u00E9s de l\u2019\u00E9v\u00E
 GUEST_LIST_CATEGORY_ASSIGN=Attribuer des cat\u00E9gories
 GUEST_LIST_CATEGORY_REMOVE=Retirer Cat\u00E9gories
 GUEST_LIST_DISTRIBUTOR_CREATE=Cr\u00E9er un distributeur
-GUEST_LIST_DATA_EXPORT=Fichier de contr\u00F4le de l\u2019exportation
 GUEST_LIST_CONFIRM_ACTION=S\u2019il vous pla\u00EEt confirmer l\u2019action suivante
 GUEST_LIST_DIDNT_CHANGE=La liste des invit\u00E9s n\u2019a pas \u00E9t\u00E9 modifi\u00E9
 GUEST_LIST_EXPAND_ONE=Une personne a \u00E9t\u00E9 ajout\u00E9 a la liste des invit\u00E9

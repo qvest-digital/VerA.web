@@ -772,7 +772,6 @@ GUEST_LIST_APPLY_GUEST_FROM_EVENT=G\u00E4ste aus Veranstaltung \u00FCbernehmen
 GUEST_LIST_CATEGORY_ASSIGN=Kategorien zuordnen
 GUEST_LIST_CATEGORY_REMOVE=Kategorien entfernen
 GUEST_LIST_DISTRIBUTOR_CREATE=Verteiler erstellen
-GUEST_LIST_DATA_EXPORT=Steuerdatei exportieren
 GUEST_LIST_CONFIRM_ACTION=Bitte best\u00E4tigen Sie die folgende Aktion
 GUEST_LIST_DIDNT_CHANGE=Die G\u00E4steliste wurde nicht ver\u00E4ndert
 GUEST_LIST_EXPAND_ONE=Die G\u00E4steliste wurde um einen Gast erweitert

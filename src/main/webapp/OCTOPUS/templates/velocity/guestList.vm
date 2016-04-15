@@ -203,7 +203,6 @@
 									<option value="1">${placeholderWithTranslation.GUEST_LIST_CATEGORY_ASSIGN}</option>
 									<option value="2">${placeholderWithTranslation.GUEST_LIST_CATEGORY_REMOVE}</option>
 									<option value="3">${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
-									<option value="4">${placeholderWithTranslation.GUEST_LIST_DATA_EXPORT}</option>
 								</select>
 								<input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.GENERIC_EXECUTE}" title="${placeholderWithTranslation.GENERIC_EXECUTE}" class="autoWidth">
 						</div>
@@ -272,9 +271,6 @@
 							} else if (selectValue == "3") {
 								$('#selectNone').val('false');
 								submitFormWithGivenAction('CreateMailinglistFromGuest', $grants.mayWrite());
-							} else if (selectValue == "4") {
-								$('#selectNone').val('false');
-								submitFormWithGivenAction('ShowExportGuestDoctype', $grants.mayExport());
 							}
 						} else {
 							$(".errormsg").remove();
