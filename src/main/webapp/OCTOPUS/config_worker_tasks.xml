@@ -1406,7 +1406,9 @@
 			<doTask name="Load"/>
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker" />
-			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<status equals="noevent">
+                <doTask name="CreateEvent"/>
+            </status>
 			<action name="getAll" worker="CategorieWorker"/>
 			<action name="showDetail" worker="GuestDetailWorker"/>
 			<action name="showDelegationFields" worker="EventDelegationWorker" />
@@ -1620,6 +1622,18 @@
 
 
 		<!-- Umsetzung GAESTELISTE EXPORT -->
+        <task name="ShowExportGuest" access="public" groups="StandardFieldsReader">
+            <description>
+                Zeigt die Seiten zum exportieren der Gästeliste.
+            </description>
+            <doTask name="Load"/>
+            <action name="getSearch" worker="GuestListWorker"/>
+            <action name="getEvent" worker="GuestListWorker" />
+            <response type="velocity" name="guestExport">
+                <param name="ContentType" value="text/html;charset=UTF-8"/>
+            </response>
+        </task>
+
 		<task name="ShowReportGuestList" access="public" groups="StandardFieldsReader">
 			<description>
 				Zeigt eine Auswahl von zur Verfügung stehenden Reporten an.

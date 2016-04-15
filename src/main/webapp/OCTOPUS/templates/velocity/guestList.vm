@@ -81,8 +81,8 @@
                 <li id="gastdetails" class="inactive">
                     <div>${placeholderWithTranslation.gastedetails}</div>
 				</li>
-                <li id="dokumenttypen" class="inactive">
-                    <div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
+                <li id="export" class="inactive">
+                    <div>${placeholderWithTranslation.GENERIC_EXPORT}</div>
 				</li>
 				#end
 			</ul>
@@ -654,8 +654,8 @@
 		$('li#gastdetails').click(function () {
 			window.location.href = '${paths.staticWeb}do/ShowGuestDetail';
 		});
-		$('li#dokumenttypen').click(function () {
-			window.location.href = '${paths.staticWeb}do/ShowGuestDoctype';
+		$('li#export').click(function () {
+			window.location.href = '${paths.staticWeb}do/ShowExportGuest';
 		});
 	});
 

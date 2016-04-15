@@ -54,8 +54,8 @@
                 <li id="gastdetails" #if($responseTab == "detail") vera-tab-default #end class="active">
                     <div>${placeholderWithTranslation.gastedetails}</div>
                 </li>
-                <li id="dokumenttypen" class="inactive">
-                    <div>${placeholderWithTranslation.BROWSER_TITLE_DOCUMENT_TYPES}</div>
+                <li id="export" class="inactive">
+                    <div>${placeholderWithTranslation.GENERIC_EXPORT}</div>
                 </li>
             </ul>
         </div>
@@ -432,8 +432,8 @@ false
         $('li#gaesteliste').click(function () {
             window.location.href = '${paths.staticWeb}do/ShowGuestList?selectNone=true';
         });
-        $('li#dokumenttypen').click(function () {
-            window.location.href = '${paths.staticWeb}do/ShowGuestDoctype';
+        $('li#export').click(function () {
+            window.location.href = '${paths.staticWeb}do/ShowExportGuest';
         });
         $('li#allgemein').click(function () {
             showTab('detail-1');

@@ -1,0 +1,69 @@
+#set($activeMenu = "Veranstaltungen")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_GUESTLIST}: $!message.plain($event.shortname)")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_GUEST}")
+#set($entity="GUEST")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_GUEST_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
+
+#parse("inc/header.vm")
+
+<div id="content_container">
+
+	<div id="breadcrumb" class="textRight marginBottom10">
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}: </strong><span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> &gt; ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} &gt; ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
+	</div> <!--breadcrumb-->
+
+	<h1>
+	    ${placeholderWithTranslation.gasteverwaltungderveranstaltung}: $!message.plain($event.shortname)
+	</h1>
+
+	#if(!$isNewEvent)
+		#set($completeEventHeader = true)
+		#parse("inc/event-header.vm")
+	#end
+
+	<div id="main_content" class="tabs contentBox marginBottom10 marginTop20 grayBorder" style="border-bottom:0">
+
+		<div id="tabsMain">
+			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+				<li id="gaesteliste" class="inactive">
+                    <div>${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}</div>
+				</li>
+                <li id="gastdetails" class="inactive">
+                    <div>${placeholderWithTranslation.gastedetails}</div>
+				</li>
+                <li id="export" class="active">
+                    <div>${placeholderWithTranslation.GENERIC_EXPORT}</div>
+				</li>
+			</ul>
+		</div> <!--tabsMain-->
+
+        <div class="contentBoxColored tabsContent" vera-content="">
+
+            <form>
+			<div style="bottom: -40px; right: -1px;" class="textRight posAb" id="buttonPanel-bottom">
+				<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" title="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
+			</div>
+			</form>
+
+        </div> <!--contentBoxColored-->
+
+	</div> <!--main_content-->
+
+</div> <!--content_container-->
+
+
+<script type="text/javascript">
+
+	$(function () {
+        $('li#gaesteliste').click(function () {
+            window.location.href = '${paths.staticWeb}do/ShowGuestList?selectNone=true';
+        });
+		$('li#gastdetails').click(function () {
+			window.location.href = '${paths.staticWeb}do/ShowGuestDetail';
+		});
+	});
+
+</script>
+
+#parse("inc/footer.vm")

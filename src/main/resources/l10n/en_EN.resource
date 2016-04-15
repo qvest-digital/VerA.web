@@ -598,6 +598,7 @@ nogs=NOGs
 politik=Politik
 pressevertreter=Pressevertreter
 wirtschaft=Wirtschaft
+GENERIC_EXPORT=Export
 GENERIC_START_EXPORT=Start export
 ENCODING_TYPE_CYRILLIC=Cyrillic
 ENCODING_TYPE_WEST=Westerly
