@@ -193,12 +193,10 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      *
      * @see #getPersonDataFields()
      * @see #getCategoryFields()
-     * @see #getDocumentTypeFields()
      */
     protected Set getAvailableFields() throws BeanException, IOException {
         Set result = getPersonDataFields();
         result.addAll(getCategoryFields());
-        result.addAll(getDocumentTypeFields());
         return result;
     }
 
@@ -252,33 +250,6 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      */
     protected List getCategoriesFromDB() throws BeanException, IOException {
         return database.getBeanList("Categorie", database.getSelect("Categorie"));
-    }
-
-    /**
-     * Diese Methode holt alle notwendigen Dokumenttypen aus der Datenbank.
-     * Kann zur Einschränkung überschrieben werden.
-     * @throws IOException
-     * @throws BeanException
-     */
-    protected List getDocumentTypesFromDB() throws BeanException, IOException {
-        return database.getBeanList("Doctype", database.getSelect("Doctype"));
-    }
-
-    /**
-     * Diese Methode liefert die Menge der verfügbaren Dokumenttypfreitextfelder.
-     */
-    Set getDocumentTypeFields() throws BeanException, IOException {
-        Set result = new HashSet();
-        List docTypes = getDocumentTypesFromDB();
-        for (Iterator itDocTypes = docTypes.iterator(); itDocTypes.hasNext(); ) {
-            Map docTypeData = (Map) itDocTypes.next();
-            Object nameObject = docTypeData.get("name");
-            if (nameObject != null) {
-                result.add(docTypeMainFieldFormat.format(new Object[]{nameObject}));
-                result.add(docTypePartnerFieldFormat.format(new Object[]{nameObject}));
-            }
-        }
-        return result;
     }
 
     /**
@@ -341,10 +312,6 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     final static MessageFormat eventFieldFormat = new MessageFormat("EVE:{0}");
     /** Format zum Erstellen von Dipl.-Corps-Feldbezeichnern */
     final static MessageFormat corpsFieldFormat = new MessageFormat("COR:{0}");
-    /** Format zum Erstellen von Dokumenttyp-Hauptperson-Feldbezeichnern */
-    final static MessageFormat docTypeMainFieldFormat = new MessageFormat("DTM:{0}");
-    /** Format zum Erstellen von Dokumenttyp-Partner-Feldbezeichnern */
-    final static MessageFormat docTypePartnerFieldFormat = new MessageFormat("DTP:{0}");
     /** Simples 1:1-Mapping don Quell- und Zielspalten */
     static final Map simpleFieldMapping = Collections.singletonMap("*", "*");
     /** Logger dieser Klasse */

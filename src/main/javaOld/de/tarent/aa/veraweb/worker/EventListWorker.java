@@ -309,20 +309,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		        );
 		transactionContext.execute(
 				SQL.Delete( database ).
-				from("veraweb.tguest_doctype").
-				where(Expr.in("fk_guest",
-						SQL.Select( database ).
-						from("veraweb.tguest").
-						selectAs("pk", "id").
-						where(Expr.equal("fk_event", event.id)))));
-		transactionContext.execute(
-				SQL.Delete( database ).
 				from("veraweb.tguest").
-				where(Expr.equal("fk_event", event.id)));
-
-		transactionContext.execute(
-				SQL.Delete( database ).
-				from("veraweb.tevent_doctype").
 				where(Expr.equal("fk_event", event.id)));
 		transactionContext.commit();
 		boolean result = super.removeBean(cntx, bean, transactionContext);

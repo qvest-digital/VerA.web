@@ -19,21 +19,18 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
-import com.fasterxml.jackson.core.type.TypeReference;
-
 import de.tarent.aa.veraweb.beans.Categorie;
+import de.tarent.aa.veraweb.beans.Guest;
+import de.tarent.aa.veraweb.beans.GuestSearch;
+import de.tarent.aa.veraweb.beans.Person;
+import de.tarent.aa.veraweb.beans.PersonCategorie;
+import de.tarent.aa.veraweb.beans.facade.EventConstants;
+import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
 import de.tarent.aa.veraweb.utils.FileUploadUtils;
 import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.aa.veraweb.utils.VworConstants;
@@ -41,22 +38,11 @@ import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.statement.Delete;
-import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
-
-import de.tarent.aa.veraweb.beans.Doctype;
-import de.tarent.aa.veraweb.beans.Guest;
-import de.tarent.aa.veraweb.beans.GuestDoctype;
-import de.tarent.aa.veraweb.beans.GuestSearch;
-import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.aa.veraweb.beans.PersonCategorie;
-import de.tarent.aa.veraweb.beans.facade.EventConstants;
-import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
+import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
@@ -67,6 +53,15 @@ import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 
 /**
@@ -112,9 +107,8 @@ public class GuestDetailWorker extends GuestListWorker {
         Person person = getPerson(octopusContext, database, guest);
 
         Integer freitextfeld = ConfigWorker.getInteger(octopusContext, "freitextfeld");
-        Doctype doctype = (Doctype) database.getBean("Doctype", freitextfeld);
-        Integer addresstype = doctype != null ? doctype.addresstype : null;
-        Integer locale = doctype != null ? doctype.locale : null;
+        Integer addresstype = null;
+        Integer locale = null;
         Categorie category = (Categorie) database.getBean("Categorie", guest.category);
 
         setGeneralContentForOctopusContext(octopusContext, guest, person, addresstype, locale, category);
@@ -164,26 +158,7 @@ public class GuestDetailWorker extends GuestListWorker {
         if (freitextfeld == null) {
             //Kopfdaten der Gaesteliste: Anzeige der Stammdaten oder Kopien fuer Gaesteliste
             octopusContext.setContent("showGuestListData", new Boolean(false));
-        } else {
-            GuestDoctype guestDoctype = new GuestDoctype();
-
-            guestDoctype = getGuestDoctypeFromDatabase(database, guest, freitextfeld, guestDoctype);
-
-            octopusContext.setContent("showGuestListData", new Boolean(guestDoctype != null));
-            octopusContext.setContent("guestListData", guestDoctype);
-
         }
-    }
-
-    private GuestDoctype getGuestDoctypeFromDatabase(Database database, Guest guest, Integer freitextfeld,
-                                                     GuestDoctype guestDoctype) throws BeanException, IOException {
-        Select select = database.getSelect(guestDoctype);
-        guestDoctype.doctype = freitextfeld;
-        guestDoctype.guest = guest.id;
-        select.where(database.getWhere(guestDoctype));
-
-        guestDoctype = (GuestDoctype) database.getBean("GuestDoctype", select);
-        return guestDoctype;
     }
 
     private void setGeneralContentForOctopusContext(OctopusContext cntx, Guest guest, Person person,

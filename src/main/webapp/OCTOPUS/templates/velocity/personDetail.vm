@@ -202,9 +202,6 @@
 				<div>${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</div>
 			</li>
 			#if($personDB)
-				<li class="inactive" id="dokumenttypen" onclick="showDoctypes();">
-					<div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
-				</li>
 				<li class="inactive" id="kategorien" onclick="showCategories();">
 					<div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div>
 				</li>

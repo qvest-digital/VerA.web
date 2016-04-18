@@ -19,23 +19,15 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.UUID;
-
-import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Event;
-import de.tarent.aa.veraweb.beans.EventDoctype;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
-import de.tarent.aa.veraweb.utils.*;
+import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.EventURLHandler;
+import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
+import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.sql.SQL;
@@ -54,6 +46,13 @@ import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Dieser Octopus-Worker dient der Anzeige und Bearbeitung von Details von
@@ -257,20 +256,6 @@ public class EventDetailWorker {
                 }
 
                 if (newEvent) {
-                    List list = database.getBeanList("Doctype", database.getSelect("Doctype").where(
-                                    Where
-                                            .or(Expr.equal("flags", new Integer(Doctype.FLAG_IS_STANDARD)), Expr.equal("flags", new Integer(Doctype.FLAG_NO_FREITEXT)))),
-                            transactionContext);
-                    for (Iterator it = list.iterator(); it.hasNext(); ) {
-                        Doctype doctype = (Doctype) it.next();
-                        EventDoctype eventDoctype = new EventDoctype();
-                        eventDoctype.event = event.id;
-                        eventDoctype.doctype = doctype.id;
-                        if (eventDoctype.event != null && eventDoctype.doctype != null)
-                        {
-                            database.saveBean(eventDoctype, transactionContext, false);
-                        }
-                    }
                     if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)){
                     	initOptionalFields(database, transactionContext, event);
                     }

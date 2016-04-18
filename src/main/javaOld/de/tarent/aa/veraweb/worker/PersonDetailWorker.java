@@ -19,15 +19,12 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.LinkType;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
-import de.tarent.aa.veraweb.beans.PersonDoctype;
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
-import de.tarent.aa.veraweb.beans.facade.PersonDoctypeFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.DateHelper;
@@ -56,7 +53,6 @@ import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.osiam.client.OsiamConnector;
@@ -460,44 +456,6 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     /**
-     * Eingabe-Parameter der Octopus-Aktion {@link #getDoctype(OctopusContext)}
-     */
-    public static final String INPUT_getDoctype[] = {};
-
-    /**
-     * Holt den Personen-Dokumenttyp zum eingestellten Label-Dokumenttyp. Die
-     * Person wird hierzu im Octopus-Content unter "person" und die ID des
-     * Label-Dokumenttyps in der Konfiguration unter "freitextfeld" erwartet,
-     * und der Dokumenttyp wird im Octopus-Content unter "doctype" abgelegt.<br>
-     * Wenn zu dieser Person noch kein entsprechender Eintrag existiert wird die
-     * einfache Form eines Dokumenttypens zurückgegeben.
-     *
-     * @param octopusContext
-     *            Octopus-Kontext
-     */
-    public void getDoctype(OctopusContext octopusContext) throws BeanException, IOException {
-        Database database = new DatabaseVeraWeb(octopusContext);
-
-        Person person = (Person) octopusContext.contentAsObject("person");
-        Integer freitextfeld = ConfigWorker.getInteger(octopusContext, "freitextfeld");
-
-        PersonDoctype personDoctype = null;
-        if (!(person == null || person.id == null || freitextfeld == null)) {
-            personDoctype = (PersonDoctype) database.getBean("PersonDoctype",
-                    database.getSelect("PersonDoctype").join("veraweb.tdoctype", "fk_doctype", "tdoctype.pk").selectAs("tdoctype.pk", "doctype")
-                            .selectAs("tdoctype.pk", "doctypeId").selectAs("tdoctype.addresstype", "doctypeAddresstype")
-                            .selectAs("tdoctype.locale", "doctypeLocale").selectAs("tdoctype.docname", "name")
-                            .where(Where.and(Expr.equal("fk_person", person.id), Expr.equal("fk_doctype", freitextfeld))));
-        }
-        if (personDoctype != null) {
-            octopusContext.setContent("doctype", personDoctype);
-        } else if (freitextfeld != null) {
-            Doctype doctype = (Doctype) database.getBean("Doctype", database.getSelect("Doctype").where(Expr.equal("pk", freitextfeld)));
-            octopusContext.setContent("doctype", doctype);
-        }
-    }
-
-    /**
      * Eingabe-Parameter der Octopus-Aktion
      * {@link #createExport(OctopusContext)}
      */
@@ -520,42 +478,16 @@ public class PersonDetailWorker implements PersonConstants {
         Integer freitextfeld = ConfigWorker.getInteger(octopusContext, "freitextfeld");
 
         Integer addresstype = null, locale = null;
-        Object doctype = octopusContext.contentAsObject("doctype");
-        if (doctype == null) {
-            return;
-        } else if (doctype instanceof Doctype) {
-            addresstype = ((Doctype) doctype).addresstype;
-            locale = ((Doctype) doctype).locale;
-        } else if (doctype instanceof PersonDoctype) {
-            addresstype = ((PersonDoctype) doctype).addresstype;
-            locale = ((PersonDoctype) doctype).locale;
-        }
 
         if (person != null) {
-            setContentToFacades(octopusContext, person, freitextfeld, addresstype, locale, doctype);
+            setContentToFacades(octopusContext, person, freitextfeld, addresstype, locale);
         }
     }
 
-    private void setContentToFacades(OctopusContext octopusContext, Person person, Integer freitextfeld, Integer addresstype, Integer locale,
-            Object doctype) throws BeanException, IOException {
+    private void setContentToFacades(OctopusContext octopusContext, Person person, Integer freitextfeld, Integer addresstype, Integer locale) throws BeanException, IOException {
         String nl = "\n";
         StringBuffer buffer = new StringBuffer();
-        PersonDoctypeFacade helper = new PersonDoctypeFacade(octopusContext, person);
         PersonAddressFacade facade = person.getAddressFacade(addresstype, locale);
-
-        // freitextfelder und verbinder
-        if (doctype instanceof PersonDoctype) {
-            if (((PersonDoctype) doctype).textfield != null && ((PersonDoctype) doctype).textfield.length() > 0)
-                buffer.append(((PersonDoctype) doctype).textfield).append(nl);
-            if (((PersonDoctype) doctype).textfieldJoin != null && ((PersonDoctype) doctype).textfieldJoin.length() > 0)
-                buffer.append(((PersonDoctype) doctype).textfieldJoin).append(nl);
-            if (((PersonDoctype) doctype).textfieldPartner != null && ((PersonDoctype) doctype).textfieldPartner.length() > 0)
-                buffer.append(((PersonDoctype) doctype).textfieldPartner).append(nl).append(nl);
-        } else {
-            buffer.append(helper.getFreitext(freitextfeld, addresstype, locale, true)).append(nl);
-            buffer.append(helper.getFreitextVerbinder(freitextfeld, addresstype, locale)).append(nl);
-            buffer.append(helper.getFreitext(freitextfeld, addresstype, locale, false)).append(nl).append(nl);
-        }
 
         // funktion, firma und straße
         if (facade.getFunction() != null && facade.getFunction().length() != 0)
@@ -832,8 +764,6 @@ public class PersonDetailWorker implements PersonConstants {
         }
 
         getPersonId(octopusContext, person.id, true);
-
-        PersonDoctypeWorker.createPersonDoctype(octopusContext, database, transactionContext, person);
     }
 
     private void updateExistingPerson(OctopusContext octopusContext, Person person, Database database, TransactionContext transactionContext,
@@ -1352,9 +1282,6 @@ public class PersonDetailWorker implements PersonConstants {
 
     /**
      * New hash for persons
-     *
-     * @param event
-     * @param oldEvent
      */
     private String getNewPersonUUID() {
         UUID uuid = UUID.randomUUID();

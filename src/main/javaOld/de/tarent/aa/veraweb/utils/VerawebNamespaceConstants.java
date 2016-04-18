@@ -300,31 +300,6 @@ public interface VerawebNamespaceConstants {
     public final static String CATEGORY_RANK_ATTRIBUTE_VW = "vw:rank";
     /** lokaler Kategorie-Rang-Attribut-Name */
     public final static String CATEGORY_RANK_ATTRIBUTE = CATEGORY_RANK_ATTRIBUTE_VW.substring(3);
-    /** Dokumenttypelement-Name mit Namensraumm-Præfix */
-    public final static String DOCTYPE_ELEMENT_VW = "vw:doctype";
-    /** lokaler Dokumenttypelement-Name */
-    public final static String DOCTYPE_ELEMENT = DOCTYPE_ELEMENT_VW.substring(3);
-    /** Dokumenttyp-ID-Attribut-Name mit Namensraumm-Præfix */
-    public final static String DOCTYPE_ID_ATTRIBUTE_VW = "vw:id";
-    /** lokaler Dokumenttyp-ID-Attribut-Name */
-    public final static String DOCTYPE_ID_ATTRIBUTE = DOCTYPE_ID_ATTRIBUTE_VW.substring(3);
-    /** Dokumenttypname-Attribut-Name mit Namensraumm-Præfix */
-    public final static String DOCTYPE_NAME_ATTRIBUTE_VW = "vw:name";
-    /** lokaler Dokumenttypname-Attribut-Name */
-    public final static String DOCTYPE_NAME_ATTRIBUTE = DOCTYPE_NAME_ATTRIBUTE_VW.substring(3);
-    /** Dokumenttypfreitext-Attribut-Name mit Namensraumm-Præfix */
-    public final static String DOCTYPE_TEXT_ATTRIBUTE_VW = "vw:text";
-    /** lokaler Dokumenttypfreitext-Attribut-Name */
-    public final static String DOCTYPE_TEXT_ATTRIBUTE = DOCTYPE_TEXT_ATTRIBUTE_VW.substring(3);
-    /** Dokumenttyppartnerfreitext-Attribut-Name mit Namensraumm-Præfix */
-    public final static String DOCTYPE_TEXT_PARTNER_ATTRIBUTE_VW = "vw:textpartner";
-    /** lokaler Dokumenttyppartnerfreitext-Attribut-Name */
-    public final static String DOCTYPE_TEXT_PARTNER_ATTRIBUTE = DOCTYPE_TEXT_PARTNER_ATTRIBUTE_VW.substring(3);
-    /** Dokumenttypfreitextverbinder-Attribut-Name mit Namensraumm-Præfix */
-    public final static String DOCTYPE_TEXT_JOIN_ATTRIBUTE_VW = "vw:textjoin";
-    /** lokaler Dokumenttypfreitextverbinder-Attribut-Name */
-    public final static String DOCTYPE_TEXT_JOIN_ATTRIBUTE = DOCTYPE_TEXT_JOIN_ATTRIBUTE_VW.substring(3);
-
     /** Zeichensatzattribut-Wert Latin mit Namensraumm-Præfix */
     public final static String LANGUAGE_ATTRIBUTE_LATIN_VW = "vw:latin";
     /** lokaler Zeichensatzattribut-Wert Latin */

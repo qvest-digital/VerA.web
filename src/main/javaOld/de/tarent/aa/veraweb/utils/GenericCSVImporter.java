@@ -37,7 +37,6 @@ import java.util.logging.Logger;
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.ImportPersonCategorie;
-import de.tarent.aa.veraweb.beans.ImportPersonDoctype;
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.data.exchange.MappingException;
 import de.tarent.data.exchange.FieldMapping.Entity;
@@ -151,8 +150,8 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
 
     /**
      * Diese Methode verarbeitet eine einzelne aufbereitete Zeile; das bedeutet, dass eine
-     * entsprechende {@link ImportPerson} und gegebenenfalls {@link ImportPersonCategorie}-
-     * und {@link ImportPersonDoctype}-Instanzen erstellt werden und dem übergebenen
+     * entsprechende {@link ImportPerson} und gegebenenfalls {@link ImportPersonCategorie}-Instanzen
+     * erstellt werden und dem übergebenen
      * {@link ImportDigester} als neue Person weitergereicht werden.<br>
      * TODO: Timestamp-Format konfigurierbar machen
      *
@@ -199,10 +198,6 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
                     addCategory(targetField.substring(4), targetValue, Categorie.FLAG_EVENT, extras);
                 } else if (targetField.startsWith("COR:")) {
                     addCategory(targetField.substring(4), targetValue, Categorie.FLAG_DIPLO_CORPS, extras);
-                } else if (targetField.startsWith("DTM:")) {
-                    addDoctypeMain(targetField.substring(4), targetValue, extras);
-                } else if (targetField.startsWith("DTP:")) {
-                    addDoctypePartner(targetField.substring(4), targetValue, extras);
                 } else {
                     logger.warning("Unbekanntes Zielfeld " + targetField);
                 }
@@ -258,64 +253,6 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
             category.rank = rankNumber;
             category.flags = new Integer(flags);
             extras.put(catKey, category);
-        }
-    }
-
-    /**
-     * Diese Methode fügt der übergebenen Sammlung von Import-Extras einen neuen
-     * {@link ImportPersonDoctype} hinzu oder --- falls es schon einen unter
-     * dem Namen gibt --- aktualisiert diesen.
-     *
-     * @param name Name des Dokumenttyps
-     * @param text Hauptpersonfreitext des Dokumenttyps
-     * @param extras Map mit Import-Extras.
-     */
-    void addDoctypeMain(String name, String text, Map extras) {
-        assert name != null;
-        assert text != null;
-        assert extras != null;
-        String docKey = "D" + name;
-        if (text == null || text.trim().length() == 0)
-            return;
-
-        if (extras.containsKey(docKey)) {
-            ImportPersonDoctype doctype = (ImportPersonDoctype) extras.get(docKey);
-            if (doctype.textfield == null || doctype.textfield.length() == 0)
-                doctype.textfield = text;
-        } else {
-            ImportPersonDoctype doctype = new ImportPersonDoctype();
-            doctype.name = name;
-            doctype.textfield = text;
-            extras.put(docKey, doctype);
-        }
-    }
-
-    /**
-     * Diese Methode fügt der übergebenen Sammlung von Import-Extras einen neuen
-     * {@link ImportPersonDoctype} hinzu oder --- falls es schon einen unter
-     * dem Namen gibt --- aktualisiert diesen.
-     *
-     * @param name Name des Dokumenttyps
-     * @param text Partnerpersonfreitext des Dokumenttyps
-     * @param extras Map mit Import-Extras.
-     */
-    void addDoctypePartner(String name, String text, Map extras) {
-        assert name != null;
-        assert text != null;
-        assert extras != null;
-        String docKey = "D" + name;
-        if (text == null || text.trim().length() == 0)
-            return;
-
-        if (extras.containsKey(docKey)) {
-            ImportPersonDoctype doctype = (ImportPersonDoctype) extras.get(docKey);
-            if (doctype.textfieldPartner == null || doctype.textfieldPartner.length() == 0)
-                doctype.textfieldPartner = text;
-        } else {
-            ImportPersonDoctype doctype = new ImportPersonDoctype();
-            doctype.name = name;
-            doctype.textfieldPartner = text;
-            extras.put(docKey, doctype);
         }
     }
 

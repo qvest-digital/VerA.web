@@ -110,17 +110,6 @@ public class MailinglistWorker {
 		Integer addresstype = new Integer(PersonConstants.ADDRESSTYPE_BUSINESS);
 		Integer locale = new Integer(PersonConstants.LOCALE_LATIN);
 		Integer freitextfeld = ConfigWorker.getInteger(octopusContext, "freitextfeld");
-		Doctype doctype = (freitextfeld == null) ? null : (Doctype)
-				database.getBean("Doctype",
-				database.getSelect("Doctype").
-				where(Expr.equal("pk", freitextfeld)));
-
-		if (doctype != null && doctype.locale != null) {
-			locale = doctype.locale;
-		}
-		if (doctype != null && doctype.addresstype != null) {
-			addresstype = doctype.addresstype;
-		}
 
 		// Bedingung des Verteilers definieren
 		int savedAddresses = 0;

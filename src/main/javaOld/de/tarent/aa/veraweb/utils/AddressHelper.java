@@ -19,15 +19,10 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Calendar;
-
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Salutation;
-import de.tarent.aa.veraweb.beans.SalutationDoctype;
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
@@ -36,6 +31,10 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Calendar;
 
 /**
  * Diese Klasse soll Adress-Spezifische entscheidungen, insbesondere
@@ -145,25 +144,13 @@ public class AddressHelper implements PersonConstants {
 						facade.setSex(PersonConstants.SEX_MALE);
 					}
 				} else {
-					SalutationDoctype sd = new SalutationDoctype();
-					sd.text = facade.getSalutation();
-					sd = (SalutationDoctype)
-							database.getBean("SalutationDoctype",
-							database.getSelect("SalutationDoctype").
-							selectAs("NULL", "name").
-							where(database.getWhere(sd)), context);
-
-					if (sd != null) {
-						salutation = (Salutation)database.getBean("Salutation", sd.salutation, context);
-						if (salutation != null) {
-							facade.setSalutationFK(salutation.id);
-							if (salutation.gender != null && "FfWw".indexOf(salutation.gender) != -1) {
-								facade.setSex(PersonConstants.SEX_FEMALE);
-							} else {
-								facade.setSex(PersonConstants.SEX_MALE);
-							}
+					salutation = (Salutation)database.getBean("Salutation", facade.getSalutationFK(), context);
+					if (salutation != null) {
+						facade.setSalutationFK(salutation.id);
+						if (salutation.gender != null && "FfWw".indexOf(salutation.gender) != -1) {
+							facade.setSex(PersonConstants.SEX_FEMALE);
 						} else {
-							facade.setSalutationFK(null);
+							facade.setSex(PersonConstants.SEX_MALE);
 						}
 					} else {
 						facade.setSalutationFK(null);

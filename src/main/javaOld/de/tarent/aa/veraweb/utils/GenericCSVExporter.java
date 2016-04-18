@@ -180,10 +180,6 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
                     result = getRank(sourceKey.substring(4));
                 else if (sourceKey.startsWith("COR:"))
                     result = getRank(sourceKey.substring(4));
-                else if (sourceKey.startsWith("DTM:"))
-                    result = getTextField(sourceKey.substring(4), false);
-                else if (sourceKey.startsWith("DTP:"))
-                    result = getTextField(sourceKey.substring(4), true);
                 else
                     logger.warning("Unbekanntes Quellfeld");
             } catch (Exception e) {
@@ -243,44 +239,6 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
                 }
             }
             return ranks.get(categoryName);
-        }
-
-        /**
-         * Diese Methode liefert den Freitext einer Person oder ihres Partners zu einem Dokumenttyp.
-         *
-         * @param docTypeName
-         *          Name des Dokumenttyps
-         * @param partner
-         *          Flag, ob Freitext von Partner oder Hauptperson
-         * @return Freitext der Person oder des Partners zum Dokumenttyp; <code>null</code>, wenn kein Freitext vorliegt.
-         */
-        Object getTextField(String docTypeName, boolean partner) throws IOException, BeanException {
-            if (textFields == null) {
-                textFields = new HashMap();
-                textFieldsPartner = new HashMap();
-                Bean sampleDocType = database.createBean("Doctype");
-                Bean samplePersonDocType = database.createBean("PersonDoctype");
-                Select select = new Select(false).from(database.getProperty(samplePersonDocType, "table")).join(
-                        database.getProperty(sampleDocType, "table"), database.getProperty(sampleDocType, "id"),
-                        database.getProperty(samplePersonDocType, "doctype")).selectAs(database.getProperty(sampleDocType, "name"), "name").selectAs(
-                        database.getProperty(samplePersonDocType, "textfield"), "textField").selectAs(
-                        database.getProperty(samplePersonDocType, "textfieldPartner"), "textFieldPartner").where(
-                        Expr.equal(database.getProperty(samplePersonDocType, "person"), person.id));
-                List entries = database.getList(select, database);
-                for (Iterator itEntries = entries.iterator(); itEntries.hasNext(); ) {
-                    Map entry = (Map) itEntries.next();
-                    Object name = entry.get("name");
-                    if (name == null)
-                        continue;
-                    Object field = entry.get("textField");
-                    if (field != null)
-                        textFields.put(name, field);
-                    field = entry.get("textFieldPartner");
-                    if (field != null)
-                        textFieldsPartner.put(name, field);
-                }
-            }
-            return (partner ? textFieldsPartner : textFields).get(docTypeName);
         }
 
         //
@@ -369,14 +327,4 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
 
         return database.getBeanList("Categorie", sel);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected List getDocumentTypesFromDB() throws BeanException, IOException {
-        // TODO nur die Dokumenttypen des Mandanten, falls Doktypen auf Mandanten eingeschränkt werden.
-        return super.getDocumentTypesFromDB();
-    }
-
 }

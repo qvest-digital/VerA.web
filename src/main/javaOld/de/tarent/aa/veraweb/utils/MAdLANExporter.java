@@ -36,7 +36,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import de.tarent.aa.veraweb.beans.Categorie;
-import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.data.exchange.Exchanger;
@@ -161,14 +160,6 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
             property = format.getProperties().get(KEY_KYRILLIC_FIELDS);
             if (property instanceof List)
                 kyrillicFields = (List) property;
-            property = format.getProperties().get("textfieldMapping");
-            if (property instanceof Map) try {
-                parseTextfieldMappings((Map) property);
-            } catch (BeanException be) {
-                IOException ioe = new IOException("Fehler beim Parsen der Freitext-Mappings");
-                ioe.initCause(be);
-                throw ioe;
-            }
         }
         pw = new PrintWriter(new OutputStreamWriter(os, "ISO-8859-1"));
         writeHeader();
@@ -304,41 +295,6 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
             }
         }
         return categoryBuffer.toString();
-    }
-
-    void parseTextfieldMappings(Map rawTextfieldMappings) throws BeanException, IOException {
-        assert db != null;
-        if (rawTextfieldMappings == null) {
-            textfieldSelects = Collections.EMPTY_MAP;
-        } else {
-            Map result = new HashMap();
-            for (int i = 0; i < rawTextfieldMappings.size(); i++) {
-                String indexString = String.valueOf(i);
-                String keyDoctype = indexString + ":Doctype";
-                if (rawTextfieldMappings.containsKey(keyDoctype)) {
-                    String doctypeName = String.valueOf(rawTextfieldMappings.get(keyDoctype));
-                    String personTextfield = String.valueOf(rawTextfieldMappings.get(indexString + ":Person"));
-                    String partnerTextfield = String.valueOf(rawTextfieldMappings.get(indexString + ":Partner"));
-                    addSelectFormat(result, doctypeName, personTextfield, false);
-                    addSelectFormat(result, doctypeName, partnerTextfield, true);
-                }
-            }
-            textfieldSelects = result;
-        }
-    }
-
-    void addSelectFormat(Map selectFormats, String doctypeName, String textfield, boolean partner) throws BeanException, IOException {
-        Doctype doctype = (Doctype) db.getBean("Doctype", db.getSelect("Doctype").where(Expr.equal("docname", doctypeName)));
-        if (doctype == null)
-            logger.warning("Für den Export konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
-        else {
-            Select select = new Select(true).from("veraweb.tperson_doctype")
-                    .selectAs(partner ? "textfield_p" : "textfield", "field")
-                    .where(new WhereList().addAnd(
-                            Expr.equal("fk_doctype", doctype.id)).addAnd(
-                            new RawClause("fk_person = {0}")));
-            selectFormats.put(textfield, new MessageFormat(select.toString()));
-        }
     }
 
     //

@@ -96,9 +96,6 @@
                     <li class="inactive noBorder" onclick="window.location.href='ShowEvent?id=$!event.id';">
                         <div>${placeholderWithTranslation.GENERIC_GENERAL}</div>
                     </li>
-                    <li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';">
-                        <div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
-                    </li>
                     <li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';">
                         <div>${placeholderWithTranslation.GENERIC_TASK_PLURAL}</div>
                     </li>

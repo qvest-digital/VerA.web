@@ -36,7 +36,6 @@ import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import org.apache.log4j.Logger;
 
 import de.tarent.aa.veraweb.beans.Color;
-import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Grants;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.ExportHelper;
@@ -90,156 +89,7 @@ public class PersonExportWorker extends PersonListWorker {
      * @return Standard-Dateinamenerweiterung
 	 */
 	public String exportFormat(OctopusContext cntx) throws BeanException, IOException {
-		Doctype doctype = getExportDoctype(cntx);
-		if (doctype == null) {
-			logger.error("Export von Personendaten kann nicht angeboten werden, es wurde kein Dokumenttyp konfiguriert.");
-			return null;
-		}
-		return ExportHelper.getExtension(SpreadSheetFactory.getSpreadSheet(doctype.format).getFileExtension());
-	}
-
-    /** Eingabe-Parameter der Octopus-Aktion {@link #export(OctopusContext)} */
-	public static final String INPUT_export[] = {};
-    /** Ausgabe-Parameter der Octopus-Aktion {@link #export(OctopusContext)} */
-	public static final String OUTPUT_export = "stream";
-	/**
-     * Diese Octopus-Aktion erzeugt ein Spreadsheet passend zum Standard-Label-Dokumenttyp
-     * mit den aktuellen Personen.
-     *
-     * @param cntx Octopus-Kontext
-     * @return eine Map mit Einträgen "type", "filename", "mimetype" und "stream" für die
-     *  {@link TcBinaryResponseEngine}
-	 */
-	public Map export(final OctopusContext cntx) throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
-		final Database database = getDatabase(cntx);
-		final Doctype doctype = getExportDoctype(cntx);
-		if (doctype == null) {
-			logger.error("Konnte Gästeliste nicht exportieren, es wurde kein Dokumenttyp konfiguriert.");
-			throw new BeanException("Konnte Gästeliste nicht exportieren, es wurde kein Dokumenttyp konfiguriert.");
-		}
-
-		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(doctype.format);
-		final String filename = OctopusHelper.getFilename(cntx, spreadSheet.getFileExtension(), "export." + spreadSheet.getFileExtension());
-        final PipedInputStream pis = new PipedInputStream();
-        final PipedOutputStream pos = new PipedOutputStream(pis);
-
-        new Thread(new Runnable() {
-        	public void run() {
-        		if (logger.isDebugEnabled())
-        			logger.debug("Personen-Export: Starte das Speichern eines Spreadsheets.");
-        		try {
-        			spreadSheet.init();
-
-        			String memberAEx = null;
-        			String memberBEx = null;
-        			String addressEx = null;
-        			if (doctype.locale != null && doctype.addresstype != null) {
-        				if (doctype.locale.intValue() == PersonConstants.LOCALE_LATIN) {
-        					memberAEx = "_a_e1";
-        					memberBEx = "_b_e1";
-        					if (doctype.addresstype.intValue() == PersonConstants.ADDRESSTYPE_BUSINESS) {
-        						addressEx = "_a_e1";
-        					} else if (doctype.addresstype.intValue() == PersonConstants.ADDRESSTYPE_PRIVATE) {
-        						addressEx = "_b_e1";
-        					} else if (doctype.addresstype.intValue() == PersonConstants.ADDRESSTYPE_OTHER) {
-        						addressEx = "_c_e1";
-        					}
-        				} else if (doctype.locale.intValue() == PersonConstants.LOCALE_EXTRA1) {
-        					memberAEx = "_a_e2";
-        					memberBEx = "_b_e2";
-        					if (doctype.addresstype.intValue() == PersonConstants.ADDRESSTYPE_BUSINESS) {
-        						addressEx = "_a_e2";
-        					} else if (doctype.addresstype.intValue() == PersonConstants.ADDRESSTYPE_PRIVATE) {
-        						addressEx = "_b_e2";
-        					} else if (doctype.addresstype.intValue() == PersonConstants.ADDRESSTYPE_OTHER) {
-        						addressEx = "_c_e2";
-        					}
-        				} else if (doctype.locale.intValue() == PersonConstants.LOCALE_EXTRA2) {
-        					memberAEx = "_a_e3";
-        					memberBEx = "_b_e3";
-        					if (doctype.addresstype.intValue() == PersonConstants.ADDRESSTYPE_BUSINESS) {
-        						addressEx = "_a_e3";
-        					} else if (doctype.addresstype.intValue() == PersonConstants.ADDRESSTYPE_PRIVATE) {
-        						addressEx = "_b_e3";
-        					} else if (doctype.addresstype.intValue() == PersonConstants.ADDRESSTYPE_OTHER) {
-        						addressEx = "_c_e3";
-        					}
-        				}
-        			}
-        			/*
-        			 * fixing typos here that resulted in that memberBEx and addressEx remained null
-        			 * cklein 2008-03-26
-        			 */
-        			if (memberAEx == null) memberAEx = "_a_e1";
-        			if (memberBEx == null) memberBEx = "_b_e1";
-        			if (addressEx == null) addressEx= "_a_e1";
-
-        			// Tabelle öffnen und erste Zeile schreiben
-        			spreadSheet.openTable("Gäste", 65);
-        			spreadSheet.openRow();
-        			exportHeader(spreadSheet, cntx);
-        			spreadSheet.closeRow();
-
-        			// Zusatzinformationen
-        			Map data = new HashMap();
-        			data.put("doctype", doctype.name);
-        			data.put("color1", database.getBean("Color", new Integer(1)));
-        			data.put("color2", database.getBean("Color", new Integer(2)));
-        			data.put("color3", database.getBean("Color", new Integer(3)));
-        			data.put("color4", database.getBean("Color", new Integer(4)));
-
-        			// Export-Select zusammenbauen
-        			Select select = database.getSelect(BEANNAME);
-        			extendColumns(cntx, select);
-        			extendWhere(cntx, select);
-
-        			select.joinLeftOuter("veraweb.tperson_doctype", "tperson_doctype.fk_person", "tperson.pk");
-        			select.whereAnd( new RawClause( "tperson_doctype.fk_doctype = " + doctype.id ) );
-        			select.select("textfield");
-        			select.select("textfield_p");
-        			select.select("textjoin");
-        			select.select("addresstype");
-        			select.select("locale");
-
-        			// Export-Select ausführen
-        			/*
-        			 * fixing exportSelect tries to access the current octopus context which tries to get itself
-        			 * from the thread local map of this thread which is not an octopus controlled thread
-        			 * cklein 2008-03-26
-        			 */
-        			exportSelect(
-        					spreadSheet, database, ((PersonalConfigAA)cntx.personalConfig()).getGrants(),
-        					doctype, select, data, memberAEx, memberBEx, addressEx);
-
-        			// Tabelle schließen
-        			spreadSheet.closeTable();
-
-        			// SpreadSheet speichern
-					spreadSheet.save(pos);
-				} catch (Throwable t) {
-					logger.error("Fehler beim Erstellen des Exports aufgetreten.", t);
-        			// This will force a log output.
-        			t.printStackTrace(System.out);
-        			t.printStackTrace(System.err);
-				} finally {
-					try {
-						pos.close();
-					} catch (IOException e) {
-					}
-				}
-        		if (logger.isDebugEnabled())
-        			logger.debug("Personen-Export: Beende das Speichern eines Spreadsheets.");
-        	}
-        }).start();
-
-		// Stream-Informationen zurück geben
-		Map stream = new HashMap();
-		stream.put(TcBinaryResponseEngine.PARAM_TYPE, TcBinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
-		stream.put(TcBinaryResponseEngine.PARAM_FILENAME, ExportHelper.getFilename(filename));
-		stream.put(TcBinaryResponseEngine.PARAM_MIMETYPE, ExportHelper.getContentType(spreadSheet.getContentType()));
-		stream.put(TcBinaryResponseEngine.PARAM_STREAM, pis);
-		stream.put(TcBinaryResponseEngine.PARAM_IS_ATTACHMENT, Boolean.TRUE);
-		return stream;
+		return ExportHelper.getExtension(SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_CSV_DOCUMENT).getFileExtension());
 	}
 
 	/**
@@ -331,8 +181,6 @@ public class PersonExportWorker extends PersonListWorker {
      *
      * @param spreadSheet {@link SpreadSheet}, in das exportiert werden soll.
      * @param database Datenbank, in der das Select ausgeführt werden soll.
-     * @param doctype Dokumenttyp, der vorgibt, ob Hauptperson und Partner in einem
-     *  gemeinsamen oder in zwei getrennten Zeilen exportiert werden sollen.
      * @param select Select-Statement, das die zu exportierenden Personen selektiert.
      * @param data Zusatzdaten unter den Schlüsseln "doctype", "color1", "color2",
      *  "color3" und "color4".
@@ -340,7 +188,7 @@ public class PersonExportWorker extends PersonListWorker {
      * @param memberBEx Attributschlüsselsuffix der Partnerperson
      * @param addressEx Attributschlüsselsuffix der Adressdaten
      */
-	protected void exportSelect(SpreadSheet spreadSheet, Database database, Grants grants, Doctype doctype, Select select, Map data, String memberAEx, String memberBEx, String addressEx) throws BeanException {
+	protected void exportSelect(SpreadSheet spreadSheet, Database database, Grants grants, Select select, Map data, String memberAEx, String memberBEx, String addressEx) throws BeanException {
 		try
 		{
 			for (Iterator it = ( new ResultList( select.executeSelect( database ).resultSet() ) ).iterator(); it.hasNext(); ) {
@@ -363,33 +211,19 @@ public class PersonExportWorker extends PersonListWorker {
 					(person.get("firstname_b_e3") != null && ((String)person.get("firstname_b_e3")).length() != 0);
 				boolean showRemarks = grants.mayReadRemarkFields();
 
-				if (doctype.partner != null && doctype.partner.booleanValue()) {
-					// Eigenes Dokument
-					if (showA) {
-						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
-						spreadSheet.closeRow();
-					}
-					if (showB) {
-						spreadSheet.openRow();
-						exportOnlyPartner(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
-						spreadSheet.closeRow();
-					}
-				} else {
-					// Gleiches Dokument
-					if (showA && showB) {
-						spreadSheet.openRow();
-						exportBothInOneLine(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
-						spreadSheet.closeRow();
-					} else if (showA) {
-						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
-						spreadSheet.closeRow();
-					} else if (showB) {
-						spreadSheet.openRow();
-						exportOnlyPartner(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
-						spreadSheet.closeRow();
-					}
+				// Gleiches Dokument
+				if (showA && showB) {
+					spreadSheet.openRow();
+					exportBothInOneLine(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
+					spreadSheet.closeRow();
+				} else if (showA) {
+					spreadSheet.openRow();
+					exportOnlyPerson(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
+					spreadSheet.closeRow();
+				} else if (showB) {
+					spreadSheet.openRow();
+					exportOnlyPartner(spreadSheet, showA, showB, showRemarks, person, data, memberAEx, memberBEx, addressEx);
+					spreadSheet.closeRow();
 				}
 			}
 		}
@@ -809,42 +643,5 @@ public class PersonExportWorker extends PersonListWorker {
     /** Diese Methode liefert eine String-Darstellung zu einem Domestic-Attribut */
 	private String getDomestic(String domestic) {
 		return PersonConstants.DOMESTIC_AUSLAND.equals(domestic) ? "Nein" : "Ja";
-	}
-
-	/**
-	 * Lädt den Dokumenttypen der zum Personen-Export verwendet werden soll,
-	 * hierfür wird der Standard-Dokumenttyp verwendet, ist dieser nicht
-	 * gesetzt wird der Dokumenttyp des Freitextfeldes zurück gegeben.
-	 *
-	 * @param cntx
-	 * @return
-	 * @throws BeanException
-	 * @throws IOException
-	 */
-	private Doctype getExportDoctype(OctopusContext cntx) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
-		Doctype doctype = new Doctype();
-		doctype.isdefault = Boolean.TRUE;
-		doctype = (Doctype)
-				database.getBean("Doctype",
-				database.getSelect(doctype).where(
-				database.getWhere(doctype)));
-
-		if (doctype == null) {
-			doctype = (Doctype)
-					getDatabase(cntx).getBean("Doctype",
-					ConfigWorker.getInteger(cntx, "freitextfeld"));
-			if (doctype == null) {
-				logger.fatal("Es konnte weder ein Standard noch ein " +
-						"Freitextfeld Dokumenttyp gefunden!");
-			} else {
-				logger.warn("Es wurde kein Standard Dokumenttyp gefunden, " +
-						"es wird automatisch der Dokumenttyp des " +
-						"Freitextfeldes (Anzeige) verwendet: '" +
-						doctype.name + "'");
-			}
-		}
-
-		return doctype;
 	}
 }

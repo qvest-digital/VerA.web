@@ -118,11 +118,6 @@
                                 </li>
 							#end
 						#end
-						#if($grants.isAdmin())
-							<li>
-                                <a id="menu.doctype" href="${paths.staticWeb}do/Doctype?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</a>
-                            </li>
-						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
 							<li>
                                 <a id="menu.mailOutbox" href="${paths.staticWeb}do/MailOutboxList?start=0&selectNone=true">${placeholderWithTranslation.emailpostausgang}</a>

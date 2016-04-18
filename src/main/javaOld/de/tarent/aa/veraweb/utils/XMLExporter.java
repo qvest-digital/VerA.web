@@ -19,6 +19,31 @@
  */
 package de.tarent.aa.veraweb.utils;
 
+import de.tarent.aa.veraweb.beans.Categorie;
+import de.tarent.aa.veraweb.beans.Person;
+import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
+import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
+import de.tarent.data.exchange.ExchangeFormat;
+import de.tarent.data.exchange.Exchanger;
+import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.DatabaseUtilizer;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,34 +57,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import de.tarent.aa.veraweb.beans.Categorie;
-import de.tarent.aa.veraweb.beans.Doctype;
-import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
-import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
-import de.tarent.data.exchange.ExchangeFormat;
-import de.tarent.data.exchange.Exchanger;
-import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.beans.Bean;
-import de.tarent.octopus.beans.BeanException;
-import de.tarent.octopus.beans.Database;
-import de.tarent.octopus.beans.DatabaseUtilizer;
 
 /**
  * Diese Klasse dient dem Erzeugen eines VerA.web-XML-Exports.<br>
@@ -236,7 +233,6 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         insertMembers(personElement, person);
         insertAddresses(personElement, person);
         insertCategories(personElement, person);
-        insertDocTypes(personElement, person);
         // Personenelement in das Dokument einfügen
         baseElement.appendChild(personElement);
     }
@@ -459,34 +455,6 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     }
 
     /**
-     * Diese Methode fügt dem VerA.web-Personen-Element Unterelemente für
-     * die verschiedenen Dokumenttyp-Freitexte hinzu.
-     *
-     * @param personElement VerA.web-Personen-Element
-     * @param person {@link Person}-Bean
-     * @throws BeanException
-     * @throws IOException
-     */
-    void insertDocTypes(Element personElement, Person person) throws BeanException, IOException {
-        logger.entering(getClass().getName(), "insertDocTypes", new Object[]{personElement, person});
-        Doctype sampleDoctype = (Doctype) db.createBean("Doctype");
-        Bean samplePersonDoctype = db.createBean("PersonDoctype");
-        Select select = db.getSelect(sampleDoctype)
-                .join(db.getProperty(samplePersonDoctype, "table"),
-                        db.getProperty(sampleDoctype, "id"),
-                        db.getProperty(samplePersonDoctype, "doctype"))
-                .selectAs(db.getProperty(samplePersonDoctype, "textfield"), "textfield")
-                .selectAs(db.getProperty(samplePersonDoctype, "textfieldPartner"), "textfieldPartner")
-                .selectAs(db.getProperty(samplePersonDoctype, "textfieldJoin"), "textfieldJoin")
-                .where(Expr.equal(db.getProperty(samplePersonDoctype, "person"), person.id));
-        List list = db.getList(select, db);
-        for (Iterator itList = list.iterator(); itList.hasNext(); ) {
-            Map data = (Map) itList.next();
-            appendChild(personElement, createDocTypeElement(data));
-        }
-    }
-
-    /**
      * Diese Methode erzeugt ein <code>vw:history</code>-Element.
      *
      * @param person {@link Person}-Bean
@@ -520,23 +488,6 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
         notEmpty |= setAttribute(categoryElement, CATEGORY_FLAGS_ATTRIBUTE_VW, category.flags);
         notEmpty |= setAttribute(categoryElement, CATEGORY_RANK_ATTRIBUTE_VW, individualRank == null ? category.rank : individualRank);
         return notEmpty ? categoryElement : null;
-    }
-
-    /**
-     * Diese Methode erzeugt ein <code>vw:doctype</code>-Element.
-     *
-     * @param doctypeData Dokumenttypdaten
-     * @return ein <code>vw:category</code>-{@link Element} oder <code>null</code>
-     */
-    Element createDocTypeElement(Map doctypeData) {
-        boolean notEmpty = false;
-        Element doctypeElement = document.createElementNS(VW_NAMESPACE_URI, DOCTYPE_ELEMENT_VW);
-        setAttribute(doctypeElement, DOCTYPE_ID_ATTRIBUTE_VW, doctypeData.get("id"));
-        setAttribute(doctypeElement, DOCTYPE_NAME_ATTRIBUTE_VW, doctypeData.get("name"));
-        notEmpty |= setAttribute(doctypeElement, DOCTYPE_TEXT_ATTRIBUTE_VW, doctypeData.get("textfield"));
-        notEmpty |= setAttribute(doctypeElement, DOCTYPE_TEXT_PARTNER_ATTRIBUTE_VW, doctypeData.get("textfieldPartner"));
-        notEmpty |= setAttribute(doctypeElement, DOCTYPE_TEXT_JOIN_ATTRIBUTE_VW, doctypeData.get("textfieldJoin"));
-        return notEmpty ? doctypeElement : null;
     }
 
     /**

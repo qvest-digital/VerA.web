@@ -48,9 +48,6 @@
 					<li class="inactive"  onclick="window.location.href='ShowEvent?id=$!event.id';" class="noBorder">
 						<div>${placeholderWithTranslation.GENERIC_GENERAL}</div>
 					</li>
-					<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';" class="noBorder">
-						<div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
-					</li>
 					<li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';" class="noBorder">
 						<div>${placeholderWithTranslation.GENERIC_TASK_PLURAL}</div>
 					</li>
@@ -149,10 +146,7 @@
 							<td colspan="2">${placeholderWithTranslation.MESSAGE_NO_EMPLOYMENT_TITLES_FOUND}</td>
 						</tr>
 					#end
-
-					#set($itemName = "${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}")
 					#tableFooter(3)
-
 				</table>
 				#end
 

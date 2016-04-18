@@ -19,17 +19,12 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Function;
-import de.tarent.aa.veraweb.beans.Salutation;
-import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
-import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.server.OctopusContext;
 

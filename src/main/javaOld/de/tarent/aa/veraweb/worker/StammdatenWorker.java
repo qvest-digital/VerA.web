@@ -19,7 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.WorkArea;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
@@ -96,9 +95,7 @@ public class StammdatenWorker extends ListWorkerVeraWeb {
     protected int insertBean(OctopusContext octopusContext, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		if (bean.isModified()) {
-			if (bean instanceof Doctype) {
-				((Doctype) bean).verify(octopusContext);
-			} else if (bean instanceof WorkArea) {
+			if (bean instanceof WorkArea) {
 				((WorkArea) bean).verify(octopusContext);
 			}
 

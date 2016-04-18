@@ -19,23 +19,11 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-
 import de.tarent.aa.veraweb.beans.Categorie;
-import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.ImportPersonCategorie;
-import de.tarent.aa.veraweb.beans.ImportPersonDoctype;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
-import de.tarent.aa.veraweb.beans.PersonDoctype;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.CharacterPropertiesReader;
@@ -51,6 +39,13 @@ import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.log4j.Logger;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zum Import von Personendaten zur
@@ -222,8 +217,6 @@ public class ImportPersonsWorker {
             int dsCount = 0;
 
             ImportPerson sampleImportPerson = new ImportPerson();
-            // importTextfieldMapping analysieren, Doctypes holen...
-            List personDoctypeCreators = parseTextfieldMapping(database, transactionContext, importTextfieldMapping);
             //Erstelle SELECT-Anfrage, die die einzufügenden Datensätze liest.
             Select select = database.getSelect(sampleImportPerson);
             WhereList where = new WhereList();
@@ -284,17 +277,6 @@ public class ImportPersonsWorker {
                     if (importPerson.get("occasion") != null && ((String) importPerson.get("occasion")).length() != 0) {
                         createPersonCategories(database, transactionContext, ((String) importPerson.get("occasion")).split("\n"), person, new Integer(Categorie.FLAG_EVENT));
                     }
-
-                    // Importierte Dokumenttypen zu Personen erzeugen
-                    createPersonDoctypes(database, transactionContext, ipID, person.id);
-                    // TODO: auslagern in MAdLANImporter
-                    Iterator itPersonDoctypeCreators = personDoctypeCreators.iterator();
-                    while (itPersonDoctypeCreators.hasNext()) {
-                        ((PersonDoctypeImporter) itPersonDoctypeCreators.next()).createFor(importPerson, person.id, transactionContext);
-                    }
-
-                    // Restlichen Personen Dokumenttypen erzeugen
-                    PersonDoctypeWorker.createPersonDoctype(octopusContext, database, transactionContext, person);
 
                     // Datensatz als festgeschrieben markieren
                     transactionContext.execute(database.getUpdate("ImportPerson").update("dupcheckaction", ImportPerson.TRUE).
@@ -424,163 +406,6 @@ public class ImportPersonsWorker {
         }
     }
 
-    /**
-     * Diese Methode erzeugt zu einer Person und einer ImportPerson
-     * passende {@link PersonDoctype}-Instanzen. Gegebenenfalls werden hierbei
-     * die Dokumenttypen erst noch erzeugt.
-     *
-     * @param database die Datenbank, in der agiert werden soll
-     * @param importPersonId ID einer ImportPerson
-     * @param personId ID der Person, als die die ImportPerson importiert wird
-     */
-    private static void createPersonDoctypes(Database database, ExecutionContext executionContext,
-                                             Integer importPersonId, Integer personId)
-            throws BeanException, IOException {
-        final ImportPersonDoctype sample = (ImportPersonDoctype) database.createBean("ImportPersonDoctype");
-        final Select select = database.getSelect(sample);
-        select.where(Expr.equal(database.getProperty(sample, "importperson"), importPersonId));
-
-        final List importPersonDoctypes = database.getList(select, executionContext);
-        for (Iterator itImportPersonDoctypes = importPersonDoctypes.iterator(); itImportPersonDoctypes.hasNext(); ) {
-            final Map importPersonDoctype = (Map) itImportPersonDoctypes.next();
-            final String doctypeName = (String) importPersonDoctype.get("name");
-            if (doctypeName != null) {
-                handlePersonDoctypeCreation(database, executionContext, personId, importPersonDoctype, doctypeName);
-            }
-        }
-    }
-
-    private static void handlePersonDoctypeCreation(Database database, ExecutionContext executionContext,
-                                                    Integer personId, Map importPersonDoctype, String name)
-            throws BeanException, IOException {
-        final Doctype doctype = getDoctypeByName(database, executionContext, name);
-        if (doctype == null) {
-            LOGGER.warn("Der Dokumenttyp '" + name + "' existiert nicht mehr und wird nicht importiert.");
-            return;
-        }
-        final PersonDoctype personDoctype = initPersonDoctype(database, personId, importPersonDoctype, doctype);
-        personDoctype.verify();
-        database.saveBean(personDoctype, executionContext, false);
-        final TransactionContext transactionContext = executionContext.getDatabase().getTransactionContext();
-        transactionContext.commit();
-    }
-
-    private static Doctype getDoctypeByName(Database database, ExecutionContext executionContext, String name)
-            throws BeanException, IOException {
-        final Select getDoctypeByNameStatement = database.getSelect("Doctype").where(Expr.equal("docname", name));
-        return (Doctype) database.getBean("Doctype", getDoctypeByNameStatement, executionContext);
-    }
-
-    private static PersonDoctype initPersonDoctype(Database database, Integer personId, Map importPersonDoctype,
-                                                   Doctype doctype) throws BeanException {
-        final PersonDoctype personDoctype = (PersonDoctype) database.createBean("PersonDoctype");
-        personDoctype.doctype = doctype.id;
-        personDoctype.person = personId;
-        personDoctype.textfield = (String) importPersonDoctype.get("textfield");
-        personDoctype.textfieldJoin = (String) importPersonDoctype.get("textfieldJoin");
-        personDoctype.textfieldPartner = (String) importPersonDoctype.get("textfieldPartner");
-        personDoctype.addresstype = doctype.addresstype;
-        personDoctype.locale = doctype.locale;
-        return personDoctype;
-    }
-
-    /**
-     * Diese Methode parst das importTextfieldMapping und liefert eine Liste von
-     * {@link ImportPersonsWorker.PersonDoctypeImporter}-Instanzen.
-     *
-     * @param database Datenbank
-     * @param importTextfieldMapping konfiguriertes importTextfieldMapping
-     * @return Liste erkannter PersonDoctype-Erstellungsvorschriften aus den
-     *  Adressfreitextfeldern
-     * @throws IOException
-     * @throws BeanException
-     */
-    private static List parseTextfieldMapping(Database database, ExecutionContext executionContext,
-                                              Map importTextfieldMapping) throws BeanException, IOException {
-        assert database != null;
-        if (importTextfieldMapping == null)
-            return Collections.EMPTY_LIST;
-
-        List result = new ArrayList();
-        for (int i = 0; i < importTextfieldMapping.size(); i++) {
-            String indexString = String.valueOf(i);
-            String keyDoctype = indexString + ":Doctype";
-            if (importTextfieldMapping.containsKey(keyDoctype)) {
-                String keyPerson = indexString + ":Person";
-                String keyPartner = indexString + ":Partner";
-                String keyJoin = indexString + ":Join";
-                result.add(new PersonDoctypeImporter(database, executionContext,
-                        (String) importTextfieldMapping.get(keyDoctype),
-                        (String) importTextfieldMapping.get(keyPerson),
-                        (String) importTextfieldMapping.get(keyPartner),
-                        (String) importTextfieldMapping.get(keyJoin)));
-            }
-        }
-        return result;
-    }
-
-    //
-    // innere Klassen
-    //
-
-    /**
-     * Diese Klasse dient dem Erzeugen von {@link PersonDoctype}-Instanzen zu
-     * {@link ImportPerson}s.
-     */
-    private static class PersonDoctypeImporter {
-        //
-        // Konstruktoren
-        //
-        private PersonDoctypeImporter(Database database, ExecutionContext executionContext,
-                                      String doctypeName, String personField, String partnerField, String join)
-                throws BeanException, IOException {
-            this.database = database;
-            this.context = executionContext;
-            this.personField = personField;
-            this.partnerField = partnerField;
-            this.join = join;
-            doctype = (Doctype) database.getBean("Doctype", database.getSelect("Doctype").where(Expr.equal("docname", doctypeName)), executionContext);
-            if (doctype == null)
-                LOGGER.warn("F\u00fcr den Import konfigurierten Dokumenttyp '" + doctypeName + "' nicht gefunden.");
-        }
-
-        //
-        // Methoden
-        //
-        private void createFor(Map importPerson, Integer personId, TransactionContext transactionContext) throws BeanException, IOException {
-            String personText = (String) importPerson.get(personField);
-            String partnerText = (String) importPerson.get(partnerField);
-            if (doctype != null && ((personText != null && personText.length() > 0) || (partnerText != null && partnerText.length() > 0))) {
-                PersonDoctype personDoctype = new PersonDoctype();
-                personDoctype.person = personId;
-                personDoctype.doctype = doctype.id;
-                personDoctype.locale = doctype.locale;
-                personDoctype.addresstype = doctype.addresstype;
-                personDoctype.doctypeLocale = doctype.locale;
-                personDoctype.doctypeAddresstype = doctype.addresstype;
-                personDoctype.name = doctype.name;
-                personDoctype.textfield = personText;
-                personDoctype.textfieldPartner = partnerText;
-                personDoctype.textfieldJoin = join;
-                database.saveBean(personDoctype, context, false);
-                transactionContext.commit();
-            }
-        }
-
-        //
-        // Member
-        //
-        final Database database;
-        final ExecutionContext context;
-        final String personField;
-        final String partnerField;
-        final String join;
-        final Doctype doctype;
-    }
-
-    //
-    // interne Member
-    //
     /** Logger dieser Klasse */
     static Logger logger = Logger.getLogger(ImportPersonsWorker.class.getName());
 }

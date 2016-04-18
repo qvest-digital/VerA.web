@@ -86,9 +86,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     public static final String INPUT_getAllCategories[] = {};
 
-    private final static String DELETE_ALL_STALE_GUEST_DOCTYPES = "DELETE FROM tguest_doctype WHERE fk_guest IN ({0})";
-    private final static MessageFormat DELETE_ALL_STALE_GUEST_DOCTYPES_FORMAT = new MessageFormat( DELETE_ALL_STALE_GUEST_DOCTYPES );
-
     private final static String DELETE_TOPTIONAL_FIELDS_DELEGATION_CONTENT ="DELETE FROM toptional_fields_delegation_content WHERE fk_guest IN ({0})";
     private final static MessageFormat DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST = new MessageFormat(DELETE_TOPTIONAL_FIELDS_DELEGATION_CONTENT);
 
@@ -227,23 +224,14 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
 	protected void extendColumns(OctopusContext octopusContext, Select select) throws BeanException, IOException {
         final GuestSearch search = getSearch(octopusContext);
-        final Integer configFreitextfeld = ConfigWorker.getInteger(octopusContext, "freitextfeld");
-        Integer freitextfeld = null;
+        buildGuestSelect(select);
 
-        if (configFreitextfeld != null) {
-            final Database database = getDatabase(octopusContext);
-
-            freitextfeld = selectEventDoctype(octopusContext, configFreitextfeld, freitextfeld, database);
-        }
-
-        buildGuestSelect(select, freitextfeld);
-
-        final List order = buildOrderedGuestList(octopusContext, search, freitextfeld);
+        final List order = buildOrderedGuestList(octopusContext, search);
 
         select.orderBy(DatabaseHelper.getOrder(order));
     }
 
-    private List buildOrderedGuestList(OctopusContext octopusContext, final GuestSearch search, Integer freitextfeld) {
+    private List buildOrderedGuestList(OctopusContext octopusContext, final GuestSearch search) {
         final List order = new ArrayList();
         order.add("ishost");
 
@@ -254,50 +242,27 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             order.add("someorderno");
             order.add("tcategorie.rank");
             order.add("tguest.rank");
-            if (freitextfeld != null) {
-                setOrderOfGastgeberNames(search, order);
-            } else {
-                order.add("lastname_a_e1");
-                order.add("firstname_a_e1");
-            }
+            order.add("lastname_a_e1");
+            order.add("firstname_a_e1");
         } else if (search.listorder.equals("orderno")) {
             order.add("someorderno");
             order.add(search.sortDirection);
         } else if (search.listorder.equals("lastname_a_e1")) {
-            if (freitextfeld != null) {
-                setOrderOfGastgeberNames(search, order);
-            } else {
-                setOrderOfNames(search, order);
-            }
-
+            setOrderOfNames(search, order);
         } else if (search.listorder.equals("firstname_a_e1")) {
-            if (freitextfeld != null) {
-                setOrderOfGastgeberNames(search, order);
-            } else {
-                order.add("firstname_a_e1");
-                order.add(search.sortDirection);
-                order.add("lastname_a_e1");
-                order.add(search.sortDirection);
-            }
-
+            order.add("firstname_a_e1");
+            order.add(search.sortDirection);
+            order.add("lastname_a_e1");
+            order.add(search.sortDirection);
         } else if (search.listorder.equals("mail_a_e1")) {
             order.add("mail_a_e1");
             order.add(search.sortDirection);
-            if (freitextfeld != null) {
-                setOrderOfGastgeberNames(search, order);
-            } else {
-                setOrderOfNames(search, order);
-            }
+            setOrderOfNames(search, order);
 
         } else if (search.listorder.equals("companyname")) {
             order.add("company_a_e1");
             order.add(search.sortDirection);
-            if (freitextfeld != null) {
-                setOrderOfGastgeberNames(search, order);
-            } else {
-                setOrderOfNames(search, order);
-            }
-
+            setOrderOfNames(search, order);
         }
         return order;
     }
@@ -333,7 +298,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         }
     }
 
-    private void buildGuestSelect(Select select, Integer freitextfeld) {
+    private void buildGuestSelect(Select select) {
         select.joinLeftOuter("veraweb.tperson", "tguest.fk_person", "tperson.pk");
         select.joinLeftOuter("veraweb.tcategorie", "tguest.fk_category", "tcategorie.pk");
         select.selectAs("CASE WHEN tguest.orderno IS NOT NULL THEN NULLIF(tguest.orderno, 0) " +
@@ -356,47 +321,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         select.select("fon_a_e1");
         select.select("mail_a_e1");
         select.select("delegation");
-
-        if (freitextfeld != null) {
-            select.joinLeftOuter("veraweb.tguest_doctype", "tguest.pk", "tguest_doctype.fk_guest AND fk_doctype = "
-                    + freitextfeld);
-            select.selectAs("tguest_doctype.pk IS NOT NULL", "showdoctype");
-            select.selectAs("firstname", "firstname_a_gd");
-            select.selectAs("lastname", "lastname_a_gd");
-            select.selectAs("firstname_p", "firstname_b_gd");
-            select.selectAs("lastname_p", "lastname_b_gd");
-            select.selectAs("mail", "mail_a_gd");
-            select.selectAs("function", "function_a_gd");
-            select.selectAs("city", "city_a_gd");
-            select.selectAs("zipcode", "zipcode_a_gd");
-            select.selectAs("fon", "fon_a_gd");
-            select.selectAs("mail", "mail_a_gd");
-        } else {
-            select.selectAs("FALSE", "showdoctype");
-            select.selectAs("NULL", "firstname_a_gd");
-            select.selectAs("NULL", "lastname_a_gd");
-            select.selectAs("NULL", "firstname_b_gd");
-            select.selectAs("NULL", "lastname_b_gd");
-            select.selectAs("NULL", "mail_a_gd");
-            select.selectAs("NULL", "function_a_gd");
-            select.selectAs("NULL", "city_a_gd");
-            select.selectAs("NULL", "zipcode_a_gd");
-            select.selectAs("NULL", "fon_a_gd");
-            select.selectAs("NULL", "mail_a_gd");
-        }
-    }
-
-    private Integer selectEventDoctype(OctopusContext octopusContext, final Integer configFreitextfeld,
-                                       Integer freitextfeld, final Database database)
-            throws BeanException, IOException {
-        final Select eventDoctypeSelect = database.getCount("EventDoctype");
-        eventDoctypeSelect.where(Expr.equal("fk_event", octopusContext.requestAsInteger("search-event")));
-        eventDoctypeSelect.whereAnd(Expr.equal("fk_doctype", configFreitextfeld));
-
-        if (database.getCount(eventDoctypeSelect) != 0) {
-            freitextfeld = configFreitextfeld;
-        }
-        return freitextfeld;
     }
 
 	protected Integer getAlphaStart(OctopusContext octopusContext, String start) throws BeanException, IOException {
@@ -464,7 +388,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
                                   TransactionContext transactionContext) throws BeanException, IOException {
         try {
             final String ids = DatabaseHelper.listsToIdListString(new List[]{selection});
-            DB.insert(transactionContext, DELETE_ALL_STALE_GUEST_DOCTYPES_FORMAT.format(new Object[]{ids}));
             DB.insert(transactionContext, DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST.format(new Object[]{ids}));
             DB.insert(transactionContext, DELETE_ALL_STALE_GUESTS_FORMAT.format(new Object[]{ids}));
             DB.insert(transactionContext, BULK_INSERT_CHANGELOG_ENTRIES_FORMAT.format(new Object[]{octopusContext.personalConfig().getLoginname(), ids}));
@@ -554,9 +477,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             bean = database.getBean("Guest", ((Guest) bean).id, transactionContext);
         }
         clogger.logDelete(octopusContext.personalConfig().getLoginname(), bean);
-
-        transactionContext.execute(SQL.Delete(database).from("veraweb.tguest_doctype").
-                where(Expr.equal("fk_guest", ((Guest) bean).id)));
         transactionContext.execute(SQL.Delete(database).from("veraweb.tguest").where(Expr.equal("pk", ((Guest) bean).id)));
         transactionContext.commit();
         return true;

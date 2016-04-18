@@ -19,21 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
-import java.util.*;
-
-import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-
-import de.tarent.aa.veraweb.beans.*;
-import de.tarent.aa.veraweb.utils.EventURLHandler;
-
-import de.tarent.octopus.beans.TransactionContext;
-import org.apache.log4j.Logger;
-
-import de.tarent.aa.veraweb.beans.Doctype;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Location;
@@ -58,6 +43,7 @@ import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.response.TcBinaryResponseEngine;
@@ -86,14 +72,8 @@ public class GuestExportWorker {
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabeparameter für {@link #calc(OctopusContext, Integer)} */
-    public static final String INPUT_calc[] = { "doctype" };
-    /** Octopus-Eingabeparameter für {@link #calc(OctopusContext, Integer)} */
-    public static final boolean MANDATORY_calc[] = { false };
-    /** Octopus-Ausgabeparameter für {@link #calc(OctopusContext, Integer)} */
-    public static final String OUTPUT_calc = "exportCalc";
     /** Octopus-Eingabeparameter für {@link #export(OctopusContext, Integer)} */
-    public static final String INPUT_export[] = { "doctype" };
+    public static final String INPUT_export[] = {};
     /** Octopus-Ausgabeparameter für {@link #export(OctopusContext, Integer)} */
     public static final String OUTPUT_export = "stream";
 
@@ -113,37 +93,18 @@ public class GuestExportWorker {
 	 * </p>
 	 *
 	 * @param cntx OctopusContext
-	 * @param doctypeid Dokumenttyp der exportiert werden soll.
 	 */
-	public Map calc(OctopusContext cntx, Integer doctypeid) throws BeanException, IOException {
+	public Map calc(OctopusContext cntx) throws BeanException, IOException {
 		final Database database = new DatabaseVeraWeb(cntx);
         final Event event = (Event)cntx.contentAsObject("event");
         final GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
         final List selection = (List)cntx.sessionAsObject("selectionGuest");
-
-		if (doctypeid == null) {
-            doctypeid = setDoctypeId(cntx, doctypeid);
-		}
-		if (doctypeid == null)
-			return null;
-        final Doctype doctype = (Doctype)
-				database.getBean("Doctype",
-				database.getSelect("Doctype").
-				where(Expr.equal("pk", doctypeid)));
 
 		Integer total = null;
 		Integer available = null;
 
 		if (selection != null && selection.size() > 0) {
 			total = new Integer(selection.size());
-
-			available =
-					database.getCount(
-					database.getCount("GuestDoctype").
-					where(Where.and(
-							Expr.equal("fk_doctype", doctypeid),
-							Expr.in("fk_guest", selection))));
-
 		} else if (event != null && event.id != null && event.id.intValue() != 0) {
             final WhereList where = new WhereList();
 			search.addGuestListFilter(where);
@@ -151,20 +112,10 @@ public class GuestExportWorker {
 			total = database.getCount(
 					database.getCount("Guest").
 					where(where));
-
-			available =
-					database.getCount(
-					database.getCount("GuestDoctype").
-					join("veraweb.tguest", "fk_guest", "tguest.pk").
-					where(Where.and(where, Expr.equal("fk_doctype", doctypeid))));
 		}
 
-		cntx.setContent("doctype", doctype);
-		cntx.setContent("extension", ExportHelper.getExtension(SpreadSheetFactory.getSpreadSheet(doctype.format).getFileExtension()));
         final Map result = new HashMap();
-		result.put("doctype", doctypeid);
 		result.put("total", total);
-		result.put("available", available);
 		result.put("sessionId", cntx.requestAsString(TcRequest.PARAM_SESSION_ID));
 		return result;
 	}
@@ -179,31 +130,27 @@ public class GuestExportWorker {
 	 * </p>
 	 *
 	 * @param cntx OctopusContext
-	 * @param doctypeid Dokumenttyp-ID der exportiert werden soll.
 	 * @return Map mit Stream-Informationen
 	 * @throws BeanException
 	 * @throws IOException
-	 * @throws ParserConfigurationException
 	 * @throws FactoryConfigurationError
 	 * @throws TransformerFactoryConfigurationError
-	 * @throws TransformerException
 	 */
-	public Map export(OctopusContext cntx, Integer doctypeid) throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
+	public Map export(OctopusContext cntx) throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
         final Database database = new DatabaseVeraWeb(cntx);
         final Event event = (Event)cntx.contentAsObject("event");
         final GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
         final List selection = (List)cntx.sessionAsObject("selectionGuest");
-        final Doctype doctype = (Doctype)database.getBean("Doctype", doctypeid);
+
 
 		// Spreadsheet öffnen
-		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(doctype.format);
+		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_CSV_DOCUMENT);
 		spreadSheet.init();
         final String fileExtension = spreadSheet.getFileExtension();
         final String filename = OctopusHelper.getFilename(cntx, fileExtension, "export." + fileExtension);
 
 		if (logger.isInfoEnabled()) {
-            logger.info("Exportiere G\u00e4steliste. (Dateiname: '" + filename + "'; Dokumenttyp: #" + doctype.id
-                    + "; Format: '" + spreadSheet.getClass().getName() + "')");
+            logger.info("Exportiere G\u00e4steliste. (Dateiname: '" + filename + "'; Format: '" + spreadSheet.getClass().getName() + "')");
         }
 
 		// Tabelle öffnen und erste Zeile schreiben
@@ -214,9 +161,8 @@ public class GuestExportWorker {
 
 		// Zusatzinformationen
         final Map data = new HashMap();
-		data.put("doctype", doctype.name);
-        final String withHost = (doctype.host != null && doctype.host.booleanValue()) ? "" :
-				"(tguest.ishost IS NULL OR tguest.ishost = 0) AND ";
+
+        final String withHost = "(tguest.ishost IS NULL OR tguest.ishost = 0) AND ";
 
 		// Export-Select zusammenbauen
         final Select select = database.getSelect("GuestDoctype");
@@ -228,19 +174,11 @@ public class GuestExportWorker {
 			// Dokumenten-Typ und bestimmte Gäste ein.
 			if (logger.isInfoEnabled())
 				logger.info("Exportiere G\u00e4steliste anhand der Sleektion.");
-
-			select.join(new Join(Join.INNER, "veraweb.tguest", new RawClause(withHost +
-					"tguest_doctype.fk_guest = tguest.pk AND tguest_doctype.fk_doctype = " + doctype.id)));
-
-			select.where(Expr.in("tguest_doctype.fk_guest", selection));
 		} else if (event != null && event.id != null && event.id.intValue() != 0) {
 			// Joint tguest und schränkt das Ergebnis auf den entsprechenden
 			// Dokumenten-Typ und eine Veranstaltung ein.
 			if (logger.isInfoEnabled())
 				logger.info("Exportiere G\u00e4steliste der Veranstaltung " + event.id + ".");
-
-			select.join(new Join(Join.INNER, "veraweb.tguest", new RawClause(withHost +
-					"tguest_doctype.fk_guest = tguest.pk AND tguest_doctype.fk_doctype = " + doctype.id)));
 
             final WhereList list = new WhereList();
 			search.addGuestListFilter(list);
@@ -294,7 +232,7 @@ public class GuestExportWorker {
 		}
 
 		// Export-Select ausführen
-		exportSelect(spreadSheet, database, event, location, doctype, search, select, data, cntx);
+		exportSelect(spreadSheet, database, event, location, search, select, data, cntx);
 
 		// Tabelle schließen
 		spreadSheet.closeTable();
@@ -359,7 +297,7 @@ public class GuestExportWorker {
      *  "absagen", "offenen", "platz" und "reserve".
      * @throws IOException
      */
-	protected void exportSelect(SpreadSheet spreadSheet, Database database, Event event, Location location, Doctype doctype, GuestSearch search, Select select, Map data, OctopusContext cntx) throws BeanException, IOException {
+	protected void exportSelect(SpreadSheet spreadSheet, Database database, Event event, Location location, GuestSearch search, Select select, Map data, OctopusContext cntx) throws BeanException, IOException {
 		for (final Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
             final Map guest = (Map)it.next();
 
@@ -396,64 +334,29 @@ public class GuestExportWorker {
 					(search.reserve.intValue() == 1 && (reserve == null || reserve.intValue() == 0)) ||
 					(search.reserve.intValue() == 2 && (reserve != null && reserve.intValue() == 1))));
 
-			if (doctype.partner != null && doctype.partner.booleanValue()) {
-				// Eigenes Dokument
-				if (invitationtype == null
-						|| invitationtype.intValue() == EventConstants.TYPE_MITPARTNER) {
-					// Mit Partner
-					if (showA) {
-						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location, guest, data, isPressStaff, cntx);
-						spreadSheet.closeRow();
-					}
-					if (showB) {
-						spreadSheet.openRow();
-						exportOnlyPartner(spreadSheet, event, location, showA,
-								showB, guest, data, cntx);
-						spreadSheet.closeRow();
-					}
-				} else if (invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
-					// Ohne Partner
-					if (showA) {
-						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location, guest, data, isPressStaff, cntx);
-						spreadSheet.closeRow();
-					}
-				} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
-					// Nur Partner
-					if (showB) {
-						spreadSheet.openRow();
-						exportOnlyPartner(spreadSheet, event, location, showA,
-								showB, guest, data, cntx);
-						spreadSheet.closeRow();
-					}
+			if (invitationtype == null
+					|| invitationtype.intValue() == EventConstants.TYPE_MITPARTNER) {
+				// Mit Partner
+				if (showA || showB) {
+					spreadSheet.openRow();
+					exportBothInOneLine(spreadSheet, event, location,
+							showA, showB, guest, data, cntx);
+					spreadSheet.closeRow();
 				}
-			} else {
-				// Gleiches Dokument
-				if (invitationtype == null
-						|| invitationtype.intValue() == EventConstants.TYPE_MITPARTNER) {
-					// Mit Partner
-					if (showA || showB) {
-						spreadSheet.openRow();
-						exportBothInOneLine(spreadSheet, event, location,
-								showA, showB, guest, data, cntx);
-						spreadSheet.closeRow();
-					}
-				} else if (invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
-					// Ohne Partner
-					if (showA) {
-						spreadSheet.openRow();
-						exportOnlyPerson(spreadSheet, event, location,  guest, data, isPressStaff, cntx);
-						spreadSheet.closeRow();
-					}
-				} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
-					// Nur Partner
-					if (showB) {
-						spreadSheet.openRow();
-						exportOnlyPartner(spreadSheet, event, location, showA,
-								showB, guest, data, cntx);
-						spreadSheet.closeRow();
-					}
+			} else if (invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
+				// Ohne Partner
+				if (showA) {
+					spreadSheet.openRow();
+					exportOnlyPerson(spreadSheet, event, location,  guest, data, isPressStaff, cntx);
+					spreadSheet.closeRow();
+				}
+			} else if (invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
+				// Nur Partner
+				if (showB) {
+					spreadSheet.openRow();
+					exportOnlyPartner(spreadSheet, event, location, showA,
+							showB, guest, data, cntx);
+					spreadSheet.closeRow();
 				}
 			}
 		}
@@ -616,8 +519,6 @@ public class GuestExportWorker {
 		//
 		// Gast spezifische Daten
 		//
-		spreadSheet.addCell(data.get("doctype")); // Name des Dokument-Typs
-
         final String textA = (String)guest.get("textfield");
         final String textB = (String)guest.get("textfield_p");
 		if (showA) {
@@ -853,39 +754,6 @@ public class GuestExportWorker {
 		}
 	}
 
-//	private void updateGuestWithLoginUUID(Integer id, OctopusContext octopusContext, String loginUUID) throws BeanException {
-//		Database database = new DatabaseVeraWeb(octopusContext);
-//		TransactionContext transactionContext = database.getTransactionContext();
-//
-//		Update updateStatement = SQL.Update(database);
-//		updateStatement.table("veraweb.tguest");
-//		updateStatement.update("login_required_uuid", loginUUID);
-//		updateStatement.whereAndEq("pk", id);
-//
-//		transactionContext.execute(updateStatement);
-//	}
-//
-//	private String generateUUID() {
-//		UUID uuid = UUID.randomUUID();
-//		return uuid.toString();
-//	}
-
-	private Integer setDoctypeId(OctopusContext cntx, Integer doctypeid) {
-        final List list = (List)cntx.contentAsObject("allEventDoctype");
-        Iterator it = list.iterator();
-        if (it.hasNext()) {
-            doctypeid = (Integer)((Map)it.next()).get("doctype");
-        }
-        for (it = list.iterator(); it.hasNext(); ) {
-            final Map data = (Map)it.next();
-            if (((Integer)(data).get("isdefault")).intValue() == 1) {
-                doctypeid = (Integer)data.get("doctype");
-                break;
-            }
-        }
-        return doctypeid;
-    }
-
 	private boolean guestIsDelegationAndHasOsiamLogin(Map guest, String category) {
         return guest.containsKey("delegation") &&
                 guest.get("delegation") != null &&
@@ -1012,7 +880,6 @@ public class GuestExportWorker {
 		//
 		// Gast spezifische Daten
 		//
-		spreadSheet.addCell(data.get("doctype")); // Name des Dokument-Typs
 		spreadSheet.addCell(guest.get("textfield"));
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
@@ -1176,7 +1043,6 @@ public class GuestExportWorker {
 		//
 		// Gast spezifische Daten
 		//
-		spreadSheet.addCell(data.get("doctype")); // Name des Dokument-Typs
 		spreadSheet.addCell(guest.get("textfield_p"));
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);

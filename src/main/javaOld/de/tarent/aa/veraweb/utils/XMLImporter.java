@@ -19,6 +19,25 @@
  */
 package de.tarent.aa.veraweb.utils;
 
+import de.tarent.aa.veraweb.beans.Categorie;
+import de.tarent.aa.veraweb.beans.ImportPerson;
+import de.tarent.aa.veraweb.beans.ImportPersonCategorie;
+import de.tarent.aa.veraweb.beans.Person;
+import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
+import de.tarent.aa.veraweb.beans.facade.PersonConstants;
+import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
+import de.tarent.data.exchange.ExchangeFormat;
+import de.tarent.data.exchange.Exchanger;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.TransactionContext;
+import org.xml.sax.Attributes;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -29,27 +48,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import de.tarent.octopus.beans.TransactionContext;
-import org.xml.sax.Attributes;
-import org.xml.sax.ContentHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.Locator;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
-
-import de.tarent.aa.veraweb.beans.Categorie;
-import de.tarent.aa.veraweb.beans.ImportPerson;
-import de.tarent.aa.veraweb.beans.ImportPersonCategorie;
-import de.tarent.aa.veraweb.beans.ImportPersonDoctype;
-import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
-import de.tarent.aa.veraweb.beans.facade.PersonConstants;
-import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
-import de.tarent.data.exchange.ExchangeFormat;
-import de.tarent.data.exchange.Exchanger;
-import de.tarent.octopus.beans.BeanException;
 
 /**
  * Diese Klasse stellt einen Import für XML-Daten im VerA.web-Schema dar.
@@ -342,9 +340,6 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
             } else if (CATEGORY_ELEMENT.equals(localName)) { // in person
                 setModeEntering(MODE_CATEGORY, localName);
                 setCategoryAttributes(atts);
-            } else if (DOCTYPE_ELEMENT.equals(localName)) { // in person
-                setModeEntering(MODE_DOCTYPE, localName);
-                setDoctypeAttributes(atts);
             } else
                 throw new SAXException("Abbruch: Im VerA.web-Schema unbekanntes Element " + localName + " errreicht");
         }
@@ -404,7 +399,6 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
                 setPhone();
             } else if (HISTORY_ELEMENT.equals(localName)) { // in person
             } else if (CATEGORY_ELEMENT.equals(localName)) { // in person
-            } else if (DOCTYPE_ELEMENT.equals(localName)) { // in person
             } else
                 throw new SAXException("Abbruch: Im VerA.web-Schema unbekanntes Element " + localName + " errreicht");
         }
@@ -734,28 +728,6 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
             category.name = name;
             extras.add(category);
 
-        }
-
-        /**
-         * Diese Methode setzt die Dokumenttyp-Attribute in
-         * {@link ImportPersonDoctype}-Instanzen um.<br>
-         *
-         * Ignoriert wird: {@link VerawebNamespaceConstants#DOCTYPE_ID_ATTRIBUTE}
-         *
-         * @see XMLExporter#createDocTypeElement(Map)
-         */
-        void setDoctypeAttributes(Attributes atts) {
-            String name = atts.getValue(VW_NAMESPACE_URI, DOCTYPE_NAME_ATTRIBUTE);
-            String text = atts.getValue(VW_NAMESPACE_URI, DOCTYPE_TEXT_ATTRIBUTE);
-            String textPartner = atts.getValue(VW_NAMESPACE_URI, DOCTYPE_TEXT_PARTNER_ATTRIBUTE);
-            String textJoin = atts.getValue(VW_NAMESPACE_URI, DOCTYPE_TEXT_JOIN_ATTRIBUTE);
-
-            ImportPersonDoctype doctype = new ImportPersonDoctype();
-            doctype.textfield = text;
-            doctype.textfieldPartner = textPartner;
-            doctype.textfieldJoin = textJoin;
-            doctype.name = name;
-            extras.add(doctype);
         }
 
         /**

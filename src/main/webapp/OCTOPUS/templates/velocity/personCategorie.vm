@@ -39,9 +39,6 @@
         		<li class="inactive" id="anschriften" onclick="window.location.href='ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=2&offset=${navigation.current.offset}'+getGuestTabId();">
         			<div>${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</div>
         		</li>
-        		<li class="inactive" id="dokumenttypen" onclick="window.location.href='ShowPersonDoctypeList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.current.offset}'+getGuestTabId();">
-        			<div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
-        		</li>
         		<li class="active" id="kategorien" onclick="window.location.href='ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.current.offset}'+getGuestTabId();">
         			<div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div>
         		</li>

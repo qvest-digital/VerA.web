@@ -170,27 +170,6 @@ public class GuestReportWorker {
 		}
 		cntx.setContent( "orderByWorkArea", orderByWorkArea );
 
-		if (freitextfeld != null) {
-			select.joinLeftOuter("veraweb.tguest_doctype", "tguest.pk", "tguest_doctype.fk_guest AND fk_doctype = " + freitextfeld);
-			select.selectAs("tguest_doctype.pk IS NOT NULL", "showdoctype");
-			select.selectAs("textfield", "textfield");
-			select.selectAs("textfield_p", "textfield_p");
-			select.selectAs("textjoin", "textjoin");
-			select.selectAs("lastname", "lastname_a_gd");
-			select.selectAs("titel", "title_a_gd");
-			select.selectAs("firstname", "firstname_a_gd");
-			select.selectAs("lastname_p", "lastname_b_gd");
-			select.selectAs("titel_p", "title_b_gd");
-			select.selectAs("firstname_p", "firstname_b_gd");
-			select.selectAs("fon", "fon_a_gd");
-			select.selectAs("fax", "fax_a_gd");
-			select.selectAs("mobil", "mobil_a_gd");
-			select.selectAs("function", "function_a_gd");
-			select.selectAs("company", "company_a_gd");
-		} else {
-			select.selectAs("FALSE", "showdoctype");
-		}
-
 		/** Nur die aktuelle Auswahl zurückgeben. */
 		WhereList where = new WhereList();
 		search.addGuestListFilter(where);

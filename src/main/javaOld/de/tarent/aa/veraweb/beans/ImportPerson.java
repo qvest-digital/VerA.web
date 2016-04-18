@@ -49,13 +49,6 @@ public class ImportPerson extends Person {
     /** Anlaßliste, zeilenweise; für den MAdLAN-Import, ansonsten werden {@link ImportPersonCategorie}-Instanzen genutzt */
     public String occasion;
 
-    /** Freitextfeld 1; für den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
-    public String textfield_1;
-    /** Freitextfeld 2; für den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
-    public String textfield_2;
-    /** Freitextfeld 3; für den MAdLAN-Import, ansonsten werden {@link ImportPersonDoctype}-Instanzen genutzt */
-    public String textfield_3;
-
     //
     // Öffentliche Konstanten
     //

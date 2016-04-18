@@ -90,9 +90,6 @@
                     <li class="inactive" id="showEvent" goto="ShowEvent?id=$!eventId" class="noBorder">
                         <div>${placeholderWithTranslation.GENERIC_GENERAL}</div></a>
                     </li>
-                    <li id="showEventDoctype" class="inactive" goto="${paths.staticWeb}do/ShowEventDoctype?id=$!eventId&selectNone=true" class="noBorder">
-                        <div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
-                    </li>
                     <li id="showEventTasks" class="active" goto="${paths.staticWeb}do/ShowEventTasks?id=$!eventId&selectNone=true">
                         <div>${placeholderWithTranslation.GENERIC_TASK_PLURAL}</div>
                     </li>

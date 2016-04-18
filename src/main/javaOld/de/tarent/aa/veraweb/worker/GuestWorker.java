@@ -20,15 +20,10 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.Event;
-import de.tarent.aa.veraweb.beans.EventDoctype;
 import de.tarent.aa.veraweb.beans.Guest;
-import de.tarent.aa.veraweb.beans.GuestDoctype;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
-import de.tarent.aa.veraweb.beans.PersonDoctype;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
-import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
-import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.GuestSerialNumber;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
@@ -150,7 +145,6 @@ public class GuestWorker {
 
 					for (int i = 0; i < persons.size(); i++) {
 						Person person = persons.get(i);
-						PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
 
 						Integer fk_category = (Integer) invitecategory.get(person.id);
 						if (fk_category != null && fk_category.intValue() == 0) {
@@ -438,10 +432,6 @@ public class GuestWorker {
 						+ ") and tperson.deleted = 'f'"
 				)));
 
-				for ( Person person : persons )
-				{
-					PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person );
-				}
 				context.commit();
 			}
 			catch( BeanException e )
@@ -671,18 +661,6 @@ public class GuestWorker {
 		return saveGuest(cntx, database, context, event, guestId, null, null, null, null, null);
 	}
 
-	void refreshDoctypes(OctopusContext cntx, Database database, ExecutionContext context, Integer guestId) throws BeanException, IOException {
-		Guest guest = (Guest)
-				database.getBean("Guest",
-				database.getSelect("Guest").
-				where(Expr.equal("pk", guestId)), context);
-		if (guest == null) return;
-
-        Person person = getPersonById(database, context, guest.person);
-
-        refreshDoctypes(cntx, database, context, guest, person);
-	}
-
     /**
      * Diese Methode fügt eine Person einer Veranstaltung hinzu.<br><br>
      *
@@ -829,7 +807,6 @@ public class GuestWorker {
 				clogger.logUpdate( cntx.personalConfig().getLoginname(), guestOld, guest );
 			}
 
-			refreshDoctypes(cntx, database, executionContext, guest, person);
 			return true;
 		}
 		return false;
@@ -879,257 +856,6 @@ public class GuestWorker {
                 Expr.equal("fk_event", event.id),
                 Expr.equal("fk_person", personId))), context).intValue();
     }
-
-    /**
-     * Diese Methode aktualisiert die Dokumenttypen eines übergebenen Gasts.
-     *
-     * @param cntx OctopusContext
-     * @param database Datenbank
-     * @param guest Veranstaltungsgast
-     * @param person Person-Eintrag
-     * @throws IOException
-     * @throws BeanException
-     */
-    protected void refreshDoctypes(OctopusContext cntx, Database database, ExecutionContext context, Guest guest, Person person) throws BeanException, IOException {
-        if (guest == null || person == null) {
-			logger.warn("Aktualisieren der Dokumenttypen von Gast #" +
-					(guest == null || guest.id == null ? "null" : guest.id.toString()) +
-					" nicht m\u00f6glich. (Person #" +
-					(person == null || person.id == null ? "null" : person.id.toString()) + ")");
-			return;
-        }
-		logger.debug("Aktualisiere Dokumenttypen der Person #" + person.id + ".");
-		PersonDoctypeWorker.createPersonDoctype(cntx, database, context, person);
-
-		logger.debug("Aktualisiere Dokumenttypen des Gast #" + guest.id + ".");
-
-        Select select = database.getSelect("PersonDoctype").where(Expr.equal("fk_person", guest.person));
-		select.selectAs("tperson_doctype.fk_doctype", "doctype");
-		select.selectAs("tdoctype.docname", "name");
-		select.selectAs("tdoctype.pk", "doctypeId");
-		select.selectAs("tdoctype.addresstype", "doctypeAddresstype");
-		select.selectAs("tdoctype.locale", "doctypeLocale");
-		select.joinLeftOuter("veraweb.tdoctype", "fk_doctype", "tdoctype.pk");
-        Map personDocTypes = personDocTypesToMap(database.getBeanList("PersonDoctype", select, context));
-        select = database.getSelect("GuestDoctype").where(Expr.equal("fk_guest", guest.id));
-        Map guestDocTypes = guestDocTypesToMap(database.getBeanList("GuestDoctype", select, context));
-        select = database.getSelect("EventDoctype").where(Expr.equal("fk_event", guest.event));
-		select.join("veraweb.tdoctype", "tevent_doctype.fk_doctype", "tdoctype.pk");
-		select.selectAs("tdoctype.docname", "name");
-		select.selectAs("tdoctype.sortorder", "sortorder");
-        List eventDocTypes = database.getBeanList("EventDoctype", select, context);
-
-        for (Iterator itDocTypes = eventDocTypes.iterator(); itDocTypes.hasNext(); ) {
-            EventDoctype eventDt = (EventDoctype) itDocTypes.next();
-            if (eventDt == null || eventDt.doctype == null)
-                continue;
-            PersonDoctype personDt = (PersonDoctype) personDocTypes.get(eventDt.doctype);
-            if (personDt == null)
-                continue;
-            GuestDoctype guestDt = (GuestDoctype) guestDocTypes.get(eventDt.doctype);
-
-            // vom Doctype nehmen
-			Integer addresstype = personDt.doctypeAddresstype;
-			Integer locale = personDt.doctypeLocale;
-
-			// vom Person-Doctype nehmen
-			if (personDt.addresstype != null && personDt.addresstype.intValue() != 0)
-				addresstype = personDt.addresstype;
-			if (personDt.locale != null && personDt.locale.intValue() != 0)
-				locale = personDt.locale;
-			// vom Guest-Doctype nehmen
-			if (guestDt != null && guestDt.addresstype != null && guestDt.addresstype.intValue() != 0)
-				addresstype = guestDt.addresstype;
-			if (guestDt != null && guestDt.locale != null && guestDt.locale.intValue() != 0)
-				locale = guestDt.locale;
-
-            if (guestDt == null) {
-                guestDt = new GuestDoctype();
-                guestDt.doctype = eventDt.doctype;
-                guestDt.guest = guest.id;
-    			guestDt.addresstype = addresstype;
-    			guestDt.locale = locale;
-                guestDt.setModified(true);
-            } else {
-        		if (!equals(guestDt.addresstype, addresstype)) {
-        			guestDt.addresstype = addresstype;
-        			guestDt.setModified(true);
-        		}
-        		if (!equals(guestDt.locale, locale)) {
-        			guestDt.locale = locale;
-        			guestDt.setModified(true);
-        		}
-            }
-
-            fillDoctype(guestDt, person, personDt);
-
-            if (guestDt.isModified()) {
-            	database.saveBean(guestDt, context, false);
-            }
-        }
-    }
-
-	static void fillDoctype(GuestDoctype guestDt, Person person, PersonDoctype personDt) {
-		String newValue;
-		PersonMemberFacade memberFacade;
-		PersonAddressFacade addressFacade;
-
-		// Freitextfelder
-		if (!equals(guestDt.textfield, personDt.textfield)) {
-			guestDt.textfield = personDt.textfield;
-			guestDt.setModified(true);
-		}
-		if (!equals(guestDt.textfield_p, personDt.textfieldPartner)) {
-			guestDt.textfield_p = personDt.textfieldPartner;
-			guestDt.setModified(true);
-		}
-		if (!equals(guestDt.textjoin, personDt.textfieldJoin)) {
-			guestDt.textjoin = personDt.textfieldJoin;
-			guestDt.setModified(true);
-		}
-
-		// Hauptperson
-		memberFacade = person.getMemberFacade(true, guestDt.locale);
-		newValue = memberFacade.getSalutation();
-		if (!equals(guestDt.salutation, newValue)) {
-			guestDt.salutation = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = memberFacade.getTitle();
-		if (!equals(guestDt.titel, newValue)) {
-			guestDt.titel = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = memberFacade.getFirstname();
-		if (!equals(guestDt.firstname, newValue)) {
-			guestDt.firstname = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = memberFacade.getLastname();
-		if (!equals(guestDt.lastname, newValue)) {
-			guestDt.lastname = newValue;
-			guestDt.setModified(true);
-		}
-
-		// Partner
-		memberFacade = person.getMemberFacade(false, guestDt.locale);
-		newValue = memberFacade.getSalutation();
-		if (!equals(guestDt.salutation_p, newValue)) {
-			guestDt.salutation_p = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = memberFacade.getTitle();
-		if (!equals(guestDt.titel_p, newValue)) {
-			guestDt.titel_p = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = memberFacade.getFirstname();
-		if (!equals(guestDt.firstname_p, newValue)) {
-			guestDt.firstname_p = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = memberFacade.getLastname();
-		if (!equals(guestDt.lastname_p, newValue)) {
-			guestDt.lastname_p = newValue;
-			guestDt.setModified(true);
-		}
-
-		// Adressdaten
-		addressFacade = person.getAddressFacade(guestDt.addresstype, guestDt.locale);
-		newValue = addressFacade.getFunction();
-		if (!equals(guestDt.function, newValue)) {
-			guestDt.function = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getZipCode();
-		if (!equals(guestDt.zipcode, newValue)) {
-			guestDt.zipcode = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getCity();
-		if (!equals(guestDt.city, newValue)) {
-			guestDt.city = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getStreet();
-		if (!equals(guestDt.street, newValue)) {
-			guestDt.street = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getCountry();
-		if (!equals(guestDt.country, newValue)) {
-			guestDt.country = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getSuffix1();
-		if (!equals(guestDt.suffix1, newValue)) {
-			guestDt.suffix1 = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getSuffix2();
-		if (!equals(guestDt.suffix2, newValue)) {
-			guestDt.suffix2 = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getPhone();
-		if (!equals(guestDt.fon, newValue)) {
-			guestDt.fon = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getFax();
-		if (!equals(guestDt.fax, newValue)) {
-			guestDt.fax = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getEMail();
-		if (!equals(guestDt.mail, newValue)) {
-			guestDt.mail = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getUrl();
-		if (!equals(guestDt.www, newValue)) {
-			guestDt.www = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getMobile();
-		if (!equals(guestDt.mobil, newValue)) {
-			guestDt.mobil = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getCompany();
-		if (!equals(guestDt.company, newValue)) {
-			guestDt.company = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getPOBox();
-		if (!equals(guestDt.pobox, newValue)) {
-			guestDt.pobox = newValue;
-			guestDt.setModified(true);
-		}
-		newValue = addressFacade.getPOBoxZipCode();
-		if (!equals(guestDt.poboxzipcode, newValue)) {
-			guestDt.poboxzipcode = newValue;
-			guestDt.setModified(true);
-		}
-	}
-
-    private static Map guestDocTypesToMap(List guestDocTypes) {
-		Map result = new HashMap();
-		for (Iterator it = guestDocTypes.iterator(); it.hasNext();) {
-			GuestDoctype dt = (GuestDoctype) it.next();
-			result.put(dt.doctype, dt);
-		}
-		return result;
-	}
-
-	private static Map personDocTypesToMap(List personDocTypes) {
-		Map result = new HashMap();
-		for (Iterator it = personDocTypes.iterator(); it.hasNext();) {
-			PersonDoctype dt = (PersonDoctype) it.next();
-			result.put(dt.doctype, dt);
-		}
-		return result;
-	}
 
 	private static boolean equals(Object o1, Object o2) {
 		return o1 == null ? o2 == null : o1.equals(o2);
