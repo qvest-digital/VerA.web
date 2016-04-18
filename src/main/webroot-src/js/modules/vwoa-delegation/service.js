@@ -37,7 +37,15 @@ module.exports = function($q, $http, param) {
 
           break;
         case 3: // multi-select
-          throw new Error("not implemented yet.");
+          encoded[field.pk] = [];
+
+          for (var i in field.optionalFieldTypeContentsFacade) {
+            if (value.indexOf(field.optionalFieldTypeContentsFacade[i].pk) !== -1) {
+              encoded[field.pk].push(field.optionalFieldTypeContentsFacade[i].content);
+            }
+          }
+
+          break;
         default:
           throw new Error("unsupported field type: " + field.fk_type);
       }
@@ -49,7 +57,7 @@ module.exports = function($q, $http, param) {
     fields.forEach(function(field) {
       switch (field.fk_type) {
         case 1: // text input
-          values[field.pk] = field.value;
+          values[field.pk] = field.value
           break;
         case 2: // single-select
           for (var i in field.optionalFieldTypeContentsFacade) {
@@ -60,7 +68,13 @@ module.exports = function($q, $http, param) {
           }
           break;
         case 3: // multi-select
-          throw new Error("not implemented yet.");
+          values[field.pk]=[];
+          for (var i in field.optionalFieldTypeContentsFacade) {
+            if (field.optionalFieldTypeContentsFacade[i].isSelected) {
+              values[field.pk].push(field.optionalFieldTypeContentsFacade[i].pk);
+            }
+          }
+          break;
         default:
           throw new Error("unsupported field type: " + field.fk_type);
       }
@@ -185,21 +199,21 @@ module.exports = function($q, $http, param) {
           case 'WRONG_DELEGATION':
             throw new Error('DELEGATION_MESSAGE_NO_EXTRA_FIELDS');
           case 'OK':
-            break; 
-          default: 
+            break;
+          default:
             var imageUuid = data.status;
             return $http({
-                method: 'POST',
-                url: 'api/fileupload/save',
-                dataType: 'text',
-                headers: {
-                  "Content-Type": undefined
-                },
-                data: param({
-                  file: person.image,
-                  imgUUID: imageUuid
-                })
-              });
+              method: 'POST',
+              url: 'api/fileupload/save',
+              dataType: 'text',
+              headers: {
+                "Content-Type": undefined
+              },
+              data: param({
+                file: person.image,
+                imgUUID: imageUuid
+              })
+            });
             break;
         }
       });
