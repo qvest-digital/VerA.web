@@ -1,9 +1,6 @@
-onlineRegApp.controller('EventController', function ($scope, $http, $rootScope) {
-    $scope.success = null;
-    $scope.error = null;
-    $rootScope.cleanMessages();
+module.exports = function($scope, $http, $rootScope, param) {
     $scope.setNextPage('veranstaltungen');
     $http.get('api/event/list/' + $rootScope.user_logged_in).success(function (result) {
         $scope.events = result;
     });
-});
+};

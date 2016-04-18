@@ -1,4 +1,4 @@
-onlineRegApp.controller('MediaRepresentativeActivationController', function($http, $scope, $rootScope, $routeParams, $location, $translate) {
+module.exports = function($http, $scope, $rootScope, $routeParams, $location, $translate) {
     var activatePressUserUrl = 'api/media/activation/confirm/' + $routeParams.pressUserActivationToken
     $http({
         method: 'GET',
@@ -22,4 +22,4 @@ onlineRegApp.controller('MediaRepresentativeActivationController', function($htt
         });
     });
 
-});
+};

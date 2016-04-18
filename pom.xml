@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>online-anmeldung</artifactId>
@@ -189,6 +191,13 @@
         </profile>
     </profiles>
     <build>
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/webroot-src/dist</directory>
+
+				<targetPath>webroot</targetPath>
+			</resource>
+		</resources>
         <finalName>vw-online-registration</finalName>
         <plugins>
             <plugin>
@@ -410,32 +419,7 @@
                             <goal>exec</goal>
                         </goals>
                     </execution>
-                    <execution>
-                        <id>exec-bower-install</id>
-                        <phase>initialize</phase>
-                        <configuration>
-                            <workingDirectory>src/main/webroot-src/</workingDirectory>
-                            <executable>bower</executable>
-                            <arguments>
-                                <argument>install</argument>
-                            </arguments>
-                        </configuration>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>exec-grunt</id>
-                        <phase>initialize</phase>
-                        <configuration>
-                            <workingDirectory>src/main/webroot-src/</workingDirectory>
-                            <executable>grunt</executable>
-                            <commandlineArgs>--force</commandlineArgs>
-                        </configuration>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
+
                 </executions>
             </plugin>
         </plugins>

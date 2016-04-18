@@ -1,0 +1,5 @@
+<div ng-repeat="message in messages track by message.sn" ng-class="message.cssClasses" role="alert">
+  <span ng-if="message.type=='error'" class="glyphicon glyphicon-remove-sign">&nbsp;</span>
+  <span ng-if="message.type=='success'" class="glyphicon glyphicon-ok-sign">&nbsp;</span>
+  <span> {{message.body}} </span>
+</div>

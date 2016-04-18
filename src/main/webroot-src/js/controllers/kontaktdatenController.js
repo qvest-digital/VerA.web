@@ -1,4 +1,4 @@
-onlineRegApp.controller('KontaktdatenController', function($http, $rootScope, $translate, $location, $scope, $mdDateLocale) {
+module.exports = function($http, $rootScope, $translate, $location, $scope, $mdDateLocale, param, moment) {
     if ($rootScope.user_logged_in == null) {
         $scope.setNextPage('kontaktdaten');
         $location.path('/login');
@@ -110,7 +110,7 @@ onlineRegApp.controller('KontaktdatenController', function($http, $rootScope, $t
                         method: 'POST',
                         url: 'api/user/userdata/update/' + encodeURIComponent($rootScope.user_logged_in) + '',
                         headers: {"Content-Type": undefined},
-                        data: $.param({
+                        data: param({
                             person_fk_salutation: $scope.salutation.id,
                             person_salutation: $scope.salutation.name,
                             person_title: $scope.person.title_a_e1,
@@ -148,4 +148,4 @@ onlineRegApp.controller('KontaktdatenController', function($http, $rootScope, $t
             }
         }
     }
-});
+};

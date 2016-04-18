@@ -1,4 +1,4 @@
-onlineRegApp.controller('FreeVisitorController', function($http, $scope, $location, $routeParams, $translate) {
+module.exports = function($http, $scope, $location, $routeParams, $translate) {
     if ($routeParams.noLoginRequiredUUID != null) {
         var freeVisitorsUrl = 'api/freevisitors/'+ $routeParams.uuid + '/' + $routeParams.noLoginRequiredUUID
     } else {
@@ -19,4 +19,4 @@ onlineRegApp.controller('FreeVisitorController', function($http, $scope, $locati
             $scope.error = text;
         });
     });
-});
+};

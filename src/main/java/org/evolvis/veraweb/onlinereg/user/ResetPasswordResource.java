@@ -127,7 +127,7 @@ public class ResetPasswordResource {
             final UpdateUser updateUser = new UpdateUser.Builder().updatePassword(password).build();
             osiamConnector.updateUser(user.getId(), updateUser, accessToken);
             updateResetPasswordUUID(personId);
-            return StatusConverter.convertStatus("OK");
+        return StatusConverter.convertStatus("OK");
         } catch (IOException e) {
             return StatusConverter.convertStatus("GETTING_USER_FAILED");
         }
