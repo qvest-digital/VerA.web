@@ -1,4 +1,4 @@
-module.exports = function($scope, delegationService, $routeParams, $http) {
+module.exports = function($scope, delegationService, $routeParams, $http, $uibModal) {
   var putInScope = function(name) {
     if (typeof name == "undefined") {
       return function(obj) {
@@ -32,9 +32,27 @@ module.exports = function($scope, delegationService, $routeParams, $http) {
   $scope.register_user = function() {
     delegationService
       .savePerson($routeParams.uuid, $scope.person)
-      .then(showSuccess,showError)
-      .then(function(){return delegationService.fetchList($routeParams.uuid);})
+      .then(showSuccess, showError)
+      .then(function() {
+        return delegationService.fetchList($routeParams.uuid);
+      })
       .then(putInScope("presentPersons"), showError);
+  };
+  $scope.confirm_reset = function() {
+    $uibModal.open({
+      templateUrl: 'partials/confirm-reset-modal.html',
+      controller: function($uibModalInstance,$scope){
+        $scope.ok=function(){
+          $uibModalInstance.close();
+        };
+        $scope.cancel=function(){
+          $uibModalInstance.dismiss('cancel');
+        };
+      }
+    })
+    .result.then(function(){
+      $scope.person = {};
+    });
   };
   delegationService
     .fetchList($routeParams.uuid)
@@ -42,5 +60,5 @@ module.exports = function($scope, delegationService, $routeParams, $http) {
   delegationService
     .fetchMetadata($routeParams.uuid)
     .then(putInScope(), showError);
-    
+
 };

@@ -3,7 +3,8 @@ var angular = require("angular");
 var delegation = angular.module("vwoa-delegation", [
   require('../vwoa-alerts'),
   require('../vwoa-utilities'),
-  require('angular-route')
+  require('angular-route'),
+  require('angular-ui-bootstrap')
 ]);
 delegation.directive('extraField', function() {
   return {

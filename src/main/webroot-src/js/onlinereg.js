@@ -19,7 +19,6 @@ var app = angular.module('onlineRegApp', [
   require('angular-messages'),
   require('angular-animate'),
   require('angular-aria'),
-  require('angular-bootstrap-npm'),
   require('angular-translate'),
   require('angular-translate-loader-static-files')
   // load our own customModules last:
