@@ -13,8 +13,6 @@
           ng-model="person.fields[field.pk]"
           ng-options="item.pk as item.content for item in field.optionalFieldTypeContentsFacade"
           >
-    <option value="">{{'GENERIC_PLEASE_SELECT'|translate}}</option>
-
   </select>
   <select ng-switch-when="3" multiple 
           class="form-control"
