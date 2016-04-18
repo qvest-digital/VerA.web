@@ -22,17 +22,4 @@
           ng-options="item.pk as item.content for item in field.optionalFieldTypeContentsFacade"
           >
   </select>
-  <!--
-    <select id="single{{field.label}}" name="multiple{{field.label}}" class="form-control" ng-if="field.fk_type == 2" ng-model="labellist[field.pk]">
-    <option id="single{{typeContent.pk}}" name="single{{typeContent.pk}}" ng-repeat="typeContent in field.optionalFieldTypeContentsFacade" ng-selected="typeContent.isSelected" value="{{typeContent.content}}">
-    {{typeContent.content}}
-    </option>
-    </select>
-
-    <select id="multiple{{field.label}}" name="multiple{{field.label}}" class="form-control" ng-if="field.fk_type == 3" multiple ng-multiple="field.fk_type == 3" ng-model="labellist[field.pk]">
-    <option id="multiple{{typeContent.pk}}" name="single{{typeContent.pk}}" value="{{typeContent.content}}" ng-repeat="typeContent in field.optionalFieldTypeContentsFacade" ng-selected="typeContent.isSelected">
-    {{typeContent.content}}
-    </option>
-    </select>
-  -->
 </div>

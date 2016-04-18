@@ -68,7 +68,7 @@ module.exports = function($q, $http, param) {
           }
           break;
         case 3: // multi-select
-          values[field.pk]=[];
+          values[field.pk] = [];
           for (var i in field.optionalFieldTypeContentsFacade) {
             if (field.optionalFieldTypeContentsFacade[i].isSelected) {
               values[field.pk].push(field.optionalFieldTypeContentsFacade[i].pk);
@@ -175,18 +175,6 @@ module.exports = function($q, $http, param) {
             fields: encodeFieldValues(person.fields, fieldMetadata),
             functionDescription: person.functionDescription,
             personId: person.personId,
-
-            /* Gedächtnisstütze, kann entfernt werden
-             *
-             * wenn der benuzter zum zeitpunkt dieses POST requests bereits
-             * ein bild ausgewählt hat, wird dieses Flag auf true gesetzt.
-             *
-             * Der Server schickt dann im erfolgsfall anstelle eines Status Codes
-             * einen uuid den der client anschließend zum hochladen des Bildes
-             * verwendet.
-             *
-             * Ziemlich verschroben, aber so scheint es bisher "funktioniert" zu haben.
-             */
             hasTempImage: !!person.image
           })
         });
@@ -216,6 +204,9 @@ module.exports = function($q, $http, param) {
             });
             break;
         }
+      })
+      .then(function() {
+        return "DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL";
       });
   };
   return {
