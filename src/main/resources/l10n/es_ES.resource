@@ -597,6 +597,7 @@ politik=Pol\u00EDtico
 pressevertreter=Representante de prensa
 wirtschaft=Econom\u00EDa
 GENERIC_EXPORT=Exportaci\u00F3n
+EXPORT_AS_CSV=Exportar a CSV
 GENERIC_START_EXPORT=Iniciar exportaci\u00F3n
 ENCODING_TYPE_CYRILLIC=Cir\u00EDlico
 ENCODING_TYPE_WEST=Del oeste

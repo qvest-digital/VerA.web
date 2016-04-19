@@ -38,13 +38,20 @@
 			</ul>
 		</div> <!--tabsMain-->
 
-        <div class="contentBoxColored tabsContent" vera-content="">
+        <div style="border-bottom:1px solid #BDBDBD;" class="contentBoxColored tabsContent notBold posRel marginBottom40">
 
-            <form>
+			<div class="notBold grayBorder contentBox marginBottom20 bgWhite">
+				<h3>${placeholderWithTranslation.EXPORT_TITLE_CSV}-${placeholderWithTranslation.GENERIC_EXPORT}</h3>
+
+				<!--TODO-->
+				<form id="ExportForm" action="RESTAPICALL" method="POST">
+					<input type="submit" name="export" value="${placeholderWithTranslation.EXPORT_AS_CSV}" title="${placeholderWithTranslation.EXPORT_AS_CSV}" class="mainButton autoWidth" />
+				</form>
+			</div>
+
 			<div style="bottom: -40px; right: -1px;" class="textRight posAb" id="buttonPanel-bottom">
 				<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" title="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
 			</div>
-			</form>
 
         </div> <!--contentBoxColored-->
 

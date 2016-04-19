@@ -574,6 +574,7 @@ politik=Politik
 pressevertreter=Pressevertreter
 wirtschaft=Wirtschaft
 GENERIC_EXPORT=Export
+EXPORT_AS_CSV=Als CSV exportieren
 GENERIC_START_EXPORT=Export starten
 ENCODING_TYPE_CYRILLIC=Kyrillisch
 ENCODING_TYPE_WEST=Westlich
