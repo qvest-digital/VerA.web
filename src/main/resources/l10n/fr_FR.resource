@@ -1308,7 +1308,6 @@ HINT_SEARCH_WHERE=La recherche s\u2019effectue dans les pr\u00E9nom, nom, ville,
 neuenorteingeben=Entrez un nouveau lieu
 bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=S\u2019il vous pla\u00EEt entrer un nouvel lieu et cliquez sur \u00ABAjouter\u00BB
 neuerveranstaltungsort=Nouveau lieu de l\u2019\u00E9v\u00E9nement
-markierenundkopierensiefolgendesadressetikett=S\u00E9lectionner et copiez l\u2019\u00E9tiquette adresse suivante
 personenetikett=\u00C9tiquette de personnes
 zuruckzurubersicht=Vue d\u2019ensemble
 gpsdaten=Donn\u00E9es GPS

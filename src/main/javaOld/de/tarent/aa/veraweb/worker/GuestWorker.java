@@ -180,7 +180,6 @@ public class GuestWorker {
 
 			if (!personIds.equals("NULL")) {
 				addGuests(cntx, database, context, event, personIds, updateGuestStatement);
-				updateDoctype(context, event);
 			}
 
 			// TODO bulk log guest create event
@@ -261,12 +260,6 @@ public class GuestWorker {
 
 		transactionContext.execute(updateStatement);
 		transactionContext.commit();
-	}
-
-	private void updateDoctype(TransactionContext context, Event event) throws BeanException, SQLException {
-		final String sql = UPDATE_GUEST_DOCUMENT_TYPES_FORMAT.format( new Object[] { event.id.toString() } );
-		DB.insert(context, sql);
-		context.commit();
 	}
 
 	private void addGuestsInitial(OctopusContext cntx, TransactionContext context, Event event, String personIds)

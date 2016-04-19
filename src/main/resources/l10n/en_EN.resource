@@ -1303,7 +1303,6 @@ HINT_SEARCH_WHERE=Searching in first name, last name, city, zip, street, company
 neuenorteingeben=enter new city
 bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Please enter a new city and click on \u201Cadd\u201D
 neuerveranstaltungsort=new venue
-markierenundkopierensiefolgendesadressetikett=select and copy the following address-label
 personenetikett=Person label
 zuruckzurubersicht=Back to summary
 gpsdaten=GPS-data
