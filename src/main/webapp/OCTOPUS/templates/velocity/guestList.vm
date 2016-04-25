@@ -199,7 +199,7 @@
 			<!-- neu -->
 			<div class="table width100 marginTop30">
 				<div class="tableRow">
-						<div style="padding-bottom:0" class="tableCell width20 inlineInput"><label><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect">${placeholderWithTranslation.GENERIC_SELECT_ALL} <span>($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_PLURAL} ${placeholderWithTranslation.GENERIC_ON} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})</span></label></div>
+						<div style="padding-bottom:0" class="tableCell width20 inlineInput"><label><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect">${placeholderWithTranslation.GENERIC_SELECT_ALL} <span>($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_PLURAL} ${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})</span></label></div>
 
 						<div class="tableCell width30 inlineInput" style="padding-bottom:0"><label for="actionSelection">${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}</label>
 								<select id="actionSelection" class="autoWidth">
