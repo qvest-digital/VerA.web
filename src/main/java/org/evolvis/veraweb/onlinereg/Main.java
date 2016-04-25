@@ -19,19 +19,12 @@
  */
 package org.evolvis.veraweb.onlinereg;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+import java.util.EnumSet;
 
-import io.dropwizard.Application;
-import io.dropwizard.assets.AssetsBundle;
-import io.dropwizard.client.JerseyClientBuilder;
-import io.dropwizard.client.JerseyClientConfiguration;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
-import io.dropwizard.util.Duration;
-import lombok.Getter;
+import javax.servlet.DispatcherType;
 
-import lombok.extern.java.Log;
+import org.eclipse.jetty.server.session.SessionHandler;
+import org.evolvis.veraweb.onlinereg.auth.AuthenticationFilter;
 import org.evolvis.veraweb.onlinereg.event.DelegationResource;
 import org.evolvis.veraweb.onlinereg.event.EventResource;
 import org.evolvis.veraweb.onlinereg.event.FreeVisitorsResource;
@@ -39,9 +32,23 @@ import org.evolvis.veraweb.onlinereg.event.MediaResource;
 import org.evolvis.veraweb.onlinereg.event.UpdateResource;
 import org.evolvis.veraweb.onlinereg.event.UserResource;
 import org.evolvis.veraweb.onlinereg.fileupload.FileUploadResource;
+import org.evolvis.veraweb.onlinereg.user.KontaktdatenResource;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
 import org.evolvis.veraweb.onlinereg.user.ResetPasswordResource;
-import org.evolvis.veraweb.onlinereg.user.KontaktdatenResource;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+
+import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.client.JerseyClientBuilder;
+import io.dropwizard.client.JerseyClientConfiguration;
+import io.dropwizard.jersey.sessions.HttpSessionProvider;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
+import io.dropwizard.util.Duration;
+import lombok.Getter;
+import lombok.extern.java.Log;
 
 @Getter
 @Log
@@ -122,6 +129,11 @@ public class Main extends Application<Config> {
      * @param client
      */
 	private void initAPIResources(final Config configuration, final Environment environment, final Client client) {
+	    environment.servlets().addFilter("AuthorizationRequestFilter", new AuthenticationFilter(configuration,client))
+        .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+	    environment.jersey().register(HttpSessionProvider.class);
+	    environment.servlets().setSessionHandler(new SessionHandler());
+
 		environment.jersey().register(setEventResource(new EventResource(configuration, client)));
         environment.jersey().register(userResource = new UserResource(configuration, client));
         environment.jersey().register(loginResource = new LoginResource(configuration, client));

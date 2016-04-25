@@ -24,7 +24,6 @@ import io.dropwizard.testing.junit.DropwizardAppRule;
 import org.evolvis.veraweb.onlinereg.event.DelegationResourceTest;
 import org.evolvis.veraweb.onlinereg.event.EventResourceTest;
 import org.evolvis.veraweb.onlinereg.event.UserResourceTest;
-import org.evolvis.veraweb.onlinereg.user.LoginResourceTest;
 import org.junit.ClassRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -36,7 +35,6 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         EventResourceTest.class,
         UserResourceTest.class,
-        LoginResourceTest.class,
         HealthTest.class,
         DelegationResourceTest.class
 })

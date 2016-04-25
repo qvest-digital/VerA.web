@@ -24,6 +24,7 @@ import org.osiam.client.oauth.AccessToken;
 import org.osiam.client.oauth.Scope;
 import org.osiam.client.query.Query;
 import org.osiam.client.query.QueryBuilder;
+import org.osiam.client.user.BasicUser;
 
 import com.sun.jersey.api.client.Client;
 
@@ -114,6 +115,7 @@ public class OsiamClient {
     	AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
     	SCIMSearchResult<User> users = this.connector.searchUsers(query, accessToken);
     	
+    	
     	if(users.getResources().size() == 0) {
     		return null;
     	}
@@ -133,6 +135,10 @@ public class OsiamClient {
     	return this.connector.createUser(user, accessToken);
 	}
 
+    public BasicUser getUserBasic(String accessToken){
+        return this.connector.getCurrentUserBasic(new AccessToken.Builder(accessToken).build());
+    }
+    
 	/**
 	 * Get all users.
 	 *

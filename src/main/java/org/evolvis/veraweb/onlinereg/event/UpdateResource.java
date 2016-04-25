@@ -20,9 +20,8 @@
 package org.evolvis.veraweb.onlinereg.event;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 
-import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -41,12 +40,9 @@ import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 
-import lombok.Getter;
 import lombok.extern.java.Log;
 
 /**
@@ -91,8 +87,7 @@ public class UpdateResource {
 
     /** Servlet context */
     @javax.ws.rs.core.Context
-    @Getter
-    private ServletContext context;
+    private HttpServletRequest request;
 
     /**
      * Creates a new EventResource
@@ -119,7 +114,7 @@ public class UpdateResource {
     @GET
     @Path("/{eventId}")
     public EventTransporter getEvent(@PathParam("eventId") int eventId) throws IOException {
-        String username = (String) context.getAttribute(USERNAME);
+        String username = (String) request.getSession().getAttribute(USERNAME);
 
         EventTransporter transporter = getEventData(eventId, username);
 
@@ -142,7 +137,7 @@ public class UpdateResource {
     @Path("/{eventId}/update")
     public String update(@PathParam("eventId") String eventId, @FormParam("notehost") String notehost,
             @FormParam("invitationstatus") String invitationstatus) throws IOException {
-        String username = (String) context.getAttribute(USERNAME);
+        String username = (String) request.getSession().getAttribute(USERNAME);
 
         // checking if the user is registered on the event
         if (isUserRegistered(username, eventId)) {

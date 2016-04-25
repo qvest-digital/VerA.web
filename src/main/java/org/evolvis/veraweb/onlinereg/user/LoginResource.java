@@ -31,6 +31,7 @@ import lombok.Getter;
 import lombok.extern.java.Log;
 
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.auth.HmacToken;
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.mail.EmailValidator;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
@@ -39,13 +40,20 @@ import org.osiam.client.exception.ConnectionInitializationException;
 import org.osiam.resources.scim.User;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.SecurityContext;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -54,8 +62,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 /**
- * Created by mley on 26.08.14.
- * Edited by Max Marche <m.marche@tarent.de>
+ * Created by mley on 26.08.14. Edited by Max Marche <m.marche@tarent.de>
  */
 @Path("/idm")
 @Produces(MediaType.APPLICATION_JSON)
@@ -70,9 +77,10 @@ public class LoginResource {
     public static final String BASE_RESOURCE = "/rest";
 
     // TYPE REFERENCES
-    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {};
-    private static final TypeReference<OsiamUserActivation> OSIAM_USER_ACTIVATION = new TypeReference<OsiamUserActivation>() {};
-
+    private static final TypeReference<Boolean> BOOLEAN = new TypeReference<Boolean>() {
+    };
+    private static final TypeReference<OsiamUserActivation> OSIAM_USER_ACTIVATION = new TypeReference<OsiamUserActivation>() {
+    };
 
     /**
      * key name for access tokens
@@ -94,15 +102,17 @@ public class LoginResource {
      * Servlet context
      */
     @javax.ws.rs.core.Context
-    @Getter
-    private ServletContext context;
+    private HttpServletRequest request;
 
     private final ResourceReader resourceReader;
+
+    public static final String VWOA_ACCESS_TOKEN = "vwoa-access-token";
 
     /**
      * Creates a new LoginResource
      *
-     * @param config configuration
+     * @param config
+     *            configuration
      */
     public LoginResource(Config config, Client client) {
         this.config = config;
@@ -113,103 +123,167 @@ public class LoginResource {
     /**
      * Logs a user in.
      *
-     * @param userName user name
-     * @param password password
-     * @return true if login was successful, fals if username or password are not vaild
+     * @param userName
+     *            user name or user email
+     * @param password
+     *            password
+     * @return true if login was successful, fals if username or password are
+     *         not vaild
      */
-	@POST
-	@Path("/login/{username}")
-	public String login(@PathParam("username") String userName,
-			@FormParam("password") String password, 
-			@FormParam("delegation") String delegation) throws IOException {
+    @POST
+    @Path("/login/{username}")
+    public Response login(@PathParam("username") String userName, @FormParam("password") String password, @FormParam("delegation") String delegation)
+            throws IOException {
         if (userName == null || password == null) {
             return null;
         }
 
-        if(EmailValidator.isValidEmailAddress(userName)){
+        // if the given login name looks like a user name, lookup the osiam user
+        // by email address.
+        if (EmailValidator.isValidEmailAddress(userName)) {
             User userByEmail = config.getOsiam().getClient(this.client).getUserByEmail(userName);
             userName = userByEmail.getUserName();
         }
 
-        Boolean isRegisterdForDelegationEvent = true;
-        if (delegation != null && !"".equals(delegation)) {
-            isRegisterdForDelegationEvent =
-                    readResource(path("guest", "registered", "delegation", userName, delegation), BOOLEAN);
+        // have osiam check the credentials and optain an access token
+        final String accessToken = config.getOsiam().getClient(client).getAccessTokenUserPass(userName, password, "GET", "POST");
+
+        if (accessToken == null) {
+            return Response.status(Status.UNAUTHORIZED).build();
         }
 
-        if (isRegisterdForDelegationEvent) {
-            try {
-                String accessToken = config.getOsiam().getClient(client)
-                        .getAccessTokenUserPass(userName, password, "POST");
-                context.setAttribute(USERNAME, userName);
-                context.setAttribute(ACCESS_TOKEN, accessToken);
+        // finally, fetch a displayable user name for the account
+        // First- and lastname or a company name.
+        // This may actually be empty or null. We don't care. Handle it on the
+        // client side.
+        String displayName = fetchDisplayName(userName);
 
-                WebResource resource;
+        // we have everything. Create a hmac token and store it in a cookie.
+        final String encodedToken = new HmacToken(accessToken, System.currentTimeMillis()).toString();
+        final NewCookie cookie = cookie(encodedToken,
+                600 /* i dunno...ten minutes? */);
+        return Response.ok(new State(userName, displayName)).cookie(cookie).build();
+        //
+        // Boolean isRegisterdForDelegationEvent = true;
+        // if (delegation != null && !"".equals(delegation)) {
+        // isRegisterdForDelegationEvent =
+        // readResource(path("guest", "registered", "delegation", userName,
+        // delegation), BOOLEAN);
+        // }
+        //
+        // if (isRegisterdForDelegationEvent) {
+        //
+        // try {
+        // String accessToken = config.getOsiam().getClient(client)
+        // .getAccessTokenUserPass(userName, password, "POST");
+        //
+        //
+        // WebResource resource;
+        //
+        // resource = client.resource(path("person", "userinfo", userName));
+        // String returnedValue;
+        //
+        // try {
+        // returnedValue = resource.get(String.class);
+        // } catch (UniformInterfaceException e) {
+        // int statusCode = e.getResponse().getStatus();
+        // if (statusCode == 204) {
+        // return StatusConverter.convertStatus(userName);
+        // }
+        //
+        // return null;
+        // }
+        //
+        // return StatusConverter.convertStatus(returnedValue);
+        // } catch (ConnectionInitializationException cie) {
+        // if(cie.getMessage().endsWith("is disabled!")){
+        // final OsiamUserActivation osiamUserActivation =
+        // getOsiamUserActivationByUsername(userName);
+        // final String link = buildLink(config.getOnlineRegistrationEndpoint(),
+        // osiamUserActivation.getActivation_token());
+        // final URL website = new URL(link);
+        // final String protocol = website.getProtocol();
+        // final String host = website.getHost();
+        // final Integer port = website.getPort();
+        // final String suffix = getSuffix(link, host, port);
+        // return StatusConverter.convertStatusWithLink("disabled", protocol,
+        // host, port, suffix);
+        // }
+        // return null;
+        // }
+        // } else {
+        // return null;
+        // }
+    }
 
-                resource = client.resource(path("person", "userinfo", userName));
-                String returnedValue;
-
-                try {
-                    returnedValue = resource.get(String.class);
-                } catch (UniformInterfaceException e) {
-                    int statusCode = e.getResponse().getStatus();
-                    if (statusCode == 204) {
-                        return StatusConverter.convertStatus(userName);
-                    }
-
-                    return null;
-                }
-
-                return StatusConverter.convertStatus(returnedValue);
-            } catch (ConnectionInitializationException cie) {
-                if(cie.getMessage().endsWith("is disabled!")){
-                    final OsiamUserActivation osiamUserActivation = getOsiamUserActivationByUsername(userName);
-                    final String link = buildLink(config.getOnlineRegistrationEndpoint(), osiamUserActivation.getActivation_token());
-                    final URL website = new URL(link);
-                    final String protocol = website.getProtocol();
-                    final String host = website.getHost();
-                    final Integer port = website.getPort();
-                    final String suffix = getSuffix(link, host, port);
-                    return StatusConverter.convertStatusWithLink("disabled", protocol, host, port, suffix);
-                }
-                return null;
-            }
-        } else {
+    private String fetchDisplayName(String userName) {
+        ClientResponse resp = client.resource(path("person", "userinfo", userName)).get(ClientResponse.class);
+        // may happen e.g. for delegation users. (generated username, no actual user data)
+        if (resp.getStatus() == Status.NO_CONTENT.getStatusCode()) {
             return null;
+        }
+
+        return resp.getEntity(String.class);
+    }
+
+    private NewCookie cookie(final String encodedToken, int maxAge) {
+        // FIXME: we absolutely want the secure flag to be set here, at least in
+        // production!
+        // but this would break typical dev situation (no https) What to do?
+        NewCookie cookie = new NewCookie(VWOA_ACCESS_TOKEN, encodedToken, "/", null, null, maxAge, false);
+        return cookie;
+    }
+
+    public static class State {
+        public final String accountName;
+        public final String displayName;
+        public final boolean authenticated;
+
+        public State() {
+            this.authenticated = false;
+            this.accountName = null;
+            this.displayName = null;
+        }
+
+
+        public State(String userAccountName, String userDisplayName) {
+            this.accountName = userAccountName;
+            this.displayName = userDisplayName;
+            this.authenticated = true;
+        }
+
+        public String getAccountName() {
+            return accountName;
+        }
+
+        public boolean isAuthenticated() {
+            return authenticated;
+        }
+
+
+        public String getDisplayName() {
+            return displayName;
         }
     }
 
     /**
      * Test if user is logged in.
      *
-     * @return true if user is logged in, which means username and valid access token are stored in the session context.
+     * @return true if user is logged in, which means username and valid access
+     *         token are stored in the session context.
      */
     @GET
     @Path("/login")
-    public boolean loggedIn() throws IOException {
-
-        String accessToken = (String) context.getAttribute(ACCESS_TOKEN);
-        String username = (String) context.getAttribute(USERNAME);
+    public State queryStatus() throws IOException {
+        final String accessToken = (String) request.getAttribute(ACCESS_TOKEN);
+        final String username = (String) request.getAttribute(USERNAME);
 
         if (accessToken == null || username == null) {
-            return false;
+            return new State();
         }
-        try {
-            User user = config.getOsiam().getClient(client).getUser(accessToken, username);
-            if (user != null) {
-                return true;
-            }
-        } catch (UniformInterfaceException uie) {
-            ClientResponse response = uie.getResponse();
-            if (response.getStatus() == 400) {
-                // status 400 indicates user error: user does not exist, password wrong, user deactivated, etc...
-                return false;
-            } else {
-                throw uie;
-            }
-        }
+        final String displayName = fetchDisplayName(username);
 
-        return false;
+        return new State(username, displayName);
     }
 
     /**
@@ -217,17 +291,18 @@ public class LoginResource {
      */
     @POST
     @Path("/logout")
-    public void logout() {
-        context.removeAttribute(USERNAME);
-        context.removeAttribute(ACCESS_TOKEN);
+    public Response logout() {
+        request.removeAttribute(USERNAME);
+        request.removeAttribute(ACCESS_TOKEN);
+        return Response.ok(new State()).cookie(cookie("egal", 0)).build();
     }
 
     private String getSuffix(String link, String host, Integer port) {
         final String suffix;
         if (port > 0) {
-            suffix = link.substring(link.indexOf(port.toString())+port.toString().length(), link.length());
+            suffix = link.substring(link.indexOf(port.toString()) + port.toString().length(), link.length());
         } else {
-            suffix = link.substring(link.indexOf(host)+host.toString().length(), link.length());
+            suffix = link.substring(link.indexOf(host) + host.toString().length(), link.length());
         }
         return suffix;
     }
@@ -237,15 +312,18 @@ public class LoginResource {
     }
 
     private OsiamUserActivation getOsiamUserActivationByUsername(String username) throws IOException {
-        
-        final String osiamUserActivationPath = resourceReader.constructPath(BASE_RESOURCE, "osiam", "user", "get", "activation", "byusername", username);
+
+        final String osiamUserActivationPath = resourceReader.constructPath(BASE_RESOURCE, "osiam", "user", "get", "activation", "byusername",
+                username);
         return resourceReader.readStringResource(osiamUserActivationPath, OSIAM_USER_ACTIVATION);
     }
 
     /**
-     * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path fragmensts.
+     * Constructs a path from VerA.web endpint, BASE_RESOURCE and given path
+     * fragmensts.
      *
-     * @param path path fragments
+     * @param path
+     *            path fragments
      * @return complete path as string
      */
     private String path(Object... path) {
@@ -255,9 +333,12 @@ public class LoginResource {
     /**
      * Reads the resource at given path and returns the entity.
      *
-     * @param path path
-     * @param type TypeReference of requested entity
-     * @param <T>  Type of requested entity
+     * @param path
+     *            path
+     * @param type
+     *            TypeReference of requested entity
+     * @param <T>
+     *            Type of requested entity
      * @return requested resource
      * @throws IOException
      */
@@ -265,7 +346,4 @@ public class LoginResource {
         return resourceReader.readStringResource(path, type);
     }
 
-    public ServletContext getContext() {
-		return context;
-	}
 }

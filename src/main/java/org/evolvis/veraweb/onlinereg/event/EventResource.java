@@ -40,6 +40,7 @@ import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.evolvis.veraweb.onlinereg.utils.VerawebConstants;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -101,7 +102,7 @@ public class EventResource {
     /** Servlet context */
     @javax.ws.rs.core.Context
     @Getter
-    private ServletContext context;
+    private HttpServletRequest request;
 
     private final ResourceReader resourceReader;
 
@@ -185,7 +186,7 @@ public class EventResource {
     		@PathParam("eventId") String eventId,
     		@FormParam("notehost") String notehost,
             @FormParam("guestStatus") String guestStatus) throws IOException {
-        final String username = (String) context.getAttribute(USERNAME);
+        final String username = (String) request.getSession().getAttribute(USERNAME);
 
     	// checking if the user is registered on the event
     	if (!isUserRegistered(username, eventId)) {

@@ -1,42 +1,19 @@
 module.exports = function($scope, delegationService, $routeParams, $http, $uibModal) {
-  var putInScope = function(name) {
-    if (typeof name == "undefined") {
-      return function(obj) {
-        Object.keys(obj).forEach(function(name) {
-          $scope[name] = obj[name];
-        });
-      };
-    }
-    return function(value) {
-      $scope[name] = value;
-    };
-  };
-  var showError = function(error) {
-    $scope.$emit('vwoa-alerts:message', {
-      body: error.message,
-      type: 'error'
-    });
-  };
-  var showSuccess = function(message) {
-    $scope.$emit('vwoa-alerts:message', {
-      body: message || "GENERIC_SUCCESS",
-      type: 'success'
-    });
-  };
+  var tools = require("../../scope-tools")($scope);
   $scope.person = {};
   $scope.loadPersonData = function(pk) {
     delegationService
       .fetchPerson($routeParams.uuid, pk)
-      .then(putInScope("person"), showError);
+      .then(putInScope("person"), tools.showError());
   };
   $scope.register_user = function() {
     delegationService
       .savePerson($routeParams.uuid, $scope.person)
-      .then(showSuccess, showError)
+      .then(tools.showSuccess(), tools.showError())
       .then(function() {
         return delegationService.fetchList($routeParams.uuid);
       })
-      .then(putInScope("presentPersons"), showError);
+      .then(putInScope("presentPersons"), tools.showError());
   };
   $scope.confirm_reset = function() {
     $uibModal.open({
@@ -56,9 +33,9 @@ module.exports = function($scope, delegationService, $routeParams, $http, $uibMo
   };
   delegationService
     .fetchList($routeParams.uuid)
-    .then(putInScope("presentPersons"), showError);
+    .then(putInScope("presentPersons"), tools.showError());
   delegationService
     .fetchMetadata($routeParams.uuid)
-    .then(putInScope(), showError);
+    .then(putInScope(), tools.showError());
 
 };

@@ -38,6 +38,7 @@ import org.osiam.resources.scim.UpdateUser;
 import org.osiam.resources.scim.User;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -72,10 +73,7 @@ public class ResetPasswordResource {
     /** Jackson Object Mapper */
     private ObjectMapper mapper = new ObjectMapper();
 
-    /** Servlet context */
-    @javax.ws.rs.core.Context
-    @Getter
-    private ServletContext context;
+    
 
     private final ResourceReader resourceReader;
 
