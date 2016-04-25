@@ -136,6 +136,7 @@ GENERIC_USER_SINGULAR=Benutzer
 GENERIC_USER_PLURAL=Benutzer
 GENERIC_WORKAREA_SINGULAR=Arbeitsbereich
 GENERIC_WORKAREA_PLURAL=Arbeitsbereiche
+GENERIC_SELECT_ALL=Alle markieren
 
 # HEADER MESSAGES
 HEADER_REPRESENTATION_FOR=In Vertretung f\u00FCr
@@ -190,7 +191,9 @@ GENERIC_FROM=Von
 GENERIC_LANGUAGE=Sprache
 GENERIC_LOGOUT=Abmelden
 GENERIC_ON=Auf
+GENERIC_ON_LOWERCASE=auf
 GENERIC_PAGE=Seite
+GENERIC_PAGES=Seiten
 GENERIC_PLACE=Platz
 
 # MENU
@@ -1305,6 +1308,7 @@ GENERIC_UPLOAD_BUTTON=Datei ausw\u00E4hlen
 GENERIC_PERSONAL_DATA=Pers\u00F6nliche Daten
 GENERIC_NUMBER_OF_GUESTS=G\u00E4steanzahl
 
+
 # MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Dieser Gast wurde ohne Hauptperson eingeladen
 MESSAGE_INVITATION_WITHOUT_PARTNER=Dieser Gast wurde ohne Partner eingeladen
@@ -1482,7 +1486,7 @@ MAILING_LIST_SELECTED_FILE=Ausgew\u00E4hlte Datei
 MAILING_LIST_ALREADY_SELECTED_FILE=Diese Datei ist bereits ausgew\u00E4hlt
 MAILING_LIST_SELECTED_TOO_MANY=Zu viele Dateien ausgew\u00E4hlt
 MAILING_LIST_SELECTED_TOO_BIG=Datei ist zu gro\u00DF
-MAILING_LIST_SIZE_NOTICE=Die Maximalgröße aller Anhänge zusammen darf 1 MB nicht überschreiten.
+MAILING_LIST_SIZE_NOTICE=Die Maximalgr\u00F6\u00DFe aller Anh\u00E4nge zusammen darf 1 MB nicht \u00FCberschreiten.
 
 # ORG UNIT LIST TEXTS
 ORG_UNIT_NO_MANDANT_ID=Einzuf\u00FCgender Mandant darf keine ID haben

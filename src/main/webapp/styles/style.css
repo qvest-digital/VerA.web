@@ -1168,3 +1168,9 @@ td[onclick]
     overflow: hidden;
     display: inline-block;
 }
+
+label span {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+}
