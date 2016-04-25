@@ -121,8 +121,6 @@ public class GuestDetailWorker extends GuestListWorker {
         try {
             setGuestContentForOctopusContext(octopusContext, database, guest, freitextfeld);
         } catch (Exception e) {
-            logger.warn("zum Gast: " + guestid + " und Doctyp: " + freitextfeld +
-                    " kann Bean 'GuestDoctype' nicht geladen werden", e);
             octopusContext.setContent("showGuestListData", new Boolean(false));
         }
 

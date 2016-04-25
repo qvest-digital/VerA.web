@@ -125,7 +125,7 @@ public class MailinglistWorker {
 				GuestSearch search = (GuestSearch)octopusContext.contentAsObject("search");
 				clause = Where.and(Expr.equal("tguest.fk_event", search.event), Expr.in("tguest.pk", selection));
 				// Personen hinzufügen
-				savedAddresses = addMailinglistFromGuest(octopusContext, mailinglist, freitextfeld, addresstype, locale, clause);
+				savedAddresses = addMailinglistFromGuest(octopusContext, mailinglist, clause);
 			}
 		}
 		// hier das gleiche, kann nicht 0 sein, und wenn doch... siehe oben
@@ -183,7 +183,6 @@ public class MailinglistWorker {
 				selectAs("tperson.mail_a_e1", "mail3").
 				selectAs("tperson.fax_a_e1", "fax3");
 
-		select.selectAs("FALSE", "hasguestdoctype");
 		select.selectAs("NULL", "mail1");
 		select.selectAs("NULL", "fax1");
 
@@ -209,45 +208,26 @@ public class MailinglistWorker {
 	 *
 	 * @param cntx Octopus-Context
 	 * @param mailinglist Verteiler dem Gäste hinzugefügt werden sollen.
-	 * @param doctype ID des Dokumenttypes der verwendet werden soll.
-	 * @param addresstype Adresstyp
-	 * @param locale Zeichensatz
 	 * @param clause Bedingung
 	 * @return Anzahl der hinzugefügten Adressen.
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	protected int addMailinglistFromGuest(OctopusContext cntx, Mailinglist mailinglist, Integer doctype, Integer addresstype, Integer locale, Clause clause) throws BeanException, IOException {
+	protected int addMailinglistFromGuest(OctopusContext cntx, Mailinglist mailinglist, Clause clause) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
-		String personMail = getMailColumn(addresstype, locale);
-		String personFax = getFaxColumn(addresstype, locale);
 
 		Select select = SQL.Select(database).setDistinct(true).
 				from("veraweb.tguest").
 				selectAs("tguest.pk", "guest").
 				selectAs("tperson.pk", "person").
-				selectAs(personMail, "mail2").
-				selectAs(personFax, "fax2").
 				selectAs("tperson.mail_a_e1", "mail3").
 				selectAs("tperson.fax_a_e1", "fax3").
-				joinLeftOuter("veraweb.tperson", "tperson.pk", "tguest.fk_person").
-				joinLeftOuter("veraweb.tguest_doctype", "tguest.pk", "tguest_doctype.fk_guest");
-		if (doctype != null) {
-			select.selectAs("tguest_doctype.pk IS NOT NULL", "hasguestdoctype");
-			select.selectAs("tguest_doctype.mail", "mail1");
-			select.selectAs("tguest_doctype.fax", "fax1");
-			select.whereAndEq("tguest_doctype.fk_doctype", doctype.toString());
-		} else {
-			select.selectAs("FALSE", "hasguestdoctype");
-			select.selectAs("NULL", "mail1");
-			select.selectAs("NULL", "fax1");
-		}
+				joinLeftOuter("veraweb.tperson", "tperson.pk", "tguest.fk_person");
+
+		select.selectAs("NULL", "mail1");
+		select.selectAs("NULL", "fax1");
 
 		select.where(new RawClause("(" + clause.clauseToString(database) + ") AND (" +
-				"length(tguest_doctype.mail) != 0 OR " +
-				"length(tguest_doctype.fax) != 0 OR " +
-				"length(" + personMail + ") != 0 OR " +
-				"length(" + personFax + ") != 0 OR " +
 				"length(tperson.mail_a_e1) != 0 OR " +
 				"length(tperson.fax_a_e1) != 0)"));
 
@@ -265,38 +245,25 @@ public class MailinglistWorker {
 		int savedAddresses = 0;
 
 		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
-			Map data = (Map)it.next();
-			Integer person = (Integer)data.get("person");
-			if (((Boolean)data.get("hasguestdoctype")).booleanValue()) {
-				String mail1 = (String)data.get("mail1");
-				String fax1 = (String)data.get("fax1");
+			Map data = (Map) it.next();
+			Integer person = (Integer) data.get("person");
+			String mail2 = (String) data.get("mail2");
+			String fax2 = (String) data.get("fax2");
+			String mail3 = (String) data.get("mail3");
+			String fax3 = (String) data.get("fax3");
 
-				if (mail1 != null && mail1.length() != 0) {
-					if (savePerson(database, mailinglist.id, person, getClearMailAddress(cntx, mail1)))
-						savedAddresses++;
-				} else if (fax1 != null && fax1.length() != 0) {
-					if (savePerson(database, mailinglist.id, person, getClearFaxNumber(cntx, fax1)))
-						savedAddresses++;
-				}
-			} else {
-				String mail2 = (String)data.get("mail2");
-				String fax2 = (String)data.get("fax2");
-				String mail3 = (String)data.get("mail3");
-				String fax3 = (String)data.get("fax3");
-
-				if (mail2 != null && mail2.length() != 0) {
-					if (savePerson(database, mailinglist.id, person, getClearMailAddress(cntx, mail2)))
-						savedAddresses++;
-				} else if (fax2 != null && fax2.length() != 0) {
-					if (savePerson(database, mailinglist.id, person, getClearFaxNumber(cntx, fax2)))
-						savedAddresses++;
-				} else if (mail3 != null && mail3.length() != 0) {
-					if (savePerson(database, mailinglist.id, person, getClearMailAddress(cntx, mail3)))
-						savedAddresses++;
-				} else if (fax3 != null && fax3.length() != 0) {
-					if (savePerson(database, mailinglist.id, person, getClearFaxNumber(cntx, fax3)))
-						savedAddresses++;
-				}
+			if (mail2 != null && mail2.length() != 0) {
+				if (savePerson(database, mailinglist.id, person, getClearMailAddress(cntx, mail2)))
+					savedAddresses++;
+			} else if (fax2 != null && fax2.length() != 0) {
+				if (savePerson(database, mailinglist.id, person, getClearFaxNumber(cntx, fax2)))
+					savedAddresses++;
+			} else if (mail3 != null && mail3.length() != 0) {
+				if (savePerson(database, mailinglist.id, person, getClearMailAddress(cntx, mail3)))
+					savedAddresses++;
+			} else if (fax3 != null && fax3.length() != 0) {
+				if (savePerson(database, mailinglist.id, person, getClearFaxNumber(cntx, fax3)))
+					savedAddresses++;
 			}
 		}
 

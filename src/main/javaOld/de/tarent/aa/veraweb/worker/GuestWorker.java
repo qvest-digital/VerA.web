@@ -328,74 +328,6 @@ public class GuestWorker {
 		+ "where g.fk_event = {0});";
 	protected static final MessageFormat ADD_FROM_EVENT_FORMAT = new MessageFormat(ADD_FROM_EVENT_PATTERN);
 
-	protected static final String UPDATE_GUEST_DOCUMENT_TYPES_PATTERN =
-		"delete from tguest_doctype where fk_guest in ( select g.pk from tguest g "
-		+ "where g.fk_event = {0} ); "
-		+ "insert into tguest_doctype ( fk_guest, fk_doctype, addresstype, locale, "
-		+ "textfield, textfield_p, textjoin, salutation, titel, \"function\", firstname, "
-		+ "lastname, zipcode, city, street, country, suffix1, suffix2, salutation_p, "
-		+ "titel_p, firstname_p, lastname_p, fon, fax, mail, www, mobil, company, "
-		+ "pobox, poboxzipcode, state) "
-		+ "select distinct on (d.fk_doctype,g.pk) "
-		+ "g.pk as fk_guest, d.fk_doctype as fk_doctype, d.addresstype as addresstype, "
-		+ "d.locale as locale, d.textfield as textfield, d.textfield_p as textfield_p, "
-		+ "d.textjoin as textjoin, (CASE WHEN d.locale = 1 THEN sa1.salutation "
-		+ "WHEN d.locale = 2 THEN sa2.salutation WHEN d.locale = 3 THEN sa3.salutation "
-		+ "ELSE '''' END) as salutation, (CASE WHEN d.locale = 1 THEN p.function_a_e1 "
-		+ "WHEN d.locale = 2 THEN p.function_a_e2 WHEN d.locale = 3 THEN p.function_a_e3 "
-		+ "ELSE '''' END) as \"function\", (CASE WHEN d.locale = 1 THEN p.title_a_e1 "
-		+ "WHEN d.locale = 2 THEN p.title_a_e2 WHEN d.locale = 3 THEN p.title_a_e3 "
-		+ "ELSE '''' END) as titel, (CASE WHEN d.locale = 1 THEN p.firstname_a_e1 "
-		+ "WHEN d.locale = 2 THEN p.firstname_a_e2 WHEN d.locale = 3 THEN p.firstname_a_e3 "
-		+ "ELSE '''' END) as firstname, (CASE WHEN d.locale = 1 THEN p.lastname_a_e1 "
-		+ "WHEN d.locale = 2 THEN p.lastname_a_e2 WHEN d.locale = 3 THEN p.lastname_a_e3 "
-		+ "ELSE '''' END) as lastname, (CASE WHEN d.locale = 1 THEN p.zipcode_a_e1 "
-		+ "WHEN d.locale = 2 THEN p.zipcode_a_e2 WHEN d.locale = 3 THEN p.zipcode_a_e3 "
-		+ "ELSE '''' END) as zipcode, (CASE WHEN d.locale = 1 THEN p.city_a_e1 "
-		+ "WHEN d.locale = 2 THEN p.city_a_e2 WHEN d.locale = 3 THEN p.city_a_e3 "
-		+ "ELSE '''' END) as city, (CASE WHEN d.locale = 1 THEN p.street_a_e1 "
-		+ "WHEN d.locale = 2 THEN p.street_a_e2 WHEN d.locale = 3 THEN p.street_a_e3 "
-		+ "ELSE '''' END) as street, (CASE WHEN d.locale = 1 THEN p.country_a_e1 "
-		+ "WHEN d.locale = 2 THEN p.country_a_e2 WHEN d.locale = 3 THEN p.country_a_e3 "
-		+ "ELSE '''' END) as country, (CASE WHEN d.locale = 1 THEN p.suffix1_a_e1 "
-		+ "WHEN d.locale = 2 THEN p.suffix1_a_e2 WHEN d.locale = 3 THEN p.suffix1_a_e3 "
-		+ "ELSE '''' END) as suffix1, (CASE WHEN d.locale = 1 THEN p.suffix2_a_e1 "
-		+ "WHEN d.locale = 2 THEN p.suffix2_a_e2 WHEN d.locale = 3 THEN p.suffix2_a_e3 "
-		+ "ELSE '''' END) as suffix2, (CASE WHEN d.locale = 1 THEN sb1.salutation "
-		+ "WHEN d.locale = 2 THEN sb2.salutation WHEN d.locale = 3 THEN sb3.salutation "
-		+ "ELSE '''' END) as salutation_p, (CASE WHEN d.locale = 1 THEN p.title_b_e1 "
-		+ "WHEN d.locale = 2 THEN p.title_b_e2 WHEN d.locale = 3 THEN p.title_b_e3 "
-		+ "ELSE '''' END) as titel_p, (CASE WHEN d.locale = 1 THEN p.firstname_b_e1 "
-		+ "WHEN d.locale = 2 THEN p.firstname_b_e2 WHEN d.locale = 3 THEN p.firstname_b_e3 "
-		+ "ELSE '''' END) as firstname_p, (CASE WHEN d.locale = 1 THEN p.lastname_b_e1 "
-		+ "WHEN d.locale = 2 THEN p.lastname_b_e2 WHEN d.locale = 3 THEN p.lastname_b_e3 "
-		+ "ELSE '''' END) as lastname_p, (CASE WHEN d.locale = 1 THEN p.fon_a_e1 "
-		+ "WHEN d.locale = 2 THEN p.fon_a_e2 WHEN d.locale = 3 THEN p.fon_a_e3 ELSE '''' "
-		+ "END) as fon, (CASE WHEN d.locale = 1 THEN p.fax_a_e1 WHEN d.locale = 2 THEN p.fax_a_e2 "
-		+ "WHEN d.locale = 3 THEN p.fax_a_e3 ELSE '''' END) as fax, (CASE WHEN d.locale = 1 "
-		+ "THEN p.mail_a_e1 WHEN d.locale = 2 THEN p.mail_a_e2 WHEN d.locale = 3 THEN p.mail_a_e3 "
-		+ "ELSE '''' END) as mail, (CASE WHEN d.locale = 1 THEN p.url_a_e1 WHEN d.locale = 2 "
-		+ "THEN p.url_a_e2 WHEN d.locale = 3 THEN p.url_a_e3 ELSE '''' END) as www, "
-		+ "(CASE WHEN d.locale = 1 THEN p.mobil_a_e1 WHEN d.locale = 2 THEN p.mobil_a_e2 "
-		+ "WHEN d.locale = 3 THEN p.mobil_a_e3 ELSE '''' END) as mobil, (CASE WHEN d.locale = 1 "
-		+ "THEN p.company_a_e1 WHEN d.locale = 2 THEN p.company_a_e2 WHEN d.locale = 3 THEN "
-		+ "p.company_a_e3 ELSE '''' END) as company, (CASE WHEN d.locale = 1 THEN p.pobox_a_e1 "
-		+ "WHEN d.locale = 2 THEN p.pobox_a_e2 WHEN d.locale = 3 THEN p.pobox_a_e3 ELSE '''' "
-		+ "END) as pobox, (CASE WHEN d.locale = 1 THEN p.poboxzipcode_a_e1 WHEN d.locale = 2 "
-		+ "THEN p.poboxzipcode_a_e2 WHEN d.locale = 3 THEN p.poboxzipcode_a_e3 ELSE '''' "
-		+ "END) as poboxzipcode, (CASE WHEN d.locale = 1 THEN p.state_a_e1 WHEN d.locale = 2 "
-		+ "THEN p.state_a_e2 WHEN d.locale = 3 THEN p.state_a_e3 ELSE '''' END) as state "
-		+ "from tguest g join tevent_doctype ed on ed.fk_event = g.fk_event "
-		+ "join tperson_doctype d on d.fk_person = g.fk_person left join tperson p on p.pk "
-//		+ "from tguest g left join tevent_doctype ed on ed.fk_event = g.fk_event "
-//		+ "left join tperson_doctype d on d.fk_person = g.fk_person left join tperson p on p.pk "
-		+ "= g.fk_person left join tsalutation sa1 on p.fk_salutation_a_e1 = sa1.pk "
-		+ "left join tsalutation sa2 on p.fk_salutation_a_e2 = sa2.pk left join tsalutation sa3 "
-		+ "on p.fk_salutation_a_e3 = sa3.pk left join tsalutation sb1 on p.fk_salutation_b_e1 = sb1.pk "
-		+ "left join tsalutation sb2 on p.fk_salutation_b_e2 = sb2.pk left join tsalutation sb3 on "
-		+ "p.fk_salutation_b_e3 = sb3.pk where g.fk_event = {0};";
-	protected static final MessageFormat UPDATE_GUEST_DOCUMENT_TYPES_FORMAT = new MessageFormat(UPDATE_GUEST_DOCUMENT_TYPES_PATTERN);
-
 	public void addEvent(OctopusContext cntx, Integer eventId) throws BeanException, IOException
 	{
 		final Database database = new DatabaseVeraWeb(cntx);
@@ -449,11 +381,6 @@ public class GuestWorker {
 			sql = ADD_FROM_EVENT_FORMAT.format( new Object[] { event.id.toString(), event.invitationtype, EventConstants.TYPE_OHNEPARTNER, ( ( PersonalConfigAA ) cntx.personalConfig() ).getRoleWithProxy(), eventId.toString() } );
 			DB.insert( context, sql );
 			context.commit();
-
-			sql = UPDATE_GUEST_DOCUMENT_TYPES_FORMAT.format( new Object[] { event.id.toString() } );
-			context.commit();
-			DB.insert( context, sql );
-
 			// TODO bulk log guest create event
 		}
 		catch ( SQLException e )
