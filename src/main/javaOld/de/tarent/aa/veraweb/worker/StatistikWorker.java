@@ -36,6 +36,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import org.apache.log4j.Logger;
@@ -474,18 +475,18 @@ public class StatistikWorker {
 	protected Object getColumnValue(String name, ResultSet resultSet, Object content,
 									final LanguageProvider languageProvider) throws SQLException {
 		if (name.equals("invitationtype")) {
-			return GuestExportWorker.getType((Integer)content);
+			return VerawebUtils.getType((Integer)content);
 		} else if (name.equals("invitationstatus")) {
 			int type = resultSet.getInt("invitationtype");
 			if (type != EventConstants.TYPE_NURPARTNER) {
-				return GuestExportWorker.getStatus((Integer)content);
+				return VerawebUtils.getStatus((Integer)content);
 			} else {
 				return languageProvider.getProperty("STATS_NOT_INVITED");
 			}
 		} else if (name.equals("invitationstatus_p")) {
 			int type = resultSet.getInt("invitationtype");
 			if (type != EventConstants.TYPE_OHNEPARTNER) {
-				return GuestExportWorker.getStatus((Integer)content);
+				return VerawebUtils.getStatus((Integer)content);
 			} else {
 				return languageProvider.getProperty("STATS_NOT_INVITED");
 			}

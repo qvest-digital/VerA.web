@@ -123,10 +123,9 @@ public class PersonDetailWorker implements PersonConstants {
     private TransactionContext transactionalContext;
     private static Update updateEventStatement = SQL.Update(database).table("veraweb.tevent").update("fk_host", null).update("hostname", null);
     private static final Update deletePerson = SQL.Update(database).table("veraweb.tperson").update("deleted", PersonConstants.DELETED_TRUE);
-    private static final Delete deleteGuest = SQL.Delete(database).from("veraweb.tguest");;
+    private static final Delete deleteGuest = SQL.Delete(database).from("veraweb.tguest");
     private static final Delete deletePersonTasks = SQL.Delete(database).from("veraweb.ttask");
     private static final Delete deletePersonMailinglist = SQL.Delete(database).from("veraweb.tperson_mailinglist");
-    private static final Delete deletePersonDoctype = SQL.Delete(database).from("veraweb.tperson_doctype");
     private static final Delete deletePersonCategory = SQL.Delete(database).from("veraweb.tperson_categorie");
 
     /**
@@ -453,80 +452,6 @@ public class PersonDetailWorker implements PersonConstants {
         Person person = getTestPerson(partner);
         octopusContext.setContent("person", person);
         octopusContext.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
-    }
-
-    /**
-     * Eingabe-Parameter der Octopus-Aktion
-     * {@link #createExport(OctopusContext)}
-     */
-    public static final String INPUT_createExport[] = {};
-
-    /**
-     * Erstellt ein Personen-Etikett-Label, um damit in einer Textverarbeitung
-     * leicht einen Brief zu erstellen. Die Person wird hierzu im
-     * Octopus-Content unter "person", ein ({@link PersonDoctype Personen-})
-     * {@link Doctype Dokumenttyp} unter "doctype" und die ID des
-     * Label-Dokumenttyps (für den Fall, dass der Dokumenttyp nicht
-     * personalisiert wurde) in der Konfiguration unter "freitextfeld" erwartet,
-     * und das Erzeugnis wird im Octopus-Content unter "personExport" abgelegt.
-     *
-     * @param octopusContext
-     *            Octopus-Kontext
-     */
-    public void createExport(OctopusContext octopusContext) throws BeanException, IOException {
-        Person person = (Person) octopusContext.contentAsObject("person");
-        Integer freitextfeld = ConfigWorker.getInteger(octopusContext, "freitextfeld");
-
-        Integer addresstype = null, locale = null;
-
-        if (person != null) {
-            setContentToFacades(octopusContext, person, freitextfeld, addresstype, locale);
-        }
-    }
-
-    private void setContentToFacades(OctopusContext octopusContext, Person person, Integer freitextfeld, Integer addresstype, Integer locale) throws BeanException, IOException {
-        String nl = "\n";
-        StringBuffer buffer = new StringBuffer();
-        PersonAddressFacade facade = person.getAddressFacade(addresstype, locale);
-
-        // funktion, firma und straße
-        if (facade.getFunction() != null && facade.getFunction().length() != 0)
-            buffer.append(facade.getFunction()).append(nl);
-        if (facade.getCompany() != null && facade.getCompany().length() != 0)
-            buffer.append(facade.getCompany()).append(nl);
-        if (facade.getStreet() != null && facade.getStreet().length() != 0)
-            buffer.append(facade.getStreet()).append(nl);
-
-        // plz ort
-        if (facade.getZipCode() != null)
-            buffer.append(facade.getZipCode());
-        if (!(facade.getZipCode() == null || facade.getZipCode().length() == 0 || facade.getCity() == null || facade.getCity().length() == 0))
-            buffer.append(' ');
-        if (facade.getCity() != null)
-            buffer.append(facade.getCity());
-        buffer.append(nl);
-
-        // plz postfach
-        if (facade.getPOBoxZipCode() != null)
-            buffer.append(facade.getPOBoxZipCode());
-        if (!(facade.getPOBoxZipCode() == null || facade.getPOBoxZipCode().length() == 0 || facade.getPOBox() == null
-                || facade.getPOBox().length() == 0))
-            buffer.append(' ');
-        if (facade.getPOBox() != null)
-            buffer.append(facade.getPOBox());
-        buffer.append(nl);
-
-        // land
-        if (facade.getCountry() != null && facade.getCountry().length() != 0)
-            buffer.append(facade.getCountry()).append(nl);
-
-        // adresszusatz 1 und 2
-        if (facade.getSuffix1() != null && facade.getSuffix1().length() != 0)
-            buffer.append(facade.getSuffix1()).append(nl);
-        if (facade.getSuffix2() != null && facade.getSuffix2().length() != 0)
-            buffer.append(facade.getSuffix2());
-
-        octopusContext.setContent("personExport", buffer.toString());
     }
 
     /**
@@ -1093,7 +1018,6 @@ public class PersonDetailWorker implements PersonConstants {
 
     private void executeDeleteStatements(OctopusContext octopusContext, Integer personid, String username) throws BeanException {
         deletePersonCategory(personid);
-        deletePersonDoctype(personid);
         deletePersonMailingList(personid);
         deletePersonTasks(personid);
         deleteOsiamUser(octopusContext, username);
@@ -1113,11 +1037,6 @@ public class PersonDetailWorker implements PersonConstants {
     private void deletePersonMailingList(Integer personid) throws BeanException {
         final Delete fullDeletePersonMailingListStatement = deletePersonMailinglist.where(Expr.equal("fk_person", personid));
         transactionalContext.execute(fullDeletePersonMailingListStatement);
-    }
-
-    private void deletePersonDoctype(Integer personid) throws BeanException {
-        final Delete fullDeletePersonDoctypeStatement = deletePersonDoctype.where(Expr.equal("fk_person", personid));
-        transactionalContext.execute(fullDeletePersonDoctypeStatement);
     }
 
     private void deletePersonCategory(Integer personid) throws BeanException {

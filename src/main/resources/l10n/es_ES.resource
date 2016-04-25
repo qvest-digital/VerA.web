@@ -1311,7 +1311,6 @@ HINT_SEARCH_WHERE=La b\u00FAsqueda se basa en nombres, apellidos, localizaci\u00
 neuenorteingeben=Asignar nueva localizaci\u00F3n
 bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Por favor, introduzca una nueva localizaci\u00F3n y presione sobre \u201CAsignar\u201D
 neuerveranstaltungsort=Nueva localizaci\u00F3n
-markierenundkopierensiefolgendesadressetikett=Seleccionar y copiar las siguientes etiquetas de direcci\u00F3n
 personenetikett=Etiquetas-Personas
 zuruckzurubersicht=Volver a vista principal
 gpsdaten=Datos-GPS

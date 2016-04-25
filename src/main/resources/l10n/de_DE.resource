@@ -1280,7 +1280,6 @@ HINT_SEARCH_WHERE=Die Suche erfolgt im Vornamen, Nachnamen, Ort, PLZ, Stra\u00DF
 neuenorteingeben=Neuen Ort eingeben
 bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Bitte geben Sie einen neuen Ort ein und klicken Sie auf \u201EHinzuf\u00FCgen\u201C
 neuerveranstaltungsort=Neuer Veranstaltungsort
-markierenundkopierensiefolgendesadressetikett=Markieren und kopieren Sie folgendes Adress-Etikett
 personenetikett=Personen-Etikett
 zuruckzurubersicht=Zuruck zur \u00DCbersicht
 gpsdaten=GPS-Daten
