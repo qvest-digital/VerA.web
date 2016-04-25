@@ -194,7 +194,6 @@
 				<input type="hidden" name="list" value="$bean.id">
 			#end
 
-
 			<div class="flexContainer marginTop30">
 
 				<div style="" class="flexItem inlineInput">
@@ -317,7 +316,7 @@
 				}
 			</script>
 				<div id="guestListWrapper">
-					<table class="sortable">
+					<table class="sortable" style="width:1159px">
 						##Set column size
 						<col width="$column0%" />
 						<col width="$column1%" />
