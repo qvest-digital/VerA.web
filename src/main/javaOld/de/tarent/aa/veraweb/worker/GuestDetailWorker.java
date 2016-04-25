@@ -25,6 +25,17 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 import de.tarent.aa.veraweb.beans.Categorie;
+
+import de.tarent.aa.veraweb.utils.FileUploadUtils;
+import de.tarent.aa.veraweb.utils.VworConstants;
+import de.tarent.aa.veraweb.utils.VworUtils;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
+import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
+import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.statement.Delete;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
+
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Person;
