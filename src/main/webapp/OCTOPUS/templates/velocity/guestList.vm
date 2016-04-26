@@ -76,8 +76,8 @@
 			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
 				<li id="gaesteliste" vera-tab class="active posRel" style="z-index:2">
                     <div>${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}</div>
-				#if($list.size() > 0)
 				</li>
+				#if($list.size() > 0)
                 <li id="gastdetails" class="inactive">
                     <div>${placeholderWithTranslation.gastedetails}</div>
 				</li>
@@ -85,6 +85,7 @@
                     <div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
 				#end
 				</li>
+				#end
 			</ul>
 		</div>
 
@@ -194,32 +195,33 @@
 				<input type="hidden" name="list" value="$bean.id">
 			#end
 
-			<div class="tableRow">
 
-			<!-- neu -->
-			<div class="table width100 marginTop30">
-				<div class="tableRow">
-						<div style="padding-bottom:0" class="tableCell width20 inlineInput"><label><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect">${placeholderWithTranslation.GENERIC_SELECT_ALL} <span>($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_PLURAL} ${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})</span></label></div>
+			<div class="flexContainer marginTop30">
 
-						<div class="tableCell width30 inlineInput" style="padding-bottom:0"><label for="actionSelection">${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}</label>
-								<select id="actionSelection" class="autoWidth">
+				<div style="" class="flexItem inlineInput">
+					<label><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect">${placeholderWithTranslation.GENERIC_SELECT_ALL} <span>($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_PLURAL} ${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})</span>
+					</label>
+				</div>
+
+				<div class="flexItem inlineInput" style="">
+					<label for="actionSelection">${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}</label>
+						<select id="actionSelection" class="autoWidth">
 									<option value="0">${placeholderWithTranslation.GENERIC_DELETE}</option>
 									<option value="1">${placeholderWithTranslation.GUEST_LIST_CATEGORY_ASSIGN}</option>
 									<option value="2">${placeholderWithTranslation.GUEST_LIST_CATEGORY_REMOVE}</option>
 									<option value="3">${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
 									<option value="4">${placeholderWithTranslation.GUEST_LIST_DATA_EXPORT}</option>
-								</select>
-								<input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.GENERIC_EXECUTE}" title="${placeholderWithTranslation.GENERIC_EXECUTE}" class="autoWidth">
-						</div>
-						<div class="tableCell textRight" style="vertical-align:bottom; padding-bottom:0">
-							#if($grants.mayWrite())
-								<input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
-								<input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
-								<input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
-							#end
-						</div>
+						</select>
+						<input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.GENERIC_EXECUTE}" title="${placeholderWithTranslation.GENERIC_EXECUTE}" class="autoWidth">
 				</div>
-			</div><!--neu -->
+				<div class="flexItem textRight alignBottom" style="flex-grow: 2; margin-right: 0px;">
+					#if($grants.mayWrite())
+						<input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
+						<input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
+						<input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
+					#end
+				</div>
+			</div>
 
 			## Handler für selektierte Aktion
 			<script>
