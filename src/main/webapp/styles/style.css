@@ -1174,3 +1174,17 @@ label span {
     font-size: 12px;
     font-weight: normal;
 }
+
+/** Flexbox */
+.flexContainer {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.flexItem {
+    margin-right: 10px;
+}
+
+.alignBottom {
+    align-self: flex-end;
+}
