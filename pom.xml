@@ -14,6 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <groovy-all.version>2.4.5</groovy-all.version>
         <spock-core.version>1.0-groovy-2.4</spock-core.version>
+        <extract-tool.version>1.1</extract-tool.version>
     </properties>
 
     <repositories>
@@ -29,13 +30,19 @@
         <dependency>
             <groupId>de.tarent.extract</groupId>
             <artifactId>extract-tool</artifactId>
-            <version>1.1</version>
+            <version>${extract-tool.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.oracle</groupId>
                     <artifactId>ojdbc6</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>de.tarent.dfg-commons</groupId>
+            <artifactId>background-jobs</artifactId>
+            <version>1.13</version>
         </dependency>
 
         <dependency>
