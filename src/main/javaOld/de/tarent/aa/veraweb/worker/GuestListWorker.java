@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2016 tarent solutions GmbH
- *
+ * <p>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -84,11 +84,11 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
     public static final String INPUT_getAllCategories[] = {};
 
-    private final static String DELETE_TOPTIONAL_FIELDS_DELEGATION_CONTENT ="DELETE FROM toptional_fields_delegation_content WHERE fk_guest IN ({0})";
+    private final static String DELETE_TOPTIONAL_FIELDS_DELEGATION_CONTENT = "DELETE FROM toptional_fields_delegation_content WHERE fk_guest IN ({0})";
     private final static MessageFormat DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST = new MessageFormat(DELETE_TOPTIONAL_FIELDS_DELEGATION_CONTENT);
 
     private final static String DELETE_ALL_STALE_GUESTS = "DELETE FROM tguest WHERE pk IN ({0})";
-    private final static MessageFormat DELETE_ALL_STALE_GUESTS_FORMAT = new MessageFormat( DELETE_ALL_STALE_GUESTS );
+    private final static MessageFormat DELETE_ALL_STALE_GUESTS_FORMAT = new MessageFormat(DELETE_ALL_STALE_GUESTS);
 
     private final static String BULK_INSERT_CHANGELOG_ENTRIES =
             "INSERT INTO tchangelog (username, objname, objtype, objid, op, attributes, date) "
@@ -99,21 +99,21 @@ public class GuestListWorker extends ListWorkerVeraWeb {
                     + "''delete'' AS op, ''*'' AS attributes, NOW() AS date "
                     + "FROM tperson p LEFT JOIN tguest g ON g.fk_person = p.pk "
                     + "WHERE g.pk IN ({1})";
-    private final static MessageFormat BULK_INSERT_CHANGELOG_ENTRIES_FORMAT = new MessageFormat( BULK_INSERT_CHANGELOG_ENTRIES );
+    private final static MessageFormat BULK_INSERT_CHANGELOG_ENTRIES_FORMAT = new MessageFormat(BULK_INSERT_CHANGELOG_ENTRIES);
 
     private final static Logger logger = Logger.getLogger(GuestListWorker.class);
 
     /**
      * Der Konstruktor legt den Bean-Namen fest.
      */
-	public GuestListWorker() {
-		super("Guest");
-	}
+    public GuestListWorker() {
+        super("Guest");
+    }
 
     @Override
     public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
         final EventURLHandler eventURLHandler = new EventURLHandler();
-    	eventURLHandler.setEventUrl(octopusContext, (String) octopusContext.getContextField("event.hash"));
+        eventURLHandler.setEventUrl(octopusContext, (String) octopusContext.getContextField("event.hash"));
         final String categoryAssignmentAction = octopusContext.requestAsString("categoryAssignmentAction");
 
         // does the user request categories to be assigned or unassigned?
@@ -140,13 +140,12 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             }
             context.commit();
             octopusContext.setSession("selection" + BEANNAME, selection);
-        }
-        else {
+        } else {
             super.saveList(octopusContext);
         }
     }
 
-	protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
+    protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
         final GuestSearch search = getSearch(octopusContext);
 
         final WhereList list = new WhereList();
@@ -154,7 +153,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         select.where(list);
     }
 
-	protected void extendColumns(OctopusContext octopusContext, Select select) throws BeanException, IOException {
+    protected void extendColumns(OctopusContext octopusContext, Select select) throws BeanException, IOException {
         final GuestSearch search = getSearch(octopusContext);
         buildGuestSelect(select);
 
@@ -207,15 +206,15 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     }
 
     private void getSortDirection(GuestSearch search) {
-    	if (search.sortList) {
-	        if (search.sortDirection == null || search.lastlistorder == null || !search.lastlistorder.equals(search.listorder)) {
-	            search.sortDirection = "ASC";
-	        } else if ("ASC".equals(search.sortDirection)) {
-	            search.sortDirection = "DESC";
-	        } else if ("DESC".equals(search.sortDirection)) {
-	            search.sortDirection = "ASC";
-	        }
-    	}
+        if (search.sortList) {
+            if (search.sortDirection == null || search.lastlistorder == null || !search.lastlistorder.equals(search.listorder)) {
+                search.sortDirection = "ASC";
+            } else if ("ASC".equals(search.sortDirection)) {
+                search.sortDirection = "DESC";
+            } else if ("DESC".equals(search.sortDirection)) {
+                search.sortDirection = "ASC";
+            }
+        }
         /* default if anything else fails */
         if (search.sortDirection == null) {
             logger.warn("search.sortDirection is nil");
@@ -248,7 +247,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         select.select("delegation");
     }
 
-	protected Integer getAlphaStart(OctopusContext octopusContext, String start) throws BeanException, IOException {
+    protected Integer getAlphaStart(OctopusContext octopusContext, String start) throws BeanException, IOException {
         final Database database = getDatabase(octopusContext);
         final GuestSearch search = getSearch(octopusContext);
 
@@ -273,7 +272,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return i - (i % getLimit(octopusContext));
     }
 
-	protected Select getSelect(Database database) throws BeanException, IOException {
+    protected Select getSelect(Database database) throws BeanException, IOException {
         return SQL.SelectDistinct(database).
                 from("veraweb.tguest").
                 selectAs("tguest.pk", "id").
@@ -323,7 +322,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return selection.size();
     }
 
-	protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext)
+    protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext)
             throws BeanException, IOException {
         final Database database = transactionContext.getDatabase();
         final Guest guest = (Guest) bean;
@@ -341,7 +340,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         transactionContext.commit();
 
 		/*
-		 * modified to support change logging
+         * modified to support change logging
 		 * cklein 2008-02-12
 		 */
         final BeanChangeLogger clogger = new BeanChangeLogger(database, transactionContext);
@@ -381,7 +380,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return update;
     }
 
-	protected boolean removeBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext)
+    protected boolean removeBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext)
             throws BeanException, IOException {
         final Database database = transactionContext.getDatabase();
         /*
@@ -516,8 +515,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     public void getAllCategories(OctopusContext octopusContext) throws BeanException {
         final ResultList categories = getCategoriesForCurrentOrgunit(octopusContext);
         final List<String> categoryNames = getCategoryNames(categories);
-		octopusContext.setContent("categories", categoryNames);
-	}
+        octopusContext.setContent("categories", categoryNames);
+    }
 
     private List<String> getCategoryNames(ResultList categories) {
         final List<String> catnames = new ArrayList<String>();
@@ -536,7 +535,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     }
 
     private Select buildSelectStatement(Database database, Integer eventId) {
-        final Select select = SQL.Select( database ).from("veraweb.tcategorie");
+        final Select select = SQL.Select(database).from("veraweb.tcategorie");
         select.select("catname");
         select.setDistinctOn("catname");
         select.whereAnd(Expr.equal("fk_orgunit", eventId));
@@ -546,26 +545,26 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     /**
      * Diese Methode überträgt Gästesuchkriterien aus einer {@link GuestSearch}-Instanz
      * in einer WHERE-Statement-Liste.
-     * @deprecated Use {@link GuestSearch#addGuestListFilter(GuestSearch,WhereList)} instead
+     * @deprecated Use {@link GuestSearch#addGuestListFilter(GuestSearch, WhereList)} instead
      */
     public static void addGuestListFilter(GuestSearch guestSearch, WhereList where) {
         guestSearch.addGuestListFilter(where);
     }
 
-	/**
-	 * Berechnet die Gesamtzahlen der aktuellen Gästeliste.
-	 *
-	 * Vor Version 1.50 wurden "Auf Platz" und "Auf Reserve"
-	 * pro Datensatz berechnet, die aktuelle Umsetzung zählt
-	 * diese pro eingeladenen Member. (Vgl. Bug 1480)
-	 *
-	 * @param database
-	 * @param data
-	 * @param guestSearch
-	 * @param selection
-	 * @throws BeanException
-	 */
-	protected void getSums(Database database, Map<String, Long> data, GuestSearch guestSearch, List selection) throws BeanException {
+    /**
+     * Berechnet die Gesamtzahlen der aktuellen Gästeliste.
+     *
+     * Vor Version 1.50 wurden "Auf Platz" und "Auf Reserve"
+     * pro Datensatz berechnet, die aktuelle Umsetzung zählt
+     * diese pro eingeladenen Member. (Vgl. Bug 1480)
+     *
+     * @param database
+     * @param data
+     * @param guestSearch
+     * @param selection
+     * @throws BeanException
+     */
+    protected void getSums(Database database, Map<String, Long> data, GuestSearch guestSearch, List selection) throws BeanException {
         final Select select = buildAndCountListFromGuests(database, guestSearch, selection);
 
         final Map result = (Map) database.getList(select, database).iterator().next();
