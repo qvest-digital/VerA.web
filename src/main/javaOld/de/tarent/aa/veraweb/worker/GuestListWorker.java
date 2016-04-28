@@ -130,6 +130,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             final Database database = getDatabase(octopusContext);
             final TransactionContext context = database.getTransactionContext();
             final Integer categoryId = octopusContext.requestAsInteger("categoryAssignmentId");
+
             final List selection = this.getSelection(octopusContext, this.getCount(octopusContext, database));
             final Iterator iter = selection.iterator();
             while (iter.hasNext()) {
@@ -144,6 +145,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             }
             context.commit();
             octopusContext.setSession("selection" + BEANNAME, selection);
+        } else if (octopusContext.requestAsString("select-all").equalsIgnoreCase("on")) {
+            System.out.printf("aufAlleGästeAnwenden");
         } else {
             super.saveList(octopusContext);
         }
