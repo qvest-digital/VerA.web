@@ -22,7 +22,6 @@ package de.tarent.aa.veraweb.worker;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
-import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
@@ -142,8 +141,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             }
             context.commit();
             octopusContext.setSession("selection" + BEANNAME, selection);
-        } else if (octopusContext.requestAsString("select-all").equalsIgnoreCase("on")) {
-            System.out.printf("aufAlleGästeAnwenden");
         } else {
             super.saveList(octopusContext);
         }
@@ -200,6 +197,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             setOrderOfNames(search, order);
         }
         return order;
+    }
+
+    private void setOrderOfGastgeberNames(GuestSearch search, List order) {
+        order.add("lastname_a_gd");
+        order.add(search.sortDirection);
+        order.add("firstname_a_gd");
+        order.add(search.sortDirection);
     }
 
     private void setOrderOfNames(GuestSearch search, List<String> order) {

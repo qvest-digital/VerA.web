@@ -25,17 +25,6 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 import de.tarent.aa.veraweb.beans.Categorie;
-
-import de.tarent.aa.veraweb.utils.FileUploadUtils;
-import de.tarent.aa.veraweb.utils.VworConstants;
-import de.tarent.aa.veraweb.utils.VworUtils;
-import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
-import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
-import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.statement.Delete;
-import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
-
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Person;
@@ -129,7 +118,7 @@ public class GuestDetailWorker extends GuestListWorker {
         // Bug 1591 Im Kopf der Gaesteliste sollen nicht die Stammdaten, sondern die
         // Daten der Gaesteliste angezeigt werden
         try {
-            setGuestContentForOctopusContext(octopusContext, freitextfeld);
+            setGuestContentForOctopusContext(octopusContext, database, guest, freitextfeld);
         } catch (Exception e) {
             octopusContext.setContent("showGuestListData", new Boolean(false));
         }
@@ -161,7 +150,7 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
 
-    private void setGuestContentForOctopusContext(OctopusContext octopusContext, Integer freitextfeld) {
+    private void setGuestContentForOctopusContext(OctopusContext octopusContext, Database database, Guest guest, Integer freitextfeld) throws IOException, BeanException {
         if (freitextfeld == null) {
             //Kopfdaten der Gaesteliste: Anzeige der Stammdaten oder Kopien fuer Gaesteliste
             octopusContext.setContent("showGuestListData", new Boolean(false));
