@@ -22,6 +22,7 @@ package de.tarent.aa.veraweb.worker;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
+import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
@@ -113,7 +114,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     @Override
     public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
         final EventURLHandler eventURLHandler = new EventURLHandler();
-        eventURLHandler.setEventUrl(octopusContext, (String) octopusContext.getContextField("event.hash"));
+    	eventURLHandler.setEventUrl(octopusContext, (String) octopusContext.getContextField("event.hash"));
         final String categoryAssignmentAction = octopusContext.requestAsString("categoryAssignmentAction");
 
         // does the user request categories to be assigned or unassigned?
@@ -126,7 +127,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             final Database database = getDatabase(octopusContext);
             final TransactionContext context = database.getTransactionContext();
             final Integer categoryId = octopusContext.requestAsInteger("categoryAssignmentId");
-
             final List selection = this.getSelection(octopusContext, this.getCount(octopusContext, database));
             final Iterator iter = selection.iterator();
             while (iter.hasNext()) {
@@ -141,10 +141,74 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             }
             context.commit();
             octopusContext.setSession("selection" + BEANNAME, selection);
-        } else if (octopusContext.requestAsString("select-all").equalsIgnoreCase("on")) {
-            System.out.printf("aufAlleGästeAnwenden");
-        } else {
+        }
+        else {
             super.saveList(octopusContext);
+        }
+    }
+
+    /**
+	 * Entfernt die Zuordnungen von Arbeitsbereichen der übergebenen Liste von Gästen (IDs).
+	 *
+	 * @param cntx Octopus-Context
+	 * @param guestIds Liste von Gast IDs für die das entfernen der Zuordnung gilt
+	 * @param workAreaId ID des Arbeitsbereiches deren Zuordnung entfernt werden soll
+	 * @throws BeanException
+	 * @throws IOException
+	 *
+	 */
+    /*
+     * currently made private (disabled) as part of fix to issue #1530
+     */
+	private void unassignWorkArea(OctopusContext cntx, List<Integer> guestIds, Integer workAreaId)
+            throws BeanException, IOException {
+        final Database database = getDatabase(cntx);
+        final TransactionContext context = database.getTransactionContext();
+
+        try {
+            for (Integer personId : guestIds) {
+                final Guest guest = (Guest) database.getBean(BEANNAME, personId);
+                final Person person = (Person) database.getBean("Person", guest.person);
+                if (person != null && (person.workarea.intValue() == workAreaId.intValue() || workAreaId.intValue() == 0)) {
+                    person.workarea = new Integer(0);
+                    database.saveBean(person, context, false);
+                }
+            }
+            context.commit();
+        } catch (BeanException e) {
+            context.rollBack();
+        }
+    }
+
+	/**
+	 * Ordnet den übergebenen Arbeitsbereich der Liste von Gästen hinzu.
+	 *
+	 * @param octopusContext OctopusContext
+	 * @param guestIds Liste von Guest IDs für die die neue Zuordnung gilt
+	 * @param workAreaId ID des Arbeitsbereiches der zugeordnet werden soll
+	 * @throws BeanException
+	 * @throws IOException
+	 */
+	/*
+     * currently made private (disabled) as part of fix to issue #1530
+     */
+	private void assignWorkArea(OctopusContext octopusContext, List<Integer> guestIds, Integer workAreaId)
+            throws BeanException, IOException {
+        final Database database = getDatabase(octopusContext);
+        final TransactionContext context = database.getTransactionContext();
+
+        try {
+            for (Integer guestId : guestIds) {
+                final Guest guest = (Guest) database.getBean(BEANNAME, guestId);
+                final Person person = (Person) database.getBean("Person", guest.person);
+                if (person != null && person.workarea.intValue() != workAreaId.intValue()) {
+                    person.workarea = workAreaId;
+                    database.saveBean(person, context, false);
+                }
+            }
+            context.commit();
+        } finally {
+            context.rollBack();
         }
     }
 
@@ -554,20 +618,20 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         guestSearch.addGuestListFilter(where);
     }
 
-    /**
-     * Berechnet die Gesamtzahlen der aktuellen Gästeliste.
-     *
-     * Vor Version 1.50 wurden "Auf Platz" und "Auf Reserve"
-     * pro Datensatz berechnet, die aktuelle Umsetzung zählt
-     * diese pro eingeladenen Member. (Vgl. Bug 1480)
-     *
-     * @param database
-     * @param data
-     * @param guestSearch
-     * @param selection
-     * @throws BeanException
-     */
-    protected void getSums(Database database, Map<String, Long> data, GuestSearch guestSearch, List selection) throws BeanException {
+	/**
+	 * Berechnet die Gesamtzahlen der aktuellen Gästeliste.
+	 *
+	 * Vor Version 1.50 wurden "Auf Platz" und "Auf Reserve"
+	 * pro Datensatz berechnet, die aktuelle Umsetzung zählt
+	 * diese pro eingeladenen Member. (Vgl. Bug 1480)
+	 *
+	 * @param database
+	 * @param data
+	 * @param guestSearch
+	 * @param selection
+	 * @throws BeanException
+	 */
+	protected void getSums(Database database, Map<String, Long> data, GuestSearch guestSearch, List selection) throws BeanException {
         final Select select = buildAndCountListFromGuests(database, guestSearch, selection);
 
         final Map result = (Map) database.getList(select, database).iterator().next();
