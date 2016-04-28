@@ -124,7 +124,7 @@ public class GuestDetailWorker extends GuestListWorker {
         // Bug 1591 Im Kopf der Gaesteliste sollen nicht die Stammdaten, sondern die
         // Daten der Gaesteliste angezeigt werden
         try {
-            setGuestContentForOctopusContext(octopusContext, freitextfeld);
+            setGuestContentForOctopusContext(octopusContext, database, guest, freitextfeld);
         } catch (Exception e) {
             logger.warn("zum Gast: " + guestid + " und Doctyp: " + freitextfeld +
                     " kann Bean 'GuestDoctype' nicht geladen werden", e);
@@ -158,7 +158,7 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
 
-    private void setGuestContentForOctopusContext(OctopusContext octopusContext, Integer freitextfeld) {
+    private void setGuestContentForOctopusContext(OctopusContext octopusContext, Database database, Guest guest, Integer freitextfeld) throws IOException, BeanException {
         if (freitextfeld == null) {
             //Kopfdaten der Gaesteliste: Anzeige der Stammdaten oder Kopien fuer Gaesteliste
             octopusContext.setContent("showGuestListData", new Boolean(false));

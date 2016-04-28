@@ -145,8 +145,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             }
             context.commit();
             octopusContext.setSession("selection" + BEANNAME, selection);
-        } else if (octopusContext.requestAsString("select-all").equalsIgnoreCase("on")) {
-            System.out.printf("aufAlleGästeAnwenden");
         } else {
             super.saveList(octopusContext);
         }
@@ -178,7 +176,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         select.orderBy(DatabaseHelper.getOrder(order));
     }
 
-    private List buildOrderedGuestList(OctopusContext octopusContext, final GuestSearch search) {
+    private List buildOrderedGuestList(OctopusContext octopusContext, final GuestSearch search, Integer freitextfeld) {
         final List<String> order = new ArrayList<String>();
         order.add("ishost");
 
@@ -232,6 +230,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             }
         }
         return order;
+    }
+
+    private void setOrderOfGastgeberNames(GuestSearch search, List order) {
+        order.add("lastname_a_gd");
+        order.add(search.sortDirection);
+        order.add("firstname_a_gd");
+        order.add(search.sortDirection);
     }
 
     private void setOrderOfNames(GuestSearch search, List<String> order) {

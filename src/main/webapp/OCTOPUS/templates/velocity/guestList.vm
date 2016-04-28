@@ -83,7 +83,6 @@
 				</li>
                 <li id="dokumenttypen" class="inactive">
                     <div>${placeholderWithTranslation.GENERIC_DOCUMENT_TYPE_PLURAL}</div>
-				#end
 				</li>
 				#end
 			</ul>
