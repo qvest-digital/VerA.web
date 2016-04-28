@@ -116,27 +116,26 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	}
 
     @Override
-    public void saveList(OctopusContext cntx) throws BeanException, IOException {
+    public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
         final EventURLHandler eventURLHandler = new EventURLHandler();
-    	eventURLHandler.setEventUrl(cntx, (String) cntx.getContextField("event.hash"));
-        final String categoryAssignmentAction = cntx.requestAsString("categoryAssignmentAction");
-        final String workareaAssignmentAction = cntx.requestAsString("workareaAssignmentAction");
+    	eventURLHandler.setEventUrl(octopusContext, (String) octopusContext.getContextField("event.hash"));
+        final String categoryAssignmentAction = octopusContext.requestAsString("categoryAssignmentAction");
 
         // does the user request categories to be assigned or unassigned?
-        saveGuestWithCategories(cntx, categoryAssignmentAction);
+        saveGuestWithCategories(octopusContext, categoryAssignmentAction);
     }
 
-    private void saveGuestWithCategories(OctopusContext cntx, final String categoryAssignmentAction)
+    private void saveGuestWithCategories(OctopusContext octopusContext, final String categoryAssignmentAction)
             throws BeanException, IOException {
         if (categoryAssignmentAction != null && categoryAssignmentAction.length() > 0) {
-            final Database database = getDatabase(cntx);
+            final Database database = getDatabase(octopusContext);
             final TransactionContext context = database.getTransactionContext();
-            final Integer categoryId = cntx.requestAsInteger("categoryAssignmentId");
-            final List selection = this.getSelection(cntx, this.getCount(cntx, database));
+            final Integer categoryId = octopusContext.requestAsInteger("categoryAssignmentId");
+            final List selection = this.getSelection(octopusContext, this.getCount(octopusContext, database));
             final Iterator iter = selection.iterator();
             while (iter.hasNext()) {
                 final Guest guest = (Guest) database.getBean("Guest", (Integer) iter.next(), context);
-                if ("assign".compareTo(categoryAssignmentAction) == 0 && categoryId.intValue() > 0) {
+                if ("assign".compareTo(categoryAssignmentAction) == 0 && categoryId > 0) {
                     guest.category = categoryId;
                 } else {
                     guest.category = null;
@@ -145,7 +144,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
                 iter.remove();
             }
             context.commit();
-            cntx.setSession("selection" + BEANNAME, selection);
+            octopusContext.setSession("selection" + BEANNAME, selection);
         }
         else {
             super.saveList(cntx);
@@ -243,8 +242,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         select.orderBy(DatabaseHelper.getOrder(order));
     }
 
-    private List buildOrderedGuestList(OctopusContext octopusContext, final GuestSearch search, Integer freitextfeld) {
-        final List order = new ArrayList();
+    private List buildOrderedGuestList(OctopusContext octopusContext, final GuestSearch search) {
+        final List<String> order = new ArrayList<String>();
         order.add("ishost");
 
         getSortDirection(search);
@@ -421,7 +420,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         select.where(new RawClause(buffer));
 
         final Integer i = database.getCount(select);
-        return new Integer(i.intValue() - (i.intValue() % getLimit(octopusContext).intValue()));
+        return i - (i % getLimit(octopusContext));
     }
 
 	protected Select getSelect(Database database) throws BeanException, IOException {
@@ -442,14 +441,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     }
 
     protected List getResultList(Database database, Select select) throws BeanException, IOException {
-        final List fullList = getAllGuests(database, select);
-
-        final List modifiedList = new ArrayList();
-        for (int i = 0; i < fullList.size(); i++) {
-            final Map guest = (Map) fullList.get(i);
-            final String uuid = (String) guest.get("delegation");
-            final String iscompany = (String) guest.get("iscompany");
-            modifiedList.add(guest);
+        final List allGuests = getAllGuests(database, select);
+        final List<Map> modifiedList = new ArrayList<Map>();
+        for (Object guest : allGuests) {
+            modifiedList.add((Map) guest);
         }
 
         return modifiedList;
@@ -517,21 +512,21 @@ public class GuestListWorker extends ListWorkerVeraWeb {
                 update("fk_category", guest.category).
                 where(Expr.equal("pk", guest.id));
 
-        if (guest.invitationtype.intValue() == EventConstants.TYPE_MITPARTNER) {
-            if (guest.invitationstatus_a != null && guest.invitationstatus_a.intValue() == 2) {
+        if (guest.invitationtype == EventConstants.TYPE_MITPARTNER) {
+            if (guest.invitationstatus_a != null && guest.invitationstatus_a == 2) {
                 update.update("orderno", null);
             }
-            if (guest.invitationstatus_b != null && guest.invitationstatus_b.intValue() == 2) {
+            if (guest.invitationstatus_b != null && guest.invitationstatus_b == 2) {
                 update.update("orderno_p", null);
             }
-        } else if (guest.invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
-            if (guest.invitationstatus_a != null && guest.invitationstatus_a.intValue() == 2) {
+        } else if (guest.invitationtype == EventConstants.TYPE_OHNEPARTNER) {
+            if (guest.invitationstatus_a != null && guest.invitationstatus_a == 2) {
                 update.update("orderno", null);
             }
             update.update("orderno_p", null);
-        } else if (guest.invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
+        } else if (guest.invitationtype == EventConstants.TYPE_NURPARTNER) {
             update.update("orderno", null);
-            if (guest.invitationstatus_b != null && guest.invitationstatus_b.intValue() == 2) {
+            if (guest.invitationstatus_b != null && guest.invitationstatus_b == 2) {
                 update.update("orderno_p", null);
             }
         }
@@ -572,7 +567,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     public Map getSums(OctopusContext octopusContext) throws BeanException {
         final Database database = new DatabaseVeraWeb(octopusContext);
         final GuestSearch search = getSearch(octopusContext);
-        final Map result = new HashMap();
+        final Map<String, Long> result = new HashMap<String, Long>();
         getSums(database, result, search, null);
         return result;
     }
@@ -673,7 +668,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @throws BeanException
      * @throws SQLException
      */
-    public void getAllCategories(OctopusContext octopusContext) throws BeanException, IOException, SQLException {
+    public void getAllCategories(OctopusContext octopusContext) throws BeanException {
         final ResultList categories = getCategoriesForCurrentOrgunit(octopusContext);
         final List<String> categoryNames = getCategoryNames(categories);
 		octopusContext.setContent("categories", categoryNames);
@@ -725,7 +720,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 	 * @param selection
 	 * @throws BeanException
 	 */
-	protected void getSums(Database database, Map data, GuestSearch guestSearch, List selection) throws BeanException {
+	protected void getSums(Database database, Map<String, Long> data, GuestSearch guestSearch, List selection) throws BeanException {
         final Select select = buildAndCountListFromGuests(database, guestSearch, selection);
 
         final Map result = (Map) database.getList(select, database).iterator().next();
@@ -737,29 +732,28 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         Long delegationen = (Long) result.get("delegationen");
 
         if (platz == null) {
-            platz = new Long(0);
+            platz = 0L;
         }
         if (reserve == null) {
-            reserve = new Long(0);
+            reserve = 0L;
         }
         if (zusagen == null) {
-            zusagen = new Long(0);
+            zusagen = 0L;
         }
         if (absagen == null) {
-            absagen = new Long(0);
+            absagen = 0L;
         }
         if (teilnahmen == null) {
-            teilnahmen = new Long(0);
+            teilnahmen = 0L;
         }
         if (delegationen == null) {
-            delegationen = new Long(0);
+            delegationen = 0L;
         }
 
-        data.put("platz", new Long(platz.longValue() - delegationen.longValue()));
+        data.put("platz", platz - delegationen);
         data.put("reserve", reserve);
-        data.put("all", new Long(platz.longValue() - delegationen.longValue()));
-        data.put("offen", new Long(platz.longValue() - zusagen.longValue() - absagen.longValue() -
-                teilnahmen.longValue()) - delegationen.longValue());
+        data.put("all", platz - delegationen);
+        data.put("offen", platz - zusagen - absagen - teilnahmen - delegationen);
         data.put("zusagen", zusagen);
         data.put("absagen", absagen);
         data.put("teilnahmen", teilnahmen);
