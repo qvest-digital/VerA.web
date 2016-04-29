@@ -196,7 +196,7 @@
 
 			<div class="flexContainer marginTop30">
 				<div style="" class="flexItem inlineInput">
-					<label><input type="checkbox" title="${placeholderWithTranslation.alledemarkieren}" id="select-all" name="select-all">${placeholderWithTranslation.GENERIC_SELECT_ALL} <span>($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_PLURAL} ${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})</span>
+					<label><input type="checkbox" title="${placeholderWithTranslation.alledemarkieren}" id="select-all" name="select-all" style="vertical-align: baseline;"> ${placeholderWithTranslation.GENERIC_SELECT_ALL} <span>($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_PLURAL} ${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})</span>
 					</label>
 				</div>
 
@@ -227,7 +227,7 @@
 							return;
 						#end
 						var checkBoxes = $('input:checkbox[name$="-select"]:checked');
-						if (checkBoxes.length === 0) {
+						if (checkBoxes.length === 0 && !document.getElementById('select-all').checked) {
 							$(".errormsg").remove();
 							$(".successmsg").remove();
 							showWarning('${placeholderWithTranslation.wahlensiebittezunachsteinenodermehreregasteaus}.');
@@ -264,7 +264,7 @@
 					$('#button\\.execute').click(function (e) {
 						var selectValue = $('#actionSelection option:selected').val();
 
-						if(hasSelection()){
+						if(hasSelection() || document.getElementById('select-all').checked){
 							if (selectValue == "0") {
 								removeGuestabfrage();
 							} else if (selectValue == "1") {
@@ -315,7 +315,7 @@
 				}
 			</script>
 				<div id="guestListWrapper">
-					<table class="sortable" style="width:1159px">
+					<table class="sortable">
 						##Set column size
 						<col width="$column0%" />
 						<col width="$column1%" />

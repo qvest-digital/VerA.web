@@ -36,6 +36,7 @@ import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.WhereList;
+import de.tarent.dblayer.sql.statement.Delete;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
@@ -144,6 +145,51 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         } else {
             super.saveList(octopusContext);
         }
+    }
+
+    /** Octopus-Eingabe-Parameter für {@link #countRecipients(OctopusContext)} */
+    public static final String INPUT_countRecipients[] = {};
+    /** Octopus-Ausgabe-Parameter für {@link #countRecipients(OctopusContext)} */
+    public static final String OUTPUT_countRecipients = "mailinglistParams";
+
+    /**
+     * Schätzt, wie groß der neue Verteiler werden wird, und
+     * erweitert die Map <code>mailinglistParam</code> im Content
+     * um den Key <code>count</code>.
+     *
+     * @param octopusContext Octopus-Context
+     * @return Map mit dem Key <code>count</code>
+     * @throws BeanException
+     * @throws IOException
+     */
+    public Map countRecipients(OctopusContext octopusContext) throws BeanException, IOException {
+        final Integer countGuests;
+        Map result = (Map) octopusContext.contentAsObject("mailinglistParams");
+        if (octopusContext.requestAsString("select-all") != null && octopusContext.requestAsString("select-all").equals("on")) {
+            final WhereList currenGuestFilter = getCurrenGuestFilter(octopusContext);
+            final Database database = getDatabase(octopusContext);
+            Select select = database.getSelect("Guest");
+            select.select("count(*)");
+            select.where(currenGuestFilter);
+            countGuests = database.getCount(select);
+        } else {
+            if (result == null) {
+                result = new HashMap();
+            }
+            List selection = (List) octopusContext.contentAsObject("listselection");
+            countGuests = selection.size();
+        }
+
+        if (countGuests != null) {
+            result.put("count", countGuests);
+            // falls nix ausgewählt ist, fängt der js code das ab,
+            // und wenn nix ausgewählt ist, ist ja nix ausgewählt,
+            // dann soll er nicht selber in der datenbank suchen
+
+            // sollte es doch irgendwie zu der ausführung ges codes kommen,
+            // kann ja ruhig in der MAP count=0 stehen, oder?
+        }
+        return result;
     }
 
     protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
@@ -322,13 +368,17 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return VerawebUtils.copyResultListToArrayList(allResults);
     }
 
+    /**
+     * Remove guests from the guest list.
+     */
     protected int removeSelection(OctopusContext octopusContext, List errors, List selection,
                                   TransactionContext transactionContext) throws BeanException, IOException {
         try {
-            final String ids = DatabaseHelper.listsToIdListString(new List[]{selection});
-            DB.insert(transactionContext, DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST.format(new Object[]{ids}));
-            DB.insert(transactionContext, DELETE_ALL_STALE_GUESTS_FORMAT.format(new Object[]{ids}));
-            DB.insert(transactionContext, BULK_INSERT_CHANGELOG_ENTRIES_FORMAT.format(new Object[]{octopusContext.personalConfig().getLoginname(), ids}));
+            if (octopusContext.requestAsString("select-all") != null && octopusContext.requestAsString("select-all").equals("on")) {
+                deleteAllFilteredGuests(octopusContext, transactionContext);
+            } else {
+                deleteSelectedGuests(octopusContext, selection, transactionContext);
+            }
             transactionContext.commit();
         } catch (BeanException e) {
             transactionContext.rollBack();
@@ -339,6 +389,27 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         }
 
         return selection.size();
+    }
+
+    private void deleteSelectedGuests(OctopusContext octopusContext, List selection, TransactionContext transactionContext) throws SQLException {
+        final String ids = DatabaseHelper.listsToIdListString(new List[]{selection});
+        DB.insert(transactionContext, DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST.format(new Object[]{ids}));
+        DB.insert(transactionContext, DELETE_ALL_STALE_GUESTS_FORMAT.format(new Object[]{ids}));
+        DB.insert(transactionContext, BULK_INSERT_CHANGELOG_ENTRIES_FORMAT.format(new Object[]{octopusContext.personalConfig().getLoginname(), ids}));
+    }
+
+    private void deleteAllFilteredGuests(OctopusContext octopusContext, TransactionContext transactionContext) throws BeanException, IOException {
+        final WhereList whereList = getCurrenGuestFilter(octopusContext);
+        final Database database = getDatabase(octopusContext);
+        final Delete delete = database.getDelete("Guest").where(whereList);
+        transactionContext.execute(delete);
+    }
+
+    private WhereList getCurrenGuestFilter(OctopusContext octopusContext) throws BeanException {
+        final WhereList whereList = new WhereList();
+        final GuestSearch search = getSearch(octopusContext);
+        search.addGuestListFilter(whereList);
+        return whereList;
     }
 
     protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext)
@@ -622,14 +693,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         data.put("teilnahmen", teilnahmen);
     }
 
-    private Select buildAndCountListFromGuests(Database database, GuestSearch guestSearch, List selection) {
+    private Select buildAndCountListFromGuests(Database database, GuestSearch guestSearch, List selection) throws BeanException {
         final WhereList where = new WhereList();
         guestSearch.addGuestListFilter(where);
 
         if (selection != null && selection.size() != 0) {
             where.addAnd(Expr.in("tguest.pk", selection));
         }
-
         final Select select = SQL.Select(database).
                 from("veraweb.tguest").
                 where(where);
