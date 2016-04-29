@@ -1540,12 +1540,27 @@ Sie bitte nun die Eigenschaft \texttt{filesLocation} in der Datei
 Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
 \end{minipage}
 
+Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
+\texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die beim
+Versenden von Verteilernachrichten von VerA.web und Bestätigungsnachrichten der Online-Anmeldung
+als Absenderadresse verwendet wird.
+
+Der Parameter \texttt{mail.smtp.from} setzt die Standard Absendeadresse.
+Mit den Parametern \texttt{mail.smtp.from.ID} können für die Id's der einzelnen
+Mandaten spezielle Absendeadresse gesetzt werden.
+
+\begin{lstdump}{Adresse für einzelne Mandanten setzen}
+# address verification
+mail.smtp.from=「noreply@example.com」
+# to use specific addresses for individual organisational units set
+# property mail.smtp.from.{id} like the following two lines are showing
+#mail.smtp.from.1=「noreply@example-mandant1.com」
+#mail.smtp.from.5=「noreply-mandant5@example.com」
+\end{lstdump}
+
 \ifoa
 
-Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
-\texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die bei
-der Versendung von Bestätigungsnachrichten bei der Online-Anmeldung
-als Absenderadresse verwendet wird. Die \texttt{subject}- und
+Die \texttt{subject}- und
 \texttt{content}-Parameter enthalten den Nachrichtenbetreff und
 -inhalt; diese können Sie bei Bedarf anpassen; stellen Sie dabei
 sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
@@ -2293,12 +2308,27 @@ Sie bitte die Eigenschaft \texttt{filesLocation} in der Datei
 Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
 \end{minipage}
 
+Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
+\texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die beim
+Versenden von Verteilernachrichten von VerA.web und Bestätigungsnachrichten der Online-Anmeldung
+als Absenderadresse verwendet wird.
+
+Der Parameter \texttt{mail.smtp.from} setzt die Standard Absendeadresse.
+Mit den Parametern \texttt{mail.smtp.from.ID} können für die Id's der einzelnen
+Mandaten spezielle Absendeadresse gesetzt werden.
+
+\begin{lstdump}{Adresse für einzelne Mandanten setzen}
+# address verification
+mail.smtp.from=「noreply@example.com」
+# to use specific addresses for individual organisational units set
+# property mail.smtp.from.{id} like the following two lines are showing
+#mail.smtp.from.1=「noreply@example-mandant1.com」
+#mail.smtp.from.5=「noreply-mandant5@example.com」
+\end{lstdump}
+
 \ifoa
 
-Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
-\texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die bei
-der Versendung von Bestätigungsnachrichten bei der Online-Anmeldung
-als Absenderadresse verwendet wird. Die \texttt{subject}- und
+Die \texttt{subject}- und
 \texttt{content}-Parameter enthalten den Nachrichtenbetreff und
 -inhalt; diese können Sie bei Bedarf anpassen; stellen Sie dabei
 sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
@@ -2386,8 +2416,6 @@ REST-API ein:
 \end{lstdump}
 \end{minipage}
 
-\ifoa
-
 \subsection{Upgrade von Versionen vor 1.8.1}\label{subsec:upgrade-181}
 
 Passen Sie bitte die mitgelieferte \texttt{vwor.properties} so an,
@@ -2395,13 +2423,30 @@ daß sie der \texttt{/etc/veraweb/vwor.properties} für die
 dort bereits enthaltenen Einträge entspricht. Dann passen Sie noch
 die neuen Einträge an:
 
-Ändern Sie die Eigenschaft \texttt{mail.smtp.from}: tragen Sie hier
-eine Adresse ein, die bei der Versendung von Bestätigungsnachrichten
-bei der Online-Anmeldung als Absenderadresse verwendet wird. Die
-\texttt{subject}- und \texttt{content}-Parameter enthalten den
-Nachrichtenbetreff und -inhalt; diese können Sie bei Bedarf anpassen;
-stellen Sie dabei sicher, daß der Platzhalter \texttt{\$\{link\}}
-erhalten bleibt.
+Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
+\texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die beim
+Versenden von Verteilernachrichten von VerA.web und Bestätigungsnachrichten der Online-Anmeldung
+als Absenderadresse verwendet wird.
+
+Der Parameter \texttt{mail.smtp.from} setzt die Standard Absendeadresse.
+Mit den Parametern \texttt{mail.smtp.from.ID} können für die Id's der einzelnen
+Mandaten spezielle Absendeadresse gesetzt werden.
+
+\begin{lstdump}{Adresse für einzelne Mandanten setzen}
+# address verification
+mail.smtp.from=「noreply@example.com」
+# to use specific addresses for individual organisational units set
+# property mail.smtp.from.{id} like the following two lines are showing
+#mail.smtp.from.1=「noreply@example-mandant1.com」
+#mail.smtp.from.5=「noreply-mandant5@example.com」
+\end{lstdump}
+
+\ifoa
+
+Die \texttt{subject}- und
+\texttt{content}-Parameter enthalten den Nachrichtenbetreff und
+-inhalt; diese können Sie bei Bedarf anpassen; stellen Sie dabei
+sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
 
 \fi% oa
 
@@ -4066,6 +4111,11 @@ mail.smtp.security=none
 
 # address verification
 mail.smtp.from=「noreply@example.com」
+# to use specific addresses for individual organisational units set
+# property mail.smtp.from.{id} like the following two lines are showing
+#mail.smtp.from.1=「noreply@example-mandant1.com」
+#mail.smtp.from.5=「noreply-mandant5@example.com」
+
 # type can be plain or html
 mail.content.type=「plain」
 mail.subject.de_DE=「VerA.web: Bitte best\u00E4tigen Sie Ihre Registrierung」
