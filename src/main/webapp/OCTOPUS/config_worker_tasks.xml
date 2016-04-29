@@ -1004,7 +1004,7 @@
 			<doTask name="Load"/>
 			<action name="getSearch" worker="PersonListWorker"/>
 			<action name="showList" worker="PersonListWorker"/>
-			<action name="guessMaillinglist" worker="MailinglistWorker"/>
+			<action name="countRecipients" worker="GuestListWorker"/>
 			<response type="velocity" name="mailinglistCreate">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -1036,7 +1036,7 @@
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker" />
 			<action name="showList" worker="GuestListWorker"/>
-			<action name="guessMaillinglist" worker="MailinglistWorker"/>
+			<action name="countRecipients" worker="GuestListWorker"/>
 			<response type="velocity" name="mailinglistCreate">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>

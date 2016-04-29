@@ -19,13 +19,11 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import de.tarent.aa.veraweb.beans.*;
+import de.tarent.aa.veraweb.beans.Doctype;
+import de.tarent.aa.veraweb.beans.GuestSearch;
+import de.tarent.aa.veraweb.beans.Mailinglist;
+import de.tarent.aa.veraweb.beans.MailinglistAddress;
+import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
@@ -34,7 +32,6 @@ import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
-import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
@@ -42,6 +39,12 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.log4j.Logger;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Dieser Octopus-Worker stellt Aktionen zur Verwaltung (erstellen
@@ -53,38 +56,6 @@ import org.apache.log4j.Logger;
 public class MailinglistWorker {
 
 	private static final Logger logger = Logger.getLogger(MailinglistWorker.class);
-
-	/** Octopus-Eingabe-Parameter für {@link #guessMaillinglist(OctopusContext)} */
-	public static final String INPUT_guessMaillinglist[] = {};
-	/** Octopus-Ausgabe-Parameter für {@link #guessMaillinglist(OctopusContext)} */
-	public static final String OUTPUT_guessMaillinglist = "mailinglistParams";
-
-	/**
-	 * Schätzt, wie groß der neue Verteiler werden wird, und
-	 * erweitert die Map <code>mailinglistParam</code> im Content
-	 * um den Key <code>count</code>.
-	 *
-	 * @param cntx Octopus-Context
-	 * @return Map mit dem Key <code>count</code>
-	 * @throws BeanException
-	 * @throws IOException
-	 */
-	public Map guessMaillinglist(OctopusContext cntx) throws BeanException, IOException {
-		Map result = (Map)cntx.contentAsObject("mailinglistParams");
-		if (result == null) result = new HashMap();
-
-		List selection = (List)cntx.contentAsObject("listselection");
-		if (selection != null) {
-			result.put("count", new Integer(selection.size()));
-			// falls nix ausgewählt ist, fängt der js code das ab,
-			// und wenn nix ausgewählt ist, ist ja nix ausgewählt,
-			// dann soll er nicht selber in der datenbank suchen
-
-			// sollte es doch irgendwie zu der ausführung ges codes kommen,
-			// kann ja ruhig in der MAP count=0 stehen, oder?
-		}
-		return result;
-	}
 
 
 	/** Octopus-Eingabe-Parameter für {@link #createMailinglist(OctopusContext, Mailinglist)} */
