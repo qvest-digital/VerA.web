@@ -420,11 +420,12 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      */
     protected int removeSelection(OctopusContext octopusContext, List errors, List selection, TransactionContext transactionContext)
             throws BeanException, IOException {
+        int count = 0;
         try {
             if (octopusContext.requestAsString("select-all") != null && octopusContext.requestAsString("select-all").equals("on")) {
-                deleteAllFilteredGuests(octopusContext, transactionContext);
+                count = deleteAllFilteredGuests(octopusContext, transactionContext);
             } else {
-                deleteSelectedGuests(octopusContext, selection, transactionContext);
+                count = deleteSelectedGuests(octopusContext, selection, transactionContext);
             }
             transactionContext.commit();
         } catch (BeanException e) {
@@ -435,23 +436,28 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             throw new BeanException("Das L\u00f6schen aller zum l\u00f6schen markierten Personen ist fehlgeschlagen.", e);
         }
 
-        return selection.size();
+        return count;
     }
 
-    private void deleteSelectedGuests(OctopusContext octopusContext, List selection, TransactionContext transactionContext) throws SQLException {
+    private int deleteSelectedGuests(OctopusContext octopusContext, List selection, TransactionContext transactionContext) throws SQLException {
         final String ids = DatabaseHelper.listsToIdListString(new List[] { selection });
         DB.insert(transactionContext, DELETE_ALL_STALE_GUEST_DOCTYPES_FORMAT.format(new Object[] { ids }));
         DB.insert(transactionContext, DELETE_ALL_OPTIONAL_DELEGATION_FIELDS_FOR_GUEST.format(new Object[] { ids }));
         DB.insert(transactionContext, DELETE_ALL_STALE_GUESTS_FORMAT.format(new Object[] { ids }));
         DB.insert(transactionContext,
                 BULK_INSERT_CHANGELOG_ENTRIES_FORMAT.format(new Object[] { octopusContext.personalConfig().getLoginname(), ids }));
+
+        return selection.size();
     }
 
-    private void deleteAllFilteredGuests(OctopusContext octopusContext, TransactionContext transactionContext) throws BeanException, IOException {
+    private int deleteAllFilteredGuests(OctopusContext octopusContext, TransactionContext transactionContext) throws BeanException, IOException, SQLException {
         final WhereList whereList = getCurrenGuestFilter(octopusContext);
         final Database database = getDatabase(octopusContext);
+        final int count = database.getCount("Guest").where(whereList).getFirstCellAsInteger();
         final Delete delete = database.getDelete("Guest").where(whereList);
         transactionContext.execute(delete);
+
+        return count;
     }
 
     private WhereList getCurrenGuestFilter(OctopusContext octopusContext) throws BeanException {
