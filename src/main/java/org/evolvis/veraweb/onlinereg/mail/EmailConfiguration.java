@@ -1,5 +1,8 @@
 package org.evolvis.veraweb.onlinereg.mail;
 
+import java.util.Map.Entry;
+import java.util.Set;
+
 import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
 
 /**
@@ -17,10 +20,12 @@ public class EmailConfiguration {
     private String contentType;
     private VworPropertiesReader vworPropertiesReader;
 
-    public EmailConfiguration() {
+    public EmailConfiguration(String currentLanguageKey) {
+        readProperties(currentLanguageKey);
     }
 
-    public EmailConfiguration(String host, Integer port, String security, String username, String password, String from, String subject, String content, String contentType) {
+    public EmailConfiguration(String host, Integer port, String security, String username, String password, String from, String subject,
+            String content, String contentType) {
         this.host = host;
         this.port = port;
         this.security = security;
@@ -32,7 +37,12 @@ public class EmailConfiguration {
         this.contentType = contentType;
     }
 
-    public void readProperties(String currentLanguageKey) {
+    public EmailConfiguration(String currentLanguageKey, VworPropertiesReader propertiesReader) {
+        vworPropertiesReader = propertiesReader;
+        readProperties(currentLanguageKey);
+    }
+
+    private void readProperties(String currentLanguageKey) {
         final VworPropertiesReader propertiesReader = getVworPropertiesReader();
         if (this.host == null) {
             this.host = propertiesReader.getProperty("mail.smtp.host");
@@ -50,6 +60,7 @@ public class EmailConfiguration {
             this.subject = propertiesReader.getProperty("mail.subject." + currentLanguageKey);
             this.content = propertiesReader.getProperty("mail.content." + currentLanguageKey);
         }
+
     }
 
     public String getHost() {
@@ -91,15 +102,19 @@ public class EmailConfiguration {
         return vworPropertiesReader;
     }
 
-    public void setVworPropertiesReader(VworPropertiesReader vworPropertiesReader) {
-        this.vworPropertiesReader = vworPropertiesReader;
-    }
-
     public String getContentType() {
         return contentType;
     }
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+
+    public String getFrom(int fk_orgunit) {
+        final String from = getVworPropertiesReader().getProperty("mail.smtp.from." + fk_orgunit);
+        if (from != null) {
+            return from;
+        }
+        return getFrom();
     }
 }

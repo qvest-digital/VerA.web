@@ -21,7 +21,6 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class EmailConfigurationTest {
 
-    private EmailConfiguration emailConfiguration;
 
     @Mock
     VworPropertiesReader propertiesReader;
@@ -30,16 +29,13 @@ public class EmailConfigurationTest {
     public void setUp() throws Exception {
         when(propertiesReader.getProperty(any(String.class))).thenReturn("42");
 
-        emailConfiguration = new EmailConfiguration();
-        emailConfiguration.setVworPropertiesReader(propertiesReader);
-        emailConfiguration.readProperties("de_DE");
+        
+        
     }
 
     @Test
     public void testReadProperties() throws Exception {
-        // WHEN
-        emailConfiguration.readProperties("de_DE");
-
+         new EmailConfiguration("de_DE",propertiesReader);
         // THEN
         verify(propertiesReader, atLeast(8)).getProperty(any(String.class));
         verify(propertiesReader, atMost(9)).getProperty(any(String.class));
@@ -51,7 +47,7 @@ public class EmailConfigurationTest {
         when(propertiesReader.getProperty("mail.smtp.port")).thenReturn("25");
 
         // WHEN
-        emailConfiguration.readProperties("de_DE");
+        new EmailConfiguration("de_DE",propertiesReader);
 
         // THEN
         verify(propertiesReader, times(9)).getProperty(any(String.class));

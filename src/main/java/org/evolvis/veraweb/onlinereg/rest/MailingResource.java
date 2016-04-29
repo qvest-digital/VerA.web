@@ -82,7 +82,8 @@ public class MailingResource extends AbstractResource {
                 mailDispatcher = new MailDispatcher(emailConfiguration);
             }
             for (final PersonMailinglist recipient : recipients) {
-                final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(emailConfiguration.getFrom(), recipient.getAddress(), subject,
+                final String from = getFrom(recipient);
+                final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(), subject,
                         substitutePlaceholders(text, recipient.getPerson()), files);
                 sb.append(monitor.toString());
             }
@@ -93,6 +94,11 @@ public class MailingResource extends AbstractResource {
             removeAttachmentsFromFilesystem(files);
         }
         return sb.toString();
+    }
+
+    private String getFrom(PersonMailinglist recipient) {
+        
+        return emailConfiguration.getFrom(recipient.getPerson().getFk_orgunit());
     }
 
     private String substitutePlaceholders(final String text, final Person person) {
@@ -137,8 +143,7 @@ public class MailingResource extends AbstractResource {
     }
 
     private EmailConfiguration initEmailConfiguration(final String languageKey) {
-        final EmailConfiguration emailConfiguration = new EmailConfiguration();
-        emailConfiguration.readProperties(languageKey);
+        final EmailConfiguration emailConfiguration = new EmailConfiguration(languageKey);
 
         return emailConfiguration;
     }
