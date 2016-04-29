@@ -52,6 +52,7 @@ import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.log4j.Logger;
+import org.apache.log4j.lf5.viewer.categoryexplorer.CategoryPath;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -150,7 +151,13 @@ public class GuestListWorker extends ListWorkerVeraWeb {
                 whereClause = new RawClause("pk in (" + commaSeparated(selection) + ")");
             }
 
-            final Update update = SQL.Update(database).table("tguest").where(whereClause).update("fk_category", categoryId);
+            Update update0 = SQL.Update(database).table("tguest").where(whereClause);
+            final Update update;
+            if("assign".equals(categoryAssignmentAction) && categoryId !=null){
+                update = update0.update("fk_category", categoryId);                
+            }else {
+                update = update0.update("fk_category", null);
+            }
             update.execute();
             context.commit();
 
