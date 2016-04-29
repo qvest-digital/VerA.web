@@ -33,6 +33,7 @@ import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.WhereList;
@@ -56,6 +57,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -117,28 +119,47 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         final String categoryAssignmentAction = octopusContext.requestAsString("categoryAssignmentAction");
 
         // does the user request categories to be assigned or unassigned?
-        saveGuestWithCategories(octopusContext, categoryAssignmentAction);
+        try {
+            saveGuestWithCategories(octopusContext, categoryAssignmentAction);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void saveGuestWithCategories(OctopusContext octopusContext, final String categoryAssignmentAction) throws BeanException, IOException {
+    private String commaSeparated(Collection<?> elements) {
+        StringBuilder sb = new StringBuilder();
+        boolean comma = false;
+        for (Object element : elements) {
+            if (comma) {
+                sb.append(", ");
+            }
+            comma = true;
+            sb.append(element);
+        }
+        return sb.toString();
+    }
+
+    private void saveGuestWithCategories(OctopusContext octopusContext, final String categoryAssignmentAction)
+            throws BeanException, IOException, SQLException {
         if (categoryAssignmentAction != null && categoryAssignmentAction.length() > 0) {
             final Database database = getDatabase(octopusContext);
             final TransactionContext context = database.getTransactionContext();
             final Integer categoryId = octopusContext.requestAsInteger("categoryAssignmentId");
 
-            final List selection = this.getSelection(octopusContext, this.getCount(octopusContext, database));
-            final Iterator iter = selection.iterator();
-            while (iter.hasNext()) {
-                final Guest guest = (Guest) database.getBean("Guest", (Integer) iter.next(), context);
-                if ("assign".compareTo(categoryAssignmentAction) == 0 && categoryId > 0) {
-                    guest.category = categoryId;
-                } else {
-                    guest.category = null;
-                }
-                database.saveBean(guest, context, false);
-                iter.remove();
+            @SuppressWarnings("unchecked")
+            final List<Integer> selection = this.getSelection(octopusContext, this.getCount(octopusContext, database));
+            final Clause whereClause;
+            if (octopusContext.requestAsString("select-all") != null && octopusContext.requestAsString("select-all").equals("on")) {
+                whereClause = getCurrenGuestFilter(octopusContext);
+            } else {
+                whereClause = new RawClause("pk in (" + commaSeparated(selection) + ")");
             }
+
+            final Update update = SQL.Update(database).table("tguest").where(whereClause).update("fk_category", categoryId);
+            update.execute();
             context.commit();
+
+            // TODO: should we clear the selection?
             octopusContext.setSession("selection" + BEANNAME, selection);
         } else {
             super.saveList(octopusContext);
