@@ -666,6 +666,7 @@
 		var guestsTable = $("table.sortable");
 		var checkboxes = guestsTable.find('input[type="checkbox"]');
 		if (document.getElementById('select-all').checked) {
+			checkboxes.prop('checked', false);
 			checkboxes.prop('disabled', true);
 		} else {
 			checkboxes.prop('disabled', false);
