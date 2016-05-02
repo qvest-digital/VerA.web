@@ -107,56 +107,58 @@ public class GuestExportWorker {
 	 * werden sollen und können.
 	 * </p>
 	 *
-	 * @param cntx OctopusContext
+	 * @param octopusContext OctopusContext
 	 * @param doctypeid Dokumenttyp der exportiert werden soll.
 	 */
-	public Map calc(OctopusContext cntx, Integer doctypeid) throws BeanException, IOException {
-		final Database database = new DatabaseVeraWeb(cntx);
-		final Event event = (Event) cntx.contentAsObject("event");
-		final GuestSearch search = (GuestSearch) cntx.contentAsObject("search");
-		final List selection = (List) cntx.sessionAsObject("selectionGuest");
+	public Map calc(OctopusContext octopusContext, Integer doctypeid) throws BeanException, IOException {
+		final Database database = new DatabaseVeraWeb(octopusContext);
+		final Event event = (Event) octopusContext.contentAsObject("event");
+		final GuestSearch search = (GuestSearch) octopusContext.contentAsObject("search");
+		final List selection = (List) octopusContext.sessionAsObject("selectionGuest");
 
 		if (doctypeid == null) {
-			doctypeid = setDoctypeId(cntx, doctypeid);
+			doctypeid = setDoctypeId(octopusContext, doctypeid);
 		}
-		if (doctypeid == null)
+		if (doctypeid == null) {
 			return null;
-
+		}
 		Integer total = null;
 		Integer available = null;
 
 		if (selection != null && selection.size() > 0) {
 			total = new Integer(selection.size());
-
-			available =
-					database.getCount(
-							database.getCount("GuestDoctype").
-									where(Where.and(
-											Expr.equal("fk_doctype", doctypeid),
-											Expr.in("fk_guest", selection))));
-
+			available = database.getCount(
+				database.getCount("GuestDoctype").
+				where(Where.and(
+					Expr.equal("fk_doctype", doctypeid),
+					Expr.in("fk_guest", selection))
+				)
+			);
 		} else if (event != null && event.id != null && event.id.intValue() != 0) {
 			final WhereList where = new WhereList();
 			search.addGuestListFilter(where);
 
 			total = database.getCount(
-					database.getCount("Guest").
-							where(where));
+				database.getCount("Guest").
+				where(where)
+			);
 
-			available =
-					database.getCount(
-							database.getCount("GuestDoctype").
-									join("veraweb.tguest", "fk_guest", "tguest.pk").
-									where(Where.and(where, Expr.equal("fk_doctype", doctypeid))));
+			available = database.getCount(
+				database.getCount("GuestDoctype").
+				join("veraweb.tguest", "fk_guest", "tguest.pk").
+				where(
+					Where.and(where, Expr.equal("fk_doctype", doctypeid))
+				)
+			);
 		}
 
+		octopusContext.setContent("extension", ExportHelper.getExtension(SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_CSV_DOCUMENT).getFileExtension()));
 
-		cntx.setContent("extension", ExportHelper.getExtension(SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_CSV_DOCUMENT).getFileExtension()));
 		final Map result = new HashMap();
 		result.put("doctype", doctypeid);
 		result.put("total", total);
 		result.put("available", available);
-		result.put("sessionId", cntx.requestAsString(TcRequest.PARAM_SESSION_ID));
+		result.put("sessionId", octopusContext.requestAsString(TcRequest.PARAM_SESSION_ID));
 		return result;
 	}
 
