@@ -33,6 +33,7 @@ import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.SQL;
+import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.WhereList;
@@ -51,11 +52,13 @@ import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.log4j.Logger;
+import org.apache.log4j.lf5.viewer.categoryexplorer.CategoryPath;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -117,28 +120,53 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         final String categoryAssignmentAction = octopusContext.requestAsString("categoryAssignmentAction");
 
         // does the user request categories to be assigned or unassigned?
-        saveGuestWithCategories(octopusContext, categoryAssignmentAction);
+        try {
+            saveGuestWithCategories(octopusContext, categoryAssignmentAction);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void saveGuestWithCategories(OctopusContext octopusContext, final String categoryAssignmentAction) throws BeanException, IOException {
+    private String commaSeparated(Collection<?> elements) {
+        StringBuilder sb = new StringBuilder();
+        boolean comma = false;
+        for (Object element : elements) {
+            if (comma) {
+                sb.append(", ");
+            }
+            comma = true;
+            sb.append(element);
+        }
+        return sb.toString();
+    }
+
+    private void saveGuestWithCategories(OctopusContext octopusContext, final String categoryAssignmentAction)
+            throws BeanException, IOException, SQLException {
         if (categoryAssignmentAction != null && categoryAssignmentAction.length() > 0) {
             final Database database = getDatabase(octopusContext);
             final TransactionContext context = database.getTransactionContext();
             final Integer categoryId = octopusContext.requestAsInteger("categoryAssignmentId");
 
-            final List selection = this.getSelection(octopusContext, this.getCount(octopusContext, database));
-            final Iterator iter = selection.iterator();
-            while (iter.hasNext()) {
-                final Guest guest = (Guest) database.getBean("Guest", (Integer) iter.next(), context);
-                if ("assign".compareTo(categoryAssignmentAction) == 0 && categoryId > 0) {
-                    guest.category = categoryId;
-                } else {
-                    guest.category = null;
-                }
-                database.saveBean(guest, context, false);
-                iter.remove();
+            @SuppressWarnings("unchecked")
+            final List<Integer> selection = this.getSelection(octopusContext, this.getCount(octopusContext, database));
+            final Clause whereClause;
+            if (octopusContext.requestAsString("select-all") != null && octopusContext.requestAsString("select-all").equals("on")) {
+                whereClause = getCurrenGuestFilter(octopusContext);
+            } else {
+                whereClause = new RawClause("pk in (" + commaSeparated(selection) + ")");
             }
+
+            Update update0 = SQL.Update(database).table("tguest").where(whereClause);
+            final Update update;
+            if("assign".equals(categoryAssignmentAction) && categoryId !=null){
+                update = update0.update("fk_category", categoryId);                
+            }else {
+                update = update0.update("fk_category", null);
+            }
+            update.execute();
             context.commit();
+
+            // TODO: should we clear the selection?
             octopusContext.setSession("selection" + BEANNAME, selection);
         } else {
             super.saveList(octopusContext);
@@ -170,16 +198,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         if (result == null) {
             result = new HashMap();
         }
-        if (octopusContext.requestAsString("select-all") != null && octopusContext.requestAsString("select-all").equals("on")) {
-            final WhereList currenGuestFilter = getCurrenGuestFilter(octopusContext);
-            final Database database = getDatabase(octopusContext);
-            final Select select = database.getCount("Guest").where(currenGuestFilter);
-            countGuests = database.getCount(select);
-        } else {
-
-            List selection = (List) octopusContext.contentAsObject("listselection");
-            countGuests = selection.size();
-        }
+        countGuests = countSelectedGuests(octopusContext);
 
         if (countGuests != null) {
             result.put("count", countGuests);
@@ -191,6 +210,28 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             // kann ja ruhig in der MAP count=0 stehen, oder?
         }
         return result;
+    }
+
+    /**
+     * Octopus-Eingabe-Parameter für {@link #countRecipients(OctopusContext)}
+     */
+    public static final String INPUT_countSelectedGuests[] = {};
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #countRecipients(OctopusContext)}
+     */
+    public static final String OUTPUT_countSelectedGuests = "count";
+    public Integer countSelectedGuests(OctopusContext octopusContext) throws BeanException, IOException {
+        final Integer countGuests;
+        if (octopusContext.requestAsString("select-all") != null && octopusContext.requestAsString("select-all").equals("on")) {
+            final WhereList currenGuestFilter = getCurrenGuestFilter(octopusContext);
+            final Database database = getDatabase(octopusContext);
+            final Select select = database.getCount("Guest").where(currenGuestFilter);
+            countGuests = database.getCount(select);
+        } else {
+
+            countGuests = getSelection(octopusContext, null).size();
+        }
+        return countGuests;
     }
 
     protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
