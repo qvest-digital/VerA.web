@@ -1132,12 +1132,12 @@ wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Voulez-vous a
 Vous souhaitez attribuer \u00E0 cette personne ou cet invit\u00E9 de la cat\u00E9gorie s\u00E9lectionn\u00E9e?
 eswurdekeinekategoriezugeordnet=Il \u00E9tait associ\u00E9 \u00E0 aucune cat\u00E9gorie
 wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen=Voulez-vous assigner la cat\u00E9gorie s\u00E9l\u00E9ctionn\u00E9e aux personnes
-Vous voulez supprimer ${count} les personnes ou l\u2019invit\u00E9 de la cat\u00E9gorie s\u00E9lectionn\u00E9e ?
+Vous voulez supprimer %d les personnes ou l\u2019invit\u00E9 de la cat\u00E9gorie s\u00E9lectionn\u00E9e ?
 eswurdenkeinekategorienzugeordnet=Aucune cat\u00E9gorie n\u2019\u00E9tait associ\u00E9s
 eswurdenkeinekategoriengefunden=Aucune cat\u00E9gorie trouv\u00E9e
 wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen=Voulez-vous supprimer cette personne ou cette invit\u00E9 \u00E0 partir de la cat\u00E9gorie s\u00E9lectionn\u00E9e
 eswurdekeinekategorieentfernt=Il n\u2019y a aucune cat\u00E9gorie enlev\u00E9.
-wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen=Vous voulez supprimer ${count} personnes ou invit\u00E9es de la cat\u00E9gorie s\u00E9lectionn\u00E9e ?
+wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen=Vous voulez supprimer %d personnes ou invit\u00E9es de la cat\u00E9gorie s\u00E9lectionn\u00E9e ?
 eswurdenkeinekategorienentfernt=Pas de cat\u00E9gories ont \u00E9t\u00E9 supprim\u00E9es.
 zuweisen=Assigner
 waehlensieeinekategorieauswelchesie=S\u00E9lectionner une cat\u00E9gorie que vous souhaitez
@@ -1145,7 +1145,7 @@ moechten=
 alleentfernen=Supprimer tous
 siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=Vous avez configur\u00E9 aucun les cat\u00E9gories. Vous pouvez d\u00E9finir dans le panneau d\u2019administration en vertu de l\u2019article.
 definieren=
-siehabenpersonenausgewaehltabhaengigvonderanzahlderausgewaehltenpersonenkanndieaktioneinegewissezeitinanspruchnehmen=Vous avez s\u00E9lectionn\u00E9 ${count} personne(s). Selon le nombre de personnes s\u00E9lectionn\u00E9es, l\u2019action peut prendre un certain temps.
+siehabenpersonenausgewaehltabhaengigvonderanzahlderausgewaehltenpersonenkanndieaktioneinegewissezeitinanspruchnehmen=Vous avez s\u00E9lectionn\u00E9 %d personne(s). Selon le nombre de personnes s\u00E9lectionn\u00E9es, l\u2019action peut prendre un certain temps.
 waehlensiebittezunaechsteinenarbeitsbereichaus=Veuillez d\u2019abord s\u00E9lectionner un espace de travail.
 wollensiediesepersonbzwdiesengastdenausgewaehltenarbeitsbereichzuordnen=\u00C0 attribuer \u00E0 cette personne ou cet invit\u00E9 de l\u2019espace de travail s\u00E9lectionn\u00E9?
 eswurdekeinarbeitsbereichzugeordnet=Il a \u00E9t\u00E9 associ\u00E9 aucun espace de travail.
@@ -1153,9 +1153,9 @@ wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen=\u0
 eswurdenkeinearbeitsbereichzugeordnet=Aucun espaces de travail n\u2019\u00E9taient associ\u00E9s
 wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben=Souhaitez vous dissocier de cette personne ou cet invit\u00E9 \u00E0 l\u2019espace de travail s\u00E9lectionn\u00E9?
 eswurdekeinarbeitsbereichaufgehoben=Il \u00E9tait \u00E0 pr\u00E9sent lev\u00E9 pas un espace de travail
-wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Wollen Sie die Zuordnung von ${count} Personen bzw. G\u00E4sten zum ausgew\u00E4hlten Arbeitsbereich aufheben
+wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Wollen Sie die Zuordnung von %d Personen bzw. G\u00E4sten zum ausgew\u00E4hlten Arbeitsbereich aufheben
 wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Vous souhaitez attribuer \u00E0 cette personne ou cet invit\u00E9 de l\u2019espace de travail s\u00E9lectionn\u00E9?
-wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=\u00C0 attribuer ${count} personnes ou invit\u00E9s de l\u2019espace de travail s\u00E9lectionn\u00E9?
+wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=\u00C0 attribuer %d personnes ou invit\u00E9s de l\u2019espace de travail s\u00E9lectionn\u00E9?
 waehlensieeinenarbeitsbereichauswelchensie=S\u00E9lectionner un espace de travail, qui vous
 siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=Vous n\u2019avez pas configur\u00E9 des espaces de travail. Vous pouvez le faire dans le panneau d\u2019administration en vertu de l\u2019article
 administrationallestellvertretungenimmandanten=Administration - tous les d\u00E9l\u00E9gu\u00E9s dans le client
