@@ -196,7 +196,7 @@
 
 			<div class="flexContainer marginTop30">
 				<div style="" class="flexItem inlineInput">
-					<label><input type="checkbox" title="${placeholderWithTranslation.alledemarkieren}" id="select-all" name="select-all" style="vertical-align: baseline;"> ${placeholderWithTranslation.GENERIC_SELECT_ALL} <span>($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_PLURAL} ${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})</span>
+					<label><input type="checkbox" title="${placeholderWithTranslation.alledemarkieren}" id="select-all" name="select-all" style="vertical-align: baseline;" onclick="toggleSelectAll()"> ${placeholderWithTranslation.GENERIC_SELECT_ALL} <span>($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_PLURAL} ${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})</span>
 					</label>
 				</div>
 
@@ -661,6 +661,16 @@
 			window.location.href = '${paths.staticWeb}do/ShowExportGuest';
 		});
 	});
+
+	var toggleSelectAll = function() {
+		var guestsTable = $("table.sortable");
+		var checkboxes = guestsTable.find('input[type="checkbox"]');
+		if (document.getElementById('select-all').checked) {
+			checkboxes.prop('disabled', true);
+		} else {
+			checkboxes.prop('disabled', false);
+		}
+	}
 
 </script>
 
