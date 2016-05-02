@@ -198,16 +198,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         if (result == null) {
             result = new HashMap();
         }
-        if (octopusContext.requestAsString("select-all") != null && octopusContext.requestAsString("select-all").equals("on")) {
-            final WhereList currenGuestFilter = getCurrenGuestFilter(octopusContext);
-            final Database database = getDatabase(octopusContext);
-            final Select select = database.getCount("Guest").where(currenGuestFilter);
-            countGuests = database.getCount(select);
-        } else {
-
-            List selection = (List) octopusContext.contentAsObject("listselection");
-            countGuests = selection.size();
-        }
+        countGuests = countSelectedGuests(octopusContext);
 
         if (countGuests != null) {
             result.put("count", countGuests);
@@ -219,6 +210,28 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             // kann ja ruhig in der MAP count=0 stehen, oder?
         }
         return result;
+    }
+
+    /**
+     * Octopus-Eingabe-Parameter für {@link #countRecipients(OctopusContext)}
+     */
+    public static final String INPUT_countSelectedGuests[] = {};
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #countRecipients(OctopusContext)}
+     */
+    public static final String OUTPUT_countSelectedGuests = "count";
+    public Integer countSelectedGuests(OctopusContext octopusContext) throws BeanException, IOException {
+        final Integer countGuests;
+        if (octopusContext.requestAsString("select-all") != null && octopusContext.requestAsString("select-all").equals("on")) {
+            final WhereList currenGuestFilter = getCurrenGuestFilter(octopusContext);
+            final Database database = getDatabase(octopusContext);
+            final Select select = database.getCount("Guest").where(currenGuestFilter);
+            countGuests = database.getCount(select);
+        } else {
+
+            countGuests = getSelection(octopusContext, null).size();
+        }
+        return countGuests;
     }
 
     protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
