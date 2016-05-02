@@ -41,7 +41,7 @@
                             '${placeholderWithTranslation.GENERIC_CANCEL}'
                             );
                         #else
-                            showAllocateAssign('${placeholderWithTranslation.wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen}?',
+                            showAllocateAssign('${helper.l10n("wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen",count)}?',
                             function () { // Ja
                                 var form = window.opener.document.forms[ "formlist" ];
                                  var input = window.document.createElement('input');
@@ -71,13 +71,14 @@
                          form.appendChild(input);
                          form.submit();
                     }, function () { //nein
+                    	closePopup();
                         showSuccess('${placeholderWithTranslation.eswurdekeinekategorieentfernt}');
                     },
                     '${placeholderWithTranslation.GENERIC_DELETE}',
                     '${placeholderWithTranslation.GENERIC_CANCEL}');
                 #else
-                
-                    showAllocateRemove('${placeholderWithTranslation.wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen}?',
+                	// count = ${count}
+                    showAllocateRemove('${helper.l10n("wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen", $count)}?',
                     function () { // Ja
                         var form = window.opener.document.forms[ "formlist" ];
                          var input = window.document.createElement('input');
@@ -87,6 +88,7 @@
                          form.appendChild(input);
                          form.submit();
                     }, function () { //nein
+                    	closePopup();
                         showSuccess('${placeholderWithTranslation.eswurdenkeinekategorienentfernt}');
                     },
                     '${placeholderWithTranslation.GENERIC_DELETE}',
@@ -200,15 +202,8 @@
 	            	<h1></h1>
            	        <script type="text/javascript">$(function(){
            	        	showRemoveCategory();
-           	        	console.log("yay2");
            	        });</script>
-	            	<!--
-	            	<h1>${placeholderWithTranslation.waehlensieeinekategorieauswelchesie} ${placeholderWithTranslation.GENERIC_DELETE} ${placeholderWithTranslation.moechten}:</h1>
-	            	<div class="textRight marginTop5" id="buttonPanel-bottom">
-	            	<input id="2" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.GENERIC_DELETE}" onClick="showRemoveCategory();">
-	            	<input id="0" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.abbrechen}" onClick="restore();closePopup();">
-	            	</div>
-	            	-->
+	            	
 				#end  
             </div> 
         </form>
