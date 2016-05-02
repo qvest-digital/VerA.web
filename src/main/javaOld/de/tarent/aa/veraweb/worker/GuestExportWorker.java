@@ -117,19 +117,19 @@ public class GuestExportWorker {
 	 */
 	public Map calc(OctopusContext cntx, Integer doctypeid) throws BeanException, IOException {
 		final Database database = new DatabaseVeraWeb(cntx);
-        final Event event = (Event)cntx.contentAsObject("event");
-        final GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
-        final List selection = (List)cntx.sessionAsObject("selectionGuest");
+		final Event event = (Event) cntx.contentAsObject("event");
+		final GuestSearch search = (GuestSearch) cntx.contentAsObject("search");
+		final List selection = (List) cntx.sessionAsObject("selectionGuest");
 
 		if (doctypeid == null) {
-            doctypeid = setDoctypeId(cntx, doctypeid);
+			doctypeid = setDoctypeId(cntx, doctypeid);
 		}
 		if (doctypeid == null)
 			return null;
-        final Doctype doctype = (Doctype)
+		final Doctype doctype = (Doctype)
 				database.getBean("Doctype",
-				database.getSelect("Doctype").
-				where(Expr.equal("pk", doctypeid)));
+						database.getSelect("Doctype").
+								where(Expr.equal("pk", doctypeid)));
 
 		Integer total = null;
 		Integer available = null;
@@ -139,29 +139,29 @@ public class GuestExportWorker {
 
 			available =
 					database.getCount(
-					database.getCount("GuestDoctype").
-					where(Where.and(
-							Expr.equal("fk_doctype", doctypeid),
-							Expr.in("fk_guest", selection))));
+							database.getCount("GuestDoctype").
+									where(Where.and(
+											Expr.equal("fk_doctype", doctypeid),
+											Expr.in("fk_guest", selection))));
 
 		} else if (event != null && event.id != null && event.id.intValue() != 0) {
-            final WhereList where = new WhereList();
+			final WhereList where = new WhereList();
 			search.addGuestListFilter(where);
 
 			total = database.getCount(
 					database.getCount("Guest").
-					where(where));
+							where(where));
 
 			available =
 					database.getCount(
-					database.getCount("GuestDoctype").
-					join("veraweb.tguest", "fk_guest", "tguest.pk").
-					where(Where.and(where, Expr.equal("fk_doctype", doctypeid))));
+							database.getCount("GuestDoctype").
+									join("veraweb.tguest", "fk_guest", "tguest.pk").
+									where(Where.and(where, Expr.equal("fk_doctype", doctypeid))));
 		}
 
 		cntx.setContent("doctype", doctype);
 		cntx.setContent("extension", ExportHelper.getExtension(SpreadSheetFactory.getSpreadSheet(doctype.format).getFileExtension()));
-        final Map result = new HashMap();
+		final Map result = new HashMap();
 		result.put("doctype", doctypeid);
 		result.put("total", total);
 		result.put("available", available);
@@ -189,22 +189,22 @@ public class GuestExportWorker {
 	 * @throws TransformerException
 	 */
 	public Map export(OctopusContext cntx, Integer doctypeid) throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
-        final Database database = new DatabaseVeraWeb(cntx);
-        final Event event = (Event)cntx.contentAsObject("event");
-        final GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
-        final List selection = (List)cntx.sessionAsObject("selectionGuest");
-        final Doctype doctype = (Doctype)database.getBean("Doctype", doctypeid);
+		final Database database = new DatabaseVeraWeb(cntx);
+		final Event event = (Event) cntx.contentAsObject("event");
+		final GuestSearch search = (GuestSearch) cntx.contentAsObject("search");
+		final List selection = (List) cntx.sessionAsObject("selectionGuest");
+		final Doctype doctype = (Doctype) database.getBean("Doctype", doctypeid);
 
 		// Spreadsheet öffnen
 		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(doctype.format);
 		spreadSheet.init();
-        final String fileExtension = spreadSheet.getFileExtension();
-        final String filename = OctopusHelper.getFilename(cntx, fileExtension, "export." + fileExtension);
+		final String fileExtension = spreadSheet.getFileExtension();
+		final String filename = OctopusHelper.getFilename(cntx, fileExtension, "export." + fileExtension);
 
 		if (logger.isInfoEnabled()) {
-            logger.info("Exportiere G\u00e4steliste. (Dateiname: '" + filename + "'; Dokumenttyp: #" + doctype.id
-                    + "; Format: '" + spreadSheet.getClass().getName() + "')");
-        }
+			logger.info("Exportiere G\u00e4steliste. (Dateiname: '" + filename + "'; Dokumenttyp: #" + doctype.id
+					+ "; Format: '" + spreadSheet.getClass().getName() + "')");
+		}
 
 		// Tabelle öffnen und erste Zeile schreiben
 		spreadSheet.openTable("Gäste", 65);
@@ -213,13 +213,13 @@ public class GuestExportWorker {
 		spreadSheet.closeRow();
 
 		// Zusatzinformationen
-        final Map data = new HashMap();
+		final Map data = new HashMap();
 		data.put("doctype", doctype.name);
-        final String withHost = (doctype.host != null && doctype.host.booleanValue()) ? "" :
+		final String withHost = (doctype.host != null && doctype.host.booleanValue()) ? "" :
 				"(tguest.ishost IS NULL OR tguest.ishost = 0) AND ";
 
 		// Export-Select zusammenbauen
-        final Select select = database.getSelect("GuestDoctype");
+		final Select select = database.getSelect("GuestDoctype");
 		select.select("tguest.*");
 		select.selectAs("CASE WHEN orderno IS NOT NULL THEN orderno ELSE orderno_p END", "someorderno");
 
@@ -242,7 +242,7 @@ public class GuestExportWorker {
 			select.join(new Join(Join.INNER, "veraweb.tguest", new RawClause(withHost +
 					"tguest_doctype.fk_guest = tguest.pk AND tguest_doctype.fk_doctype = " + doctype.id)));
 
-            final WhereList list = new WhereList();
+			final WhereList list = new WhereList();
 			search.addGuestListFilter(list);
 			select.where(list);
 		} else {
@@ -279,7 +279,7 @@ public class GuestExportWorker {
 		select.selectAs("c2.rgb", "color2");
 
 		// Sortierung erstellen
-        final List order = new ArrayList();
+		final List order = new ArrayList();
 		order.add("tguest.ishost");
 		order.add("DESC");
 		GuestReportWorker.setSortOrder(order, cntx.requestAsString("sort1"));
@@ -290,7 +290,7 @@ public class GuestExportWorker {
 
 		Location location = null;
 		if (event.location != null) {
-			location = (Location)database.getBean("Location", event.location);
+			location = (Location) database.getBean("Location", event.location);
 		}
 
 		// Export-Select ausführen
@@ -302,33 +302,33 @@ public class GuestExportWorker {
 		// SpreadSheet speichern
 		if (logger.isInfoEnabled())
 			logger.info("Gebe G\u00e4steliste als Download zur\u00fcck.");
-        final PipedInputStream pis = new PipedInputStream();
-        final PipedOutputStream pos = new PipedOutputStream(pis);
-        new Thread(new Runnable() {
-        	public void run() {
-        		if (logger.isDebugEnabled())
-        			logger.debug("G\u00e4stelisten-Export: Starte das Speichern eines Spreadsheets.");
-        		try {
+		final PipedInputStream pis = new PipedInputStream();
+		final PipedOutputStream pos = new PipedOutputStream(pis);
+		new Thread(new Runnable() {
+			public void run() {
+				if (logger.isDebugEnabled())
+					logger.debug("G\u00e4stelisten-Export: Starte das Speichern eines Spreadsheets.");
+				try {
 					spreadSheet.save(pos);
 				} catch (Throwable t) {
 					logger.error("Fehler beim Erstellen des Exports aufgetreten.", t);
-        			// This will force a log output.
-        			t.printStackTrace(System.out);
-        			t.printStackTrace(System.err);
+					// This will force a log output.
+					t.printStackTrace(System.out);
+					t.printStackTrace(System.err);
 				} finally {
 					try {
 						pos.close();
 					} catch (IOException e) {
-                        // TODO
+						// TODO
 					}
 				}
-        		if (logger.isDebugEnabled())
-        			logger.debug("G\u00e4stelisten-Export: Beende das Speichern eines Spreadsheets.");
-        	}
-        }).start();
+				if (logger.isDebugEnabled())
+					logger.debug("G\u00e4stelisten-Export: Beende das Speichern eines Spreadsheets.");
+			}
+		}).start();
 
 		// Stream-Informationen zurück geben
-        final Map stream = new HashMap();
+		final Map stream = new HashMap();
 		stream.put(TcBinaryResponseEngine.PARAM_TYPE, TcBinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
 		stream.put(TcBinaryResponseEngine.PARAM_FILENAME, ExportHelper.getFilename(filename));
 		stream.put(TcBinaryResponseEngine.PARAM_MIMETYPE, ExportHelper.getContentType(spreadSheet.getContentType()));
