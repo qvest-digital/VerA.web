@@ -670,7 +670,7 @@
 		} else {
 			checkboxes.prop('disabled', false);
 		}
-	}
+	};
 
 </script>
 
