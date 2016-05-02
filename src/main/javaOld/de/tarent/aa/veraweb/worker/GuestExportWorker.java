@@ -122,18 +122,12 @@ public class GuestExportWorker {
 		if (doctypeid == null) {
 			return null;
 		}
+
 		Integer total = null;
 		Integer available = null;
 
 		if (selection != null && selection.size() > 0) {
 			total = new Integer(selection.size());
-			available = database.getCount(
-				database.getCount("GuestDoctype").
-				where(Where.and(
-					Expr.equal("fk_doctype", doctypeid),
-					Expr.in("fk_guest", selection))
-				)
-			);
 		} else if (event != null && event.id != null && event.id.intValue() != 0) {
 			final WhereList where = new WhereList();
 			search.addGuestListFilter(where);
@@ -142,16 +136,7 @@ public class GuestExportWorker {
 				database.getCount("Guest").
 				where(where)
 			);
-
-			available = database.getCount(
-				database.getCount("GuestDoctype").
-				join("veraweb.tguest", "fk_guest", "tguest.pk").
-				where(
-					Where.and(where, Expr.equal("fk_doctype", doctypeid))
-				)
-			);
 		}
-
 		octopusContext.setContent("extension", ExportHelper.getExtension(SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_CSV_DOCUMENT).getFileExtension()));
 
 		final Map result = new HashMap();
