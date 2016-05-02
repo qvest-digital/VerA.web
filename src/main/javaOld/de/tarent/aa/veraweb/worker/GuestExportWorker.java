@@ -112,60 +112,66 @@ public class GuestExportWorker {
 	 * werden sollen und können.
 	 * </p>
 	 *
-	 * @param cntx OctopusContext
+	 * @param octopusContext OctopusContext
 	 * @param doctypeid Dokumenttyp der exportiert werden soll.
 	 */
-	public Map calc(OctopusContext cntx, Integer doctypeid) throws BeanException, IOException {
-		final Database database = new DatabaseVeraWeb(cntx);
-		final Event event = (Event) cntx.contentAsObject("event");
-		final GuestSearch search = (GuestSearch) cntx.contentAsObject("search");
-		final List selection = (List) cntx.sessionAsObject("selectionGuest");
+	public Map calc(OctopusContext octopusContext, Integer doctypeid) throws BeanException, IOException {
+		final Database database = new DatabaseVeraWeb(octopusContext);
+		final Event event = (Event) octopusContext.contentAsObject("event");
+		final GuestSearch search = (GuestSearch) octopusContext.contentAsObject("search");
+		final List selection = (List) octopusContext.sessionAsObject("selectionGuest");
 
 		if (doctypeid == null) {
-			doctypeid = setDoctypeId(cntx, doctypeid);
+			doctypeid = setDoctypeId(octopusContext, doctypeid);
 		}
-		if (doctypeid == null)
+		if (doctypeid == null) {
 			return null;
-		final Doctype doctype = (Doctype)
-				database.getBean("Doctype",
-						database.getSelect("Doctype").
-								where(Expr.equal("pk", doctypeid)));
+		}
+		final Doctype doctype = (Doctype) database.getBean("Doctype",
+			database.getSelect("Doctype").
+			where(
+				Expr.equal("pk", doctypeid)
+			)
+		);
 
 		Integer total = null;
 		Integer available = null;
 
 		if (selection != null && selection.size() > 0) {
 			total = new Integer(selection.size());
-
-			available =
-					database.getCount(
-							database.getCount("GuestDoctype").
-									where(Where.and(
-											Expr.equal("fk_doctype", doctypeid),
-											Expr.in("fk_guest", selection))));
-
+			available = database.getCount(
+				database.getCount("GuestDoctype").
+				where(Where.and(
+					Expr.equal("fk_doctype", doctypeid),
+					Expr.in("fk_guest", selection))
+				)
+			);
 		} else if (event != null && event.id != null && event.id.intValue() != 0) {
 			final WhereList where = new WhereList();
 			search.addGuestListFilter(where);
 
 			total = database.getCount(
-					database.getCount("Guest").
-							where(where));
+				database.getCount("Guest").
+				where(where)
+			);
 
-			available =
-					database.getCount(
-							database.getCount("GuestDoctype").
-									join("veraweb.tguest", "fk_guest", "tguest.pk").
-									where(Where.and(where, Expr.equal("fk_doctype", doctypeid))));
+			available = database.getCount(
+				database.getCount("GuestDoctype").
+				join("veraweb.tguest", "fk_guest", "tguest.pk").
+				where(
+					Where.and(where, Expr.equal("fk_doctype", doctypeid))
+				)
+			);
 		}
 
-		cntx.setContent("doctype", doctype);
-		cntx.setContent("extension", ExportHelper.getExtension(SpreadSheetFactory.getSpreadSheet(doctype.format).getFileExtension()));
+		octopusContext.setContent("doctype", doctype);
+		octopusContext.setContent("extension", ExportHelper.getExtension(SpreadSheetFactory.getSpreadSheet(doctype.format).getFileExtension()));
+
 		final Map result = new HashMap();
 		result.put("doctype", doctypeid);
 		result.put("total", total);
 		result.put("available", available);
-		result.put("sessionId", cntx.requestAsString(TcRequest.PARAM_SESSION_ID));
+		result.put("sessionId", octopusContext.requestAsString(TcRequest.PARAM_SESSION_ID));
 		return result;
 	}
 
@@ -178,28 +184,26 @@ public class GuestExportWorker {
 	 * falls dies nicht der Fall ist alle Gäste der übergebenen Veranstaltung.
 	 * </p>
 	 *
-	 * @param cntx OctopusContext
+	 * @param octopusContext OctopusContext
 	 * @param doctypeid Dokumenttyp-ID der exportiert werden soll.
 	 * @return Map mit Stream-Informationen
 	 * @throws BeanException
 	 * @throws IOException
-	 * @throws ParserConfigurationException
 	 * @throws FactoryConfigurationError
 	 * @throws TransformerFactoryConfigurationError
-	 * @throws TransformerException
 	 */
-	public Map export(OctopusContext cntx, Integer doctypeid) throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
-		final Database database = new DatabaseVeraWeb(cntx);
-		final Event event = (Event) cntx.contentAsObject("event");
-		final GuestSearch search = (GuestSearch) cntx.contentAsObject("search");
-		final List selection = (List) cntx.sessionAsObject("selectionGuest");
+	public Map export(OctopusContext octopusContext, Integer doctypeid) throws BeanException, IOException, FactoryConfigurationError, TransformerFactoryConfigurationError {
+		final Database database = new DatabaseVeraWeb(octopusContext);
+		final Event event = (Event) octopusContext.contentAsObject("event");
+		final GuestSearch search = (GuestSearch) octopusContext.contentAsObject("search");
+		final List selection = (List) octopusContext.sessionAsObject("selectionGuest");
 		final Doctype doctype = (Doctype) database.getBean("Doctype", doctypeid);
 
 		// Spreadsheet öffnen
 		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(doctype.format);
 		spreadSheet.init();
 		final String fileExtension = spreadSheet.getFileExtension();
-		final String filename = OctopusHelper.getFilename(cntx, fileExtension, "export." + fileExtension);
+		final String filename = OctopusHelper.getFilename(octopusContext, fileExtension, "export." + fileExtension);
 
 		if (logger.isInfoEnabled()) {
 			logger.info("Exportiere G\u00e4steliste. (Dateiname: '" + filename + "'; Dokumenttyp: #" + doctype.id
@@ -209,7 +213,7 @@ public class GuestExportWorker {
 		// Tabelle öffnen und erste Zeile schreiben
 		spreadSheet.openTable("Gäste", 65);
 		spreadSheet.openRow();
-		exportHeader(spreadSheet, cntx, event);
+		exportHeader(spreadSheet, octopusContext, event);
 		spreadSheet.closeRow();
 
 		// Zusatzinformationen
@@ -250,7 +254,7 @@ public class GuestExportWorker {
 			throw new BeanException("Konnte G\u00e4steliste nicht exportieren.");
 		}
 
-		WorkerFactory.getGuestListWorker(cntx).getSums(database, data, search, selection);
+		WorkerFactory.getGuestListWorker(octopusContext).getSums(database, data, search, selection);
 
 		select.joinLeftOuter("veraweb.tperson", "tperson.pk", "tguest.fk_person");
 		select.select("tperson.lastname_a_e1");
@@ -282,9 +286,9 @@ public class GuestExportWorker {
 		final List order = new ArrayList();
 		order.add("tguest.ishost");
 		order.add("DESC");
-		GuestReportWorker.setSortOrder(order, cntx.requestAsString("sort1"));
-		GuestReportWorker.setSortOrder(order, cntx.requestAsString("sort2"));
-		GuestReportWorker.setSortOrder(order, cntx.requestAsString("sort3"));
+		GuestReportWorker.setSortOrder(order, octopusContext.requestAsString("sort1"));
+		GuestReportWorker.setSortOrder(order, octopusContext.requestAsString("sort2"));
+		GuestReportWorker.setSortOrder(order, octopusContext.requestAsString("sort3"));
 		select.orderBy(DatabaseHelper.getOrder(order));
 
 
@@ -294,7 +298,7 @@ public class GuestExportWorker {
 		}
 
 		// Export-Select ausführen
-		exportSelect(spreadSheet, database, event, location, doctype, search, select, data, cntx);
+		exportSelect(spreadSheet, database, event, location, doctype, search, select, data, octopusContext);
 
 		// Tabelle schließen
 		spreadSheet.closeTable();
