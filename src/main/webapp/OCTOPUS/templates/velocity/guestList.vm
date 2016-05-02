@@ -301,7 +301,7 @@
 				}
 
 				function unassignCategories() {
-					selectPersonCategory( "${paths.staticWeb}do/popupUnassignGuestCategory?count=" + selectedCount + "&eventId=" + ${event.id} );
+					selectPersonCategory( "${paths.staticWeb}do/popupUnassignGuestCategory?count=" + selectedCount + "&eventId=" + ${event.id}+"&select-all="+$("#select-all").val() );
 				}
 
 				function assignCategories() {

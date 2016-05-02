@@ -1620,6 +1620,8 @@
 			<doTask name="Load"/>
 			<action name="getAll" worker="CategorieWorker"/>
 			<param name="assignmentAction" value="assign"/>
+			<action name="countSelectedGuests" worker="GuestListWorker"/>
+			
 			<response type="velocity" name="popupSelectCategory">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -1635,8 +1637,9 @@
 				Zeigt ein Popup zur Auswahl einer Kategorie an.
 			</description>
 			<doTask name="Load"/>
-			<action name="getAll" worker="CategorieWorker"/>
+<!-- 			<action name="getAll" worker="CategorieWorker"/> -->
 			<param name="assignmentAction" value="unassign"/>
+			<action name="countSelectedGuests" worker="GuestListWorker"/>
 			<response type="velocity" name="popupSelectCategory">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
