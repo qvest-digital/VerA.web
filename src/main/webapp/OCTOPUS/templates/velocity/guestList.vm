@@ -198,7 +198,20 @@
 			<div class="flexContainer marginTop30">
 
 				<div style="" class="flexItem inlineInput">
-					<label><input type="checkbox" title="${placeholderWithTranslation.alledemarkieren}" id="select-all" name="select-all" style="vertical-align: baseline;" onclick="toggleSelectAll()"> ${placeholderWithTranslation.GENERIC_SELECT_ALL} <span>($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_PLURAL} ${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})</span>
+					<label><input type="checkbox" title="${placeholderWithTranslation.alledemarkieren}" id="select-all" name="select-all" style="vertical-align: baseline;" onclick="toggleSelectAll()"> ${placeholderWithTranslation.GENERIC_SELECT_ALL} <span>
+						#if($listparam.count == 1)
+							($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_SINGULAR}
+						#elseif($listparam.count > 1)
+							($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_PLURAL}
+						#else
+							(${placeholderWithTranslation.GENERIC_GUEST_NONE})
+						#end
+						#if($listparam.count > 10)
+							 ${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})
+						#elseif($listparam.count > 0)
+							 ${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGE})
+						#end
+						</span>
 					</label>
 				</div>
 
