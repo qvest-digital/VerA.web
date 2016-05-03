@@ -1175,6 +1175,12 @@ label span {
     font-weight: normal;
 }
 
+/** Guest List checkboxes */
+.invisible {
+    display:none;
+}
+
+
 /** Flexbox */
 .flexContainer {
     display: flex;
