@@ -218,7 +218,8 @@ public class LanguageProvider {
         }
         octopusContext.setContent("language", octopusContext.sessionAsString("sessionLanguage"));
         octopusContext.setContent("placeholderWithTranslation", placeholderWithTranslation);
-        octopusContext.setContent("helper", new LanguageHelper());
+        octopusContext.setContent("helper", new LanguageHelper(placeholderWithTranslation));
+        
     }
 
     // Set language names (language parameter of language data) from all
