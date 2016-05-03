@@ -24,6 +24,7 @@ module.exports = angular
   .factory("expectStatus", function() {
     return function(expectedStatus, messages) {
       return function(result) {
+        console.log("comparing",result.data.status, expectedStatus);
         if (result.data.status != expectedStatus) {
           throw new UnexpectedStatusError(expectedStatus, result.data.status);
         }

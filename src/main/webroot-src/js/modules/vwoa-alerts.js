@@ -51,10 +51,11 @@ alerts
       });
     }
   })
-  .factory("show", function($scope,$translate) {
+  .factory("show", function($rootScope,$translate) {
     var showMessage = function(type,code){
-      $translate(message).then(function(text){
-        $scope.$emit('vwoa-alerts:message', {
+      
+      $translate(code && code.message || code).then(function(text){
+        $rootScope.$emit('vwoa-alerts:message', {
           body:text,
           type:type
         });

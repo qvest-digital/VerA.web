@@ -1,19 +1,19 @@
-module.exports = function($scope, delegationService, $routeParams, $http, $uibModal) {
+module.exports = function($scope, delegationService, $routeParams, $http, $uibModal, show) {
   var tools = require("../../scope-tools")($scope);
   $scope.person = {};
   $scope.loadPersonData = function(pk) {
     delegationService
       .fetchPerson($routeParams.uuid, pk)
-      .then(putInScope("person"), tools.showError());
+      .then(putInScope("person"), show.error;
   };
   $scope.register_user = function() {
     delegationService
       .savePerson($routeParams.uuid, $scope.person)
-      .then(tools.showSuccess(), tools.showError())
+      .then(show.success, show.error)
       .then(function() {
         return delegationService.fetchList($routeParams.uuid);
       })
-      .then(putInScope("presentPersons"), tools.showError());
+      .then(putInScope("presentPersons"), show.error);
   };
   $scope.confirm_reset = function() {
     $uibModal.open({
@@ -33,9 +33,9 @@ module.exports = function($scope, delegationService, $routeParams, $http, $uibMo
   };
   delegationService
     .fetchList($routeParams.uuid)
-    .then(putInScope("presentPersons"), tools.showError());
+    .then(putInScope("presentPersons"), show.error);
   delegationService
     .fetchMetadata($routeParams.uuid)
-    .then(putInScope(), tools.showError());
+    .then(putInScope(), show.error);
 
 };
