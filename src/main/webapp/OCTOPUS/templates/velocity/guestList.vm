@@ -207,17 +207,11 @@
 							(${placeholderWithTranslation.GENERIC_GUEST_NONE})
 						#end
 						#set($currentNumberOfPages = $listparam.count / $listparam.limit)
-
-						<!-- DEBUG COUNT: $listparam.count, LIMIT: $listparam.limit, DIV: $currentNumberOfPages -->
-						<!-- BLA -->
 						#if( $currentNumberOfPages > 1 )
-							<!-- TRUE 1 -->
 							${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})
 						#elseif( $currentNumberOfPages == 1 )
-							<!-- TRUE 2 -->
 							${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGE})
 						#elseif(  $currentNumberOfPages == 0 && $listparam.count > 0 )
-							<!-- TRUE 3 -->
 							${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGE})
 						#end
 						</span>
