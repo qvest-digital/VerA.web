@@ -200,6 +200,10 @@ public class GuestDetailWorker extends GuestListWorker {
 
             updatePartnerData(allRequestParams, guest);
             updateMainPersonData(allRequestParams, guest);
+            setGuestRankType(octopusContext, database, guest);
+            setGuestCategory(allRequestParams, guest);
+            setGuestOrderno(guest);
+            setKeywords(allRequestParams, guest);
             guest.verify();
 
             /*
@@ -246,7 +250,6 @@ public class GuestDetailWorker extends GuestListWorker {
         guest.verify();
         octopusContext.setContent("guest", guest);
     }
-
 
     private String downloadGuestImage(String imageUUID) throws IOException {
         final TypeReference<String> stringType = new TypeReference<String>() {};
@@ -580,6 +583,18 @@ public class GuestDetailWorker extends GuestListWorker {
         transactionContext.commit();
 
         clogger.logInsert(octopusContext.personalConfig().getLoginname(), guest);
+    }
+
+    private void setKeywords(Map<String, Object> allRequestParams, Guest guest) {
+        if(allRequestParams.get("guest-keywords") !=null && allRequestParams.get("guest-keywords").toString() != guest.keywords) {
+            guest.keywords = VerawebUtils.clearCommaSeparatedString(allRequestParams.get("guest-keywords").toString());
+        }
+    }
+
+    private void setGuestCategory(Map<String, Object> allRequestParams, Guest guest) {
+        if (allRequestParams.get("guest-category") != null && allRequestParams.get("guest-category") != guest.category) {
+            guest.category = Integer.parseInt(allRequestParams.get("guest-category").toString());
+        }
     }
 
     private void setGuestOrderno(Guest guest) {
