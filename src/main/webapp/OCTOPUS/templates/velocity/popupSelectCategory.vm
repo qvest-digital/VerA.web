@@ -201,6 +201,8 @@
 	            #elseif ( $assignmentAction == "unassign")
 	            	<h1></h1>
            	        <script type="text/javascript">$(function(){
+           	            window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = "${assignmentAction}";
+           	        
            	        	showRemoveCategory();
            	        });</script>
 	            	
