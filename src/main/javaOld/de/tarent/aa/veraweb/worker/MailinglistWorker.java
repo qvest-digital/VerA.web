@@ -77,8 +77,8 @@ public class MailinglistWorker {
 		Database database = new DatabaseVeraWeb(octopusContext);
 
 		// Adresstype und Locale laden
-		Integer addresstype = new Integer(PersonConstants.ADDRESSTYPE_BUSINESS);
-		Integer locale = new Integer(PersonConstants.LOCALE_LATIN);
+		Integer addresstype = PersonConstants.ADDRESSTYPE_BUSINESS;
+		Integer locale = PersonConstants.LOCALE_LATIN;
 		Integer freitextfeld = ConfigWorker.getInteger(octopusContext, "freitextfeld");
 
 		// Bedingung des Verteilers definieren
@@ -116,7 +116,7 @@ public class MailinglistWorker {
 		// Ergebnis ist Params eintragen
 		Map result = (Map)octopusContext.contentAsObject("mailinglistParams");
 		if (result == null) result = new HashMap();
-		result.put("count", new Integer(savedAddresses));
+		result.put("count", savedAddresses);
 		return result;
 	}
 
@@ -210,11 +210,12 @@ public class MailinglistWorker {
 	 * und
 	 * addMailinglistFromGuest
 	 */
-	protected int addMailinglist(OctopusContext cntx, Mailinglist mailinglist, Select select) throws BeanException, IOException {
-		Database database = new DatabaseVeraWeb(cntx);
+	protected int addMailinglist(OctopusContext octopusContext, Mailinglist mailinglist, Select select) throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(octopusContext);
 		int savedAddresses = 0;
 
 		for (Iterator it = database.getList(select, database).iterator(); it.hasNext(); ) {
+
 			Map data = (Map) it.next();
 			Integer person = (Integer) data.get("person");
 			String mail2 = (String) data.get("mail2");
@@ -223,16 +224,16 @@ public class MailinglistWorker {
 			String fax3 = (String) data.get("fax3");
 
 			if (mail2 != null && mail2.length() != 0) {
-				if (savePerson(database, mailinglist.id, person, getClearMailAddress(cntx, mail2)))
+				if (savePerson(database, mailinglist.id, person, getClearMailAddress(mail2)))
 					savedAddresses++;
 			} else if (fax2 != null && fax2.length() != 0) {
-				if (savePerson(database, mailinglist.id, person, getClearFaxNumber(cntx, fax2)))
+				if (savePerson(database, mailinglist.id, person, getClearFaxNumber(octopusContext, fax2)))
 					savedAddresses++;
 			} else if (mail3 != null && mail3.length() != 0) {
-				if (savePerson(database, mailinglist.id, person, getClearMailAddress(cntx, mail3)))
+				if (savePerson(database, mailinglist.id, person, getClearMailAddress(mail3)))
 					savedAddresses++;
 			} else if (fax3 != null && fax3.length() != 0) {
-				if (savePerson(database, mailinglist.id, person, getClearFaxNumber(cntx, fax3)))
+				if (savePerson(database, mailinglist.id, person, getClearFaxNumber(octopusContext, fax3)))
 					savedAddresses++;
 			}
 		}
@@ -351,11 +352,10 @@ public class MailinglistWorker {
 	/**
 	 * Gibt eine 'gesauberte' eMail-Adresse zurück.
 	 *
-	 * @param cntx Octopus-Context
 	 * @param mail eMail-Adresse
 	 * @return eMail-Adresse
 	 */
-	public String getClearMailAddress(OctopusContext cntx, String mail) {
+	public String getClearMailAddress(String mail) {
 		return mail;
 	}
 
