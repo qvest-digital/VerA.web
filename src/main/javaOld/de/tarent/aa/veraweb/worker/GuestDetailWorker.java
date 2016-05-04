@@ -138,6 +138,116 @@ public class GuestDetailWorker extends GuestListWorker {
 
     }
 
+    public static final String INPUT_reservationDupCheck[] = {};
+
+    /**
+     * This method returns list of error messages in the case where duplicate reservation for the guest ("Hauptperson")
+     * or its partner (or both) were found in the database table tguest. Duplicate reservation applies if an seat
+     * (with empty or 0 table) or table and seat is alreadyreserved by another guest or its partner.
+     *
+     * @param database
+     * @param guest
+     * @return Returns list of error messages in case duplicate reservation were found
+     * @throws BeanException
+     * @throws IOException
+     */
+    public List<String> reservationDupCheck(final Database database, final Guest guest, final OctopusContext octopusContext)
+            throws BeanException, IOException {
+        final LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+        final LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
+        final List<String> duplicateErrorList = new ArrayList<String>();
+        return duplicateGuestAndPartnerList(database, guest, duplicateErrorList, languageProvider);
+    }
+
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext)}
+     */
+    public static final String INPUT_saveDetail[] = {};
+
+    /**
+     * Diese Methode speichert Details zu einem Gast.<br>
+     * Der Gast wird aus dem Octopus-Request gelesen. Je nach Einladungsart und -status werden dann Korrekturen an den
+     * laufenden Nummern ausgeführt und die Bean wird geprüft ({@link BeanException} falls sie unvollständig ist oder
+     * ungültige Einträge enthält). Schließlich wird sie gespeichert und passend wird im Octopus-Content unter
+     * "countInsert" oder "countUpdate" 1 eingetragen.
+     * Wenn der Nutzer dies im GUI bestaetigt hat, wird der Rang der Kategorie aus den Stammdaten der Person
+     * uebernommen.
+     *
+     * @param octopusContext Octopus-Content
+     * @throws BeanException bei ungültigen oder unvollständigen Einträgen
+     */
+    public void saveDetail(OctopusContext octopusContext) throws Exception {
+        final Database database = getDatabase(octopusContext);
+        final TransactionContext transactionContext = database.getTransactionContext();
+        final Map<String, Object> allRequestParams = octopusContext.getRequestObject().getRequestParameters();
+
+        try {
+            final Guest guest = getGuestEntity(database, allRequestParams);
+            updateGuestAndPartnerImage(allRequestParams, guest);
+
+            //Check for duplicate reservation (guest and partner).
+            final List<String> duplicateErrorList = reservationDupCheck(database, guest, octopusContext);
+            //In case duplications were found show the errors and do not proceed with saving
+            if (duplicateErrorList != null && !duplicateErrorList.isEmpty()) {
+                octopusContext.setContent("duplicateErrorList", duplicateErrorList);
+                return;
+            }
+
+            if (guest.reserve != null && guest.reserve.booleanValue()) {
+                guest.orderno_a = null;
+                guest.orderno_b = null;
+            }
+
+            updatePartnerData(allRequestParams, guest);
+            updateMainPersonData(allRequestParams, guest);
+            guest.verify();
+
+            /*
+             * modified to support change logging
+             * cklein 2008-02-12
+             */
+            final BeanChangeLogger clogger = new BeanChangeLogger(database, transactionContext);
+
+            if (guest.id == null) {
+                insertGuestRemoveNotehost(octopusContext, database, transactionContext, guest, clogger);
+            } else {
+                updateGuestRemoveNotehost(octopusContext, database, transactionContext, guest, clogger);
+            }
+
+            updateDelegationFields(transactionContext, allRequestParams, guest.id);
+
+            transactionContext.commit();
+        } catch (BeanException e) {
+            // cklein
+            // 2008-02-13
+            // prior to the change, there was a finally here
+            // which caused the transaction to be always rolled back
+            transactionContext.rollBack();
+        }
+    }
+
+    /**
+     * Eingabe-Parameter der Octopus-Aktion {@link #showTestGuest(OctopusContext)}
+     */
+    public static final String INPUT_showTestGuest[] = {};
+
+    /**
+     * Diese Octopus-Aktion liefert Details zu einem Test-Gast. Dieser wird unter
+     * "guest" im Octopus-Content eingetragen.
+     *
+     * @param octopusContext Octopus-Kontext
+     */
+    public void showTestGuest(OctopusContext octopusContext) throws BeanException {
+        Guest guest = new Guest();
+        int random = new Random().nextInt(10000);
+        String suffix = " [test-" + random + "]";
+        showTestGuest(guest.getMain(), suffix + " (Hauptperson)", random);
+        showTestGuest(guest.getPartner(), suffix + " (Partner)", random);
+        guest.verify();
+        octopusContext.setContent("guest", guest);
+    }
+
+    
     private String downloadGuestImage(String imageUUID) throws IOException {
         TypeReference<String> stringType = new TypeReference<String>() {
         };
@@ -219,74 +329,6 @@ public class GuestDetailWorker extends GuestListWorker {
 
         octopusContext.setContent("personCategories", categories);
     }
-
-    /**
-     * Eingabe-Parameter der Octopus-Aktion {@link #saveDetail(OctopusContext)}
-     */
-    public static final String INPUT_saveDetail[] = {};
-
-    /**
-     * Diese Methode speichert Details zu einem Gast.<br>
-     * Der Gast wird aus dem Octopus-Request gelesen. Je nach Einladungsart und -status werden dann Korrekturen an den
-     * laufenden Nummern ausgeführt und die Bean wird geprüft ({@link BeanException} falls sie unvollständig ist oder
-     * ungültige Einträge enthält). Schließlich wird sie gespeichert und passend wird im Octopus-Content unter
-     * "countInsert" oder "countUpdate" 1 eingetragen.
-     * Wenn der Nutzer dies im GUI bestaetigt hat, wird der Rang der Kategorie aus den Stammdaten der Person
-     * uebernommen.
-     *
-     * @param octopusContext Octopus-Content
-     * @throws BeanException bei ungültigen oder unvollständigen Einträgen
-     */
-    public void saveDetail(OctopusContext octopusContext) throws Exception {
-        final Database database = getDatabase(octopusContext);
-        final TransactionContext transactionContext = database.getTransactionContext();
-        final Map<String, Object> allRequestParams = octopusContext.getRequestObject().getRequestParameters();
-
-        try {
-            final Guest guest = getGuestEntity(database, allRequestParams);
-            updateGuestAndPartnerImage(allRequestParams, guest);
-
-            //Check for duplicate reservation (guest and partner).
-            final List<String> duplicateErrorList = reservationDupCheck(database, guest, octopusContext);
-            //In case duplications were found show the errors and do not proceed with saving
-            if (duplicateErrorList != null && !duplicateErrorList.isEmpty()) {
-                octopusContext.setContent("duplicateErrorList", duplicateErrorList);
-                return;
-            }
-
-            if (guest.reserve != null && guest.reserve.booleanValue()) {
-                guest.orderno_a = null;
-                guest.orderno_b = null;
-            }
-
-            updatePartnerData(allRequestParams, guest);
-            updateMainPersonData(allRequestParams, guest);
-            guest.verify();
-
-            /*
-             * modified to support change logging
-             * cklein 2008-02-12
-             */
-            final BeanChangeLogger clogger = new BeanChangeLogger(database, transactionContext);
-
-            if (guest.id == null) {
-                insertGuestRemoveNotehost(octopusContext, database, transactionContext, guest, clogger);
-            } else {
-                updateGuestRemoveNotehost(octopusContext, database, transactionContext, guest, clogger);
-            }
-
-            updateDelegationFields(transactionContext, allRequestParams, guest.id);
-
-            transactionContext.commit();
-        } catch (BeanException e) {
-            // cklein
-            // 2008-02-13
-            // prior to the change, there was a finally here
-            // which caused the transaction to be always rolled back
-            transactionContext.rollBack();
-        }
-    }
-
 
     private void updateGuestAndPartnerImage(Map<String, Object> allRequestParams, Guest guest) throws IOException, BeanException {
         uploadGuestImage(allRequestParams, guest);
@@ -657,28 +699,6 @@ public class GuestDetailWorker extends GuestListWorker {
         transactionContext.commit();
     }
 
-
-    public static final String INPUT_reservationDupCheck[] = {};
-
-    /**
-     * This method returns list of error messages in the case where duplicate reservation for the guest ("Hauptperson")
-     * or its partner (or both) were found in the database table tguest. Duplicate reservation applies if an seat
-     * (with empty or 0 table) or table and seat is alreadyreserved by another guest or its partner.
-     *
-     * @param database
-     * @param guest
-     * @return Returns list of error messages in case duplicate reservation were found
-     * @throws BeanException
-     * @throws IOException
-     */
-    public List<String> reservationDupCheck(final Database database, final Guest guest, final OctopusContext octopusContext)
-            throws BeanException, IOException {
-        final LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-        final LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
-        final List<String> duplicateErrorList = new ArrayList<String>();
-        return duplicateGuestAndPartnerList(database, guest, duplicateErrorList, languageProvider);
-    }
-
     private List<String> duplicateGuestAndPartnerList(
             Database database,
             Guest guest,
@@ -912,27 +932,6 @@ public class GuestDetailWorker extends GuestListWorker {
                 languageProvider.getProperty("GUEST_DETAIL_DUP_SEAT_ERROR_THREE") +
                 languageProvider.getProperty("GUEST_DETAIL_DUP_SEAT_ERROR_FOUR") +
                 collidesWithSeatOf + languageProvider.getProperty("GUEST_DETAIL_DUP_SEAT_ERROR_FIVE");
-    }
-
-    /**
-     * Eingabe-Parameter der Octopus-Aktion {@link #showTestGuest(OctopusContext)}
-     */
-    public static final String INPUT_showTestGuest[] = {};
-
-    /**
-     * Diese Octopus-Aktion liefert Details zu einem Test-Gast. Dieser wird unter
-     * "guest" im Octopus-Content eingetragen.
-     *
-     * @param octopusContext Octopus-Kontext
-     */
-    public void showTestGuest(OctopusContext octopusContext) throws BeanException {
-        Guest guest = new Guest();
-        int random = new Random().nextInt(10000);
-        String suffix = " [test-" + random + "]";
-        showTestGuest(guest.getMain(), suffix + " (Hauptperson)", random);
-        showTestGuest(guest.getPartner(), suffix + " (Partner)", random);
-        guest.verify();
-        octopusContext.setContent("guest", guest);
     }
 
     //
