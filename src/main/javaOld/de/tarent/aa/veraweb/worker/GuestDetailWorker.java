@@ -48,7 +48,6 @@ import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
-import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.server.OctopusContext;
@@ -198,12 +197,10 @@ public class GuestDetailWorker extends GuestListWorker {
                 guest.orderno_b = null;
             }
 
+            updateGenericData(octopusContext, database, allRequestParams, guest);
             updatePartnerData(allRequestParams, guest);
             updateMainPersonData(allRequestParams, guest);
-            setGuestRankType(octopusContext, database, guest);
-            setGuestCategory(allRequestParams, guest);
-            setGuestOrderno(guest);
-            setKeywords(allRequestParams, guest);
+
             guest.verify();
 
             /*
@@ -228,6 +225,15 @@ public class GuestDetailWorker extends GuestListWorker {
             // which caused the transaction to be always rolled back
             transactionContext.rollBack();
         }
+    }
+
+    private void updateGenericData(OctopusContext octopusContext, Database database, Map<String, Object> allRequestParams, Guest guest) {
+        setGuestRankType(octopusContext, database, guest);
+        setGuestCategory(allRequestParams, guest);
+        setGuestReserve(allRequestParams, guest);
+        setGuestInvitationType(allRequestParams, guest);
+        setGuestOrderno(guest);
+        setKeywords(allRequestParams, guest);
     }
 
     /**
@@ -586,7 +592,7 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void setKeywords(Map<String, Object> allRequestParams, Guest guest) {
-        if(allRequestParams.get("guest-keywords") !=null && allRequestParams.get("guest-keywords").toString() != guest.keywords) {
+        if(allRequestParams.get("guest-keywords") !=null && allRequestParams.get("guest-keywords").toString().equals(guest.keywords)) {
             guest.keywords = VerawebUtils.clearCommaSeparatedString(allRequestParams.get("guest-keywords").toString());
         }
     }
@@ -594,6 +600,20 @@ public class GuestDetailWorker extends GuestListWorker {
     private void setGuestCategory(Map<String, Object> allRequestParams, Guest guest) {
         if (allRequestParams.get("guest-category") != null && allRequestParams.get("guest-category") != guest.category) {
             guest.category = Integer.parseInt(allRequestParams.get("guest-category").toString());
+        }
+    }
+
+    private void setGuestInvitationType(Map<String, Object> allRequestParams, Guest guest) {
+        if (allRequestParams.get("guest-invitationtype") != null && allRequestParams.get("guest-invitationtype") != guest.invitationtype) {
+            guest.invitationtype = Integer.parseInt(allRequestParams.get("guest-invitationtype").toString());
+        }
+    }
+
+    private void setGuestReserve(Map<String, Object> allRequestParams, Guest guest) {
+        if (allRequestParams.get("guest-reserve") != null) {
+            guest.reserve = true;
+        } else {
+            guest.reserve = false;
         }
     }
 
@@ -606,8 +626,9 @@ public class GuestDetailWorker extends GuestListWorker {
                 guest.orderno_b = null;
             }
         } else if (guest.invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
-            if (guest.invitationstatus_a != null && guest.invitationstatus_a.intValue() == 2)
+            if (guest.invitationstatus_a != null && guest.invitationstatus_a.intValue() == 2) {
                 guest.orderno_a = null;
+            }
             guest.orderno_b = null;
         } else if (guest.invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
             guest.orderno_a = null;
@@ -618,6 +639,7 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void setGuestRankType(OctopusContext octopusContext, Database database, Guest guest) {
+        final Map<String, Object> allRequestParams = octopusContext.getRequestObject().getRequestParameters();
         try {
             // Der Rang der Kategorie wird aus den Stammdaten der Person gezogen,
             // wenn Nutzer dies will und wenn kein Rang vorbelegt ist.
@@ -632,6 +654,10 @@ public class GuestDetailWorker extends GuestListWorker {
                     if (perCat != null) {
                         guest.rank = perCat.rank;
                     }
+                }
+            } else {
+                if (allRequestParams.get("guest-rank") != null && allRequestParams.get("guest-rank") != guest.rank) {
+                    guest.rank = Integer.parseInt(allRequestParams.get("guest-rank").toString());
                 }
             }
         } catch (Exception ex) {
