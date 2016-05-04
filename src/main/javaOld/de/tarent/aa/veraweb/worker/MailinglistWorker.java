@@ -88,7 +88,6 @@ public class MailinglistWorker {
 		if (selection != null && selection.size() != 0) {
 			if(octopusContext.contentAsObject("search") instanceof PersonSearch){
 				clause = Expr.in("tperson.pk", selection);
-				// Personen hinzufügen
 				savedAddresses = addMailinglistFromPerson(octopusContext, mailinglist, addresstype, locale, clause);
 			}
 			if(octopusContext.contentAsObject("search") instanceof GuestSearch){
@@ -97,8 +96,10 @@ public class MailinglistWorker {
 				// Personen hinzufügen
 				savedAddresses = addMailinglistFromGuest(octopusContext, mailinglist, clause);
 			}
+		} else {
+			savedAddresses = createMailinglistBySelectAllOption(octopusContext, mailinglist, addresstype, locale, freitextfeld, savedAddresses);
+
 		}
-		// hier das gleiche, kann nicht 0 sein, und wenn doch... siehe oben
 
 		if (savedAddresses == 0) {
 
@@ -118,6 +119,29 @@ public class MailinglistWorker {
 		if (result == null) result = new HashMap();
 		result.put("count", savedAddresses);
 		return result;
+	}
+
+	/**
+	 * Create mailing list with "Select all" checkbox checked.
+	 *
+	 * @param octopusContext
+	 * @param mailinglist
+	 * @param addresstype
+	 * @param locale
+	 * @param freitextfeld
+	 * @param savedAddresses
+	 * @return
+	 * @throws BeanException
+     * @throws IOException
+     */
+	private int createMailinglistBySelectAllOption(OctopusContext octopusContext, Mailinglist mailinglist, Integer addresstype, Integer locale, Integer freitextfeld, int savedAddresses) throws BeanException, IOException {
+		Clause clause;
+		if(octopusContext.contentAsObject("search") instanceof GuestSearch){
+            GuestSearch search = (GuestSearch)octopusContext.contentAsObject("search");
+            clause = Expr.equal("tguest.fk_event", search.event);
+            savedAddresses = addMailinglistFromGuest(octopusContext, mailinglist, clause);
+        }
+		return savedAddresses;
 	}
 
 	/**
@@ -141,26 +165,24 @@ public class MailinglistWorker {
 	 * @throws IOException
 	 */
 	protected int addMailinglistFromPerson(OctopusContext cntx, Mailinglist mailinglist, Integer addresstype, Integer locale, Clause clause) throws BeanException, IOException {
-		Database database = new DatabaseVeraWeb(cntx);
-		String personMail = getMailColumn(addresstype, locale);
-		String personFax = getFaxColumn(addresstype, locale);
-
-		Select select = SQL.Select(database).setDistinct(true).
-				from("veraweb.tperson").
-				selectAs("tperson.pk", "person").
-				selectAs(personMail, "mail2").
-				selectAs(personFax, "fax2").
-				selectAs("tperson.mail_a_e1", "mail3").
-				selectAs("tperson.fax_a_e1", "fax3");
-
-		select.selectAs("NULL", "mail1");
-		select.selectAs("NULL", "fax1");
+		final Database database = new DatabaseVeraWeb(cntx);
+		final String personMail = getMailColumn(addresstype, locale);
+		final String personFax = getFaxColumn(addresstype, locale);
+		final Select select = SQL.Select(database).setDistinct(true).
+			from("veraweb.tperson").
+			selectAs("tperson.pk", "person").
+			selectAs(personMail, "mail2").
+			selectAs(personFax, "fax2").
+			selectAs("tperson.mail_a_e1", "mail3").
+			selectAs("tperson.fax_a_e1", "fax3");
+			select.selectAs("NULL", "mail1");
+			select.selectAs("NULL", "fax1");
 
 		select.where(new RawClause("(" + clause.clauseToString(database) + ") AND (" +
-				"length(" + personMail + ") != 0 OR " +
-				"length(" + personFax + ") != 0 OR " +
-				"length(tperson.mail_a_e1) != 0 OR " +
-				"length(tperson.fax_a_e1) != 0)"));
+			"length(" + personMail + ") != 0 OR " +
+			"length(" + personFax + ") != 0 OR " +
+			"length(tperson.mail_a_e1) != 0 OR " +
+			"length(tperson.fax_a_e1) != 0)"));
 
 		return addMailinglist(cntx, mailinglist, select);
 	}
@@ -176,32 +198,42 @@ public class MailinglistWorker {
 	 * Adresstyps und Zeichensatzes in den normalen Personen Datengesucht. (Im
 	 * Zweifel wird auf die geschäftlichen lateinischen Daten zurückgegriffen.)
 	 *
-	 * @param cntx Octopus-Context
+	 * @param octopusContext Octopus-Context
 	 * @param mailinglist Verteiler dem Gäste hinzugefügt werden sollen.
 	 * @param clause Bedingung
 	 * @return Anzahl der hinzugefügten Adressen.
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	protected int addMailinglistFromGuest(OctopusContext cntx, Mailinglist mailinglist, Clause clause) throws BeanException, IOException {
-		Database database = new DatabaseVeraWeb(cntx);
-
+	protected int addMailinglistFromGuest(OctopusContext octopusContext, Mailinglist mailinglist, Clause clause) throws BeanException, IOException {
+		Database database = new DatabaseVeraWeb(octopusContext);
 		Select select = SQL.Select(database).setDistinct(true).
-				from("veraweb.tguest").
-				selectAs("tguest.pk", "guest").
-				selectAs("tperson.pk", "person").
-				selectAs("tperson.mail_a_e1", "mail3").
-				selectAs("tperson.fax_a_e1", "fax3").
-				joinLeftOuter("veraweb.tperson", "tperson.pk", "tguest.fk_person");
-
-		select.selectAs("NULL", "mail1");
-		select.selectAs("NULL", "fax1");
-
-		select.where(new RawClause("(" + clause.clauseToString(database) + ") AND (" +
+			from("veraweb.tguest").
+			selectAs("tguest.pk", "guest").
+			selectAs("tperson.pk", "person").
+			selectAs("tperson.mail_a_e1", "mail3").
+			selectAs("tperson.fax_a_e1", "fax3").
+			selectAs("NULL", "mail1").
+			selectAs("NULL", "fax1").
+			joinLeftOuter("veraweb.tperson", "tperson.pk", "tguest.fk_person").
+			where(new RawClause("(" + clause.clauseToString(database) + ") AND (" +
 				"length(tperson.mail_a_e1) != 0 OR " +
 				"length(tperson.fax_a_e1) != 0)"));
 
-		return addMailinglist(cntx, mailinglist, select);
+		return addMailinglist(octopusContext, mailinglist, select);
+	}
+
+	private Select getBasicGuestSelect(Database database, String personMail, String personFax) {
+		return SQL.Select(database).setDistinct(true).
+                    from("veraweb.tguest").
+                    selectAs("tguest.pk", "guest").
+                    selectAs("tperson.pk", "person").
+                    selectAs(personMail, "mail2").
+                    selectAs(personFax, "fax2").
+                    selectAs("tperson.mail_a_e1", "mail3").
+                    selectAs("tperson.fax_a_e1", "fax3").
+                    joinLeftOuter("veraweb.tperson", "tperson.pk", "tguest.fk_person").
+                    joinLeftOuter("veraweb.tguest_doctype", "tguest.pk", "tguest_doctype.fk_guest");
 	}
 
 	/**
