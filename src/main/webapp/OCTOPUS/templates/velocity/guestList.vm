@@ -300,16 +300,28 @@
 				});
 
 
+				var isSelectAllChecked = function(){
+					return $("#select-all").get(0).checked;
+				};
 
-				var selectedCount = ${listselection.size()};
+				var selectAllValue = function(){
+					if(isSelectAllChecked()){
+						return $("#select-all").val();
+					}
+					return "";
+				};
+
+				var selectedCount = function(){
+					if(isSelectAllChecked()){
+						return ${listparam.count};
+				}
+					return $('input:checkbox[name$="-select"]:checked').length;
+				};
 
 				function hasSelection() {
-					return $('input:checked[name$="-select"]').length > 0;
+					return selectedCount() > 0;
 				}
 
-				function selectionChange( elt ) {
-					selectedCount += ( elt.checked ? 1 : -1 );
-				}
 
 				function selectedActionRemoveGuest() {
 					$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
@@ -317,11 +329,11 @@
 				}
 
 				function unassignCategories() {
-					selectPersonCategory( "${paths.staticWeb}do/popupUnassignGuestCategory?count=" + selectedCount + "&eventId=" + ${event.id}+"&select-all="+$("#select-all").val() );
+					selectPersonCategory( "${paths.staticWeb}do/popupUnassignGuestCategory?count=" + selectedCount() + "&eventId=" + ${event.id}+"&select-all="+selectAllValue() );
 				}
 
 				function assignCategories() {
-					selectPersonCategory( "${paths.staticWeb}do/popupAssignGuestCategory?count=" + selectedCount + "&eventId=" + ${event.id} );
+					selectPersonCategory( "${paths.staticWeb}do/popupAssignGuestCategory?count=" + selectedCount() + "&eventId=" + ${event.id}+"&select-all="+selectAllValue() );
 				}
 
 				function submitFormWithGivenAction(action, permission) {
