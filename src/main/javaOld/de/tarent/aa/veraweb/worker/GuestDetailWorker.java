@@ -273,7 +273,7 @@ public class GuestDetailWorker extends GuestListWorker {
             //Kopfdaten der Gaesteliste: Anzeige der Stammdaten oder Kopien fuer Gaesteliste
             octopusContext.setContent("showGuestListData", new Boolean(false));
         } else {
-            final GuestDoctype guestDoctype = getGuestDoctypeFromDatabase(database, guest, freitextfeld, guestDoctype);
+            final GuestDoctype guestDoctype = getGuestDoctypeFromDatabase(database, guest, freitextfeld);
             octopusContext.setContent("showGuestListData", new Boolean(guestDoctype != null));
             octopusContext.setContent("guestListData", guestDoctype);
 
@@ -283,9 +283,9 @@ public class GuestDetailWorker extends GuestListWorker {
     private GuestDoctype getGuestDoctypeFromDatabase(
             Database database,
             Guest guest,
-            Integer freitextfeld,
-            GuestDoctype guestDoctype) throws BeanException, IOException {
+            Integer freitextfeld) throws BeanException, IOException {
 
+        final GuestDoctype guestDoctype = new GuestDoctype();
         final Select select = database.getSelect(guestDoctype);
         guestDoctype.doctype = freitextfeld;
         guestDoctype.guest = guest.id;
