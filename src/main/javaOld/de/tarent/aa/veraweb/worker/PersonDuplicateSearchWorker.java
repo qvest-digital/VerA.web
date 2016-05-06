@@ -320,8 +320,8 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 
 	private Where getClauseFirstAndLastnameSwapped() {
 		return Where.and( // Reverted names
-				new RawClause("veraweb.TPERSON_NORMALIZED.firstname_normalized=person2.lastname_normalized"),
-				new RawClause("veraweb.TPERSON_NORMALIZED.lastname_normalized=person2.firstname_normalized")
+			new RawClause("veraweb.TPERSON_NORMALIZED.firstname_normalized=person2.lastname_normalized"),
+			new RawClause("veraweb.TPERSON_NORMALIZED.lastname_normalized=person2.firstname_normalized")
 		);
 	}
 
