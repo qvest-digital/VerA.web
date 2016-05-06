@@ -30,8 +30,10 @@ import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.CharacterPropertiesReader;
+import de.tarent.dblayer.engine.DBContext;
 import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.Escaper;
+import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
@@ -65,23 +67,24 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 	}
 
 	@Override
-	public List showList(OctopusContext cntx) throws BeanException, IOException
+	public List showList(OctopusContext octopusContext) throws BeanException, IOException
 	{
+		long startTime = System.currentTimeMillis();
 		// code in part duplicated from PersonListWorker
-		final Database database = getDatabase(cntx);
+		final Database database = getDatabase(octopusContext);
 
-		final Integer start = getStart(cntx);
-		final Integer limit = getLimit(cntx);
-		final Integer count = getCount(cntx, database);
+		final Integer start = getStart(octopusContext);
+		final Integer limit = getLimit(octopusContext);
+		final Integer count = getCount(octopusContext, database);
 		final Map param = getParamMap(start, limit, count);
-		cntx.setContent(OUTPUT_showListParams, param);
-		cntx.setContent(OUTPUT_getSelection, getSelection(cntx, count));
-		cntx.setContent( "action", "duplicateSearch" );
+		octopusContext.setContent(OUTPUT_showListParams, param);
+		octopusContext.setContent(OUTPUT_getSelection, getSelection(octopusContext, count));
+		octopusContext.setContent( "action", "duplicateSearch" );
 
 		final Select select = getSelect(database);
-		this.extendColumns(cntx, select);
-		this.extendWhere(cntx, select);
-		this.extendLimit( cntx, select );
+		this.extendColumns(octopusContext, select);
+		this.extendWhere(octopusContext, select);
+		this.extendLimit( octopusContext, select );
 		select.orderBy( Order.asc( "lastname_a_e1" ).andAsc( "firstname_a_e1" ) );
 
 		/* FIXME remove this temporary fix ASAP
@@ -93,8 +96,8 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 		 */
 		final ArrayList< Map > result = new ArrayList< Map >();
 		final List resultList = getResultList(database, select);
-
-		return getListWithOrdering(convertFromResultListToArrayList(resultList));
+		final ArrayList<Map> listWithOrdering = getListWithOrdering(convertFromResultListToArrayList(resultList));
+		return listWithOrdering;
 	}
 
 	/**
@@ -145,7 +148,6 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 				i--;
 			}
 		}
-
 		return result;
 	}
 
@@ -193,14 +195,14 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 	protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
 		// code duplicated from PersonListWorker.getAlphaStart()
 		final Database database = getDatabase(cntx);
-		final Select select = database.getEmptySelect(new Person());
-		select.select("COUNT(DISTINCT(tperson.pk))");
-		select.from("veraweb.tperson person2");
+		final Select select = SQL.Select(database).from("veraweb.TPERSON_NORMALIZED");
+		select.select("COUNT(DISTINCT(TPERSON_NORMALIZED.pk))");
+		select.from("veraweb.TPERSON_NORMALIZED person2");
 		select.setDistinct(false);
 
 		this.extendWhere(cntx, select);
 		if (start != null && start.length() > 0) {
-			select.whereAnd(Expr.less("tperson.lastname_a_e1", Escaper.escape(start)));
+			select.whereAnd(Expr.less("TPERSON_NORMALIZED.lastname_a_e1", Escaper.escape(start)));
 		}
 
 		final Integer count = database.getCount(select);
@@ -209,8 +211,9 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 
 	@Override
 	protected Integer getCount(OctopusContext cntx, Database database) throws BeanException, IOException {
-		final Select select = database.getEmptySelect(new Person());
-		select.select("COUNT(DISTINCT(tperson.pk))");
+//		final Select select = database.getEmptySelect(new Person());
+		final Select select = SQL.Select(database).from("veraweb.TPERSON_NORMALIZED");
+		select.select("COUNT(DISTINCT(TPERSON_NORMALIZED.pk))");
 		select.setDistinct(false);
 		this.extendSubselect(cntx, select);
 
@@ -224,18 +227,19 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 	 * @param subselect Given statement
 	 */
 	protected void extendSubselect(OctopusContext cntx, Select subselect) {
-		subselect.from("veraweb.tperson person2");
+		subselect.from("veraweb.TPERSON_NORMALIZED person2");
 
 		subselect.whereAnd(
-				getClauseForOrgunit(cntx)
+			getClauseForOrgunit(cntx)
 		).whereAnd(
-				getClausePersonNotDeleted()
+			getClausePersonNotDeleted()
 		).whereAnd(
-				getClausePkIsDifferentOrgunitIsSame()
+			getClausePkIsDifferentOrgunitIsSame()
+		)
+				.whereAnd(
+			Where.or(getClauseFirstnameAndLastnameEquals(), getClauseFirstAndLastnameSwapped())
 		).whereAnd(
-				Where.or(getClauseFirstnameAndLastnameEquals(), getClauseFirstAndLastnameSwapped())
-		).whereAnd(
-				getClauseFirstOrLastnameNotEmpty()
+			getClauseFirstOrLastnameNotEmpty()
 		);
 	}
 
@@ -255,8 +259,25 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 	}
 
 	@Override
-	protected void extendWhere(OctopusContext cntx, Select select) {
-		final Database database = new DatabaseVeraWeb(cntx);
+	protected void extendWhere(OctopusContext octopusContext, Select select) {
+
+		Database database = getDatabase(octopusContext);
+		final Select selectStatement = SQL.Select(database).
+			from("veraweb.TPERSON_NORMALIZED").
+			selectAs("TPERSON_NORMALIZED.pk", "id").
+			select("TPERSON_NORMALIZED.firstname_a_e1").
+			select("TPERSON_NORMALIZED.lastname_a_e1").
+			select("TPERSON_NORMALIZED.firstname_b_e1").
+			select("TPERSON_NORMALIZED.lastname_b_e1").
+			select("TPERSON_NORMALIZED.function_a_e1").
+			select("TPERSON_NORMALIZED.company_a_e1").
+			select("TPERSON_NORMALIZED.street_a_e1").
+			select("TPERSON_NORMALIZED.zipcode_a_e1").
+			select("TPERSON_NORMALIZED.city_a_e1").
+			selectAs("tworkarea.name", "workarea_name").
+			select("TPERSON_NORMALIZED.dateexpire").
+			join("veraweb.tworkarea", "tworkarea.pk", "TPERSON_NORMALIZED.fk_workarea");
+
 		Select subselect = null;
 		final Person person = new Person();
 		try {
@@ -266,11 +287,11 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 		} catch (BeanException be) {
 			new IOException("Fehler beim select der IDs", be);
 		}
-		this.extendSubselect(cntx, subselect);
+		this.extendSubselect(octopusContext, subselect);
 		subselect.setDistinct(false);
-		subselect.orderBy(Order.asc("tperson.lastname_a_e1").andAsc("tperson.firstname_a_e1"));
+		subselect.orderBy(Order.asc("TPERSON_NORMALIZED.lastname_a_e1").andAsc("TPERSON_NORMALIZED.firstname_a_e1"));
 		try {
-			select.whereAnd(new RawClause("tperson.pk IN (" + subselect.statementToString() + ")"));
+			selectStatement.whereAnd(new RawClause("TPERSON_NORMALIZED.pk IN (" + subselect.statementToString() + ")"));
 		} catch (SyntaxErrorException e) {
 			new SyntaxErrorException("Konvertierung der Statement zu String fehlgeschlagen");
 		}
@@ -278,36 +299,36 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 
 	private Where getClauseForOrgunit(OctopusContext cntx) {
 		return Where.and(
-				Expr.equal("tperson.fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
-				Expr.equal("tperson.deleted", PersonConstants.DELETED_FALSE)
+				Expr.equal("TPERSON_NORMALIZED.fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
+				Expr.equal("TPERSON_NORMALIZED.deleted", PersonConstants.DELETED_FALSE)
 		);
 	}
 
 	private Where getClausePkIsDifferentOrgunitIsSame() {
 		return Where.and(
-				new RawClause("tperson.pk!=person2.pk"),
-				new RawClause("tperson.fk_orgunit=person2.fk_orgunit")
+				new RawClause("TPERSON_NORMALIZED.pk!=person2.pk"),
+				new RawClause("TPERSON_NORMALIZED.fk_orgunit=person2.fk_orgunit")
 		);
 	}
 
 	private Where getClauseFirstOrLastnameNotEmpty() {
 		return Where.and(
-				new RawClause("tperson.lastname_a_e1<>''"),
-				new RawClause("tperson.firstname_a_e1<>''")
+				new RawClause("TPERSON_NORMALIZED.lastname_a_e1<>''"),
+				new RawClause("TPERSON_NORMALIZED.firstname_a_e1<>''")
 		);
 	}
 
 	private Where getClauseFirstAndLastnameSwapped() {
 		return Where.and( // Reverted names
-				new RawClause("veraweb.umlaut_fix(tperson.firstname_a_e1)=veraweb.umlaut_fix(person2.lastname_a_e1)"),
-				new RawClause("veraweb.umlaut_fix(tperson.lastname_a_e1)=veraweb.umlaut_fix(person2.firstname_a_e1)")
+			new RawClause("veraweb.TPERSON_NORMALIZED.firstname_normalized=person2.lastname_normalized"),
+			new RawClause("veraweb.TPERSON_NORMALIZED.lastname_normalized=person2.firstname_normalized")
 		);
 	}
 
 	private Where getClauseFirstnameAndLastnameEquals() {
 		return Where.and(
-				new RawClause("veraweb.umlaut_fix(tperson.firstname_a_e1)=veraweb.umlaut_fix(person2.firstname_a_e1)"),
-				new RawClause("veraweb.umlaut_fix(tperson.lastname_a_e1)=veraweb.umlaut_fix(person2.lastname_a_e1)")
+				new RawClause("veraweb.TPERSON_NORMALIZED.firstname_normalized=person2.firstname_normalized"),
+				new RawClause("veraweb.TPERSON_NORMALIZED.lastname_normalized=person2.lastname_normalized")
 		);
 	}
 
