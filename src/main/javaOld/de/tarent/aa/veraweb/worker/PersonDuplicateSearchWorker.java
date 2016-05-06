@@ -299,36 +299,36 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 
 	private Where getClauseForOrgunit(OctopusContext cntx) {
 		return Where.and(
-				Expr.equal("TPERSON_NORMALIZED.fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
-				Expr.equal("TPERSON_NORMALIZED.deleted", PersonConstants.DELETED_FALSE)
+			Expr.equal("TPERSON_NORMALIZED.fk_orgunit", ((PersonalConfigAA) cntx.personalConfig()).getOrgUnitId()),
+			Expr.equal("TPERSON_NORMALIZED.deleted", PersonConstants.DELETED_FALSE)
 		);
 	}
 
 	private Where getClausePkIsDifferentOrgunitIsSame() {
 		return Where.and(
-				new RawClause("TPERSON_NORMALIZED.pk!=person2.pk"),
-				new RawClause("TPERSON_NORMALIZED.fk_orgunit=person2.fk_orgunit")
+			new RawClause("TPERSON_NORMALIZED.pk!=person2.pk"),
+			new RawClause("TPERSON_NORMALIZED.fk_orgunit=person2.fk_orgunit")
 		);
 	}
 
 	private Where getClauseFirstOrLastnameNotEmpty() {
 		return Where.and(
-				new RawClause("TPERSON_NORMALIZED.lastname_a_e1<>''"),
-				new RawClause("TPERSON_NORMALIZED.firstname_a_e1<>''")
+			new RawClause("TPERSON_NORMALIZED.lastname_a_e1<>''"),
+			new RawClause("TPERSON_NORMALIZED.firstname_a_e1<>''")
 		);
 	}
 
 	private Where getClauseFirstAndLastnameSwapped() {
 		return Where.and( // Reverted names
-				new RawClause("veraweb.TPERSON_NORMALIZED.firstname_normalized=person2.lastname_normalized"),
-				new RawClause("veraweb.TPERSON_NORMALIZED.lastname_normalized=person2.firstname_normalized")
+			new RawClause("veraweb.TPERSON_NORMALIZED.firstname_normalized=person2.lastname_normalized"),
+			new RawClause("veraweb.TPERSON_NORMALIZED.lastname_normalized=person2.firstname_normalized")
 		);
 	}
 
 	private Where getClauseFirstnameAndLastnameEquals() {
 		return Where.and(
-				new RawClause("veraweb.TPERSON_NORMALIZED.firstname_normalized=person2.firstname_normalized"),
-				new RawClause("veraweb.TPERSON_NORMALIZED.lastname_normalized=person2.lastname_normalized")
+			new RawClause("veraweb.TPERSON_NORMALIZED.firstname_normalized=person2.firstname_normalized"),
+			new RawClause("veraweb.TPERSON_NORMALIZED.lastname_normalized=person2.lastname_normalized")
 		);
 	}
 
