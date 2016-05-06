@@ -1132,7 +1132,7 @@ waehlensiebittezunaechsteinekategorieaus=Veuillez d\u2019abord s\u00E9lectionner
 wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=Voulez-vous assigner la cat\u00E9gorie s\u00E9l\u00E9ctionn\u00E9e \u00E0 la personne
 Vous souhaitez attribuer \u00E0 cette personne ou cet invit\u00E9 de la cat\u00E9gorie s\u00E9lectionn\u00E9e?
 eswurdekeinekategoriezugeordnet=Il \u00E9tait associ\u00E9 \u00E0 aucune cat\u00E9gorie
-wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen=Voulez-vous assigner la cat\u00E9gorie s\u00E9l\u00E9ctionn\u00E9e aux personnes
+wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen=Voulez-vous assigner la cat\u00E9gorie s\u00E9l\u00E9ctionn\u00E9e aux %s personnes
 Vous voulez supprimer %s les personnes ou l\u2019invit\u00E9 de la cat\u00E9gorie s\u00E9lectionn\u00E9e ?
 eswurdenkeinekategorienzugeordnet=Aucune cat\u00E9gorie n\u2019\u00E9tait associ\u00E9s
 eswurdenkeinekategoriengefunden=Aucune cat\u00E9gorie trouv\u00E9e

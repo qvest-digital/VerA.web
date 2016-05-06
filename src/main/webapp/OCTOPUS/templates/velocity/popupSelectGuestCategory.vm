@@ -24,7 +24,7 @@
                     }else {
                         $(".errormsg").remove();
                         $(".successmsg").remove();
-                        #if( $count == 1 )
+                        #if( $count == "1" )
                             showAllocateAssign('${placeholderWithTranslation.wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen}?',
                             function () { // Ja
                                 var form = window.opener.document.forms[ "formlist" ];
@@ -41,7 +41,7 @@
                             '${placeholderWithTranslation.GENERIC_CANCEL}'
                             );
                         #else
-                            showAllocateAssign('${helper.l10n("wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen",count)}?',
+                            showAllocateAssign('${helper.l10n("wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen",$count)}?',
                             function () { // Ja
                                 var form = window.opener.document.forms[ "formlist" ];
                                  var input = window.document.createElement('input');
@@ -60,7 +60,7 @@
                     };
             };
             var showRemoveCategory = function() {
-                #if( $count == 1 )
+                #if( $count == "1" )
                     showAllocateRemove('${placeholderWithTranslation.wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen}?',
                     function () { // Ja
                         var form = window.opener.document.forms[ "formlist" ];
@@ -135,16 +135,16 @@
             function send()
             {
                 #if( $assignmentAction == "assign" )
-                    #if( $count == 1 )
+                    #if( $count == "1" )
                                 doit = confirm( "${placeholderWithTranslation.wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen}?" );
                     #else
-                                doit = confirm( "${placeholderWithTranslation.wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen}?" );
+                                doit = confirm( "${helper.l10n("wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen", $count)}?" );
                     #end
                 #else
-                    #if( $count == 1)
+                    #if( $count == "1" )
                                 doit = confirm( "${placeholderWithTranslation.wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen}?" );
                     #else
-                                doit = confirm( "${placeholderWithTranslation.wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen}?" );
+                                doit = confirm( "${helper.l10n("wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen", $count)}?" );
                     #end
                 #end
                 if ( doit )
@@ -199,7 +199,7 @@
 	                    <input id="0" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.abbrechen}" onClick="restore();closePopup();">
 	                </div>
 	            #elseif ( $assignmentAction == "unassign")
-	            	<h1></h1>
+	            	<h1> ${placeholderWithTranslation.GUEST_LIST_CONFIRM_ACTION}:</h1>
            	        <script type="text/javascript">$(function(){
            	            window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = "${assignmentAction}";
            	        
