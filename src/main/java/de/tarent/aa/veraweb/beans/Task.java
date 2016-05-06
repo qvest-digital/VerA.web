@@ -19,6 +19,8 @@
  */
 package de.tarent.aa.veraweb.beans;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -116,6 +118,26 @@ public class Task extends AbstractHistoryBean {
     public String endtime;
 
     private VerawebMessages messages;
+
+
+    public Task() {
+    }
+
+    public Task(ResultSet resultSet) throws SQLException {
+        this.id = resultSet.getInt("pk");
+        this.eventId = resultSet.getInt("fk_event");
+        this.title = resultSet.getString("title");
+        this.description = resultSet.getString("description");
+        this.startdate = resultSet.getTimestamp("startdate");
+        this.enddate = resultSet.getTimestamp("enddate");
+        this.degreeofcompletion = resultSet.getInt("degree_of_completion");
+        this.personId = resultSet.getInt("fk_person");
+        this.priority = resultSet.getInt("priority");
+        this.createdby = resultSet.getString("createdby");
+        this.changedby = resultSet.getString("changedby");
+        this.created = resultSet.getTimestamp("created");
+        this.changed = resultSet.getTimestamp("changed");
+    }
 
     public void verify(OctopusContext octopusContext) throws BeanException {
         if (messages == null) {
