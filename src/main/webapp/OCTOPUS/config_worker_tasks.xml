@@ -1821,9 +1821,9 @@
 			<doTask name="Load"/>
 			<action name="getAll" worker="CategorieWorker"/>
 			<param name="assignmentAction" value="assign"/>
-			<action name="countSelectedGuests" worker="GuestListWorker"/>
-			
-			<response type="velocity" name="popupSelectCategory">
+<!-- 			<action name="countSelectedGuests" worker="GuestListWorker"/> -->
+			<param name="count" refvalue="REQUEST:count" />
+			<response type="velocity" name="popupSelectGuestCategory">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
@@ -1839,9 +1839,10 @@
 			</description>
 			<doTask name="Load"/>
 <!-- 			<action name="getAll" worker="CategorieWorker"/> -->
-			<param name="assignmentAction" value="unassign"/>
-			<action name="countSelectedGuests" worker="GuestListWorker"/>
-			<response type="velocity" name="popupSelectCategory">
+			<param name="assignmentAction" value="unassign" />
+			<param name="count" refvalue="REQUEST:count" />
+<!-- 			<action name="countSelectedGuests" worker="GuestListWorker"/> -->
+			<response type="velocity" name="popupSelectGuestCategory">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
