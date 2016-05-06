@@ -32,6 +32,7 @@ import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
 import de.tarent.aa.veraweb.utils.FileUploadUtils;
+import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.aa.veraweb.utils.VworConstants;
 import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
