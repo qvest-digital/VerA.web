@@ -165,6 +165,16 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         return new ArrayList(result.values());
     }
 
+    @Override
+    protected String getJumpOffsetsColumn(OctopusContext octopusContext) throws BeanException {
+        final String col = getSearch(octopusContext).listorder;
+        if(Arrays.asList("lastname_a_e1","firstname_a_e1","mail_a_e1").contains(col)){
+            return col;
+        }
+        return null;
+    }
+    
+    
     private void filterByFirstCharacterOfLastname(final OctopusContext octopusContext, final Select personSelect) {
         final Map allRequestParameters = octopusContext.getRequestObject().getRequestParameters();
         if (allRequestParameters.get("filter") != null) {
