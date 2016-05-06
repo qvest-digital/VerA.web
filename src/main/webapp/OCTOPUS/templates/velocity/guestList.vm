@@ -181,6 +181,8 @@
 			<form id="formlist" name="formlist" action="ShowGuestList" method="POST">
 			<input type="hidden" name="start" value="">
 			<input type="hidden" name="limit" value="" />
+			<input type="hidden" name="filter" value="" />
+			
 			<input type="hidden" name="selectNone" id="selectNone" value="true">
 			<input type="hidden" name="doInsert" value="false">
 			<input type="hidden" name="doUpdate" value="true">
@@ -354,8 +356,7 @@
 						<col width="$column6%" />
 						<col width="$column7%" />
 						<col width="$column8%" />
-
-						<tr>
+						<tr >
 							<!-- BEGIN OF COLUMNS TO ORDER -->
 								<th class="textCenter smallCell"></th>
 
@@ -446,8 +447,11 @@
 							#end
 
 						#set($offset = $listparam.start + $velocityCount)
-
-						<tr>
+						## We want zero-indexed offset to create jump marks. I don't understand how the other "offset" is
+						## used, and I don't want to break anything...
+						#set($offset0 = $offset - 1)
+						
+						<tr id="row-${offset0}">
 							<td>
 								<input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false">
 								<input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}">
@@ -602,8 +606,8 @@
 						#set($itemName = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
 						#tableFooter(12)
 
-						#if($search.listorder)
-							#parse("inc/list-direct-new.vm")
+						#if($search.listorder && $jumpOffsets)
+							#parse("inc/list-direct-even-newer.vm")
 						#else
 							<tr class="colspan">
 								<td colspan="99" class="textCenter">

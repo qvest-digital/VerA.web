@@ -1235,6 +1235,7 @@
 				Zeigt eine Gästeliste an.
 			</description>
 			<doTask name="Load"/>
+			<action name="setupSortDirection" worker="GuestListWorker"/>
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker" />
 			<status equals="noevent">
@@ -1242,6 +1243,7 @@
 			</status>
 			<action name="saveList" worker="GuestListWorker"/>
 			<action name="showList" worker="GuestListWorker"/>
+			<action name="getJumpOffsets" worker="GuestListWorker"/>
 			<action name="getSums" worker="GuestListWorker"/>
 			<action name="getAllCategories" worker="GuestListWorker" />
 			<param name="liststarts" value="true"/>
