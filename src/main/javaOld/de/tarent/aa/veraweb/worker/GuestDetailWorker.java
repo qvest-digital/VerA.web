@@ -32,6 +32,7 @@ import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
 import de.tarent.aa.veraweb.utils.FileUploadUtils;
+import de.tarent.aa.veraweb.utils.VerawebNamespaceConstants;
 import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.aa.veraweb.utils.VworConstants;
 import de.tarent.aa.veraweb.utils.VworUtils;
@@ -620,20 +621,20 @@ public class GuestDetailWorker extends GuestListWorker {
 
     private void setGuestOrderno(Guest guest) {
         if (guest.invitationtype.intValue() == EventConstants.TYPE_MITPARTNER) {
-            if (guest.invitationstatus_a != null && guest.invitationstatus_a.intValue() == 2) {
+            if (guest.invitationstatus_a != null && guest.invitationstatus_a.intValue() == EventConstants.STATUS_REFUSE) {
                 guest.orderno_a = null;
             }
-            if (guest.invitationstatus_b != null && guest.invitationstatus_b.intValue() == 2) {
+            if (guest.invitationstatus_b != null && guest.invitationstatus_b.intValue() == EventConstants.STATUS_REFUSE) {
                 guest.orderno_b = null;
             }
         } else if (guest.invitationtype.intValue() == EventConstants.TYPE_OHNEPARTNER) {
-            if (guest.invitationstatus_a != null && guest.invitationstatus_a.intValue() == 2) {
+            if (guest.invitationstatus_a != null && guest.invitationstatus_a.intValue() == EventConstants.STATUS_REFUSE) {
                 guest.orderno_a = null;
             }
             guest.orderno_b = null;
         } else if (guest.invitationtype.intValue() == EventConstants.TYPE_NURPARTNER) {
             guest.orderno_a = null;
-            if (guest.invitationstatus_b != null && guest.invitationstatus_b.intValue() == 2) {
+            if (guest.invitationstatus_b != null && guest.invitationstatus_b.intValue() == EventConstants.STATUS_REFUSE) {
                 guest.orderno_b = null;
             }
         }
