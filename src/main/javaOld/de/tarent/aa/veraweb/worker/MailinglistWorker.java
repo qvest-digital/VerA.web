@@ -94,26 +94,17 @@ public class MailinglistWorker {
 		}
 
 		// Bedingung des Verteilers definieren
-		int savedAddresses = 0;
-		Clause clause;
+		int savedAddresses;
+
 		List selection = (List)octopusContext.contentAsObject("listselection");
 		if (selection != null && selection.size() != 0) {
-			if(octopusContext.contentAsObject("search") instanceof PersonSearch){
-				clause = Expr.in("tperson.pk", selection);
-				savedAddresses = addMailinglistFromPerson(octopusContext, mailinglist, addresstype, locale, clause);
-			}
-			if(octopusContext.contentAsObject("search") instanceof GuestSearch){
-				GuestSearch search = (GuestSearch)octopusContext.contentAsObject("search");
-				clause = Where.and(Expr.equal("tguest.fk_event", search.event), Expr.in("tguest.pk", selection));
-				savedAddresses = addMailinglistFromGuest(octopusContext, mailinglist, freitextfeld, addresstype, locale, clause);
-			}
+			savedAddresses = countSavedAddresses(octopusContext, mailinglist, addresstype, locale, freitextfeld, selection);
 		} else {
-			savedAddresses = createMailinglistBySelectAllOption(octopusContext, mailinglist, addresstype, locale, freitextfeld, savedAddresses);
+			savedAddresses = createMailinglistBySelectAllOption(octopusContext, mailinglist, addresstype, locale, freitextfeld);
 
 		}
 
 		if (savedAddresses == 0) {
-
 			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
 			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
             octopusContext.setStatus("error");
@@ -132,6 +123,26 @@ public class MailinglistWorker {
 		return result;
 	}
 
+	private int countSavedAddresses(OctopusContext octopusContext, Mailinglist mailinglist, Integer addresstype, Integer locale, Integer freitextfeld, List selection) throws BeanException, IOException {
+        if (octopusContext.contentAsObject("search") instanceof PersonSearch){
+            return countSavedAddressesOnPersonSearch(octopusContext, mailinglist, addresstype, locale, selection);
+        } else if (octopusContext.contentAsObject("search") instanceof GuestSearch){
+            return countSavedAddressesOnGuestSearch(octopusContext, mailinglist, addresstype, locale, freitextfeld, selection);
+        }
+        return 0;
+	}
+
+	private int countSavedAddressesOnPersonSearch(OctopusContext octopusContext, Mailinglist mailinglist, Integer addresstype, Integer locale, List selection) throws BeanException, IOException {
+        final Clause clause = Expr.in("tperson.pk", selection);
+		return addMailinglistFromPerson(octopusContext, mailinglist, addresstype, locale, clause);
+	}
+
+	private int countSavedAddressesOnGuestSearch(OctopusContext octopusContext, Mailinglist mailinglist, Integer addresstype, Integer locale, Integer freitextfeld, List selection) throws BeanException, IOException {
+		final GuestSearch search = (GuestSearch)octopusContext.contentAsObject("search");
+        final Clause clause = Where.and(Expr.equal("tguest.fk_event", search.event), Expr.in("tguest.pk", selection));
+		return addMailinglistFromGuest(octopusContext, mailinglist, freitextfeld, addresstype, locale, clause);
+	}
+
 	/**
 	 * Create mailing list with "Select all" checkbox checked.
 	 *
@@ -140,19 +151,23 @@ public class MailinglistWorker {
 	 * @param addresstype
 	 * @param locale
 	 * @param freitextfeld
-	 * @param savedAddresses
 	 * @return
 	 * @throws BeanException
      * @throws IOException
      */
-	private int createMailinglistBySelectAllOption(OctopusContext octopusContext, Mailinglist mailinglist, Integer addresstype, Integer locale, Integer freitextfeld, int savedAddresses) throws BeanException, IOException {
-		Clause clause;
-		if(octopusContext.contentAsObject("search") instanceof GuestSearch){
-            GuestSearch search = (GuestSearch)octopusContext.contentAsObject("search");
-            clause = Expr.equal("tguest.fk_event", search.event);
-            savedAddresses = addMailinglistFromGuest(octopusContext, mailinglist, freitextfeld, addresstype, locale, clause);
+	private int createMailinglistBySelectAllOption(
+            OctopusContext octopusContext,
+            Mailinglist mailinglist,
+            Integer addresstype,
+            Integer locale,
+            Integer freitextfeld) throws BeanException, IOException {
+
+		if (octopusContext.contentAsObject("search") instanceof GuestSearch){
+            final GuestSearch search = (GuestSearch)octopusContext.contentAsObject("search");
+            final Clause clause = Expr.equal("tguest.fk_event", search.event);
+            return addMailinglistFromGuest(octopusContext, mailinglist, freitextfeld, addresstype, locale, clause);
         }
-		return savedAddresses;
+		return 0;
 	}
 
 	/**
@@ -219,7 +234,14 @@ public class MailinglistWorker {
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	protected int addMailinglistFromGuest(OctopusContext octopusContext, Mailinglist mailinglist, Integer doctype, Integer addresstype, Integer locale, Clause clause) throws BeanException, IOException {
+	protected int addMailinglistFromGuest(
+            OctopusContext octopusContext,
+            Mailinglist mailinglist,
+            Integer doctype,
+            Integer addresstype,
+            Integer locale,
+            Clause clause) throws BeanException, IOException {
+
 		final Database database = new DatabaseVeraWeb(octopusContext);
 		final String personMail = getMailColumn(addresstype, locale);
 		final String personFax = getFaxColumn(addresstype, locale);
