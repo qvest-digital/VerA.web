@@ -25,7 +25,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2016-03-16';
+	vversion := '2016-05-06';
 
 	-- initialisation
 	vint := 0;
@@ -604,6 +604,19 @@ BEGIN
 
                 -- Add column for keywords
                 ALTER TABLE veraweb.tguest ADD COLUMN keywords character varying(1000);
+
+                -- post-upgrade
+                vmsg := 'end.update(' || vnewvsn || ')';
+                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+                vcurvsn := vnewvsn;
+                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+            END IF;
+
+    vnewvsn := '2016-05-06';
+            IF vcurvsn < vnewvsn THEN
+                vmsg := 'begin.update(' || vnewvsn || ')';
+
+                CREATE OR REPLACE VIEW TPERSON_NORMALIZED AS (select tperson.*, umlaut_fix(firstname_a_e1) as firstname_normalized, umlaut_fix(lastname_a_e1) as lastname_normalized from tperson);
 
                 -- post-upgrade
                 vmsg := 'end.update(' || vnewvsn || ')';
