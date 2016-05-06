@@ -329,6 +329,7 @@ public class PersonDuplicateSearchWorker extends PersonListWorker
 		return Where.and(
 			new RawClause("veraweb.TPERSON_NORMALIZED.firstname_normalized=person2.firstname_normalized"),
 			new RawClause("veraweb.TPERSON_NORMALIZED.lastname_normalized=person2.lastname_normalized")
+
 		);
 	}
 
