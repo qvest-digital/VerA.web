@@ -24,7 +24,7 @@
                     }else {
                         $(".errormsg").remove();
                         $(".successmsg").remove();
-                        #if( $count == 1 )
+                        #if( $count == "1" )
                             showAllocateAssign('${placeholderWithTranslation.wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen}?',
                             function () { // Ja
                                 var form = window.opener.document.forms[ "formlist" ];
@@ -41,7 +41,7 @@
                             '${placeholderWithTranslation.GENERIC_CANCEL}'
                             );
                         #else
-                            showAllocateAssign('${placeholderWithTranslation.wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen}?',
+                            showAllocateAssign('${helper.l10n("wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen", $count)}?',
                             function () { // Ja
                                 var form = window.opener.document.forms[ "formlist" ];
                                  var input = window.document.createElement('input');
@@ -65,7 +65,7 @@
                         var msg ='<span>${placeholderWithTranslation.waehlensiebittezunaechsteinekategorieaus}</span>';
                         showWarning(msg);
                     }else {
-                        #if( $count == 1 )
+                        #if( $count == "1" )
                             showAllocateRemove('${placeholderWithTranslation.wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen}?',
                             function () { // Ja
                                 var form = window.opener.document.forms[ "formlist" ];
@@ -81,7 +81,7 @@
                             '${placeholderWithTranslation.GENERIC_DELETE}',
                             '${placeholderWithTranslation.GENERIC_CANCEL}');
                         #else
-                            showAllocateRemove('${placeholderWithTranslation.wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen}?',
+                            showAllocateRemove('${helper.l10n("wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen", $count)}?',
                             function () { // Ja
                                 var form = window.opener.document.forms[ "formlist" ];
                                  var input = window.document.createElement('input');
@@ -137,16 +137,16 @@
             function send()
             {
                 #if( $assignmentAction == "assign" )
-                    #if( $count == 1 )
+                    #if( $count == "1" )
                                 doit = confirm( "${placeholderWithTranslation.wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen}?" );
                     #else
-                                doit = confirm( "${placeholderWithTranslation.wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen}?" );
+                                doit = confirm( "${helper.l10n("wollensiepersonenbzwgaestederausgewaehltenkategoriezuordnen", $count)}?" );
                     #end
                 #else
-                    #if( $count == 1)
+                    #if( $count == "1")
                                 doit = confirm( "${placeholderWithTranslation.wollensiediesepersonenbzwdiesengastausderausgewaehltenkategorieentfernen}?" );
                     #else
-                                doit = confirm( "${placeholderWithTranslation.wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen}?" );
+                                doit = confirm( "${helper.l10n("wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen", $count)}?" );
                     #end
                 #end
                 if ( doit )
