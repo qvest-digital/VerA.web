@@ -594,7 +594,7 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void setKeywords(Map<String, Object> allRequestParams, Guest guest) {
-        if(allRequestParams.get("guest-keywords") !=null && allRequestParams.get("guest-keywords").toString().equals(guest.keywords)) {
+        if (allRequestParams.get("guest-keywords") !=null && !allRequestParams.get("guest-keywords").toString().equals(guest.keywords)) {
             guest.keywords = VerawebUtils.clearCommaSeparatedString(allRequestParams.get("guest-keywords").toString());
         }
     }

@@ -615,7 +615,7 @@ BEGIN
     vnewvsn := '2016-05-06';
             IF vcurvsn < vnewvsn THEN
                 vmsg := 'begin.update(' || vnewvsn || ')';
-                
+
                 INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
                 drop table tdoctype;
