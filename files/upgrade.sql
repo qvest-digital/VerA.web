@@ -616,7 +616,7 @@ BEGIN
             IF vcurvsn < vnewvsn THEN
                 vmsg := 'begin.update(' || vnewvsn || ')';
 
-                CREATE OR REPLACE VIEW TPERSON_NORMALIZED AS (select tperson.*, umlaut_fix(firstname_a_e1) as firstname_normalized, umlaut_fix(lastname_a_e1) as lastname_normalized from tperson);
+                CREATE OR REPLACE VIEW veraweb.TPERSON_NORMALIZED AS (select tperson.*, veraweb.umlaut_fix(firstname_a_e1) as firstname_normalized, veraweb.umlaut_fix(lastname_a_e1) as lastname_normalized from veraweb.tperson);
 
                 -- post-upgrade
                 vmsg := 'end.update(' || vnewvsn || ')';
