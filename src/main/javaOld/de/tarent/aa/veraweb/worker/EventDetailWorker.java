@@ -88,13 +88,7 @@ public class EventDetailWorker {
             eventId = Integer.valueOf(octopusContext.getRequestObject().get("id").toString());
         }
 
-        if (task != null) {
-			id = task.getEventId();
-		} else if (eventId != null) {
-			id = eventId;
-		}
-
-		Event event = getEvent(octopusContext, id);
+		Event event = getEvent(octopusContext, eventId);
 
         if (event != null) {
 
