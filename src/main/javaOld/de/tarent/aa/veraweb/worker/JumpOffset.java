@@ -11,7 +11,7 @@ public class JumpOffset {
         this.letter = letter;
         this.offset = offset;
         this.currentPageOffset = currentPageOffset;
-        this.targetPageOffset = Math.floorDiv(offset, itemsPerPage) * itemsPerPage;
+        this.targetPageOffset = (offset / itemsPerPage) * itemsPerPage;
         
     }
 
