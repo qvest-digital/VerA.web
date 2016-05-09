@@ -1024,6 +1024,10 @@ tr.colspan {
 	background:none;
 }
 
+tr.highlight {
+	background: antiquewhite;
+}
+
 th {
 	color: #8b0f0f;
 /* gradient causes problems with borders in IE9

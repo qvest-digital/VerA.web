@@ -38,6 +38,17 @@
 					
 					form.submit();
 				});
+				var highlightRow = function(){
+					$(".highlight").removeClass("highlight");
+					var hash = window.location.hash;
+					if(hash.match(/^#row-\d+$/)){
+						$(hash).addClass("highlight");
+					}
+				}
+				$(window).on('hashchange', highlightRow);
+				highlightRow();
+				
+
 			</script>
 		</td>
 	</tr>
