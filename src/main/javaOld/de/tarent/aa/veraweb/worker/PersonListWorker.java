@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonSearch;
@@ -163,6 +164,34 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         octopusContext.setContent("categoryAssigned", octopusContext.requestAsObject("categoryAssigned"));
 
         return new ArrayList(result.values());
+    }
+
+    /**
+     * Octopus-Eingabe-Parameter für {@link #countRecipients(OctopusContext)}
+     */
+    public static final String INPUT_countRecipients[] = {};
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #countRecipients(OctopusContext)}
+     */
+    public static final String OUTPUT_countRecipients = "mailinglistParams";
+    public Map countRecipients(OctopusContext octopusContext) throws IOException, BeanException {
+        Map result = (Map) octopusContext.contentAsObject("mailinglistParams");
+        if (result == null) {
+            result = new HashMap();
+        }
+        final Integer countPeople = countSelectedPeople(octopusContext);
+        if (countPeople != null) {
+            result.put("count", countPeople);
+        }
+        return result;
+    }
+
+    public Integer countSelectedPeople(OctopusContext octopusContext) throws IOException, BeanException {
+        final Integer countPeople = getSelection(octopusContext, null).size();
+        if (countPeople == null) {
+            return 0;
+        }
+        return countPeople;
     }
 
     @Override

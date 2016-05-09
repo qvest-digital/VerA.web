@@ -873,7 +873,7 @@
 			<doTask name="Load"/>
 			<action name="getSearch" worker="PersonListWorker"/>
 			<action name="showList" worker="PersonListWorker"/>
-			<action name="countRecipients" worker="GuestListWorker"/>
+			<action name="countRecipients" worker="PersonListWorker"/>
 			<response type="velocity" name="mailinglistCreate">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
