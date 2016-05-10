@@ -408,11 +408,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             bean = database.getBean("Guest", ((Guest) bean).id, transactionContext);
         }
         clogger.logDelete(octopusContext.personalConfig().getLoginname(), bean);
-<<<<<<< HEAD
-=======
-        transactionContext.execute(SQL.Delete(database).from("veraweb.tguest_doctype").
-                where(Expr.equal("fk_guest", ((Guest) bean).id)));
->>>>>>> 9ec9deb... Format
         transactionContext.execute(SQL.Delete(database).from("veraweb.tguest").where(Expr.equal("pk", ((Guest) bean).id)));
         transactionContext.commit();
         return true;
