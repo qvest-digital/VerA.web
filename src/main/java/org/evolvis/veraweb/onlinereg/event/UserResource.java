@@ -33,6 +33,7 @@ import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.mail.EmailDispatcher;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
+import org.evolvis.veraweb.onlinereg.user.LoginResource;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 import org.osiam.client.oauth.AccessToken;
@@ -42,6 +43,7 @@ import org.osiam.resources.scim.Name;
 import org.osiam.resources.scim.UpdateUser;
 import org.osiam.resources.scim.User;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -85,7 +87,9 @@ public class UserResource {
         this.client = client;
         osiamClient = config.getOsiam().getClient(client);
     }
-
+    /** Servlet context */
+    @javax.ws.rs.core.Context
+    private HttpServletRequest request;
     /**
      * Get Person object by username
      *
@@ -94,8 +98,9 @@ public class UserResource {
      * @throws IOException TODO
      */
     @GET
-    @Path("/userdata/{username}")
-    public Person getUserByUsername(@PathParam("username") String username) throws IOException {
+    @Path("/userdata")
+    public Person getUserData() throws IOException {
+        final String username = (String) request.getAttribute(LoginResource.USERNAME);
         final Person person = getUserData(username);
 
         if (person != null) {
@@ -225,8 +230,9 @@ public class UserResource {
      * @return Status of getUserRegisteredToEvents
      */
     @GET
-    @Path("/userdata/existing/event/{username}")
-    public String isUserRegisteredToEvents(@PathParam("username") String username) {
+    @Path("/userdata/existing/event")
+    public String isUserRegisteredToEvents() {
+        final String username = (String) request.getAttribute(LoginResource.USERNAME);
         final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
         final String path = resourceReader.constructPath(BASE_RESOURCE, "event", "userevents", "existing", username);
         final WebResource resource = client.resource(path);
@@ -250,8 +256,8 @@ public class UserResource {
      * @throws IOException
      */
     @POST
-    @Path("/userdata/update/{username}")
-    public String updateUserCoreData(@PathParam("username") String username,
+    @Path("/userdata/update")
+    public String updateUserCoreData(
                                      @FormParam("person_fk_salutation") Integer fk_salutation,
                                      @FormParam("person_salutation") String salutation,
                                      @FormParam("person_title") String title,
@@ -261,7 +267,7 @@ public class UserResource {
                                      @FormParam("person_nationality") String nationality,
                                      @FormParam("person_languages") String languages,
                                      @FormParam("person_gender") Integer gender) throws IOException {
-
+        final String username = (String) request.getAttribute(LoginResource.USERNAME);
         final Form postBody = createUserCoreDataPostBody(username, fk_salutation, salutation, title, firstName,
                 lastName, birthday, nationality, languages, gender);
 

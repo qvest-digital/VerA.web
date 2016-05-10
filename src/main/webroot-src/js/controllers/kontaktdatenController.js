@@ -1,13 +1,14 @@
-module.exports = function($http, $rootScope, $translate, $location, $scope, $mdDateLocale, param, moment) {
+module.exports = function($http, $translate, $location, $scope, $mdDateLocale, param, moment) {
 
   $scope.success = null;
   $scope.error = null;
   $scope.userHasNoEvents = null;
-  $rootScope.cleanMessages();
+
+
 
   $http({
     method: 'GET',
-    url: '/api/user/userdata/existing/event/' + $rootScope.user_logged_in
+    url: '/api/user/userdata/existing/event'
   }).success(function(result) {
     if (result.status == 'OK') {
       //user has events and fields should be enabled
@@ -60,7 +61,7 @@ module.exports = function($http, $rootScope, $translate, $location, $scope, $mdD
       name: "GENERIC_GENDER_FEMALE"
     }];
 
-    $http.get('api/user/userdata/' + encodeURIComponent($rootScope.user_logged_in)).then(function(person) {
+    $http.get('api/user/userdata' ).then(function(person) {
       $scope.gender = $scope.genderOptions[0];
       $scope.salutation = $scope.salutations[0];
 
@@ -94,7 +95,6 @@ module.exports = function($http, $rootScope, $translate, $location, $scope, $mdD
     $scope.update_user_core_data = function() {
       $scope.success = null;
       $scope.error = null;
-      $rootScope.cleanMessages();
 
       if ($scope.person.firstname_a_e1 == null || $scope.person.firstname_a_e1.length == 0) {
         $translate('GENERIC_MESSAGE_MISSING_FIRSTNAME').then(function(text) {
@@ -115,7 +115,7 @@ module.exports = function($http, $rootScope, $translate, $location, $scope, $mdD
       } else if ($scope.updateUserCoreData.$valid) {
         $http({
           method: 'POST',
-          url: 'api/user/userdata/update/' + encodeURIComponent($rootScope.user_logged_in) + '',
+          url: 'api/user/userdata/update',
           headers: {
             "Content-Type": undefined
           },

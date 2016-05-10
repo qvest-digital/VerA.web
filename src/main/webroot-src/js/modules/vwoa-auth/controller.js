@@ -3,7 +3,7 @@ module.exports=function($scope, authService, show) {
   $scope.login = function(){
     authService
     .login($scope.user.accountName, $scope.user.password)
-    .then(tools.putInScope("user"),tools.show.error);
+    .then(tools.putInScope("user"),show.error);
   };
 
   $scope.logout = function(){

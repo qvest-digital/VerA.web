@@ -4,7 +4,7 @@ module.exports = function($scope, delegationService, $routeParams, $http, $uibMo
   $scope.loadPersonData = function(pk) {
     delegationService
       .fetchPerson($routeParams.uuid, pk)
-      .then(putInScope("person"), show.error;
+      .then(putInScope("person"), show.error);
   };
   $scope.register_user = function() {
     delegationService

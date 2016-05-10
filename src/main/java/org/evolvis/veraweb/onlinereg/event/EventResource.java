@@ -34,6 +34,7 @@ import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.user.LoginResource;
 import org.evolvis.veraweb.onlinereg.utils.EventTransporter;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
@@ -127,8 +128,9 @@ public class EventResource {
      * @throws IOException TODO
      */
     @GET
-    @Path("/list/{username}")
-    public List<EventTransporter> getEvents(@PathParam("username") String username) throws IOException {
+    @Path("/list")
+    public List<EventTransporter> getEvents() throws IOException {
+        final String username = (String) request.getAttribute(LoginResource.USERNAME);
     	final List<Event> listEvents = readResource(path("event"), EVENT_LIST);
     	final List<EventTransporter> listTransporters = new ArrayList<EventTransporter>();
     	
@@ -186,7 +188,7 @@ public class EventResource {
     		@PathParam("eventId") String eventId,
     		@FormParam("notehost") String notehost,
             @FormParam("guestStatus") String guestStatus) throws IOException {
-        final String username = (String) request.getSession().getAttribute(USERNAME);
+        final String username = (String) request.getAttribute(USERNAME);
 
     	// checking if the user is registered on the event
     	if (!isUserRegistered(username, eventId)) {
@@ -231,8 +233,9 @@ public class EventResource {
      * @throws IOException TODO
      */
     @GET
-    @Path("/userevents/{username}")
-    public List<Event> getUsersEvents(@PathParam("username") String username) throws IOException {
+    @Path("/userevents")
+    public List<Event> getUsersEvents() throws IOException {
+        final String username = (String) request.getAttribute(USERNAME);
         return readResource(path("event", "userevents", username), EVENT_LIST);
     }
 
@@ -270,9 +273,10 @@ public class EventResource {
      * @param eventId the event ID
      */
     @GET
-    @Path("/registered/{username}/{eventId}")
-    public Boolean isUserRegisteredIntoEvent(@PathParam("username") final String username,
+    @Path("/registered/{eventId}")
+    public Boolean isUserRegisteredIntoEvent(
                                              @PathParam("eventId") final Integer eventId) throws IOException {
+        final String username = (String) request.getAttribute(LoginResource.USERNAME);
         return readResource(path("guest", "registered", username, eventId), BOOLEAN);
     }
 

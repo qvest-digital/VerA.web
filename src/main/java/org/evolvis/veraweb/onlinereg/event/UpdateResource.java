@@ -33,6 +33,7 @@ import javax.ws.rs.core.MediaType;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.user.LoginResource;
 import org.evolvis.veraweb.onlinereg.utils.EventTransporter;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
@@ -114,7 +115,7 @@ public class UpdateResource {
     @GET
     @Path("/{eventId}")
     public EventTransporter getEvent(@PathParam("eventId") int eventId) throws IOException {
-        String username = (String) request.getSession().getAttribute(USERNAME);
+        String username = (String) request.getAttribute(USERNAME);
 
         EventTransporter transporter = getEventData(eventId, username);
 
@@ -137,7 +138,7 @@ public class UpdateResource {
     @Path("/{eventId}/update")
     public String update(@PathParam("eventId") String eventId, @FormParam("notehost") String notehost,
             @FormParam("invitationstatus") String invitationstatus) throws IOException {
-        String username = (String) request.getSession().getAttribute(USERNAME);
+        String username = (String) request.getAttribute(USERNAME);
 
         // checking if the user is registered on the event
         if (isUserRegistered(username, eventId)) {
@@ -163,8 +164,9 @@ public class UpdateResource {
      *            the username - osiam_login
      */
     @GET
-    @Path("/isreserve/{eventId}/{username}")
-    public Boolean isReserve(@PathParam("eventId") final Integer eventId, @PathParam("username") final String username) throws IOException {
+    @Path("/isreserve/{eventId}")
+    public Boolean isReserve(@PathParam("eventId") final Integer eventId) throws IOException {
+        final String username = (String) request.getAttribute(LoginResource.USERNAME);
         return readResource(path("guest", "isreserve", eventId, username), BOOLEAN);
     }
 
