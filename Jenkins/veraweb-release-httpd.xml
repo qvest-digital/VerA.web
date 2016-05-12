@@ -11,24 +11,24 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Delete:jobere</permission>
-      <permission>hudson.model.Item.Delete:tglase</permission>
-      <permission>hudson.model.Item.Configure:jobere</permission>
-      <permission>hudson.model.Item.Configure:tglase</permission>
-      <permission>hudson.model.Item.Configure:veraweb</permission>
-      <permission>hudson.model.Run.Update:veraweb</permission>
-      <permission>hudson.model.Item.Build:jobere</permission>
-      <permission>hudson.model.Item.Build:tglase</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Release:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:jobere</permission>
-      <permission>hudson.model.Item.Workspace:tglase</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
       <permission>hudson.model.Item.Read:jobere</permission>
       <permission>hudson.model.Item.Read:tglase</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Item.Cancel:veraweb</permission>
+      <permission>hudson.model.Item.Build:jobere</permission>
+      <permission>hudson.model.Item.Build:tglase</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
       <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Item.Cancel:veraweb</permission>
+      <permission>hudson.model.Item.Configure:jobere</permission>
+      <permission>hudson.model.Item.Configure:tglase</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:jobere</permission>
+      <permission>hudson.model.Item.Workspace:tglase</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Delete:jobere</permission>
+      <permission>hudson.model.Item.Delete:tglase</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>

@@ -5,16 +5,16 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Delete:jobere</permission>
-      <permission>hudson.model.Item.Delete:veraweb</permission>
-      <permission>hudson.model.Item.Configure:jobere</permission>
-      <permission>hudson.model.Item.Configure:veraweb</permission>
-      <permission>hudson.model.Item.Build:jobere</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:jobere</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
       <permission>hudson.model.Item.Read:jobere</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
+      <permission>hudson.model.Item.Build:jobere</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Configure:jobere</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:jobere</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Delete:jobere</permission>
+      <permission>hudson.model.Item.Delete:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
@@ -71,7 +71,7 @@ git push origin --tags
               <onlyExactRuns>false</onlyExactRuns>
             </hudson.plugins.parameterizedtrigger.FileBuildParameters>
           </configs>
-          <projects>veraweb-release-common-v2,veraweb-docker-ldap-v2,veraweb-docker-httpd-v2</projects>
+          <projects>veraweb-release-common-v2,veraweb-release-ldap,veraweb-release-httpd</projects>
           <condition>SUCCESS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
         </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
