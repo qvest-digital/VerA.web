@@ -180,7 +180,6 @@ public class PersonReplaceWorker extends PersonListWorker {
 		where.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
 		where.addAnd(addPersonListFilter(cntx, new WhereList()));
 		select.where(where);
-		select.joinLeftOuter("veraweb.tperson_doctype", "tperson.pk", "tperson_doctype.fk_person");
 	}
 
 	protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException {
@@ -202,7 +201,6 @@ public class PersonReplaceWorker extends PersonListWorker {
 		buffer.append("'");
 
 		Select select = database.getCount(BEANNAME);
-		select.joinLeftOuter("veraweb.tperson_doctype", "tperson.pk", "tperson_doctype.fk_person");
 		select.where(new RawClause(buffer));
 
 		Integer i = database.getCount(select);
@@ -351,7 +349,6 @@ public class PersonReplaceWorker extends PersonListWorker {
 		where.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
 		where.addAnd(addPersonListFilter(cntx, new WhereList()));
 		select.where(where);
-		select.joinLeftOuter("veraweb.tperson_doctype", "tperson.pk", "tperson_doctype.fk_person");
 
 		return database.getCount(select);
 	}
@@ -387,21 +384,6 @@ public class PersonReplaceWorker extends PersonListWorker {
 			where.addAnd(getReplaceWhere(fields, search, wildcardPre, wildcardPost));
 
 			transactionContext.execute(getReplaceUpdate(database, fields, search, replace, wildcardPre, wildcardPost).where(where));
-			transactionContext.commit();
-		}
-		if (((Boolean)replaceRequest.get("snr-group20")).booleanValue()) {
-			Clause where = new RawClause("fk_person IN (SELECT pk FROM veraweb.tperson" +
-					" WHERE fk_orgunit = " + ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId() +
-					" AND deleted = '" + PersonConstants.DELETED_FALSE + "')");
-			where = Where.and(where, Where.or(
-							getReplaceWhere("textfield", search, wildcardPre, wildcardPost),
-							getReplaceWhere("textfield_p", search, wildcardPre, wildcardPost)));
-
-			transactionContext.execute(SQL.Update( database ).
-					table("veraweb.tperson_doctype").
-					update("textfield", getReplaceClause("textfield", search, replace, wildcardPre, wildcardPost)).
-					update("textfield_p", getReplaceClause("textfield_p", search, replace, wildcardPre, wildcardPost)).
-					where(where));
 			transactionContext.commit();
 		}
 	}
@@ -442,21 +424,6 @@ public class PersonReplaceWorker extends PersonListWorker {
 			where.addAnd(getReplaceWhere(fields, search, wildcardPre, wildcardPost));
 
 			transactionContext.execute(getReplaceUpdate(database, fields, search, replace, wildcardPre, wildcardPost).where(where));
-			transactionContext.commit();
-		}
-		if (((Boolean)replaceRequest.get("snr-group20")).booleanValue()) {
-			Clause where = new RawClause("fk_person IN (SELECT pk FROM veraweb.tperson" +
-					" WHERE fk_orgunit = " + ((PersonalConfigAA)octopusContext.personalConfig()).getOrgUnitId() +
-					" AND deleted = '" + PersonConstants.DELETED_FALSE + "')");
-			where = Where.and(Expr.in("fk_person", selection), Where.and(where, Where.or(
-							getReplaceWhere("textfield", search, wildcardPre, wildcardPost),
-							getReplaceWhere("textfield_p", search, wildcardPre, wildcardPost))));
-
-			transactionContext.execute(SQL.Update( database ).
-					table("veraweb.tperson_doctype").
-					update("textfield", getReplaceClause("textfield", search, replace, wildcardPre, wildcardPost)).
-					update("textfield_p", getReplaceClause("textfield_p", search, replace, wildcardPre, wildcardPost)).
-					where(where));
 			transactionContext.commit();
 		}
 	}

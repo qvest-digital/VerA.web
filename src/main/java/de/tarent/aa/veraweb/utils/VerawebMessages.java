@@ -158,10 +158,6 @@ public class VerawebMessages {
         return languageProvider.getProperty("MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY");
     }
 
-    public String getMessageDocTypeMaxConnectorReached() {
-        return languageProvider.getProperty("MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED");
-    }
-
     public String getMessageProxyNoRepresentative() {
         return languageProvider.getProperty("MESSAGE_PROXY_NO_REPRESENTATIVE");
     }
@@ -180,102 +176,6 @@ public class VerawebMessages {
 
     public String getMessageFunctionMissingName() {
         return languageProvider.getProperty("MESSAGE_FUNCTION_MISSING_NAME");
-    }
-
-    public String getMessageGuestdoctypeCitynameMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_CITYNAME_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeCompanynameMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_COMPANYNAME_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeCountrynameMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_COUNTRYNAME_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeFaxMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_FAX_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeFirstnameMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_FIRSTNAME_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeLastnameMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_LASTNAME_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeFirstnamePartnerMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_FIRSTNAME_PARTNER_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeLastnamePartnerMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_LASTNAME_PARTNER_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypePhoneMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_PHONE_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeFunctionMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_FUNCTION_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeEmailMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_EMAIL_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeMobilePhoneMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_MOBILE_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypePOBoxMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_POBOX_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypePOBoxZipMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_POBOX_ZIP_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeSalutationMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_SALUTATION_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeSalutationPartnerMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_SALUTATION_PARTNER_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeStreetMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_STREET_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeSuffix1MaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_SUFFIX1_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeSuffix2MaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_SUFFIX2_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeTextjoinMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_TEXTJOIN_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeTitleMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_TITLE_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeTitlePartnerMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_TITLEPARTNER_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeUrlMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_URL_MAX_LENGTH");
-    }
-
-    public String getMessageGuestdoctypeZipMaxLength() {
-        return languageProvider.getProperty("MESSAGE_GUEST_DOCTYPE_ZIP_MAX_LENGTH");
     }
 
     public String getMessageUserMissingRole() {

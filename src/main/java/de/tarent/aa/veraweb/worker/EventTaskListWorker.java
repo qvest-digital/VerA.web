@@ -20,15 +20,20 @@
 package de.tarent.aa.veraweb.worker;
 
 import java.io.IOException;
-import java.security.acl.LastOwnerException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Task;
+import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.clause.Order;
+import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.BeanException;
@@ -43,7 +48,9 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class EventTaskListWorker extends ListWorkerVeraWeb {
 
-	/**
+    private final static String TASK_TABLE_NAME = "veraweb.ttask";
+
+    /**
 	 * Load and return all tasks of the event with the given id.
 	 *
 	 * @param oc
@@ -57,25 +64,61 @@ public class EventTaskListWorker extends ListWorkerVeraWeb {
 
     @Override
     public List<Task> showList(OctopusContext octopusContext) throws IOException, BeanException {
-
         sendNoChangesMessage(octopusContext);
+        super.showList(octopusContext);
+        final String eventId = octopusContext.requestAsString("id");
+        octopusContext.setContent("id", eventId);
 
-        List<Task> list = super.showList(octopusContext);
-
-        octopusContext.setContent("id", octopusContext.requestAsString("id"));
-
-        Database database = new DatabaseVeraWeb(octopusContext);
-
-        for (Task task : list) {
-            Person person = (Person) database.getBean("Person", task.getPersonId());
-            // Select statement bauen um  person mit 'personId' aus der db zu holen
-
-            if (person != null) {
-                task.setPersonName(person.lastname_a_e1 + ", " + person.firstname_a_e1);
-            }
+        final Database database = new DatabaseVeraWeb(octopusContext);
+        final List<Task> allTasks = getTasksByEventId(eventId, database);
+        for (Task task : allTasks) {
+            setEditorsFullName(database, task);
         }
 
-        return list;
+        return allTasks;
+    }
+
+    private void setEditorsFullName(Database database, Task task) throws BeanException, IOException {
+        Person person = (Person) database.getBean("Person", task.getPersonId());
+        // Select statement bauen um  person mit 'personId' aus der db zu holen
+
+        if (person != null) {
+            task.setPersonName(person.lastname_a_e1 + ", " + person.firstname_a_e1);
+        }
+    }
+
+    private List<Task> getTasksByEventId(String eventId, Database database) throws BeanException {
+        List<Task> allTasks = null;
+        final Select select = getSelectTaskStatement(eventId, database);
+        final ResultSet tasksAsResultSet = database.result(select);
+        try {
+            allTasks = getTasksAsList(tasksAsResultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allTasks;
+    }
+
+    private List<Task> getTasksAsList(ResultSet resultSet) throws SQLException {
+        final List<Task> result = new ArrayList<Task>();
+        while(resultSet.next()) {
+            final Task task = new Task(resultSet);
+            result.add(task);
+        }
+
+        return result;
+    }
+
+    private Select getSelectTaskStatement(String eventId, Database database) {
+        final WhereList whereCriterias = new WhereList();
+        whereCriterias.addAnd(new Where("fk_event", eventId, "="));
+        final Select select = SQL.Select(database).
+        select("*").
+        from(TASK_TABLE_NAME).
+        where(whereCriterias).
+        orderBy(Order.asc("pk"));
+
+        return select;
     }
 
     private void sendNoChangesMessage(OctopusContext octopusContext) {

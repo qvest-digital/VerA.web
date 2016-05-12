@@ -203,7 +203,7 @@ public class EventTaskDetailWorker {
             task = getTask(octopusContext, task);
 
             octopusContext.setContent(PARAM_TASK, task);
-            octopusContext.setContent("eventId", octopusContext.requestAsInteger("id"));
+            octopusContext.setContent("eventId", task.getEventId());
             octopusContext.setContent("task-starthastime", Boolean.valueOf(DateHelper.isTimeInDate(task.getStartdate())));
             octopusContext.setContent("task-endhastime", DateHelper.isTimeInDate(task.getEnddate()));
 

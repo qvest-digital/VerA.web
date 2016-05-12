@@ -126,9 +126,13 @@ ul.inline, ul.inline li {display:inline;}
 
 ul.alphabet li {
     border-right: 1px solid;
-    padding-right: 5px;
+    padding: 0 0.5em;
 }
 
+ul.alphabet li:last-child{
+	border-right: none;
+   padding: 0 0.5em;
+}
 /************* =2.3.1 paging *************/
 
 
@@ -1020,6 +1024,10 @@ tr.colspan {
 	background:none;
 }
 
+tr.highlight {
+	background: antiquewhite;
+}
+
 th {
 	color: #8b0f0f;
 /* gradient causes problems with borders in IE9
@@ -1167,4 +1175,30 @@ td[onclick]
     text-overflow: ellipsis;
     overflow: hidden;
     display: inline-block;
+}
+
+label span {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+/** Guest List checkboxes */
+.invisible {
+    display:none;
+}
+
+
+/** Flexbox */
+.flexContainer {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.flexItem {
+    margin-right: 10px;
+}
+
+.alignBottom {
+    align-self: flex-end;
 }

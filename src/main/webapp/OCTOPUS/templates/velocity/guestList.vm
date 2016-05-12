@@ -181,6 +181,8 @@
 			<form id="formlist" name="formlist" action="ShowGuestList" method="POST">
 			<input type="hidden" name="start" value="">
 			<input type="hidden" name="limit" value="" />
+			<input type="hidden" name="filter" value="" />
+			
 			<input type="hidden" name="selectNone" id="selectNone" value="true">
 			<input type="hidden" name="doInsert" value="false">
 			<input type="hidden" name="doUpdate" value="true">
@@ -194,27 +196,46 @@
 				<input type="hidden" name="list" value="$bean.id">
 			#end
 
-			<!-- neu -->
-			<div class="table width100 marginTop30">
-				<div class="tableRow">
-						<div class="tableCell width35 inlineInput" style="padding-bottom:0"><label for="actionSelection">${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}</label>
-								<select id="actionSelection" class="autoWidth">
-									<option value="0">${placeholderWithTranslation.GENERIC_DELETE}</option>
-									<option value="1">${placeholderWithTranslation.GUEST_LIST_CATEGORY_ASSIGN}</option>
-									<option value="2">${placeholderWithTranslation.GUEST_LIST_CATEGORY_REMOVE}</option>
-									<option value="3">${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
-								</select>
-								<input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.GENERIC_EXECUTE}" title="${placeholderWithTranslation.GENERIC_EXECUTE}" class="autoWidth">
-						</div>
-						<div class="tableCell textRight" style="vertical-align:bottom; padding-bottom:0">
-							#if($grants.mayWrite())
-								<input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
-								<input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
-								<input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
-							#end
-						</div>
+			<div class="flexContainer marginTop30">
+				<div style="" class="flexItem inlineInput">
+					<label><input type="checkbox" title="${placeholderWithTranslation.alledemarkieren}" id="select-all" name="select-all" style="vertical-align: baseline;" onclick="toggleSelectAll()"> ${placeholderWithTranslation.GENERIC_SELECT_ALL} <span>
+						#if($listparam.count == 1)
+							($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_SINGULAR}
+						#elseif($listparam.count > 1)
+							($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_PLURAL}
+						#else
+							(${placeholderWithTranslation.GENERIC_GUEST_NONE})
+						#end
+						#set($currentNumberOfPages = $listparam.count / $listparam.limit)
+						#if( $currentNumberOfPages > 1 )
+							${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})
+						#elseif( $currentNumberOfPages == 1 )
+							${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGE})
+						#elseif(  $currentNumberOfPages == 0 && $listparam.count > 0 )
+							${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGE})
+						#end
+						</span>
+					</label>
 				</div>
-			</div><!--neu -->
+
+				<div class="flexItem inlineInput" style="">
+					<label for="actionSelection">${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}</label>
+						<select id="actionSelection" class="autoWidth">
+							<option value="0">${placeholderWithTranslation.GENERIC_DELETE}</option>
+							<option value="1">${placeholderWithTranslation.GUEST_LIST_CATEGORY_ASSIGN}</option>
+							<option value="2">${placeholderWithTranslation.GUEST_LIST_CATEGORY_REMOVE}</option>
+							<option value="3">${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
+						</select>
+						<input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.GENERIC_EXECUTE}" title="${placeholderWithTranslation.GENERIC_EXECUTE}" class="autoWidth">
+				</div>
+				<div class="flexItem textRight alignBottom" style="flex-grow: 2; margin-right: 0px;">
+					#if($grants.mayWrite())
+						<input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
+						<input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
+						<input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
+					#end
+				</div>
+			</div>
 
 			## Handler für selektierte Aktion
 			<script>
@@ -224,7 +245,7 @@
 							return;
 						#end
 						var checkBoxes = $('input:checkbox[name$="-select"]:checked');
-						if (checkBoxes.length === 0) {
+						if (checkBoxes.length === 0 && !document.getElementById('select-all').checked) {
 							$(".errormsg").remove();
 							$(".successmsg").remove();
 							showWarning('${placeholderWithTranslation.wahlensiebittezunachsteinenodermehreregasteaus}.');
@@ -261,7 +282,7 @@
 					$('#button\\.execute').click(function (e) {
 						var selectValue = $('#actionSelection option:selected').val();
 
-						if(hasSelection()){
+						if(hasSelection() || document.getElementById('select-all').checked){
 							if (selectValue == "0") {
 								removeGuestabfrage();
 							} else if (selectValue == "1") {
@@ -281,16 +302,28 @@
 				});
 
 
+				var isSelectAllChecked = function(){
+					return $("#select-all").get(0).checked;
+				};
 
-				var selectedCount = ${listselection.size()};
+				var selectAllValue = function(){
+					if(isSelectAllChecked()){
+						return $("#select-all").val();
+					}
+					return "";
+				};
+
+				var selectedCount = function(){
+					if(isSelectAllChecked()){
+						return ${listparam.count};
+				}
+					return $('input:checkbox[name$="-select"]:checked').length;
+				};
 
 				function hasSelection() {
-					return $('input:checked[name$="-select"]').length > 0;
+					return selectedCount() > 0;
 				}
 
-				function selectionChange( elt ) {
-					selectedCount += ( elt.checked ? 1 : -1 );
-				}
 
 				function selectedActionRemoveGuest() {
 					$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
@@ -298,11 +331,11 @@
 				}
 
 				function unassignCategories() {
-					selectPersonCategory( "${paths.staticWeb}do/popupUnassignGuestCategory?count=" + selectedCount + "&eventId=" + ${event.id} );
+					selectPersonCategory( "${paths.staticWeb}do/popupUnassignGuestCategory?count=" + selectedCount() + "&eventId=" + ${event.id}+"&select-all="+selectAllValue() );
 				}
 
 				function assignCategories() {
-					selectPersonCategory( "${paths.staticWeb}do/popupAssignGuestCategory?count=" + selectedCount + "&eventId=" + ${event.id} );
+					selectPersonCategory( "${paths.staticWeb}do/popupAssignGuestCategory?count=" + selectedCount() + "&eventId=" + ${event.id}+"&select-all="+selectAllValue() );
 				}
 
 				function submitFormWithGivenAction(action, permission) {
@@ -323,10 +356,9 @@
 						<col width="$column6%" />
 						<col width="$column7%" />
 						<col width="$column8%" />
-
-						<tr>
+						<tr >
 							<!-- BEGIN OF COLUMNS TO ORDER -->
-								<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+								<th class="textCenter smallCell"></th>
 
 								<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"
 									#if($search.listorder && $search.listorder == "orderno")
@@ -415,9 +447,17 @@
 							#end
 
 						#set($offset = $listparam.start + $velocityCount)
-
-						<tr>
-							<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}"><input type="checkbox" name="${bean.id}-select" onChange="selectionChange( this );" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/></td>
+						## We want zero-indexed offset to create jump marks. I don't understand how the other "offset" is
+						## used, and I don't want to break anything...
+						#set($offset0 = $offset - 1)
+						
+						<tr id="row-${offset0}">
+							<td>
+								<input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false">
+								<input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}">
+								<img title="ich bin eine tolle Überschrift" src="${paths.staticWeb}images/checked_disabled.png" class="invisible invisibleselector"/>
+								<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/>
+							</td>
 							<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
 								#if($bean.ishost && $bean.ishost == 1)
 									<em>${placeholderWithTranslation.GENERIC_HOST}</em>
@@ -566,8 +606,8 @@
 						#set($itemName = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
 						#tableFooter(12)
 
-						#if($search.listorder)
-							#parse("inc/list-direct-new.vm")
+						#if($search.listorder && $jumpOffsets)
+							#parse("inc/list-direct-even-newer.vm")
 						#else
 							<tr class="colspan">
 								<td colspan="99" class="textCenter">
@@ -658,6 +698,22 @@
 			window.location.href = '${paths.staticWeb}do/ShowExportGuest';
 		});
 	});
+
+	var toggleSelectAll = function() {
+		var guestsTable = $("table.sortable");
+		var checkboxes = guestsTable.find('input[type="checkbox"]');
+		var icons = guestsTable.find('img[class*="invisibleselector"]');
+		if (document.getElementById('select-all').checked) {
+			checkboxes.prop('checked', false);
+			checkboxes.prop('disabled', true);
+			checkboxes.addClass( "invisible" );
+			icons.removeClass( "invisible" );
+		} else {
+			checkboxes.prop('disabled', false);
+			checkboxes.removeClass( "invisible" );
+			icons.addClass( "invisible" );
+		}
+	};
 
 </script>
 

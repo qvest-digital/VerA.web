@@ -47,7 +47,6 @@
 		<worker name="PersonDupcheckWorker" implementation="de.tarent.aa.veraweb.worker.PersonDupcheckWorker" singleton="true" factory="reflected" />
 		<worker name="ImportPersonsWorker" implementation="de.tarent.aa.veraweb.worker.ImportPersonsWorker" singleton="true" factory="reflected" />
 		<worker name="ImportPersonsDuplicateWorker" implementation="de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker" singleton="true" factory="reflected" />
-		<worker name="PersonExportWorker" implementation="de.tarent.aa.veraweb.worker.PersonExportWorker" singleton="true" factory="reflected" />
 		<worker name="DataExchangeWorker" implementation="de.tarent.aa.veraweb.worker.DataExchangeWorker" singleton="true" factory="reflected" />
 		<worker name="CompanyListWorker" implementation="de.tarent.aa.veraweb.worker.CompanyListWorker" singleton="true" factory="reflected" />
 		<worker name="PersonDuplicateSearchWorker" implementation="de.tarent.aa.veraweb.worker.PersonDuplicateSearchWorker" singleton="true" factory="reflected" />
@@ -68,7 +67,6 @@
 		<worker name="GuestWorker" implementation="de.tarent.aa.veraweb.worker.GuestWorker" singleton="true" factory="reflected" />
 		<worker name="GuestListWorker" implementation="de.tarent.aa.veraweb.worker.GuestListWorker" singleton="true" factory="reflected" />
 		<worker name="GuestDetailWorker" implementation="de.tarent.aa.veraweb.worker.GuestDetailWorker" singleton="true" factory="reflected" />
-		<worker name="GuestExportWorker" implementation="de.tarent.aa.veraweb.worker.GuestExportWorker" singleton="true" factory="reflected" />
 		<worker name="GuestReportWorker" implementation="de.tarent.aa.veraweb.worker.GuestReportWorker" singleton="true" factory="reflected" />
 		<worker name="EventFunctionWorker" implementation="de.tarent.aa.veraweb.worker.EventFunctionWorker" singleton="true" factory="reflected" />
 		<worker name="EventCategoryWorker" implementation="de.tarent.aa.veraweb.worker.EventCategoryWorker" singleton="true" factory="reflected" />
@@ -334,7 +332,6 @@
 			<doTask name="LoadStammdaten"/>
 			<action name="saveList" worker="PersonDuplicateSearchWorker" />
 			<action name="showList" worker="PersonDuplicateSearchWorker" />
-			<action name="exportFormat" worker="PersonExportWorker" />
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="personList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -517,7 +514,6 @@
 			<action name="saveList" worker="PersonListWorker" />
 			<action name="getSearch" worker="PersonListWorker" />
 			<action name="showList" worker="PersonListWorker" />
-			<action name="exportFormat" worker="PersonExportWorker" />
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="personList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -750,16 +746,6 @@
 			<doTask name="SearchPerson"/>
 		</task>
 
-		<task name="PersonExport" access="public" groups="Exporter">
-			<description>
-				Task exportiert das aktuelle Personen-Suchergebnis.
-			</description>
-			<action name="getSelection" worker="PersonExportWorker"/>
-			<response type="binary" name="stream">
-				<param name="CachingParam" value="nocachecontrol,nopragma"/>
-			</response>
-		</task>
-
 		<!-- Umsetzung -->
 		<task name="CreateDocSpecData" access="public" groups="Writer">
 			<description>
@@ -887,7 +873,7 @@
 			<doTask name="Load"/>
 			<action name="getSearch" worker="PersonListWorker"/>
 			<action name="showList" worker="PersonListWorker"/>
-			<action name="guessMaillinglist" worker="MailinglistWorker"/>
+			<action name="countRecipients" worker="PersonListWorker"/>
 			<response type="velocity" name="mailinglistCreate">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -919,7 +905,7 @@
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker" />
 			<action name="showList" worker="GuestListWorker"/>
-			<action name="guessMaillinglist" worker="MailinglistWorker"/>
+			<action name="countRecipients" worker="GuestListWorker"/>
 			<response type="velocity" name="mailinglistCreate">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
@@ -1249,6 +1235,7 @@
 				Zeigt eine Gästeliste an.
 			</description>
 			<doTask name="Load"/>
+			<action name="setupSortDirection" worker="GuestListWorker"/>
 			<action name="getSearch" worker="GuestListWorker"/>
 			<action name="getEvent" worker="GuestListWorker" />
 			<status equals="noevent">
@@ -1256,6 +1243,7 @@
 			</status>
 			<action name="saveList" worker="GuestListWorker"/>
 			<action name="showList" worker="GuestListWorker"/>
+			<action name="getJumpOffsets" worker="GuestListWorker"/>
 			<action name="getSums" worker="GuestListWorker"/>
 			<action name="getAllCategories" worker="GuestListWorker" />
 			<param name="liststarts" value="true"/>
@@ -1588,18 +1576,6 @@
 			</response>
 		</task>
 
-		<task name="popupPersonExport" access="public" groups="StandardFieldsReader">
-			<description>
-				Zeigt ein Popup mit den Stammdaten der Person zum direkten kopieren.
-			</description>
-			<doTask name="Load"/>
-			<action name="showDetail" worker="PersonDetailWorker"/>
-			<action name="createExport" worker="PersonDetailWorker"/>
-			<response type="velocity" name="popupPersonExport">
-				<param name="ContentType" value="text/html;charset=UTF-8"/>
-			</response>
-		</task>
-
 		<!--
 		  - modified as per change request 2.6.2 for version 1.2.0
 		  - cklein
@@ -1612,7 +1588,8 @@
 			<doTask name="Load"/>
 			<action name="getAllAvailablePersonCategories" worker="CategorieWorker"/>
 			<param name="assignmentAction" value="assign"/>
-			<response type="velocity" name="popupSelectCategory">
+			<param name="count" refvalue="REQUEST:count" />
+			<response type="velocity" name="popupSelectPersonCategory">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
@@ -1629,7 +1606,8 @@
 			<doTask name="Load"/>
 			<action name="getAllAvailablePersonCategories" worker="CategorieWorker"/>
 			<param name="assignmentAction" value="unassign"/>
-			<response type="velocity" name="popupSelectCategory">
+			<param name="count" refvalue="REQUEST:count" />
+			<response type="velocity" name="popupSelectPersonCategory">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
@@ -1646,7 +1624,9 @@
 			<doTask name="Load"/>
 			<action name="getAll" worker="CategorieWorker"/>
 			<param name="assignmentAction" value="assign"/>
-			<response type="velocity" name="popupSelectCategory">
+<!-- 			<action name="countSelectedGuests" worker="GuestListWorker"/> -->
+			<param name="count" refvalue="REQUEST:count" />
+			<response type="velocity" name="popupSelectGuestCategory">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
@@ -1661,9 +1641,11 @@
 				Zeigt ein Popup zur Auswahl einer Kategorie an.
 			</description>
 			<doTask name="Load"/>
-			<action name="getAll" worker="CategorieWorker"/>
-			<param name="assignmentAction" value="unassign"/>
-			<response type="velocity" name="popupSelectCategory">
+<!-- 			<action name="getAll" worker="CategorieWorker"/> -->
+			<param name="assignmentAction" value="unassign" />
+<!-- 			<action name="countSelectedGuests" worker="GuestListWorker"/> -->
+			<param name="count" refvalue="REQUEST:count" />
+			<response type="velocity" name="popupSelectGuestCategory">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>

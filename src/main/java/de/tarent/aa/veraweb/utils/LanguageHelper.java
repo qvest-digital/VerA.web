@@ -28,10 +28,23 @@ import java.util.Locale;
 
 public class LanguageHelper {
 
+    final Map<String,String> placeholderWithTranslation;
+    
+    public LanguageHelper(Map<String, String> placeholderWithTranslation) {
+        this.placeholderWithTranslation = placeholderWithTranslation;
+    }
+
+    @Deprecated
+    public String createMessage(String entity,
+            String action,
+            String count,
+            Map<String, String> placeholderWithTranslation) {
+        return createMessage(entity, action, count);
+    }
+
     public String createMessage(String entity,
                                 String action,
-                                String count,
-                                Map<String, String> placeholderWithTranslation) {
+                                String count) {
 
         String message;
         // singular or plural
@@ -54,9 +67,7 @@ public class LanguageHelper {
         return message;
     }
 
-    public String give(String enter) {
-        return enter;
-    }
+   
 
     public String makeFirstLetterLowerCase (String input) {
         Locale.setDefault(new Locale("en"));
@@ -67,5 +78,31 @@ public class LanguageHelper {
         return LowerCase;
     }
 
+    
+    // velocity 1.4 does not support varargs...
+    public String l10n(String code){
+        return translate(code);
+    }
+
+ // velocity 1.4 does not support varargs...
+    public String l10n(String code,Object arg0){
+        return translate(code,arg0);
+    }
+ // velocity 1.4 does not support varargs...
+    public String l10n(String code, Object arg0, Object arg1){
+        return translate(code, arg0, arg1);
+    }
+ // velocity 1.4 does not support varargs...
+    public String l10n(String code, Object arg0, Object arg1, Object arg2){
+        return translate(code, arg0, arg1, arg2);
+    }
+ // velocity 1.4 does not support varargs...
+    public String l10n(String code, Object arg0, Object arg1, Object arg2, Object arg3){
+        return translate(code, arg0, arg1, arg2, arg3);
+    }
+    public String translate(String code, Object ... args) {
+        String format = placeholderWithTranslation.containsKey(code) ? placeholderWithTranslation.get(code): code;
+        return String.format(format, args);
+    }
 
 }

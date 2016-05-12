@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import de.tarent.aa.veraweb.beans.GuestSearch;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.beans.PersonSearch;
@@ -165,6 +166,44 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         return new ArrayList(result.values());
     }
 
+    /**
+     * Octopus-Eingabe-Parameter für {@link #countRecipients(OctopusContext)}
+     */
+    public static final String INPUT_countRecipients[] = {};
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #countRecipients(OctopusContext)}
+     */
+    public static final String OUTPUT_countRecipients = "mailinglistParams";
+    public Map countRecipients(OctopusContext octopusContext) throws IOException, BeanException {
+        Map result = (Map) octopusContext.contentAsObject("mailinglistParams");
+        if (result == null) {
+            result = new HashMap();
+        }
+        final Integer countPeople = countSelectedPeople(octopusContext);
+        if (countPeople != null) {
+            result.put("count", countPeople);
+        }
+        return result;
+    }
+
+    public Integer countSelectedPeople(OctopusContext octopusContext) throws IOException, BeanException {
+        final Integer countPeople = getSelection(octopusContext, null).size();
+        if (countPeople == null) {
+            return 0;
+        }
+        return countPeople;
+    }
+
+    @Override
+    protected String getJumpOffsetsColumn(OctopusContext octopusContext) throws BeanException {
+        final String col = getSearch(octopusContext).listorder;
+        if(Arrays.asList("lastname_a_e1","firstname_a_e1","mail_a_e1").contains(col)){
+            return col;
+        }
+        return null;
+    }
+    
+    
     private void filterByFirstCharacterOfLastname(final OctopusContext octopusContext, final Select personSelect) {
         final Map allRequestParameters = octopusContext.getRequestObject().getRequestParameters();
         if (allRequestParameters.get("filter") != null) {
