@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Baue, Tagge und Pushe das veraweb-ldap image in die Docker Registry auf veraweb-tools.lan.tarent.de</description>
+  <description>Baue, Tagge und Pushe das veraweb-apache image in die Docker Registry auf veraweb-tools.lan.tarent.de</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>20</numToKeep>
@@ -11,26 +11,40 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Delete:jobere</permission>
       <permission>hudson.model.Item.Delete:tglase</permission>
+      <permission>hudson.model.Item.Configure:jobere</permission>
       <permission>hudson.model.Item.Configure:tglase</permission>
       <permission>hudson.model.Item.Configure:veraweb</permission>
       <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Build:jobere</permission>
       <permission>hudson.model.Item.Build:tglase</permission>
       <permission>hudson.model.Item.Build:veraweb</permission>
       <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:jobere</permission>
       <permission>hudson.model.Item.Workspace:tglase</permission>
       <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Read:jobere</permission>
       <permission>hudson.model.Item.Read:tglase</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
       <permission>hudson.model.Item.Cancel:veraweb</permission>
       <permission>hudson.scm.SCM.Tag:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>RELEASE_VERSION</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>git+ssh://maven@evolvis.org/scmrepos/git/veraweb/docker-ldap.git</url>
+        <url>git+ssh://maven@evolvis.org/scmrepos/git/veraweb/docker-httpd.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -40,7 +54,7 @@
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <browser class="hudson.plugins.git.browser.GitWeb">
-      <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/docker-ldap.git</url>
+      <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/docker-httpd.git</url>
     </browser>
     <submoduleCfg class="list"/>
     <extensions>
@@ -64,20 +78,14 @@
     <hudson.tasks.Shell>
       <command>set -ex
 git gc
-rsync --delete-before -zavPHK &quot;$PWD/&quot; root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/ldap/
-ssh -l root veraweb-tools.lan.tarent.de &apos;/root/jenkins-tmp/ldap/dockerinstall.sh&apos;</command>
+rsync --delete-before -zavPHK &quot;$PWD/&quot; root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/httpd/
+ssh -l root veraweb-tools.lan.tarent.de &apos;/root/jenkins-tmp/httpd/dockerinstall.sh&apos;
+ssh -l root veraweb-tools.lan.tarent.de &quot;docker tag veraweb-tools.lan.tarent.de:5000/veraweb-httpd veraweb-tools.lan.tarent.de:5000/veraweb-httpd:$RELEASE_VERSION&quot;
+ssh -l root veraweb-tools.lan.tarent.de &quot;docker push veraweb-tools.lan.tarent.de:5000/veraweb-httpd:$RELEASE_VERSION&quot;
+</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.tasks.BuildTrigger>
-      <childProjects>veraweb-docker-deploy</childProjects>
-      <threshold>
-        <name>SUCCESS</name>
-        <ordinal>0</ordinal>
-        <color>BLUE</color>
-        <completeBuild>true</completeBuild>
-      </threshold>
-    </hudson.tasks.BuildTrigger>
     <hudson.plugins.jabber.im.transport.JabberPublisher plugin="jabber@1.35">
       <targets>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
