@@ -15,6 +15,9 @@
         <groovy-all.version>2.4.5</groovy-all.version>
         <spock-core.version>1.0-groovy-2.4</spock-core.version>
         <extract-tool.version>1.1</extract-tool.version>
+        <background-jobs.version>1.13</background-jobs.version>
+        <cglib-nodep.version>3.2.1</cglib-nodep.version>
+        <spring-jdbc.version>4.2.6.RELEASE</spring-jdbc.version>
     </properties>
 
     <repositories>
@@ -42,7 +45,7 @@
         <dependency>
             <groupId>de.tarent.dfg-commons</groupId>
             <artifactId>background-jobs</artifactId>
-            <version>1.13</version>
+            <version>${background-jobs.version}</version>
         </dependency>
 
         <dependency>
@@ -62,8 +65,14 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
-            <version>3.2.1</version>
+            <version>${cglib-nodep.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring-jdbc.version}</version>
         </dependency>
 
     </dependencies>
