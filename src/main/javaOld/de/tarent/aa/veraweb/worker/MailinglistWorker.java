@@ -229,19 +229,6 @@ public class MailinglistWorker {
 		return addMailinglist(octopusContext, mailinglist, select);
 	}
 
-	private Select getBasicGuestSelect(Database database, String personMail, String personFax) {
-		return SQL.Select(database).setDistinct(true).
-                    from("veraweb.tguest").
-                    selectAs("tguest.pk", "guest").
-                    selectAs("tperson.pk", "person").
-                    selectAs(personMail, "mail2").
-                    selectAs(personFax, "fax2").
-                    selectAs("tperson.mail_a_e1", "mail3").
-                    selectAs("tperson.fax_a_e1", "fax3").
-                    joinLeftOuter("veraweb.tperson", "tperson.pk", "tguest.fk_person").
-                    joinLeftOuter("veraweb.tguest_doctype", "tguest.pk", "tguest_doctype.fk_guest");
-	}
-
 	/**
 	 * Hilfsfunktion für
 	 * addMailinglistFromPerson

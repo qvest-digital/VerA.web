@@ -158,10 +158,6 @@ public class VerawebMessages {
         return languageProvider.getProperty("MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY");
     }
 
-    public String getMessageDocTypeMaxConnectorReached() {
-        return languageProvider.getProperty("MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED");
-    }
-
     public String getMessageProxyNoRepresentative() {
         return languageProvider.getProperty("MESSAGE_PROXY_NO_REPRESENTATIVE");
     }
