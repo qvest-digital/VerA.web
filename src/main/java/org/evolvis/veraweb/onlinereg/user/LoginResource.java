@@ -146,7 +146,12 @@ public class LoginResource {
         }
 
         // have osiam check the credentials and optain an access token
-        final String accessToken = config.getOsiam().getClient(client).getAccessTokenUserPass(userName, password, "GET", "POST");
+        String accessToken;
+        try {
+            accessToken = config.getOsiam().getClient(client).getAccessTokenUserPass(userName, password, "GET", "POST");
+        } catch (Exception ex) {
+            accessToken = null;
+        }
 
         if (accessToken == null) {
             return Response.status(Status.UNAUTHORIZED).build();
@@ -218,7 +223,8 @@ public class LoginResource {
 
     private String fetchDisplayName(String userName) {
         ClientResponse resp = client.resource(path("person", "userinfo", userName)).get(ClientResponse.class);
-        // may happen e.g. for delegation users. (generated username, no actual user data)
+        // may happen e.g. for delegation users. (generated username, no actual
+        // user data)
         if (resp.getStatus() == Status.NO_CONTENT.getStatusCode()) {
             return null;
         }
@@ -245,7 +251,6 @@ public class LoginResource {
             this.displayName = null;
         }
 
-
         public State(String userAccountName, String userDisplayName) {
             this.accountName = userAccountName;
             this.displayName = userDisplayName;
@@ -259,7 +264,6 @@ public class LoginResource {
         public boolean isAuthenticated() {
             return authenticated;
         }
-
 
         public String getDisplayName() {
             return displayName;

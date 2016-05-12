@@ -7,6 +7,13 @@ module.exports = function($q, $http, param, $rootScope) {
   var transformResponse = function(resp) {
     return resp.data;
   };
+
+  var transformError = function(e){
+    if(e.status===401){
+      throw new Error("GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG");
+    }
+    throw new Error("GENERIC_ERROR");
+  };
   var emit = function(data){
     $rootScope.$broadcast("vwoa-auth:authentication-state-changed",data);
     return data;
@@ -22,7 +29,7 @@ module.exports = function($q, $http, param, $rootScope) {
           password: password
         })
       })
-      .then(transformResponse)
+      .then(transformResponse,transformError)
       .then(updateCache)
       .then(emit);
   };
