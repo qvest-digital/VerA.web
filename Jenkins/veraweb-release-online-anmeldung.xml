@@ -4,27 +4,22 @@
   <description>&lt;p&gt;Dieser Job ist Teil einer Serie von vier Jobs, die in Reihe (sequenziell) bauen:&lt;/p&gt;&#xd;
 &#xd;
 &lt;table style=&quot;border:0;&quot;&gt;&#xd;
-  &lt;tr&gt;&lt;td&gt;1.　vwapi&lt;/td&gt;&lt;td&gt;– rest-api-common&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
+  &lt;tr&gt;&lt;td&gt;⒈　vwapi&lt;/td&gt;&lt;td&gt;– rest-api-common&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-dev-common/&quot;&gt;Dev-Job&lt;/a&gt;, &lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-release-common/&quot;&gt;Release-Job&lt;/a&gt;, &lt;a&#xd;
  href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/common.git;a=summary&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
  href=&quot;http://maven-repo.evolvis.org/releases/org/evolvis/veraweb/rest-api-common/&quot;&gt;Release-Artefakte&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;&#xd;
-  &lt;tr&gt;&lt;td&gt;2.　vwe&lt;/td&gt;&lt;td&gt;– export&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
- href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-dev-export/&quot;&gt;Dev-Job&lt;/a&gt;, &lt;a&#xd;
- href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-release-export/&quot;&gt;Release-Job&lt;/a&gt;, &lt;a&#xd;
- href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/export.git;a=summary&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
- href=&quot;http://maven-repo.evolvis.org/releases/org/evolvis/veraweb/export/&quot;&gt;Release-Artefakte&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;&#xd;
-  &lt;tr&gt;&lt;td&gt;3.　vwor&lt;/td&gt;&lt;td&gt;– rest-api&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
+  &lt;tr&gt;&lt;td&gt;⒉　vwor&lt;/td&gt;&lt;td&gt;– rest-api&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-dev-rest-api/&quot;&gt;Dev-Job&lt;/a&gt;, &lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-release-rest-api/&quot;&gt;Release-Job&lt;/a&gt;, &lt;a&#xd;
  href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/rest-api.git;a=summary&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
  href=&quot;http://maven-repo.evolvis.org/releases/org/evolvis/veraweb/rest-api/&quot;&gt;Release-Artefakte&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;&#xd;
-  &lt;tr&gt;&lt;td&gt;4.　vwoa&lt;/td&gt;&lt;td&gt;– online-anmeldung&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
+  &lt;tr&gt;&lt;td&gt;⒊　vwoa&lt;/td&gt;&lt;td&gt;– online-anmeldung&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-dev-online-anmeldung/&quot;&gt;Dev-Job&lt;/a&gt;, &lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-release-online-anmeldung/&quot;&gt;Release-Job&lt;/a&gt;, &lt;a&#xd;
  href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/online-anmeldung.git;a=summary&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
  href=&quot;http://maven-repo.evolvis.org/releases/org/evolvis/veraweb/online-anmeldung/&quot;&gt;Release-Artefakte&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;&#xd;
-  &lt;tr&gt;&lt;td&gt;5.　core&lt;/td&gt;&lt;td&gt;– veraweb&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
+  &lt;tr&gt;&lt;td&gt;⒋　core&lt;/td&gt;&lt;td&gt;– veraweb&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-dev-core/&quot;&gt;Dev-Job&lt;/a&gt;, &lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-release-core/&quot;&gt;Release-Job&lt;/a&gt;, &lt;a&#xd;
  href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=summary&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
@@ -48,35 +43,35 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Run.Update:veraweb</permission>
       <permission>hudson.model.Item.Read:jobere</permission>
       <permission>hudson.model.Item.Read:tglase</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Item.Cancel:veraweb</permission>
-      <permission>hudson.model.Item.Release:veraweb</permission>
-      <permission>hudson.model.Item.Configure:jobere</permission>
-      <permission>hudson.model.Item.Configure:tglase</permission>
-      <permission>hudson.model.Item.Configure:veraweb</permission>
       <permission>hudson.model.Item.Build:jobere</permission>
       <permission>hudson.model.Item.Build:tglase</permission>
       <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Delete:jobere</permission>
-      <permission>hudson.model.Item.Delete:tglase</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Item.Cancel:veraweb</permission>
+      <permission>hudson.model.Item.Configure:jobere</permission>
+      <permission>hudson.model.Item.Configure:tglase</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
       <permission>hudson.model.Item.Workspace:jobere</permission>
       <permission>hudson.model.Item.Workspace:tglase</permission>
       <permission>hudson.model.Item.Workspace:veraweb</permission>
-      <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Item.Delete:jobere</permission>
+      <permission>hudson.model.Item.Delete:tglase</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
           <name>RELEASE_VERSION</name>
-          <description>z.B. 1.8.9</description>
+          <description></description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>SNAPSHOT_VERSION</name>
-          <description>z.B. 1.8.10-SNAPSHOT</description>
+          <description></description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
@@ -86,22 +81,22 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>git+ssh://maven@evolvis.org/scmrepos/git/veraweb/common.git</url>
+        <url>git+ssh://maven@evolvis.org/scmrepos/git/veraweb/online-anmeldung.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>master</name>
+        <name>fes-Q2</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <browser class="hudson.plugins.git.browser.GitWeb">
-      <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/common.git</url>
+      <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/online-anmeldung.git</url>
     </browser>
     <submoduleCfg class="list"/>
     <extensions>
       <hudson.plugins.git.extensions.impl.LocalBranch>
-        <localBranch>master</localBranch>
+        <localBranch>fes-Q2</localBranch>
       </hudson.plugins.git.extensions.impl.LocalBranch>
     </extensions>
   </scm>
@@ -113,7 +108,7 @@
   <concurrentBuild>false</concurrentBuild>
   <rootModule>
     <groupId>org.evolvis.veraweb</groupId>
-    <artifactId>rest-api-common</artifactId>
+    <artifactId>online-anmeldung</artifactId>
   </rootModule>
   <goals>-e clean install</goals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
@@ -162,18 +157,6 @@
       <buildToChatNotifier class="hudson.plugins.im.build_notify.DefaultBuildToChatNotifier" plugin="instant-messaging@1.35"/>
       <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
     </hudson.plugins.jabber.im.transport.JabberPublisher>
-    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.25">
-      <configs>
-        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
-          <configs>
-            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
-          </configs>
-          <projects>veraweb-release-export-v2</projects>
-          <condition>SUCCESS</condition>
-          <triggerWithNoParameters>false</triggerWithNoParameters>
-        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
-      </configs>
-    </hudson.plugins.parameterizedtrigger.BuildTrigger>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.28">
@@ -192,6 +175,12 @@
     </hudson.tasks.Maven>
   </prebuilders>
   <postbuilders>
+    <hudson.tasks.Shell>
+      <command>set -ex
+scp target/vw-online-registration.jar root@veraweb-po.lan.tarent.de:/service/vwoa/vwoa.jar
+ssh root@veraweb-po.lan.tarent.de &apos;svc -t /service/vwoa&apos;
+</command>
+    </hudson.tasks.Shell>
     <hudson.tasks.Maven>
       <targets>deploy</targets>
       <mavenName>(Default)</mavenName>
@@ -206,6 +195,13 @@
       <settings class="jenkins.mvn.DefaultSettingsProvider"/>
       <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
     </hudson.tasks.Maven>
+    <hudson.tasks.Shell>
+      <command>set -ex
+git gc
+rsync --delete-before -zavPHK &quot;$PWD/&quot; root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/oa/
+ssh -l root veraweb-tools.lan.tarent.de &apos;/root/jenkins-tmp/oa/dockerinstall.sh&apos;
+ssh -l root veraweb-tools.lan.tarent.de &quot;docker tag veraweb-tools.lan.tarent.de:5000/veraweb-oa veraweb-tools.lan.tarent.de:5000/veraweb-oa:$RELEASE_VERSION&quot;</command>
+    </hudson.tasks.Shell>
     <hudson.tasks.Maven>
       <targets>versions:set -DnewVersion=$SNAPSHOT_VERSION</targets>
       <mavenName>(Default)</mavenName>

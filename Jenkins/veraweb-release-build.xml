@@ -71,7 +71,7 @@ git push origin --tags
               <onlyExactRuns>false</onlyExactRuns>
             </hudson.plugins.parameterizedtrigger.FileBuildParameters>
           </configs>
-          <projects>veraweb-release-common-v2,veraweb-release-ldap,veraweb-release-httpd</projects>
+          <projects>veraweb-release-common,veraweb-release-ldap,veraweb-release-httpd</projects>
           <condition>SUCCESS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
         </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
