@@ -20,6 +20,7 @@
         <spring-jdbc.version>4.2.6.RELEASE</spring-jdbc.version>
         <jacoco.version>0.7.6.201602180812</jacoco.version>
         <commons-io.version>2.5</commons-io.version>
+        <jackson-jaxrs-json-provider.version>2.4.0</jackson-jaxrs-json-provider.version>
     </properties>
 
     <repositories>
@@ -81,6 +82,12 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>${jackson-jaxrs-json-provider.version}</version>
         </dependency>
 
     </dependencies>
