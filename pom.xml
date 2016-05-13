@@ -19,6 +19,7 @@
         <cglib-nodep.version>3.2.1</cglib-nodep.version>
         <spring-jdbc.version>4.2.6.RELEASE</spring-jdbc.version>
         <jacoco.version>0.7.6.201602180812</jacoco.version>
+        <commons-io.version>2.5</commons-io.version>
     </properties>
 
     <repositories>
@@ -74,6 +75,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>${spring-jdbc.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
 
     </dependencies>
