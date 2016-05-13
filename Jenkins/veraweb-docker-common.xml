@@ -11,18 +11,18 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Delete:tglase</permission>
-      <permission>hudson.model.Item.Configure:tglase</permission>
-      <permission>hudson.model.Item.Configure:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:tglase</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
-      <permission>hudson.model.Item.Cancel:veraweb</permission>
-      <permission>hudson.model.Item.Release:veraweb</permission>
-      <permission>hudson.model.Item.Build:tglase</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
       <permission>hudson.model.Item.Read:tglase</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Cancel:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Item.Configure:tglase</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>hudson.model.Item.Build:tglase</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Delete:tglase</permission>
+      <permission>hudson.model.Item.Workspace:tglase</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
       <permission>hudson.scm.SCM.Tag:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
@@ -82,7 +82,7 @@
   <reporters/>
   <publishers>
     <hudson.tasks.BuildTrigger>
-      <childProjects>veraweb-docker-rest-api, veraweb-docker-online-anmeldung, veraweb-docker-core</childProjects>
+      <childProjects>veraweb-docker-export</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>

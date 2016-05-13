@@ -43,18 +43,18 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Delete:tglase</permission>
-      <permission>hudson.model.Item.Configure:tglase</permission>
-      <permission>hudson.model.Item.Configure:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:tglase</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
-      <permission>hudson.model.Item.Cancel:veraweb</permission>
-      <permission>hudson.model.Item.Release:veraweb</permission>
-      <permission>hudson.model.Item.Build:tglase</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
       <permission>hudson.model.Item.Read:tglase</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Cancel:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Item.Configure:tglase</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>hudson.model.Item.Build:tglase</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Delete:tglase</permission>
+      <permission>hudson.model.Item.Workspace:tglase</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
       <permission>hudson.scm.SCM.Tag:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
@@ -165,8 +165,6 @@ sleep 10
 sudo /usr/local/libexec/veraweb-update core
 ssh root@veraweb-mit.lan.tarent.de &apos;psql -U veraweb -h 127.0.0.1 veraweb&apos; &lt;files/upgrade.sql
 ssh root@veraweb-ohne.lan.tarent.de &apos;psql -U veraweb -h 127.0.0.1 veraweb&apos; &lt;files/upgrade.sql
-scp files/l10n/*.resource root@veraweb-mit.lan.tarent.de:/etc/veraweb/l10n/
-scp files/l10n/*.resource root@veraweb-ohne.lan.tarent.de:/etc/veraweb/l10n/
 ssh root@veraweb-mit.lan.tarent.de &apos;rm -rf /var/lib/tomcat7/webapps/veraweb*&apos;
 ssh root@veraweb-ohne.lan.tarent.de &apos;rm -rf /var/lib/tomcat7/webapps/veraweb*&apos;
 scp target/veraweb.war root@veraweb-mit.lan.tarent.de:/var/lib/tomcat7/webapps/veraweb.war

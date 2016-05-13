@@ -43,20 +43,39 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Delete:tglase</permission>
-      <permission>hudson.model.Item.Configure:tglase</permission>
-      <permission>hudson.model.Item.Configure:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:tglase</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
-      <permission>hudson.model.Item.Cancel:veraweb</permission>
-      <permission>hudson.model.Item.Release:veraweb</permission>
-      <permission>hudson.model.Item.Build:tglase</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Read:jobere</permission>
       <permission>hudson.model.Item.Read:tglase</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
+      <permission>hudson.model.Item.Build:jobere</permission>
+      <permission>hudson.model.Item.Build:tglase</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
       <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
       <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Item.Cancel:veraweb</permission>
+      <permission>hudson.model.Item.Configure:jobere</permission>
+      <permission>hudson.model.Item.Configure:tglase</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:jobere</permission>
+      <permission>hudson.model.Item.Workspace:tglase</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Delete:jobere</permission>
+      <permission>hudson.model.Item.Delete:tglase</permission>
     </hudson.security.AuthorizationMatrixProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>RELEASE_VERSION</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SNAPSHOT_VERSION</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
     <configVersion>2</configVersion>
@@ -140,19 +159,21 @@
     </hudson.plugins.jabber.im.transport.JabberPublisher>
   </publishers>
   <buildWrappers>
-    <org.jvnet.hudson.plugins.m2release.M2ReleaseBuildWrapper plugin="m2release@0.14.0">
-      <scmUserEnvVar></scmUserEnvVar>
-      <scmPasswordEnvVar></scmPasswordEnvVar>
-      <releaseEnvVar>IS_M2RELEASEBUILD</releaseEnvVar>
-      <releaseGoals>-Dresume=false release:prepare release:perform -DpreparationGoals=&quot;clean install&quot; -e</releaseGoals>
-      <dryRunGoals>-Dresume=false -DdryRun=true release:prepare -e</dryRunGoals>
-      <selectCustomScmCommentPrefix>false</selectCustomScmCommentPrefix>
-      <selectAppendHudsonUsername>false</selectAppendHudsonUsername>
-      <selectScmCredentials>false</selectScmCredentials>
-      <numberOfReleaseBuildsToKeep>1</numberOfReleaseBuildsToKeep>
-    </org.jvnet.hudson.plugins.m2release.M2ReleaseBuildWrapper>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.28">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
   </buildWrappers>
-  <prebuilders/>
+  <prebuilders>
+    <hudson.tasks.Maven>
+      <targets>versions:set -DnewVersion=$RELEASE_VERSION</targets>
+      <mavenName>(Default)</mavenName>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+    </hudson.tasks.Maven>
+  </prebuilders>
   <postbuilders>
     <hudson.tasks.Shell>
       <command>set -ex
@@ -164,6 +185,41 @@ ssh root@veraweb-po.lan.tarent.de &apos;service tomcat7 start&apos;
 sleep 10
 </command>
     </hudson.tasks.Shell>
+    <hudson.tasks.Maven>
+      <targets>deploy</targets>
+      <mavenName>(Default)</mavenName>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Maven>
+      <targets>scm:checkin scm:tag -Dtag=$RELEASE_VERSION -Dmessage=&quot;Release $RELEASE_VERSION&quot;</targets>
+      <mavenName>(Default)</mavenName>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Shell>
+      <command>set -ex
+git gc
+rsync --delete-before -zavPHK &quot;$PWD/&quot; root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/vwor/
+ssh -l root veraweb-tools.lan.tarent.de &apos;/root/jenkins-tmp/vwor/dockerinstall.sh&apos;
+ssh -l root veraweb-tools.lan.tarent.de &quot;docker tag veraweb-tools.lan.tarent.de:5000/veraweb-rest-api veraweb-tools.lan.tarent.de:5000/veraweb-rest-api:$RELEASE_VERSION&quot;</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Maven>
+      <targets>versions:set -DnewVersion=$SNAPSHOT_VERSION</targets>
+      <mavenName>(Default)</mavenName>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Maven>
+      <targets>scm:checkin -Dmessage=&quot;Prepare for next development iteration $SNAPSHOT_VERSION&quot;</targets>
+      <mavenName>(Default)</mavenName>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+    </hudson.tasks.Maven>
   </postbuilders>
   <runPostStepsIfResult>
     <name>SUCCESS</name>
