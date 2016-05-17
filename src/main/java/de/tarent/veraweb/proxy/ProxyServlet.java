@@ -20,6 +20,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HttpContext;
 
@@ -52,6 +53,9 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
         implicitProperties.setProperty(P_PASSWORD, verawebProperties.getProperty(VWOR_AUTH_PASSWORD));
         implicitProperties.setProperty(P_REQUIRED_GROUP, PersonalConfig.GROUP_ADMINISTRATOR);
         super.init();
+
+        // Authorization headers must not be copied from the original request!
+        hopByHopHeaders.addHeader(new BasicHeader("Authorization", null));
     }
 
     @Override
