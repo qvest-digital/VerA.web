@@ -124,6 +124,15 @@
 		</init-param>
 	</servlet>
 
+	<servlet>
+		<servlet-name>CsvExport</servlet-name>
+		<servlet-class>de.tarent.veraweb.proxy.ProxyServlet</servlet-class>
+		<init-param>
+			<param-name>targetPath</param-name>
+			<param-value>/rest/export/guestList</param-value>
+		</init-param>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>Forwarder</servlet-name>
 		<url-pattern>/do/*</url-pattern>
@@ -132,6 +141,11 @@
 	<servlet-mapping>
 		<servlet-name>Mail</servlet-name>
 		<url-pattern>/mailing/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>CsvExport</servlet-name>
+		<url-pattern>/csvexport/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>

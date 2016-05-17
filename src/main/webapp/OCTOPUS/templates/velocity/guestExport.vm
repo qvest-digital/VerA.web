@@ -43,8 +43,7 @@
 			<div class="notBold grayBorder contentBox marginBottom20 bgWhite">
 				<h3>${placeholderWithTranslation.EXPORT_TITLE_CSV}-${placeholderWithTranslation.GENERIC_EXPORT}</h3>
 
-				<!--TODO-->
-				<form id="ExportForm" action="RESTAPICALL" method="POST">
+				<form id="ExportForm" action="${paths.staticWeb}csvexport/$event.id" method="GET">
 					<input type="submit" name="export" value="${placeholderWithTranslation.EXPORT_AS_CSV}" title="${placeholderWithTranslation.EXPORT_AS_CSV}" class="mainButton autoWidth" />
 				</form>
 			</div>
