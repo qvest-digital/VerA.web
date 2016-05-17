@@ -109,7 +109,6 @@
 			<action name="openPools" worker="PoolWorker"/>
 			<action name="init" worker="MessageWorker"/>
 			<action name="init" worker="ConfigWorker"/>
-			<action name="load" worker="MailDispatchWorker"/>
 			<action name="load" worker="ChangeLogMaintenanceWorker"/>
 			<response type="none" name="none"/>
 		</task>
@@ -119,7 +118,6 @@
 			<param name="poolDefinitions" refvalue="CONFIG:databasePools"/>
 			<action name="closePools" worker="PoolWorker"/>
 			<action name="clean" worker="ConfigWorker"/>
-			<action name="unload" worker="MailDispatchWorker"/>
 			<action name="unload" worker="ChangeLogMaintenanceWorker"/>
 			<response type="none" name="none"/>
 		</task>
@@ -960,7 +958,6 @@
 			<description>Zeigt einen Dialog zum versenden von eMail an.</description>
 			<doTask name="Load"/>
 			<action name="showDetail" worker="MailinglistDetailWorker"/>
-			<action name="writeMail" worker="MailDispatchWorker"/>
 			<action name="getAll" worker="MailDraftWorker"/>
 			<response type="velocity" name="mailinglistWrite">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -972,7 +969,6 @@
 			<doTask name="Load"/>
 			<action name="showDetail" worker="MailinglistDetailWorker"/>
 			<action name="getSelection" worker="MailinglistDetailWorker"/>
-			<action name="sendMail" worker="MailDispatchWorker"/>
 			<status equals="error">
 				<doTask name="MailinglistWrite"/>
 			</status>
