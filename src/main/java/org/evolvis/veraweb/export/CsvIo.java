@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.Properties;
 
 import de.tarent.dfg.commons.backgroundjobs.BackgroundJobMonitor;
 import de.tarent.extract.DummyMonitor;
@@ -37,6 +38,10 @@ public class CsvIo implements ExtractIo {
 
 	public BackgroundJobMonitor getMonitor() {
 		return new DummyMonitor(null);
+	}
+
+	public Properties getProperties() {
+		return null;
 	}
 
 }
