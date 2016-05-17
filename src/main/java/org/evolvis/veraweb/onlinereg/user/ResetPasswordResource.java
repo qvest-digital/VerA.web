@@ -102,7 +102,7 @@ public class ResetPasswordResource {
      */
     @POST
     @Path("/{uuid}")
-    public String getEventByUUId(@PathParam("uuid") String uuid, @FormParam("password") String password)
+    public String resetPassword(@PathParam("uuid") String uuid, @FormParam("password") String password)
             throws IOException {
 
         final Integer userId = getUserId(uuid);

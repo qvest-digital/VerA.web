@@ -26,16 +26,31 @@
     <div class="form-group" ng-class="userHasNoEvents ? 'disabled' : ''">
       <label class="col-lg-4 control-label" for="title">{{'GENERIC_TITLE'|translate}}</label>
       <div class="col-lg-3">
-        <input id="title" class="form-control" type="text" ng-model="person.title_a_e1" name="title" ng-readonly="userHasNoEvents" />
+        <input id="title" 
+               class="form-control" 
+               type="text" 
+               ng-model="person.title_a_e1" 
+               name="title" 
+               ng-readonly="userHasNoEvents"
+
+        />
       </div>
     </div>
 
     <div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateUserCoreData.firstName.$valid ? 'has-success' : 'has-error')">
       <label class="col-lg-4 control-label" for="firstName">{{'GENERIC_FIRSTNAME'|translate}}</label>
       <div class="col-lg-3">
-        <input id="firstName" class="form-control" type="text" maxlength="35" ng-model="person.firstname_a_e1" name="firstName" required="" ng-readonly="userHasNoEvents" />
+        <input id="firstName" 
+               class="form-control" 
+               type="text" 
+               maxlength="35" 
+               ng-model="person.firstname_a_e1" 
+               name="firstName" 
+               required 
+               ng-readonly="userHasNoEvents" 
+        />
 
-        <div ng-show="updateUserCoreData.$submitted || updateUserCoreData.firstName.$touched">
+        <div ng-show="updateUserCoreData.firstName.$invalid && !updateUserCoreData.firstname.$pristine">
           <div class="help-block" ng-show="updateUserCoreData.firstName.$error.maxlength">{{'GENERIC_MESSAGE_FIRSTNAME_MAX'|translate}}</div>
           <div class="help-block" ng-show="updateUserCoreData.firstName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
         </div>
@@ -45,9 +60,17 @@
     <div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateUserCoreData.lastName.$valid ? 'has-success' : 'has-error')">
       <label class="col-lg-4 control-label" for="lastName">{{'GENERIC_LASTNAME'|translate}}</label>
       <div class="col-lg-3">
-        <input id="lastName" class="form-control" type="text" maxlength="35" ng-model="person.lastname_a_e1" name="lastName" required="" ng-readonly="userHasNoEvents" />
+        <input id="lastName" 
+               class="form-control" 
+               type="text" 
+               maxlength="35" 
+               ng-model="person.lastname_a_e1" 
+               name="lastName" 
+               required 
+               ng-readonly="userHasNoEvents" 
+        />
 
-        <div ng-show="updateUserCoreData.$submitted || updateUserCoreData.lastName.$touched">
+        <div ng-show="updateUserCoreData.lastname.$invalid && !updateUserCoreData.lastname.$pristine">
           <div class="help-block" ng-show="updateUserCoreData.lastName.$error.maxlength">{{'GENERIC_MESSAGE_LASTNAME_MAX'|translate}}</div>
           <div class="help-block" ng-show="updateUserCoreData.lastName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
         </div>
@@ -57,14 +80,21 @@
     <div class="form-group" ng-class="userHasNoEvents ? 'disabled' : (updateUserCoreData.birthday.$valid ? 'has-success' : 'has-error')">
       <label class="col-lg-4 control-label">{{'GENERIC_BIRTHDAY'|translate}}</label>
       <div class="col-lg-3">
-        <!--<md-datepicker id="birthday" name="birthday" date-parser="{{dd.MM.yyyy}}" ng-model="person.birthday_a_e1" md-placeholder="Enter date" md-max-date="maxBirthdayDate" ng-disabled="userHasNoEvents"></md-datepicker>-->
         <p class="input-group">
-          <input type="text" id="birthday" name="birthday" class="form-control" uib-datepicker-popup="dd.MM.yyyy"  is-open="datePickerOpen" ng-model="person.birthday_a_e1"  datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          <input type="text" 
+                 id="birthday" 
+                 name="birthday" 
+                 class="form-control" 
+                 uib-datepicker-popup="dd.MM.yyyy"  
+                 is-open="datePickerOpen" 
+                 ng-model="person.birthday_a_e1"  
+                 datepicker-options="dateOptions" 
+                 close-text="Close" 
+          />
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="datePickerOpen=true"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </p>
-        <p>{{person.birthday}}</p>
       </div>
     </div>
 
@@ -104,7 +134,7 @@
 
     <div ng-show="!userHasNoEvents" class="form-group">
       <div class="col-lg-3 col-lg-offset-4">
-        <button type="submit" class="btn btn-lg btn-primary btn-block btn-custom" ng-click="update_user_core_data()">
+        <button ng-disabled="updateUserCoreData.$invalid"  type="submit" class="btn btn-lg btn-primary btn-block btn-custom" ng-click="update_user_core_data()">
           {{'USER_ACCOUNT_CORE_DATA_UPDATE'|translate}}
         </button>
       </div>

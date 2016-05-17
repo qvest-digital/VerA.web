@@ -46,6 +46,12 @@ public class AuthenticationFilter implements Filter {
         if( path.startsWith("/api/user/register")){
             return false;
         }
+        if( path.startsWith("/api/user/activate")){
+            return false;
+        }
+        if( path.startsWith("/api/reset/password")){
+            return false;
+        }
         return true;
     }
 

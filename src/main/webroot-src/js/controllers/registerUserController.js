@@ -1,10 +1,9 @@
-module.exports = function($scope, $http, $location, $rootScope, $translate, param) {
-    $scope.success = null;
-    $scope.error = null;
-    $rootScope.cleanMessages();
+module.exports = function($scope, $http, $location, param, show, $translate) {
 
-    $scope.status = 0;
-
+	//<div ng-show="status == 'e'" class="alert alert-danger" role="alert">{{'GENERIC_ERROR'|translate}}</div>
+		//<div ng-show="status == 'e1'" class="alert alert-danger" role="alert">{{'REGISTER_USER_MESSAGE_USER_EXISTS_ERROR'|translate}}</div>
+		//<div ng-show="status == 'e2'" class="alert alert-danger" role="alert">{{'REGISTER_USER_MESSAGE_VALIDATION_ERROR'|translate}}</div>
+    
     $scope.register = function(isValid) {
         if(!isValid) { return; }
         $http({
@@ -21,31 +20,22 @@ module.exports = function($scope, $http, $location, $rootScope, $translate, para
         }).success(function (result) {
             switch(result.status) {
             case 'OK':
-                $scope.status = 1;
-
-                setStatus = 1;
-
-                $scope.update = function (parm1, parm2) {
-                    $scope.status = parm1 + ": " + parm2;
-                };
-
+                $location.path('/login');
+                show.success("REGISTER_USER_MESSAGE_SUCCESS");
                 break;
             case 'USER_EXISTS':
-                $scope.status = 'e1';
+                show.error("REGISTER_USER_MESSAGE_USER_EXISTS_ERROR");
                 break;
             case 'INVALID_USERNAME':
-                $scope.status = 'e2';
+                show.error("REGISTER_USER_MESSAGE_VALIDATION_ERROR");
                 break;
             default:
-                $scope.status = 'e';
+                show.error("GENERIC_ERROR");
             }
 
-            if($scope.status == 1) {
-                $location.path('/login');
-            }
 
         }).error(function (data, status, headers, config) {
-            $scope.status = 'e';
+                show.error("GENERIC_ERROR");
         });
     };
 };

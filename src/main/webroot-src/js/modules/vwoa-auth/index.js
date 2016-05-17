@@ -18,7 +18,8 @@ auth.run(function($rootScope, $location, authService) {
     return [
       '/login',
       '/register',
-      '/user/activate'
+      '/user/activate',
+      '/reset/password'
     ].some(function(prefix){return 0 === path.indexOf(prefix);});
   };
   $rootScope.setNextPage = function(){};
