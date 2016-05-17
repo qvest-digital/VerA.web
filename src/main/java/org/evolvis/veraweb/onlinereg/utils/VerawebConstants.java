@@ -49,4 +49,7 @@ public class VerawebConstants {
         public static final int MEDIA_REPRESENTATIVE_ACTIVE = 1;
         public static final int MEDIA_REPRESENTATIVE_INACTIVE = 0;
 
+    /** java byte size */
+        public static final int LONG_BYTE = (Long.SIZE / 8);
+
 }

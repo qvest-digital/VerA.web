@@ -1,11 +1,14 @@
 package org.evolvis.veraweb.onlinereg.auth;
 
+import org.apache.commons.codec.binary.Base64;
+
+import org.evolvis.veraweb.onlinereg.utils.VerawebConstants;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Base64;
 
 import javax.crypto.Mac;
 import javax.crypto.ShortBufferException;
@@ -41,7 +44,7 @@ public class HmacToken {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-        final int messageLength = osiamTokenBytes.length + Long.BYTES;
+        final int messageLength = osiamTokenBytes.length + VerawebConstants.LONG_BYTE;
         final int digestLength = mac.getMacLength();
         token = new byte[messageLength + digestLength];
 
@@ -68,7 +71,7 @@ public class HmacToken {
         final ByteBuffer buf = ByteBuffer.wrap(token);
         final int digestLength = mac.getMacLength();
         final int messageLength = token.length - digestLength;
-        final int osiamTokenLength = messageLength - Long.BYTES;
+        final int osiamTokenLength = messageLength - VerawebConstants.LONG_BYTE;
         if (osiamTokenLength <= 0) {
             throw new InvalidTokenException();
         }
@@ -97,7 +100,7 @@ public class HmacToken {
     }
 
     public HmacToken(String base64encodedToken) throws InvalidTokenException {
-        this(Base64.getDecoder().decode(base64encodedToken));
+        this(Base64.decodeBase64(base64encodedToken));
     }
 
     private Mac createMac() {
@@ -120,7 +123,7 @@ public class HmacToken {
     }
 
     public String toString() {
-        return Base64.getEncoder().encodeToString(token);
+        return Base64.encodeBase64String(token);
     }
 
 }
