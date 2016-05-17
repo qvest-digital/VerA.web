@@ -1,7 +1,7 @@
 var angular = require('angular');
 var moment = require('moment');
 var param = require('jquery-param');
-var UnexpectedStatuserror = require('../unexpected-status-error');
+var UnexpectedStatusError = require('../unexpected-status-error');
 
 //Moment loads locales via dynamic require calls.
 //Since browserify cannot infer such dependencies, we need to help a bit
