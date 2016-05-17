@@ -109,7 +109,7 @@ module.exports = function($q, $http, param) {
         $http.get('api/delegation/load/fields/' + uuid + '/' + pk)
         .then(transformResponse)
         .then(decodeFieldValues),
-        $http.get('api/fileupload/user/image/' + uuid + '/' + pk)
+        $http.get('api/delegation/image/' + uuid + '/' + pk)
         .then(transformResponse)
         .then(function(data) {
           return $http.get('api/fileupload/download/' + data.status);

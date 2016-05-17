@@ -7,8 +7,8 @@
 | Password Reset                                | 100%   | 90%     | zufällige neue  uuids beim verwenden des reset links? warum?
 | Offene Veranstaltungen                        | 100%   | 100%    |
 | Meine Veranstaltungen                         | 100%   | 100%    |
-| Kontaktdaten                                  | ?      |         |
-| Delegation anmelden                           | 100%   | --      |
+| Kontaktdaten                                  | 100%   | 100%    |
+| Delegation anmelden                           | 90%    | 100%    | fehlerbehandlung in der ui fehlt noch XXX 
 | Pressevertreter anmelden                      | ?      | ?       |
 | Zusagestatus bearbeiten                       | ?      | ?       |
 | Anmeldung zu nicht-öffentlicher Veranstaltung | ?      | ?       |
@@ -18,7 +18,7 @@
     In den meisten Fällen ist das damit erledigt, dass wir die Backend API anpassen und hier einfach die jeweils
     die Identität des Users aus dem HMAC-Token lesen, anstatt sie in der URI zu kodieren.
     Eine gesonderte Authorisierung ist notwendig:
-    
+
       - Beim Anmelden einer Delegation: ist der Firmenaccount zu dieser Veranstaltung eingeladen?
 
-      - Beim 
+      - Beim Pressevertreter: dass muss mir nochmal jemand erklären.

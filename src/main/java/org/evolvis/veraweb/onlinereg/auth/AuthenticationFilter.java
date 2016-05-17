@@ -11,8 +11,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.ForbiddenException;
+import javax.ws.rs.WebApplicationException;
 
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
@@ -43,13 +43,13 @@ public class AuthenticationFilter implements Filter {
         if (path.startsWith("/api/idm/login")) {
             return false;
         }
-        if( path.startsWith("/api/user/register")){
+        if (path.startsWith("/api/user/register")) {
             return false;
         }
-        if( path.startsWith("/api/user/activate")){
+        if (path.startsWith("/api/user/activate")) {
             return false;
         }
-        if( path.startsWith("/api/reset/password")){
+        if (path.startsWith("/api/reset/password")) {
             return false;
         }
         return true;
@@ -70,7 +70,7 @@ public class AuthenticationFilter implements Filter {
             if (needsAuthentication(path)) {
                 goAway(response);
             } else {
-                chain.doFilter(request, response);
+                proceed(request, response, chain);
             }
             return;
         }
@@ -81,11 +81,11 @@ public class AuthenticationFilter implements Filter {
             // right now we frankly don't care *why* the authorization failed...
             user = null;
         }
-        if (user == null ) {
+        if (user == null) {
             if (needsAuthentication(path)) {
                 goAway(response);
             } else {
-                chain.doFilter(request, response);
+                proceed(request, response, chain);
             }
             return;
         }
@@ -96,6 +96,16 @@ public class AuthenticationFilter implements Filter {
         request.setAttribute(LoginResource.ACCESS_TOKEN, token.getOsiamAccessToken());
         chain.doFilter(request, response);
 
+    }
+
+    private void proceed(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        try {
+            chain.doFilter(request, response);
+        } catch (WebApplicationException e) {
+            HttpServletResponse httpResponse = (HttpServletResponse) response;
+            httpResponse.setStatus(e.getResponse().getStatus());
+
+        }
     }
 
     private void goAway(ServletResponse response) throws IOException {

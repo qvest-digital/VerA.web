@@ -89,27 +89,7 @@ public class FileUploadResource {
 		return StatusConverter.convertStatus("OK");
 	}
 
-	@GET
-	@Path("/user/image/{delegationUUID}/{personId}")
-	public String getImageUUIDByUser(@PathParam("delegationUUID") String delegationUUID,
-									 @PathParam("personId") Integer personId) {
-
-		WebResource resource = client.resource(path("guest", "image", delegationUUID, personId));
-		String imageUUID = null;
-
-		try {
-			imageUUID = resource.get(String.class);
-		} catch (UniformInterfaceException e) {
-			int statusCode = e.getResponse().getStatus();
-			if (statusCode == 204) {
-				return null;
-			}
-
-			return null;
-		}
-
-		return StatusConverter.convertStatus(imageUUID);
-	}
+	
 
 	@GET
 	@Path("/download/{imgUUID}")

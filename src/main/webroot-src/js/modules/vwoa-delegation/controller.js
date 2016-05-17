@@ -1,5 +1,6 @@
 module.exports = function($scope, delegationService, $routeParams, $http, $uibModal, show) {
   var tools = require("../../scope-tools")($scope);
+  var putInScope = tools.putInScope;
   $scope.person = {};
   $scope.loadPersonData = function(pk) {
     delegationService
