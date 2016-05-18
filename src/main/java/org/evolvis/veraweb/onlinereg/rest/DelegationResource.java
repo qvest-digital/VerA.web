@@ -51,16 +51,16 @@ public class DelegationResource extends AbstractResource {
     /**
      * Get optional fields content for a guest.
      *
-     * @param eventId Event id
-     * @param guestId Guest id
+     * @param eventId
+     *            Event id
+     * @param guestId
+     *            Guest id
      *
      * @return Fields content
      */
     @GET
     @Path("/fields/list/{eventId}/{guestId}")
-    public List<OptionalFieldValue> getFieldsFromEvent(
-            @PathParam("eventId") int eventId,
-            @PathParam("guestId") int guestId) {
+    public List<OptionalFieldValue> getFieldsFromEvent(@PathParam("eventId") int eventId, @PathParam("guestId") int guestId) {
 
         final Session session = openSession();
         try {
@@ -91,8 +91,11 @@ public class DelegationResource extends AbstractResource {
     /**
      * Get label id by event id and label.
      *
-     * @param eventId The event id
-     * @param label The label (for example: firstname, lastname, email etc), not the content for this label
+     * @param eventId
+     *            The event id
+     * @param label
+     *            The label (for example: firstname, lastname, email etc), not
+     *            the content for this label
      *
      * @return The label id
      */
@@ -114,17 +117,18 @@ public class DelegationResource extends AbstractResource {
     /**
      * Save the field content.
      *
-     * @param guestId Guest id
-     * @param fieldId Field id
-     * @param fieldContent Field content
+     * @param guestId
+     *            Guest id
+     * @param fieldId
+     *            Field id
+     * @param fieldContent
+     *            Field content
      *
      * @return TODO
      */
     @POST
     @Path("/field/save")
-    public Delegation saveOptionalField(
-            @FormParam("guestId") Integer guestId,
-            @FormParam("fieldId") Integer fieldId,
+    public Delegation saveOptionalField(@FormParam("guestId") Integer guestId, @FormParam("fieldId") Integer fieldId,
             @FormParam("fieldContent") String fieldContent) {
         final Session session = openSession();
         try {
@@ -143,29 +147,27 @@ public class DelegationResource extends AbstractResource {
         }
     }
 
-    private List<OptionalFieldValue> convertOptionalFieldsResultSetToList(
-            final Integer guestId,
-            final List<OptionalField> fields,
+    private List<OptionalFieldValue> convertOptionalFieldsResultSetToList(final Integer guestId, final List<OptionalField> fields,
             final Session session) {
 
         final List<OptionalFieldValue> fieldsList = new ArrayList<OptionalFieldValue>(fields.size());
         for (OptionalField field : fields) {
             final List<Delegation> delegationContents = getDelegationContentsByGuest(guestId, session, field);
 
-            if (!delegationContents.isEmpty() || field.getFk_type() != 1) {
-                final OptionalFieldValue newOptionalFieldValue = initOptionalField(session, field, delegationContents);
-                fieldsList.add(newOptionalFieldValue);
-            } else {
-                final OptionalFieldValue newOptionalFieldValue = new OptionalFieldValue(field, null);
-                fieldsList.add(newOptionalFieldValue);
+            if (field.getFk_type() != null) {
+                if (!delegationContents.isEmpty() || field.getFk_type() != 1) {
+                    final OptionalFieldValue newOptionalFieldValue = initOptionalField(session, field, delegationContents);
+                    fieldsList.add(newOptionalFieldValue);
+                } else {
+                    final OptionalFieldValue newOptionalFieldValue = new OptionalFieldValue(field, null);
+                    fieldsList.add(newOptionalFieldValue);
+                }
             }
         }
         return fieldsList;
     }
 
-    private OptionalFieldValue initOptionalField(Session session,
-                                                 OptionalField field,
-                                                 List<Delegation> delegationContents) {
+    private OptionalFieldValue initOptionalField(Session session, OptionalField field, List<Delegation> delegationContents) {
         final List<OptionalFieldTypeContentFacade> typeContentsFacade = convertTypeContentsToDisplay(session, field);
         OptionalFieldValue optionalFieldValue = null;
         if (field.getFk_type() == 1) {
@@ -177,7 +179,7 @@ public class DelegationResource extends AbstractResource {
     }
 
     private OptionalFieldValue initDropdown(OptionalField field, List<Delegation> delegationContents,
-                                            List<OptionalFieldTypeContentFacade> typeContentsFacade) {
+            List<OptionalFieldTypeContentFacade> typeContentsFacade) {
         OptionalFieldValue newOptionalFieldValue = new OptionalFieldValue(field, null);
         markOptionsAsSelected(delegationContents, typeContentsFacade);
         newOptionalFieldValue.setOptionalFieldTypeContentsFacade(typeContentsFacade);
@@ -191,8 +193,7 @@ public class DelegationResource extends AbstractResource {
         return newOptionalFieldValue;
     }
 
-    private void markOptionsAsSelected(final List<Delegation> delegationContents,
-                                       final List<OptionalFieldTypeContentFacade> typeContentsFacade) {
+    private void markOptionsAsSelected(final List<Delegation> delegationContents, final List<OptionalFieldTypeContentFacade> typeContentsFacade) {
         for (Delegation delegationContent : delegationContents) {
             for (int i = 0; i < typeContentsFacade.size(); i++) {
                 if (delegationContent.getValue().equals(typeContentsFacade.get(i).getContent())) {
@@ -202,8 +203,7 @@ public class DelegationResource extends AbstractResource {
         }
     }
 
-    private List<OptionalFieldTypeContentFacade> convertTypeContentsToDisplay(final Session session,
-                                                                              final OptionalField field) {
+    private List<OptionalFieldTypeContentFacade> convertTypeContentsToDisplay(final Session session, final OptionalField field) {
         final List<OptionalFieldTypeContent> typeContents = getTypeContentsByField(session, field);
         final List<OptionalFieldTypeContentFacade> typeContentsFacade = new ArrayList<OptionalFieldTypeContentFacade>();
         for (OptionalFieldTypeContent typeContent : typeContents) {
@@ -214,8 +214,7 @@ public class DelegationResource extends AbstractResource {
     }
 
     private List<OptionalFieldTypeContent> getTypeContentsByField(final Session session, final OptionalField field) {
-        final Query getTypeContentsQuery =
-                session.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField");
+        final Query getTypeContentsQuery = session.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField");
         getTypeContentsQuery.setInteger("optionalFieldId", field.getPk());
         return (List<OptionalFieldTypeContent>) getTypeContentsQuery.list();
     }
