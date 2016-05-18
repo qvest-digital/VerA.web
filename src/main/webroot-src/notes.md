@@ -8,8 +8,8 @@
 | Offene Veranstaltungen                        | 100%   | 100%    |
 | Meine Veranstaltungen                         | 100%   | 100%    |
 | Kontaktdaten                                  | 100%   | 100%    |
-| Delegation anmelden                           | 90%    | 100%    | fehlerbehandlung in der ui fehlt noch XXX 
-| Pressevertreter anmelden                      | ?      | ?       |
+| Delegation anmelden                           | 100%   | 100%    |  
+| Pressevertreter anmelden                      | ?      | ?       | xxx
 | Zusagestatus bearbeiten                       | ?      | ?       |
 | Anmeldung zu nicht-öffentlicher Veranstaltung | ?      | ?       |
 
@@ -22,3 +22,4 @@
       - Beim Anmelden einer Delegation: ist der Firmenaccount zu dieser Veranstaltung eingeladen?
 
       - Beim Pressevertreter: dass muss mir nochmal jemand erklären.
+

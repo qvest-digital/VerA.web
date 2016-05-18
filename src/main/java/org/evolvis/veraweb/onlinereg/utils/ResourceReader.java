@@ -37,6 +37,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
+import javax.ws.rs.WebApplicationException;
+
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
@@ -138,6 +140,9 @@ public class ResourceReader {
         final ClientResponse cr = resource.get(ClientResponse.class);
         if(204 == cr.getStatus()){
             return null;
+        }
+        if(cr.getStatus() >= 300){
+            throw new WebApplicationException(cr.getStatus());
         }
         final String json = cr.getEntity(String.class);
         return mapper.readValue(json, type);

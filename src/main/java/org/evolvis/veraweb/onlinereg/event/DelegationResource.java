@@ -241,7 +241,7 @@ public class DelegationResource {
      */
     @GET
     @Path("/{uuid}/data")
-    public List<OptionalFieldValue> getExtraDataFields(@PathParam("uuid") String uuid, @PathParam("personId") Integer personId) throws IOException {
+    public List<OptionalFieldValue> getExtraDataFields(@PathParam("uuid") String uuid) throws IOException {
         checkAuthorization(uuid);
 
         return getEventLabels(uuid);

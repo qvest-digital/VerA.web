@@ -52,8 +52,7 @@ public class DelegationResourceTest {
 
     @Test@Ignore
     public void testGetExtraFields() throws IOException {
-        Integer personId = 90;
-        List<OptionalFieldValue> extraDataFields = delegationResource.getExtraDataFields(uuid, personId);
+        List<OptionalFieldValue> extraDataFields = delegationResource.getExtraDataFields(uuid);
         assertEquals(9, extraDataFields.size());
     }
 }

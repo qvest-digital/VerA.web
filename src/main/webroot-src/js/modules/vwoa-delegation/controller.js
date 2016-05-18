@@ -1,20 +1,27 @@
 module.exports = function($scope, delegationService, $routeParams, $http, $uibModal, show) {
   var tools = require("../../scope-tools")($scope);
   var putInScope = tools.putInScope;
+  var handleError = function(e){
+    if(e.status === 401 ){
+      $scope.unauthorized = true;
+    } else {
+      show.error("GENERIC_ERROR");
+    }
+  };
   $scope.person = {};
   $scope.loadPersonData = function(pk) {
     delegationService
       .fetchPerson($routeParams.uuid, pk)
-      .then(putInScope("person"), show.error);
+      .then(putInScope("person"), handleError);
   };
   $scope.register_user = function() {
     delegationService
       .savePerson($routeParams.uuid, $scope.person)
-      .then(show.success, show.error)
+      .then(show.success, handleError)
       .then(function() {
         return delegationService.fetchList($routeParams.uuid);
       })
-      .then(putInScope("presentPersons"), show.error);
+      .then(putInScope("presentPersons"), handleError);
   };
   $scope.confirm_reset = function() {
     $uibModal.open({
@@ -34,9 +41,9 @@ module.exports = function($scope, delegationService, $routeParams, $http, $uibMo
   };
   delegationService
     .fetchList($routeParams.uuid)
-    .then(putInScope("presentPersons"), show.error);
+    .then(putInScope("presentPersons"), handleError);
   delegationService
     .fetchMetadata($routeParams.uuid)
-    .then(putInScope(), show.error);
+    .then(putInScope(), handleError);
 
 };

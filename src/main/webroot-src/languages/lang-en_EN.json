@@ -107,7 +107,7 @@
 
   "DELEGATION_OPTION_CATEGORY": "Category",
   "DELEGATION_OPTION_FUNCTION": "Function",
-  "DELEGATION_MESSAGE_DELEGATION_DOESNT_EXISTS": "Delegation does not exist!",
+  "DELEGATION_MESSAGE_DELEGATION_DOESNT_EXISTS": "Delegation does not exist or you are not authorized to access it.",
   "DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL": "Delegate data has been saved.",
   "DELEGATION_MESSAGE_NO_EXTRA_FIELDS": "No extra fields for this event available.",
   "DELEGATION_REGISTER_USER_TITLE": "Add delegate",

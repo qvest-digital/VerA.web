@@ -115,7 +115,7 @@
 
   "DELEGATION_OPTION_CATEGORY": "Kategorie",
   "DELEGATION_OPTION_FUNCTION": "Funktions-/Amtsbezeichnung",
-  "DELEGATION_MESSAGE_DELEGATION_DOESNT_EXISTS": "Die Delegation existiert nicht!",
+  "DELEGATION_MESSAGE_DELEGATION_DOESNT_EXISTS": "Die Delegation existiert nicht oder Sie haben keinen Zugriff darauf.",
   "DELEGATION_MESSAGE_DELEGATION_DATA_SAVED_SUCCESSFUL": "Delegiertendaten wurden gespeichert.",
   "DELEGATION_MESSAGE_NO_EXTRA_FIELDS": "Zu diesem Event existieren keine weiteren Felder.",
   "DELEGATION_REGISTER_USER_TITLE": "Delegierten hinzufügen",
