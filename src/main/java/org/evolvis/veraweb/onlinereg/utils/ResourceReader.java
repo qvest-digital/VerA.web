@@ -19,10 +19,13 @@
  */
 package org.evolvis.veraweb.onlinereg.utils;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import org.evolvis.veraweb.onlinereg.Config;
@@ -111,18 +114,14 @@ public class ResourceReader {
     public <T> T readStringResource(String path, TypeReference<T> type) throws IOException {
         WebResource resource;
         try {
-            resource = client.resource(path);
-            final String json = resource.get(String.class);
-            return mapper.readValue(json, type);
+            return readResource_(path, type);
         } catch (ClientHandlerException che) {
             if (che.getCause() instanceof SocketTimeoutException) {
                 // FIXME some times open, pooled connections time out and
                 // generate errors
                 // log.warning("Retrying request to " + path + " once because of
                 // SocketTimeoutException");
-                resource = client.resource(path);
-                final String json = resource.get(String.class);
-                return mapper.readValue(json, type);
+               return readResource_(path, type);
             } else {
                 throw che;
             }
@@ -131,5 +130,16 @@ public class ResourceReader {
             // log.warning(uie.getResponse().getEntity(String.class));
             throw uie;
         }
+    }
+
+    private <T> T readResource_(String path, TypeReference<T> type) throws IOException, JsonParseException, JsonMappingException {
+        WebResource resource;
+        resource = client.resource(path);
+        final ClientResponse cr = resource.get(ClientResponse.class);
+        if(204 == cr.getStatus()){
+            return null;
+        }
+        final String json = cr.getEntity(String.class);
+        return mapper.readValue(json, type);
     }
 }

@@ -51,6 +51,7 @@ import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.PersonCategory;
 import org.evolvis.veraweb.onlinereg.entities.PersonDoctype;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
+import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -119,12 +120,7 @@ public class DelegationResource {
      * Jersey client
      */
     private Client client;
-
-    /**
-     * Default constructor
-     */
-    public DelegationResource() {
-    }
+    private final ResourceReader resourceReader;
 
     /** Servlet context */
     @javax.ws.rs.core.Context
@@ -169,6 +165,7 @@ public class DelegationResource {
     public DelegationResource(Config config, Client client) {
         this.config = config;
         this.client = client;
+        this.resourceReader = new ResourceReader(client, mapper, config);
     }
 
     /**
@@ -830,26 +827,7 @@ public class DelegationResource {
      * @throws IOException
      */
     private <T> T readResource(String path, TypeReference<T> type) throws IOException {
-        WebResource resource;
-        try {
-            resource = client.resource(path);
-            final String json = resource.get(String.class);
-            return mapper.readValue(json, type);
-        } catch (ClientHandlerException che) {
-            if (che.getCause() instanceof SocketTimeoutException) {
-                // FIXME some times open, pooled connections time out and
-                // generate errors
-                log.warning("Retrying request to " + path + " once because of SocketTimeoutException");
-                resource = client.resource(path);
-                final String json = resource.get(String.class);
-                return mapper.readValue(json, type);
-            } else {
-                throw che;
-            }
-        } catch (UniformInterfaceException uie) {
-            log.warning(uie.getResponse().getEntity(String.class));
-            throw uie;
-        }
+        return resourceReader.readStringResource(path, type);
     }
 
     /**
@@ -880,11 +858,10 @@ public class DelegationResource {
         UUID imageUUID = UUID.randomUUID();
         return imageUUID.toString();
     }
-    
+
     @GET
     @Path("/image/{delegationUUID}/{personId}")
-    public String getImageUUIDByUser(@PathParam("delegationUUID") String delegationUUID,
-                                     @PathParam("personId") Integer personId) {
+    public String getImageUUIDByUser(@PathParam("delegationUUID") String delegationUUID, @PathParam("personId") Integer personId) {
         checkAuthorization(delegationUUID);
 
         WebResource resource = client.resource(path("guest", "image", delegationUUID, personId));
