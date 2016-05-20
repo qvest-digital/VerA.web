@@ -18,6 +18,7 @@ auth.run(function($rootScope, $location, authService) {
     return [
       '/login',
       '/register',
+      '/media',
       '/user/activate',
       '/reset/password'
     ].some(function(prefix){return 0 === path.indexOf(prefix);});

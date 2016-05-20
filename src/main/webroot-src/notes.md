@@ -9,8 +9,8 @@
 | Meine Veranstaltungen                         | 100%   | 100%    |
 | Kontaktdaten                                  | 100%   | 100%    |
 | Delegation anmelden                           | 100%   | 100%    |  
-| Pressevertreter anmelden                      | ?      | ?       | xxx
-| Zusagestatus bearbeiten                       | ?      | ?       |
+| Pressevertreter anmelden                      | 100%   | 100%    | 
+| Zusagestatus bearbeiten                       | ?      | ?       | XXX
 | Anmeldung zu nicht-öffentlicher Veranstaltung | ?      | ?       |
 
 
