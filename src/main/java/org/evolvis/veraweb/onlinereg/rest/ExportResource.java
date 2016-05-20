@@ -30,6 +30,9 @@ public class ExportResource extends AbstractResource{
     @Path("/guestList/{eventId}")
     public Response getGuestList(@PathParam("eventId") final int eventId) throws NamingException, UnsupportedEncodingException {
 
+        if (initContext == null) {
+            initContext = new InitialContext();
+        }
         final Context context  = (Context) initContext.lookup("java:comp/env");
         final DataSource dataSource = (DataSource)context.lookup("jdbc/vwonlinereg");
 
