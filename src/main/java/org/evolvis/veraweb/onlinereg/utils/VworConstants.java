@@ -42,6 +42,16 @@ public class VworConstants {
     public static final String HTML_CONTENT_TYPE = "text/html; charset=utf-8";
     public static final String PLAINTEXT_CONTENT_TYPE = "text/plain; charset=utf-8";
 
+    /**
+     * Content type for the guest list export file.
+     */
+    public static final String TEXT_CSV_CONTENT_TYPE = "text/csv";
+
+    /**
+     * Http status codes
+     */
+    public static final Integer HTTP_OK = 200;
+
     private VworConstants() {
     }
 }

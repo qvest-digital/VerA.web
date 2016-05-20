@@ -1,6 +1,7 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.export.CsvExporter;
+import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -11,22 +12,26 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
  * Created by mweier on 23.03.16.
  */
 @Path("/export")
-@Produces("text/csv")
+@Produces(VworConstants.TEXT_CSV_CONTENT_TYPE)
 public class ExportResource extends AbstractResource{
+
+    private final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
+    private InitialContext initContext;
 
     @GET
     @Path("/guestList/{eventId}")
     public Response getGuestList(@PathParam("eventId") final int eventId) throws NamingException, UnsupportedEncodingException {
 
-        final InitialContext initContext = new InitialContext();
-        final Context envContext  = (Context)initContext.lookup("java:comp/env");
-        final DataSource dataSource = (DataSource)envContext.lookup("jdbc/vwonlinereg");
+        final Context context  = (Context) initContext.lookup("java:comp/env");
+        final DataSource dataSource = (DataSource)context.lookup("jdbc/vwonlinereg");
 
         StreamingOutput stream = new StreamingOutput() {
             @Override
@@ -40,8 +45,7 @@ public class ExportResource extends AbstractResource{
             }
         };
 
-        return Response.ok(stream).build();
+        return Response.ok(stream).header("Content-Disposition", "attachment;filename=" + downloadFilename + ";charset=Unicode").build();
     }
-
 
 }
