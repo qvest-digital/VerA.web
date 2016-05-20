@@ -33,8 +33,8 @@ public class ExportResource extends AbstractResource{
         if (initContext == null) {
             initContext = new InitialContext();
         }
-        final Context context  = (Context) initContext.lookup("java:comp/env");
-        final DataSource dataSource = (DataSource)context.lookup("jdbc/vwonlinereg");
+        final Context namingContext  = (Context) initContext.lookup("java:comp/env");
+        final DataSource dataSource = (DataSource) namingContext.lookup("jdbc/vwonlinereg");
 
         StreamingOutput stream = new StreamingOutput() {
             @Override
