@@ -554,6 +554,8 @@ public class PersonDetailWorker implements PersonConstants {
                 /*
                  * fix for bug 1013 cklein 2008-03-12
                  */
+                trimNames(person);
+
                 person.verify(octopusContext);
                 if (!person.isCorrect()) {
                     octopusContext.setStatus("notcorrect");
@@ -604,6 +606,53 @@ public class PersonDetailWorker implements PersonConstants {
         }
 
         return person;
+    }
+
+    private void trimNames(Person person) {
+        trimSpacesFromNamesForMainPerson(person);
+        trimSpacesFromNamesForPartner(person);
+    }
+
+    private void trimSpacesFromNamesForMainPerson(Person person) {
+        trimNamesParnerFirstEncoding(person);
+        trimNamesPartnerSecondEncoding(person);
+        trimNamesPartnerThirdEncoding(person);
+    }
+
+    private void trimSpacesFromNamesForPartner(Person person) {
+        trimNamesMainPersonFirstEncoding(person);
+        trimNamesMainPersonSecondEncoding(person);
+        trimNamesMainPersonThirdEncoding(person);
+    }
+
+    private void trimNamesMainPersonFirstEncoding(Person person) {
+        person.firstname_b_e1 = person.firstname_b_e1.trim();
+        person.lastname_b_e1 = person.lastname_b_e1.trim();
+    }
+
+    private void trimNamesMainPersonSecondEncoding(Person person) {
+        person.firstname_b_e2 = person.firstname_b_e2.trim();
+        person.lastname_b_e2 = person.lastname_b_e2.trim();
+    }
+
+    private void trimNamesMainPersonThirdEncoding(Person person) {
+        person.firstname_b_e3 = person.firstname_b_e3.trim();
+        person.lastname_b_e3 = person.lastname_b_e3.trim();
+    }
+
+    private void trimNamesParnerFirstEncoding(Person person) {
+        person.firstname_a_e1 = person.firstname_a_e1.trim();
+        person.lastname_a_e1 = person.lastname_a_e1.trim();
+    }
+
+    private void trimNamesPartnerSecondEncoding(Person person) {
+        person.firstname_a_e2 = person.firstname_a_e2.trim();
+        person.lastname_a_e2 = person.lastname_a_e2.trim();
+    }
+
+    private void trimNamesPartnerThirdEncoding(Person person) {
+        person.firstname_a_e3 = person.firstname_a_e3.trim();
+        person.lastname_a_e3 = person.lastname_a_e3.trim();
     }
 
     private void savePersonDetail(final OctopusContext octopusContext, Person person, Database database, TransactionContext transactionContext,
