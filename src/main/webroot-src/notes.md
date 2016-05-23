@@ -8,10 +8,10 @@
 | Offene Veranstaltungen                        | 100%   | 100%    |
 | Meine Veranstaltungen                         | 100%   | 100%    |
 | Kontaktdaten                                  | 100%   | 100%    |
-| Delegation anmelden                           | 100%   | 100%    |  
-| Pressevertreter anmelden                      | 100%   | 100%    | 
-| Zusagestatus bearbeiten                       | ?      | ?       | XXX
-| Anmeldung zu nicht-öffentlicher Veranstaltung | ?      | ?       |
+| Delegation anmelden                           | 100%   | 100%    |
+| Pressevertreter anmelden                      | 100%   | 100%    |
+| Zusagestatus bearbeiten                       | 100%   | 100%    |
+| Anmeldung zu nicht-öffentlicher Veranstaltung | ?      | ?       |XXX 
 
 
 (1) Authorisierung heißt idR: meine Daten darf ich sehen / ändern (Zu- und Absagen, Kontaktdaten), sonst nichts.
@@ -21,5 +21,4 @@
 
       - Beim Anmelden einer Delegation: ist der Firmenaccount zu dieser Veranstaltung eingeladen?
 
-      - Beim Pressevertreter: dass muss mir nochmal jemand erklären.
 

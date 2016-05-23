@@ -51,24 +51,24 @@ alerts
       });
     }
   })
-  .factory("show", function($rootScope,$translate) {
-    var showMessage = function(type,code){
-      
-      $translate(code && code.message || code).then(function(text){
+  .factory("show", function($rootScope, $translate) {
+    var showMessage = function(type, code, placeholders) {
+
+      $translate(code && code.message || code, placeholders).then(function(text) {
         $rootScope.$emit('vwoa-alerts:message', {
-          body:text,
-          type:type
+          body: text,
+          type: type
         });
       });
     };
     return {
-      success:function(code){
-        showMessage("success", code);
+      success: function(code, placeholders) {
+        showMessage("success", code, placeholders);
       },
-      error:function(code){
-        showMessage("error", code);
+      error: function(code, placeholders) {
+        showMessage("error", code, placeholders);
       },
-      message:showMessage
+      message: showMessage
     };
   });
 

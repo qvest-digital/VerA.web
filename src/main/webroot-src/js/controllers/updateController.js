@@ -1,4 +1,4 @@
-module.exports = function($scope, $rootScope, $location, $routeParams, $http, $translate, param) {
+module.exports = function($scope, $rootScope, $location, $routeParams, $http, show, param) {
   $scope.acceptanceOptions = [{
     id: 0,
     name: "USER_EVENTS_STATUS_TYPE_OPEN"
@@ -15,22 +15,16 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, $t
     $scope.acceptance = $scope.acceptanceOptions[$scope.event.status];
     $scope.noteToHost = $scope.event.message;
   }).error(function(data, status, headers, config) {
-    $translate('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE').then(function(text) {
-      $scope.error = text;
-    });
+    show.error('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE');
   });
 
-  $http.get('api/update/isreserve/' + $routeParams.eventId + '/' + $rootScope.user_logged_in).success(function(result) {
+  $http.get('api/update/isreserve/' + $routeParams.eventId ).success(function(result) {
     $scope.event = result;
     if (result) {
-      $translate('REGISTER_USER_MESSAGE_TO_RESERVE_LIST').then(function(text) {
-        $scope.error = text;
-      });
+      show.error('REGISTER_USER_MESSAGE_TO_RESERVE_LIST');
     } else $scope.error = null;
   }).error(function(data, status, headers, config) {
-    $translate('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE').then(function(text) {
-      $scope.error = text;
-    });
+    show.error('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE');
   });
 
   $scope.update = function() {
@@ -46,16 +40,10 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, $t
       })
     }).success(function(result) {
       if (result.status === 'OK') {
-        $translate(['USER_EVENTS_STATUS_CHANGED_SUCCESSFUL_MESSAGE_PART_ONE', 'USER_EVENTS_STATUS_CHANGED_SUCCESSFUL_MESSAGE_PART_TWO']).then(function(translations) {
-          $rootScope.previousMessage = translations['USER_EVENTS_STATUS_CHANGED_SUCCESSFUL_MESSAGE_PART_ONE'] + " \"" + $scope.event.shortname + "\" " + translations['USER_EVENTS_STATUS_CHANGED_SUCCESSFUL_MESSAGE_PART_TWO'];
-        });
-
-        $scope.setNextPage('veranstaltungen');
-        $location.path($scope.nextPage);
+        show.success('USER_EVENTS_STATUS_CHANGED_SUCCESSFUL_MESSAGE',{name:$scope.event.shortname});
+        $location.path('veranstaltungen');
       } else if (result.status === 'NOT_REGISTERED') {
-        $translate('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE').then(function(text) {
-          $scope.error = text;
-        });
+        show.error('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE');
       }
     });
   }
