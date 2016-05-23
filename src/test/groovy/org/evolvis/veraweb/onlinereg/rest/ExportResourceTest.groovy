@@ -1,13 +1,10 @@
 package org.evolvis.veraweb.onlinereg.rest
 
 import org.evolvis.veraweb.onlinereg.utils.VworConstants
-import org.hibernate.Session
-import org.hibernate.SessionFactory
 import spock.lang.Specification
 
 import javax.naming.Context
 import javax.naming.InitialContext
-import javax.servlet.ServletContext
 import javax.sql.DataSource
 import javax.ws.rs.core.Response
 
@@ -16,20 +13,15 @@ import javax.ws.rs.core.Response
  */
 class ExportResourceTest extends Specification {
 
-    private exportResource
-    private ServletContext context = Mock(ServletContext)
-    private SessionFactory sessionFactory = Mock(SessionFactory)
-    private Session session = Mock(Session)
+    private ExportResource exportResource
     private InitialContext initContext = Mock(InitialContext)
     private Context namingContext = Mock(Context)
-    private DataSource datasource = Mock(DataSource)
+    private DataSource dataSource = Mock(DataSource)
 
     public void setup() {
-        exportResource = new ExportResource(context: context, initContext: initContext)
-        context.getAttribute("SessionFactory") >> sessionFactory
-        sessionFactory.openSession() >> session
+        exportResource = new ExportResource(initContext: initContext)
         initContext.lookup("java:comp/env") >> namingContext
-        context.lookup("jdbc/vwonlinereg") >> datasource
+        namingContext.lookup("jdbc/vwonlinereg") >> dataSource
     }
 
     void testGetGuestList() {
