@@ -43,8 +43,6 @@ public class ExportResource extends AbstractResource{
 
                 CsvExporter csvExporter = new CsvExporter(writer, dataSource, eventId);
                 csvExporter.export();
-
-                writer.flush();
             }
         };
 
