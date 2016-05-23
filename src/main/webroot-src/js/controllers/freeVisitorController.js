@@ -1,4 +1,4 @@
-module.exports = function($http, $scope, $location, $routeParams, $translate) {
+module.exports = function($http, $scope, $location, $routeParams, show) {
     if ($routeParams.noLoginRequiredUUID != null) {
         var freeVisitorsUrl = 'api/freevisitors/'+ $routeParams.uuid + '/' + $routeParams.noLoginRequiredUUID
     } else {
@@ -14,9 +14,6 @@ module.exports = function($http, $scope, $location, $routeParams, $translate) {
             $location.path('/page_not_found');
         }
     }).error(function (data, status, headers, config) {
-        // FIXME Wrong message?
-        $translate('GENERIC_MISSING_GENDER_MESSAGE').then(function (text) {
-            $scope.error = text;
-        });
+        show.error("GENERIC_ERROR");
     });
 };
