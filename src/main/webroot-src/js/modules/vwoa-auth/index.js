@@ -17,10 +17,11 @@ auth.run(function($rootScope, $location, authService) {
   var isPublic = function(path){
     return [
       '/login',
-      '/register',
+      '/createAccount',
       '/media',
       '/user/activate',
-      '/reset/password'
+      '/reset/password',
+      '/event'
     ].some(function(prefix){return 0 === path.indexOf(prefix);});
   };
   $rootScope.setNextPage = function(){};

@@ -84,7 +84,7 @@ app.config(function($routeProvider, $translateProvider) {
   }).when('/register/:eventId/:noLoginRequiredUUID', {
     templateUrl: 'partials/register.html',
     controller: 'RegisterController'
-  }).when('/register/', {
+  }).when('/createAccount/', {
     templateUrl: 'partials/register_user.html',
     controller: 'RegisterUserController'
   }).when('/veranstaltungen', {
