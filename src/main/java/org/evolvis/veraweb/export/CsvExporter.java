@@ -28,12 +28,13 @@ public class CsvExporter {
 	private final CsvIo io;
     private final ExtractorQuery querry;
 
-	public CsvExporter(Writer writer, DataSource source, Integer eventId) throws UnsupportedEncodingException {
+	public CsvExporter(Writer writer, DataSource source, Integer eventId) throws IOException {
 		extractor = new Extractor(new JdbcTemplate(source));
 		io = new CsvIo(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME), "utf-8"), writer);
         querry = loadQuery(io);
         querry.setSql(querry.getSql().replace(CONFIG_PLACEHOLDER, eventId.toString()));
-	}
+        writer.flush();
+    }
 
 	public void export() {
 		extractor.run(io, querry);
