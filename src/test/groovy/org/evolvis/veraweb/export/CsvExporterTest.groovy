@@ -1,12 +1,9 @@
 package org.evolvis.veraweb.export
 
-import de.tarent.extract.ExtractIo
 import de.tarent.extract.Extractor
-import org.apache.commons.io.IOUtils
 import spock.lang.Specification
 
 import javax.sql.DataSource
-import java.lang.reflect.Field
 
 /**
  * Created by mweier on 26.04.16.
@@ -19,11 +16,7 @@ class CsvExporterTest extends Specification {
     Extractor extractor = Mock(Extractor)
 
     public void setup() {
-        csvExporter = new CsvExporter(writer, dataSource, 42)
-
-        Field field = CsvExporter.class.getDeclaredField("extractor")
-        field.setAccessible(true);
-        field.set(csvExporter, extractor);
+        csvExporter = new CsvExporter(writer, dataSource, 42, extractor)
     }
 
     void testExport() {

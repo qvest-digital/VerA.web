@@ -24,12 +24,17 @@ public class CsvExporter {
     private static final Logger LOGGER = LogManager.getLogger(Extractor.class);
     private static final String CONFIG_FILE_NAME = "config.yaml";
     private static final String CONFIG_PLACEHOLDER = "__event_id_placeholder__";
-    private final Extractor extractor;
+    private Extractor extractor;
 	private final CsvIo io;
     private final ExtractorQuery querry;
 
-	public CsvExporter(Writer writer, DataSource source, Integer eventId) throws UnsupportedEncodingException {
-		extractor = new Extractor(new JdbcTemplate(source));
+    private CsvExporter(Writer writer, DataSource source, Integer eventId, Extractor extractor) throws UnsupportedEncodingException {
+        this(writer, source, eventId);
+        this.extractor = extractor;
+    }
+
+    public CsvExporter(Writer writer, DataSource source, Integer eventId) throws UnsupportedEncodingException {
+        extractor = new Extractor(new JdbcTemplate(source));
 		io = new CsvIo(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME), "utf-8"), writer);
         querry = loadQuery(io);
         querry.setSql(querry.getSql().replace(CONFIG_PLACEHOLDER, eventId.toString()));
