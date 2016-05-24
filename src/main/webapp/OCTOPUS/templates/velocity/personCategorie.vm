@@ -16,6 +16,9 @@
   #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
   #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
 #end
+#if ($entityOverwrite)
+  #set($entity="${entityOverwrite}")
+#end
 #parse("inc/header.vm")
 
 #set($searchTask = $octopusRequest.searchTask)
@@ -53,6 +56,7 @@
                 <input type="hidden" name="selectAll" value="false"/>
                 <input type="hidden" name="selectNone" value="false"/>
 				<input type="hidden" id="modified" value="false">
+				<input type="hidden" id="entity" name="entity" value="$entityOverwrite">
                 <input type="hidden" name="searchTask" value="$!searchTask"/>
 
                 #parse("inc/person-categorie.vm")
@@ -89,6 +93,7 @@
 
 				function savePersonCategories() {
 					$('<input>').attr({ type: 'hidden', id: 'save', name: 'save' }).appendTo($('#formlist'));
+					$('#entity').val('PERSON');
 					document.formlist.submit();
 				}
 

@@ -98,6 +98,12 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
             VerawebMessages verawebMessages = new VerawebMessages(octopusContext);
             octopusContext.setContent("noChangesMessage", verawebMessages.getMessageNoChanges());
         }
+
+        String entity = octopusContext.requestAsString("entity");
+        if (entity != null && entity.length() != 0) {
+            octopusContext.setContent("noChangesMessage", false);
+            octopusContext.setContent("entityOverwrite", entity);
+        }
     }
 
     private void handleRemoveCategoriesFromGuest(OctopusContext octopusContext) throws BeanException {

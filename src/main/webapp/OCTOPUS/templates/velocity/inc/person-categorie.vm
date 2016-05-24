@@ -10,6 +10,12 @@
     </vera-warn>
 #end
 
+<script type="text/javascript">
+    function saveCategoriesPerson() {
+        $('#entity').val('CATEGORY');
+    }
+</script>
+
 <input type="hidden" name="doInsert" value="true">
 <input type="hidden" name="doUpdate" value="true">
 <input type="hidden" name="doRemove" value="true">
@@ -30,7 +36,7 @@
 </span>
 <div class="buttonPanel-top floatRight">
 	#if($grants.mayWrite())
-		<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton"/>
+		<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" onclick="saveCategoriesPerson()"/>
 	#end
 </div>
 
