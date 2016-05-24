@@ -31,6 +31,7 @@ import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.OsiamLoginCreator;
 import de.tarent.aa.veraweb.utils.OsiamLoginRemover;
+import de.tarent.aa.veraweb.utils.PersonNameTrimmer;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.dblayer.helper.ResultList;
@@ -551,6 +552,8 @@ public class PersonDetailWorker implements PersonConstants {
             }
 
             if (person.isModified()) {
+                PersonNameTrimmer.trimAllPersonNames(person);
+
                 /*
                  * fix for bug 1013 cklein 2008-03-12
                  */

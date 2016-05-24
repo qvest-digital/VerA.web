@@ -28,6 +28,7 @@ import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.CharacterPropertiesReader;
 import de.tarent.aa.veraweb.utils.DateHelper;
 import de.tarent.aa.veraweb.utils.PersonDuplicateCheckHelper;
+import de.tarent.aa.veraweb.utils.PersonNameTrimmer;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Where;
@@ -113,6 +114,7 @@ public class PersonDupcheckWorker extends ListWorkerVeraWeb {
 			DateHelper.addTimeToDate(person.diplodate_b_e1, cntx.requestAsString("person-diplotime_b_e1"), person.getErrors());
 		}
 		AddressHelper.checkPersonSalutation(person, database, database.getTransactionContext());
+		PersonNameTrimmer.trimAllPersonNames(person);
 		cntx.setContent("person", person);
 		cntx.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
 
