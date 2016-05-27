@@ -84,7 +84,8 @@
   "USER_PASSWORD_CHANGE_FAILED": "Changing password failed!",
   "USER_PASSWORD_FORGOT": "Forgot password?",
   "USER_PASSWORD_RESET": "Reset password",
-  "USER_PASSWORD_RESET_TEXT": "A link to reset the password will be send to the your mail address,",
+  "USER_PASSWORD_RESET_TEXT": "A link to reset the password will be send to the your email address.",
+  "USER_PASSWORD_RESET_MAIL": "Email was send, as far as this username exists.",
 
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Sign up for the event",
 

@@ -87,7 +87,8 @@
   "USER_PASSWORD_CHANGE_FAILED": "Ihr Passwort konnte nicht geändert werden!",
   "USER_PASSWORD_FORGOT": "Passwort vergessen?",
   "USER_PASSWORD_RESET": "Passwort zurücksetzen",
-  "USER_PASSWORD_RESET_TEXT": "Ein Link zum zurücksetzen des Passwortes wird an die hinterlegte Email Adresse gesendet",
+  "USER_PASSWORD_RESET_TEXT": "Ein Link zum zurücksetzen des Passwortes wird an die hinterlegte Email Adresse gesendet.",
+  "USER_PASSWORD_RESET_MAIL": "Email wurde gesendet, sofern der Benutzername existiert.",
 
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Zur Veranstaltung anmelden",
 
