@@ -5,6 +5,10 @@
 #set($elementNameSingular = ">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}<")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
 
+#if ($entityOverwrite)
+  #set($entity="${entityOverwrite}")
+#end
+
 ##Values in per cent for table columns width
 #set($column0 = 3)
 #set($column1 = 8)
@@ -48,6 +52,7 @@
     		<input type="hidden" name="doUpdate" value="true">
     		<input type="hidden" name="doRemove" value="true">
     		<input type="hidden" name="modified" id="modified" value="false">
+    		<input type="hidden" id="entity" name="entity" value="$entityOverwrite">
 		#end
 		#if($order)
 		<input type="hidden" name="order" value="$order">
@@ -67,7 +72,7 @@
 
 		<span class="inlineLabel" id="actionPanel">
 			<strong>${placeholderWithTranslation.markiertekategorien}</strong>
-			<input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" class="button" title="${placeholderWithTranslation.markiertekategorienloschen}" onclick="formlist.action='SaveCategories';return true;">
+			<input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" class="button" title="${placeholderWithTranslation.markiertekategorienloschen}" onclick="$('#entity').val('CATEGORY'); formlist.action='SaveCategories';return true;">
 
 		</span>
 
@@ -200,7 +205,7 @@
 		## 2008-02-21
 			#if($grants.isAdmin() || $grants.isPartialAdmin())
 				<div class="textRight marginTop10" id="buttonPanel-bottom">
-					<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" onclick="formlist.action='SaveCategories';return true;">
+					<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" onclick="$('#categoryEntity').val('CATEGORY'); formlist.action='SaveCategories';return true;">
 				</div>
 			#end
 	</form>

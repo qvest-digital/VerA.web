@@ -103,6 +103,11 @@ public class PersonCategorieWorker extends ListWorkerVeraWeb {
         if (entity != null && entity.length() != 0) {
             octopusContext.setContent("noChangesMessage", false);
             octopusContext.setContent("entityOverwrite", entity);
+
+            if("PERSON".equals(entity)) {
+                octopusContext.setContextField("countInsert", null);
+                octopusContext.setContextField("countUpdate", countInsert);
+            }
         }
     }
 
