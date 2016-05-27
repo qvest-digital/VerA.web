@@ -77,12 +77,17 @@
   "USER_EVENTS_STATUS_TYPE_OPEN": "Open",
   "USER_EVENTS_STATUS_TYPE_ACCEPTANCE": "Accept",
   "USER_EVENTS_STATUS_TYPE_REFUSE": "Refuse",
+
   "USER_PASSWORD_CHANGE": "Change password",
   "USER_PASSWORD_CHANGE_FAILED_MESSAGE": "Passwords do not match!",
   "USER_PASSWORD_CHANGE_SUCCESS_MESSAGE": "Your password has been changed successfully!",
   "USER_PASSWORD_CHANGE_FAILED": "Changing password failed!",
+  "USER_PASSWORD_FORGOT": "Forgot password?",
+  "USER_PASSWORD_RESET": "Reset password",
+  "USER_PASSWORD_RESET_TEXT": "A link to reset the password will be send to the your mail address,",
 
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Sign up for the event",
+
   "MEDIA_REPRESENTATIVES_TITLE": "Register as media representative:",
   "MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE": "Your registration was submited. Please confirm your registration, you received an email.",
   "MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_ACTIVATED": "Your registration is already confirmed. The confirmation for the event depends on a positive result.",
