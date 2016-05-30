@@ -36,6 +36,7 @@ import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
+import org.osiam.bundled.javax.ws.rs.WebApplicationException;
 import org.osiam.client.oauth.AccessToken;
 import org.osiam.resources.scim.Email;
 import org.osiam.resources.scim.Extension;
@@ -66,36 +67,44 @@ import java.util.UUID;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
     /** Person type */
-    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
+    private static final TypeReference<Person> PERSON = new TypeReference<Person>() {
+    };
 
     private static final String VERAWEB_SCHEME = "urn:scim:schemas:veraweb:1.5:Person";
-	private Config config;
+    private Config config;
     private Client client;
     private ObjectMapper mapper = new ObjectMapper();
     private static final String BASE_RESOURCE = "/rest";
-    private static final TypeReference<OsiamUserActivation> OSIAM_USER_ACTIVATION = new TypeReference<OsiamUserActivation>() {};
+    private static final TypeReference<OsiamUserActivation> OSIAM_USER_ACTIVATION = new TypeReference<OsiamUserActivation>() {
+    };
     private OsiamClient osiamClient;
 
     /**
      * Creates new UserResource
      *
-     * @param config configuration
-     * @param client jersey client
+     * @param config
+     *            configuration
+     * @param client
+     *            jersey client
      */
     public UserResource(Config config, Client client) {
         this.config = config;
         this.client = client;
         osiamClient = config.getOsiam().getClient(client);
     }
+
     /** Servlet context */
     @javax.ws.rs.core.Context
     private HttpServletRequest request;
+
     /**
      * Get Person object by username
      *
-     * @param username Username
+     * @param username
+     *            Username
      * @return Person, if person exists
-     * @throws IOException TODO
+     * @throws IOException
+     *             TODO
      */
     @GET
     @Path("/userdata")
@@ -113,21 +122,23 @@ public class UserResource {
     /**
      * Creates a new user
      *
-     * @param osiam_username   user name
-     * @param osiam_firstname  first name
-     * @param osiam_secondname family name
-     * @param osiam_password1  password
-     * @return result of creation. Values can be "OK", "INVALID_USERNAME" or "USER_EXISTS"
+     * @param osiam_username
+     *            user name
+     * @param osiam_firstname
+     *            first name
+     * @param osiam_secondname
+     *            family name
+     * @param osiam_password1
+     *            password
+     * @return result of creation. Values can be "OK", "INVALID_USERNAME" or
+     *         "USER_EXISTS"
      * @throws IOException
      */
     @POST
     @Path("/register/{osiam_username}")
-    public String registerUser(@PathParam("osiam_username") String osiam_username,
-                               @FormParam("osiam_firstname") String osiam_firstname,
-                               @FormParam("osiam_secondname") String osiam_secondname,
-                               @FormParam("osiam_password1") String osiam_password1,
-                               @FormParam("osiam_email") String email,
-                               @FormParam("current_language") String currentLanguageKey) throws IOException {
+    public String registerUser(@PathParam("osiam_username") String osiam_username, @FormParam("osiam_firstname") String osiam_firstname,
+            @FormParam("osiam_secondname") String osiam_secondname, @FormParam("osiam_password1") String osiam_password1,
+            @FormParam("osiam_email") String email, @FormParam("current_language") String currentLanguageKey) throws IOException {
 
         if (!osiam_username.matches("\\w+")) {
             return StatusConverter.convertStatus("INVALID_USERNAME");
@@ -173,7 +184,8 @@ public class UserResource {
      * Activates a user of the given activation token, if the link isn't expired
      *
      * @param activationToken
-     * @return result of activation. Values can be "OK", "LINK_INVALID" or "LINK_EXPIRED"
+     * @return result of activation. Values can be "OK", "LINK_INVALID" or
+     *         "LINK_EXPIRED"
      * @throws IOException
      */
     @GET
@@ -192,16 +204,19 @@ public class UserResource {
     }
 
     /**
-     * Sends a new E-Mail to the address of the user of the given activation_token
+     * Sends a new E-Mail to the address of the user of the given
+     * activation_token
      *
      * @param oldActivationToken
-     * @param currentLanguageKey For the language, the E-Mail will be send
+     * @param currentLanguageKey
+     *            For the language, the E-Mail will be send
      * @return result of post. Value can be "OK"
      * @throws IOException
      */
     @POST
     @Path("/update/activation/data")
-    public String refreshActivationToken(@FormParam("activation_token") String oldActivationToken, @FormParam("language") String currentLanguageKey) throws IOException {
+    public String refreshActivationToken(@FormParam("activation_token") String oldActivationToken, @FormParam("language") String currentLanguageKey)
+            throws IOException {
 
         final Form postBody = new Form();
         final String activationToken = UUID.randomUUID().toString();
@@ -231,12 +246,22 @@ public class UserResource {
      */
     @GET
     @Path("/userdata/existing/event")
-    public String isUserRegisteredToEvents() {
+    public String getExistingEvents() {
+        if (isAssociatedWithEvent()) {
+            return StatusConverter.convertStatus("OK");
+        } else {
+            return StatusConverter.convertStatus("ERROR");
+        }
+        
+    }
+
+    private boolean isAssociatedWithEvent() {
         final String username = (String) request.getAttribute(LoginResource.USERNAME);
         final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
         final String path = resourceReader.constructPath(BASE_RESOURCE, "event", "userevents", "existing", username);
         final WebResource resource = client.resource(path);
-        return getUserRegisteredToEvents(resource);
+        Boolean b = resource.get(Boolean.class) == true;
+        return b;
     }
 
     /**
@@ -244,7 +269,9 @@ public class UserResource {
      *
      * @param username
      * @param fk_salutation
-     * @param salutation (salutation and fk_salutation are in the tperson table present)
+     * @param salutation
+     *            (salutation and fk_salutation are in the tperson table
+     *            present)
      * @param title
      * @param firstName
      * @param lastName
@@ -252,24 +279,22 @@ public class UserResource {
      * @param nationality
      * @param languages
      * @param gender
-     * @return result of update. Values can be "OK" and "USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE"
+     * @return result of update. Values can be "OK" and
+     *         "USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE"
      * @throws IOException
      */
     @POST
     @Path("/userdata/update")
-    public String updateUserCoreData(
-                                     @FormParam("person_fk_salutation") Integer fk_salutation,
-                                     @FormParam("person_salutation") String salutation,
-                                     @FormParam("person_title") String title,
-                                     @FormParam("person_firstName") String firstName,
-                                     @FormParam("person_lastName") String lastName,
-                                     @FormParam("person_birthday") Date birthday,
-                                     @FormParam("person_nationality") String nationality,
-                                     @FormParam("person_languages") String languages,
-                                     @FormParam("person_gender") Integer gender) throws IOException {
+    public String updateUserCoreData(@FormParam("person_fk_salutation") Integer fk_salutation, @FormParam("person_salutation") String salutation,
+            @FormParam("person_title") String title, @FormParam("person_firstName") String firstName, @FormParam("person_lastName") String lastName,
+            @FormParam("person_birthday") Date birthday, @FormParam("person_nationality") String nationality,
+            @FormParam("person_languages") String languages, @FormParam("person_gender") Integer gender) throws IOException {
+        if(! isAssociatedWithEvent()){
+            return StatusConverter.convertStatus("USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE");
+        }
         final String username = (String) request.getAttribute(LoginResource.USERNAME);
-        final Form postBody = createUserCoreDataPostBody(username, fk_salutation, salutation, title, firstName,
-                lastName, birthday, nationality, languages, gender);
+        final Form postBody = createUserCoreDataPostBody(username, fk_salutation, salutation, title, firstName, lastName, birthday, nationality,
+                languages, gender);
 
         return updateUserCoreDataWithGivenValues(postBody);
     }
@@ -277,9 +302,11 @@ public class UserResource {
     /**
      * Get Person instance from one username
      *
-     * @param username Username
+     * @param username
+     *            Username
      * @return Person
-     * @throws IOException TODO
+     * @throws IOException
+     *             TODO
      */
     private Person getUserData(String username) throws IOException {
         final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
@@ -322,7 +349,7 @@ public class UserResource {
         postBody.add("activation_token", activation_token.toString());
         final OsiamUserActivation oua;
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/osiamUserActivation/user/new");
-        oua=resource.post(OsiamUserActivation.class,postBody);
+        oua = resource.post(OsiamUserActivation.class, postBody);
     }
 
     private Form createPersonPostBody(String osiam_username, String osiam_firstname, String osiam_secondname) {
@@ -333,59 +360,24 @@ public class UserResource {
         return postBody;
     }
 
-    private User initUser(@PathParam("osiam_username") String osiam_username,
-                          @FormParam("osiam_firstname") String osiam_firstname,
-                          @FormParam("osiam_secondname") String osiam_secondname,
-                          @FormParam("osiam_password1") String osiam_password1,
-                          @FormParam("email") String email,
-                          Integer personId) {
+    private User initUser(@PathParam("osiam_username") String osiam_username, @FormParam("osiam_firstname") String osiam_firstname,
+            @FormParam("osiam_secondname") String osiam_secondname, @FormParam("osiam_password1") String osiam_password1,
+            @FormParam("email") String email, Integer personId) {
         User user;
         final Email userEmail = buildUserEmail(email);
-        user = new User.Builder(osiam_username)
-                .setName(new Name.Builder().setGivenName(osiam_firstname).setFamilyName(osiam_secondname).build())
-                .setPassword(osiam_password1)
-                .setActive(false)
-                .addEmail(userEmail)
-                .addExtension(
-                    new Extension.Builder(VERAWEB_SCHEME).setField("tpersonid", BigInteger.valueOf(personId)).build()
-                )
-                .build();
+        user = new User.Builder(osiam_username).setName(new Name.Builder()
+                .setGivenName(osiam_firstname).setFamilyName(osiam_secondname).build())
+                .setPassword(osiam_password1).setActive(false).addEmail(userEmail)
+                .addExtension(new Extension.Builder(VERAWEB_SCHEME).setField("tpersonid", BigInteger.valueOf(personId)).build()).build();
         return user;
     }
 
     private Email buildUserEmail(@FormParam("email") String email) {
-        return new Email.Builder()
-            .setType(Email.Type.HOME)
-            .setValue(email).build();
+        return new Email.Builder().setType(Email.Type.HOME).setValue(email).build();
     }
 
-    private String getUserRegisteredToEvents(WebResource resource) {
-        try {
-            if(resource.get(Boolean.class) == true) {
-                return StatusConverter.convertStatus("OK");
-            } else {
-                return StatusConverter.convertStatus("ERROR");
-            }
-        } catch (UniformInterfaceException e) {
-            int statusCode = e.getResponse().getStatus();
-            if(statusCode == 204) {
-                return null;
-            }
-        }
-
-        return null;
-    }
-
-    private Form createUserCoreDataPostBody(String username,
-                                            Integer fk_salutation,
-                                            String salutation,
-                                            String title,
-                                            String firstName,
-                                            String lastName,
-                                            Date birthday,
-                                            String nationality,
-                                            String languages,
-                                            Integer gender) {
+    private Form createUserCoreDataPostBody(String username, Integer fk_salutation, String salutation, String title, String firstName,
+            String lastName, Date birthday, String nationality, String languages, Integer gender) {
         final Form postBody = new Form();
 
         postBody.add("username", username);
@@ -394,8 +386,8 @@ public class UserResource {
         postBody.add("title", title);
         postBody.add("firstName", firstName);
         postBody.add("lastName", lastName);
-        //Can't post a date, but an epoch
-        if(birthday != null) {
+        // Can't post a date, but an epoch
+        if (birthday != null) {
             postBody.add("birthday", birthday.getTime());
         }
         postBody.add("nationality", nationality);
@@ -424,10 +416,10 @@ public class UserResource {
     private String resolveGenderValueFromOptionIds(@FormParam("person_gender") Integer gender) {
         String genderResolved = "";
 
-        //Handle gender ids of option select
-        if(gender == 1) {
+        // Handle gender ids of option select
+        if (gender == 1) {
             genderResolved = "m";
-        } else if(gender == 2) {
+        } else if (gender == 2) {
             genderResolved = "f";
         }
         return genderResolved;

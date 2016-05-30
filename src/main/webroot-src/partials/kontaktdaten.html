@@ -81,9 +81,16 @@
                  ng-model="person.birthday_a_e1"
                  datepicker-options="dateOptions"
                  close-text="Close"
+                 ng-readonly="formDisabled"
           />
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="datePickerOpen=true"><i class="glyphicon glyphicon-calendar"></i></button>
+            <button type="button" 
+              class="btn btn-default" 
+              ng-click="datePickerOpen=true"
+              ng-disabled="formDisabled"
+            >
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
           </span>
         </p>
       </div>
