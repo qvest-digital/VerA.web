@@ -76,6 +76,7 @@
             			</div>
 
                         <div id="buttonPanel-bottom" class="textRight">
+                            <img id="spinner" src="${paths.staticWeb}images/spinner.gif" align="absmiddle" style="height:30px; display:none"/>
                            	<input type="submit" name="send" value="${placeholderWithTranslation.senden}" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth">
                            	<input type="reset"  name="clear"  value="${placeholderWithTranslation.zuruecksetzen}" title="${placeholderWithTranslation.zuruecksetzen}" class="mainButton autoWidth">
                         </div>
@@ -150,13 +151,39 @@
 			insertAtCursor(document.getElementById('mail-text'), '<' + text + '>');
 		}
 	}
-	
-	$(document).ready(function() { 
-		$('#formlist').ajaxForm({
+
+	function disableSubmitButton() {
+		$('[type="submit"]').attr('disabled', 'disabled').addClass('disabled');
+	}
+
+	function enableSubmitButton() {
+		$('[type="submit"]').removeAttr('disabled').removeClass('disabled');
+	}
+
+	function displaySpinner() {
+		$('#spinner').show();
+	}
+
+	function hideSpinner() {
+		$('#spinner').hide();
+	}
+
+	$(document).ready(function() {
+
+	    $('#formlist').ajaxForm({
+		    beforeSubmit: function(arr, $form, options) {
+		    	displaySpinner();
+				disableSubmitButton();
+		    },
  			error: function(){
   				alert("${placeholderWithTranslation.verteilerfehler}");
+  				hideSpinner();
+  				enableSubmitButton();
 			},
 			success: function () {
+			    hideSpinner();
+				enableSubmitButton();
+
 				$('#main_content').hide();
 				$('#success').show();
         	}
