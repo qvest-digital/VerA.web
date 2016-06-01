@@ -70,6 +70,10 @@ public class UserResource {
     private static final TypeReference<Person> PERSON = new TypeReference<Person>() {
     };
 
+    /** Servlet context */
+    @javax.ws.rs.core.Context
+    private HttpServletRequest request;
+
     private static final String VERAWEB_SCHEME = "urn:scim:schemas:veraweb:1.5:Person";
     private Config config;
     private Client client;
@@ -93,15 +97,26 @@ public class UserResource {
         osiamClient = config.getOsiam().getClient(client);
     }
 
-    /** Servlet context */
-    @javax.ws.rs.core.Context
-    private HttpServletRequest request;
+
+    /**
+     *
+     * @return
+
+     */
+    @POST
+    @Path("/request/reset-password-link")
+    public String resetPassword(@FormParam("username") String username) {
+        Form postBody = new Form();
+        postBody.add("username", username);
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/forgotPassword/request/reset-password-link");
+        resource.post(postBody);
+
+        return StatusConverter.convertStatus("OK");
+    }
 
     /**
      * Get Person object by username
      *
-     * @param username
-     *            Username
      * @return Person, if person exists
      * @throws IOException
      *             TODO
@@ -241,7 +256,6 @@ public class UserResource {
     /**
      * Checks if the user is registered to any events
      *
-     * @param username
      * @return Status of getUserRegisteredToEvents
      */
     @GET
@@ -267,7 +281,6 @@ public class UserResource {
     /**
      * Updates the core data of a user
      *
-     * @param username
      * @param fk_salutation
      * @param salutation
      *            (salutation and fk_salutation are in the tperson table

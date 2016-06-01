@@ -87,6 +87,9 @@ app.config(function($routeProvider, $translateProvider) {
   }).when('/createAccount/', {
     templateUrl: 'partials/register_user.html',
     controller: 'RegisterUserController'
+  }).when('/forgotPassword/', {
+    templateUrl: 'partials/forogt_password.html',
+    controller: 'ForgotPasswordController'
   }).when('/veranstaltungen', {
     templateUrl: 'partials/meine-veranstaltungen.html',
     controller: 'VeranstaltungsController'
