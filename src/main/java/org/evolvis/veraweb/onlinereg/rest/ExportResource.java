@@ -1,19 +1,35 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
-import org.evolvis.veraweb.export.CsvExporter;
-import org.evolvis.veraweb.onlinereg.utils.VworConstants;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
+import javax.ws.rs.core.UriInfo;
 
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.evolvis.veraweb.export.CsvExporter;
+import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 
 
 /**
@@ -22,31 +38,44 @@ import java.util.Date;
 @Path("/export")
 @Produces(VworConstants.TEXT_CSV_CONTENT_TYPE)
 public class ExportResource extends AbstractResource{
-
-    private final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
     private InitialContext initContext;
-
+ private static final String CONFIG_FILE_NAME = "config.yaml";
+    private static final String CONFIG_PLACEHOLDER = "__event_id_placeholder__";
+    
     @GET
     @Path("/guestList/{eventId}")
-    public Response getGuestList(@PathParam("eventId") final int eventId) throws NamingException, UnsupportedEncodingException {
-
+    public Response getGuestList(@PathParam("eventId") final int eventId, @javax.ws.rs.core.Context UriInfo ui) throws NamingException, UnsupportedEncodingException {
+        final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
         if (initContext == null) {
             initContext = new InitialContext();
         }
         final Context namingContext  = (Context) initContext.lookup("java:comp/env");
         final DataSource dataSource = (DataSource) namingContext.lookup("jdbc/vwonlinereg");
 
+        final Properties properties = new Properties();
+        final Reader reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME), "utf-8");
+        final Map<String, String> substitutions=new HashMap<String,String>();
+        substitutions.put(CONFIG_PLACEHOLDER, String.valueOf(eventId));
+        final MultivaluedMap<String, String> params = ui.getQueryParameters();
+        for(String key:params.keySet()){
+            properties.setProperty(key, params.getFirst(key));
+        }
+
         StreamingOutput stream = new StreamingOutput() {
             @Override
             public void write(OutputStream os) throws IOException, WebApplicationException {
-                Writer writer = new BufferedWriter(new OutputStreamWriter(os));
+                final Writer writer = new BufferedWriter(new OutputStreamWriter(os));
+                final CsvExporter csvExporter = new CsvExporter(reader,writer, dataSource, properties);
+                
+                csvExporter.export(substitutions);
 
-                CsvExporter csvExporter = new CsvExporter(writer, dataSource, eventId);
-                csvExporter.export();
+                writer.flush();
             }
         };
 
+
         return Response.ok(stream).header("Content-Disposition", "attachment;filename=" + downloadFilename + ";charset=Unicode").build();
     }
+
 
 }
