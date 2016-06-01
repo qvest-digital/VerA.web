@@ -28,6 +28,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import de.tarent.aa.veraweb.beans.Duration;
+import de.tarent.aa.veraweb.utils.PropertiesReader;
+import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Delete;
@@ -63,6 +65,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 
 	protected Map config;
 	protected boolean loaded = false;
+    private PropertiesReader propertiesReader = new PropertiesReader();
 
     //
     // Konstruktoren
@@ -133,6 +136,9 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 			init(cntx);
 		}
 		cntx.setContent("config", config);
+		
+		//FIXME: here is as good as anywhere else, I guess?
+		cntx.setContent("url",new URLGenerator(propertiesReader.getProperties()));
 	}
 
     /** Input-Parameter der Octopus-Aktion {@link #clean(OctopusContext)} */

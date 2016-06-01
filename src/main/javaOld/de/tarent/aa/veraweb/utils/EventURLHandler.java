@@ -46,7 +46,7 @@ public class EventURLHandler {
     public String generateEventUrl(Event event) {
         if(propertiesReader.propertiesAreAvailable() && event.getHash() != null) {
             final URLGenerator urlGenerator = getUrlGenerator();
-            return urlGenerator.getURLForFreeVisitors() + event.getHash();
+            return urlGenerator.getUrlForFreeVisitors() + event.getHash();
         } else {
             return "";
         }
@@ -61,7 +61,7 @@ public class EventURLHandler {
     public void setEventUrl(OctopusContext octopusContext, String uuid) {
         if(propertiesReader.propertiesAreAvailable() && uuid != null) {
             final URLGenerator urlGenerator = getUrlGenerator();
-	        octopusContext.setContent("eventUrl", urlGenerator.getURLForFreeVisitors() + uuid);
+	        octopusContext.setContent("eventUrl", urlGenerator.getUrlForFreeVisitors() + uuid);
         } else {
             LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
             LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);

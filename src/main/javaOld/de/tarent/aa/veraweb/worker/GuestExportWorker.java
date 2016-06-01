@@ -649,12 +649,12 @@ public class GuestExportWorker {
 		final PropertiesReader propertiesReader = new PropertiesReader();
 		final Properties properties = propertiesReader.getProperties();
 		final URLGenerator url = new URLGenerator(properties);
-		return url.getURLForDelegation() + guest.get("delegation");
+		return url.getUrlForDelegation() + guest.get("delegation");
 	}
 
 	private String generateEventUrlWithoutLogin(String eventHash, String guestLoginUUID) {
 		final URLGenerator urlGenerator = getUrlGenerator();
-		return urlGenerator.getURLForFreeVisitors() + eventHash + "/" + guestLoginUUID;
+		return urlGenerator.getUrlForFreeVisitors() + eventHash + "/" + guestLoginUUID;
 	}
 
 	private String extractFirstXChars(String value, int x) {

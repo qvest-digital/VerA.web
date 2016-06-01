@@ -40,6 +40,7 @@ import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.aa.veraweb.utils.EventURLHandler;
 import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
+import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.helper.ResultList;
@@ -594,7 +595,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         octopusContext.setSession("search" + BEANNAME, search);
         return search;
     }
-
+    
+    
     /**
      * Diese Octopus-Aktion liefert das Ereignis aus der aktuellen Gästesuche,
      * siehe Aktion {@link #getSearch(OctopusContext)}.
@@ -622,6 +624,9 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return event;
     }
 
+    
+    
+    
     /**
      * // TODO
      * 
