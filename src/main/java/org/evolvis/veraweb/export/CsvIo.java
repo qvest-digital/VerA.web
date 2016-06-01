@@ -12,12 +12,14 @@ import de.tarent.extract.ExtractIo;
 
 public class CsvIo implements ExtractIo {
 	
-	private Reader reader;
-	private Writer writer;
+	private final Reader reader;
+	private final Writer writer;
+    private final Properties properties;
 	
-	public CsvIo(Reader reader, Writer writer){
+	public CsvIo(Reader reader, Writer writer, Properties properties){
 		this.reader = reader;
 		this.writer = writer;
+        this.properties = properties;
 	}
 
 	public File getOutputFile() {
@@ -41,7 +43,7 @@ public class CsvIo implements ExtractIo {
 	}
 
 	public Properties getProperties() {
-		return null;
+		return properties;
 	}
 
 }

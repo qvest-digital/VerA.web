@@ -251,7 +251,7 @@ sql: |
   from veraweb.tguest g
   inner join veraweb.tperson p
   on (g.fk_person = p.pk)
-  where g.fk_event = __event_id_placeholder__
+  where g.fk_event = ${__event_id_placeholder__}
 
 mappings:
 

@@ -2,8 +2,11 @@ package org.evolvis.veraweb.export;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.Map;
+import java.util.Properties;
 
 import javax.sql.DataSource;
 
@@ -22,28 +25,19 @@ import de.tarent.extract.Extractor;
 public class CsvExporter {
 
     private static final Logger LOGGER = LogManager.getLogger(Extractor.class);
-    private static final String CONFIG_FILE_NAME = "config.yaml";
-    private static final String CONFIG_PLACEHOLDER = "__event_id_placeholder__";
-    private Extractor extractor;
-	private final CsvIo io;
-    private final ExtractorQuery querry;
+    private final Extractor extractor;
+    private final CsvIo io;
+    private final ExtractorQueryBuilder template;
 
+	public CsvExporter(Reader reader, Writer writer, DataSource source, Properties properties) throws UnsupportedEncodingException {
+		extractor = new Extractor(new JdbcTemplate(source));
+		io = new CsvIo(reader, writer, properties);
+        template = new ExtractorQueryBuilder(loadQuery(io));
+	}
 
-    private CsvExporter(Writer writer, DataSource source, Integer eventId, Extractor extractor) throws IOException {
-        this(writer, source, eventId);
-        this.extractor = extractor;
-    }
-
-    public CsvExporter(Writer writer, DataSource source, Integer eventId) throws IOException {
-        extractor = new Extractor(new JdbcTemplate(source));
-		io = new CsvIo(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME), "utf-8"), writer);
-        querry = loadQuery(io);
-        querry.setSql(querry.getSql().replace(CONFIG_PLACEHOLDER, eventId.toString()));
-        writer.flush();
-    }
-
-	public void export() {
-		extractor.run(io, querry);
+	public void export(Map<String, String> substitutions) {
+	    final ExtractorQuery query = template.replace(substitutions).build();
+		extractor.run(io, query);
 	}
 
     private ObjectMapper mapper() {
@@ -57,8 +51,8 @@ public class CsvExporter {
 
     private ExtractorQuery loadQuery(ExtractIo io) {
         try {
-            ExtractorQuery descriptor = this.mapper().readValue(io.reader(), ExtractorQuery.class);
-            return descriptor;
+            ExtractorQuery query = this.mapper().readValue(io.reader(), ExtractorQuery.class);
+            return query;
         } catch (JsonParseException e1) {
             LOGGER.error("Couldn\'t parse json", e1);
             throw new ExtractorException("Couldn\'t parse json", e1);
