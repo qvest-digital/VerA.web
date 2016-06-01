@@ -98,8 +98,13 @@ public class UserResource {
 
      */
     @POST
-    @Path("/request/request/reset-password-link")
+    @Path("/request/reset-password-link")
     public String resetPassword(@FormParam("username") String username) {
+        Form postBody = new Form();
+        postBody.add("username", username);
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/forgotPassword/request/reset-password-link");
+        resource.post(postBody);
+
         return StatusConverter.convertStatus("OK");
     }
 
