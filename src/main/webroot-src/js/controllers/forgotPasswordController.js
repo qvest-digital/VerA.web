@@ -3,10 +3,13 @@ module.exports = function($http, $scope, $location, show, $timeout, param, $tran
         $http({
             method: 'POST',
             // TODO: REST-API call ggf. anpassen
-            url: 'api/user/reset/' + encodeURIComponent($scope.osiam.userName) + '',
+            url: 'api/user/request/reset-password-link',
                 headers: {
                     "Content-Type" : undefined
                 },
+                data: param({
+                    username: encodeURIComponent($scope.osiam.userName)
+                }),
                 data: param({
                 current_language: $translate.use()
             })
