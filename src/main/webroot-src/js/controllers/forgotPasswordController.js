@@ -8,10 +8,8 @@ module.exports = function($http, $scope, $location, show, $timeout, param, $tran
                     "Content-Type" : undefined
                 },
                 data: param({
-                    username: encodeURIComponent($scope.osiam.userName)
-                }),
-                data: param({
-                current_language: $translate.use()
+                    username: encodeURIComponent($scope.osiam.userName),
+                    current_language: $translate.use()
             })
         }).success(function (result) {
             switch(result.status) {
