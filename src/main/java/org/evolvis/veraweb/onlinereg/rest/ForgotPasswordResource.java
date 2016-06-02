@@ -32,21 +32,21 @@ public class ForgotPasswordResource extends AbstractResource {
             final Query query = session.getNamedQuery("Person.findByUsername");
             Person person = (Person) query.uniqueResult();
             if (person != null) {
-                sendResetPasswordLinkEmail();
+                sendResetPasswordLinkEmail(person.getMail_a_e1());
             }
         } finally {
             session.close();
         }
     }
 
-    private void sendResetPasswordLinkEmail() throws MessagingException {
+    private void sendResetPasswordLinkEmail(String toEmail) throws MessagingException {
         if (mailDispatcher == null) {
             if (emailConfiguration == null) {
                 emailConfiguration = new EmailConfiguration("de_DE");
             }
             mailDispatcher = new MailDispatcher(emailConfiguration);
         }
-        mailDispatcher.sendVerificationEmail("me", "me", "resetPassword", "resset password ${link}", "http://localhost/reset/password/", "html");
+        mailDispatcher.sendVerificationEmail("me", toEmail, "resetPassword", "resset password ${link}", "http://localhost/reset/password/", "html");
     }
 
 }
