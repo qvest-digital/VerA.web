@@ -102,9 +102,10 @@ public class UserResource {
      */
     @POST
     @Path("/request/reset-password-link")
-    public String resetPassword(@FormParam("username") String username) {
+    public String resetPassword(@FormParam("username") String username, @FormParam("current_language") String currentLanguageKey) {
         Form postBody = new Form();
         postBody.add("username", username);
+        postBody.add("currentLanguageKey", currentLanguageKey);
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/forgotPassword/request/reset-password-link");
         resource.post(postBody);
 
