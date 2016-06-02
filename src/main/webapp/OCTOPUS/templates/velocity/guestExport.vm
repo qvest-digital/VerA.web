@@ -44,6 +44,10 @@
 				<h3>${placeholderWithTranslation.EXPORT_TITLE_CSV}-${placeholderWithTranslation.GENERIC_EXPORT}</h3>
 
 				<form id="ExportForm" action="${paths.staticWeb}csvexport/$event.id" method="GET">
+					<input type="hidden" name="oa.path.delegation" value="$url.urlForDelegation" />
+					<input type="hidden" name="oa.path.media" value="$url.urlForMediaRepresentatives" />
+					<input type="hidden" name="oa.path.event" value="$url.urlForFreeVisitors" />
+					<input type="hidden" name="oa.path.passwordReset" value="$url.urlForPasswordReset" />
 					<input type="submit" name="export" value="${placeholderWithTranslation.EXPORT_AS_CSV}" title="${placeholderWithTranslation.EXPORT_AS_CSV}" class="mainButton autoWidth" />
 				</form>
 			</div>

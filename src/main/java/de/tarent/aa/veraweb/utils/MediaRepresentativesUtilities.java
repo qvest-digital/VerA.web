@@ -45,8 +45,8 @@ public class MediaRepresentativesUtilities {
         if(event != null && propertiesReader.propertiesAreAvailable() && event.mediarepresentatives != null) {
             Properties properties = propertiesReader.getProperties();
             URLGenerator url = new URLGenerator(properties);
-            url.getURLForMediaRepresentatives();
-            octopusContext.setContent("pressevertreterUrl", url.getURLForMediaRepresentatives() + event.mediarepresentatives);
+            url.getUrlForMediaRepresentatives();
+            octopusContext.setContent("pressevertreterUrl", url.getUrlForMediaRepresentatives() + event.mediarepresentatives);
         } else {
             octopusContext.setContent("pressevertreterUrl", "Nicht verf&uuml;gbar");
         }
