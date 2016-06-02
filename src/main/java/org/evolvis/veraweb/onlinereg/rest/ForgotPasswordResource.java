@@ -41,13 +41,13 @@ public class ForgotPasswordResource extends AbstractResource {
     }
 
     private void sendResetPasswordLinkEmail(String toEmail) throws MessagingException {
+        if (emailConfiguration == null) {
+            emailConfiguration = new EmailConfiguration("de_DE");
+        }
         if (mailDispatcher == null) {
-            if (emailConfiguration == null) {
-                emailConfiguration = new EmailConfiguration("de_DE");
-            }
             mailDispatcher = new MailDispatcher(emailConfiguration);
         }
-        mailDispatcher.sendVerificationEmail("me", toEmail, "resetPassword", "resset password ${link}", "http://localhost/reset/password/", "html");
+        mailDispatcher.sendVerificationEmail(emailConfiguration.getFrom(), toEmail, emailConfiguration.getSubject_reset_password(), emailConfiguration.getContent_reset_password(), "http://localhost/reset/password/", emailConfiguration.getContentType());
     }
 
 }

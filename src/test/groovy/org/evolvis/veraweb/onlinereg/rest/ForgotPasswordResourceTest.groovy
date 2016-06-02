@@ -25,7 +25,7 @@ class ForgotPasswordResourceTest extends Specification {
     def transport = Mock(Transport)
 
     void setup() {
-        def emailConfiguration = new EmailConfiguration("host", 465, "ssl", "username", "password", "from@tarent.de", "subject", "content", "plaintext")
+        def emailConfiguration = new EmailConfiguration("host", 465, "ssl", "username", "password", "from@tarent.de", "subjectForVerificationEmail", "contentForVerificationEmail", "plaintext", "resetPasswordSubect", "resetPasswordContext")
         dispatcher = new MailDispatcher(emailConfiguration)
         dispatcher.setTransport(transport)
         context.getAttribute("SessionFactory") >> sessionFactory

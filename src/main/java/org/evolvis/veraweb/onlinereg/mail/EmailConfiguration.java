@@ -1,8 +1,5 @@
 package org.evolvis.veraweb.onlinereg.mail;
 
-import java.util.Map.Entry;
-import java.util.Set;
-
 import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
 
 /**
@@ -17,6 +14,8 @@ public class EmailConfiguration {
     private String from;
     private String subject;
     private String content;
+    private String subject_reset_password;
+    private String content_reset_password;
     private String contentType;
     private VworPropertiesReader vworPropertiesReader;
 
@@ -24,8 +23,18 @@ public class EmailConfiguration {
         readProperties(currentLanguageKey);
     }
 
-    public EmailConfiguration(String host, Integer port, String security, String username, String password, String from, String subject,
-            String content, String contentType) {
+    public EmailConfiguration(String host,
+                              Integer port,
+                              String security,
+                              String username,
+                              String password,
+                              String from,
+                              String subject,
+                              String content,
+                              String contentType,
+                              String subect_reset_password,
+                              String content_reset_password) {
+
         this.host = host;
         this.port = port;
         this.security = security;
@@ -34,6 +43,8 @@ public class EmailConfiguration {
         this.from = from;
         this.subject = subject;
         this.content = content;
+        this.subject_reset_password = subect_reset_password;
+        this.content_reset_password = content_reset_password;
         this.contentType = contentType;
     }
 
@@ -58,7 +69,9 @@ public class EmailConfiguration {
             this.from = propertiesReader.getProperty("mail.smtp.from");
             this.contentType = propertiesReader.getProperty("mail.content.type");
             this.subject = propertiesReader.getProperty("mail.subject." + currentLanguageKey);
+            this.subject_reset_password = propertiesReader.getProperty("mail.subject_reset_password." + currentLanguageKey);
             this.content = propertiesReader.getProperty("mail.content." + currentLanguageKey);
+            this.content_reset_password = propertiesReader.getProperty("mail.content_reset_password." + currentLanguageKey);
         }
 
     }
@@ -93,6 +106,14 @@ public class EmailConfiguration {
 
     public String getContent() {
         return content;
+    }
+
+    public String getSubject_reset_password() {
+        return subject_reset_password;
+    }
+
+    public String getContent_reset_password() {
+        return content_reset_password;
     }
 
     public VworPropertiesReader getVworPropertiesReader() {
