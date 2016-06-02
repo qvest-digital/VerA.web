@@ -22,7 +22,6 @@ package org.evolvis.veraweb.onlinereg.event;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
@@ -36,7 +35,6 @@ import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
-import org.osiam.bundled.javax.ws.rs.WebApplicationException;
 import org.osiam.client.oauth.AccessToken;
 import org.osiam.resources.scim.Email;
 import org.osiam.resources.scim.Extension;
@@ -54,7 +52,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -166,7 +163,7 @@ public class UserResource {
             return StatusConverter.convertStatus("USER_EXISTS");
         }
 
-        final Form postBody = createPersonPostBody(osiam_username, osiam_firstname, osiam_secondname);
+        final Form postBody = createPersonPostBody(osiam_username, osiam_firstname, osiam_secondname, email);
 
         final Person person;
         try {
@@ -365,11 +362,12 @@ public class UserResource {
         oua = resource.post(OsiamUserActivation.class, postBody);
     }
 
-    private Form createPersonPostBody(String osiam_username, String osiam_firstname, String osiam_secondname) {
+    private Form createPersonPostBody(String osiam_username, String osiam_firstname, String osiam_secondname, String email) {
         final Form postBody = new Form();
         postBody.add("username", osiam_username);
         postBody.add("firstname", osiam_firstname);
         postBody.add("lastname", osiam_secondname);
+        postBody.add("email", email);
         return postBody;
     }
 
