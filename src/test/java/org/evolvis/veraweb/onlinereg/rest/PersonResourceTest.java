@@ -57,7 +57,7 @@ public class PersonResourceTest extends AbstractResourceTest<PersonResource>{
     @Ignore
     @Test
     public void testCreateUser() {
-        Person p = resource.createPerson("luke", "Luke", "Skywalker");
+        Person p = resource.createPerson("luke", "Luke", "Skywalker", "Luke@Skywalker");
         assertEquals(2, p.getPk());
         assertEquals("Luke", p.getFirstname_a_e1());
         assertEquals("Skywalker", p.getLastname_a_e1());
@@ -67,7 +67,7 @@ public class PersonResourceTest extends AbstractResourceTest<PersonResource>{
     @Ignore
     @Test
     public void testTryCreateExistingUser() {
-        Person p = resource.createPerson("exists", "Darth", "Vader");
+        Person p = resource.createPerson("exists", "Darth", "Vader", "Darth@Vader");
 
         assertNull(p);
     }

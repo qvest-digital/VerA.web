@@ -78,7 +78,7 @@ public class PersonResourceSessionsTest {
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
 
         // WHEN
-        personResource.createPerson("maxmustermann", "Max", "Mustermann");
+        personResource.createPerson("maxmustermann", "Max", "Mustermann", "Max@Max");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
@@ -96,7 +96,7 @@ public class PersonResourceSessionsTest {
         when(resultList.isEmpty()).thenReturn(false);
 
         // WHEN
-        Person person = personResource.createPerson("maxmustermann", "Max", "Mustermann");
+        Person person = personResource.createPerson("maxmustermann", "Max", "Mustermann", "Max@Max");
 
         // THEN
         assertTrue(person == null);

@@ -46,8 +46,9 @@ public class PersonResource extends AbstractResource {
     private static final String PARAM_PERSON_ID = "personId";
 	private static final String PARAM_UUID = "uuid";
 	private static final String PARAM_USERNAME = "username";
+    private static final String PARAM_EMAIL = "email";
 
-	/**
+    /**
      * Create person.
      *
      * @param username Username
@@ -60,10 +61,11 @@ public class PersonResource extends AbstractResource {
     @Path("/")
     public Person createPerson(@FormParam(PARAM_USERNAME) String username,
     						   @FormParam("firstname") String firstName,
-                               @FormParam("lastname") String lastname) {
+                               @FormParam("lastname") String lastname,
+                               @FormParam("email") String email) {
         final Session session = openSession();
         try {
-            return handleCreatePerson(username, firstName, lastname, session);
+            return handleCreatePerson(username, firstName, lastname, session, email);
         } finally {
             session.close();
         }
@@ -377,13 +379,13 @@ public class PersonResource extends AbstractResource {
         return ((Event) query.uniqueResult()).getFk_orgunit();
     }
 
-    private Person handleCreatePerson(String username, String firstName, String lastname, Session session) {
+    private Person handleCreatePerson(String username, String firstName, String lastname, Session session, String email) {
         final Query query = getSelectPersonByUsernameQuery(username, session);
         if (!query.list().isEmpty()) {
             // user already exists
             return null;
         }
-        persistPerson(username, firstName, lastname, session);
+        persistPerson(username, firstName, lastname, session, email);
         return (Person) query.uniqueResult();
     }
 
@@ -417,8 +419,8 @@ public class PersonResource extends AbstractResource {
         return query;
     }
 
-    private Person persistPerson(String username, String firstName, String lastname, Session session) {
-        final Person person = initPerson(username, firstName, lastname);
+    private Person persistPerson(String username, String firstName, String lastname, Session session, String email) {
+        final Person person = initPerson(username, firstName, lastname, email);
         session.persist(person);
         session.flush();
 
@@ -441,11 +443,12 @@ public class PersonResource extends AbstractResource {
     	return person;
     }
 
-    private Person initPerson(String username, String firstName, String lastname) {
+    private Person initPerson(String username, String firstName, String lastname, String email) {
         final Person person = new Person();
         person.setFirstName(firstName);
         person.setLastName(lastname);
         person.setUsername(username);
+        person.setMail_a_e1(email);
         person.setFk_orgunit(0);
         person.setSex_a_e1("m");
 
