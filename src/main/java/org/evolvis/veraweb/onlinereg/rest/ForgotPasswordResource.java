@@ -7,7 +7,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -26,23 +25,23 @@ public class ForgotPasswordResource extends AbstractResource {
 
     @POST
     @Path("/request/reset-password-link")
-    public void requestResetPasswordLink(@FormParam("username") String username) throws MessagingException {
+    public void requestResetPasswordLink(@FormParam("username") String username, @FormParam("currentLanguageKey") String currentLanguageKey) throws MessagingException {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.findByUsername");
             query.setParameter("username", username);
             Person person = (Person) query.uniqueResult();
             if (person != null && person.getMail_a_e1() != null) {
-                sendResetPasswordLinkEmail(person.getMail_a_e1());
+                sendResetPasswordLinkEmail(person.getMail_a_e1(), currentLanguageKey);
             }
         } finally {
             session.close();
         }
     }
 
-    private void sendResetPasswordLinkEmail(String toEmail) throws MessagingException {
+    private void sendResetPasswordLinkEmail(String toEmail, String currentLanguageKey) throws MessagingException {
         if (emailConfiguration == null) {
-            emailConfiguration = new EmailConfiguration("de_DE");
+            emailConfiguration = new EmailConfiguration(currentLanguageKey);
         }
         if (mailDispatcher == null) {
             mailDispatcher = new MailDispatcher(emailConfiguration);
