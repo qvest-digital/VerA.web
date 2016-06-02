@@ -44,7 +44,7 @@ public class PersonURLHandler {
     public String generateResetPasswordUrl(String uuid) {
         if(propertiesReader.propertiesAreAvailable() && uuid != null) {
             final URLGenerator urlGenerator = getUrlGenerator();
-            return urlGenerator.getURLForPasswordReset() + uuid;
+            return urlGenerator.getUrlForPasswordReset() + uuid;
         } else {
             return "";
         }

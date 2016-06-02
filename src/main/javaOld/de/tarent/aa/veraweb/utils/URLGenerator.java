@@ -41,19 +41,19 @@ public class URLGenerator {
         urlPrefix = protocol + "://" + host + ":" + port;
     }
 
-    public String getURLForMediaRepresentatives() {
+    public String getUrlForMediaRepresentatives() {
         return urlPrefix + "/#/media/";
     }
 
-    public String getURLForDelegation(){
+    public String getUrlForDelegation(){
         return urlPrefix + "/#/delegation/";
     }
 
-    public String getURLForFreeVisitors(){
+    public String getUrlForFreeVisitors(){
         return urlPrefix + "/#/freevisitors/";
     }
 
-    public String getURLForPasswordReset(){
+    public String getUrlForPasswordReset(){
         return urlPrefix + "/#/reset/password/";
     }
 }
