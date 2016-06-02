@@ -102,14 +102,23 @@ public class UserResource {
      */
     @POST
     @Path("/request/reset-password-link")
-    public String resetPassword(@FormParam("username") String username, @FormParam("current_language") String currentLanguageKey) {
+    public String resetPassword(@FormParam("username") String username, @FormParam("current_language") String currentLanguageKey) throws IOException {
+        final Person user = getUserData(username);
+        if (user == null) {
+            return StatusConverter.convertStatus("USER_NOT_EXISTS");
+        } else {
+            sendEmailWithResetPasswordLink(username, currentLanguageKey);
+            return StatusConverter.convertStatus("OK");
+        }
+
+    }
+
+    private void sendEmailWithResetPasswordLink(String username, String currentLanguageKey) {
         Form postBody = new Form();
         postBody.add("username", username);
         postBody.add("currentLanguageKey", currentLanguageKey);
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/forgotPassword/request/reset-password-link");
         resource.post(postBody);
-
-        return StatusConverter.convertStatus("OK");
     }
 
     /**

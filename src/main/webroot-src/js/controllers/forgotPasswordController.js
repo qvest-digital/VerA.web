@@ -17,9 +17,7 @@ module.exports = function($http, $scope, $location, show, $timeout, param, $tran
                 show.success("USER_PASSWORD_RESET_MAIL");
                 break;
             case 'USER_NOT_EXISTS':
-                // TODO: Entscheiden ob es eine Fehlermeldung bezüglich nicht existenter User gibt,
-                // TODO: oder ob aus Sicherheitsgründen darauf verzichtet wird?
-                show.error("USER_PASSWORD_RESET_MAIL");
+                show.error("RESET_MAIL_WAS_NOT_SEND");
                 break;
             default:
                 show.error("GENERIC_ERROR");
