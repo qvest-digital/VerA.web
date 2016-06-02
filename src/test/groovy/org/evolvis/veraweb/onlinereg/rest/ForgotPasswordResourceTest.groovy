@@ -39,6 +39,7 @@ class ForgotPasswordResourceTest extends Specification {
             Person person = Mock(Person)
             session.getNamedQuery("Person.findByUsername") >> query
             query.uniqueResult() >> person
+            person.getMail_a_e1() >> "recipient@email.com"
 
         when:
             forgotPasswordResource.requestResetPasswordLink("tarentuser")

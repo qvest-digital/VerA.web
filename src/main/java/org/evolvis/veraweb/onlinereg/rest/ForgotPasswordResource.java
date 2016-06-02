@@ -30,8 +30,9 @@ public class ForgotPasswordResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.findByUsername");
+            query.setParameter("username", username);
             Person person = (Person) query.uniqueResult();
-            if (person != null) {
+            if (person != null && person.getMail_a_e1() != null) {
                 sendResetPasswordLinkEmail(person.getMail_a_e1());
             }
         } finally {
