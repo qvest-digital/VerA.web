@@ -20,6 +20,9 @@ public class LinkExtractor implements ResultSetValueExtractor{
         if(value==null){
             return null;
         }
+        if(prefix.endsWith("/")){
+            return prefix+value;
+        }
         return prefix+"/"+value;
     }
 

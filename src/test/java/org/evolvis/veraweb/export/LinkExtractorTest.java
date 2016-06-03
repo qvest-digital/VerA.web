@@ -32,6 +32,15 @@ public class LinkExtractorTest {
     }
     
     @Test
+    public void removesRedundantSlashes() throws SQLException {
+        Properties properties = new Properties();
+        properties.setProperty("prefix", "http://blabla.foo.de/bar/baz/");
+        when(rs.getString(43)).thenReturn("gnaaahahahaha");
+        Object extractedValue = new LinkExtractor(properties).extractValue(rs, 42);
+        assertEquals("http://blabla.foo.de/bar/baz/gnaaahahahaha",extractedValue);
+    }
+    
+    @Test
     public void returnsNullIfColumnContainsNowValue() throws SQLException {
         Properties properties = new Properties();
         properties.setProperty("prefix", "http://blabla.foo.de/bar/baz");
