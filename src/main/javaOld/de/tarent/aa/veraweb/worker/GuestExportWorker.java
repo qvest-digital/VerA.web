@@ -44,8 +44,13 @@ import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.log4j.Logger;
+import org.evolvis.veraweb.util.DelegationPasswordGenerator;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -634,18 +639,15 @@ public class GuestExportWorker {
 
 	private String generatePassword(Event event, Map guest) {
         final String shortName = event.get("shortname").toString();
+        final Date begin = event.begin;
         String companyName = "";
         if(!guest.get("company_a_e1").equals(null) && !guest.get("company_a_e1").equals("")) {
         	companyName = guest.get("company_a_e1").toString();
         }
-        final StringBuilder passwordBuilder = new StringBuilder();
-		passwordBuilder.append(extractFirstXChars(shortName, 3));
-		passwordBuilder.append(extractFirstXChars(companyName, 3));
-		passwordBuilder.append(extractFirstXChars(event.begin.toString(), 10));
-		return passwordBuilder.toString();
+        return new DelegationPasswordGenerator().generatePassword(shortName, begin, companyName);
 	}
 
-	private String generateLoginUrl(Map guest) throws IOException {
+    private String generateLoginUrl(Map guest) throws IOException {
 		final PropertiesReader propertiesReader = new PropertiesReader();
 		final Properties properties = propertiesReader.getProperties();
 		final URLGenerator url = new URLGenerator(properties);
@@ -657,9 +659,6 @@ public class GuestExportWorker {
 		return urlGenerator.getUrlForFreeVisitors() + eventHash + "/" + guestLoginUUID;
 	}
 
-	private String extractFirstXChars(String value, int x) {
-		return value.substring(0, Math.min(value.length(), x));
-	}
 
 	/**
 	 * Export ausschließlich die Gast-Daten in eine Zeile.
