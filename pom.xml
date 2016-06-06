@@ -10,7 +10,8 @@
 		<jacoco.version>0.7.1.201405082137</jacoco.version>
 		<releaseVersion>${project.version}</releaseVersion>
 		<javax.mail.version>1.4.7</javax.mail.version>
-		<groovy-all.version>2.4.5</groovy-all.version>
+		<!-- this is not the latest groovy version, but it is the most recent one I could find that worked with eclipse -->
+		<groovy-all.version>2.4.3</groovy-all.version>
 		<spock-core.version>1.0-groovy-2.4</spock-core.version>
 		<commons-io.version>2.4</commons-io.version>
 		<jersey.version>2.22.2</jersey.version>
