@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
-import lombok.Getter;
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.entities.Person;
@@ -37,8 +36,6 @@ import org.osiam.client.oauth.Scope;
 import org.osiam.resources.scim.UpdateUser;
 import org.osiam.resources.scim.User;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -46,7 +43,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
-import java.util.UUID;
 
 /**
  * This class is used for password reset actions (for example: reset password).
@@ -124,18 +120,18 @@ public class ResetPasswordResource {
             final User user = osiamClient.getUser(accessTokenAsString, username);
             final UpdateUser updateUser = new UpdateUser.Builder().updatePassword(password).build();
             osiamConnector.updateUser(user.getId(), updateUser, accessToken);
-            updateResetPasswordUUID(personId);
-        return StatusConverter.convertStatus("OK");
+            deleteResetPasswordUUID(personId);
+            return StatusConverter.convertStatus("OK");
         } catch (IOException e) {
             return StatusConverter.convertStatus("GETTING_USER_FAILED");
         }
     }
 
-    private void updateResetPasswordUUID(Integer personId) {
-        final WebResource updateEntryLinkUUID = client.resource(config.getVerawebEndpoint() + "/rest/links/delete");
+    private void deleteResetPasswordUUID(Integer personId) {
+        final WebResource deleteEntryLinkUUID = client.resource(config.getVerawebEndpoint() + "/rest/links/delete");
         final Form postBody = new Form();
         postBody.add("personId", personId);
-        updateEntryLinkUUID.post(postBody);
+        deleteEntryLinkUUID.post(postBody);
     }
 
     private Person getPerson(Integer userId) throws IOException {
