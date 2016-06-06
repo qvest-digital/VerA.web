@@ -75,6 +75,19 @@ public class LinkUUIDResource extends AbstractResource {
         }
     }
 
+    @Path("/delete")
+    @POST
+    public void deleteUUID(@FormParam("personId") Integer personId) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("LinkUUID.deleteUUIDByPersonid");
+            query.setInteger("personid", personId);
+            query.executeUpdate();
+        } finally {
+            session.close();
+        }
+    }
+
     @Path("/byPersonId/{personId}")
     @GET
     public List<LinkUUID> getLinkUuidsByPersonId(@PathParam("personId") Integer personId) {
