@@ -35,11 +35,18 @@ class ForgotPasswordResourceTest extends Specification {
 
     public void "request reset password link successfull"() {
         given:
-            Query query = Mock(Query)
+            Query query1 = Mock(Query)
+            Query query2 = Mock(Query)
+            Query query3 = Mock(Query)
             Person person = Mock(Person)
-            session.getNamedQuery("Person.findByUsername") >> query
-            query.uniqueResult() >> person
+            List resultList = new ArrayList()
+            resultList.add(person)
+            session.getNamedQuery("Person.findByUsername") >> query1
+            session.getNamedQuery("LinkUUID.getLinkUuidByPersonid") >> query2
+            session.getNamedQuery("LinkUUID.updateUUIDByPersonid") >> query3
+            query1.uniqueResult() >> person
             person.getMail_a_e1() >> "recipient@email.com"
+            query2.list() >> resultList
 
         when:
             forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE")

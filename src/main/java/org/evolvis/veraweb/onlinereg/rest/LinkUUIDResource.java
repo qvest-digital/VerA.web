@@ -19,15 +19,20 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
+import org.evolvis.veraweb.onlinereg.entities.LinkUUID;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -65,6 +70,19 @@ public class LinkUUIDResource extends AbstractResource {
             query.setString("uuid", UUID.randomUUID().toString());
             query.setInteger("personid", personId);
             query.executeUpdate();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Path("/byPersonId/{personId}")
+    @GET
+    public List<LinkUUID> getLinkUuidsByPersonId(@PathParam("personId") Integer personId) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("LinkUUID.getLinkUuidByPersonid");
+            query.setParameter("personid", personId);
+            return (List<LinkUUID>) query.list();
         } finally {
             session.close();
         }
