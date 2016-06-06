@@ -10,7 +10,6 @@ import org.hibernate.Session;
 
 import javax.mail.MessagingException;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -30,24 +29,24 @@ public class ForgotPasswordResource extends AbstractResource {
 
     @POST
     @Path("/request/reset-password-link")
-    public void requestResetPasswordLink(@FormParam("username") String username, @FormParam("currentLanguageKey") String currentLanguageKey) throws MessagingException {
+    public void requestResetPasswordLink(@FormParam("username") String username, @FormParam("currentLanguageKey") String currentLanguageKey, @FormParam("oaEndpoint") String oaEndpoint) throws MessagingException {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.findByUsername");
             query.setParameter("username", username);
             final Person person = (Person) query.uniqueResult();
+            final String uuid = UUID.randomUUID().toString();
             if (person != null && person.getMail_a_e1() != null) {
                 final int personId = person.getPk();
-                addOrUpdatePasswordEntry(personId, session);
-                sendResetPasswordLinkEmail(person.getMail_a_e1(), currentLanguageKey);
+                addOrUpdatePasswordEntry(personId, session, uuid);
+                sendResetPasswordLinkEmail(person.getMail_a_e1(), currentLanguageKey, oaEndpoint, uuid);
             }
         } finally {
             session.close();
         }
     }
 
-    private void addOrUpdatePasswordEntry(Integer personId, Session session) {
-        final String uuid = UUID.randomUUID().toString();
+    private void addOrUpdatePasswordEntry(Integer personId, Session session, String uuid) {
         final Query query = session.getNamedQuery("LinkUUID.getLinkUuidByPersonid");
         query.setParameter("personid", personId);
         final List<LinkUUID> list = query.list();
@@ -75,14 +74,19 @@ public class ForgotPasswordResource extends AbstractResource {
         session.flush();
     }
 
-    private void sendResetPasswordLinkEmail(String toEmail, String currentLanguageKey) throws MessagingException {
+    private void sendResetPasswordLinkEmail(String toEmail, String currentLanguageKey, String oaEndpoint, String uuid) throws MessagingException {
         if (emailConfiguration == null) {
             emailConfiguration = new EmailConfiguration(currentLanguageKey);
         }
         if (mailDispatcher == null) {
             mailDispatcher = new MailDispatcher(emailConfiguration);
         }
-        mailDispatcher.sendVerificationEmail(emailConfiguration.getFrom(), toEmail, emailConfiguration.getSubject_reset_password(), emailConfiguration.getContent_reset_password(), "http://localhost/reset/password/", emailConfiguration.getContentType());
+        String link = buildLink(oaEndpoint, uuid);
+        mailDispatcher.sendVerificationEmail(emailConfiguration.getFrom(), toEmail, emailConfiguration.getSubject_reset_password(), emailConfiguration.getContent_reset_password(), link, emailConfiguration.getContentType());
+    }
+
+    private String buildLink(String oaEndpoint, String uuid) {
+        return oaEndpoint + "/reset/password/" + uuid;
     }
 
 }

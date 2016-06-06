@@ -49,7 +49,7 @@ class ForgotPasswordResourceTest extends Specification {
             query2.list() >> resultList
 
         when:
-            forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE")
+            forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE", "http://localhost:8181/#/")
 
         then:
             1 * transport.connect('host', 'username', 'password')
@@ -65,7 +65,7 @@ class ForgotPasswordResourceTest extends Specification {
             query.uniqueResult() >> null
 
         when:
-            forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE")
+            forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE", "http://localhost:8181/#/")
 
         then:
             0 * transport.connect('host', 'username', 'password')
