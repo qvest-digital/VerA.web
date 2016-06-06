@@ -132,7 +132,7 @@ public class ResetPasswordResource {
     }
 
     private void updateResetPasswordUUID(Integer personId) {
-        final WebResource updateEntryLinkUUID = client.resource(config.getVerawebEndpoint() + "/rest/links/update/" + personId);
+        final WebResource updateEntryLinkUUID = client.resource(config.getVerawebEndpoint() + "/rest/links/delete");
         final Form postBody = new Form();
         postBody.add("personId", personId);
         updateEntryLinkUUID.post(postBody);
