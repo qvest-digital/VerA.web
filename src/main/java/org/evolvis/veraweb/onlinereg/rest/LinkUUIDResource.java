@@ -61,20 +61,6 @@ public class LinkUUIDResource extends AbstractResource {
         }
     }
 
-    @Path("/update/{personId}")
-    @POST
-    public void updateUUID(@PathParam("personId") Integer personId) {
-        final Session session = openSession();
-        try {
-            final Query query = session.getNamedQuery("LinkUUID.updateUUIDByPersonid");
-            query.setString("uuid", UUID.randomUUID().toString());
-            query.setInteger("personid", personId);
-            query.executeUpdate();
-        } finally {
-            session.close();
-        }
-    }
-
     @Path("/delete")
     @POST
     public void deleteUUID(@FormParam("personId") Integer personId) {

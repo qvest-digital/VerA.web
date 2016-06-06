@@ -59,17 +59,31 @@ class LinkUUIDResourceSessionsTest extends Specification {
             assert result == null
     }
 
-    void testUpdateUUID() {
+    void testDeleteUUID() {
         given:
             def query = Mock(Query)
-            session.getNamedQuery("LinkUUID.updateUUIDByPersonid") >> query
+            session.getNamedQuery("LinkUUID.deleteUUIDByPersonid") >> query
 
         when:
-            resource.updateUUID(1)
+            resource.deleteUUID(1)
 
         then:
             session != null
             1 * query.executeUpdate()
+            1 * session.close()
+
+    }
+
+    void testLinkUuuIds() {
+        given:
+            def query = Mock(Query)
+            session.getNamedQuery("LinkUUID.getLinkUuidByPersonid") >> query
+
+        when:
+            resource.getLinkUuidsByPersonId(1)
+
+        then:
+            session != null
             1 * session.close()
 
     }
