@@ -42,7 +42,7 @@ class ForgotPasswordResourceTest extends Specification {
             person.getMail_a_e1() >> "recipient@email.com"
 
         when:
-            forgotPasswordResource.requestResetPasswordLink("tarentuser")
+            forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE")
 
         then:
             1 * transport.connect('host', 'username', 'password')
@@ -58,7 +58,7 @@ class ForgotPasswordResourceTest extends Specification {
             query.uniqueResult() >> null
 
         when:
-            forgotPasswordResource.requestResetPasswordLink("tarentuser")
+            forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE")
 
         then:
             0 * transport.connect('host', 'username', 'password')
