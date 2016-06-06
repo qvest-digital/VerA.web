@@ -28,7 +28,6 @@ import com.sun.jersey.api.representation.Form;
 import lombok.Getter;
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
-import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.LinkUUID;
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
@@ -110,12 +109,12 @@ public class UserResource {
         if (person == null) {
             return StatusConverter.convertStatus("USER_NOT_EXISTS");
         } else {
-            return sendEmailWithResetPasswordLink(person, currentLanguageKey, person.getPk());
+            return sendEmailWithResetPasswordLink(person, currentLanguageKey, person.getPk(), config.getOnlineRegistrationEndpoint());
         }
 
     }
 
-    private String sendEmailWithResetPasswordLink(Person person, String currentLanguageKey, Integer personId) throws IOException {
+    private String sendEmailWithResetPasswordLink(Person person, String currentLanguageKey, Integer personId, String oaEndpoint) throws IOException {
         final List<LinkUUID> existingLinkUuidsByUser = getUuidListByPersonId(personId);
         if (existingLinkUuidsByUser.size() > 1 ) {
             return StatusConverter.convertStatus("MORE_THAN_ONE_LINKUUID");
@@ -123,6 +122,7 @@ public class UserResource {
             Form postBody = new Form();
             postBody.add("username", person.getUsername());
             postBody.add("currentLanguageKey", currentLanguageKey);
+            postBody.add("oaEndpoint", oaEndpoint);
             final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/forgotPassword/request/reset-password-link");
             resource.post(postBody);
 
