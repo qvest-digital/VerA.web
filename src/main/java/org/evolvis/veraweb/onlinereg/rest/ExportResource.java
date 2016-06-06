@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,7 +30,12 @@ import javax.ws.rs.core.StreamingOutput;
 import javax.ws.rs.core.UriInfo;
 
 import org.evolvis.veraweb.export.CsvExporter;
+import org.evolvis.veraweb.onlinereg.entities.Event;
+import org.evolvis.veraweb.onlinereg.utils.KeepOpenWriter;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
+import org.evolvis.veraweb.util.DelegationPasswordGenerator;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 
 /**
@@ -42,9 +48,23 @@ public class ExportResource extends AbstractResource{
  private static final String CONFIG_FILE_NAME = "config.yaml";
     private static final String CONFIG_PLACEHOLDER = "__event_id_placeholder__";
     
+    
+    private Event getEvent(int eventId) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Event.getEvent");
+            query.setInteger("pk", eventId);
+            return (Event) query.uniqueResult();
+        } finally {
+            session.close();
+        }
+
+    }
+    
     @GET
     @Path("/guestList/{eventId}")
     public Response getGuestList(@PathParam("eventId") final int eventId, @javax.ws.rs.core.Context UriInfo ui) throws NamingException, UnsupportedEncodingException {
+        final Event event = getEvent(eventId);
         final String downloadFilename = new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "_export.csv";
         if (initContext == null) {
             initContext = new InitialContext();
@@ -53,6 +73,9 @@ public class ExportResource extends AbstractResource{
         final DataSource dataSource = (DataSource) namingContext.lookup("jdbc/vwonlinereg");
 
         final Properties properties = new Properties();
+        properties.setProperty("event.shortname", event.getShortname());
+        properties.setProperty("event.begin",  String.valueOf(event.getDatebegin().getTime()));
+        
         final Reader reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME), "utf-8");
         final Map<String, String> substitutions=new HashMap<String,String>();
         substitutions.put(CONFIG_PLACEHOLDER, String.valueOf(eventId));
@@ -65,7 +88,7 @@ public class ExportResource extends AbstractResource{
             @Override
             public void write(OutputStream os) throws IOException, WebApplicationException {
                 final Writer writer = new BufferedWriter(new OutputStreamWriter(os));
-                final CsvExporter csvExporter = new CsvExporter(reader,writer, dataSource, properties);
+                final CsvExporter csvExporter = new CsvExporter(reader,new KeepOpenWriter(writer), dataSource, properties);
                 
                 csvExporter.export(substitutions);
 
