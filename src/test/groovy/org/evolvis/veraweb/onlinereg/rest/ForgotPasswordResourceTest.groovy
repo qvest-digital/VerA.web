@@ -30,7 +30,7 @@ class ForgotPasswordResourceTest extends Specification {
         dispatcher.setTransport(transport)
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
-        forgotPasswordResource = new ForgotPasswordResource(mailDispatcher: dispatcher, context: context)
+        forgotPasswordResource = new ForgotPasswordResource(mailDispatcher: dispatcher, context: context, emailConfiguration: emailConfiguration)
     }
 
     public void "request reset password link successfull"() {
