@@ -19,6 +19,8 @@
  */
 package de.tarent.aa.veraweb.beans;
 
+import org.evolvis.veraweb.onlinereg.entities.LinkType;
+
 /**
  * Bean of the table <code>veraweb.link_uuid</code>
  * @author jnunez
