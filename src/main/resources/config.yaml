@@ -250,21 +250,20 @@ sql: |
     p.url_c_e3 as p_url_c_e3,
     
     case
-      when p.iscompany = 'f' then g.delegation
-      else null
-    end as mediaLink,
-    case
       when p.iscompany = 't' then g.delegation
       else null
     end as delegationLink,
+    
     case 
       when p.iscompany = 't' and g.delegation is not null then g.osiam_login 
       else null
     end as delegationUser,
+    
     case 
       when p.iscompany = 't' and g.delegation is not null then p.company_a_e1 
       else null
     end as delegationPassword,
+    
     l.uuid as passwordResetLink
     
     
@@ -274,11 +273,6 @@ sql: |
   where g.fk_event = ${__event_id_placeholder__}
 
 mappings:
-  mediaLink:
-    mapTo: mediaLink
-    extractWith: org.evolvis.veraweb.export.LinkExtractor
-    properties:
-      prefixPropertyName: oa.path.media
   delegationLink:
     mapTo: delegationLink
     extractWith: org.evolvis.veraweb.export.LinkExtractor
