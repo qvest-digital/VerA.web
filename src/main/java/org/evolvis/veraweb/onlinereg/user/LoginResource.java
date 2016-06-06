@@ -168,57 +168,6 @@ public class LoginResource {
         final NewCookie cookie = cookie(encodedToken,
                 600 /* i dunno...ten minutes? */);
         return Response.ok(new State(userName, displayName)).cookie(cookie).build();
-        //
-        // Boolean isRegisterdForDelegationEvent = true;
-        // if (delegation != null && !"".equals(delegation)) {
-        // isRegisterdForDelegationEvent =
-        // readResource(path("guest", "registered", "delegation", userName,
-        // delegation), BOOLEAN);
-        // }
-        //
-        // if (isRegisterdForDelegationEvent) {
-        //
-        // try {
-        // String accessToken = config.getOsiam().getClient(client)
-        // .getAccessTokenUserPass(userName, password, "POST");
-        //
-        //
-        // WebResource resource;
-        //
-        // resource = client.resource(path("person", "userinfo", userName));
-        // String returnedValue;
-        //
-        // try {
-        // returnedValue = resource.get(String.class);
-        // } catch (UniformInterfaceException e) {
-        // int statusCode = e.getResponse().getStatus();
-        // if (statusCode == 204) {
-        // return StatusConverter.convertStatus(userName);
-        // }
-        //
-        // return null;
-        // }
-        //
-        // return StatusConverter.convertStatus(returnedValue);
-        // } catch (ConnectionInitializationException cie) {
-        // if(cie.getMessage().endsWith("is disabled!")){
-        // final OsiamUserActivation osiamUserActivation =
-        // getOsiamUserActivationByUsername(userName);
-        // final String link = buildLink(config.getOnlineRegistrationEndpoint(),
-        // osiamUserActivation.getActivation_token());
-        // final URL website = new URL(link);
-        // final String protocol = website.getProtocol();
-        // final String host = website.getHost();
-        // final Integer port = website.getPort();
-        // final String suffix = getSuffix(link, host, port);
-        // return StatusConverter.convertStatusWithLink("disabled", protocol,
-        // host, port, suffix);
-        // }
-        // return null;
-        // }
-        // } else {
-        // return null;
-        // }
     }
 
     private String fetchDisplayName(String userName) {
