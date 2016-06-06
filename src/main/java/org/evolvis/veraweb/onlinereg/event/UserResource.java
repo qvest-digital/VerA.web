@@ -28,6 +28,8 @@ import com.sun.jersey.api.representation.Form;
 import lombok.Getter;
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.Event;
+import org.evolvis.veraweb.onlinereg.entities.LinkUUID;
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.mail.EmailDispatcher;
@@ -53,6 +55,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -76,8 +79,8 @@ public class UserResource {
     private Client client;
     private ObjectMapper mapper = new ObjectMapper();
     private static final String BASE_RESOURCE = "/rest";
-    private static final TypeReference<OsiamUserActivation> OSIAM_USER_ACTIVATION = new TypeReference<OsiamUserActivation>() {
-    };
+    private static final TypeReference<OsiamUserActivation> OSIAM_USER_ACTIVATION = new TypeReference<OsiamUserActivation>() {};
+    private static final TypeReference<List<LinkUUID>> LINK_UUID_TYPE_REFERENCE = new TypeReference<List<LinkUUID>>() {};
     private OsiamClient osiamClient;
 
     /**
@@ -103,22 +106,28 @@ public class UserResource {
     @POST
     @Path("/request/reset-password-link")
     public String resetPassword(@FormParam("username") String username, @FormParam("current_language") String currentLanguageKey) throws IOException {
-        final Person user = getUserData(username);
-        if (user == null) {
+        final Person person = getUserData(username);
+        if (person == null) {
             return StatusConverter.convertStatus("USER_NOT_EXISTS");
         } else {
-            sendEmailWithResetPasswordLink(username, currentLanguageKey);
-            return StatusConverter.convertStatus("OK");
+            return sendEmailWithResetPasswordLink(person, currentLanguageKey, person.getPk());
         }
 
     }
 
-    private void sendEmailWithResetPasswordLink(String username, String currentLanguageKey) {
-        Form postBody = new Form();
-        postBody.add("username", username);
-        postBody.add("currentLanguageKey", currentLanguageKey);
-        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/forgotPassword/request/reset-password-link");
-        resource.post(postBody);
+    private String sendEmailWithResetPasswordLink(Person person, String currentLanguageKey, Integer personId) throws IOException {
+        final List<LinkUUID> existingLinkUuidsByUser = getUuidListByPersonId(personId);
+        if (existingLinkUuidsByUser.size() > 1 ) {
+            return StatusConverter.convertStatus("MORE_THAN_ONE_LINKUUID");
+        } else {
+            Form postBody = new Form();
+            postBody.add("username", person.getUsername());
+            postBody.add("currentLanguageKey", currentLanguageKey);
+            final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/forgotPassword/request/reset-password-link");
+            resource.post(postBody);
+
+            return StatusConverter.convertStatus("OK");
+        }
     }
 
     /**
@@ -317,6 +326,12 @@ public class UserResource {
                 languages, gender);
 
         return updateUserCoreDataWithGivenValues(postBody);
+    }
+
+    private List<LinkUUID> getUuidListByPersonId(Integer personId) throws IOException {
+        final ResourceReader resourceReader = new ResourceReader(client, mapper, config);
+        final String path = resourceReader.constructPath(BASE_RESOURCE, "links", "byPersonId", personId);
+        return resourceReader.readStringResource(path, LINK_UUID_TYPE_REFERENCE);
     }
 
     /**

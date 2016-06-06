@@ -90,6 +90,7 @@
   "USER_PASSWORD_RESET_TEXT": "Ein Link zum zurücksetzen des Passwortes wird an die hinterlegte Email Adresse gesendet.",
   "USER_PASSWORD_RESET_MAIL": "Email wurde gesendet, sofern der Benutzername existiert.",
   "RESET_MAIL_WAS_NOT_SEND": "Es existiert kein Benutzer mit dem von ihnen angegebenen Benutzernamen.",
+  "MORE_THAN_ONE_LINKUUID": "Es existieren mehreren UUIDs, die diesem Benutzer zugeordnet sind.",
 
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Zur Veranstaltung anmelden",
 

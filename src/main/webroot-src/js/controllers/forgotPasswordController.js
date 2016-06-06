@@ -19,6 +19,9 @@ module.exports = function($http, $scope, $location, show, $timeout, param, $tran
             case 'USER_NOT_EXISTS':
                 show.error("RESET_MAIL_WAS_NOT_SEND");
                 break;
+            case 'MORE_THAN_ONE_LINKUUID':
+                show.error("MORE_THAN_ONE_LINKUUID");
+                break;
             default:
                 show.error("GENERIC_ERROR");
             }
