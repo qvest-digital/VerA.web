@@ -113,7 +113,7 @@ public class PersonResourceSessionsTest {
         mockPerson(mockitoSession);
 
         // WHEN
-        personResource.createDelegate(1, "maxmustermann", "Max", "Mustermann", "Herr", "company", "category", "function");
+        personResource.createDelegate(1, "maxmustermann", "Max", "Mustermann", "Herr", "category", "function");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
@@ -129,7 +129,7 @@ public class PersonResourceSessionsTest {
         mockPerson(mockitoSession);
 
         // WHEN
-        personResource.createDelegate(1, "lisarosler", "Lisa", "Rosler", "Frau", "company", "category", "function");
+        personResource.createDelegate(1, "lisarosler", "Lisa", "Rosler", "Frau", "category", "function");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();
@@ -151,7 +151,7 @@ public class PersonResourceSessionsTest {
         when(resultList.isEmpty()).thenReturn(false);
 
         // WHEN
-        Person person = personResource.createDelegate(1, "lisarosler", "Lisa", "Rosler", "Frau", "company", "category", "function");
+        Person person = personResource.createDelegate(1, "lisarosler", "Lisa", "Rosler", "Frau", "category", "function");
 
         // THEN
         assertTrue(person == null);
