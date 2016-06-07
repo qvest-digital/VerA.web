@@ -86,7 +86,11 @@ public class ForgotPasswordResource extends AbstractResource {
     }
 
     private String buildLink(String oaEndpoint, String uuid) {
-        return oaEndpoint + "/reset/password/" + uuid;
+        final String suffix = "reset/password/";
+        if (oaEndpoint.endsWith("/")) {
+            return oaEndpoint + suffix + uuid;
+        }
+        return oaEndpoint + "/" + suffix + uuid;
     }
 
 }
