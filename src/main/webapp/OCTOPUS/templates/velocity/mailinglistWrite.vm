@@ -16,7 +16,7 @@
 	<h1>${placeholderWithTranslation.verteilerversenden}</h1>
 
 
-	<form id="formlist" name="formlist" action="${paths.staticWeb}/mailing" method="POST" enctype="multipart/form-data">
+	<form id="formlist" name="formlist" action="${paths.staticWeb}mailing" method="POST" enctype="multipart/form-data">
     	<input type="hidden" id="loaddraft" name="loaddraft" value="false">
     	<input type="hidden" id="savedraft" name="savedraft" value="false">
 
@@ -95,7 +95,7 @@
                                 			<option value="$!draft.id" #if($mail.id && $mail.id == $draft.id) selected #end>$!message.text($!draft.name)</option>
                                 		#end
                             		</select>
-                        			<input type="button" name="" value="${placeholderWithTranslation.vorlageladen}" class="autoWidth" title="${placeholderWithTranslation.vorlageladen}" onclick="document.getElementById('loaddraft').value='true'; document.getElementById('formlist').submit();"/>
+                        			<input type="button" name="" value="${placeholderWithTranslation.vorlageladen}" class="autoWidth" title="${placeholderWithTranslation.vorlageladen}" onclick="$('#loaddraft').val('true'); $('#formlist').submit();"/>
 									<input type="button" name="send" value="Vorlage entfernen" class="autoWidth" onclick="window.location.href='MailinglistWrite';" title="Keine Vorlage verwenden"/>
 								#else
 									${placeholderWithTranslation.esliegenkeinevorlagenvor}
@@ -105,7 +105,7 @@
                         <div class="marginTop20">
                         			<label for="mail-name">${placeholderWithTranslation.neuevorlagename}*</label>
                         			<input type="text" id="mail-name" name="mail-name" value="$!message.text($mail.name)">
-                        			<input type="button" name="savedraft" value="${placeholderWithTranslation.neuevorlagespeichern}" title="${placeholderWithTranslation.neuevorlagespeichern}" onclick="document.getElementById('savedraft').value='true'; document.getElementById('formlist').submit();" class="autoWidth">
+                        			<input type="button" name="savedraft" value="${placeholderWithTranslation.neuevorlagespeichern}" title="${placeholderWithTranslation.neuevorlagespeichern}" onclick="$('#savedraft').val('true'); $('#formlist').submit();" class="autoWidth">
                                     <p class="mandatoryText"><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong> ${placeholderWithTranslation.neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten}.</p>
                         </div>
                         <br/><br/>
@@ -153,10 +153,12 @@
 	}
 
 	function disableSubmitButton() {
+	    $('input[type="button"]').attr('disabled', 'disabled').addClass('disabled');
 		$('[type="submit"]').attr('disabled', 'disabled').addClass('disabled');
 	}
 
 	function enableSubmitButton() {
+		$('input[type="button"]').removeAttr('disabled').removeClass('disabled');
 		$('[type="submit"]').removeAttr('disabled').removeClass('disabled');
 	}
 
