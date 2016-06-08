@@ -1853,17 +1853,16 @@
 			</response>
 		</task>
 
-		<!-- PDF-Vorlagen-Übersicht -->
 		<task name="PdfTemplateList" access="public" groups="Writer">
 			<description>Zeigt eine Liste von PDF-Entwürfen an.</description>
 			<doTask name="Load"/>
+			<action name="saveList" worker="PdfTemplateWorker"/>
 			<action name="showList" worker="PdfTemplateWorker"/>
 			<response type="velocity" name="pdfTemplateList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
 
-		<!-- PDF-Vorlage erstellen0 -->
 		<task name="PdfTemplateCreate" access="public" groups="Writer">
 			<description>Zeigt eine Liste von PDF-Entwürfen an.</description>
 			<doTask name="Load"/>
@@ -1873,6 +1872,17 @@
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
+
+		<task name="PdfTemplateDetail" access="public" groups="Writer">
+			<description>Zeigt einen eMail-Entwürf an.</description>
+			<doTask name="Load"/>
+			<action name="saveDetail" worker="PdfTemplateWorker"/>
+			<action name="showDetail" worker="PdfTemplateWorker"/>
+			<response type="velocity" name="pdfTemplateDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
 
 	</tasks>
 </tcModuleConfig>

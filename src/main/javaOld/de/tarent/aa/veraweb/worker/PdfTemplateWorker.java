@@ -42,79 +42,20 @@ public class PdfTemplateWorker extends ListWorkerVeraWeb {
 		super("PdfTemplate");
 	}
 
-	@Override
-    protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
-
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("name < '");
-		Escaper.escape(buffer, start);
-		buffer.append("'");
-
-		Select select = database.getCount(BEANNAME);
-		select.where(new RawClause(buffer));
-
-		Integer i = database.getCount(select);
-		return new Integer(i.intValue() - (i.intValue() % getLimit(cntx).intValue()));
-	}
-
-
-	/**
-	 * Updatet ausschließlich den Namen der in der Liste angezeigt wird.
-	 */
-	@Override
-    protected int updateBeanList(OctopusContext octopusContext, List errors, List beanlist, TransactionContext transactionContext) throws BeanException, IOException {
-		int count = 0;
-		for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
-			PdfTemplate mailDraft = (PdfTemplate)it.next();
-			if (mailDraft.isModified()) {
-				Database db = transactionContext.getDatabase();
-				transactionContext.execute(
-						SQL.Update( db ).
-						table("veraweb.tmaildraft").
-						update("name", mailDraft.name).
-						where(Expr.equal("pk", mailDraft.id)));
-				count++;
-				transactionContext.commit();
-			}
-		}
-		return count;
-	}
-
-    //
-    // Octopus-Aktionen
-    //
-	/** Octopus-Eingabe-Parameter für {@link #showDetail(OctopusContext, Integer, PdfTemplate)} */
-	public static final String INPUT_showDetail[] = { "id", "maildraft" };
-	/** Octopus-Eingabe-Parameter für {@link #showDetail(OctopusContext, Integer, PdfTemplate)} */
+	public static final String INPUT_showDetail[] = { "id", "pdftemplate" };
 	public static final boolean MANDATORY_showDetail[] = { false, false };
-	/** Octopus-Ausgabe-Parameter für {@link #showDetail(OctopusContext, Integer, PdfTemplate)} */
-	public static final String OUTPUT_showDetail = "maildraft";
-	/**
-	 * Lädt einen eMail-Entwurf aus der Datenbank und stellt
-	 * diesen in den Content, wenn eine ID übergeben wurde
-	 * und sich noch kein Entwurf im Content befindet.
-	 *
-	 * @param cntx Octopus-Context
-	 * @param id Datenbank ID
-	 * @param mailDraft eMail-Entwurf aus dem Content.
-	 * @return eMail-Entwurf oder null
-	 * @throws BeanException
-	 * @throws IOException
-	 */
-	public PdfTemplate showDetail(OctopusContext cntx, Integer id, PdfTemplate mailDraft) throws BeanException, IOException {
-		if (mailDraft == null && id != null) {
-			return (PdfTemplate)getDatabase(cntx).getBean("PdfTemplate", id);
+	public static final String OUTPUT_showDetail = "pdftemplate";
+
+	public PdfTemplate showDetail(OctopusContext octopusContext, Integer id, PdfTemplate pdfTemplate) throws BeanException, IOException {
+		if (pdfTemplate == null && id != null) {
+			return (PdfTemplate)getDatabase(octopusContext).getBean("PdfTemplate", id);
 		}
-		return mailDraft;
+		return pdfTemplate;
 	}
 
-	/** Octopus-Eingabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final String INPUT_saveDetail[] = { "save" };
-	/** Octopus-Eingabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
 	public static final boolean MANDATORY_saveDetail[] = { false };
-	/** Octopus-Ausgabe-Parameter für {@link #saveDetail(OctopusContext, Boolean)} */
-	public static final String OUTPUT_saveDetail = "maildraft";
+	public static final String OUTPUT_saveDetail = "pdftemplate";
 	/**
 	 * Speichert den übergebenen eMail-Entwurf bzw. lädt diesen aus dem
 	 * Request und speichert diesen im Content und in der Datenbank,
