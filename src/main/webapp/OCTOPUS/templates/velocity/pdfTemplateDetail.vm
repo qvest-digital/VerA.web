@@ -1,0 +1,70 @@
+#set($activeMenu = "Administration")
+#if($pdftemplate && $pdftemplate.id)
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_SUBMISSION_EDIT}: $!message.text($pdftemplate.name)")
+#else
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_SUBMISSION_CREATE}")
+#end
+
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_MAIL_DRAFT}")
+#set($entity="PDF_TEMPLATE")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_PLURAL}")
+#parse("inc/header.vm")
+
+<form id="formlist" name="formlist" action="" method="POST">
+	<input type="hidden" name="save" value="true"/>
+
+	<div id="content_container">
+        <div id="breadcrumb" class="textRight marginBottom10">
+            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.emailvorlage}</span>
+        </div>
+
+        <h1>${placeholderWithTranslation.pdfvorlage}</h1>
+
+        #if($pdftemplate.errors.size() > 0)
+            <vera-warn>
+            	#foreach($error in $pdftemplate.errors)
+            		$!message.plain($error)<br>
+            	#end
+            </vera-warn>
+        #end
+
+    	<input type="hidden" name="pdftemplate-id" value="$!pdftemplate.id"/>
+
+    	<div class="textRight bold">* = ${placeholderWithTranslation.pflichtfelder}</div>
+
+        <table class="form">
+			<tr>
+            	<td class="bold width15"><label for="show-id">${placeholderWithTranslation.GENERIC_ID}</label></td>
+            	<td><input type="text" id="show-id" name="show-id" value="$!message.text($pdftemplate.id)" class="id" vera-disabled /></td>
+            </tr>
+			<tr>
+            	<td class="bold"><label for="pdftemplate-name">${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}*</label></td>
+            	<td><input type="text" id="pdftemplate-name" name="pdftemplate-name" maxlength="200" value="$!message.text($pdftemplate.name)" /></td>
+            </tr>
+
+            #if ($listparam.count == 0)
+            	<tr><td colspan="2">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
+            #end
+        </table>
+
+
+        <div id="buttonPanel-bottom" class="textRight marginTop10">
+        	<input type="submit" name="submit" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+        	<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" class="mainButton" onclick="window.location.href='MailDraftList?selectNone=true';" />
+        </div>
+	</div>
+
+</form>
+
+<script type="text/javascript">
+	function addPlatzhalter(s) {
+		var sel = document.getElementById('platzhalter');
+		var text = sel.options[sel.selectedIndex].value;
+		if (text.length > 0) {
+			insertAtCursor(document.getElementById('pdftemplate-text'), '<' + text + '>');
+		}
+	}
+</script>
+
+#parse("inc/footer.vm")

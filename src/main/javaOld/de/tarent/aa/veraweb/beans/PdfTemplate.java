@@ -26,14 +26,6 @@ public class PdfTemplate extends AbstractHistoryBean {
         if (name == null || name.trim().length() == 0) {
             addError(messages.getMessageEMailDraftNameMissing());
         }
-
-        if (subject == null || subject.trim().length() == 0) {
-            addError(messages.getMessageEMailDraftSubjectMissing());
-        }
-
-        if (text == null || text.trim().length() == 0) {
-            addError(messages.getMessageEMailDraftTextMissing());
-        }
     }
 
     @Override

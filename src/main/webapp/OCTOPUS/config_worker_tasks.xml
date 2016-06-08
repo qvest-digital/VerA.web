@@ -1857,11 +1857,22 @@
 		<task name="PdfTemplateList" access="public" groups="Writer">
 			<description>Zeigt eine Liste von PDF-Entwürfen an.</description>
 			<doTask name="Load"/>
-			<!--<action name="saveList" worker="MailDraftWorker"/>-->
 			<action name="showList" worker="PdfTemplateWorker"/>
 			<response type="velocity" name="pdfTemplateList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
+
+		<!-- PDF-Vorlage erstellen0 -->
+		<task name="PdfTemplateCreate" access="public" groups="Writer">
+			<description>Zeigt eine Liste von PDF-Entwürfen an.</description>
+			<doTask name="Load"/>
+			<action name="saveDetail" worker="PdfTemplateWorker"/>
+			<action name="showDetail" worker="PdfTemplateWorker"/>
+			<response type="velocity" name="pdfTemplateDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
 	</tasks>
 </tcModuleConfig>

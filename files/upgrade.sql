@@ -642,17 +642,17 @@ BEGIN
             IF vcurvsn < vnewvsn THEN
                 vmsg := 'begin.update(' || vnewvsn || ')';
 
-		         CREATE TABLE veraweb.pdftemplate (
-                     id serial NOT NULL,
-                     name varchar(200) NOT NULL,
-                     content bytea NOT NULL,
-                     createdby varchar(50),
-                     created timestamptz,
-                     changedby varchar(50),
-                     changed timestamptz,
+                CREATE SEQUENCE veraweb.pdftemplate_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 
-                     CONSTRAINT pdftemplate_pk_seq PRIMARY KEY (id)
-                 );
+		        CREATE TABLE veraweb.pdftemplate (
+                    pk INTEGER DEFAULT nextval('pdftemplate_seq') NOT NULL,
+                    name varchar(200) NOT NULL,
+                    content bytea NOT NULL,
+                    createdby varchar(50),
+                    created timestamptz,
+                    changedby varchar(50),
+                    changed timestamptz
+                ) WITH OIDS;
 
                 -- post-upgrade
                 vmsg := 'end.update(' || vnewvsn || ')';

@@ -128,27 +128,31 @@ public class PdfTemplateWorker extends ListWorkerVeraWeb {
 	 */
 	public PdfTemplate saveDetail(final OctopusContext octopusContext, final Boolean save) throws BeanException, IOException {
 		if (save != null && save.booleanValue()) {
-			PdfTemplate mailDraft = (PdfTemplate)getRequest(octopusContext).getBean("MailDraft", "maildraft");
-			TransactionContext context = ( new DatabaseVeraWeb(octopusContext) ).getTransactionContext();
-            mailDraft.verify(octopusContext);
+			PdfTemplate pdfTemplate = (PdfTemplate)getRequest(octopusContext).getBean("PdfTemplate", "pdftemplate");
+			TransactionContext transactionContext = new DatabaseVeraWeb(octopusContext).getTransactionContext();
+            pdfTemplate.verify(octopusContext);
 
-			if (mailDraft.isCorrect()) {
-				try {
-				    if (mailDraft.id == null) {
-				        octopusContext.setContent("countInsert", new Integer(1));
-				    } else {
-				        octopusContext.setContent("countUpdate", new Integer(1));
-				    }
-
-                    saveBean(octopusContext, mailDraft, context);
-                    context.commit();
-				} catch ( Throwable e ) {
-					context.rollBack();
-					throw new BeanException( "Der Maildraft konnte nicht gespeichert werden.", e );
-				}
+			if (pdfTemplate.isCorrect()) {
+				handleSave(octopusContext, pdfTemplate, transactionContext);
 			}
-			return mailDraft;
+			return pdfTemplate;
 		}
 		return null;
+	}
+
+	private void handleSave(OctopusContext octopusContext, PdfTemplate pdfTemplate, TransactionContext transactionContext) throws BeanException {
+		try {
+            if (pdfTemplate.id == null) {
+                octopusContext.setContent("countInsert", new Integer(1));
+            } else {
+                octopusContext.setContent("countUpdate", new Integer(1));
+            }
+
+			saveBean(octopusContext, pdfTemplate, transactionContext);
+			transactionContext.commit();
+        } catch ( Throwable e ) {
+            transactionContext.rollBack();
+            throw new BeanException( "Die PDF-Vorlage konnte nicht gespeichert werden.", e );
+        }
 	}
 }
