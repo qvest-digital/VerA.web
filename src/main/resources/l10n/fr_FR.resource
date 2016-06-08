@@ -1320,6 +1320,7 @@ gpsdaten=Donn\u00E9es GPS
 platzhalterintexteinfuegen=Ins\u00E9rer le texte d\u2019espace r\u00E9serv\u00E9
 intexteinfuegen=ins\u00E9rer dans le texte
 emailvorlagen=Mod\u00E8les de courrier \u00E9lectronique
+pdfvorlagen=PDF-Vorlagen
 vorhandenevorlagen=Mod\u00E8les existants
 bitteauswhaelengt=Veuillez s\u00E9lectionner
 vorlageladen=T\u00E9l\u00E9charger mod\u00E8les

@@ -1318,6 +1318,7 @@ gpsdaten=Datos-GPS
 platzhalterintexteinfuegen=Insertar marcador de posici\u00F3n en el texto
 intexteinfuegen=Insertar en el texto
 emailvorlagen=Plantillas de correo electr\u00F3nico
+pdfvorlagen=PDF-Vorlagen
 vorhandenevorlagen=Plantillas disponibles
 bitteauswhaelengt=Por favor, seleccione
 vorlageladen=Cargar plantilla

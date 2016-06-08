@@ -1315,6 +1315,7 @@ gpsdaten=GPS-data
 platzhalterintexteinfuegen=insert placeholder into text
 intexteinfuegen=insert into text
 emailvorlagen=E-mail template
+pdfvorlagen=PDF templates
 vorhandenevorlagen=existing templates
 bitteauswhaelengt=please choose
 vorlageladen=load template

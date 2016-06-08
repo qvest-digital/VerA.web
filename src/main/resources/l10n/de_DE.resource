@@ -1287,6 +1287,7 @@ gpsdaten=GPS-Daten
 platzhalterintexteinfuegen=Platzhalter in Text einf\u00FCgen
 intexteinfuegen=In Text einf\u00FCgen
 emailvorlagen=E-Mail Vorlagen
+pdfvorlagen=PDF-Vorlagen
 vorhandenevorlagen=Vorhandene Vorlagen
 bitteauswhaelengt=Bitte ausw\u00E4hlen
 vorlageladen=Vorlage laden
