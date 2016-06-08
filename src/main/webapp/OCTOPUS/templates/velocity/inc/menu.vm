@@ -130,7 +130,7 @@
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
 						<li>
-							<a id="menu.pdfDraft" href="${paths.staticWeb}do/PdfDraftList?start=0&selectNone=true">${placeholderWithTranslation.pdfvorlagen}</a>
+							<a id="menu.pdfDraft" href="${paths.staticWeb}do/PdfTemplateList?start=0&selectNone=true">${placeholderWithTranslation.pdfvorlagen}</a>
 						</li>
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())

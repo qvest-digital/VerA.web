@@ -81,6 +81,9 @@
 		<worker name="StatistikWorker" implementation="de.tarent.aa.veraweb.worker.StatistikWorker" singleton="true" factory="reflected" />
 		<worker name="CompleteWorker" implementation="de.tarent.aa.veraweb.worker.CompleteWorker" singleton="true" factory="reflected" />
 		<worker name="WorkAreaWorker" implementation="de.tarent.aa.veraweb.worker.WorkAreaWorker" singleton="true" factory="reflected" />
+
+		<!-- PDF-Vorlagen-Worker -->
+		<worker name="PdfTemplateWorker" implementation="de.tarent.aa.veraweb.worker.PdfTemplateWorker" singleton="true" factory="reflected" />
 	</contentWorkerDeklaration>
 
 	<!--
@@ -1846,6 +1849,17 @@
 			<doTask name="Load"/>
 			<action name="summarizeCategories" worker="CleanupWorker"/>
 			<response type="velocity" name="cleanup">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- PDF-Vorlagen-Übersicht -->
+		<task name="PdfTemplateList" access="public" groups="Writer">
+			<description>Zeigt eine Liste von PDF-Entwürfen an.</description>
+			<doTask name="Load"/>
+			<!--<action name="saveList" worker="MailDraftWorker"/>-->
+			<action name="showList" worker="PdfTemplateWorker"/>
+			<response type="velocity" name="pdfTemplateList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
