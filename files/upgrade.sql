@@ -638,6 +638,29 @@ BEGIN
                 INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
             END IF;
 
+    vnewvsn := '2016-06-08';
+            IF vcurvsn < vnewvsn THEN
+                vmsg := 'begin.update(' || vnewvsn || ')';
+
+		         CREATE TABLE veraweb.pdftemplate (
+                     id serial NOT NULL,
+                     name varchar(200) NOT NULL,
+                     content bytea NOT NULL,
+                     createdby varchar(50),
+                     created timestamptz,
+                     changedby varchar(50),
+                     changed timestamptz,
+
+                     CONSTRAINT pdftemplate_pk_seq PRIMARY KEY (id)
+                 );
+
+                -- post-upgrade
+                vmsg := 'end.update(' || vnewvsn || ')';
+                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+                vcurvsn := vnewvsn;
+                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+            END IF;
+
 	-- end
 
 	IF vcurvsn <> vversion THEN
