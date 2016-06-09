@@ -69,6 +69,8 @@ BROWSER_TITLE_OVERVIEW_GUEST_EVENTS=Resumen de eventos por invitado
 BROWSER_TITLE_OVERVIEW_EVENTS_SORT_GUEST=Resumen de eventos, agrupados por invitados
 BROWSER_TITLE_OVERVIEW_EVENTS_SORT_PLACE=Resumen de eventos por localizaci\u00F3n
 BROWSER_TITLE_OVERVIEW_EVENTS_UNKNOWN_STATISTIC=ESTAD\u00CDSTICA DESCONOCIDA
+BROWSER_TITLE_PDF_TEMPLATE_CREATE=PDF-Vorlage erstellen
+BROWSER_TITLE_PDF_TEMPLATE_EDIT=PDF-Vorlage bearbeiten
 
 # YOU MUST SET THESE PLACEHOLDERS WITH THE GENDER TYPE OF YOUR LANGUAGE FOR EACH OBJECT AS MALE OR FEMALE
 GENDER_TYPE_CATEGORY=Mujer
@@ -1860,6 +1862,15 @@ GM_MAIL_DRAFT_DELETE_N=No se han eliminado asuntos
 GM_MAIL_DRAFT_INSERT_S=Se ha creado un asunto
 GM_MAIL_DRAFT_INSERT_P=Se han creado %s asuntos
 GM_MAIL_DRAFT_INSERT_N=No se han creado asuntos
+GM_PDF_TEMPLATE_MODIFY_S=Es wurde eine PDF-Vorlage ge\u00E4ndert
+GM_PDF_TEMPLATE_MODIFY_P=Es wurden %s PDF-Vorlagen ge\u00E4ndert
+GM_PDF_TEMPLATE_MODIFY_N=Es wurde keine PDF-Vorlage ge\u00E4ndert
+GM_PDF_TEMPLATE_DELETE_S=Es wurde eine PDF-Vorlage gel\u00F6scht
+GM_PDF_TEMPLATE_DELETE_P=Es wurden %s PDF-Vorlagen gel\u00F6scht
+GM_PDF_TEMPLATE_DELETE_N=Es wurde keine PDF-Vorlage gel\u00F6scht
+GM_PDF_TEMPLATE_INSERT_S=Es wurde eine neue PDF-Vorlage angelegt
+GM_PDF_TEMPLATE_INSERT_P=Es wurden %s neuen PDF-Vorlagen angelegt
+GM_PDF_TEMPLATE_INSERT_N=Es wurde keine neue PDF-Vorlage angelegt
 GM_OFFICIAL_TITLE_MODIFY_S=Se ha modificado un t\u00EDtulo
 GM_OFFICIAL_TITLE_MODIFY_P=Se han modificado %s t\u00EDtulos
 GM_OFFICIAL_TITLE_MODIFY_N=No se han modificado t\u00EDtulos

@@ -69,6 +69,8 @@ BROWSER_TITLE_OVERVIEW_GUEST_EVENTS=Summary of all events from one guest
 BROWSER_TITLE_OVERVIEW_EVENTS_SORT_GUEST=Complete summary of all events, grouped by guests
 BROWSER_TITLE_OVERVIEW_EVENTS_SORT_PLACE=Summary of all events, sorted by venue
 BROWSER_TITLE_OVERVIEW_EVENTS_UNKNOWN_STATISTIC=UNKNOWN STATISTIC
+BROWSER_TITLE_PDF_TEMPLATE_CREATE=Create PDF template
+BROWSER_TITLE_PDF_TEMPLATE_EDIT=Edit PDF template
 
 # YOU MUST SET THESE PLACEHOLDERS WITH THE GENDER TYPE OF YOUR LANGUAGE FOR EACH OBJECT AS MALE OR FEMALE
 GENDER_TYPE_CATEGORY=Female
@@ -1852,6 +1854,15 @@ GM_MAIL_DRAFT_DELETE_N=No mail drafts were deleted
 GM_MAIL_DRAFT_INSERT_S=One new mail draft successfully created
 GM_MAIL_DRAFT_INSERT_P=%s new mail drafts successfully created
 GM_MAIL_DRAFT_INSERT_N=No new mail drafts were created
+GM_PDF_TEMPLATE_MODIFY_S=One pdf template successfully modified
+GM_PDF_TEMPLATE_MODIFY_P=%s pdf templates successfully modified
+GM_PDF_TEMPLATE_MODIFY_N=No pdf templates were modified
+GM_PDF_TEMPLATE_DELETE_S=One pdf template successfully deleted
+GM_PDF_TEMPLATE_DELETE_P=%s pdf templates successfully deleted
+GM_PDF_TEMPLATE_DELETE_N=No pdf templates were deleted
+GM_PDF_TEMPLATE_INSERT_S=One new pdf template successfully created
+GM_PDF_TEMPLATE_INSERT_P=%s new pdf templates successfully created
+GM_PDF_TEMPLATE_INSERT_N=No new pdf templates were created
 GM_OFFICIAL_TITLE_MODIFY_S=One official title successfully modified
 GM_OFFICIAL_TITLE_MODIFY_P=%s official titles successfully modified
 GM_OFFICIAL_TITLE_MODIFY_N=No official titles were modified

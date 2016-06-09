@@ -69,6 +69,8 @@ BROWSER_TITLE_OVERVIEW_GUEST_EVENTS=\u00DCbersicht \u00FCber alle Veranstaltunge
 BROWSER_TITLE_OVERVIEW_EVENTS_SORT_GUEST=Gesamt\u00FCbersicht \u00FCber alle Veranstaltungen, gruppiert nach G\u00E4sten
 BROWSER_TITLE_OVERVIEW_EVENTS_SORT_PLACE=\u00DCbersicht \u00FCber alle Veranstaltungen sortiert nach Veranstaltungsort
 BROWSER_TITLE_OVERVIEW_EVENTS_UNKNOWN_STATISTIC=UNBEKANNTE STATISTIK
+BROWSER_TITLE_PDF_TEMPLATE_CREATE=PDF-Vorlage erstellen
+BROWSER_TITLE_PDF_TEMPLATE_EDIT=PDF-Vorlage bearbeiten
 
 # YOU MUST SET THESE PLACEHOLDERS WITH THE GENDER TYPE OF YOUR LANGUAGE FOR EACH OBJECT AS MALE OR FEMALE
 GENDER_TYPE_CATEGORY=Female
@@ -1823,6 +1825,15 @@ GM_MAIL_DRAFT_DELETE_N=Es wurde keine Vorlage gel\u00F6scht
 GM_MAIL_DRAFT_INSERT_S=Es wurde eine neue Vorlage angelegt
 GM_MAIL_DRAFT_INSERT_P=Es wurden %s neuen Vorlagen angelegt
 GM_MAIL_DRAFT_INSERT_N=Es wurde keine neue Vorlage angelegt
+GM_PDF_TEMPLATE_MODIFY_S=Es wurde eine PDF-Vorlage ge\u00E4ndert
+GM_PDF_TEMPLATE_MODIFY_P=Es wurden %s PDF-Vorlagen ge\u00E4ndert
+GM_PDF_TEMPLATE_MODIFY_N=Es wurde keine PDF-Vorlage ge\u00E4ndert
+GM_PDF_TEMPLATE_DELETE_S=Es wurde eine PDF-Vorlage gel\u00F6scht
+GM_PDF_TEMPLATE_DELETE_P=Es wurden %s PDF-Vorlagen gel\u00F6scht
+GM_PDF_TEMPLATE_DELETE_N=Es wurde keine PDF-Vorlage gel\u00F6scht
+GM_PDF_TEMPLATE_INSERT_S=Es wurde eine neue PDF-Vorlage angelegt
+GM_PDF_TEMPLATE_INSERT_P=Es wurden %s neuen PDF-Vorlagen angelegt
+GM_PDF_TEMPLATE_INSERT_N=Es wurde keine neue PDF-Vorlage angelegt
 GM_OFFICIAL_TITLE_MODIFY_S=Es wurde eine Amtsbezeichnung ge\u00E4ndert
 GM_OFFICIAL_TITLE_MODIFY_P=Es wurden %s Amtsbezeichnungen ge\u00E4ndert
 GM_OFFICIAL_TITLE_MODIFY_N=Es wurde keine Amtsbezeichnung ge\u00E4ndert
