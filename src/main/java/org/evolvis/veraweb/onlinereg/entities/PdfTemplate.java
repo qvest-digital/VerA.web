@@ -1,6 +1,7 @@
 package org.evolvis.veraweb.onlinereg.entities;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,5 +24,6 @@ public class PdfTemplate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer pk;
     public String name;
-    public String content;
+    @Type(type = "org.hibernate.type.BinaryType")
+    public byte[] content;
 }
