@@ -11,7 +11,7 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_PLURAL}")
 #parse("inc/header.vm")
 
-<form id="formlist" name="formlist" action="" method="POST">
+<form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/edit" method="POST">
 	<input type="hidden" name="save" value="true"/>
 
 	<div id="content_container">
