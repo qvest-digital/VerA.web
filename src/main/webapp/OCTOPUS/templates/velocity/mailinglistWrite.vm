@@ -157,11 +157,11 @@
 	}
 
 	function disableSubmitButton() {
-		$('[type="submit"]').attr('disabled', 'disabled').addClass('disabled');
+		$('[type="button"]').attr('disabled', 'disabled').addClass('disabled');
 	}
 
 	function enableSubmitButton() {
-		$('[type="submit"]').removeAttr('disabled').removeClass('disabled');
+		$('[type="button"]').removeAttr('disabled').removeClass('disabled');
 	}
 
 	function displaySpinner() {
