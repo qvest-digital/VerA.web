@@ -16,7 +16,7 @@
 	<h1>${placeholderWithTranslation.verteilerversenden}</h1>
 
 
-	<form id="formlist" name="formlist" action="${paths.staticWeb}/mailing" method="POST" enctype="multipart/form-data">
+	<form id="formlist" name="formlist" action="MailinglistWrite" method="POST" enctype="multipart/form-data">
     	<input type="hidden" id="loaddraft" name="loaddraft" value="false">
     	<input type="hidden" id="savedraft" name="savedraft" value="false">
 
@@ -77,7 +77,7 @@
 
                         <div id="buttonPanel-bottom" class="textRight">
                             <img id="spinner" src="${paths.staticWeb}images/spinner.gif" align="absmiddle" style="height:30px; display:none"/>
-                           	<input type="submit" name="send" value="${placeholderWithTranslation.senden}" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth">
+                           	<input type="button" name="send" value="${placeholderWithTranslation.senden}" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth" onclick="rewriteAction();$('#formlist').submit();">
                            	<input type="reset"  name="clear"  value="${placeholderWithTranslation.zuruecksetzen}" title="${placeholderWithTranslation.zuruecksetzen}" class="mainButton autoWidth">
                         </div>
 					</div>
@@ -144,6 +144,10 @@
 </div>
 
 <script type="text/javascript">
+	function rewriteAction() {
+		$("#formlist").attr("action", "${paths.staticWeb}mailing");
+	}
+
 	function addPlatzhalter(s) {
 		var sel = document.getElementById('platzhalter');
 		var text = sel.options[sel.selectedIndex].value;
@@ -169,9 +173,9 @@
 	}
 
 	$(document).ready(function() {
-
 	    $('#formlist').ajaxForm({
 		    beforeSubmit: function(arr, $form, options) {
+		    	$("#formlist").attr("action", "${paths.staticWeb}mailing");
 		    	displaySpinner();
 				disableSubmitButton();
 		    },
