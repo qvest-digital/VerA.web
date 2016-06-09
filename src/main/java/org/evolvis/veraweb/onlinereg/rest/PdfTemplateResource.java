@@ -37,6 +37,8 @@ public class PdfTemplateResource extends AbstractResource {
     private PdfTemplate initPdfTemplate(String name) {
         PdfTemplate pdfTemplate = new PdfTemplate();
         pdfTemplate.setName(name);
+        final byte[] content = "Any String you want".getBytes();
+        pdfTemplate.setContent(content);
 
         return pdfTemplate;
     }
