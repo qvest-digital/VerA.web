@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
 public class PdfTemplateResource extends AbstractResource {
     @POST
     @Path("/edit")
-    public String editPdfTemplate(@FormParam("id") Integer id, @FormParam("name") String name) {
+    public String editPdfTemplate(@FormParam("id") Integer id, @FormParam("pdftemplate-name") String name) {
         Session session = openSession();
         try {
             if (id != null) {
