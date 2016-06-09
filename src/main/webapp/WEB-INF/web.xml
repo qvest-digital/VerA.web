@@ -120,7 +120,7 @@
 		</init-param>
 		<init-param>
 			<param-name>requiredGroup</param-name>
-			<param-value>Administrator</param-value>
+			<param-value>StandardFieldsReader</param-value>
 		</init-param>
 	</servlet>
 
@@ -130,6 +130,10 @@
 		<init-param>
 			<param-name>targetPath</param-name>
 			<param-value>/rest/export/guestList</param-value>
+		</init-param>
+		<init-param>
+			<param-name>requiredGroup</param-name>
+			<param-value>StandardFieldsReader</param-value>
 		</init-param>
 	</servlet>
 
