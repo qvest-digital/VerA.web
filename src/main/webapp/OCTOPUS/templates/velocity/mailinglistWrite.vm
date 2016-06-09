@@ -96,7 +96,6 @@
                                 		#end
                             		</select>
                         			<input type="button" name="" value="${placeholderWithTranslation.vorlageladen}" class="autoWidth" title="${placeholderWithTranslation.vorlageladen}" onclick="document.getElementById('loaddraft').value='true'; document.getElementById('formlist').submit();"/>
-									<input type="button" name="send" value="Vorlage entfernen" class="autoWidth" onclick="window.location.href='MailinglistWrite';" title="Keine Vorlage verwenden"/>
 								#else
 									${placeholderWithTranslation.esliegenkeinevorlagenvor}
 								#end
