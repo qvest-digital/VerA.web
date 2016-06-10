@@ -1,6 +1,7 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import javax.ws.rs.FormParam;
@@ -47,5 +48,22 @@ public class PdfTemplateResource extends AbstractResource {
 
     private void updatePdfTemplate() {
         System.out.println("TODO");
+    }
+
+    @POST
+    @Path("/delete")
+    //TODO: PARAMETER ANPASSEN
+    public Response deletePdfTemplate(@FormParam("id") Integer id) {
+        Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("PdfTemplate.deletePdfTemplateById");
+            query.setInteger("id", id);
+            query.executeUpdate();
+            session.flush();
+            return Response.status(Status.OK).build();
+        } finally {
+            session.close();
+        }
+
     }
 }
