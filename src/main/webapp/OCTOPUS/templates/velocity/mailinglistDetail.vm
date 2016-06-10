@@ -14,19 +14,6 @@
 
 #parse("inc/header.vm")
 
-<script type="text/javascript">
-    function openNewEmail() {
-    	var check = confirm("${placeholderWithTranslation.GM_CONFIRMATION_EMAIL_DISTRIBUTOR}");
-    	if (check == true) {
-        #foreach ($address in $mailAddresses)
-                var selectedSeparator = document.getElementById('selectSeparation').value;
-                var newAddress = (selectedSeparator==',') ? "$!address" : "$!address".replace(',', selectedSeparator);
-                window.location.href = newAddress;
-        #end
-    	}
-    }
-</script>
-
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
 		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>
@@ -61,7 +48,7 @@
                       <option value=",">${placeholderWithTranslation.mailclient_other}</option>
                       <option value=";">${placeholderWithTranslation.mailclient_msoutlook}</option>
                     </select>
-					<input type="button" name="openMailClient" value="${placeholderWithTranslation.emailclientaufrufen}" onclick="javascript:openNewEmail();" title="${placeholderWithTranslation.emailclientaufrufen}" class="mainButton"/>
+					<input type="button" id="openMailClient" name="openMailClient" value="${placeholderWithTranslation.emailclientaufrufen} 0/${mailAddresses.size()}" onclick="javascript:openNewEmail();" title="${placeholderWithTranslation.emailclientaufrufen}" class="mainButton"/>
         		</span>
 			#end
 
@@ -120,4 +107,32 @@
     #end
 </script>
 
+<script type="text/javascript">
+	var num = 0;
+	var selectedSeparator = document.getElementById('selectSeparation').value;
+	var addresses = [
+	#foreach ($address in $mailAddresses)
+		"$address"
+		#if($velocityCount < $mailAddresses.size())
+		,
+		#end
+	#end
+	];
+    function openNewEmail() {
+    	var check = confirm("${placeholderWithTranslation.GM_CONFIRMATION_EMAIL_DISTRIBUTOR}");
+    	if (check != true) {
+    		return;
+    	}
+    	if (num < addresses.length) {
+        	var address = addresses[num];
+            var newAddress = (selectedSeparator == ',') ? address : address.replace(',', selectedSeparator);
+            window.open(newAddress);
+            num++;
+            $("#openMailClient").attr("value", "${placeholderWithTranslation.emailclientaufrufen} " + num + "/" + addresses.length);
+            if(num == addresses.length) {
+            	$("#openMailClient").prop("disabled",true);;
+            }
+    	}
+    }
+</script>
 #parse("inc/footer.vm")
