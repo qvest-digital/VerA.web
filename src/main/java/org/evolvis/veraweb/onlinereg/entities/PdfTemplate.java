@@ -21,13 +21,17 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "pdftemplate")
 @NamedQueries({
+    @NamedQuery(name = PdfTemplate.UPDATE_PDF_TEMPLATE,
+        query = "update PdfTemplate p set name=:" + PdfTemplate.PARAM_PDF_NAME + "where p.pk=:" + PdfTemplate.PARAM_PDF_ID),
     @NamedQuery(name = PdfTemplate.DELETE_PDF_TEMPLATE,
-        query = "delete from PdfTemplate p where fk=:" + PdfTemplate.PARAM_PDF_ID)
+        query = "delete from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID)
 })
 public class PdfTemplate {
 
+    public static final String UPDATE_PDF_TEMPLATE = "PdfTemplate.updatePdfTemplateById";
     public static final String DELETE_PDF_TEMPLATE = "PdfTemplate.deletePdfTemplateById";
     public static final String PARAM_PDF_ID = "id";
+    public static final String PARAM_PDF_NAME = "name";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
