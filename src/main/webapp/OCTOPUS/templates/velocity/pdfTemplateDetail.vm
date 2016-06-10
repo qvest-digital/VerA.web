@@ -11,12 +11,12 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_PLURAL}")
 #parse("inc/header.vm")
 
-<form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/edit" method="POST">
+<form id="formlist" name="formlist" action="" method="POST">
 	<input type="hidden" name="save" value="true"/>
 
 	<div id="content_container">
         <div id="breadcrumb" class="textRight marginBottom10">
-            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.pdfvorlage}</span>
+            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.pdfvorlagen}</span>
         </div>
 
         <h1>${placeholderWithTranslation.pdfvorlage}</h1>

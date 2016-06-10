@@ -8,7 +8,7 @@
 
 <div id="content_container">
 	<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
-
+	
 	<div id="breadcrumb" class="textRight marginBottom10">
 		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>
 	</div>
@@ -96,6 +96,7 @@
                                 		#end
                             		</select>
                         			<input type="button" name="" value="${placeholderWithTranslation.vorlageladen}" class="autoWidth" title="${placeholderWithTranslation.vorlageladen}" onclick="$('#loaddraft').val('true'); $('#formlist').submit();"/>
+									<input type="button" name="send" value="Vorlage entfernen" class="autoWidth" onclick="window.location.href='MailinglistWrite';" title="Keine Vorlage verwenden"/>
 								#else
 									${placeholderWithTranslation.esliegenkeinevorlagenvor}
 								#end
@@ -131,7 +132,7 @@
 			</div>
 
 		</div>
-
+		
 		<div id="success" class="contentBoxColored grayBorder marginBottom10" style="display: none;">
 			<h1>${placeholderWithTranslation.verteilerverschickt}</h1>
 		</div>

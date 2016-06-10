@@ -645,7 +645,7 @@ BEGIN
                 CREATE SEQUENCE veraweb.pdftemplate_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 
 		        CREATE TABLE veraweb.pdftemplate (
-                    pk INTEGER DEFAULT nextval('veraweb.pdftemplate_seq') NOT NULL,
+                    pk INTEGER DEFAULT nextval('pdftemplate_seq') NOT NULL,
                     name varchar(200) NOT NULL,
                     content bytea NOT NULL,
                     createdby varchar(50),
