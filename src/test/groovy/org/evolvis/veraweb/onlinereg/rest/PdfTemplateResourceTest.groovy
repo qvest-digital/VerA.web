@@ -1,7 +1,9 @@
 package org.evolvis.veraweb.onlinereg.rest
 
+import org.hibernate.Query;
 import org.hibernate.Session
 import org.hibernate.SessionFactory
+
 import spock.lang.Specification
 
 import javax.servlet.ServletContext
@@ -15,10 +17,13 @@ class PdfTemplateResourceTest extends Specification {
     ServletContext context = Mock(ServletContext)
     SessionFactory sessionFactory = Mock(SessionFactory)
     Session session = Mock(Session)
+    Query query = Mock(Query)
 
     def setup() {
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
+        session.getNamedQuery(_) >> query
+
         resource = new PdfTemplateResource(context: context);
     }
 
@@ -30,7 +35,7 @@ class PdfTemplateResourceTest extends Specification {
             session != null
             1 * session.close()
             0 * session.save(_)
-            0 * session.flush()
+            1 * session.flush()
     }
 
     void testCreatePdfTemplate() {
