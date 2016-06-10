@@ -1,8 +1,12 @@
 #set($activeMenu = "Administration")
 #if($pdftemplate && $pdftemplate.id)
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_PDF_TEMPLATE_EDIT}: $!message.text($pdftemplate.name)")
+	#set($successMsg = "${placeholderWithTranslation.GM_PDF_TEMPLATE_MODIFY_S}")
+	#set($errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}: ${placeholderWithTranslation.GM_PDF_TEMPLATE_MODIFY_N}")
 #else
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_PDF_TEMPLATE_CREATE}")
+	#set($successMsg = "${placeholderWithTranslation.GM_PDF_TEMPLATE_INSERT_S}")
+	#set($errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}: ${placeholderWithTranslation.GM_PDF_TEMPLATE_INSERT_N}")
 #end
 
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PDF_TEMPLATE}")
@@ -11,10 +15,12 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_PLURAL}")
 #parse("inc/header.vm")
 
-<form id="formlist" name="formlist" action="" method="POST">
+<form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/edit" method="POST">
 	<input type="hidden" name="save" value="true"/>
 
 	<div id="content_container">
+		<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
+
         <div id="breadcrumb" class="textRight marginBottom10">
             <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.pdfvorlagen}</span>
         </div>
@@ -58,6 +64,7 @@
 </form>
 
 <script type="text/javascript">
+
 	function addPlatzhalter(s) {
 		var sel = document.getElementById('platzhalter');
 		var text = sel.options[sel.selectedIndex].value;
@@ -65,6 +72,41 @@
 			insertAtCursor(document.getElementById('pdftemplate-text'), '<' + text + '>');
 		}
 	}
+
+	function disableSubmitButton() {
+	    $('input[type="button"]').attr('disabled', 'disabled').addClass('disabled');
+		$('[type="submit"]').attr('disabled', 'disabled').addClass('disabled');
+	}
+
+    function enableSubmitButton() {
+        $('input[type="button"]').removeAttr('disabled').removeClass('disabled');
+        $('[type="submit"]').removeAttr('disabled').removeClass('disabled');
+    }
+
+	$(document).ready(function() {
+
+	    var options = {
+	        beforeSubmit: function() {
+                disableSubmitButton();
+            },
+            error: function() {
+                $(".errormsg").remove();
+                $(".successmsg").remove();
+                showWarning('$errorMsg');
+                enableSubmitButton();
+            },
+            success: function () {
+                $(".errormsg").remove();
+                $(".successmsg").remove();
+                showSuccess('$successMsg');
+                enableSubmitButton();
+            }
+        };
+
+	    $('#formlist').ajaxForm(options);
+
+    });
+
 </script>
 
 #parse("inc/footer.vm")
