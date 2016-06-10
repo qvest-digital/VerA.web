@@ -1915,3 +1915,13 @@ GM_WORKAREA_DELETE_N=No work areas were deleted
 GM_WORKAREA_INSERT_S=One new work area successfully created
 GM_WORKAREA_INSERT_P=%s new work areas successfully created
 GM_WORKAREA_INSERT_N=No new work areas were created
+
+GM_PDF_TEMPLATE_MODIFY_S=One PDF template successfully modified
+GM_PDF_TEMPLATE_MODIFY_P=%s PDF templates successfully modified
+GM_PDF_TEMPLATE_MODIFY_N=No PDF templates were modified
+GM_PDF_TEMPLATE_DELETE_S=One PDF template successfully deleted
+GM_PDF_TEMPLATE_DELETE_P=%s PDF templates successfully deleted
+GM_PDF_TEMPLATE_DELETE_N=No PDF templates were deleted
+GM_PDF_TEMPLATE_INSERT_S=One new PDF template successfully created
+GM_PDF_TEMPLATE_INSERT_P=%s new PDF templates successfully created
+GM_PDF_TEMPLATE_INSERT_N=No new PDF templates were created

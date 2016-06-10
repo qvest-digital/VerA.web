@@ -1887,5 +1887,13 @@ GM_WORKAREA_INSERT_S=Es wurde ein neuer Arbeitsbereich angelegt
 GM_WORKAREA_INSERT_P=Es wurden %s neuen Arbeitsbereiche angelegt
 GM_WORKAREA_INSERT_N=Es wurde kein neuer Arbeitsbereich angelegt
 
-
+GM_PDF_TEMPLATE_MODIFY_S=Es wurde eine PDF Vorlage ge\u00E4ndert
+GM_PDF_TEMPLATE_MODIFY_P=Es wurden %s PDF Vorlagen ge\u00E4ndert
+GM_PDF_TEMPLATE_MODIFY_N=Es wurde keine PDF Vorlage ge\u00E4ndert
+GM_PDF_TEMPLATE_DELETE_S=Es wurde eine PDF Vorlage gel\u00F6scht
+GM_PDF_TEMPLATE_DELETE_P=Es wurden %s PDF Vorlagen gel\u00F6scht
+GM_PDF_TEMPLATE_DELETE_N=Es wurde keine PDF Vorlage gel\u00F6scht
+GM_PDF_TEMPLATE_INSERT_S=Es wurde eine neue PDF Vorlage angelegt
+GM_PDF_TEMPLATE_INSERT_P=Es wurden %s neuen PDF Vorlagen angelegt
+GM_PDF_TEMPLATE_INSERT_N=Es wurde keine neue PDF Vorlage angelegt
 
