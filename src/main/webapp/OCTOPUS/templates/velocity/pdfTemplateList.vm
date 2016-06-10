@@ -27,7 +27,7 @@
 
         <span id="actionPanel" class="inlineLabel">
 	       	<strong>${placeholderWithTranslation.GENERIC_MARKED_TEMPLATES_PP}</strong>
-	       	<input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markiertevorlagenloschen}" onclick="" />
+	       	<input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markiertevorlagenloschen}"/>
         </span>
         <span id="" class="buttonPanel-top textRight floatRight">
 			<input type="button" name="" value="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" title="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" class="mainButton" onclick="window.location.href='PdfTemplateDetail';" />
