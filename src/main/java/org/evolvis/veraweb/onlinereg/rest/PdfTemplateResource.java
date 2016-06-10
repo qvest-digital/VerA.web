@@ -8,6 +8,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -17,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 public class PdfTemplateResource extends AbstractResource {
     @POST
     @Path("/edit")
-    public String editPdfTemplate(@FormParam("id") Integer id, @FormParam("pdftemplate-name") String name) {
+    public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name) {
         Session session = openSession();
         try {
             if (id != null) {
@@ -27,7 +29,7 @@ public class PdfTemplateResource extends AbstractResource {
                 session.save(pdfTemplate);
                 session.flush();
             }
-            return "OK";
+            return Response.status(Status.OK).build();
         } finally {
             session.close();
         }
