@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 @Table(name = "pdftemplate")
 @NamedQueries({
     @NamedQuery(name = PdfTemplate.UPDATE_PDF_TEMPLATE,
-        query = "update PdfTemplate p set name=:" + PdfTemplate.PARAM_PDF_NAME + "where p.pk=:" + PdfTemplate.PARAM_PDF_ID),
+        query = "update PdfTemplate p set name=:" + PdfTemplate.PARAM_PDF_NAME + " where p.pk=:" + PdfTemplate.PARAM_PDF_ID),
     @NamedQuery(name = PdfTemplate.DELETE_PDF_TEMPLATE,
         query = "delete from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID)
 })
