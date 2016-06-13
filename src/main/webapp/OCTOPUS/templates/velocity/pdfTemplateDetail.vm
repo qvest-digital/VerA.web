@@ -96,7 +96,8 @@
                 showWarning('$errorMsg');
                 enableSubmitButton();
             },
-            success: function () {
+            success: function (result) {
+				$("#show-id").val(result);
                 $(".errormsg").remove();
                 $(".successmsg").remove();
                 showSuccess('$successMsg');
