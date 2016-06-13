@@ -41,7 +41,7 @@ public class PdfTemplateResource extends AbstractResource {
     }
 
     private PdfTemplate getExistingTemplate(Integer id, Session session) {
-        final Query query = session.getNamedQuery("PdfTemplate.deletePdfTemplateById");
+        final Query query = session.getNamedQuery("PdfTemplate.getPdfTemplateById");
         query.setInteger("id", id);
         return (PdfTemplate) query.uniqueResult();
     }
