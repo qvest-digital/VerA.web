@@ -36,25 +36,26 @@ class PdfTemplateResourceTest extends Specification {
             pdfTemplateFromDb.pk >> expectedId
 
         when:
-            def pdfTemplate = resource.editPdfTemplate(1, "name", 1);
+            def result = resource.editPdfTemplate(1, "name", 1);
 
         then:
             session != null
             1 * session.close()
             0 * session.save(_)
             1 * session.flush()
-            assert  pdfTemplate.getPk() == expectedId
+            assert result.status  == 200
     }
 
     void testCreatePdfTemplate() {
         when:
-            resource.editPdfTemplate(null, "name", 1);
+            def result = resource.editPdfTemplate(null, "name", 1);
 
         then:
             session != null
             1 * session.close()
             1 * session.save(_)
             1 * session.flush()
+            assert result.status  == 200
     }
 
     void testDeletePdfTemplate() {

@@ -20,14 +20,14 @@ import javax.ws.rs.core.Response.Status;
 public class PdfTemplateResource extends AbstractResource {
     @POST
     @Path("/edit")
-    public PdfTemplate editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
+    public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
         PdfTemplate pdfTemplate;
         if (id != null) {
             pdfTemplate = handlePdfTemplateUpdate(id, name);
         } else {
             pdfTemplate = handlePdfTemplateCreate(name, mandantId);
         }
-        return pdfTemplate;
+        return Response.ok(pdfTemplate).build();
     }
 
     @POST
