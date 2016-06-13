@@ -20,30 +20,14 @@ import javax.ws.rs.core.Response.Status;
 public class PdfTemplateResource extends AbstractResource {
     @POST
     @Path("/edit")
-    public Integer editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
-        Session session = openSession();
-        PdfTemplate pdfTemplate = null;
-        try {
-            if (id != null) {
-                pdfTemplate = getExistingTemplate(id, session);
-                updatePdfTemplate(session, id, name);
-                session.flush();
-            } else {
-                pdfTemplate = initPdfTemplate(name, mandantId);
-                session.save(pdfTemplate);
-                session.flush();
-            }
-            return pdfTemplate.getPk();
-        } finally {
-            session.close();
+    public PdfTemplate editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
+        PdfTemplate pdfTemplate;
+        if (id != null) {
+            pdfTemplate = handlePdfTemplateUpdate(id, name);
+        } else {
+            pdfTemplate = handlePdfTemplateCreate(name, mandantId);
         }
-
-    }
-
-    private PdfTemplate getExistingTemplate(Integer id, Session session) {
-        final Query query = session.getNamedQuery("PdfTemplate.getPdfTemplateById");
-        query.setInteger("id", id);
-        return (PdfTemplate) query.uniqueResult();
+        return pdfTemplate;
     }
 
     @POST
@@ -61,6 +45,36 @@ public class PdfTemplateResource extends AbstractResource {
             session.close();
         }
 
+    }
+
+    private PdfTemplate handlePdfTemplateCreate(String name, Integer mandantId) {
+        final Session session = openSession();
+        try {
+            PdfTemplate pdfTemplate = initPdfTemplate(name, mandantId);
+            session.save(pdfTemplate);
+            session.flush();
+            return pdfTemplate;
+        } finally {
+            session.close();
+        }
+    }
+
+    private PdfTemplate handlePdfTemplateUpdate(Integer id, String name) {
+        final Session session = openSession();
+        try {
+            PdfTemplate pdfTemplate = getExistingTemplate(id, session);
+            updatePdfTemplate(session, id, name);
+            session.flush();
+            return pdfTemplate;
+        } finally {
+            session.close();
+        }
+    }
+
+    private PdfTemplate getExistingTemplate(Integer id, Session session) {
+        final Query query = session.getNamedQuery("PdfTemplate.getPdfTemplateById");
+        query.setInteger("id", id);
+        return (PdfTemplate) query.uniqueResult();
     }
 
     private PdfTemplate initPdfTemplate(String name, Integer mandantId) {

@@ -30,20 +30,20 @@ class PdfTemplateResourceTest extends Specification {
 
     void testEditPdfTemplate() {
         given:
-            def pdfTemplate = Mock(PdfTemplate)
-            query.uniqueResult() >> pdfTemplate
+            def pdfTemplateFromDb = Mock(PdfTemplate)
+            query.uniqueResult() >> pdfTemplateFromDb
             def expectedId = 1
-            pdfTemplate.getPk() >> expectedId
+            pdfTemplateFromDb.pk >> expectedId
 
         when:
-            def pdfTemplateId = resource.editPdfTemplate(1, "name", 1);
+            def pdfTemplate = resource.editPdfTemplate(1, "name", 1);
 
         then:
             session != null
             1 * session.close()
             0 * session.save(_)
             1 * session.flush()
-            assert  pdfTemplateId == expectedId
+            assert  pdfTemplate.getPk() == expectedId
     }
 
     void testCreatePdfTemplate() {
