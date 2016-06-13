@@ -25,12 +25,15 @@ import java.sql.Timestamp;
     @NamedQuery(name = PdfTemplate.UPDATE_PDF_TEMPLATE,
         query = "update PdfTemplate p set name=:" + PdfTemplate.PARAM_PDF_NAME + " where p.pk=:" + PdfTemplate.PARAM_PDF_ID),
     @NamedQuery(name = PdfTemplate.DELETE_PDF_TEMPLATE,
-        query = "delete from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID)
+        query = "delete from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID),
+    @NamedQuery(name = PdfTemplate.GET_PDF_TEMPLATE,
+        query = "select p from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID)
 })
 public class PdfTemplate {
 
     public static final String UPDATE_PDF_TEMPLATE = "PdfTemplate.updatePdfTemplateById";
     public static final String DELETE_PDF_TEMPLATE = "PdfTemplate.deletePdfTemplateById";
+    public static final String GET_PDF_TEMPLATE = "PdfTemplate.getPdfTemplateById";
     public static final String PARAM_PDF_ID = "id";
     public static final String PARAM_PDF_NAME = "name";
 
