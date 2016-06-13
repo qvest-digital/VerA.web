@@ -137,6 +137,19 @@
 		</init-param>
 	</servlet>
 
+	<servlet>
+		<servlet-name>PdfTemplate</servlet-name>
+		<servlet-class>de.tarent.veraweb.proxy.ProxyServlet</servlet-class>
+		<init-param>
+			<param-name>targetPath</param-name>
+			<param-value>/rest/pdftemplate</param-value>
+		</init-param>
+		<init-param>
+			<param-name>requiredGroup</param-name>
+			<param-value>StandardFieldsReader</param-value>
+		</init-param>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>Forwarder</servlet-name>
 		<url-pattern>/do/*</url-pattern>
@@ -145,6 +158,11 @@
 	<servlet-mapping>
 		<servlet-name>Mail</servlet-name>
 		<url-pattern>/mailing/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>PdfTemplate</servlet-name>
+		<url-pattern>/pdftemplate/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
