@@ -90,14 +90,19 @@
 	        beforeSubmit: function() {
                 disableSubmitButton();
             },
-            error: function() {
+            error: function(response) {
                 $(".errormsg").remove();
                 $(".successmsg").remove();
-                showWarning('$errorMsg');
-                enableSubmitButton();
+            	if (response.status === 400) {
+            		#set($errorMsg = ${placeholderWithTranslation.PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE})
+            		showWarning('$errorMsg');
+            	} else {
+					showWarning('$errorMsg');
+            	}
+				enableSubmitButton();
             },
-            success: function (result) {
-				$("#show-id").val(result.pk);
+            success: function (response) {
+				$("#show-id").val(response.pk);
                 $(".errormsg").remove();
                 $(".successmsg").remove();
                 showSuccess('$successMsg');

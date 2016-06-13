@@ -1897,3 +1897,4 @@ GM_PDF_TEMPLATE_INSERT_S=Es wurde eine neue PDF Vorlage angelegt
 GM_PDF_TEMPLATE_INSERT_P=Es wurden %s neuen PDF Vorlagen angelegt
 GM_PDF_TEMPLATE_INSERT_N=Es wurde keine neue PDF Vorlage angelegt
 
+PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE = Name der Vorlage darf nicht leer sein

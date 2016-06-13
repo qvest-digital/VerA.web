@@ -1933,3 +1933,5 @@ GM_PDF_TEMPLATE_DELETE_N=No se han eliminado plantillas
 GM_PDF_TEMPLATE_INSERT_S=Se ha creado una nueva plantilla
 GM_PDF_TEMPLATE_INSERT_P=Se han creado %s plantillas
 GM_PDF_TEMPLATE_INSERT_N=No se han creado plantillas
+
+PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE = Name der Vorlage darf nicht leer sein
