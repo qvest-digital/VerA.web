@@ -38,22 +38,6 @@ public class PdfTemplateResource extends AbstractResource {
 
     }
 
-    private PdfTemplate initPdfTemplate(String name) {
-        PdfTemplate pdfTemplate = new PdfTemplate();
-        pdfTemplate.setName(name);
-        final byte[] content = "Any String you want".getBytes();
-        pdfTemplate.setContent(content);
-
-        return pdfTemplate;
-    }
-
-    private void updatePdfTemplate(Session session, Integer id, String name) {
-        final Query query = session.getNamedQuery("PdfTemplate.updatePdfTemplateById");
-        query.setInteger("id", id);
-        query.setString("name", name);
-        query.executeUpdate();
-    }
-
     @POST
     @Path("/delete")
     //TODO: PARAMETER ANPASSEN
@@ -69,5 +53,21 @@ public class PdfTemplateResource extends AbstractResource {
             session.close();
         }
 
+    }
+
+    private PdfTemplate initPdfTemplate(String name) {
+        PdfTemplate pdfTemplate = new PdfTemplate();
+        pdfTemplate.setName(name);
+        final byte[] content = "Any String you want".getBytes();
+        pdfTemplate.setContent(content);
+
+        return pdfTemplate;
+    }
+
+    private void updatePdfTemplate(Session session, Integer id, String name) {
+        final Query query = session.getNamedQuery("PdfTemplate.updatePdfTemplateById");
+        query.setInteger("id", id);
+        query.setString("name", name);
+        query.executeUpdate();
     }
 }

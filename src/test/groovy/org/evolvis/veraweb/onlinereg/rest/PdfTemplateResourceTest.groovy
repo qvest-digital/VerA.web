@@ -48,4 +48,15 @@ class PdfTemplateResourceTest extends Specification {
             1 * session.save(_)
             1 * session.flush()
     }
+
+    void testDeletePdfTemplate() {
+        when:
+            resource.deletePdfTemplate(1)
+
+        then:
+            session != null
+            1 * session.close()
+            0 * session.save(_)
+            1 * session.flush()
+    }
 }
