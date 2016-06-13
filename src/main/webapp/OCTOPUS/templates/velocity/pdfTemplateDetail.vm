@@ -17,6 +17,7 @@
 
 <form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/edit" method="POST">
 	<input type="hidden" name="save" value="true"/>
+	<input type="hidden" name="pdftemplate-orgunit" value="$!octopusConfig.personalConfig.orgUnitId">
 
 	<div id="content_container">
 		<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
