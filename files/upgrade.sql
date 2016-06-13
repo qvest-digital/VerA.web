@@ -25,7 +25,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2016-05-06';
+	vversion := '2016-06-08';
 
 	-- initialisation
 	vint := 0;
@@ -654,8 +654,6 @@ BEGIN
                     changedby varchar(50),
                     changed timestamptz
                 ) WITH OIDS;
-
-                ALTER TABLE veraweb.pdftemplate ADD CONSTRAINT pdftemplate_mandant_unique UNIQUE(fk_orgunit,name);
 
                 -- post-upgrade
                 vmsg := 'end.update(' || vnewvsn || ')';
