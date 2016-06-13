@@ -97,7 +97,7 @@
                 enableSubmitButton();
             },
             success: function (result) {
-				$("#show-id").val(result);
+				$("#show-id").val(result.pk);
                 $(".errormsg").remove();
                 $(".successmsg").remove();
                 showSuccess('$successMsg');
