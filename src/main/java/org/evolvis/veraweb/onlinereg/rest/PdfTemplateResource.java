@@ -46,7 +46,7 @@ public class PdfTemplateResource extends AbstractResource {
 
     }
 
-    private PdfTemplate createOrUpdatePdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
+    private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId) {
         PdfTemplate pdfTemplate;
         if (id != null) {
             pdfTemplate = handlePdfTemplateUpdate(id, name);
