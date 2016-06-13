@@ -20,14 +20,14 @@ import javax.ws.rs.core.Response.Status;
 public class PdfTemplateResource extends AbstractResource {
     @POST
     @Path("/edit")
-    public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name) {
+    public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
         Session session = openSession();
         try {
             if (id != null) {
                 updatePdfTemplate(session, id, name);
                 session.flush();
             } else {
-                final PdfTemplate pdfTemplate = initPdfTemplate(name);
+                final PdfTemplate pdfTemplate = initPdfTemplate(name, mandantId);
                 session.save(pdfTemplate);
                 session.flush();
             }
@@ -55,11 +55,12 @@ public class PdfTemplateResource extends AbstractResource {
 
     }
 
-    private PdfTemplate initPdfTemplate(String name) {
+    private PdfTemplate initPdfTemplate(String name, Integer mandantId) {
         PdfTemplate pdfTemplate = new PdfTemplate();
         pdfTemplate.setName(name);
         final byte[] content = "Any String you want".getBytes();
         pdfTemplate.setContent(content);
+        pdfTemplate.setFk_orgunit(mandantId);
 
         return pdfTemplate;
     }
