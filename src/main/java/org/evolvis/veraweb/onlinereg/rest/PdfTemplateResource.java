@@ -20,22 +20,30 @@ import javax.ws.rs.core.Response.Status;
 public class PdfTemplateResource extends AbstractResource {
     @POST
     @Path("/edit")
-    public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
+    public Integer editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
         Session session = openSession();
+        PdfTemplate pdfTemplate = null;
         try {
             if (id != null) {
+                pdfTemplate = getExistingTemplate(id, session);
                 updatePdfTemplate(session, id, name);
                 session.flush();
             } else {
-                final PdfTemplate pdfTemplate = initPdfTemplate(name, mandantId);
+                pdfTemplate = initPdfTemplate(name, mandantId);
                 session.save(pdfTemplate);
                 session.flush();
             }
-            return Response.status(Status.OK).build();
+            return pdfTemplate.getPk();
         } finally {
             session.close();
         }
 
+    }
+
+    private PdfTemplate getExistingTemplate(Integer id, Session session) {
+        final Query query = session.getNamedQuery("PdfTemplate.deletePdfTemplateById");
+        query.setInteger("id", id);
+        return (PdfTemplate) query.uniqueResult();
     }
 
     @POST
