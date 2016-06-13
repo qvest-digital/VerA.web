@@ -21,13 +21,12 @@ public class PdfTemplateResource extends AbstractResource {
     @POST
     @Path("/edit")
     public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
-        PdfTemplate pdfTemplate;
-        if (id != null) {
-            pdfTemplate = handlePdfTemplateUpdate(id, name);
+        if (name == null || name.trim().equals("")) {
+            return Response.status(Status.BAD_REQUEST).build();
         } else {
-            pdfTemplate = handlePdfTemplateCreate(name, mandantId);
+            final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId);
+            return Response.ok(pdfTemplate).build();
         }
-        return Response.ok(pdfTemplate).build();
     }
 
     @POST
@@ -45,6 +44,16 @@ public class PdfTemplateResource extends AbstractResource {
             session.close();
         }
 
+    }
+
+    private PdfTemplate createOrUpdatePdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
+        PdfTemplate pdfTemplate;
+        if (id != null) {
+            pdfTemplate = handlePdfTemplateUpdate(id, name);
+        } else {
+            pdfTemplate = handlePdfTemplateCreate(name, mandantId);
+        }
+        return pdfTemplate;
     }
 
     private PdfTemplate handlePdfTemplateCreate(String name, Integer mandantId) {
