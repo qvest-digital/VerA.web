@@ -60,12 +60,33 @@ class PdfTemplateResourceTest extends Specification {
 
     void testDeletePdfTemplate() {
         when:
-            resource.deletePdfTemplate(1)
+            def result = resource.deletePdfTemplate(1)
 
         then:
             session != null
             1 * session.close()
             0 * session.save(_)
             1 * session.flush()
+            assert result.status  == 200
+    }
+
+    void testListPdfTemplates() {
+        given:
+            def mandantId = 1
+            List<PdfTemplate> templates = [
+                    new PdfTemplate(pk:1, name: "name", fk_orgunit: 1), new PdfTemplate(pk:2, name: "name2", fk_orgunit: 1)
+            ]
+            query.list() >> templates
+
+        when:
+           def result = resource.listPdfTemplates(mandantId);
+
+        then:
+            session != null
+            1 * session.close()
+            0 * session.save(_)
+            0 * session.flush()
+            assert result.context.entity.size() == 2
+            assert result.status  == 200
     }
 }

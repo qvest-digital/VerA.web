@@ -5,12 +5,14 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import java.util.List;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -45,6 +47,23 @@ public class PdfTemplateResource extends AbstractResource {
         }
 
     }
+
+    @GET
+    @Path("/list")
+    public Response listPdfTemplates(@FormParam("mandant-id") Integer mandantId) {
+        Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("PdfTemplate.getPdfTemplatesByOrgunit");
+            query.setInteger("fk_orgunit", mandantId);
+            final List<PdfTemplate> pdfTemplates = query.list();
+            return Response.ok(pdfTemplates).build();
+        } finally {
+            session.close();
+        }
+
+    }
+
+
 
     private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId) {
         PdfTemplate pdfTemplate;
