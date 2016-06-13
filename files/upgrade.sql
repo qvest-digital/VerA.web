@@ -648,11 +648,14 @@ BEGIN
                     pk INTEGER DEFAULT nextval('pdftemplate_seq') NOT NULL,
                     name varchar(200) NOT NULL,
                     content bytea NOT NULL,
+                    fk_orgunit int4 NOT NULL,
                     createdby varchar(50),
                     created timestamptz,
                     changedby varchar(50),
                     changed timestamptz
                 ) WITH OIDS;
+
+                ALTER TABLE veraweb.pdftemplate ADD CONSTRAINT pdftemplate_mandant_unique UNIQUE(fk_orgunit,name);
 
                 -- post-upgrade
                 vmsg := 'end.update(' || vnewvsn || ')';
