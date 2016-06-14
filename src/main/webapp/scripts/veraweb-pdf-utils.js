@@ -6,6 +6,8 @@ $(document).ready(function() {
         },
         type: 'GET',
         success: function(data){
+            $(".errormsg").remove();
+            $(".successmsg").remove();
             select = document.getElementById("pdftemplate-list")
             for (var i = 0; i < data.length; i++) {
                 var pk = data[i].pk;
