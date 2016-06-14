@@ -62,15 +62,39 @@ class PdfTemplateResourceTest extends Specification {
     }
 
     void testDeletePdfTemplate() {
+        given:
+            List<Integer> idList = [1, 2, 3]
+
         when:
-            def result = resource.deletePdfTemplate(1)
+            def result = resource.deletePdfTemplate(idList)
 
         then:
             session != null
             1 * session.close()
-            0 * session.save(_)
             1 * session.flush()
+            3 * query.setInteger(_,_);
+            3 * query.executeUpdate();
+            assert result.context.entity.size() == 3
             assert result.status  == Response.Status.OK.statusCode
+    }
+
+    void testDeletePdfTemplateEmptyIdList() {
+        given:
+            List<Integer> idList = []
+
+        when:
+         def result = resource.deletePdfTemplate(idList)
+
+        then:
+            assert result.status  == Response.Status.BAD_REQUEST.statusCode
+    }
+
+    void testDeletePdfTemplateIdListIsNull() {
+        when:
+            def result = resource.deletePdfTemplate(null)
+
+        then:
+            assert result.status  == Response.Status.BAD_REQUEST.statusCode
     }
 
     void testListPdfTemplates() {
