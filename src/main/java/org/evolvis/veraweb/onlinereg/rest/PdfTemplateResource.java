@@ -51,12 +51,15 @@ public class PdfTemplateResource extends AbstractResource {
 
     @GET
     @Path("/list")
-    public Response listPdfTemplates(@QueryParam("mandant-id") Integer mandantId) {
+    public Response listPdfTemplates(@QueryParam("mandantid") Integer mandantId) {
         Session session = openSession();
         try {
             final Query query = session.getNamedQuery("PdfTemplate.getPdfTemplateListByOrgunit");
             query.setInteger("fk_orgunit", mandantId);
             final List<PdfTemplate> pdfTemplates = query.list();
+            if(pdfTemplates.isEmpty()) {
+                return Response.status(Status.NO_CONTENT).build();
+            }
             return Response.ok(pdfTemplates).build();
         } finally {
             session.close();
