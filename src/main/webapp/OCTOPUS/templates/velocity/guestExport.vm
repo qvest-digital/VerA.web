@@ -7,6 +7,11 @@
 
 #parse("inc/header.vm")
 
+<div data-pdfexport="${paths.staticWeb}pdftemplate/list" id="pdfetemplate-list"></div>
+<div data-orgunit="$!octopusConfig.personalConfig.orgUnitId" id="pdfetemplate-orgunit"></div>
+
+<script type="text/javascript" src="${paths.staticWeb}scripts/veraweb-pdf-utils.js"></script>
+
 <div id="content_container">
 
 	<div id="breadcrumb" class="textRight marginBottom10">
@@ -52,10 +57,18 @@
 				</form>
 			</div>
 
+			<div class="notBold grayBorder contentBox marginBottom20 bgWhite">
+				<h3>PDF-Generieren</h3>
+
+				<form id="PdfGenerateForm" action="${paths.staticWeb}csvexport/$event.id" method="GET">
+					<select id="pdftemplate-list" style="height: 29px;"></select>
+					<input type="submit" name="pdfgenerator" value="PDF-Generieren" title="PDF-Generieren" class="mainButton autoWidth" />
+				</form>
+			</div>
+
 			<div style="bottom: -40px; right: -1px;" class="textRight posAb" id="buttonPanel-bottom">
 				<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" title="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
 			</div>
-
         </div> <!--contentBoxColored-->
 
 	</div> <!--main_content-->
