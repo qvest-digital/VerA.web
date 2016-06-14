@@ -15,12 +15,12 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_PLURAL}")
 #parse("inc/header.vm")
 
-<form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/edit" method="POST">
-	<input type="hidden" name="save" value="true"/>
-	<input type="hidden" name="pdftemplate-orgunit" value="$!octopusConfig.personalConfig.orgUnitId">
+<div id="content_container">
+	<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
 
-	<div id="content_container">
-		<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
+	<form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/edit" method="POST">
+		<input type="hidden" name="save" value="true"/>
+		<input type="hidden" name="pdftemplate-orgunit" value="$!octopusConfig.personalConfig.orgUnitId">
 
         <div id="breadcrumb" class="textRight marginBottom10">
             <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.pdfvorlagen}</span>
@@ -60,9 +60,10 @@
         	<input type="submit" name="submit" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
         	<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" class="mainButton" onclick="window.location.href='PdfTemplateList?selectNone=true';" />
         </div>
-	</div>
 
-</form>
+    </form>
+
+</div>
 
 <script type="text/javascript">
 
