@@ -17,7 +17,10 @@ $(document).ready(function() {
             };
         },
         error: function(data) {
-            alert('woops!');
+            $(".errormsg").remove();
+            $(".successmsg").remove();
+            var errorMsg = $("#pdfetemplate-list-errormsg").data("errormsg");
+            showWarning(errorMsg);
         }
     });
 });

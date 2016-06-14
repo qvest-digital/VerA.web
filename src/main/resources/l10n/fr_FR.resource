@@ -1936,3 +1936,4 @@ GM_PDF_TEMPLATE_INSERT_P=%s mod\u00E8les de PDF ont \u00E9t\u00E9 cr\u00E9\u00E9
 GM_PDF_TEMPLATE_INSERT_N=Aucun mod\u00E8le de PDF a \u00E9t\u00E9 cr\u00E9\u00E9
 
 PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE = Name der Vorlage darf nicht leer sein
+PDF_TEMPLATE_LIST_NOT_LOAD=PDF templates list could not be load
