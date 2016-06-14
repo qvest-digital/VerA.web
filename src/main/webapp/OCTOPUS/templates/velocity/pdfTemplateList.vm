@@ -13,7 +13,9 @@
 #parse("inc/header.vm")
 
 <div id="content_container">
-    <form id="formlist" name="formlist" action="PdfTemplateList" method="POST">
+    <script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
+
+    <form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/delete" method="POST">
         <input type="hidden" name="limit" value=""/>
         <input type="hidden" name="start" value=""/>
         <input type="hidden" name="selectNone" value="true"/>
@@ -30,8 +32,9 @@
 	       	<input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markiertevorlagenloschen}"/>
         </span>
         <span id="" class="buttonPanel-top textRight floatRight">
-			<input type="button" name="" value="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" title="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" class="mainButton" onclick="window.location.href='PdfTemplateDetail';" />
+			<input type="button" name="new" value="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" title="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" class="mainButton" onclick="window.location.href='PdfTemplateDetail';" />
         </span>
+
         #foreach($bean in $list)
         <input type="hidden" name="list" value="$bean.id"/>
         #end
@@ -51,7 +54,7 @@
         	</tr>
         	#foreach($bean in $list)
         	<tr>
-        		<td><input type="checkbox" name="${bean.id}-select" value="true"/></td>
+        		<td><input type="checkbox" id="${bean.id}" name="${bean.id}-select" class="all-select" value="true"/></td>
         		<td onclick="window.location.href='PdfTemplateDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id"/>$!{bean.id}</td>
         		<td onclick="window.location.href='PdfTemplateDetail?id=$!{bean.id}';"/>$!message.text($bean.name)</td>
         	</tr>
@@ -66,6 +69,49 @@
         </table>
 
     </form>
+
 </div>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	    //TODO: replace the successMsg
+        #set($successMsg = "${placeholderWithTranslation.GM_PDF_TEMPLATE_DELETE_S}")
+	    #set($errorMsg = "${placeholderWithTranslation.GM_PDF_TEMPLATE_DELETE_N}")
+
+	    var options = {
+            error: function(response) {
+                $(".errormsg").remove();
+                $(".successmsg").remove();
+
+				showWarning('$errorMsg');
+            },
+
+            success: function (response) {
+                $(".errormsg").remove();
+                $(".successmsg").remove();
+
+                showSuccess('$successMsg');
+                //TODO: reload template list
+            }
+        };
+
+        $('#formlist').submit(function() {
+            $(".all-select:checked").each(function(){
+                $("<input>").attr({
+                    type: "hidden",
+                    name: "templateId",
+                    value: this.id
+                }).appendTo("#formlist")
+            });
+
+            $(this).ajaxSubmit(options);
+
+            return false;
+        });
+
+    });
+
+</script>
 
 #parse("inc/footer.vm")
