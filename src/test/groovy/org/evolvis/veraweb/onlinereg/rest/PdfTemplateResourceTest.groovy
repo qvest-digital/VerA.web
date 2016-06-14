@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory
 import spock.lang.Specification
 
 import javax.servlet.ServletContext
+import javax.ws.rs.core.Response
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -43,7 +44,7 @@ class PdfTemplateResourceTest extends Specification {
             1 * session.close()
             0 * session.save(_)
             1 * session.flush()
-            assert result.status  == 200
+            assert result.status  == Response.Status.OK.statusCode
     }
 
     void testCreatePdfTemplate() {
@@ -55,7 +56,7 @@ class PdfTemplateResourceTest extends Specification {
             1 * session.close()
             1 * session.save(_)
             1 * session.flush()
-            assert result.status  == 200
+            assert result.status  == Response.Status.OK.statusCode
     }
 
     void testDeletePdfTemplate() {
@@ -67,7 +68,7 @@ class PdfTemplateResourceTest extends Specification {
             1 * session.close()
             0 * session.save(_)
             1 * session.flush()
-            assert result.status  == 200
+            assert result.status  == Response.Status.OK.statusCode
     }
 
     void testListPdfTemplates() {
@@ -87,6 +88,39 @@ class PdfTemplateResourceTest extends Specification {
             0 * session.save(_)
             0 * session.flush()
             assert result.context.entity.size() == 2
-            assert result.status  == 200
+            assert result.status  == Response.Status.OK.statusCode
+    }
+
+    void testListPdfTemplatesNoContent() {
+        given:
+            def mandantId = 1
+            query.list() >> new ArrayList()
+
+        when:
+            def result = resource.listPdfTemplates(mandantId);
+
+        then:
+            session != null
+            1 * session.close()
+            0 * session.save(_)
+            0 * session.flush()
+            assert result.context.entity == null
+            assert result.status  == Response.Status.NO_CONTENT.statusCode
+    }
+
+    void testEditPdfTemplateEmptyStringName() {
+        when:
+            def result = resource.editPdfTemplate(1, "", 1)
+
+        then:
+            assert result.status  == Response.Status.BAD_REQUEST.statusCode
+    }
+
+    void testEditPdfTemplateNameIsNull() {
+        when:
+            def result = resource.editPdfTemplate(1, null, 1)
+
+        then:
+            assert result.status  == Response.Status.BAD_REQUEST.statusCode
     }
 }
