@@ -27,7 +27,9 @@ import java.sql.Timestamp;
     @NamedQuery(name = PdfTemplate.DELETE_PDF_TEMPLATE,
         query = "delete from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID),
     @NamedQuery(name = PdfTemplate.GET_PDF_TEMPLATE,
-        query = "select p from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID)
+        query = "select p from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID),
+    @NamedQuery(name = PdfTemplate.GET_PDF_TEMPLATE_LIST_BY_ORGUNIT,
+            query = "select p from PdfTemplate p where p.fk_orgunit=:" + PdfTemplate.PARAM_PDF_ORGUNIT)
 })
 public class PdfTemplate {
 
@@ -35,7 +37,9 @@ public class PdfTemplate {
     public static final String DELETE_PDF_TEMPLATE = "PdfTemplate.deletePdfTemplateById";
     public static final String GET_PDF_TEMPLATE = "PdfTemplate.getPdfTemplateById";
     public static final String PARAM_PDF_ID = "id";
+    public static final String PARAM_PDF_ORGUNIT = "fk_orgunit";
     public static final String PARAM_PDF_NAME = "name";
+    public static final String GET_PDF_TEMPLATE_LIST_BY_ORGUNIT = "PdfTemplate.getPdfTemplateListByOrgunit";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
