@@ -1,6 +1,7 @@
 package org.evolvis.veraweb.onlinereg.rest
 
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate
+import org.evolvis.veraweb.onlinereg.entities.Person
 import org.hibernate.Query;
 import org.hibernate.Session
 import org.hibernate.SessionFactory
@@ -8,6 +9,7 @@ import org.hibernate.SessionFactory
 import spock.lang.Specification
 
 import javax.servlet.ServletContext
+import javax.ws.rs.FormParam
 import javax.ws.rs.core.Response
 
 /**
@@ -122,5 +124,59 @@ class PdfTemplateResourceTest extends Specification {
 
         then:
             assert result.status  == Response.Status.BAD_REQUEST.statusCode
+    }
+
+    void testGeneratePdf() {
+        given:
+            def pdfTemplateId = 1
+            def eventId = 1
+            query.list() >> [new Person(pk: 1), new Person(pk: 2), new Person(pk: 3)]
+
+        when:
+            def response = resource.generatePdf(pdfTemplateId, eventId)
+
+        then:
+            session != null
+            1 * session.close()
+            assert response.status == Response.Status.OK.statusCode
+            assert response.context.entity.size() == 3
+    }
+
+    void testGeneratePdfReturnNoContent() {
+        given:
+            def pdfTemplateId = 1
+            def eventId = 1
+            query.list() >> new ArrayList()
+
+        when:
+            def response = resource.generatePdf(pdfTemplateId, eventId)
+
+        then:
+            session != null
+            1 * session.close()
+            assert response.status == Response.Status.NO_CONTENT.statusCode
+            assert response.context.entity == null
+    }
+
+    void testGeneratePdfNoEventId() {
+        given:
+            def pdfTemplateId = 1
+
+        when:
+            def response = resource.generatePdf(pdfTemplateId, null)
+
+        then:
+            assert response.status == Response.Status.BAD_REQUEST.statusCode
+    }
+
+    void testGeneratePdfNoTemplateId() {
+        given:
+            def eventId = 1
+
+        when:
+            def response = resource.generatePdf(null, eventId)
+
+        then:
+            assert response.status == Response.Status.BAD_REQUEST.statusCode
     }
 }

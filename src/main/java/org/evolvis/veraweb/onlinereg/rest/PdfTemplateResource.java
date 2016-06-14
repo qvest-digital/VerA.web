@@ -1,6 +1,7 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
+import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -65,6 +66,26 @@ public class PdfTemplateResource extends AbstractResource {
             session.close();
         }
 
+    }
+
+    @GET
+    @Path("/export")
+    public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId, @QueryParam("eventId") Integer eventId) {
+        if (pdfTemplateId == null || eventId == null) {
+            return Response.status(Status.BAD_REQUEST).build();
+        }
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Person.getPeopleByEventId");
+            query.setInteger("eventid", eventId);
+            final List<Person> list = (List<Person>) query.list();
+            if (list.isEmpty()) {
+                return Response.status(Status.NO_CONTENT).build();
+            }
+            return Response.ok(list).build();
+        } finally {
+            session.close();
+        }
     }
 
 
