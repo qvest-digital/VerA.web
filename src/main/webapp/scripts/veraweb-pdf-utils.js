@@ -8,7 +8,7 @@ $(document).ready(function() {
         success: function(data){
             $(".errormsg").remove();
             $(".successmsg").remove();
-            select = document.getElementById("pdftemplate-list")
+            var select = document.getElementById("pdftemplate-list")
             for (var i = 0; i < data.length; i++) {
                 var pk = data[i].pk;
                 var name = data[i].name;
