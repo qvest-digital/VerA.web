@@ -1,5 +1,6 @@
 package org.evolvis.veraweb.onlinereg.rest
 
+import org.apache.commons.io.output.ByteArrayOutputStream
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate
 import org.evolvis.veraweb.onlinereg.entities.Person
 import org.hibernate.Query;
@@ -155,7 +156,7 @@ class PdfTemplateResourceTest extends Specification {
             def pdfTemplateId = 1
             def eventId = 1
             query.list() >> [new Person(pk: 1), new Person(pk: 2), new Person(pk: 3)]
-            query.uniqueResult() >> new PdfTemplate(pk:1, name: "Tischkarte", content: "Any String you want".getBytes())
+            query.uniqueResult() >> new PdfTemplate(pk:1, name: "Tischkarte", content: convertPdfToByteArray())
 
         when:
             def response = resource.generatePdf(pdfTemplateId, eventId)
@@ -164,7 +165,7 @@ class PdfTemplateResourceTest extends Specification {
             session != null
             2 * session.close()
             assert response.status == Response.Status.OK.statusCode
-            assert response.context.entity.size() == 19
+            assert response.context.entity.size() == 9184
     }
 
     void testGeneratePdfReturnNoContent() {
@@ -203,5 +204,18 @@ class PdfTemplateResourceTest extends Specification {
 
         then:
             assert response.status == Response.Status.BAD_REQUEST.statusCode
+    }
+
+
+    private byte[] convertPdfToByteArray() throws IOException {
+        final InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("itext-template.pdf");
+        byte[] buffer = new byte[8192];
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        int bytesRead;
+        while ((bytesRead = resourceAsStream.read(buffer)) != -1) {
+            baos.write(buffer, 0, bytesRead);
+        }
+        return baos.toByteArray();
     }
 }
