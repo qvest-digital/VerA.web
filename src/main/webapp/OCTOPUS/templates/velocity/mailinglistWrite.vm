@@ -16,7 +16,7 @@
 	<h1>${placeholderWithTranslation.verteilerversenden}</h1>
 
 
-	<form id="formlist" name="formlist" action="${paths.staticWeb}mailing" method="POST" enctype="multipart/form-data">
+	<form id="formlist" name="formlist" action="MailinglistWrite" method="POST" enctype="multipart/form-data">
     	<input type="hidden" id="loaddraft" name="loaddraft" value="false">
     	<input type="hidden" id="savedraft" name="savedraft" value="false">
 
@@ -77,7 +77,7 @@
 
                         <div id="buttonPanel-bottom" class="textRight">
                             <img id="spinner" src="${paths.staticWeb}images/spinner.gif" align="absmiddle" style="height:30px; display:none"/>
-                           	<input type="submit" name="send" value="${placeholderWithTranslation.senden}" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth">
+                           	<input type="button" name="send" value="${placeholderWithTranslation.senden}" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth" onclick="rewriteAction();$('#formlist').submit();">
                            	<input type="reset"  name="clear"  value="${placeholderWithTranslation.zuruecksetzen}" title="${placeholderWithTranslation.zuruecksetzen}" class="mainButton autoWidth">
                         </div>
 					</div>
@@ -95,8 +95,7 @@
                                 			<option value="$!draft.id" #if($mail.id && $mail.id == $draft.id) selected #end>$!message.text($!draft.name)</option>
                                 		#end
                             		</select>
-                        			<input type="button" name="" value="${placeholderWithTranslation.vorlageladen}" class="autoWidth" title="${placeholderWithTranslation.vorlageladen}" onclick="$('#loaddraft').val('true'); $('#formlist').submit();"/>
-									<input type="button" name="send" value="Vorlage entfernen" class="autoWidth" onclick="window.location.href='MailinglistWrite';" title="Keine Vorlage verwenden"/>
+                        			<input type="button" name="" value="${placeholderWithTranslation.vorlageladen}" class="autoWidth" title="${placeholderWithTranslation.vorlageladen}" onclick="document.getElementById('loaddraft').value='true'; document.getElementById('formlist').submit();"/>
 								#else
 									${placeholderWithTranslation.esliegenkeinevorlagenvor}
 								#end
@@ -105,7 +104,7 @@
                         <div class="marginTop20">
                         			<label for="mail-name">${placeholderWithTranslation.neuevorlagename}*</label>
                         			<input type="text" id="mail-name" name="mail-name" value="$!message.text($mail.name)">
-                        			<input type="button" name="savedraft" value="${placeholderWithTranslation.neuevorlagespeichern}" title="${placeholderWithTranslation.neuevorlagespeichern}" onclick="$('#savedraft').val('true'); $('#formlist').submit();" class="autoWidth">
+                        			<input type="button" name="savedraft" value="${placeholderWithTranslation.neuevorlagespeichern}" title="${placeholderWithTranslation.neuevorlagespeichern}" onclick="document.getElementById('savedraft').value='true'; document.getElementById('formlist').submit();" class="autoWidth">
                                     <p class="mandatoryText"><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong> ${placeholderWithTranslation.neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten}.</p>
                         </div>
                         <br/><br/>
@@ -144,6 +143,10 @@
 </div>
 
 <script type="text/javascript">
+	function rewriteAction() {
+		$("#formlist").attr("action", "${paths.staticWeb}mailing");
+	}
+
 	function addPlatzhalter(s) {
 		var sel = document.getElementById('platzhalter');
 		var text = sel.options[sel.selectedIndex].value;
@@ -153,13 +156,11 @@
 	}
 
 	function disableSubmitButton() {
-	    $('input[type="button"]').attr('disabled', 'disabled').addClass('disabled');
-		$('[type="submit"]').attr('disabled', 'disabled').addClass('disabled');
+		$('[type="button"]').attr('disabled', 'disabled').addClass('disabled');
 	}
 
 	function enableSubmitButton() {
-		$('input[type="button"]').removeAttr('disabled').removeClass('disabled');
-		$('[type="submit"]').removeAttr('disabled').removeClass('disabled');
+		$('[type="button"]').removeAttr('disabled').removeClass('disabled');
 	}
 
 	function displaySpinner() {
@@ -171,9 +172,9 @@
 	}
 
 	$(document).ready(function() {
-
 	    $('#formlist').ajaxForm({
 		    beforeSubmit: function(arr, $form, options) {
+		    	$("#formlist").attr("action", "${paths.staticWeb}mailing");
 		    	displaySpinner();
 				disableSubmitButton();
 		    },
