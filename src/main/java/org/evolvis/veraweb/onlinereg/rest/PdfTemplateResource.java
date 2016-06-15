@@ -8,8 +8,10 @@ import com.lowagie.text.pdf.PdfStamper;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.mail.MailDispatchMonitor;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.jboss.logging.Logger;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -38,6 +40,7 @@ public class PdfTemplateResource extends AbstractResource {
 
     private final String currentFile = "pdfexport-" + new Date().getTime() + ".pdf";
     private final String OUTPUT_FILENAME = "/tmp/" + currentFile;
+    private static final Logger LOGGER = Logger.getLogger(PdfTemplateResource.class.getCanonicalName());
 
     @POST
     @Path("/edit")
@@ -50,6 +53,7 @@ public class PdfTemplateResource extends AbstractResource {
                 final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId);
                 return Response.ok(pdfTemplate).build();
             } catch (IOException e) {
+                LOGGER.error("Creating pdf template failed.");
                 return Response.status(Status.INTERNAL_SERVER_ERROR).build();
             }
         }
