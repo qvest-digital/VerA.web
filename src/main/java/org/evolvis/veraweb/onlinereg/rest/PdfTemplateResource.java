@@ -52,15 +52,19 @@ public class PdfTemplateResource extends AbstractResource {
 
     @POST
     @Path("/delete")
-    //TODO: PARAMETER ANPASSEN
-    public Response deletePdfTemplate(@FormParam("id") Integer id) {
+    public Response deletePdfTemplate(@FormParam("templateId") List<Integer> idList) {
+        if(idList == null || idList.isEmpty()){
+            return Response.status(Status.BAD_REQUEST).build();
+        }
         Session session = openSession();
         try {
             final Query query = session.getNamedQuery("PdfTemplate.deletePdfTemplateById");
-            query.setInteger("id", id);
-            query.executeUpdate();
+            for (Integer id: idList) {
+                query.setInteger("id", id);
+                query.executeUpdate();
+            }
             session.flush();
-            return Response.status(Status.OK).build();
+            return Response.ok(idList).build();
         } finally {
             session.close();
         }
