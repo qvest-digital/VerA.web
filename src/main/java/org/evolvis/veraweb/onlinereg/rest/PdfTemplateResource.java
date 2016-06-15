@@ -53,7 +53,7 @@ public class PdfTemplateResource extends AbstractResource {
                 final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId);
                 return Response.ok(pdfTemplate).build();
             } catch (IOException e) {
-                LOGGER.error("Creating pdf template failed.");
+                LOGGER.log(Logger.Level.ERROR, "Creating pdf template failed.", e);
                 return Response.status(Status.INTERNAL_SERVER_ERROR).build();
             }
         }
