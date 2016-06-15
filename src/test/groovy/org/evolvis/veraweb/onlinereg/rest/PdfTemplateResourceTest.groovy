@@ -131,15 +131,16 @@ class PdfTemplateResourceTest extends Specification {
             def pdfTemplateId = 1
             def eventId = 1
             query.list() >> [new Person(pk: 1), new Person(pk: 2), new Person(pk: 3)]
+            query.uniqueResult() >> new PdfTemplate(pk:1, name: "Tischkarte", content: "Any String you want".getBytes())
 
         when:
             def response = resource.generatePdf(pdfTemplateId, eventId)
 
         then:
             session != null
-            1 * session.close()
+            2 * session.close()
             assert response.status == Response.Status.OK.statusCode
-            assert response.context.entity.size() == 3
+            assert response.context.entity.size() == 19
     }
 
     void testGeneratePdfReturnNoContent() {

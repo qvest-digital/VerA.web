@@ -1,5 +1,7 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Query;
@@ -14,6 +16,12 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +30,8 @@ import java.util.List;
 @Path("/pdftemplate")
 @Produces(MediaType.APPLICATION_JSON)
 public class PdfTemplateResource extends AbstractResource {
+    private static final String EXTENSION_PDF = "pdf";
+
     @POST
     @Path("/edit")
     public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
@@ -65,29 +75,65 @@ public class PdfTemplateResource extends AbstractResource {
         } finally {
             session.close();
         }
-
     }
 
     @GET
     @Path("/export")
-    public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId, @QueryParam("eventId") Integer eventId) {
+    public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId, @QueryParam("eventId") Integer eventId) throws IOException {
         if (pdfTemplateId == null || eventId == null) {
             return Response.status(Status.BAD_REQUEST).build();
         }
+
+        final List<Person> list = getPersons(eventId);
+        if (list.isEmpty()) {
+            return Response.status(Status.NO_CONTENT).build();
+        }
+
+        final File file = new File(writeOutputFile(pdfTemplateId));
+        return Response.ok(file).header("Content-Disposition", "attachment;filename=" + file.getName() + ";charset=Unicode").build();
+    }
+
+    private String writeOutputFile(Integer pdfTemplateId) throws IOException {
+        final PdfTemplate pdfTemplate = getPdfTemplate(pdfTemplateId);
+        final byte[] content = pdfTemplate.getContent();
+        final String filename = getOutputFilename(pdfTemplate.name);
+        final String path = FileUtils.getTempDirectory() + File.separator + filename;
+        final OutputStream outputStream = new FileOutputStream(path);
+        outputStream.write(content);
+        outputStream.close();
+
+        return path;
+    }
+
+    private String getOutputFilename(String pdfTemplateName) {
+        return new StringBuilder(pdfTemplateName).
+                append("-").
+                append(new Date().getTime()).
+                append(".").
+                append(EXTENSION_PDF).toString();
+    }
+
+    private PdfTemplate getPdfTemplate(Integer pdfTemplateId) {
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("Person.getPeopleByEventId");
-            query.setInteger("eventid", eventId);
-            final List<Person> list = (List<Person>) query.list();
-            if (list.isEmpty()) {
-                return Response.status(Status.NO_CONTENT).build();
-            }
-            return Response.ok(list).build();
+            final Query query = session.getNamedQuery("PdfTemplate.getPdfTemplateById");
+            query.setInteger("id", pdfTemplateId);
+            return (PdfTemplate) query.uniqueResult();
         } finally {
             session.close();
         }
     }
 
+    private List<Person> getPersons(@QueryParam("eventId") Integer eventId) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Person.getPeopleByEventId");
+            query.setInteger("eventid", eventId);
+            return (List<Person>) query.list();
+        } finally {
+            session.close();
+        }
+    }
 
 
     private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId) {
@@ -133,11 +179,28 @@ public class PdfTemplateResource extends AbstractResource {
     private PdfTemplate initPdfTemplate(String name, Integer mandantId) {
         PdfTemplate pdfTemplate = new PdfTemplate();
         pdfTemplate.setName(name);
-        final byte[] content = "Any String you want".getBytes();
+        byte[] content = new byte[0];
+        try {
+            content = convertPdfToByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         pdfTemplate.setContent(content);
         pdfTemplate.setFk_orgunit(mandantId);
 
         return pdfTemplate;
+    }
+
+    private byte[] convertPdfToByteArray() throws IOException {
+        final InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("itext-template.pdf");
+        byte[] buffer = new byte[8192];
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        int bytesRead;
+        while ((bytesRead = resourceAsStream.read(buffer)) != -1) {
+            baos.write(buffer, 0, bytesRead);
+        }
+        return baos.toByteArray();
     }
 
     private void updatePdfTemplate(Session session, Integer id, String name) {
