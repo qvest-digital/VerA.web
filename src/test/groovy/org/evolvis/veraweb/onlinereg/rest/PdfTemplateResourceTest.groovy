@@ -3,14 +3,12 @@ package org.evolvis.veraweb.onlinereg.rest
 import org.apache.commons.io.output.ByteArrayOutputStream
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate
 import org.evolvis.veraweb.onlinereg.entities.Person
-import org.hibernate.Query;
+import org.hibernate.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
-
 import spock.lang.Specification
 
 import javax.servlet.ServletContext
-import javax.ws.rs.FormParam
 import javax.ws.rs.core.Response
 
 /**

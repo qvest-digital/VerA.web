@@ -37,7 +37,7 @@ import java.util.List;
 public class PdfTemplateResource extends AbstractResource {
 
     private final String currentFile = "pdfexport-" + new Date().getTime() + ".pdf";
-    private final String OUTPUT_FILENAME = "/tmp/"+currentFile;
+    private final String OUTPUT_FILENAME = "/tmp/" + currentFile;
 
     @POST
     @Path("/edit")
@@ -45,21 +45,26 @@ public class PdfTemplateResource extends AbstractResource {
         if (name == null || name.trim().equals("")) {
             return Response.status(Status.BAD_REQUEST).build();
         } else {
-            final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId);
-            return Response.ok(pdfTemplate).build();
+            try {
+
+                final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId);
+                return Response.ok(pdfTemplate).build();
+            } catch (IOException e) {
+                return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+            }
         }
     }
 
     @POST
     @Path("/delete")
     public Response deletePdfTemplate(@FormParam("templateId") List<Integer> idList) {
-        if(idList == null || idList.isEmpty()){
+        if (idList == null || idList.isEmpty()) {
             return Response.status(Status.BAD_REQUEST).build();
         }
         Session session = openSession();
         try {
             final Query query = session.getNamedQuery("PdfTemplate.deletePdfTemplateById");
-            for (Integer id: idList) {
+            for (Integer id : idList) {
                 query.setInteger("id", id);
                 query.executeUpdate();
             }
@@ -79,7 +84,7 @@ public class PdfTemplateResource extends AbstractResource {
             final Query query = session.getNamedQuery("PdfTemplate.getPdfTemplateListByOrgunit");
             query.setInteger("fk_orgunit", mandantId);
             final List<PdfTemplate> pdfTemplates = query.list();
-            if(pdfTemplates.isEmpty()) {
+            if (pdfTemplates.isEmpty()) {
                 return Response.status(Status.NO_CONTENT).build();
             }
             return Response.ok(pdfTemplates).build();
@@ -181,7 +186,7 @@ public class PdfTemplateResource extends AbstractResource {
     }
 
 
-    private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId) {
+    private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId) throws IOException {
         PdfTemplate pdfTemplate;
         if (id != null) {
             pdfTemplate = handlePdfTemplateUpdate(id, name);
@@ -191,7 +196,7 @@ public class PdfTemplateResource extends AbstractResource {
         return pdfTemplate;
     }
 
-    private PdfTemplate handlePdfTemplateCreate(String name, Integer mandantId) {
+    private PdfTemplate handlePdfTemplateCreate(String name, Integer mandantId) throws IOException {
         final Session session = openSession();
         try {
             PdfTemplate pdfTemplate = initPdfTemplate(name, mandantId);
@@ -221,15 +226,10 @@ public class PdfTemplateResource extends AbstractResource {
         return (PdfTemplate) query.uniqueResult();
     }
 
-    private PdfTemplate initPdfTemplate(String name, Integer mandantId) {
+    private PdfTemplate initPdfTemplate(String name, Integer mandantId) throws IOException {
         PdfTemplate pdfTemplate = new PdfTemplate();
         pdfTemplate.setName(name);
-        byte[] content = new byte[0];
-        try {
-            content = convertPdfToByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        byte[] content = convertPdfToByteArray();
         pdfTemplate.setContent(content);
         pdfTemplate.setFk_orgunit(mandantId);
 
