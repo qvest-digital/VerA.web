@@ -1,6 +1,10 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
-import org.apache.commons.io.FileUtils;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfCopy;
+import com.lowagie.text.pdf.PdfReader;
+import com.lowagie.text.pdf.PdfStamper;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
@@ -21,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +35,9 @@ import java.util.List;
 @Path("/pdftemplate")
 @Produces(MediaType.APPLICATION_JSON)
 public class PdfTemplateResource extends AbstractResource {
-    private static final String EXTENSION_PDF = "pdf";
+
+    private final String currentFile = "pdfexport-" + new Date().getTime() + ".pdf";
+    private final String OUTPUT_FILENAME = "/tmp/"+currentFile;
 
     @POST
     @Path("/edit")
@@ -79,38 +86,72 @@ public class PdfTemplateResource extends AbstractResource {
 
     @GET
     @Path("/export")
-    public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId, @QueryParam("eventId") Integer eventId) throws IOException {
+    public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId, @QueryParam("eventId") Integer eventId) throws IOException, DocumentException {
         if (pdfTemplateId == null || eventId == null) {
             return Response.status(Status.BAD_REQUEST).build();
         }
 
-        final List<Person> list = getPersons(eventId);
-        if (list.isEmpty()) {
+        final List<Person> people = getPersons(eventId);
+        if (people.isEmpty()) {
             return Response.status(Status.NO_CONTENT).build();
         }
 
-        final File file = new File(writeOutputFile(pdfTemplateId));
-        return Response.ok(file).header("Content-Disposition", "attachment;filename=" + file.getName() + ";charset=Unicode").build();
+        final List<String> filesList = getFileList(people, pdfTemplateId);
+        mergeFiles(filesList);
+
+        final File outputFile = new File(OUTPUT_FILENAME);
+        return Response.ok(outputFile).header("Content-Disposition", "attachment;filename=" + currentFile + ";charset=Unicode").build();
     }
 
-    private String writeOutputFile(Integer pdfTemplateId) throws IOException {
+    private List<String> getFileList(List<Person> people, Integer pdfTemplateId) throws IOException, DocumentException {
+        final String tempFileWithPdfTemplateContent = wrtiePdfContentFromDbToTempFile(pdfTemplateId);
+        final List<String> filesList = new ArrayList<>();
+        for (Person person : people) {
+            final String personalOutputFile = writePersonalOutputFile(tempFileWithPdfTemplateContent, person);
+            filesList.add(personalOutputFile);
+        }
+        return filesList;
+    }
+
+    private void mergeFiles(List<String> filesList) throws DocumentException, IOException {
+        final Document outputFile = new Document();
+
+        final PdfCopy pdfCopy = new PdfCopy(outputFile, new FileOutputStream(OUTPUT_FILENAME));
+        outputFile.open();
+        for (String filename : filesList) {
+            PdfReader pdfReader = new PdfReader(filename);
+            final int numberOfPages = pdfReader.getNumberOfPages();
+            for (int page = 0; page < numberOfPages; ) {
+                pdfCopy.addPage(pdfCopy.getImportedPage(pdfReader, ++page));
+            }
+        }
+
+        outputFile.close();
+    }
+
+    private String wrtiePdfContentFromDbToTempFile(Integer pdfTemplateId) throws IOException {
         final PdfTemplate pdfTemplate = getPdfTemplate(pdfTemplateId);
         final byte[] content = pdfTemplate.getContent();
-        final String filename = getOutputFilename(pdfTemplate.name);
-        final String path = FileUtils.getTempDirectory() + File.separator + filename;
-        final OutputStream outputStream = new FileOutputStream(path);
+        final File tempFileForPdfTemplate = File.createTempFile("pdfexport-template-" + new Date().getTime(), ".pdf");
+        final OutputStream outputStream = new FileOutputStream(tempFileForPdfTemplate);
         outputStream.write(content);
         outputStream.close();
 
-        return path;
+        return tempFileForPdfTemplate.toString();
     }
 
-    private String getOutputFilename(String pdfTemplateName) {
-        return new StringBuilder(pdfTemplateName).
-                append("-").
-                append(new Date().getTime()).
-                append(".").
-                append(EXTENSION_PDF).toString();
+    private String writePersonalOutputFile(String pdfTemplateFilename, Person person) throws IOException, DocumentException {
+
+        final PdfReader pdfReader = new PdfReader(pdfTemplateFilename);
+        final String path = "/tmp/personal-pdf-file" + person.getPk() + new Date().getTime() + ".pdf";
+        final PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(path));
+        for (int i = 1; i <= pdfReader.getNumberOfPages(); i++) {
+            pdfStamper.getAcroFields().setField("textbox1", person.getUsername());
+            pdfStamper.getAcroFields().setField("textbox2", person.getFirstname_a_e1());
+
+        }
+        pdfStamper.close();
+        return path;
     }
 
     private PdfTemplate getPdfTemplate(Integer pdfTemplateId) {

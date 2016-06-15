@@ -15,6 +15,7 @@
 		<spock-core.version>1.0-groovy-2.4</spock-core.version>
 		<commons-io.version>2.4</commons-io.version>
 		<jersey.version>2.22.2</jersey.version>
+		<itext.version>4.2.0</itext.version>
 	</properties>
 	<organization>
 		<name>tarent solutions GmbH, Germany</name>
@@ -159,6 +160,11 @@
 			<artifactId>cglib-nodep</artifactId>
 			<version>3.2.1</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>${itext.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
