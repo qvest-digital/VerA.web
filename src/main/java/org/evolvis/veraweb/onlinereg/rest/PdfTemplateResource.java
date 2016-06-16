@@ -38,9 +38,10 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class PdfTemplateResource extends AbstractResource {
 
-    private final String currentFileName = "pdfexport-" + new Date().getTime() + ".pdf";
-    private final String OUTPUT_FILENAME = "/tmp/" + currentFileName;
+    private final String currentExportFileName = "pdfexport-" + new Date().getTime() + ".pdf";
+    private final String OUTPUT_FILENAME = FileUtils.getTempDirectoryPath() + File.separator + currentExportFileName;
     private static final Logger LOGGER = Logger.getLogger(PdfTemplateResource.class.getCanonicalName());
+    private final Integer DAYS_BACK = 1;
 
     @POST
     @Path("/edit")
@@ -49,7 +50,6 @@ public class PdfTemplateResource extends AbstractResource {
             return Response.status(Status.BAD_REQUEST).build();
         } else {
             try {
-
                 final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId);
                 return Response.ok(pdfTemplate).build();
             } catch (IOException e) {
@@ -113,10 +113,11 @@ public class PdfTemplateResource extends AbstractResource {
         mergeFiles(filesList);
 
         final File outputFile = new File(OUTPUT_FILENAME);
-        return Response.ok(outputFile).header("Content-Disposition", "attachment;filename=" + currentFileName + ";charset=Unicode").build();
+        return Response.ok(outputFile).header("Content-Disposition", "attachment;filename=" + currentExportFileName + ";charset=Unicode").build();
     }
 
     private List<String> getFileList(List<Person> people, Integer pdfTemplateId) throws IOException, DocumentException {
+        deleteOldPdfFiles();
         final String tempFileWithPdfTemplateContent = wrtiePdfContentFromDbToTempFile(pdfTemplateId);
         final List<String> filesList = new ArrayList<>();
         for (Person person : people) {
@@ -125,6 +126,21 @@ public class PdfTemplateResource extends AbstractResource {
         }
         FileUtils.forceDelete(new File(tempFileWithPdfTemplateContent));
         return filesList;
+    }
+
+    private void deleteOldPdfFiles() {
+        File directory = new File(FileUtils.getTempDirectoryPath());
+        if(directory.exists()){
+            File[] listFiles = directory.listFiles();
+            long purgeTime = System.currentTimeMillis() - (DAYS_BACK * 24 * 60 * 60 * 1000);
+            for(File listFile : listFiles) {
+                if(listFile.lastModified() < purgeTime) {
+                    if(!listFile.delete()) {
+                        System.err.println("Unable to delete file: " + listFile);
+                    }
+                }
+            }
+        }
     }
 
     private void mergeFiles(List<String> filesList) throws DocumentException, IOException {
