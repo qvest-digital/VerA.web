@@ -163,7 +163,7 @@ class PdfTemplateResourceTest extends Specification {
             session != null
             2 * session.close()
             assert response.status == Response.Status.OK.statusCode
-            assert response.context.entity.size() == 9184
+            assert response.context.entity.size() == 8768
     }
 
     void testGeneratePdfReturnNoContent() {
