@@ -16,6 +16,24 @@
 #parse("inc/header.vm")
 
 <div id="content_container">
+
+
+    <script>
+        $(function(){
+          $('#pdftemplate-content').MultiFile({
+            max:3,
+            maxfile:1024,
+            STRING: {
+              remove:'${placeholderWithTranslation.GENERIC_DELETE}',
+              selected:'${placeholderWithTranslation.MAILING_LIST_SELECTED_FILE}: $file',
+              duplicate:'${placeholderWithTranslation.MAILING_LIST_ALREADY_SELECTED_FILE}:\n$file!',
+              toomany:'${placeholderWithTranslation.MAILING_LIST_SELECTED_TOO_MANY} (max: $max)',
+              toobig:'${placeholderWithTranslation.MAILING_LIST_SELECTED_TOO_BIG} ($size)'
+            }
+          });
+        });
+    </script>
+
 	<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
 
 	<form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/edit" method="POST">
@@ -48,6 +66,10 @@
 			<tr>
             	<td class="bold"><label for="pdftemplate-name">${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}*</label></td>
             	<td><input type="text" id="pdftemplate-name" name="pdftemplate-name" maxlength="200" value="$!message.text($pdftemplate.name)" /></td>
+            </tr>
+            <tr>
+                <td class="bold">PDF-Datei*</td>
+                <td><input type="file" id="pdftemplate-content" name="files"/></td>
             </tr>
 
             #if ($listparam.count && $listparam.count == 0)
