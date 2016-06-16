@@ -197,8 +197,8 @@ public class PdfTemplateResource extends AbstractResource {
         final String path = FileUtils.getTempDirectoryPath() + File.separator + "personal-pdf-file-" + person.getPk() + "-" + new Date().getTime() + ".pdf";
         final PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(path));
         for (int i = 1; i <= pdfReader.getNumberOfPages(); i++) {
-            pdfStamper.getAcroFields().setField("textbox1", person.getUsername());
-            pdfStamper.getAcroFields().setField("textbox2", person.getFirstname_a_e1());
+            pdfStamper.getAcroFields().setField("salutation", person.getSalutation_a_e1());
+            pdfStamper.getAcroFields().setField("firstname", person.getFirstname_a_e1());
 
         }
         pdfStamper.close();
@@ -279,7 +279,7 @@ public class PdfTemplateResource extends AbstractResource {
     }
 
     private byte[] convertPdfToByteArray() throws IOException {
-        final InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("itext-template.pdf");
+        final InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("formular-tarent.pdf");
         byte[] buffer = new byte[8192];
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
