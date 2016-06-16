@@ -61,9 +61,10 @@
 			<div class="notBold grayBorder contentBox marginBottom20 bgWhite">
 				<h3>PDF-Generieren</h3>
 
-				<form id="PdfGenerateForm" action="${paths.staticWeb}csvexport/$event.id" method="GET">
-					<select id="pdftemplate-list" style="height: 29px;"></select>
-					<input type="submit" name="pdfgenerator" value="PDF-Generieren" title="PDF-Generieren" class="mainButton autoWidth" />
+				<form id="PdfGenerateForm" action="${paths.staticWeb}pdftemplate/export" method="GET">
+					<input type="hidden" name="eventId" value="2" />
+					<select id="pdftemplate-combo" name="templateId" style="height: 29px;"></select>
+					<input type="submit" value="PDF-Generieren" title="PDF-Generieren" class="mainButton autoWidth" />
 				</form>
 			</div>
 
