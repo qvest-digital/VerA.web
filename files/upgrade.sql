@@ -655,6 +655,20 @@ BEGIN
                     changed timestamptz
                 ) WITH OIDS;
 
+                DROP VIEW veraweb.TPERSON_NORMALIZED;
+
+                ALTER TABLE veraweb.tperson ALTER COLUMN city_a_e1 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.tperson ALTER COLUMN city_b_e1 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.tperson ALTER COLUMN city_c_e1 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.tperson ALTER COLUMN city_a_e2 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.tperson ALTER COLUMN city_b_e2 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.tperson ALTER COLUMN city_c_e2 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.tperson ALTER COLUMN city_a_e3 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.tperson ALTER COLUMN city_b_e3 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.tperson ALTER COLUMN city_c_e3 TYPE VARCHAR(300);
+
+                CREATE OR REPLACE VIEW veraweb.TPERSON_NORMALIZED AS (select tperson.*, veraweb.umlaut_fix(firstname_a_e1) as firstname_normalized, veraweb.umlaut_fix(lastname_a_e1) as lastname_normalized from veraweb.tperson);
+
                 -- post-upgrade
                 vmsg := 'end.update(' || vnewvsn || ')';
                 UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
