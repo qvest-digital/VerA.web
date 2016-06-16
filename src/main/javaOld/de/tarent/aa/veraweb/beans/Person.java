@@ -302,7 +302,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
         final VerawebMessages messages = new VerawebMessages(octopusContext);
 //		solveXSS(); TODO Get a better solution
 
-        if ((company_a_e1 != null && !company_a_e1.equals("")) && company_a_e1.length() > 100) {
+        if ((company_a_e1 != null && !company_a_e1.equals("")) && company_a_e1.length() > 300) {
             addError(messages.getMessagePersonMaxCompanyReached());
         }
         if ((firstname_a_e1 != null && !firstname_a_e1.equals("")) && firstname_a_e1.length() > 100) {

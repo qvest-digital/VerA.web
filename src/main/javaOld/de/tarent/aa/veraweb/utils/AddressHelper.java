@@ -223,8 +223,8 @@ public class AddressHelper implements PersonConstants {
 			facade.setStreet(facade.getStreet().substring(0, 100));
 		if (facade.getZipCode() != null && facade.getZipCode().length() > 50)
 			facade.setZipCode(facade.getZipCode().substring(0, 50));
-		if (facade.getCity() != null && facade.getCity().length() > 100)
-			facade.setCity(facade.getCity().substring(0, 100));
+		if (facade.getCity() != null && facade.getCity().length() > 300)
+			facade.setCity(facade.getCity().substring(0, 300));
 		if (facade.getState() != null && facade.getState().length() > 100)
 			facade.setState(facade.getState().substring(0, 100));
 
