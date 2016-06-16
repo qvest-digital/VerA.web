@@ -5,10 +5,10 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
-import org.evolvis.veraweb.onlinereg.mail.MailDispatchMonitor;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.jboss.logging.Logger;
@@ -38,8 +38,8 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class PdfTemplateResource extends AbstractResource {
 
-    private final String currentFile = "pdfexport-" + new Date().getTime() + ".pdf";
-    private final String OUTPUT_FILENAME = "/tmp/" + currentFile;
+    private final String currentFileName = "pdfexport-" + new Date().getTime() + ".pdf";
+    private final String OUTPUT_FILENAME = "/tmp/" + currentFileName;
     private static final Logger LOGGER = Logger.getLogger(PdfTemplateResource.class.getCanonicalName());
 
     @POST
@@ -113,7 +113,7 @@ public class PdfTemplateResource extends AbstractResource {
         mergeFiles(filesList);
 
         final File outputFile = new File(OUTPUT_FILENAME);
-        return Response.ok(outputFile).header("Content-Disposition", "attachment;filename=" + currentFile + ";charset=Unicode").build();
+        return Response.ok(outputFile).header("Content-Disposition", "attachment;filename=" + currentFileName + ";charset=Unicode").build();
     }
 
     private List<String> getFileList(List<Person> people, Integer pdfTemplateId) throws IOException, DocumentException {
@@ -123,6 +123,7 @@ public class PdfTemplateResource extends AbstractResource {
             final String personalOutputFile = writePersonalOutputFile(tempFileWithPdfTemplateContent, person);
             filesList.add(personalOutputFile);
         }
+        FileUtils.forceDelete(new File(tempFileWithPdfTemplateContent));
         return filesList;
     }
 
@@ -139,7 +140,18 @@ public class PdfTemplateResource extends AbstractResource {
             }
         }
 
+        deletePersonalOutputFiles(filesList);
         outputFile.close();
+    }
+
+    private void deletePersonalOutputFiles(List<String> filesList) throws IOException {
+        for (String filename : filesList) {
+            try {
+                FileUtils.forceDelete(new File(filename));
+            } catch (IOException e) {
+                LOGGER.log(Logger.Level.ERROR, "The file " + filename + " could not be deleted");
+            }
+        }
     }
 
     private String wrtiePdfContentFromDbToTempFile(Integer pdfTemplateId) throws IOException {
@@ -156,7 +168,7 @@ public class PdfTemplateResource extends AbstractResource {
     private String writePersonalOutputFile(String pdfTemplateFilename, Person person) throws IOException, DocumentException {
 
         final PdfReader pdfReader = new PdfReader(pdfTemplateFilename);
-        final String path = "/tmp/personal-pdf-file" + person.getPk() + new Date().getTime() + ".pdf";
+        final String path = FileUtils.getTempDirectoryPath() + File.separator + "personal-pdf-file-" + person.getPk() + "-" + new Date().getTime() + ".pdf";
         final PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(path));
         for (int i = 1; i <= pdfReader.getNumberOfPages(); i++) {
             pdfStamper.getAcroFields().setField("textbox1", person.getUsername());
