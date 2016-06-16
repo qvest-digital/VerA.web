@@ -3,6 +3,7 @@ package org.evolvis.veraweb.onlinereg.rest
 import org.apache.commons.io.output.ByteArrayOutputStream
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate
 import org.evolvis.veraweb.onlinereg.entities.Person
+import org.glassfish.jersey.media.multipart.FormDataMultiPart
 import org.hibernate.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
@@ -22,10 +23,14 @@ class PdfTemplateResourceTest extends Specification {
     Session session = Mock(Session)
     Query query = Mock(Query)
 
+    def multipart
+
     def setup() {
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
         session.getNamedQuery(_) >> query
+        multipart = Mock(FormDataMultiPart)
+        multipart.getField(_) >> [new HashMap<String, File>()]
 
         resource = new PdfTemplateResource(context: context);
     }
@@ -37,8 +42,9 @@ class PdfTemplateResourceTest extends Specification {
             def expectedId = 1
             pdfTemplateFromDb.pk >> expectedId
 
+
         when:
-            def result = resource.editPdfTemplate(1, "name", 1, convertPdfToByteArray());
+            def result = resource.editPdfTemplate(1, "name", 1, multipart);
 
         then:
             session != null
@@ -50,7 +56,7 @@ class PdfTemplateResourceTest extends Specification {
 
     void testCreatePdfTemplate() {
         when:
-            def result = resource.editPdfTemplate(null, "name", 1, convertPdfToByteArray());
+            def result = resource.editPdfTemplate(null, "name", 1, multipart);
 
         then:
             session != null
@@ -135,7 +141,7 @@ class PdfTemplateResourceTest extends Specification {
 
     void testEditPdfTemplateEmptyStringName() {
         when:
-            def result = resource.editPdfTemplate(1, "", 1, convertPdfToByteArray())
+            def result = resource.editPdfTemplate(1, "", 1, multipart)
 
         then:
             assert result.status  == Response.Status.BAD_REQUEST.statusCode
@@ -143,7 +149,7 @@ class PdfTemplateResourceTest extends Specification {
 
     void testEditPdfTemplateNameIsNull() {
         when:
-            def result = resource.editPdfTemplate(1, null, 1, convertPdfToByteArray())
+            def result = resource.editPdfTemplate(1, null, 1, multipart)
 
         then:
             assert result.status  == Response.Status.BAD_REQUEST.statusCode
