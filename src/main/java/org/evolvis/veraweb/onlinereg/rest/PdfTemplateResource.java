@@ -42,6 +42,7 @@ public class PdfTemplateResource extends AbstractResource {
     private final String OUTPUT_FILENAME = FileUtils.getTempDirectoryPath() + File.separator + currentExportFileName;
     private static final Logger LOGGER = Logger.getLogger(PdfTemplateResource.class.getCanonicalName());
     private final Integer DAYS_BACK = 1;
+    private final long PURGE_TIME = System.currentTimeMillis() - (DAYS_BACK * 24 * 60 * 60 * 1000);
 
     @POST
     @Path("/edit")
@@ -129,17 +130,26 @@ public class PdfTemplateResource extends AbstractResource {
     }
 
     private void deleteOldPdfFiles() {
-        File directory = new File(FileUtils.getTempDirectoryPath());
+        final File directory = new File(FileUtils.getTempDirectoryPath());
         if(directory.exists()){
-            File[] listFiles = directory.listFiles();
-            long purgeTime = System.currentTimeMillis() - (DAYS_BACK * 24 * 60 * 60 * 1000);
+            deleteFiles(directory);
+        }
+    }
+
+    private void deleteFiles(File directory) {
+        final File[] listFiles = directory.listFiles();
+        if(listFiles.length > 0) {
             for(File listFile : listFiles) {
-                if(listFile.lastModified() < purgeTime) {
-                    if(!listFile.delete()) {
-                        System.err.println("Unable to delete file: " + listFile);
-                    }
+                if(listFile.lastModified() < PURGE_TIME) {
+                    executeCurrentFileDeletion(listFile);
                 }
             }
+        }
+    }
+
+    private void executeCurrentFileDeletion(File listFile) {
+        if(!listFile.delete()) {
+            LOGGER.log(Logger.Level.ERROR, "Unable to delete file: " + listFile);
         }
     }
 
@@ -160,7 +170,7 @@ public class PdfTemplateResource extends AbstractResource {
         outputFile.close();
     }
 
-    private void deletePersonalOutputFiles(List<String> filesList) throws IOException {
+    private void deletePersonalOutputFiles(List<String> filesList) {
         for (String filename : filesList) {
             try {
                 FileUtils.forceDelete(new File(filename));
