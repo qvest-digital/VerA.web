@@ -46,12 +46,12 @@ public class PdfTemplateResource extends AbstractResource {
 
     @POST
     @Path("/edit")
-    public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
+    public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId, @FormParam("pdftemplate-content") byte[] content) {
         if (name == null || name.trim().equals("")) {
             return Response.status(Status.BAD_REQUEST).build();
         } else {
             try {
-                final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId);
+                final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId, content);
                 return Response.ok(pdfTemplate).build();
             } catch (IOException e) {
                 LOGGER.log(Logger.Level.ERROR, "Creating pdf template failed.", e);
@@ -228,20 +228,20 @@ public class PdfTemplateResource extends AbstractResource {
     }
 
 
-    private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId) throws IOException {
+    private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId, byte[] content) throws IOException {
         PdfTemplate pdfTemplate;
         if (id != null) {
             pdfTemplate = handlePdfTemplateUpdate(id, name);
         } else {
-            pdfTemplate = handlePdfTemplateCreate(name, mandantId);
+            pdfTemplate = handlePdfTemplateCreate(name, mandantId, content);
         }
         return pdfTemplate;
     }
 
-    private PdfTemplate handlePdfTemplateCreate(String name, Integer mandantId) throws IOException {
+    private PdfTemplate handlePdfTemplateCreate(String name, Integer mandantId, byte[] content) throws IOException {
         final Session session = openSession();
         try {
-            PdfTemplate pdfTemplate = initPdfTemplate(name, mandantId);
+            PdfTemplate pdfTemplate = initPdfTemplate(name, mandantId, content);
             session.save(pdfTemplate);
             session.flush();
             return pdfTemplate;
@@ -268,10 +268,9 @@ public class PdfTemplateResource extends AbstractResource {
         return (PdfTemplate) query.uniqueResult();
     }
 
-    private PdfTemplate initPdfTemplate(String name, Integer mandantId) throws IOException {
+    private PdfTemplate initPdfTemplate(String name, Integer mandantId, byte[] content) throws IOException {
         PdfTemplate pdfTemplate = new PdfTemplate();
         pdfTemplate.setName(name);
-        byte[] content = convertPdfToByteArray();
         pdfTemplate.setContent(content);
         pdfTemplate.setFk_orgunit(mandantId);
 

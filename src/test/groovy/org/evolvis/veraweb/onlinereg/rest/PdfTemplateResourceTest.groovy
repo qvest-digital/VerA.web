@@ -38,7 +38,7 @@ class PdfTemplateResourceTest extends Specification {
             pdfTemplateFromDb.pk >> expectedId
 
         when:
-            def result = resource.editPdfTemplate(1, "name", 1);
+            def result = resource.editPdfTemplate(1, "name", 1, convertPdfToByteArray());
 
         then:
             session != null
@@ -50,7 +50,7 @@ class PdfTemplateResourceTest extends Specification {
 
     void testCreatePdfTemplate() {
         when:
-            def result = resource.editPdfTemplate(null, "name", 1);
+            def result = resource.editPdfTemplate(null, "name", 1, convertPdfToByteArray());
 
         then:
             session != null
@@ -135,7 +135,7 @@ class PdfTemplateResourceTest extends Specification {
 
     void testEditPdfTemplateEmptyStringName() {
         when:
-            def result = resource.editPdfTemplate(1, "", 1)
+            def result = resource.editPdfTemplate(1, "", 1, convertPdfToByteArray())
 
         then:
             assert result.status  == Response.Status.BAD_REQUEST.statusCode
@@ -143,7 +143,7 @@ class PdfTemplateResourceTest extends Specification {
 
     void testEditPdfTemplateNameIsNull() {
         when:
-            def result = resource.editPdfTemplate(1, null, 1)
+            def result = resource.editPdfTemplate(1, null, 1, convertPdfToByteArray())
 
         then:
             assert result.status  == Response.Status.BAD_REQUEST.statusCode
