@@ -13,8 +13,10 @@
 #parse("inc/header.vm")
 
 <div data-pdflist="${paths.staticWeb}pdftemplate/list" id="pdfetemplate-list"></div>
+<div data-pdfdelete="${paths.staticWeb}pdftemplate/delete" id="pdfetemplate-delete"></div>
 <div data-orgunit="$!octopusConfig.personalConfig.orgUnitId" id="pdfetemplate-orgunit"></div>
-<div data-errormsg="${placeholderWithTranslation.PDF_TEMPLATE_LIST_NOT_LOAD}" id="pdfetemplate-list-errormsg"></div>
+<div data-errormsg="${placeholderWithTranslation.PDF_TEMPLATE_LIST_NOT_LOAD}" id="pdfetemplate-list-load-errormsg"></div>
+<div data-errormsg="${placeholderWithTranslation.PDF_TEMPLATE_DELETE_FAILED}" id="pdfetemplate-delete-errormsg"></div>
 
 <script type="text/javascript" src="${paths.staticWeb}scripts/veraweb-pdftemplate-list.js"></script>
 
@@ -35,7 +37,7 @@
 
         <span id="actionPanel" class="inlineLabel">
 	       	<strong>${placeholderWithTranslation.GENERIC_MARKED_TEMPLATES_PP}</strong>
-	       	<input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markiertevorlagenloschen}"/>
+	       	<input type="button" id="deletePdfTemplateButton" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markiertevorlagenloschen}" />
         </span>
         <span id="" class="buttonPanel-top textRight floatRight">
 			<input type="button" name="new" value="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" title="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" class="mainButton" onclick="window.location.href='PdfTemplateDetail';" />
