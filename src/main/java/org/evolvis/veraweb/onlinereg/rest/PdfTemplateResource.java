@@ -9,7 +9,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
-import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -31,10 +30,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.jboss.logging.Logger;
+import java.util.UUID;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -119,23 +118,32 @@ public class PdfTemplateResource extends FormDataResource {
             return Response.status(Status.NO_CONTENT).build();
         }
 
-        final List<String> filesList = getFileList(people, pdfTemplateId);
+        final UUID uuid = UUID.randomUUID();
+        final List<String> filesList = getFileList(people, pdfTemplateId, uuid);
         mergeFiles(filesList);
 
         final File outputFile = new File(OUTPUT_FILENAME);
         return Response.ok(outputFile).header("Content-Disposition", "attachment;filename=" + currentExportFileName + ";charset=Unicode").build();
     }
 
-    private List<String> getFileList(List<Person> people, Integer pdfTemplateId) throws IOException, DocumentException {
+    private List<String> getFileList(List<Person> people, Integer pdfTemplateId, UUID uuid) throws IOException, DocumentException {
         deleteOldPdfFiles();
-        final String tempFileWithPdfTemplateContent = wrtiePdfContentFromDbToTempFile(pdfTemplateId);
+        final String tempFileWithPdfTemplateContent = writePdfContentFromDbToTempFile(pdfTemplateId, uuid);
         final List<String> filesList = new ArrayList<>();
         for (Person person : people) {
-            final String personalOutputFile = writePersonalOutputFile(tempFileWithPdfTemplateContent, person);
+            final String personalOutputFile = writePersonalOutputFile(tempFileWithPdfTemplateContent, person, uuid);
             filesList.add(personalOutputFile);
         }
-        FileUtils.forceDelete(new File(tempFileWithPdfTemplateContent));
+        deleteTemplateOutputFiles(tempFileWithPdfTemplateContent);
         return filesList;
+    }
+
+    private void deleteTemplateOutputFiles(String tempFileWithPdfTemplateContent) {
+        try {
+            FileUtils.forceDelete(new File(tempFileWithPdfTemplateContent));
+        } catch (IOException e) {
+            LOGGER.log(Logger.Level.ERROR, "The file " + tempFileWithPdfTemplateContent + " could not be deleted");
+        }
     }
 
     private void deleteOldPdfFiles() {
@@ -189,10 +197,10 @@ public class PdfTemplateResource extends FormDataResource {
         }
     }
 
-    private String wrtiePdfContentFromDbToTempFile(Integer pdfTemplateId) throws IOException {
+    private String writePdfContentFromDbToTempFile(Integer pdfTemplateId, UUID uuid) throws IOException {
         final PdfTemplate pdfTemplate = getPdfTemplate(pdfTemplateId);
         final byte[] content = pdfTemplate.getContent();
-        final File tempFileForPdfTemplate = File.createTempFile("pdfexport-template-" + new Date().getTime(), ".pdf");
+        final File tempFileForPdfTemplate = File.createTempFile(uuid.toString() + "-pdfexport-template" + new Date().getTime(), ".pdf");
         final OutputStream outputStream = new FileOutputStream(tempFileForPdfTemplate);
         outputStream.write(content);
         outputStream.close();
@@ -200,18 +208,29 @@ public class PdfTemplateResource extends FormDataResource {
         return tempFileForPdfTemplate.toString();
     }
 
-    private String writePersonalOutputFile(String pdfTemplateFilename, Person person) throws IOException, DocumentException {
+    private String writePersonalOutputFile(String pdfTemplateFilename, Person person,UUID uuid) throws IOException, DocumentException {
 
         final PdfReader pdfReader = new PdfReader(pdfTemplateFilename);
-        final String path = FileUtils.getTempDirectoryPath() + File.separator + "personal-pdf-file-" + person.getPk() + "-" + new Date().getTime() + ".pdf";
+        final String path = FileUtils.getTempDirectoryPath() + File.separator + uuid.toString() + "-personal-pdf-file-" + person.getPk() + "-" + new Date().getTime() + ".pdf";
         final PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(path));
-        for (int i = 1; i <= pdfReader.getNumberOfPages(); i++) {
-            pdfStamper.getAcroFields().setField("salutation", person.getSalutation_a_e1());
-            pdfStamper.getAcroFields().setField("firstname", person.getFirstname_a_e1());
 
+        final HashMap<String,String> substitutions = getSubstitutions(person);
+        //iterate over all field in "pdfTemplateFilename"
+        for(Map.Entry<String,?> fieldInTemplate : ((HashMap<String,?>) pdfStamper.getAcroFields().getFields()).entrySet()){
+            pdfStamper.getAcroFields().setField(fieldInTemplate.getKey(), substitutions.get(fieldInTemplate.getKey()));
         }
+
         pdfStamper.close();
         return path;
+    }
+
+    private HashMap<String,String> getSubstitutions(Person person) {
+        //TODO: this method is a dummy. let it get the "keys" from a config file, and the "values" an extrenal provider
+        HashMap<String,String> substitutions = new HashMap<>();
+        substitutions.put("salutation", person.getSalutation_a_e1());
+        substitutions.put("firstname", person.getFirstname_a_e1());
+
+        return substitutions;
     }
 
     private PdfTemplate getPdfTemplate(Integer pdfTemplateId) {
@@ -225,7 +244,7 @@ public class PdfTemplateResource extends FormDataResource {
         }
     }
 
-    private List<Person> getPersons(@QueryParam("eventId") Integer eventId) {
+    private List<Person> getPersons(Integer eventId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.getPeopleByEventId");
