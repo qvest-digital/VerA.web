@@ -8,6 +8,7 @@
 	#set($successMsg = "${placeholderWithTranslation.GM_PDF_TEMPLATE_INSERT_S}")
 	#set($errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}: ${placeholderWithTranslation.GM_PDF_TEMPLATE_INSERT_N}")
 #end
+#set($errorMsgEmpty = ${placeholderWithTranslation.PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE})
 
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PDF_TEMPLATE}")
 #set($entity="PDF_TEMPLATE")
@@ -60,7 +61,7 @@
 
         <div id="buttonPanel-bottom" class="textRight marginTop10">
         	<input type="submit" name="submit" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
-        	<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" class="mainButton" onclick="window.location.href='PdfTemplateList?selectNone=true';" />
+        	<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_CANCEL}" title="${placeholderWithTranslation.GENERIC_CANCEL}" class="mainButton" onclick="window.location.href='PdfTemplateList?selectNone=true';" />
         </div>
 
     </form>
@@ -110,8 +111,7 @@
                 $(".errormsg").remove();
                 $(".successmsg").remove();
             	if (response.status === 400) {
-            		#set($errorMsg = ${placeholderWithTranslation.PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE})
-            		showWarning('$errorMsg');
+            		showWarning('$errorMsgEmpty');
             	} else {
 					showWarning('$errorMsg');
             	}
