@@ -57,12 +57,11 @@
 				<th>${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}</th>
 			</tr>
 
-			#set($itemName = "${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_PLURAL}")
-			#tableFooter(3)
-			#parse("inc/list-direct-new.vm")
-			#if ($listparam.count == 0)
-			<tr><td colspan="3">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
-			#end
+			<tr class="colspan">
+				<td colspan="3">
+					<span class="amount" id="listnavitext"><span id="pdftemplates-count"></span> PDF-Vorlage(n)</span>
+				</td>
+			</tr>
 		</table>
 
     </form>
