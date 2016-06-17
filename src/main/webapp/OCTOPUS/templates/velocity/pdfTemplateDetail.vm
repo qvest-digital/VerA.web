@@ -54,14 +54,12 @@
             </vera-warn>
         #end
 
-    	<input type="hidden" name="pdftemplate-id" value="$!pdftemplate.id"/>
-
     	<div class="textRight bold">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
         <table class="form">
 			<tr>
-            	<td class="bold width15"><label for="show-id">${placeholderWithTranslation.GENERIC_ID}</label></td>
-            	<td><input type="text" id="show-id" name="show-id" value="$!message.text($pdftemplate.id)" class="id" vera-disabled /></td>
+            	<td class="bold width15"><label for="pdftemplate-id">${placeholderWithTranslation.GENERIC_ID}</label></td>
+            	<td><input type="text" id="pdftemplate-id" name="pdftemplate-id" value="$!message.text($pdftemplate.id)" class="id" vera-disabled /></td>
             </tr>
 			<tr>
             	<td class="bold"><label for="pdftemplate-name">${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}*</label></td>
@@ -125,7 +123,7 @@
 				enableSubmitButton();
             },
             success: function (response) {
-				$("#show-id").val(response.pk);
+				$("#pdftemplate-id").val(response.pk);
                 $(".errormsg").remove();
                 $(".successmsg").remove();
                 showSuccess('$successMsg');
