@@ -329,19 +329,6 @@
 					</targetTests>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-						</manifest>
-					</archive>
-					<archiveClasses>true</archiveClasses>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 </project>
