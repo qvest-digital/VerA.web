@@ -62,7 +62,7 @@ public class PdfTemplateResource extends AbstractResource {
 
     @POST
     @Path("/delete")
-    public Response deletePdfTemplate(@FormParam("templateId") List<Integer> idList) {
+    public Response deletePdfTemplate(@FormParam("templateId[]") List<Integer> idList) {
         if (idList == null || idList.isEmpty()) {
             return Response.status(Status.BAD_REQUEST).build();
         }
