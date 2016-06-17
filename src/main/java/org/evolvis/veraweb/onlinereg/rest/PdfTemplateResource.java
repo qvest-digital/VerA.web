@@ -138,12 +138,8 @@ public class PdfTemplateResource extends FormDataResource {
         return filesList;
     }
 
-    private void deleteTemplateOutputFiles(String tempFileWithPdfTemplateContent) {
-        try {
-            FileUtils.forceDelete(new File(tempFileWithPdfTemplateContent));
-        } catch (IOException e) {
-            LOGGER.log(Logger.Level.ERROR, "The file " + tempFileWithPdfTemplateContent + " could not be deleted");
-        }
+    private void deleteTemplateOutputFiles(String tempFileWithPdfTemplateContent) throws IOException {
+	    FileUtils.forceDelete(new File(tempFileWithPdfTemplateContent));
     }
 
     private void deleteOldPdfFiles() {
@@ -189,11 +185,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     private void deletePersonalOutputFiles(List<String> filesList) throws IOException {
         for (String filename : filesList) {
-            try {
-                FileUtils.forceDelete(new File(filename));
-            } catch (IOException e) {
-                LOGGER.log(Logger.Level.ERROR, "The file " + filename + " could not be deleted");
-            }
+		    FileUtils.forceDelete(new File(filename));
         }
     }
 
