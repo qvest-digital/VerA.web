@@ -187,13 +187,12 @@ public class PdfTemplateResource extends FormDataResource {
         outputFile.close();
     }
 
-    private void deletePersonalOutputFiles(List<String> filesList) {
+    private void deletePersonalOutputFiles(List<String> filesList) throws IOException {
         for (String filename : filesList) {
             try {
                 FileUtils.forceDelete(new File(filename));
             } catch (IOException e) {
                 LOGGER.log(Logger.Level.ERROR, "The file " + filename + " could not be deleted");
-				throw new IOException();
             }
         }
     }
