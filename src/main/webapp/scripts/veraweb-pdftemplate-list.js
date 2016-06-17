@@ -14,9 +14,9 @@
                         $("#pdftemplate-list-overview").before("<input type='hidden' name='list' value='"+ data[i].pk + "'/>");
                         $("#pdftemplate-list-overview").find("tbody").find("tr:last").before("<tr id='pdftemplate-" + data[i].pk + "'><td><input type='checkbox' id='" + data[i].pk + "' name='" + data[i].pk +"-select'></td><td style='cursor: pointer;' onclick='window.location.href=\"PdfTemplateDetail?id=" + data[i].pk + "\";' >" + data[i].pk + "</td><td style='cursor: pointer;' onclick='window.location.href=\"PdfTemplateDetail?id=" + data[i].pk + "\";' >" + data[i].name + "</td></tr>");
                     }
-                    $("span.amount").append("<span id=\"pdftemplates-count\">" + data.length + "</span> PDF-Vorlage(n)");
+                    $("#pdftemplates-count").text(data.length);
                 } else {
-                    $("span.amount").append("<span id=\"pdftemplates-count\">Keine</span> PDF-Vorlage(n)")
+                    $("#pdftemplates-count").text("Keine");
                 }
             },
             error: function(data) {
