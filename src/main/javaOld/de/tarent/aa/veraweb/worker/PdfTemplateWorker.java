@@ -25,6 +25,7 @@ import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
@@ -51,6 +52,11 @@ public class PdfTemplateWorker extends ListWorkerVeraWeb {
 			return (PdfTemplate)getDatabase(octopusContext).getBean("PdfTemplate", id);
 		}
 		return pdfTemplate;
+	}
+
+	@Override
+	protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException, IOException {
+		select.where(Expr.equal("pdftemplate.fk_orgunit", ((PersonalConfigAA)(octopusContext.personalConfig())).getOrgUnitId()));
 	}
 
 	public static final String INPUT_saveDetail[] = { "save" };
