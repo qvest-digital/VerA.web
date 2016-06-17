@@ -34,14 +34,12 @@ import org.jboss.logging.Logger;
 //FIXME: it's not "attachment", actually this is the whole shebang, including body, subject, recipients etc...
 @Path("/mailing")
 @Consumes({MediaType.MULTIPART_FORM_DATA})
-public class MailingResource extends AbstractResource {
+public class MailingResource extends FormDataResource {
     private static final Logger LOGGER = Logger.getLogger(MailingResource.class);
-
     public static final String PARAM_MAILINGLIST_ID = "mailinglist-id";
     public static final String PARAM_MAIL_TEXT = "mail-text";
     public static final String PARAM_MAIL_SUBJECT = "mail-subject";
 
-    private String tmpPath = System.getProperty("java.io.tmpdir");
     private MailDispatcher mailDispatcher;
     private EmailConfiguration emailConfiguration;
 
@@ -115,59 +113,10 @@ public class MailingResource extends AbstractResource {
         }
     }
 
-    private Map<String, File> getFiles(final List<FormDataBodyPart> fields) {
-        final Map<String, File> files = new HashMap<>();
-        if (fields != null) {
-            for (final FormDataBodyPart part : fields) {
-                if (part.getFormDataContentDisposition().getFileName() == null) {
-                    continue;
-                }
-                try {
-                    final File destinationFile = saveTempFile(part);
-                    files.put(part.getFormDataContentDisposition().getFileName(), destinationFile);
-                } catch (final IOException e) {
-                    LOGGER.error("Could not write data to temp file!", e);
-                    break;
-                }
-            }
-        }
-        return files;
-    }
-
-    private File saveTempFile(final FormDataBodyPart part) throws IOException {
-        final String filename = part.getFormDataContentDisposition().getFileName();
-        final File destinationFile = getTempFile(filename);
-        final BodyPartEntity entity = (BodyPartEntity) part.getEntity();
-        writeToFile(entity.getInputStream(), destinationFile);
-        return destinationFile;
-    }
-
     private EmailConfiguration initEmailConfiguration(final String languageKey) {
         final EmailConfiguration emailConfiguration = new EmailConfiguration(languageKey);
 
         return emailConfiguration;
-    }
-
-    public File getTempFile(final String filename) throws IOException {
-        final File file = Files.createTempFile(Paths.get(tmpPath), filename, ".tmp").toFile();
-        if (!file.getParent().equals(tmpPath)) {
-            throw new IOException("Not a valid filename");
-        }
-        file.deleteOnExit();
-        return file;
-    }
-
-    // save uploaded file to new location
-    private void writeToFile(final InputStream uploadedInputStream, final File destination) throws IOException {
-        int read = 0;
-        final byte[] bytes = new byte[1024];
-
-        final OutputStream out = new FileOutputStream(destination);
-        while ((read = uploadedInputStream.read(bytes)) != -1) {
-            out.write(bytes, 0, read);
-        }
-        out.flush();
-        out.close();
     }
 
     public void setTmpPath(final String tmpPath) {

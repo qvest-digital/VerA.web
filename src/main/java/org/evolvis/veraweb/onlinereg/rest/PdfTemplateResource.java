@@ -9,6 +9,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.jboss.logging.Logger;
@@ -30,14 +32,16 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import org.jboss.logging.Logger;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
 @Path("/pdftemplate")
 @Produces(MediaType.APPLICATION_JSON)
-public class PdfTemplateResource extends AbstractResource {
-
+public class PdfTemplateResource extends FormDataResource {
     private final String currentExportFileName = "pdfexport-" + new Date().getTime() + ".pdf";
     private final String OUTPUT_FILENAME = FileUtils.getTempDirectoryPath() + File.separator + currentExportFileName;
     private static final Logger LOGGER = Logger.getLogger(PdfTemplateResource.class.getCanonicalName());
@@ -46,12 +50,17 @@ public class PdfTemplateResource extends AbstractResource {
 
     @POST
     @Path("/edit")
-    public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
+    public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId, @FormParam("pdftemplate-content") FormDataMultiPart data) {
+        final Map<String, File> files = getFiles(data.getFields("files"));
+        LOGGER.log(Logger.Level.DEBUG, files.size());
+
+        byte[] content = "".getBytes();
+
         if (name == null || name.trim().equals("")) {
             return Response.status(Status.BAD_REQUEST).build();
         } else {
             try {
-                final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId);
+                final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId, content);
                 return Response.ok(pdfTemplate).build();
             } catch (IOException e) {
                 LOGGER.log(Logger.Level.ERROR, "Creating pdf template failed.", e);
@@ -228,20 +237,20 @@ public class PdfTemplateResource extends AbstractResource {
     }
 
 
-    private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId) throws IOException {
+    private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId, byte[] content) throws IOException {
         PdfTemplate pdfTemplate;
         if (id != null) {
             pdfTemplate = handlePdfTemplateUpdate(id, name);
         } else {
-            pdfTemplate = handlePdfTemplateCreate(name, mandantId);
+            pdfTemplate = handlePdfTemplateCreate(name, mandantId, content);
         }
         return pdfTemplate;
     }
 
-    private PdfTemplate handlePdfTemplateCreate(String name, Integer mandantId) throws IOException {
+    private PdfTemplate handlePdfTemplateCreate(String name, Integer mandantId, byte[] content) throws IOException {
         final Session session = openSession();
         try {
-            PdfTemplate pdfTemplate = initPdfTemplate(name, mandantId);
+            PdfTemplate pdfTemplate = initPdfTemplate(name, mandantId, content);
             session.save(pdfTemplate);
             session.flush();
             return pdfTemplate;
@@ -268,10 +277,9 @@ public class PdfTemplateResource extends AbstractResource {
         return (PdfTemplate) query.uniqueResult();
     }
 
-    private PdfTemplate initPdfTemplate(String name, Integer mandantId) throws IOException {
+    private PdfTemplate initPdfTemplate(String name, Integer mandantId, byte[] content) throws IOException {
         PdfTemplate pdfTemplate = new PdfTemplate();
         pdfTemplate.setName(name);
-        byte[] content = convertPdfToByteArray();
         pdfTemplate.setContent(content);
         pdfTemplate.setFk_orgunit(mandantId);
 
