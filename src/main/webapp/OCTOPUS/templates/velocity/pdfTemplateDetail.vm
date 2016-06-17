@@ -121,8 +121,7 @@
 				$("#pdftemplate-id").val(response.pk);
                 $(".errormsg").remove();
                 $(".successmsg").remove();
-                showSuccess('$successMsg');
-                enableSubmitButton();
+                window.location.href='PdfTemplateList?selectNone=true';
             }
         };
 
