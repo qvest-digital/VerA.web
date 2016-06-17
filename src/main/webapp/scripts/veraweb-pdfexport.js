@@ -1,3 +1,5 @@
+// loads the list of available pdf templates into the dropdown on the export tab
+
 $(document).ready(function() {
     $.ajax({
         url: $("#pdfetemplate-list").data("pdfexport"),
