@@ -59,7 +59,7 @@
 
 			<tr class="colspan">
 				<td colspan="3">
-					<span class="amount" id="listnavitext"><span id="pdftemplates-count"></span> PDF-Vorlage(n)</span>
+					<span class="amount" id="listnavitext"></span>
 				</td>
 			</tr>
 		</table>
