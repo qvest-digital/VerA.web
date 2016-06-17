@@ -57,7 +57,7 @@
 
 			<tr class="colspan">
 				<td colspan="3">
-					<span class="amount" id="listnavitext"><span id="pdftemplates-count"></span> PDF-Vorlage(n)</span>
+					<span class="amount" id="listnavitext"><span id="pdftemplates-count"></span> ${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_S_P}</span>
 				</td>
 			</tr>
 		</table>

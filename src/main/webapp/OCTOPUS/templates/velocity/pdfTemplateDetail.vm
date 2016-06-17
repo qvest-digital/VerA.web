@@ -66,7 +66,7 @@
             	<td><input type="text" id="pdftemplate-name" name="pdftemplate-name" maxlength="200" value="$!message.text($pdftemplate.name)" /></td>
             </tr>
             <tr>
-                <td class="bold">PDF-Datei*</td>
+                <td class="bold">${placeholderWithTranslation.GENERIC_PDF_FILE}*</td>
                 <td><input type="file" id="pdftemplate-content" name="files"/></td>
             </tr>
 
