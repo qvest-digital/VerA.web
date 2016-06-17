@@ -21,8 +21,6 @@
 <script type="text/javascript" src="${paths.staticWeb}scripts/veraweb-pdftemplate-list.js"></script>
 
 <div id="content_container">
-    <script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
-
     <form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/delete" method="POST">
         <input type="hidden" name="limit" value=""/>
         <input type="hidden" name="start" value=""/>
@@ -65,49 +63,6 @@
 		</table>
 
     </form>
-
 </div>
-
-<script type="text/javascript">
-
-	$(document).ready(function() {
-	    //TODO: replace the successMsg
-        #set($successMsg = "${placeholderWithTranslation.GM_PDF_TEMPLATE_DELETE_S}")
-	    #set($errorMsg = "${placeholderWithTranslation.GM_PDF_TEMPLATE_DELETE_N}")
-
-	    var options = {
-            error: function(response) {
-                $(".errormsg").remove();
-                $(".successmsg").remove();
-
-				showWarning('$errorMsg');
-            },
-
-            success: function (response) {
-                $(".errormsg").remove();
-                $(".successmsg").remove();
-
-                showSuccess('$successMsg');
-                //TODO: reload template list
-            }
-        };
-
-        $('#formlist').submit(function() {
-            $(".all-select:checked").each(function(){
-                $("<input>").attr({
-                    type: "hidden",
-                    name: "templateId",
-                    value: this.id
-                }).appendTo("#formlist")
-            });
-
-            $(this).ajaxSubmit(options);
-
-            return false;
-        });
-
-    });
-
-</script>
 
 #parse("inc/footer.vm")
