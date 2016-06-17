@@ -17,23 +17,6 @@
 
 <div id="content_container">
 
-
-    <script>
-        $(function(){
-          $('#pdftemplate-content').MultiFile({
-            max:3,
-            maxfile:1024,
-            STRING: {
-              remove:'${placeholderWithTranslation.GENERIC_DELETE}',
-              selected:'${placeholderWithTranslation.MAILING_LIST_SELECTED_FILE}: $file',
-              duplicate:'${placeholderWithTranslation.MAILING_LIST_ALREADY_SELECTED_FILE}:\n$file!',
-              toomany:'${placeholderWithTranslation.MAILING_LIST_SELECTED_TOO_MANY} (max: $max)',
-              toobig:'${placeholderWithTranslation.MAILING_LIST_SELECTED_TOO_BIG} ($size)'
-            }
-          });
-        });
-    </script>
-
 	<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
 
 	<form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/edit" method="POST">
@@ -87,6 +70,20 @@
 
 <script type="text/javascript">
 
+    $(function(){
+        $('#pdftemplate-content').MultiFile({
+            max:1,
+            maxfile:1024,
+            STRING: {
+                remove:'${placeholderWithTranslation.GENERIC_DELETE}',
+                selected:'${placeholderWithTranslation.MAILING_LIST_SELECTED_FILE}: $file',
+                duplicate:'${placeholderWithTranslation.MAILING_LIST_ALREADY_SELECTED_FILE}:\n$file!',
+                toomany:'${placeholderWithTranslation.MAILING_LIST_SELECTED_TOO_MANY} (max: $max)',
+                toobig:'${placeholderWithTranslation.MAILING_LIST_SELECTED_TOO_BIG} ($size)'
+            }
+        });
+    });
+
 	function addPlatzhalter(s) {
 		var sel = document.getElementById('platzhalter');
 		var text = sel.options[sel.selectedIndex].value;
@@ -106,7 +103,7 @@
     }
 
 	$(document).ready(function() {
-
+    //TODO: umbauen in veraweb-pdf-utils.js
 	    var options = {
 	        beforeSubmit: function() {
                 disableSubmitButton();
