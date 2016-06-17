@@ -33,10 +33,8 @@
             success: function(data){
                 $(".errormsg").remove();
                 $(".successmsg").remove();
-                $.get(window.location.href, function( data ) {
-                  var html = $.parseHTML(data);
-                  $("#pdftemplate-list-overview").replaceWith($(html).find("#pdftemplate-list-overview"));
-                });
+                $('#pdftemplate-list-overview tr:not(:first):not(:last)').remove();
+                loadPdfTemplateList();
             },
             error: function(data) {
                 $(".errormsg").remove();
