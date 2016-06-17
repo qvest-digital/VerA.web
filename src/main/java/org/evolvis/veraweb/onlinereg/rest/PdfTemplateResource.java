@@ -193,6 +193,7 @@ public class PdfTemplateResource extends FormDataResource {
                 FileUtils.forceDelete(new File(filename));
             } catch (IOException e) {
                 LOGGER.log(Logger.Level.ERROR, "The file " + filename + " could not be deleted");
+				throw new IOException();
             }
         }
     }
