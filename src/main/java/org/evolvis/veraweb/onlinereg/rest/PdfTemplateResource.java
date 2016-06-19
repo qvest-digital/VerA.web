@@ -14,6 +14,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.jboss.logging.Logger;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -49,7 +50,8 @@ public class PdfTemplateResource extends FormDataResource {
 
     @POST
     @Path("/edit")
-    public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId, @FormParam("pdftemplate-content") FormDataMultiPart data) {
+    @Consumes({MediaType.MULTIPART_FORM_DATA})
+    public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId, FormDataMultiPart data) {
         final Map<String, File> files = getFiles(data.getFields("files"));
         LOGGER.log(Logger.Level.DEBUG, files.size());
 
