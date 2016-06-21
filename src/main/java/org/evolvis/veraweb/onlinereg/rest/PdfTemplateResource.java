@@ -6,6 +6,7 @@ import com.lowagie.text.pdf.PdfCopy;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
@@ -24,11 +25,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -51,11 +48,27 @@ public class PdfTemplateResource extends FormDataResource {
     @POST
     @Path("/edit")
     @Consumes({MediaType.MULTIPART_FORM_DATA})
-    public Response editPdfTemplate(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId, FormDataMultiPart data) {
+    public Response editPdfTemplate(FormDataMultiPart data) {
+        Integer id = null;
+        if (!data.getField("pdftemplate-id").getValue().isEmpty()) {
+             id = Integer.parseInt(data.getField("pdftemplate-id").getValue());
+        }
+
+        String name = data.getField("pdftemplate-name").getValue();
+        Integer mandantId = Integer.parseInt(data.getField("pdftemplate-orgunit").getValue());
+
+
         final Map<String, File> files = getFiles(data.getFields("files"));
         LOGGER.log(Logger.Level.DEBUG, files.size());
 
-        byte[] content = "".getBytes();
+        byte[] content = new byte[0];
+        try {
+            content = IOUtils.toByteArray(new FileInputStream(files.entrySet().iterator().next().getValue()));
+        } catch (IOException e) {
+            LOGGER.error("could not read file");
+            return Response.status(Status.BAD_REQUEST).build();
+        }
+
 
         if (name == null || name.trim().equals("")) {
             return Response.status(Status.BAD_REQUEST).build();

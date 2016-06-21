@@ -44,7 +44,7 @@ class PdfTemplateResourceTest extends Specification {
 
 
         when:
-            def result = resource.editPdfTemplate(1, "name", 1, multipart);
+            def result = resource.editPdfTemplate(multipart);
 
         then:
             session != null
@@ -56,7 +56,7 @@ class PdfTemplateResourceTest extends Specification {
 
     void testCreatePdfTemplate() {
         when:
-            def result = resource.editPdfTemplate(null, "name", 1, multipart);
+            def result = resource.editPdfTemplate(multipart);
 
         then:
             session != null
@@ -141,7 +141,7 @@ class PdfTemplateResourceTest extends Specification {
 
     void testEditPdfTemplateEmptyStringName() {
         when:
-            def result = resource.editPdfTemplate(1, "", 1, multipart)
+            def result = resource.editPdfTemplate(multipart)
 
         then:
             assert result.status  == Response.Status.BAD_REQUEST.statusCode
@@ -149,7 +149,7 @@ class PdfTemplateResourceTest extends Specification {
 
     void testEditPdfTemplateNameIsNull() {
         when:
-            def result = resource.editPdfTemplate(1, null, 1, multipart)
+            def result = resource.editPdfTemplate(multipart)
 
         then:
             assert result.status  == Response.Status.BAD_REQUEST.statusCode
