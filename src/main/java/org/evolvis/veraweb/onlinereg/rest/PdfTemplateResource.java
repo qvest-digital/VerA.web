@@ -7,9 +7,9 @@ import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -25,7 +25,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -48,39 +52,46 @@ public class PdfTemplateResource extends FormDataResource {
     @POST
     @Path("/edit")
     @Consumes({MediaType.MULTIPART_FORM_DATA})
-    public Response editPdfTemplate(FormDataMultiPart data) {
+    public Response editPdfTemplateWithFile(FormDataMultiPart data) {
         Integer id = null;
         if (!data.getField("pdftemplate-id").getValue().isEmpty()) {
-             id = Integer.parseInt(data.getField("pdftemplate-id").getValue());
+            id = Integer.parseInt(data.getField("pdftemplate-id").getValue());
         }
 
         String name = data.getField("pdftemplate-name").getValue();
         Integer mandantId = Integer.parseInt(data.getField("pdftemplate-orgunit").getValue());
 
-
-        final Map<String, File> files = getFiles(data.getFields("files"));
-        LOGGER.log(Logger.Level.DEBUG, files.size());
-
-        byte[] content = new byte[0];
+        final File file;
         try {
-            content = IOUtils.toByteArray(new FileInputStream(files.entrySet().iterator().next().getValue()));
+            file = saveTempFile(data.getField("files"));
+            LOGGER.log(Logger.Level.DEBUG, file.exists());
         } catch (IOException e) {
-            LOGGER.error("could not read file");
+            LOGGER.error("could not write data to tmp file.", e);
             return Response.status(Status.BAD_REQUEST).build();
         }
 
-
-        if (name == null || name.trim().equals("")) {
+        final byte[] content;
+        try {
+            content = IOUtils.toByteArray(new FileInputStream(file));
+        } catch (IOException e) {
+            LOGGER.error("could not read tmp file.", e);
             return Response.status(Status.BAD_REQUEST).build();
-        } else {
-            try {
-                final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId, content);
-                return Response.ok(pdfTemplate).build();
-            } catch (IOException e) {
-                LOGGER.log(Logger.Level.ERROR, "Creating pdf template failed.", e);
-                return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-            }
         }
+
+        //create || update: name & contetn
+        return editPdfTemplate(id, name, mandantId, content);
+    }
+
+    @POST
+    @Path("/edit")
+    public Response editPdfTemplateWithoutFile(@FormParam("pdftemplate-id") Integer id, @FormParam("pdftemplate-name") String name, @FormParam("pdftemplate-orgunit") Integer mandantId) {
+        //catch when id is null (create new template) and content is null(which is implicit because of @consumes)
+        if(id == null) {
+            //create: without content
+            return Response.status(VworConstants.HTTP_POLICY_NOT_FULFILLED).build();
+        }
+        //update: name
+        return editPdfTemplate(id, name, mandantId, null);
     }
 
     @POST
@@ -91,9 +102,9 @@ public class PdfTemplateResource extends FormDataResource {
         }
         Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("PdfTemplate.deletePdfTemplateById");
+            final Query query = session.getNamedQuery(PdfTemplate.DELETE_PDF_TEMPLATE);
             for (Integer id : idList) {
-                query.setInteger("id", id);
+                query.setInteger(PdfTemplate.PARAM_PDF_ID, id);
                 query.executeUpdate();
             }
             session.flush();
@@ -109,8 +120,8 @@ public class PdfTemplateResource extends FormDataResource {
     public Response listPdfTemplates(@QueryParam("mandantid") Integer mandantId) {
         Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("PdfTemplate.getPdfTemplateListByOrgunit");
-            query.setInteger("fk_orgunit", mandantId);
+            final Query query = session.getNamedQuery(PdfTemplate.GET_PDF_TEMPLATE_LIST_BY_ORGUNIT);
+            query.setInteger(PdfTemplate.PARAM_PDF_ORGUNIT, mandantId);
             final List<PdfTemplate> pdfTemplates = query.list();
             if (pdfTemplates.isEmpty()) {
                 return Response.status(Status.NO_CONTENT).build();
@@ -123,6 +134,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     @GET
     @Path("/export")
+    @Produces({VworConstants.APPLICATION_PDF_CONTENT_TYPE})
     public Response generatePdf(@QueryParam("templateId") Integer pdfTemplateId, @QueryParam("eventId") Integer eventId) throws IOException, DocumentException {
         if (pdfTemplateId == null || eventId == null) {
             return Response.status(Status.BAD_REQUEST).build();
@@ -141,6 +153,20 @@ public class PdfTemplateResource extends FormDataResource {
         return Response.ok(outputFile).header("Content-Disposition", "attachment;filename=" + currentExportFileName + ";charset=Unicode").build();
     }
 
+    private Response editPdfTemplate(Integer id, String name, Integer mandantId, byte[] content) {
+        if (name == null || name.trim().equals("")) {
+            return Response.status(VworConstants.HTTP_PRECONDITION_FAILED).build();
+        } else {
+            try {
+                final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId, content);
+                return Response.ok(pdfTemplate).build();
+            } catch (IOException e) {
+                LOGGER.log(Logger.Level.ERROR, "Creating pdf template failed.", e);
+                return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+    }
+
     private List<String> getFileList(List<Person> people, Integer pdfTemplateId, UUID uuid) throws IOException, DocumentException {
         deleteOldPdfFiles();
         final String tempFileWithPdfTemplateContent = writePdfContentFromDbToTempFile(pdfTemplateId, uuid);
@@ -154,21 +180,21 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     private void deleteTemplateOutputFiles(String tempFileWithPdfTemplateContent) throws IOException {
-	    FileUtils.forceDelete(new File(tempFileWithPdfTemplateContent));
+        FileUtils.forceDelete(new File(tempFileWithPdfTemplateContent));
     }
 
     private void deleteOldPdfFiles() {
         final File directory = new File(FileUtils.getTempDirectoryPath());
-        if(directory.exists()){
+        if (directory.exists()) {
             deleteFiles(directory);
         }
     }
 
     private void deleteFiles(File directory) {
         final File[] listFiles = directory.listFiles();
-        if(listFiles.length > 0) {
-            for(File listFile : listFiles) {
-                if(listFile.lastModified() < PURGE_TIME) {
+        if (listFiles.length > 0) {
+            for (File listFile : listFiles) {
+                if (listFile.lastModified() < PURGE_TIME) {
                     executeCurrentFileDeletion(listFile);
                 }
             }
@@ -176,7 +202,7 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     private void executeCurrentFileDeletion(File listFile) {
-        if(!listFile.delete()) {
+        if (!listFile.delete()) {
             LOGGER.log(Logger.Level.ERROR, "Unable to delete file: " + listFile);
         }
     }
@@ -200,7 +226,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     private void deletePersonalOutputFiles(List<String> filesList) throws IOException {
         for (String filename : filesList) {
-		    FileUtils.forceDelete(new File(filename));
+            FileUtils.forceDelete(new File(filename));
         }
     }
 
@@ -215,15 +241,15 @@ public class PdfTemplateResource extends FormDataResource {
         return tempFileForPdfTemplate.toString();
     }
 
-    private String writePersonalOutputFile(String pdfTemplateFilename, Person person,UUID uuid) throws IOException, DocumentException {
+    private String writePersonalOutputFile(String pdfTemplateFilename, Person person, UUID uuid) throws IOException, DocumentException {
 
         final PdfReader pdfReader = new PdfReader(pdfTemplateFilename);
         final String path = FileUtils.getTempDirectoryPath() + File.separator + uuid.toString() + "-personal-pdf-file-" + person.getPk() + "-" + new Date().getTime() + ".pdf";
         final PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(path));
 
-        final HashMap<String,String> substitutions = getSubstitutions(person);
+        final HashMap<String, String> substitutions = getSubstitutions(person);
         //iterate over all field in "pdfTemplateFilename"
-        for(Map.Entry<String,?> fieldInTemplate : ((HashMap<String,?>) pdfStamper.getAcroFields().getFields()).entrySet()){
+        for (Map.Entry<String, ?> fieldInTemplate : ((HashMap<String, ?>) pdfStamper.getAcroFields().getFields()).entrySet()) {
             pdfStamper.getAcroFields().setField(fieldInTemplate.getKey(), substitutions.get(fieldInTemplate.getKey()));
         }
 
@@ -231,11 +257,28 @@ public class PdfTemplateResource extends FormDataResource {
         return path;
     }
 
-    private HashMap<String,String> getSubstitutions(Person person) {
-        //TODO: this method is a dummy. let it get the "keys" from a config file, and the "values" an extrenal provider
-        HashMap<String,String> substitutions = new HashMap<>();
+    private HashMap<String, String> getSubstitutions(Person person) {
+        HashMap<String, String> substitutions = new HashMap<>();
+
         substitutions.put("salutation", person.getSalutation_a_e1());
         substitutions.put("firstname", person.getFirstname_a_e1());
+        substitutions.put("lastname", person.getLastname_a_e1());
+        substitutions.put("titel", person.getTitle_a_e1());
+        substitutions.put("function", person.getFunction_a_e1());
+        substitutions.put("company", person.getCompany_a_e1());
+        substitutions.put("street", person.getStreet_a_e1());
+        substitutions.put("zipcode", person.getZipcode_a_e1());
+        substitutions.put("city", person.getCity_a_e1());
+        substitutions.put("country", person.getCountry_a_e1());
+        substitutions.put("poboxzipcode", person.getPoboxzipcode_a_e1());
+        substitutions.put("pobox", person.getPobox_a_e1());
+        substitutions.put("suffix 1", person.getSuffix1_a_e1());
+        substitutions.put("suffix 2", person.getSuffix2_a_e1());
+        substitutions.put("phone", person.getFon_a_e1());
+        substitutions.put("fax", person.getFax_a_e1());
+        substitutions.put("mobile", person.getMobil_a_e1());
+        substitutions.put("email", person.getMail_a_e1());
+        substitutions.put("url", person.getUrl_a_e1());
 
         return substitutions;
     }
@@ -243,8 +286,8 @@ public class PdfTemplateResource extends FormDataResource {
     private PdfTemplate getPdfTemplate(Integer pdfTemplateId) {
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("PdfTemplate.getPdfTemplateById");
-            query.setInteger("id", pdfTemplateId);
+            final Query query = session.getNamedQuery(PdfTemplate.GET_PDF_TEMPLATE);
+            query.setInteger(PdfTemplate.PARAM_PDF_ID, pdfTemplateId);
             return (PdfTemplate) query.uniqueResult();
         } finally {
             session.close();
@@ -266,7 +309,7 @@ public class PdfTemplateResource extends FormDataResource {
     private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId, byte[] content) throws IOException {
         PdfTemplate pdfTemplate;
         if (id != null) {
-            pdfTemplate = handlePdfTemplateUpdate(id, name);
+            pdfTemplate = handlePdfTemplateUpdate(id, name, content);
         } else {
             pdfTemplate = handlePdfTemplateCreate(name, mandantId, content);
         }
@@ -285,11 +328,16 @@ public class PdfTemplateResource extends FormDataResource {
         }
     }
 
-    private PdfTemplate handlePdfTemplateUpdate(Integer id, String name) {
+    private PdfTemplate handlePdfTemplateUpdate(Integer id, String name, byte[] content) {
         final Session session = openSession();
         try {
             PdfTemplate pdfTemplate = getExistingTemplate(id, session);
-            updatePdfTemplate(session, id, name);
+            if (content == null) {
+                updatePdfTemplate(session, id, name);
+            } else {
+                updatePdfTemplateWithContent(session, id, name, content);
+            }
+
             session.flush();
             return pdfTemplate;
         } finally {
@@ -298,8 +346,8 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     private PdfTemplate getExistingTemplate(Integer id, Session session) {
-        final Query query = session.getNamedQuery("PdfTemplate.getPdfTemplateById");
-        query.setInteger("id", id);
+        final Query query = session.getNamedQuery(PdfTemplate.GET_PDF_TEMPLATE);
+        query.setInteger(PdfTemplate.PARAM_PDF_ID, id);
         return (PdfTemplate) query.uniqueResult();
     }
 
@@ -312,22 +360,20 @@ public class PdfTemplateResource extends FormDataResource {
         return pdfTemplate;
     }
 
-    private byte[] convertPdfToByteArray() throws IOException {
-        final InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("formular-tarent.pdf");
-        byte[] buffer = new byte[8192];
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-        int bytesRead;
-        while ((bytesRead = resourceAsStream.read(buffer)) != -1) {
-            baos.write(buffer, 0, bytesRead);
-        }
-        return baos.toByteArray();
+    private void updatePdfTemplate(Session session, Integer id, String name) {
+        final Query query = session.getNamedQuery(PdfTemplate.UPDATE_PDF_TEMPLATE);
+        setAndExecuteQuery(query, id, name);
     }
 
-    private void updatePdfTemplate(Session session, Integer id, String name) {
-        final Query query = session.getNamedQuery("PdfTemplate.updatePdfTemplateById");
-        query.setInteger("id", id);
-        query.setString("name", name);
+    private void updatePdfTemplateWithContent(Session session, Integer id, String name, byte[] content) {
+        final Query query = session.getNamedQuery(PdfTemplate.UPDATE_PDF_TEMPLATE_CONTENT);
+        query.setBinary(PdfTemplate.PARAM_PDF_CONTENT, content);
+        setAndExecuteQuery(query, id, name);
+    }
+
+    private void setAndExecuteQuery(Query query, Integer id, String name) {
+        query.setInteger(PdfTemplate.PARAM_PDF_ID, id);
+        query.setString(PdfTemplate.PARAM_PDF_NAME, name);
         query.executeUpdate();
     }
 }

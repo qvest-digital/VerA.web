@@ -7,9 +7,6 @@ import org.jboss.logging.Logger;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by eugen on 16.06.16.
@@ -18,26 +15,7 @@ public class FormDataResource extends AbstractResource {
     private static final Logger LOGGER = Logger.getLogger(FormDataResource.class);
     protected String tmpPath = System.getProperty("java.io.tmpdir");
 
-    protected Map<String, File> getFiles(final List<FormDataBodyPart> fields) {
-        final Map<String, File> files = new HashMap<>();
-        if (fields != null) {
-            for (final FormDataBodyPart part : fields) {
-                if (part.getFormDataContentDisposition().getFileName() == null) {
-                    continue;
-                }
-                try {
-                    final File destinationFile = saveTempFile(part);
-                    files.put(part.getFormDataContentDisposition().getFileName(), destinationFile);
-                } catch (final IOException e) {
-                    LOGGER.error("Could not write data to temp file!", e);
-                    break;
-                }
-            }
-        }
-        return files;
-    }
-
-    private File saveTempFile(final FormDataBodyPart part) throws IOException {
+    File saveTempFile(final FormDataBodyPart part) throws IOException {
         final String filename = part.getFormDataContentDisposition().getFileName();
         final File destinationFile = getTempFile(filename);
         final BodyPartEntity entity = (BodyPartEntity) part.getEntity();

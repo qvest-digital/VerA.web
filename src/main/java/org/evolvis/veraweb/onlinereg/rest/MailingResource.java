@@ -1,12 +1,8 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +20,6 @@ import org.evolvis.veraweb.onlinereg.entities.PersonMailinglist;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatchMonitor;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
-import org.glassfish.jersey.media.multipart.BodyPartEntity;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.Query;
@@ -111,6 +106,25 @@ public class MailingResource extends FormDataResource {
                 LOGGER.error(new StringBuilder("The file ").append(file.toPath()).append("could not be deleted!"), e);
             }
         }
+    }
+
+    private Map<String, File> getFiles(final List<FormDataBodyPart> fields) {
+        final Map<String, File> files = new HashMap<>();
+        if (fields != null) {
+            for (final FormDataBodyPart part : fields) {
+                if (part.getFormDataContentDisposition().getFileName() == null) {
+                    continue;
+                }
+                try {
+                    final File destinationFile = saveTempFile(part);
+                    files.put(part.getFormDataContentDisposition().getFileName(), destinationFile);
+                } catch (final IOException e) {
+                    LOGGER.error("Could not write data to temp file!", e);
+                    break;
+                }
+            }
+        }
+        return files;
     }
 
     private EmailConfiguration initEmailConfiguration(final String languageKey) {
