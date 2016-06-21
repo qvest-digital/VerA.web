@@ -1937,4 +1937,5 @@ GM_PDF_TEMPLATE_INSERT_P=Se han creado %s plantillas
 GM_PDF_TEMPLATE_INSERT_N=No se han creado plantillas
 
 PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE=Name der Vorlage darf nicht leer sein
+PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE=Es muss eine PDF-Datei ausgewählt werden
 PDF_TEMPLATE_LIST_NOT_LOAD=Liste der PDF-Vorlagen konnte nicht geladen werden

@@ -9,6 +9,7 @@
 	#set($errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}: ${placeholderWithTranslation.GM_PDF_TEMPLATE_INSERT_N}")
 #end
 #set($errorMsgEmpty = ${placeholderWithTranslation.PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE})
+#set($errorMsgFile = ${placeholderWithTranslation.PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE})
 
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PDF_TEMPLATE}")
 #set($entity="PDF_TEMPLATE")
@@ -110,7 +111,9 @@
             error: function(response) {
                 $(".errormsg").remove();
                 $(".successmsg").remove();
-            	if (response.status === 400) {
+            	if (response.status === 420) {
+            	    showWarning('$errorMsgFile');
+            	} else if (response.status === 414) {
             		showWarning('$errorMsgEmpty');
             	} else {
 					showWarning('$errorMsg');

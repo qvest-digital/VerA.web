@@ -1929,4 +1929,5 @@ GM_PDF_TEMPLATE_INSERT_P=%s new PDF templates successfully created
 GM_PDF_TEMPLATE_INSERT_N=No new PDF templates were created
 
 PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE=Name of template can not be empty
+PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE=A PDF File can not be empty
 PDF_TEMPLATE_LIST_NOT_LOAD=PDF templates list could not be load
