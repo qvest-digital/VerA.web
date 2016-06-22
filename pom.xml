@@ -270,6 +270,15 @@
 					<webappDirectory>
 						${project.build.directory}/veraweb
 					</webappDirectory>
+					<webResources>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/webapp</directory>
+							<includes>
+								<include>artifact-version</include>
+							</includes>
+						</resource>
+					</webResources>
 					<warSourceExcludes>
 						OCTOPUS/customized.xml
 					</warSourceExcludes>
