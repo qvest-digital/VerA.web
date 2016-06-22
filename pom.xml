@@ -270,6 +270,15 @@
 							<version_version>${project.version}</version_version>
 						</manifestEntries>
 					</archive>
+					<webResources>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/webapp</directory>
+							<includes>
+								<include>artifact-version</include>
+							</includes>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 			<plugin>
