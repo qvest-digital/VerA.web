@@ -59,12 +59,12 @@
 			</div>
 
 			<div class="notBold grayBorder contentBox marginBottom20 bgWhite">
-				<h3>PDF-Generieren</h3>
+				<h3>${placeholderWithTranslation.PDF_GENERATE_LABEL}</h3>
 
 				<form id="PdfGenerateForm" action="${paths.staticWeb}pdftemplate/export" method="GET">
 					<input type="hidden" name="eventId" value="$event.id" />
 					<select id="pdftemplate-combo" name="templateId" style="height: 29px;"></select>
-					<input type="submit" value="PDF-Generieren" title="PDF-Generieren" class="mainButton autoWidth" />
+					<input type="submit" value="${placeholderWithTranslation.PDF_GENERATE_BUTTON}" title="${placeholderWithTranslation.PDF_GENERATE_BUTTON}" class="mainButton autoWidth" />
 				</form>
 			</div>
 
