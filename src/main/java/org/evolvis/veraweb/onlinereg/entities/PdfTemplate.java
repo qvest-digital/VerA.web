@@ -25,7 +25,7 @@ import java.sql.Timestamp;
     @NamedQuery(name = PdfTemplate.GET_PDF_TEMPLATE,
         query = "select p from PdfTemplate p where p.pk=:" + PdfTemplate.PARAM_PDF_ID),
     @NamedQuery(name = PdfTemplate.GET_PDF_TEMPLATE_LIST_BY_ORGUNIT,
-        query = "select p.pk, p.name, p.fk_orgunit from PdfTemplate p where p.fk_orgunit=:" + PdfTemplate.PARAM_PDF_ORGUNIT),
+        query = "select p from PdfTemplate p where p.fk_orgunit=:" + PdfTemplate.PARAM_PDF_ORGUNIT),
     @NamedQuery(name = PdfTemplate.UPDATE_PDF_TEMPLATE,
             query = "update PdfTemplate p set name=:" + PdfTemplate.PARAM_PDF_NAME + " where p.pk=:" + PdfTemplate.PARAM_PDF_ID),
     @NamedQuery(name = PdfTemplate.UPDATE_PDF_TEMPLATE_CONTENT,
