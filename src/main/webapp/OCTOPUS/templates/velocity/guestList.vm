@@ -198,7 +198,7 @@
 
 			<div class="flexContainer marginTop30">
 				<div style="" class="flexItem inlineInput">
-					<label><input type="checkbox" title="${placeholderWithTranslation.alledemarkieren}" id="select-all" name="select-all" style="vertical-align: baseline;" onclick="toggleSelectAll()"> ${placeholderWithTranslation.GENERIC_SELECT_ALL} <span>
+					<label><input type="checkbox" title="${placeholderWithTranslation.alledemarkieren}" id="select-all" name="select-all" style="vertical-align: baseline;" onclick="toggleSelectAll()"> ${placeholderWithTranslation.GENERIC_SELECT_ALL} <span id="guestsOnPages">
 						#if($listparam.count == 1)
 							($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_SINGULAR}
 						#elseif($listparam.count > 1)

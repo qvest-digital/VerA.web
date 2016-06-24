@@ -5,7 +5,8 @@ $(function() {
     $.post(action, form.serialize()) //Serialize looks good name=textInNameInput&&telefon=textInPhoneInput---etc
       .done(function(data) {
         var html = $.parseHTML(data);
-        $("#formlist").replaceWith($(html).find("#formlist"));
+        $("#guestsOnPages").replaceWith($(html).find("#guestsOnPages"));
+        $("#guestListWrapper").replaceWith($(html).find("#guestListWrapper"));
         $("#guestSummary").replaceWith($(html).find("#guestSummary"));
       });
     return false;
