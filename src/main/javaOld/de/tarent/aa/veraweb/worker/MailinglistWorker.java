@@ -31,6 +31,7 @@ import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
+import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
@@ -144,7 +145,9 @@ public class MailinglistWorker {
 
 		if (octopusContext.contentAsObject("search") instanceof GuestSearch){
             final GuestSearch search = (GuestSearch)octopusContext.contentAsObject("search");
-            final Clause clause = Expr.equal("tguest.fk_event", search.event);
+            final WhereList whereList = new WhereList();
+			search.addGuestListFilter(whereList);
+            final Clause clause = whereList;
             return addMailinglistFromGuest(octopusContext, mailinglist, clause);
         }
 		return 0;
