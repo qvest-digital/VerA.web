@@ -204,7 +204,7 @@ public class DataExchangeWorker {
 
                     // Beschränkung auf Kategorie, wenn Benutzer eine ausgewählt hat
                     Integer categoryId = null;
-                    if (EXPORT_FILTER_CATEGORY.equals(filter)) // category == null bedeutet: in irgendeiner Kategorie, = 0 bedeutet: in keiner Kategorie
+                    if (EXPORT_FILTER_CATEGORY.equals(filter)) // category == 0 bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner Kategorie
                         categoryId = category;
 
                     //Den Exporter auf Mandant und Kategorie einschränken. Ist für den CSV-Exporter notwendig, damit keine überflüssigen überschriften erzeugt werden.
@@ -213,9 +213,9 @@ public class DataExchangeWorker {
 
                     // Dann exportieren
                     exporter.startExport();
-                    if (EXPORT_FILTER_EVENT.equals(filter)) // event == null bedeutet: in irgendeiner Veranstaltung, = 0 bedeutet: in keiner Veranstaltung
+                    if (EXPORT_FILTER_EVENT.equals(filter)) // event == 0 bedeutet: in irgendeiner Veranstaltung, = -1 bedeutet: in keiner Veranstaltung
                         exportEvent(database, event, exporter, orgUnit);
-                    else if (EXPORT_FILTER_CATEGORY.equals(filter)) // category == null bedeutet: in irgendeiner Kategorie, = 0 bedeutet: in keiner Kategorie
+                    else if (EXPORT_FILTER_CATEGORY.equals(filter)) // category == 0 bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner Kategorie
                         exportCategory(database, category, exporter, orgUnit);
                     else // guter Default?
                         exportAll(database, exporter, orgUnit);

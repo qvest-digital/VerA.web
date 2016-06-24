@@ -61,7 +61,7 @@
                 </div>
                 <div class="tableRow">
                     <div class="tableCell inlineLabel">
-                        <input type="radio" name="exportFilter" id="exportFilterCategory" value=category" onclick="return filterChanged()">
+                        <input type="radio" name="exportFilter" id="exportFilterCategory" value="category" onclick="return filterChanged()">
                         <label for="exportFilterCategory">
                             ${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}
                         </label>
