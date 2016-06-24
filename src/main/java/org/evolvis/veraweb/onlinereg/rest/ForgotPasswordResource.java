@@ -38,31 +38,12 @@ public class ForgotPasswordResource extends AbstractResource {
             final String uuid = UUID.randomUUID().toString();
             if (person != null && person.getMail_a_e1() != null) {
                 final int personId = person.getPk();
-                addOrUpdatePasswordEntry(personId, session, uuid);
+                addNewLinkUuidEntry(personId, session, uuid);
                 sendResetPasswordLinkEmail(person.getMail_a_e1(), currentLanguageKey, oaEndpoint, uuid);
             }
         } finally {
             session.close();
         }
-    }
-
-    private void addOrUpdatePasswordEntry(Integer personId, Session session, String uuid) {
-        final Query query = session.getNamedQuery("LinkUUID.getLinkUuidByPersonid");
-        query.setParameter("personid", personId);
-        final List<LinkUUID> list = query.list();
-        if (list.size() < 1) {
-            addNewLinkUuidEntry(personId, session, uuid);
-        } else if (list.size() == 1) {
-            updateLinkUuidEntry(personId, session, uuid);
-        }
-
-    }
-
-    private void updateLinkUuidEntry(Integer personId, Session session, String uuid) {
-        final Query query = session.getNamedQuery("LinkUUID.updateUUIDByPersonid");
-        query.setString("uuid", uuid);
-        query.setInteger("personid", personId);
-        query.executeUpdate();
     }
 
     private void addNewLinkUuidEntry(Integer personId, Session session, String uuid) {
