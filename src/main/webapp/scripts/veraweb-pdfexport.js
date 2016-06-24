@@ -12,8 +12,8 @@ $(document).ready(function() {
             $(".successmsg").remove();
             var select = document.getElementById("pdftemplate-combo")
             for (var i = 0; i < data.length; i++) {
-                var pk = data[i].pk;
-                var name = data[i].name;
+                var pk = data[i][0];
+                var name = data[i][1];
                 var option = document.createElement("option");
                 option.value = pk;
                 option.textContent = name;
