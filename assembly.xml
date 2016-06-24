@@ -29,10 +29,6 @@
 			<outputDirectory></outputDirectory>
 		</file>
 		<file>
-			<source>src/main/webapp/OCTOPUS/config_mail_server.xml</source>
-			<outputDirectory></outputDirectory>
-		</file>
-		<file>
 			<source>src/main/webapp/doc/Benutzerhandbuch.pdf</source>
 			<outputDirectory></outputDirectory>
 		</file>
