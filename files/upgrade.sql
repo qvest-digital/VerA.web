@@ -25,7 +25,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2016-06-16';
+	vversion := '2016-06-30';
 
 	-- initialisation
 	vint := 0;
@@ -653,9 +653,26 @@ BEGIN
                 INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
             END IF;
 
+    vnewvsn := '2016-06-30';
+            IF vcurvsn < vnewvsn THEN
+                 vmsg := 'begin.update(' || vnewvsn || ')';
 
+                ALTER TABLE veraweb.timportperson ALTER COLUMN city_a_e1 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.timportperson ALTER COLUMN city_b_e1 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.timportperson ALTER COLUMN city_c_e1 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.timportperson ALTER COLUMN city_a_e2 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.timportperson ALTER COLUMN city_b_e2 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.timportperson ALTER COLUMN city_c_e2 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.timportperson ALTER COLUMN city_a_e3 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.timportperson ALTER COLUMN city_b_e3 TYPE VARCHAR(300);
+                ALTER TABLE veraweb.timportperson ALTER COLUMN city_c_e3 TYPE VARCHAR(300);
 
-
+                 -- post-upgrade
+                 vmsg := 'end.update(' || vnewvsn || ')';
+                 UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+                 vcurvsn := vnewvsn;
+                 INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+            END IF;
 	-- end
 
 	IF vcurvsn <> vversion THEN
