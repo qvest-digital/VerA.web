@@ -39,7 +39,7 @@ module.exports = function($http, $routeParams, expectStatus, $location, $scope, 
   $http.get('api/user/activate/' + $routeParams.activation_token)
     .then(expectStatus('OK'))
     .then(
-      handleResponse('ACTIVATION_USER_MESSAGE_SUCCESS', '/login'),
+      handleResponse('ACTIVATION_USER_MESSAGE_SUCCESS', '/veranstaltungen'),
       handleResponse({
         LINK_INVALID: 'ACTIVATION_USER_MESSAGE_LINK_INVALID',
         LINK_EXPIRED: 'ACTIVATION_USER_MESSAGE_LINK_EXPIRED',
