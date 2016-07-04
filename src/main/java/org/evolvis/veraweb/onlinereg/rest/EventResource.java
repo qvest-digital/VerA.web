@@ -38,17 +38,17 @@ import java.util.List;
 @Path("/event")
 @Produces(MediaType.APPLICATION_JSON)
 public class EventResource extends AbstractResource {
-	private static final String QUERY_FIND_PERSON_ID_BY_USERNAME = "Person.findPersonIdByUsername";
-	private static final String PARAM_USERNAME = "username";
-	private static final String PARAM_UUID = "uuid";
-	private static final String PARAM_EVENT_ID = "eventId";
+    private static final String QUERY_FIND_PERSON_ID_BY_USERNAME = "Person.findPersonIdByUsername";
+    private static final String PARAM_USERNAME = "username";
+    private static final String PARAM_UUID = "uuid";
+    private static final String PARAM_EVENT_ID = "eventId";
 
-	/**
-	 * Getting the list of openned Events
-	 * 
-	 * @return List<Event> List of events
-	 */
-	@Path("/")
+    /**
+     * Getting the list of openned Events
+     * 
+     * @return List<Event> List of events
+     */
+    @Path("/")
     @GET
     public List<Event> listEvents() {
         final Session session = openSession();
@@ -229,18 +229,18 @@ public class EventResource extends AbstractResource {
     @GET
     @Path("/reservelist/status/{eventId}")
     public Boolean isReserveListFull(@PathParam(PARAM_EVENT_ID) Integer eventId) {
-    	return isListFull(eventId, "Event.checkMaxReserveLimit");
+        return isListFull(eventId, "Event.checkMaxReserveLimit");
     }
 
-	/**
-	 * Generalized method for isGuestListFull and isReserveListFull.
-	 * 
-	 * @param eventId
-	 * @param namedQuery
-	 * @return
-	 */
-	private Boolean isListFull(Integer eventId, String namedQuery) {
-		final Session session = openSession();
+    /**
+     * Generalized method for isGuestListFull and isReserveListFull.
+     * 
+     * @param eventId
+     * @param namedQuery
+     * @return
+     */
+    private Boolean isListFull(Integer eventId, String namedQuery) {
+        final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(namedQuery);
             query.setInteger(PARAM_EVENT_ID, eventId);
@@ -255,7 +255,7 @@ public class EventResource extends AbstractResource {
         } finally {
             session.close();
         }
-	}
+    }
     
     /**
      * Get the events associated to a person
@@ -264,7 +264,7 @@ public class EventResource extends AbstractResource {
      * @param personId ID
      * @return List<Event> List of events
      */
-	private List<Event> getUsersEvents(Session session, int personId) {
+    private List<Event> getUsersEvents(Session session, int personId) {
         final Query query = session.getNamedQuery("Event.list.userevents");
         query.setInteger("fk_person", personId);
 
