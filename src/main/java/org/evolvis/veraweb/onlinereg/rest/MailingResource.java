@@ -82,7 +82,6 @@ public class MailingResource extends FormDataResource {
             }
         } catch (final MessagingException e) {
             LOGGER.error("Sending email failed", e);
-            e.printStackTrace();
         } finally {
             removeAttachmentsFromFilesystem(files);
         }
