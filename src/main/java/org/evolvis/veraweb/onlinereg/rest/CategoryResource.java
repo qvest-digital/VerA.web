@@ -42,7 +42,10 @@ import org.hibernate.Session;
 @Produces(MediaType.APPLICATION_JSON)
 public class CategoryResource extends AbstractResource {
 
-    /**
+	private static final String CATEGORY_NAME = "catname";
+	private static final String PERSON_ID = "personId";
+
+	/**
      * Get category id by media representatives uuid and category name.
      *
      * @param catname Category name
@@ -52,21 +55,21 @@ public class CategoryResource extends AbstractResource {
      */
     @GET
     @Path("/{catname}/{uuid}")
-    public Integer getCategoryId(@PathParam("catname") String catname, @PathParam("uuid") String uuid) {
-		final Session session = openSession();
-		try {
-			final Query query = session.getNamedQuery("Category.findIdByCatname");
-			query.setString("catname", catname);
-			query.setString("uuid", uuid);
-			final Integer categoryId = (Integer) query.uniqueResult();
-			if (categoryId != null) {
-				return categoryId;
-			}
-			return 0;
-		} finally {
-			session.close();
-		}
-	}
+    public Integer getCategoryId(@PathParam(CATEGORY_NAME) String catname, @PathParam("uuid") String uuid) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Category.findIdByCatname");
+            query.setString(CATEGORY_NAME, catname);
+            query.setString("uuid", uuid);
+            final Integer categoryId = (Integer) query.uniqueResult();
+            if (categoryId != null) {
+                return categoryId;
+            }
+            return 0;
+        } finally {
+            session.close();
+        }
+    }
 
     /**
      * Get category name by event hash.
@@ -78,19 +81,15 @@ public class CategoryResource extends AbstractResource {
     @GET
     @Path("/fields/list/{eventId}")
     public List<String> getCategoriesByEventId(@PathParam("eventId") int eventId) {
-		final Session session = openSession();
-		try {
-			final Query query = session.getNamedQuery("Category.findCatnamesByEventId");
-			query.setInteger("eventId", eventId);
-
-			final List<String> categoryName = (List<String>) query.list();
-
-			//TODO NULL-Check?
-			return categoryName;
-		} finally {
-			session.close();
-		}
-	}
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Category.findCatnamesByEventId");
+            query.setInteger("eventId", eventId);
+            return (List<String>) query.list();
+        } finally {
+            session.close();
+        }
+    }
 
     /**
      * Get category ID by category name.
@@ -101,19 +100,19 @@ public class CategoryResource extends AbstractResource {
      */
     @GET
     @Path("/identify")
-    public Integer getCategoryIdByCategoryName(@QueryParam("catname") String catname) {
-		final Session session = openSession();
-		try {
-			final Query query = session.getNamedQuery("Category.getCategoryIdByCategoryName");
-			query.setString("catname", catname);
+    public Integer getCategoryIdByCategoryName(@QueryParam(CATEGORY_NAME) String catname) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Category.getCategoryIdByCategoryName");
+            query.setString(CATEGORY_NAME, catname);
 
-			return (Integer) query.uniqueResult();
-		} finally {
-			session.close();
-		}
-	}
+            return (Integer) query.uniqueResult();
+        } finally {
+            session.close();
+        }
+    }
 
-	/**
+    /**
      * Get category name by person ID and Delegation UUID
      * 
      * @param uuid delegation UUID
@@ -123,21 +122,21 @@ public class CategoryResource extends AbstractResource {
     @GET
     @Path("/catname/{uuid}/{personId}")
     public String getCatnameByPersonIdAndDelegationUUID(@PathParam("uuid") String uuid,
-														@PathParam("personId") String personId) {
-		final Session session = openSession();
-		try {
-			final Query query = session.getNamedQuery("Category.findCatnameByUserAndDelegation");
-			query.setString("uuid", uuid);
-			query.setInteger("personId", Integer.parseInt(personId));
-			String catname = (String) query.uniqueResult();
+                                                        @PathParam(PERSON_ID) String personId) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Category.findCatnameByUserAndDelegation");
+            query.setString("uuid", uuid);
+			query.setInteger(PERSON_ID, Integer.parseInt(personId));
+            String catname = (String) query.uniqueResult();
 
-			return catname;
-		} finally {
-			session.close();
-		}
-	}
+            return catname;
+        } finally {
+            session.close();
+        }
+    }
 
-	/**
+    /**
      * Update delegate's category
      * 
      * @param uuid Delegation UUID
@@ -148,87 +147,82 @@ public class CategoryResource extends AbstractResource {
     @Path("update/delegate/category")
     public void updateDelegateCategory(
             @FormParam("uuid") String uuid,
-            @FormParam("personId") Integer personId,
+            @FormParam(PERSON_ID) Integer personId,
             @FormParam("category") String categoryName) {
-		final Session session = openSession();
-		try {
-			final Guest guest = updateGuestCategory(uuid, personId, categoryName, session);
-			final Integer categoryId = guest.getFk_category();
-			updatePersonCategory(personId, session, categoryId);
+        final Session session = openSession();
+        try {
+            final Guest guest = updateGuestCategory(uuid, personId, categoryName, session);
+            final Integer categoryId = guest.getFk_category();
+            updatePersonCategory(personId, session, categoryId);
 
-			session.flush();
-		} finally {
-			session.close();
-		}
-	}
+            session.flush();
+        } finally {
+            session.close();
+        }
+    }
 
-	@GET
-	@Path("person/data")
-	public Integer getCategoryByCatnameAndOrgunit(@QueryParam("catname") String categoryName,
-												  @QueryParam("personId") String personId) {
-		final Session session = openSession();
-		try {
-			final Query queryCategory = session.getNamedQuery("Category.findCategoryByPersonIdAndCatname");
-			queryCategory.setString("catname", categoryName);
-			queryCategory.setInteger("personId", Integer.valueOf(personId));
+    @GET
+    @Path("person/data")
+    public Integer getCategoryByCatnameAndOrgunit(@QueryParam(CATEGORY_NAME) String categoryName,
+                                                  @QueryParam(PERSON_ID) String personId) {
+        final Session session = openSession();
+        try {
+            final Query queryCategory = session.getNamedQuery("Category.findCategoryByPersonIdAndCatname");
+			queryCategory.setString(CATEGORY_NAME, categoryName);
+            queryCategory.setInteger(PERSON_ID, Integer.valueOf(personId));
+            return (Integer) queryCategory.uniqueResult();
+        } finally {
+            session.close();
+        }
+    }
 
-			final Integer category = (Integer) queryCategory.uniqueResult();
+    private void updatePersonCategory(Integer personId, final Session session, Integer categoryId) {
+        if (checkExistingPersonCategory(personId, categoryId, session)) {
+            PersonCategory personCategory = new PersonCategory();
+            personCategory.setFk_person(personId);
+            personCategory.setFk_categorie(categoryId);
+            session.saveOrUpdate(personCategory);
+        }
+    }
 
-			return category;
-		} finally {
-			session.close();
-		}
-	}
+    private Guest updateGuestCategory(String uuid, Integer personId, String categoryName, final Session session) {
+        Integer category = getCategoryByPersonIdAndCatname(personId, categoryName, session);
+        Guest guest = getCurrentGuest(uuid, personId, session);
+        guest.setFk_category(category);
+        session.saveOrUpdate(guest);
 
-	private void updatePersonCategory(Integer personId, final Session session, Integer categoryId) {
-		if (checkExistingPersonCategory(personId, categoryId, session)) {
-			PersonCategory personCategory = new PersonCategory();
-			personCategory.setFk_person(personId);
-			personCategory.setFk_categorie(categoryId);
-			session.saveOrUpdate(personCategory);
-		}
-	}
+        return guest;
+    }
+    
+    private Boolean checkExistingPersonCategory(final Integer personId,
+                                                final Integer categoryId,
+                                                final Session session) {
+        final Query queryCategory = session.getNamedQuery("PersonCategory.personCategoryExists");
+        queryCategory.setInteger(PERSON_ID, personId);
 
-	private Guest updateGuestCategory(String uuid, Integer personId, String categoryName, final Session session) {
-		Integer category = getCategoryByPersonIdAndCatname(personId, categoryName, session);
-		Guest guest = getCurrentGuest(uuid, personId, session);
-		guest.setFk_category(category);
-		session.saveOrUpdate(guest);
+        if (categoryId != null) {
+            queryCategory.setInteger("categoryId", categoryId);
+        } else {
+            return false; // if categoryId is null, then the category can't be an existing for the user.
+        }
 
-		return guest;
-	}
-	
-	private Boolean checkExistingPersonCategory(final Integer personId,
-												final Integer categoryId,
-												final Session session) {
-		final Query queryCategory = session.getNamedQuery("PersonCategory.personCategoryExists");
-		queryCategory.setInteger("personId", personId);
+        return queryCategory.list().isEmpty();
+    }
+    
+    private Integer getCategoryByPersonIdAndCatname(final Integer personId, final String categoryName,
+                                                    final Session session) {
+        final Query queryCategory = session.getNamedQuery("Category.findCategoryByPersonIdAndCatname");
+        queryCategory.setString(CATEGORY_NAME, categoryName);
+        queryCategory.setInteger(PERSON_ID, personId);
 
-		if (categoryId != null) {
-			queryCategory.setInteger("categoryId", categoryId);
-		} else {
-			return false; // if categoryId is null, then the category can't be an existing for the user.
-		}
+		return(Integer) queryCategory.uniqueResult();
+    }
 
-		return queryCategory.list().isEmpty();
-	}
-	
-	private Integer getCategoryByPersonIdAndCatname(final Integer personId, final String categoryName,
-													final Session session) {
-		final Query queryCategory = session.getNamedQuery("Category.findCategoryByPersonIdAndCatname");
-		queryCategory.setString("catname", categoryName);
-		queryCategory.setInteger("personId", personId);
+    private Guest getCurrentGuest(final String uuid, final Integer personId, final Session session) {
+        final Query query = session.getNamedQuery("Guest.findEventIdByDelegationUUIDandPersonId");
+        query.setString("uuid", uuid);
+        query.setInteger(PERSON_ID, personId);
 
-		final Integer category = (Integer) queryCategory.uniqueResult();
-		return category;
-	}
-
-	private Guest getCurrentGuest(final String uuid, final Integer personId, final Session session) {
-		final Query query = session.getNamedQuery("Guest.findEventIdByDelegationUUIDandPersonId");
-		query.setString("uuid", uuid);
-		query.setInteger("personId", personId);
-
-		final Guest guest = (Guest) query.uniqueResult();
-		return guest;
-	}
+        return (Guest) query.uniqueResult();
+    }
 }
