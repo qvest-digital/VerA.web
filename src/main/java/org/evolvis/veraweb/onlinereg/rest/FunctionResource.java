@@ -37,13 +37,13 @@ import org.hibernate.Session;
 @Produces(MediaType.APPLICATION_JSON)
 public class FunctionResource extends AbstractResource {
 
-	/**
-	 * Get function name by event hash
-	 *
-	 * @param eventId
-	 * @return all function names of this event
-	 */
-	@GET
+    /**
+     * Get function name by event hash
+     *
+     * @param eventId
+     * @return all function names of this event
+     */
+    @GET
     @Path("/fields/list/function/{eventId}")
     public List<String> getFunctionsByEventId(@PathParam("eventId") int eventId) {
         final Session session = openSession();
