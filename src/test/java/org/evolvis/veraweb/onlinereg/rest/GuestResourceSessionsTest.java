@@ -79,7 +79,7 @@ public class GuestResourceSessionsTest {
         when(query.uniqueResult()).thenReturn(mock(Guest.class));
 
         // WHEN
-        guestResource.getGuest(1, 1, 0);
+        guestResource.getGuest(1, 1);
 
         // THEN
         verify(sessionFactory, times(1)).openSession();

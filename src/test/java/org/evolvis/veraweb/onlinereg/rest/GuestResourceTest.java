@@ -55,7 +55,7 @@ public class GuestResourceTest extends AbstractResourceTest<GuestResource>{
 
     @Test
     public void testGetGuest() {
-        Guest g = resource.getGuest(1, 1, 0);
+        Guest g = resource.getGuest(1, 1);
 
         assertEquals("note", g.getNotehost());
         assertEquals(0, g.getInvitationstatus().intValue());
