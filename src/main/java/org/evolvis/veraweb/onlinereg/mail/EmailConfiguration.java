@@ -14,8 +14,8 @@ public class EmailConfiguration {
     private String from;
     private String subject;
     private String content;
-    private String subject_reset_password;
-    private String content_reset_password;
+    private String subjectResetPassword;
+    private String contentResetPassword;
     private String contentType;
     private VworPropertiesReader vworPropertiesReader;
 
@@ -32,8 +32,8 @@ public class EmailConfiguration {
                               String subject,
                               String content,
                               String contentType,
-                              String subect_reset_password,
-                              String content_reset_password) {
+                              String subectResetPassword,
+                              String contentResetPassword) {
 
         this.host = host;
         this.port = port;
@@ -43,8 +43,8 @@ public class EmailConfiguration {
         this.from = from;
         this.subject = subject;
         this.content = content;
-        this.subject_reset_password = subect_reset_password;
-        this.content_reset_password = content_reset_password;
+        this.subjectResetPassword = subectResetPassword;
+        this.contentResetPassword = contentResetPassword;
         this.contentType = contentType;
     }
 
@@ -69,9 +69,9 @@ public class EmailConfiguration {
             this.from = propertiesReader.getProperty("mail.smtp.from");
             this.contentType = propertiesReader.getProperty("mail.content.type");
             this.subject = propertiesReader.getProperty("mail.subject." + currentLanguageKey);
-            this.subject_reset_password = propertiesReader.getProperty("mail.subject_reset_password." + currentLanguageKey);
+            this.subjectResetPassword = propertiesReader.getProperty("mail.subject_reset_password." + currentLanguageKey);
             this.content = propertiesReader.getProperty("mail.content." + currentLanguageKey);
-            this.content_reset_password = propertiesReader.getProperty("mail.content_reset_password." + currentLanguageKey);
+            this.contentResetPassword = propertiesReader.getProperty("mail.content_reset_password." + currentLanguageKey);
         }
 
     }
@@ -108,12 +108,12 @@ public class EmailConfiguration {
         return content;
     }
 
-    public String getSubject_reset_password() {
-        return subject_reset_password;
+    public String getSubjectResetPassword() {
+        return subjectResetPassword;
     }
 
-    public String getContent_reset_password() {
-        return content_reset_password;
+    public String getContentResetPassword() {
+        return contentResetPassword;
     }
 
     public VworPropertiesReader getVworPropertiesReader() {

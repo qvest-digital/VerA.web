@@ -14,7 +14,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -63,7 +62,7 @@ public class ForgotPasswordResource extends AbstractResource {
             mailDispatcher = new MailDispatcher(emailConfiguration);
         }
         String link = buildLink(oaEndpoint, uuid);
-        mailDispatcher.sendVerificationEmail(emailConfiguration.getFrom(), toEmail, emailConfiguration.getSubject_reset_password(), emailConfiguration.getContent_reset_password(), link, emailConfiguration.getContentType());
+        mailDispatcher.sendVerificationEmail(emailConfiguration.getFrom(), toEmail, emailConfiguration.getSubjectResetPassword(), emailConfiguration.getContentResetPassword(), link, emailConfiguration.getContentType());
     }
 
     private String buildLink(String oaEndpoint, String uuid) {
