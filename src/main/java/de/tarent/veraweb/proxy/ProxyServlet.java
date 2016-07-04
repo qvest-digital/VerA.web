@@ -1,13 +1,7 @@
 package de.tarent.veraweb.proxy;
 
-import java.io.IOException;
-import java.util.Properties;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import de.tarent.aa.veraweb.utils.PropertiesReader;
+import de.tarent.octopus.server.PersonalConfig;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpException;
 import org.apache.http.HttpRequest;
@@ -24,8 +18,12 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HttpContext;
 
-import de.tarent.aa.veraweb.utils.PropertiesReader;
-import de.tarent.octopus.server.PersonalConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Properties;
 
 public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
     private static final long serialVersionUID = 6744389006703790750L;
@@ -115,7 +113,7 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
             final String[] userGroups = pc.getUserGroups();
             for (final String group : userGroups) {
                 for(final String reqGroup : requiredGroups){
-                    if (group.equals(reqGroup)) {
+                    if (group.equalsIgnoreCase(reqGroup)) {
                         return true;
                     }
                 }
