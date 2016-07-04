@@ -36,61 +36,61 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class GuestDoctypeResource extends AbstractResource {
 
-	/**
-	 * Create guest doctype.
-	 *
-	 * @param guestId Guest id
-	 * @param firstName First name
-	 * @param lastName Last name
-	 * @return The {@link GuestDoctype}
-	 */
-	@POST
-	@Path("/")
-	public GuestDoctype createGuestDoctype(
-			@FormParam("guestId") int guestId,
-			@FormParam("firstName") String firstName,
-			@FormParam("lastName") String lastName) {
-		final int fkDoctype = 1;
-		final int addresstype = 1;
-		final int locale = 1;
-		final Session session = openSession();
+    /**
+     * Create guest doctype.
+     *
+     * @param guestId Guest id
+     * @param firstName First name
+     * @param lastName Last name
+     * @return The {@link GuestDoctype}
+     */
+    @POST
+    @Path("/")
+    public GuestDoctype createGuestDoctype(
+            @FormParam("guestId") int guestId,
+            @FormParam("firstName") String firstName,
+            @FormParam("lastName") String lastName) {
+        final int fkDoctype = 1;
+        final int addresstype = 1;
+        final int locale = 1;
+        final Session session = openSession();
 
-		try {
-			return handleCreateGuestDoctype(guestId,
-					fkDoctype, addresstype, locale, firstName, lastName, session);
-		} finally {
-			session.close();
-		}
-	}
+        try {
+            return handleCreateGuestDoctype(guestId,
+                    fkDoctype, addresstype, locale, firstName, lastName, session);
+        } finally {
+            session.close();
+        }
+    }
 
-	private GuestDoctype handleCreateGuestDoctype(int fkGuest, int fkDoctype, int addresstype, int locale,
-												  String firstname, String lastname, Session session) {
+    private GuestDoctype handleCreateGuestDoctype(int fkGuest, int fkDoctype, int addresstype, int locale,
+                                                  String firstname, String lastname, Session session) {
 
-		final GuestDoctype guestDoctype = new GuestDoctype(fkGuest, fkDoctype, addresstype, locale);
-		guestDoctype.setFirstname(firstname);
-		guestDoctype.setLastname(lastname);
-		final Query query = getSelectGuestDoctypeByDoctypeIdAndPersonIdQuery(guestDoctype, session);
+        final GuestDoctype guestDoctype = new GuestDoctype(fkGuest, fkDoctype, addresstype, locale);
+        guestDoctype.setFirstname(firstname);
+        guestDoctype.setLastname(lastname);
+        final Query query = getSelectGuestDoctypeByDoctypeIdAndPersonIdQuery(guestDoctype, session);
 
-		if (!query.list().isEmpty()) {
-			// user already exists
-			return null;
-		}
+        if (!query.list().isEmpty()) {
+            // user already exists
+            return null;
+        }
 
-		persistGuestDoctype(guestDoctype, session);
-		return guestDoctype;
-	}
+        persistGuestDoctype(guestDoctype, session);
+        return guestDoctype;
+    }
 
-	private void persistGuestDoctype(GuestDoctype guestDoctype, Session session) {
-		session.persist(guestDoctype);
-		session.flush();
-	}
+    private void persistGuestDoctype(GuestDoctype guestDoctype, Session session) {
+        session.persist(guestDoctype);
+        session.flush();
+    }
 
-	private Query getSelectGuestDoctypeByDoctypeIdAndPersonIdQuery(GuestDoctype guestDoctype, Session session) {
+    private Query getSelectGuestDoctypeByDoctypeIdAndPersonIdQuery(GuestDoctype guestDoctype, Session session) {
 
-		final Query query = session
-				.getNamedQuery("GuestDoctype.findByDoctypeIdAndGuestId");
-		query.setInteger("fk_guest", guestDoctype.getFk_guest());
-		query.setInteger("fk_doctype", guestDoctype.getFk_doctype());
-		return query;
-	}
+        final Query query = session
+                .getNamedQuery("GuestDoctype.findByDoctypeIdAndGuestId");
+        query.setInteger("fk_guest", guestDoctype.getFk_guest());
+        query.setInteger("fk_doctype", guestDoctype.getFk_doctype());
+        return query;
+    }
 }
