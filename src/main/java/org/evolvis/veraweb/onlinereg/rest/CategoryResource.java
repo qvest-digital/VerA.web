@@ -42,10 +42,10 @@ import org.hibernate.Session;
 @Produces(MediaType.APPLICATION_JSON)
 public class CategoryResource extends AbstractResource {
 
-	private static final String CATEGORY_NAME = "catname";
-	private static final String PERSON_ID = "personId";
+    private static final String CATEGORY_NAME = "catname";
+    private static final String PERSON_ID = "personId";
 
-	/**
+    /**
      * Get category id by media representatives uuid and category name.
      *
      * @param catname Category name
@@ -127,10 +127,8 @@ public class CategoryResource extends AbstractResource {
         try {
             final Query query = session.getNamedQuery("Category.findCatnameByUserAndDelegation");
             query.setString("uuid", uuid);
-			query.setInteger(PERSON_ID, Integer.parseInt(personId));
-            String catname = (String) query.uniqueResult();
-
-            return catname;
+            query.setInteger(PERSON_ID, Integer.parseInt(personId));
+            return (String) query.uniqueResult();
         } finally {
             session.close();
         }
@@ -168,7 +166,7 @@ public class CategoryResource extends AbstractResource {
         final Session session = openSession();
         try {
             final Query queryCategory = session.getNamedQuery("Category.findCategoryByPersonIdAndCatname");
-			queryCategory.setString(CATEGORY_NAME, categoryName);
+            queryCategory.setString(CATEGORY_NAME, categoryName);
             queryCategory.setInteger(PERSON_ID, Integer.valueOf(personId));
             return (Integer) queryCategory.uniqueResult();
         } finally {
@@ -215,7 +213,7 @@ public class CategoryResource extends AbstractResource {
         queryCategory.setString(CATEGORY_NAME, categoryName);
         queryCategory.setInteger(PERSON_ID, personId);
 
-		return(Integer) queryCategory.uniqueResult();
+        return(Integer) queryCategory.uniqueResult();
     }
 
     private Guest getCurrentGuest(final String uuid, final Integer personId, final Session session) {
