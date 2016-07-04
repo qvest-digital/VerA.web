@@ -69,7 +69,7 @@ public class MailingResource extends FormDataResource {
         final StringBuilder sb = new StringBuilder();
         try {
             if (emailConfiguration == null) {
-                emailConfiguration = initEmailConfiguration("de_DE");
+                emailConfiguration = new EmailConfiguration("de_DE");
             }
             if (mailDispatcher == null) {
                 mailDispatcher = new MailDispatcher(emailConfiguration);
@@ -124,12 +124,6 @@ public class MailingResource extends FormDataResource {
             }
         }
         return files;
-    }
-
-    private EmailConfiguration initEmailConfiguration(final String languageKey) {
-        final EmailConfiguration emailConfiguration = new EmailConfiguration(languageKey);
-
-        return emailConfiguration;
     }
 
     public void setTmpPath(final String tmpPath) {
