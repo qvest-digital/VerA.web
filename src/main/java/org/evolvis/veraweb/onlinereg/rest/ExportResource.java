@@ -1,19 +1,11 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import org.evolvis.veraweb.export.CsvExporter;
+import org.evolvis.veraweb.onlinereg.entities.Event;
+import org.evolvis.veraweb.onlinereg.utils.KeepOpenWriter;
+import org.evolvis.veraweb.onlinereg.utils.VworConstants;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -28,14 +20,19 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import javax.ws.rs.core.UriInfo;
-
-import org.evolvis.veraweb.export.CsvExporter;
-import org.evolvis.veraweb.onlinereg.entities.Event;
-import org.evolvis.veraweb.onlinereg.utils.KeepOpenWriter;
-import org.evolvis.veraweb.onlinereg.utils.VworConstants;
-import org.evolvis.veraweb.util.DelegationPasswordGenerator;
-import org.hibernate.Query;
-import org.hibernate.Session;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 
 /**
