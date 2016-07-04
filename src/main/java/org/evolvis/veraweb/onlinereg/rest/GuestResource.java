@@ -273,8 +273,7 @@ public class GuestResource extends AbstractResource{
             final Query query = session.getNamedQuery("Guest.findEventIdByDelegationUUID");
             query.setString(PARAM_UUID, uuid);
 
-            final Guest guest = (Guest) query.uniqueResult();
-            return guest;
+            return (Guest) query.uniqueResult();
         } finally {
             session.close();
         }
