@@ -65,13 +65,11 @@ public class GuestResource extends AbstractResource{
      *
      * @param eventId Event id
      * @param userId User id
-     * @param reserve 0 = not on reserve, 1 = on reserve
      * @return Guest
      */
     @GET
     @Path("/{eventId}/{userId}")
-    public Guest getGuest(@PathParam(PARAM_EVENT_ID) int eventId, @PathParam(PARAM_USER_ID) int userId,
-                          @QueryParam("reserve") int reserve) {
+    public Guest getGuest(@PathParam(PARAM_EVENT_ID) int eventId, @PathParam(PARAM_USER_ID) int userId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(QUERY_FIND_BY_EVENT_AND_USER);
