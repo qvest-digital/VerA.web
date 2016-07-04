@@ -124,7 +124,7 @@ public class DelegationResource extends AbstractResource {
      * @param fieldContent
      *            Field content
      *
-     * @return TODO
+     * @return {@link Delegation}
      */
     @POST
     @Path("/field/save")
