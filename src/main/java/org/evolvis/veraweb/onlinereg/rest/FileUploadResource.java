@@ -47,9 +47,9 @@ import java.io.IOException;
 @Path("fileupload")
 @Produces(MediaType.APPLICATION_JSON)
 public class FileUploadResource extends AbstractResource {
-	private static final Logger LOGGER = Logger.getLogger(FileUploadResource.class);
-	private static final String FILES_LOCATION = "filesLocation";
-	
+    private static final Logger LOGGER = Logger.getLogger(FileUploadResource.class);
+    private static final String FILES_LOCATION = "filesLocation";
+    
     private VworPropertiesReader vworPropertiesReader;
 
     /**
@@ -74,7 +74,7 @@ public class FileUploadResource extends AbstractResource {
         try {
             image = createTempImage(imageStringData);
         } catch (Exception e) {
-        	LOGGER.error("Could not create temp image", e);
+            LOGGER.error("Could not create temp image", e);
         }
 
         if (extension.equals(VworConstants.EXTENSION_PNG)) {
@@ -98,7 +98,7 @@ public class FileUploadResource extends AbstractResource {
         try {
             encodedImage = getImage(imgUUID);
         } catch (IOException e) {
-        	LOGGER.error("Image not found", e);
+            LOGGER.error("Image not found", e);
             // image not found
             // 1. Delete imageUUID
         }
