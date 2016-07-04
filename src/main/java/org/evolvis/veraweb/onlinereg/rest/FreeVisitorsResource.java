@@ -20,6 +20,7 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.entities.Event;
+import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -59,7 +60,7 @@ public class FreeVisitorsResource extends AbstractResource {
      * Get guest by login_required_uuid
      *
      * @param noLoginRequiredUUID No login required UUD for tguest.login_required_uuid
-     * @return FIXME
+     * @return The {@link Guest}-ID, otherwise -1
      */
     @Path("/noLoginRequired/{noLoginRequiredUUID}")
     @GET
