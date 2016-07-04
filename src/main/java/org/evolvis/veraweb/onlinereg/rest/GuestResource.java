@@ -51,16 +51,16 @@ import java.math.BigInteger;
 @Produces(MediaType.APPLICATION_JSON)
 public class GuestResource extends AbstractResource{
     private static final String PARAM_DELEGATION_UUID = "delegationUUID";
-	private static final String PARAM_GUEST_ID = "guestId";
-	private static final String PARAM_NO_LOGIN_REQUIRED_UUID = "noLoginRequiredUUID";
-	private static final String PARAM_USERNAME = "username";
-	private static final String PARAM_UUID = "uuid";
-	private static final String PARAM_DELEGATION = "delegation";
-	private static final String PARAM_USER_ID = "userId";
-	private static final String PARAM_EVENT_ID = "eventId";
-	private static final String QUERY_FIND_BY_EVENT_AND_USER = "Guest.findByEventAndUser";
+    private static final String PARAM_GUEST_ID = "guestId";
+    private static final String PARAM_NO_LOGIN_REQUIRED_UUID = "noLoginRequiredUUID";
+    private static final String PARAM_USERNAME = "username";
+    private static final String PARAM_UUID = "uuid";
+    private static final String PARAM_DELEGATION = "delegation";
+    private static final String PARAM_USER_ID = "userId";
+    private static final String PARAM_EVENT_ID = "eventId";
+    private static final String QUERY_FIND_BY_EVENT_AND_USER = "Guest.findByEventAndUser";
 
-	/**
+    /**
      * Get guest
      *
      * @param eventId Event id
@@ -341,7 +341,7 @@ public class GuestResource extends AbstractResource{
 
             final BigInteger numberFoundDelegations = (BigInteger) query.uniqueResult();
             if(numberFoundDelegations.intValue() == 1) {
-            	return true;
+                return true;
             }
             return false;
         } finally {
@@ -369,7 +369,7 @@ public class GuestResource extends AbstractResource{
 
             final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
             if(numberOfGuestsFound.intValue() > 0) {
-            	return true;
+                return true;
             }
             return false;
         } finally {
@@ -402,19 +402,19 @@ public class GuestResource extends AbstractResource{
     @Path("/registered/accept/{username}/{eventId}")
     public Boolean isUserRegisteredintoEventToAccept(@PathParam(PARAM_USERNAME) String username,
                                                      @PathParam(PARAM_EVENT_ID) Integer eventId) {
-    	return isUserRegistered(username, eventId, "Guest.checkUserRegistrationToAccept");
+        return isUserRegistered(username, eventId, "Guest.checkUserRegistrationToAccept");
     }
 
-	/**
-	 * Generalized method for isUserRegisteredintoEvent and isUserRegisteredintoEventToAccept.
-	 * 
-	 * @param username
-	 * @param eventId
-	 * @param namedQuery
-	 * @return
-	 */
-	private Boolean isUserRegistered(String username, Integer eventId, String namedQuery) {
-		final Session session = openSession();
+    /**
+     * Generalized method for isUserRegisteredintoEvent and isUserRegisteredintoEventToAccept.
+     * 
+     * @param username
+     * @param eventId
+     * @param namedQuery
+     * @return
+     */
+    private Boolean isUserRegistered(String username, Integer eventId, String namedQuery) {
+        final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(namedQuery);
             query.setString(PARAM_USERNAME, username);
@@ -422,13 +422,13 @@ public class GuestResource extends AbstractResource{
 
             final BigInteger numberOfGuestsFound = (BigInteger) query.uniqueResult();
             if(numberOfGuestsFound.intValue() > 0) {
-            	return true;
+                return true;
             }
             return false;
         } finally {
             session.close();
         }
-	}
+    }
     
     /**
      * Checking if the current user is registered into the event
@@ -485,18 +485,18 @@ public class GuestResource extends AbstractResource{
                                 @FormParam("hostNode") String hostNode,
                                 @FormParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
-		try {
+        try {
             //0 = not in reserve list
             final Guest guest = initGuest(uuid, eventId, userId, invitationstatus, invitationtype, gender, category,
                     username, hostNode, 0);
 
             session.save(guest);
-			session.flush();
+            session.flush();
 
-			return guest;
-		} finally {
-			session.close();
-		}
+            return guest;
+        } finally {
+            session.close();
+        }
     }
 
     /**
