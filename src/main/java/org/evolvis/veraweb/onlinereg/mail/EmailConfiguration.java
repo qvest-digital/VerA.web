@@ -132,9 +132,9 @@ public class EmailConfiguration {
     }
 
     public String getFrom(int fk_orgunit) {
-        final String from = getVworPropertiesReader().getProperty("mail.smtp.from." + fk_orgunit);
-        if (from != null) {
-            return from;
+        final String fromProperty = getVworPropertiesReader().getProperty("mail.smtp.from." + fk_orgunit);
+        if (fromProperty != null) {
+            return fromProperty;
         }
         return getFrom();
     }
