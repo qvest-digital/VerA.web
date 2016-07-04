@@ -86,36 +86,6 @@ public class VerifyWorker {
 		}
 	}
 
-	/** Octopus-Eingabeparameter für die Action {@link #verifyDatabase(OctopusContext)} */
-	public final static String INPUT_verifyDatabase[] = {};
-
-	/**
-	 * Testet ob der Connection-Pool korrekt geöffnet wurde.
-	 *
-	 * @param cntx Octopus-Context
-	 */
-	public void verifyDatabase(OctopusContext cntx) {
-		LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-		LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
-		if (!DB.hasPool(cntx.getModuleName())) {
-			addError(cntx, languageProvider.getProperty("VERIFY_ERROR_ACCESS_TO_DB_UNABLE"));
-		} else {
-			try {
-				Connection connection = DB.getConnection(cntx.getModuleName());
-				if (connection == null || connection.isClosed()) {
-					addWarning(cntx, languageProvider.getProperty("VERIFY_ERROR_ACCESS_TO_DB_INTERRUPTED"));
-				} else {
-					connection.close();
-					if (!connection.isClosed()) {
-						addWarning(cntx, languageProvider.getProperty("VERIFY_ERROR_ACCESS_TO_DB_NOT_INTERRUPTED"));
-					}
-				}
-			} catch (SQLException e) {
-				addError(cntx, languageProvider.getProperty("VERIFY_ERROR_DB_NOT_ACCESSIBLE"));
-			}
-		}
-	}
-
 	/** Octopus-Eingabeparameter für die Action {@link #verifySchemaVersion(OctopusContext)} */
 	public final static String INPUT_verifySchemaVersion[] = {};
 	/**

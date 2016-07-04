@@ -133,11 +133,9 @@
 				auskommentiert werden. Ein reibungsloser Ablauf
 				kann dann nicht mehr gewährleistet werden.
 			</description>
-			<action name="verifyDatabase" worker="VerifyWorker"/>
 			<action name="getDatabaseCharset" worker="VerifyWorker"/>
 			<action name="verifySchemaVersion" worker="VerifyWorker"/>
 			<action name="verifyXMLTransformer" worker="VerifyWorker"/>
-			<!--action name="verifyJavaVersion" worker="VerifyWorker"/-->
 		</task>
 
 		<!-- LOGIN und DEFAULT Task. -->
