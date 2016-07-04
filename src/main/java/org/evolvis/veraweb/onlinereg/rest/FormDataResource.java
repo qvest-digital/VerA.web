@@ -2,9 +2,12 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 import org.glassfish.jersey.media.multipart.BodyPartEntity;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
-import org.jboss.logging.Logger;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -12,7 +15,7 @@ import java.nio.file.Paths;
  * Created by eugen on 16.06.16.
  */
 public class FormDataResource extends AbstractResource {
-    
+
     protected String tmpPath = System.getProperty("java.io.tmpdir");
 
     File saveTempFile(final FormDataBodyPart part) throws IOException {
