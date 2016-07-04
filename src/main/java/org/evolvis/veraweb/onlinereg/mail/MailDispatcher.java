@@ -1,10 +1,6 @@
 package org.evolvis.veraweb.onlinereg.mail;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
+import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -16,16 +12,16 @@ import javax.mail.Multipart;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.event.ConnectionEvent;
-import javax.mail.event.ConnectionListener;
-import javax.mail.event.TransportListener;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MailDateFormat;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-
-import org.evolvis.veraweb.onlinereg.utils.VworConstants;
+import java.io.File;
+import java.util.Date;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
