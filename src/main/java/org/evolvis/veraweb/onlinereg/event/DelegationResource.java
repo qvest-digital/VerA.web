@@ -658,8 +658,6 @@ public class DelegationResource {
         final Form postBody = createDelegatePostBodyContent(companyName, eventId, firstname, lastname, gender, username, function);
         final Person person = personResource.post(Person.class, postBody);
 
-        createPersonDoctype(person);
-
         return person.getPk();
     }
 
@@ -694,8 +692,6 @@ public class DelegationResource {
         final Integer categoryId = persistPersonCategory(personId, category);
         final Guest guest = persistGuest(uuid, eventId, personId, gender, username, categoryId);
 
-        createGuestDoctype(guest.getPk(), firstName, lastName);
-
         return guest;
     }
 
@@ -715,13 +711,6 @@ public class DelegationResource {
         final Form postBody = createGuestPostBodyContent(eventId, personId, gender, username, categoryId);
 
         return resource.post(Guest.class, postBody);
-    }
-
-    private void createGuestDoctype(int guestId, String firstName, String lastName) {
-        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
-        final Form postBody = createGuestDoctypePostBodyContent(guestId, firstName, lastName);
-
-        resource.post(postBody);
     }
 
     private void saveOptionalField(Integer guestId, Integer fieldId, String fieldContent) {
