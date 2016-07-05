@@ -48,6 +48,7 @@ import de.tarent.octopus.server.OctopusContext;
 public class MailinglistDetailWorker extends ListWorkerVeraWeb {
     /** Logger dieser Klasse */
     public static Logger logger = Logger.getLogger(MailinglistDetailWorker.class.getName());
+    private Integer MAX_MAIL_TO_LENGTH = 1024;
 
     //
     // Konstruktoren
@@ -153,12 +154,12 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
 
     /**
      * Eingabe-Parameter der Octopus-Aktion
-     * {@link #getAddressList(OctopusContext, Mailinglist, Integer)}
+     * {@link #getAddressList(OctopusContext, Mailinglist)}
      */
-    public static final String INPUT_getAddressList[] = { "CONTENT:mailinglist", "CONFIG:mailToUrlMaxSize" };
+    public static final String INPUT_getAddressList[] = { "CONTENT:mailinglist" };
     /**
      * Ausgabe-Parameter der Octopus-Aktion
-     * {@link #getAddressList(OctopusContext, Mailinglist, Integer)}
+     * {@link #getAddressList(OctopusContext, Mailinglist)}
      */
     public static final String OUTPUT_getAddressList = "mailAddresses";
 
@@ -172,13 +173,11 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
      *            Octopus-Kontext
      * @param mailinglist
      *            Mailingliste
-     * @param mailToUrlMaxSize
-     *            Maximallänge einer mailto-URL
      * @return Liste mit mailto-URLs zu der Mailingliste
      * @throws BeanException
      * @throws IOException
      */
-    public List getAddressList(final OctopusContext cntx, final Mailinglist mailinglist, final Integer mailToUrlMaxSize) throws BeanException,
+    public List getAddressList(final OctopusContext cntx, final Mailinglist mailinglist) throws BeanException,
     IOException {
         final Database database = getDatabase(cntx);
 
@@ -198,7 +197,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
 
             if (str != null && str.length() != 0) {
                 // Länge der URL darf nicht zu groß werden
-                if (mailToUrlMaxSize.intValue() != -1 && !first && addresses.length() + str.length() + 5 > mailToUrlMaxSize.intValue()) {
+                if (MAX_MAIL_TO_LENGTH.intValue() != -1 && !first && addresses.length() + str.length() + 5 > MAX_MAIL_TO_LENGTH.intValue()) {
                     addressList.add(addresses.toString());
                     addresses = new StringBuffer();
                     first = true;
