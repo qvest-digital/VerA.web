@@ -33,11 +33,12 @@ class MailTemplateResourceTest extends Specification {
             query.uniqueResult() >> Mock(MailTemplate)
 
         when:
-            mailTemplateResource.getMailTemplate(1)
+            def response = mailTemplateResource.getMailTemplate(1)
 
         then:
             session != null
             1 * session.close()
+            assert response.status == 200
     }
 
     void testGetMailTemplateNotFound() {
