@@ -39,8 +39,6 @@
 
     	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
 
-			<div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
-
 			<div class="table width100">
 				<div class="tableRow">
 					<div class="tableCell width70">
@@ -106,12 +104,7 @@
 								#end
 
                			</div>
-                        <div class="marginTop20">
-                        			<label for="mail-name">${placeholderWithTranslation.neuevorlagename}*</label>
-                        			<input type="text" id="mail-name" name="mail-name" value="$!message.text($mail.name)">
-                        			<input type="button" name="savedraft" value="${placeholderWithTranslation.neuevorlagespeichern}" title="${placeholderWithTranslation.neuevorlagespeichern}" onclick="document.getElementById('savedraft').value='true'; document.getElementById('formlist').submit();" class="autoWidth">
-                                    <p class="mandatoryText"><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong> ${placeholderWithTranslation.neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten}.</p>
-                        </div>
+
                         <br/><br/>
 
                         <input type="file" id="JMultiFileUpload" name="files"/>
