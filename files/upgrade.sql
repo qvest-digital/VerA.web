@@ -25,7 +25,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2016-07-01';
+	vversion := '2016-07-08';
 
 	-- initialisation
 	vint := 0;
@@ -638,7 +638,7 @@ BEGIN
                 INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
             END IF;
 
-    vnewvsn := '2016-07-01';
+    vnewvsn := '2016-07-08';
             IF vcurvsn < vnewvsn THEN
                 vmsg := 'begin.update(' || vnewvsn || ')';
 
