@@ -1942,3 +1942,6 @@ PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE=Es muss eine PDF-Datei ausgew\u00E4hlt werden
 PDF_TEMPLATE_LIST_NOT_LOAD=Liste der PDF-Vorlagen konnte nicht geladen werden
 PDF_GENERATE_BUTTON=G\u00E9n\u00E9rer des PDF
 PDF_GENERATE_LABEL=PDF export
+
+LOAD_MAILTEMPLATE_FAILED = Chargement email mod\u00E8le a \u00E9chou\u00E9
+SELECT_MAILTEMPLATE = S'il vous pla\u00EEt s\u00E9lectionner email mod\u00E8le

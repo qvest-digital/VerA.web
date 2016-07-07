@@ -1941,3 +1941,6 @@ PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE=Es muss eine PDF-Datei ausgew\u00E4hlt werden
 PDF_TEMPLATE_LIST_NOT_LOAD=Liste der PDF-Vorlagen konnte nicht geladen werden
 PDF_GENERATE_BUTTON=Generar PDF
 PDF_GENERATE_LABEL=Exportaci\u00F3n a PDF
+
+LOAD_MAILTEMPLATE_FAILED = Cargando plantilla de correo electr\u00F3nico no
+SELECT_MAILTEMPLATE = Por favor, seleccione la plantilla de correo electr\u00F3nico

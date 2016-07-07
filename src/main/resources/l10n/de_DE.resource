@@ -1904,3 +1904,6 @@ PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE=Es muss eine PDF-Datei ausgew\u00E4hlt werden
 PDF_TEMPLATE_LIST_NOT_LOAD=Liste der PDF-Vorlagen konnte nicht geladen werden
 PDF_GENERATE_BUTTON=PDF generieren
 PDF_GENERATE_LABEL=PDF-Export
+
+LOAD_MAILTEMPLATE_FAILED = Die E-Mail Vorlage konnte nicht geladen werden
+SELECT_MAILTEMPLATE = Bitte w\u00E4hlen Sie eine E-Mail Vorlage aus

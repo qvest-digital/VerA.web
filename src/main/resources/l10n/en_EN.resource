@@ -1933,3 +1933,6 @@ PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE=A PDF File can not be empty
 PDF_TEMPLATE_LIST_NOT_LOAD=PDF templates list could not be load
 PDF_GENERATE_BUTTON=Generate PDF
 PDF_GENERATE_LABEL=PDF-Export
+
+LOAD_MAILTEMPLATE_FAILED = Loading e-mail template failed
+SELECT_MAILTEMPLATE = Please select email template
