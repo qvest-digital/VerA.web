@@ -25,7 +25,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2016-06-30';
+	vversion := '2016-07-07';
 
 	-- initialisation
 	vint := 0;
@@ -667,6 +667,19 @@ BEGIN
                 ALTER TABLE veraweb.timportperson ALTER COLUMN city_b_e3 TYPE VARCHAR(300);
                 ALTER TABLE veraweb.timportperson ALTER COLUMN city_c_e3 TYPE VARCHAR(300);
 
+                 -- post-upgrade
+                 vmsg := 'end.update(' || vnewvsn || ')';
+                 UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+                 vcurvsn := vnewvsn;
+                 INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+            END IF;
+
+    vnewvsn := '2016-07-07';
+            IF vcurvsn < vnewvsn THEN
+                 vmsg := 'begin.update(' || vnewvsn || ')';
+
+                ALTER TABLE veraweb.tguest_doctype ALTER COLUMN city TYPE VARCHAR(300);
+                
                  -- post-upgrade
                  vmsg := 'end.update(' || vnewvsn || ')';
                  UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
