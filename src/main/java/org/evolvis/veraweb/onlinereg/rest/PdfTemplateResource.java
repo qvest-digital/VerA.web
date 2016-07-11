@@ -3,6 +3,7 @@ package org.evolvis.veraweb.onlinereg.rest;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfCopy;
+import com.lowagie.text.pdf.PdfFormField;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import org.apache.commons.io.FileUtils;
@@ -251,6 +252,7 @@ public class PdfTemplateResource extends FormDataResource {
         //iterate over all field in "pdfTemplateFilename"
         for (Map.Entry<String, ?> fieldInTemplate : ((HashMap<String, ?>) pdfStamper.getAcroFields().getFields()).entrySet()) {
             pdfStamper.getAcroFields().setField(fieldInTemplate.getKey(), substitutions.get(fieldInTemplate.getKey()));
+            pdfStamper.getAcroFields().setFieldProperty(fieldInTemplate.getKey(), "setfflags", PdfFormField.FF_READ_ONLY, null);
         }
 
         pdfStamper.close();
