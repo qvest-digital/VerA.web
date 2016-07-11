@@ -896,7 +896,7 @@ e-mail-clientaufrufen=Appel client E -mail
 mailclient_other=Autre client de messagerie
 mailclient_msoutlook=Microsoft Outlook
 verteilerverschickt=Le distributeur a \u00E9t\u00E9 envoy\u00E9 avec succ\u00E8s.
-verteilerfehler=Le distributeur n'a pas pu \u00EAtre envoy\u00E9 avec succ\u00E8s, r\u00E9essayer plus tard.
+verteilerfehler=Le distributeur n\u0027a pas pu \u00EAtre envoy\u00E9 avec succ\u00E8s, r\u00E9essayer plus tard.
 
 # FEHLEND
 zurstartseite=Page d\u2019accueil
@@ -1389,6 +1389,7 @@ MESSAGE_PERSON_NO_NAME_LAST_NAME=Vous devez sp\u00E9cifier un pr\u00E9nom et un 
 MESSAGE_PERSON_NO_NAME=Vous devez sp\u00E9cifier un pr\u00E9nom.
 MESSAGE_PERSON_NO_LASTNAME=Vous devez sp\u00E9cifier un nom.
 MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=Impossible d\u2019enregistrer la connexion entre la personne et la cat\u00E9gorie.
+MESSAGE_PERSON_MAIL_NOT_VALID=Le format d\u0027adresse e-mail est incorrecte !
 MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=Le connecteur peut \u00EAtre jusqu\u2019\u00E0 50 caract\u00E8res de long.
 MESSAGE_PROXY_NO_REPRESENTATIVE=Vous devez entrer un repr\u00E9sentant.
 MESSAGE_PROXY_NO_ROLE=Vous devez entrer un r\u00F4le.
@@ -1944,4 +1945,4 @@ PDF_GENERATE_BUTTON=G\u00E9n\u00E9rer des PDF
 PDF_GENERATE_LABEL=PDF export
 
 LOAD_MAILTEMPLATE_FAILED = Chargement email mod\u00E8le a \u00E9chou\u00E9
-SELECT_MAILTEMPLATE = S'il vous pla\u00EEt s\u00E9lectionner email mod\u00E8le
+SELECT_MAILTEMPLATE = S\u0027il vous pla\u00EEt s\u00E9lectionner email mod\u00E8le

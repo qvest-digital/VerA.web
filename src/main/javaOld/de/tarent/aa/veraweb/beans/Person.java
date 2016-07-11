@@ -22,6 +22,7 @@ package de.tarent.aa.veraweb.beans;
 import java.sql.Timestamp;
 
 import de.tarent.aa.veraweb.utils.VerawebMessages;
+import de.tarent.aa.veraweb.utils.VerawebUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 
 import de.tarent.aa.veraweb.beans.facade.AbstractMember;
@@ -312,8 +313,13 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
             addError(messages.getMessagePersonMaxLastnameReached());
         }
 
+        //mail checks
         if (mail_a_e1 == null || mail_a_e1.equals("")){
             addError(messages.getMessageNoMail());
+        }
+
+        if (!VerawebUtils.isValidEmailAddress(mail_a_e1)){
+            addError(messages.getMessageNotValidMail());
         }
 
         if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {

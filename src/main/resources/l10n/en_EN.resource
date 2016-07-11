@@ -1383,6 +1383,7 @@ MESSAGE_PERSON_NO_NAME_LAST_NAME=You need to provide a first- and last name.
 MESSAGE_PERSON_NO_NAME=You need to provide a first name.
 MESSAGE_PERSON_NO_LASTNAME=You need to provide a last name.
 MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=Connection between person and category can not be saved.
+MESSAGE_PERSON_MAIL_NOT_VALID=Provided email-address is not valid.
 MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=The connector is limited to 50 characters.
 MESSAGE_PROXY_NO_REPRESENTATIVE=You need to assign a representative.
 MESSAGE_PROXY_NO_ROLE=You need to provide a role.
@@ -1931,7 +1932,7 @@ GM_PDF_TEMPLATE_INSERT_N=No new PDF templates were created
 PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE=Name of template can not be empty
 PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE=A PDF File can not be empty
 PDF_TEMPLATE_LIST_NOT_LOAD=PDF templates list could not be load
-PDF_GENERATE_BUTTON=Generate PDF
+PDF_GENERATE_BUTTON=Generate PDF35
 PDF_GENERATE_LABEL=PDF-Export
 
 LOAD_MAILTEMPLATE_FAILED = Loading e-mail template failed

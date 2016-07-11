@@ -146,6 +146,10 @@ public class VerawebMessages {
         return languageProvider.getProperty("MESSAGE_PERSON_NO_MAIL");
     }
 
+    public String getMessageNotValidMail() {
+        return languageProvider.getProperty("MESSAGE_PERSON_MAIL_NOT_VALID");
+    }
+
     public String getMessageNoName() {
         return languageProvider.getProperty("MESSAGE_PERSON_NO_NAME");
     }
