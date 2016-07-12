@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -49,7 +50,20 @@ public class MailingResource extends FormDataResource {
         final List<PersonMailinglist> recipients = getRecipients(mailinglistId);
 
         final Map<String, File> files = getFiles(formData.getFields("files"));
-        final String msg = sendEmails(recipients, subject, text, files);
+        final String msg;
+
+        try {
+            msg = sendEmails(recipients, subject, text, files);
+        } catch (AddressException e) {
+            LOGGER.error("Email-Adress is not valid", e);
+            return  Response.status(Status.BAD_REQUEST).build();
+        } catch (final MessagingException e) {
+            LOGGER.error("Sending email failed", e);
+            return  Response.status(Status.BAD_GATEWAY).build();
+        } finally {
+            removeAttachmentsFromFilesystem(files);
+        }
+
         return Response.status(Status.OK).entity(msg).build();
     }
 
@@ -65,25 +79,20 @@ public class MailingResource extends FormDataResource {
         }
     }
 
-    private String sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text, final Map<String, File> files) {
+    private String sendEmails(final List<PersonMailinglist> recipients, final String subject, final String text,
+                              final Map<String, File> files) throws MessagingException {
         final StringBuilder sb = new StringBuilder();
-        try {
-            if (emailConfiguration == null) {
-                emailConfiguration = new EmailConfiguration("de_DE");
-            }
-            if (mailDispatcher == null) {
-                mailDispatcher = new MailDispatcher(emailConfiguration);
-            }
-            for (final PersonMailinglist recipient : recipients) {
-                final String from = getFrom(recipient);
-                final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(), subject,
-                        substitutePlaceholders(text, recipient.getPerson()), files);
-                sb.append(monitor.toString());
-            }
-        } catch (final MessagingException e) {
-            LOGGER.error("Sending email failed", e);
-        } finally {
-            removeAttachmentsFromFilesystem(files);
+        if (emailConfiguration == null) {
+            emailConfiguration = new EmailConfiguration("de_DE");
+        }
+        if (mailDispatcher == null) {
+            mailDispatcher = new MailDispatcher(emailConfiguration);
+        }
+        for (final PersonMailinglist recipient : recipients) {
+            final String from = getFrom(recipient);
+            final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(), subject,
+                    substitutePlaceholders(text, recipient.getPerson()), files);
+            sb.append(monitor.toString());
         }
         return sb.toString();
     }
