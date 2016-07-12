@@ -78,6 +78,12 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     /** Vorgabewert: Feldtrennzeichen */
     public final static char DEFAULT_FIELD_SEPARATOR = ';';
 
+    /** Vorgabewert: Feldtrennzeichen Alternative 1*/
+    public final static char ALT1_FIELD_SEPARATOR = '|';
+
+    /** Vorgabewert: Feldtrennzeichen Alternative 2*/
+    public final static char ALT2_FIELD_SEPARATOR = '~';
+
     /** Vorgabewert: Quote-Zeichen */
     public final static char DEFAULT_TEXT_QUALIFIER = '"';
 
@@ -184,10 +190,18 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
         csvFieldNames = new ArrayList(fieldMapping.getTargets());
         Collections.sort(csvFieldNames);
 
+        //sollte der Feld Seperator in den Spaltennamen auftauchen, so wird er hier durch eine von zwei Alternativen ersetzt
+        for (int i = 0; i < csvFieldNames.size(); i++) {
+            csvFieldNames.set(i,csvFieldNames.get(i).toString().replace(fieldSeparator, getAlternativeFieldSeparator()));
+        }
+
         if (!export)
             fieldMapping = fieldMapping.invert();
     }
 
+    private char getAlternativeFieldSeparator(){
+        return (Character.compare(fieldSeparator,ALT1_FIELD_SEPARATOR) != 0) ? ALT1_FIELD_SEPARATOR : ALT2_FIELD_SEPARATOR;
+    }
     /**
      * Diese Methode liefert die Menge der verfügbaren Felder.
      *
