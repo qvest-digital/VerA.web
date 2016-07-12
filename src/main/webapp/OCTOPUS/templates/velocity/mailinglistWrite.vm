@@ -4,6 +4,10 @@
 #set($entity="DISTRIBUTOR")
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_PLURAL}")
+#set($errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}")
+#set($errorMsgAddress = "${placeholderWithTranslation.ADDRESS_ERROR}")
+#set($errorMsgVerteiler = "${placeholderWithTranslation.verteilerfehler}")
+
 #parse("inc/header.vm")
 
 <div data-loadmailtemplate="${paths.staticWeb}mailtemplate" id="loadmailtemplate"></div>
@@ -176,12 +180,22 @@
 		    	displaySpinner();
 				disableSubmitButton();
 		    },
- 			error: function(){
-  				alert("${placeholderWithTranslation.verteilerfehler}");
+ 			error: function(response){
+				$(".errormsg").remove();
+
+				if (response.status === 400) {
+					showWarning('$errorMsgAddress');
+				} else if (response.status === 502) {
+					showWarning('$errorMsgVerteiler');
+				} else {
+					showWarning('$errorMsg');
+				}
   				hideSpinner();
   				enableSubmitButton();
 			},
 			success: function () {
+				$(".errormsg").remove();
+
 			    hideSpinner();
 				enableSubmitButton();
 

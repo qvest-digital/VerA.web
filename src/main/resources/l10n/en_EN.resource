@@ -1937,3 +1937,5 @@ PDF_GENERATE_LABEL=PDF-Export
 
 LOAD_MAILTEMPLATE_FAILED = Loading e-mail template failed
 SELECT_MAILTEMPLATE = Please select email template
+
+ADDRESS_ERROR = At least one e-amil adress contains errors! The distribution was not sent successfully. Pleas correct the wrong adresses!
