@@ -56,7 +56,7 @@ public class MailingResource extends FormDataResource {
             msg = sendEmails(recipients, subject, text, files);
         } catch (AddressException e) {
             LOGGER.error("Email-Adress is not valid", e);
-            return  Response.status(Status.BAD_REQUEST).build();
+            return  Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
         } catch (final MessagingException e) {
             LOGGER.error("Sending email failed", e);
             return  Response.status(Status.BAD_GATEWAY).build();
@@ -88,12 +88,28 @@ public class MailingResource extends FormDataResource {
         if (mailDispatcher == null) {
             mailDispatcher = new MailDispatcher(emailConfiguration);
         }
+
+        boolean thrownAddressException = false;
+
         for (final PersonMailinglist recipient : recipients) {
             final String from = getFrom(recipient);
-            final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(), subject,
-                    substitutePlaceholders(text, recipient.getPerson()), files);
-            sb.append(monitor.toString());
+            try {
+                final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(), subject,
+                        substitutePlaceholders(text, recipient.getPerson()), files);
+                sb.append(monitor.toString());
+            } catch (AddressException e) {
+                LOGGER.error("Email-Adress is not valid" + recipient.getAddress(), e);
+                // #VERA-382: der String mit "ADDRESS_SYNTAX_NOT_CORRECT:" wird in veraweb-core/mailinglistWrite.vm
+                // zum parsen der Fehlerhaften E-Mail Adressen verwendet. Bei Änderungen also auch anpassen.
+                sb.append("ADDRESS_SYNTAX_NOT_CORRECT:" + recipient.getAddress()+"\n\n");
+                thrownAddressException = true;
+            }
         }
+
+        if (thrownAddressException) {
+            throw new AddressException(sb.toString());
+        }
+
         return sb.toString();
     }
 
