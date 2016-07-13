@@ -1909,4 +1909,4 @@ PDF_GENERATE_LABEL=PDF-Export
 LOAD_MAILTEMPLATE_FAILED = Die E-Mail Vorlage konnte nicht geladen werden
 SELECT_MAILTEMPLATE = Bitte w\u00E4hlen Sie eine E-Mail Vorlage aus
 
-ADDRESS_ERROR = Mindestens eine E-Mail-Adresse dieses Verteilers ist fehlerhaft! Der Verteiler kann so nicht versandt werden. Bitte kontrollieren Sie die E-Mail-Adressen aus diesem Verteiler und korrigieren Sie diese gegebenenfalls!
+ADDRESS_ERROR = Die Email wurde an den Verteiler versendet. Mindestens eine E-Mail-Adresse dieses Verteilers ist jedoch fehlerhaft gewesen. Der Verteiler konnte an diese E-Mail-Adresse(n) nicht versendet werden. Bitte kontrollieren und korrigieren Sie die folgenden E-Mail-Adresse(n):

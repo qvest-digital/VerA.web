@@ -184,7 +184,18 @@
 				$(".errormsg").remove();
 
 				if (response.status === 400) {
-					showWarning('$errorMsgAddress');
+
+					var arr = response.responseText.split("\n");
+                    var text = '$errorMsgAddress' + "<br><br>";
+                    for (i = 0; i < arr.length; i++) {
+                        var syntax = arr[i].indexOf("ADDRESS_SYNTAX_NOT_CORRECT:");
+                        if(syntax != -1){
+                            var mail = arr[i].indexOf(":");
+                            text += arr[i].substring(mail+1) + "<br>";
+                        }
+                    }
+
+					showWarning(text);
 				} else if (response.status === 502) {
 					showWarning('$errorMsgVerteiler');
 				} else {

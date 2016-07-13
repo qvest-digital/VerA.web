@@ -1936,6 +1936,6 @@ PDF_GENERATE_BUTTON=Generate PDF35
 PDF_GENERATE_LABEL=PDF-Export
 
 LOAD_MAILTEMPLATE_FAILED = Loading e-mail template failed
-SELECT_MAILTEMPLATE = Please select email template
+SELECT_MAILTEMPLATE = Please select e-mail template
 
-ADDRESS_ERROR = At least one e-amil adress contains errors! The distribution was not sent successfully. Pleas correct the wrong adresses!
+ADDRESS_ERROR = E-mails sent successfully. At least one e-mail address contained errors! The distribution was not sent to the following e-mail address(es). Pleas correct the wrong address(es):
