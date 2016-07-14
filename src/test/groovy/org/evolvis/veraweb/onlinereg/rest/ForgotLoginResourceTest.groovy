@@ -12,15 +12,15 @@ import javax.mail.Transport
 import javax.servlet.ServletContext
 
 /**
- * @author Atanas Alexandrov, tarent solutions GmbH
+ * @author Max Weierstall, tarent solutions GmbH
  */
-class ForgotPasswordResourceTest extends Specification {
+class ForgotLoginResourceTest extends Specification {
 
     ServletContext context = Mock(ServletContext)
     SessionFactory sessionFactory = Mock(SessionFactory)
     Session session = Mock(Session)
     def dispatcher
-    def forgotPasswordResource
+    def forgotLoginResource
 
     def transport = Mock(Transport)
 
@@ -30,26 +30,22 @@ class ForgotPasswordResourceTest extends Specification {
         dispatcher.setTransport(transport)
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
-        forgotPasswordResource = new ForgotPasswordResource(mailDispatcher: dispatcher, context: context, emailConfiguration: emailConfiguration)
+        forgotLoginResource = new ForgotLoginResource(mailDispatcher: dispatcher, context: context, emailConfiguration: emailConfiguration)
     }
 
-    public void "request reset password link successfull"() {
+    public void testResendLogin() {
         given:
-            Query query1 = Mock(Query)
-            Query query2 = Mock(Query)
-            Query query3 = Mock(Query)
+            Query query = Mock(Query)
             Person person = Mock(Person)
             List resultList = new ArrayList()
             resultList.add(person)
-            session.getNamedQuery("Person.findByUsername") >> query1
-            session.getNamedQuery("LinkUUID.getLinkUuidByPersonid") >> query2
-            session.getNamedQuery("LinkUUID.updateUUIDByPersonid") >> query3
-            query1.uniqueResult() >> person
-            person.getMail_a_e1() >> "recipient@email.com"
-            query2.list() >> resultList
+            session.getNamedQuery("Person.findByMail") >> query
+            person.getUsername() >> "username"
+            query.list() >> resultList
+
 
         when:
-            forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE", "http://localhost:8181/#/")
+            forgotLoginResource.resendLogin("recipient@email.com", "de_DE")
 
         then:
             1 * transport.connect('host', 'username', 'password')
@@ -58,14 +54,14 @@ class ForgotPasswordResourceTest extends Specification {
             1 * session.close()
     }
 
-    public void "request reset password link failed"() {
+    public void testResendLoginNoResult() {
         given:
             Query query = Mock(Query)
-            session.getNamedQuery("Person.findByUsername") >> query
-            query.uniqueResult() >> null
+            session.getNamedQuery("Person.findByMail") >> query
+            query.list() >> new ArrayList()
 
         when:
-            forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE", "http://localhost:8181/#/")
+            forgotLoginResource.resendLogin("recipient@email.com", "de_DE")
 
         then:
             0 * transport.connect('host', 'username', 'password')
@@ -74,4 +70,19 @@ class ForgotPasswordResourceTest extends Specification {
             1 * session.close()
     }
 
+    public void testResendLoginResultIsNull() {
+        given:
+            Query query = Mock(Query)
+            session.getNamedQuery("Person.findByMail") >> query
+            query.list() >> null
+
+        when:
+            forgotLoginResource.resendLogin("recipient@email.com", "de_DE")
+
+        then:
+            0 * transport.connect('host', 'username', 'password')
+            0 * transport.close()
+            session != null
+            1 * session.close()
+    }
 }

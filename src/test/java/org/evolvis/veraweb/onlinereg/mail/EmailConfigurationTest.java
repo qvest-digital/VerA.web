@@ -38,7 +38,7 @@ public class EmailConfigurationTest {
          new EmailConfiguration("de_DE",propertiesReader);
         // THEN
         verify(propertiesReader, atLeast(8)).getProperty(any(String.class));
-        verify(propertiesReader, atMost(11)).getProperty(any(String.class));
+        verify(propertiesReader, atMost(13)).getProperty(any(String.class));
     }
 
     @Test
@@ -50,6 +50,6 @@ public class EmailConfigurationTest {
         new EmailConfiguration("de_DE",propertiesReader);
 
         // THEN
-        verify(propertiesReader, times(11)).getProperty(any(String.class));
+        verify(propertiesReader, times(13)).getProperty(any(String.class));
     }
 }

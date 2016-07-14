@@ -14,7 +14,7 @@ class MailDispatcherGroovyTest extends Specification {
     def transport = Mock(Transport)
 
     void setup() {
-        def emailConfiguration = new EmailConfiguration("host", 465, "ssl", "username", "password", "from@tarent.de", "subjectForVerificationEmail", "contentForVerificationEmail", "plaintext", "subjectResetPassword", "contentResetPassword")
+        def emailConfiguration = new EmailConfiguration("host", 465, "ssl", "username", "password", "from@tarent.de", "subjectForVerificationEmail", "contentForVerificationEmail", "plaintext", "subjectResetPassword", "contentResetPassword", "subjectResendLogin", "contentResendLogin")
         dispatcher = new MailDispatcher(emailConfiguration)
         dispatcher.setTransport(transport)
     }
