@@ -426,7 +426,9 @@
 
 	#if($createPersonView == false)
 		#if($navigation)
-			#parse("inc/person-navi.vm")
+			#if($action != "event")
+				#parse("inc/person-navi.vm")
+			#end
 		#end
 	#end
 </form>

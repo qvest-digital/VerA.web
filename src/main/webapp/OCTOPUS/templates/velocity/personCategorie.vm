@@ -168,7 +168,9 @@
 
 
     #if($navigation)
-    	#parse("inc/person-navi.vm")
+		#if($action != "event")
+			#parse("inc/person-navi.vm")
+		#end
 	#end
 	<div class="clear"></div>
 </div>
