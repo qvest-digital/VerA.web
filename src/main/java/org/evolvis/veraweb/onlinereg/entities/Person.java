@@ -42,10 +42,10 @@ import java.util.Date;
 @Entity
 @Table(name = "tperson")
 @NamedQueries(value = {
-        @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p where username like :username"),
-        @NamedQuery(name = "Person.findPersonIdByUsername", query = "SELECT p.pk FROM Person p where username like :username"),
+        @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p where p.username like :username"),
+        @NamedQuery(name = "Person.findPersonIdByUsername", query = "SELECT p.pk FROM Person p where p.username like :username"),
         @NamedQuery(name = "Person.findByPersonId", query = "SELECT p FROM Person p where p.pk=:personId"),
-        @NamedQuery(name = "Person.getPeopleByEventId", query = "SELECT p FROM Person p where p.pk IN (SELECT g.fk_person from Guest g where fk_event=:eventid)")
+        @NamedQuery(name = "Person.getPeopleByEventId", query = "SELECT p FROM Person p where p.pk IN (SELECT g.fk_person from Guest g where g.fk_event=:eventid)")
 })
 @NamedNativeQueries(value={
 		 @NamedNativeQuery(name = "Person.getDelegatesByUUID", query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson.iscompany='f'", resultClass=Person.class),
