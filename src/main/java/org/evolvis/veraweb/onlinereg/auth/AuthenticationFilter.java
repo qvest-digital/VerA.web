@@ -52,6 +52,9 @@ public class AuthenticationFilter implements Filter {
         if (path.startsWith("/api/reset/password")) {
             return false;
         }
+        if (path.startsWith("/api/user/request/resend-login")) {
+            return false;
+        }
         if (path.startsWith("/api/user/request/reset-password-link")) {
             return false;
         }

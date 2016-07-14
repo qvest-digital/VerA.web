@@ -18,6 +18,7 @@ auth.run(function($rootScope, $location, authService) {
     return [
       '/login',
       '/createAccount',
+      '/forgotLogin',
       '/forgotPassword',
       '/media',
       '/user/activate',

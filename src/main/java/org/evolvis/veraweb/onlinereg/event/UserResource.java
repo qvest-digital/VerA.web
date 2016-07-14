@@ -96,7 +96,22 @@ public class UserResource {
         osiamClient = config.getOsiam().getClient(client);
     }
 
+    /**
+     *
+     * @return
 
+     */
+    @POST
+    @Path("/request/resend-login")
+    public String resendLogin(@FormParam("email") String email, @FormParam("current_language") String currentLanguageKey) throws IOException {
+        Form postBody = new Form();
+        postBody.add("mail", email);
+        postBody.add("currentLanguageKey", currentLanguageKey);
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/forgotLogin/resend/login");
+        resource.post(postBody);
+
+        return StatusConverter.convertStatus("OK");
+    }
     /**
      *
      * @return

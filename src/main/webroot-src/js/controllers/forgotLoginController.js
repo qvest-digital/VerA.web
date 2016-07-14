@@ -1,25 +1,19 @@
 module.exports = function($http, $scope, $location, show, $timeout, param, $translate) {
-  $scope.forgotPassword = function() {
+  $scope.forgotLogin = function() {
         $http({
             method: 'POST',
-            url: 'api/user/request/reset-password-link',
+            url: 'api/user/request/resend-login',
                 headers: {
                     "Content-Type" : undefined
                 },
                 data: param({
-                    username: encodeURIComponent($scope.osiam.userName),
+                    email: $scope.osiam.email,
                     current_language: $translate.use()
             })
         }).success(function (result) {
             switch(result.status) {
             case 'OK':
-                show.success("USER_PASSWORD_RESET_MAIL");
-                break;
-            case 'USER_NOT_EXISTS':
-                show.success("USER_PASSWORD_RESET_MAIL");
-                break;
-            case 'MORE_THAN_ONE_LINKUUID':
-                show.error("MORE_THAN_ONE_LINKUUID");
+                show.success("USER_LOGIN_RESEND_MAIL");
                 break;
             default:
                 show.error("GENERIC_ERROR");

@@ -219,8 +219,8 @@ body {
     min-height: 2000px;
 }
 
-/************* 8. Reset password *************/
-.form-rest-password-heading {
+/************* 8. Reset login/password *************/
+.form-rest-login-password-heading {
     text-align: left;
     padding: 3px;
     border-bottom: 1px solid gray;
