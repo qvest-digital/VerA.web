@@ -29,7 +29,17 @@
         <br />
     </div>
     <footer id="footer">
-        <img src="under_construction.png">
+        <img id="ch" src="under_construction.png" style="display:none">
+        <div id="bs">&nbsp;</div>
+        <script type="text/javascript">
+            document.getElementById('bs').addEventListener("mousedown", function(event) {
+                document.getElementById('ch').style.display = "block";
+            });
+
+            document.getElementById('bs').addEventListener("mouseup", function(event) {
+                document.getElementById('ch').style.display = "none";
+            });
+        </script>
     </footer>
 </div>
 </body>
