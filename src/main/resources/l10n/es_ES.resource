@@ -1091,6 +1091,7 @@ personanlegen=Crear persona
 eswurdenkeinedublettengefundensiekoennenjetztweiteredateneingebenunddiedatenspeichern=No se han encontrado duplicados. Usted podr\u00E1 ahora rellenar la informaci\u00F3n para almacenarla.
 bittegebensiezunaechstden=Por favor, primero indique
 vorundnachnamen= nombre y apellidos
+sowieunteranschriftendie=as\u00ED como
 anundfuhrendiedublettenprufungdurch=e inicie la b\u00FAsqueda de duplicados.
 beifirmenwaehlensiediecheckbox=Para empresas, seleccione el check correspondiente
 undtragendanndenfirmennameneindassystempruftihreangabendaraufhinaufdubletten=e introduzca el nombre de la empresa. El sistema comprobar\u00E1 la existencia de duplicados.

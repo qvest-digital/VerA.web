@@ -179,7 +179,7 @@
 			</vera-success>
 			#else
 			<vera-info>
-				${placeholderWithTranslation.bittegebensiezunaechstden} <strong>${placeholderWithTranslation.vorundnachnamen}</strong> ${placeholderWithTranslation.anundfuhrendiedublettenprufungdurch}
+				${placeholderWithTranslation.bittegebensiezunaechstden} <strong>${placeholderWithTranslation.vorundnachnamen}</strong> ${placeholderWithTranslation.sowieunteranschriftendie} <strong>${placeholderWithTranslation.emailadresse}</strong> ${placeholderWithTranslation.anundfuhrendiedublettenprufungdurch}
 					${placeholderWithTranslation.beifirmenwaehlensiediecheckbox} <strong>"${placeholderWithTranslation.GENERIC_IS_COMPANY}"</strong> ${placeholderWithTranslation.undtragendanndenfirmennameneindassystempruftihreangabendaraufhinaufdubletten}
 					${placeholderWithTranslation.liegtkeinedublettevorkoennensieweiteredateneingebenunddiedatenspeichern}
 			</vera-info>
@@ -307,6 +307,8 @@
 	</div>
 
 	<div vera-content="anschriften" class="contentBoxColored tabsContent">
+
+	    <div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
 		#set($addressType = "geschaeftlich")
 		#set($extEncoding = "$extEncoding1")

@@ -1092,6 +1092,7 @@ personanlegen=Cr\u00E9ation d\u2019une personne
 eswurdenkeinedublettengefundensiekoennenjetztweiteredateneingebenunddiedatenspeichern=Aucun doublon trouv\u00E9. Vous pouvez entrer davantage les donn\u00E9es et les enregistrer.
 bittegebensiezunaechstden=Tout d\u2019abord pr\u00E9ciser le pr\u00E9nom et le nom et effectuer la v\u00E9rification des doublons.
 vorundnachnamen=
+sowieunteranschriftendie=aussi bien que
 anundfuhrendiedublettenprufungdurch=
 beifirmenwaehlensiediecheckbox=Les entreprises cliquent sur la case \u00E0 cocher et puis entrez le nom de l\u2019entreprise. Ensuite, le syst\u00E8me v\u00E9rifie vos entr\u00E9es sur les doublons.
 undtragendanndenfirmennameneindassystempruftihreangabendaraufhinaufdubletten=
