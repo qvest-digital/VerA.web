@@ -64,6 +64,9 @@ public class AuthenticationFilter implements Filter {
         if (path.startsWith("/api/event/list")){
             return false;
         }
+        if (path.startsWith("/api/freevisitors")){
+            return false;
+        }
         return true;
     }
 
