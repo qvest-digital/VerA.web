@@ -57,7 +57,7 @@
   "GENERIC_MESSAGE_MISSING_LASTNAME": "Bitte geben Sie einen Nachnamen ein.",
   "GENERIC_MESSAGE_NO_FUTURE_DATE": "Das Datum darf nicht in der Zukunft liegen",
   "GENERIC_MESSAGE_NOT_A_DATE": "Bitte überprüfen Sie das eingegebene Datum.",
-  "GENERIC_MESSAGE_EMAIL_NOT_VALID": "Die eingegebene E-Mail Adresse ist nicht gültig.",
+  "GENERIC_MESSAGE_EMAIL_NOT_VALID": "Die eingegebene E-Mail-Adresse ist nicht gültig.",
 
   "BROWSER_TITLE": "VerA.web Online-Registrierung",
 
@@ -87,14 +87,14 @@
   "USER_PASSWORD_CHANGE_FAILED": "Ihr Passwort konnte nicht geändert werden!",
   "USER_PASSWORD_FORGOT": "Passwort vergessen?",
   "USER_PASSWORD_RESET": "Passwort zurücksetzen",
-  "USER_PASSWORD_RESET_TEXT": "Ein Link zum zurücksetzen des Passwortes wird an die hinterlegte E-Mail Adresse gesendet.",
+  "USER_PASSWORD_RESET_TEXT": "Ein Link zum zurücksetzen des Passwortes wird an die hinterlegte E-Mail-Adresse gesendet.",
   "USER_PASSWORD_RESET_MAIL": "E-Mail wurde gesendet, sofern der Benutzername existiert.",
   "MORE_THAN_ONE_LINKUUID": "Es existieren mehreren UUIDs, die diesem Benutzer zugeordnet sind.",
 
   "USER_LOGIN_FORGOT": "Login vergessen?",
   "USER_LOGIN_RESEND": "Login per E-Mail senden",
-  "USER_LOGIN_RESEND_TEXT":"Ihre hinterlegten Login Daten werden an Ihre E-Mail Adresse gesendet.",
-  "USER_LOGIN_RESEND_MAIL":"E-Mail wurde gesendet, sofern Login Daten zu der angegebenen E-Mail Adresse existieren.",
+  "USER_LOGIN_RESEND_TEXT":"Ihre hinterlegten Login Daten werden an Ihre E-Mail-Adresse gesendet.",
+  "USER_LOGIN_RESEND_MAIL":"E-Mail wurde gesendet, sofern Login Daten zu der angegebenen E-Mail-Adresse existieren.",
 
   "PUBLIC_EVENTS_REGISTER_BUTTON": "Zur Veranstaltung anmelden",
 
