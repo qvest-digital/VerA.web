@@ -22,7 +22,7 @@
             <td>{{parseDate(event.datebegin) | date:'dd.MM.yyyy HH:mm'}} <span ng-if="event.dateend != null">{{event.dash}}{{parseDate(event.dateend) | date:'dd.MM.yyyy HH:mm'}}</span></td>
             <td>{{event.shortname}}</td>
             <td class="button_column">
-            	<a href="#/update/{{event.pk}}">
+            	<a href="#/update/{{event.hash}}">
             		<input type="button" class="btn-custom" value="{{ 'USER_EVENTS_EDIT_STATUS_BUTTON' | translate}}"/>
             	</a>
             </td>

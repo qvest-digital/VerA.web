@@ -78,10 +78,10 @@ app.config(function($routeProvider, $translateProvider) {
   }).when('/event', {
     templateUrl: 'partials/event.html',
     controller: 'EventController'
-  }).when('/register/:eventId', {
+  }).when('/register/:eventUuid', {
     templateUrl: 'partials/register.html',
     controller: 'RegisterController'
-  }).when('/register/:eventId/:noLoginRequiredUUID', {
+  }).when('/register/:eventUuid/:noLoginRequiredUUID', {
     templateUrl: 'partials/register.html',
     controller: 'RegisterController'
   }).when('/createAccount/', {
@@ -111,7 +111,7 @@ app.config(function($routeProvider, $translateProvider) {
   }).when('/freevisitors/:uuid/:noLoginRequiredUUID', {
     template: "",
     controller: 'FreeVisitorController'
-  }).when('/update/:eventId', {
+  }).when('/update/:eventUuid', {
     templateUrl: 'partials/update.html',
     controller: 'UpdateController'
   }).when('/reset/password/:uuid', {

@@ -33,7 +33,83 @@ public class EventTransporter {
     private String shortname;
     private Date datebegin;
     private Date dateend;
-    public Date getDateend() {
+
+	private Boolean isRegistered;
+    private Integer status;
+    private String message;
+	private String hash;
+
+    /** Empty constructor */
+	public EventTransporter() {}
+
+	/**
+	 * Constructor with parameters
+	 *
+	 * @param pk Integer
+	 * @param shortname String
+	 * @param datebegin Date
+	 * @param isRegistered Boolean
+	 */
+	public EventTransporter(Integer pk, String shortname, Date datebegin, Date dateend,
+			Boolean isRegistered, String hash) {
+		super();
+		this.pk = pk;
+		this.shortname = shortname;
+		this.datebegin = datebegin;
+		this.dateend = dateend;
+		this.isRegistered = isRegistered;
+		this.hash = hash;
+	}
+
+	public Integer getPk() {
+		return pk;
+	}
+
+	public void setPk(Integer pk) {
+		this.pk = pk;
+	}
+
+	public String getShortname() {
+		return shortname;
+	}
+
+	public void setShortname(String shortname) {
+		this.shortname = shortname;
+	}
+
+	public Date getDatebegin() {
+		return datebegin;
+	}
+
+	public void setDatebegin(Date datebegin) {
+		this.datebegin = datebegin;
+	}
+
+	public Boolean getIsRegistered() {
+		return isRegistered;
+	}
+
+	public void setIsRegistered(Boolean isRegistered) {
+		this.isRegistered = isRegistered;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Date getDateend() {
 		return dateend;
 	}
 
@@ -41,77 +117,12 @@ public class EventTransporter {
 		this.dateend = dateend;
 	}
 
-	private Boolean isRegistered;
-    private Integer status;
-    private String message;
+	public String getHash() {
+		return hash;
+	}
 
-    /** Empty constructor */
-	public EventTransporter() {}
-	
-	/**
-	 * Constructor with parameters
-	 * 
-	 * @param pk Integer
-	 * @param shortname String
-	 * @param datebegin Date
-	 * @param isRegistered Boolean
-	 */
-	public EventTransporter(Integer pk, String shortname, Date datebegin, Date dateend,
-			Boolean isRegistered) {
-		super();
-		this.pk = pk;
-		this.shortname = shortname;
-		this.datebegin = datebegin;
-		this.dateend = dateend;
-		this.isRegistered = isRegistered;
-	}
-	
-	public Integer getPk() {
-		return pk;
-	}
-	
-	public void setPk(Integer pk) {
-		this.pk = pk;
-	}
-	
-	public String getShortname() {
-		return shortname;
-	}
-	
-	public void setShortname(String shortname) {
-		this.shortname = shortname;
-	}
-	
-	public Date getDatebegin() {
-		return datebegin;
-	}
-	
-	public void setDatebegin(Date datebegin) {
-		this.datebegin = datebegin;
-	}
-	
-	public Boolean getIsRegistered() {
-		return isRegistered;
-	}
-	
-	public void setIsRegistered(Boolean isRegistered) {
-		this.isRegistered = isRegistered;
-	}
-	
-	public String getMessage() {
-		return message;
-	}
-	
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	
-	public Integer getStatus() {
-		return status;
-	}
-	
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 
 }

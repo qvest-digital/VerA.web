@@ -356,7 +356,8 @@ public class EventResource {
                 event.getShortname(),
                 event.getDatebegin(),
                 event.getDateend(),
-                isUserRegistered(username, eventId)
+                isUserRegistered(username, eventId),
+                event.getHash()
         );
     }
 
