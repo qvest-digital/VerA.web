@@ -144,28 +144,6 @@
                 		<td class="bold width25">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD}-${placeholderWithTranslation.GENERIC_CONNECTOR}:</td>
                 		<td><input type="text" name="freitextfeldverbinder" maxlength="300" value="$!message.plain($config.freitextfeldverbinder)" ></td>
                 	</tr>
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD} (${placeholderWithTranslation.GENERIC_SHOW}) :</td>
-                		<td>
-                			<select name="freitextfeld" >
-                				<option value="">${placeholderWithTranslation.nochkeineauswahlgetroffen}</option>
-                	2			#foreach($doctype in $allDoctype)
-                					<option value="$!doctype.id" #if("$doctype.id" == $config.freitextfeld) selected#end>$!message.text($doctype.name)</option>
-                				#end
-                			</select>
-                		</td>
-                	</tr>
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD} (${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}):</td>
-                		<td>
-                			<select name="freitextfeld2" >
-                				<option value="">${placeholderWithTranslation.nochkeineauswahlgetroffen}</option>
-                				#foreach($doctype in $allDoctype)
-                					<option value="$!doctype.id" #if("$doctype.id" == $config.freitextfeld2) selected#end>$!message.text($doctype.name)</option>
-                				#end
-                			</select>
-                		</td>
-                	</tr>
             </table>
             </div>
 

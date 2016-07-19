@@ -65,7 +65,6 @@
 			#if($grants.mayWrite())
 				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" title="${placeholderWithTranslation.GENERIC_COPY_CURRENT_PERSON}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { copyPerson(); }" />
 			#end
-			<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" title="${placeholderWithTranslation.etikettfuraktuellepersonerzeugen}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
 			#if($grants.mayWrite())
 				<input type="button" name="event" class="mainButton" value="${placeholderWithTranslation.GENERIC_ASSIGN_TO_EVENT}" title="${placeholderWithTranslation.GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }"/>
 				<input type="button" name="remove" class="mainButton" value="${placeholderWithTranslation.GENERIC_DELETE_PERSON}" title="${placeholderWithTranslation.aktuellepersonloschenundzurpersonenlistezuruckkehren}." onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { removePerson(); }" />
@@ -107,39 +106,6 @@
 								#if($person.username)
 									$person.username
 								#end
-							#end
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="tableCell">&nbsp;</div>
-			<div class="tableCell width50">
-				<div class="table width100">
-					<div class="tableRow">
-						<div class="tableCell">
-							#if($doctype)
-								<strong>${placeholderWithTranslation.freifeldvorschaufur} &quot;$!message.plain($doctype.name)&quot;</strong>
-								#if($doctype.textfield)
-									<textarea id="d8" name="freitextfeld" style="height:88px;" vera-disabled>
-                                        $!message.textarea($doctype.textfield)
-                                    </textarea>
-								#elseif(!$person)
-									<textarea id="d8" name="freitextfeld" style="height:88px;" vera-disabled>
-
-                                    </textarea>
-								#else
-									<textarea id="d8" name="freitextfeld" style="height:88px; color: #ff8080;" vera-disabled>
-                                        Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
-                                    </textarea>
-								#end
-							#else
-								<div class="info">
-									${placeholderWithTranslation.PERSON_HEADER_NO_DOCTYPE_CONFIG}
-									#if($grants.isAdmin())
-										${placeholderWithTranslation.diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich}
-									#end
-								</div>
 							#end
 						</div>
 					</div>
