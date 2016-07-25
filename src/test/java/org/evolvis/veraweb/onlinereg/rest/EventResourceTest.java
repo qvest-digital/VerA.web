@@ -23,21 +23,41 @@ import org.evolvis.veraweb.onlinereg.AbstractResourceTest;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import javax.servlet.ServletContext;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by mley on 02.09.14.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class EventResourceTest extends AbstractResourceTest<EventResource> {
+
+    @Mock
+    private static SessionFactory mockitoSessionFactory;
+    @Mock
+    private static Session mockitoSession;
+
+    EventResource eventResource;
+
 
     public EventResourceTest() {
         super(EventResource.class);
@@ -58,6 +78,52 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
     public void testGetEvent() {
         Event e = resource.getEvent(3);
         assertEquals("pastEvent", e.getShortname());
+    }
+
+    @Test
+    public void testGetEventByUUID() {
+        // GIVEN
+        eventResource = new EventResource();
+        eventResource.context = mock(ServletContext.class);
+        String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
+        prepareSession();
+        Event eventMocked = mock(Event.class);
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Event.getEventByHash")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(eventMocked);
+
+        // WHEN
+        Event event = eventResource.getEventByUUId(uuid);
+
+        // THEN
+        assertEquals(event,eventMocked);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    @Test
+    public void testGetEventByUUIDWithoutResults() {
+        // GIVEN
+        eventResource = new EventResource();
+        eventResource.context = mock(ServletContext.class);
+        String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
+        prepareSession();
+        Query query = mock(Query.class);
+        when(mockitoSession.getNamedQuery("Event.getEventByHash")).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(null);
+
+        // WHEN
+        Event event = eventResource.getEventByUUId(uuid);
+
+        // THEN
+        assertNull(event);
+        verify(mockitoSessionFactory, times(1)).openSession();
+        verify(mockitoSession, times(1)).close();
+    }
+
+    private void prepareSession() {
+        when(eventResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
     }
 
     private static Date getFutureDate() {

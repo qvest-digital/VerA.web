@@ -233,6 +233,24 @@ public class EventResource extends AbstractResource {
     }
 
     /**
+     * Get event using the uuid
+     *
+     * @param uuid String
+     * @return Event the event
+     */
+    @Path("/uuid/{uuid}")
+    @GET
+    public Event getEventByUUId(@PathParam("uuid") String uuid) {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("Event.getEventByHash");
+            query.setString("hash", uuid);
+            return (Event) query.uniqueResult();
+        } finally {
+            session.close();
+        }
+    }
+    /**
      * Generalized method for isGuestListFull and isReserveListFull.
      * 
      * @param eventId

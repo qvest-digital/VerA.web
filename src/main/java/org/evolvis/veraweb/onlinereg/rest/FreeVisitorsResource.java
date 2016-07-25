@@ -38,25 +38,6 @@ import javax.ws.rs.core.MediaType;
 public class FreeVisitorsResource extends AbstractResource {
 
     /**
-     * Get event using the uuid
-     * 
-     * @param uuid String
-     * @return Event the event
-     */
-    @Path("/{uuid}")
-    @GET
-    public Event getEventByUUId(@PathParam("uuid") String uuid) {
-        final Session session = openSession();
-        try {
-            final Query query = session.getNamedQuery("Event.getEventByHash");
-            query.setString("hash", uuid);
-            return (Event) query.uniqueResult();
-        } finally {
-            session.close();
-        }
-    }
-
-    /**
      * Get guest by login_required_uuid
      *
      * @param noLoginRequiredUUID No login required UUD for tguest.login_required_uuid

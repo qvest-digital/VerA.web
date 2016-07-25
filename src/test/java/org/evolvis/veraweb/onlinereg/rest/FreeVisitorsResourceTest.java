@@ -57,38 +57,39 @@ public class FreeVisitorsResourceTest {
 	 }
 	 
 	 @Test
-	 public void testGetEventByUUID() {
+	 public void checkGuestExistsByNoLoginRequiredUUID() {
 		 // GIVEN
 		 String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
 		 prepareSession();
-		 Event eventMocked = mock(Event.class);
+		 Integer integerMocked = new Integer(13);
 		 Query query = mock(Query.class);
-	     when(mockitoSession.getNamedQuery("Event.getEventByHash")).thenReturn(query);
-	     when(query.uniqueResult()).thenReturn(eventMocked);
-		 
+	     when(mockitoSession.getNamedQuery("Guest.getGuestByNoLoginRequiredUUID")).thenReturn(query);
+	     when(query.uniqueResult()).thenReturn(integerMocked);
+
 	     // WHEN
-		 Event event = freeVisitorsResource.getEventByUUId(uuid);
-		 
+		 Integer integer = freeVisitorsResource.checkGuestExistsByNoLoginRequiredUUID(uuid);
+
 		 // THEN
-		 assertEquals(event,eventMocked);
+		 assertEquals(integer,integerMocked);
 		 verify(mockitoSessionFactory, times(1)).openSession();
 		 verify(mockitoSession, times(1)).close();
 	 }
-	 
+
 	 @Test
-	 public void testGetEventByUUIDWithoutResults() {
+	 public void checkGuestExistsByNoLoginRequiredUUIDWithoutResults() {
 		 // GIVEN
 		 String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
 		 prepareSession();
+		 Integer integerMocked = new Integer(-1);
 		 Query query = mock(Query.class);
-	     when(mockitoSession.getNamedQuery("Event.getEventByHash")).thenReturn(query);
+	     when(mockitoSession.getNamedQuery("Guest.getGuestByNoLoginRequiredUUID")).thenReturn(query);
 	     when(query.uniqueResult()).thenReturn(null);
-		 
+
 	     // WHEN
-		 Event event = freeVisitorsResource.getEventByUUId(uuid);
-		 
+		 Integer integer = freeVisitorsResource.checkGuestExistsByNoLoginRequiredUUID(uuid);
+
 		 // THEN
-		 assertNull(event);
+		 assertEquals(integer, integerMocked);
 		 verify(mockitoSessionFactory, times(1)).openSession();
 		 verify(mockitoSession, times(1)).close();
 	 }
