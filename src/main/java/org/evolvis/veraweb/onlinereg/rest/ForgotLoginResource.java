@@ -59,7 +59,7 @@ public class ForgotLoginResource extends AbstractResource {
     private String buildLink(List<Person> personList){
         String usernameList = "";
         for (Person person: personList){
-            usernameList += "(" + person.getUsername() + ")";
+            usernameList += "\n" + person.getUsername();
         }
         return usernameList;
     }
