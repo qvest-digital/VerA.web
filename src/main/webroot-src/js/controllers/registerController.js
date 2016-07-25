@@ -2,7 +2,7 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
 
     var eventId = undefined;
 
-    $http.get('api/freevisitors/' + $routeParams.eventUuid).success(function(result) {
+    $http.get('api/event/uuid/' + $routeParams.eventUuid).success(function(result) {
         if(result.status != 'ERROR') {
             eventId = result.status;
 

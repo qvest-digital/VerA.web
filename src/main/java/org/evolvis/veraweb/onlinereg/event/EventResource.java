@@ -280,6 +280,24 @@ public class EventResource {
         return readResource(path("guest", "registered", username, eventId), BOOLEAN);
     }
 
+    /**
+     * Get
+     *
+     * @param uuid The free visitors UUID
+     * @return Event id
+     * @throws IOException TODO
+     */
+    @GET
+    @Path("/uuid/{uuid}")
+    public String getEvenByUUId(@PathParam("uuid") String uuid) throws IOException {
+        final WebResource resource = client.resource(path("event", "uuid", uuid));
+        try {
+            return StatusConverter.convertStatus(String.valueOf(resource.get(Event.class).getPk()));
+        } catch (UniformInterfaceException e) {
+            return StatusConverter.convertStatus("ERROR");
+        }
+    }
+
     private void updateGuestStatusWithoutLogin(final String noLoginRequiredUUID,
                                                final Integer invitationstatus,
                                                final String notehost) {
