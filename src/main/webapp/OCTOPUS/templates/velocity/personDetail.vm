@@ -38,7 +38,7 @@
 
 #set($searchTask = $octopusRequest.searchTask)
 
-#if(!$person || $octopusRequest.task == "CreatePerson" || $octopusRequest.task == "PersonDupcheckCancel")
+#if($newPersonErrors || !$person || $octopusRequest.task == "CreatePerson" || $octopusRequest.task == "PersonDupcheckCancel")
 	#set($createNewPerson = true)
 #end
 
@@ -70,7 +70,7 @@
 	#else
 		<input type="hidden" name="person-modified" id="modified" value="false"/>
 	#end
-	#if(!$person || $octopusRequest.task == "CreatePerson" || $octopusRequest.task == "PersonDupcheckCancel")
+	#if($newPersonErrors || !$person || $octopusRequest.task == "CreatePerson" || $octopusRequest.task == "PersonDupcheckCancel")
 		<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="true"/>
 	#else
 		<input type="hidden" name="forcedupcheck" id="forcedupcheck" value="false"/>

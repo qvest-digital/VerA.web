@@ -492,6 +492,8 @@ public class PersonDetailWorker implements PersonConstants {
             if (person != null) {
                 person.verify(octopusContext);
                 if (!person.isCorrect()) {
+                    /* VERA-188 */
+                    octopusContext.setContent("person", person);
                     if (person.id == null) {
                         octopusContext.setStatus("notcorrect");
                         octopusContext.setContent("newPersonErrors", person.getErrors());
