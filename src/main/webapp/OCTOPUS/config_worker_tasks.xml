@@ -703,7 +703,7 @@
 
 		<task name="PersonDupcheckCancel" access="public" groups="Writer">
 			<description>
-				Dieser Task zeigt einen Vergleich zwischen zwei oder mehr Personen-Dubletten an.
+				Dieser Task bricht den Vergleich zwischen zwei oder mehr Personen-Dubletten ab.
 			</description>
 			<doTask name="Load"/>
 			<action name="check" worker="PersonDupcheckWorker" />
