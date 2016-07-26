@@ -708,6 +708,7 @@
 			<doTask name="Load"/>
 			<action name="check" worker="PersonDupcheckWorker" />
 			<action name="getAll" worker="SalutationWorker"/>
+            <action name="getAll" worker="WorkAreaWorker"/>
 			<response type="velocity" name="personDetail">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
