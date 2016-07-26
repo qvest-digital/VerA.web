@@ -55,9 +55,6 @@ public class VerawebMessages {
         return languageProvider.getProperty("MESSAGE_COLOR_MISSING_NAME");
     }
 
-    public String getMessageEventcategoryWrong() {
-        return languageProvider.getProperty("MESSAGE_EVENTCATEGORY_ASSIGNMENT_WRONG");
-    }
 
     public String getMessageLocationTitleEmpty() {
         return languageProvider.getProperty("MESSAGE_EVENT_LOCATION_TITLE_EMPTY");
@@ -172,10 +169,6 @@ public class VerawebMessages {
 
     public String getMessageProxyRepresentativeBeginBeforeEnd() {
         return languageProvider.getProperty("MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END");
-    }
-
-    public String getMessageEventfunctionWrong() {
-        return languageProvider.getProperty("MESSAGE_EVENTFUNCTION_ASSIGNMENT_WRONG");
     }
 
     public String getMessageFunctionMissingName() {

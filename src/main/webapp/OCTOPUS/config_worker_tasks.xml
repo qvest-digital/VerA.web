@@ -68,8 +68,6 @@
 		<worker name="GuestListWorker" implementation="de.tarent.aa.veraweb.worker.GuestListWorker" singleton="true" factory="reflected" />
 		<worker name="GuestDetailWorker" implementation="de.tarent.aa.veraweb.worker.GuestDetailWorker" singleton="true" factory="reflected" />
 		<worker name="GuestReportWorker" implementation="de.tarent.aa.veraweb.worker.GuestReportWorker" singleton="true" factory="reflected" />
-		<worker name="EventFunctionWorker" implementation="de.tarent.aa.veraweb.worker.EventFunctionWorker" singleton="true" factory="reflected" />
-		<worker name="EventCategoryWorker" implementation="de.tarent.aa.veraweb.worker.EventCategoryWorker" singleton="true" factory="reflected" />
 
 		<!-- Stammdaten-Worker -->
 		<worker name="ColorWorker" implementation="de.tarent.aa.veraweb.worker.ColorWorker" singleton="true" factory="reflected" />
@@ -1112,42 +1110,6 @@
 			<action name="getAll" worker="LocationListWorker" />
 			<action name="saveDetail" worker="EventDetailWorker" />
 			<response type="velocity" name="eventDetail">
-				<param name="ContentType" value="text/html;charset=UTF-8"/>
-			</response>
-		</task>
-
-		<task name="ShowEventFunction" access="public" groups="StandardFieldsReader">
-			<description>
-				Dieser Task zeigt die Amtsbezeichnungen, die für die Online-Anmeldung freigegeben sind.
-			</description>
-			<doTask name="Load"/>
-			<action name="saveDetail" worker="EventDetailWorker" />
-			<status equals="notsaved">
-				<doTask name="SaveEvent"/>
-			</status>
-			<action name="showDetail" worker="EventDetailWorker" />
-			<action name="saveList" worker="EventFunctionWorker" />
-			<action name="showList" worker="EventFunctionWorker" />
-			<action name="getAll" worker="FunctionWorker" />
-			<response type="velocity" name="eventFunction">
-				<param name="ContentType" value="text/html;charset=UTF-8"/>
-			</response>
-		</task>
-
-		<task name="ShowEventCategory" access="public" groups="StandardFieldsReader">
-			<description>
-				Dieser Task zeigt die Kategorien, die für die Online-Anmeldung freigegeben sind.
-			</description>
-			<doTask name="Load"/>
-			<action name="saveDetail" worker="EventDetailWorker" />
-			<status equals="notsaved">
-				<doTask name="SaveEvent"/>
-			</status>
-			<action name="showDetail" worker="EventDetailWorker" />
-			<action name="saveList" worker="EventCategoryWorker" />
-			<action name="showList" worker="EventCategoryWorker" />
-			<action name="getAll" worker="CategorieWorker" />
-			<response type="velocity" name="eventCategory">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>
