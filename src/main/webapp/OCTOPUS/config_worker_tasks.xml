@@ -537,6 +537,7 @@
 				<input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
 			</contract>
 			<doTask name="Load"/>
+			<action name="init" worker="UserConfigWorker"/>
 			<action name="getAll" worker="SalutationWorker"/>
 			<action name="getAll" worker="WorkAreaWorker"/>
 			<action name="showDetail" worker="PersonDetailWorker" />
