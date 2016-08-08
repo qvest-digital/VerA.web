@@ -316,7 +316,7 @@
 			var checkBoxes = $('input:checkbox[name$="-select"]:checked');
 
 			if (checkBoxes.length === 0) {
-				showInfo('${placeholderWithTranslation.GENERIC_TOOLTIP}', '${placeholderWithTranslation.wahlensiebittezunachsteineodermehrereveranstaltungenaus} ');
+				showWarning('${placeholderWithTranslation.wahlensiebittezunachsteineodermehrereveranstaltungenaus}');
 			} else {
 				$('form').append('<input type="hidden" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" />').submit();
 			}
