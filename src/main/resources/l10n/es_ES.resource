@@ -1946,3 +1946,5 @@ LOAD_MAILTEMPLATE_FAILED = Cargando plantilla de correo electr\u00F3nico no
 SELECT_MAILTEMPLATE = Por favor, seleccione la plantilla de correo electr\u00F3nico
 
 ADDRESS_ERROR = Die Email wurde an den Verteiler versendet. Mindestens eine E-Mail-Adresse dieses Verteilers ist jedoch fehlerhaft gewesen! Der Verteiler konnte an diese E-Mail-Adresse(n) nicht versendet werden. Bitte kontrollieren und ggf. korrigieren Sie die folgenden E-Mail-Adresse(n):
+
+LABELLING_MUST_NOT_BE_EMPTY:El t\u00EDtulo no debe estar vac\u00EDo

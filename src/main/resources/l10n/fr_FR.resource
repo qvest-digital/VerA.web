@@ -1947,3 +1947,5 @@ LOAD_MAILTEMPLATE_FAILED = Chargement email mod\u00E8le a \u00E9chou\u00E9
 SELECT_MAILTEMPLATE = S\u0027il vous pla\u00EEt s\u00E9lectionner email mod\u00E8le
 
 ADDRESS_ERROR = Die Email wurde an den Verteiler versendet. Mindestens eine E-Mail-Adresse dieses Verteilers ist jedoch fehlerhaft gewesen! Der Verteiler konnte an diese E-Mail-Adresse(n) nicht versendet werden. Bitte kontrollieren und ggf. korrigieren Sie die folgenden E-Mail-Adresse(n):
+
+LABELLING_MUST_NOT_BE_EMPTY:Le titre ne doit pas \u00EAtre vide
