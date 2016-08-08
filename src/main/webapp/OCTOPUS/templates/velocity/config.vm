@@ -22,8 +22,6 @@
             <input type="hidden" name="saveconfig" value="personAddresstypeTab">
             <input type="hidden" name="saveconfig" value="personLocaleTab">
 
-            <input type="hidden" name="saveconfig" value="freitextfeld">
-            <input type="hidden" name="saveconfig" value="freitextfeld2">
             <input type="hidden" name="saveconfig" value="anrede">
             <input type="hidden" name="saveconfig" value="anrede_p">
             <input type="hidden" name="saveconfig" value="freitextfeldverbinder">
