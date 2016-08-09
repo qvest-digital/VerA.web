@@ -119,7 +119,7 @@ function checkIfEmpty(e){
 	var i;
 
 
-	if(e.value.trim().length>0){
+	if(e.value.trim().length>0 || (e.id == "new-name" && e.value.length == 0)){
 		if(emptyInputs.length>0){
 			if(jQuery.inArray(e.name, emptyInputs) !== -1){
 				emptyInputs.splice(jQuery.inArray(e.name, emptyInputs), 1);
