@@ -178,16 +178,11 @@ public class CategorieWorker extends StammdatenWorker {
 
     @Override
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-        Clause clause = null;
         Person person = (Person) cntx.contentAsObject("person");
         Event event = (Event) cntx.contentAsObject("event");
         if (person != null && person.id != null) {
             buildSelectForPerson(cntx, select, person, event);
-        } else if (event != null && event.id != null) {
-            select.where(new RawClause("pk NOT IN (SELECT fk_category FROM veraweb.tevent_category WHERE fk_event = " + event.id + ")"));
         }
-
-
     }
 
     private void buildSelectForPerson(OctopusContext cntx, Select select, Person person, Event event) throws BeanException {
