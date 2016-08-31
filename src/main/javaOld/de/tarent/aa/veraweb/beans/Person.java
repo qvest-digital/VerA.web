@@ -489,14 +489,14 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
         final VerawebMessages messages = new VerawebMessages(octopusContext);
 //		solveXSS(); TODO Get a better solution
 
-        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        Set<ConstraintViolation<Person>> constraintViolations = validator.validate(this);
-        for ( ConstraintViolation<Person> violation : constraintViolations ) {
-            addError(violation.getPropertyPath() + " " + violation.getMessage());
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        final Set<ConstraintViolation<Person>> constraintViolations = validator.validate(this);
+        for (ConstraintViolation<Person> violation : constraintViolations ) {
+            final String column = violation.getPropertyPath().toString();
+            addError(messages.getPersonMessageField(column));
         }
 
-        mailValidation(messages);
-
+        checkExtendedMailValidation(messages);
 
         if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {
             if (company_a_e1 == null || company_a_e1.equals("") || company_a_e1.trim().equals("")) {
@@ -520,7 +520,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
         DateHelper.temporary_fix_translateErrormessageEN2DE(this.getErrors(), octopusContext);
     }
 
-    private void mailValidation(VerawebMessages messages) {
+    private void checkExtendedMailValidation(VerawebMessages messages) {
         if (mail_a_e1 == null || mail_a_e1.equals("")){
             addError(messages.getMessageNoMail());
         }

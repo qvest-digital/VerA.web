@@ -191,4 +191,8 @@ public class VerawebMessages {
         return languageProvider.getProperty("MESSAGE_ORGUNIT_BUSY");
     }
 
+    public String getPersonMessageField(String columnName) {
+        return languageProvider.getProperty(columnName);
+    }
+
 }
