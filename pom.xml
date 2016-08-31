@@ -15,6 +15,8 @@
 		<releaseVersion>${project.version}</releaseVersion>
 		<osiam.connector4java.version>1.7</osiam.connector4java.version>
 		<sonar.jacoco.reportPath>${basedir}/target/jacoco-unit.exec</sonar.jacoco.reportPath>
+		<groovy-all.version>2.4.3</groovy-all.version>
+		<spock-core.version>1.0-groovy-2.4</spock-core.version>
 	</properties>
 	<licenses>
 		<license>
@@ -334,6 +336,21 @@
 					</includes>
 				</configuration>
 			</plugin>
+			
+			<!-- Needed to get correct code coverage from java and groovy tests -->
+			<plugin>
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 			<!-- JaCoCo: allows code coverage analysis in Sonar -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
@@ -495,7 +512,6 @@
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>1.1.0.Final</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -506,6 +522,18 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>${groovy-all.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-core</artifactId>
+			<version>${spock-core.version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
