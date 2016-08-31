@@ -83,24 +83,8 @@ public class AddressHelper implements PersonConstants {
 			person.expire = new Timestamp(calendar.getTimeInMillis());
 		}
 
-		checkPersonFields(person.getMainLatin());
-		checkPersonFields(person.getMainExtra1());
-		checkPersonFields(person.getMainExtra2());
-		checkPersonFields(person.getPartnerLatin());
-		checkPersonFields(person.getPartnerExtra1());
-		checkPersonFields(person.getPartnerExtra2());
 		checkPersonFieldsEx(person.getMainLatin());
 		checkPersonFieldsEx(person.getPartnerLatin());
-
-		checkPersonFields(person.getBusinessLatin());
-		checkPersonFields(person.getBusinessExtra1());
-		checkPersonFields(person.getBusinessExtra2());
-		checkPersonFields(person.getPrivateLatin());
-		checkPersonFields(person.getPrivateExtra1());
-		checkPersonFields(person.getPrivateExtra2());
-		checkPersonFields(person.getOtherLatin());
-		checkPersonFields(person.getOtherExtra1());
-		checkPersonFields(person.getOtherExtra2());
 
         if (person instanceof ImportPerson)
             checkImportPersonFields((ImportPerson)person);
@@ -169,73 +153,15 @@ public class AddressHelper implements PersonConstants {
      */
     private static void checkImportPersonFields(ImportPerson importPerson) {
         assert importPerson != null;
-//        occasion und category sind nun varchar, nicht mehr varchar(200), Abschneiden kann also entfallen
-//        if (importPerson.occasion != null && importPerson.occasion.length() > 200)
-//            importPerson.occasion = importPerson.occasion.substring(0,200);
-//        if (importPerson.category != null && importPerson.category.length() > 200)
-//            importPerson.category = importPerson.category.substring(0,200);
     }
 
-	private static void checkPersonFields(PersonMemberFacade facade) {
-		if (facade.getSalutation() != null && facade.getSalutation().length() > 50)
-			facade.setSalutation(facade.getSalutation().substring(0, 50));
-		if (facade.getFirstname() != null && facade.getFirstname().length() > 100)
-			facade.setFirstname(facade.getFirstname().substring(0, 100));
-		if (facade.getLastname() != null && facade.getLastname().length() > 100)
-			facade.setLastname(facade.getLastname().substring(0, 100));
-		if (facade.getTitle() != null && facade.getTitle().length() > 250)
-			facade.setTitle(facade.getTitle().substring(0, 250));
-	}
-
 	private static void checkPersonFieldsEx(PersonMemberFacade facade) {
-		if (facade.getLanguages() != null && facade.getLanguages().length() > 250)
-			facade.setLanguages(facade.getLanguages().substring(0, 250));
-		if (facade.getNationality() != null && facade.getNationality().length() > 100)
-			facade.setNationality(facade.getNationality().substring(0, 100));
-
-		if (facade.getDomestic() == null)
+		if (facade.getDomestic() == null) {
 			facade.setDomestic(PersonConstants.DOMESTIC_INLAND);
-		if (facade.getSex() == null)
+		}
+		if (facade.getSex() == null) {
 			facade.setSex(PersonConstants.SEX_MALE);
-
-		// 'note', 'noteorga' und 'notehost' sind 'text' Felder.
-	}
-
-	private static void checkPersonFields(PersonAddressFacade facade) {
-		if (facade.getFunction() != null && facade.getFunction().length() > 250)
-			facade.setFunction(facade.getFunction().substring(0, 250));
-		if (facade.getCompany() != null && facade.getCompany().length() > 250)
-			facade.setCompany(facade.getCompany().substring(0, 250));
-		if (facade.getStreet() != null && facade.getStreet().length() > 100)
-			facade.setStreet(facade.getStreet().substring(0, 100));
-		if (facade.getZipCode() != null && facade.getZipCode().length() > 50)
-			facade.setZipCode(facade.getZipCode().substring(0, 50));
-		if (facade.getCity() != null && facade.getCity().length() > 300)
-			facade.setCity(facade.getCity().substring(0, 300));
-		if (facade.getState() != null && facade.getState().length() > 100)
-			facade.setState(facade.getState().substring(0, 100));
-
-		if (facade.getCountry() != null && facade.getCountry().length() > 100)
-			facade.setCountry(facade.getCountry().substring(0, 100));
-		if (facade.getPOBox() != null && facade.getPOBox().length() > 50)
-			facade.setPOBox(facade.getPOBox().substring(0, 50));
-		if (facade.getPOBoxZipCode() != null && facade.getPOBoxZipCode().length() > 50)
-			facade.setPOBoxZipCode(facade.getPOBoxZipCode().substring(0, 50));
-		if (facade.getSuffix1() != null && facade.getSuffix1().length() > 100)
-			facade.setSuffix1(facade.getSuffix1().substring(0, 100));
-		if (facade.getSuffix2() != null && facade.getSuffix2().length() > 100)
-			facade.setSuffix2(facade.getSuffix2().substring(0, 100));
-
-		if (facade.getPhone() != null && facade.getPhone().length() > 100)
-			facade.setPhone(facade.getPhone().substring(0, 100));
-		if (facade.getFax() != null && facade.getFax().length() > 100)
-			facade.setFax(facade.getFax().substring(0, 100));
-		if (facade.getMobile() != null && facade.getMobile().length() > 100)
-			facade.setMobile(facade.getMobile().substring(0, 100));
-		if (facade.getEMail() != null && facade.getEMail().length() > 250)
-			facade.setEMail(facade.getEMail().substring(0, 250));
-		if (facade.getUrl() != null && facade.getUrl().length() > 250)
-			facade.setUrl(facade.getUrl().substring(0, 250));
+		}
 	}
 
 	/**

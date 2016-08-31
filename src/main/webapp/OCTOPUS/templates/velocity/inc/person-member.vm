@@ -13,7 +13,7 @@
 		<div class="tableRow">
 			<div class="tableCell width50 #if(!$grants.mayWrite() || $!message.plain($ext) != "_a_e1") vera-disabled #end" id="company-row" style="display:none">
 				 <label for="person-company-ignore$!message.plain($ext)">${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}*</label>
-				<input #if ($ext =='_a_e1') tabindex="130" #end type="text" id="person-company-ignore$!message.plain($ext)" name="person-company-ignore$!message.plain($ext)" maxlength="100" value="$!message.text($facade.Company)" onchange="setModified();"/>
+				<input #if ($ext =='_a_e1') tabindex="130" #end type="text" id="person-company-ignore$!message.plain($ext)" name="person-company-ignore$!message.plain($ext)" value="$!message.text($facade.Company)" onchange="setModified();"/>
 			</div>
 			<div class="tableCell width50"></div>
 		</div>
@@ -99,13 +99,13 @@
 		<div class="tableRow">
 			<div class="tableCell width50 ">
 				<label for="person-firstname$!message.plain($ext)">${placeholderWithTranslation.GENERIC_FIRSTNAME}#if($ext == "_a_e1")*#end</label>
-				<input #if ($ext =='_a_e1') tabindex="100" #end type="text" id="person-firstname$!message.plain($ext)" name="person-firstname$!message.plain($ext)" value="$!message.text($facade.Firstname)" maxlength="100" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) vera-disabled#end/>
+				<input #if ($ext =='_a_e1') tabindex="100" #end type="text" id="person-firstname$!message.plain($ext)" name="person-firstname$!message.plain($ext)" value="$!message.text($facade.Firstname)" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) vera-disabled#end/>
 			</div>
 
 			<div class="tableCell width50 ">
 				#if ( $ext == "_a_e1" || $ext == "_a_e2" || $ext == "_a_e3" )
 					<label for="person-birthplace$!message.plain($ext)">${placeholderWithTranslation.GENERIC_PLACE_OF_BIRTH}</label>
-					<input type="text" name="person-birthplace$!message.plain($ext)" value="$!message.text($facade.Birthplace)"  maxlength="100" id="person-birthplace$!message.plain($ext)" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end />
+					<input type="text" name="person-birthplace$!message.plain($ext)" value="$!message.text($facade.Birthplace)"  id="person-birthplace$!message.plain($ext)" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end />
 				#end
 			</div>
 		</div>
@@ -113,7 +113,7 @@
 		<div class="tableRow">
 			<div class="tableCell width50 ">
 				<label for="person-lastname$!message.plain($ext)">${placeholderWithTranslation.GENERIC_LASTNAME}#if($ext == "_a_e1")*#end</label>
-				<input #if ($ext =='_a_e1') tabindex="110" #end type="text" id="person-lastname$!message.plain($ext)" name="person-lastname$!message.plain($ext)" value="$!message.text($facade.Lastname)" maxlength="100" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) vera-disabled#end/>
+				<input #if ($ext =='_a_e1') tabindex="110" #end type="text" id="person-lastname$!message.plain($ext)" name="person-lastname$!message.plain($ext)" value="$!message.text($facade.Lastname)" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) vera-disabled#end/>
 			</div>
 
 			<div class="tableCell width50 ">

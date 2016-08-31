@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.beans;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.aa.veraweb.utils.VerawebUtils;
@@ -35,6 +36,11 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.constraints.Size;
 
 /**
  * Dieses Bean stellt einen Eintrag der Tabelle <code>veraweb.tperson</code> da.
@@ -71,231 +77,412 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     public String username;
 
     // Hauptperson, Latein
+    @Size(max=10)
     public String salutation_a_e1;
     public Integer fk_salutation_a_e1;
+    @Size(max=250)
     public String title_a_e1;
+    @Size(max=100)
     public String firstname_a_e1;
+    @Size(max=100)
     public String lastname_a_e1;
     public String domestic_a_e1;
     public String sex_a_e1;
     public Timestamp birthday_a_e1;
+    @Size(max=100)
     public String birthplace_a_e1;
     public Timestamp diplodate_a_e1;
+    @Size(max=250)
     public String languages_a_e1;
+    @Size(max=100)
     public String nationality_a_e1;
+    @Size(max=2000)
     public String note_a_e1;
+    @Size(max=2000)
     public String noteorga_a_e1;
+    @Size(max=2000)
     public String notehost_a_e1;
 
     // Hauptperson, Zeichensatz 1
+    @Size(max=10)
     public String salutation_a_e2;
     public Integer fk_salutation_a_e2;
+    @Size(max=100)
     public String birthplace_a_e2;
+    @Size(max=250)
     public String title_a_e2;
+    @Size(max=100)
     public String firstname_a_e2;
+    @Size(max=100)
     public String lastname_a_e2;
 
     // Hauptperson, Zeichensatz 2
+    @Size(max=10)
     public String salutation_a_e3;
     public Integer fk_salutation_a_e3;
+    @Size(max=100)
     public String birthplace_a_e3;
+    @Size(max=250)
     public String title_a_e3;
+    @Size(max=100)
     public String firstname_a_e3;
+    @Size(max=100)
     public String lastname_a_e3;
 
     // Partner, Latein
+    @Size(max=10)
     public String salutation_b_e1;
     public Integer fk_salutation_b_e1;
+    @Size(max=250)
     public String title_b_e1;
+    @Size(max=100)
     public String firstname_b_e1;
+    @Size(max=100)
     public String lastname_b_e1;
     public String domestic_b_e1;
     public String sex_b_e1;
     public Timestamp birthday_b_e1;
     //public String birthplace_b_e1;
     public Timestamp diplodate_b_e1;
+    @Size(max=250)
     public String languages_b_e1;
+    @Size(max=100)
     public String nationality_b_e1;
+    @Size(max=2000)
     public String note_b_e1;
+    @Size(max=2000)
     public String noteorga_b_e1;
+    @Size(max=2000)
     public String notehost_b_e1;
 
     // Partner, Zeichensatz 1
+    @Size(max=10)
     public String salutation_b_e2;
     public Integer fk_salutation_b_e2;
     //public String birthplace_b_e2;
+    @Size(max=250)
     public String title_b_e2;
+    @Size(max=100)
     public String firstname_b_e2;
+    @Size(max=100)
     public String lastname_b_e2;
 
     // Partner, Zeichensatz 2
+    @Size(max=10)
     public String salutation_b_e3;
     public Integer fk_salutation_b_e3;
     //public String birthplace_b_e3;
+    @Size(max=250)
     public String title_b_e3;
+    @Size(max=100)
     public String firstname_b_e3;
+    @Size(max=100)
     public String lastname_b_e3;
 
     // Adressdaten Geschäftlich, Latein
+    @Size(max=250)
     public String function_a_e1;
+    @Size(max=250)
     public String company_a_e1;
+    @Size(max=100)
     public String street_a_e1;
+    @Size(max=50)
     public String zipcode_a_e1;
+    @Size(max=300)
     public String city_a_e1;
+    @Size(max=100)
     public String state_a_e1;
+    @Size(max=100)
     public String country_a_e1;
+    @Size(max=50)
     public String pobox_a_e1;
+    @Size(max=50)
     public String poboxzipcode_a_e1;
+    @Size(max=100)
     public String suffix1_a_e1;
+    @Size(max=100)
     public String suffix2_a_e1;
+    @Size(max=100)
     public String fon_a_e1;
+    @Size(max=100)
     public String fax_a_e1;
+    @Size(max=100)
     public String mobil_a_e1;
+    @Size(max=250)
     public String mail_a_e1;
+    @Size(max=250)
     public String url_a_e1;
 
     // Adressdaten Geschäftlich, Zeichensatz 1
+    @Size(max=250)
     public String function_a_e2;
+    @Size(max=250)
     public String company_a_e2;
+    @Size(max=100)
     public String street_a_e2;
+    @Size(max=50)
     public String zipcode_a_e2;
+    @Size(max=300)
     public String city_a_e2;
+    @Size(max=100)
     public String state_a_e2;
+    @Size(max=100)
     public String country_a_e2;
+    @Size(max=50)
     public String pobox_a_e2;
+    @Size(max=50)
     public String poboxzipcode_a_e2;
+    @Size(max=100)
     public String suffix1_a_e2;
+    @Size(max=100)
     public String suffix2_a_e2;
+    @Size(max=100)
     public String fon_a_e2;
+    @Size(max=100)
     public String fax_a_e2;
+    @Size(max=100)
     public String mobil_a_e2;
+    @Size(max=250)
     public String mail_a_e2;
+    @Size(max=250)
     public String url_a_e2;
 
     // Adressdaten Geschäftlich, Zeichensatz 2
+    @Size(max=250)
     public String function_a_e3;
+    @Size(max=250)
     public String company_a_e3;
+    @Size(max=100)
     public String street_a_e3;
+    @Size(max=50)
     public String zipcode_a_e3;
+    @Size(max=100)
     public String state_a_e3;
+    @Size(max=300)
     public String city_a_e3;
+    @Size(max=100)
     public String country_a_e3;
+    @Size(max=50)
     public String pobox_a_e3;
+    @Size(max=50)
     public String poboxzipcode_a_e3;
+    @Size(max=100)
     public String suffix1_a_e3;
+    @Size(max=100)
     public String suffix2_a_e3;
+    @Size(max=100)
     public String fon_a_e3;
+    @Size(max=100)
     public String fax_a_e3;
+    @Size(max=100)
     public String mobil_a_e3;
+    @Size(max=250)
     public String mail_a_e3;
+    @Size(max=250)
     public String url_a_e3;
 
     // Adressdaten Privat, Latein
+    @Size(max=250)
     public String function_b_e1;
+    @Size(max=250)
     public String company_b_e1;
+    @Size(max=100)
     public String street_b_e1;
+    @Size(max=50)
     public String zipcode_b_e1;
+    @Size(max=300)
     public String city_b_e1;
+    @Size(max=100)
     public String state_b_e1;
+    @Size(max=100)
     public String country_b_e1;
+    @Size(max=50)
     public String pobox_b_e1;
+    @Size(max=50)
     public String poboxzipcode_b_e1;
+    @Size(max=100)
     public String suffix1_b_e1;
+    @Size(max=100)
     public String suffix2_b_e1;
+    @Size(max=100)
     public String fon_b_e1;
+    @Size(max=100)
     public String fax_b_e1;
+    @Size(max=100)
     public String mobil_b_e1;
+    @Size(max=250)
     public String mail_b_e1;
+    @Size(max=250)
     public String url_b_e1;
 
     // Adressdaten Privat, Zeichensatz 1
+    @Size(max=250)
     public String function_b_e2;
+    @Size(max=250)
     public String company_b_e2;
+    @Size(max=100)
     public String street_b_e2;
+    @Size(max=50)
     public String zipcode_b_e2;
+    @Size(max=300)
     public String city_b_e2;
+    @Size(max=100)
     public String state_b_e2;
+    @Size(max=100)
     public String country_b_e2;
+    @Size(max=50)
     public String pobox_b_e2;
+    @Size(max=50)
     public String poboxzipcode_b_e2;
+    @Size(max=100)
     public String suffix1_b_e2;
+    @Size(max=100)
     public String suffix2_b_e2;
+    @Size(max=100)
     public String fon_b_e2;
+    @Size(max=100)
     public String fax_b_e2;
+    @Size(max=100)
     public String mobil_b_e2;
+    @Size(max=250)
     public String mail_b_e2;
+    @Size(max=250)
     public String url_b_e2;
 
     // Adressdaten Privat, Zeichensatz 2
+    @Size(max=250)
     public String function_b_e3;
+    @Size(max=250)
     public String company_b_e3;
+    @Size(max=100)
     public String street_b_e3;
+    @Size(max=50)
     public String zipcode_b_e3;
+    @Size(max=300)
     public String city_b_e3;
+    @Size(max=100)
     public String state_b_e3;
+    @Size(max=100)
     public String country_b_e3;
+    @Size(max=50)
     public String pobox_b_e3;
+    @Size(max=50)
     public String poboxzipcode_b_e3;
+    @Size(max=100)
     public String suffix1_b_e3;
+    @Size(max=100)
     public String suffix2_b_e3;
+    @Size(max=100)
     public String fon_b_e3;
+    @Size(max=100)
     public String fax_b_e3;
+    @Size(max=100)
     public String mobil_b_e3;
+    @Size(max=250)
     public String mail_b_e3;
+    @Size(max=250)
     public String url_b_e3;
 
     // Adressdaten Weitere, Latein
+    @Size(max=250)
     public String function_c_e1;
+    @Size(max=250)
     public String company_c_e1;
+    @Size(max=100)
     public String street_c_e1;
+    @Size(max=50)
     public String zipcode_c_e1;
+    @Size(max=100)
     public String state_c_e1;
+    @Size(max=300)
     public String city_c_e1;
+    @Size(max=100)
     public String country_c_e1;
+    @Size(max=50)
     public String pobox_c_e1;
+    @Size(max=50)
     public String poboxzipcode_c_e1;
+    @Size(max=100)
     public String suffix1_c_e1;
+    @Size(max=100)
     public String suffix2_c_e1;
+    @Size(max=100)
     public String fon_c_e1;
+    @Size(max=100)
     public String fax_c_e1;
+    @Size(max=100)
     public String mobil_c_e1;
+    @Size(max=250)
     public String mail_c_e1;
+    @Size(max=250)
     public String url_c_e1;
 
     // Adressdaten Weitere, Zeichensatz 1
+    @Size(max=250)
     public String function_c_e2;
+    @Size(max=250)
     public String company_c_e2;
+    @Size(max=100)
     public String street_c_e2;
+    @Size(max=50)
     public String zipcode_c_e2;
+    @Size(max=100)
     public String state_c_e2;
+    @Size(max=300)
     public String city_c_e2;
+    @Size(max=100)
     public String country_c_e2;
+    @Size(max=50)
     public String pobox_c_e2;
+    @Size(max=50)
     public String poboxzipcode_c_e2;
+    @Size(max=100)
     public String suffix1_c_e2;
+    @Size(max=100)
     public String suffix2_c_e2;
+    @Size(max=100)
     public String fon_c_e2;
+    @Size(max=100)
     public String fax_c_e2;
+    @Size(max=100)
     public String mobil_c_e2;
+    @Size(max=250)
     public String mail_c_e2;
+    @Size(max=250)
     public String url_c_e2;
 
     // Adressdaten Weitere, Zeichensatz 2
+    @Size(max=250)
     public String function_c_e3;
+    @Size(max=250)
     public String company_c_e3;
+    @Size(max=100)
     public String street_c_e3;
+    @Size(max=50)
     public String zipcode_c_e3;
+    @Size(max=100)
     public String state_c_e3;
+    @Size(max=300)
     public String city_c_e3;
+    @Size(max=100)
     public String country_c_e3;
+    @Size(max=50)
     public String pobox_c_e3;
+    @Size(max=50)
     public String poboxzipcode_c_e3;
+    @Size(max=100)
     public String suffix1_c_e3;
+    @Size(max=100)
     public String suffix2_c_e3;
+    @Size(max=100)
     public String fon_c_e3;
+    @Size(max=100)
     public String fax_c_e3;
+    @Size(max=100)
     public String mobil_c_e3;
+    @Size(max=250)
     public String mail_c_e3;
+    @Size(max=250)
     public String url_c_e3;
 
     public void verify(final OctopusContext octopusContext) throws BeanException {
@@ -303,36 +490,28 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
         final VerawebMessages messages = new VerawebMessages(octopusContext);
 //		solveXSS(); TODO Get a better solution
 
-        if ((company_a_e1 != null && !company_a_e1.equals("")) && company_a_e1.length() > 300) {
-            addError(messages.getMessagePersonMaxCompanyReached());
-        }
-        if ((firstname_a_e1 != null && !firstname_a_e1.equals("")) && firstname_a_e1.length() > 100) {
-            addError(messages.getMessagePersonMaxNameReached());
-        }
-        if ((lastname_a_e1 != null && !lastname_a_e1.equals("")) && lastname_a_e1.length() > 100) {
-            addError(messages.getMessagePersonMaxLastnameReached());
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        Set<ConstraintViolation<Person>> constraintViolations = validator.validate(this);
+        for ( ConstraintViolation<Person> violation : constraintViolations ) {
+            addError(violation.getPropertyPath() + " " + violation.getMessage());
         }
 
-        //mail checks
-        if (mail_a_e1 == null || mail_a_e1.equals("")){
-            addError(messages.getMessageNoMail());
-        }
+        mailValidation(messages);
 
-        if (!VerawebUtils.isValidEmailAddress(mail_a_e1)){
-            addError(messages.getMessageNotValidMail());
-        }
 
         if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {
             if (company_a_e1 == null || company_a_e1.equals("") || company_a_e1.trim().equals("")) {
                 addError(messages.getMessagePersonNoCompanyName());
             }
-        } else if ((firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) &&
-                (lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0)) {
-            addError(messages.getMessageNoNameLastName());
+        } else if (
+            (firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) &&
+            (lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0)
+        ) {
+            addError(messages.getMessageBothNameFieldsAreEmpty());
         } else if (firstname_a_e1 == null || firstname_a_e1.equals("") && firstname_a_e1.trim().length() == 0) {
-            addError(messages.getMessageNoName());
+            addError(messages.getMessageNameFieldEmpty());
         } else if (lastname_a_e1 == null || lastname_a_e1.equals("") && lastname_a_e1.trim().length() == 0) {
-            addError(messages.getMessageNoLastname());
+            addError(messages.getMessageLastnameFieldEmptry());
         }
 
 		/*
@@ -340,6 +519,15 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		 * temporarily fixes issue #1529 until i gain access to the old octopus repository
 		 */
         DateHelper.temporary_fix_translateErrormessageEN2DE(this.getErrors(), octopusContext);
+    }
+
+    private void mailValidation(VerawebMessages messages) {
+        if (mail_a_e1 == null || mail_a_e1.equals("")){
+            addError(messages.getMessageNoMail());
+        }
+        if (!VerawebUtils.isValidEmailAddress(mail_a_e1)){
+            addError(messages.getMessageNotValidMail());
+        }
     }
 
     /**
