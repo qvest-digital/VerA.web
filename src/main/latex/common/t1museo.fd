@@ -22,7 +22,7 @@
 \DeclareFontShape{T1}{museo}{bx}{it}{<->ssub * museo/b/it}{}
 \DeclareFontShape{T1}{museo}{bx}{sl}{<->ssub * museo/b/it}{}
 
-\pdfmapline{+MuseoSans_300T1\space </usr/share/fonts/truetype/ttf-museo-sans/MuseoSans_300.ttf\space <MuseoT1.enc}
-\pdfmapline{+MuseoSans_300_ItalicT1\space </usr/share/fonts/truetype/ttf-museo-sans/MuseoSans_300_Italic.ttf\space <MuseoT1.enc}
-\pdfmapline{+MuseoSans_500T1\space </usr/share/fonts/truetype/ttf-museo-sans/MuseoSans_500.ttf\space <MuseoT1.enc}
-\pdfmapline{+MuseoSans_500_ItalicT1\space </usr/share/fonts/truetype/ttf-museo-sans/MuseoSans_500_Italic.ttf\space <MuseoT1.enc}
+\pdfmapline{+MuseoSans_300T1\space </usr/share/fonts/truetype/ttf-museo-sans/MuseoSans_300.ttf\space <MuseoT1-pdflatex.enc}
+\pdfmapline{+MuseoSans_300_ItalicT1\space </usr/share/fonts/truetype/ttf-museo-sans/MuseoSans_300_Italic.ttf\space <MuseoT1-pdflatex.enc}
+\pdfmapline{+MuseoSans_500T1\space </usr/share/fonts/truetype/ttf-museo-sans/MuseoSans_500.ttf\space <MuseoT1-pdflatex.enc}
+\pdfmapline{+MuseoSans_500_ItalicT1\space </usr/share/fonts/truetype/ttf-museo-sans/MuseoSans_500_Italic.ttf\space <MuseoT1-pdflatex.enc}
