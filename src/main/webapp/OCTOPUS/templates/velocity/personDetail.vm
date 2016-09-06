@@ -222,10 +222,10 @@
         <div class="tabsSub" vera-content="personendaten">
             <ul class="marginBottom20" vera-tab-group>
                 <li style="display:inline-table; width:89%" vera-tab="hauptperson" #if(!$thisPersonMemberTab || $thisPersonMemberTab == "1") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '1');" >
-                    <div>$!config.main</div>
+                    <div>${placeholderWithTranslation.GENERIC_MAIN_PERSON}</div>
                 </li>
                 <li style="display:inline-table; width:89%" vera-tab="partner" #if($thisPersonMemberTab && $thisPersonMemberTab == "2") vera-tab-default #end onclick="$('#personMemberTab').attr('value', '2');" >
-                    <div>$!config.partner</div>
+                    <div>${placeholderWithTranslation.GENERIC_PARTNER}</div>
                 </li>
             </ul>
 

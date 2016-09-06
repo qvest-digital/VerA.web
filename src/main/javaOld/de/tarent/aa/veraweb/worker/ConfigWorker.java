@@ -51,12 +51,10 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class ConfigWorker extends ListWorkerVeraWeb {
 	private static final String defaultSource[] = {
-			"LABEL_MEMBER_MAIN", "LABEL_MEMBER_PARTNER",
 			"LABEL_MEMBER_PRIVATE", "LABEL_MEMBER_BUSINESS", "LABEL_MEMBER_OTHER",
 			"LABEL_MEMBER_LATIN", "LABEL_MEMBER_EXTRA1", "LABEL_MEMBER_EXTRA2",
 			"LABEL_ADDRESS_SUFFIX1", "LABEL_ADDRESS_SUFFIX2", "CHANGE_LOG_RETENTION_POLICY" };
 	private static final String defaultTarget[] = {
-			"main", "partner",
 			"private", "business", "other",
 			"latin", "extra1", "extra2",
 			"suffix1", "suffix2", "changeLogRetentionPolicy" };
@@ -240,7 +238,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 		if ( ! found )
 		{
 			// ist kein default konfigurationseintrag
-			if ( "".compareTo( value ) == 0 )
+			if ("".compareTo( value ) == 0 )
 			{
 				value = null;
 				config.remove( key );
