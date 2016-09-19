@@ -46,6 +46,7 @@
 		<worker name="PersonCategorieWorker" implementation="de.tarent.aa.veraweb.worker.PersonCategorieWorker" singleton="true" factory="reflected" />
 		<worker name="PersonDupcheckWorker" implementation="de.tarent.aa.veraweb.worker.PersonDupcheckWorker" singleton="true" factory="reflected" />
 		<worker name="ImportPersonsWorker" implementation="de.tarent.aa.veraweb.worker.ImportPersonsWorker" singleton="true" factory="reflected" />
+		<worker name="PersonExportWorker" implementation="de.tarent.aa.veraweb.worker.PersonExportWorker" singleton="true" factory="reflected" />
 		<worker name="ImportPersonsDuplicateWorker" implementation="de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker" singleton="true" factory="reflected" />
 		<worker name="DataExchangeWorker" implementation="de.tarent.aa.veraweb.worker.DataExchangeWorker" singleton="true" factory="reflected" />
 		<worker name="CompanyListWorker" implementation="de.tarent.aa.veraweb.worker.CompanyListWorker" singleton="true" factory="reflected" />
@@ -329,6 +330,7 @@
 			<doTask name="LoadStammdaten"/>
 			<action name="saveList" worker="PersonDuplicateSearchWorker" />
 			<action name="showList" worker="PersonDuplicateSearchWorker" />
+			<action name="exportFormat" worker="PersonExportWorker" />
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="personList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -511,6 +513,7 @@
 			<action name="saveList" worker="PersonListWorker" />
 			<action name="getSearch" worker="PersonListWorker" />
 			<action name="showList" worker="PersonListWorker" />
+			<action name="exportFormat" worker="PersonExportWorker" />
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="personList">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
@@ -743,6 +746,17 @@
 				<input name="DeleteInXManage" type="xsd:string" optional="t" description="Flag: Ebenfalls Löschung in XManage"/>
 			</contract>
 			<doTask name="SearchPerson"/>
+		</task>
+
+		<task name="PersonExport" access="public" groups="Exporter">
+			<description>
+				Task exportiert das aktuelle Personen-Suchergebnis.
+			</description>
+			<action name="getSelection" worker="PersonExportWorker"/>
+			<action name="export" worker="PersonExportWorker"/>
+			<response type="binary" name="stream">
+				<param name="CachingParam" value="nocachecontrol,nopragma"/>
+			</response>
 		</task>
 
 		<!-- Umsetzung -->
@@ -1533,6 +1547,18 @@
 			<action name="showList" worker="CompanyListWorker"/>
 			<param name="liststarts" value="true"/>
 			<response type="velocity" name="popupSelectCompany">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="popupPersonExport" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup mit den Stammdaten der Person zum direkten kopieren.
+			</description>
+			<doTask name="Load"/>
+			<action name="showDetail" worker="PersonDetailWorker"/>
+			<action name="createExport" worker="PersonDetailWorker"/>
+			<response type="velocity" name="popupPersonExport">
 				<param name="ContentType" value="text/html;charset=UTF-8"/>
 			</response>
 		</task>

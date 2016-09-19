@@ -641,7 +641,7 @@
 							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 							<select id="actionSelection">
 								<option value="0">${placeholderWithTranslation.GENERIC_DELETE}</option>
-								#if($exportFormat && $grants.mayExport())
+								#if($grants.mayExport())
 									<option value="1">${placeholderWithTranslation.exportieren}</option>
 								#end
 								<option value="2">${placeholderWithTranslation.GENERIC_ASSIGN_CATEGORIES}</option>
