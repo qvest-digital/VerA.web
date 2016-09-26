@@ -45,7 +45,7 @@ import java.util.UUID;
 @Produces(MediaType.APPLICATION_JSON)
 public class PdfTemplateResource extends FormDataResource {
     private final String currentExportFileName = "pdfexport-" + new Date().getTime() + ".pdf";
-    private final String OUTPUT_FILENAME = FileUtils.getTempDirectoryPath() + File.separator + currentExportFileName;
+    private final String OUTPUT_FILENAME = FileUtils.getTempDirectoryPath() + File.separator + UUID.randomUUID().toString() + "_" + currentExportFileName;
     private static final Logger LOGGER = Logger.getLogger(PdfTemplateResource.class.getCanonicalName());
     private final Integer DAYS_BACK = 1;
     private final long PURGE_TIME = System.currentTimeMillis() - (DAYS_BACK * 24 * 60 * 60 * 1000);
