@@ -19,13 +19,13 @@
  */
 package de.tarent.octopus.custom.beans;
 
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.BeanFactory;
+import junit.framework.TestCase;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import junit.framework.TestCase;
-import de.tarent.octopus.beans.BeanException;
-import de.tarent.octopus.beans.BeanFactory;
 
 /**
  * Diese Klasse testet die Funktionalität der {@link BeanFactory}.

@@ -19,10 +19,6 @@
  */
 package de.tarent.octopus.beans.veraweb;
 
-import java.io.IOException;
-import java.sql.Date;
-import java.util.Iterator;
-
 import de.tarent.aa.veraweb.beans.ChangeLogEntry;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
@@ -34,6 +30,10 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.beans.TransactionContext;
+
+import java.io.IOException;
+import java.sql.Date;
+import java.util.Iterator;
 
 /**
  * The class BeanChangeLogger represents a facility

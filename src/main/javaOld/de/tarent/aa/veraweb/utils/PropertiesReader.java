@@ -23,8 +23,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.apache.poi.ss.usermodel.Picture;
-
 /**
  * This class is used to read the properties for veraweb and online registration.
  *

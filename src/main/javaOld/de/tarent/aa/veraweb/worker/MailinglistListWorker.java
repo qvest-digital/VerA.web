@@ -19,8 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-
 import de.tarent.aa.veraweb.beans.Mailinglist;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Select;
@@ -30,6 +28,8 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
 
 /**
  * Dieser Octopus-Worker stellt eine übersichtsliste aller Verteiler bereit.

@@ -19,13 +19,6 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import junit.framework.TestCase;
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Database;
@@ -41,6 +34,13 @@ import de.tarent.octopus.request.Octopus;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.OctopusContext;
+import junit.framework.TestCase;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Diese Testklasse testet {@link GenericCSVExporter}.

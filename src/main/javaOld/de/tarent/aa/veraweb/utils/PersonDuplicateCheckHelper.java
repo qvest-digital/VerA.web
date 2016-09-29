@@ -19,13 +19,6 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import de.tarent.aa.veraweb.beans.Import;
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.Person;
@@ -43,6 +36,13 @@ import de.tarent.octopus.beans.BeanStatement;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class contains methods to handle all needed duplication checks on a

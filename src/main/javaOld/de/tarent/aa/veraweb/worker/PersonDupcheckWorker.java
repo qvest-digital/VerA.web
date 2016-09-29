@@ -19,9 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.List;
-
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.AddressHelper;
@@ -41,6 +38,9 @@ import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Dieser Octopus-Worker bearbeitet Personenlisten unter besonderer Beachtung, ob

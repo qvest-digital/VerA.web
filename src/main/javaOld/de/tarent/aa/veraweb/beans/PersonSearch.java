@@ -19,12 +19,12 @@
  */
 package de.tarent.aa.veraweb.beans;
 
-import java.util.Date;
-import java.util.List;
-
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.util.Date;
+import java.util.List;
 
 
 public class PersonSearch extends AbstractBean {

@@ -19,14 +19,13 @@
  */
 package de.tarent.ldap;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Diese Klasse stellt statisch Utility-Funktionen für den LDAP-Kontext bereit.

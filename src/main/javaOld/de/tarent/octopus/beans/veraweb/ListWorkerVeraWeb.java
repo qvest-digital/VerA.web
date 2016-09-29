@@ -19,12 +19,6 @@
  */
 package de.tarent.octopus.beans.veraweb;
 
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.tarent.aa.veraweb.worker.JumpOffset;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.GroupBy;
@@ -35,6 +29,12 @@ import de.tarent.octopus.beans.BeanListWorker;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Diese Klasse konkretisiert den abstrakten Basis-Worker {@link BeanListWorker}

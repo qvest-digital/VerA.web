@@ -19,10 +19,9 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import org.apache.commons.lang.StringUtils;
-
 import de.tarent.aa.veraweb.worker.ActionWorker;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -19,11 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.PersonCategorie;
 import de.tarent.aa.veraweb.utils.VerawebMessages;
@@ -40,6 +35,11 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Dieser Octopus-Worker bearbeitet Personen-Kategorien-Listen.

@@ -19,6 +19,16 @@
  */
 package de.tarent.aa.veraweb.utils;
 
+import de.tarent.aa.veraweb.beans.Categorie;
+import de.tarent.aa.veraweb.beans.ImportPerson;
+import de.tarent.aa.veraweb.beans.ImportPersonCategorie;
+import de.tarent.data.exchange.ExchangeFormat;
+import de.tarent.data.exchange.FieldMapping.Entity;
+import de.tarent.data.exchange.MappingException;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.TransactionContext;
+import de.tarent.utils.CSVFileReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -33,16 +43,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import de.tarent.aa.veraweb.beans.Categorie;
-import de.tarent.aa.veraweb.beans.ImportPerson;
-import de.tarent.aa.veraweb.beans.ImportPersonCategorie;
-import de.tarent.data.exchange.ExchangeFormat;
-import de.tarent.data.exchange.MappingException;
-import de.tarent.data.exchange.FieldMapping.Entity;
-import de.tarent.octopus.beans.BeanException;
-import de.tarent.octopus.beans.TransactionContext;
-import de.tarent.utils.CSVFileReader;
 
 /**
  * Diese Klasse implementiert einen generischen CSV-Import von VerA.web-Personen.

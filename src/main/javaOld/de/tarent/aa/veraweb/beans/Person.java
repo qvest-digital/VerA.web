@@ -19,27 +19,25 @@
  */
 package de.tarent.aa.veraweb.beans;
 
-import java.sql.Timestamp;
-import java.util.Set;
-
-import de.tarent.aa.veraweb.utils.VerawebMessages;
-import de.tarent.aa.veraweb.utils.VerawebUtils;
-import org.apache.commons.lang.StringEscapeUtils;
-
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
 import de.tarent.aa.veraweb.utils.AddressHelper;
 import de.tarent.aa.veraweb.utils.DateHelper;
+import de.tarent.aa.veraweb.utils.VerawebMessages;
+import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
+import java.util.Set;
 
 /**
  * Dieses Bean stellt einen Eintrag der Tabelle <code>veraweb.tperson</code> da.

@@ -20,22 +20,16 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.PdfTemplate;
-import de.tarent.dblayer.sql.Escaper;
-import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
-import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 
 public class PdfTemplateWorker extends ListWorkerVeraWeb {
 

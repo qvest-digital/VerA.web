@@ -19,12 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import de.tarent.aa.veraweb.beans.Mailinglist;
 import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -38,6 +32,12 @@ import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Dieser Octopus-Worker stellt die übersichtliste eines Verteilers bereit.

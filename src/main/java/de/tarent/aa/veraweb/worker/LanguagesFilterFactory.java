@@ -4,7 +4,6 @@ import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Where;
-import de.tarent.dblayer.sql.clause.WhereList;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH

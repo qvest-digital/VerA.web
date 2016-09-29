@@ -19,12 +19,12 @@
  */
 package de.tarent.aa.veraweb.beans;
 
-import java.util.Date;
-
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
+
+import java.util.Date;
 
 /**
  * The bean class ChangeLogEntry represents a single entry

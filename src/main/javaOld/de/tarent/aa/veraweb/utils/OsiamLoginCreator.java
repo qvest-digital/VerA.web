@@ -19,17 +19,7 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.dblayer.sql.clause.Clause;
-import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.clause.Limit;
-import de.tarent.dblayer.sql.clause.Order;
-import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.server.OctopusContext;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.osiam.client.OsiamConnector;
 import org.osiam.client.oauth.AccessToken;
@@ -38,9 +28,6 @@ import org.osiam.client.query.Query;
 import org.osiam.client.query.QueryBuilder;
 import org.osiam.resources.scim.SCIMSearchResult;
 import org.osiam.resources.scim.User;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH

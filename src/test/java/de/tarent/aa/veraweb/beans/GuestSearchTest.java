@@ -1,11 +1,9 @@
 package de.tarent.aa.veraweb.beans;
 
-import static org.junit.Assert.*;
-
+import de.tarent.dblayer.sql.clause.WhereList;
 import org.junit.Test;
 
-import de.tarent.dblayer.sql.Escaper;
-import de.tarent.dblayer.sql.clause.WhereList;
+import static org.junit.Assert.assertEquals;
 
 public class GuestSearchTest {
 

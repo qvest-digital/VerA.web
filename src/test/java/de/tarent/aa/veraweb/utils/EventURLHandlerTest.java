@@ -20,21 +20,16 @@
 package de.tarent.aa.veraweb.utils;
 
 import de.tarent.aa.veraweb.beans.Event;
-import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
-import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
-import de.tarent.octopus.content.TcContent;
 import de.tarent.octopus.server.OctopusContext;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.osiam.bundled.org.apache.commons.codec.language.bm.Lang;
 
 import java.util.Properties;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;

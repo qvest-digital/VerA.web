@@ -19,14 +19,14 @@
  */
 package de.tarent.ldap;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.PersonalConfig;
 import de.tarent.octopus.server.UserManager;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Implementierung eines LoginManagers im tarent-contact-Umfeld über LDAP.

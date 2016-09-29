@@ -21,10 +21,7 @@ package de.tarent.aa.veraweb.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Properties;
-
-import org.osiam.bundled.org.jvnet.hk2.internal.IterableProviderImpl;
 
 /**
  * This class is used to read the properties for veraweb and online registration.

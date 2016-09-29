@@ -19,11 +19,11 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.io.UnsupportedEncodingException;
-
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Diese Klasse stellt statische Hilfsmethoden für Octopus-spezifische Aufgaben

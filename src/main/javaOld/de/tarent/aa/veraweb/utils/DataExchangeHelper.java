@@ -19,11 +19,11 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.util.Map;
-
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.octopus.exchange.ConfiguredExchangeFormat;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.util.Map;
 
 /**
  * Diese Klasse enthält Hilfsmethoden für den Datenim- und -export.

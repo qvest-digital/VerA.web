@@ -48,9 +48,6 @@ import org.apache.logging.log4j.Logger;
 import org.evolvis.veraweb.util.DelegationPasswordGenerator;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;

@@ -19,9 +19,9 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.io.UnsupportedEncodingException;
-
 import junit.framework.TestCase;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Diese Testklasse testet {@link OctopusHelper}.

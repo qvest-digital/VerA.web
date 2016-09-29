@@ -19,13 +19,13 @@
  */
 package de.tarent.octopus.beans.veraweb;
 
+import de.tarent.dblayer.engine.DB;
+import de.tarent.octopus.server.Closeable;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import de.tarent.dblayer.engine.DB;
-import de.tarent.octopus.server.Closeable;
 
 public class DBConnectionCloser implements Closeable {
 	private static final Logger logger = Logger.getLogger(DBConnectionCloser.class.getName());

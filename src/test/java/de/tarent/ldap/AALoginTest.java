@@ -19,9 +19,7 @@
  */
 package de.tarent.ldap;
 
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
+import junit.framework.TestCase;
 
 import javax.naming.CommunicationException;
 import javax.naming.NamingEnumeration;
@@ -30,8 +28,9 @@ import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
-
-import junit.framework.TestCase;
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AALoginTest extends TestCase {
 	private boolean TEST_ENABLED = false;

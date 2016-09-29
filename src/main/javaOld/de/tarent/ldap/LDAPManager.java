@@ -19,18 +19,7 @@
  */
 package de.tarent.ldap;
 
-import java.lang.reflect.Constructor;
-import java.math.BigInteger;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import de.tarent.octopus.security.TcSecurityException;
 
 import javax.naming.CommunicationException;
 import javax.naming.Context;
@@ -45,8 +34,18 @@ import javax.naming.directory.ModificationItem;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
-
-import de.tarent.octopus.security.TcSecurityException;
+import java.lang.reflect.Constructor;
+import java.math.BigInteger;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * für Zugriff auf ein LDAP-Verzeichnis

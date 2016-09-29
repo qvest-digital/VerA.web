@@ -19,20 +19,19 @@
  */
 package de.tarent.ldap;
 
-import java.net.PasswordAuthentication;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.naming.AuthenticationException;
-
 import de.tarent.octopus.config.TcCommonConfig;
 import de.tarent.octopus.request.TcEnv;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.security.AbstractLoginManager;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.PersonalConfig;
+
+import javax.naming.AuthenticationException;
+import java.net.PasswordAuthentication;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Implementierung eines LoginManagers, über LDAP

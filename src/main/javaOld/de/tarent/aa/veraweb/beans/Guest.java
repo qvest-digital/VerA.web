@@ -19,8 +19,6 @@
  */
 package de.tarent.aa.veraweb.beans;
 
-import java.sql.Timestamp;
-
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.beans.facade.GuestMemberFacade;
 import de.tarent.aa.veraweb.utils.AddressHelper;
@@ -28,6 +26,8 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
+
+import java.sql.Timestamp;
 
 /**
  * Dieses Bean stellt einen Eintrag der Tabelle <em>veraweb.tguest</em> dar.

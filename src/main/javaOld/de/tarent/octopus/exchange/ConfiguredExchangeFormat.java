@@ -19,13 +19,13 @@
  */
 package de.tarent.octopus.exchange;
 
+import de.tarent.data.exchange.ExchangeFormat;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import de.tarent.data.exchange.ExchangeFormat;
 
 /**
  * Diese Klasse stellt die Eigenschaften eines Datenaustauschformats

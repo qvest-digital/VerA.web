@@ -19,6 +19,16 @@
  */
 package de.tarent.ldap;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.naming.directory.BasicAttribute;
+import javax.naming.directory.BasicAttributes;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -27,17 +37,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.naming.directory.BasicAttribute;
-import javax.naming.directory.BasicAttributes;
-
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 /**
  * Objekt, welches ungefähr das repräsentiert, was inetOrgPerson im LDAP ist...

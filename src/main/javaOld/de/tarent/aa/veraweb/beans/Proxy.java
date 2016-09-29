@@ -19,12 +19,12 @@
  */
 package de.tarent.aa.veraweb.beans;
 
-import java.sql.Timestamp;
-
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
+
+import java.sql.Timestamp;
 
 /**
  * Diese Bohne stellt Stellvertretungen dar.

@@ -19,17 +19,13 @@
  */
 package de.tarent.ldap;
 
-import java.io.InputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import de.tarent.ldap.contact.ContactUser;
+import de.tarent.octopus.security.TcSecurityException;
+import de.tarent.octopus.server.UserManager;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NamingEnumeration;
@@ -41,15 +37,17 @@ import javax.naming.directory.BasicAttributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.ModificationItem;
 import javax.naming.ldap.InitialLdapContext;
-
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-
-import de.tarent.ldap.contact.ContactUser;
-import de.tarent.octopus.security.TcSecurityException;
-import de.tarent.octopus.server.UserManager;
+import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Diese Klasse enthält die Ergänzungen zum LDAPManager zum Zugriff auf

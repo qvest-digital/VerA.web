@@ -19,15 +19,14 @@
  */
 package de.tarent.aa.veraweb.worker;
 
+import de.tarent.dblayer.engine.DB;
+import de.tarent.octopus.server.OctopusContext;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Properties;
-
-import de.tarent.dblayer.engine.DB;
-import de.tarent.octopus.server.OctopusContext;
 
 /**
  * System Worker initalisiert den Datenbank-Connection-Pool

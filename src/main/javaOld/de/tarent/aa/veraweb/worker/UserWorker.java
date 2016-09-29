@@ -19,15 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import de.tarent.aa.veraweb.beans.User;
 import de.tarent.octopus.LoginManagerAA;
 import de.tarent.octopus.PersonalConfigAA;
@@ -36,6 +27,15 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Dieser Octopus-Worker erledigt Aufgaben, die verwaltend die Benutzer betreffen.

@@ -19,19 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.security.SecureRandom;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Random;
-
-import org.osiam.client.OsiamConnector;
-import org.osiam.client.oauth.AccessToken;
-import org.osiam.client.oauth.Scope;
-import org.osiam.resources.scim.User;
-
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
@@ -45,6 +32,18 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import org.osiam.client.OsiamConnector;
+import org.osiam.client.oauth.AccessToken;
+import org.osiam.client.oauth.Scope;
+import org.osiam.resources.scim.User;
+
+import java.security.SecureRandom;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Random;
 
 /**
  * @author Max Marche <m.marche@tarent.de>, tarent solutions GmbH

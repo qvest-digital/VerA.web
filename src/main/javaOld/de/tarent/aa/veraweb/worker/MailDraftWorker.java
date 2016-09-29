@@ -19,10 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-
 import de.tarent.aa.veraweb.beans.MailDraft;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.SQL;
@@ -35,6 +31,10 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Dieser Octopus-Worker repräsentiert eine übersichtsseite

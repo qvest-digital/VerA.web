@@ -19,19 +19,6 @@
  */
 package de.tarent.ldap;
 
-import java.net.PasswordAuthentication;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.naming.NamingException;
-
 import de.tarent.aa.veraweb.beans.Proxy;
 import de.tarent.aa.veraweb.beans.User;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -48,6 +35,18 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
 import de.tarent.octopus.server.PersonalConfig;
+
+import javax.naming.NamingException;
+import java.net.PasswordAuthentication;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**

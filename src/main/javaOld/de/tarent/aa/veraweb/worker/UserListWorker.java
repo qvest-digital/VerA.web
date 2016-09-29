@@ -19,9 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.List;
-
 import de.tarent.aa.veraweb.beans.OrgUnit;
 import de.tarent.aa.veraweb.beans.Proxy;
 import de.tarent.aa.veraweb.beans.User;
@@ -40,6 +37,9 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Operationen zur Anzeige

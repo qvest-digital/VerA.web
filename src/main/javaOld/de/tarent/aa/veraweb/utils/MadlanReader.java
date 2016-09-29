@@ -19,6 +19,10 @@
  */
 package de.tarent.aa.veraweb.utils;
 
+import de.tarent.data.exchange.ExchangeFormat;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StreamTokenizer;
@@ -28,10 +32,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
-import de.tarent.data.exchange.ExchangeFormat;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Klasse zum {@link java.io.Reader}-basierten Lesen einer Madlan-Datei (spezielle Csv-Datei).

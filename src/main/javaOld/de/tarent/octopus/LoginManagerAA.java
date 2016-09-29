@@ -19,11 +19,11 @@
  */
 package de.tarent.octopus;
 
-import java.util.Set;
-
 import de.tarent.aa.veraweb.beans.Proxy;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.util.Set;
 
 /**
  * Diese Schnittstelle stellt die Methoden dar, die im Kontext des VerA.web-Projekts

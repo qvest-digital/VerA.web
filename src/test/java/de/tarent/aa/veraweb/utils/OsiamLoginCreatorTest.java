@@ -19,16 +19,11 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.dblayer.sql.clause.Clause;
-import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.server.OctopusContext;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.osiam.client.OsiamConnector;
@@ -38,9 +33,6 @@ import org.osiam.client.query.Query;
 import org.osiam.client.query.QueryBuilder;
 import org.osiam.resources.scim.SCIMSearchResult;
 import org.osiam.resources.scim.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

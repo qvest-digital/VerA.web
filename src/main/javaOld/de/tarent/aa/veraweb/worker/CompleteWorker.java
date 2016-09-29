@@ -19,8 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.util.List;
-
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
@@ -29,6 +27,8 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.util.List;
 
 /**
  * Worker der eine Autovervollständigung verschiedener Stammdaten zur

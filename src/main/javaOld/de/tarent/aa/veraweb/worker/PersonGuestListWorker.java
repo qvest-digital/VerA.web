@@ -19,14 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
@@ -38,6 +30,14 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.BeanFactory;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Dieser Octopus-Worker erweitert die Personen-Liste (vergleiche Worker

@@ -19,35 +19,15 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import static org.mockito.Matchers.argThat;
-import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import de.tarent.aa.veraweb.utils.VerawebMessages;
-import de.tarent.octopus.content.TcContent;
-import junit.framework.TestCase;
-
+import de.tarent.aa.veraweb.beans.Task;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.server.OctopusContext;
 import org.mockito.ArgumentMatcher;
 
-import de.tarent.aa.veraweb.beans.Grants;
-import de.tarent.aa.veraweb.beans.Task;
-import de.tarent.dblayer.sql.statement.Insert;
-import de.tarent.octopus.PersonalConfigAA;
-import de.tarent.octopus.beans.Bean;
-import de.tarent.octopus.beans.BeanException;
-import de.tarent.octopus.beans.TransactionContext;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
-import de.tarent.octopus.beans.veraweb.DatabaseVeraWebFactoryMock;
-import de.tarent.octopus.request.TcRequest;
-import de.tarent.octopus.server.OctopusContext;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
+import static org.mockito.Mockito.doReturn;
 
 public class EventTaskDetailWorkerTest { //extends TestCase {
 

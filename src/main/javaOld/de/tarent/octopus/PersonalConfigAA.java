@@ -19,11 +19,11 @@
  */
 package de.tarent.octopus;
 
-import java.text.MessageFormat;
-import java.util.List;
-
 import de.tarent.aa.veraweb.beans.Grants;
 import de.tarent.octopus.config.TcPersonalConfig;
+
+import java.text.MessageFormat;
+import java.util.List;
 
 /**
  * Diese Klasse stellt die Implementierung von {@link de.tarent.octopus.server.PersonalConfig}

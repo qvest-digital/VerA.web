@@ -19,10 +19,10 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.io.IOException;
-
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.octopus.beans.BeanException;
+
+import java.io.IOException;
 
 /**
  * Diese Schnittstelle ist für jede grundsätzliche Exportvariante umzusetzen.

@@ -30,8 +30,6 @@ import de.tarent.aa.veraweb.utils.MediaRepresentativesUtilities;
 import de.tarent.aa.veraweb.utils.OnlineRegistrationHelper;
 import de.tarent.aa.veraweb.utils.OptionalFieldSummary;
 import de.tarent.aa.veraweb.utils.OptionalFieldTypeFacade;
-import de.tarent.aa.veraweb.utils.PropertiesReader;
-import de.tarent.aa.veraweb.utils.URLGenerator;
 import de.tarent.dblayer.engine.Result;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
@@ -52,7 +50,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH

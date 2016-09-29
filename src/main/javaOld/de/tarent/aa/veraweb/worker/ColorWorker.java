@@ -19,10 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.tarent.aa.veraweb.beans.Color;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.dblayer.sql.SQL;
@@ -37,6 +33,10 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>

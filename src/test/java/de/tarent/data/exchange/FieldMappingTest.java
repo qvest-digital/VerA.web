@@ -19,13 +19,13 @@
  */
 package de.tarent.data.exchange;
 
+import junit.framework.Assert;
+import junit.framework.TestCase;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import junit.framework.Assert;
-import junit.framework.TestCase;
 
 /**
  * Diese Testklasse testet {@link FieldMapping}.

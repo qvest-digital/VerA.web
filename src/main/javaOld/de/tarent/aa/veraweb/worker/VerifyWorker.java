@@ -19,25 +19,22 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.ResourceBundle;
-
-import javax.xml.transform.TransformerFactory;
-
 import de.tarent.aa.veraweb.beans.Config;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
-import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+
+import javax.xml.transform.TransformerFactory;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.ResourceBundle;
 
 /**
  * Dieser Worker schreibt Fehlerberichte oder Warnungen

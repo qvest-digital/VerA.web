@@ -19,14 +19,7 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.tarent.aa.veraweb.beans.Location;
-import de.tarent.dblayer.sql.clause.Clause;
-import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Insert;
 import de.tarent.dblayer.sql.statement.Update;
 import de.tarent.octopus.PersonalConfigAA;
@@ -39,6 +32,8 @@ import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWebFactory;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
 
 /**
  * Dieser Octopus-Worker liefert eine Detailansicht für Veranstaltungsorte

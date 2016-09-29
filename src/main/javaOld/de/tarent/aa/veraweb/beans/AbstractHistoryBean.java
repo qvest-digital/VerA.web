@@ -19,9 +19,9 @@
  */
 package de.tarent.aa.veraweb.beans;
 
-import java.util.Date;
-
 import de.tarent.octopus.beans.BeanException;
+
+import java.util.Date;
 
 /**
  * Diese Klasse erweitert die {@link de.tarent.octopus.beans.MapBean}

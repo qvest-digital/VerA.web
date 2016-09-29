@@ -1,15 +1,14 @@
 package de.tarent.aa.veraweb.utils;
 
+import de.tarent.aa.veraweb.worker.ActionWorker;
+import de.tarent.octopus.config.TcModuleConfig;
+import de.tarent.octopus.server.OctopusContext;
+import org.junit.Test;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import org.junit.Test;
-
-import de.tarent.aa.veraweb.worker.ActionWorker;
-import de.tarent.octopus.config.TcModuleConfig;
-import de.tarent.octopus.server.OctopusContext;
 
 public class OnlineRegistrationHelperTest {
 

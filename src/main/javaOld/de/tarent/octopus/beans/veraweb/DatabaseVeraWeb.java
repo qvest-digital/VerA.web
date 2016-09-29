@@ -19,14 +19,6 @@
  */
 package de.tarent.octopus.beans.veraweb;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Collection;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import de.tarent.aa.veraweb.beans.AbstractBean;
 import de.tarent.aa.veraweb.beans.AbstractHistoryBean;
 import de.tarent.dblayer.helper.ResultList;
@@ -43,6 +35,14 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Konkrete {@link BeanFactory}, die Beans aus einer Datenbank im Kontext des

@@ -19,6 +19,10 @@
  */
 package de.tarent.octopus.custom.beans;
 
+import de.tarent.octopus.client.OctopusConnection;
+import de.tarent.octopus.client.OctopusResult;
+import junit.framework.TestCase;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -26,10 +30,6 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import junit.framework.TestCase;
-import de.tarent.octopus.client.OctopusConnection;
-import de.tarent.octopus.client.OctopusResult;
 
 /**
  * Diese Testklasse dient dem Profilen des Zeitverhaltens beim Erstellen

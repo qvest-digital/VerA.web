@@ -19,8 +19,8 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.util.Map;
 import java.util.Locale;
+import java.util.Map;
 /*
  * Language Helper was implemented to create a general message when deleting, creating or updating any entity
  * This utility is called from velocity through sending it to the OctopusContext

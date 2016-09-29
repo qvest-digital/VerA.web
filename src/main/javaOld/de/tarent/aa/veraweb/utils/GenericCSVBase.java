@@ -19,6 +19,16 @@
  */
 package de.tarent.aa.veraweb.utils;
 
+import de.tarent.aa.veraweb.beans.Categorie;
+import de.tarent.data.exchange.ExchangeFormat;
+import de.tarent.data.exchange.Exchanger;
+import de.tarent.data.exchange.FieldMapping;
+import de.tarent.data.exchange.MappingException;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.DatabaseUtilizer;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -33,16 +43,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import de.tarent.aa.veraweb.beans.Categorie;
-import de.tarent.data.exchange.ExchangeFormat;
-import de.tarent.data.exchange.Exchanger;
-import de.tarent.data.exchange.FieldMapping;
-import de.tarent.data.exchange.MappingException;
-import de.tarent.octopus.beans.Bean;
-import de.tarent.octopus.beans.BeanException;
-import de.tarent.octopus.beans.Database;
-import de.tarent.octopus.beans.DatabaseUtilizer;
 
 /**
  * Diese Klasse stellt Basisfunktionalitäten für den generischen CSV-Im- und -Export

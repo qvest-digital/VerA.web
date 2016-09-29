@@ -19,14 +19,14 @@
  */
 package de.tarent.aa.veraweb.beans;
 
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Location extends AbstractBean implements OrgUnitDependent, Comparable<Location> {
 

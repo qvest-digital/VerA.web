@@ -19,12 +19,12 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.io.IOException;
-import java.util.List;
-
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.ImportPersonExtra;
 import de.tarent.octopus.beans.BeanException;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Diese Schnittstelle stellt bei einem Import die Instanz dar, der ein

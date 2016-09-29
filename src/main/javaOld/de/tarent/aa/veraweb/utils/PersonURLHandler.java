@@ -19,10 +19,6 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import de.tarent.aa.veraweb.beans.Event;
-import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.octopus.server.OctopusContext;
-
 import java.util.Properties;
 
 /**

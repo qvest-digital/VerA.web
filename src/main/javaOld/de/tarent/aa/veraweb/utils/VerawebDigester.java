@@ -19,30 +19,21 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import de.tarent.aa.veraweb.beans.Import;
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.ImportPersonExtra;
-import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.worker.DataExchangeWorker;
-import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.clause.Order;
-import de.tarent.dblayer.sql.clause.Where;
-import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
-import de.tarent.octopus.beans.BeanStatement;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Diese Klasse dient als Importziel für die Methode

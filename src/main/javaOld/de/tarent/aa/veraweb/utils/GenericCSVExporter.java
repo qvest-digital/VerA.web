@@ -19,6 +19,18 @@
  */
 package de.tarent.aa.veraweb.utils;
 
+import de.tarent.aa.veraweb.beans.Person;
+import de.tarent.data.exchange.ExchangeFormat;
+import de.tarent.data.exchange.FieldMapping.Entity;
+import de.tarent.data.exchange.MappingException;
+import de.tarent.dblayer.sql.clause.Clause;
+import de.tarent.dblayer.sql.clause.Expr;
+import de.tarent.dblayer.sql.clause.Where;
+import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.octopus.beans.Bean;
+import de.tarent.octopus.beans.BeanException;
+import de.tarent.utils.CSVFileWriter;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -31,18 +43,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import de.tarent.aa.veraweb.beans.Person;
-import de.tarent.data.exchange.ExchangeFormat;
-import de.tarent.data.exchange.MappingException;
-import de.tarent.data.exchange.FieldMapping.Entity;
-import de.tarent.dblayer.sql.clause.Clause;
-import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.clause.Where;
-import de.tarent.dblayer.sql.statement.Select;
-import de.tarent.octopus.beans.Bean;
-import de.tarent.octopus.beans.BeanException;
-import de.tarent.utils.CSVFileWriter;
 
 /**
  * Diese Klasse implementiert einen generischen CSV-Export von VerA.web-Personen.

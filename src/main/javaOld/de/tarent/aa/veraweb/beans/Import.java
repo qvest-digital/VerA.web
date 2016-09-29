@@ -19,11 +19,11 @@
  */
 package de.tarent.aa.veraweb.beans;
 
-import java.sql.Timestamp;
-
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.sql.Timestamp;
 
 /**
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.timport dar,

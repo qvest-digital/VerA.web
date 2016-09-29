@@ -19,10 +19,10 @@
  */
 package de.tarent.aa.veraweb.utils;
 
+import junit.framework.TestCase;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import junit.framework.TestCase;
 
 public class DatabaseHelperTest extends TestCase {
 	public void testEmptyOrder() {

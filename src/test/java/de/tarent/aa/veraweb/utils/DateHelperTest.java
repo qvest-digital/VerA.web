@@ -19,10 +19,10 @@
  */
 package de.tarent.aa.veraweb.utils;
 
+import junit.framework.TestCase;
+
 import java.sql.Timestamp;
 import java.util.Calendar;
-
-import junit.framework.TestCase;
 
 public class DateHelperTest extends TestCase {
 	public void testEmptyDate() {

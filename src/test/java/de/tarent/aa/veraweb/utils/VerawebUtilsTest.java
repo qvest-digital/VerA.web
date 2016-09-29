@@ -2,7 +2,7 @@ package de.tarent.aa.veraweb.utils;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH

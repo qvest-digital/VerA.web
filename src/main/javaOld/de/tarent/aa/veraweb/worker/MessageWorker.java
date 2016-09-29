@@ -19,11 +19,11 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 import de.tarent.aa.veraweb.utils.LocaleMessage;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Diese Octopus-Worker-Klasse stellt Helferobjekte in den Kontext, die Mitteilungstexte

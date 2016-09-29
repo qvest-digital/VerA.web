@@ -19,12 +19,12 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import java.util.Properties;
-
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.octopus.server.OctopusContext;
+
+import java.util.Properties;
 
 /**
  * This class is used to generate URL for the free visitors of event.
