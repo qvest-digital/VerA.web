@@ -146,14 +146,6 @@
             <div class="floatRight width49">
                 <h3>${placeholderWithTranslation.oberflachenbeschriftungen}:</h3>
                 <table class="marginBottom20">
-                	<!--<tr>-->
-                		<!--<td class="bold width25">${placeholderWithTranslation.GENERIC_MAIN_PERSON}:</td>-->
-                		<!--<td><input type="text" name="main" maxlength="300" value="$!message.text($!config.main)" ></td>-->
-                	<!--</tr>-->
-                	<!--<tr>-->
-                		<!--<td class="bold width25">${placeholderWithTranslation.GENERIC_PARTNER}:</td>-->
-                		<!--<td><input type="text" name="partner" maxlength="300" value="$!message.text($!config.partner)" ></td>-->
-                	<!--</tr>-->
                 	<tr>
                 		<td class="bold width25">${placeholderWithTranslation.GENERIC_MAILING_ADDRESS_BUSINESS}:</td>
                 		<td><input type="text" name="business" maxlength="300" value="$!message.text($!config.business)" ></td>
