@@ -20,10 +20,11 @@
 package de.tarent.aa.veraweb.utils;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 import de.tarent.aa.veraweb.worker.ActionWorker;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Helper to play with the Online-Application Configuration. True if activated,
@@ -38,7 +39,7 @@ public class OnlineRegistrationHelper {
     private static final String VWOR_VALUE_TRUE = "true";
 
     /** Logger für diese Klasse */
-    private final static Logger logger = Logger.getLogger(OnlineRegistrationHelper.class);
+    private final static Logger logger = LogManager.getLogger(OnlineRegistrationHelper.class);
 
     /**
      * Check for enabled online registration module.

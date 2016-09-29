@@ -38,7 +38,6 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -54,9 +53,6 @@ import java.util.Map;
  * @version $Revision: 1.1 $
  */
 public class MailinglistWorker {
-
-	private static final Logger logger = Logger.getLogger(MailinglistWorker.class);
-
 
 	/** Octopus-Eingabe-Parameter für {@link #createMailinglist(OctopusContext, Mailinglist)} */
 	public static final String INPUT_createMailinglist[] = { "CONTENT:mailinglist" };

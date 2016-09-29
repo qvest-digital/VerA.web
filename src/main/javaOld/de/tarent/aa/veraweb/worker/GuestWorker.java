@@ -47,7 +47,8 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -785,5 +786,5 @@ public class GuestWorker {
     // Variablen
     //
     /** Logger für diese Klasse */
-    private final static Logger logger = Logger.getLogger(GuestWorker.class);
+    private final static Logger logger = LogManager.getLogger(GuestWorker.class);
 }

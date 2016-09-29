@@ -26,8 +26,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import de.tarent.aa.veraweb.beans.Import;
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.ImportPersonExtra;
@@ -51,8 +49,6 @@ import de.tarent.octopus.server.OctopusContext;
  * {@link DataExchangeWorker#importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)}.
  */
 public class VerawebDigester implements ImportDigester {
-
-	final static Logger LOGGER = Logger.getLogger(VerawebDigester.class);
 
     int personCount = 0;
     int importableCount = 0;

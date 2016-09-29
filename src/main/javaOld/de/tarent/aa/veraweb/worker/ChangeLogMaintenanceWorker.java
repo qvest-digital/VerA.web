@@ -27,8 +27,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import de.tarent.aa.veraweb.beans.Duration;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Delete;
@@ -36,6 +34,8 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Worker that runs constantly purges old entries from the changelog.
@@ -47,7 +47,7 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class ChangeLogMaintenanceWorker implements Runnable {
 	/** Log4J Logger Instanz */
-	private final Logger logger = Logger.getLogger(ChangeLogMaintenanceWorker.class);
+	private final Logger logger = LogManager.getLogger(ChangeLogMaintenanceWorker.class);
 	/** Actual worker thread */
 	protected Thread thread;
 	protected boolean keeprunning = false;

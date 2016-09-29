@@ -29,10 +29,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
 import de.tarent.data.exchange.ExchangeFormat;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Klasse zum {@link java.io.Reader}-basierten Lesen einer Madlan-Datei (spezielle Csv-Datei).
@@ -49,7 +48,7 @@ public class MadlanReader implements MadlanConstants {
 	private boolean closed = false; //Stream schon geschlossen ?
 	private boolean fillShortenedRows = true;
 	private boolean trimExtendedRows = true;
-	private static Logger logger = Logger.getLogger(MadlanReader.class.getName());
+	private static Logger logger = LogManager.getLogger(MadlanReader.class.getName());
 	private String emptyField = "";
 	private char separatorChar = ';';
 	private char lineBreakChar = 0xb;
@@ -66,11 +65,11 @@ public class MadlanReader implements MadlanConstants {
 	public MadlanReader(Reader reader, ExchangeFormat format) {
         Map properties = format.getProperties();
 		kyrillicFields = (List) properties.get(KEY_KYRILLIC_FIELDS);
-		if (logger.isEnabledFor(Level.DEBUG))
-			logger.log(Level.DEBUG, "Ermittle Haupt-Zeichen-Mapping");
+		if (logger.isDebugEnabled())
+			logger.debug("Ermittle Haupt-Zeichen-Mapping");
 		mappingA = getChars((String) properties.get(KEY_MAPPING_A));
-		if (logger.isEnabledFor(Level.DEBUG))
-			logger.log(Level.DEBUG, "Ermittle kyrillisches Zeichen-Mapping");
+		if (logger.isDebugEnabled())
+			logger.debug("Ermittle kyrillisches Zeichen-Mapping");
 		mappingB = getChars((String) properties.get(KEY_MAPPING_B));
 		tokenizer = new StreamTokenizer(reader);
 		//Tokenizer konfigurieren
@@ -93,8 +92,8 @@ public class MadlanReader implements MadlanConstants {
 			header = readRow(true); //Header lesen
 		isKyrillic = new boolean[header.size()];
 		if (kyrillicFields != null) {
-			if (logger.isEnabledFor(Level.DEBUG))
-				logger.log(Level.DEBUG, "Anzahl bekannter kyrillischer Felder: " + kyrillicFields.size());
+			if (logger.isDebugEnabled())
+				logger.debug("Anzahl bekannter kyrillischer Felder: " + kyrillicFields.size());
 			Iterator itHeaders = header.iterator();
 			int fieldsFound = 0;
 			for (int i = 0; i < isKyrillic.length; i++) {
@@ -102,8 +101,8 @@ public class MadlanReader implements MadlanConstants {
 				if (isKyrillic[i])
 					fieldsFound++;
 			}
-			if (logger.isEnabledFor(Level.DEBUG))
-				logger.log(Level.DEBUG, "Anzahl gefundener kyrillischer Felder: " + fieldsFound);
+			if (logger.isDebugEnabled())
+				logger.debug("Anzahl gefundener kyrillischer Felder: " + fieldsFound);
 		}
 
 		return header;
@@ -392,10 +391,10 @@ public class MadlanReader implements MadlanConstants {
 			result = (char[]) charsets.get(key.toLowerCase());
 		if (result == null) {
 			result = charsLatin;
-			if (logger.isEnabledFor(Level.DEBUG))
-				logger.log(Level.DEBUG, "Mapping '" + key + "' nicht erkannt; benutze Latin.");
-		} else if (logger.isEnabledFor(Level.DEBUG))
-			logger.log(Level.DEBUG, "Mapping '" + key + "' wird benutzt.");
+			if (logger.isDebugEnabled())
+				logger.debug("Mapping '" + key + "' nicht erkannt; benutze Latin.");
+		} else if (logger.isDebugEnabled())
+			logger.debug("Mapping '" + key + "' wird benutzt.");
 		return result;
 	}
 

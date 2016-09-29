@@ -23,8 +23,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import de.tarent.aa.veraweb.beans.Proxy;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Function;
@@ -39,6 +37,8 @@ import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.content.TcContentWorker;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Dieser Octopus-Worker erledigt Aufgaben, die Stellvertretungen betreffen.
@@ -126,5 +126,5 @@ public class ProxyWorker {
     //
     // geschützte Member
     //
-    private final static Logger logger = Logger.getLogger(ProxyWorker.class);
+    private final static Logger logger = LogManager.getLogger(ProxyWorker.class);
 }

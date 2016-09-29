@@ -39,7 +39,6 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
-import org.apache.log4j.Logger;
 
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.aa.veraweb.utils.ExportHelper;
@@ -61,6 +60,8 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Dieser Octopus-Worker stellt Aktionen zur Erstellung
@@ -70,7 +71,7 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class StatistikWorker {
     /** Logger dieser Klasse */
-	private final Logger logger = Logger.getLogger(getClass());
+	private final Logger logger = LogManager.getLogger(getClass());
 
 	/** Octopus-Eingabeparameter für die Aktion {@link #getFirstDayInMonth()} */
 	public static final String INPUT_getFirstDayInMonth[] = {};

@@ -43,7 +43,8 @@ import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.evolvis.veraweb.util.DelegationPasswordGenerator;
 
 import java.io.IOException;
@@ -77,7 +78,7 @@ public class GuestExportWorker {
 	public static final String EMPTY_FIELD_VALUE = "-";
 
     /** Logger dieser Klasse */
-	private final Logger logger = Logger.getLogger(getClass());
+	private final Logger logger = LogManager.getLogger(getClass());
 
 	private boolean isOnlineRegistrationActive = true;
 

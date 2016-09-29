@@ -30,8 +30,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.GuestSearch;
@@ -67,6 +65,8 @@ import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Verwaltet eine Gästeliste.
@@ -103,7 +103,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
             + "WHERE g.pk IN ({1})";
     private final static MessageFormat BULK_INSERT_CHANGELOG_ENTRIES_FORMAT = new MessageFormat(BULK_INSERT_CHANGELOG_ENTRIES);
 
-    private final static Logger logger = Logger.getLogger(GuestListWorker.class);
+    private final static Logger logger = LogManager.getLogger(GuestListWorker.class);
 
     /**
      * Der Konstruktor legt den Bean-Namen fest.

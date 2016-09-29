@@ -38,9 +38,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
 import de.tarent.aa.veraweb.beans.Import;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
@@ -72,6 +69,8 @@ import de.tarent.octopus.exchange.ConfiguredExchangeFormat;
 import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.Context;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Diese Klasse stellt einen Octopus-Worker für den Im- und Export von
@@ -303,8 +302,8 @@ public class DataExchangeWorker {
                 if (suffix != null) suffix.toLowerCase();
 
                 if (suffix == null || suffix.length() == 0) {
-                    if (logger.isEnabledFor(Level.DEBUG))
-                        logger.log(Level.DEBUG, "Endung der Import-Datei '" + filename + "' konnte nicht festgestellt werden.");
+                    if (logger.isDebugEnabled())
+                        logger.debug("Endung der Import-Datei '" + filename + "' konnte nicht festgestellt werden.");
                 } else if (
                         suffix.equals("ods") ||
                                 suffix.equals("sxc") ||
@@ -784,5 +783,5 @@ public class DataExchangeWorker {
     //
     // geschützte Member
     //
-    private final static Logger logger = Logger.getLogger(DataExchangeWorker.class);
+    private final static Logger logger = LogManager.getLogger(DataExchangeWorker.class);
 }

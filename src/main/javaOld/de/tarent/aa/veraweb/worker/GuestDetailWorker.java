@@ -53,8 +53,8 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class GuestDetailWorker extends GuestListWorker {
     /**
      * Logger dieser Klasse
      */
-    public static final Logger logger = Logger.getLogger(GuestDetailWorker.class);
+    public static final Logger logger = LogManager.getLogger(GuestDetailWorker.class);
 
     // Octopus-Aktionen
     /**
@@ -1030,8 +1030,8 @@ public class GuestDetailWorker extends GuestListWorker {
         extendColumns(octopusContext, select);
 
         if (guestid != null && guestid.intValue() != 0) {
-            if (logger.isEnabledFor(Priority.DEBUG))
-                logger.log(Priority.DEBUG, "GuestDetail show for id " + guestid);
+            if (logger.isDebugEnabled())
+                logger.debug("GuestDetail show for id " + guestid);
             select.where(Where.and(
                     Expr.equal("tguest.pk", guestid),
                     Expr.equal("tguest.fk_event", eventid)));
@@ -1044,8 +1044,8 @@ public class GuestDetailWorker extends GuestListWorker {
             }
         }
 
-        if (logger.isEnabledFor(Priority.DEBUG)) {
-            logger.log(Priority.DEBUG, "GuestDetail show for offset " + offset);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GuestDetail show for offset " + offset);
         }
 
         final WhereList list = new WhereList();

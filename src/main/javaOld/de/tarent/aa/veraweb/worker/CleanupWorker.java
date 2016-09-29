@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 import de.tarent.octopus.beans.TransactionContext;
-import org.apache.log4j.Logger;
 
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.dblayer.sql.Join;
@@ -40,6 +39,8 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Diese Klasse übernimmt einige Aufräumarbeiten in der Datenbank.
@@ -48,7 +49,7 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class CleanupWorker {
 	/** Log4j logger Instanz. */
-	private static final Logger logger = Logger.getLogger(CleanupWorker.class);
+	private static final Logger logger = LogManager.getLogger(CleanupWorker.class);
 
 	/** Octopus Input-Parameter für {@link #summarizeCategories(OctopusContext)}. */
 	public static final String INPUT_summarizeCategories[] = {};

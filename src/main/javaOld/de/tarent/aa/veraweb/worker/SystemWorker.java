@@ -26,10 +26,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Properties;
 
-import org.apache.log4j.Category;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.xml.DOMConfigurator;
-
 import de.tarent.dblayer.engine.DB;
 import de.tarent.octopus.server.OctopusContext;
 
@@ -80,17 +76,17 @@ public class SystemWorker {
      *
      * @param cntx Octopus-Kontext
      */
-	public void initLogging(OctopusContext cntx) {
-		DOMConfigurator.configure(cntx.moduleConfig().getOtherNode("log4j:configuration"));
-
-		String path = cntx.moduleConfig().getRealPath() + "/log/";
-		new File(path).mkdirs();
-		changeLogDir(Category.getInstance("SQL"), path);
-		changeLogDir(Category.getInstance("WORKER"), path);
-		changeLogDir(Category.getInstance("ERROR"), path);
-		changeLogDir(Category.getInstance("de.tarent.dblayer"), path);
-		changeLogDir(Category.getInstance("de.tarent.aa.veraweb"), path);
-	}
+//	public void initLogging(OctopusContext cntx) {
+//		DOMConfigurator.configure(cntx.moduleConfig().getOtherNode("log4j:configuration"));
+//
+//		String path = cntx.moduleConfig().getRealPath() + "/log/";
+//		new File(path).mkdirs();
+//		changeLogDir(Category.getInstance("SQL"), path);
+//		changeLogDir(Category.getInstance("WORKER"), path);
+//		changeLogDir(Category.getInstance("ERROR"), path);
+//		changeLogDir(Category.getInstance("de.tarent.dblayer"), path);
+//		changeLogDir(Category.getInstance("de.tarent.aa.veraweb"), path);
+//	}
 
     //
     // Hilfsmethoden
@@ -103,17 +99,17 @@ public class SystemWorker {
      * @param category abzuändernde Log4J-Kategorie
      * @param path zu benutzender Dateipfad
      */
-	protected void changeLogDir(Category category, String path) {
-		if (category == null) return;
-		for (Enumeration e = category.getAllAppenders(); e.hasMoreElements(); ) {
-			Object o = e.nextElement();
-			if (o != null && o instanceof FileAppender) {
-				FileAppender a = (FileAppender)o;
-				if (a.getFile() != null && a.getFile().indexOf('/') == -1 && a.getFile().indexOf('\\') == -1) {
-					a.setFile(path + a.getFile());
-					a.activateOptions();
-				}
-			}
-		}
-	}
+//	protected void changeLogDir(Category category, String path) {
+//		if (category == null) return;
+//		for (Enumeration e = category.getAllAppenders(); e.hasMoreElements(); ) {
+//			Object o = e.nextElement();
+//			if (o != null && o instanceof FileAppender) {
+//				FileAppender a = (FileAppender)o;
+//				if (a.getFile() != null && a.getFile().indexOf('/') == -1 && a.getFile().indexOf('\\') == -1) {
+//					a.setFile(path + a.getFile());
+//					a.activateOptions();
+//				}
+//			}
+//		}
+//	}
 }

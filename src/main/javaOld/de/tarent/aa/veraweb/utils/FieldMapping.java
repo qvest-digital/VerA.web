@@ -19,6 +19,9 @@
  */
 package de.tarent.aa.veraweb.utils;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,8 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
-
-import org.apache.log4j.Logger;
 
 /**
  * Diese Klasse liefert ein Feld-Mapping, das allgemeiner ist als 1:1.
@@ -270,5 +271,5 @@ public class FieldMapping {
     /** Zielfeld zu den verfügbaren Quellfeldern, in dem diese führend sind */
     private Map sourcePrimeTargets = new HashMap();
     /** Logger für diese Klasse */
-    private final static Logger logger = Logger.getLogger(FieldMapping.class);
+    private final static Logger logger = LogManager.getLogger(FieldMapping.class);
 }

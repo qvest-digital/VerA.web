@@ -53,8 +53,8 @@ import de.tarent.octopus.beans.veraweb.BeanChangeLogger;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.evolvis.veraweb.onlinereg.entities.LinkType;
 import org.osiam.client.OsiamConnector;
 import org.osiam.client.oauth.AccessToken;
@@ -85,7 +85,7 @@ public class PersonDetailWorker implements PersonConstants {
     /**
      * Logger dieser Klasse
      */
-    private static final Logger LOGGER = Logger.getLogger(PersonDetailWorker.class);
+    private static final Logger LOGGER = LogManager.getLogger(PersonDetailWorker.class);
 
     /**
      * Example Property file: client.id=example-client client.secret=secret
@@ -128,6 +128,7 @@ public class PersonDetailWorker implements PersonConstants {
     private static final Delete deletePersonTasks = SQL.Delete(database).from("veraweb.ttask");
     private static final Delete deletePersonMailinglist = SQL.Delete(database).from("veraweb.tperson_mailinglist");
     private static final Delete deletePersonCategory = SQL.Delete(database).from("veraweb.tperson_categorie");
+    private static final Logger logger = LogManager.getLogger(PersonDetailWorker.class.getCanonicalName());
 
     /**
      * Diese Octopus Aktion nimmt die übergebene Person oder die Person zu der
@@ -146,6 +147,8 @@ public class PersonDetailWorker implements PersonConstants {
      *            Person
      */
     public Person showDetail(OctopusContext octopusContext, Integer id, Person person) throws BeanException, IOException {
+        logger.debug("Show person details");
+
         Database database = new DatabaseVeraWeb(octopusContext);
 
         if (person == null) {
@@ -982,8 +985,8 @@ public class PersonDetailWorker implements PersonConstants {
      */
     void removePerson(OctopusContext octopusContext, Person person, String username) throws BeanException, IOException {
         // Datenbank-Einträge inkl. Abhängigkeiten löschen.
-        if (LOGGER.isEnabledFor(Priority.DEBUG)) {
-            LOGGER.log(Priority.DEBUG, "Person l\u00f6schen: Person #" + person.id + " wird vollst\u00e4ndig gel\u00f6scht.");
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Person l\u00f6schen: Person #" + person.id + " wird vollst\u00e4ndig gel\u00f6scht.");
         }
 
         executeDeleteStatements(octopusContext, person.id, username);

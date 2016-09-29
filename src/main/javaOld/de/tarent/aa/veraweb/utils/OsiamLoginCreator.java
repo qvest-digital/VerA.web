@@ -31,7 +31,6 @@ import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.log4j.Logger;
 import org.osiam.client.OsiamConnector;
 import org.osiam.client.oauth.AccessToken;
 import org.osiam.client.oauth.Scope;
@@ -53,7 +52,6 @@ public class OsiamLoginCreator {
      * At least one special character
      */
     public static final String CONDITIONS = ".*(?=.*\\d)(?=.*[A-Z])(?=.*[-_$!#<>@&()+=}]).*";
-    private static final Logger LOGGER = Logger.getLogger(OnlineRegistrationHelper.class.getCanonicalName());
     private static final String CHARS_FOR_PASSWORD_GENERATION =
             "abzdefghijklmnopqrstuvwxyzABZDEFGHIJKLMNOPQRSTUVWXYZ1234567890!$-_#<>@&()+=}|";
 

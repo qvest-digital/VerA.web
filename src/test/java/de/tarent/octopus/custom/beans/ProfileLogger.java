@@ -19,8 +19,8 @@
  */
 package de.tarent.octopus.custom.beans;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Diese Klasse stellt Methoden zum Loggen von Profiling-Informationen
@@ -51,7 +51,7 @@ public final class ProfileLogger {
      */
     public void log(final String string) {
         final long now = System.currentTimeMillis();
-        logger.log(level, "[" + (now - last) + "ms] " + string);
+        logger.info("[" + (now - last) + "ms] " + string);
         last = now;
     }
 
@@ -61,9 +61,7 @@ public final class ProfileLogger {
     /** letzter Messpunkt */
     long last = 0;
 
-    /** Log-Level */
-    Level level = Level.INFO;
 
     /** Logger */
-    Logger logger = Logger.getLogger(ProfileLogger.class.getName());
+    Logger logger = LogManager.getLogger(ProfileLogger.class.getName());
 }

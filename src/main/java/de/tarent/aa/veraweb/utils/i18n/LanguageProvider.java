@@ -24,8 +24,8 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.veraweb.RequestVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,7 +65,7 @@ public class LanguageProvider {
      */
     public static final String STANDARD_LANG_FILE = "/etc/veraweb/l10n/de_DE.resource";
 
-    public static final Logger LOGGER = Logger.getLogger(LanguageProvider.class.getName());
+    public static final Logger LOGGER = LogManager.getLogger(LanguageProvider.class.getName());
     // Path of all language files
     private static final String FILE_PATH = "/etc/veraweb/l10n/";
 

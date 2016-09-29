@@ -25,8 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import de.tarent.aa.veraweb.beans.Mailinglist;
 import de.tarent.aa.veraweb.utils.VworUtils;
 import de.tarent.dblayer.sql.clause.Expr;
@@ -38,6 +36,8 @@ import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Dieser Octopus-Worker stellt die übersichtliste eines Verteilers bereit.
@@ -47,7 +47,7 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class MailinglistDetailWorker extends ListWorkerVeraWeb {
     /** Logger dieser Klasse */
-    public static Logger logger = Logger.getLogger(MailinglistDetailWorker.class.getName());
+    public static Logger logger = LogManager.getLogger(MailinglistDetailWorker.class.getName());
     private Integer MAX_MAIL_TO_LENGTH = 1024;
 
     //

@@ -21,9 +21,9 @@ package de.tarent.aa.veraweb.utils;
 
 import java.io.UnsupportedEncodingException;
 
-import org.apache.log4j.Logger;
-
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Diese Klasse stellt statische Hilfsmethoden für Octopus-spezifische Aufgaben
@@ -33,7 +33,7 @@ import de.tarent.octopus.server.OctopusContext;
  */
 public class OctopusHelper {
     /** Log4J Logger */
-    private static final Logger logger = Logger.getLogger(OctopusHelper.class);
+    private static final Logger logger = LogManager.getLogger(OctopusHelper.class);
 
     /**
      * Gibt einen angeforderten Dateinamen zurück.

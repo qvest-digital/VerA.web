@@ -39,7 +39,8 @@ import de.tarent.octopus.beans.ExecutionContext;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ import java.util.Map;
 public class ImportPersonsWorker {
 
     /** Logger dieser Klasse */
-    public static final Logger LOGGER = Logger.getLogger(ImportPersonsWorker.class.getName());
+    public static final Logger LOGGER = LogManager.getLogger(ImportPersonsWorker.class.getName());
 
     //
     // Öffentliche Konstanten
@@ -407,5 +408,5 @@ public class ImportPersonsWorker {
     }
 
     /** Logger dieser Klasse */
-    static Logger logger = Logger.getLogger(ImportPersonsWorker.class.getName());
+    static Logger logger = LogManager.getLogger(ImportPersonsWorker.class.getName());
 }

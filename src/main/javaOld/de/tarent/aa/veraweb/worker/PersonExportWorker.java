@@ -42,7 +42,8 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.response.TcBinaryResponseEngine;
 import de.tarent.octopus.server.OctopusContext;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.transform.TransformerFactoryConfigurationError;
@@ -60,7 +61,7 @@ import java.util.Map;
  */
 public class PersonExportWorker extends PersonListWorker {
 	/** Logger dieser Klasse */
-	private final Logger logger = Logger.getLogger(getClass());
+	private final Logger logger = LogManager.getLogger(getClass());
 
 	/**
 	 * Filtert nach der aktuellen Selektion oder den vom Benutzer eingegeben Filter.

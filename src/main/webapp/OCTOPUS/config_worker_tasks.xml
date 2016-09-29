@@ -106,7 +106,7 @@
 		<!-- Automatische Tasks zum Start und Beenden des Modules. -->
 		<task name="autostart" access="public">
 			<description>Alle Worker die automatisch ohne einen Request aufgerufen werden sollen.</description>
-			<action name="initLogging" worker="SystemWorker"/>
+			<!--<action name="initLogging" worker="SystemWorker"/>-->
 			<param name="poolDefinitions" refvalue="CONFIG:databasePools"/>
 			<action name="openPools" worker="PoolWorker"/>
 			<action name="init" worker="MessageWorker"/>
