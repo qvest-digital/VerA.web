@@ -92,7 +92,7 @@
         			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.text($!bean.username)</td>
         			<td class="textCenter" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.created) Uhr</td>
         			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">
-        				#if($!bean.eventname!="")
+        				#if($bean.eventname && $!bean.eventname!="")
         					$!message.text(${placeholderWithTranslation.GENERIC_YES})
         				#else
         					$!message.text(${placeholderWithTranslation.GENERIC_NO})
