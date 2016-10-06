@@ -2,8 +2,8 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.AcroFields;
 import com.lowagie.text.pdf.PdfCopy;
-import com.lowagie.text.pdf.PdfFormField;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import org.apache.commons.io.FileUtils;
@@ -243,20 +243,35 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     private String writePersonalOutputFile(String pdfTemplateFilename, Person person, UUID uuid) throws IOException, DocumentException {
-
         final PdfReader pdfReader = new PdfReader(pdfTemplateFilename);
         final String path = FileUtils.getTempDirectoryPath() + File.separator + uuid.toString() + "-personal-pdf-file-" + person.getPk() + "-" + new Date().getTime() + ".pdf";
         final PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(path));
 
         final HashMap<String, String> substitutions = getSubstitutions(person);
         //iterate over all field in "pdfTemplateFilename"
-        for (Map.Entry<String, ?> fieldInTemplate : ((HashMap<String, ?>) pdfStamper.getAcroFields().getFields()).entrySet()) {
-            pdfStamper.getAcroFields().setField(fieldInTemplate.getKey(), substitutions.get(fieldInTemplate.getKey()));
-            pdfStamper.getAcroFields().setFieldProperty(fieldInTemplate.getKey(), "setfflags", PdfFormField.FF_READ_ONLY, null);
+        final AcroFields acroFields = pdfStamper.getAcroFields();
+        final List<String> tempFieldList = new ArrayList<>();
+        for (Map.Entry<String, ?> fieldInTemplate : ((HashMap<String, ?>) acroFields.getFields()).entrySet()) {
+            acroFields.setField(fieldInTemplate.getKey(), substitutions.get(fieldInTemplate.getKey()));
+            tempFieldList.add(fieldInTemplate.getKey());
         }
-
+        renameFields(person.getPk(), acroFields, tempFieldList);
         pdfStamper.close();
+
         return path;
+    }
+
+    /**
+     * Rename fields to avoid global changes of the fields.
+     *
+     * @param personId The personal ID
+     * @param acroFields All fields in the template
+     * @param fieldsList Temp list with fieldnames to avoid ConcurrentModificationException
+     */
+    private void renameFields(Integer personId, AcroFields acroFields, List<String> fieldsList) {
+        for (String fieldName : fieldsList) {
+            acroFields.renameField(fieldName, new String(fieldName + personId));
+        }
     }
 
     private HashMap<String, String> getSubstitutions(Person person) {
