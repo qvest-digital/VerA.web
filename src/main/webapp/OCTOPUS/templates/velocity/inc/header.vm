@@ -176,12 +176,12 @@
 			#end
 
 			#if($count>=0)
-				#if($insertAndUpdate == "true")
+				#if($insertAndUpdate && $insertAndUpdate == "true")
 					#set($updateTest=${helper.createMessage($entity,"MODIFY","$countUpdate",$placeholderWithTranslation)})
 				#end
 				#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
 				<vera-success> $generalMessage.
-				#if($insertAndUpdate == "true")
+				#if($insertAndUpdate && $insertAndUpdate == "true")
 					<br/> $updateTest
 				#end
 				</vera-success>
