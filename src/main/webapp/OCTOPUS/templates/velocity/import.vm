@@ -87,13 +87,13 @@
                             <label for="orgUnit">
                                 ${placeholderWithTranslation.GENERIC_TARGET_CLIENT}
                             </label>
-                            <select name="orgUnit" id="orgUnit">
+                            <span id="orgUnit">
                                 #foreach($orgunit in $allOrgUnit)
-                                    <option value="$orgunit.id" #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)selected#end>
+                                    #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)
                                         $!message.text($orgunit.name)
-                                    </option>
+                                    #end
                                 #end
-                            </select>
+                            </span>
                         #end
                     </div>
                 </div>
