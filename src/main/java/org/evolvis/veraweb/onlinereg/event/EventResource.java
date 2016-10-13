@@ -353,8 +353,6 @@ public class EventResource {
 
         final Guest guest = resource.type(MediaType.APPLICATION_FORM_URLENCODED_TYPE).post(Guest.class, postBody);
 
-        createGuestDoctype(guest.getPk(), firstName, lastName);
-
         return guest;
     }
 
@@ -389,17 +387,6 @@ public class EventResource {
     private Boolean isUserWithoutLoginRegistered(String noLoginRequiredUUID, String eventId) throws IOException {
         return readResource(path("guest", "registered", "nologin", noLoginRequiredUUID, eventId), BOOLEAN);
     }
-
-	private void createGuestDoctype(int guestId, String firstName, String lastName) {
-        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guestDoctype");
-		
-		final Form postBody = new Form();
-		postBody.add("guestId", Integer.toString(guestId));
-		postBody.add("firstName", firstName);
-		postBody.add("lastName", lastName);
-
-		resource.post(postBody);
-	}
 
     private void updatePersonOrgunit(String eventId, Integer personId) throws IOException {
         final Integer orgunit = getOrgunitForEvent(eventId);
