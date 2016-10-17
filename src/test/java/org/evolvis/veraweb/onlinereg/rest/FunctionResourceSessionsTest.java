@@ -30,7 +30,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import javax.servlet.ServletContext;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -60,7 +59,7 @@ public class FunctionResourceSessionsTest {
         prepareSession();
         Query query = mock(Query.class);
         List list = mock(List.class);
-        when(mockitoSession.getNamedQuery("Function.findFunctionNamesByEventId")).thenReturn(query);
+        when(mockitoSession.getNamedQuery("Function.getFunctions")).thenReturn(query);
         when(query.list()).thenReturn(list);
 
         // WHEN
