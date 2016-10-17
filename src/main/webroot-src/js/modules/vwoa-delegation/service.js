@@ -101,11 +101,6 @@ module.exports = function($q, $http, param) {
             personId: data.pk
           };
         }),
-        $http.get('api/delegation/load/category/' + uuid + '/' + pk)
-        .then(transformResponse)
-        .then(function(data) {
-          return data.status; //don't ask me why this is called 'status'...
-        }),
         $http.get('api/delegation/load/fields/' + uuid + '/' + pk)
         .then(transformResponse)
         .then(decodeFieldValues),
@@ -135,8 +130,6 @@ module.exports = function($q, $http, param) {
   };
   var fetchMetadata = function(uuid) {
     return $q.all([
-        $http.get('api/delegation/fields/list/category/' + uuid)
-        .then(transformResponse),
         $http.get('api/delegation/fields/list/function/' + uuid)
         .then(transformResponse),
         $http.get('api/delegation/' + uuid + '/data')
@@ -144,9 +137,8 @@ module.exports = function($q, $http, param) {
       ])
       .then(function(results) {
         return cachedMetadata[uuid] = {
-          categories: results[0],
-          functions: results[1],
-          extraFields: results[2],
+          functions: results[0],
+          extraFields: results[1],
           genderOptions: genderOptions
         };
       });
@@ -157,7 +149,7 @@ module.exports = function($q, $http, param) {
       metadata = $q.resolve(cachedMetadata[uuid].extraFields);
     } else {
       metadata = $http
-        .get('api/delegation/fields/list/function/' + uuid)
+        .get('api/delegation/fields/list/function')
         .then(transformResponse);
     }
     return metadata.then(function(fieldMetadata) {
