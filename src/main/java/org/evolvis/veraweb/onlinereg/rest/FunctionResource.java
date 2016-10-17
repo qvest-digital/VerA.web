@@ -19,16 +19,15 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
-import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import org.hibernate.Query;
-import org.hibernate.Session;
+import java.util.List;
 
 /**
  * This class handles requests about functions.
@@ -44,12 +43,11 @@ public class FunctionResource extends AbstractResource {
      * @return all function names of this event
      */
     @GET
-    @Path("/fields/list/function/{eventId}")
+    @Path("/fields/list/function")
     public List<String> getFunctionsByEventId(@PathParam("eventId") int eventId) {
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("Function.findFunctionNamesByEventId");
-            query.setInteger("eventId", eventId);
+            final Query query = session.getNamedQuery("Function.getFunctions");
 
             return (List<String>) query.list();
         } finally {

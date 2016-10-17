@@ -19,22 +19,15 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
-import org.evolvis.veraweb.onlinereg.entities.Category;
-import org.evolvis.veraweb.onlinereg.entities.Guest;
-import org.evolvis.veraweb.onlinereg.entities.PersonCategory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Categories;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.ServletContext;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -112,24 +105,6 @@ public class CategoryResourceSessionsTest {
     }
 
     @Test
-    public void testGetCategoriesByEventId() {
-        // GIVEN
-        prepareSession();
-        List<String> resultList = mock(List.class);
-        Query query = mock(Query.class);
-
-        when(mockitoSession.getNamedQuery("Category.findCatnamesByEventId")).thenReturn(query);
-        when(query.list()).thenReturn(resultList);
-
-        // WHEN
-        categoryResource.getCategoriesByEventId(1);
-
-        // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
-    }
-
-    @Test
     public void testGetCategoryIdByCategoryName() {
         // GIVEN
         prepareSession();
@@ -155,60 +130,6 @@ public class CategoryResourceSessionsTest {
 
         // WHEN
         categoryResource.getCatnameByPersonIdAndDelegationUUID("test-uuid", "1");
-
-        // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
-    }
-
-    @Test
-    public void testUpdateDelegateCategory() {
-        // GIVEN
-        prepareSession();
-        Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Category.findCategoryByPersonIdAndCatname")).thenReturn(query);
-        when(query.uniqueResult()).thenReturn(1);
-
-
-        Query query2 = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.findEventIdByDelegationUUIDandPersonId")).thenReturn(query2);
-        when(query2.uniqueResult()).thenReturn(mock(Guest.class));
-
-        Query query3 = mock(Query.class);
-        when(mockitoSession.getNamedQuery("PersonCategory.personCategoryExists")).thenReturn(query3);
-        List<PersonCategory> myListOfCategories = new ArrayList<PersonCategory>();
-        when(query3.list()).thenReturn(myListOfCategories);
-
-        // WHEN
-        categoryResource.updateDelegateCategory("my-test-uuid", 1, "my-test-category");
-
-        // THEN
-        verify(mockitoSessionFactory, times(1)).openSession();
-        verify(mockitoSession, times(1)).close();
-    }
-
-    @Test
-    public void testUpdateDelegateCategoryNoPersonCategory() {
-        // GIVEN
-        prepareSession();
-        Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Category.findCategoryByPersonIdAndCatname")).thenReturn(query);
-        when(query.uniqueResult()).thenReturn(null);
-
-
-        Query query2 = mock(Query.class);
-        when(mockitoSession.getNamedQuery("Guest.findEventIdByDelegationUUIDandPersonId")).thenReturn(query2);
-        Guest guest = mock(Guest.class);
-        when(guest.getFk_category()).thenReturn(null);
-        when(query2.uniqueResult()).thenReturn(guest);
-
-        Query query3 = mock(Query.class);
-        when(mockitoSession.getNamedQuery("PersonCategory.personCategoryExists")).thenReturn(query3);
-        List<PersonCategory> myListOfCategories = new ArrayList<PersonCategory>();
-        when(query3.list()).thenReturn(myListOfCategories);
-
-        // WHEN
-        categoryResource.updateDelegateCategory("my-test-uuid", 1, "my-test-category");
 
         // THEN
         verify(mockitoSessionFactory, times(1)).openSession();

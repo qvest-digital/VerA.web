@@ -19,21 +19,16 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
-import java.util.List;
+import org.evolvis.veraweb.onlinereg.entities.PersonCategory;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-
-import org.evolvis.veraweb.onlinereg.entities.Guest;
-import org.evolvis.veraweb.onlinereg.entities.PersonCategory;
-import org.hibernate.Query;
-import org.hibernate.Session;
 
 /**
  * This class handles requests about category.
@@ -66,26 +61,6 @@ public class CategoryResource extends AbstractResource {
                 return categoryId;
             }
             return 0;
-        } finally {
-            session.close();
-        }
-    }
-
-    /**
-     * Get category name by event hash.
-     *
-     * @param eventId The event id
-     *
-     * @return All category names for this event
-     */
-    @GET
-    @Path("/fields/list/{eventId}")
-    public List<String> getCategoriesByEventId(@PathParam("eventId") int eventId) {
-        final Session session = openSession();
-        try {
-            final Query query = session.getNamedQuery("Category.findCatnamesByEventId");
-            query.setInteger("eventId", eventId);
-            return (List<String>) query.list();
         } finally {
             session.close();
         }
@@ -133,31 +108,31 @@ public class CategoryResource extends AbstractResource {
             session.close();
         }
     }
-
-    /**
-     * Update delegate's category
-     * 
-     * @param uuid Delegation UUID
-     * @param personId Person ID
-     * @param categoryName Category name
-     */
-    @POST
-    @Path("update/delegate/category")
-    public void updateDelegateCategory(
-            @FormParam("uuid") String uuid,
-            @FormParam(PERSON_ID) Integer personId,
-            @FormParam("category") String categoryName) {
-        final Session session = openSession();
-        try {
-            final Guest guest = updateGuestCategory(uuid, personId, categoryName, session);
-            final Integer categoryId = guest.getFk_category();
-            updatePersonCategory(personId, session, categoryId);
-
-            session.flush();
-        } finally {
-            session.close();
-        }
-    }
+//
+//    /**
+//     * Update delegate's category
+//     *
+//     * @param uuid Delegation UUID
+//     * @param personId Person ID
+//     * @param categoryName Category name
+//     */
+//    @POST
+//    @Path("update/delegate/category")
+//    public void updateDelegateCategory(
+//            @FormParam("uuid") String uuid,
+//            @FormParam(PERSON_ID) Integer personId,
+//            @FormParam("category") String categoryName) {
+//        final Session session = openSession();
+//        try {
+//            final Guest guest = updateGuestCategory(uuid, personId, categoryName, session);
+//            final Integer categoryId = guest.getFk_category();
+//            updatePersonCategory(personId, session, categoryId);
+//
+//            session.flush();
+//        } finally {
+//            session.close();
+//        }
+//    }
 
     @GET
     @Path("person/data")
@@ -182,15 +157,6 @@ public class CategoryResource extends AbstractResource {
             session.saveOrUpdate(personCategory);
         }
     }
-
-    private Guest updateGuestCategory(String uuid, Integer personId, String categoryName, final Session session) {
-        Integer category = getCategoryByPersonIdAndCatname(personId, categoryName, session);
-        Guest guest = getCurrentGuest(uuid, personId, session);
-        guest.setFk_category(category);
-        session.saveOrUpdate(guest);
-
-        return guest;
-    }
     
     private Boolean checkExistingPersonCategory(final Integer personId,
                                                 final Integer categoryId,
@@ -205,22 +171,5 @@ public class CategoryResource extends AbstractResource {
         }
 
         return queryCategory.list().isEmpty();
-    }
-    
-    private Integer getCategoryByPersonIdAndCatname(final Integer personId, final String categoryName,
-                                                    final Session session) {
-        final Query queryCategory = session.getNamedQuery("Category.findCategoryByPersonIdAndCatname");
-        queryCategory.setString(CATEGORY_NAME, categoryName);
-        queryCategory.setInteger(PERSON_ID, personId);
-
-        return(Integer) queryCategory.uniqueResult();
-    }
-
-    private Guest getCurrentGuest(final String uuid, final Integer personId, final Session session) {
-        final Query query = session.getNamedQuery("Guest.findEventIdByDelegationUUIDandPersonId");
-        query.setString("uuid", uuid);
-        query.setInteger(PERSON_ID, personId);
-
-        return (Guest) query.uniqueResult();
     }
 }
