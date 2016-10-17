@@ -75,8 +75,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 	@NamedNativeQuery(name = "Guest.findEventIdByDelegationUUID",
             query ="SELECT g.* FROM tguest g  LEFT JOIN tperson on tperson.pk=g.fk_person " +
                     "WHERE delegation=:uuid AND tperson.iscompany='t'", resultClass=Guest.class),
-	@NamedNativeQuery(name = "Guest.findEventIdByDelegationUUIDandPersonId",
-            query ="SELECT g.* FROM tguest g WHERE delegation=:uuid and fk_person=:personId ", resultClass=Guest.class),
     @NamedNativeQuery(name = "Guest.checkUserRegistration",
             query = "SELECT COUNT(g.*) FROM tguest g WHERE g.fk_event=:eventId AND g.osiam_login LIKE :username "),
     @NamedNativeQuery(name = "Guest.checkUserRegistrationToAccept",
@@ -96,7 +94,7 @@ public class Guest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pk;
-    private int fk_event;
+    private Integer fk_event;
     private int fk_person;
     private String gender;
     private String gender_p;
@@ -117,7 +115,7 @@ public class Guest {
 
     public void setPk(Integer pk) { this.pk = pk; }
 
-    public int getFk_event() {
+    public Integer getFk_event() {
         return fk_event;
     }
     public void setFk_event(int fk_event) {

@@ -19,6 +19,8 @@
  */
 package org.evolvis.veraweb.onlinereg.entities;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,8 +29,6 @@ import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import lombok.Data;
 
 /**
  * @author jnunez
@@ -40,10 +40,9 @@ import lombok.Data;
 @Entity
 @Table(name = "tfunction")
 @NamedNativeQueries({
-	@NamedNativeQuery(name = "Function.findFunctionNamesByEventId",
+	@NamedNativeQuery(name = "Function.getFunctions",
 			query = "SELECT functionname " +
-					"FROM tfunction " +
-					"WHERE pk in (SELECT fk_function from tevent_function WHERE fk_event IN (SELECT pk FROM tevent WHERE pk=:eventId)) "
+					"FROM tfunction"
 	)
 })
 public class Function {

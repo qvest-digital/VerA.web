@@ -19,6 +19,8 @@
  */
 package org.evolvis.veraweb.onlinereg.entities;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,8 +29,6 @@ import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import lombok.Data;
 
 /**
  * Class of table 'tcategorie'
@@ -49,19 +49,11 @@ import lombok.Data;
 			query = "SELECT c.pk " +
 					"FROM tcategorie c " +
 					"where catname=:catname"),
-	@NamedNativeQuery(name = "Category.findCatnamesByEventId",
-			query = "SELECT catname " +
-					"FROM tcategorie " +
-					"WHERE pk IN (SELECT fk_category from tevent_category WHERE fk_event IN (SELECT pk FROM tevent WHERE pk=:eventId)) "),
 	@NamedNativeQuery(name = "Category.findCatnameByUserAndDelegation",
 			query = "SELECT c.catname " +
 					"FROM tcategorie c " +
 					"WHERE c.pk = (SELECT g.fk_category FROM tguest g WHERE g.fk_person=:personId AND g.delegation=:uuid)"
-					),
-	@NamedNativeQuery(name = "Category.findCategoryByPersonIdAndCatname",
-			query = "SELECT pk " +
-					"FROM tcategorie " +
-					"WHERE catname=:catname AND fk_orgunit=(SELECT fk_orgunit FROM tperson WHERE pk=:personId)")
+					)
 })
 public class Category {
 
