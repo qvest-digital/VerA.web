@@ -7,10 +7,9 @@
 
 ##Values in per cent for table columns width
 #set($column0 = 3)
-#set($column1 = 5)
-#set($column2 = 74)
-#set($column3 = 10)
-#set($column4 = 8)
+#set($column1 = 8)
+#set($column2 = 78)
+#set($column3 = 11)
 
 #parse("inc/header.vm")
 
@@ -52,17 +51,15 @@
             				<table class="fixed">
             					##Set column size
 								<col width="$column0%" />
-			    				<col width="$column4%" />
+			    				<col width="$column1%" />
     							<col width="$column2%" />
     							<col width="$column3%" />
-		    					<col width="$column4%" />
 
             					<tr>
             						<th class="smallCell textCenter"><input type="checkbox" title="Alle (de)markieren" id="toggleAllSelect" name="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end></th>
             						<th class="textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
             						<th>${placeholderWithTranslation.GENERIC_MAIN_FORM}</th>
             						<th class="textCenter width10">${placeholderWithTranslation.GENERIC_GENDER}</th>
-            						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_EDIT}</th>
             					</tr>
 
 								<tr>
@@ -75,7 +72,6 @@
                                				<option value="F">${placeholderWithTranslation.GENERIC_GENDER_FEMALE}</option>
                                			</select>
                                		</td>
-                               		<td>&nbsp;</td>
                                	</tr>
                             	#foreach($bean in $list)
                                 	<tr>
@@ -88,7 +84,9 @@
                                 				<option value="F" #if($bean.gender && $bean.gender == "F") selected#end>${placeholderWithTranslation.GENERIC_GENDER_FEMALE}</option>
                                 			</select>
                                 		</td>
+
                                 		<td class="textCenter"><a href="SalutationDoctype?start=0&id=${bean.id}" class="noBorder"><img src=" ${paths.staticWeb}images/edit.png" alt="bearbeiten" title="bearbeiten" /></a></td>
+
                                 	</tr>
                                 	#end
 									#if ($listparam.count == 0)
