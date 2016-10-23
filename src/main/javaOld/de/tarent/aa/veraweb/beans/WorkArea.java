@@ -41,8 +41,8 @@ public class WorkArea extends AbstractBean {
 
 	/**
 	 * Verifies that the name was correctly set.
-	 *
-	 * @throws BeanException
+	 * @param octopusContext FIXME
+	 * @throws BeanException FIXME
 	 */
     public void verify(final OctopusContext octopusContext) throws BeanException {
         final VerawebMessages messages = new VerawebMessages(octopusContext);
@@ -56,7 +56,7 @@ public class WorkArea extends AbstractBean {
      * from the database.
      *
      * @param octopusContext the current octopus context
-     * @throws BeanException
+     * @throws BeanException FIXME
      * @see de.tarent.aa.veraweb.beans.AbstractBean#checkRead(de.tarent.octopus.server.OctopusContext)
      */
     @Override
@@ -69,7 +69,7 @@ public class WorkArea extends AbstractBean {
     * to the database.
     *
     * @param octopusContext the current octopus context
-    * @throws BeanException
+    * @throws BeanException FIXME
     * @see de.tarent.aa.veraweb.beans.AbstractBean#checkWrite(de.tarent.octopus.server.OctopusContext)
     */
    @Override

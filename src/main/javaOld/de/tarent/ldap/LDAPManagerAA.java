@@ -94,7 +94,6 @@ public class LDAPManagerAA extends LDAPManager {
      *
      * @return Sammlung verfügbarer Rollen
      * @throws NamingException
-     * @throws LDAPException
      */
     public Set getPossibleRoles() throws NamingException {
 		SearchControls cons = new SearchControls();
@@ -117,7 +116,6 @@ public class LDAPManagerAA extends LDAPManager {
      * @param login Login, zu dem mögliche Rollen gesucht werden sollen
      * @return Sammlung möglicher Rollen zu dem Login
      * @throws NamingException
-     * @throws LDAPException
      */
     public Set getPossibleRoles(String login) throws NamingException {
     	SearchControls cons = new SearchControls();
@@ -130,11 +128,10 @@ public class LDAPManagerAA extends LDAPManager {
     /**
      * Diese Methode ermittelt die verfügbaren Rollen zu einem Filter.
      *
-     * @param searchScope Suchtiefe, siehe {@link SearchControls#setSearchScope(int)}
      * @param filter JNDI-Suchfilter
+     * @param cons SearchControls
      * @return Sammlung möglicher Rollen zu dem Filter
      * @throws NamingException
-     * @throws LDAPException
      */
     public Set getPossibleRoles(String filter, SearchControls cons) throws NamingException {
         Set roleUids = new HashSet();

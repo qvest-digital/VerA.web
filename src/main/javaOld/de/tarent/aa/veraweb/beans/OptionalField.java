@@ -26,7 +26,7 @@ import java.sql.SQLException;
 /**
  * Dieses Bean bildet einen Eintrag der Tabelle <em>veraweb.toptional_fields</em> ab.
  *
- * @author Max Marche <m.marche@tarent.de
+ * @author Max Marche, m.marche@tarent.de
  */
 public class OptionalField extends AbstractHistoryBean {
 	private int id;

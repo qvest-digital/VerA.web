@@ -275,10 +275,8 @@ public class PersonGuestListWorker extends PersonListWorker {
     // innere Klassen
     //
     /**
-     * Diese Hilfsklasse wird in der obigen Octopus-Aktion
-     * {@link CopyOfPersonGuestListWorker#extendGuestSelection(OctopusContext)}
-     * benutzt, um ein Objekt zur Verfügung zu stellen, das zu Personen
-     * die zugehörigen personalisierten Kategorien liefert.
+     * Diese Hilfsklasse wird in der obigen Octopus-Aktion extendGuestSelection() benutzt,
+	 * um ein Objekt zur Verfügung zu stellen, das zu Personen die zugehörigen personalisierten Kategorien liefert.
      */
 	static public class PersonCategorie {
         /** Aus dieser DB sollen die personalisierten Kategorien gelesen werden. */

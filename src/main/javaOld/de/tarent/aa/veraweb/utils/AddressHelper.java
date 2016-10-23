@@ -92,8 +92,13 @@ public class AddressHelper implements PersonConstants {
 
 	/**
 	 * Setzt die 'Anrede'-Felder wenn diese eine Zahl sind.
-	 * @throws IOException
-	 * @throws BeanException
+	 *
+	 * @param context
+	 * @param database
+	 * @param person
+	 *
+	 * @throws IOException FIXME
+	 * @throws BeanException FIXME
 	 */
 	public static void checkPersonSalutation(Person person, Database database, ExecutionContext context) throws BeanException, IOException {
 		new AddressHelper().updateSalutation(person.getMainLatin(), database, context);
@@ -224,8 +229,8 @@ public class AddressHelper implements PersonConstants {
 	 * einer Facade in eine andere wenn das entsprechende Feld dort nicht
 	 * gefüllt ist.
 	 *
-	 * @param source
-	 * @param target
+	 * @param source FIXME
+	 * @param target FIXME
 	 * @param forceCopy Erzwingt das kopieren.
 	 * @param copyName Kopiert Namensdaten.
 	 */
@@ -254,10 +259,10 @@ public class AddressHelper implements PersonConstants {
 	 * einer Facade in eine andere wenn die entsprechenden Felder vorher
 	 * identisch waren und das Zielfeld nicht verändert wurde.
 	 *
-	 * @param source
-	 * @param target
-	 * @param sourceOld
-	 * @param targetOld
+	 * @param source FIXME
+	 * @param target FIXME
+	 * @param sourceOld FIXME
+	 * @param targetOld FIXME
 	 * @param forceCopy Erzwingt das kopieren.
 	 * @param copyName Kopiert Namensdaten.
 	 */
@@ -282,8 +287,8 @@ public class AddressHelper implements PersonConstants {
 	 * Kopiert alle Adress- und Kommunikationsdaten einer AddressFacade
 	 * in eine andere, wenn das entsprechende Feld dort nicht gefüllt ist.
 	 *
-	 * @param source
-	 * @param target
+	 * @param source FIXME
+	 * @param target FIXME
 	 * @param forceCopy Kopiert auch wenn ihm Zielfeld bereits was steht.
 	 * @param copyCompany Kopiert wenn wahr den Firmennamen
 	 * @param copyAddress Kopiert wenn wahr entsprechende Adressdaten.
@@ -335,10 +340,10 @@ public class AddressHelper implements PersonConstants {
 	 * in eine andere, wenn das entsprechende Feld übereinstimmte und
 	 * nun nur in der Quelle verändert worden ist.
 	 *
-	 * @param source
-	 * @param target
-	 * @param sourceOld
-	 * @param targetOld
+	 * @param source FIXME
+	 * @param target FIXME
+	 * @param sourceOld FIXME
+	 * @param targetOld FIXME
 	 * @param forceCopy Kopiert auch wenn ihm Zielfeld bereits was steht.
 	 * @param copyCompany Kopiert wenn wahr den Firmennamen
 	 * @param copyAddress Kopiert wenn wahr entsprechende Adressdaten.

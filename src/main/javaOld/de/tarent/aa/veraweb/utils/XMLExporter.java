@@ -72,7 +72,6 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
     /**
      * Dieser Konstruktor legt die Parameter lokal ab und initialisiert ein DOM-Dokument.
      *
-     * @throws UnsupportedEncodingException
      * @throws ParserConfigurationException
      */
     public XMLExporter(OutputStream os, Database db) throws ParserConfigurationException {

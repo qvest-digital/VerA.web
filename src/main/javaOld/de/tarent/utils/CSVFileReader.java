@@ -73,8 +73,6 @@ public class CSVFileReader extends CSVFile {
      *
      * @param reader
      *            The Reader for reading CSV data
-     * @throws FileNotFoundException
-     *             If the file to be read does not exist
      */
     public CSVFileReader(Reader reader) {
         this(reader, DEFAULT_FIELD_SEPARATOR);
@@ -106,8 +104,6 @@ public class CSVFileReader extends CSVFile {
      *            The InputStream for reading CSV data
      * @param charsetName
      *            The name of a supported charset
-     * @throws FileNotFoundException
-     *             If the file to be read does not exist
      * @throws UnsupportedEncodingException
      *             If the named charset is not supported
      */
@@ -136,8 +132,6 @@ public class CSVFileReader extends CSVFile {
      *            The Reader for reading CSV data
      * @param sep
      *            The field separator to be used; overwrites the default one
-     * @throws FileNotFoundException
-     *             If the file to be read does not exist
      */
     public CSVFileReader(Reader reader, char sep) {
         this(reader, sep, DEFAULT_TEXT_QUALIFIER);
@@ -171,8 +165,6 @@ public class CSVFileReader extends CSVFile {
      *            The name of a supported charset
      * @param sep
      *            The field separator to be used; overwrites the default one
-     * @throws FileNotFoundException
-     *             If the file to be read does not exist
      * @throws UnsupportedEncodingException
      *             If the named charset is not supported
      */
@@ -205,8 +197,6 @@ public class CSVFileReader extends CSVFile {
      *            The field separator to be used; overwrites the default one
      * @param qual
      *            The text qualifier to be used; overwrites the default one
-     * @throws FileNotFoundException
-     *             If the file to be read does not exist
      */
     public CSVFileReader(Reader reader, char sep, char qual) {
         super(sep, qual);
@@ -245,8 +235,6 @@ public class CSVFileReader extends CSVFile {
      *            The field separator to be used; overwrites the default one
      * @param qual
      *            The text qualifier to be used; overwrites the default one
-     * @throws FileNotFoundException
-     *             If the file to be read does not exist
      * @throws UnsupportedEncodingException
      *             If the named charset is not supported
      */

@@ -46,8 +46,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import java.io.IOException;
 import java.io.PipedInputStream;
@@ -201,7 +199,7 @@ public class StatistikWorker {
 			// EXPORT ÜBER EIN VELOCITY SCRIPT
 			cntx.setContent("begin", filterBegin);
 			cntx.setContent("end", filterEnd);
-			ResultList resultList = (ResultList)database.getList(select, database);
+			ResultList resultList = database.getList(select, database);
 			cntx.setContent("result", resultList);
 			cntx.setContent("formatMessage", "no");
 
@@ -370,19 +368,13 @@ public class StatistikWorker {
 	 * in einer Ocotpus-ResultMap zurück, die von der Binary-Response
 	 * ausgegeben werden kann.
 	 *
-	 * @see #getColumnName(String)
-	 * @see #getColumnValue(String, ResultSet, Object)
-	 *
 	 * @param cntx
 	 * @param resultSet
 	 * @return Map mit Stream Informationen
-	 * @throws BeanException
 	 * @throws IOException
 	 * @throws SQLException
-	 * @throws ParserConfigurationException
 	 * @throws FactoryConfigurationError
 	 * @throws TransformerFactoryConfigurationError
-	 * @throws TransformerException
 	 */
 	protected Map getExport(OctopusContext cntx, ResultSet resultSet) throws IOException, SQLException, FactoryConfigurationError, TransformerFactoryConfigurationError {
 		String filename = OctopusHelper.getFilename(cntx, "ods", "export.ods");

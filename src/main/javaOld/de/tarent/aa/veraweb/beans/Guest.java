@@ -190,6 +190,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 
 	/**
 	 * Diese Methode liefert eine Facade für die Hauptperson dieses Gastes zurück.
+	 * @return GuestMemberFacade
 	 */
 	public GuestMemberFacade getMain() {
 		return new Main();
@@ -197,6 +198,7 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 
 	/**
 	 * Diese Methode liefert eine Facade für den Partner dieses Gastes zurück.
+	 * @return GuestMemberFacade
 	 */
 	public GuestMemberFacade getPartner() {
 		return new Partner();

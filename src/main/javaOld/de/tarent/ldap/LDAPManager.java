@@ -102,20 +102,16 @@ public class LDAPManager {
         return instantiate(managerClass, env, params);
     }
 
-    /**
-     * Methode, die einen gegebenen Benutzer einloggt.
-     *
-     * @param username
-     *            Benutzername als komplette DN des Users
-     * @param passwort
-     *            Passwort
-     * @param authType
-     *            Authentifizierungstyp gegenüber dem LDAP (im Moment nur
-     *            "simple" ausprobiert & supported)
-     * @throws LDAPException
-     *             wenn etwas schiefläuft
-     */
-    public static LDAPManager login(Class managerClass, String ldapurl, Map params, String username, String passwort, String authType) throws LDAPException {
+	/**
+	 * Methode, die einen gegebenen Benutzer einloggt.
+	 *
+	 * @param username Benutzername als komplette DN des Users
+	 * @param passwort Passwort
+	 * @param authType Authentifizierungstyp gegenüber dem LDAP (im Moment nur
+	 *                 "simple" ausprobiert &amp; supported)
+	 * @throws LDAPException wenn etwas schiefläuft
+	 */
+	public static LDAPManager login(Class managerClass, String ldapurl, Map params, String username, String passwort, String authType) throws LDAPException {
         Hashtable env = createEnvironment(ldapurl); //Hashtable mit Zugriffsdaten
         env.put(Context.SECURITY_AUTHENTICATION, authType);
         env.put(Context.SECURITY_PRINCIPAL, username);
@@ -226,23 +222,15 @@ public class LDAPManager {
         defaultObjectClasses = newDefault;
     }
 
-    //
-    // Öffentliche Methoden
-    //
     /**
-     * Methode, die einen gegebenen Benutzer unter der aktuellen BaseDN einloggt.
-     *
-     * @param username
-     *            Benutzername nur als Benutzername
-     * @param passwort
-     *            Passwort
-     * @param authType
-     *            Authentifizierungstyp gegenüber dem LDAP (im Moment nur
-     *            "simple" ausprobiert & supported)
-     * @throws LDAPException
-     *             wenn etwas schiefläuft
-     */
-    public LDAPManager login(String username, String passwort, String authType) throws LDAPException {
+	 * Methode, die einen gegebenen Benutzer unter der aktuellen BaseDN einloggt.
+	 *
+	 * @param username Benutzername nur als Benutzername
+	 * @param passwort Passwort
+	 * @param authType Authentifizierungstyp gegenüber dem LDAP (im Moment nur simple ausprobiert &amp; supported)
+	 * @throws LDAPException wenn etwas schiefläuft
+	 */
+	public LDAPManager login(String username, String passwort, String authType) throws LDAPException {
         try {
             String security_principal = fullUserDN(username, null);
             Object ldapUrl = lctx.getEnvironment().get(Context.PROVIDER_URL);
@@ -430,8 +418,7 @@ public class LDAPManager {
 	 * @param userid
 	 *            UserID, die getestet werden soll
 	 * @return true, wenn vorhanden, false sonst
-	 * @throws LDAPException,
-	 *             wenn Fehler auftritt
+	 * @throws LDAPException
 	 */
 	public boolean checkUid(String userid) throws LDAPException {
 		boolean vorhanden = false;
@@ -456,8 +443,7 @@ public class LDAPManager {
 	 * @param kategorie
 	 *            Kategorie, in der der Kontakt gesucht werden soll
 	 * @return true, wenn vorhanden, false sonst
-	 * @throws LDAPException,
-	 *             wenn Fehler auftritt
+	 * @throws LDAPException
 	 */
 	public boolean checkContact(String userid, String kategorie) throws LDAPException {
 		boolean vorhanden = false;
@@ -480,8 +466,7 @@ public class LDAPManager {
 	 * @param ou
 	 *            ou, die getestet werden soll
 	 * @return true, wenn vorhanden, false sonst
-	 * @throws LDAPException,
-	 *             wenn Fehler auftritt
+	 * @throws LDAPException
 	 */
 	public boolean checkOu(String ou) throws LDAPException {
 		boolean vorhanden = false;
@@ -994,7 +979,7 @@ public class LDAPManager {
 	 * Testet, ob userid im LDAP vorhanden
 	 * @param userid	UserID, die getestet werden soll
 	 * @return	true, wenn vorhanden, false sonst
-	 * @throws LDAPException, wenn Fehler auftritt
+	 * @throws LDAPException
 	 */
 	public boolean checkuid(String userid) throws LDAPException{
 		boolean vorhanden = false;

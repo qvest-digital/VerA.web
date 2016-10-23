@@ -32,7 +32,7 @@ import java.util.Properties;
  * System Worker initalisiert den Datenbank-Connection-Pool
  * und das Logging.
  *
- * @author Christoph Jerolimov <c.jerolimov@tarent.de>
+ * @author Christoph Jerolimov c.jerolimov@tarent.de
  * @version 1.1
  */
 public class SystemWorker {
@@ -68,7 +68,7 @@ public class SystemWorker {
 		DB.closePool(cntx.getModuleName());
 	}
 
-    /** Eingabe-Parameter der Octopus-Aktion {@link #initLogging(OctopusContext)} */
+    /** Eingabe-Parameter der Octopus-Aktion */
 	public final static String INPUT_initLogging[] = {};
     /**
      * Diese Octopus-Aktion initialisiert das Log4J-Logging dieses Moduls.

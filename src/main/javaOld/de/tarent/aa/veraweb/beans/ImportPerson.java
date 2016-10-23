@@ -30,9 +30,7 @@ import java.util.List;
  * @author mikel
  */
 public class ImportPerson extends Person {
-    //
-    // Öffentliche Membervariablen: Tabellenfelder über die von Person hinaus
-    //
+
     /** Import, bei dem diese Personendaten von extern importiert wurden */
 	public Long fk_import;
 	/** Duplikate, die beim Import erkannt wurden */
@@ -49,9 +47,6 @@ public class ImportPerson extends Person {
     /** Anlaßliste, zeilenweise; für den MAdLAN-Import, ansonsten werden {@link ImportPersonCategorie}-Instanzen genutzt */
     public String occasion;
 
-    //
-    // Öffentliche Konstanten
-    //
     /**
      * Element-Trennzeichen, um eine Menge von Primärschlüsseln in einem
      * Datenfeld (namentlich {@link #duplicates}) zu speichern.
@@ -64,32 +59,44 @@ public class ImportPerson extends Person {
     /** DB-Integerwert für <code>false</code> für {@link #dupcheckaction} und {@link #dupcheckstatus} */
     public final static Integer FALSE = new Integer(0);
 
-    //
-    // Getter und Setter
-    //
-    /** Duplikatliste; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} aus {@link #duplicates} zusammengestellt */
+    /**
+     * Duplikatliste; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} aus {@link #duplicates} zusammengestellt
+     * @return FIXME
+     */
     public List getDuplicateList() {
 		return dups;
 	}
-    /** Duplikatliste; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} aus {@link #duplicates} zusammengestellt */
-	public void setDuplicateList(List duplicates) {
+
+    /**
+     * Duplikatliste; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} aus {@link #duplicates} zusammengestellt
+     * @param duplicates FIXME
+     */
+    public void setDuplicateList(List duplicates) {
 		dups = duplicates;
 	}
 
-    /** Flag: Es gibt mehr Duplikate als die in {@link #getDuplicateList()}; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} beim Zusammenstellen gesetzt */
+    /**
+     * Flag: Es gibt mehr Duplikate als die in {@link #getDuplicateList()}; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} beim Zusammenstellen gesetzt
+     * @return FIXME
+     */
     public boolean hasMoreDuplicates() {
 		return moreDuplicates;
 	}
-    /** Flag: Es gibt mehr Duplikate als die in {@link #getDuplicateList()}; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} beim Zusammenstellen gesetzt */
-	public void setMoreDuplicates(boolean moreDuplicates) {
+
+    /**
+     * @param moreDuplicates FIXME
+     * Flag: Es gibt mehr Duplikate als die in {@link #getDuplicateList()}; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} beim Zusammenstellen gesetzt
+     */
+    public void setMoreDuplicates(boolean moreDuplicates) {
 		this.moreDuplicates = moreDuplicates;
 	}
 
-    //
-    // geschützte Member
-    //
-    /** Duplikatliste; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} aus {@link #duplicates} zusammengestellt */
+    /**
+     * Duplikatliste; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} aus {@link #duplicates} zusammengestellt
+     */
     private List dups;
-    /** Flag: Es gibt mehr Duplikate als die in {@link #getDuplicateList()}; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} beim Zusammenstellen gesetzt */
+    /**
+     * Flag: Es gibt mehr Duplikate als die in {@link #getDuplicateList()}; wird in {@link de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker#showList(de.tarent.octopus.server.OctopusContext)} beim Zusammenstellen gesetzt
+     */
     private boolean moreDuplicates;
 }

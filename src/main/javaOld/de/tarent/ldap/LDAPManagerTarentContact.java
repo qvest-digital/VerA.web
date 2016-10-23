@@ -143,7 +143,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
      *             wenn etwas schiefläuft
      * @throws NamingException
      *             wenn etwas schiefläuft
-     * @see de.tarent.octopus.sync.ldap.LDAPContact
+     * @see de.tarent.ldap.LDAPContact
      */
     public void addContact_restricted(LDAPContact ldc, String gruppe) throws LDAPException, NamingException {
         if (checkOu(gruppe) == false) {
@@ -216,13 +216,10 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     /**
      * Testet, ob Kontakt im LDAP vorhanden
      *
-     * @param ldc
-     *            Kontakt, die getestet werden soll
-     * @param gruppe
-     *            Gruppe, in der der Kontakt gesucht werden soll
+     * @param ldc    Kontakt, die getestet werden soll
+     * @param gruppe Gruppe, in der der Kontakt gesucht werden soll
      * @return true, wenn vorhanden, false sonst
-     * @throws LDAPException,
-     *             wenn Fehler auftritt
+     * @throws LDAPException
      */
     public boolean checkContact(LDAPContact ldc, String gruppe) throws LDAPException {
         boolean vorhanden = false;
@@ -293,7 +290,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
      *            Verteilergruppe, in der der Kontakt sich befindet
      * @throws LDAPException
      *             wenn etwas schief läuft
-     * @see de.tarent.octopus.sync.ldap.LDAPContact
+     * @see de.tarent.ldap.LDAPContact
      */
     public void modifyContact_restricted(LDAPContact ldc, String vertgrp) throws LDAPException {
         List modifications = new ArrayList();
@@ -439,7 +436,6 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
      * @param vorname   Vorname
      * @param nachname  Nachname
      * @param passwort  Passwort
-     * @param gruppe    Gruppe, wird im Moment nicht genutzt
      * @throws LDAPException
      */
     public void addContactUser(
@@ -506,7 +502,6 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
      * @param vorname   Vorname
      * @param nachname  Nachname
      * @param passwort  Passwort
-     * @param gruppe    Gruppe(n) des Users
      * @throws LDAPException
      */
     public void modifyContactUserRawPassword(String userid, String vorname, String nachname, String passwort) throws LDAPException{
@@ -563,7 +558,6 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
      * @param vorname   Vorname
      * @param nachname  Nachname
      * @param passwort  Passwort
-     * @param gruppe    Gruppe(n) des Users
      * @throws LDAPException
      */
     public void modifyContactUser(String userid, String vorname, String nachname, String passwort) throws LDAPException{
@@ -589,9 +583,8 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
      * @param userid UserId des Users
      * @param attribute zu modifizierendes Attribut
      * @param value neue Value
-     * @throws TcSecurityException Kapselt evtl auftretende NamingException
      */
-    public void modifyContactUserAttribute(String userid, String attribute, String value) throws LDAPException{
+    public void modifyContactUserAttribute(String userid, String attribute, String value) throws LDAPException {
         logger.log(Level.FINE, "Modifiziere Attribut " + attribute + " von: " + userid + " nach " + value);
 
         //Checke Attribute

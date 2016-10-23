@@ -44,7 +44,7 @@ public class FieldMapping {
     //
     /**
      * Dieser Konstruktor bekommt die Menge der verfügbaren Quellfelder und
-     * eine Abbildung Zielfeldname -> Formatstring mit Quellfeldreferenzen
+     * eine Abbildung Zielfeldname &rarr; Formatstring mit Quellfeldreferenzen
      * übergeben. Quellfeldreferenzen haben allgemein die Form <b>{</b>BEREICH<b>:</b>FELD<b>}</b>,
      * im VerA.web-Fall insbesondere:<br>
      * <ul>
@@ -159,7 +159,7 @@ public class FieldMapping {
      * nur noch <code>Sample</code>. Beide Werte dürfen nicht null sein.
      *
      * Gibt null zurück wenn der String <code>value</code> nicht auf
-     * <code>mapping</code matchet.
+     * <code>mapping</code> matchet.
      *
      * @param mapping
      * @param value
@@ -205,8 +205,6 @@ public class FieldMapping {
      * Diese Methode erweitert das FieldMapping um Kategorien-Felder die im
      * Header übergeben wurde, aber noch nicht in der Datenbank vorhanden sind
      * und deswegen nicht in den {@link #availableSources} verfügbar waren.
-     *
-     * @param headers
      */
 	public void extendCategoryImport(List extensions) {
 		assert mappingDescription != null && resolvedMappings != null;

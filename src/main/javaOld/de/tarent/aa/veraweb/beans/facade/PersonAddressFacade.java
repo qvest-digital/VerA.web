@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2016 tarent solutions GmbH
- *
+ * <p>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -25,99 +25,67 @@ package de.tarent.aa.veraweb.beans.facade;
  * @author Michael Klink, Christoph Jerolimov
  */
 public interface PersonAddressFacade {
-	/** @return Funktionsname */
-	public String getFunction();
+    public String getFunction();
 
-	/** @return Firma / Institution */
-	public String getCompany();
+    public String getCompany();
 
-	/** @return Straße und Hausnummer */
-	public String getStreet();
+    public String getStreet();
 
-	/** @return PLZ */
-	public String getZipCode();
+    public String getZipCode();
 
-	/** @return sBundesland **/
-	public String getState();
+    public String getState();
 
-	/** @return Ort */
-	public String getCity();
+    public String getCity();
 
-	/** @return Land */
-	public String getCountry();
+    public String getCountry();
 
-	/** @return Postfach-Nummer */
-	public String getPOBox();
+    public String getPOBox();
 
-	/** @return Postfach-PLZ */
-	public String getPOBoxZipCode();
+    public String getPOBoxZipCode();
 
-	/** @return Adresszusatz Zeile 1 */
-	public String getSuffix1();
+    public String getSuffix1();
 
-	/** @return Adresszusatz Zeile 2 */
-	public String getSuffix2();
+    public String getSuffix2();
 
-	/** @return Telefonnummer */
-	public String getPhone();
+    public String getPhone();
 
-	/** @return Faxgerätnummer */
-	public String getFax();
+    public String getFax();
 
-	/** @return Mobiltelefonnummer */
-	public String getMobile();
+    public String getMobile();
 
-	/** @return eMail-Adresse */
-	public String getEMail();
+    public String getEMail();
 
-	/** @return Internet-Adresse */
-	public String getUrl();
+    public String getUrl();
 
-	/** Setzt die Funktionsname */
-	public void setFunction(String value);
+    public void setFunction(String value);
 
-	/** Setzt die Firma / Institutition */
-	public void setCompany(String value);
+    public void setCompany(String value);
 
-	/** Setzt die Straße und Hausnummer */
-	public void setStreet(String value);
+    public void setStreet(String value);
 
-	/** Setzt die PLZ */
-	public void setZipCode(String value);
+    public void setZipCode(String value);
 
-	/** Setzt das Bundesland **/
-	public void setState(String value);
+    public void setState(String value);
 
-	/** Setzt den Ort */
-	public void setCity(String value);
+    public void setCity(String value);
 
-	/** Setzt das Land */
-	public void setCountry(String value);
+    public void setCountry(String value);
 
-	/** Setzt die Postfach-Nummer */
-	public void setPOBox(String value);
+    public void setPOBox(String value);
 
-	/** Setzt die Postfach-PLZ */
-	public void setPOBoxZipCode(String value);
+    public void setPOBoxZipCode(String value);
 
-	/** Setzt die erste Zeile des Adresszusatzes */
-	public void setSuffix1(String value);
+    public void setSuffix1(String value);
 
-	/** Setzt die zweite Zeile des Adresszusatzes */
-	public void setSuffix2(String value);
+    public void setSuffix2(String value);
 
-	/** Setzt die Telefonummer */
-	public void setPhone(String value);
+    public void setPhone(String value);
 
-	/** Setzt die Faxgerätnummer */
-	public void setFax(String value);
+    public void setFax(String value);
 
-	/** Setzt die Mobiltelefonnummer */
-	public void setMobile(String value);
+    public void setMobile(String value);
 
-	/** Setzt die eMail-Adresse */
-	public void setEMail(String value);
+    public void setEMail(String value);
 
-	/** Setzt die Internet-Adresse */
-	public void setUrl(String value);
+    public void setUrl(String value);
 }

@@ -90,7 +90,6 @@ public abstract class AbstractMember implements PersonMemberFacade {
 	public void setBirthday(Timestamp value) {
 	}
 
-	/** @return Geburtsort */
 	public void setBirthplace(String value)
 	{
 	}

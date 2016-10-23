@@ -64,6 +64,7 @@ public class Proxy extends AbstractHistoryBean {
     //
     /**
      * Der Benutzer und Stellvertreterrolle müssen angegeben sein.
+     * @param octopusContext The {@link OctopusContext}
      */
     public void verify(OctopusContext octopusContext) {
         final VerawebMessages messages = new VerawebMessages(octopusContext);

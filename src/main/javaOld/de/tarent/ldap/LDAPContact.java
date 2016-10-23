@@ -590,7 +590,7 @@ public void setAllUsers(Map map) {
 	 *
 	 * @return BasicAttributes, die man dann im LDAP verwenden kann
 	 * @throws LDAPException Wenn was daneben geht
-	 * @see de.tarent.octopus.sync.ldap.LDAPContact
+	 * @see de.tarent.ldap.LDAPContact
 	 *  @see javax.naming.directory.BasicAttributes
 	 */
 	public BasicAttributes generate_Attributes_restricted(LDAPManager manager) throws LDAPException{
@@ -642,11 +642,10 @@ public void setAllUsers(Map map) {
 	/**
 	 * Methode, die zu einem gegebenen Attribut die passende Variable aus einem @see LDAPContact ausliest..
 	 *
-	 * @param this - LDAPContact , aus dem gelesen werden soll
-	 * 					@see de.tarent.octopus.sync.ldap.LDAPContact
-	 * @param attribute - Attribut, welches den Wert beschreibt
+	 * @param attribute   - Attribut, welches den Wert beschreibt
 	 * @return String mit dem gewünschen Wert
 	 * @throws LDAPException - wenn etwas schief läuft
+	 * @see de.tarent.ldap.LDAPContact
 	 */
 	protected String getValue(NamedNodeMap attribute) throws LDAPException{
 		Method getter;

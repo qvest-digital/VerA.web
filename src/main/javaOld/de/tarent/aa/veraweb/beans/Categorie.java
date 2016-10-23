@@ -56,6 +56,7 @@ public class Categorie extends AbstractBean implements OrgUnitDependent {
      * Überprüft das Bean auf innere Vollständigkeit.
      * Hier wird getestet, ob die Kategorie einen nicht-leeren Namen hat.
      *
+     * @param octopusContext The {@link OctopusContext}
      * @throws BeanException bei Unvollständigkeit
      */
     public void verify(OctopusContext octopusContext) throws BeanException {

@@ -666,6 +666,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Hauptperson-Daten im Latin-Zeichensatz.
+     * @return {@link PersonMemberFacade}
      */
     public PersonMemberFacade getMainLatin() {
         return new MainLatin(this);
@@ -673,6 +674,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Hauptperson-Daten im Zusatzzeichensatz 1.
+     * @return {@link PersonMemberFacade}
      */
     public PersonMemberFacade getMainExtra1() {
         return new MainExtra1(this);
@@ -680,6 +682,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Hauptperson-Daten im Zusatzzeichensatz 2.
+     * @return {@link PersonMemberFacade}
      */
     public PersonMemberFacade getMainExtra2() {
         return new MainExtra2(this);
@@ -687,6 +690,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Partner-Daten im Latin-Zeichensatz.
+     * @return {@link PersonMemberFacade}
      */
     public PersonMemberFacade getPartnerLatin() {
         return new PartnerLatin(this);
@@ -694,6 +698,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Partner-Daten im Zusatzzeichensatz 1.
+     * @return {@link PersonMemberFacade}
      */
     public PersonMemberFacade getPartnerExtra1() {
         return new PartnerExtra1(this);
@@ -701,6 +706,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Partner-Daten im Zusatzzeichensatz 2.
+     * @return {@link PersonMemberFacade}
      */
     public PersonMemberFacade getPartnerExtra2() {
         return new PartnerExtra2(this);
@@ -708,6 +714,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Dienst-Adresse im Latin-Zeichensatz.
+     * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getBusinessLatin() {
         return new BusinessLatin(this);
@@ -715,6 +722,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Dienst-Adresse im Zusatzzeichensatz 1.
+     * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getBusinessExtra1() {
         return new BusinessExtra1(this);
@@ -722,6 +730,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Dienst-Adresse im Zusatzzeichensatz 2.
+     * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getBusinessExtra2() {
         return new BusinessExtra2(this);
@@ -729,6 +738,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Privat-Adresse im Latin-Zeichensatz.
+     * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getPrivateLatin() {
         return new PrivateLatin(this);
@@ -736,6 +746,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Privat-Adresse im Zusatzzeichensatz 1.
+     * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getPrivateExtra1() {
         return new PrivateExtra1(this);
@@ -743,6 +754,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Privat-Adresse im Zusatzzeichensatz 2.
+     * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getPrivateExtra2() {
         return new PrivateExtra2(this);
@@ -750,6 +762,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Zusatz-Adresse im Latin-Zeichensatz.
+     * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getOtherLatin() {
         return new OtherLatin(this);
@@ -757,6 +770,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Methode liefert eine Facade für die Zusatz-Adresse im Zusatzzeichensatz 1.
+     * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getOtherExtra1() {
         return new OtherExtra1(this);
@@ -764,6 +778,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 
     /**
      * Diese Klasse liefert eine Facade für die Zusatz-Adresse im Zusatzzeichensatz 2.
+     * @return {@link PersonAddressFacade}
      */
     public PersonAddressFacade getOtherExtra2() {
         return new OtherExtra2(this);

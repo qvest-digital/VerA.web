@@ -157,7 +157,7 @@ public class LocationListWorker extends ListWorkerVeraWeb {
     }
 
     /**
-     * Temporarily method for inserting a {@link Location}. <br/>
+     * Temporarily method for inserting a {@link Location}. <br>
      * TODO: move this method to LocationDetailWorker!
      *
      * @param octopusContext

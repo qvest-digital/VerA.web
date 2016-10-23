@@ -56,6 +56,8 @@ public class GuestSerialNumber {
         /**
          * Dieser Konstruktor übernimmt Datenbank und Veranstaltung zur
          * Benutzung bei der späteren Berechnung laufender Gästenummern.
+         * @param event FIXME
+         * @param context FIXME
          */
 		public CalcSerialNumber(ExecutionContext context, Event event) {
 			this.executionContext = context;
@@ -66,6 +68,9 @@ public class GuestSerialNumber {
          * Diese abstrakte Methode berechnet die tatsächlichen laufenden
          * Nummern der Gäste der im Konstruktor übergebenen Veranstaltung
          * in der ebenda übergebenen Datenbank.
+         *
+         * @throws BeanException FIXME
+         * @throws IOException FIXME
          */
 		public abstract void calcSerialNumber() throws BeanException, IOException;
 
@@ -152,6 +157,8 @@ public class GuestSerialNumber {
         /**
          * Dieser Konstruktor übernimmt Datenbank und Veranstaltung zur
          * Benutzung bei der späteren Berechnung laufender Gästenummern.
+		 * @param context FIXME
+		 * @param event FIXME
          */
 		public CalcSerialNumberImpl2(ExecutionContext context, Event event) {
 			super(context, event);
@@ -263,6 +270,8 @@ public class GuestSerialNumber {
         /**
          * Dieser Konstruktor übernimmt Datenbank und Veranstaltung zur
          * Benutzung bei der späteren Berechnung laufender Gästenummern.
+		 * @param context FIXME
+		 * @param event FIXME
          */
 		public CalcSerialNumberImpl3(ExecutionContext context, Event event) {
 			super(context, event);

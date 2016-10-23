@@ -52,7 +52,7 @@ public class AbstractHistoryBean extends AbstractBean {
 	 *
 	 * @param date Datum der Änderung --- Default ist <i>jetzt</i>
 	 * @param actor Namen des Ändernden --- Default ist nicht vorgegeben
-	 * @throws BeanException
+	 * @throws BeanException FIXME
 	 */
 	public void updateHistoryFields(Date date, String actor) throws BeanException {
 		if (date == null)

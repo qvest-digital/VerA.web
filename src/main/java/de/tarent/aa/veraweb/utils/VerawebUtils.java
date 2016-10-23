@@ -44,7 +44,12 @@ public class VerawebUtils {
         return inputStringWithSpacesAndCommas.split("[^\\p{L}\\p{Nd}]+");
     }
 
-    /** Diese Methode liefert eine String-Darstellung eines Einladungsstatus */
+    /**
+     * Diese Methode liefert eine String-Darstellung eines Einladungsstatus
+     *
+     * @param status
+     * @return FIXME
+     */
     public static String getStatus(Integer status) {
         if (status == null || status.intValue() == EventConstants.STATUS_OPEN) {
             return "Offen";
@@ -62,7 +67,11 @@ public class VerawebUtils {
         }
     }
 
-    /** Diese Methode liefert eine String-Darstellung eines Veranstaltungstyps */
+    /**
+     * Diese Methode liefert eine String-Darstellung eines Veranstaltungstyps
+     * @param type  FIXME
+     * @return  FIXME
+     */
     public static String getType(Integer type) {
         if (type == null || type.intValue() == EventConstants.TYPE_MITPARTNER) {
             return "Mit Partner";

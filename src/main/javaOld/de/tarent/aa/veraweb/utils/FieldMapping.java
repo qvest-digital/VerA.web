@@ -50,6 +50,8 @@ public class FieldMapping {
      * Als Schlüssel kann statt eines Quellfelds auch ein Ausdruck <code>:Wert</code>
      * benutzt werden. Hierbei darf allerdings in Wert kein Ausdruck vorkommen, der
      * in einer {@link MessageFormat}-Instanz Probleme bereiten könnte.
+     *
+     * @param mappingDescription FIXME
      */
     public FieldMapping(Map mappingDescription) {
         assert mappingDescription != null;

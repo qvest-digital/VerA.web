@@ -280,8 +280,6 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
      * aufgerufen und soll das übergebene Bean als neuen Eintrag speichern.
      *
-     * @see #saveBean(OctopusContext, Bean)
-     *
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
      * @param bean einzufügendes Bean

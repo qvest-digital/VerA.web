@@ -79,7 +79,7 @@ public class DatabaseHelper {
 	 * Gibt eine Order-Clause zurück, schaut jeweils nach der Spalte ob
 	 * der Wert ASC oder DESC ist und wendet dieses Attribut entsprechend an.
 	 *
-	 * @param list
+	 * @param list FIXME
 	 * @return Order-Clause
 	 */
 	public static Order getOrder(List list) {

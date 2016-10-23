@@ -37,7 +37,9 @@ public interface Importer {
      *
      * @param digester der {@link ImportDigester}, der die Datensätze weiter
      *  verarbeitet.
-     * @throws IOException
+     * @param transactionContext
+     * @throws IOException FIXME
+     * @throws BeanException FIXME
      */
     public void importAll(ImportDigester digester, TransactionContext transactionContext) throws IOException, BeanException;
 }

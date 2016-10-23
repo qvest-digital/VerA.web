@@ -41,6 +41,8 @@ public class User extends AbstractBean implements OrgUnitDependent {
 
     /**
      * Der Benutzername (genauer: die AA-Rolle) muss angegeben sein.
+     *
+     * @param octopusContext The {@link OctopusContext}
      */
     public void verify(final OctopusContext octopusContext) {
         if (name == null || name.trim().length() == 0) {

@@ -72,9 +72,9 @@ public abstract class AbstractBean extends MapBean {
 	 * Diese Methode testet, ob im aktuellen Kontext der User der übergebenen
 	 * Gruppe zugeordenet ist.
 	 *
-	 * @param octopusContext
-	 * @param group
-	 * @throws BeanException
+	 * @param octopusContext FIXME
+	 * @param group FIXME
+	 * @throws BeanException FIXME
 	 */
 	protected void checkGroup(OctopusContext octopusContext, String group) throws BeanException {
 		PersonalConfig personalConfig = octopusContext != null ? octopusContext.personalConfig() : null;
@@ -87,10 +87,10 @@ public abstract class AbstractBean extends MapBean {
 	/**
 	 * Checks whether the user is a member of either of the specified groups.
 	 *
-	 * @param octopusContext
-	 * @param groups
+	 * @param octopusContext FIXME
+	 * @param groups FIXME
 	 *
-	 * @throws BeanException
+	 * @throws BeanException FIXME
 	 */
 	protected void checkGroups(OctopusContext octopusContext, String... groups) throws BeanException
 	{

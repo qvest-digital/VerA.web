@@ -122,7 +122,7 @@ public class DateHelper {
      * Diese Methode testet, ob der Sekundenanteil der Zeit des übergebenen
      * {@link Date}-Objekts 0 ist.<br>
      * In VerA.web wird als Zeit 00:00:30 eingetragen, um darzustellen,
-     * dass <e>keine</e> Zeitangabe im Datum vorliegt, während im Falle
+     * dass <strong>keine</strong> Zeitangabe im Datum vorliegt, während im Falle
      * vorhandener Zeitangaben nur Stunden- und Minutenangaben eingetragen
      * werden, vergleiche {@link #addTimeToDate(Timestamp, String, List)}.
      *
@@ -140,7 +140,8 @@ public class DateHelper {
 	 * Introducing this temporary fix here. Normally this should have gone into
 	 * octopus, however, I currently do not have access to the old/new cvsroot.
 	 * Temporarily fixes issue #1529.
-	 * @param errors
+	 * @param errors FIXME
+	 * @param octopusContext FIXME
 	 */
 	static public void temporary_fix_translateErrormessageEN2DE(List<String> errors,
 																final OctopusContext octopusContext) {

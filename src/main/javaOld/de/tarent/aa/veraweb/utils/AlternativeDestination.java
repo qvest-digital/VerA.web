@@ -33,7 +33,7 @@ public interface AlternativeDestination {
      * Diese Methode liefert ein alternatives Ziel in Form eines {@link OutputStream}s.
      *
      * @return ein {@link OutputStream} oder <code>null</code>.
-     * @throws IOException
+     * @throws IOException FIXME
      */
     public OutputStream getAlternativeOutputStream() throws IOException;
 

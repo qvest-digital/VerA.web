@@ -219,7 +219,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Get fk_event
      *
-     * return the id
+     * @return the id
      */
     public Integer getEventId() {
         return this.eventId;
@@ -333,7 +333,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Get person responsible.
      *
-     * @return
+     * @return The person id
      */
     public Integer getPersonId() {
         return this.personId;
@@ -342,7 +342,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set person id
      *
-     * @param personId
+     * @param personId The person id
      */
     public void setPersonId(final Integer personId) {
         this.personId = personId;
@@ -360,7 +360,7 @@ public class Task extends AbstractHistoryBean {
     /**
      * Set person name
      *
-     * @param personName
+     * @param personName The person name
      */
     public void setPersonName(String personName) {
         this.personName = personName;

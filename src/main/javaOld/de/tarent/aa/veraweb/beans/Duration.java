@@ -45,6 +45,8 @@ public class Duration extends AbstractBean
 	/**
 	 *
 	 * @param value a string value representing a serialized period in the form P[y]Y[m]M[d]D, e.g. P5Y2M1D or P2M3D
+	 *
+	 * @return FIXME
 	 */
 	public static Duration fromString( String value )
 	{
@@ -104,7 +106,7 @@ public class Duration extends AbstractBean
 	 *  %Y - same as %y but the resulting string will not contain the number of years if these are equal to 0
 	 *  %% - the percentage character
 	 *
-	 * @param fmt
+	 * @param fmt The format
 	 * @return String
 	 */
 	public String toFormattedString(String fmt)

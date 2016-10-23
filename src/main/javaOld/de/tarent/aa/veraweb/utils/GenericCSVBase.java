@@ -177,6 +177,11 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     /**
      * Diese Methode ermittelt Exportparameter aus dem
      * {@link #getExchangeFormat() ExchangeFormat}.
+     *
+     * @param export FIXME
+     * @throws MappingException FIXME
+     * @throws BeanException FIXME
+     * @throws IOException FIXME
      */
     protected void parseFormat(boolean export) throws MappingException, BeanException, IOException {
         assert exchangeFormat != null;
@@ -207,6 +212,10 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      *
      * @see #getPersonDataFields()
      * @see #getCategoryFields()
+     * @throws BeanException FIXME
+     * @throws IOException FIXME
+     *
+     * @return FIXME
      */
     protected Set getAvailableFields() throws BeanException, IOException {
         Set result = getPersonDataFields();
@@ -259,8 +268,10 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      * Diese Methode holt alle notwendigen Kategorien aus der Datenbank.
      * Kann zur Einschränkung überschrieben werden.
      * Null = keine Kategorien
-     * @throws IOException
-     * @throws BeanException
+     * @throws IOException FIXME
+     * @throws BeanException FIXME
+     *
+     * @return FIXME
      */
     protected List getCategoriesFromDB() throws BeanException, IOException {
         return database.getBeanList("Categorie", database.getSelect("Categorie"));

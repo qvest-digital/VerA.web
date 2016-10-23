@@ -87,7 +87,7 @@ public class VworUtils {
      * @param path URI from VworUtils.path()
      * @param type desired result type from JSON mapping
      * @return Entities from the Vwor component
-     * @throws IOException
+     * @throws IOException FIXME
      */
     public <T> T readResource(String path, TypeReference<T> type) throws IOException {
         final String json = readResource(path);
@@ -103,7 +103,8 @@ public class VworUtils {
      *
      * @param path URI from VworUtils.path()
      * @return String from the Vwor component
-     * @throws IOException
+     *
+     * @throws IOException FIXME
      */
     public String readResource(String path) throws IOException {
         WebResource resource;
@@ -128,6 +129,8 @@ public class VworUtils {
      *
      * @param path path fragments
      * @return complete path as string
+     *
+     * @throws IOException FIXME
      */
     public String path(Object... path) throws IOException {
         String r = getVworEndPoint() + BASE_RESOURCE;

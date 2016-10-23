@@ -239,7 +239,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 	/** Octopus-Eingabe-Parameter für {@link #getReplaceRequest(OctopusContext)} */
 	public static final String OUTPUT_getReplaceRequest = "replace-request";
 	/**
-	 * Kopiert die Such & Ersetz anfragen in den Content und merkt
+	 * Kopiert die Such &amp; Ersetz anfragen in den Content und merkt
 	 * sich entsprechende Anfrage ggf. in der Session.<br><br>
 	 *
 	 * Ist die Suchanfrage zu kurz wird der Status auf
@@ -361,7 +361,6 @@ public class PersonReplaceWorker extends PersonListWorker {
 	 *
 	 * @param cntx
 	 * @throws BeanException
-	 * @throws IOException
 	 */
 	public void replaceAllData(OctopusContext cntx) throws BeanException {
 		Database database = getDatabase(cntx);

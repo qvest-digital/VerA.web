@@ -35,8 +35,9 @@ public interface Exporter
 	 * Diese Methode wird zu jeder zu exportierenden Person aufgerufen, übergeben wird die Person als Zusammenstellung von
 	 * {@link Person}. Sie fügt dem Export eine Beschreibung der übergebenen VerA.web-Person hinzu.
 	 *
-	 * @param person
-	 *          {@link Person}-Bean
+	 * @param person {@link Person}-Bean
+	 * @throws BeanException FIXME
+	 * @throws IOException FIXME
 	 */
 	public void exportPerson(Person person) throws BeanException, IOException;
 
@@ -44,7 +45,7 @@ public interface Exporter
 	 * Diese Methode wird zu Beginn eines Exports aufgerufen. In ihr kann etwa das Dokument mit einem Kopf zu schreiben
 	 * begonnen werden.
 	 *
-	 * @throws IOException
+	 * @throws IOException FIXME
 	 */
 	public void startExport() throws IOException;
 
@@ -52,7 +53,7 @@ public interface Exporter
 	 * Diese Methode wird zum Ende eines Exports aufgerufen. In ihr kann etwa das bisher gesammelte Dokument
 	 * festgeschrieben werden.
 	 *
-	 * @throws IOException
+	 * @throws IOException FIXME
 	 */
 	public void endExport() throws IOException;
 

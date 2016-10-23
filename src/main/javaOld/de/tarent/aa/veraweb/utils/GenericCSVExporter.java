@@ -81,7 +81,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
      * Diese Methode wird zu Beginn eines Exports aufgerufen. In ihr kann etwa das Dokument mit einem Kopf zu schreiben
      * begonnen werden.
      *
-     * @throws IOException
+     * @throws IOException FIXME
      * @see de.tarent.aa.veraweb.utils.Exporter#startExport()
      */
     public void startExport() throws IOException {
@@ -114,7 +114,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
      * Diese Methode wird zum Ende eines Exports aufgerufen. In ihr kann etwa das bisher gesammelte Dokument
      * festgeschrieben werden.
      *
-     * @throws IOException
+     * @throws IOException FIXME
      * @see de.tarent.aa.veraweb.utils.Exporter#endExport()
      */
     public void endExport() throws IOException {
@@ -294,8 +294,8 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
      * Diese Methode holt alle notwendigen Kategorien aus der Datenbank.<br>
      * Nur die vom Nutzer ausgewählte Kategorien. Nur die Kategorien des Mandanten
      *
-     * @throws IOException
-     * @throws BeanException
+     * @throws IOException FIXME
+     * @throws BeanException FIXME
      */
     @Override
     protected List getCategoriesFromDB() throws BeanException, IOException {

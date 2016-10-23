@@ -88,8 +88,6 @@ public class CSVFileWriter extends CSVFile {
      *            The field separator to be used; overwrites the default one
      * @param qual
      *            The text qualifier to be used; overwrites the default one
-     * @throws IOException
-     *             If an error occurs while creating the file
      */
     public CSVFileWriter(Writer writer, char sep, char qual) {
         super(sep, qual);
@@ -102,8 +100,6 @@ public class CSVFileWriter extends CSVFile {
     /**
      * Close the output CSV file.
      *
-     * @throws IOException
-     *             If an error occurs while closing the file
      */
     public void close() {
         out.flush();
