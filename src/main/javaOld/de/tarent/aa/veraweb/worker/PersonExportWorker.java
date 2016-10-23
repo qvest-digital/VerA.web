@@ -200,7 +200,8 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_ADDRESS"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_CHARSET"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_FUNCTION"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_TITLE"));
+        spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_TITLE"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_ACADEMIC_TITLE"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_FIRSTNAME"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_LASTNAME"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_TITLE"));
@@ -222,15 +223,6 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_COMPANY"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_POST_OFFICE_BOX_NUMBER"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_POST_OFFICE_BOX_PLZ"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_WORK_AREA"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_CATEGORY"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_CATEGORY_RANG"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_RANG"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_RESERVE"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_STATUS"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_TABLE"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_SEAT"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_CURRENT_NUMBER"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_COLOUR"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_IN_COUNTRY"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_LANGUAGES"));
@@ -238,10 +230,6 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_NATIONALITY"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_HINT_RESPONSIBLE"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_HINT_ORG_TEAM"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_STATUS"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_TABLE"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_SEAT"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_CURRENT_NUMBER"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_COLOUR"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_IN_COUNTRY"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_LANGUAGES"));
@@ -249,17 +237,6 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_NATIONALITY"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_HINT_RESPONSIBLE"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_HINT_ORG_TEAM"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_ACCEPT"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_DECLINE"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_OPEN"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_GUEST_IN_PLACE"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_GUEST_IN_RESERVE"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_EVENT_NAME"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_EVENT_BEGIN"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_EVENT_END"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_EVENT_LOCATION"));
-		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_OBSERVATION"));
-
 	}
 
 	/**
@@ -329,23 +306,23 @@ public class PersonExportWorker extends PersonListWorker {
 		//
 //		spreadSheet.addCell(data.get("doctype")); // Name des Dokument-Typs
 
-		String text_a = (String)person.get("textfield");
-		String text_b = (String)person.get("textfield_p");
-		if (showA) {
-			spreadSheet.addCell(text_a);
-		} else {
-			spreadSheet.addCell(null);
-		}
-		if (showB) {
-			spreadSheet.addCell(text_b);
-		} else {
-			spreadSheet.addCell(null);
-		}
-		if (showA && showB && text_a != null && text_a.length() != 0 && text_b != null && text_b.length() != 0) {
-			spreadSheet.addCell(person.get("textjoin"));
-		} else {
-			spreadSheet.addCell(null);
-		}
+//		String text_a = (String)person.get("textfield");
+//		String text_b = (String)person.get("textfield_p");
+//		if (showA) {
+//			spreadSheet.addCell(text_a);
+//		} else {
+//			spreadSheet.addCell(null);
+//		}
+//		if (showB) {
+//			spreadSheet.addCell(text_b);
+//		} else {
+//			spreadSheet.addCell(null);
+//		}
+//		if (showA && showB && text_a != null && text_a.length() != 0 && text_b != null && text_b.length() != 0) {
+//			spreadSheet.addCell(person.get("textjoin"));
+//		} else {
+//			spreadSheet.addCell(null);
+//		}
 
 		spreadSheet.addCell(GuestExportWorker.getAddresstype((Integer)person.get("addresstype")));
 		spreadSheet.addCell(GuestExportWorker.getLocale((Integer)person.get("locale")));
@@ -398,28 +375,11 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(person.get("pobox" + addressEx));
 		spreadSheet.addCell(person.get("poboxzipcode" + addressEx));
 
-		/*
-		 * modified to support work areas as per change request for version 1.2.0
-		 * cklein
-		 * 2008-02-26
-		 */
-		spreadSheet.addCell(null); // Verweis auf Arbeitsbereich, der zur Auswahl führte
-		//
-		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
-		//
-		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl führte
-		spreadSheet.addCell(null); // Der Rang der Kategorie innerhalb der Kategorien
-		spreadSheet.addCell(null); // Der Rang der Person innerhalb der Kategorie
-		spreadSheet.addCell(null); // 0 = Tisch, 1 = Reservce
-
 		//
 		// Veranstaltungsspezifische Attribute für Person
 		//
 		if (showA) {
-			spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
-			spreadSheet.addCell(null);
-			spreadSheet.addCell(null);
-			spreadSheet.addCell(null);
+            spreadSheet.addCell(GuestExportWorker.getColor(null));
 			spreadSheet.addCell(getDomestic((String)person.get("domestic_a_e1"))); // Inland Ja / Nein
 			spreadSheet.addCell(person.get("languages_a_e1"));
 			spreadSheet.addCell(GuestExportWorker.getGender((String)person.get("sex_a_e1"))); // M oder F
@@ -427,10 +387,6 @@ public class PersonExportWorker extends PersonListWorker {
 			spreadSheet.addCell(person.get("notehost_a_e1"));
 			spreadSheet.addCell(person.get("noteorga_a_e1"));
 		} else {
-			spreadSheet.addCell(null);
-			spreadSheet.addCell(null);
-			spreadSheet.addCell(null);
-			spreadSheet.addCell(null);
 			spreadSheet.addCell(GuestExportWorker.getColor(null));
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
@@ -444,10 +400,7 @@ public class PersonExportWorker extends PersonListWorker {
 		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
 		if (showB) {
-			spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
-			spreadSheet.addCell(null);
-			spreadSheet.addCell(null);
-			spreadSheet.addCell(null);
+            spreadSheet.addCell(GuestExportWorker.getColor(null));
 			spreadSheet.addCell(getDomestic((String)person.get("domestic_b_e1"))); // Inland Ja / Nein
 			spreadSheet.addCell(person.get("languages_b_e1"));
 			spreadSheet.addCell(GuestExportWorker.getGender((String)person.get("sex_b_e1"))); // M oder F
@@ -455,10 +408,6 @@ public class PersonExportWorker extends PersonListWorker {
 			spreadSheet.addCell(showRemarks ? person.get("notehost_b_e1") : null);
 			spreadSheet.addCell(showRemarks ? person.get("noteorga_b_e1") : null);
 		} else {
-			spreadSheet.addCell(null);
-			spreadSheet.addCell(null);
-			spreadSheet.addCell(null);
-			spreadSheet.addCell(null);
 			spreadSheet.addCell(GuestExportWorker.getColor(null));
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
@@ -467,20 +416,6 @@ public class PersonExportWorker extends PersonListWorker {
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
 		}
-
-		//
-		// Sonstiges
-		//
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
 	}
 
 	/**
@@ -490,16 +425,13 @@ public class PersonExportWorker extends PersonListWorker {
 	 * @param person Map mit den Gastdaten.
 	 */
 	protected void exportOnlyPerson(SpreadSheet spreadSheet, boolean showRemarks, Map person, String memberAEx, String addressEx) {
-		//
-		// Gast spezifische Daten
-		//
 //		spreadSheet.addCell(data.get("doctype")); // Name des Dokument-Typs
-		spreadSheet.addCell(person.get("textfield"));
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
+//		spreadSheet.addCell(person.get("textfield"));
+//		spreadSheet.addCell(null);
+//		spreadSheet.addCell(null);
 
 		spreadSheet.addCell(GuestExportWorker.getAddresstype((Integer)person.get("addresstype")));
-		spreadSheet.addCell(GuestExportWorker.getLocale((Integer)person.get("locale")));
+        spreadSheet.addCell(GuestExportWorker.getLocale((Integer) person.get("locale")));
 
 		spreadSheet.addCell(person.get("function" + addressEx));
 		spreadSheet.addCell(person.get("salutation" + memberAEx));
@@ -519,11 +451,6 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(person.get("suffix1" + addressEx));
 		spreadSheet.addCell(person.get("suffix2" + addressEx));
 
-		/*
-		 * modified to support birthplace as per change request for version 1.2.0
-		 * cklein
-		 * 2008-02-26
-		 */
 		spreadSheet.addCell(person.get("birthplace" + addressEx));
 		spreadSheet.addCell(person.get("fon" + addressEx));
 		spreadSheet.addCell(person.get("fax" + addressEx));
@@ -534,27 +461,10 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(person.get("pobox" + addressEx));
 		spreadSheet.addCell(person.get("poboxzipcode" + addressEx));
 
-		/*
-		 * modified to support work areas as per change request for version 1.2.0
-		 * cklein
-		 * 2008-02-26
-		 */
-		spreadSheet.addCell(null); // Verweis auf Arbeitsbereich, der zur Auswahl führte
-		//
-		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
-		//
-		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl führte
-		spreadSheet.addCell(null); // Der Rang der Kategorie innerhalb der Kategorien
-		spreadSheet.addCell(null); // Der Rang der Person innerhalb der Kategorie
-		spreadSheet.addCell(null); // 0 = Tisch, 1 = Reservce
-
 		//
 		// Veranstaltungsspezifische Attribute für Person
 		//
-		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
+        spreadSheet.addCell(GuestExportWorker.getColor(null));
 		spreadSheet.addCell(getDomestic((String)person.get("domestic_a_e1"))); // Inland Ja / Nein
 		spreadSheet.addCell(person.get("languages_a_e1"));
 		spreadSheet.addCell(GuestExportWorker.getGender((String)person.get("sex_a_e1"))); // M oder F
@@ -565,24 +475,6 @@ public class PersonExportWorker extends PersonListWorker {
 		//
 		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
-		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null); // Verweiss auf Farbe die verwendet werden soll.
-		spreadSheet.addCell(null); // Inland Ja / Nein
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null); // M oder F
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-
-		//
-		// Sonstiges
-		//
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
@@ -599,26 +491,23 @@ public class PersonExportWorker extends PersonListWorker {
 	 * @param person Map mit den Personendaten.
 	 */
 	protected void exportOnlyPartner(SpreadSheet spreadSheet, boolean showRemarks, Map person, String memberBEx, String addressEx) {
-		//
-		// Gast spezifische Daten
-		//
-		spreadSheet.addCell(person.get("textfield_p"));
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
+//		spreadSheet.addCell(person.get("textfield_p"));
+//		spreadSheet.addCell(null);
+//		spreadSheet.addCell(null);
 
 		spreadSheet.addCell(GuestExportWorker.getAddresstype((Integer)person.get("addresstype")));
-		spreadSheet.addCell(GuestExportWorker.getLocale((Integer)person.get("locale")));
+        spreadSheet.addCell(GuestExportWorker.getLocale((Integer)person.get("locale")));
 
 		spreadSheet.addCell(null);
+        spreadSheet.addCell(null);
+        spreadSheet.addCell(null);
+        spreadSheet.addCell(null);
+        spreadSheet.addCell(null);
+
 		spreadSheet.addCell(person.get("salutation" + memberBEx));
 		spreadSheet.addCell(person.get("title" + memberBEx));
 		spreadSheet.addCell(person.get("firstname" + memberBEx));
 		spreadSheet.addCell(person.get("lastname" + memberBEx));
-
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
 
 		spreadSheet.addCell(person.get("zipcode" + addressEx));
 		spreadSheet.addCell(person.get("city" + addressEx));
@@ -627,12 +516,7 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(person.get("suffix1" + addressEx));
 		spreadSheet.addCell(person.get("suffix2" + addressEx));
 
-		/*
-		 * modified to support birthplace as per change request for version 1.2.0
-		 * cklein
-		 * 2008-02-26
-		 */
-		spreadSheet.addCell(""); // partners do not have a birthplace + addressEx attribute
+		spreadSheet.addCell(null);
 		spreadSheet.addCell(person.get("fon" + addressEx));
 		spreadSheet.addCell(person.get("fax" + addressEx));
 		spreadSheet.addCell(person.get("mail" + addressEx));
@@ -642,79 +526,27 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(person.get("pobox" + addressEx));
 		spreadSheet.addCell(person.get("poboxzipcode" + addressEx));
 
-		// fixing bug here, workarea cell was missing
-
-		spreadSheet.addCell(null);
-		//
-		// Kategorie spezifische Daten, wenn nach Kategorie gefilter wurde.
-		//
-		spreadSheet.addCell(null); // Verweis auf Kategorie, die zur Auswahl führte
-		spreadSheet.addCell(null); // Der Rang der Kategorie innerhalb der Kategorien
-		spreadSheet.addCell(null); // Der Rang der Person innerhalb der Kategorie
-		spreadSheet.addCell(null); // 0 = Tisch, 1 = Reservce
-
 		//
 		// Veranstaltungsspezifische Attribute für Person
 		//
-		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(getDomestic((String)person.get("domestic_b_e1"))); // Inland Ja / Nein
-		spreadSheet.addCell(person.get("languages_b_e1"));
-		spreadSheet.addCell(GuestExportWorker.getGender((String)person.get("sex_b_e1"))); // M oder F
-		spreadSheet.addCell(person.get("nationality_b_e1"));
-		spreadSheet.addCell(showRemarks ? person.get("notehost_b_e1") : null);
-		spreadSheet.addCell(showRemarks ? person.get("noteorga_b_e1") : null);
+        spreadSheet.addCell(null);
+        spreadSheet.addCell(null);
+        spreadSheet.addCell(null);
+        spreadSheet.addCell(null);
+        spreadSheet.addCell(null);
+        spreadSheet.addCell(null);
+        spreadSheet.addCell(null);
 
 		//
 		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
-		spreadSheet.addCell(null); // 0 = Offen, 1 = Zusage, 2 = Absage
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null); // Verweiss auf Farbe die verwendet werden soll.
-		spreadSheet.addCell(null); // Inland Ja / Nein
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null); // M oder F
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-
-		//
-		// Sonstiges
-		//
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-		spreadSheet.addCell(null);
-	}
-
-	/**
-	 * Diese Methode liefert eine RGB-Farbe zu einer Person.
-	 *
-	 * @param person Person, zu der die Farbe gesucht wird.
-	 * @param data Zusatzdaten unter den Schlüsseln "color1", "color2",
-	 *  "color3" und "color4".
-	 * @param main Flag, ob es um die Hauptperson (<code>true</code>) oder
-	 *  den Partner (<code>false</code>) geht
-	 * @return RGB-Wert einer Farbe
-	 */
-	private Integer getColor(Map person, Map data, boolean main) {
-		Color color = null;
-		if (main) {
-			color = (Color)data.get("color" + ColorWorker.getColor((String)person.get("domestic_a_e1"), (String)person.get("sex_a_e1")));
-		} else {
-			color = (Color)data.get("color" + ColorWorker.getColor((String)person.get("domestic_b_e1"), (String)person.get("sex_b_e1")));
-		}
-		return color == null ? null : color.rgb;
+        spreadSheet.addCell(GuestExportWorker.getColor(null));
+        spreadSheet.addCell(getDomestic((String)person.get("domestic_b_e1"))); // Inland Ja / Nein
+        spreadSheet.addCell(person.get("languages_b_e1"));
+        spreadSheet.addCell(GuestExportWorker.getGender((String)person.get("sex_b_e1"))); // M oder F
+        spreadSheet.addCell(person.get("nationality_b_e1"));
+        spreadSheet.addCell(showRemarks ? person.get("notehost_b_e1") : null);
+        spreadSheet.addCell(showRemarks ? person.get("noteorga_b_e1") : null);
 	}
 
 	/** Diese Methode liefert eine String-Darstellung zu einem Domestic-Attribut */
