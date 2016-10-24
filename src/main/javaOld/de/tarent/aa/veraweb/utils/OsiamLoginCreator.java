@@ -70,11 +70,26 @@ public class OsiamLoginCreator {
      *
      * @return String username
      */
-    public String generateUsername(final String firstname,
-                                   final String lastname,
-                                   final OsiamConnector connector) {
+    public String generatePersonUsername(final String firstname,
+                                         final String lastname,
+                                         final OsiamConnector connector) {
 
-        final String username = generateShortUsername(firstname, lastname);
+        final String username = generateShortPersonUsername(firstname, lastname);
+        return getResultList(username, connector);
+    }
+
+    /**
+     * Generate username by given company name.
+     *
+     * @param companyname The companyName of the person
+     * @param connector The {@link org.osiam.client.OsiamConnector}
+     *
+     * @return String username
+     */
+    public String generateCompanyUsername(final String companyname,
+                                          final OsiamConnector connector) {
+
+        final String username = generateShortCompanyUsername(companyname);
         return getResultList(username, connector);
     }
 
@@ -118,7 +133,7 @@ public class OsiamLoginCreator {
      *
      * @return String
      */
-    private String generateShortUsername(final String firstname, final String lastname) {
+    private String generateShortPersonUsername(final String firstname, final String lastname) {
         final CharacterPropertiesReader characterPropertiesReader = new CharacterPropertiesReader();
 
         final String convertedFirstname = characterPropertiesReader.convertUmlauts(firstname).replaceAll("\\s+", "");
@@ -140,6 +155,37 @@ public class OsiamLoginCreator {
 
     private String handleLasnameLongerThenFiveCharacters(String convertedFirstname, String convertedLastname) {
         return handleLastnameNotLongerThanFiveCharacters(convertedFirstname, convertedLastname.substring(0, 5));
+    }
+
+    /**
+     * Generates the shorttext of the companyname
+     * Example: tarent solutions GmbH -> tarentsolu
+     *
+     * @param companyname String
+     *
+     * @return String
+     */
+    private String generateShortCompanyUsername(final String companyname) {
+        final CharacterPropertiesReader characterPropertiesReader = new CharacterPropertiesReader();
+
+        final String convertedCompanyname = characterPropertiesReader.convertUmlauts(companyname).replaceAll("\\s+", "");
+
+        String username = null;
+        if (convertedCompanyname.length() >= 10) {
+            username = handleCompanynameLongerThenTenCharacters(convertedCompanyname);
+        } else {
+            username = handleCompanynameNotLongerThanTenCharacters(convertedCompanyname);
+        }
+
+        return username;
+    }
+
+    private String handleCompanynameNotLongerThanTenCharacters(String convertedCompanyname) {
+        return convertedCompanyname.toLowerCase();
+    }
+
+    private String handleCompanynameLongerThenTenCharacters(String convertedCompanyname) {
+        return handleCompanynameNotLongerThanTenCharacters(convertedCompanyname.substring(0, 10));
     }
 
     private String getResultList(final String username, final OsiamConnector connector) {

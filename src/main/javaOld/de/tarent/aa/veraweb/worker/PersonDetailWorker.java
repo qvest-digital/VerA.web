@@ -1079,38 +1079,17 @@ public class PersonDetailWorker implements PersonConstants {
 
         Person person = getPersonById(octopusContext, personId);
         if (!hasUsername(octopusContext, personId)) {
-            Database database = new DatabaseVeraWeb(octopusContext);
-            final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator(database);
-            final OsiamConnector connector = getConnector();
 
-            final String firstname = person.firstname_a_e1;
-            final String lastname = person.lastname_a_e1;
-            final String username = osiamLoginCreator.generateUsername(firstname, lastname, connector);
-            final String password = osiamLoginCreator.generatePassword();
-
-            person.username = username;
+            final String username = getOsiamUsername(person, octopusContext);
 
             // Update in tperson
-            this.updateUsernameInVeraweb(octopusContext, person);
-
-            // Create in OSIAM
-            createUser(username, password, connector, database);
+            person.username = username;
+            this.updateUsernameInVeraweb(person, octopusContext);
 
             // Saving uuid to generate the reset-password url
-            saveLinkUUID(personId, database);
+            saveLinkUUID(personId, octopusContext);
 
-            try {
-                Object object = SQL.Select(database).from("veraweb.tperson").where(Expr.equal("pk", person.id)).add("username", String.class)
-                        .getList(database).get(0);
-                if (!username.equals(object)) {
-                    throw new RuntimeException("Somehow the username was not persisted?!");
-                }
-                if (SQL.Select(database).from("veraweb.link_uuid").select("pk").where(Expr.equal("personid", person.id)).getList(database).size() != 1) {
-                    throw new RuntimeException("Somehow the link was not persisted?!");
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            handleOsiamUserErrors(person, username, octopusContext);
 
             octopusContext.setContent("osiam-user-created", true);
         } else {
@@ -1120,6 +1099,58 @@ public class PersonDetailWorker implements PersonConstants {
         return person;
     }
 
+    private void handleOsiamUserErrors(Person person, final String username, OctopusContext octopusContext) {
+        final Database database = new DatabaseVeraWeb(octopusContext);
+        try {
+            Object object = SQL.Select(database).from("veraweb.tperson").where(Expr.equal("pk", person.id)).add("username", String.class)
+                    .getList(database).get(0);
+            if (!username.equals(object)) {
+                throw new RuntimeException("Somehow the username was not persisted?!");
+            }
+            if (SQL.Select(database).from("veraweb.link_uuid").select("pk").where(Expr.equal("personid", person.id)).getList(database).size() != 1) {
+                throw new RuntimeException("Somehow the link was not persisted?!");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private String getOsiamUsername(Person person, OctopusContext octopusContext) {
+        final Database database = new DatabaseVeraWeb(octopusContext);
+        final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator(database);
+        final String username = addOsiamUser(person, database, osiamLoginCreator);
+
+        return username;
+    }
+
+    private String addOsiamUser(Person person, Database database, OsiamLoginCreator osiamLoginCreator) {
+        final OsiamConnector connector = getConnector();
+        final String username = generateOsiamUsername(person, osiamLoginCreator, connector);
+        final String password = osiamLoginCreator.generatePassword();
+
+        createUser(username, password, connector, database);
+        return username;
+    }
+
+    private String generateOsiamUsername(Person person, OsiamLoginCreator osiamLoginCreator, OsiamConnector connector) {
+        if (person.iscompany.equals("t")) {
+            return executeCompanyUsernameGeneration(person, osiamLoginCreator, connector);
+        } else {
+            return executePersonUsernameGeneration(person, osiamLoginCreator, connector);
+        }
+    }
+
+    private String executeCompanyUsernameGeneration(Person person, OsiamLoginCreator osiamLoginCreator, OsiamConnector connector) {
+        final String companyname = person.company_a_e1;
+        return osiamLoginCreator.generateCompanyUsername(companyname, connector);
+    }
+
+    private String executePersonUsernameGeneration(Person person, OsiamLoginCreator osiamLoginCreator, OsiamConnector connector) {
+        final String firstname = person.firstname_a_e1;
+        final String lastname = person.lastname_a_e1;
+        return osiamLoginCreator.generatePersonUsername(firstname, lastname, connector);
+    }
+
     /**
      * Save new instance LinkUUID to allow having a reset password url
      *
@@ -1127,7 +1158,8 @@ public class PersonDetailWorker implements PersonConstants {
      * @throws BeanException
      * @throws IOException
      */
-    private void saveLinkUUID(Integer personId, Database database) throws BeanException, IOException {
+    private void saveLinkUUID(Integer personId, OctopusContext octopusContext) throws BeanException, IOException {
+        final Database database = new DatabaseVeraWeb(octopusContext);
         final TransactionContext transactionContext = database.getTransactionContext();
         try {
             transactionContext.execute(SQL.Insert(database).table("veraweb.link_uuid").insert("uuid", getNewPersonUUID()).insert("linktype", LinkType.PASSWORDRESET.getText()).insert("personid", personId));
@@ -1154,7 +1186,7 @@ public class PersonDetailWorker implements PersonConstants {
         }
     }
 
-    private void updateUsernameInVeraweb(OctopusContext octopusContext, Person person) throws BeanException, IOException {
+    private void updateUsernameInVeraweb(Person person, OctopusContext octopusContext) throws BeanException, IOException {
         final Database database = new DatabaseVeraWeb(octopusContext);
         final TransactionContext transactionContext = database.getTransactionContext();
         try {

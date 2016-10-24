@@ -64,7 +64,7 @@ public class OsiamLoginCreatorTest {
     }
 
     @Test
-    public void testGenerateUsernameNoExisting() throws Exception {
+    public void testGeneratePersonUsernameNoExisting() throws Exception {
         // GIVEN
         OctopusContext oc = mock(OctopusContext.class);
         AccessToken accessToken = mock(AccessToken.class);
@@ -91,7 +91,7 @@ public class OsiamLoginCreatorTest {
         when(connector.retrieveAccessToken(Scope.ALL)).thenReturn(accessToken);
 
         // WHEN
-        String username = osiamLoginCreator.generateUsername("Max", "Mustermann", connector);
+        String username = osiamLoginCreator.generatePersonUsername("Max", "Mustermann", connector);
 
         // THEN
         assertEquals("mmuste1", username);
@@ -99,7 +99,7 @@ public class OsiamLoginCreatorTest {
 
     
     @Test
-    public void testGenerateUsernameNoWhitespace() throws Exception {
+    public void testGeneratePersonUsernameNoWhitespace() throws Exception {
         // GIVEN
         OctopusContext oc = mock(OctopusContext.class);
         AccessToken accessToken = mock(AccessToken.class);
@@ -117,12 +117,86 @@ public class OsiamLoginCreatorTest {
         when(connector.retrieveAccessToken(Scope.ALL)).thenReturn(accessToken);
 
         // WHEN
-        String username = osiamLoginCreator.generateUsername("Henry", "Van de Velde", connector);
+        String username = osiamLoginCreator.generatePersonUsername("Henry", "Van de Velde", connector);
 
         // THEN
         assertEquals("hvande", username);
     }
-    
+
+    @Test
+    public void testGeneratePersonUsernameNotLongerFive() throws Exception {
+        // GIVEN
+        OctopusContext oc = mock(OctopusContext.class);
+        AccessToken accessToken = mock(AccessToken.class);
+
+        // FIRST LOOP
+        SCIMSearchResult<User> scimUsersResults = mock(SCIMSearchResult.class);
+        Query query = new QueryBuilder().filter("userName eq \"hvan\"").attributes("id").build();
+        when(queryBuilder.filter("userName eq \"hvan\"")).thenReturn(queryBuilder);
+        when(queryBuilder.attributes("id")).thenReturn(queryBuilder);
+        when(queryBuilder.build()).thenReturn(query);
+        when(connector.searchUsers(query, accessToken)).thenReturn(scimUsersResults);
+        when(scimUsersResults.getTotalResults()).thenReturn(0l);
+
+
+        when(connector.retrieveAccessToken(Scope.ALL)).thenReturn(accessToken);
+
+        // WHEN
+        String username = osiamLoginCreator.generatePersonUsername("Henry", "V An", connector);
+
+        // THEN
+        assertEquals("hvan", username);
+    }
+
+    @Test
+    public void testGenerateCompanyUsernameNoWhitespace() throws Exception {
+        // GIVEN
+        OctopusContext oc = mock(OctopusContext.class);
+        AccessToken accessToken = mock(AccessToken.class);
+
+        // FIRST LOOP
+        SCIMSearchResult<User> scimUsersResults = mock(SCIMSearchResult.class);
+        Query query = new QueryBuilder().filter("userName eq \"tarentsolu\"").attributes("id").build();
+        when(queryBuilder.filter("userName eq \"tarentsolu\"")).thenReturn(queryBuilder);
+        when(queryBuilder.attributes("id")).thenReturn(queryBuilder);
+        when(queryBuilder.build()).thenReturn(query);
+        when(connector.searchUsers(query, accessToken)).thenReturn(scimUsersResults);
+        when(scimUsersResults.getTotalResults()).thenReturn(0l);
+
+
+        when(connector.retrieveAccessToken(Scope.ALL)).thenReturn(accessToken);
+
+        // WHEN
+        String username = osiamLoginCreator.generateCompanyUsername("tarent solutions GmbH", connector);
+
+        // THEN
+        assertEquals("tarentsolu", username);
+    }
+
+    @Test
+    public void testGenerateCompanyUsernameNotLongerTen() throws Exception {
+        // GIVEN
+        OctopusContext oc = mock(OctopusContext.class);
+        AccessToken accessToken = mock(AccessToken.class);
+
+        // FIRST LOOP
+        SCIMSearchResult<User> scimUsersResults = mock(SCIMSearchResult.class);
+        Query query = new QueryBuilder().filter("userName eq \"targmbh\"").attributes("id").build();
+        when(queryBuilder.filter("userName eq \"targmbh\"")).thenReturn(queryBuilder);
+        when(queryBuilder.attributes("id")).thenReturn(queryBuilder);
+        when(queryBuilder.build()).thenReturn(query);
+        when(connector.searchUsers(query, accessToken)).thenReturn(scimUsersResults);
+        when(scimUsersResults.getTotalResults()).thenReturn(0l);
+
+
+        when(connector.retrieveAccessToken(Scope.ALL)).thenReturn(accessToken);
+
+        // WHEN
+        String username = osiamLoginCreator.generateCompanyUsername("tar GmbH", connector);
+
+        // THEN
+        assertEquals("targmbh", username);
+    }
     
     @Test
     public void testGeneratePassword() throws Exception {
