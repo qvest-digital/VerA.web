@@ -159,7 +159,7 @@ public class OptionalFieldsDelegationWorker {
 	    final List<OptionalDelegationField> optionalFieldsAltList = new ArrayList<OptionalDelegationField>(optionalFieldsWithTypeContents);
 
         for (final Iterator<OptionalDelegationField> iterator = optionalFieldsWithTypeContents.iterator(); iterator.hasNext();) {
-            final OptionalDelegationField optionalDelegationField = (OptionalDelegationField) iterator.next();
+            final OptionalDelegationField optionalDelegationField = iterator.next();
 
 	        if (isMultipleChoiceField(optionalDelegationField.getFkDelegationField())) {
 	        	// Unifying selected options in the same field
@@ -213,7 +213,7 @@ public class OptionalFieldsDelegationWorker {
 		final ResultList resultList = database.getList(select, database);
 
 		for (final Iterator<ResultMap> iterator = resultList.iterator(); iterator.hasNext();) {
-			final ResultMap object = (ResultMap) iterator.next();
+			final ResultMap object = iterator.next();
 			final Integer type = (Integer) object.get("fk_type");
 			if (type.intValue() == MULTIPLE_CHOICE_ID) {
 				return true;
@@ -252,7 +252,7 @@ public class OptionalFieldsDelegationWorker {
 
 	private void checkSelectedValues(OptionalDelegationField optionalDelegationField, final ResultMap object,
             final OptionalFieldTypeContent optionalFieldTypeContent) {
-	    if (((String) object.get("content")).equals(optionalDelegationField.getContent())) {
+	    if (object.get("content").equals(optionalDelegationField.getContent())) {
 	    	optionalFieldTypeContent.setIsSelected(true);
 	    }
 	    else {
@@ -294,11 +294,8 @@ public class OptionalFieldsDelegationWorker {
 
         final Select select = getStatementOptionalFieldExists(optionalDelegationField);
         final ResultSet resultSet = database.result(select);
-		if(resultSet.next()) {
-        	return true;
-		}
+		return resultSet.next();
 
-		return false;
 	}
 
     private Select getStatementOptionalFieldExists(OptionalDelegationField optionalDelegationField) {

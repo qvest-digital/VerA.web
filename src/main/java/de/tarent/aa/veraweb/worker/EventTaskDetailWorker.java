@@ -83,7 +83,6 @@ public class EventTaskDetailWorker {
         if (refPersId == null || refPersId.trim().length() == 0) {
             return;
         }
-        ;
 
         Integer pk = Integer.parseInt(refPersId);
 
@@ -125,7 +124,6 @@ public class EventTaskDetailWorker {
             Person person = getPersonFromDB(context, task.personId);
             context.getContentObject().setField("refPerson", person);
         }
-        ;
 
         return task;
     }

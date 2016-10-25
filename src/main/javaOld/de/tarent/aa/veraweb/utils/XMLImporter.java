@@ -169,8 +169,7 @@ public class XMLImporter implements Importer, Exchanger, VerawebNamespaceConstan
             parser.parse(source != null ? source : new InputSource(inputStream));
             transactionContext.commit();
         } catch (SAXException e) {
-            IOException ioe = new IOException("SAXException: " + e.getMessage());
-            ioe.initCause(e);
+            IOException ioe = new IOException("SAXException: " + e.getMessage(), e);
             throw ioe;
         }
     }

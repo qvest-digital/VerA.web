@@ -92,10 +92,7 @@ public class OptionalDelegationField extends AbstractHistoryBean {
 	}
 
 	public boolean equals(OptionalDelegationField optionalDelegationField) {
-		if (this.getFkDelegationField() == optionalDelegationField.getFkDelegationField() && this.getFkType().intValue() == 3 && optionalDelegationField.getFkType().intValue()==3) {
-			return true;
-		}
+		return this.getFkDelegationField() == optionalDelegationField.getFkDelegationField() && this.getFkType().intValue() == 3 && optionalDelegationField.getFkType().intValue() == 3;
 
-		return false;
 	}
 }

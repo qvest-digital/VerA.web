@@ -76,7 +76,7 @@ public class User extends AbstractBean implements OrgUnitDependent {
     @Override
     public void checkWrite(OctopusContext octopusContext) throws BeanException
     {
-		checkGroups(octopusContext, new String[] { PersonalConfigAA.GROUP_PARTIAL_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER } );
+		checkGroups(octopusContext, PersonalConfigAA.GROUP_PARTIAL_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER);
     }
 
     //

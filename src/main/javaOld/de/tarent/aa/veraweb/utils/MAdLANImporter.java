@@ -238,7 +238,7 @@ public class MAdLANImporter implements Importer, Exchanger {
             }
             digester.endImport();
         } catch (BeanException e) {
-            throw (IOException) new IOException("Fehler beim Ablegen importierter Daten").initCause(e);
+            throw (IOException) new IOException("Fehler beim Ablegen importierter Daten", e);
         }
     }
 

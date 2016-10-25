@@ -315,11 +315,7 @@ public class EventDetailWorker {
 
     private void setLoginRequired(OctopusContext cntx, Event event) {
         String requestParameter = (String) cntx.getRequestObject().getRequestParameters().get("event-login_required");
-        if (requestParameter != null && requestParameter.equals("on")) {
-            event.login_required = true;
-        } else {
-            event.login_required = false;
-        }
+        event.login_required = requestParameter != null && requestParameter.equals("on");
     }
 
     private Integer getInvitationType(Event event) {

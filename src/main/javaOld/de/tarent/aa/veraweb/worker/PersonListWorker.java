@@ -590,13 +590,11 @@ public class PersonListWorker extends ListWorkerVeraWeb {
                 try {
                     select.whereAnd(Expr.notIn("tperson.pk", new RawClause("(" + subSelect.statementToString() + ")")));
                 } catch (final SyntaxErrorException e) {
-                    ;
-                    ; // just catch, will never happen
+                    // just catch, will never happen
                 }
             }
         } else {
-            ;
-            ; // search in all categories
+            // search in all categories
         }
     }
 
@@ -863,7 +861,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     // geschützte Hilfsmethoden
     //
     private boolean getContextAsBoolean(final OctopusContext octopusContext, final String key) {
-        return Boolean.valueOf(octopusContext.contentAsString(key)).booleanValue() ? true : octopusContext.requestAsBoolean(key).booleanValue();
+        return Boolean.valueOf(octopusContext.contentAsString(key)).booleanValue() || octopusContext.requestAsBoolean(key).booleanValue();
     }
 
     /**

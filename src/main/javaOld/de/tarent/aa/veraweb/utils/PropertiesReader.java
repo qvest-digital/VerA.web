@@ -48,7 +48,7 @@ public class PropertiesReader {
     }
 
     public boolean propertiesAreAvailable() {
-    	return (this.properties == null) ? false : true;
+    	return this.properties != null;
     }
 
 

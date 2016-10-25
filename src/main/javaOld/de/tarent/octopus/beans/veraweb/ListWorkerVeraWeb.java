@@ -111,8 +111,8 @@ public abstract class ListWorkerVeraWeb extends BeanListWorker {
                 .getResultSet();
         final ArrayList<JumpOffset> offsets = new ArrayList<JumpOffset>();
         while(rs.next()){
-            offsets.add(new JumpOffset((String) rs.getString("letter"), rs.getInt("rownum") ,start,limit));
+            offsets.add(new JumpOffset(rs.getString("letter"), rs.getInt("rownum") ,start,limit));
         }
         return offsets;
-    };
+    }
 }

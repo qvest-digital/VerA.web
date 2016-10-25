@@ -261,7 +261,7 @@ public class OptionalFieldsWorker {
         select.where(whereCriterias);
         select.select("count(*)");
 
-        return (database.getCount(select) > 0)? true : false;
+        return (database.getCount(select) > 0);
     }
 
     private Select getStatementSelectOptionalField(Integer eventId) {
@@ -321,10 +321,7 @@ public class OptionalFieldsWorker {
                 whereAndEq("fk_event", eventId).
                 whereAndEq("pk", fieldId).
                 whereAnd(labelNotNullClause)).intValue();
-        if (counter > 0) {
-            return true;
-        }
-        return false;
+        return counter > 0;
     }
 
     public List<OptionalField> getTotalEventsFromEvent(final Integer eventId)

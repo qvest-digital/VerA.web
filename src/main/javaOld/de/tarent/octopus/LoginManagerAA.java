@@ -41,7 +41,7 @@ public interface LoginManagerAA {
      * @throws TcSecurityException Wenn keine authentisierte persönliche Konfiguration
      *  vorliegt oder schon als Vertreter agiert wird.
      */
-    public void setProxy(OctopusContext octx, Proxy proxyDescription) throws TcSecurityException;
+    void setProxy(OctopusContext octx, Proxy proxyDescription) throws TcSecurityException;
 
     /**
      * Diese Methode liefert eine Auflistung verfügbarer AA-Rollen, aus denen
@@ -49,5 +49,5 @@ public interface LoginManagerAA {
      *
      * @return Liste verfügbarer AA-Rollen.
      */
-    public Set getAARoles() throws TcSecurityException;
+    Set getAARoles() throws TcSecurityException;
 }

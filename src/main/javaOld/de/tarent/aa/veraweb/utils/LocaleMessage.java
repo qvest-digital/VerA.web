@@ -75,7 +75,7 @@ public class LocaleMessage {
      */
 	public Object get(String key, Object arg0) {
 		try {
-			return MessageFormat.format(bundle.getString(key), new Object[] { arg0 });
+			return MessageFormat.format(bundle.getString(key), arg0);
 		} catch (MissingResourceException e) {
 			return null;
 		}
@@ -92,7 +92,7 @@ public class LocaleMessage {
      */
 	public Object get(String key, Object arg0, Object arg1) {
 		try {
-			return MessageFormat.format(bundle.getString(key), new Object[] { arg0, arg1 });
+			return MessageFormat.format(bundle.getString(key), arg0, arg1);
 		} catch (MissingResourceException e) {
 			return null;
 		}
@@ -110,7 +110,7 @@ public class LocaleMessage {
      */
 	public Object get(String key, Object arg0, Object arg1, Object arg2) {
 		try {
-			return MessageFormat.format(bundle.getString(key), new Object[] { arg0, arg1, arg2 });
+			return MessageFormat.format(bundle.getString(key), arg0, arg1, arg2);
 		} catch (MissingResourceException e) {
 			return null;
 		}
@@ -129,7 +129,7 @@ public class LocaleMessage {
      */
 	public Object get(String key, Object arg0, Object arg1, Object arg2, Object arg3) {
 		try {
-			return MessageFormat.format(bundle.getString(key), new Object[] { arg0, arg1, arg2, arg3});
+			return MessageFormat.format(bundle.getString(key), arg0, arg1, arg2, arg3);
 		} catch (MissingResourceException e) {
 			return null;
 		}
@@ -149,7 +149,7 @@ public class LocaleMessage {
      */
 	public Object get(String key, Object arg0, Object arg1, Object arg2, Object arg3, Object arg4) {
 		try {
-			return MessageFormat.format(bundle.getString(key), new Object[] { arg0, arg1, arg2, arg3, arg4});
+			return MessageFormat.format(bundle.getString(key), arg0, arg1, arg2, arg3, arg4);
 		} catch (MissingResourceException e) {
 			return null;
 		}

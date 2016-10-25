@@ -227,12 +227,9 @@ public class GuestWorker {
 
 	private Boolean isStandardGuest(Database database, Integer personId, Integer eventId) throws SQLException {
 		final Select selectStatement = getQueryToCheckStandardGuestsExists(database, personId, eventId);
-		final List resultList = (List) selectStatement.getList(database);
+		final List resultList = selectStatement.getList(database);
 
-		if (!resultList.isEmpty()) {
-			return true;
-		}
-		return false;
+		return !resultList.isEmpty();
 	}
 
 	private Select getQueryToCheckStandardGuestsExists(Database database, Integer personId, Integer eventId) {

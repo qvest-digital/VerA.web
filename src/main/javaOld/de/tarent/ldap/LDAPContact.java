@@ -157,11 +157,7 @@ public class LDAPContact {
 		if(string==null){
 			return true;
 		}else{
-			if(string.equals("")){
-				return true;
-			}else{
-				return false;
-			}
+			return string.equals("");
 		}
 	}
 
@@ -362,7 +358,7 @@ public class LDAPContact {
 			}
 		} catch (AddressException e) {
 			//Wenn Fehler, setze Mail auf null
-			arbeitEmail = "";;
+			arbeitEmail = "";
 		}
 
 	}
@@ -656,7 +652,7 @@ public void setAllUsers(Map map) {
 			value = (String) getter.invoke(this, null);
 			if(attribute.getLength()>2){
 				getter = getClass().getDeclaredMethod("get" + attribute.item(2).getNodeValue(), null); //$NON-NLS-1$
-				value += Messages.getString("LDAPManager.whitespace_01") + (String) getter.invoke(this, null); //$NON-NLS-1$
+				value += Messages.getString("LDAPManager.whitespace_01") + getter.invoke(this, null); //$NON-NLS-1$
 			}
 		} catch (Exception e) {
 			throw new LDAPException(Messages.getString("LDAPManager.getter_not_found_01")+ attribut +Messages.getString("LDAPManager.getter_not_found_02") + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
@@ -720,7 +716,7 @@ public void setAllUsers(Map map) {
 			}
 		} catch (AddressException e) {
 			//Wenn Fehler, setze Mail auf null
-			this.privatEmail = "";;
+			this.privatEmail = "";
 		}
 
 	}

@@ -51,10 +51,7 @@ public class OnlineRegistrationHelper {
 
         final String active = octopusContext.moduleConfig().getParam(VWOR_PARAM);
 
-        if (active != null && VWOR_VALUE_TRUE.equals(active)) {
-            return true;
-        }
-        return false;
+        return active != null && VWOR_VALUE_TRUE.equals(active);
     }
 
     public static int[] getDeactivatedMandantsAsArray(final OctopusContext octopusContext) {

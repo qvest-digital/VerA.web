@@ -140,7 +140,7 @@ public class BeanChangeLogger {
 			}
 			catch( NullPointerException e )
 			{
-				;; // just catch
+				// just catch
 			}
 		}
 

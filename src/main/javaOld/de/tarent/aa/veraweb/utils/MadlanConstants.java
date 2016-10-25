@@ -30,47 +30,47 @@ public interface MadlanConstants {
     // Property-Bezeichner und -Defaults für die MAdLAN-Formate
     //
     /** Property-Schlüssel für die Liste der kyrillischen Felder */
-    public final static String KEY_KYRILLIC_FIELDS = "kyrillicFields";
+    String KEY_KYRILLIC_FIELDS = "kyrillicFields";
 
     /** Property-Schlüssel für das Zeichen-Mapping A (normale Felder) */
-    public final static String KEY_MAPPING_A = "encodingA";
+    String KEY_MAPPING_A = "encodingA";
 
     /** Property-Schlüssel für das Zeichen-Mapping B (kyrillische Felder) */
-    public final static String KEY_MAPPING_B = "encodingB";
+    String KEY_MAPPING_B = "encodingB";
 
     //
     // Schlüssel für die verschiedenen möglichen Zeichenencodings
     // (Diese wurden an AAKonv.INI des Textkonverters des AA orientiert.)
     //
     /** Zeichensatz: Baltisch (BaltRoman, BaltHelv) */
-    public final static String CHARS_BALT = "balt";
+    String CHARS_BALT = "balt";
 
     /** Zeichensatz: Baltisch (BalticRoman, BalticHlv) */
-    public final static String CHARS_BALTIC = "baltic";
+    String CHARS_BALTIC = "baltic";
 
     /** Zeichensatz: Kyrillisch (CyrExtRoman, CyrExtHlv) */
-    public final static String CHARS_CYR_EXT = "cyrext";
+    String CHARS_CYR_EXT = "cyrext";
 
     /** Zeichensatz: Kyrillisch (CyrillicRoman, CyrillicHlv) */
-    public final static String CHARS_CYRILLIC = "cyrillic";
+    String CHARS_CYRILLIC = "cyrillic";
 
     /** Zeichensatz: Östlich (EastRoman, EastHlv) */
-    public final static String CHARS_EAST = "east";
+    String CHARS_EAST = "east";
 
     /** Zeichensatz: Griechisch (GreekRoman, GreekHlv) */
-    public final static String CHARS_GREEK = "greek";
+    String CHARS_GREEK = "greek";
 
     /** Zeichensatz: Turkmenistan? (TurAsbRoman, TurAsbHlv) */
-    public final static String CHARS_TUR_ASB = "turasb";
+    String CHARS_TUR_ASB = "turasb";
 
     /** Zeichensatz: Türkisch (TurkishRoman, TurkishHlv) */
-    public final static String CHARS_TURKISH = "turkish";
+    String CHARS_TURKISH = "turkish";
 
     /** Zeichensatz: Westlich (WestRoman, WestHlv) */
-    public final static String CHARS_WEST = "west";
+    String CHARS_WEST = "west";
 
     /** Zeichensatz: Latin-1 */
-    public final static String CHARS_LATIN = "latin";
+    String CHARS_LATIN = "latin";
 
     //
     // Tabellen byte -> char (MAdLAN-Zeichen -> Unicode)
@@ -79,7 +79,7 @@ public interface MadlanConstants {
     /**
      * Baltische Zeichentabelle aus AAConv.ini: [Balt] für BaltRoman, BaltHelv
      */
-    final static char[] charsBalt = {
+    char[] charsBalt = {
           0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
          16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
          32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
@@ -110,7 +110,7 @@ public interface MadlanConstants {
     /**
      * Baltische Zeichentabelle aus AAConv.ini: [Baltic] für BalticRoman, BalticHlv
      */
-    final static char[] charsBaltic = {
+    char[] charsBaltic = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
         16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
         32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
@@ -141,7 +141,7 @@ public interface MadlanConstants {
     /**
      * Kyrillische Zeichentabelle aus AAConv.ini: [CyrExt] für CyrExtRoman, CyrExtHlv
      */
-    final static char[] charsCyrExt = {
+    char[] charsCyrExt = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
         16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
         32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
@@ -185,7 +185,7 @@ public interface MadlanConstants {
     /**
      * Kyrillische Zeichentabelle aus AAConv.ini: [Cyrillic] für CyrillicRoman, CyrillicHlv
      */
-    final static char[] charsCyrillic = {
+    char[] charsCyrillic = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
         16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
         32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
@@ -225,7 +225,7 @@ public interface MadlanConstants {
     /**
      * Osteuropäische Zeichentabelle aus AAConv.ini: [East] für EastRoman, EastHlv
      */
-    final static char[] charsEast = {
+    char[] charsEast = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
         16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
         32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
@@ -259,7 +259,7 @@ public interface MadlanConstants {
     /**
      * Grieschiche Zeichentabelle aus AAConv.ini: [Greek] für GreekRoman, GreekHlv
      */
-    final static char[] charsGreek = {
+    char[] charsGreek = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
         16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
         32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
@@ -290,7 +290,7 @@ public interface MadlanConstants {
     /**
      * Turkmenische (?) Zeichentabelle aus AAConv.ini: [TurAsb] für TurAsbRoman, TurAsbHlv
      */
-    final static char[] charsTurAsb = {
+    char[] charsTurAsb = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
         16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
         32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
@@ -321,7 +321,7 @@ public interface MadlanConstants {
     /**
      * Türkische Zeichentabelle aus AAConv.ini: [Turkish] für TurkishRoman, TurkishHlv
      */
-    final static char[] charsTurkish = {
+    char[] charsTurkish = {
          0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
         16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
         32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
@@ -352,7 +352,7 @@ public interface MadlanConstants {
     /**
      * Westeuropäische Zeichentabelle aus AAConv.ini: [West] für WestRoman, WestHlv
      */
-    final static char[] charsWest = {
+    char[] charsWest = {
         0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
         16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
         32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
@@ -383,7 +383,7 @@ public interface MadlanConstants {
     /**
      * Latin-1-Zeichentabelle: Einbettung in Unicode
      */
-    final static char[] charsLatin = {
+    char[] charsLatin = {
         0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
         16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
         32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,

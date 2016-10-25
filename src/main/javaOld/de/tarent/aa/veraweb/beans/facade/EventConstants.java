@@ -27,22 +27,22 @@ package de.tarent.aa.veraweb.beans.facade;
  */
 public interface EventConstants {
 	/** Person mit Partner einladen */
-	static public final int TYPE_MITPARTNER = 1;
+	int TYPE_MITPARTNER = 1;
 
 	/** Person ohne Partner einladen */
-	static public final int TYPE_OHNEPARTNER = 2;
+	int TYPE_OHNEPARTNER = 2;
 
 	/** Nur den Partner der Person einladen */
-	static public final int TYPE_NURPARTNER = 3;
+	int TYPE_NURPARTNER = 3;
 
 	/** Status: Offen */
-	static public final int STATUS_OPEN = 0;
+	int STATUS_OPEN = 0;
 
 	/** Status: Zusage */
-	static public final int STATUS_ACCEPT = 1;
+	int STATUS_ACCEPT = 1;
 
 	/** Status: Absage */
-	static public final int STATUS_REFUSE = 2;
+	int STATUS_REFUSE = 2;
 
-	static public final String EVENT_TYPE_OPEN_EVENT = "Offene Veranstaltung";
+	String EVENT_TYPE_OPEN_EVENT = "Offene Veranstaltung";
 }

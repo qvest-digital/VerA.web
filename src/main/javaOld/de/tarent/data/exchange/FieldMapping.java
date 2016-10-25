@@ -122,7 +122,7 @@ public class FieldMapping {
          * @return Wert des beschriebenen Quellfelds
          * @see FieldMapping#FieldMapping(Set, Map)
          */
-        public String get(String sourceKey);
+        String get(String sourceKey);
     }
 
     //

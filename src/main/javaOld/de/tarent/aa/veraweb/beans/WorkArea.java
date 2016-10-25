@@ -61,7 +61,7 @@ public class WorkArea extends AbstractBean {
      */
     @Override
     public void checkRead( OctopusContext octopusContext) throws BeanException {
-        checkGroups(octopusContext, new String[] {PersonalConfigAA.GROUP_READ_STANDARD, PersonalConfigAA.GROUP_SYSTEM_USER} );
+        checkGroups(octopusContext, PersonalConfigAA.GROUP_READ_STANDARD, PersonalConfigAA.GROUP_SYSTEM_USER);
     }
 
    /**
@@ -74,6 +74,6 @@ public class WorkArea extends AbstractBean {
     */
    @Override
    public void checkWrite( OctopusContext octopusContext) throws BeanException {
-       checkGroups(octopusContext, new String[] {PersonalConfigAA.GROUP_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER} );
+       checkGroups(octopusContext, PersonalConfigAA.GROUP_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER);
    }
 }

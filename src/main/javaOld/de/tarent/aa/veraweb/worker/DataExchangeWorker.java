@@ -671,7 +671,7 @@ public class DataExchangeWorker {
         assert exporter != null;
 
         try {
-            ResultSet rs = (ResultSet) ((Result) select.execute()).resultSet();
+            ResultSet rs = ((Result) select.execute()).resultSet();
             ResultSetMetaData rsm = rs.getMetaData();
             Set<String> keys = new HashSet<String>();
             for (int i = 1; i <= rsm.getColumnCount(); i++) {

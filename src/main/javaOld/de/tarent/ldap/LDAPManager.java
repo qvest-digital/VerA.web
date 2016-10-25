@@ -149,8 +149,8 @@ public class LDAPManager {
 
         try
         {
-            Constructor constructor = managerClass.getConstructor( new Class[] { InitialLdapContext.class, Map.class } );
-        	result = ( LDAPManager ) constructor.newInstance( new Object[] { lctx, params } );
+            Constructor constructor = managerClass.getConstructor(InitialLdapContext.class, Map.class);
+        	result = ( LDAPManager ) constructor.newInstance(lctx, params);
         	LDAPManager.ldapEnvironment = env;
         }
     	catch ( Exception e )

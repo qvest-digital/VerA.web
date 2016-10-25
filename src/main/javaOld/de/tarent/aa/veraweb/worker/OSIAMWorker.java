@@ -176,7 +176,7 @@ public class OSIAMWorker {
 	}
 
 	private void saveOsiamLogin(Database db, String login, int eventId,
-			int personId) throws BeanException, SyntaxErrorException,
+			int personId) throws BeanException,
 			SQLException {
 		final TransactionContext context = db.getTransactionContext();
 		final WhereList whereCriterias = new WhereList();

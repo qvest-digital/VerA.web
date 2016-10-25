@@ -172,7 +172,7 @@ public class MadlanReader implements MadlanConstants {
 				switch (type) {
 					case StreamTokenizer.TT_WORD:
 						if (filled)
-							row.set(i, (String) row.get(i) + tokenizer.sval);
+							row.set(i, row.get(i) + tokenizer.sval);
 						else {
 							row.add(tokenizer.sval);
 							filled = true;

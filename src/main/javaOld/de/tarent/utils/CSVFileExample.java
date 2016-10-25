@@ -36,7 +36,7 @@ public class CSVFileExample {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws IOException {
         CSVFileReader in = new CSVFileReader("csv_in.txt", ';', '"');
         CSVFileWriter out = new CSVFileWriter("csv_out.txt", ',', '\'');
 

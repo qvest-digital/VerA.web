@@ -1249,7 +1249,7 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     public void setDatabase(Database database) {
-        this.database = database;
+        PersonDetailWorker.database = database;
     }
 
     public void setTransactionalContext(TransactionContext transactionalContext) {

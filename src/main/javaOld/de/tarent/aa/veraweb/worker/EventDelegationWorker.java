@@ -135,7 +135,7 @@ public class EventDelegationWorker {
 
     private List<OptionalFieldType> getAllTypesAsList(Select selectTypesStatement) throws SQLException {
         final List<OptionalFieldType> allTypesAsList = new ArrayList<OptionalFieldType>();
-        final ResultSet types = (ResultSet) ((Result) selectTypesStatement.execute()).resultSet();
+        final ResultSet types = ((Result) selectTypesStatement.execute()).resultSet();
         while (types.next()) {
             final OptionalFieldType field = new OptionalFieldType();
             field.setId(types.getInt("pk"));
@@ -535,10 +535,7 @@ public class EventDelegationWorker {
         select.whereAnd(Expr.equal("veraweb.toptional_fields.fk_event", eventId));
 
         final Integer i = database.getCount(select);
-        if (i != null && i > 0) {
-            return true;
-        }
-        return false;
+        return i != null && i > 0;
     }
 
     private static Event getEvent(OctopusContext cntx, Integer id) throws BeanException, IOException {

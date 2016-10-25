@@ -169,12 +169,9 @@ public class PersonDuplicateSearchWorker extends PersonListWorker {
         final String firstname2 = cpr.convertUmlauts((String) tmp2.get("firstname_a_e1"));
         final String lastname2 = cpr.convertUmlauts((String) tmp2.get("lastname_a_e1"));
 
-        if ((firstname1.equalsIgnoreCase(firstname2) && lastname1.equals(lastname2))
-                || (firstname1.equalsIgnoreCase(lastname2) && lastname1.equals(firstname2))) {
-            return true;
-        }
+        return (firstname1.equalsIgnoreCase(firstname2) && lastname1.equals(lastname2))
+                || (firstname1.equalsIgnoreCase(lastname2) && lastname1.equals(firstname2));
 
-        return false;
     }
 
     @Override

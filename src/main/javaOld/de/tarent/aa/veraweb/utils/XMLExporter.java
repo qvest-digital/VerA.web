@@ -315,7 +315,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
      * @throws IOException
      * @throws UnsupportedEncodingException
      */
-    public void endExport() throws IOException, UnsupportedEncodingException {
+    public void endExport() throws IOException {
         try {
             String encoding = DEFAULT_ENCODING;
             if (format != null && format.getProperties() != null) {
@@ -334,8 +334,7 @@ public class XMLExporter implements Exporter, Exchanger, DatabaseUtilizer,
             Result result = new StreamResult(new OutputStreamWriter(os, encoding));
             transformer.transform(source, result);
         } catch (TransformerException e) {
-            IOException ioe = new IOException("TransformerException: " + e.getMessage());
-            ioe.initCause(e);
+            IOException ioe = new IOException("TransformerException: " + e.getMessage(), e);
             throw ioe;
         }
     }

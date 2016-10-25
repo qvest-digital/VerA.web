@@ -39,7 +39,7 @@ public interface Exporter
 	 * @throws BeanException FIXME
 	 * @throws IOException FIXME
 	 */
-	public void exportPerson(Person person) throws BeanException, IOException;
+	void exportPerson(Person person) throws BeanException, IOException;
 
 	/**
 	 * Diese Methode wird zu Beginn eines Exports aufgerufen. In ihr kann etwa das Dokument mit einem Kopf zu schreiben
@@ -47,7 +47,7 @@ public interface Exporter
 	 *
 	 * @throws IOException FIXME
 	 */
-	public void startExport() throws IOException;
+	void startExport() throws IOException;
 
 	/**
 	 * Diese Methode wird zum Ende eines Exports aufgerufen. In ihr kann etwa das bisher gesammelte Dokument
@@ -55,7 +55,7 @@ public interface Exporter
 	 *
 	 * @throws IOException FIXME
 	 */
-	public void endExport() throws IOException;
+	void endExport() throws IOException;
 
 	/**
 	 * Obwohl ein Exporter die zu exportierenden Personen nicht selbst bestimmt (diese werden ihm durch
@@ -67,7 +67,7 @@ public interface Exporter
 	 * @param orgUnitId
 	 *          die MandantenID, auf die der Exporter beschränkt wird
 	 */
-	public void setOrgUnitId(Integer orgUnitId);
+	void setOrgUnitId(Integer orgUnitId);
 
 	/**
 	 * Obwohl ein Exporter die zu exportierenden Personen nicht selbst bestimmt (diese werden ihm durch
@@ -79,5 +79,5 @@ public interface Exporter
 	 *          KategorieId, auf die der Exporter beschränkt wird. <code>Null</code> = alle Kategorien, 0 = keine
 	 *          Kategorie
 	 */
-	public void setCategoryId(Integer categoryId);
+	void setCategoryId(Integer categoryId);
 }

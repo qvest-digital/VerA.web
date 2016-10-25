@@ -97,11 +97,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
 	 * @param param
 	 */
 	private boolean isParameterTrue(Object param) {
-		if(("true".equals(param)||"1".equals(param)||"TRUE".equals(param)||"True".equals(param))){
-			return true;
-		}else{
-			return false;
-		}
+        return ("true".equals(param) || "1".equals(param) || "TRUE".equals(param) || "True".equals(param));
 	}
 
     /**

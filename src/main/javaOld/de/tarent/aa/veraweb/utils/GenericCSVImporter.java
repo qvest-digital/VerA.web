@@ -90,12 +90,10 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
             importRows(digester, transactionContext);
             csvReader.close();
         } catch (MappingException e) {
-            IOException ioe = new IOException("Fehler im Feldmapping");
-            ioe.initCause(e);
+            IOException ioe = new IOException("Fehler im Feldmapping", e);
             throw ioe;
         } catch (BeanException e) {
-            IOException ioe = new IOException("Fehler beim Daten-Bean-Zugriff");
-            ioe.initCause(e);
+            IOException ioe = new IOException("Fehler beim Daten-Bean-Zugriff", e);
             throw ioe;
         }
     }
@@ -106,7 +104,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     /**
      * Diese Methode initialisiert den internen {@link CSVFileReader}.
      */
-    void initReader() throws UnsupportedEncodingException, IOException {
+    void initReader() throws IOException {
         assert exchangeFormat != null;
         assert inputStream != null;
         Reader reader = new InputStreamReader(inputStream, encoding);
@@ -179,7 +177,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
                             if (targetValue != null && targetValue.length() > 0) {
                                 Date dateValue = dateFormat.parse(targetValue.toString());
                                 Constructor constructor = fieldClass.getConstructor(ONE_LONG);
-                                targetObject = constructor.newInstance(new Object[]{new Long(dateValue.getTime())});
+                                targetObject = constructor.newInstance(new Long(dateValue.getTime()));
                             } else {
                                 targetObject = null;
                             }

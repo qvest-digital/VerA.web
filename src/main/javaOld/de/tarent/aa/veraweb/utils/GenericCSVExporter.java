@@ -100,12 +100,10 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
             initWriter();
             writeHeaderLine();
         } catch (MappingException e) {
-            IOException ioe = new IOException("Fehler im Feldmapping");
-            ioe.initCause(e);
+            IOException ioe = new IOException("Fehler im Feldmapping", e);
             throw ioe;
         } catch (BeanException e) {
-            IOException ioe = new IOException("Fehler beim Daten-Bean-Zugriff");
-            ioe.initCause(e);
+            IOException ioe = new IOException("Fehler beim Daten-Bean-Zugriff", e);
             throw ioe;
         }
     }
@@ -129,7 +127,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
     /**
      * Diese Methode initialisiert den internen {@link CSVFileWriter}.
      */
-    void initWriter() throws UnsupportedEncodingException, IOException {
+    void initWriter() throws IOException {
         assert exchangeFormat != null;
         assert outputStream != null;
         Writer writer = new OutputStreamWriter(outputStream, encoding);

@@ -611,11 +611,7 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     private void setGuestReserve(Map<String, Object> allRequestParams, Guest guest) {
-        if (allRequestParams.get("guest-reserve") != null) {
-            guest.reserve = true;
-        } else {
-            guest.reserve = false;
-        }
+        guest.reserve = allRequestParams.get("guest-reserve") != null;
     }
 
     private void setGuestOrderno(Guest guest) {

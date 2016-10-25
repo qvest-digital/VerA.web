@@ -149,7 +149,7 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 				}
 				catch (InterruptedException e)
 				{
-					;; // just catch
+					// just catch
 				}
 			}
 		}

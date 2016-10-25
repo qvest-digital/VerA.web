@@ -37,13 +37,13 @@ public interface ImportDigester {
      * Diese Methode wird zu Beginn eines Imports aufgerufen.
      * @throws BeanException FIXME
      */
-    public void startImport() throws BeanException;
+    void startImport() throws BeanException;
 
     /**
      * Diese Methode wird zum Ende eines Imports aufgerufen.
      * @throws BeanException FIXME
      */
-    public void endImport() throws BeanException;
+    void endImport() throws BeanException;
 
     /**
      * Diese Methode wird von einem {@link Importer} zu jeder zu importierenden
@@ -58,5 +58,5 @@ public interface ImportDigester {
      * @throws BeanException FIXME
      * @throws IOException FIXME
      */
-    public void importPerson(ImportPerson person, List extras) throws BeanException, IOException;
+    void importPerson(ImportPerson person, List extras) throws BeanException, IOException;
 }

@@ -154,7 +154,7 @@ public class WorkAreaWorker extends StammdatenWorker
 
 		try
 		{
-			ResultSet beans = ( ResultSet ) ( ( Result ) stmt.execute() ).resultSet();
+			ResultSet beans = ( ( Result ) stmt.execute() ).resultSet();
 			while ( beans.next() )
 			{
 				// first remove all workArea assignments from all persons

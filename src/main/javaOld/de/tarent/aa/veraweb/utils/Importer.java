@@ -41,5 +41,5 @@ public interface Importer {
      * @throws IOException FIXME
      * @throws BeanException FIXME
      */
-    public void importAll(ImportDigester digester, TransactionContext transactionContext) throws IOException, BeanException;
+    void importAll(ImportDigester digester, TransactionContext transactionContext) throws IOException, BeanException;
 }

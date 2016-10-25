@@ -25,67 +25,67 @@ package de.tarent.aa.veraweb.beans.facade;
  * @author Michael Klink, Christoph Jerolimov
  */
 public interface PersonAddressFacade {
-    public String getFunction();
+    String getFunction();
 
-    public String getCompany();
+    String getCompany();
 
-    public String getStreet();
+    String getStreet();
 
-    public String getZipCode();
+    String getZipCode();
 
-    public String getState();
+    String getState();
 
-    public String getCity();
+    String getCity();
 
-    public String getCountry();
+    String getCountry();
 
-    public String getPOBox();
+    String getPOBox();
 
-    public String getPOBoxZipCode();
+    String getPOBoxZipCode();
 
-    public String getSuffix1();
+    String getSuffix1();
 
-    public String getSuffix2();
+    String getSuffix2();
 
-    public String getPhone();
+    String getPhone();
 
-    public String getFax();
+    String getFax();
 
-    public String getMobile();
+    String getMobile();
 
-    public String getEMail();
+    String getEMail();
 
-    public String getUrl();
+    String getUrl();
 
-    public void setFunction(String value);
+    void setFunction(String value);
 
-    public void setCompany(String value);
+    void setCompany(String value);
 
-    public void setStreet(String value);
+    void setStreet(String value);
 
-    public void setZipCode(String value);
+    void setZipCode(String value);
 
-    public void setState(String value);
+    void setState(String value);
 
-    public void setCity(String value);
+    void setCity(String value);
 
-    public void setCountry(String value);
+    void setCountry(String value);
 
-    public void setPOBox(String value);
+    void setPOBox(String value);
 
-    public void setPOBoxZipCode(String value);
+    void setPOBoxZipCode(String value);
 
-    public void setSuffix1(String value);
+    void setSuffix1(String value);
 
-    public void setSuffix2(String value);
+    void setSuffix2(String value);
 
-    public void setPhone(String value);
+    void setPhone(String value);
 
-    public void setFax(String value);
+    void setFax(String value);
 
-    public void setMobile(String value);
+    void setMobile(String value);
 
-    public void setEMail(String value);
+    void setEMail(String value);
 
-    public void setUrl(String value);
+    void setUrl(String value);
 }

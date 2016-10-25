@@ -35,11 +35,11 @@ public interface AlternativeDestination {
      * @return ein {@link OutputStream} oder <code>null</code>.
      * @throws IOException FIXME
      */
-    public OutputStream getAlternativeOutputStream() throws IOException;
+    OutputStream getAlternativeOutputStream() throws IOException;
 
     /**
      * Diese Methode führt einen Rollback auf das alternative Ziel durch,
      * löscht dabei z.B. neu erstellte Dateien wieder.
      */
-    public void rollback();
+    void rollback();
 }
