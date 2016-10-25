@@ -82,7 +82,8 @@ public class LDAPContact {
 
 	/**
 	 * Erzeugt einen neuen LDAPContact mit gegebener Address-Map
-	 * @param address
+	 * @param address FIXME
+	 * @param userID FIXME
 	 */
 	public LDAPContact(Map address, String userID) {
 		setContact(address);
@@ -453,7 +454,7 @@ public class LDAPContact {
 
 	/**
 	 * Setter für ArbeitAbteilung
-	 * @param string
+	 * @param string FIXME
 	 */
 	public void setArbeitAbteilung(String string) {
 		arbeitAbteilung = string;
@@ -554,7 +555,7 @@ public class LDAPContact {
   }
 
 /**
- * @param map
+ * @param map FIXME
  */
 public void setAllUsers(Map map) {
 	this.allUsers = map;

@@ -341,13 +341,13 @@ public class StatistikWorker {
 	 * Gibt einen SQL-Filter zurück der eine Einschränkung auf den
 	 * Starttermin einer Veranstaltung legt.
 	 *
-	 * @param cntx
-	 * @param filterBegin
-	 * @param filterEnd
+	 * @param octopusContext The {@link OctopusContext}
+	 * @param filterBegin FIXME
+	 * @param filterEnd FIXME
 	 * @return Filter
 	 */
-	protected Clause getEventFilter(OctopusContext cntx, Date filterBegin, Date filterEnd) {
-		Clause clause = Expr.equal("tevent.fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId());
+	protected Clause getEventFilter(OctopusContext octopusContext, Date filterBegin, Date filterEnd) {
+		Clause clause = Expr.equal("tevent.fk_orgunit", ((PersonalConfigAA)octopusContext.personalConfig()).getOrgUnitId());
 
 		if (filterBegin != null && filterEnd != null) {
 			clause = Where.and(clause, Where.and(
@@ -368,16 +368,16 @@ public class StatistikWorker {
 	 * in einer Ocotpus-ResultMap zurück, die von der Binary-Response
 	 * ausgegeben werden kann.
 	 *
-	 * @param cntx
-	 * @param resultSet
+	 * @param octopusContext The {@link OctopusContext}
+	 * @param resultSet FIXME
 	 * @return Map mit Stream Informationen
 	 * @throws IOException
 	 * @throws SQLException
 	 * @throws FactoryConfigurationError
 	 * @throws TransformerFactoryConfigurationError
 	 */
-	protected Map getExport(OctopusContext cntx, ResultSet resultSet) throws IOException, SQLException, FactoryConfigurationError, TransformerFactoryConfigurationError {
-		String filename = OctopusHelper.getFilename(cntx, "ods", "export.ods");
+	protected Map getExport(OctopusContext octopusContext, ResultSet resultSet) throws IOException, SQLException, FactoryConfigurationError, TransformerFactoryConfigurationError {
+		String filename = OctopusHelper.getFilename(octopusContext, "ods", "export.ods");
 		final SpreadSheet spreadSheet = SpreadSheetFactory.getSpreadSheet(SpreadSheetFactory.TYPE_ODS_DOCUMENT);
 		spreadSheet.init();
 
@@ -390,7 +390,7 @@ public class StatistikWorker {
 		spreadSheet.openTable("Statistik", size);
 
 		LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-		LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+		LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
 		// header
 		spreadSheet.openRow();
 		for (int i = 1; i <= size; i++) {

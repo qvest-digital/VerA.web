@@ -61,7 +61,7 @@ public class UserConfigWorker {
 	/**
 	 * Lädt die Konfiguration aus der Datenbank in die Session.
 	 *
-	 * @param octopusContext
+	 * @param octopusContext The {@link OctopusContext}
 	 * @throws BeanException
 	 * @throws IOException
 	 */
@@ -129,7 +129,7 @@ public class UserConfigWorker {
 	/**
 	 * Lädt die Konfiguration aus der Session in den Content.
 	 *
-	 * @param octopusContext
+	 * @param octopusContext The {@link OctopusContext}
 	 * @throws BeanException
 	 * @throws IOException
 	 */
@@ -146,7 +146,7 @@ public class UserConfigWorker {
 	/**
 	 * Speichert die Benutzer Einstellungen in der Datenbank.
 	 *
-	 * @param octopusContext
+	 * @param octopusContext The {@link OctopusContext}
 	 * @throws BeanException
 	 * @throws IOException
 	 */

@@ -130,10 +130,6 @@ public class CategorieWorker extends StammdatenWorker {
     /**
      * Returns all available person categories that have not been
      * assigned to a specific event.
-     *
-     * @param octopusContext
-     * @throws BeanException
-     * @throws IOException
      */
     public static String[] INPUT_getAllAvailablePersonCategories = {};
     public static String[] MANDATOR_getAllAvailablePersonCategories = {};
@@ -296,8 +292,8 @@ public class CategorieWorker extends StammdatenWorker {
      * Die Kategorie bean innerhalb der bestehenden Kategorieen einsortieren. Dazu werden alle bestehenden Kategorien mit
      * Rang >= bean.rank in ihrem Rang um eins erhoeht.
      *
-     * @param cntx
-     * @param bean
+     * @param cntx {@link OctopusContext}
+     * @param bean {@link Categorie}
      * @throws BeanException
      */
     protected void incorporateBean(OctopusContext cntx, Categorie bean, TransactionContext transactionContext) throws BeanException {

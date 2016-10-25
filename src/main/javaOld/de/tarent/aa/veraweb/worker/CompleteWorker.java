@@ -43,10 +43,10 @@ public class CompleteWorker {
 	private static final String RESULT = "list";
 
 	/**
-	 * @param cntx
-	 * @param table
-	 * @param column
-	 * @param query
+	 * @param cntx {@link OctopusContext}
+	 * @param table FIXME
+	 * @param column Column
+	 * @param query Query
 	 * @return Liste mit den 10 ersten Einträgen.
 	 * @throws BeanException
 	 */

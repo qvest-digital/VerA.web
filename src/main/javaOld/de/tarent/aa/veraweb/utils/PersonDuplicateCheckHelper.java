@@ -167,7 +167,7 @@ public class PersonDuplicateCheckHelper {
 
 	/**
 	 * Returns an Array with unique IDs of duplicated persons
-	 * @param personIdArray
+	 * @param personIdArray FIXME
 	 * @return Person IDs
 	 */
 	private List<Integer> listUniquePersonIds(List<Integer> personIdArray) {

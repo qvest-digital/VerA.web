@@ -607,10 +607,12 @@ public class GuestExportWorker {
 	/**
 	 * Getting URL to reseting password
 	 *
-	 * @param personId
-	 * @return String the url
+	 * @param personId The person id
+	 *
 	 * @throws IOException
 	 * @throws BeanException
+	 *
+	 * @return String the url
 	 */
 	private String getURLLinkUUIDDataFromGuest(Integer personId, OctopusContext cntx) throws BeanException, IOException {
 		Database database = new DatabaseVeraWeb(cntx);
@@ -800,8 +802,6 @@ public class GuestExportWorker {
 	/**
 	 * Checking if one guest is from the press staff
 	 *
-	 * @return Boolean
-	 * @throws IOException
 	 * @throws BeanException
 	 */
 	private void updateDelegationUsername(OctopusContext cntx, Object username, Integer personId) throws BeanException {

@@ -523,7 +523,7 @@ public class GuestWorker {
     /**
      * Diese Octopus-Aktion berechnet für eine Veranstaltung die 'Laufende Nummer'.
      *
-     * @param cntx
+     * @param cntx The {@link OctopusContext}
      * @throws BeanException
      * @throws IOException
      */

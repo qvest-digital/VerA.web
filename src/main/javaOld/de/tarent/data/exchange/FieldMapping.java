@@ -161,9 +161,9 @@ public class FieldMapping {
      * Gibt null zurück wenn der String <code>value</code> nicht auf
      * <code>mapping</code> matchet.
      *
-     * @param mapping
-     * @param value
-     * @return
+     * @param mapping FIXME
+     * @param value FIXME
+     * @return FIXME
      */
     public String resolve(String mapping, String value) {
     	int starlet = mapping.indexOf("*");

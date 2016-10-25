@@ -195,7 +195,7 @@ public class ImportPersonsWorker {
      *
      * @param octopusContext Octopus-Kontext
      * @param importId ID eines früheren Imports
-     * @param ignorePersonFields
+     * @param ignorePersonFields FIXME
      * @param importTextfieldMapping Map für das Mapping der Adressfreitextfelder
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
@@ -309,7 +309,7 @@ public class ImportPersonsWorker {
     /**
      * Cleaning the data stored in the session to allow the importing process
      *
-     * @param octopusContext
+     * @param octopusContext The {@link OctopusContext}
      */
     private void emptyImportingSession(OctopusContext octopusContext) {
         octopusContext.setSession("importProperties", null);

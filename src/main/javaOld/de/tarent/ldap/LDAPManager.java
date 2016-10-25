@@ -489,8 +489,8 @@ public class LDAPManager {
 
 	/**
 	 * Stellt fest, ob gegebener DN vorhanden ist
-	 * @param dn
-	 * @return
+	 * @param dn FIXME
+	 * @return FIXME
 	 * @throws LDAPException
 	 */
 	public boolean checkDN(String dn) throws LDAPException {
@@ -510,10 +510,10 @@ public class LDAPManager {
 	}
 
 	/**
-	 * @param modifications
-	 * @param contact
-	 * @param attribut
-	 * @param wert
+	 * @param modifications FIXME
+	 * @param contact FIXME
+	 * @param attribut FIXME
+	 * @param wert FIXME
 	 */
 	protected List modifyAttributes_restricted(List modifications, Attributes contact, String attribut, String wert) {
 		if ((wert != null) & (!wert.equals(""))) { //$NON-NLS-1$
@@ -534,8 +534,8 @@ public class LDAPManager {
 	}
 
 	/**
-	 * @param contact
-	 * @param attribut
+	 * @param contact FIXME
+	 * @param attribut FIXME
 	 */
 	private boolean checkAttribute(Attributes contact, String attribut) {
 		Attribute tester = contact.get(attribut);
@@ -543,9 +543,9 @@ public class LDAPManager {
 	}
 
 	/**
-	 * @param contact
-	 * @param attribute
-	 * @param value
+	 * @param contact FIXME
+	 * @param attribute FIXME
+	 * @param value FIXME
 	 */
 	protected boolean checkAttribute(Attributes contact, String attribute, String value) {
 		boolean vorhanden = false;
@@ -574,7 +574,7 @@ public class LDAPManager {
 	 * Kleiner Helper, der aufpasst, das bei relative am Anfang und am Ende ein
 	 * Komma ist.
 	 *
-	 * @param string
+	 * @param string FIXME
 	 * @return Argument getrimt und ggf vorne und/oder hinten um Kommas ergänzt
 	 */
 	public static String surroundWithCommas(String string) {
@@ -808,8 +808,8 @@ public class LDAPManager {
 	}
 
 	/**
-	 * @param key
-	 * @param value
+	 * @param key FIXME
+	 * @param value FIXME
 	 */
 	public void updateOrCreateSystemPreferenceKey(String key, String value, BigInteger modified) throws LDAPException {
 		//Feststellen, ob Preference schon existiert...
@@ -837,8 +837,8 @@ public class LDAPManager {
 	}
 
 	/**
-	 * @param key
-	 * @param value
+	 * @param key FIXME
+	 * @param value FIXME
 	 */
 	private void updateSystemPreferenceKey(String key, String value, BigInteger modified) throws LDAPException {
 		ModificationItem[] mods = new ModificationItem[2];
@@ -853,7 +853,7 @@ public class LDAPManager {
 	}
 
 	/**
-	 * @param key
+	 * @param key FIXME
 	 */
 	public Attributes getSystemPreferenceKey(String key) throws NamingException {
 		Attributes attr = null;
@@ -862,8 +862,8 @@ public class LDAPManager {
 	}
 
 	/**
-	 * @param key
-	 * @param value
+	 * @param key FIXME
+	 * @param value FIXME
 	 * @throws LDAPException
 	 */
 	public void createSystemPreferenceKey(String key, String value, BigInteger modified) throws LDAPException {
@@ -883,7 +883,7 @@ public class LDAPManager {
 	}
 
 	/**
-	 * @param key
+	 * @param key FIXME
 	 */
 	public String getSystemPreferenceValue(String key) throws LDAPException {
 		String result = null;
@@ -939,7 +939,7 @@ public class LDAPManager {
 	}
 
 	/**
-	 * @param key
+	 * @param key FIXME
 	 */
 	public void deleteSystemPreferenceKey(String key) throws LDAPException {
 		try {

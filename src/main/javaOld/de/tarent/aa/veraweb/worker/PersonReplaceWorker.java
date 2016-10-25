@@ -245,22 +245,22 @@ public class PersonReplaceWorker extends PersonListWorker {
 	 * Ist die Suchanfrage zu kurz wird der Status auf
 	 * <code>"invalidsearch"</code> gesetzt.
 	 *
-	 * @param cntx
+	 * @param octopusContext The {@link OctopusContext}
 	 * @return Such und Ersetz Anfrage, nie null.
 	 */
-	public Map getReplaceRequest(OctopusContext cntx) {
-		Map replaceRequest = (Map)cntx.contentAsObject(OUTPUT_getReplaceRequest);
+	public Map getReplaceRequest(OctopusContext octopusContext) {
+		Map replaceRequest = (Map)octopusContext.contentAsObject(OUTPUT_getReplaceRequest);
 		if (replaceRequest != null) {
 			return replaceRequest;
 		}
 
-		String search = cntx.requestAsString("snr-search");
-		String replace = cntx.requestAsString("snr-replace");
+		String search = octopusContext.requestAsString("snr-search");
+		String replace = octopusContext.requestAsString("snr-replace");
 
 		if (search == null) {
-			replaceRequest = (Map)cntx.sessionAsObject(OUTPUT_getReplaceRequest);
+			replaceRequest = (Map)octopusContext.sessionAsObject(OUTPUT_getReplaceRequest);
 			if (replaceRequest == null) {
-				cntx.setStatus("invalidsearch");
+				octopusContext.setStatus("invalidsearch");
 			}
 			return replaceRequest;
 		}
@@ -269,19 +269,19 @@ public class PersonReplaceWorker extends PersonListWorker {
 		replaceRequest.put("search", search);
 		replaceRequest.put("replace", replace);
 		for (int i = 0; i < PARAM_GROUPS.length; i++) {
-			replaceRequest.put(PARAM_GROUPS[i], cntx.requestAsBoolean(PARAM_GROUPS[i]));
+			replaceRequest.put(PARAM_GROUPS[i], octopusContext.requestAsBoolean(PARAM_GROUPS[i]));
 		}
 
 		if (search.replaceAll("\\*", "").length() < 1) {
-		    cntx.setContent("noSearchParam", true);
-			cntx.setStatus("invalidsearch");
+		    octopusContext.setContent("noSearchParam", true);
+			octopusContext.setStatus("invalidsearch");
 		}
 		if (!(getFieldList(replaceRequest).size() > 0 || ((Boolean)replaceRequest.get("snr-group20")).booleanValue())) {
-		    cntx.setContent("noFieldsSelected", true);
-			cntx.setStatus("invalidsearch");
+		    octopusContext.setContent("noFieldsSelected", true);
+			octopusContext.setStatus("invalidsearch");
 		}
 
-		cntx.setSession(OUTPUT_getReplaceRequest, replaceRequest);
+		octopusContext.setSession(OUTPUT_getReplaceRequest, replaceRequest);
 		return replaceRequest;
 	}
 
@@ -327,27 +327,27 @@ public class PersonReplaceWorker extends PersonListWorker {
 	 * oder einem {@link #replaceSelectedData(OctopusContext)} ersetzt werden würden
 	 * und gibt diese Zahl zur Benutzerinformation zurück.
 	 *
-	 * @param cntx
+	 * @param octopusContext The {@link OctopusContext}
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public Integer countData(OctopusContext cntx) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
+	public Integer countData(OctopusContext octopusContext) throws BeanException, IOException {
+		Database database = getDatabase(octopusContext);
 
 		Select select = database.getEmptySelect( new Person() );
 		select.select( "COUNT(DISTINCT(tperson.pk))" );
 		WhereList where = new WhereList();
 
-		if ("replace".equals(cntx.contentAsString("snr-action")) && ! cntx.contentContains( "snr-dry-run" )) {
-			List selection = getSelection(cntx, null);
+		if ("replace".equals(octopusContext.contentAsString("snr-action")) && ! octopusContext.contentContains( "snr-dry-run" )) {
+			List selection = getSelection(octopusContext, null);
 			if (selection == null || selection.size() == 0)
 				return new Integer(0);
 			where.addAnd(Expr.in("tperson.pk", selection));
 		}
 
-		where.addAnd(Expr.equal("fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()));
+		where.addAnd(Expr.equal("fk_orgunit", ((PersonalConfigAA)octopusContext.personalConfig()).getOrgUnitId()));
 		where.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
-		where.addAnd(addPersonListFilter(cntx, new WhereList()));
+		where.addAnd(addPersonListFilter(octopusContext, new WhereList()));
 		select.where(where);
 
 		return database.getCount(select);
@@ -359,12 +359,12 @@ public class PersonReplaceWorker extends PersonListWorker {
 	/**
 	 * Octopus-Aktion die alle Daten sucht und ersetzt.
 	 *
-	 * @param cntx
+	 * @param octopusContext The {@link OctopusContext}
 	 * @throws BeanException
 	 */
-	public void replaceAllData(OctopusContext cntx) throws BeanException {
-		Database database = getDatabase(cntx);
-		Map replaceRequest = getReplaceRequest(cntx);
+	public void replaceAllData(OctopusContext octopusContext) throws BeanException {
+		Database database = getDatabase(octopusContext);
+		Map replaceRequest = getReplaceRequest(octopusContext);
 		List fields = getFieldList(replaceRequest);
 		String search = (String)replaceRequest.get("search");
 		String replace = (String)replaceRequest.get("replace");
@@ -378,7 +378,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 		final TransactionContext transactionContext = database.getTransactionContext();
 		if (fields.size() > 0) {
 			WhereList where = new WhereList();
-			where.addAnd(Expr.equal("fk_orgunit", ((PersonalConfigAA)cntx.personalConfig()).getOrgUnitId()));
+			where.addAnd(Expr.equal("fk_orgunit", ((PersonalConfigAA)octopusContext.personalConfig()).getOrgUnitId()));
 			where.addAnd(Expr.equal("deleted", PersonConstants.DELETED_FALSE));
 			where.addAnd(getReplaceWhere(fields, search, wildcardPre, wildcardPost));
 
@@ -393,7 +393,7 @@ public class PersonReplaceWorker extends PersonListWorker {
 	/**
 	 * Ersetzt in der Gästeliste ausgewählte Gäste.
 	 *
-	 * @param octopusContext
+	 * @param octopusContext The {@link OctopusContext}
 	 * @throws BeanException
 	 * @throws IOException
 	 */
@@ -431,8 +431,8 @@ public class PersonReplaceWorker extends PersonListWorker {
 	/**
 	 * Gibt eine Where-Bedingung für die übergebenen Spalten zurück.
 	 *
-	 * @param fields
-	 * @param search
+	 * @param fields FIXME
+	 * @param search FIXME
 	 * @return Where
 	 */
 	protected Clause getReplaceWhere(List fields, String search, boolean wildcardPre, boolean wildcardPost) {
@@ -490,9 +490,9 @@ public class PersonReplaceWorker extends PersonListWorker {
 	/**
 	 * Gibt ein Update mit den entsprechenden Spalten zurück.
 	 *
-	 * @param fields
-	 * @param search
-	 * @param replace
+	 * @param fields FIXME
+	 * @param search FIXME
+	 * @param replace FIXME
 	 * @return Update
 	 */
 	protected Update getReplaceUpdate(Database db, List fields, String search, String replace, boolean wildcardPre, boolean wildcardPost) {

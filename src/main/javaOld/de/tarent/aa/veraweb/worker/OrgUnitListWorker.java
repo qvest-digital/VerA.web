@@ -78,8 +78,6 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      *
      * 2015-03-13 - We have one Press category for every Mandant.
      *
-     * @see #saveBean(OctopusContext, Bean)
-     *
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
      * @param bean einzufügendes Bean

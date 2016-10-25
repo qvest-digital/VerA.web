@@ -145,8 +145,8 @@ public class GuestDetailWorker extends GuestListWorker {
      * or its partner (or both) were found in the database table tguest. Duplicate reservation applies if an seat
      * (with empty or 0 table) or table and seat is alreadyreserved by another guest or its partner.
      *
-     * @param database
-     * @param guest
+     * @param database The {@link Database}
+     * @param guest The {@link Guest}
      * @return Returns list of error messages in case duplicate reservation were found
      * @throws BeanException
      * @throws IOException
@@ -920,9 +920,11 @@ public class GuestDetailWorker extends GuestListWorker {
     }
 
     /**
-     * @param database
-     * @param select
-     * @return
+     * @param database The {@link Database}
+     * @param select FIXME
+
+     * @return Person
+
      * @throws BeanException
      * @throws IOException
      */

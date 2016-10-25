@@ -24,7 +24,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import de.tarent.aa.veraweb.beans.Color;
 import de.tarent.aa.veraweb.beans.Grants;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.utils.ExportHelper;

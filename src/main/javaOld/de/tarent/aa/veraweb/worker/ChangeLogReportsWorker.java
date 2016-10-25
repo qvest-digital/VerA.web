@@ -53,7 +53,6 @@ import java.util.Map;
  * @author cklein
  * @since 1.2.0
  * @see de.tarent.aa.veraweb.beans.ChangeLogReport
- * @see de.tarent.octopus.customs.beans.ChangeLogEntry
  */
 public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 {
@@ -77,11 +76,11 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
 	/**
 	 * Stores and loads the report configuration in / from the session.
 	 *
-	 * @param cntx
-	 * @param begin
-	 * @param end
-	 * @throws BeanException
-	 * @throws IOException
+	 * @param cntx {@link OctopusContext}
+	 * @param begin FIXME
+	 * @param end FIXME
+	 * @throws BeanException FIXME
+	 * @throws IOException FIXME
 	 */
 	@SuppressWarnings( "unchecked" )
 	public void loadConfig( OctopusContext cntx, String begin, String end ) throws BeanException, IOException

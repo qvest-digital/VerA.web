@@ -42,7 +42,7 @@ public class Messages {
 	}
 	/**
 	 * Methode, die die externen Strings holt
-	 * @param key
+	 * @param key FIXME
 	 * @return Message
 	 */
 	public static String getString(String key) {

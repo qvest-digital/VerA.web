@@ -64,8 +64,8 @@ public class MailinglistWorker {
 	 * hinzugefügten Adressen in der Map <code>mailinglistParam</code>
 	 * im Content im Key <code>count</code>.
 	 *
-	 * @param octopusContext
-	 * @param mailinglist
+	 * @param octopusContext The {@link OctopusContext}
+	 * @param mailinglist FIXME
 	 * @return Map mit dem Key <code>count</code>
 	 * @throws BeanException
 	 * @throws IOException
@@ -130,9 +130,9 @@ public class MailinglistWorker {
 	/**
 	 * Create mailing list with "Select all" checkbox checked.
 	 *
-	 * @param octopusContext
-	 * @param mailinglist
-	 * @return
+	 * @param octopusContext The {@link OctopusContext}
+	 * @param mailinglist FIXME
+	 * @return FIXME
 	 * @throws BeanException
      * @throws IOException
      */
@@ -266,8 +266,8 @@ public class MailinglistWorker {
 	}
 
 	/**
-	 * @param addresstype
-	 * @param locale
+	 * @param addresstype FIXME
+	 * @param locale FIXME
 	 * @return Datenbank-Spalte in der die eMail-Adresse steht.
 	 */
 	private String getMailColumn(Integer addresstype, Integer locale) {
@@ -298,8 +298,8 @@ public class MailinglistWorker {
 	}
 
 	/**
-	 * @param addresstype
-	 * @param locale
+	 * @param addresstype FIXME
+	 * @param locale FIXME
 	 * @return Datenbank-Spalte in der die Faxnummer steht.
 	 */
 	private String getFaxColumn(Integer addresstype, Integer locale) {
@@ -338,10 +338,10 @@ public class MailinglistWorker {
 	 *    Person zu dem übergebenem Gast gesucht und die eMail-Adresse
 	 *    oder Fax-Nummer entsprechend des Dokumenttypens "Etikett" übernommen.
 	 *
-	 * @param database
-	 * @param mailinglist
-	 * @param person
-	 * @param address
+	 * @param database The {@link Database}
+	 * @param mailinglist FIXME
+	 * @param person FIXME
+	 * @param address FIXME
 	 * @return True wenn ein entsprechender Eintrag gespeichert wurde.
 	 */
 	protected boolean savePerson(Database database, Integer mailinglist, Integer person, String address) throws BeanException, IOException {

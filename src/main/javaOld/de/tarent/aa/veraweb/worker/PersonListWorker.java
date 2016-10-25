@@ -549,9 +549,9 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * Extends the select statement in order to allow search for multiple
      * categories at once using either AND or OR.
      *
-     * @param octopusContext
-     * @param personSearch
-     * @param select
+     * @param octopusContext The {@link OctopusContext}
+     * @param personSearch FIXME
+     * @param select FIXME
      */
     protected void extendSelectByMultipleCategorySearch(final OctopusContext octopusContext, final PersonSearch personSearch, final Select select) {
         if ((personSearch.categoriesSelection != null) && (personSearch.categoriesSelection.size() >= 1)
@@ -868,7 +868,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * Gibt eine Person-List-Filter Bedinung inkl. Mandanten Einschränkung
      * zurück.
      *
-     * @param octopusContext
+     * @param octopusContext The {@link OctopusContext}
      * @throws BeanException
      */
     protected Clause getPersonListFilter(final OctopusContext octopusContext, final boolean status) throws BeanException {
@@ -893,8 +893,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * Erweitert die übergebene WhereList um Bedingungen der Suche. Die
      * WhereList ist danach <strong>niemals</strong> leer.
      *
-     * @param octopusContext
-     * @param list
+     * @param octopusContext The {@link OctopusContext}
+     * @param list FIXME
      * @throws BeanException
      */
     private void addPersonListFilter(final OctopusContext octopusContext, final WhereList list) throws BeanException {
@@ -1022,7 +1022,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
      * Erweitert die übergebene WhereList um Bedingungen der Suche. Die
      * WhereList ist danach <strong>niemals</strong> leer.
      *
-     * @param searchField
+     * @param searchField FIXME
      * @throws BeanException
      */
     private void addPersonListFilterSimple(final String searchField, final WhereList list2, final boolean status) throws BeanException {

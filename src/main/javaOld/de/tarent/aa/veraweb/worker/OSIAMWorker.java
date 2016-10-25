@@ -22,7 +22,6 @@ package de.tarent.aa.veraweb.worker;
 import de.tarent.aa.veraweb.utils.PropertiesReader;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.sql.SQL;
-import de.tarent.dblayer.sql.SyntaxErrorException;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
@@ -99,17 +98,17 @@ public class OSIAMWorker {
 	/**
 	 * Creates an new user in OSIAM via connector4java and the configured client
 	 *
-	 * @param ctx
+	 * @param octopusContext The {@link OctopusContext}
 	 * @throws BeanException
 	 * @throws SQLException
 	 */
-	public void createDelegationUsers(OctopusContext ctx) throws BeanException,
+	public void createDelegationUsers(OctopusContext octopusContext) throws BeanException,
 			SQLException {
-		if(!checkIfOnlineRegistrationIsAvailable(ctx)) {
+		if(!checkIfOnlineRegistrationIsAvailable(octopusContext)) {
 			return;
 		}
 
-		Database database = new DatabaseVeraWeb(ctx);
+		Database database = new DatabaseVeraWeb(octopusContext);
 		AccessToken accessToken = null;
 		Boolean correctOSIAMProperties = true;
 		try {
@@ -118,9 +117,9 @@ public class OSIAMWorker {
 			correctOSIAMProperties = false;
 		}
 		if (correctOSIAMProperties) {
-			List selectdelegation = (List) ctx
+			List selectdelegation = (List) octopusContext
 					.sessionAsObject("addguest-selectdelegation");
-			Map event = (Map) ctx.getContextField("event");
+			Map event = (Map) octopusContext.getContextField("event");
 
 			for (Object id : selectdelegation) {
 				ResultSet result = getPersons(database, id);

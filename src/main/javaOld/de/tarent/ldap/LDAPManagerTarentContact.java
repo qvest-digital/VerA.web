@@ -94,7 +94,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     }
 
 	/**
-	 * @param param
+	 * @param param FIXME
 	 */
 	private boolean isParameterTrue(Object param) {
         return ("true".equals(param) || "1".equals(param) || "TRUE".equals(param) || "True".equals(param));
@@ -155,7 +155,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
 
     /**
      * Löscht einen User aus dem LDAP
-     * @param uid
+     * @param uid FIXME
      * @throws LDAPException
      */
     public void deleteContactUser(String uid) throws LDAPException{
@@ -394,7 +394,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
 
 
     /**
-     * @param userName
+     * @param userName FIXME
      * @throws LDAPException
      */
     public Map getUserData(String userName) throws LDAPException {

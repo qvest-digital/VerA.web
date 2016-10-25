@@ -19,7 +19,6 @@
  */
 package de.tarent.aa.veraweb.worker;
 
-import de.tarent.octopus.content.TcContentProzessException;
 import de.tarent.octopus.server.OctopusContext;
 
 import java.util.HashMap;
@@ -57,7 +56,6 @@ public class ContextWorker {
      * @param oc aktueller Octopus-Kontext
      * @param contexts Serialisierung eines Kontext-Stacks
      * @return Serialisierung des Kontext-Stacks ohne den bisherig obersten Kontext
-     * @throws TcContentProzessException
      */
 	public String pop(OctopusContext oc, String contexts) {
 	    StringBuffer contextsBuffer = new StringBuffer(contexts == null ? "" : contexts);
@@ -85,7 +83,6 @@ public class ContextWorker {
      *  als Bezeichner von Octopus-Content-Variablen interpretiert werden, deren Werte
      *  als Teil des Kontexts gesichert werden sollen.
      * @return Serialisierung des Kontext-Stacks erweitert um den übergebenen Kontext.
-     * @throws TcContentProzessException
      */
 	public String push(OctopusContext oc, String contexts, List data) {
 	    if (data == null || data.isEmpty())

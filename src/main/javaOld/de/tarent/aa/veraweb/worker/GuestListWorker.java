@@ -629,9 +629,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * @param octopusContext
      *            The {@link de.tarent.octopus.server.OctopusContext}
      *
-     * @throws IOException
      * @throws BeanException
-     * @throws SQLException
      */
     public void getAllCategories(OctopusContext octopusContext) throws BeanException {
         final ResultList categories = getCategoriesForCurrentOrgunit(octopusContext);
@@ -682,10 +680,10 @@ public class GuestListWorker extends ListWorkerVeraWeb {
      * berechnet, die aktuelle Umsetzung zählt diese pro eingeladenen Member.
      * (Vgl. Bug 1480)
      *
-     * @param database
-     * @param data
-     * @param guestSearch
-     * @param selection
+     * @param database The {@link Database}
+     * @param data FIXME
+     * @param guestSearch The {@link GuestSearch}
+     * @param selection FIXME
      * @throws BeanException
      */
     protected void getSums(Database database, Map<String, Long> data, GuestSearch guestSearch, List selection) throws BeanException {

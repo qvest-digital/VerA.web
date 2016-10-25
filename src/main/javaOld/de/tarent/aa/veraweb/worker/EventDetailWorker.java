@@ -387,8 +387,8 @@ public class EventDetailWorker {
     /**
      * New hash for new and edited events
      *
-     * @param event
-     * @param oldEvent
+     * @param event New {@link Event}
+     * @param oldEvent Old {@link Event}
      */
     private void setEventHash(Event event, Event oldEvent) {
     	if ((oldEvent == null || oldEvent.hash == null) && event.isModified()) {

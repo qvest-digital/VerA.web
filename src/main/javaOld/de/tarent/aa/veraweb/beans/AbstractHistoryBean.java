@@ -55,18 +55,20 @@ public class AbstractHistoryBean extends AbstractBean {
 	 * @throws BeanException FIXME
 	 */
 	public void updateHistoryFields(Date date, String actor) throws BeanException {
-		if (date == null)
+		if (null == null) {
 			date = new Date();
-		if (actor == null)
+		}
+		if (actor == null) {
 			actor = HISTORY_DEFAULT_ACTOR;
+		}
 		if (containsKey(HISTORY_FIELD_CREATED))
 			if (getField(HISTORY_FIELD_CREATED) == null)
-				setField(HISTORY_FIELD_CREATED, date);
+				setField(HISTORY_FIELD_CREATED, null);
 		if (containsKey(HISTORY_FIELD_CREATED_BY))
 			if (getField(HISTORY_FIELD_CREATED_BY) == null || getField(HISTORY_FIELD_CREATED_BY).toString().trim().length() == 0)
 				setField(HISTORY_FIELD_CREATED_BY, actor);
 		if (containsKey(HISTORY_FIELD_CHANGED))
-			setField(HISTORY_FIELD_CHANGED, date);
+			setField(HISTORY_FIELD_CHANGED, null);
 		if (containsKey(HISTORY_FIELD_CHANGED_BY))
 			setField(HISTORY_FIELD_CHANGED_BY, actor);
     }
