@@ -47,7 +47,7 @@ public class VerawebUtils {
     /**
      * Diese Methode liefert eine String-Darstellung eines Einladungsstatus
      *
-     * @param status
+     * @param status FIXME
      * @return FIXME
      */
     public static String getStatus(Integer status) {

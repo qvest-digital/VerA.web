@@ -67,7 +67,7 @@ public class OctopusHelper {
      * <code>encodeString(octopusContext, in, "default", "default");</code>
      *
      * @see #encodeString(OctopusContext, String, String, String)
-     * @param octopusContext
+     * @param octopusContext FIXME
      * @param in Original String.
      * @return Encodeter String.
      */
@@ -83,10 +83,10 @@ public class OctopusHelper {
      *
      * <code>new String(in.getBytes(encin), encout);</code>
      *
-     * @param octopusContext
+     * @param octopusContext FIXME
      * @param in Original String.
-     * @param encin
-     * @param encout
+     * @param encin FIXME
+     * @param encout FIXME
      * @return Encodeter String.
      */
     public static String encodeString(OctopusContext octopusContext, String in, String encin, String encout) {

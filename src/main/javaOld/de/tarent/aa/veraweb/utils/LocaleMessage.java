@@ -43,6 +43,8 @@ public class LocaleMessage {
 
     /**
      * Dieser Konstruktor bekommt die zu benutzende {@link Locale} übergeben.
+	 *
+     * @param locale FIXME
      */
 	public LocaleMessage(Locale locale) {
 		this.locale = locale;

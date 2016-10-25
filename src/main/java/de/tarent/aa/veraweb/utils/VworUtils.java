@@ -54,7 +54,7 @@ public class VworUtils {
 
     /**
      * @return Path of the saved images of the guests
-     * @throws IOException
+     * @throws IOException FIXME
      */
     public String getVworEndPoint() throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
@@ -86,6 +86,7 @@ public class VworUtils {
      *
      * @param path URI from VworUtils.path()
      * @param type desired result type from JSON mapping
+     * @param <T> FIXME
      * @return Entities from the Vwor component
      * @throws IOException FIXME
      */

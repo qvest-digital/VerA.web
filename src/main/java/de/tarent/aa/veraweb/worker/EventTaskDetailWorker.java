@@ -61,10 +61,10 @@ public class EventTaskDetailWorker {
     /**
      * Load and return task with the given id.
      *
-     * @param oc
-     * @param eventId
-     * @param id
-     * @return
+     * @param oc FIXME
+     * @param eventId FIXME
+     * @param id FIXME
+     * @return {@link Task}
      */
     public Task getTask(OctopusContext oc, String eventId, String id) {
         oc.setContent(PARAM_EVENT_ID, eventId);
@@ -102,8 +102,8 @@ public class EventTaskDetailWorker {
      * Assigns the eventId from the task list to a new created task to link
      * the task to the event
      *
-     * @param cntx
-     * @param eventId
+     * @param cntx FIXME
+     * @param eventId FIXME
      * @return eventId
      */
     public String setEventTaskId(OctopusContext cntx, String eventId) {
@@ -139,6 +139,7 @@ public class EventTaskDetailWorker {
      *
      * @param cntx
      *          Octopus-Kontext
+     * @throws BeanException FIXME
      */
     public void saveTemp(OctopusContext cntx) throws BeanException {
         Request request = new RequestVeraWeb(cntx);

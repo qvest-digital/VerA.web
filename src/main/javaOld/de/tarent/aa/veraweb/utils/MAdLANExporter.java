@@ -180,7 +180,7 @@ public class MAdLANExporter implements Exporter, Exchanger, DatabaseUtilizer, Ma
     /**
      * Diese Methode schreibt das bisher gesammelte Dokument fest.
      *
-     * @throws IOException
+     * @throws IOException FIXME
      * @see de.tarent.aa.veraweb.utils.Exporter#endExport()
      */
     public void endExport() throws IOException {

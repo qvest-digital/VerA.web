@@ -61,6 +61,12 @@ public class VerawebDigester implements ImportDigester {
 
     /**
      * Dieser Konstruktor initialisiert die finalen Member.
+     *
+     * @param cntx FIXME
+     * @param context FIXME
+     * @param importInstance FIXME
+     * @param importProperties FIXME
+     * @param importSource FIXME
      */
     public VerawebDigester(OctopusContext cntx, ExecutionContext context, Map importProperties, String importSource, Import importInstance) {
         assert context != null;
@@ -120,8 +126,8 @@ public class VerawebDigester implements ImportDigester {
      * @param person eine {@link ImportPerson}-Instanz
      * @param extras eine Liste mit Beans, die Zusätze zur Person darstellen; es
      *  werden nur solche akzeptiert, die {@link ImportPersonExtra} implementieren.
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException FIXME
+     * @throws IOException FIXME
      * @see ImportDigester#importPerson(ImportPerson, List)
      */
     public void importPerson(ImportPerson person, List extras) throws BeanException, IOException {

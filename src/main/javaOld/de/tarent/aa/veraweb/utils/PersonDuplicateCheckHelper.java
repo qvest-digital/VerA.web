@@ -102,10 +102,12 @@ public class PersonDuplicateCheckHelper {
 	/**
 	 * Count the duplicates found from the database.
 	 *
+	 * @param cntx FIXME
+	 *
 	 * @return duplicate count
 	 *
-	 * @throws IOException
-	 * @throws BeanException
+	 * @throws IOException FIXME
+	 * @throws BeanException FIXME
 	 */
 	public int getDuplicatesCount(OctopusContext cntx) throws IOException, BeanException {
 		int duplicateCount = 0;
@@ -360,8 +362,8 @@ public class PersonDuplicateCheckHelper {
 	/**
 	 * Gets all companies with duplicated names
 	 *
-	 * @param octopusContext
-	 * @param person
+	 * @param octopusContext FIXME
+	 * @param person FIXME
 	 * @return company name: company_a_e1
 	 */
 	public Clause getDuplicateExprCompany(OctopusContext octopusContext, Person person) {

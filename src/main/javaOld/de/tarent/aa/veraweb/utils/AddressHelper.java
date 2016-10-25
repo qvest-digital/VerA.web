@@ -93,9 +93,9 @@ public class AddressHelper implements PersonConstants {
 	/**
 	 * Setzt die 'Anrede'-Felder wenn diese eine Zahl sind.
 	 *
-	 * @param context
-	 * @param database
-	 * @param person
+	 * @param context FIXME
+	 * @param database FIXME
+	 * @param person FIXME
 	 *
 	 * @throws IOException FIXME
 	 * @throws BeanException FIXME

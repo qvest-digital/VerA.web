@@ -35,13 +35,13 @@ import java.util.List;
 public interface ImportDigester {
     /**
      * Diese Methode wird zu Beginn eines Imports aufgerufen.
-     * @throws BeanException
+     * @throws BeanException FIXME
      */
     public void startImport() throws BeanException;
 
     /**
      * Diese Methode wird zum Ende eines Imports aufgerufen.
-     * @throws BeanException
+     * @throws BeanException FIXME
      */
     public void endImport() throws BeanException;
 
@@ -55,8 +55,8 @@ public interface ImportDigester {
      * @param person eine {@link ImportPerson}-Instanz
      * @param extras eine Liste mit Beans, die Zusätze zur Person darstellen; es
      *  werden nur solche akzeptiert, die {@link ImportPersonExtra} implementieren.
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException FIXME
+     * @throws IOException FIXME
      */
     public void importPerson(ImportPerson person, List extras) throws BeanException, IOException;
 }

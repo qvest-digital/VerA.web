@@ -85,7 +85,7 @@ public class MadlanReader implements MadlanConstants {
 	/**
 	 * @return Die Feldnamen der Tabelle als {@link List}e von {@link String}s.
 	 *         Anzahl der Felder entspricht der Rückgabe von {@link #getReadRowsCount()}.
-	 * @throws IOException
+	 * @throws IOException FIXME
 	 */
 	public List getHeader() throws IOException {
 		if (header == null)
@@ -114,7 +114,7 @@ public class MadlanReader implements MadlanConstants {
 	 * @return Die Feldwerte einer Zeile der Tabelle als {@link List}e von {@link String}s.
 	 *         Anzahl der Felder entspricht der Rückgabe von {@link #getReadRowsCount()}.
 	 *         Kann keine Zeile mehr gelesen werden, wird null zurückgegeben.
-	 * @throws IOException
+	 * @throws IOException FIXME
 	 */
 	public List readRow() throws IOException {
 		if (header == null)
@@ -273,7 +273,7 @@ public class MadlanReader implements MadlanConstants {
 
 	/**
 	 * @return die Breite der Tabelle.
-	 * @throws IOException
+	 * @throws IOException FIXME
 	 */
 	public int getColumnCount() throws IOException {
 		return getHeader().size();
@@ -285,6 +285,8 @@ public class MadlanReader implements MadlanConstants {
      * Wird der Parameter auf true gesetzt, dann werden Zeilen mit weniger Feldern als im Header
      * mit dem Wert {@link #emptyField} aufgefüllt. Ist der Wert false, wird ein Fehler erzeugt.
      * Standardwert ist true.
+     *
+     * @return fillShortendRows FIXME
      */
 	public boolean getFillShortenedRows() {
 		return fillShortenedRows;
@@ -307,6 +309,8 @@ public class MadlanReader implements MadlanConstants {
      * Wird der Parameter auf true gesetzt, dann werden bei Zeilen mit mehr Feldern als im Header
      * nur die zuerst stehenden Felder übernommen. Ist der Wert false, wird ein Fehler erzeugt.
      * Standardwert ist true.
+     *
+     * @return FIXME
      */
 	public boolean getTrimExtendedRows() {
 		return fillShortenedRows;
@@ -327,6 +331,8 @@ public class MadlanReader implements MadlanConstants {
     /**
      * Liefert den {@link String} zum Auffüllen der Felder von zu kurzen Zeilen.
      * @see #fillShortenedRows
+     *
+     * @return emptyField FIXME
      */
 	public String getEmptyField() {
 		return emptyField;
@@ -344,6 +350,8 @@ public class MadlanReader implements MadlanConstants {
     /**
      * Liefert das Trennzeichen zwischen den Feldern der Tabelle.
      * @see #fillShortenedRows
+     *
+     * @return separatorChar FIXME
      */
 	public char getSeparatorChar() {
 		return separatorChar;
@@ -360,6 +368,7 @@ public class MadlanReader implements MadlanConstants {
 
     /**
      * Liefert das Zeichen, das als Umbruch innerhalb von Feldern interpretiert werden soll.
+	 * @return lineBreakChar FIXME
      */
 	public char getLineBreakChar() {
 		return lineBreakChar;

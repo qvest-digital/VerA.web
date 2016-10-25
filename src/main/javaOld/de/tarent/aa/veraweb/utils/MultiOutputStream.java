@@ -37,7 +37,7 @@ public class MultiOutputStream extends OutputStream {
 	/**
 	 * Fügt einen neuen Stream hinzu.
 	 *
-	 * @param os
+	 * @param os FIXME
 	 */
 	public void add(OutputStream os) {
 		if (os != null) {
