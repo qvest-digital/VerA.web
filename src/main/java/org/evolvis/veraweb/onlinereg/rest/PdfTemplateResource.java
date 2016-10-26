@@ -8,8 +8,10 @@ import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.utils.PdfTemplateUtilities;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.Query;
@@ -275,7 +277,7 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
     private HashMap<String, String> getSubstitutions(Person person) {
-        HashMap<String, String> substitutions = new HashMap<>();
+        final HashMap<String, String> substitutions = new HashMap<>();
 
         substitutions.put("salutation", person.getSalutation_a_e1());
         substitutions.put("firstname", person.getFirstname_a_e1());
@@ -296,8 +298,27 @@ public class PdfTemplateResource extends FormDataResource {
         substitutions.put("mobile", person.getMobil_a_e1());
         substitutions.put("email", person.getMail_a_e1());
         substitutions.put("url", person.getUrl_a_e1());
+        final String envelopeOne = getEnvelopeOne(person);
+        final String salutationCompleteOne = getSalutationCompleteOne(person);
+        final String salutationCompleteTwo = getSalutationCompleteTwo(person);
+        substitutions.put("salutation_complete", salutationCompleteTwo);
 
         return substitutions;
+    }
+
+    private String getEnvelopeOne(Person person) {
+        final PdfTemplateUtilities pdfTemplateUtilities = new PdfTemplateUtilities(person);
+        return pdfTemplateUtilities.getEnvelopeOne();
+    }
+
+    private String getSalutationCompleteOne(Person person) {
+        final PdfTemplateUtilities pdfTemplateUtilities = new PdfTemplateUtilities(person);
+        return pdfTemplateUtilities.getSalutationCompleteOne();
+    }
+
+    private String getSalutationCompleteTwo(Person person) {
+        final PdfTemplateUtilities pdfTemplateUtilities = new PdfTemplateUtilities(person);
+        return pdfTemplateUtilities.getSalutationCompleteTwo();
     }
 
     private PdfTemplate getPdfTemplate(Integer pdfTemplateId) {
