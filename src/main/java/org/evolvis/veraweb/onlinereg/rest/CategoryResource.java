@@ -108,31 +108,6 @@ public class CategoryResource extends AbstractResource {
             session.close();
         }
     }
-//
-//    /**
-//     * Update delegate's category
-//     *
-//     * @param uuid Delegation UUID
-//     * @param personId Person ID
-//     * @param categoryName Category name
-//     */
-//    @POST
-//    @Path("update/delegate/category")
-//    public void updateDelegateCategory(
-//            @FormParam("uuid") String uuid,
-//            @FormParam(PERSON_ID) Integer personId,
-//            @FormParam("category") String categoryName) {
-//        final Session session = openSession();
-//        try {
-//            final Guest guest = updateGuestCategory(uuid, personId, categoryName, session);
-//            final Integer categoryId = guest.getFk_category();
-//            updatePersonCategory(personId, session, categoryId);
-//
-//            session.flush();
-//        } finally {
-//            session.close();
-//        }
-//    }
 
     @GET
     @Path("person/data")
@@ -147,29 +122,5 @@ public class CategoryResource extends AbstractResource {
         } finally {
             session.close();
         }
-    }
-
-    private void updatePersonCategory(Integer personId, final Session session, Integer categoryId) {
-        if (checkExistingPersonCategory(personId, categoryId, session)) {
-            PersonCategory personCategory = new PersonCategory();
-            personCategory.setFk_person(personId);
-            personCategory.setFk_categorie(categoryId);
-            session.saveOrUpdate(personCategory);
-        }
-    }
-    
-    private Boolean checkExistingPersonCategory(final Integer personId,
-                                                final Integer categoryId,
-                                                final Session session) {
-        final Query queryCategory = session.getNamedQuery("PersonCategory.personCategoryExists");
-        queryCategory.setInteger(PERSON_ID, personId);
-
-        if (categoryId != null) {
-            queryCategory.setInteger("categoryId", categoryId);
-        } else {
-            return false; // if categoryId is null, then the category can't be an existing for the user.
-        }
-
-        return queryCategory.list().isEmpty();
     }
 }

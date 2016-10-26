@@ -25,6 +25,9 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
         case TransportEvent.MESSAGE_PARTIALLY_DELIVERED:
             sb.append("MESSAGE_PARTIALLY_DELIVERED");
             break;
+        default:
+            sb.append("MESSAGE_NOT_DELIVIERED");
+            break;
         }
         sb.append(":\n");
         appendAddresses(sb,"invalid",e.getInvalidAddresses());
