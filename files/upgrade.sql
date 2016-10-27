@@ -25,7 +25,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2016-08-16';
+	vversion := '2016-10-27';
 
 	-- initialisation
 	vint := 0;
@@ -692,6 +692,30 @@ BEGIN
 
                 DROP TABLE veraweb.tevent_category;
                 DROP TABLE veraweb.tevent_function;
+
+                -- post-upgrade
+                vmsg := 'end.update(' || vnewvsn || ')';
+                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+                vcurvsn := vnewvsn;
+                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+            END IF;
+
+    vnewvsn := '2016-10-27';
+            IF vcurvsn < vnewvsn THEN
+                vmsg := 'begin.update(' || vnewvsn || ')';
+
+                ALTER TABLE veraweb.pdftemplate ADD constraint pdftemplate_pkey PRIMARY KEY (pk);
+
+                CREATE SEQUENCE veraweb.salutation_alternative_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
+
+                CREATE TABLE veraweb.salutation_alternative (
+                 pk INTEGER DEFAULT nextval('veraweb.salutation_alternative_seq') NOT NULL,
+                 pdftemplate_id INTEGER NOT NULL REFERENCES veraweb.pdftemplate(pk) ON DELETE CASCADE,
+                 salutation_id INTEGER NOT NULL REFERENCES veraweb.tsalutation(pk) ON DELETE CASCADE,
+                 content text NOT NULL,
+
+                 CONSTRAINT salutation_alternative_pkey PRIMARY KEY (pk)
+                );
 
                 -- post-upgrade
                 vmsg := 'end.update(' || vnewvsn || ')';
