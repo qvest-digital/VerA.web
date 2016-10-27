@@ -113,7 +113,7 @@ public class LoginManagerLDAPTarentContact extends LoginManagerLDAPGeneric {
                     getConfigurationString(TcEnv.KEY_LDAP_AUTHORIZATION)
                     );
         } catch (LDAPException e) {
-            logger.warning(e.getLocalizedMessage());
+            LOGGER.warning(e.getLocalizedMessage());
             return null;
         }
 	}

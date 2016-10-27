@@ -25,13 +25,19 @@ import de.tarent.octopus.request.TcRequest;
 import de.tarent.octopus.security.AbstractLoginManager;
 import de.tarent.octopus.security.TcSecurityException;
 import de.tarent.octopus.server.PersonalConfig;
+import net.jodah.expiringmap.ExpirationPolicy;
+import net.jodah.expiringmap.ExpiringMap;
 
 import javax.naming.AuthenticationException;
 import java.net.PasswordAuthentication;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 /**
  * Implementierung eines LoginManagers, über LDAP
@@ -43,6 +49,8 @@ import java.util.logging.Logger;
  */
 public class LoginManagerLDAPGeneric extends AbstractLoginManager
 {
+    protected static final Logger LOGGER = Logger.getLogger(LoginManagerLDAPGeneric.class.getName());
+
     /**
      * Schluessel des Konfigurationseintrags fuer die Objekt Klasse,
      * welche von den in LDAP definierten Benutzern implementiert wird.
@@ -53,6 +61,17 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
      * Schluessel des Konfigurationseintrags fuer rekursive LDAP lookups.
      */
     public final static String KEY_RECURSIVE_LOOKUPS = "ldaprecursivelookups";
+
+    /**
+     * ExpiringMap für Login Versuch beschränkung
+     */
+    private final static Map<UUID, String> LOGIN_ATTEMPT_HISTORY = ExpiringMap.builder()
+            .expiration(1, TimeUnit.MINUTES)
+            .expirationPolicy(ExpirationPolicy.CREATED)
+            .build();
+
+    /** LDAP-Konnektor */
+    protected LDAPManager ldapManager = null;
 
     //
     // zu überschreibende Methoden
@@ -125,27 +144,61 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
      */
     private void doLogin(PasswordAuthentication pwdAuth, PersonalConfig pConfig, boolean repeat) throws TcSecurityException {
         try {
-            if (ldapManager == null)
-                initLDAPManager();
-            ldapManager.login(pwdAuth.getUserName(), new String(pwdAuth.getPassword()), getConfigurationString(TcEnv.KEY_LDAP_AUTHORIZATION));
-            initPersonalConfig(pConfig, pwdAuth.getUserName());
-
-            pConfig.userLoggedIn(pwdAuth.getUserName());
+            checkLoginAttempts(pwdAuth);
+            executeLdapLogin(pwdAuth);
+            createPersonalConfig(pwdAuth, pConfig);
         } catch (LDAPException e) {
-            logger.log(Level.SEVERE, "Fehler beim LDAP-Zugriff!", e);
-            if(e.getCause() instanceof AuthenticationException)
-                throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR, e);
-            if (repeat) {
-                try {
-                    initLDAPManager();
-                    doLogin(pwdAuth, pConfig, false);
-                    return;
-                } catch (LDAPException e1) {
-                    logger.log(Level.SEVERE, "Fehler beim LDAP-Reconnect!", e1);
-                }
-            }
-            throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e);
+            addFailedLoginAttempt(pwdAuth);
+            handleLoginErrors(pwdAuth, pConfig, repeat, e);
         }
+    }
+
+    private void checkLoginAttempts(PasswordAuthentication pwdAuth) throws TcSecurityException {
+        /**
+         * check if to much login attempts with this username were made
+         * "msg_too_many_attempts" is used in login_de/en/es/fr.vm - modify there when changed here
+         */
+        if (Collections.frequency(LOGIN_ATTEMPT_HISTORY.values(), pwdAuth.getUserName()) > 9) {
+            throw new TcSecurityException("msg_too_many_attempts");
+        }
+    }
+
+    private void executeLdapLogin(PasswordAuthentication pwdAuth) throws LDAPException {
+        if (ldapManager == null) {
+            initLDAPManager();
+        }
+        final String password = new String(pwdAuth.getPassword());
+        ldapManager.login(pwdAuth.getUserName(), password, getConfigurationString(TcEnv.KEY_LDAP_AUTHORIZATION));
+    }
+
+    private void createPersonalConfig(PasswordAuthentication pwdAuth, PersonalConfig pConfig) throws LDAPException {
+        initPersonalConfig(pConfig, pwdAuth.getUserName());
+        pConfig.userLoggedIn(pwdAuth.getUserName());
+    }
+
+    private void addFailedLoginAttempt(PasswordAuthentication pwdAuth) {
+        //immer, egal welcher fehler, so können keine usernamen erraten werden
+        LOGIN_ATTEMPT_HISTORY.put(UUID.randomUUID(), pwdAuth.getUserName());
+    }
+
+    private void handleLoginErrors(PasswordAuthentication pwdAuth,
+                                   PersonalConfig pConfig,
+                                   boolean repeat,
+                                   LDAPException e) throws TcSecurityException {
+        LOGGER.log(Level.SEVERE, "Fehler beim LDAP-Zugriff!", e);
+        if (e.getCause() instanceof AuthenticationException) {
+            throw new TcSecurityException(TcSecurityException.ERROR_AUTH_ERROR, e);
+        }
+        if (repeat) {
+            retryLogin(pwdAuth, pConfig);
+            return;
+        }
+        throw new TcSecurityException(TcSecurityException.ERROR_SERVER_AUTH_ERROR, e);
+    }
+
+    private void retryLogin(PasswordAuthentication pwdAuth, PersonalConfig pConfig) throws TcSecurityException {
+        ldapManager = null;
+        doLogin(pwdAuth, pConfig, false);
     }
 
     /**
@@ -161,13 +214,4 @@ public class LoginManagerLDAPGeneric extends AbstractLoginManager
         pConfig.setUserGroups(new String[]{PersonalConfig.GROUP_LOGGED_OUT});
         pConfig.userLoggedOut();
     }
-
-    //
-    // Variablen
-    //
-    /** LDAP-Konnektor */
-	protected LDAPManager ldapManager = null;
-
-    /** Logger für diese Klasse */
-	static Logger logger = Logger.getLogger(LoginManagerLDAPGeneric.class.getName());
 }

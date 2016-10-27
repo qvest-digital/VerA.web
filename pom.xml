@@ -577,5 +577,10 @@
 			<version>${spock-core.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.jodah</groupId>
+			<artifactId>expiringmap</artifactId>
+            <version>0.5.7</version>
+		</dependency>
 	</dependencies>
 </project>
