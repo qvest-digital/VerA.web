@@ -1,5 +1,6 @@
 package org.evolvis.veraweb.onlinereg.rest
 
+import org.evolvis.veraweb.onlinereg.entities.LinkUUID
 import org.evolvis.veraweb.onlinereg.entities.Person
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher
@@ -33,20 +34,18 @@ class ForgotPasswordResourceTest extends Specification {
         forgotPasswordResource = new ForgotPasswordResource(mailDispatcher: dispatcher, context: context, emailConfiguration: emailConfiguration)
     }
 
-    public void "request reset password link successfull"() {
+    public void "request reset password link successfull first time"() {
         given:
             Query query1 = Mock(Query)
             Query query2 = Mock(Query)
-            Query query3 = Mock(Query)
             Person person = Mock(Person)
-            List resultList = new ArrayList()
-            resultList.add(person)
+
             session.getNamedQuery("Person.findByUsername") >> query1
             session.getNamedQuery("LinkUUID.getLinkUuidByPersonid") >> query2
-            session.getNamedQuery("LinkUUID.updateUUIDByPersonid") >> query3
+
             query1.uniqueResult() >> person
             person.getMail_a_e1() >> "recipient@email.com"
-            query2.list() >> resultList
+            query2.uniqueResult() >> null
 
         when:
             forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE", "http://localhost:8181/#/")
@@ -56,6 +55,32 @@ class ForgotPasswordResourceTest extends Specification {
             1 * transport.close()
             session != null
             1 * session.close()
+            1 * session.flush()
+    }
+
+    public void "request reset password link successfull second time"() {
+        given:
+            Query query1 = Mock(Query)
+            Query query2 = Mock(Query)
+            Person person = Mock(Person)
+            LinkUUID linkUUID = Mock(LinkUUID)
+
+            session.getNamedQuery("Person.findByUsername") >> query1
+            session.getNamedQuery("LinkUUID.getLinkUuidByPersonid") >> query2
+
+            query1.uniqueResult() >> person
+            person.getMail_a_e1() >> "recipient@email.com"
+            query2.uniqueResult() >> linkUUID
+
+        when:
+            forgotPasswordResource.requestResetPasswordLink("tarentuser", "de_DE", "http://localhost:8181/#/")
+
+        then:
+            1 * transport.connect('host', 'username', 'password')
+            1 * transport.close()
+            session != null
+            1 * session.close()
+            1 * session.flush()
     }
 
     public void "request reset password link failed"() {

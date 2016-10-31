@@ -37,7 +37,7 @@ public class ForgotPasswordResource extends AbstractResource {
             final String uuid = UUID.randomUUID().toString();
             if (person != null && person.getMail_a_e1() != null) {
                 final int personId = person.getPk();
-                addNewLinkUuidEntry(personId, session, uuid);
+                createOrUpdateLinkUuidEntry(personId, session, uuid);
                 sendResetPasswordLinkEmail(person.getMail_a_e1(), currentLanguageKey, oaEndpoint, uuid);
             }
         } finally {
@@ -45,13 +45,33 @@ public class ForgotPasswordResource extends AbstractResource {
         }
     }
 
-    private void addNewLinkUuidEntry(Integer personId, Session session, String uuid) {
-        final LinkUUID linkUUID = new LinkUUID();
-        linkUUID.setUuid(uuid);
-        linkUUID.setPersonid(personId);
-        linkUUID.setLinktype(LinkType.PASSWORDRESET.getText());
+    private void createOrUpdateLinkUuidEntry(Integer personId, Session session, String uuid) {
+        final LinkUUID linkUUID = getAndSetLinkUuid(session, personId, uuid);
         session.persist(linkUUID);
         session.flush();
+    }
+
+    private LinkUUID getAndSetLinkUuid(Session session, Integer personId, String uuid) {
+        final LinkUUID linkUUID = createOrGetLinkUuid(session, personId);
+        setLinkUuidData(linkUUID, personId, uuid);
+        return linkUUID;
+    }
+
+    private LinkUUID createOrGetLinkUuid(Session session, Integer personId) {
+        final Query query = session.getNamedQuery("LinkUUID.getLinkUuidByPersonid");
+        query.setParameter("personid", personId);
+
+        if (query.uniqueResult() == null) {
+            return new LinkUUID();
+        } else {
+            return (LinkUUID) query.uniqueResult();
+        }
+    }
+
+    private void setLinkUuidData(LinkUUID linkUUID, Integer personId, String uuid) {
+        linkUUID.setPersonid(personId);
+        linkUUID.setLinktype(LinkType.PASSWORDRESET.getText());
+        linkUUID.setUuid(uuid);
     }
 
     private void sendResetPasswordLinkEmail(String toEmail, String currentLanguageKey, String oaEndpoint, String uuid) throws MessagingException {
