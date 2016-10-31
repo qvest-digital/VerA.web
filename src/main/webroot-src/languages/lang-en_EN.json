@@ -86,7 +86,6 @@
   "USER_PASSWORD_RESET": "Reset password",
   "USER_PASSWORD_RESET_TEXT": "A link to reset the password will be send to the your email address.",
   "USER_PASSWORD_RESET_MAIL": "Email was send, as far as this username exists.",
-  "MORE_THAN_ONE_LINKUUID": "There is more than one UUID corresponding to this user",
 
   "USER_LOGIN_FORGOT": "Forgot login?",
   "USER_LOGIN_RESEND": "Send login per e-mail",

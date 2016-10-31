@@ -89,7 +89,6 @@
   "USER_PASSWORD_RESET": "Passwort zurücksetzen",
   "USER_PASSWORD_RESET_TEXT": "Ein Link zum zurücksetzen des Passwortes wird an die hinterlegte E-Mail-Adresse gesendet.",
   "USER_PASSWORD_RESET_MAIL": "E-Mail wurde gesendet, sofern der Benutzername existiert.",
-  "MORE_THAN_ONE_LINKUUID": "Es existieren mehreren UUIDs, die diesem Benutzer zugeordnet sind.",
 
   "USER_LOGIN_FORGOT": "Login vergessen?",
   "USER_LOGIN_RESEND": "Login per E-Mail senden",

@@ -15,12 +15,6 @@ module.exports = function($http, $scope, $location, show, $timeout, param, $tran
             case 'OK':
                 show.success("USER_PASSWORD_RESET_MAIL");
                 break;
-            case 'USER_NOT_EXISTS':
-                show.success("USER_PASSWORD_RESET_MAIL");
-                break;
-            case 'MORE_THAN_ONE_LINKUUID':
-                show.error("MORE_THAN_ONE_LINKUUID");
-                break;
             default:
                 show.error("GENERIC_ERROR");
             }

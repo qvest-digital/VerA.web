@@ -122,7 +122,8 @@ public class UserResource {
     public String resetPassword(@FormParam("username") String username, @FormParam("current_language") String currentLanguageKey) throws IOException {
         final Person person = getUserData(username);
         if (person == null) {
-            return StatusConverter.convertStatus("USER_NOT_EXISTS");
+            //send OK to not show if username was correct
+            return StatusConverter.convertStatus("OK");
         } else {
             return sendEmailWithResetPasswordLink(person, currentLanguageKey, person.getPk(), config.getOnlineRegistrationEndpoint());
         }
@@ -130,19 +131,14 @@ public class UserResource {
     }
 
     private String sendEmailWithResetPasswordLink(Person person, String currentLanguageKey, Integer personId, String oaEndpoint) throws IOException {
-        final List<LinkUUID> existingLinkUuidsByUser = getUuidListByPersonId(personId);
-        if (existingLinkUuidsByUser.size() > 1 ) {
-            return StatusConverter.convertStatus("MORE_THAN_ONE_LINKUUID");
-        } else {
-            Form postBody = new Form();
-            postBody.add("username", person.getUsername());
-            postBody.add("currentLanguageKey", currentLanguageKey);
-            postBody.add("oaEndpoint", oaEndpoint);
-            final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/forgotPassword/request/reset-password-link");
-            resource.post(postBody);
+        Form postBody = new Form();
+        postBody.add("username", person.getUsername());
+        postBody.add("currentLanguageKey", currentLanguageKey);
+        postBody.add("oaEndpoint", oaEndpoint);
+        final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/forgotPassword/request/reset-password-link");
+        resource.post(postBody);
 
-            return StatusConverter.convertStatus("OK");
-        }
+        return StatusConverter.convertStatus("OK");
     }
 
     /**
