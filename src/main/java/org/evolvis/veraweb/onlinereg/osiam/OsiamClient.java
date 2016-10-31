@@ -19,25 +19,19 @@
  */
 package org.evolvis.veraweb.onlinereg.osiam;
 
+import com.sun.jersey.api.client.Client;
+import lombok.extern.java.Log;
 import org.osiam.client.OsiamConnector;
 import org.osiam.client.oauth.AccessToken;
 import org.osiam.client.oauth.Scope;
 import org.osiam.client.query.Query;
 import org.osiam.client.query.QueryBuilder;
 import org.osiam.client.user.BasicUser;
-
-import com.sun.jersey.api.client.Client;
-
-import lombok.extern.java.Log;
-
-import org.osiam.resources.scim.Email;
 import org.osiam.resources.scim.SCIMSearchResult;
 import org.osiam.resources.scim.UpdateUser;
 import org.osiam.resources.scim.User;
 
-import javax.persistence.Access;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 

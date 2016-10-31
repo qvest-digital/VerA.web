@@ -30,14 +30,11 @@ import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import org.evolvis.veraweb.onlinereg.Config;
 
+import javax.ws.rs.WebApplicationException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
-
-import javax.ws.rs.WebApplicationException;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH

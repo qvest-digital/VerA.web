@@ -1,18 +1,16 @@
 package org.evolvis.veraweb.onlinereg.auth;
 
 import org.apache.commons.codec.binary.Base64;
-
 import org.evolvis.veraweb.onlinereg.utils.VerawebConstants;
 
+import javax.crypto.Mac;
+import javax.crypto.ShortBufferException;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-
-import javax.crypto.Mac;
-import javax.crypto.ShortBufferException;
-import javax.crypto.spec.SecretKeySpec;
 
 public class HmacToken {
     final private String osiamAccessToken;

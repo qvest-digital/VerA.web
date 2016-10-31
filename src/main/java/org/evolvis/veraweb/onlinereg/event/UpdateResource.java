@@ -19,7 +19,19 @@
  */
 package org.evolvis.veraweb.onlinereg.event;
 
-import java.io.IOException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.representation.Form;
+import lombok.extern.java.Log;
+import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.Event;
+import org.evolvis.veraweb.onlinereg.entities.Guest;
+import org.evolvis.veraweb.onlinereg.user.LoginResource;
+import org.evolvis.veraweb.onlinereg.utils.EventTransporter;
+import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
+import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
@@ -29,22 +41,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import org.evolvis.veraweb.onlinereg.Config;
-import org.evolvis.veraweb.onlinereg.entities.Event;
-import org.evolvis.veraweb.onlinereg.entities.Guest;
-import org.evolvis.veraweb.onlinereg.user.LoginResource;
-import org.evolvis.veraweb.onlinereg.utils.EventTransporter;
-import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
-import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.representation.Form;
-
-import lombok.extern.java.Log;
+import java.io.IOException;
 
 /**
  * New functions according to the page where the user can change his status and

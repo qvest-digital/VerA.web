@@ -19,9 +19,8 @@
  */
 package org.evolvis.veraweb.onlinereg.auth;
 
-import lombok.Getter;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
 /**
  * HTTP Basic Auth Logic class. Relationship between REST-API and Online-Reg app

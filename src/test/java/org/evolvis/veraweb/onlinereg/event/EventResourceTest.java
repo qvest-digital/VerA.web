@@ -20,19 +20,16 @@
 package org.evolvis.veraweb.onlinereg.event;
 
 import org.evolvis.veraweb.onlinereg.Config;
-import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.evolvis.veraweb.onlinereg.Main;
+import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.evolvis.veraweb.onlinereg.utils.VerawebConstants;
 import org.junit.Ignore;
 import org.junit.Test;
 
-
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;

@@ -1,6 +1,12 @@
 package org.evolvis.veraweb.onlinereg.auth;
 
-import java.io.IOException;
+import com.sun.jersey.api.client.Client;
+import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
+import org.evolvis.veraweb.onlinereg.user.LoginResource;
+import org.osiam.client.exception.ConnectionInitializationException;
+import org.osiam.client.exception.UnauthorizedException;
+import org.osiam.client.user.BasicUser;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,15 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.WebApplicationException;
-
-import org.evolvis.veraweb.onlinereg.Config;
-import org.evolvis.veraweb.onlinereg.osiam.OsiamClient;
-import org.evolvis.veraweb.onlinereg.user.LoginResource;
-import org.osiam.client.exception.ConnectionInitializationException;
-import org.osiam.client.exception.UnauthorizedException;
-import org.osiam.client.user.BasicUser;
-
-import com.sun.jersey.api.client.Client;
+import java.io.IOException;
 
 public class AuthenticationFilter implements Filter {
 

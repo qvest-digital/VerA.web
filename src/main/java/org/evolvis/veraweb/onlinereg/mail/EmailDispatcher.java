@@ -1,9 +1,9 @@
 package org.evolvis.veraweb.onlinereg.mail;
 
+import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.representation.Form;
 import org.evolvis.veraweb.onlinereg.Config;
-import com.sun.jersey.api.client.Client;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH

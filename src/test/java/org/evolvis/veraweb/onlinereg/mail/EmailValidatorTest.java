@@ -2,7 +2,8 @@ package org.evolvis.veraweb.onlinereg.mail;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by mweier on 21.01.16.

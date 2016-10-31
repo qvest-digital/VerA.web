@@ -1,7 +1,7 @@
 package org.evolvis.veraweb.onlinereg.mail;
 
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 public class EmailValidator {
 

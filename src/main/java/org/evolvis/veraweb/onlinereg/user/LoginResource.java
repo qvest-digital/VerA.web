@@ -22,44 +22,27 @@ package org.evolvis.veraweb.onlinereg.user;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.UniformInterfaceException;
-import com.sun.jersey.api.client.WebResource;
-
-import lombok.Getter;
 import lombok.extern.java.Log;
-
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.auth.HmacToken;
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.evolvis.veraweb.onlinereg.mail.EmailValidator;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
-import org.evolvis.veraweb.onlinereg.utils.StatusConverter;
-import org.osiam.client.exception.ConnectionInitializationException;
 import org.osiam.resources.scim.User;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.SecurityContext;
-
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.net.URLEncoder;
 
 /**
  * Created by mley on 26.08.14. Edited by Max Marche <m.marche@tarent.de>

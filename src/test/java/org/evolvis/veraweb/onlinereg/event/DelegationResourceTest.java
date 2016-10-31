@@ -19,8 +19,8 @@
  */
 package org.evolvis.veraweb.onlinereg.event;
 
-import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.evolvis.veraweb.onlinereg.Main;
+import org.evolvis.veraweb.onlinereg.TestSuite;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.junit.Ignore;

@@ -1,11 +1,10 @@
 package org.evolvis.veraweb.onlinereg.auth;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
+import com.sun.jersey.core.util.Base64;
 import org.junit.Test;
 
-import com.sun.jersey.core.util.Base64;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class HmacTokenTest {
 

@@ -19,10 +19,18 @@
  */
 package org.evolvis.veraweb.onlinereg;
 
-import java.util.EnumSet;
-
-import javax.servlet.DispatcherType;
-
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.client.JerseyClientBuilder;
+import io.dropwizard.client.JerseyClientConfiguration;
+import io.dropwizard.jersey.sessions.HttpSessionProvider;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
+import io.dropwizard.util.Duration;
+import lombok.Getter;
+import lombok.extern.java.Log;
 import org.eclipse.jetty.server.session.SessionHandler;
 import org.evolvis.veraweb.onlinereg.auth.AuthenticationFilter;
 import org.evolvis.veraweb.onlinereg.event.DelegationResource;
@@ -36,19 +44,8 @@ import org.evolvis.veraweb.onlinereg.user.KontaktdatenResource;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
 import org.evolvis.veraweb.onlinereg.user.ResetPasswordResource;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
-
-import io.dropwizard.Application;
-import io.dropwizard.assets.AssetsBundle;
-import io.dropwizard.client.JerseyClientBuilder;
-import io.dropwizard.client.JerseyClientConfiguration;
-import io.dropwizard.jersey.sessions.HttpSessionProvider;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
-import io.dropwizard.util.Duration;
-import lombok.Getter;
-import lombok.extern.java.Log;
+import javax.servlet.DispatcherType;
+import java.util.EnumSet;
 
 @Getter
 @Log
