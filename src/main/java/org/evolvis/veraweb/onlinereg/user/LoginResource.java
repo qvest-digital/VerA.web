@@ -121,7 +121,7 @@ public class LoginResource {
             return null;
         }
 
-        // if the given login name looks like a user name, lookup the osiam user
+        // if the given login name looks like a email, lookup the osiam user
         // by email address.
         if (EmailValidator.isValidEmailAddress(userName)) {
             User userByEmail = config.getOsiam().getClient(this.client).getUserByEmail(userName);
