@@ -32,9 +32,6 @@
 							<option value="$!s.id" #if(($facade.SalutationFK && $s.id == $facade.SalutationFK) || ($facade.Salutation && $s.name == $facade.Salutation) || ((!$facade || !$facade.Salutation) && $s.name == $config.anrede_p)) selected #set($sel = true)#end>$!message.text($s.name)</option>
 						#end
 					#end
-					#if(!$facade.SalutationFK)
-						<option value="$!facade.Salutation"#if(!$sel) selected #set($sel = true)#end>$!message.text($facade.Salutation)</option>
-					#end
 					<option value=""#if(!$sel) selected #end>${placeholderWithTranslation.GENERIC_PLEASE_CHOOSE}</option>
 				</select>
 			</div>
