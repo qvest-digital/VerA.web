@@ -8,9 +8,9 @@ import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.evolvis.veraweb.onlinereg.entities.PdfTemplate;
 import org.evolvis.veraweb.onlinereg.entities.Person;
+import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
 import org.evolvis.veraweb.onlinereg.utils.PdfTemplateUtilities;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
@@ -51,6 +51,7 @@ public class PdfTemplateResource extends FormDataResource {
     private static final Logger LOGGER = Logger.getLogger(PdfTemplateResource.class.getCanonicalName());
     private final Integer DAYS_BACK = 1;
     private final long PURGE_TIME = System.currentTimeMillis() - (DAYS_BACK * 24 * 60 * 60 * 1000);
+    private List<SalutationAlternative> alternativeSalutations;
 
     @POST
     @Path("/edit")
@@ -149,6 +150,7 @@ public class PdfTemplateResource extends FormDataResource {
         }
 
         final UUID uuid = UUID.randomUUID();
+        alternativeSalutations = getAlternativeSalutations();
         final List<String> filesList = getFileList(people, pdfTemplateId, uuid);
         mergeFiles(filesList);
 
@@ -279,7 +281,7 @@ public class PdfTemplateResource extends FormDataResource {
     private HashMap<String, String> getSubstitutions(Person person) {
         final HashMap<String, String> substitutions = new HashMap<>();
 
-        substitutions.put("salutation", person.getSalutation_a_e1());
+        substitutions.put("salutation", selectSalutation(person));
         substitutions.put("firstname", person.getFirstname_a_e1());
         substitutions.put("lastname", person.getLastname_a_e1());
         substitutions.put("titel", person.getTitle_a_e1());
@@ -304,6 +306,29 @@ public class PdfTemplateResource extends FormDataResource {
         substitutions.put("salutation_complete", salutationCompleteTwo);
 
         return substitutions;
+    }
+
+    private String selectSalutation(Person person) {
+        for (SalutationAlternative alternativeSalutation : alternativeSalutations) {
+            if (person.getFk_salutation_a_e1() == alternativeSalutation.getSalutation_id()) {
+                return alternativeSalutation.getContent();
+            }
+        }
+        return person.getSalutation_a_e1();
+    }
+
+    private List<SalutationAlternative> getAlternativeSalutations() {
+        final Session session = openSession();
+        try {
+            final Query query = session.getNamedQuery("SalutationAlternative.getAlternativeSalutationsByPdftemplate");
+            query.setInteger("pdftemplate_id", 1);
+            if (query.list().isEmpty()) {
+                return new ArrayList<>();
+            }
+            return (List<SalutationAlternative>) query.list();
+        } finally {
+            session.close();
+        }
     }
 
     private String getEnvelopeOne(Person person) {

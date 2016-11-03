@@ -34,6 +34,7 @@
         <mapping class="org.evolvis.veraweb.onlinereg.entities.MediaRepresentativeActivation"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.PdfTemplate"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.MailTemplate"/>
+        <mapping class="org.evolvis.veraweb.onlinereg.entities.SalutationAlternative"/>
 
     </session-factory>
 </hibernate-configuration>
