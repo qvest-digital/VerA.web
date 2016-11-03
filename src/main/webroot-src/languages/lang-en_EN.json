@@ -36,7 +36,7 @@
   "GENERIC_MISSING_FIRSTNAME_MESSAGE": "Please enter firstname",
   "GENERIC_MISSING_LASTNAME_MESSAGE": "Please enter lastname",
   "GENERIC_LOGOUT_SUCCESSFUL_MESSAGE": "You have been logged out successfully!",
-  "GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG": "Username or password is wrong!",
+  "GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG": "Username or password is wrong or the account is not activated yet!",
   "GENERIC_MESSAGE_EVENT_DOESNT_EXISTS": "The event does not exists.",
   "GENERIC_MESSAGE_FILL_IN_ALL_FIELDS": "Please fill in all fields!",
   "GENERIC_MESSAGE_FILL_IN_ALL_RED_FIELDS": "Please fill all the required fields.",

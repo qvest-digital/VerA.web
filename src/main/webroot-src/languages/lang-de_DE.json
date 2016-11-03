@@ -35,7 +35,7 @@
   "GENERIC_MISSING_FIRSTNAME_MESSAGE": "Bitte geben Sie einen Vornamen ein.",
   "GENERIC_MISSING_LASTNAME_MESSAGE": "Bitte geben Sie einen Nachnamen ein.",
   "GENERIC_LOGOUT_SUCCESSFUL_MESSAGE": "Erfolgreich abgemeldet!",
-  "GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG": "Der Benutzername oder das Passwort ist falsch!",
+  "GENERIC_MESSAGE_USER_OR_PASSWORD_WRONG": "Der Benutzername oder das Passwort ist falsch, oder der Account ist noch nicht aktiviert!",
   "GENERIC_MESSAGE_EVENT_DOESNT_EXISTS": "Die Veranstaltung existiert nicht.",
   "GENERIC_MESSAGE_FILL_IN_ALL_FIELDS": "Bitte füllen Sie alle Felder aus!",
   "GENERIC_MESSAGE_FILL_IN_ALL_RED_FIELDS": "Bitte füllen Sie alle erforderlichen Felder aus.",
