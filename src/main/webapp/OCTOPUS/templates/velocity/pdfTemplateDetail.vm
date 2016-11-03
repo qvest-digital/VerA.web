@@ -17,10 +17,17 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_PLURAL}")
 #parse("inc/header.vm")
 
+<div data-salutations="${paths.staticWeb}salutation/alternative/unused/$pdftemplate.id" id="salutations-list"></div>
+<div data-salutations-alternative="${paths.staticWeb}salutation/alternative/list/$pdftemplate.id" id="salutations-alternative-list"></div>
+
 <script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
+<script src="${paths.staticWeb}scripts/jquery.colorbox-min.js"></script>
+<script type="text/javascript" src="${paths.staticWeb}scripts/salutation-list.js"></script>
+<link type="text/css" src="${paths.staticWeb}styles/colobox.css"/>
 
 <div id="content_container">
 	<form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/edit" method="POST">
+
 		<input type="hidden" name="save" value="true"/>
 		<input type="hidden" name="pdftemplate-orgunit" value="$!octopusConfig.personalConfig.orgUnitId">
 
@@ -57,6 +64,10 @@
             #if ($listparam.count && $listparam.count == 0)
             	<tr><td colspan="2">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
             #end
+
+            <tr id="salutationsAlternativeList">
+                <td>${placeholderWithTranslation.SALUTATION_EDITABLE_LABEL}</td><td colspan="2" id="salutationsAlternativeListContent"><span>${placeholderWithTranslation.SALUTATION_EDITABLE_TEXT}</span><hr style="margin-top: 10px"/></td>
+            </tr>
         </table>
 
 
