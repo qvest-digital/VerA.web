@@ -74,7 +74,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     public String username;
 
     // Hauptperson, Latein
-    @Size(max=10)
+    @Size(max=100)
     public String salutation_a_e1;
     public Integer fk_salutation_a_e1;
     @Size(max=250)
@@ -101,7 +101,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     public String notehost_a_e1;
 
     // Hauptperson, Zeichensatz 1
-    @Size(max=10)
+    @Size(max=100)
     public String salutation_a_e2;
     public Integer fk_salutation_a_e2;
     @Size(max=100)
@@ -114,7 +114,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     public String lastname_a_e2;
 
     // Hauptperson, Zeichensatz 2
-    @Size(max=10)
+    @Size(max=100)
     public String salutation_a_e3;
     public Integer fk_salutation_a_e3;
     @Size(max=100)
@@ -127,7 +127,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     public String lastname_a_e3;
 
     // Partner, Latein
-    @Size(max=10)
+    @Size(max=100)
     public String salutation_b_e1;
     public Integer fk_salutation_b_e1;
     @Size(max=250)
@@ -153,7 +153,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     public String notehost_b_e1;
 
     // Partner, Zeichensatz 1
-    @Size(max=10)
+    @Size(max=100)
     public String salutation_b_e2;
     public Integer fk_salutation_b_e2;
     //public String birthplace_b_e2;
@@ -165,7 +165,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     public String lastname_b_e2;
 
     // Partner, Zeichensatz 2
-    @Size(max=10)
+    @Size(max=100)
     public String salutation_b_e3;
     public Integer fk_salutation_b_e3;
     //public String birthplace_b_e3;
