@@ -15,7 +15,6 @@ import javax.persistence.SqlResultSetMapping;
 import javax.persistence.SqlResultSetMappings;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.List;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
@@ -35,15 +34,19 @@ import java.util.List;
         })
 })
 @NamedQueries(value = {
-        @NamedQuery(name = "SalutationAlternative.getAlternativeSalutationsByPdftemplate", query = "SELECT sa FROM SalutationAlternative sa where pdftemplate_id = :pdftemplate_id")
+        @NamedQuery(name = SalutationAlternative.GET_SALUTATION_ALTERNATIVE_BY_PDF_ID, query = "SELECT sa FROM SalutationAlternative sa where pdftemplate_id = :" + SalutationAlternative.PARAM_PDFTEMPLATE_ID)
 })
 @NamedNativeQueries(value={
-        @NamedNativeQuery(name = "SalutationAlternative.getSalutationsFacadeByPdftemplate",
+        @NamedNativeQuery(name = SalutationAlternative.GET_SALUTATION_ALTERNATIVE_FACADE_BY_PDF_ID,
                 query = "SELECT sa.pk, sa.salutation_id, sa.pdftemplate_id, sa.content as salutation_alternative, s.salutation as salutation_default FROM salutation_alternative sa LEFT JOIN tsalutation s on s.pk = sa.salutation_id " +
-                        "where sa.pdftemplate_id = :pdftemplate_id", resultSetMapping="salutationMapping"),
-        @NamedNativeQuery(name="Salutation.getSalutationsWithoutAlternativeContent", query = "SELECT s.* FROM tsalutation s WHERE pk NOT IN (SELECT salutation_id FROM salutation_alternative WHERE pdftemplate_id=:pdftemplate_id)", resultClass=Salutation.class)
+                        "where sa.pdftemplate_id = :" + SalutationAlternative.PARAM_PDFTEMPLATE_ID, resultSetMapping="salutationMapping"),
 })
 public class SalutationAlternative {
+
+    public static final String GET_SALUTATION_ALTERNATIVE_BY_PDF_ID = "SalutationAlternative.getAlternativeSalutationsByPdftemplate";
+    public static final String GET_SALUTATION_ALTERNATIVE_FACADE_BY_PDF_ID = "SalutationAlternative.getSalutationsFacadeByPdftemplate";
+    public static final String PARAM_PDFTEMPLATE_ID = "pdftemplate_id";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer pk;
