@@ -711,7 +711,7 @@ BEGIN
                 CREATE TABLE veraweb.salutation_alternative (
                  pk INTEGER DEFAULT nextval('veraweb.salutation_alternative_seq') NOT NULL,
                  pdftemplate_id INTEGER NOT NULL REFERENCES veraweb.pdftemplate(pk) ON DELETE CASCADE,
-                 salutation_id INTEGER UNIQUE NOT NULL REFERENCES veraweb.tsalutation(pk) ON DELETE CASCADE,
+                 salutation_id INTEGER NOT NULL REFERENCES veraweb.tsalutation(pk) ON DELETE CASCADE,
                  content text NOT NULL,
 
                  CONSTRAINT salutation_alternative_pkey PRIMARY KEY (pk)
