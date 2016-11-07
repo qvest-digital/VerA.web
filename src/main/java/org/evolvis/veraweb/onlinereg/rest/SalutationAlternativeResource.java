@@ -63,6 +63,11 @@ public class SalutationAlternativeResource extends AbstractResource {
     public Response saveAlternativeSalutation(@PathParam("pdftemplateId") Integer pdftemplateId,
                                               @FormParam("salutationId") Integer salutationId,
                                               @FormParam("content") String content) {
+
+        if (pdftemplateId == null || salutationId == null || content == null || content.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
         final Session session = openSession();
 
         try {
