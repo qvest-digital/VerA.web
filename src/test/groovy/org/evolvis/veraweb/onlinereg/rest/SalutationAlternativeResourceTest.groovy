@@ -53,4 +53,15 @@ class SalutationAlternativeResourceTest extends Specification {
             assert session != null
             1 * session.close()
     }
+
+    void testSaveAlternativeSalutation() {
+        when:
+            def response = resource.saveAlternativeSalutation(1,1,"content")
+
+        then:
+            assert session != null
+            1 * session.flush()
+            1 * session.close()
+            assert response.entity.content == "content"
+    }
 }

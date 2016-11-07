@@ -5,11 +5,14 @@ import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -25,8 +28,8 @@ public class SalutationAlternativeResource extends AbstractResource {
      * @return list with all salutations and their attributes
      */
     @GET
-    @Path("/list/{pdftemplate_id}")
-    public List getSalutations(@PathParam("pdftemplate_id") Integer pdftemplateId) {
+    @Path("/list/{pdftemplateId}")
+    public List getSalutations(@PathParam("pdftemplateId") Integer pdftemplateId) {
         final Session session = openSession();
 
         try {
@@ -41,8 +44,8 @@ public class SalutationAlternativeResource extends AbstractResource {
 
 
     @GET
-    @Path("/unused/{pdftemplate_id}")
-    public List getSalutationsWithoutAlternativeContent(@PathParam("pdftemplate_id") Integer pdftemplateId) {
+    @Path("/unused/{pdftemplateId}")
+    public List getSalutationsWithoutAlternativeContent(@PathParam("pdftemplateId") Integer pdftemplateId) {
         final Session session = openSession();
 
         try {
@@ -53,5 +56,32 @@ public class SalutationAlternativeResource extends AbstractResource {
         } finally {
             session.close();
         }
+    }
+
+    @POST
+    @Path("/save/{pdftemplateId}/")
+    public Response saveAlternativeSalutation(@PathParam("pdftemplateId") Integer pdftemplateId,
+                                              @FormParam("salutationId") Integer salutationId,
+                                              @FormParam("content") String content) {
+        final Session session = openSession();
+
+        try {
+            final SalutationAlternative salutation = initSalutationAlternative(pdftemplateId, salutationId, content);
+            session.save(salutation);
+            session.flush();
+
+            return Response.ok(salutation).build();
+        } finally {
+            session.close();
+        }
+    }
+
+    private SalutationAlternative initSalutationAlternative(Integer pdftemplateId, Integer salutationId, String content){
+        SalutationAlternative salutationAlternative = new SalutationAlternative();
+        salutationAlternative.setPdftemplate_id(pdftemplateId);
+        salutationAlternative.setSalutation_id(salutationId);
+        salutationAlternative.setContent(content);
+
+        return salutationAlternative;
     }
 }
