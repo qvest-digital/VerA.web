@@ -1,5 +1,6 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
+import org.evolvis.veraweb.onlinereg.entities.Salutation;
 import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -29,8 +30,8 @@ public class SalutationAlternativeResource extends AbstractResource {
         final Session session = openSession();
 
         try {
-            final Query query = session.getNamedQuery("SalutationAlternative.getSalutationsFacadeByPdftemplate");
-            query.setInteger("pdftemplate_id", pdftemplateId);
+            final Query query = session.getNamedQuery(SalutationAlternative.GET_SALUTATION_ALTERNATIVE_FACADE_BY_PDF_ID);
+            query.setInteger(SalutationAlternative.PARAM_PDFTEMPLATE_ID, pdftemplateId);
 
             return query.list();
         } finally {
@@ -45,8 +46,8 @@ public class SalutationAlternativeResource extends AbstractResource {
         final Session session = openSession();
 
         try {
-            final Query query = session.getNamedQuery("Salutation.getSalutationsWithoutAlternativeContent");
-            query.setInteger("pdftemplate_id", pdftemplateId);
+            final Query query = session.getNamedQuery(Salutation.GET_SALUTATIONS_WITHOUT_ALTERNATIVE_CONTENT);
+            query.setInteger(SalutationAlternative.PARAM_PDFTEMPLATE_ID, pdftemplateId);
 
             return query.list();
         } finally {

@@ -320,8 +320,8 @@ public class PdfTemplateResource extends FormDataResource {
     private List<SalutationAlternative> getAlternativeSalutations() {
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("SalutationAlternative.getAlternativeSalutationsByPdftemplate");
-            query.setInteger("pdftemplate_id", 1);
+            final Query query = session.getNamedQuery(SalutationAlternative.GET_SALUTATION_ALTERNATIVE_BY_PDF_ID);
+            query.setInteger(SalutationAlternative.PARAM_PDFTEMPLATE_ID, 1);
             if (query.list().isEmpty()) {
                 return new ArrayList<>();
             }
