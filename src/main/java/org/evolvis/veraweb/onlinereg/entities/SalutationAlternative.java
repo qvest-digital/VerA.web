@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
         })
 })
 @NamedQueries(value = {
-        @NamedQuery(name = SalutationAlternative.GET_SALUTATION_ALTERNATIVE_BY_PDF_ID, query = "SELECT sa FROM SalutationAlternative sa where pdftemplate_id = :" + SalutationAlternative.PARAM_PDFTEMPLATE_ID)
+        @NamedQuery(name = SalutationAlternative.GET_SALUTATION_ALTERNATIVE_BY_PDF_ID,
+                query = "SELECT sa FROM SalutationAlternative sa where pdftemplate_id = :" + SalutationAlternative.PARAM_PDFTEMPLATE_ID)
 })
 @NamedNativeQueries(value={
         @NamedNativeQuery(name = SalutationAlternative.GET_SALUTATION_ALTERNATIVE_FACADE_BY_PDF_ID,
