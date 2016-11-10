@@ -83,7 +83,7 @@ public class SalutationAlternativeResource extends AbstractResource {
                                               @FormParam("salutationId") Integer salutationId,
                                               @FormParam("content") String content) {
 
-        if (pdftemplateId == null || salutationId == null || content == null || content.isEmpty()) {
+        if (salutationId == null || content == null || content.isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
