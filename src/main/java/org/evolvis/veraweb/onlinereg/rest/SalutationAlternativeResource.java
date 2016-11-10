@@ -5,6 +5,7 @@ import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -53,6 +54,24 @@ public class SalutationAlternativeResource extends AbstractResource {
             query.setInteger(SalutationAlternative.PARAM_PDFTEMPLATE_ID, pdftemplateId);
 
             return query.list();
+        } finally {
+            session.close();
+        }
+    }
+
+    @DELETE
+    @Path("delete/{salutationId}")
+    public Response deleteAlternativeSalutation(@PathParam("salutationId") Integer salutationId){
+        final Session session = openSession();
+
+        try {
+            final Query query = session.getNamedQuery(SalutationAlternative.DELETE_SALUTATION_ALTERNATIVE_BY_ID);
+            query.setInteger(SalutationAlternative.PARAM_PK, salutationId);
+
+            query.executeUpdate();
+            session.flush();
+
+            return Response.ok(salutationId).build();
         } finally {
             session.close();
         }
