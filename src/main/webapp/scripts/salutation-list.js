@@ -9,7 +9,7 @@
                 if (data != null ) {
                     if (data.length > 0) { /* show/hide + Button */
                         $("#salutationsAlternativeListContent").append("<div style='margin-top: 10px'><img id='addSalutation' style='vertical-align: middle; margin-right: 10px;' src='../images/add.png'/><span>" + $("#salutations-placeholder-add").data("translation") + "</span></div>");
-                        $("#addSalutation").click(function(){
+                        $("img#addSalutation").click(function(){
                             showDialog(data);
                         });
                     }
@@ -95,8 +95,11 @@
                 $(".successmsg").remove();
                 if (data != null) {
                     for (i = 0; i < data.length; i++) {
-                        $("#salutationsAlternativeListContainer").append("<div style='margin: 10px 10px 0 0'><label style='display:inline; margin-right: 10px; width: 40%;'>" + data[i][4] + "</label>" + $("#salutations-placeholder-to").data("translation") + "<label style='display:inline; margin-left: 10px; width: 40%;'>" + data[i][3] + "</label></div>");
+                        $("#salutationsAlternativeListContainer").append("<div style='margin: 10px 10px 0 0'><label style='display:inline; margin-right: 10px; width: 40%;'>" + data[i][4] + "</label>" + $("#salutations-placeholder-to").data("translation") + "<label style='display:inline; margin-left: 10px; width: 40%;'>" + data[i][3] + "</label><img data-salutation-id=" + data[i][0] + " class='removeSalutation' style='vertical-align: middle; margin-left: 10px;' src='../images/remove.png'/></div>");
                     }
+                    $("img.removeSalutation").click(function(){
+                        deleteSalutationsAlternative($(this).data("salutation-id"));
+                    });
                 } else {
                     //FIXME: REST API ERROR
                 }
@@ -105,6 +108,24 @@
                 $(".errormsg").remove();
                 $(".successmsg").remove();
                 var errorMsg = $("#pdftemplate-salutation-load-errormsg").data("errormsg");
+                showWarning(errorMsg);
+            }
+        });
+    };
+
+    var deleteSalutationsAlternative = function(salutationId) {
+        $.ajax({
+            url: $("#salutations-delete-link").data("rest-path") + salutationId,
+            type: 'DELETE',
+            success: function(data){
+                $(".errormsg").remove();
+                $(".successmsg").remove();
+                location.reload();
+            },
+            error: function(data) {
+                $(".errormsg").remove();
+                $(".successmsg").remove();
+                var errorMsg = $("#pdftemplate-salutation-delete-errormsg").data("errormsg");
                 showWarning(errorMsg);
             }
         });
