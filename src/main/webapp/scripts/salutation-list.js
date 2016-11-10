@@ -8,7 +8,7 @@
                 $(".successmsg").remove();
                 if (data != null ) {
                     if (data.length > 0) { /* show/hide + Button */
-                        $("#salutationsAlternativeListContent").append("<div style='margin-top: 10px'><img id='addSalutation' style='vertical-align: middle; margin-right: 10px;' src='../images/add.png'/><span>" + $("#salutations-placeholder-add").data("translation") + "</span></div>");
+                        $("#salutationsAlternativeListContent").append("<div class='clearSalutation' style='margin-top: 10px'><img id='addSalutation' style='vertical-align: middle; margin-right: 10px;' src='../images/add.png'/><span>" + $("#salutations-placeholder-add").data("translation") + "</span></div>");
                         $("img#addSalutation").click(function(){
                             showDialog(data);
                         });
@@ -68,15 +68,18 @@
                 content: value.salutationText.trim()
             },
             type: 'POST',
-            success: function(data){
+            success: function(response){
                 $(".errormsg").remove();
                 $(".successmsg").remove();
+                $(".vex").hide();
                 location.reload();
+                // TODO: Entscheiden ob mit location.reload (wie bei save, bei save braucht man dann das vex.hide wegen dem firefox)
+                // TODO: oder mit reloadSalutations() (wie bei delete, dann zuckt die Seite unten kurz zusammen)
             },
-            error: function(data) {
+            error: function(response) {
                 $(".errormsg").remove();
                 $(".successmsg").remove();
-                if (data.status == 400){ /* Bad Request */
+                if (response.status == 400){ /* Bad Request */
                     var errorMsg = $("#pdftemplate-salutation-empty-errormsg").data("errormsg");
                 } else {
                     var errorMsg = $("#pdftemplate-salutation-save-errormsg").data("errormsg");
@@ -95,7 +98,7 @@
                 $(".successmsg").remove();
                 if (data != null) {
                     for (i = 0; i < data.length; i++) {
-                        $("#salutationsAlternativeListContainer").append("<div style='margin: 10px 10px 0 0'><label style='display:inline; margin-right: 10px; width: 40%;'>" + data[i][4] + "</label>" + $("#salutations-placeholder-to").data("translation") + "<label style='display:inline; margin-left: 10px; width: 40%;'>" + data[i][3] + "</label><img data-salutation-id=" + data[i][0] + " class='removeSalutation' style='vertical-align: middle; margin-left: 10px;' src='../images/remove.png'/></div>");
+                        $("#salutationsAlternativeListContainer").append("<div class='clearSalutation' style='margin: 10px 10px 0 0'><label style='display:inline; margin-right: 10px; width: 40%;'>" + data[i][4] + "</label>" + $("#salutations-placeholder-to").data("translation") + "<label style='display:inline; margin-left: 10px; width: 40%;'>" + data[i][3] + "</label><img data-salutation-id=" + data[i][0] + " class='removeSalutation' style='vertical-align: middle; margin-left: 10px;' src='../images/remove.png'/></div>");
                     }
                     $("img.removeSalutation").click(function(){
                         deleteSalutationsAlternative($(this).data("salutation-id"));
@@ -120,7 +123,9 @@
             success: function(data){
                 $(".errormsg").remove();
                 $(".successmsg").remove();
-                location.reload();
+                reloadSalutations();
+                // TODO: Entscheiden ob mit location.reload (wie bei save, bei save braucht man dann das vex.hide wegen dem firefox)
+                // TODO: oder mit reloadSalutations() (wie bei delete, dann zuckt die Seite unten kurz zusammen)
             },
             error: function(data) {
                 $(".errormsg").remove();
@@ -131,8 +136,17 @@
         });
     };
 
-    $(document).ready(function() {
+    var reloadSalutations = function(){
+        $(".clearSalutation").remove();
+        loadSalutations();
+    };
+
+    var loadSalutations = function(){
         loadSalutationsUnusedList();
         loadSalutationsAlternativeList();
+    };
+
+    $(document).ready(function() {
+        loadSalutations();
     });
 })();
