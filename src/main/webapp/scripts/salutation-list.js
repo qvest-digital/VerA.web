@@ -30,14 +30,14 @@
         var selectOptions = buildSelectTag(data);
 
         vex.dialog.open({
-            message: 'Are you absolutely sure you want to destroy the alien planet?ÜBERSETZUNG',
+            message: $("#salutations-dialog-text").data("translation"),
             input: [
                 selectOptions,
-                '<input name="salutationText" type="text" placeholder="Alternative AnredeÜBERSETZUNG" required />'
-            ].join(''),
+                "<input name='salutationText' type='text' placeholder=" + $("#salutations-dialog-field").data("translation") + " required />"
+            ].join(""),
             buttons: [
-                $.extend({}, vex.dialog.buttons.YES, { text: 'SpeichernÜBERSETZUNG' }),
-                $.extend({}, vex.dialog.buttons.NO, { text: 'AbbrechenÜBERSETZUNG' })
+                $.extend({}, vex.dialog.buttons.YES, { text: $("#salutations-dialog-yes").data("translation") }),
+                $.extend({}, vex.dialog.buttons.NO, { text: $("#salutations-dialog-no").data("translation") })
             ],
             callback: function (value) {
                 if (value) {
@@ -64,8 +64,8 @@
         $.ajax({
             url: $("#salutations-save-link").data("rest-path"),
             data: {
-                salutationId:value.salutationId,
-                content:value.salutationText.trim()
+                salutationId: value.salutationId,
+                content: value.salutationText.trim()
             },
             type: 'POST',
             success: function(data){

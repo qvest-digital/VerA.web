@@ -23,6 +23,10 @@
 <!-- placeholder-->
 <div data-translation="${placeholderWithTranslation.ADD_ALTERNATIVE_SALUTATION}" id="salutations-placeholder-add"></div>
 <div data-translation="${placeholderWithTranslation.SALUTATION_TO_SALUTATION}" id="salutations-placeholder-to"></div>
+<div data-translation="${placeholderWithTranslation.d}" id="salutations-dialog-text"></div>
+<div data-translation="${placeholderWithTranslation.e}" id="salutations-dialog-field"></div>
+<div data-translation="${placeholderWithTranslation.speichern}" id="salutations-dialog-yes"></div>
+<div data-translation="${placeholderWithTranslation.GENERIC_CANCEL}" id="salutations-dialog-no"></div>
 <!-- rest-api path -->
 <div data-rest-path="${paths.staticWeb}salutation/alternative/unused/$pdftemplate.id" id="salutations-unused-list"></div>
 <div data-rest-path="${paths.staticWeb}salutation/alternative/list/$pdftemplate.id" id="salutations-alternative-list"></div>
