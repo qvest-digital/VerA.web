@@ -17,18 +17,26 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_PLURAL}")
 #parse("inc/header.vm")
 
-<div data-salutations="${paths.staticWeb}salutation/alternative/unused/$pdftemplate.id" id="salutations-list"></div>
-<div data-salutations-alternative="${paths.staticWeb}salutation/alternative/list/$pdftemplate.id" id="salutations-alternative-list"></div>
-<div data-salutations-save="${paths.staticWeb}salutation/alternative/save/$pdftemplate.id" id="salutations-save-link"></div>
-
 <script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
 
+<!-- alternative salutations -->
+<!-- placeholder-->
+<div data-translation="${placeholderWithTranslation.ADD_ALTERNATIVE_SALUTATION}" id="salutations-placeholder-add"></div>
+<div data-translation="${placeholderWithTranslation.SALUTATION_TO_SALUTATION}" id="salutations-placeholder-to"></div>
+<!-- rest-api path -->
+<div data-rest-path="${paths.staticWeb}salutation/alternative/unused/$pdftemplate.id" id="salutations-unused-list"></div>
+<div data-rest-path="${paths.staticWeb}salutation/alternative/list/$pdftemplate.id" id="salutations-alternative-list"></div>
+<div data-rest-path="${paths.staticWeb}salutation/alternative/save/$pdftemplate.id" id="salutations-save-link"></div>
+<!-- ERROR MSG -->
+<div data-errormsg="${placeholderWithTranslation.a}" id="pdftemplate-salutation-load-errormsg"></div>
+<div data-errormsg="${placeholderWithTranslation.b}" id="pdftemplate-salutation-empty-errormsg"></div>
+<div data-errormsg="${placeholderWithTranslation.c}" id="pdftemplate-salutation-save-errormsg"></div>
+<!-- vex library -->
 <script src="${paths.staticWeb}scripts/vex.combined.min.js"></script>
 <script>vex.defaultOptions.className = 'vex-theme-default'</script>
-
 <link rel="stylesheet" href="${paths.staticWeb}styles/vex.css" />
 <link rel="stylesheet" href="${paths.staticWeb}styles/vex-theme-default.css" />
-
+<!-- js controller -->
 <script src="${paths.staticWeb}scripts/salutation-list.js"></script>
 
 <div id="content_container">
@@ -72,7 +80,12 @@
             #end
 
             <tr id="salutationsAlternativeList">
-                <td>${placeholderWithTranslation.SALUTATION_EDITABLE_LABEL}</td><td colspan="2" id="salutationsAlternativeListContent"><span>${placeholderWithTranslation.SALUTATION_EDITABLE_TEXT}</span><hr style="margin-top: 10px"/></td>
+                <td>${placeholderWithTranslation.SALUTATION_EDITABLE_LABEL}</td>
+                <td colspan="2" id="salutationsAlternativeListContent">
+                    <span>${placeholderWithTranslation.SALUTATION_EDITABLE_TEXT}</span>
+                    <hr style="margin-top: 10px"/>
+                    <div id="salutationsAlternativeListContainer"></div>
+                </td>
             </tr>
         </table>
 
