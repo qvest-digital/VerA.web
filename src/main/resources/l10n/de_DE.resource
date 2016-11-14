@@ -202,6 +202,7 @@ GENERIC_ON_LOWERCASE=auf
 GENERIC_PAGE=Seite
 GENERIC_PAGES=Seiten
 GENERIC_PLACE=Platz
+GENERIC_ALTERNATIVE=Alternative
 
 # MENU
 MENU_PERSONS=Personen
@@ -2088,3 +2089,11 @@ zipcode_b_e3=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 zipcode_c_e1=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 zipcode_c_e2=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 zipcode_c_e3=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
+
+# ALTERNATIVE SALUTATIONS
+SALUTATION_EDITABLE_TEXT=Hier können Sie Alternative Anreden für diese PDF- Vorlage erstellen
+SALUTATION_TO_SALUTATION=wird zu
+SALUTATION_ERROR_LOAD=Fehler beim Laden
+SALUTATION_ERROR_EMPTY=Alternative Anrede darf nicht leer sein
+SALUTATION_ERROR_SAVE=Fehler beim speichern
+SALUTATION_ERROR_DELETE=Fehler beim löschen

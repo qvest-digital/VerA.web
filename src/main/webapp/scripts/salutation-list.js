@@ -33,6 +33,7 @@
             message: $("#salutations-dialog-text").data("translation"),
             input: [
                 selectOptions,
+                "<span> " + $("#salutations-placeholder-to").data("translation") + "</span>",
                 "<input name='salutationText' type='text' placeholder=" + $("#salutations-dialog-field").data("translation") + " required />"
             ].join(""),
             buttons: [

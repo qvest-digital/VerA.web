@@ -23,10 +23,10 @@
 <!-- alternative salutations -->
 #if($edit)
 <!-- placeholder-->
-<div data-translation="${placeholderWithTranslation.ADD_ALTERNATIVE_SALUTATION}" id="salutations-placeholder-add"></div>
 <div data-translation="${placeholderWithTranslation.SALUTATION_TO_SALUTATION}" id="salutations-placeholder-to"></div>
-<div data-translation="${placeholderWithTranslation.SALUTATION_DIALOG_TEXT}" id="salutations-dialog-text"></div>
-<div data-translation="${placeholderWithTranslation.SALUTATION_DIALOG_FIELD}" id="salutations-dialog-field"></div>
+<div data-translation="${placeholderWithTranslation.GENERIC_ADD}" id="salutations-placeholder-add"></div>
+<div data-translation="${placeholderWithTranslation.GENERIC_ALTERNATIVE} ${placeholderWithTranslation.GENERIC_SALUTATION_PLURAL}" id="salutations-dialog-text"></div>
+<div data-translation="..." id="salutations-dialog-field"></div>
 <div data-translation="${placeholderWithTranslation.speichern}" id="salutations-dialog-yes"></div>
 <div data-translation="${placeholderWithTranslation.GENERIC_CANCEL}" id="salutations-dialog-no"></div>
 <!-- rest-api path -->
@@ -90,7 +90,7 @@
 
             #if($edit)
             <tr id="salutationsAlternativeList">
-                <td>${placeholderWithTranslation.SALUTATION_EDITABLE_LABEL}</td>
+                <td>${placeholderWithTranslation.GENERIC_ALTERNATIVE} ${placeholderWithTranslation.GENERIC_SALUTATION_PLURAL}</td>
                 <td colspan="2" id="salutationsAlternativeListContent">
                     <span>${placeholderWithTranslation.SALUTATION_EDITABLE_TEXT}</span>
                     <hr style="margin-top: 10px"/>
