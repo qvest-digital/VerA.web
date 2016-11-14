@@ -20,16 +20,21 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.PdfTemplate;
+import de.tarent.aa.veraweb.utils.VerawebUtils;
+import de.tarent.dblayer.helper.ResultList;
+import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
+import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.DatabaseVeraWeb;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 import java.io.IOException;
+import java.util.List;
 
 public class PdfTemplateWorker extends ListWorkerVeraWeb {
 
@@ -42,13 +47,14 @@ public class PdfTemplateWorker extends ListWorkerVeraWeb {
 	public static final String OUTPUT_showDetail = "pdftemplate";
 
 	public PdfTemplate showDetail(OctopusContext octopusContext, Integer id, PdfTemplate pdfTemplate) throws BeanException, IOException {
-		if (pdfTemplate == null && id != null) {
-			return (PdfTemplate)getDatabase(octopusContext).getBean("PdfTemplate", id);
+        final Database database = getDatabase(octopusContext);
+        if (pdfTemplate == null && id != null) {
+            return (PdfTemplate)getDatabase(octopusContext).getBean("PdfTemplate", id);
 		}
-		return pdfTemplate;
+		return (PdfTemplate) database.getBean("PdfTemplate", id);
 	}
 
-	@Override
+    @Override
 	protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException, IOException {
 		select.where(Expr.equal("pdftemplate.fk_orgunit", ((PersonalConfigAA)(octopusContext.personalConfig())).getOrgUnitId()));
 	}
@@ -65,10 +71,9 @@ public class PdfTemplateWorker extends ListWorkerVeraWeb {
 	 * @param save Gibt an ob eMail-Entwurf gespeichert werden soll.
 	 * @return eMail-Entwurf
 	 * @throws BeanException
-	 * @throws IOException
 	 */
-	public PdfTemplate saveDetail(final OctopusContext octopusContext, final Boolean save) throws BeanException, IOException {
-		if (save != null && save.booleanValue()) {
+	public PdfTemplate saveDetail(final OctopusContext octopusContext, final Boolean save) throws BeanException {
+		if (save != null && save) {
 			PdfTemplate pdfTemplate = (PdfTemplate)getRequest(octopusContext).getBean("PdfTemplate", "pdftemplate");
 			TransactionContext transactionContext = new DatabaseVeraWeb(octopusContext).getTransactionContext();
             pdfTemplate.verify(octopusContext);
@@ -84,9 +89,9 @@ public class PdfTemplateWorker extends ListWorkerVeraWeb {
 	private void handleSave(OctopusContext octopusContext, PdfTemplate pdfTemplate, TransactionContext transactionContext) throws BeanException {
 		try {
             if (pdfTemplate.id == null) {
-                octopusContext.setContent("countInsert", new Integer(1));
+                octopusContext.setContent("countInsert", 1);
             } else {
-                octopusContext.setContent("countUpdate", new Integer(1));
+                octopusContext.setContent("countUpdate", 1);
             }
 
 			saveBean(octopusContext, pdfTemplate, transactionContext);

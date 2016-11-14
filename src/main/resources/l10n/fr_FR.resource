@@ -203,6 +203,7 @@ GENERIC_ON_LOWERCASE=a
 GENERIC_PAGE=Page
 GENERIC_PAGES=Pages
 GENERIC_PLACE=Place
+GENERIC_ALTERNATIVE=Alternative
 
 # MENU
 MENU_PERSONS=Personnes
@@ -2126,3 +2127,11 @@ zipcode_b_e3=Code postale doit etre moins de 250 characteres.
 zipcode_c_e1=Code postale doit etre moins de 250 characteres.
 zipcode_c_e2=Code postale doit etre moins de 250 characteres.
 zipcode_c_e3=Code postale doit etre moins de 250 characteres.
+
+# ALTERNATIVE SALUTATIONS
+SALUTATION_EDITABLE_TEXT=Ici vous pouvez cr\u00E9er un style alternatif pour ce mod\u00E8le de PDF
+SALUTATION_TO_SALUTATION=volont\u00E9
+SALUTATION_ERROR_LOAD=Erreur lors du chargement
+SALUTATION_ERROR_EMPTY=Salutations alternatives ne doivent pas être vide
+SALUTATION_ERROR_SAVE=Erreur lors de l\u0027enregistrement
+SALUTATION_ERROR_DELETE=Erreur lors de la suppression

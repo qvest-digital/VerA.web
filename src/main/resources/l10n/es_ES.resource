@@ -202,6 +202,7 @@ GENERIC_ON_LOWERCASE=en
 GENERIC_PAGE=P\u00E1gina
 GENERIC_PAGES=P\u00E1ginas
 GENERIC_PLACE=plaza
+GENERIC_ALTERNATIVE=Alternativo
 
 # MENU
 MENU_PERSONS=Personas
@@ -2125,3 +2126,11 @@ zipcode_b_e3=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
 zipcode_c_e1=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
 zipcode_c_e2=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
 zipcode_c_e3=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
+
+# ALTERNATIVE SALUTATIONS
+SALUTATION_EDITABLE_TEXT=Puedes ingresar un saludo alternativo para este PDF aqu\u00ED
+SALUTATION_TO_SALUTATION=voluntad
+SALUTATION_ERROR_LOAD=Error durante la carga
+SALUTATION_ERROR_EMPTY=Saludos alternativos no deben estar vac\u00EDos
+SALUTATION_ERROR_SAVE=Error al guardar
+SALUTATION_ERROR_DELETE=Error al suprimir

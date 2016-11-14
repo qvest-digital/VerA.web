@@ -203,6 +203,7 @@ GENERIC_ON_LOWERCASE=on
 GENERIC_PAGE=Page
 GENERIC_PAGES=Pages
 GENERIC_PLACE=Place
+GENERIC_ALTERNATIVE=Alternative
 
 # MENU
 MENU_PERSONS=people
@@ -2117,3 +2118,11 @@ zipcode_b_e3=Postal code mustn't be longer than 250 characters
 zipcode_c_e1=Postal code mustn't be longer than 250 characters
 zipcode_c_e2=Postal code mustn't be longer than 250 characters
 zipcode_c_e3=Postal code mustn't be longer than 250 characters
+
+# ALTERNATIVE SALUTATIONS
+SALUTATION_EDITABLE_TEXT=Alternative salutations for this PDF template can be created here
+SALUTATION_TO_SALUTATION=becomes
+SALUTATION_ERROR_LOAD=Error while loading
+SALUTATION_ERROR_EMPTY=Alternative Salutations must not be empty
+SALUTATION_ERROR_SAVE=Error while saving
+SALUTATION_ERROR_DELETE=Error while deleting
