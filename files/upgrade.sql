@@ -714,7 +714,8 @@ BEGIN
                  salutation_id INTEGER NOT NULL REFERENCES veraweb.tsalutation(pk) ON DELETE CASCADE,
                  content text NOT NULL,
 
-                 CONSTRAINT salutation_alternative_pkey PRIMARY KEY (pk)
+                 CONSTRAINT salutation_alternative_pkey PRIMARY KEY (pk),
+                 CONSTRAINT salutation_alternative_unique UNIQUE (pdftemplate_id, salutation_id)
                 );
 
                 -- post-upgrade
