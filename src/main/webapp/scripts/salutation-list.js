@@ -71,10 +71,7 @@
             success: function(response){
                 $(".errormsg").remove();
                 $(".successmsg").remove();
-                $(".vex").hide();
-                location.reload();
-                // TODO: Entscheiden ob mit location.reload (wie bei save, bei save braucht man dann das vex.hide wegen dem firefox)
-                // TODO: oder mit reloadSalutations() (wie bei delete, dann zuckt die Seite unten kurz zusammen)
+                reloadSalutations();
             },
             error: function(response) {
                 $(".errormsg").remove();
