@@ -6,7 +6,7 @@
             success: function(data){
                 $(".errormsg").remove();
                 $(".successmsg").remove();
-                if (data != null ) {
+                if (data !== null ) {
                     if (data.length > 0) { /* show/hide + Button */
                         $("#salutationsAlternativeListContent").append("<div class='clearSalutation' style='margin-top: 10px'><img id='addSalutation' style='vertical-align: middle; margin-right: 10px;' src='../images/add.png'/><span>" + $("#salutations-placeholder-add").data("translation") + "</span></div>");
                         $("img#addSalutation").click(function(){
@@ -47,7 +47,7 @@
                     console.log("ERROR or CLOSED dialog popup");
                 }
             }
-        })
+        });
     };
 
     var buildSelectTag = function(data) {
@@ -76,10 +76,11 @@
             error: function(response) {
                 $(".errormsg").remove();
                 $(".successmsg").remove();
+                var errorMsg = "";
                 if (response.status == 400){ /* Bad Request */
-                    var errorMsg = $("#pdftemplate-salutation-empty-errormsg").data("errormsg");
+                    errorMsg = $("#pdftemplate-salutation-empty-errormsg").data("errormsg");
                 } else {
-                    var errorMsg = $("#pdftemplate-salutation-save-errormsg").data("errormsg");
+                    errorMsg = $("#pdftemplate-salutation-save-errormsg").data("errormsg");
                 }
                 showWarning(errorMsg);
             }
@@ -93,7 +94,7 @@
             success: function(data){
                 $(".errormsg").remove();
                 $(".successmsg").remove();
-                if (data != null) {
+                if (data !== null) {
                     for (i = 0; i < data.length; i++) {
                         $("#salutationsAlternativeListContainer").append("<div class='clearSalutation' style='margin: 10px 10px 0 0'><label style='display:inline; margin-right: 10px; width: 40%;'>" + data[i][4] + "</label>" + $("#salutations-placeholder-to").data("translation") + "<label style='display:inline; margin-left: 10px; width: 40%;'>" + data[i][3] + "</label><img data-salutation-id=" + data[i][0] + " class='removeSalutation' style='vertical-align: middle; margin-left: 10px;' src='../images/remove.png'/></div>");
                     }
@@ -121,8 +122,6 @@
                 $(".errormsg").remove();
                 $(".successmsg").remove();
                 reloadSalutations();
-                // TODO: Entscheiden ob mit location.reload (wie bei save, bei save braucht man dann das vex.hide wegen dem firefox)
-                // TODO: oder mit reloadSalutations() (wie bei delete, dann zuckt die Seite unten kurz zusammen)
             },
             error: function(data) {
                 $(".errormsg").remove();
