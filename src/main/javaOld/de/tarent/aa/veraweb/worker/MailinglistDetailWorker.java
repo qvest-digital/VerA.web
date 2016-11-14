@@ -48,7 +48,7 @@ import java.util.Map;
 public class MailinglistDetailWorker extends ListWorkerVeraWeb {
     /** Logger dieser Klasse */
     public static Logger logger = LogManager.getLogger(MailinglistDetailWorker.class.getName());
-    private Integer MAX_MAIL_TO_LENGTH = 1024;
+    private Integer MAX_MAIL_TO_LENGTH = -1;
 
     //
     // Konstruktoren
