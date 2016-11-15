@@ -10,7 +10,7 @@ $(document).ready(function() {
         success: function(data){
             $(".errormsg").remove();
             $(".successmsg").remove();
-            var select = document.getElementById("pdftemplate-combo")
+            var select = document.getElementById("pdftemplate-combo");
             for (var i = 0; i < data.length; i++) {
                 var pk = data[i][0];
                 var name = data[i][1];
@@ -18,7 +18,7 @@ $(document).ready(function() {
                 option.value = pk;
                 option.textContent = name;
                 select.appendChild(option);
-            };
+            }
         },
         error: function(data) {
             $(".errormsg").remove();

@@ -26,7 +26,7 @@
                 }
             });
         }
-    }
+    };
 
     $(document).ready(function() {
         $("#loadMailtemplateButton").click(executeLoadMailtemplate);
