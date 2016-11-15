@@ -9,6 +9,7 @@
 	<description>Veranstaltungsmanagment VerA.web</description>
 	<inceptionYear>2005</inceptionYear>
 	<properties>
+		<additionalparam>-Xdoclint:none</additionalparam>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
