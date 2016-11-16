@@ -300,28 +300,6 @@ public class PersonExportWorker extends PersonListWorker {
 	 * @param person Map mit den Gastdaten.
 	 */
 	protected void exportBothInOneLine(SpreadSheet spreadSheet, boolean showA, boolean showB, boolean showRemarks, Map person, String memberAEx, String memberBEx, String addressEx) {
-		//
-		// Gast spezifische Daten
-		//
-//		spreadSheet.addCell(data.get("doctype")); // Name des Dokument-Typs
-
-//		String text_a = (String)person.get("textfield");
-//		String text_b = (String)person.get("textfield_p");
-//		if (showA) {
-//			spreadSheet.addCell(text_a);
-//		} else {
-//			spreadSheet.addCell(null);
-//		}
-//		if (showB) {
-//			spreadSheet.addCell(text_b);
-//		} else {
-//			spreadSheet.addCell(null);
-//		}
-//		if (showA && showB && text_a != null && text_a.length() != 0 && text_b != null && text_b.length() != 0) {
-//			spreadSheet.addCell(person.get("textjoin"));
-//		} else {
-//			spreadSheet.addCell(null);
-//		}
 
 		spreadSheet.addCell(GuestExportWorker.getAddresstype((Integer)person.get("addresstype")));
 		spreadSheet.addCell(GuestExportWorker.getLocale((Integer)person.get("locale")));
@@ -490,10 +468,6 @@ public class PersonExportWorker extends PersonListWorker {
 	 * @param person Map mit den Personendaten.
 	 */
 	protected void exportOnlyPartner(SpreadSheet spreadSheet, boolean showRemarks, Map person, String memberBEx, String addressEx) {
-//		spreadSheet.addCell(person.get("textfield_p"));
-//		spreadSheet.addCell(null);
-//		spreadSheet.addCell(null);
-
 		spreadSheet.addCell(GuestExportWorker.getAddresstype((Integer)person.get("addresstype")));
         spreadSheet.addCell(GuestExportWorker.getLocale((Integer)person.get("locale")));
 
