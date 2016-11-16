@@ -61,8 +61,8 @@ public class PersonCategory {
 	/**
 	 * Constructor with custom set of fields.
 	 *
-	 * @param fk_person
-	 * @param fk_categorie
+	 * @param fk_person Person id
+	 * @param fk_categorie Category id
 	 */
 	public PersonCategory(Integer fk_person, Integer fk_categorie) {
 		this.fk_person = fk_person;
@@ -72,9 +72,9 @@ public class PersonCategory {
 	/**
 	 * Constructor with all fields.
 	 *
-	 * @param fk_person
-	 * @param fk_categorie
-	 * @param rank
+	 * @param fk_person Person id
+	 * @param fk_categorie Category id
+	 * @param rank Rank
 	 */
 	public PersonCategory(Integer fk_person, Integer fk_categorie, Integer rank) {
 		this.fk_person = fk_person;

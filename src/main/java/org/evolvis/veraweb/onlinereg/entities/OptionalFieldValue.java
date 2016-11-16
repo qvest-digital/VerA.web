@@ -21,12 +21,10 @@ package org.evolvis.veraweb.onlinereg.entities;
 
 import java.util.List;
 
-import org.evolvis.veraweb.onlinereg.entities.OptionalField;
-
 /**
  * This class represents a union of {@link OptionalField} and the typed value of a guest.
  *
- * @author Sven Schumann <s.schumann@tarent.de>
+ * @author Sven Schumann, s.schumann@tarent.de
  */
 public class OptionalFieldValue extends OptionalField {
 

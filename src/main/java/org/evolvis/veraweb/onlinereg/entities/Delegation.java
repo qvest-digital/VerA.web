@@ -19,7 +19,8 @@
  */
 package org.evolvis.veraweb.onlinereg.entities;
 
-import javax.persistence.EmbeddedId;
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,11 +30,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import lombok.Data;
-
 /**
  * @author jnunez
- * @author Sven Schumann <s.schumann@tarent.de>
+ * @author Sven Schumann, s.schumann@tarent.de
  */
 @Data
 @XmlRootElement
