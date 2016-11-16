@@ -19,9 +19,6 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
-import java.util.Date;
-import java.util.List;
-
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.Query;
@@ -34,6 +31,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by mley on 01.09.14.
@@ -54,6 +53,7 @@ public class PersonResource extends AbstractResource {
      * @param username Username
      * @param firstName First name
      * @param lastname Last name
+     * @param email Email
      *
      * @return The created person.
      */
@@ -80,6 +80,7 @@ public class PersonResource extends AbstractResource {
      * @param lastname Last name
      * @param gender Gender
      * @param company Company
+     * @param function Function
      *
      * @return The newly created person.
      */
@@ -354,6 +355,10 @@ public class PersonResource extends AbstractResource {
 
     /**
      * Getting the username from a person ID
+     *
+     * @param personId Person id
+     *
+     * @return The {@link Person}
      */
     @GET
     @Path("/list/{personId}")

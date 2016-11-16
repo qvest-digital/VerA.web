@@ -46,7 +46,7 @@ public class EventResource extends AbstractResource {
     /**
      * Getting the list of openned Events
      * 
-     * @return List<Event> List of events
+     * @return List of events
      */
     @Path("/")
     @GET
@@ -66,7 +66,7 @@ public class EventResource extends AbstractResource {
      * Getting the list of events of a person using the username (by previous getting of the id)
      *
      * @param username String
-     * @return List<Event> List of events
+     * @return List of events
      */
     @Path("/userevents/{username}")
     @GET

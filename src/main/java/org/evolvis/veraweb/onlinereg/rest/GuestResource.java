@@ -38,14 +38,7 @@ import java.math.BigInteger;
  * @author mley on 03.08.14.
  * @author sweiz
  * @author jnunez
- */
-/**
  * @author jobere
- *
- */
-/**
- * @author jobere
- *
  */
 @Path("/guest")
 @Produces(MediaType.APPLICATION_JSON)
@@ -352,7 +345,7 @@ public class GuestResource extends AbstractResource{
      * @param username OSIAM username
      * @param delegation UUID of delegation
      *
-     * return true if guest count over 0
+     * @return true if guest count over 0
      */
     @GET
     @Path("/registered/delegation/{username}/{delegation}")
@@ -405,10 +398,10 @@ public class GuestResource extends AbstractResource{
     /**
      * Generalized method for isUserRegisteredintoEvent and isUserRegisteredintoEventToAccept.
      * 
-     * @param username
-     * @param eventId
-     * @param namedQuery
-     * @return
+     * @param username Username
+     * @param eventId Event id
+     * @param namedQuery Query
+     * @return FIXME
      */
     private Boolean isUserRegistered(String username, Integer eventId, String namedQuery) {
         final Session session = openSession();
@@ -460,9 +453,15 @@ public class GuestResource extends AbstractResource{
      * @param uuid UUID of guest
      * @param eventId ID of event
      * @param userId ID of user
-     * @param invitationstatus 0 = Offen, 1 = Zusage, 2 = Absage
-     * @param invitationtype 0 = main person and partner invited, 1 = main person and partner invited,
-     *                       2 = only main person invited, 3 = only partner invited <- no main person
+     * @param invitationstatus
+     *      0 = Offen,
+     *      1 = Zusage,
+     *      2 = Absage
+     * @param invitationtype
+     *      0 = main person and partner invited,
+     *      1 = main person and partner invited,
+     *      2 = only main person invited,
+     *      3 = only partner invited
      * @param gender m = male, f = female
      * @param category Category
      * @param hostNode Note text for host
@@ -501,9 +500,15 @@ public class GuestResource extends AbstractResource{
      *
      * @param eventId ID of event
      * @param userId ID of user
-     * @param invitationstatus 0 = Offen, 1 = Zusage, 2 = Absage
-     * @param invitationtype 0 = main person and partner invited, 1 = main person and partner invited,
-     *                       2 = only main person invited, 3 = only partner invited <- no main person
+     * @param invitationstatus
+     *      0 = Offen,
+     *      1 = Zusage,
+     *      2 = Absage
+     * @param invitationtype
+     *      0 = main person and partner invited,
+     *      1 = main person and partner invited,
+     *      2 = only main person invited,
+     *      3 = only partner invited
      * @param gender m = male, f = female
      * @param category Category
      * @param username Username
@@ -552,6 +557,8 @@ public class GuestResource extends AbstractResource{
      *
      * @param eventId the event ID
      * @param username the username - osiam_login
+     *
+     * @return FIXME
      */
     @GET
     @Path("/isreserve/{eventId}/{username}")

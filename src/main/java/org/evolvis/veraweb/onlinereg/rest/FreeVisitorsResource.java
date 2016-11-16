@@ -19,7 +19,6 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
-import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Guest;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -31,7 +30,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Created by Max Marche, <m.marche@tarent.de> on 26.01.2015
+ * Created by Max Marche, m.marche@tarent.de on 26.01.2015
  */
 @Path("/freevisitors")
 @Produces(MediaType.APPLICATION_JSON)

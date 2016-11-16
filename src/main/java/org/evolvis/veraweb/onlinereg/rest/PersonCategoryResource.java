@@ -29,7 +29,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Created by Max Marche <m.marche@tarent.de> on 22.12.14.
+ * Created by Max Marche, m.marche@tarent.de on 22.12.14.
  */
 @Path("/personcategory")
 @Produces(MediaType.APPLICATION_JSON)

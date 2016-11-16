@@ -58,7 +58,7 @@ public class FileUploadResource extends AbstractResource {
      * @param imageStringData Image as String
      * @param extension Png or jpg
      * @param imgUUID Image UUID
-     * @throws IOException
+     * @throws IOException FIXME
      */
     @POST
     @Path("/save")

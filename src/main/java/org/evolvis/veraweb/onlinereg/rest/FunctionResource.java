@@ -39,7 +39,7 @@ public class FunctionResource extends AbstractResource {
     /**
      * Get function name by event hash
      *
-     * @param eventId
+     * @param eventId Event id
      * @return all function names of this event
      */
     @GET
