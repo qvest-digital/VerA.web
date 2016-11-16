@@ -44,6 +44,13 @@ public class SalutationAlternativeResource extends AbstractResource {
     }
 
 
+    /**
+     * Get the list with salutations witout alternative content.
+     *
+     * @param pdftemplateId Pdf template id
+     *
+     * @return List with salutations
+     */
     @GET
     @Path("/unused/{pdftemplateId}")
     public List getSalutationsWithoutAlternativeContent(@PathParam("pdftemplateId") Integer pdftemplateId) {
@@ -59,6 +66,13 @@ public class SalutationAlternativeResource extends AbstractResource {
         }
     }
 
+    /**
+     * Delete alternative salutation.
+     *
+     * @param salutationId Alternative salutation ID
+     *
+     * @return Response
+     */
     @DELETE
     @Path("delete/{salutationId}")
     public Response deleteAlternativeSalutation(@PathParam("salutationId") Integer salutationId){
