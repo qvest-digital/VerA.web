@@ -22,8 +22,7 @@ package org.evolvis.veraweb.onlinereg.utils;
 import java.util.Date;
 
 /**
- * Class used to transport data between api and angular 
- * -> the check "isRegistered" is crucial inside the open events site
+ * Class used to transport data between api and angular - the check "isRegistered" is crucial inside the open events site
  * @author jnunez
  *
  */
@@ -43,12 +42,14 @@ public class EventTransporter {
 	public EventTransporter() {}
 
 	/**
-	 * Constructor with parameters
+	 * Custom constructor.
 	 *
-	 * @param pk Integer
-	 * @param shortname String
-	 * @param datebegin Date
-	 * @param isRegistered Boolean
+	 * @param pk FIXME
+	 * @param shortname FIXME
+	 * @param datebegin Begin date
+	 * @param dateend End date
+	 * @param isRegistered FIXME
+	 * @param hash FIXME
 	 */
 	public EventTransporter(Integer pk, String shortname, Date datebegin, Date dateend,
 			Boolean isRegistered, String hash) {

@@ -99,6 +99,7 @@ public class MediaResource {
      * @param plz      zip code
      * @param city     city
      * @param country  country
+     * @param currentLanguageKey current language in frontend
      *
      * @throws java.io.IOException If creating person and saving it as guest fails.
      *

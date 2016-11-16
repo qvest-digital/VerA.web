@@ -37,7 +37,7 @@ import java.util.List;
 
 /**
  * Created by mley on 27.08.14.
- * <p/>
+ *
  * OSIAM client
  */
 @Log
@@ -102,7 +102,7 @@ public class OsiamClient {
      * @param accessTokenAsString access token
      * @param userName    username
      * @return User object of null, if user does not exist
-     * @throws IOException
+     * @throws IOException FIXME
      */
     public User getUser(String accessTokenAsString, String userName) throws IOException {
     	Query query = new QueryBuilder().filter("userName eq \"" + userName + "\"").build();
@@ -122,7 +122,7 @@ public class OsiamClient {
      * @param accessTokenAsString access token
      * @param user        User object to create
      * @return newly created user with meta information
-     * @throws IOException
+     * @throws IOException FIXME
      */
     public User createUser(String accessTokenAsString, User user) throws IOException {
     	AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
@@ -137,6 +137,8 @@ public class OsiamClient {
 	 * Get all users.
 	 *
 	 * @param accessTokenAsString Access token
+	 *
+	 * @return List with users
 	 */
 	public List<User> getAllUsers(String accessTokenAsString) {
 		AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
@@ -144,9 +146,12 @@ public class OsiamClient {
 	}
 
 	/**
-	 * Get user by email.
+	 * Get user by email
 	 *
 	 * @param email Email of the user
+	 *
+	 * @throws IOException FIXME
+	 * @return {@link User}
 	 */
 	public User getUserByEmail(String email) throws IOException {
 		final String accessTokenAsString = getAccessTokenClientCred("GET", "POST");
@@ -161,7 +166,8 @@ public class OsiamClient {
 
 	/**
 	 * Delete osiam user
-	 *
+	 * @param accessToken FIXME
+	 * @param id FIXME
 	 */
 	public void deleteUser(String id, AccessToken accessToken) {
 		this.connector.deleteUser(id, accessToken);

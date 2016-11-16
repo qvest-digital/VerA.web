@@ -95,7 +95,7 @@ public class VeranstaltungenResource {
      * Returns a list of events
      *
      * @return List of Event objects
-     * @throws IOException
+     * @throws IOException FIXME
      */
     @GET
     @Path("/dum")

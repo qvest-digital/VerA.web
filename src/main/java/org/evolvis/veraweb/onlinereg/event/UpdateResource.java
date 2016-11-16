@@ -104,10 +104,9 @@ public class UpdateResource {
     /**
      * Returns an event with given id.
      *
-     * @param eventId
-     *            event id
+     * @param eventId event id
      * @return Event object
-     * @throws IOException
+     * @throws IOException FIXME
      */
     @GET
     @Path("/{eventId}")
@@ -122,14 +121,13 @@ public class UpdateResource {
     /**
      * Save the registration to an event
      *
-     * @param eventId
-     *            event id
-     * @param notehost
-     *            note to host
-     * @param invitationstatus
-     *            status of user
+     * @param eventId event id
+     * @param notehost note to host
+     * @param invitationstatus status of user
+
+     * @throws IOException FIXME
+
      * @return updated Guest object
-     * @throws IOException
      */
     @POST
     @Path("/{eventId}/update")
@@ -155,10 +153,11 @@ public class UpdateResource {
     /**
      * Checking if the guest is a reserve or not
      *
-     * @param eventId
-     *            the event ID
-     * @param username
-     *            the username - osiam_login
+     * @param eventId the event ID
+     *
+     * @throws IOException FIXME
+     *
+     * @return FIXME
      */
     @GET
     @Path("/isreserve/{eventId}")

@@ -35,7 +35,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 
 /**
- * @author Max Marche <m.marche@tarent.de>, tarent solutions GmbH
+ * @author Max Marche, m.marche@tarent.de, tarent solutions GmbH
  */
 @Path("/freevisitors")
 @Produces(MediaType.APPLICATION_JSON)
@@ -63,7 +63,7 @@ public class FreeVisitorsResource {
     /**
      * Get
      *
-     * @param uuid The free visitors UUID
+     * @param noLoginRequiredUUID The free visitors UUID
      * @return Event id
      * @throws IOException TODO
      */

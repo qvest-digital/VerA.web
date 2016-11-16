@@ -39,7 +39,17 @@ public class PressTransporter {
 	}
 
 	/**
-	 * Constructor with parameters 
+	 * Custom constructor
+	 * @param uuid FIXME
+	 * @param nachname Last name
+	 * @param vorname First name
+	 * @param gender Gender
+	 * @param email Email
+	 * @param address Address
+	 * @param plz Zip code
+	 * @param city City
+	 * @param country Country
+	 * @param username Username
 	 */
 	public PressTransporter(String uuid, String nachname, String vorname,
 			String gender, String email, String address, String plz,

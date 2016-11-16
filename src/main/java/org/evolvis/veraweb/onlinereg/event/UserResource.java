@@ -97,9 +97,13 @@ public class UserResource {
     }
 
     /**
+     * FIXME
      *
-     * @return
-
+     * @param email Email
+     * @param currentLanguageKey Current language in frontend
+     *
+     * @throws IOException FIXME
+     * @return FIXME
      */
     @POST
     @Path("/request/resend-login")
@@ -113,9 +117,14 @@ public class UserResource {
         return StatusConverter.convertStatus("OK");
     }
     /**
+     * FIXME
      *
-     * @return
-
+     * @param username Username
+     * @param currentLanguageKey Current language in frontend
+     *
+     * @throws IOException FIXME
+     *
+     * @return FIXME
      */
     @POST
     @Path("/request/reset-password-link")
@@ -164,17 +173,15 @@ public class UserResource {
     /**
      * Creates a new user
      *
-     * @param osiam_username
-     *            user name
-     * @param osiam_firstname
-     *            first name
-     * @param osiam_secondname
-     *            family name
-     * @param osiam_password1
-     *            password
+     * @param osiam_username user name
+     * @param osiam_firstname first name
+     * @param osiam_secondname family name
+     * @param osiam_password1 password
+     * @param currentLanguageKey current language in frontend
+     * @param email email
      * @return result of creation. Values can be "OK", "INVALID_USERNAME" or
      *         "USER_EXISTS"
-     * @throws IOException
+     * @throws IOException FIXME
      */
     @POST
     @Path("/register/{osiam_username}")
@@ -225,10 +232,10 @@ public class UserResource {
     /**
      * Activates a user of the given activation token, if the link isn't expired
      *
-     * @param activationToken
+     * @param activationToken Activation token
      * @return result of activation. Values can be "OK", "LINK_INVALID" or
      *         "LINK_EXPIRED"
-     * @throws IOException
+     * @throws IOException FIXME
      */
     @GET
     @Path("/activate/{activationToken}")
@@ -249,11 +256,11 @@ public class UserResource {
      * Sends a new E-Mail to the address of the user of the given
      * activation_token
      *
-     * @param oldActivationToken
+     * @param oldActivationToken The old activation token
      * @param currentLanguageKey
      *            For the language, the E-Mail will be send
      * @return result of post. Value can be "OK"
-     * @throws IOException
+     * @throws IOException FIXME
      */
     @POST
     @Path("/update/activation/data")
@@ -308,20 +315,20 @@ public class UserResource {
     /**
      * Updates the core data of a user
      *
-     * @param fk_salutation
+     * @param fk_salutation Salutation id
      * @param salutation
      *            (salutation and fk_salutation are in the tperson table
      *            present)
-     * @param title
-     * @param firstName
-     * @param lastName
-     * @param birthday
-     * @param nationality
-     * @param languages
-     * @param gender
+     * @param title Title
+     * @param firstName First name
+     * @param lastName Last name
+     * @param birthday Birthday
+     * @param nationality Nationality
+     * @param languages Languages
+     * @param gender Gender
      * @return result of update. Values can be "OK" and
      *         "USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE"
-     * @throws IOException
+     * @throws IOException FIXME
      */
     @POST
     @Path("/userdata/update")

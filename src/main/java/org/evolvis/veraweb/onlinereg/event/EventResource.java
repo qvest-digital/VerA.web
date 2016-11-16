@@ -116,8 +116,6 @@ public class EventResource {
     /**
      * Returns a list of events
      *
-     * @param username Username
-     *
      * @return List of Event objects
      * @throws IOException TODO
      */
@@ -171,6 +169,7 @@ public class EventResource {
      *
      * @param eventId event id
      * @param notehost note to host
+     * @param guestStatus Guest status
      *
      * @return updated Guest object
      *
@@ -196,11 +195,13 @@ public class EventResource {
     /**
      * Update guest status to "zusage"
      *
-     * @param eventId
-     * @param notehost
-     * @param noLoginRequiredUUID
+     * @param eventId Event id
+     * @param notehost Note for the hoster
+     * @param noLoginRequiredUUID UUID
+     *
      * @return updated status string
-     * @throws IOException
+     *
+     * @throws IOException ФИѝМЕ
      */
     @POST
     @Path("/{eventId}/register/nologin")
@@ -220,8 +221,6 @@ public class EventResource {
     /**
      * Get user's subscribed events.
      *
-     * @param username  username
-     *
      * @return Users' events list
      *
      * @throws IOException TODO
@@ -238,7 +237,7 @@ public class EventResource {
      *
      * @param eventId the event ID
      * @return response to send
-     * @throws IOException
+     * @throws IOException FIXME
      */
     @GET
     @Path("/guestlist/status/{eventId}")
@@ -263,8 +262,9 @@ public class EventResource {
     /**
      * Checking if the user is already registered for the event
      *
-     * @param username the username
      * @param eventId the event ID
+     * @throws IOException FIXME
+     * @return FIXME
      */
     @GET
     @Path("/registered/{eventId}")

@@ -45,7 +45,7 @@ import javax.ws.rs.core.Response.Status;
 import java.io.IOException;
 
 /**
- * Created by mley on 26.08.14. Edited by Max Marche <m.marche@tarent.de>
+ * Created by mley on 26.08.14. Edited by Max Marche, m.marche@tarent.de
  */
 @Path("/idm")
 @Produces(MediaType.APPLICATION_JSON)
@@ -94,8 +94,7 @@ public class LoginResource {
     /**
      * Creates a new LoginResource
      *
-     * @param config
-     *            configuration
+     * @param config configuration
      */
     public LoginResource(Config config, Client client) {
         this.config = config;
@@ -269,14 +268,11 @@ public class LoginResource {
     /**
      * Reads the resource at given path and returns the entity.
      *
-     * @param path
-     *            path
-     * @param type
-     *            TypeReference of requested entity
-     * @param <T>
-     *            Type of requested entity
+     * @param path path
+     * @param type TypeReference of requested entity
+     * @param <T> Type of requested entity
      * @return requested resource
-     * @throws IOException
+     * @throws IOException FIXME
      */
     private <T> T readResource(String path, TypeReference<T> type) throws IOException {
         return resourceReader.readStringResource(path, type);

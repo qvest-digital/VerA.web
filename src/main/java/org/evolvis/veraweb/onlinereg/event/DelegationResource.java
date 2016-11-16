@@ -168,7 +168,8 @@ public class DelegationResource {
      * @param uuid TODO
      *
      * @return List with functions
-     * @throws IOException
+     *
+     * @throws IOException FIXME
      */
     @GET
     @Path("/fields/list/function/{uuid}")
@@ -214,7 +215,9 @@ public class DelegationResource {
      *
      * @param uuid     Delegation UUID
      * @param personId person ID
-     * @return @Link{Person.class}
+     *
+     * @return {@link Person}
+     *
      * @throws IOException the exception
      */
     @GET
@@ -246,7 +249,14 @@ public class DelegationResource {
      * @param lastname  The last name of the delegare
      * @param firstname The first name of the delegare
      * @param gender    The gender of the delegare
+     * @param category Category
+     * @param function Function
+     * @param personId Person id
+     * @param fields FIXME
+     * @param hasTempImage FIXME
+
      * @return Status message
+
      * @throws IOException TODO
      */
     @POST
