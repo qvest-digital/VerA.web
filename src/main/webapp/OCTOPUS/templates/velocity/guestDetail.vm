@@ -131,10 +131,6 @@
                                              #end
                                         </select>
                                     </div>
-
-
-
-
                                     <div class="tableCell width25 inlineLabel" style="border-left: 1px solid #C1C1C1; border-right: 1px solid #C1C1C1; padding-left: 30px; vertical-align:middle;">
                                         <label for="showguest-ishost" style="white-space:nowrap">${placeholderWithTranslation.istgastgeber}:
                                         #if($guest.ishost == 1)
@@ -175,23 +171,22 @@
                                     </div>
                                     <div class="tableCell"></div>
                                 </div>
-                                    #if ($guest.delegation)
-                                        #set( $idcounter = 0)
-                                        #set( $temp = 0)
-                                        #foreach( $field in $delegationFields)
+                                #if ($guest.delegation)
+                                    #set( $idcounter = 0)
+                                    #set( $temp = 0)
+                                    #foreach( $field in $delegationFields)
 
+                                        ## A new row would begin after each third field
+                                        #if($idcounter%3 == 0)
+                                            <div class="tableRow">
+                                        #end
+                                        <!-- type id: $field.fkType.value -->
 
-                                            ## A new row would begin after each third field
-                                            #if($idcounter%3 == 0)
-                                                <div class="tableRow">
-                                            #end
-                                            <!-- type id: $field.fkType.value -->
-
-                                                <div class="tableCell">
+                                            <div class="tableCell">
                                                 <label id="event-delegation-field-label-$idcounter" for="event-delegation-field-$counter">$field.label:</label>
                                                 #if($field.fkType == 1)
                                                     <input id="event-delegation-field-input-$idcounter" name="optional-field-input-$field.fkDelegationField"
-                                                     	   onchange="setModified('')" value="$field.content"></input>
+                                                           onchange="setModified('')" value="$field.content"></input>
                                                 #elseif($field.fkType == 2)
                                                     <select name="optional-field-dropdown-$field.fkDelegationField">
                                                          #foreach ($typeContentEntry in $field.optionalFieldTypeContents)
@@ -199,7 +194,7 @@
                                                                 #if ($typeContentEntry.isSelected)
                                                                     selected
                                                                 #end
-                                                                value="$typeContentEntry.content" >$typeContentEntry.content</option>
+                                                            value="$typeContentEntry.content" >$typeContentEntry.content</option>
                                                          #end
                                                     </select>
                                                 #elseif($field.fkType == 3)
@@ -213,19 +208,18 @@
                                                          #end
                                                     </select>
                                                 #end
-                                                </div>
+                                            </div>
 
-                                            #set( $idcounter = $idcounter + 1)
-                                            ## Ending the row after each third field
-                                            #if ($idcounter%3 == 0 || ${delegationFields.size()} == $idcounter)
-                                                </div>
-                                            #end
+                                        #set( $idcounter = $idcounter + 1)
+
+                                        ## Ending the row after each third field
+                                        #if ($idcounter%3 == 0 || ${delegationFields.size()} == $idcounter)
+                                            </div>
                                         #end
-
                                     #end
-                                </div>
+                                #end
+                            </div>
                         #closeContentBlock()
-
 
                         #openContentBlock("detail-2-block")
 
