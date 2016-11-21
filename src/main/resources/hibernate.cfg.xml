@@ -14,9 +14,7 @@
 
         <!-- Mapping with model class containing annotations -->
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Guest"/>
-        <mapping class="org.evolvis.veraweb.onlinereg.entities.GuestDoctype"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Person"/>
-        <mapping class="org.evolvis.veraweb.onlinereg.entities.PersonDoctype"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.PersonMailinglist"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Event"/>
         <mapping class="org.evolvis.veraweb.onlinereg.entities.Location"/>
