@@ -2450,6 +2450,14 @@ sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
 
 \fi% oa
 
+\begin{minipage}{\textwidth}
+Installieren Sie nun die angepaßte Konfigurationsdatei:
+
+\begin{lstdump}{/etc/veraweb/*.properties}
+sudo install -c -o 0 -g tomcat7 -m 640 vwor.properties /etc/veraweb/
+\end{lstdump}
+\end{minipage}
+
 \subsection{Upgrade von Versionen vor 1.8.27}\label{subsec:upgrade-1827}
 
 \begin{minipage}{\textwidth}
