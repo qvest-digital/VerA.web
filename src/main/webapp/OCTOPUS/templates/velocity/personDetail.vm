@@ -517,15 +517,6 @@
             );
         }
 
-        function showDoctypes() {
-            if (document.getElementById('modified').value == 'true') {
-                document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonDoctypeList?selectNone=true';
-                document.getElementById('PersonForm').submit();
-            } else {
-                window.location.href = '${paths.staticWeb}do/ShowPersonDoctypeList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.current.offset}';
-            }
-        }
-
         function showCategories() {
             if (document.getElementById('modified').value == 'true') {
                 document.getElementById('PersonForm').action = '${paths.staticWeb}do/ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&offset=${navigation.current.offset}'+getGuestTabId();
