@@ -60,4 +60,55 @@ public class ExportHelper {
 		return contentType;
 //		return "application/octet-stream";
 	}
+
+	/**
+	 * Anschrifttyp als P,G,S zurückgeben.
+	 *
+	 * Vorgabe aus PersonDoctype, überschreibbar in GuestDoctype
+	 * Muss auch in anderen Bereichen umgesetzt werden.
+	 * Z.B. beim "Neu Laden" in Worker und Template.
+	 */
+	public static String getAddresstype(Integer addresstype) {
+		if (addresstype == null) {
+			return null;
+		} else if (addresstype.intValue() == 2) {
+			return "P";
+		} else if (addresstype.intValue() == 3) {
+			return "W";
+		} else { // addresstype.intValue() == 1
+			return "G";
+		}
+	}
+
+	/**
+	 * Zeichensatz als L,F1,F2 zurückgeben.
+	 *
+	 * Vorgabe aus PersonDoctype, überschreibbar in GuestDoctype
+	 * Muss auch in anderen Bereichen umgesetzt werden.
+	 * Z.B. beim "Neu Laden" in Worker und Template.
+	 */
+	public static String getLocale(Integer locale) {
+		if (locale == null) {
+			return null;
+		} else if (locale.intValue() == 2) {
+			return "ZS1";
+		} else if (locale.intValue() == 3) {
+			return "ZS2";
+		} else { // locale.intValue() == 1
+			return "L";
+		}
+	}
+
+	/**
+	 * Diese Methode liefert zu einem Integer den um 1 erhöhten Wert oder
+	 * 0, falls <code>null</code> übergeben worden war.
+	 */
+	public static Integer getColor(Integer color) {
+		return new Integer(color == null ? 0 : color.intValue() + 1);
+	}
+
+	/** Diese Methode liefert eine String-Darstellung eines Gender-Werts */
+	public static String getGender(String gender) {
+		return gender;
+	}
 }

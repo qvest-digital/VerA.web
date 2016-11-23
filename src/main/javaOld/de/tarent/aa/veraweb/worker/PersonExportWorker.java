@@ -301,8 +301,8 @@ public class PersonExportWorker extends PersonListWorker {
 	 */
 	protected void exportBothInOneLine(SpreadSheet spreadSheet, boolean showA, boolean showB, boolean showRemarks, Map person, String memberAEx, String memberBEx, String addressEx) {
 
-		spreadSheet.addCell(GuestExportWorker.getAddresstype((Integer)person.get("addresstype")));
-		spreadSheet.addCell(GuestExportWorker.getLocale((Integer)person.get("locale")));
+		spreadSheet.addCell(ExportHelper.getAddresstype((Integer)person.get("addresstype")));
+		spreadSheet.addCell(ExportHelper.getLocale((Integer)person.get("locale")));
 
 		if (showA) {
 			spreadSheet.addCell(person.get("function" + addressEx));
@@ -356,15 +356,15 @@ public class PersonExportWorker extends PersonListWorker {
 		// Veranstaltungsspezifische Attribute für Person
 		//
 		if (showA) {
-            spreadSheet.addCell(GuestExportWorker.getColor(null));
+            spreadSheet.addCell(ExportHelper.getColor(null));
 			spreadSheet.addCell(getDomestic((String)person.get("domestic_a_e1"))); // Inland Ja / Nein
 			spreadSheet.addCell(person.get("languages_a_e1"));
-			spreadSheet.addCell(GuestExportWorker.getGender((String)person.get("sex_a_e1"))); // M oder F
+			spreadSheet.addCell(ExportHelper.getGender((String)person.get("sex_a_e1"))); // M oder F
 			spreadSheet.addCell(person.get("nationality_a_e1"));
 			spreadSheet.addCell(person.get("notehost_a_e1"));
 			spreadSheet.addCell(person.get("noteorga_a_e1"));
 		} else {
-			spreadSheet.addCell(GuestExportWorker.getColor(null));
+			spreadSheet.addCell(ExportHelper.getColor(null));
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
@@ -377,15 +377,15 @@ public class PersonExportWorker extends PersonListWorker {
 		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
 		if (showB) {
-            spreadSheet.addCell(GuestExportWorker.getColor(null));
+            spreadSheet.addCell(ExportHelper.getColor(null));
 			spreadSheet.addCell(getDomestic((String)person.get("domestic_b_e1"))); // Inland Ja / Nein
 			spreadSheet.addCell(person.get("languages_b_e1"));
-			spreadSheet.addCell(GuestExportWorker.getGender((String)person.get("sex_b_e1"))); // M oder F
+			spreadSheet.addCell(ExportHelper.getGender((String)person.get("sex_b_e1"))); // M oder F
 			spreadSheet.addCell(person.get("nationality_b_e1"));
 			spreadSheet.addCell(showRemarks ? person.get("notehost_b_e1") : null);
 			spreadSheet.addCell(showRemarks ? person.get("noteorga_b_e1") : null);
 		} else {
-			spreadSheet.addCell(GuestExportWorker.getColor(null));
+			spreadSheet.addCell(ExportHelper.getColor(null));
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
@@ -407,8 +407,8 @@ public class PersonExportWorker extends PersonListWorker {
 //		spreadSheet.addCell(null);
 //		spreadSheet.addCell(null);
 
-		spreadSheet.addCell(GuestExportWorker.getAddresstype((Integer)person.get("addresstype")));
-        spreadSheet.addCell(GuestExportWorker.getLocale((Integer) person.get("locale")));
+		spreadSheet.addCell(ExportHelper.getAddresstype((Integer)person.get("addresstype")));
+        spreadSheet.addCell(ExportHelper.getLocale((Integer) person.get("locale")));
 
 		spreadSheet.addCell(person.get("function" + addressEx));
 		spreadSheet.addCell(person.get("salutation" + memberAEx));
@@ -441,10 +441,10 @@ public class PersonExportWorker extends PersonListWorker {
 		//
 		// Veranstaltungsspezifische Attribute für Person
 		//
-        spreadSheet.addCell(GuestExportWorker.getColor(null));
+        spreadSheet.addCell(ExportHelper.getColor(null));
 		spreadSheet.addCell(getDomestic((String)person.get("domestic_a_e1"))); // Inland Ja / Nein
 		spreadSheet.addCell(person.get("languages_a_e1"));
-		spreadSheet.addCell(GuestExportWorker.getGender((String)person.get("sex_a_e1"))); // M oder F
+		spreadSheet.addCell(ExportHelper.getGender((String)person.get("sex_a_e1"))); // M oder F
 		spreadSheet.addCell(person.get("nationality_a_e1"));
 		spreadSheet.addCell(showRemarks ? person.get("notehost_a_e1") : null);
 		spreadSheet.addCell(showRemarks ? person.get("noteorga_a_e1") : null);
@@ -468,8 +468,8 @@ public class PersonExportWorker extends PersonListWorker {
 	 * @param person Map mit den Personendaten.
 	 */
 	protected void exportOnlyPartner(SpreadSheet spreadSheet, boolean showRemarks, Map person, String memberBEx, String addressEx) {
-		spreadSheet.addCell(GuestExportWorker.getAddresstype((Integer)person.get("addresstype")));
-        spreadSheet.addCell(GuestExportWorker.getLocale((Integer)person.get("locale")));
+		spreadSheet.addCell(ExportHelper.getAddresstype((Integer)person.get("addresstype")));
+        spreadSheet.addCell(ExportHelper.getLocale((Integer)person.get("locale")));
 
 		spreadSheet.addCell(null);
         spreadSheet.addCell(null);
@@ -513,10 +513,10 @@ public class PersonExportWorker extends PersonListWorker {
 		//
 		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
-        spreadSheet.addCell(GuestExportWorker.getColor(null));
+        spreadSheet.addCell(ExportHelper.getColor(null));
         spreadSheet.addCell(getDomestic((String)person.get("domestic_b_e1"))); // Inland Ja / Nein
         spreadSheet.addCell(person.get("languages_b_e1"));
-        spreadSheet.addCell(GuestExportWorker.getGender((String)person.get("sex_b_e1"))); // M oder F
+        spreadSheet.addCell(ExportHelper.getGender((String)person.get("sex_b_e1"))); // M oder F
         spreadSheet.addCell(person.get("nationality_b_e1"));
         spreadSheet.addCell(showRemarks ? person.get("notehost_b_e1") : null);
         spreadSheet.addCell(showRemarks ? person.get("noteorga_b_e1") : null);

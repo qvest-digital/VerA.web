@@ -27,7 +27,6 @@ import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Limit;
 import de.tarent.dblayer.sql.clause.RawClause;
-import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.dblayer.sql.statement.Update;
@@ -220,11 +219,6 @@ public class PersonReplaceWorker extends PersonListWorker {
 
 		if (fields.size() > 0) {
 			list.addOr(getReplaceWhere(fields, search, wildcardPre, wildcardPost));
-		}
-		if (((Boolean)replaceRequest.get("snr-group20")).booleanValue()) {
-			list.addOr(Where.or(
-					getReplaceWhere("textfield", search, wildcardPre, wildcardPost),
-					getReplaceWhere("textfield_p", search, wildcardPre, wildcardPost)));
 		}
 		return list;
 	}
