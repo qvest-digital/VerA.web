@@ -465,11 +465,6 @@ public class GuestWorker {
 
 		try {
 			updateGuest(cntx, database, context, event, guestId);
-
-			String show = cntx.requestAsString("show");
-			if (show != null && show.equals("doctype")) {
-				cntx.setStatus("showDoctype");
-			}
 			context.commit();
 		}
 		catch ( BeanException e )

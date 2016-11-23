@@ -21,7 +21,7 @@ start_import() {
 		echo >&2 "Konnte temporäre Datei nicht anlegen"
 		exit 1
 	fi
-    curl -s -F username=$1 -F password=$2 --form "importfile=@$3" --form importSource=$4 --form format=formatCSV --form targetOrgUnit=$5 $6do/ImportPersonsFile > "$TEMP_OUTPUT"  
+    curl -s -F username=$1 -F password=$2 --form "importfile=@$3" --form importSource=$4 --form format=formatCSV --form targetOrgUnit=$5 $6do/ImportPersonsFile > "$TEMP_OUTPUT"
 	TOTAL_ENTRIES="$(<"$TEMP_OUTPUT" grep 'Zu importierende Datensätze insgesamt' | grep -Eo '[0-9]{1,10}<' | grep -Eo '[0-9]{1,10}')"
 	IMPORT_ID="$(<"$TEMP_OUTPUT" grep 'Import-ID' | grep -Eo '[0-9]{1,10}')"
 	DUPLICATE_ENTRIES="$(<"$TEMP_OUTPUT" grep 'Davon Dubletten' | grep -Eo '[0-9]{1,10}<' | grep -Eo '[0-9]{1,10}')"
@@ -30,7 +30,7 @@ start_import() {
 	echo "Suche nach Duplicate gestartet..."
 	echo "Es wurde $DUPLICATE_ENTRIES Duplikate gefunden..."
 	if [[ $DUPLICATE_ENTRIES -ne 0 ]]; then
-	  echo "Duplikate wurden gefunden, diese werden nun übernommen..."  
+	  echo "Duplikate wurden gefunden, diese werden nun übernommen..."
 	  ids=($(curl -s -F username=$1 -F password=$2 --form "importfile=@$3" \
 		--form importSource=asds --form format=formatCSV \
 		--form "importId=$IMPORT_ID" --form limit=9999999 \
@@ -38,7 +38,7 @@ start_import() {
 		grep '\-id" v' | \
 		grep -Eo '>[0-9]{1,10}<' | \
 		grep -Eo '[0-9]{1,10}'))
-		
+
 	  for id in "${ids[@]}"
 	  do
 		echo Importiere die Person mit ID ${id}

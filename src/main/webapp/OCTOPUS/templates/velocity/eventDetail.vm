@@ -334,20 +334,6 @@
 		</span>
 
 		<script type="text/javascript">
-			function showDoctypes() {
-				#if($event && $event.id)
-						if (document.getElementById('modified').value == 'true') {
-							document.getElementById('formlist').action = '${paths.staticWeb}do/ShowEventDoctype';
-							document.getElementById('formlist').submit();
-						} else {
-							window.location.href = '${paths.staticWeb}do/ShowEventDoctype?id=$!event.id&selectNone=true';
-						}
-				#else
-							document.getElementById('formlist').action = '${paths.staticWeb}do/ShowEventDoctype';
-							document.getElementById('formlist').submit();
-				#end
-			};
-
 			function removeHost() {
 				##showSuccess('Bitte beachten Sie das der Gastgeber dieser Veranstaltung weiterhin als normaler Gast zugeordenet ist.');
 				document.getElementById('event-host').value='';
