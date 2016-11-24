@@ -300,10 +300,12 @@ public class PdfTemplateResource extends FormDataResource {
         substitutions.put("mobile", person.getMobil_a_e1());
         substitutions.put("email", person.getMail_a_e1());
         substitutions.put("url", person.getUrl_a_e1());
-        final String envelopeOne = getEnvelopeOne(person);
         final String salutationCompleteOne = getSalutationCompleteOne(person);
+        substitutions.put("salutation_complete", salutationCompleteOne);
         final String salutationCompleteTwo = getSalutationCompleteTwo(person);
-        substitutions.put("salutation_complete", salutationCompleteTwo);
+        substitutions.put("salutation_complete_functionAdd", salutationCompleteTwo);
+        final String envelopeOne = getEnvelopeOne(person);
+        substitutions.put("envelope_function_salutationComplete_functionAdd_addressComplete", envelopeOne);
 
         return substitutions;
     }
