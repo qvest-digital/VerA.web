@@ -301,11 +301,11 @@ public class PdfTemplateResource extends FormDataResource {
         substitutions.put("email", person.getMail_a_e1());
         substitutions.put("url", person.getUrl_a_e1());
         final String salutationCompleteOne = getSalutationCompleteOne(person);
-        substitutions.put("salutation_complete", salutationCompleteOne);
+        substitutions.put("salutationComplete1", salutationCompleteOne);
         final String salutationCompleteTwo = getSalutationCompleteTwo(person);
-        substitutions.put("salutation_complete_functionAdd", salutationCompleteTwo);
+        substitutions.put("salutationComplete2", salutationCompleteTwo);
         final String envelopeOne = getEnvelopeOne(person);
-        substitutions.put("envelope_function_salutationComplete_functionAdd_addressComplete", envelopeOne);
+        substitutions.put("envelope1", envelopeOne);
 
         return substitutions;
     }
