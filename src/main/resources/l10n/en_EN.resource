@@ -1633,7 +1633,7 @@ GENERIC_PLEASE_WAIT_HEADER=Please wait...
 GENERIC_PLEASE_WAIT_MESSAGE=This process may take some time.
 
 # WORK AREA (Bean) TEXTS
-WORKAREA_ERROR_MISSING_NAME=The work area must have a distinct name.
+WORKAREA_ERROR_MISSING_NAME=The work area must have a distinct, non empty name.
 
 
 zurpersonensuche=To People search
