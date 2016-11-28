@@ -150,7 +150,7 @@ public class PdfTemplateResource extends FormDataResource {
         }
 
         final UUID uuid = UUID.randomUUID();
-        alternativeSalutations = getAlternativeSalutations();
+        alternativeSalutations = getAlternativeSalutations(pdfTemplateId);
         final List<String> filesList = getFileList(people, pdfTemplateId, uuid);
         mergeFiles(filesList);
 
@@ -319,11 +319,11 @@ public class PdfTemplateResource extends FormDataResource {
         return person.getSalutation_a_e1();
     }
 
-    private List<SalutationAlternative> getAlternativeSalutations() {
+    private List<SalutationAlternative> getAlternativeSalutations(Integer pdfTemplateId) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery(SalutationAlternative.GET_SALUTATION_ALTERNATIVE_BY_PDF_ID);
-            query.setInteger(SalutationAlternative.PARAM_PDFTEMPLATE_ID, 1);
+            query.setInteger(SalutationAlternative.PARAM_PDFTEMPLATE_ID, pdfTemplateId);
             if (query.list().isEmpty()) {
                 return new ArrayList<>();
             }
