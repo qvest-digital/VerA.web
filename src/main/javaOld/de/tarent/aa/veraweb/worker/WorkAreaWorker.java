@@ -63,25 +63,13 @@ public class WorkAreaWorker extends StammdatenWorker {
         if (workArea.orgunit == null) {
             workArea.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
         }
-        if (workArea.orgunit == -1) {
-            List<String> errors;
-            if (workArea.getErrors() != null && !workArea.getErrors().isEmpty()) {
-                errors = workArea.getErrors();
-            } else {
-                errors = (List<String>) octopusContext.getContextField(OUTPUT_saveListErrors);
-            }
-            if (errors == null) {
-                errors = new ArrayList<>();
-            }
-            LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-            LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
 
-            errors.add(languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_ONE") +
-                    ((WorkArea) bean).name +
-                    languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_TWO"));
-            octopusContext.setContent(OUTPUT_saveListErrors, errors);
+        if (workArea.orgunit == null) {
+            handleMissingOrgunitErrorMessage(octopusContext, workArea);
+        } else if (workArea.name.trim().isEmpty()) {
+            handleWorkareaNameEmptyErrorMessage(octopusContext);
         } else {
-            super.saveBean(octopusContext, bean, context);
+            super.saveBean(octopusContext, workArea, context);
         }
     }
 
@@ -180,5 +168,39 @@ public class WorkAreaWorker extends StammdatenWorker {
             octopusContext.setContent("countUpdate", noMessages);
         }
         return super.showList(octopusContext);
+    }
+
+
+    private void handleWorkareaNameEmptyErrorMessage(OctopusContext octopusContext) {
+        final LanguageProvider languageProvider = initLanguageProvider(octopusContext);
+        List<String> errors = new ArrayList<>();
+        errors.add(languageProvider.getProperty("WORKAREA_ERROR_MISSING_NAME"));
+        octopusContext.setContent(OUTPUT_saveListErrors, errors);
+    }
+
+    private String getErrorMessageMissingOrgunit(OctopusContext octopusContext, WorkArea workArea) {
+        final LanguageProvider languageProvider = initLanguageProvider(octopusContext);
+        return languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_ONE") + workArea.name + languageProvider.getProperty("WORKAREA_ERROR_INCORRECT_NAME_TWO");
+    }
+
+    private LanguageProvider initLanguageProvider(OctopusContext octopusContext) {
+        final LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+        return languageProviderHelper.enableTranslation(octopusContext);
+    }
+
+    private void handleMissingOrgunitErrorMessage(OctopusContext octopusContext, WorkArea workArea) {
+        List<String> errors;
+        final String errorMessage;
+        if (workArea.getErrors() != null && !workArea.getErrors().isEmpty()) {
+            errors = workArea.getErrors();
+        } else {
+            errors = (List<String>) octopusContext.getContextField(OUTPUT_saveListErrors);
+        }
+        if (errors == null) {
+            errors = new ArrayList<>();
+        }
+        errorMessage = getErrorMessageMissingOrgunit(octopusContext, workArea);
+        errors.add(errorMessage);
+        octopusContext.setContent(OUTPUT_saveListErrors, errors);
     }
 }
