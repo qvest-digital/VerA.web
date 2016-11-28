@@ -7,17 +7,8 @@
 #parse("inc/header.vm")
 #set($formurl = "SaveDelegationFields")
 
-<script type="text/javascript" src="${paths.staticWeb}scripts/jquery.min.js"></script>
-
 <script type="text/javascript">
-	//on document ready
-	jQuery(function(){
-		toogleOptionalFields();
-	});
-</script>
-
-<script type="text/javascript">
-	function toogleOptionalFields() {
+	$(function() {
 		var types = document.getElementById('typeSelect');
 		if (types != null) {
 			var selectedValue = types.options[types.selectedIndex].value;
@@ -29,7 +20,7 @@
 				$("#optionsArea").hide();
 			}
 		}
-	}
+	});
 </script>
 
 <div id="content_container">
