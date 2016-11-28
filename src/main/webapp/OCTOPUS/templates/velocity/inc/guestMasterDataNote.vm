@@ -6,7 +6,7 @@
 	#if($grants.mayWrite())
 		<input type="button" name="refresh" value="${placeholderWithTranslation.aufstammdatenzurucksetzen}" title="${placeholderWithTranslation.GUEST_LIST_RESET_ALL_TO_MASTER_DATA}" onclick="reloadGuestData();" />
 	#end
-		<input type="button" name="persondata" value="${placeholderWithTranslation.GUEST_LIST_EDIT_MASTER_DATA}" title="${placeholderWithTranslation.GUEST_LIST_EDIT_MASTER_DATA}" onclick="shwoPersonDetail();" />
+		<input type="button" name="persondata" value="${placeholderWithTranslation.GUEST_LIST_EDIT_MASTER_DATA}" title="${placeholderWithTranslation.GUEST_LIST_EDIT_MASTER_DATA}" onclick="showPersonDetail();" />
 </div>
 
 <script type="text/javascript">
@@ -29,7 +29,7 @@
 		window.location.href = url;
 	}
 
-	function shwoPersonDetail() {
+	function showPersonDetail() {
 		var url = '${paths.staticWeb}do/ShowPerson'
 		url += '?id=$guest.person';
 		url += '&action=event';
