@@ -619,8 +619,11 @@
 					</table>
 				</div>
 			<div class="textRight marginTop10 marginBottom20">
-				<input type="button" name="calcSerialNumber" value="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" title="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" onclick="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}'); window.location.href='CalcSerialNumber';" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
-				<input type="button" name="reloadAllGuestData" value="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" title="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" #if(!$grants.mayWrite()) class="buttondisabled" vera-disabled #end>
+				#if($grants.mayWrite())
+				    <input type="button" name="calcSerialNumber" value="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" title="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" onclick="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}'); window.location.href='CalcSerialNumber';" class="mainButton" />
+				    <input type="button" name="reloadAllGuestData" value="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" title="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" class="mainButton" />
+            		<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+            	#end
 			</div>
 
 			<vera-info vera-stay>
@@ -661,9 +664,6 @@
 			</div>
 
 			<div style="bottom: -40px; right: -1px;" class="textRight posAb" id="buttonPanel-bottom">
-				#if($grants.mayWrite())
-					<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
-				#end
 				<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" title="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
 			</div>
 

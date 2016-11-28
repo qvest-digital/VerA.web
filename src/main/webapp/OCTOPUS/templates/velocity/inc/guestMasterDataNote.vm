@@ -2,12 +2,15 @@
 	${placeholderWithTranslation.HINT_GUEST_LIST_EDIT_PERSONDATA} <img src="../images/dialog_close.png" id="close-info" style="top:-9px;" onclick="$(this).parent().get(0).remove()" />
 </vera-info>
 
-<div class="textRight marginBottom20" id="buttonPanel-bottom">
+<span id="buttonPanel-bottom" class="floatRight textRight" style="right: -1px; bottom: -40px;">
 	#if($grants.mayWrite())
-		<input type="button" name="refresh" value="${placeholderWithTranslation.aufstammdatenzurucksetzen}" title="${placeholderWithTranslation.GUEST_LIST_RESET_ALL_TO_MASTER_DATA}" onclick="reloadGuestData();" />
+		<input type="button" name="refresh" value="${placeholderWithTranslation.aufstammdatenzurucksetzen}" title="${placeholderWithTranslation.GUEST_LIST_RESET_ALL_TO_MASTER_DATA}" onclick="reloadGuestData();" class="mainButton" />
 	#end
-		<input type="button" name="persondata" value="${placeholderWithTranslation.GUEST_LIST_EDIT_MASTER_DATA}" title="${placeholderWithTranslation.GUEST_LIST_EDIT_MASTER_DATA}" onclick="showPersonDetail();" />
-</div>
+		<input type="button" name="persondata" value="${placeholderWithTranslation.GUEST_LIST_EDIT_MASTER_DATA}" title="${placeholderWithTranslation.GUEST_LIST_EDIT_MASTER_DATA}" onclick="showPersonDetail();" class="mainButton" />
+	#if($grants.mayWrite())
+		<input type="button" name="save" title="${placeholderWithTranslation.speichern}" value="${placeholderWithTranslation.speichern}" onClick="if ( validateGuestData() ) { return askPreSave(); } else { return false; }" class="mainButton" />
+	#end
+</span>
 
 <script type="text/javascript">
 	function reloadGuestData() {
@@ -22,10 +25,6 @@
 			url += '&tab=' + targetTab.value;
 		}
 
-		#if($octopusRequest.task == 'SaveGuestDoctype' || $octopusRequest.task == 'ShowGuestDoctype' || ($octopusRequest.task == 'ReloadGuestData' && $octopusRequest.show && $octopusRequest.show == 'doctype'))
-			url += '&show=doctype';
-		#end
-
 		window.location.href = url;
 	}
 
@@ -39,10 +38,50 @@
 			url += '&tab=' + targetTab.value;
 		}
 
-		#if($octopusRequest.task == 'SaveGuestDoctype' || $octopusRequest.task == 'ShowGuestDoctype' || ($octopusRequest.task == 'ReloadGuestData' && $octopusRequest.show && $octopusRequest.show == 'doctype'))
-			url += '&show=doctype';
-		#end
-
 		window.location.href = url;
 	}
+
+	function validateGuestData(){
+        var check = new Array( 'guest-tableno_a', 'guest-tableno_b', 'guest-seatno_a', 'guest-seatno_b' );
+        var msgs = new Array( 'Tischnummer der Hauptperson', 'Tischnummer des Partners', 'Platznummer der Hauptperson', 'Platznummer des Partners' );
+        var regexp = /^\d+$/;
+        var msg = "";
+        var i = 0;
+        for ( i = 0; i < check.length; i++ ) {
+            var val = document.getElementById( check[ i ] ).value.trim();
+            if ( val.length > 0 ) {
+                document.getElementById( check[ i ] ).value = val;
+                if ( ! regexp.test( val ) ) {
+                    if ( msg.length > 0 ) {
+                        msg += ',\r\n';
+                    }
+                    msg += '\t' + msgs[ i ];
+                }
+            } else{
+                document.getElementById( check[ i ] ).value=0;
+            }
+        }
+
+        if ( msg.length > 0 ) {
+            showWarning( "In den folgenden Feldern wird\r\neine numerische Angabe erwartet:\r\n\r\n" + msg );
+            return false;
+        }
+        return true;
+    }
+
+    ##wenn andere Kategorie ausgewaehlt wird, evtl. Rang aus Stammdaten laden
+    function askPreSave() {
+        if (isModified('categorie') && document.getElementById('guest-rank').value == '') {
+              htmlConfirm("${placeholderWithTranslation.PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA}", new Array('Ja', 'Nein'), new Array("saveDocWithMasterDataRank('true');", "saveDocWithMasterDataRank('false');"));
+        } else {
+            saveDocWithMasterDataRank('false');
+        }
+    }
+
+    function saveDocWithMasterDataRank(fetchRankFromMasterData) {
+        hideDialogs();
+        showComboboxes();
+        document.getElementById('fetchRankFromMasterData').value=fetchRankFromMasterData;
+        document.getElementById('GuestForm').submit();
+    }
 </script>
