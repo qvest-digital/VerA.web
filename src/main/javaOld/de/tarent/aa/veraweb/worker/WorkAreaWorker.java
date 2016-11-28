@@ -64,14 +64,14 @@ public class WorkAreaWorker extends StammdatenWorker {
             workArea.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
         }
         if (workArea.orgunit == -1) {
-            List<String> errors = null;
+            List<String> errors;
             if (workArea.getErrors() != null && !workArea.getErrors().isEmpty()) {
                 errors = workArea.getErrors();
             } else {
                 errors = (List<String>) octopusContext.getContextField(OUTPUT_saveListErrors);
             }
             if (errors == null) {
-                errors = new ArrayList<String>();
+                errors = new ArrayList<>();
             }
             LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
             LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
@@ -180,10 +180,5 @@ public class WorkAreaWorker extends StammdatenWorker {
             octopusContext.setContent("countUpdate", noMessages);
         }
         return super.showList(octopusContext);
-    }
-
-    @Override
-    public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
-        super.saveList(octopusContext);
     }
 }
