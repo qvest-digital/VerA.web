@@ -61,8 +61,8 @@ public class FunctionWorker extends StammdatenWorker {
 
     @Override
     protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
-    	Function test = (Function) bean;
-    	if(test.name != ""){
+    	final Function function = (Function) bean;
+    	if(!function.equals("")){
     		super.saveBean(cntx, bean, context);
     	} else {
     		return ;
