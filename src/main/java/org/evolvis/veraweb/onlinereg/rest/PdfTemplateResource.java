@@ -165,7 +165,7 @@ public class PdfTemplateResource extends FormDataResource {
             try {
                 final PdfTemplate pdfTemplate = createOrUpdatePdfTemplate(id, name, mandantId, content);
                 return Response.ok(pdfTemplate).build();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 LOGGER.log(Logger.Level.ERROR, "Creating pdf template failed.", e);
                 return Response.status(Status.INTERNAL_SERVER_ERROR).build();
             }
@@ -197,7 +197,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     private void deleteFiles(File directory) {
         final File[] listFiles = directory.listFiles();
-        if (listFiles.length > 0) {
+        if (listFiles != null && listFiles.length > 0) {
             for (File listFile : listFiles) {
                 if (listFile.lastModified() < PURGE_TIME) {
                     executeCurrentFileDeletion(listFile);
@@ -274,7 +274,7 @@ public class PdfTemplateResource extends FormDataResource {
      */
     private void renameFields(Integer personId, AcroFields acroFields, List<String> fieldsList) {
         for (String fieldName : fieldsList) {
-            acroFields.renameField(fieldName, new String(fieldName + personId));
+            acroFields.renameField(fieldName, fieldName + personId);
         }
     }
 
@@ -312,7 +312,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     private String selectSalutation(Person person) {
         for (SalutationAlternative alternativeSalutation : alternativeSalutations) {
-            if (person.getFk_salutation_a_e1() == alternativeSalutation.getSalutation_id()) {
+            if (person.getFk_salutation_a_e1().equals(alternativeSalutation.getSalutation_id())) {
                 return alternativeSalutation.getContent();
             }
         }
@@ -371,7 +371,7 @@ public class PdfTemplateResource extends FormDataResource {
     }
 
 
-    private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId, byte[] content) throws IOException {
+    private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId, byte[] content) {
         PdfTemplate pdfTemplate;
         if (id != null) {
             pdfTemplate = handlePdfTemplateUpdate(id, name, content);
@@ -381,7 +381,7 @@ public class PdfTemplateResource extends FormDataResource {
         return pdfTemplate;
     }
 
-    private PdfTemplate handlePdfTemplateCreate(String name, Integer mandantId, byte[] content) throws IOException {
+    private PdfTemplate handlePdfTemplateCreate(String name, Integer mandantId, byte[] content) {
         final Session session = openSession();
         try {
             PdfTemplate pdfTemplate = initPdfTemplate(name, mandantId, content);
@@ -416,7 +416,7 @@ public class PdfTemplateResource extends FormDataResource {
         return (PdfTemplate) query.uniqueResult();
     }
 
-    private PdfTemplate initPdfTemplate(String name, Integer mandantId, byte[] content) throws IOException {
+    private PdfTemplate initPdfTemplate(String name, Integer mandantId, byte[] content) {
         PdfTemplate pdfTemplate = new PdfTemplate();
         pdfTemplate.setName(name);
         pdfTemplate.setContent(content);
