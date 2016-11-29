@@ -1641,7 +1641,7 @@ GENERIC_PLEASE_WAIT_HEADER=Por favor, espere...
 GENERIC_PLEASE_WAIT_MESSAGE=El proceso puede tardar m\u00E1s de lo normal.
 
 # WORK AREA (Bean) TEXTS
-WORKAREA_ERROR_MISSING_NAME=El \u00E1rea de trabajo requiere un nombre \u00FAnico.
+WORKAREA_ERROR_MISSING_NAME=El campo de trabajo no puede estar vac\u00EDo
 
 
 zurpersonensuche=Volver a b\u00FAsqueda de personas
@@ -2041,8 +2041,8 @@ mobil_c_e2=M\u00F3vil no debe contener m\u00E1s de 100 caracteres
 mobil_c_e3=M\u00F3vil no debe contener m\u00E1s de 100 caracteres
 nationality_a_e1=Nacionalidad no debe contener m\u00E1s de 100 caracteres
 nationality_b_e1=Nacionalidad no debe contener m\u00E1s de 100 caracteres
-note_a_e1=El comentario no debe tener más de 2000 caracteres.
-note_b_e1=El comentario no debe tener más de 2000 caracteres.
+note_a_e1=El comentario no debe tener m\u00E1s de 2000 caracteres.
+note_b_e1=El comentario no debe tener m\u00E1s de 2000 caracteres.
 notehost_a_e1=Aviso para el anfitri\u00F3n no puede contener m\u00E1s de 2000 caracteres.
 notehost_b_e1=Aviso para el anfitri\u00F3n no puede contener m\u00E1s de 2000 caracteres.
 noteorga_a_e1=Aviso para organizaci\u00F3n no puede contener m\u00E1s de 2000 caracteres.

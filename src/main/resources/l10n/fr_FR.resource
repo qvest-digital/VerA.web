@@ -1642,7 +1642,7 @@ GENERIC_PLEASE_WAIT_HEADER=Veuillez patienter...
 GENERIC_PLEASE_WAIT_MESSAGE=Le processus pourrait prendre un peu de temps.
 
 # WORK AREA (Bean) TEXTS
-WORKAREA_ERROR_MISSING_NAME=Le secteur de travail doit avoir un nom diff\u00E9rent.
+WORKAREA_ERROR_MISSING_NAME=L'\u00E9space de travail ne doit pas \u00EAtre vide.
 
 
 zurpersonensuche=Recherche des personnes
@@ -2131,6 +2131,6 @@ zipcode_c_e3=Code postale doit etre moins de 250 characteres.
 SALUTATION_EDITABLE_TEXT=Ici vous pouvez cr\u00E9er un style alternatif pour ce mod\u00E8le de PDF
 SALUTATION_TO_SALUTATION=volont\u00E9
 SALUTATION_ERROR_LOAD=Erreur lors du chargement
-SALUTATION_ERROR_EMPTY=Salutations alternatives ne doivent pas être vide
+SALUTATION_ERROR_EMPTY=Salutations alternatives ne doivent pas \u00EAtre vide
 SALUTATION_ERROR_SAVE=Erreur lors de l\u0027enregistrement
 SALUTATION_ERROR_DELETE=Erreur lors de la suppression

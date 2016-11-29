@@ -2090,9 +2090,9 @@ zipcode_c_e2=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 zipcode_c_e3=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 
 # ALTERNATIVE SALUTATIONS
-SALUTATION_EDITABLE_TEXT=Hier können Sie Alternative Anreden für diese PDF- Vorlage erstellen
+SALUTATION_EDITABLE_TEXT=Hier k\u00F6nnen Sie Alternative Anreden f\u00FCr diese PDF- Vorlage erstellen
 SALUTATION_TO_SALUTATION=wird zu
 SALUTATION_ERROR_LOAD=Fehler beim Laden
 SALUTATION_ERROR_EMPTY=Alternative Anrede darf nicht leer sein
 SALUTATION_ERROR_SAVE=Fehler beim speichern
-SALUTATION_ERROR_DELETE=Fehler beim löschen
+SALUTATION_ERROR_DELETE=Fehler beim l\u00F6schen
