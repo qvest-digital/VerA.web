@@ -95,11 +95,15 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
         return count;
     }
 
-    private boolean executeAdditionalChecks(OctopusContext cntx, List errors, OrgUnit orgUnit1, TransactionContext transactionContext) throws BeanException, IOException {
+    private boolean executeAdditionalChecks(OctopusContext cntx, List errors, OrgUnit bean, TransactionContext transactionContext) throws BeanException, IOException {
         final Database database = transactionContext.getDatabase();
         final LanguageProvider languageProvider = initLanguageProvider(cntx);
-        final OrgUnit orgUnit = orgUnit1;
+        final OrgUnit orgUnit = bean;
         final OrgUnit existingBean = getOrgUnitByName(transactionContext, orgUnit.name, database);
+        if ("".equals(orgUnit.name.trim())) {
+            errors.add(languageProvider.getProperty("MESSAGE_ORG_UNIT_NO_NAME"));
+            return true;
+        }
         if (orgUnit.id != null) {
             errors.add(languageProvider.getProperty("ORG_UNIT_NO_MANDANT_ID"));
             return true;
@@ -126,14 +130,20 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
     @SuppressWarnings("unchecked")
     protected int updateBeanList(OctopusContext octopusContext, List errors, List orrgUnitList, TransactionContext transactionContext) throws IOException, BeanException {
         int count = 0;
-        for (Object orgUnit : orrgUnitList) {
-            final Bean bean = (Bean) orgUnit;
-            if (bean.isModified()) {
-                if (bean.isCorrect()) {
-                    updateOrgunit(octopusContext, errors, transactionContext, bean);
+        for (Object bean : orrgUnitList) {
+            final OrgUnit orgunit = (OrgUnit) bean;
+            if (orgunit.isModified()) {
+                if (orgunit.isCorrect()) {
+                    if ("".equals(orgunit.name.trim())) {
+                        LanguageProvider languageProvider = initLanguageProvider(octopusContext);
+                        errors.add(languageProvider.getProperty("MESSAGE_ORG_UNIT_NO_NAME"));
+                        return count;
+                    } else {
+                        updateOrgunit(octopusContext, errors, transactionContext, orgunit);
+                    }
                     count++;
                 } else {
-                    errors.addAll(bean.getErrors());
+                    errors.addAll(orgunit.getErrors());
                 }
             }
         }
