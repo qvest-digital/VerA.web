@@ -37,7 +37,6 @@ import de.tarent.octopus.server.OctopusContext;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -61,9 +60,9 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 	private static final ResourceBundle defaultBundle =
 			ResourceBundle.getBundle("de.tarent.aa.veraweb.config");
 
-	protected Map config;
-	protected boolean loaded = false;
-    private PropertiesReader propertiesReader = new PropertiesReader();
+	private Map config;
+	private boolean loaded = false;
+    private final PropertiesReader propertiesReader = new PropertiesReader();
 
     //
     // Konstruktoren
@@ -88,13 +87,14 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      *
      * @param cntx Octopus-Kontext
      */
-	public void init(OctopusContext cntx) throws BeanException, IOException {
+	@SuppressWarnings("unchecked")
+	private void init(OctopusContext cntx) throws BeanException, IOException {
 		// config aus datenbank laden
 		Map result = new HashMap();
 		getAll(cntx);
 		List list = (List)cntx.contentAsObject("all" + BEANNAME);
-		for (Iterator it = list.iterator(); it.hasNext(); ) {
-			Map entry = (Map)it.next();
+		for (Object aList : list) {
+			Map entry = (Map) aList;
 			result.put(entry.get("key"), entry.get("value"));
 		}
 
@@ -126,8 +126,8 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      * im Octopus-Content.
      *
      * @param cntx Octopus-Kontext
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException FIXME
+     * @throws IOException FIXME
      */
 	public void load(OctopusContext cntx) throws BeanException, IOException {
 		if (!loaded) {
@@ -159,9 +159,9 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      * Octopus-Request (unter "saveconfig-*") in der Datenbank.
      *
      * @param cntx Octopus-Kontext
-     * @throws BeanException
-     * @throws IOException
-     * @throws SQLException
+     * @throws BeanException FIXME
+     * @throws IOException FIXME
+     * @throws SQLException FIXME
      */
 	public void save(OctopusContext cntx) throws BeanException, IOException, SQLException {
 		if (!cntx.personalConfig().isUserInGroup(PersonalConfigAA.GROUP_ADMIN) || !cntx.requestContains("save")) {
@@ -169,8 +169,8 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 		}
 
 		List list = (List)BeanFactory.transform(cntx.requestAsObject("saveconfig"), List.class);
-		for (Iterator it = list.iterator(); it.hasNext(); ) {
-			String key = (String)it.next();
+		for (Object aList : list) {
+			String key = (String) aList;
 			String value = cntx.requestAsString(key);
 			saveValue(cntx, key, value);
 		}
@@ -195,6 +195,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 	 * cklein
 	 * 2008-02-27
 	 */
+	@SuppressWarnings("unchecked")
 	private void saveValue(OctopusContext cntx, String key, String value) throws BeanException, IOException, SQLException {
 		// wenn standard, dann null und default aus properties laden, sonst neuen wert in config hinterlegen
 		boolean found = false;
@@ -258,7 +259,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 				database.getCount("Config").
 				where(Expr.equal("cname", key)));
 
-			if (count.intValue() == 0) {
+			if (count == 0) {
 				Insert insert = SQL.Insert( database );
 				insert.table( "veraweb.tconfig" );
 				insert.insert( "cname", key );
@@ -302,8 +303,6 @@ public class ConfigWorker extends ListWorkerVeraWeb {
 		try {
 			return new Integer(getString(cntx, key));
 		} catch (NullPointerException e) {
-			return null;
-		} catch (NumberFormatException e) {
 			return null;
 		}
 	}
