@@ -38,6 +38,7 @@ import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,11 +52,8 @@ import java.util.Map;
  * @author mikel
  */
 public class OrgUnitListWorker extends ListWorkerVeraWeb {
-    private List tmp_errors = null;
 
-    //
-    // Konstruktoren
-    //
+    private List tmp_errors = null;
 
     /**
      * Dieser Konstruktor bestimmt den Basis-Bean-Typ des Workers.
@@ -63,10 +61,6 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
     public OrgUnitListWorker() {
         super("OrgUnit");
     }
-
-    //
-    // BeanListWorker
-    //
 
     /**
      * Wird von {@link de.tarent.octopus.beans.BeanListWorker#saveList(OctopusContext)}
@@ -76,43 +70,46 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      *
      * @param cntx Octopus-Kontext
      * @param errors kummulierte Fehlerliste
-     * @param bean einzufügendes Bean
+     * @param orgUnit einzufügendes Bean
      * @throws BeanException FIXME
      * @throws IOException FIXME
      */
     @Override
     @SuppressWarnings("unchecked")
-    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
-
+    protected int insertBean(OctopusContext cntx, List errors, Bean orgUnit, TransactionContext transactionContext) throws BeanException, IOException {
         int count = 0;
-        if (bean.isModified()) {
-            if (bean.isCorrect()) {
-                if (bean instanceof OrgUnit) {
-                    LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-                    LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
-                    OrgUnit orgunitBean = (OrgUnit) bean;
-                    if (orgunitBean.id != null) {
-                        errors.add(languageProvider.getProperty("ORG_UNIT_NO_MANDANT_ID"));
-                        return count;
-                    }
-                    Database database = context.getDatabase();
-                    OrgUnit dupBean = (OrgUnit) database.getBean("OrgUnit",
-                            database.getSelect("OrgUnit").
-                                    where(Expr.equal("unitname", orgunitBean.name)), context);
-                    if (dupBean != null) {
-                        errors.add(languageProvider.getProperty("ORG_UNIT_NO_MANDANT_ALREADY_EXISTS_ONE") +
-                                orgunitBean.name +
-                                languageProvider.getProperty("ORG_UNIT_NO_MANDANT_ALREADY_EXISTS_TWO"));
+        if (orgUnit.isModified()) {
+            if (orgUnit.isCorrect()) {
+                if (orgUnit instanceof OrgUnit) {
+                    boolean hasErrors = executeAdditionalChecks(cntx, errors, (OrgUnit) orgUnit, transactionContext);
+                    if (hasErrors) {
                         return count;
                     }
                 }
-                saveBean(cntx, bean, context);
+                saveBean(cntx, orgUnit, transactionContext);
                 count++;
             } else {
-                errors.addAll(bean.getErrors());
+                errors.addAll(orgUnit.getErrors());
             }
         }
         return count;
+    }
+
+    private boolean executeAdditionalChecks(OctopusContext cntx, List errors, OrgUnit orgUnit1, TransactionContext transactionContext) throws BeanException, IOException {
+        final Database database = transactionContext.getDatabase();
+        final LanguageProvider languageProvider = initLanguageProvider(cntx);
+        final OrgUnit orgUnit = orgUnit1;
+        final OrgUnit existingBean = getOrgUnitByName(transactionContext, orgUnit.name, database);
+        if (orgUnit.id != null) {
+            errors.add(languageProvider.getProperty("ORG_UNIT_NO_MANDANT_ID"));
+            return true;
+        }
+        if (existingBean != null) {
+            String errorMessageOrgunitExists = getErrorMessageOrgunitExists(languageProvider, orgUnit.name);
+            errors.add(errorMessageOrgunitExists);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -121,45 +118,19 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
      *
      * @param octopusContext Octopus-Kontext
      * @param errors kummulierte Fehlerliste
-     * @param beanlist Liste von zu aktualisierenden Beans
+     * @param orrgUnitList Liste von zu aktualisierenden Beans
      * @throws BeanException FIXME
      * @throws IOException FIXME
      */
     @Override
     @SuppressWarnings("unchecked")
-    protected int updateBeanList(OctopusContext octopusContext, List errors, List beanlist, TransactionContext transactionContext)
-            throws BeanException, IOException {
+    protected int updateBeanList(OctopusContext octopusContext, List errors, List orrgUnitList, TransactionContext transactionContext) throws IOException, BeanException {
         int count = 0;
-        for (Object aBeanlist : beanlist) {
-            Bean bean = (Bean) aBeanlist;
+        for (Object orgUnit : orrgUnitList) {
+            final Bean bean = (Bean) orgUnit;
             if (bean.isModified()) {
                 if (bean.isCorrect()) {
-                    if (bean instanceof OrgUnit) {
-                        OrgUnit orgunitBean = (OrgUnit) bean;
-
-                        LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-                        LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
-
-                        if (orgunitBean.id == null) {
-                            errors.add(languageProvider.getProperty("ORG_UNIT_MANDANT_ID_COMPULSORY_ONE") +
-                                    orgunitBean.name +
-                                    languageProvider.getProperty("ORG_UNIT_MANDANT_ID_COMPULSORY_TWO"));
-                            continue;
-                        }
-                        Database database = transactionContext.getDatabase();
-                        OrgUnit dupBean = (OrgUnit) database.getBean("OrgUnit",
-                                database.getSelect("OrgUnit").
-                                        where(Where.and(
-                                                Expr.equal("unitname", orgunitBean.name),
-                                                Expr.notEqual("pk", orgunitBean.id))), transactionContext);
-                        if (dupBean != null) {
-                            errors.add(languageProvider.getProperty("ORG_UNIT_MANDANT_EXISTS_ONE") +
-                                    orgunitBean.name +
-                                    languageProvider.getProperty("ORG_UNIT_MANDANT_EXISTS_TWO"));
-                            continue;
-                        }
-                    }
-                    saveBean(octopusContext, bean, transactionContext);
+                    updateOrgunit(octopusContext, errors, transactionContext, bean);
                     count++;
                 } else {
                     errors.addAll(bean.getErrors());
@@ -167,6 +138,74 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
             }
         }
         return count;
+    }
+
+    private void updateOrgunit(OctopusContext octopusContext, List errors, TransactionContext transactionContext, Bean bean) throws BeanException, IOException {
+        if (bean instanceof OrgUnit) {
+            final List additionalErrors = executeAdditionalChecks(octopusContext, transactionContext, (OrgUnit) bean);
+            errors.addAll(additionalErrors);
+        }
+        saveBean(octopusContext, bean, transactionContext);
+    }
+
+    private List executeAdditionalChecks(OctopusContext octopusContext, TransactionContext transactionContext, OrgUnit bean) throws BeanException, IOException {
+        final List errors = new ArrayList();
+        final Database database = transactionContext.getDatabase();
+        final OrgUnit orgUnit = bean;
+        final OrgUnit alreadyExistingBean = getOrgunitByNameAndId(transactionContext, orgUnit, database);
+        final LanguageProvider languageProvider = initLanguageProvider(octopusContext);
+        if (orgUnit.id == null) {
+            final String errorMessageMissingOrgunitId = getErrorMessageMissingOrgunitId(orgUnit, languageProvider);
+            errors.add(errorMessageMissingOrgunitId);
+        }
+        if (alreadyExistingBean != null) {
+            String errorMessageOrgunitExists = addErrorMessageOrgunitExists(orgUnit.name, languageProvider);
+            errors.add(errorMessageOrgunitExists);
+        }
+        return errors;
+    }
+
+    private String getErrorMessageOrgunitExists(LanguageProvider languageProvider, String orgunitName) {
+        return languageProvider.getProperty("ORG_UNIT_NO_MANDANT_ALREADY_EXISTS_ONE") +
+                orgunitName +
+                languageProvider.getProperty("ORG_UNIT_NO_MANDANT_ALREADY_EXISTS_TWO");
+    }
+
+    private LanguageProvider initLanguageProvider(OctopusContext cntx) {
+        final LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+        return languageProviderHelper.enableTranslation(cntx);
+    }
+
+    private String addErrorMessageOrgunitExists(String orgunitName, LanguageProvider languageProvider) {
+        final String errorMessageOrgunitExists = getErrorMessageOrgunitExists(orgunitName, languageProvider);
+        return errorMessageOrgunitExists;
+    }
+
+
+    private OrgUnit getOrgUnitByName(TransactionContext transactionContext, String orgunitName, Database database) throws BeanException, IOException {
+        return (OrgUnit) database.getBean("OrgUnit",
+                database.getSelect("OrgUnit").
+                        where(Expr.equal("unitname", orgunitName)), transactionContext);
+    }
+
+    private OrgUnit getOrgunitByNameAndId(TransactionContext transactionContext, OrgUnit orgunitBean, Database database) throws BeanException, IOException {
+        return (OrgUnit) database.getBean("OrgUnit",
+                                    database.getSelect("OrgUnit").
+                                            where(Where.and(
+                                                    Expr.equal("unitname", orgunitBean.name),
+                                                    Expr.notEqual("pk", orgunitBean.id))), transactionContext);
+    }
+
+    private String getErrorMessageOrgunitExists(String orgunitName, LanguageProvider languageProvider) {
+        return languageProvider.getProperty("ORG_UNIT_MANDANT_EXISTS_ONE") +
+                orgunitName +
+                languageProvider.getProperty("ORG_UNIT_MANDANT_EXISTS_TWO");
+    }
+
+    private String getErrorMessageMissingOrgunitId(OrgUnit orgunitBean, LanguageProvider languageProvider) {
+        return languageProvider.getProperty("ORG_UNIT_MANDANT_ID_COMPULSORY_ONE") +
+                orgunitBean.name +
+                languageProvider.getProperty("ORG_UNIT_MANDANT_ID_COMPULSORY_TWO");
     }
 
 
