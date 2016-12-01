@@ -139,6 +139,11 @@
 			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
 		</div>
 		<h1>$title</h1>
+	#elseif($action == "person")
+    		<div id="breadcrumb" class="textRight marginBottom10">
+    			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > $title</span>
+    		</div>
+    		<h1>$title</h1>
 	#elseif($searchTask && $searchTask == "personSearchTask")
 		<div id="breadcrumb" class="textRight marginBottom10">
 			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
@@ -1299,7 +1304,7 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 		#elseif($action == "replace")
 			<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzusuchenundersetzen}" class="mainButton" onclick="window.location.href='ShowReplacePerson';" />
 		#elseif($searchTask && $searchTask == "personSearchTask")
-			<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzurpersonensuche}" title="${placeholderWithTranslation.zuruckzurpersonensuche}" class="mainButton" onclick="javascript:history.back();" />
+			<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruck}" title="${placeholderWithTranslation.zuruck}" class="mainButton" onclick="javascript:history.back();" />
 		#end
 	</span>
 
