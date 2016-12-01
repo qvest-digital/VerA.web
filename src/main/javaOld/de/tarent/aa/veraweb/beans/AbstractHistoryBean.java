@@ -33,15 +33,15 @@ public class AbstractHistoryBean extends AbstractBean {
 	//
 	// Konstanten
 	//
-	/** <code>actor</code>-Vorgabewert bei {@link #updateHistoryFields(Date, String)} */
+	/** <code>actor</code>-Vorgabewert bei {@link #updateHistoryFields(String)} */
 	public final static String HISTORY_DEFAULT_ACTOR = "SYSTEM";
-	/** Erzeugungsdatum-Feldname bei {@link #updateHistoryFields(Date, String)} */
+	/** Erzeugungsdatum-Feldname bei {@link #updateHistoryFields(String)} */
 	public final static String HISTORY_FIELD_CREATED = "created";
-	/** Erzeuger-Feldname bei {@link #updateHistoryFields(Date, String)} */
+	/** Erzeuger-Feldname bei {@link #updateHistoryFields(String)} */
 	public final static String HISTORY_FIELD_CREATED_BY = "createdby";
-	/** Änderungsdatum-Feldname bei {@link #updateHistoryFields(Date, String)} */
+	/** Änderungsdatum-Feldname bei {@link #updateHistoryFields(String)} */
 	public final static String HISTORY_FIELD_CHANGED = "changed";
-	/** Änderer-Feldname bei {@link #updateHistoryFields(Date, String)} */
+	/** Änderer-Feldname bei {@link #updateHistoryFields(String)} */
 	public final static String HISTORY_FIELD_CHANGED_BY = "changedby";
 
 	/**
@@ -50,14 +50,10 @@ public class AbstractHistoryBean extends AbstractBean {
 	 * eingetragen und --- falls vorhanden --- Änderer und Änderungsdatum aktualisiert
 	 * werden
 	 *
-	 * @param date Datum der Änderung --- Default ist <i>jetzt</i>
 	 * @param actor Namen des Ändernden --- Default ist nicht vorgegeben
 	 * @throws BeanException FIXME
 	 */
-	public void updateHistoryFields(Date date, String actor) throws BeanException {
-		if (null == null) {
-			date = new Date();
-		}
+	public void updateHistoryFields(String actor) throws BeanException {
 		if (actor == null) {
 			actor = HISTORY_DEFAULT_ACTOR;
 		}

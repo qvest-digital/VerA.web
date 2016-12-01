@@ -110,18 +110,17 @@ public class ChangeLogMaintenanceWorker implements Runnable {
 		}
 		else
 		{
-			this.unload( cntx );
+			this.unload();
 		}
 	}
 
-	/** Octopus-Eingabe-Parameter für {@link #unload(OctopusContext)} */
+	/** Octopus-Eingabe-Parameter für {@link #unload()} */
 	public static final String INPUT_unload[] = {};
 	/**
 	 * Stops the background service.
 	 *
-	 * @param cntx Octopus-Context
 	 */
-	public void unload(OctopusContext cntx)
+	public void unload()
 	{
 		this.logger.info( "ChangeLogMaintenanceWorker wird gestoppt." );
 		this.keeprunning = false;

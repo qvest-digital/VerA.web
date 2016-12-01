@@ -644,7 +644,6 @@ public class DataExchangeWorker {
     void exportAll(Database database, Exporter exporter, Integer orgUnit) throws BeanException, IOException {
         assert database != null;
         assert exporter != null;
-        Bean samplePerson = database.createBean("Person");
 
         Select outer = database.getSelect("Person");
         WhereList outerWhere = new WhereList();

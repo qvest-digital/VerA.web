@@ -135,7 +135,7 @@ public class LanguageProvider {
             e.printStackTrace();
         }
 
-        this.loadTranslations(octopusContext, languageOptions);
+        this.loadTranslations(octopusContext);
     }
 
     /**
@@ -210,7 +210,7 @@ public class LanguageProvider {
         return properties;
     }
 
-    private void loadTranslations(OctopusContext octopusContext, Map<String, String> languageOptions) {
+    private void loadTranslations(OctopusContext octopusContext) {
 
         String filename = octopusContext.sessionAsString("sessionLanguage") + ".resource";
 
@@ -257,10 +257,6 @@ public class LanguageProvider {
         }
         
         return languageFileNames;
-    }
-
-    private String getFileNameByLangText(String langName) {
-        return existingLanguagesAndFilenames.get(langName);
     }
 
     public String getLastSelectedLanguage() {

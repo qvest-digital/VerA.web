@@ -116,8 +116,6 @@ public class PersonDuplicateCheckHelper {
 
 		// iteration over all imported persons data
 		for (ResultMap result : importedPersonsList) {
-			ImportPerson importPerson = new ImportPerson();
-
 			personIdArray = new ArrayList<Integer>();
 			final ResultList list = searchForImportPersonInDB(cntx, result);
 			if (list.size() > 0) {
@@ -163,23 +161,6 @@ public class PersonDuplicateCheckHelper {
 				personIdArray.add(personId);
 			}
 		}
-	}
-
-	/**
-	 * Returns an Array with unique IDs of duplicated persons
-	 * @param personIdArray FIXME
-	 * @return Person IDs
-	 */
-	private List<Integer> listUniquePersonIds(List<Integer> personIdArray) {
-		for(int i = 0; i < personIdArray.size(); i++) {
-			for (int j = 1; j < personIdArray.size(); j++) {
-				if (personIdArray.get(i) == personIdArray.get(j)) {
-					personIdArray.remove(i);
-				}
-			}
-		}
-
-		return personIdArray;
 	}
 
 	/**
@@ -235,7 +216,6 @@ public class PersonDuplicateCheckHelper {
 				revertedNamesClause);
 
 		// Checking changes between first and lastname
-		Clause dupNormalCheck = Where.and(clause, checkMixChanges);
 
 		CharacterPropertiesReader cpr = new CharacterPropertiesReader();
 

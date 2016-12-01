@@ -247,7 +247,7 @@ public class EventTaskDetailWorker {
     private void createTask(OctopusContext octopusContext, Database database, TransactionContext transactionContext, Task task, BeanChangeLogger clogger) throws BeanException, IOException {
         octopusContext.setContent("countInsert", Integer.valueOf(1));
         database.getNextPk(task, transactionContext);
-        task.updateHistoryFields(null, ((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
+        task.updateHistoryFields(((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
 
         final Insert insert = database.getInsert(task);
         insert.insert("pk", task.getId());

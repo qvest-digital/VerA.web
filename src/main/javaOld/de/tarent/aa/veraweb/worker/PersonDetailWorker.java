@@ -623,7 +623,7 @@ public class PersonDetailWorker implements PersonConstants {
 
         DateHelper.addTimeToDate(person.diplodate_a_e1, octopusContext.requestAsString("person-diplotime_a_e1"), person.getErrors());
         person.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
-        person.updateHistoryFields(null, ((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
+        person.updateHistoryFields(((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
         if (personOld != null) {
             setEntityCreationData(person, personOld);
         }
@@ -831,7 +831,7 @@ public class PersonDetailWorker implements PersonConstants {
             person = (Person) database.getBean("Person", personId);
         }
         if (person != null && person.id != null) {
-            person.updateHistoryFields(null, ((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
+            person.updateHistoryFields(((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
             Update update = database.getUpdate("Person");
             update.update(database.getProperty(person, "created"), person.created);
             update.update(database.getProperty(person, "createdby"), person.createdby);

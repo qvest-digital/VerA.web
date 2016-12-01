@@ -345,16 +345,6 @@ public class GuestWorker {
 
 			try
 			{
-				// not optimized due to dynamic creation of doctype content from configuration
-				// must still instantiate person beans from database, which may lead to destabilization
-				// of the system once more
-				List<Person> persons = database.getBeanList( "Person", database.getSelect( "Person" ).
-					join( new Join( Join.LEFT_OUTER, "veraweb.tguest", new RawClause( "tguest.fk_person = tperson.pk" ) ) ).
-					where( new RawClause( "tguest.fk_event = " + eventId
-						+ " and tguest.fk_person not in (select fk_person from tguest where fk_event = " + event.id
-						+ ") and tperson.deleted = 'f'"
-				)));
-
 				context.commit();
 			}
 			catch( BeanException e )
@@ -769,10 +759,6 @@ public class GuestWorker {
                 Expr.equal("fk_event", event.id),
                 Expr.equal("fk_person", personId))), context).intValue();
     }
-
-	private static boolean equals(Object o1, Object o2) {
-		return o1 == null ? o2 == null : o1.equals(o2);
-	}
 
     //
     // Variablen

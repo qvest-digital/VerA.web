@@ -64,7 +64,6 @@ public class PersonDuplicateSearchWorker extends PersonListWorker {
 
     @Override
     public List showList(final OctopusContext octopusContext) throws BeanException, IOException {
-        final long startTime = System.currentTimeMillis();
         // code in part duplicated from PersonListWorker
         final Database database = getDatabase(octopusContext);
 
@@ -91,7 +90,6 @@ public class PersonDuplicateSearchWorker extends PersonListWorker {
          * called, will return the correct resultlist with at most 10 entries in
          * the underlying resultset as is defined by the query.
          */
-        final ArrayList<Map> result = new ArrayList<Map>();
         final List resultList = getResultList(database, select);
         final ArrayList<Map> listWithOrdering = getListWithOrdering(convertFromResultListToArrayList(resultList));
         return listWithOrdering;

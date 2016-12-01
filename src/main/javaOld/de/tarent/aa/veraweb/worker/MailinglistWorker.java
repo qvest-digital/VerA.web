@@ -111,7 +111,7 @@ public class MailinglistWorker {
         if (octopusContext.contentAsObject("search") instanceof PersonSearch){
             return countSavedAddressesOnPersonSearch(octopusContext, mailinglist, addresstype, locale, selection);
         } else if (octopusContext.contentAsObject("search") instanceof GuestSearch){
-            return countSavedAddressesOnGuestSearch(octopusContext, mailinglist, addresstype, locale, freitextfeld, selection);
+            return countSavedAddressesOnGuestSearch(octopusContext, mailinglist, selection);
         }
         return 0;
 	}
@@ -121,7 +121,7 @@ public class MailinglistWorker {
 		return addMailinglistFromPerson(octopusContext, mailinglist, addresstype, locale, clause);
 	}
 
-	private int countSavedAddressesOnGuestSearch(OctopusContext octopusContext, Mailinglist mailinglist, Integer addresstype, Integer locale, Integer freitextfeld, List selection) throws BeanException, IOException {
+	private int countSavedAddressesOnGuestSearch(OctopusContext octopusContext, Mailinglist mailinglist, List selection) throws BeanException, IOException {
 		final GuestSearch search = (GuestSearch)octopusContext.contentAsObject("search");
         final Clause clause = Where.and(Expr.equal("tguest.fk_event", search.event), Expr.in("tguest.pk", selection));
 		return addMailinglistFromGuest(octopusContext, mailinglist, clause);

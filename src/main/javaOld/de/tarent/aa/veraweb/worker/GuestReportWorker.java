@@ -89,7 +89,6 @@ public class GuestReportWorker {
 		Event event = (Event)cntx.contentAsObject("event");
 		GuestSearch search = (GuestSearch)cntx.contentAsObject("search");
 		List selection = (List)cntx.sessionAsObject("selectionGuest");
-		Integer freitextfeld = ConfigWorker.getInteger(cntx, "freitextfeld2");
 
 		if (event == null)
 			return;

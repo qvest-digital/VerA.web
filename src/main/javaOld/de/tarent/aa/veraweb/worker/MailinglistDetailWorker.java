@@ -131,7 +131,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
 
         try {
             final Mailinglist mailinglist = (Mailinglist) request.getBean("Mailinglist", "mailinglist");
-            mailinglist.updateHistoryFields(null, ((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
+            mailinglist.updateHistoryFields(((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
             mailinglist.user = ((PersonalConfigAA) octopusContext.personalConfig()).getVerawebId();
             mailinglist.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
 

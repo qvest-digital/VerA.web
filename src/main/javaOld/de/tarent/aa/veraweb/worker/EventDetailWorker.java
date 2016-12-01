@@ -154,7 +154,6 @@ public class EventDetailWorker {
 
 			Event oldEvent = (Event) database.getBean("Event", event.id, transactionContext);
 
-			List errors = new ArrayList();
 			Map questions = new HashMap();
             checkForDuplicateEvents(octopusContext, database, event, questions);
 

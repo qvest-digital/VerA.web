@@ -284,13 +284,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return order;
     }
 
-    private void setOrderOfGastgeberNames(GuestSearch search, List order) {
-        order.add("lastname_a_gd");
-        order.add(search.sortDirection);
-        order.add("firstname_a_gd");
-        order.add(search.sortDirection);
-    }
-
     private void setOrderOfNames(GuestSearch search, List<String> order) {
         order.add("lastname_a_e1");
         order.add(search.sortDirection);
@@ -452,7 +445,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     protected void saveBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
         final Database database = transactionContext.getDatabase();
         final Guest guest = (Guest) bean;
-        guest.updateHistoryFields(null, ((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
+        guest.updateHistoryFields(((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
 
         /*
          * restore old guest state for logging purposes cklein 2008-02-20

@@ -121,7 +121,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
          * 2008-02-21
          */
         final Select personSelect = prepareShowList(octopusContext, database);
-        final Map param = (Map) octopusContext.contentAsObject(OUTPUT_showListParams);
 
         filterByFirstCharacterOfLastname(octopusContext, personSelect);
 

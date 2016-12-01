@@ -190,14 +190,14 @@ public class ChangeLogReportsWorker extends ListWorkerVeraWeb
     protected void extendAll( OctopusContext cntx, Select select )
 		throws BeanException, IOException
 	{
-		Clause clause = getWhere( cntx );
+		Clause clause = getWhere();
 		if ( clause != null )
 		{
 			select.where( clause );
 		}
 	}
 
-	protected Clause getWhere( OctopusContext cntx )
+	protected Clause getWhere()
 		throws BeanException
 	{
 		Clause clause = null;

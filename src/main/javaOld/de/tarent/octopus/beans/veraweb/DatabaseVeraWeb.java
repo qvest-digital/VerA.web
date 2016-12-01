@@ -99,7 +99,7 @@ public class DatabaseVeraWeb extends Database {
 //        if (bean instanceof AbstractBean)
 //            ((AbstractBean)bean).checkWrite(octopusContext);
         if (bean instanceof AbstractHistoryBean)
-            ((AbstractHistoryBean)bean).updateHistoryFields(null, ((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
+            ((AbstractHistoryBean)bean).updateHistoryFields(((PersonalConfigAA)cntx.personalConfig()).getRoleWithProxy());
         super.saveBean(bean, context, updateID);
     }
 

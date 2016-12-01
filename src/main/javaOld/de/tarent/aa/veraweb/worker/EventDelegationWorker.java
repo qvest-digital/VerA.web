@@ -152,20 +152,6 @@ public class EventDelegationWorker {
         return optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(guestId);
     }
 
-    private List<OptionalField> getOptionalFieldDeclaredInEvent(OctopusContext octopusContext, Integer eventId)
-            throws BeanException, SQLException {
-        final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
-        return optionalFieldsWorker.getOptionalFieldsByEvent(eventId);
-    }
-
-    private Integer getIntegerFromRequestParameter(OctopusContext oc, String parameter) {
-        final Object parameterValue = oc.getRequestObject().getRequestParameters().get(parameter);
-        if (parameterValue == null) {
-            return null;
-        }
-        return new Integer(parameterValue.toString());
-    }
-
     /**
      * FIXME
      * @param octopusContext The {@link OctopusContext}
@@ -180,16 +166,6 @@ public class EventDelegationWorker {
     public Map<String, String> showDelegationFieldsOnlyByEventId(OctopusContext octopusContext, Integer eventId)
             throws IOException, BeanException, SQLException {
         setEventAndMediaRepresantativeURLInContext(octopusContext, eventId);
-        return null;
-    }
-
-    private OptionalField findFieldById(List<OptionalField> fields, int id) {
-        for (OptionalField field : fields) {
-            if (field.getId() == id) {
-                return field;
-            }
-        }
-
         return null;
     }
 
