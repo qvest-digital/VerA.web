@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2016 tarent solutions GmbH
- *
+ * <p>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -33,6 +33,8 @@ import de.tarent.octopus.beans.BeanFactory;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -49,36 +51,40 @@ import java.util.ResourceBundle;
  * @version $Revision: 1.1 $
  */
 public class ConfigWorker extends ListWorkerVeraWeb {
-	private static final String defaultSource[] = {
-			"LABEL_MEMBER_PRIVATE", "LABEL_MEMBER_BUSINESS", "LABEL_MEMBER_OTHER",
-			"LABEL_MEMBER_LATIN", "LABEL_MEMBER_EXTRA1", "LABEL_MEMBER_EXTRA2",
-			"LABEL_ADDRESS_SUFFIX1", "LABEL_ADDRESS_SUFFIX2", "CHANGE_LOG_RETENTION_POLICY" };
-	private static final String defaultTarget[] = {
-			"private", "business", "other",
-			"latin", "extra1", "extra2",
-			"suffix1", "suffix2", "changeLogRetentionPolicy" };
-	private static final ResourceBundle defaultBundle =
-			ResourceBundle.getBundle("de.tarent.aa.veraweb.config");
+    private static final String defaultSource[] = {
+            "LABEL_MEMBER_PRIVATE", "LABEL_MEMBER_BUSINESS", "LABEL_MEMBER_OTHER",
+            "LABEL_MEMBER_LATIN", "LABEL_MEMBER_EXTRA1", "LABEL_MEMBER_EXTRA2",
+            "LABEL_ADDRESS_SUFFIX1", "LABEL_ADDRESS_SUFFIX2", "CHANGE_LOG_RETENTION_POLICY"};
+    private static final String defaultTarget[] = {
+            "private", "business", "other",
+            "latin", "extra1", "extra2",
+            "suffix1", "suffix2", "changeLogRetentionPolicy"};
+    private static final ResourceBundle defaultBundle =
+            ResourceBundle.getBundle("de.tarent.aa.veraweb.config");
 
-	private Map config;
-	private boolean loaded = false;
+    private Map config;
+    private boolean loaded = false;
     private final PropertiesReader propertiesReader = new PropertiesReader();
+
+    final Logger LOGGER = LogManager.getLogger(ConfigWorker.class.getCanonicalName());
 
     //
     // Konstruktoren
     //
+
     /**
      * Der Konstruktor legt den Bean-Namen fest.
      */
-	public ConfigWorker() {
-		super("Config");
-	}
+    public ConfigWorker() {
+        super("Config");
+    }
 
     //
     // Octopus-Aktionen
     //
     /** Input-Parameter der Octopus-Aktion {@link #init(OctopusContext)} */
-	static public final String INPUT_init[] = {};
+    static public final String INPUT_init[] = {};
+
     /**
      * Diese Octopus-Aktion initialisiert die Map der Konfig-Einträge dieses
      * Workers aus der Datenbank (mittels der ererbten Aktion
@@ -87,38 +93,36 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      *
      * @param cntx Octopus-Kontext
      */
-	@SuppressWarnings("unchecked")
-	private void init(OctopusContext cntx) throws BeanException, IOException {
-		// config aus datenbank laden
-		Map result = new HashMap();
-		getAll(cntx);
-		List list = (List)cntx.contentAsObject("all" + BEANNAME);
-		for (Object aList : list) {
-			Map entry = (Map) aList;
-			result.put(entry.get("key"), entry.get("value"));
-		}
+    @SuppressWarnings("unchecked")
+    private void init(OctopusContext cntx) throws BeanException, IOException {
+        // config aus datenbank laden
+        Map result = new HashMap();
+        getAll(cntx);
+        List list = (List) cntx.contentAsObject("all" + BEANNAME);
+        for (Object aList : list) {
+            Map entry = (Map) aList;
+            result.put(entry.get("key"), entry.get("value"));
+        }
 
-		// default config aus properties laden
-		for (int i = 0; i < defaultTarget.length; i++) {
-			String value = (String)result.get(defaultTarget[i]);
-			if (value == null || value.length() == 0) {
-				if ( "CHANGE_LOG_RETENTION_POLICY".compareTo( defaultSource[ i ] ) == 0 )
-				{
-					result.put( defaultTarget[ i ], Duration.fromString( defaultBundle.getString( defaultSource[ i ] ) ) );
-				}
-				else
-				{
-					result.put(defaultTarget[i], defaultBundle.getString(defaultSource[i]));
-				}
-			}
-		}
+        // default config aus properties laden
+        for (int i = 0; i < defaultTarget.length; i++) {
+            String value = (String) result.get(defaultTarget[i]);
+            if (value == null || value.length() == 0) {
+                if ("CHANGE_LOG_RETENTION_POLICY".compareTo(defaultSource[i]) == 0) {
+                    result.put(defaultTarget[i], Duration.fromString(defaultBundle.getString(defaultSource[i])));
+                } else {
+                    result.put(defaultTarget[i], defaultBundle.getString(defaultSource[i]));
+                }
+            }
+        }
 
-		config = result;
-		loaded = true;
-	}
+        config = result;
+        loaded = true;
+    }
 
     /** Input-Parameter der Octopus-Aktion {@link #load(OctopusContext)} */
     static public final String INPUT_load[] = {};
+
     /**
      * Diese Octopus-Aktion initialisiert die Map der Konfig-Einträge dieses
      * Workers mittels der Aktion {@link #init(OctopusContext)}, sofern dies
@@ -129,31 +133,33 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      * @throws BeanException FIXME
      * @throws IOException FIXME
      */
-	public void load(OctopusContext cntx) throws BeanException, IOException {
-		if (!loaded) {
-			init(cntx);
-		}
-		cntx.setContent("config", config);
-		
-		//FIXME: here is as good as anywhere else, I guess?
-		cntx.setContent("url",new URLGenerator(propertiesReader.getProperties()));
-	}
+    public void load(OctopusContext cntx) throws BeanException, IOException {
+        if (!loaded) {
+            init(cntx);
+        }
+        cntx.setContent("config", config);
+
+        //FIXME: here is as good as anywhere else, I guess?
+        cntx.setContent("url", new URLGenerator(propertiesReader.getProperties()));
+    }
 
     /** Input-Parameter der Octopus-Aktion {@link #clean(OctopusContext)} */
     static public final String INPUT_clean[] = {};
+
     /**
      * Diese Octopus-Aktion deinitialisiert die Map der Konfig-Einträge dieses
      * Workers.
      *
      * @param cntx Octopus-Kontext
      */
-	public void clean(OctopusContext cntx) {
-		config = null;
-		loaded = false;
-	}
+    public void clean(OctopusContext cntx) {
+        config = null;
+        loaded = false;
+    }
 
     /** Input-Parameter der Octopus-Aktion {@link #save(OctopusContext)} */
     static public final String INPUT_save[] = {};
+
     /**
      * Diese Octopus-Aktion speichert eine Liste von Konfigurationseinträgen aus dem
      * Octopus-Request (unter "saveconfig-*") in der Datenbank.
@@ -163,147 +169,130 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      * @throws IOException FIXME
      * @throws SQLException FIXME
      */
-	public void save(OctopusContext cntx) throws BeanException, IOException, SQLException {
-		if (!cntx.personalConfig().isUserInGroup(PersonalConfigAA.GROUP_ADMIN) || !cntx.requestContains("save")) {
-			return;
-		}
+    public void save(OctopusContext cntx) throws BeanException, IOException, SQLException {
+        if (!cntx.personalConfig().isUserInGroup(PersonalConfigAA.GROUP_ADMIN) || !cntx.requestContains("save")) {
+            return;
+        }
 
-		List list = (List)BeanFactory.transform(cntx.requestAsObject("saveconfig"), List.class);
-		for (Object aList : list) {
-			String key = (String) aList;
-			String value = cntx.requestAsString(key);
-			saveValue(cntx, key, value);
-		}
-		cntx.setContent("saveSuccess", true);
-	}
+        List list = (List) BeanFactory.transform(cntx.requestAsObject("saveconfig"), List.class);
+        for (Object aList : list) {
+            String key = (String) aList;
+            String value = cntx.requestAsString(key);
+            saveValue(cntx, key, value);
+        }
+        cntx.setContent("saveSuccess", true);
+    }
 
     //
     // Hilfsmethoden
     //
-	private String getValue(String key) {
-		return (String)config.get(key);
-	}
+    private String getValue(String key) {
+        return (String) config.get(key);
+    }
 
-	/*
-	 * modified to support duration handling for the new setting change log retention policy
-	 *
-	 * refactored a bit to minimize processing overhead, namely removed redundant second loop and
-	 * moved default/new/null value handling to the first loop
-	 *
-	 * database query getCount() will now be executed only if there is a value to be stored
-	 *
-	 * cklein
-	 * 2008-02-27
-	 */
-	@SuppressWarnings("unchecked")
-	private void saveValue(OctopusContext cntx, String key, String value) throws BeanException, IOException, SQLException {
-		// wenn standard, dann null und default aus properties laden, sonst neuen wert in config hinterlegen
-		boolean found = false;
-		for (int i = 0; i < defaultTarget.length; i++)
-		{
-			if (defaultTarget[i].equals(key)) {
-				found = true;
-				if ( "CHANGE_LOG_RETENTION_POLICY".compareTo( defaultSource[ i ] ) == 0 )
-				{
-					Duration dnew = Duration.fromString( value );
-					Duration dold = Duration.fromString( defaultBundle.getString( defaultSource[ i ] ) );
-					if
-					(
-						( dold.toString().compareTo( dnew.toString() ) == 0 ) ||
-						( dnew.toString().compareTo( "P0" ) == 0 )
-					)
-					{
-						value = null;
-						config.put( defaultTarget[ i ], Duration.fromString( defaultBundle.getString( defaultSource[ i ] ) ) );
-					}
-					else
-					{
-						config.put( defaultTarget[ i ], Duration.fromString( value ) );
-					}
-				}
-				else
-				{
-					if (defaultBundle.getString(defaultSource[i]).equals(value))
-					{
-						value = null;
-						config.put(key, defaultBundle.getString(defaultSource[i]));
-					}
-					else
-					{
-						config.put(key, value);
-					}
-				}
-				break;
-			}
-		}
-		if ( ! found )
-		{
-			// ist kein default konfigurationseintrag
-			if ("".compareTo( value ) == 0 )
-			{
-				value = null;
-				config.remove( key );
-			}
-			else
-			{
-				config.put( key, value );
-			}
-		}
+    /*
+     * modified to support duration handling for the new setting change log retention policy
+     *
+     * refactored a bit to minimize processing overhead, namely removed redundant second loop and
+     * moved default/new/null value handling to the first loop
+     *
+     * database query getCount() will now be executed only if there is a value to be stored
+     *
+     * cklein
+     * 2008-02-27
+     */
+    @SuppressWarnings("unchecked")
+    private void saveValue(OctopusContext cntx, String key, String value) throws BeanException, IOException, SQLException {
+        // wenn standard, dann null und default aus properties laden, sonst neuen wert in config hinterlegen
+        boolean found = false;
+        for (int i = 0; i < defaultTarget.length; i++) {
+            if (defaultTarget[i].equals(key)) {
+                found = true;
+                if ("CHANGE_LOG_RETENTION_POLICY".compareTo(defaultSource[i]) == 0) {
+                    Duration dnew = Duration.fromString(value);
+                    Duration dold = Duration.fromString(defaultBundle.getString(defaultSource[i]));
+                    if((dold.toString().compareTo(dnew.toString()) == 0) || (dnew.toString().compareTo("P0") == 0)) {
+                        value = null;
+                        config.put(defaultTarget[i], Duration.fromString(defaultBundle.getString(defaultSource[i])));
+                    } else {
+                        config.put(defaultTarget[i], Duration.fromString(value));
+                    }
+                } else {
+                    if (defaultBundle.getString(defaultSource[i]).equals(value)) {
+                        value = null;
+                        config.put(key, defaultBundle.getString(defaultSource[i]));
+                    } else {
+                        config.put(key, value);
+                    }
+                }
+                break;
+            }
+        }
+        if (!found) {
+            // ist kein default konfigurationseintrag
+            if ("".compareTo(value) == 0) {
+                value = null;
+                config.remove(key);
+            } else {
+                config.put(key, value);
+            }
+        }
 
-		// einstellung in datenbank speichern
-		Database database = getDatabase(cntx);
-		if ( value != null && value.length() != 0 )
-		{
-			Integer count =
-				database.getCount(
-				database.getCount("Config").
-				where(Expr.equal("cname", key)));
+        // einstellung in datenbank speichern
+        Database database = getDatabase(cntx);
+        if (value != null && value.length() != 0) {
+            Integer count = database.getCount(
+                database.getCount("Config").where(Expr.equal("cname", key))
+            );
 
-			if (count == 0) {
-				Insert insert = SQL.Insert( database );
-				insert.table( "veraweb.tconfig" );
-				insert.insert( "cname", key );
-				insert.insert( "cvalue", value );
-				insert.execute();
-			} else {
-				Update update = SQL.Update( database );
-				update.table( "veraweb.tconfig" );
-				update.update( "cvalue", value );
-				update.where( Expr.equal( "cname", key ) );
-				update.execute();
-			}
-		} else {
-			Delete delete = SQL.Delete( database );
-			delete.from( "veraweb.tconfig" );
-			delete.where( Expr.equal( "cname", key ) );
-			delete.execute();
-		}
-	}
+            if (count == 0) {
+                LOGGER.debug(" -----------------------> INSERT CONFIG "+ key + "/" + value + " <----------------------- ");
+                Insert insert = SQL.Insert(database);
+                insert.table("veraweb.tconfig");
+                insert.insert("cname", key);
+                insert.insert("cvalue", value);
+                insert.execute();
+            } else {
+                LOGGER.debug("-----------------------> UPDATE CONFIG "+ key + "/" + value + " <----------------------- ");
+                Update update = SQL.Update(database);
+                update.table("veraweb.tconfig");
+                update.update("cvalue", value);
+                update.where(Expr.equal("cname", key));
+                update.execute();
+            }
+        } else {
+            LOGGER.debug(" -----------------------> DELETE CONFIG "+ key + "/" + value + " <----------------------- ");
+            Delete delete = SQL.Delete(database);
+            delete.from("veraweb.tconfig");
+            delete.where(Expr.equal("cname", key));
+            delete.execute();
+        }
+    }
 
-	/**
-	 * Gibt eine Config-Einstellung zurück.
-	 *
-	 * @param cntx Octopus-Kontext
-	 * @param key Name hinter dem die Einstellung hinterlegt sein soll.
-	 * @return Der Wert der Einstellung oder null.
-	 */
-	public static String getString(OctopusContext cntx, String key) {
-		return WorkerFactory.getConfigWorker(cntx).getValue(key);
-	}
+    /**
+     * Gibt eine Config-Einstellung zurück.
+     *
+     * @param cntx Octopus-Kontext
+     * @param key Name hinter dem die Einstellung hinterlegt sein soll.
+     * @return Der Wert der Einstellung oder null.
+     */
+    public static String getString(OctopusContext cntx, String key) {
+        return WorkerFactory.getConfigWorker(cntx).getValue(key);
+    }
 
-	/**
-	 * Gibt eine Config-Einstellung zurück, falls dieser nicht zu einer
-	 * Zahl transformiert werden kann wird null zurückgegeben.
-	 *
-	 * @param cntx Octopus-Kontext
-	 * @param key Name hinter dem die Einstellung hinterlegt sein soll.
-	 * @return Der Wert der Einstellung oder null.
-	 */
-	public static Integer getInteger(OctopusContext cntx, String key) {
-		try {
-			return new Integer(getString(cntx, key));
-		} catch (NullPointerException e) {
-			return null;
-		}
-	}
+    /**
+     * Gibt eine Config-Einstellung zurück, falls dieser nicht zu einer
+     * Zahl transformiert werden kann wird null zurückgegeben.
+     *
+     * @param cntx Octopus-Kontext
+     * @param key Name hinter dem die Einstellung hinterlegt sein soll.
+     * @return Der Wert der Einstellung oder null.
+     */
+    public static Integer getInteger(OctopusContext cntx, String key) {
+        try {
+            return new Integer(getString(cntx, key));
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
 }
