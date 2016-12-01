@@ -29,9 +29,9 @@
 			#end
 
 			#if($statistik == "EventsGroupByHost" && $person)
-				<h2>${StatistikfurGastgeber} $person.MainLatin.SaveAs</h2>
+				<h2>${placeholderWithTranslation.statistikfurgastgeber} $person.MainLatin.SaveAs</h2>
 			#elseif($statistik == "EventsGroupByGuest" && $person)
-				<h2>${StatistikfurGast} $person.MainLatin.SaveAs</h2>
+				<h2>${placeholderWithTranslation.statistikfurgast} $person.MainLatin.SaveAs</h2>
 			#end
 
 			<!-- $result -->
