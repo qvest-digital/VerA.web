@@ -21,8 +21,8 @@
             <td class="kategorieName" style="width: 50%;">
                 $!message.date("YEAR_MONTH", $bean.month)
             </td>
-            <td class="kategorieName" style="width: 50%;">$
-                !bean.events
+            <td class="kategorieName" style="width: 50%;">
+                $!bean.events
             </td>
         </tr>
     </table>
