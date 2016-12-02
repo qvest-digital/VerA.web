@@ -31,6 +31,7 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.BeanFactory;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 import org.apache.logging.log4j.LogManager;
@@ -202,7 +203,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
      * 2008-02-27
      */
     @SuppressWarnings("unchecked")
-    private void saveValue(OctopusContext cntx, String key, String value) throws BeanException, IOException, SQLException {
+    private void saveValue(OctopusContext octopusContext, String key, String value) throws BeanException, IOException, SQLException {
         // wenn standard, dann null und default aus properties laden, sonst neuen wert in config hinterlegen
         boolean found = false;
         for (int i = 0; i < defaultTarget.length; i++) {
@@ -238,35 +239,58 @@ public class ConfigWorker extends ListWorkerVeraWeb {
             }
         }
 
+        executeSaveSettings(octopusContext, key, value);
+    }
+
+    private void executeSaveSettings(OctopusContext cntx, String key, String value) throws BeanException, IOException {
         // einstellung in datenbank speichern
-        Database database = getDatabase(cntx);
+        final Database database = getDatabase(cntx);
+        final TransactionContext transactionContext = database.getTransactionContext();
         if (value != null && value.length() != 0) {
             Integer count = database.getCount(
                 database.getCount("Config").where(Expr.equal("cname", key))
             );
 
             if (count == 0) {
-                LOGGER.debug(" -----------------------> INSERT CONFIG "+ key + "/" + value + " <----------------------- ");
-                Insert insert = SQL.Insert(database);
-                insert.table("veraweb.tconfig");
-                insert.insert("cname", key);
-                insert.insert("cvalue", value);
-                insert.execute();
+                insertConfigSettings(key, value, database, transactionContext);
             } else {
-                LOGGER.debug("-----------------------> UPDATE CONFIG "+ key + "/" + value + " <----------------------- ");
-                Update update = SQL.Update(database);
-                update.table("veraweb.tconfig");
-                update.update("cvalue", value);
-                update.where(Expr.equal("cname", key));
-                update.execute();
+                updateConfigSettings(key, value, database, transactionContext);
             }
         } else {
-            LOGGER.debug(" -----------------------> DELETE CONFIG "+ key + "/" + value + " <----------------------- ");
-            Delete delete = SQL.Delete(database);
-            delete.from("veraweb.tconfig");
-            delete.where(Expr.equal("cname", key));
-            delete.execute();
+            deleteConfigSettings(key, value, database, transactionContext);
         }
+    }
+
+    private void deleteConfigSettings(String key, String value, Database database, TransactionContext transactionContext) throws BeanException {
+        LOGGER.debug(" -----------------------> BEGIN DELETE CONFIG "+ key + "/" + value + " <----------------------- ");
+        Delete delete = SQL.Delete(database);
+        delete.from("veraweb.tconfig");
+        delete.where(Expr.equal("cname", key));
+        transactionContext.execute(delete);
+        transactionContext.commit();
+        LOGGER.debug(" -----------------------> DONE DELETE CONFIG "+ key + "/" + value + " <----------------------- ");
+    }
+
+    private void updateConfigSettings(String key, String value, Database database, TransactionContext transactionContext) throws BeanException {
+        LOGGER.debug("-----------------------> BEGIN UPDATE CONFIG "+ key + "/" + value + " <----------------------- ");
+        Update update = SQL.Update(database);
+        update.table("veraweb.tconfig");
+        update.update("cvalue", value);
+        update.where(Expr.equal("cname", key));
+        transactionContext.execute(update);
+        transactionContext.commit();
+        LOGGER.debug(" -----------------------> DONE UPDATE CONFIG "+ key + "/" + value + " <----------------------- ");
+    }
+
+    private void insertConfigSettings(String key, String value, Database database, TransactionContext transactionContext) throws BeanException {
+        LOGGER.debug(" -----------------------> BEGIN INSERT CONFIG "+ key + "/" + value + " <----------------------- ");
+        Insert insert = SQL.Insert(database);
+        insert.table("veraweb.tconfig");
+        insert.insert("cname", key);
+        insert.insert("cvalue", value);
+        transactionContext.execute(insert);
+        transactionContext.commit();
+        LOGGER.debug(" -----------------------> DONE INSERT CONFIG "+ key + "/" + value + " <----------------------- ");
     }
 
     /**
