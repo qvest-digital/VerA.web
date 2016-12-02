@@ -23,9 +23,9 @@
 			#if($begin.class.name == "java.util.Date" && $end.class.name == "java.util.Date")
 				<h2>${placeholderWithTranslation.imzeitraumvom} $!message.date("DATE", $begin) ${placeholderWithTranslation.biszum} $!message.date("DATE", $end)</h2>
 			#elseif($begin.class.name == "java.util.Date")
-				<h2>${${placeholderWithTranslation.GENERIC_VIEW_OVER_GUEST_EVENT} $!message.date("DATE", $begin)</h2>
+				<h2>${placeholderWithTranslation.GENERIC_VIEW_OVER_GUEST_EVENT} $!message.date("DATE", $begin)</h2>
 			#elseif($end.class.name == "java.util.Date")
-				<h2>${${placeholderWithTranslation.bis} $!message.date("DATE", $end)</h2>
+				<h2>${placeholderWithTranslation.bis} $!message.date("DATE", $end)</h2>
 			#end
 
 			#if($statistik == "EventsGroupByHost" && $person)
