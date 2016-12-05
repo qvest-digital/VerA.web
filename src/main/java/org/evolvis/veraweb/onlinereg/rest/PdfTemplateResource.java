@@ -312,7 +312,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     private String selectSalutation(Person person) {
         for (SalutationAlternative alternativeSalutation : alternativeSalutations) {
-            if (person.getFk_salutation_a_e1().equals(alternativeSalutation.getSalutation_id())) {
+            if (alternativeSalutation.getSalutation_id().equals(person.getFk_salutation_a_e1())) {
                 return alternativeSalutation.getContent();
             }
         }
