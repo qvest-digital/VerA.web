@@ -2,6 +2,7 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.entities.Salutation;
 import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
+import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -22,6 +23,8 @@ import java.util.List;
 @Path("/salutation/alternative")
 @Produces(MediaType.APPLICATION_JSON)
 public class SalutationAlternativeResource extends AbstractResource {
+
+    private static final int MAX_SALUTATION_LENGTH = 100;
 
     /**
      * Get all alternative salutations for pdftemplate.
@@ -106,8 +109,10 @@ public class SalutationAlternativeResource extends AbstractResource {
                                               @FormParam("salutationId") Integer salutationId,
                                               @FormParam("content") String content) {
 
-        if (pdftemplateId == null || salutationId == null || content == null || content.isEmpty()) {
+        if (pdftemplateId == null || salutationId == null || "".equals(content)) {
             return Response.status(Response.Status.BAD_REQUEST).build();
+        } else if (content.length() > MAX_SALUTATION_LENGTH){
+            return Response.status(VworConstants.HTTP_POLICY_NOT_FULFILLED).build();
         }
 
         final Session session = openSession();
