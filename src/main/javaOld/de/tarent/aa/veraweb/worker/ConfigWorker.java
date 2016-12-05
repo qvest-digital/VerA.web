@@ -242,9 +242,9 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         executeSaveSettings(octopusContext, key, value);
     }
 
-    private void executeSaveSettings(OctopusContext cntx, String key, String value) throws BeanException, IOException {
+    private void executeSaveSettings(OctopusContext octopusContext, String key, String value) throws BeanException, IOException {
         // einstellung in datenbank speichern
-        final Database database = getDatabase(cntx);
+        final Database database = getDatabase(octopusContext);
         final TransactionContext transactionContext = database.getTransactionContext();
         if (value != null && value.length() != 0) {
             Integer count = database.getCount(
