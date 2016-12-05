@@ -268,7 +268,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
         delete.where(Expr.equal("cname", key));
         transactionContext.execute(delete);
         transactionContext.commit();
-        LOGGER.debug(" -----------------------> DONE DELETE CONFIG "+ key + "/" + value + " <----------------------- ");
+        LOGGER.debug(" -----------------------> DONE DELETE CONFIG " + key + "/" + value + " <----------------------- ");
     }
 
     private void updateConfigSettings(String key, String value, Database database, TransactionContext transactionContext) throws BeanException {
@@ -315,7 +315,7 @@ public class ConfigWorker extends ListWorkerVeraWeb {
     public static Integer getInteger(OctopusContext cntx, String key) {
         try {
             return new Integer(getString(cntx, key));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             return null;
         }
     }
