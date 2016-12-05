@@ -2133,3 +2133,4 @@ SALUTATION_ERROR_LOAD=Error durante la carga
 SALUTATION_ERROR_EMPTY=Saludos alternativos no deben estar vac\u00EDos
 SALUTATION_ERROR_SAVE=Error al guardar
 SALUTATION_ERROR_DELETE=Error al suprimir
+SALUTATION_ERROR_LENGTH=Saludos alternativos no debe contener m\u00E1s de 100 caracteres

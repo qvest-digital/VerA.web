@@ -80,6 +80,8 @@
                 var errorMsg = "";
                 if (response.status == 400){ /* Bad Request */
                     errorMsg = $("#pdftemplate-salutation-empty-errormsg").data("errormsg");
+                } else if (response.status == 420){ /* Policy Not Fulfilled */
+                    errorMsg = $("#pdftemplate-salutation-length-errormsg").data("errormsg");
                 } else {
                     errorMsg = $("#pdftemplate-salutation-save-errormsg").data("errormsg");
                 }

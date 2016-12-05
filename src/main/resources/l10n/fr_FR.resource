@@ -2134,3 +2134,4 @@ SALUTATION_ERROR_LOAD=Erreur lors du chargement
 SALUTATION_ERROR_EMPTY=Salutations alternatives ne doivent pas \u00EAtre vide
 SALUTATION_ERROR_SAVE=Erreur lors de l\u0027enregistrement
 SALUTATION_ERROR_DELETE=Erreur lors de la suppression
+SALUTATION_ERROR_LENGTH=Salutations alternatives doit etre moins de 100 characteres

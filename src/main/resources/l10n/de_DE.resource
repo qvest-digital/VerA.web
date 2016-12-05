@@ -2096,3 +2096,4 @@ SALUTATION_ERROR_LOAD=Fehler beim Laden
 SALUTATION_ERROR_EMPTY=Alternative Anrede darf nicht leer sein
 SALUTATION_ERROR_SAVE=Fehler beim speichern
 SALUTATION_ERROR_DELETE=Fehler beim l\u00F6schen
+SALUTATION_ERROR_LENGTH=Alternative Anrede darf nicht l\u00E4nger als 100 Zeichen sein

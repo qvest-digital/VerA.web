@@ -37,6 +37,7 @@
 <!-- ERROR MSG -->
 <div data-errormsg="${placeholderWithTranslation.SALUTATION_ERROR_LOAD}" id="pdftemplate-salutation-load-errormsg"></div>
 <div data-errormsg="${placeholderWithTranslation.SALUTATION_ERROR_EMPTY}" id="pdftemplate-salutation-empty-errormsg"></div>
+<div data-errormsg="${placeholderWithTranslation.SALUTATION_ERROR_LENGTH}" id="pdftemplate-salutation-length-errormsg"></div>
 <div data-errormsg="${placeholderWithTranslation.SALUTATION_ERROR_SAVE}" id="pdftemplate-salutation-save-errormsg"></div>
 <div data-errormsg="${placeholderWithTranslation.SALUTATION_ERROR_DELETE}" id="pdftemplate-salutation-delete-errormsg"></div>
 <!-- vex library -->

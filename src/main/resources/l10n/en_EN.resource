@@ -2125,3 +2125,4 @@ SALUTATION_ERROR_LOAD=Error while loading
 SALUTATION_ERROR_EMPTY=Alternative Salutations must not be empty
 SALUTATION_ERROR_SAVE=Error while saving
 SALUTATION_ERROR_DELETE=Error while deleting
+SALUTATION_ERROR_LENGTH=Alternative Salutations mustn't be longer than 100 characters
