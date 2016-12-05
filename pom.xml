@@ -4,7 +4,7 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-core</artifactId>
 	<packaging>war</packaging>
-	<version>1.8.43</version>
+	<version>1.8.44-SNAPSHOT</version>
 	<name>veraweb-evolvis-war</name>
 	<description>Veranstaltungsmanagment VerA.web</description>
 	<inceptionYear>2005</inceptionYear>
