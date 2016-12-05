@@ -20,21 +20,6 @@
                 <strong>${placeholderWithTranslation.zusagen}</strong>
             </nobr>
         </td>
-		##<td class="kategorieName" style="width: 12%;">
-            <nobr>
-                <strong>${placeholderWithTranslation.EVENT_INVITATION_TYPE}</strong>
-            </nobr>
-        </td>
-        ##<td class="kategorieName" style="width: 12%;">
-            <nobr>
-                <strong>${placeholderWithTranslation.GENERIC_STATUS}</strong>
-            </nobr>
-        </td>
-        ##<td class="kategorieName" style="width: 12%;">
-            <nobr>
-                <strong>${placeholderWithTranslation.STATS_COLUMN_INVITATION_STATUS_PARTNER}</strong>
-            </nobr>
-        </td>
 	</tr>
 </table>
 

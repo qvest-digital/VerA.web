@@ -10,11 +10,6 @@
                 <strong>${placeholderWithTranslation.GENERIC_BEGIN}</strong>
             </nobr>
         </td>
-		##<td class="kategorieName" style="width: 15%;">
-            <nobr>
-                <strong>${placeholderWithTranslation.EVENT_INVITATION_TYPE}</strong>
-            </nobr>
-        </td>
 		<td class="kategorieName" style="width: 15%;">
             <nobr>
                 <strong>${placeholderWithTranslation.GENERIC_STATUS}</strong>
