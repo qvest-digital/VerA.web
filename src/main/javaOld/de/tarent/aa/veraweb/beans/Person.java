@@ -48,6 +48,8 @@ import java.util.Set;
 public class Person extends AbstractHistoryBean implements PersonConstants, OrgUnitDependent {
     /** ID */
     public Integer id;
+    @Size(max=10)
+    public String internalId;
     /** ID der Mandanten-Einheit */
     public Integer orgunit;
     /** Erstellt am */
