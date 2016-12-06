@@ -482,7 +482,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     @Size(max=250)
     public String url_c_e3;
 
-    public void verify(final OctopusContext octopusContext) throws BeanException {
+    public void verify(final OctopusContext octopusContext) {
         AddressHelper.checkPerson(this);
         final VerawebMessages messages = new VerawebMessages(octopusContext);
 //		solveXSS(); TODO Get a better solution
@@ -596,9 +596,9 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     // added as per change request for version 1.2.0
     public boolean getHasPartner() {
     	/* check for partner latin */
-        PartnerLatin p = (PartnerLatin) this.getMemberFacade(new Integer(MEMBER_PARTNER), new Integer(LOCALE_LATIN));
-        PartnerExtra1 p1 = (PartnerExtra1) this.getMemberFacade(new Integer(MEMBER_PARTNER), new Integer(LOCALE_EXTRA1));
-        PartnerExtra2 p2 = (PartnerExtra2) this.getMemberFacade(new Integer(MEMBER_PARTNER), new Integer(LOCALE_EXTRA2));
+        PartnerLatin p = (PartnerLatin) this.getMemberFacade(LOCALE_LATIN);
+        PartnerExtra1 p1 = (PartnerExtra1) this.getMemberFacade(LOCALE_EXTRA1);
+        PartnerExtra2 p2 = (PartnerExtra2) this.getMemberFacade(LOCALE_EXTRA2);
         // partner is always expected to have a lastname or a firstname
         return
                 (
@@ -611,12 +611,12 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
                 );
     }
 
-    public PersonMemberFacade getMemberFacade(Integer member, Integer locale) {
-        return getMemberFacade(member == null || member.intValue() != MEMBER_PARTNER, locale);
+    private PersonMemberFacade getMemberFacade(Integer locale) {
+        return getMemberFacade(false, locale);
     }
 
     public PersonMemberFacade getMemberFacade(boolean hauptperson, Integer locale) {
-        int l = locale != null ? locale.intValue() : LOCALE_LATIN;
+        int l = locale != null ? locale : LOCALE_LATIN;
 
         if (hauptperson) {
             if (l == LOCALE_EXTRA1) {
@@ -638,8 +638,8 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     }
 
     public PersonAddressFacade getAddressFacade(Integer addresstype, Integer locale) {
-        int a = addresstype != null ? addresstype.intValue() : ADDRESSTYPE_BUSINESS;
-        int l = locale != null ? locale.intValue() : LOCALE_LATIN;
+        int a = addresstype != null ? addresstype : ADDRESSTYPE_BUSINESS;
+        int l = locale != null ? locale : LOCALE_LATIN;
 
         switch (a * 3 + l) {
             case 4:
