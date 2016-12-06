@@ -35,6 +35,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Set;
@@ -48,6 +49,7 @@ import java.util.Set;
 public class Person extends AbstractHistoryBean implements PersonConstants, OrgUnitDependent {
     /** ID */
     public Integer id;
+    @Pattern(regexp="\\d{2}-\\d{3}-\\d{3}")
     @Size(max=10)
     public String internalId;
     /** ID der Mandanten-Einheit */
