@@ -249,6 +249,8 @@
 
             <div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
+            #set($internalId=$person.internalId)
+
             #set($personPartner = "hauptperson")
             #set($extEncoding = "$extEncoding1")
             #set($ext = "_a$extEncoding")
