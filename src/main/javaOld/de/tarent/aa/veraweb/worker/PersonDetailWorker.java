@@ -122,7 +122,7 @@ public class PersonDetailWorker implements PersonConstants {
     public static final boolean MANDATORY_showDetail[] = { false, false };
     private static Database database;
     private TransactionContext transactionalContext;
-    private static Update updateEventStatement = SQL.Update(database).table("veraweb.tevent").update("fk_host", null).update("hostname", null);
+    private static final Update updateEventStatement = SQL.Update(database).table("veraweb.tevent").update("fk_host", null).update("hostname", null);
     private static final Update deletePerson = SQL.Update(database).table("veraweb.tperson").update("deleted", PersonConstants.DELETED_TRUE);
     private static final Delete deleteGuest = SQL.Delete(database).from("veraweb.tguest");
     private static final Delete deletePersonTasks = SQL.Delete(database).from("veraweb.ttask");
@@ -167,7 +167,7 @@ public class PersonDetailWorker implements PersonConstants {
 
         /** BUGFIX: 18738 */
         if (person != null) {
-            octopusContext.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
+            octopusContext.setContent("person-diplodatetime", DateHelper.isTimeInDate(person.diplodate_a_e1));
         }
 
         Map map = (Map) octopusContext.sessionAsObject("statistikSettings");
@@ -231,11 +231,11 @@ public class PersonDetailWorker implements PersonConstants {
 
     private void fillNavigationWithPersonData(OctopusContext octopusContext, Person person, Database database, final String action,
             final Integer personId, Select select) throws SQLException {
-        Map<String, Map<String, Object>> navigation = new HashMap<String, Map<String, Object>>();
-        Map<String, Object> entry = null;
+        Map<String, Map<String, Object>> navigation = new HashMap<>();
+        Map<String, Object> entry;
 
         // setup current
-        entry = new HashMap<String, Object>();
+        entry = new HashMap<>();
         entry.put("person", person);
         navigation.put("current", entry);
 
@@ -245,10 +245,10 @@ public class PersonDetailWorker implements PersonConstants {
         int i;
         i = setPersonMapSize(personId, navigation, result, size);
 
-        Map<String, Object> meta = new HashMap<String, Object>();
+        Map<String, Object> meta = new HashMap<>();
         meta.put("action", action);
-        meta.put("offset", new Integer(i + 1));
-        meta.put("count", new Integer(size));
+        meta.put("offset", i + 1);
+        meta.put("count", size);
         navigation.put("meta", meta);
         octopusContext.setContent("navigation", navigation);
     }
@@ -273,14 +273,14 @@ public class PersonDetailWorker implements PersonConstants {
 
         Map fentry = null;
         if (first != null) {
-            fentry = new HashMap<String, Object>();
+            fentry = new HashMap<>();
             fentry.put("person", first);
         }
         navigation.put("first", fentry);
 
         Map pentry = null;
         if (previous != null) {
-            pentry = new HashMap<String, Object>();
+            pentry = new HashMap<>();
             pentry.put("person", previous);
         }
         navigation.put("previous", pentry);
@@ -294,14 +294,14 @@ public class PersonDetailWorker implements PersonConstants {
 
         Map nentry = null;
         if (next != null) {
-            nentry = new HashMap<String, Object>();
+            nentry = new HashMap<>();
             nentry.put("person", next);
         }
         navigation.put("next", nentry);
 
         Map lentry = null;
         if (last != null) {
-            lentry = new HashMap<String, Object>();
+            lentry = new HashMap<>();
             lentry.put("person", last);
         }
         navigation.put("last", lentry);
@@ -345,7 +345,7 @@ public class PersonDetailWorker implements PersonConstants {
     }
 
     private Map<String, Object> copyPersonMap(Map<String, Object> personMap) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         for (String key : personMap.keySet()) {
             result.put(key, personMap.get(key));
         }
@@ -395,7 +395,7 @@ public class PersonDetailWorker implements PersonConstants {
         person = createNewPersonOrClearData(database, person);
 
         octopusContext.setContent("person", person);
-        octopusContext.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
+        octopusContext.setContent("person-diplodatetime", DateHelper.isTimeInDate(person.diplodate_a_e1));
         octopusContext.setContent("originalPersonId", octopusContext.requestAsInteger("originalPersonId"));
 
         /*
@@ -455,7 +455,7 @@ public class PersonDetailWorker implements PersonConstants {
         String partner = octopusContext.requestAsString("partner");
         Person person = getTestPerson(partner);
         octopusContext.setContent("person", person);
-        octopusContext.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
+        octopusContext.setContent("person-diplodatetime", DateHelper.isTimeInDate(person.diplodate_a_e1));
     }
 
     /**
@@ -477,8 +477,8 @@ public class PersonDetailWorker implements PersonConstants {
      *            Octopus-Kontext
      * @throws BeanException
      */
-    public void prepareSaveDetail(OctopusContext octopusContext, Boolean saveperson) throws BeanException {
-        if (saveperson != null && saveperson.booleanValue()) {
+    public void prepareSaveDetail(OctopusContext octopusContext, Boolean saveperson) {
+        if (saveperson != null && saveperson) {
             octopusContext.setStatus("saveperson");
         }
     }
@@ -487,7 +487,7 @@ public class PersonDetailWorker implements PersonConstants {
     public static final boolean MANDATORY_verify[] = { false };
 
     public void verify(final OctopusContext octopusContext, Boolean nodupcheck) throws BeanException {
-        if (nodupcheck == null || (nodupcheck != null && !nodupcheck.booleanValue())) {
+        if (nodupcheck == null || !nodupcheck) {
 
             Request request = new RequestVeraWeb(octopusContext);
             Person person = (Person) request.getBean("Person", "person");
@@ -583,7 +583,7 @@ public class PersonDetailWorker implements PersonConstants {
                     return person;
                 }
 
-                if (octopusContext.requestAsBoolean("forcedupcheck").booleanValue()) {
+                if (octopusContext.requestAsBoolean("forcedupcheck")) {
                     return person;
                 }
 
@@ -644,7 +644,7 @@ public class PersonDetailWorker implements PersonConstants {
         // will fail
         octopusContext.setContent("originalPersonId", (Integer) null);
 
-        octopusContext.setContent("person-diplodatetime", Boolean.valueOf(DateHelper.isTimeInDate(person.diplodate_a_e1)));
+        octopusContext.setContent("person-diplodatetime", DateHelper.isTimeInDate(person.diplodate_a_e1));
 
         /*
          * added for support of direct search result list navigation, see below
@@ -701,7 +701,7 @@ public class PersonDetailWorker implements PersonConstants {
 
     private void updateExistingPerson(OctopusContext octopusContext, Person person, Database database, TransactionContext transactionContext,
             Person personOld, BeanChangeLogger clogger) throws BeanException, IOException {
-        octopusContext.setContent("countUpdate", new Integer(1));
+        octopusContext.setContent("countUpdate", 1);
         Update update = database.getUpdate(person);
         if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
             update.remove("note_a_e1");
@@ -719,7 +719,7 @@ public class PersonDetailWorker implements PersonConstants {
 
     private void createNewPerson(OctopusContext octopusContext, Person person, Database database, TransactionContext transactionContext,
             Integer originalPersonId, BeanChangeLogger clogger) throws BeanException, IOException {
-        octopusContext.setContent("countInsert", new Integer(1));
+        octopusContext.setContent("countInsert", 1);
         database.getNextPk(person, transactionContext);
         Insert insert = database.getInsert(person);
         insert.insert("pk", person.id);
@@ -736,7 +736,7 @@ public class PersonDetailWorker implements PersonConstants {
 
         // Bug 1592 Wenn die person kopiert wurde, dann die Kategorien der
         // original Person an neue Person kopieren
-        if (originalPersonId != null && originalPersonId.intValue() != 0) {
+        if (originalPersonId != null && originalPersonId != 0) {
             copyCategories(originalPersonId, person.id, database, transactionContext);
         }
 
@@ -770,15 +770,15 @@ public class PersonDetailWorker implements PersonConstants {
         assert database != null;
         assert transactionContext != null;
 
-        if (originalPersonId.equals(newPersonId))
+        if (originalPersonId.equals(newPersonId)) {
             return;
+        }
 
-        Select select;
         try {
-            select = database.getSelect("PersonCategorie").where(Expr.equal("fk_person", originalPersonId));
+            final Select select = database.getSelect("PersonCategorie").where(Expr.equal("fk_person", originalPersonId));
             // order by geht auf andere Tabelle; ist nur fuer join gedacht
             select.orderBy(null);
-            List result = database.getBeanList("PersonCategorie", select);
+            final List result = database.getBeanList("PersonCategorie", select);
             // if (result.isEmpty()) return;
 
             Iterator i = result.iterator();
@@ -1118,9 +1118,8 @@ public class PersonDetailWorker implements PersonConstants {
     private String getOsiamUsername(Person person, OctopusContext octopusContext) {
         final Database database = new DatabaseVeraWeb(octopusContext);
         final OsiamLoginCreator osiamLoginCreator = new OsiamLoginCreator(database);
-        final String username = addOsiamUser(person, database, osiamLoginCreator);
 
-        return username;
+        return addOsiamUser(person, database, osiamLoginCreator);
     }
 
     private String addOsiamUser(Person person, Database database, OsiamLoginCreator osiamLoginCreator) {
@@ -1158,7 +1157,7 @@ public class PersonDetailWorker implements PersonConstants {
      * @throws BeanException
      * @throws IOException
      */
-    private void saveLinkUUID(Integer personId, OctopusContext octopusContext) throws BeanException, IOException {
+    private void saveLinkUUID(Integer personId, OctopusContext octopusContext) {
         final Database database = new DatabaseVeraWeb(octopusContext);
         final TransactionContext transactionContext = database.getTransactionContext();
         try {
@@ -1186,7 +1185,7 @@ public class PersonDetailWorker implements PersonConstants {
         }
     }
 
-    private void updateUsernameInVeraweb(Person person, OctopusContext octopusContext) throws BeanException, IOException {
+    private void updateUsernameInVeraweb(Person person, OctopusContext octopusContext) {
         final Database database = new DatabaseVeraWeb(octopusContext);
         final TransactionContext transactionContext = database.getTransactionContext();
         try {
@@ -1207,8 +1206,7 @@ public class PersonDetailWorker implements PersonConstants {
 
     private Person getPersonById(OctopusContext octopusContext, Integer personId) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
-        Person person = (Person) database.getBean("Person", personId);
-        return person;
+        return (Person) database.getBean("Person", personId);
     }
 
     private Properties getProperties() {
@@ -1231,12 +1229,13 @@ public class PersonDetailWorker implements PersonConstants {
     private OsiamConnector getConnector() {
         final Properties properties = getProperties();
 
-        final OsiamConnector connector = new OsiamConnector.Builder().setClientRedirectUri(properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
-                .setClientSecret(properties.getProperty(OSIAM_CLIENT_SECRET)).setClientId(properties.getProperty(OSIAM_CLIENT_ID))
+        return new OsiamConnector.Builder()
+                .setClientRedirectUri(properties.getProperty(OSIAM_CLIENT_REDIRECT_URI))
+                .setClientSecret(properties.getProperty(OSIAM_CLIENT_SECRET))
+                .setClientId(properties.getProperty(OSIAM_CLIENT_ID))
                 .setAuthServerEndpoint(properties.getProperty(OSIAM_AUTH_SERVER_ENDPOINT))
-                .setResourceServerEndpoint(properties.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT)).build();
-
-        return connector;
+                .setResourceServerEndpoint(properties.getProperty(OSIAM_RESOURCE_SERVER_ENDPOINT))
+                .build();
     }
 
     /**
