@@ -25,7 +25,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2016-11-03';
+	vversion := '2016-12-06';
 
 	-- initialisation
 	vint := 0;
@@ -735,6 +735,19 @@ BEGIN
 				ALTER TABLE veraweb.timportperson ALTER COLUMN salutation_b_e3 TYPE varchar(100);
 
 				CREATE OR REPLACE VIEW veraweb.TPERSON_NORMALIZED AS (select tperson.*, veraweb.umlaut_fix(firstname_a_e1) as firstname_normalized, veraweb.umlaut_fix(lastname_a_e1) as lastname_normalized from veraweb.tperson);
+
+                -- post-upgrade
+                vmsg := 'end.update(' || vnewvsn || ')';
+                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+                vcurvsn := vnewvsn;
+                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+            END IF;
+
+    vnewvsn := '2016-12-06';
+            IF vcurvsn < vnewvsn THEN
+                vmsg := 'begin.update(' || vnewvsn || ')';
+
+                ALTER TABLE veraweb.tperson ADD COLUMN internal_id VARCHAR(10);
 
                 -- post-upgrade
                 vmsg := 'end.update(' || vnewvsn || ')';
