@@ -51,6 +51,7 @@ public class PersonSearch extends AbstractBean {
 	public Boolean sortList;
 	public String sort;
 	public String languages;
+	public String internalId;
 
 	/**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
