@@ -43,7 +43,6 @@ sql: |
     g.image_uuid_p as g_image_uuid_p,
     g.keywords as g_keywords,
     p.pk as p_pk,
-    p.internal_id as p_internal_id,
     p.fk_orgunit as p_fk_orgunit,
     p.created as p_created,
     p.createdby as p_createdby,
@@ -373,8 +372,6 @@ mappings:
     mapTo: "g_keywords"
   p_pk:
     mapTo: "p_pk"
-  p_internal_id:
-      mapTo: "p_internal_id"
   p_fk_orgunit:
     mapTo: "p_fk_orgunit"
   p_created:
