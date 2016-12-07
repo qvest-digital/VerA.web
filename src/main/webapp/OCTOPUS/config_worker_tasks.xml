@@ -448,6 +448,7 @@
 				<input name="Datenherkunft" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Datenherkunft"/>
 				<input name="Gültigkeitsdatum" type="xsd:string" optional="t" description="Vorgabewert: gesuchtes Gültigkeitsdatum"/>
 				<input name="Gültigkeitstyp" type="xsd:string" optional="t" description="Vorgabewert: Art der Gültigkeitsdatumsangabe"/>
+				<input name="Interne ID" type="xsd:string" optional="t" description="Vorgabewert: Interne ID"/>
 			</contract>
 			<doTask name="Load"/>
 			<action name="getAllAvailablePersonCategories" worker="CategorieWorker" />

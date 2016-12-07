@@ -113,7 +113,6 @@
                             <label for="iscompany">${placeholderWithTranslation.GENERIC_IS_COMPANY}</label>
                             <input type="checkbox" name="iscompany" id="iscompany" value="true"  #if($search.iscompany) checked #end />
                         </div>
-                        <div class="tableCell width30"></div>
                     </div>
                 </div>
             </fieldset>
