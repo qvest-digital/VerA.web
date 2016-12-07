@@ -2127,6 +2127,7 @@ zipcode_c_e1=Code postale doit etre moins de 250 characteres.
 zipcode_c_e2=Code postale doit etre moins de 250 characteres.
 zipcode_c_e3=Code postale doit etre moins de 250 characteres.
 internalId=Die interne ID muss im Format 00-000-000 vorliegen.
+INTERNAL_ID=Interne ID
 
 # ALTERNATIVE SALUTATIONS
 SALUTATION_EDITABLE_TEXT=Ici vous pouvez cr\u00E9er un style alternatif pour ce mod\u00E8le de PDF

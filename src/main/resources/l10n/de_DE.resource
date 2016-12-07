@@ -2089,6 +2089,7 @@ zipcode_c_e1=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 zipcode_c_e2=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 zipcode_c_e3=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 internalId=Die interne ID muss im Format 00-000-000 vorliegen.
+INTERNAL_ID=Interne ID
 
 # ALTERNATIVE SALUTATIONS
 SALUTATION_EDITABLE_TEXT=Hier k\u00F6nnen Sie Alternative Anreden f\u00FCr diese PDF- Vorlage erstellen

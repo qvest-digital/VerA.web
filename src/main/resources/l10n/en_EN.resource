@@ -2118,6 +2118,8 @@ zipcode_c_e1=Postal code mustn't be longer than 250 characters
 zipcode_c_e2=Postal code mustn't be longer than 250 characters
 zipcode_c_e3=Postal code mustn't be longer than 250 characters
 internalId=Die interne ID muss im Format 00-000-000 vorliegen.
+INTERNAL_ID=Interne ID
+
 
 # ALTERNATIVE SALUTATIONS
 SALUTATION_EDITABLE_TEXT=Alternative salutations for this PDF template can be created here
