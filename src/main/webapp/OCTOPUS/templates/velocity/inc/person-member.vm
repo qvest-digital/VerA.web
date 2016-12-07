@@ -1,7 +1,7 @@
 <div vera-content="$personPartner person$extEncoding">
 	<div class="table width100">
 		<div class="tableRow">
-			<div class="tableCell width50 inlineLabel ">
+			<div class="tableCell width50 inlineLabel">
 				#if($ext == "_a_e1")
 					<label for="person-iscompany">${placeholderWithTranslation.GENERIC_IS_COMPANY}</label>
 					<input tabindex="120" type="checkbox" id="person-iscompany" name="person-iscompany" value="t" class="noFloat" #if(($person.iscompany && $person.iscompany == "t") || ($person-iscompany && $person-iscompany == "t")) checked #end onchange="setModified();" #if(!$grants.mayWrite()) vera-disabled#end/>
