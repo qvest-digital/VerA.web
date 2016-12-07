@@ -37,7 +37,6 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -67,12 +66,14 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
         assert csvFieldNames != null;
         assert fieldMapping != null;
         assert csvWriter != null;
-        if (person == null)
+        if (person == null) {
             return;
+        }
         Entity entity = new PersonEntity(person);
         List line = new ArrayList(csvFieldNames.size());
-        for (Iterator itCsvFieldNames = csvFieldNames.iterator(); itCsvFieldNames.hasNext(); )
-            line.add(fieldMapping.resolve(itCsvFieldNames.next().toString(), entity));
+        for (Object csvFieldName : csvFieldNames) {
+            line.add(fieldMapping.resolve(csvFieldName.toString(), entity));
+        }
         csvWriter.writeFields(line);
     }
 
@@ -99,11 +100,9 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
             initWriter();
             writeHeaderLine();
         } catch (MappingException e) {
-            IOException ioe = new IOException("Fehler im Feldmapping", e);
-            throw ioe;
+            throw new IOException("Fehler im Feldmapping", e);
         } catch (BeanException e) {
-            IOException ioe = new IOException("Fehler beim Daten-Bean-Zugriff", e);
-            throw ioe;
+            throw new IOException("Fehler beim Daten-Bean-Zugriff", e);
         }
     }
 
@@ -219,12 +218,13 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
                         database.getProperty(samplePersonCategory, "categorie")).selectAs(database.getProperty(sampleCategory, "name"), "name").selectAs(
                         database.getProperty(sampleCategory, "rank"), "rankDefault").selectAs(database.getProperty(samplePersonCategory, "rank"), "rank")
                         .where(Expr.equal(database.getProperty(samplePersonCategory, "person"), person.id));
-                List entries = database.getList(select, database);
-                for (Iterator itEntries = entries.iterator(); itEntries.hasNext(); ) {
-                    Map entry = (Map) itEntries.next();
-                    Object name = entry.get("name");
-                    if (name == null)
+                final List entries = database.getList(select, database);
+                for (Object currentEntry : entries) {
+                    final Map entry = (Map) currentEntry;
+                    final Object name = entry.get("name");
+                    if (name == null) {
                         continue;
+                    }
                     Object rank = entry.get("rank");
                     if (rank == null) {
                         rank = entry.get("rankDefault");
@@ -246,12 +246,6 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
 
         /** Die Ränge der Person in den Kategorien */
         Map ranks = null;
-
-        /** Die Dokumenttypfreitexte der Hauptperson */
-        Map textFields = null;
-
-        /** Die Dokumenttypfreitexte des Partners */
-        Map textFieldsPartner = null;
     }
 
     /** Einschränkung auf Mandant */
@@ -301,7 +295,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
             return super.getCategoriesFromDB();
         }
         // keine Kategorien
-        if (this.categoryId != null && this.categoryId.intValue() == 0) {
+        if (this.categoryId != null && this.categoryId == 0) {
             return null;
         }
 
@@ -311,14 +305,14 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
         if (this.categoryId != null) {
             expr1 = Expr.equal("pk", this.categoryId);
         }
-        if (this.orgUnitId != null && this.orgUnitId.intValue() != -1) {
+        if (this.orgUnitId != null && this.orgUnitId != -1) {
             expr2 = Expr.equal("fk_orgunit", this.orgUnitId);
         }
         if (expr1 != null && expr2 != null) {
             sel.where(Where.and(expr1, expr2));
-        } else if (expr1 != null && expr2 == null) {
+        } else if (expr1 != null) {
             sel.where(expr1);
-        } else if (expr1 == null && expr2 != null) {
+        } else if (expr2 != null) {
             sel.where(expr2);
         }
 
