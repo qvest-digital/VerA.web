@@ -91,19 +91,19 @@ public class EventListWorker extends ListWorkerVeraWeb {
      * Diese Methode fügt eine Bedingung zum Filtern nach dem Mandanten hinzu, wenn der
      * aktuelle Benutzer nicht Superadmin ist.
      *
-     * @param cntx Octopus-Kontext
+     * @param octopusContext Octopus-Kontext
      * @param select Event-Select
      * @throws BeanException wenn keine testbaren Benutzerinformationen vorliegen.
      * @see BeanListWorker#getAll(OctopusContext)
      * @see BeanListWorker#extendAll(OctopusContext, Select)
      */
     @Override
-    protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
-        super.extendAll(cntx, select);
-        TcPersonalConfig pConfig = cntx.personalConfig();
+    protected void extendAll(OctopusContext octopusContext, Select select) throws BeanException, IOException {
+        super.extendAll(octopusContext, select);
+        TcPersonalConfig pConfig = octopusContext.personalConfig();
         if (pConfig instanceof PersonalConfigAA) {
             PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
-            String domain = cntx.contentAsString(PARAM_DOMAIN);
+            String domain = octopusContext.contentAsString(PARAM_DOMAIN);
             if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN)))
                 select.where(Expr.equal("fk_orgunit", aaConfig.getOrgUnitId()));
         } else
@@ -113,7 +113,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
         // um, um erst die "ältesten" Veranstaltungen zu sehen,
         // da diese am wahrscheinlichsten für einen Export
         // in Frage kommen.
-        String invertOrder = cntx.contentAsString("invertOrder");
+        String invertOrder = octopusContext.contentAsString("invertOrder");
         if ("true".equals(invertOrder)) {
         	select.orderBy(Order.desc("datebegin").andAsc("shortname"));
         }
@@ -121,10 +121,10 @@ public class EventListWorker extends ListWorkerVeraWeb {
 
 
     @Override
-	public List showList(OctopusContext cntx) throws BeanException, IOException {
-    	String val = cntx.getRequestObject().get("searchTask");
-    	cntx.setContent("searchTask", val);
-		return super.showList(cntx);
+	public List showList(OctopusContext octopusContext) throws BeanException, IOException {
+    	String val = octopusContext.getRequestObject().get("searchTask");
+    	octopusContext.setContent("searchTask", val);
+		return super.showList(octopusContext);
 	}
 
 	/**
@@ -146,41 +146,36 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		final Event search = getSearch(octopusContext);
 
 		// WHERE - Filtert das Datenbank Ergebnis anhand der Benutzereingaben.
-		WhereList where = new WhereList();
+		final WhereList where = new WhereList();
 
-        TcPersonalConfig pConfig = octopusContext.personalConfig();
-        if (pConfig instanceof PersonalConfigAA) {
-            PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
-            String domain = octopusContext.contentAsString(PARAM_DOMAIN);
-            if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN)))
-                where.addAnd(Expr.equal("fk_orgunit", aaConfig.getOrgUnitId()));
-        } else
-            throw new BeanException("Missing user information");
+		final TcPersonalConfig pConfig = octopusContext.personalConfig();
+		if (pConfig instanceof PersonalConfigAA) {
+			final PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
+            final String domain = octopusContext.contentAsString(PARAM_DOMAIN);
+            if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))) {
+				where.addAnd(Expr.equal("fk_orgunit", aaConfig.getOrgUnitId()));
+			}
+        } else {
+			throw new BeanException("Missing user information");
+		}
 
 		if (search.shortname != null && search.shortname.length() != 0) {
-			where.addAnd(DatabaseHelper.getWhere(search.shortname, new String[] {
-					"shortname" }));
+			extendWhereClauseByShortname(search, where);
 		}
 		if (search.eventname != null && search.eventname.length() != 0) {
-			where.addAnd(DatabaseHelper.getWhere(search.eventname, new String[] {
-					"eventname" }));
+			extendWhereClauseByEventName(search, where);
 		}
 		if (search.hostname != null && search.hostname.length() != 0) {
-			where.addAnd(DatabaseHelper.getWhere(search.hostname, new String[] {
-					"hostname" }));
+			extendWhereClauseByHostname(search, where);
 		}
 		if (search.location != null) {
-			where.addAnd(Expr.equal("fk_location", search.location));
+			extendWhereClauseByLocation(search, where);
 		}
 		if (search.begin != null) {
-			Timestamp nextDay = new Timestamp(search.begin.getTime() + 86400000); // nächster tag
-			where.addAnd(Where.and(
-					Expr.greaterOrEqual("datebegin", search.begin),
-					Expr.less("datebegin", nextDay)));
+			extendWhereClauseByBeginDate(search, where);
 		}
 		if (search.end != null) {
-			final String dateClause = "((datebegin IS NOT NULL AND datebegin>=now()::date) OR (dateend IS NOT NULL AND dateend>=now()::date))";
-			where.addAnd(new RawClause(dateClause));
+			extendWhereClauseByEndDate(where);
 		}
 
         if (where.size() > 0) {
@@ -188,11 +183,41 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		}
 	}
 
+	private void extendWhereClauseByLocation(Event search, WhereList where) {
+		where.addAnd(Expr.equal("fk_location", search.location));
+	}
+
+	private void extendWhereClauseByEventName(Event search, WhereList where) {
+		where.addAnd(DatabaseHelper.getWhere(search.eventname, new String[] {
+                "eventname" }));
+	}
+
+	private void extendWhereClauseByShortname(Event search, WhereList where) {
+		where.addAnd(DatabaseHelper.getWhere(search.shortname, new String[] {
+                "shortname" }));
+	}
+
+	private void extendWhereClauseByHostname(Event search, WhereList where) {
+		where.addAnd(DatabaseHelper.getWhere(search.hostname, new String[] {"hostname" }));
+	}
+
+	private void extendWhereClauseByBeginDate(Event search, WhereList where) {
+		Timestamp nextDay = new Timestamp(search.begin.getTime() + 86400000); // nächster tag
+		where.addAnd(Where.and(
+                Expr.greaterOrEqual("datebegin", search.begin),
+                Expr.less("datebegin", nextDay)));
+	}
+
+	private void extendWhereClauseByEndDate(WhereList where) {
+		final String dateClause = "((datebegin IS NOT NULL AND datebegin>=now()::date) OR (dateend IS NOT NULL AND dateend>=now()::date))";
+		where.addAnd(new RawClause(dateClause));
+	}
+
 	/**
 	 * Überprüft ob es noch laufende oder zukünftige Veranstaltungen und fragt ggf. ob diese trotzdem gelöscht werden sollen.
 	 */
 	@Override
-    protected int removeSelection(OctopusContext cntx, List errors, List selectionList, TransactionContext context) throws BeanException, IOException {
+    protected int removeSelection(OctopusContext octopusContext, List errors, List selectionList, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
 		if (selectionList == null || selectionList.size() == 0) return count;
 		Database database = context.getDatabase();
@@ -200,7 +225,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		Map questions2 = new HashMap();
 
 
-		if (!cntx.getRequestObject().getParameterAsBoolean("force-remove-events")) {
+		if (!octopusContext.getRequestObject().getParameterAsBoolean("force-remove-events")) {
     		/*
              * determine events which are not expired and add question
              */
@@ -225,7 +250,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
                     context);
 
 			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
+			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
 
     		if (countOfNotExpiredEvents != null && countOfNotExpiredEvents > 0) {
     			questions.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_WARNING_EVENTS_IN_FUTURE"));
@@ -233,8 +258,8 @@ public class EventListWorker extends ListWorkerVeraWeb {
     		} else {
     		    questions.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_DELETE_CONFIRMATION_MESSAGE"));
     		}
-    		cntx.setContent("listquestions", questions);
-				cntx.setContent("listquestions2", questions2);
+    		octopusContext.setContent("listquestions", questions);
+				octopusContext.setContent("listquestions2", questions2);
             return -1;
 		}
 
@@ -245,7 +270,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 
 		for (Object selection : selectionList) {
 			event.id = (Integer) selection;
-			if (removeBean(cntx, event, context)) {
+			if (removeBean(octopusContext, event, context)) {
 				count++;
 			}
 		}
@@ -268,9 +293,9 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	 * Löscht Veranstaltungen inkl. der zugehörigen Aufgaben und der zugeordneten Gäste.
 	 */
 	@Override
-    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
+    protected boolean removeBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
 		Database database = transactionContext.getDatabase();
-		OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(cntx);
+		OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
 
 		Event event = (Event)bean;
 
@@ -307,11 +332,11 @@ public class EventListWorker extends ListWorkerVeraWeb {
 				from("veraweb.tguest").
 				where(Expr.equal("fk_event", event.id)));
 		transactionContext.commit();
-		boolean result = super.removeBean(cntx, bean, transactionContext);
+		boolean result = super.removeBean(octopusContext, bean, transactionContext);
 		if ( result )
 		{
 			BeanChangeLogger clogger = new BeanChangeLogger( database );
-			clogger.logDelete( cntx.personalConfig().getLoginname(), event );
+			clogger.logDelete( octopusContext.personalConfig().getLoginname(), event );
 		}
 
 		return result;
@@ -343,10 +368,12 @@ public class EventListWorker extends ListWorkerVeraWeb {
 			search = new Event();
 			search.end = new Timestamp(now - (now % 86400000) - 86400000);
 		}
-		if (search == null)
-			search = (Event)octopusContext.sessionAsObject("search" + BEANNAME);
-		if (search == null)
+		if (search == null) {
+			search = (Event) octopusContext.sessionAsObject("search" + BEANNAME);
+		}
+		if (search == null) {
 			search = new Event();
+		}
 		octopusContext.setSession("search" + BEANNAME, search);
 		return search;
 	}
