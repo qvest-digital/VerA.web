@@ -3,17 +3,17 @@
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
  * Copyright © 2013–2016 tarent solutions GmbH
- *
+ * <p>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
@@ -72,21 +72,23 @@ public class EventListWorker extends ListWorkerVeraWeb {
     private final static String PARAM_DOMAIN = "domain";
 
     /** Parameterwert: beliebige Ereignisse */
-	private final static String PARAM_DOMAIN_VALUE_ALL = "all";
+    private final static String PARAM_DOMAIN_VALUE_ALL = "all";
     /** Parameterwert: Ereignisse des gleichen Mandanten */
-	private final static String PARAM_DOMAIN_VALUE_OU = "ou";
+    private final static String PARAM_DOMAIN_VALUE_OU = "ou";
 
     //
     // Konstruktoren
     //
-	/** Default-Kontruktor der den Beannamen festlegt. */
-	public EventListWorker() {
-		super("Event");
-	}
+
+    /** Default-Kontruktor der den Beannamen festlegt. */
+    public EventListWorker() {
+        super("Event");
+    }
 
     //
     // Basisklasse BeanListWorker
     //
+
     /**
      * Diese Methode fügt eine Bedingung zum Filtern nach dem Mandanten hinzu, wenn der
      * aktuelle Benutzer nicht Superadmin ist.
@@ -115,266 +117,283 @@ public class EventListWorker extends ListWorkerVeraWeb {
         // in Frage kommen.
         String invertOrder = octopusContext.contentAsString("invertOrder");
         if ("true".equals(invertOrder)) {
-        	select.orderBy(Order.desc("datebegin").andAsc("shortname"));
+            select.orderBy(Order.desc("datebegin").andAsc("shortname"));
         }
     }
 
 
     @Override
-	public List showList(OctopusContext octopusContext) throws BeanException, IOException {
-    	String val = octopusContext.getRequestObject().get("searchTask");
-    	octopusContext.setContent("searchTask", val);
-		return super.showList(octopusContext);
-	}
+    public List showList(OctopusContext octopusContext) throws BeanException, IOException {
+        String val = octopusContext.getRequestObject().get("searchTask");
+        octopusContext.setContent("searchTask", val);
+        return super.showList(octopusContext);
+    }
 
-	/**
-	 * Wenn das Event <code>search</code> einen Start-Termin hat,
-	 * werden nur Veranstaltungen angezeigt die <strong>genau</strong>
-	 * diesem Termin <strong>beginnen</strong>.<br><br>
-	 *
-	 * Wenn das Event <code>search<code> einen Ende-Termin hat,
-	 * werden nur Veranstaltungen angezeigt die <strong>nach</strong>
-	 * diesem Termin <strong>beginnen oder enden</strong>.<br><br>
-	 *
-	 * Siehe hierzu im 'Veranstaltung suchen'-Dialog das Eingabe Feld
-	 * 'Datum-Beginn', sowie die Funktion 'Aktuelle Veranstaltung anzeigen'.
-	 *
-	 * @see #getSearch(OctopusContext)
-	 */
-	@Override
+    /**
+     * Wenn das Event <code>search</code> einen Start-Termin hat,
+     * werden nur Veranstaltungen angezeigt die <strong>genau</strong>
+     * diesem Termin <strong>beginnen</strong>.<br><br>
+     *
+     * Wenn das Event <code>search<code> einen Ende-Termin hat,
+     * werden nur Veranstaltungen angezeigt die <strong>nach</strong>
+     * diesem Termin <strong>beginnen oder enden</strong>.<br><br>
+     *
+     * Siehe hierzu im 'Veranstaltung suchen'-Dialog das Eingabe Feld
+     * 'Datum-Beginn', sowie die Funktion 'Aktuelle Veranstaltung anzeigen'.
+     *
+     * @see #getSearch(OctopusContext)
+     */
+    @Override
     protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
-		final Event search = getSearch(octopusContext);
+        final Event search = getSearch(octopusContext);
 
-		// WHERE - Filtert das Datenbank Ergebnis anhand der Benutzereingaben.
-		final WhereList where = new WhereList();
+        // WHERE - Filtert das Datenbank Ergebnis anhand der Benutzereingaben.
+        final WhereList where = new WhereList();
 
-		final TcPersonalConfig pConfig = octopusContext.personalConfig();
-		if (pConfig instanceof PersonalConfigAA) {
-			final PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
+        final TcPersonalConfig pConfig = octopusContext.personalConfig();
+        if (pConfig instanceof PersonalConfigAA) {
+            final PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
             final String domain = octopusContext.contentAsString(PARAM_DOMAIN);
             if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))) {
-				where.addAnd(Expr.equal("fk_orgunit", aaConfig.getOrgUnitId()));
-			}
+                where.addAnd(Expr.equal("fk_orgunit", aaConfig.getOrgUnitId()));
+            }
         } else {
-			throw new BeanException("Missing user information");
-		}
+            throw new BeanException("Missing user information");
+        }
 
-		if (search.shortname != null && search.shortname.length() != 0) {
-			extendWhereClauseByShortname(search, where);
-		}
-		if (search.eventname != null && search.eventname.length() != 0) {
-			extendWhereClauseByEventName(search, where);
-		}
-		if (search.hostname != null && search.hostname.length() != 0) {
-			extendWhereClauseByHostname(search, where);
-		}
-		if (search.location != null) {
-			extendWhereClauseByLocation(search, where);
-		}
-		if (search.begin != null) {
-			extendWhereClauseByBeginDate(search, where);
-		}
-		if (search.end != null) {
-			extendWhereClauseByEndDate(where);
-		}
+        if (search.shortname != null && search.shortname.length() != 0) {
+            extendWhereClauseByShortname(search, where);
+        }
+        if (search.eventname != null && search.eventname.length() != 0) {
+            extendWhereClauseByEventName(search, where);
+        }
+        if (search.hostname != null && search.hostname.length() != 0) {
+            extendWhereClauseByHostname(search, where);
+        }
+        if (search.location != null) {
+            extendWhereClauseByLocation(search, where);
+        }
+        if (search.begin != null) {
+            extendWhereClauseByBeginDate(search, where);
+        }
+        if (search.end != null) {
+            extendWhereClauseByEndDate(where);
+        }
 
         if (where.size() > 0) {
-			select.where(where);
-		}
-	}
+            select.where(where);
+        }
+    }
 
-	private void extendWhereClauseByLocation(Event search, WhereList where) {
-		where.addAnd(Expr.equal("fk_location", search.location));
-	}
+    private void extendWhereClauseByLocation(Event search, WhereList where) {
+        where.addAnd(Expr.equal("fk_location", search.location));
+    }
 
-	private void extendWhereClauseByEventName(Event search, WhereList where) {
-		where.addAnd(DatabaseHelper.getWhere(search.eventname, new String[] {
-                "eventname" }));
-	}
+    private void extendWhereClauseByEventName(Event search, WhereList where) {
+        where.addAnd(DatabaseHelper.getWhere(search.eventname, new String[]{
+                "eventname"}));
+    }
 
-	private void extendWhereClauseByShortname(Event search, WhereList where) {
-		where.addAnd(DatabaseHelper.getWhere(search.shortname, new String[] {
-                "shortname" }));
-	}
+    private void extendWhereClauseByShortname(Event search, WhereList where) {
+        where.addAnd(DatabaseHelper.getWhere(search.shortname, new String[]{
+                "shortname"}));
+    }
 
-	private void extendWhereClauseByHostname(Event search, WhereList where) {
-		where.addAnd(DatabaseHelper.getWhere(search.hostname, new String[] {"hostname" }));
-	}
+    private void extendWhereClauseByHostname(Event search, WhereList where) {
+        where.addAnd(DatabaseHelper.getWhere(search.hostname, new String[]{"hostname"}));
+    }
 
-	private void extendWhereClauseByBeginDate(Event search, WhereList where) {
-		Timestamp nextDay = new Timestamp(search.begin.getTime() + 86400000); // nächster tag
-		where.addAnd(Where.and(
+    private void extendWhereClauseByBeginDate(Event search, WhereList where) {
+        Timestamp nextDay = new Timestamp(search.begin.getTime() + 86400000); // nächster tag
+        where.addAnd(Where.and(
                 Expr.greaterOrEqual("datebegin", search.begin),
                 Expr.less("datebegin", nextDay)));
-	}
+    }
 
-	private void extendWhereClauseByEndDate(WhereList where) {
-		final String dateClause = "((datebegin IS NOT NULL AND datebegin>=now()::date) OR (dateend IS NOT NULL AND dateend>=now()::date))";
-		where.addAnd(new RawClause(dateClause));
-	}
+    private void extendWhereClauseByEndDate(WhereList where) {
+        final String dateClause = "((datebegin IS NOT NULL AND datebegin>=now()::date) OR (dateend IS NOT NULL AND dateend>=now()::date))";
+        where.addAnd(new RawClause(dateClause));
+    }
 
-	/**
-	 * Überprüft ob es noch laufende oder zukünftige Veranstaltungen und fragt ggf. ob diese trotzdem gelöscht werden sollen.
-	 */
-	@Override
+    /**
+     * Überprüft ob es noch laufende oder zukünftige Veranstaltungen und fragt ggf. ob diese trotzdem gelöscht werden sollen.
+     */
+    @Override
     protected int removeSelection(OctopusContext octopusContext, List errors, List selectionList, TransactionContext context) throws BeanException, IOException {
-		int count = 0;
-		if (selectionList == null || selectionList.size() == 0) return count;
-		Database database = context.getDatabase();
-		Map questions = new HashMap();
-		Map questions2 = new HashMap();
+        int count = 0;
+        if (selectionList == null || selectionList.size() == 0) return count;
+        Database database = context.getDatabase();
+        Map questions = new HashMap();
+        Map questions2 = new HashMap();
 
 
-		if (!octopusContext.getRequestObject().getParameterAsBoolean("force-remove-events")) {
-    		/*
+        if (!octopusContext.getRequestObject().getParameterAsBoolean("force-remove-events")) {
+            /*
              * determine events which are not expired and add question
              */
-    		Calendar today = Calendar.getInstance();
-    		today.set(Calendar.HOUR_OF_DAY, 23);
-    		today.set(Calendar.MINUTE, 59);
+            Calendar today = Calendar.getInstance();
+            today.set(Calendar.HOUR_OF_DAY, 23);
+            today.set(Calendar.MINUTE, 59);
 
-    		Integer countOfNotExpiredEvents =
+            Integer countOfNotExpiredEvents =
                     database.getCount(database.getCount("Event").
-                    where(Where.and(
-                            Expr.in("pk", selectionList),
-                            Where.or(
-                                    Expr.greaterOrEqual("datebegin", today.getTime()),
-                                    Where.and(
-                                        Expr.less("datebegin", today.getTime()),
-                                        Where.or(
-                                                Expr.isNull("dateend"),
-                                                Expr.greater("dateend", today.getTime())
-                                        )
-                                    )
-                                ))),
-                    context);
+                                    where(Where.and(
+                                            Expr.in("pk", selectionList),
+                                            Where.or(
+                                                    Expr.greaterOrEqual("datebegin", today.getTime()),
+                                                    Where.and(
+                                                            Expr.less("datebegin", today.getTime()),
+                                                            Where.or(
+                                                                    Expr.isNull("dateend"),
+                                                                    Expr.greater("dateend", today.getTime())
+                                                            )
+                                                    )
+                                            ))),
+                            context);
 
-			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
-			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
+            LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
+            LanguageProvider languageProvider = languageProviderHelper.enableTranslation(octopusContext);
 
-    		if (countOfNotExpiredEvents != null && countOfNotExpiredEvents > 0) {
-    			questions.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_WARNING_EVENTS_IN_FUTURE"));
-    			questions2.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_WARNING_SELECTION_CHANGING"));
-    		} else {
-    		    questions.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_DELETE_CONFIRMATION_MESSAGE"));
-    		}
-    		octopusContext.setContent("listquestions", questions);
-				octopusContext.setContent("listquestions2", questions2);
+            if (countOfNotExpiredEvents != null && countOfNotExpiredEvents > 0) {
+                questions.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_WARNING_EVENTS_IN_FUTURE"));
+                questions2.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_WARNING_SELECTION_CHANGING"));
+            } else {
+                questions.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_DELETE_CONFIRMATION_MESSAGE"));
+            }
+            octopusContext.setContent("listquestions", questions);
+            octopusContext.setContent("listquestions2", questions2);
             return -1;
-		}
+        }
 
 		/*
 		 * remove events
 		 */
-		Event event = (Event)database.createBean("Event");
+        Event event = (Event) database.createBean("Event");
 
-		for (Object selection : selectionList) {
-			event.id = (Integer) selection;
-			if (removeBean(octopusContext, event, context)) {
-				count++;
-			}
-		}
-		selectionList.clear();
+        for (Object selection : selectionList) {
+            event.id = (Integer) selection;
+            if (removeBean(octopusContext, event, context)) {
+                count++;
+            }
+        }
+        selectionList.clear();
 
-		try {
-			// will commit here so that the following call to
-			// PersonDetailWorker.removeAllDeletedPersonsHavingNoEvent()
-			// succeeds
-			context.commit();
-		} catch ( BeanException e ) {
-			context.rollBack();
-			throw new BeanException( "Die Veranstaltungen konnten nicht gel\u00f6scht werden.", e );
-		}
+        try {
+            // will commit here so that the following call to
+            // PersonDetailWorker.removeAllDeletedPersonsHavingNoEvent()
+            // succeeds
+            context.commit();
+        } catch (BeanException e) {
+            context.rollBack();
+            throw new BeanException("Die Veranstaltungen konnten nicht gel\u00f6scht werden.", e);
+        }
 
-		return count;
-	}
+        return count;
+    }
 
-	/**
-	 * Löscht Veranstaltungen inkl. der zugehörigen Aufgaben und der zugeordneten Gäste.
-	 */
-	@Override
+    /**
+     * Löscht Veranstaltungen inkl. der zugehörigen Aufgaben, zusätzliche Felder und der zugeordneten Gäste.
+     */
+    @Override
     protected boolean removeBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
-		Database database = transactionContext.getDatabase();
-		OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
+        final Event event = (Event) bean;
+        try {
+            final boolean eventSuccessfullDeleted = executeEventDeletion(octopusContext, transactionContext, event);
+            return eventSuccessfullDeleted;
+        } catch (SQLException e) {
+            throw new BeanException("SQL Exception while deleting OptionalFields from Event", e);
+        }
+    }
 
-		Event event = (Event)bean;
+    private boolean executeEventDeletion(OctopusContext octopusContext, TransactionContext transactionContext, Event event) throws BeanException, SQLException, IOException {
+        final Database database = transactionContext.getDatabase();
+        final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
+        deleteOptionalFields(transactionContext, database, optionalFieldsWorker, event);
+        deleteEventTasks(transactionContext, database, event);
+        deleteGuests(transactionContext, database, event);
+        transactionContext.commit();
+        return deleteLogEntriesForEvent(octopusContext, transactionContext, event);
+    }
 
-		List<OptionalField> optionalFields;
-		try {
-			optionalFields = optionalFieldsWorker.getOptionalFieldsByEvent(event.id);
-			for (OptionalField optionalField : optionalFields) {
-				transactionContext.execute(
-					SQL.Delete(database)
-					.from("veraweb.toptional_fields_delegation_content")
-					.where(new Where("fk_delegation_field", optionalField.getId(), "="))
-				);
+    private void deleteOptionalFields(TransactionContext transactionContext, Database database, OptionalFieldsWorker optionalFieldsWorker, Event event) throws BeanException, SQLException {
+        final List<OptionalField> optionalFields = optionalFieldsWorker.getOptionalFieldsByEvent(event.id);
+        for (OptionalField optionalField : optionalFields) {
+            executeOptionalFieldsDeletion(transactionContext, database, optionalField);
+        }
+    }
 
-				transactionContext.execute(
-						SQL.Delete(database)
-						.from("veraweb.toptional_fields")
-						.where(new Where("pk", optionalField.getId(), "="))
-					);
+    private boolean deleteLogEntriesForEvent(OctopusContext octopusContext, TransactionContext transactionContext, Event event) throws BeanException, IOException {
+        boolean result = super.removeBean(octopusContext, event, transactionContext);
+        if (result) {
+            final Database database = transactionContext.getDatabase();
+            final BeanChangeLogger clogger = new BeanChangeLogger(database);
+            clogger.logDelete(octopusContext.personalConfig().getLoginname(), event);
+        }
+        return result;
+    }
 
-				transactionContext.commit();
-			}
+    private void deleteGuests(TransactionContext transactionContext, Database database, Event event) throws BeanException {
+        transactionContext.execute(
+                SQL.Delete(database).
+                        from("veraweb.tguest").
+                        where(Expr.equal("fk_event", event.id)));
+    }
 
+    private void deleteEventTasks(TransactionContext transactionContext, Database database, Event event) throws BeanException {
+        transactionContext.execute(
+                SQL.Delete(database)
+                        .from("veraweb.ttask")
+                        .where(Expr.equal("fk_event", event.id))
+        );
+    }
 
-		} catch (SQLException e) {
-			throw new BeanException("SQL Exception while deleting OptionalFields from Event", e);
-		}
-		transactionContext.execute(
-		        SQL.Delete(database)
-		        .from("veraweb.ttask")
-		        .where(Expr.equal("fk_event", event.id))
-		        );
-		transactionContext.execute(
-				SQL.Delete( database ).
-				from("veraweb.tguest").
-				where(Expr.equal("fk_event", event.id)));
-		transactionContext.commit();
-		boolean result = super.removeBean(octopusContext, bean, transactionContext);
-		if ( result )
-		{
-			BeanChangeLogger clogger = new BeanChangeLogger( database );
-			clogger.logDelete( octopusContext.personalConfig().getLoginname(), event );
-		}
+    private void executeOptionalFieldsDeletion(TransactionContext transactionContext, Database database, OptionalField optionalField) throws BeanException {
+        transactionContext.execute(
+                SQL.Delete(database)
+                        .from("veraweb.toptional_fields_delegation_content")
+                        .where(new Where("fk_delegation_field", optionalField.getId(), "="))
+        );
 
-		return result;
-	}
+        transactionContext.execute(
+                SQL.Delete(database)
+                        .from("veraweb.toptional_fields")
+                        .where(new Where("pk", optionalField.getId(), "="))
+        );
+    }
 
     /** Octopus-Eingabe-Parameter für {@link #getSearch(OctopusContext)} */
-	public static final String INPUT_getSearch[] = {};
+    public static final String INPUT_getSearch[] = {};
     /** Octopus-Ausgabe-Parameter für {@link #getSearch(OctopusContext)} */
-	public static final String OUTPUT_getSearch = "search";
+    public static final String OUTPUT_getSearch = "search";
 
-	/**
-	 * Spiegelt die vom Benutzer eingebene Suche nach Veranstaltungen wieder.
-	 * Entsprechende Eingaben werden in der Session gespeichert.
-	 *
-	 * @param octopusContext Octopus-Context
-	 * @return Event-Instanz die die aktuelle Suche repräsentiert.
-	 * @throws BeanException FIXME
-	 */
-	public Event getSearch(OctopusContext octopusContext) throws BeanException {
-		Event search = null;
-		if ("reset".equals(octopusContext.requestAsString("search"))) {
-			search = (Event)new RequestVeraWeb(octopusContext).getBean("Event");
-			if (octopusContext.requestAsBoolean("current")) {
-				long now = System.currentTimeMillis();
-				search.end = new Timestamp(now - (now % 86400000) - 86400000);
-			}
-		} else if ("current".equals(octopusContext.requestAsString("search"))) {
-			long now = System.currentTimeMillis();
-			search = new Event();
-			search.end = new Timestamp(now - (now % 86400000) - 86400000);
-		}
-		if (search == null) {
-			search = (Event) octopusContext.sessionAsObject("search" + BEANNAME);
-		}
-		if (search == null) {
-			search = new Event();
-		}
-		octopusContext.setSession("search" + BEANNAME, search);
-		return search;
-	}
+    /**
+     * Spiegelt die vom Benutzer eingebene Suche nach Veranstaltungen wieder.
+     * Entsprechende Eingaben werden in der Session gespeichert.
+     *
+     * @param octopusContext Octopus-Context
+     * @return Event-Instanz die die aktuelle Suche repräsentiert.
+     * @throws BeanException FIXME
+     */
+    public Event getSearch(OctopusContext octopusContext) throws BeanException {
+        Event search = null;
+        if ("reset".equals(octopusContext.requestAsString("search"))) {
+            search = (Event) new RequestVeraWeb(octopusContext).getBean("Event");
+            if (octopusContext.requestAsBoolean("current")) {
+                long now = System.currentTimeMillis();
+                search.end = new Timestamp(now - (now % 86400000) - 86400000);
+            }
+        } else if ("current".equals(octopusContext.requestAsString("search"))) {
+            long now = System.currentTimeMillis();
+            search = new Event();
+            search.end = new Timestamp(now - (now % 86400000) - 86400000);
+        }
+        if (search == null) {
+            search = (Event) octopusContext.sessionAsObject("search" + BEANNAME);
+        }
+        if (search == null) {
+            search = new Event();
+        }
+        octopusContext.setSession("search" + BEANNAME, search);
+        return search;
+    }
 }
