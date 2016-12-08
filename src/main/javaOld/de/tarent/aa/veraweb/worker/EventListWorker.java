@@ -48,7 +48,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -70,12 +69,12 @@ public class EventListWorker extends ListWorkerVeraWeb {
     // Öffentliche Konstanten
     //
     /** Parameter: Wessen Ereignisse? */
-    public final static String PARAM_DOMAIN = "domain";
+    private final static String PARAM_DOMAIN = "domain";
 
     /** Parameterwert: beliebige Ereignisse */
-    public final static String PARAM_DOMAIN_VALUE_ALL = "all";
+	private final static String PARAM_DOMAIN_VALUE_ALL = "all";
     /** Parameterwert: Ereignisse des gleichen Mandanten */
-    public final static String PARAM_DOMAIN_VALUE_OU = "ou";
+	private final static String PARAM_DOMAIN_VALUE_OU = "ou";
 
     //
     // Konstruktoren
@@ -143,16 +142,16 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	 * @see #getSearch(OctopusContext)
 	 */
 	@Override
-    protected void extendWhere(OctopusContext cntx, Select select) throws BeanException {
-		Event search = getSearch(cntx);
+    protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
+		final Event search = getSearch(octopusContext);
 
 		// WHERE - Filtert das Datenbank Ergebnis anhand der Benutzereingaben.
 		WhereList where = new WhereList();
 
-        TcPersonalConfig pConfig = cntx.personalConfig();
+        TcPersonalConfig pConfig = octopusContext.personalConfig();
         if (pConfig instanceof PersonalConfigAA) {
             PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
-            String domain = cntx.contentAsString(PARAM_DOMAIN);
+            String domain = octopusContext.contentAsString(PARAM_DOMAIN);
             if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN)))
                 where.addAnd(Expr.equal("fk_orgunit", aaConfig.getOrgUnitId()));
         } else
@@ -180,25 +179,22 @@ public class EventListWorker extends ListWorkerVeraWeb {
 					Expr.less("datebegin", nextDay)));
 		}
 		if (search.end != null) {
-			where.addAnd(new RawClause(
-					"((datebegin IS NOT NULL AND datebegin>=now()::date) OR" +
-					" (dateend IS NOT NULL AND dateend>=now()::date))"));
-//			where.addAnd(Where.or(
-//					Expr.greaterOrEqual("datebegin", search.end),
-//					Expr.greaterOrEqual("dateend", search.end)));
+			final String dateClause = "((datebegin IS NOT NULL AND datebegin>=now()::date) OR (dateend IS NOT NULL AND dateend>=now()::date))";
+			where.addAnd(new RawClause(dateClause));
 		}
 
-        if (where.size() > 0)
-            select.where(where);
+        if (where.size() > 0) {
+			select.where(where);
+		}
 	}
 
 	/**
 	 * Überprüft ob es noch laufende oder zukünftige Veranstaltungen und fragt ggf. ob diese trotzdem gelöscht werden sollen.
 	 */
 	@Override
-    protected int removeSelection(OctopusContext cntx, List errors, List selection, TransactionContext context) throws BeanException, IOException {
+    protected int removeSelection(OctopusContext cntx, List errors, List selectionList, TransactionContext context) throws BeanException, IOException {
 		int count = 0;
-		if (selection == null || selection.size() == 0) return count;
+		if (selectionList == null || selectionList.size() == 0) return count;
 		Database database = context.getDatabase();
 		Map questions = new HashMap();
 		Map questions2 = new HashMap();
@@ -215,7 +211,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
     		Integer countOfNotExpiredEvents =
                     database.getCount(database.getCount("Event").
                     where(Where.and(
-                            Expr.in("pk", selection),
+                            Expr.in("pk", selectionList),
                             Where.or(
                                     Expr.greaterOrEqual("datebegin", today.getTime()),
                                     Where.and(
@@ -231,7 +227,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
 			LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
 			LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
 
-    		if (countOfNotExpiredEvents != null && countOfNotExpiredEvents.intValue() > 0) {
+    		if (countOfNotExpiredEvents != null && countOfNotExpiredEvents > 0) {
     			questions.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_WARNING_EVENTS_IN_FUTURE"));
     			questions2.put("force-remove-events", languageProvider.getProperty("EVENT_LIST_WARNING_SELECTION_CHANGING"));
     		} else {
@@ -247,13 +243,13 @@ public class EventListWorker extends ListWorkerVeraWeb {
 		 */
 		Event event = (Event)database.createBean("Event");
 
-		for (Iterator iter = selection.iterator(); iter.hasNext();) {
-			event.id = (Integer) iter.next();
+		for (Object selection : selectionList) {
+			event.id = (Integer) selection;
 			if (removeBean(cntx, event, context)) {
 				count++;
 			}
 		}
-		selection.clear();
+		selectionList.clear();
 
 		try {
 			// will commit here so that the following call to
@@ -330,28 +326,28 @@ public class EventListWorker extends ListWorkerVeraWeb {
 	 * Spiegelt die vom Benutzer eingebene Suche nach Veranstaltungen wieder.
 	 * Entsprechende Eingaben werden in der Session gespeichert.
 	 *
-	 * @param cntx Octopus-Context
+	 * @param octopusContext Octopus-Context
 	 * @return Event-Instanz die die aktuelle Suche repräsentiert.
-	 * @throws BeanException
+	 * @throws BeanException FIXME
 	 */
-	public Event getSearch(OctopusContext cntx) throws BeanException {
+	public Event getSearch(OctopusContext octopusContext) throws BeanException {
 		Event search = null;
-		if ("reset".equals(cntx.requestAsString("search"))) {
-			search = (Event)new RequestVeraWeb(cntx).getBean("Event");
-			if (cntx.requestAsBoolean("current").booleanValue()) {
+		if ("reset".equals(octopusContext.requestAsString("search"))) {
+			search = (Event)new RequestVeraWeb(octopusContext).getBean("Event");
+			if (octopusContext.requestAsBoolean("current")) {
 				long now = System.currentTimeMillis();
 				search.end = new Timestamp(now - (now % 86400000) - 86400000);
 			}
-		} else if ("current".equals(cntx.requestAsString("search"))) {
+		} else if ("current".equals(octopusContext.requestAsString("search"))) {
 			long now = System.currentTimeMillis();
 			search = new Event();
 			search.end = new Timestamp(now - (now % 86400000) - 86400000);
 		}
 		if (search == null)
-			search = (Event)cntx.sessionAsObject("search" + BEANNAME);
+			search = (Event)octopusContext.sessionAsObject("search" + BEANNAME);
 		if (search == null)
 			search = new Event();
-		cntx.setSession("search" + BEANNAME, search);
+		octopusContext.setSession("search" + BEANNAME, search);
 		return search;
 	}
 }
