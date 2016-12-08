@@ -747,7 +747,7 @@ BEGIN
             IF vcurvsn < vnewvsn THEN
                 vmsg := 'begin.update(' || vnewvsn || ')';
 
-                ALTER TABLE veraweb.tperson ADD COLUMN internal_id VARCHAR(10);
+                ALTER TABLE veraweb.tperson ADD COLUMN internal_id VARCHAR(45);
 
                 -- post-upgrade
                 vmsg := 'end.update(' || vnewvsn || ')';

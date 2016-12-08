@@ -22,8 +22,10 @@ package de.tarent.aa.veraweb.worker;
 import de.tarent.aa.veraweb.beans.Event;
 import de.tarent.aa.veraweb.beans.OptionalField;
 import de.tarent.aa.veraweb.utils.DatabaseHelper;
+import de.tarent.aa.veraweb.utils.VerawebUtils;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
+import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
@@ -46,6 +48,7 @@ import de.tarent.octopus.server.OctopusContext;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -145,7 +148,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException {
-        final Event search = getSearch(octopusContext);
+        final Event event = getSearch(octopusContext);
 
         // WHERE - Filtert das Datenbank Ergebnis anhand der Benutzereingaben.
         final WhereList where = new WhereList();
@@ -161,28 +164,49 @@ public class EventListWorker extends ListWorkerVeraWeb {
             throw new BeanException("Missing user information");
         }
 
-        if (search.shortname != null && search.shortname.length() != 0) {
-            extendWhereClauseByShortname(search, where);
+        if (event.shortname != null && event.shortname.length() != 0) {
+            extendWhereClauseByShortname(event, where);
         }
-        if (search.eventname != null && search.eventname.length() != 0) {
-            extendWhereClauseByEventName(search, where);
+        if (event.eventname != null && event.eventname.length() != 0) {
+            extendWhereClauseByEventName(event, where);
         }
-        if (search.hostname != null && search.hostname.length() != 0) {
-            extendWhereClauseByHostname(search, where);
+        if (event.hostname != null && event.hostname.length() != 0) {
+            extendWhereClauseByHostname(event, where);
         }
-        if (search.location != null) {
-            extendWhereClauseByLocation(search, where);
+        if (event.location != null) {
+            extendWhereClauseByLocation(event, where);
         }
-        if (search.begin != null) {
-            extendWhereClauseByBeginDate(search, where);
+        if (event.begin != null) {
+            extendWhereClauseByBeginDate(event, where);
         }
-        if (search.end != null) {
+        if (event.end != null) {
             extendWhereClauseByEndDate(where);
         }
 
-        if (where.size() > 0) {
-            select.where(where);
+        final String internalId = octopusContext.requestAsString("person-internalId");
+        if (internalId != null && !internalId.equals("")) {
+            final ResultList eventIds = getEventIdsByPersonInternalId(octopusContext, internalId);
+            final List list = VerawebUtils.copyResultListToArrayList(eventIds);
+            final List onlyIds = new ArrayList();
+            for (Object entry : list) {
+                onlyIds.add(((HashMap) entry).get("fk_event"));
+            }
+            select.whereAnd(Expr.in("tevent.pk", onlyIds));
         }
+
+        if (where.size() > 0) {
+            select.whereAnd(where);
+        }
+    }
+
+    private ResultList getEventIdsByPersonInternalId(OctopusContext octopusContext, String internalId) throws BeanException {
+        final Select selectEventIdsByPersonInternalId = SQL.Select(getDatabase(octopusContext));
+        selectEventIdsByPersonInternalId.select("tguest.fk_event");
+        selectEventIdsByPersonInternalId.from("veraweb.tperson");
+        selectEventIdsByPersonInternalId.join("veraweb.tguest", "tperson.pk", "tguest.fk_person");
+        selectEventIdsByPersonInternalId.whereAndEq("internal_id", internalId);
+        final Database database = getDatabase(octopusContext);
+        return database.getList(selectEventIdsByPersonInternalId, database);
     }
 
     private void extendWhereClauseByLocation(Event search, WhereList where) {

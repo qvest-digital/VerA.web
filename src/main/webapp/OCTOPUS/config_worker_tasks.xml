@@ -1045,6 +1045,7 @@
 				<input name="Datum" type="xsd:string" optional="t" description="Vorgabewert: gesuchtes Datum"/>
 				<input name="Ort" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Ort"/>
 				<input name="Gastgeber" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Gastgeber"/>
+				<input name="Interne ID" type="xsd:string" optional="t" description="Vorgabewert: interne ID" />
 			</contract>
 			<doTask name="Load"/>
 			<action name="getAll" worker="LocationListWorker" />

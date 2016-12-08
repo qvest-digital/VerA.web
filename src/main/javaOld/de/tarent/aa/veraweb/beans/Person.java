@@ -49,8 +49,8 @@ import java.util.Set;
 public class Person extends AbstractHistoryBean implements PersonConstants, OrgUnitDependent {
     /** ID */
     public Integer id;
-    @Pattern(regexp="\\d{2}-\\d{3}-\\d{3}")
-    @Size(max=100)
+
+    @Size(max=45)
     public String internalId;
     /** ID der Mandanten-Einheit */
     public Integer orgunit;
