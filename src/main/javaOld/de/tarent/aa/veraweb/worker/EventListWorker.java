@@ -185,18 +185,23 @@ public class EventListWorker extends ListWorkerVeraWeb {
 
         final String internalId = octopusContext.requestAsString("person-internalId");
         if (internalId != null && !internalId.equals("")) {
-            final ResultList eventIds = getEventIdsByPersonInternalId(octopusContext, internalId);
-            final List list = VerawebUtils.copyResultListToArrayList(eventIds);
-            final List onlyIds = new ArrayList();
-            for (Object entry : list) {
-                onlyIds.add(((HashMap) entry).get("fk_event"));
-            }
-            select.whereAnd(Expr.in("tevent.pk", onlyIds));
+            final List eventIds = getEventIds(octopusContext, internalId);
+            select.whereAnd(Expr.in("tevent.pk", eventIds));
         }
 
         if (where.size() > 0) {
             select.whereAnd(where);
         }
+    }
+
+    private List getEventIds(OctopusContext octopusContext, String internalId) throws BeanException {
+        final ResultList eventIds = getEventIdsByPersonInternalId(octopusContext, internalId);
+        final List list = VerawebUtils.copyResultListToArrayList(eventIds);
+        final List onlyIds = new ArrayList();
+        for (Object entry : list) {
+            onlyIds.add(((HashMap) entry).get("fk_event"));
+        }
+        return onlyIds;
     }
 
     private ResultList getEventIdsByPersonInternalId(OctopusContext octopusContext, String internalId) throws BeanException {
@@ -322,14 +327,13 @@ public class EventListWorker extends ListWorkerVeraWeb {
     protected boolean removeBean(OctopusContext octopusContext, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
         final Event event = (Event) bean;
         try {
-            final boolean eventSuccessfullDeleted = executeEventDeletion(octopusContext, transactionContext, event);
-            return eventSuccessfullDeleted;
+            return isEventDeletionSuccessfull(octopusContext, transactionContext, event);
         } catch (SQLException e) {
             throw new BeanException("SQL Exception while deleting OptionalFields from Event", e);
         }
     }
 
-    private boolean executeEventDeletion(OctopusContext octopusContext, TransactionContext transactionContext, Event event) throws BeanException, SQLException, IOException {
+    private boolean isEventDeletionSuccessfull(OctopusContext octopusContext, TransactionContext transactionContext, Event event) throws BeanException, SQLException, IOException {
         final Database database = transactionContext.getDatabase();
         final OptionalFieldsWorker optionalFieldsWorker = new OptionalFieldsWorker(octopusContext);
         deleteOptionalFields(transactionContext, database, optionalFieldsWorker, event);
