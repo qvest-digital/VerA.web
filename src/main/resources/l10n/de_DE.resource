@@ -2088,7 +2088,7 @@ zipcode_b_e3=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 zipcode_c_e1=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 zipcode_c_e2=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 zipcode_c_e3=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
-internalId=Die interne ID muss im Format 00-000-000 vorliegen.
+internalId=Die interne ID darf nicht l\u00E4nger als 45 Zeichen sein.
 INTERNAL_ID=Interne ID
 
 # ALTERNATIVE SALUTATIONS

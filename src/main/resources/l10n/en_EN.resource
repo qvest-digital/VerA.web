@@ -2117,8 +2117,8 @@ zipcode_b_e3=Postal code mustn't be longer than 250 characters
 zipcode_c_e1=Postal code mustn't be longer than 250 characters
 zipcode_c_e2=Postal code mustn't be longer than 250 characters
 zipcode_c_e3=Postal code mustn't be longer than 250 characters
-internalId=Die interne ID muss im Format 00-000-000 vorliegen.
-INTERNAL_ID=Interne ID
+internalId=The internal ID mustn't be longer than 45 characters.
+INTERNAL_ID=The internal ID
 
 
 # ALTERNATIVE SALUTATIONS
