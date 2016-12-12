@@ -59,6 +59,15 @@
 			</div>
 
 			<div class="notBold grayBorder contentBox marginBottom20 bgWhite">
+				<h3>${placeholderWithTranslation.EXPORT_GUESTLIST_SHORT_TITLE}</h3>
+
+				<form id="ExportGuestlistShot" action="${paths.staticWeb}csvexport/$event.id" method="GET">
+					<input type="hidden" name="guestListShortExport" value="true" />
+					<input type="submit" name="export" value="${placeholderWithTranslation.EXPORT_AS_CSV_SHORT}" title="${placeholderWithTranslation.EXPORT_AS_CSV_SHORT}" class="mainButton autoWidth" />
+				</form>
+			</div>
+
+			<div class="notBold grayBorder contentBox marginBottom20 bgWhite">
 				<h3>${placeholderWithTranslation.PDF_GENERATE_LABEL}</h3>
 
 				<form id="PdfGenerateForm" action="${paths.staticWeb}pdftemplate/export" method="GET">
