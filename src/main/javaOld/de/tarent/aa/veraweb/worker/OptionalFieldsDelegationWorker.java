@@ -28,6 +28,7 @@ import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Order;
+import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Insert;
@@ -135,10 +136,10 @@ public class OptionalFieldsDelegationWorker {
      * @throws SQLException FIXME
      * @throws BeanException FIXME
 	 */
-	public List<OptionalDelegationField> getOptionalDelegationFieldsByGuestId(int guestId)
+	public List<OptionalDelegationField> getOptionalDelegationFieldsByGuestId(int guestId, int eventId)
             throws BeanException, SQLException {
 
-        final Select select = getStatementSelectOptionalDelegationField(guestId);
+        final String select = getStatementSelectOptionalDelegationField(guestId, eventId);
         final ResultSet resultSet = database.result(select);
         return getOptionalFieldsAsList(resultSet);
 	}
@@ -319,27 +320,27 @@ public class OptionalFieldsDelegationWorker {
         return insert;
     }
 
-    private Select getStatementSelectOptionalDelegationField(int guestId) {
-        final WhereList whereCriterias = new WhereList();
-        whereCriterias.addAnd(new Where("fk_guest", guestId, "="));
-
-        final Select select = SQL.Select(this.database);
-        select.setDistinct(true);
-        select.where(whereCriterias);
-        select.from(OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE);
-        select.joinLeftOuter(OPTIONAL_FIELDS_TABLE,
-                OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE + ".fk_delegation_field", OPTIONAL_FIELDS_TABLE + ".pk");
-        select.joinLeftOuter(OPTIONAL_FIELD_TYPE_TABLE,
-                OPTIONAL_FIELD_TYPE_TABLE + ".pk", OPTIONAL_FIELDS_TABLE + ".fk_type");
-        select.joinLeftOuter(OPTIONAL_FIELD_TYPE_CONTENT_TABLE,
-                OPTIONAL_FIELD_TYPE_CONTENT_TABLE + ".fk_optional_field", OPTIONAL_FIELDS_TABLE + ".pk");
-        select.select("fk_guest");
-        select.select("fk_delegation_field");
-        select.select("fk_type");
-        select.select("value");
-        select.select(OPTIONAL_FIELDS_TABLE + ".label as label");
-        select.orderBy(Order.asc("fk_delegation_field"));
-        return select;
+    private String getStatementSelectOptionalDelegationField(int guestId, int eventId) {
+        return "WITH w_vorhandene_labels AS ( " +
+                "SELECT DISTINCT dc.fk_guest as fk_guest, dc.fk_delegation_field as fk_delegation_field, f.fk_type as fk_type, dc.value as value, f.label as label " +
+                "FROM veraweb.toptional_fields_delegation_content dc " +
+                "RIGHT OUTER JOIN veraweb.toptional_fields f ON (dc.fk_delegation_field = f.pk) " +
+                "LEFT OUTER JOIN veraweb.toptional_field_type t ON (t.pk = f.fk_type) " +
+                "LEFT OUTER JOIN veraweb.toptional_field_type_content tc ON (tc.fk_optional_field = f.pk) " +
+                "WHERE fk_guest = " + guestId +
+                ") " +
+                "SELECT * FROM w_vorhandene_labels wl " +
+                "UNION " +
+                "SELECT DISTINCT " + guestId + " as fk_guest, f.pk as fk_delegation_field, f.fk_type as fk_type, '' as value, f.label as label " +
+                "FROM veraweb.toptional_fields f " +
+                "WHERE f.fk_event = " + eventId +
+                "AND label != '' " +
+                "AND NOT EXISTS ( " +
+                "SELECT 42 " +
+                "FROM w_vorhandene_labels wl " +
+                "WHERE f.label = wl.label " +
+                ") " +
+                "ORDER BY fk_delegation_field ASC;";
     }
 
     private Update getStatementUpdateOptionalDelegationField(OptionalDelegationField optionalDelegationField) {

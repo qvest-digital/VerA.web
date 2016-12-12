@@ -88,7 +88,7 @@ public class EventDelegationWorker {
         }
         setEventAndMediaRepresantativeURLInContext(octopusContext, eventId);
 
-        return getOptionalFieldsForGuest(octopusContext, guestId);
+        return getOptionalFieldsForGuest(octopusContext, guestId, eventId);
     }
 
     private List<OptionalFieldType> getOptionalFieldTypes(final OctopusContext octopusContext) throws SQLException {
@@ -145,11 +145,11 @@ public class EventDelegationWorker {
         return allTypesAsList;
     }
 
-    private List<OptionalDelegationField> getOptionalFieldsForGuest(OctopusContext octopusContext, Integer guestId)
+    private List<OptionalDelegationField> getOptionalFieldsForGuest(OctopusContext octopusContext, Integer guestId, Integer eventId)
             throws BeanException, SQLException {
         final OptionalFieldsDelegationWorker optionalFieldsDelegationWorker =
                 new OptionalFieldsDelegationWorker(octopusContext);
-        return optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(guestId);
+        return optionalFieldsDelegationWorker.getOptionalDelegationFieldsByGuestId(guestId, eventId);
     }
 
     /**

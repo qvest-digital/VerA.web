@@ -167,51 +167,50 @@
                                     </div>
                                     <div class="tableCell"></div>
                                 </div>
-                                #if ($guest.delegation)
-                                    #set( $idcounter = 0)
-                                    #set( $temp = 0)
-                                    #foreach( $field in $delegationFields)
+                                #set( $idcounter = 0)
+                                #set( $temp = 0)
+                                #foreach( $field in $delegationFields)
 
-                                        ## A new row would begin after each third field
-                                        #if($idcounter%3 == 0)
-                                            <div class="tableRow">
-                                        #end
-                                        <!-- type id: $field.fkType.value -->
+                                    ## A new row would begin after each third field
+                                    #if($idcounter%3 == 0)
+                                        <div class="tableRow">
+                                    #end
+                                    <!-- type id: $field.fkType.value -->
 
-                                            <div class="tableCell">
-                                                <label id="event-delegation-field-label-$idcounter" for="event-delegation-field-$counter">$field.label:</label>
-                                                #if($field.fkType == 1)
-                                                    <input id="event-delegation-field-input-$idcounter" name="optional-field-input-$field.fkDelegationField"
-                                                           onchange="setModified('')" value="$field.content"></input>
-                                                #elseif($field.fkType == 2)
-                                                    <select name="optional-field-dropdown-$field.fkDelegationField">
-                                                         #foreach ($typeContentEntry in $field.optionalFieldTypeContents)
-                                                            <option
-                                                                #if ($typeContentEntry.isSelected)
-                                                                    selected
-                                                                #end
-                                                            value="$typeContentEntry.content" >$typeContentEntry.content</option>
-                                                         #end
-                                                    </select>
-                                                #elseif($field.fkType == 3)
-                                                    <select multiple name="optional-field-multipledropdown-$field.fkDelegationField">
-                                                         #foreach ($typeContentEntry in $field.optionalFieldTypeContents)
-                                                            <option
-                                                                #if ($typeContentEntry.isSelected)
-                                                                    selected
-                                                                #end
-                                                            value="$typeContentEntry.content">$typeContentEntry.content</option>
-                                                         #end
-                                                    </select>
-                                                #end
-                                            </div>
+                                        <div class="tableCell">
+                                            <label id="event-delegation-field-label-$idcounter" for="event-delegation-field-$counter">$field.label:</label>
+                                            #if($field.fkType == 1)
+                                                <input id="event-delegation-field-input-$idcounter" name="optional-field-input-$field.fkDelegationField"
+                                                       onchange="setModified('')" value="$field.content"></input>
+                                            #elseif($field.fkType == 2)
+                                                <select name="optional-field-dropdown-$field.fkDelegationField">
+                                                    <option value="">${placeholderWithTranslation.GENERIC_PLEASE_CHOOSE}</option>
+                                                     #foreach ($typeContentEntry in $field.optionalFieldTypeContents)
+                                                        <option
+                                                            #if ($typeContentEntry.isSelected)
+                                                                selected
+                                                            #end
+                                                        value="$typeContentEntry.content" >$typeContentEntry.content</option>
+                                                     #end
+                                                </select>
+                                            #elseif($field.fkType == 3)
+                                                <select multiple name="optional-field-multipledropdown-$field.fkDelegationField">
+                                                     #foreach ($typeContentEntry in $field.optionalFieldTypeContents)
+                                                        <option
+                                                            #if ($typeContentEntry.isSelected)
+                                                                selected
+                                                            #end
+                                                        value="$typeContentEntry.content">$typeContentEntry.content</option>
+                                                     #end
+                                                </select>
+                                            #end
+                                        </div>
 
-                                        #set( $idcounter = $idcounter + 1)
+                                    #set( $idcounter = $idcounter + 1)
 
-                                        ## Ending the row after each third field
-                                        #if ($idcounter%3 == 0 || ${delegationFields.size()} == $idcounter)
-                                            </div>
-                                        #end
+                                    ## Ending the row after each third field
+                                    #if ($idcounter%3 == 0 || ${delegationFields.size()} == $idcounter)
+                                        </div>
                                     #end
                                 #end
                             </div>
