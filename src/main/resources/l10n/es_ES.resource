@@ -608,6 +608,7 @@ pressevertreter=Representante de prensa
 wirtschaft=Econom\u00EDa
 GENERIC_EXPORT=Exportaci\u00F3n
 EXPORT_AS_CSV=Exportar a CSV
+EXPORT_AS_CSV_SHORT=Gästeliste Kurzform
 GENERIC_START_EXPORT=Iniciar exportaci\u00F3n
 ENCODING_TYPE_CYRILLIC=Cir\u00EDlico
 ENCODING_TYPE_WEST=Del oeste
@@ -626,6 +627,7 @@ EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+TipoDocumento 1.0 (Comma-Sep
 EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Categor\u00EDas (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 EXPORT_TITLE_CSV=CSV
+EXPORT_GUESTLIST_SHORT_TITLE=Gästeliste Kurzform Export als CSV
 EXPORT_TITLE_XML=XML
 EXPORT_TITLE_ZKM=ZKM
 EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Personas
@@ -2125,6 +2127,9 @@ zipcode_b_e3=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
 zipcode_c_e1=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
 zipcode_c_e2=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
 zipcode_c_e3=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
+internalId=ID interno no debe contener m\u00E1s de 45 caracteres.
+INTERNAL_ID=ID interno
+
 
 # ALTERNATIVE SALUTATIONS
 SALUTATION_EDITABLE_TEXT=Puedes ingresar un saludo alternativo para este PDF aqu\u00ED

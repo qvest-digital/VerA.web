@@ -608,6 +608,7 @@ pressevertreter=Pressevertreter
 wirtschaft=Wirtschaft
 GENERIC_EXPORT=Export
 EXPORT_AS_CSV=Export as CSV
+EXPORT_AS_CSV_SHORT=Gästeliste Kurzform
 GENERIC_START_EXPORT=Start export
 ENCODING_TYPE_CYRILLIC=Cyrillic
 ENCODING_TYPE_WEST=Westerly
@@ -626,6 +627,7 @@ EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+Doktype 1.0 (Comma-Separated
 EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Categories (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 EXPORT_TITLE_CSV=CSV
+EXPORT_GUESTLIST_SHORT_TITLE=Gästeliste Kurzform Export als CSV
 EXPORT_TITLE_XML=XML
 EXPORT_TITLE_ZKM=ZKM
 EXPORT_TITLE_MADLAN_PERSON=MAdLAN-people
@@ -2117,6 +2119,9 @@ zipcode_b_e3=Postal code mustn't be longer than 250 characters
 zipcode_c_e1=Postal code mustn't be longer than 250 characters
 zipcode_c_e2=Postal code mustn't be longer than 250 characters
 zipcode_c_e3=Postal code mustn't be longer than 250 characters
+internalId=The internal ID mustn't be longer than 45 characters.
+INTERNAL_ID=The internal ID
+
 
 # ALTERNATIVE SALUTATIONS
 SALUTATION_EDITABLE_TEXT=Alternative salutations for this PDF template can be created here

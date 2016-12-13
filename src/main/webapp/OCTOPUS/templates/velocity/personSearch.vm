@@ -113,8 +113,15 @@
                             <label for="iscompany">${placeholderWithTranslation.GENERIC_IS_COMPANY}</label>
                             <input type="checkbox" name="iscompany" id="iscompany" value="true"  #if($search.iscompany) checked #end />
                         </div>
-                        <div class="tableCell width30"></div>
                     </div>
+
+                    <div class="tableRow">
+                        <div class="tableCell width30">
+                            <label for="internalId">${placeholderWithTranslation.INTERNAL_ID}</label>
+                            <input type="text" name="internalId" id="internalId" value="$!message.text($search.internalId)"  />
+                        </div>
+                    </div>
+
                 </div>
             </fieldset>
 

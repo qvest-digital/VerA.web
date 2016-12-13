@@ -585,6 +585,7 @@ pressevertreter=Pressevertreter
 wirtschaft=Wirtschaft
 GENERIC_EXPORT=Export
 EXPORT_AS_CSV=Als CSV exportieren
+EXPORT_AS_CSV_SHORT=Gästeliste Kurzform
 GENERIC_START_EXPORT=Export starten
 ENCODING_TYPE_CYRILLIC=Kyrillisch
 ENCODING_TYPE_WEST=Westlich
@@ -603,6 +604,7 @@ EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+Doktyp 1.0 (Comma-Separated-
 EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Kategorien (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 EXPORT_TITLE_CSV=CSV
+EXPORT_GUESTLIST_SHORT_TITLE=Gästeliste Kurzform Export als CSV
 EXPORT_TITLE_XML=XML
 EXPORT_TITLE_ZKM=ZKM
 EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Personen
@@ -2088,6 +2090,8 @@ zipcode_b_e3=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 zipcode_c_e1=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 zipcode_c_e2=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
 zipcode_c_e3=PLZ darf nicht l\u00E4nger als 250 Zeichen sein.
+internalId=Die interne ID darf nicht l\u00E4nger als 45 Zeichen sein.
+INTERNAL_ID=Interne ID
 
 # ALTERNATIVE SALUTATIONS
 SALUTATION_EDITABLE_TEXT=Hier k\u00F6nnen Sie Alternative Anreden f\u00FCr diese PDF- Vorlage erstellen

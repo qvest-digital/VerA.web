@@ -1,13 +1,12 @@
 <div vera-content="$personPartner person$extEncoding">
 	<div class="table width100">
 		<div class="tableRow">
-			<div class="tableCell width50 inlineLabel ">
+			<div class="tableCell width50 inlineLabel">
 				#if($ext == "_a_e1")
 					<label for="person-iscompany">${placeholderWithTranslation.GENERIC_IS_COMPANY}</label>
 					<input tabindex="120" type="checkbox" id="person-iscompany" name="person-iscompany" value="t" class="noFloat" #if(($person.iscompany && $person.iscompany == "t") || ($person-iscompany && $person-iscompany == "t")) checked #end onchange="setModified();" #if(!$grants.mayWrite()) vera-disabled#end/>
 				#end
 			</div>
-			<div class="tableCell width50"></div>
 		</div>
 
 		<div class="tableRow">
@@ -36,7 +35,7 @@
 				</select>
 			</div>
 
-			<div class="tableCell width35 ">
+			<div class="tableCell width50">
 				<label for="person-expire$!message.plain($ext)">${placeholderWithTranslation.GENERIC_VALID_TILL}</label>
 				<input type="text" name="person-expire$!message.plain($ext)" id="person-expire$!message.plain($ext)" value="$!message.date("DATE", $person.expire)" class="datepicker personExpiredDate" onchange="setModified(); updateExpiredDate(this.value);" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
 				#if($grants.mayWrite() && !$createNewPerson)

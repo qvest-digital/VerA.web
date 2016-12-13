@@ -609,6 +609,7 @@ pressevertreter=repr\u00E9sentants de la presse
 wirtschaft=\u00E9conomie
 GENERIC_EXPORT=Exportation
 EXPORT_AS_CSV=Exporter au format CSV
+EXPORT_AS_CSV_SHORT=Gästeliste Kurzform
 GENERIC_START_EXPORT=D\u00E9marrer l\u2019exportation
 ENCODING_TYPE_CYRILLIC=cyrillique
 ENCODING_TYPE_WEST=ouest
@@ -627,6 +628,7 @@ EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+Doktyp 1.0 (Comma-Separated-
 EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Kategorien (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 EXPORT_TITLE_CSV=CSV
+EXPORT_GUESTLIST_SHORT_TITLE=Gästeliste Kurzform Export als CSV
 EXPORT_TITLE_XML=XML
 EXPORT_TITLE_ZKM=ZKM
 EXPORT_TITLE_MADLAN_PERSON=MAdLAN-Personen
@@ -2126,6 +2128,8 @@ zipcode_b_e3=Code postale doit etre moins de 250 characteres.
 zipcode_c_e1=Code postale doit etre moins de 250 characteres.
 zipcode_c_e2=Code postale doit etre moins de 250 characteres.
 zipcode_c_e3=Code postale doit etre moins de 250 characteres.
+internalId=L\u0027identit\u00E9 interne doit \u00EAtre moins de 45 caract\u00E8res.
+INTERNAL_ID=Identit\u00E9 interne
 
 # ALTERNATIVE SALUTATIONS
 SALUTATION_EDITABLE_TEXT=Ici vous pouvez cr\u00E9er un style alternatif pour ce mod\u00E8le de PDF
