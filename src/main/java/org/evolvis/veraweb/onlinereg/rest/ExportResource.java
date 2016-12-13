@@ -15,6 +15,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
@@ -22,6 +23,7 @@ import javax.ws.rs.core.StreamingOutput;
 import javax.ws.rs.core.UriInfo;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -31,6 +33,7 @@ import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -42,7 +45,8 @@ import java.util.Properties;
 @Produces(VworConstants.TEXT_CSV_CONTENT_TYPE)
 public class ExportResource extends AbstractResource{
     private InitialContext initContext;
- private static final String CONFIG_FILE_NAME = "config.yaml";
+    private static final String CONFIG_FILE_NAME = "config.yaml";
+    private static final String CONFIG_FILE_NAME_GUEST_LIST_SHORT = "configGuestListShort.yaml";
     private static final String CONFIG_PLACEHOLDER = "__event_id_placeholder__";
     
     
@@ -72,8 +76,9 @@ public class ExportResource extends AbstractResource{
         final Properties properties = new Properties();
         properties.setProperty("event.shortname", event.getShortname());
         properties.setProperty("event.begin",  String.valueOf(event.getDatebegin().getTime()));
-        
-        final Reader reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME), "utf-8");
+
+        final InputStream configFileAsStream = getConfigFileAsStream(ui);
+        final Reader reader = new InputStreamReader(configFileAsStream, "utf-8");
         final Map<String, String> substitutions=new HashMap<String,String>();
         substitutions.put(CONFIG_PLACEHOLDER, String.valueOf(eventId));
         final MultivaluedMap<String, String> params = ui.getQueryParameters();
@@ -95,6 +100,14 @@ public class ExportResource extends AbstractResource{
 
 
         return Response.ok(stream).header("Content-Disposition", "attachment;filename=" + downloadFilename + ";charset=Unicode").build();
+    }
+
+    private InputStream getConfigFileAsStream(@javax.ws.rs.core.Context UriInfo ui) {
+        final List<String> guestListShortExportQueryParameter = ui.getQueryParameters().get("guestListShortExport");
+        if (guestListShortExportQueryParameter != null && guestListShortExportQueryParameter.equals("true")) {
+            return getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME_GUEST_LIST_SHORT);
+        }
+        return getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME);
     }
 
 
