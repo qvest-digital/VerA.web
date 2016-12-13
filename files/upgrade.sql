@@ -749,6 +749,12 @@ BEGIN
 
                 ALTER TABLE veraweb.tperson ADD COLUMN internal_id VARCHAR(45);
 
+                CREATE OR REPLACE VIEW veraweb.aggregated_field_content as (
+                    select c.fk_guest, c.fk_delegation_field, string_agg(c.value, ',') as value
+                      from veraweb.toptional_fields_delegation_content c
+                      group by c.fk_guest,  c.fk_delegation_field
+                );
+
                 -- post-upgrade
                 vmsg := 'end.update(' || vnewvsn || ')';
                 UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
