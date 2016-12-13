@@ -1,5 +1,3 @@
- 
-
 select
     g.pk as g_pk,
     g.fk_person as g_fk_person,
@@ -47,12 +45,22 @@ select
     p.firstname_a_e1 as p_firstname_a_e1,
     p.lastname_a_e1 as p_lastname_a_e1,
     p.mail_a_e1 as p_mail_a_e1,
-    -- ofdc.value as (select string_agg(label, ',') FROM (select * from veraweb.toptional_fields f where f.fk_event=1 group by f.pk order by f.pk) orif)
-    string_agg(ofdc.value, ';') as g_optional_field_content
+    c1.value as NAME1,
+    c2.value as NAME2,
+    c3.value as NAME3
+
+
   from veraweb.tguest g
   inner join veraweb.tperson p on (g.fk_person = p.pk)
   left outer join veraweb.link_uuid l on l.personid = p.pk
-  left join veraweb.toptional_fields_delegation_content ofdc on ofdc.fk_guest = g.pk
+
+  left join aggregated_field_content c1 on c1.fk_guest=g.pk and c1.fk_delegation_field=1
+  left join aggregated_field_content c2 on c2.fk_guest=g.pk and c2.fk_delegation_field=2
+  left join aggregated_field_content c3 on c3.fk_guest=g.pk and c3.fk_delegation_field=3
+
   where g.fk_event = 1
-  group by g.pk, p.pk
+
+  NAME1:
+    mapTo: "__PLATZHALTER__"
+
   ;
