@@ -64,9 +64,8 @@ public class DelegationResource extends AbstractResource {
 
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("OptionalField.findByEventId");
-            query.setInteger("eventId", eventId);
-            final List<OptionalField> fields = (List<OptionalField>) query.list();
+            final OptionalFieldResource optionalFieldResource = new OptionalFieldResource();
+            final List<OptionalField> fields = optionalFieldResource.getOptionalFields(eventId);
 
             return convertOptionalFieldsResultSetToList(guestId, fields, session);
         } finally {

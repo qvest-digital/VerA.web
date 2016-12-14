@@ -2,6 +2,7 @@ package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.export.CsvExporter;
 import org.evolvis.veraweb.onlinereg.entities.Event;
+import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.utils.KeepOpenWriter;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.hibernate.Query;
@@ -72,23 +73,6 @@ public class ExportResource extends AbstractResource{
         final Context namingContext  = (Context) initContext.lookup("java:comp/env");
         final DataSource dataSource = (DataSource) namingContext.lookup("jdbc/vwonlinereg");
 
-        Map labels = new HashMap();
-        labels.put("1", "hotel");
-        labels.put("2", "auto benötigt");
-        labels.put("3", "essen");
-        labels.put("4", "04");
-        labels.put("5", "05");
-        labels.put("6", "06");
-        labels.put("7", "07");
-        labels.put("8", "08");
-        labels.put("9", "09");
-        labels.put("10", "10");
-        labels.put("11", "11");
-        labels.put("12", "12");
-        labels.put("13", "13");
-        labels.put("14", "14");
-        labels.put("15", "15");
-
         final Properties properties = new Properties();
         properties.setProperty("event.shortname", event.getShortname());
         properties.setProperty("event.begin",  String.valueOf(event.getDatebegin().getTime()));
@@ -97,14 +81,9 @@ public class ExportResource extends AbstractResource{
         final Reader reader = new InputStreamReader(configFileAsStream, "utf-8");
         final Map<String, String> substitutions=new HashMap<String,String>();
         substitutions.put(CONFIG_PLACEHOLDER, String.valueOf(eventId));
-        int counter = 1;
-        for (Object key : labels.entrySet()) {
-            if (counter < 10) {
-                substitutions.put("__LABEL_OPTIONAL_FIELD_0" + counter + "__", key.toString());
-            } else {
-                substitutions.put("__LABEL_OPTIONAL_FIELD_" + counter + "__", key.toString());
-            }
-        }
+
+        addOptionalFieldsSubstitutions(eventId, substitutions);
+
         final MultivaluedMap<String, String> params = ui.getQueryParameters();
         for(String key:params.keySet()){
             properties.setProperty(key, params.getFirst(key));
@@ -126,9 +105,35 @@ public class ExportResource extends AbstractResource{
         return Response.ok(stream).header("Content-Disposition", "attachment;filename=" + downloadFilename + ";charset=Unicode").build();
     }
 
+    private void addOptionalFieldsSubstitutions(@PathParam("eventId") int eventId, Map<String, String> substitutions) {
+//        final OptionalFieldResource optionalFieldResource =  new OptionalFieldResource();
+//        final List<OptionalField> optionalFields = optionalFieldResource.getOptionalFields(eventId);
+
+        final Session session = openSession();
+        List<OptionalField> optionalFields;
+        try {
+            final Query query = session.getNamedQuery("OptionalField.findByEventId");
+            query.setInteger("eventId", eventId);
+            optionalFields = (List<OptionalField>) query.list();
+        } finally {
+            session.close();
+        }
+
+        for (int i = 0; i < optionalFields.size(); i ++) {
+            final OptionalField optionalField = optionalFields.get(i);
+            if (i < 10) {
+                substitutions.put("__OPTIONAL_FIELD_LABEL_0" + i + "__", optionalField.getLabel());
+                substitutions.put("__optional_field_0" + i + "_id_placeholder__", optionalField.getPk().toString());
+            } else {
+                substitutions.put("__OPTIONAL_FIELD_LABEL_" + i + "__", optionalField.getLabel());
+                substitutions.put("__optional_field_" + i + "_id_placeholder__", optionalField.getPk().toString());
+            }
+        }
+    }
+
     private InputStream getConfigFileAsStream(@javax.ws.rs.core.Context UriInfo ui) {
         final List<String> guestListShortExportQueryParameter = ui.getQueryParameters().get("guestListShortExport");
-        if (guestListShortExportQueryParameter != null && guestListShortExportQueryParameter.equals("true")) {
+        if (guestListShortExportQueryParameter != null && guestListShortExportQueryParameter.get(0).equals("true")) {
             return getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME_GUEST_LIST_SHORT);
         }
         return getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME);

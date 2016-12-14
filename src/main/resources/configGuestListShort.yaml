@@ -1,4 +1,6 @@
-select
+---
+sql: |
+  select
     g.pk as g_pk,
     g.fk_person as g_fk_person,
     g.fk_event as g_fk_event,
@@ -45,21 +47,21 @@ select
     p.firstname_a_e1 as p_firstname_a_e1,
     p.lastname_a_e1 as p_lastname_a_e1,
     p.mail_a_e1 as p_mail_a_e1,
-    c01.value as ${__LABEL_OPTIONAL_FIELD_01__},
-    c02.value as ${__LABEL_OPTIONAL_FIELD_02__},
-    c03.value as ${__LABEL_OPTIONAL_FIELD_03__},
-    c04.value as ${__LABEL_OPTIONAL_FIELD_04__},
-    c05.value as ${__LABEL_OPTIONAL_FIELD_05__},
-    c06.value as ${__LABEL_OPTIONAL_FIELD_06__},
-    c07.value as ${__LABEL_OPTIONAL_FIELD_07__},
-    c08.value as ${__LABEL_OPTIONAL_FIELD_08__},
-    c09.value as ${__LABEL_OPTIONAL_FIELD_09__},
-    c10.value as ${__LABEL_OPTIONAL_FIELD_10__},
-    c11.value as ${__LABEL_OPTIONAL_FIELD_11__},
-    c12.value as ${__LABEL_OPTIONAL_FIELD_12__},
-    c13.value as ${__LABEL_OPTIONAL_FIELD_13__},
-    c14.value as ${__LABEL_OPTIONAL_FIELD_14__},
-    c15.value as ${__LABEL_OPTIONAL_FIELD_15__}
+    c01.value as OPTIONAL_FIELD_LABEL_01,
+    c02.value as OPTIONAL_FIELD_LABEL_02,
+    c03.value as OPTIONAL_FIELD_LABEL_03,
+    c04.value as OPTIONAL_FIELD_LABEL_04,
+    c05.value as OPTIONAL_FIELD_LABEL_05,
+    c06.value as OPTIONAL_FIELD_LABEL_06,
+    c07.value as OPTIONAL_FIELD_LABEL_07,
+    c08.value as OPTIONAL_FIELD_LABEL_08,
+    c09.value as OPTIONAL_FIELD_LABEL_09,
+    c10.value as OPTIONAL_FIELD_LABEL_10,
+    c11.value as OPTIONAL_FIELD_LABEL_11,
+    c12.value as OPTIONAL_FIELD_LABEL_12,
+    c13.value as OPTIONAL_FIELD_LABEL_13,
+    c14.value as OPTIONAL_FIELD_LABEL_14,
+    c15.value as OPTIONAL_FIELD_LABEL_15
   from veraweb.tguest g
   inner join veraweb.tperson p on (g.fk_person = p.pk)
   left outer join veraweb.link_uuid l on l.personid = p.pk
@@ -78,6 +80,128 @@ select
   left join aggregated_field_content c13 on c13.fk_guest=g.pk and c13.fk_delegation_field=${__optional_field_13_id_placeholder__}
   left join aggregated_field_content c14 on c14.fk_guest=g.pk and c14.fk_delegation_field=${__optional_field_14_id_placeholder__}
   left join aggregated_field_content c15 on c15.fk_guest=g.pk and c15.fk_delegation_field=${__optional_field_15_id_placeholder__}
+  where g.fk_event = ${__event_id_placeholder__}
 
-  where g.fk_event = 1
-  ;
+mappings:
+  g_pk:
+    mapTo: "g_pk"
+  g_fk_person:
+    mapTo: "g_fk_person"
+  g_fk_event:
+    mapTo: "g_fk_event"
+  g_fk_category:
+    mapTo: "g_fk_category"
+  g_fk_color:
+    mapTo: "g_fk_color"
+  g_invitationtype:
+    mapTo: "g_invitationtype"
+  g_invitationstatus:
+    mapTo: "g_invitationstatus"
+  g_ishost:
+    mapTo: "g_ishost"
+  g_diplodate:
+    mapTo: "g_diplodate"
+  g_rank:
+    mapTo: "g_rank"
+  g_reserve:
+    mapTo: "g_reserve"
+  g_tableno:
+    mapTo: "g_tableno"
+  g_seatno:
+    mapTo: "g_seatno"
+  g_orderno:
+    mapTo: "g_orderno"
+  g_notehost:
+    mapTo: "g_notehost"
+  g_noteorga:
+    mapTo: "g_noteorga"
+  g_language:
+    mapTo: "g_language"
+  g_gender:
+    mapTo: "g_gender"
+  g_nationality:
+    mapTo: "g_nationality"
+  g_domestic_a:
+    mapTo: "g_domestic_a"
+  g_invitationstatus_p:
+    mapTo: "g_invitationstatus_p"
+  g_tableno_p:
+    mapTo: "g_tableno_p"
+  g_seatno_p:
+    mapTo: "g_seatno_p"
+  g_orderno_p:
+    mapTo: "g_orderno_p"
+  g_notehost_p:
+    mapTo: "g_notehost_p"
+  g_noteorga_p:
+    mapTo: "g_noteorga_p"
+  g_language_p:
+    mapTo: "g_language_p"
+  g_gender_p:
+    mapTo: "g_gender_p"
+  g_nationality_p:
+    mapTo: "g_nationality_p"
+  g_domestic_b:
+    mapTo: "g_domestic_b"
+  g_fk_color_p:
+    mapTo: "g_fk_color_p"
+  g_createdby:
+    mapTo: "g_createdby"
+  g_changedby:
+    mapTo: "g_changedby"
+  g_created:
+    mapTo: "g_created"
+  g_changed:
+    mapTo: "g_changed"
+  g_delegation:
+    mapTo: "g_delegation"
+  g_osiam_login:
+    mapTo: "g_osiam_login"
+  g_login_required_uuid:
+    mapTo: "g_login_required_uuid"
+  g_image_uuid:
+    mapTo: "g_image_uuid"
+  g_image_uuid_p:
+    mapTo: "g_image_uuid_p"
+  g_keywords:
+    mapTo: "g_keywords"
+  p_pk:
+    mapTo: "p_pk"
+  p_internal_id:
+      mapTo: "p_internal_id"
+  p_firstname_a_e1:
+    mapTo: "p_firstname_a_e1"
+  p_lastname_a_e1:
+    mapTo: "p_lastname_a_e1"
+  p_mail_a_e1:
+    mapTo: "p_mail_a_e1"
+  OPTIONAL_FIELD_LABEL_01:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_01__}
+  OPTIONAL_FIELD_LABEL_02:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_02__}
+  OPTIONAL_FIELD_LABEL_03:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_03__}
+  OPTIONAL_FIELD_LABEL_04:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_04__}
+  OPTIONAL_FIELD_LABEL_05:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_05__}
+  OPTIONAL_FIELD_LABEL_06:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_06__}
+  OPTIONAL_FIELD_LABEL_07:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_07__}
+  OPTIONAL_FIELD_LABEL_08:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_08__}
+  OPTIONAL_FIELD_LABEL_09:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_09__}
+  OPTIONAL_FIELD_LABEL_10:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_10__}
+  OPTIONAL_FIELD_LABEL_11:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_11__}
+  OPTIONAL_FIELD_LABEL_12:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_12__}
+  OPTIONAL_FIELD_LABEL_13:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_13__}
+  OPTIONAL_FIELD_LABEL_14:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_14__}
+  OPTIONAL_FIELD_LABEL_15:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_15__}
