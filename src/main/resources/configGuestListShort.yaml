@@ -45,22 +45,39 @@ select
     p.firstname_a_e1 as p_firstname_a_e1,
     p.lastname_a_e1 as p_lastname_a_e1,
     p.mail_a_e1 as p_mail_a_e1,
-    c1.value as NAME1,
-    c2.value as NAME2,
-    c3.value as NAME3
-
-
+    c01.value as ${__LABEL_OPTIONAL_FIELD_01__},
+    c02.value as ${__LABEL_OPTIONAL_FIELD_02__},
+    c03.value as ${__LABEL_OPTIONAL_FIELD_03__},
+    c04.value as ${__LABEL_OPTIONAL_FIELD_04__},
+    c05.value as ${__LABEL_OPTIONAL_FIELD_05__},
+    c06.value as ${__LABEL_OPTIONAL_FIELD_06__},
+    c07.value as ${__LABEL_OPTIONAL_FIELD_07__},
+    c08.value as ${__LABEL_OPTIONAL_FIELD_08__},
+    c09.value as ${__LABEL_OPTIONAL_FIELD_09__},
+    c10.value as ${__LABEL_OPTIONAL_FIELD_10__},
+    c11.value as ${__LABEL_OPTIONAL_FIELD_11__},
+    c12.value as ${__LABEL_OPTIONAL_FIELD_12__},
+    c13.value as ${__LABEL_OPTIONAL_FIELD_13__},
+    c14.value as ${__LABEL_OPTIONAL_FIELD_14__},
+    c15.value as ${__LABEL_OPTIONAL_FIELD_15__}
   from veraweb.tguest g
   inner join veraweb.tperson p on (g.fk_person = p.pk)
   left outer join veraweb.link_uuid l on l.personid = p.pk
-
-  left join aggregated_field_content c1 on c1.fk_guest=g.pk and c1.fk_delegation_field=1
-  left join aggregated_field_content c2 on c2.fk_guest=g.pk and c2.fk_delegation_field=2
-  left join aggregated_field_content c3 on c3.fk_guest=g.pk and c3.fk_delegation_field=3
+  left join aggregated_field_content c01 on c01.fk_guest=g.pk and c01.fk_delegation_field=${__optional_field_01_id_placeholder__}
+  left join aggregated_field_content c02 on c02.fk_guest=g.pk and c02.fk_delegation_field=${__optional_field_02_id_placeholder__}
+  left join aggregated_field_content c03 on c03.fk_guest=g.pk and c03.fk_delegation_field=${__optional_field_03_id_placeholder__}
+  left join aggregated_field_content c04 on c04.fk_guest=g.pk and c04.fk_delegation_field=${__optional_field_04_id_placeholder__}
+  left join aggregated_field_content c05 on c05.fk_guest=g.pk and c05.fk_delegation_field=${__optional_field_05_id_placeholder__}
+  left join aggregated_field_content c06 on c06.fk_guest=g.pk and c06.fk_delegation_field=${__optional_field_06_id_placeholder__}
+  left join aggregated_field_content c07 on c07.fk_guest=g.pk and c07.fk_delegation_field=${__optional_field_07_id_placeholder__}
+  left join aggregated_field_content c08 on c08.fk_guest=g.pk and c08.fk_delegation_field=${__optional_field_08_id_placeholder__}
+  left join aggregated_field_content c09 on c09.fk_guest=g.pk and c09.fk_delegation_field=${__optional_field_09_id_placeholder__}
+  left join aggregated_field_content c10 on c10.fk_guest=g.pk and c10.fk_delegation_field=${__optional_field_10_id_placeholder__}
+  left join aggregated_field_content c11 on c11.fk_guest=g.pk and c11.fk_delegation_field=${__optional_field_11_id_placeholder__}
+  left join aggregated_field_content c12 on c12.fk_guest=g.pk and c12.fk_delegation_field=${__optional_field_12_id_placeholder__}
+  left join aggregated_field_content c13 on c13.fk_guest=g.pk and c13.fk_delegation_field=${__optional_field_13_id_placeholder__}
+  left join aggregated_field_content c14 on c14.fk_guest=g.pk and c14.fk_delegation_field=${__optional_field_14_id_placeholder__}
+  left join aggregated_field_content c15 on c15.fk_guest=g.pk and c15.fk_delegation_field=${__optional_field_15_id_placeholder__}
 
   where g.fk_event = 1
-
-  NAME1:
-    mapTo: "__PLATZHALTER__"
-
   ;

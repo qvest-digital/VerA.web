@@ -15,7 +15,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
@@ -73,6 +72,23 @@ public class ExportResource extends AbstractResource{
         final Context namingContext  = (Context) initContext.lookup("java:comp/env");
         final DataSource dataSource = (DataSource) namingContext.lookup("jdbc/vwonlinereg");
 
+        Map labels = new HashMap();
+        labels.put("1", "hotel");
+        labels.put("2", "auto benötigt");
+        labels.put("3", "essen");
+        labels.put("4", "04");
+        labels.put("5", "05");
+        labels.put("6", "06");
+        labels.put("7", "07");
+        labels.put("8", "08");
+        labels.put("9", "09");
+        labels.put("10", "10");
+        labels.put("11", "11");
+        labels.put("12", "12");
+        labels.put("13", "13");
+        labels.put("14", "14");
+        labels.put("15", "15");
+
         final Properties properties = new Properties();
         properties.setProperty("event.shortname", event.getShortname());
         properties.setProperty("event.begin",  String.valueOf(event.getDatebegin().getTime()));
@@ -81,6 +97,14 @@ public class ExportResource extends AbstractResource{
         final Reader reader = new InputStreamReader(configFileAsStream, "utf-8");
         final Map<String, String> substitutions=new HashMap<String,String>();
         substitutions.put(CONFIG_PLACEHOLDER, String.valueOf(eventId));
+        int counter = 1;
+        for (Object key : labels.entrySet()) {
+            if (counter < 10) {
+                substitutions.put("__LABEL_OPTIONAL_FIELD_0" + counter + "__", key.toString());
+            } else {
+                substitutions.put("__LABEL_OPTIONAL_FIELD_" + counter + "__", key.toString());
+            }
+        }
         final MultivaluedMap<String, String> params = ui.getQueryParameters();
         for(String key:params.keySet()){
             properties.setProperty(key, params.getFirst(key));
