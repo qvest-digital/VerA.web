@@ -33,11 +33,13 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.ServletContext;
+import javax.ws.rs.container.ResourceContext;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -54,6 +56,8 @@ public class DelegationResourceTest {
     private static SessionFactory mockitoSessionFactory;
     @Mock
     private static Session mockitoSession;
+    @Mock
+    ResourceContext resourceContext;
 
     DelegationResource delegationResource;
 
@@ -136,6 +140,9 @@ public class DelegationResourceTest {
     public void testGetFields() {
         prepareSession();
         Query findByEventIdQuery = mock(Query.class);
+        ResourceContext resourceContext = mock(ResourceContext.class);
+        OptionalFieldResource optionalFieldResource = mock(OptionalFieldResource.class);
+        delegationResource.setResourceContext(resourceContext);
         when(mockitoSession.getNamedQuery("OptionalField.findByEventId")).thenReturn(findByEventIdQuery);
         when(findByEventIdQuery.list()).thenReturn(getDummyOptionalFields());
 
@@ -147,6 +154,8 @@ public class DelegationResourceTest {
         when(mockitoSession.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField"))
                 .thenReturn(findTypeContentsByOptionalFieldQuery);
         when(findTypeContentsByOptionalFieldQuery.list()).thenReturn(getDummyOptionalFieldTypeContents());
+        when(resourceContext.getResource(any(Class.class))).thenReturn(optionalFieldResource);
+        when(optionalFieldResource.getOptionalFields(any(Integer.class))).thenReturn(getDummyOptionalFields());
 
 
         List<OptionalFieldValue> fields = delegationResource.getFieldsFromEvent(1, 1);

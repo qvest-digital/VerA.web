@@ -34,6 +34,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.MediaType;
 
 import java.util.ArrayList;
@@ -48,14 +49,14 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class DelegationResource extends AbstractResource {
 
+    @javax.ws.rs.core.Context
+    ResourceContext resourceContext;
+
     /**
      * Get optional fields content for a guest.
      *
-     * @param eventId
-     *            Event id
-     * @param guestId
-     *            Guest id
-     *
+     * @param eventId Event id
+     * @param guestId Guest id
      * @return Fields content
      */
     @GET
@@ -64,7 +65,7 @@ public class DelegationResource extends AbstractResource {
 
         final Session session = openSession();
         try {
-            final OptionalFieldResource optionalFieldResource = new OptionalFieldResource();
+            final OptionalFieldResource optionalFieldResource = resourceContext.getResource(OptionalFieldResource.class);
             final List<OptionalField> fields = optionalFieldResource.getOptionalFields(eventId);
 
             return convertOptionalFieldsResultSetToList(guestId, fields, session);
@@ -224,5 +225,9 @@ public class DelegationResource extends AbstractResource {
         query.setInteger(Delegation.PARAM_FIELD_ID, field.getPk());
 
         return (List<Delegation>) query.list();
+    }
+
+    public void setResourceContext(ResourceContext resourceContext) {
+        this.resourceContext = resourceContext;
     }
 }
