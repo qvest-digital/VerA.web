@@ -47,6 +47,7 @@ sql: |
     p.firstname_a_e1 as p_firstname_a_e1,
     p.lastname_a_e1 as p_lastname_a_e1,
     p.mail_a_e1 as p_mail_a_e1,
+    c00.value as OPTIONAL_FIELD_LABEL_00,
     c01.value as OPTIONAL_FIELD_LABEL_01,
     c02.value as OPTIONAL_FIELD_LABEL_02,
     c03.value as OPTIONAL_FIELD_LABEL_03,
@@ -60,11 +61,11 @@ sql: |
     c11.value as OPTIONAL_FIELD_LABEL_11,
     c12.value as OPTIONAL_FIELD_LABEL_12,
     c13.value as OPTIONAL_FIELD_LABEL_13,
-    c14.value as OPTIONAL_FIELD_LABEL_14,
-    c15.value as OPTIONAL_FIELD_LABEL_15
+    c14.value as OPTIONAL_FIELD_LABEL_14
   from veraweb.tguest g
   inner join veraweb.tperson p on (g.fk_person = p.pk)
   left outer join veraweb.link_uuid l on l.personid = p.pk
+  left join aggregated_field_content c00 on c00.fk_guest=g.pk and c00.fk_delegation_field=${__optional_field_00_id_placeholder__}
   left join aggregated_field_content c01 on c01.fk_guest=g.pk and c01.fk_delegation_field=${__optional_field_01_id_placeholder__}
   left join aggregated_field_content c02 on c02.fk_guest=g.pk and c02.fk_delegation_field=${__optional_field_02_id_placeholder__}
   left join aggregated_field_content c03 on c03.fk_guest=g.pk and c03.fk_delegation_field=${__optional_field_03_id_placeholder__}
@@ -79,7 +80,6 @@ sql: |
   left join aggregated_field_content c12 on c12.fk_guest=g.pk and c12.fk_delegation_field=${__optional_field_12_id_placeholder__}
   left join aggregated_field_content c13 on c13.fk_guest=g.pk and c13.fk_delegation_field=${__optional_field_13_id_placeholder__}
   left join aggregated_field_content c14 on c14.fk_guest=g.pk and c14.fk_delegation_field=${__optional_field_14_id_placeholder__}
-  left join aggregated_field_content c15 on c15.fk_guest=g.pk and c15.fk_delegation_field=${__optional_field_15_id_placeholder__}
   where g.fk_event = ${__event_id_placeholder__}
 
 mappings:
@@ -175,6 +175,8 @@ mappings:
     mapTo: "p_lastname_a_e1"
   p_mail_a_e1:
     mapTo: "p_mail_a_e1"
+  OPTIONAL_FIELD_LABEL_00:
+    mapTo: ${__OPTIONAL_FIELD_LABEL_00__}
   OPTIONAL_FIELD_LABEL_01:
     mapTo: ${__OPTIONAL_FIELD_LABEL_01__}
   OPTIONAL_FIELD_LABEL_02:
@@ -203,5 +205,3 @@ mappings:
     mapTo: ${__OPTIONAL_FIELD_LABEL_13__}
   OPTIONAL_FIELD_LABEL_14:
     mapTo: ${__OPTIONAL_FIELD_LABEL_14__}
-  OPTIONAL_FIELD_LABEL_15:
-    mapTo: ${__OPTIONAL_FIELD_LABEL_15__}

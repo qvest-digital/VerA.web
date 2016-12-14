@@ -17,6 +17,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
@@ -44,6 +45,10 @@ import java.util.Properties;
 @Path("/export")
 @Produces(VworConstants.TEXT_CSV_CONTENT_TYPE)
 public class ExportResource extends AbstractResource{
+
+    @javax.ws.rs.core.Context
+    ResourceContext resourceContext;
+
     private InitialContext initContext;
     private static final String CONFIG_FILE_NAME = "config.yaml";
     private static final String CONFIG_FILE_NAME_GUEST_LIST_SHORT = "configGuestListShort.yaml";
@@ -106,18 +111,8 @@ public class ExportResource extends AbstractResource{
     }
 
     private void addOptionalFieldsSubstitutions(@PathParam("eventId") int eventId, Map<String, String> substitutions) {
-//        final OptionalFieldResource optionalFieldResource =  new OptionalFieldResource();
-//        final List<OptionalField> optionalFields = optionalFieldResource.getOptionalFields(eventId);
-
-        final Session session = openSession();
-        List<OptionalField> optionalFields;
-        try {
-            final Query query = session.getNamedQuery("OptionalField.findByEventId");
-            query.setInteger("eventId", eventId);
-            optionalFields = (List<OptionalField>) query.list();
-        } finally {
-            session.close();
-        }
+        final OptionalFieldResource optionalFieldResource = resourceContext.getResource(OptionalFieldResource.class);
+        final List<OptionalField> optionalFields = optionalFieldResource.getOptionalFields(eventId);
 
         for (int i = 0; i < optionalFields.size(); i ++) {
             final OptionalField optionalField = optionalFields.get(i);
