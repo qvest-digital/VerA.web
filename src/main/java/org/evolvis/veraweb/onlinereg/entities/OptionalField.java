@@ -38,11 +38,13 @@ import lombok.Data;
 @Entity
 @Table(name = "toptional_fields")
 @NamedQueries({
-    @NamedQuery(name = "OptionalField.findByEventId", query = "select o from OptionalField o where fk_event=:eventId order by o.pk"),
-    @NamedQuery(name = "OptionalField.findByEventIdAndLabel", query = "select f.pk From OptionalField f where f.fk_event=:eventId and f.label=:label ")
+    @NamedQuery(name = OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID, query = "select o from OptionalField o where fk_event=:eventId order by o.pk"),
+    @NamedQuery(name = OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID_AND_LABEL, query = "select f.pk From OptionalField f where f.fk_event=:eventId and f.label=:label ")
 })
 public class OptionalField {
 
+	public static final String OPTIONAL_FIELD_FIND_BY_EVENT_ID = "OptionalField.findByEventId";
+	public static final String OPTIONAL_FIELD_FIND_BY_EVENT_ID_AND_LABEL = "OptionalField.findByEventIdAndLabel";
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer pk;
