@@ -147,6 +147,10 @@ public class DelegationResource extends AbstractResource {
         }
     }
 
+    public void setResourceContext(ResourceContext resourceContext) {
+        this.resourceContext = resourceContext;
+    }
+
     private List<OptionalFieldValue> convertOptionalFieldsResultSetToList(final Integer guestId, final List<OptionalField> fields,
             final Session session) {
 
@@ -225,9 +229,5 @@ public class DelegationResource extends AbstractResource {
         query.setInteger(Delegation.PARAM_FIELD_ID, field.getPk());
 
         return (List<Delegation>) query.list();
-    }
-
-    public void setResourceContext(ResourceContext resourceContext) {
-        this.resourceContext = resourceContext;
     }
 }

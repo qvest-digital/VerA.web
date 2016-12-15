@@ -114,14 +114,14 @@ public class ExportResource extends AbstractResource{
         final OptionalFieldResource optionalFieldResource = resourceContext.getResource(OptionalFieldResource.class);
         final List<OptionalField> optionalFields = optionalFieldResource.getOptionalFields(eventId);
 
-        for (int i = 0; i < optionalFields.size(); i ++) {
-            final OptionalField optionalField = optionalFields.get(i);
+        for (int i = 0; i < optionalFields.size(); i++) {
+            final OptionalField currentField = optionalFields.get(i);
             if (i < 10) {
-                substitutions.put("__OPTIONAL_FIELD_LABEL_0" + i + "__", optionalField.getLabel());
-                substitutions.put("__optional_field_0" + i + "_id_placeholder__", optionalField.getPk().toString());
+                substitutions.put("__OPTIONAL_FIELD_LABEL_0" + i + "__", currentField.getLabel());
+                substitutions.put("__optional_field_0" + i + "_id_placeholder__", currentField.getPk().toString());
             } else {
-                substitutions.put("__OPTIONAL_FIELD_LABEL_" + i + "__", optionalField.getLabel());
-                substitutions.put("__optional_field_" + i + "_id_placeholder__", optionalField.getPk().toString());
+                substitutions.put("__OPTIONAL_FIELD_LABEL_" + i + "__", currentField.getLabel());
+                substitutions.put("__optional_field_" + i + "_id_placeholder__", currentField.getPk().toString());
             }
         }
     }
