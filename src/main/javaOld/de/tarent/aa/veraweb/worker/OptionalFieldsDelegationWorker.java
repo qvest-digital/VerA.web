@@ -27,8 +27,6 @@ import de.tarent.dblayer.helper.ResultMap;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;
-import de.tarent.dblayer.sql.clause.Order;
-import de.tarent.dblayer.sql.clause.RawClause;
 import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.clause.WhereList;
 import de.tarent.dblayer.sql.statement.Insert;
@@ -58,9 +56,6 @@ public class OptionalFieldsDelegationWorker {
     private static final String DB_PREFIX = "veraweb.";
     private static final String OPTIONAL_FIELDS_DELEGATION_CONTENT_TABLE = DB_PREFIX +
             "toptional_fields_delegation_content";
-    private static final String OPTIONAL_FIELDS_TABLE = DB_PREFIX + "toptional_fields";
-    private static final String OPTIONAL_FIELD_TYPE_TABLE = DB_PREFIX + "toptional_field_type";
-    private static final String OPTIONAL_FIELD_TYPE_CONTENT_TABLE = DB_PREFIX + "toptional_field_type_content";
     private static final Integer MULTIPLE_CHOICE_ID = 3;
     private Database database;
 

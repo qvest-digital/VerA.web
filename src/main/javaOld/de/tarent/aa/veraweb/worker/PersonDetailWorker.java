@@ -233,10 +233,9 @@ public class PersonDetailWorker implements PersonConstants {
     private void fillNavigationWithPersonData(OctopusContext octopusContext, Person person, Database database, final String action,
             final Integer personId, Select select) throws SQLException {
         Map<String, Map<String, Object>> navigation = new HashMap<>();
-        Map<String, Object> entry;
+        Map<String, Object> entry = new HashMap<>();
 
         // setup current
-        entry = new HashMap<>();
         entry.put("person", person);
         navigation.put("current", entry);
 
