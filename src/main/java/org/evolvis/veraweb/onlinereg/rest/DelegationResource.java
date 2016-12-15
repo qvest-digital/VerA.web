@@ -104,7 +104,7 @@ public class DelegationResource extends AbstractResource {
     public Integer getLabelIdfromEventAndLabel(@PathParam("eventId") int eventId, @QueryParam("label") String label) {
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("OptionalField.findByEventIdAndLabel");
+            final Query query = session.getNamedQuery(OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID_AND_LABEL);
             query.setInteger("eventId", eventId);
             query.setString("label", label);
 

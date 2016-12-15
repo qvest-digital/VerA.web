@@ -23,7 +23,7 @@ public class OptionalFieldResource extends AbstractResource {
     public List<OptionalField> getOptionalFields(@PathParam("eventId") Integer eventId) {
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("OptionalField.findByEventId");
+            final Query query = session.getNamedQuery(OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID);
             query.setInteger("eventId", eventId);
             return (List<OptionalField>) query.list();
         } finally {

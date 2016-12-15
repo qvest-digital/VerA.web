@@ -20,6 +20,7 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
 import org.evolvis.veraweb.onlinereg.entities.Delegation;
+import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContentFacade;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
@@ -80,7 +81,7 @@ public class DelegationResourceSessionsTest {
         Query query1 = mock(Query.class);
         Query query2 = mock(Query.class);
         Query query3 = mock(Query.class);
-        when(mockitoSession.getNamedQuery("OptionalField.findByEventId")).thenReturn(query1);
+        when(mockitoSession.getNamedQuery(OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID)).thenReturn(query1);
         when(mockitoSession.getNamedQuery("Delegation.findByGuestId")).thenReturn(query2);
         when(mockitoSession.getNamedQuery("OptionalFieldTypeContent.findTypeContentsByOptionalField")).thenReturn(query3);
 
@@ -102,7 +103,7 @@ public class DelegationResourceSessionsTest {
         // GIVEN
         prepareSession();
         Query query = mock(Query.class);
-        when(mockitoSession.getNamedQuery("OptionalField.findByEventIdAndLabel")).thenReturn(query);
+        when(mockitoSession.getNamedQuery(OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID_AND_LABEL)).thenReturn(query);
         when(query.uniqueResult()).thenReturn(1);
 
         // WHEN

@@ -143,7 +143,7 @@ public class DelegationResourceTest {
         ResourceContext resourceContext = mock(ResourceContext.class);
         OptionalFieldResource optionalFieldResource = mock(OptionalFieldResource.class);
         delegationResource.setResourceContext(resourceContext);
-        when(mockitoSession.getNamedQuery("OptionalField.findByEventId")).thenReturn(findByEventIdQuery);
+        when(mockitoSession.getNamedQuery(OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID)).thenReturn(findByEventIdQuery);
         when(findByEventIdQuery.list()).thenReturn(getDummyOptionalFields());
 
         Query findByGuestIdQuery = mock(Query.class);
@@ -168,7 +168,7 @@ public class DelegationResourceTest {
     public void testGetLabelId() {
         prepareSession();
         Query findByEventAndLabelQuery = mock(Query.class);
-        when(mockitoSession.getNamedQuery("OptionalField.findByEventIdAndLabel")).thenReturn(findByEventAndLabelQuery);
+        when(mockitoSession.getNamedQuery(OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID_AND_LABEL)).thenReturn(findByEventAndLabelQuery);
         when(findByEventAndLabelQuery.uniqueResult()).thenReturn(1);
 
         Integer labelId = delegationResource.getLabelIdfromEventAndLabel(1, "Label 1");

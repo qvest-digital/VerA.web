@@ -32,7 +32,7 @@ class OptionalFieldResourceTest extends Specification {
         given:
             def eventId = 1;
             Query query = Mock(Query)
-            session.getNamedQuery("OptionalField.findByEventId") >> query
+            session.getNamedQuery(OptionalField.OPTIONAL_FIELD_FIND_BY_EVENT_ID) >> query
             query.list() >> [new OptionalField(label: "Hotel", pk: 1, fk_event: 1, fk_type: 1)]
 
         when:
