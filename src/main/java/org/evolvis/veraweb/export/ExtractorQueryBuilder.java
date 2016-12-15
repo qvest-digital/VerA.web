@@ -31,17 +31,25 @@ public class ExtractorQueryBuilder {
         return q;
     }
 
+    public ExtractorQueryBuilder replace(Map<String, String> substitutions) {
+        this.substitutions.putAll(substitutions);
+        return this;
+    }
+
     private Map<String, ColumnMapping> applyMappingsSubstitutions(Map<String, ColumnMapping> mappings) {
         for (Map.Entry<String, ColumnMapping> entry : mappings.entrySet()) {
             if (entry.getKey().startsWith(OPTIONAL_FIELD_LABEL_PREFIX)) {
-                final String mapTo = entry.getValue().getMapTo();
-                final String group = mapTo.substring(2,mapTo.length()-1);
-                final ColumnMapping replacement = new ColumnMapping(mapTo.replaceAll("\\$\\{([^\\}]+)\\}", lookupSubstitution(group)));
-                mappings.put(entry.getKey(), replacement);
-                mappings.remove(entry);
+                executeReplacement(mappings, entry);
             }
         }
         return mappings;
+    }
+
+    private void executeReplacement(Map<String, ColumnMapping> mappings, Map.Entry<String, ColumnMapping> entry) {
+        final String mapTo = entry.getValue().getMapTo();
+        final String group = mapTo.substring(2,mapTo.length()-1);
+        final ColumnMapping replacement = new ColumnMapping(lookupSubstitution(group));
+        mappings.put(entry.getKey(), replacement);
     }
 
     private String applySubstitutions(String sql) {
@@ -63,10 +71,4 @@ public class ExtractorQueryBuilder {
         }
         return key;
     }
-
-    public ExtractorQueryBuilder replace(Map<String, String> substitutions) {
-        this.substitutions.putAll(substitutions);
-        return this;
-    }
-
 }
