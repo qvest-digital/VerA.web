@@ -89,11 +89,9 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
             importRows(digester, transactionContext);
             csvReader.close();
         } catch (MappingException e) {
-            IOException ioe = new IOException("Fehler im Feldmapping", e);
-            throw ioe;
+            throw new IOException("Fehler im Feldmapping", e);
         } catch (BeanException e) {
-            IOException ioe = new IOException("Fehler beim Daten-Bean-Zugriff", e);
-            throw ioe;
+            throw new IOException("Fehler beim Daten-Bean-Zugriff", e);
         }
     }
 
@@ -114,7 +112,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
      * Diese Methode liest die nächste Zeile als Kopfzeile mit den Spaltennamen ein.
      * Diese werden lokal in {@link #headers} abgelegt.
      *
-     * @throws IOException
+     * @throws IOException FIXME
      */
     void readHeader() throws IOException {
         assert headers == null;
@@ -128,13 +126,13 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
      *
      * @param digester der {@link ImportDigester}, der die Datensätze weiter
      *  verarbeitet.
-     * @throws IOException
-     * @throws BeanException
+     * @throws IOException FIXME
+     * @throws BeanException FIXME
      */
     void importRows(ImportDigester digester, TransactionContext transactionContext) throws IOException, BeanException {
         assert headers != null;
         assert digester != null;
-        RowEntity row = new RowEntity();
+        final RowEntity row = new RowEntity();
         List rawRow;
         digester.startImport();
         while ((rawRow = csvReader.readFields()) != null) {
@@ -155,14 +153,14 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
      * @param digester der {@link ImportDigester}, der die Datensätze weiter
      *  verarbeitet.
      * @param row die aufbereitete CSV-Zeile
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException FIXME
+     * @throws IOException FIXME
      */
     void digestRow(ImportDigester digester, RowEntity row) throws BeanException, IOException {
         ImportPerson person = new ImportPerson();
         Map extras = new HashMap();
-        for (Iterator itTargetFields = fieldMapping.getTargets().iterator(); itTargetFields.hasNext(); ) {
-            String targetField = itTargetFields.next().toString();
+        for (Object currentTarget : fieldMapping.getTargets()) {
+            String targetField = currentTarget.toString();
             if (targetField != null && targetField.length() > 0) {
                 String targetValue = fieldMapping.resolve(targetField, row);
                 if (targetValue != null) {
@@ -174,9 +172,9 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
                     if (Date.class.isAssignableFrom(fieldClass)) {
                         try {
                             if (targetValue != null && targetValue.length() > 0) {
-                                Date dateValue = dateFormat.parse(targetValue.toString());
+                                Date dateValue = dateFormat.parse(targetValue);
                                 Constructor constructor = fieldClass.getConstructor(ONE_LONG);
-                                targetObject = constructor.newInstance(new Long(dateValue.getTime()));
+                                targetObject = constructor.newInstance(dateValue.getTime());
                             } else {
                                 targetObject = null;
                             }
@@ -242,15 +240,20 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
 
         if (extras.containsKey(catKey)) {
             ImportPersonCategorie category = (ImportPersonCategorie) extras.get(catKey);
-            if (rankNumber != null && category.rank != null && rankNumber.intValue() > category.rank.intValue())
+            if (rankNumber != null && category.rank != null && rankNumber > category.rank)
                 category.rank = rankNumber;
         } else {
-            ImportPersonCategorie category = new ImportPersonCategorie();
-            category.name = name;
-            category.rank = rankNumber;
-            category.flags = new Integer(flags);
+            final ImportPersonCategorie category = initCategory(name, flags, rankNumber);
             extras.put(catKey, category);
         }
+    }
+
+    private ImportPersonCategorie initCategory(String name, int flags, Integer rankNumber) {
+        final ImportPersonCategorie category = new ImportPersonCategorie();
+        category.name = name;
+        category.rank = rankNumber;
+        category.flags = flags;
+        return category;
     }
 
     /**
@@ -287,10 +290,11 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         public void parseRow(List row) {
             rowMapping.clear();
             if (row != null) {
-                Iterator itHeaders = headers.iterator();
-                Iterator itRowFields = row.iterator();
-                while (itHeaders.hasNext() && itRowFields.hasNext())
+                final Iterator itHeaders = headers.iterator();
+                final Iterator itRowFields = row.iterator();
+                while (itHeaders.hasNext() && itRowFields.hasNext()) {
                     rowMapping.put(itHeaders.next(), itRowFields.next());
+                }
             }
         }
 
@@ -308,10 +312,6 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
      * CSV-Eingabe-Objekt
      */
     CSVFileReader csvReader = null;
-    /**
-     * Import-Targets
-     */
-    List targets = null;
     /**
      * Header-Felder
      */
