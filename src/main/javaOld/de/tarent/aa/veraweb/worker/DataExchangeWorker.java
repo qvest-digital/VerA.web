@@ -66,7 +66,6 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,6 +119,7 @@ public class DataExchangeWorker {
      *  {@link #KEY_FORMAT_NAMES}.
      * @return Abbildung von Schlüsselbezeichnern auf {@link ExchangeFormat}-Instanzen.
      */
+    @SuppressWarnings("unchecked")
     public Map getFormats(OctopusContext cntx, String formatEnumKey) {
         Map result = Collections.EMPTY_MAP;
         TcModuleConfig moduleConfig = cntx.moduleConfig();
@@ -127,13 +127,12 @@ public class DataExchangeWorker {
             result = new LinkedHashMap();
             Object formatNamesObject = moduleConfig.getParamAsObject(formatEnumKey != null ? formatEnumKey : KEY_FORMAT_NAMES);
             if (formatNamesObject instanceof List) {
-                Iterator itFormatNames = ((List) formatNamesObject).iterator();
-                while (itFormatNames.hasNext()) {
-                    String key = itFormatNames.next().toString();
+                for (Object o : ((List) formatNamesObject)) {
+                    String key = o.toString();
                     ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), key, null);
                     if (format != null) {
-                        if (logger.isDebugEnabled())
-                            logger.debug("Format " + key + ": " + format);
+                        if (LOGGER.isDebugEnabled())
+                            LOGGER.debug("Format " + key + ": " + format);
                         result.put(key, format);
                     }
                 }
@@ -219,7 +218,7 @@ public class DataExchangeWorker {
                         exportAll(database, exporter, orgUnit);
                     exporter.endExport();
                 } catch (Throwable t) {
-                    logger.error("Fehler beim Erstellen des Exports aufgetreten.", t);
+                    LOGGER.error("Fehler beim Erstellen des Exports aufgetreten.", t);
                     // This will force a log output.
                     t.printStackTrace(System.out);
                     t.printStackTrace(System.err);
@@ -257,8 +256,8 @@ public class DataExchangeWorker {
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
      *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
-     * @throws IOException
-     * @throws TcContentProzessException
+     * @throws IOException FIXME
+     * @throws TcContentProzessException FIXME
      */
     public Map importToTransit(OctopusContext octopusContext,
                                Map stream,
@@ -273,7 +272,7 @@ public class DataExchangeWorker {
         if (!octopusContext.getStatus().equals("streamClose")) {
             formatKey = getFormatKey(octopusContext, formatKey);
             importSource = getImportSource(octopusContext, importSource);
-            Integer mandantId = null;
+            Integer mandantId;
             if (targetOrgUnit != null) {
                 mandantId = targetOrgUnit;
             } else {
@@ -288,7 +287,7 @@ public class DataExchangeWorker {
             if (format == null)
                 throw new TcContentProzessException("Unbekannter Importformatschl\u00fcssel '" + formatKey + "'.");
             if (importSource == null || importSource.length() == 0) {
-                Map status = new HashMap();
+                Map<String,String> status = new HashMap<>();
                 status.put("invalidData", "importSource");
                 octopusContext.setStatus("invalidData");
                 return status;
@@ -298,19 +297,22 @@ public class DataExchangeWorker {
             if (filename != null && filename.length() != 0) {
                 String suffix = filename.lastIndexOf(".") == -1 ? null :
                         filename.substring(filename.lastIndexOf(".") + 1);
-                if (suffix != null) suffix.toLowerCase();
+                if (suffix != null) {
+                    suffix.toLowerCase();
+                }
 
                 if (suffix == null || suffix.length() == 0) {
-                    if (logger.isDebugEnabled())
-                        logger.debug("Endung der Import-Datei '" + filename + "' konnte nicht festgestellt werden.");
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug("Endung der Import-Datei '" + filename + "' konnte nicht festgestellt werden.");
+                    }
                 } else if (
-                        suffix.equals("ods") ||
+                                suffix.equals("ods") ||
                                 suffix.equals("sxc") ||
                                 suffix.equals("xls") ||
                                 suffix.equals("pdf") ||
                                 suffix.equals("zip") ||
                                 suffix.equals("exe")) {
-                    Map status = new HashMap();
+                    Map<String,String> status = new HashMap<>();
                     status.put("invalidData", "fileExtension");
                     status.put("fileextension", suffix);
                     octopusContext.setStatus("invalidData");
@@ -321,7 +323,7 @@ public class DataExchangeWorker {
             InputStream istream = (InputStream) stream.get("ContentStream");
 
             if (istream == null || istream.available() <= 0) {
-                Map status = new HashMap();
+                Map<String,String> status = new HashMap<>();
                 status.put("invalidData", "inputStream");
                 octopusContext.setStatus("invalidData");
                 return status;
@@ -331,9 +333,10 @@ public class DataExchangeWorker {
             TransactionContext transactionContext = database.getTransactionContext();
             try {
                 if (octopusContext.personalConfig() instanceof PersonalConfigAA) {
-                    PersonalConfigAA aaConfig = (PersonalConfigAA) octopusContext.personalConfig();
-                    if (mandantId == null || mandantId.intValue() == 0 || !aaConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))
+                    final PersonalConfigAA aaConfig = (PersonalConfigAA) octopusContext.personalConfig();
+                    if (mandantId == null || mandantId == 0 || !aaConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN)) {
                         mandantId = aaConfig.getOrgUnitId();
+                    }
                 } else {
                     throw new TcContentProzessException("Fehlende Benutzerinformation.");
                 }
@@ -352,13 +355,13 @@ public class DataExchangeWorker {
                 return digester.getImportStats();
 
             } catch (Exception e) {
-                logger.error("Fehler beim Import aufgetreten.", e);
+                LOGGER.error("Fehler beim Import aufgetreten.", e);
                 CharArrayWriter caw = new CharArrayWriter();
                 PrintWriter pw = new PrintWriter(caw);
                 e.printStackTrace(pw);
                 pw.close();
 
-                Map status = new HashMap();
+                Map<String,String> status = new HashMap<>();
                 status.put("invalidData", "errorOnImport");
                 status.put("exception", caw.toString());
                 status.put("message", e.getLocalizedMessage());
@@ -431,7 +434,7 @@ public class DataExchangeWorker {
      * @return eine {@link Map}, in der die Parameter eingetragen sind
      */
     static Map createBinaryResponse(String filename, String mimetype, InputStream inputstream) {
-        Map binaryResponse = new HashMap();
+        Map<String,Object> binaryResponse = new HashMap<>();
         binaryResponse.put(TcBinaryResponseEngine.PARAM_TYPE, TcBinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
         binaryResponse.put(TcBinaryResponseEngine.PARAM_FILENAME, filename);
         binaryResponse.put(TcBinaryResponseEngine.PARAM_MIMETYPE, mimetype);
@@ -464,12 +467,12 @@ public class DataExchangeWorker {
         Object choicesObject = format.getProperties().get("choices");
         if (choicesObject instanceof Map && params != null) {
             String prefix = "format-" + formatKey + '-';
-            Map applicableParams = new HashMap();
-            for (Iterator itChoiceKeys = ((Map) choicesObject).keySet().iterator(); itChoiceKeys.hasNext(); ) {
-                Object choiceKey = itChoiceKeys.next();
+            final Map<Object,Object> applicableParams = new HashMap<>();
+            for (Object choiceKey : ((Map) choicesObject).keySet()) {
                 Object param = params.get(prefix + choiceKey);
-                if (param != null)
+                if (param != null) {
                     applicableParams.put(choiceKey, param);
+                }
             }
             format.addProperties(applicableParams);
         }
@@ -558,11 +561,11 @@ public class DataExchangeWorker {
 		 * existing code relying on the fact that the request parameter would be null.
 		 * Keine/None now equals -1.
 		 */
-        if (event == null || event.intValue() == 0) {
+        if (event == null || event == 0) {
             outerWhere.addAnd(Expr.in(
                     database.getProperty(samplePerson, "id"),
                     new RawClause('(' + inner.toString() + ')')));
-        } else if (event.intValue() == -1) {
+        } else if (event == -1) {
             outerWhere.addAnd(new RawClause("NOT " + Expr.in(
                     database.getProperty(samplePerson, "id"),
                     new RawClause('(' + inner.toString() + ')')).clauseToString()));
@@ -614,11 +617,11 @@ public class DataExchangeWorker {
 		 * existing code relying on the fact that the request parameter would be null.
 		 * Keine/None now equals -1.
 		 */
-        if (category == null || category.intValue() == 0) {
+        if (category == null || category == 0) {
             outerWhere.addAnd(Expr.in(
                     database.getProperty(samplePerson, "id"),
                     new RawClause('(' + inner.toString() + ')')));
-        } else if (category.intValue() == -1) {
+        } else if (category == -1) {
             outerWhere.addAnd(new RawClause("NOT " + Expr.in(
                     database.getProperty(samplePerson, "id"),
                     new RawClause('(' + inner.toString() + ')')).clauseToString()));
@@ -671,7 +674,7 @@ public class DataExchangeWorker {
         try {
             ResultSet rs = ((Result) select.execute()).resultSet();
             ResultSetMetaData rsm = rs.getMetaData();
-            Set<String> keys = new HashSet<String>();
+            Set<String> keys = new HashSet<>();
             for (int i = 1; i <= rsm.getColumnCount(); i++) {
                 keys.add(rsm.getColumnName(i));
             }
@@ -694,7 +697,7 @@ public class DataExchangeWorker {
      * @param importSource Bezeichner der Importquelle
      * @param orgunit Mandanten-ID, in der der Import erfolgt
      * @return neue {@link Import}-Instanz zu den angegebenen Daten
-     * @throws TcContentProzessException
+     * @throws TcContentProzessException FIXME
      */
     static Import createImport(TransactionContext context, String formatKey, String importSource, Integer orgunit) throws TcContentProzessException {
         try {
@@ -750,11 +753,11 @@ public class DataExchangeWorker {
      *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      */
-    public static Map createImportStats(int dsCount, int dupCount, int saveCount, Number id) {
-        Map rMap = new HashMap();
-        rMap.put("dsCount", new Integer(dsCount));
-        rMap.put("dupCount", new Integer(dupCount));
-        rMap.put("saveCount", new Integer(saveCount));
+    public static Map<String,Integer> createImportStats(int dsCount, int dupCount, int saveCount, Integer id) {
+        Map<String, Integer> rMap = new HashMap<>();
+        rMap.put("dsCount", dsCount);
+        rMap.put("dupCount", dupCount);
+        rMap.put("saveCount", saveCount);
         rMap.put("id", id);
         return rMap;
     }
@@ -772,14 +775,14 @@ public class DataExchangeWorker {
      *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      */
-    public static Map createImportStats(int igCount, int dsCount, int dupCount, int saveCount, Number id) {
-        Map rMap = createImportStats(dsCount, dupCount, saveCount, id);
-        rMap.put("igCount", new Integer(igCount));
+    public static Map createImportStats(int igCount, int dsCount, int dupCount, int saveCount, Integer id) {
+        final Map<String,Integer> rMap = createImportStats(dsCount, dupCount, saveCount, id);
+        rMap.put("igCount", igCount);
         return rMap;
     }
 
     //
     // geschützte Member
     //
-    private final static Logger logger = LogManager.getLogger(DataExchangeWorker.class);
+    private final static Logger LOGGER = LogManager.getLogger(DataExchangeWorker.class);
 }
