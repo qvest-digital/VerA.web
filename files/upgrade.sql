@@ -748,6 +748,7 @@ BEGIN
                 vmsg := 'begin.update(' || vnewvsn || ')';
 
                 ALTER TABLE veraweb.tperson ADD COLUMN internal_id VARCHAR(45);
+                ALTER TABLE veraweb.timportperson ADD COLUMN internal_id VARCHAR(45);
 
                 CREATE OR REPLACE VIEW veraweb.aggregated_field_content as (
                     select c.fk_guest, c.fk_delegation_field, string_agg(c.value, ';') as value
