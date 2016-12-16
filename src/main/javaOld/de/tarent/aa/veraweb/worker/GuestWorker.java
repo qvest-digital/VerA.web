@@ -30,7 +30,6 @@ import de.tarent.aa.veraweb.utils.i18n.LanguageProvider;
 import de.tarent.aa.veraweb.utils.i18n.LanguageProviderHelper;
 import de.tarent.dblayer.engine.DB;
 import de.tarent.dblayer.engine.Result;
-import de.tarent.dblayer.sql.Join;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Clause;
 import de.tarent.dblayer.sql.clause.Expr;

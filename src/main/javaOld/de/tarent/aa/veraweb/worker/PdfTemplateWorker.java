@@ -20,9 +20,6 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.PdfTemplate;
-import de.tarent.aa.veraweb.utils.VerawebUtils;
-import de.tarent.dblayer.helper.ResultList;
-import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.statement.Select;
 import de.tarent.octopus.PersonalConfigAA;
@@ -34,7 +31,6 @@ import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
 
 import java.io.IOException;
-import java.util.List;
 
 public class PdfTemplateWorker extends ListWorkerVeraWeb {
 

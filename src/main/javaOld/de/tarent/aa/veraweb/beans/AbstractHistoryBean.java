@@ -21,8 +21,6 @@ package de.tarent.aa.veraweb.beans;
 
 import de.tarent.octopus.beans.BeanException;
 
-import java.util.Date;
-
 /**
  * Diese Klasse erweitert die {@link de.tarent.octopus.beans.MapBean}
  * um eine Funktion zum Setzen von Historisierungsfeldern.
