@@ -49,7 +49,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     /** ID */
     public Integer id;
     @Size(max=45)
-    public String internalId;
+    public String internal_id;
     /** ID der Mandanten-Einheit */
     public Integer orgunit;
     /** Erstellt am */
@@ -794,7 +794,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
         this.id = id;
     }
 
-    public void setInternalId(String internalId) {
-        this.internalId = internalId;
+    public void setInternal_id(String internal_id) {
+        this.internal_id = internal_id;
     }
 }

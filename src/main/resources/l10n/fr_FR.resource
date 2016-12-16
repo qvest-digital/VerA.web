@@ -2128,7 +2128,7 @@ zipcode_b_e3=Code postale doit etre moins de 250 characteres.
 zipcode_c_e1=Code postale doit etre moins de 250 characteres.
 zipcode_c_e2=Code postale doit etre moins de 250 characteres.
 zipcode_c_e3=Code postale doit etre moins de 250 characteres.
-internalId=L\u0027identit\u00E9 interne doit \u00EAtre moins de 45 caract\u00E8res.
+internal_id=L\u0027identit\u00E9 interne doit \u00EAtre moins de 45 caract\u00E8res.
 INTERNAL_ID=Identit\u00E9 interne
 
 # ALTERNATIVE SALUTATIONS

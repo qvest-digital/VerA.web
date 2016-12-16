@@ -753,12 +753,12 @@ public class DataExchangeWorker {
      *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      */
-    public static Map<String,Integer> createImportStats(int dsCount, int dupCount, int saveCount, Integer id) {
+    public static Map<String,Integer> createImportStats(int dsCount, int dupCount, int saveCount, Number id) {
         Map<String, Integer> rMap = new HashMap<>();
         rMap.put("dsCount", dsCount);
         rMap.put("dupCount", dupCount);
         rMap.put("saveCount", saveCount);
-        rMap.put("id", id);
+        rMap.put("id", (Integer) id);
         return rMap;
     }
 
@@ -775,7 +775,7 @@ public class DataExchangeWorker {
      *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
      *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      */
-    public static Map createImportStats(int igCount, int dsCount, int dupCount, int saveCount, Integer id) {
+    public static Map createImportStats(int igCount, int dsCount, int dupCount, int saveCount, Number id) {
         final Map<String,Integer> rMap = createImportStats(dsCount, dupCount, saveCount, id);
         rMap.put("igCount", igCount);
         return rMap;

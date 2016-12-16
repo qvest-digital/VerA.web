@@ -968,8 +968,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         if (personSearch.onlyhosts != null && personSearch.onlyhosts.booleanValue()) {
             list.addAnd(Expr.in("tperson.pk", new RawClause("(SELECT fk_host FROM veraweb.tevent)")));
         }
-        if (personSearch.internalId != null && personSearch.internalId.length() != 0) {
-            list.addAnd(Expr.equal("tperson.internal_id", personSearch.internalId));
+        if (personSearch.internal_id != null && personSearch.internal_id.length() != 0) {
+            list.addAnd(Expr.equal("tperson.internal_id", personSearch.internal_id));
         }
     }
 

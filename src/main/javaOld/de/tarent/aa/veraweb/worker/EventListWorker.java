@@ -183,7 +183,7 @@ public class EventListWorker extends ListWorkerVeraWeb {
             extendWhereClauseByEndDate(where);
         }
 
-        final String internalId = octopusContext.requestAsString("person-internalId");
+        final String internalId = octopusContext.requestAsString("person-internal_id");
         if (internalId != null && !internalId.equals("")) {
             final List eventIds = getEventIds(octopusContext, internalId);
             select.whereAnd(Expr.in("tevent.pk", eventIds));

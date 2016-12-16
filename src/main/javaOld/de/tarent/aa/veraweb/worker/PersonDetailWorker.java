@@ -163,7 +163,7 @@ public class PersonDetailWorker implements PersonConstants {
             person.setField("birthday_b_e1", originalPerson.birthday_b_e1);
             person.setField("diplodate_a_e1", originalPerson.diplodate_a_e1);
             person.setField("diplodate_b_e1", originalPerson.diplodate_b_e1);
-            person.setField("internalId", originalPerson.internalId);
+            person.setField("internal_id", originalPerson.internal_id);
         }
 
         /** BUGFIX: 18738 */

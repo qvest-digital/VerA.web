@@ -117,8 +117,8 @@
 
                     <div class="tableRow">
                         <div class="tableCell width30">
-                            <label for="internalId">${placeholderWithTranslation.INTERNAL_ID}</label>
-                            <input type="text" name="internalId" id="internalId" value="$!message.text($search.internalId)"  />
+                            <label for="internal_id">${placeholderWithTranslation.INTERNAL_ID}</label>
+                            <input type="text" name="internal_id" id="internal_id" value="$!message.text($search.internal_id)"  />
                         </div>
                     </div>
 

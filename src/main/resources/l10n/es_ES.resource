@@ -2127,7 +2127,7 @@ zipcode_b_e3=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
 zipcode_c_e1=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
 zipcode_c_e2=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
 zipcode_c_e3=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
-internalId=ID interno no debe contener m\u00E1s de 45 caracteres.
+internal_id=ID interno no debe contener m\u00E1s de 45 caracteres.
 INTERNAL_ID=ID interno
 
 

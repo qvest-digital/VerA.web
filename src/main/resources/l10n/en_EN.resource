@@ -2119,7 +2119,7 @@ zipcode_b_e3=Postal code mustn't be longer than 250 characters
 zipcode_c_e1=Postal code mustn't be longer than 250 characters
 zipcode_c_e2=Postal code mustn't be longer than 250 characters
 zipcode_c_e3=Postal code mustn't be longer than 250 characters
-internalId=The internal ID mustn't be longer than 45 characters.
+internal_id=The internal ID mustn't be longer than 45 characters.
 INTERNAL_ID=The internal ID
 
 
