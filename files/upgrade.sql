@@ -756,6 +756,13 @@ BEGIN
                       group by c.fk_guest,  c.fk_delegation_field
                 );
 
+                ALTER TABLE veraweb.toptional_fields_delegation_content
+                DROP CONSTRAINT toptional_fields_delegation_content_fk_guest_fkey,
+                ADD CONSTRAINT toptional_fields_delegation_content_fk_guest_fkey
+                    FOREIGN KEY (pk)
+                    REFERENCES tguest(pk)
+                    ON DELETE CASCADE;
+
                 -- post-upgrade
                 vmsg := 'end.update(' || vnewvsn || ')';
                 UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
