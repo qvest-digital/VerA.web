@@ -280,8 +280,9 @@ public class PdfTemplateResource extends FormDataResource {
 
     private HashMap<String, String> getSubstitutions(Person person) {
         final HashMap<String, String> substitutions = new HashMap<>();
+        updateSalutation(person);
 
-        substitutions.put("salutation", selectSalutation(person));
+        substitutions.put("salutation", person.getSalutation_a_e1());
         substitutions.put("firstname", person.getFirstname_a_e1());
         substitutions.put("lastname", person.getLastname_a_e1());
         substitutions.put("titel", person.getTitle_a_e1());
@@ -310,13 +311,12 @@ public class PdfTemplateResource extends FormDataResource {
         return substitutions;
     }
 
-    private String selectSalutation(Person person) {
+    private void updateSalutation(Person person) {
         for (SalutationAlternative alternativeSalutation : alternativeSalutations) {
             if (alternativeSalutation.getSalutation_id().equals(person.getFk_salutation_a_e1())) {
-                return alternativeSalutation.getContent();
+                person.setSalutation_a_e1(alternativeSalutation.getContent());
             }
         }
-        return person.getSalutation_a_e1();
     }
 
     private List<SalutationAlternative> getAlternativeSalutations(Integer pdfTemplateId) {
