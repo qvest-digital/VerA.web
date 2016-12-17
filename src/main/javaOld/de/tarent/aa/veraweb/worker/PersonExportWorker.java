@@ -229,6 +229,7 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_NATIONALITY"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_HINT_RESPONSIBLE"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_HINT_ORG_TEAM"));
+        spreadSheet.addCell(languageProvider.getProperty("INTERNAL_ID"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_COLOUR"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_IN_COUNTRY"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_LANGUAGES"));
@@ -363,6 +364,7 @@ public class PersonExportWorker extends PersonListWorker {
 			spreadSheet.addCell(person.get("nationality_a_e1"));
 			spreadSheet.addCell(person.get("notehost_a_e1"));
 			spreadSheet.addCell(person.get("noteorga_a_e1"));
+			spreadSheet.addCell(person.get("internal_id"));
 		} else {
 			spreadSheet.addCell(ExportHelper.getColor(null));
 			spreadSheet.addCell(null);
@@ -402,10 +404,6 @@ public class PersonExportWorker extends PersonListWorker {
 	 * @param person Map mit den Gastdaten.
 	 */
 	protected void exportOnlyPerson(SpreadSheet spreadSheet, boolean showRemarks, Map person, String memberAEx, String addressEx) {
-//		spreadSheet.addCell(data.get("doctype")); // Name des Dokument-Typs
-//		spreadSheet.addCell(person.get("textfield"));
-//		spreadSheet.addCell(null);
-//		spreadSheet.addCell(null);
 
 		spreadSheet.addCell(ExportHelper.getAddresstype((Integer)person.get("addresstype")));
         spreadSheet.addCell(ExportHelper.getLocale((Integer) person.get("locale")));
@@ -448,6 +446,7 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(person.get("nationality_a_e1"));
 		spreadSheet.addCell(showRemarks ? person.get("notehost_a_e1") : null);
 		spreadSheet.addCell(showRemarks ? person.get("noteorga_a_e1") : null);
+		spreadSheet.addCell(person.get("internal_id"));
 
 		//
 		// Veranstaltungsspezifische Attribute für Partner der Person
