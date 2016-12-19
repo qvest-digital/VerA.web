@@ -46,21 +46,16 @@
 
         <div style="border-bottom:1px solid #BDBDBD;" class="contentBoxColored tabsContent notBold posRel marginBottom40">
 
-			<div class="notBold grayBorder contentBox marginBottom20 bgWhite">
+			<div class="notBold grayBorder contentBox marginBottom20 bgWhite clear">
 				<h3>${placeholderWithTranslation.EXPORT_TITLE_CSV}-${placeholderWithTranslation.GENERIC_EXPORT}</h3>
 
-				<form id="ExportForm" action="${paths.staticWeb}csvexport/$event.id" method="GET">
+				<form id="ExportForm" action="${paths.staticWeb}csvexport/$event.id" method="GET" class="floatLeft marginRight5">
 					<input type="hidden" name="oa.path.delegation" value="$url.urlForDelegation" />
 					<input type="hidden" name="oa.path.media" value="$url.urlForMediaRepresentatives" />
 					<input type="hidden" name="oa.path.event" value="$url.urlForFreeVisitors" />
 					<input type="hidden" name="oa.path.passwordReset" value="$url.urlForPasswordReset" />
 					<input type="submit" name="export" value="${placeholderWithTranslation.EXPORT_AS_CSV}" title="${placeholderWithTranslation.EXPORT_AS_CSV}" class="mainButton autoWidth" />
 				</form>
-			</div>
-
-			<div class="notBold grayBorder contentBox marginBottom20 bgWhite">
-				<h3>${placeholderWithTranslation.EXPORT_GUESTLIST_SHORT_TITLE}</h3>
-
 				<form id="ExportGuestlistShot" action="${paths.staticWeb}csvexport/$event.id" method="GET">
 					<input type="hidden" name="guestListShortExport" value="true" />
 					<input type="submit" name="export" value="${placeholderWithTranslation.EXPORT_AS_CSV_SHORT}" title="${placeholderWithTranslation.EXPORT_AS_CSV_SHORT}" class="mainButton autoWidth" />
