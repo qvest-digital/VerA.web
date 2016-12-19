@@ -39,7 +39,7 @@
 #if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin" && $octopusRequest.loginlanguage && $octopusRequest.loginlanguage == "en_EN")
     #if($responseParams.message == "msg_too_many_attempts")
         <vera-warn>
-            Trop de tentatives de connexion.
+            Too many login attempts.
         </vera-warn>
     #end
 <vera-warn>
