@@ -25,7 +25,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2016-12-15';
+	vversion := '2016-12-19';
 
 	-- initialisation
 	vint := 0;
@@ -743,7 +743,7 @@ BEGIN
                 INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
             END IF;
 
-    vnewvsn := '2016-12-15';
+    vnewvsn := '2016-12-19';
             IF vcurvsn < vnewvsn THEN
                 vmsg := 'begin.update(' || vnewvsn || ')';
 
@@ -759,8 +759,8 @@ BEGIN
                 ALTER TABLE veraweb.toptional_fields_delegation_content
                 DROP CONSTRAINT toptional_fields_delegation_content_fk_guest_fkey,
                 ADD CONSTRAINT toptional_fields_delegation_content_fk_guest_fkey
-                    FOREIGN KEY (pk)
-                    REFERENCES tguest(pk)
+                    FOREIGN KEY (fk_guest)
+                    REFERENCES veraweb.tguest(pk)
                     ON DELETE CASCADE;
 
                 -- post-upgrade
