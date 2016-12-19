@@ -769,6 +769,7 @@
 				</param>
 				<!-- Liste der ImportPerson-Felder, die  auf NULL gesetzt werden sollen wenn das Datenfeld einem Leerstring entspricht. -->
 				<param name="setNullFields" type="array">
+					<value>internal_id</value>
 					<value>lastname_a_e1</value>
 					<value>firstname_a_e1</value>
 					<value>title_a_e1</value>
