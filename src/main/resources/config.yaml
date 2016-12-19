@@ -43,7 +43,6 @@ sql: |
     g.image_uuid_p as g_image_uuid_p,
     g.keywords as g_keywords,
     p.pk as p_pk,
-    p.internal_id as p_internal_id,
     p.fk_orgunit as p_fk_orgunit,
     p.created as p_created,
     p.createdby as p_createdby,
@@ -54,6 +53,7 @@ sql: |
     p.iscompany as p_iscompany,
     p.importsource as p_importsource,
     p.fk_workarea as p_fk_workarea,
+    p.internal_id as p_internal_id,
     p.salutation_a_e1 as p_salutation_a_e1,
     p.fk_salutation_a_e1 as p_fk_salutation_a_e1,
     p.title_a_e1 as p_title_a_e1,
@@ -373,8 +373,6 @@ mappings:
     mapTo: "g_keywords"
   p_pk:
     mapTo: "p_pk"
-  p_internal_id:
-      mapTo: "p_internal_id"
   p_fk_orgunit:
     mapTo: "p_fk_orgunit"
   p_created:
@@ -395,6 +393,8 @@ mappings:
     mapTo: "p_importsource"
   p_fk_workarea:
     mapTo: "p_fk_workarea"
+  p_internal_id:
+      mapTo: "p_internal_id"
   p_salutation_a_e1:
     mapTo: "p_salutation_a_e1"
   p_fk_salutation_a_e1:
