@@ -58,7 +58,6 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
         LOGGER.debug(e);
     }
     private void info(TransportEvent e) {
-        LOGGER.info(message(e));
         sb.append(message(e));
     }
     private void warn(TransportEvent e) {
