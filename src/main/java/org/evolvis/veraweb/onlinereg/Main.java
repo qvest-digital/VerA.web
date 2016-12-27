@@ -40,6 +40,7 @@ import org.evolvis.veraweb.onlinereg.event.MediaResource;
 import org.evolvis.veraweb.onlinereg.event.UpdateResource;
 import org.evolvis.veraweb.onlinereg.event.UserResource;
 import org.evolvis.veraweb.onlinereg.fileupload.FileUploadResource;
+import org.evolvis.veraweb.onlinereg.imprint.ImprintResource;
 import org.evolvis.veraweb.onlinereg.user.KontaktdatenResource;
 import org.evolvis.veraweb.onlinereg.user.LoginResource;
 import org.evolvis.veraweb.onlinereg.user.ResetPasswordResource;
@@ -64,6 +65,7 @@ public class Main extends Application<Config> {
 		private UpdateResource updateResource;
         private ResetPasswordResource resetPasswordResource;
         private FileUploadResource fileUploadResource;
+        private ImprintResource imprintResource;
 	/* ********* */
 		
     /**
@@ -141,6 +143,7 @@ public class Main extends Application<Config> {
         environment.jersey().register(updateResource = new UpdateResource(configuration, client));
         environment.jersey().register(resetPasswordResource = new ResetPasswordResource(configuration, client));
         environment.jersey().register(fileUploadResource = new FileUploadResource(configuration, client));
+        environment.jersey().register(imprintResource = new ImprintResource(configuration, client));
 	}
 
 	public EventResource getEventResource() {

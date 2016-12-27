@@ -23,6 +23,7 @@ auth.run(function($rootScope, $location, authService) {
       '/media',
       '/user/activate',
       '/reset/password',
+      '/imprint',
       '/event'
     ].some(function(prefix){return 0 === path.indexOf(prefix);});
   };

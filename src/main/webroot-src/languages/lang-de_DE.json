@@ -135,5 +135,7 @@
   "USER_ACCOUNT_CORE_DATA_NO_EVENT": "Um Ihre Daten zu ändern, müssen Sie an einer Veranstaltung angemeldet sein.",
   "USER_ACCOUNT_CORE_DATA_UPDATE": "Stammdaten aktualisieren",
   "USER_ACCOUNT_CORE_DATA_UPDATED": "Ihre Stammdaten wurden erfolgreich aktualisiert.",
-  "USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE": "Ihre Stammdaten konnten nicht aktualisiert werden."
+  "USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE": "Ihre Stammdaten konnten nicht aktualisiert werden.",
+
+  "IMPRINT": "Impressum"
 }

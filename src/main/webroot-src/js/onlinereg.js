@@ -129,6 +129,9 @@ app.config(function($routeProvider, $translateProvider) {
   }).when('/media/activation/confirm/:pressUserActivationToken', {
     template: "",
     controller: 'MediaRepresentativeActivationController'
+ }).when('/imprint', {
+    templateUrl: 'partials/imprint.html',
+    controller: 'ImprintController'
   }).otherwise({
     redirectTo: '/event'
   });

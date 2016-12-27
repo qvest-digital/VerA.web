@@ -129,5 +129,7 @@
   "USER_ACCOUNT_CORE_DATA_NO_EVENT": "To modify your data, you have to be registered to at least one event.",
   "USER_ACCOUNT_CORE_DATA_UPDATE": "Update core data",
   "USER_ACCOUNT_CORE_DATA_UPDATED": "Your core data has been successfully updated.",
-  "USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE": "Your core data couldn't be updated."
+  "USER_ACCOUNT_CORE_DATA_COULD_NOT_UPDATE": "Your core data couldn't be updated.",
+
+  "IMPRINT": "Imprint"
 }
