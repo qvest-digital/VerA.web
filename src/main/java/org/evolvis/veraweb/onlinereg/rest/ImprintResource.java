@@ -4,6 +4,7 @@ import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
@@ -18,15 +19,19 @@ public class ImprintResource extends AbstractResource{
     private VworPropertiesReader vworPropertiesReader;
 
     @GET
-    @Path("/")
-    public HashMap<String, String> getImprintList() {
+    @Path("/{language}")
+    public HashMap<String, String> getImprintList(@PathParam("language") String languageKey) {
+
+        if(languageKey == null | languageKey == ""){
+            return null;
+        }
 
         final VworPropertiesReader propertiesReader = getVworPropertiesReader();
         final HashMap<String, String> map = new HashMap<>();
 
         for(String key : propertiesReader.getProperties().stringPropertyNames()){
-            if(key.startsWith("imprint.")){
-                map.put(key.substring(8), propertiesReader.getProperty(key));
+            if(key.startsWith("imprint." + languageKey)){
+                map.put(key.substring(14), propertiesReader.getProperty(key));
             }
         }
 
