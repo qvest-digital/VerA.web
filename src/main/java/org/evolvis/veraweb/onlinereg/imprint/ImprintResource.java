@@ -29,13 +29,13 @@ import org.evolvis.veraweb.onlinereg.utils.ImprintTransporter;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -82,9 +82,9 @@ public class ImprintResource {
 
     @GET
     @Path("/")
-    public List<ImprintTransporter> getImprint() throws IOException {
+    public List<ImprintTransporter> getImprint(@QueryParam("current_language") String currentLanguageKey) throws IOException {
 
-        final String imprintString = resourceReader.constructPath(BASE_RESOURCE, "imprint");
+        final String imprintString = resourceReader.constructPath(BASE_RESOURCE, "imprint", currentLanguageKey);
         final HashMap<String, String> listImprint = resourceReader.readStringResource(imprintString, IMPRINT_LIST);
         final List<ImprintTransporter> listTransporter = new ArrayList<>();
 
