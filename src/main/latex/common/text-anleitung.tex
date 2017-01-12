@@ -2788,14 +2788,20 @@ und finden den gerade angelegten Benutzer in der Gästeliste.
 \fi% oa
 
 \ifoa
-\section{Deaktivierung der Online-Anmeldung}\label{sec:deactivate-oa}
+\section{Konfiguration der Online-Anmeldung}\label{sec:conf-oa}
+
+Das Verhalten der Online-Anmeldung lässt sich nach der Installation
+noch weiter anpassen. Die Nachfolgenden Abschnitte erläuter die Möglichkeiten
+und beschreiben die Durchführung.
+
+\subsection{Deaktivierung der Online-Anmeldung}\label{sec:deactivate-oa}
 
 Die Online-Anmeldung kann nach einer erfolgreichen Installation
 wieder komplett oder für einzelne Mandanten deaktiviert werden.
 Hierzu müssen zwei Parameter in der \texttt{config\_override.xml}
 Datei gesetzt werden.
 
-\subsection{Deaktivierung der Online-Anmeldung für die ganze Installation}
+\subsubsection{Deaktivierung der Online-Anmeldung für die ganze Installation}
 
 \begin{minipage}{\textwidth}
 Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_override.xml},
@@ -2817,7 +2823,7 @@ indem Sie die folgenden zwei Parameter hinzufügen oder ggfs. anpassen.
 Nach der Deaktivierung verhält sich die VerA.web-Installation wie eine
 Installation ohne Online-Anmeldung.
 
-\subsection{Deaktivierung der Online-Anmeldung für einzelne Mandanten}
+\subsubsection{Deaktivierung der Online-Anmeldung für einzelne Mandanten}
 
 Um die Online-Anmeldung nur für einzelne Mandanten zu deaktivieren,
 werden die IDs dieser Mandanten benötigt. Eine Übersicht über alle
@@ -2856,6 +2862,42 @@ Mögliche Beispielskonfigurationen:
 Nach der Deaktivierung der einzelnen Mandanten ist die Online-Anmeldung noch
 aktiv, nur werden bei den Veranstaltungen deaktivierter Mandanten die Links
 zur Online-Anmeldung nicht mehr angezeigt.
+
+\subsection{Setzen des Impressums der Online-Anmeldung}\label{sec:imprint-oa}
+
+Um ein benutzerdefiniertes Impressum für die Online-Anmeldung zu hinterlegen,
+muss die Datei \texttt{/etc/veraweb/vwor.properties} erweitert werden.
+
+Mit dem Eintrag imprint.<language_key>.<sorting_number><space><titel>=<text>
+lassen sich einzelne Abschnitte zum Impressum hinzufügen.
+
+Um das Impressum mehrsprachig zur Verfügung zu stellen, sollte ein Eintrag je
+einmal für den Sprachschlüssel (<language_key>) "de_DE" und "en_EN" existieren.
+
+Aus den drei Teilen <sorting_number>, <space> und <titel> setzt sich die Überschrift
+des Absatzes im fertigen Impressum zusammen. Durch das Nummerieren der Abschnitte kann
+die vorgesehene Reihenfolge erzeugt werden. Um ein Leerzeichen zwischen der Nummerierung
+und dem Titel zu erzeugen muss das UTF-8 encoding \\u00a0 verwendet werden. Andere
+Umlaute wie ä,ö,ü,Ä,Ö,Ü,ß,... müssen auch dementsprechend codiert werden.
+
+Der eigentliche Text des Abschnitts (<text>) kann mit Leerzeichen umgehen. Umlaute
+müssen aber weiterhin codiert werden.
+
+Um nur einen Textblock ohne Überschrift zu generieren, kann <sorting_number>,
+<space> und <titel> weggelassen werden. Der Eintrag muss dann wie folgt
+gestaltet werden: imprint.de_DE.=<text> bzw. imprint.en_EN.=<text>.
+
+Sollte es mehrere Einträge ohne Sortiernummer oder mit doppelter Nummer geben,
+ist keine spezielle Reihenfolge gewährleistet.
+
+\begin{lstdump}{/etc/veraweb/vwor.properties}
+...
+imprint.de_DE.1\u00a0\u00dcberschrift=Text des ersten Abschnitts
+imprint.de_DE.3\u00a0Absatz=Text des dritten Abschnitts
+imprint.de_DE.2\u00a0Titel=Diese Seite geh\u00f6rt dem Spa\u00df-Verein
+
+imprint.en_EN.=Just text without headline.
+\end{lstdump}
 
 \fi% oa
 
