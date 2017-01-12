@@ -80,8 +80,6 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	public String sex_a;
 	public String nationality_a;
 	public String domestic_a;
-	public String color_a;
-	public Integer fk_color_a;
 	public String image_uuid;
 
 	// Partner
@@ -95,8 +93,6 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 	public String sex_b;
 	public String nationality_b;
 	public String domestic_b;
-	public String color_b;
-	public Integer fk_color_b;
 	public String osiam_login;
 	public String image_uuid_p;
 
@@ -124,7 +120,6 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
     @Override
     public void verify() throws BeanException {
 		if (ishost == null) ishost = new Integer(0);
-		AddressHelper.setColor(this);
 	}
 
 	/**
@@ -252,14 +247,6 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 			return domestic_a;
 		}
 
-		public String getColor() {
-			return color_a;
-		}
-
-		public Integer getColorFK() {
-			return fk_color_a;
-		}
-
 		public String getImageUuid() { return image_uuid; }
 
 		public void setInvitationType(Integer value) {
@@ -304,14 +291,6 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 
 		public void setDomestic(String value) {
 			domestic_a = value;
-		}
-
-		public void setColor(String value) {
-			color_a = value;
-		}
-
-		public void setColorFK(Integer value) {
-			fk_color_a = value;
 		}
 
 		public void setImageUuid(String value) { image_uuid = value; }
@@ -365,14 +344,6 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 			return domestic_b;
 		}
 
-		public String getColor() {
-			return color_b;
-		}
-
-		public Integer getColorFK() {
-			return fk_color_b;
-		}
-
 		public void setInvitationType(Integer value) {
 			invitationtype = value;
 		}
@@ -415,14 +386,6 @@ public class Guest extends AbstractHistoryBean implements EventConstants {
 
 		public void setDomestic(String value) {
 			domestic_b = value;
-		}
-
-		public void setColor(String value) {
-			color_b = value;
-		}
-
-		public void setColorFK(Integer value) {
-			fk_color_b = value;
 		}
 
 		public String getImageUuid() { return image_uuid_p; }

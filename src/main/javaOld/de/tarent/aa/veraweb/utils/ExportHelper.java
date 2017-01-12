@@ -99,14 +99,6 @@ public class ExportHelper {
 		}
 	}
 
-	/**
-	 * Diese Methode liefert zu einem Integer den um 1 erhöhten Wert oder
-	 * 0, falls <code>null</code> übergeben worden war.
-	 */
-	public static Integer getColor(Integer color) {
-		return new Integer(color == null ? 0 : color.intValue() + 1);
-	}
-
 	/** Diese Methode liefert eine String-Darstellung eines Gender-Werts */
 	public static String getGender(String gender) {
 		return gender;
