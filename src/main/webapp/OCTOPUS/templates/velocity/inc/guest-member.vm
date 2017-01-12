@@ -188,14 +188,6 @@
         			<textarea id="guest-noteorga$ext" name="guest-noteorga$ext" #if($grants.mayReadRemarkFields())>$!message.textarea($facade.NoteOrga)#else vera-disabled class="textdisabled">#end</textarea>
         		</div>
         	</div>
-        	<div class="tableRow">
-        		<div class="tableCell width50">
-        			<label>${placeholderWithTranslation.GENERIC_COLOR_SINGULAR}</label>
-        			<input type="hidden" name="guest-fk_color$ext" value="$!facade.ColorFK">
-        			<input type="text" name="showguest-color$ext" value="$!message.text($facade.Color)" vera-disabled class="textdisabled">
-        		</div>
-        		<div class="tableCell width50"></div>
-        	</div>
 		</div>
 	</div>
 

@@ -71,7 +71,6 @@
 		<worker name="GuestReportWorker" implementation="de.tarent.aa.veraweb.worker.GuestReportWorker" singleton="true" factory="reflected" />
 
 		<!-- Stammdaten-Worker -->
-		<worker name="ColorWorker" implementation="de.tarent.aa.veraweb.worker.ColorWorker" singleton="true" factory="reflected" />
 		<worker name="FunctionWorker" implementation="de.tarent.aa.veraweb.worker.FunctionWorker" singleton="true" factory="reflected" />
 		<worker name="LocationListWorker" implementation="de.tarent.aa.veraweb.worker.LocationListWorker" singleton="true" factory="reflected" />
 		<worker name="LocationDetailWorker" implementation="de.tarent.aa.veraweb.worker.LocationDetailWorker" singleton="true" factory="reflected" />
@@ -244,14 +243,6 @@
 		</task>
 
 		<!-- Umsetzung STAMMDATEN -->
-		<task name="Color" access="public" groups="Administrator,PartialAdmin,SystemUser">
-			<doTask name="LoadStammdaten"/>
-			<action name="saveList" worker="ColorWorker" />
-			<action name="showList" worker="ColorWorker" />
-			<response type="velocity" name="color">
-				<param name="ContentType" value="text/html;charset=UTF-8"/>
-			</response>
-		</task>
 
 		<task name="Function" access="public" groups="Administrator,PartialAdmin">
 			<doTask name="LoadStammdaten"/>

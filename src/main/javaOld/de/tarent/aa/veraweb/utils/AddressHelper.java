@@ -19,14 +19,12 @@
  */
 package de.tarent.aa.veraweb.utils;
 
-import de.tarent.aa.veraweb.beans.Guest;
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.Salutation;
 import de.tarent.aa.veraweb.beans.facade.PersonAddressFacade;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
 import de.tarent.aa.veraweb.beans.facade.PersonMemberFacade;
-import de.tarent.aa.veraweb.worker.ColorWorker;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.ExecutionContext;
@@ -44,20 +42,6 @@ import java.util.Calendar;
  * @author Christoph
  */
 public class AddressHelper implements PersonConstants {
-	//
-	// PUBLIC METHODEN
-	//
-    /**
-     * Diese Methode setzte die Gast-Farben basierend auf den Gast-Eigenschaften
-     * Domestic und Sex.
-     *
-     * @param guest Gast, dessen Farben zu ermitteln sind.
-     */
-	public static void setColor(Guest guest) {
-		guest.fk_color_a = ColorWorker.getColor(guest.domestic_a, guest.sex_a);
-		guest.fk_color_b = ColorWorker.getColor(guest.domestic_b, guest.sex_b);
-	}
-
     /**
      * Diese Methode Überprüft eine Reihe Felder einer {@link Person}-Instanz
      * und setzt gegebenenfalls sinnvolle Standardwerte ein.<br>

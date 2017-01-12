@@ -971,8 +971,6 @@ public class GuestDetailWorker extends GuestListWorker {
      * @param random Wert für laufende Nummer, Sitznummer und Tischnummer
      */
     protected void showTestGuest(GuestMemberFacade facade, String suffix, int random) {
-        facade.setColor("Farbe" + suffix);
-        facade.setColorFK(new Integer(new Random().nextInt(4)));
         facade.setInvitationStatus(new Integer(new Random().nextInt(3) + 1));
         facade.setInvitationType(new Integer(new Random().nextInt(3)));
         facade.setLanguages("Sprachen" + suffix);
@@ -1023,7 +1021,6 @@ public class GuestDetailWorker extends GuestListWorker {
 
         // Select bauen das entweder ID oder das Offset verwenden um einen Gast zu laden
         select = database.getSelect(BEANNAME);
-        selectColors(select);
         extendColumns(octopusContext, select);
 
         if (guestid != null && guestid.intValue() != 0) {
@@ -1071,13 +1068,6 @@ public class GuestDetailWorker extends GuestListWorker {
             }
             newOffset++;
         }
-    }
-
-    private void selectColors(Select select) {
-        select.joinLeftOuter("veraweb.tcolor c1", "tguest.fk_color", "c1.pk");
-        select.joinLeftOuter("veraweb.tcolor c2", "tguest.fk_color_p", "c2.pk");
-        select.selectAs("c1.color", "color_a");
-        select.selectAs("c2.color", "color_b");
     }
 
     private Integer getOffsetNumber(Integer offset, Integer count) {
