@@ -1,0 +1,178 @@
+#set($activeMenu = "Administration")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_COLOURS}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_COLOR}")
+#set($entity="COLOR")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_COLOR_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_COLOR_PLURAL}")
+#parse("inc/header.vm")
+
+<div id="content_container">
+
+	<div id="breadcrumb" class="textRight marginBottom10">
+	    	<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_COLOR_PLURAL}</span>
+	</div>
+
+	<h1>${placeholderWithTranslation.GENERIC_COLOR_PLURAL}</h1>
+
+	<form id="formlist" name="formlist" action="Color" method="POST">
+
+		#if($errors.size() > 0)
+		<vera-warn>
+			#foreach($error in $errors)
+				$error<br>
+			#end
+		</vera-warn>
+		#end
+
+		<input type="hidden" name="color1-id" value="$!color1.id">
+		<input type="hidden" name="color2-id" value="$!color2.id">
+		<input type="hidden" name="color3-id" value="$!color3.id">
+		<input type="hidden" name="color4-id" value="$!color4.id">
+		<input type="hidden" name="color1-addresstype" value="2">
+		<input type="hidden" name="color2-addresstype" value="2">
+		<input type="hidden" name="color3-addresstype" value="2">
+		<input type="hidden" name="color4-addresstype" value="2">
+		<input type="hidden" name="color1-locale" value="1">
+		<input type="hidden" name="color2-locale" value="1">
+		<input type="hidden" name="color3-locale" value="1">
+		<input type="hidden" name="color4-locale" value="1">
+		<input type="hidden" id="color1-modified" name="color1-modified" value="false">
+		<input type="hidden" id="color2-modified" name="color2-modified" value="false">
+		<input type="hidden" id="color3-modified" name="color3-modified" value="false">
+		<input type="hidden" id="color4-modified" name="color4-modified" value="false">
+		<input type="hidden" name="limit" value="" />
+
+
+		<div id="main_content">
+			<div class="textRight mandatoryText tabs">* = ${placeholderWithTranslation.pflichtfelder}</div>
+
+			<table>
+				<tr>
+					<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
+					<th class="width20 textCenter">${placeholderWithTranslation.GENERIC_CHROMATICITY}
+					(${placeholderWithTranslation.LETTERS_CHROMATICITY})</th>
+				</tr>
+
+				<tr>
+                    <td colspan="2" class="bold">${placeholderWithTranslation.GENERIC_IN_COUNTRY}
+		    				${placeholderWithTranslation.GENERIC_YES} -
+                                                ${placeholderWithTranslation.GENERIC_GENDER}:
+                                                ${placeholderWithTranslation.GENERIC_GENDER_FEMALE}
+				</td>
+				</tr>
+				## RGB teilen
+				#if($color1)
+				#set($rgb = $color1.rgb)
+				#set($r = $rgb / 65536)
+				#set($rgb = $rgb - ($r * 65536))
+				#set($g = $rgb / 256)
+				#set($rgb = $rgb - ($g * 256))
+				#set($b = $rgb)
+				<tr>
+					<td><input type="text" name="color1-name" maxlength="100" value="$!message.text($color1.name)" onchange="setModified('color1')"></td>
+					<td><input type="text" name="color1-rgb" maxlength="11" value="$!r $!g $!b" onchange="setModified('color1')"></td>
+				</tr>
+				#else
+				<tr>
+					<td><input type="text" name="color1-name" maxlength="100" value="" onchange="setModified('color1')"></td>
+					<td><input type="text" name="color1-rgb" maxlength="11" value="" onchange="setModified('color1')"></td>
+				</tr>
+				#end
+
+				<tr>
+                    <td colspan="2" class="bold">${placeholderWithTranslation.GENERIC_IN_COUNTRY}:
+		    				${placeholderWithTranslation.GENERIC_YES} -
+		    		                ${placeholderWithTranslation.GENERIC_GENDER}:
+		    		                ${placeholderWithTranslation.GENERIC_GENDER_MALE}
+				</td>
+				</tr>
+				## RGB teilen
+				#if($color2)
+				#set($rgb = $color2.rgb)
+				#set($r = $rgb / 65536)
+				#set($rgb = $rgb - ($r * 65536))
+				#set($g = $rgb / 256)
+				#set($rgb = $rgb - ($g * 256))
+				#set($b = $rgb)
+				<tr>
+					<td><input type="text" name="color2-name" maxlength="100" value="$!message.text($color2.name)" onchange="setModified('color2')"></td>
+					<td><input type="text" name="color2-rgb" maxlength="11" value="$!r $!g $!b" onchange="setModified('color2')"></td>
+				</tr>
+				#else
+				<tr>
+					<td><input type="text" name="color2-name" maxlength="100" value="" onchange="setModified('color2')"></td>
+					<td><input type="text" name="color2-rgb" maxlength="11" value="" onchange="setModified('color2')"></td>
+				</tr>
+				#end
+
+				<tr>
+                    <td colspan="2" class="bold">${placeholderWithTranslation.GENERIC_IN_COUNTRY}:
+						${placeholderWithTranslation.GENERIC_NO} -
+						${placeholderWithTranslation.GENERIC_GENDER}:
+						${placeholderWithTranslation.GENERIC_GENDER_FEMALE}
+				</td>
+				</tr>
+				## RGB teilen
+				#if($color3)
+				#set($rgb = $color3.rgb)
+				#set($r = $rgb / 65536)
+				#set($rgb = $rgb - ($r * 65536))
+				#set($g = $rgb / 256)
+				#set($rgb = $rgb - ($g * 256))
+				#set($b = $rgb)
+				<tr>
+					<td><input type="text" name="color3-name" maxlength="100" value="$!message.text($color3.name)" onchange="setModified('color3')"></td>
+					<td><input type="text" name="color3-rgb" maxlength="11" value="$!r $!g $!b" onchange="setModified('color3')"></td>
+				</tr>
+				#else
+				<tr>
+					<td><input type="text" name="color3-name" maxlength="100" value="" onchange="setModified('color3')"></td>
+					<td><input type="text" name="color3-rgb" maxlength="11" value="" onchange="setModified('color3')"></td>
+				</tr>
+				#end
+
+				<tr>
+                    <td colspan="2" class="bold">${placeholderWithTranslation.GENERIC_IN_COUNTRY}:
+						${placeholderWithTranslation.GENERIC_NO} -
+						${placeholderWithTranslation.GENERIC_GENDER}:
+						${placeholderWithTranslation.GENERIC_GENDER_MALE}
+						</td>
+				</tr>
+				## RGB teilen
+				#if($color4)
+				#set($rgb = $color4.rgb)
+				#set($r = $rgb / 65536)
+				#set($rgb = $rgb - ($r * 65536))
+				#set($g = $rgb / 256)
+				#set($rgb = $rgb - ($g * 256))
+				#set($b = $rgb)
+				<tr>
+					<td><input type="text" name="color4-name" maxlength="100" value="$!message.text($color4.name)" onchange="setModified('color4')"></td>
+					<td><input type="text" name="color4-rgb" maxlength="11" value="$!r $!g $!b" onchange="setModified('color4')"></td>
+				</tr>
+				#else
+				<tr>
+					<td><input type="text" name="color4-name" maxlength="100" value="" onchange="setModified('color4')"></td>
+					<td><input type="text" name="color4-rgb" maxlength="11" value="" onchange="setModified('color4')"></td>
+				</tr>
+				#end
+
+				#parse("inc/list-direct-new.vm")
+			</table>
+
+			#if($grants.isAdmin())
+				<div id="buttonPanel-bottom" class="textRight marginTop10">
+					<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+				</div>
+			#end
+
+				<script type="text/javascript">
+				#if(!$grants.isAdmin())
+					disableForm(document.getElementById('formlist'));
+				#end
+				</script>
+		</div>
+	</form>
+</div>
+
+#parse("inc/footer.vm")

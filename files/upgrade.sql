@@ -25,7 +25,7 @@ DECLARE
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2017-01-12';
+	vversion := '2016-12-19';
 
 	-- initialisation
 	vint := 0;
@@ -685,6 +685,7 @@ BEGIN
                 INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
             END IF;
 
+
     vnewvsn := '2016-08-16';
             IF vcurvsn < vnewvsn THEN
                 vmsg := 'begin.update(' || vnewvsn || ')';
@@ -768,20 +769,6 @@ BEGIN
                 vcurvsn := vnewvsn;
                 INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
             END IF;
-
-	vnewvsn := '2017-01-12';
-			IF vcurvsn < vnewvsn THEN
-				vmsg := 'begin.update(' || vnewvsn || ')';
-
-				ALTER TABLE veraweb.tguest DROP fk_color CASCADE;
-				ALTER TABLE veraweb.tguest DROP fk_color_p CASCADE;
-
-				-- post-upgrade
-				vmsg := 'end.update(' || vnewvsn || ')';
-				UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-				vcurvsn := vnewvsn;
-				INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-			END IF;
 
 	-- end
 

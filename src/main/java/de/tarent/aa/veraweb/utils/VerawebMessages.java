@@ -51,6 +51,11 @@ public class VerawebMessages {
         return languageProvider.getProperty("MESSAGE_GENERIC_MISSING_DESCRIPTION");
     }
 
+    public String getMessageColorMissingName() {
+        return languageProvider.getProperty("MESSAGE_COLOR_MISSING_NAME");
+    }
+
+
     public String getMessageLocationTitleEmpty() {
         return languageProvider.getProperty("MESSAGE_EVENT_LOCATION_TITLE_EMPTY");
     }

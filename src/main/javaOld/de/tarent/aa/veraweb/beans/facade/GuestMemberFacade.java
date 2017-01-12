@@ -58,6 +58,12 @@ public interface GuestMemberFacade extends EventConstants {
 	/** @return Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	String getDomestic();
 
+	/** @return Farbe */
+	String getColor();
+
+	/** @return Farbe */
+	Integer getColorFK();
+
 	/** Ändert Einladungstyp */
 	void setInvitationType(Integer value);
 
@@ -90,6 +96,12 @@ public interface GuestMemberFacade extends EventConstants {
 
 	/** Ändert Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	void setDomestic(String value);
+
+	/** Ändert Farbe */
+	void setColor(String value);
+
+	/** Ändert Farbe */
+	void setColorFK(Integer value);
 
 	String getImageUuid();
 

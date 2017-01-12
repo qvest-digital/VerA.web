@@ -223,12 +223,14 @@ public class PersonExportWorker extends PersonListWorker {
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_COMPANY"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_POST_OFFICE_BOX_NUMBER"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_POST_OFFICE_BOX_PLZ"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_COLOUR"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_IN_COUNTRY"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_LANGUAGES"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_SEX"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_NATIONALITY"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_HINT_RESPONSIBLE"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_HINT_ORG_TEAM"));
+		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_COLOUR"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_IN_COUNTRY"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_LANGUAGES"));
 		spreadSheet.addCell(languageProvider.getProperty("EXPORT_HEADER_PARTNER_SEX"));
@@ -356,6 +358,7 @@ public class PersonExportWorker extends PersonListWorker {
 		// Veranstaltungsspezifische Attribute für Person
 		//
 		if (showA) {
+            spreadSheet.addCell(ExportHelper.getColor(null));
 			spreadSheet.addCell(getDomestic((String)person.get("domestic_a_e1"))); // Inland Ja / Nein
 			spreadSheet.addCell(person.get("languages_a_e1"));
 			spreadSheet.addCell(ExportHelper.getGender((String)person.get("sex_a_e1"))); // M oder F
@@ -363,6 +366,7 @@ public class PersonExportWorker extends PersonListWorker {
 			spreadSheet.addCell(person.get("notehost_a_e1"));
 			spreadSheet.addCell(person.get("noteorga_a_e1"));
 		} else {
+			spreadSheet.addCell(ExportHelper.getColor(null));
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
@@ -375,6 +379,7 @@ public class PersonExportWorker extends PersonListWorker {
 		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
 		if (showB) {
+            spreadSheet.addCell(ExportHelper.getColor(null));
 			spreadSheet.addCell(getDomestic((String)person.get("domestic_b_e1"))); // Inland Ja / Nein
 			spreadSheet.addCell(person.get("languages_b_e1"));
 			spreadSheet.addCell(ExportHelper.getGender((String)person.get("sex_b_e1"))); // M oder F
@@ -382,6 +387,7 @@ public class PersonExportWorker extends PersonListWorker {
 			spreadSheet.addCell(showRemarks ? person.get("notehost_b_e1") : null);
 			spreadSheet.addCell(showRemarks ? person.get("noteorga_b_e1") : null);
 		} else {
+			spreadSheet.addCell(ExportHelper.getColor(null));
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
 			spreadSheet.addCell(null);
@@ -434,6 +440,7 @@ public class PersonExportWorker extends PersonListWorker {
 		//
 		// Veranstaltungsspezifische Attribute für Person
 		//
+        spreadSheet.addCell(ExportHelper.getColor(null));
 		spreadSheet.addCell(getDomestic((String)person.get("domestic_a_e1"))); // Inland Ja / Nein
 		spreadSheet.addCell(person.get("languages_a_e1"));
 		spreadSheet.addCell(ExportHelper.getGender((String)person.get("sex_a_e1"))); // M oder F
@@ -444,6 +451,7 @@ public class PersonExportWorker extends PersonListWorker {
 		//
 		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
+		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
 		spreadSheet.addCell(null);
@@ -499,10 +507,12 @@ public class PersonExportWorker extends PersonListWorker {
         spreadSheet.addCell(null);
         spreadSheet.addCell(null);
         spreadSheet.addCell(null);
+        spreadSheet.addCell(null);
 
 		//
 		// Veranstaltungsspezifische Attribute für Partner der Person
 		//
+        spreadSheet.addCell(ExportHelper.getColor(null));
         spreadSheet.addCell(getDomestic((String)person.get("domestic_b_e1"))); // Inland Ja / Nein
         spreadSheet.addCell(person.get("languages_b_e1"));
         spreadSheet.addCell(ExportHelper.getGender((String)person.get("sex_b_e1"))); // M oder F

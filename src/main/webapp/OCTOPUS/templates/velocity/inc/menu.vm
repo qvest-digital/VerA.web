@@ -135,6 +135,11 @@
 						#end
 						#if($grants.isAdmin() || $grants.isPartialAdmin())
 							<li>
+                                <a id="menu.color" href="${paths.staticWeb}do/Color">${placeholderWithTranslation.GENERIC_COLOR_PLURAL}</a>
+                            </li>
+						#end
+						#if($grants.isAdmin() || $grants.isPartialAdmin())
+							<li>
                                 <a id="menu.function" href="${paths.staticWeb}do/Function?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</a>
                             </li>
 						#end
