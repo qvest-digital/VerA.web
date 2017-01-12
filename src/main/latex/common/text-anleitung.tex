@@ -2791,8 +2791,8 @@ und finden den gerade angelegten Benutzer in der Gästeliste.
 \section{Konfiguration der Online-Anmeldung}\label{sec:conf-oa}
 
 Das Verhalten der Online-Anmeldung lässt sich nach der Installation
-noch weiter anpassen. Die Nachfolgenden Abschnitte erläuter die Möglichkeiten
-und beschreiben die Durchführung.
+noch weiter anpassen. Die nachfolgenden Abschnitte erläutern die
+Möglichkeiten und beschreiben die Durchführung.
 
 \subsection{Deaktivierung der Online-Anmeldung}\label{sec:deactivate-oa}
 
@@ -2868,33 +2868,34 @@ zur Online-Anmeldung nicht mehr angezeigt.
 Um ein benutzerdefiniertes Impressum für die Online-Anmeldung zu hinterlegen,
 muss die Datei \texttt{/etc/veraweb/vwor.properties} erweitert werden.
 
-Mit dem Eintrag imprint.<language_key>.<sorting_number><space><titel>=<text>
+Mit dem Eintrag imprint.<language\_key>.<sorting\_number><space><titel>=<text>
 lassen sich einzelne Abschnitte zum Impressum hinzufügen.
 
 Um das Impressum mehrsprachig zur Verfügung zu stellen, sollte ein Eintrag je
-einmal für den Sprachschlüssel (<language_key>) "de_DE" und "en_EN" existieren.
+einmal für den Sprachschlüssel (<language\_key>) „de\_DE“ und „en\_EN“ existieren.
 
-Aus den drei Teilen <sorting_number>, <space> und <titel> setzt sich die Überschrift
+Aus den drei Teilen <sorting\_number>, <space> und <titel> setzt sich die Überschrift
 des Absatzes im fertigen Impressum zusammen. Durch das Nummerieren der Abschnitte kann
 die vorgesehene Reihenfolge erzeugt werden. Um ein Leerzeichen zwischen der Nummerierung
-und dem Titel zu erzeugen muss das UTF-8 encoding \\u00a0 verwendet werden. Andere
-Umlaute wie ä,ö,ü,Ä,Ö,Ü,ß,... müssen auch dementsprechend codiert werden.
+und dem Titel zu erzeugen muss die Unicode-Form \textbackslash{}u00A0 verwendet werden.
+Andere Umlaute wie ä, ö, ü, Ä, Ö, Ü, ß,~… müssen auch dementsprechend kodiert werden.
 
 Der eigentliche Text des Abschnitts (<text>) kann mit Leerzeichen umgehen. Umlaute
 müssen aber weiterhin codiert werden.
 
-Um nur einen Textblock ohne Überschrift zu generieren, kann <sorting_number>,
+Um nur einen Textblock ohne Überschrift zu generieren können <sorting\_number>,
 <space> und <titel> weggelassen werden. Der Eintrag muss dann wie folgt
-gestaltet werden: imprint.de_DE.=<text> bzw. imprint.en_EN.=<text>.
+gestaltet werden: \texttt{imprint.de\_DE.=<text>} bzw. \texttt{imprint.en\_EN.=<text>}
+(die Punkte können nicht weggelassen werden).
 
 Sollte es mehrere Einträge ohne Sortiernummer oder mit doppelter Nummer geben,
 ist keine spezielle Reihenfolge gewährleistet.
 
 \begin{lstdump}{/etc/veraweb/vwor.properties}
 ...
-imprint.de_DE.1\u00a0\u00dcberschrift=Text des ersten Abschnitts
-imprint.de_DE.3\u00a0Absatz=Text des dritten Abschnitts
-imprint.de_DE.2\u00a0Titel=Diese Seite geh\u00f6rt dem Spa\u00df-Verein
+imprint.de_DE.1\u00A0\u00DCberschrift=Text des ersten Abschnitts
+imprint.de_DE.3\u00A0Absatz=Text des dritten Abschnitts
+imprint.de_DE.2\u00A0Titel=Diese Seite geh\u00F6rt dem Spa\u00DF-Verein
 
 imprint.en_EN.=Just text without headline.
 \end{lstdump}
