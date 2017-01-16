@@ -5,7 +5,6 @@ sql: |
     g.fk_person as g_fk_person,
     g.fk_event as g_fk_event,
     g.fk_category as g_fk_category,
-    g.fk_color as g_fk_color,
     g.invitationtype as g_invitationtype,
     g.invitationstatus as g_invitationstatus,
     g.ishost as g_ishost,
@@ -31,7 +30,6 @@ sql: |
     g.gender_p as g_gender_p,
     g.nationality_p as g_nationality_p,
     g.domestic_b as g_domestic_b,
-    g.fk_color_p as g_fk_color_p,
     g.createdby as g_createdby,
     g.changedby as g_changedby,
     g.created as g_created,
@@ -297,8 +295,6 @@ mappings:
     mapTo: "g_fk_event"
   g_fk_category:
     mapTo: "g_fk_category"
-  g_fk_color:
-    mapTo: "g_fk_color"
   g_invitationtype:
     mapTo: "g_invitationtype"
   g_invitationstatus:
@@ -349,8 +345,6 @@ mappings:
     mapTo: "g_nationality_p"
   g_domestic_b:
     mapTo: "g_domestic_b"
-  g_fk_color_p:
-    mapTo: "g_fk_color_p"
   g_createdby:
     mapTo: "g_createdby"
   g_changedby:
