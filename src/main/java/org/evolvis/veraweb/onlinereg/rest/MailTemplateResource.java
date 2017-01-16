@@ -21,11 +21,16 @@ public class MailTemplateResource extends AbstractResource {
 
     @GET
     @Path("/")
-    public Response getMailTemplate(@QueryParam("templateId") Integer templateId) {
+    public Response getMailTemplate(@QueryParam("templateId") Integer templateId, @QueryParam("mandantId") Integer mandantId) {
+        if(templateId == null || mandantId == null){
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
         final Session session = openSession();
         try {
-            final Query query = session.getNamedQuery("MailTemplate.getPdfTemplateById");
+            final Query query = session.getNamedQuery(MailTemplate.GET_MAILTEMPLATE_BY_ID);
             query.setInteger("templateId", templateId);
+            query.setInteger("mandantId", mandantId);
             final MailTemplate template = (MailTemplate) query.uniqueResult();
             if (template != null) {
                 return Response.ok(template).build();

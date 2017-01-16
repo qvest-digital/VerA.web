@@ -29,11 +29,11 @@ class MailTemplateResourceTest extends Specification {
 
     void testGetMailTemplate() {
         given:
-            session.getNamedQuery("MailTemplate.getPdfTemplateById") >> query
+            session.getNamedQuery(MailTemplate.GET_MAILTEMPLATE_BY_ID) >> query
             query.uniqueResult() >> Mock(MailTemplate)
 
         when:
-            def response = mailTemplateResource.getMailTemplate(1)
+            def response = mailTemplateResource.getMailTemplate(1, 1)
 
         then:
             session != null
@@ -47,11 +47,39 @@ class MailTemplateResourceTest extends Specification {
             query.uniqueResult() >> null
 
         when:
-            def response = mailTemplateResource.getMailTemplate(2333)
+            def response = mailTemplateResource.getMailTemplate(2333, 456)
 
         then:
             session != null
             1 * session.close()
             assert response.status == 404
+    }
+
+    void testGetMailTemplateIdIsNull() {
+        given:
+            def query = Mock(Query)
+            query.uniqueResult() >> null
+
+        when:
+            def response = mailTemplateResource.getMailTemplate(null, 456)
+
+        then:
+            session != null
+            0 * session.close()
+            assert response.status == 400
+    }
+
+    void testGetMailMandantIdIsNull() {
+        given:
+            def query = Mock(Query)
+            query.uniqueResult() >> null
+
+        when:
+            def response = mailTemplateResource.getMailTemplate(2333, null)
+
+        then:
+            session != null
+            0 * session.close()
+            assert response.status == 400
     }
 }
