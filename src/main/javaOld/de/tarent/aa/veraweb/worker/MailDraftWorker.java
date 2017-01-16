@@ -24,7 +24,9 @@ import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.SQL;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.RawClause;
+import de.tarent.dblayer.sql.clause.Where;
 import de.tarent.dblayer.sql.statement.Select;
+import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
 import de.tarent.octopus.beans.TransactionContext;
@@ -59,8 +61,8 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
     // Oberklasse BeanListWorker
     //
 	@Override
-    protected Integer getAlphaStart(OctopusContext cntx, String start) throws BeanException, IOException {
-		Database database = getDatabase(cntx);
+    protected Integer getAlphaStart(OctopusContext octopusContext, String start) throws BeanException, IOException {
+		Database database = getDatabase(octopusContext);
 
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("name < '");
@@ -69,9 +71,10 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 
 		Select select = database.getCount(BEANNAME);
 		select.where(new RawClause(buffer));
+        select.whereAnd(getOrgUnitFilter(octopusContext));
 
 		Integer i = database.getCount(select);
-		return new Integer(i.intValue() - (i.intValue() % getLimit(cntx).intValue()));
+		return new Integer(i.intValue() - (i.intValue() % getLimit(octopusContext).intValue()));
 	}
 
 
@@ -79,7 +82,7 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 	 * Updatet ausschließlich den Namen der in der Liste angezeigt wird.
 	 */
 	@Override
-    protected int updateBeanList(OctopusContext cntx, List errors, List beanlist, TransactionContext transactionContext) throws BeanException, IOException {
+    protected int updateBeanList(OctopusContext octopusContext, List errors, List beanlist, TransactionContext transactionContext) throws BeanException, IOException {
 		int count = 0;
 		for (Iterator it = beanlist.iterator(); it.hasNext(); ) {
 			MailDraft mailDraft = (MailDraft)it.next();
@@ -89,13 +92,28 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 						SQL.Update( db ).
 						table("veraweb.tmaildraft").
 						update("name", mailDraft.name).
-						where(Expr.equal("pk", mailDraft.id)));
+						where(Expr.equal("pk", mailDraft.id)).
+                        whereAnd(getOrgUnitFilter(octopusContext)));
 				count++;
 				transactionContext.commit();
-			}
-		}
-		return count;
+            }
+        }
+        return count;
 	}
+
+    @Override
+    protected void extendAll(OctopusContext octopusContext, Select select) throws BeanException, IOException {
+        select.where(getOrgUnitFilter(octopusContext));
+    }
+
+    @Override
+    protected void extendWhere(OctopusContext octopusContext, Select select) throws BeanException, IOException {
+        select.where(getOrgUnitFilter(octopusContext));
+    }
+
+    protected Where getOrgUnitFilter(OctopusContext octopusContext) {
+        return Expr.equal("fk_orgunit", ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId());
+    }
 
     //
     // Octopus-Aktionen
@@ -111,16 +129,19 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 	 * diesen in den Content, wenn eine ID übergeben wurde
 	 * und sich noch kein Entwurf im Content befindet.
 	 *
-	 * @param cntx Octopus-Context
+	 * @param octopusContext Octopus-Context
 	 * @param id Datenbank ID
 	 * @param mailDraft eMail-Entwurf aus dem Content.
 	 * @return eMail-Entwurf oder null
 	 * @throws BeanException
 	 * @throws IOException
 	 */
-	public MailDraft showDetail(OctopusContext cntx, Integer id, MailDraft mailDraft) throws BeanException, IOException {
+	public MailDraft showDetail(OctopusContext octopusContext, Integer id, MailDraft mailDraft) throws BeanException, IOException {
 		if (mailDraft == null && id != null) {
-			return (MailDraft)getDatabase(cntx).getBean("MailDraft", id);
+            Select select = getDatabase(octopusContext).getSelect("MailDraft").
+                    where(Expr.equal("pk", id)).
+                    whereAnd(getOrgUnitFilter(octopusContext));
+			return (MailDraft)getDatabase(octopusContext).getBean("MailDraft", select);
 		}
 		return mailDraft;
 	}
@@ -146,6 +167,8 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 		if (save != null && save.booleanValue()) {
 			MailDraft mailDraft = (MailDraft)getRequest(octopusContext).getBean("MailDraft", "maildraft");
 			TransactionContext context = ( new DatabaseVeraWeb(octopusContext) ).getTransactionContext();
+
+            mailDraft.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
             mailDraft.verify(octopusContext);
 
 			if (mailDraft.isCorrect()) {

@@ -10,7 +10,8 @@
                 url: $("#loadmailtemplate").data("loadmailtemplate"),
                 type: 'GET',
                 data: {
-                    templateId:$('#mail-draft').find(":selected").val()
+                    templateId:$('#mail-draft').find(":selected").val(),
+                    mandantId:$("#loadmailtemplate-orgunit").data("orgunit")
                 },
                 success: function(data){
                     $(".errormsg").remove();

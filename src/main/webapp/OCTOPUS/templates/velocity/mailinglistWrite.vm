@@ -13,6 +13,7 @@
 <div data-loadmailtemplate="${paths.staticWeb}mailtemplate" id="loadmailtemplate"></div>
 <div data-errormsg="${placeholderWithTranslation.LOAD_MAILTEMPLATE_FAILED}" id="loadmailtemplate-errormsg"></div>
 <div data-errormsg="${placeholderWithTranslation.SELECT_MAILTEMPLATE}" id="selectmailtemplate-errormsg"></div>
+<div data-orgunit="$!octopusConfig.personalConfig.orgUnitId" id="loadmailtemplate-orgunit"></div>
 
 <div id="content_container">
 	<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>

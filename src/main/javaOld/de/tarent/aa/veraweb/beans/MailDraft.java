@@ -33,7 +33,7 @@ import java.sql.Timestamp;
  * @author Christoph Jerolimov
  * @version $Revision: 1.1 $
  */
-public class MailDraft extends AbstractHistoryBean {
+public class MailDraft extends AbstractHistoryBean implements OrgUnitDependent {
 	/** PK der Tabelle tmaildraft */
 	public Integer id;
 	/** Name der Vorlage */
@@ -50,6 +50,8 @@ public class MailDraft extends AbstractHistoryBean {
 	public String changedby;
 	/** Geändert am */
 	public Timestamp changed;
+	/** ID der Mandanten-Einheit */
+	public Integer orgunit;
 
     public void verify(final OctopusContext octopusContext) throws BeanException {
         final VerawebMessages messages = new VerawebMessages(octopusContext);
