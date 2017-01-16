@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.evolvis.veraweb</groupId>
     <artifactId>online-anmeldung</artifactId>
-    <version>1.8.46</version>
+    <version>1.8.47-SNAPSHOT</version>
     <description>VerA.web Online-Registrierung</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
