@@ -4,7 +4,7 @@
 
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-export</artifactId>
-	<version>1.8.47</version>
+	<version>1.8.48-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>veraweb-export</name>
