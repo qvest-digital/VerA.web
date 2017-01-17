@@ -138,7 +138,7 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 	 */
 	public MailDraft showDetail(OctopusContext octopusContext, Integer id, MailDraft mailDraft) throws BeanException, IOException {
 		if (mailDraft == null && id != null) {
-            Select select = getDatabase(octopusContext).getSelect("MailDraft").
+            final Select select = getDatabase(octopusContext).getSelect("MailDraft").
                     where(Expr.equal("pk", id)).
                     whereAnd(getOrgUnitFilter(octopusContext));
 			return (MailDraft)getDatabase(octopusContext).getBean("MailDraft", select);
