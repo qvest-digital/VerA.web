@@ -1363,7 +1363,6 @@ MESSAGE_END_AND_START_DATE=La fin de l\u2019\u00E9v\u00E9nement doit \u00EAtre t
 MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=L\u2019\u00E9v\u00E9nement ne peut pas \u00EAtre enregistr\u00E9. S\u2019il vous pla\u00EEt donner un nom court.
 MESSAGE_EVENT_WRING_DATE_FORMAT=Vous avez besoin au d\u00E9but de l\u2019\u00E9v\u00E9nement dans le format jj.mm.aaaa sp\u00E9cifier.
 MESSAGE_GENERIC_MISSING_DESCRIPTION=Vous devez entrer un indication.
-MESSAGE_COLOR_MISSING_NAME=Vous devez entrer un nom.
 MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=L\u2019attribution d\u2019un type de documents \u00E0 un \u00E9v\u00E9nement est d\u00E9fectueux.
 MESSAGE_EVENT_LOCATION_TITLE_EMPTY=Le lieu ne peut pas \u00EAtre enregistr\u00E9. D\u00E9cerner un titre s\u2019il vous pla\u00EEt.
 MESSAGE_EVENT_LOCATION_MAX_REMARK_REACHED=Le contenu du champ \u00ABRemarque\u00BB ne peut pas d\u00E9passer 1000 caract\u00E8res.

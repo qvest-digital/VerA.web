@@ -1361,7 +1361,6 @@ MESSAGE_END_AND_START_DATE=La fecha fin del evento deber\u00E1 ubicarse temporal
 MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=No se ha podido guardar el evento. Por favor, introduzca una descripci\u00F3n corta.
 MESSAGE_EVENT_WRING_DATE_FORMAT=Debe introducir la fecha de inicio del evento mediante el formato DD.MM.AAAA.
 MESSAGE_GENERIC_MISSING_DESCRIPTION=Debe introducir una descripci\u00F3n.
-MESSAGE_COLOR_MISSING_NAME=Debe introducir un nombre.
 MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=Se han producido errores en la asignaci\u00F3n de un tipo de documento a un evento.
 MESSAGE_EVENT_LOCATION_TITLE_EMPTY=La localizaci\u00F3n del evento no se puede guardar. Por favor, introduzca un t\u00EDtulo.
 MESSAGE_EVENT_LOCATION_MAX_REMARK_REACHED=El contenido del campo de observaciones tiene un m\u00E1ximo de 1000 caracteres.

@@ -1357,7 +1357,6 @@ MESSAGE_END_AND_START_DATE=The event\u2019s end-date needs to be after the begin
 MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=The event can not be saved, please give a short description
 MESSAGE_EVENT_WRING_DATE_FORMAT=You need to state the event-beginn formatted like dd.mm.yyyy
 MESSAGE_GENERIC_MISSING_DESCRIPTION=You need to provide a description.
-MESSAGE_COLOR_MISSING_NAME=You need to provide a name.
 MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=A document type is incorrectly assigned to an event.
 MESSAGE_EVENT_LOCATION_TITLE_EMPTY=The venue can not be saved. Please provide a title.
 MESSAGE_EVENT_LOCATION_MAX_REMARK_REACHED=The remark-field is restricted to 1000 characters.

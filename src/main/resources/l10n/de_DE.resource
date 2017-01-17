@@ -1328,7 +1328,6 @@ MESSAGE_END_AND_START_DATE=Das Ende der Veranstaltung muss zeitlich nach dem Beg
 MESSAGE_EVENT_MISSING_SHORT_DESCRIPTION=Die Veranstaltung kann nicht gespeichert werden. Vergeben Sie bitte eine Kurzbezeichnung.
 MESSAGE_EVENT_WRING_DATE_FORMAT=Sie m\u00FCssen den Beginn der Veranstaltung im Format TT.MM.JJJJ angeben.
 MESSAGE_GENERIC_MISSING_DESCRIPTION=Sie m\u00FCssen eine Bezeichung eingeben.
-MESSAGE_COLOR_MISSING_NAME=Sie m\u00FCssen einen Namen eingeben.
 MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=Die Zuordnung eines Dokumenttypens zu einer Veranstaltung ist fehlerhaft.
 MESSAGE_EVENT_LOCATION_TITLE_EMPTY=Der Veranstaltungsort kann nicht gespeichert werden. Vergeben Sie Bitte einen Titel.
 MESSAGE_EVENT_LOCATION_MAX_REMARK_REACHED=Der Inhalt des Bemerkungsfelds darf maximal 1000 Zeichen lang sein.
