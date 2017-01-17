@@ -96,11 +96,9 @@
 						<li class="inactive" #if ($event.id) onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';}" #end>
 							<div>${placeholderWithTranslation.GENERIC_TASK_PLURAL}</div>
 						</li>
-						#if ($online-registration.activated)
-							<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'">
-								<div>${placeholderWithTranslation.GENERIC_ADDITIONAL_PERSONS_DATA}</div>
-							</li>
-						#end
+						<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'">
+							<div>${placeholderWithTranslation.GENERIC_ADDITIONAL_PERSONS_DATA}</div>
+						</li>
 					</ul>
 				</div>
 			#end

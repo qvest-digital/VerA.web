@@ -178,7 +178,7 @@ public class EventDetailWorker {
 				removeHost = false;
 				updateHost = false;
 				createHost = event.host != null;
-
+                initOptionalFields(database, transactionContext, event);
 			} else {
                 if (event.host == null) {
                     // Alte Veranstaltung -> Gastgeber entfernen
@@ -245,13 +245,6 @@ public class EventDetailWorker {
 
                     clogger.logUpdate( octopusContext.personalConfig().getLoginname(), oldEvent, event );
                 }
-
-                if (newEvent) {
-                    if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)){
-                    	initOptionalFields(database, transactionContext, event);
-                    }
-                }
-
 
                 Integer invitationtype = getInvitationType(event);
 
