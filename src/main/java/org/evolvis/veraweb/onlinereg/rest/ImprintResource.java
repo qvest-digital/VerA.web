@@ -22,7 +22,7 @@ public class ImprintResource extends AbstractResource{
     @Path("/{language}")
     public HashMap<String, String> getImprintList(@PathParam("language") String languageKey) {
 
-        if(languageKey == null | languageKey == ""){
+        if(languageKey == null || languageKey.equals("")) {
             return null;
         }
 
