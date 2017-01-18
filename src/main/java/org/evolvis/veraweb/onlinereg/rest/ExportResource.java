@@ -96,7 +96,7 @@ public class ExportResource extends AbstractResource{
 
         StreamingOutput stream = new StreamingOutput() {
             @Override
-            public void write(OutputStream os) throws IOException, WebApplicationException {
+            public void write(OutputStream os) throws IOException {
                 final Writer writer = new BufferedWriter(new OutputStreamWriter(os));
                 final CsvExporter csvExporter = new CsvExporter(reader,new KeepOpenWriter(writer), dataSource, properties);
                 
