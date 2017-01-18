@@ -1,11 +1,11 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
+import org.evolvis.veraweb.onlinereg.entities.Person;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.evolvis.veraweb.onlinereg.entities.Person;
 
 public class PlaceholderSubstitution {
 

@@ -19,7 +19,6 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
-import junit.framework.TestCase;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.AfterClass;
@@ -31,7 +30,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.ServletContext;
 
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;

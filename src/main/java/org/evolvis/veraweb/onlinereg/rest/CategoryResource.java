@@ -19,7 +19,6 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
-import org.evolvis.veraweb.onlinereg.entities.PersonCategory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 

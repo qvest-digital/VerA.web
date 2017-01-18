@@ -1,6 +1,5 @@
 package org.evolvis.veraweb.onlinereg.rest
 
-import org.evolvis.veraweb.onlinereg.entities.Salutation
 import org.hibernate.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory

@@ -19,11 +19,11 @@
  */
 package org.evolvis.veraweb.onlinereg.utils;
 
+import org.jboss.logging.Logger;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-
-import org.jboss.logging.Logger;
 
 /**
  * Created by Jon Nuñez, tarent solutions GmbH on 28.09.15.

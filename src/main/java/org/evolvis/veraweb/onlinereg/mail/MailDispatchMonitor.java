@@ -1,12 +1,12 @@
 package org.evolvis.veraweb.onlinereg.mail;
 
+import org.jboss.logging.Logger;
+
 import javax.mail.Address;
 import javax.mail.event.ConnectionEvent;
 import javax.mail.event.ConnectionListener;
 import javax.mail.event.TransportEvent;
 import javax.mail.event.TransportListener;
-
-import org.jboss.logging.Logger;
 
 public class MailDispatchMonitor implements TransportListener, ConnectionListener {
 

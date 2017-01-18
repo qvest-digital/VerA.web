@@ -19,14 +19,14 @@
  */
 package org.evolvis.veraweb.onlinereg;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.jboss.logging.Logger;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 
 public class HibernateSessionFactoryListener implements ServletContextListener {

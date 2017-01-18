@@ -31,7 +31,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.ServletContext;
-
 import java.util.ArrayList;
 import java.util.List;
 

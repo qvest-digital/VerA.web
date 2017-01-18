@@ -14,7 +14,6 @@ import javax.servlet.ServletContext
 import javax.sql.DataSource
 import javax.ws.rs.container.ResourceContext
 import javax.ws.rs.core.MultivaluedHashMap
-import javax.ws.rs.core.MultivaluedMap
 import javax.ws.rs.core.Response
 import javax.ws.rs.core.UriInfo
 

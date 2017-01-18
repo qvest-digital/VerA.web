@@ -30,13 +30,13 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.ServletContext;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;

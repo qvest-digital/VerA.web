@@ -19,16 +19,6 @@
  */
 package org.evolvis.veraweb.onlinereg.rest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import javax.servlet.ServletContext;
-
-import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -36,6 +26,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.servlet.ServletContext;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit Testing for {@link org.evolvis.veraweb.onlinereg.rest.FreeVisitorsResource}

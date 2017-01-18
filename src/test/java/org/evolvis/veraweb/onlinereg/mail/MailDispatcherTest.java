@@ -1,14 +1,11 @@
 package org.evolvis.veraweb.onlinereg.mail;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
-
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 
 import javax.mail.Address;
 import javax.mail.Message;
@@ -16,13 +13,15 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Transport;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH

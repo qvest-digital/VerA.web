@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -14,7 +13,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.mail.MessagingException;
 import javax.servlet.ServletContext;
-
 import java.util.Date;
 
 import static org.junit.Assert.assertNull;

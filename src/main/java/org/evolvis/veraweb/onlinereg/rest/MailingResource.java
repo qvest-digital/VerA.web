@@ -1,21 +1,5 @@
 package org.evolvis.veraweb.onlinereg.rest;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.entities.PersonMailinglist;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
@@ -26,6 +10,21 @@ import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.jboss.logging.Logger;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 //FIXME: it's not "attachment", actually this is the whole shebang, including body, subject, recipients etc...
 @Path("/mailing")

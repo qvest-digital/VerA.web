@@ -4,12 +4,9 @@ import org.evolvis.veraweb.onlinereg.entities.OptionalField
 import org.hibernate.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
-import org.junit.AfterClass
 import spock.lang.Specification
 
 import javax.servlet.ServletContext
-
-import static org.mockito.Mockito.mock
 
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
