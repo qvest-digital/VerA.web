@@ -5,7 +5,7 @@
 	<artifactId>veraweb-core</artifactId>
 	<packaging>war</packaging>
 	<version>1.8.45</version>
-	<name>veraweb-evolvis-war</name>
+	<name>VerA.web core module</name>
 	<description>Veranstaltungsmanagment VerA.web</description>
 	<inceptionYear>2005</inceptionYear>
 	<properties>
