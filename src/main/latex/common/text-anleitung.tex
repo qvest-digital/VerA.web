@@ -639,21 +639,21 @@ System ausgeführt, bei einer Zusammenlegung der Online-Anmeldung mit
 dem core-System erhöhen sich die Anforderungen minimal.
 
 \begin{tabular}{| r || l | l | l |}\hline
-                       & Minimum    & empfohlen           & Maximum\\\hline\hline
- CPU (je VM)           & 1          & 1                   & 1\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- RAM OSIAM (alleine)   & 960 MiB    & 1536 MiB            & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- RAM core (alleine)    & 512 MiB    & 1024 MiB            & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- RAM core + OSIAM      & 1024 MiB   & 2048 MiB            & 4096 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- RAM Online-Anmeldung  & 512 MiB    & 768 MiB             & 1024 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- HDD OSIAM (alleine)   & 2 GB       & 4 GB                & 8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- HDD core (alleine)    & 2 GB       & 8 GB                & 20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- HDD core + OSIAM      & 3 GB       & 10 GB               & 20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- HDD Online-Anmeldung  & 1½ GB      & 3 GB                & 8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Betriebssystem        & Debian 7   & Debian 7 oder 8     & Debian unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
- Webserver             & Apache 2.2 & Apache 2.2 oder 2.4 & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Java Laufzeitumgebung & OpenJDK 7  & OpenJDK 8           & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Applikationsserver    & Tomcat 7   & Tomcat 7            & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Datenbank             & PostgreSQL 9.1 & aktuelle 9.x    & PostgreSQL 9.6\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
+                       & Minimum         & empfohlen           & Maximum\\\hline\hline
+ CPU (je VM)           & 1               & 1                   & 1\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ RAM OSIAM (alleine)   & 960 MiB         & 1536 MiB            & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ RAM core (alleine)    & 512 MiB         & 1024 MiB            & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ RAM core + OSIAM      & 1024 MiB        & 2048 MiB            & 4096 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ RAM Online-Anmeldung  & 512 MiB         & 768 MiB             & 1024 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ HDD OSIAM (alleine)   & 2 GB            & 4 GB                & 8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ HDD core (alleine)    & 2 GB            & 8 GB                & 20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ HDD core + OSIAM      & 3 GB            & 10 GB               & 20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ HDD Online-Anmeldung  & 1½ GB           & 3 GB                & 8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ Betriebssystem        & Debian 7        & Debian 7 oder 8     & Debian unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
+ Webserver             & Apache 2.2      & Apache 2.2 oder 2.4 & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Java Laufzeitumgebung & OpenJDK 7              & OpenJDK 8    & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Applikationsserver    & Tomcat 7.0.28-4+deb7u9 & aktuelle 7.x & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Datenbank             & PostgreSQL 9.1         & aktuelle 9.x & PostgreSQL 9.6\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
 \end{tabular}
 
 Bitte beachten Sie bei der Dimensionierung der Maschinen und der
@@ -665,15 +665,15 @@ ausgesetzt sein \emph{kann}.
 \else% !oa
 % Voraussetzungen für VerA.web ohne Online-Anmeldung:
 \begin{tabular}{| r || l | l | l |}\hline
-                       & Minimum    & empfohlen           & Maximum\\\hline\hline
- CPU                   & 1          & 1                   & 1\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Arbeitsspeicher       & 512 MiB    & 1024 MiB            & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Festplatte            & 2 GB       & 8 GB                & 20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Betriebssystem        & Debian 7   & Debian 7 oder 8     & Debian unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
- Webserver             & Apache 2.2 & Apache 2.2 oder 2.4 & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Java Laufzeitumgebung & OpenJDK 7  & OpenJDK 8           & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Applikationsserver    & Tomcat 7   & Tomcat 7            & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Datenbank             & PostgreSQL 9.1 & aktuelle 9.x    & PostgreSQL 9.6\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
+                       & Minimum         & empfohlen           & Maximum\\\hline\hline
+ CPU                   & 1               & 1                   & 1\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ Arbeitsspeicher       & 512 MiB         & 1024 MiB            & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ Festplatte            & 2 GB            & 8 GB                & 20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
+ Betriebssystem        & Debian 7        & Debian 7 oder 8     & Debian unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
+ Webserver             & Apache 2.2      & Apache 2.2 oder 2.4 & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Java Laufzeitumgebung & OpenJDK 7              & OpenJDK 8    & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Applikationsserver    & Tomcat 7.0.28-4+deb7u9 & aktuelle 7.x & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Datenbank             & PostgreSQL 9.1         & aktuelle 9.x & PostgreSQL 9.6\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
 \end{tabular}
 \fi% !oa
 
