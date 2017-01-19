@@ -58,7 +58,7 @@
 		</snapshotRepository>
 	</distributionManagement>
 	<packaging>war</packaging>
-	<name>VerA.web Online-Registration REST API</name>
+	<name>VerA.web shared REST API</name>
 	<dependencies>
 		<dependency>
 			<groupId>org.evolvis.veraweb</groupId>
