@@ -7,7 +7,7 @@
 	<version>1.8.48-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>veraweb-export</name>
+	<name>VerA.web export module</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
