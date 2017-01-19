@@ -2,7 +2,7 @@
 --
 -- Copyright © 2015
 --	Thorsten Glaser <t.glaser@tarent.de>
--- Copyright © 2013–2016 tarent solutions GmbH
+-- Copyright © 2013–2017 tarent solutions GmbH
 --
 -- This file is part of VerA.web and published under the same licence.
 
@@ -750,7 +750,7 @@ BEGIN
                 ALTER TABLE veraweb.timportperson ADD COLUMN internal_id VARCHAR(45);
 
                 CREATE OR REPLACE VIEW veraweb.aggregated_field_content as (
-                    select c.fk_guest, c.fk_delegation_field, string_agg(c.value, ';') as value
+                    select c.fk_guest, c.fk_delegation_field, ';' as value
                       from veraweb.toptional_fields_delegation_content c
                       group by c.fk_guest,  c.fk_delegation_field
                 );
