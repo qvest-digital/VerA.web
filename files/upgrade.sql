@@ -1,6 +1,6 @@
 -- Schema-Upgrade VerA.web Datenbank
 --
--- Copyright © 2015
+-- Copyright © 2015, 2017
 --	Thorsten Glaser <t.glaser@tarent.de>
 -- Copyright © 2013–2017 tarent solutions GmbH
 --
@@ -21,15 +21,17 @@ DECLARE
 	vcurvsn VARCHAR;
 	vnewvsn VARCHAR;
 	vint INT4;
+	psqlvsn INTEGER;
 
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2016-12-19';
+	vversion := '2016-12-20';
 
 	-- initialisation
 	vint := 0;
 	SELECT CURRENT_TIMESTAMP INTO vdate;
+	SELECT current_setting('server_version_num') INTO psqlvsn;
 	SELECT COUNT(*) INTO vint FROM veraweb.tconfig WHERE cname = 'SCHEMA_VERSION';
 	IF vint = 0 THEN
 		RAISE EXCEPTION 'Not a VerA.web database'
@@ -768,6 +770,37 @@ BEGIN
                 vcurvsn := vnewvsn;
                 INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
             END IF;
+
+	-- really 2017-01-19 but on LHM 1.8.45 branch
+	vnewvsn := '2016-12-20';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+
+		-- fixup the view so it works with PostgreSQL 8.4
+		DROP VIEW veraweb.aggregated_field_content;
+		IF (psqlvsn < 90000) THEN
+			CREATE OR REPLACE VIEW veraweb.aggregated_field_content AS (
+				SELECT c.fk_guest, c.fk_delegation_field,
+				    array_to_string(array_agg(c.value), ';') AS value
+				FROM veraweb.toptional_fields_delegation_content c
+				GROUP BY c.fk_guest, c.fk_delegation_field
+			);
+		ELSE
+			CREATE OR REPLACE VIEW veraweb.aggregated_field_content AS (
+				SELECT c.fk_guest, c.fk_delegation_field,
+				    string_agg(c.value, ';') AS value
+				FROM veraweb.toptional_fields_delegation_content c
+				GROUP BY c.fk_guest, c.fk_delegation_field
+			);
+		END IF;
+
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
 	-- end
 
