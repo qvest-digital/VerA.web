@@ -1,8 +1,8 @@
 -- Schema-Upgrade VerA.web Datenbank
 --
--- Copyright © 2015
+-- Copyright © 2015, 2017
 --	Thorsten Glaser <t.glaser@tarent.de>
--- Copyright © 2013–2016 tarent solutions GmbH
+-- Copyright © 2013–2017 tarent solutions GmbH
 --
 -- This file is part of VerA.web and published under the same licence.
 
@@ -21,15 +21,17 @@ DECLARE
 	vcurvsn VARCHAR;
 	vnewvsn VARCHAR;
 	vint INT4;
+	psqlvsn INTEGER;
 
 BEGIN
 
 	-- set this to the current DB schema version (date)
-	vversion := '2017-01-16';
+	vversion := '2017-01-19';
 
 	-- initialisation
 	vint := 0;
 	SELECT CURRENT_TIMESTAMP INTO vdate;
+	SELECT current_setting('server_version_num') INTO psqlvsn;
 	SELECT COUNT(*) INTO vint FROM veraweb.tconfig WHERE cname = 'SCHEMA_VERSION';
 	IF vint = 0 THEN
 		RAISE EXCEPTION 'Not a VerA.web database'
@@ -742,60 +744,90 @@ BEGIN
                 INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
             END IF;
 
-    vnewvsn := '2016-12-19';
-            IF vcurvsn < vnewvsn THEN
-                vmsg := 'begin.update(' || vnewvsn || ')';
+	vnewvsn := '2016-12-19';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
 
-                ALTER TABLE veraweb.tperson ADD COLUMN internal_id VARCHAR(45);
-                ALTER TABLE veraweb.timportperson ADD COLUMN internal_id VARCHAR(45);
+		ALTER TABLE veraweb.tperson ADD COLUMN internal_id VARCHAR(45);
+		ALTER TABLE veraweb.timportperson ADD COLUMN internal_id VARCHAR(45);
 
-                CREATE OR REPLACE VIEW veraweb.aggregated_field_content as (
-                    select c.fk_guest, c.fk_delegation_field, string_agg(c.value, ';') as value
-                      from veraweb.toptional_fields_delegation_content c
-                      group by c.fk_guest,  c.fk_delegation_field
-                );
+		CREATE OR REPLACE VIEW veraweb.aggregated_field_content as (
+		    select c.fk_guest, c.fk_delegation_field, ';' as value
+		      from veraweb.toptional_fields_delegation_content c
+		      group by c.fk_guest,  c.fk_delegation_field
+		);
 
-                ALTER TABLE veraweb.toptional_fields_delegation_content
-                DROP CONSTRAINT toptional_fields_delegation_content_fk_guest_fkey,
-                ADD CONSTRAINT toptional_fields_delegation_content_fk_guest_fkey
-                    FOREIGN KEY (fk_guest)
-                    REFERENCES veraweb.tguest(pk)
-                    ON DELETE CASCADE;
+		ALTER TABLE veraweb.toptional_fields_delegation_content
+		DROP CONSTRAINT toptional_fields_delegation_content_fk_guest_fkey,
+		ADD CONSTRAINT toptional_fields_delegation_content_fk_guest_fkey
+		    FOREIGN KEY (fk_guest)
+		    REFERENCES veraweb.tguest(pk)
+		    ON DELETE CASCADE;
 
-                -- post-upgrade
-                vmsg := 'end.update(' || vnewvsn || ')';
-                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-                vcurvsn := vnewvsn;
-                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-            END IF;
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
 	vnewvsn := '2017-01-12';
-			IF vcurvsn < vnewvsn THEN
-				vmsg := 'begin.update(' || vnewvsn || ')';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
 
-				ALTER TABLE veraweb.tguest DROP fk_color CASCADE;
-				ALTER TABLE veraweb.tguest DROP fk_color_p CASCADE;
+		ALTER TABLE veraweb.tguest DROP fk_color CASCADE;
+		ALTER TABLE veraweb.tguest DROP fk_color_p CASCADE;
 
-				-- post-upgrade
-				vmsg := 'end.update(' || vnewvsn || ')';
-				UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-				vcurvsn := vnewvsn;
-				INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-			END IF;
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
 	vnewvsn := '2017-01-16';
-			IF vcurvsn < vnewvsn THEN
-				vmsg := 'begin.update(' || vnewvsn || ')';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
 
-				ALTER TABLE veraweb.tmaildraft ADD COLUMN fk_orgunit int4 NOT NULL DEFAULT -1;
-				ALTER TABLE veraweb.tmaildraft ALTER COLUMN fk_orgunit DROP DEFAULT;
+		ALTER TABLE veraweb.tmaildraft ADD COLUMN fk_orgunit int4 NOT NULL DEFAULT -1;
+		ALTER TABLE veraweb.tmaildraft ALTER COLUMN fk_orgunit DROP DEFAULT;
 
-				-- post-upgrade
-				vmsg := 'end.update(' || vnewvsn || ')';
-				UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-				vcurvsn := vnewvsn;
-				INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-			END IF;
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
+
+	vnewvsn := '2017-01-19';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+
+		-- fixup the view so it works with PostgreSQL 8.4
+		DROP VIEW veraweb.aggregated_field_content;
+		IF (psqlvsn < 90000) THEN
+			CREATE OR REPLACE VIEW veraweb.aggregated_field_content AS (
+				SELECT c.fk_guest, c.fk_delegation_field,
+				    array_to_string(array_agg(c.value), ';') AS value
+				FROM veraweb.toptional_fields_delegation_content c
+				GROUP BY c.fk_guest, c.fk_delegation_field
+			);
+		ELSE
+			CREATE OR REPLACE VIEW veraweb.aggregated_field_content AS (
+				SELECT c.fk_guest, c.fk_delegation_field,
+				    string_agg(c.value, ';') AS value
+				FROM veraweb.toptional_fields_delegation_content c
+				GROUP BY c.fk_guest, c.fk_delegation_field
+			);
+		END IF;
+
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
 	-- end
 

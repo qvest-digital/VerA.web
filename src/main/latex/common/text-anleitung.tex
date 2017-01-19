@@ -1,6 +1,6 @@
 % VerA.web (public) Installationsanleitung
 %
-% Copyright © 2015, 2016
+% Copyright © 2015, 2016, 2017
 %	Thorsten Glaser <t.glaser@tarent.de>
 % Copyright © 2014, 2015
 %	Thorsten Glaser <thorsten.glaser@teckids.org>
@@ -653,6 +653,7 @@ dem core-System erhöhen sich die Anforderungen minimal.
  Webserver             & Apache 2.2 & Apache 2.2 oder 2.4 & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
  Java Laufzeitumgebung & OpenJDK 7  & OpenJDK 8           & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
  Applikationsserver    & Tomcat 7   & Tomcat 7            & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Datenbank             & PostgreSQL 9.1 & aktuelle 9.x    & PostgreSQL 9.6\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
 \end{tabular}
 
 Bitte beachten Sie bei der Dimensionierung der Maschinen und der
@@ -672,6 +673,7 @@ ausgesetzt sein \emph{kann}.
  Webserver             & Apache 2.2 & Apache 2.2 oder 2.4 & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
  Java Laufzeitumgebung & OpenJDK 7  & OpenJDK 8           & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
  Applikationsserver    & Tomcat 7   & Tomcat 7            & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Datenbank             & PostgreSQL 9.1 & aktuelle 9.x    & PostgreSQL 9.6\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
 \end{tabular}
 \fi% !oa
 
@@ -724,7 +726,10 @@ VerA.web verwendet wird)
 mit einer der stabilen Versionen Debian 7 „wheezy“ oder Debian 8
 „jessie“ als Betriebssystem. Zwar \emph{kann} die Software auch
 mit einer anderen Debian-basierten Distribution (z.B. Ubuntu 14.04
-„trusty“) oder einer anderen Java/Tomcat-Umgebung (z.B. Solaris)
+„trusty“) oder einer anderen Java/Tomcat-Umgebung (z.B. Solaris \dash
+hier müssen Sie Pfade, z.B. \texttt{/usr/ucb/install} statt einfach
+\texttt{install}, und Befehle, z.B. \texttt{zcat … | tar -xf -}
+statt \texttt{tar -xzf …}, an die modifizierte Umgebung anpassen)
 betrieben werden, allerdings geht diese Installationsanleitung von
 der empfohlenen Systemumgebung aus. Eine graphische Oberfläche auf
 dem Server wird zum Betrieb nicht benötigt.
@@ -1321,8 +1326,8 @@ Kopieren Sie bitte zunächst die Datei
 \texttt{veraweb-core-\vwiaverssw{}-files.tgz}
 \fi% !oa
 (oder deren ZIP-Äquivalent; in dieser Anleitung verwenden
-wir die tar.gz-Variante) sowie die Installationsarchive
-\texttt{veraweb-core-\vwiaverssw{}.war}
+wir die tar.gz-Variante\Hair\textsuperscript{\ref{fn:tarxzf}}) sowie die
+Installationsarchive \texttt{veraweb-core-\vwiaverssw{}.war}
 und \texttt{rest-api-\vwiaverssw{}.war} auf den core-Server.
 
 \begin{minipage}{\textwidth}
@@ -2177,8 +2182,10 @@ Kopieren Sie bitte zunächst die Datei
 \texttt{veraweb-core-\vwiaverssw{}-files.tgz}
 \fi% !oa
 (oder deren ZIP-Äquivalent; in dieser Anleitung verwenden
-wir die tar.gz-Variante) sowie die Installationsarchive
-\texttt{veraweb-core-\vwiaverssw{}.war}
+wir die tar.gz-Variante\Hair\footnote{\label{fn:tarxzf}auf Solaris-Systemen
+stattdessen \texttt{zcat veraweb-core-\vwiaverssw{}-files.tgz | tar -xf -}
+verwenden}) sowie die
+Installationsarchive \texttt{veraweb-core-\vwiaverssw{}.war}
 und \texttt{rest-api-\vwiaverssw{}.war} auf den core-Server.
 
 \begin{minipage}{\textwidth}
