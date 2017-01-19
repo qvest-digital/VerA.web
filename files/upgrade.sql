@@ -747,6 +747,7 @@ BEGIN
 	vnewvsn := '2016-12-19';
 	IF vcurvsn < vnewvsn THEN
 		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
 		ALTER TABLE veraweb.tperson ADD COLUMN internal_id VARCHAR(45);
 		ALTER TABLE veraweb.timportperson ADD COLUMN internal_id VARCHAR(45);
@@ -774,6 +775,7 @@ BEGIN
 	vnewvsn := '2017-01-12';
 	IF vcurvsn < vnewvsn THEN
 		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
 		ALTER TABLE veraweb.tguest DROP fk_color CASCADE;
 		ALTER TABLE veraweb.tguest DROP fk_color_p CASCADE;
@@ -788,6 +790,7 @@ BEGIN
 	vnewvsn := '2017-01-16';
 	IF vcurvsn < vnewvsn THEN
 		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
 		ALTER TABLE veraweb.tmaildraft ADD COLUMN fk_orgunit int4 NOT NULL DEFAULT -1;
 		ALTER TABLE veraweb.tmaildraft ALTER COLUMN fk_orgunit DROP DEFAULT;
