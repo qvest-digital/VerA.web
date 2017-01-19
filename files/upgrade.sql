@@ -685,7 +685,6 @@ BEGIN
                 INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
             END IF;
 
-
     vnewvsn := '2016-08-16';
             IF vcurvsn < vnewvsn THEN
                 vmsg := 'begin.update(' || vnewvsn || ')';
