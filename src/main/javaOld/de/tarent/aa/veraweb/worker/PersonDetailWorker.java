@@ -690,6 +690,8 @@ public class PersonDetailWorker implements PersonConstants {
          * modified to support change logging cklein 2008-02-12
          */
         BeanChangeLogger clogger = new BeanChangeLogger(database, transactionContext);
+
+        person.changed = new Timestamp(new Date().getTime());
         if (person.id == null) {
             createNewPerson(octopusContext, person, database, transactionContext, originalPersonId, clogger);
         } else {
@@ -720,6 +722,7 @@ public class PersonDetailWorker implements PersonConstants {
     private void createNewPerson(OctopusContext octopusContext, Person person, Database database, TransactionContext transactionContext,
             Integer originalPersonId, BeanChangeLogger clogger) throws BeanException, IOException {
         octopusContext.setContent("countInsert", 1);
+        person.created = new Timestamp(new Date().getTime());
         database.getNextPk(person, transactionContext);
         Insert insert = database.getInsert(person);
         insert.insert("pk", person.id);
