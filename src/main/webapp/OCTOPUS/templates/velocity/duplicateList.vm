@@ -97,9 +97,9 @@
 						<td width="170px">$!message.text($!bean.firstname_a_e1)</td>
 						<td width="150px">$!message.text($!bean.function_a_e1)</td>
 						<td width="130px">$!message.text($!bean.company_a_e1)</td>
-						<td width="200px">$!message.text($!bean.street_b_e1)</td>
-						<td width="130px">$!message.text($!bean.zipcode_b_e1)</td>
-						<td width="250px">$!message.text($!bean.city_b_e1)</td>
+						<td width="200px">$!message.text($!bean.street_a_e1)</td>
+						<td width="130px">$!message.text($!bean.zipcode_a_e1)</td>
+						<td width="250px">$!message.text($!bean.city_a_e1)</td>
 					</tr>
 						#foreach($duplicate in $bean.getDuplicateList())
 						#set($person = $duplicate.mainLatin)
@@ -111,9 +111,9 @@
 						<td width="170px">$!message.text($!duplicate.firstname_a_e1)</td>
 						<td width="150px">$!message.text($!duplicate.function_a_e1)</td>
 						<td width="130px">$!message.text($!duplicate.company_a_e1)</td>
-						<td width="200px">$!message.text($!duplicate.street_b_e1)</td>
-						<td width="130px">$!message.text($!duplicate.zipcode_b_e1)</td>
-						<td width="250px">$!message.text($!duplicate.city_b_e1)</td>
+						<td width="200px">$!message.text($!duplicate.street_a_e1)</td>
+						<td width="130px">$!message.text($!duplicate.zipcode_a_e1)</td>
+						<td width="250px">$!message.text($!duplicate.city_a_e1)</td>
 					</tr>
 						#end
 						#if($bean.hasMoreDuplicates())
