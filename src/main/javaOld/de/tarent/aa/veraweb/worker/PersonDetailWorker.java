@@ -691,10 +691,11 @@ public class PersonDetailWorker implements PersonConstants {
          */
         BeanChangeLogger clogger = new BeanChangeLogger(database, transactionContext);
 
-        person.changed = new Timestamp(new Date().getTime());
+
         if (person.id == null) {
             createNewPerson(octopusContext, person, database, transactionContext, originalPersonId, clogger);
         } else {
+            person.changed = new Timestamp(new Date().getTime());
             updateExistingPerson(octopusContext, person, database, transactionContext, personOld, clogger);
         }
 
