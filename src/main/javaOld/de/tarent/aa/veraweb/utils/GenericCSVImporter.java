@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Constructor;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -198,6 +199,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
                 }
             }
         }
+        person.created = new Timestamp(new Date().getTime());
         digester.importPerson(person, new ArrayList(extras.values()));
     }
 
