@@ -25,6 +25,7 @@ import com.sun.jersey.api.client.Client;
 import lombok.Getter;
 import lombok.extern.java.Log;
 import org.evolvis.veraweb.onlinereg.Config;
+import org.evolvis.veraweb.onlinereg.entities.Imprint;
 import org.evolvis.veraweb.onlinereg.utils.ImprintTransporter;
 import org.evolvis.veraweb.onlinereg.utils.ResourceReader;
 
@@ -37,7 +38,6 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +50,7 @@ public class ImprintResource {
     public static final String BASE_RESOURCE = "/rest";
 
     /** List of Events type */
-    private static final TypeReference<HashMap<String, String>> IMPRINT_LIST = new TypeReference<HashMap<String, String>>() {};
+    private static final TypeReference<Map<String, Imprint>> IMPRINT_LIST = new TypeReference<Map<String, Imprint>>() {};
 
     /** Jersey client */
     private Client client;
@@ -85,16 +85,20 @@ public class ImprintResource {
     public List<ImprintTransporter> getImprint(@QueryParam("current_language") String currentLanguageKey) throws IOException {
 
         final String imprintString = resourceReader.constructPath(BASE_RESOURCE, "imprint", currentLanguageKey);
-        final HashMap<String, String> listImprint = resourceReader.readStringResource(imprintString, IMPRINT_LIST);
+        final Map<String, Imprint> listImprint = resourceReader.readStringResource(imprintString, IMPRINT_LIST);
         final List<ImprintTransporter> listTransporter = new ArrayList<>();
 
-        for (Map.Entry<String, String> imprint : listImprint.entrySet()) {
-            listTransporter.add(new ImprintTransporter(imprint.getKey(), imprint.getValue()));
+        for (Map.Entry<String, Imprint> imprint : listImprint.entrySet()) {
+            listTransporter.add(generateImprintTransporter(imprint));
         }
 
         Collections.sort(listTransporter);
 
         return listTransporter;
+    }
+
+    private ImprintTransporter generateImprintTransporter(Map.Entry<String, Imprint> imprint) {
+        return new ImprintTransporter(imprint.getKey(), imprint.getValue().getHeading(), imprint.getValue().getContent());
     }
 
 }

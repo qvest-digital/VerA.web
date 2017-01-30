@@ -20,7 +20,8 @@
 package org.evolvis.veraweb.onlinereg.utils;
 public class ImprintTransporter implements Comparable<ImprintTransporter> {
 
-    private String heading;
+    private String key;
+	private String heading;
 	private String text;
 
     /** Empty constructor */
@@ -29,13 +30,23 @@ public class ImprintTransporter implements Comparable<ImprintTransporter> {
 	/**
 	 * Custom constructor.
 	 *
+	 * @param key FIXME
 	 * @param heading FIXME
 	 * @param text FIXME
 	 */
-	public ImprintTransporter(String heading, String text) {
+	public ImprintTransporter(String key, String heading, String text) {
 		super();
+		this.key = key;
 		this.heading = heading;
 		this.text = text;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 	public String getHeading() {
@@ -56,6 +67,6 @@ public class ImprintTransporter implements Comparable<ImprintTransporter> {
 
 	@Override
 	public int compareTo(ImprintTransporter other) {
-		return this.heading.compareTo(other.getHeading());
+		return this.key.compareTo(other.getKey());
 	}
 }
