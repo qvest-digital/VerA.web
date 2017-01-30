@@ -695,7 +695,6 @@ public class PersonDetailWorker implements PersonConstants {
         if (person.id == null) {
             createNewPerson(octopusContext, person, database, transactionContext, originalPersonId, clogger);
         } else {
-            person.changed = new Timestamp(new Date().getTime());
             updateExistingPerson(octopusContext, person, database, transactionContext, personOld, clogger);
         }
 
@@ -705,6 +704,7 @@ public class PersonDetailWorker implements PersonConstants {
     private void updateExistingPerson(OctopusContext octopusContext, Person person, Database database, TransactionContext transactionContext,
             Person personOld, BeanChangeLogger clogger) throws BeanException, IOException {
         octopusContext.setContent("countUpdate", 1);
+        person.changed = new Timestamp(new Date().getTime());
         Update update = database.getUpdate(person);
         if (!((PersonalConfigAA) octopusContext.personalConfig()).getGrants().mayReadRemarkFields()) {
             update.remove("note_a_e1");
