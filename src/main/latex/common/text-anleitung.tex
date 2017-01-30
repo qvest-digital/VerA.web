@@ -2875,36 +2875,32 @@ zur Online-Anmeldung nicht mehr angezeigt.
 Um ein benutzerdefiniertes Impressum für die Online-Anmeldung zu hinterlegen,
 muss die Datei \texttt{/etc/veraweb/vwor.properties} erweitert werden.
 
-Mit dem Eintrag imprint.<language\_key>.<sorting\_number><space><titel>=<text>
+Mit den Einträgen imprint.<language\_key>.heading.<sorting\_number>=<heading>
+und imprint.<language\_key>.content.<sorting\_number>=<content>
 lassen sich einzelne Abschnitte zum Impressum hinzufügen.
 
 Um das Impressum mehrsprachig zur Verfügung zu stellen, sollte ein Eintrag je
 einmal für den Sprachschlüssel (<language\_key>) „de\_DE“ und „en\_EN“ existieren.
 
-Aus den drei Teilen <sorting\_number>, <space> und <titel> setzt sich die Überschrift
-des Absatzes im fertigen Impressum zusammen. Durch das Nummerieren der Abschnitte kann
-die vorgesehene Reihenfolge erzeugt werden. Um ein Leerzeichen zwischen der Nummerierung
-und dem Titel zu erzeugen muss die Unicode-Form \textbackslash{}u00A0 verwendet werden.
-Andere Umlaute wie ä, ö, ü, Ä, Ö, Ü, ß,~… müssen auch dementsprechend kodiert werden.
+Durch das Nummerieren der Abschnitte kann die vorgesehene Reihenfolge erzeugt werden.
+Umlaute wie ä, ö, ü, Ä, Ö, Ü, ß,~… müssen auch dementsprechend nach Unicode kodiert
+werden (ä wird zu \backslash u00e4).
 
-Der eigentliche Text des Abschnitts (<text>) kann mit Leerzeichen umgehen. Umlaute
-müssen aber weiterhin codiert werden.
-
-Um nur einen Textblock ohne Überschrift zu generieren können <sorting\_number>,
-<space> und <titel> weggelassen werden. Der Eintrag muss dann wie folgt
-gestaltet werden: \texttt{imprint.de\_DE.=<text>} bzw. \texttt{imprint.en\_EN.=<text>}
-(die Punkte können nicht weggelassen werden).
+Um nur einen Textblock ohne Überschrift zu generieren kann nur der Eintrag
+für die Inhalt angegeben werden (imprint.<language\_key>.content.<sorting\_number>=<content>)
 
 Sollte es mehrere Einträge ohne Sortiernummer oder mit doppelter Nummer geben,
-ist keine spezielle Reihenfolge gewährleistet.
+ist keine spezielle Reihenfolge gewährleistet. Auch Sollten die Nummer zu
+Sortierung mit führenden Nullen beginnen.
 
 \begin{lstdump}{/etc/veraweb/vwor.properties}
 ...
-imprint.de_DE.1\u00A0\u00DCberschrift=Text des ersten Abschnitts
-imprint.de_DE.3\u00A0Absatz=Text des dritten Abschnitts
-imprint.de_DE.2\u00A0Titel=Diese Seite geh\u00F6rt dem Spa\u00DF-Verein
+imprint.de_DE.heading.01=\u00DCberschrift
+imprint.de_DE.content.01=Text des ersten Abschnitts
+imprint.de_DE.heading.02=Titel
+imprint.de_DE.content.02=Text des zweiten Abschnitts
 
-imprint.en_EN.=Just text without headline.
+imprint.en_EN.content.00=Just text without headline.
 \end{lstdump}
 
 \fi% oa
