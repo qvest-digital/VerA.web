@@ -51,6 +51,7 @@ sql: |
     p.iscompany as p_iscompany,
     p.importsource as p_importsource,
     p.fk_workarea as p_fk_workarea,
+    w.name as w_name,
     p.internal_id as p_internal_id,
     p.salutation_a_e1 as p_salutation_a_e1,
     p.fk_salutation_a_e1 as p_fk_salutation_a_e1,
@@ -269,6 +270,7 @@ sql: |
   from veraweb.tguest g
   inner join veraweb.tperson p on (g.fk_person = p.pk)
   left outer join veraweb.link_uuid l on l.personid = p.pk
+  left outer join veraweb.tworkarea w on w.pk = p.fk_workarea
   where g.fk_event = ${__event_id_placeholder__}
 
 mappings:
@@ -387,6 +389,8 @@ mappings:
     mapTo: "p_importsource"
   p_fk_workarea:
     mapTo: "p_fk_workarea"
+  w_name:
+    mapTo: "w_name"
   p_internal_id:
       mapTo: "p_internal_id"
   p_salutation_a_e1:
