@@ -12,13 +12,16 @@ class ImprintResourceTest extends Specification {
 
     def setup() {
         Set set = new HashSet<String>();
-        set.add("imprint.fr_FR.asdf");
-        set.add("imprint.fr_FR.qwert");
-        set.add("imprint.es_ES.yxcvb");
+        set.add("imprint.fr_FR.content.3");
+        set.add("imprint.fr_FR.heading.1");
+        set.add("imprint.fr_FR.heading.2");
+        set.add("imprint.fr_FR.content.2");
+        set.add("imprint.es_ES.heading.1");
+        set.add("imprint.es_ES.content.1");
 
         vworPropertiesReader.getProperties() >> prop
         prop.stringPropertyNames() >> set
-        vworPropertiesReader.getProperty() >> "value"
+        vworPropertiesReader.getProperty(_) >> "value"
 
         resource = new ImprintResource(vworPropertiesReader: vworPropertiesReader)
     }
@@ -28,7 +31,13 @@ class ImprintResourceTest extends Specification {
             def result = resource.getImprintList("fr_FR");
 
         then:
-            assert result.size() == 2
+            assert result.size() == 3
+            assert result.get("1").getHeading() == "value"
+            assert result.get("1").getContent() == null
+            assert result.get("2").getHeading() == "value"
+            assert result.get("2").getContent() == "value"
+            assert result.get("3").getHeading() == null
+            assert result.get("3").getContent() == "value"
     }
 
     void testGetImprintNull() {
