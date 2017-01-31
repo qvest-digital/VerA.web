@@ -249,10 +249,7 @@
 
             <div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
-            <div style="margin-bottom: 10px;">
-                <label for="person-internal_id">${placeholderWithTranslation.INTERNAL_ID}</label>
-                <input style="width: 47%;" type="text" name="person-internal_id" id="person-internal_id" value="$!message.text($person.internal_id)" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
-            </div>
+
 
             #set($personPartner = "hauptperson")
             #set($extEncoding = "$extEncoding1")

@@ -109,6 +109,12 @@
 							#end
 						</div>
 					</div>
+					<div class="tableRow">
+                        <div style="margin: 0 0 10px 20px;">
+                            <label for="person-internal_id">${placeholderWithTranslation.INTERNAL_ID}</label>
+                            <input style="width: 47%;" type="text" name="person-internal_id" id="person-internal_id" value="$!message.text($person.internal_id)" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
+                        </div>
+					</div>
 				</div>
 			</div>
 		</div>
