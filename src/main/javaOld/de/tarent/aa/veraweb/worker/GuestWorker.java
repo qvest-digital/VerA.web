@@ -55,7 +55,6 @@ import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -139,11 +138,9 @@ public class GuestWorker {
                                     + " and tperson.pk not in (select fk_person from tguest where fk_event = " + event.id + ")"
                             )));
 
-                    for (int i = 0; i < persons.size(); i++) {
-                        Person person = persons.get(i);
-
+                    for (Person person : persons) {
                         Integer fk_category = (Integer) invitecategory.get(person.id);
-                        if (fk_category != null && fk_category.intValue() == 0) {
+                        if (fk_category != null && fk_category == 0) {
                             fk_category = null;
                         }
 
@@ -182,10 +179,7 @@ public class GuestWorker {
 
             // prevent alert message in case of invited == 0 and notinvited == 0
             cntx.setContent("doNotAlert", true);
-        } catch (BeanException e) {
-            context.rollBack();
-            throw new BeanException("Die G\u00e4ste konnten nicht auf die G\u00e4steliste gesetzt werden.", e);
-        } catch (SQLException e) {
+        } catch (BeanException | SQLException e) {
             context.rollBack();
             throw new BeanException("Die G\u00e4ste konnten nicht auf die G\u00e4steliste gesetzt werden.", e);
         } catch (OutOfMemoryError e) {
@@ -213,9 +207,9 @@ public class GuestWorker {
                                       String personIds) throws BeanException, SQLException {
         String[] personIdsAsList = personIds.split(",");
 
-        for (int i = 0; i < personIdsAsList.length; i++) {
-            if (isStandardGuest(database, Integer.valueOf(personIdsAsList[i]), eventId)) {
-                updateGuestByNoLoginRequiredUUID(transactionContext, personIdsAsList[i], eventId);
+        for (String aPersonIdsAsList : personIdsAsList) {
+            if (isStandardGuest(database, Integer.valueOf(aPersonIdsAsList), eventId)) {
+                updateGuestByNoLoginRequiredUUID(transactionContext, aPersonIdsAsList, eventId);
             }
         }
     }
@@ -383,7 +377,7 @@ public class GuestWorker {
         try {
             int invited = 0;
             int notInvited = 0;
-            boolean invite = false;
+            boolean invite;
 
             if (event != null && person != null) {
                 // Falls der Person nur eine einzige Kategorie zugeordnet ist, wird diese mit in die Veranstaltung uebernommen (Bug 1593)
@@ -458,8 +452,8 @@ public class GuestWorker {
         try {
             List selection = (List) cntx.contentAsObject("listselection");
             if (selection != null && selection.size() != 0) {
-                for (Iterator it = selection.iterator(); it.hasNext(); ) {
-                    Integer guestId = (Integer) it.next();
+                for (Object currentEntry : selection) {
+                    Integer guestId = (Integer) currentEntry;
                     updateGuest(cntx, database, context, event, guestId);
                 }
             } else {
@@ -467,8 +461,8 @@ public class GuestWorker {
                         database.getList(
                                 database.getSelectIds(new Guest()).
                                         where(Expr.equal("fk_event", event.id)), database);
-                for (Iterator it = list.iterator(); it.hasNext(); ) {
-                    Integer guestId = (Integer) ((Map) it.next()).get("id");
+                for (Object entry : list) {
+                    Integer guestId = (Integer) ((Map) entry).get("id");
                     updateGuest(cntx, database, context, event, guestId);
                 }
             }
@@ -486,8 +480,8 @@ public class GuestWorker {
      * Diese Octopus-Aktion berechnet für eine Veranstaltung die 'Laufende Nummer'.
      *
      * @param cntx The {@link OctopusContext}
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException FIXME
+     * @throws IOException FIXME
      */
     public void calcSerialNumber(OctopusContext cntx) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(cntx);
@@ -495,8 +489,8 @@ public class GuestWorker {
         Event event = (Event) cntx.contentAsObject("event");
         logger.debug("calc order number for event #" + event.id);
 
-        Map questions = new HashMap();
-        if (event.begin.before(new Date()) && !cntx.requestAsBoolean("calc-serialno").booleanValue()) {
+        Map<String, String> questions = new HashMap<String, String>();
+        if (event.begin.before(new Date()) && !cntx.requestAsBoolean("calc-serialno")) {
             LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
             LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
 
@@ -602,7 +596,7 @@ public class GuestWorker {
             guest = new Guest();
             guest.event = event.id;
             guest.person = person.id;
-            guest.ishost = ishost.booleanValue() ? 1 : 0;
+            guest.ishost = ishost ? 1 : 0;
             guest.reserve = reserve;
             guest.invitationtype = invitationtype;
 
@@ -725,13 +719,13 @@ public class GuestWorker {
      *
      * @return Total number of the guests
      *
-     * @throws BeanException
-     * @throws IOException
+     * @throws BeanException FIXME
+     * @throws IOException FIXME
      */
     private int getNumberOfGuests(Database database, ExecutionContext context, Event event, Integer personId) throws BeanException, IOException {
         return database.getCount(database.getCount("Guest").where(Where.and(
                 Expr.equal("fk_event", event.id),
-                Expr.equal("fk_person", personId))), context).intValue();
+                Expr.equal("fk_person", personId))), context);
     }
 
     //
