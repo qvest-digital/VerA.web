@@ -5,6 +5,7 @@ sql: |
     g.fk_person as g_fk_person,
     g.fk_event as g_fk_event,
     g.fk_category as g_fk_category,
+    c.catname as c_name,
     g.invitationtype as g_invitationtype,
     g.invitationstatus as g_invitationstatus,
     g.ishost as g_ishost,
@@ -63,6 +64,7 @@ sql: |
   from veraweb.tguest g
   inner join veraweb.tperson p on (g.fk_person = p.pk)
   left outer join veraweb.link_uuid l on l.personid = p.pk
+  left outer join veraweb.tcategorie c on c.pk = g.fk_category
   left join aggregated_field_content c00 on c00.fk_guest=g.pk and c00.fk_delegation_field=${__optional_field_00_id_placeholder__}
   left join aggregated_field_content c01 on c01.fk_guest=g.pk and c01.fk_delegation_field=${__optional_field_01_id_placeholder__}
   left join aggregated_field_content c02 on c02.fk_guest=g.pk and c02.fk_delegation_field=${__optional_field_02_id_placeholder__}
@@ -89,6 +91,8 @@ mappings:
     mapTo: "g_fk_event"
   g_fk_category:
     mapTo: "g_fk_category"
+  c_name:
+    mapTo: "c_name"
   g_invitationtype:
     mapTo: "g_invitationtype"
   g_invitationstatus:
