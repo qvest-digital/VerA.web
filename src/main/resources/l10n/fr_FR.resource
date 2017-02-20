@@ -1238,7 +1238,6 @@ aufreservesetzen=Situ\u00E9 sur la r\u00E9serve
 delegationanmelden=Inscrivez d\u00E9l\u00E9gation
 alledemarkiereninklpartnerwenneingeladen=Marque de tous (y compris les partenaires, s\u2019ils sont invit\u00E9s)
 arbeitsshybereich=Espace de travail
-amtsbeshyzeichnung=Titre officiel
 eswurdenkeineeintraegegefunden=Aucune entr\u00E9e trouv\u00E9e
 suchenersetzen=Recherche et remplacement
 suchenersetzeninpersonendaten=Rechercher et remplacer dans les donn\u00E9es personnelles

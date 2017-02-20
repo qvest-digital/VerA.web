@@ -1235,7 +1235,6 @@ aufreservesetzen=Ubicar en reserva
 delegationanmelden=Registrar delegaci\u00F3n
 alledemarkiereninklpartnerwenneingeladen=(De)seleccionar todos (inc. partner, si est\u00E1n invitados)
 arbeitsshybereich=\u00C1rea de trabajo
-amtsbeshyzeichnung=T\u00EDtulo
 eswurdenkeineeintraegegefunden=No se han encontrado entradas.
 suchenersetzen=Buscar y reemplazar
 suchenersetzeninpersonendaten=Buscar y reemplazar en los datos de personas

@@ -1233,7 +1233,6 @@ aufreservesetzen=Set as reserve
 delegationanmelden=Register delegation
 alledemarkiereninklpartnerwenneingeladen=All (de)selected (incl. Partner, if invited)
 arbeitsshybereich=Work area
-amtsbeshyzeichnung=Employment title
 eswurdenkeineeintraegegefunden=No entries were found.
 suchenersetzen=Search and replace
 suchenersetzeninpersonendaten=Search and replace in persons data
