@@ -1205,7 +1205,6 @@ aufreservesetzen=Auf Reserve setzen
 delegationanmelden=Delegation anmelden
 alledemarkiereninklpartnerwenneingeladen=Alle (de)markieren (inkl. Partner, wenn eingeladen)
 arbeitsshybereich=Arbeits\u00ADbereich
-amtsbeshyzeichnung=Amtsbe\u00ADzeichnung
 eswurdenkeineeintraegegefunden=Es wurden keine Eintr\u00E4ge gefunden.
 suchenersetzen=Suchen und Ersetzen
 suchenersetzeninpersonendaten=Suchen und Ersetzen in Personendaten

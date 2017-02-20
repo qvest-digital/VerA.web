@@ -34,7 +34,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -134,6 +136,7 @@ public class MailinglistDetailWorker extends ListWorkerVeraWeb {
             mailinglist.updateHistoryFields(((PersonalConfigAA) octopusContext.personalConfig()).getRoleWithProxy());
             mailinglist.user = ((PersonalConfigAA) octopusContext.personalConfig()).getVerawebId();
             mailinglist.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();
+            mailinglist.created = new Timestamp(new Date().getTime());
 
             octopusContext.setContent("mailinglist", mailinglist);
             octopusContext.setSession("mailinglist", mailinglist);
