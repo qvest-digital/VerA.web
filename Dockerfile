@@ -15,10 +15,17 @@ EXPOSE 443
 VOLUME ["/etc/apache2", "/etc/libapache2-mod-jk", \
     "/var/lib/ldap-account-manager/config"]
 
-CMD ["/usr/bin/env", "-i", "LANG=C", \
-    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", \
-    "APACHE_RUN_USER=www-data", "APACHE_RUN_GROUP=www-data", \
-    "APACHE_RUN_DIR=/var/run/apache2", \
-    "APACHE_LOCK_DIR=/var/lock/apache2", "APACHE_LOG_DIR=/var/log/apache2", \
-    "APACHE_PID_FILE=/var/run/apache2/apache2.pid", \
-    "/usr/sbin/apache2", "-DFOREGROUND", "-k", "start"]
+ENV  LANG=C \
+     PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+     APACHE_RUN_USER=www-data \
+     APACHE_RUN_GROUP=www-data \
+     APACHE_LOG_DIR=/var/log/apache2 \
+     APACHE_LOCK_DIR=/var/lock/apache2 \
+     APACHE_RUN_DIR=/var/run/apache2 \
+     APACHE_PID_FILE=/var/run/apache2/apache2.pid
+
+COPY start.sh /start.sh
+
+RUN chmod +x /start.sh
+
+CMD ["/start.sh"]
