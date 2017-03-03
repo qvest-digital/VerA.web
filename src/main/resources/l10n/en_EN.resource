@@ -524,7 +524,7 @@ GENERIC_LAST_EDITED_ON=Last edited on
 GENERIC_PERSONS_ID=people-ID
 GENERIC_OA=Online-registration
 GENERIC_OA_USERNAME=Online-registration username
-zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=Zu dieser Person wurde das entsprechende Vorschaufeld noch nicht erzeugt.
+zudieserpersonwurdedasentsprechendevorschaufeldnochnichterzeugt=There is no preview-field created for this person.
 GENERIC_COPY_PERSON=Copy person
 GENERIC_CREATE_TAG=Create tag
 GENERIC_ASSIGN_TO_EVENT=Assign to event
@@ -539,9 +539,9 @@ GENERIC_GENERATE_ALL=Generate all
 GENERIC_CATEGORIES_AND_OCCASIONS=Categories and occasions
 
 # PERSONEN/PERSONENUEBERSICHT/PERSONBEARBEITEN/STATISTIK
-ubersichtuberalleveranstaltungeneinesgastes=\u00FCbersicht \u00FCber alle Veranstaltungen eines Gastes.
+ubersichtuberalleveranstaltungeneinesgastes=Summary of all events for one guest.
 GENERIC_VIEW_OVER_GUEST_EVENT=From
-statistikfurgast=Statistik f\u00FCr Gast
+statistikfurgast=Statistics for guest
 GENERIC_EVENT=Event
 GENERIC_BEGIN=Start
 
@@ -575,11 +575,11 @@ iban=IBAN
 bic=BIC
 GENERIC_MOBILE=Mobile
 LETTERS_WWW=WWW
-dublettenprufungdurchfuhren=Dublettenpr\u00FCfung durchf\u00FChren
+dublettenprufungdurchfuhren=Execute search for duplicates
 zurpersonenubersicht=To Person view
 
 # PERSONEN/SUCHEN UND ERSETZEN IN PERSONENDATEN
-hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=Hinweis Wenn Sie den Placeholder * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
+hinweiswennsiedenplatzhalterverwendenwerdenauchteilstuckeersetztsonstnurvollstandigedatenfelder=If you use the placeholder *, sections will also be replaced, otherwise only complete datafields.
 GENERIC_SEARCH_V=Search
 GENERIC_REPLACE=Replace
 GENERIC_IN_THE_FOLLOWING_FIELDS=In the following fields
@@ -595,17 +595,17 @@ GENERIC_REPLACE_ALL=Replace all
 GENERIC_DUPLICATE_SEARCH=Search for duplicates
 
 # PERSONEN/EXPORT VON PERSONENDATEN
-exportvonpersonendaten=Export von Personendaten
+exportvonpersonendaten=Export person data
 HINT_EXPORT_MANDANT_PERSON=You export with this function only persons from the current client.
 GENERIC_WITHOUT=Without
-botschaften=Botschaften
-finanzamtsprecher=Finanzamtsprecher
-journalisten=Journalisten
-lieferant=Lieferant
+botschaften=embassy
+finanzamtsprecher=financial officer
+journalisten=journalists
+lieferant=supplier
 nogs=NOGs
-politik=Politik
-pressevertreter=Pressevertreter
-wirtschaft=Wirtschaft
+politik=politics
+pressevertreter=press representatives
+wirtschaft=economy
 GENERIC_EXPORT=Export
 EXPORT_AS_CSV=Guest list complete
 EXPORT_AS_CSV_SHORT=Guest list short
@@ -654,8 +654,8 @@ HINT_IMPORT_SHORT_CONTENT=Hint With the Import, the input fields which are longe
 GENERIC_TARGET_CLIENT=Target client
 GENERIC_IMPORT_DATA=Import data
 GENERIC_DATA_TYPE=Data type
-dateiauswahlen=Datei ausw\u00E4hlen
-keineausgewahlt=Keine ausgew\u00E4hlt
+dateiauswahlen=Select file
+keineausgewahlt=None selected
 GENERIC_START_IMPORT=Start import
 
 # PERSONENDROPDOWN
@@ -703,9 +703,9 @@ GENERIC_TO_GUEST_MANAGEMENT=To guest management
 GENERIC_GENERAL=General
 GENERIC_TASK_PLURAL=Tasks
 GENERIC_ADDITIONAL_PERSONS_DATA=Additional persons data
-kurzbereichnung=Kurzbereichnung
+kurzbereichnung=Abbreviated designation 
 GENERIC_OPEN_EVENT=Open event
-umxuhr=Um x uhr
+umxuhr=At x o'clock
 veranstalgungsort=Venue
 GENERIC_SEARCH_FOR_HOST=Search for host
 GENERIC_DELETE_HOST=Delete host
@@ -754,12 +754,12 @@ GENERIC_ADD_NEW_KATEGORIES=Add new categorie
 #EVENT_PRECONDITION_NOT_FOUND=Es wurden keine Vorbedingungen gefunden
 
 # VERANSTALTUNGSSUCHE
-nurinzukunftigenveranstaltungensuchen=Nur in zuk\u00FCnftigen Veranstaltungen suchen
-siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=Sie k\u00F6nnen bei der Suche sogenannte Placeholder verwenden, der * steht f\u00FCr mehrere das ? f\u00FCr einzelne
+nurinzukunftigenveranstaltungensuchen=Only search future events
+siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzelne=When searching you can use placeholders. The * stands for multiple and the ? for single characters.
 
 # NEUE VERANSTALTUNG ANLEGEN
-mitpartner=Mit Partner
-eswurdeeineneueveranstaltungangelegt=Es wurde eine neue Veranstaltung angelegt.
+mitpartner=With Partner
+eswurdeeineneueveranstaltungangelegt=One new event successfully created.
 
 # VERTEILER
 angelegtvon=applied by
@@ -1752,7 +1752,7 @@ CONTACT_PICTURE_WRONG_SIZE=Picture size must be exactly 186x245 pixels.
 PICTURE_SIZE=Picture size
 PIXELS=pixels
 
-NO_PARTNER_IN_MASTERDATA=Kein Partner in Stammdaten hinterlegt
+NO_PARTNER_IN_MASTERDATA=No Partner found
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=One category successfully modified.
@@ -2032,12 +2032,12 @@ mobil_c_e2=Mobile mustn't be longer than 100 characters
 mobil_c_e3=Mobile mustn't be longer than 100 characters
 nationality_a_e1=Nationality/Citizenship mustn't be longer than 100 characters
 nationality_b_e1=Nationality/Citizenship mustn't be longer than 100 characters
-note_a_e1=Comment darf nicht l\u00E4nger als 2000 Zeichen sein.
-note_b_e1=Comment darf nicht l\u00E4nger als 2000 Zeichen sein.
-notehost_a_e1=Hint for host darf nicht l\u00E4nger als 2000 Zeichen sein.
-notehost_b_e1=Hint for host darf nicht l\u00E4nger als 2000 Zeichen sein.
-noteorga_a_e1=Hint for Orga darf nicht l\u00E4nger als 2000 Zeichen sein.
-noteorga_b_e1=Hint for Orga darf nicht l\u00E4nger als 2000 Zeichen sein.
+note_a_e1=Comment mustn't be longer than 2000 characters.
+note_b_e1=Comment mustn't be longer than 2000 characters.
+notehost_a_e1=Hint for host mustn't be longer than 2000 characters.
+notehost_b_e1=Hint for host mustn't be longer than 2000 characters.
+noteorga_a_e1=Hint for Orga mustn't be longer than 2000 characters.
+noteorga_b_e1=Hint for Orga mustn't be longer than 2000 characters.
 pobox_a_e1=Post office box mustn't be longer than 50 characters
 pobox_a_e2=Post office box mustn't be longer than 50 characters
 pobox_a_e3=Post office box mustn't be longer than 50 characters

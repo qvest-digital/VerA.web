@@ -303,7 +303,7 @@ GENERIC_TO=Para
 GENERIC_SUBJECT=Asunto
 GENERIC_ERROR=Error
 e-mails=E-Mails
-GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE=Combinar error t\u00E9cnicoTechnische Fehlermeldung einblenden
+GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE=Combinar error t\u00E9cnico
 GENERIC_ERROR_DESCRIPTION=Descripci\u00F3n del error
 
 # ADMINISTRATION/E-MAIL-VORLAGEN
@@ -1393,7 +1393,7 @@ MESSAGE_PROXY_NO_ROLE=Debe introducir un rol.
 MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=El comienzo de la representaci\u00F3n debe comenzar antes que el final.
 MESSAGE_FUNCTION_MISSING_NAME=Debe introducir un nombre para la funci\u00F3n.
 MESSAGE_USER_MISSING_ROLE=Debe introducir una descripci\u00F3n para el rol de usuario.
-MESSAGE_ORGUNIT_BUSY=XXX TODO: While the client is still assigned users it cannot be deleted.
+MESSAGE_ORGUNIT_BUSY=Hay asignados usuarios para el mandante/los mandantes. Debe primero eleminar la asignacion.
 
 # EVENT LIST TEXTS
 EVENT_LIST_WARNING_EVENTS_IN_FUTURE=Al menos un evento de los seleccionados est\u00E1 activo o lo estar\u00E1 en el futuro.
@@ -1936,16 +1936,16 @@ GM_PDF_TEMPLATE_INSERT_S=Se ha creado una nueva plantilla.
 GM_PDF_TEMPLATE_INSERT_P=Se han creado %s plantillas.
 GM_PDF_TEMPLATE_INSERT_N=No se han creado plantillas.
 
-PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE=Name der Vorlage darf nicht leer sein
-PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE=Es muss eine PDF-Datei ausgew\u00E4hlt werden
-PDF_TEMPLATE_LIST_NOT_LOAD=Liste der PDF-Vorlagen konnte nicht geladen werden
+PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE=El nombre de la plantilla no debe estar vac\u00EDo
+PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE=Por favor, seleccione un archivo PDF
+PDF_TEMPLATE_LIST_NOT_LOAD=Lista de plantillas PDF es vac\u00EDo
 PDF_GENERATE_BUTTON=Generar PDF
 PDF_GENERATE_LABEL=Exportaci\u00F3n a PDF
 
 LOAD_MAILTEMPLATE_FAILED = Cargando plantilla de correo electr\u00F3nico no
 SELECT_MAILTEMPLATE = Por favor, seleccione la plantilla de correo electr\u00F3nico
 
-ADDRESS_ERROR = Die Email wurde an den Verteiler versendet. Mindestens eine E-Mail-Adresse dieses Verteilers ist jedoch fehlerhaft gewesen! Der Verteiler konnte an diese E-Mail-Adresse(n) nicht versendet werden. Bitte kontrollieren und ggf. korrigieren Sie die folgenden E-Mail-Adresse(n):
+ADDRESS_ERROR = Su correo electr\u00F3nico ha sido enviado al distribuidor. Al minimos una direcci\u00F3n de correo electr\u00F3nico de este distribuidor es mal! El distribuidor no podr\u00EDa ser enviado a esta direcci\u00F3n de correo electr\u00F3nico. Por favor, compruebe y si es necesario correcta la siguiente direcci\u00F3n de correo electr\u00F3nico:  
 
 LABELLING_MUST_NOT_BE_EMPTY:El t\u00EDtulo no debe estar vac\u00EDo
 

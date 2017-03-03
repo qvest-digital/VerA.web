@@ -3,7 +3,7 @@ language_short=fr
 
 # BROWSER TAB-TITLE
 BROWSER_TITLE_CATEGORY=Cat\u00E9gorie
-BROWSER_TITLE_CLEANUP=Cleanup
+BROWSER_TITLE_CLEANUP=Nettoyer
 BROWSER_TITLE_COLOURS=Couleurs
 BROWSER_TITLE_GENERAL_CONFIGS=Configurations g\u00E9n\u00E9ral
 BROWSER_TITLE_TASKS=Devoirs
@@ -30,7 +30,7 @@ BROWSER_TITLE_EVENT_LOCATION=Lieu de l\u2019\u00E9v\u00E9nement
 BROWSER_TITLE_EMAIL_SUBMISSION_CREATE=Etablir nouveau mod\u00E8le d\u2019e-mail
 BROWSER_TITLE_EMAIL_SUBMISSION_EDIT=Editer mod\u00E8le d\u2019e-mail
 BROWSER_TITLE_EMAIL_SUBMISSION=Mod\u00E8les d\u2019e-mail
-BROWSER_TITLE_PDF_TEMPLATE=PDF-Vorlagen
+BROWSER_TITLE_PDF_TEMPLATE=Mod\u00E8les de PDF
 BROWSER_TITLE_DISTRIBUTOR_CREATE=Dresser la liste de distribution
 BROWSER_TITLE_DISTRIBUTOR_LIST=Liste de distribution
 BROWSER_TITLE_EMAIL_WRITE_DISTRIBUTOR=Ecrire un e-mail \u00E0 la liste de distribution
@@ -277,8 +277,8 @@ MESSAGE_FILL_USER_ROLE=Entrez un nom de r\u00F4le d\u2019utilisateur s\u2019il v
 
 # ADMINISTRATION/DOKUMENTTYPEN
 GENERIC_TOOLTIP=Remarque
-HINT_FORMAT_INFO=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei), xls steht f\u00FCr Microsoft Office Kennzeichen: Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.(xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
-HINT_EVENT_MARK=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
+HINT_FORMAT_INFO=OOo 1.1 signifie OpenOffice 1.1 (.sxc fichier), OOo 2.0 signifie OpenOffice 2.0 (.ods fichier), xls signifie Microsoft Office (.xls fichier) et CSV signifie CSV format de fichier.
+HINT_EVENT_MARK=Marque 50 et 99 sont automatiquement ajout\u00E9s \u00E0 de nouveaux \u00E9v\u00E9nements. Le marque 50 ne va pas cr\u00E9er un champ de texte.
 GENERIC_DOCUMENT_TYPES_MARKED=Type(s) de documents s\u00E9l\u00E9ctionn\u00E9(s)
 GENERIC_LABELLING=Indication
 GENERIC_ADRESS_TYPE=Type d\u2019adresse
@@ -362,7 +362,7 @@ GENERIC_MAIN_PERSON=Personnage principal
 GENERIC_PARTNER=Partenaire
 GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Sous-onglets des \u00ABAdresses\u00BB
 GENERIC_BUSINESS=Commercial
-GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Choix standard der Selectbox \u00ABZeichensatz\u00BB
+GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Choix standard du champ de s\u00E9lection \u00ABjeu de caract\u00E8res\u00BB
 GENERIC_CHARSET=Jeu de caract\u00E8res
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Titres standard et Champs de texte libre
 GENERIC_STANDARD_SALUTATION=Titre standard
@@ -760,7 +760,7 @@ siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehreredasfureinzel
 
 # NEUE VERANSTALTUNG ANLEGEN
 mitpartner=Avec partenaire
-eswurdeeineneueveranstaltungangelegt=
+eswurdeeineneueveranstaltungangelegt=Un \u00E9v\u00E9nement a \u00E9t\u00E9 cr\u00E9\u00E9
 
 # VERTEILER
 angelegtvon=Cr\u00E9\u00E9e par
@@ -938,8 +938,8 @@ sortierreihenfolge=L\u2019ordre de tri
 gastgebermitausgeben=H\u00F4tes avec sortie
 iststandardfursteuerdatei=Est la norme pour le fichier de contr\u00F4le
 format=Format
-HINT_EXPORT_FORMAT=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei),xls steht f\u00FCr Microsoft Office (xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
-HINT_EVENT_IDENTIFICATION=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
+HINT_EXPORT_FORMAT=OOo 1.1 signifie OpenOffice 1.1 (.sxc fichier), OOo 2.0 signifie OpenOffice 2.0 (.ods fichier), xls signifie Microsoft Office (xls fichier) et CSV signifie CSV format de fichier.
+HINT_EVENT_IDENTIFICATION=Marque 50 et 99 sont automatiquement ajout\u00E9s \u00E0 de nouveaux \u00E9v\u00E9nements. Le marque 50 ne va pas cr\u00E9er un champ de texte.
 wirklichloschen=Vraiment supprimer
 zumpersonenimport=Pour les personnes -Import
 importstatus=Importer Statut
@@ -1159,7 +1159,7 @@ wollensiediesenpersonenbzwdiesengaestedenausgewaehltenarbeitsbereichzuordnen=\u0
 eswurdenkeinearbeitsbereichzugeordnet=Aucun espaces de travail n\u2019\u00E9taient associ\u00E9s
 wollensiediezuordnungdieserpersonbzwdiesemgastzumausgewaehltenarbeitsbereichaufheben=Souhaitez vous dissocier de cette personne ou cet invit\u00E9 \u00E0 l\u2019espace de travail s\u00E9lectionn\u00E9?
 eswurdekeinarbeitsbereichaufgehoben=Il \u00E9tait \u00E0 pr\u00E9sent lev\u00E9 pas un espace de travail
-wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Wollen Sie die Zuordnung von %s Personen bzw. G\u00E4sten zum ausgew\u00E4hlten Arbeitsbereich aufheben
+wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben=Souhaitez vous dissocier ces %s personnes ou ces invit\u00E9 \u00E0 l\u2019espace de travail s\u00E9lectionn\u00E9?
 wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Vous souhaitez attribuer \u00E0 cette personne ou cet invit\u00E9 de l\u2019espace de travail s\u00E9lectionn\u00E9?
 wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=\u00C0 attribuer %s personnes ou invit\u00E9s de l\u2019espace de travail s\u00E9lectionn\u00E9?
 waehlensieeinenarbeitsbereichauswelchensie=S\u00E9lectionner un espace de travail, qui vous
@@ -1262,7 +1262,7 @@ eswurdeeinepersongefunden=On a constat\u00E9 une personne.
 personengefunden=personnes trouv\u00E9
 einzelneeinzraegezumersetzenselektieren=S\u00E9lectionner des entr\u00E9es individuelles pour remplacer
 allesofortersetzen=Remplacez imm\u00E9diatement
-wennsiedenplatzhalterverwendenwerdenauchteilstueckeersetztsonstnurvollstaendigedatenfelder=Wenn Sie den Platzhalter * verwenden, werden auch Teilst\u00FCcke ersetzt, sonst nur vollst\u00E4ndige Datenfelder.
+wennsiedenplatzhalterverwendenwerdenauchteilstueckeersetztsonstnurvollstaendigedatenfelder=Si vous utilisez le caract\u00E8re g\u00E9n\u00E9rique, \u00E9vite \u00E9galement \u00EAtre remplac\u00E9, sinon seuls les champs de donn\u00E9es compl\u00E8tes.
 siemuessendasdatumdeszeitrahmensimformatttmmjjjjangeben=Vous aurez besoin de la date de l\u2019\u00E9ch\u00E9ancier au format JJ.MM.AAAA
 markierteanredenloschen=Supprimez l\u2019adresse s\u00E9lectionn\u00E9e
 markiertendokumenttypenloschen=Supprimer des types de documents s\u00E9lectionn\u00E9s
@@ -1690,9 +1690,9 @@ GENERIC_PARTNER_FREETEXTFIELD=Champs de texte libre du partenaire
 GENERIC_VENUE=Lieu de l\u2019\u00E9v\u00E9nement
 
 GENERIC_TOTAL=Total
-OPTION_MARK_ADMINISTRATION_CATEGORY_1=Categorie
+OPTION_MARK_ADMINISTRATION_CATEGORY_1=Cat\u00E9gorie
 OPTION_MARK_ADMINISTRATION_CATEGORY_2=Occasion
-OPTION_MARK_ADMINISTRATION_CATEGORY_3=Diplo. Corps
+OPTION_MARK_ADMINISTRATION_CATEGORY_3=Corps diplomatique
 
 GENERIC_IMPORTID_HYPHEN=Importation-id
 
@@ -1761,7 +1761,7 @@ CONTACT_PICTURE_WRONG_SIZE=Les dimensions de l\u2019image doivent \u00EAtre exac
 PICTURE_SIZE=taille de l\u2019image
 PIXELS=pixels
 
-NO_PARTNER_IN_MASTERDATA=Kein Partner in Stammdaten hinterlegt
+NO_PARTNER_IN_MASTERDATA=Il n\u2019y a pas de partenaire dans le donn\u00E9e de base.
 
 #GENERAL MESSAGE
 GM_CATEGORY_MODIFY_S=Une cat\u00E9gorie a \u00E9t\u00E9 modifi\u00E9.
@@ -1937,16 +1937,16 @@ GM_PDF_TEMPLATE_INSERT_S=Un mod\u00E8le de PDF a \u00E9t\u00E9 cr\u00E9\u00E9.
 GM_PDF_TEMPLATE_INSERT_P=%s mod\u00E8les de PDF ont \u00E9t\u00E9 cr\u00E9\u00E9.
 GM_PDF_TEMPLATE_INSERT_N=Aucun mod\u00E8le de PDF a \u00E9t\u00E9 cr\u00E9\u00E9.
 
-PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE=Name der Vorlage darf nicht leer sein
-PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE=Es muss eine PDF-Datei ausgew\u00E4hlt werden
-PDF_TEMPLATE_LIST_NOT_LOAD=Liste der PDF-Vorlagen konnte nicht geladen werden
+PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE=Vous devez donner un nom de mod\u00E8le
+PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE=Vous devez s\u00E9lectionner un fichier PDF.
+PDF_TEMPLATE_LIST_NOT_LOAD=La liste des mod\u00E8les PDF ne pourra \u00EAtre charg\u00E9
 PDF_GENERATE_BUTTON=G\u00E9n\u00E9rer des PDF
-PDF_GENERATE_LABEL=PDF export
+PDF_GENERATE_LABEL=Exporter des PDF
 
 LOAD_MAILTEMPLATE_FAILED = Chargement email mod\u00E8le a \u00E9chou\u00E9
 SELECT_MAILTEMPLATE = S\u0027il vous pla\u00EEt s\u00E9lectionner email mod\u00E8le
 
-ADDRESS_ERROR = Die Email wurde an den Verteiler versendet. Mindestens eine E-Mail-Adresse dieses Verteilers ist jedoch fehlerhaft gewesen! Der Verteiler konnte an diese E-Mail-Adresse(n) nicht versendet werden. Bitte kontrollieren und ggf. korrigieren Sie die folgenden E-Mail-Adresse(n):
+ADDRESS_ERROR = Votre e-mail a \u00E9t\u00E9 envoy\u00E9 au distributeur. Au moins un adresse e-mail de ce distributeur est \u00E9t\u00E9 incorrectement. Le distributeur n'a pas pu \u00EAtre envoy\u00E9 vers ces adresses e-mail suivantes. S'il vous pla\u00EEt v\u00E9rifier et le cas \u00E9ch\u00E9ant corriger les adresses e-mail suivantes:
 
 LABELLING_MUST_NOT_BE_EMPTY:Le titre ne doit pas \u00EAtre vide
 
