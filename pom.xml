@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>rest-api</artifactId>
-	<version>1.8.48-SNAPSHOT</version>
+	<version>1.8.50-SNAPSHOT</version>
 	<description>REST-API VerA.web Serverseite</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -344,6 +344,29 @@
 						<param>org.evolvis.veraweb.onlinereg.*</param>
 					</targetTests>
 				</configuration>
+			</plugin>
+			<plugin>
+				<!-- Avoid the M.A.D. Gadget vulnerability in certain apache commons-collections versions -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.4.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<bannedDependencies>
+									<excludes>
+										<exclude>commons-collections:commons-collections:[3.0,3.2.1]</exclude>
+										<exclude>commons-collections:commons-collections:4.0</exclude>
+									</excludes>
+								</bannedDependencies>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
