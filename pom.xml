@@ -224,6 +224,30 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+
+			<plugin>
+				<!-- Avoid the M.A.D. Gadget vulnerability in certain apache commons-collections versions -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.4.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<bannedDependencies>
+									<excludes>
+										<exclude>commons-collections:commons-collections:[3.0,3.2.1]</exclude>
+										<exclude>commons-collections:commons-collections:4.0</exclude>
+									</excludes>
+								</bannedDependencies>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 
 	</build>
