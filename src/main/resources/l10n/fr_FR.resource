@@ -1392,6 +1392,7 @@ MESSAGE_PERSON_MAIL_NOT_VALID=Le format d\u0027adresse e-mail est incorrecte !
 MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=Le connecteur peut \u00EAtre jusqu\u2019\u00E0 50 caract\u00E8res de long.
 MESSAGE_PROXY_NO_REPRESENTATIVE=Vous devez entrer un repr\u00E9sentant.
 MESSAGE_PROXY_NO_ROLE=Vous devez entrer un r\u00F4le.
+MESSAGE_PROXY_MISSING_BOTH=Die Felder "Rolle" und "Vertreter" sind Pflichtfelder.
 MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=Le d\u00E9but de la repr\u00E9sentation doit \u00EAtre avant la fin.
 MESSAGE_FUNCTION_MISSING_NAME=Vous devez donner un nom \u00E0 la fonction.
 MESSAGE_USER_MISSING_ROLE=Vous devez taper un nom de r\u00F4le d\u2019utilisateur.

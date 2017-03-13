@@ -20,6 +20,7 @@
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.Proxy;
+import de.tarent.aa.veraweb.utils.VerawebMessages;
 import de.tarent.dblayer.sql.Escaper;
 import de.tarent.dblayer.sql.clause.Expr;
 import de.tarent.dblayer.sql.clause.Function;
@@ -32,6 +33,7 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.Bean;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.Database;
+import de.tarent.octopus.beans.Request;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.octopus.beans.veraweb.ListWorkerVeraWeb;
 import de.tarent.octopus.server.OctopusContext;
@@ -287,9 +289,10 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
      * @throws IOException
      */
     @Override
-    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context ) throws BeanException, IOException {
+    protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context) throws BeanException, IOException {
         int count = 0;
         if (bean.isModified()) {
+            checkMandatoryFields(cntx, (Proxy)bean);
             if (bean.isCorrect()) {
                 saveBean(cntx, bean, context);
                 count++;
@@ -300,7 +303,23 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
         return count;
     }
 
-	@Override
+    @Override
+    public void saveList(OctopusContext octopusContext) throws BeanException {
+        final List errors = new ArrayList();
+
+        final TransactionContext transactionContext = getDatabase(octopusContext).getTransactionContext();
+        try {
+            handleAction(octopusContext, errors, transactionContext);
+            if (!errors.isEmpty()) {
+                octopusContext.setContent(OUTPUT_saveListErrors, errors);
+            }
+        } catch (Throwable e) {
+            transactionContext.rollBack();
+            throw new BeanException("Die Änderungen an der Datenliste konnten nicht gespeichert werden.", e);
+        }
+    }
+
+    @Override
     protected void saveBean(final OctopusContext octopusContext, Bean bean, TransactionContext context) throws BeanException, IOException {
 		Proxy proxy = (Proxy)bean;
 		if (proxy.validFrom != null) {
@@ -321,7 +340,6 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
 			calendar.set(Calendar.MILLISECOND, 0);
 			proxy.validTill.setTime(calendar.getTimeInMillis());
 		}
-
         proxy.verify(octopusContext);
 
         if(proxy.isCorrect()) {
@@ -335,5 +353,83 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
     static boolean containsNow(Timestamp from, Timestamp till) {
         Timestamp now = new Timestamp(System.currentTimeMillis());
         return (from == null || from.before(now)) && (till == null || till.after(now));
+    }
+
+
+    private void handleAction(OctopusContext octopusContext, List errors, TransactionContext transactionContext) throws BeanException, IOException {
+        boolean doInsert = octopusContext.requestAsBoolean(INPUT_INSERT).booleanValue();
+        boolean doUpdate = octopusContext.requestAsBoolean(INPUT_UPDATE).booleanValue();
+        boolean doRemove = octopusContext.requestAsBoolean(INPUT_REMOVE).booleanValue();
+        if (!octopusContext.requestContains(INPUT_BUTTON_SAVE)) {
+            doInsert = false;
+            doUpdate = false;
+        }
+        if (!octopusContext.requestContains(INPUT_BUTTON_REMOVE)) {
+            doRemove = false;
+        }
+
+        final Request request = getRequest(octopusContext);
+        if (doInsert) {
+            executeInsertReplacement(octopusContext, errors, transactionContext, request);
+        }
+        if (doUpdate) {
+            executeUpdateReplacement(octopusContext, errors, transactionContext, request);
+        }
+        if (doRemove) {
+            executeDeleteReplacement(octopusContext, errors, transactionContext);
+        }
+        transactionContext.commit();
+    }
+
+    private void executeDeleteReplacement(OctopusContext octopusContext, List errors, TransactionContext transactionContext) throws BeanException, IOException {
+        int count = removeSelection(octopusContext, errors, getSelection(octopusContext, null), transactionContext);
+        if (count > 0) {
+            octopusContext.setContent("countRemove", new Integer(count));
+        }
+    }
+
+    private void executeUpdateReplacement(OctopusContext octopusContext, List errors, TransactionContext transactionContext, Request request) throws BeanException, IOException {
+        int count = updateBeanList(octopusContext, errors, request.getBeanList(BEANNAME, INPUT_LIST), transactionContext);
+        if (count > 0) {
+            octopusContext.setContent("countUpdate", new Integer(count));
+        }
+    }
+
+    private void executeInsertReplacement(OctopusContext octopusContext, List errors, TransactionContext transactionContext, Request request) throws BeanException, IOException {
+        int count = insertBean(octopusContext, errors, request.getBean(BEANNAME, INPUT_ADD), transactionContext);
+        if(count > 0) {
+            octopusContext.setContent("countInsert", new Integer(count));
+        }
+    }
+
+
+    private void checkMandatoryFields(OctopusContext octopusContext, Proxy proxy) {
+        final VerawebMessages messages = new VerawebMessages(octopusContext);
+        checkBothMandatoryFields(proxy, messages);
+    }
+
+    private void checkBothMandatoryFields(Proxy proxy, VerawebMessages messages) {
+        final String replacement = proxy.proxy;
+        final Integer originId = proxy.user;
+        if((replacement == null || replacement.equals("")) && (originId == null || originId.equals("")) ) {
+            proxy.addError(messages.getMessageProxyBothRolleAndProxyMissing());
+        } else {
+            checkMandatoryFieldRepresentative(proxy, messages);
+            checkMandatoryFieldRole(proxy, messages);
+        }
+    }
+
+    private void checkMandatoryFieldRepresentative(Proxy proxy, VerawebMessages messages) {
+        final String replacement = proxy.proxy;
+        if(replacement == null || replacement.equals("")) {
+            proxy.addError(messages.getMessageProxyNoRepresentative());
+        }
+    }
+
+    private void checkMandatoryFieldRole(Proxy proxy, VerawebMessages messages) {
+        final Integer originId = proxy.user;
+        if(originId == null || originId.equals("")) {
+            proxy.addError(messages.getMessageProxyNoRole());
+        }
     }
 }

@@ -162,6 +162,11 @@ public class VerawebMessages {
         return languageProvider.getProperty("MESSAGE_PROXY_NO_ROLE");
     }
 
+    public String getMessageProxyBothRolleAndProxyMissing() {
+        return languageProvider.getProperty("MESSAGE_PROXY_MISSING_BOTH");
+    }
+
+
     public String getMessageProxyRepresentativeBeginBeforeEnd() {
         return languageProvider.getProperty("MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END");
     }

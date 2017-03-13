@@ -1386,6 +1386,7 @@ MESSAGE_PERSON_MAIL_NOT_VALID=Provided email-address is not valid.
 MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=The connector is limited to 50 characters.
 MESSAGE_PROXY_NO_REPRESENTATIVE=You need to assign a representative.
 MESSAGE_PROXY_NO_ROLE=You need to provide a role.
+MESSAGE_PROXY_MISSING_BOTH=Die Felder "Rolle" und "Vertreter" sind Pflichtfelder.
 MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=The representative\u2019s begin needs to be before the end chronologically.
 MESSAGE_FUNCTION_MISSING_NAME=You need to provide a name for the function.
 MESSAGE_USER_MISSING_ROLE=You need to provide a description for a user role.
