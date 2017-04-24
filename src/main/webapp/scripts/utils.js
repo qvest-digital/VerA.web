@@ -61,12 +61,16 @@ function isModified(id) {
 	}
 }
 
-function filterList(letter) {
+function filterList(letter, page) {
 	$('input[name$="-select"]').prop('checked', false);
 	var form = document.getElementById('formlist');
 	if (form && form.elements['filter']) {
 		form.elements['filter'].value = letter;
-		form.elements['start'].value = 0;
+		if (page === null || page === undefined) {
+		    form.start.value = 0;
+		} else {
+		    form.start.value = page;
+		}
 		form.submit();
 	} else {
 		alert('form or field filter NOT FOUND!');

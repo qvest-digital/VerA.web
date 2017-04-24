@@ -133,6 +133,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         final Integer count = database.getCount(select);
         final Map listParams = getParamMap(start, limit, count);
         octopusContext.setContent(OUTPUT_showListParams, listParams);
+        octopusContext.setContent("filterLetter", octopusContext.requestAsObject("filter"));
 
         personSelect.Limit(new Limit(limit, start));
 

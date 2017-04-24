@@ -39,7 +39,7 @@
 						#else
 							<li class="img" id="page-first"><img
 									src="${paths.staticWeb}images/paging_arrow_left_last_active.png"
-									onclick="navigateList($listparam.first);"
+									onclick="filterList(#if($filterLetter) '$filterLetter' #else null#end , $listparam.first);"
 									title="${placeholderWithTranslation.GENERIC_FIRST_PAGE}" style="cursor: pointer;">
 							</li>
 						#end
@@ -51,7 +51,7 @@
 						#else
 							<li class="img" id="page-previous"><img
 									src="${paths.staticWeb}images/paging_arrow_left_active.png"
-									onclick="navigateList($listparam.prev);"
+									onclick="filterList(#if($filterLetter) '$filterLetter' #else null#end , $listparam.prev);"
 									title="${placeholderWithTranslation.GENERIC_PREVIOUS_PAGE}"
 									style="cursor: pointer;">
 							</li>
@@ -74,7 +74,7 @@
 								#if ($s == $listparam.start)
 									<li id="page-$p">$p</li>
 								#else
-									<li><a id="page-$p" href="javascript:navigateList($s);">$p</a></li>
+									<li><a id="page-$p" href="javascript:filterList(#if($filterLetter) '$filterLetter' #else null#end , $s);">$p</a></li>
 								#end
 							#end
 						#end
@@ -87,7 +87,7 @@
 						#else
 							<li class="img" id="page-next"><img
 									src="${paths.staticWeb}images/paging_arrow_right_active.png"
-									onclick="navigateList($listparam.next);"
+									onclick="filterList(#if($filterLetter) '$filterLetter' #else null#end , $listparam.next);"
 									title="${placeholderWithTranslation.GENERIC_NEXT_PAGE}"
 									style="cursor: pointer;"/></li>
 						#end
@@ -99,7 +99,7 @@
 						#else
 							<li class="img" id="page-last"><img
 									src="${paths.staticWeb}images/paging_arrow_right_last_active.png"
-									onclick="navigateList($listparam.last);"
+									onclick="filterList(#if($filterLetter) '$filterLetter' #else null#end , $listparam.last);"
 									title="${placeholderWithTranslation.GENERIC_LAST_PAGE}"
 									style="cursor: pointer;"/></li>
 						#end
