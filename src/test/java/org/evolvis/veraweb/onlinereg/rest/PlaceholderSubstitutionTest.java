@@ -54,7 +54,7 @@ public class PlaceholderSubstitutionTest {
     private String createTemplate(final List<String> words) {
         final StringBuilder sb1 = new StringBuilder();
         for (String word : words) {
-            sb1.append(word+": '<"+word+">'\n");
+            sb1.append(word+": '&lt;"+word+"&gt;'\n");
         }
         final String template = sb1.toString();
         return template;
