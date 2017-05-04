@@ -51,7 +51,7 @@ public class PlaceholderSubstitution {
 
     public String apply(String text) {
         
-        Pattern p = Pattern.compile("<(\\w+)>");
+        Pattern p = Pattern.compile("&lt;(\\w+)&gt;");
         Matcher matcher = p.matcher(text);
         StringBuffer sb = new StringBuffer();
         while (matcher.find()) {

@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import static org.evolvis.veraweb.onlinereg.utils.VworConstants.*;
+
 /**
  * @author Atanas Alexandrov, tarent solutions GmbH
  */
@@ -64,9 +66,9 @@ public class MailDispatcher {
         final String emailContent = text.replace("${link}", link);
         final Message message;
         if (TYPE_HTML.equalsIgnoreCase(contentType)) {
-            message = getMessage(session, from, to, subject, emailContent, VworConstants.HTML_CONTENT_TYPE);
+            message = getMessage(session, from, to, subject, emailContent, HTML_CONTENT_TYPE);
         } else {
-            message = getMessage(session, from, to, subject, emailContent, VworConstants.PLAINTEXT_CONTENT_TYPE);
+            message = getMessage(session, from, to, subject, emailContent, PLAINTEXT_CONTENT_TYPE);
         }
         transport.connect(host, username, password);
         transport.sendMessage(message, message.getAllRecipients());
@@ -89,7 +91,6 @@ public class MailDispatcher {
             }
         }
         final Message message = getMessage(session, from, to, subject, multipart, multipart.getContentType());
-       
         MailDispatchMonitor monitor = new MailDispatchMonitor();
         transport.addConnectionListener(monitor);
         transport.addTransportListener(monitor);

@@ -32,7 +32,7 @@ import java.util.Map;
 public class MailingResource extends FormDataResource {
     private static final Logger LOGGER = Logger.getLogger(MailingResource.class);
     public static final String PARAM_MAILINGLIST_ID = "mailinglist-id";
-    public static final String PARAM_MAIL_TEXT = "mail-text";
+    public static final String PARAM_MAIL_TEXT = "mailtext";
     public static final String PARAM_MAIL_SUBJECT = "mail-subject";
 
     private MailDispatcher mailDispatcher;

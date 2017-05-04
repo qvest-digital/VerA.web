@@ -120,7 +120,7 @@ public class MailingResourceTest {
         FormDataContentDisposition fdcd1 = mock(FormDataContentDisposition.class);
         FormDataContentDisposition fdcd2 = mock(FormDataContentDisposition.class);
         when(formData.getField("mail-subject")).thenReturn(formDataBodyPart1);
-        when(formData.getField("mail-text")).thenReturn(formDataBodyPart2);
+        when(formData.getField("mailtext")).thenReturn(formDataBodyPart2);
         when(formData.getField("mailinglist-id")).thenReturn(formDataBodyPart3);
         when(formDataBodyPart1.getEntityAs(String.class)).thenReturn("subject");
         when(formDataBodyPart2.getEntityAs(String.class)).thenReturn("text");
@@ -135,7 +135,7 @@ public class MailingResourceTest {
         when(entity1.getInputStream()).thenReturn(new ByteArrayInputStream("file1".getBytes(StandardCharsets.UTF_8)));
         when(entity2.getInputStream()).thenReturn(new ByteArrayInputStream("file2".getBytes(StandardCharsets.UTF_8)));
         when(session.getNamedQuery("PersonMailinglist.findByMailinglist")).thenReturn(query);
-        when(mailDispatcher.sendEmailWithAttachments(any(String.class), any(String.class), any(String.class), any(String.class), any(Map.class) )).thenReturn(mailDispatchMonitor);
+        when(mailDispatcher.sendEmailWithAttachments(any(String.class), any(String.class), any(String.class), any(String.class), any(Map.class))).thenReturn(mailDispatchMonitor);
         when(query.list()).thenReturn(ids);
 
         // WHEN
