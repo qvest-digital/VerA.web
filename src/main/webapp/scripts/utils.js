@@ -211,26 +211,6 @@ function onMouseOutList(line) {
 	line.style.backgroundColor = '';
 }
 
-function insertAtCursor(fld, text) {
-	// IE
-	if (document.selection) {
-		fld.focus();
-		sel = document.selection.createRange();
-		sel.text = text;
-	}
-	// Mozilla, Firefox
-	else if (fld.selectionStart || fld.selectionStart == '0') {
-		var startPos = fld.selectionStart;
-		var endPos = fld.selectionEnd;
-		fld.value = fld.value.substring(0, startPos)
-				+ text
-				+ fld.value.substring(endPos, fld.value.length);
-	// Alle anderen
-	} else {
-		fld.value += text;
-	}
-}
-
 /**
  * Show a text below the page header line
  *

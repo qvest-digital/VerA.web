@@ -17,6 +17,7 @@
 
 <div id="content_container">
 	<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
+	<script src="${paths.staticWeb}ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="${paths.staticWeb}scripts/veraweb-mailtemplate.js"></script>
 
 	<div id="breadcrumb" class="textRight marginBottom10">
@@ -54,8 +55,8 @@
                             <input type="text" id="mail-subject" name="mail-subject" value="$!message.text($mail.subject)">
             			</div>
             			<div>
-                        	<label for="mail-text">${placeholderWithTranslation.GENERIC_TEXT}</label>
-                        	<textarea id="mail-text" name="mail-text" style="height:200px">$!message.textarea($mail.text)</textarea>
+                        	<label for="mailtext">${placeholderWithTranslation.GENERIC_TEXT}</label>
+                        	<textarea id="mailtext" name="mailtext" style="height:200px">$!message.textarea($mail.text)</textarea>
             			</div>
             			<div class="inlineLabel">
                             <label for="platzhalter">${placeholderWithTranslation.GENERIC_PLACEHOLDER}</label>
@@ -85,7 +86,7 @@
 
                         <div id="buttonPanel-bottom" class="textRight">
                             <img id="spinner" src="${paths.staticWeb}images/spinner.gif" align="absmiddle" style="height:30px; display:none"/>
-                           	<input type="button" name="send" value="${placeholderWithTranslation.senden}" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth" onclick="rewriteAction();$('#formlist').submit();">
+                           	<input type="button" name="send" value="${placeholderWithTranslation.senden}" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth" onclick="rewriteAction();setEmailContent();$('#formlist').submit();">
                            	<input type="reset"  name="clear"  value="${placeholderWithTranslation.zuruecksetzen}" title="${placeholderWithTranslation.zuruecksetzen}" class="mainButton autoWidth">
                         </div>
 					</div>
@@ -146,6 +147,17 @@
 </div>
 
 <script type="text/javascript">
+
+	// Enable CKEditor
+	$(document).ready(function() {
+		CKEDITOR.replace('mailtext');
+    });
+
+    function setEmailContent() {
+        var data = CKEDITOR.instances.mailtext.getData();
+        $("#mailtext").val(data);
+    }
+
 	function rewriteAction() {
 		$("#formlist").attr("action", "${paths.staticWeb}mailing");
 	}
@@ -154,7 +166,7 @@
 		var sel = document.getElementById('platzhalter');
 		var text = sel.options[sel.selectedIndex].value;
 		if (text.length > 0) {
-			insertAtCursor(document.getElementById('mail-text'), '<' + text + '>');
+			CKEDITOR.instances.mailtext.insertText('<' + text + '>');
 		}
 	}
 

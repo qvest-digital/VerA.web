@@ -17,7 +17,7 @@
                     $(".errormsg").remove();
                     $(".successmsg").remove();
                     $("#mail-subject").val(data.subject);
-                    $("#mail-text").text(data.content);
+                    $("#mailtext").text(data.content);
                 },
                 error: function(data) {
                     $(".errormsg").remove();
