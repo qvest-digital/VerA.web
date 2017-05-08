@@ -1,3 +1,5 @@
+<script src="${paths.staticWeb}ckeditor/ckeditor.js"></script>
+
 #set($activeMenu = "Administration")
 #if($maildraft && $maildraft.id)
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_SUBMISSION_EDIT}: $!message.text($maildraft.name)")
@@ -11,7 +13,7 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_PLURAL}")
 #parse("inc/header.vm")
 
-<form id="formlist" name="formlist" action="" method="POST">
+<form id="formlist" name="formlist" action="MailDraftDetail" method="POST">
 	<input type="hidden" name="save" value="true"/>
 
 	<div id="content_container">
@@ -47,8 +49,8 @@
             	<td><input type="text" id="maildraft-subject" name="maildraft-subject" maxlength="200" value="$!message.text($maildraft.subject)" /></td>
             </tr>
 			<tr>
-            	<td class="bold"><label for="maildraft-text">${placeholderWithTranslation.GENERIC_TEXT}*</label></td>
-            	<td><textarea cols="50" rows="20" id="maildraft-text" class="width100" name="maildraft-text" >$!message.textarea($maildraft.text)</textarea></td>
+            	<td class="bold"><label for="maildrafttext">${placeholderWithTranslation.GENERIC_TEXT}*</label></td>
+            	<td><textarea cols="50" rows="20" id="maildrafttext" class="width100" name="maildrafttext" >$!message.textarea($maildraft.text)</textarea></td>
             </tr>
 			<tr>
             	<td class="bold"><label for="platzhalter">${placeholderWithTranslation.GENERIC_PLACEHOLDER}</label></td>
@@ -87,7 +89,7 @@
 
 
         <div id="buttonPanel-bottom" class="textRight marginTop10">
-        	<input type="submit" name="submit" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+        	<input type="button" name="send" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" onclick="setEmailContent();$('#formlist').submit();"/>
         	<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" class="mainButton" onclick="window.location.href='MailDraftList?selectNone=true';" />
         </div>
 	</div>
@@ -99,9 +101,19 @@
 		var sel = document.getElementById('platzhalter');
 		var text = sel.options[sel.selectedIndex].value;
 		if (text.length > 0) {
-			insertAtCursor(document.getElementById('maildraft-text'), '<' + text + '>');
+			CKEDITOR.instances.maildrafttext.insertText('<' + text + '>');
 		}
 	}
+
+	// Enable CKEditor
+	$(document).ready(function() {
+		CKEDITOR.replace('maildrafttext');
+    });
+
+    function setEmailContent() {
+        var data = CKEDITOR.instances.maildrafttext.getData();
+        $("#maildrafttext").val(data);
+    }
 </script>
 
 #parse("inc/footer.vm")

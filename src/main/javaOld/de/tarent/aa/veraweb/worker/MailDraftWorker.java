@@ -166,6 +166,7 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 	public MailDraft saveDetail(final OctopusContext octopusContext, final Boolean save) throws BeanException, IOException {
 		if (save != null && save.booleanValue()) {
 			MailDraft mailDraft = (MailDraft)getRequest(octopusContext).getBean("MailDraft", "maildraft");
+			mailDraft.text = octopusContext.requestAsString("maildrafttext");
 			TransactionContext context = ( new DatabaseVeraWeb(octopusContext) ).getTransactionContext();
 
             mailDraft.orgunit = ((PersonalConfigAA) octopusContext.personalConfig()).getOrgUnitId();

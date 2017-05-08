@@ -18,6 +18,7 @@
                     $(".successmsg").remove();
                     $("#mail-subject").val(data.subject);
                     $("#mailtext").text(data.content);
+                    CKEDITOR.instances.mailtext.setData(data.content);
                 },
                 error: function(data) {
                     $(".errormsg").remove();
