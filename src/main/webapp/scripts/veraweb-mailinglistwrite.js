@@ -2,6 +2,7 @@
 	$(document).ready(function() {
 	    CKEDITOR.replace('mailtext'); // Enable CKEditor
         $("input[name='send']").click(executeAllActions);
+        $("input[name='add']").click(addPlatzhalter);
     });
 
     function executeAllActions() {
