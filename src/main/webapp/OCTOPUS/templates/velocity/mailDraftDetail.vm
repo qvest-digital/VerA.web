@@ -1,5 +1,3 @@
-<script src="${paths.staticWeb}ckeditor/ckeditor.js"></script>
-
 #set($activeMenu = "Administration")
 #if($maildraft && $maildraft.id)
 	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_SUBMISSION_EDIT}: $!message.text($maildraft.name)")
@@ -12,6 +10,9 @@
 #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_SINGULAR}")
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_PLURAL}")
 #parse("inc/header.vm")
+
+<script src="${paths.staticWeb}ckeditor/ckeditor.js"></script>
+<script src="${paths.staticWeb}scripts/veraweb-mailtemplatedetails.js"></script>
 
 <form id="formlist" name="formlist" action="MailDraftDetail" method="POST">
 	<input type="hidden" name="save" value="true"/>
@@ -89,31 +90,11 @@
 
 
         <div id="buttonPanel-bottom" class="textRight marginTop10">
-        	<input type="button" name="send" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" onclick="setEmailContent();$('#formlist').submit();"/>
+        	<input type="button" name="send" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
         	<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" class="mainButton" onclick="window.location.href='MailDraftList?selectNone=true';" />
         </div>
 	</div>
 
 </form>
-
-<script type="text/javascript">
-	function addPlatzhalter(s) {
-		var sel = document.getElementById('platzhalter');
-		var text = sel.options[sel.selectedIndex].value;
-		if (text.length > 0) {
-			CKEDITOR.instances.maildrafttext.insertText('<' + text + '>');
-		}
-	}
-
-	// Enable CKEditor
-	$(document).ready(function() {
-		CKEDITOR.replace('maildrafttext');
-    });
-
-    function setEmailContent() {
-        var data = CKEDITOR.instances.maildrafttext.getData();
-        $("#maildrafttext").val(data);
-    }
-</script>
 
 #parse("inc/footer.vm")
