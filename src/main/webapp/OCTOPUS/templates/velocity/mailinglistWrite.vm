@@ -14,10 +14,14 @@
 <div data-errormsg="${placeholderWithTranslation.LOAD_MAILTEMPLATE_FAILED}" id="loadmailtemplate-errormsg"></div>
 <div data-errormsg="${placeholderWithTranslation.SELECT_MAILTEMPLATE}" id="selectmailtemplate-errormsg"></div>
 <div data-orgunit="$!octopusConfig.personalConfig.orgUnitId" id="loadmailtemplate-orgunit"></div>
+<div data-formaction="${paths.staticWeb}mailing" id="formaction"></div>
+
+
 
 <div id="content_container">
 	<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
 	<script src="${paths.staticWeb}ckeditor/ckeditor.js"></script>
+	<script src="${paths.staticWeb}scripts/veraweb-mailinglistwrite.js"></script>
 	<script type="text/javascript" src="${paths.staticWeb}scripts/veraweb-mailtemplate.js"></script>
 
 	<div id="breadcrumb" class="textRight marginBottom10">
@@ -86,7 +90,7 @@
 
                         <div id="buttonPanel-bottom" class="textRight">
                             <img id="spinner" src="${paths.staticWeb}images/spinner.gif" align="absmiddle" style="height:30px; display:none"/>
-                           	<input type="button" name="send" value="${placeholderWithTranslation.senden}" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth" onclick="rewriteAction();setEmailContent();$('#formlist').submit();">
+                           	<input type="button" name="send" value="${placeholderWithTranslation.senden}" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth" onclick="rewriteAction();">
                            	<input type="reset"  name="clear"  value="${placeholderWithTranslation.zuruecksetzen}" title="${placeholderWithTranslation.zuruecksetzen}" class="mainButton autoWidth">
                         </div>
 					</div>
@@ -146,88 +150,6 @@
     </form>
 </div>
 
-<script type="text/javascript">
 
-	// Enable CKEditor
-	$(document).ready(function() {
-		CKEDITOR.replace('mailtext');
-    });
-
-    function setEmailContent() {
-        var data = CKEDITOR.instances.mailtext.getData();
-        $("#mailtext").val(data);
-    }
-
-	function rewriteAction() {
-		$("#formlist").attr("action", "${paths.staticWeb}mailing");
-	}
-
-	function addPlatzhalter(s) {
-		var sel = document.getElementById('platzhalter');
-		var text = sel.options[sel.selectedIndex].value;
-		if (text.length > 0) {
-			CKEDITOR.instances.mailtext.insertText('<' + text + '>');
-		}
-	}
-
-	function disableSubmitButton() {
-		$('[type="button"]').attr('disabled', 'disabled').addClass('disabled');
-	}
-
-	function enableSubmitButton() {
-		$('[type="button"]').removeAttr('disabled').removeClass('disabled');
-	}
-
-	function displaySpinner() {
-		$('#spinner').show();
-	}
-
-	function hideSpinner() {
-		$('#spinner').hide();
-	}
-
-	$(document).ready(function() {
-	    $('#formlist').ajaxForm({
-		    beforeSubmit: function(arr, $form, options) {
-		    	$("#formlist").attr("action", "${paths.staticWeb}mailing");
-		    	displaySpinner();
-				disableSubmitButton();
-		    },
- 			error: function(response){
-				$(".errormsg").remove();
-
-				if (response.status === 400) {
-
-					var arr = response.responseText.split("\n");
-                    var text = '$errorMsgAddress' + "<br><br>";
-                    for (i = 0; i < arr.length; i++) {
-                        var syntax = arr[i].indexOf("ADDRESS_SYNTAX_NOT_CORRECT:");
-                        if(syntax != -1){
-                            var mail = arr[i].indexOf(":");
-                            text += arr[i].substring(mail+1) + "<br>";
-                        }
-                    }
-
-					showWarning(text);
-				} else if (response.status === 502) {
-					showWarning('$errorMsgVerteiler');
-				} else {
-					showWarning('$errorMsg');
-				}
-  				hideSpinner();
-  				enableSubmitButton();
-			},
-			success: function () {
-				$(".errormsg").remove();
-
-			    hideSpinner();
-				enableSubmitButton();
-
-				$('#main_content').hide();
-				$('#success').show();
-        	}
-        });
-    });
-</script>
 
 #parse("inc/footer.vm")
