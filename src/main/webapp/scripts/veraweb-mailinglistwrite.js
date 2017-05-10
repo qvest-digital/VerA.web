@@ -1,7 +1,7 @@
 (function(){
 	$(document).ready(function() {
 	    CKEDITOR.replace('mailtext'); // Enable CKEditor
-        $("input[name='send'").click(executeAllActions);
+        $("input[name='send']").click(executeAllActions);
     });
 
     function executeAllActions() {

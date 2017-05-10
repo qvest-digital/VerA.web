@@ -90,7 +90,7 @@
 
                         <div id="buttonPanel-bottom" class="textRight">
                             <img id="spinner" src="${paths.staticWeb}images/spinner.gif" align="absmiddle" style="height:30px; display:none"/>
-                           	<input type="button" name="send" value="${placeholderWithTranslation.senden}" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth" onclick="rewriteAction();">
+                           	<input type="button" name="send" value="${placeholderWithTranslation.senden}" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth">
                            	<input type="reset"  name="clear"  value="${placeholderWithTranslation.zuruecksetzen}" title="${placeholderWithTranslation.zuruecksetzen}" class="mainButton autoWidth">
                         </div>
 					</div>
