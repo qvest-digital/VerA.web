@@ -135,7 +135,7 @@ public class MailingResourceTest {
         when(entity1.getInputStream()).thenReturn(new ByteArrayInputStream("file1".getBytes(StandardCharsets.UTF_8)));
         when(entity2.getInputStream()).thenReturn(new ByteArrayInputStream("file2".getBytes(StandardCharsets.UTF_8)));
         when(session.getNamedQuery("PersonMailinglist.findByMailinglist")).thenReturn(query);
-        when(mailDispatcher.sendEmailWithAttachments(any(String.class), any(String.class), any(String.class), any(String.class), any(Map.class))).thenReturn(mailDispatchMonitor);
+        when(mailDispatcher.sendEmailWithAttachments(any(String.class), any(String.class), any(String.class), any(String.class), any(Map.class), any(String.class))).thenReturn(mailDispatchMonitor);
         when(query.list()).thenReturn(ids);
 
         // WHEN
@@ -144,7 +144,7 @@ public class MailingResourceTest {
         // THEN
         verify(sessionFactory, times(1)).openSession();
         verify(session, times(1)).close();
-        verify(mailDispatcher, times(1)).sendEmailWithAttachments(any(String.class), any(String.class), any(String.class), any(String.class), any(Map.class));
+        verify(mailDispatcher, times(1)).sendEmailWithAttachments(any(String.class), any(String.class), any(String.class), any(String.class), any(Map.class), any(String.class));
     }
 
     private void prepareSession() {

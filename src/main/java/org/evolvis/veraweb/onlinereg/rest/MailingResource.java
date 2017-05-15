@@ -94,7 +94,7 @@ public class MailingResource extends FormDataResource {
             final String from = getFrom(recipient);
             try {
                 final MailDispatchMonitor monitor = mailDispatcher.sendEmailWithAttachments(from, recipient.getAddress(), subject,
-                        substitutePlaceholders(text, recipient.getPerson()), files);
+                        substitutePlaceholders(text, recipient.getPerson()), files, emailConfiguration.getContentType());
                 sb.append(monitor.toString());
             } catch (AddressException e) {
                 LOGGER.error("Email-Adress is not valid" + recipient.getAddress(), e);

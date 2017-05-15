@@ -76,7 +76,7 @@ public class MailDispatcherTest {
         Files.write(Paths.get(tmpFile.getAbsolutePath()), msg.getBytes());
         fileMap.put(PARAM_TESTFILE, tmpFile);
 
-        classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, fileMap);
+        classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, fileMap, "plain");
 
         final ArgumentCaptor<Message> message = ArgumentCaptor.forClass(Message.class);
         final ArgumentCaptor<Address[]> receipents = ArgumentCaptor.forClass(Address[].class);
@@ -93,7 +93,7 @@ public class MailDispatcherTest {
 
     @Test
     public void sendEmailWithAttachmentsNull() throws Exception {
-        classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, null);
+        classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, null, "plain");
 
         final ArgumentCaptor<Message> message = ArgumentCaptor.forClass(Message.class);
         final ArgumentCaptor<Address[]> receipents = ArgumentCaptor.forClass(Address[].class);
@@ -107,7 +107,7 @@ public class MailDispatcherTest {
     public void sendEmailWithAttachmentsNoFiles() throws Exception {
         final Map<String, File> emptyFileMap = new HashMap<String, File>();
 
-        classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, emptyFileMap);
+        classToTest.sendEmailWithAttachments("from", PARAM_TO, PARAM_SUBJECT, PARAM_TEXT, emptyFileMap, "plain");
 
         final ArgumentCaptor<Message> message = ArgumentCaptor.forClass(Message.class);
         final ArgumentCaptor<Address[]> receipents = ArgumentCaptor.forClass(Address[].class);
