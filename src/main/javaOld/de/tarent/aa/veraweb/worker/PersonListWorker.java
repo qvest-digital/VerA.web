@@ -970,7 +970,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
             list.addAnd(Expr.in("tperson.pk", new RawClause("(SELECT fk_host FROM veraweb.tevent)")));
         }
         if (personSearch.internal_id != null && personSearch.internal_id.length() != 0) {
-            list.addAnd(Expr.equal("tperson.internal_id", personSearch.internal_id));
+            list.addAnd(getInternalIdFilter(personSearch));
         }
     }
 
@@ -979,6 +979,10 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         final String[] columns = { "state_a_e1", "state_a_e2", "state_a_e3", "state_b_e1", "state_b_e2", "state_b_e3", "state_c_e1", "state_c_e2",
                 "state_c_e3" };
         return DatabaseHelper.getWhere(value, columns);
+    }
+
+    private Clause getInternalIdFilter(PersonSearch personSearch) {
+        return DatabaseHelper.getWhere(personSearch.internal_id, new String[] { "internal_id"});
     }
 
     private Clause getZipCodeFilter(final PersonSearch personSearch) {
