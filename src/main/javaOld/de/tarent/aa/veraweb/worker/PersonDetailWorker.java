@@ -747,25 +747,14 @@ public class PersonDetailWorker implements PersonConstants {
         clogger.logInsert(octopusContext.personalConfig().getLoginname(), person);
     }
 
-    // private void checkConversionFromFirmaToPerson(Person person) {
-    // if ((!person.company_a_e1.equals(null) || person.company_a_e1.equals(""))
-    // && person.iscompany.equals("f")) {
-    // person.company_a_e1 = null;
-    // }
-    // }
-
     /**
      * kopiert alle Kategorie-Relationen der original-Person an die new-Person
      *
-     * @param originalPersonId
-     *            Id der original-Person
-     * @param newPersonId
-     *            Id der new-Person
-     * @param database
-     *            Datenbank
-     * @param transactionContext
-     *            Transaktionskontext der Datenbank
-     * @throws IOException
+     * @param originalPersonId   Id der original-Person
+     * @param newPersonId        Id der new-Person
+     * @param database           Datenbank
+     * @param transactionContext Transaktionskontext der Datenbank
+     * @throws IOException FIXME
      */
     private void copyCategories(Integer originalPersonId, Integer newPersonId, Database database, TransactionContext transactionContext)
             throws IOException {
@@ -818,12 +807,9 @@ public class PersonDetailWorker implements PersonConstants {
      * der übergebenen ID (es wird die übergebene genommen oder eine Instanz aus
      * der DB geladen).
      *
-     * @param octopusContext
-     *            Octopus-Kontext
-     * @param person
-     *            Person; wird benutzt, falls sie die richtige ID hat
-     * @param personId
-     *            Personen-ID
+     * @param octopusContext Octopus-Kontext
+     * @param person         Person; wird benutzt, falls sie die richtige ID hat
+     * @param personId       Personen-ID
      */
     public void updatePerson(OctopusContext octopusContext, Person person, Integer personId) throws BeanException, IOException {
         Database database = new DatabaseVeraWeb(octopusContext);
@@ -853,16 +839,11 @@ public class PersonDetailWorker implements PersonConstants {
         }
     }
 
-    //
-    // Öffentliche Hilfsmethoden
-    //
-
     /**
      * Diese Methode erzeugt eine Test-Person und liefert diese zurück.
      *
-     * @param partner
-     *            bei "only" werden nur Daten zur Partnerperson, bei "without"
-     *            nur Daten zur Hauptperson und sonst Daten zu beiden erzeugt.
+     * @param partner bei "only" werden nur Daten zur Partnerperson, bei "without"
+     *                nur Daten zur Hauptperson und sonst Daten zu beiden erzeugt.
      */
     public static Person getTestPerson(String partner) throws BeanException {
         Person person = new Person();
@@ -892,15 +873,10 @@ public class PersonDetailWorker implements PersonConstants {
         return person;
     }
 
-    //
-    // geschützte Hilfsmethoden
-    //
-
     /**
      * Diese Methode füllt die Personen-Member-Facade mit Testwerten.
      *
-     * @param suffix
-     *            Suffix für Text-wertige Attribute
+     * @param suffix Suffix für Text-wertige Attribute
      */
     protected static void showTestPerson(PersonMemberFacade facade, String suffix) {
         facade.setBirthday(new Timestamp(System.currentTimeMillis()));
@@ -919,8 +895,7 @@ public class PersonDetailWorker implements PersonConstants {
     /**
      * Diese Methode füllt die Personen-Adress-Facade mit Testwerten.
      *
-     * @param suffix
-     *            Suffix für Text-wertige Attribute
+     * @param suffix Suffix für Text-wertige Attribute
      */
     protected static void showTestPerson(PersonAddressFacade facade, String suffix) {
         facade.setCity("Ort" + suffix);
@@ -949,13 +924,10 @@ public class PersonDetailWorker implements PersonConstants {
      * Die übergebene ID wird genutzt, wenn sie nicht <code>null</code> ist oder
      * der Parameter <code>forceset</code> <code>true</code> ist.
      *
-     * @param octopusContext
-     *            Octopus-Kontext
-     * @param id
-     *            neue aktuelle ID
-     * @param forceSet
-     *            erzwingt das Nutzen der übergebenen ID, selbst wenn sie
-     *            <code>null</code> ist.
+     * @param octopusContext Octopus-Kontext
+     * @param id             neue aktuelle ID
+     * @param forceSet       erzwingt das Nutzen der übergebenen ID, selbst wenn sie
+     *                       <code>null</code> ist.
      * @return die aktuelle Personen-ID
      */
     private Integer getPersonId(OctopusContext octopusContext, Integer id, boolean forceSet) {
@@ -979,12 +951,9 @@ public class PersonDetailWorker implements PersonConstants {
      * berücksichtigt.
      * </p>
      *
-     * @param octopusContext
-     *            Aktueller Octopus Kontext
-     * @param person
-     *            Die zu löschende Person
-     * @throws BeanException
-     *             inkl. Datenbank-Fehler
+     * @param octopusContext Aktueller Octopus Kontext
+     * @param person         Die zu löschende Person
+     * @throws BeanException inkl. Datenbank-Fehler
      * @throws IOException
      */
     void removePerson(OctopusContext octopusContext, Person person, String username) throws BeanException, IOException {
@@ -1017,11 +986,8 @@ public class PersonDetailWorker implements PersonConstants {
     /**
      * Die Person wird nicht wirklich gelöscht, sondern als gelöscht markiert.
      *
-     * @param personid
-     *            Die ID von der Person
-     *
-     * @throws BeanException
-     *             Falls das update doch nicht funktioniert
+     * @param personid Die ID von der Person
+     * @throws BeanException Falls das update doch nicht funktioniert
      */
     private void updatePerson(Integer personid) throws BeanException {
         final Statement fullDeletePersonStatement = deletePerson.where(Expr.equal("pk", personid));
@@ -1175,10 +1141,8 @@ public class PersonDetailWorker implements PersonConstants {
     /**
      * Deletes an OSIAM user with the given username.
      *
-     * @param octopusContext
-     *            The {@link de.tarent.octopus.server.OctopusContext}
-     * @param username
-     *            The username
+     * @param octopusContext The {@link de.tarent.octopus.server.OctopusContext}
+     * @param username       The username
      */
     public void deleteOsiamUser(OctopusContext octopusContext, String username) {
         if (OnlineRegistrationHelper.isOnlineregActive(octopusContext)) {
