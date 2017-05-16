@@ -496,8 +496,6 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
             addError(messages.getPersonMessageField(column));
         }
 
-        checkExtendedMailValidation(messages);
-
         if (iscompany != null && iscompany.equals(PersonConstants.ISCOMPANY_TRUE)) {
             if (company_a_e1 == null || company_a_e1.equals("") || company_a_e1.trim().equals("")) {
                 addError(messages.getMessagePersonNoCompanyName());
@@ -518,15 +516,6 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
 		 * temporarily fixes issue #1529 until i gain access to the old octopus repository
 		 */
         DateHelper.temporary_fix_translateErrormessageEN2DE(this.getErrors(), octopusContext);
-    }
-
-    private void checkExtendedMailValidation(VerawebMessages messages) {
-        if (mail_a_e1 == null || mail_a_e1.equals("")){
-            addError(messages.getMessageNoMail());
-        }
-        if (!VerawebUtils.isValidEmailAddress(mail_a_e1)){
-            addError(messages.getMessageNotValidMail());
-        }
     }
 
     /**

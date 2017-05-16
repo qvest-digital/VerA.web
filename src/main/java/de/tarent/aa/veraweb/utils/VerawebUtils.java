@@ -3,7 +3,6 @@ package de.tarent.aa.veraweb.utils;
 import de.tarent.aa.veraweb.beans.facade.EventConstants;
 import de.tarent.dblayer.helper.ResultList;
 import de.tarent.dblayer.helper.ResultMap;
-import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,17 +79,5 @@ public class VerawebUtils {
         } else { // type.intValue() == EventConstants.TYPE_NURPARTNER
             return "Nur Partner";
         }
-    }
-
-    /**
-     * checks if an String represents a valid e-mail address
-     * return true if e-mail address is valid, false if not
-     *
-     * @param email String with possible e-mail address
-     * @return      boolean if e-mail address is valid or not
-     */
-    public static boolean isValidEmailAddress(String email){
-
-        return EmailValidator.getInstance().isValid(email);
     }
 }

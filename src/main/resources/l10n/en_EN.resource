@@ -1382,7 +1382,6 @@ MESSAGE_PERSON_NO_NAME_LAST_NAME=You need to provide a first- and last name.
 MESSAGE_PERSON_NO_NAME=You need to provide a first name.
 MESSAGE_PERSON_NO_LASTNAME=You need to provide a last name.
 MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=Connection between person and category can not be saved.
-MESSAGE_PERSON_MAIL_NOT_VALID=Provided email-address is not valid.
 MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=The connector is limited to 50 characters.
 MESSAGE_PROXY_NO_REPRESENTATIVE=You need to assign a representative.
 MESSAGE_PROXY_NO_ROLE=You need to provide a role.

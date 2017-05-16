@@ -1386,7 +1386,6 @@ MESSAGE_PERSON_NO_NAME_LAST_NAME=Debe introducir un nombre y apellidos.
 MESSAGE_PERSON_NO_NAME=Debe introducir un nombre.
 MESSAGE_PERSON_NO_LASTNAME=Debe introducir los apellidos.
 MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=No se puede guardar la relaci\u00F3n entre persona y categor\u00EDa.
-MESSAGE_PERSON_MAIL_NOT_VALID=La direcci\u00F3n de e-mail introducido no es v\u00E1lido.
 MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=El conector puede ser de hasta 50 caracteres de longitud.
 MESSAGE_PROXY_NO_REPRESENTATIVE=El campo "Representante" es obligatorio.
 MESSAGE_PROXY_NO_ROLE=El campo "Rol" es obligatorio.

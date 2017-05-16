@@ -134,13 +134,6 @@ public class VerawebMessages {
     public String getMessageBothNameFieldsAreEmpty() {
         return languageProvider.getProperty("MESSAGE_PERSON_NO_NAME_LAST_NAME");
     }
-    public String getMessageNoMail() {
-        return languageProvider.getProperty("MESSAGE_PERSON_NO_MAIL");
-    }
-
-    public String getMessageNotValidMail() {
-        return languageProvider.getProperty("MESSAGE_PERSON_MAIL_NOT_VALID");
-    }
 
     public String getMessageNameFieldEmpty() {
         return languageProvider.getProperty("MESSAGE_PERSON_NO_NAME");

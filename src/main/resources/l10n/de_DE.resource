@@ -1353,7 +1353,6 @@ MESSAGE_PERSON_NO_NAME_LAST_NAME=Sie m\u00FCssen einen Vornamen und einen Nachna
 MESSAGE_PERSON_NO_NAME=Sie m\u00FCssen einen Vornamen angeben.
 MESSAGE_PERSON_NO_LASTNAME=Sie m\u00FCssen einen Nachnamen angeben.
 MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=Kann Verbindung zwischen Person und Kategorie nicht speichern.
-MESSAGE_PERSON_MAIL_NOT_VALID=Die eingegebene Email-Adresse ist nicht g\u00FCltig.
 MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=Der Verbinder darf maximal 50 Zeichen lang sein.
 MESSAGE_PROXY_NO_REPRESENTATIVE=Das Feld "Vertreter" ist Pflichtfeld.
 MESSAGE_PROXY_NO_ROLE=Das Feld "Rolle" ist Pflichtfeld.

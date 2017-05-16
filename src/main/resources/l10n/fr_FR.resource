@@ -1388,7 +1388,6 @@ MESSAGE_PERSON_NO_NAME_LAST_NAME=Vous devez sp\u00E9cifier un pr\u00E9nom et un 
 MESSAGE_PERSON_NO_NAME=Vous devez sp\u00E9cifier un pr\u00E9nom.
 MESSAGE_PERSON_NO_LASTNAME=Vous devez sp\u00E9cifier un nom.
 MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=Impossible d\u2019enregistrer la connexion entre la personne et la cat\u00E9gorie.
-MESSAGE_PERSON_MAIL_NOT_VALID=Le format d\u0027adresse e-mail est incorrecte !
 MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=Le connecteur peut \u00EAtre jusqu\u2019\u00E0 50 caract\u00E8res de long.
 MESSAGE_PROXY_NO_REPRESENTATIVE=Le champ "repr\u00E9sentatif" est obligatoire.
 MESSAGE_PROXY_NO_ROLE=Le champ "r\u00F4le" est obligatoire.
