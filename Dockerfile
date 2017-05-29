@@ -1,4 +1,4 @@
-FROM tomcat:8.0.44
+FROM tomcat:8.5.15
 MAINTAINER VerA.web Team <veraweb-discuss@lists.evolvis.org>
 
 EXPOSE 8009 8080
