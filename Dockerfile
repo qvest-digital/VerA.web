@@ -1,4 +1,4 @@
-FROM java:7
+FROM java:8
 MAINTAINER VerA.web Team <veraweb-discuss@lists.evolvis.org>
 
 RUN mkdir -p /opt/online-anmeldung
