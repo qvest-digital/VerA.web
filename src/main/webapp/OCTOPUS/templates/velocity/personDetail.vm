@@ -383,7 +383,6 @@
     ## cklein
     ## 2008-02-22
         #if($action == "guest")
-
             <span id="buttonPanel-bottom" class="floatRight">
                 #if($grants.mayWrite())
                     <input type="submit" name="save" class="mainButton" value="${placeholderWithTranslation.personspeichern}" title="${placeholderWithTranslation.personspeichern}"/>
