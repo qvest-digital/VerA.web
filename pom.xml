@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>rest-api</artifactId>
-	<version>1.8.51</version>
+	<version>1.8.52-SNAPSHOT</version>
 	<description>REST-API VerA.web Serverseite</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
