@@ -103,7 +103,7 @@
 			</div>
 
 			<div class="tableCell width50">
-				<label id="emailLabel" for="person-mail$!message.plain($ext)">${placeholderWithTranslation.email}*</label>
+				<label id="emailLabel" for="person-mail$!message.plain($ext)">${placeholderWithTranslation.email}</label>
 				<input type="text" id="person-mail$!message.plain($ext)" name="person-mail$!message.plain($ext)" value="$!message.text($facade.EMail)" onchange="setModified();" #if(!$grants.mayWrite() || ($createNewPerson && $ext != "_a_e1")) vera-disabled#end/>
 
 				#if($facade.EMail && $facade.EMail.length()>0)
