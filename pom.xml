@@ -4,7 +4,7 @@
 
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-export</artifactId>
-	<version>1.8.51-SNAPSHOT</version>
+	<version>1.8.51</version>
 	<packaging>jar</packaging>
 
 	<name>VerA.web export module</name>
