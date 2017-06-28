@@ -27,7 +27,7 @@ function isOver(layer1, layer2) {
 }
 
 function fixLayer() {
-	var fm = document.getElementById('fixme')
+	var fm = document.getElementById('fixme');
 	var sl = document.getElementsByTagName('select');
 	for (var i = 0; i < sl.length; i++) {
 		if (isOver(sl[i], fm)) {
@@ -40,7 +40,7 @@ function fixLayer() {
 }
 
 function setModified(id) {
-	id = (id == null) ? 'modified' : id + '-modified';
+	id = (id === null) ? 'modified' : id + '-modified';
 	document.getElementById(id).value = 'true';
 }
 
@@ -53,7 +53,7 @@ function checkModified(id, message) {
 }
 
 function isModified(id) {
-	id = (id == null) ? 'modified' : id + '-modified';
+	id = (id === null) ? 'modified' : id + '-modified';
 	if (document.getElementById(id).value == 'true') {
 		return true;
 	} else {
@@ -87,8 +87,8 @@ function filterList(letter, page) {
 function navigateList(start) {
 	$('input[name$="-select"]').prop('checked', false);
 	var form = document.getElementById('formlist');
-	if (form && form.elements['start']) {
-		form.elements['start'].value = start;
+	if (form && form.elements.start) {
+		orm.elements.start.value = start;
 		form.submit();
 	} else {
 		alert('form or field start NOT FOUND!');
@@ -98,11 +98,11 @@ function navigateList(start) {
 function navigateLimit(limit) {
 	$('input[name$="-select"]').prop('checked', false);
 	var form = document.getElementById('formlist');
-	if (form && form.elements['start']) {
-		form.elements['start'].value = 0;
+	if (form && form.elements.start) {
+		form.elements.start.value = 0;
 	}
-	if (form && form.elements['limit']) {
-		form.elements['limit'].value = limit;
+	if (form && form.elements.limit) {
+		form.elements.limit.value = limit;
 		form.submit();
 	} else {
 		alert('form or field limit NOT FOUND!');
@@ -165,7 +165,7 @@ $.fn.veraDisable = function() {
             }
         });
     return this;
-}
+};
 
 /** disable all form elements of forms with attribute "vera-disabled".
  * This is because IE9 does not allow changing the text color of disabled input elements.
@@ -234,11 +234,11 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createInfoHtml = function (toolTip, htmlStr) {
-        if (htmlStr == undefined) {
+        if (htmlStr === undefined) {
             return $('<div class="hinweis grayBorder marginBottom20 notBold">' + toolTip + '</div>');
         } else {
-            return $('<div class="hinweis grayBorder marginBottom20 notBold"><strong>' + toolTip + '</strong><p>'
-                + htmlStr + '</p></div>');
+            return $('<div class="hinweis grayBorder marginBottom20 notBold"><strong>' + toolTip + '</strong><p>' +
+            htmlStr + '</p></div>');
         }
     };
 
@@ -249,8 +249,8 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createWarnHtml = function (htmlStr) {
-        return $('<div class="msg errormsg"><span>'
-            + htmlStr + '</span></div>');
+        return $('<div class="msg errormsg"><span>' +
+        htmlStr + '</span></div>');
     };
 
     /**
@@ -260,8 +260,8 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createSuccessHtml = function (htmlStr) {
-        return $('<div class="msg successmsg"><span>'
-            + htmlStr + '</span></div>');
+        return $('<div class="msg successmsg"><span>' +
+        htmlStr + '</span></div>');
     };
 
     /**
@@ -271,8 +271,8 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createConfirmHtml = function (htmlStr) {
-        return $('<div class="msg errormsg errormsgButton"><span>'
-            + htmlStr + '</span></div>');
+        return $('<div class="msg errormsg errormsgButton"><span>' +
+        htmlStr + '</span></div>');
     };
 
     /**
@@ -326,7 +326,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
             $(function () {
                 $('h1').after(info);
             });
-        }
+        };
     }());
 
     showWarning = function (htmlStr) {
