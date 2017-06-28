@@ -64,15 +64,22 @@ function isModified(id) {
 function filterList(letter, page) {
 	$('input[name$="-select"]').prop('checked', false);
 	var form = document.getElementById('formlist');
-	if (form && form.elements['filter']) {
-		form.elements['filter'].value = letter;
+	if (form && form.elements.filter) {
+		form.elements.filter.value = letter;
 		if (page === null || page === undefined) {
 		    form.start.value = 0;
 		} else {
 		    form.start.value = page;
 		}
 		form.submit();
-	} else {
+	} else if (form && !form.elements.filter) {
+        if (page === null || page === undefined) {
+            form.start.value = 0;
+        } else {
+            form.start.value = page;
+        }
+        form.submit();
+    } else {
 		alert('form or field filter NOT FOUND!');
 	}
 }
