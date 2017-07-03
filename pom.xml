@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>rest-api-common</artifactId>
-	<version>1.8.52-SNAPSHOT</version>
+	<version>1.8.52</version>
 	<description>REST-API VerA.web common files</description>
 	<packaging>jar</packaging>
 	<name>VerA.web REST API common files</name>
