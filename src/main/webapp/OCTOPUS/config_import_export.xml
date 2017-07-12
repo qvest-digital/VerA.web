@@ -52,15 +52,8 @@
 		<!-- die Liste der Namen der Parameter, die jeweils ein verfügbares Datenaustauschformat beschreiben. -->
 		<param name="exchangeFormats" type="array">
 			<value>formatCSV</value>
-			<value>formatXML</value>
-			<value>formatCCM</value>
-			<value>formatMAdLANPerson</value>
-			<value>formatMAdLANFirma</value>
 			<value>formatX-ManageKontakt</value>
 			<value>formatCSVPersdat+Anschrift</value>
-			<value>formatCSVPersdat+Anschrift+Doktyp</value>
-			<value>formatCSVPersdat+Doktyp</value>
-			<value>formatCSVPersdat+Doktyp1.0</value>
 			<value>formatCSVPersdat+Kategorien</value>
 			<value>formatCSV_ISO-8859-15</value>
 		</param>
