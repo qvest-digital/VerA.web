@@ -385,7 +385,23 @@
 					<param name="sex_a_e1" value="{:sex_a_e1}" />
 					<param name="sex_b_e1" value="{:sex_b_e1}" />
 					<param name="birthday_a_e1" value="{:birthday_a_e1}" />
+					<!--
+						modified to include the new birthplace fields
+						cklein
+						2008-02-12
+					-->
+					<param name="birthplace_a_e1" value="{:birthplace_a_e1}" />
+					<param name="birthplace_a_e2" value="{:birthplace_a_e2}" />
+					<param name="birthplace_a_e3" value="{:birthplace_a_e3}" />
 					<param name="birthday_b_e1" value="{:birthday_b_e1}" />
+					<!--
+						prepared to include the new partner birthplace fields
+						cklein
+						2008-02-12
+					<param name="birthplace_b_e1" value="{:birthplace_b_e1}" />
+					<param name="birthplace_b_e2" value="{:birthplace_b_e2}" />
+					<param name="birthplace_b_e3" value="{:birthplace_b_e3}" />
+					-->					
 					<param name="diplodate_a_e1" value="{:diplodate_a_e1}" />
 					<param name="languages_a_e1" value="{:languages_a_e1}" />
 					<param name="languages_b_e1" value="{:languages_b_e1}" />
