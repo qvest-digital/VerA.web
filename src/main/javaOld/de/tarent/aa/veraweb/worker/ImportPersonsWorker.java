@@ -270,7 +270,7 @@ public class ImportPersonsWorker {
 
                     // Importierte Kategorien zu Personen erzeugen
                     createPersonCategories(database, transactionContext, (Integer) importPerson.get("id"), person);
-                    // TODO: auslagern in MAdLANImporter
+
                     if (importPerson.get("category") != null && ((String) importPerson.get("category")).length() != 0) {
                         createPersonCategories(database, transactionContext, ((String) importPerson.get("category")).split("\n"), person, new Integer(Categorie.FLAG_DEFAULT));
                     }

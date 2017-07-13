@@ -122,14 +122,6 @@
                                 <option value="$formatKey">
                                     #if($format.name == "CSV")
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSV}
-                                    #elseif($format.name == "XML")
-                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_XML}
-                                    #elseif($format.name == "ZKM")
-                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_ZKM}
-                                    #elseif($format.name == "MAdLAN-Personen")
-                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_MADLAN_PERSON}
-                                    #elseif($format.name == "MAdLAN-Firmen")
-                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_MADLAN_COMPANY}
                                     #elseif($format.name == "X-Manage-CSV")
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_X_MANAGE_CSV}
                                     #elseif($format.name == "CSVPersdat+Anschrift+Doktyp")
@@ -163,15 +155,6 @@
                                                 <div class="tableRow">
                                                     <div class="tableCell width30">
                                                         <label for="format-${formatKey}-$choiceKey">
-                                                            #if($format.name == "ZKM")
-                                                                ${placeholderWithTranslation.LABEL_EXPORT_ZKM}
-                                                            #elseif($format.name == "MAdLAN-Personen" || $format.name == "MAdLAN-Firmen")
-                                                                #if($choice.default == "West")
-                                                                    ${placeholderWithTranslation.LABEL_EXPORT_MADLAN_ENCODING}
-                                                                #else
-                                                                    ${placeholderWithTranslation.LABEL_EXPORT_MADLAN_ENCODING_CYRILLIC}
-                                                                #end
-                                                            #end
                                                         </label>
                                                     </div>
                                                     <div class="tableCell">
