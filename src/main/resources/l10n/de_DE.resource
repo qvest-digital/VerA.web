@@ -599,11 +599,11 @@ EXPORT_TITLE_CSVPERSDATA_ADDRESS=CSV Personendaten+Anschriften
 EXPORT_TITLE_CSVPERSDATA=CSV Personendaten
 EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV Personendaten+Kategorien
 EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
-HINT_EXPORT_CSV=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_ADDRESS=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EAnschriften\u201C, \u201EDokumenttypen\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EDokumenttypen\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSV=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_ADDRESS=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EAnschriften\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA=Es werden nur die Felder aus dem Karteireiter \u201EPersonendaten\u201C und den untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EKategorien\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSV_ISO_8859_15=Dieses Format ist f\u00FCr Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSV_ISO_8859_15=Dieses Format ist f\u00FCr Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Import von Personendaten
@@ -977,7 +977,7 @@ esisteinunerwarteterfehlerbeimimportiereneinerdateiaufgetreten=Es ist ein unerwa
 vermutlichbefindetsichdieimportdateinichtimvomsystemerwartemformat=Vermutlich befindet sich die Import-Datei nicht im vom System erwartem Format.
 detailsanzeigen=Details anzeigen
 beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden=Beim Import k\u00F6nnen Feldinhalte, die l\u00E4nger als bei VerA.web vorgesehen sind, gek\u00FCrzt \u00FCbernommen werden.
-alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden=Alle Dokumenttypen der zu importierenden Personen m\u00FCssen im System vorhanden sein. Soll der Import jetzt gestartet werden?
+
 umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=Um Dubletten speicherbar zu machen, m\u00FCssen sie zun\u00E4chst im Bereich \u201Evorhandene Dubletten\u201C \u00FCbernommen werden.
 HINT_UMLAUT_COMPARISON=Beachten Sie, dass \u00E4 mit ae, \u00F6 mit oe, \u00FC mit ue und \u00DF mit ss verglichen wird.
 derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=Der Import ist erst beendet, wenn der Button \u201EImport abschlie\u00DFen\u201C geklickt wurde.

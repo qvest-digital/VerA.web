@@ -622,11 +622,11 @@ EXPORT_TITLE_CSVPERSDATA_ADDRESS=CSV people data+mailing boxes
 EXPORT_TITLE_CSVPERSDATA=CSV people data
 EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV people data+Categories
 EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
-HINT_EXPORT_CSV=Depending on the amount of the exported fields (especially the amount of Document types and categories), MS Excel and OO Calc may not be able to read the exported data entirely.
-HINT_EXPORT_CSVPERSDATA_ADDRESS=Only the fields from the \u201CPersonal data\u201D, \u201CAddresses\u201D and \u201CDocument types\u201D tabs with their subtabs will be exported. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
-HINT_EXPORT_CSVPERSDATA=Only the fields from the \u201CPersonal data\u201D and \u201CDocument types\u201D tabs with their subtabs will be exported. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
-HINT_EXPORT_CSVPERSDATA_CATEGORY=Only the fields from the \u201CPersonal data\u201D and \u201CCategories\u201D tabs with their subtabs will be exported. Depending on the amount of the exported fields (especially the amount of Document types), MS Excel and OO Calc may not be able to read the exported data entirely.
-HINT_EXPORT_CSV_ISO_8859_15=This format is Im-/Export compatible with MS Office Applications, which use a Character set of ISO-8859-15. Depending on the amount of the exported fields (especially the amount of Doc    ument types), MS Excel and OO Calc may not be able to read the exported data entirely.
+HINT_EXPORT_CSV=Depending on the amount of the exported fields (especially the amount of categories), MS Excel and OO Calc may not be able to read the exported data entirely.
+HINT_EXPORT_CSVPERSDATA_ADDRESS=Only the fields from the \u201CPersonal data\u201D and \u201CAddresses\u201D tabs with their subtabs will be exported. Depending on the amount of the exported fields, MS Excel and OO Calc may not be able to read the exported data entirely.
+HINT_EXPORT_CSVPERSDATA=Only the fields from the \u201CPersonal data\u201D tab with its' subtabs will be exported. Depending on the amount of the exported fields, MS Excel and OO Calc may not be able to read the exported data entirely.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Only the fields from the \u201CPersonal data\u201D and \u201CCategories\u201D tabs with their subtabs will be exported. Depending on the amount of the exported fields, MS Excel and OO Calc may not be able to read the exported data entirely.
+HINT_EXPORT_CSV_ISO_8859_15=This format is Im-/Export compatible with MS Office Applications, which use a Character set of ISO-8859-15. Depending on the amount of the exported fields, MS Excel and OO Calc may not be able to read the exported data entirely.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Import of persons data
@@ -1005,7 +1005,7 @@ esisteinunerwarteterfehlerbeimimportiereneinerdateiaufgetreten=An error has occu
 vermutlichbefindetsichdieimportdateinichtimvomsystemerwartemformat=Probably the import file is not in the expected format.
 detailsanzeigen=Show details
 beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden=While importing, the input fields content might be shortened.
-alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden=All documenttypes of the imported persons must be in the system. Would you like to start the import?
+
 umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=In order to be able save duplicates, they first have to be applied in the available duplicates.
 HINT_UMLAUT_COMPARISON=Please note, that the special characters \u00E4, \u00F6, \u00FC and \u00DF will be compared with ae,oe,ue and ss.
 derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=In order to complete the import process, please click on \u201CComplete import\u201D.
