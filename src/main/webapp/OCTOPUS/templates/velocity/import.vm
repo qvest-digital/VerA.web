@@ -206,7 +206,7 @@
     </div><!-- End #main_content-->
 
     <div id="buttonPanel-bottom" class="textRight marginTop10">
-        <input name="start" type="button" value="${placeholderWithTranslation.GENERIC_START_IMPORT}" title="${placeholderWithTranslation.GENERIC_START_IMPORT}" class="mainButton" onclick="askStart()">
+        <input name="start" type="button" value="${placeholderWithTranslation.GENERIC_START_IMPORT}" title="${placeholderWithTranslation.GENERIC_START_IMPORT}" class="mainButton" onclick="startImport()">
     </div>
 </div>
 
@@ -224,21 +224,14 @@
         $("div#selectedFile").text(fileName);
     }
 
-    ##Hinweis und Rueckfrage vor dem Import
-    function askStart() {
-        htmlConfirm(' ${placeholderWithTranslation.alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden} ',
-        new Array(' ${placeholderWithTranslation.GENERIC_YES} ', ' ${placeholderWithTranslation.GENERIC_NO} '), new Array("askStartYes();", "askStartNo();"));
-    }
-    function askStartYes() {
+
+    function startImport() {
         hideDialogs();
         showComboboxes();
         htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');
         document.getElementById('formImport').submit();
     }
-    function askStartNo() {
-        hideDialogs();
-        showComboboxes();
-    }
+
 </script>
 
 ##<!-- Bug 1362: Die Möglichkeit, einen bestehenden Exportvorgang zu laden, ist vom AA nicht gewünscht -->
