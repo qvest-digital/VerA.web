@@ -482,8 +482,8 @@ GENERIC_ORIGIN_DATA=Datenherkunft
 # DATEITYP
 csv=CSV (Comma-Separated-Values)
 x-manage-csv=X-Manage-CSV (X-Manage Kontakte)
-csvpersdatanschriftdoktyp=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
-csvpersdatdoktyp10=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
+csvpersdatanschrift=CSVPersdat+Anschrift (Comma-Separated-Values)
+csvpersdat=CSVPersdat (Comma-Separated-Values)
 csvpersdatkategorien=CSVPersdat+Kategorien (Comma-Separated-Values)
 csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 
@@ -589,19 +589,19 @@ ENCODING_TYPE_EAST=\u00D6stlich
 ENCODING_TYPE_TURKISH=T\u00FCrkisch
 EXPORT_DATA_TYPE_CSV=CSV (Comma-Separated-Values)
 EXPORT_DATA_TYPE_X_MANAGE_CSV=X-Manage-CSV (X-Manage Kontakte)
-EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE=CSVPersdat+Anschrift+Doktyp (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0=CSVPersdat+Doktyp 1.0 (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS=CSVPersdat+Anschrift (Comma-Separated-Values)
+EXPORT_DATA_TYPE_CSVPERSDATA=CSVPersdat (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Kategorien (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 EXPORT_TITLE_CSV=CSV
 EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
-EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE=CSV Personendaten+Anschriften+Dokumenttypen
-EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0=CSV Personendaten+Dokumenttypen 1.0
+EXPORT_TITLE_CSVPERSDATA_ADDRESS=CSV Personendaten+Anschriften
+EXPORT_TITLE_CSVPERSDATA=CSV Personendaten
 EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV Personendaten+Kategorien
 EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
 HINT_EXPORT_CSV=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EAnschriften\u201C, \u201EDokumenttypen\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EDokumenttypen\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA_ADDRESS=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EAnschriften\u201C, \u201EDokumenttypen\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
+HINT_EXPORT_CSVPERSDATA=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EDokumenttypen\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EKategorien\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSV_ISO_8859_15=Dieses Format ist f\u00FCr Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Dokumenttypen und Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 

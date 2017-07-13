@@ -101,10 +101,10 @@
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSV}
                                     #elseif($format.name == "X-Manage-CSV")
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_X_MANAGE_CSV}
-                                    #elseif($format.name == "CSVPersdat+Anschrift+Doktyp")
-                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE}
-                                    #elseif($format.name == "CSVPersdat+Doktyp 1.0")
-                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0}
+                                    #elseif($format.name == "CSVPersdat+Anschrift")
+                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS}
+                                    #elseif($format.name == "CSVPersdat")
+                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA}
                                     #elseif($format.name == "CSVPersdat+Kategorien")
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY}
                                     #elseif($format.name == "CSV-ISO-8859-15")
@@ -129,10 +129,10 @@
                                     ${placeholderWithTranslation.EXPORT_TITLE_CSV}:
                                 #elseif($format.name == "X-Manage-CSV")
                                     ${placeholderWithTranslation.EXPORT_TITLE_X_MANAGE_CSV}:
-                                #elseif($format.name == "CSVPersdat+Anschrift+Doktyp")
-                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE}:
-                                #elseif($format.name == "CSVPersdat+Doktyp 1.0")
-                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0}:
+                                #elseif($format.name == "CSVPersdat+Anschrift")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_ADDRESS}:
+                                #elseif($format.name == "CSVPersdat")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA}:
                                 #elseif($format.name == "CSVPersdat+Kategorien")
                                     ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_CATEGORY}:
                                 #elseif($format.name == "CSV-ISO-8859-15")
@@ -189,10 +189,10 @@
                                     ${placeholderWithTranslation.EXPORT_TITLE_CSV}:
                                 #elseif($format.name == "X-Manage-CSV")
                                     ${placeholderWithTranslation.EXPORT_TITLE_X_MANAGE_CSV}:
-                                #elseif($format.name == "CSVPersdat+Anschrift+Doktyp")
-                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_ADDRESS_DOCTYPE}:
-                                #elseif($format.name == "CSVPersdat+Doktyp 1.0")
-                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_DOCTYPE_1_0}:
+                                #elseif($format.name == "CSVPersdat+Anschrift")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_ADDRESS}:
+                                #elseif($format.name == "CSVPersdat")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA}:
                                 #elseif($format.name == "CSVPersdat+Kategorien")
                                     ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_CATEGORY}:
                                 #elseif($format.name == "CSV-ISO-8859-15")
@@ -211,13 +211,13 @@
                             <p>
                                 ${placeholderWithTranslation.HINT_EXPORT_CSV}
                             </p>
-                        #elseif($format.name == "CSVPersdat+Anschrift+Doktyp")
+                        #elseif($format.name == "CSVPersdat+Anschrift")
                             <p>
-                                ${placeholderWithTranslation.HINT_EXPORT_CSVPERSDATA_ADDRESS_DOCTYPE}
+                                ${placeholderWithTranslation.HINT_EXPORT_CSVPERSDATA_ADDRESS}
                             </p>
-                        #elseif($format.name == "CSVPersdat+Doktyp 1.0")
+                        #elseif($format.name == "CSVPersdat")
                             <p>
-                                ${placeholderWithTranslation.HINT_EXPORT_CSVPERSDATA_DOCTYPE_1_0}
+                                ${placeholderWithTranslation.HINT_EXPORT_CSVPERSDATA}
                             </p>
                         #elseif($format.name == "CSVPersdat+Kategorien")
                             <p>

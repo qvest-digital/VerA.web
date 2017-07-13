@@ -47,8 +47,8 @@
 		<param name="exchangeFormats" type="array">
 			<value>formatCSV</value>
 			<value>formatX-ManageKontakt</value>
-			<value>formatCSVPersdat+Anschrift+Doktyp</value>
-			<value>formatCSVPersdat+Doktyp1.0</value>
+			<value>formatCSVPersdat+Anschrift</value>
+			<value>formatCSVPersdat</value>
 			<value>formatCSVPersdat+Anschrift</value>
 			<value>formatCSVPersdat+Kategorien</value>
 			<value>formatCSV_ISO-8859-15</value>
@@ -294,8 +294,8 @@
 			</param>
 		</param>
 
-		<param name="formatCSVPersdat+Anschrift+Doktyp" type="map">
-			<param name="name" value="CSVPersdat+Anschrift+Doktyp"/>
+		<param name="formatCSVPersdat+Anschrift" type="map">
+			<param name="name" value="CSVPersdat+Anschrift"/>
 			<param name="description" value="Comma-Separated-Values"/>
 			<param name="defaultExtension" value=".csv"/>
 			<param name="mimeType" value="text/csv;charset=UTF-8"/>
@@ -325,8 +325,8 @@
 			</param>
 		</param>
 
-		<param name="formatCSVPersdat+Doktyp1.0" type="map">
-			<param name="name" value="CSVPersdat+Doktyp 1.0"/>
+		<param name="formatCSVPersdat" type="map">
+			<param name="name" value="CSVPersdat"/>
 			<param name="description" value="Comma-Separated-Values"/>
 			<param name="defaultExtension" value=".csv"/>
 			<param name="mimeType" value="text/csv;charset=UTF-8"/>

@@ -124,10 +124,10 @@
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSV}
                                     #elseif($format.name == "X-Manage-CSV")
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_X_MANAGE_CSV}
-                                    #elseif($format.name == "CSVPersdat+Anschrift+Doktyp")
-                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE}
-                                    #elseif($format.name == "CSVPersdat+Doktyp 1.0")
-                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0}
+                                    #elseif($format.name == "CSVPersdat+Anschrift")
+                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS}
+                                    #elseif($format.name == "CSVPersdat")
+                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA}
                                     #elseif($format.name == "CSVPersdat+Kategorien")
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY}
                                     #elseif($format.name == "CSV-ISO-8859-15")
