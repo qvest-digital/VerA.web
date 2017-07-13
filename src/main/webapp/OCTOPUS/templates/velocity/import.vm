@@ -126,8 +126,6 @@
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_X_MANAGE_CSV}
                                     #elseif($format.name == "CSVPersdat+Anschrift+Doktyp")
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS_DOCTYPE}
-                                    #elseif($format.name == "CSVPersdat+Doktyp")
-                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE}
                                     #elseif($format.name == "CSVPersdat+Doktyp 1.0")
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_DOCTYPE_1_0}
                                     #elseif($format.name == "CSVPersdat+Kategorien")
