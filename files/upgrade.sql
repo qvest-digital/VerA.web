@@ -711,7 +711,7 @@ BEGIN
 		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 	END IF;
 
-	vnewvsn := '2016-12-05';
+	vnewvsn := '2016-10-27';
 	IF vcurvsn < vnewvsn THEN
 		vmsg := 'begin.update(' || vnewvsn || ')';
 
@@ -728,6 +728,20 @@ BEGIN
 		    CONSTRAINT salutation_alternative_pkey PRIMARY KEY (pk),
 		    CONSTRAINT salutation_alternative_unique UNIQUE (pdftemplate_id, salutation_id)
 		);
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
+
+	vnewvsn := '2016-12-05';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+
+		ALTER TABLE veraweb.salutation_alternative
+			ALTER COLUMN content
+			TYPE VARCHAR(100);
 
 		DROP VIEW veraweb.TPERSON_NORMALIZED;
 
