@@ -129,16 +129,16 @@ BEGIN
 
 		-- Trigger for link mandant with categories
 		CREATE FUNCTION linkOrgUnitWithCategorie()
-		        RETURNS TRIGGER AS $BODY$
-		        BEGIN
-		                INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALUES (NULL, NEW.PK, 'Pressevertreter', NULL, NULL);
-		                RETURN NEW;
-		        END;
-		        $BODY$ LANGUAGE plpgsql;
+			RETURNS TRIGGER AS $BODY$
+			BEGIN
+				INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALUES (NULL, NEW.PK, 'Pressevertreter', NULL, NULL);
+				RETURN NEW;
+			END;
+			$BODY$ LANGUAGE plpgsql;
 
 		CREATE TRIGGER createCategorieOnUnitInsert
-		        AFTER INSERT ON veraweb.torgunit
-		        FOR EACH ROW EXECUTE PROCEDURE linkOrgUnitWithCategorie();
+			AFTER INSERT ON veraweb.torgunit
+			FOR EACH ROW EXECUTE PROCEDURE linkOrgUnitWithCategorie();
 
 		-- Migrate old OrgUnits
 		CREATE FUNCTION migrateOrgUnits() RETURNS integer AS $BODY$
@@ -148,7 +148,7 @@ BEGIN
 
 			FOR unLinked IN SELECT pk FROM veraweb.torgunit WHERE pk NOT IN( SELECT fk_orgunit FROM veraweb.tcategorie ) LOOP
 
-		        execute format('INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALUES (NULL, %s, %s, NULL, NULL);', unlinked, quote_literal(E'Pressevertreter'));
+			execute format('INSERT INTO veraweb.tcategorie (fk_event, fk_orgunit, catname, flags, rank) VALUES (NULL, %s, %s, NULL, NULL);', unlinked, quote_literal(E'Pressevertreter'));
 
 		    END LOOP;
 
@@ -243,19 +243,19 @@ BEGIN
 		-- Alter table "tdoctype"
 		CREATE OR REPLACE FUNCTION veraweb.umlaut_fix(character varying) RETURNS character varying AS $BODY$
 		    BEGIN
-		        IF
-		        ($1 LIKE '%ä%') THEN RETURN replace($1,'ä','ae');
-		        END IF;
-		        IF
-		        ($1 LIKE '%ö%') THEN RETURN replace($1,'ö','oe');
-		        END IF;
-		        IF
-		        ($1 LIKE '%ü%') THEN RETURN replace($1,'ü','ue');
-		        END IF;
-		        IF
-		        ($1 LIKE '%ß%') THEN RETURN replace($1,'ß','ss');
-		        END IF;
-		        RETURN $1;
+			IF
+			($1 LIKE '%ä%') THEN RETURN replace($1,'ä','ae');
+			END IF;
+			IF
+			($1 LIKE '%ö%') THEN RETURN replace($1,'ö','oe');
+			END IF;
+			IF
+			($1 LIKE '%ü%') THEN RETURN replace($1,'ü','ue');
+			END IF;
+			IF
+			($1 LIKE '%ß%') THEN RETURN replace($1,'ß','ss');
+			END IF;
+			RETURN $1;
 		    END;
 		$BODY$ LANGUAGE plpgsql;
 
@@ -533,216 +533,231 @@ BEGIN
 	END IF;
 
 	vnewvsn := '2016-03-02';
-    	IF vcurvsn < vnewvsn THEN
-    		vmsg := 'begin.update(' || vnewvsn || ')';
-    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
-    		-- Create table "tmedia_representative_activation"
-    		CREATE TABLE veraweb.tmedia_representative_activation (
-    		    email character varying(100) NOT NULL,
-    		    fk_event  serial NOT NULL,
-    		    activation_token character varying(100) NOT NULL,
+		-- Create table "tmedia_representative_activation"
+		CREATE TABLE veraweb.tmedia_representative_activation (
+		    email character varying(100) NOT NULL,
+		    fk_event  serial NOT NULL,
+		    activation_token character varying(100) NOT NULL,
 
-    		    CONSTRAINT tmedia_representative_activation_pk PRIMARY KEY (email, fk_event)
-    		);
+		    CONSTRAINT tmedia_representative_activation_pk PRIMARY KEY (email, fk_event)
+		);
 
-    		-- post-upgrade
-    		vmsg := 'end.update(' || vnewvsn || ')';
-    		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-    		vcurvsn := vnewvsn;
-    		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-    	END IF;
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
-    vnewvsn := '2016-03-08';
-        	IF vcurvsn < vnewvsn THEN
-        		vmsg := 'begin.update(' || vnewvsn || ')';
-        		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	vnewvsn := '2016-03-08';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
-                -- Drop table "tmedia_representative_activation"
-                DROP TABLE veraweb.tmedia_representative_activation;
+		-- Drop table "tmedia_representative_activation"
+		DROP TABLE veraweb.tmedia_representative_activation;
 
-        		-- Create table "tmedia_representative_activation"
-        		CREATE TABLE veraweb.tmedia_representative_activation (
-        		    email character varying(100) NOT NULL,
-        		    fk_event  serial NOT NULL,
-                    activation_token character varying(100) NOT NULL,
-                    gender character varying(10) NOT NULL,
-                    address character varying(100) NOT NULL,
-                    city character varying(100) NOT NULL,
-                    country character varying(100) NOT NULL,
-                    firstname character varying(100) NOT NULL,
-                    lastname character varying(100) NOT NULL,
-                    zip serial NOT NULL,
+		-- Create table "tmedia_representative_activation"
+		CREATE TABLE veraweb.tmedia_representative_activation (
+		    email character varying(100) NOT NULL,
+		    fk_event  serial NOT NULL,
+		    activation_token character varying(100) NOT NULL,
+		    gender character varying(10) NOT NULL,
+		    address character varying(100) NOT NULL,
+		    city character varying(100) NOT NULL,
+		    country character varying(100) NOT NULL,
+		    firstname character varying(100) NOT NULL,
+		    lastname character varying(100) NOT NULL,
+		    zip serial NOT NULL,
 
-                    CONSTRAINT tmedia_representative_activation_pk PRIMARY KEY (email, fk_event)
-        		);
+		    CONSTRAINT tmedia_representative_activation_pk PRIMARY KEY (email, fk_event)
+		);
 
-        		-- post-upgrade
-        		vmsg := 'end.update(' || vnewvsn || ')';
-        		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-        		vcurvsn := vnewvsn;
-        		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-        	END IF;
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
-    vnewvsn := '2016-03-14';
-            IF vcurvsn < vnewvsn THEN
-                vmsg := 'begin.update(' || vnewvsn || ')';
-                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	vnewvsn := '2016-03-14';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
-                -- Add column to table "tmedia_representative_activation"
-                ALTER TABLE veraweb.tmedia_representative_activation ADD COLUMN ACTIVATED int4 DEFAULT 0;
+		-- Add column to table "tmedia_representative_activation"
+		ALTER TABLE veraweb.tmedia_representative_activation ADD COLUMN ACTIVATED int4 DEFAULT 0;
 
-                -- post-upgrade
-                vmsg := 'end.update(' || vnewvsn || ')';
-                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-                vcurvsn := vnewvsn;
-                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-            END IF;
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
-    vnewvsn := '2016-03-16';
-            IF vcurvsn < vnewvsn THEN
-                vmsg := 'begin.update(' || vnewvsn || ')';
-                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	vnewvsn := '2016-03-16';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
-                -- Add column for keywords
-                ALTER TABLE veraweb.tguest ADD COLUMN keywords character varying(1000);
+		-- Add column for keywords
+		ALTER TABLE veraweb.tguest ADD COLUMN keywords character varying(1000);
 
-                -- post-upgrade
-                vmsg := 'end.update(' || vnewvsn || ')';
-                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-                vcurvsn := vnewvsn;
-                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-            END IF;
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
-    vnewvsn := '2016-05-06';
-            IF vcurvsn < vnewvsn THEN
-                vmsg := 'begin.update(' || vnewvsn || ')';
+	vnewvsn := '2016-05-06';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
 
-                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
-                drop table tdoctype;
-                drop table tevent_doctype;
-                drop table tguest_doctype;
-                drop table timportperson_doctype;
-                drop table tperson_doctype;
-                drop table tsalutation_doctype;
+		drop table tdoctype;
+		drop table tevent_doctype;
+		drop table tguest_doctype;
+		drop table timportperson_doctype;
+		drop table tperson_doctype;
+		drop table tsalutation_doctype;
 
-                create table veraweb.birthday_bak as (select pk, birthday_a_e1, birthday_b_e1 from veraweb.tperson);
-                alter table veraweb.tperson alter column birthday_a_e1 TYPE date;
-                alter table veraweb.tperson alter column birthday_b_e1 TYPE date;
+		create table veraweb.birthday_bak as (
+			select pk, birthday_a_e1, birthday_b_e1 from veraweb.tperson
+		);
+		alter table veraweb.tperson alter column birthday_a_e1 TYPE date;
+		alter table veraweb.tperson alter column birthday_b_e1 TYPE date;
 
-                CREATE OR REPLACE VIEW veraweb.TPERSON_NORMALIZED AS (select tperson.*, veraweb.umlaut_fix(firstname_a_e1) as firstname_normalized, veraweb.umlaut_fix(lastname_a_e1) as lastname_normalized from veraweb.tperson);
+		CREATE OR REPLACE VIEW veraweb.TPERSON_NORMALIZED AS (
+			select tperson.*,
+			    veraweb.umlaut_fix(firstname_a_e1) as firstname_normalized,
+			    veraweb.umlaut_fix(lastname_a_e1) as lastname_normalized
+			from veraweb.tperson
+		);
 
-                -- post-upgrade
-                vmsg := 'end.update(' || vnewvsn || ')';
-                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-                vcurvsn := vnewvsn;
-                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-            END IF;
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
-    vnewvsn := '2016-07-08';
-            IF vcurvsn < vnewvsn THEN
-                vmsg := 'begin.update(' || vnewvsn || ')';
+	vnewvsn := '2016-07-08';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
 
-                CREATE SEQUENCE veraweb.pdftemplate_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
+		CREATE SEQUENCE veraweb.pdftemplate_seq
+			INCREMENT 1 MINVALUE 1
+			MAXVALUE 9223372036854775807
+			START 1 CACHE 1;
 
-		        CREATE TABLE veraweb.pdftemplate (
-                    pk INTEGER DEFAULT nextval('veraweb.pdftemplate_seq') NOT NULL,
-                    name varchar(200) NOT NULL,
-                    content bytea NOT NULL,
-                    fk_orgunit int4 NOT NULL,
-                    createdby varchar(50),
-                    created timestamptz,
-                    changedby varchar(50),
-                    changed timestamptz
-                ) WITH OIDS;
+		CREATE TABLE veraweb.pdftemplate (
+		    pk INTEGER DEFAULT nextval('veraweb.pdftemplate_seq') NOT NULL,
+		    name varchar(200) NOT NULL,
+		    content bytea NOT NULL,
+		    fk_orgunit int4 NOT NULL,
+		    createdby varchar(50),
+		    created timestamptz,
+		    changedby varchar(50),
+		    changed timestamptz
+		) WITH OIDS;
 
-                DROP VIEW veraweb.TPERSON_NORMALIZED;
+		DROP VIEW veraweb.TPERSON_NORMALIZED;
 
-                ALTER TABLE veraweb.tperson ALTER COLUMN city_a_e1 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.tperson ALTER COLUMN city_b_e1 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.tperson ALTER COLUMN city_c_e1 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.tperson ALTER COLUMN city_a_e2 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.tperson ALTER COLUMN city_b_e2 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.tperson ALTER COLUMN city_c_e2 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.tperson ALTER COLUMN city_a_e3 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.tperson ALTER COLUMN city_b_e3 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.tperson ALTER COLUMN city_c_e3 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.timportperson ALTER COLUMN city_a_e1 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.timportperson ALTER COLUMN city_b_e1 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.timportperson ALTER COLUMN city_c_e1 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.timportperson ALTER COLUMN city_a_e2 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.timportperson ALTER COLUMN city_b_e2 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.timportperson ALTER COLUMN city_c_e2 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.timportperson ALTER COLUMN city_a_e3 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.timportperson ALTER COLUMN city_b_e3 TYPE VARCHAR(300);
-                ALTER TABLE veraweb.timportperson ALTER COLUMN city_c_e3 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.tperson ALTER COLUMN city_a_e1 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.tperson ALTER COLUMN city_b_e1 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.tperson ALTER COLUMN city_c_e1 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.tperson ALTER COLUMN city_a_e2 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.tperson ALTER COLUMN city_b_e2 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.tperson ALTER COLUMN city_c_e2 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.tperson ALTER COLUMN city_a_e3 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.tperson ALTER COLUMN city_b_e3 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.tperson ALTER COLUMN city_c_e3 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN city_a_e1 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN city_b_e1 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN city_c_e1 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN city_a_e2 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN city_b_e2 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN city_c_e2 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN city_a_e3 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN city_b_e3 TYPE VARCHAR(300);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN city_c_e3 TYPE VARCHAR(300);
 
-                CREATE OR REPLACE VIEW veraweb.TPERSON_NORMALIZED AS (select tperson.*, veraweb.umlaut_fix(firstname_a_e1) as firstname_normalized, veraweb.umlaut_fix(lastname_a_e1) as lastname_normalized from veraweb.tperson);
+		CREATE OR REPLACE VIEW veraweb.TPERSON_NORMALIZED AS (select tperson.*, veraweb.umlaut_fix(firstname_a_e1) as firstname_normalized, veraweb.umlaut_fix(lastname_a_e1) as lastname_normalized from veraweb.tperson);
 
-                -- post-upgrade
-                vmsg := 'end.update(' || vnewvsn || ')';
-                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-                vcurvsn := vnewvsn;
-                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-            END IF;
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
-    vnewvsn := '2016-08-16';
-            IF vcurvsn < vnewvsn THEN
-                vmsg := 'begin.update(' || vnewvsn || ')';
+	vnewvsn := '2016-08-16';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
 
-                DROP TABLE veraweb.tevent_category;
-                DROP TABLE veraweb.tevent_function;
+		DROP TABLE veraweb.tevent_category;
+		DROP TABLE veraweb.tevent_function;
 
-                -- post-upgrade
-                vmsg := 'end.update(' || vnewvsn || ')';
-                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-                vcurvsn := vnewvsn;
-                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-            END IF;
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
-    vnewvsn := '2016-12-05';
-            IF vcurvsn < vnewvsn THEN
-                vmsg := 'begin.update(' || vnewvsn || ')';
+	vnewvsn := '2016-12-05';
+	IF vcurvsn < vnewvsn THEN
+		vmsg := 'begin.update(' || vnewvsn || ')';
 
-                ALTER TABLE veraweb.pdftemplate ADD constraint pdftemplate_pkey PRIMARY KEY (pk);
+		ALTER TABLE veraweb.pdftemplate ADD constraint pdftemplate_pkey PRIMARY KEY (pk);
 
-                CREATE SEQUENCE veraweb.salutation_alternative_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
+		CREATE SEQUENCE veraweb.salutation_alternative_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 
-                CREATE TABLE veraweb.salutation_alternative (
-                 pk INTEGER DEFAULT nextval('veraweb.salutation_alternative_seq') NOT NULL,
-                 pdftemplate_id INTEGER NOT NULL REFERENCES veraweb.pdftemplate(pk) ON DELETE CASCADE,
-                 salutation_id INTEGER NOT NULL REFERENCES veraweb.tsalutation(pk) ON DELETE CASCADE,
-                 content varchar(100) NOT NULL,
+		CREATE TABLE veraweb.salutation_alternative (
+		    pk INTEGER DEFAULT nextval('veraweb.salutation_alternative_seq') NOT NULL,
+		    pdftemplate_id INTEGER NOT NULL REFERENCES veraweb.pdftemplate(pk) ON DELETE CASCADE,
+		    salutation_id INTEGER NOT NULL REFERENCES veraweb.tsalutation(pk) ON DELETE CASCADE,
+		    content varchar(100) NOT NULL,
 
-                 CONSTRAINT salutation_alternative_pkey PRIMARY KEY (pk),
-                 CONSTRAINT salutation_alternative_unique UNIQUE (pdftemplate_id, salutation_id)
-                );
+		    CONSTRAINT salutation_alternative_pkey PRIMARY KEY (pk),
+		    CONSTRAINT salutation_alternative_unique UNIQUE (pdftemplate_id, salutation_id)
+		);
 
-				DROP VIEW veraweb.TPERSON_NORMALIZED;
+		DROP VIEW veraweb.TPERSON_NORMALIZED;
 
-                ALTER TABLE veraweb.tperson ALTER COLUMN salutation_a_e1 TYPE varchar(100);
-                ALTER TABLE veraweb.tperson ALTER COLUMN salutation_a_e2 TYPE varchar(100);
-                ALTER TABLE veraweb.tperson ALTER COLUMN salutation_a_e3 TYPE varchar(100);
-                ALTER TABLE veraweb.tperson ALTER COLUMN salutation_b_e1 TYPE varchar(100);
-                ALTER TABLE veraweb.tperson ALTER COLUMN salutation_b_e2 TYPE varchar(100);
-                ALTER TABLE veraweb.tperson ALTER COLUMN salutation_b_e3 TYPE varchar(100);
+		ALTER TABLE veraweb.tperson ALTER COLUMN salutation_a_e1 TYPE varchar(100);
+		ALTER TABLE veraweb.tperson ALTER COLUMN salutation_a_e2 TYPE varchar(100);
+		ALTER TABLE veraweb.tperson ALTER COLUMN salutation_a_e3 TYPE varchar(100);
+		ALTER TABLE veraweb.tperson ALTER COLUMN salutation_b_e1 TYPE varchar(100);
+		ALTER TABLE veraweb.tperson ALTER COLUMN salutation_b_e2 TYPE varchar(100);
+		ALTER TABLE veraweb.tperson ALTER COLUMN salutation_b_e3 TYPE varchar(100);
 
-			 	ALTER TABLE veraweb.timportperson ALTER COLUMN salutation_a_e1 TYPE varchar(100);
-				ALTER TABLE veraweb.timportperson ALTER COLUMN salutation_a_e2 TYPE varchar(100);
-				ALTER TABLE veraweb.timportperson ALTER COLUMN salutation_a_e3 TYPE varchar(100);
-				ALTER TABLE veraweb.timportperson ALTER COLUMN salutation_b_e1 TYPE varchar(100);
-				ALTER TABLE veraweb.timportperson ALTER COLUMN salutation_b_e2 TYPE varchar(100);
-				ALTER TABLE veraweb.timportperson ALTER COLUMN salutation_b_e3 TYPE varchar(100);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN salutation_a_e1 TYPE varchar(100);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN salutation_a_e2 TYPE varchar(100);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN salutation_a_e3 TYPE varchar(100);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN salutation_b_e1 TYPE varchar(100);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN salutation_b_e2 TYPE varchar(100);
+		ALTER TABLE veraweb.timportperson ALTER COLUMN salutation_b_e3 TYPE varchar(100);
 
-				CREATE OR REPLACE VIEW veraweb.TPERSON_NORMALIZED AS (select tperson.*, veraweb.umlaut_fix(firstname_a_e1) as firstname_normalized, veraweb.umlaut_fix(lastname_a_e1) as lastname_normalized from veraweb.tperson);
+		CREATE OR REPLACE VIEW veraweb.TPERSON_NORMALIZED AS (
+			select tperson.*,
+			    veraweb.umlaut_fix(firstname_a_e1) as firstname_normalized,
+			    veraweb.umlaut_fix(lastname_a_e1) as lastname_normalized
+			from veraweb.tperson
+		);
 
-                -- post-upgrade
-                vmsg := 'end.update(' || vnewvsn || ')';
-                UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
-                vcurvsn := vnewvsn;
-                INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
-            END IF;
+		-- post-upgrade
+		vmsg := 'end.update(' || vnewvsn || ')';
+		UPDATE veraweb.tconfig SET cvalue = vnewvsn WHERE cname = 'SCHEMA_VERSION';
+		vcurvsn := vnewvsn;
+		INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
+	END IF;
 
 	vnewvsn := '2016-12-19';
 	IF vcurvsn < vnewvsn THEN
