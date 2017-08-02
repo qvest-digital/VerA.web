@@ -193,7 +193,7 @@ public class EventTaskDetailWorker {
             final Task existingTask = (Task) database.getBean("Task", task.getId(), transactionContext);
 
             /** Aufgabe speichern */
-            if (task.isModified() && task.isCorrect()) {
+            if ( task.isCorrect() ) {
                 createOrUpdateTask(octopusContext, database, transactionContext, task, existingTask);
             } else {
                 octopusContext.setStatus("notsaved");
