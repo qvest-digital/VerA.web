@@ -239,6 +239,11 @@
 				<executions>
 					<execution>
 						<id>attach-sources</id>
+						<phase>DISABLE_FORKED_LIFECYCLE_MSOURCES-13</phase>
+					</execution>
+					<execution>
+						<id>attach-sources-no-fork</id>
+						<phase>generate-sources</phase>
 						<goals>
 							<goal>jar-no-fork</goal>
 						</goals>
