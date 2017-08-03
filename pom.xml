@@ -3,9 +3,8 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>rest-api</artifactId>
 	<version>1.8.54-SNAPSHOT</version>
-	<description>REST-API VerA.web Serverseite</description>
 	<packaging>war</packaging>
-	<name>VerA.web shared REST API</name>
+	<name>VerA.web REST API server module</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jacoco.version>0.7.1.201405082137</jacoco.version>
