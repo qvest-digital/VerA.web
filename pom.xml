@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>rest-api</artifactId>
-	<version>1.8.54-SNAPSHOT</version>
+	<version>1.8.54</version>
 	<packaging>war</packaging>
 	<name>VerA.web REST API server module</name>
 	<properties>
