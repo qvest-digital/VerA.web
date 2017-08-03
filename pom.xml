@@ -3,7 +3,7 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-core</artifactId>
 	<packaging>war</packaging>
-	<version>1.8.54</version>
+	<version>1.8.55-SNAPSHOT</version>
 	<name>VerA.web core module</name>
 	<inceptionYear>2005</inceptionYear>
 	<properties>
