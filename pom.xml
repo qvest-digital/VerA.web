@@ -24,23 +24,24 @@
 		<h2.version>1.4.191</h2.version>
 		<maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
 	</properties>
-	<distributionManagement>
-		<repository>
-			<id>evolvis-release-repository</id>
-			<name>evolvis.org release repository</name>
-			<url>sftp://maven-repo.evolvis.org/var/www/maven_repo/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>evolvis-snapshot-repository</id>
-			<name>evolvis.org snapshot repository</name>
-			<url>sftp://maven-repo.evolvis.org/var/www/maven_repo/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 	<scm>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/export.git</developerConnection>
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/export.git</url>
 		<tag>HEAD</tag>
 	</scm>
+	<!-- this section is required for deployment -->
+	<distributionManagement>
+		<repository>
+			<id>tarent-nexus</id>
+			<name>tarent-nexus releases</name>
+			<url>https://repo-bn-01.lan.tarent.de/repository/maven-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>tarent-nexus</id>
+			<name>tarent-nexus snapshots</name>
+			<url>https://repo-bn-01.lan.tarent.de/repository/maven-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>de.tarent.extract</groupId>
