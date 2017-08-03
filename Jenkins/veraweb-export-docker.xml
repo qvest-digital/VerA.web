@@ -12,16 +12,11 @@ Location: &lt;a href=&quot;http://veraweb-tools.lan.tarent.de/&quot;&gt;http://v
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Read:jobere</permission>
-      <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Item.Configure:jobere</permission>
       <permission>hudson.model.Item.Configure:veraweb</permission>
-      <permission>hudson.model.Item.Build:jobere</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Delete:jobere</permission>
-      <permission>hudson.model.Item.Delete:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:jobere</permission>
       <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -37,7 +32,7 @@ Location: &lt;a href=&quot;http://veraweb-tools.lan.tarent.de/&quot;&gt;http://v
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>git+ssh://maven@dev.tarent.de/scmrepos/git/verascrum/environment.git</url>
+        <url>git+ssh://git@gitlab.tarent.de/veraweb-int/environment.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -86,6 +81,33 @@ done
         <completeBuild>true</completeBuild>
       </threshold>
     </hudson.tasks.BuildTrigger>
+    <hudson.plugins.jabber.im.transport.JabberPublisher plugin="jabber@1.35">
+      <targets>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>adirla@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>afreid@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>eausch@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>ldegen@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>mpech@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+      </targets>
+      <strategy>ALL</strategy>
+      <notifyOnBuildStart>false</notifyOnBuildStart>
+      <notifySuspects>false</notifySuspects>
+      <notifyCulprits>false</notifyCulprits>
+      <notifyFixers>false</notifyFixers>
+      <notifyUpstreamCommitters>false</notifyUpstreamCommitters>
+      <buildToChatNotifier class="hudson.plugins.im.build_notify.DefaultBuildToChatNotifier" plugin="instant-messaging@1.35"/>
+      <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
+    </hudson.plugins.jabber.im.transport.JabberPublisher>
   </publishers>
   <buildWrappers/>
 </project>

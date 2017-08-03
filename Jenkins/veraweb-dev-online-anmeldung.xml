@@ -1,29 +1,42 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <maven2-moduleset plugin="maven-plugin@2.10">
   <actions/>
-  <description>&lt;p&gt;Dieser Job ist Teil einer Serie von vier Jobs, die in Reihe (sequenziell) bauen:&lt;/p&gt;&#xd;
+  <description>&lt;p&gt;⚠ Diese Information ist möglicherweise veraltet.&lt;/p&gt;&#xd;
+&#xd;
+&lt;p&gt;Dieser Job ist Teil einer Serie von (zweimal) fünf Jobs,&#xd;
+ die in Reihe (sequenziell) bauen:&lt;/p&gt;&#xd;
 &#xd;
 &lt;table style=&quot;border:0;&quot;&gt;&#xd;
-  &lt;tr&gt;&lt;td&gt;⒈　vwapi&lt;/td&gt;&lt;td&gt;– rest-api-common&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
+  &lt;tr&gt;&lt;td&gt;⒈　vwapi&lt;/td&gt;&lt;td&gt;— rest-api-common&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-dev-common/&quot;&gt;Dev-Job&lt;/a&gt;, &lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-release-common/&quot;&gt;Release-Job&lt;/a&gt;, &lt;a&#xd;
- href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/common.git;a=summary&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
- href=&quot;http://maven-repo.evolvis.org/releases/org/evolvis/veraweb/rest-api-common/&quot;&gt;Release-Artefakte&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;&#xd;
-  &lt;tr&gt;&lt;td&gt;⒉　vwor&lt;/td&gt;&lt;td&gt;– rest-api&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
+ href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/common.git&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
+ href=&quot;https://repo-bn-01.lan.tarent.de/#browse/search=attributes.maven2.groupId%3Dorg.evolvis.veraweb%20AND%20attributes.maven2.artifactId%3Drest-api-common&quot;&gt;Release-Artefakte&lt;/a&gt; bzw. &lt;a&#xd;
+ href=&quot;http://maven-repo.evolvis.org/releases/org/evolvis/veraweb/rest-api-common/&quot;&gt;alte&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;&#xd;
+  &lt;tr&gt;&lt;td&gt;⒉　vwe&lt;/td&gt;&lt;td&gt;— export&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
+ href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-dev-export/&quot;&gt;Dev-Job&lt;/a&gt;, &lt;a&#xd;
+ href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-release-export/&quot;&gt;Release-Job&lt;/a&gt;, &lt;a&#xd;
+ href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/export.git&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
+ href=&quot;https://repo-bn-01.lan.tarent.de/#browse/search=attributes.maven2.groupId%3Dorg.evolvis.veraweb%20AND%20attributes.maven2.artifactId%3Dveraweb-export&quot;&gt;Release-Artefakte&lt;/a&gt; bzw. &lt;a&#xd;
+ href=&quot;http://maven-repo.evolvis.org/releases/org/evolvis/veraweb/veraweb-export/&quot;&gt;alte&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;&#xd;
+  &lt;tr&gt;&lt;td&gt;⒊　vwor&lt;/td&gt;&lt;td&gt;— rest-api&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-dev-rest-api/&quot;&gt;Dev-Job&lt;/a&gt;, &lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-release-rest-api/&quot;&gt;Release-Job&lt;/a&gt;, &lt;a&#xd;
- href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/rest-api.git;a=summary&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
- href=&quot;http://maven-repo.evolvis.org/releases/org/evolvis/veraweb/rest-api/&quot;&gt;Release-Artefakte&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;&#xd;
-  &lt;tr&gt;&lt;td&gt;⒊　vwoa&lt;/td&gt;&lt;td&gt;– online-anmeldung&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
+ href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/rest-api.git&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
+ href=&quot;https://repo-bn-01.lan.tarent.de/#browse/search=attributes.maven2.groupId%3Dorg.evolvis.veraweb%20AND%20attributes.maven2.artifactId%3Drest-api&quot;&gt;Release-Artefakte&lt;/a&gt; bzw. &lt;a&#xd;
+ href=&quot;http://maven-repo.evolvis.org/releases/org/evolvis/veraweb/rest-api/&quot;&gt;alte&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;&#xd;
+  &lt;tr&gt;&lt;td&gt;⒋　vwoa&lt;/td&gt;&lt;td&gt;— online-anmeldung&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-dev-online-anmeldung/&quot;&gt;Dev-Job&lt;/a&gt;, &lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-release-online-anmeldung/&quot;&gt;Release-Job&lt;/a&gt;, &lt;a&#xd;
- href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/online-anmeldung.git;a=summary&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
- href=&quot;http://maven-repo.evolvis.org/releases/org/evolvis/veraweb/online-anmeldung/&quot;&gt;Release-Artefakte&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;&#xd;
-  &lt;tr&gt;&lt;td&gt;⒋　core&lt;/td&gt;&lt;td&gt;– veraweb&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
+ href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/online-anmeldung.git&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
+ href=&quot;https://repo-bn-01.lan.tarent.de/#browse/search=attributes.maven2.groupId%3Dorg.evolvis.veraweb%20AND%20attributes.maven2.artifactId%3Donline-anmeldung&quot;&gt;Release-Artefakte&lt;/a&gt; bzw. &lt;a&#xd;
+ href=&quot;http://maven-repo.evolvis.org/releases/org/evolvis/veraweb/online-anmeldung/&quot;&gt;alte&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;&#xd;
+  &lt;tr&gt;&lt;td&gt;⒌　core&lt;/td&gt;&lt;td&gt;— veraweb&lt;/td&gt;&lt;td&gt;(&lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-dev-core/&quot;&gt;Dev-Job&lt;/a&gt;, &lt;a&#xd;
  href=&quot;https://ci-busyapps.lan.tarent.de/jenkins/job/veraweb-release-core/&quot;&gt;Release-Job&lt;/a&gt;, &lt;a&#xd;
- href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git;a=summary&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
- href=&quot;http://maven-repo.evolvis.org/releases/org/evolvis/veraweb/veraweb-core/&quot;&gt;Release-Artefakte&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;&#xd;
+ href=&quot;https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git&quot;&gt;gitweb&lt;/a&gt;, &lt;a&#xd;
+ href=&quot;https://repo-bn-01.lan.tarent.de/#browse/search=attributes.maven2.groupId%3Dorg.evolvis.veraweb%20AND%20attributes.maven2.artifactId%3Dveraweb-core&quot;&gt;Release-Artefakte&lt;/a&gt; bzw. &lt;a&#xd;
+ href=&quot;http://maven-repo.evolvis.org/releases/org/evolvis/veraweb/veraweb-core/&quot;&gt;alte&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;&#xd;
 &lt;/table&gt;&#xd;
 &#xd;
 &lt;p&gt;Das Bauen eines der Dev-Jobs stößt immer automatisch das Bauen des nächsten&#xd;
@@ -33,7 +46,9 @@
 &lt;p&gt;Alle Jobs &lt;em&gt;müssen&lt;/em&gt; immer mit derselben Version wie rest-api-common&#xd;
  entwickelt und releast werden. Beim Release ist die Versionsnummer direkt auch das&#xd;
  SCM-Tag; dies passiert nun standardmäßig (muß nicht mehr angegeben werden).&lt;/p&gt;&#xd;
-</description>
+&#xd;
+&lt;p&gt;XXX TODO: mit Infos über die von Jens Oberender eingerichteten neuen Jobs&#xd;
+ und die Build-Pipilinie aktualisieren.&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>20</numToKeep>
@@ -43,19 +58,14 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Run.Update:veraweb</permission>
-      <permission>hudson.model.Item.Read:tglase</permission>
-      <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Item.Cancel:veraweb</permission>
-      <permission>hudson.model.Item.Release:veraweb</permission>
-      <permission>hudson.model.Item.Configure:tglase</permission>
       <permission>hudson.model.Item.Configure:veraweb</permission>
-      <permission>hudson.model.Item.Build:tglase</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Delete:tglase</permission>
-      <permission>hudson.model.Item.Workspace:tglase</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
       <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Cancel:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
       <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
@@ -67,7 +77,7 @@
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>fes-Q2</name>
+        <name>master</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -77,7 +87,7 @@
     <submoduleCfg class="list"/>
     <extensions>
       <hudson.plugins.git.extensions.impl.LocalBranch>
-        <localBranch>fes-Q2</localBranch>
+        <localBranch>master</localBranch>
       </hudson.plugins.git.extensions.impl.LocalBranch>
     </extensions>
   </scm>
@@ -108,25 +118,34 @@
   <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
   <reporters/>
   <publishers>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>veraweb-dev-core</childProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
     <hudson.plugins.jabber.im.transport.JabberPublisher plugin="jabber@1.35">
       <targets>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>aalexa@info.tarent.de</value>
+          <value>adirla@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>mklein@info.tarent.de</value>
+          <value>afreid@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>mweier@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>tzimme@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>jobere@info.tarent.de</value>
+          <value>eausch@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
           <value>ldegen@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>mpech@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>tglase@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
       </targets>
       <strategy>STATECHANGE_ONLY</strategy>

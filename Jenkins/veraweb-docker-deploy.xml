@@ -11,19 +11,14 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Delete:tglase</permission>
-      <permission>hudson.model.Item.Configure:tglase</permission>
       <permission>hudson.model.Item.Configure:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:tglase</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
       <permission>hudson.model.Item.Workspace:veraweb</permission>
       <permission>hudson.model.Item.Cancel:veraweb</permission>
-      <permission>hudson.model.Item.Release:veraweb</permission>
-      <permission>hudson.model.Item.Build:tglase</permission>
       <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Read:tglase</permission>
-      <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Run.Update:veraweb</permission>
       <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -45,7 +40,7 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>git+ssh://maven@dev.tarent.de/scmrepos/git/verascrum/environment.git</url>
+        <url>git+ssh://git@gitlab.tarent.de/veraweb-int/environment.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -70,7 +65,7 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
     <hudson.triggers.SCMTrigger>
-      <spec>H/10 * * * *</spec>
+      <spec>H/5 * * * *</spec>
       <ignorePostCommitHooks>false</ignorePostCommitHooks>
     </hudson.triggers.SCMTrigger>
   </triggers>
@@ -80,7 +75,7 @@
       <command>set -ex
 git gc
 rsync --delete-before -zavPHK &quot;$PWD/&quot; root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/env/
-ssh -l root veraweb-tools.lan.tarent.de /root/jenkins-tmp/env/dockerdeploy.sh $VERAWEB_DOCKER_TGT
+ssh -l root veraweb-tools.lan.tarent.de env PS4=\&apos;&apos;(veraweb-tools)+ &apos;\&apos; /root/jenkins-tmp/env/dockerdeploy.sh $VERAWEB_DOCKER_TGT
 </command>
     </hudson.tasks.Shell>
   </builders>
@@ -88,22 +83,19 @@ ssh -l root veraweb-tools.lan.tarent.de /root/jenkins-tmp/env/dockerdeploy.sh $V
     <hudson.plugins.jabber.im.transport.JabberPublisher plugin="jabber@1.35">
       <targets>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>aalexa@info.tarent.de</value>
+          <value>adirla@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>mklein@info.tarent.de</value>
+          <value>afreid@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>mweier@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>tzimme@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>jobere@info.tarent.de</value>
+          <value>eausch@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
           <value>ldegen@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>mpech@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
       </targets>
       <strategy>STATECHANGE_ONLY</strategy>

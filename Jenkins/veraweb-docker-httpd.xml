@@ -11,19 +11,14 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Delete:tglase</permission>
-      <permission>hudson.model.Item.Configure:tglase</permission>
       <permission>hudson.model.Item.Configure:veraweb</permission>
       <permission>hudson.model.Run.Update:veraweb</permission>
-      <permission>hudson.model.Item.Build:tglase</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Release:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:tglase</permission>
       <permission>hudson.model.Item.Workspace:veraweb</permission>
-      <permission>hudson.model.Item.Read:tglase</permission>
-      <permission>hudson.model.Item.Read:veraweb</permission>
       <permission>hudson.model.Item.Cancel:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
       <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
@@ -82,22 +77,22 @@ ssh -l root veraweb-tools.lan.tarent.de &apos;/root/jenkins-tmp/httpd/dockerinst
     <hudson.plugins.jabber.im.transport.JabberPublisher plugin="jabber@1.35">
       <targets>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>aalexa@info.tarent.de</value>
+          <value>adirla@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>mklein@info.tarent.de</value>
+          <value>afreid@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>mweier@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>tzimme@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>jobere@info.tarent.de</value>
+          <value>eausch@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
         <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
           <value>ldegen@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>mpech@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>tglase@info.tarent.de</value>
         </hudson.plugins.im.DefaultIMMessageTarget>
       </targets>
       <strategy>STATECHANGE_ONLY</strategy>
