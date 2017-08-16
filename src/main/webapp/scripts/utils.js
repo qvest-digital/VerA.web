@@ -40,7 +40,7 @@ function fixLayer() {
 }
 
 function setModified(id) {
-	id = (id === null) ? 'modified' : id + '-modified';
+	id = (id === null || typeof id === "undefined" ) ? 'modified' : id + '-modified';
 	document.getElementById(id).value = 'true';
 }
 
@@ -53,7 +53,7 @@ function checkModified(id, message) {
 }
 
 function isModified(id) {
-	id = (id === null) ? 'modified' : id + '-modified';
+	id = (id === null || typeof id === "undefined" ) ? 'modified' : id + '-modified';
 	if (document.getElementById(id).value == 'true') {
 		return true;
 	} else {
@@ -88,7 +88,7 @@ function navigateList(start) {
 	$('input[name$="-select"]').prop('checked', false);
 	var form = document.getElementById('formlist');
 	if (form && form.elements.start) {
-		orm.elements.start.value = start;
+		form.elements.start.value = start;
 		form.submit();
 	} else {
 		alert('form or field start NOT FOUND!');
@@ -234,7 +234,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
      * @returns {*|jQuery|HTMLElement}
      */
     var createInfoHtml = function (toolTip, htmlStr) {
-        if (htmlStr === undefined) {
+        if (typeof htmlStr === "undefined") {
             return $('<div class="hinweis grayBorder marginBottom20 notBold">' + toolTip + '</div>');
         } else {
             return $('<div class="hinweis grayBorder marginBottom20 notBold"><strong>' + toolTip + '</strong><p>' +
