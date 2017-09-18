@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.prefs.Preferences;
 
 import org.apache.commons.logging.Log;
 
@@ -182,15 +181,6 @@ public class Octopus {
         logger.trace(getClass().getName() + " dispatch");
     }
 
-    public Preferences getModulePreferences(String moduleName) {
-        Preferences modulePreferences = getOctopusPreferences().node("modules");
-        if (moduleName == null)
-            return modulePreferences;
-        while (moduleName.startsWith("/")) moduleName = moduleName.substring(1);
-        while (moduleName.endsWith("/")) moduleName = moduleName.substring(0, moduleName.length()-1);
-        return modulePreferences.node(moduleName);
-    }
-
 	/*
 	 * geschützte Methoden
 	 */
@@ -298,9 +288,5 @@ public class Octopus {
 
     public TcCommonConfig getCommonConfig() {
     	return commonConfig;
-    }
-
-    private Preferences getOctopusPreferences() {
-        return Preferences.systemRoot().node("/de/tarent/octopus");
     }
 }

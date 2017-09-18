@@ -30,7 +30,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.prefs.Preferences;
 
 import org.apache.commons.logging.Log;
 import org.w3c.dom.Document;
@@ -190,7 +189,6 @@ public class TcCommonConfig {
                 }
             }
         }
-        env.overrideValues("common", "/de/tarent/octopus/overrides/common");
 
         moduleConfigs = new HashMap();
 
@@ -372,16 +370,7 @@ public class TcCommonConfig {
         		return null;
         	}
         	
-        	Preferences modulePreferences = octopus.getModulePreferences(moduleName);
     		File modulePath = moduleLookup.getModulePath(moduleName);
-    		
-			if (modulePath == null) {
-				String modulePrefPath = modulePreferences.get(TcModuleLookup.PREF_NAME_REAL_PATH, null);
-				logger.info(Resources.getInstance().get("OCTOPUS_STARTER_LOG_MODULE_PATH_PREFERENCES", moduleName));
-				if (modulePrefPath != null && modulePrefPath.length() != 0)
-					modulePath = new File(modulePrefPath);
-			}
-			
     		File configFile = new File(modulePath, "config.xml");
     		if (!configFile.exists()) {
     			configFile = new File(modulePath, "module-config.xml");
@@ -405,14 +394,9 @@ public class TcCommonConfig {
     		try {
     			logger.debug(Resources.getInstance().get("REQUESTPROXY_LOG_PARSING_MODULE_CONFIG", configFile, moduleName));
     			Document document = Xml.getParsedDocument(Resources.getInstance().get("REQUESTPROXY_URL_MODULE_CONFIG", configFile.getAbsolutePath()));
-    			TcModuleConfig moduleConfig = new TcModuleConfig(
-    					moduleName,
-    					modulePath,
-    					document,
-    					modulePreferences);
+				TcModuleConfig moduleConfig = new TcModuleConfig(moduleName, modulePath, document);
     			moduleConfigs.put(moduleName, moduleConfig);
     			
-        		modulePreferences.put(TcModuleLookup.PREF_NAME_REAL_PATH, configFile.getParent());
         		env.setValue(TcEnv.KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + moduleName, configFile.getAbsolutePath());
         		
         		registerModule(moduleName, moduleConfig);
@@ -426,7 +410,6 @@ public class TcCommonConfig {
     			logger.error(Resources.getInstance().get("REQUESTPROXY_LOG_MODULE_PARSE_EXCEPTION"), e);
     		}
     		
-    		modulePreferences.remove(TcModuleLookup.PREF_NAME_REAL_PATH);
     		env.remove(TcEnv.KEY_MODULE_CONFIGFILE_LOCATION_PREFIX + moduleName);
     		
     		return null;

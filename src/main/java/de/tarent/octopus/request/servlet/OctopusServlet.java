@@ -386,8 +386,6 @@ public class OctopusServlet extends HttpServlet {
 
         env.setValue(TcEnv.KEY_PATHS_ROOT, context.getRealPath("/WEB-INF") + System.getProperty("file.separator"));
 
-        env.overrideValues("base", "/de/tarent/octopus/overrides");
-        
         return env;
     }
 }

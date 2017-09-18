@@ -39,7 +39,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
 
 import javax.wsdl.Definition;
 import javax.wsdl.WSDLException;
@@ -110,7 +109,6 @@ public class TcModuleConfig {
      */
     protected Map configParams;
     private Map rawConfigParams = new HashMap();
-    private Preferences configPrefs;
     
     /**
      * Map mit den Einstellungen für den LoginManager.
@@ -142,15 +140,13 @@ public class TcModuleConfig {
      * Initialisiert diese Config mit einem geparsten Document.
      * Dieses Document muss der DTD ModuleConfig genügen.
      */
-    public TcModuleConfig(String name, File realPath, Document document, Preferences preferences) throws DataFormatException {
+    public TcModuleConfig(String name, File realPath, Document document) throws DataFormatException {
         this.name = name;
         this.realPath = realPath;
-        this.configPrefs = preferences;
         
-        collectSectionsFromDocument(document, preferences);
+        collectSectionsFromDocument(document);
         
         configParams = new HashMap(rawConfigParams);
-        override("Parameter von " + name, configParams, preferences.node(PREFS_PARAMS));
 
         if (taskList == null)
             throw new DataFormatException("Die Konfigurationsdatei muss einen Tasks-Abschnitt besitzen.");
@@ -175,10 +171,9 @@ public class TcModuleConfig {
 
     /**
      * @param document
-     * @param preferences
      * @throws DataFormatException
      */
-    private void collectSectionsFromDocument(Document document, Preferences preferences) throws DataFormatException {
+    private void collectSectionsFromDocument(Document document) throws DataFormatException {
         
         NodeList sections = document.getDocumentElement().getChildNodes();
 
@@ -264,7 +259,7 @@ public class TcModuleConfig {
                 }
                 	
 				if (includeDocument != null) {
-					collectSectionsFromDocument(includeDocument, preferences);
+					collectSectionsFromDocument(includeDocument);
 				}
 				
             } else if ("params".equals(currNode.getNodeName())) {
@@ -288,7 +283,7 @@ public class TcModuleConfig {
                 }
             } else if ("dataAccess".equals(currNode.getNodeName())) {
                 try {
-                    dataAccess.putAll(parseDataAccess(currNode, preferences.node(PREFS_DATA_ACCESS)));
+                    dataAccess.putAll(parseDataAccess(currNode));
                 } catch (DataFormatException dfe) {
                     logger.error("Fehler beim Parsen des Data Access Abschnitts.", dfe);
                     throw dfe;
@@ -457,7 +452,7 @@ public class TcModuleConfig {
     /**
      * Auslesen der DataAccess Informationen
      */
-    protected Map parseDataAccess(Node dataAccessNode, Preferences preferences) throws DataFormatException {
+    protected Map parseDataAccess(Node dataAccessNode) throws DataFormatException {
 
         Map sources = new HashMap();
 
@@ -475,7 +470,6 @@ public class TcModuleConfig {
                     throw new DataFormatException("Ein dataSource-Element muss ein name-Element haben.");
 
                 Map currentSource = Xml.getParamMap(currNode);
-                override("DataSource " + name, currentSource, preferences.node(name));
                 currentSource.put("name", name);
                 sources.put(name, currentSource);
                 
@@ -581,13 +575,11 @@ public class TcModuleConfig {
         if (key == null || key.length() == 0)
             return;
         if (value == null) {
-            getPreferences(PREFS_PARAMS).remove(key);
             if (rawConfigParams.containsKey(key))
                 configParams.put(key, rawConfigParams.get(key));
             else
                 configParams.remove(key);
         } else {
-            getPreferences(PREFS_PARAMS).put(key, value);
             configParams.put(key, value);
         }
     }
@@ -712,22 +704,9 @@ public class TcModuleConfig {
     }
 
     /**
-     * Diese Methode liefert einen Preferences-Knoten im Modul-Zweig. 
-     * 
-     * @param subNode relativer Pfad des Unterknotens. Falls <code>null</code>, so wird der
-     *  Modul-Basisknoten geliefert.
-     * @return ausgewählter Preferences-Knoten
-     */
-    public Preferences getPreferences(String subNode) {
-        while (subNode != null && subNode.startsWith("/"))
-            subNode = subNode.substring(1);
-        return subNode == null ? configPrefs : configPrefs.node(subNode);
-    }
-
-    /**
      * Diese Methode liefert die Parameter mit Überschreibungen aus den Preferences. 
      * 
-     * @return maniüulierte Modul-Parameter.
+     * @return manipulierte Modul-Parameter.
      */
 	public Map getParams() {
 	    return Collections.unmodifiableMap(configParams);
@@ -765,26 +744,6 @@ public class TcModuleConfig {
         return getParam(CONFIG_PARAM_ON_UNAUTHORIZED);
     }
 
-	/**
-	 * Diese Methode überschreibt Werte in einer Map mit Werten in einem Preferences-Knoten.
-	 */
-	public final static void override(String context, Map map, Preferences preferences) {
-        String[] keys;
-        try {
-            keys = preferences.keys();
-            if (keys != null && keys.length > 0) {
-                for (int i = 0; i < keys.length; i++) {
-                    String key = keys[i];
-                    String value = preferences.get(key, asString(map.get(key)));
-                    logger.debug("[" + context + "] Override for " + key + ": " + value);
-                    map.put(key, value);
-                }
-            }
-        } catch (BackingStoreException e) {
-            logger.error("[" + context + "] Preferences-API-Zugriff", e);
-        }
-	}
-	
 	public final static String asString(Object o) {
 	    return o != null ? o.toString() : null;
 	}

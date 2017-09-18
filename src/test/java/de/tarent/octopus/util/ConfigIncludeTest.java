@@ -24,7 +24,6 @@ package de.tarent.octopus.util;
 
 import java.io.File;
 import java.net.URL;
-import java.util.prefs.Preferences;
 
 import junit.framework.TestCase;
 
@@ -44,9 +43,7 @@ public class ConfigIncludeTest extends TestCase {
         
         Document document = Xml.getParsedDocument(resource);
         
-        Preferences modulePreferences = Preferences.systemRoot().node("/de/tarent/octopus");
-        
-        TcModuleConfig config = new TcModuleConfig("Testname", new File(url.getFile()).getParentFile(), document, modulePreferences);
+        TcModuleConfig config = new TcModuleConfig("Testname", new File(url.getFile()).getParentFile(), document);
         
         assertEquals("Falsche Anzahl an eingelesenen Parametern: ", 2, config.getParams().size());
     }

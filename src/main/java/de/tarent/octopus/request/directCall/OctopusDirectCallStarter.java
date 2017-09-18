@@ -243,7 +243,6 @@ public class OctopusDirectCallStarter implements OctopusStarter {
         //env.setValue(TcEnv.loggerConfigFile, "logger.conf");
         //env.setValue(TcEnv.paths.pageDescriptionRoot, );
         env.setValue(TcEnv.KEY_PATHS_TEMPLATE_ROOT, "templates/");
-        env.overrideValues("base", "/de/tarent/octopus/overrides");
 
         if (null != overrideSettings) 
             for (Iterator iter = overrideSettings.keySet().iterator(); iter.hasNext();) {

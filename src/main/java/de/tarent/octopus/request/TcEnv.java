@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
 
 import org.apache.commons.logging.Log;
 
@@ -309,30 +308,6 @@ public class TcEnv extends HashMap {
             return 0;
 
         return Integer.parseInt(stringValue);
-    }
-
-    /**
-     * Diese Methode überschreibt Werte dieses Environments aus den Preferences.
-     *
-     * @param context Kontext für Log-Ausgaben
-     * @param systemNodeName Systemknotenbezeichner für den Override-Bereich.
-     */
-    public void overrideValues(String context, String systemNodeName) {
-        Preferences overrides = Preferences.systemRoot().node(systemNodeName);
-        String[] keys;
-        try {
-            keys = overrides.keys();
-            if (keys != null && keys.length > 0) {
-                for (int i = 0; i < keys.length; i++) {
-                    String key = keys[i];
-                    String value = overrides.get(key, get(key));
-                    logger.debug("[" + context + "] Override for " + key + ": " + value);
-                    setValue(key, value);
-                }
-            }
-        } catch (BackingStoreException e) {
-            logger.error("[" + context + "] Preferences-API-Zugriff", e);
-        }
     }
 
     //
