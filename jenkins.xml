@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <maven2-moduleset plugin="maven-plugin@2.10">
   <actions/>
-  <description>OCTOPUS core für VerA.web</description>
+  <description>&lt;h2&gt;OCTOPUS core für VerA.web&lt;/h2&gt;&#xd;
+&#xd;
+&lt;p&gt;&lt;a href=&quot;https://repo-bn-01.lan.tarent.de/#browse/search=attributes.maven2.groupId%3Dde.tarent.octopus%20AND%20attributes.maven2.artifactId%3Doctopus-core&quot;&gt;Release-Artefakte&lt;/a&gt;&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
