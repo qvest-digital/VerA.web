@@ -40,7 +40,7 @@
 				<tr>
 					<td>simple</td>
 					<td>n/a</td>
-					<td><!-- <strong>Depricated: </strong> ??? -->The <a href="xref/de/tarent/octopus/response/TcSimpleResponseEngine.html">TcSimpleResponseEngine</a> use an alternative template engine.</td>
+					<td><!-- <strong>Deprecated: </strong> ??? -->The <a href="xref/de/tarent/octopus/response/TcSimpleResponseEngine.html">TcSimpleResponseEngine</a> use an alternative template engine.</td>
 				</tr>
 				<tr>
 					<td>soap</td>
