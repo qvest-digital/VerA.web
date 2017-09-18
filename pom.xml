@@ -44,6 +44,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	<scm>
+		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/octopus-veraweb.git</developerConnection>
+	</scm>
 
 	<!-- Information required to build the project. -->
 	<build>
@@ -67,7 +70,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.3</version>
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
@@ -93,7 +96,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.2.1</version>
+				<version>2.5.2</version>
 			</plugin>
 			<plugin>
 				<inherited>false</inherited>
@@ -222,22 +225,14 @@
 	<!-- this section is required for deployment -->
 	<distributionManagement>
 		<repository>
-			<id>evolvis-release-repository</id>
-			<name>evolvis.org release repository</name>
-			<url>sftp://maven-repo.evolvis.org/var/www/maven_repo/releases</url>
+			<id>tarent-nexus</id>
+			<name>tarent-nexus releases</name>
+			<url>https://repo-bn-01.lan.tarent.de/repository/maven-releases</url>
 		</repository>
 		<snapshotRepository>
-			<id>evolvis-snapshot-repository</id>
-			<name>evolvis.org snapshot repository</name>
-			<url>sftp://maven-repo.evolvis.org/var/www/maven_repo/snapshots</url>
+			<id>tarent-nexus</id>
+			<name>tarent-nexus snapshots</name>
+			<url>https://repo-bn-01.lan.tarent.de/repository/maven-snapshots</url>
 		</snapshotRepository>
-		<site>
-			<id>evolvis-site-repository</id>
-			<name>evolvis.org site repository</name>
-			<url>sftp://maven-repo.evolvis.org/site/octopus/htdocs/${project.artifactId}</url>
-		</site>
 	</distributionManagement>
-	<scm>
-		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/octopus-veraweb.git</developerConnection>
-	</scm>
 </project>
