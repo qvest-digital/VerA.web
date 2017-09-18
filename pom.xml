@@ -39,14 +39,14 @@
 		The version of the project under development, e.g.
 		1.1, 1.2, 2.0-SNAPSHOT
 	-->
-	<version>1.6.2verawebpl7-SNAPSHOT</version>
+	<version>1.6.2verawebpl7</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<scm>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/octopus-veraweb.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>octopus-core/1.6.2verawebpl7</tag>
 	</scm>
 
 	<!-- Information required to build the project. -->
