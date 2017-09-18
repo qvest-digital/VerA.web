@@ -338,11 +338,11 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
 
     /**
      * Stellt für die Dauer der Bean-Löschung durch die Elternmethode
-     * {@link de.tarent.octopus.beans.BeanListWorker#removeSelection(OctopusContext, List, List, TransactionContext)
+     * {@link de.tarent.octopus.beans.BeanListWorker#removeSelection(OctopusContext, List, List, TransactionContext)}
      * der #removeBean(OctopusContext, Bean, TransactionContext) Methode
      * die Fehlerliste zum Auffüllen zur Verfügung.
      *
-     * @param octopusContext        OctopusContext
+     * @param cntx        OctopusContext
      * @param errors    kumulierte Fehlerliste
      * @param selection    zu löschende Auswahl
      * @param context    TransactionContext
