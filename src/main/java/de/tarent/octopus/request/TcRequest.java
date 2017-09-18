@@ -551,7 +551,7 @@ public class TcRequest {
     }
     
     /**
-     * Returns the header object. This object implements the {@link RequestHeader} interface.
+     * Returns the header object. This object implements the {@link RequestHeaders} interface.
      * 
      * @return header
      */
@@ -560,9 +560,9 @@ public class TcRequest {
     }
     
     /**
-     * Sets the header object. This object needs to be implement the {@link RequestHeader} interface.
+     * Sets the header object. This object needs to be implement the {@link RequestHeaders} interface.
      * 
-     * @param header header to set
+     * @param headers header to set
      */
     public void setHeaders(RequestHeaders headers) {
     	this.headers = headers;

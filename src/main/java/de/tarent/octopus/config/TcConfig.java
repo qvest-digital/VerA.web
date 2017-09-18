@@ -50,7 +50,6 @@ public class TcConfig {
     /**
      * @param commonConfig Die Systemweiten Einstellungen
      * @param personalConfig Die Benutzerspezifischen Einstellungen
-     * @param tcRequest Die Anfrageparameter
      * @param currentModuleName Names des Modules, aus dem das aktuelle Task ist und aus dem die aktuellen Config Daten geladen werden.
      */
     public TcConfig(

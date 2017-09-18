@@ -197,7 +197,7 @@ public interface OctopusContext {
 	 * 
 	 * @param newRequest
 	 * @param newContent
-	 * @return
+	 * @return ?
 	 */
 	public OctopusContext cloneContext(boolean newRequest, boolean newContent);
 }

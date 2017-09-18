@@ -369,7 +369,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
     // Sind aber aus kompatibilitätsgründen zu alten Workern noch drinn.
     
     /**
-     * @depracated Die nicht eingebetteten Varianten dieser Exceptions sollen verwendet werden.
+     * @deprecated Die nicht eingebetteten Varianten dieser Exceptions sollen verwendet werden.
      */
     static public class TcActionDeclarationException extends Exception {
         /**
@@ -387,7 +387,7 @@ abstract public class TcReflectedWorker implements TcContentWorker {
     }
     
     /**
-     * @depracated Die nicht eingebetteten Varianten dieser Exceptions sollen verwendet werden.
+     * @deprecated Die nicht eingebetteten Varianten dieser Exceptions sollen verwendet werden.
      */
     static public class TcActionInvocationException extends TcContentProzessException {
         /**

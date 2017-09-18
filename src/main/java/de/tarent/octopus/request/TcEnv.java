@@ -124,8 +124,6 @@ public class TcEnv extends HashMap {
 
     /**
      * Gibt einen Wert als Object zurück.
-     * @param key
-     * @return
      */
     public Object getValueAsObject(String key) {
     	return super.get(key);

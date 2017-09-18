@@ -30,7 +30,7 @@ package de.tarent.octopus.server;
  * Within the octopus, this interface may be used to safely close resources after the processing of a request.
  * This is done by a List of Closeable-Object within the OctopusContext. After the generation of the 
  * octopus response, the close method is called for each object in this list. This will be done even if the request processing will throw an exception.
- * Use the {@link OctopusContext.addCleanupCode()} to add an Object to the list of closeable objects.
+ * Use the {@link OctopusContext#addCleanupCode()} to add an Object to the list of closeable objects.
  *
  * @author <a href="mailto:sebastian@tarent.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  * @version 1.0

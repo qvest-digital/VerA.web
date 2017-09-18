@@ -292,7 +292,7 @@ public class TcBinaryResponseEngine implements TcResponseEngine {
 	 * Create some standard file types.
 	 * 
 	 * @param filename
-	 * @return
+	 * @return MIME type
 	 */
 	protected String getMimeType(String filename) {
 		if (filename.endsWith(".png")) {

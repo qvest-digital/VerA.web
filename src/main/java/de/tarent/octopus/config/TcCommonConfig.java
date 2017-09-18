@@ -421,7 +421,7 @@ public class TcCommonConfig {
      * Diese Methode registriert ein Modul mittels der übergebenen Modulkonfiguration.
      *  
      * @param moduleName Modulname
-     * @param config Modulkonfiguration
+     * @param moduleConfig Modulkonfiguration
      */
     public void registerModule(String moduleName, TcModuleConfig moduleConfig) {
         if (moduleConfig == null)
