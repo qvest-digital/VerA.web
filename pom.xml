@@ -96,18 +96,25 @@
 				<version>2.2.1</version>
 			</plugin>
 			<plugin>
-				<groupId>com.mycila.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
-				<version>1.9.0</version>
+				<inherited>false</inherited>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>3.0</version>
 				<configuration>
 					<basedir>${basedir}</basedir>
-					<header>${basedir}/LICENCE.hdr</header>
+					<header>${basedir}/release/LICENCE.hdr</header>
 					<quiet>false</quiet>
 					<failIfMissing>true</failIfMissing>
 					<aggregate>true</aggregate>
 					<includes>
 						<include>**/*.java</include>
 					</includes>
+					<headerDefinitions>
+						<headerDefinition>${basedir}/release/myc-javapkg.xml</headerDefinition>
+					</headerDefinitions>
+					<mapping>
+						<java>JavaPackage_style</java>
+					</mapping>
 					<useDefaultExcludes>true</useDefaultExcludes>
 					<useDefaultMapping>true</useDefaultMapping>
 					<encoding>UTF-8</encoding>
