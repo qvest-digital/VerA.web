@@ -225,9 +225,6 @@ public class OctopusDirectCallStarter implements OctopusStarter {
 
     /**
      * Erstellt eine default-Konfiguration im TcEnv
-     * Anschließend werden diese Werte durch die im 
-     * Knoten /de/tarent/octopus/overrides der Java-System-Prefferences
-     * überschrieben.
      *
      * @param overrideSettings Parameter, die die Konfigurationen überschreiben, 
      *        darf null sein
