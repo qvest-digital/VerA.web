@@ -1,6 +1,12 @@
-/**
+/*
+ * To change the template for this generated file go to
+ * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
+ */
+package de.tarent.octopus.util;
+
+/*
  * tarent-octopus, Webservice Data Integrator and Application Server
- * Copyright © 2002–2015 tarent solutions GmbH and its contributors
+ * Copyright © 2002–2017 tarent solutions GmbH and its contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,11 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-/*
- * To change the template for this generated file go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
-package de.tarent.octopus.util;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;

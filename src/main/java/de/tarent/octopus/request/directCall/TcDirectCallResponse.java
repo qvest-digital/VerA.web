@@ -1,6 +1,7 @@
-/**
+
+/*
  * tarent-octopus, Webservice Data Integrator and Application Server
- * Copyright © 2002–2015 tarent solutions GmbH and its contributors
+ * Copyright © 2002–2017 tarent solutions GmbH and its contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
