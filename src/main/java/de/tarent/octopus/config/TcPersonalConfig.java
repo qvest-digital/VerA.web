@@ -189,7 +189,7 @@ public class TcPersonalConfig implements PersonalConfig {
      * Testet, ob ein User für den Moludweit globalen Bereich
      * in einer Gruppe ist.
      *
-     * @group Bezeichner der Gruppe, auf die getestet wird
+     * @param group Bezeichner der Gruppe, auf die getestet wird
      */
     public boolean isUserInGroup(String group) {
 //         System.out.println("isUserInGoup "+group+" ?");
@@ -214,7 +214,7 @@ public class TcPersonalConfig implements PersonalConfig {
      * werden die Gruppen der übergeordneten Area zurück gegeben,
      * die ab weitesten spezialisiert ist.
      *
-     * @area Ein Bezeichner eines Zugriffsbereiches
+     * @param area Ein Bezeichner eines Zugriffsbereiches
      */
     public String[] getUserGroups(String area) {        
         String[] bestMatchingGroups = null;
@@ -245,8 +245,8 @@ public class TcPersonalConfig implements PersonalConfig {
      * Testet, ob ein User für den Bereich area
      * in einer Gruppe ist.
      *
-     * @group Bezeichner der Gruppe, auf die getestet wird
-     * @area Ein Bezeichner eines Zugriffsbereiches
+     * @param group Bezeichner der Gruppe, auf die getestet wird
+     * @param area Ein Bezeichner eines Zugriffsbereiches
      */
     public boolean isUserInGroup(String group, String area) {
         return arrayContains(getUserGroups(area), group);

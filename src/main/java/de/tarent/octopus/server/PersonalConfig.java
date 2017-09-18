@@ -138,7 +138,7 @@ public interface PersonalConfig {
      * Testet, ob ein User für den Moludweit globalen Bereich
      * in einer Gruppe ist.
      *
-     * @group Bezeichner der Gruppe, auf die getestet wird
+     * @param group Bezeichner der Gruppe, auf die getestet wird
      */
     public boolean isUserInGroup(String group);
 
@@ -146,7 +146,7 @@ public interface PersonalConfig {
      * Liefert eine Liste aller Gruppen, die einem Benutzer 
      * für den Bereich area zugeordnet sind.
      *
-     * @area Ein Bezeichner eines Zugriffsbereiches
+     * @param area Ein Bezeichner eines Zugriffsbereiches
      */
     public String[] getUserGroups(String area);
 
@@ -161,8 +161,8 @@ public interface PersonalConfig {
      * Testet, ob ein User für den Bereich area
      * in einer Gruppe ist.
      *
-     * @group Bezeichner der Gruppe, auf die getestet wird
-     * @area Ein Bezeichner eines Zugriffsbereiches
+     * @param group Bezeichner der Gruppe, auf die getestet wird
+     * @param area Ein Bezeichner eines Zugriffsbereiches
      */
     public boolean isUserInGroup(String group, String area);
 
