@@ -29,13 +29,23 @@ set -e
 set -o pipefail
 cd "$(dirname "$0")"
 
-# generate file with changed dependencies set to be a to-do item
+# check old file is sorted
+sort -uo ckdep.tmp ckdep.lst
+if cmp -s ckdep.lst ckdep.tmp; then
+	abend=0
+else
+	print -ru2 -- '[WARNING] list of dependencies was not sorted!'
+	cat ckdep.tmp >ckdep.lst
+	abend=1
+fi
+# analyse Maven dependencies
 (cd .. && mvn -B -P '!test-only-dependencies' dependency:list) 2>&1 | \
     tee /dev/stderr | sed -n \
     -e '/:test$/d' \
     -e '/^\[INFO]    org.evolvis.veraweb:/d' \
     -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' \
     >ckdep.tmp
+# analyse NPM and Bower dependencies
 (
 	cd ../src/main/webroot-src
 	npm list --only prod >&2
@@ -44,6 +54,7 @@ cd "$(dirname "$0")"
 	bower list | tee /dev/stderr | LC_ALL=C.UTF-8 sed --posix -n \
 	    '/^[ ─-╿]\{1,\}\([a-z0-9.-]\{1,\}\)#\([^ ]\{1,\}\)\( .*\)\{0,1\}$/s//bower::\1 \2 ok/p'
 ) 2>&1 >>ckdep.tmp | sed 's!^![INFO] !' >&2
+# generate file with changed dependencies set to be a to-do item
 sort -uo ckdep.tmp ckdep.tmp
 {
 	comm -13 ckdep.lst ckdep.tmp | sed 's/ ok$/ TO''DO/'
@@ -59,6 +70,10 @@ else
 	mv -f ckdep.tmp ckdep.lst
 	# inform the user
 	print -ru2 -- '[WARNING] list of dependencies changed!'
+	abend=1
+fi
+# check if anything needs to be committed
+if (( abend )); then
 	print -ru2 -- '[INFO] please commit the changed ckdep.lst file!'
 	exit 1
 fi
