@@ -45,6 +45,8 @@ fi
     -e '/^\[INFO]    org.evolvis.veraweb:/d' \
     -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' \
     >ckdep.tmp
+# add static dependencies from embedded files, for SecurityWatch
+[[ -s ckdep.inc ]] && cat ckdep.inc >>ckdep.tmp
 # generate file with changed dependencies set to be a to-do item
 sort -uo ckdep.tmp ckdep.tmp
 {
