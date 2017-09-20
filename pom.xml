@@ -14,6 +14,25 @@
 		<releaseVersion>${project.version}</releaseVersion>
 		<java.version>1.7</java.version>
 		<sonar.jacoco.reportPath>${basedir}/target/jacoco-unit.exec</sonar.jacoco.reportPath>
+		<!-- maven plugins -->
+		<maven.assembly.version>2.5.3</maven.assembly.version>
+		<maven.buildhelper.version>3.0.0</maven.buildhelper.version>
+		<maven.compiler.version>3.5.1</maven.compiler.version>
+		<maven.enforcer.version>1.4.1</maven.enforcer.version>
+		<maven.exec.version>1.4.0</maven.exec.version>
+		<maven.gmavenplus.version>1.5</maven.gmavenplus.version>
+		<maven.jacoco.version>0.7.6.201602180812</maven.jacoco.version>
+		<maven.jar.version>2.4</maven.jar.version>
+		<maven.javadoc.version>2.8</maven.javadoc.version>
+		<maven.jetty.version>8.1.16.v20140903</maven.jetty.version>
+		<maven.karma.version>1.5</maven.karma.version>
+		<maven.latex.version>1.4.4</maven.latex.version>
+		<maven.pitest.version>1.0.0</maven.pitest.version>
+		<maven.release.version>2.5.2</maven.release.version>
+		<maven.shade.version>1.6</maven.shade.version>
+		<maven.source.version>2.4</maven.source.version>
+		<maven.surefire.version>2.13</maven.surefire.version>
+		<maven.war.version>2.1.1</maven.war.version>
 		<!-- dependency management -->
 		<background-jobs.version>1.15</background-jobs.version>
 		<cglib-nodep.version>3.2.1</cglib-nodep.version>
@@ -29,7 +48,6 @@
 		<itext.version>4.2.0</itext.version>
 		<jackson-dataformat-yaml.version>2.7.4</jackson-dataformat-yaml.version>
 		<jackson-jaxrs-json-provider.version>2.4.0</jackson-jaxrs-json-provider.version>
-		<jacoco.version>0.7.6.201602180812</jacoco.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
 		<jersey.version>2.22.2</jersey.version>
 		<json.version>0.0.20131108.vaadin1</json.version>
