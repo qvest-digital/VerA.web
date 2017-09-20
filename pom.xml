@@ -23,7 +23,8 @@
 		<dropwizard.version>0.7.1</dropwizard.version>
 		<extract-tool.version>1.4</extract-tool.version>
 		<frontend-maven-plugin.version>0.0.25</frontend-maven-plugin.version>
-		<groovy-all.version>2.4.5</groovy-all.version>
+		<!-- this is not the latest groovy version, but it is the most recent one I could find that worked with eclipse -->
+		<groovy-all.version>2.4.3</groovy-all.version>
 		<h2.version>1.4.191</h2.version>
 		<itext.version>4.2.0</itext.version>
 		<jackson-dataformat-yaml.version>2.7.4</jackson-dataformat-yaml.version>
