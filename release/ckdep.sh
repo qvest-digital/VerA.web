@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2016
+# Copyright © 2016, 2017
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -26,15 +26,27 @@ LC_ALL=C; export LC_ALL
 unset LANGUAGE
 PS4='++ '
 set -e
+set -o pipefail
 cd "$(dirname "$0")"
 
-# generate file with changed dependencies set to be a to-do item
+# check old file is sorted
+sort -uo ckdep.tmp ckdep.lst
+if cmp -s ckdep.lst ckdep.tmp; then
+	abend=0
+else
+	print -ru2 -- '[WARNING] list of dependencies was not sorted!'
+	cat ckdep.tmp >ckdep.lst
+	abend=1
+fi
+# analyse Maven dependencies
 (cd .. && mvn -B -P '!test-only-dependencies' dependency:list) 2>&1 | \
     tee /dev/stderr | sed -n \
     -e '/:test$/d' \
     -e '/^\[INFO]    org.evolvis.veraweb:/d' \
-    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' | \
-    sort -uo ckdep.tmp
+    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' \
+    >ckdep.tmp
+# generate file with changed dependencies set to be a to-do item
+sort -uo ckdep.tmp ckdep.tmp
 {
 	comm -13 ckdep.lst ckdep.tmp | sed 's/ ok$/ TO''DO/'
 	comm -12 ckdep.lst ckdep.tmp
@@ -42,14 +54,18 @@ cd "$(dirname "$0")"
 
 # check if the list changed
 if cmp -s ckdep.lst ckdep.tmp; then
-	echo >&2 "[INFO] list of dependencies did not change"
+	print -ru2 -- '[INFO] list of dependencies did not change'
 else
 	(diff -u ckdep.lst ckdep.tmp || :)
 	# make the new list active
 	mv -f ckdep.tmp ckdep.lst
 	# inform the user
-	echo >&2 "[WARNING] list of dependencies changed!"
-	echo >&2 "[INFO] please commit the changed ckdep.lst file!"
+	print -ru2 -- '[WARNING] list of dependencies changed!'
+	abend=1
+fi
+# check if anything needs to be committed
+if (( abend )); then
+	print -ru2 -- '[ERROR] please commit the changed ckdep.lst file!'
 	exit 1
 fi
 
