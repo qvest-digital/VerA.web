@@ -1,7 +1,7 @@
 #!/bin/sh
 # -*- mode: sh -*-
 #-
-# Copyright © 2016
+# Copyright © 2016, 2017
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -33,14 +33,15 @@ cd "$(dirname "$0")"
     tee /dev/stderr | sed -n \
     -e '/:test$/d' \
     -e '/^\[INFO]    org.evolvis.veraweb:/d' \
-    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' | \
-    (
-	cat
+    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' \
+    >ckdep.tmp
+(
 	cd ../src/main/webroot-src
 	npm list --only prod --json true | jq -r \
-	    '.dependencies | to_entries[] | recurse(.value.dependencies | objects | to_entries[]) | [.key, .value.version] | map(gsub("(?<x>[^!#-&*-~ -�]+)"; "{\(.x | @base64)}")) | "npm::" + .[0] + " " + .[1] + " ok"'
-    ) | \
-    sort -uo ckdep.tmp
+	    '.dependencies | to_entries[] | recurse(.value.dependencies | objects | to_entries[]) | [.key, .value.version] | map(gsub("(?<x>[^!#-&*-~ -�]+)"; "{\(.x | @base64)}")) | "npm::" + .[0] + " " + .[1] + " ok"' \
+	    >>ckdep.tmp
+) 2>&1 | sed 's!^![INFO] !' >&2
+sort -uo ckdep.tmp ckdep.tmp
 {
 	comm -13 ckdep.lst ckdep.tmp | sed 's/ ok$/ TO''DO/'
 	comm -12 ckdep.lst ckdep.tmp
