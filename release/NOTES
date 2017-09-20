@@ -37,3 +37,11 @@ from the “common” module while including it in the WAR files
 of both rest-api and core; online-anmeldung can ship its own
 file, directly in the webapp probably (perhaps it might include
 the contents of the common LICENCE file)?
+
+Decision: common ships a doc/ subdirectory with LICENCE and
+relevant external licence bodies (as in the model internal
+project), which is shaded into core and displayed in /doc/
+(as in the other project) via Tomcat’s equivalent of autoindex;
+it’s merely present but not served in the rest-api WAR (perhaps
+by means of being present in common, plus a short note to point
+this out to the archivist). We’ll likely handle VWOA similarily.
