@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/mksh
 # -*- mode: sh -*-
 #-
 # Copyright © 2016, 2017
@@ -26,6 +26,7 @@ LC_ALL=C; export LC_ALL
 unset LANGUAGE
 PS4='++ '
 set -e
+set -o pipefail
 cd "$(dirname "$0")"
 
 # generate file with changed dependencies set to be a to-do item
