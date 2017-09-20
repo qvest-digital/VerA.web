@@ -1,6 +1,6 @@
 package de.tarent.octopus.extensions;
 
-/*
+/*-
  * tarent-octopus, Webservice Data Integrator and Application Server
  * Copyright © 2002–2017 tarent solutions GmbH and its contributors
  *
@@ -22,7 +22,6 @@ package de.tarent.octopus.extensions;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 /**
  * This implements a simple extension framework for
  * the Octopus application server. An extension has to be

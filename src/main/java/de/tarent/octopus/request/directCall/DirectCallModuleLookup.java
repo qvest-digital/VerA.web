@@ -1,5 +1,5 @@
 
-/*
+/*-
  * tarent-octopus, Webservice Data Integrator and Application Server
  * Copyright © 2002–2017 tarent solutions GmbH and its contributors
  *

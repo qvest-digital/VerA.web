@@ -1,6 +1,6 @@
 package de.tarent.octopus.content;
 
-/*
+/*-
  * tarent-octopus, Webservice Data Integrator and Application Server
  * Copyright © 2002–2017 tarent solutions GmbH and its contributors
  *
@@ -22,7 +22,6 @@ package de.tarent.octopus.content;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 import de.tarent.octopus.config.TcConfig;
 import de.tarent.octopus.config.TcModuleConfig;
 import de.tarent.octopus.request.TcRequest;

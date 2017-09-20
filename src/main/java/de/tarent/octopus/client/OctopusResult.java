@@ -1,6 +1,6 @@
 package de.tarent.octopus.client;
 
-/*
+/*-
  * tarent-octopus, Webservice Data Integrator and Application Server
  * Copyright © 2002–2017 tarent solutions GmbH and its contributors
  *
@@ -22,7 +22,6 @@ package de.tarent.octopus.client;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
