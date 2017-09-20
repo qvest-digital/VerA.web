@@ -16,8 +16,6 @@
 		<tag>HEAD</tag>
 	</scm>
 	<properties>
-		<!-- ⚠ parent has 2.5 -->
-		<commons-io.version>2.4</commons-io.version>
 		<!-- this is not the latest groovy version, but it is the most recent one I could find that worked with eclipse -->
 		<!-- ⚠ parent has 2.4.5 -->
 		<groovy-all.version>2.4.3</groovy-all.version>
