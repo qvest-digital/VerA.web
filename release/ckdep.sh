@@ -34,6 +34,12 @@ cd "$(dirname "$0")"
     -e '/:test$/d' \
     -e '/^\[INFO]    org.evolvis.veraweb:/d' \
     -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' | \
+    (
+	cat
+	cd ../src/main/webroot-src
+	npm list --only prod --json true | jq -r \
+	    '.dependencies | to_entries[] | recurse(.value.dependencies | objects | to_entries[]) | [.key, .value.version] | map(gsub("(?<x>[^!#-&*-~ -�]+)"; "{\(.x | @base64)}")) | "npm::" + .[0] + " " + .[1] + " ok"'
+    ) | \
     sort -uo ckdep.tmp
 {
 	comm -13 ckdep.lst ckdep.tmp | sed 's/ ok$/ TO''DO/'
