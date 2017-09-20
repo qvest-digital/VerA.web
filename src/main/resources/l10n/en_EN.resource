@@ -8,7 +8,7 @@ BROWSER_TITLE_COLOURS=Colours
 BROWSER_TITLE_GENERAL_CONFIGS=General Configuration
 BROWSER_TITLE_TASKS=Tasks
 BROWSER_TITLE_DOCUMENT_TYPES=Document Types
-BROWSER_TITLE_IMPORT_DUPLICATE_ACCEPT=Import Status - Apply Doublets
+BROWSER_TITLE_IMPORT_DUPLICATE_ACCEPT=Import Status\u200A\u2014\u200AApply Doublets
 BROWSER_TITLE_ERROR_OCCURS=An error occured
 BROWSER_TITLE_EVENT_EDIT=Edit event
 BROWSER_TITLE_EVENT_CREATE=Create new event
@@ -56,7 +56,7 @@ BROWSER_TITLE_PERSON_LIST=Person summary
 BROWSER_TITLE_SEARCH_REPLACE=Search and replace
 BROWSER_TITLE_GUEST_HOST_SEARCH=Search host
 BROWSER_TITLE_PERSON_SEARCH=Search person
-BROWSER_TITLE_PERSON_DATA_SALUTATION=Master data - salutation
+BROWSER_TITLE_PERSON_DATA_SALUTATION=Master data\u200A\u2014\u200Asalutation
 BROWSER_TITLE_LOGIN_REPRESENTATIVE=Login as representative
 BROWSER_TITLE_STATISTIC_CREATE=Create statistic
 BROWSER_TITLE_USER_CONFIGS=User settings
@@ -90,7 +90,6 @@ GENDER_TYPE_SALUTATION=Female
 GENDER_TYPE_TASK=Female
 GENDER_TYPE_USER=Male
 GENDER_TYPE_WORKAREA=Male
-
 
 # REPETITIVE OBJECTS IN THER SINGULAR- AND PLURAL-TYPE
 GENERIC_ADDRESS_DATA_PLURAL=Address data
@@ -227,16 +226,16 @@ bittewaehlensieeineamtsbezeichnungfunktionaus=Please choose an official title / 
 eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator=Unexpected errors may occur. Please contact your admin.
 willkommenbeiveraweb=Welcome to VerA.web
 WELCOME_TEXT_GRANT_READ_STANDARD_FIELDS=Here you\u2019ve got the possibility to show and export master data of persons and events.
-WELCOME_TEXT_GRANT_READ_REMARK_FIELDS=Here you\u2019ve got the possibility to show and export master data of - and comments about - persons and events.
-WELCOME_TEXT_GRANT_EXPORT_PART_ONE=Here you\u2019ve got the possibility to show, change, delete and to ex- or import
-WELCOME_TEXT_GRANT_WRITE_FULL=master data of - and comments about -
+WELCOME_TEXT_GRANT_READ_REMARK_FIELDS=Here you\u2019ve got the possibility to show and export master data of\u200A\u2014\u200Aand comments about\u200A\u2014\u200Apersons and events.
+WELCOME_TEXT_GRANT_EXPORT_PART_ONE=Here you\u2019ve got the possibility to show, change, delete and to ex\u2011 or import
+WELCOME_TEXT_GRANT_WRITE_FULL=master data of\u200A\u2014\u200Aand comments about\u200A\u2014\u200A
 WELCOME_TEXT_GRANT_EXPORT_PART_TWO=persons and events.
-WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Here you\u2019ve got the possibility to show, change, delete and to ex- or import master data of - and comments about - persons and events.
+WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Here you\u2019ve got the possibility to show, change, delete and to ex\u2011 or import master data of\u200A\u2014\u200Aand comments about\u200A\u2014\u200Apersons and events.
 WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO=Furthermore client-specific settings can be inspected and edited.
-WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Here you\u2019ve got the possibility to show, change, delete and to ex- or import master data of - and comments about - persons and events.
+WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Here you\u2019ve got the possibility to show, change, delete and to ex\u2011 or import master data of\u200A\u2014\u200Aand comments about\u200A\u2014\u200Apersons and events.
 WELCOME_TEXT_GRANT_ADMIN_PART_TWO=Furthermore client-specific and global settings can be inspected and edited.
 WELCOME_TEXT_HELP=For further information please go to the \u201CHelp\u201D page.
-WELCOME_TEXT_NO_ROLE=There are no existing roles for you login with which you can operate in VerA.web. Please relog with a user- or rolename that is suitable for VerA.web.
+WELCOME_TEXT_NO_ROLE=There are no existing roles for you login with which you can operate in VerA.web. Please relog with a user or role name that is suitable for VerA.web.
 GENERIC_AVAILABLE_DUPLICATES=Available duplicates
 
 # ADMINISTRATION/ANREDEN
@@ -318,37 +317,28 @@ GENERIC_ADD=Add
 GENERIC_BACK_TO_TEMPLATES_LIST=Back to list of templates
 
 # ADMINISTRATION/FARBEN
-GENERIC_COLOR_PLURAL=Colours
 GENERIC_CHROMATICITY=Chromatic value
 LETTERS_CHROMATICITY=R G B
 
 # ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
 markiertebezeichnung=Selected title(s)
-GENERIC_LABELLING=Title
 eswurdeeineneuefunktion/amtsbezeichnungangelegt=A new function/official title has been created
 eswurdeeinefunktion/amtsbezeichnunggeloscht=A function/offical title has been deleted
 
 # ADMINISTRATION/KATEGORIEN
-GENERIC_CATEGORY_PLURAL=Categories
 markiertekategorie=Selected categorie(s)
 GENERIC_MARK_LONG=Mark
 GENERIC_RANK=Rank
 GENERIC_EVENTS_PP=Event(s)
-GENERIC_CATEGORY_SINGULAR=Category
 GENERIC_OCCASION=Occasion
 
 # ADMINISTRATION/MANDANTEN
-GENERIC_CLIENT_PLURAL=Clients
 markierte(n)mandanten=Selected client(s)
 GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Data not assigned to clients
 personen=people
 GENERIC_IMPORT_PROCEDURES=Import procedures
 veranstaltungorte=Venues
-GENERIC_IMPORT_PERSONS=Import persons
-GENERIC_DISTRIBUTOR_SINGULAR=Distribution list
-GENERIC_USER=User
 GENERIC_ASSIGN_CLIENTS=Assign clients
-GENERIC_CLIENT_SINGULAR=Client
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
 programeinstellungen=Settings
@@ -362,7 +352,6 @@ GENERIC_PARTNER=Partner
 GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subtabs of \u201Caddresses\u201D
 GENERIC_BUSINESS=Business
 GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Standard choice of selectbox \u201Ccharset\u201D
-GENERIC_CHARSET=Charset
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Standard salutations and free text fields
 GENERIC_STANDARD_SALUTATION=Standard salutations
 GENERIC_STANDARD_SALUTATION_PARTNER=Standard form of address: partner
@@ -413,9 +402,7 @@ GENERIC_NO_DATA_FOUND=No data found
 # ADMINISTRATION/VERANSTALTUNGSORTE
 markierte=Selected venue(s)
 GENERIC_ADD_NEW_EVENT_LOCATIONS=Add new venue
-GENERIC_ID=ID
 GENERIC_CONTACT_PERSON=Contact
-GENERIC_TELEFON=Phone
 GENERIC_FAX=Fax
 e-mail=E-mail
 GENERIC_REMARK=Comment
@@ -431,17 +418,13 @@ GENERIC_SUBTABS_OF=Subtabs of
 GENERIC_PERSONAL_DETAILED_VIEW=Personal detailed view
 GENERIC_LIST_OF_GUESTS=Guest list
 zusatzlichefelder=Additional fields
-GENERIC_FUNCTION_SINGULAR=Function
 GENERIC_POSTNUMBER_AND_CITY=Postal code / City
 GENERIC_LIST_OF_PERSONS=List of persons
-GENERIC_FEDERAL_STATE=State
 MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=Options were saved successfully.
 
 # VERWALTUNG/VERTRETUNGEN
-GENERIC_REPRESENTATIVE_PLURAL=Representations
 markiertevertretung=Selected representation(s)
 GENERIC_DELETE=Delete
-GENERIC_NEW=New
 eswurdeeineneuevertretungangelegt=A new representation has been created
 eswurdeeinevertretunggeloscht=One representation has been deleted
 siemuseneinevertretereingeben=You need to enter a representation
@@ -461,7 +444,6 @@ INFO_LIC_LIC=Licence
 INFO_LIC_INFOS=Terms of Use
 INFO_LIC_DOCS=further documents
 GENERIC_DATABASE=Database
-GENERIC_LOGIN=Login
 GENERIC_GROUPS=Groups
 GENERIC_NOT_AVAILABLE=Not available
 
@@ -472,7 +454,6 @@ GENERIC_DISCARD_CHANGES=Discard changes?
 
 # TABELLEN
 GENERIC_DATE=Date
-GENERIC_WORKAREA_SINGULAR=work area
 GENERIC_LASTNAME=last name
 GENERIC_FIRSTNAME=first name
 akwritemtsbezeichnung=Official title
@@ -499,7 +480,6 @@ GENERIC_ACCOUNT_OPENING_DATE=Account opening date
 GENERIC_AT=at
 GENERIC_OCLOCK=oclock
 GENERIC_ORIGIN_DATA=Data origin
-GENERIC_PERSON_SINGULAR=Person
 
 # DATEITYP
 csv=CSV (Comma-Separated-Values)
@@ -540,7 +520,6 @@ GENERIC_CATEGORIES_AND_OCCASIONS=Categories and occasions
 ubersichtuberalleveranstaltungeneinesgastes=Summary of all events for one guest.
 GENERIC_VIEW_OVER_GUEST_EVENT=From
 statistikfurgast=Statistics for guest
-GENERIC_EVENT=Event
 GENERIC_BEGIN=Start
 
 # PERSONEN/PERSONENSUCHE
@@ -556,7 +535,6 @@ MESSAGE_OSIAM_LOGIN_DATA_EXIST=Login credentials for this person already exist.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=current company
-GENERIC_SALUTATION_SINGULAR=Salutation
 frau=Frau
 herr=Herr
 lady=Lady
@@ -565,7 +543,6 @@ GENERIC_PLEASE_CHOOSE=Please choose
 GENERIC_ACAD_TITLE=Acad. title
 GENERIC_IN_COUNTRY=home country
 GENERIC_HINT_FOR_ORGA=Hint for Orga
-GENERIC_COMPANY_SINGULAR=Company
 GENERIC_COUNTRY=Country
 plz/postfach=Zip code/ post office box
 GENERIC_POST_OFFICE_BOX=Post office box
@@ -583,7 +560,6 @@ GENERIC_REPLACE=Replace
 GENERIC_IN_THE_FOLLOWING_FIELDS=In the following fields
 anrede/titel=Salutations / title
 GENERIC_EMPLOYMENT_TITLE_SHORT=Empl. title
-GENERIC_INSTITUTION_SINGULAR=Institution
 GENERIC_ADDRESSES=Addresses
 telefon/fax=Phone / Fax
 GENERIC_REPLACE_INDIVIDUALLY=Replace individually
@@ -653,16 +629,12 @@ GENERIC_NEW_EVENT=New event
 GENERIC_STATISTICS=Statistics
 
 # ADMINISTRATIONDROPDOWN
-GENERIC_SALUTATIONS=Salutations
-GENERIC_WORKAREA_PLURAL=Work areas
 e-mail-postausgang=E-Mail outbox
 GENERIC_PROGRAM_PERFERENCES=Program settings
-GENERIC_EVENT_LOCATION_PLURAL=Venues
 
 # VERANSTALTUNGSUEBERSICHT
 GENERIC_END=End
 GENERIC_HOST=Host
-GENERIC_EVENT_LOCATION_SINGULAR=Venue
 GENERIC_EVENT_SEARCH=Search for event
 GENERIC_CREATE_NEW_EVENT=Create new event
 GENERIC_NUMBER_PER_PAGE=Count per page
@@ -684,9 +656,8 @@ EVENT_INVITATION_TYPE_WITH_PARTNER=With Partner
 GENERIC_EDIT_EVENT=Edit event
 GENERIC_TO_GUEST_MANAGEMENT=To guest management
 GENERIC_GENERAL=General
-GENERIC_TASK_PLURAL=Tasks
 GENERIC_ADDITIONAL_PERSONS_DATA=Additional persons data
-kurzbereichnung=Abbreviated designation 
+kurzbereichnung=Abbreviated designation
 GENERIC_OPEN_EVENT=Open event
 umxuhr=At x O\u2019clock
 veranstalgungsort=Venue
@@ -820,10 +791,10 @@ GUEST_LIST_SEARCH_PERSON_ADD=Search and add people to guest list
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=create guest list
 SELECT_OUTPUT_FORMAT=select output format
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER=list grouped by category - with partner
-LIST_GROUP_BY_CATEGORY_WITH_TEL=list grouped by category - with phone and mobile numbers
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=list grouped by category- with partner and fax
-LIST_SORT_PARTNER_TEL=list ordered - with partner, phone and mobile numbers
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER=list grouped by category\u200A\u2014\u200Awith partner
+LIST_GROUP_BY_CATEGORY_WITH_TEL=list grouped by category\u200A\u2014\u200Awith phone and mobile numbers
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=list grouped by category\u200A\u2014\u200Awith partner and fax
+LIST_SORT_PARTNER_TEL=list ordered\u200A\u2014\u200Awith partner, phone and mobile numbers
 SORT_CRITERIA=sort criteria
 SORT_AFTER=sort by
 CONTINUAL_NUMBER=serial number
@@ -1085,7 +1056,7 @@ zurueckzurpersonenuebersicht=Back to person summary
 zurueck=Back
 dublettenpruefungdurchfuehren=Execute search for duplicates
 zurueckzumsuchergebnis=Back to search results
-personspeicherndublettenpruefung=Save person - Search for duplicates
+personspeicherndublettenpruefung=Save person\u200A\u2014\u200ASearch for duplicates
 neueneintraganlegen=Create new entry
 existierendeneintragbearbeiten=Edit existing entry
 eswurdenkeinedublettengefunden=No duplicates were found.
@@ -1094,7 +1065,7 @@ ausgewaehltepersonenzurveranstaltunghinzufuegen=Add selected persons to event.
 personerfassen=Record person
 dublettenanlegen=Create duplicates
 abbrechenundzurueck=Cancel and back
-gastsuchenveranstaltung=Search guest - Event
+gastsuchenveranstaltung=Search guest\u200A\u2014\u200AEvent
 gastsuchen=Search guest
 verantwortlichenfueraufgabesuchen=Search tasks for responsibles
 verantwortlichenfueraufgabehinzufugen=Add tasks to responsibles
@@ -1142,9 +1113,9 @@ wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Would yo
 wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=Would you like assign the selected work area to %s persons (i.e. guests)
 waehlensieeinenarbeitsbereichauswelchensie=Choose a work area, which you want to
 siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=You haven\u2019t configured any work area. You can these under Administrationsarea
-administrationallestellvertretungenimmandanten=Administration - all representations in clients
-administrationallestellvertretungen=Administration - all representations
-verwaltungpersoenlichevertretungen=Administration - personal representation
+administrationallestellvertretungenimmandanten=Administration\u200A\u2014\u200Aall representations in clients
+administrationallestellvertretungen=Administration\u200A\u2014\u200Aall representations
+verwaltungpersoenlichevertretungen=Administration\u200A\u2014\u200Apersonal representation
 vertretung=Representation
 markiertevertretungen=Selected substitutions
 loeschen=Delete
@@ -1156,15 +1127,15 @@ gaestelisteerstellenfuerveranstaltungeventshortname=Create guest list for event
 gaesteverwaltungderveranstaltung=Guests management of the event
 gaestelisteerstellen=Create guest list
 ausgabeformatwaehlen=Choose output format
-listenachkategoriengruppiertmitpartner=List grouped by categories - with partner
-listenachkategoriengruppiertmittelundmobiltelefon=List grouped by kategories - with phone and mobile
-listenachkategoriengruppiertmitpartnerundfax=List grouped by categories - with partner and fax
-listenachsortierungmitpartnertelundmobiltelefon=Sorted list - with partner, phone and mobile
+listenachkategoriengruppiertmitpartner=List grouped by categories\u200A\u2014\u200Awith partner
+listenachkategoriengruppiertmittelundmobiltelefon=List grouped by kategories\u200A\u2014\u200Awith phone and mobile
+listenachkategoriengruppiertmitpartnerundfax=List grouped by categories\u200A\u2014\u200Awith partner and fax
+listenachsortierungmitpartnertelundmobiltelefon=Sorted list\u200A\u2014\u200Awith partner, phone and mobile
 tisch=Table
 zusaetzlichesortierungnach=Additionaly sorted by
 zurueckzurgaesteverwaltung=Back to guest management
-verwaltungallebenutzerimmandanten=Management - all users in Clients
-verwaltungallebenutzer=Management - all users
+verwaltungallebenutzerimmandanten=Management\u200A\u2014\u200Aall users in Clients
+verwaltungallebenutzer=Management\u200A\u2014\u200Aall users
 markiertenbenutzer=Selected user(s)
 markiertenbenutzerloeschen=Delete selected user(s)
 leseneingeschraenkt=Read only
@@ -1361,7 +1332,7 @@ MESSAGE_PERSON_MAX_NAME_REACHED=The main person\u2019s first name is restricted 
 MESSAGE_PERSON_MAX_LASTNAME_REACHED=The main person\u2019s last name is restricted to 100 characters.
 MESSAGE_PERSON_NO_MAIL=You need to provide an email-address.
 MESSAGE_PERSON_NO_COMPANY_NAME=You need to provide a name for the company/institution.
-MESSAGE_PERSON_NO_NAME_LAST_NAME=You need to provide a first- and last name.
+MESSAGE_PERSON_NO_NAME_LAST_NAME=You need to provide a first and last name.
 MESSAGE_PERSON_NO_NAME=You need to provide a first name.
 MESSAGE_PERSON_NO_LASTNAME=You need to provide a last name.
 MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=Connection between person and category can not be saved.
@@ -1397,13 +1368,11 @@ CHANGELOG_NO_PROTOCOL_AVAILABLE=No log data available.
 # BROWSER TITLES
 BROWSER_TITLE_REPORTS=Reports
 
-
 #NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reset all values to core data
 GUEST_LIST_EDIT_MASTER_DATA=edit person core data
 GUEST=guest
 GENERIC_OF=of
-
 
 TOOLTIP_EDIT_HEADLINES=You can still edit the headlines before printing by clicking the \u201Cedit\u201D button. Please save before printing.
 GENERIC_APPLY_TO_GUESTLIST=Apply to guestlist
@@ -1422,7 +1391,6 @@ siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=You do not have 
 wahlensiebittezunachsteinenodermehreregasteaus=Please choose one or more guests first
 bittebestatigensiedasloschendermarkiertengasteliste=Please confirm removing the selected guests!
 GENERIC_NO_GUESTLIST_DELETED=No guests have been removed.
-
 
 EVENT_DOCTYPE_RESET_INFO=Please check if there already are document types assigned to this event. If so you have to recreate the document types for this guest by clicking \u201Creset to core data\u201D.
 
@@ -1451,7 +1419,6 @@ GENERIC_SELECT_FUNCTION=select function
 diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten=This guest\u2019s core data has been deleted. You can only edit the data for the purposes of this event
 DELETE_SELECTED_MANDATOR=Delete selected client(s)
 PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Shall the category\u2019s rank be applied from the core data?
-
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GENERIC_OF_CAPITAL=Of
@@ -1605,10 +1572,10 @@ VERIFY_ERROR_JAVA_ONE=The installed java-version (
 VERIFY_ERROR_JAVA_TWO=) does not match the expected version (1.4).
 
 #TO BE DELETED
-inlandjageschlechtweiblich=In Country: Yes - Sex:Female
-inlandjageschlechtmannlich=In Country: Yes - Sex:Male
-inlandneingeschlechtweiblich=In Country: No - Sex:Female
-inlandneingeschlechtmannlich=In Country: No - Sex:Male
+inlandjageschlechtweiblich=In Country: Yes\u200A\u2014\u200ASex:Female
+inlandjageschlechtmannlich=In Country: Yes\u200A\u2014\u200ASex:Male
+inlandneingeschlechtweiblich=In Country: No\u200A\u2014\u200ASex:Female
+inlandneingeschlechtmannlich=In Country: No\u200A\u2014\u200ASex:Male
 
 # GENERIC DIALOG MESSAGES
 GENERIC_PLEASE_WAIT_HEADER=Please wait...
@@ -1616,7 +1583,6 @@ GENERIC_PLEASE_WAIT_MESSAGE=This process may take some time.
 
 # WORK AREA (Bean) TEXTS
 WORKAREA_ERROR_MISSING_NAME=The work area must have a distinct, non empty name.
-
 
 zurpersonensuche=To People search
 steuerdatei=Control file
@@ -2101,7 +2067,6 @@ zipcode_c_e2=Postal code mustn\u2019t be longer than 250 characters
 zipcode_c_e3=Postal code mustn\u2019t be longer than 250 characters
 internal_id=The internal ID mustn\u2019t be longer than 45 characters.
 INTERNAL_ID=The internal ID
-
 
 # ALTERNATIVE SALUTATIONS
 SALUTATION_EDITABLE_TEXT=Alternative salutations for this PDF template can be created here

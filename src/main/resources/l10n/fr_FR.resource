@@ -8,7 +8,7 @@ BROWSER_TITLE_COLOURS=Couleurs
 BROWSER_TITLE_GENERAL_CONFIGS=Configurations g\u00E9n\u00E9ral
 BROWSER_TITLE_TASKS=Devoirs
 BROWSER_TITLE_DOCUMENT_TYPES=Types de documents
-BROWSER_TITLE_IMPORT_DUPLICATE_ACCEPT=Statut d\u2019import - adopter les doublons
+BROWSER_TITLE_IMPORT_DUPLICATE_ACCEPT=Statut d\u2019import\u200A\u2014\u200Aadopter les doublons
 BROWSER_TITLE_ERROR_OCCURS=Une d\u00E9faillance est apparue
 BROWSER_TITLE_EVENT_EDIT=Editer \u00E9v\u00E9nement
 BROWSER_TITLE_EVENT_CREATE=Dresser nouveau \u00E9v\u00E9nement
@@ -56,7 +56,7 @@ BROWSER_TITLE_PERSON_LIST=Vue d\u2019ensemble des personnes
 BROWSER_TITLE_SEARCH_REPLACE=Chercher et remplacer
 BROWSER_TITLE_GUEST_HOST_SEARCH=Chercher l\u2019h\u00F4te
 BROWSER_TITLE_PERSON_SEARCH=Chercher personne
-BROWSER_TITLE_PERSON_DATA_SALUTATION=Donn\u00E9es de base - titres
+BROWSER_TITLE_PERSON_DATA_SALUTATION=Donn\u00E9es de base\u200A\u2014\u200Atitres
 BROWSER_TITLE_LOGIN_REPRESENTATIVE=Ouvrir une session en tant que suppl\u00E9ant
 BROWSER_TITLE_STATISTIC_CREATE=Dresser statistique
 BROWSER_TITLE_USER_CONFIGS=Param\u00E8tres utilisateur
@@ -100,7 +100,6 @@ GENERIC_CLIENT_SINGULAR=Mandant
 GENERIC_CLIENT_PLURAL=Mandants
 GENERIC_COLOR_SINGULAR=Couleur
 GENERIC_COLOR_PLURAL=Couleurs
-GENERIC_COMPANY_SINGULAR=Enterprise
 GENERIC_COMPANY_PLURAL=Enterprises
 GENERIC_DELEGATION_FIELD_SINGULAR=Champ suppl\u00E9mentaire
 GENERIC_DELEGATION_FIELD_PLURAL=Champs suppl\u00E9mentaire
@@ -144,7 +143,6 @@ GENERIC_USER_PLURAL=Utilisateurs de PC
 GENERIC_WORKAREA_SINGULAR=Secteur du travail
 GENERIC_WORKAREA_PLURAL=Secteurs du travail
 GENERIC_SELECT_ALL=S\u00E9lectionner tout
-
 
 # HEADER MESSAGES
 HEADER_REPRESENTATION_FOR=Suppl\u00E9ance de
@@ -240,7 +238,6 @@ WELCOME_TEXT_NO_ROLE=Aucun role est disponible pour votre connexion \u00E1 VerA.
 GENERIC_AVAILABLE_DUPLICATES=Doublons disponibles
 
 # ADMINISTRATION/ANREDEN
-GENERIC_SALUTATIONS=Titres
 GENERIC_SALUTATIONS_MARKED=Titre(s) s\u00E9l\u00E9ctionn\u00E9(s)
 GENERIC_ID=ID
 GENERIC_MAIN_FORM=Forme de base
@@ -280,7 +277,6 @@ GENERIC_TOOLTIP=Remarque
 HINT_FORMAT_INFO=OOo 1.1 signifie OpenOffice 1.1 (.sxc fichier), OOo 2.0 signifie OpenOffice 2.0 (.ods fichier), xls signifie Microsoft Office (.xls fichier) et CSV signifie CSV format de fichier.
 HINT_EVENT_MARK=Marque 50 et 99 sont automatiquement ajout\u00E9s \u00E0 de nouveaux \u00E9v\u00E9nements. Le marque 50 ne va pas cr\u00E9er un champ de texte.
 GENERIC_DOCUMENT_TYPES_MARKED=Type(s) de documents s\u00E9l\u00E9ctionn\u00E9(s)
-GENERIC_LABELLING=Indication
 GENERIC_ADRESS_TYPE=Type d\u2019adresse
 GENERIC_CHARSET=Jeu de caract\u00E8res
 GENERIC_FORMAT=Format
@@ -300,7 +296,6 @@ eswurdeeinneuerdokumenttypangelegt=Il a \u00E9t\u00E9 cr\u00E9\u00E9 un nouveau 
 
 # ADMINISTRATION/E-MAIL-POSTAUSGANG
 GENERIC_STATUS=Statut
-GENERIC_TO=A
 GENERIC_SUBJECT=Objet
 GENERIC_ERROR=Erreur
 e-mails=E-mails
@@ -319,7 +314,6 @@ GENERIC_ADD=Ajouter
 GENERIC_BACK_TO_TEMPLATES_LIST=Retourner \u00E0 la liste des mod\u00E8les
 
 # ADMINISTRATION/FARBEN
-GENERIC_COLOR_PLURAL=Couleurs
 GENERIC_CHROMATICITY=Valeur de la couleur
 LETTERS_CHROMATICITY=R V B
 
@@ -330,26 +324,19 @@ eswurdeeineneuefunktion/amtsbezeichnungangelegt=Il a \u00E9t\u00E9 cr\u00E9\u00E
 eswurdeeinefunktion/amtsbezeichnunggeloscht=Il a \u00E9t\u00E9 effac\u00E9 und fonction/titre.
 
 # ADMINISTRATION/KATEGORIEN
-GENERIC_CATEGORY_PLURAL=Cat\u00E9gories
 markiertekategorie=Cat\u00E9gorie(s) s\u00E9l\u00E9ctionn\u00E9e(s)
 GENERIC_MARK_LONG=Signe de reconnaissance
 GENERIC_RANK=Rang
 GENERIC_EVENTS_PP=\u00C9v\u00E9nements
-GENERIC_CATEGORY_SINGULAR=Cat\u00E9gorie
 GENERIC_OCCASION=Ev\u00E9nement
 
 # ADMINISTRATION/MANDANTEN
-GENERIC_CLIENT_PLURAL=Mandants
 markierte(n)mandanten=Mandant(s) s\u00E9l\u00E9ctionn\u00E9(s)
 GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Donn\u00E9es pas d\u00E9di\u00E9 au mandants
 personen=Personnes
 GENERIC_IMPORT_PROCEDURES=Processus d\u2019importation
 veranstaltungorte=Lieux des \u00E9v\u00E9nements
-GENERIC_IMPORT_PERSONS=Importation des Personnes
-GENERIC_DISTRIBUTOR_SINGULAR=Distributeur
-GENERIC_USER=Utilisateur
 GENERIC_ASSIGN_CLIENTS=Classer mandants
-GENERIC_CLIENT_SINGULAR=Mandant
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
 programeinstellungen=R\u00E9glage de programme
@@ -361,9 +348,7 @@ GENERIC_SUBTABS_OF_PERSONS_DATA=Sous-onglets des \u00ABdonn\u00E9es personelles\
 GENERIC_MAIN_PERSON=Personnage principal
 GENERIC_PARTNER=Partenaire
 GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Sous-onglets des \u00ABAdresses\u00BB
-GENERIC_BUSINESS=Commercial
 GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Choix standard du champ de s\u00E9lection \u00ABjeu de caract\u00E8res\u00BB
-GENERIC_CHARSET=Jeu de caract\u00E8res
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Titres standard et Champs de texte libre
 GENERIC_STANDARD_SALUTATION=Titre standard
 GENERIC_STANDARD_SALUTATION_PARTNER=Titre standard Partenaire
@@ -414,9 +399,7 @@ GENERIC_NO_DATA_FOUND=Aucune donn\u00E9e trouv\u00E9e
 # ADMINISTRATION/VERANSTALTUNGSORTE
 markierte=Lieu(x) marqu\u00E9(s)
 GENERIC_ADD_NEW_EVENT_LOCATIONS=Nouveau lieu
-GENERIC_ID=ID
 GENERIC_CONTACT_PERSON=contact
-GENERIC_TELEFON=Phone
 GENERIC_FAX=Fax
 e-mail=E-Mail
 GENERIC_REMARK=Remarque
@@ -432,17 +415,13 @@ GENERIC_SUBTABS_OF=Sous-onglets de
 GENERIC_PERSONAL_DETAILED_VIEW=Vue d\u00E9taill\u00E9e des personnes
 GENERIC_LIST_OF_GUESTS=Liste des invit\u00E9s
 zusatzlichefelder=champs suppl\u00E9mentaires
-GENERIC_FUNCTION_SINGULAR=Fonction
 GENERIC_POSTNUMBER_AND_CITY=Code Postale / Ville
 GENERIC_LIST_OF_PERSONS=Liste des individus
-GENERIC_FEDERAL_STATE=\u00E9tat
 MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=Param\u00E8tres ont \u00E9t\u00E9 enregistr\u00E9s avec succ\u00E8s.
 
 # VERWALTUNG/VERTRETUNGEN
-GENERIC_REPRESENTATIVE_PLURAL=Repr\u00E9sentations
 markiertevertretung=Repr\u00E9sentations marqu\u00E9es
 GENERIC_DELETE=Supprimer
-GENERIC_NEW=Nouvel
 eswurdeeineneuevertretungangelegt=Il a \u00E9t\u00E9 une nouvelle agence cr\u00E9\u00E9e
 eswurdeeinevertretunggeloscht=Il a \u00E9t\u00E9 un repr\u00E9sentant supprim\u00E9
 siemuseneinevertretereingeben=Vous devez entrer un repr\u00E9sentant
@@ -462,7 +441,6 @@ INFO_LIC_LIC=Licence
 INFO_LIC_INFOS=Conditions d\u2019utilisation
 INFO_LIC_DOCS=autres documents
 GENERIC_DATABASE=Base de donn\u00E9es
-GENERIC_LOGIN=Ouvrir
 GENERIC_GROUPS=Groupes
 GENERIC_NOT_AVAILABLE=indisponible
 
@@ -473,7 +451,6 @@ GENERIC_DISCARD_CHANGES=annuler les modifications
 
 # TABELLEN
 GENERIC_DATE=date
-GENERIC_WORKAREA_SINGULAR=Espace de travail
 GENERIC_LASTNAME=Nom
 GENERIC_FIRSTNAME=Pr\u00E9nom
 akwritemtsbezeichnung=Nom officiel
@@ -500,7 +477,6 @@ GENERIC_ACCOUNT_OPENING_DATE=Date d\u2019accr\u00E9ditation
 GENERIC_AT=\u00E0
 GENERIC_OCLOCK=h
 GENERIC_ORIGIN_DATA=Origine des donn\u00E9es
-GENERIC_PERSON_SINGULAR=Personne
 
 # DATEITYP
 csv=CSV (Comma-Separated-Values)
@@ -541,7 +517,6 @@ GENERIC_CATEGORIES_AND_OCCASIONS=Cat\u00E9gories et \u00E9v\u00E9nements
 ubersichtuberalleveranstaltungeneinesgastes=Vue d\u2019ensemble de tous les \u00E9v\u00E9nements d\u2019un invit\u00E9.
 GENERIC_VIEW_OVER_GUEST_EVENT=de
 statistikfurgast=Statistique pour invit\u00E9
-GENERIC_EVENT=\u00C9v\u00E9nement
 GENERIC_BEGIN=D\u00E9but
 
 # PERSONEN/PERSONENSUCHE
@@ -557,7 +532,6 @@ MESSAGE_OSIAM_LOGIN_DATA_EXIST=Les pouvoirs ont \u00E9t\u00E9 produits avec succ
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Est une soci\u00E9t\u00E9
-GENERIC_SALUTATION_SINGULAR=Salutation
 frau=Madamme
 herr=Monsieur
 lady=Lady
@@ -584,7 +558,6 @@ GENERIC_REPLACE=Substitution
 GENERIC_IN_THE_FOLLOWING_FIELDS=Dans les champs suivants
 anrede/titel=Salutation / Titre
 GENERIC_EMPLOYMENT_TITLE_SHORT=Nom officiel
-GENERIC_INSTITUTION_SINGULAR=Institution
 GENERIC_ADDRESSES=Adresse
 telefon/fax=Telefon / Fax
 GENERIC_REPLACE_INDIVIDUALLY=Remplacer l\u2019unit\u00E9
@@ -630,7 +603,7 @@ HINT_EXPORT_CSV=Selon la quantit\u00E9 de champs export\u00E9s (cela d\u00E9pend
 HINT_EXPORT_CSVPERSDATA_ADDRESS=Il sera export\u00E9 que les blancs avec les onglets \u00ABdonn\u00E9es personnelles\u00BB, \u00ABadresses\u00BB, \u00ABtypes de documents\u00BB et leurs onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 HINT_EXPORT_CSVPERSDATA=Il sera export\u00E9 que les blancs avec le onglet \u00ABde donn\u00E9es \u00E0 caract\u00E8re personnel\u00BB, et son onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Il sera export\u00E9 que les blancs avec les onglets \u00ABde donn\u00E9es \u00E0 caract\u00E8re personnel\u00BB , \u00ABCat\u00E9gories\u00BB et ses onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s (en particulier, cela est export\u00E9 \u00E0 partir du nombre de cat\u00E9gories en fonction), il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
-HINT_EXPORT_CSV_ISO_8859_15=Ce format est adapt\u00E9 \u00E0 l\u2019importation / exportation dans les applications MS Office qui utilisent le jeu de caract\u00E8res ISO - 8859-15. Selon la quantit\u00E9 de champs export\u00E9s (en particulier, cela d\u00E9pend du nombre de cat\u00E9gories export\u00E9s), il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
+HINT_EXPORT_CSV_ISO_8859_15=Ce format est adapt\u00E9 \u00E0 l\u2019importation / exportation dans les applications MS Office qui utilisent le jeu de caract\u00E8res ISO-8859-15. Selon la quantit\u00E9 de champs export\u00E9s (en particulier, cela d\u00E9pend du nombre de cat\u00E9gories export\u00E9s), il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Importer des donn\u00E9es personnelles
@@ -655,15 +628,12 @@ GENERIC_STATISTICS=Statistiques
 
 # ADMINISTRATIONDROPDOWN
 GENERIC_SALUTATIONS=Formules de politesse
-GENERIC_WORKAREA_PLURAL=Espaces de travail
-e-mail-postausgang=E -mail d\u2019envoi
+e-mail-postausgang=E-mail d\u2019envoi
 GENERIC_PROGRAM_PERFERENCES=Pr\u00E9f\u00E9rences
-GENERIC_EVENT_LOCATION_PLURAL=Lieux des \u00E9v\u00E9nements
 
 # VERANSTALTUNGSUEBERSICHT
 GENERIC_END=Fin
 GENERIC_HOST=H\u00F4te
-GENERIC_EVENT_LOCATION_SINGULAR=Lieu de l\u2019\u00E9v\u00E9nement
 GENERIC_EVENT_SEARCH=Recherche \u00E9v\u00E9nement
 GENERIC_CREATE_NEW_EVENT=Cr\u00E9er un nouvel \u00E9v\u00E9nement
 GENERIC_NUMBER_PER_PAGE=Afficher par page
@@ -685,7 +655,6 @@ EVENT_INVITATION_TYPE_WITH_PARTNER=avec Partenaire
 GENERIC_EDIT_EVENT=Modifier l\u2019\u00E9v\u00E9nement
 GENERIC_TO_GUEST_MANAGEMENT=Gestion des clients
 GENERIC_GENERAL=G\u00E9n\u00E9ral
-GENERIC_TASK_PLURAL=t\u00E2ches
 GENERIC_ADDITIONAL_PERSONS_DATA=Informations personnelles suppl\u00E9mentaires
 kurzbereichnung=Nom court
 GENERIC_OPEN_EVENT=\u00C9v\u00E9nement ouvert
@@ -749,7 +718,6 @@ eswurdeeineneueveranstaltungangelegt=Un \u00E9v\u00E9nement a \u00E9t\u00E9 cr\u
 angelegtvon=Cr\u00E9\u00E9e par
 angelegtam=Cr\u00E9\u00E9e le
 erzeugtausveranstaltung=Cr\u00E9ation de l\u2019\u00E9v\u00E9nement
-mailclient_other=Autre Mailclient
 mailclient_msoutlook=Microsoft Outlook
 
 # STATISTIKEN
@@ -781,7 +749,7 @@ lfdnr=Num\u00E9ro de s\u00E9rie
 nichteingeladen=pas invit\u00E9(e)
 laufendenummerberechnen=Calculer le nombre de s\u00E9rie
 allestammdatenneuladen=Recharger tout donn\u00E9es de base
-HINT_ENTRY_POINT=Entr\u00E9e directe: Il est possible pour quelqu\u2019un ou seulement \u00E0 un nom pr\u00E9nom - apr\u00E8s le tri.
+HINT_ENTRY_POINT=Entr\u00E9e directe: Il est possible pour quelqu\u2019un ou seulement \u00E0 un nom pr\u00E9nom\u200A\u2014\u200Aapr\u00E8s le tri.
 HINT_GUEST_MANAGEMENT_FILTER=Lors de la cr\u00E9ation des listes d\u2019invit\u00E9s de filtres s\u00E9lectionn\u00E9s est consid\u00E9r\u00E9 comme votre top.
 HINT_GUEST_MANAGEMENT_MARKED=Veuillez s\u00E9l\u00E9ctionner des clients \u00E0 exporter, sinon la liste compl\u00E8te sera export\u00E9e.
 TABLE_BEFORE_GUEST=Invit\u00E9 pr\u00E9c\u00E9dent
@@ -823,10 +791,10 @@ GUEST_LIST_SEARCH_PERSON_ADD=Trouver des gens et l\u2019ajouter \u00E0 la liste 
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=Cr\u00E9er une liste d\u2019invit\u00E9s
 SELECT_OUTPUT_FORMAT=S\u00E9lectionner le format de sortie
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Liste regroup\u00E9s par cat\u00E9gories - avec des partenaires
-LIST_GROUP_BY_CATEGORY_WITH_TEL=Liste regroup\u00E9s par cat\u00E9gories - avec Tel et le t\u00E9l\u00E9phone mobile.
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Liste regroup\u00E9s par cat\u00E9gories - avec les partenaires et Fax
-LIST_SORT_PARTNER_TEL=Liste par tri -avec Partner , T\u00E9l. Et t\u00E9l\u00E9phone mobile
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Liste regroup\u00E9s par cat\u00E9gories\u200A\u2014\u200Aavec des partenaires
+LIST_GROUP_BY_CATEGORY_WITH_TEL=Liste regroup\u00E9s par cat\u00E9gories\u200A\u2014\u200Aavec Tel et le t\u00E9l\u00E9phone mobile.
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Liste regroup\u00E9s par cat\u00E9gories\u200A\u2014\u200Aavec les partenaires et Fax
+LIST_SORT_PARTNER_TEL=Liste par tri\u200A\u2014\u200Aavec Partner, T\u00E9l. et t\u00E9l\u00E9phone mobile
 SORT_CRITERIA=Les crit\u00E8res de tri
 SORT_AFTER=Trier par
 CONTINUAL_NUMBER=num\u00E9ro de s\u00E9rie
@@ -876,9 +844,8 @@ beigrunhinterlegteneintragenhandeltessichumwiederkehrendeereignisse=En vert soul
 # VERTEILERDETAILS
 verteilerdetails=D\u00E9tails de la r\u00E9partition
 verteilerversenden=Envoyer distribution
-e-mail-clientaufrufen=Appel client E -mail
+e-mail-clientaufrufen=Appel client E-mail
 mailclient_other=Autre client de messagerie
-mailclient_msoutlook=Microsoft Outlook
 verteilerverschickt=Le distributeur a \u00E9t\u00E9 envoy\u00E9 avec succ\u00E8s.
 verteilerfehler=Le distributeur n\u2019a pas pu \u00EAtre envoy\u00E9 avec succ\u00E8s, r\u00E9essayer plus tard.
 
@@ -924,7 +891,7 @@ format=Format
 HINT_EXPORT_FORMAT=OOo 1.1 signifie OpenOffice 1.1 (.sxc fichier), OOo 2.0 signifie OpenOffice 2.0 (.ods fichier), xls signifie Microsoft Office (xls fichier) et CSV signifie CSV format de fichier.
 HINT_EVENT_IDENTIFICATION=Marque 50 et 99 sont automatiquement ajout\u00E9s \u00E0 de nouveaux \u00E9v\u00E9nements. Le marque 50 ne va pas cr\u00E9er un champ de texte.
 wirklichloschen=Vraiment supprimer
-zumpersonenimport=Pour les personnes -Import
+zumpersonenimport=Pour les personnes\u200A\u2014\u200AImport
 importstatus=Importer Statut
 importstatusvorhandenedublettenbearbeiten=Importer Statut : modifier les doublons existants
 bittemarkierensiediezuimportierendenpersonen=S\u2019il vous pla\u00EEt choisir d\u2019importer personnes.
@@ -1048,7 +1015,7 @@ verteilerspeichern=Sauvegarder le distributeur
 markierteadressen=Adresses s\u00E9l\u00E9ctionn\u00E9s
 markierteadressenausdemverteilerloschen=Supprimer les Adresses s\u00E9l\u00E9ctionn\u00E9s
 analleadressenversenden=Envoyer \u00E0 toutes les adresses
-emailclientaufrufen=Appel client E -mail
+emailclientaufrufen=Appel client E-mail
 esliegenkeineadressdatenfurdiesenverteilervor=Il n\u2019y a aucune information d\u2019adresse pour cette distribution.
 esliegenkeineadressenfurdiesenverteilervor=Il n\u2019y a aucune adresse pour cette distribution.
 esliegenkeinevorlagenvor=Il n\u2019y a aucun mod\u00E8le disponible
@@ -1088,7 +1055,7 @@ zurueckzurpersonenuebersicht=Retour au sommaire personne
 zurueck=Retour
 dublettenpruefungdurchfuehren=Effectuer la v\u00E9rification des doublons
 zurueckzumsuchergebnis=Retour aux r\u00E9sultats de la recherche
-personspeicherndublettenpruefung=Sauvegarder la personne - v\u00E9rification des doublons
+personspeicherndublettenpruefung=Sauvegarder la personne\u200A\u2014\u200Av\u00E9rification des doublons
 neueneintraganlegen=Cr\u00E9ation d\u2019une nouvelle entr\u00E9e
 existierendeneintragbearbeiten=Modifier l\u2019entr\u00E9e existante
 eswurdenkeinedublettengefunden=Aucun doublon n\u2019ont \u00E9t\u00E9 trouv\u00E9s.
@@ -1097,7 +1064,7 @@ ausgewaehltepersonenzurveranstaltunghinzufuegen=Ajouter des personnes s\u00E9lec
 personerfassen=Saisir personne
 dublettenanlegen=Cr\u00E9ation de doublons
 abbrechenundzurueck=Annuler et retourner
-gastsuchenveranstaltung=Chercher invit\u00E9 - \u00C9v\u00E9nement
+gastsuchenveranstaltung=Chercher invit\u00E9\u200A\u2014\u200A\u00C9v\u00E9nement
 gastsuchen=Chercher invit\u00E9
 verantwortlichenfueraufgabesuchen=La recherche de ceux charg\u00E9s de t\u00E2che
 verantwortlichenfueraufgabehinzufugen=Ajouter responsable pour t\u00E2che
@@ -1147,9 +1114,9 @@ wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Vous sou
 wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=\u00C0 attribuer %s personnes ou invit\u00E9s de l\u2019espace de travail s\u00E9lectionn\u00E9?
 waehlensieeinenarbeitsbereichauswelchensie=S\u00E9lectionner un espace de travail, qui vous
 siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=Vous n\u2019avez pas configur\u00E9 des espaces de travail. Vous pouvez le faire dans le panneau d\u2019administration en vertu de l\u2019article
-administrationallestellvertretungenimmandanten=Administration - tous les d\u00E9l\u00E9gu\u00E9s dans le client
-administrationallestellvertretungen=Administration - tous les d\u00E9l\u00E9gu\u00E9s
-verwaltungpersoenlichevertretungen=Gestion - repr\u00E9sentants personnels
+administrationallestellvertretungenimmandanten=Administration\u200A\u2014\u200Atous les d\u00E9l\u00E9gu\u00E9s dans le client
+administrationallestellvertretungen=Administration\u200A\u2014\u200Atous les d\u00E9l\u00E9gu\u00E9s
+verwaltungpersoenlichevertretungen=Gestion\u200A\u2014\u200Arepr\u00E9sentants personnels
 vertretung=Repr\u00E9sentation
 markiertevertretungen=Repr\u00E9sentation(s) s\u00E9l\u00E9ctionn\u00E9e(s)
 loeschen=Supprimer
@@ -1161,15 +1128,15 @@ gaestelisteerstellenfuerveranstaltungeventshortname=Cr\u00E9er la liste des invi
 gaesteverwaltungderveranstaltung=Gestion des invit\u00E9s de l\u2019\u00E9v\u00E9nement
 gaestelisteerstellen=Cr\u00E9er une liste d\u2019invit\u00E9s
 ausgabeformatwaehlen=S\u00E9lectionner le format de sortie
-listenachkategoriengruppiertmitpartner=Liste regroup\u00E9es par cat\u00E9gories - avec partenaire
-listenachkategoriengruppiertmittelundmobiltelefon=Liste regroup\u00E9es par cat\u00E9gories - avec t\u00E9l\u00E9phone et t\u00E9l\u00E9phone portable
-listenachkategoriengruppiertmitpartnerundfax=Liste regroup\u00E9es par cat\u00E9gories - avec partenaire et fax
-listenachsortierungmitpartnertelundmobiltelefon=Liste tri\u00E9e - avec les partenaires, t\u00E9l\u00E9phone et t\u00E9l\u00E9phone portable
+listenachkategoriengruppiertmitpartner=Liste regroup\u00E9es par cat\u00E9gories\u200A\u2014\u200Aavec partenaire
+listenachkategoriengruppiertmittelundmobiltelefon=Liste regroup\u00E9es par cat\u00E9gories\u200A\u2014\u200Aavec t\u00E9l\u00E9phone et t\u00E9l\u00E9phone portable
+listenachkategoriengruppiertmitpartnerundfax=Liste regroup\u00E9es par cat\u00E9gories\u200A\u2014\u200Aavec partenaire et fax
+listenachsortierungmitpartnertelundmobiltelefon=Liste tri\u00E9e\u200A\u2014\u200Aavec les partenaires, t\u00E9l\u00E9phone et t\u00E9l\u00E9phone portable
 tisch=Table
 zusaetzlichesortierungnach=Un tri suppl\u00E9mentaire
 zurueckzurgaesteverwaltung=Gestion des invit\u00E9s
-verwaltungallebenutzerimmandanten=Gestion - tous les utilisateurs du mandant
-verwaltungallebenutzer=Gestion - tous les utilisateurs
+verwaltungallebenutzerimmandanten=Gestion\u200A\u2014\u200Atous les utilisateurs du mandant
+verwaltungallebenutzer=Gestion\u200A\u2014\u200Atous les utilisateurs
 markiertenbenutzer=Utilisateur(s) s\u00E9l\u00E9ctionn\u00E9(s)
 markiertenbenutzerloeschen=Supprimer l\u2019utilisateur s\u00E9lectionn\u00E9
 leseneingeschraenkt=Lecture restreinte
@@ -1349,7 +1316,7 @@ MESSAGE_EVENTDOCTYPE_ASSIGNMENT_WRONG=L\u2019attribution d\u2019un type de docum
 MESSAGE_EVENT_LOCATION_TITLE_EMPTY=Le lieu ne peut pas \u00EAtre enregistr\u00E9. D\u00E9cerner un titre s\u2019il vous pla\u00EEt.
 MESSAGE_EVENT_LOCATION_MAX_REMARK_REACHED=Le contenu du champ \u00ABRemarque\u00BB ne peut pas d\u00E9passer 1000 caract\u00E8res.
 MESSAGE_EMAIL_DRAFT_NAME_MISSING=Vous devez donner un nom de la mod\u00E8le de courrier \u00E9lectronique.
-MESSAGE_EMAIL_DRAFT_SUBJECT_MISSING=Ils ont donn\u00E9 le mod\u00E8le e -mail sans sujet.
+MESSAGE_EMAIL_DRAFT_SUBJECT_MISSING=Ils ont donn\u00E9 le mod\u00E8le e-mail sans sujet.
 MESSAGE_EMAIL_DRAFT_TEXT_MISSING=Vous ne saisissez du texte dans le mod\u00E8le e-mail.
 MESSAGE_EMAIL_LIST_NAME_EMPTY=euillez entrer un nom de distribution.
 MESSAGE_TASK_TIME_WITHOUT_DATE=Entrez un temps sans une date correspondante n\u2019est pas autoris\u00E9e.
@@ -1403,13 +1370,11 @@ CHANGELOG_NO_PROTOCOL_AVAILABLE=Il y a aucune donn\u00E9e de journaux est dispon
 # BROWSER TITLES
 BROWSER_TITLE_REPORTS=Rapports
 
-
 #NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=R\u00E9initialiser toutes les valeurs sur les donn\u00E9es de base
 GUEST_LIST_EDIT_MASTER_DATA=Modifier les donn\u00E9es de base des personnes
 GUEST=Invit\u00E9
 GENERIC_OF=de
-
 
 TOOLTIP_EDIT_HEADLINES=Vous pouvez toujours modifier les rubriques avant de l\u2019imprimer en cliquant sur le lien /u0022modifier/u0022. S\u2019il vous pla\u00EEt enregistrer cette avant l\u2019impression.
 GENERIC_APPLY_TO_GUESTLIST=Prendre dans la liste des invit\u00E9s
@@ -1425,10 +1390,9 @@ siemussendierolleangebenunterdersieverawebnutzenmochten=Vous devez sp\u00E9cifie
 GENERIC_CHOOSE=Choisir
 GENERIC_RESET=R\u00E9initialiser
 siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=Vous n\u2019avez pas les autorisations n\u00E9cessaires pour supprimer les invit\u00E9s
-wahlensiebittezunachsteinenodermehreregasteaus=S\u00E9lectionner les premiers h\u00F4tes - un ou plusieurs
+wahlensiebittezunachsteinenodermehreregasteaus=S\u00E9lectionner les premiers h\u00F4tes\u200A\u2014\u200Aun ou plusieurs
 bittebestatigensiedasloschendermarkiertengasteliste=Veuillez confirmer la suppression des invit\u00E9s marqu\u00E9!
 GENERIC_NO_GUESTLIST_DELETED=Aucun invit\u00E9s ont \u00E9t\u00E9 supprim\u00E9es
-
 
 EVENT_DOCTYPE_RESET_INFO=V\u00E9rifier si les types de documents sont d\u00E9j\u00E0 attribu\u00E9es \u00E0 cet \u00E9v\u00E9nement. Si tel est le cas, vous devrez recr\u00E9er les types de documents pour ce client. Pour ce faire, cliquez sur \u00ABR\u00E9initialiser les donn\u00E9es de base\u00BB
 
@@ -1458,15 +1422,9 @@ diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstalt
 DELETE_SELECTED_MANDATOR=Supprimer clients s\u00E9lectionn\u00E9s
 PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Si le rang de la cat\u00E9gorie \u00E0 prendre?
 
-
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
-GUEST_LIST_RESET_ALL_TO_MASTER_DATA=R\u00E9initialiser toutes les donn\u00E9es sur Master Data
-GUEST_LIST_EDIT_MASTER_DATA=Modifier les donn\u00E9es de base des personnes
-GUEST=Invit\u00E9
-GENERIC_OF=de
 GENERIC_ASSIGN=Assigner
 GENERIC_CANCEL=Annuler
-GENERIC_DELETE=Supprimer
 GENERIC_CONNECTOR=Connecteur
 GENERIC_VIEW_DOCUMENT_TYPE=Montrer le type du document
 GENERIC_GENERATE_DOCUMENT_TYPE=g\u00E9n\u00E9rer un nouveau type de documents
@@ -1614,10 +1572,10 @@ VERIFY_ERROR_JAVA_ONE=La version de JAVA install\u00E9 (
 VERIFY_ERROR_JAVA_TWO=) est diff\u00E9rente de la version attendu (1.4).
 
 #TO BE DELETED
-inlandjageschlechtweiblich=In Country: Yes - Sex:Female
-inlandjageschlechtmannlich=In Country: Yes - Sex:Male
-inlandneingeschlechtweiblich=In Country: No - Sex:Female
-inlandneingeschlechtmannlich=In Country: No - Sex:Male
+inlandjageschlechtweiblich=In Country: Yes\u200A\u2014\u200ASex:Female
+inlandjageschlechtmannlich=In Country: Yes\u200A\u2014\u200ASex:Male
+inlandneingeschlechtweiblich=In Country: No\u200A\u2014\u200ASex:Female
+inlandneingeschlechtmannlich=In Country: No\u200A\u2014\u200ASex:Male
 
 # GENERIC DIALOG MESSAGES
 GENERIC_PLEASE_WAIT_HEADER=Veuillez patienter...
@@ -1625,7 +1583,6 @@ GENERIC_PLEASE_WAIT_MESSAGE=Le processus pourrait prendre un peu de temps.
 
 # WORK AREA (Bean) TEXTS
 WORKAREA_ERROR_MISSING_NAME=L\u2019\u00E9space de travail ne doit pas \u00EAtre vide.
-
 
 zurpersonensuche=Recherche des personnes
 steuerdatei=le fichier de contr\u00F4le

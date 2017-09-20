@@ -8,7 +8,7 @@ BROWSER_TITLE_COLOURS=Farben
 BROWSER_TITLE_GENERAL_CONFIGS=Allgemeine Einstellungen
 BROWSER_TITLE_TASKS=Aufgaben
 BROWSER_TITLE_DOCUMENT_TYPES=Dokumenttypen
-BROWSER_TITLE_IMPORT_DUPLICATE_ACCEPT=Importstatus - Dubletten \u00FCbernehmen
+BROWSER_TITLE_IMPORT_DUPLICATE_ACCEPT=Importstatus\u200A\u2014\u200ADubletten \u00FCbernehmen
 BROWSER_TITLE_ERROR_OCCURS=Ein Fehler ist aufgetreten
 BROWSER_TITLE_EVENT_EDIT=Veranstaltung bearbeiten
 BROWSER_TITLE_EVENT_CREATE=Neue Veranstaltung erstellen
@@ -56,7 +56,7 @@ BROWSER_TITLE_PERSON_LIST=Personen\u00FCbersicht
 BROWSER_TITLE_SEARCH_REPLACE=Suchen und Ersetzen
 BROWSER_TITLE_GUEST_HOST_SEARCH=Gastgeber suchen
 BROWSER_TITLE_PERSON_SEARCH=Person suchen
-BROWSER_TITLE_PERSON_DATA_SALUTATION=Stammdaten - Anreden
+BROWSER_TITLE_PERSON_DATA_SALUTATION=Stammdaten\u200A\u2014\u200AAnreden
 BROWSER_TITLE_LOGIN_REPRESENTATIVE=Anmelden als Stellvertreter
 BROWSER_TITLE_STATISTIC_CREATE=Statistik erstellen
 BROWSER_TITLE_USER_CONFIGS=Benutzer Einstellungen
@@ -229,13 +229,13 @@ WELCOME_TEXT_GRANT_READ_STANDARD_FIELDS=Sie haben hier die M\u00F6glichkeit, Sta
 WELCOME_TEXT_GRANT_READ_REMARK_FIELDS=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen und zu exportieren.
 WELCOME_TEXT_GRANT_EXPORT_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von
 WELCOME_TEXT_GRANT_WRITE_FULL=und Bemerkungen zu
-WELCOME_TEXT_GRANT_EXPORT_PART_TWO=Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
-WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
+WELCOME_TEXT_GRANT_EXPORT_PART_TWO=Personen und Veranstaltungen anzuzeigen, zu ex\u2011 und importieren, zu bearbeiten und zu l\u00F6schen.
+WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex\u2011 und importieren, zu bearbeiten und zu l\u00F6schen.
 WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO=Weiterhin k\u00F6nnen Sie mandantenspezifische Einstellungen einsehen und bearbeiten.
-WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex- und importieren, zu bearbeiten und zu l\u00F6schen.
+WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Sie haben hier die M\u00F6glichkeit, Stammdaten von und Bemerkungen zu Personen und Veranstaltungen anzuzeigen, zu ex\u2011 und importieren, zu bearbeiten und zu l\u00F6schen.
 WELCOME_TEXT_GRANT_ADMIN_PART_TWO=Weiterhin k\u00F6nnen Sie mandantenspezifische und globale Einstellungen einsehen und bearbeiten.
 WELCOME_TEXT_HELP=Sollten Sie weitere Informationen ben\u00F6tigen, finden Sie diese auf der Seite \u201EHilfe\u201C.
-WELCOME_TEXT_NO_ROLE=Zu Ihrer Anmeldung existieren keine Rollen, unter denen Sie in VerA.web agieren k\u00F6nnen. Bitte melden Sie sich ab und mit einer Benutzer- oder Rollenkennung erneut an, die in VerA.web nutzbar ist.
+WELCOME_TEXT_NO_ROLE=Zu Ihrer Anmeldung existieren keine Rollen, unter denen Sie in VerA.web agieren k\u00F6nnen. Bitte melden Sie sich ab und mit einer Benutzer\u2011 oder Rollenkennung erneut an, die in VerA.web nutzbar ist.
 GENERIC_AVAILABLE_DUPLICATES=Vorhandene Dubletten
 
 # ADMINISTRATION/ANREDEN
@@ -276,7 +276,7 @@ MESSAGE_FILL_USER_ROLE=Sie m\u00FCssen eine Benutzerrollenbezeichnung eingeben
 
 # ADMINISTRATION/DOKUMENTTYPEN
 GENERIC_TOOLTIP=Hinweis
-HINT_FORMAT_INFO=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei), xls steht f\u00FCr Microsoft Office Kennzeichen: Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.(xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
+HINT_FORMAT_INFO=OOo 1.1 steht f\u00FCr OpenOffice 1.1 (sxc-Datei) und OOo 2.0 f\u00FCr OpenOffice 2.0 (ods-Datei), xls steht f\u00FCr Microsoft Office Kennzeichen: Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt. (xls-Datei) und CSV steht f\u00FCr CSV-Dateiformat.
 HINT_EVENT_MARK=Kennz. 50 und 99 werden autom. neuen Veranstaltungen hinzugef\u00FCgt. Beim Kennz. 50 wird kein Freitextfeld erzeugt.
 GENERIC_DOCUMENT_TYPES_MARKED=Markierte(n) Dokumenttyp(en)
 GENERIC_LABELLING=Bezeichnung
@@ -792,10 +792,10 @@ GUEST_LIST_SEARCH_PERSON_ADD=Personen suchen und zu der G\u00E4steliste hinzuf\u
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=G\u00E4steliste erstellen
 SELECT_OUTPUT_FORMAT=Ausgabeformat w\u00E4hlen
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Liste nach Kategorien gruppiert - mit Partner
-LIST_GROUP_BY_CATEGORY_WITH_TEL=Liste nach Kategorien gruppiert - mit Tel. und Mobiltelefon
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Liste nach Kategorien gruppiert - mit Partner und Fax
-LIST_SORT_PARTNER_TEL=Liste nach sortierung -mit Partner, Tel. und Mobiltelefon
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Liste nach Kategorien gruppiert\u200A\u2014\u200Amit Partner
+LIST_GROUP_BY_CATEGORY_WITH_TEL=Liste nach Kategorien gruppiert\u200A\u2014\u200Amit Tel. und Mobiltelefon
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Liste nach Kategorien gruppiert\u200A\u2014\u200Amit Partner und Fax
+LIST_SORT_PARTNER_TEL=Liste nach Sortierung\u200A\u2014\u200Amit Partner, Tel. und Mobiltelefon
 SORT_CRITERIA=Sortierkriterien
 SORT_AFTER=Sortieren nach
 CONTINUAL_NUMBER=Laufende Nummer
@@ -967,13 +967,13 @@ markiertebezeichnunge=Markierte Bezeichnung(en)
 markierteeintrageentfernen=Markierte Eintr\u00E4ge entfernen
 eswurdenkeinedatengefunden=Es wurden keine Daten gefunden
 siehabenkeinedatenherkunftangegeben=Sie haben keine Datenherkunft angegeben.
-HINT_IMPORT_NOT_POSSIBLE_OPENOFFICE=Sie haben versucht eine OpenOffice-Datei zu importieren.Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
-HINT_IMPORT_NOT_POSSIBLE_STAROFFICE=Sie haben versucht eine StarOffice-Datei zu importieren.Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
-HINT_IMPORT_NOT_POSSIBLE_EXCEL=Sie haben versucht eine Microsoft Excel-Datei zu importieren.Der direkte Import von Excel-Dokumenten ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
-HINT_IMPORT_NOT_POSSIBLE_PDF=Sie haben versucht eine PDF-Datei zu importieren.Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
-HINT_IMPORT_NOT_POSSIBLE_ZIP=Sie haben versucht eine ZIP-Datei zu importieren.Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
-HINT_IMPORT_NOT_POSSIBLE_EXE=Sie haben versucht eine EXE-Datei zu importieren.Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
-siehabenversuchteinedateimitderendung=Sie haben versucht eine Datei mit der Endung
+HINT_IMPORT_NOT_POSSIBLE_OPENOFFICE=Sie haben versucht, eine OpenOffice-Datei zu importieren. Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
+HINT_IMPORT_NOT_POSSIBLE_STAROFFICE=Sie haben versucht, eine StarOffice-Datei zu importieren. Der direkte Import ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
+HINT_IMPORT_NOT_POSSIBLE_EXCEL=Sie haben versucht, eine Microsoft Excel-Datei zu importieren. Der direkte Import von Excel-Dokumenten ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.Bitte speichern Sie diese Datei zuerst mit Ihrem Tabellenkalkulationsprogramm als .csv-Datei ab.
+HINT_IMPORT_NOT_POSSIBLE_PDF=Sie haben versucht, eine PDF-Datei zu importieren. Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
+HINT_IMPORT_NOT_POSSIBLE_ZIP=Sie haben versucht, eine ZIP-Datei zu importieren. Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
+HINT_IMPORT_NOT_POSSIBLE_EXE=Sie haben versucht, eine EXE-Datei zu importieren. Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
+siehabenversuchteinedateimitderendung=Sie haben versucht, eine Datei mit der Endung
 zuimportierendiesistinderaktuellenversionvonverawebleidernichtmoglich=zu importieren. Dies ist in der aktuellen Version von VerA.web leider nicht m\u00F6glich.
 siehabenkeinedateiausgewahltoderdiesewarleer=Sie haben keine Datei ausgew\u00E4hlt oder diese war leer.
 esisteinunerwarteterfehlerbeimimportiereneinerdateiaufgetreten=Es ist ein unerwarteter Fehler beim importieren einer Datei aufgetreten.
@@ -1044,7 +1044,7 @@ diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt=D
 personanlegen=Person anlegen
 eswurdenkeinedublettengefundensiekoennenjetztweiteredateneingebenunddiedatenspeichern=Es wurden keine Dubletten gefunden. Sie k\u00F6nnen jetzt weitere Daten eingeben und die Daten speichern.
 bittegebensiezunaechstden=Bitte geben Sie zun\u00E4chst unter Personendaten den
-vorundnachnamen=Vor- und Nachnamen
+vorundnachnamen=Vor\u2011 und Nachnamen
 sowieunteranschriftendie=sowie unter Anschriften die
 anundfuhrendiedublettenprufungdurch=an und f\u00FChren die Dublettenpr\u00FCfung durch.
 beifirmenwaehlensiediecheckbox=Bei Firmen w\u00E4hlen Sie die Checkbox
@@ -1057,7 +1057,7 @@ zurueckzurpersonenuebersicht=Zur\u00FCck zur Personen\u00FCbersicht
 zurueck=Zur\u00FCck
 dublettenpruefungdurchfuehren=Dublettenpr\u00FCfung durchf\u00FChren
 zurueckzumsuchergebnis=Zur\u00FCck zum Suchergebnis
-personspeicherndublettenpruefung=Person speichern - Dubletten-Pr\u00FCfung
+personspeicherndublettenpruefung=Person speichern\u200A\u2014\u200ADubletten-Pr\u00FCfung
 neueneintraganlegen=Neuen Eintrag anlegen
 existierendeneintragbearbeiten=Existierenden Eintrag bearbeiten
 eswurdenkeinedublettengefunden=Es wurden keine Dubletten gefunden.
@@ -1066,7 +1066,7 @@ ausgewaehltepersonenzurveranstaltunghinzufuegen=Ausgew\u00E4hlte Personen zur Ve
 personerfassen=Person erfassen
 dublettenanlegen=Dubletten anlegen
 abbrechenundzurueck=Abbrechen und zur\u00FCck
-gastsuchenveranstaltung=Gast suchen - Veranstaltung
+gastsuchenveranstaltung=Gast suchen\u200A\u2014\u200AVeranstaltung
 gastsuchen=Gast suchen
 verantwortlichenfueraufgabesuchen=Verantwortlichen f\u00FCr Aufgabe suchen
 verantwortlichenfueraufgabehinzufugen=Verantwortlichen f\u00FCr Aufgabe hinzuf\u00FCgen
@@ -1114,9 +1114,9 @@ wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Wollen S
 wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=Wollen Sie %s Personen bzw. G\u00E4ste dem ausgew\u00E4hlten Arbeitsbereich zuordnen
 waehlensieeinenarbeitsbereichauswelchensie=W\u00E4hlen Sie einen Arbeitsbereich aus, welchen Sie
 siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=Sie haben keine Arbeitsbereiche konfiguriert. Diese k\u00F6nnen Sie im Administrationsbereich unter dem Punkt
-administrationallestellvertretungenimmandanten=Administration - alle Stellvertretungen im Mandanten
-administrationallestellvertretungen=Administration - alle Stellvertretungen
-verwaltungpersoenlichevertretungen=Verwaltung - pers\u00F6nliche Vertretungen
+administrationallestellvertretungenimmandanten=Administration\u200A\u2014\u200Aalle Stellvertretungen im Mandanten
+administrationallestellvertretungen=Administration\u200A\u2014\u200Aalle Stellvertretungen
+verwaltungpersoenlichevertretungen=Verwaltung\u200A\u2014\u200Apers\u00F6nliche Vertretungen
 vertretung=Vertretung
 markiertevertretungen=Markierte Vertretung(en)
 loeschen=L\u00F6schen
@@ -1128,15 +1128,15 @@ gaestelisteerstellenfuerveranstaltungeventshortname=G\u00E4steliste erstellen f\
 gaesteverwaltungderveranstaltung=G\u00E4steverwaltung der Veranstaltung
 gaestelisteerstellen=G\u00E4steliste erstellen
 ausgabeformatwaehlen=Ausgabeformat w\u00E4hlen
-listenachkategoriengruppiertmitpartner=Liste nach Kategorien gruppiert - mit Partner
-listenachkategoriengruppiertmittelundmobiltelefon=Liste nach Kategorien gruppiert - mit Tel. und Mobiltelefon
-listenachkategoriengruppiertmitpartnerundfax=Liste nach Kategorien gruppiert - mit Partner und Fax
-listenachsortierungmitpartnertelundmobiltelefon=Liste nach Sortierung - mit Partner, Tel. und Mobiltelefon
+listenachkategoriengruppiertmitpartner=Liste nach Kategorien gruppiert\u200A\u2014\u200Amit Partner
+listenachkategoriengruppiertmittelundmobiltelefon=Liste nach Kategorien gruppiert\u200A\u2014\u200Amit Tel. und Mobiltelefon
+listenachkategoriengruppiertmitpartnerundfax=Liste nach Kategorien gruppiert\u200A\u2014\u200Amit Partner und Fax
+listenachsortierungmitpartnertelundmobiltelefon=Liste nach Sortierung\u200A\u2014\u200Amit Partner, Tel. und Mobiltelefon
 tisch=Tisch
 zusaetzlichesortierungnach=Zus\u00E4tzliche Sortierung nach
 zurueckzurgaesteverwaltung=Zur\u00FCck zur G\u00E4steverwaltung
-verwaltungallebenutzerimmandanten=Verwaltung - alle Benutzer im Mandanten
-verwaltungallebenutzer=Verwaltung - alle Benutzer
+verwaltungallebenutzerimmandanten=Verwaltung\u200A\u2014\u200Aalle Benutzer im Mandanten
+verwaltungallebenutzer=Verwaltung\u200A\u2014\u200Aalle Benutzer
 markiertenbenutzer=Markierte(n) Benutzer
 markiertenbenutzerloeschen=Markierte(n) Benutzer l\u00D6schen
 leseneingeschraenkt=Lesen eingeschr\u00E4nkt
@@ -1300,7 +1300,6 @@ GENERIC_UPLOAD_BUTTON=Datei ausw\u00E4hlen
 GENERIC_PERSONAL_DATA=Pers\u00F6nliche Daten
 GENERIC_NUMBER_OF_GUESTS=G\u00E4steanzahl
 
-
 # MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Dieser Gast wurde ohne Hauptperson eingeladen
 MESSAGE_INVITATION_WITHOUT_PARTNER=Dieser Gast wurde ohne Partner eingeladen
@@ -1368,13 +1367,11 @@ CHANGELOG_NO_PROTOCOL_AVAILABLE=Es stehen keine Protokolldaten zur Verf\u00FCgun
 # BROWSER TITLES
 BROWSER_TITLE_REPORTS=Reports
 
-
 #NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Alle Werte auf Stammdaten zur\u00FCcksetzen
 GUEST_LIST_EDIT_MASTER_DATA=Personenstammdaten bearbeiten
 GUEST=Gast
 GENERIC_OF=von
-
 
 TOOLTIP_EDIT_HEADLINES=Sie k\u00F6nnen die \u00DCberschriften vor dem Drucken noch ver\u00E4ndern indem Sie den \u201EBearbeiten\u201C-Link anklicken. Bitte Speichern Sie dies vor dem Drucken.
 GENERIC_APPLY_TO_GUESTLIST=In G\u00E4steliste \u00FCbernehmen
@@ -1393,7 +1390,6 @@ siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen=Sie haben keine 
 wahlensiebittezunachsteinenodermehreregasteaus=W\u00E4hlen Sie bitte zun\u00E4chst einen oder mehrere G\u00E4ste aus
 bittebestatigensiedasloschendermarkiertengasteliste=Bitte best\u00E4tigen Sie das L\u00F6schen der markierten G\u00E4ste!
 GENERIC_NO_GUESTLIST_DELETED=Es wurde keine G\u00E4ste gel\u00F6scht.
-
 
 EVENT_DOCTYPE_RESET_INFO=Bitte \u00FCberpr\u00FCfen Sie ob dieser Veranstaltung bereits Dokumenttypen zugeordnet sind. Sollte dies der Fall sein m\u00FCssen Sie die Dokumenttypen f\u00FCr diesen Gast neu erzeugen, klicken Sie hierzu auf \u201EAuf Stammdaten zur\u00FCcksetzen\u201C.
 
@@ -1422,7 +1418,6 @@ GENERIC_SELECT_FUNCTION=Funktion ausw\u00E4hlen
 diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstaltungbearbeiten=Die Stammdaten dieses Gastes wurden gel\u00F6scht. Sie k\u00F6nnen nur Daten im Rahmen dieser Veranstaltung bearbeiten
 DELETE_SELECTED_MANDATOR=Markierte(n) Mandanten l\u00F6schen
 PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=Soll der Rang der Kategorie aus den Stammdaten \u00FCbernommen werden?
-
 
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GENERIC_OF_CAPITAL=Von
@@ -1576,10 +1571,10 @@ VERIFY_ERROR_JAVA_ONE=Die installierte Java-Version (
 VERIFY_ERROR_JAVA_TWO=) entspricht nicht der erwarteten Version (1.4).
 
 #TO BE DELETED
-inlandjageschlechtweiblich=Inland: Ja - Geschlecht: Weiblich
-inlandjageschlechtmannlich=Inland: Ja - Geschlecht: M\u00E4nnlich
-inlandneingeschlechtweiblich=Inland: Nein - Geschlecht: Weiblich
-inlandneingeschlechtmannlich=Inland: Nein - Geschlecht: M\u00E4nnlich
+inlandjageschlechtweiblich=Inland: Ja\u200A\u2014\u200AGeschlecht: Weiblich
+inlandjageschlechtmannlich=Inland: Ja\u200A\u2014\u200AGeschlecht: M\u00E4nnlich
+inlandneingeschlechtweiblich=Inland: Nein\u200A\u2014\u200AGeschlecht: Weiblich
+inlandneingeschlechtmannlich=Inland: Nein\u200A\u2014\u200AGeschlecht: M\u00E4nnlich
 
 # GENERIC DIALOG MESSAGES
 GENERIC_PLEASE_WAIT_HEADER=Bitte warten...
@@ -1587,7 +1582,6 @@ GENERIC_PLEASE_WAIT_MESSAGE=Dieser Vorgang kann einen Moment dauern.
 
 # WORK AREA (Bean) TEXTS
 WORKAREA_ERROR_MISSING_NAME=Der Arbeitsbereich ben\u00F6tigt einen eindeutigen, nicht leeren Namen.
-
 
 zurpersonensuche=Zur Personensuche
 steuerdatei=Steuerdatei
@@ -2074,7 +2068,7 @@ internal_id=Die interne ID darf nicht l\u00E4nger als 45 Zeichen sein.
 INTERNAL_ID=Interne ID
 
 # ALTERNATIVE SALUTATIONS
-SALUTATION_EDITABLE_TEXT=Hier k\u00F6nnen Sie Alternative Anreden f\u00FCr diese PDF- Vorlage erstellen
+SALUTATION_EDITABLE_TEXT=Hier k\u00F6nnen Sie Alternative Anreden f\u00FCr diese PDF-Vorlage erstellen
 SALUTATION_TO_SALUTATION=wird zu
 SALUTATION_ERROR_LOAD=Fehler beim Laden
 SALUTATION_ERROR_EMPTY=Alternative Anrede darf nicht leer sein
