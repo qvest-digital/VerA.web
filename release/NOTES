@@ -37,9 +37,3 @@ from the “common” module while including it in the WAR files
 of both rest-api and core; online-anmeldung can ship its own
 file, directly in the webapp probably (perhaps it might include
 the contents of the common LICENCE file)?
-
-Problems:
-
-There is currently no parent POM, and thus also no shared
-management of versions of dependencies; they diverge as has
-been detected during the audit.
