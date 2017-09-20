@@ -54,6 +54,10 @@
             <td class="width10 bold">${placeholderWithTranslation.GENERIC_OA}:</td>
             <td>${placeholderWithTranslation.aktiv}</td>
     #end
+	</tr><tr>
+		<td class="width10 bold">${placeholderWithTranslation.INFO_LIC_LIC}:</td>
+		<td><a href="${paths.staticWeb}doc/LICENCE">${placeholderWithTranslation.INFO_LIC_INFOS}</a>
+		 (<a href="${paths.staticWeb}doc/">${placeholderWithTranslation.INFO_LIC_DOCS}</a></td>
         </tr>
     </table>
     <br>
