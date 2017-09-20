@@ -1,4 +1,6 @@
-/**
+package org.evolvis.veraweb.onlinereg.event;
+
+/*-
  * veraweb, platform independent webservice-based event management
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
@@ -17,8 +19,6 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package org.evolvis.veraweb.onlinereg.event;
-
 import org.evolvis.veraweb.onlinereg.Config;
 import org.evolvis.veraweb.onlinereg.Main;
 import org.evolvis.veraweb.onlinereg.TestSuite;
