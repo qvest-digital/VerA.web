@@ -74,7 +74,7 @@ else
 fi
 # check if anything needs to be committed
 if (( abend )); then
-	print -ru2 -- '[INFO] please commit the changed ckdep.lst file!'
+	print -ru2 -- '[ERROR] please commit the changed ckdep.lst file!'
 	exit 1
 fi
 
