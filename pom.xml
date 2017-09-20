@@ -494,6 +494,34 @@
 					<extraRuns>2</extraRuns>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>${maven.shade.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<artifactSet>
+								<includes>
+									<include>org.evolvis.veraweb:rest-api-common</include>
+								</includes>
+							</artifactSet>
+							<filters>
+								<filter>
+									<artifact>org.evolvis.veraweb:rest-api-common</artifact>
+									<includes>
+										<include>doc/*</include>
+									</includes>
+								</filter>
+							</filters>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>
