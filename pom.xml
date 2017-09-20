@@ -110,7 +110,7 @@
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.2.1</version>
+						<version>${maven.exec.version}</version>
 						<executions>
 							<execution>
 								<id>step1: get build dependencies</id>
@@ -130,7 +130,7 @@
 					<plugin>
 						<groupId>com.kelveden</groupId>
 						<artifactId>maven-karma-plugin</artifactId>
-						<version>1.5</version>
+						<version>${maven.karma.version}</version>
 						<executions>
 							<execution>
 								<id>runTests</id>
@@ -155,7 +155,7 @@
 						<inherited>false</inherited>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-assembly-plugin</artifactId>
-						<version>2.5.3</version>
+						<version>${maven.assembly.version}</version>
 						<configuration>
 							<descriptors>
 								<descriptor>release/mksrc.xml</descriptor>
@@ -176,7 +176,7 @@
 						<inherited>false</inherited>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.1.1</version>
+						<version>${maven.exec.version}</version>
 						<executions>
 							<execution>
 								<id>do-build</id>
@@ -214,7 +214,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.5.3</version>
+				<version>${maven.assembly.version}</version>
 				<configuration>
 					<descriptors>
 						<descriptor>assembly.xml</descriptor>
@@ -233,7 +233,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
+				<version>${maven.jar.version}</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -259,7 +259,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>1.6</version>
+				<version>${maven.shade.version}</version>
 				<configuration>
 					<createDependencyReducedPom>true</createDependencyReducedPom>
 					<filters>
@@ -293,7 +293,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.13</version>
+				<version>${maven.surefire.version}</version>
 				<configuration>
 					<includes>
 						<include>**/TestSuite.java</include>
@@ -304,7 +304,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.1.201405082137</version>
+				<version>${maven.jacoco.version}</version>
 				<configuration>
 					<!-- excluded from code coverage  -->
 					<!--excludes>
@@ -337,7 +337,7 @@
 				<inherited>false</inherited>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.4.0</version>
+				<version>${maven.exec.version}</version>
 				<executions>
 					<execution>
 						<id>exec-npm-install</id>
