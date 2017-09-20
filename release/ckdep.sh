@@ -54,6 +54,8 @@ fi
 	bower list | tee /dev/stderr | LC_ALL=C.UTF-8 sed --posix -n \
 	    '/^[ ─-╿]\{1,\}\([a-z0-9.-]\{1,\}\)#\([^ ]\{1,\}\)\( .*\)\{0,1\}$/s//bower::\1 \2 ok/p'
 ) 2>&1 >>ckdep.tmp | sed 's!^![INFO] !' >&2
+# add static dependencies from embedded files, for SecurityWatch
+[[ -s ckdep.inc ]] && cat ckdep.inc >>ckdep.tmp
 # generate file with changed dependencies set to be a to-do item
 sort -uo ckdep.tmp ckdep.tmp
 {
