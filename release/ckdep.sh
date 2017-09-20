@@ -38,7 +38,8 @@ cd "$(dirname "$0")"
     >ckdep.tmp
 (
 	cd ../src/main/webroot-src
-	npm list --only prod --json true | jq -r \
+	npm list --only prod
+	npm list --only prod --json true 2>/dev/null | jq -r \
 	    '.dependencies | to_entries[] | recurse(.value.dependencies | objects | to_entries[]) | [.key, .value.version] | map(gsub("(?<x>[^!#-&*-~ -�]+)"; "{\(.x | @base64)}")) | "npm::" + .[0] + " " + .[1] + " ok"' \
 	    >>ckdep.tmp
 ) 2>&1 | sed 's!^![INFO] !' >&2
