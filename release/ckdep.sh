@@ -38,14 +38,12 @@ cd "$(dirname "$0")"
     >ckdep.tmp
 (
 	cd ../src/main/webroot-src
-	npm list --only prod
+	npm list --only prod >&2
 	npm list --only prod --json true 2>/dev/null | jq -r \
-	    '.dependencies | to_entries[] | recurse(.value.dependencies | objects | to_entries[]) | [.key, .value.version] | map(gsub("(?<x>[^!#-&*-~ -�]+)"; "{\(.x | @base64)}")) | "npm::" + .[0] + " " + .[1] + " ok"' \
-	    >>ckdep.tmp
+	    '.dependencies | to_entries[] | recurse(.value.dependencies | objects | to_entries[]) | [.key, .value.version] | map(gsub("(?<x>[^!#-&*-~ -�]+)"; "{\(.x | @base64)}")) | "npm::" + .[0] + " " + .[1] + " ok"'
 	bower list | tee /dev/stderr | LC_ALL=C.UTF-8 sed --posix -n \
-	    '/^[ ─-╿]\{1,\}\([a-z0-9.-]\{1,\}\)#\([^ ]\{1,\}\)\( .*\)\{0,1\}$/s//bower::\1 \2 ok/p' \
-	    >>ckdep.tmp
-) 2>&1 | sed 's!^![INFO] !' >&2
+	    '/^[ ─-╿]\{1,\}\([a-z0-9.-]\{1,\}\)#\([^ ]\{1,\}\)\( .*\)\{0,1\}$/s//bower::\1 \2 ok/p'
+) 2>&1 >>ckdep.tmp | sed 's!^![INFO] !' >&2
 sort -uo ckdep.tmp ckdep.tmp
 {
 	comm -13 ckdep.lst ckdep.tmp | sed 's/ ok$/ TO''DO/'
