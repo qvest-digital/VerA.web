@@ -15,11 +15,6 @@
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/rest-api.git</url>
 		<tag>HEAD</tag>
 	</scm>
-	<properties>
-		<!-- this is not the latest groovy version, but it is the most recent one I could find that worked with eclipse -->
-		<!-- ⚠ parent has 2.4.5 -->
-		<groovy-all.version>2.4.3</groovy-all.version>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.evolvis.veraweb</groupId>
