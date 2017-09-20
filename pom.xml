@@ -138,7 +138,7 @@
 						<inherited>false</inherited>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-assembly-plugin</artifactId>
-						<version>2.5.3</version>
+						<version>${maven.assembly.version}</version>
 						<configuration>
 							<descriptors>
 								<descriptor>release/mksrc.xml</descriptor>
@@ -159,7 +159,7 @@
 						<inherited>false</inherited>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.1.1</version>
+						<version>${maven.exec.version}</version>
 						<executions>
 							<execution>
 								<id>do-build</id>
@@ -187,7 +187,7 @@
 				<inherited>false</inherited>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.1.1</version>
+				<version>${maven.exec.version}</version>
 				<executions>
 					<execution>
 						<id>dep-check</id>
@@ -203,7 +203,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
+				<version>${maven.war.version}</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -238,7 +238,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.13</version>
+				<version>${maven.surefire.version}</version>
 				<configuration>
 					<argLine>${argLine} -XX:-UseSplitVerifier</argLine>
 				</configuration>
@@ -247,7 +247,7 @@
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
 				<artifactId>gmavenplus-plugin</artifactId>
-				<version>1.5</version>
+				<version>${maven.gmavenplus.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -260,7 +260,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>${jacoco.version}</version>
+				<version>${maven.jacoco.version}</version>
 				<configuration>
 				</configuration>
 				<executions>
@@ -281,7 +281,7 @@
 			<plugin>
 				<groupId>org.pitest</groupId>
 				<artifactId>pitest-maven</artifactId>
-				<version>1.0.0</version>
+				<version>${maven.pitest.version}</version>
 				<configuration>
 					<targetClasses>
 						<param>org.evolvis.veraweb.onlinereg.*</param>
