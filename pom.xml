@@ -8,16 +8,17 @@
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>online-anmeldung</artifactId>
 	<version>1.8.55</version>
+	<packaging>jar</packaging>
 	<name>VerA.web Online-Anmeldung frontend</name>
-	<properties>
-		<!-- ⚠ parent has 4.12 -->
-		<junit.version>4.11</junit.version>
-	</properties>
 	<scm>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/online-anmeldung.git</developerConnection>
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/online-anmeldung.git</url>
 		<tag>HEAD</tag>
 	</scm>
+	<properties>
+		<!-- ⚠ parent has 4.12 -->
+		<junit.version>4.11</junit.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.evolvis.veraweb</groupId>
