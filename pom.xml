@@ -36,6 +36,7 @@
 		<log4j-core.version>2.5</log4j-core.version>
 		<lombok.version>1.14.4</lombok.version>
 		<mockito.version>1.10.19</mockito.version>
+		<mycila.version>3.0</mycila.version>
 		<osiam.connector4java.version>1.7</osiam.connector4java.version>
 		<postgresql.version>9.3-1101-jdbc41</postgresql.version>
 		<spock-core.version>1.0-groovy-2.4</spock-core.version>
@@ -74,6 +75,31 @@
 	</distributionManagement>
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>${mycila.version}</version>
+				<configuration>
+					<basedir>${basedir}</basedir>
+					<header>${basedir}/release/LICENCE.hdr</header>
+					<quiet>false</quiet>
+					<failIfMissing>true</failIfMissing>
+					<aggregate>true</aggregate>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+					<headerDefinitions>
+						<headerDefinition>${basedir}/release/myc-javapkg.xml</headerDefinition>
+					</headerDefinitions>
+					<mapping>
+						<java>JavaPackage_style</java>
+					</mapping>
+					<useDefaultExcludes>true</useDefaultExcludes>
+					<useDefaultMapping>true</useDefaultMapping>
+					<encoding>UTF-8</encoding>
+					<strictCheck>true</strictCheck>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
