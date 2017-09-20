@@ -1,4 +1,123 @@
 Im folgenden finden Sie die Lizenzbedingungen für VerA.web von ⮡ tarent
 ohne die gesonderten Bestimmungen für die Online-Anmeldung.
 
-[… tbd …]
+┌──┤ VerA.web (GPLv2+) ├───────────────────────────────────────────────────┐
+│                                                                          │
+│ Veranstaltungsmanagement VerA.web (platform-independent webservice-based │
+│ event management) is published and licenced by:                          │
+│ Copyright © 2004–2008 tarent GmbH                                        │
+│ Copyright © 2013–2017 tarent solutions GmbH                              │
+│                                                                          │
+│ This program is free software; you can redistribute it and/or modify     │
+│ it under the terms of the GNU General Public License as published by     │
+│ the Free Software Foundation; either version 2 of the License, or        │
+│ (at your option) any later version.                                      │
+│                                                                          │
+│ This program is distributed in the hope that it will be useful,          │
+│ but WITHOUT ANY WARRANTY; without even the implied warranty of           │
+│ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            │
+│ GNU General Public License for more details.                             │
+│                                                                          │
+│ You should have received a copy of the GNU General Public License along  │
+│ with this program; if not, see: http://www.gnu.org/licenses/             │
+└──────────────────────────────────────────────────────────────────────────┘
+
+Summary of individual licences used, including all dependencies:
+• Creative Commons CC-BY 3.0 (unported)
+• GNU GPLv2 or later
+• MirOS
+Some dependencies are also marked as being in the Public Domain.
+
+╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+The documentation is set in the Museo Sans font, which is licenced
+property of exljbris Font Foundry.
+
+┌──┤ The documentation makes use of LᴬTₑΧ code: (MirOS) ├──────────────────┐
+│                                                                          │
+│ Copyright © 2015, 2016, 2017                                             │
+│     Thorsten Glaser <t.glaser@tarent.de>                                 │
+│                                                                          │
+│ Design und Code abgeleitet von dem Stil und der                          │
+│ Dokumentenklasse pubmat des Teckids e.V.                                 │
+│                                                                          │
+│ Copyright © 2014, 2015                                                   │
+│     Thorsten Glaser <thorsten.glaser@teckids.org>                        │
+│ Copyright © 2013, 2014                                                   │
+│     Dominik George <dominik.george@teckids.org>                          │
+│ with contributions by (among others)                                     │
+│     egreg <http://tex.stackexchange.com/users/4427>                      │
+│     Steven B. Segletes <http://tex.stackexchange.com/users/25858>        │
+│     David Carlisle <http://tex.stackexchange.com/users/1090>             │
+│                                                                          │
+│ Provided that these terms and disclaimer and all copyright notices       │
+│ are retained or reproduced in an accompanying document, permission       │
+│ is granted to deal in this work without restriction, including un‐       │
+│ limited rights to use, publicly perform, distribute, sell, modify,       │
+│ merge, give away, or sublicence.                                         │
+│                                                                          │
+│ This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to       │
+│ the utmost extent permitted by applicable law, neither express nor       │
+│ implied; without malicious intent or gross negligence. In no event       │
+│ may a licensor, author or contributor be held liable for indirect,       │
+│ direct, other damage, loss, or other issues arising in any way out       │
+│ of dealing in the work, even if advised of the possibility of such       │
+│ damage or existence of a defect, except proven that it results out       │
+│ of said person’s immediate fault when using the work as intended.        │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ The documentation makes use of icons: (GPLv2+) ├──────────────────────┐
+│                                                                          │
+│ Copyright (C) 2003 - 2014 Roland Gruber <post@rolandgruber.de>           │
+│                                                                          │
+│ LAM is published under the GNU General Public License.                   │
+└──────────────────────────────────────────────────────────────────────────┘
+Apparently, the PNGs are the source code here.
+
+┌──┤ testpic.jpg in the “files” tarball (CC-BY 3.0) ├──────────────────────┐
+│                                                                          │
+│ Der Urheber dieses Bildes ist der Benutzer „Stavrolo“ auf der            │
+│ Wikimedia Commons-Seite bzw. der englischsprachigen Wikipedia            │
+│ (es existiert leider kein Link, den man hier angeben könnte).            │
+│                                                                          │
+│ Das Photo wurde 2002 geschossen und 2008 nachbearbeitet.                 │
+└──────────────────────────────────────────────────────────────────────────┘
+veraweb-rest-api/src/test/resources/imageData.txt is the same file.
+
+tbd:
+• veraweb/src/main/webapp/ckeditor
+• veraweb/src/main/webapp/jscalendar
+• veraweb/src/main/webapp/scripts/*
+• veraweb-online-anmeldung/src/test/js/lib/angular-mocks.js
+  (könnte man über ein Webjar reinholen)
+
+┌──┤ Some build and utility scripts (MirOS) ├──────────────────────────────┐
+│                                                                          │
+│ Copyright © 2015, 2016, 2017                                             │
+│     mirabilos <t.glaser@tarent.de>                                       │
+│ Copyright (c) 2013                                                       │
+│     mirabilos <m@mirbsd.org>                                             │
+│                                                                          │
+│ Provided that these terms and disclaimer and all copyright notices       │
+│ are retained or reproduced in an accompanying document, permission       │
+│ is granted to deal in this work without restriction, including un‐       │
+│ limited rights to use, publicly perform, distribute, sell, modify,       │
+│ merge, give away, or sublicence.                                         │
+│                                                                          │
+│ This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to       │
+│ the utmost extent permitted by applicable law, neither express nor       │
+│ implied; without malicious intent or gross negligence. In no event       │
+│ may a licensor, author or contributor be held liable for indirect,       │
+│ direct, other damage, loss, or other issues arising in any way out       │
+│ of dealing in the work, even if advised of the possibility of such       │
+│ damage or existence of a defect, except proven that it results out       │
+│ of said person’s immediate fault when using the work as intended.        │
+└──────────────────────────────────────────────────────────────────────────┘
+
+Further dependencies are:
+
+…
+
+╔═══════════════════════════════════╗
+║ WARNING: this file is INCOMPLETE! ║
+╚═══════════════════════════════════╝
