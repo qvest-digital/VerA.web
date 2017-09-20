@@ -565,7 +565,7 @@ sir=Sir
 GENERIC_PLEASE_CHOOSE=Veuillez s\u00E9lectionner
 GENERIC_ACAD_TITLE=Niveau acad\u00E9mique
 GENERIC_IN_COUNTRY=Domestique
-GENERIC_HINT_FOR_ORGA=Remarque \u00E0 l'organisation
+GENERIC_HINT_FOR_ORGA=Remarque \u00E0 l\u2019organisation
 GENERIC_COMPANY_SINGULAR=Soci\u00E9t\u00E9
 GENERIC_COUNTRY=Pays
 plz/postfach=Code postal / Bo\u00EEte postale
@@ -880,7 +880,7 @@ e-mail-clientaufrufen=Appel client E -mail
 mailclient_other=Autre client de messagerie
 mailclient_msoutlook=Microsoft Outlook
 verteilerverschickt=Le distributeur a \u00E9t\u00E9 envoy\u00E9 avec succ\u00E8s.
-verteilerfehler=Le distributeur n'a pas pu \u00EAtre envoy\u00E9 avec succ\u00E8s, r\u00E9essayer plus tard.
+verteilerfehler=Le distributeur n\u2019a pas pu \u00EAtre envoy\u00E9 avec succ\u00E8s, r\u00E9essayer plus tard.
 
 # FEHLEND
 zurstartseite=Page d\u2019accueil
@@ -1372,9 +1372,9 @@ MESSAGE_PERSON_NO_NAME=Vous devez sp\u00E9cifier un pr\u00E9nom.
 MESSAGE_PERSON_NO_LASTNAME=Vous devez sp\u00E9cifier un nom.
 MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=Impossible d\u2019enregistrer la connexion entre la personne et la cat\u00E9gorie.
 MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=Le connecteur peut \u00EAtre jusqu\u2019\u00E0 50 caract\u00E8res de long.
-MESSAGE_PROXY_NO_REPRESENTATIVE=Le champ "repr\u00E9sentatif" est obligatoire.
-MESSAGE_PROXY_NO_ROLE=Le champ "r\u00F4le" est obligatoire.
-MESSAGE_PROXY_MISSING_BOTH=Les champs "r\u00F4le" et "repr\u00E9sentatif" sont obligatoires.
+MESSAGE_PROXY_NO_REPRESENTATIVE=Le champ \u00ABrepr\u00E9sentatif\u00BB est obligatoire.
+MESSAGE_PROXY_NO_ROLE=Le champ \u00ABr\u00F4le\u00BB est obligatoire.
+MESSAGE_PROXY_MISSING_BOTH=Les champs \u00ABr\u00F4le\u00BB et \u00ABrepr\u00E9sentatif\u00BB sont obligatoires.
 MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=Le d\u00E9but de la repr\u00E9sentation doit \u00EAtre avant la fin.
 MESSAGE_FUNCTION_MISSING_NAME=Vous devez donner un nom \u00E0 la fonction.
 MESSAGE_USER_MISSING_ROLE=Vous devez taper un nom de r\u00F4le d\u2019utilisateur.
@@ -1624,7 +1624,7 @@ GENERIC_PLEASE_WAIT_HEADER=Veuillez patienter...
 GENERIC_PLEASE_WAIT_MESSAGE=Le processus pourrait prendre un peu de temps.
 
 # WORK AREA (Bean) TEXTS
-WORKAREA_ERROR_MISSING_NAME=L'\u00E9space de travail ne doit pas \u00EAtre vide.
+WORKAREA_ERROR_MISSING_NAME=L\u2019\u00E9space de travail ne doit pas \u00EAtre vide.
 
 
 zurpersonensuche=Recherche des personnes
@@ -1927,9 +1927,9 @@ PDF_GENERATE_BUTTON=G\u00E9n\u00E9rer des PDF
 PDF_GENERATE_LABEL=Exporter des PDF
 
 LOAD_MAILTEMPLATE_FAILED = Chargement email mod\u00E8le a \u00E9chou\u00E9
-SELECT_MAILTEMPLATE = S'il vous pla\u00EEt s\u00E9lectionner email mod\u00E8le
+SELECT_MAILTEMPLATE = S\u2019il vous pla\u00EEt s\u00E9lectionner email mod\u00E8le
 
-ADDRESS_ERROR = Votre e-mail a \u00E9t\u00E9 envoy\u00E9 au distributeur. Au moins un adresse e-mail de ce distributeur est \u00E9t\u00E9 incorrectement. Le distributeur n'a pas pu \u00EAtre envoy\u00E9 vers ces adresses e-mail suivantes. S'il vous pla\u00EEt v\u00E9rifier et le cas \u00E9ch\u00E9ant corriger les adresses e-mail suivantes:
+ADDRESS_ERROR = Votre e-mail a \u00E9t\u00E9 envoy\u00E9 au distributeur. Au moins un adresse e-mail de ce distributeur est \u00E9t\u00E9 incorrectement. Le distributeur n\u2019a pas pu \u00EAtre envoy\u00E9 vers ces adresses e-mail suivantes. S\u2019il vous pla\u00EEt v\u00E9rifier et le cas \u00E9ch\u00E9ant corriger les adresses e-mail suivantes:
 
 LABELLING_MUST_NOT_BE_EMPTY:Le titre ne doit pas \u00EAtre vide
 
@@ -2026,10 +2026,10 @@ nationality_a_e1=Nationalit\u00E9 doit etre moins de 100 characteres.
 nationality_b_e1=Nationalit\u00E9 doit etre moins de 100 characteres.
 note_a_e1=Remarque doit etre moins de 2000 characteres.
 note_b_e1=Remarque doit etre moins de 2000 characteres.
-notehost_a_e1=Remarque \u00E0 l'h\u00F4te doit etre moins de 2000 characteres.
-notehost_b_e1=Remarque \u00E0 l'h\u00F4te doit etre moins de 2000 characteres.
-noteorga_a_e1=Remarque \u00E0 l'organisation doit etre moins de 2000 characteres.
-noteorga_b_e1=Remarque \u00E0 l'organisation doit etre moins de 2000 characteres.
+notehost_a_e1=Remarque \u00E0 l\u2019h\u00F4te doit etre moins de 2000 characteres.
+notehost_b_e1=Remarque \u00E0 l\u2019h\u00F4te doit etre moins de 2000 characteres.
+noteorga_a_e1=Remarque \u00E0 l\u2019organisation doit etre moins de 2000 characteres.
+noteorga_b_e1=Remarque \u00E0 l\u2019organisation doit etre moins de 2000 characteres.
 pobox_a_e1=Bo\u00EEte postale doit etre moins de 50 characteres.
 pobox_a_e2=Bo\u00EEte postale doit etre moins de 50 characteres.
 pobox_a_e3=Bo\u00EEte postale doit etre moins de 50 characteres.
@@ -2108,7 +2108,7 @@ zipcode_b_e3=Code postale doit etre moins de 250 characteres.
 zipcode_c_e1=Code postale doit etre moins de 250 characteres.
 zipcode_c_e2=Code postale doit etre moins de 250 characteres.
 zipcode_c_e3=Code postale doit etre moins de 250 characteres.
-internal_id=L'identit\u00E9 interne doit \u00EAtre moins de 45 caract\u00E8res.
+internal_id=L\u2019identit\u00E9 interne doit \u00EAtre moins de 45 caract\u00E8res.
 INTERNAL_ID=Identit\u00E9 interne
 
 # ALTERNATIVE SALUTATIONS
@@ -2116,6 +2116,6 @@ SALUTATION_EDITABLE_TEXT=Ici vous pouvez cr\u00E9er un style alternatif pour ce 
 SALUTATION_TO_SALUTATION=volont\u00E9
 SALUTATION_ERROR_LOAD=Erreur lors du chargement
 SALUTATION_ERROR_EMPTY=Salutations alternatives ne doivent pas \u00EAtre vide
-SALUTATION_ERROR_SAVE=Erreur lors de l'enregistrement
+SALUTATION_ERROR_SAVE=Erreur lors de l\u2019enregistrement
 SALUTATION_ERROR_DELETE=Erreur lors de la suppression
 SALUTATION_ERROR_LENGTH=Salutations alternatives doit etre moins de 100 characteres
