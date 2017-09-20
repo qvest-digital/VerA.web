@@ -15,11 +15,6 @@
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git</url>
 		<tag>HEAD</tag>
 	</scm>
-	<properties>
-		<additionalparam>-Xdoclint:none</additionalparam>
-		<!-- ⚠ parent has 2.4.5 but another child also has 2.4.3 -->
-		<groovy-all.version>2.4.3</groovy-all.version>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.mitre.dsmiley.httpproxy</groupId>
