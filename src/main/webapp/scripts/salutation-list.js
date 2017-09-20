@@ -1,3 +1,5 @@
+// This file is part of VerA.web and published under the same licence.
+
 (function(){
     var loadSalutationsUnusedList = function() {
         $.ajax({

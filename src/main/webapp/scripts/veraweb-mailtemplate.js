@@ -1,3 +1,5 @@
+// This file is part of VerA.web and published under the same licence.
+
 (function(){
     var executeLoadMailtemplate = function() {
         if($('#mail-draft').find(":selected").val() < 1) {

@@ -1,3 +1,5 @@
+// This file is part of VerA.web and published under the same licence.
+
 // loads the list of available pdf templates into the dropdown on the export tab
 
 $(document).ready(function() {

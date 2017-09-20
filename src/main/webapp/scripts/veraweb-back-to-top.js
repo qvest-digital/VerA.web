@@ -1,3 +1,5 @@
+// This file is part of VerA.web and published under the same licence.
+
 (function(){
 	$(document).ready(function() {
 	    var backtotop = ['<div id="gotop"></a>'].join("");

@@ -1,3 +1,5 @@
+// This file is part of VerA.web and published under the same licence.
+
 var detail = 1;
 
 var allblocks = new Array();

@@ -1,3 +1,5 @@
+// This file is part of VerA.web and published under the same licence.
+
 var tab = 1;
 var person = 1;
 var anschrift = 1;
