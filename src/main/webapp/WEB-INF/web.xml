@@ -76,6 +76,18 @@
 		<load-on-startup>10</load-on-startup>
 	</servlet>
 	<servlet>
+		<servlet-name>DirectoryListing</servlet-name>
+		<servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>0</param-value>
+		</init-param>
+		<init-param>
+			<param-name>listings</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</servlet>
+	<servlet>
 		<servlet-name>Forwarder</servlet-name>
 		<servlet-class>
 			de.tarent.octopus.request.servlet.Forward
@@ -150,6 +162,10 @@
 	<servlet-mapping>
 		<servlet-name>Forwarder</servlet-name>
 		<url-pattern>/do/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DirectoryListing</servlet-name>
+		<url-pattern>/doc/</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Mail</servlet-name>
