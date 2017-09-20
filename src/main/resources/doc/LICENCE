@@ -187,8 +187,19 @@ veraweb-rest-api/src/test/resources/imageData.txt is the same file.
 │ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             │
 └──────────────────────────────────────────────────────────────────────────┘
 
+┌──┤ jscalendar “The DHTML Calendar” (LGPLv2.1+) ├─────────────────────────┐
+│                                                                          │
+│ Copyright Mihai Bazon, 2002-2005  |  www.bazon.net/mishoo                │
+│ Copyright Dynarch.com 2005, www.dynarch.com                              │
+│                                                                          │
+│ Author: Mihai Bazon, <mihai_bazon@yahoo.com>                             │
+│         http://dynarch.com/mishoo/                                       │
+│                                                                          │
+│ This program is free software published under the                        │
+│ terms of the GNU Lesser General Public License.                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
 tbd:
-• veraweb/src/main/webapp/jscalendar
 • veraweb/src/main/webapp/scripts/*
 • veraweb-online-anmeldung/src/test/js/lib/angular-mocks.js
   (könnte man über ein Webjar reinholen)
