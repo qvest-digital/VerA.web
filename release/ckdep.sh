@@ -50,14 +50,14 @@ sort -uo ckdep.tmp ckdep.tmp
 
 # check if the list changed
 if cmp -s ckdep.lst ckdep.tmp; then
-	echo >&2 "[INFO] list of dependencies did not change"
+	print -ru2 -- '[INFO] list of dependencies did not change'
 else
 	(diff -u ckdep.lst ckdep.tmp || :)
 	# make the new list active
 	mv -f ckdep.tmp ckdep.lst
 	# inform the user
-	echo >&2 "[WARNING] list of dependencies changed!"
-	echo >&2 "[INFO] please commit the changed ckdep.lst file!"
+	print -ru2 -- '[WARNING] list of dependencies changed!'
+	print -ru2 -- '[INFO] please commit the changed ckdep.lst file!'
 	exit 1
 fi
 
