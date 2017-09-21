@@ -37,7 +37,10 @@ Summary of individual licences used, including all dependencies:
 Some dependencies are also marked as being in the Public Domain.
 
 The texts of the bigger licences can be found in separate files in the
-current directory.
+current directory. The complete corresponding source code for VerA.web
+core, to satisfy the conditions imposed by the web frontend part of it
+being GPLv3+ effectively, can be found in src.tgz in this directory in
+the core application via the webbrowser, or in its WAR file.
 
 ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
