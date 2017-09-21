@@ -5,7 +5,7 @@ javascript::WCH 3.10 (incompatible licence) FAIL
 javascript::jquery 1.10.1 ok
 javascript::jquery.form 3.51 ok
 javascript::jquery.gotop ba42aef4cf38558d6585db21096592ed50b52a4c ok
-javascript::jquery.multifile 2.2.1 (minified, bogus source) FAIL
+javascript::jquery.multifile 2.2.0 ok
 javascript::jquery.tagsinput 1.3.3 ok
 javascript::jquery:sizzle 1.10.1 ok
 javascript::unknown:clipboard 0 FAIL

@@ -11,7 +11,7 @@
 		<script type="text/javascript" src="${paths.staticWeb}js/ext/jquery-tags-input/dist/jquery.tagsinput.min.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/clipboard.js"></script>
-		<script type="text/javascript" src="${paths.staticWeb}scripts/jQuery.MultiFile.min.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}js/ext/jquery-multifile/jQuery.MultiFile.min.js"></script>
 		##		Tabs und Popups
 		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-tabs.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
