@@ -2,11 +2,12 @@ freeform::CKEditor 4.6.2 (source missing) FAIL
 freeform::dynarch.com:DHTML-Calendar 1.0 ok
 javascript::Bacon 0.7.3 (licence missing) FAIL
 javascript::WCH 3.10 (incompatible licence) FAIL
-javascript::jquery 1.10.1 (minified) FAIL
+javascript::jquery 1.10.1 ok
 javascript::jquery.form 3.51 ok
 javascript::jquery.gotop ba42aef4cf38558d6585db21096592ed50b52a4c ok
 javascript::jquery.multifile 2.2.1 (minified, bogus source) FAIL
 javascript::jquery.tagsinput 1.3.3 ok
+javascript::jquery:sizzle 1.10.1 ok
 javascript::unknown:clipboard 0 FAIL
 javascript::unknown:dhtml 0 FAIL
 javascript::unknown:utils 0 FAIL
