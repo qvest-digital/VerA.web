@@ -122,6 +122,7 @@
 									<arguments>
 										<argument>install</argument>
 									</arguments>
+									<workingDirectory>${basedir}/src/main/webroot-src</workingDirectory>
 								</configuration>
 							</execution>
 						</executions>
