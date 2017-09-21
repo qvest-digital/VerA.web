@@ -23,7 +23,7 @@ ohne die gesonderten Bestimmungen für die Online-Anmeldung.
 └──────────────────────────────────────────────────────────────────────────┘
 
 Summary of individual licences used, including all dependencies:
-⚠ (unlicenced minified binary)
+⚠ (unlicenced)
 • 3-clause BSD
 ⚠ Creative Commons CC-BY-SA 1.0
 • Creative Commons CC-BY 3.0 (unported)
@@ -270,9 +270,6 @@ Further (possibly minified) files in veraweb/src/main/webapp/scripts/:
 │                                                                          │
 │ ben@xoxco.com                                                            │
 └──────────────────────────────────────────────────────────────────────────┘
-
-tbd: veraweb-online-anmeldung/src/test/js/lib/angular-mocks.js
-(könnte man über ein Webjar reinholen), in der VWOA-Lizenzdatei
 
 ┌──┤ Some build and utility scripts (MirOS) ├──────────────────────────────┐
 │                                                                          │
