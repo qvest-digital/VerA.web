@@ -1,5 +1,5 @@
 freeform::CKEditor 4.6.2 (source missing) FAIL
-javascript::Bacon 0.7.3 (licence missing) FAIL
+javascript::Bacon 0.7.73 ok
 javascript::WCH 3.10 (incompatible licence) FAIL
 javascript::jquery 1.10.1 ok
 javascript::jquery.form 3.51 ok

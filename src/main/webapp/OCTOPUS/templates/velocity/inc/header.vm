@@ -37,7 +37,7 @@
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}js/ext/jquery-tags-input/dist/jquery.tagsinput.min.css" media="all" />
 		<!--link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all"-->
-		<script type="text/javascript" src="${paths.staticWeb}scripts/Bacon.js"></script> 
+		<script type="text/javascript" src="${paths.staticWeb}js/ext/bacon/dist/Bacon.min.js"></script> 
 		<script type="text/javascript" src="${paths.staticWeb}js/vera/guest-filter-auto-commit.js"></script>
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/override.css" media="all" />
 	</head>
