@@ -1,5 +1,11 @@
 #!/bin/bash
 # Import person script for VerA.web
+#
+# Copyright © 2016
+#	Атанас Александров <a.alexandrov@tarent.de>
+#	Max Weierstall <m.weierstall@tarent.de>
+#
+# This file is part of VerA.web and published under the same licence.
 
 usage() {
 	echo "================================================================================================"

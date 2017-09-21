@@ -1,4 +1,6 @@
-/**
+package de.tarent.aa.veraweb.worker;
+
+/*-
  * veraweb, platform independent webservice-based event management
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
@@ -17,8 +19,6 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.aa.veraweb.worker;
-
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.PersonSearch;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;

@@ -1,4 +1,6 @@
-/**
+package de.tarent.octopus.beans.veraweb;
+
+/*-
  * veraweb, platform independent webservice-based event management
  * (Veranstaltungsmanagment VerA.web), is
  * Copyright © 2004–2008 tarent GmbH
@@ -17,8 +19,6 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
-package de.tarent.octopus.beans.veraweb;
-
 import de.tarent.octopus.server.OctopusContext;
 
 /**

@@ -18,7 +18,7 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_PLURAL}")
 #parse("inc/header.vm")
 
-<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
+<script src="${paths.staticWeb}js/ext/jquery-form/jquery.form.js"></script>
 
 <!-- alternative salutations -->
 #if($edit)
@@ -41,12 +41,13 @@
 <div data-errormsg="${placeholderWithTranslation.SALUTATION_ERROR_SAVE}" id="pdftemplate-salutation-save-errormsg"></div>
 <div data-errormsg="${placeholderWithTranslation.SALUTATION_ERROR_DELETE}" id="pdftemplate-salutation-delete-errormsg"></div>
 <!-- vex library -->
-<script src="${paths.staticWeb}scripts/vex.combined.min.js"></script>
+<script src="${paths.staticWeb}js/ext/vex/dist/js/vex.min.js"></script>
+<script src="${paths.staticWeb}js/ext/vex-dialog/dist/vex.dialog.min.js"></script>
 <script>vex.defaultOptions.className = 'vex-theme-default'</script>
-<link rel="stylesheet" href="${paths.staticWeb}styles/vex.css" />
-<link rel="stylesheet" href="${paths.staticWeb}styles/vex-theme-default.css" />
+<link rel="stylesheet" href="${paths.staticWeb}js/ext/vex/dist/css/vex.css" />
+<link rel="stylesheet" href="${paths.staticWeb}js/ext/vex/dist/css/vex-theme-default.css" />
 <!-- js controller -->
-<script src="${paths.staticWeb}scripts/salutation-list.js"></script>
+<script src="${paths.staticWeb}js/vera/salutation-list.js"></script>
 #end
 
 <div id="content_container">

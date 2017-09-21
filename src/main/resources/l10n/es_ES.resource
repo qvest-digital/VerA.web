@@ -8,7 +8,7 @@ BROWSER_TITLE_COLOURS=Colores
 BROWSER_TITLE_GENERAL_CONFIGS=Configuraci\u00F3n general
 BROWSER_TITLE_TASKS=Tareas
 BROWSER_TITLE_DOCUMENT_TYPES=Tipos de documento
-BROWSER_TITLE_IMPORT_DUPLICATE_ACCEPT=Estado de la importaci\u00F3n - Importar duplicados
+BROWSER_TITLE_IMPORT_DUPLICATE_ACCEPT=Estado de la importaci\u00F3n\u200A\u2014\u200AImportar duplicados
 BROWSER_TITLE_ERROR_OCCURS=Ha ocurrido un error
 BROWSER_TITLE_EVENT_EDIT=Editar evento
 BROWSER_TITLE_EVENT_CREATE=Crear nuevo evento
@@ -56,7 +56,7 @@ BROWSER_TITLE_PERSON_LIST=Lista de personas
 BROWSER_TITLE_SEARCH_REPLACE=Buscar y reemplazar
 BROWSER_TITLE_GUEST_HOST_SEARCH=Buscar anfitri\u00F3n
 BROWSER_TITLE_PERSON_SEARCH=Buscar persona
-BROWSER_TITLE_PERSON_DATA_SALUTATION=Datos maestros - Denominaci\u00F3n
+BROWSER_TITLE_PERSON_DATA_SALUTATION=Datos maestros\u200A\u2014\u200ADenominaci\u00F3n
 BROWSER_TITLE_LOGIN_REPRESENTATIVE=Acceder como representante
 BROWSER_TITLE_STATISTIC_CREATE=Generar estad\u00EDsticas
 BROWSER_TITLE_USER_CONFIGS=Configuraci\u00F3n de usuario
@@ -234,7 +234,7 @@ WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_ONE=Usted tiene la posibilidad de visualiz
 WELCOME_TEXT_GRANT_PARTIAL_ADMIN_PART_TWO=Tambi\u00E9n puede visualizar y editar la configuraci\u00F3n del mandante.
 WELCOME_TEXT_GRANT_ADMIN_PART_ONE=Usted tiene la posibilidad de visualizar, exportar, importar, editar y eliminar los datos maestros y observaciones de personas y eventos.
 WELCOME_TEXT_GRANT_ADMIN_PART_TWO=Tambi\u00E9n puede visualizar y editar la configuraci\u00F3n global y por mandante.
-WELCOME_TEXT_HELP=Si necesita m\u00E1s informaci\u00F3n, por favor visite la p\u00E1gina de \u201CAyuda\u201D.
+WELCOME_TEXT_HELP=Si necesita m\u00E1s informaci\u00F3n, por favor visite la p\u00E1gina de \u00ABAyuda\u00BB.
 WELCOME_TEXT_NO_ROLE=Su acceso no dispone de rol para utilizar VerA.web. Por favor, cierre su sesi\u00F3n y vuelva a intentarlo con una cuenta de usuario habilitada en VerA.web.
 GENERIC_AVAILABLE_DUPLICATES=Duplicados existentes
 
@@ -318,37 +318,28 @@ GENERIC_ADD=A\u00F1adir
 GENERIC_BACK_TO_TEMPLATES_LIST=Volver al listado de plantillas
 
 # ADMINISTRATION/FARBEN
-GENERIC_COLOR_PLURAL=Colores
 GENERIC_CHROMATICITY=Cromaticidad
 LETTERS_CHROMATICITY=R G B
 
 # ADMINISTRATION/FUNKTIONEN/AMTSBEZEICHNUNGEN
 markiertebezeichnung=Denominaciones seleccionadas
-GENERIC_LABELLING=Denominaci\u00F3n
 eswurdeeineneuefunktion/amtsbezeichnungangelegt=Se ha creado una nueva funci\u00F3n/denominaci\u00F3n.
 eswurdeeinefunktion/amtsbezeichnunggeloscht=Se ha eliminado una funci\u00F3n/denominaci\u00F3n.
 
 # ADMINISTRATION/KATEGORIEN
-GENERIC_CATEGORY_PLURAL=Categor\u00EDas
 markiertekategorie=Categor\u00EDa(s) seleccionada(s)
 GENERIC_MARK_LONG=Clase
 GENERIC_RANK=Rango
 GENERIC_EVENTS_PP=Evento(s)
-GENERIC_CATEGORY_SINGULAR=Categor\u00EDa
 GENERIC_OCCASION=Suceso
 
 # ADMINISTRATION/MANDANTEN
-GENERIC_CLIENT_PLURAL=Mandantes
 markierte(n)mandanten=Mandante(s) seleccionado(s)
 GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS=Datos de mandantes no asociados
 personen=Personas
 GENERIC_IMPORT_PROCEDURES=Importar procesos
 veranstaltungorte=Localizaci\u00F3n del evento
-GENERIC_IMPORT_PERSONS=Importar personas
-GENERIC_DISTRIBUTOR_SINGULAR=Distribuidor
-GENERIC_USER=Usuario
 GENERIC_ASSIGN_CLIENTS=Asignar mandantes
-GENERIC_CLIENT_SINGULAR=Mandante
 
 # ADMINISTRATION/PROGRAMMEINSTELLUNGEN
 programeinstellungen=Configuraci\u00F3n del sistema
@@ -356,13 +347,11 @@ GENERIC_STANDARD_TABULATOR_CHOICE=Elecci\u00F3n est\u00E1ndar mediante tabulacio
 GENERIC_MAIN_TABS=Pesta\u00F1as principales
 GENERIC_PERSONS_DATA=Datos de personas
 GENERIC_MAILING_ADDRESSES=Direcciones
-GENERIC_SUBTABS_OF_PERSONS_DATA=Subpesta\u00F1as de \u201CDatos de personas\u201D
+GENERIC_SUBTABS_OF_PERSONS_DATA=Subpesta\u00F1as de \u00ABDatos de personas\u00BB
 GENERIC_MAIN_PERSON=Persona principal
 GENERIC_PARTNER=Partner
-GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subpesta\u00F1as de \u201CDirecciones\u201D
-GENERIC_BUSINESS=Negocio
+GENERIC_SUBTABS_OF_MAILING_ADDRESSES=Subpesta\u00F1as de \u00ABDirecciones\u00BB
 GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX=Elecci\u00F3n est\u00E1ndar sobre el selector de conjuntos de caracteres
-GENERIC_CHARSET=Conjunto de caracteres
 GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS=Denominaciones est\u00E1ndar y campos de texto libre
 GENERIC_STANDARD_SALUTATION=Denominaci\u00F3n est\u00E1ndar
 GENERIC_STANDARD_SALUTATION_PARTNER=Demoninaci\u00F3n est\u00E1ndar del partner
@@ -413,7 +402,6 @@ GENERIC_NO_DATA_FOUND=No se han encontrado datos
 # ADMINISTRATION/VERANSTALTUNGSORTE
 markierte=Localizaciones de eventos seleccionadas
 GENERIC_ADD_NEW_EVENT_LOCATIONS=Crear nueva localizaci\u00F3n para evento
-GENERIC_ID=ID
 GENERIC_CONTACT_PERSON=Persona de contacto
 GENERIC_TELEFON=Tel\u00E9fono
 GENERIC_FAX=Fax
@@ -431,17 +419,14 @@ GENERIC_SUBTABS_OF=Subpesta\u00F1as de
 GENERIC_PERSONAL_DETAILED_VIEW=Vista detalle de personas
 GENERIC_LIST_OF_GUESTS=Lista de invitados
 zusatzlichefelder=Campos adicionales
-GENERIC_FUNCTION_SINGULAR=Funci\u00F3n
 GENERIC_POSTNUMBER_AND_CITY=C\u00F3digo postal / Ciudad
 GENERIC_LIST_OF_PERSONS=Lista de personas
 GENERIC_FEDERAL_STATE=Provincia
 MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED=La configuraci\u00F3n se ha guardado satisfactoriamente.
 
 # VERWALTUNG/VERTRETUNGEN
-GENERIC_REPRESENTATIVE_PLURAL=Representaciones
 markiertevertretung=Representaciones seleccionadas
 GENERIC_REMOVE=Elimniar
-GENERIC_NEW=Nuevo
 eswurdeeineneuevertretungangelegt=Se ha creado una nueva representaci\u00F3n
 eswurdeeinevertretunggeloscht=Se ha eliminado una representaci\u00F3n
 siemuseneinevertretereingeben=Debe seleccionar un representante
@@ -457,8 +442,10 @@ build=Compilaci\u00F3n
 GENERIC_BUILD_NUMBER=N\u00FAmero de compilaci\u00F3n
 GENERIC_BUILD_TIME=Tiempo de compilaci\u00F3n (UTC)
 GENERIC_REST_API=API de REST
+INFO_LIC_LIC=Licencia
+INFO_LIC_INFOS=Condiciones
+INFO_LIC_DOCS=documentos additionales
 GENERIC_DATABASE=Base de datos
-GENERIC_LOGIN=Login
 GENERIC_GROUPS=Grupos
 GENERIC_NOT_AVAILABLE=No disponible
 
@@ -469,7 +456,6 @@ GENERIC_DISCARD_CHANGES=Descartar cambios
 
 # TABELLEN
 GENERIC_DATE=Fecha
-GENERIC_WORKAREA_SINGULAR=\u00C1rea de trabajo
 GENERIC_LASTNAME=Apellido
 GENERIC_FIRSTNAME=Nombre
 amtsbezeichnung=T\u00EDtulo
@@ -496,7 +482,6 @@ GENERIC_ACCOUNT_OPENING_DATE=Fecha de acreditaci\u00F3n
 GENERIC_AT=a las
 GENERIC_OCLOCK=horas
 GENERIC_ORIGIN_DATA=Origen de los datos
-GENERIC_PERSON_SINGULAR=persona
 
 # DATEITYP
 csv=CSV (Comma-Separated-Values)
@@ -537,7 +522,6 @@ GENERIC_CATEGORIES_AND_OCCASIONS=Categor\u00EDas y sucesos
 ubersichtuberalleveranstaltungeneinesgastes=Lista de todos los eventos por invitado
 GENERIC_VIEW_OVER_GUEST_EVENT=Desde
 statistikfurgast=Estad\u00EDsticas para invitado
-GENERIC_EVENT=Evento
 GENERIC_BEGIN=Comienzo
 
 # PERSONEN/PERSONENSUCHE
@@ -553,7 +537,6 @@ MESSAGE_OSIAM_LOGIN_DATA_EXIST=Ya existen datos de acceso para esta persona.
 
 # PERSONEN/NEUE PERSON ANLEGEN
 GENERIC_IS_COMPANY=Empresa
-GENERIC_SALUTATION_SINGULAR=Denominaci\u00F3n
 frau=Sra.
 herr=D.
 lady=Srta.
@@ -562,7 +545,6 @@ GENERIC_PLEASE_CHOOSE=Por favor, seleccione
 GENERIC_ACAD_TITLE=T\u00EDtulo acad\u00E9mico
 GENERIC_IN_COUNTRY=En el pa\u00EDs
 GENERIC_HINT_FOR_ORGA=Aviso para la organizaci\u00F3n
-GENERIC_COMPANY_SINGULAR=Empresa
 GENERIC_COUNTRY=Pa\u00EDs
 plz/postfach=C\u00F3digo postal/apartado de correos
 GENERIC_POST_OFFICE_BOX=Apartado de correos
@@ -580,7 +562,6 @@ GENERIC_REPLACE=Reemplazar
 GENERIC_IN_THE_FOLLOWING_FIELDS=En los pr\u00F3ximos campos
 anrede/titel=Denominaci\u00F3n / T\u00EDtulo
 GENERIC_EMPLOYMENT_TITLE_SHORT=Cargo
-GENERIC_INSTITUTION_SINGULAR=Instituci\u00F3n
 GENERIC_ADDRESSES=Direcci\u00F3n
 telefon/fax=Tel\u00E9fono / fax
 GENERIC_REPLACE_INDIVIDUALLY=Reemplazar individualmente
@@ -623,9 +604,9 @@ EXPORT_TITLE_CSVPERSDATA=CSV DatosPersonas
 EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV DatosPersonas+Categor\u00EDas
 EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
 HINT_EXPORT_CSV=Dependiendo de la cantidad de datos exportados (mediante el n\u00FAmero de categor\u00EDas), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
-HINT_EXPORT_CSVPERSDATA_ADDRESS=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as \u201CDatos de personas\u201D, \u201CDirecciones\u201D y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados, MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
-HINT_EXPORT_CSVPERSDATA=Se exportar\u00E1n \u00FAnicamente los campos ubicados en la pesta\u00F1a \u201CDatos de personas\u201D y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados, MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
-HINT_EXPORT_CSVPERSDATA_CATEGORY=Se exportar\u00E1n \u00FAnicamente los campos ubicados en la pesta\u00F1a \u201CDatos de personas\u201D y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de categor\u00EDas), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSVPERSDATA_ADDRESS=Se exportar\u00E1n \u00FAnicamente los campos ubicados en las pesta\u00F1as \u00ABDatos de personas\u00BB, \u00ABDirecciones\u00BB y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados, MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSVPERSDATA=Se exportar\u00E1n \u00FAnicamente los campos ubicados en la pesta\u00F1a \u00ABDatos de personas\u00BB y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados, MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
+HINT_EXPORT_CSVPERSDATA_CATEGORY=Se exportar\u00E1n \u00FAnicamente los campos ubicados en la pesta\u00F1a \u00ABDatos de personas\u00BB y sus respectivas pesta\u00F1as inferiores. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de categor\u00EDas), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
 HINT_EXPORT_CSV_ISO_8859_15=Este formato es adecuado para la importaci\u00F3n/exportaci\u00F3n sobre aplicaciones como MS Office, las cuales utilizan el juego de caracteres ISO-8859-15. Dependiendo de la cantidad de datos exportados (en particular, sobre el n\u00FAmero de categor\u00EDas), MS Excel y OO Calc pueden no llegar a leer los datos exportados por completo.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
@@ -650,16 +631,12 @@ GENERIC_NEW_EVENT=Nuevo evento
 GENERIC_STATISTICS=Estad\u00EDsticas
 
 # ADMINISTRATIONDROPDOWN
-GENERIC_SALUTATIONS=Denominaciones
-GENERIC_WORKAREA_PLURAL=\u00C1reas de trabajo
 e-mail-postausgang=E-Mail-Buz\u00F3n de salida
 GENERIC_PROGRAM_PERFERENCES=Preferencias de programa
-GENERIC_EVENT_LOCATION_PLURAL=Localizaciones de eventos
 
 # VERANSTALTUNGSUEBERSICHT
 GENERIC_END=Fin
 GENERIC_HOST=Anfitri\u00F3n
-GENERIC_EVENT_LOCATION_SINGULAR=Localizaci\u00F3n del evento
 GENERIC_EVENT_SEARCH=Buscar eventos
 GENERIC_CREATE_NEW_EVENT=Crear nuevo evento
 GENERIC_NUMBER_PER_PAGE=Total por p\u00E1gina
@@ -681,7 +658,6 @@ EVENT_INVITATION_TYPE_WITH_PARTNER=Con partner
 GENERIC_EDIT_EVENT=Editar evento
 GENERIC_TO_GUEST_MANAGEMENT=Gesti\u00F3n de invitados
 GENERIC_GENERAL=General
-GENERIC_TASK_PLURAL=Tareas
 GENERIC_ADDITIONAL_PERSONS_DATA=Datos adicionales
 kurzbereichnung=Abreviatura
 GENERIC_OPEN_EVENT=Evento abierto
@@ -697,7 +673,6 @@ GENERIC_TO_EVENT_VIEW=Lista de eventos
 
 # VERANSTALTUNG BEARBEITEN/DOKUMENTTYPEN
 GENERIC_DOCUMENT_TYPES_MARKED_DELETE=Eliminar tipo(s) de documento seleccionado(s)
-GENERIC_REMOVE=Eliminar
 GENERIC_ADD_NEW_DOCUMENT_TYPE=A\u00F1adir nuevo tipo de documento
 xvonydokumenttypen=x de y tipos de documento
 
@@ -798,14 +773,14 @@ GUEST_LIST_EXPAND_MULTIPLE_PART_ONE=Se han a\u00F1adido
 GUEST_LIST_EXPAND_MULTIPLE_PART_TWO=invitados a la lista
 GUEST_LIST_HINT_EXPORT_GUEST=Si selecciona un s\u00F3lo invitado, ser\u00E1 el \u00FAnico en ser exportado. De lo contrario, se exportar\u00E1 el listado completo
 GUEST_LIST_HINT_FILTER=Para la generaci\u00F3n del listado de invitados se considerara el criterio establecido en el filtro superior.
-GUEST_LIST_HINT_RED_PERSON=Las personas con fondo de color rojo ser\u00E1n marcadas como personas \u201Ca borrar\u201D
+GUEST_LIST_HINT_RED_PERSON=Las personas con fondo de color rojo ser\u00E1n marcadas como personas \u00ABa borrar\u00BB
 GUEST_LIST_CREATED_NO_PERSON=creado sin personas
 GUEST_LIST_CREATED_ONE_PERSON=creado con una persona
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE=creado con
 GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO=personas
 GUEST_LIST_NO_GUEST_INVITED=No existen invitados hasta el momento o el filtro utilizado no ha obtenido resultados
 GUEST_LIST_NUMBER_CALCULATE=Calcular n\u00FAmero de serie
-GUEST_LIST_NUMBER_CALCULATED_SAVED=El \u201Cn\u00FAmero de serie\u201D ser\u00E1 recalculado y guardado para todos los invitados
+GUEST_LIST_NUMBER_CALCULATED_SAVED=El \u00ABn\u00FAmero de serie\u00BB ser\u00E1 recalculado y guardado para todos los invitados
 GUEST_LIST_ONLY_OPEN=s\u00F3lo pendientes
 GUEST_LIST_ONLY_ACCEPT=s\u00F3lo aceptados
 GUEST_LIST_ONLY_DECLINED=s\u00F3lo rechazados
@@ -817,10 +792,10 @@ GUEST_LIST_SEARCH_PERSON_ADD=Buscar personas y a\u00F1adirlas a la lista de invi
 # GAESTELISTE ERSTELLEN
 GUEST_LIST_CREATE=Generar lista de invitados
 SELECT_OUTPUT_FORMAT=Seleccionar formato de salida
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Lista agrupada por categor\u00EDa - con Partner
-LIST_GROUP_BY_CATEGORY_WITH_TEL=Lista agrupada por categor\u00EDa - con n\u00FAmero de tel\u00E9fono y m\u00F3vil
-LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Lista agrupada por categor\u00EDa - con partner y fax
-LIST_SORT_PARTNER_TEL=Lista agrupada -con partner, n\u00FAmero de tel\u00E9fono y m\u00F3vil
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER=Lista agrupada por categor\u00EDa\u200A\u2014\u200Acon Partner
+LIST_GROUP_BY_CATEGORY_WITH_TEL=Lista agrupada por categor\u00EDa\u200A\u2014\u200Acon n\u00FAmero de tel\u00E9fono y m\u00F3vil
+LIST_GROUP_BY_CATEGORY_WITH_PARTNER_AND_FAX=Lista agrupada por categor\u00EDa\u200A\u2014\u200Acon partner y fax
+LIST_SORT_PARTNER_TEL=Lista agrupada\u200A\u2014\u200Acon partner, n\u00FAmero de tel\u00E9fono y m\u00F3vil
 SORT_CRITERIA=Criterios de filtraci\u00F3n
 SORT_AFTER=Filtrar por
 CONTINUAL_NUMBER=N\u00FAmero de serie
@@ -991,8 +966,6 @@ anmerkungen=Notas
 markiertebezeichnunge=Denominaciones seleccionadas
 markierteeintrageentfernen=Eliminar denominaciones seleccionadas
 eswurdenkeinedatengefunden=No se han encontrado datos
-
-eswurdenkeinedatengefunden=No se han encontrado datos
 siehabenkeinedatenherkunftangegeben=Los datos de origen no han sido especificados.
 HINT_IMPORT_NOT_POSSIBLE_OPENOFFICE=Ha intentado importar un archivo de OpenOffice. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web. Por favor, guarde su archivo como archivo-CSV mediante su programa de hojas de c\u00E1lculo.
 HINT_IMPORT_NOT_POSSIBLE_STAROFFICE=Ha intentado importar un archivo de StarOffice. La importaci\u00F3n directa no est\u00E1 disponible en esta versi\u00F3n de VerA.web. Por favor, guarde su archivo como archivo-CSV mediante su programa de hojas de c\u00E1lculo.
@@ -1008,9 +981,9 @@ vermutlichbefindetsichdieimportdateinichtimvomsystemerwartemformat=Presumiblemen
 detailsanzeigen=Mostrar detalles
 beimimportkonnenfeldinhaltedielangeralsbeiverawebvorgesehensindgekurztubernommenwerden=Al importar datos con gran longitud, es posible que sean acortados para ser visualizados en VerA.web.
 alledokumenttypenderzuimportierendenpersonenmussenimsystemvorhandenseinsollderimportjetztgestartetwerden=Todos los tipos de documento para la importaci\u00F3n de personas deber\u00E1n estar habilitados en el sistema. \u00BFComenzar proceso de importaci\u00F3n?
-umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=Para hacer a un duplicado almacenable, deber\u00E1 seleccionarlos como almacenables mediante la opci\u00F3n \u201Cduplicados existentes\u201D.
+umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden=Para hacer a un duplicado almacenable, deber\u00E1 seleccionarlos como almacenables mediante la opci\u00F3n \u00ABduplicados existentes\u00BB.
 HINT_UMLAUT_COMPARISON=Tenga en cuenta, que los caracteres \u00E4, \u00F6, \u00FC y \u00DF ser\u00E1n tratados como ae, oe, ue y ss, respectivamente.
-derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=La importaci\u00F3n terminar\u00E1 una vez pulse sobre el bot\u00F3n \u201CFinalizar exportaci\u00F3n\u201D.
+derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde=La importaci\u00F3n terminar\u00E1 una vez pulse sobre el bot\u00F3n \u00ABFinalizar exportaci\u00F3n\u00BB.
 derimportkannerstabgeschlossenwerdenwennspeicherbaredatensatzevorhandensind=El proceso puede ser finalizado en caso de que los registros almacenables se hayan guardado.
 vorhandenedubletten=Duplicados existentes
 vorhandenedublettenbearbeiten=Editar duplicados existentes
@@ -1084,7 +1057,7 @@ zurueckzurpersonenuebersicht=Volver a persona Resumen
 zurueck=Volver
 dublettenpruefungdurchfuehren=Iniciar b\u00FAsqueda de duplicados
 zurueckzumsuchergebnis=Resultados de b\u00FAsqueda
-personspeicherndublettenpruefung=Guardar persona - B\u00FAsqueda-duplicados
+personspeicherndublettenpruefung=Guardar persona\u200A\u2014\u200AB\u00FAsqueda-duplicados
 neueneintraganlegen=Crear nueva entrada
 existierendeneintragbearbeiten=Editar entradas existentes
 eswurdenkeinedublettengefunden=No se han encontrado duplicados.
@@ -1093,7 +1066,7 @@ ausgewaehltepersonenzurveranstaltunghinzufuegen=Invitar al evento a las personas
 personerfassen=Capturar persona
 dublettenanlegen=Crear duplicados
 abbrechenundzurueck=Cancelar y volver
-gastsuchenveranstaltung=Buscar invitado - Evento
+gastsuchenveranstaltung=Buscar invitado\u200A\u2014\u200AEvento
 gastsuchen=Buscar invitado
 verantwortlichenfueraufgabesuchen=Buscar responsable para tarea
 verantwortlichenfueraufgabehinzufugen=Invitar responsable para tarea
@@ -1111,7 +1084,7 @@ biszudiesemdatum=Hasta la fecha
 abdiesemdatum=Desde la fecha
 angenaudiesemdatum=Exactamente en la fecha
 datumauswaehlen=Seleccionar fecha
-HINT_SEARCH_MULTIPLE=La b\u00FAsqueda tambi\u00E9n es compatible con la b\u00FAsqueda m\u00FAltiple por categor\u00EDa. Por favor, seleccione varias categor\u00EDas, mantenga presionado el bot\u00F3n del rat\u00F3n y arrastre su selecci\u00F3n hacia la b\u00FAsqueda de categor\u00EDas. Como alternativa, puede hacer clic mientras mantiene pulsada la tecla \u201CCtrl\u201D con el bot\u00F3n izquierdo del rat\u00F3n. Tenga en cuenta que las pseudocategor\u00EDas \u201CTodas\u201D y \u201CNinguna\u201D no son seleccionables.
+HINT_SEARCH_MULTIPLE=La b\u00FAsqueda tambi\u00E9n es compatible con la b\u00FAsqueda m\u00FAltiple por categor\u00EDa. Por favor, seleccione varias categor\u00EDas, mantenga presionado el bot\u00F3n del rat\u00F3n y arrastre su selecci\u00F3n hacia la b\u00FAsqueda de categor\u00EDas. Como alternativa, puede hacer clic mientras mantiene pulsada la tecla \u00ABCtrl\u00BB con el bot\u00F3n izquierdo del rat\u00F3n. Tenga en cuenta que las pseudocategor\u00EDas \u00ABTodas\u00BB y \u00ABNinguna\u00BB no son seleccionables.
 waehlensiebittezunaechsteinekategorieaus=Por favor, seleccione una categor\u00EDa.
 wollensiediesepersonbzwdiesengastderausgewaehltenkategoriezuordnen=\u00BFDesea asignar la categor\u00EDa asignada a la persona
 eswurdekeinekategoriezugeordnet=No se han asignado categor\u00EDas
@@ -1126,7 +1099,7 @@ zuweisen=Asignar
 waehlensieeinekategorieauswelchesie=Seleccione una categor\u00EDa a
 moechten=
 alleentfernen=Eliminar todas
-siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=No ha configurado categor\u00EDas. Mediante el apartado \u201CAdministraci\u00F3n\u201D es posible
+siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=No ha configurado categor\u00EDas. Mediante el apartado \u00ABAdministraci\u00F3n\u00BB es posible
 definieren=definirlas.
 siehabenpersonenausgewaehltabhaengigvonderanzahlderausgewaehltenpersonenkanndieaktioneinegewissezeitinanspruchnehmen=Ha seleccionado %s persona(s). Dependiendo del n\u00FAmero de personas seleccionadas, el proceso puede durar un poco m\u00E1s.
 waehlensiebittezunaechsteinenarbeitsbereichaus=Seleccione un \u00E1rea de trabajo.
@@ -1140,10 +1113,10 @@ wollensiediezuordnungvonpersonenbzwgaestenzumausgewaehltenarbeitsbereichaufheben
 wollensiediesepersonbzwdiesengastdemausgewaehltenarbeitsbereichzuordnen=Desea asignar el \u00E1rea de trabajo seleccionada a la persona/invitado actual
 wollensiepersonenbzwgaestedemausgewaehltenarbeitsbereichzuordnen=Desea asignar el \u00E1rea de trabajo seleccionada a %s personas/invitados
 waehlensieeinenarbeitsbereichauswelchensie=Seleccione un \u00E1rea de trabajo a
-siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=No ha configurado \u00E1reas de trabajo. Mediante el apartado \u201CAdministraci\u00F3n\u201D es posible
-administrationallestellvertretungenimmandanten=Administraci\u00F3n - todos los delegados del mandante
-administrationallestellvertretungen=Administraci\u00F3n - todos los delegados
-verwaltungpersoenlichevertretungen=Gesti\u00F3n - delegados personales
+siehabenkeinearbeitsbereichekonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt=No ha configurado \u00E1reas de trabajo. Mediante el apartado \u00ABAdministraci\u00F3n\u00BB es posible
+administrationallestellvertretungenimmandanten=Administraci\u00F3n\u200A\u2014\u200Atodos los delegados del mandante
+administrationallestellvertretungen=Administraci\u00F3n\u200A\u2014\u200Atodos los delegados
+verwaltungpersoenlichevertretungen=Gesti\u00F3n\u200A\u2014\u200Adelegados personales
 vertretung=Delegado
 markiertevertretungen=Delegado(s) seleccionado(s)
 loeschen=Eliminar
@@ -1155,15 +1128,15 @@ gaestelisteerstellenfuerveranstaltungeventshortname=Gestionar lista de invitados
 gaesteverwaltungderveranstaltung=Lista de invitados del evento
 gaestelisteerstellen=Gestionar lista de invitados
 ausgabeformatwaehlen=Seleccionar formato de las tareas
-listenachkategoriengruppiertmitpartner=Lista agrupada por categor\u00EDa - con Partner
-listenachkategoriengruppiertmittelundmobiltelefon=Lista agrupada por categor\u00EDa - con tel\u00E9fono y m\u00F3vil
-listenachkategoriengruppiertmitpartnerundfax=Lista agrupada por categor\u00EDa - con partner y fax
-listenachsortierungmitpartnertelundmobiltelefon=Lista agrupada - con partner, tel\u00E9fono y m\u00F3vil
+listenachkategoriengruppiertmitpartner=Lista agrupada por categor\u00EDa\u200A\u2014\u200Acon Partner
+listenachkategoriengruppiertmittelundmobiltelefon=Lista agrupada por categor\u00EDa\u200A\u2014\u200Acon tel\u00E9fono y m\u00F3vil
+listenachkategoriengruppiertmitpartnerundfax=Lista agrupada por categor\u00EDa\u200A\u2014\u200Acon partner y fax
+listenachsortierungmitpartnertelundmobiltelefon=Lista agrupada\u200A\u2014\u200Acon partner, tel\u00E9fono y m\u00F3vil
 tisch=Mesa
 zusaetzlichesortierungnach=Filtrado adicional porZus\u00E4tzliche Sortierung nach
 zurueckzurgaesteverwaltung=Volver a gesti\u00F3n de invitados
-verwaltungallebenutzerimmandanten=Gesti\u00F3n - usuarios en mandantes
-verwaltungallebenutzer=Gesti\u00F3n - todos los usuarios
+verwaltungallebenutzerimmandanten=Gesti\u00F3n\u200A\u2014\u200Ausuarios en mandantes
+verwaltungallebenutzer=Gesti\u00F3n\u200A\u2014\u200Atodos los usuarios
 markiertenbenutzer=Usuario(s) seleccionado(s)
 markiertenbenutzerloeschen=Eliminar usuario(s) seleccionado(s)
 leseneingeschraenkt=Lectura restringida
@@ -1247,7 +1220,7 @@ markierteveranstaltungsorteloschen=Eliminar localizaciones de evento seleccionad
 markiertevorlagenloschen=Eliminar plantillas seleccionadas
 
 keinedateigefunden=No se han encontrado archivos.
-standardauswahlderselectboxbdquozeichensatzrdquo=Selecci\u00F3n est\u00E1ndar del selectbox \u201Egrupo de caracteres\u201C
+standardauswahlderselectboxbdquozeichensatzrdquo=Selecci\u00F3n est\u00E1ndar del selectbox \u00ABgrupo de caracteres\u00BB
 zusaetzlichefelder=Campos adicionales
 postausgang=Bandeja de salida
 beimversendendieseremailisteinfehleraufgetreten=Error al enviar el correo electr\u00F3nico.
@@ -1297,7 +1270,7 @@ siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuer
 undamtsbezeichnungfunktion=y t\u00EDtulo/funci\u00F3n
 HINT_SEARCH_WHERE=La b\u00FAsqueda se basa en nombres, apellidos, localizaci\u00F3n, c\u00F3digo postal, calle, empresa/instituci\u00F3n, tel\u00E9fono, fax, m\u00F3vil, e-mail, observaciones, categor\u00EDas y \u00E1reas de trabajo
 neuenorteingeben=Asignar nueva localizaci\u00F3n
-bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Por favor, introduzca una nueva localizaci\u00F3n y presione sobre \u201CAsignar\u201D
+bittegebensieeinenneuenorteinundklickensieaufhinzufuegen=Por favor, introduzca una nueva localizaci\u00F3n y presione sobre \u00ABAsignar\u00BB
 neuerveranstaltungsort=Nueva localizaci\u00F3n
 personenetikett=Etiquetas-Personas
 zuruckzurubersicht=Volver a vista principal
@@ -1312,7 +1285,7 @@ bitteauswhaelengt=Por favor, seleccione
 vorlageladen=Cargar plantilla
 neuevorlagename=Nueva plantilla (nombre)
 neuevorlagespeichern=Guardar nueva plantilla
-neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten=La nueva plantilla debe contener su asunto correspondiente (adjunta no se guardar\u00e1n)
+neuevorlagenmuessensowohleinenbetreffalsauchtextenthalten=La nueva plantilla debe contener su asunto correspondiente (adjunta no se guardar\u00E1n)
 zurueckzumverteiler=Volver a distribuci\u00F33n
 markiertenveranstaltungsorte=Localizaciones seleccionadas
 hinweis=Aviso
@@ -1325,11 +1298,8 @@ senden=Enviar
 
 # GENERIC
 GENERIC_UPLOAD_BUTTON=Seleccionar archivo
-GENERIC_TO=para
-GENERIC_FEDERAL_STATE=Provincia
 GENERIC_PERSONAL_DATA=Datos personales
 GENERIC_NUMBER_OF_GUESTS=N\u00FAmero de invitados
-GENERIC_TELEFON=Tel\u00E9fono
 
 # MESSAGES
 MESSAGE_INVITATION_WITHOUT_MAIN_PERSON=Este invitado ser\u00E1 inclu\u00EDdo sin persona principal
@@ -1367,9 +1337,9 @@ MESSAGE_PERSON_NO_NAME=Debe introducir un nombre.
 MESSAGE_PERSON_NO_LASTNAME=Debe introducir los apellidos.
 MESSAGE_PERSON_CATEGORY_NO_CONNECTION_PERSON_CATEGORY=No se puede guardar la relaci\u00F3n entre persona y categor\u00EDa.
 MESSAGE_DOCTYPE_MAX_CONNECTOR_REACHED=El conector puede ser de hasta 50 caracteres de longitud.
-MESSAGE_PROXY_NO_REPRESENTATIVE=El campo "Representante" es obligatorio.
-MESSAGE_PROXY_NO_ROLE=El campo "Rol" es obligatorio.
-MESSAGE_PROXY_MISSING_BOTH=Los campos "Rol" y "Representante" son obligatorios.
+MESSAGE_PROXY_NO_REPRESENTATIVE=El campo \u00ABRepresentante\u00BB es obligatorio.
+MESSAGE_PROXY_NO_ROLE=El campo \u00ABRol\u00BB es obligatorio.
+MESSAGE_PROXY_MISSING_BOTH=Los campos \u00ABRol\u00BB y \u00ABRepresentante\u00BB son obligatorios.
 MESSAGE_PROXY_REPRESENTATIVE_BEGIN_BEFORE_END=El comienzo de la representaci\u00F3n debe comenzar antes que el final.
 MESSAGE_FUNCTION_MISSING_NAME=Debe introducir un nombre para la funci\u00F3n.
 MESSAGE_USER_MISSING_ROLE=Debe introducir una descripci\u00F3n para el rol de usuario.
@@ -1386,8 +1356,8 @@ PERSON_LIST_WARNING_ONLY_DELETE_ONE_PERSON=Debe eliminar siempre s\u00F3lo una p
 PERSON_LIST_QUESTION_DELETE_CONFIRMATION=\u00BFDeben eliminarse todas las personas seleccionados?
 
 # EVENT DETAIL SITE TEXTS
-EVENT_DETAIL_ALREADY_EXISTS_ONE=Ya existe un evento con el nombre \u201C
-EVENT_DETAIL_ALREADY_EXISTS_TWO=\u201D. \u00BFDesea de todas formas guardar el evento nuevo?
+EVENT_DETAIL_ALREADY_EXISTS_ONE=Ya existe un evento con el nombre \u00AB
+EVENT_DETAIL_ALREADY_EXISTS_TWO=\u00BB. \u00BFDesea de todas formas guardar el evento nuevo?
 
 # CATEGORY TEXTS
 CATEGORY_DETAIL_ALREADY_EXISTS=Ya existe una entrada de datos maestros bajo el nombre
@@ -1398,15 +1368,13 @@ CHANGELOG_NO_PROTOCOL_AVAILABLE=No existen datos hist\u00F3ricos.
 # BROWSER TITLES
 BROWSER_TITLE_REPORTS=Reports
 
-
 #NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
 GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reiniciar todos los valores de los datos maestros
 GUEST_LIST_EDIT_MASTER_DATA=Editar datos maestros de personas
 GUEST=Invitado
 GENERIC_OF=de
 
-
-TOOLTIP_EDIT_HEADLINES=Usted puede modificar los encabezados antes de imprimir pulsando sobre \u201CEditar\u201D. Por favor, guarde antes de imprimir.
+TOOLTIP_EDIT_HEADLINES=Usted puede modificar los encabezados antes de imprimir pulsando sobre \u00ABEditar\u00BB. Por favor, guarde antes de imprimir.
 GENERIC_PREVIOUS_PAGE=P\u00E1gina anterior
 GENERIC_APPLY_TO_GUESTLIST=A\u00F1adir a la lista de invitados
 GENERIC_APPLY_GUEST_TO_GUESTLIST=Seleccionar invitado directamente desde la lista de invitados
@@ -1425,10 +1393,9 @@ wahlensiebittezunachsteinenodermehreregasteaus=Por favor, seleccione uno o m\u00
 bittebestatigensiedasloschendermarkiertengasteliste=Por favor, \u00A1confirme la eliminaci\u00F3n de los invitados seleccionados!
 GENERIC_NO_GUESTLIST_DELETED=No se han eliminado invitados.
 
+EVENT_DOCTYPE_RESET_INFO=Por favor, compruebe que el evento tiene asociados los tipos de documento. Si este fuera el caso, necesita volver a crear los tipos de documento para los invitados, haciendo clic en \u00ABRestablecer datos maestros\u00BB.
 
-EVENT_DOCTYPE_RESET_INFO=Por favor, compruebe que el evento tiene asociados los tipos de documento. Si este fuera el caso, necesita volver a crear los tipos de documento para los invitados, haciendo clic en \u201CRestablecer datos maestros\u201D.
-
-diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Se encuentra dentro del men\u00FA \u201CAdministraci\u00F3n \u2192 Preferencias de programa\u201D.
+diesistuberdenmenupunktadministrationprogrammeinstellungenmoglich=Se encuentra dentro del men\u00FA \u00ABAdministraci\u00F3n \u2192 Preferencias de programa\u00BB.
 
 GENERIC_CHOSEN_GUESTLIST=Invitados seleccionados
 exportierfahigegasteliste=Invitados exportables
@@ -1454,11 +1421,7 @@ diestammdatendiesesgasteswurdengeloschtsiekonnennurdatenimrahmendieserveranstalt
 DELETE_SELECTED_MANDATOR=Eliminar mandante(s) seleccionado(s)
 PROMPT_APPLY_CATEGORY_RANK_FROM_MASTERDATA=\u00BFUtilizar los datos de rango de categor\u00EDa de los datos maestros?
 
-
 # NEW MESSAGES ( TO BE CONVERTED LATER TO MESSAGE_...)
-GUEST_LIST_RESET_ALL_TO_MASTER_DATA=Reiniciar todos los valores mediante datos maestros
-GUEST_LIST_EDIT_MASTER_DATA=Editar datos maestros de personas
-GUEST=Invitado
 GENERIC_OF_CAPITAL=de
 GENERIC_ASSIGN=Aceptar
 GENERIC_CANCEL=Cancelar
@@ -1591,8 +1554,8 @@ USER_LIST_WARN_NO_ID=El usuario a insertar no debe tener ID
 
 # WORKAREA TEXTS
 WORKAREA_NEED_MANDANT=No pueden crear una \u00E1rea del trabajo porque usted no est\u00E1n identificado con un mandante.
-WORKAREA_ERROR_INCORRECT_NAME_ONE=El \u00E1rea de trabajo con el nombre \u201C
-WORKAREA_ERROR_INCORRECT_NAME_TWO=\u201D no se ha podido crear. Por favor, identifique en primer lugar un mandante.
+WORKAREA_ERROR_INCORRECT_NAME_ONE=El \u00E1rea de trabajo con el nombre \u00AB
+WORKAREA_ERROR_INCORRECT_NAME_TWO=\u00BB no se ha podido crear. Por favor, identifique en primer lugar un mandante.
 
 # VERIFY TEXTS
 VERIFY_ERROR_ACCESS_TO_DB_UNABLE=No ha podido establecerse conexi\u00F3n con la base de datos.
@@ -1610,10 +1573,10 @@ VERIFY_ERROR_JAVA_ONE=La versi\u00F3n de Java instalada (
 VERIFY_ERROR_JAVA_TWO=) no se corresponde con la versi\u00F3n esperada (1.4).
 
 #TO BE DELETED
-inlandjageschlechtweiblich=En el pa\u00EDs: S\u00ED - G\u00E9nero: mujer
-inlandjageschlechtmannlich=En el pa\u00EDs: S\u00ED - G\u00E9nero: hombre
-inlandneingeschlechtweiblich=En el pa\u00EDs: No - G\u00E9nero: mujer
-inlandneingeschlechtmannlich=En el pa\u00EDs: No - G\u00E9nero: hombre
+inlandjageschlechtweiblich=En el pa\u00EDs: S\u00ED\u200A\u2014\u200AG\u00E9nero: mujer
+inlandjageschlechtmannlich=En el pa\u00EDs: S\u00ED\u200A\u2014\u200AG\u00E9nero: hombre
+inlandneingeschlechtweiblich=En el pa\u00EDs: No\u200A\u2014\u200AG\u00E9nero: mujer
+inlandneingeschlechtmannlich=En el pa\u00EDs: No\u200A\u2014\u200AG\u00E9nero: hombre
 
 # GENERIC DIALOG MESSAGES
 GENERIC_PLEASE_WAIT_HEADER=Por favor, espere...
@@ -1621,7 +1584,6 @@ GENERIC_PLEASE_WAIT_MESSAGE=El proceso puede tardar m\u00E1s de lo normal.
 
 # WORK AREA (Bean) TEXTS
 WORKAREA_ERROR_MISSING_NAME=El campo de trabajo no puede estar vac\u00EDo
-
 
 zurpersonensuche=Volver a b\u00FAsqueda de personas
 steuerdatei=Archivo de control
@@ -1692,7 +1654,6 @@ PERSON_HEADER_NO_DOCTYPE_CONFIG=No se ha configurado ning\u00FAn tipo de documen
 GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION=Datos de acceso para la aplicaci\u00F3n en l\u00EDnea
 GENERIC_COPY_CURRENT_PERSON=Copiar persona actual
 GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT=Invitar persona al evento
-GENERIC_PREVIOUS_PAGE=P\u00E1gina anterior
 GENERIC_PREVIOUS_PERSON=Persona anterior
 GENERIC_FIRST_PAGE=P\u00E1gina inicial
 GENERIC_FIRST_PERSON=Primera persona
@@ -1705,10 +1666,10 @@ GENERIC_SIMPLE_COMBOBOX=Campo de selecci\u00F3n simple
 GENERIC_MULTIPLE_COMBOBOX=Campo de selecci\u00F3n m\u00FAltiple
 
 # EVENT LOCATIONS (Veranstaltungsort)
-HINT_DELETE_NOT_POSSIBLE_ONE=La localizaci\u00F3n \u201C
-HINT_DELETE_NOT_POSSIBLE_TWO=\u201D no ha podido ser eliminada, debido a que se encuentra relacionada con al menos un evento.
-CONFIRMATION_CREATE_LOCATION_ONE=\u00BFDesea realmente eliminar la localizaci\u00F3n \u201C
-CONFIRMATION_CREATE_LOCATION_TWO=\u201D?
+HINT_DELETE_NOT_POSSIBLE_ONE=La localizaci\u00F3n \u00AB
+HINT_DELETE_NOT_POSSIBLE_TWO=\u00BB no ha podido ser eliminada, debido a que se encuentra relacionada con al menos un evento.
+CONFIRMATION_CREATE_LOCATION_ONE=\u00BFDesea realmente eliminar la localizaci\u00F3n \u00AB
+CONFIRMATION_CREATE_LOCATION_TWO=\u00BB?
 
 INSERT_FUNCTION_FROM_MAIN_DATA=Tomar funci\u00F3n desde datos maestros
 INSERT_COMPANY_FROM_MAIN_DATA=Tomar empresa desde datos maestros
@@ -1925,7 +1886,7 @@ PDF_GENERATE_LABEL=Exportaci\u00F3n a PDF
 LOAD_MAILTEMPLATE_FAILED = Cargando plantilla de correo electr\u00F3nico no
 SELECT_MAILTEMPLATE = Por favor, seleccione la plantilla de correo electr\u00F3nico
 
-ADDRESS_ERROR = Su correo electr\u00F3nico ha sido enviado al distribuidor. Al minimos una direcci\u00F3n de correo electr\u00F3nico de este distribuidor es mal! El distribuidor no podr\u00EDa ser enviado a esta direcci\u00F3n de correo electr\u00F3nico. Por favor, compruebe y si es necesario correcta la siguiente direcci\u00F3n de correo electr\u00F3nico:  
+ADDRESS_ERROR = Su correo electr\u00F3nico ha sido enviado al distribuidor. Al minimos una direcci\u00F3n de correo electr\u00F3nico de este distribuidor es mal! El distribuidor no podr\u00EDa ser enviado a esta direcci\u00F3n de correo electr\u00F3nico. Por favor, compruebe y si es necesario correcta la siguiente direcci\u00F3n de correo electr\u00F3nico:
 
 LABELLING_MUST_NOT_BE_EMPTY:El t\u00EDtulo no debe estar vac\u00EDo
 
@@ -2106,7 +2067,6 @@ zipcode_c_e2=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
 zipcode_c_e3=C\u00F3digo Postal no debe contener m\u00E1s de 250 caracteres
 internal_id=ID interno no debe contener m\u00E1s de 45 caracteres.
 INTERNAL_ID=ID interno
-
 
 # ALTERNATIVE SALUTATIONS
 SALUTATION_EDITABLE_TEXT=Puedes ingresar un saludo alternativo para este PDF aqu\u00ED

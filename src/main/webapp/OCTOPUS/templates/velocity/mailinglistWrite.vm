@@ -19,10 +19,10 @@
 
 
 <div id="content_container">
-	<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
-	<script src="${paths.staticWeb}ckeditor/ckeditor.js"></script>
-	<script src="${paths.staticWeb}scripts/veraweb-mailinglistwrite.js"></script>
-	<script type="text/javascript" src="${paths.staticWeb}scripts/veraweb-mailtemplate.js"></script>
+	<script src="${paths.staticWeb}js/ext/jquery-form/jquery.form.js"></script>
+	<script src="${paths.staticWeb}js/ext/ckeditor/ckeditor.js"></script>
+	<script src="${paths.staticWeb}js/vera/veraweb-mailinglistwrite.js"></script>
+	<script type="text/javascript" src="${paths.staticWeb}js/vera/veraweb-mailtemplate.js"></script>
 
 	<div id="breadcrumb" class="textRight marginBottom10">
 		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>

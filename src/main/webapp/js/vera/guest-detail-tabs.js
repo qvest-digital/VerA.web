@@ -1,0 +1,1 @@
+../../../js/vera/guest-detail-tabs.js
