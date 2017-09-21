@@ -317,6 +317,7 @@
 			</testResource>
 		</testResources>
 		<plugins>
+			<!--
 			<plugin>
 				<inherited>false</inherited>
 				<groupId>org.codehaus.mojo</groupId>
@@ -335,6 +336,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>${maven.war.version}</version>
