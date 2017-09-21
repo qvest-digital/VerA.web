@@ -214,9 +214,7 @@ veraweb-rest-api/src/test/resources/imageData.txt is the same file.
 └──────────────────────────────────────────────────────────────────────────┘
 
 Several ECMAscript files came into existence in 2007 and lack a licence:
-• ac.js (minified binary)
 • clipboard.js
-• complete.js (minified binary)
 • dhtml-dialogs.js
 • dhtml-popup.js
 • dhtml-tabs.js
