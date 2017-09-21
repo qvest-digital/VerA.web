@@ -18,7 +18,7 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_PLURAL}")
 #parse("inc/header.vm")
 
-<script src="${paths.staticWeb}scripts/jquery.form.min.js"></script>
+<script src="${paths.staticWeb}js/ext/jquery-form/jquery.form.js"></script>
 
 <!-- alternative salutations -->
 #if($edit)
