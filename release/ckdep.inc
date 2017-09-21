@@ -1,5 +1,4 @@
 freeform::CKEditor 4.6.2 (source missing) FAIL
-freeform::dynarch.com:DHTML-Calendar 1.0 ok
 javascript::Bacon 0.7.3 (licence missing) FAIL
 javascript::WCH 3.10 (incompatible licence) FAIL
 javascript::jquery 1.10.1 ok
@@ -13,3 +12,4 @@ javascript::unknown:dhtml 0 FAIL
 javascript::unknown:utils 0 FAIL
 javascript::unknown:vex 3.0.0 (minified) FAIL
 javascript::unknown:vex-dialog 1.0.6 (minified) FAIL
+sourceforge::jscalendar 2006-02-11T12:32:59Z ok
