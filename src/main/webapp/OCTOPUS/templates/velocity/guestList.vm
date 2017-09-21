@@ -20,7 +20,7 @@
 
 <div id="content_container">
     <script src="${paths.staticWeb}js/vera/veraweb-back-to-top.js"></script>
-    <script src="${paths.staticWeb}scripts/jquery.gotop.js"></script>
+    <script src="${paths.staticWeb}js/ext/Scroll-to-Top/jquery.gotop.js"></script>
 	<div id="breadcrumb" class="textRight marginBottom10">
 		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
 	</div>
