@@ -353,6 +353,7 @@
 							<goal>exec</goal>
 						</goals>
 					</execution>
+					<!--
 					<execution>
 						<id>dep-check</id>
 						<phase>install</phase>
@@ -363,6 +364,7 @@
 							<executable>./release/ckdep.sh</executable>
 						</configuration>
 					</execution>
+					-->
 				</executions>
 			</plugin>
 		</plugins>
