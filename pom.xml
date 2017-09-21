@@ -284,7 +284,7 @@
 						<executions>
 							<execution>
 								<id>dist-assembly</id>
-								<phase>package</phase>
+								<phase>process-resources</phase>
 								<goals>
 									<goal>single</goal>
 								</goals>
@@ -299,7 +299,7 @@
 						<executions>
 							<execution>
 								<id>do-build</id>
-								<phase>compile</phase>
+								<phase>generate-resources</phase>
 								<goals>
 									<goal>exec</goal>
 								</goals>
