@@ -225,9 +225,16 @@ Further (possibly minified) files in veraweb/src/main/webapp/scripts/:
 • jQuery.MultiFile.min.js (ostensibly jquery-multifile v2.2.1)
   ‣ https://github.com/fyneworks/multifile/issues/67
   ‣ https://github.com/fyneworks/multifile/issues/68
-• jquery.form.min.js (ostensibly jQuery Form Plugin 3.51.0-2014.06.20 under MIT/GPL)
 • jquery.min.js (ostensibly jQuery v1.10.1)
 • vex.combined.min.js (ostensibly vex.combined.js: vex 3.0.0, vex-dialog 1.0.6)
+
+┌──┤ jQuery Form plugin (MIT/GPLv2) ├──────────────────────────────────────┐
+│                                                                          │
+│ Copyright (c) 2014 M. Alsup                                              │
+│ Examples and documentation at: http://malsup.com/jquery/form/            │
+│ Project repository: https://github.com/malsup/form                       │
+│ Dual licensed under the MIT and GPL licenses.                            │
+└──────────────────────────────────────────────────────────────────────────┘
 
 ┌──┤ jQuery gotop plugin (GPLv3+) ├────────────────────────────────────────┐
 │                                                                          │
