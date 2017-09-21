@@ -1,43 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.evolvis.veraweb</groupId>
+		<artifactId>veraweb-parent</artifactId>
+		<version>0.1</version>
+	</parent>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>online-anmeldung</artifactId>
 	<version>1.8.56-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>VerA.web Online-Anmeldung frontend</name>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<dropwizard.version>0.7.1</dropwizard.version>
-		<lombok.version>1.14.4</lombok.version>
-		<junit.version>4.11</junit.version>
-		<postgresql.version>9.3-1101-jdbc41</postgresql.version>
-		<json.version>0.0.20131108.vaadin1</json.version>
-		<osiam.connector4java.version>1.7</osiam.connector4java.version>
-		<sonar.jacoco.reportPath>${basedir}/target/jacoco-unit.exec</sonar.jacoco.reportPath>
-		<releaseVersion>${project.version}</releaseVersion>
-		<frontend-maven-plugin.version>0.0.25</frontend-maven-plugin.version>
-	</properties>
-	<organization>
-		<name>tarent solutions GmbH, Germany</name>
-		<url>http://www.tarent.de/</url>
-	</organization>
 	<scm>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/online-anmeldung.git</developerConnection>
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/online-anmeldung.git</url>
 		<tag>HEAD</tag>
 	</scm>
-	<!-- this section is required for deployment -->
-	<distributionManagement>
-		<repository>
-			<id>tarent-nexus</id>
-			<name>tarent-nexus releases</name>
-			<url>https://repo-bn-01.lan.tarent.de/repository/maven-releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>tarent-nexus</id>
-			<name>tarent-nexus snapshots</name>
-			<url>https://repo-bn-01.lan.tarent.de/repository/maven-snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.evolvis.veraweb</groupId>
@@ -121,7 +98,6 @@
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
-			<version>1.4.7</version>
 		</dependency>
 	</dependencies>
 	<profiles>
@@ -133,7 +109,7 @@
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.2.1</version>
+						<version>${maven.exec.version}</version>
 						<executions>
 							<execution>
 								<id>step1: get build dependencies</id>
@@ -146,6 +122,7 @@
 									<arguments>
 										<argument>install</argument>
 									</arguments>
+									<workingDirectory>${basedir}/src/main/webroot-src</workingDirectory>
 								</configuration>
 							</execution>
 						</executions>
@@ -153,7 +130,7 @@
 					<plugin>
 						<groupId>com.kelveden</groupId>
 						<artifactId>maven-karma-plugin</artifactId>
-						<version>1.5</version>
+						<version>${maven.karma.version}</version>
 						<executions>
 							<execution>
 								<id>runTests</id>
@@ -163,6 +140,55 @@
 								<configuration>
 									<configFile>${basedir}/src/test/js/karma.conf.js</configFile>
 									<karmaExecutable>${basedir}/node_modules/.bin/karma</karmaExecutable>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<inherited>false</inherited>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<version>${maven.assembly.version}</version>
+						<configuration>
+							<descriptors>
+								<descriptor>release/mksrc.xml</descriptor>
+							</descriptors>
+							<tarLongFileMode>posix</tarLongFileMode>
+						</configuration>
+						<executions>
+							<execution>
+								<id>dist-assembly</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<inherited>false</inherited>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>${maven.exec.version}</version>
+						<executions>
+							<execution>
+								<id>do-build</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>./release/mksrc.sh</executable>
+									<environmentVariables>
+										<MKSRC_RUN_FROM_MAVEN>true</MKSRC_RUN_FROM_MAVEN>
+									</environmentVariables>
 								</configuration>
 							</execution>
 						</executions>
@@ -186,70 +212,9 @@
 		<finalName>vw-online-registration</finalName>
 		<plugins>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-					<encoding>UTF-8</encoding>
-					<debug>true</debug>
-				</configuration>
-			</plugin>
-			<plugin>
-				<inherited>false</inherited>
-				<groupId>com.mycila.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
-				<version>1.9.0</version>
-				<configuration>
-					<basedir>${basedir}</basedir>
-					<header>${basedir}/LICENCE.hdr</header>
-					<quiet>false</quiet>
-					<failIfMissing>true</failIfMissing>
-					<aggregate>true</aggregate>
-					<includes>
-						<include>**/*.java</include>
-					</includes>
-					<useDefaultExcludes>true</useDefaultExcludes>
-					<useDefaultMapping>true</useDefaultMapping>
-					<encoding>UTF-8</encoding>
-					<strictCheck>true</strictCheck>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.4</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>DISABLE_FORKED_LIFECYCLE_MSOURCES-13</phase>
-					</execution>
-					<execution>
-						<id>attach-sources-no-fork</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.8</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.5.3</version>
+				<version>${maven.assembly.version}</version>
 				<configuration>
 					<descriptors>
 						<descriptor>assembly.xml</descriptor>
@@ -267,16 +232,8 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.2</version>
-				<configuration>
-					<tagNameFormat>@{project.version}</tagNameFormat>
-				</configuration>
-			</plugin>
-			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
+				<version>${maven.jar.version}</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -298,24 +255,11 @@
 					</archive>
 				</configuration>
 			</plugin>
-			<!-- required for deployment to maven repo via ssh/sftp with maven 3 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.8.1</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.maven.wagon</groupId>
-						<artifactId>wagon-ssh</artifactId>
-						<version>2.6</version>
-					</dependency>
-				</dependencies>
-			</plugin>
 			<!-- shade plugin for fat JARs -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>1.6</version>
+				<version>${maven.shade.version}</version>
 				<configuration>
 					<createDependencyReducedPom>true</createDependencyReducedPom>
 					<filters>
@@ -349,7 +293,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.13</version>
+				<version>${maven.surefire.version}</version>
 				<configuration>
 					<includes>
 						<include>**/TestSuite.java</include>
@@ -360,12 +304,12 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.1.201405082137</version>
+				<version>${maven.jacoco.version}</version>
 				<configuration>
 					<!-- excluded from code coverage  -->
 					<!--excludes>
-                        <exclude>**/vidio/server/model/*</exclude>
-                    </excludes-->
+						<exclude>**/vidio/server/model/*</exclude>
+					</excludes-->
 				</configuration>
 				<executions>
 					<execution>
@@ -390,9 +334,10 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<inherited>false</inherited>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.4.0</version>
+				<version>${maven.exec.version}</version>
 				<executions>
 					<execution>
 						<id>exec-npm-install</id>
@@ -408,27 +353,14 @@
 							<goal>exec</goal>
 						</goals>
 					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<!-- Avoid the M.A.D. Gadget vulnerability in certain apache commons-collections versions -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>1.4.1</version>
-				<executions>
 					<execution>
+						<id>dep-check</id>
+						<phase>install</phase>
 						<goals>
-							<goal>enforce</goal>
+							<goal>exec</goal>
 						</goals>
 						<configuration>
-							<rules>
-								<bannedDependencies>
-									<excludes>
-										<exclude>commons-collections:commons-collections:[3.0,3.2.1]</exclude>
-										<exclude>commons-collections:commons-collections:4.0</exclude>
-									</excludes>
-								</bannedDependencies>
-							</rules>
+							<executable>./release/ckdep.sh</executable>
 						</configuration>
 					</execution>
 				</executions>
