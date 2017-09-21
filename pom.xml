@@ -98,6 +98,7 @@
 	</profiles>
 	<build>
 		<plugins>
+			<!--
 			<plugin>
 				<inherited>false</inherited>
 				<groupId>org.codehaus.mojo</groupId>
@@ -116,6 +117,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>${maven.jar.version}</version>
