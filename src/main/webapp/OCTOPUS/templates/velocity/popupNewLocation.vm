@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
 	    ## Abwärtskompatibilität
-	    <script type="text/javascript" src="${paths.staticWeb}scripts/jquery.tagsinput.js"></script>
+	    <script type="text/javascript" src="${paths.staticWeb}js/ext/jquery-tags-input/dist/jquery.tagsinput.min.js"></script>
 		## Utils
 		<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
 		## Tabs und Popups

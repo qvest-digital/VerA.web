@@ -7,7 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
 		## Utils
 		<script type="text/javascript" src="${paths.staticWeb}js/ext/jquery/jquery.min.js"></script>
-		<script type="text/javascript" src="${paths.staticWeb}scripts/jquery.tagsinput.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}js/ext/jquery-tags-input/dist/jquery.tagsinput.min.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
 		## Tabs und Popups
 		<script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-tabs.js"></script>

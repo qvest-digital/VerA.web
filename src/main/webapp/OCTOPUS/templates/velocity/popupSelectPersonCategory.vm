@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all" />
         <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
         <script type="text/javascript" src="${paths.staticWeb}js/ext/jquery/jquery.min.js"></script>
-        <script type="text/javascript" src="${paths.staticWeb}scripts/jquery.tagsinput.js"></script>
+        <script type="text/javascript" src="${paths.staticWeb}js/ext/jquery-tags-input/dist/jquery.tagsinput.min.js"></script>
         <script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
         <script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
 

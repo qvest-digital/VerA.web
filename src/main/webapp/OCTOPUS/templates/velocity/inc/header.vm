@@ -8,7 +8,7 @@
 		<meta http-equiv="pragma" content="no-cache">
 ##		Utils
 		<script type="text/javascript" src="${paths.staticWeb}js/ext/jquery/jquery.min.js"></script>
-		<script type="text/javascript" src="${paths.staticWeb}scripts/jquery.tagsinput.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}js/ext/jquery-tags-input/dist/jquery.tagsinput.min.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/clipboard.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/jQuery.MultiFile.min.js"></script>
