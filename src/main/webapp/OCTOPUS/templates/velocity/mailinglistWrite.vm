@@ -20,7 +20,7 @@
 
 <div id="content_container">
 	<script src="${paths.staticWeb}js/ext/jquery-form/jquery.form.js"></script>
-	<script src="${paths.staticWeb}ckeditor/ckeditor.js"></script>
+	<script src="${paths.staticWeb}js/ext/ckeditor/ckeditor.js"></script>
 	<script src="${paths.staticWeb}js/vera/veraweb-mailinglistwrite.js"></script>
 	<script type="text/javascript" src="${paths.staticWeb}js/vera/veraweb-mailtemplate.js"></script>
 

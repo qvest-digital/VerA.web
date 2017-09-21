@@ -11,7 +11,7 @@
 #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_PLURAL}")
 #parse("inc/header.vm")
 
-<script src="${paths.staticWeb}ckeditor/ckeditor.js"></script>
+<script src="${paths.staticWeb}js/ext/ckeditor/ckeditor.js"></script>
 <script src="${paths.staticWeb}js/vera/veraweb-mailtemplatedetails.js"></script>
 
 <form id="formlist" name="formlist" action="MailDraftDetail" method="POST">
