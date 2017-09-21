@@ -158,6 +158,7 @@
 	</profiles>
 	<build>
 		<plugins>
+			<!--
 			<plugin>
 				<inherited>false</inherited>
 				<groupId>org.codehaus.mojo</groupId>
@@ -176,6 +177,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
 				<artifactId>gmavenplus-plugin</artifactId>
