@@ -6,6 +6,9 @@
 
 # Modifications by ⮡ tarent for building from the upstream CKEditor
 # release for VerA.web:
+echo >&2 'E: we cannot build CKBuilder within GPLv3-compatible works'
+echo >&2 'N: use the development version (unminified) instead!'
+exit 1
 # • download using https, not http
 # • embed hardcoded git information for upstream repo’s tag
 
