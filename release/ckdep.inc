@@ -10,6 +10,6 @@ javascript::jquery:sizzle 1.10.1 ok
 javascript::unknown:clipboard 0 FAIL
 javascript::unknown:dhtml 0 FAIL
 javascript::unknown:utils 0 FAIL
-javascript::unknown:vex 3.0.0 (minified) FAIL
-javascript::unknown:vex-dialog 1.0.6 (minified) FAIL
+javascript::unknown:vex 3.0.0 ok
+javascript::unknown:vex-dialog 1.0.6 ok
 sourceforge::jscalendar 2006-02-11T12:32:59Z ok
