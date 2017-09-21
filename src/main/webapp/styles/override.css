@@ -1,3 +1,20 @@
 /*-
  * VerA.web CSS to override other included ones
  */
+
+/* override jquery.tagsinput.css */
+
+div.tagsinput span.tag {
+	border:1px solid #BDBDBD;
+	border-radius:2px;
+	padding:1px 5px;
+	text-decoration:inherit;
+	background:#F9F9F9 none repeat scroll 0 0;
+	color:#1B1B1B;
+}
+
+div.tagsinput span.tag a {
+	color:#8B0F08;
+	text-decoration:inherit;
+	border:medium none;
+}
