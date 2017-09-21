@@ -63,4 +63,13 @@ set -x
 # copy git HEAD state
 git ls-tree -r --name-only -z HEAD | sort -z | cpio -p0dlu target/mksrc/
 
-# leave the rest to the maven-assembly-plugin
+if [[ $1 != mktgz ]]; then
+	# leave the rest to the maven-assembly-plugin
+	exit 0
+fi
+
+cd target
+tar -cf - --numeric-owner --owner=0 --group=0 --sort=name \
+    --no-acls --no-selinux --no-xattrs -b 1 -H ustar mksrc >mksrc.tar
+gzip -n9 <mksrc.tar >mksrc.tgz
+rm mksrc.tar
