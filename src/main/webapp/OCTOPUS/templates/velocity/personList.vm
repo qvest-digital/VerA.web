@@ -1290,7 +1290,7 @@ i							${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
 	## Zurück-Button
 	<span id="buttonPanel-top" class="textRight floatRight">
 		#if($action == "guest")
-            <script src="${paths.staticWeb}scripts/veraweb-guestlist.js"></script>
+            <script src="${paths.staticWeb}js/vera/veraweb-guestlist.js"></script>
 			<input type="button" class="mainButton" id="addPersonFromGuestSearch" value="Neue Person anlegen"> <input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzurgasteliste}" class="mainButton" onclick="window.location.href='ShowGuestList?selectNone=true';" />
 		#elseif($action == "host")
 			<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzurveranstaltungsdetails}" class="mainButton" onclick="window.location.href='SetHostToEventDetail';" />

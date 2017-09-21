@@ -46,7 +46,7 @@
 <link rel="stylesheet" href="${paths.staticWeb}styles/vex.css" />
 <link rel="stylesheet" href="${paths.staticWeb}styles/vex-theme-default.css" />
 <!-- js controller -->
-<script src="${paths.staticWeb}scripts/salutation-list.js"></script>
+<script src="${paths.staticWeb}js/vera/salutation-list.js"></script>
 #end
 
 <div id="content_container">

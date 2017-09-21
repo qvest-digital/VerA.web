@@ -12,7 +12,7 @@
 #parse("inc/header.vm")
 
 <script src="${paths.staticWeb}ckeditor/ckeditor.js"></script>
-<script src="${paths.staticWeb}scripts/veraweb-mailtemplatedetails.js"></script>
+<script src="${paths.staticWeb}js/vera/veraweb-mailtemplatedetails.js"></script>
 
 <form id="formlist" name="formlist" action="MailDraftDetail" method="POST">
 	<input type="hidden" name="save" value="true"/>

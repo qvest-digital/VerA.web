@@ -229,8 +229,8 @@
                 		<input type="text" maxlength="300" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))"  vera-disabled style="background-color: #f0f0f0;width: 200px;">
                 		<span id="show-changeLogRetentionPolicy" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png"></span>
                 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/dialog.css">
-                		<script type="text/javascript" src="${paths.staticWeb}scripts/Duration.js"></script>
-                		<script type="text/javascript" src="${paths.staticWeb}scripts/DurationInputDialog.js"></script>
+                		<script type="text/javascript" src="${paths.staticWeb}js/vera/Duration.js"></script>
+                		<script type="text/javascript" src="${paths.staticWeb}js/vera/DurationInputDialog.js"></script>
                 		<script type="text/javascript">
                 			DurationInputDialog.setup(
                 				{

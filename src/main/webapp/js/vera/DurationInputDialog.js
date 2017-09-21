@@ -26,7 +26,7 @@
  *
  * <pre>
  *  <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/dialog.css">
- *  <script type="text/javascript" src="${paths.staticWeb}scripts/DurationInputDialog.js"></script>
+ *  <script type="text/javascript" src="${paths.staticWeb}js/vera/DurationInputDialog.js"></script>
  *  <input name="myDurationInputFieldValue" id="myDurationInputFieldValue" type="hidden" value="P1Y4M"></input>
  *  <input name="myDurationInputFieldDisplay" id="myDurationInputFieldDisplay" type="text" readonly="readonly" value="1 Jahr 4 Monate"></input>
  *  <span><img src="/images/duration.gif"></span>

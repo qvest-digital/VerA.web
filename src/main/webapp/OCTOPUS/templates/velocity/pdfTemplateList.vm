@@ -18,7 +18,7 @@
 <div data-errormsg="${placeholderWithTranslation.PDF_TEMPLATE_LIST_NOT_LOAD}" id="pdfetemplate-list-load-errormsg"></div>
 <div data-errormsg="${placeholderWithTranslation.PDF_TEMPLATE_DELETE_FAILED}" id="pdfetemplate-delete-errormsg"></div>
 
-<script type="text/javascript" src="${paths.staticWeb}scripts/veraweb-pdftemplate-list.js"></script>
+<script type="text/javascript" src="${paths.staticWeb}js/vera/veraweb-pdftemplate-list.js"></script>
 
 <div id="content_container">
     <form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/delete" method="POST">

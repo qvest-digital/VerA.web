@@ -32,14 +32,14 @@
 ##		WCH - Windowed Controls Hider (http://www.aplus.co.yu/wch/intro/)
 ##		<!--[if IE]>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/WCH.js"></script>
-		<script type="text/javascript" src="${paths.staticWeb}scripts/vera-tabs.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}js/vera/vera-tabs.js"></script>
 ##		<![endif]-->
 ##		Style
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/jquery.tagsinput.css" media="all" />
 		<!--link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all"-->
 		<script type="text/javascript" src="${paths.staticWeb}scripts/Bacon.js"></script> 
-		<script type="text/javascript" src="${paths.staticWeb}scripts/guest-filter-auto-commit.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}js/vera/guest-filter-auto-commit.js"></script>
 	</head>
 	<body>
 		<div id="container" #if($event) class="event" #end>
