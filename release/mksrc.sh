@@ -34,14 +34,19 @@ fi
 # initialisation
 set -e
 cd "$(dirname "$0")/.."
-rm -rf target/mksrc
-mkdir -p target/mksrc
+if [[ $1 != mktgz ]]; then
+	tgname=mksrc
+else
+	tgname=mksrc/src
+fi
+rm -rf target/$tgname
+mkdir -p target/$tgname
 
 # check for source cleanliness
 if test -n "$(git status --porcelain)"; then
 	echo >&2 "[ERROR] source tree not clean"
 	if test x"$IS_M2RELEASEBUILD" = x"true"; then
-		:>target/mksrc/failed
+		:>target/$tgname/failed
 		echo >&2 "[WARNING] maven-release-plugin prepare, continuing anyway"
 
 		# fail the build if dependency licence review has a to-do item
@@ -61,15 +66,16 @@ fi
 set -x
 
 # copy git HEAD state
-git ls-tree -r --name-only -z HEAD | sort -z | cpio -p0dlu target/mksrc/
+git ls-tree -r --name-only -z HEAD | sort -z | cpio -p0dlu target/$tgname/
 
 if [[ $1 != mktgz ]]; then
 	# leave the rest to the maven-assembly-plugin
 	exit 0
 fi
 
-cd target
+cd target/mksrc
 tar -cf - --numeric-owner --owner=0 --group=0 --sort=name \
-    --no-acls --no-selinux --no-xattrs -b 1 -H ustar mksrc >mksrc.tar
-gzip -n9 <mksrc.tar >mksrc.tgz
-rm mksrc.tar
+    --no-acls --no-selinux --no-xattrs -b 1 -H ustar src >src.tar
+rm -r src
+gzip -n9 <src.tar >src.tgz
+rm src.tar

@@ -371,10 +371,10 @@
 						</resource>
 						<resource>
 							<filtering>false</filtering>
-							<directory>target</directory>
+							<directory>target/mksrc</directory>
 							<targetPath>doc</targetPath>
 							<includes>
-								<include>mksrc.tgz</include>
+								<include>src.tgz</include>
 							</includes>
 						</resource>
 					</webResources>
