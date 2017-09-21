@@ -1,0 +1,47 @@
+VerA.web is structured in these subprojects:
+
+• common (this repository)
+• core
+• export
+• online-anmeldung
+• rest-api
+
+There is also the secret “environment” repository and a few
+Docker-only repositories, which we will ignore for now / in
+this licence audit, as its focus is on VerA.web itself, not
+the obnoxious Docker packaging which isn’t mandatory anyway.
+
+Dependencies are thus (lower includes upper):
+
+                              ┌────────┐
+                              │ common │
+                              └┬──┬───┬┘
+                               │  │   │
+                               │  │   │
+                       ┌───────┴┐ │   │
+                       │ export │ │   └──┐
+                       └┬───────┘ │      │
+                        │         │      │
+                        │         │      │
+              ┌─────────┴┐  ┌─────┴┐  ┌──┴───────────────┐
+              │ rest-api │  │ core │  │ online-anmeldung │
+              └──────────┘  └──────┘  └──────────────────┘
+
+Only the lowest ones are actually shipped. This makes it hard
+to create a suitable LICENCE file each, but given that there’s
+only one optional component (online-anmeldung) here, whose
+architecture, in addition, is a bit of a conundrum, creating
+one suitable global LICENCE file, plus one for online-anmeldung,
+is possible and attainable — we probably should ship the file
+from the “common” module while including it in the WAR files
+of both rest-api and core; online-anmeldung can ship its own
+file, directly in the webapp probably (perhaps it might include
+the contents of the common LICENCE file)?
+
+Decision: common ships a doc/ subdirectory with LICENCE and
+relevant external licence bodies (as in the model internal
+project), which is shaded into core and displayed in /doc/
+(as in the other project) via Tomcat’s equivalent of autoindex;
+it’s merely present but not served in the rest-api WAR (perhaps
+by means of being present in common, plus a short note to point
+this out to the archivist). We’ll likely handle VWOA similarily.
