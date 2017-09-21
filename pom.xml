@@ -387,6 +387,14 @@
 								<include>artifact-version</include>
 							</includes>
 						</resource>
+						<resource>
+							<filtering>false</filtering>
+							<directory>target</directory>
+							<targetPath>doc</targetPath>
+							<includes>
+								<include>veraweb-core-${releaseVersion}-quellcode.tgz</include>
+							</includes>
+						</resource>
 					</webResources>
 					<warSourceExcludes>
 						OCTOPUS/customized.xml
