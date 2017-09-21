@@ -1,45 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.evolvis.veraweb</groupId>
+		<artifactId>veraweb-parent</artifactId>
+		<version>0.1</version>
+	</parent>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>rest-api</artifactId>
 	<version>1.8.56-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>VerA.web REST API server module</name>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jacoco.version>0.7.1.201405082137</jacoco.version>
-		<releaseVersion>${project.version}</releaseVersion>
-		<javax.mail.version>1.4.7</javax.mail.version>
-		<!-- this is not the latest groovy version, but it is the most recent one I could find that worked with eclipse -->
-		<groovy-all.version>2.4.3</groovy-all.version>
-		<spock-core.version>1.0-groovy-2.4</spock-core.version>
-		<commons-io.version>2.4</commons-io.version>
-		<jersey.version>2.22.2</jersey.version>
-		<itext.version>4.2.0</itext.version>
-		<commons-lang3.version>3.4</commons-lang3.version>
-	</properties>
-	<organization>
-		<name>tarent solutions GmbH, Germany</name>
-		<url>http://www.tarent.de/</url>
-	</organization>
 	<scm>
 		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/rest-api.git</developerConnection>
 		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/rest-api.git</url>
 		<tag>HEAD</tag>
 	</scm>
-	<!-- this section is required for deployment -->
-	<distributionManagement>
-		<repository>
-			<id>tarent-nexus</id>
-			<name>tarent-nexus releases</name>
-			<url>https://repo-bn-01.lan.tarent.de/repository/maven-releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>tarent-nexus</id>
-			<name>tarent-nexus snapshots</name>
-			<url>https://repo-bn-01.lan.tarent.de/repository/maven-snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.evolvis.veraweb</groupId>
@@ -118,7 +93,6 @@
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
-			<version>${javax.mail.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
@@ -154,95 +128,81 @@
 			<version>${commons-lang3.version}</version>
 		</dependency>
 	</dependencies>
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<inherited>false</inherited>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<version>${maven.assembly.version}</version>
+						<configuration>
+							<descriptors>
+								<descriptor>release/mksrc.xml</descriptor>
+							</descriptors>
+							<tarLongFileMode>posix</tarLongFileMode>
+						</configuration>
+						<executions>
+							<execution>
+								<id>dist-assembly</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<inherited>false</inherited>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>${maven.exec.version}</version>
+						<executions>
+							<execution>
+								<id>do-build</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>./release/mksrc.sh</executable>
+									<environmentVariables>
+										<MKSRC_RUN_FROM_MAVEN>true</MKSRC_RUN_FROM_MAVEN>
+									</environmentVariables>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 	<build>
 		<finalName>vwor</finalName>
 		<plugins>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-					<encoding>UTF-8</encoding>
-					<debug>true</debug>
-					<compilerArgument/>
-				</configuration>
-			</plugin>
-			<plugin>
 				<inherited>false</inherited>
-				<groupId>com.mycila.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
-				<version>1.9.0</version>
-				<configuration>
-					<basedir>${basedir}</basedir>
-					<header>${basedir}/LICENCE.hdr</header>
-					<quiet>false</quiet>
-					<failIfMissing>true</failIfMissing>
-					<aggregate>true</aggregate>
-					<includes>
-						<include>**/*.java</include>
-					</includes>
-					<useDefaultExcludes>true</useDefaultExcludes>
-					<useDefaultMapping>true</useDefaultMapping>
-					<encoding>UTF-8</encoding>
-					<strictCheck>true</strictCheck>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.4</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>${maven.exec.version}</version>
 				<executions>
 					<execution>
-						<id>attach-sources</id>
-						<phase>DISABLE_FORKED_LIFECYCLE_MSOURCES-13</phase>
-					</execution>
-					<execution>
-						<id>attach-sources-no-fork</id>
-						<phase>generate-sources</phase>
+						<id>dep-check</id>
+						<phase>install</phase>
 						<goals>
-							<goal>jar-no-fork</goal>
+							<goal>exec</goal>
 						</goals>
+						<configuration>
+							<executable>./release/ckdep.sh</executable>
+						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.8</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.2</version>
-				<configuration>
-					<tagNameFormat>@{project.version}</tagNameFormat>
-				</configuration>
-			</plugin>
-			<!-- required for deployment to maven repo via ssh/sftp with maven 3 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.8.1</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.maven.wagon</groupId>
-						<artifactId>wagon-ssh</artifactId>
-						<version>2.6</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
+				<version>${maven.war.version}</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -277,7 +237,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.13</version>
+				<version>${maven.surefire.version}</version>
 				<configuration>
 					<argLine>${argLine} -XX:-UseSplitVerifier</argLine>
 				</configuration>
@@ -286,7 +246,7 @@
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
 				<artifactId>gmavenplus-plugin</artifactId>
-				<version>1.5</version>
+				<version>${maven.gmavenplus.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -299,7 +259,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>${jacoco.version}</version>
+				<version>${maven.jacoco.version}</version>
 				<configuration>
 				</configuration>
 				<executions>
@@ -320,7 +280,7 @@
 			<plugin>
 				<groupId>org.pitest</groupId>
 				<artifactId>pitest-maven</artifactId>
-				<version>1.0.0</version>
+				<version>${maven.pitest.version}</version>
 				<configuration>
 					<targetClasses>
 						<param>org.evolvis.veraweb.onlinereg.*</param>
@@ -329,29 +289,6 @@
 						<param>org.evolvis.veraweb.onlinereg.*</param>
 					</targetTests>
 				</configuration>
-			</plugin>
-			<plugin>
-				<!-- Avoid the M.A.D. Gadget vulnerability in certain apache commons-collections versions -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>1.4.1</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-						<configuration>
-							<rules>
-								<bannedDependencies>
-									<excludes>
-										<exclude>commons-collections:commons-collections:[3.0,3.2.1]</exclude>
-										<exclude>commons-collections:commons-collections:4.0</exclude>
-									</excludes>
-								</bannedDependencies>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
