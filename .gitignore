@@ -14,9 +14,15 @@
 bin
 config.json
 config.yaml
+core/src/main/webapp/OCTOPUS/config_ldap_access.xml
+core/src/main/webapp/OCTOPUS/module.wsdl
+core/src/main/webapp/WEB-INF/*.lck
 dependency-reduced-pom.xml
 pom.xml.releaseBackup
 pom.xml.versionsBackup
 release.properties
 release/ckdep.tmp
 target/
+vwoa/src/main/webroot-src/bower_components/
+vwoa/src/main/webroot-src/dist
+vwoa/src/main/webroot-src/node_modules/

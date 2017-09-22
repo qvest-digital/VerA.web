@@ -1,3 +1,7 @@
+Lukas’ Notizen zu webroot-src/
+(gehören da aber nicht rein, da sie dann installiert würden)
+────────────────────────────────────────────────────────────
+
 | Funktionalität                                | Client | Backend |Kommentar                                                                       |
 |-----------------------------------------------+--------+---------+--------------------------------------------------------------------------------|
 | Login / Authentifizierung                     | 95%    | 95%     |Gültigkeitsdauer der Osiam sowie der HMAC-Tokens wird noch nicht berücksichtigt |
@@ -28,7 +32,7 @@ Authorisierung:
 ---------------
 
   - in den meisten Fällen trivial: ich darf sehen/ändern was (zu) mir gehört.
-  - Lösung: 
+  - Lösung:
     - Whitlist für Resourcen, die öffentlich sind.
     - User-ID *NICHT* in URI kodieren, sondern aus dem hmac-Token nehmen.
   - Bislang einzige Ausnahme: Delegationsanmeldungen:
