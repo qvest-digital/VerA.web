@@ -1,4 +1,4 @@
-#!/bin/mksh
+#!/usr/bin/env mksh
 #-
 # Copyright © 2015
 #	Thorsten Glaser <t.glaser@tarent.de>

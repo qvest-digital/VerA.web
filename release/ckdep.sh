@@ -1,4 +1,4 @@
-#!/bin/mksh
+#!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
 # Copyright © 2016, 2017

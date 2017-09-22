@@ -1,4 +1,4 @@
-#!/bin/mksh
+#!/usr/bin/env mksh
 # needs root
 
 set -e
