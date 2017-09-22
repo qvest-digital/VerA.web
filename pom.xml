@@ -95,6 +95,7 @@
 	<build>
 		<plugins>
 			<plugin>
+				<inherited>false</inherited>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
 				<version>${maven.mycila.version}</version>
