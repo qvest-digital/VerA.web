@@ -10,6 +10,7 @@
 		<script type="text/javascript" src="${paths.staticWeb}js/ext/jquery/jquery.min.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}js/ext/jquery-tags-input/dist/jquery.tagsinput.min.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
+		<script type="text/javascript" src="${paths.staticWeb}scripts/deliberately-nonexistent-file.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}scripts/clipboard.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}js/ext/jquery-multifile/jQuery.MultiFile.min.js"></script>
 		##		Tabs und Popups
