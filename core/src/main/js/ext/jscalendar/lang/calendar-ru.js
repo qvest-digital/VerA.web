@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Russian
 
-// Calendar RU language
 // Translation: Sly Golovanov, http://golovanov.net, <sly@golovanov.net>
 // Distributed under the same terms as the calendar itself.
 

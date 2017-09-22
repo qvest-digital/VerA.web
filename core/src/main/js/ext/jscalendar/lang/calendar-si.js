@@ -1,3 +1,5 @@
+// ** I18N Slovenian
+
 /* Slovenian language file for the DHTML Calendar version 0.9.2
  * Author David Milost <mercy@volja.net>, January 2004.
  * Feel free to use this script under the terms of the GNU Lesser General

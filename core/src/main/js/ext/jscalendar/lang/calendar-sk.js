@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Slovak
 
-// Calendar SK language
 // Author: Peter Valach (pvalach@gmx.net)
 // Last update: 2003/10/29
 // Distributed under the same terms as the calendar itself.

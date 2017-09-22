@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N German
 
-// Calendar DE language
 // Author: Jack (tR), <jack@jtr.de>
 // Distributed under the same terms as the calendar itself.
 

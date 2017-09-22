@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Latvian
 
-// Calendar LV language
 // Author: Juris Valdovskis, <juris@dc.lv>
 // Distributed under the same terms as the calendar itself.
 

@@ -1,3 +1,5 @@
+// ** I18N Croatian
+
 /* Croatian language file for the DHTML Calendar version 0.9.2
  * Author Krunoslav Zubrinic <krunoslav.zubrinic@vip.hr>, June 2003.
  * Feel free to use this script under the terms of the GNU Lesser General

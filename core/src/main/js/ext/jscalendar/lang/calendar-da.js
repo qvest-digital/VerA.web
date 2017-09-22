@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Danish
 
-// Calendar DA language
 // Author: Michael Thingmand Henriksen, <michael (a) thingmand dot dk>
 // Distributed under the same terms as the calendar itself.
 

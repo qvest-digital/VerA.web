@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N French
 
-// Calendar French language
 // Author: Mihai Bazon, <mihai_bazon@yahoo.com>
 // Distributed under the same terms as the calendar itself.
 

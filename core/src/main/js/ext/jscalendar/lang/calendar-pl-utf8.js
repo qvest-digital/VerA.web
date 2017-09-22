@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Polish
 
-// Calendar PL language
 // Author: Dariusz Pietrzak, <eyck@ghost.anime.pl>
 // Author: Janusz Piwowarski, <jpiw@go2.pl>
 // Distributed under the same terms as the calendar itself.

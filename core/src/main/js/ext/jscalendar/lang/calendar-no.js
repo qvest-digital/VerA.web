@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Norwegian
 
-// Calendar NO language
 // Author: Daniel Holmen, <daniel.holmen@ciber.no>
 // Distributed under the same terms as the calendar itself.
 

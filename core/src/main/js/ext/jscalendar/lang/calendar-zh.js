@@ -1,8 +1,6 @@
-// ** I18N
+// ** I18N Chinese (ZH)
 
-// Calendar ZH language
 // Author: muziq, <muziq@sina.com>
-// Encoding: GB2312 or GBK
 // Distributed under the same terms as the calendar itself.
 
 // full day names

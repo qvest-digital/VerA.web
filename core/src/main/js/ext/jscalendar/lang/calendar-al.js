@@ -1,4 +1,5 @@
-// Calendar ALBANIAN language
+// ** I18N Albanian
+
 //author Rigels Gordani rige@hotmail.com
 
 // ditet

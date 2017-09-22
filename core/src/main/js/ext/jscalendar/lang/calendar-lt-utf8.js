@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Lithuanian
 
-// Calendar LT language
 // Author: Martynas Majeris, <martynas@solmetra.lt>
 // Distributed under the same terms as the calendar itself.
 

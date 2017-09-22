@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Serbian (Latin)
 
-// Calendar SR language Serbian (Latin)
 // Author: Mihai Bazon, <mishoo@infoiasi.ro>
 // Translation: Nenad Nikolic <shone@europe.com>
 // Feel free to use / redistribute under the GNU LGPL.

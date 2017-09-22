@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Portuguese (Brazil)
 
-// Calendar pt-BR language
 // Author: Fernando Dourado, <fernando.dourado@ig.com.br>
 // Distributed under the same terms as the calendar itself.
 

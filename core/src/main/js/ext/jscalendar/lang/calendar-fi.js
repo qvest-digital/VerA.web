@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Finnish (suomi)
 
-// Calendar FI language (Finnish, Suomi)
 // Author: Jarno Käyhkö, <gambler@phnet.fi>
 // Distributed under the same terms as the calendar itself.
 

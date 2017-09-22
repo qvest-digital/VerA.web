@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Koran
 
-// Calendar Korean language
 // Author: Mihai Bazon, <mihai_bazon@yahoo.com>
 // Translation: Yourim Yi <yyi@yourim.net>
 // Distributed under the same terms as the calendar itself.

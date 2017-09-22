@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Portuguese (Brazil)
 
-// Calendar pt_BR language
 // Author: Adalberto Machado, <betosm@terra.com.br>
 // Distributed under the same terms as the calendar itself.
 

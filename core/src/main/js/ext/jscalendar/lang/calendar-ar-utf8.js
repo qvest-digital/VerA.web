@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Arabic
 
-// Calendar AR language
 // Author: Karim Ratib, <Karim.Ratib@open-craft.com>
 // Distributed under the same terms as the calendar itself.
 

@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Chinese (Traditional?)
 
-// Calendar Chinese (Traditional?) language
 // Author: Gary Fu, <gary@garyfu.idv.tw>
 // Distributed under the same terms as the calendar itself.
 

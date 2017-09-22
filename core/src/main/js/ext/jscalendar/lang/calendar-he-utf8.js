@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Hebrew
 
-// Calendar EN language
 // Author: Idan Sofer, <idan@idanso.dyndns.org>
 // Distributed under the same terms as the calendar itself.
 

@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Spanish
 
-// Calendar SP language
 // Author: Rafael Velasco <rvu_at_idecnet_dot_com>
 // Distributed under the same terms as the calendar itself.
 

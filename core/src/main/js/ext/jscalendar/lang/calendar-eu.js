@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Basque (euskadi)
 
-// Calendar EU (basque) language
 // Author: Xabier Bayon <admin@gaztesarea.net>
 // Updater: Xabier Bayon <admin@gaztesarea.net>
 // Updated: 2005-04-05

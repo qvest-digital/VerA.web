@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Chinese (Simplified?)
 
-// Calendar Chinese (Simplified?) language
 // Author: Mihai Bazon, <mishoo@infoiasi.ro>
 // Translator : Niko <nikoused@gmail.com>
 // Distributed under the same terms as the calendar itself.

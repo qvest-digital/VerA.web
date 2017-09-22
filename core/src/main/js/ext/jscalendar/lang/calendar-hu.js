@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Hungarian
 
-// Calendar HU language
 // Author: ???
 // Modifier: KARASZI Istvan, <jscalendar@spam.raszi.hu>
 // Distributed under the same terms as the calendar itself.

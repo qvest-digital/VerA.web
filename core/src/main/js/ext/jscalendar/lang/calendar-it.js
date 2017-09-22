@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Italian
 
-// Calendar EN language
 // Author: Mihai Bazon, <mihai_bazon@yahoo.com>
 // Translator: Fabio Di Bernardini, <altraqua@email.it>
 // Distributed under the same terms as the calendar itself.

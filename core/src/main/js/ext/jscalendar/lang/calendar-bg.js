@@ -1,6 +1,5 @@
-// ** I18N
+// ** I18N Bulgarian
 
-// Calendar BG language
 // Author: Mihai Bazon, <mihai_bazon@yahoo.com>
 // Translator: Valentin Sheiretsky, <valio@valio.eu.org>
 // Distributed under the same terms as the calendar itself.
