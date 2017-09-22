@@ -75,8 +75,8 @@
 		</mailingList>
 	</mailingLists>
 	<scm>
-		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/parent.git</developerConnection>
-		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/parent.git</url>
+		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/veraweb.git</developerConnection>
+		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git</url>
 		<tag>HEAD</tag>
 	</scm>
 	<!-- this section is required for deployment -->

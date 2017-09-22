@@ -8,11 +8,6 @@
 	<artifactId>veraweb-core</artifactId>
 	<packaging>war</packaging>
 	<name>VerA.web core module</name>
-	<scm>
-		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/veraweb.git</developerConnection>
-		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git</url>
-		<tag>HEAD</tag>
-	</scm>
 	<dependencies>
 		<dependency>
 			<groupId>org.mitre.dsmiley.httpproxy</groupId>

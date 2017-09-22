@@ -8,11 +8,6 @@
 	<artifactId>veraweb-export</artifactId>
 	<packaging>jar</packaging>
 	<name>VerA.web export module</name>
-	<scm>
-		<developerConnection>scm:git:ssh://maven@evolvis.org/scmrepos/git/veraweb/export.git</developerConnection>
-		<url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/export.git</url>
-		<tag>HEAD</tag>
-	</scm>
 	<dependencies>
 		<dependency>
 			<groupId>de.tarent.extract</groupId>
