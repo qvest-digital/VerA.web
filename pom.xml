@@ -294,6 +294,22 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>${maven.war.version}</version>
+						<configuration>
+							<webResources>
+								<resource>
+									<filtering>false</filtering>
+									<directory>target/mksrc</directory>
+									<targetPath>doc</targetPath>
+									<includes>
+										<include>src.tgz</include>
+									</includes>
+								</resource>
+							</webResources>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -361,20 +377,12 @@
 					<webappDirectory>
 						${project.build.directory}/veraweb
 					</webappDirectory>
-					<webResources>
+					<webResources combine.children="append">
 						<resource>
 							<filtering>true</filtering>
 							<directory>src/main/webapp</directory>
 							<includes>
 								<include>artifact-version</include>
-							</includes>
-						</resource>
-						<resource>
-							<filtering>false</filtering>
-							<directory>target/mksrc</directory>
-							<targetPath>doc</targetPath>
-							<includes>
-								<include>src.tgz</include>
 							</includes>
 						</resource>
 					</webResources>
