@@ -35,7 +35,7 @@ fi
 set -e
 set -o pipefail
 cd "$(dirname "$0")/.."
-tgname=core/mksrc/src
+tgname=target/mksrc/src
 rm -rf $tgname
 mkdir -p $tgname
 
@@ -65,8 +65,8 @@ set -x
 # copy git HEAD state
 git ls-tree -r --name-only -z HEAD | sort -z | cpio -p0dlu $tgname/
 
-# create src.tgz in core/target/ to let the maven-war-plugin pick it up
-cd core/target/mksrc
+# create src.tgz in target/ to let the maven-war-plugin pick it up
+cd target/mksrc
 tar -cf - --numeric-owner --owner=0 --group=0 --sort=name \
     --no-acls --no-selinux --no-xattrs -b 1 -H ustar src | \
     gzip -n9 >src.tgz

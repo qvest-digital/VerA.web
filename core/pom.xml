@@ -275,7 +275,7 @@
 							<webResources>
 								<resource>
 									<filtering>false</filtering>
-									<directory>target/mksrc</directory>
+									<directory>../target/mksrc</directory>
 									<targetPath>doc</targetPath>
 									<includes>
 										<include>src.tgz</include>
