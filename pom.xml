@@ -223,7 +223,8 @@
 						<version>${maven.exec.version}</version>
 						<executions>
 							<execution>
-								<id>do-build</id>
+								<inherited>false</inherited>
+								<id>generate-toplevel-sources</id>
 								<phase>generate-resources</phase>
 								<goals>
 									<goal>exec</goal>
