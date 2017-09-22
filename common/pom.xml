@@ -40,26 +40,6 @@
 	</dependencies>
 	<build>
 		<plugins>
-			<!--
-			<plugin>
-				<inherited>false</inherited>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>${maven.exec.version}</version>
-				<executions>
-					<execution>
-						<id>dep-check</id>
-						<phase>install</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<executable>./release/ckdep.sh</executable>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			-->
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>${maven.jar.version}</version>
