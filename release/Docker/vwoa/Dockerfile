@@ -3,7 +3,7 @@ MAINTAINER VerA.web Team <veraweb-discuss@lists.evolvis.org>
 
 RUN mkdir -p /opt/online-anmeldung
 
-ADD ./target/vw-online-registration.jar /opt/online-anmeldung/
+ADD ../../../vwoa/target/vw-online-registration.jar /opt/online-anmeldung/
 
 EXPOSE 8181
 
