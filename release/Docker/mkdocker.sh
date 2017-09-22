@@ -1,6 +1,6 @@
 #!/usr/bin/env mksh
 set -ex
-cd "$(dirname "$0")"/..
+cd "$(dirname "$0")"/../..
 
 doone() (
 	cd "$1"
@@ -11,3 +11,6 @@ doone() (
 doone core veraweb-core
 doone vwoa veraweb-oa
 doone vwor veraweb-rest-api
+# extra
+doone release/Docker/httpd veraweb-httpd
+doone release/Docker/ldap veraweb-ldap

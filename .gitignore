@@ -1,5 +1,7 @@
 **/*.iml
 *.iml
+*.ipr
+*.iws
 *.log
 *.orig
 *~
@@ -8,6 +10,7 @@
 .externalToolBuilders
 .factorypath
 .idea/
+.idea_modules/
 .project
 .settings
 /.apt_generated/
