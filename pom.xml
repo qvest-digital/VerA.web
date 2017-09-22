@@ -213,6 +213,12 @@
 	</modules>
 	<profiles>
 		<profile>
+			<id>oA</id>
+			<modules>
+				<module>vwoa</module>
+			</modules>
+		</profile>
+		<profile>
 			<id>release</id>
 			<build>
 				<plugins>
