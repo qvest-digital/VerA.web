@@ -1,0 +1,74 @@
+<h2>{{'MEDIA_REPRESENTATIVES_TITLE'|translate}}</h2>
+<form role="form" id="mediaForm" name="mediaForm" class="form-signin">
+
+  <div class="form-group container">
+    <div class="row">
+      <div ng-class="mediaForm.gender.$valid ? 'has-success' : 'has-error'">
+        <select class="form-control" 
+                id="gender" name="gender"
+                            ng-model="gender" 
+                            ng-options="option.name | translate for option in genderOptions" 
+                            required  
+                            >
+                            <option value="">{{'GENERIC_PLEASE_SELECT' | translate}}</option>
+        </select>
+        <div class="validation-messages" ng-messages="mediaForm.gender.$error" ng-hide="mediaForm.gender.$pristine">
+          <div class="help-block" ng-message="required">{{'GENERIC_MISSING_GENDER_MESSAGE'|translate}}</div>
+        </div>
+      </div>
+      <div ng-class="mediaForm.firstname.$valid ? 'has-success' : 'has-error'">
+        <input required type="text" class="form-control" id="firstname" name="firstname" placeholder="{{'GENERIC_FIRSTNAME'|translate}}" ng-model="firstname">
+        <div class="validation-messages" ng-messages="mediaForm.firstname.$error" ng-show="mediaForm.firstname.$touched">
+          <div class="help-block" ng-message="required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+        </div>
+      </div>
+
+      <div ng-class="mediaForm.lastname.$valid ? 'has-success' : 'has-error'">
+        <input required type="text" class="form-control" id="lastname" name="lastname" placeholder="{{'GENERIC_LASTNAME'|translate}}" ng-model="lastname">
+        <div class="validation-messages" ng-messages="mediaForm.lastname.$error" ng-show="mediaForm.lastname.$touched">
+          <div class="help-block" ng-message="required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+        </div>
+      </div>
+
+      <div ng-class="mediaForm.email.$valid ? 'has-success' : 'has-error'">
+        <input required type="text" class="form-control" id="email" name="email" placeholder="{{'GENERIC_EMAIL'|translate}}" ng-model="email">
+        <div class="validation-messages" ng-messages="mediaForm.email.$error" ng-show="mediaForm.email.$touched">
+          <div class="help-block" ng-message="required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+        </div>
+      </div>
+
+      <div ng-class="mediaForm.address.$valid ? 'has-success' : 'has-error'">
+        <input required type="text" class="form-control" id="address" name="address" placeholder="{{'GENERIC_ADDRESS'|translate}}" ng-model="address">
+        <div class="validation-messages" ng-messages="mediaForm.address.$error" ng-show="mediaForm.address.$touched">
+          <div class="help-block" ng-message="required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+        </div>
+      </div>
+
+      <div ng-class="mediaForm.plz.$valid ? 'has-success' : 'has-error'">
+        <input required type="text" class="form-control" id="plz" name="plz" placeholder="{{'GENERIC_ZIP_CODE'|translate}}" ng-model="plz">
+        <div class="validation-messages" ng-messages="mediaForm.plz.$error" ng-show="mediaForm.plz.$touched">
+          <div class="help-block" ng-message="required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+        </div>
+      </div>
+
+      <div ng-class="mediaForm.city.$valid ? 'has-success' : 'has-error'">
+        <input required type="text" class="form-control" id="city" name="city" placeholder="{{'GENERIC_CITY'|translate}}" ng-model="city">
+        <div class="validation-messages" ng-messages="mediaForm.city.$error" ng-show="mediaForm.city.$touched">
+          <div class="help-block" ng-message="required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+        </div>
+      </div>
+
+      <div ng-class="mediaForm.country.$valid ? 'has-success' : 'has-error'">
+        <input required type="text" class="form-control" id="country" name="country" placeholder="{{'GENERIC_COUNTRY'|translate}}" ng-model="country">
+        <div class="validation-messages" ng-messages="mediaForm.country.$error" ng-show="mediaForm.country.$touched">
+          <div class="help-block" ng-message="required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+        </div>
+      </div>
+
+      <br/>
+
+      <button type="submit" class="btn btn-custom center-block" ng-disabled="mediaForm.$pristine || !mediaForm.$valid" ng-click="register_pressevertreter()">{{'GENERIC_REGISTER'|translate}}</button>
+    </div>
+  </div>
+</form>
+<hr/>

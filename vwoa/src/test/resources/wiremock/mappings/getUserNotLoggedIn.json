@@ -1,0 +1,12 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/osiam-resource-server/Users?access_token=notloggedin&filter=userName+eq+%22notloggedin%22"
+    },
+    "response": {
+        "status": 400,
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

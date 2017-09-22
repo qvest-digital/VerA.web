@@ -1,0 +1,13 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/vwor/rest/available"
+    },
+    "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

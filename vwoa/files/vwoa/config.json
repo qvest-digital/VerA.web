@@ -1,0 +1,52 @@
+{
+  "logging": {
+    "appenders": [
+      {
+        "archivedFileCount": 7,
+        "archivedLogFilenamePattern": "/var/log/vwoa/vwoa.log.%d.gz",
+        "currentLogFilename": "/var/log/vwoa/vwoa.log",
+        "timeZone": "UTC",
+        "type": "file"
+      }
+    ],
+    "level": "INFO",
+    "loggers": {
+      "org.evolvis.veraweb.onlinereg": "DEBUG",
+      "org.hibernate.SQL": "ALL"
+    }
+  },
+  "onlineRegistrationEndpoint": "https://HOSTNAME-OA/vwor-app/#/",
+  "osiam": {
+    "clientId": "online-registration",
+    "clientSecret": "geheim",
+    "endpoint": "https://HOSTNAME-OSIAM"
+  },
+  "restauth": {
+    "password": "veraweb",
+    "username": "veraweb"
+  },
+  "server": {
+    "adminContextPath": "/admin",
+    "applicationContextPath": "/",
+    "connector": {
+      "bindHost": "127.0.0.1",
+      "port": 8081,
+      "type": "http"
+    },
+    "requestLog": {
+      "appenders": [
+        {
+          "archive": true,
+          "archivedFileCount": 7,
+          "archivedLogFilenamePattern": "/var/log/vwoa/vwoa.log.%d.gz",
+          "currentLogFilename": "/var/log/vwoa/vwoa.log",
+          "threshold": "ALL",
+          "type": "file"
+        }
+      ],
+      "timeZone": "UTC"
+    },
+    "type": "simple"
+  },
+  "verawebEndpoint": "https://HOSTNAME-REST/vwor"
+}

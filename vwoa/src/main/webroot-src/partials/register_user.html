@@ -1,0 +1,90 @@
+<div class="container panel panel-body">
+    <form class="form-horizontal" role="form" ng-submit="register(registerForm.$valid)" name="registerForm" novalidate>
+        <h2 class="form-signin-heading">{{'GENERIC_REGISTER'|translate}}</h2>
+
+		<div ng-show="status == 'e'" class="alert alert-danger" role="alert">{{'GENERIC_ERROR'|translate}}</div>
+		<div ng-show="status == 'e1'" class="alert alert-danger" role="alert">{{'REGISTER_USER_MESSAGE_USER_EXISTS_ERROR'|translate}}</div>
+		<div ng-show="status == 'e2'" class="alert alert-danger" role="alert">{{'REGISTER_USER_MESSAGE_VALIDATION_ERROR'|translate}}</div>
+
+		<div class="form-group" ng-class="registerForm.firstName.$valid ? 'has-success' : 'has-error'">
+			<label class="col-lg-4 control-label" for="firstName">{{'GENERIC_FIRSTNAME'|translate}}</label>
+			<div class="col-lg-3">
+				<input class="form-control" type="text" ng-model="osiam.firstName" name="firstName" required=""/>
+
+				<div ng-show="registerForm.$submitted || registerForm.firstName.$touched">
+					<div class="help-block" ng-show="registerForm.firstName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="form-group" ng-class="registerForm.lastName.$valid ? 'has-success' : 'has-error'">
+			<label class="col-lg-4 control-label" for="lastName">{{'GENERIC_LASTNAME'|translate}}</label>
+			<div class="col-lg-3">
+				<input class="form-control" type="text" ng-model="osiam.lastName" name="lastName" required=""/>
+
+				<div ng-show="registerForm.$submitted || registerForm.lastName.$touched">
+					<div class="help-block" ng-show="registerForm.lastName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group" ng-class="registerForm.email.$valid ? 'has-success' : 'has-error'">
+			<label class="col-lg-4 control-label" for="email">{{'GENERIC_EMAIL'|translate}}</label>
+			<div class="col-lg-3">
+				<input class="form-control" type="text" ng-model="osiam.email" name="email" required=""/>
+
+				<div ng-show="registerForm.$submitted || registerForm.email.$touched">
+					<div class="help-block" ng-show="registerForm.email.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="form-group" ng-class="registerForm.userName.$valid ? 'has-success' : 'has-error'">
+			<label class="col-lg-4 control-label" for="userName">{{'GENERIC_USERNAME'|translate}}</label>
+			<div class="col-lg-3">
+				<input class="form-control" type="text" ng-model="osiam.userName" name="userName" required=""/>
+
+				<div ng-show="registerForm.$submitted || registerForm.userName.$touched">
+					<div class="help-block" ng-show="registerForm.userName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+				</div>
+			</div>
+		</div>
+
+
+ 		<hr>
+ 		<div class="form-group" ng-class="registerForm.password.$valid ? 'has-success' : 'has-error'">
+
+			<label class="col-lg-4 control-label" for="password">{{'GENERIC_PASSWORD'|translate}}</label>
+			<div class="col-lg-3">
+				<input class="form-control" type="password" ng-model="osiam.password" name="password" required=""/>
+
+				<div ng-show="registerForm.$submitted || registerForm.password.$touched">
+					<div class="help-block" ng-show="registerForm.password.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="form-group" ng-class="registerForm.passwordRep.$valid ? 'has-success' : 'has-error'">
+			<label class="col-lg-4 control-label" for="passwordRep">{{'GENERIC_PASSWORD_CONFIRM'|translate}}</label>
+			<div class="col-lg-3">
+				<input class="form-control" type="password" ng-model="osiam.passwordRep" name="passwordRep" equals="{{osiam.password}}" required=""/>
+
+				<div ng-show="registerForm.$submitted || registerForm.passwordRep.$touched">
+					<div class="help-block" ng-show="registerForm.passwordRep.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+					<div class="help-block" ng-show="registerForm.passwordRep.$error.equals">{{'REGISTER_USER_MESSAGE_PASSWORD_REPEAT_ERROR'|translate}}</div>
+				</div>
+			</div>
+		</div>
+
+        <div class="form-group">
+            <div class="col-lg-3 col-lg-offset-4">
+                <button type="submit" class="btn btn-lg btn-primary btn-block btn-custom">
+					{{'GENERIC_REGISTER'|translate}}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

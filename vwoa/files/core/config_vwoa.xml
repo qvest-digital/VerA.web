@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
+
+<!--
+	OCTOPUS config_vwoa.xml
+
+	enable Online-Anmeldung
+-->
+<tcModuleConfig>
+	<params>
+		<!-- wird die Online-Anmeldung auch ausgeführt -->
+		<param name="online-registration.activated" value="true"/>
+		<param name="mandanten-online-registration.deactivated" value=""/>
+	</params>
+</tcModuleConfig>

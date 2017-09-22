@@ -1,0 +1,12 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/osiam-resource-server/Users?access_token=illegal&filter=userName+eq+%22illegal%22"
+    },
+    "response": {
+        "status": 500,
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

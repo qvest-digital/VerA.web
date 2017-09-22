@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="onlineRegApp" flow-init>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>{{'BROWSER_TITLE'|translate}}</title>
+
+		<link href="css/vendor.css" rel="stylesheet">
+		<link href="css/site.css" rel="stylesheet">
+
+	</head>
+	<body>
+	 	<div class="maincontainer"  >
+			<div ng-include src="'partials/header.html'"></div>
+			<div ng-include src="'partials/navigation.html'"></div>
+
+			<div class="container">
+				<div ng-if="$parent.status != null">
+					<div class="alert alert-{{$parent.status}}" role="alert">
+
+						<span ng-if="$parent.status == 'danger'" class="glyphicon glyphicon-remove-sign">&nbsp;</span>
+						<span ng-if="$parent.status == 'info'" class="glyphicon glyphicon-info-sign">&nbsp;</span>
+						<span ng-if="$parent.status == 'success'" class="glyphicon glyphicon-ok-sign">&nbsp;</span>
+						<span ng-if="$parent.status == 'warning'" class="glyphicon glyphicon-warning-sign">&nbsp;</span>
+						{{$parent.messageContent}}
+					</div>
+				</div>
+
+                        <alerts></alerts>
+			<div ng-view></div>
+			</div>
+		</div>
+                <script src="js/app.js"></script>
+	</body>
+</html>

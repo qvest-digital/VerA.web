@@ -1,0 +1,9 @@
+<div class="img-thumbnail" ng-switch="state">
+  <img src="images/default.png" ng-switch-default/>
+  <img src="images/loading.gif" ng-switch-when="loading"/>
+  <img ng-src="{{image}}" ng-switch-when="loaded" />
+  <div class="row">
+    <input type="file" style="display:none" ></input>
+    <span class="btn btn-custom marginL25 marginT10">{{'DELEGATION_PHOTO_NEW'|translate}}</span>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+
+verawebEndpoint: http://localhost:8091/vwor/
+
+osiam:
+  endpoint: http://172.26.12.40/
+  clientId: online-registration
+  clientSecret: geheim
+
+restauth:
+  username: veraweb
+  password: veraweb
+
+## start WireMock:
+# cd src/test/resources/wiremock
+# java -jar /path/to/wirekmock.jar --port 9090
+
+
+server:
+  type: simple
+  applicationContextPath: /
+  adminContextPath: /admin
+  connector:
+    type: http
+    port: 8090
+
+
+# Logging settings.
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+  # Logger-specific levels.
+  loggers:
+
+    # Sets the level for 'com.example.app' to DEBUG.
+    org.evolvis.veraweb.onlinereg: DEBUG
+
+    org.hibernate.SQL: ALL
+
+  appenders:
+    - type: console

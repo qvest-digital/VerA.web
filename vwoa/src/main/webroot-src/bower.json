@@ -1,0 +1,23 @@
+{
+  "name": "online-anmeldung",
+  "version": "1.0.0",
+  "authors": [
+    "Veraweb Team <info@tarent.de>"
+  ],
+  "description": "VerA.web Online-Anmeldung",
+  "main": "index.html",
+  "license": "GPLv2",
+  "homepage": "http://www.tarent.de/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "bootstrapvalidator": "^0.5.3"
+  }
+}

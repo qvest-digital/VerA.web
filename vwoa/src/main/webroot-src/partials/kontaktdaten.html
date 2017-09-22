@@ -1,0 +1,141 @@
+<div class="container panel panel-body">
+  <h2 class="form-signin-heading">{{'GENERIC_USER_ACCOUNT'|translate}}</h2>
+
+  <form id="updateUserCoreData" name="updateUserCoreData" class="form-horizontal" role="form">
+    <div ng-show="formDisabled" class="alert alert-danger" role="alert">{{'USER_ACCOUNT_CORE_DATA_NO_EVENT'|translate}}</div>
+
+    <div class="form-group" ng-class="formDisabled ? 'disabled' : ''">
+      <label class="col-lg-4 control-label" for="salutation">{{'GENERIC_SALUTATION'|translate}}</label>
+      <div class="col-lg-3">
+        <select class="form-control" id="salutation" name="salutation"
+                ng-model="salutation"
+                ng-options="salutation as salutation.name for salutation in salutations"
+                ng-disabled="formDisabled" >
+        </select>
+      </div>
+    </div>
+    <div class="form-group" ng-class="formDisabled ? 'disabled' : ''">
+      <label class="col-lg-4 control-label" for="title">{{'GENERIC_TITLE'|translate}}</label>
+      <div class="col-lg-3">
+        <input id="title"
+               class="form-control"
+               type="text"
+               ng-model="person.title_a_e1"
+               name="title"
+               ng-readonly="formDisabled"
+
+        />
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="formDisabled ? 'disabled' : (updateUserCoreData.firstName.$valid ? 'has-success' : 'has-error')">
+      <label class="col-lg-4 control-label" for="firstName">{{'GENERIC_FIRSTNAME'|translate}}</label>
+      <div class="col-lg-3">
+        <input id="firstName"
+               class="form-control"
+               type="text"
+               maxlength="35"
+               ng-model="person.firstname_a_e1"
+               name="firstName"
+               required
+               ng-readonly="formDisabled"
+        />
+
+        <div ng-show="updateUserCoreData.firstName.$invalid && !updateUserCoreData.firstname.$pristine">
+          <div class="help-block" ng-show="updateUserCoreData.firstName.$error.maxlength">{{'GENERIC_MESSAGE_FIRSTNAME_MAX'|translate}}</div>
+          <div class="help-block" ng-show="updateUserCoreData.firstName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="formDisabled ? 'disabled' : (updateUserCoreData.lastName.$valid ? 'has-success' : 'has-error')">
+      <label class="col-lg-4 control-label" for="lastName">{{'GENERIC_LASTNAME'|translate}}</label>
+      <div class="col-lg-3">
+        <input id="lastName"
+               class="form-control"
+               type="text"
+               maxlength="35"
+               ng-model="person.lastname_a_e1"
+               name="lastName"
+               required
+               ng-readonly="formDisabled"
+        />
+
+        <div ng-show="updateUserCoreData.lastname.$invalid && !updateUserCoreData.lastname.$pristine">
+          <div class="help-block" ng-show="updateUserCoreData.lastName.$error.maxlength">{{'GENERIC_MESSAGE_LASTNAME_MAX'|translate}}</div>
+          <div class="help-block" ng-show="updateUserCoreData.lastName.$error.required">{{'GENERIC_MESSAGE_EMPTY_FIELD'|translate}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="formDisabled ? 'disabled' : (updateUserCoreData.birthday.$valid ? 'has-success' : 'has-error')">
+      <label class="col-lg-4 control-label">{{'GENERIC_BIRTHDAY'|translate}}</label>
+      <div class="col-lg-3">
+        <p class="input-group">
+          <input type="text"
+                 id="birthday"
+                 name="birthday"
+                 class="form-control"
+                 uib-datepicker-popup="dd.MM.yyyy"
+                 is-open="datePickerOpen"
+                 ng-model="person.birthday_a_e1"
+                 datepicker-options="dateOptions"
+                 close-text="Close"
+                 ng-readonly="formDisabled"
+          />
+          <span class="input-group-btn">
+            <button type="button" 
+              class="btn btn-default" 
+              ng-click="datePickerOpen=true"
+              ng-disabled="formDisabled"
+            >
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Needs an extra <div> to show the error message in a new line -->
+    <div class="form-group" ng-class="formDisabled ? 'disabled' : (updateUserCoreData.birthday.$valid ? '' : 'has-error')">
+      <label class="col-lg-4 control-label"></label>
+      <div class="validation-messages" ng-messages="updateUserCoreData.birthday.$error">
+        <div class="col-lg-4 help-block" ng-message="valid">{{'GENERIC_MESSAGE_NOT_A_DATE'|translate}}</div>
+        <div class="col-lg-4 help-block"  ng-message="maxdate">{{'GENERIC_MESSAGE_NO_FUTURE_DATE'|translate}}</div>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="formDisabled ? 'disabled' : ''">
+      <label class="col-lg-4 control-label" for="nationality">{{'GENERIC_NATIONALITY'|translate}}</label>
+      <div class="col-lg-3">
+        <input id="nationality" class="form-control" type="text" ng-model="person.nationality_a_e1" name="nationality" ng-readonly="formDisabled" />
+      </div>
+    </div>
+
+    <hr>
+    <div class="form-group" ng-class="formDisabled ? 'disabled' : ''">
+
+      <label class="col-lg-4 control-label" for="languages">{{'GENERIC_LANGUAGES'|translate}}</label>
+      <div class="col-lg-3">
+        <input id="languages" class="form-control" type="languages" ng-model="person.languages_a_e1" name="languages" ng-readonly="formDisabled" />
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="formDisabled ? 'disabled' : ''">
+      <label class="col-lg-4 control-label" for="gender">{{'GENERIC_GENDER'|translate}}</label>
+      <div class="col-lg-3">
+        <select class="form-control" id="gender" name="gender"
+                                                 ng-model="gender"
+                                                 ng-options="option.name | translate for option in genderOptions" ng-disabled="formDisabled"></select>
+      </div>
+    </div>
+
+    <div ng-show="!formDisabled" class="form-group">
+      <div class="col-lg-3 col-lg-offset-4">
+        <button ng-disabled="updateUserCoreData.$invalid || updateUserCoreData.$pristine"  type="submit" class="btn btn-lg btn-primary btn-block btn-custom" ng-click="update_user_core_data()">
+          {{'USER_ACCOUNT_CORE_DATA_UPDATE'|translate}}
+        </button>
+      </div>
+    </div>
+  </form>
+    </div>

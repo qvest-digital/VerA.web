@@ -1,0 +1,18 @@
+#!/bin/sh
+# DJB Daemontools startup script for VerA.web Online-Anmeldung
+
+cd "$(dirname "$0")"
+exec >&2
+mkdir -p /var/log/vwoa
+chown vwoa:adm /var/log/vwoa
+chmod 2770 /var/log/vwoa
+#XXX TODO investigate why port reuse does not work without 3s sleep
+sleep 2
+date -u +'INFO  [%F %T,000] starting up VWOA' >>/var/log/vwoa/vwoa.log
+chown vwoa:adm /var/log/vwoa/vwoa.log
+chmod 0640 /var/log/vwoa/vwoa.log
+sleep 1
+exec setuidgid vwoa java \
+    -Dfile.encoding=UTF-8 -Djava.awt.headless=true \
+    -Djava.security.egd=file:/dev/./urandom -Xmx128m \
+    -jar vwoa.jar server config.json
