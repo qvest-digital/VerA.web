@@ -16,15 +16,6 @@
 	</fileSets>
 	<files>
 		<file>
-			<source>LICENCE.hdr</source>
-			<outputDirectory></outputDirectory>
-		</file>
-		<file>
-			<source>LICENSE.txt</source>
-			<outputDirectory></outputDirectory>
-			<destName>COPYING</destName>
-		</file>
-		<file>
 			<source>src/main/webapp/OCTOPUS/config_database_pools.xml</source>
 			<outputDirectory></outputDirectory>
 		</file>
