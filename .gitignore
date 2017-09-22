@@ -13,4 +13,5 @@ config.yaml
 pom.xml.releaseBackup
 pom.xml.versionsBackup
 release.properties
+release/ckdep.tmp
 target/

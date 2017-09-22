@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env mksh
 # -*- mode: sh -*-
 #-
-# Copyright © 2016
+# Copyright © 2016, 2017
 #	mirabilos <t.glaser@tarent.de>
 #
 # Provided that these terms and disclaimer and all copyright notices
@@ -33,20 +33,17 @@ if test -z "$MKSRC_RUN_FROM_MAVEN"; then
 fi
 # initialisation
 set -e
+set -o pipefail
 cd "$(dirname "$0")/.."
-if [[ $1 != mktgz ]]; then
-	tgname=mksrc
-else
-	tgname=mksrc/src
-fi
-rm -rf target/$tgname
-mkdir -p target/$tgname
+tgname=core/mksrc/src
+rm -rf $tgname
+mkdir -p $tgname
 
 # check for source cleanliness
 if test -n "$(git status --porcelain)"; then
 	echo >&2 "[ERROR] source tree not clean"
 	if test x"$IS_M2RELEASEBUILD" = x"true"; then
-		:>target/$tgname/failed
+		:>$tgname/failed
 		echo >&2 "[WARNING] maven-release-plugin prepare, continuing anyway"
 
 		# fail the build if dependency licence review has a to-do item
@@ -66,16 +63,11 @@ fi
 set -x
 
 # copy git HEAD state
-git ls-tree -r --name-only -z HEAD | sort -z | cpio -p0dlu target/$tgname/
+git ls-tree -r --name-only -z HEAD | sort -z | cpio -p0dlu $tgname/
 
-if [[ $1 != mktgz ]]; then
-	# leave the rest to the maven-assembly-plugin
-	exit 0
-fi
-
-cd target/mksrc
+# create src.tgz in core/target/ to let the maven-war-plugin pick it up
+cd core/target/mksrc
 tar -cf - --numeric-owner --owner=0 --group=0 --sort=name \
-    --no-acls --no-selinux --no-xattrs -b 1 -H ustar src >src.tar
-rm -r src
-gzip -n9 <src.tar >src.tgz
-rm src.tar
+    --no-acls --no-selinux --no-xattrs -b 1 -H ustar src | \
+    gzip -n9 >src.tgz
+rm -rf src
