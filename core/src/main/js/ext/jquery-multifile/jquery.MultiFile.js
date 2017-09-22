@@ -395,7 +395,7 @@ if (window.jQuery)(function ($) {
 							if($.type(MultiFile.error)=='function')
 								MultiFile.error(ERROR.join('\n\n'));
 
-							// 2007-06-24: BUG FIX - Thanks to Adrian Wróbel <adrian [dot] wrobel [at] gmail.com>
+							// 2007-06-24: BUG FIX - Thanks to Adrian WrÃ¶bel <adrian [dot] wrobel [at] gmail.com>
 							// Ditch the trouble maker and add a fresh new element
 							MultiFile.n--;
 							MultiFile.addSlave(newEle[0], slave_count);
