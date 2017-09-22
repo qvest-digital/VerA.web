@@ -1,6 +1,5 @@
 freeform::CKEditor 4.6.2 ok
 javascript::Bacon 0.7.73 ok
-javascript::WCH 3.10 (incompatible licence) FAIL
 javascript::jquery 1.10.1 ok
 javascript::jquery.form 3.51 ok
 javascript::jquery.gotop ba42aef4cf38558d6585db21096592ed50b52a4c ok

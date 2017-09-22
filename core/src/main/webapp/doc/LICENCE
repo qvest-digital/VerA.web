@@ -397,17 +397,6 @@ veraweb-rest-api/src/test/resources/imageData.txt is the same file.
 │ terms of the GNU Lesser General Public License.                          │
 └──────────────────────────────────────────────────────────────────────────┘
 
-┌──┤ WCH.js - Windowed Controls Hider (CC-BY-SA 1.0) ├─────────────────────┐
-│                                                                          │
-│ (c) Copyright 2003, Aleksandar Vacic, aleck@sezampro.yu, www.aplus.co.yu │
-│                                                                          │
-│ ## This work is licensed under the Creative Commons                      │
-│    Attribution-ShareAlike License.                                       │
-│ ## To view a copy of this license, visit                                 │
-│    http://creativecommons.org/licenses/by-sa/1.0/ or send a letter to    │
-│ Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA │
-└──────────────────────────────────────────────────────────────────────────┘
-
 Several ECMAscript files came into existence in 2007 and lack a licence:
 • clipboard.js
 • dhtml-dialogs.js

@@ -28,11 +28,7 @@
 			document.createElement("footer");
 		</script>
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}js/ext/jscalendar/calendar-win2k-cold-1.css" media="all" />
-##		WCH - Windowed Controls Hider (http://www.aplus.co.yu/wch/intro/)
-##		<!--[if IE]>
-		<script type="text/javascript" src="${paths.staticWeb}scripts/WCH.js"></script>
 		<script type="text/javascript" src="${paths.staticWeb}js/vera/vera-tabs.js"></script>
-##		<![endif]-->
 ##		Style
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/style.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}js/ext/jquery-tags-input/dist/jquery.tagsinput.min.css" media="all" />
