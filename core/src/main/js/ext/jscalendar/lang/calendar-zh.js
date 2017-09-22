@@ -1,5 +1,6 @@
-// ** I18N Chinese (ZH)
+// ** I18N Chinese (Simplified?)
 
+// Translator: Niko <nikoused@gmail.com>
 // Author: muziq, <muziq@sina.com>
 // Distributed under the same terms as the calendar itself.
 
@@ -69,10 +70,10 @@ Calendar._SMN = new Array
 
 // tooltips
 Calendar._TT = {};
-Calendar._TT["INFO"] = "帮助";
+Calendar._TT["INFO"] = "帮助"; // "关于";
 
 Calendar._TT["ABOUT"] =
-"DHTML Date/Time Selector\n" +
+"DHTML 日起/时间选择控件\n" +
 "(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n" + // don't translate this this ;-)
 "For latest version visit: http://www.dynarch.com/projects/calendar/\n" +
 "Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details." +
@@ -94,11 +95,11 @@ Calendar._TT["NEXT_MONTH"] = "下一月 (按住出菜单)";
 Calendar._TT["NEXT_YEAR"] = "下一年 (按住出菜单)";
 Calendar._TT["SEL_DATE"] = "选择日期";
 Calendar._TT["DRAG_TO_MOVE"] = "拖动";
-Calendar._TT["PART_TODAY"] = " (今日)";
+Calendar._TT["PART_TODAY"] = " (今日)"; // " (今天)";
 
 // the following is to inform that "%s" is to be the first day of week
 // %s will be replaced with the day name.
-Calendar._TT["DAY_FIRST"] = "最左边显示%s";
+Calendar._TT["DAY_FIRST"] = "最左边显示%s"; // "%s为这周的第一天";
 
 // This may be locale-dependent.  It specifies the week-end days, as an array
 // of comma-separated numbers.  The numbers are from 0 to 6: 0 means Sunday, 1
@@ -106,7 +107,7 @@ Calendar._TT["DAY_FIRST"] = "最左边显示%s";
 Calendar._TT["WEEKEND"] = "0,6";
 
 Calendar._TT["CLOSE"] = "关闭";
-Calendar._TT["TODAY"] = "今日";
+Calendar._TT["TODAY"] = "今日"; // "今天";
 Calendar._TT["TIME_PART"] = "(Shift-)点击鼠标或拖动改变值";
 
 // date formats
