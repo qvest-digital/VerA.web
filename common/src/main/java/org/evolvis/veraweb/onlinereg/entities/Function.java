@@ -7,7 +7,6 @@ package org.evolvis.veraweb.onlinereg.entities;
  *  © 2013 Иванка Александрова <i.alexandrova@tarent.de>
  *  © 2013 Patrick Apel <p.apel@tarent.de>
  *  © 2016 Eugen Auschew <e.auschew@tarent.de>
- *  © 2015 benja <benja@benja.com>
  *  © 2013 Andrei Boulgakov <a.boulgakov@tarent.de>
  *  © 2013 Valentin But <v.but@tarent.de>
  *  © 2016 Lukas Degener <l.degener@tarent.de>
@@ -23,7 +22,6 @@ package org.evolvis.veraweb.onlinereg.entities;
  *  © 2005, 2006, 2007, 2008 Christoph Jerolimov <jerolimov@gmx.de>
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
- *  © 2015 Christian Luginbühl <dinkel@pimprecords.com>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
  *  © 2013, 2014, 2015, 2016, 2017 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
@@ -33,10 +31,8 @@ package org.evolvis.veraweb.onlinereg.entities;
  *  © 2016 Jens Oberender <j.oberender@tarent.de>
  *  © 2016, 2017 Miluška Pech <m.pech@tarent.de>
  *  © 2009 Martin Pelzer <m.pelzer@tarent.de>
- *  © 2015 Dmytro Pishchukhin <demon@Demons-MBP.fritz.box>
  *  © 2013 Marc Radel <m.radel@tarent.de>
  *  © 2013 Sebastian Reimers <s.reimers@tarent.de>
- *  © 2015 rysiekpl <rysiek@hackerspace.pl>
  *  © 2015 Charbel Saliba <c.saliba@tarent.de>
  *  © 2008, 2009, 2010 Thomas Schmitz <t.schmitz@tarent.de>
  *  © 2013 Volker Schmitz <v.schmitz@tarent.de>
@@ -47,7 +43,6 @@ package org.evolvis.veraweb.onlinereg.entities;
  *  © 2015, 2016, 2017 Max Weierstall <m.weierstall@tarent.de>
  *  © 2013 Rebecca Weinz <r.weinz@tarent.de>
  *  © 2015, 2016 Stefan Weiz <s.weiz@tarent.de>
- *  © 2015 hong Xu <hong@topbug.net>
  *  © 2015, 2016 Tim Zimmer <t.zimmer@tarent.de>
  * and older code, Copyright © 2004–2008 ⮡ tarent GmbH and contributors.
  * Licensor is tarent solutions GmbH, http://www.tarent.de/
