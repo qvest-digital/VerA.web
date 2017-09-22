@@ -3,11 +3,9 @@
 	<parent>
 		<groupId>org.evolvis.veraweb</groupId>
 		<artifactId>veraweb-parent</artifactId>
-		<version>0.2</version>
+		<version>1.8.55.2-SNAPSHOT</version>
 	</parent>
-	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-core</artifactId>
-	<version>1.8.55.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>VerA.web core module</name>
 	<scm>
