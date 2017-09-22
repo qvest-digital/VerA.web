@@ -1,8 +1,7 @@
-﻿// ** I18N
+// ** I18N
 
 // Calendar pt-BR language
 // Author: Fernando Dourado, <fernando.dourado@ig.com.br>
-// Encoding: any
 // Distributed under the same terms as the calendar itself.
 
 // For translators: please use UTF-8 if possible.  We strongly believe that
@@ -105,4 +104,3 @@ Calendar._TT["TT_DATE_FORMAT"] = "%d de %B de %Y";
 
 Calendar._TT["WK"] = "sem";
 Calendar._TT["TIME"] = "Hora:";
-

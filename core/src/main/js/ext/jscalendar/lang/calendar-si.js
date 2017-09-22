@@ -1,8 +1,9 @@
-/* Slovenian language file for the DHTML Calendar version 0.9.2 
-* Author David Milost <mercy@volja.net>, January 2004.
-* Feel free to use this script under the terms of the GNU Lesser General
-* Public License, as long as you do not remove or alter this notice.
-*/
+/* Slovenian language file for the DHTML Calendar version 0.9.2
+ * Author David Milost <mercy@volja.net>, January 2004.
+ * Feel free to use this script under the terms of the GNU Lesser General
+ * Public License, as long as you do not remove or alter this notice.
+ */
+
  // full day names
 Calendar._DN = new Array
 ("Nedelja",

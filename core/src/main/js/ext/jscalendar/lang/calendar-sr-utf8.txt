@@ -1,9 +1,8 @@
-<div class="moz-text-flowed" style="font-family: -moz-fixed">/* Serbian language file for the DHTML Calendar
-* Author Srle Doberman <srleiqnet@hotmail.com>, September 2005.
-* Feel free to use this script under the terms of the GNU Lesser General
-* Public License, as long as you do not remove or alter this notice.
-*/
-// ** I18N
+/* Serbian language file for the DHTML Calendar
+ * Author Srle Doberman <srleiqnet@hotmail.com>, September 2005.
+ * Feel free to use this script under the terms of the GNU Lesser General
+ * Public License, as long as you do not remove or alter this notice.
+ */
 
 // cela imena dana
 Calendar._DN = new Array
@@ -67,15 +66,13 @@ Calendar._TT["INFO"] = "O kalendaru";
 
 Calendar._TT["ABOUT"] =
 "DHTML Date/Time Selector\n" +
-"(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n" + // don't translate 
-this this ;-)
+"(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n" + // don't translate this this ;-)
 "For latest version visit: http://www.dynarch.com/projects/calendar/\n" +
-"Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for 
-details." +
+"Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details." +
 "\n\n" +
 "Selekcija datuma:\n" +
 "- Koristite \xab, \xbb dugmiće za selekciju godine\n" +
-"- Koristite " + String.fromCharCode(0x2039) + ", " + 
+"- Koristite " + String.fromCharCode(0x2039) + ", " +
 String.fromCharCode(0x203a) + " dugmiće za selekciju meseca\n" +
 "- Dugi pritisak na dugmiće iznad za bržu selekciju.";
 Calendar._TT["ABOUT_TIME"] = "\n\n" +
@@ -97,15 +94,13 @@ Calendar._TT["PART_TODAY"] = " (danas)";
 // %s će biti zamenjen sa imenom dana.
 Calendar._TT["DAY_FIRST"] = "Prikažite %s kao prvi dan";
 
-// Sledeće promenljive su zavisne od lokaliteta. Specificirani su dani 
-vikenda,
+// Sledeće promenljive su zavisne od lokaliteta. Specificirani su dani vikenda,
 // kao aray brojeva odvojenih zarezom. Brojevi su od 0 do 6:
 // 0 predstavlja Nedelju, 1 predstavlja Ponedeljak, itd.
 Calendar._TT["WEEKEND"] = "0,6";
 Calendar._TT["CLOSE"] = "Zatvorite";
 Calendar._TT["TODAY"] = "Danas";
-Calendar._TT["TIME_PART"] = "(Shift-)Pritisnite ili povucite za promenu 
-vrednosti";
+Calendar._TT["TIME_PART"] = "(Shift-)Pritisnite ili povucite za promenu vrednosti";
 
 // format datuma
 Calendar._TT["DEF_DATE_FORMAT"] = "%d.%m.%Y";
@@ -113,4 +108,3 @@ Calendar._TT["TT_DATE_FORMAT"] = "%A %d.%m.%Y";
 
 Calendar._TT["WK"] = "Nd";
 Calendar._TT["TIME"] = "Vreme:";
-</div>

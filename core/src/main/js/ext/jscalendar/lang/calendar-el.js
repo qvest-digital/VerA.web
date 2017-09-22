@@ -1,4 +1,5 @@
-﻿// ** I18N
+// ** I18N Greek
+
 Calendar._DN = new Array
 ("Κυριακή",
  "Δευτέρα",
@@ -86,4 +87,3 @@ Calendar._TT["DEF_DATE_FORMAT"] = "dd-mm-y";
 Calendar._TT["TT_DATE_FORMAT"] = "D, d M";
 
 Calendar._TT["WK"] = "εβδ";
-

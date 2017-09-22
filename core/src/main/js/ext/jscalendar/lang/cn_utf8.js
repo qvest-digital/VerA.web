@@ -1,8 +1,7 @@
 // ** I18N
 
-// Calendar EN language
+// Calendar Chinese (Simplified?) language
 // Author: Mihai Bazon, <mishoo@infoiasi.ro>
-// Encoding: any
 // Translator : Niko <nikoused@gmail.com>
 // Distributed under the same terms as the calendar itself.
 

@@ -1,7 +1,6 @@
-/* 
+/*
 	calendar-cs-win.js
 	language: Czech
-	encoding: windows-1250
 	author: Lubos Jerabek (xnet@seznam.cz)
 	        Jan Uhlir (espinosa@centrum.cz)
 */
@@ -67,4 +66,3 @@ Calendar._TT["TT_DATE_FORMAT"] = "%a, %b %e";
 
 Calendar._TT["WK"] = "wk";
 Calendar._TT["TIME"] = "Čas:";
-

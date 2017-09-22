@@ -2,7 +2,6 @@
 
 // Calendar LT language
 // Author: Martynas Majeris, <martynas@solmetra.lt>
-// Encoding: UTF-8
 // Distributed under the same terms as the calendar itself.
 
 // For translators: please use UTF-8 if possible.  We strongly believe that

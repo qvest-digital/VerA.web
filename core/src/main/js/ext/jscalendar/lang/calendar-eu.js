@@ -1,10 +1,9 @@
-﻿// ** I18N
+// ** I18N
 
 // Calendar EU (basque) language
 // Author: Xabier Bayon <admin@gaztesarea.net>
 // Updater: Xabier Bayon <admin@gaztesarea.net>
 // Updated: 2005-04-05
-// Encoding: utf-8
 // Distributed under the same terms as the calendar itself.
 
 // For translators: please use UTF-8 if possible.  We strongly believe that

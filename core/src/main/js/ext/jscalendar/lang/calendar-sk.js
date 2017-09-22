@@ -2,7 +2,6 @@
 
 // Calendar SK language
 // Author: Peter Valach (pvalach@gmx.net)
-// Encoding: utf-8
 // Last update: 2003/10/29
 // Distributed under the same terms as the calendar itself.
 

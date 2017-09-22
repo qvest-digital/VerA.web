@@ -2,7 +2,6 @@
 
 // Calendar EN language
 // Author: Idan Sofer, <idan@idanso.dyndns.org>
-// Encoding: UTF-8
 // Distributed under the same terms as the calendar itself.
 
 // For translators: please use UTF-8 if possible.  We strongly believe that
