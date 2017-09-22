@@ -107,11 +107,15 @@
 					<failIfMissing>true</failIfMissing>
 					<aggregate>true</aggregate>
 					<includes>
+						<include>**/*.groovy</include>
 						<include>**/*.java</include>
 						<include>core/files/cli-import.sh</include>
 						<include>core/files/upgrade.sql</include>
 						<include>core/src/main/js/vera/*.js</include>
 					</includes>
+					<excludes>
+						<exclude>**/src/main/js/ext/**</exclude>
+					</excludes>
 					<headerDefinitions>
 						<headerDefinition>${basedir}/release/myc-javapkg.xml</headerDefinition>
 					</headerDefinitions>
