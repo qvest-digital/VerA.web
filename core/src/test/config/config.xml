@@ -1,55 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-veraweb, platform independent webservice-based event management
-(Veranstaltungsmanagment VerA.web), is
-Copyright © 2004–2008 tarent GmbH
-Copyright © 2013–2015 tarent solutions GmbH
-tarent-contact, platform independent webservice-based contact management, is
-Copyright © 2002 tarent GmbH
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along
-with this program; if not, see: http://www.gnu.org/licenses/
--->
-<!--
 Für LDAP bitte folgendes anpassen:
 URL des LDAP-Servers,
 den Base-DN des LDAP,
 und User/Password für schreibenden Zugriff auf die Kontaktdaten
 -->
-
 <!DOCTYPE tcConfig SYSTEM "tcConfig.dtd">
-
 <!-- Hauptkonfiguration von tarent:config -->
 <tcConfig>
-
-  <application>
-    <!-- Pfadangaben müssen alle relativ zu '/WEB-INF/' Verzeichniss angegeben werden
+	<application>
+		<!-- Pfadangaben müssen alle relativ zu '/WEB-INF/' Verzeichniss angegeben werden
          und mit einem '/' enden. -->
-    <param name="paths.templateRoot" value="templates/"/>
-    <param name="paths.modules" value="modules/"/>
-
-    <param name="defaultResponseType" value="soap"/>
-    <param name="defaultErrorDescriptionName" value="defaultErrorPage"/>
-
-    <param name="defaultEncoding" value="ISO-8859-1"/>
-    <param name="defaultContentType" value="text/xml"/>
-
-
-  	<param name="auth.type" value="ACCEPT"/>
-
-    <param name="defaultModule" value="testModule"/>
-  </application>
-  <modules>
-  	<param name="onlyNeededToConformWithDtd"></param>
-  </modules>
+		<param name="paths.templateRoot" value="templates/"/>
+		<param name="paths.modules" value="modules/"/>
+		<param name="defaultResponseType" value="soap"/>
+		<param name="defaultErrorDescriptionName" value="defaultErrorPage"/>
+		<param name="defaultEncoding" value="ISO-8859-1"/>
+		<param name="defaultContentType" value="text/xml"/>
+		<param name="auth.type" value="ACCEPT"/>
+		<param name="defaultModule" value="testModule"/>
+	</application>
+	<modules>
+		<param name="onlyNeededToConformWithDtd"/>
+	</modules>
 </tcConfig>
