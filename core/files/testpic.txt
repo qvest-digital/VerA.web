@@ -1,0 +1,11 @@
+Dieses Testbild von exakt 186x245 Pixeln Größe dient dem Test
+des Photo-Uploads in VerA.web (core und Online-Anmeldung). Es
+wird unter der freien Lizenz CC-BY 3.0 (unported) verbreitet:
+
+	http://creativecommons.org/licenses/by/3.0/
+
+Der Urheber dieses Bildes ist der Benutzer „Stavrolo“ auf der
+Wikimedia Commons-Seite bzw. der englischsprachigen Wikipedia
+(es existiert leider kein Link, den man hier angeben könnte).
+
+Das Photo wurde 2002 geschossen und 2008 nachbearbeitet.

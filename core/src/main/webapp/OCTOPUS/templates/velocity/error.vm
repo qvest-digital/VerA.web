@@ -1,0 +1,87 @@
+#set($title = "Ein Fehler ist aufgetreten.")
+#parse("inc/header.vm")
+
+<h1>Fehlermeldung</h1>
+
+#if($status.exception)
+#macro(printStackTraceElement $ste)
+	<tr>
+		<td/>
+		<td colspan="3">${st.className}.${st.methodName}</td>
+	</tr><tr>
+		<td style="width: 20px;"/>
+		<td>from</td>
+  #if($st.isNativeMethod())
+  		<td><i>Native Method</i></td>
+   		<td/>
+  #elseif($st.fileName)
+  		<td>$st.fileName</td>
+   #if($st.lineNumber >= 0)
+  		<td>Line $st.lineNumber</td>
+   #else
+   		<td/>
+   #end
+  #else
+  		<td><i>Unknown Source</i></td>
+   		<td/>
+  #end
+	</tr>
+ #end
+ #macro(printStackTraceAsCause $ex $ct)
+  #if($ex.cause)
+   #printStackTraceAsCause($ex.cause $ex.stackTrace)
+  #end
+  #set($ttl=[])
+  #set($ctl=[])
+  #foreach($i in $ex.stackTrace)
+   #if($ttl.add($i)) #end
+  #end
+  #foreach($i in $ct)
+   #if($ctl.add($i)) #end
+  #end
+  #set($m = $ttl.size() - 1)
+  #set($n = $ctl.size() - 1)
+  #foreach($i in [0..$m])
+   #if($m >= 0 && $n >= 0 && $ttl.get($m) == $ctl.get($n))
+    #set($m = $m - 1)
+    #set($n = $n - 1)
+   #else
+    #set($n = -1)
+   #end
+  #end
+	<tr><th colspan="4" style="padding: 4px;">$ex.class.name</th></tr>
+	<tr><td colspan="4" style="padding: 4px;">&nbsp; $!ex.localizedMessage</td></tr>
+  #foreach($i in [0..$m])
+   #set($st = $ttl.get($i))
+   #printStackTraceElement($st)
+  #end
+ #end
+ #macro(printStackTrace $ex)
+<table>
+  #if($ex.cause)
+   #printStackTraceAsCause($ex.cause $ex.stackTrace)
+  #end
+	<tr><th colspan="4" style="padding: 4px;">$ex.class.name</th></tr>
+	<tr><td colspan="4" style="padding: 4px;">&nbsp; $!ex.localizedMessage</td></tr>
+  #foreach($st in $ex.stackTrace)
+   #printStackTraceElement($st)
+  #end
+</table>
+#end
+
+<h2 class="marginBottom10">Fehler</h2>
+<p>Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten.
+Bitte melden Sie dies Ihrem Administrator.</p>
+<h2 class="marginTop30 marginBottom10">Details</h2>
+#printStackTrace($status.exception)
+#else
+<p>Unbekannter Fehler.</p>
+#end
+
+
+
+
+<!--
+$responseParams
+-->
+#parse("inc/footer.vm")

@@ -1,0 +1,122 @@
+#set($activeMenu = "Veranstaltungen")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_DISTRIBUTOR_LIST}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_DISTRIBUTOR}")
+#set($entity="DISTRIBUTOR")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_PLURAL}")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 25)
+#set($column3 = 20)
+#set($column4 = 10)
+#set($column5 = 12)
+#set($column6 = 28)
+
+#parse("inc/header.vm")
+
+<script type="text/javascript">
+    function deleteMailinglist() {
+    	var n = 0; //Anzahl der markierten Verteiler
+    	for (var i = 0; i < document.formlist.length; i++) {
+    		if (document.formlist.elements[i].type == "checkbox")
+    			if (document.formlist.elements[i].checked == true)
+    				n++;
+    	}
+    	var check = false;
+    	if (n == 1) {
+    		check = confirm("${placeholderWithTranslation.DELETE_DISTRIBUTOR}");
+		} else if (n > 1) {
+    		check = confirm("${placeholderWithTranslation.DELETE_DISTRIBUTORS}");
+		}
+    	if (check == true) {
+    		document.getElementById('remove').name = 'remove';
+    		document.formlist.submit();
+    	}
+    }
+</script>
+
+<div id="content_container">
+	<div id="breadcrumb" class="textRight marginBottom10">
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>
+	</div>
+
+	<h1>${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</h1>
+
+	<form id="formlist" name="formlist" action="ShowMailinglistList" method="POST">
+
+    	<input type="hidden" name="start" value="">
+		<input type="hidden" name="limit" value="">
+    	<input type="hidden" name="selectNone" value="true">
+    	<input type="hidden" name="doRemove" value="true">
+    	<input type="hidden" id="remove" name="removeDisabled" value="true">
+
+    	#foreach($bean in $list)
+    	<input type="hidden" name="list" value="$bean.id">
+    	#end
+
+    	#if($list && $list.size() > 0)
+
+        	#if($grants.mayWrite())
+        	<span id="actionPanel">
+                <strong>${placeholderWithTranslation.markiertenverteiler}</strong>
+        		<input type="button" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" onclick="deleteMailinglist();" title="${placeholderWithTranslation.markierteverteilerloschen}">
+        	</span>
+        	#end
+
+        	<table class="marginTop10 fixed">
+        		##Set column size
+				<col width="$column0%" />
+    			<col width="$column1%" />
+    			<col width="$column2%" />
+    			<col width="$column3%" />
+    			<col width="$column4%" />
+    			<col width="$column5%" />
+    			<col width="$column6%" />
+
+        		<tr>
+        			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="Alle (de)markieren"/></th>
+        			<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+        			<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
+        			<th>${placeholderWithTranslation.angelegtvon}</th>
+        			<th class="smallCell nowrap">${placeholderWithTranslation.angelegtam}</th>
+        			<th>${placeholderWithTranslation.erzeugtausveranstaltung}</th>
+        			<th>${placeholderWithTranslation.GENERIC_EVENT_SINGULAR}</th>
+        		</tr>
+        		#foreach($bean in $list)
+        		<tr>
+        			<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true"></td>
+        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id">$!bean.id</td>
+        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.text($!bean.name)</td>
+        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.text($!bean.username)</td>
+        			<td class="textCenter" onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.date("DATE_TIME", $bean.created) Uhr</td>
+        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">
+        				#if($bean.eventname && $!bean.eventname!="")
+        					$!message.text(${placeholderWithTranslation.GENERIC_YES})
+        				#else
+        					$!message.text(${placeholderWithTranslation.GENERIC_NO})
+        				#end
+        			</td>
+        			<td onclick="window.location.href='ShowMailinglistDetail?id=$!{bean.id}';">$!message.text($!bean.eventname)</td>
+        		</tr>
+        		#end
+
+        		#set($itemName = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_PLURAL}")
+				#tableFooter(7)
+        		#parse("inc/list-direct-new.vm")
+        	</table>
+
+    	#else
+
+    		<div class="contentBoxColored grayBorder marginBottom20">
+    			${placeholderWithTranslation.eswurdenkeineeintragegefunden}
+    		</div>
+
+    	#end
+
+	</form>
+
+</div>
+
+#parse("inc/footer.vm")

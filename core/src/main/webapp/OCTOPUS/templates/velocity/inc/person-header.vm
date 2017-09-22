@@ -1,0 +1,147 @@
+<!-- Nur in Bearbeiten Sicht -->
+
+#if($action == "guest")
+	<div id="buttonPanel-top" class="textRight marginBottom10">
+		#if($iAmActivated && !$person.username)
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
+		#end
+		#if($person && $person.id)
+			<input type="button" name="add" value="${placeholderWithTranslation.GENERIC_APPLY_TO_GUESTLIST}" title="${placeholderWithTranslation.GENERIC_APPLY_GUEST_TO_GUESTLIST}" class="mainButton" onclick="addToGuestList();">
+		#end
+		#if($grants.mayWrite())
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { copyPerson(); }"/>
+		#end
+		<input type="button" name="export" class="mainButton"value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
+	</div>
+#elseif($action == "host")
+	<div id="buttonPanel-top" class="textRight marginBottom10">
+		#if($iAmActivated && !$person.username)
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
+		#end
+		#if($person && $person.id)
+			<input type="button" name="set" class="mainButton" value="${placeholderWithTranslation.GENERIC_APPLY}" title="${placeholderWithTranslation.GENERIC_APPLY_PERSON_AS_HOST}" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventDetail?hostid=$!person.id';">
+		#end
+		#if($grants.mayWrite())
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { copyPerson(); }" />
+		#end
+		<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
+
+		## modified to provide a direct statistic button as per change request for version 1.2.0
+		## cklein
+		## 2008-03-14
+		<input type="button" value="${placeholderWithTranslation.GENERIC_STATISTIC}" class="mainButton" name="statistics" #if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else vera-disabled #end>
+	</div>
+#elseif($action == "event")
+	<div id="buttonPanel-top" class="textRight marginBottom10">
+		#if($iAmActivated && !$person.username)
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
+		#end
+		#if($grants.mayWrite())
+			<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { copyPerson(); }" />
+		#end
+		<input type="button" name="export" class="mainButton" value="${placeholderWithTranslation.GENERIC_CREATE_TAG}" onclick="exportPerson('${paths.staticWeb}do/', '$!person.id');">
+
+		## modified to provide a direct statistic button as per change request for version 1.2.0
+		## cklein
+		## 2008-03-14
+		<input type="button" value="${placeholderWithTranslation.GENERIC_STATISTIC}" class="mainButton" name="statistics"	#if($person && $person.id) onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );" #else vera-disabled #end>
+	</div>
+#else
+    #if($osiam-user-created)
+        <vera-success>
+            ${placeholderWithTranslation.MESSAGE_OSIAM_LOGIN_DATA_SUCCESFUL}
+        </vera-success>
+    #end
+    #if ($osiam-user-exists)
+        <vera-warn>
+            ${placeholderWithTranslation.MESSAGE_OSIAM_LOGIN_DATA_EXIST}
+        </vera-warn>
+    #end
+	<div id="buttonPanel-top" class="textRight marginBottom10">
+		#if($person && $person.id)
+			#if($iAmActivated && !$person.username)
+				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.anmeldedatenerzeugen}" title="${placeholderWithTranslation.GENERIC_GENERATE_LOGIN_CREDENTIALS_FOR_ONLINE_REGISTRATION}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { createOsiamUser(); }" />
+			#end
+			#if($grants.mayWrite())
+				<input type="button" name="copy" class="mainButton" value="${placeholderWithTranslation.GENERIC_COPY_PERSON}" title="${placeholderWithTranslation.GENERIC_COPY_CURRENT_PERSON}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { copyPerson(); }" />
+			#end
+			#if($grants.mayWrite())
+				<input type="button" name="event" class="mainButton" value="${placeholderWithTranslation.GENERIC_ASSIGN_TO_EVENT}" title="${placeholderWithTranslation.GENERIC_ASSIGN_CURRENT_PERSON_TO_EVENT}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/ShowEventSearch?action=addperson'; }"/>
+				<input type="button" name="remove" class="mainButton" value="${placeholderWithTranslation.GENERIC_DELETE_PERSON}" title="${placeholderWithTranslation.aktuellepersonloschenundzurpersonenlistezuruckkehren}." onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { removePerson(); }" />
+			#end
+		#end
+
+		## modified to disable the button in case that this is a new record
+		## modified to provide a direct statistic button as per change request for version 1.2.0
+		## cklein
+		## 2008-02-21
+		#if($person && $person.id)
+			<input type="button" value="${placeholderWithTranslation.GENERIC_STATISTIC}" title="${placeholderWithTranslation.GENERIC_STATISTIC}" name="statistics" class="mainButton" onclick="window.open( '${paths.staticWeb}do/StatistikExport?id=$!person.id' );">
+		#end
+	</div>
+#end
+
+<div id="peopleTop">
+	<div class="table width100 marginBottom20">
+		<div class="tableRow">
+			<div class="tableCell width50">
+				<div class="table width100">
+					<div class="tableRow">
+						<div class="tableCell width50">
+							<strong>${placeholderWithTranslation.GENERIC_DOCUMENTED_ON} / ${placeholderWithTranslation.GENERIC_FROM}</strong><br />
+							#if($person.created)$!message.date("DATE", $person.created)#end #if($person.createdby)/ $!message.text($person.createdby)#end
+						</div>
+						<div class="tableCell width50">
+							<strong>${placeholderWithTranslation.GENERIC_LAST_EDITED_ON} / ${placeholderWithTranslation.GENERIC_FROM}</strong><br />
+							#if($person.changed)$!message.date("DATE", $person.changed)#end #if($person.changedby)/ $!message.text($person.changedby)#end
+						</div>
+					</div>
+					<div class="tableRow">
+						<div class="tableCell width50" id="showid">
+							<strong>${placeholderWithTranslation.GENERIC_PERSONS_ID}</strong><br />#if($person.id)$!message.text($person.id)#end
+						</div>
+						<div class="tableCell width50">
+							#if($iAmActivated)
+								<strong>${placeholderWithTranslation.GENERIC_OA_USERNAME}</strong><br />
+								#if($person.username)
+									$person.username
+								#end
+							#end
+						</div>
+					</div>
+					<div class="tableRow">
+                        <div style="margin: 0 0 10px 20px;">
+                            <label for="person-internal_id">${placeholderWithTranslation.INTERNAL_ID}</label>
+                            <input style="width: 47%;" type="text" name="person-internal_id" id="person-internal_id" value="$!message.text($person.internal_id)" onchange="setModified();" #if(!$grants.mayWrite() || $createNewPerson) vera-disabled#end/>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	//In case the person detail view was called in the Event/Guest context ("Stammdaten bearbeiten"), we need to add the
+	//the initial tab in order to redirect the user back to the given guest detail tab from any person tab.
+	function getGuestTabId(){
+		var guestTabId = '';
+
+		#if($action == "event")
+			#if($octopusRequest.show && $octopusRequest.show == 'doctype')
+				guestTabId = '&show=doctype';
+			#else
+				guestTabId = '&tab=$octopusRequest.tab';
+			#end
+		#end
+
+		return guestTabId;
+	}
+
+	// TODO Comments
+	function createOsiamUser() {
+		var form = $('#PersonForm');
+		form.attr('action', '${paths.staticWeb}do/CreateOsiamUser?personId='+$person.id);
+		form.submit();
+	}
+</script>

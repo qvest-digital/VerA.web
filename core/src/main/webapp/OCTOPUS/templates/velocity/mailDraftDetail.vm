@@ -1,0 +1,100 @@
+#set($activeMenu = "Administration")
+#if($maildraft && $maildraft.id)
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_SUBMISSION_EDIT}: $!message.text($maildraft.name)")
+#else
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_SUBMISSION_CREATE}")
+#end
+
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_MAIL_DRAFT}")
+#set($entity="MAIL_DRAFT")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_PLURAL}")
+#parse("inc/header.vm")
+
+<script src="${paths.staticWeb}js/ext/ckeditor/ckeditor.js"></script>
+<script src="${paths.staticWeb}js/vera/veraweb-mailtemplatedetails.js"></script>
+
+<form id="formlist" name="formlist" action="MailDraftDetail" method="POST">
+	<input type="hidden" name="save" value="true"/>
+
+	<div id="content_container">
+        <div id="breadcrumb" class="textRight marginBottom10">
+            <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.emailvorlage}</span>
+        </div>
+
+        <h1>${placeholderWithTranslation.emailvorlage}</h1>
+
+        #if($maildraft.errors.size() > 0)
+            <vera-warn>
+            	#foreach($error in $maildraft.errors)
+            		$!message.plain($error)<br>
+            	#end
+            </vera-warn>
+        #end
+
+    	<input type="hidden" name="maildraft-id" value="$!maildraft.id"/>
+
+    	<div class="textRight bold">* = ${placeholderWithTranslation.pflichtfelder}</div>
+
+        <table class="form">
+			<tr>
+            	<td class="bold width15"><label for="show-id">${placeholderWithTranslation.GENERIC_ID}</label></td>
+            	<td><input type="text" id="show-id" name="show-id" value="$!message.text($maildraft.id)" class="id" vera-disabled /></td>
+            </tr>
+			<tr>
+            	<td class="bold"><label for="maildraft-name">${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}*</label></td>
+            	<td><input type="text" id="maildraft-name" name="maildraft-name" maxlength="200" value="$!message.text($maildraft.name)" /></td>
+            </tr>
+			<tr>
+            	<td class="bold"><label for="maildraft-subject">${placeholderWithTranslation.GENERIC_SUBJECT}*</label></td>
+            	<td><input type="text" id="maildraft-subject" name="maildraft-subject" maxlength="200" value="$!message.text($maildraft.subject)" /></td>
+            </tr>
+			<tr>
+            	<td class="bold"><label for="maildrafttext">${placeholderWithTranslation.GENERIC_TEXT}*</label></td>
+            	<td><textarea cols="50" rows="20" id="maildrafttext" class="width100" name="maildrafttext" >$!message.textarea($maildraft.text)</textarea></td>
+            </tr>
+			<tr>
+            	<td class="bold"><label for="platzhalter">${placeholderWithTranslation.GENERIC_PLACEHOLDER}</label></td>
+            	<td>
+            		<div class="">
+            			<select id="platzhalter" name="platzhalter" class="width15" >
+            				<option value="firstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</option>
+            				<option value="lastname">${placeholderWithTranslation.GENERIC_LASTNAME}</option>
+            				<option value="salutation">${placeholderWithTranslation.GENERIC_SALUTATION_SINGULAR}</option>
+            				<option value="title">${placeholderWithTranslation.GENERIC_ACAD_TITLE}</option>
+            				<option value="function">${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SHORT}./${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</option>
+            				<option value="company">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</option>
+            				<option value="street">${placeholderWithTranslation.GENERIC_STREET}</option>
+            				<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+            				<option value="city">${placeholderWithTranslation.GENERIC_CITY}</option>
+            				<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+            				<option value="poboxzipcode">${placeholderWithTranslation.postfachplz}</option>
+            				<option value="pobox">${placeholderWithTranslation.postfachnummer}</option>
+            				<option value="suffix1">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1</option>
+            				<option value="suffix2">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2</option>
+            				<option value="phone">${placeholderWithTranslation.GENERIC_TELEFON}</option>
+            				<option value="fax">${placeholderWithTranslation.GENERIC_FAX}</option>
+            				<option value="mobile">${placeholderWithTranslation.GENERIC_MOBILE}</option>
+            				<option value="email">${placeholderWithTranslation.email}</option>
+            				<option value="url">${placeholderWithTranslation.LETTERS_WWW}</option>
+            			</select>
+            				<input type="button" name="add" value="${placeholderWithTranslation.GENERIC_ADD}" onclick="addPlatzhalter(this);"/>
+            		</div>
+            	</td>
+        	</tr>
+
+            #if ($listparam.count == 0)
+            	<tr><td colspan="2">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
+            #end
+        </table>
+
+
+        <div id="buttonPanel-bottom" class="textRight marginTop10">
+        	<input type="button" name="send" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+        	<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" class="mainButton" onclick="window.location.href='MailDraftList?selectNone=true';" />
+        </div>
+	</div>
+
+</form>
+
+#parse("inc/footer.vm")

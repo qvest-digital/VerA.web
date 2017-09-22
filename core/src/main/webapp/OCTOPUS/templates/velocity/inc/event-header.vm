@@ -1,0 +1,67 @@
+##Add whitespace to values to cut them
+#set($eventnamecut = $event.eventname.replaceAll("(.{42})", "$1 "))
+
+<div class="contentBoxColored grayBorder" id="eventTop">
+	<div class="table width100">
+		<div class="tableRow">
+			<div class="tableCell width30 paddingBottom15">
+				<strong>${placeholderWithTranslation.EVENT_ID}:</strong>
+                $!message.text($event.id)
+			</div>
+			<div class="tableCell width30">
+				<strong>${placeholderWithTranslation.GENERIC_BEGIN}:</strong>
+                $!message.date("DATE", $event.begin) #if($event-beginhastime)um $!message.date("TIME", $event.begin) Uhr#end
+			</div>
+			#if($completeEventHeader)
+			<div class="tableCell width30">
+				<strong>${placeholderWithTranslation.EVENT_INVITATION_TYPE}:</strong>
+				#if ($event.invitationtype == 2)
+                    ${placeholderWithTranslation.EVENT_INVITATION_TYPE_WITHOUT_PARTNER}
+				#elseif ($event.invitationtype == 3)
+                    ${placeholderWithTranslation.EVENT_INVITATION_TYPE_ONLY_PARTNER}
+				#else
+                    ${placeholderWithTranslation.EVENT_INVITATION_TYPE_WITH_PARTNER}
+				#end
+			</div>
+			#end
+		</div>
+		<div class="tableRow">
+			<div class="tableCell width30">
+				<strong style="vertical-align: inherit;">${placeholderWithTranslation.EVENT_NAME}:</strong> <pre>$!message.textarea($eventnamecut)</pre>
+			</div>
+			<div class="tableCell width30">
+				<strong>${placeholderWithTranslation.GENERIC_END}:</strong>
+                $!message.date("DATE", $event.end) #if($event-endhastime)${placeholderWithTranslation.GENERIC_AT} $!message.date("TIME", $event.end) ${placeholderWithTranslation.GENERIC_OCLOCK}#end
+			</div>
+		</div>
+		<div class="tableRow">
+			#if($iAmActivated)
+				<div class="tableCell width30">
+					<strong style="vertical-align: inherit;">${placeholderWithTranslation.EVENT_URL}:</strong> <pre>$!message.textarea($eventUrl)</pre>
+				</div>
+			#end
+		</div>
+		<div class="tableRow">
+			<div class="tableCell width30">
+				#if($iAmActivated)
+					<strong>${placeholderWithTranslation.EVENT_URL_MEDIA_REPRESENTATIVE}:</strong><br/>
+					#if($pressevertreterUrl && $pressevertreterUrl != "" && $event.mediarepresentatives && $event.mediarepresentatives != "f")
+						$pressevertreterUrl
+					#end
+				#end
+			</div>
+		</div>
+		<div class="tableRow">
+        	<div class="tableCell width30">
+				<strong style="vertical-align: inherit;">${placeholderWithTranslation.EVENT_MAX_GUEST}:</strong>
+                $!message.text($event.maxguest)<br/>
+			</div>
+		</div>
+		<div class="tableRow">
+        	<div class="tableCell width30">
+				<strong style="vertical-align: inherit;">${placeholderWithTranslation.EVENT_MAX_RESERVE}:</strong>
+                $!message.textarea($event.maxreserve)<br/>
+			</div>
+		</div>
+	</div>
+</div>

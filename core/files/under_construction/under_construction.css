@@ -1,0 +1,49 @@
+html, body {
+	height:99%
+}
+
+body {
+    background-color: #E9E9E9;
+    color: #1B1B1B;
+    font-family: verdana,arial,sans-serif;
+    font-size: 15px;
+    line-height: 1.2em;
+}
+
+#header  /* for IE8 */ {
+    height: 88px;
+    position: relative;
+}
+
+#footer /* IE8 */ {
+    bottom: 0;
+    right: 0;
+    position: absolute;
+}
+
+#container {
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 0 0 10px #C8C8C8;
+    -moz-box-shadow: 0 0 10px #C8C8C8;
+    box-shadow: 0 0 10px #C8C8C8;
+    font-size: 0.93em;
+    height: auto;
+    margin: auto;
+    max-width: 1200px;
+    min-height: 100%;
+    padding: 0 30px;
+    position: relative;
+    width: 90%;
+}
+
+#content_container {
+    padding-bottom: 40px;
+    overflow: auto;
+}
+
+.info {
+    background-color: #FFFFFF;
+    border: 2px solid #8B0F0F;
+    min-height: 100%;
+    padding: 10px;
+}

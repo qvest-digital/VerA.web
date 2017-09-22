@@ -1,0 +1,256 @@
+#set($activeMenu = "Veranstaltungen")
+#set($title = "${placeholderWithTranslation.GENERIC_TASK_PLURAL}")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_TASK}")
+#set($entity="TASK")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_TASK_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_TASK_PLURAL}")
+
+##Values in per cent for table columns width
+#set($column0 = 3)
+#set($column1 = 5)
+#set($column2 = 30)
+#set($column3 = 10)
+#set($column4 = 10)
+#set($column5 = 6)
+#set($column6 = 30)
+#set($column7 = 7)
+
+#parse("inc/header.vm")
+
+#set($formurl = "ShowEventTasks")
+
+<div id="content_container">
+
+	#if(!$isEntityModified)
+		<vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
+	#end
+
+	<div id="breadcrumb" class="textRight marginBottom10">
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
+	</div>
+
+	<h1>${placeholderWithTranslation.GENERIC_EDIT_EVENT}: $!message.plain($event.shortname)</h1>
+
+
+	<form id="formlist" name="formlist" action="$formurl?id=$!id" method="POST">
+
+	#set($completeEventHeader = false)
+	#parse("inc/event-header.vm")
+
+	<div class="marginBottom10 marginTop20 textRight" id="buttonPanel-top">
+		<input type="button" class="mainButton" value="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" title="${placeholderWithTranslation.GENERIC_TO_GUEST_MANAGEMENT}" name="guestlist" onclick="window.location.href='ShowGuestList?search-event=$!event.id&start=0&selectNone=true';">
+	</div>
+
+	<div id="main_content" class="tabs contentBox grayBorder marginBottom10">
+
+
+			<input type="hidden" name="start" value="">
+			<input type="hidden" name="limit" value="" />
+			<input type="hidden" name="selectNone" value="true">
+			<input type="hidden" name="doRemove" value="true">
+
+
+
+			<div id="tabsMain">
+				<ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+					<li class="inactive" onclick="window.location.href='ShowEvent?id=$!id';" class="noBorder">
+						<div>${placeholderWithTranslation.GENERIC_GENERAL}</div></a>
+					</li>
+					<li class="active">
+						<div>${placeholderWithTranslation.GENERIC_TASK_PLURAL}</div>
+					</li>
+					<li class="inactive" onclick="window.location.href='${paths.staticWeb}do/ShowDelegationFields?eventId=$!event.id'">
+						<div>${placeholderWithTranslation.GENERIC_ADDITIONAL_PERSONS_DATA}</div>
+					</li>
+				</ul>
+			</div>
+
+
+			<div class="contentBoxColored tabsContent">
+				<input type="hidden" id="remove-task" name="remove-task" value="false">
+
+
+				#if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
+				#set($save = false)
+
+				#if($listerrors && $listerrors.size() > 0)
+				<vera-warn>
+					<strong>${placeholderWithTranslation.loschenvonaufgabenistnichtmoglich}</strong><br>
+					<ul style="margin: 0px 0px 0px -10px;">
+						#if($listerrors.size() > 5)
+						#set($show = 5)
+						#else
+						#set($show = $listerrors.size())
+						#end
+						#foreach($error in $listerrors)
+						#if($velocityCount <= $show)
+						<li style="margin: 5px 0px 0px 0px;">$!message.plain($error)</li>
+						#end
+						#end
+						#if($listerrors.size() > $show)
+						#set($drop = $listerrors.size() - $show)
+						<li style="margin: 5px 0px 0px 0px;"><em>... $drop ${placeholderWithTranslation.weiteremeldungen}</em></li>
+						#end
+					</ul>
+				</vera-warn>
+				#end
+				#if($listquestions && $listquestions.size() > 0)
+				<vera-confirm>
+					<strong>${placeholderWithTranslation.bittebestatigensiedasloschenvonaufgaben}</strong><br>
+					<ul style="margin: 0px 0px 0px -10px;">
+						#foreach($quest in $listquestions.entrySet())
+						<li style="margin: 5px 0px 0px 0px;"><input type="hidden" name="$quest.key" value="true">$!message.plain($quest.value)</li>
+						#set($save = true)
+						#end
+					</ul><br>
+					#if($save)
+					<input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" title="${placeholderWithTranslation.ausgewahlteeintrageloschen}">
+					#end
+					<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" onclick="window.location.href='ShowEventTasks?id=$!id&selectNone=true'"> &nbsp;
+				</vera-confirm>
+				#end
+
+				#end
+
+				#foreach($bean in $list)
+				<input type="hidden" name="list" value="$bean.id">
+				#end
+
+
+
+
+				#if($grants.mayWrite())
+
+				<div class="table width100">
+					<div class="tableRow">
+
+						#if ($listparam.count != 0)
+						<div class="tableCell width50 inlineLabel" style="vertical-align:bottom;">
+							<label>${placeholderWithTranslation.GENERIC_SELECTED_ENTRIES}</label>
+							<input type="submit" name="remove" id="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.GENERIC_DELETE}" class="autoWidth noFloat"></div>
+						#end
+						<div class="tableCell width50 textRight">
+							<input type="button" title="${placeholderWithTranslation.GENERIC_ADD_NEW_TASK}" value="${placeholderWithTranslation.GENERIC_ADD_NEW_TASK}" name="save" id="" class="autoWidth mainButton" onclick="window.location.href='CreateEventTask?eventId=$!id';">
+						</div>
+					</div>
+				</div>
+				#end
+
+
+				#if ($listparam.count != 0)
+
+				<table class="marginTop0 notBold fixed">
+					##Set column size
+					<col width="$column0%" />
+    				<col width="$column1%" />
+    				<col width="$column2%" />
+    				<col width="$column3%" />
+    				<col width="$column4%" />
+    				<col width="$column5%" />
+    				<col width="$column6%" />
+    				<col width="$column7%" />
+
+					<tbody>
+					<tr>
+						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+						<th>${placeholderWithTranslation.GENERIC_TITLE}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.start}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_END}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_STATUS}</th>
+						<th>${placeholderWithTranslation.GENERIC_RESPONSIBLE}</th>
+						<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_PRIORITY}</th>
+					</tr>
+					#foreach($bean in $list)
+						<tr>
+							<td class="textCenter">
+								<input type="checkbox" id="add-select" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/>
+							</td>
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.id</td>
+							<td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.plain($!bean.title)</td>
+							#if ($bean.startdate.Seconds == 30)
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.startdate)</td>
+							#else
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.startdate)</td>
+							#end
+
+							#if ($bean.enddate.Seconds == 30)
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE",$bean.enddate)</td>
+							#else
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.date("DATE_TIME",$bean.enddate)</td>
+							#end
+
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!bean.degreeofcompletion%</td>
+							<td onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.text($!bean.personName)</td>
+							<td class="textCenter" onclick="window.location.href='ShowEventTask?id=$!{bean.id}&eventId=$!{bean.eventId}'">$!message.text($!bean.priority)</td>
+						</tr>
+					#end
+
+					#set($itemName = "${placeholderWithTranslation.GENERIC_TASK_PLURAL}")
+					#tableFooter(8)
+					</tbody>
+				</table>
+
+				#else
+					<vera-info vera-stay>
+						${placeholderWithTranslation.MESSAGE_NO_TASKS_FOR_THIS_EVENT}
+						<img src="../images/dialog_close.png" id="close-info" style="top:-9px;" onclick="$(this).parent().get(0).remove()" />
+					</vera-info>
+				#end
+
+
+				<div class="textRight">
+					<!--input type="button" id="cancel" name="cancel" class="button" value="${placeholderWithTranslation.zuruck}" title="${placeholderWithTranslation.zursuche}" onclick="window.location.href='SearchEvent';"-->
+				</div>
+
+
+
+
+			</div>
+
+	 </div>
+			<span id="buttonPanel-bottom" class="floatRight">
+				#if($grants.mayWrite())
+					<input type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" title="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" class="mainButton">
+				#end
+				<input type="reset" name="cancel" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" title="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" class="mainButton" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';">
+
+			</span>
+	</form>
+	<div class="clear"></div>
+</div>
+<script type="text/javascript">
+
+$(function () {
+
+	#if(!$grants.mayWrite())
+		disableForm(document.getElementById('formlist'));
+	#end
+
+	$('#remove').click(function (e) {
+		var selectCount = $('input:checkbox:checked').length;
+		if (selectCount === 0) {
+			e.preventDefault();
+			return;
+		}
+		var task = confirm('${placeholderWithTranslation.DELETE_EVENT_TASKS_FIRST_LINE} \n\n${placeholderWithTranslation.DELETE_EVENT_TASKS_SECOND_LINE}');
+		$('#remove-task').val(task);
+		if (!task) {
+			e.preventDefault();
+		}
+	});
+
+	$('#toggleAllSelect').change(function(){
+		if ($(this).is(':checked')) {
+			navigateSelectAll();
+		} else {
+			navigateSelectNone();
+		}
+	});
+
+	$('#eventTop input, textarea').prop('disabled', true);
+
+});
+</script>
+
+#parse("inc/footer.vm")

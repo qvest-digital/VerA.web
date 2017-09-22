@@ -1,0 +1,480 @@
+Im folgenden finden Sie die Lizenzbedingungen für VerA.web von ⮡ tarent
+ohne die gesonderten Bestimmungen für die Online-Anmeldung.
+
+┌──┤ VerA.web (GPLv2+) ├───────────────────────────────────────────────────┐
+│                                                                          │
+│ Veranstaltungsmanagement VerA.web (platform-independent webservice-based │
+│ event management) is published and licenced by:                          │
+│ Copyright © 2004–2008 tarent GmbH                                        │
+│ Copyright © 2013–2017 tarent solutions GmbH                              │
+│                                                                          │
+│ This program is free software; you can redistribute it and/or modify     │
+│ it under the terms of the GNU General Public License as published by     │
+│ the Free Software Foundation; either version 2 of the License, or        │
+│ (at your option) any later version.                                      │
+│                                                                          │
+│ This program is distributed in the hope that it will be useful,          │
+│ but WITHOUT ANY WARRANTY; without even the implied warranty of           │
+│ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            │
+│ GNU General Public License for more details.                             │
+│                                                                          │
+│ You should have received a copy of the GNU General Public License along  │
+│ with this program; if not, see: http://www.gnu.org/licenses/             │
+└──────────────────────────────────────────────────────────────────────────┘
+
+Summary of individual licences used, including all dependencies:
+⚠ (unlicenced)
+• 3-clause BSD
+⚠ Creative Commons CC-BY-SA 1.0
+• Creative Commons CC-BY 3.0 (unported)
+• GNU GPLv2 or later
+• GNU GPLv3 or later
+• GNU LGPLv2.1 or later
+• MirOS
+• MIT
+• Mozilla MPLv1.1 or later
+• SIL OFLv1.1
+Some dependencies are also marked as being in the Public Domain.
+
+The texts of the bigger licences can be found in separate files in the
+current directory. The complete corresponding source code for VerA.web
+core, to satisfy the conditions imposed by the web frontend part of it
+being GPLv3+ effectively, can be found in src.tgz in this directory in
+the core application via the webbrowser, or in its WAR file, in a for‐
+mal VerA.web released version.
+
+╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+The documentation is set in the Museo Sans font, which is licenced
+property of exljbris Font Foundry.
+
+┌──┤ The documentation makes use of LᴬTₑΧ code: (MirOS) ├──────────────────┐
+│                                                                          │
+│ Copyright © 2015, 2016, 2017                                             │
+│     Thorsten Glaser <t.glaser@tarent.de>                                 │
+│                                                                          │
+│ Design und Code abgeleitet von dem Stil und der                          │
+│ Dokumentenklasse pubmat des Teckids e.V.                                 │
+│                                                                          │
+│ Copyright © 2014, 2015                                                   │
+│     Thorsten Glaser <thorsten.glaser@teckids.org>                        │
+│ Copyright © 2013, 2014                                                   │
+│     Dominik George <dominik.george@teckids.org>                          │
+│ with contributions by (among others)                                     │
+│     egreg <http://tex.stackexchange.com/users/4427>                      │
+│     Steven B. Segletes <http://tex.stackexchange.com/users/25858>        │
+│     David Carlisle <http://tex.stackexchange.com/users/1090>             │
+│                                                                          │
+│ Provided that these terms and disclaimer and all copyright notices       │
+│ are retained or reproduced in an accompanying document, permission       │
+│ is granted to deal in this work without restriction, including un‐       │
+│ limited rights to use, publicly perform, distribute, sell, modify,       │
+│ merge, give away, or sublicence.                                         │
+│                                                                          │
+│ This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to       │
+│ the utmost extent permitted by applicable law, neither express nor       │
+│ implied; without malicious intent or gross negligence. In no event       │
+│ may a licensor, author or contributor be held liable for indirect,       │
+│ direct, other damage, loss, or other issues arising in any way out       │
+│ of dealing in the work, even if advised of the possibility of such       │
+│ damage or existence of a defect, except proven that it results out       │
+│ of said person’s immediate fault when using the work as intended.        │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ The documentation makes use of icons: (GPLv2+) ├──────────────────────┐
+│                                                                          │
+│ Copyright (C) 2003 - 2014 Roland Gruber <post@rolandgruber.de>           │
+│                                                                          │
+│ LAM is published under the GNU General Public License.                   │
+└──────────────────────────────────────────────────────────────────────────┘
+Apparently, the PNGs are the source code here.
+
+┌──┤ testpic.jpg in the “files” tarball (CC-BY 3.0) ├──────────────────────┐
+│                                                                          │
+│ Der Urheber dieses Bildes ist der Benutzer „Stavrolo“ auf der            │
+│ Wikimedia Commons-Seite bzw. der englischsprachigen Wikipedia            │
+│ (es existiert leider kein Link, den man hier angeben könnte).            │
+│                                                                          │
+│ Das Photo wurde 2002 geschossen und 2008 nachbearbeitet.                 │
+└──────────────────────────────────────────────────────────────────────────┘
+veraweb-rest-api/src/test/resources/imageData.txt is the same file.
+
+┌──┤ Bacon.js (MIT) ├──────────────────────────────────────────────────────┐
+│                                                                          │
+│ Copyright (c) 2014 Juha Paananen                                         │
+│                                                                          │
+│ Permission is hereby granted, free of charge, to any person obtaining a  │
+│ copy of this software and associated documentation files (the            │
+│ "Software"), to deal in the Software without restriction, including      │
+│ without limitation the rights to use, copy, modify, merge, publish,      │
+│ distribute, sublicense, and/or sell copies of the Software, and to       │
+│ permit persons to whom the Software is furnished to do so, subject to    │
+│ the following conditions:                                                │
+│                                                                          │
+│ The above copyright notice and this permission notice shall be included  │
+│ in all copies or substantial portions of the Software.                   │
+│                                                                          │
+│ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS  │
+│ OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF               │
+│ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.   │
+│ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY     │
+│ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,     │
+│ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE        │
+│ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                   │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ CKEditor (GPLv2+/LGPLv2.1+/MPLv1.1+; MIT; OFLv1.1; BSD-3; ASLv2) ├────┐
+│                                                                          │
+│ CKEditor - The text editor for Internet - http://ckeditor.com            │
+│ Copyright (c) 2003-2017, CKSource - Frederico Knabben.                   │
+│ All rights reserved.                                                     │
+│                                                                          │
+│ Licensed under the terms of any of the following licenses at your        │
+│ choice:                                                                  │
+│                                                                          │
+│  - GNU General Public License Version 2 or later (the "GPL")             │
+│  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")   │
+│  - Mozilla Public License Version 1.1 or later (the "MPL")               │
+│                                                                          │
+│ The following libraries are included in CKEditor under the MIT license:  │
+│                                                                          │
+│ * CKSource Samples Framework (included in the samples)                   │
+│   - Copyright (c) 2014-2017, CKSource - Frederico Knabben.               │
+│ * PicoModal (included in `samples/js/sf.js`)                             │
+│   - Copyright (c) 2012 James Frasca.                                     │
+│ * CodeMirror (included in the samples)                                   │
+│   - Copyright (C) 2014 by Marijn Haverbeke <marijnh@gmail.com>           │
+│     and others.                                                          │
+│                                                                          │
+│ Parts of code taken from the following libraries are included in         │
+│ CKEditor under the MIT license:                                          │
+│                                                                          │
+│ * jQuery (inspired the domReady function, ckeditor_base.js)              │
+│   - Copyright (c) 2011 John Resig, http://jquery.com/                    │
+│                                                                          │
+│ The following libraries are included only in the development version of  │
+│ CKEditor under the MIT license:                                          │
+│                                                                          │
+│ * CKBuilder                                                              │
+│   - Copyright (c) 2012-2017, CKSource - Frederico Knabben.               │
+│ * CKLangTool                                                             │
+│   - Copyright (c) 2012-2017, CKSource - Frederico Knabben.               │
+│ * Optimist                                                               │
+│   - Copyright 2010 James Halliday (mail@substack.net).                   │
+│ * Q                                                                      │
+│   - Copyright 2009–2014 Kristopher Michael Kowal.                        │
+│ * Tmp                                                                    │
+│   - Copyright (c) 2014 KARASZI István.                                   │
+│ * Mkdirp                                                                 │
+│   - Copyright 2010 James Halliday (mail@substack.net).                   │
+│ * Bender.js                                                              │
+│   - Copyright (c) 2014-2017, CKSource - Frederico Knabben.               │
+│ * benderjs-coverage                                                      │
+│   - Copyright (c) 2014-2017, CKSource - Frederico Knabben.               │
+│ * benderjs-jquery                                                        │
+│   - Copyright (c) 2014-2017, CKSource - Frederico Knabben.               │
+│ * benderjs-sinon                                                         │
+│   - Copyright (c) 2014-2017, CKSource - Frederico Knabben.               │
+│ * benderjs-yui                                                           │
+│   - Copyright (c) 2014-2017, CKSource - Frederico Knabben.               │
+│ * Grunt                                                                  │
+│   - Copyright (c) 2015 "Cowboy" Ben Alman.                               │
+│ * grunt-contrib-imagemin                                                 │
+│   - Copyright (c) 2014 Sindre Sorhus, contributors.                      │
+│ * grunt-jscs                                                             │
+│   - Copyright (c) 2014 Gustavo Henke, contributors.                      │
+│ * grunt-contrib-jshint                                                   │
+│   - Copyright (c) 2014 "Cowboy" Ben Alman, contributors.                 │
+│ * grunt-contrib-less                                                     │
+│   - Copyright (c) 2014 Tyler Kellen, contributors.                       │
+│ * grunt-contrib-watch                                                    │
+│   - Copyright (c) 2014 "Cowboy" Ben Alman, contributors.                 │
+│ * grunt-contrib-concat                                                   │
+│   - Copyright (c) 2014 "Cowboy" Ben Alman, contributors.                 │
+│ * grunt-jsduck                                                           │
+│   - Copyright (c) 2012 Dmitry Pashkevich, contributors.                  │
+│ * grunt-githooks                                                         │
+│   - Copyright (c) 2013 Romaric Pascal.                                   │
+│ * jQuery Form Plugin (used in jquery adapter test)                       │
+│   - Copyright (c) 2012 M. Alsup                                          │
+│                                                                          │
+│ The following libraries are included in CKEditor under the               │
+│ SIL Open Font License, Version 1.1:                                      │
+│                                                                          │
+│ * Font Awesome (included in the toolbar configurator)                    │
+│   - Copyright (C) 2012 by Dave Gandy.                                    │
+│                                                                          │
+│ The following libraries are included in CKEditor under the               │
+│ BSD-3 License:                                                           │
+│                                                                          │
+│ * highlight.js (included in the `codesnippet` plugin)                    │
+│   - Copyright (c) 2006, Ivan Sagalaev.                                   │
+│ * YUI Library (included in the `uicolor` plugin)                         │
+│   - Copyright (c) 2009, Yahoo! Inc.                                      │
+│ * ShellJS (development version of CKEditor only)                         │
+│   - Copyright (c) 2012, Artur Adib <aadib@mozilla.com>.                  │
+│                                                                          │
+│ The following libraries are included only in the development version of  │
+│ CKEditor under the Apache License 2.0:                                   │
+│                                                                          │
+│ * Less.js                                                                │
+│   - Copyright (c) 2009-2014 Alexis Sellier & The Core Less Team.         │
+│                                                                          │
+│ CKEditor is a trademark of CKSource - Frederico Knabben. All other brand │
+│ and product names are trademarks, registered trademarks or service       │
+│ marks of their respective holders.                                       │
+│                                                                          │
+├──┤ (MIT) ├───────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ Permission is hereby granted, free of charge, to any person obtaining    │
+│ a copy of this software and associated documentation files (the          │
+│ "Software"), to deal in the Software without restriction, including      │
+│ without limitation the rights to use, copy, modify, merge, publish,      │
+│ distribute, sublicense, and/or sell copies of the Software, and to       │
+│ permit persons to whom the Software is furnished to do so, subject to    │
+│ the following conditions:                                                │
+│                                                                          │
+│ The above copyright notice and this permission notice shall be           │
+│ included in all copies or substantial portions of the Software.          │
+│                                                                          │
+│ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,          │
+│ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF       │
+│ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND                    │
+│ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE   │
+│ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION   │
+│ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION    │
+│ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.          │
+│                                                                          │
+├──┤ (3-clause BSD) ├──────────────────────────────────────────────────────┤
+│                                                                          │
+│ Redistribution and use in source and binary forms, with or without       │
+│ modification, are permitted provided that the following conditions       │
+│ are met:                                                                 │
+│ 1. Redistributions of source code must retain the above copyright        │
+│    notice, this list of conditions and the following disclaimer.         │
+│ 2. Redistributions in binary form must reproduce the above copyright     │
+│    notice, this list of conditions and the following disclaimer in the   │
+│    documentation and/or other materials provided with the distribution.  │
+│ 3. Neither the name of the copyright holders nor the names of its        │
+│    contributors may be used to endorse or promote products derived from  │
+│    this software without specific prior written permission.              │
+│                                                                          │
+│ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS  │
+│ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED    │
+│ TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A          │
+│ PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER │
+│ OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, │
+│ EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,      │
+│ PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR       │
+│ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF   │
+│ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING     │
+│ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS       │
+│ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ jscalendar “The DHTML Calendar” (LGPLv2.1+) ├─────────────────────────┐
+│                                                                          │
+│ Copyright Mihai Bazon, 2002-2005  |  www.bazon.net/mishoo                │
+│ Copyright Dynarch.com 2005, www.dynarch.com                              │
+│                                                                          │
+│ Author: Mihai Bazon, <mihai_bazon@yahoo.com>                             │
+│         http://dynarch.com/mishoo/                                       │
+│                                                                          │
+│ This program is free software published under the                        │
+│ terms of the GNU Lesser General Public License.                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ WCH.js - Windowed Controls Hider (CC-BY-SA 1.0) ├─────────────────────┐
+│                                                                          │
+│ (c) Copyright 2003, Aleksandar Vacic, aleck@sezampro.yu, www.aplus.co.yu │
+│                                                                          │
+│ ## This work is licensed under the Creative Commons                      │
+│    Attribution-ShareAlike License.                                       │
+│ ## To view a copy of this license, visit                                 │
+│    http://creativecommons.org/licenses/by-sa/1.0/ or send a letter to    │
+│ Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA │
+└──────────────────────────────────────────────────────────────────────────┘
+
+Several ECMAscript files came into existence in 2007 and lack a licence:
+• clipboard.js
+• dhtml-dialogs.js
+• dhtml-popup.js
+• dhtml-tabs.js
+• utils.js
+
+┌──┤ jQuery & Sizzle (MIT) ├───────────────────────────────────────────────┐
+│                                                                          │
+│ Copyright 2013 jQuery Foundation and other contributors                  │
+│ http://jquery.com/                                                       │
+│                                                                          │
+│ Permission is hereby granted, free of charge, to any person obtaining    │
+│ a copy of this software and associated documentation files (the          │
+│ "Software"), to deal in the Software without restriction, including      │
+│ without limitation the rights to use, copy, modify, merge, publish,      │
+│ distribute, sublicense, and/or sell copies of the Software, and to       │
+│ permit persons to whom the Software is furnished to do so, subject to    │
+│ the following conditions:                                                │
+│                                                                          │
+│ The above copyright notice and this permission notice shall be           │
+│ included in all copies or substantial portions of the Software.          │
+│                                                                          │
+│ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,          │
+│ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF       │
+│ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND                    │
+│ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE   │
+│ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION   │
+│ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION    │
+│ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ jQuery Form plugin (MIT/GPLv2) ├──────────────────────────────────────┐
+│                                                                          │
+│ Copyright (c) 2014 M. Alsup                                              │
+│ Examples and documentation at: http://malsup.com/jquery/form/            │
+│ Project repository: https://github.com/malsup/form                       │
+│ Dual licensed under the MIT and GPL licenses.                            │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ jQuery gotop plugin (GPLv3+) ├────────────────────────────────────────┐
+│                                                                          │
+│ jQuery Plugin to show up the button which scroll the page up to top.     │
+│ @author      Tommaso Simeone                                             │
+│ @link https://github.com/tomaggio83/Scroll-to-Top                        │
+│ @version 1.0                                                             │
+│                                                                          │
+│ This program is free software: you can redistribute it and/or modify     │
+│ it under the terms of the GNU General Public License as published by     │
+│ the Free Software Foundation, either version 3 of the License, or        │
+│ (at your option) any later version.                                      │
+│                                                                          │
+│ THIS SOFTWARE AND DOCUMENTATION IS PROVIDED "AS IS," AND COPYRIGHT       │
+│ HOLDERS MAKE NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED,       │
+│ INCLUDING BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY OR           │
+│ FITNESS FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF THE SOFTWARE       │
+│ OR DOCUMENTATION WILL NOT INFRINGE ANY THIRD PARTY PATENTS,              │
+│ COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.COPYRIGHT HOLDERS WILL NOT        │
+│ BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR CONSEQUENTIAL             │
+│ DAMAGES ARISING OUT OF ANY USE OF THE SOFTWARE OR DOCUMENTATION.         │
+│                                                                          │
+│ You should have received a copy of the GNU General Public License        │
+│ along with this program. If not, see <http://gnu.org/licenses/>.         │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ jQuery Multiple File Selection Plugin (MIT) ├─────────────────────────┐
+│                                                                          │
+│ Copyright (c) 2014 Fyneworks                                             │
+│                                                                          │
+│ Permission is hereby granted, free of charge, to any person obtaining a  │
+│ copy of this software and associated documentation files (the            │
+│ "Software"), to deal in the Software without restriction, including      │
+│ without limitation the rights to use, copy, modify, merge, publish,      │
+│ distribute, sublicense, and/or sell copies of the Software, and to       │
+│ permit persons to whom the Software is furnished to do so, subject to    │
+│ the following conditions:                                                │
+│                                                                          │
+│ The above copyright notice and this permission notice shall be included  │
+│ in all copies or substantial portions of the Software.                   │
+│                                                                          │
+│ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS  │
+│ OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF               │
+│ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.   │
+│ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY     │
+│ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,     │
+│ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE        │
+│ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                   │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ jQuery Tags Input Plugin (MIT) ├──────────────────────────────────────┐
+│                                                                          │
+│ jQuery Tags Input Plugin 1.3.3                                           │
+│                                                                          │
+│ Copyright (c) 2011 XOXCO, Inc                                            │
+│                                                                          │
+│ Documentation for this plugin lives here:                                │
+│ http://xoxco.com/clickable/jquery-tags-input                             │
+│                                                                          │
+│ Licensed under the MIT license:                                          │
+│ http://www.opensource.org/licenses/mit-license.php                       │
+│                                                                          │
+│ ben@xoxco.com                                                            │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ vex (MIT) ├───────────────────────────────────────────────────────────┐
+│                                                                          │
+│ Copyright (c) 2013 HubSpot, Inc.                                         │
+│                                                                          │
+│ Permission is hereby granted, free of charge, to any person obtaining a  │
+│ copy of this software and associated documentation files (the            │
+│ "Software"), to deal in the Software without restriction, including      │
+│ without limitation the rights to use, copy, modify, merge, publish,      │
+│ distribute, sublicense, and/or sell copies of the Software, and to       │
+│ permit persons to whom the Software is furnished to do so, subject to    │
+│ the following conditions:                                                │
+│                                                                          │
+│ The above copyright notice and this permission notice shall be included  │
+│ in all copies or substantial portions of the Software.                   │
+│                                                                          │
+│ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS  │
+│ OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF               │
+│ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.   │
+│ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY     │
+│ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,     │
+│ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE        │
+│ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                   │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ vex-dialog (MIT) ├────────────────────────────────────────────────────┐
+│                                                                          │
+│ Original work (vex.dialog) Copyright (c) 2013 HubSpot, Inc.              │
+│ Modified work (vex-dialog) Copyright (c) 2016 Brendan Batliner           │
+│                                                                          │
+│ Permission is hereby granted, free of charge, to any person obtaining a  │
+│ copy of this software and associated documentation files (the            │
+│ "Software"), to deal in the Software without restriction, including      │
+│ without limitation the rights to use, copy, modify, merge, publish,      │
+│ distribute, sublicense, and/or sell copies of the Software, and to       │
+│ permit persons to whom the Software is furnished to do so, subject to    │
+│ the following conditions:                                                │
+│                                                                          │
+│ The above copyright notice and this permission notice shall be included  │
+│ in all copies or substantial portions of the Software.                   │
+│                                                                          │
+│ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS  │
+│ OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF               │
+│ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.   │
+│ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY     │
+│ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,     │
+│ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE        │
+│ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                   │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ Some build and utility scripts (MirOS) ├──────────────────────────────┐
+│                                                                          │
+│ Copyright © 2015, 2016, 2017                                             │
+│     mirabilos <t.glaser@tarent.de>                                       │
+│ Copyright (c) 2013                                                       │
+│     mirabilos <m@mirbsd.org>                                             │
+│                                                                          │
+│ Provided that these terms and disclaimer and all copyright notices       │
+│ are retained or reproduced in an accompanying document, permission       │
+│ is granted to deal in this work without restriction, including un‐       │
+│ limited rights to use, publicly perform, distribute, sell, modify,       │
+│ merge, give away, or sublicence.                                         │
+│                                                                          │
+│ This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to       │
+│ the utmost extent permitted by applicable law, neither express nor       │
+│ implied; without malicious intent or gross negligence. In no event       │
+│ may a licensor, author or contributor be held liable for indirect,       │
+│ direct, other damage, loss, or other issues arising in any way out       │
+│ of dealing in the work, even if advised of the possibility of such       │
+│ damage or existence of a defect, except proven that it results out       │
+│ of said person’s immediate fault when using the work as intended.        │
+└──────────────────────────────────────────────────────────────────────────┘
+
+Further dependencies are:
+
+…
+
+╔═══════════════════════════════════╗
+║ WARNING: this file is INCOMPLETE! ║
+╚═══════════════════════════════════╝

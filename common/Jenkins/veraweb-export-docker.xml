@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Export VerA.web Docker Image after a release&lt;br/&gt;&#xd;
+Location: &lt;a href=&quot;http://veraweb-tools.lan.tarent.de/&quot;&gt;http://veraweb-tools.lan.tarent.de/&lt;/a&gt;</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>10</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>RELEASE_VERSION</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>git+ssh://git@gitlab.tarent.de/veraweb-int/environment.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.LocalBranch>
+        <localBranch>master</localBranch>
+      </hudson.plugins.git.extensions.impl.LocalBranch>
+    </extensions>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>for IMAGE_NAME in httpd ldap core oa restapi osiam postgres; do
+  NAME=$(./latestChangesEntry.py Components $IMAGE_NAME image)
+  COMPONENT=$(echo $NAME | sed -e &apos;s#.*/##&apos;)
+  VERSION=$(./latestChangesEntry.py Components $IMAGE_NAME version)
+
+  ssh -l root veraweb-tools.lan.tarent.de &quot;test -d /var/www/$RELEASE_VERSION || mkdir /var/www/$RELEASE_VERSION&quot;
+  IS_VERAWEB=$(echo $NAME | sed -e &apos;s#.*veraweb.*#OK#&apos;)
+  if [ $IS_VERAWEB != &quot;OK&quot; ]; then
+    ssh -l root veraweb-tools.lan.tarent.de &quot;docker pull $NAME:$VERSION&quot;
+  fi
+  ssh -l root veraweb-tools.lan.tarent.de &quot;docker save -o /var/www/$RELEASE_VERSION/$COMPONENT-$VERSION.img $NAME:$VERSION &amp;&amp; gzip /var/www/$RELEASE_VERSION/$COMPONENT-$VERSION.img&quot;
+done
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>veraweb-new-dev-version</childProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
+    <hudson.plugins.jabber.im.transport.JabberPublisher plugin="jabber@1.35">
+      <targets>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>adirla@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>afreid@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>eausch@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>ldegen@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>mpech@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+      </targets>
+      <strategy>ALL</strategy>
+      <notifyOnBuildStart>false</notifyOnBuildStart>
+      <notifySuspects>false</notifySuspects>
+      <notifyCulprits>false</notifyCulprits>
+      <notifyFixers>false</notifyFixers>
+      <notifyUpstreamCommitters>false</notifyUpstreamCommitters>
+      <buildToChatNotifier class="hudson.plugins.im.build_notify.DefaultBuildToChatNotifier" plugin="instant-messaging@1.35"/>
+      <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
+    </hudson.plugins.jabber.im.transport.JabberPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>

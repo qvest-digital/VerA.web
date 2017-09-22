@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LDAPManager>
+	<objectclass>
+		<param name="top" value="top" />
+		<param name="person" value="person" />
+		<param name="organizationalPerson" value="organizationalPerson" />
+		<param name="inetOrgPerson" value="inetOrgPerson" />
+		<param name="mozillaOrgPerson" value="mozillaOrgPerson" />
+	</objectclass>
+	<param name="cn" value="Vorname" value2="Nachname" />
+	<param name="sn" value="Nachname" />
+	<param name="givenName" value="Vorname" />
+	<param name="uid" value="Userid" />
+	<param name="displayName" value="Spitzname" />
+	<param name="mozillaNickname" value="Spitzname" />
+	<param name="l" value="ArbeitOrt" />
+	<param name="o" value="ArbeitFirma" />
+	<param name="ou" value="ArbeitAbteilung" />
+	<param name="postalAddress" value="ArbeitStrasse" />
+	<param name="postalCode" value="ArbeitPLZ" />
+	<param name="postOfficeBox" value="ArbeitStrasse" />
+	<param name="street" value="ArbeitStrasse" />
+	<param name="st" value="ArbeitBundesstaat" />
+	<param name="c" value="ArbeitLand" />
+	<param name="title" value="ArbeitJob" />
+	<param name="mail" value="ArbeitEmail" />
+	<param name="telephoneNumber" value="ArbeitTelefon" />
+	<param name="mobile" value="ArbeitHandy" />
+	<param name="facsimileTelephoneNumber" value="ArbeitFax" />
+	<param name="homePostalAddress" value="PrivatStrasse" />
+	<param name="mozillaHomePostalCode" value="PrivatPLZ" />
+	<param name="mozillaHomeLocalityName" value="PrivatOrt" />
+	<param name="mozillaHomeCountryName" value="PrivatLand" />
+	<param name="homePhone" value="PrivatTelefon" />
+	<param name="description" value="Beschreibung" />
+</LDAPManager>

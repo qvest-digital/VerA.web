@@ -1,0 +1,28 @@
+%
+% WARNING! The “Museo Sans” font is licenced to tarent.
+% It may not be used by anyone else, without specific licence.
+%
+\ProvidesFile{t1museo.fd}[Museo Sans font (text)]
+\DeclareFontFamily{T1}{museo}{}
+\DeclareFontShape{T1}{museo}{m}{n}{
+  <->   MuseoSans_300T1
+}{}
+\DeclareFontShape{T1}{museo}{m}{it}{
+  <->   MuseoSans_300_ItalicT1
+}{}
+\DeclareFontShape{T1}{museo}{m}{sl}{<->ssub * museo/m/it}{}
+\DeclareFontShape{T1}{museo}{b}{n}{
+  <->   MuseoSans_500T1
+}{}
+\DeclareFontShape{T1}{museo}{b}{it}{
+  <->   MuseoSans_500_ItalicT1
+}{}
+\DeclareFontShape{T1}{museo}{b}{sl}{<->ssub * museo/b/it}{}
+\DeclareFontShape{T1}{museo}{bx}{n}{<->ssub * museo/b/n}{}
+\DeclareFontShape{T1}{museo}{bx}{it}{<->ssub * museo/b/it}{}
+\DeclareFontShape{T1}{museo}{bx}{sl}{<->ssub * museo/b/it}{}
+
+\pdfmapline{+MuseoSans_300T1\space </usr/share/fonts/truetype/ttf-museo-sans/MuseoSans_300.ttf\space <MuseoT1-pdflatex.enc}
+\pdfmapline{+MuseoSans_300_ItalicT1\space </usr/share/fonts/truetype/ttf-museo-sans/MuseoSans_300_Italic.ttf\space <MuseoT1-pdflatex.enc}
+\pdfmapline{+MuseoSans_500T1\space </usr/share/fonts/truetype/ttf-museo-sans/MuseoSans_500.ttf\space <MuseoT1-pdflatex.enc}
+\pdfmapline{+MuseoSans_500_ItalicT1\space </usr/share/fonts/truetype/ttf-museo-sans/MuseoSans_500_Italic.ttf\space <MuseoT1-pdflatex.enc}

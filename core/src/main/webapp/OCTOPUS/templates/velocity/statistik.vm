@@ -1,0 +1,155 @@
+#set($activeMenu = "Veranstaltungen")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_STATISTIC_CREATE}")
+#parse("inc/header.vm")
+
+<div id="content_container">
+	<div id="breadcrumb" class="textRight marginBottom10">
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_STATISTICS}</span>
+	</div>
+
+	<form id="formlist" name="formlist" action="" method="get" target="" onsubmit="return exportStatistik();">
+		<input type="hidden" id="a" name="a" value="statistik">
+
+		<h1>${placeholderWithTranslation.GENERIC_STATISTICS}</h1>
+
+		<div id="main_content" class="contentBoxColored grayBorder">
+
+			<div class="table width100">
+				<div class="tableRow">
+					<div class="tableCell width50">
+						<h2>${placeholderWithTranslation.statistikauffolgendenzeitrahmeneinschranken}:</h2>
+
+						<label for="begin">${placeholderWithTranslation.zeitrahmenbeginn}</label>
+						<span id="showBegin" class="datepickerContainer">
+						<input type="text" name="begin" placeholder="${placeholderWithTranslation.PLACEHOLDER_DATE_FORMAT}" id="begin" class="datepicker">
+						<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}">
+						<script type="text/javascript">
+							Calendar.setup({
+								inputField	 :	"begin",
+								button		 :	"showBegin",
+								ifFormat	 :	"%d.%m.%Y",
+								showsTime	 :	false
+							});
+						</script></span>
+				##		&nbsp; &nbsp;
+				##		(<a href="javascript:document.getElementById('begin').value='$!message.date("DATE", $firstDayInMonth)'; document.getElementById('end').value='$!message.date("DATE", $lastDayInMonth)';">${placeholderWithTranslation.GENERIC_INSERT_CURRENT_MONTH}</a>)
+						<label for="end">${placeholderWithTranslation.zeitrahmenende}</label>
+						<span id="showEnd" class="datepickerContainer">
+						<input type="text" name="end" placeholder="${placeholderWithTranslation.PLACEHOLDER_DATE_FORMAT}" id="end" class="datepicker">
+						<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}">
+						<script type="text/javascript">
+							Calendar.setup({
+								inputField	 :	"end",
+								button		 :	"showEnd",
+								ifFormat	 :	"%d.%m.%Y",
+								showsTime	 :	false
+							});
+						</script></span>
+					</div>
+
+					<div class="tableCell width50 inlineLabel statisticsType">
+						<script type="text/javascript">
+							function exportStatistik() {
+
+								re = /^\d{1,2}\.\d{1,2}\.\d{4}$/;
+								var correct = true;
+								if((document.getElementById('begin').value != '' &&
+								 !document.getElementById('begin').value.match(re)) || (document.getElementById('end').value != '' &&
+								 !document.getElementById('end').value.match(re))) {
+									$(".errormsg").remove();
+									showWarning(' ${placeholderWithTranslation.siemuessendasdatumdeszeitrahmensimformatttmmjjjjangeben}' );
+									correct = false;
+								}
+
+								if (document.getElementById('formlist').statistik[0].checked) {
+									if (correct) {
+										$(".errormsg").remove();
+										document.getElementById('formlist').action = 'StatistikExport';
+										document.getElementById('formlist').target = '_blank';
+										document.getElementById('a').value = 'statistik';
+									} else {
+										return false;
+									}
+								} else if (document.getElementById('formlist').statistik[1].checked) {
+									if (correct) {
+										$(".errormsg").remove();
+										document.getElementById('formlist').action = 'StatistikExport';
+										document.getElementById('formlist').target = '_blank';
+										document.getElementById('a').value = 'statistik';
+									} else {
+										return false;
+									}
+								} else if (document.getElementById('formlist').statistik[2].checked) {
+									if (correct) {
+										$(".errormsg").remove();
+										document.getElementById('formlist').action = 'StatistikExport';
+										document.getElementById('formlist').target = '_blank';
+										document.getElementById('a').value = 'statistik';
+									} else {
+										return false;
+									}
+								} else if (document.getElementById('formlist').statistik[3].checked) {
+									if (correct) {
+										document.getElementById('formlist').action = 'StatistikPersonSearch';
+										document.getElementById('formlist').target = '';
+										document.getElementById('a').value = 'statistikHost';
+									} else {
+										return false;
+									}
+								} else if (document.getElementById('formlist').statistik[4].checked) {
+									if (correct) {
+										document.getElementById('formlist').action = 'StatistikPersonSearch';
+										document.getElementById('formlist').target = '';
+										document.getElementById('a').value = 'statistikGuest';
+									} else {
+										return false;
+									}
+								} else if (document.getElementById('formlist').statistik[5].checked) {
+									if (correct) {
+										$(".errormsg").remove();
+										document.getElementById('formlist').action = 'StatistikExport';
+										document.getElementById('formlist').target = '_blank';
+										document.getElementById('a').value = 'statistik';
+									}else {
+										return false;
+									}
+								} else {
+									showWarning('UNKNOWN');
+									return false;
+								}
+							}
+						</script>
+
+						<h2>${placeholderWithTranslation.statistiktypauswahlen}:</h2>
+
+						<input type="radio" id="EventsPerYear" name="statistik" value="EventsPerYear" checked><label for="EventsPerYear">
+						${placeholderWithTranslation.STATISTIC_RADIO_PER_YEAR}.</label><br />
+
+						<input type="radio" id="EventsPerMonth" name="statistik" value="EventsPerMonth"><label for="EventsPerMonth">
+						${placeholderWithTranslation.STATISTIC_RADIO_PER_MONTH}.</label><br />
+
+						<input type="radio" id="EventsGroupByHost1" name="statistik" value="EventsGroupByHost"><label for="EventsGroupByHost1">
+						${placeholderWithTranslation.STATISTIC_RADIO_GROUPED_BY_HOST}.</label><br />
+
+						<input type="radio" id="EventsGroupByHost2" name="statistik" value="EventsGroupByHost"><label for="EventsGroupByHost2">
+						${placeholderWithTranslation.STATISTIC_RADIO_PER_HOST}.</label><br />
+
+						<input type="radio" id="EventsGroupByGuest" name="statistik" value="EventsGroupByGuest"><label for="EventsGroupByGuest">
+						${placeholderWithTranslation.STATISTIC_RADIO_PER_GUEST}.</label><br />
+
+						<input type="radio" id="EventsGroupByLocation" name="statistik" value="EventsGroupByLocation"><label for="EventsGroupByLocation">
+						${placeholderWithTranslation.STATISTIC_RADIO_GROUPED_BY_EVENT_PLACE}.</label>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<div class="textRight marginTop10">
+			<input type="submit" class="mainButton" name="create" value="${placeholderWithTranslation.statistikerstellen}" title="${placeholderWithTranslation.statistikerstellen}" />
+		</div>
+
+	</form>
+</div>
+#parse("inc/footer.vm")

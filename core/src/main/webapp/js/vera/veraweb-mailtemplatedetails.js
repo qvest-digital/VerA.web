@@ -1,0 +1,1 @@
+../../../js/vera/veraweb-mailtemplatedetails.js

@@ -1,0 +1,21 @@
+#if($statistik == "EventsPerYear")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_EVENTS_YEAR}.")
+#elseif($statistik == "EventsPerMonth")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_EVENTS_MONTH}.")
+#elseif($statistik == "EventsGroupByHost")
+	#if($person)
+		#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_GUEST_HOST_EVENTS}.")
+	#else
+		#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_EVENTS_SORT_GUEST_HOST}.")
+	#end
+#elseif($statistik == "EventsGroupByGuest")
+	#if($person)
+		#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_GUEST_EVENTS}.")
+	#else
+		#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_EVENTS_SORT_GUEST}.")
+	#end
+#elseif($statistik == "EventsGroupByLocation")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_EVENTS_SORT_PLACE}.")
+#else
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_OVERVIEW_EVENTS_UNKNOWN_STATISTIC}")
+#end

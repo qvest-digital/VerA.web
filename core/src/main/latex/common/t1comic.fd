@@ -1,0 +1,7 @@
+\ProvidesFile{t1comic.fd}[Comic Sans MS font]
+% zur Abschreckung
+\DeclareFontFamily{T1}{comic}{}
+\DeclareFontShape{T1}{comic}{m}{n}{
+  <->   comic
+}{}
+\pdfmapline{+comic\space </usr/share/fonts/truetype/ttf-msfonts/comic.ttf\space <MuseoT1-pdflatex.enc}

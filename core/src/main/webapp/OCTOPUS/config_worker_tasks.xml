@@ -1,0 +1,1859 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
+
+<!--
+	Octopus config.xml
+
+	Kontrollflussdefinition
+
+	In den folgenden Elementen "contentWorkerDeklaration" und "tasks" werden die
+	zur Verfügung stehenden Octopus-Worker deklariert und darauf aufbauend die
+	aufrufbaren Octopus-Tasks definiert.
+
+	Diese Daten sollten nicht geändert werden müssen.
+-->
+<tcModuleConfig>
+	<!-- Auflistung aller Worker, die im System existieren mit name=Classenname -->
+	<contentWorkerDeklaration>
+		<!-- System-Worker, initalisierung der DB-Schicht, Message-, Action- und Context-Objekte. -->
+		<worker name="PoolWorker" implementation="de.tarent.dblayer.engine.PoolWorker" singleton="true" factory="reflected" />
+		<worker name="SystemWorker" implementation="de.tarent.aa.veraweb.worker.SystemWorker" singleton="true" factory="reflected" />
+		<worker name="SecurityWorker" implementation="de.tarent.aa.veraweb.worker.SecurityWorker" singleton="true" factory="reflected" />
+		<worker name="MessageWorker" implementation="de.tarent.aa.veraweb.worker.MessageWorker" singleton="true" factory="reflected" />
+		<worker name="ActionWorker" implementation="de.tarent.aa.veraweb.worker.ActionWorker" singleton="true" factory="reflected" />
+		<worker name="ContextWorker" implementation="de.tarent.aa.veraweb.worker.ContextWorker" singleton="true" factory="reflected" />
+		<worker name="VerifyWorker" implementation="de.tarent.aa.veraweb.worker.VerifyWorker" singleton="true" factory="reflected" />
+		<worker name="ConfigWorker" implementation="de.tarent.aa.veraweb.worker.ConfigWorker" singleton="true" factory="reflected" />
+		<worker name="CleanupWorker" implementation="de.tarent.aa.veraweb.worker.CleanupWorker" singleton="true" factory="reflected" />
+		<worker name="UserConfigWorker" implementation="de.tarent.aa.veraweb.worker.UserConfigWorker" singleton="true" factory="reflected" />
+		<worker name="ProxyWorker" implementation="de.tarent.aa.veraweb.worker.ProxyWorker" singleton="true" factory="reflected" />
+		<worker name="ProxyListWorker" implementation="de.tarent.aa.veraweb.worker.ProxyListWorker" singleton="true" factory="reflected" />
+		<worker name="UserWorker" implementation="de.tarent.aa.veraweb.worker.UserWorker" singleton="true" factory="reflected" />
+		<worker name="UserListWorker" implementation="de.tarent.aa.veraweb.worker.UserListWorker" singleton="true" factory="reflected" />
+		<worker name="OrgUnitListWorker" implementation="de.tarent.aa.veraweb.worker.OrgUnitListWorker" singleton="true" factory="reflected" />
+		<worker name="OSIAMWorker" implementation="de.tarent.aa.veraweb.worker.OSIAMWorker" singleton="true" factory="reflected" />
+        <worker name="LanguageProvider" implementation="de.tarent.aa.veraweb.utils.i18n.LanguageProvider" singleton="true" factory="reflected" />
+
+		<!-- Changelog-Worker -->
+		<worker name="ChangeLogMaintenanceWorker" implementation="de.tarent.aa.veraweb.worker.ChangeLogMaintenanceWorker" singleton="true" factory="reflected" />
+		<worker name="ChangeLogReportsWorker" implementation="de.tarent.aa.veraweb.worker.ChangeLogReportsWorker" singleton="true" factory="reflected" />
+
+		<!-- Personendaten-Worker -->
+		<worker name="PersonListWorker" implementation="de.tarent.aa.veraweb.worker.PersonListWorker" singleton="true" factory="reflected" />
+		<worker name="PersonGuestListWorker" implementation="de.tarent.aa.veraweb.worker.PersonGuestListWorker" singleton="true" factory="reflected" />
+		<worker name="PersonDetailWorker" implementation="de.tarent.aa.veraweb.worker.PersonDetailWorker" singleton="true" factory="reflected" />
+		<worker name="PersonReplaceWorker" implementation="de.tarent.aa.veraweb.worker.PersonReplaceWorker" singleton="true" factory="reflected" />
+		<worker name="PersonCategorieWorker" implementation="de.tarent.aa.veraweb.worker.PersonCategorieWorker" singleton="true" factory="reflected" />
+		<worker name="PersonDupcheckWorker" implementation="de.tarent.aa.veraweb.worker.PersonDupcheckWorker" singleton="true" factory="reflected" />
+		<worker name="ImportPersonsWorker" implementation="de.tarent.aa.veraweb.worker.ImportPersonsWorker" singleton="true" factory="reflected" />
+		<worker name="PersonExportWorker" implementation="de.tarent.aa.veraweb.worker.PersonExportWorker" singleton="true" factory="reflected" />
+		<worker name="ImportPersonsDuplicateWorker" implementation="de.tarent.aa.veraweb.worker.ImportPersonsDuplicateWorker" singleton="true" factory="reflected" />
+		<worker name="DataExchangeWorker" implementation="de.tarent.aa.veraweb.worker.DataExchangeWorker" singleton="true" factory="reflected" />
+		<worker name="CompanyListWorker" implementation="de.tarent.aa.veraweb.worker.CompanyListWorker" singleton="true" factory="reflected" />
+		<worker name="PersonDuplicateSearchWorker" implementation="de.tarent.aa.veraweb.worker.PersonDuplicateSearchWorker" singleton="true" factory="reflected" />
+
+		<!-- eMail-Verteiler-Worker -->
+		<worker name="MailinglistWorker" implementation="de.tarent.aa.veraweb.worker.MailinglistWorker" singleton="true" factory="reflected" />
+		<worker name="MailinglistListWorker" implementation="de.tarent.aa.veraweb.worker.MailinglistListWorker" singleton="true" factory="reflected" />
+		<worker name="MailinglistDetailWorker" implementation="de.tarent.aa.veraweb.worker.MailinglistDetailWorker" singleton="true" factory="reflected" />
+		<worker name="MailDraftWorker" implementation="de.tarent.aa.veraweb.worker.MailDraftWorker" singleton="true" factory="reflected" />
+		<worker name="MailOutboxWorker" implementation="de.tarent.aa.veraweb.worker.MailOutboxWorker" singleton="true" factory="reflected" />
+
+		<!-- Veranstaltungen-Worker -->
+		<worker name="EventListWorker" implementation="de.tarent.aa.veraweb.worker.EventListWorker" singleton="true" factory="reflected" />
+		<worker name="EventDetailWorker" implementation="de.tarent.aa.veraweb.worker.EventDetailWorker" singleton="true" factory="reflected" />
+		<worker name="EventDelegationWorker" implementation="de.tarent.aa.veraweb.worker.EventDelegationWorker" singleton="true" factory="reflected" />
+		<worker name="EventTaskListWorker" implementation="de.tarent.aa.veraweb.worker.EventTaskListWorker" singleton="true" factory="reflected" />
+		<worker name="EventTaskDetailWorker" implementation="de.tarent.aa.veraweb.worker.EventTaskDetailWorker" singleton="true" factory="reflected" />
+		<worker name="GuestWorker" implementation="de.tarent.aa.veraweb.worker.GuestWorker" singleton="true" factory="reflected" />
+		<worker name="GuestListWorker" implementation="de.tarent.aa.veraweb.worker.GuestListWorker" singleton="true" factory="reflected" />
+		<worker name="GuestDetailWorker" implementation="de.tarent.aa.veraweb.worker.GuestDetailWorker" singleton="true" factory="reflected" />
+		<worker name="GuestReportWorker" implementation="de.tarent.aa.veraweb.worker.GuestReportWorker" singleton="true" factory="reflected" />
+
+		<!-- Stammdaten-Worker -->
+		<worker name="FunctionWorker" implementation="de.tarent.aa.veraweb.worker.FunctionWorker" singleton="true" factory="reflected" />
+		<worker name="LocationListWorker" implementation="de.tarent.aa.veraweb.worker.LocationListWorker" singleton="true" factory="reflected" />
+		<worker name="LocationDetailWorker" implementation="de.tarent.aa.veraweb.worker.LocationDetailWorker" singleton="true" factory="reflected" />
+		<worker name="CategorieWorker" implementation="de.tarent.aa.veraweb.worker.CategorieWorker" singleton="true" factory="reflected" />
+		<worker name="SalutationWorker" implementation="de.tarent.aa.veraweb.worker.SalutationWorker" singleton="true" factory="reflected" />
+		<worker name="StatistikWorker" implementation="de.tarent.aa.veraweb.worker.StatistikWorker" singleton="true" factory="reflected" />
+		<worker name="CompleteWorker" implementation="de.tarent.aa.veraweb.worker.CompleteWorker" singleton="true" factory="reflected" />
+		<worker name="WorkAreaWorker" implementation="de.tarent.aa.veraweb.worker.WorkAreaWorker" singleton="true" factory="reflected" />
+
+		<!-- PDF-Vorlagen-Worker -->
+		<worker name="PdfTemplateWorker" implementation="de.tarent.aa.veraweb.worker.PdfTemplateWorker" singleton="true" factory="reflected" />
+	</contentWorkerDeklaration>
+
+	<!--
+		Verfügbare Benutzergruppen:
+
+		*	"Unclear"				Benutzer, deren AA-Rolle nach Login nicht klar ist
+		*	"Unauthorized"			Benutzer, deren (gewählte) Rollen nicht autorisiert sind
+		*	"User"					Benutzer, deren (gewählte) Rollen autorisiert sind
+
+		*	"ByProxy"				Benutzer, die als Vertreter angemeldet sind
+		*	"InPerson"				Benutzer, die persönlich (also nicht als Vertreter) angemeldet sind
+
+		*	"StandardFieldsReader"	Benutzer, die die Standardfelder lesen dürfen
+		*	"RemarkFieldsReader"	Benutzer, die die limitierten Bemerkungsfelder lesen dürfen
+		*	"Exporter"				Benutzer, die exportieren dürfen
+		*	"Writer"				Benutzer, die schreiben dürfen, abhängig von ihrer Leseberechtigung
+		*	"PartialAdmin"			Teiladministratoren
+		*	"Administrator"			Volladministratoren
+	-->
+	<tasks>
+		<!-- Automatische Tasks zum Start und Beenden des Modules. -->
+		<task name="autostart" access="public">
+			<description>Alle Worker die automatisch ohne einen Request aufgerufen werden sollen.</description>
+			<!--<action name="initLogging" worker="SystemWorker"/>-->
+			<param name="poolDefinitions" refvalue="CONFIG:databasePools"/>
+			<action name="openPools" worker="PoolWorker"/>
+			<action name="init" worker="MessageWorker"/>
+			<action name="init" worker="ConfigWorker"/>
+			<action name="load" worker="ChangeLogMaintenanceWorker"/>
+			<response type="none" name="none"/>
+		</task>
+
+		<task name="cleanup" access="public">
+			<description>Wird automatisch beim Beenden des Servlets aufgerufen.</description>
+			<param name="poolDefinitions" refvalue="CONFIG:databasePools"/>
+			<action name="closePools" worker="PoolWorker"/>
+			<action name="clean" worker="ConfigWorker"/>
+			<action name="unload" worker="ChangeLogMaintenanceWorker"/>
+			<response type="none" name="none"/>
+		</task>
+
+		<!-- VERIFY Task -->
+		<task name="Verify" access="private">
+			<description>
+				Dieses Task überprüft unterschiedliche Einstellungen; zum
+				Unterdrücken entsprechender Warnung können diese
+				auskommentiert werden. Ein reibungsloser Ablauf
+				kann dann nicht mehr gewährleistet werden.
+			</description>
+			<action name="getDatabaseCharset" worker="VerifyWorker"/>
+			<action name="verifySchemaVersion" worker="VerifyWorker"/>
+			<action name="verifyXMLTransformer" worker="VerifyWorker"/>
+		</task>
+
+		<!-- LOGIN und DEFAULT Task. -->
+		<task name="login" access="public" groups="User,Unclear,Unauthorized">
+			<description>Der Login Task --- hier wird der Login *durchgeführt*</description>
+            <action name="load" worker="LanguageProvider" />
+			<doTask name="Main" />
+		</task>
+
+		<task name="logout" access="public" groups="LoggedOut">
+			<description>Der Logout Task</description>
+            <action name="load" worker="LanguageProvider" />
+			<doTask name="ShowLogin" />
+		</task>
+
+		<task name="default" access="public" groups="User,Unclear,Unauthorized,SystemUser">
+			<description>Der Default Task</description>
+			<contract>
+				<input name="username" type="xsd:string" optional="f" description="Benutzername"/>
+				<input name="password" type="xsd:string" optional="f" description="Passwort"/>
+			</contract>
+			<doTask name="Main" />
+		</task>
+
+		<!-- Umsetzung LOGIN / LOGOUT / MAIN / INFO -->
+		<task name="ShowLogin" access="public" groups="Anonymous,User">
+			<description>
+				Dieser Task zeigt den Login Dialog an.
+			</description>
+            <doTask name="Load"/>
+            <action name="load" worker="LanguageProvider" />
+			<doTask name="Verify"/>
+			<response type="velocity" name="login">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="LoginAsProxy" access="public" groups="User,Unclear,Unauthorized">
+			<description>
+				Falls der optionale Parameter "proxyFor" angegeben ist, wird versucht,
+				den aktuell authentisierten Nutzer als Stellvertreter für die ebenda
+				angegebene Rolle anzumelden.
+				Schlägt dies fehl oder wurde der optionale Parameter nicht angegeben,
+				wird eine Auswahl möglicher Stellvertretungen angezeigt.
+			</description>
+			<contract>
+				<input name="proxyFor" type="xsd:string" optional="t" description="zu vertretene Rolle"/>
+				<output name="list" type="xsd:array" optional="t" description="Liste vertretbarer Rollen, falls Anmeldung in Vertretung erfolglos war"/>
+			</contract>
+			<doTask name="Load"/>
+			<doTask name="Verify"/>
+			<action name="select" worker="ProxyWorker" />
+			<status equals="ok">
+				<doTask name="Main"/>
+			</status>
+			<param name="proxiesFor" value="all"/>
+			<param name="proxiesValid" value="now"/>
+			<param name="proxy" value="self"/>
+			<action name="showList" worker="ProxyListWorker" />
+			<action name="uniqueProxiedFilter" worker="ProxyListWorker" />
+			<response type="velocity" name="selectProxy">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="Main" access="public" groups="User,SystemUser">
+			<description>
+				Dieser Task zeigt den Hauptdialog an.
+			</description>
+			<doTask name="Load"/>
+			<doTask name="Verify"/>
+			<action name="init" worker="UserConfigWorker"/>
+			<response type="velocity" name="main">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="Info" access="public" groups="User,Unclear,Unauthorized,SystemUser">
+			<description>
+				Dieser Task zeigt den Infodialog an.
+			</description>
+			<doTask name="Load"/>
+			<doTask name="Verify"/>
+			<action name="init" worker="UserConfigWorker"/>
+			<response type="velocity" name="info">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- LOAD DATA -->
+		<task name="Load" access="private" groups="User,SystemUser">
+			<description>
+				Lädt Daten die von allen Templates benötigt werden.
+				u.a. ResourceBundles oder Zugriffsberechtigungsflags.
+			</description>
+			<action name="load" worker="MessageWorker"/>
+			<action name="load" worker="ActionWorker"/>
+			<action name="load" worker="SecurityWorker"/>
+			<action name="load" worker="ConfigWorker"/>
+			<action name="load" worker="UserConfigWorker"/>
+            <action name="load" worker="LanguageProvider"/>
+		</task>
+
+		<task name="LoadStammdaten" access="private" groups="User,SystemUser">
+			<description>Alle Worker die für die Stammdaten benötigt werden, z.B. Berechtigungen setzen.</description>
+			<doTask name="Load"/>
+		</task>
+
+		<!-- Umsetzung STAMMDATEN -->
+
+		<task name="Function" access="public" groups="Administrator,PartialAdmin">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="FunctionWorker" />
+			<action name="showList" worker="FunctionWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="function">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="Location" access="public" groups="Administrator,PartialAdmin">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="LocationListWorker" />
+			<action name="showList" worker="LocationListWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="locationList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="CreateLocation" access="public" groups="Writer">
+			<description>
+				Dieser Task erzeugt einen neuen Veranstaltungsort
+			</description>
+			<doTask name="LoadStammdaten"/>
+			<action name="showDetail" worker="LocationDetailWorker" />
+			<response type="velocity" name="locationDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowLocation" access="public" groups="Writer">
+			<description>
+				Dieser Task erzeugt einen neuen Veranstaltungsort
+			</description>
+			<doTask name="LoadStammdaten"/>
+			<action name="showDetail" worker="LocationDetailWorker" />
+			<response type="velocity" name="locationDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SaveLocation" access="public" groups="Writer">
+			<description>
+				Dieser Task speichert einen Veranstaltungsort
+			</description>
+			<doTask name="LoadStammdaten"/>
+			<action name="saveDetail" worker="LocationDetailWorker" />
+			<response type="velocity" name="locationDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!--
+		  - change request 2.16 for next release version 1.2.0
+		  - cklein
+		  - 2008-02-14
+		  -->
+		<task name="WorkArea" access="public" groups="Administrator,PartialAdmin">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="WorkAreaWorker" />
+			<action name="showList" worker="WorkAreaWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="workArea">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!--
+		  - change request 2.3 for next release version 1.2.0
+		  - cklein
+		  - 2008-02-27
+		  -->
+		<task name="PersonDuplicateSearch" access="public" groups="User">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="PersonDuplicateSearchWorker" />
+			<action name="showList" worker="PersonDuplicateSearchWorker" />
+			<action name="exportFormat" worker="PersonExportWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="personList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!--
+		  - change request 2.10.4 for next release version 1.2.0
+		  - cklein
+		  - 2008-02-18
+		  -->
+		<task name="ChangeLogReport" access="public" groups="Administrator">
+			<description>
+				Erlaubt die Konfiguration des in einem zweiten Schritt
+				zu erzeugenden ChangeLogReports.
+			</description>
+			<doTask name="LoadStammdaten"/>
+			<action name="loadConfig" worker="ChangeLogReportsWorker" />
+			<response type="velocity" name="changeLogReport">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowChangeLogReport" access="public" groups="Administrator">
+			<description>
+				Zeigt die Änderungshistorie für einen definierten Zeitraum als
+				HTML Report an.
+			</description>
+			<doTask name="LoadStammdaten"/>
+			<action name="loadConfig" worker="ChangeLogReportsWorker" />
+			<action name="showList" worker="ChangeLogReportsWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="changeLogHtmlReport">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+<!-- modified to allow all authorized users to view the categories as per change request for version 1.2.0
+     split the action in two distinct tasks, namely SaveCategories and Categorie, with Categorie taking over
+     the role of displaying and browsing the list of categories and SaveCategories being
+     responsible for actually saving changes to the list. This is in order to allow users who are not administrators
+     to use the Categorie task.
+     cklein
+     2008-02-21
+  -->
+		<task name="Categorie" access="public" groups="Administrator,PartialAdmin,User">
+			<description>
+				Zeigt eine Liste der Kategorien an. Diese Liste ist für Administrator
+				und PartialAdmins zur Bearbeitung freigegeben und normale Anwender (User)
+				können diese Liste einsehen.
+			</description>
+			<doTask name="LoadStammdaten"/>
+			<action name="getAll" worker="EventListWorker"/>
+			<action name="showList" worker="CategorieWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="categorie">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SaveCategories" access="public" groups="Administrator,PartialAdmin"><!--User-->
+			<description>
+				Speicher die Änderungen an den Kategorien.
+			</description>
+			<doTask name="LoadStammdaten"/>
+			<action name="getAll" worker="EventListWorker"/>
+			<action name="saveList" worker="CategorieWorker" />
+			<doTask name="Categorie"/>
+		</task>
+
+		<task name="Salutation" access="public" groups="Administrator,PartialAdmin">
+			<doTask name="LoadStammdaten"/>
+			<action name="saveList" worker="SalutationWorker" />
+			<action name="showList" worker="SalutationWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="salutation">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="Config" access="public" groups="Administrator,PartialAdmin">
+			<doTask name="LoadStammdaten"/>
+			<action name="save" worker="ConfigWorker" />
+			<action name="getAll" worker="SalutationWorker" />
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<response type="velocity" name="config">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="UserConfig" access="public" groups="StandardFieldsReader">
+			<doTask name="LoadStammdaten"/>
+			<action name="save" worker="UserConfigWorker" />
+			<response type="velocity" name="userConfig">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- Umsetzung PERSON -->
+		<task name="ShowPersonSearch" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt einen erweiterten Suchdialog für Personen.
+			</description>
+			<contract>
+				<input name="Vorname" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Vorname"/>
+				<input name="Nachname" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Nachname"/>
+				<input name="Institution" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Institution"/>
+				<input name="Ort" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Ort"/>
+				<input name="Straße" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Straße"/>
+				<input name="PLZ" type="xsd:string" optional="t" description="Vorgabewert: gesuchte PLZ"/>
+				<input name="Funktion" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Funktion"/>
+				<input name="Kategorie" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Kategorie"/>
+				<input name="Ereignis" type="xsd:string" optional="t" description="Vorgabewert: gesuchtes Ereignis"/>
+				<input name="IstFirma" type="xsd:string" optional="t" description="Vorgabe-Flag: Firmen gesucht"/>
+				<input name="Datenherkunft" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Datenherkunft"/>
+				<input name="Gültigkeitsdatum" type="xsd:string" optional="t" description="Vorgabewert: gesuchtes Gültigkeitsdatum"/>
+				<input name="Gültigkeitstyp" type="xsd:string" optional="t" description="Vorgabewert: Art der Gültigkeitsdatumsangabe"/>
+				<input name="Interne ID" type="xsd:string" optional="t" description="Vorgabewert: Interne ID"/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="getAllAvailablePersonCategories" worker="CategorieWorker" />
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<action name="getSearch" worker="PersonListWorker" />
+			<response type="velocity" name="personSearch">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+
+		</task>
+
+		<task name="ShowPersonSearchSimple" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt einen einfachen Suchdialog für Personen.
+			</description>
+			<contract>
+				<input name="Vorname" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Vorname"/>
+				<input name="Nachname" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Nachname"/>
+				<input name="Institution" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Institution"/>
+				<input name="Ort" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Ort"/>
+				<input name="Straße" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Straße"/>
+				<input name="PLZ" type="xsd:string" optional="t" description="Vorgabewert: gesuchte PLZ"/>
+				<input name="Funktion" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Funktion"/>
+				<input name="Kategorie" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Kategorie"/>
+				<input name="Ereignis" type="xsd:string" optional="t" description="Vorgabewert: gesuchtes Ereignis"/>
+				<input name="IstFirma" type="xsd:string" optional="t" description="Vorgabe-Flag: Firmen gesucht"/>
+				<input name="Datenherkunft" type="xsd:string" optional="t" description="Vorgabewert: gesuchte Datenherkunft"/>
+				<input name="Gültigkeitsdatum" type="xsd:string" optional="t" description="Vorgabewert: gesuchtes Gültigkeitsdatum"/>
+				<input name="Gültigkeitstyp" type="xsd:string" optional="t" description="Vorgabewert: Art der Gültigkeitsdatumsangabe"/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="getAllAvailablePersonCategories" worker="CategorieWorker" />
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<action name="getSearch" worker="PersonListWorker" />
+			<response type="velocity" name="personSearchSimple">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SearchPerson" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task sucht Personen.
+			</description>
+			<contract>
+				<input name="Vorname" type="xsd:string" optional="t" description="gesuchter Vorname"/>
+				<input name="Nachname" type="xsd:string" optional="t" description="gesuchter Nachname"/>
+				<input name="Institution" type="xsd:string" optional="t" description="gesuchte Institution"/>
+				<input name="Ort" type="xsd:string" optional="t" description="gesuchter Ort"/>
+				<input name="Bundesland" type="xsd:string" optional="t" description="gesuchtes Bundesland"/>
+				<input name="Straße" type="xsd:string" optional="t" description="gesuchte Straße"/>
+				<input name="PLZ" type="xsd:string" optional="t" description="gesuchte PLZ"/>
+				<input name="Funktion" type="xsd:string" optional="t" description="gesuchte Funktion"/>
+				<input name="Kategorie" type="xsd:string" optional="t" description="gesuchte Kategorie"/>
+				<input name="Arbeitsbereich" type="xsd:string" optional="t" description="gesuchter Arbeitsbereich"/>
+				<input name="Ereignis" type="xsd:string" optional="t" description="gesuchtes Ereignis"/>
+				<input name="IstFirma" type="xsd:string" optional="t" description="Flag: Firmen gesucht"/>
+				<input name="Datenherkunft" type="xsd:string" optional="t" description="gesuchte Datenherkunft"/>
+				<input name="Gültigkeitsdatum" type="xsd:string" optional="t" description="gesuchtes Gültigkeitsdatum"/>
+				<input name="Gültigkeitstyp" type="xsd:string" optional="t" description="Art der Gültigkeitsdatumsangabe"/>
+				<input name="Sprachen" type="xsd:string" optional="t" description="gesuchte Sprachen"/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="saveList" worker="PersonListWorker" />
+			<action name="getSearch" worker="PersonListWorker" />
+			<action name="showList" worker="PersonListWorker" />
+			<action name="exportFormat" worker="PersonExportWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="personList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="CreatePerson" access="public" groups="Writer">
+			<description>
+				Dieser Task erzeugt eine neue, initial leere, Person.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="SalutationWorker"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowPerson" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt eine Person an.
+			</description>
+			<contract>
+				<input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="init" worker="UserConfigWorker"/>
+			<action name="getAll" worker="SalutationWorker"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<action name="showDetail" worker="PersonDetailWorker" />
+
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowTestPerson" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt eine Test-Person an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="SalutationWorker"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<action name="showTestPerson" worker="PersonDetailWorker" />
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="CopyPerson" access="public" groups="StandardFieldsReader">
+			<description>
+				Kopiert eine Person in ein neues Bean und zeigt dieses zum bearbeiten an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="SalutationWorker"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<action name="copyPerson" worker="PersonDetailWorker"/>
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowReplacePerson" access="public" groups="Writer">
+			<description>Zeigt einen Dialog zum Personen Suchen/Ersetzen an.</description>
+			<param name="action" value="replace"/>
+			<doTask name="Load"/>
+			<action name="getReplaceRequest" worker="PersonReplaceWorker"/>
+			<response type="velocity" name="personReplace">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="CountReplaceAllPerson" access="public" groups="Writer">
+			<description>Führt ein Suchen/Ersetzen über mehrere Personen durch.</description>
+			<param name="action" value="replace"/>
+			<param name="snr-action" value="count"/>
+			<action name="getReplaceRequest" worker="PersonReplaceWorker"/>
+			<status equals="invalidsearch">
+				<doTask name="ShowReplacePerson"/>
+			</status>
+			<action name="countData" worker="PersonReplaceWorker"/>
+			<doTask name="ShowReplacePerson"/>
+		</task>
+
+		<task name="SaveReplaceAllPerson" access="public" groups="Writer">
+			<description>Führt ein Suchen/Ersetzen über mehrere Personen durch.</description>
+			<param name="action" value="replace"/>
+			<param name="snr-action" value="replaceAll"/>
+			<action name="getReplaceRequest" worker="PersonReplaceWorker"/>
+			<status equals="invalidsearch">
+				<doTask name="ShowReplacePerson"/>
+			</status>
+			<action name="countData" worker="PersonReplaceWorker"/>
+			<action name="replaceAllData" worker="PersonReplaceWorker"/>
+			<doTask name="ShowReplacePerson"/>
+		</task>
+
+		<task name="ShowReplacePersonList" access="public" groups="Writer">
+			<description>Führt ein Suchen/Ersetzen über mehrere Personen durch.</description>
+			<param name="action" value="replace"/>
+			<param name="snr-action" value="replace"/>
+			<action name="getReplaceRequest" worker="PersonReplaceWorker"/>
+			<status equals="invalidsearch">
+				<doTask name="ShowReplacePerson"/>
+			</status>
+			<doTask name="Load"/>
+			<action name="saveList" worker="PersonReplaceWorker" />
+			<action name="showList" worker="PersonReplaceWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="personList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SaveReplacePersonList" access="public" groups="Writer">
+			<description>Führt ein Suchen/Ersetzen über mehrere Personen durch.</description>
+			<param name="action" value="replace"/>
+			<param name="snr-action" value="replace"/>
+			<action name="getReplaceRequest" worker="PersonReplaceWorker"/>
+			<status equals="invalidsearch">
+				<doTask name="ShowReplacePerson"/>
+			</status>
+			<action name="countData" worker="PersonReplaceWorker"/>
+			<action name="replaceSelectedData" worker="PersonReplaceWorker"/>
+			<doTask name="ShowReplacePerson"/>
+		</task>
+
+		<task name="LoadPersonCompany" access="public" groups="Writer">
+			<description>
+				Dieser Task übernimmt die Firmen-Adresse die per Popup
+				ausgefählt worden ist und zeigt diese ungespeichert wieder an.
+			</description>
+			<contract>
+				<input name="company" type="xsd:string" optional="f" description="ID des Person-Eintrages der als Firma übernommen werden soll."/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="copyCompanyData" worker="CompanyListWorker"/>
+			<doTask name="CreatePerson"/>
+		</task>
+
+		<task name="SavePerson" access="public" groups="Writer">
+			<description>
+				Dieser Task speichert eine Person.
+			</description>
+			<doTask name="SavePersonWithDupcheck"/>
+			<action name="getAll" worker="SalutationWorker"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<doTask name="ShowPerson"/>
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SavePersonWithDupcheck" access="private">
+			<description>
+				Dieser Task überprüft ob eine entsprechende Person
+				bereits existiert und zeigt ggf. den Dupcheck-Dialog an.
+			</description>
+			<contract>
+				<input name="id" type="xsd:string" optional="f" description="ID der Person"/>
+				<input name="person-nodupcheck" type="xsd:string" optional="t" description="Flag: Kein Dublettenscheck"/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="prepareSaveDetail" worker="PersonDetailWorker" />
+			<status equals="saveperson">
+				<action name="verify" worker="PersonDetailWorker" />
+				<status equals="notcorrect">
+					<doTask name="ShowPerson"/>
+				</status>
+				<action name="check" worker="PersonDupcheckWorker" />
+				<status equals="dupcheck">
+					<doTask name="PersonDupcheck"/>
+				</status>
+				<action name="saveDetail" worker="PersonDetailWorker" />
+				<status equals="notcorrect">
+					<doTask name="ShowPerson"/>
+				</status>
+			</status>
+		</task>
+
+		<task name="PersonDupcheck" access="public" groups="Writer">
+			<description>
+				Dieser Task zeigt einen Vergleich zwischen zwei oder mehr Personen-Dubletten an.
+			</description>
+			<doTask name="Load"/>
+			<action name="showList" worker="PersonDupcheckWorker" />
+			<response type="velocity" name="personDupcheckList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="PersonDupcheckCancel" access="public" groups="Writer">
+			<description>
+				Dieser Task bricht den Vergleich zwischen zwei oder mehr Personen-Dubletten ab.
+			</description>
+			<doTask name="Load"/>
+			<action name="check" worker="PersonDupcheckWorker" />
+			<action name="getAll" worker="SalutationWorker"/>
+            <action name="getAll" worker="WorkAreaWorker"/>
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+
+		<task name="ShowPersonCategorieList" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt die zu einer Person gehörigen Kategorien an.
+			</description>
+			<contract>
+				<input name="id" type="xsd:string" optional="t" description="ID der Person; wenn leer, wird diese aus der Session geladen."/>
+			</contract>
+			<doTask name="SavePersonWithDupcheck"/>
+			<action name="showDetail" worker="PersonDetailWorker" />
+			<action name="saveList" worker="PersonCategorieWorker" />
+			<action name="showList" worker="PersonCategorieWorker" />
+			<action name="getAll" worker="CategorieWorker" />
+			<response type="velocity" name="personCategorie">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="DeletePerson" access="public" groups="Writer">
+			<description>
+				Dieser Task löscht eine Person.
+			</description>
+			<contract>
+				<input name="PersonId" type="xsd:string" optional="f" description="ID der Person"/>
+				<input name="NoValidityCheck" type="xsd:string" optional="t" description="Flag: Keine Nachfrage bei noch gültigen Personen"/>
+				<input name="DeleteInXManage" type="xsd:string" optional="t" description="Flag: Ebenfalls Löschung in XManage"/>
+			</contract>
+			<doTask name="SearchPerson"/>
+		</task>
+
+		<task name="PersonExport" access="public" groups="Exporter">
+			<description>
+				Task exportiert das aktuelle Personen-Suchergebnis.
+			</description>
+			<action name="getSelection" worker="PersonExportWorker"/>
+			<action name="export" worker="PersonExportWorker"/>
+			<response type="binary" name="stream">
+				<param name="CachingParam" value="nocachecontrol,nopragma"/>
+			</response>
+		</task>
+
+		<!-- Umsetzung -->
+		<task name="CreateDocSpecData" access="public" groups="Writer">
+			<description>
+				Dieser Task erzeugt die Dokument-Typ-spezifischen Daten
+				zu einer Person und einem / jedem Dokument-Typ.
+			</description>
+			<contract>
+				<input name="PersonId" type="xsd:string" optional="f" description="ID der Person"/>
+				<input name="DokTypId" type="xsd:string" optional="t" description="ID des Dokumenten-Typs"/>
+			</contract>
+			<doTask name="ShowPerson"/>
+		</task>
+
+		<task name="ExportPerson" access="public" groups="Exporter">
+			<description>
+				Dieser Task exportiert eine Person.
+			</description>
+			<contract>
+				<input name="PersonId" type="xsd:string" optional="f" description="ID der Person"/>
+			</contract>
+			<response type="velocity" name="export">
+				<param name="CachingParam" value="nocachecontrol,nopragma"/>
+				<!--param name="ContentType" value="text/csv;charset=UTF-8"/-->
+				<param name="ContentType" value="application/vnd.ms-excel"/>
+				<param name="Content-Disposition" value="attachment; filename=export.csv"/><!-- Erweiterung Octopus nötig -->
+				<param name="Content-Description" value="VerA.web Personenexport"/><!-- Erweiterung Octopus nötig -->
+			</response>
+		</task>
+
+		<task name="ExportPersons" access="public" groups="Exporter">
+			<description>
+				Dieser Task zeigt einen Dialog zum Exportieren von Personen.
+			</description>
+			<doTask name="Load"/>
+			<param name="domain" value="ou"/><!-- wenn Admin, dann alle Veranstaltungen und Kategorien -->
+			<param name="invertOrder" value="true"/><!-- Dreht die Liste der Veranstaltung chronologisch um. -->
+			<action name="getAll" worker="EventListWorker"/>
+			<action name="getAll" worker="CategorieWorker"/>
+			<action name="getFormats" worker="DataExchangeWorker"/>
+			<response type="velocity" name="exportPersons">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ExportPersonsHandler" access="public" groups="Exporter">
+			<description>
+				Dieser Task exportiert Personen gemäß Vorgaben aus dem Task "ExportPersons".
+			</description>
+			<param name="domain" value="ou"/><!-- wenn Admin, dann aus allen Mandanten -->
+			<action name="export" worker="DataExchangeWorker"/>
+			<response type="binary" name="stream">
+				<param name="CachingParam" value="nocachecontrol,nopragma"/>
+			</response>
+		</task>
+
+		<task name="ImportPersons" access="public" groups="Writer">
+			<description>
+				Dieser Task zeigt einen Dialog zum Importieren von Personen aus einer Madlan-Export-Datei.
+			</description>
+			<doTask name="Load"/>
+			<action name="getFormats" worker="DataExchangeWorker"/>
+			<param name="domain" value="all"/>
+			<action name="getAll" worker="OrgUnitListWorker" />
+			<response type="velocity" name="import">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ImportPersonsFile" access="public" groups="Writer">
+			<description>
+				Dieser Task importiert Personen aus einer Madlan-Export-Datei in die spezielle DB-Tabelle "timportperson".
+			</description>
+			<doTask name="Load"/>
+			<action name="importToTransit" worker="DataExchangeWorker"/>
+			<status equals="streamClose">
+				<doTask name="ImportPersons"/>
+			</status>
+			<status equals="invalidData">
+				<doTask name="ImportPersons"/>
+			</status>
+			<response type="velocity" name="importResult">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ImportPersonsStoredRecord" access="public" groups="Writer">
+			<description>
+				Dieser Task setzt den Import von Personen aus der DB-Tabelle "timportperson" fort.
+			</description>
+			<doTask name="Load"/>
+			<action name="importStoredRecord" worker="ImportPersonsWorker" />
+			<response type="velocity" name="importResult">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ImportPersonsFinalise" access="public" groups="Writer">
+			<description>
+				Dieser Task importiert Personen aus der DB-Tabelle "timportperson" in die Personendatenbasis.
+			</description>
+			<doTask name="Load"/>
+			<action name="finalise" worker="ImportPersonsWorker" />
+			<response type="velocity" name="importResult">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ImportPersonsEditDuplicates" access="public" groups="Writer">
+			<description>
+				Dieser Task ermöglicht die Bearbeitung der Dubletten-Datensätze von einem Importvorgang.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="ImportPersonsDuplicateWorker" />
+			<action name="showList" worker="ImportPersonsDuplicateWorker" />
+<!--			<action name="editDuplicates" worker="ImportPersonsDuplicateWorker" />-->
+			<response type="velocity" name="duplicateList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+		<!-- Umsetzung VERTEILER -->
+		<task name="CreateMailinglistFromPerson" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt einen Dialog zur Erstellung eines Mail-Verteilers an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="PersonListWorker"/>
+			<action name="showList" worker="PersonListWorker"/>
+			<action name="countRecipients" worker="PersonListWorker"/>
+			<response type="velocity" name="mailinglistCreate">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SaveMailinglistFromPerson" access="public" groups="Writer">
+			<description>
+				Speichert einen Mail-Verteiler und zeigt anschließend die Gästeliste an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="PersonListWorker"/>
+			<action name="showList" worker="PersonListWorker"/>
+			<action name="saveDetail" worker="MailinglistDetailWorker"/>
+			<status equals="error">
+				<doTask name="CreateMailinglistFromPerson"/>
+			</status>
+			<action name="createMailinglist" worker="MailinglistWorker"/>
+			<status equals="error">
+				<doTask name="CreateMailinglistFromPerson"/>
+			</status>
+			<doTask name="SearchPerson"/>
+		</task>
+
+		<task name="CreateMailinglistFromGuest" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt einen Dialog zur Erstellung eines Mail-Verteilers an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<action name="showList" worker="GuestListWorker"/>
+			<action name="countRecipients" worker="GuestListWorker"/>
+			<response type="velocity" name="mailinglistCreate">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SaveMailinglistFromGuest" access="public" groups="Writer">
+			<description>
+				Speichert einen Mail-Verteiler und zeigt anschließend die Gästeliste an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<action name="showList" worker="GuestListWorker"/>
+			<action name="saveDetail" worker="MailinglistDetailWorker"/>
+			<status equals="error">
+				<doTask name="CreateMailinglistFromGuest"/>
+			</status>
+			<action name="createMailinglist" worker="MailinglistWorker"/>
+			<status equals="error">
+				<doTask name="CreateMailinglistFromGuest"/>
+			</status>
+			<doTask name="ShowGuestList"/>
+		</task>
+
+		<task name="ShowMailinglistList" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt eine Liste von Email-Verteilern an.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="MailinglistListWorker" />
+			<action name="showList" worker="MailinglistListWorker" />
+			<response type="velocity" name="mailinglistList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowMailinglistDetail" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt die Adressen zu einem Email-Verteiler an.
+			</description>
+			<doTask name="Load"/>
+			<action name="showDetail" worker="MailinglistDetailWorker"/>
+			<action name="saveList" worker="MailinglistDetailWorker"/>
+			<action name="showList" worker="MailinglistDetailWorker"/>
+			<action name="getAddressList" worker="MailinglistDetailWorker"/>
+			<response type="velocity" name="mailinglistDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="MailinglistWrite" access="public" groups="StandardFieldsReader">
+			<description>Zeigt einen Dialog zum versenden von eMail an.</description>
+			<doTask name="Load"/>
+			<action name="showDetail" worker="MailinglistDetailWorker"/>
+			<action name="getAll" worker="MailDraftWorker"/>
+			<response type="velocity" name="mailinglistWrite">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="MailinglistSend" access="public" groups="StandardFieldsReader">
+			<description>Versendet die eMails und wechselt zur Verteiler-Ansicht.</description>
+			<doTask name="Load"/>
+			<action name="showDetail" worker="MailinglistDetailWorker"/>
+			<action name="getSelection" worker="MailinglistDetailWorker"/>
+			<status equals="error">
+				<doTask name="MailinglistWrite"/>
+			</status>
+			<doTask name="ShowMailinglistDetail"/>
+		</task>
+
+		<!-- Umsetzung eMail-Vorlagen und eMail-Versenden -->
+		<task name="MailDraftList" access="public" groups="Writer">
+			<description>Zeigt eine Liste von eMail-Entwürfen an.</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="MailDraftWorker"/>
+			<action name="showList" worker="MailDraftWorker"/>
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="mailDraftList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="MailDraftDetail" access="public" groups="Writer">
+			<description>Zeigt einen eMail-Entwürf an.</description>
+			<doTask name="Load"/>
+			<action name="saveDetail" worker="MailDraftWorker"/>
+			<action name="showDetail" worker="MailDraftWorker"/>
+			<response type="velocity" name="mailDraftDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="MailOutboxList" access="public" groups="PartialAdmin,Administrator">
+			<description>Zeigt eine Liste von eMails im Postausgang an.</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="MailOutboxWorker"/>
+			<action name="showList" worker="MailOutboxWorker"/>
+			<response type="velocity" name="mailOutboxList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="MailOutboxDetail" access="public" groups="PartialAdmin,Administrator">
+			<description>Zeigt eine eMail im Postausgang an.</description>
+			<doTask name="Load"/>
+			<action name="saveDetail" worker="MailOutboxWorker"/>
+			<action name="showDetail" worker="MailOutboxWorker"/>
+			<response type="velocity" name="mailOutboxDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- Umsetzung VERANSTALTUNG -->
+		<task name="ShowEventSearch" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt einen Suchdialog für Veranstaltungen.
+			</description>
+			<contract>
+				<input name="Aktuell" type="xsd:string" optional="t" description="Vorgabe-Flag: nur aktuelle Veranstaltungen"/>
+				<input name="Name" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Name"/>
+				<input name="Langname" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Langname"/>
+				<input name="Datum" type="xsd:string" optional="t" description="Vorgabewert: gesuchtes Datum"/>
+				<input name="Ort" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Ort"/>
+				<input name="Gastgeber" type="xsd:string" optional="t" description="Vorgabewert: gesuchter Gastgeber"/>
+				<input name="Interne ID" type="xsd:string" optional="t" description="Vorgabewert: interne ID" />
+			</contract>
+			<doTask name="Load"/>
+			<action name="getAll" worker="LocationListWorker" />
+			<action name="getSearch" worker="EventListWorker" />
+			<response type="velocity" name="eventSearch">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SearchEvent" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task sucht Veranstaltungen.
+			</description>
+			<contract>
+				<input name="Aktuell" type="xsd:string" optional="t" description="Flag: nur aktuelle Veranstaltungen"/>
+				<input name="Name" type="xsd:string" optional="t" description="gesuchter Name"/>
+				<input name="Langname" type="xsd:string" optional="t" description="gesuchter Langname"/>
+				<input name="Datum" type="xsd:string" optional="t" description="gesuchtes Datum"/>
+				<input name="Ort" type="xsd:string" optional="t" description="gesuchter Ort"/>
+				<input name="Gastgeber" type="xsd:string" optional="t" description="gesuchter Gastgeber"/>
+			</contract>
+			<doTask name="Load"/>
+			<action name="saveList" worker="EventListWorker" />
+			<action name="showList" worker="EventListWorker" />
+			<action name="getAll" worker="LocationListWorker" />
+			<response type="velocity" name="eventList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="CreateEvent" access="public" groups="Writer">
+			<description>
+				Dieser Task zeigt eine Veranstaltung an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="LocationListWorker" />
+			<response type="velocity" name="eventDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowEvent" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt eine Veranstaltung an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="LocationListWorker" />
+			<action name="showDetail" worker="EventDetailWorker" />
+			<response type="velocity" name="eventDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowDelegationFields" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt eine Veranstaltung an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getDelegationFieldsLabels" worker="EventDelegationWorker" />
+			<action name="getOptionalFieldTypesFromEvent" worker="EventDelegationWorker" />
+			<response type="velocity" name="delegationFields">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SaveDelegationFields" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task speichert die bearbeiteten Tasks.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveDelegationFieldLabels" worker="EventDelegationWorker" />
+			<doTask name="ShowDelegationFields"/>
+		</task>
+
+		<task name="SaveEvent" access="public" groups="Writer">
+			<description>
+				Dieser Task speichert eine Veranstaltung.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="LocationListWorker" />
+			<action name="saveDetail" worker="EventDetailWorker" />
+			<response type="velocity" name="eventDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- Umsetzung Veranstaltungs-Aufgaben -->
+
+		<task name="ShowEventTasks" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt die Aufgaben zu einer Veranstaltung an.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="EventTaskListWorker" />
+			<action name="showDetail" worker="EventDetailWorker" />
+			<action name="showList" worker="EventTaskListWorker" />
+			<response type="velocity" name="eventTasks">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="CreateEventTask" access="public" groups="Writer">
+			<description>
+				Dieser Task erzeugt eine neue Aufgabe
+			</description>
+			<doTask name="Load"/>
+			<action name="setEventTaskId" worker="EventTaskDetailWorker" />
+			<action name="loadTemp" worker="EventTaskDetailWorker"/>
+			<action name="loadReferencePerson" worker="EventTaskDetailWorker" />
+			<action name="showDetail" worker="EventDetailWorker" />
+			<response type="velocity" name="eventTaskDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowEventTask" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt eine Aufgabe einer Veranstaltung an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="LocationListWorker" />
+			<action name="showDetail" worker="EventTaskDetailWorker" />
+			<action name="loadReferencePerson" worker="EventTaskDetailWorker" />
+			<action name="showDetail" worker="EventDetailWorker" />
+			<response type="velocity" name="eventTaskDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SaveEventTask" access="public" groups="Writer">
+			<description>
+				Dieser Task speichert eine Aufgabe einer Veranstaltung.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="LocationListWorker" />
+			<action name="saveDetail" worker="EventTaskDetailWorker" />
+			<action name="showDetail" worker="EventDetailWorker" />
+			<response type="velocity" name="eventTaskDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SetReferencePersonToEventTask" access="public" groups="Writer">
+			<description>
+				Suchmaske zur Auswahl einen verantwortliche Person für eine Veranstaltungsaufgabe.
+			</description>
+			<action name="saveTemp" worker="EventTaskDetailWorker" />
+			<action name="copyTaskAndEventId" worker="EventTaskDetailWorker" />
+			<doTask name="ShowPersonSearch"/>
+		</task>
+
+		<task name="SetReferencePersonToEventTaskList" access="public" groups="Writer">
+			<description>
+				Auswahl einen verantwortliche Person für eine Veranstaltungsaufgabe.
+			</description>
+			<action name="loadTemp" worker="EventTaskDetailWorker"/>
+			<action name="copyTaskAndEventId" worker="EventTaskDetailWorker" />
+			<doTask name="SearchPerson"/>
+		</task>
+
+		<!-- Umsetzung GAESTELISTE -->
+		<task name="ShowGuestList" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt eine Gästeliste an.
+			</description>
+			<doTask name="Load"/>
+			<action name="setupSortDirection" worker="GuestListWorker"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent">
+					<doTask name="CreateEvent"/>
+			</status>
+			<action name="saveList" worker="GuestListWorker"/>
+			<action name="showList" worker="GuestListWorker"/>
+			<action name="getJumpOffsets" worker="GuestListWorker"/>
+			<action name="getSums" worker="GuestListWorker"/>
+			<action name="getAllCategories" worker="GuestListWorker" />
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="guestList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowGuestDetail" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt die Informationen eines Gastes an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent">
+                <doTask name="CreateEvent"/>
+            </status>
+			<action name="getAll" worker="CategorieWorker"/>
+			<action name="showDetail" worker="GuestDetailWorker"/>
+			<action name="showDelegationFields" worker="EventDelegationWorker" />
+			<status equals="notfound">
+				<doTask name="ShowGuestList"/>
+			</status>
+			<param name="responseTab" value="detail" />
+			<response type="velocity" name="guestDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ShowTestGuest" access="public" groups="StandardFieldsReader">
+			<description>
+				Dieser Task zeigt einen Test Gast.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker"/>
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="getAll" worker="CategorieWorker"/>
+			<action name="showTestGuest" worker="GuestDetailWorker"/>
+			<response type="velocity" name="guestDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="SaveGuestDetail" access="public" groups="Writer">
+			<description>
+				Speichert die Informationen eines Gastes.
+			</description>
+			<action name="load" worker="LanguageProvider" />
+			<action name="saveDetail" worker="GuestDetailWorker"/>
+			<doTask name="ShowGuestDetail"/>
+		</task>
+
+
+		<task name="ReloadGuestData" access="public" groups="Writer">
+			<description>
+				Lädt die Dokumenttypen eines Gastes neu.
+			</description>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="reloadData" worker="GuestWorker"/>
+			<doTask name="ShowGuestDetail"/>
+		</task>
+
+		<task name="ReloadAllGuestData" access="public" groups="Writer">
+			<description>
+				Lädt die Dokumenttypen eines Gastes neu.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="showList" worker="GuestListWorker"/>
+			<action name="getSums" worker="GuestListWorker"/>
+			<action name="reloadAllData" worker="GuestWorker"/>
+			<action name="showList" worker="GuestListWorker"/>
+			<response type="velocity" name="guestList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="AddPersonToEventDetail" access="public" groups="Writer">
+			<description>
+				Fügt eine Person einer Veranstaltung hinzu und zeigt diese
+				anschließend wieder an.
+			</description>
+			<action name="showDetail" worker="PersonDetailWorker"/>
+			<action name="addPerson" worker="GuestWorker"/>
+			<doTask name="ShowPerson"/>
+		</task>
+
+		<task name="AddPersonToEventSearch" access="public" groups="Writer">
+			<description>
+				Fügt die markierten Personen aus einer Gästeliste zu einer
+				Veranstaltung hinzu und zeigt die Personenliste wieder an.
+			</description>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<doTask name="ShowPersonSearch"/>
+		</task>
+
+		<task name="AddPersonToEventList" access="public" groups="Writer">
+			<description>
+				Fügt die markierten Personen aus einer Gästeliste zu einer
+				Veranstaltung hinzu und zeigt die Personenliste wieder an.
+			</description>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="getSelection" worker="PersonListWorker"/>
+			<action name="extendGuestSelection" worker="PersonGuestListWorker"/>
+			<doTask name="SearchPerson"/>
+		</task>
+
+		<task name="AddPersonToEventGuestList" access="public" groups="Writer">
+			<description>
+				Fügt die markierten Personen aus einer Gästeliste zu einer
+				Veranstaltung hinzu und zeigt die Personenliste wieder an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="getSelection" worker="PersonListWorker"/>
+			<action name="extendGuestSelection" worker="PersonGuestListWorker"/>
+			<action name="addGuestList" worker="GuestWorker"/>
+			<action name="createDelegationUsers" worker="OSIAMWorker" />
+			<action name="clearGuestSelection" worker="PersonGuestListWorker"/>
+			<doTask name="ShowGuestList"/>
+		</task>
+
+		<task name="AddEventToEventSearch" access="public" groups="Writer">
+			<description>
+				Fügt Gäste einer Veranstaltungen zur einer anderen hinzu.
+			</description>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<doTask name="ShowEventSearch"/>
+		</task>
+
+		<task name="AddEventToEventList" access="public" groups="Writer">
+			<description>
+				Fügt Gäste einer Veranstaltungen zur einer anderen hinzu.
+			</description>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<doTask name="SearchEvent"/>
+		</task>
+
+		<task name="AddEventToEventGuestList" access="public" groups="Writer">
+			<description>
+				Fügt Gäste einer Veranstaltungen zur einer anderen hinzu.
+			</description>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<status equals="noevent"><doTask name="CreateEvent"/></status>
+			<action name="addEvent" worker="GuestWorker"/>
+			<doTask name="ShowGuestList"/>
+		</task>
+
+		<task name="SetHostToEventSearch" access="public" groups="Writer">
+			<description>
+				Setzt einen Gastgeber für eine Veranstaltung.
+			</description>
+			<action name="saveTemp" worker="EventDetailWorker"/>
+			<doTask name="ShowPersonSearch"/>
+		</task>
+
+		<task name="SetHostToEventList" access="public" groups="Writer">
+			<description>
+				Setzt einen Gastgeber für eine Veranstaltung.
+			</description>
+			<action name="loadTemp" worker="EventDetailWorker"/>
+			<doTask name="SearchPerson"/>
+		</task>
+
+		<task name="SetHostToEventDetail" access="public" groups="Writer">
+			<description>
+				Setzt einen Gastgeber für eine Veranstaltung.
+			</description>
+			<action name="loadTemp" worker="EventDetailWorker"/>
+			<action name="setHost" worker="EventDetailWorker"/>
+			<doTask name="SaveEvent"/>
+		</task>
+
+		<task name="CalcSerialNumber" access="public" groups="Writer">
+			<description>
+				Berechnet die Laufende Nummer von Gästen in einer Gästeliste.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<action name="calcSerialNumber" worker="GuestWorker"/>
+			<action name="showList" worker="GuestListWorker"/>
+			<action name="getSums" worker="GuestListWorker"/>
+			<response type="velocity" name="guestList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+
+		<!-- Umsetzung GAESTELISTE EXPORT -->
+        <task name="ShowExportGuest" access="public" groups="StandardFieldsReader">
+            <description>
+                Zeigt die Seiten zum exportieren der Gästeliste.
+            </description>
+            <doTask name="Load"/>
+            <action name="getSearch" worker="GuestListWorker"/>
+            <action name="getEvent" worker="GuestListWorker" />
+            <response type="velocity" name="guestExport">
+                <param name="ContentType" value="text/html;charset=UTF-8"/>
+            </response>
+        </task>
+
+		<task name="ShowReportGuestList" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt eine Auswahl von zur Verfügung stehenden Reporten an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker" />
+			<action name="getSelection" worker="GuestListWorker"/>
+			<response type="velocity" name="reportSelection">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="ReportGuestList" access="public" groups="StandardFieldsReader">
+			<description>
+				Exportiert einen Report und zeigt diesen als HTML-Bericht an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getSearch" worker="GuestListWorker"/>
+			<action name="getEvent" worker="GuestListWorker"/>
+			<action name="createReport" worker="GuestReportWorker"/>
+			<response type="velocity" name="reportGuestList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- Umsetzung STATISTIKEN -->
+		<task name="Statistik" access="public" groups="Exporter">
+			<description>
+				Zeigt einen Dialog zur Auswahl von Statiksten an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getFirstDayInMonth" worker="StatistikWorker"/>
+			<action name="getLastDayInMonth" worker="StatistikWorker"/>
+			<response type="velocity" name="statistik">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="StatistikPersonSearch" access="public" groups="Exporter">
+			<description>
+				Zeigt einen Dialog zum Suchen von Personen an.
+			</description>
+			<action name="loadStatistik" worker="StatistikWorker"/>
+			<doTask name="ShowPersonSearch"/>
+		</task>
+
+		<task name="StatistikPersonList" access="public" groups="Exporter">
+			<description>
+				Zeigt eine Liste mit Personen an.
+			</description>
+			<doTask name="SearchPerson"/>
+		</task>
+
+		<task name="StatistikExport" access="public" groups="Exporter">
+			<description>
+				Erstellt eine Steuerdatei mit Statistischen Informationen.
+			</description>
+			<doTask name="Load"/>
+			<action name="loadStatistik" worker="StatistikWorker"/>
+			<action name="getStatistik" worker="StatistikWorker"/>
+			<response type="velocity" name="statistikExport">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- Umsetzung AJAX - Nachladen von Daten. -->
+		<task name="Complete" access="private">
+			<response type="velocity" name="complete">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="CompleteLocation" access="public" groups="StandardFieldsReader">
+			<doTask name="Load"/>
+			<action name="completeLocation" worker="CompleteWorker"/>
+			<doTask name="Complete"/>
+		</task>
+
+		<!-- Umsetzung POPUPS -->
+		<task name="popupNewLocation" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup an zum Einfügen eines neuen Ortes.
+			</description>
+			<doTask name="Load"/>
+			<response type="velocity" name="popupNewLocation">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="popupSelectFunction" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl einer Funktion an.
+			</description>
+			<doTask name="Load"/>
+			<action name="showList" worker="FunctionWorker"/>
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="popupSelectFunction">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="popupSelectCompany" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl einer Funktion an.
+			</description>
+			<doTask name="Load"/>
+			<action name="showList" worker="CompanyListWorker"/>
+			<param name="liststarts" value="true"/>
+			<response type="velocity" name="popupSelectCompany">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="popupPersonExport" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup mit den Stammdaten der Person zum direkten kopieren.
+			</description>
+			<doTask name="Load"/>
+			<action name="showDetail" worker="PersonDetailWorker"/>
+			<action name="createExport" worker="PersonDetailWorker"/>
+			<response type="velocity" name="popupPersonExport">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!--
+		  - modified as per change request 2.6.2 for version 1.2.0
+		  - cklein
+		  - 2008-02-28
+		-->
+		<task name="popupAssignPersonCategory" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl einer Kategorie an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAllAvailablePersonCategories" worker="CategorieWorker"/>
+			<param name="assignmentAction" value="assign"/>
+			<param name="count" refvalue="REQUEST:count" />
+			<response type="velocity" name="popupSelectPersonCategory">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!--
+		  - modified as per change request 2.6.2 for version 1.2.0
+		  - cklein
+		  - 2008-02-28
+		-->
+		<task name="popupUnassignPersonCategory" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl einer Kategorie an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAllAvailablePersonCategories" worker="CategorieWorker"/>
+			<param name="assignmentAction" value="unassign"/>
+			<param name="count" refvalue="REQUEST:count" />
+			<response type="velocity" name="popupSelectPersonCategory">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!--
+		  - modified as per change request 2.6.3 for version 1.2.0
+		  - cklein
+		  - 2008-02-28
+		-->
+		<task name="popupAssignGuestCategory" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl einer Kategorie an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="CategorieWorker"/>
+			<param name="assignmentAction" value="assign"/>
+<!-- 			<action name="countSelectedGuests" worker="GuestListWorker"/> -->
+			<param name="count" refvalue="REQUEST:count" />
+			<response type="velocity" name="popupSelectGuestCategory">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!--
+		  - modified as per change request 2.6.3 for version 1.2.0
+		  - cklein
+		  - 2008-02-28
+		-->
+		<task name="popupUnassignGuestCategory" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl einer Kategorie an.
+			</description>
+			<doTask name="Load"/>
+<!-- 			<action name="getAll" worker="CategorieWorker"/> -->
+			<param name="assignmentAction" value="unassign" />
+<!-- 			<action name="countSelectedGuests" worker="GuestListWorker"/> -->
+			<param name="count" refvalue="REQUEST:count" />
+			<response type="velocity" name="popupSelectGuestCategory">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="popupAssignPersonWorkarea" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl eines Arbeitsbereiches an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<param name="assignmentAction" value="assign"/>
+			<response type="velocity" name="popupSelectWorkArea">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="popupUnassignPersonWorkarea" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl eines Arbeitsbereiches an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<param name="assignmentAction" value="unassign"/>
+			<response type="velocity" name="popupSelectWorkArea">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="popupAssignGuestWorkarea" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl eines Arbeitsbereiches an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<param name="assignmentAction" value="assign"/>
+			<response type="velocity" name="popupSelectWorkArea">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="popupUnassignGuestWorkarea" access="public" groups="StandardFieldsReader">
+			<description>
+				Zeigt ein Popup zur Auswahl eines Arbeitsbereiches an.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="WorkAreaWorker"/>
+			<param name="assignmentAction" value="unassign"/>
+			<response type="velocity" name="popupSelectWorkArea">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- Umsetzung Vertretungen -->
+		<task name="Proxy" access="public" groups="InPerson">
+			<description>
+				Dieser Task zeigt die Stellvertreter des aktuellen Benutzers an.
+				Werden dem Task Stellvertretungsdaten übergeben, so wird zuvor versucht,
+				anhand dieser bestehende Stellvertretungen abzuändern.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="ProxyListWorker" />
+			<param name="proxiesFor" value="self"/>
+			<param name="proxiesValid" refvalue="proxiesValid"/>
+			<param name="proxy" value="all"/>
+			<param name="order" refvalue="order"/>
+			<action name="showList" worker="ProxyListWorker" />
+			<action name="showAARoleList" worker="UserWorker" />
+			<response type="velocity" name="proxy">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="OUProxy" access="public" groups="PartialAdmin,Administrator">
+			<description>
+				Dieser Task zeigt die Stellvertreter aller Benutzer im gleichen Mandanten an.
+				Werden dem Task Stellvertretungsdaten übergeben, so wird zuvor versucht,
+				anhand dieser bestehende Stellvertretungen abzuändern.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="ProxyListWorker" />
+			<param name="proxiesFor" value="ou"/>
+			<param name="proxiesValid" refvalue="proxiesValid"/>
+			<param name="proxy" value="all"/>
+			<param name="order" refvalue="order"/>
+			<action name="showList" worker="ProxyListWorker" />
+			<action name="showAARoleList" worker="UserWorker" />
+			<action name="getAll" worker="UserListWorker" />
+			<response type="velocity" name="proxy">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="AllProxy" access="public" groups="Administrator">
+			<description>
+				Dieser Task zeigt die Stellvertreter aller Benutzer an.
+				Werden dem Task Stellvertretungsdaten übergeben, so wird zuvor versucht,
+				anhand dieser bestehende Stellvertretungen abzuändern.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="ProxyListWorker" />
+			<param name="proxiesFor" value="all"/>
+			<param name="proxiesValid" refvalue="proxiesValid"/>
+			<param name="proxy" value="all"/>
+			<param name="order" refvalue="order"/>
+			<action name="showList" worker="ProxyListWorker" />
+			<action name="showAARoleList" worker="UserWorker" />
+			<action name="getAll" worker="UserListWorker" />
+			<action name="getMap" worker="OrgUnitListWorker" />
+			<response type="velocity" name="proxy">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- Umsetzung Benutzer -->
+
+		<task name="OUUser" access="public" groups="PartialAdmin,Administrator">
+			<description>
+				Dieser Task zeigt alle Benutzer im gleichen Mandanten an.
+				Werden dem Task Benutzerdaten übergeben, so wird zuvor versucht,
+				anhand dieser bestehende Benutzer abzuändern.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="UserListWorker" />
+			<param name="domain" value="unassigned"/>
+			<action name="showAARoleList" worker="UserWorker" />
+			<param name="domain" value="ou"/><!-- wird auch von user.vm genutzt -->
+			<param name="order" refvalue="order"/>
+			<action name="showList" worker="UserListWorker" />
+			<action name="getAll" worker="OrgUnitListWorker" />
+			<response type="velocity" name="user">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="AllUser" access="public" groups="Administrator,SystemUser">
+			<description>
+				Dieser Task zeigt alle Benutzer an.
+				Werden dem Task Benutzerdaten übergeben, so wird zuvor versucht,
+				anhand dieser bestehende Benutzer abzuändern.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="UserListWorker" />
+			<param name="domain" value="unassigned"/>
+			<action name="showAARoleList" worker="UserWorker" />
+			<param name="domain" value="all"/><!-- wird auch von user.vm genutzt -->
+			<param name="order" refvalue="order"/>
+			<action name="showList" worker="UserListWorker" />
+			<action name="getAll" worker="OrgUnitListWorker" />
+			<response type="velocity" name="user">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- Umsetzung Mandanten -->
+
+		<task name="Orgunit" access="public" groups="Administrator,SystemUser">
+			<description>
+				Dieser Task zeigt alle Mandanten an.
+				Werden dem Task Benutzerdaten übergeben, so wird zuvor versucht,
+				anhand dieser bestehende Mandanten abzuändern.
+			</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="OrgUnitListWorker" />
+			<action name="showList" worker="OrgUnitListWorker" />
+			<response type="velocity" name="orgunit">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="OrgunitCleanup" access="public" groups="Administrator,SystemUser">
+			<description>
+				Dieser Task zeigt Mandanten-unabhängige Daten an und
+				bietet dem Admin die Möglichkeit diese einem bestehenden
+				Mandaten zuzuordnen.
+			</description>
+			<doTask name="Load"/>
+			<action name="getAll" worker="OrgUnitListWorker" />
+			<action name="cleanupDatabase" worker="OrgUnitListWorker" />
+			<response type="velocity" name="orgunitCleanup">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- Creation of OSIAM Credentials -->
+		<task name="CreateOsiamUser" access="public" groups="Writer">
+			<description>
+				This task is able to create OSIAM credential data to
+				the verawebs persons
+			</description>
+			<doTask name="Load"/>
+			<action name="createOsiamUser" worker="PersonDetailWorker" />
+			<response type="velocity" name="personDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<!-- Cleanup-Task -->
+		<task name="Cleanup" access="public" groups="Administrator">
+			<description>
+				Dieser Task übernimmt einige Aufraumarbeiten in der Datenbank.
+			</description>
+			<doTask name="Load"/>
+			<action name="summarizeCategories" worker="CleanupWorker"/>
+			<response type="velocity" name="cleanup">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="PdfTemplateList" access="public" groups="Writer">
+			<description>Zeigt eine Liste von PDF-Entwürfen an.</description>
+			<doTask name="Load"/>
+			<action name="saveList" worker="PdfTemplateWorker"/>
+			<action name="showList" worker="PdfTemplateWorker"/>
+			<response type="velocity" name="pdfTemplateList">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+		<task name="PdfTemplateDetail" access="public" groups="Writer">
+			<description>Zeigt einen PDF-Vorlage an.</description>
+			<doTask name="Load"/>
+			<action name="saveDetail" worker="PdfTemplateWorker"/>
+			<action name="showDetail" worker="PdfTemplateWorker"/>
+			<response type="velocity" name="pdfTemplateDetail">
+				<param name="ContentType" value="text/html;charset=UTF-8"/>
+			</response>
+		</task>
+
+
+	</tasks>
+</tcModuleConfig>

@@ -1,0 +1,326 @@
+% Allgemeine LaTeX-Vorlage für tarent solutions GmbH
+% Copyright © 2015, 2016
+%	Thorsten Glaser <t.glaser@tarent.de>
+%
+% abgeleitet von der Vorlage des Teckids e.V.
+% Copyright © 2014, 2015
+%	Thorsten Glaser <thorsten.glaser@teckids.org>
+% Copyright © 2013
+%	Dominik George <nik@naturalnet.de>
+% with contributions by (among others)
+%	Steven B. Segletes <http://tex.stackexchange.com/users/25858>
+%
+% Provided that these terms and disclaimer and all copyright notices
+% are retained or reproduced in an accompanying document, permission
+% is granted to deal in this work without restriction, including un‐
+% limited rights to use, publicly perform, distribute, sell, modify,
+% merge, give away, or sublicence.
+%
+% This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to
+% the utmost extent permitted by applicable law, neither express nor
+% implied; without malicious intent or gross negligence. In no event
+% may a licensor, author or contributor be held liable for indirect,
+% direct, other damage, loss, or other issues arising in any way out
+% of dealing in the work, even if advised of the possibility of such
+% damage or existence of a defect, except proven that it results out
+% of said person’s immediate fault when using the work as intended.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tarentstyle}
+
+\RequirePackage{accsupp}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[british,german,shorthands=off,safe=none,math=normal,main=german,headfoot=german,hyphenmap=other*]{babel}%
+\RequirePackage{color}
+\RequirePackage[usenames,dvipsnames]{xcolor}
+\RequirePackage[LY1,TS1,T1]{fontenc}
+\RequirePackage{textcomp}
+\RequirePackage{pdf14}
+\RequirePackage{aeguill}
+\RequirePackage[shortcuts]{extdash}
+% (tarent-Logo ist knapp 0.89 cm hoch bei 5¼ cm Breite, x horizontal 0.68 cm)
+% Einstellungen für: (gerade Seiten gespiegelt)
+% Seitenrand oben 1.78 cm, unten 1.5 cm, links 1.9 cm, rechts 1.8 cm
+% Kopfzeile 1.1 cm (Abstand 0.6 cm); Fußzeile 0.6 cm (Abstand 0.6 cm)
+\RequirePackage[paperwidth=21truecm,paperheight=28truecm,includeheadfoot,inner=1.9cm,outer=1.8cm,top=1.78cm,bottom=1.5cm,twoside,headheight=1.1cm,headsep=0.9cm,foot=1.2cm,marginparsep=2.5mm]{geometry}
+\savegeometry{tarentstyle}
+\RequirePackage{fancybox}
+\linespread{1.15}
+\RequirePackage{pxfonts}
+\renewcommand{\familydefault}{\sfdefault}
+\RequirePackage[varqu,varl]{inconsolata}
+\usepackage{newunicodechar}
+\usepackage{wasysym}
+\usepackage{longtable}
+\usepackage{tabu}
+\usepackage{multirow}
+\renewcommand{\multirowsetup}{}
+\usepackage{wrapfig}
+\usepackage{ltablex}
+\usepackage[writefile]{listings}
+\usepackage{tocloft}
+\usepackage{float}
+\usepackage[totpages,user]{zref}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage{scalerel}
+\usepackage{soul}
+\usepackage[noadjust]{marginnote}
+\RequirePackage[pdftex]{hyperref}
+\hypersetup{
+	colorlinks = true,
+	linkcolor = blue,
+	urlcolor = blue,
+	pdfauthor = {tarent solutions GmbH}
+}
+
+% Set default page style
+\pagestyle{fancy}
+\addtokomafont{pageheadfoot}{\upshape}
+\newcommand{\tarenthdr}[2][]{
+ \fancyhf{}
+ \renewcommand{\headrulewidth}{0pt}
+ \renewcommand{\footrulewidth}{0.6pt}
+ \renewcommand*\pagemark{\leavevmode\usekomafont{pagenumber}\ifnum\ztotpages=1\else\thepage/\ztotpages\fi}
+ \fancyhead[LO,RE]{\leavevmode\usekomafont{pageheadfoot}\tarentlogo[5.25cm]{}}
+ \fancyhead[RO,LE]{\leavevmode\usekomafont{pageheadfoot}#2}
+ \fancyfoot[LO,RE]{\leavevmode\usekomafont{pageheadfoot}{\footnotesize\textcopyright #1 tarent}}
+ \fancyfoot[C]{\leavevmode\usekomafont{pageheadfoot}\pagemark}
+ \fancyfoot[RO,LE]{\leavevmode\usekomafont{pageheadfoot}\href{https://www.tarent.de/}{www.tarent.de}}
+}
+\tarenthdr{\headmark}
+
+% Hurenkinder und Schusterjungen
+\clubpenalty10000
+\widowpenalty10000
+\displaywidowpenalty=10000
+% Zu lange Zeilen
+\emergencystretch 5em%
+
+% Allgemeine Einstellungen
+
+\DeclareGraphicsExtensions{.pdf,.eps,.png,.jpg}
+
+\setlength{\parskip}{0.3cm plus 5mm minus 1mm}
+\setlength{\parindent}{0cm}
+
+\newcommand{\tarentlogo}[1][3.5cm]{\includegraphics[width=#1]{tarentlogo}}
+\definecolor{tarentrot}{HTML}{CC0000}
+\definecolor{tarentgrau}{HTML}{EBEBEB}
+
+\newcommand\Warning{%
+ \makebox[1.4em][c]{%
+ \makebox[0pt][c]{\raisebox{.15em}{\footnotesize!}}%
+ \makebox[0pt][c]{\color{red}\huge$\bigtriangleup$}}}%
+\newunicodechar{⚠}{\Warning}
+
+\newunicodechar{‑}{{\fontencoding{T1}\selectfont\symbol{'177}}\nolinebreak\hspace{0pt}}
+
+\newcommand{\ankreuzen}{Bitte zum Beispiel so → \CheckedBox\hspace{0.05cm} ← ankreuzen!}
+\newcommand{\ankreuzkaestchen}{\Square\hspace{0.1cm}}
+
+% Listings
+
+\makeatletter
+\newcounter{lstdumps}
+\setcounter{lstdumps}{0}
+\newcommand{\lstdumpname}{}
+\xdef\lstdumpsection{\@empty}%
+\lstnewenvironment{lstdump}[3][]
+	{\lst@TestEOLChar{#3}%
+	 \lstset{#1}%
+	 \csname\@lst @SetFirstNumber\endcsname%
+	 \stepcounter{lstdumps}%
+	 \marginnote{{\LARGE\color{Gray}\thelstdumps}}[4pt]%
+	 \renewcommand{\lstdumpname}{ (#2)}%
+	 \lst@BeginAlsoWriteFile{\jobname.lst}%
+	 \ifx\lstdumpsection\@currentlabel\else%
+	  \ifx\lstdumpsection\@empty%
+	   \immediate\write\lst@WF{Listing dump for \jobname.tex}%
+	   \immediate\write\lst@WF{}%
+	  \fi%
+	  \immediate\write\lst@WF{>>> (\@currentlabel) \@currentlabelname}%
+	  \immediate\write\lst@WF{}%
+	 \fi%
+	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
+	}
+	{
+	 \immediate\write\lst@WF{-----END LISTING \thelstdumps\lstdumpname-----}%
+	 \immediate\write\lst@WF{}%
+	 \endgroup%
+	 \csname\@lst @SaveFirstNumber\endcsname%
+	 \xdef\lstdumpsection{\@currentlabel}%
+	}
+\lstnewenvironment{lstdumpx}[2][]
+	{\lst@TestEOLChar{#2}%
+	 \lstset{#1}%
+	 \csname\@lst @SetFirstNumber\endcsname%
+	 \stepcounter{lstdumps}%
+	 \marginnote{{\LARGE\color{Gray}\thelstdumps}}[4pt]%
+	 \renewcommand{\lstdumpname}{ [unnamed]}%
+	 \lst@BeginAlsoWriteFile{\jobname.lst}%
+	 \ifx\lstdumpsection\@currentlabel\else%
+	  \ifx\lstdumpsection\@empty%
+	   \immediate\write\lst@WF{Listing dump for \jobname.tex}%
+	   \immediate\write\lst@WF{}%
+	  \fi%
+	  \immediate\write\lst@WF{>>> (\@currentlabel) \@currentlabelname}%
+	  \immediate\write\lst@WF{}%
+	 \fi%
+	 \immediate\write\lst@WF{-----BEGIN LISTING \thelstdumps\lstdumpname-----}%
+	}
+	{
+	 \immediate\write\lst@WF{-----END LISTING \thelstdumps\lstdumpname-----}%
+	 \immediate\write\lst@WF{}%
+	 \endgroup%
+	 \csname\@lst @SaveFirstNumber\endcsname%
+	 \xdef\lstdumpsection{\@currentlabel}%
+	}
+% usage: \lstdumpesc[file]{pdf} or \lstdumpesc{bothfileandpdf}
+\def\lstdumpesc{\@ifnextchar[{\lstdumpesc@two}{\lstdumpesc@one}}
+\def\lstdumpesc@one#1{\lst@WFAppend{#1}#1}
+\def\lstdumpesc@two[#1]#2{\lst@WFAppend{#1}#2}
+\makeatother
+
+\lstset{
+	backgroundcolor=\color{tarentgrau},
+	rulecolor=,
+	basicstyle=\ttfamily,
+	upquote=true,
+	keepspaces,
+	literate=
+		{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+		{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+		{à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+		{À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+		{ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+		{Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+		{â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+		{Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+		{æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1 {œ}{{\oe}}1 {Œ}{{\OE}}1
+		{ő}{{\H{o}}}1 {Ő}{{\H{O}}}1 {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1
+		{å}{{\r a}}1 {Å}{{\r A}}1 {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1
+		{©}{{\textcopyright}}1 {™}{\texttrademark}1 {–}{-}1 {§}{\S}1
+		{£}{{\pounds}}1 {°}{\textdegree{}}1 {„}{{\quotedblbase}}1
+		{“}{{\textquotedblleft}}1 {”}{{\textquotedblright}}1
+		{‘}{{\textquoteleft}}1 {’}{{\textquoteright}}1
+		{«}{\guillemotleft}1 {»}{\guillemotright}1
+		{€}{{\fontencoding{LY1}\selectfont\symbol{'001}}}1
+		{…}{{\fontencoding{LY1}\selectfont\symbol{'205}}}1,
+	columns=flexible,
+	showstringspaces=false,
+	extendedchars=true,
+	breaklines=true,
+	prebreak=\raisebox{0ex}[0ex][0ex]{\color{tarentrot}\ensuremath{\hookleftarrow}},
+	frame=single,
+	showtabs=false,
+	showspaces=false,
+	showstringspaces=false,
+	escapeinside={〈}{〉},
+	keywordstyle=\color{blue},
+	commentstyle=\color{ForestGreen},
+	stringstyle=\color{RedOrange},
+}
+
+% Use Museo Sans by default
+\renewcommand{\sfdefault}{museo}
+% sans-serif fonts should not use italic as emphasis
+\renewcommand{\emph}[1]{\textbf{#1}}
+% Use Comic Sans MS as “roman” font, because we have to use the
+% sans-serif font always, and like this, we spot errors easily
+\renewcommand{\rmdefault}{comic}
+% default font is sans-serif, i.e. Museo Sans
+\renewcommand*{\familydefault}{\sfdefault}
+
+% em dash
+\def\dash{\unskip\kern.16667em\textemdash\penalty\exhyphenpenalty\hskip.16667em\relax}
+% for footnotes
+\newcommand{\Hair}{\kern.16667em}
+
+% for lead paragraph before IT-Mieze
+\makeatletter
+\newcommand{\keinumbruch}{\par\nobreak\@afterheading}
+\makeatother
+
+% for nice inline pictures in boxen with rounded corners
+\makeatletter%
+% fbox and ovalbox line will be inside the box
+\setlength{\fboxsep}{-2\fboxrule}%
+% to calculate horizontal padding inside the frame
+\newdimen{\inlinebildsep}%
+% to store dimensions of box without padding
+\newsavebox{\inlinebildbox}%
+\newcommand{\inlinebild}[2][\@empty]{%
+ % first, generate a box with square content and w/o padding
+ \savebox{\inlinebildbox}{\ovalbox{\strut\hspace{1.25ex}}}%
+ % get its real height (Teχ height + depth)
+ \inlinebildsep=\ht\inlinebildbox%
+ \advance\inlinebildsep by \dp\inlinebildbox%
+ % subtract its real width
+ \advance\inlinebildsep by -\wd\inlinebildbox%
+ % we want half of it on either side
+ \divide\inlinebildsep by 2%
+ % now render the actual box
+ \ovalbox{%
+  % left padding
+  \hspace{\inlinebildsep}%
+  % ensure standard height
+  \strut%
+  % the graphic
+  \resizebox{!}{1.25ex}{\includegraphics{#2}}%
+  % the text, if any
+  \ifx#1\@empty\else{ #1}\fi%
+  % right padding
+  \hspace{\inlinebildsep}%
+}}%
+\makeatother%
+
+% for nice inline boxen with square corners
+\makeatletter%
+\newcommand{\inlinekasten}[1]{%
+ % first, generate a box with square content and w/o padding
+ \savebox{\inlinebildbox}{\fbox{\strut\hspace{1.25ex}}}%
+ % get its real height (Teχ height + depth)
+ \inlinebildsep=\ht\inlinebildbox%
+ \advance\inlinebildsep by \dp\inlinebildbox%
+ % subtract its real width
+ \advance\inlinebildsep by -\wd\inlinebildbox%
+ % we want half of it on either side
+ \divide\inlinebildsep by 2%
+ % now render the actual box
+ \fbox{%
+  % left padding
+  \hspace{\inlinebildsep}%
+  % ensure standard height
+  \strut%
+  % the text
+  #1%
+  % right padding
+  \hspace{\inlinebildsep}%
+}}%
+\makeatother%
+
+\makeatletter%
+% \hyperfootnotetext is what \footnotetext is supposed to be:
+% like \footnote except not rendering anything (it will not
+% generate a paragraph if you append % to all lines)
+\newcommand\hyperfootnotetext[1]{%
+ % new local scope
+ {%
+  % temporarily redefine this macro to empty
+  \renewcommand{\@makefnmark}{}%
+  % temporarily prevent leaving vmode
+  \renewcommand{\leavevmode}{}%
+  % this also means we cannot create a(n empty) hyperlink
+  \renewcommand{\hyper@linkstart}[2]{}%
+  \renewcommand{\hyper@linkend}{}%
+  % call the original \footnote macro
+  \footnote{#1}%
+  % exit the local scope with the redefined macro
+ }%
+ % end of command
+}%
+\makeatother%
+
+% figure out overfull hbox
+%\overfullrule=2cm

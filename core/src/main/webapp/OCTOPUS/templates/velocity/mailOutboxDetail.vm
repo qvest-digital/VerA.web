@@ -1,0 +1,102 @@
+#set($activeMenu = "Administration")
+#if($mailoutbox && $mailoutbox.id)
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_EDIT}")
+#else
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_CREATE}")
+#end
+
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_EMAIL}")
+#set($entity="EMAIL")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_EMAIL_PLURAL}")
+#parse("inc/header.vm")
+
+<div id="content_container">
+    <form id="formlist" name="formlist" action="" method="POST">
+        <input type="hidden" name="save" value="true"/>
+
+        <div id="breadcrumb marginBottom10" class="textRight">
+    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.postausgang}</span>
+    	</div>
+
+		<h1>${placeholderWithTranslation.postausgang}</h1>
+
+        #if($mailoutbox.errors.size() > 0 || $mailoutbox.status == $mailoutbox.STATUS_ERROR || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
+            <vera-warn>
+				#foreach($error in $mailoutbox.errors)
+            		$!message.plain($error)<br>
+            	#end
+            	#if($mailoutbox.status > 10 || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
+            		${placeholderWithTranslation.beimversendendieseremailisteinfehleraufgetreten}
+            		${placeholderWithTranslation.siekonnendiesejetztbearbeitenunderneutsenden}
+            	#end
+            </vera-warn>
+        #elseif($mailoutbox.status == 1)
+            <vera-info>
+            	${placeholderWithTranslation.dieseemailwartetaufihrefertigstellungdurcheinenbenutzer}
+            </vera-info>
+        #elseif($mailoutbox.status == 2)
+            <vera-info>
+            	${placeholderWithTranslation.dieseemailwartetaufihreversendung}
+            </vera-info>
+        #elseif($mailoutbox.status == 3)
+            <vera-warn>
+            	${placeholderWithTranslation.dieseemailwirdgeradeversendetundsollte} <strong>${placeholderWithTranslation.nichtbearbeitet}</strong> ${placeholderWithTranslation.werden}
+            </vera-warn>
+        #elseif($mailoutbox.status == 4)
+            <vera-warn>
+            	${placeholderWithTranslation.dieseemailwurdebereitsversendetundsollte} <strong>${placeholderWithTranslation.nichtmehrbearbeitet}</strong> ${placeholderWithTranslation.werden}
+            </vera-warn>
+        #end
+
+        <input type="hidden" name="mailoutbox-id" value="$!mailoutbox.id"/>
+
+		<div class="textRight bold">${placeholderWithTranslation.pflichtfelder}</div>
+
+        <table class="form">
+			<tr>
+            	<td class="width5"><label for="show-id">${placeholderWithTranslation.GENERIC_ID}</label></td>
+            	<td><input type="text" id="show-id" name="show-id" value="$!message.text($mailoutbox.id)" class="id" vera-disabled /></td>
+            </tr>
+			<tr>
+            	<td><label for="mailoutbox-from">${placeholderWithTranslation.GENERIC_OF_CAPITAL}*</label></td>
+            	<td><input type="text" id="mailoutbox-from" name="mailoutbox-from" maxlength="200" value="$!message.text($mailoutbox.from)" /></td>
+            </tr>
+			<tr>
+            	<td><label for="mailoutbox-to">${placeholderWithTranslation.GENERIC_TO}*</label></td>
+            	<td><input type="text" id="mailoutbox-to" name="mailoutbox-to" maxlength="200" value="$!message.text($mailoutbox.to)" /></td>
+            </tr>
+			<tr>
+            	<td><label for="mailoutbox-subject">${placeholderWithTranslation.GENERIC_SUBJECT}*</label></td>
+            	<td><input type="text" id="mailoutbox-subject" name="mailoutbox-subject" maxlength="200" value="$!message.text($mailoutbox.subject)" /></td>
+            </tr>
+			<tr>
+            	<td><label for="mailoutbox-text">${placeholderWithTranslation.GENERIC_TEXT}</label></td>
+            	<td><textarea cols="20" rows="20" id="mailoutbox-text" name="mailoutbox-text" >$!message.textarea($mailoutbox.text)</textarea></td>
+			</tr>
+            #if($mailoutbox.status == $mailoutbox.STATUS_ERROR || ($mailoutbox.errortext && $mailoutbox.errortext.length() > 0))
+                <tr>
+                	<td>${placeholderWithTranslation.GENERIC_ERROR_DESCRIPTION}:</td>
+                	<td>
+                		<a id="show-errorlink" href="javascript:showBlock(document.getElementById('show-errortext')); hideBlock(document.getElementById('show-errorlink'));">${placeholderWithTranslation.GENERIC_BLEND_IN_TECHNICAL_ERROR_MESSAGE}</a>
+                		<div id="show-errortext" name="show-errortext" style="display: none;">
+                    		<a href="javascript:showBlock(document.getElementById('show-errorlink')); hideBlock(document.getElementById('show-errortext'));">${placeholderWithTranslation.technischefehlermeldungausblenden}</a>
+                    		<p>$!message.plain($mailoutbox.errortext)</p>
+                		</div>
+                	</td>
+        		</tr>
+            #end
+
+            #if ($listparam.count == 0)
+            	<tr><td colspan="2">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
+            #end
+        </table>
+
+    	<div class="textRight marginTop10" id="buttonPanel-bottom">
+			<input type="submit" name="submit" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+			<input type="button" name="save" value="Zurück" title="Zurück" class="mainButton" onclick="window.location.href='MailOutboxList';" />
+		</div>
+
+    </form>
+</div>
+#parse("inc/footer.vm")

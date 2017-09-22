@@ -1,0 +1,55 @@
+<span class="paging notBold">
+	<ul>
+		#set($offset = $search.offset - 1)
+		#if($offset <= 0)
+			<li class="img inactive">
+                <a>
+                    <img src="${paths.staticWeb}images/paging_arrow_left_last.png" title="${placeholderWithTranslation.TABLE_FIRST_GUEST}" style="cursor: pointer;"/>
+                </a>
+            </li>
+			<li class="img inactive">
+                <a>
+                    <img src="${paths.staticWeb}images/paging_arrow_left.png" title="${placeholderWithTranslation.TABLE_BEFORE_GUEST}" style="cursor: pointer;"/>
+                </a>
+            </li>
+        #else
+			<li class="img">
+                <a href="javascript:window.location.href='ShowGuestDetail?offset=1&tab=detail-' + detail;">
+                    <img src="${paths.staticWeb}images/paging_arrow_left_last_active.png" title="${placeholderWithTranslation.TABLE_FIRST_GUEST}" style="cursor: pointer;"/>
+                </a>
+            </li>
+			<li class="img">
+                <a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;">
+                    <img src="${paths.staticWeb}images/paging_arrow_left_active.png" title="${placeholderWithTranslation.TABLE_FIRST_GUEST}" style="cursor: pointer;"/>
+                </a>
+            </li>
+		#end
+
+		${placeholderWithTranslation.GUEST} $search.offset ${placeholderWithTranslation.GENERIC_OF} $search.count
+
+		#set($offset = $search.offset + 1)
+		#if ($offset > $search.count)
+			<li class="img inactive">
+                <a>
+                    <img src="${paths.staticWeb}images/paging_arrow_right.png" title="${placeholderWithTranslation.TABLE_NEXT_GUEST}" style="cursor: pointer;"/>
+                </a>
+            </li>
+			<li class="img inactive">
+                <a>
+                    <img src="${paths.staticWeb}images/paging_arrow_right_last.png" title="${placeholderWithTranslation.TABLE_LAST_GUEST}" style="cursor: pointer;"/>
+                </a>
+            </li>
+		#else
+			<li class="img">
+                <a href="javascript:window.location.href='ShowGuestDetail?offset=$offset&tab=detail-' + detail;">
+                    <img src="${paths.staticWeb}images/paging_arrow_right_active.png" title="${placeholderWithTranslation.TABLE_NEXT_GUEST}" style="cursor: pointer;"/>
+                </a>
+            </li>
+			<li class="img">
+                <a href="javascript:window.location.href='ShowGuestDetail?offset=$search.count&tab=detail-' + detail;">
+                    <img src="${paths.staticWeb}images/paging_arrow_right_last_active.png" title="${placeholderWithTranslation.TABLE_NEXT_GUEST}" style="cursor: pointer;"/>
+                </a>
+            </li>
+		#end
+	</ul>
+</span>

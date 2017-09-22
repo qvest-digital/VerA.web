@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
+
+<!--
+	OCTOPUS config_main.xml
+
+	copy this file to /etc/veraweb/ and change things there,
+	as config.xml itself cannot be moved
+-->
+<tcModuleConfig>
+	<!-- Die in diesem Element enthaltenen param-Elemente erlauben, gewisse Aspekte von VerA.web zu steuern. -->
+	<params>
+		<!-- ************************* -->
+		<!-- *** Octopus-Steuerung *** -->
+		<!-- ************************* -->
+		<!-- Diese Parameter steuern das Zusammenspiel mit dem Application Server und sollten allgemein nicht geändert werden. -->
+		<!-- der relative Pfad der Antwort-Templates; "templates/". -->
+		<param name="paths.templateRoot" value="templates/"/>
+		<!-- die Java-Klasse, in der Informationen zum angemeldeten Benutzer gehalten werden; "de.tarent.octopus.PersonalConfigAA". -->
+		<param name="personalConfigClass" value="de.tarent.octopus.PersonalConfigAA"/>
+		<!-- der Dateiname der Konfigurationsdatei für den Datenbankzugriff; "dblayer.properties". -->
+		<param name="dblayer" value="dblayer.properties"/>
+		<!-- die Vorgabe für den Rückgabeformattyp der Octopus-Tasks; "velocity". -->
+		<param name="defaultResponseType" value="velocity"/>
+		<!-- die Vorgabe für den Content Type der Rückgaben der Octopus-Tasks; "text/html;charset=UTF-8". -->
+		<param name="defaultContentType" value="text/html;charset=UTF-8"/>
+		<!-- die Vorgabe für die Zeichenkodierung der Rückgaben der Octopus-Tasks; "UTF-8". -->
+		<param name="defaultEncoding" value="UTF-8"/>
+		<!-- der Name des Skripts für die Darstellung von Fehlerseiten; "error" referenziert bei obigen Einstellungen "templates/velocity/error.vm". -->
+		<param name="defaultErrorDescriptionName" value="error"/>
+
+		<!-- ************************************************ -->
+		<!-- *** Automatisches Kopieren von Personendaten *** -->
+		<!-- ************************************************ -->
+		<!-- Folgender Parameter steuert das automatische Kopieren von Personendaten.
+		     Hierbei sind die Werte "all" (alle Adress- und Kommunikationsdaten),
+		     "name" (nur die Namendaten), "address" (nur die Adressdaten) und "contact"
+		     (nur die Kommunikationsdaten) zulässig.
+		-->
+		<!-- kopieren der lateinischen Daten in die anderen Zeichensätze. -->
+		<param name="copyPersonDataLatinToExtra" value="all"/>
+
+		<!-- ******************************************************************* -->
+		<!-- *** Automatisches Erstellen von Personen-Dokumenttyp-Freitexten *** -->
+		<!-- ******************************************************************* -->
+		<!-- Folgende Parameter steuern, welche personalisierte Freitexte zu Dokumenttypen automatisch erzeugt werden. Hierbei sind die Werte "all" (alle Freitexte werden erzeugt, gegebenenfalls überschrieben), "new" (nur nicht vorhandene Freitexte werden erzeugt), "flag:99" (wie "new", aber nur bei Flag 99) und "none" (keine Freitexte werden erzeugt) zulässig. -->
+		<!-- erzeugen beim Neuanlegen von Personen. -->
+		<param name="createDoctypeOnNewPerson" value="new"/>
+		<!-- erzeugen beim Speichern von Personen. -->
+		<param name="createDoctypeOnSavePerson" value="new"/>
+		<!-- Folgende Parameter steuern, wie automatisch erzeugte Freitexte zu Dokumenttypen gefüllt werden; sie sind Listen von Einträgen, die entweder Bezeichner aus der Menge (firstname, lastname, title, salutation, function, company, street, city, zipcode, country, pobox, poboxzipcode, suffix1, suffix2, phone, fax, mobile, email, url) sind, die je nach Dokumenttyp in den verschiedenen Adressen und Zeichensätzen interpretiert werden, oder freie Texte. Freie Texte können eines der Präfixe "BOTH:", "PREV:" oder "NEXT:" haben; diese bewirken, dass der freie Text nur übernommen wird, wenn beide angrenzenden Felder, nur das vorherige oder nur das folgende nicht-leer sind. -->
+		<!-- das Muster für das Erzeugen des Hauptpersonenfreitexts. -->
+		<param name="createDoctypeFormat" type="array">
+			<value>salutation</value>
+			<value>PREV:
+</value>
+			<value>title</value>
+			<value>BOTH: </value>
+			<value>firstname</value>
+			<value>BOTH: </value>
+			<value>lastname</value>
+		</param>
+		<!-- das Muster für das Erzeugen des Partnerpersonfreitexts. -->
+		<param name="createDoctypeFormatPartner" type="array">
+			<value>salutation</value>
+			<value>PREV:
+</value>
+			<value>title</value>
+			<value>BOTH: </value>
+			<value>firstname</value>
+			<value>BOTH: </value>
+			<value>lastname</value>
+		</param>
+
+		<!-- ***************** -->
+		<!-- *** Sonstiges *** -->
+		<!-- ***************** -->
+		<!-- das Präfix, das ein führendes + einer Telefon- oder Faxnummer ersetzen soll. -->
+		<param name="phoneAreacode" value="+"/>
+		<!-- der Eingangszeichensatz bei einer Zeichensatzumwandlung. -->
+		<param name="encoding.input" value="ISO-8859-1"/>
+		<!-- der Ausgangszeichensatz bei einer Zeichensatzwandlung. -->
+		<param name="encoding.output" value="UTF-8"/>
+		
+		<!-- Liste der verfügbaren Sprachen -->
+		<param name="availableTranslations" type="array">
+			<value>de_DE</value>
+			<value>en_EN</value>
+			<value>es_ES</value>
+			<value>fr_FR</value>
+		</param>
+	</params>
+</tcModuleConfig>

@@ -1,0 +1,130 @@
+#set($activeMenu = "Veranstaltungen")
+
+#if($action == "guest")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SEARCH} - ${placeholderWithTranslation.GENERIC_EVENT}: $!message.plain($event.shortname)")
+#elseif($action == "addperson")
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SEARCH} - ${placeholderWithTranslation.BROWSER_TITLE_PERSON_ASSIGN}")
+#else
+	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EVENT_SEARCH}")
+#end
+
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_EVENT}")
+#set($entity="EVENT")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_EVENT_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_EVENT_PLURAL}")
+#parse("inc/header.vm")
+
+#if($action == "guest")
+	#set($formurl = "AddEventToEventList")
+#else
+	#set($formurl = "SearchEvent")
+#end
+
+<div id="content_container">
+	<div id="breadcrumb" class="textRight marginBottom10">
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.veranstaltungssuche}</span>
+	</div>
+
+	<h1>${placeholderWithTranslation.veranstaltungssuche}</h1>
+
+	<form action="$formurl" method="post" id="eventSearch_form">
+	<input type="hidden" name="start" value="0">
+	<input type="hidden" name="selectAll" value="false">
+	<input type="hidden" name="selectNone" value="true">
+
+	<input type="hidden" name="search" value="reset">
+	<input type="hidden" name="searchTask" value="eventSearchTask">
+
+	<div id="main_content" class="contentBoxColored grayBorder marginBottom20">
+
+			<h2>${placeholderWithTranslation.GENERIC_SEARCH}</h2>
+
+				<fieldset style="border: none; padding-top: 0;">
+					<legend class="noDisplay">${placeholderWithTranslation.GENERIC_EVENT}</legend>
+
+					<div class="table width100">
+						<div class="tableRow">
+							<div class="tableCell width30">
+								<label for="input.shortname">${placeholderWithTranslation.kurzbezeichnung}*</label>
+								<input type="text" name="shortname" id="input.shortname" value="">
+							</div>
+							<div class="tableCell width30">
+								<label for="begin">${placeholderWithTranslation.GENERIC_DATE} (${placeholderWithTranslation.GENERIC_BEGIN})</label>
+								<div class="calenderContainer">
+									<input type="text" name="begin" value="" id="begin" class="datepicker">
+									<span id="show-begin" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswahlen}" title="${placeholderWithTranslation.datumauswahlen}"></span>
+									<script type="text/javascript">
+									    Calendar.setup({
+											inputField     :    "begin",
+											button         :    "show-begin",
+											ifFormat       :    "%d.%m.%Y",
+											showsTime      :    false
+										});
+										var input = $('input[name=begin]');
+										var span = $('span#show-begin');
+										input.focus(function () {
+											span.trigger('click');
+										});
+									</script>
+								</div>
+							</div>
+							<div class="tableCell width30">
+								<label for="eventname">${placeholderWithTranslation.GENERIC_NAME}</label>
+								<textarea name="eventname" id="eventname" value=""></textarea>
+							</div>
+						</div>
+						<div class="tableRow">
+							<div class="tableCell width30">
+								<label for="hostname">${placeholderWithTranslation.GENERIC_HOST}</label>
+								<input type="text" name="hostname" id="hostname" value="">
+							</div>
+							<div class="tableCell width30">
+								<label for="location">${placeholderWithTranslation.GENERIC_EVENT_LOCATION_SINGULAR}</label>
+                                <select name="location" id="location">
+                                    <option value=""></option> ##get all locations
+                                    #foreach($location in $allLocation)
+                                        <option value="$location.get('id')">$!message.plain($location.get("name"))</option>
+                                    #end
+                                </select>
+							</div>
+							<div class="tableCell width30">
+								<label for="current">${placeholderWithTranslation.nurinzuunftigenveranstaltungensuchen}</label>
+								<input type="checkbox" id="current" name="current" value="true" checked>
+							</div>
+						</div>
+
+						<div>
+							<label for="person-internal_id">${placeholderWithTranslation.INTERNAL_ID}</label>
+							<input type="text" id="person-internal_id" name="person-internal_id" value=""/>
+						</div>
+					</div>
+				</fieldset>
+
+				<div id="buttonPanel-bottom" class="textRight">
+					#if($action == "guest")
+						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
+						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" />
+						<input type="button" class="mainButton"  name="cancel" value="${placeholderWithTranslation.zuruck}" title="${placeholderWithTranslation.zuruck}" onclick="window.location.href='ShowGuestList?selectNone=true';" />
+					#elseif($action == "addperson")
+						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
+						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" />
+						<input type="button" class="mainButton"  name="cancel" value="${placeholderWithTranslation.zuruck}" title="${placeholderWithTranslation.zuruck}" onclick="window.location.href='ShowPerson';" />
+					#else
+						<input id="button.startSearch" type="submit" class="mainButton" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
+						<input type="reset"  class="mainButton" value="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" title="${placeholderWithTranslation.GENERIC_CLEAR_FIELDS}" />
+					#end
+				</div>
+
+		</div>
+
+		<vera-info vera-stay>
+			<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
+			${placeholderWithTranslation.siekonnenbeidersuchesogenannteplatzhalterverwendenderstehtfurmehrereunddasfureinzelnezeichen}
+			<img src="../images/dialog_close.png" id="close-info" style="top:-32px;" onclick="$(this).parent().get(0).remove()" />
+		</vera-info>
+
+		##<br><a href="SearchEvent?search=current">${placeholderWithTranslation.GENERIC_SHOW_CURRENT_EVENTS}</a><br><br>
+
+</form>
+</div>
+#parse("inc/footer.vm")

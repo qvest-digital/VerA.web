@@ -1,0 +1,15 @@
+**/*.iml
+*.iml
+*.log
+*~
+.classpath
+.idea/
+.project
+.settings
+mem.h2.db
+mem.lock.db
+mem.trace.db
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+target/

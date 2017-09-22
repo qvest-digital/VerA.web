@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>git+ssh://git@gitlab.tarent.de/veraweb-int/environment.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.LocalBranch>
+        <localBranch>master</localBranch>
+      </hudson.plugins.git.extensions.impl.LocalBranch>
+    </extensions>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>RELEASE_VERSION=$(./latestChangesEntry.py Release)
+echo &quot;RELEASE_VERSION=$RELEASE_VERSION&quot; &gt; build.properties
+
+./nextChangesEntry.py &gt; changes.yaml.new
+cat changes.yaml &gt;&gt; changes.yaml.new
+
+SNAPSHOT_VERSION=$(head -1 changes.yaml.new | sed -e &apos;s#.*: ##&apos;)
+echo &quot;SNAPSHOT_VERSION=${SNAPSHOT_VERSION}-SNAPSHOT&quot; &gt;&gt; build.properties
+
+git tag -a $RELEASE_VERSION -m &quot;Release version $RELEASE_VERSION&quot;
+git push origin --tags
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.25">
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.FileBuildParameters>
+              <propertiesFile>build.properties</propertiesFile>
+              <failTriggerOnMissing>false</failTriggerOnMissing>
+              <useMatrixChild>false</useMatrixChild>
+              <onlyExactRuns>false</onlyExactRuns>
+            </hudson.plugins.parameterizedtrigger.FileBuildParameters>
+          </configs>
+          <projects>veraweb-release-common,veraweb-release-ldap,veraweb-release-httpd</projects>
+          <condition>SUCCESS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
+    <hudson.plugins.descriptionsetter.DescriptionSetterPublisher plugin="description-setter@1.10">
+      <regexp>RELEASE_VERSION=([^\s]*)</regexp>
+      <regexpForFailed></regexpForFailed>
+      <description>Release: \1</description>
+      <setForMatrix>false</setForMatrix>
+    </hudson.plugins.descriptionsetter.DescriptionSetterPublisher>
+    <hudson.plugins.jabber.im.transport.JabberPublisher plugin="jabber@1.35">
+      <targets>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>adirla@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>afreid@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>eausch@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>ldegen@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>mpech@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
+          <value>tglase@info.tarent.de</value>
+        </hudson.plugins.im.DefaultIMMessageTarget>
+      </targets>
+      <strategy>ALL</strategy>
+      <notifyOnBuildStart>false</notifyOnBuildStart>
+      <notifySuspects>false</notifySuspects>
+      <notifyCulprits>false</notifyCulprits>
+      <notifyFixers>false</notifyFixers>
+      <notifyUpstreamCommitters>false</notifyUpstreamCommitters>
+      <buildToChatNotifier class="hudson.plugins.im.build_notify.DefaultBuildToChatNotifier" plugin="instant-messaging@1.35"/>
+      <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
+    </hudson.plugins.jabber.im.transport.JabberPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>

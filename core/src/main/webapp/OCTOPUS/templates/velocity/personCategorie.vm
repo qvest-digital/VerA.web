@@ -1,0 +1,178 @@
+#set($activeMenu = "Personen")
+#if($person)
+    #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_EDIT}: $!message.plain($person.MainLatin.SaveAs)")
+#else
+    #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PERSON_CREATE}")
+#end
+
+#if ($entityOverwrite)
+  #set($entity="${entityOverwrite}")
+#end
+
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_CATEGORY}")
+#set($entity="CATEGORY")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}")
+
+#if($personTab == "1" || $personTab == "2" || $entityOverwrite == "PERSON")
+  ## impelemented to show message when person are changed
+  #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
+  #set($entity="PERSON")
+  #set($elementNameSingular = "${placeholderWithTranslation.GENERIC_PERSON_SINGULAR}")
+  #set($elementNamePlural = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
+#end
+
+#parse("inc/header.vm")
+
+#set($searchTask = $octopusRequest.searchTask)
+
+<div id="content_container">
+
+    <div id="breadcrumb" class="textRight marginBottom10">
+    	<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_EDIT_PERSON}</span>
+    </div>
+
+    <h1>$title</h1>
+
+    #parse("inc/person-header.vm")
+
+    <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
+        <div id="tabsMain">
+        	<ul class="gray-gradient" vera-tab-group> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+        		<li class="inactive" id="personendaten" onclick="window.location.href='${paths.staticWeb}do/ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=1&offset=${navigation.current.offset}'+getGuestTabId();">
+        			<div>${placeholderWithTranslation.GENERIC_PERSONS_DATA}</div>
+        		</li>
+        		<li class="inactive" id="anschriften" onclick="window.location.href='ShowPerson?id=$!person.id&searchTask=$!searchTask&personTab=2&offset=${navigation.current.offset}'+getGuestTabId();">
+        			<div>${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</div>
+        		</li>
+        		<li class="active" id="kategorien" onclick="window.location.href='ShowPersonCategorieList?id=$!person.id&searchTask=$!searchTask&selectNone=true&offset=${navigation.current.offset}'+getGuestTabId();">
+        			<div>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</div>
+        		</li>
+        	</ul>
+        </div>
+
+    	<div class="contentBoxColored tabsContent">
+            <form id="formlist" name="formlist" action="ShowPersonCategorieList" method="post">
+                <input type="hidden" name="id" value="$!person.id"/>
+                <input type="hidden" name="start" value=""/>
+				<input type="hidden" name="limit" value="" />
+                <input type="hidden" name="selectAll" value="false"/>
+                <input type="hidden" name="selectNone" value="false"/>
+				<input type="hidden" id="modified" value="false">
+				<input type="hidden" id="entity" name="entity" value="$entityOverwrite">
+                <input type="hidden" name="searchTask" value="$!searchTask"/>
+
+                #parse("inc/person-categorie.vm")
+
+                <input type="hidden" id="inviteGuestReserve" name="inviteGuestReserve" value="false"/>
+                <input type="hidden" id="inviteGuestPartner" name="inviteGuestPartner" value="false"/>
+
+				<input type="hidden" id="tab" name="tab" value = "$!{octopusRequest.tab}"/>
+				<input type="hidden" id="show" name="show" value = "$!{octopusRequest.show}"/>
+    		</form>
+            <script type="text/javascript">
+
+            	function addToGuestList() {
+            		htmlConfirm('${placeholderWithTranslation.solldiesergastaufplatzgesetztwerden}', new Array('${placeholderWithTranslation.GENERIC_YES}', '${placeholderWithTranslation.GENERIC_NO}'), new Array("addToGuestQuestX1('false');", "addToGuestQuestX1('true');"));
+            	}
+
+            	function addToGuestQuestX1(answer) {
+            		document.getElementById('inviteGuestReserve').value = answer;
+            		htmlConfirm('${placeholderWithTranslation.solldiepartnerinderpartnermiteingeladenwerden}', new Array('${placeholderWithTranslation.GENERIC_YES}', '${placeholderWithTranslation.GENERIC_NO}'), new Array("addToGuestQuestX2('true');", "addToGuestQuestX2('false');"));
+            	}
+
+            	function addToGuestQuestX2(answer) {
+            		document.getElementById('inviteGuestPartner').value = answer;
+            		htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');
+
+            		var url = '${paths.staticWeb}do/AddPersonToEventGuestList';
+            		url += '?list=$!{person.id}';
+            		url += '&$!{person.id}-id=${person.id}';
+            		url += '&$!{person.id}-select=true';
+            		url += '&$!{person.id}-reserve=' + document.getElementById('inviteGuestReserve').value;
+            		url += '&$!{person.id}-partner=' + document.getElementById('inviteGuestPartner').value;
+            		window.location.href = url;
+            	}
+
+				function savePersonCategories() {
+					$('<input>').attr({ type: 'hidden', id: 'save', name: 'save' }).appendTo($('#formlist'));
+					$('#entity').val('PERSON');
+					document.formlist.submit();
+				}
+
+				function copyPerson() {
+					window.location.href = '${paths.staticWeb}do/CopyPerson?id=$!person.id';
+            	}
+
+				function removePerson() {
+            		#if(!$grants.mayWrite())
+						$(".errormsg").remove();
+						$(".successmsg").remove();
+						showWarning(' ${placeholderWithTranslation.siehabenkeineausreichendeberechtigungmpersonenzuentfernen} ');
+						return;
+					#end
+
+					var msg = '';
+					msg += '<br><span class="notBold"> ${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CANCEL_DELETION} </span><br>'+ ' ${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_CONFIRM_DELETION_WARNING} ' +
+										' ${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden} <br>';
+
+					$(".errormsg").remove();
+					$(".successmsg").remove();
+
+					showConfirmYesNo(' ${placeholderWithTranslation.PERSON_DETAIL_DELETE_PERSON_HEADER}', msg,
+						 // Ja, Person löschen
+						function () {
+							window.location.href = '${paths.staticWeb}do/SearchPerson?doRemove=true&remove&remove-person=true&selectNone=true&list=$!{person.id}&$!{person.id}-select=true';
+						},
+
+						 // Nein, abbrechen
+						function () {
+							$(".errormsg").remove();
+							$(".successmsg").remove();
+							showSuccess(' ${placeholderWithTranslation.GM_PERSON_DELETE_N}');
+							$('input:checkbox').prop('disabled', false);
+						},
+						'${placeholderWithTranslation.GENERIC_DELETE}',
+						'${placeholderWithTranslation.abbrechen}'
+					);
+            	}
+
+            </script>
+    	</div>
+    </div>
+
+    <span id="buttonPanel-bottom" class="textRight floatRight">
+		#if($grants.mayWrite())
+			<input type="button" class="mainButton" value="${placeholderWithTranslation.personspeichern}" title="${placeholderWithTranslation.personspeichern}" onclick="savePersonCategories();"/>
+		#end
+
+    	#if($action == "guest")
+        	<input type="button" name="cancel" value="${placeholderWithTranslation.zurpersonenliste}" title="${placeholderWithTranslation.zurpersonenliste}" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/AddPersonToEventList';"/>
+        #elseif($action == "host")
+        	<input type="button" name="cancel" value="${placeholderWithTranslation.zurpersonenuebersicht}" title="${placeholderWithTranslation.zurpersonenuebersicht}" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/SetHostToEventList';"/>
+        #elseif($action == "event")
+        	<input type="button" name="cancel" value="${placeholderWithTranslation.zurpersonenuebersicht}" title="${placeholderWithTranslation.zurpersonenuebersicht}" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/ShowGuestDetail';"/>
+			#if($octopusRequest.show && $octopusRequest.show == 'doctype')
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurveranstaltung}" title="${placeholderWithTranslation.zurueckzurveranstaltung}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/ShowGuestDoctype'; }">
+			#else
+				<input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzurveranstaltung}" title="${placeholderWithTranslation.zurueckzurveranstaltung}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/ShowGuestDetail?tab=$!octopusRequest.tab'; }">
+			#end
+		#elseif($action == "duplicateSearch")
+            <input type="button" name="cancel" value="${placeholderWithTranslation.zurdublettensuche}" title="${placeholderWithTranslation.zurdublettensuche}" class="mainButton" onclick="window.location.href='${paths.staticWeb}do/PersonDuplicateSearch?selectnNone=true';">
+        #elseif($searchTask && $searchTask == "personSearchTask")
+            <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurueckzumsuchergebnis}" title="${placeholderWithTranslation.zurueckzumsuchergebnis}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&searchTask=personSearchTask&selectNone=true'; }">
+        #else
+            <input type="button" name="cancel" class="mainButton" value="${placeholderWithTranslation.zurpersonenuebersicht}" title="${placeholderWithTranslation.zurpersonenuebersicht}" onclick="if (checkModified(null, '${placeholderWithTranslation.GENERIC_DISCARD_CHANGES}')) { window.location.href='${paths.staticWeb}do/SearchPerson?action=person&selectNone=true'; }">
+		#end
+    </span>
+
+
+    #if($navigation)
+		#if($action != "event")
+			#parse("inc/person-navi.vm")
+		#end
+	#end
+	<div class="clear"></div>
+</div>
+
+#parse("inc/footer.vm")

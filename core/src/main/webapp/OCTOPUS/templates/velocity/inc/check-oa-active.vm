@@ -1,0 +1,6 @@
+#set($iAmActivated = $!online-registration.activated)
+#foreach($mandant in $mandanten-online-registration.deactivated)
+    #if($octopusConfig.personalConfig.orgUnitId && $mandant == $octopusConfig.personalConfig.orgUnitId)
+        #set($iAmActivated = false)
+    #end
+#end

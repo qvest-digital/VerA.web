@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<!-- Allgemeine Elemente -->
+
+<!--
+  Beschreibung der Param Elemente siehe: tc/src/modules/tcModuleConfig.dtd
+-->
+<!ELEMENT param (value)*>
+		<!ATTLIST param
+		name CDATA #REQUIRED
+		value CDATA #IMPLIED
+		type (array|scalar) "scalar"
+		>
+
+<!ELEMENT value (#PCDATA) >
+
+
+
+<!-- Docroot -->
+<!ELEMENT tcConfig ( application, modules ) >
+
+
+<!-- Section: application
+  Für allgemeine Parameter
+-->
+<!ELEMENT application ( param )+ >
+
+
+<!-- Section: modules -->
+<!--
+  Deklaration der Module.
+-->
+<!ELEMENT modules ( param )+ >

@@ -1,0 +1,155 @@
+#set($activeMenu = "Veranstaltungen")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EMAIL_WRITE_DISTRIBUTOR}: $!message.text($mailinglist.name)")
+#set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_DISTRIBUTOR}")
+#set($entity="DISTRIBUTOR")
+#set($elementNameSingular = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}")
+#set($elementNamePlural = "${placeholderWithTranslation.GENERIC_DISTRIBUTOR_PLURAL}")
+#set($errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}")
+#set($errorMsgAddress = "${placeholderWithTranslation.ADDRESS_ERROR}")
+#set($errorMsgVerteiler = "${placeholderWithTranslation.verteilerfehler}")
+
+#parse("inc/header.vm")
+
+<div data-loadmailtemplate="${paths.staticWeb}mailtemplate" id="loadmailtemplate"></div>
+<div data-errormsg="${placeholderWithTranslation.LOAD_MAILTEMPLATE_FAILED}" id="loadmailtemplate-errormsg"></div>
+<div data-errormsg="${placeholderWithTranslation.SELECT_MAILTEMPLATE}" id="selectmailtemplate-errormsg"></div>
+<div data-orgunit="$!octopusConfig.personalConfig.orgUnitId" id="loadmailtemplate-orgunit"></div>
+<div data-formaction="${paths.staticWeb}mailing" id="formaction"></div>
+
+
+
+<div id="content_container">
+	<script src="${paths.staticWeb}js/ext/jquery-form/jquery.form.js"></script>
+	<script src="${paths.staticWeb}js/ext/ckeditor/ckeditor.js"></script>
+	<script src="${paths.staticWeb}js/vera/veraweb-mailinglistwrite.js"></script>
+	<script type="text/javascript" src="${paths.staticWeb}js/vera/veraweb-mailtemplate.js"></script>
+
+	<div id="breadcrumb" class="textRight marginBottom10">
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>
+	</div>
+
+	<h1>${placeholderWithTranslation.verteilerversenden}</h1>
+
+
+	<form id="formlist" name="formlist" action="MailinglistWrite" method="POST" enctype="multipart/form-data">
+    	<input type="hidden" id="loaddraft" name="loaddraft" value="false">
+    	<input type="hidden" id="savedraft" name="savedraft" value="false">
+
+        #if($errors.size() > 0)
+        <vera-warn>
+        	$!message.plain($errors.get(0))<br>
+        ##	#foreach($error in $errors)
+        ##		$error<br>
+        ##	#end
+        </vera-warn>
+        #end
+
+        <input type="hidden" name="mail-id" value="$!mail.id">
+        <input type="hidden" name="mailinglist-id" id="mailinglist-id" value="${mailinglist.id}">
+
+    	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
+
+			<div class="table width100">
+				<div class="tableRow">
+					<div class="tableCell width70">
+						<h2 class="marginBottom15">${placeholderWithTranslation.GENERIC_WRITE_EMAIL}</h2>
+
+            			<div>
+                        	<label for="mail-subject">${placeholderWithTranslation.GENERIC_SUBJECT}</label>
+                            <input type="text" id="mail-subject" name="mail-subject" value="$!message.text($mail.subject)">
+            			</div>
+            			<div>
+                        	<label for="mailtext">${placeholderWithTranslation.GENERIC_TEXT}</label>
+                        	<textarea id="mailtext" name="mailtext" style="height:200px">$!message.textarea($mail.text)</textarea>
+            			</div>
+            			<div class="inlineLabel">
+                            <label for="platzhalter">${placeholderWithTranslation.GENERIC_PLACEHOLDER}</label>
+                        	<select name="platzhalter" id="platzhalter" class="inlineInput autoWidth">
+            					<option value="firstname">${placeholderWithTranslation.GENERIC_FIRSTNAME}</option>
+            					<option value="lastname">${placeholderWithTranslation.GENERIC_LASTNAME}</option>
+             					<option value="salutation">${placeholderWithTranslation.GENERIC_SALUTATION_SINGULAR}</option>
+            					<option value="title">${placeholderWithTranslation.GENERIC_ACAD_TITLE}</option>
+             					<option value="function">${placeholderWithTranslation.amtsbezfunktion}</option>
+            					<option value="company">${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</option>
+            					<option value="street">${placeholderWithTranslation.strase}</option>
+            					<option value="zipcode">${placeholderWithTranslation.GENERIC_POST_NUMBER}</option>
+            					<option value="city">${placeholderWithTranslation.GENERIC_CITY}</option>
+            					<option value="country">${placeholderWithTranslation.GENERIC_COUNTRY}</option>
+            					<option value="poboxzipcode">${placeholderWithTranslation.postfachplz}</option>
+            					<option value="pobox">${placeholderWithTranslation.postfachnummer}</option>
+            					<option value="suffix1">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1</option>
+            					<option value="suffix2">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2</option>
+            					<option value="phone">${placeholderWithTranslation.GENERIC_TELEFON}</option>
+            					<option value="fax">${placeholderWithTranslation.GENERIC_FAX}</option>
+            					<option value="mobile">${placeholderWithTranslation.GENERIC_MOBILE}</option>
+            					<option value="email">${placeholderWithTranslation.email}</option>
+            					<option value="url">${placeholderWithTranslation.LETTERS_WWW}</option>
+            				</select>
+                            <input type="button" name="add" value="${placeholderWithTranslation.intexteinfuegen}" title="${placeholderWithTranslation.platzhalterintexteinfuegen}" class="autoWidth noFloat" onclick="addPlatzhalter(this);">
+            			</div>
+
+                        <div id="buttonPanel-bottom" class="textRight">
+                            <img id="spinner" src="${paths.staticWeb}images/spinner.gif" align="absmiddle" style="height:30px; display:none"/>
+                           	<input type="button" name="send" value="${placeholderWithTranslation.senden}" title="${placeholderWithTranslation.senden}" class="mainButton autoWidth">
+                           	<input type="reset"  name="clear"  value="${placeholderWithTranslation.zuruecksetzen}" title="${placeholderWithTranslation.zuruecksetzen}" class="mainButton autoWidth">
+                        </div>
+					</div>
+
+
+					<div class="tableCell width30">
+                		<h2 class="marginBottom15">${placeholderWithTranslation.emailvorlagen}</h2>
+
+                        <div>
+            				<label for="mail-draft">${placeholderWithTranslation.vorhandenevorlagen}</label>
+								#if($allMailDraft && $allMailDraft.size() > 0)
+                        			<select id="mail-draft" name="mail-draft">
+										<option value="0">${placeholderWithTranslation.bitteauswhaelengt}</option>
+										#foreach($draft in $allMailDraft)
+                                			<option value="$!draft.id" #if($mail.id && $mail.id == $draft.id) selected #end>$!message.text($!draft.name)</option>
+                                		#end
+                            		</select>
+                        			<input id="loadMailtemplateButton" type="button" name="" value="${placeholderWithTranslation.vorlageladen}" class="autoWidth" title="${placeholderWithTranslation.vorlageladen}" />
+								#else
+									${placeholderWithTranslation.esliegenkeinevorlagenvor}
+								#end
+
+               			</div>
+
+                        <br/><br/>
+
+                        <input type="file" id="JMultiFileUpload" name="files"/>
+                        <script>
+                            $(function(){
+                              $('#JMultiFileUpload').MultiFile({
+                                max:3,
+                                maxfile:1024,
+                                STRING: {
+                                  remove:'${placeholderWithTranslation.GENERIC_DELETE}',
+                                  selected:'${placeholderWithTranslation.MAILING_LIST_SELECTED_FILE}: $file',
+                                  duplicate:'${placeholderWithTranslation.MAILING_LIST_ALREADY_SELECTED_FILE}:\n$file!',
+                                  toomany:'${placeholderWithTranslation.MAILING_LIST_SELECTED_TOO_MANY} (max: $max)',
+                                  toobig:'${placeholderWithTranslation.MAILING_LIST_SELECTED_TOO_BIG} ($size)'
+                                }
+                              });
+                            });
+                        </script>
+                        <div style="margin-top: 4px;">${placeholderWithTranslation.MAILING_LIST_SIZE_NOTICE}</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+		<div id="success" class="contentBoxColored grayBorder marginBottom10" style="display: none;">
+			<h1>${placeholderWithTranslation.verteilerverschickt}</h1>
+		</div>
+
+		<div id="buttonPanel-bottom" class="textRight">
+			<input type="button" name="cancel" value="${placeholderWithTranslation.zurueckzumverteiler}" title="${placeholderWithTranslation.zurueckzumverteiler}" class="mainButton" onclick="window.location.href='ShowMailinglistDetail';">
+		</div>
+    </form>
+</div>
+
+
+
+#parse("inc/footer.vm")

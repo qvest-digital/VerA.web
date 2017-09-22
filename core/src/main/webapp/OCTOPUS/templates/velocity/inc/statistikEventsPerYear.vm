@@ -1,0 +1,45 @@
+<table class="kategorie">
+	<tr>
+		<td class="kategorieName" style="width: 50%;">
+            <nobr>
+                <strong>${placeholderWithTranslation.GENERIC_YEAR}</strong>
+            </nobr>
+        </td>
+		<td class="kategorieName" style="width: 50%;">
+            <nobr>
+                <strong>${placeholderWithTranslation.GENERIC_EVENT_PLURAL}</strong>
+            </nobr>
+        </td>
+	</tr>
+</table>
+
+#set($count = 0)
+#foreach($bean in $result)
+    #set($count = $count + $bean.events.intValue())
+    <table class="kategorie">
+        <tr>
+            <td class="kategorieName" style="width: 50%;">
+                $!message.date("YEAR", $bean.year)
+            </td>
+            <td class="kategorieName" style="width: 50%;">
+                $!bean.events
+            </td>
+        </tr>
+    </table>
+#end
+
+#if($count > 0)
+	<table style="width: 100%;">
+		<tr>
+			<td style="text-align: right;">
+                <h2>${placeholderWithTranslation.GENERIC_COUNT}:</h2>
+            </td>
+			<td style="width: 20px;">
+                &nbsp;
+            </td>
+			<td style="width: 100px">
+                <h3>$count</h3>
+            </td>
+		</tr>
+	</table>
+#end

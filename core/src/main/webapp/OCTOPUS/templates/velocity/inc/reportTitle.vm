@@ -1,0 +1,100 @@
+<div class="dontprint" style="border: 1px dashed #ff0000; margin: 10px 0px 10px 0px; padding: 5px; text-align: center;">
+	<span style="color: #ff0000;">${placeholderWithTranslation.GENERIC_TOOLTIP}:</span>
+		${placeholderWithTranslation.TOOLTIP_EDIT_HEADLINES}
+</div>
+
+<div id="showTitleBlock1">
+	<div id="showTitle1" class="h1">$!message.plain($titel)</div>
+	<a href="javascript:editTitle1();" class="dontprint" style="text-align: right;">(Bearbeiten)</a>
+</div>
+<div id="editTitleBlock1" style="display: none;">
+	<textarea id="editTitle1" rows="4" cols="40" class="h1">
+    </textarea>
+	<a href="javascript:saveTitle1();" class="dontprint" style="text-align: right;">(Speichern)</a>
+</div>
+
+<div id="showTitleBlock2">
+	#if($event.eventname && $event.eventname.length() > 0)
+	    <div id="showTitle2" class="h2">$!message.plain($event.eventname)</div>
+	#else
+	    <div id="showTitle2" class="h2">$!message.plain($event.shortname)</div>
+	#end
+	<a href="javascript:editTitle2();" class="dontprint" style="text-align: right; margin-bottom: 3px;">(Bearbeiten)</a>
+</div>
+<div id="editTitleBlock2" style="display: none;">
+	<textarea id="editTitle2" rows="4" cols="40" class="h2"></textarea>
+	<a href="javascript:saveTitle2();" class="dontprint" style="text-align: right; margin-bottom: 3px;">(Speichern)</a>
+</div>
+
+<script type="text/javascript">
+	function replaceAll(s, from, to) {
+		while (s.search(from) != -1) {
+			s = s.replace(from, to);
+		}
+		return s;
+	}
+
+	function editTitle1() {
+		var stb = document.getElementById('showTitleBlock1');
+		var etb = document.getElementById('editTitleBlock1');
+		var st = document.getElementById('showTitle1');
+		var et = document.getElementById('editTitle1');
+		hideBlock(stb);
+		et.value = replaceAll(st.innerHTML, /<BR>|<br>/, '\n');
+		showBlock(etb);
+	}
+
+	function saveTitle1() {
+		var stb = document.getElementById('showTitleBlock1');
+		var etb = document.getElementById('editTitleBlock1');
+		var st = document.getElementById('showTitle1');
+		var et = document.getElementById('editTitle1');
+		hideBlock(etb);
+		st.innerHTML = replaceAll(et.value, /\n/, '<BR>');
+		showBlock(stb);
+	}
+
+	function editTitle2() {
+		var stb = document.getElementById('showTitleBlock2');
+		var etb = document.getElementById('editTitleBlock2');
+		var st = document.getElementById('showTitle2');
+		var et = document.getElementById('editTitle2');
+		hideBlock(stb);
+		et.value = replaceAll(st.innerHTML, /<BR>|<br>/, '\n');
+		showBlock(etb);
+	}
+
+	function saveTitle2() {
+		var stb = document.getElementById('showTitleBlock2');
+		var etb = document.getElementById('editTitleBlock2');
+		var st = document.getElementById('showTitle2');
+		var et = document.getElementById('editTitle2');
+		hideBlock(etb);
+		st.innerHTML = replaceAll(et.value, /\n/, '<BR>');
+		showBlock(stb);
+	}
+</script>
+
+<table style="width: 100%;">
+	<tr>
+		<td style="width: 8%;">
+            Beginn:
+        </td>
+		<td style="width: 17%;">
+            $!message.date("DATE_TIME", $event.begin)
+        </td>
+		<td style="width: 8%;">
+            Ende:
+        </td>
+		<td style="width: 17%;">
+            $!message.date("DATE_TIME", $event.end)
+        </td>
+		<td style="width: 8%;">
+            Ort:
+        </td>
+		<td>
+            $!event.location
+        </td>
+	</tr>
+</table>
+<hr class="kategorie" />

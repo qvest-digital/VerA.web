@@ -1,0 +1,48 @@
+## $Id$
+##
+## Diese Template-Komponente dient der Auswahl einer Rolle bei einem
+## Benutzer, der sich zwar authentisiert hat, dessen Authentisierung
+## ihm aber die Benutzung von VerA.web in verschiedenen Rollen erlaubt.
+##
+## Voraussetzung also: $octopusConfig.personalConfig.roles nicht null
+##
+<p>
+${placeholderWithTranslation.siemussendierolleangebenunterdersieverawebnutzenmochten}
+${placeholderWithTranslation.GENERIC_PLEASE_CHOOSE}
+</p>
+<br/>
+<form action="login" method="post" target="_top">
+	<!--input name="task" value="chooseRole" type="hidden"/-->
+	<table class="form">
+		<tr>
+			<td>
+                <label for="username">${placeholderWithTranslation.GENERIC_ROLE}</label>
+            </td>
+			<td>
+				<select id="role" name="username"  style="width: 60%;">
+                    #foreach($s in $octopusConfig.personalConfig.roles)
+					    <option value="$!s">$!s</option>
+                    #end
+				</select>
+			</td>
+		</tr>
+        <tr>
+			<td>
+                <label for="password">${placeholderWithTranslation.GENERIC_PASSWORD}</label>
+            </td>
+			<td>
+                <input type="password" name="password" value="$!octopusRequest.get("password")" id="password"  style="width: 60%;">
+            </td>
+		</tr>
+        <tr>
+			<td>
+                &nbsp;
+            </td>
+			<td>
+                <input name="submit" type="submit" value="${placeholderWithTranslation.GENERIC_CHOOSE}" class="submit">
+                &nbsp;
+                <input name="cancel" type="reset"  value="${placeholderWithTranslation.GENERIC_RESET}" class="reset">
+			</td>
+		</tr>
+	</table>
+</form>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
+
+<!--
+	Octopus config.xml
+
+	Hauptkonfiguration
+-->
+<tcModuleConfig>
+	<!-- textuelle Beschreibung des Moduls -->
+	<description>AA - VerA.web</description>
+
+	<include systempath="/etc/veraweb" file="config_main.xml" />
+	<include systempath="/etc/veraweb" file="config_logging.xml" />
+	<include systempath="/etc/veraweb" file="config_import_export.xml" />
+	<include systempath="/etc/veraweb" file="config_database_pools.xml" />
+	<include systempath="/etc/veraweb" file="config_ldap_access.xml" />
+	<include systempath="/etc/veraweb" file="config_mail_server.xml" />
+	<include systempath="/etc/veraweb" file="config_worker_tasks.xml" />
+	<include systempath="/etc/veraweb" file="config_vwoa.xml" />
+	<include systempath="/etc/veraweb" file="config_override.xml" />
+</tcModuleConfig>

@@ -1,0 +1,51 @@
+#!/bin/sh
+#-
+# Copyright © 2015
+#	Thorsten Glaser <t.glaser@tarent.de>
+#
+# Provided that these terms and disclaimer and all copyright notices
+# are retained or reproduced in an accompanying document, permission
+# is granted to deal in this work without restriction, including un‐
+# limited rights to use, publicly perform, distribute, sell, modify,
+# merge, give away, or sublicence.
+#
+# This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to
+# the utmost extent permitted by applicable law, neither express nor
+# implied; without malicious intent or gross negligence. In no event
+# may a licensor, author or contributor be held liable for indirect,
+# direct, other damage, loss, or other issues arising in any way out
+# of dealing in the work, even if advised of the possibility of such
+# damage or existence of a defect, except proven that it results out
+# of said person’s immediate fault when using the work as intended.
+#-
+# Find duplicate translation keys (left-hand side).
+#
+# Syntax: ./find_duplicates [-v] [*.resource]
+# -v: verbose output (list the actual duplicates and their count)
+
+LC_ALL=C
+export LC_ALL
+unset LANGUAGE
+
+cd "$(dirname "$0")"
+verbose=false
+if test x"$1" = x"-v"; then
+	verbose=true
+	shift
+fi
+test -n "$1" || set -- *.resource
+echo >&2 I: $# files to check
+
+for f in "$@"; do
+	printf >&2 'Checking %s...\r' "$f"
+	x=$(sed -n '/^\([,-<>-~]*\)=.*$/s//\1/p' <"$f" | sort)
+	xo=$(printf '%s\n' "$x" | wc -l)
+	xu=$(printf '%s\n' "$x" | uniq | wc -l)
+	if test $xo = $xu; then
+		printf >&2 'Checked %s - no duplicates found\n' "$f"
+	else
+		printf >&2 'W: %d duplicates found in %s\n' $((xo - xu)) "$f"
+		$verbose && printf '%s\n' "$x" | uniq -dc | sed 's/^/N: /' >&2
+	fi
+done
+echo >&2 I: all done

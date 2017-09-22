@@ -1,0 +1,181 @@
+#set($activeMenu = "Verwaltung")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_HELP} - ${placeholderWithTranslation.BROWSER_TITLE_INFO_VERAWEB}")
+
+##Values in per cent for table columns width
+#set($column0 = 15)
+#set($column1 = 85)
+
+#parse("inc/header.vm")
+
+<div id="content_container">
+    <form action="Main" method="POST">
+
+    <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_MANAGEMENT} > ${placeholderWithTranslation.GENERIC_INFO}</span>
+    </div>
+
+    <h1>${placeholderWithTranslation.GENERIC_INFORMATION_ABOUT_VERAWEB}</h1>
+
+
+    #if($errors && $errors.size() > 0)
+    <vera-warn>
+    	#foreach($error in $errors)
+    		$error<br>
+    	#end
+    	<br>
+    	${placeholderWithTranslation.eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator}
+    </vera-warn>
+    #end
+
+
+    <h3>VerA.web</h3>
+    #if($properties)
+    <table class="form fixed">
+        ##Set column size
+        <col width="$column0%" />
+        <col width="$column1%" />
+
+        <tr>
+            <td class="width10 bold">${placeholderWithTranslation.GENERIC_VERSION}:</td>
+            <td>$properties.getString("version")</td>
+        </tr><tr>
+            <td class="width10 bold">${placeholderWithTranslation.GENERIC_BUILD_TIME}:</td>
+            <td>$properties.getString("build")</td>
+        </tr><tr>
+            <td class="width10 bold">${placeholderWithTranslation.GENERIC_REST_API}:</td>
+    ## this catches both null pointer and empty string
+    #if("$!userConfig.restApiAvail" == "")
+            <td>${placeholderWithTranslation.GENERIC_ERROR}</td>
+    #else
+            <td>$userConfig.restApiAvail</td>
+    #end
+    #if($online-registration.activated)
+        </tr><tr>
+            <td class="width10 bold">${placeholderWithTranslation.GENERIC_OA}:</td>
+            <td>${placeholderWithTranslation.aktiv}</td>
+    #end
+	</tr><tr>
+		<td class="width10 bold">${placeholderWithTranslation.INFO_LIC_LIC}:</td>
+		<td><a href="${paths.staticWeb}doc/LICENCE">${placeholderWithTranslation.INFO_LIC_INFOS}</a>
+		 (<a href="${paths.staticWeb}doc/">${placeholderWithTranslation.INFO_LIC_DOCS}</a></td>
+        </tr>
+    </table>
+    <br>
+    #else
+    <p><i>${placeholderWithTranslation.informationennichtverfugbar}</i></p>
+    #end
+
+    <h3>${placeholderWithTranslation.GENERIC_DATABASE}</h3>
+    <table class="form fixed">
+    	##Set column size
+		<col width="$column0%" />
+		<col width="$column1%" />
+
+    	<tr>
+    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_VERSION}:</td>
+    		<td>
+    #if($config && $config.get("SCHEMA_VERSION"))
+    			$config.get("SCHEMA_VERSION")
+    #else
+    			<i style="color: red;">${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
+    #end
+    		</td>
+    	</tr><tr>
+    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_CHARSET}</td>
+    		<td>
+    #if($LC_CTYPE)
+    			LC_CTYPE = $LC_CTYPE
+    #else
+    			<i style="color: red;">${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
+    #end
+    		</td>
+    	</tr><tr>
+    		<td class="width15 bold">&nbsp;</td>
+    		<td>
+    #if($LC_COLLATE)
+    			LC_COLLATE = $LC_COLLATE
+    #else
+    			<i style="color: red;">${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
+    #end
+    		</td>
+    	</tr>
+    </table>
+    <br>
+
+
+    <h3>${placeholderWithTranslation.GENERIC_USER}</h3>
+
+    <table class="form fixed">
+    	##Set column size
+		<col width="$column0%" />
+		<col width="$column1%" />
+
+    	<tr>
+    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_LOGIN}:</td>
+    		<td>$!octopusConfig.personalConfig.userLogin</td>
+    	</tr><tr>
+    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_ROLE}:</td>
+    		<td>
+    #if($octopusConfig.personalConfig.role)
+    			$octopusConfig.personalConfig.role
+    #else
+    			<i>${placeholderWithTranslation.nichtgewahlt}</i>
+    #end
+    		</td>
+    	</tr>
+    	<tr>
+    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}:</td>
+    		<td>
+    #if($orgUnit.id != 0)
+    			$orgUnit.name
+    #else
+    			<i>${placeholderWithTranslation.nichtgewahlt}</i>
+    #end
+    		</td>
+    	</tr>
+    #if($octopusConfig.personalConfig.proxy)
+    	<tr>
+    		<td>${placeholderWithTranslation.GENERIC_SUBSTITUTED_BY}:</td>
+    		<td>$octopusConfig.personalConfig.proxy</td>
+	</tr>
+    #end
+    #if($octopusConfig.personalConfig.roles)
+	<tr>
+		<td>${placeholderWithTranslation.verfugbarerollen}:
+		</td>
+	<td>
+     #foreach($gg in $octopusConfig.personalConfig.roles)
+     $gg
+     #end
+    		</td>
+    	</tr>
+    #end
+    	<tr>
+    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_GROUPS}:</td>
+    		<td>
+    #foreach($gg in $octopusConfig.personalConfig.userGroups)
+     $gg
+    #end
+    		</td>
+    	</tr>
+    	<tr>
+    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}:</td>
+    		<td>
+    #if($octopusConfig.personalConfig.userEmail)
+    			$!octopusConfig.personalConfig.userEmail
+    #else
+    			<i>${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
+    #end
+    		</td>
+    	</tr>
+    </table>
+
+
+
+
+    </form>
+</div>
+<!--
+$responseParams
+-->
+#parse("inc/footer.vm")

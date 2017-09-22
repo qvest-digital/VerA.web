@@ -1,0 +1,749 @@
+---
+sql: |
+  select
+    g.pk as g_pk,
+    g.fk_person as g_fk_person,
+    g.fk_event as g_fk_event,
+    g.fk_category as g_fk_category,
+    g.fk_color as g_fk_color,
+    g.invitationtype as g_invitationtype,
+    g.invitationstatus as g_invitationstatus,
+    g.ishost as g_ishost,
+    g.diplodate as g_diplodate,
+    g.rank as g_rank,
+    g.reserve as g_reserve,
+    g.tableno as g_tableno,
+    g.seatno as g_seatno,
+    g.orderno as g_orderno,
+    g.notehost as g_notehost,
+    g.noteorga as g_noteorga,
+    g.language as g_language,
+    g.gender as g_gender,
+    g.nationality as g_nationality,
+    g.domestic_a as g_domestic_a,
+    g.invitationstatus_p as g_invitationstatus_p,
+    g.tableno_p as g_tableno_p,
+    g.seatno_p as g_seatno_p,
+    g.orderno_p as g_orderno_p,
+    g.notehost_p as g_notehost_p,
+    g.noteorga_p as g_noteorga_p,
+    g.language_p as g_language_p,
+    g.gender_p as g_gender_p,
+    g.nationality_p as g_nationality_p,
+    g.domestic_b as g_domestic_b,
+    g.fk_color_p as g_fk_color_p,
+    g.createdby as g_createdby,
+    g.changedby as g_changedby,
+    g.created as g_created,
+    g.changed as g_changed,
+    g.delegation as g_delegation,
+    g.osiam_login as g_osiam_login,
+    g.login_required_uuid as g_login_required_uuid,
+    g.image_uuid as g_image_uuid,
+    g.image_uuid_p as g_image_uuid_p,
+    g.keywords as g_keywords,
+    p.pk as p_pk,
+    p.fk_orgunit as p_fk_orgunit,
+    p.created as p_created,
+    p.createdby as p_createdby,
+    p.changed as p_changed,
+    p.changedby as p_changedby,
+    p.deleted as p_deleted,
+    p.dateexpire as p_dateexpire,
+    p.iscompany as p_iscompany,
+    p.importsource as p_importsource,
+    p.fk_workarea as p_fk_workarea,
+    p.salutation_a_e1 as p_salutation_a_e1,
+    p.fk_salutation_a_e1 as p_fk_salutation_a_e1,
+    p.title_a_e1 as p_title_a_e1,
+    p.firstname_a_e1 as p_firstname_a_e1,
+    p.lastname_a_e1 as p_lastname_a_e1,
+    p.domestic_a_e1 as p_domestic_a_e1,
+    p.sex_a_e1 as p_sex_a_e1,
+    p.birthday_a_e1 as p_birthday_a_e1,
+    p.birthplace_a_e1 as p_birthplace_a_e1,
+    p.diplodate_a_e1 as p_diplodate_a_e1,
+    p.languages_a_e1 as p_languages_a_e1,
+    p.nationality_a_e1 as p_nationality_a_e1,
+    p.note_a_e1 as p_note_a_e1,
+    p.noteorga_a_e1 as p_noteorga_a_e1,
+    p.notehost_a_e1 as p_notehost_a_e1,
+    p.salutation_a_e2 as p_salutation_a_e2,
+    p.fk_salutation_a_e2 as p_fk_salutation_a_e2,
+    p.birthplace_a_e2 as p_birthplace_a_e2,
+    p.title_a_e2 as p_title_a_e2,
+    p.firstname_a_e2 as p_firstname_a_e2,
+    p.lastname_a_e2 as p_lastname_a_e2,
+    p.salutation_a_e3 as p_salutation_a_e3,
+    p.fk_salutation_a_e3 as p_fk_salutation_a_e3,
+    p.birthplace_a_e3 as p_birthplace_a_e3,
+    p.title_a_e3 as p_title_a_e3,
+    p.firstname_a_e3 as p_firstname_a_e3,
+    p.lastname_a_e3 as p_lastname_a_e3,
+    p.salutation_b_e1 as p_salutation_b_e1,
+    p.fk_salutation_b_e1 as p_fk_salutation_b_e1,
+    p.title_b_e1 as p_title_b_e1,
+    p.firstname_b_e1 as p_firstname_b_e1,
+    p.lastname_b_e1 as p_lastname_b_e1,
+    p.domestic_b_e1 as p_domestic_b_e1,
+    p.sex_b_e1 as p_sex_b_e1,
+    p.birthday_b_e1 as p_birthday_b_e1,
+    p.diplodate_b_e1 as p_diplodate_b_e1,
+    p.languages_b_e1 as p_languages_b_e1,
+    p.nationality_b_e1 as p_nationality_b_e1,
+    p.note_b_e1 as p_note_b_e1,
+    p.noteorga_b_e1 as p_noteorga_b_e1,
+    p.notehost_b_e1 as p_notehost_b_e1,
+    p.salutation_b_e2 as p_salutation_b_e2,
+    p.fk_salutation_b_e2 as p_fk_salutation_b_e2,
+    p.title_b_e2 as p_title_b_e2,
+    p.firstname_b_e2 as p_firstname_b_e2,
+    p.lastname_b_e2 as p_lastname_b_e2,
+    p.salutation_b_e3 as p_salutation_b_e3,
+    p.fk_salutation_b_e3 as p_fk_salutation_b_e3,
+    p.title_b_e3 as p_title_b_e3,
+    p.firstname_b_e3 as p_firstname_b_e3,
+    p.lastname_b_e3 as p_lastname_b_e3,
+    p.function_a_e1 as p_function_a_e1,
+    p.company_a_e1 as p_company_a_e1,
+    p.street_a_e1 as p_street_a_e1,
+    p.zipcode_a_e1 as p_zipcode_a_e1,
+    p.state_a_e1 as p_state_a_e1,
+    p.city_a_e1 as p_city_a_e1,
+    p.country_a_e1 as p_country_a_e1,
+    p.pobox_a_e1 as p_pobox_a_e1,
+    p.poboxzipcode_a_e1 as p_poboxzipcode_a_e1,
+    p.suffix1_a_e1 as p_suffix1_a_e1,
+    p.suffix2_a_e1 as p_suffix2_a_e1,
+    p.fon_a_e1 as p_fon_a_e1,
+    p.fax_a_e1 as p_fax_a_e1,
+    p.mobil_a_e1 as p_mobil_a_e1,
+    p.mail_a_e1 as p_mail_a_e1,
+    p.url_a_e1 as p_url_a_e1,
+    p.function_a_e2 as p_function_a_e2,
+    p.company_a_e2 as p_company_a_e2,
+    p.street_a_e2 as p_street_a_e2,
+    p.zipcode_a_e2 as p_zipcode_a_e2,
+    p.state_a_e2 as p_state_a_e2,
+    p.city_a_e2 as p_city_a_e2,
+    p.country_a_e2 as p_country_a_e2,
+    p.pobox_a_e2 as p_pobox_a_e2,
+    p.poboxzipcode_a_e2 as p_poboxzipcode_a_e2,
+    p.suffix1_a_e2 as p_suffix1_a_e2,
+    p.suffix2_a_e2 as p_suffix2_a_e2,
+    p.fon_a_e2 as p_fon_a_e2,
+    p.fax_a_e2 as p_fax_a_e2,
+    p.mobil_a_e2 as p_mobil_a_e2,
+    p.mail_a_e2 as p_mail_a_e2,
+    p.url_a_e2 as p_url_a_e2,
+    p.function_a_e3 as p_function_a_e3,
+    p.company_a_e3 as p_company_a_e3,
+    p.street_a_e3 as p_street_a_e3,
+    p.zipcode_a_e3 as p_zipcode_a_e3,
+    p.state_a_e3 as p_state_a_e3,
+    p.city_a_e3 as p_city_a_e3,
+    p.country_a_e3 as p_country_a_e3,
+    p.pobox_a_e3 as p_pobox_a_e3,
+    p.poboxzipcode_a_e3 as p_poboxzipcode_a_e3,
+    p.suffix1_a_e3 as p_suffix1_a_e3,
+    p.suffix2_a_e3 as p_suffix2_a_e3,
+    p.fon_a_e3 as p_fon_a_e3,
+    p.fax_a_e3 as p_fax_a_e3,
+    p.mobil_a_e3 as p_mobil_a_e3,
+    p.mail_a_e3 as p_mail_a_e3,
+    p.url_a_e3 as p_url_a_e3,
+    p.function_b_e1 as p_function_b_e1,
+    p.company_b_e1 as p_company_b_e1,
+    p.street_b_e1 as p_street_b_e1,
+    p.zipcode_b_e1 as p_zipcode_b_e1,
+    p.state_b_e1 as p_state_b_e1,
+    p.city_b_e1 as p_city_b_e1,
+    p.country_b_e1 as p_country_b_e1,
+    p.pobox_b_e1 as p_pobox_b_e1,
+    p.poboxzipcode_b_e1 as p_poboxzipcode_b_e1,
+    p.suffix1_b_e1 as p_suffix1_b_e1,
+    p.suffix2_b_e1 as p_suffix2_b_e1,
+    p.fon_b_e1 as p_fon_b_e1,
+    p.fax_b_e1 as p_fax_b_e1,
+    p.mobil_b_e1 as p_mobil_b_e1,
+    p.mail_b_e1 as p_mail_b_e1,
+    p.url_b_e1 as p_url_b_e1,
+    p.function_b_e2 as p_function_b_e2,
+    p.company_b_e2 as p_company_b_e2,
+    p.street_b_e2 as p_street_b_e2,
+    p.zipcode_b_e2 as p_zipcode_b_e2,
+    p.state_b_e2 as p_state_b_e2,
+    p.city_b_e2 as p_city_b_e2,
+    p.country_b_e2 as p_country_b_e2,
+    p.pobox_b_e2 as p_pobox_b_e2,
+    p.poboxzipcode_b_e2 as p_poboxzipcode_b_e2,
+    p.suffix1_b_e2 as p_suffix1_b_e2,
+    p.suffix2_b_e2 as p_suffix2_b_e2,
+    p.fon_b_e2 as p_fon_b_e2,
+    p.fax_b_e2 as p_fax_b_e2,
+    p.mobil_b_e2 as p_mobil_b_e2,
+    p.mail_b_e2 as p_mail_b_e2,
+    p.url_b_e2 as p_url_b_e2,
+    p.function_b_e3 as p_function_b_e3,
+    p.company_b_e3 as p_company_b_e3,
+    p.street_b_e3 as p_street_b_e3,
+    p.zipcode_b_e3 as p_zipcode_b_e3,
+    p.state_b_e3 as p_state_b_e3,
+    p.city_b_e3 as p_city_b_e3,
+    p.country_b_e3 as p_country_b_e3,
+    p.pobox_b_e3 as p_pobox_b_e3,
+    p.poboxzipcode_b_e3 as p_poboxzipcode_b_e3,
+    p.suffix1_b_e3 as p_suffix1_b_e3,
+    p.suffix2_b_e3 as p_suffix2_b_e3,
+    p.fon_b_e3 as p_fon_b_e3,
+    p.fax_b_e3 as p_fax_b_e3,
+    p.mobil_b_e3 as p_mobil_b_e3,
+    p.mail_b_e3 as p_mail_b_e3,
+    p.url_b_e3 as p_url_b_e3,
+    p.function_c_e1 as p_function_c_e1,
+    p.company_c_e1 as p_company_c_e1,
+    p.street_c_e1 as p_street_c_e1,
+    p.zipcode_c_e1 as p_zipcode_c_e1,
+    p.state_c_e1 as p_state_c_e1,
+    p.city_c_e1 as p_city_c_e1,
+    p.country_c_e1 as p_country_c_e1,
+    p.pobox_c_e1 as p_pobox_c_e1,
+    p.poboxzipcode_c_e1 as p_poboxzipcode_c_e1,
+    p.suffix1_c_e1 as p_suffix1_c_e1,
+    p.suffix2_c_e1 as p_suffix2_c_e1,
+    p.fon_c_e1 as p_fon_c_e1,
+    p.fax_c_e1 as p_fax_c_e1,
+    p.mobil_c_e1 as p_mobil_c_e1,
+    p.mail_c_e1 as p_mail_c_e1,
+    p.url_c_e1 as p_url_c_e1,
+    p.function_c_e2 as p_function_c_e2,
+    p.company_c_e2 as p_company_c_e2,
+    p.street_c_e2 as p_street_c_e2,
+    p.zipcode_c_e2 as p_zipcode_c_e2,
+    p.state_c_e2 as p_state_c_e2,
+    p.city_c_e2 as p_city_c_e2,
+    p.country_c_e2 as p_country_c_e2,
+    p.pobox_c_e2 as p_pobox_c_e2,
+    p.poboxzipcode_c_e2 as p_poboxzipcode_c_e2,
+    p.suffix1_c_e2 as p_suffix1_c_e2,
+    p.suffix2_c_e2 as p_suffix2_c_e2,
+    p.fon_c_e2 as p_fon_c_e2,
+    p.fax_c_e2 as p_fax_c_e2,
+    p.mobil_c_e2 as p_mobil_c_e2,
+    p.mail_c_e2 as p_mail_c_e2,
+    p.url_c_e2 as p_url_c_e2,
+    p.function_c_e3 as p_function_c_e3,
+    p.company_c_e3 as p_company_c_e3,
+    p.street_c_e3 as p_street_c_e3,
+    p.zipcode_c_e3 as p_zipcode_c_e3,
+    p.state_c_e3 as p_state_c_e3,
+    p.city_c_e3 as p_city_c_e3,
+    p.country_c_e3 as p_country_c_e3,
+    p.pobox_c_e3 as p_pobox_c_e3,
+    p.poboxzipcode_c_e3 as p_poboxzipcode_c_e3,
+    p.suffix1_c_e3 as p_suffix1_c_e3,
+    p.suffix2_c_e3 as p_suffix2_c_e3,
+    p.fon_c_e3 as p_fon_c_e3,
+    p.fax_c_e3 as p_fax_c_e3,
+    p.mobil_c_e3 as p_mobil_c_e3,
+    p.mail_c_e3 as p_mail_c_e3,
+    p.url_c_e3 as p_url_c_e3
+  from veraweb.tguest g
+  inner join veraweb.tperson p
+  on (g.fk_person = p.pk)
+  where g.fk_event = __event_id_placeholder__
+
+mappings:
+
+  g_pk:
+    mapTo: "g_pk"
+  g_fk_person:
+    mapTo: "g_fk_person"
+  g_fk_event:
+    mapTo: "g_fk_event"
+  g_fk_category:
+    mapTo: "g_fk_category"
+  g_fk_color:
+    mapTo: "g_fk_color"
+  g_invitationtype:
+    mapTo: "g_invitationtype"
+  g_invitationstatus:
+    mapTo: "g_invitationstatus"
+  g_ishost:
+    mapTo: "g_ishost"
+  g_diplodate:
+    mapTo: "g_diplodate"
+  g_rank:
+    mapTo: "g_rank"
+  g_reserve:
+    mapTo: "g_reserve"
+  g_tableno:
+    mapTo: "g_tableno"
+  g_seatno:
+    mapTo: "g_seatno"
+  g_orderno:
+    mapTo: "g_orderno"
+  g_notehost:
+    mapTo: "g_notehost"
+  g_noteorga:
+    mapTo: "g_noteorga"
+  g_language:
+    mapTo: "g_language"
+  g_gender:
+    mapTo: "g_gender"
+  g_nationality:
+    mapTo: "g_nationality"
+  g_domestic_a:
+    mapTo: "g_domestic_a"
+  g_invitationstatus_p:
+    mapTo: "g_invitationstatus_p"
+  g_tableno_p:
+    mapTo: "g_tableno_p"
+  g_seatno_p:
+    mapTo: "g_seatno_p"
+  g_orderno_p:
+    mapTo: "g_orderno_p"
+  g_notehost_p:
+    mapTo: "g_notehost_p"
+  g_noteorga_p:
+    mapTo: "g_noteorga_p"
+  g_language_p:
+    mapTo: "g_language_p"
+  g_gender_p:
+    mapTo: "g_gender_p"
+  g_nationality_p:
+    mapTo: "g_nationality_p"
+  g_domestic_b:
+    mapTo: "g_domestic_b"
+  g_fk_color_p:
+    mapTo: "g_fk_color_p"
+  g_createdby:
+    mapTo: "g_createdby"
+  g_changedby:
+    mapTo: "g_changedby"
+  g_created:
+    mapTo: "g_created"
+  g_changed:
+    mapTo: "g_changed"
+  g_delegation:
+    mapTo: "g_delegation"
+  g_osiam_login:
+    mapTo: "g_osiam_login"
+  g_login_required_uuid:
+    mapTo: "g_login_required_uuid"
+  g_image_uuid:
+    mapTo: "g_image_uuid"
+  g_image_uuid_p:
+    mapTo: "g_image_uuid_p"
+  g_keywords:
+    mapTo: "g_keywords"
+  p_pk:
+    mapTo: "p_pk"
+  p_fk_orgunit:
+    mapTo: "p_fk_orgunit"
+  p_created:
+    mapTo: "p_created"
+  p_createdby:
+    mapTo: "p_createdby"
+  p_changed:
+    mapTo: "p_changed"
+  p_changedby:
+    mapTo: "p_changedby"
+  p_deleted:
+    mapTo: "p_deleted"
+  p_dateexpire:
+    mapTo: "p_dateexpire"
+  p_iscompany:
+    mapTo: "p_iscompany"
+  p_importsource:
+    mapTo: "p_importsource"
+  p_fk_workarea:
+    mapTo: "p_fk_workarea"
+  p_salutation_a_e1:
+    mapTo: "p_salutation_a_e1"
+  p_fk_salutation_a_e1:
+    mapTo: "p_fk_salutation_a_e1"
+  p_title_a_e1:
+    mapTo: "p_title_a_e1"
+  p_firstname_a_e1:
+    mapTo: "p_firstname_a_e1"
+  p_lastname_a_e1:
+    mapTo: "p_lastname_a_e1"
+  p_domestic_a_e1:
+    mapTo: "p_domestic_a_e1"
+  p_sex_a_e1:
+    mapTo: "p_sex_a_e1"
+  p_birthday_a_e1:
+    mapTo: "p_birthday_a_e1"
+  p_birthplace_a_e1:
+    mapTo: "p_birthplace_a_e1"
+  p_diplodate_a_e1:
+    mapTo: "p_diplodate_a_e1"
+  p_languages_a_e1:
+    mapTo: "p_languages_a_e1"
+  p_nationality_a_e1:
+    mapTo: "p_nationality_a_e1"
+  p_note_a_e1:
+    mapTo: "p_note_a_e1"
+  p_noteorga_a_e1:
+    mapTo: "p_noteorga_a_e1"
+  p_notehost_a_e1:
+    mapTo: "p_notehost_a_e1"
+  p_salutation_a_e2:
+    mapTo: "p_salutation_a_e2"
+  p_fk_salutation_a_e2:
+    mapTo: "p_fk_salutation_a_e2"
+  p_birthplace_a_e2:
+    mapTo: "p_birthplace_a_e2"
+  p_title_a_e2:
+    mapTo: "p_title_a_e2"
+  p_firstname_a_e2:
+    mapTo: "p_firstname_a_e2"
+  p_lastname_a_e2:
+    mapTo: "p_lastname_a_e2"
+  p_salutation_a_e3:
+    mapTo: "p_salutation_a_e3"
+  p_fk_salutation_a_e3:
+    mapTo: "p_fk_salutation_a_e3"
+  p_birthplace_a_e3:
+    mapTo: "p_birthplace_a_e3"
+  p_title_a_e3:
+    mapTo: "p_title_a_e3"
+  p_firstname_a_e3:
+    mapTo: "p_firstname_a_e3"
+  p_lastname_a_e3:
+    mapTo: "p_lastname_a_e3"
+  p_salutation_b_e1:
+    mapTo: "p_salutation_b_e1"
+  p_fk_salutation_b_e1:
+    mapTo: "p_fk_salutation_b_e1"
+  p_title_b_e1:
+    mapTo: "p_title_b_e1"
+  p_firstname_b_e1:
+    mapTo: "p_firstname_b_e1"
+  p_lastname_b_e1:
+    mapTo: "p_lastname_b_e1"
+  p_domestic_b_e1:
+    mapTo: "p_domestic_b_e1"
+  p_sex_b_e1:
+    mapTo: "p_sex_b_e1"
+  p_birthday_b_e1:
+    mapTo: "p_birthday_b_e1"
+  p_diplodate_b_e1:
+    mapTo: "p_diplodate_b_e1"
+  p_languages_b_e1:
+    mapTo: "p_languages_b_e1"
+  p_nationality_b_e1:
+    mapTo: "p_nationality_b_e1"
+  p_note_b_e1:
+    mapTo: "p_note_b_e1"
+  p_noteorga_b_e1:
+    mapTo: "p_noteorga_b_e1"
+  p_notehost_b_e1:
+    mapTo: "p_notehost_b_e1"
+  p_salutation_b_e2:
+    mapTo: "p_salutation_b_e2"
+  p_fk_salutation_b_e2:
+    mapTo: "p_fk_salutation_b_e2"
+  p_title_b_e2:
+    mapTo: "p_title_b_e2"
+  p_firstname_b_e2:
+    mapTo: "p_firstname_b_e2"
+  p_lastname_b_e2:
+    mapTo: "p_lastname_b_e2"
+  p_salutation_b_e3:
+    mapTo: "p_salutation_b_e3"
+  p_fk_salutation_b_e3:
+    mapTo: "p_fk_salutation_b_e3"
+  p_title_b_e3:
+    mapTo: "p_title_b_e3"
+  p_firstname_b_e3:
+    mapTo: "p_firstname_b_e3"
+  p_lastname_b_e3:
+    mapTo: "p_lastname_b_e3"
+  p_function_a_e1:
+    mapTo: "p_function_a_e1"
+  p_company_a_e1:
+    mapTo: "p_company_a_e1"
+  p_street_a_e1:
+    mapTo: "p_street_a_e1"
+  p_zipcode_a_e1:
+    mapTo: "p_zipcode_a_e1"
+  p_state_a_e1:
+    mapTo: "p_state_a_e1"
+  p_city_a_e1:
+    mapTo: "p_city_a_e1"
+  p_country_a_e1:
+    mapTo: "p_country_a_e1"
+  p_pobox_a_e1:
+    mapTo: "p_pobox_a_e1"
+  p_poboxzipcode_a_e1:
+    mapTo: "p_poboxzipcode_a_e1"
+  p_suffix1_a_e1:
+    mapTo: "p_suffix1_a_e1"
+  p_suffix2_a_e1:
+    mapTo: "p_suffix2_a_e1"
+  p_fon_a_e1:
+    mapTo: "p_fon_a_e1"
+  p_fax_a_e1:
+    mapTo: "p_fax_a_e1"
+  p_mobil_a_e1:
+    mapTo: "p_mobil_a_e1"
+  p_mail_a_e1:
+    mapTo: "p_mail_a_e1"
+  p_url_a_e1:
+    mapTo: "p_url_a_e1"
+  p_function_a_e2:
+    mapTo: "p_function_a_e2"
+  p_company_a_e2:
+    mapTo: "p_company_a_e2"
+  p_street_a_e2:
+    mapTo: "p_street_a_e2"
+  p_zipcode_a_e2:
+    mapTo: "p_zipcode_a_e2"
+  p_state_a_e2:
+    mapTo: "p_state_a_e2"
+  p_city_a_e2:
+    mapTo: "p_city_a_e2"
+  p_country_a_e2:
+    mapTo: "p_country_a_e2"
+  p_pobox_a_e2:
+    mapTo: "p_pobox_a_e2"
+  p_poboxzipcode_a_e2:
+    mapTo: "p_poboxzipcode_a_e2"
+  p_suffix1_a_e2:
+    mapTo: "p_suffix1_a_e2"
+  p_suffix2_a_e2:
+    mapTo: "p_suffix2_a_e2"
+  p_fon_a_e2:
+    mapTo: "p_fon_a_e2"
+  p_fax_a_e2:
+    mapTo: "p_fax_a_e2"
+  p_mobil_a_e2:
+    mapTo: "p_mobil_a_e2"
+  p_mail_a_e2:
+    mapTo: "p_mail_a_e2"
+  p_url_a_e2:
+    mapTo: "p_url_a_e2"
+  p_function_a_e3:
+    mapTo: "p_function_a_e3"
+  p_company_a_e3:
+    mapTo: "p_company_a_e3"
+  p_street_a_e3:
+    mapTo: "p_street_a_e3"
+  p_zipcode_a_e3:
+    mapTo: "p_zipcode_a_e3"
+  p_state_a_e3:
+    mapTo: "p_state_a_e3"
+  p_city_a_e3:
+    mapTo: "p_city_a_e3"
+  p_country_a_e3:
+    mapTo: "p_country_a_e3"
+  p_pobox_a_e3:
+    mapTo: "p_pobox_a_e3"
+  p_poboxzipcode_a_e3:
+    mapTo: "p_poboxzipcode_a_e3"
+  p_suffix1_a_e3:
+    mapTo: "p_suffix1_a_e3"
+  p_suffix2_a_e3:
+    mapTo: "p_suffix2_a_e3"
+  p_fon_a_e3:
+    mapTo: "p_fon_a_e3"
+  p_fax_a_e3:
+    mapTo: "p_fax_a_e3"
+  p_mobil_a_e3:
+    mapTo: "p_mobil_a_e3"
+  p_mail_a_e3:
+    mapTo: "p_mail_a_e3"
+  p_url_a_e3:
+    mapTo: "p_url_a_e3"
+  p_function_b_e1:
+    mapTo: "p_function_b_e1"
+  p_company_b_e1:
+    mapTo: "p_company_b_e1"
+  p_street_b_e1:
+    mapTo: "p_street_b_e1"
+  p_zipcode_b_e1:
+    mapTo: "p_zipcode_b_e1"
+  p_state_b_e1:
+    mapTo: "p_state_b_e1"
+  p_city_b_e1:
+    mapTo: "p_city_b_e1"
+  p_country_b_e1:
+    mapTo: "p_country_b_e1"
+  p_pobox_b_e1:
+    mapTo: "p_pobox_b_e1"
+  p_poboxzipcode_b_e1:
+    mapTo: "p_poboxzipcode_b_e1"
+  p_suffix1_b_e1:
+    mapTo: "p_suffix1_b_e1"
+  p_suffix2_b_e1:
+    mapTo: "p_suffix2_b_e1"
+  p_fon_b_e1:
+    mapTo: "p_fon_b_e1"
+  p_fax_b_e1:
+    mapTo: "p_fax_b_e1"
+  p_mobil_b_e1:
+    mapTo: "p_mobil_b_e1"
+  p_mail_b_e1:
+    mapTo: "p_mail_b_e1"
+  p_url_b_e1:
+    mapTo: "p_url_b_e1"
+  p_function_b_e2:
+    mapTo: "p_function_b_e2"
+  p_company_b_e2:
+    mapTo: "p_company_b_e2"
+  p_street_b_e2:
+    mapTo: "p_street_b_e2"
+  p_zipcode_b_e2:
+    mapTo: "p_zipcode_b_e2"
+  p_state_b_e2:
+    mapTo: "p_state_b_e2"
+  p_city_b_e2:
+    mapTo: "p_city_b_e2"
+  p_country_b_e2:
+    mapTo: "p_country_b_e2"
+  p_pobox_b_e2:
+    mapTo: "p_pobox_b_e2"
+  p_poboxzipcode_b_e2:
+    mapTo: "p_poboxzipcode_b_e2"
+  p_suffix1_b_e2:
+    mapTo: "p_suffix1_b_e2"
+  p_suffix2_b_e2:
+    mapTo: "p_suffix2_b_e2"
+  p_fon_b_e2:
+    mapTo: "p_fon_b_e2"
+  p_fax_b_e2:
+    mapTo: "p_fax_b_e2"
+  p_mobil_b_e2:
+    mapTo: "p_mobil_b_e2"
+  p_mail_b_e2:
+    mapTo: "p_mail_b_e2"
+  p_url_b_e2:
+    mapTo: "p_url_b_e2"
+  p_function_b_e3:
+    mapTo: "p_function_b_e3"
+  p_company_b_e3:
+    mapTo: "p_company_b_e3"
+  p_street_b_e3:
+    mapTo: "p_street_b_e3"
+  p_zipcode_b_e3:
+    mapTo: "p_zipcode_b_e3"
+  p_state_b_e3:
+    mapTo: "p_state_b_e3"
+  p_city_b_e3:
+    mapTo: "p_city_b_e3"
+  p_country_b_e3:
+    mapTo: "p_country_b_e3"
+  p_pobox_b_e3:
+    mapTo: "p_pobox_b_e3"
+  p_poboxzipcode_b_e3:
+    mapTo: "p_poboxzipcode_b_e3"
+  p_suffix1_b_e3:
+    mapTo: "p_suffix1_b_e3"
+  p_suffix2_b_e3:
+    mapTo: "p_suffix2_b_e3"
+  p_fon_b_e3:
+    mapTo: "p_fon_b_e3"
+  p_fax_b_e3:
+    mapTo: "p_fax_b_e3"
+  p_mobil_b_e3:
+    mapTo: "p_mobil_b_e3"
+  p_mail_b_e3:
+    mapTo: "p_mail_b_e3"
+  p_url_b_e3:
+    mapTo: "p_url_b_e3"
+  p_function_c_e1:
+    mapTo: "p_function_c_e1"
+  p_company_c_e1:
+    mapTo: "p_company_c_e1"
+  p_street_c_e1:
+    mapTo: "p_street_c_e1"
+  p_zipcode_c_e1:
+    mapTo: "p_zipcode_c_e1"
+  p_state_c_e1:
+    mapTo: "p_state_c_e1"
+  p_city_c_e1:
+    mapTo: "p_city_c_e1"
+  p_country_c_e1:
+    mapTo: "p_country_c_e1"
+  p_pobox_c_e1:
+    mapTo: "p_pobox_c_e1"
+  p_poboxzipcode_c_e1:
+    mapTo: "p_poboxzipcode_c_e1"
+  p_suffix1_c_e1:
+    mapTo: "p_suffix1_c_e1"
+  p_suffix2_c_e1:
+    mapTo: "p_suffix2_c_e1"
+  p_fon_c_e1:
+    mapTo: "p_fon_c_e1"
+  p_fax_c_e1:
+    mapTo: "p_fax_c_e1"
+  p_mobil_c_e1:
+    mapTo: "p_mobil_c_e1"
+  p_mail_c_e1:
+    mapTo: "p_mail_c_e1"
+  p_url_c_e1:
+    mapTo: "p_url_c_e1"
+  p_function_c_e2:
+    mapTo: "p_function_c_e2"
+  p_company_c_e2:
+    mapTo: "p_company_c_e2"
+  p_street_c_e2:
+    mapTo: "p_street_c_e2"
+  p_zipcode_c_e2:
+    mapTo: "p_zipcode_c_e2"
+  p_state_c_e2:
+    mapTo: "p_state_c_e2"
+  p_city_c_e2:
+    mapTo: "p_city_c_e2"
+  p_country_c_e2:
+    mapTo: "p_country_c_e2"
+  p_pobox_c_e2:
+    mapTo: "p_pobox_c_e2"
+  p_poboxzipcode_c_e2:
+    mapTo: "p_poboxzipcode_c_e2"
+  p_suffix1_c_e2:
+    mapTo: "p_suffix1_c_e2"
+  p_suffix2_c_e2:
+    mapTo: "p_suffix2_c_e2"
+  p_fon_c_e2:
+    mapTo: "p_fon_c_e2"
+  p_fax_c_e2:
+    mapTo: "p_fax_c_e2"
+  p_mobil_c_e2:
+    mapTo: "p_mobil_c_e2"
+  p_mail_c_e2:
+    mapTo: "p_mail_c_e2"
+  p_url_c_e2:
+    mapTo: "p_url_c_e2"
+  p_function_c_e3:
+    mapTo: "p_function_c_e3"
+  p_company_c_e3:
+    mapTo: "p_company_c_e3"
+  p_street_c_e3:
+    mapTo: "p_street_c_e3"
+  p_zipcode_c_e3:
+    mapTo: "p_zipcode_c_e3"
+  p_state_c_e3:
+    mapTo: "p_state_c_e3"
+  p_city_c_e3:
+    mapTo: "p_city_c_e3"
+  p_country_c_e3:
+    mapTo: "p_country_c_e3"
+  p_pobox_c_e3:
+    mapTo: "p_pobox_c_e3"
+  p_poboxzipcode_c_e3:
+    mapTo: "p_poboxzipcode_c_e3"
+  p_suffix1_c_e3:
+    mapTo: "p_suffix1_c_e3"
+  p_suffix2_c_e3:
+    mapTo: "p_suffix2_c_e3"
+  p_fon_c_e3:
+    mapTo: "p_fon_c_e3"
+  p_fax_c_e3:
+    mapTo: "p_fax_c_e3"
+  p_mobil_c_e3:
+    mapTo: "p_mobil_c_e3"
+  p_mail_c_e3:
+    mapTo: "p_mail_c_e3"

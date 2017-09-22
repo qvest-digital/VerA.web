@@ -1,0 +1,46 @@
+#!/bin/sh
+#-
+# Copyright © 2015
+#	Thorsten Glaser <t.glaser@tarent.de>
+#
+# Provided that these terms and disclaimer and all copyright notices
+# are retained or reproduced in an accompanying document, permission
+# is granted to deal in this work without restriction, including un‐
+# limited rights to use, publicly perform, distribute, sell, modify,
+# merge, give away, or sublicence.
+#
+# This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to
+# the utmost extent permitted by applicable law, neither express nor
+# implied; without malicious intent or gross negligence. In no event
+# may a licensor, author or contributor be held liable for indirect,
+# direct, other damage, loss, or other issues arising in any way out
+# of dealing in the work, even if advised of the possibility of such
+# damage or existence of a defect, except proven that it results out
+# of said person’s immediate fault when using the work as intended.
+#-
+# Decode files from Java .properties (\uNNNN) escapes to UTF-8. Also
+# does some minimal sanity checks on the output.
+#
+# Syntax: ./decode [*.resource]
+
+case $(locale charmap) in
+(UTF-8) ;;
+(*) LC_ALL=C.UTF-8; export LC_ALL ;;
+esac
+case $(locale charmap) in
+(UTF-8) ;;
+(*) echo >&2 "E: fix your locale!"; exit 1 ;;
+esac
+cd "$(dirname "$0")"
+test -n "$1" || set -- *.resource
+echo >&2 I: $# files to convert
+perl -C -pi -e 's/\\u([0-9A-Fa-f]{4})/chr(hex($1))/eg' "$@"
+printf >&2 '%s' 'I: all done, checking for specials…'
+if x=$(grep -l '[-	-"&'\''<>\]' "$@"); then
+	echo >&2
+	echo >&2 "E: invalid characters found in:" $x
+	echo >&2 "N: use ./find_invalid -v for details and fix them!"
+	exit 1
+fi
+echo >&2 " done"
+exit 0

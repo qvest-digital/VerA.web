@@ -1,0 +1,13 @@
+**/*.iml
+*.iml
+*.log
+*~
+.classpath
+.idea/
+.project
+.settings
+config.yaml
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+target/

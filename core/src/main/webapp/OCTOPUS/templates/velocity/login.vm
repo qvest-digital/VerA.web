@@ -1,0 +1,20 @@
+#set($title = "${placeholderWithTranslation.GENERIC_LOGIN}")
+#parse("inc/header.vm")
+
+<div id="german">
+	#parse("login_de.vm")
+</div>
+
+<div id="english">
+	#parse("login_en.vm")
+</div>
+
+<div id="spanish">
+	#parse("login_es.vm")
+</div>
+
+<div id="french">
+	#parse("login_fr.vm")
+</div>
+
+#parse("inc/footer.vm")

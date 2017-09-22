@@ -1,0 +1,274 @@
+#set($activeMenu = "Personen")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_EXPORT_PERSONDATA}")
+#parse("inc/header.vm")
+
+<div id="content_container">
+    <div id="breadcrumb" class="textRight marginBottom10">
+        <strong>
+            ${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:
+        </strong>
+        <span>
+            <a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">
+                ${placeholderWithTranslation.GENERIC_HOME}
+            </a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_EXPORT_PERSONS}
+        </span>
+    </div>
+
+    <h1>$title</h1>
+
+    <vera-info>
+        <p>
+            <strong>
+                ${placeholderWithTranslation.GENERIC_TOOLTIP}
+            </strong>
+        </p>
+        #if($domain && $domain == "all" && $grants.isAdmin())
+            ${placeholderWithTranslation.siesindalsvolladministratorangemeldetundexportierenhiermitmandantenubergreifend}
+        #else
+            ${placeholderWithTranslation.sieexportierenmitdieserfunktionausschlieszlichpersonenausihremaktuellenmandanten}
+        #end
+    </vera-info>
+
+    <form action="ExportPersonsHandler/veraweb.export" name="formExport" method="post">
+        <div id="main_content" class="contentBoxColored grayBorder">
+            <div class="table width70">
+                <div class="tableRow">
+                    <div class="tableCell inlineLabel width30">
+                        <input type="radio" name="exportFilter" id="exportFilterEvent" value="event" onclick="return filterChanged()">
+                        <label for="exportFilterEvent">
+                            ${placeholderWithTranslation.GENERIC_EVENT}
+                        </label>
+                    </div>
+                    <div class="tableCell">
+                        <select id="exportEvent" name="exportEvent">
+                            # cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
+                            # the octopus version in use made it a valid integer object of value 0, which broke
+                            # existing code relying on the fact that the request parameter would be null.
+                            #
+                            <option value="0">
+                                ${placeholderWithTranslation.GENERIC_ALL}
+                            </option>
+                            <option value="-1">
+                                ${placeholderWithTranslation.keine}
+                            </option>
+                            #foreach($event in $allEvent)
+                                <option value="$!event.id">
+                                    $!message.text($event.shortname)
+                                </option>
+                            #end
+                        </select>
+                    </div>
+                </div>
+                <div class="tableRow">
+                    <div class="tableCell inlineLabel">
+                        <input type="radio" name="exportFilter" id="exportFilterCategory" value="category" onclick="return filterChanged()">
+                        <label for="exportFilterCategory">
+                            ${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}
+                        </label>
+                    </div>
+                    <div class="tableCell">
+                        <select name="exportCategory" id="exportCategory">
+                            # cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
+                            # the octopus version in use made it a valid integer object of value 0, which broke
+                            # existing code relying on the fact that the request parameter would be null.
+                            #
+                            <option value="0">
+                                ${placeholderWithTranslation.GENERIC_ALL}
+                            </option>
+                            <option value="-1">
+                                ${placeholderWithTranslation.GENERIC_WITHOUT}
+                            </option>
+                            #foreach($category in $allCategorie)
+                                <option value="$!category.id">
+                                    $!message.text($category.name)
+                                </option>
+                            #end
+                        </select>
+                    </div>
+                </div>
+                <div class="tableRow">
+                    <div class=" tableCell">
+                        <label for="format">
+                            ${placeholderWithTranslation.GENERIC_DATA_TYPE}
+                        </label>
+                    </div>
+                    <div class="tableCell">
+                        <select name="format" id="format" class="autoWidth" onchange="return formatChanged();">
+                            #foreach($formatKey in $formats.keySet())
+                                #set($format = $formats.get($formatKey))
+                                <option value="$formatKey">
+                                    #if($format.name == "CSV")
+                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSV}
+                                    #elseif($format.name == "X-Manage-CSV")
+                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_X_MANAGE_CSV}
+                                    #elseif($format.name == "CSVPersdat+Anschrift")
+                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS}
+                                    #elseif($format.name == "CSVPersdat")
+                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA}
+                                    #elseif($format.name == "CSVPersdat+Kategorien")
+                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY}
+                                    #elseif($format.name == "CSV-ISO-8859-15")
+                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSV_ISO_8859_15}
+                                    #end
+                                </option>
+                            #end
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            #set($style = '')
+            #foreach($formatKey in $formats.keySet())
+                #set($format = $formats.get($formatKey))
+                <div $style id="format-$formatKey" class="marginTop20">
+                    #if($format.properties.containsKey("choices"))
+                        #set($choices = $format.properties.get("choices"))
+                        <fieldset class="format">
+                            <legend>
+                                #if($format.name == "CSV")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSV}:
+                                #elseif($format.name == "X-Manage-CSV")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_X_MANAGE_CSV}:
+                                #elseif($format.name == "CSVPersdat+Anschrift")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_ADDRESS}:
+                                #elseif($format.name == "CSVPersdat")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA}:
+                                #elseif($format.name == "CSVPersdat+Kategorien")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_CATEGORY}:
+                                #elseif($format.name == "CSV-ISO-8859-15")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSV_ISO_8859_15}:
+                                #end
+
+                                ${placeholderWithTranslation.weitereoptionen}
+                            </legend>
+                            <div class="table width50">
+                                #foreach($choiceKey in $choices.keySet())
+                                    #set($choice = $choices.get($choiceKey))
+                                    <div class="tableRow">
+                                        <div class="tableCell width30">
+                                            <label for="format-${formatKey}-$choiceKey">
+                                            </label>
+                                        </div>
+                                        <div class="tableCell">
+                                            #set($default = $choice.get("default"))
+                                            #if($choice.containsKey("select"))
+                                                #set($select = $choice.get("select"))
+                                                <select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" >
+                                                    #foreach($selectKey in $select.keySet())
+                                                        <option value="$selectKey"#if($selectKey==$default) selected#end>
+                                                            #if($selectKey == "Cyrillic")
+                                                                ${placeholderWithTranslation.ENCODING_TYPE_CYRILLIC}
+                                                            #elseif($selectKey == "West")
+                                                                ${placeholderWithTranslation.ENCODING_TYPE_WEST}
+                                                            #elseif($selectKey == "Baltic")
+                                                                ${placeholderWithTranslation.ENCODING_TYPE_BALTIC}
+                                                            #elseif($selectKey == "East")
+                                                                ${placeholderWithTranslation.ENCODING_TYPE_EAST}
+                                                            #elseif($selectKey == "Turkish")
+                                                                ${placeholderWithTranslation.ENCODING_TYPE_TURKISH}
+                                                            #end
+                                                        </option>
+                                                    #end
+                                                </select>
+                                            #else
+                                                <input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" >
+                                            #end
+                                        </div>
+                                    </div>
+                                #end
+                            </div>
+                        </fieldset>
+                    #end
+
+                    #if($format.properties.containsKey("remarks"))
+                        #set($remarks = $format.properties.get("remarks"))
+                        <fieldset class="format">
+                        #if($remarks.size() == 1)
+                            <legend>
+                                #if($format.name == "CSV")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSV}:
+                                #elseif($format.name == "X-Manage-CSV")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_X_MANAGE_CSV}:
+                                #elseif($format.name == "CSVPersdat+Anschrift")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_ADDRESS}:
+                                #elseif($format.name == "CSVPersdat")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA}:
+                                #elseif($format.name == "CSVPersdat+Kategorien")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_CATEGORY}:
+                                #elseif($format.name == "CSV-ISO-8859-15")
+                                    ${placeholderWithTranslation.EXPORT_TITLE_CSV_ISO_8859_15}:
+                                #end
+
+                                #if($remarks.size() == 1)
+                                    ${placeholderWithTranslation.anmerkung}
+                                #else
+                                    $format.name: ${placeholderWithTranslation.anmerkungen}
+                                #end
+                            </legend>
+                        #end
+
+                        #if($format.name == "CSV")
+                            <p>
+                                ${placeholderWithTranslation.HINT_EXPORT_CSV}
+                            </p>
+                        #elseif($format.name == "CSVPersdat+Anschrift")
+                            <p>
+                                ${placeholderWithTranslation.HINT_EXPORT_CSVPERSDATA_ADDRESS}
+                            </p>
+                        #elseif($format.name == "CSVPersdat")
+                            <p>
+                                ${placeholderWithTranslation.HINT_EXPORT_CSVPERSDATA}
+                            </p>
+                        #elseif($format.name == "CSVPersdat+Kategorien")
+                            <p>
+                                ${placeholderWithTranslation.HINT_EXPORT_CSVPERSDATA_CATEGORY}
+                            </p>
+                        #elseif($format.name == "CSV-ISO-8859-15")
+                            <p>
+                                ${placeholderWithTranslation.HINT_EXPORT_CSV_ISO_8859_15}
+                            </p>
+                        #end
+                        </fieldset>
+                    #end
+                </div>
+                #set($style = 'style="display:none;"')
+            #end
+
+            <script type="text/javascript">
+                function formatChanged() {
+                    #foreach($formatKey in $formats.keySet())
+                        document.getElementById('format-$formatKey').style.display = 'none';
+                    #end
+                    document.getElementById('format-' + document.formExport.format.options[document.formExport.format.options.selectedIndex].value).style.display = '';
+
+                    return true;
+                }
+            </script>
+
+            ## see DataExchangeWorker#export
+
+        </div>
+
+        <div id="buttonPanel-bottom" class="textRight marginTop10">
+            <input type="submit" name="submit" value="${placeholderWithTranslation.GENERIC_START_EXPORT}" title="${placeholderWithTranslation.GENERIC_START_EXPORT}" class="mainButton" />
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    document.formExport.exportFilter[0].click();
+    function filterChanged() {
+        if (document.formExport.exportFilter[0].checked) {
+            document.getElementById("exportEvent").disabled = false;
+            document.getElementById("exportCategory").disabled = true;
+            document.getElementById("exportEvent").focus();
+        } else {
+            document.getElementById("exportEvent").disabled = true;
+            document.getElementById("exportCategory").disabled = false;
+            document.getElementById("exportCategory").focus();
+        }
+        return true;
+    }
+</script>
+
+#parse("inc/footer.vm")

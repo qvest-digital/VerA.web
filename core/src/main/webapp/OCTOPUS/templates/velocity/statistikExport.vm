@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+	<head>
+		#parse("inc/statistikTitle.vm")
+		<title>$title</title>
+		## Style
+		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/default.css" media="all">
+		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/report.css" media="all" title="${placeholderWithTranslation.auswartigesamtintranetstil}">
+		## Browser-Cache deaktivieren
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="pragma" content="no-cache">
+	</head>
+	<body>
+
+		#if($formatMessage != "no")
+			<div class="msg errormsg">
+				<h1>$formatMessage</h1>
+			</div>
+			<input name="button" class="mainButton" type="button" onclick="window.close();" value="${${placeholderWithTranslation.zuruck}" />
+		#else
+			<h1>$title</h1>
+			#if($begin.class.name == "java.util.Date" && $end.class.name == "java.util.Date")
+				<h2>${placeholderWithTranslation.imzeitraumvom} $!message.date("DATE", $begin) ${placeholderWithTranslation.biszum} $!message.date("DATE", $end)</h2>
+			#elseif($begin.class.name == "java.util.Date")
+				<h2>${placeholderWithTranslation.GENERIC_VIEW_OVER_GUEST_EVENT} $!message.date("DATE", $begin)</h2>
+			#elseif($end.class.name == "java.util.Date")
+				<h2>${placeholderWithTranslation.bis} $!message.date("DATE", $end)</h2>
+			#end
+
+			#if($statistik == "EventsGroupByHost" && $person)
+				<h2>${placeholderWithTranslation.statistikfurgastgeber} $person.MainLatin.SaveAs</h2>
+			#elseif($statistik == "EventsGroupByGuest" && $person)
+				<h2>${placeholderWithTranslation.statistikfurgast} $person.MainLatin.SaveAs</h2>
+			#end
+
+			<!-- $result -->
+
+			<hr class="kategorie" />
+			<br>
+			#parse("inc/statistik${statistik}.vm")
+		#end
+
+	</body>
+</html>

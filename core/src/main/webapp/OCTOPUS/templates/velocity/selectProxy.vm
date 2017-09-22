@@ -1,0 +1,57 @@
+## $Id$
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_LOGIN_REPRESENTATIVE}.")
+#parse("inc/header.vm")
+
+<div id="content_container">
+
+    <form action="" method="post" target="_top">
+
+	<div id="breadcrumb" class="textRight marginBottom10">
+		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong>
+        <span>
+            <a href="${paths.staticWeb}do/" title="${ZurStartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_LOGIN} (${placeholderWithTranslation.stellvertretung})
+        </span>
+	</div>
+
+    <h1>${placeholderWithTranslation.stellvertretung}</h1>
+
+    #if($errors && $errors.size() > 0)
+    <vera-warn>
+    	#foreach($error in $errors)
+    		$error<br>
+    	#end
+    	<br>
+    	${placeholderWithTranslation.eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator}
+    </vera-warn>
+    #end
+
+	<div id="main_content" class="contentBoxColored grayBorder">
+		<p>${placeholderWithTranslation.bittewahlensiedierolleausdiesievertretenmochten}</p>
+
+		<div class="table width30">
+			<div class="tableRow">
+				<div class="tableCell"><label for="proxyFor">${placeholderWithTranslation.benutzerrolle}</label></div>
+				<div class="tableCell">
+					<select name="proxyFor" id="fieldMapping" >
+                        #foreach($proxy in $list)
+                        			<option value="$proxy.userRole">$!message.text($proxy.userRole)</option>
+                        #end
+                    </select>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<input name="submit" type="submit" value="${placeholderWithTranslation.vertreten}" title="${placeholderWithTranslation.vertreten}" class="mainButton" />
+		</div>
+
+	</div>
+
+    <input name="task" type="hidden" value="LoginAsProxy">
+
+    </form>
+</div>
+<!--
+$responseParams
+-->
+#parse("inc/footer.vm")

@@ -1,0 +1,140 @@
+<table class="kategorie">
+	<tr>
+		<td class="kategorieName" style="width: 35%;">
+            <nobr>
+                <strong>${placeholderWithTranslation.GENERIC_EVENT_SINGULAR}</strong>
+            </nobr>
+        </td>
+		<td class="kategorieName" style="width: 15%;">
+            <nobr>
+                <strong>${placeholderWithTranslation.GENERIC_BEGIN}</strong>
+            </nobr>
+        </td>
+		<td class="kategorieName" style="width: 35%;">
+            <nobr>
+                <strong>${placeholderWithTranslation.GENERIC_VENUE}</strong>
+            </nobr>
+        </td>
+		<td class="kategorieName" style="width: 15%;">
+            <nobr>
+                <strong>${placeholderWithTranslation.zusagen}</strong>
+            </nobr>
+        </td>
+	</tr>
+</table>
+
+#set($count = 0)
+#set($gesamt = 0)
+#set($subhead = -1)
+#foreach($bean in $result)
+	#if((!$bean.subhead && $subhead != 0) || ($bean.subhead && $bean.subhead != $subhead) || $subhead == -1)
+		#if(!$bean.subhead)
+			#if($count > 0)
+				<table style="width: 100%;">
+					<tr>
+						<td style="text-align: right;">
+                            <h2>${placeholderWithTranslation.GENERIC_COUNT}:</h2>
+                        </td>
+						<td style="width: 20px;">
+                            &nbsp;
+                        </td>
+						<td style="width: 100px">
+                            <h3>$count</h3>
+                        </td>
+					</tr>
+				</table>
+                <br>
+			#end
+			#set($count = 0)
+			#set($subhead = 0)
+			<div class="kategorie">
+                <em>${placeholderWithTranslation.GENERIC_NO_HOST_ASSIGNED}</em>
+            </div>
+		#elseif($bean.subhead)
+			#if($count > 0)
+				<table style="width: 100%;">
+					<tr>
+						<td style="text-align: right;">
+                            <h2>${placeholderWithTranslation.GENERIC_COUNT}:</h2>
+                        </td>
+						<td style="width: 20px;">
+                            &nbsp;
+                        </td>
+						<td style="width: 100px">
+                            <h3>$count</h3>
+                        </td>
+					</tr>
+				</table>
+                <br>
+			#end
+			#set($count = 0)
+			#set($subhead = $bean.subhead)
+			#if(!$person)
+                <div class="kategorie">
+                    $!message.plain($bean.lastname)
+                    #if($bean.lastname.length() > 0 && $bean.firstname.length() > 0)
+                        ,
+                    #end
+                    $!message.plain($bean.firstname)
+                    #if($bean.function.length() > 0)
+                        ($bean.function)
+                    #end
+                </div>
+			#end
+		#end
+	#end
+
+    #set($count = $count + 1)
+    #set($gesamt = $gesamt + 1)
+    <table class="kategorie">
+        <tr>
+            <td class="kategorieName" style="width: 35%;">
+                $!message.plain($bean.shortname)
+            </td>
+            <td class="kategorieName" style="width: 15%;">
+                $!message.date("DATE", $bean.datebegin)
+            </td>
+            <td class="kategorieName" style="width: 35%;">
+                $!message.plain($bean.location)
+            </td>
+            <td class="kategorieName" style="width: 15%;">
+                #if($bean.zusagen)
+                    $bean.zusagen
+                #else
+                    0
+                #end
+            </td>
+        </tr>
+    </table>
+#end
+
+#if($count > 0)
+	<table style="width: 100%;">
+		<tr>
+			<td style="text-align: right;">
+                <h2>${placeholderWithTranslation.GENERIC_COUNT}:</h2>
+            </td>
+			<td style="width: 20px;">
+                &nbsp;
+            </td>
+			<td style="width: 100px">
+                <h3>$count</h3>
+            </td>
+		</tr>
+	</table>
+#end
+#if($gesamt > 0)
+	<table style="width: 100%;">
+		<tr>
+			<td style="text-align: right;">
+                <h2>${placeholderWithTranslation.GENERIC_TOTAL}:</h2>
+            </td>
+			<td style="width: 20px;">
+                &nbsp;
+            </td>
+			<td style="width: 100px">
+                <h3>$gesamt</h3>
+            </td>
+		</tr>
+	</table>
+#end

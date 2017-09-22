@@ -1,0 +1,118 @@
+#set($activeMenu = "Verwaltung")
+#set($title = "${placeholderWithTranslation.BROWSER_TITLE_USER_CONFIGS}")
+#parse("inc/header.vm")
+
+<div id="content_container">
+	<form action="UserConfig" method="POST">
+
+		<div id="breadcrumb" class="textRight marginBottom10">
+			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_MANAGEMENT} > ${placeholderWithTranslation.GENERIC_OPTIONS}</span>
+		</div>
+
+		<h1>${placeholderWithTranslation.GENERIC_OPTIONS}</h1>
+
+		#if($saveSuccess)
+			<vera-success>${placeholderWithTranslation.MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED}</vera-success>
+		#end
+
+		#if(!$userConfig.personTab || $userConfig.personTab == "1")
+			#set($personTab1 = true)
+		#else
+			#set($personTab2 = true)
+		#end
+
+		#if(!$userConfig.personMemberTab || $userConfig.personMemberTab == "1")
+			#set($personMemberTab1 = true)
+		#else
+			#set($personMemberTab2 = true)
+		#end
+
+		#if(!$userConfig.personAddresstypeTab || $userConfig.personAddresstypeTab == "1")
+			#set($personAddresstypeTab1 = true)
+		#elseif($userConfig.personAddresstypeTab == "2")
+			#set($personAddresstypeTab2 = true)
+		#else
+			#set($personAddresstypeTab3 = true)
+		#end
+
+		#if(!$userConfig.personLocaleTab || $userConfig.personLocaleTab == "1")
+			#set($personLocaleTab1 = true)
+		#elseif($userConfig.personLocaleTab == "2")
+			#set($personLocaleTab2 = true)
+		#else
+			#set($personLocaleTab3 = true)
+		#end
+		<div id="main_content" class="contentBoxColored grayBorder">
+
+				<div style="width: 57%; float: left; max-width: 550px;">
+					<h3>${placeholderWithTranslation.GENERIC_PERSONAL_DETAILED_VIEW}</h3>
+							<fieldset class="marginTop20">
+								<legend>${placeholderWithTranslation.GENERIC_STANDARD_TABULATOR_CHOICE}</legend>
+								<div class="table width100 inlineLabel">
+									<div class="tableRow">
+										<div class="tableCell bold paddingBottom10 width30">${placeholderWithTranslation.GENERIC_MAIN_TABS}</div>
+										<div class="tableCell"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end> <label for="personTab1">&nbsp;${placeholderWithTranslation.GENERIC_PERSONS_DATA}</label></div>
+										<div class="tableCell"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end> <label for="personTab2">&nbsp;${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</label></div>
+										<div class="tableCell"></div>
+									</div>
+									<div class="tableRow">
+										<div class="tableCell bold paddingBottom10">${placeholderWithTranslation.GENERIC_SUBTABS_OF}&bdquo;${placeholderWithTranslation.GENERIC_PERSONS_DATA}&rdquo;</div>
+										<div class="tableCell verticalBottom"><input type="radio" name="personMemberTab" id="personMemberTab1" value="1" #if($personMemberTab1) checked #end> <label for="personMemberTab1">&nbsp;${placeholderWithTranslation.GENERIC_MAIN_PERSON}</label></div>
+										<div class="tableCell verticalBottom"><input type="radio" name="personMemberTab" id="personMemberTab2" value="2" #if($personMemberTab2) checked #end> <label for="personMemberTab2">&nbsp;${placeholderWithTranslation.GENERIC_PARTNER}</label></div>
+										<div class="tableCell"></div>
+									</div>
+									<div class="tableRow">
+										<div class="tableCell bold paddingBottom10">${placeholderWithTranslation.GENERIC_SUBTABS_OF}&bdquo;${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}&rdquo;</div>
+										<div class="tableCell verticalBottom"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab1" value="1" #if($personAddresstypeTab1) checked #end> <label for="personAddresstypeTab1">&nbsp;${placeholderWithTranslation.GENERIC_BUSINESS}</label></div>
+										<div class="tableCell verticalBottom"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab2" value="2" #if($personAddresstypeTab2) checked #end> <label for="personAddresstypeTab2">&nbsp;${placeholderWithTranslation.privat}</label></div>
+										<div class="tableCell verticalBottom"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab3" value="3" #if($personAddresstypeTab3) checked #end> <label for="personAddresstypeTab3">&nbsp;${placeholderWithTranslation.GENERIC_MORE}</label></div>
+									</div>
+								</div>
+							</fieldset>
+							<fieldset>
+							<legend>${placeholderWithTranslation.standardauswahlderselectboxbdquozeichensatzrdquo}</legend>
+								<div class="table width100 inlineLabel">
+									<div class="tableRow">
+										<div class="tableCell"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end> <label for="personLocaleTab1">&nbsp;${placeholderWithTranslation.GENERIC_LATIN}</label></div>
+										<div class="tableCell"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end> <label for="personLocaleTab2">&nbsp;${placeholderWithTranslation.GENERIC_CHARSET} 1</label></div>
+										<div class="tableCell"><input type="radio" name="personLocaleTab" id="personLocaleTab3" value="3" #if($personLocaleTab3) checked #end> <label for="personLocaleTab3">&nbsp;${placeholderWithTranslation.GENERIC_CHARSET} 2</label></div>
+									</div>
+								</div>
+
+							</fieldset>
+				</div>
+
+				<div style="width:44%" class="floatRight">
+					<h3>${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}</h3>
+							<fieldset class="marginTop20">
+								<legend>${placeholderWithTranslation.zusaetzlichefelder}</legend>
+								<div class="table inlineLabel">
+									<div class="tableRow">
+										<div class="tableCell"><input type="checkbox" name="guestListFunction" id="guestListFunction" value="true" #if($userConfig.guestListFunction) checked #end> <label for="guestListFunction">&nbsp;${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</label></div>
+										<div class="tableCell"><input type="checkbox" name="guestListCity" id="guestListCity" value="true" #if($userConfig.guestListCity) checked #end> <label for="guestListCity">&nbsp;${placeholderWithTranslation.GENERIC_POSTNUMBER_AND_CITY}</label></div>
+										<div class="tableCell"><input type="checkbox" name="guestListPhone" id="guestListPhone" value="true" #if($userConfig.guestListPhone) checked #end> <label for="guestListPhone">&nbsp;${placeholderWithTranslation.GENERIC_TELEFON}</label></div>
+									</div>
+								</div>
+
+							</fieldset>
+							<h3>${placeholderWithTranslation.GENERIC_LIST_OF_PERSONS}</h3>
+							<fieldset class="marginTop20">
+								<legend>${placeholderWithTranslation.zusaetzlichefelder}</legend>
+								<div class="table inlineLabel">
+									<div class="tableRow">
+										<div class="tableCell"><input type="checkbox" name="personListState" id="personListState" value="true" #if($userConfig.personListState) checked #end> <label for="personListState">&nbsp;${placeholderWithTranslation.GENERIC_FEDERAL_STATE}</label></div>
+									</div>
+								</div>
+							</fieldset>
+				</div>
+
+				<div class="clear"></div>
+
+		</div>
+		<div class="textRight marginTop10" id="buttonPanel-bottom">
+				<input type="submit" class="mainButton" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" name="save" />
+		</div>
+</form>
+</div>
+
+#parse("inc/footer.vm")

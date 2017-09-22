@@ -1,0 +1,90 @@
+#!/bin/sh
+#-
+# Copyright © 2015
+#	Thorsten Glaser <t.glaser@tarent.de>
+#
+# Provided that these terms and disclaimer and all copyright notices
+# are retained or reproduced in an accompanying document, permission
+# is granted to deal in this work without restriction, including un‐
+# limited rights to use, publicly perform, distribute, sell, modify,
+# merge, give away, or sublicence.
+#
+# This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to
+# the utmost extent permitted by applicable law, neither express nor
+# implied; without malicious intent or gross negligence. In no event
+# may a licensor, author or contributor be held liable for indirect,
+# direct, other damage, loss, or other issues arising in any way out
+# of dealing in the work, even if advised of the possibility of such
+# damage or existence of a defect, except proven that it results out
+# of said person’s immediate fault when using the work as intended.
+#-
+# Find invalid characters in l10n files:
+# • not UTF-8
+# • control characters (C0 except newline, but including tab; C1)
+# • HTML specials (< > &)
+# • JavaScript specials (' ")
+# • Java specials (\)
+#
+# Syntax: ./find_invalid [-v] [*.resource]
+# -v: verbose output (show the actual lines containing bad characters)
+
+case $(locale charmap) in
+(UTF-8) ;;
+(*) LC_ALL=C.UTF-8; export LC_ALL ;;
+esac
+case $(locale charmap) in
+(UTF-8) ;;
+(*) echo >&2 "E: fix your locale!"; exit 1 ;;
+esac
+cd "$(dirname "$0")"
+
+test -x /usr/bin/isutf8 || {
+	echo >&2 E: apt-get install moreutils
+	exit 1
+}
+
+verbose=false
+if test x"$1" = x"-v"; then
+	verbose=true
+	shift
+fi
+test -n "$1" || set -- *.resource
+echo >&2 I: $# files to check
+
+rv=0
+for f in "$@"; do
+	printf >&2 'Checking %s...\r' "$f"
+	isutf8 -q "$f" || {
+		printf >&2 'E: %s is not UTF-8, cannot check\n' "$f"
+		rv=1
+		continue
+	}
+	perl -C -pi -e 's/\\u([0-9A-Fa-f]{4})/chr(hex($1))/eg' "$f"
+	isutf8 -q "$f" || {
+		printf >&2 'E: %s is not UTF-8 after decoding, contact mirabilos\n' "$f"
+		exit 255
+	}
+	xhtml=$(grep '[&<>]' "$f") || xhtml=
+	xattr=$(grep \[\"\'] "$f") || xattr=
+	xjava=$(grep -F \\ "$f") || xjava=
+	perl -C -pi -e 's/[^\n -~]/"\\u" . sprintf("%04X", ord($&))/eg' "$f"
+	xctrl=$(grep '\\u00[0189]' "$f") || xctrl=
+	if test -z "$xhtml$xattr$xjava$xctrl"; then
+		printf >&2 'Checked %s - no problems found\n' "$f"
+		continue
+	fi
+	problems=
+	test -z "$xctrl" || problems="$problems, Control Characters"
+	test -z "$xhtml" || problems="$problems, HTML specials (<>&)"
+	test -z "$xattr" || problems="$problems, HTML/JS quotes ('\")"
+	test -z "$xjava" || problems="$problems, Java specials (\\)"
+	echo >&2 "W: found ${problems#, } in $f"
+	if $verbose; then
+		test -z "$xctrl" || printf '%s\n' "$xctrl" | sed 's/^/N: CTRL: /' >&2
+		test -z "$xhtml" || printf '%s\n' "$xhtml" | sed 's/^/N: HTML: /' >&2
+		test -z "$xattr" || printf '%s\n' "$xattr" | sed 's/^/N: ATTR: /' >&2
+		test -z "$xjava" || printf '%s\n' "$xjava" | sed 's/^/N: JAVA: /' >&2
+	fi
+done
+echo >&2 I: all done
+exit $rv

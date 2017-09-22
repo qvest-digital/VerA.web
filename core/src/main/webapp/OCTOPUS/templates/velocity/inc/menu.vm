@@ -1,0 +1,180 @@
+### As there is a minor styling bug in Firefox, which adds a non-removable space
+### between <li>s, it is necessary to write </li><li> right next to each other in the code.
+### Please don't change that!
+
+<nav id="nav" class="gray-gradient grayBorder box-shadow marginBottom10">
+	#if($grants && $grants.isAuthenticated())
+		<ul>
+			#if($grants.mayReadStandardFields() || $grants.mayReadRemarkFields())
+				<li #if ($activeMenu && $activeMenu == "Personen") class="active" #end >
+					<span>${placeholderWithTranslation.MENU_PERSONS}</span>
+					<ul>
+						<li>
+                            <a id="menu.overviewPerson" href="${paths.staticWeb}do/SearchPerson?action=person&search=reset&findAll=true&selectNone=true">${placeholderWithTranslation.GENERIC_PERSON_SUMMARY}</a>
+                        </li>
+						#if($grants.mayWrite())
+							<li>
+                                <a id="menu.searchPerson" href="${paths.staticWeb}do/ShowPersonSearchSimple?action=person&search=clear">${placeholderWithTranslation.GENERIC_SEARCH_PERSON}</a>
+                            </li>
+							<li>
+                                <a id="menu.newPerson" href="${paths.staticWeb}do/CreatePerson?action=person">${placeholderWithTranslation.GENERIC_NEW_PERSON}</a>
+                            </li>
+						#end
+						#if($grants.isUser())
+							#if($grants.mayWrite())
+								<li>
+                                    <a id="menu.searchReplace" href="${paths.staticWeb}do/ShowReplacePerson">${placeholderWithTranslation.suchenersetzen}</a>
+                                </li>
+								<li>
+                                    <a id="menu.searchDuplicate" href="${paths.staticWeb}do/PersonDuplicateSearch?selectNone=true">${placeholderWithTranslation.GENERIC_DUPLICATE_SEARCH}</a>
+                                </li>
+							#end
+							#if($grants.mayExport())
+								<li>
+                                    <a id="menu.exportPerson" href="${paths.staticWeb}do/ExportPersons">${placeholderWithTranslation.GENERIC_EXPORT_PERSONS}</a>
+                                </li>
+							#end
+							#if($grants.mayWrite())
+								<li>
+                                    <a id="menu.importPerson" href="${paths.staticWeb}do/ImportPersons">${placeholderWithTranslation.GENERIC_IMPORT_PERSONS}</a>
+                                </li>
+							#end
+						#end
+					</ul>
+				</li><li #if ($activeMenu && $activeMenu == "Veranstaltungen") class="active" #end >
+					<span>${placeholderWithTranslation.MENU_EVENTS}</span>
+					<ul>
+						<li>
+                            <a id="menu.overviewEvent" href="${paths.staticWeb}do/SearchEvent?action=event&search=reset&selectNone=true">${placeholderWithTranslation.GENERIC_EVENT_VIEW}</a>
+                        </li>
+						#if($grants.mayWrite())
+							<li>
+                                <a id="menu.searchEvent" href="${paths.staticWeb}do/ShowEventSearch?action=event">${placeholderWithTranslation.veranstaltungssuche}</a>
+                            </li>
+							<li>
+                                <a id="menu.newEvent" href="${paths.staticWeb}do/CreateEvent?action=event">${placeholderWithTranslation.GENERIC_NEW_EVENT}</a>
+                            </li>
+						#end
+						#if($grants.isUser())
+							<li>
+                                <a id="menu.mailingList" href="${paths.staticWeb}do/ShowMailinglistList?selectNone=true">${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</a>
+                            </li>
+							#if($grants.mayExport())
+								<li>
+                                    <a id="menu.statistic" href="${paths.staticWeb}do/Statistik">${placeholderWithTranslation.GENERIC_STATISTICS}</a>
+                                </li>
+							#end
+						#end
+					</ul>
+				</li>#end<li #if ($activeMenu && $activeMenu == "Verwaltung") class="active" #end >
+				<span>${placeholderWithTranslation.MENU_MANAGEMENT}</span>
+				<ul>
+					#if($grants.isUser())
+						<li>
+                            <a id="menu.userConfig" href="${paths.staticWeb}do/UserConfig">${placeholderWithTranslation.GENERIC_OPTIONS}</a>
+                        </li>
+						#if(!$octopusConfig.personalConfig.proxy)
+							<li>
+                                <a id="menu.proxy" href="${paths.staticWeb}do/Proxy?selectNone=true">${placeholderWithTranslation.GENERIC_REPRESENTATIVE_PLURAL}</a>
+                            </li>
+						#end
+					#elseif(!$octopusConfig.personalConfig.role)
+						<li>
+                            <a id="menu.chooseRole" href="${paths.staticWeb}do/default">${placeholderWithTranslation.GENERIC_CHOOSE_ROLE}</a>
+                        </li>
+					#end
+					<li>
+                        <a id="menu.info" href="${paths.staticWeb}do/Info">${placeholderWithTranslation.GENERIC_INFO}</a>
+                    </li>
+				</ul>
+			</li>
+            ##if($grants.isUser() || $grants.isSystemUser())
+            #if($grants.isPartialAdmin())
+                <li #if ($activeMenu && $activeMenu == "Administration") class="active" #end >
+					<span>${placeholderWithTranslation.MENU_ADMINISTRATION}</span>
+					<ul>
+						#if($grants.isAdmin())
+							<li>
+                                <a id="menu.salutation" href="${paths.staticWeb}do/Salutation?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_SALUTATIONS}</a>
+                            </li>
+						#end
+						#if($grants.isAdmin())
+							<li>
+                                <a id="menu.workarea" href="${paths.staticWeb}do/WorkArea?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}</a>
+                            </li>
+						#end
+						#if($grants.isAdmin())
+							<li>
+                                <a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_USER}</a>
+                            </li>
+						#else
+							#if($grants.isSystemUser())
+								<li>
+                                    <a id="menu.allUser" href="${paths.staticWeb}do/AllUser?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_USER}</a>
+                                </li>
+							#elseif($grants.isPartialAdmin())
+								<li>
+                                    <a id="menu.user" href="${paths.staticWeb}do/OUUser?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_USER}</a>
+                                </li>
+							#end
+						#end
+						#if($grants.isAdmin() || $grants.isPartialAdmin())
+							<li>
+                                <a id="menu.mailOutbox" href="${paths.staticWeb}do/MailOutboxList?start=0&selectNone=true">${placeholderWithTranslation.emailpostausgang}</a>
+                            </li>
+						#end
+						#if($grants.isAdmin() || $grants.isPartialAdmin())
+							<li>
+                                <a id="menu.mailDraft" href="${paths.staticWeb}do/MailDraftList?start=0&selectNone=true">${placeholderWithTranslation.emailvorlagen}</a>
+                            </li>
+						#end
+						#if($grants.isAdmin() || $grants.isPartialAdmin())
+						<li>
+							<a id="menu.pdfDraft" href="${paths.staticWeb}do/PdfTemplateList?start=0&selectNone=true">${placeholderWithTranslation.pdfvorlagen}</a>
+						</li>
+						#end
+						#if($grants.isAdmin() || $grants.isPartialAdmin())
+							<li>
+                                <a id="menu.function" href="${paths.staticWeb}do/Function?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</a>
+                            </li>
+						#end
+						#if($grants.isAdmin() || $grants.isPartialAdmin())
+							<li>
+                                <a id="menu.category" href="${paths.staticWeb}do/Categorie?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</a>
+                            </li>
+						#end
+						#if($grants.isAdmin() || $grants.isSystemUser())
+							<li>
+                                <a id="menu.orgunit" href="${paths.staticWeb}do/Orgunit?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</a>
+                            </li>
+						#end
+						#if($grants.isAdmin() || $grants.isPartialAdmin())
+							<li>
+                                <a id="menu.config" href="${paths.staticWeb}do/Config">${placeholderWithTranslation.GENERIC_PROGRAM_PERFERENCES}</a>
+                            </li>
+						#end
+						#if($grants.isAdmin())
+							<li>
+                                <a id="menu.reports" href="${paths.staticWeb}do/ChangeLogReport">${placeholderWithTranslation.GENERIC_REPORTS}</a>
+                            </li>
+						#end
+						#if($grants.isAdmin())
+							<li>
+                                <a id="menu.allProxy" href="${paths.staticWeb}do/AllProxy?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_REPRESENTATIVES}</a>
+                            </li>
+						#elseif($grants.isPartialAdmin())
+							<li>
+                                <a id="menu.proxy" href="${paths.staticWeb}do/OUProxy?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_REPRESENTATIVES}</a>
+                            </li>
+						#end
+						#if($grants.isAdmin() || $grants.isPartialAdmin())
+							<li>
+                                <a id="menu.location" href="${paths.staticWeb}do/Location?start=0&selectNone=true">${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}</a>
+                            </li>
+						#end
+					</ul>
+				</li>
+			#end
+		</ul>
+	#end
+</nav>

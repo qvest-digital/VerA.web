@@ -1,0 +1,50 @@
+<form action="default" method="post" target="_top" onsubmit="if(document.getElementById('loginasproxy').checked) { this.action = 'LoginAsProxy'; this.task.value = 'LoginAsProxy'; }">
+<h1 class="marginTop25">Login</h1>
+
+<div class="table">
+    <div class="tableRow">
+        <div class="tableCell">
+        	<label for="input.username">Username</label>
+        	<input type="text" id="input.username" name="username">
+        </div>
+    </div>
+    <div class="tableRow">
+        <div class="tableCell">
+        	<label for="input.password">Password</label>
+        	<input type="password" id="input.password" name="password">
+        </div>
+    </div>
+    <div class="tableRow">
+        <div class="tableCell inlineLabel">
+        	<label for="loginasproxy">Login as representative</label>
+        	<input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
+        </div>
+    </div>
+</div>
+
+<div id="buttonPanel-bottom" class="marginTop5 marginBottom20">
+	<input type="submit" class="mainButton" value="Login" title="Login" name="submit" id="button.login" />
+	<input type="reset" class="mainButton" value="Reset" title="Reset" name="cancel" id="button.clearFields" />
+</div>
+
+<div class="hinweis grayBorder marginBottom20 notBold">
+    <strong>Tooltip</strong>
+    <p>Please, use your company signature or <strong>firstname.lastname</strong> as username</p>
+</div>
+
+<input name="task" type="hidden" value="default">
+<input name="loginlanguage" type="hidden" value="en_EN">
+<input name="languageSelector" type="hidden" value="en_EN">
+
+#if($responseParams.message && $octopusRequest.task != "Main" && $octopusRequest.task != "ShowLogin" && $octopusRequest.loginlanguage && $octopusRequest.loginlanguage == "en_EN")
+    #if($responseParams.message == "msg_too_many_attempts")
+        <vera-warn>
+            Too many login attempts.
+        </vera-warn>
+    #end
+<vera-warn>
+	An error occurred. Please, check your credentials and try again.
+</vera-warn>
+#end
+
+</form>
