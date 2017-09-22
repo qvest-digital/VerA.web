@@ -1,1 +1,19 @@
-# experimental monorepo for “classic” VerA.web source code (i.e. OSS, no Docker)
+**/*.iml
+*.iml
+*.log
+*~
+.checkstyle
+.classpath
+.externalToolBuilders
+.idea/
+.project
+.settings
+bin
+config.yaml
+mem.h2.db
+mem.lock.db
+mem.trace.db
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+target/
