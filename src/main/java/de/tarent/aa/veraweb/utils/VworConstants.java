@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 package de.tarent.aa.veraweb.utils;
 
 /**
@@ -28,6 +29,7 @@ public class VworConstants {
 
     // REST: service status
     public static final String AVAILABLE = "available";
+    public static final String INFO = "info";
 
     // REST: File Upload mechanism
     public static final String DOWNLOAD = "download";
