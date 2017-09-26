@@ -2,8 +2,8 @@
 /*************************************************************************************
  * blitzbasic.php
  * --------------
- * Author: P�draig O`Connel (info@moonsword.info)
- * Copyright: (c) 2005 P�draig O`Connel (http://moonsword.info)
+ * Author: Pàdraig O`Connel (info@moonsword.info)
+ * Copyright: (c) 2005 Pàdraig O`Connel (http://moonsword.info)
  * Release Version: 1.0.8.11
  * Date Started: 16.10.2005
  *

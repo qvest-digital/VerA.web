@@ -2,8 +2,8 @@
 /*************************************************************************************
  * oxygene.php
  * ----------
- * Author: Carlo Kok (ck@remobjects.com), J�rja Norbert (jnorbi@vipmail.hu), Benny Baumann (BenBE@omorphia.de)
- * Copyright: (c) 2004 J�rja Norbert, Benny Baumann (BenBE@omorphia.de), Nigel McNie (http://qbnz.com/highlighter)
+ * Author: Carlo Kok (ck@remobjects.com), Járja Norbert (jnorbi@vipmail.hu), Benny Baumann (BenBE@omorphia.de)
+ * Copyright: (c) 2004 Járja Norbert, Benny Baumann (BenBE@omorphia.de), Nigel McNie (http://qbnz.com/highlighter)
  * Release Version: 1.0.8.11
  * Date Started: 2010/01/11
  *

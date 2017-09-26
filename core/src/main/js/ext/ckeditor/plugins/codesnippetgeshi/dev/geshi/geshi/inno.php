@@ -2,8 +2,8 @@
 /*************************************************************************************
  * Inno.php
  * ----------
- * Author: Thomas Klingler (hotline@theratech.de) based on delphi.php from J�rja Norbert (jnorbi@vipmail.hu)
- * Copyright: (c) 2004 J�rja Norbert, Nigel McNie (http://qbnz.com/highlighter)
+ * Author: Thomas Klingler (hotline@theratech.de) based on delphi.php from Járja Norbert (jnorbi@vipmail.hu)
+ * Copyright: (c) 2004 Járja Norbert, Nigel McNie (http://qbnz.com/highlighter)
  * Release Version: 1.0.8.11
  * Date Started: 2005/07/29
  *

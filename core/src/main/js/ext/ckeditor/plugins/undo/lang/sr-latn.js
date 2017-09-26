@@ -4,5 +4,5 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'undo', 'sr-latn', {
 	redo: 'Ponovi akciju',
-	undo: 'Poni�ti akciju'
+	undo: 'Poništi akciju'
 } );

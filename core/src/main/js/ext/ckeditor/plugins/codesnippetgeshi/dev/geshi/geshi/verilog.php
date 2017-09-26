@@ -2,7 +2,7 @@
 /**
  * verilog.php
  * -----------
- * Author: G�nter Dannoritzer <dannoritzer@web.de>
+ * Author: Günter Dannoritzer <dannoritzer@web.de>
  * Copyright: (C) 2008 Guenter Dannoritzer
  * Release Version: 1.0.8.11
  * Date Started: 2008/05/28
