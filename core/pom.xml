@@ -388,7 +388,6 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven.surefire.version}</version>
 				<configuration>
-					<argLine>${argLine} -XX:-UseSplitVerifier</argLine>
 					<includes>
 						<include>**/*.java</include>
 					</includes>
