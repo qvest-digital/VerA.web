@@ -387,11 +387,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven.surefire.version}</version>
-				<configuration>
-					<includes>
-						<include>**/*.java</include>
-					</includes>
-				</configuration>
 			</plugin>
 			<!-- Needed to get correct code coverage from java and groovy tests -->
 			<plugin>

@@ -60,6 +60,7 @@ package de.tarent.octopus.custom.beans;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.octopus.client.OctopusConnection;
 import de.tarent.octopus.client.OctopusResult;
 import junit.framework.TestCase;
@@ -79,7 +80,7 @@ import java.util.logging.Logger;
  *
  * @author mikel
  */
-public class ProfileInsert extends TestCase {
+public class ProfileInsertTest extends TestCase {
     private OctopusConnection con;
     private static Logger baseLogger = null;
     private FileHandler fileLogHandler = null;
