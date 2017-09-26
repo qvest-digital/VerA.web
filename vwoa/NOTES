@@ -1,6 +1,9 @@
 licence audit notes: VWOA is handled separately from the core part
 (i.e. all other modules) and not considered yet.
 
+more bug notes:
+  WARNING: A sub-resource method, public java.util.List org.evolvis.veraweb.onlinereg.imprint.ImprintResource.getImprint(java.lang.String) throws java.io.IOException, with URI template, "/", is treated as a resource method
+
 nach Anwendung
 --------------
 
