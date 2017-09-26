@@ -158,11 +158,6 @@
 					<archiveClasses>true</archiveClasses>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven.surefire.version}</version>
-			</plugin>
 			<!-- Needed to get correct code coverage from java and groovy tests -->
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
