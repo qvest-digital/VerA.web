@@ -74,48 +74,42 @@
         </div>
 
         <form action="ImportPersonsFile" method="post" enctype="multipart/form-data" name="formImport" id="formImport">
-            <div class="table width100">
+            <div class="table width70">
+              #if($grants && $grants.isAdmin() && $allOrgUnit)
                 <div class="tableRow">
-                    <div class="tableCell width50">
+                    <div class="tableCell">
+                        <label for="orgUnit">
+                            ${placeholderWithTranslation.GENERIC_TARGET_CLIENT}*
+                        </label>
+                    </div>
+                    <div class="tableCell">
+                        <span id="orgUnit">
+                            #foreach($orgunit in $allOrgUnit)
+                                #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)
+                                    $!message.text($orgunit.name)
+                                #end
+                            #end
+                        </span>
+                    </div>
+                </div>
+              #end
+                <div class="tableRow">
+                    <div class="tableCell">
                         <label for="importSource">
                             ${placeholderWithTranslation.GENERIC_ORIGIN_DATA}*
                         </label>
+                    </div>
+                    <div class="tableCell">
                         <input type="text" name="importSource" id="importSource" value="$!message.text($importSource)">
                     </div>
-                    <div class="tableCell width50">
-                        #if($grants && $grants.isAdmin() && $allOrgUnit)
-                            <label for="orgUnit">
-                                ${placeholderWithTranslation.GENERIC_TARGET_CLIENT}
-                            </label>
-                            <span id="orgUnit">
-                                #foreach($orgunit in $allOrgUnit)
-                                    #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)
-                                        $!message.text($orgunit.name)
-                                    #end
-                                #end
-                            </span>
-                        #end
-                    </div>
                 </div>
-
                 <div class="tableRow">
                     <div class="tableCell">
-                        <label for="importfile">
-                            ${placeholderWithTranslation.GENERIC_IMPORT_DATA}*
+                        <label for="format">
+                            ${placeholderWithTranslation.GENERIC_DATA_TYPE}*
                         </label>
-                        <div id="input_container" style="width: 0px; height: 0px;">
-                            <input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*" onChange="fileSelected();"/>
-                        </div>
-
-                        <div class="button fakeButton" title="${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}" style="width: 150px;" onclick="upload();">
-                            ${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}
-                        </div>
-                        <div id="selectedFile" style="padding-top: 3px;"></div>
                     </div>
                     <div class="tableCell">
-                        <label for="format">
-                            ${placeholderWithTranslation.GENERIC_DATA_TYPE}
-                        </label>
                         <select name="format" id="format">
                             #foreach($formatKey in $formats.keySet())
                                 #set($format = $formats.get($formatKey))
@@ -136,6 +130,23 @@
                                 </option>
                             #end
                         </select>
+                    </div>
+                </div>
+                <div class="tableRow">
+                    <div class="tableCell">
+                        <label for="importfile">
+                            ${placeholderWithTranslation.GENERIC_IMPORT_DATA}*
+                        </label>
+                    </div>
+                    <div class="tableCell">
+                        <div id="input_container" style="width: 0px; height: 0px;">
+                            <input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*" onChange="fileSelected();"/>
+                        </div>
+
+                        <div class="button fakeButton" title="${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}" style="width: 150px;" onclick="upload();">
+                            ${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}
+                        </div>
+                        <div id="selectedFile" style="padding-top: 3px;"></div>
                     </div>
                 </div>
             </div>

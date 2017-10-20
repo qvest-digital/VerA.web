@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <div class="tableRow">
-                    <div class=" tableCell">
+                    <div class="tableCell">
                         <label for="format">
                             ${placeholderWithTranslation.GENERIC_DATA_TYPE}
                         </label>
