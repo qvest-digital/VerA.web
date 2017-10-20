@@ -116,7 +116,7 @@
                         <label for="format">
                             ${placeholderWithTranslation.GENERIC_DATA_TYPE}
                         </label>
-                        <select name="format" id="format" onchange="return formatChanged();">
+                        <select name="format" id="format">
                             #foreach($formatKey in $formats.keySet())
                                 #set($format = $formats.get($formatKey))
                                 <option value="$formatKey">
@@ -136,69 +136,6 @@
                                 </option>
                             #end
                         </select>
-
-                        #set($style = '')
-                        #foreach($formatKey in $formats.keySet())
-                            #set($format = $formats.get($formatKey))
-                            <div $style id="format-$formatKey" class="marginTop20">
-                                #if($format.properties.containsKey("choices"))
-                                    #set($choices = $format.properties.get("choices"))
-                                    <fieldset class="format">
-                                        <legend>
-                                            $format.name: ${placeholderWithTranslation.weitereoptionen}
-                                        </legend>
-                                        <div class="table width100">
-                                            #foreach($choiceKey in $choices.keySet())
-                                                #set($choice = $choices.get($choiceKey))
-                                                <div class="tableRow">
-                                                    <div class="tableCell width30">
-                                                        <label for="format-${formatKey}-$choiceKey">
-                                                        </label>
-                                                    </div>
-                                                    <div class="tableCell">
-                                                        #set($default = $choice.get("default"))
-                                                        #if($choice.containsKey("select"))
-                                                            #set($select = $choice.get("select"))
-                                                            <select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey">
-                                                                #foreach($selectKey in $select.keySet())
-                                                                    <option value="$selectKey"#if($selectKey==$default) selected#end>
-                                                                        #if($selectKey == "Cyrillic")
-                                                                            ${placeholderWithTranslation.ENCODING_TYPE_CYRILLIC}
-                                                                        #elseif($selectKey == "West")
-                                                                            ${placeholderWithTranslation.ENCODING_TYPE_WEST}
-                                                                        #elseif($selectKey == "Baltic")
-                                                                            ${placeholderWithTranslation.ENCODING_TYPE_BALTIC}
-                                                                        #elseif($selectKey == "East")
-                                                                            ${placeholderWithTranslation.ENCODING_TYPE_EAST}
-                                                                        #elseif($selectKey == "Turkish")
-                                                                            ${placeholderWithTranslation.ENCODING_TYPE_TURKISH}
-                                                                        #end
-                                                                    </option>
-                                                                #end
-                                                            </select>
-                                                        #else
-                                                            <input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default">
-                                                        #end
-                                                    </div>
-                                                </div>
-                                            #end
-                                        </div>
-                                    </fieldset>
-                                #end
-                            </div>
-                            #set($style = 'style="display:none;"')
-                        #end
-
-                        <script type="text/javascript">
-                            function formatChanged() {
-                                #foreach($formatKey in $formats.keySet())
-                                    document.getElementById('format-$formatKey').style.display = 'none';
-                                #end
-                                document.getElementById('format-' + document.formImport.format.options[document.formImport.format.options.selectedIndex].value).style.display = '';
-
-                                return true;
-                            }
-                        </script>
                     </div>
                 </div>
             </div>

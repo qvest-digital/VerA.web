@@ -493,13 +493,14 @@ public class DataExchangeWorker {
      *
      * @param config    Konfiguration
      * @param formatKey Schlüssel zum Format
-     * @param params    {@link Map} mit Parametern, aus denen diejenigen ermittelt werden,
-     *                  die dem {@link ExchangeFormat} zuzuordnen sind; dies sind genau die, die einen
-     *                  Schlüssel der Form <code>"format-" + formatKey + '-' + choiceKey</code> haben,
-     *                  wobei <code>choiceKey</code> über die Schlüssel der {@link Map} iteriert, die
-     *                  in den {@link ExchangeFormat#getProperties() Properties} unter dem Schlüssel
-     *                  <code>"choices"</code> liegt. Sie werden diesen Properties unter dem jeweiligen
-     *                  Schlüssel <code>choiceKey</code> hinzugefügt.
+     * @param params {@link Map} mit Parametern, aus denen diejenigen ermittelt werden,
+     *  die dem {@link ExchangeFormat} zuzuordnen sind; dies sind genau die, die einen
+     *  Schlüssel der Form <code>"format-" + formatKey + '-' + choiceKey</code> haben,
+     *  wobei <code>choiceKey</code> über die Schlüssel der {@link Map} iteriert, die
+     *  in den {@link ExchangeFormat#getProperties() Properties} unter dem Schlüssel
+     *  <code>"choices"</code> liegt. Sie werden diesen Properties unter dem jeweiligen
+     *  Schlüssel <code>choiceKey</code> hinzugefügt.
+     *  XXX choices-Support wurde entfernt
      * @return zugehöriges {@link ExchangeFormat} oder <code>null</code>
      */
     static ExchangeFormat getExchangeFormat(Map config, String formatKey, Map params) {
@@ -511,18 +512,6 @@ public class DataExchangeWorker {
             return null;
         }
         ConfiguredExchangeFormat format = new ConfiguredExchangeFormat((Map) formatObject);
-        Object choicesObject = format.getProperties().get("choices");
-        if (choicesObject instanceof Map && params != null) {
-            String prefix = "format-" + formatKey + '-';
-            final Map<Object, Object> applicableParams = new HashMap<>();
-            for (Object choiceKey : ((Map) choicesObject).keySet()) {
-                Object param = params.get(prefix + choiceKey);
-                if (param != null) {
-                    applicableParams.put(choiceKey, param);
-                }
-            }
-            format.addProperties(applicableParams);
-        }
         return format;
     }
 
