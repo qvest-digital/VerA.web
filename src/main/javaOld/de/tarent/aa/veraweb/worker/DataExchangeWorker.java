@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 package de.tarent.aa.veraweb.worker;
 
 import de.tarent.aa.veraweb.beans.Import;
@@ -81,42 +82,57 @@ public class DataExchangeWorker {
     //
     // Konstanten
     //
-    /** Vorgabewert für den Parameter <code>formatEnumKey</code> von {@link #getFormats(OctopusContext, String)} */
+    /**
+     * Vorgabewert für den Parameter <code>formatEnumKey</code> von {@link #getFormats(OctopusContext, String)}
+     */
     public final static String KEY_FORMAT_NAMES = "exchangeFormats";
 
-    /** Exportfilterwert: Filtrierung nach Kategorie */
+    /**
+     * Exportfilterwert: Filtrierung nach Kategorie
+     */
     public final static String EXPORT_FILTER_CATEGORY = "category";
 
-    /** Exportfilterwert: Filtrierung nach Veranstaltung */
+    /**
+     * Exportfilterwert: Filtrierung nach Veranstaltung
+     */
     public final static String EXPORT_FILTER_EVENT = "event";
 
-    /** Parameterwert: beliebige Personen */
+    /**
+     * Parameterwert: beliebige Personen
+     */
     public final static String PARAM_DOMAIN_VALUE_ALL = "all";
-    /** Parameterwert: Personen des gleichen Mandanten */
+    /**
+     * Parameterwert: Personen des gleichen Mandanten
+     */
     public final static String PARAM_DOMAIN_VALUE_OU = "ou";
-
 
     //
     // Octopus-Aktionen
     //
-    /** Octopus-Eingabe-Parameter für {@link #getFormats(OctopusContext, String)} */
-    public static final String[] INPUT_getFormats = {"formatEnumKey"};
-    /** Octopus-Eingabepflicht-Parameter für {@link #getFormats(OctopusContext, String)} */
-    public static final boolean[] MANDATORY_getFormats = {false};
-    /** Octopus-Ausgabe-Parameter für {@link #getFormats(OctopusContext, String)} */
+    /**
+     * Octopus-Eingabe-Parameter für {@link #getFormats(OctopusContext, String)}
+     */
+    public static final String[] INPUT_getFormats = { "formatEnumKey" };
+    /**
+     * Octopus-Eingabepflicht-Parameter für {@link #getFormats(OctopusContext, String)}
+     */
+    public static final boolean[] MANDATORY_getFormats = { false };
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #getFormats(OctopusContext, String)}
+     */
     public static final String OUTPUT_getFormats = "formats";
 
     /**
      * Diese Octopus-Aktion liefert eine {@link Map} mit verfügbaren Austauschformaten.
      *
-     *  führt einen Export von Personendaten durch. Dies geschieht
+     * führt einen Export von Personendaten durch. Dies geschieht
      * je nach Parameter <code>fieldMapping</code> in eine XML-Darstellung von VerA.web
      * oder eine CSV-Datei. Der Exportdatenstrom wird in den Content geschrieben.
      * Zusätzlich kann er an eine Stelle im Dateisystem kopiert werden.
      *
-     * @param cntx Octopus-Kontext
+     * @param cntx          Octopus-Kontext
      * @param formatEnumKey optionaler Schlüssel der verfügbaren Schlüssel, Default ist
-     *  {@link #KEY_FORMAT_NAMES}.
+     *                      {@link #KEY_FORMAT_NAMES}.
      * @return Abbildung von Schlüsselbezeichnern auf {@link ExchangeFormat}-Instanzen.
      */
     @SuppressWarnings("unchecked")
@@ -131,8 +147,9 @@ public class DataExchangeWorker {
                     String key = o.toString();
                     ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), key, null);
                     if (format != null) {
-                        if (LOGGER.isDebugEnabled())
+                        if (LOGGER.isDebugEnabled()) {
                             LOGGER.debug("Format " + key + ": " + format);
+                        }
                         result.put(key, format);
                     }
                 }
@@ -141,11 +158,17 @@ public class DataExchangeWorker {
         return result;
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)} */
-    public static final String[] INPUT_export = {"format", "exportFilter", "exportEvent", "exportCategory", "domain"};
-    /** Octopus-Eingabepflicht-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)} */
-    public static final boolean[] MANDATORY_export = {true, false, false, false, false};
-    /** Octopus-Ausgabe-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)} */
+    /**
+     * Octopus-Eingabe-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)}
+     */
+    public static final String[] INPUT_export = { "format", "exportFilter", "exportEvent", "exportCategory", "domain" };
+    /**
+     * Octopus-Eingabepflicht-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)}
+     */
+    public static final boolean[] MANDATORY_export = { true, false, false, false, false };
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)}
+     */
     public static final String OUTPUT_export = "stream";
 
     /**
@@ -153,23 +176,25 @@ public class DataExchangeWorker {
      * in einem konfigurierten Format. Der Exportdatenstrom wird in den Content geschrieben.
      * Zusätzlich kann er an eine Stelle im Dateisystem kopiert werden.
      *
-     * @param cntx Octopus-Kontext
+     * @param cntx      Octopus-Kontext
      * @param formatKey Schlüssel der Datenformatbeschreibung in der Modulkonfiguration
-     * @param filter {@link #EXPORT_FILTER_CATEGORY} oder {@link #EXPORT_FILTER_EVENT},
-     *  je nach anzuwendenen Filter
-     * @param event Veranstaltungsfilter
-     * @param category Kategorienfilter
-     * @param domain Domäne, aus der die Personen stammen ("all" oder "ou")
+     * @param filter    {@link #EXPORT_FILTER_CATEGORY} oder {@link #EXPORT_FILTER_EVENT},
+     *                  je nach anzuwendenen Filter
+     * @param event     Veranstaltungsfilter
+     * @param category  Kategorienfilter
+     * @param domain    Domäne, aus der die Personen stammen ("all" oder "ou")
      * @return exportierter Datenstrom
      * @throws TcContentProzessException bei ungültigen Parameterwerten.
      */
-    public Map export(final OctopusContext cntx, final String formatKey, final String filter, final Integer event, final Integer category, final String domain) throws TcContentProzessException, IOException {
+    public Map export(final OctopusContext cntx, final String formatKey, final String filter, final Integer event, final Integer category,
+            final String domain) throws TcContentProzessException, IOException {
         TcModuleConfig moduleConfig = cntx.moduleConfig();
         assert moduleConfig != null;
         // Zunächst mal die benötigten Objekte erstellen
         final ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, cntx.getRequestObject().getRequestParameters());
-        if (format == null)
+        if (format == null) {
             throw new TcContentProzessException("Unbekannter Exportformatschlüssel '" + formatKey + "'.");
+        }
         final Database database = new DatabaseVeraWeb(cntx);
 
         final MultiOutputStream mos = new MultiOutputStream();
@@ -194,28 +219,40 @@ public class DataExchangeWorker {
                     Integer orgUnit = null;
                     if (pConfig instanceof PersonalConfigAA) {
                         PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;
-                        if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN)))
+                        if (!(PARAM_DOMAIN_VALUE_ALL.equals(domain) && pConfig.isUserInGroup(PersonalConfigAA.GROUP_ADMIN))) {
                             orgUnit = aaConfig.getOrgUnitId();
-                    } else
+                        }
+                    } else {
                         throw new BeanException("Missing user information");
+                    }
 
                     // Beschränkung auf Kategorie, wenn Benutzer eine ausgewählt hat
                     Integer categoryId = null;
-                    if (EXPORT_FILTER_CATEGORY.equals(filter)) // category == 0 bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner Kategorie
+                    if (EXPORT_FILTER_CATEGORY
+                            .equals(filter)) // category == 0 bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner Kategorie
+                    {
                         categoryId = category;
+                    }
 
-                    //Den Exporter auf Mandant und Kategorie einschränken. Ist für den CSV-Exporter notwendig, damit keine überflüssigen überschriften erzeugt werden.
+                    //Den Exporter auf Mandant und Kategorie einschränken. Ist für den CSV-Exporter notwendig, damit keine überflüssigen
+                    // überschriften erzeugt werden.
                     exporter.setOrgUnitId(orgUnit);
                     exporter.setCategoryId(categoryId);
 
                     // Dann exportieren
                     exporter.startExport();
-                    if (EXPORT_FILTER_EVENT.equals(filter)) // event == 0 bedeutet: in irgendeiner Veranstaltung, = -1 bedeutet: in keiner Veranstaltung
+                    if (EXPORT_FILTER_EVENT
+                            .equals(filter)) // event == 0 bedeutet: in irgendeiner Veranstaltung, = -1 bedeutet: in keiner Veranstaltung
+                    {
                         exportEvent(database, event, exporter, orgUnit);
-                    else if (EXPORT_FILTER_CATEGORY.equals(filter)) // category == 0 bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner Kategorie
+                    } else if (EXPORT_FILTER_CATEGORY
+                            .equals(filter)) // category == 0 bedeutet: in irgendeiner Kategorie, = -1 bedeutet: in keiner Kategorie
+                    {
                         exportCategory(database, category, exporter, orgUnit);
-                    else // guter Default?
+                    } else // guter Default?
+                    {
                         exportAll(database, exporter, orgUnit);
+                    }
                     exporter.endExport();
                 } catch (Throwable t) {
                     LOGGER.error("Fehler beim Erstellen des Exports aufgetreten.", t);
@@ -235,37 +272,44 @@ public class DataExchangeWorker {
         return createBinaryResponse(getFilename(cntx, format), format.getMimeType(), pis);
     }
 
-    /** Octopus-Eingabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)} */
-    public static final String[] INPUT_importToTransit = {"importfile", "format", "importSource", "orgUnit", "targetOrgUnit","CONFIG:importProperties"};
-    /** Octopus-Eingabe-Parameter-Pflicht für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)} */
-    public static final boolean[] MANDATORY_importToTransit = {false, false, false, false, false, false};
-    /** Octopus-Ausgabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)} */
+    /**
+     * Octopus-Eingabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)}
+     */
+    public static final String[] INPUT_importToTransit =
+            { "importfile", "format", "importSource", "orgUnit", "targetOrgUnit", "CONFIG:importProperties" };
+    /**
+     * Octopus-Eingabe-Parameter-Pflicht für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)}
+     */
+    public static final boolean[] MANDATORY_importToTransit = { false, false, false, false, false, false };
+    /**
+     * Octopus-Ausgabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)}
+     */
     public static final String OUTPUT_importToTransit = "importStatus";
 
     /**
      * Diese Octopus-Aktion importiert die Personen einer Datei in den Transit-Bereich,
      * also die Tabelle <code>timportperson</code>.
      *
-     * @param octopusContext Octopus-Kontext
-     * @param stream Datei-Upload-Map (enthält unter "ContentStream" einen <code>InputStream</code>)
-     * @param formatKey Schlüssel der Datenformatbeschreibung in der Modulkonfiguration
-     * @param importSource Importquellenbeschreibung
-     * @param orgUnit Ziel-Mandant; nur bei Super-Admins beachtetg
-     * @param targetOrgUnit Ziel-Mandant, wenn das Import über das CLI-Tool erfolgt
+     * @param octopusContext   Octopus-Kontext
+     * @param stream           Datei-Upload-Map (enthält unter "ContentStream" einen <code>InputStream</code>)
+     * @param formatKey        Schlüssel der Datenformatbeschreibung in der Modulkonfiguration
+     * @param importSource     Importquellenbeschreibung
+     * @param orgUnit          Ziel-Mandant; nur bei Super-Admins beachtetg
+     * @param targetOrgUnit    Ziel-Mandant, wenn das Import über das CLI-Tool erfolgt
      * @param importProperties Einstellungen zum Import
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
-     *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
-     *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
-     * @throws IOException FIXME
+     * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
+     * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
+     * @throws IOException               FIXME
      * @throws TcContentProzessException FIXME
      */
     public Map importToTransit(OctopusContext octopusContext,
-                               Map stream,
-                               String formatKey,
-                               String importSource,
-                               Integer orgUnit,
-                               Integer targetOrgUnit,
-                               Map importProperties)
+            Map stream,
+            String formatKey,
+            String importSource,
+            Integer orgUnit,
+            Integer targetOrgUnit,
+            Map importProperties)
             throws BeanException, IOException, TcContentProzessException {
 
         stream = getStream(octopusContext, stream);
@@ -284,10 +328,11 @@ public class DataExchangeWorker {
             assert moduleConfig != null;
             // Zunächst mal die benötigten Objekte erstellen
             ExchangeFormat format = getExchangeFormat(moduleConfig.getParams(), formatKey, octopusContext.getRequestObject().getRequestParameters());
-            if (format == null)
+            if (format == null) {
                 throw new TcContentProzessException("Unbekannter Importformatschl\u00fcssel '" + formatKey + "'.");
+            }
             if (importSource == null || importSource.length() == 0) {
-                Map<String,String> status = new HashMap<>();
+                Map<String, String> status = new HashMap<>();
                 status.put("invalidData", "importSource");
                 octopusContext.setStatus("invalidData");
                 return status;
@@ -306,13 +351,13 @@ public class DataExchangeWorker {
                         LOGGER.debug("Endung der Import-Datei '" + filename + "' konnte nicht festgestellt werden.");
                     }
                 } else if (
-                                suffix.equals("ods") ||
+                        suffix.equals("ods") ||
                                 suffix.equals("sxc") ||
                                 suffix.equals("xls") ||
                                 suffix.equals("pdf") ||
                                 suffix.equals("zip") ||
                                 suffix.equals("exe")) {
-                    Map<String,String> status = new HashMap<>();
+                    Map<String, String> status = new HashMap<>();
                     status.put("invalidData", "fileExtension");
                     status.put("fileextension", suffix);
                     octopusContext.setStatus("invalidData");
@@ -323,7 +368,7 @@ public class DataExchangeWorker {
             InputStream istream = (InputStream) stream.get("ContentStream");
 
             if (istream == null || istream.available() <= 0) {
-                Map<String,String> status = new HashMap<>();
+                Map<String, String> status = new HashMap<>();
                 status.put("invalidData", "inputStream");
                 octopusContext.setStatus("invalidData");
                 return status;
@@ -361,7 +406,7 @@ public class DataExchangeWorker {
                 e.printStackTrace(pw);
                 pw.close();
 
-                Map<String,String> status = new HashMap<>();
+                Map<String, String> status = new HashMap<>();
                 status.put("invalidData", "errorOnImport");
                 status.put("exception", caw.toString());
                 status.put("message", e.getLocalizedMessage());
@@ -428,13 +473,13 @@ public class DataExchangeWorker {
      * {@link TcBinaryResponseEngine} die Daten für ihre
      * Octopus-Response-Erstellung entnimmt.
      *
-     * @param filename Dateiname, den die Response tragen soll
-     * @param mimetype MIME-Typ, den die Response haben soll
+     * @param filename    Dateiname, den die Response tragen soll
+     * @param mimetype    MIME-Typ, den die Response haben soll
      * @param inputstream Datenstrom, der die Response bilden soll
      * @return eine {@link Map}, in der die Parameter eingetragen sind
      */
     static Map createBinaryResponse(String filename, String mimetype, InputStream inputstream) {
-        Map<String,Object> binaryResponse = new HashMap<>();
+        Map<String, Object> binaryResponse = new HashMap<>();
         binaryResponse.put(TcBinaryResponseEngine.PARAM_TYPE, TcBinaryResponseEngine.BINARY_RESPONSE_TYPE_STREAM);
         binaryResponse.put(TcBinaryResponseEngine.PARAM_FILENAME, filename);
         binaryResponse.put(TcBinaryResponseEngine.PARAM_MIMETYPE, mimetype);
@@ -446,28 +491,30 @@ public class DataExchangeWorker {
     /**
      * Diese Methode liest aus einer Konfigurations-{@link Map} ein {@link ExchangeFormat}.
      *
-     * @param config Konfiguration
+     * @param config    Konfiguration
      * @param formatKey Schlüssel zum Format
-     * @param params {@link Map} mit Parametern, aus denen diejenigen ermittelt werden,
-     *  die dem {@link ExchangeFormat} zuzuordnen sind; dies sind genau die, die einen
-     *  Schlüssel der Form <code>"format-" + formatKey + '-' + choiceKey</code> haben,
-     *  wobei <code>choiceKey</code> über die Schlüssel der {@link Map} iteriert, die
-     *  in den {@link ExchangeFormat#getProperties() Properties} unter dem Schlüssel
-     *  <code>"choices"</code> liegt. Sie werden diesen Properties unter dem jeweiligen
-     *  Schlüssel <code>choiceKey</code> hinzugefügt.
+     * @param params    {@link Map} mit Parametern, aus denen diejenigen ermittelt werden,
+     *                  die dem {@link ExchangeFormat} zuzuordnen sind; dies sind genau die, die einen
+     *                  Schlüssel der Form <code>"format-" + formatKey + '-' + choiceKey</code> haben,
+     *                  wobei <code>choiceKey</code> über die Schlüssel der {@link Map} iteriert, die
+     *                  in den {@link ExchangeFormat#getProperties() Properties} unter dem Schlüssel
+     *                  <code>"choices"</code> liegt. Sie werden diesen Properties unter dem jeweiligen
+     *                  Schlüssel <code>choiceKey</code> hinzugefügt.
      * @return zugehöriges {@link ExchangeFormat} oder <code>null</code>
      */
     static ExchangeFormat getExchangeFormat(Map config, String formatKey, Map params) {
-        if (formatKey == null)
+        if (formatKey == null) {
             return null;
+        }
         Object formatObject = config.get(formatKey);
-        if (!(formatObject instanceof Map))
+        if (!(formatObject instanceof Map)) {
             return null;
+        }
         ConfiguredExchangeFormat format = new ConfiguredExchangeFormat((Map) formatObject);
         Object choicesObject = format.getProperties().get("choices");
         if (choicesObject instanceof Map && params != null) {
             String prefix = "format-" + formatKey + '-';
-            final Map<Object,Object> applicableParams = new HashMap<>();
+            final Map<Object, Object> applicableParams = new HashMap<>();
             for (Object choiceKey : ((Map) choicesObject).keySet()) {
                 Object param = params.get(prefix + choiceKey);
                 if (param != null) {
@@ -483,7 +530,7 @@ public class DataExchangeWorker {
      * Diese Methode liefert zu einem Octopus-Kontext den zu einem bestimmten
      * Format passenden Dateinamen für Dateirückgaben.
      *
-     * @param octx Octopus-Kontext
+     * @param octx   Octopus-Kontext
      * @param format {@link ExchangeFormat}-Instanz
      * @return Dateiname mit Endung
      */
@@ -491,10 +538,11 @@ public class DataExchangeWorker {
         assert octx != null;
         assert format != null;
         String ext = format.getDefaultExtension();
-        if (ext == null)
+        if (ext == null) {
             ext = "export";
-        else if (ext.length() > 0 && ext.charAt(0) == '.')
+        } else if (ext.length() > 0 && ext.charAt(0) == '.') {
             ext = ext.substring(1);
+        }
         String def = "veraweb." + ext;
         return OctopusHelper.getFilename(octx, ext, def);
     }
@@ -502,7 +550,7 @@ public class DataExchangeWorker {
     /**
      * Diese Methode erstellt und Initialisiert einen {@link Exporter}.
      *
-     * @param format basierendes {@link ExchangeFormat}
+     * @param format   basierendes {@link ExchangeFormat}
      * @param database zu benutzende {@link Database}
      * @return ein passender {@link Exporter}
      * @throws TcContentProzessException bei Fehlern beim Instanziieren des Exporters.
@@ -532,11 +580,11 @@ public class DataExchangeWorker {
      * irgendeiner / keiner Veranstaltung sind.
      *
      * @param database zu benutzende Datenverbindung
-     * @param event Veranstaltung, deren Gäste exportiert werden sollen; <code>null</code>
-     *  wird interpretiert als "Personen, die bei irgendeiner Veranstaltung Gast sind",
-     *  <code>0</code> als "Personen, die bei keiner Veranstaltung Gast sind".
+     * @param event    Veranstaltung, deren Gäste exportiert werden sollen; <code>null</code>
+     *                 wird interpretiert als "Personen, die bei irgendeiner Veranstaltung Gast sind",
+     *                 <code>0</code> als "Personen, die bei keiner Veranstaltung Gast sind".
      * @param exporter zu benutzender {@link Exporter}
-     * @param orgUnit Mandanten-ID, wenn danach gefiltert werden soll
+     * @param orgUnit  Mandanten-ID, wenn danach gefiltert werden soll
      */
     void exportEvent(Database database, Integer event, Exporter exporter, Integer orgUnit) throws BeanException, IOException {
         assert database != null;
@@ -589,10 +637,10 @@ public class DataExchangeWorker {
      *
      * @param database zu benutzende Datenverbindung
      * @param category Kategorie, deren Personen exportiert werden sollen; <code>null</code>
-     *  wird interpretiert als "Personen, die in irgendeiner Kategorie sind",
-     *  <code>0</code> als "Personen, die in keiner Kategorie sind".
+     *                 wird interpretiert als "Personen, die in irgendeiner Kategorie sind",
+     *                 <code>0</code> als "Personen, die in keiner Kategorie sind".
      * @param exporter zu benutzender {@link Exporter}
-     * @param orgUnit Mandanten-ID, wenn danach gefiltert werden soll
+     * @param orgUnit  Mandanten-ID, wenn danach gefiltert werden soll
      */
     void exportCategory(Database database, Integer category, Exporter exporter, Integer orgUnit) throws BeanException, IOException {
         assert database != null;
@@ -612,7 +660,7 @@ public class DataExchangeWorker {
         }
 
 		/*
-		 * cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
+         * cklein 2009-07-16: fixes issue 1815 - although option "Alle" yielded no return value
 		 * the jetty used for testing made it a valid integer object of value 0, which broke
 		 * existing code relying on the fact that the request parameter would be null.
 		 * Keine/None now equals -1.
@@ -642,7 +690,7 @@ public class DataExchangeWorker {
      *
      * @param database zu benutzende Datenverbindung
      * @param exporter zu benutzender {@link Exporter}
-     * @param orgUnit Mandanten-ID, wenn danach gefiltert werden soll
+     * @param orgUnit  Mandanten-ID, wenn danach gefiltert werden soll
      */
     void exportAll(Database database, Exporter exporter, Integer orgUnit) throws BeanException, IOException {
         assert database != null;
@@ -662,8 +710,8 @@ public class DataExchangeWorker {
      * Diese Methode exportiert alle Personen, die ein bestimmtes {@link Select} liefert.
      *
      * @param database zu benutzende Datenverbindung
-     * @param select DB-Select; dieses muß auf <code>database.getSelect("Person")</code>
-     *  beruhen, insbesondere zumindest mindestens die darin vorgegebenen Spalten haben.
+     * @param select   DB-Select; dieses muß auf <code>database.getSelect("Person")</code>
+     *                 beruhen, insbesondere zumindest mindestens die darin vorgegebenen Spalten haben.
      * @param exporter zu benutzender {@link Exporter}
      */
     void exportSelect(Database database, Select select, Exporter exporter) throws BeanException, IOException {
@@ -693,9 +741,9 @@ public class DataExchangeWorker {
     /**
      * Diese Methode erstellt einen Importvorgangeintrag.
      *
-     * @param formatKey Schlüssel des Formats des Importvorgangs
+     * @param formatKey    Schlüssel des Formats des Importvorgangs
      * @param importSource Bezeichner der Importquelle
-     * @param orgunit Mandanten-ID, in der der Import erfolgt
+     * @param orgunit      Mandanten-ID, in der der Import erfolgt
      * @return neue {@link Import}-Instanz zu den angegebenen Daten
      * @throws TcContentProzessException FIXME
      */
@@ -746,14 +794,14 @@ public class DataExchangeWorker {
      * Diese Methode erzeugt eine <code>Map</code>, in der Statistiken zu einem Import
      * kodiert sind.
      *
-     * @param dsCount Anzahl Datensätze insgesamt
+     * @param dsCount  Anzahl Datensätze insgesamt
      * @param dupCount Anzahl Duplikate
-     * @param id Import-ID
+     * @param id       Import-ID
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
-     *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
-     *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
+     * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
+     * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      */
-    public static Map<String,Integer> createImportStats(int dsCount, int dupCount, int saveCount, Number id) {
+    public static Map<String, Integer> createImportStats(int dsCount, int dupCount, int saveCount, Number id) {
         Map<String, Integer> rMap = new HashMap<>();
         rMap.put("dsCount", dsCount);
         rMap.put("dupCount", dupCount);
@@ -767,16 +815,16 @@ public class DataExchangeWorker {
      * kodiert sind. In dieser Variante werden auch die Datensätze gezählt, die wegen
      * Unkorrektheit ignoriert wurden.
      *
-     * @param igCount Anzahl ignorierter (unkorrekter) Datensätze
-     * @param dsCount Anzahl nicht ignorierter Datensätze insgesamt
+     * @param igCount  Anzahl ignorierter (unkorrekter) Datensätze
+     * @param dsCount  Anzahl nicht ignorierter Datensätze insgesamt
      * @param dupCount Anzahl Duplikate
-     * @param id Import-ID
+     * @param id       Import-ID
      * @return Map mit Informationen zum Import, insbesondere der Anzahl gefundener
-     *  Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
-     *  importierter Datensätze unter "saveCount" und der Import-ID unter "id".
+     * Datensätze unter "dsCount", der Anzahl Duplikate unter "dupCount", der Anzahl
+     * importierter Datensätze unter "saveCount" und der Import-ID unter "id".
      */
     public static Map createImportStats(int igCount, int dsCount, int dupCount, int saveCount, Number id) {
-        final Map<String,Integer> rMap = createImportStats(dsCount, dupCount, saveCount, id);
+        final Map<String, Integer> rMap = createImportStats(dsCount, dupCount, saveCount, id);
         rMap.put("igCount", igCount);
         return rMap;
     }
