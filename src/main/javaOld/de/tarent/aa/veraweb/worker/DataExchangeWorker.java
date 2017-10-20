@@ -186,8 +186,15 @@ public class DataExchangeWorker {
      * @return exportierter Datenstrom
      * @throws TcContentProzessException bei ungültigen Parameterwerten.
      */
-    public Map export(final OctopusContext cntx, final String formatKey, final String filter, final Integer event, final Integer category,
+    public Map export(final OctopusContext cntx, final String formatKey, final String filenc, final String filter, final Integer event, final Integer category,
             final String domain) throws TcContentProzessException, IOException {
+        // Debugging
+        if (filenc == null) {
+            LOGGER.error("D: export(), filenc is nil");
+        } else {
+            LOGGER.error("D: export(), filenc = \"" + filenc + "\"");
+        }
+
         TcModuleConfig moduleConfig = cntx.moduleConfig();
         assert moduleConfig != null;
         // Zunächst mal die benötigten Objekte erstellen
@@ -303,11 +310,18 @@ public class DataExchangeWorker {
     public Map importToTransit(OctopusContext octopusContext,
             Map stream,
             String formatKey,
+            String filenc,
             String importSource,
             Integer orgUnit,
             Integer targetOrgUnit,
             Map importProperties)
             throws BeanException, IOException, TcContentProzessException {
+        // Debugging
+        if (filenc == null) {
+            LOGGER.error("D: export(), filenc is nil");
+        } else {
+            LOGGER.error("D: export(), filenc = \"" + filenc + "\"");
+        }
 
         stream = getStream(octopusContext, stream);
         if (!octopusContext.getStatus().equals("streamClose")) {
