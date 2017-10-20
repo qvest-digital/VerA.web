@@ -504,7 +504,6 @@ x-manage-csv=X-Manage-CSV (X-Manage Contacts)
 csvpersdatanschrift=CSVPersdat+Anschrift (Comma-Separated-Values)
 csvpersdat=CSVPersdat (Comma-Separated-Values)
 csvpersdatkategorien=CSVPersdat+Kategorien (Comma-Separated-Values)
-csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 
 # PERSONEN/PERSONENUEBERSICHT
 GENERIC_PERSON_SUMMARY=people summary
@@ -615,18 +614,15 @@ EXPORT_DATA_TYPE_X_MANAGE_CSV=X-Manage-CSV (X-Manage contacts)
 EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS=CSVPersdat+Mailing box (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA=CSVPersdat (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Categories (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 EXPORT_TITLE_CSV=CSV
 EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
 EXPORT_TITLE_CSVPERSDATA_ADDRESS=CSV people data+mailing boxes
 EXPORT_TITLE_CSVPERSDATA=CSV people data
 EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV people data+Categories
-EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
 HINT_EXPORT_CSV=Depending on the amount of the exported fields (especially the amount of categories), MS Excel and OO Calc may not be able to read the exported data entirely.
 HINT_EXPORT_CSVPERSDATA_ADDRESS=Only the fields from the \u201CPersonal data\u201D and \u201CAddresses\u201D tabs with their subtabs will be exported. Depending on the amount of the exported fields, MS Excel and OO Calc may not be able to read the exported data entirely.
 HINT_EXPORT_CSVPERSDATA=Only the fields from the \u201CPersonal data\u201D tab with its' subtabs will be exported. Depending on the amount of the exported fields, MS Excel and OO Calc may not be able to read the exported data entirely.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Only the fields from the \u201CPersonal data\u201D and \u201CCategories\u201D tabs with their subtabs will be exported. Depending on the amount of the exported fields, MS Excel and OO Calc may not be able to read the exported data entirely.
-HINT_EXPORT_CSV_ISO_8859_15=This format is Im-/Export compatible with MS Office Applications, which use a Character set of ISO-8859-15. Depending on the amount of the exported fields, MS Excel and OO Calc may not be able to read the exported data entirely.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Import of persons data

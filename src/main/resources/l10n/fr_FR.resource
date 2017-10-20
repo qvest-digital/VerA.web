@@ -505,7 +505,6 @@ x-manage-csv=X-Manage-CSV (X-Manage Kontakte)
 csvpersdatanschrift=CSVPersdat+Anschrift (Comma-Separated-Values)
 csvpersdat=CSVPersdat (Comma-Separated-Values)
 csvpersdatkategorien=CSVPersdat+Kategorien (Comma-Separated-Values)
-csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 
 # PERSONEN/PERSONENUEBERSICHT
 GENERIC_PERSON_SUMMARY=Vue d\u2019ensemble des personnes
@@ -616,18 +615,15 @@ EXPORT_DATA_TYPE_X_MANAGE_CSV=X-Manage-CSV (X-Manage contacts)
 EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS=CSVPersdat+adresse (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA=CSVPersdat (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+categories (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 EXPORT_TITLE_CSV=CSV
 EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
 EXPORT_TITLE_CSVPERSDATA_ADDRESS=CSV donn\u00E9es personnelles+Adresses
 EXPORT_TITLE_CSVPERSDATA=CSV donn\u00E9es personnelles
 EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV donn\u00E9es personnelles+categories
-EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
 HINT_EXPORT_CSV=Selon la quantit\u00E9 de champs export\u00E9s (cela d\u00E9pend particuli\u00E8rement du nombre de types de documents export\u00E9s et cat\u00E9gories), c\u2019est possible que MS Excel et Calc OO ne pourraient pas lire les donn\u00E9es export\u00E9es compl\u00E8tement.
 HINT_EXPORT_CSVPERSDATA_ADDRESS=Il sera export\u00E9 que les blancs avec les onglets \u00ABdonn\u00E9es personnelles\u00BB, \u00ABadresses\u00BB, \u00ABtypes de documents\u00BB et leurs onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 HINT_EXPORT_CSVPERSDATA=Il sera export\u00E9 que les blancs avec le onglet \u00ABde donn\u00E9es \u00E0 caract\u00E8re personnel\u00BB, et son onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Il sera export\u00E9 que les blancs avec les onglets \u00ABde donn\u00E9es \u00E0 caract\u00E8re personnel\u00BB , \u00ABCat\u00E9gories\u00BB et ses onglets subordonn\u00E9s. Selon la quantit\u00E9 de champs export\u00E9s (en particulier, cela est export\u00E9 \u00E0 partir du nombre de cat\u00E9gories en fonction), il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
-HINT_EXPORT_CSV_ISO_8859_15=Ce format est adapt\u00E9 \u00E0 l\u2019importation / exportation dans les applications MS Office qui utilisent le jeu de caract\u00E8res ISO - 8859-15. Selon la quantit\u00E9 de champs export\u00E9s (en particulier, cela d\u00E9pend du nombre de cat\u00E9gories export\u00E9s), il peut arriver que MS Excel et Calc OO les donn\u00E9es export\u00E9es ne peuvent \u00EAtre lus compl\u00E8tement.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Importer des donn\u00E9es personnelles
