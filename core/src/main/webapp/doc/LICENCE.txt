@@ -79,6 +79,7 @@ Summary of individual licences used, including all dependencies:
 • Creative Commons CC-BY 3.0 (unported)
 • GNU GPLv2 or later
 • GNU GPLv3 or later
+• GNU LGPLv2.0 (only)
 • GNU LGPLv2.1 or later
 • MirOS
 • MIT
@@ -568,6 +569,25 @@ Several ECMAscript files came into existence in 2007 and lack a licence:
 │ of dealing in the work, even if advised of the possibility of such       │
 │ damage or existence of a defect, except proven that it results out       │
 │ of said person’s immediate fault when using the work as intended.        │
+└──────────────────────────────────────────────────────────────────────────┘
+
+External code found in the Java™ backend part includes:
+
+┌──┤ CSVFile (LGPLv2.0) ├──────────────────────────────────────────────────┐
+│                                                                          │
+│ Copyright © 1999 Brian Kernighan, Rob Pike (Lucent Technologies)         │
+│ Copyright © Ian F. Darwin                                                │
+│ Copyright © Ben Ballard                                                  │
+│ Copyright © Fabrizio Fazzino                                             │
+│ Copyright © Mikel                                                        │
+│                                                                          │
+│ CSVFile is published by Fabrizio Fazzino under the terms of the          │
+│ GNU Library or Lesser General Public License version 2.0 (LGPLv2).       │
+│ It is adapted from a C++ original excerpted from “The Practice of        │
+│ Programming” by Brian Kernighan and Rob Pike, under permission from      │
+│ the Addison-Wesley website <http://tpop.awl.com/> which says:            │
+│ “You may use this code for any purpose, as long as you leave the         │
+│ copyright notice and book citation attached.”                            │
 └──────────────────────────────────────────────────────────────────────────┘
 
 Further dependencies are:
