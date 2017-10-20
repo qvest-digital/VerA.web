@@ -1,45 +1,30 @@
 • bump minimum requirements to Java™ 8, Tomcat 8
   all customers satisfy these nowadays
 
+Charset considerations for Import/Export
+• default: UTF-8 (first)
+• Import:
+  – “UTF-8 Unicode” (UTF-8)
+    ‣ skip BOM if present
+  – “Unicode or Windows cp1252 (autodetect)” (_auto)
+    ‣ if BOM: UTF-8, UTF-16LE, UTF-16BE, UTF-32LE, UTF-32BE
+      and skip BOM
+    ‣ if !x[0]:
+	if !x[1] UTF-32BE else UTF-16BE
+    ‣ if !x[1]:
+	if !x[2] UTF-32LE else UTF-16LE
+    ‣ else: cp1252
+  – all listed charsets below except *+BOM
+• Export:
+  – “UTF-8 Unicode” (UTF-8)
+  – “Windows Unicode” (UTF-16LE+BOM), yes, this is duplicate
+  – all listed charsets below
+
 ‣‣‣ Supported charsets:
 Big5
 Big5-HKSCS
 CESU-8
 cp037
-cp1006
-cp1025
-cp1026
-cp1046
-cp1047
-cp1097
-cp1098
-cp1112
-cp1122
-cp1123
-cp1124
-cp1140
-cp1141
-cp1142
-cp1143
-cp1144
-cp1145
-cp1146
-cp1147
-cp1148
-cp1149
-cp1166
-cp1250
-cp1251
-cp1252
-cp1253
-cp1254
-cp1255
-cp1256
-cp1257
-cp1258
-cp1364
-cp1381
-cp1383
 cp273
 cp277
 cp278
@@ -49,13 +34,10 @@ cp285
 cp290
 cp297
 cp300
-cp33722
 cp420
 cp424
 cp437
 cp500
-cp50220
-cp50221
 cp737
 cp775
 cp833
@@ -96,12 +78,49 @@ cp949
 cp950
 cp964
 cp970
+cp1006
+cp1025
+cp1026
+cp1046
+cp1047
+cp1097
+cp1098
+cp1112
+cp1122
+cp1123
+cp1124
+cp1140
+cp1141
+cp1142
+cp1143
+cp1144
+cp1145
+cp1146
+cp1147
+cp1148
+cp1149
+cp1166
+cp1250
+cp1251
+cp1252
+cp1253
+cp1254
+cp1255
+cp1256
+cp1257
+cp1258
+cp1364
+cp1381
+cp1383
+cp33722
+cp50220
+cp50221
 EUC-JP
 EUC-JP-Linux
 EUC-KR
 EUC-TW
-GB18030
 GB2312
+GB18030
 ISCII
 ISO-2022-CN-CNS
 ISO-2022-CN-GB
@@ -109,9 +128,6 @@ ISO-2022-JP
 ISO-2022-JP-2
 ISO-2022-KR
 ISO-8859-1
-ISO-8859-11
-ISO-8859-13
-ISO-8859-15
 ISO-8859-2
 ISO-8859-3
 ISO-8859-4
@@ -120,6 +136,9 @@ ISO-8859-6
 ISO-8859-7
 ISO-8859-8
 ISO-8859-9
+ISO-8859-11
+ISO-8859-13
+ISO-8859-15
 JIS0201
 JIS0208
 JIS0212
@@ -143,7 +162,13 @@ MacUkraine
 Shift-JIS
 TIS-620
 US-ASCII
-UTF-16/UTF-16BE/UTF-16LE
-UTF-32/UTF-32BE/UTF-32LE
-UTF-8
+UTF-8+BOM
+UTF-16BE
+UTF-16BE+BOM
+UTF-16LE
+UTF-16LE+BOM
+UTF-32BE
+UTF-32BE+BOM
+UTF-32LE
+UTF-32LE+BOM
 Windows-ISO2022JP
