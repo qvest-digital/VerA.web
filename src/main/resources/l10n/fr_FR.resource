@@ -602,7 +602,7 @@ politik=Politique
 pressevertreter=repr\u00E9sentants de la presse
 wirtschaft=\u00E9conomie
 GENERIC_EXPORT=Exportation
-EXPORT_AS_CSV=Liste des invit\u00E9s compl\u00e8te
+EXPORT_AS_CSV=Liste des invit\u00E9s compl\u00E8te
 EXPORT_AS_CSV_SHORT=Liste des invit\u00E9s courte
 GENERIC_START_EXPORT=D\u00E9marrer l\u2019exportation
 ENCODING_TYPE_CYRILLIC=cyrillique
@@ -631,6 +631,8 @@ HINT_IMPORT_SHORT_CONTENT=Remarque: Lors de l\u2019importation \u00E0 des conten
 GENERIC_TARGET_CLIENT=Client cible
 GENERIC_IMPORT_DATA=Importer un fichier
 GENERIC_DATA_TYPE=Type de fichier
+GENERIC_FILE_ENCODING=Codage de fichier
+GENERIC_AUTO_ENCODING=Unicode ou Windows 1252 (d\u00E9tection automatique)
 dateiauswahlen=Choisissez Fichier
 keineausgewahlt=Aucun s\u00E9lectionn\u00E9
 GENERIC_START_IMPORT=D\u00E9marrage de l\u2019 importation
@@ -873,7 +875,7 @@ e-mail-clientaufrufen=Appel client E -mail
 mailclient_other=Autre client de messagerie
 mailclient_msoutlook=Microsoft Outlook
 verteilerverschickt=Le distributeur a \u00E9t\u00E9 envoy\u00E9 avec succ\u00E8s.
-verteilerfehler=Le distributeur n\u0027a pas pu \u00EAtre envoy\u00E9 avec succ\u00E8s, r\u00E9essayer plus tard.
+verteilerfehler=Le distributeur n'a pas pu \u00EAtre envoy\u00E9 avec succ\u00E8s, r\u00E9essayer plus tard.
 
 # FEHLEND
 zurstartseite=Page d\u2019accueil
@@ -1920,7 +1922,7 @@ PDF_GENERATE_BUTTON=G\u00E9n\u00E9rer des PDF
 PDF_GENERATE_LABEL=Exporter des PDF
 
 LOAD_MAILTEMPLATE_FAILED = Chargement email mod\u00E8le a \u00E9chou\u00E9
-SELECT_MAILTEMPLATE = S\u0027il vous pla\u00EEt s\u00E9lectionner email mod\u00E8le
+SELECT_MAILTEMPLATE = S'il vous pla\u00EEt s\u00E9lectionner email mod\u00E8le
 
 ADDRESS_ERROR = Votre e-mail a \u00E9t\u00E9 envoy\u00E9 au distributeur. Au moins un adresse e-mail de ce distributeur est \u00E9t\u00E9 incorrectement. Le distributeur n'a pas pu \u00EAtre envoy\u00E9 vers ces adresses e-mail suivantes. S'il vous pla\u00EEt v\u00E9rifier et le cas \u00E9ch\u00E9ant corriger les adresses e-mail suivantes:
 
@@ -2101,7 +2103,7 @@ zipcode_b_e3=Code postale doit etre moins de 250 characteres.
 zipcode_c_e1=Code postale doit etre moins de 250 characteres.
 zipcode_c_e2=Code postale doit etre moins de 250 characteres.
 zipcode_c_e3=Code postale doit etre moins de 250 characteres.
-internal_id=L\u0027identit\u00E9 interne doit \u00EAtre moins de 45 caract\u00E8res.
+internal_id=L'identit\u00E9 interne doit \u00EAtre moins de 45 caract\u00E8res.
 INTERNAL_ID=Identit\u00E9 interne
 
 # ALTERNATIVE SALUTATIONS
@@ -2109,6 +2111,6 @@ SALUTATION_EDITABLE_TEXT=Ici vous pouvez cr\u00E9er un style alternatif pour ce 
 SALUTATION_TO_SALUTATION=volont\u00E9
 SALUTATION_ERROR_LOAD=Erreur lors du chargement
 SALUTATION_ERROR_EMPTY=Salutations alternatives ne doivent pas \u00EAtre vide
-SALUTATION_ERROR_SAVE=Erreur lors de l\u0027enregistrement
+SALUTATION_ERROR_SAVE=Erreur lors de l'enregistrement
 SALUTATION_ERROR_DELETE=Erreur lors de la suppression
 SALUTATION_ERROR_LENGTH=Salutations alternatives doit etre moins de 100 characteres
