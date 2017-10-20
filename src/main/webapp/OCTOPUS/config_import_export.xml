@@ -68,17 +68,8 @@
 		     - in "mimeType" den MIME-Typ,
 		     - in "exporterClass" den Namen der Java-Klasse, die einen Export in diesem Format durchführen kann,
 		     - in "importerClass" den Namen der Java-Klasse, die einen Import in diesem Format versteht und
-		     - in "properties" eine Sammlung Format-spezifischer Eigenschaften.
-
-			 Insbesondere sind unter "properties" die Einträge "remarks" und "choices" untergebracht;
-			 ersterer stellt eine Liste von Bemerkungen, die an der Oberfläche zu dem Format angezeigt werden, dar,
-			 letzterer eine Sammlung von Format-spezifischen Benutzer-wählbaren Optionen; diese enthalten
-			 - unter "label" einen Bezeichner zur Anzeige, dazu
-			 - optional unter "select" eine Auswahl mit Abbildungen Wert auf Bezeichner und
-			 - unter "default" einen Vorgabewert.
-			 Die vom Benutzer gelieferten Werte werden jeweils unter dem Schlüssel der Option
-			 in der Sammlung mit den bestehenden "properties" der ex- oder importierenden Klasse
-			 übergeben.
+		     - in "properties" eine Sammlung Format-spezifischer Eigenschaften, insbesondere "remarks":
+			 eine Liste von Bemerkungen, die an der Oberfläche zu dem Format angezeigt werden
 		 -->
 
 		<!-- *** CSV-Formate *** -->
