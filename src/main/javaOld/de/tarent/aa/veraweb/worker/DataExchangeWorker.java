@@ -159,15 +159,15 @@ public class DataExchangeWorker {
     }
 
     /**
-     * Octopus-Eingabe-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)}
+     * Octopus-Eingabe-Parameter für {@link #export(OctopusContext, String, String, String, Integer, Integer, String)}
      */
-    public static final String[] INPUT_export = { "format", "exportFilter", "exportEvent", "exportCategory", "domain" };
+    public static final String[] INPUT_export = { "format", "filenc", "exportFilter", "exportEvent", "exportCategory", "domain" };
     /**
-     * Octopus-Eingabepflicht-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)}
+     * Octopus-Eingabepflicht-Parameter für {@link #export(OctopusContext, String, String, String, Integer, Integer, String)}
      */
-    public static final boolean[] MANDATORY_export = { true, false, false, false, false };
+    public static final boolean[] MANDATORY_export = { true, true, false, false, false, false };
     /**
-     * Octopus-Ausgabe-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)}
+     * Octopus-Ausgabe-Parameter für {@link #export(OctopusContext, String, String, String, Integer, Integer, String)}
      */
     public static final String OUTPUT_export = "stream";
 
@@ -178,6 +178,7 @@ public class DataExchangeWorker {
      *
      * @param cntx      Octopus-Kontext
      * @param formatKey Schlüssel der Datenformatbeschreibung in der Modulkonfiguration
+     * @param filenc    Encoding der zu schreibenden Datei, ggfs. mit „+BOM“ am Ende
      * @param filter    {@link #EXPORT_FILTER_CATEGORY} oder {@link #EXPORT_FILTER_EVENT},
      *                  je nach anzuwendenen Filter
      * @param event     Veranstaltungsfilter
@@ -277,16 +278,16 @@ public class DataExchangeWorker {
     }
 
     /**
-     * Octopus-Eingabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)}
+     * Octopus-Eingabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, String, Integer, Integer, Map)}
      */
     public static final String[] INPUT_importToTransit =
-            { "importfile", "format", "importSource", "orgUnit", "targetOrgUnit", "CONFIG:importProperties" };
+            { "importfile", "format", "filenc", "importSource", "orgUnit", "targetOrgUnit", "CONFIG:importProperties" };
     /**
-     * Octopus-Eingabe-Parameter-Pflicht für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)}
+     * Octopus-Eingabe-Parameter-Pflicht für {@link #importToTransit(OctopusContext, Map, String, String, String, Integer, Integer, Map)}
      */
-    public static final boolean[] MANDATORY_importToTransit = { false, false, false, false, false, false };
+    public static final boolean[] MANDATORY_importToTransit = { false, false, true, false, false, false, false };
     /**
-     * Octopus-Ausgabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)}
+     * Octopus-Ausgabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, String, Integer, Integer, Map)}
      */
     public static final String OUTPUT_importToTransit = "importStatus";
 
@@ -297,6 +298,7 @@ public class DataExchangeWorker {
      * @param octopusContext   Octopus-Kontext
      * @param stream           Datei-Upload-Map (enthält unter "ContentStream" einen <code>InputStream</code>)
      * @param formatKey        Schlüssel der Datenformatbeschreibung in der Modulkonfiguration
+     * @param filenc           Encoding der Importdatei oder „_auto“
      * @param importSource     Importquellenbeschreibung
      * @param orgUnit          Ziel-Mandant; nur bei Super-Admins beachtetg
      * @param targetOrgUnit    Ziel-Mandant, wenn das Import über das CLI-Tool erfolgt
