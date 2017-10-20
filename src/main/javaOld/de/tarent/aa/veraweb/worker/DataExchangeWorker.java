@@ -189,13 +189,6 @@ public class DataExchangeWorker {
      */
     public Map export(final OctopusContext cntx, final String formatKey, final String filenc, final String filter, final Integer event, final Integer category,
             final String domain) throws TcContentProzessException, IOException {
-        // Debugging
-        if (filenc == null) {
-            LOGGER.error("D: export(), filenc is nil");
-        } else {
-            LOGGER.error("D: export(), filenc = \"" + filenc + "\"");
-        }
-
         TcModuleConfig moduleConfig = cntx.moduleConfig();
         assert moduleConfig != null;
         // Zunächst mal die benötigten Objekte erstellen
@@ -318,13 +311,6 @@ public class DataExchangeWorker {
             Integer targetOrgUnit,
             Map importProperties)
             throws BeanException, IOException, TcContentProzessException {
-        // Debugging
-        if (filenc == null) {
-            LOGGER.error("D: export(), filenc is nil");
-        } else {
-            LOGGER.error("D: export(), filenc = \"" + filenc + "\"");
-        }
-
         stream = getStream(octopusContext, stream);
         if (!octopusContext.getStatus().equals("streamClose")) {
             formatKey = getFormatKey(octopusContext, formatKey);
