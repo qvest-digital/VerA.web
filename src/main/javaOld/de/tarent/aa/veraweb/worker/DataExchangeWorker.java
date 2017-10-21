@@ -23,10 +23,8 @@ package de.tarent.aa.veraweb.worker;
 import de.tarent.aa.veraweb.beans.Import;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
-import de.tarent.aa.veraweb.utils.AlternativeDestination;
 import de.tarent.aa.veraweb.utils.Exporter;
 import de.tarent.aa.veraweb.utils.Importer;
-import de.tarent.aa.veraweb.utils.MultiOutputStream;
 import de.tarent.aa.veraweb.utils.OctopusHelper;
 import de.tarent.aa.veraweb.utils.VerawebDigester;
 import de.tarent.data.exchange.ExchangeFormat;
@@ -187,8 +185,8 @@ public class DataExchangeWorker {
      * @return exportierter Datenstrom
      * @throws TcContentProzessException bei ungültigen Parameterwerten.
      */
-    public Map export(final OctopusContext cntx, final String formatKey, final String filenc, final String filter, final Integer event, final Integer category,
-            final String domain) throws TcContentProzessException, IOException {
+    public Map export(final OctopusContext cntx, final String formatKey, final String filenc, final String filter, final Integer event,
+            final Integer category, final String domain) throws TcContentProzessException, IOException {
         TcModuleConfig moduleConfig = cntx.moduleConfig();
         assert moduleConfig != null;
         // Zunächst mal die benötigten Objekte erstellen
@@ -198,10 +196,8 @@ public class DataExchangeWorker {
         }
         final Database database = new DatabaseVeraWeb(cntx);
 
-        final MultiOutputStream mos = new MultiOutputStream();
         final PipedInputStream pis = new PipedInputStream();
         final PipedOutputStream pos = new PipedOutputStream(pis);
-        mos.add(pos);
 
         new Thread(new Runnable() {
             public void run() {
@@ -209,11 +205,7 @@ public class DataExchangeWorker {
 
                 Exporter exporter = null;
                 try {
-                    exporter = createExporter(format, database, mos);
-                    if (exporter instanceof AlternativeDestination) {
-                        AlternativeDestination altdest = (AlternativeDestination) exporter;
-                        mos.add(altdest.getAlternativeOutputStream());
-                    }
+                    exporter = createExporter(format, database, pos);
 
                     // Mandantenbeschränkung
                     TcPersonalConfig pConfig = cntx.personalConfig();
@@ -257,12 +249,17 @@ public class DataExchangeWorker {
                     // This will force a log output.
                     t.printStackTrace(System.out);
                     t.printStackTrace(System.err);
-                    mos.close();
-                    if (exporter instanceof AlternativeDestination) {
-                        ((AlternativeDestination) exporter).rollback();
+                    try {
+                        pos.close();
+                    } catch (IOException e) {
+                        LOGGER.error("Fehler beim Schließen", e);
                     }
                 } finally {
-                    mos.close();
+                    try {
+                        pos.close();
+                    } catch (IOException t) {
+                        LOGGER.error("Fehler beim Schließen", t);
+                    }
                 }
             }
         }).start();
