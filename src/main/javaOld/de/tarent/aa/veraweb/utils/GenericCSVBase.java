@@ -33,6 +33,8 @@ import de.tarent.octopus.beans.DatabaseUtilizer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -193,6 +195,16 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      */
     public void setOutputStream(OutputStream stream) {
         this.outputStream = stream;
+    }
+
+    /**
+     * Wir handhaben neuerdings das Encoding (Unix-Sinn, nicht VerA.web-„Zeichensatz“)
+     * separat vom Ausgabeformat. Hier wird es gesetzt.
+     *
+     * @param cs file encoding to be used
+     */
+    public void setFileEncoding(Charset cs) {
+        fileEncoding = cs;
     }
 
     //
@@ -367,6 +379,10 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      * Der zu verwendende Eingabedatenstrom
      */
     InputStream inputStream = null;
+    /**
+     * Unix-Encoding der Ströme
+     */
+    Charset fileEncoding = StandardCharsets.UTF_8;
     /**
      * Bezeichner der CSV-Spalten
      */

@@ -128,9 +128,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
     void initWriter() throws IOException {
         assert exchangeFormat != null;
         assert outputStream != null;
-        Writer writer = new OutputStreamWriter(outputStream, encoding);
-        // if (ENCODING_UTF_8.equals(encoding))
-        // outputStream.write(new byte[] {(byte)0xef,(byte)0xbb,(byte)0xBF});
+        Writer writer = new OutputStreamWriter(outputStream, fileEncoding);
         csvWriter = new CSVFileWriter(writer, fieldSeparator, textQualifier);
     }
 

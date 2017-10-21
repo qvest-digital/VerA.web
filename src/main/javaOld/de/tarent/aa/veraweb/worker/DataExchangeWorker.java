@@ -59,6 +59,9 @@ import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.charset.IllegalCharsetNameException;
+import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -199,13 +202,46 @@ public class DataExchangeWorker {
         final PipedInputStream pis = new PipedInputStream();
         final PipedOutputStream pos = new PipedOutputStream(pis);
 
+        final Charset ocs;
+        if ("UTF-8+BOM".equals(filenc)) {
+            ocs = StandardCharsets.UTF_8;
+            pos.write(new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF });
+        } else if ("UTF-16BE+BOM".equals(filenc)) {
+            ocs = StandardCharsets.UTF_16BE;
+            pos.write(new byte[] { (byte) 0xFE, (byte) 0xFF });
+        } else if ("UTF-16LE+BOM".equals(filenc)) {
+            ocs = StandardCharsets.UTF_16LE;
+            pos.write(new byte[] { (byte) 0xFF, (byte) 0xFE });
+        } else if ("UTF-32BE+BOM".equals(filenc)) {
+            if (!Charset.isSupported("UTF-32BE")) {
+                throw new TcContentProzessException("JVM unterstützt Encoding nicht: " + filenc);
+            }
+            ocs = Charset.forName("UTF-32BE");
+            pos.write(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0xFE, (byte) 0xFF });
+        } else if ("UTF-32LE+BOM".equals(filenc)) {
+            if (!Charset.isSupported("UTF-32LE")) {
+                throw new TcContentProzessException("JVM unterstützt Encoding nicht: " + filenc);
+            }
+            ocs = Charset.forName("UTF-32LE");
+            pos.write(new byte[] { (byte) 0xFF, (byte) 0xFE, (byte) 0x00, (byte) 0x00 });
+        } else {
+            try {
+                if (!Charset.isSupported(filenc)) {
+                    throw new TcContentProzessException("JVM unterstützt Encoding nicht: " + filenc);
+                }
+            } catch (IllegalCharsetNameException icne) {
+                throw new TcContentProzessException("Ungültiger Encoding-Name: " + filenc);
+            }
+            ocs = Charset.forName(filenc);
+        }
+
         new Thread(new Runnable() {
             public void run() {
                 Context.addActive(cntx);
 
                 Exporter exporter = null;
                 try {
-                    exporter = createExporter(format, database, pos);
+                    exporter = createExporter(format, database, pos, ocs);
 
                     // Mandantenbeschränkung
                     TcPersonalConfig pConfig = cntx.personalConfig();
@@ -537,10 +573,12 @@ public class DataExchangeWorker {
      *
      * @param format   basierendes {@link ExchangeFormat}
      * @param database zu benutzende {@link Database}
+     * @param os       Ausgabestrom
+     * @param cs       Ausgabe-Encoding (Unix, nicht VerA.web-„Zeichensatz“)
      * @return ein passender {@link Exporter}
      * @throws TcContentProzessException bei Fehlern beim Instanziieren des Exporters.
      */
-    static Exporter createExporter(ExchangeFormat format, Database database, OutputStream os) throws TcContentProzessException {
+    static Exporter createExporter(ExchangeFormat format, Database database, OutputStream os, Charset cs) throws TcContentProzessException {
         assert format != null;
         assert database != null;
         try {
@@ -549,6 +587,7 @@ public class DataExchangeWorker {
                 Exchanger exchanger = (Exchanger) exporter;
                 exchanger.setExchangeFormat(format);
                 exchanger.setOutputStream(os);
+                exchanger.setFileEncoding(cs);
             }
             if (exporter instanceof DatabaseUtilizer) {
                 DatabaseUtilizer dbUtilizer = (DatabaseUtilizer) exporter;
