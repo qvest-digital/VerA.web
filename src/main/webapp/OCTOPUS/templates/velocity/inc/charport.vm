@@ -1,6 +1,8 @@
 <option value="UTF-8">UTF-8 Unicode</option>
 #if($charportIm == 1)
+<!--
 <option value="_auto">${placeholderWithTranslation.GENERIC_AUTO_ENCODING}</option>
+-->
 #else
 <option value="UTF-16LE+BOM">Windows Unicode (UTF-16LE+BOM)</option>
 #end
