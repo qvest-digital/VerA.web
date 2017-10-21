@@ -75,7 +75,7 @@
         </div>
 
         <form action="ImportPersonsFile" method="post" enctype="multipart/form-data" name="formImport" id="formImport">
-            <div class="table width70">
+            <div class="table width100">
               #if($grants && $grants.isAdmin() && $allOrgUnit)
                 <div class="tableRow">
                     <div class="tableCell">
