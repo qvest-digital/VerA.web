@@ -109,10 +109,10 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     void initReader() throws IOException {
         assert exchangeFormat != null;
         assert inputStream != null;
+        assert headers == null;
+
         Reader reader = new InputStreamReader(inputStream, fileEncoding);
         csvReader = new CSVFileReader(reader, fieldSeparator, textQualifier);
-
-        assert headers == null;
         headers = csvReader.readFields();
     }
 
