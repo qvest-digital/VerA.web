@@ -1,15 +1,2 @@
 • bump minimum requirements to Java™ 8, Tomcat 8
   all customers satisfy these nowadays
-
-Charset considerations for Import/Export
-• Import, not yet implemented:
-  – “Unicode or Windows cp1252 (autodetect)” (_auto)
-    ‣ if BOM: UTF-8, UTF-16LE, UTF-16BE, UTF-32LE, UTF-32BE
-      and skip BOM
-    ‣ if !x[0]:
-	if !x[1] UTF-32BE else UTF-16BE
-    ‣ if !x[1]:
-	if !x[2] UTF-32LE else UTF-16LE
-    ‣ else: cp1252
-  ⇒ src/main/webapp/OCTOPUS/templates/velocity/inc/charport.vm
-  ⇒ src/main/javaOld/de/tarent/aa/veraweb/worker/DataExchangeWorker.java

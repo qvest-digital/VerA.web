@@ -435,15 +435,65 @@ public class DataExchangeWorker {
                     }
                     ics = StandardCharsets.UTF_8;
                 } else if ("_auto".equals(filenc)) {
-                    //XXX for later
-                    if (!Charset.isSupported("cp1252")) {
+                    // ensure we can peek at the input octets
+                    if (!istream.markSupported()) {
+                        istream = new BufferedInputStream(istream);
+                    }
+                    // skip Byte Order Mark if present
+                    istream.mark(8);
+                    int b0 = istream.read();
+                    int b1 = istream.read();
+                    int b2 = istream.read();
+                    int b3 = istream.read();
+                    int bs = 0;
+                    if (b0 == 0xEF && b1 == 0xBB && b2 == 0xBF) {
+                        // UTF-8 with BOM
+                        bs = 3;
+                        ics = StandardCharsets.UTF_8;
+                    } else if (b0 == 0xFF && b1 == 0xFE && b2 == 0 && b3 == 0) {
+                        // UTF-32LE with BOM
+                        bs = 4;
+                        if (!Charset.isSupported("UTF-32LE")) {
+                            throw new TcContentProzessException("JVM unterstützt Encoding nicht: " + "UTF-32LE");
+                        }
+                        ics = Charset.forName("UTF-32LE");
+                    } else if (b0 == 0xFF && b1 == 0xFE) {
+                        // UTF-16LE with BOM
+                        bs = 2;
+                        ics = StandardCharsets.UTF_16LE;
+                    } else if (b0 == 0 && b1 == 0 && b2 == 0xFE && b3 == 0xFF) {
+                        // UTF-32BE with BOM
+                        bs = 4;
+                        if (!Charset.isSupported("UTF-32BE")) {
+                            throw new TcContentProzessException("JVM unterstützt Encoding nicht: " + "UTF-32BE");
+                        }
+                        ics = Charset.forName("UTF-32BE");
+                    } else if (b0 == 0xFE && b1 == 0xFF) {
+                        // UTF-16BE with BOM
+                        bs = 2;
+                        ics = StandardCharsets.UTF_16BE;
+                    } else if (b0 == 0 && b1 == 0 && Charset.isSupported("UTF-32BE")) {
+                        // guess UTF-32BE without BOM
+                        ics = Charset.forName("UTF-32BE");
+                    } else if (b0 == 0) {
+                        // guess UTF-16BE without BOM
+                        ics = StandardCharsets.UTF_16BE;
+                    } else if (b1 == 0 && b2 == 0 && Charset.isSupported("UTF-32LE")) {
+                        // guess UTF-32LE without BOM
+                        ics = Charset.forName("UTF-32LE");
+                    } else if (b1 == 0) {
+                        // guess UTF-16LE without BOM
+                        ics = StandardCharsets.UTF_16LE;
+                    } else if (!Charset.isSupported("cp1252")) {
+                        // default to closest thing to cp1252
                         LOGGER.error("JVM does not support \"cp1252\", falling back to latin1 standard encoding; some characters will be lost!");
                         ics = StandardCharsets.ISO_8859_1;
                     } else {
+                        // default to cp1252
                         ics = Charset.forName("cp1252");
                     }
-                    //XXX TODO: implement
-                    ics = StandardCharsets.UTF_8;
+                    istream.reset();
+                    istream.skip(bs);
                 } else {
                     try {
                         if (!Charset.isSupported(filenc)) {
