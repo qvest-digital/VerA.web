@@ -3,6 +3,7 @@
 
 Charset considerations for Import/Export
 • Import, not yet implemented:
+  – UTF-8: skip, if present, BOM
   – “Unicode or Windows cp1252 (autodetect)” (_auto)
     ‣ if BOM: UTF-8, UTF-16LE, UTF-16BE, UTF-32LE, UTF-32BE
       and skip BOM
