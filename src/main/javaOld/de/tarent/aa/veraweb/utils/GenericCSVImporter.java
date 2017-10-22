@@ -87,7 +87,6 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
             readProperties();
             parseFormat(false);
             initReader();
-            readHeader();
             fieldMapping.extendCategoryImport(headers);
             importRows(digester, transactionContext);
             csvReader.close();
@@ -103,22 +102,16 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     //
 
     /**
-     * Diese Methode initialisiert den internen {@link CSVFileReader}.
+     * Diese Methode initialisiert den internen {@link CSVFileReader}
+     * und liest die erste Zeile als Kopfzeile mit den Spaltennamen ein.
+     * Diese werden lokal in {@link #headers} abgelegt.
      */
     void initReader() throws IOException {
         assert exchangeFormat != null;
         assert inputStream != null;
         Reader reader = new InputStreamReader(inputStream, fileEncoding);
         csvReader = new CSVFileReader(reader, fieldSeparator, textQualifier);
-    }
 
-    /**
-     * Diese Methode liest die nächste Zeile als Kopfzeile mit den Spaltennamen ein.
-     * Diese werden lokal in {@link #headers} abgelegt.
-     *
-     * @throws IOException FIXME
-     */
-    void readHeader() throws IOException {
         assert headers == null;
         headers = csvReader.readFields();
     }
@@ -126,7 +119,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     /**
      * Diese Methode importiert alle Datenzeilen der CSV-Datei in den übergebenen
      * {@link ImportDigester}. Hierbei wird vorausgesetzt, dass die führende Zeile
-     * mit den Spaltennamen schon mit {@link #readHeader()} eingelesen wurde.
+     * mit den Spaltennamen schon mit {@link #initReader()} eingelesen wurde.
      *
      * @param digester der {@link ImportDigester}, der die Datensätze weiter
      *                 verarbeitet.
