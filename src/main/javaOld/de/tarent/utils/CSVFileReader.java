@@ -200,7 +200,7 @@ public class CSVFileReader extends CSVFile {
      */
     public CSVFileReader(Reader reader, char sep, char qual) {
         super(sep, qual);
-        in = new BufferedReader(reader);
+        in = reader instanceof BufferedReader ? (BufferedReader)reader : new BufferedReader(reader);
     }
 
     /**
