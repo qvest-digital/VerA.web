@@ -113,6 +113,16 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, fileEncoding));
         final String firstLine = reader.readLine();
+
+        // figure out field separator; we can do that in VerA.web
+        if (firstLine.indexOf(/* tab */ 0x09) > -1) {
+            fieldSeparator = 0x09;
+        } else if (firstLine.indexOf(/* semicolon */ 0x3B) > -1) {
+            fieldSeparator = 0x3B;
+        } else if (firstLine.indexOf(/* comma */ 0x2C) > -1) {
+            fieldSeparator = 0x2C;
+        }
+
         csvReader = new CSVFileReader(reader, fieldSeparator, textQualifier);
         headers = csvReader.readFields(firstLine);
     }
