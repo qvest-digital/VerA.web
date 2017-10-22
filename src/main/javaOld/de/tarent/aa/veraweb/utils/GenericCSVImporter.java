@@ -30,9 +30,9 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.utils.CSVFileReader;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.lang.reflect.Constructor;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -111,9 +111,10 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         assert inputStream != null;
         assert headers == null;
 
-        Reader reader = new InputStreamReader(inputStream, fileEncoding);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, fileEncoding));
+        final String firstLine = reader.readLine();
         csvReader = new CSVFileReader(reader, fieldSeparator, textQualifier);
-        headers = csvReader.readFields();
+        headers = csvReader.readFields(firstLine);
     }
 
     /**
