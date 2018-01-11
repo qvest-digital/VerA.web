@@ -53,7 +53,6 @@ import java.util.Map;
  * @version $Revision: 1.1 $
  */
 public class MailinglistWorker {
-
 	/** Octopus-Eingabe-Parameter für {@link #createMailinglist(OctopusContext, Mailinglist)} */
 	public static final String INPUT_createMailinglist[] = { "CONTENT:mailinglist" };
 	/** Octopus-Ausgabe-Parameter für {@link #createMailinglist(OctopusContext, Mailinglist)} */
@@ -248,16 +247,10 @@ public class MailinglistWorker {
 			String fax3 = (String) data.get("fax3");
 
 			if (mail2 != null && mail2.length() != 0) {
-				if (savePerson(database, mailinglist.id, person, getClearMailAddress(mail2)))
-					savedAddresses++;
-			} else if (fax2 != null && fax2.length() != 0) {
-				if (savePerson(database, mailinglist.id, person, getClearFaxNumber(octopusContext, fax2)))
+				if (savePerson(database, mailinglist.id, person, mail2))
 					savedAddresses++;
 			} else if (mail3 != null && mail3.length() != 0) {
-				if (savePerson(database, mailinglist.id, person, getClearMailAddress(mail3)))
-					savedAddresses++;
-			} else if (fax3 != null && fax3.length() != 0) {
-				if (savePerson(database, mailinglist.id, person, getClearFaxNumber(octopusContext, fax3)))
+				if (savePerson(database, mailinglist.id, person, mail3))
 					savedAddresses++;
 			}
 		}
@@ -358,55 +351,4 @@ public class MailinglistWorker {
 		}
 		return false;
 	}
-
-	/**
-	 * Gibt eine 'gesauberte' Faxnummer mit dem Zusatz '@fax' zurück.
-	 *
-	 * @param cntx Octopus-Context
-	 * @param number Faxnummer
-	 * @return Faxnummer
-	 */
-	public static String getClearFaxNumber(OctopusContext cntx, String number) {
-		String faxdomain = ConfigWorker.getString(cntx, "faxdomain");
-		if (faxdomain == null || "".equals(faxdomain)) faxdomain = "@fax.aa";
-
-		return getOnlyNumbers(cntx, number) + faxdomain;
-	}
-
-	/**
-	 * Gibt eine 'gesauberte' eMail-Adresse zurück.
-	 *
-	 * @param mail eMail-Adresse
-	 * @return eMail-Adresse
-	 */
-	public String getClearMailAddress(String mail) {
-		return mail;
-	}
-
-	/**
-	 * @param number Nummer mit Buchstaben
-	 * @return Nur noch Nummern
-	 */
-	public static String getOnlyNumbers(OctopusContext cntx, String number) {
-		if (number == null) return "";
-
-		if (!areacodeLoaded) {
-			areacodeString = cntx.moduleConfig().getParam("phoneAreacode");
-			areacodeLoaded = true;
-		}
-
-		StringBuffer buffer = new StringBuffer(number.length());
-		for (int i = 0; i < number.length(); i++) {
-			char c = number.charAt(i);
-			if (c >= '0' && c <= '9') {
-				buffer.append(c);
-			} else if (c == '+') {
-				buffer.append(areacodeString);
-			}
-		}
-		return buffer.toString();
-	}
-
-	private static boolean areacodeLoaded = false;
-	private static String areacodeString = null;
 }

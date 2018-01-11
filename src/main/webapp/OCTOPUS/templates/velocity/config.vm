@@ -38,7 +38,6 @@
             <input type="hidden" name="saveconfig" value="helplink">
             <input type="hidden" name="saveconfig" value="helptarget">
 
-            <input type="hidden" name="saveconfig" value="faxdomain">
             <input type="hidden" name="saveconfig" value="changeLogRetentionPolicy">
 
 
@@ -201,21 +200,6 @@
                 	</tr>
                 </table>
             </div>
-
-
-            <div class="width49">
-                <h3>${placeholderWithTranslation.GENERIC_MISCELLANEOUS}:</h3>
-                <table class="marginBottom20">
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_FAX_CONFIG_FIELD}:</td>
-                		<td><input type="text" name="faxdomain" maxlength="300" value="$!message.text($config.faxdomain)" ></td>
-                	</tr>
-                </table>
-            </div>
-
-            ## added change log maintenance worker configuration as per change request for version 1.2.0
-            ## cklein
-            ## 2008-02-18
 
             <div class="width49">
                 <h3>${placeholderWithTranslation.GENERIC_PROTOCOL_TIME_CHANGE}</h3>

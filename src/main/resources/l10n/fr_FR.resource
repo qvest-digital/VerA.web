@@ -377,7 +377,6 @@ OPTION_HELP_WINDOW_1=Utiliser la fen\u00EAtre de navigateur actuelle
 OPTION_HELP_WINDOW_2=Ouvrir nouvelle fen\u00EAtre de navigateur par appel
 OPTION_HELP_WINDOW_3=Chaque fois que vous appelez la m\u00EAme fen\u00EAtre du navigateur ( pas le courant )
 GENERIC_MISCELLANEOUS=Autres
-GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
 GENERIC_PROTOCOL_TIME_CHANGE=Historique des modifications
 GENERIC_PROTOCOL_COMMISIONING_TIME=D\u00E9riv\u00E9e de donn\u00E9es du journal
 HINT_GIVE_THE_RETENTION_PERIOD=Entrez la p\u00E9riode de r\u00E9tention
