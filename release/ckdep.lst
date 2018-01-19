@@ -22,7 +22,7 @@ com.fasterxml.jackson.datatype:jackson-datatype-joda 2.3.3 TODO
 com.fasterxml.jackson.module:jackson-module-afterburner 2.3.3 TODO
 com.fasterxml:classmate 1.0.0 TODO
 com.google.code.findbugs:jsr305 2.0.3 TODO
-com.lowagie:itext 4.2.0 TODO
+com.lowagie:itext 4.2.0 illegal:https://developers.itextpdf.com/question/versions-older-than-5
 com.sun.jersey.contribs:jersey-apache-client4 1.18.1 TODO
 com.sun.jersey.jersey-test-framework:jersey-test-framework-core 1.18.1 TODO
 com.sun.jersey.jersey-test-framework:jersey-test-framework-inmemory 1.18.1 TODO
