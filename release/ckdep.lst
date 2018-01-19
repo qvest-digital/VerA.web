@@ -1,4 +1,4 @@
-com.lowagie:itext 4.2.0 TODO
+com.lowagie:itext 4.2.0 illegal:https://developers.itextpdf.com/question/versions-older-than-5
 javax.activation:activation 1.1 TODO
 javax.annotation:javax.annotation-api 1.2 TODO
 javax.validation:validation-api 1.1.0.Final TODO
