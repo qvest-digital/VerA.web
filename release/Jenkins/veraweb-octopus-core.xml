@@ -13,29 +13,32 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Cancel:tglase</permission>
-      <permission>hudson.model.Item.Cancel:veraweb</permission>
-      <permission>hudson.model.Item.Release:tglase</permission>
-      <permission>hudson.model.Item.Release:veraweb</permission>
       <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:tglase</permission>
       <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:veraweb</permission>
-      <permission>hudson.model.Item.Build:tglase</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Run.Update:tglase</permission>
-      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Cancel:tglase</permission>
+      <permission>hudson.model.Item.Cancel:veraweb</permission>
       <permission>hudson.model.Item.Read:tglase</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:tglase</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Release:tglase</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Run.Update:tglase</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:tglase</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
+      <permission>hudson.model.Item.Build:tglase</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
       <permission>hudson.model.Item.Workspace:tglase</permission>
       <permission>hudson.model.Item.Workspace:veraweb</permission>
       <permission>hudson.model.Item.Configure:tglase</permission>
       <permission>hudson.model.Item.Configure:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:tglase</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
       <permission>hudson.scm.SCM.Tag:tglase</permission>
       <permission>hudson.scm.SCM.Tag:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:tglase</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
+    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@1.7">
+      <labelName>mr_veraweb</labelName>
+    </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
     <configVersion>2</configVersion>

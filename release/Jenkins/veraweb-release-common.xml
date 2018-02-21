@@ -58,14 +58,14 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Configure:veraweb</permission>
-      <permission>hudson.model.Run.Update:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
       <permission>hudson.model.Item.Cancel:veraweb</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.scm.SCM.Tag:veraweb</permission>
-      <permission>hudson.model.Item.Release:veraweb</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>hudson.scm.SCM.Tag:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -81,6 +81,9 @@
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
+    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@1.7">
+      <labelName>mr_veraweb</labelName>
+    </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
     <configVersion>2</configVersion>
@@ -132,36 +135,6 @@
   <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
   <reporters/>
   <publishers>
-    <hudson.plugins.jabber.im.transport.JabberPublisher plugin="jabber@1.35">
-      <targets>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>adirla@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>afreid@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>eausch@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>ldegen@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>mpech@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>tglase@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-      </targets>
-      <strategy>STATECHANGE_ONLY</strategy>
-      <notifyOnBuildStart>false</notifyOnBuildStart>
-      <notifySuspects>false</notifySuspects>
-      <notifyCulprits>false</notifyCulprits>
-      <notifyFixers>false</notifyFixers>
-      <notifyUpstreamCommitters>false</notifyUpstreamCommitters>
-      <buildToChatNotifier class="hudson.plugins.im.build_notify.DefaultBuildToChatNotifier" plugin="instant-messaging@1.35"/>
-      <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
-    </hudson.plugins.jabber.im.transport.JabberPublisher>
     <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.25">
       <configs>
         <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
