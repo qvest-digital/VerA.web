@@ -81,7 +81,6 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>${maven.jar.version}</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -106,7 +105,6 @@
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
 				<artifactId>gmavenplus-plugin</artifactId>
-				<version>${maven.gmavenplus.version}</version>
 				<executions>
 					<execution>
 						<goals>

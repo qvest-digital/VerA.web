@@ -131,6 +131,10 @@
 					<version>${maven.assembly.version}</version>
 				</plugin>
 				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven.jar.version}</version>
+				</plugin>
+				<plugin>
 					<artifactId>maven-war-plugin</artifactId>
 					<version>${maven.war.version}</version>
 				</plugin>
