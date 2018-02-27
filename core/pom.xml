@@ -361,28 +361,6 @@
 					<contextPath>/veraweb</contextPath>
 				</configuration>
 			</plugin>
-			<!--
-			   - Add second source folder to distinguish new
-			   - code from legacy code in sonar.
-			 -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>${maven.buildhelper.version}</version>
-				<executions>
-					<execution>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>src/main/javaOld</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 			<!-- Needed to get correct code coverage from java and groovy tests -->
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
