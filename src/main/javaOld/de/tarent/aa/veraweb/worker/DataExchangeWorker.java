@@ -203,7 +203,9 @@ public class DataExchangeWorker {
         final PipedOutputStream pos = new PipedOutputStream(pis);
 
         final Charset ocs;
-        if ("UTF-8+BOM".equals(filenc)) {
+        if ("UTF-8".equals(filenc)) {
+            ocs = StandardCharsets.UTF_8;
+        } else if ("UTF-8+BOM".equals(filenc)) {
             ocs = StandardCharsets.UTF_8;
             pos.write(new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF });
         } else if ("UTF-16BE+BOM".equals(filenc)) {
@@ -419,7 +421,10 @@ public class DataExchangeWorker {
                 }
 
                 Charset ics;
-                if ("_auto".equals(filenc)) {
+                if ("UTF-8".equals(filenc)) {
+                    //XXX TODO: skip BOM (if present)
+                    ics = StandardCharsets.UTF_8;
+                } else if ("_auto".equals(filenc)) {
                     //XXX for later
                     if (!Charset.isSupported("cp1252")) {
                         LOGGER.error("JVM does not support \"cp1252\", falling back to latin1 standard encoding; some characters will be lost!");
