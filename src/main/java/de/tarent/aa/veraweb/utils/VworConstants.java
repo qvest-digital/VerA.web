@@ -20,8 +20,6 @@ package de.tarent.aa.veraweb.utils;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 
-package de.tarent.aa.veraweb.utils;
-
 /**
  * Class to include constants to work with REST-API
  *
