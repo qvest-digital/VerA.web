@@ -60,6 +60,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Categorie;
 import de.tarent.aa.veraweb.beans.ImportPerson;
 import de.tarent.aa.veraweb.beans.ImportPersonCategorie;
@@ -70,9 +71,9 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.utils.CSVFileReader;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.lang.reflect.Constructor;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -91,9 +92,10 @@ import java.util.logging.Logger;
  * @author mikel
  */
 public class GenericCSVImporter extends GenericCSVBase implements Importer {
-    //
-    // Konstruktor
-    //
+    private static final int TAB_FIELD_SEPARATOR = 0x09;
+    private static final int SEMICOLON_FIELD_SEPARATOR = 0x3B;
+    private static final int COMMA_FIELD_SEPARATOR = 0x2C;
+
     /**
      * Dieser Konstruktor ist leer; dieser wird von {@link ExchangeFormat#getImporterClass()}
      * genutzt.
@@ -104,29 +106,32 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     //
     // Schnittstelle Importer
     //
+
     /**
      * Diese Methode führt einen Import aus. Hierbei werden alle erkannten zu
      * importierenden Personendatensätze und Zusätze nacheinander dem übergebenen
      * {@link ImportDigester} übergeben.
      *
      * @param digester der {@link ImportDigester}, der die Datensätze weiter
-     *  verarbeitet.
+     *                 verarbeitet.
      * @throws IOException FIXME
      * @see de.tarent.aa.veraweb.utils.Importer#importAll(de.tarent.aa.veraweb.utils.ImportDigester, TransactionContext)
      */
     public void importAll(ImportDigester digester, TransactionContext transactionContext) throws IOException {
-        if (exchangeFormat == null)
+        if (exchangeFormat == null) {
             throw new IOException("Für einen Import muß ein Format angegeben sein.");
-        if (exchangeFormat.getProperties() == null)
+        }
+        if (exchangeFormat.getProperties() == null) {
             throw new IOException("Für einen Import müssen in der Formatspezifikation die notwendigen Parameter angegeben sein.");
-        if (inputStream == null)
+        }
+        if (inputStream == null) {
             throw new IOException("Für einen Import muß ein Eingabedatenstrom angegeben sein.");
+        }
 
         try {
             readProperties();
             parseFormat(false);
             initReader();
-            readHeader();
             fieldMapping.extendCategoryImport(headers);
             importRows(digester, transactionContext);
             csvReader.close();
@@ -140,35 +145,44 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
     //
     // geschützte Hilfsmethoden
     //
+
     /**
-     * Diese Methode initialisiert den internen {@link CSVFileReader}.
+     * Diese Methode initialisiert den internen {@link CSVFileReader}
+     * und liest die erste Zeile als Kopfzeile mit den Spaltennamen ein.
+     * Diese werden lokal in {@link #headers} abgelegt.
      */
     void initReader() throws IOException {
         assert exchangeFormat != null;
         assert inputStream != null;
-        Reader reader = new InputStreamReader(inputStream, encoding);
+        assert headers == null;
+
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, fileEncoding));
+        final String firstLine = reader.readLine();
+        identifyFieldSeparator(firstLine);
+
         csvReader = new CSVFileReader(reader, fieldSeparator, textQualifier);
+        headers = csvReader.readFields(firstLine);
     }
 
-    /**
-     * Diese Methode liest die nächste Zeile als Kopfzeile mit den Spaltennamen ein.
-     * Diese werden lokal in {@link #headers} abgelegt.
-     *
-     * @throws IOException FIXME
-     */
-    void readHeader() throws IOException {
-        assert headers == null;
-        headers = csvReader.readFields();
+    private void identifyFieldSeparator(String firstLine) {
+        // figure out field separator; we can do that in VerA.web
+        if (firstLine.indexOf(TAB_FIELD_SEPARATOR) > -1) {
+            fieldSeparator = TAB_FIELD_SEPARATOR;
+        } else if (firstLine.indexOf(SEMICOLON_FIELD_SEPARATOR) > -1) {
+            fieldSeparator = SEMICOLON_FIELD_SEPARATOR;
+        } else if (firstLine.indexOf(COMMA_FIELD_SEPARATOR) > -1) {
+            fieldSeparator = COMMA_FIELD_SEPARATOR;
+        }
     }
 
     /**
      * Diese Methode importiert alle Datenzeilen der CSV-Datei in den übergebenen
      * {@link ImportDigester}. Hierbei wird vorausgesetzt, dass die führende Zeile
-     * mit den Spaltennamen schon mit {@link #readHeader()} eingelesen wurde.
+     * mit den Spaltennamen schon mit {@link #initReader()} eingelesen wurde.
      *
      * @param digester der {@link ImportDigester}, der die Datensätze weiter
-     *  verarbeitet.
-     * @throws IOException FIXME
+     *                 verarbeitet.
+     * @throws IOException   FIXME
      * @throws BeanException FIXME
      */
     void importRows(ImportDigester digester, TransactionContext transactionContext) throws IOException, BeanException {
@@ -193,10 +207,10 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
      * TODO: Timestamp-Format konfigurierbar machen
      *
      * @param digester der {@link ImportDigester}, der die Datensätze weiter
-     *  verarbeitet.
-     * @param row die aufbereitete CSV-Zeile
+     *                 verarbeitet.
+     * @param row      die aufbereitete CSV-Zeile
      * @throws BeanException FIXME
-     * @throws IOException FIXME
+     * @throws IOException   FIXME
      */
     void digestRow(ImportDigester digester, RowEntity row) throws BeanException, IOException {
         ImportPerson person = new ImportPerson();
@@ -249,17 +263,18 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
      * {@link ImportPersonCategorie} hinzu oder --- falls es schon eine unter
      * dem Namen gibt --- aktualisiert diese.
      *
-     * @param name Name der Kategorie
-     * @param rank Rang in der Kategorie; <code>""</code> bedeutet keine Zuordnung
-     *  zu der Kategorie
+     * @param name   Name der Kategorie
+     * @param rank   Rang in der Kategorie; <code>""</code> bedeutet keine Zuordnung
+     *               zu der Kategorie
      * @param extras Map mit Import-Extras.
      */
     void addCategory(String name, String rank, int flags, Map extras) {
         assert name != null;
         assert extras != null;
 
-        if (rank == null || rank.length() == 0)
+        if (rank == null || rank.length() == 0) {
             return;
+        }
 
         Integer rankNumber;
         try {
@@ -283,8 +298,9 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
 
         if (extras.containsKey(catKey)) {
             ImportPersonCategorie category = (ImportPersonCategorie) extras.get(catKey);
-            if (rankNumber != null && category.rank != null && rankNumber > category.rank)
+            if (rankNumber != null && category.rank != null && rankNumber > category.rank) {
                 category.rank = rankNumber;
+            }
         } else {
             final ImportPersonCategorie category = initCategory(name, flags, rankNumber);
             extras.put(catKey, category);
@@ -307,13 +323,14 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         //
         // Schnittstelle Entity
         //
+
         /**
          * Diese Methode erlaubt das Abfragen von Daten zu einem bestimmten Schlüssel.
          * Die Schlüssel sind die CSV-Spaltennamen.
          *
          * @param sourceKey Quellfeldschlüssel
          * @return Quellfeldwert als {@link String}; Werte unbekannter Felder werden
-         *  als Leerstring <code>""</code> geliefert.
+         * als Leerstring <code>""</code> geliefert.
          */
         public String get(String sourceKey) {
             Object result = rowMapping.get(sourceKey);
@@ -323,6 +340,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         //
         // Öffentliche Methoden
         //
+
         /**
          * Diese Methode parse-t die übergebene Liste --- die aktuelle Zeile ---
          * und legt die Werte unter dem zugehörigen Spaltennamen lokal ab.<br>
@@ -344,7 +362,9 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         //
         // geschützte Member
         //
-        /** Hier werden die Zuordnungen der aktuellen Zeile gehalten */
+        /**
+         * Hier werden die Zuordnungen der aktuellen Zeile gehalten
+         */
         final Map rowMapping = new HashMap();
     }
 
@@ -359,7 +379,7 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
      * Header-Felder
      */
     List headers = null;
-    final static Class[] ONE_LONG = new Class[]{Long.TYPE};
+    final static Class[] ONE_LONG = new Class[] { Long.TYPE };
     /**
      * Logger dieser Klasse
      */

@@ -82,7 +82,7 @@ start_import() {
 		echo >&2 "Konnte temporäre Datei nicht anlegen"
 		exit 1
 	fi
-    curl -s -F username=$1 -F password=$2 --form "importfile=@$3" --form importSource=$4 --form format=formatCSV --form targetOrgUnit=$5 $6do/ImportPersonsFile > "$TEMP_OUTPUT"
+    curl -s -F username=$1 -F password=$2 --form "importfile=@$3" --form importSource=$4 --form format=formatCSV --form filenc=UTF-8 --form targetOrgUnit=$5 $6do/ImportPersonsFile > "$TEMP_OUTPUT"
 	TOTAL_ENTRIES="$(<"$TEMP_OUTPUT" grep 'Zu importierende Datensätze insgesamt' | grep -Eo '[0-9]{1,10}<' | grep -Eo '[0-9]{1,10}')"
 	IMPORT_ID="$(<"$TEMP_OUTPUT" grep 'Import-ID' | grep -Eo '[0-9]{1,10}')"
 	DUPLICATE_ENTRIES="$(<"$TEMP_OUTPUT" grep 'Davon Dubletten' | grep -Eo '[0-9]{1,10}<' | grep -Eo '[0-9]{1,10}')"

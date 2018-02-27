@@ -1,3 +1,4 @@
+#set($charportIm = 0)
 #set($activeMenu = "Personen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_EXPORT_PERSONDATA}")
 #parse("inc/header.vm")
@@ -31,7 +32,7 @@
 
     <form action="ExportPersonsHandler/veraweb.export" name="formExport" method="post">
         <div id="main_content" class="contentBoxColored grayBorder">
-            <div class="table width70">
+            <div class="table width100">
                 <div class="tableRow">
                     <div class="tableCell inlineLabel width30">
                         <input type="radio" name="exportFilter" id="exportFilterEvent" value="event" onclick="return filterChanged()">
@@ -87,13 +88,13 @@
                     </div>
                 </div>
                 <div class="tableRow">
-                    <div class=" tableCell">
+                    <div class="tableCell">
                         <label for="format">
                             ${placeholderWithTranslation.GENERIC_DATA_TYPE}
                         </label>
                     </div>
                     <div class="tableCell">
-                        <select name="format" id="format" class="autoWidth" onchange="return formatChanged();">
+                        <select name="format" id="format" onchange="return formatChanged();">
                             #foreach($formatKey in $formats.keySet())
                                 #set($format = $formats.get($formatKey))
                                 <option value="$formatKey">
@@ -107,11 +108,21 @@
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA}
                                     #elseif($format.name == "CSVPersdat+Kategorien")
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY}
-                                    #elseif($format.name == "CSV-ISO-8859-15")
-                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSV_ISO_8859_15}
                                     #end
                                 </option>
                             #end
+                        </select>
+                    </div>
+                </div>
+                <div class="tableRow">
+                    <div class="tableCell">
+                        <label for="filenc">
+                            ${placeholderWithTranslation.GENERIC_FILE_ENCODING}
+                        </label>
+                    </div>
+                    <div class="tableCell">
+                        <select name="filenc" id="filenc">
+#parse("inc/charport.vm")
                         </select>
                     </div>
                 </div>
@@ -121,65 +132,6 @@
             #foreach($formatKey in $formats.keySet())
                 #set($format = $formats.get($formatKey))
                 <div $style id="format-$formatKey" class="marginTop20">
-                    #if($format.properties.containsKey("choices"))
-                        #set($choices = $format.properties.get("choices"))
-                        <fieldset class="format">
-                            <legend>
-                                #if($format.name == "CSV")
-                                    ${placeholderWithTranslation.EXPORT_TITLE_CSV}:
-                                #elseif($format.name == "X-Manage-CSV")
-                                    ${placeholderWithTranslation.EXPORT_TITLE_X_MANAGE_CSV}:
-                                #elseif($format.name == "CSVPersdat+Anschrift")
-                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_ADDRESS}:
-                                #elseif($format.name == "CSVPersdat")
-                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA}:
-                                #elseif($format.name == "CSVPersdat+Kategorien")
-                                    ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_CATEGORY}:
-                                #elseif($format.name == "CSV-ISO-8859-15")
-                                    ${placeholderWithTranslation.EXPORT_TITLE_CSV_ISO_8859_15}:
-                                #end
-
-                                ${placeholderWithTranslation.weitereoptionen}
-                            </legend>
-                            <div class="table width50">
-                                #foreach($choiceKey in $choices.keySet())
-                                    #set($choice = $choices.get($choiceKey))
-                                    <div class="tableRow">
-                                        <div class="tableCell width30">
-                                            <label for="format-${formatKey}-$choiceKey">
-                                            </label>
-                                        </div>
-                                        <div class="tableCell">
-                                            #set($default = $choice.get("default"))
-                                            #if($choice.containsKey("select"))
-                                                #set($select = $choice.get("select"))
-                                                <select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" >
-                                                    #foreach($selectKey in $select.keySet())
-                                                        <option value="$selectKey"#if($selectKey==$default) selected#end>
-                                                            #if($selectKey == "Cyrillic")
-                                                                ${placeholderWithTranslation.ENCODING_TYPE_CYRILLIC}
-                                                            #elseif($selectKey == "West")
-                                                                ${placeholderWithTranslation.ENCODING_TYPE_WEST}
-                                                            #elseif($selectKey == "Baltic")
-                                                                ${placeholderWithTranslation.ENCODING_TYPE_BALTIC}
-                                                            #elseif($selectKey == "East")
-                                                                ${placeholderWithTranslation.ENCODING_TYPE_EAST}
-                                                            #elseif($selectKey == "Turkish")
-                                                                ${placeholderWithTranslation.ENCODING_TYPE_TURKISH}
-                                                            #end
-                                                        </option>
-                                                    #end
-                                                </select>
-                                            #else
-                                                <input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default" >
-                                            #end
-                                        </div>
-                                    </div>
-                                #end
-                            </div>
-                        </fieldset>
-                    #end
-
                     #if($format.properties.containsKey("remarks"))
                         #set($remarks = $format.properties.get("remarks"))
                         <fieldset class="format">
@@ -195,8 +147,6 @@
                                     ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA}:
                                 #elseif($format.name == "CSVPersdat+Kategorien")
                                     ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_CATEGORY}:
-                                #elseif($format.name == "CSV-ISO-8859-15")
-                                    ${placeholderWithTranslation.EXPORT_TITLE_CSV_ISO_8859_15}:
                                 #end
 
                                 #if($remarks.size() == 1)
@@ -222,10 +172,6 @@
                         #elseif($format.name == "CSVPersdat+Kategorien")
                             <p>
                                 ${placeholderWithTranslation.HINT_EXPORT_CSVPERSDATA_CATEGORY}
-                            </p>
-                        #elseif($format.name == "CSV-ISO-8859-15")
-                            <p>
-                                ${placeholderWithTranslation.HINT_EXPORT_CSV_ISO_8859_15}
                             </p>
                         #end
                         </fieldset>

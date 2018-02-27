@@ -365,7 +365,6 @@ OPTION_HELP_WINDOW_1=Aktuelles Browser-Fenster verwenden
 OPTION_HELP_WINDOW_2=Pro Aufruf ein neues Browser-Fenster \u00F6ffnen
 OPTION_HELP_WINDOW_3=Bei jedem Aufruf das selbe Browser-Fenster (nicht das aktuelle)
 GENERIC_MISCELLANEOUS=Sonstiges
-GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
 GENERIC_PROTOCOL_TIME_CHANGE=\u00C4nderungsprotokoll
 GENERIC_PROTOCOL_COMMISIONING_TIME=Vorhaltezeit der Protokolldaten
 HINT_GIVE_THE_RETENTION_PERIOD=Geben Sie die Aufbewahrungsfrist ein
@@ -488,7 +487,6 @@ x-manage-csv=X-Manage-CSV (X-Manage Kontakte)
 csvpersdatanschrift=CSVPersdat+Anschrift (Comma-Separated-Values)
 csvpersdat=CSVPersdat (Comma-Separated-Values)
 csvpersdatkategorien=CSVPersdat+Kategorien (Comma-Separated-Values)
-csviso885915=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 
 # PERSONEN/PERSONENUEBERSICHT
 GENERIC_PERSON_SUMMARY=Personen\u00FCbersicht
@@ -595,18 +593,15 @@ EXPORT_DATA_TYPE_X_MANAGE_CSV=X-Manage-CSV (X-Manage Kontakte)
 EXPORT_DATA_TYPE_CSVPERSDATA_ADDRESS=CSVPersdat+Anschrift (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA=CSVPersdat (Comma-Separated-Values)
 EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY=CSVPersdat+Kategorien (Comma-Separated-Values)
-EXPORT_DATA_TYPE_CSV_ISO_8859_15=CSV-ISO-8859-15 (Im-/Export ISO-8859-15)
 EXPORT_TITLE_CSV=CSV
 EXPORT_TITLE_X_MANAGE_CSV=X-Manage-CSV
 EXPORT_TITLE_CSVPERSDATA_ADDRESS=CSV Personendaten+Anschriften
 EXPORT_TITLE_CSVPERSDATA=CSV Personendaten
 EXPORT_TITLE_CSVPERSDATA_CATEGORY=CSV Personendaten+Kategorien
-EXPORT_TITLE_CSV_ISO_8859_15=CSV ISO-8859-15
 HINT_EXPORT_CSV=Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSVPERSDATA_ADDRESS=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EAnschriften\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSVPERSDATA=Es werden nur die Felder aus dem Karteireiter \u201EPersonendaten\u201C und den untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 HINT_EXPORT_CSVPERSDATA_CATEGORY=Es werden nur die Felder aus den Karteireitern \u201EPersonendaten\u201C, \u201EKategorien\u201C und deren untergeordneten Karteireitern exportiert. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
-HINT_EXPORT_CSV_ISO_8859_15=Dieses Format ist f\u00FCr Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden. Je nach Menge der exportierten Felder (insbesondere ist dies von der Anzahl exportierter Kategorien abh\u00E4ngig) kann es passieren, dass MS Excel und OO Calc die exportierten Daten nicht vollst\u00E4ndig lesen k\u00F6nnen.
 
 # PERSONEN/IMPORT VON PERSONENDATEN
 GENERIC_IMPORT_FROM_PERSONS_DATA=Import von Personendaten
@@ -614,6 +609,8 @@ HINT_IMPORT_SHORT_CONTENT=Hinweis Beim Import k\u00E4nnen Feldinhalte, die l\u00
 GENERIC_TARGET_CLIENT=Zielmandant
 GENERIC_IMPORT_DATA=Import-Datei
 GENERIC_DATA_TYPE=Dateityp
+GENERIC_FILE_ENCODING=Kodierung der Datei
+GENERIC_AUTO_ENCODING=Unicode oder Windows \u201EWesteuropa\u201C cp1252 (automatische Erkennung)
 dateiauswahlen=Datei ausw\u00E4hlen
 keineausgewahlt=Keine ausgew\u00E4hlt
 GENERIC_START_IMPORT=Import starten

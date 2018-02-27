@@ -1,3 +1,4 @@
+#set($charportIm = 1)
 #set($activeMenu = "Personen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_IMPORT_PERSONDATA}")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
@@ -75,48 +76,42 @@
 
         <form action="ImportPersonsFile" method="post" enctype="multipart/form-data" name="formImport" id="formImport">
             <div class="table width100">
+              #if($grants && $grants.isAdmin() && $allOrgUnit)
                 <div class="tableRow">
-                    <div class="tableCell width50">
+                    <div class="tableCell">
+                        <label for="orgUnit">
+                            ${placeholderWithTranslation.GENERIC_TARGET_CLIENT}*
+                        </label>
+                    </div>
+                    <div class="tableCell">
+                        <span id="orgUnit">
+                            #foreach($orgunit in $allOrgUnit)
+                                #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)
+                                    $!message.text($orgunit.name)
+                                #end
+                            #end
+                        </span>
+                    </div>
+                </div>
+              #end
+                <div class="tableRow">
+                    <div class="tableCell">
                         <label for="importSource">
                             ${placeholderWithTranslation.GENERIC_ORIGIN_DATA}*
                         </label>
+                    </div>
+                    <div class="tableCell">
                         <input type="text" name="importSource" id="importSource" value="$!message.text($importSource)">
                     </div>
-                    <div class="tableCell width50">
-                        #if($grants && $grants.isAdmin() && $allOrgUnit)
-                            <label for="orgUnit">
-                                ${placeholderWithTranslation.GENERIC_TARGET_CLIENT}
-                            </label>
-                            <span id="orgUnit">
-                                #foreach($orgunit in $allOrgUnit)
-                                    #if($octopusConfig.personalConfig.orgUnitId == $orgunit.id)
-                                        $!message.text($orgunit.name)
-                                    #end
-                                #end
-                            </span>
-                        #end
-                    </div>
                 </div>
-
                 <div class="tableRow">
                     <div class="tableCell">
-                        <label for="importfile">
-                            ${placeholderWithTranslation.GENERIC_IMPORT_DATA}*
+                        <label for="format">
+                            ${placeholderWithTranslation.GENERIC_DATA_TYPE}*
                         </label>
-                        <div id="input_container" style="width: 0px; height: 0px;">
-                            <input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*" onChange="fileSelected();"/>
-                        </div>
-
-                        <div class="button fakeButton" title="${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}" style="width: 150px;" onclick="upload();">
-                            ${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}
-                        </div>
-                        <div id="selectedFile" style="padding-top: 3px;"></div>
                     </div>
                     <div class="tableCell">
-                        <label for="format">
-                            ${placeholderWithTranslation.GENERIC_DATA_TYPE}
-                        </label>
-                        <select name="format" id="format" onchange="return formatChanged();">
+                        <select name="format" id="format">
                             #foreach($formatKey in $formats.keySet())
                                 #set($format = $formats.get($formatKey))
                                 <option value="$formatKey">
@@ -130,75 +125,39 @@
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA}
                                     #elseif($format.name == "CSVPersdat+Kategorien")
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY}
-                                    #elseif($format.name == "CSV-ISO-8859-15")
-                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSV_ISO_8859_15}
                                     #end
                                 </option>
                             #end
                         </select>
+                    </div>
+                </div>
+                <div class="tableRow">
+                    <div class="tableCell">
+                        <label for="filenc">
+                            ${placeholderWithTranslation.GENERIC_FILE_ENCODING}*
+                        </label>
+                    </div>
+                    <div class="tableCell">
+                        <select name="filenc" id="filenc">
+#parse("inc/charport.vm")
+                        </select>
+                    </div>
+                </div>
+                <div class="tableRow">
+                    <div class="tableCell">
+                        <label for="importfile">
+                            ${placeholderWithTranslation.GENERIC_IMPORT_DATA}*
+                        </label>
+                    </div>
+                    <div class="tableCell">
+                        <div id="input_container" style="width: 0px; height: 0px;">
+                            <input name="importfile" id="importfile" type="file" size="30" maxlength="100000" accept="text/*" onChange="fileSelected();"/>
+                        </div>
 
-                        #set($style = '')
-                        #foreach($formatKey in $formats.keySet())
-                            #set($format = $formats.get($formatKey))
-                            <div $style id="format-$formatKey" class="marginTop20">
-                                #if($format.properties.containsKey("choices"))
-                                    #set($choices = $format.properties.get("choices"))
-                                    <fieldset class="format">
-                                        <legend>
-                                            $format.name: ${placeholderWithTranslation.weitereoptionen}
-                                        </legend>
-                                        <div class="table width100">
-                                            #foreach($choiceKey in $choices.keySet())
-                                                #set($choice = $choices.get($choiceKey))
-                                                <div class="tableRow">
-                                                    <div class="tableCell width30">
-                                                        <label for="format-${formatKey}-$choiceKey">
-                                                        </label>
-                                                    </div>
-                                                    <div class="tableCell">
-                                                        #set($default = $choice.get("default"))
-                                                        #if($choice.containsKey("select"))
-                                                            #set($select = $choice.get("select"))
-                                                            <select name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey">
-                                                                #foreach($selectKey in $select.keySet())
-                                                                    <option value="$selectKey"#if($selectKey==$default) selected#end>
-                                                                        #if($selectKey == "Cyrillic")
-                                                                            ${placeholderWithTranslation.ENCODING_TYPE_CYRILLIC}
-                                                                        #elseif($selectKey == "West")
-                                                                            ${placeholderWithTranslation.ENCODING_TYPE_WEST}
-                                                                        #elseif($selectKey == "Baltic")
-                                                                            ${placeholderWithTranslation.ENCODING_TYPE_BALTIC}
-                                                                        #elseif($selectKey == "East")
-                                                                            ${placeholderWithTranslation.ENCODING_TYPE_EAST}
-                                                                        #elseif($selectKey == "Turkish")
-                                                                            ${placeholderWithTranslation.ENCODING_TYPE_TURKISH}
-                                                                        #end
-                                                                    </option>
-                                                                #end
-                                                            </select>
-                                                        #else
-                                                            <input type="text" name="format-${formatKey}-$choiceKey" id="format-${formatKey}-$choiceKey" value="$!default">
-                                                        #end
-                                                    </div>
-                                                </div>
-                                            #end
-                                        </div>
-                                    </fieldset>
-                                #end
-                            </div>
-                            #set($style = 'style="display:none;"')
-                        #end
-
-                        <script type="text/javascript">
-                            function formatChanged() {
-                                #foreach($formatKey in $formats.keySet())
-                                    document.getElementById('format-$formatKey').style.display = 'none';
-                                #end
-                                document.getElementById('format-' + document.formImport.format.options[document.formImport.format.options.selectedIndex].value).style.display = '';
-
-                                return true;
-                            }
-                        </script>
+                        <div class="button fakeButton" title="${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}" style="width: 150px;" onclick="upload();">
+                            ${placeholderWithTranslation.GENERIC_UPLOAD_BUTTON}
+                        </div>
+                        <div id="selectedFile" style="padding-top: 3px;"></div>
                     </div>
                 </div>
             </div>

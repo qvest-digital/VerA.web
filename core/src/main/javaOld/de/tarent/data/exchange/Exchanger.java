@@ -60,8 +60,10 @@ package de.tarent.data.exchange;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 /**
  * Diese Schnittstelle beschreibt Grundfunktionen einer Datenaustauschklasse,
@@ -76,18 +78,42 @@ public interface Exchanger {
     //
     // Getter und Setter
     //
-    /** Das zu verwendende Austauschformat */
+
+    /**
+     * Das zu verwendende Austauschformat
+     */
     ExchangeFormat getExchangeFormat();
-    /** Das zu verwendende Austauschformat */
+
+    /**
+     * Das zu verwendende Austauschformat
+     */
     void setExchangeFormat(ExchangeFormat format);
 
-    /** Der zu verwendende Eingabedatenstrom */
+    /**
+     * Der zu verwendende Eingabedatenstrom
+     */
     InputStream getInputStream();
-    /** Der zu verwendende Eingabedatenstrom */
+
+    /**
+     * Der zu verwendende Eingabedatenstrom
+     */
     void setInputStream(InputStream stream);
 
-    /** Der zu verwendende Ausgabedatenstrom */
+    /**
+     * Der zu verwendende Ausgabedatenstrom
+     */
     OutputStream getOutputStream();
-    /** Der zu verwendende Ausgabedatenstrom */
+
+    /**
+     * Der zu verwendende Ausgabedatenstrom
+     */
     void setOutputStream(OutputStream stream);
+
+    /**
+     * Wir handhaben neuerdings das Encoding (Unix-Sinn, nicht VerA.web-„Zeichensatz“)
+     * separat vom Ausgabeformat. Hier wird es gesetzt.
+     *
+     * @param cs file encoding to be used
+     */
+    void setFileEncoding(Charset cs);
 }

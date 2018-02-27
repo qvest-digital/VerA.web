@@ -15,7 +15,7 @@ und User/Password für schreibenden Zugriff auf die Kontaktdaten
 		<param name="paths.modules" value="modules/"/>
 		<param name="defaultResponseType" value="soap"/>
 		<param name="defaultErrorDescriptionName" value="defaultErrorPage"/>
-		<param name="defaultEncoding" value="ISO-8859-1"/>
+		<param name="defaultEncoding" value="UTF-8"/>
 		<param name="defaultContentType" value="text/xml"/>
 		<param name="auth.type" value="ACCEPT"/>
 		<param name="defaultModule" value="testModule"/>

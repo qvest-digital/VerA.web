@@ -51,7 +51,6 @@
 			<value>formatCSVPersdat</value>
 			<value>formatCSVPersdat+Anschrift</value>
 			<value>formatCSVPersdat+Kategorien</value>
-			<value>formatCSV_ISO-8859-15</value>
 		</param>
 
 		<!-- ************************************************ -->
@@ -68,17 +67,8 @@
 		     - in "mimeType" den MIME-Typ,
 		     - in "exporterClass" den Namen der Java-Klasse, die einen Export in diesem Format durchführen kann,
 		     - in "importerClass" den Namen der Java-Klasse, die einen Import in diesem Format versteht und
-		     - in "properties" eine Sammlung Format-spezifischer Eigenschaften.
-
-			 Insbesondere sind unter "properties" die Einträge "remarks" und "choices" untergebracht;
-			 ersterer stellt eine Liste von Bemerkungen, die an der Oberfläche zu dem Format angezeigt werden, dar,
-			 letzterer eine Sammlung von Format-spezifischen Benutzer-wählbaren Optionen; diese enthalten
-			 - unter "label" einen Bezeichner zur Anzeige, dazu
-			 - optional unter "select" eine Auswahl mit Abbildungen Wert auf Bezeichner und
-			 - unter "default" einen Vorgabewert.
-			 Die vom Benutzer gelieferten Werte werden jeweils unter dem Schlüssel der Option
-			 in der Sammlung mit den bestehenden "properties" der ex- oder importierenden Klasse
-			 übergeben.
+		     - in "properties" eine Sammlung Format-spezifischer Eigenschaften, insbesondere "remarks":
+			 eine Liste von Bemerkungen, die an der Oberfläche zu dem Format angezeigt werden
 		 -->
 
 		<!-- *** CSV-Formate *** -->
@@ -88,7 +78,6 @@
 			 - "exporterClass": "de.tarent.aa.veraweb.utils.GenericCSVExporter".
 			 - "importerClass": "de.tarent.aa.veraweb.utils.GenericCSVImporter".
 			 - "properties": folgende spezifische Eigenschaften kennen diese Klassen:
-				- "encoding": die Zeichenkodierung in der CSV-Datei; zum Beispiel "UTF-8".
 				- "fieldSeparator": das Spaltentrennzeichen in der CSV-Datei; zum Beispiel ";".
 				- "textQualifier": das Anführungszeichen in der CSV-Datei, mit dem Feldinhalte
 				  eingeschlossen sind, die Spaltentrennzeichen oder Zeilenumbrüche enthalten;
@@ -168,7 +157,6 @@
 						vollständig lesen können.
 					</value>
 				</param>
-				<param name="encoding" value="UTF-8"/>
 				<param name="fieldSeparator" value=";"/>
 				<param name="textQualifier" value="&quot;"/>
 				<param name="exportMapping" type="map">
@@ -190,7 +178,6 @@
 			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter" />
 			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter" />
 			<param name="properties" type="map">
-				<param name="encoding" value="UTF-8" />
 				<param name="fieldSeparator" value="," />
 				<param name="textQualifier" value="&quot;" />
 				<param name="dateFormat" value="dd.MM.yyyy"/>
@@ -238,38 +225,6 @@
 			</param>
 		</param>
 
-		<param name="formatCSV_ISO-8859-15" type="map">
-			<param name="name" value="CSV-ISO-8859-15"/>
-			<param name="description" value="Im-/Export ISO-8859-15"/>
-			<param name="defaultExtension" value=".csv"/>
-			<param name="mimeType" value="text/csv;charset=ISO-8859-15"/>
-			<!--param name="icon"/-->
-			<param name="exporterClass" value="de.tarent.aa.veraweb.utils.GenericCSVExporter"/>
-			<param name="importerClass" value="de.tarent.aa.veraweb.utils.GenericCSVImporter"/>
-			<param name="properties" type="map">
-				<param name="remarks" type="array">
-					<value>
-						Dieses Format ist für Im-/Exporte in MS-Office-Anwendungen geeignet, die den Zeichensatz ISO-8859-15 verwenden.
-						Je nach Menge der exportierten Felder (insbesondere ist dies von der
-						Anzahl exportierter Dokumenttypen und Kategorien abhängig) kann es
-						passieren, dass MS Excel und OO Calc die exportierten Daten nicht
-						vollständig lesen können.
-					</value>
-				</param>
-				<param name="encoding" value="ISO-8859-15"/>
-				<param name="fieldSeparator" value=";"/>
-				<param name="textQualifier" value="&quot;"/>
-				<param name="exportMapping" type="map">
-					<param name="*" value="{:*}"/>
-					<param name="Kategorie *" value="{CAT:*}"/>
-					<param name="Ereignis *" value="{EVE:*}"/>
-					<param name="Dipl. Corps *" value="{COR:*}"/>
-					<param name="Dokumenttyp * (Hauptperson)" value="{DTM:*}"/>
-					<param name="Dokumenttyp * (Partner)" value="{DTP:*}"/>
-				</param>
-			</param>
-		</param>
-
 		<param name="formatCSVPersdaten+Anschrift" type="map">
 			<param name="name" value="CSVPersdaten+Anschrift"/>
 			<param name="description" value="Comma-Separated-Values"/>
@@ -285,7 +240,6 @@
 						"Anschriften" und deren untergeordneten Karteireitern exportiert.
 					</value>
 				</param>
-				<param name="encoding" value="UTF-8"/>
 				<param name="fieldSeparator" value=";"/>
 				<param name="textQualifier" value="&quot;"/>
 				<param name="exportMapping" type="map">
@@ -314,7 +268,6 @@
 						können.
 					</value>
 				</param>
-				<param name="encoding" value="UTF-8"/>
 				<param name="fieldSeparator" value=";"/>
 				<param name="textQualifier" value="&quot;"/>
 				<param name="exportMapping" type="map">
@@ -344,7 +297,6 @@
 						können.
 					</value>
 				</param>
-				<param name="encoding" value="UTF-8"/>
 				<param name="fieldSeparator" value=";"/>
 				<param name="textQualifier" value="&quot;"/>
 				<param name="exportMapping" type="map">
@@ -401,7 +353,7 @@
 					<param name="birthplace_b_e1" value="{:birthplace_b_e1}" />
 					<param name="birthplace_b_e2" value="{:birthplace_b_e2}" />
 					<param name="birthplace_b_e3" value="{:birthplace_b_e3}" />
-					-->					
+					-->
 					<param name="diplodate_a_e1" value="{:diplodate_a_e1}" />
 					<param name="languages_a_e1" value="{:languages_a_e1}" />
 					<param name="languages_b_e1" value="{:languages_b_e1}" />
@@ -436,7 +388,6 @@
 						Excel und OO Calc die exportierten Daten nicht vollständig lesen können.
 					</value>
 				</param>
-				<param name="encoding" value="UTF-8"/>
 				<param name="fieldSeparator" value=";"/>
 				<param name="textQualifier" value="&quot;"/>
 				<param name="exportMapping" type="map">
@@ -447,7 +398,5 @@
 				</param>
 			</param>
 		</param>
-
-
 	</params>
 </tcModuleConfig>

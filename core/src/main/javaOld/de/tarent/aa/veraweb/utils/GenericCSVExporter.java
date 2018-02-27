@@ -60,6 +60,7 @@ package de.tarent.aa.veraweb.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.data.exchange.ExchangeFormat;
 import de.tarent.data.exchange.FieldMapping.Entity;
@@ -99,8 +100,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
      * Diese Methode wird zu jeder zu exportierenden Person aufgerufen, übergeben wird die Person als Zusammenstellung von
      * {@link Person}. Sie fügt dem Export eine Beschreibung der übergebenen VerA.web-Person hinzu.
      *
-     * @param person
-     *          {@link Person}-Bean
+     * @param person {@link Person}-Bean
      * @see de.tarent.aa.veraweb.utils.Exporter#exportPerson(de.tarent.aa.veraweb.beans.Person)
      */
     public void exportPerson(Person person) throws BeanException, IOException {
@@ -169,9 +169,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
     void initWriter() throws IOException {
         assert exchangeFormat != null;
         assert outputStream != null;
-        Writer writer = new OutputStreamWriter(outputStream, encoding);
-        // if (ENCODING_UTF_8.equals(encoding))
-        // outputStream.write(new byte[] {(byte)0xef,(byte)0xbb,(byte)0xBF});
+        Writer writer = new OutputStreamWriter(outputStream, fileEncoding);
         csvWriter = new CSVFileWriter(writer, fieldSeparator, textQualifier);
     }
 
@@ -200,30 +198,31 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
          * Diese Methode erlaubt das Abfragen von Daten zu einem bestimmten Schlüssel. Die Schlüssel werden in
          * {@link GenericCSVExporter#getAvailableFields()} erstellt.
          *
-         * @param sourceKey
-         *          Quellfeldschlüssel
+         * @param sourceKey Quellfeldschlüssel
          * @return Quellfeldwert als {@link String}; <code>null</code>-Felder werden als Leerstring <code>""</code>
-         *         geliefert; <code>Date</code>-Felder werden mit {@link GenericCSVBase#dateFormat} formatiert.
+         * geliefert; <code>Date</code>-Felder werden mit {@link GenericCSVBase#dateFormat} formatiert.
          */
         public String get(String sourceKey) {
             Object result = null;
             // Personenstammdatenfelder
             try {
-                if (sourceKey.charAt(0) == ':')
+                if (sourceKey.charAt(0) == ':') {
                     result = person.get(sourceKey.substring(1));
-                else if (sourceKey.startsWith("CAT:"))
+                } else if (sourceKey.startsWith("CAT:")) {
                     result = getRank(sourceKey.substring(4));
-                else if (sourceKey.startsWith("EVE:"))
+                } else if (sourceKey.startsWith("EVE:")) {
                     result = getRank(sourceKey.substring(4));
-                else if (sourceKey.startsWith("COR:"))
+                } else if (sourceKey.startsWith("COR:")) {
                     result = getRank(sourceKey.substring(4));
-                else
+                } else {
                     logger.warning("Unbekanntes Quellfeld");
+                }
             } catch (Exception e) {
                 logger.log(Level.WARNING, "Fehler beim Beziehen von Personendaten", e);
             }
-            if (result instanceof Date)
+            if (result instanceof Date) {
                 return dateFormat.format(result);
+            }
             return result == null ? "" : result.toString();
         }
 
@@ -231,7 +230,9 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
         // Konstruktor
         //
 
-        /** Der Konstruktor vermerkt die Person */
+        /**
+         * Der Konstruktor vermerkt die Person
+         */
         PersonEntity(Person person) {
             this.person = person;
         }
@@ -243,11 +244,10 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
         /**
          * Diese Methode liefert den Rang einer Person in einer Kategorie.
          *
-         * @param categoryName
-         *          Name der Kategorie
+         * @param categoryName Name der Kategorie
          * @return Rang der Person in der Kategorie; <code>null</code>, wenn nicht in der Kategorie,
-         *         {@link GenericCSVExporter#DEFAULT_RANK}, wenn weder ein individueller noch ein allgemeiner Rang zu der
-         *         Kategorie vorliegt, jedoch sehr wohl Kategorienzugehörigkeit besteht.
+         * {@link GenericCSVExporter#DEFAULT_RANK}, wenn weder ein individueller noch ein allgemeiner Rang zu der
+         * Kategorie vorliegt, jedoch sehr wohl Kategorienzugehörigkeit besteht.
          */
         Object getRank(String categoryName) throws BeanException, IOException {
             if (ranks == null) {
@@ -256,8 +256,10 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
                 Bean samplePersonCategory = database.createBean("PersonCategorie");
                 Select select = new Select(false).from(database.getProperty(samplePersonCategory, "table")).join(
                         database.getProperty(sampleCategory, "table"), database.getProperty(sampleCategory, "id"),
-                        database.getProperty(samplePersonCategory, "categorie")).selectAs(database.getProperty(sampleCategory, "name"), "name").selectAs(
-                        database.getProperty(sampleCategory, "rank"), "rankDefault").selectAs(database.getProperty(samplePersonCategory, "rank"), "rank")
+                        database.getProperty(samplePersonCategory, "categorie"))
+                        .selectAs(database.getProperty(sampleCategory, "name"), "name")
+                        .selectAs(database.getProperty(sampleCategory, "rank"), "rankDefault")
+                        .selectAs(database.getProperty(samplePersonCategory, "rank"), "rank")
                         .where(Expr.equal(database.getProperty(samplePersonCategory, "person"), person.id));
                 final List entries = database.getList(select, database);
                 for (Object currentEntry : entries) {
@@ -282,26 +284,38 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
         //
         // Membervariablen
         //
-        /** Die {@link Person}, für die dies eine Facade ist. */
+        /**
+         * Die {@link Person}, für die dies eine Facade ist.
+         */
         final Person person;
 
-        /** Die Ränge der Person in den Kategorien */
+        /**
+         * Die Ränge der Person in den Kategorien
+         */
         Map ranks = null;
     }
 
-    /** Einschränkung auf Mandant */
+    /**
+     * Einschränkung auf Mandant
+     */
     protected Integer orgUnitId = null;
 
-    /** Einschränkung auf Kategorie <code>Null</code> = alle Kategorien, 0 = keine Kategorie */
+    /**
+     * Einschränkung auf Kategorie <code>Null</code> = alle Kategorien, 0 = keine Kategorie
+     */
     protected Integer categoryId = null;
 
     //
     // geschützte Membervariablen
     //
-    /** CSV-Ausgabe-Objekt */
+    /**
+     * CSV-Ausgabe-Objekt
+     */
     CSVFileWriter csvWriter = null;
 
-    /** Logger dieser Klasse */
+    /**
+     * Logger dieser Klasse
+     */
     final static Logger logger = Logger.getLogger(GenericCSVExporter.class.getName());
 
     /*
@@ -326,7 +340,7 @@ public class GenericCSVExporter extends GenericCSVBase implements Exporter {
      * Diese Methode holt alle notwendigen Kategorien aus der Datenbank.<br>
      * Nur die vom Nutzer ausgewählte Kategorien. Nur die Kategorien des Mandanten
      *
-     * @throws IOException FIXME
+     * @throws IOException   FIXME
      * @throws BeanException FIXME
      */
     @Override

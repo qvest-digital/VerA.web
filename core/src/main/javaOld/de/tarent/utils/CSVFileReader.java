@@ -60,6 +60,7 @@ package de.tarent.utils;
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -86,23 +87,22 @@ import java.util.List;
  * @author Brian Kernighan and Rob Pike (C++ original)
  * @author Ian F. Darwin (translation into Java and removal of I/O)
  * @author Ben Ballard (rewrote handleQuotedField to handle double quotes and
- *         for readability)
+ * for readability)
  * @author Fabrizio Fazzino (added integration with CSVFile, handling of
- *         variable textQualifier and Vector with explicit String type)
+ * variable textQualifier and Vector with explicit String type)
  * @author Mikel (removal of String template parameters)
  */
 public class CSVFileReader extends CSVFile {
     //
     // Konstruktoren
     //
+
     /**
      * CSVFileReader constructor just need the name of the existing CSV file
      * that will be read.
      *
-     * @param inputFileName
-     *            The name of the CSV file to be opened for reading
-     * @throws FileNotFoundException
-     *             If the file to be read does not exist
+     * @param inputFileName The name of the CSV file to be opened for reading
+     * @throws FileNotFoundException If the file to be read does not exist
      */
     public CSVFileReader(String inputFileName) throws FileNotFoundException {
         this(inputFileName, DEFAULT_FIELD_SEPARATOR);
@@ -112,8 +112,7 @@ public class CSVFileReader extends CSVFile {
      * CSVFileReader constructor just need a reader for CSV data that will be
      * read.
      *
-     * @param reader
-     *            The Reader for reading CSV data
+     * @param reader The Reader for reading CSV data
      */
     public CSVFileReader(Reader reader) {
         this(reader, DEFAULT_FIELD_SEPARATOR);
@@ -123,14 +122,10 @@ public class CSVFileReader extends CSVFile {
      * CSVFileReader constructor just need the name and encoding of the existing
      * CSV file that will be read.
      *
-     * @param inputFileName
-     *            The name of the CSV file to be opened for reading
-     * @param charsetName
-     *            The name of a supported charset
-     * @throws FileNotFoundException
-     *             If the file to be read does not exist
-     * @throws UnsupportedEncodingException
-     *             If the named charset is not supported
+     * @param inputFileName The name of the CSV file to be opened for reading
+     * @param charsetName   The name of a supported charset
+     * @throws FileNotFoundException        If the file to be read does not exist
+     * @throws UnsupportedEncodingException If the named charset is not supported
      */
     public CSVFileReader(String inputFileName, String charsetName) throws FileNotFoundException,
             UnsupportedEncodingException {
@@ -141,12 +136,9 @@ public class CSVFileReader extends CSVFile {
      * CSVFileReader constructor just need an InputStream and encoding for the
      * CSV data that will be read.
      *
-     * @param stream
-     *            The InputStream for reading CSV data
-     * @param charsetName
-     *            The name of a supported charset
-     * @throws UnsupportedEncodingException
-     *             If the named charset is not supported
+     * @param stream      The InputStream for reading CSV data
+     * @param charsetName The name of a supported charset
+     * @throws UnsupportedEncodingException If the named charset is not supported
      */
     public CSVFileReader(InputStream stream, String charsetName) throws UnsupportedEncodingException {
         this(stream, charsetName, DEFAULT_FIELD_SEPARATOR);
@@ -155,12 +147,9 @@ public class CSVFileReader extends CSVFile {
     /**
      * CSVFileReader constructor with a given field separator.
      *
-     * @param inputFileName
-     *            The name of the CSV file to be opened for reading
-     * @param sep
-     *            The field separator to be used; overwrites the default one
-     * @throws FileNotFoundException
-     *             If the file to be read does not exist
+     * @param inputFileName The name of the CSV file to be opened for reading
+     * @param sep           The field separator to be used; overwrites the default one
+     * @throws FileNotFoundException If the file to be read does not exist
      */
     public CSVFileReader(String inputFileName, char sep) throws FileNotFoundException {
         this(inputFileName, sep, DEFAULT_TEXT_QUALIFIER);
@@ -169,10 +158,8 @@ public class CSVFileReader extends CSVFile {
     /**
      * CSVFileReader constructor with a given field separator.
      *
-     * @param reader
-     *            The Reader for reading CSV data
-     * @param sep
-     *            The field separator to be used; overwrites the default one
+     * @param reader The Reader for reading CSV data
+     * @param sep    The field separator to be used; overwrites the default one
      */
     public CSVFileReader(Reader reader, char sep) {
         this(reader, sep, DEFAULT_TEXT_QUALIFIER);
@@ -181,16 +168,11 @@ public class CSVFileReader extends CSVFile {
     /**
      * CSVFileReader constructor with a given field separator.
      *
-     * @param inputFileName
-     *            The name of the CSV file to be opened for reading
-     * @param charsetName
-     *            The name of a supported charset
-     * @param sep
-     *            The field separator to be used; overwrites the default one
-     * @throws FileNotFoundException
-     *             If the file to be read does not exist
-     * @throws UnsupportedEncodingException
-     *             If the named charset is not supported
+     * @param inputFileName The name of the CSV file to be opened for reading
+     * @param charsetName   The name of a supported charset
+     * @param sep           The field separator to be used; overwrites the default one
+     * @throws FileNotFoundException        If the file to be read does not exist
+     * @throws UnsupportedEncodingException If the named charset is not supported
      */
     public CSVFileReader(String inputFileName, String charsetName, char sep) throws FileNotFoundException,
             UnsupportedEncodingException {
@@ -200,14 +182,10 @@ public class CSVFileReader extends CSVFile {
     /**
      * CSVFileReader constructor with a given field separator.
      *
-     * @param stream
-     *            The stream for reading CSV data
-     * @param charsetName
-     *            The name of a supported charset
-     * @param sep
-     *            The field separator to be used; overwrites the default one
-     * @throws UnsupportedEncodingException
-     *             If the named charset is not supported
+     * @param stream      The stream for reading CSV data
+     * @param charsetName The name of a supported charset
+     * @param sep         The field separator to be used; overwrites the default one
+     * @throws UnsupportedEncodingException If the named charset is not supported
      */
     public CSVFileReader(InputStream stream, String charsetName, char sep) throws UnsupportedEncodingException {
         this(stream, charsetName, sep, DEFAULT_TEXT_QUALIFIER);
@@ -216,14 +194,10 @@ public class CSVFileReader extends CSVFile {
     /**
      * CSVFileReader constructor with given field separator and text qualifier.
      *
-     * @param inputFileName
-     *            The name of the CSV file to be opened for reading
-     * @param sep
-     *            The field separator to be used; overwrites the default one
-     * @param qual
-     *            The text qualifier to be used; overwrites the default one
-     * @throws FileNotFoundException
-     *             If the file to be read does not exist
+     * @param inputFileName The name of the CSV file to be opened for reading
+     * @param sep           The field separator to be used; overwrites the default one
+     * @param qual          The text qualifier to be used; overwrites the default one
+     * @throws FileNotFoundException If the file to be read does not exist
      */
     public CSVFileReader(String inputFileName, char sep, char qual) throws FileNotFoundException {
         this(new FileReader(inputFileName), sep, qual);
@@ -232,33 +206,24 @@ public class CSVFileReader extends CSVFile {
     /**
      * CSVFileReader constructor with given field separator and text qualifier.
      *
-     * @param reader
-     *            The Reader for reading CSV data
-     * @param sep
-     *            The field separator to be used; overwrites the default one
-     * @param qual
-     *            The text qualifier to be used; overwrites the default one
+     * @param reader The Reader for reading CSV data
+     * @param sep    The field separator to be used; overwrites the default one
+     * @param qual   The text qualifier to be used; overwrites the default one
      */
     public CSVFileReader(Reader reader, char sep, char qual) {
         super(sep, qual);
-        in = new BufferedReader(reader);
+        in = reader instanceof BufferedReader ? (BufferedReader) reader : new BufferedReader(reader);
     }
 
     /**
      * CSVFileReader constructor with given field separator and text qualifier.
      *
-     * @param inputFileName
-     *            The name of the CSV file to be opened for reading
-     * @param charsetName
-     *            The name of a supported charset
-     * @param sep
-     *            The field separator to be used; overwrites the default one
-     * @param qual
-     *            The text qualifier to be used; overwrites the default one
-     * @throws FileNotFoundException
-     *             If the file to be read does not exist
-     * @throws UnsupportedEncodingException
-     *             If the named charset is not supported
+     * @param inputFileName The name of the CSV file to be opened for reading
+     * @param charsetName   The name of a supported charset
+     * @param sep           The field separator to be used; overwrites the default one
+     * @param qual          The text qualifier to be used; overwrites the default one
+     * @throws FileNotFoundException        If the file to be read does not exist
+     * @throws UnsupportedEncodingException If the named charset is not supported
      */
     public CSVFileReader(String inputFileName, String charsetName, char sep, char qual) throws FileNotFoundException,
             UnsupportedEncodingException {
@@ -268,16 +233,11 @@ public class CSVFileReader extends CSVFile {
     /**
      * CSVFileReader constructor with given field separator and text qualifier.
      *
-     * @param stream
-     *            The InputStream for reading CSV data
-     * @param charsetName
-     *            The name of a supported charset
-     * @param sep
-     *            The field separator to be used; overwrites the default one
-     * @param qual
-     *            The text qualifier to be used; overwrites the default one
-     * @throws UnsupportedEncodingException
-     *             If the named charset is not supported
+     * @param stream      The InputStream for reading CSV data
+     * @param charsetName The name of a supported charset
+     * @param sep         The field separator to be used; overwrites the default one
+     * @param qual        The text qualifier to be used; overwrites the default one
+     * @throws UnsupportedEncodingException If the named charset is not supported
      */
     public CSVFileReader(InputStream stream, String charsetName, char sep, char qual) throws UnsupportedEncodingException {
         super(sep, qual);
@@ -287,22 +247,40 @@ public class CSVFileReader extends CSVFile {
     //
     // Öffentliche Methoden
     //
+
     /**
      * Split the next line of the input CSV file into fields.
      * <p>
      * This is currently the most important function of the package.
+     * It can read a subsequent line from the input stream if necessary
+     * due to a newline inside a quoted field.
      *
-     * @return List of strings containing each field from the next line of the
-     *         file
-     * @throws IOException
-     *             If an error occurs while reading the new line from the file
+     * @return List of strings containing each field from the next line of the file
+     * @throws IOException If an error occurs while reading the new line from the file
      */
     public List readFields() throws IOException {
+        return readFields(in.readLine());
+    }
+
+    /**
+     * Split the next line of the input CSV file into fields.
+     * <p>
+     * This is currently the most important function of the package.
+     * It can read a subsequent line from the input stream if necessary
+     * due to a newline inside a quoted field.
+     *
+     * @param firstLine result of in.readLine() if called by parent for preparation
+     *                  already (can only happen if instantiated with a BufferedReader)
+     * @return List of strings containing each field from the next line of the file
+     * @throws IOException If an error occurs while reading the new line from the file
+     */
+    public List readFields(String firstLine) throws IOException {
         List fields = new ArrayList();
         StringBuffer sb = new StringBuffer();
-        line = in.readLine();
-        if (line == null)
+        line = firstLine;
+        if (line == null) {
             return null;
+        }
 
         if (line.length() == 0) {
             fields.add(line);
@@ -327,8 +305,7 @@ public class CSVFileReader extends CSVFile {
     /**
      * Close the input CSV file.
      *
-     * @throws IOException
-     *             If an error occurs while closing the file
+     * @throws IOException If an error occurs while closing the file
      */
     public void close() throws IOException {
         in.close();
@@ -347,10 +324,11 @@ public class CSVFileReader extends CSVFile {
         for (j = i; j < len; j++) {
             if (line.charAt(j) == textQualifier) {
                 if (j + 1 == len) // end quotes at end of line
+                {
                     break; // done
-                else if (line.charAt(j + 1) == textQualifier)
+                } else if (line.charAt(j + 1) == textQualifier) {
                     j++; // skip escape char
-                else if (line.charAt(j + 1) == fieldSeparator) { // next delimiter
+                } else if (line.charAt(j + 1) == fieldSeparator) { // next delimiter
                     j++; // skip end quotes
                     break;
                 }
