@@ -14,7 +14,7 @@
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 		<releaseVersion>${project.version}</releaseVersion>
 		<archiver.copyright>Copyright © 2001–2017 tarent solutions GmbH</archiver.copyright>
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
 		<sonar.jacoco.reportPath>${basedir}/target/jacoco-unit.exec</sonar.jacoco.reportPath>
 		<!-- maven plugins -->
 		<maven.assembly.version>2.5.3</maven.assembly.version>
