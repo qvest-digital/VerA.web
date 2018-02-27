@@ -23,10 +23,8 @@ package de.tarent.aa.veraweb.worker;
 import de.tarent.aa.veraweb.beans.Import;
 import de.tarent.aa.veraweb.beans.Person;
 import de.tarent.aa.veraweb.beans.facade.PersonConstants;
-import de.tarent.aa.veraweb.utils.AlternativeDestination;
 import de.tarent.aa.veraweb.utils.Exporter;
 import de.tarent.aa.veraweb.utils.Importer;
-import de.tarent.aa.veraweb.utils.MultiOutputStream;
 import de.tarent.aa.veraweb.utils.OctopusHelper;
 import de.tarent.aa.veraweb.utils.VerawebDigester;
 import de.tarent.data.exchange.ExchangeFormat;
@@ -159,15 +157,15 @@ public class DataExchangeWorker {
     }
 
     /**
-     * Octopus-Eingabe-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)}
+     * Octopus-Eingabe-Parameter für {@link #export(OctopusContext, String, String, String, Integer, Integer, String)}
      */
-    public static final String[] INPUT_export = { "format", "exportFilter", "exportEvent", "exportCategory", "domain" };
+    public static final String[] INPUT_export = { "format", "filenc", "exportFilter", "exportEvent", "exportCategory", "domain" };
     /**
-     * Octopus-Eingabepflicht-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)}
+     * Octopus-Eingabepflicht-Parameter für {@link #export(OctopusContext, String, String, String, Integer, Integer, String)}
      */
-    public static final boolean[] MANDATORY_export = { true, false, false, false, false };
+    public static final boolean[] MANDATORY_export = { true, true, false, false, false, false };
     /**
-     * Octopus-Ausgabe-Parameter für {@link #export(OctopusContext, String, String, Integer, Integer, String)}
+     * Octopus-Ausgabe-Parameter für {@link #export(OctopusContext, String, String, String, Integer, Integer, String)}
      */
     public static final String OUTPUT_export = "stream";
 
@@ -178,6 +176,7 @@ public class DataExchangeWorker {
      *
      * @param cntx      Octopus-Kontext
      * @param formatKey Schlüssel der Datenformatbeschreibung in der Modulkonfiguration
+     * @param filenc    Encoding der zu schreibenden Datei, ggfs. mit „+BOM“ am Ende
      * @param filter    {@link #EXPORT_FILTER_CATEGORY} oder {@link #EXPORT_FILTER_EVENT},
      *                  je nach anzuwendenen Filter
      * @param event     Veranstaltungsfilter
@@ -186,8 +185,8 @@ public class DataExchangeWorker {
      * @return exportierter Datenstrom
      * @throws TcContentProzessException bei ungültigen Parameterwerten.
      */
-    public Map export(final OctopusContext cntx, final String formatKey, final String filter, final Integer event, final Integer category,
-            final String domain) throws TcContentProzessException, IOException {
+    public Map export(final OctopusContext cntx, final String formatKey, final String filenc, final String filter, final Integer event,
+            final Integer category, final String domain) throws TcContentProzessException, IOException {
         TcModuleConfig moduleConfig = cntx.moduleConfig();
         assert moduleConfig != null;
         // Zunächst mal die benötigten Objekte erstellen
@@ -197,10 +196,8 @@ public class DataExchangeWorker {
         }
         final Database database = new DatabaseVeraWeb(cntx);
 
-        final MultiOutputStream mos = new MultiOutputStream();
         final PipedInputStream pis = new PipedInputStream();
         final PipedOutputStream pos = new PipedOutputStream(pis);
-        mos.add(pos);
 
         new Thread(new Runnable() {
             public void run() {
@@ -208,11 +205,7 @@ public class DataExchangeWorker {
 
                 Exporter exporter = null;
                 try {
-                    exporter = createExporter(format, database, mos);
-                    if (exporter instanceof AlternativeDestination) {
-                        AlternativeDestination altdest = (AlternativeDestination) exporter;
-                        mos.add(altdest.getAlternativeOutputStream());
-                    }
+                    exporter = createExporter(format, database, pos);
 
                     // Mandantenbeschränkung
                     TcPersonalConfig pConfig = cntx.personalConfig();
@@ -256,12 +249,17 @@ public class DataExchangeWorker {
                     // This will force a log output.
                     t.printStackTrace(System.out);
                     t.printStackTrace(System.err);
-                    mos.close();
-                    if (exporter instanceof AlternativeDestination) {
-                        ((AlternativeDestination) exporter).rollback();
+                    try {
+                        pos.close();
+                    } catch (IOException e) {
+                        LOGGER.error("Fehler beim Schließen", e);
                     }
                 } finally {
-                    mos.close();
+                    try {
+                        pos.close();
+                    } catch (IOException t) {
+                        LOGGER.error("Fehler beim Schließen", t);
+                    }
                 }
             }
         }).start();
@@ -270,16 +268,16 @@ public class DataExchangeWorker {
     }
 
     /**
-     * Octopus-Eingabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)}
+     * Octopus-Eingabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, String, Integer, Integer, Map)}
      */
     public static final String[] INPUT_importToTransit =
-            { "importfile", "format", "importSource", "orgUnit", "targetOrgUnit", "CONFIG:importProperties" };
+            { "importfile", "format", "filenc", "importSource", "orgUnit", "targetOrgUnit", "CONFIG:importProperties" };
     /**
-     * Octopus-Eingabe-Parameter-Pflicht für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)}
+     * Octopus-Eingabe-Parameter-Pflicht für {@link #importToTransit(OctopusContext, Map, String, String, String, Integer, Integer, Map)}
      */
-    public static final boolean[] MANDATORY_importToTransit = { false, false, false, false, false, false };
+    public static final boolean[] MANDATORY_importToTransit = { false, false, true, false, false, false, false };
     /**
-     * Octopus-Ausgabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, Integer, Integer, Map)}
+     * Octopus-Ausgabe-Parameter für {@link #importToTransit(OctopusContext, Map, String, String, String, Integer, Integer, Map)}
      */
     public static final String OUTPUT_importToTransit = "importStatus";
 
@@ -290,6 +288,7 @@ public class DataExchangeWorker {
      * @param octopusContext   Octopus-Kontext
      * @param stream           Datei-Upload-Map (enthält unter "ContentStream" einen <code>InputStream</code>)
      * @param formatKey        Schlüssel der Datenformatbeschreibung in der Modulkonfiguration
+     * @param filenc           Encoding der Importdatei oder „_auto“
      * @param importSource     Importquellenbeschreibung
      * @param orgUnit          Ziel-Mandant; nur bei Super-Admins beachtetg
      * @param targetOrgUnit    Ziel-Mandant, wenn das Import über das CLI-Tool erfolgt
@@ -303,12 +302,12 @@ public class DataExchangeWorker {
     public Map importToTransit(OctopusContext octopusContext,
             Map stream,
             String formatKey,
+            String filenc,
             String importSource,
             Integer orgUnit,
             Integer targetOrgUnit,
             Map importProperties)
             throws BeanException, IOException, TcContentProzessException {
-
         stream = getStream(octopusContext, stream);
         if (!octopusContext.getStatus().equals("streamClose")) {
             formatKey = getFormatKey(octopusContext, formatKey);
