@@ -142,7 +142,6 @@ public class Location extends AbstractBean implements OrgUnitDependent, Comparab
      */
 	public String roomnumber;
 
-
 	public Integer getId() {
         return id;
     }
@@ -239,7 +238,6 @@ public class Location extends AbstractBean implements OrgUnitDependent, Comparab
         this.roomnumber = roomnumber;
     }
 
-
     public String getZip() {
         return zip;
     }
@@ -294,7 +292,6 @@ public class Location extends AbstractBean implements OrgUnitDependent, Comparab
     public void checkWrite(OctopusContext octopusContext) throws BeanException {
         checkGroup(octopusContext, PersonalConfigAA.GROUP_PARTIAL_ADMIN);
     }
-
 
     public int compareTo(Location location) {
         int result = 0;

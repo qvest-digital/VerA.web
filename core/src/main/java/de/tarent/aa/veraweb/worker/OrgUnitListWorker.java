@@ -266,7 +266,6 @@ public class OrgUnitListWorker extends ListWorkerVeraWeb {
                                                     Expr.notEqual("pk", orgunitBean.id))), transactionContext);
     }
 
-
     //
     // weitere Octopus-Aktionen
     //

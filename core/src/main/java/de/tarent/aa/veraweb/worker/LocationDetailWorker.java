@@ -106,7 +106,6 @@ public class LocationDetailWorker {
 	    this.databaseVeraWebFactory = databaseVeraWebFactory;
 	}
 
-
 	public Location showDetail(OctopusContext context, Integer id) throws BeanException, IOException{
 	    if(id == null){
 	        return null;
@@ -115,7 +114,6 @@ public class LocationDetailWorker {
 
 	    return location;
 	}
-
 
 	static public Location getLocation(OctopusContext context, Integer id) throws BeanException, IOException {
 
@@ -131,7 +129,6 @@ public class LocationDetailWorker {
 
 	public static final String INPUT_saveDetail[] = { "savelocation" };
 	public static final boolean MANDATORY_saveDetail[] = { false };
-
 
 	public void saveDetail(final OctopusContext octopusContext, Boolean savelocation)
             throws BeanException, IOException {
@@ -184,7 +181,6 @@ public class LocationDetailWorker {
                 octopusContext.setStatus("notsaved");
             }
             octopusContext.setContent(PARAM_LOCATION, location);
-
 
             transactionContext.commit();
         } catch (BeanException e) {

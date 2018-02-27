@@ -259,7 +259,6 @@
 ##</div>*# <!-- alter Code der tabs Ende -->
                         #closeContentBlock()
 
-
                         #openContentBlock("detail-3-block")
 
                         #if($duplicateErrorList)
@@ -311,7 +310,6 @@
 
     </div><!-- End id="main_content" -->
 </div> <!-- End id="content_container" -->
-
 
 <script type="text/javascript" src="${paths.staticWeb}js/vera/guest-detail-tabs.js"></script>
 <script type="text/javascript">

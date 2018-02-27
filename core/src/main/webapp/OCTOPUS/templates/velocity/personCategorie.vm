@@ -166,7 +166,6 @@
                 #end
     </span>
 
-
     #if($navigation)
                 #if($action != "event")
                         #parse("inc/person-navi.vm")

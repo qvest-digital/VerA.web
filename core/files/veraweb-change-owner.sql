@@ -56,8 +56,6 @@ UPDATE pg_proc SET proowner =
 --  SELECT usesysid FROM pg_user WHERE usename = 'veraweb')
 --  WHERE nspname = 'public';
 
-
-
 -- Dieser Abschnitt ändert den Besitzer alle VerA.web - Tabellen der
 -- aktuellen Datenbank. Bitte kontrollieren sie nach dem umbennen
 -- ob sie sich auf der richtigen (neuen) Datenbanken befinden.

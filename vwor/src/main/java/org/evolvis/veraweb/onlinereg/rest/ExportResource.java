@@ -99,7 +99,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-
 /**
  * Created by mweier on 23.03.16.
  */
@@ -114,7 +113,6 @@ public class ExportResource extends AbstractResource{
     private static final String CONFIG_FILE_NAME = "config.yaml";
     private static final String CONFIG_FILE_NAME_GUEST_LIST_SHORT = "configGuestListShort.yaml";
     private static final String CONFIG_PLACEHOLDER = "__event_id_placeholder__";
-
 
     private Event getEvent(int eventId) {
         final Session session = openSession();
@@ -166,7 +164,6 @@ public class ExportResource extends AbstractResource{
                 writer.flush();
             }
         };
-
 
         return Response.ok(stream).header("Content-Disposition", "attachment;filename=" + downloadFilename + ";charset=Unicode").build();
     }

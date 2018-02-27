@@ -116,8 +116,6 @@ public class ProfileInsertTest extends TestCase {
         super.tearDown();
     }
 
-
-
     static void printResult(OctopusResult res, String title) {
         if (res == null)
             return;

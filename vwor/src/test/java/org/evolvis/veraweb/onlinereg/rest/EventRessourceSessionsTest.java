@@ -246,7 +246,6 @@ public class EventRessourceSessionsTest {
         verify(mockitoSession, times(1)).close();
     }
 
-
     @Test
     public void testGetEvent() {
         // GIVEN

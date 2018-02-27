@@ -397,7 +397,6 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
         return (from == null || from.before(now)) && (till == null || till.after(now));
     }
 
-
     private void handleAction(OctopusContext octopusContext, List errors, TransactionContext transactionContext) throws BeanException, IOException {
         boolean doInsert = octopusContext.requestAsBoolean(INPUT_INSERT).booleanValue();
         boolean doUpdate = octopusContext.requestAsBoolean(INPUT_UPDATE).booleanValue();
@@ -443,7 +442,6 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
             octopusContext.setContent("countInsert", new Integer(count));
         }
     }
-
 
     private void checkMandatoryFields(OctopusContext octopusContext, Proxy proxy) {
         final VerawebMessages messages = new VerawebMessages(octopusContext);

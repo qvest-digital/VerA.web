@@ -67,7 +67,6 @@
         <div class="clear"></div>
 </div>
 
-
 #if($imported)
     <script type="text/javascript">
      #if($imported == 0)

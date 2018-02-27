@@ -88,8 +88,4 @@ public class TestSuite{
     @ClassRule
     public static final WiremockRule WIREMOCK = new WiremockRule();
 
-
-
-
-
 }

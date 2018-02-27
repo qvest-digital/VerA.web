@@ -248,7 +248,6 @@ public class DelegationResourceSessionsTest {
         optionalFieldValue3.setOptionalFieldTypeContentsFacade(facadeElements3);
         optionalFieldValue3.setFk_type(1);
 
-
         OptionalFieldValue optionalFieldValue4 = new OptionalFieldValue();
         optionalFieldValue3.setPk(4);
         optionalFieldValue3.setValue("Value 4");
@@ -312,7 +311,6 @@ public class DelegationResourceSessionsTest {
         typeContent4.setPk(4);
         typeContent4.setFk_optional_field(2);
         typeContent4.setContent("Value 4");
-
 
         OptionalFieldTypeContent typeContent5 = new OptionalFieldTypeContent();
         typeContent5.setPk(5);

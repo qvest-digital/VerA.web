@@ -15,7 +15,6 @@
 
 	<h1>${placeholderWithTranslation.BROWSER_TITLE_REPORTS}</h1>
 
-
 			<div class="contentBoxColored hinweis grayBorder marginBottom20">
 				<strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong>
 				<p>${placeholderWithTranslation.MESSAGE_WAITING_MESSAGE_LOG_REPORT}</p>
@@ -73,7 +72,6 @@
 	<input type="submit" class="mainButton" value="${placeholderWithTranslation.GENERIC_GENERATE_REPORT}" title="${placeholderWithTranslation.GENERIC_GENERATE_REPORT}" />
 	<input type="reset" class="mainButton" value="${placeholderWithTranslation.GENERIC_BACKUP_FIEDS}" title="${placeholderWithTranslation.GENERIC_BACKUP_FIEDS}" />
 </div>
-
 
 </div>
 

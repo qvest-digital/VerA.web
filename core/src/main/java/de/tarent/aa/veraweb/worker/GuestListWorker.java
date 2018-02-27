@@ -150,8 +150,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         super("Guest");
     }
 
-
-
     @Override
     public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
         final EventURLHandler eventURLHandler = new EventURLHandler();
@@ -627,7 +625,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return search;
     }
 
-
     /**
      * Diese Octopus-Aktion liefert das Ereignis aus der aktuellen Gästesuche,
      * siehe Aktion {@link #getSearch(OctopusContext)}.
@@ -654,9 +651,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
         return event;
     }
-
-
-
 
     /**
      * // TODO
@@ -787,8 +781,6 @@ public class GuestListWorker extends ListWorkerVeraWeb {
 
         select.joinLeftOuter("veraweb.tperson", "fk_person", "tperson.pk");
     }
-
-
 
     @Override
     protected String getJumpOffsetsColumn(OctopusContext octopusContext) throws BeanException {

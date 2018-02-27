@@ -135,7 +135,6 @@ ul.alphabet li:last-child{
 }
 /************* =2.3.1 paging *************/
 
-
 .paging ul {
 	display:inline;
 	list-style: none;
@@ -184,7 +183,6 @@ ul.alphabet li:last-child{
     height: 19px;
     width: 19px;
 }
-
 
 /************* End paging *************/
 
@@ -382,7 +380,6 @@ pre {
 
 /************* End general *************/
 
-
 /************* =3. header *************/
 
 header,
@@ -427,11 +424,9 @@ header h2 {
 
 }
 
-
 /************* End Logo *************/
 
 /************* End header *************/
-
 
 /************* =4. navigation *************/
 
@@ -515,10 +510,7 @@ nav a, #nav a {
 	width:100%;
 }
 
-
-
 /************* End navigation *************/
-
 
 /************* =5 infoboxes *************/
 
@@ -536,7 +528,6 @@ nav a, #nav a {
 }
 /************* End infoboxes *************/
 
-
 /************* =6 content *************/
 
 #container {
@@ -553,7 +544,6 @@ nav a, #nav a {
     position: relative;
     width: 90%;
 }
-
 
 #content_container {
     padding-bottom: 40px;
@@ -691,7 +681,6 @@ color:#7D7D7D
 	list-style-type: none;
 }
 
-
 .tabsSub li div,
 #tabsMain li div,
 #tabsMain2 li div  {
@@ -732,7 +721,6 @@ color:#7D7D7D
     margin-left: 185px;
 }
 
-
 .tabsContent #buttonPanel-bottom {
     display: block;
 }
@@ -745,7 +733,6 @@ color:#7D7D7D
 tr.repeat {
 	background-color: #D0F0D0 !important;
 }
-
 
 .CharSet {
 	padding:10px 20px 0;
@@ -778,9 +765,7 @@ tr.repeat {
     padding: 6px 6px 26px 30px;
 }
 
-
 .error {color:#c00;}
-
 
 /*** To be removed later ****/
 div.dialogInfo {
@@ -796,7 +781,6 @@ div.dialogInfo {
 /************ End Messages ***********/
 
 /************* End content *************/
-
 
 /************* =7 footer *************/
 
@@ -881,7 +865,6 @@ textarea {
     margin-bottom: 5px;
 	width:100%;
 }
-
 
 .tableCell .datepicker {
 	width:30%;
@@ -983,7 +966,6 @@ input.active {
 }
 
 /************* End forms *****************/
-
 
 /************* =9. tables *****************/
 table {
@@ -1188,7 +1170,6 @@ label span {
 .invisible {
     display:none;
 }
-
 
 /** Flexbox */
 .flexContainer {

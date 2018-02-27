@@ -110,7 +110,6 @@ class LinkUUIDResourceSessionsTest extends Specification {
             query.list() >> resultList
             resultList.isEmpty() >> true
 
-
         when:
             def result = resource.getUserIdByUUID("uuid")
 

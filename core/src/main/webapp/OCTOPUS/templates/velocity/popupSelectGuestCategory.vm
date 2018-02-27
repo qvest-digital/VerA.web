@@ -12,7 +12,6 @@
         <script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
         <script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
 
-
         <script type="text/javascript">
             var showCategory = function () {
             $(".errormsg").remove();

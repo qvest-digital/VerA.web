@@ -106,9 +106,6 @@ BEGIN
 
 	---------------------------</INIT>
 
-
-
-
 	---------------------------<PROCEDURES>
 
 	vmsg := 'begin.createprocedure.all';
@@ -187,10 +184,8 @@ $serv_build_sequences$
 	LANGUAGE 'plpgsql' IMMUTABLE;
 	---------------------------</PROCEDURE>
 
-
 	------------------<TRIGGER>
 	------------------</TRIGGER>
-
 
 	END IF; ---- gehört zu IF $1 = 1 (für alle Procedures)
 
@@ -198,8 +193,6 @@ $serv_build_sequences$
 	INSERT INTO veraweb.tupdate(date, value) VALUES (vdate, vmsg);
 
 	---------------------------</PROCEDURES>
-
-
 
 	---------------------------<TABLES>
 
@@ -2090,7 +2083,6 @@ $serv_build_sequences$
 	END IF;
 	---------------------------</TABLE>
 
-
 	---------------------------<TABLE>
 	vint := 0;
 	SELECT count(*) INTO vint FROM information_schema.columns
@@ -2138,7 +2130,6 @@ $serv_build_sequences$
 	--------<COLUMN/>
 	END IF;
 	---------------------------</TABLE>
-
 
 	---------------------------<TABLE>
 	vint := 0;
@@ -2451,10 +2442,7 @@ $serv_build_sequences$
 	END IF;
 	---------------------------</TABLE>
 
-
-
 	---------------------------</TABLES>
-
 
 	---------------------------<VIEWS>
 
@@ -2495,7 +2483,6 @@ $serv_build_sequences$
 	------------------</VIEW>
 
 	---------------------------</VIEWS>
-
 
 	---------------------------<INDEXES>
 
@@ -2748,8 +2735,6 @@ $serv_build_sequences$
 	---------------------------</INDEX>
 
 	---------------------------</INDEXES>
-
-
 
 	---------------------------<SEQUENCES>
 

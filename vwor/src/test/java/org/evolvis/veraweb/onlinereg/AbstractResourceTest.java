@@ -80,7 +80,6 @@ import static org.mockito.Mockito.when;
  */
 public class AbstractResourceTest<T extends AbstractResource> {
 
-
     public static SessionFactory sessionFactory;
 
     public static ServletContext contextMock;
@@ -106,7 +105,6 @@ public class AbstractResourceTest<T extends AbstractResource> {
                 return null;
             }
         }).when(contextMock).setAttribute(eq("SessionFactory"), any(SessionFactory.class));
-
 
         contextEventMock = mock(ServletContextEvent.class);
         when(contextEventMock.getServletContext()).thenReturn(contextMock);

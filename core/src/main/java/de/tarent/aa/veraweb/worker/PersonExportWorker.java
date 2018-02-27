@@ -312,7 +312,6 @@ public class PersonExportWorker extends PersonListWorker {
                                                                 (person.get("firstname_b_e3") != null && ((String) person.get("firstname_b_e3")).length() != 0);
                                 boolean showRemarks = grants.mayReadRemarkFields();
 
-
                                 // Gleiches Dokument
                                 if (showA && showB) {
                                         spreadSheet.openRow();

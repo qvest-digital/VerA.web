@@ -232,7 +232,6 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         }
     }
 
-
     /**
      * Methode, die einen Kontakt löscht
      *
@@ -405,7 +404,6 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         }
     }
 
-
     /**
      * Löscht eine OU im LDAP
      *
@@ -433,7 +431,6 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
     public ContactUser getContactUser(String uid) throws LDAPException {
         return new ContactUser(getEntry(fullUserDN(uid)));
     }
-
 
     /**
      * @param userName FIXME
@@ -640,7 +637,6 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
             }
         }
     }
-
 
     /* (non-Javadoc)
      * @see de.tarent.octopus.server.UserManager#addUser(java.lang.String, java.lang.String, java.lang.String, java.lang.String)

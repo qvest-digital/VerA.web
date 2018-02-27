@@ -86,7 +86,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
 /**
  * This class handles the optional fields for the delegation guests.
  *
@@ -161,7 +160,6 @@ public class OptionalFieldsDelegationWorker {
                 DB.update(context, update.statementToString());
         context.commit();
         }
-
 
     /**
          * Get the optional delegation fields by guest id.
@@ -315,7 +313,6 @@ public class OptionalFieldsDelegationWorker {
                 final ResultList resultListWithTypeContents = database.getList(select, database);
                 return resultListWithTypeContents;
         }
-
 
     /**
          * Check if the given {@link OptionalDelegationField} exists.

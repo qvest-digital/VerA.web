@@ -155,7 +155,6 @@ public class OptionalFieldsWorker {
 
         // check if field already has type contents
 
-
         createOptionalFieldTypeContents(optionalField, context);
 
         context.commit();

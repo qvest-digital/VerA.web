@@ -132,7 +132,6 @@ public interface PersonMemberFacade {
 	/** Ändert Nachname */
 	void setLastname(String value);
 
-
 	/** Ändert Flag für {@link PersonConstants#DOMESTIC_INLAND Inland} oder {@link PersonConstants#DOMESTIC_AUSLAND Ausland} */
 	void setDomestic(String value);
 
@@ -165,6 +164,5 @@ public interface PersonMemberFacade {
 
 	/** Gibt einen zusammengesetzten Namen zurück. */
 	String getSaveAs();
-
 
 }

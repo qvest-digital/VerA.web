@@ -73,7 +73,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class HealthResourceTest extends AbstractResourceTest<HealthResource> {
 
-
     public HealthResourceTest() {
         super(HealthResource.class);
     }
@@ -115,6 +114,5 @@ public class HealthResourceTest extends AbstractResourceTest<HealthResource> {
         }
 
     }
-
 
 }

@@ -244,7 +244,6 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         return null;
     }
 
-
     private void filterByFirstCharacterOfLastname(final OctopusContext octopusContext, final Select personSelect) {
         final Map allRequestParameters = octopusContext.getRequestObject().getRequestParameters();
         if (allRequestParameters.get("filter") != null) {

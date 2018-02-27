@@ -3,7 +3,6 @@ var alerts = require('angular').module('vwoaAlerts', [
   require('angular-translate-loader-static-files')
 ]);
 
-
 alerts
   .config(function($translateProvider) {
     $translateProvider.useStaticFilesLoader({
@@ -71,6 +70,5 @@ alerts
       message: showMessage
     };
   });
-
 
 module.exports = alerts.name;

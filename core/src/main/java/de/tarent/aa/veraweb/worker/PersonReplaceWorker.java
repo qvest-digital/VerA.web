@@ -166,7 +166,6 @@ public class PersonReplaceWorker extends PersonListWorker {
 		}
 	}
 
-
 	//
 	// ERWEITERUNG DES BEANLISTWORKERS
 	//
@@ -265,7 +264,6 @@ public class PersonReplaceWorker extends PersonListWorker {
 		return list;
 	}
 
-
 	//
 	// NEUE OCTOPUS AKTIONEN
 	//
@@ -353,7 +351,6 @@ public class PersonReplaceWorker extends PersonListWorker {
 		return fields;
 	}
 
-
 	/** Octopus-Eingabe-Parameter für {@link #countData(OctopusContext)} */
 	public static final String INPUT_countData[] = {};
 	/** Octopus-Eingabe-Parameter für {@link #countData(OctopusContext)} */
@@ -389,7 +386,6 @@ public class PersonReplaceWorker extends PersonListWorker {
 		return database.getCount(select);
 	}
 
-
 	/** Octopus-Eingabe-Parameter für {@link #replaceAllData(OctopusContext)} */
 	public static final String INPUT_replaceAllData[] = {};
 	/**
@@ -422,7 +418,6 @@ public class PersonReplaceWorker extends PersonListWorker {
 			transactionContext.commit();
 		}
 	}
-
 
 	/** Octopus-Eingabe-Parameter für {@link #replaceSelectedData(OctopusContext)} */
 	public static final String INPUT_replaceSelectedData[] = {};
@@ -462,7 +457,6 @@ public class PersonReplaceWorker extends PersonListWorker {
 			transactionContext.commit();
 		}
 	}
-
 
 	/**
 	 * Gibt eine Where-Bedingung für die übergebenen Spalten zurück.

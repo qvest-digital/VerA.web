@@ -131,8 +131,6 @@ public class VeranstaltungenResource {
         this.resourceReader = new ResourceReader(client, mapper, config);
     }
 
-
-
     /**
      * Returns a list of events
      *

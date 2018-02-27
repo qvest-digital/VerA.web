@@ -104,7 +104,6 @@ class ForgotLoginResourceTest extends Specification {
             person.getUsername() >> "username"
             query.list() >> resultList
 
-
         when:
             forgotLoginResource.resendLogin("recipient@email.com", "de_DE")
 

@@ -129,7 +129,6 @@ public class FreeVisitorsResource {
         return null;
     }
 
-
     private String path(Object... path) {
         return resourceReader.constructPath(BASE_RESOURCE, path);
     }

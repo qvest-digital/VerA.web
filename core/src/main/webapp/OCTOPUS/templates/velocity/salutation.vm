@@ -13,7 +13,6 @@
 
 #parse("inc/header.vm")
 
-
 <div id="content_container">
     <form id="formlist" name="formlist" action="Salutation" method="POST">
             <input type="hidden" name="doInsert" value="true">
@@ -33,7 +32,6 @@
               <strong>${placeholderWithTranslation.GENERIC_SALUTATIONS_MARKED}</strong>
                 <input type="button" name="remove" onclick="askDelete()"  value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markierteanredenloschen}" #if($grants.isAdmin()) #else vera-disabled #end>
             </span>
-
 
             #if($listerrors.size() > 0)
             <vera-warn>
@@ -92,7 +90,6 @@
                                                                         #if ($listparam.count == 0)
                                         <tr><td colspan="5">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
                                     #end
-
 
                                     #set($itemName = "${placeholderWithTranslation.GENERIC_SALUTATION_PLURAL}")
                                         #tableFooter(5)

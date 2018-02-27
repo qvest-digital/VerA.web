@@ -28,11 +28,9 @@
 			<input type="hidden" name="search" value="reset">
 			<input type="hidden" name="searchTask" value="personSearchTask">
 
-
             <div class="tableCell width30">
                 <input type="text" name="searchField" id="searchfield" value="$!message.text($search.searchField)"  />
             </div>
-
 
             <div id="buttonPanel-bottom" class="textRight">
                     <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />

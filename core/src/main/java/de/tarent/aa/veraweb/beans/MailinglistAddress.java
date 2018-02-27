@@ -65,7 +65,6 @@ import de.tarent.octopus.PersonalConfigAA;
 import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
-
 public class MailinglistAddress extends AbstractBean {
 	public Integer id;
 	public Integer person;

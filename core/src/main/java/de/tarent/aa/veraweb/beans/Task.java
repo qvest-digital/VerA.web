@@ -161,7 +161,6 @@ public class Task extends AbstractHistoryBean {
 
     private VerawebMessages messages;
 
-
     public Task() {
     }
 

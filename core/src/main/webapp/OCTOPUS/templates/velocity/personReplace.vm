@@ -2,7 +2,6 @@
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_SEARCH_REPLACE}")
 #parse("inc/header.vm")
 
-
 <div id="content_container">
 	<div id="breadcrumb" class="textRight marginBottom10">
 		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.suchenersetzen}</span>

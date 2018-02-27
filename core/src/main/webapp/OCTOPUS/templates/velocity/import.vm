@@ -183,7 +183,6 @@
         $("div#selectedFile").text(fileName);
     }
 
-
     function startImport() {
         hideDialogs();
         showComboboxes();

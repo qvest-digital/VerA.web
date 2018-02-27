@@ -300,7 +300,6 @@ public class PersonResourceSessionsTest {
         verify(mockitoSession, times(1)).close();
     }
 
-
     @Test
     public void testGetCompanyByUUID() {
         // GIVEN

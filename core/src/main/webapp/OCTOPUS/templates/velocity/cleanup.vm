@@ -8,9 +8,6 @@
 	<td class="tabright">&nbsp;</td>
 </tr></table>
 
-
-
-
 #if($cleanup && $cleanup.size() > 0)
 	#if($cleanupdone)
 		<div style="margin-top: 10px; font-size: 14px; font-family: Arial;">
@@ -40,8 +37,6 @@
 	<br><br>
 	<a href="${paths.staticWeb}do/Cleanup">${placeholderWithTranslation.aktuallisieren}</a>
 #end
-
-
 
 <hr class="footline">
 

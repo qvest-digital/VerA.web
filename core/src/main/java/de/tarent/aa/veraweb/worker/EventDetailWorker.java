@@ -456,7 +456,6 @@ public class EventDetailWorker {
                     LanguageProviderHelper languageProviderHelper = new LanguageProviderHelper();
                     LanguageProvider languageProvider = languageProviderHelper.enableTranslation(cntx);
 
-
                     questions.put("event-samename", languageProvider.getProperty("EVENT_DETAIL_ALREADY_EXISTS_ONE")
                                 + event.shortname + languageProvider.getProperty("EVENT_DETAIL_ALREADY_EXISTS_TWO"));
                 } else {
@@ -534,7 +533,6 @@ public class EventDetailWorker {
                         cntx.setContent("saveevent", Boolean.TRUE);
                 }
         }
-
 
     //
     // Hilfsmethoden

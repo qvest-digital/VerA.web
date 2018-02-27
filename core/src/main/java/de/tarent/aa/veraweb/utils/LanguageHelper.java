@@ -109,8 +109,6 @@ public class LanguageHelper {
         return message;
     }
 
-
-
     public String makeFirstLetterLowerCase (String input) {
         Locale.setDefault(new Locale("en"));
         char c[] = input.toCharArray();
@@ -119,7 +117,6 @@ public class LanguageHelper {
 
         return LowerCase;
     }
-
 
     // velocity 1.4 does not support varargs...
     public String l10n(String code){

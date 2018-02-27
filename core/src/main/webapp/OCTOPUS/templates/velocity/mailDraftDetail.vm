@@ -88,7 +88,6 @@
             #end
         </table>
 
-
         <div id="buttonPanel-bottom" class="textRight marginTop10">
                 <input type="button" name="send" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
                 <input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" title="${placeholderWithTranslation.GENERIC_BACK_TO_TEMPLATES_LIST}" class="mainButton" onclick="window.location.href='MailDraftList?selectNone=true';" />

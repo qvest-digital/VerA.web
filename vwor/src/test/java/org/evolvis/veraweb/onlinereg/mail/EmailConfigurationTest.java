@@ -81,15 +81,12 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class EmailConfigurationTest {
 
-
     @Mock
     VworPropertiesReader propertiesReader;
 
     @Before
     public void setUp() throws Exception {
         when(propertiesReader.getProperty(any(String.class))).thenReturn("42");
-
-
 
     }
 

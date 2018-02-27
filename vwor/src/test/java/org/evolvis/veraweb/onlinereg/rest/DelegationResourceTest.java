@@ -163,7 +163,6 @@ public class DelegationResourceTest {
             optionalFieldTypeContent3.setFk_optional_field(13);
             optionalFieldTypeContent3.setPk(3);
 
-
             OptionalFieldTypeContent optionalFieldTypeContent4 = new OptionalFieldTypeContent();
             optionalFieldTypeContent3.setContent("Option multiple combo 2");
             optionalFieldTypeContent3.setFk_optional_field(13);
@@ -198,7 +197,6 @@ public class DelegationResourceTest {
         when(findTypeContentsByOptionalFieldQuery.list()).thenReturn(getDummyOptionalFieldTypeContents());
         when(resourceContext.getResource(any(Class.class))).thenReturn(optionalFieldResource);
         when(optionalFieldResource.getOptionalFields(any(Integer.class))).thenReturn(getDummyOptionalFields());
-
 
         List<OptionalFieldValue> fields = delegationResource.getFieldsFromEvent(1, 1);
         assertEquals(3, fields.size());

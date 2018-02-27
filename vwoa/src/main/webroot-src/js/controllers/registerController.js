@@ -21,7 +21,6 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
                 }
             });
 
-
             $http.get('api/event/registered/' + eventId)
                 .success(function(isUserRegistered) {
 
@@ -36,7 +35,6 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
                     $location.path('/update/' + $routeParams.eventUuid);
                 }
             });
-
 
             $scope.save = function() {
                 if ($scope.noLoginRequiredUUID == null) {

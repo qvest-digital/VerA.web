@@ -34,7 +34,6 @@
                         </ul>
                 </div>
 
-
                 <form action="$octopusRequest.task" method="POST">
                         <div class="contentBoxColored tabsContent" vera-content="database">
 
@@ -90,11 +89,8 @@
                                 <input type="submit" name="submit" value="${placeholderWithTranslation.zuordnen}" title="${placeholderWithTranslation.zuordnen}" class="mainButton">
                         </span>
 
-
        </form>
         </div>
 </div>
-
-
 
 #parse("inc/footer.vm")

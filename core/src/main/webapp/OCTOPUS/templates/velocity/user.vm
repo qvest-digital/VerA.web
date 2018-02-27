@@ -180,7 +180,6 @@
 
                         </table>
 
-
                         <div class="textRight marginTop10" id="buttonPanel-bottom">
                                 <input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
                         </div>

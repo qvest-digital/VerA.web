@@ -16,7 +16,6 @@
 
     <h1>${placeholderWithTranslation.GENERIC_INFORMATION_ABOUT_VERAWEB}</h1>
 
-
     #if($errors && $errors.size() > 0)
     <vera-warn>
         #foreach($error in $errors)
@@ -26,7 +25,6 @@
         ${placeholderWithTranslation.eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator}
     </vera-warn>
     #end
-
 
     <h3>VerA.web</h3>
     #if($properties)
@@ -104,7 +102,6 @@
     </table>
     <br>
 
-
     <h3>${placeholderWithTranslation.GENERIC_USER}</h3>
 
     <table class="form fixed">
@@ -171,9 +168,6 @@
                 </td>
         </tr>
     </table>
-
-
-
 
     </form>
 </div>

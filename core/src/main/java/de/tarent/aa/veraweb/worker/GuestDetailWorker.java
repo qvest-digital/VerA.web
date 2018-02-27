@@ -104,12 +104,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-
 /**
  * Dieser Octopus-Worker dient der Anzeige und Bearbeitung von Details von Gästen.
  */
 public class GuestDetailWorker extends GuestListWorker {
-
 
     /**
      * Logger dieser Klasse
@@ -125,7 +123,6 @@ public class GuestDetailWorker extends GuestListWorker {
      * Eingabe-Parameterzwang der Octopus-Aktion {@link #showDetail(OctopusContext, Integer, Integer)}
      */
     public static final boolean MANDATORY_showDetail[] = {false, false};
-
 
     /**
      * Diese Octopus-Aktion lädt Details zu einem Gast, der über ID oder über Position in der Ergebnisliste zu einer
@@ -314,7 +311,6 @@ public class GuestDetailWorker extends GuestListWorker {
             return null;
         }
     }
-
 
     private void setGuestContentForOctopusContext(OctopusContext octopusContext, Integer freitextfeld) throws IOException, BeanException {
         if (freitextfeld == null) {
@@ -793,7 +789,6 @@ public class GuestDetailWorker extends GuestListWorker {
 
         //SCENARIO 2 - The seat (or table and seat) of the guest is already reserved by another partner
         selectPartnerAddDuplicateGuestList(database, guest, duplicateErrorList, languageProvider);
-
 
         if (guest.getIsPartnerInvited()) {
             //SCENARIO 3 - The seat (or table and seat) of the partner is already reserved by another guest

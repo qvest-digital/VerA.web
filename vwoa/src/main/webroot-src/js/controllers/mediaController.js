@@ -8,7 +8,6 @@ module.exports = function($scope, $http, $routeParams, $translate, param,show) {
     name: "GENERIC_SALUTATION_FEMALE"
   }];
 
-
   $scope.register_pressevertreter = function() {
     $http({
       method: 'POST',
@@ -38,7 +37,6 @@ module.exports = function($scope, $http, $routeParams, $translate, param,show) {
         show.error('MEDIA_REPRESEINTATIVES_ACTIVATION_ALREADY_EXIST');
       } else if (result.status === 'OK') {
         show.success('MEDIA_REPRESEINTATIVES_REGISTER_SUCCESSFUL_MESSAGE');
-
 
         $scope.lastname = null;
         $scope.firstname = null;

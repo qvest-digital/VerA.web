@@ -155,13 +155,11 @@
                 </div>
                 <h1>$title</h1>
 
-
         #elseif($action == "guest")
                                 <div id="breadcrumb" class="textRight marginBottom10">
                                 <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > $title</span>
                 </div>
                 <h1>$title</h1>
-
 
         #else
                 <div id="breadcrumb" class="textRight marginBottom10">
@@ -314,7 +312,6 @@
                     ongoingTaskEventPersonIds.push(id);
                 }
             });
-
 
             var msg = '';
             if (notExpiredPersonIds.length > 0) {
@@ -474,7 +471,6 @@
                         #if($action == "host" || $action == "statistikGuest" || $action == "statistikHost")
                                 #set($disableListSelect = true)
                         #end
-
 
                         #if($action == "guest")
 
@@ -693,7 +689,6 @@ i                                                       ${placeholderWithTransla
                                         </div>
                                 </div>
                         #end
-
 
                         #foreach($bean in $list)
                                 <input type="hidden" name="list" value="$bean.id">
@@ -1269,8 +1264,6 @@ i                                                       ${placeholderWithTransla
                                         #parse("inc/list-direct-new.vm")
                                 </table>
                         </div>
-
-
 
                 </form>
 

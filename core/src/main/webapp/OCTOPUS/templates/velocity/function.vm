@@ -85,7 +85,6 @@
                                 #parse("inc/list-direct-new.vm")
                         </table>
 
-
                         <div class="textRight marginTop10" id="buttonPanel-bottom">
                                 <input id="buttonSave" type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" onClick="checkForNewEntry()" class="mainButton">
                         </div>
@@ -117,7 +116,6 @@ function checkForNewEntry(){
 
 function checkIfEmpty(e){
         var i;
-
 
         if(e.value.trim().length>0 || (e.id == "new-name" && e.value.length == 0)){
                 if(emptyInputs.length>0){

@@ -27,7 +27,6 @@ Apache auf OSIAM (optional) für https (vorgeschrieben bei OAuth, nicht bei VW):
 
 PostgreSQL: idealerweise lokal (eine auf vwcore, eine auf osiam wenn ≠vwcore)
 
-
 nach Port
 ---------
 
@@ -38,7 +37,6 @@ nach Port
 8080	localhost	Tomcat HTTP (osiam XXX tbd)
 8080	0.0.0.0		Tomcat HTTP (osiam nur wenn ≠vwcore und !https) insecure
 8081	localhost	VWOA Jetty (vwoa)
-
 
 Entwickler ohne Apache
 ----------

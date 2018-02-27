@@ -347,7 +347,6 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
         });
     };
 
-
     showConfirmYesNo = (function () {
         var activeConfirmDialogs = {};
         return function (title, htmlContent, yesAction, nayAction, textDelete, textCancel) {

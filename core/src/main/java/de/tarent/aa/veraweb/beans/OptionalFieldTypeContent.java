@@ -68,7 +68,6 @@ package de.tarent.aa.veraweb.beans;
  */
 public class OptionalFieldTypeContent extends AbstractHistoryBean {
 
-
 	/* pk */
 	private Integer id;
 	/* fk_optional_field */

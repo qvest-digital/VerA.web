@@ -234,12 +234,6 @@
                 </div>
             </fieldset>
 
-
-
-
-
-
-
             <div id="buttonPanel-bottom" class="textRight">
                 #if($action == "guest")
                     <input type="submit" class="mainButton submit" name="search" value="${placeholderWithTranslation.GENERIC_SEARCH_V}" title="${placeholderWithTranslation.GENERIC_SEARCH_V}" />
@@ -271,15 +265,12 @@
     </vera-info>
 </div>
 
-
-
 <script type="text/javascript">
         var clearForm = function () {
         $ .each(['firstname', 'lastname', 'function', 'company', 'street', 'zipcode', 'city', 'country', 'importsource',
                 'validdate', 'state', 'workarea'], function(idx, field) {
                 $('#' + field).val('');
         });
-
 
                 document.getElementById('categorie').selectedIndex = 0;
                 document.getElementById('categorie2').selectedIndex = 0;
@@ -307,7 +298,5 @@
                 }
         };
 </script>
-
-
 
 #parse("inc/footer.vm")

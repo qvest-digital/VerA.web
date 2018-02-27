@@ -126,8 +126,6 @@ public class FileUploadResource {
                 return StatusConverter.convertStatus("OK");
         }
 
-
-
         @GET
         @Path("/download/{imgUUID}")
         public String downloadGuestImage(@PathParam("imgUUID") String imgUUID) throws IOException {

@@ -39,9 +39,6 @@
         <input type="hidden" name="eventId" value="$!eventId" />
         <input type="hidden" name="task-personId" value="$!refPerson.id" />
 
-
-
-
         #if($task.errors.size() > 0)
 
             <vera-warn>
@@ -83,7 +80,6 @@
         </div>
 
         <div id="main_content" class="tabs contentBox grayBorder marginBottom10 event">
-
 
             <div id="tabsMain">
                 <ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->

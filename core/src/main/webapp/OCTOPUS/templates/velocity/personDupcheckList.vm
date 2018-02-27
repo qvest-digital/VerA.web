@@ -58,7 +58,6 @@
                 <input type="hidden" name="person-sex_a_e1" value="$!octopusRequest.person-sex_a_e1"/>
                 <input type="hidden" name="person-sex_b_e1" value="$!octopusRequest.person-sex_b_e1"/>
 
-
                 <div id="breadcrumb" class="textRight marginBottom10">
                         <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_DUPLICATE_SEARCH}</span>
                 </div>

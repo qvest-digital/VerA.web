@@ -103,7 +103,6 @@ public final class ProfileLogger {
     /** letzter Messpunkt */
     long last = 0;
 
-
     /** Logger */
     Logger logger = LogManager.getLogger(ProfileLogger.class.getName());
 }

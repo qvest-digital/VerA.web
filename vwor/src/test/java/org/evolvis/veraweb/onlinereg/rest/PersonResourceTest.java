@@ -76,7 +76,6 @@ import static org.junit.Assert.assertNull;
  */
 public class PersonResourceTest extends AbstractResourceTest<PersonResource>{
 
-
     public PersonResourceTest() {
         super(PersonResource.class);
     }

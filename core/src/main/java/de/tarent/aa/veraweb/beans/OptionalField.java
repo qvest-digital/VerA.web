@@ -64,7 +64,6 @@ package de.tarent.aa.veraweb.beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 /**
  * Dieses Bean bildet einen Eintrag der Tabelle <em>veraweb.toptional_fields</em> ab.
  *
@@ -89,7 +88,6 @@ public class OptionalField extends AbstractHistoryBean {
 		this.fkEvent = resultSet.getInt("fk_event");
 		this.fkType = resultSet.getInt("fk_type");
 	}
-
 
 	public String getLabel() {
 		return label;

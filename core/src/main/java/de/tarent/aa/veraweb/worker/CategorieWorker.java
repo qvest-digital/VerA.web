@@ -185,7 +185,6 @@ public class CategorieWorker extends StammdatenWorker {
         select.whereAnd(Expr.isNull("fk_event"));
         select.whereAndEq("fk_orgunit", orgunit);
 
-
         Integer count = cntx.requestAsInteger("count");
         if (count != null) {
             cntx.setContent("count", count);
@@ -193,7 +192,6 @@ public class CategorieWorker extends StammdatenWorker {
 
         cntx.setContent("all" + BEANNAME, database.getList(select, database));
     }
-
 
     private void getAllAvailableEventCategories(OctopusContext cntx) throws BeanException, IOException {
         final Integer orgunit = ((PersonalConfigAA) (cntx.personalConfig())).getOrgUnitId();
@@ -203,7 +201,6 @@ public class CategorieWorker extends StammdatenWorker {
         extendAll(cntx, select);
         select.whereAndEq("fk_orgunit", orgunit);
 
-
         Integer count = cntx.requestAsInteger("count");
         if (count != null) {
             cntx.setContent("count", count);
@@ -211,8 +208,6 @@ public class CategorieWorker extends StammdatenWorker {
 
         cntx.setContent("all" + BEANNAME, database.getList(select, database));
     }
-
-
 
     @Override
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {

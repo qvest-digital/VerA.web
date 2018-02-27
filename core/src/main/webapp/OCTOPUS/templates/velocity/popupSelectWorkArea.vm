@@ -220,6 +220,5 @@
         ${placeholderWithTranslation.HINT_POPUP_CATEGORY_SELECTION_ONE} ${count} ${placeholderWithTranslation.HINT_POPUP_CATEGORY_SELECTION_TWO}
 </vera-info>
 
-
 </body>
 </html>

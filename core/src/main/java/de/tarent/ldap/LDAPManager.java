@@ -1250,7 +1250,6 @@ public class LDAPManager {
                         '+',
                         '?' };
 
-
         /* (non-Javadoc)
          * @see de.tarent.octopus.server.UserManager#getUserParam(java.lang.String, java.lang.String)
          */

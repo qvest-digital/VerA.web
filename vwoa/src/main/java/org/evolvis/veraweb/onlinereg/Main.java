@@ -94,7 +94,6 @@ import java.util.EnumSet;
 @Log
 public class Main extends Application<Config> {
 
-
         /* RESOURCES */
                 private EventResource eventResource;
                 private UserResource userResource;

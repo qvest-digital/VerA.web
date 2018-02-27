@@ -188,7 +188,6 @@ public class EventTaskDetailWorker {
         cntx.setContent("task", task);
     }
 
-
     /** Eingabe-Parameter der Octopus-Aktion {@link #loadTemp(OctopusContext)} */
     public static final String INPUT_loadTemp[] = {};
 
@@ -204,11 +203,9 @@ public class EventTaskDetailWorker {
         cntx.setContent("task", task);
     }
 
-
     public static final String INPUT_saveDetail[] = {"savetask"};
 
     public static final boolean MANDATORY_saveDetail[] = {false};
-
 
     public void saveDetail(final OctopusContext octopusContext, Boolean savetask) throws BeanException, IOException {
 

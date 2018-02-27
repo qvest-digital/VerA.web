@@ -28,7 +28,6 @@
                 <input type="hidden" name="selectNone" value="true">
                 <input type="hidden" name="limit" value="" />
 
-
                 <span class="inlineLabel" id="actionPanel">
                         <strong>${placeholderWithTranslation.markiertenarbeitsbereiche}</strong>
                         <input type="submit" id="removebutton" name="remove" value="${placeholderWithTranslation.loeschen}" class="button" title="${placeholderWithTranslation.markierteeintraegeentfernen}" />

@@ -431,7 +431,6 @@ public class PdfTemplateResource extends FormDataResource {
         }
     }
 
-
     private PdfTemplate createOrUpdatePdfTemplate(Integer id, String name, Integer mandantId, byte[] content) {
         PdfTemplate pdfTemplate;
         if (id != null) {

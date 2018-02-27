@@ -137,7 +137,6 @@ public interface Grants {
 	 */
 	boolean isAdmin();
 
-
 	/**
      * Dieses Attribut gibt an, ob der Benutzer dem SystemUser entspricht.
      * Dieser Nutzer hat nur eingeschränkten Zugriff auf die Applikation und ist

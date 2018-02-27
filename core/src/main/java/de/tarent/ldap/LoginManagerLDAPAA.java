@@ -90,7 +90,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  * Diese Klasse dient als LoginManager über LDAP im Kontext des Auswärtigen Amts.
  * Insbesondere beachtet wird hier das Anmelden wahlweise als Benutzer oder als
@@ -110,7 +109,6 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
 
     /** Schlüssel des Konfigurationseintrags für das Superadmin-Passwort */
     public final static String KEY_SYSTEM_ADMIN_PASSWORD = "systempassword";
-
 
     //
     // Schnittstelle LoginManagerAA

@@ -63,7 +63,6 @@ package de.tarent.aa.veraweb.beans;
  */
 import java.util.List;
 
-
 /**
  * Diese Bean stellt einen Eintrag der Tabelle veraweb.timportperson dar,
  * eine zu importierende Person im Transit-Bereich.

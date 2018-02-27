@@ -119,7 +119,6 @@ public class MailDraftWorker extends ListWorkerVeraWeb {
 		return new Integer(i.intValue() - (i.intValue() % getLimit(octopusContext).intValue()));
 	}
 
-
 	/**
 	 * Updatet ausschließlich den Namen der in der Liste angezeigt wird.
 	 */

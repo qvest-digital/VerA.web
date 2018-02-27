@@ -208,7 +208,6 @@ public class PersonGuestListWorker extends PersonListWorker {
 			selectreserve = new ArrayList();
 			selectdelegation = new ArrayList();
 
-
 			Select select = database.getSelectIds(database.createBean(BEANNAME));
 			if (search.categoriesSelection != null && search.categorie2 != null) {
 				select.joinLeftOuter("veraweb.tperson_categorie AS cat1", "tperson.pk", "cat1.fk_person");
@@ -252,7 +251,6 @@ public class PersonGuestListWorker extends PersonListWorker {
 			if (invitepartner == null) invitepartner = new ArrayList();
 			if (selectreserve == null) selectreserve = new ArrayList();
 			if (selectdelegation == null) selectdelegation = new ArrayList();
-
 
 			for (Iterator it = ids.iterator(); it.hasNext(); ) {
 				Integer id = new Integer((String)it.next());

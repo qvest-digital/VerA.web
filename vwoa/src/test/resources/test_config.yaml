@@ -14,7 +14,6 @@ restauth:
 # cd src/test/resources/wiremock
 # java -jar /path/to/wirekmock.jar --port 9090
 
-
 server:
   type: simple
   applicationContextPath: /
@@ -22,7 +21,6 @@ server:
   connector:
     type: http
     port: 8090
-
 
 # Logging settings.
 logging:

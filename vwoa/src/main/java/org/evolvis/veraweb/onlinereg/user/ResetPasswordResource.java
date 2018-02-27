@@ -111,8 +111,6 @@ public class ResetPasswordResource {
     /** Jackson Object Mapper */
     private ObjectMapper mapper = new ObjectMapper();
 
-
-
     private final ResourceReader resourceReader;
 
     /**

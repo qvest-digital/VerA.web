@@ -90,7 +90,6 @@ public class PlaceholderSubstitutionTest {
         assertEquals(expectedOutput, actualOutput);
     }
 
-
     private String createExpectedOutput(final List<String> words) {
         final StringBuilder sb2 = new StringBuilder();
         for (String word : words) {
@@ -111,7 +110,6 @@ public class PlaceholderSubstitutionTest {
         return expectedOutput;
     }
 
-
     private String createTemplate(final List<String> words) {
         final StringBuilder sb1 = new StringBuilder();
         for (String word : words) {
@@ -120,7 +118,6 @@ public class PlaceholderSubstitutionTest {
         final String template = sb1.toString();
         return template;
     }
-
 
     private Person createPerson() throws IllegalAccessException {
 

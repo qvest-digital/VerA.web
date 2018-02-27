@@ -12,7 +12,6 @@ var UnexpectedStatusError = require('./unexpected-status-error')
 //there are some misbehaving angular modules that require us to
 //get them via bower through the debowerify transform.... sigh....
 
-
 var app = angular.module('onlineRegApp', [
   require('angular-route'),
   require('angular-material'),
@@ -39,7 +38,6 @@ if (factories) {
   });
 }
 
-
 app.run(function($rootScope,moment) {
   $rootScope.parseDate = function(dt) {
     return moment(dt).toDate();
@@ -65,8 +63,6 @@ app.run(function($rootScope,moment) {
   //Only required for LoginController
   setStatus = null;
 });
-
-
 
 app.config(function($routeProvider, $translateProvider) {
   $routeProvider.when('/login', {
@@ -144,8 +140,6 @@ app.config(function($routeProvider, $translateProvider) {
   $translateProvider.preferredLanguage('de_DE');
 });
 
-
-
 //Datepicker configuration
 app.config(function($mdDateLocaleProvider) {
   $mdDateLocaleProvider.firstDayOfWeek = 1;
@@ -176,8 +170,6 @@ app.directive('equals', function() {
   }
 });
 app.factory("vwoa", function($rootScope, $location, $timeout, $translate,show) {
-
-
 
   var expectStatus = function(expectedStatus, messages) {
     return function(result) {

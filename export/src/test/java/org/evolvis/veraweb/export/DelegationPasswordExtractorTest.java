@@ -80,10 +80,8 @@ import org.mockito.junit.MockitoRule;
 
 public class DelegationPasswordExtractorTest {
 
-
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
-
 
     @Mock
     private ResultSet rs;

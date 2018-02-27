@@ -341,7 +341,6 @@ public class EventResource {
         postBodyForUpdate.add("invitationstatus", invitationstatus);
         postBodyForUpdate.add("notehost", notehost);
 
-
         final WebResource resource = client.resource(config.getVerawebEndpoint() + "/rest/guest/update/nologin/" +
                 noLoginRequiredUUID);
         resource.post(postBodyForUpdate);

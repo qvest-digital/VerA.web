@@ -233,7 +233,6 @@ public class StatistikWorker {
                                 throw new BeanException("Es wurde versucht eine unbekannte Statistik zu exportieren: " + statistik);
                         }
 
-
                         // EXPORT IN EINE ODS-DATEI
                         //ResultList resultList = (ResultList)database.getList(select);
                         //octopusContext.setContent("stream", getExport(octopusContext, resultList.getResultSet()));

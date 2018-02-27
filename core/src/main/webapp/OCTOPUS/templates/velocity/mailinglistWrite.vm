@@ -16,8 +16,6 @@
 <div data-orgunit="$!octopusConfig.personalConfig.orgUnitId" id="loadmailtemplate-orgunit"></div>
 <div data-formaction="${paths.staticWeb}mailing" id="formaction"></div>
 
-
-
 <div id="content_container">
         <script src="${paths.staticWeb}js/ext/jquery-form/jquery.form.js"></script>
         <script src="${paths.staticWeb}js/ext/ckeditor/ckeditor.js"></script>
@@ -29,7 +27,6 @@
         </div>
 
         <h1>${placeholderWithTranslation.verteilerversenden}</h1>
-
 
         <form id="formlist" name="formlist" action="MailinglistWrite" method="POST" enctype="multipart/form-data">
         <input type="hidden" id="loaddraft" name="loaddraft" value="false">
@@ -94,7 +91,6 @@
                                 <input type="reset"  name="clear"  value="${placeholderWithTranslation.zuruecksetzen}" title="${placeholderWithTranslation.zuruecksetzen}" class="mainButton autoWidth">
                         </div>
                                         </div>
-
 
                                         <div class="tableCell width30">
                                 <h2 class="marginBottom15">${placeholderWithTranslation.emailvorlagen}</h2>

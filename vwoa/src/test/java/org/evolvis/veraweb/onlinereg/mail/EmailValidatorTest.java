@@ -80,7 +80,6 @@ public class EmailValidatorTest {
         assertTrue(EmailValidator.isValidEmailAddress("valid@[IPv6:2001:db8::1]"));
         assertTrue(EmailValidator.isValidEmailAddress("valid!#$%&'*+-/=?^_`{|}~@email.de"));
 
-
         assertFalse(EmailValidator.isValidEmailAddress("not-valid<>@email.de"));
         assertFalse(EmailValidator.isValidEmailAddress("not-valid@e@mail.de"));
         assertFalse(EmailValidator.isValidEmailAddress("not-valid@email:de"));

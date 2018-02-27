@@ -17,7 +17,6 @@ Lukas’ Notizen zu webroot-src/
 | Zusagestatus bearbeiten                       | 100%   | 100%    | j
 | Anmeldung zu nicht-öffentlicher Veranstaltung | 100%   | 100%    | j
 
-
 (1) Authorisierung heißt idR: meine Daten darf ich sehen / ändern (Zu- und Absagen, Kontaktdaten), sonst nichts.
     In den meisten Fällen ist das damit erledigt, dass wir die Backend API anpassen und hier einfach die jeweils
     die Identität des Users aus dem HMAC-Token lesen, anstatt sie in der URI zu kodieren.
@@ -26,7 +25,6 @@ Lukas’ Notizen zu webroot-src/
       - Beim Anmelden einer Delegation: ist der Firmenaccount zu dieser Veranstaltung eingeladen?
 
 65c88590-45c1-4adc-9112-ffa1a068e5d7
-
 
 Authorisierung:
 ---------------

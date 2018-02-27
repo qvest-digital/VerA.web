@@ -140,11 +140,6 @@
 			#parse("inc/list-direct-new.vm")
 		</table>
 
-
-
-
-
-
 	</form>
 </div>
 #parse("inc/footer.vm")

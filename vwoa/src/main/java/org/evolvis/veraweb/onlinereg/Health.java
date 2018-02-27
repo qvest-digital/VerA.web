@@ -64,9 +64,7 @@ package org.evolvis.veraweb.onlinereg;
 import com.codahale.metrics.health.HealthCheck;
 import com.sun.jersey.api.client.Client;
 
-
 public class Health extends HealthCheck {
-
 
     private final Client client;
     private final String resource;

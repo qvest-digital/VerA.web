@@ -33,7 +33,6 @@ module.exports = function($scope, $http, $location, param, show, $translate) {
                 show.error("GENERIC_ERROR");
             }
 
-
         }).error(function (data, status, headers, config) {
                 show.error("GENERIC_ERROR");
         });

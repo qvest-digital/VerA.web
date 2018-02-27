@@ -279,7 +279,6 @@
                                                 }
                                 }
 
-
                                 $(function () {
                                         $('#button\\.execute').click(function (e) {
                                                 var selectValue = $('#actionSelection option:selected').val();
@@ -303,7 +302,6 @@
                                         });
                                 });
 
-
                                 var isSelectAllChecked = function(){
                                         return $("#select-all").get(0).checked;
                                 };
@@ -325,7 +323,6 @@
                                 function hasSelection() {
                                         return selectedCount() > 0;
                                 }
-
 
                                 function selectedActionRemoveGuest() {
                                         $('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
@@ -648,8 +645,6 @@
 
                         <div>
 
-
-
                         #set($isUser = false)
                         #set($isAdmin = false)
 
@@ -674,7 +669,6 @@
         </div>
 
 </div>
-
 
 <script type="text/javascript">
         function orderGuestList(column) {

@@ -91,7 +91,6 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class OsiamUserActivationResourceTest {
 
-
     private OsiamUserActivationResource osiamUserActivationResource;
     @Mock
     private static SessionFactory sessionFactory;

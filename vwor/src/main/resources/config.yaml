@@ -267,7 +267,6 @@ sql: |
 
     l.uuid as passwordResetLink
 
-
   from veraweb.tguest g
   inner join veraweb.tperson p on (g.fk_person = p.pk)
   left outer join veraweb.link_uuid l on l.personid = p.pk

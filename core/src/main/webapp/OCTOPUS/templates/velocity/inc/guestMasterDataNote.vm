@@ -19,7 +19,6 @@
 		url += '&id=$!guest.id';
 		url += '&eventId=$!event.id';
 
-
 		var targetTab = document.getElementById('tab');
 		if(targetTab) {
 			url += '&tab=' + targetTab.value;

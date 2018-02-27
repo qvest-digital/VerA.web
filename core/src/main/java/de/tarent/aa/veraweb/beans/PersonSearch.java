@@ -68,7 +68,6 @@ import de.tarent.octopus.server.OctopusContext;
 import java.util.Date;
 import java.util.List;
 
-
 public class PersonSearch extends AbstractBean {
 	public String firstname;
 	public String lastname;

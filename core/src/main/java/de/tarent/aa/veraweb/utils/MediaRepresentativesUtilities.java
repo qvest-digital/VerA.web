@@ -80,7 +80,6 @@ public class MediaRepresentativesUtilities {
         this.event = event;
     }
 
-
     public void setUrlForMediaRepresentatives() throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
 

@@ -733,7 +733,6 @@ public class PersonDetailWorker implements PersonConstants {
          */
         BeanChangeLogger clogger = new BeanChangeLogger(database, transactionContext);
 
-
         if (person.id == null) {
             createNewPerson(octopusContext, person, database, transactionContext, originalPersonId, clogger);
         } else {

@@ -107,7 +107,6 @@ public class SalutationAlternativeResource extends AbstractResource {
         }
     }
 
-
     /**
      * Get the list with salutations witout alternative content.
      *

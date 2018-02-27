@@ -87,7 +87,6 @@ public class FunctionWorker extends StammdatenWorker {
         super("Function");
     }
 
-
     @Override
     protected void extendAll(OctopusContext cntx, Select select) throws BeanException, IOException {
         Event event = (Event) cntx.contentAsObject("event");

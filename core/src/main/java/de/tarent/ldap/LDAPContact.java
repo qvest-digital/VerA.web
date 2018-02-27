@@ -176,7 +176,6 @@ public class LDAPContact {
 		checkNachName();
 	}
 
-
 	/**
 	 *
 	 */

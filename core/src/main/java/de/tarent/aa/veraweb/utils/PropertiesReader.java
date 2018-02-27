@@ -93,7 +93,6 @@ public class PropertiesReader {
         return this.properties != null;
     }
 
-
     private Properties loadProperties() {
         final Properties properties = new Properties();
 

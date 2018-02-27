@@ -85,14 +85,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 public class PersonCategory {
 
-
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int pk;
         private Integer fk_person;
         private Integer fk_categorie;
         private Integer rank;
-
 
         /**
          * Empty constructor MUST
@@ -123,8 +121,6 @@ public class PersonCategory {
                 this.fk_categorie = fk_categorie;
                 this.rank = rank;
         }
-
-
 
         public int getPk() {
                 return pk;

@@ -468,10 +468,8 @@ public class EventDelegationWorker {
             Integer fkOptionalField = resultSet.getInt("fk_optional_field");
             String content = resultSet.getString("content");
 
-
             optionalFieldTypeContent = new OptionalFieldTypeContent(pk, fkOptionalField, content);
         }
-
 
         return optionalFieldTypeContent;
     }

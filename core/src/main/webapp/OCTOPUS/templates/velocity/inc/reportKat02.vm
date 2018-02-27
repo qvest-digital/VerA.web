@@ -133,7 +133,6 @@
                         $!message.plain($bean.notehost)
                     #end
 
-
                     #if($bean.showdoctype && ($bean.fon_a_gd.length() > 0 || $bean.fon_b_e1.length() > 0 || $bean.mobil_a_gd.length() > 0))
                         <table cellspacing="0" cellpadding="0" border="0" class="kategorie">
                             <tr>

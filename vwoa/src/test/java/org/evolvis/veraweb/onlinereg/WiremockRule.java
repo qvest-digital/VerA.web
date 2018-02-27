@@ -138,7 +138,6 @@ public class WiremockRule implements TestRule {
         });
     }
 
-
     private void stop() throws InterruptedException {
         if (wiremock != null) {
             wiremock.destroy();

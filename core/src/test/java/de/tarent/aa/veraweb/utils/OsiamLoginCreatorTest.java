@@ -139,7 +139,6 @@ public class OsiamLoginCreatorTest {
         assertEquals("mmuste1", username);
     }
 
-
     @Test
     public void testGeneratePersonUsernameNoWhitespace() throws Exception {
         // GIVEN
@@ -154,7 +153,6 @@ public class OsiamLoginCreatorTest {
         when(queryBuilder.build()).thenReturn(query);
         when(connector.searchUsers(query, accessToken)).thenReturn(scimUsersResults);
         when(scimUsersResults.getTotalResults()).thenReturn(0l);
-
 
         when(connector.retrieveAccessToken(Scope.ALL)).thenReturn(accessToken);
 
@@ -180,7 +178,6 @@ public class OsiamLoginCreatorTest {
         when(connector.searchUsers(query, accessToken)).thenReturn(scimUsersResults);
         when(scimUsersResults.getTotalResults()).thenReturn(0l);
 
-
         when(connector.retrieveAccessToken(Scope.ALL)).thenReturn(accessToken);
 
         // WHEN
@@ -205,7 +202,6 @@ public class OsiamLoginCreatorTest {
         when(connector.searchUsers(query, accessToken)).thenReturn(scimUsersResults);
         when(scimUsersResults.getTotalResults()).thenReturn(0l);
 
-
         when(connector.retrieveAccessToken(Scope.ALL)).thenReturn(accessToken);
 
         // WHEN
@@ -229,7 +225,6 @@ public class OsiamLoginCreatorTest {
         when(queryBuilder.build()).thenReturn(query);
         when(connector.searchUsers(query, accessToken)).thenReturn(scimUsersResults);
         when(scimUsersResults.getTotalResults()).thenReturn(0l);
-
 
         when(connector.retrieveAccessToken(Scope.ALL)).thenReturn(accessToken);
 

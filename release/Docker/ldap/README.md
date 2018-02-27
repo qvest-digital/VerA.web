@@ -88,7 +88,6 @@ which can hold comma-separated entries. It will try to run `.ldif` files with
 a corresponding name from the `module` directory. Currently only `memberof` is
 available.
 
-
 A container could be initialized with data files that are stored in volume `/bootstrap/data`
 and configured with an optional environment variable called
 

@@ -64,7 +64,6 @@ package org.evolvis.veraweb.onlinereg.rest
 import org.evolvis.veraweb.onlinereg.utils.VworPropertiesReader
 import spock.lang.Specification
 
-
 class ImprintResourceTest extends Specification {
 
     def resource

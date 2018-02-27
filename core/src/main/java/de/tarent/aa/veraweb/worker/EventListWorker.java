@@ -166,7 +166,6 @@ public class EventListWorker extends ListWorkerVeraWeb {
         }
     }
 
-
     @Override
     public List showList(OctopusContext octopusContext) throws BeanException, IOException {
         String val = octopusContext.getRequestObject().get("searchTask");
@@ -296,7 +295,6 @@ public class EventListWorker extends ListWorkerVeraWeb {
         Database database = context.getDatabase();
         Map questions = new HashMap();
         Map questions2 = new HashMap();
-
 
         if (!octopusContext.getRequestObject().getParameterAsBoolean("force-remove-events")) {
             /*

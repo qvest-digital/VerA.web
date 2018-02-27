@@ -15,7 +15,6 @@ module.exports = function($http, $translate, $scope, param, show) {
     }
   });
 
-
   //Array have to be initialised, to push elements
   //So you can set the first value and then an array
   $scope.salutations = [];

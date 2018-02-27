@@ -25,14 +25,12 @@
 	<body onload="document.getElementById('city').focus();" id="popUp">
 		<form action="" method="post" onsubmit="if (returnCity()) closePopup();">
 
-
 			<div class="contentBoxColored grayBorder">
 
 				<h2>${placeholderWithTranslation.neuerveranstaltungsort}</h2>
 
 				<label for="city">${placeholderWithTranslation.bittegebensieeinenneuenorteinundklickensieaufhinzufuegen}</label>
 				<input type="text" id="city" name="city" value="">
-
 
 				<div class="textRight marginTop5" id="buttonPanel-bottom">
 					<input type="submit" value="${placeholderWithTranslation.hinzufuegen}" class="mainButton" ssonclick="if (returnCity()) closePopup();">

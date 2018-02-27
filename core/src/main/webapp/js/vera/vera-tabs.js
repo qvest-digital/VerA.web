@@ -94,7 +94,6 @@ $(function () { // on DOM ready
      */
     var ATTR_TAB_DEFAULT = 'vera-tab-default';
 
-
     /**
      * Only the content which is referenced by all active tabs and selected drop down fields is shown.
      */

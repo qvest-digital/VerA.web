@@ -70,7 +70,6 @@ import org.jboss.logging.Logger;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-
 public class HibernateSessionFactoryListener implements ServletContextListener {
     private static final Logger LOGGER = Logger.getLogger(HibernateSessionFactoryListener.class);
 

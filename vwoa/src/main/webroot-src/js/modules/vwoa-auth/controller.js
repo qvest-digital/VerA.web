@@ -12,7 +12,6 @@ module.exports=function($scope, authService, show) {
     .then(tools.putInScope("user"),show.error);
   };
 
-
   $scope.setNextPage = function(){
   };
   authService.queryStatus().then(tools.putInScope("user"));

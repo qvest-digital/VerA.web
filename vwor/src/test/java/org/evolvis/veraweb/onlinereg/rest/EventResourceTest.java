@@ -98,7 +98,6 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
 
     EventResource eventResource;
 
-
     public EventResourceTest() {
         super(EventResource.class);
     }

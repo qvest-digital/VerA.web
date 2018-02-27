@@ -128,7 +128,6 @@
             #set($thisPersonTab = '2')
         #end
 
-
         <input type="hidden" id="personTab" name="personTab" value = #if($thisPersonTab) "$thisPersonTab" #else "1" #end/>
         <input type="hidden" id="personMemberTab" name="personMemberTab" value = #if($thisPersonMemberTab) "$thisPersonMemberTab" #else "1" #end/>
         <input type="hidden" id="personAddresstypeTab" name="personAddresstypeTab" value = #if($thisPersonAddresstypeTab) "$thisPersonAddresstypeTab" #else "1" #end/>
@@ -150,7 +149,6 @@
 
         <input type="hidden" name="person-expire" id="person-expire" value="$!message.date("DATE", $person.expire)"/>
 
-
         #if($person.deleted == "t")
             <vera-warn>
                 ${placeholderWithTranslation.diesepersonwurdebereitsalsgeloeschtmarkiertundwirdbeimsuchennichtmehrangezeigt}
@@ -171,7 +169,6 @@
             </vera-warn>
         #end
 
-
         <div id="breadcrumb" class="textRight marginBottom10">
             <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > #if($person && $person.id)${placeholderWithTranslation.GENERIC_EDIT_PERSON}#else ${placeholderWithTranslation.personanlegen}#end</span>
         </div>
@@ -191,7 +188,6 @@
                 </vera-info>
                 #end
         #end
-
 
     #if($personDB)
         #parse("inc/person-header.vm")
@@ -244,12 +240,9 @@
             </div>
         </div>
 
-
         <div vera-content="personendaten" class="contentBoxColored tabsContent">
 
             <div class="textRight mandatoryText">* = ${placeholderWithTranslation.pflichtfelder}</div>
-
-
 
             #set($personPartner = "hauptperson")
             #set($extEncoding = "$extEncoding1")
@@ -372,12 +365,9 @@
             #set($facade = $person.OtherExtra2)
             #parse("inc/person-address.vm")
 
-
         </div>
 
-
     </div>
-
 
     ## modified to support direct search result navigation as per change request for version 1.2.0
     ## cklein

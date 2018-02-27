@@ -158,7 +158,6 @@ public class WorkerFactory {
 		return (VerifyWorker)getWorker(cntx, "VerifyWorker");
 	}
 
-
 	/**
 	 * Gets a new instance of the {@link GuestDetailWorker}.
 	 *

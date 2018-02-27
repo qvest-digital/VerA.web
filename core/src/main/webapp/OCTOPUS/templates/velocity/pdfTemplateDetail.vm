@@ -102,7 +102,6 @@
             #end
         </table>
 
-
         <div id="buttonPanel-bottom" class="textRight marginTop10">
                 <input type="submit" name="submit" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
                 <input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_CANCEL}" title="${placeholderWithTranslation.GENERIC_CANCEL}" class="mainButton" onclick="window.location.href='PdfTemplateList?selectNone=true';" />

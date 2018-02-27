@@ -131,7 +131,6 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
         return sb.toString();
     }
 
-
     @Override
     public void opened(ConnectionEvent e) {
         debug(e);
@@ -141,8 +140,6 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
     public void disconnected(ConnectionEvent e) {
         debug(e);
     }
-
-
 
     @Override
     public void closed(ConnectionEvent e) {
@@ -154,12 +151,10 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
         info(e);
     }
 
-
     @Override
     public void messageNotDelivered(TransportEvent e) {
         warn(e);
     }
-
 
     @Override
     public void messagePartiallyDelivered(TransportEvent e) {

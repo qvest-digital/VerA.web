@@ -32,7 +32,6 @@
 				#set($funktion = "$!address.Function")
 			#end
 
-
 		<div class="tableRow">
 			<div class="tableCell">
                 <strong>${placeholderWithTranslation.GENERIC_GUEST_SINGULAR}:</strong>

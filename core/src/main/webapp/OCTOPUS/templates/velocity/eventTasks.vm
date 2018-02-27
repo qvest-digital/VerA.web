@@ -31,7 +31,6 @@
 
         <h1>${placeholderWithTranslation.GENERIC_EDIT_EVENT}: $!message.plain($event.shortname)</h1>
 
-
         <form id="formlist" name="formlist" action="$formurl?id=$!id" method="POST">
 
         #set($completeEventHeader = false)
@@ -43,13 +42,10 @@
 
         <div id="main_content" class="tabs contentBox grayBorder marginBottom10">
 
-
                         <input type="hidden" name="start" value="">
                         <input type="hidden" name="limit" value="" />
                         <input type="hidden" name="selectNone" value="true">
                         <input type="hidden" name="doRemove" value="true">
-
-
 
                         <div id="tabsMain">
                                 <ul class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
@@ -65,10 +61,8 @@
                                 </ul>
                         </div>
 
-
                         <div class="contentBoxColored tabsContent">
                                 <input type="hidden" id="remove-task" name="remove-task" value="false">
-
 
                                 #if(($listerrors && $listerrors.size() > 0) || ($listquestions && $listquestions.size() > 0))
                                 #set($save = false)
@@ -116,9 +110,6 @@
                                 <input type="hidden" name="list" value="$bean.id">
                                 #end
 
-
-
-
                                 #if($grants.mayWrite())
 
                                 <div class="table width100">
@@ -135,7 +126,6 @@
                                         </div>
                                 </div>
                                 #end
-
 
                                 #if ($listparam.count != 0)
 
@@ -198,13 +188,9 @@
                                         </vera-info>
                                 #end
 
-
                                 <div class="textRight">
                                         <!--input type="button" id="cancel" name="cancel" class="button" value="${placeholderWithTranslation.zuruck}" title="${placeholderWithTranslation.zursuche}" onclick="window.location.href='SearchEvent';"-->
                                 </div>
-
-
-
 
                         </div>
 

@@ -65,7 +65,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.jersey.api.client.Client;
 import lombok.Getter;
 
-
 /**
  * Created by mley on 26.08.14.
  */

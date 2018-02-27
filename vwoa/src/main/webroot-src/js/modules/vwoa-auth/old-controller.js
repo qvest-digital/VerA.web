@@ -8,7 +8,6 @@ module.exports = function($scope, $location, $http, $rootScope, $translate, $rou
         $scope.status=null;
     }
 
-
     $scope.login = function () {
         $scope.button = true;
 

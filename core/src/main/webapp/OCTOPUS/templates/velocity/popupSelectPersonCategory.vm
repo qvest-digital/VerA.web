@@ -12,7 +12,6 @@
         <script type="text/javascript" src="${paths.staticWeb}scripts/utils.js"></script>
         <script type="text/javascript" src="${paths.staticWeb}scripts/dhtml-popup.js"></script>
 
-
         <script type="text/javascript">
             var showCategory = function () {
             $(".errormsg").remove();
@@ -195,7 +194,6 @@
                     #else
                         ${placeholderWithTranslation.siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt} <em>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</em> ${placeholderWithTranslation.definieren}
                     #end
-
 
                 <div class="textRight marginTop5" id="buttonPanel-bottom">
                     #if( $assignmentAction == "assign" && $allCategorie.size() > 0 )

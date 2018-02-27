@@ -76,7 +76,6 @@ import org.osiam.resources.scim.User;
 import java.io.IOException;
 import java.util.List;
 
-
 /**
  * Created by mley on 27.08.14.
  *
@@ -150,7 +149,6 @@ public class OsiamClient {
         Query query = new QueryBuilder().filter("userName eq \"" + userName + "\"").build();
         AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
         SCIMSearchResult<User> users = this.connector.searchUsers(query, accessToken);
-
 
         if(users.getResources().size() == 0) {
                 return null;

@@ -212,7 +212,6 @@ public class WorkAreaWorker extends StammdatenWorker {
         return super.showList(octopusContext);
     }
 
-
     private void handleWorkareaNameEmptyErrorMessage(OctopusContext octopusContext) {
         final LanguageProvider languageProvider = initLanguageProvider(octopusContext);
         List<String> errors = new ArrayList<>();

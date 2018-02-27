@@ -18,7 +18,6 @@
 
 	<h1>${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}</h1>
 
-
 	<form id="formlist" name="formlist" action="" method="POST">
 		<input type="hidden" name="savelocation" value="true">
 		<input type="hidden" name="search" value="clear">
@@ -26,12 +25,10 @@
 		<input type="hidden" name="location-id" value="$!location.id">
 		<input type="hidden" name="location-orgunit" value="$!location.orgunit">
 
-
 		#if($location.errors.size() > 0)
 		<div style="width: 99%; background-color: #ffffff;">
 		<vera-warn>
 			$!message.plain($location.errors.get(0))<br>
-
 
 		</vera-warn>
 		</div>
@@ -107,7 +104,6 @@
 			</tr>
 
 		</table>
-
 
 		<div class="textRight marginTop10" id="buttonPanel-bottom">
 			#if($grants.mayWrite())

@@ -75,14 +75,11 @@ import org.mockito.junit.MockitoRule;
 
 public class LinkExtractorTest {
 
-
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
-
     @Mock
     private ResultSet rs;
-
 
     @Test
     public void createsLinkByPrependingAPrefix() throws SQLException {

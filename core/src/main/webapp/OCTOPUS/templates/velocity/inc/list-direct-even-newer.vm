@@ -48,7 +48,6 @@
                                 $(window).on('hashchange', highlightRow);
                                 highlightRow();
 
-
                         </script>
                 </td>
         </tr>

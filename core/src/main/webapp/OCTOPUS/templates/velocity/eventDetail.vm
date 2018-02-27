@@ -302,7 +302,6 @@
 									</div>
 								</div>
 
-
 								<div class="tableRow">
 									<div class="tableCell width50 inlineLabel">
 										<label for="event-mediarepresentatives">${placeholderWithTranslation.GENERIC_SUBSCRIPTION_OF_PRESS_REPRESENTATIVES_POSSIBLE}</label>
