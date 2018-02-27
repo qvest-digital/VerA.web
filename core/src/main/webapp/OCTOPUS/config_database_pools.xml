@@ -18,7 +18,8 @@
 				Database type and JDBC class configuration
 				-->
 				<param name="targetDBType" value="postgres" />
-				<param name="dataSourceClass" value="org.postgresql.jdbc3.Jdbc3PoolingDataSource" />
+				<param name="dataSourceClass" value="org.postgresql.ds.PGPoolingDataSource" />
+<!-- XXX TODO: https://stackoverflow.com/a/19209909/2171120 use DBCP/Tomcat pooling instead! -->
 
 				<!-- pool tracing - only for debugging -->
 				<!-- <param name="debugPoolClass" value="de.tarent.dblayer.debug.PoolProxy" /> -->
