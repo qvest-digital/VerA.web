@@ -6,5 +6,4 @@ fi
 if [ -f "$APACHE_PID_FILE" ]; then
 	rm "$APACHE_PID_FILE"
 fi
-/usr/sbin/apache2 -DFOREGROUND -k start
-
+exec /usr/sbin/apache2 -DFOREGROUND -k start
