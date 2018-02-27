@@ -125,8 +125,9 @@ unverständlicher zu machen. Hierzu gehören:\keinumbruch
 \begin{itemize}
  \item{Die Installation wird auf nicht anderweitig verwendeten,
   sauberen oder frisch installierten (virtuellen) Maschinen durchgeführt.}
- \item{Als Betriebssystem wird Debian 7 „wheezy“ oder Debian 8
-  „jessie“ eingesetzt; an den Stellen, wo Konfigurationsdateien
+ \item{Als Betriebssystem wird Debian 8 „jessie“
+%XXX TODO: oder 9 „stretch“
+  eingesetzt; an den Stellen, wo Konfigurationsdateien
   angepaßt werden müssen, können wir die Debian-Standardwerte
   als Grundlage voraussetzen. \texttt{sudo} ist installiert
   und eingerichtet.}
@@ -655,11 +656,14 @@ dem core-System erhöhen sich die Anforderungen minimal.
  HDD core (alleine)    & 2 GB       & 8 GB                & 20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
  HDD core + OSIAM      & 3 GB       & 10 GB               & 20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
  HDD Online-Anmeldung  & 1½ GB      & 3 GB                & 8 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Betriebssystem        & Debian 7   & Debian 7 oder 8     & Debian unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
- Webserver             & Apache 2.2 & Apache 2.2 oder 2.4 & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Java Laufzeitumgebung & OpenJDK 7  & OpenJDK 8           & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Applikationsserver    & Tomcat 7.0.27  & aktuelle 7.x    & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Betriebssystem        & Debian 8   & Debian 8            & Debian unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
+ Webserver             & Apache 2.4 & Apache 2.4          & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Java Laufzeitumgebung & OpenJDK 8  & OpenJDK 8           & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+%XXX TODO: auch unten
+ Applikationsserver    & Tomcat 8       & aktuelle 8.x    & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+%XXX TODO: Minimale Tomcat-Version einsetzen
  Datenbank             & PostgreSQL 9.1 & aktuelle 9.x    & PostgreSQL 9.6\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
+%XXX TODO: PostgreSQL 10+ testen
 \end{tabular}
 
 Bitte beachten Sie bei der Dimensionierung der Maschinen und der
@@ -675,10 +679,11 @@ ausgesetzt sein \emph{kann}.
  CPU                   & 1          & 1                   & 1\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
  Arbeitsspeicher       & 512 MiB    & 1024 MiB            & 2048 MiB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
  Festplatte            & 2 GB       & 8 GB                & 20 GB\Hair\textsuperscript{\ref{fn:req-tst-notmore}}\\\hline
- Betriebssystem        & Debian 7   & Debian 7 oder 8     & Debian unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
- Webserver             & Apache 2.2 & Apache 2.2 oder 2.4 & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Java Laufzeitumgebung & OpenJDK 7  & OpenJDK 8           & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
- Applikationsserver    & Tomcat 7.0.27  & aktuelle 7.x    & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Betriebssystem        & Debian 8   & Debian 8            & Debian unstable\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
+ Webserver             & Apache 2.4 & Apache 2.4          & Apache 2.4\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+ Java Laufzeitumgebung & OpenJDK 8  & OpenJDK 8           & OpenJDK 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
+%XXX TODO: s.o.
+ Applikationsserver    & Tomcat 8       & aktuelle 8.x    & Tomcat 8\Hair\textsuperscript{\ref{fn:req-notmore}}\\\hline
  Datenbank             & PostgreSQL 9.1 & aktuelle 9.x    & PostgreSQL 9.6\Hair\textsuperscript{\ref{fn:req-nolimit}}\\\hline
 \end{tabular}
 \fi% !oa
@@ -729,10 +734,11 @@ Zum Betrieb von VerA.web core empfehlen wir eine eigenständige VM
 (OSIAM kann auf dem System mitinstalliert werden, wenn es nur für
 VerA.web verwendet wird)
 \fi% oa
-mit einer der stabilen Versionen Debian 7 „wheezy“ oder Debian 8
+mit einer der stabilen Versionen Debian 8
+%XXX TODO: oder 9 „stretch“
 „jessie“ als Betriebssystem. Zwar \emph{kann} die Software auch
-mit einer anderen Debian-basierten Distribution (z.B. Ubuntu 14.04
-„trusty“) oder einer anderen Java/Tomcat-Umgebung (z.B. Solaris \dash
+mit einer anderen Debian-basierten Distribution (z.B. Ubuntu)
+oder einer anderen Java/Tomcat-Umgebung (z.B. Solaris \dash
 hier müssen Sie Pfade, z.B. \texttt{/usr/ucb/install} statt einfach
 \texttt{install}, und Befehle, z.B. \texttt{zcat … | tar -xf -}
 statt \texttt{tar -xzf …}, an die modifizierte Umgebung anpassen)
@@ -754,18 +760,15 @@ Der PostgreSQL-Datenbankserver für OSIAM muß hingegen aus Gründen der
 Einfachheit auf demselben System wie der OSIAM-Anwendungsserver laufen.
 \fi% oa
 
-Desweiteren benötigen Sie den Webserver Apache 2\Hair\footnote
-{\label{fn:apache}Debian 7 „wheezy“ wird mit Apache httpd 2.2
-ausgeliefert, Debian 8 „jessie“ mit Apache httpd 2.4} mit
+Desweiteren benötigen Sie den Webserver Apache 2 mit
 \ifoa
 \texttt{mod\_proxy\_http},
 \fi% oa
-\texttt{mod\_jk} und SSL, sowie den Applikationsserver Tomcat 7
-(falls Sie Tomcat 8 benutzen müssen Sie das in allen Listings
-entsprechend anpassen) mit einer Java™-Laufzeitumgebung (OpenJDK)
-ab Version 7, ohne GUI (headless JRE).
+\texttt{mod\_jk} und SSL, sowie den Applikationsserver Tomcat 8
+mit einer Java™-Laufzeitumgebung (OpenJDK) ab Version 8,
+ohne GUI (headless JRE).
 
-⚠ \emph{Achtung:} Java™ 6 oder älter wird nicht unterstützt
+⚠ \emph{Achtung:} Java™ 7 oder älter wird nicht unterstützt
 und führt während der Installation zu Fehlern!
 
 \subsubsection{Mailserver (MTA)}\label{subsubsec:req-core-mta}
@@ -783,14 +786,15 @@ eingestellten anderen Mailserver, zustellt.
 Zum Betrieb der Online-Anmeldung empfehlen wir ebenfalls eine
 eigenständige VM; sie kann allerdings auch auf demselben System
 wie der VerA.web core eingerichtet werden. Auch hier wird eine
-Installation von Debian 7 „wheezy“ oder Debian 8 „jessie“ ohne
+Installation von Debian 8 „jessie“ ohne
+%XXX TODO: stretch
 graphische Oberfläche vorausgesetzt.
 
 Die Online-Anmeldung hat relativ bescheidene Voraussetzungen
 und kann bereits mit 512 MiB Arbeitsspeicher und 1½ GB Festplatte
 betrieben werden; die Werte steigen je nach Auslastung entsprechend.
 
-Auch hier benötigen Sie den Apache Webserver und die Java™ 7 oder 8
+Auch hier benötigen Sie den Apache Webserver und die Java™ 8
 Laufzeitumgebung, allerdings keinen Tomcat-Applikationsserver, da
 die Online-Anmeldung als sogenannter Microservice implementiert wurde.
 
@@ -855,8 +859,7 @@ Vergeben Sie ein Administratorpaßwort für das LDAP und merken
 Sie sich es gut!
 \end{minipage}
 
-In der Datei \texttt{/etc/ldap/slapd.d/cn=config/olcDatabase=\{1\}mdb.ldif}\Hair\footnote
-{kann, z.B. unter Debian wheezy, auch \texttt{hdb} statt \texttt{mdb} sein}
+In der Datei \texttt{/etc/ldap/slapd.d/cn=config/olcDatabase=\{1\}mdb.ldif}
 finden Sie jetzt einen Eintrag \texttt{olcSuffix}. Notieren Sie sich den
 Teil hinter dem Doppelpunkt (und Leerzeichen); dies ist Ihr sogenannter
 „Base DN“. In dieser Dokumentation wird \texttt{dc=lan,dc=tarent,dc=de} als
@@ -872,7 +875,6 @@ LDAP-Administrator \texttt{cn=admin,dc=lan,dc=tarent,dc=de}.
 
 \begin{minipage}{\textwidth}
 \begin{lstdump}{LDAP-Clientkonfiguration}
-# kann auch hdb statt mdb sein, z.B. unter Debian wheezy
 cfg=/etc/ldap/slapd.d/cn=config/olcDatabase={1}mdb.ldif
 basedn=$(sudo sed -n '/^olcSuffix: */s///p' "$cfg")
 echo "Der Base DN ist: $basedn"
@@ -1011,39 +1013,10 @@ Sie bitte zunächst das System vor, indem Sie einige Pakete installieren
 und sicherstellen, daß keine ältere Java-Version installiert ist bzw.
 versehentlich verwendet wird:
 
-\begin{lstdump}{Pakete OSIAM/wheezy}
-### Debian 7 „wheezy“
-sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
-    apache2-mpm-prefork apache2 libapache2-mod-jk curl
-sudo apt-get purge openjdk-6-jre-headless gcj-4.6-base gcj-4.7-base
-java -version
-### sollte etwa ausgeben:
-# java version "1.7.0_95"
-# OpenJDK Runtime Environment (IcedTea 2.6.4) (7u95-2.6.4-1~deb7u1)
-# OpenJDK 64-Bit Server VM (build 24.95-b01, mixed mode)
-\end{lstdump}
-% allow page break only because minipage gets too large otherwise
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-\begin{lstdump}{Pakete OSIAM/jessie7}
-### Debian 8 „jessie“ / Java 7
-sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
-    apache2 libapache2-mod-jk curl
-sudo a2dismod mpm_event
-sudo a2enmod mpm_prefork
-sudo apt-get purge gcj-4.8-jre-headless gcj-4.9-jre-headless
-java -version
-### sollte etwa ausgeben:
-# java version "1.7.0_91"
-# OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb8u1)
-# OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
-\end{lstdump}
-
-\begin{lstdump}{Pakete OSIAM/jessie8}
+\begin{lstdump}{Pakete OSIAM/jessie}
 ### Debian 8 „jessie“ / Java 8
 sudo apt-get install openjdk-8-jre-headless/jessie-backports
-sudo apt-get install postgresql tomcat7 \
+sudo apt-get install postgresql tomcat8 \
     apache2 libapache2-mod-jk curl
 sudo a2dismod mpm_event
 sudo a2enmod mpm_prefork
@@ -1090,13 +1063,13 @@ OSIAM-Servers. Danach installieren Sie diese:
 
 \begin{lstdump}{/etc/osiam fuellen}
 sudo mkdir -p /etc/osiam
-sudo chown 0:tomcat7 /etc/osiam
+sudo chown 0:tomcat8 /etc/osiam
 sudo chmod 2750 /etc/osiam
-sudo install -c -o 0 -g tomcat7 -m 640 *.properties /etc/osiam/
+sudo install -c -o 0 -g tomcat8 -m 640 *.properties /etc/osiam/
 \end{lstdump}
 \end{minipage}
 
-Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat7}
+Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat8}
 einige Zeilen ein, um weitere JVM-Startoptionen zu setzen.
 
 \begin{minipage}{\textwidth}
@@ -1123,21 +1096,8 @@ Option ist ein Kommentar und nicht die gesuchte Stelle! Ändern Sie
 diesen Wert auf \texttt{-Xms512m -Xmx1024m} falls die VM über mehr
 als 1280 MiB RAM verfügt, \texttt{-Xmx512m} andernfalls.
 
-Falls Sie mehrere Webanwendungen im selben Applikationsserver
-betreiben kann es sein, daß Sie den sogenannten PermGen-Space
-erhöhen müssen, da der Standardwert von \texttt{64m} nicht
-mehr ausreicht. Dies betrifft nur Java vor Version 8.
-
 \begin{minipage}{\textwidth}
-Hierzu fügen Sie z.B. folgende Zeile hinzu (oder auch \texttt{256m}):
-
-\begin{lstdump}{Tomcat PermGen-Space}
-JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=128m"
-\end{lstdump}
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-Nun bearbeiten Sie die Datei \texttt{/etc/tomcat7/server.xml}, um Tomcat
+Nun bearbeiten Sie die Datei \texttt{/etc/tomcat8/server.xml}, um Tomcat
 von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
 (eine einfache Suche nach „8080“ findet ihn) und kommentieren ihn aus,
 indem Sie davor \texttt{<!‑‑} und dahinter \texttt{‑‑>} schreiben:
@@ -1166,12 +1126,12 @@ hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-Suchen Sie bitte in der Datei \texttt{/etc/tomcat7/catalina.properties}
+Suchen Sie bitte in der Datei \texttt{/etc/tomcat8/catalina.properties}
 die Zeile, die mit \texttt{shared.loader=} beginnt, und hängen Sie am
 Ende der Zeile \texttt{,/etc/osiam} an; das könnte dann wie folgt aussehen:
 
 \begin{lstdump}{Tomcat OSIAM shared.loader}
-shared.loader=/var/lib/tomcat7/shared/classes,/var/lib/tomcat7/shared/*.jar,/etc/osiam
+shared.loader="${catalina.base}/shared/classes","${catalina.base}/shared/*.jar","${catalina.home}/shared/classes","${catalina.home}/shared/*.jar",/etc/osiam
 \end{lstdump}
 \end{minipage}
 
@@ -1183,9 +1143,9 @@ explizit, ob noch \texttt{java}-Prozesse laufen.\keinumbruch
 
 \begin{minipage}{\textwidth}
 \begin{lstdump}{Tomcat restart}
-sudo service tomcat7 stop
+sudo service tomcat8 stop
 ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
-sudo service tomcat7 start
+sudo service tomcat8 start
 \end{lstdump}
 \end{minipage}
 
@@ -1197,15 +1157,15 @@ Jetzt laden Sie die OSIAM-Anwendungen herunter und installieren Sie sie:
 \begin{lstdump}{OSIAM herunterladen}
 curl -o osiam-auth-server.war https://maven-repo.evolvis.org/releases/org/osiam/auth-server/〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
 curl -o osiam-resource-server.war https://maven-repo.evolvis.org/releases/org/osiam/resource-server/〈\lstdumpesc{\vwiaversosiam}〉/resource-server-〈\lstdumpesc{\vwiaversosiam}〉.war
-sudo install -c -o 0 -g 0 -m 644 *.war /var/lib/tomcat7/webapps/
+sudo install -c -o 0 -g 0 -m 644 *.war /var/lib/tomcat8/webapps/
 \end{lstdump}
 \end{minipage}
 
 Warten Sie einige Zeit, bis beide Artefakte deployt wurden; in
-\texttt{/var/log/tomcat7/catalina.out} befinden sich die Logs.
-Seit Debian 8 „jessie“ finden sich dort Erfolgsmeldungen, z.B.
-{\ttfamily INFO: Deployment of web application archive
-/var/lib/tomcat7/webapps/osiam-auth-server.war has finished
+\texttt{/var/log/tomcat8/catalina.out} befinden sich die Logs,
+unter anderem mit Erfolgsmeldungen im Stile von {\ttfamily
+INFO: Deployment of web application archive
+/var/lib/tomcat8/webapps/osiam-auth-server.war has finished
 in 12,338 ms} (eine separate solche Zeile pro Applikationsarchiv).
 
 \subsubsection{Webserver}\label{subsubsec:setup-osiam-apache}
@@ -1221,9 +1181,8 @@ sudo a2ensite default-ssl
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl}
-(Debian 7 „wheezy“) oder \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
-(Debian 8 „jessie“) fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
+In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
+fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
 \texttt{DocumentRoot}), folgende Zeilen ein:
 
 \begin{lstdump}{AJP workers OSIAM}
@@ -1389,44 +1348,13 @@ vorab Ihren Sachbearbeitern zukommen lassen können.
 Installieren Sie einige Pakete und stellen Sie sicher, daß keine
 ältere Java-Version installiert ist bzw. versehentlich verwendet wird:
 
-\begin{lstdump}{Pakete core/wheezy}
-### Debian 7 „wheezy“
-sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
-    apache2-mpm-prefork apache2 libapache2-mod-jk curl
-sudo apt-get purge openjdk-6-jre-headless gcj-4.6-base gcj-4.7-base
-java -version
-### sollte etwa ausgeben:
-# java version "1.7.0_95"
-# OpenJDK Runtime Environment (IcedTea 2.6.4) (7u95-2.6.4-1~deb7u1)
-# OpenJDK 64-Bit Server VM (build 24.95-b01, mixed mode)
-\end{lstdump}
-% allow page break only because minipage gets too large otherwise
-\end{minipage}
-
-\begin{minipage}{\textwidth}
-\begin{lstdump}{Pakete core/jessie7}
-### Debian 8 „jessie“ / Java 7
-sudo apt-get install postgresql openjdk-7-jre-headless tomcat7 \
-    libpostgresql-jdbc-java apache2 libapache2-mod-jk curl
-sudo mkdir -p /var/lib/tomcat7/lib
-sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat7/lib/
-sudo a2dismod mpm_event
-sudo a2enmod mpm_prefork
-sudo apt-get purge gcj-4.8-jre-headless gcj-4.9-jre-headless
-java -version
-### sollte etwa ausgeben:
-# java version "1.7.0_91"
-# OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb8u1)
-# OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
-\end{lstdump}
-
-\begin{lstdump}{Pakete core/jessie8}
+\begin{lstdump}{Pakete core/jessie}
 ### Debian 8 „jessie“ / Java 8
 sudo apt-get install openjdk-8-jre-headless/jessie-backports
-sudo apt-get install postgresql tomcat7 \
+sudo apt-get install postgresql tomcat8 \
     libpostgresql-jdbc-java apache2 libapache2-mod-jk curl
-sudo mkdir -p /var/lib/tomcat7/lib
-sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat7/lib/
+sudo mkdir -p /var/lib/tomcat8/lib
+sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat8/lib/
 sudo a2dismod mpm_event
 sudo a2enmod mpm_prefork
 sudo apt-get purge openjdk-7-jre-headless \
@@ -1549,7 +1477,7 @@ machen Sie es für den Tomcat-Nutzer schreibbar:
 
 \begin{lstdump}{Uploaded anlegen}
 sudo mkdir -p /var/lib/veraweb/uploaded
-sudo chgrp tomcat7 /var/lib/veraweb/uploaded
+sudo chgrp tomcat8 /var/lib/veraweb/uploaded
 sudo chmod 2770 /var/lib/veraweb/uploaded
 \end{lstdump}
 
@@ -1617,10 +1545,10 @@ Konfigurationsdateien dorthin:
 
 \begin{lstdump}{/etc/veraweb fuellen}
 sudo mkdir -p /etc/veraweb/l10n
-sudo chown 0:tomcat7 /etc/veraweb
+sudo chown 0:tomcat8 /etc/veraweb
 sudo chmod 2750 /etc/veraweb
-sudo install -c -o 0 -g tomcat7 -m 640 config_*.xml /etc/veraweb/
-sudo install -c -o 0 -g tomcat7 -m 640 *.properties /etc/veraweb/
+sudo install -c -o 0 -g tomcat8 -m 640 config_*.xml /etc/veraweb/
+sudo install -c -o 0 -g tomcat8 -m 640 *.properties /etc/veraweb/
 \end{lstdump}
 \end{minipage}
 
@@ -1628,7 +1556,7 @@ Im Verzeichnis \texttt{/etc/veraweb/l10n} können Anpassungen an
 den Übersetzungen abgelegt werden. %Das entsprechende Vorgehen wird
 %in \nameref{sec:l10n} beschrieben.
 
-Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat7}
+Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat8}
 einige Zeilen ein, um weitere JVM-Startoptionen zu setzen.
 
 \begin{minipage}{\textwidth}
@@ -1650,7 +1578,7 @@ JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-Nun bearbeiten Sie die Datei \texttt{/etc/tomcat7/server.xml}, um Tomcat
+Nun bearbeiten Sie die Datei \texttt{/etc/tomcat8/server.xml}, um Tomcat
 von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
 (eine einfache Suche nach „8080“ findet ihn) und kommentieren ihn aus,
 indem Sie davor \texttt{<!‑‑} und dahinter \texttt{‑‑>} schreiben:
@@ -1679,7 +1607,7 @@ hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat7/context.xml} vor
+Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat8/context.xml} vor
 das schließende \texttt{</Context>}-Tag folgendes Tag ein, um die
  \ifupgradeanleitung
   Datenbank VerA.web-core
@@ -1705,7 +1633,7 @@ abgewichen sind.
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat7/tomcat-users.xml} vor
+Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat8/tomcat-users.xml} vor
 das schließende \texttt{</tomcat-users>}-Tag folgende Tags ein, setzen dabei
 aber die von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
 \ref{subsec:intro-restapi} ein:
@@ -1725,9 +1653,9 @@ explizit, ob noch \texttt{java}-Prozesse laufen.\keinumbruch
 
 \begin{minipage}{\textwidth}
 \begin{lstdump}{Tomcat restart}
-sudo service tomcat7 stop
+sudo service tomcat8 stop
 ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
-sudo service tomcat7 start
+sudo service tomcat8 start
 \end{lstdump}
 \end{minipage}
 
@@ -1735,21 +1663,21 @@ sudo service tomcat7 start
 Deployen Sie die VerA.web-Anwendung und die REST-API in den Applikationsserver:
 
 \begin{lstdump}{Tomcat deploy}
-sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
-sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
+sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat8/webapps/
+sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat8/webapps/
 \end{lstdump}
 \end{minipage}
 
 Warten Sie ca. ½ Minute, bis beide Artefakte deployt wurden; in
-\texttt{/var/log/tomcat7/catalina.out} befinden sich die Logs.
+\texttt{/var/log/tomcat8/catalina.out} befinden sich die Logs,
+unter anderem mit Erfolgsmeldungen im Stile von {\ttfamily
+INFO: Deployment of web application archive
+/var/lib/tomcat8/webapps/veraweb.war has finished in 2,151 ms}
+(eine separate solche Zeile pro Applikationsarchiv).
 \ifoa
 Falls OSIAM (oder andere Webanwendungen) auf demselben System
 installiert werden kann der Startvorgang deutlich länger dauern.
 \fi% oa
-Seit Debian 8 „jessie“ finden sich dort Erfolgsmeldungen, z.B.
-{\ttfamily INFO: Deployment of web application archive
-/var/lib/tomcat7/webapps/veraweb.war has finished in 2,151 ms}
-(eine separate solche Zeile pro Applikationsarchiv).
 
 \subsection{Webserver VerA.web-core und REST-API}\label{subsec:setup-core-apache}
 
@@ -1764,9 +1692,8 @@ sudo a2ensite default-ssl
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl}
-(Debian 7 „wheezy“) oder \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
-(Debian 8 „jessie“) fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
+In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
+fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
 \texttt{DocumentRoot}), folgende Zeilen ein:
 
 \begin{lstdump}{AJP workers core}
@@ -1812,9 +1739,8 @@ selber, die Online-Anmeldung, und autorisierte Personen (Administratoren
 und Sachbearbeiter) möglich sind.
 
 \begin{minipage}{\textwidth}
-In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/000-default}
-(Debian 7 „wheezy“) oder \texttt{/etc/apache2/sites-enabled/000-default.conf}
-(Debian 8 „jessie“) fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
+In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/000-default.conf}
+fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
 \texttt{DocumentRoot}), eine Weiterleitung von HTTP auf HTTPS ein:
 
 \begin{lstdump}{redirect http}
@@ -1901,33 +1827,7 @@ enthalten werden.
 Installieren Sie nun die benötigten Pakete und stellen Sie sicher, daß keine
 ältere Java-Version installiert ist bzw. versehentlich verwendet wird:
 
-\begin{lstdump}{Pakete OA/wheezy}
-### Debian 7 „wheezy“
-sudo apt-get install adduser openjdk-7-jre-headless \
-    apache2-mpm-prefork apache2 daemontools-run
-sudo apt-get purge openjdk-6-jre-headless gcj-4.6-base gcj-4.7-base
-java -version
-### sollte etwa ausgeben:
-# java version "1.7.0_95"
-# OpenJDK Runtime Environment (IcedTea 2.6.4) (7u95-2.6.4-1~deb7u1)
-# OpenJDK 64-Bit Server VM (build 24.95-b01, mixed mode)
-\end{lstdump}
-
-\begin{lstdump}{Pakete OA/jessie7}
-### Debian 8 „jessie“ / Java 7
-sudo apt-get install adduser openjdk-7-jre-headless \
-    apache2 daemontools-run
-sudo a2dismod mpm_event
-sudo a2enmod mpm_prefork
-sudo apt-get purge gcj-4.8-jre-headless gcj-4.9-jre-headless
-java -version
-### sollte etwa ausgeben:
-# java version "1.7.0_91"
-# OpenJDK Runtime Environment (IcedTea 2.6.3) (7u91-2.6.3-1~deb8u1)
-# OpenJDK 64-Bit Server VM (build 24.91-b01, mixed mode)
-\end{lstdump}
-
-\begin{lstdump}{Pakete OA/jessie8}
+\begin{lstdump}{Pakete OA/jessie}
 ### Debian 8 „jessie“ / Java 8
 sudo apt-get install openjdk-8-jre-headless/jessie-backports
 sudo apt-get install adduser apache2 daemontools-run
@@ -2005,9 +1905,8 @@ sudo a2ensite default-ssl
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl}
-(Debian 7 „wheezy“) oder \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
-(Debian 8 „jessie“) fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
+In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
+fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
 \texttt{DocumentRoot}), folgende Zeilen ein:
 
 \begin{lstdump}{AJP workers core}
@@ -2052,9 +1951,8 @@ möglich sein, sowohl bei der Delegationsanmeldung als auch insbesondere
 bei der Anmeldung zu offenen Veranstaltungen.
 
 \begin{minipage}{\textwidth}
-In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/000-default}
-(Debian 7 „wheezy“) oder \texttt{/etc/apache2/sites-enabled/000-default.conf}
-(Debian 8 „jessie“) fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
+In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/000-default.conf}
+fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
 \texttt{DocumentRoot}), eine Weiterleitung von HTTP auf HTTPS ein:
 
 \begin{lstdump}{redirect http}
@@ -2118,14 +2016,14 @@ lediglich, während der Tomcat-Anwendungsserver heruntergefahren
 ist, die Webapplikationsarchive durch die neuen Versionen tauschen:
 
 \begin{lstdump}{OSIAM Upgrade}
-sudo service tomcat7 stop
+sudo service tomcat8 stop
 ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
-cd /var/lib/tomcat7/webapps
+cd /var/lib/tomcat8/webapps
 rm -rf osiam-auth-server osiam-resource-server
 curl -o osiam-auth-server.war https://maven-repo.evolvis.org/releases/org/osiam/auth-server/〈\lstdumpesc{\vwiaversosiam}〉/auth-server-〈\lstdumpesc{\vwiaversosiam}〉.war
 curl -o osiam-resource-server.war https://maven-repo.evolvis.org/releases/org/osiam/resource-server/〈\lstdumpesc{\vwiaversosiam}〉/resource-server-〈\lstdumpesc{\vwiaversosiam}〉.war
 cd -
-sudo service tomcat7 start
+sudo service tomcat8 start
 \end{lstdump}
 \end{minipage}
 
@@ -2148,7 +2046,7 @@ Hierbei wird davon ausgegangen, daß VerA.web gemäß
   dem Abschnitt \nameref{sec:setup-int} der vorliegenden Anleitung,
   oder einer ähnlich aufgebauten Anleitung einer Vorgängerversion,
  \fi% !upgradeanleitung
-auf einem Debian 7 „wheezy“- oder Debian 8 „jessie“-System eingerichtet
+auf einem Debian 8 „jessie“-System eingerichtet
 wurde. Installationen gemäß früherer Anleitungen der tarent solutions,
 die abweichende Verfahren z.B. in der Webserverkonfiguration benutzten,
 werden ebenfalls unterstützt, benötigen aber ggfs. Anpassungen.
@@ -2172,14 +2070,14 @@ und Wartungsteam.
 \subsection{Bevor Sie beginnen}\label{subsec:upgrade-core-pre}
 
 Es empfiehlt sich, eine Sicherung von \texttt{/etc/veraweb} und
-\texttt{/var/lib/tomcat7/webapps} zu erstellen.
+\texttt{/var/lib/tomcat8/webapps} zu erstellen.
 
 \begin{minipage}{\textwidth}
 Bevor Sie mit dem eigentlichen Upgrade des VerA.web-core-Systems beginnen
 fahren Sie bitte den dort laufenden Tomcat-Applikationsserver herunter:
 
 \begin{lstdump}{Tomcat undeploy}
-sudo service tomcat7 stop
+sudo service tomcat8 stop
 ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
 \end{lstdump}
 
@@ -2251,7 +2149,7 @@ Falls Sie von einer VerA.web-Version, die die Konfigurationsdateien noch
 nicht in \texttt{/etc/veraweb} ablegt, aktualisieren, müssen Sie dort
 zunächst (nur) die gegenüber den in der alten Version der \texttt{veraweb.war}
 ausgelieferten Dateien angepaßten Konfigurationen aus dem Verzeichnis
-\texttt{/var/lib/tomcat7/webapps/veraweb/OCTOPUS/config\_*.xml}
+\texttt{/var/lib/tomcat8/webapps/veraweb/OCTOPUS/config\_*.xml}
 Ihrer alten Installation hinkopieren.
 
 Das neue Konfigurationsschema wurde mit VerA.web 1.5.1.4 eingeführt,
@@ -2322,7 +2220,7 @@ machen Sie es für den Tomcat-Nutzer schreibbar:
 
 \begin{lstdump}{Uploaded anlegen}
 sudo mkdir -p /var/lib/veraweb/uploaded
-sudo chgrp tomcat7 /var/lib/veraweb/uploaded
+sudo chgrp tomcat8 /var/lib/veraweb/uploaded
 sudo chmod 2770 /var/lib/veraweb/uploaded
 \end{lstdump}
 
@@ -2366,7 +2264,7 @@ sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
 Installieren Sie nun die Konfigurationsdateien für die REST-API:
 
 \begin{lstdump}{/etc/veraweb/*.properties}
-sudo install -c -o 0 -g tomcat7 -m 640 *.properties /etc/veraweb/
+sudo install -c -o 0 -g tomcat8 -m 640 *.properties /etc/veraweb/
 \end{lstdump}
 \end{minipage}
 
@@ -2380,7 +2278,7 @@ JkMount /vwor* ajp13_worker
 
 Starten Sie den Webserver neu, um die Änderungen wirksam zu machen.
 
-Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat7}
+Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat8}
 einige Zeilen ein, um weitere JVM-Startoptionen zu setzen, die
 in alten Installationen ggfs. noch nicht gesetzt waren.
 
@@ -2406,7 +2304,7 @@ Nun muß noch die Konfiguration von Tomcat für die neu hinzugekommene
 REST-API vorgenommen werden.
 
 \begin{minipage}{\textwidth}
-Fügen Sie bitte am Ende der Datei\texttt{/etc/tomcat7/context.xml} vor
+Fügen Sie bitte am Ende der Datei\texttt{/etc/tomcat8/context.xml} vor
 das schließende \texttt{</Context>}-Tag folgendes Tag ein, um die
  \ifupgradeanleitung
   Datenbank VerA.web-core
@@ -2432,7 +2330,7 @@ abgewichen sind.
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat7/tomcat-users.xml} vor
+Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat8/tomcat-users.xml} vor
 das schließende \texttt{</tomcat-users>}-Tag folgende Tags ein, setzen dabei
 aber die von Ihnen am Anfang dieses Unterkapitels gewählten Zugangsdaten der
 REST-API ein:
@@ -2484,7 +2382,7 @@ sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
 Installieren Sie nun die angepaßte Konfigurationsdatei:
 
 \begin{lstdump}{/etc/veraweb/*.properties}
-sudo install -c -o 0 -g tomcat7 -m 640 vwor.properties /etc/veraweb/
+sudo install -c -o 0 -g tomcat8 -m 640 vwor.properties /etc/veraweb/
 \end{lstdump}
 \end{minipage}
 
@@ -2505,6 +2403,23 @@ Wenn Anpassungen gemacht wurden, müssen diese entsprechend angepasst
 werden, wie es in \nameref{sec:l10n} beschrieben ist.
 \fi
 
+\subsection{Upgrade von Tomcat 7 auf Tomcat 8}
+
+Übertragen Sie alle Änderungen an den Konfigurationsdateien
+unterhalb von \texttt{/etc/tomcat7/} auf ihre Äquivalente
+unterhalb von \texttt{/etc/tomcat8/} sowie von
+\texttt{/etc/default/tomcat7} nach \texttt{/etc/default/tomcat8}
+\dash es ist am besten, wenn Sie einfach die diesbezüglichen
+Schritte der Installationsanleitung für Tomcat 8 nochmals
+durchgehen und die alten Konfigurationsdateien nur als Referenz
+betrachten.
+
+Außerdem müssen Sie, wie im folgenden Unterabschnitt beschrieben,
+noch das PostgreSQL-JDBC verlinken.
+
+Schließlich müssen die WARs nach \texttt{/var/lib/tomcat8/webapps/}
+umgezogen werden, während die Tomcat-Applikationsserver nicht laufen.
+
 \subsection{Upgrade von Debian 7 „wheezy“ auf Debian 8 „jessie“}
 
 Nachdem Sie das System regulär auf die neue Version von Debian
@@ -2515,8 +2430,8 @@ installiert ist, noch folgende Anpassungen tätigen:\keinumbruch
 \begin{minipage}{\textwidth}
 \begin{lstdump}{Upgrade core wheezy/jessie}
 sudo apt-get install libpostgresql-jdbc-java
-sudo mkdir -p /var/lib/tomcat7/lib
-sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat7/lib/
+sudo mkdir -p /var/lib/tomcat8/lib
+sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat8/lib/
 \end{lstdump}
 \end{minipage}
 
@@ -2548,8 +2463,8 @@ als \texttt{vwsecret} gesetzt haben.
 Schließlich installieren Sie die neuen Konfigurationsdateien:
 
 \begin{lstdump}{core add OA}
-sudo install -c -o 0 -g tomcat7 -m 640 config_vwoa.xml /etc/veraweb/
-sudo install -c -o 0 -g tomcat7 -m 640 veraweb.properties /etc/veraweb/
+sudo install -c -o 0 -g tomcat8 -m 640 config_vwoa.xml /etc/veraweb/
+sudo install -c -o 0 -g tomcat8 -m 640 veraweb.properties /etc/veraweb/
 \end{lstdump}
 \end{minipage}
 
@@ -2581,11 +2496,11 @@ VerA.web-Kernanwendung und der REST-API und starten den
 Tomcat-Applikationsserver wieder:
 
 \begin{lstdump}{Tomcat deploy}
-sudo rm -rf /var/lib/tomcat7/webapps/veraweb*
-sudo rm -rf /var/lib/tomcat7/webapps/vwor*
-sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat7/webapps/
-sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat7/webapps/
-sudo service tomcat7 start
+sudo rm -rf /var/lib/tomcat8/webapps/veraweb*
+sudo rm -rf /var/lib/tomcat8/webapps/vwor*
+sudo install -c -o 0 -g 0 -m 644 ../veraweb.war /var/lib/tomcat8/webapps/
+sudo install -c -o 0 -g 0 -m 644 ../vwor.war /var/lib/tomcat8/webapps/
+sudo service tomcat8 start
 \end{lstdump}
 \end{minipage}
 
@@ -2600,7 +2515,7 @@ rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 \end{minipage}
 
 Prüfen Sie ggfs. die Logausgaben\Hair\footnote{\label{fn:tomcatlogs}in
-\texttt{/var/log/tomcat7/catalina.out}}, ob die REST-API verfügbar
+\texttt{/var/log/tomcat8/catalina.out}}, ob die REST-API verfügbar
 ist\Hair\footnote{\label{fn:vworcheck}mit:
 \texttt{curl https://veraweb:veraweb@\$(hostname -f)/vwor/rest/available/; echo}%
 \dash ersetzen Sie in dieser Kommandozeile den Teil \texttt{veraweb:veraweb@}
@@ -2622,7 +2537,7 @@ Hierbei wird davon ausgegangen, daß diese gemäß
   dem Abschnitt \nameref{sec:setup-oa} der vorliegenden Anleitung,
   mindestens Version 1.7.4,
  \fi% !upgradeanleitung
-auf einem Debian 7 „wheezy“-System eingerichtet wurde.
+auf einem Debian 8 „jessie“-System eingerichtet wurde.
 Falls Sie eine ältere Installation der Online-Anmeldung besitzen
 empfehlen wir Ihnen stattdessen eine Neuinstallation, da die
 Installationsmethode seinerzeit noch nicht ausgereift war.
@@ -3008,18 +2923,18 @@ u.a. an folgenden Stellen:\keinumbruch
   sowie \texttt{/etc/ldap-account-manager} und
   \texttt{/var/lib/ldap-account-manager}}
  \item{in der PostgreSQL-Datenbank \texttt{veraweb}}
- \item{\texttt{/etc/tomcat7/context.xml}}
- \item{\texttt{/etc/tomcat7/tomcat-users.xml}}
+ \item{\texttt{/etc/tomcat8/context.xml}}
+ \item{\texttt{/etc/tomcat8/tomcat-users.xml}}
  \item{\texttt{/etc/veraweb/config\_*.xml}}
  \item{\texttt{/etc/veraweb/veraweb.properties}}
  \item{in Logdateien unterhalb von \texttt{/var/log/apache2/}
-  und \texttt{/var/log/tomcat7/}}
+  und \texttt{/var/log/tomcat8/}}
  \item{Bilddateien in \texttt{/var/lib/veraweb/uploaded/}}
 \end{itemize}
 
 VerA.web core und die REST-API laufen als Webarchive im
 Tomcat-Applikationsserver und somit mit dessen Rechten,
-d.h. als Unix-Nutzer \texttt{tomcat7}.
+d.h. als Unix-Nutzer \texttt{tomcat8}.
 
 \ifoa
 
@@ -3034,14 +2949,14 @@ und hält folgende sicherheitsrelevanten Daten vor:\keinumbruch
 
 OSIAM ist eine „Blackbox“, daher kann keine genaue Aussage hierüber getroffen
 werden, zudem dies versionsabhängig ist; die aktuelle Version von OSIAM läuft
-auch im \texttt{tomcat7}, und bekannte Stellen sind hier:\keinumbruch
+auch im \texttt{tomcat8}, und bekannte Stellen sind hier:\keinumbruch
 
 \begin{itemize}
  \item{in der PostgreSQL-Datenbank \texttt{ong}}
  \item{\texttt{/etc/osiam/auth-server.properties}}
  \item{\texttt{/etc/osiam/resource-server.properties}}
  \item{in Logdateien unterhalb von \texttt{/var/log/apache2/}
-  und \texttt{/var/log/tomcat7/}}
+  und \texttt{/var/log/tomcat8/}}
 \end{itemize}
 
 \fi% oa
@@ -3049,6 +2964,9 @@ auch im \texttt{tomcat7}, und bekannte Stellen sind hier:\keinumbruch
 \ifupgradeanleitung\else% !upgradeanleitung
 
 \section{Anhang: Referenzkonfigurationen}\label{sec:refcfg}
+
+%XXX TODO: update (tomcat8, possibly on stretch)
+⚠ Dieser Abschnitt wurde noch nicht auf Tomcat 8 aktualisiert!
 
 In diesem Kapitel finden Sie Beispiele für Konfigurationsdateien
 auf einer Testinstallation von VerA.web auf Debian 8 „jessie“.
@@ -3329,8 +3247,6 @@ JAVA_OPTS="-Djava.awt.headless=true 「-Xmx512m」 -XX:+UseConcMarkSweepGC"
 「
 JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
 JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
-# nur bei Java Version 7, nicht bei Java 8 oder neuer
-JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=128m"」
 \end{lstdump}
 
 \else% !oa
