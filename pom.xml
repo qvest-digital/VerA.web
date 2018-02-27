@@ -7,7 +7,7 @@
 	</parent>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>veraweb-export</artifactId>
-	<version>1.8.55</version>
+	<version>1.8.56-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>VerA.web export module</name>
 	<scm>
