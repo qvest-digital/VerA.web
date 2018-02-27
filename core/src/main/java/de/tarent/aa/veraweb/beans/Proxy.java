@@ -120,7 +120,7 @@ public class Proxy extends AbstractHistoryBean {
         }
 
         if (validFrom != null && validTill != null && validFrom.after(validTill)) {
-        	addError(messages.getMessageProxyRepresentativeBeginBeforeEnd());
+                addError(messages.getMessageProxyRepresentativeBeginBeforeEnd());
         }
     }
 

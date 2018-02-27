@@ -8,74 +8,74 @@
 
 <div id="content_container">
     <div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.GENERIC_IMPORT_PERSONS}</a> > ${placeholderWithTranslation.importstatus}</span>
+        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.GENERIC_IMPORT_PERSONS}</a> > ${placeholderWithTranslation.importstatus}</span>
     </div>
     <h1>${placeholderWithTranslation.importstatus}</h1>
 
-	<vera-info>
-		${placeholderWithTranslation.umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden}<br />
-		${placeholderWithTranslation.HINT_UMLAUT_COMPARISON}<br />
-		${placeholderWithTranslation.derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde}<br />
-		${placeholderWithTranslation.derimportkannerstabgeschlossenwerdenwennspeicherbaredatensatzevorhandensind}
-	</vera-info>
+        <vera-info>
+                ${placeholderWithTranslation.umdublettenspeicherbarzumachenmussensiezunachstimbereichvorhandenedublettenubernommenwerden}<br />
+                ${placeholderWithTranslation.HINT_UMLAUT_COMPARISON}<br />
+                ${placeholderWithTranslation.derimportisterstbeendetwennderbuttonimportabschlieszengeklicktwurde}<br />
+                ${placeholderWithTranslation.derimportkannerstabgeschlossenwerdenwennspeicherbaredatensatzevorhandensind}
+        </vera-info>
 
-	#if($importStatus.dupCount && $importStatus.dupCount != 0)
-		<div id="buttonPanel-top" class="textRight marginBottom10">
+        #if($importStatus.dupCount && $importStatus.dupCount != 0)
+                <div id="buttonPanel-top" class="textRight marginBottom10">
             <form action="ImportPersonsEditDuplicates" method="post">
                 <input type="hidden" name="importId" value="$!importStatus.id">
                 #set($saveCount = $!importStatus.saveCount - $!importStatus.dsCount + $!importStatus.dupCount)
                 <input type="hidden" name="saveCount" value="$saveCount"/>
                 <input type="hidden" name="start" value="0"/>
-    			<input type="hidden" name="selectNone" #if($selectNone && $selectNone == "false") value="false" #else value="true" #end/>
+                        <input type="hidden" name="selectNone" #if($selectNone && $selectNone == "false") value="false" #else value="true" #end/>
                 <input type="submit" class="mainButton" value="${placeholderWithTranslation.vorhandenedubletten}"  title="${placeholderWithTranslation.vorhandenedublettenbearbeiten}" />
             </form>
-		</div>
-	#end
+                </div>
+        #end
 
-	<div id="main_content" class="contentBoxColored grayBorder marginBottom10">
+        <div id="main_content" class="contentBoxColored grayBorder marginBottom10">
 
-		<div class="table width100">
-			<div class="tableRow">
-				<div class="tableCell width30">
-					<strong>${placeholderWithTranslation.GENERIC_IMPORTID_HYPHEN}:</strong> $!message.text($importStatus.id)
-				</div>
-				<div class="tableCell width70">
-					<strong class="inlineBlock width35">${placeholderWithTranslation.zuimportierendedatensatzeinsgesamt}:</strong> $!importStatus.dsCount<br />
-					<strong class="inlineBlock width35">${placeholderWithTranslation.davondubletten}:</strong> $!importStatus.dupCount<br />
-					<strong class="inlineBlock width35">${placeholderWithTranslation.davonspeicherbar}:</strong> $!importStatus.saveCount<br />
-        			#if($importStatus.igCount  && $importStatus.igCount != 0)
-						<strong class="inlineBlock width35">${placeholderWithTranslation.ignoriertefehlerdatensatze}: </strong> $!importStatus.igCount
-        			#end
+                <div class="table width100">
+                        <div class="tableRow">
+                                <div class="tableCell width30">
+                                        <strong>${placeholderWithTranslation.GENERIC_IMPORTID_HYPHEN}:</strong> $!message.text($importStatus.id)
+                                </div>
+                                <div class="tableCell width70">
+                                        <strong class="inlineBlock width35">${placeholderWithTranslation.zuimportierendedatensatzeinsgesamt}:</strong> $!importStatus.dsCount<br />
+                                        <strong class="inlineBlock width35">${placeholderWithTranslation.davondubletten}:</strong> $!importStatus.dupCount<br />
+                                        <strong class="inlineBlock width35">${placeholderWithTranslation.davonspeicherbar}:</strong> $!importStatus.saveCount<br />
+                                #if($importStatus.igCount  && $importStatus.igCount != 0)
+                                                <strong class="inlineBlock width35">${placeholderWithTranslation.ignoriertefehlerdatensatze}: </strong> $!importStatus.igCount
+                                #end
 
-				</div>
-			</div>
+                                </div>
+                        </div>
 
-		</div>
+                </div>
 
-	</div>
+        </div>
 
-	<form action="ImportPersonsFinalise?$!importStatus.id" method="post">
-		<span class="textRight floatRight">
-			#if($importStatus.saveCount  && $importStatus.saveCount != 0)
+        <form action="ImportPersonsFinalise?$!importStatus.id" method="post">
+                <span class="textRight floatRight">
+                        #if($importStatus.saveCount  && $importStatus.saveCount != 0)
                 <input type="hidden" name="importId" value="$!importStatus.id"/>
                 <input type="submit" class="mainButton" value="${placeholderWithTranslation.importabschlieszen}" title="${placeholderWithTranslation.importabschlieszen}" onclick="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');"/>
-			#end
-			<input type="button" class="mainButton" value="${placeholderWithTranslation.zuruckzumpersonenimport}" title="${placeholderWithTranslation.zuruckzumpersonenimport}" onclick="window.location.href='ImportPersons';"/>
-		</span>
-	</form>
+                        #end
+                        <input type="button" class="mainButton" value="${placeholderWithTranslation.zuruckzumpersonenimport}" title="${placeholderWithTranslation.zuruckzumpersonenimport}" onclick="window.location.href='ImportPersons';"/>
+                </span>
+        </form>
 
-	<div class="clear"></div>
+        <div class="clear"></div>
 </div>
 
 
 #if($imported)
     <script type="text/javascript">
      #if($imported == 0)
-    	showSuccess(' ${placeholderWithTranslation.siehabenkeinendatensatzimportiert} ');
+        showSuccess(' ${placeholderWithTranslation.siehabenkeinendatensatzimportiert} ');
      #elseif($imported == 1)
-    	showSuccess(' ${placeholderWithTranslation.siehabeneinendatensatzimportiert} ');
+        showSuccess(' ${placeholderWithTranslation.siehabeneinendatensatzimportiert} ');
      #elseif($imported > 1)
-    	showSuccess(' ${placeholderWithTranslation.siehaben} $imported ${placeholderWithTranslation.datensatzeimportiert} ');
+        showSuccess(' ${placeholderWithTranslation.siehaben} $imported ${placeholderWithTranslation.datensatzeimportiert} ');
      #end
     </script>
 #end

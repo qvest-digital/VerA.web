@@ -19,11 +19,11 @@
 
     #if($errors && $errors.size() > 0)
     <vera-warn>
-    	#foreach($error in $errors)
-    		$error<br>
-    	#end
-    	<br>
-    	${placeholderWithTranslation.eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator}
+        #foreach($error in $errors)
+                $error<br>
+        #end
+        <br>
+        ${placeholderWithTranslation.eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator}
     </vera-warn>
     #end
 
@@ -55,10 +55,10 @@
             <td>${placeholderWithTranslation.aktiv}</td>
     #end
 <!--
-	</tr><tr>
-		<td class="width10 bold">${placeholderWithTranslation.INFO_LIC_LIC}:</td>
-		<td><a href="${paths.staticWeb}doc/LICENCE.txt">${placeholderWithTranslation.INFO_LIC_INFOS}</a>
-		 (<a href="${paths.staticWeb}doc/">${placeholderWithTranslation.INFO_LIC_DOCS}</a>)</td>
+        </tr><tr>
+                <td class="width10 bold">${placeholderWithTranslation.INFO_LIC_LIC}:</td>
+                <td><a href="${paths.staticWeb}doc/LICENCE.txt">${placeholderWithTranslation.INFO_LIC_INFOS}</a>
+                 (<a href="${paths.staticWeb}doc/">${placeholderWithTranslation.INFO_LIC_DOCS}</a>)</td>
 -->
         </tr>
     </table>
@@ -69,38 +69,38 @@
 
     <h3>${placeholderWithTranslation.GENERIC_DATABASE}</h3>
     <table class="form fixed">
-    	##Set column size
-		<col width="$column0%" />
-		<col width="$column1%" />
+        ##Set column size
+                <col width="$column0%" />
+                <col width="$column1%" />
 
-    	<tr>
-    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_VERSION}:</td>
-    		<td>
+        <tr>
+                <td class="width15 bold">${placeholderWithTranslation.GENERIC_VERSION}:</td>
+                <td>
     #if($config && $config.get("SCHEMA_VERSION"))
-    			$config.get("SCHEMA_VERSION")
+                        $config.get("SCHEMA_VERSION")
     #else
-    			<i style="color: red;">${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
+                        <i style="color: red;">${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
     #end
-    		</td>
-    	</tr><tr>
-    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_CHARSET}</td>
-    		<td>
+                </td>
+        </tr><tr>
+                <td class="width15 bold">${placeholderWithTranslation.GENERIC_CHARSET}</td>
+                <td>
     #if($LC_CTYPE)
-    			LC_CTYPE = $LC_CTYPE
+                        LC_CTYPE = $LC_CTYPE
     #else
-    			<i style="color: red;">${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
+                        <i style="color: red;">${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
     #end
-    		</td>
-    	</tr><tr>
-    		<td class="width15 bold">&nbsp;</td>
-    		<td>
+                </td>
+        </tr><tr>
+                <td class="width15 bold">&nbsp;</td>
+                <td>
     #if($LC_COLLATE)
-    			LC_COLLATE = $LC_COLLATE
+                        LC_COLLATE = $LC_COLLATE
     #else
-    			<i style="color: red;">${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
+                        <i style="color: red;">${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
     #end
-    		</td>
-    	</tr>
+                </td>
+        </tr>
     </table>
     <br>
 
@@ -108,68 +108,68 @@
     <h3>${placeholderWithTranslation.GENERIC_USER}</h3>
 
     <table class="form fixed">
-    	##Set column size
-		<col width="$column0%" />
-		<col width="$column1%" />
+        ##Set column size
+                <col width="$column0%" />
+                <col width="$column1%" />
 
-    	<tr>
-    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_LOGIN}:</td>
-    		<td>$!octopusConfig.personalConfig.userLogin</td>
-    	</tr><tr>
-    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_ROLE}:</td>
-    		<td>
+        <tr>
+                <td class="width15 bold">${placeholderWithTranslation.GENERIC_LOGIN}:</td>
+                <td>$!octopusConfig.personalConfig.userLogin</td>
+        </tr><tr>
+                <td class="width15 bold">${placeholderWithTranslation.GENERIC_ROLE}:</td>
+                <td>
     #if($octopusConfig.personalConfig.role)
-    			$octopusConfig.personalConfig.role
+                        $octopusConfig.personalConfig.role
     #else
-    			<i>${placeholderWithTranslation.nichtgewahlt}</i>
+                        <i>${placeholderWithTranslation.nichtgewahlt}</i>
     #end
-    		</td>
-    	</tr>
-    	<tr>
-    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}:</td>
-    		<td>
+                </td>
+        </tr>
+        <tr>
+                <td class="width15 bold">${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}:</td>
+                <td>
     #if($orgUnit.id != 0)
-    			$orgUnit.name
+                        $orgUnit.name
     #else
-    			<i>${placeholderWithTranslation.nichtgewahlt}</i>
+                        <i>${placeholderWithTranslation.nichtgewahlt}</i>
     #end
-    		</td>
-    	</tr>
+                </td>
+        </tr>
     #if($octopusConfig.personalConfig.proxy)
-    	<tr>
-    		<td>${placeholderWithTranslation.GENERIC_SUBSTITUTED_BY}:</td>
-    		<td>$octopusConfig.personalConfig.proxy</td>
-	</tr>
+        <tr>
+                <td>${placeholderWithTranslation.GENERIC_SUBSTITUTED_BY}:</td>
+                <td>$octopusConfig.personalConfig.proxy</td>
+        </tr>
     #end
     #if($octopusConfig.personalConfig.roles)
-	<tr>
-		<td>${placeholderWithTranslation.verfugbarerollen}:
-		</td>
-	<td>
+        <tr>
+                <td>${placeholderWithTranslation.verfugbarerollen}:
+                </td>
+        <td>
      #foreach($gg in $octopusConfig.personalConfig.roles)
      $gg
      #end
-    		</td>
-    	</tr>
+                </td>
+        </tr>
     #end
-    	<tr>
-    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_GROUPS}:</td>
-    		<td>
+        <tr>
+                <td class="width15 bold">${placeholderWithTranslation.GENERIC_GROUPS}:</td>
+                <td>
     #foreach($gg in $octopusConfig.personalConfig.userGroups)
      $gg
     #end
-    		</td>
-    	</tr>
-    	<tr>
-    		<td class="width15 bold">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}:</td>
-    		<td>
+                </td>
+        </tr>
+        <tr>
+                <td class="width15 bold">${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}:</td>
+                <td>
     #if($octopusConfig.personalConfig.userEmail)
-    			$!octopusConfig.personalConfig.userEmail
+                        $!octopusConfig.personalConfig.userEmail
     #else
-    			<i>${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
+                        <i>${placeholderWithTranslation.GENERIC_NOT_AVAILABLE}</i>
     #end
-    		</td>
-    	</tr>
+                </td>
+        </tr>
     </table>
 
 

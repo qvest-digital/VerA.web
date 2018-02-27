@@ -1,13 +1,13 @@
 #set($activeMenu = "Administration")
 #if($pdftemplate && $pdftemplate.id)
     #set($edit = true)
-	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_PDF_TEMPLATE_EDIT}: $!message.text($pdftemplate.name)")
-	#set($successMsg = "${placeholderWithTranslation.GM_PDF_TEMPLATE_MODIFY_S}")
-	#set($errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}: ${placeholderWithTranslation.GM_PDF_TEMPLATE_MODIFY_N}")
+        #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PDF_TEMPLATE_EDIT}: $!message.text($pdftemplate.name)")
+        #set($successMsg = "${placeholderWithTranslation.GM_PDF_TEMPLATE_MODIFY_S}")
+        #set($errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}: ${placeholderWithTranslation.GM_PDF_TEMPLATE_MODIFY_N}")
 #else
-	#set($title = "${placeholderWithTranslation.BROWSER_TITLE_PDF_TEMPLATE_CREATE}")
-	#set($successMsg = "${placeholderWithTranslation.GM_PDF_TEMPLATE_INSERT_S}")
-	#set($errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}: ${placeholderWithTranslation.GM_PDF_TEMPLATE_INSERT_N}")
+        #set($title = "${placeholderWithTranslation.BROWSER_TITLE_PDF_TEMPLATE_CREATE}")
+        #set($successMsg = "${placeholderWithTranslation.GM_PDF_TEMPLATE_INSERT_S}")
+        #set($errorMsg = "${placeholderWithTranslation.BROWSER_TITLE_ERROR_OCCURS}: ${placeholderWithTranslation.GM_PDF_TEMPLATE_INSERT_N}")
 #end
 #set($errorMsgEmpty = ${placeholderWithTranslation.PDF_TEMPLATE_NOT_EMPTY_ERROR_MESSAGE})
 #set($errorMsgFile = ${placeholderWithTranslation.PDF_TEMPLATE_NO_FILE_ERROR_MESSAGE})
@@ -51,10 +51,10 @@
 #end
 
 <div id="content_container">
-	<form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/edit" method="POST">
+        <form id="formlist" name="formlist" action="${paths.staticWeb}pdftemplate/edit" method="POST">
 
-		<input type="hidden" name="save" value="true"/>
-		<input type="hidden" name="pdftemplate-orgunit" value="$!octopusConfig.personalConfig.orgUnitId">
+                <input type="hidden" name="save" value="true"/>
+                <input type="hidden" name="pdftemplate-orgunit" value="$!octopusConfig.personalConfig.orgUnitId">
 
         <div id="breadcrumb" class="textRight marginBottom10">
             <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.pdfvorlagen}</span>
@@ -64,22 +64,22 @@
 
         #if($pdftemplate.errors.size() && $pdftemplate.errors.size() > 0)
             <vera-warn>
-            	#foreach($error in $pdftemplate.errors)
-            		$!message.plain($error)<br>
-            	#end
+                #foreach($error in $pdftemplate.errors)
+                        $!message.plain($error)<br>
+                #end
             </vera-warn>
         #end
 
-    	<div class="textRight bold">* = ${placeholderWithTranslation.pflichtfelder}</div>
+        <div class="textRight bold">* = ${placeholderWithTranslation.pflichtfelder}</div>
 
         <table class="form">
-			<tr>
-            	<td class="bold width15"><label for="pdftemplate-id">${placeholderWithTranslation.GENERIC_ID}</label></td>
-            	<td><input type="text" id="pdftemplate-id" name="pdftemplate-id" value="$!message.text($pdftemplate.id)" class="id" vera-disabled /></td>
+                        <tr>
+                <td class="bold width15"><label for="pdftemplate-id">${placeholderWithTranslation.GENERIC_ID}</label></td>
+                <td><input type="text" id="pdftemplate-id" name="pdftemplate-id" value="$!message.text($pdftemplate.id)" class="id" vera-disabled /></td>
             </tr>
-			<tr>
-            	<td class="bold"><label for="pdftemplate-name">${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}*</label></td>
-            	<td><input type="text" id="pdftemplate-name" name="pdftemplate-name" maxlength="200" value="$!message.text($pdftemplate.name)" /></td>
+                        <tr>
+                <td class="bold"><label for="pdftemplate-name">${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}*</label></td>
+                <td><input type="text" id="pdftemplate-name" name="pdftemplate-name" maxlength="200" value="$!message.text($pdftemplate.name)" /></td>
             </tr>
             <tr>
                 <td class="bold">${placeholderWithTranslation.GENERIC_PDF_FILE}*</td>
@@ -87,7 +87,7 @@
             </tr>
 
             #if ($listparam.count && $listparam.count == 0)
-            	<tr><td colspan="2">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
+                <tr><td colspan="2">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
             #end
 
             #if($edit)
@@ -104,8 +104,8 @@
 
 
         <div id="buttonPanel-bottom" class="textRight marginTop10">
-        	<input type="submit" name="submit" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
-        	<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_CANCEL}" title="${placeholderWithTranslation.GENERIC_CANCEL}" class="mainButton" onclick="window.location.href='PdfTemplateList?selectNone=true';" />
+                <input type="submit" name="submit" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+                <input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_CANCEL}" title="${placeholderWithTranslation.GENERIC_CANCEL}" class="mainButton" onclick="window.location.href='PdfTemplateList?selectNone=true';" />
         </div>
 
     </form>
@@ -113,18 +113,18 @@
 
 <script type="text/javascript">
 
-	function addPlatzhalter(s) {
-		var sel = document.getElementById('platzhalter');
-		var text = sel.options[sel.selectedIndex].value;
-		if (text.length > 0) {
-			insertAtCursor(document.getElementById('pdftemplate-text'), '<' + text + '>');
-		}
-	}
+        function addPlatzhalter(s) {
+                var sel = document.getElementById('platzhalter');
+                var text = sel.options[sel.selectedIndex].value;
+                if (text.length > 0) {
+                        insertAtCursor(document.getElementById('pdftemplate-text'), '<' + text + '>');
+                }
+        }
 
-	function disableSubmitButton() {
-	    $('input[type="button"]').attr('disabled', 'disabled').addClass('disabled');
-		$('[type="submit"]').attr('disabled', 'disabled').addClass('disabled');
-	}
+        function disableSubmitButton() {
+            $('input[type="button"]').attr('disabled', 'disabled').addClass('disabled');
+                $('[type="submit"]').attr('disabled', 'disabled').addClass('disabled');
+        }
 
     function enableSubmitButton() {
         $('input[type="button"]').removeAttr('disabled').removeClass('disabled');
@@ -145,33 +145,33 @@
         });
     });
 
-	$(document).ready(function() {
+        $(document).ready(function() {
     //TODO: umbauen in veraweb-pdftemplate-detail.js wie bei pdfTemplateList.vm mit veraweb-pdftemplate-list.js
-	    var options = {
-	        beforeSubmit: function() {
+            var options = {
+                beforeSubmit: function() {
                 disableSubmitButton();
             },
             error: function(response) {
                 $(".errormsg").remove();
                 $(".successmsg").remove();
-            	if (response.status === 420) {
-            	    showWarning('$errorMsgFile');
-            	} else if (response.status === 414) {
-            		showWarning('$errorMsgEmpty');
-            	} else {
-					showWarning('$errorMsg');
-            	}
-				enableSubmitButton();
+                if (response.status === 420) {
+                    showWarning('$errorMsgFile');
+                } else if (response.status === 414) {
+                        showWarning('$errorMsgEmpty');
+                } else {
+                                        showWarning('$errorMsg');
+                }
+                                enableSubmitButton();
             },
             success: function (response) {
-				$("#pdftemplate-id").val(response.pk);
+                                $("#pdftemplate-id").val(response.pk);
                 $(".errormsg").remove();
                 $(".successmsg").remove();
                 window.location.href='PdfTemplateList?selectNone=true';
             }
         };
 
-	    $('#formlist').ajaxForm(options);
+            $('#formlist').ajaxForm(options);
 
     });
 

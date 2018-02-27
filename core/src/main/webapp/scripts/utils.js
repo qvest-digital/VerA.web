@@ -5,74 +5,74 @@ $('#guest-keywords').tagsInput({width:'auto'});
 );
 
 function getPosX(e) {
-	var x = 0;
-	while (e) {
-		x += e.offsetLeft;
-		e = e.offsetParent;
-	}
-	return x;
+        var x = 0;
+        while (e) {
+                x += e.offsetLeft;
+                e = e.offsetParent;
+        }
+        return x;
 }
 
 function getPosY(e) {
-	var x = 0;
-	while (e) {
-		x += e.offsetTop;
-		e = e.offsetParent;
-	}
-	return x;
+        var x = 0;
+        while (e) {
+                x += e.offsetTop;
+                e = e.offsetParent;
+        }
+        return x;
 }
 
 function isOver(layer1, layer2) {
-	return (getPosY(layer1) + layer1.offsetHeight > getPosY(layer2));
+        return (getPosY(layer1) + layer1.offsetHeight > getPosY(layer2));
 }
 
 function fixLayer() {
-	var fm = document.getElementById('fixme');
-	var sl = document.getElementsByTagName('select');
-	for (var i = 0; i < sl.length; i++) {
-		if (isOver(sl[i], fm)) {
-			sl[i].style.visibility = 'hidden';
-		} else {
-			sl[i].style.visibility = 'visible';
-		}
-	}
-	return 0;
+        var fm = document.getElementById('fixme');
+        var sl = document.getElementsByTagName('select');
+        for (var i = 0; i < sl.length; i++) {
+                if (isOver(sl[i], fm)) {
+                        sl[i].style.visibility = 'hidden';
+                } else {
+                        sl[i].style.visibility = 'visible';
+                }
+        }
+        return 0;
 }
 
 function setModified(id) {
-	id = (id === null || typeof id === "undefined" ) ? 'modified' : id + '-modified';
-	document.getElementById(id).value = 'true';
+        id = (id === null || typeof id === "undefined" ) ? 'modified' : id + '-modified';
+        document.getElementById(id).value = 'true';
 }
 
 function checkModified(id, message) {
-	if (isModified(id)) {
-		return confirm(message);
-	} else {
-		return true;
-	}
+        if (isModified(id)) {
+                return confirm(message);
+        } else {
+                return true;
+        }
 }
 
 function isModified(id) {
-	id = (id === null || typeof id === "undefined" ) ? 'modified' : id + '-modified';
-	if (document.getElementById(id).value == 'true') {
-		return true;
-	} else {
-		return false;
-	}
+        id = (id === null || typeof id === "undefined" ) ? 'modified' : id + '-modified';
+        if (document.getElementById(id).value == 'true') {
+                return true;
+        } else {
+                return false;
+        }
 }
 
 function filterList(letter, page) {
-	$('input[name$="-select"]').prop('checked', false);
-	var form = document.getElementById('formlist');
-	if (form && form.elements.filter) {
-		form.elements.filter.value = letter;
-		if (page === null || page === undefined) {
-		    form.start.value = 0;
-		} else {
-		    form.start.value = page;
-		}
-		form.submit();
-	} else if (form && !form.elements.filter) {
+        $('input[name$="-select"]').prop('checked', false);
+        var form = document.getElementById('formlist');
+        if (form && form.elements.filter) {
+                form.elements.filter.value = letter;
+                if (page === null || page === undefined) {
+                    form.start.value = 0;
+                } else {
+                    form.start.value = page;
+                }
+                form.submit();
+        } else if (form && !form.elements.filter) {
         if (page === null || page === undefined) {
             form.start.value = 0;
         } else {
@@ -80,70 +80,70 @@ function filterList(letter, page) {
         }
         form.submit();
     } else {
-		alert('form or field filter NOT FOUND!');
-	}
+                alert('form or field filter NOT FOUND!');
+        }
 }
 
 function navigateList(start) {
-	$('input[name$="-select"]').prop('checked', false);
-	var form = document.getElementById('formlist');
-	if (form && form.elements.start) {
-		form.elements.start.value = start;
-		form.submit();
-	} else {
-		alert('form or field start NOT FOUND!');
-	}
+        $('input[name$="-select"]').prop('checked', false);
+        var form = document.getElementById('formlist');
+        if (form && form.elements.start) {
+                form.elements.start.value = start;
+                form.submit();
+        } else {
+                alert('form or field start NOT FOUND!');
+        }
 }
 
 function navigateLimit(limit) {
-	$('input[name$="-select"]').prop('checked', false);
-	var form = document.getElementById('formlist');
-	if (form && form.elements.start) {
-		form.elements.start.value = 0;
-	}
-	if (form && form.elements.limit) {
-		form.elements.limit.value = limit;
-		form.submit();
-	} else {
-		alert('form or field limit NOT FOUND!');
-	}
+        $('input[name$="-select"]').prop('checked', false);
+        var form = document.getElementById('formlist');
+        if (form && form.elements.start) {
+                form.elements.start.value = 0;
+        }
+        if (form && form.elements.limit) {
+                form.elements.limit.value = limit;
+                form.submit();
+        } else {
+                alert('form or field limit NOT FOUND!');
+        }
 }
 
 //Handler for SelectAll Toggling
 $(function(){
     $('#toggleAllSelect').change(function(){
         if ($(this).is(':checked')) {
-        	$('input[name$="-select"]:not(:checked)').click();
+                $('input[name$="-select"]:not(:checked)').click();
         } else {
-        	$('input[name$="-select"]:checked').click();
-        	$('input[name$="-partner"]').prop('checked', false);
+                $('input[name$="-select"]:checked').click();
+                $('input[name$="-partner"]').prop('checked', false);
         }
     });
 });
 
 function smallResolution() {
-	if (window.innerWidth) {
-		return (window.innerWidth < 912);
-	} else {
-		return (document.body.offsetWidth < 912);
-	}
+        if (window.innerWidth) {
+                return (window.innerWidth < 912);
+        } else {
+                return (document.body.offsetWidth < 912);
+        }
 }
 
 function writeResolution(small, large) {
-	document.writeln(smallResolution() ? small : large);
+        document.writeln(smallResolution() ? small : large);
 }
 
 function selectAll(inp) {
-	inp.focus();
-	if (document.selection) {
-		/*
-		var sel = document.body.createRange();
-		sel.select();
-		*/
-	} else {
-		inp.selectionStart = 0;
-		inp.selectionEnd = inp.value.length;
-	}
+        inp.focus();
+        if (document.selection) {
+                /*
+                var sel = document.body.createRange();
+                sel.select();
+                */
+        } else {
+                inp.selectionStart = 0;
+                inp.selectionEnd = inp.value.length;
+        }
 }
 
 $.fn.veraDisable = function() {
@@ -176,7 +176,7 @@ $(function () {
 });
 
 function disableForm(frm) {
-	$(frm).find(':input').attr('vera-disabled', '').veraDisable();
+        $(frm).find(':input').attr('vera-disabled', '').veraDisable();
 }
 
 function disableFormInput(fld) {
@@ -211,11 +211,11 @@ function enableFormCheckbox(fld) {
 }
 
 function onMouseOverList(line) {
-	line.style.backgroundColor = '#ffffc3';
+        line.style.backgroundColor = '#ffffc3';
 }
 
 function onMouseOutList(line) {
-	line.style.backgroundColor = '';
+        line.style.backgroundColor = '';
 }
 
 /**
@@ -380,7 +380,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
     }());
 
     showAllocateAssign = (function () {
-    	 var activeConfirmDialogs = {};
+         var activeConfirmDialogs = {};
          return function (title, yesAction, nayAction, textAssign, textCancel) {
              if (activeConfirmDialogs.hasOwnProperty(title)) { // already open?
                  return;
@@ -389,13 +389,13 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
              var btnNo = $('<input type="button" class="button" value="'+ textCancel +'">');
              var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + '<br>');
              btnYes.click(function () {
-            	 yesAction();
-            	 msg.remove();
-            	 delete activeConfirmDialogs[title];
-            	closePopup();
+                 yesAction();
+                 msg.remove();
+                 delete activeConfirmDialogs[title];
+                closePopup();
              });
              btnNo.click(function () {
-            	 if (nayAction !== undefined) {
+                 if (nayAction !== undefined) {
                      nayAction();
                  }
                  msg.remove();
@@ -412,7 +412,7 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
     }());
 
     showAllocateRemove = (function () {
-   	 var activeConfirmDialogs = {};
+         var activeConfirmDialogs = {};
         return function (title, yesAction, nayAction, textDelete, textCancel) {
             if (activeConfirmDialogs.hasOwnProperty(title)) { // already open?
                 return;
@@ -421,13 +421,13 @@ var showInfo, showWarning, showSuccess, showConfirm, showConfirmYesNo;
             var btnNo = $('<input type="button" class="button" value="'+ textCancel +'">');
             var msg = createConfirmHtml('<strong>' + title + '</strong><br>' + '<br>');
             btnYes.click(function () {
-           	  yesAction();
-           	 msg.remove();
-           	 delete activeConfirmDialogs[title];
-           	 closePopup();
+                  yesAction();
+                 msg.remove();
+                 delete activeConfirmDialogs[title];
+                 closePopup();
             });
             btnNo.click(function () {
-           	 if (nayAction !== undefined) {
+                 if (nayAction !== undefined) {
                     nayAction();
                 }
                 msg.remove();

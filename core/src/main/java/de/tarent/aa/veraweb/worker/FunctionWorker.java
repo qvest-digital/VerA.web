@@ -103,22 +103,22 @@ public class FunctionWorker extends StammdatenWorker {
 
     @Override
     protected void saveBean(OctopusContext cntx, Bean bean, TransactionContext context) throws BeanException, IOException {
-    	final Function function = (Function) bean;
-    	if(!function.equals("")){
-    		super.saveBean(cntx, bean, context);
-    	} else {
-    		return ;
-    	}
+        final Function function = (Function) bean;
+        if(!function.equals("")){
+                super.saveBean(cntx, bean, context);
+        } else {
+                return ;
+        }
     }
 
     @Override
     public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
-    	super.saveList(octopusContext);
+        super.saveList(octopusContext);
     }
 
     @Override
     public List showList(OctopusContext octopusContext) throws BeanException, IOException {
-    	return super.showList(octopusContext);
+        return super.showList(octopusContext);
     }
 
 }

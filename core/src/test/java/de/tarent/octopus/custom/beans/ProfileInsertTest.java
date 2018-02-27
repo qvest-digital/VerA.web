@@ -86,11 +86,11 @@ public class ProfileInsertTest extends TestCase {
     private FileHandler fileLogHandler = null;
 
     public void testProfile() {
-    	if (con == null)
-    		return;
+        if (con == null)
+                return;
 
-    	Map taskParamsTestProfile = new TreeMap();
-    	taskParamsTestProfile.put("module", "veraweb");
+        Map taskParamsTestProfile = new TreeMap();
+        taskParamsTestProfile.put("module", "veraweb");
         taskParamsTestProfile.put("username", "pol-2");
         taskParamsTestProfile.put("password", "Benutzer99");
         taskParamsTestProfile.put("count", "10");
@@ -112,7 +112,7 @@ public class ProfileInsertTest extends TestCase {
 
     @Override
     protected void tearDown() throws Exception {
-    	con = null;
+        con = null;
         super.tearDown();
     }
 

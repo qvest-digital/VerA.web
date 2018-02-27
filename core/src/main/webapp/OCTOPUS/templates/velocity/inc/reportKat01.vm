@@ -2,66 +2,66 @@
 #set($showPartner = true)
 
 <table class="kategorie">
-	<tr>
-		<td class="kategorieNo">
+        <tr>
+                <td class="kategorieNo">
             &nbsp;
         </td>
-		<td class="kategorieName">
+                <td class="kategorieName">
             &nbsp;
         </td>
-		<td class="kategorieZusage">
+                <td class="kategorieZusage">
             <nobr>
                 <strong>${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</strong>
             </nobr>
         </td>
-		<td class="kategorieAbsage">
+                <td class="kategorieAbsage">
             <nobr>
                 <strong>${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</strong>
             </nobr>
         </td>
-		<td class="kategorieTeilnahme">
+                <td class="kategorieTeilnahme">
             <nobr>
                 <strong>${placeholderWithTranslation.GENERIC_PARTICIPATION}</strong>
             </nobr>
         </td>
-	</tr>
+        </tr>
 </table>
 
 #set($o = 0)#set($z = 0)#set($a = 0)#set( $t = 0 )
 #set($category = "")
 #set($workarea = "")
 #foreach($bean in $guestlist)
-	#if(($bean && $bean.category && $bean.category != $category) || (!$bean.category))
-		#if(!$bean.category && $category != "")
-			#set($category = "")
-			#set($workarea = "")
-			<div class="kategorie">
+        #if(($bean && $bean.category && $bean.category != $category) || (!$bean.category))
+                #if(!$bean.category && $category != "")
+                        #set($category = "")
+                        #set($workarea = "")
+                        <div class="kategorie">
                 <em>${placeholderWithTranslation.GENERIC_NOT_ASSIGNED_TO_CATEGORY}</em>
             </div>
-		#elseif($bean.category)
-			#set($category = $bean.category)
-			#set($workarea = "")
-			<div class="kategorie">
+                #elseif($bean.category)
+                        #set($category = $bean.category)
+                        #set($workarea = "")
+                        <div class="kategorie">
                 $!message.plain($category)
             </div>
-		#end
-	#end
+                #end
+        #end
 
-	#if( $orderByWorkArea && ( $showMain && $bean.invitationtype != 3 || $showPartner && $bean.invitationtype != 2 ) )
-		#if( $bean.workarea_name != $workarea )
-			#if( $bean.workarea_name == "Kein Arbeitsbereich" && $workarea != "" )
-				#set($workarea = "")
-				<div class="kategorie" style="margin-left: 1em;">
+        #if( $orderByWorkArea && ( $showMain && $bean.invitationtype != 3 || $showPartner && $bean.invitationtype != 2 ) )
+                #if( $bean.workarea_name != $workarea )
+                        #if( $bean.workarea_name == "Kein Arbeitsbereich" && $workarea != "" )
+                                #set($workarea = "")
+                                <div class="kategorie" style="margin-left: 1em;">
                     <em>${placeholderWithTranslation.GENERIC_NOT_ASSIGNED_TO_WORKAREA}</em>
                 </div>
-			#else
-				#set($workarea = $bean.workarea_name)
-				<div class="kategorie" style="margin-left: 1em;">
+                        #else
+                                #set($workarea = $bean.workarea_name)
+                                <div class="kategorie" style="margin-left: 1em;">
                     $!message.plain($workarea)
                 </div>
-			#end
-		#end
-	#end
+                        #end
+                #end
+        #end
 
     #set($mainShown=false)
     #set($partnerShown=false)
@@ -185,11 +185,11 @@
                 &nbsp;
             </td>
             <td class="kategorieName">
-    			##if( $orderByWorkArea )
-    			    ##<strong>
-    				    ##$!message.plain( $bean.workarea_name )
-    			    ##</strong>
-    			##end
+                        ##if( $orderByWorkArea )
+                            ##<strong>
+                                    ##$!message.plain( $bean.workarea_name )
+                            ##</strong>
+                        ##end
                 <strong>
                 #if($bean.showdoctype)
                     $!message.plain($bean.lastname_b_gd)
@@ -256,58 +256,58 @@
 #end
 
 <table style="width: 100%;">
-	<tr>
-		<td style="text-align: right;">
+        <tr>
+                <td style="text-align: right;">
             <h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Offen):</h2>
         </td>
-		<td style="width: 15px;">
+                <td style="width: 15px;">
             &nbsp;
         </td>
-		<td style="width: 100px">
+                <td style="width: 100px">
             <h3 style="text-align: left;">$o</h3>
         </td>
-	</tr>
-	<tr>
-		<td style="text-align: right;">
+        </tr>
+        <tr>
+                <td style="text-align: right;">
             <h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Zusagen):</h2>
         </td>
-		<td style="width: 15px;">
+                <td style="width: 15px;">
             &nbsp;
         </td>
-		<td style="width: 100px">
+                <td style="width: 100px">
             <h3 style="text-align: left;">$z</h3>
         </td>
-	</tr>
-	<tr>
-		<td style="text-align: right;">
+        </tr>
+        <tr>
+                <td style="text-align: right;">
             <h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Absagen):</h2>
         </td>
-		<td style="width: 15px;">
+                <td style="width: 15px;">
             &nbsp;
         </td>
-		<td style="width: 100px">
+                <td style="width: 100px">
             <h3 style="text-align: left;">$a</h3>
         </td>
-	</tr>
-	<tr>
-		<td style="text-align: right;">
+        </tr>
+        <tr>
+                <td style="text-align: right;">
             <h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Teilnahmen):</h2>
         </td>
-		<td style="width: 15px;">
+                <td style="width: 15px;">
             &nbsp;
         </td>
-		<td style="width: 100px">
+                <td style="width: 100px">
             <h3 style="text-align: left;">$t</h3>
         </td>
-	</tr>
-	<tr>
-		<td style="text-align: right;">
+        </tr>
+        <tr>
+                <td style="text-align: right;">
             <h2 style="text-align: right;">${placeholderWithTranslation.GENERIC_NUMBER_OF_GUESTS} (Gesamt):</h2>
         </td>
-		<td style="width: 15px;">
+                <td style="width: 15px;">
             &nbsp;</td>
-		<td style="width: 100px">
+                <td style="width: 100px">
             <h3 style="text-align: left;">#set($g = $o + $z + $a + $t)$g</h3>
         </td>
-	</tr>
+        </tr>
 </table>

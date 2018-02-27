@@ -106,82 +106,82 @@ public class OptionalFieldsDelegationWorker {
      *
      * @param ctx The {@link OctopusContext}
      */
-	public OptionalFieldsDelegationWorker(OctopusContext ctx) {
-		this.database = new DatabaseVeraWeb(ctx);
-	}
+        public OptionalFieldsDelegationWorker(OctopusContext ctx) {
+                this.database = new DatabaseVeraWeb(ctx);
+        }
 
-	/**
-	 * Persist or update the given {@link OptionalDelegationField}.
+        /**
+         * Persist or update the given {@link OptionalDelegationField}.
      *
-	 * @param optionalDelegationField Label for the optional delegation field
+         * @param optionalDelegationField Label for the optional delegation field
      *
      * @throws SQLException TODO
      * @throws BeanException TODO
-	 */
-	public void createOrUpdateOptionalDelegationField(OptionalDelegationField optionalDelegationField)
+         */
+        public void createOrUpdateOptionalDelegationField(OptionalDelegationField optionalDelegationField)
             throws SQLException, BeanException {
-		if(this.checkOptionalDelegationFieldExist(optionalDelegationField)) {
-			this.updateOptionalDelegationField(optionalDelegationField);
-		} else {
-			this.createOptionalDelegationField(optionalDelegationField);
-		}
-	}
+                if(this.checkOptionalDelegationFieldExist(optionalDelegationField)) {
+                        this.updateOptionalDelegationField(optionalDelegationField);
+                } else {
+                        this.createOptionalDelegationField(optionalDelegationField);
+                }
+        }
 
-	/**
-	 * Persists the given "OptionalDelegationField"-object.
+        /**
+         * Persists the given "OptionalDelegationField"-object.
      *
-	 * @param optionalDelegationField The {@link OptionalDelegationField}
+         * @param optionalDelegationField The {@link OptionalDelegationField}
      *
      * @throws SQLException TODO
      * @throws BeanException TODO
-	 */
-	public void createOptionalDelegationField(OptionalDelegationField optionalDelegationField)
+         */
+        public void createOptionalDelegationField(OptionalDelegationField optionalDelegationField)
             throws SQLException, BeanException {
         final TransactionContext context = this.database.getTransactionContext();
         final Insert insert = getStatementInsertOptionalField(optionalDelegationField);
 
-		DB.insert(context, insert.statementToString());
+                DB.insert(context, insert.statementToString());
         context.commit();
-	}
+        }
 
     /**
-	 * Update the "value"-field of an existing "OptionalDelegationField"-object
+         * Update the "value"-field of an existing "OptionalDelegationField"-object
      *
-	 * @param optionalDelegationField The {@link OptionalDelegationField}
+         * @param optionalDelegationField The {@link OptionalDelegationField}
      *
      * @throws SQLException TODO
-	 * @throws BeanException TODO
-	 */
-	public void updateOptionalDelegationField(OptionalDelegationField optionalDelegationField)
+         * @throws BeanException TODO
+         */
+        public void updateOptionalDelegationField(OptionalDelegationField optionalDelegationField)
             throws BeanException, SQLException {
         final TransactionContext context = this.database.getTransactionContext();
 
         final Update update = getStatementUpdateOptionalDelegationField(optionalDelegationField);
 
-		DB.update(context, update.statementToString());
+                DB.update(context, update.statementToString());
         context.commit();
-	}
+        }
 
 
     /**
-	 * Get the optional delegation fields by guest id.
+         * Get the optional delegation fields by guest id.
      *
-	 * @param guestId Guest id
+         * @param guestId Guest id
      *
-	 * @return List with all optional delegation fields for the current guest
+         * @return List with all optional delegation fields for the current guest
      *
      * @throws SQLException FIXME
      * @throws BeanException FIXME
-	 */
-	public List<OptionalDelegationField> getOptionalDelegationFieldsByGuestId(int guestId, int eventId)
+         */
+        public List<OptionalDelegationField> getOptionalDelegationFieldsByGuestId(int guestId, int eventId)
             throws BeanException, SQLException {
 
         final String select = getStatementSelectOptionalDelegationField(guestId, eventId);
         final ResultSet resultSet = database.result(select);
         return getOptionalFieldsAsList(resultSet);
-	}
+        }
 
-	private List<OptionalDelegationField> getOptionalFieldsAsList(ResultSet resultSet)
+        private List<OptionalDelegationField> getOptionalFieldsAsList(ResultSet resultSet)
             throws SQLException, BeanException {
         final List<OptionalDelegationField> optionalFieldsWithTypeContents = new ArrayList<OptionalDelegationField>();
         while (resultSet.next()) {
@@ -192,39 +192,39 @@ public class OptionalFieldsDelegationWorker {
         return cleanUpMultipleOptionalFields(optionalFieldsWithTypeContents);
     }
 
-	private void convertToSingleMultipleChoiceField(final List<OptionalDelegationField> optionalFieldsWithTypeContents)
+        private void convertToSingleMultipleChoiceField(final List<OptionalDelegationField> optionalFieldsWithTypeContents)
             throws BeanException {
-	    final List<OptionalDelegationField> optionalFieldsAltList = new ArrayList<OptionalDelegationField>(optionalFieldsWithTypeContents);
+            final List<OptionalDelegationField> optionalFieldsAltList = new ArrayList<OptionalDelegationField>(optionalFieldsWithTypeContents);
 
         for (final Iterator<OptionalDelegationField> iterator = optionalFieldsWithTypeContents.iterator(); iterator.hasNext();) {
             final OptionalDelegationField optionalDelegationField = iterator.next();
 
-	        if (isMultipleChoiceField(optionalDelegationField.getFkDelegationField())) {
-	        	// Unifying selected options in the same field
-	        	unifySelectedOptions(optionalFieldsAltList, optionalDelegationField);
-	        }
+                if (isMultipleChoiceField(optionalDelegationField.getFkDelegationField())) {
+                        // Unifying selected options in the same field
+                        unifySelectedOptions(optionalFieldsAltList, optionalDelegationField);
+                }
         }
     }
 
-	private void unifySelectedOptions(List<OptionalDelegationField> optionalFieldsAltList,
+        private void unifySelectedOptions(List<OptionalDelegationField> optionalFieldsAltList,
             OptionalDelegationField optionalDelegationField) {
-	    for (int i = 0; i < optionalFieldsAltList.size(); i++) {
-	        if ((optionalFieldsAltList.get(i).getFkDelegationField() == optionalDelegationField.getFkDelegationField())) {
+            for (int i = 0; i < optionalFieldsAltList.size(); i++) {
+                if ((optionalFieldsAltList.get(i).getFkDelegationField() == optionalDelegationField.getFkDelegationField())) {
 
-	        	for (int j = 0; j < optionalFieldsAltList.get(i).getOptionalFieldTypeContents().size(); j++) {
-	        		if (optionalFieldsAltList.get(i).getOptionalFieldTypeContents().get(j).getIsSelected() &&
-	        			!optionalDelegationField.getOptionalFieldTypeContents().get(j).getIsSelected()){
-	        			optionalDelegationField.getOptionalFieldTypeContents().get(j).setIsSelected(true);
-	        		}
-	        	}
-	        }
-	    }
+                        for (int j = 0; j < optionalFieldsAltList.get(i).getOptionalFieldTypeContents().size(); j++) {
+                                if (optionalFieldsAltList.get(i).getOptionalFieldTypeContents().get(j).getIsSelected() &&
+                                        !optionalDelegationField.getOptionalFieldTypeContents().get(j).getIsSelected()){
+                                        optionalDelegationField.getOptionalFieldTypeContents().get(j).setIsSelected(true);
+                                }
+                        }
+                }
+            }
     }
 
-	private List<OptionalDelegationField> cleanUpMultipleOptionalFields(List<OptionalDelegationField> optionalFields) {
-		boolean removed = false;
-		for (int i = 0; i < optionalFields.size(); i++) {
-	        for (int j = i + 1; j < optionalFields.size(); j++) {
+        private List<OptionalDelegationField> cleanUpMultipleOptionalFields(List<OptionalDelegationField> optionalFields) {
+                boolean removed = false;
+                for (int i = 0; i < optionalFields.size(); i++) {
+                for (int j = i + 1; j < optionalFields.size(); j++) {
                 if (optionalFields.get(i).equals(optionalFields.get(j))) {
                     optionalFields.remove(j);
                     removed = true;
@@ -238,103 +238,103 @@ public class OptionalFieldsDelegationWorker {
             }
         }
 
-		return optionalFields;
-	}
-
-	private boolean isMultipleChoiceField(final Integer optionalFieldId) throws BeanException {
-
-		final Select select = SQL.Select(database).
-		        select("toptional_fields.*").
-		        from("veraweb.toptional_fields").
-		        whereAndEq("toptional_fields.pk", optionalFieldId);
-
-		final ResultList resultList = database.getList(select, database);
-
-		for (final Iterator<ResultMap> iterator = resultList.iterator(); iterator.hasNext();) {
-			final ResultMap object = iterator.next();
-			final Integer type = (Integer) object.get("fk_type");
-			if (type.intValue() == MULTIPLE_CHOICE_ID) {
-				return true;
-			}
+                return optionalFields;
         }
 
-		return false;
-	}
+        private boolean isMultipleChoiceField(final Integer optionalFieldId) throws BeanException {
 
-	private void getListWithTypeContents(ResultSet resultSet, final List<OptionalDelegationField> optionalDelegationFields)
-			throws SQLException, BeanException {
-		final OptionalDelegationField optionalDelegationField = new OptionalDelegationField(resultSet);
-		final ResultList resultListWithTypeContents = getFieldsAndTypeContentsFromDB(optionalDelegationField);
+                final Select select = SQL.Select(database).
+                        select("toptional_fields.*").
+                        from("veraweb.toptional_fields").
+                        whereAndEq("toptional_fields.pk", optionalFieldId);
 
-		final List<OptionalFieldTypeContent> typeContents = getFieldsWithTypeContentsAsList(resultListWithTypeContents, optionalDelegationField);
+                final ResultList resultList = database.getList(select, database);
 
-		optionalDelegationField.setOptionalFieldTypeContents(typeContents);
+                for (final Iterator<ResultMap> iterator = resultList.iterator(); iterator.hasNext();) {
+                        final ResultMap object = iterator.next();
+                        final Integer type = (Integer) object.get("fk_type");
+                        if (type.intValue() == MULTIPLE_CHOICE_ID) {
+                                return true;
+                        }
+        }
+
+                return false;
+        }
+
+        private void getListWithTypeContents(ResultSet resultSet, final List<OptionalDelegationField> optionalDelegationFields)
+                        throws SQLException, BeanException {
+                final OptionalDelegationField optionalDelegationField = new OptionalDelegationField(resultSet);
+                final ResultList resultListWithTypeContents = getFieldsAndTypeContentsFromDB(optionalDelegationField);
+
+                final List<OptionalFieldTypeContent> typeContents = getFieldsWithTypeContentsAsList(resultListWithTypeContents, optionalDelegationField);
+
+                optionalDelegationField.setOptionalFieldTypeContents(typeContents);
         optionalDelegationFields.add(optionalDelegationField);
-	}
+        }
 
-	private List<OptionalFieldTypeContent> getFieldsWithTypeContentsAsList(ResultList resultListWithTypeContents, OptionalDelegationField optionalDelegationField) {
-		final List<OptionalFieldTypeContent> typeContents = new ArrayList<OptionalFieldTypeContent>();
-		for (final Iterator<ResultMap> iterator = resultListWithTypeContents.iterator(); iterator.hasNext();) {
-		    final ResultMap object = iterator.next();
-		    final OptionalFieldTypeContent optionalFieldTypeContent = new OptionalFieldTypeContent();
-		    optionalFieldTypeContent.setContent((String) object.get("content"));
-		    optionalFieldTypeContent.setId((Integer) object.get("pk"));
-		    optionalFieldTypeContent.setFk_optional_field((Integer) object.get("fk_optional_field"));
+        private List<OptionalFieldTypeContent> getFieldsWithTypeContentsAsList(ResultList resultListWithTypeContents, OptionalDelegationField optionalDelegationField) {
+                final List<OptionalFieldTypeContent> typeContents = new ArrayList<OptionalFieldTypeContent>();
+                for (final Iterator<ResultMap> iterator = resultListWithTypeContents.iterator(); iterator.hasNext();) {
+                    final ResultMap object = iterator.next();
+                    final OptionalFieldTypeContent optionalFieldTypeContent = new OptionalFieldTypeContent();
+                    optionalFieldTypeContent.setContent((String) object.get("content"));
+                    optionalFieldTypeContent.setId((Integer) object.get("pk"));
+                    optionalFieldTypeContent.setFk_optional_field((Integer) object.get("fk_optional_field"));
 
-		    checkSelectedValues(optionalDelegationField, object, optionalFieldTypeContent);
+                    checkSelectedValues(optionalDelegationField, object, optionalFieldTypeContent);
 
-		    typeContents.add(optionalFieldTypeContent);
-		}
-		return typeContents;
-	}
+                    typeContents.add(optionalFieldTypeContent);
+                }
+                return typeContents;
+        }
 
-	private void checkSelectedValues(OptionalDelegationField optionalDelegationField, final ResultMap object,
+        private void checkSelectedValues(OptionalDelegationField optionalDelegationField, final ResultMap object,
             final OptionalFieldTypeContent optionalFieldTypeContent) {
-	    if (object.get("content").equals(optionalDelegationField.getContent())) {
-	    	optionalFieldTypeContent.setIsSelected(true);
-	    }
-	    else {
-	    	optionalFieldTypeContent.setIsSelected(false);
-	    }
+            if (object.get("content").equals(optionalDelegationField.getContent())) {
+                optionalFieldTypeContent.setIsSelected(true);
+            }
+            else {
+                optionalFieldTypeContent.setIsSelected(false);
+            }
     }
 
-	private ResultList getFieldsAndTypeContentsFromDB(final OptionalDelegationField optionalDelegationField) throws BeanException {
-		final Clause clauseToEmptyContent = Expr.notLike("toptional_field_type_content.content","");
+        private ResultList getFieldsAndTypeContentsFromDB(final OptionalDelegationField optionalDelegationField) throws BeanException {
+                final Clause clauseToEmptyContent = Expr.notLike("toptional_field_type_content.content","");
         final Clause clauseNotNullContent = Expr.isNotNull("toptional_field_type_content.content");
 
         final Integer fkDelegationField = optionalDelegationField.getFkDelegationField();
         final Select select = SQL.Select(database).
-		        select("toptional_field_type_content.pk").
-		        select("toptional_field_type_content.fk_optional_field").
-		        select("toptional_field_type_content.content").
-		        from("veraweb.toptional_field_type_content").
-		        whereAndEq("toptional_field_type_content.fk_optional_field", fkDelegationField).
-		        whereAnd(clauseToEmptyContent).
-				whereAnd(clauseNotNullContent);
+                        select("toptional_field_type_content.pk").
+                        select("toptional_field_type_content.fk_optional_field").
+                        select("toptional_field_type_content.content").
+                        from("veraweb.toptional_field_type_content").
+                        whereAndEq("toptional_field_type_content.fk_optional_field", fkDelegationField).
+                        whereAnd(clauseToEmptyContent).
+                                whereAnd(clauseNotNullContent);
 
-		final ResultList resultListWithTypeContents = database.getList(select, database);
-		return resultListWithTypeContents;
-	}
+                final ResultList resultListWithTypeContents = database.getList(select, database);
+                return resultListWithTypeContents;
+        }
 
 
     /**
-	 * Check if the given {@link OptionalDelegationField} exists.
+         * Check if the given {@link OptionalDelegationField} exists.
      *
-	 * @param optionalDelegationField The {@link OptionalDelegationField}
+         * @param optionalDelegationField The {@link OptionalDelegationField}
      *
-	 * @return True if the field exists, otherwise false.
+         * @return True if the field exists, otherwise false.
      *
      * @throws SQLException TODO
      * @throws BeanException TODO
-	 */
-	public boolean checkOptionalDelegationFieldExist(OptionalDelegationField optionalDelegationField)
+         */
+        public boolean checkOptionalDelegationFieldExist(OptionalDelegationField optionalDelegationField)
             throws BeanException, SQLException {
 
         final Select select = getStatementOptionalFieldExists(optionalDelegationField);
         final ResultSet resultSet = database.result(select);
-		return resultSet.next();
+                return resultSet.next();
 
-	}
+        }
 
     private Select getStatementOptionalFieldExists(OptionalDelegationField optionalDelegationField) {
         final WhereList whereCriterias = new WhereList();

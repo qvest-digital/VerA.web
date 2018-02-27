@@ -10,89 +10,89 @@
 
 #if($missingorgunit.result == "done")
 <vera-success>
-	${placeholderWithTranslation.alledatensatzewurdenerfolgreichmandantenzugeordnet}
+        ${placeholderWithTranslation.alledatensatzewurdenerfolgreichmandantenzugeordnet}
 </vera-success>
 #end
 
 <div id="content_container">
 
     <div id="breadcrumb" class="textRight marginBottom10">
-    	<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</span>
+        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</span>
     </div>
 
-	<h1>${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</h1>
+        <h1>${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</h1>
 
     <div class="tabs contentBox grayBorder marginBottom10 marginTop20" id="main_content">
-		<div class="event" id="tabsMain">
-			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-				<li class="inactiv"><a href="Orgunit?selectNone=true" class="noBorder">
-					<div>${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</div></a>
-				</li>
-				<li vera-tab-default="" vera-tab="database" class="active">
-					<div>${placeholderWithTranslation.GENERIC_DATABASE}</div>
-				</li>
-			</ul>
-		</div>
+                <div class="event" id="tabsMain">
+                        <ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+                                <li class="inactiv"><a href="Orgunit?selectNone=true" class="noBorder">
+                                        <div>${placeholderWithTranslation.GENERIC_CLIENT_PLURAL}</div></a>
+                                </li>
+                                <li vera-tab-default="" vera-tab="database" class="active">
+                                        <div>${placeholderWithTranslation.GENERIC_DATABASE}</div>
+                                </li>
+                        </ul>
+                </div>
 
 
-		<form action="$octopusRequest.task" method="POST">
-			<div class="contentBoxColored tabsContent" vera-content="database">
+                <form action="$octopusRequest.task" method="POST">
+                        <div class="contentBoxColored tabsContent" vera-content="database">
 
                 <h2 class="marginBottom10">${placeholderWithTranslation.GENERIC_DATA_NOT_ASSIGNED_TO_CLIENTS}</h2>
 
                 <table><tr>
-                	<td class="width15 bold"><label for="person">${placeholderWithTranslation.GENERIC_PERSON_PLURAL}:</label></td>
-                	<td><input type="text" value="$!message.text($missingorgunit.person)" id="person" vera-disabled></td>
-                	<td class="width15 bold"><label for="event">${placeholderWithTranslation.GENERIC_EVENTS_PP}:</label></td>
-                	<td><input type="text" value="$!message.text($missingorgunit.event)" id="event" vera-disabled></td>
+                        <td class="width15 bold"><label for="person">${placeholderWithTranslation.GENERIC_PERSON_PLURAL}:</label></td>
+                        <td><input type="text" value="$!message.text($missingorgunit.person)" id="person" vera-disabled></td>
+                        <td class="width15 bold"><label for="event">${placeholderWithTranslation.GENERIC_EVENTS_PP}:</label></td>
+                        <td><input type="text" value="$!message.text($missingorgunit.event)" id="event" vera-disabled></td>
 
                 </tr><tr>
-                	<td class="width15 bold"><label for="import">${placeholderWithTranslation.GENERIC_IMPORT_PROCEDURES}:</label></td>
-                	<td><input type="text" value="$!message.text($missingorgunit.import)" id="import" vera-disabled></td>
-                	<td class="width15 bold"><label for="importPerson">${placeholderWithTranslation.GENERIC_IMPORT_PERSONS}:</label></td>
-                	<td><input type="text" value="$!message.text($missingorgunit.importperson)" id="importPerson" vera-disabled></td>
+                        <td class="width15 bold"><label for="import">${placeholderWithTranslation.GENERIC_IMPORT_PROCEDURES}:</label></td>
+                        <td><input type="text" value="$!message.text($missingorgunit.import)" id="import" vera-disabled></td>
+                        <td class="width15 bold"><label for="importPerson">${placeholderWithTranslation.GENERIC_IMPORT_PERSONS}:</label></td>
+                        <td><input type="text" value="$!message.text($missingorgunit.importperson)" id="importPerson" vera-disabled></td>
 
                 </tr><tr>
-                	<td class="width15 bold"><label for="venue">${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}:</label></td>
-                	<td><input type="text" value="$!message.text($missingorgunit.location)" id="venue" vera-disabled></td>
-                	<td class="width15 bold"><label for="mailinglist">${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}:</label></td>
-                	<td><input type="text" value="$!message.text($missingorgunit.mailinglist)" id="mailinglist" vera-disabled></td>
+                        <td class="width15 bold"><label for="venue">${placeholderWithTranslation.GENERIC_EVENT_LOCATION_PLURAL}:</label></td>
+                        <td><input type="text" value="$!message.text($missingorgunit.location)" id="venue" vera-disabled></td>
+                        <td class="width15 bold"><label for="mailinglist">${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}:</label></td>
+                        <td><input type="text" value="$!message.text($missingorgunit.mailinglist)" id="mailinglist" vera-disabled></td>
 
                 </tr><tr>
-                	<td class="width15 bold"><label for="kats">${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}:</label></td>
-                	<td><input type="text" value="$!message.text($missingorgunit.category)" id="kats" vera-disabled></td>
-                	<td class="width15 bold"><label for="users">${placeholderWithTranslation.GENERIC_USER}:</label></td>
-                	<td><input type="text" value="$!message.text($missingorgunit.user)" id="users" vera-disabled></td>
+                        <td class="width15 bold"><label for="kats">${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}:</label></td>
+                        <td><input type="text" value="$!message.text($missingorgunit.category)" id="kats" vera-disabled></td>
+                        <td class="width15 bold"><label for="users">${placeholderWithTranslation.GENERIC_USER}:</label></td>
+                        <td><input type="text" value="$!message.text($missingorgunit.user)" id="users" vera-disabled></td>
                 </tr><tr>
                 </tr></table>
 
                 <h2 class="marginBottom10 marginTop30">${placeholderWithTranslation.GENERIC_ASSIGN_CLIENTS}</h2>
                 #if(!$allOrgUnit || $allOrgUnit.size() == 0)
-                	<vera-warn>
-                		${placeholderWithTranslation.esexistiertnochkeinmandant}
-                	</vera-warn>
+                        <vera-warn>
+                                ${placeholderWithTranslation.esexistiertnochkeinmandant}
+                        </vera-warn>
                 #else
                 <table><tr>
-                	<td class="width15 bold"><label for="orgunit">${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}:</label></td>
-                	<td>
-                		<select name="orgunit" id="orgunit">
-                		#foreach($m in $allOrgUnit)
-                			<option value="$!m.id">$!message.text($!m.name)</option>
-                		#end
-                		</select>
-                	</td>
+                        <td class="width15 bold"><label for="orgunit">${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}:</label></td>
+                        <td>
+                                <select name="orgunit" id="orgunit">
+                                #foreach($m in $allOrgUnit)
+                                        <option value="$!m.id">$!message.text($!m.name)</option>
+                                #end
+                                </select>
+                        </td>
                 </tr></table>
                 #end
 
                 </div>
 
-  			<span id="buttonPanel-bottom" class="floatRight marginTop10">
-				<input type="submit" name="submit" value="${placeholderWithTranslation.zuordnen}" title="${placeholderWithTranslation.zuordnen}" class="mainButton">
-  			</span>
+                        <span id="buttonPanel-bottom" class="floatRight marginTop10">
+                                <input type="submit" name="submit" value="${placeholderWithTranslation.zuordnen}" title="${placeholderWithTranslation.zuordnen}" class="mainButton">
+                        </span>
 
 
        </form>
-	</div>
+        </div>
 </div>
 
 

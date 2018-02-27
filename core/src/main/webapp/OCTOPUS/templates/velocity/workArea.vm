@@ -14,102 +14,102 @@
 
 <div id="content_container">
 
-	<div id="breadcrumb" class="textRight marginBottom10">
-	    	<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}</span>
-	</div>
+        <div id="breadcrumb" class="textRight marginBottom10">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}</span>
+        </div>
 
-	<h1>${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}</h1>
+        <h1>${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}</h1>
 
-	<form id="formlist" name="formlist" action="WorkArea" method="POST">
-		<input type="hidden" name="doInsert" value="true">
-		<input type="hidden" name="doUpdate" value="true">
-		<input type="hidden" name="doRemove" value="true">
-		<input type="hidden" name="start" value="">
-		<input type="hidden" name="selectNone" value="true">
-		<input type="hidden" name="limit" value="" />
+        <form id="formlist" name="formlist" action="WorkArea" method="POST">
+                <input type="hidden" name="doInsert" value="true">
+                <input type="hidden" name="doUpdate" value="true">
+                <input type="hidden" name="doRemove" value="true">
+                <input type="hidden" name="start" value="">
+                <input type="hidden" name="selectNone" value="true">
+                <input type="hidden" name="limit" value="" />
 
 
-		<span class="inlineLabel" id="actionPanel">
-			<strong>${placeholderWithTranslation.markiertenarbeitsbereiche}</strong>
-			<input type="submit" id="removebutton" name="remove" value="${placeholderWithTranslation.loeschen}" class="button" title="${placeholderWithTranslation.markierteeintraegeentfernen}" />
-		</span>
+                <span class="inlineLabel" id="actionPanel">
+                        <strong>${placeholderWithTranslation.markiertenarbeitsbereiche}</strong>
+                        <input type="submit" id="removebutton" name="remove" value="${placeholderWithTranslation.loeschen}" class="button" title="${placeholderWithTranslation.markierteeintraegeentfernen}" />
+                </span>
 
-		<div id="main_content">
+                <div id="main_content">
 
-			#if($listerrors.size() > 0)
-			<vera-warn>
-				#foreach($error in $listerrors)
-					$error<br>
-				#end
-			</vera-warn>
-			#end
+                        #if($listerrors.size() > 0)
+                        <vera-warn>
+                                #foreach($error in $listerrors)
+                                        $error<br>
+                                #end
+                        </vera-warn>
+                        #end
 
-			#foreach($bean in $list)
-			<input type="hidden" name="list" value="$bean.id">
-			#end
-			<table class="fixed">
-				##Set column size
-				<col width="$column0%" />
-				<col width="$column1%" />
-				<col width="$column2%" />
+                        #foreach($bean in $list)
+                        <input type="hidden" name="list" value="$bean.id">
+                        #end
+                        <table class="fixed">
+                                ##Set column size
+                                <col width="$column0%" />
+                                <col width="$column1%" />
+                                <col width="$column2%" />
 
-				<tr>
-					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
-					<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
-					<th>${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}</th>
-				</tr>
-				#if(!$octopusConfig.personalConfig.getOrgUnitId() || $octopusConfig.personalConfig.getOrgUnitId() < 1)
-				<tr>
-					<td class="textCenter" colspan="3">${placeholderWithTranslation.WORKAREA_NEED_MANDANT}</td>
-				</tr>
-				#else
-				<tr>
-					<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
-					<td class="textCenter"><input type="hidden" name="add-id" value=""><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
-					<td><input type="text" class="edit-name" name="add-name" maxlength="250" value="" onchange="setModified('add')"></td>
-				</tr>
-				#end
-				#foreach($bean in $list)
-				<tr>
-					<td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
-					<td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
-					<td><input type="text" class="edit-name" name="${bean.id}-name" value="$!message.text($bean.name)"  onchange="setModified('$!bean.id')"></td>
-				</tr>
-				#end
-    			#if ($listparam.count == 0)
+                                <tr>
+                                        <th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+                                        <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+                                        <th>${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}</th>
+                                </tr>
+                                #if(!$octopusConfig.personalConfig.getOrgUnitId() || $octopusConfig.personalConfig.getOrgUnitId() < 1)
+                                <tr>
+                                        <td class="textCenter" colspan="3">${placeholderWithTranslation.WORKAREA_NEED_MANDANT}</td>
+                                </tr>
+                                #else
+                                <tr>
+                                        <td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true"  style="display: none;"></td>
+                                        <td class="textCenter"><input type="hidden" name="add-id" value=""><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
+                                        <td><input type="text" class="edit-name" name="add-name" maxlength="250" value="" onchange="setModified('add')"></td>
+                                </tr>
+                                #end
+                                #foreach($bean in $list)
+                                <tr>
+                                        <td class="textCenter"><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
+                                        <td class="textCenter"><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
+                                        <td><input type="text" class="edit-name" name="${bean.id}-name" value="$!message.text($bean.name)"  onchange="setModified('$!bean.id')"></td>
+                                </tr>
+                                #end
+                        #if ($listparam.count == 0)
                     <tr>
-						<td colspan="99">${placeholderWithTranslation.eswurdenkeinedatengefunden}</td>
-					</tr>
-    			#end
+                                                <td colspan="99">${placeholderWithTranslation.eswurdenkeinedatengefunden}</td>
+                                        </tr>
+                        #end
 
-				#set($itemName = "${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}")
-				#tableFooter(3)
-				#parse("inc/list-direct-new.vm")
+                                #set($itemName = "${placeholderWithTranslation.GENERIC_WORKAREA_PLURAL}")
+                                #tableFooter(3)
+                                #parse("inc/list-direct-new.vm")
 
-			</table>
+                        </table>
 
-			<div class="textRight marginTop10" id="buttonPanel-bottom">
-				<input type="submit" id="savebutton" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
-			</div>
+                        <div class="textRight marginTop10" id="buttonPanel-bottom">
+                                <input type="submit" id="savebutton" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+                        </div>
 
-		</div>
+                </div>
 </form>
 </div>
 
 #parse("inc/footer.vm")
 
 <script>
-	$(document).ready(function(){
-	    $('.add-name').keypress(function(e){
-	      if(e.keyCode==13){
-	      	$('#savebutton').click();
-		    return false;
-	      }
-	    });
-	    $('.edit-name').keypress(function(e){
-	      if(e.keyCode==13){
-		      return false;
-	      }
-	    });
-	});
+        $(document).ready(function(){
+            $('.add-name').keypress(function(e){
+              if(e.keyCode==13){
+                $('#savebutton').click();
+                    return false;
+              }
+            });
+            $('.edit-name').keypress(function(e){
+              if(e.keyCode==13){
+                      return false;
+              }
+            });
+        });
 </script>

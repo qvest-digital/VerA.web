@@ -11,12 +11,12 @@
 
     <h1>${placeholderWithTranslation.GENERIC_PROGRAM_PERFERENCES}</h1>
 
-	#if($saveSuccess)
-		<vera-success>${placeholderWithTranslation.MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED}</vera-success>
-	#end
+        #if($saveSuccess)
+                <vera-success>${placeholderWithTranslation.MESSAGE_OPTIONS_WERE_SUCCESSFULLY_SAVED}</vera-success>
+        #end
 
     <div class="content">
-    	<div class="contentsection">
+        <div class="contentsection">
             <input type="hidden" name="saveconfig" value="personTab">
             <input type="hidden" name="saveconfig" value="personMemberTab">
             <input type="hidden" name="saveconfig" value="personAddresstypeTab">
@@ -42,69 +42,69 @@
 
 
             #if(!$config.personTab || $config.personTab == "1")
-            	#set($personTab1 = true)#set($personTab2 = false)
+                #set($personTab1 = true)#set($personTab2 = false)
             #else
-            	#set($personTab1 = false)#set($personTab2 = true)
+                #set($personTab1 = false)#set($personTab2 = true)
             #end
             #if(!$config.personMemberTab || $config.personMemberTab == "1")
-            	#set($personMemberTab1 = true)#set($personMemberTab2 = false)
+                #set($personMemberTab1 = true)#set($personMemberTab2 = false)
             #else
-            	#set($personMemberTab1 = false)#set($personMemberTab2 = true)
+                #set($personMemberTab1 = false)#set($personMemberTab2 = true)
             #end
             #if(!$config.personAddresstypeTab || $config.personAddresstypeTab == "1")
-            	#set($personAddresstypeTab1 = true)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = false)
+                #set($personAddresstypeTab1 = true)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = false)
             #elseif($config.personAddresstypeTab == "2")
-            	#set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = true)#set($personAddresstypeTab3 = false)
+                #set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = true)#set($personAddresstypeTab3 = false)
             #else
-            	#set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = true)
+                #set($personAddresstypeTab1 = false)#set($personAddresstypeTab2 = false)#set($personAddresstypeTab3 = true)
             #end
             #if(!$config.personLocaleTab || $config.personLocaleTab == "1")
-            	#set($personLocaleTab1 = true)#set($personLocaleTab2 = false)#set($personLocaleTab3 = false)
+                #set($personLocaleTab1 = true)#set($personLocaleTab2 = false)#set($personLocaleTab3 = false)
             #elseif($config.personLocaleTab == "2")
-            	#set($personLocaleTab1 = false)#set($personLocaleTab2 = true)#set($personLocaleTab3 = false)
+                #set($personLocaleTab1 = false)#set($personLocaleTab2 = true)#set($personLocaleTab3 = false)
             #else
-            	#set($personLocaleTab1 = false)#set($personLocaleTab2 = false)#set($personLocaleTab3 = true)
+                #set($personLocaleTab1 = false)#set($personLocaleTab2 = false)#set($personLocaleTab3 = true)
             #end
             <div class="contentBoxColored grayBorder marginBottom20">
 
-				<div style="width: 55%; float: left; max-width: 510px;">
-					<fieldset class="marginTop20">
+                                <div style="width: 55%; float: left; max-width: 510px;">
+                                        <fieldset class="marginTop20">
                                 <legend>${placeholderWithTranslation.GENERIC_STANDARD_TABULATOR_CHOICE}</legend>
                                     <div class="table width100 marginTop10">
-                                    	<div class="tableRow">
-                                        		<div class="tableCell bold paddingBottom10 width30">${placeholderWithTranslation.GENERIC_MAIN_TABS}</div>
-                                        		<div class="tableCell"><label for="personTab1"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_PERSONS_DATA}</label></div>
-                                        		<div class="tableCell"><label for="personTab2"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</label></div>
-                                    			<div class="tableCell"></div>
-                                    	</div>
-                                    	<div class="tableRow">
-                                        		<div class="tableCell bold paddingBottom10">${placeholderWithTranslation.GENERIC_SUBTABS_OF_PERSONS_DATA}</div>
-                                        		<div class="tableCell verticalBottom"><label for="personMemberTab1"><input type="radio" name="personMemberTab" id="personMemberTab1" value="1" #if($personMemberTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_MAIN_PERSON}</label></div>
-                                        		<div class="tableCell verticalBottom"><label for="personMemberTab2"><input type="radio" name="personMemberTab" id="personMemberTab2" value="2" #if($personMemberTab2) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_PARTNER}</label></div>
-                                        		<div class="tableCell"></div>
-                                    	</div>
-                                    	<div class="tableRow">
-                                        		<div class="tableCell bold paddingBottom10">${placeholderWithTranslation.GENERIC_SUBTABS_OF_MAILING_ADDRESSES}</div>
-            									<div class="tableCell verticalBottom"><label for="personAddresstypeTab1"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab1" value="1" #if($personAddresstypeTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_BUSINESS}</label></div>
-                                        		<div class="tableCell verticalBottom"><label for="personAddresstypeTab2"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab2" value="2" #if($personAddresstypeTab2) checked #end>&nbsp;${placeholderWithTranslation.privat}</label></div>
-                                        		<div class="tableCell verticalBottom"><label for="personAddresstypeTab3"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab3" value="3" #if($personAddresstypeTab3) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_MORE}</label></div>
-                                    	</div>
+                                        <div class="tableRow">
+                                                        <div class="tableCell bold paddingBottom10 width30">${placeholderWithTranslation.GENERIC_MAIN_TABS}</div>
+                                                        <div class="tableCell"><label for="personTab1"><input type="radio" name="personTab" id="personTab1" value="1" #if($personTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_PERSONS_DATA}</label></div>
+                                                        <div class="tableCell"><label for="personTab2"><input type="radio" name="personTab" id="personTab2" value="2" #if($personTab2) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_MAILING_ADDRESSES}</label></div>
+                                                        <div class="tableCell"></div>
+                                        </div>
+                                        <div class="tableRow">
+                                                        <div class="tableCell bold paddingBottom10">${placeholderWithTranslation.GENERIC_SUBTABS_OF_PERSONS_DATA}</div>
+                                                        <div class="tableCell verticalBottom"><label for="personMemberTab1"><input type="radio" name="personMemberTab" id="personMemberTab1" value="1" #if($personMemberTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_MAIN_PERSON}</label></div>
+                                                        <div class="tableCell verticalBottom"><label for="personMemberTab2"><input type="radio" name="personMemberTab" id="personMemberTab2" value="2" #if($personMemberTab2) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_PARTNER}</label></div>
+                                                        <div class="tableCell"></div>
+                                        </div>
+                                        <div class="tableRow">
+                                                        <div class="tableCell bold paddingBottom10">${placeholderWithTranslation.GENERIC_SUBTABS_OF_MAILING_ADDRESSES}</div>
+                                                                                <div class="tableCell verticalBottom"><label for="personAddresstypeTab1"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab1" value="1" #if($personAddresstypeTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_BUSINESS}</label></div>
+                                                        <div class="tableCell verticalBottom"><label for="personAddresstypeTab2"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab2" value="2" #if($personAddresstypeTab2) checked #end>&nbsp;${placeholderWithTranslation.privat}</label></div>
+                                                        <div class="tableCell verticalBottom"><label for="personAddresstypeTab3"><input type="radio" name="personAddresstypeTab" id="personAddresstypeTab3" value="3" #if($personAddresstypeTab3) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_MORE}</label></div>
+                                        </div>
                                     </div>
-                           	</fieldset>
-				</div>
+                                </fieldset>
+                                </div>
 
-				<div style="width:43%" class="floatRight">
-				 <fieldset class="marginTop20">
-                            	<legend>${placeholderWithTranslation.GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX}</legend>
-                            		<div class="table width100 marginTop10">
-                            			<div class="tableRow">
-                                    		<div class="tableCell"><label for="personLocaleTab1"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_LATIN}</label></div>
-                                    		<div class="tableCell"><label for="personLocaleTab2"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_CHARSET} 1</label></div>
-                                    		<div class="tableCell"><label for="personLocaleTab3"><input type="radio" name="personLocaleTab" id="personLocaleTab3" value="3" #if($personLocaleTab3) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_CHARSET} 2</label></div>
-                            			</div>
+                                <div style="width:43%" class="floatRight">
+                                 <fieldset class="marginTop20">
+                                <legend>${placeholderWithTranslation.GENERIC_STANDARD_CHOICE_OF_SELECTED_BOX}</legend>
+                                        <div class="table width100 marginTop10">
+                                                <div class="tableRow">
+                                                <div class="tableCell"><label for="personLocaleTab1"><input type="radio" name="personLocaleTab" id="personLocaleTab1" value="1" #if($personLocaleTab1) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_LATIN}</label></div>
+                                                <div class="tableCell"><label for="personLocaleTab2"><input type="radio" name="personLocaleTab" id="personLocaleTab2" value="2" #if($personLocaleTab2) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_CHARSET} 1</label></div>
+                                                <div class="tableCell"><label for="personLocaleTab3"><input type="radio" name="personLocaleTab" id="personLocaleTab3" value="3" #if($personLocaleTab3) checked #end>&nbsp;${placeholderWithTranslation.GENERIC_CHARSET} 2</label></div>
+                                                </div>
                                     </div>
                             </fieldset>
-				</div>
+                                </div>
 
                 <div class="clear"></div>
 
@@ -113,133 +113,133 @@
             <div class="width49" style="float:left;">
                 <h3>${placeholderWithTranslation.GENERIC_STANDARD_SALUTATIONS_AND_FREE_TEXT_FIELDS}:</h3>
                 <table class="marginBottom20">
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_STANDARD_SALUTATION}:</td>
-                		<td>
-                			<select name="anrede" class="combox">
-                				<option></option>
-                				#foreach($salutation in $allSalutation)
-                					<option #if($salutation.name == $config.anrede) selected#end>$!message.text($salutation.name)</option>
-                				#end
-                			</select>
-                		</td>
-                	</tr>
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_STANDARD_SALUTATION_PARTNER}:</td>
-                		<td>
-                			<select name="anrede_p" >
-                				<option></option>
-                				#foreach($salutation in $allSalutation)
-                					<option #if($salutation.name == $config.anrede_p) selected#end>$!message.text($salutation.name)</option>
-                				#end
-                			</select>
-                		</td>
-                	</tr>
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD}-${placeholderWithTranslation.GENERIC_CONNECTOR}:</td>
-                		<td><input type="text" name="freitextfeldverbinder" maxlength="300" value="$!message.plain($config.freitextfeldverbinder)" ></td>
-                	</tr>
+                        <tr>
+                                <td class="bold width25">${placeholderWithTranslation.GENERIC_STANDARD_SALUTATION}:</td>
+                                <td>
+                                        <select name="anrede" class="combox">
+                                                <option></option>
+                                                #foreach($salutation in $allSalutation)
+                                                        <option #if($salutation.name == $config.anrede) selected#end>$!message.text($salutation.name)</option>
+                                                #end
+                                        </select>
+                                </td>
+                        </tr>
+                        <tr>
+                                <td class="bold width25">${placeholderWithTranslation.GENERIC_STANDARD_SALUTATION_PARTNER}:</td>
+                                <td>
+                                        <select name="anrede_p" >
+                                                <option></option>
+                                                #foreach($salutation in $allSalutation)
+                                                        <option #if($salutation.name == $config.anrede_p) selected#end>$!message.text($salutation.name)</option>
+                                                #end
+                                        </select>
+                                </td>
+                        </tr>
+                        <tr>
+                                <td class="bold width25">${placeholderWithTranslation.GENERIC_FREE_TEXT_FIELD}-${placeholderWithTranslation.GENERIC_CONNECTOR}:</td>
+                                <td><input type="text" name="freitextfeldverbinder" maxlength="300" value="$!message.plain($config.freitextfeldverbinder)" ></td>
+                        </tr>
             </table>
             </div>
 
             <div class="floatRight width49">
                 <h3>${placeholderWithTranslation.oberflachenbeschriftungen}:</h3>
                 <table class="marginBottom20">
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_MAILING_ADDRESS_BUSINESS}:</td>
-                		<td><input type="text" name="business" maxlength="300" value="$!message.text($!config.business)" ></td>
-                	</tr>
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_MAILING_ADDRESS_PRIVATE}:</td>
-                		<td><input type="text" name="private" maxlength="300" value="$!message.text($!config.private)" ></td>
-                	</tr>
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_MAILING_ADDRESS_OTHERS}:</td>
-                		<td><input type="text" name="other" maxlength="300" value="$!message.text($!config.other)" ></td>
-                	</tr>
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_LABELLING_LATIN}:</td>
-                		<td><input type="text" name="latin" maxlength="300" value="$!message.text($!config.latin)" ></td>
-                	</tr>
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_LABELLING_ALTERNATIVE} 1:</td>
-                		<td><input type="text" name="extra1" maxlength="300" value="$!message.text($!config.extra1)" ></td>
-                	</tr>
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_LABELLING_ALTERNATIVE} 2:</td>
-                		<td><input type="text" name="extra2" maxlength="300" value="$!message.text($!config.extra2)" ></td>
-                	</tr>
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1:</td>
-                		<td><input type="text" name="suffix1" maxlength="300" value="$!message.text($!config.suffix1)" ></td>
-                	</tr>
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2:</td>
-                		<td><input type="text" name="suffix2" maxlength="300" value="$!message.text($!config.suffix2)" ></td>
-                	</tr>
+                        <tr>
+                                <td class="bold width25">${placeholderWithTranslation.GENERIC_MAILING_ADDRESS_BUSINESS}:</td>
+                                <td><input type="text" name="business" maxlength="300" value="$!message.text($!config.business)" ></td>
+                        </tr>
+                        <tr>
+                                <td class="bold width25">${placeholderWithTranslation.GENERIC_MAILING_ADDRESS_PRIVATE}:</td>
+                                <td><input type="text" name="private" maxlength="300" value="$!message.text($!config.private)" ></td>
+                        </tr>
+                        <tr>
+                                <td class="bold width25">${placeholderWithTranslation.GENERIC_MAILING_ADDRESS_OTHERS}:</td>
+                                <td><input type="text" name="other" maxlength="300" value="$!message.text($!config.other)" ></td>
+                        </tr>
+                        <tr>
+                                <td class="bold width25">${placeholderWithTranslation.GENERIC_LABELLING_LATIN}:</td>
+                                <td><input type="text" name="latin" maxlength="300" value="$!message.text($!config.latin)" ></td>
+                        </tr>
+                        <tr>
+                                <td class="bold width25">${placeholderWithTranslation.GENERIC_LABELLING_ALTERNATIVE} 1:</td>
+                                <td><input type="text" name="extra1" maxlength="300" value="$!message.text($!config.extra1)" ></td>
+                        </tr>
+                        <tr>
+                                <td class="bold width25">${placeholderWithTranslation.GENERIC_LABELLING_ALTERNATIVE} 2:</td>
+                                <td><input type="text" name="extra2" maxlength="300" value="$!message.text($!config.extra2)" ></td>
+                        </tr>
+                        <tr>
+                                <td class="bold width25">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 1:</td>
+                                <td><input type="text" name="suffix1" maxlength="300" value="$!message.text($!config.suffix1)" ></td>
+                        </tr>
+                        <tr>
+                                <td class="bold width25">${placeholderWithTranslation.GENERIC_ADDRESS_ADDITIONAL} 2:</td>
+                                <td><input type="text" name="suffix2" maxlength="300" value="$!message.text($!config.suffix2)" ></td>
+                        </tr>
                 </table>
             </div>
 
             <div class="width49">
                 <h3>${placeholderWithTranslation.GENERIC_HELP}</h3>
                 <table class="marginBottom20">
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_HELP_LINK}:</td>
-                		<td><input type="text" name="helplink" maxlength="300" value="$!message.text($config.helplink)" ></td>
-                	</tr>
-                	<tr>
-                		<td class="bold width25">${placeholderWithTranslation.GENERIC_HELP_WINDOW}:</td>
-                		<td>
-                			<select name="helptarget" >
-                				$config.helptarget
-                				<option value="">${placeholderWithTranslation.OPTION_HELP_WINDOW_1}.</option>
-                				<option value="_blank"      #if($config.helptarget == "_blank") selected #end>${placeholderWithTranslation.OPTION_HELP_WINDOW_2}.</option>
-                				<option value="verawebhelp" #if($config.helptarget == "verawebhelp") selected #end>${placeholderWithTranslation.OPTION_HELP_WINDOW_3}.</option>
-                			</select>
-                		</td>
-                	</tr>
+                        <tr>
+                                <td class="bold width25">${placeholderWithTranslation.GENERIC_HELP_LINK}:</td>
+                                <td><input type="text" name="helplink" maxlength="300" value="$!message.text($config.helplink)" ></td>
+                        </tr>
+                        <tr>
+                                <td class="bold width25">${placeholderWithTranslation.GENERIC_HELP_WINDOW}:</td>
+                                <td>
+                                        <select name="helptarget" >
+                                                $config.helptarget
+                                                <option value="">${placeholderWithTranslation.OPTION_HELP_WINDOW_1}.</option>
+                                                <option value="_blank"      #if($config.helptarget == "_blank") selected #end>${placeholderWithTranslation.OPTION_HELP_WINDOW_2}.</option>
+                                                <option value="verawebhelp" #if($config.helptarget == "verawebhelp") selected #end>${placeholderWithTranslation.OPTION_HELP_WINDOW_3}.</option>
+                                        </select>
+                                </td>
+                        </tr>
                 </table>
             </div>
 
             <div class="width49">
                 <h3>${placeholderWithTranslation.GENERIC_PROTOCOL_TIME_CHANGE}</h3>
                 <table class="marginBottom20">
-                	<tr>
-                		<td class="bold width50">${placeholderWithTranslation.GENERIC_PROTOCOL_COMMISIONING_TIME}
-				(${placeholderWithTranslation.GENERIC_YEARS}/${placeholderWithTranslation.GENERIC_MONTHS}/${placeholderWithTranslation.GENERIC_DAYS}):
-				</td>
-                		<td>
-                		<input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="$!message.text($config.changeLogRetentionPolicy.toString())"  vera-disabled style="width: 80px;">
-                		<input type="text" maxlength="300" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))"  vera-disabled style="background-color: #f0f0f0;width: 200px;">
-                		<span id="show-changeLogRetentionPolicy" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png"></span>
-                		<link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/dialog.css">
-                		<script type="text/javascript" src="${paths.staticWeb}js/vera/Duration.js"></script>
-                		<script type="text/javascript" src="${paths.staticWeb}js/vera/DurationInputDialog.js"></script>
-                		<script type="text/javascript">
-                			DurationInputDialog.setup(
-                				{
-                					display : "changeLogRetentionPolicyDisplay",
-                					value : "changeLogRetentionPolicyValue",
-                					button : "show-changeLogRetentionPolicy",
-                					title : "${placeholderWithTranslation.HINT_GIVE_THE_RETENTION_PERIOD}:"
-                				}
-                			);
-                		</script>
-                		</td>
-                	</tr>
+                        <tr>
+                                <td class="bold width50">${placeholderWithTranslation.GENERIC_PROTOCOL_COMMISIONING_TIME}
+                                (${placeholderWithTranslation.GENERIC_YEARS}/${placeholderWithTranslation.GENERIC_MONTHS}/${placeholderWithTranslation.GENERIC_DAYS}):
+                                </td>
+                                <td>
+                                <input type="hidden" name="changeLogRetentionPolicy" id="changeLogRetentionPolicyValue" value="$!message.text($config.changeLogRetentionPolicy.toString())"  vera-disabled style="width: 80px;">
+                                <input type="text" maxlength="300" id="changeLogRetentionPolicyDisplay" value="$!message.text($config.changeLogRetentionPolicy.toFormattedString( '%Y%M%D' ))"  vera-disabled style="background-color: #f0f0f0;width: 200px;">
+                                <span id="show-changeLogRetentionPolicy" class="datepickerContainer"><img src="${paths.staticWeb}images/calendar.png"></span>
+                                <link rel="stylesheet" type="text/css" href="${paths.staticWeb}styles/dialog.css">
+                                <script type="text/javascript" src="${paths.staticWeb}js/vera/Duration.js"></script>
+                                <script type="text/javascript" src="${paths.staticWeb}js/vera/DurationInputDialog.js"></script>
+                                <script type="text/javascript">
+                                        DurationInputDialog.setup(
+                                                {
+                                                        display : "changeLogRetentionPolicyDisplay",
+                                                        value : "changeLogRetentionPolicyValue",
+                                                        button : "show-changeLogRetentionPolicy",
+                                                        title : "${placeholderWithTranslation.HINT_GIVE_THE_RETENTION_PERIOD}:"
+                                                }
+                                        );
+                                </script>
+                                </td>
+                        </tr>
                 </table>
             </div>
 
             #if($grants.isAdmin())
             <div id="buttonPanel-bottom" class="textRight ">
 
-            	<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+                <input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
 
             </div>
             #end
 
 
-    	</div>
+        </div>
     </div>
 </div>
 
@@ -247,7 +247,7 @@
 
 <script type="text/javascript">
 #if(!$grants.isAdmin())
-	disableForm(document.getElementById('formlist'));
+        disableForm(document.getElementById('formlist'));
 #end
 </script>
 

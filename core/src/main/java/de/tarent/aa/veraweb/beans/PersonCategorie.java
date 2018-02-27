@@ -67,12 +67,12 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.server.OctopusContext;
 
 public class PersonCategorie extends AbstractBean {
-	public Integer id;
-	public Integer person;
-	public Integer categorie;
-	public String name;
-	public Integer rank;
-	public Integer flags;
+        public Integer id;
+        public Integer person;
+        public Integer categorie;
+        public String name;
+        public Integer rank;
+        public Integer flags;
 
     /**
      * Diese Methode testet, ob im aktuellen Kontext diese Bohne gelesen werden
@@ -105,7 +105,7 @@ public class PersonCategorie extends AbstractBean {
     public void verify(final OctopusContext octopusContext) throws BeanException {
         final VerawebMessages messages = new VerawebMessages(octopusContext);
 
-    	if (person == null || categorie == null) {
+        if (person == null || categorie == null) {
             addError(messages.getMessagePersonCategoryNoConnectionPersonCategory());
         }
     }

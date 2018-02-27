@@ -232,7 +232,7 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
             Database database = getDatabase(cntx);
             order = database.getProperty(new Proxy(), order);
             if (order != null) {
-            	select.orderBy(Order.asc(order).andAsc("tuser.fk_orgunit").andAsc("tuser.username").andAsc("proxy"));
+                select.orderBy(Order.asc(order).andAsc("tuser.fk_orgunit").andAsc("tuser.username").andAsc("proxy"));
             }
         }
     }
@@ -363,31 +363,31 @@ public class ProxyListWorker extends ListWorkerVeraWeb {
 
     @Override
     protected void saveBean(final OctopusContext octopusContext, Bean bean, TransactionContext context) throws BeanException, IOException {
-		Proxy proxy = (Proxy)bean;
-		if (proxy.validFrom != null) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(proxy.validFrom);
-			calendar.set(Calendar.HOUR_OF_DAY, 0);
-			calendar.set(Calendar.MINUTE, 0);
-			calendar.set(Calendar.SECOND, 0);
-			calendar.set(Calendar.MILLISECOND, 0);
-			proxy.validFrom.setTime(calendar.getTimeInMillis());
-		}
-		if (proxy.validTill != null) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(proxy.validTill);
-			calendar.set(Calendar.HOUR_OF_DAY, 23);
-			calendar.set(Calendar.MINUTE, 59);
-			calendar.set(Calendar.SECOND, 59);
-			calendar.set(Calendar.MILLISECOND, 0);
-			proxy.validTill.setTime(calendar.getTimeInMillis());
-		}
+                Proxy proxy = (Proxy)bean;
+                if (proxy.validFrom != null) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(proxy.validFrom);
+                        calendar.set(Calendar.HOUR_OF_DAY, 0);
+                        calendar.set(Calendar.MINUTE, 0);
+                        calendar.set(Calendar.SECOND, 0);
+                        calendar.set(Calendar.MILLISECOND, 0);
+                        proxy.validFrom.setTime(calendar.getTimeInMillis());
+                }
+                if (proxy.validTill != null) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(proxy.validTill);
+                        calendar.set(Calendar.HOUR_OF_DAY, 23);
+                        calendar.set(Calendar.MINUTE, 59);
+                        calendar.set(Calendar.SECOND, 59);
+                        calendar.set(Calendar.MILLISECOND, 0);
+                        proxy.validTill.setTime(calendar.getTimeInMillis());
+                }
         proxy.verify(octopusContext);
 
         if(proxy.isCorrect()) {
             super.saveBean(octopusContext, bean, context);
         }
-	}
+        }
 
     //
     // geschützte Hilfsmethoden

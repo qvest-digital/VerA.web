@@ -239,35 +239,35 @@ public class LocationListWorker extends ListWorkerVeraWeb {
 
     @Override
     public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
-    	if(octopusContext.getRequestObject().containsParam("noneDeleted")) {
-    		octopusContext.setContent("countRemove", 0);
-    	}
-    	super.saveList(octopusContext);
+        if(octopusContext.getRequestObject().containsParam("noneDeleted")) {
+                octopusContext.setContent("countRemove", 0);
+        }
+        super.saveList(octopusContext);
     }
 
     @Override
     public List showList(OctopusContext octopusContext) throws BeanException, IOException {
-    	Boolean noneChecked = true;
-    	if(octopusContext.getRequestObject().getParam("list") != null) {
-    		String[] listOfIds = null;
-    		if(octopusContext.getRequestObject().getParam("list").getClass().getName().equals("java.lang.String")) {
-    		listOfIds = new String[1];
-    		listOfIds[0]= (String) octopusContext.getRequestObject().getParam("list");
-    		} else {
-		    	listOfIds = (String[]) octopusContext.getRequestObject().getParam("list");
-    		}
-		    	for (String id : listOfIds) {
-					if(octopusContext.getRequestObject().containsParam(id+"-select")){
-						noneChecked = false;
-						break;
-				}
-			}
-    	}
+        Boolean noneChecked = true;
+        if(octopusContext.getRequestObject().getParam("list") != null) {
+                String[] listOfIds = null;
+                if(octopusContext.getRequestObject().getParam("list").getClass().getName().equals("java.lang.String")) {
+                listOfIds = new String[1];
+                listOfIds[0]= (String) octopusContext.getRequestObject().getParam("list");
+                } else {
+                        listOfIds = (String[]) octopusContext.getRequestObject().getParam("list");
+                }
+                        for (String id : listOfIds) {
+                                        if(octopusContext.getRequestObject().containsParam(id+"-select")){
+                                                noneChecked = false;
+                                                break;
+                                }
+                        }
+        }
     if(octopusContext.getRequestObject().get("remove") != null
-    		&& !octopusContext.getRequestObject().get("remove").equals("Ja")
-    		&& !noneChecked) {
-    	Boolean noMessage = null;
-    	octopusContext.setContent("countRemove", noMessage);
+                && !octopusContext.getRequestObject().get("remove").equals("Ja")
+                && !noneChecked) {
+        Boolean noMessage = null;
+        octopusContext.setContent("countRemove", noMessage);
     }
 
     return super.showList(octopusContext);

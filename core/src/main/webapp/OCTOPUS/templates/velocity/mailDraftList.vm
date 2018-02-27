@@ -26,42 +26,42 @@
         <h1>${placeholderWithTranslation.emailvorlage}</h1>
 
         <span id="actionPanel" class="inlineLabel">
-	       	<strong>${placeholderWithTranslation.GENERIC_MARKED_TEMPLATES_PP}</strong>
-	       	<input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markiertevorlagenloschen}" onclick="" />
+                <strong>${placeholderWithTranslation.GENERIC_MARKED_TEMPLATES_PP}</strong>
+                <input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markiertevorlagenloschen}" onclick="" />
         </span>
         <span id="" class="buttonPanel-top textRight floatRight">
-			<input type="button" name="" value="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" title="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" class="mainButton" onclick="window.location.href='MailDraftDetail';" />
+                        <input type="button" name="" value="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" title="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" class="mainButton" onclick="window.location.href='MailDraftDetail';" />
         </span>
         #foreach($bean in $list)
         <input type="hidden" name="list" value="$bean.id"/>
         #end
 
-    	<table class="fixed">
-    		##Set column size
-			<col width="$column0%" />
-			<col width="$column1%" />
-			<col width="$column2%" />
+        <table class="fixed">
+                ##Set column size
+                        <col width="$column0%" />
+                        <col width="$column1%" />
+                        <col width="$column2%" />
 
-        	<tr>
-        		<th class="smallCell textCenter">
-        			<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/>
-        		</th>
-        		<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
-        		<th>${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}</th>
-        	</tr>
-        	#foreach($bean in $list)
-        	<tr>
-        		<td><input type="checkbox" name="${bean.id}-select" value="true"/></td>
-        		<td onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id"/>$!{bean.id}</td>
-        		<td onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';"/>$!message.text($bean.name)</td>
-        	</tr>
-        	#end
+                <tr>
+                        <th class="smallCell textCenter">
+                                <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/>
+                        </th>
+                        <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+                        <th>${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}</th>
+                </tr>
+                #foreach($bean in $list)
+                <tr>
+                        <td><input type="checkbox" name="${bean.id}-select" value="true"/></td>
+                        <td onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';"><input type="hidden" name="${bean.id}-id" value="$bean.id"/>$!{bean.id}</td>
+                        <td onclick="window.location.href='MailDraftDetail?id=$!{bean.id}';"/>$!message.text($bean.name)</td>
+                </tr>
+                #end
 
-        	#set($itemName = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_PLURAL}")
-			#tableFooter(3)
-        	#parse("inc/list-direct-new.vm")
+                #set($itemName = "${placeholderWithTranslation.GENERIC_MAIL_DRAFT_PLURAL}")
+                        #tableFooter(3)
+                #parse("inc/list-direct-new.vm")
             #if ($listparam.count == 0)
-            	<tr><td colspan="3">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
+                <tr><td colspan="3">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td></tr>
             #end
         </table>
 

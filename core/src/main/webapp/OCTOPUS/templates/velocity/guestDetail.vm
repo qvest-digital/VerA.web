@@ -233,12 +233,12 @@
 
                         <div id="detail-2-reload-block" #if($guest.invitationtype != 3) style="display: none;"#end>
                             <vera-info vera-stay>
-                               	${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_MAIN_PERSON}.
-				${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PERSON_PART1}
+                                ${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_MAIN_PERSON}.
+                                ${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PERSON_PART1}
                                 <a href="javascript:setGuestInvitationtype(1);">
-				${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON}
-				</a>?
-				<img src="../images/dialog_close.png" id="close-info" onclick="$(this).parent().get(0).remove()" />
+                                ${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON}
+                                </a>?
+                                <img src="../images/dialog_close.png" id="close-info" onclick="$(this).parent().get(0).remove()" />
                             </vera-info>
                         </div>
         <!-- alter Code der tabs -->
@@ -283,12 +283,12 @@
 
                         <div id="detail-3-reload-block" #if($guest.invitationtype != 2 || $partner_invited==1) style="display: none;"#end>
                             <vera-info vera-stay>
-			    	<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
-				${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PARTNER}.
+                                <p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
+                                ${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PARTNER}.
                                 ${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PERSON_PART1}
-				<a href="javascript:setGuestInvitationtype(1);">
+                                <a href="javascript:setGuestInvitationtype(1);">
                                 ${placeholderWithTranslation.MESSAGE_INVITATION_WITHOUT_PERSON_PART2_BUTTON}</a>?
-				<img src="../images/dialog_close.png" id="close-info" style="top:-32px;" onclick="$(this).parent().get(0).remove()" />
+                                <img src="../images/dialog_close.png" id="close-info" style="top:-32px;" onclick="$(this).parent().get(0).remove()" />
                             </vera-info vera-stay>
                         </div>
                         #closeContentBlock()

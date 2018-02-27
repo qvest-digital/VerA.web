@@ -5,27 +5,27 @@
 
 #if($status.exception)
 #macro(printStackTraceElement $ste)
-	<tr>
-		<td/>
-		<td colspan="3">${st.className}.${st.methodName}</td>
-	</tr><tr>
-		<td style="width: 20px;"/>
-		<td>from</td>
+        <tr>
+                <td/>
+                <td colspan="3">${st.className}.${st.methodName}</td>
+        </tr><tr>
+                <td style="width: 20px;"/>
+                <td>from</td>
   #if($st.isNativeMethod())
-  		<td><i>Native Method</i></td>
-   		<td/>
+                <td><i>Native Method</i></td>
+                <td/>
   #elseif($st.fileName)
-  		<td>$st.fileName</td>
+                <td>$st.fileName</td>
    #if($st.lineNumber >= 0)
-  		<td>Line $st.lineNumber</td>
+                <td>Line $st.lineNumber</td>
    #else
-   		<td/>
+                <td/>
    #end
   #else
-  		<td><i>Unknown Source</i></td>
-   		<td/>
+                <td><i>Unknown Source</i></td>
+                <td/>
   #end
-	</tr>
+        </tr>
  #end
  #macro(printStackTraceAsCause $ex $ct)
   #if($ex.cause)
@@ -49,8 +49,8 @@
     #set($n = -1)
    #end
   #end
-	<tr><th colspan="4" style="padding: 4px;">$ex.class.name</th></tr>
-	<tr><td colspan="4" style="padding: 4px;">&nbsp; $!ex.localizedMessage</td></tr>
+        <tr><th colspan="4" style="padding: 4px;">$ex.class.name</th></tr>
+        <tr><td colspan="4" style="padding: 4px;">&nbsp; $!ex.localizedMessage</td></tr>
   #foreach($i in [0..$m])
    #set($st = $ttl.get($i))
    #printStackTraceElement($st)
@@ -61,8 +61,8 @@
   #if($ex.cause)
    #printStackTraceAsCause($ex.cause $ex.stackTrace)
   #end
-	<tr><th colspan="4" style="padding: 4px;">$ex.class.name</th></tr>
-	<tr><td colspan="4" style="padding: 4px;">&nbsp; $!ex.localizedMessage</td></tr>
+        <tr><th colspan="4" style="padding: 4px;">$ex.class.name</th></tr>
+        <tr><td colspan="4" style="padding: 4px;">&nbsp; $!ex.localizedMessage</td></tr>
   #foreach($st in $ex.stackTrace)
    #printStackTraceElement($st)
   #end

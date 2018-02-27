@@ -114,6 +114,6 @@ public class OrgUnit extends AbstractBean {
     @Override
     public void checkWrite(OctopusContext octopusContext) throws BeanException
     {
-    	checkGroups(octopusContext, PersonalConfigAA.GROUP_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER);
+        checkGroups(octopusContext, PersonalConfigAA.GROUP_ADMIN, PersonalConfigAA.GROUP_SYSTEM_USER);
     }
 }

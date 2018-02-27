@@ -14,85 +14,85 @@
 
 <div id="content_container">
 
-	<div id="breadcrumb" class="textRight marginBottom10">
-	    	<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</span>
-	</div>
+        <div id="breadcrumb" class="textRight marginBottom10">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</span>
+        </div>
 
-	<h1>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</h1>
+        <h1>${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}</h1>
 
-	<div style="visibility:hidden"class="msgEmpty msg errormsg">
-		${placeholderWithTranslation.LABELLING_MUST_NOT_BE_EMPTY}
-	</div>
+        <div style="visibility:hidden"class="msgEmpty msg errormsg">
+                ${placeholderWithTranslation.LABELLING_MUST_NOT_BE_EMPTY}
+        </div>
 
-	<form id="formlist" name="formlist" action="Function" method="POST">
-		<input type="hidden" name="doInsert" value="true">
-		<input type="hidden" name="doUpdate" value="true">
-		<input type="hidden" name="doRemove" value="true">
-		<input type="hidden" name="start" value="">
-		<input type="hidden" name="selectNone" value="true">
-		<input type="hidden" name="limit" value="" />
+        <form id="formlist" name="formlist" action="Function" method="POST">
+                <input type="hidden" name="doInsert" value="true">
+                <input type="hidden" name="doUpdate" value="true">
+                <input type="hidden" name="doRemove" value="true">
+                <input type="hidden" name="start" value="">
+                <input type="hidden" name="selectNone" value="true">
+                <input type="hidden" name="limit" value="" />
 
-		<span class="inlineLabel" id="actionPanel">
-			<strong>${placeholderWithTranslation.markiertebezeichnunge}</strong>
-			<input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" class="button" title="${placeholderWithTranslation.markierteeintrageentfernen}">
-		</span>
+                <span class="inlineLabel" id="actionPanel">
+                        <strong>${placeholderWithTranslation.markiertebezeichnunge}</strong>
+                        <input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" class="button" title="${placeholderWithTranslation.markierteeintrageentfernen}">
+                </span>
 
-		<div id="main_content">
+                <div id="main_content">
 
-			#if($listerrors.size() > 0)
-			<vera-warn>
-				#foreach($error in $listerrors)
-					$error<br>
-				#end
-			</vera-warn>
-			#end
-			#foreach($bean in $list)
-			<input type="hidden" name="list" value="$bean.id">
-			#end
-			<table class="fixed">
-				##Set column size
-				<col width="$column0%" />
-				<col width="$column1%" />
-				<col width="$column2%" />
+                        #if($listerrors.size() > 0)
+                        <vera-warn>
+                                #foreach($error in $listerrors)
+                                        $error<br>
+                                #end
+                        </vera-warn>
+                        #end
+                        #foreach($bean in $list)
+                        <input type="hidden" name="list" value="$bean.id">
+                        #end
+                        <table class="fixed">
+                                ##Set column size
+                                <col width="$column0%" />
+                                <col width="$column1%" />
+                                <col width="$column2%" />
 
-				<tr>
-					<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
-					<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
-					<th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
-				</tr>
-				<tr>
-					<td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" style="display: none;"></td>
-					<td class="textCenter"><input type="hidden" name="add-id" value=""><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
-					<td><input type="text" id="new-name" name="add-name" maxlength="300" value="" onkeyup="$(this).trigger('change');" onchange="checkIfEmpty(this)"></td>
+                                <tr>
+                                        <th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/></th>
+                                        <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+                                        <th>${placeholderWithTranslation.GENERIC_LABELLING}</th>
+                                </tr>
+                                <tr>
+                                        <td class="textCenter"><input type="hidden" id="add-modified" name="add-modified" value="false"><input type="checkbox" name="add-select" value="true" style="display: none;"></td>
+                                        <td class="textCenter"><input type="hidden" name="add-id" value=""><em>${placeholderWithTranslation.GENERIC_NEW}</em></td>
+                                        <td><input type="text" id="new-name" name="add-name" maxlength="300" value="" onkeyup="$(this).trigger('change');" onchange="checkIfEmpty(this)"></td>
 
-				</tr>
-				#foreach($bean in $list)
-				<tr class="existingEntries">
-					<td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
-					<td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
-					<td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" onkeyup="$(this).trigger('change');" onchange="setModified('$!bean.id');checkIfEmpty(this)"></td>
-				</tr>
-				#end
+                                </tr>
+                                #foreach($bean in $list)
+                                <tr class="existingEntries">
+                                        <td><input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false"><input type="checkbox" name="${bean.id}-select" value="true"></td>
+                                        <td><input type="hidden" name="${bean.id}-id" value="$!bean.id">$!bean.id</td>
+                                        <td><input type="text" name="${bean.id}-name" value="$!message.text($bean.name)" onkeyup="$(this).trigger('change');" onchange="setModified('$!bean.id');checkIfEmpty(this)"></td>
+                                </tr>
+                                #end
 
-    			#if ($listparam.count == 0)
+                        #if ($listparam.count == 0)
                     <tr>
-						<td colspan="99">${placeholderWithTranslation.eswurdenkeinedatengefunden}</td>
-					</tr>
-    			#end
+                                                <td colspan="99">${placeholderWithTranslation.eswurdenkeinedatengefunden}</td>
+                                        </tr>
+                        #end
 
-				#set($itemName = "${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}")
-				#tableFooter(3)
-				#parse("inc/list-direct-new.vm")
-			</table>
+                                #set($itemName = "${placeholderWithTranslation.GENERIC_FUNCTION_PLURAL}/${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_PLURAL}")
+                                #tableFooter(3)
+                                #parse("inc/list-direct-new.vm")
+                        </table>
 
 
-			<div class="textRight marginTop10" id="buttonPanel-bottom">
-				<input id="buttonSave" type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" onClick="checkForNewEntry()" class="mainButton">
-			</div>
+                        <div class="textRight marginTop10" id="buttonPanel-bottom">
+                                <input id="buttonSave" type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" onClick="checkForNewEntry()" class="mainButton">
+                        </div>
 
-		</div>
+                </div>
 
-	</form>
+        </form>
 </div>
 
 <script>
@@ -106,40 +106,40 @@ $(function () {
     });
 });
 $( document ).ready(function() {
-		$('.msgEmpty').hide();
+                $('.msgEmpty').hide();
 });
 
 function checkForNewEntry(){
- 	var newName = document.getElementById('new-name').value;
-	if(newName.length>0)
+        var newName = document.getElementById('new-name').value;
+        if(newName.length>0)
             setModified('add');
-	};
+        };
 
 function checkIfEmpty(e){
-	var i;
+        var i;
 
 
-	if(e.value.trim().length>0 || (e.id == "new-name" && e.value.length == 0)){
-		if(emptyInputs.length>0){
-			if(jQuery.inArray(e.name, emptyInputs) !== -1){
-				emptyInputs.splice(jQuery.inArray(e.name, emptyInputs), 1);
-			}
-		}
-	}else{
-		if(jQuery.inArray(e.name, emptyInputs) !== -1){}
-		else{
-			emptyInputs.push(e.name);
-		}
-	}
-	if(emptyInputs.length>0){
-		document.getElementsByClassName('msgEmpty')[0].style.visibility='visible';
-		$('.msgEmpty').show();
-		document.getElementById('buttonSave').disabled=true;
-	}else{
-		document.getElementsByClassName('msgEmpty')[0].style.visibility='hidden';
-		$('.msgEmpty').hide();
-		document.getElementById('buttonSave').disabled=false;
-	}
+        if(e.value.trim().length>0 || (e.id == "new-name" && e.value.length == 0)){
+                if(emptyInputs.length>0){
+                        if(jQuery.inArray(e.name, emptyInputs) !== -1){
+                                emptyInputs.splice(jQuery.inArray(e.name, emptyInputs), 1);
+                        }
+                }
+        }else{
+                if(jQuery.inArray(e.name, emptyInputs) !== -1){}
+                else{
+                        emptyInputs.push(e.name);
+                }
+        }
+        if(emptyInputs.length>0){
+                document.getElementsByClassName('msgEmpty')[0].style.visibility='visible';
+                $('.msgEmpty').show();
+                document.getElementById('buttonSave').disabled=true;
+        }else{
+                document.getElementsByClassName('msgEmpty')[0].style.visibility='hidden';
+                $('.msgEmpty').hide();
+                document.getElementById('buttonSave').disabled=false;
+        }
  };
 </script>
 

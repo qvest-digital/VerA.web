@@ -8,26 +8,26 @@
 #set($formurl = "SaveDelegationFields")
 
 <script type="text/javascript">
-	$(function() {
-		var types = document.getElementById('typeSelect');
-		if (types != null) {
-			var selectedValue = types.options[types.selectedIndex].value;
+        $(function() {
+                var types = document.getElementById('typeSelect');
+                if (types != null) {
+                        var selectedValue = types.options[types.selectedIndex].value;
 
-			if (selectedValue == 'Eingabefeld') {
-				$("#optionsArea").hide();
-			}
-			else {
-				$("#optionsArea").hide();
-			}
-		}
-	});
+                        if (selectedValue == 'Eingabefeld') {
+                                $("#optionsArea").hide();
+                        }
+                        else {
+                                $("#optionsArea").hide();
+                        }
+                }
+        });
 </script>
 
 <div id="content_container">
 
-	#if ($optionalFieldsSummary && $optionalFieldsSummary.createdFields.size() == 0 && $optionalFieldsSummary.changedFields.size() == 0 && $optionalFieldsSummary.deletedFields.size() == 0)
-		<vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
-	#end
+        #if ($optionalFieldsSummary && $optionalFieldsSummary.createdFields.size() == 0 && $optionalFieldsSummary.changedFields.size() == 0 && $optionalFieldsSummary.deletedFields.size() == 0)
+                <vera-warn> ${placeholderWithTranslation.GM_NO_CHANGES} </vera-warn>
+        #end
 
     <div id="breadcrumb" class="textRight marginBottom10">
         <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
@@ -37,34 +37,34 @@
 
     #set($lang = "${placeholderWithTranslation.language_short}")
 
-	#if ($optionalFieldsSummary && ($optionalFieldsSummary.createdFields.size() > 0 || $optionalFieldsSummary.changedFields.size() > 0 || $optionalFieldsSummary.deletedFields.size() > 0))
-		<div id="message-container" class="msg successmsg">
-			#if ($optionalFieldsSummary.createdFields.size()>0)
-				#set($messageAction = "INSERT")
-				#set($count = $optionalFieldsSummary.createdFields.size())
-				<div>
-					#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
-					$generalMessage.
-				</div>
-			#end
-			#if ($optionalFieldsSummary.changedFields.size()>0)
-				#set($messageAction = "MODIFY")
-				#set($count = $optionalFieldsSummary.changedFields.size())
-				<div>
-					#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
-					$generalMessage.
-				</div>
-			#end
-			#if ($optionalFieldsSummary.deletedFields.size()>0)
-				#set($messageAction = "DELETE")
-				#set($count = $optionalFieldsSummary.deletedFields.size())
-				<div>
-					#set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
-					$generalMessage.
-				</div>
-			#end
-		</div>
-	#end
+        #if ($optionalFieldsSummary && ($optionalFieldsSummary.createdFields.size() > 0 || $optionalFieldsSummary.changedFields.size() > 0 || $optionalFieldsSummary.deletedFields.size() > 0))
+                <div id="message-container" class="msg successmsg">
+                        #if ($optionalFieldsSummary.createdFields.size()>0)
+                                #set($messageAction = "INSERT")
+                                #set($count = $optionalFieldsSummary.createdFields.size())
+                                <div>
+                                        #set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
+                                        $generalMessage.
+                                </div>
+                        #end
+                        #if ($optionalFieldsSummary.changedFields.size()>0)
+                                #set($messageAction = "MODIFY")
+                                #set($count = $optionalFieldsSummary.changedFields.size())
+                                <div>
+                                        #set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
+                                        $generalMessage.
+                                </div>
+                        #end
+                        #if ($optionalFieldsSummary.deletedFields.size()>0)
+                                #set($messageAction = "DELETE")
+                                #set($count = $optionalFieldsSummary.deletedFields.size())
+                                <div>
+                                        #set($generalMessage=${helper.createMessage($entity,$messageAction,"$count",$placeholderWithTranslation)})
+                                        $generalMessage.
+                                </div>
+                        #end
+                </div>
+        #end
 
     <form id="formlist1" name="formlist1" action="$formurl?eventId=$!event.id" method="POST">
 
@@ -90,66 +90,66 @@
                     <li class="inactive" onclick="window.location.href='ShowEventTasks?id=$!event.id&selectNone=true';">
                         <div>${placeholderWithTranslation.GENERIC_TASK_PLURAL}</div>
                     </li>
-					<li class="active">
-						<div>${placeholderWithTranslation.GENERIC_ADDITIONAL_PERSONS_DATA}</div>
-					</li>
+                                        <li class="active">
+                                                <div>${placeholderWithTranslation.GENERIC_ADDITIONAL_PERSONS_DATA}</div>
+                                        </li>
                 </ul>
             </div>
 
             <div class="contentBoxColored tabsContent table">
-				<ol class="delegationFields">
-					#set($fieldcounter = 0)
-	                #foreach($field in $delegationFieldsWithTypeContents )
-						<div class="tableRow">
-			                #set($fieldcounter = $fieldcounter + 1)
-			            	<div class="tableCell width25">
-			            		<span>$fieldcounter.</span>
-				            	<span>${placeholderWithTranslation.feldbezeichnung}</span>
-				                <input type="text" name="optionalField-$field.fkDelegationField" maxlength="25" value="$field.label">
-							</div>
-							<div class="tableCell width25">
-								<span>${placeholderWithTranslation.eingabetyp}</span>
-				                <select name="optionalFieldType-$field.fkDelegationField">
-								    #foreach($type in $fieldTypes)
-								    	#if($type.description == 'Eingabefeld')
-				                	   		<option name="optionalFieldtype-$type.id" value="1" id="$type.id" #if($field.fkType == $type.id)selected="selected"#end>${placeholderWithTranslation.GENERIC_INPUT_FIELD}</option>
-								    	#elseif($type.description == 'Einfaches Auswahlfeld')
-				                	   		<option name="optionalFieldtype-$type.id" value="2" id="$type.id" #if($field.fkType == $type.id)selected="selected"#end>${placeholderWithTranslation.GENERIC_SIMPLE_COMBOBOX}</option>
-								    	#elseif($type.description == 'Mehrfaches Auswahlfeld')
-				                	   		<option name="optionalFieldtype-$type.id" value="3" id="$type.id" #if($field.fkType == $type.id)selected="selected"#end>${placeholderWithTranslation.GENERIC_MULTIPLE_COMBOBOX}</option>
-				                	   	#end
-								    #end
-								</select>
-							</div>
-						</div>
+                                <ol class="delegationFields">
+                                        #set($fieldcounter = 0)
+                        #foreach($field in $delegationFieldsWithTypeContents )
+                                                <div class="tableRow">
+                                        #set($fieldcounter = $fieldcounter + 1)
+                                        <div class="tableCell width25">
+                                                <span>$fieldcounter.</span>
+                                                <span>${placeholderWithTranslation.feldbezeichnung}</span>
+                                                <input type="text" name="optionalField-$field.fkDelegationField" maxlength="25" value="$field.label">
+                                                        </div>
+                                                        <div class="tableCell width25">
+                                                                <span>${placeholderWithTranslation.eingabetyp}</span>
+                                                <select name="optionalFieldType-$field.fkDelegationField">
+                                                                    #foreach($type in $fieldTypes)
+                                                                        #if($type.description == 'Eingabefeld')
+                                                                        <option name="optionalFieldtype-$type.id" value="1" id="$type.id" #if($field.fkType == $type.id)selected="selected"#end>${placeholderWithTranslation.GENERIC_INPUT_FIELD}</option>
+                                                                        #elseif($type.description == 'Einfaches Auswahlfeld')
+                                                                        <option name="optionalFieldtype-$type.id" value="2" id="$type.id" #if($field.fkType == $type.id)selected="selected"#end>${placeholderWithTranslation.GENERIC_SIMPLE_COMBOBOX}</option>
+                                                                        #elseif($type.description == 'Mehrfaches Auswahlfeld')
+                                                                        <option name="optionalFieldtype-$type.id" value="3" id="$type.id" #if($field.fkType == $type.id)selected="selected"#end>${placeholderWithTranslation.GENERIC_MULTIPLE_COMBOBOX}</option>
+                                                                #end
+                                                                    #end
+                                                                </select>
+                                                        </div>
+                                                </div>
 
-						<div class="tableRow">
-							#if($field.fkType == 2 || $field.fkType == 3)
+                                                <div class="tableRow">
+                                                        #if($field.fkType == 2 || $field.fkType == 3)
 
-								#set($fieldvalue = 0)
-								#foreach( $typeContent in $field.optionalFieldTypeContents )
-									<div class="tableCell width25">
-										#set($fieldvalue = $fieldvalue + 1)
-										<span>$fieldvalue.</span>
-										<input value="$typeContent.content" name="optionalFieldtype-${field.fkDelegationField}_value-${typeContent.id}" />
-									</div>
-								#end
-							#end
-				    	</div>
-		            #end
-				</ol>
-			</div>
+                                                                #set($fieldvalue = 0)
+                                                                #foreach( $typeContent in $field.optionalFieldTypeContents )
+                                                                        <div class="tableCell width25">
+                                                                                #set($fieldvalue = $fieldvalue + 1)
+                                                                                <span>$fieldvalue.</span>
+                                                                                <input value="$typeContent.content" name="optionalFieldtype-${field.fkDelegationField}_value-${typeContent.id}" />
+                                                                        </div>
+                                                                #end
+                                                        #end
+                                        </div>
+                            #end
+                                </ol>
+                        </div>
 
         <span id="buttonPanel-bottom" class="floatRight">
             #if($grants.mayWrite())
                 <input type="submit" name="save" value="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" class="mainButton"
-                	title="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" onclick="document.getElementById('formlist1').action='$formurl?eventId=$!event.id';" />
+                        title="${placeholderWithTranslation.GENERIC_SAVE_EVENT}" onclick="document.getElementById('formlist1').action='$formurl?eventId=$!event.id';" />
             #end
             <input type="reset" name="cancel" value="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" class="mainButton"
                    title="${placeholderWithTranslation.GENERIC_TO_EVENT_VIEW}" onclick="window.location.href='SearchEvent?action=event&search=reset&selectNone=true';" />
         </span>
-		</div>
-	</form>
+                </div>
+        </form>
     <div class="clear"></div>
 </div>
 
@@ -160,12 +160,12 @@
 </script>
 
 <style>
-	.delegationFields {
-		margin-left: 10px;
-	}
+        .delegationFields {
+                margin-left: 10px;
+        }
 
-	.delegationFields>li {
-		margin:10px;
-	}
+        .delegationFields>li {
+                margin:10px;
+        }
 </style>
 #parse("inc/footer.vm")

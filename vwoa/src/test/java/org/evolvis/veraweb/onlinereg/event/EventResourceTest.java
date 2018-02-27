@@ -86,7 +86,7 @@ public class EventResourceTest {
     private Config config;
 
     public EventResourceTest() throws IOException {
-    	Main main = TestSuite.DROPWIZARD.getApplication();
+        Main main = TestSuite.DROPWIZARD.getApplication();
 
         er = main.getEventResource();
     }

@@ -4,27 +4,27 @@
 <div class="table">
     <div class="tableRow">
         <div class="tableCell">
-        	<label for="input.username">Username</label>
-        	<input type="text" id="input.username" name="username">
+                <label for="input.username">Username</label>
+                <input type="text" id="input.username" name="username">
         </div>
     </div>
     <div class="tableRow">
         <div class="tableCell">
-        	<label for="input.password">Password</label>
-        	<input type="password" id="input.password" name="password">
+                <label for="input.password">Password</label>
+                <input type="password" id="input.password" name="password">
         </div>
     </div>
     <div class="tableRow">
         <div class="tableCell inlineLabel">
-        	<label for="loginasproxy">Login as representative</label>
-        	<input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
+                <label for="loginasproxy">Login as representative</label>
+                <input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
         </div>
     </div>
 </div>
 
 <div id="buttonPanel-bottom" class="marginTop5 marginBottom20">
-	<input type="submit" class="mainButton" value="Login" title="Login" name="submit" id="button.login" />
-	<input type="reset" class="mainButton" value="Reset" title="Reset" name="cancel" id="button.clearFields" />
+        <input type="submit" class="mainButton" value="Login" title="Login" name="submit" id="button.login" />
+        <input type="reset" class="mainButton" value="Reset" title="Reset" name="cancel" id="button.clearFields" />
 </div>
 
 <div class="hinweis grayBorder marginBottom20 notBold">
@@ -43,7 +43,7 @@
         </vera-warn>
     #end
 <vera-warn>
-	An error occurred. Please, check your credentials and try again.
+        An error occurred. Please, check your credentials and try again.
 </vera-warn>
 #end
 

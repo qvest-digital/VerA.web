@@ -529,7 +529,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
     public void verify(final OctopusContext octopusContext) {
         AddressHelper.checkPerson(this);
         final VerawebMessages messages = new VerawebMessages(octopusContext);
-//		solveXSS(); TODO Get a better solution
+//              solveXSS(); TODO Get a better solution
 
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         final Set<ConstraintViolation<Person>> constraintViolations = validator.validate(this);
@@ -553,10 +553,10 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
             addError(messages.getMessageLastnameFieldEmptry());
         }
 
-		/*
+                /*
          * 2009-05-17 cklein
-		 * temporarily fixes issue #1529 until i gain access to the old octopus repository
-		 */
+                 * temporarily fixes issue #1529 until i gain access to the old octopus repository
+                 */
         DateHelper.temporary_fix_translateErrormessageEN2DE(this.getErrors(), octopusContext);
     }
 
@@ -628,7 +628,7 @@ public class Person extends AbstractHistoryBean implements PersonConstants, OrgU
      */
     // added as per change request for version 1.2.0
     public boolean getHasPartner() {
-    	/* check for partner latin */
+        /* check for partner latin */
         PartnerLatin p = (PartnerLatin) this.getMemberFacade(LOCALE_LATIN);
         PartnerExtra1 p1 = (PartnerExtra1) this.getMemberFacade(LOCALE_EXTRA1);
         PartnerExtra2 p2 = (PartnerExtra2) this.getMemberFacade(LOCALE_EXTRA2);

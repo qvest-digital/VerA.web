@@ -20,144 +20,144 @@
 
 <div id="content_container">
 
-	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.GENERIC_IMPORT_PERSONS}</a> > ${placeholderWithTranslation.importstatus}</span>
-	</div>
-	<h1>${placeholderWithTranslation.importstatusvorhandenedublettenbearbeiten}</h1>
+        <div id="breadcrumb" class="textRight marginBottom10">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > <a href="${paths.staticWeb}do/ImportPersons" title="${placeholderWithTranslation.zumpersonenimport}">${placeholderWithTranslation.GENERIC_IMPORT_PERSONS}</a> > ${placeholderWithTranslation.importstatus}</span>
+        </div>
+        <h1>${placeholderWithTranslation.importstatusvorhandenedublettenbearbeiten}</h1>
 
-	#if($noDupsSelected)
-		<vera-warn>
-			${placeholderWithTranslation.bittemarkierensiediezuimportierendenpersonen}
-		</vera-warn>
-	#end
+        #if($noDupsSelected)
+                <vera-warn>
+                        ${placeholderWithTranslation.bittemarkierensiediezuimportierendenpersonen}
+                </vera-warn>
+        #end
 
-	<vera-info>
-		<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
-		${placeholderWithTranslation.dublettendiedurchden}<strong>${placeholderWithTranslation.importhinzugefugtwerdenwurden}</strong>${placeholderWithTranslation.sindmiteinercheckboxgekennzeichnetdarunterbefindensichdiebereitsimsystemvorhandenenentsprechendendatensatze}<br />
-		${placeholderWithTranslation.HINT_UMLAUT_COMPARISON}<br />
-		${placeholderWithTranslation.umeinedubletteindenimportzuintegrierenmussensiesieubernehmen}
-	</vera-info>
+        <vera-info>
+                <p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
+                ${placeholderWithTranslation.dublettendiedurchden}<strong>${placeholderWithTranslation.importhinzugefugtwerdenwurden}</strong>${placeholderWithTranslation.sindmiteinercheckboxgekennzeichnetdarunterbefindensichdiebereitsimsystemvorhandenenentsprechendendatensatze}<br />
+                ${placeholderWithTranslation.HINT_UMLAUT_COMPARISON}<br />
+                ${placeholderWithTranslation.umeinedubletteindenimportzuintegrierenmussensiesieubernehmen}
+        </vera-info>
 
-	<form id="formlist" name="formlist" action="ImportPersonsEditDuplicates" method="POST">
-		<input type="hidden" name="start" value=""/>
-		<input type="hidden" name="limit" value=""/>
-		<input type="hidden" name="selectNone" value="true"/>
-		<input type="hidden" name="importId" value="$!importId"/>
-		<input type="hidden" name="saveCount" value="$!saveCount"/>
+        <form id="formlist" name="formlist" action="ImportPersonsEditDuplicates" method="POST">
+                <input type="hidden" name="start" value=""/>
+                <input type="hidden" name="limit" value=""/>
+                <input type="hidden" name="selectNone" value="true"/>
+                <input type="hidden" name="importId" value="$!importId"/>
+                <input type="hidden" name="saveCount" value="$!saveCount"/>
 
-		<span id="actionPanel" class="inlineLabel">
-			<label>${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
-				<input type="submit" name="save" type="button" value="${placeholderWithTranslation.alsdubletteubernehmen}" title="${placeholderWithTranslation.markiertepersonenalsdubletteubernehmen}"/>
-			</label>
-		</span>
+                <span id="actionPanel" class="inlineLabel">
+                        <label>${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}
+                                <input type="submit" name="save" type="button" value="${placeholderWithTranslation.alsdubletteubernehmen}" title="${placeholderWithTranslation.markiertepersonenalsdubletteubernehmen}"/>
+                        </label>
+                </span>
 
-		#if($list && $list.size() > 0)
+                #if($list && $list.size() > 0)
 
-			#foreach($bean in $list)
-				<input type="hidden" name="list" value="$bean.id">
-			#end
+                        #foreach($bean in $list)
+                                <input type="hidden" name="list" value="$bean.id">
+                        #end
 
-			<div id="main_content">
-				<table class="sortable fixed">
-					##Set column size
-					<col width="$column0%" />
-    				<col width="$column1%" />
-    				<col width="$column2%" />
-    				<col width="$column3%" />
-    				<col width="$column4%" />
-    				<col width="$column5%" />
-    				<col width="$column6%" />
-    				<col width="$column7%" />
-					<col width="$column8%" />
+                        <div id="main_content">
+                                <table class="sortable fixed">
+                                        ##Set column size
+                                        <col width="$column0%" />
+                                <col width="$column1%" />
+                                <col width="$column2%" />
+                                <col width="$column3%" />
+                                <col width="$column4%" />
+                                <col width="$column5%" />
+                                <col width="$column6%" />
+                                <col width="$column7%" />
+                                        <col width="$column8%" />
 
-					<tr>
-						<th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end title="${placeholderWithTranslation.GENERIC_PLACEHOLDER}Alle (de)markieren"/></th>
-						<th>${placeholderWithTranslation.GENERIC_ID}</th>
-						<th>${placeholderWithTranslation.GENERIC_NAME}</th>
-						<th>${placeholderWithTranslation.GENERIC_FIRSTNAME}</th>
-						<th>${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}</th>
-						<th>${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</th>
-						<th>${placeholderWithTranslation.GENERIC_STREET}</th>
-						<th>${placeholderWithTranslation.GENERIC_POST_NUMBER}</th>
-						<th>${placeholderWithTranslation.GENERIC_CITY}</th>
-					</tr>
+                                        <tr>
+                                                <th class="textCenter smallCell"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" #if($listselection.size() == $list.size()) checked#end title="${placeholderWithTranslation.GENERIC_PLACEHOLDER}Alle (de)markieren"/></th>
+                                                <th>${placeholderWithTranslation.GENERIC_ID}</th>
+                                                <th>${placeholderWithTranslation.GENERIC_NAME}</th>
+                                                <th>${placeholderWithTranslation.GENERIC_FIRSTNAME}</th>
+                                                <th>${placeholderWithTranslation.GENERIC_OFFICIAL_TITLE_SINGULAR}</th>
+                                                <th>${placeholderWithTranslation.GENERIC_COMPANY_INSTITUTION}</th>
+                                                <th>${placeholderWithTranslation.GENERIC_STREET}</th>
+                                                <th>${placeholderWithTranslation.GENERIC_POST_NUMBER}</th>
+                                                <th>${placeholderWithTranslation.GENERIC_CITY}</th>
+                                        </tr>
 
-					#foreach($bean in $list)
-						#set($person = $bean.mainLatin)
-						#set($address = $bean.businessLatin)
+                                        #foreach($bean in $list)
+                                                #set($person = $bean.mainLatin)
+                                                #set($address = $bean.businessLatin)
 
-					<tr>
-						<td>
-				##			<input type="hidden" name="${bean.id}-checked" #if($bean.dupcheckstatus == 1) value="true" #else value="false" #end>
-				##			<input type="checkbox" name="${bean.id}-check" #if($bean.dupcheckstatus == 1 )checked #end value="true" >
-							<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked #end onChange="selectionChange(this);"/>
-						</td>
-						<td><input type="hidden" name="${bean.id}-id" value="$bean.id"/>$!bean.id</td>
-						<td width="170px">$!message.text($!bean.lastname_a_e1)</td>
-						<td width="170px">$!message.text($!bean.firstname_a_e1)</td>
-						<td width="150px">$!message.text($!bean.function_a_e1)</td>
-						<td width="130px">$!message.text($!bean.company_a_e1)</td>
-						<td width="200px">$!message.text($!bean.street_a_e1)</td>
-						<td width="130px">$!message.text($!bean.zipcode_a_e1)</td>
-						<td width="250px">$!message.text($!bean.city_a_e1)</td>
-					</tr>
-						#foreach($duplicate in $bean.getDuplicateList())
-						#set($person = $duplicate.mainLatin)
-						#set($address = $duplicate.businessLatin)
-					<tr>
-						<td>&nbsp;</td>
-						<td>$!duplicate.id</td>
-						<td width="170px">$!message.text($!duplicate.lastname_a_e1)</td>
-						<td width="170px">$!message.text($!duplicate.firstname_a_e1)</td>
-						<td width="150px">$!message.text($!duplicate.function_a_e1)</td>
-						<td width="130px">$!message.text($!duplicate.company_a_e1)</td>
-						<td width="200px">$!message.text($!duplicate.street_a_e1)</td>
-						<td width="130px">$!message.text($!duplicate.zipcode_a_e1)</td>
-						<td width="250px">$!message.text($!duplicate.city_a_e1)</td>
-					</tr>
-						#end
-						#if($bean.hasMoreDuplicates())
-					<tr>
-						<td>&nbsp;</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-						<td>...</td>
-					</tr>
-						#end
-					#end
+                                        <tr>
+                                                <td>
+                                ##                      <input type="hidden" name="${bean.id}-checked" #if($bean.dupcheckstatus == 1) value="true" #else value="false" #end>
+                                ##                      <input type="checkbox" name="${bean.id}-check" #if($bean.dupcheckstatus == 1 )checked #end value="true" >
+                                                        <input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked #end onChange="selectionChange(this);"/>
+                                                </td>
+                                                <td><input type="hidden" name="${bean.id}-id" value="$bean.id"/>$!bean.id</td>
+                                                <td width="170px">$!message.text($!bean.lastname_a_e1)</td>
+                                                <td width="170px">$!message.text($!bean.firstname_a_e1)</td>
+                                                <td width="150px">$!message.text($!bean.function_a_e1)</td>
+                                                <td width="130px">$!message.text($!bean.company_a_e1)</td>
+                                                <td width="200px">$!message.text($!bean.street_a_e1)</td>
+                                                <td width="130px">$!message.text($!bean.zipcode_a_e1)</td>
+                                                <td width="250px">$!message.text($!bean.city_a_e1)</td>
+                                        </tr>
+                                                #foreach($duplicate in $bean.getDuplicateList())
+                                                #set($person = $duplicate.mainLatin)
+                                                #set($address = $duplicate.businessLatin)
+                                        <tr>
+                                                <td>&nbsp;</td>
+                                                <td>$!duplicate.id</td>
+                                                <td width="170px">$!message.text($!duplicate.lastname_a_e1)</td>
+                                                <td width="170px">$!message.text($!duplicate.firstname_a_e1)</td>
+                                                <td width="150px">$!message.text($!duplicate.function_a_e1)</td>
+                                                <td width="130px">$!message.text($!duplicate.company_a_e1)</td>
+                                                <td width="200px">$!message.text($!duplicate.street_a_e1)</td>
+                                                <td width="130px">$!message.text($!duplicate.zipcode_a_e1)</td>
+                                                <td width="250px">$!message.text($!duplicate.city_a_e1)</td>
+                                        </tr>
+                                                #end
+                                                #if($bean.hasMoreDuplicates())
+                                        <tr>
+                                                <td>&nbsp;</td>
+                                                <td>...</td>
+                                                <td>...</td>
+                                                <td>...</td>
+                                                <td>...</td>
+                                                <td>...</td>
+                                                <td>...</td>
+                                                <td>...</td>
+                                                <td>...</td>
+                                        </tr>
+                                                #end
+                                        #end
 
-					#set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
-					#tableFooter(9)
+                                        #set($itemName = "${placeholderWithTranslation.GENERIC_PERSON_PLURAL}")
+                                        #tableFooter(9)
 
-					<tr class="colspan">
-						<td colspan="99">
-							${placeholderWithTranslation.anzahlzuspeicherndedubletten}: $!listselection.size()
-						</td>
-					</tr>
+                                        <tr class="colspan">
+                                                <td colspan="99">
+                                                        ${placeholderWithTranslation.anzahlzuspeicherndedubletten}: $!listselection.size()
+                                                </td>
+                                        </tr>
 
-				</table>
-			</div>
+                                </table>
+                        </div>
 
-		#else
+                #else
 
-			<div class="contentBoxColored grayBorder marginBottom20">
-				${placeholderWithTranslation.eswurdenkeineeintragegefunden}
-			</div>
+                        <div class="contentBoxColored grayBorder marginBottom20">
+                                ${placeholderWithTranslation.eswurdenkeineeintragegefunden}
+                        </div>
 
-		#end
+                #end
 
-		<span id="buttonPanel-top" class="textRight floatRight">
-			<input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzumpersonenimport}" class="mainButton" onclick="document.formlist.action='ImportPersonsStoredRecord';document.formlist.submit();" />
-		</span>
+                <span id="buttonPanel-top" class="textRight floatRight">
+                        <input type="button" id="button.cancel" name="button.cancel" value="${placeholderWithTranslation.zuruckzumpersonenimport}" class="mainButton" onclick="document.formlist.action='ImportPersonsStoredRecord';document.formlist.submit();" />
+                </span>
 
-	</form>
+        </form>
 
-	<div class="clear"></div>
+        <div class="clear"></div>
 </div>
 
 

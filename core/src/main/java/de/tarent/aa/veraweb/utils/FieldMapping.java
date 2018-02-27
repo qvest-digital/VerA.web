@@ -217,7 +217,7 @@ public class FieldMapping {
             else
                 row[i] = rowFields.get(incomingIndex);
             if (row[i] == null)
-            	row[i] = "";
+                row[i] = "";
         }
     }
 

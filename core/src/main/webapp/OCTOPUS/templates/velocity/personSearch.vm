@@ -1,21 +1,21 @@
 
 #if($action == "guest")
-	#set($activeMenu = "Veranstaltungen")
-	#set($title = "${placeholderWithTranslation.gastsuchenveranstaltung}: $!message.plain($event.shortname)")
+        #set($activeMenu = "Veranstaltungen")
+        #set($title = "${placeholderWithTranslation.gastsuchenveranstaltung}: $!message.plain($event.shortname)")
 #elseif($action == "host")
-	#set($activeMenu = "Veranstaltungen")
+        #set($activeMenu = "Veranstaltungen")
     #set($title = "${placeholderWithTranslation.gastsuchenveranstaltung}: $!message.plain($event.shortname)")
 #elseif($action == "statistikGuest")
-	#set($activeMenu = "Veranstaltungen")
+        #set($activeMenu = "Veranstaltungen")
     #set($title = "${placeholderWithTranslation.gastsuchen}")
 #elseif($action == "statistikHost")
-	#set($activeMenu = "Veranstaltungen")
+        #set($activeMenu = "Veranstaltungen")
     #set($title = "${placeholderWithTranslation.BROWSER_TITLE_GUEST_HOST_SEARCH}")
 #elseif($action == "taskReferencePerson")
-	#set($activeMenu = "Veranstaltungen")
+        #set($activeMenu = "Veranstaltungen")
     #set($title = "${placeholderWithTranslation.verantwortlichenfueraufgabesuchen}")
 #else
-	#set($activeMenu = "Personen")
+        #set($activeMenu = "Personen")
     #set($title = "${placeholderWithTranslation.GENERIC_SEARCH_FOR_PERSON}")
 #end
 
@@ -26,42 +26,42 @@
 #parse("inc/header.vm")
 
 #if($action == "guest")
-	#set($formurl = "AddPersonToEventList")
+        #set($formurl = "AddPersonToEventList")
 #elseif($action == "host")
-	#set($formurl = "SetHostToEventList")
+        #set($formurl = "SetHostToEventList")
 #elseif($action == "taskReferencePerson")
-	#set($formurl = "SetReferencePersonToEventTaskList")
+        #set($formurl = "SetReferencePersonToEventTaskList")
 #else
-	#set($formurl = "SearchPerson")
+        #set($formurl = "SearchPerson")
 #end
 
 <div id="content_container">
 
-	#if($action == "host")
-    	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.gastgeberhinzufuegen}</span>
-    	</div>
+        #if($action == "host")
+        <div id="breadcrumb" class="textRight marginBottom10">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.gastgeberhinzufuegen}</span>
+        </div>
 
-    	<h1>${placeholderWithTranslation.personensuchegastgeberhinzufugen}</h1>
-	#elseif($action == "guest")
-    	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.gasthinzufuegen}</span>
-    	</div>
+        <h1>${placeholderWithTranslation.personensuchegastgeberhinzufugen}</h1>
+        #elseif($action == "guest")
+        <div id="breadcrumb" class="textRight marginBottom10">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.gasthinzufuegen}</span>
+        </div>
 
-    	<h1>${placeholderWithTranslation.personensuchegasthinzufugen}</h1>
-	#elseif($action == "taskReferencePerson")
-    	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS} > ${placeholderWithTranslation.GENERIC_ADD_RESPONSIBLES}</span>
-    	</div>
+        <h1>${placeholderWithTranslation.personensuchegasthinzufugen}</h1>
+        #elseif($action == "taskReferencePerson")
+        <div id="breadcrumb" class="textRight marginBottom10">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS} > ${placeholderWithTranslation.GENERIC_ADD_RESPONSIBLES}</span>
+        </div>
 
-    	<h1>${placeholderWithTranslation.GENERIC_SEARCH_PERSON} ${placeholderWithTranslation.verantwortlichenfueraufgabehinzufugen}</h1>
-	#else
+        <h1>${placeholderWithTranslation.GENERIC_SEARCH_PERSON} ${placeholderWithTranslation.verantwortlichenfueraufgabehinzufugen}</h1>
+        #else
         <div id="breadcrumb" class="textRight marginBottom10">
             <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_PERSON_PLURAL} > ${placeholderWithTranslation.GENERIC_SEARCH_PERSON}</span>
         </div>
 
         <h1>${placeholderWithTranslation.GENERIC_SEARCH_PERSON}</h1>
-	#end
+        #end
     <div id="main_content" class="contentBoxColored grayBorder marginBottom20">
 
         <h2>${placeholderWithTranslation.GENERIC_SEARCH}</h2>
@@ -70,8 +70,8 @@
             <input type="hidden" name="start" value="0">
             <input type="hidden" name="selectAll" value="false">
             <input type="hidden" name="selectNone" value="true">
-			<input type="hidden" name="search" value="reset">
-			<input type="hidden" name="searchTask" value="personSearchTask">
+                        <input type="hidden" name="search" value="reset">
+                        <input type="hidden" name="searchTask" value="personSearchTask">
 
             #if($action == "taskReferencePerson")
                 <input type="hidden" name="eventId" value="$!eventId">
@@ -165,40 +165,40 @@
                         <div class="tableCell width30">
                             <label for="categorie">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
 
-							<select name="categoriesSelection" id="categorie" size="5" multiple="multiple" onChange="ensureCorrectSelection( this );">
-							<option value="" #if( ! $search.categoriesSearch || ( $search.categoriesSelection && $search.categoriesSelection.size() == 0 ) ) selected #end>${placeholderWithTranslation.GENERIC_ALL}</option>
-							<option value="0" #if( $search.categoriesSelection && $search.categoriesSelection.size() == 1 && $search.categoriesSelection.get(0).intValue() == 0 ) selected #end>${placeholderWithTranslation.keinekategoriezugeordnet}</option>
-							#foreach($categorie in $allCategorie)
-							    #if((!$categorie.flags) || ($categorie.flags != 1))
-							    <option value="$!categorie.id" #if($search.categoriesSelection && $search.categoriesSelection.contains( $categorie.id )) selected #end>$!message.plain($!categorie.name)</option>
-							    #end
-							#end
-							</select>
+                                                        <select name="categoriesSelection" id="categorie" size="5" multiple="multiple" onChange="ensureCorrectSelection( this );">
+                                                        <option value="" #if( ! $search.categoriesSearch || ( $search.categoriesSelection && $search.categoriesSelection.size() == 0 ) ) selected #end>${placeholderWithTranslation.GENERIC_ALL}</option>
+                                                        <option value="0" #if( $search.categoriesSelection && $search.categoriesSelection.size() == 1 && $search.categoriesSelection.get(0).intValue() == 0 ) selected #end>${placeholderWithTranslation.keinekategoriezugeordnet}</option>
+                                                        #foreach($categorie in $allCategorie)
+                                                            #if((!$categorie.flags) || ($categorie.flags != 1))
+                                                            <option value="$!categorie.id" #if($search.categoriesSelection && $search.categoriesSelection.contains( $categorie.id )) selected #end>$!message.plain($!categorie.name)</option>
+                                                            #end
+                                                        #end
+                                                        </select>
 
                         </div>
                         <div class="tableCell width30">
                             <label for="workarea">${placeholderWithTranslation.GENERIC_WORKAREA_SINGULAR}</label>
 
-							<select name="workarea" id="workarea" >
-							<option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
-							<option value="0">${placeholderWithTranslation.keinarbeitsbereichzugeordnet}</option>
-							#foreach($workArea in $allWorkArea)
-							    <option value="$!workArea.id" #if($search.workarea && $search.workarea == $!workArea.id) selected #end>$!message.plain($!workArea.name)</option>
-							#end
-							</select>
+                                                        <select name="workarea" id="workarea" >
+                                                        <option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
+                                                        <option value="0">${placeholderWithTranslation.keinarbeitsbereichzugeordnet}</option>
+                                                        #foreach($workArea in $allWorkArea)
+                                                            <option value="$!workArea.id" #if($search.workarea && $search.workarea == $!workArea.id) selected #end>$!message.plain($!workArea.name)</option>
+                                                        #end
+                                                        </select>
 
                         </div>
                         <div class="tableCell width30">
                             <label for="categorie2">${placeholderWithTranslation.GENERIC_OCCASION}</label>
 
-							<select name="categorie2" id="categorie2" >
-							<option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
-							#foreach($categorie in $allCategorie)
-							    #if($categorie.flags == 1)
-							    <option value="$!categorie.id" #if($search.categorie2 == $!categorie.id) selected #end>$!message.plain($!categorie.name)</option>
-							    #end
-							#end
-							</select>
+                                                        <select name="categorie2" id="categorie2" >
+                                                        <option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
+                                                        #foreach($categorie in $allCategorie)
+                                                            #if($categorie.flags == 1)
+                                                            <option value="$!categorie.id" #if($search.categorie2 == $!categorie.id) selected #end>$!message.plain($!categorie.name)</option>
+                                                            #end
+                                                        #end
+                                                        </select>
 
                         </div>
                     </div>
@@ -215,19 +215,19 @@
                                 <option value="3" #if($search.validtype && $search.validtype == 3) selected #end>${placeholderWithTranslation.angenaudiesemdatum}</option>
                             </select>
 
-							<div class="calendarContainer">
-							<span id="showGueltigDate" class="datepickerContainer">
-								<input type="date" name="validdate" value="$!message.date("DATE", $search.validdate)" id="validdate" class="datepicker">
-								<img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswaehlen}" title="${placeholderWithTranslation.datumauswaehlen}">
-								<script type="text/javascript">
-								    Calendar.setup({
-										inputField     :    "validdate",
-										button         :    "showGueltigDate",
-										ifFormat       :    "%d.%m.%Y",
-										showsTime      :    false
-									});
-								</script></span>
-							</div>
+                                                        <div class="calendarContainer">
+                                                        <span id="showGueltigDate" class="datepickerContainer">
+                                                                <input type="date" name="validdate" value="$!message.date("DATE", $search.validdate)" id="validdate" class="datepicker">
+                                                                <img src="${paths.staticWeb}images/calendar.png" alt="${placeholderWithTranslation.datumauswaehlen}" title="${placeholderWithTranslation.datumauswaehlen}">
+                                                                <script type="text/javascript">
+                                                                    Calendar.setup({
+                                                                                inputField     :    "validdate",
+                                                                                button         :    "showGueltigDate",
+                                                                                ifFormat       :    "%d.%m.%Y",
+                                                                                showsTime      :    false
+                                                                        });
+                                                                </script></span>
+                                                        </div>
                         </div>
                         <div class="tableCell width30"></div>
                     </div>
@@ -265,7 +265,7 @@
         </form>
     </div>
     <vera-info>
-	<p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
+        <p><strong>${placeholderWithTranslation.GENERIC_TOOLTIP}</strong></p>
         ${placeholderWithTranslation.siekoennenbeidersuchesogenannteplatzhalterverwendenderstehtfuermehrereunddasfuereinzelnezeichen} <br/>
         ${placeholderWithTranslation.HINT_SEARCH_MULTIPLE}
     </vera-info>
@@ -274,38 +274,38 @@
 
 
 <script type="text/javascript">
-	var clearForm = function () {
+        var clearForm = function () {
         $ .each(['firstname', 'lastname', 'function', 'company', 'street', 'zipcode', 'city', 'country', 'importsource',
                 'validdate', 'state', 'workarea'], function(idx, field) {
-	        $('#' + field).val('');
+                $('#' + field).val('');
         });
 
 
-		document.getElementById('categorie').selectedIndex = 0;
-		document.getElementById('categorie2').selectedIndex = 0;
-		document.getElementById('validtype').selectedIndex = 0;
-		document.getElementById('iscompany').checked = false;
-	};
+                document.getElementById('categorie').selectedIndex = 0;
+                document.getElementById('categorie2').selectedIndex = 0;
+                document.getElementById('validtype').selectedIndex = 0;
+                document.getElementById('iscompany').checked = false;
+        };
 
-	var ensureCorrectSelection = function (elt) {
-		var deselectionStart = elt.options[ 0 ].selected ? 1 : 0;
-		var deselectionSkip = deselectionStart == 1 ? 0 : ( elt.options[ 1 ].selected ? 1 : -1 );
-		for( var i=0; i < elt.options.length; i++ )
-		{
-			// on select ALL or NONE we must skip the element's option
-			// we also skip the element's option in case that it is one of the multi-selectable ones
-			// not equal to either ALL or NONE
-			if ( i == deselectionSkip || deselectionSkip == -1 )
-			{
-				continue;
-			}
-			// we deselect all beginning with deselectionStart
-			if ( i >= deselectionStart )
-			{
-				elt.options[ i ].selected = false;
-			}
-		}
-	};
+        var ensureCorrectSelection = function (elt) {
+                var deselectionStart = elt.options[ 0 ].selected ? 1 : 0;
+                var deselectionSkip = deselectionStart == 1 ? 0 : ( elt.options[ 1 ].selected ? 1 : -1 );
+                for( var i=0; i < elt.options.length; i++ )
+                {
+                        // on select ALL or NONE we must skip the element's option
+                        // we also skip the element's option in case that it is one of the multi-selectable ones
+                        // not equal to either ALL or NONE
+                        if ( i == deselectionSkip || deselectionSkip == -1 )
+                        {
+                                continue;
+                        }
+                        // we deselect all beginning with deselectionStart
+                        if ( i >= deselectionStart )
+                        {
+                                elt.options[ i ].selected = false;
+                        }
+                }
+        };
 </script>
 
 

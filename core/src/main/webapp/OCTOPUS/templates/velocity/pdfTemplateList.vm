@@ -34,33 +34,33 @@
         <h1>${placeholderWithTranslation.pdfvorlagen}</h1>
 
         <span id="actionPanel" class="inlineLabel">
-	       	<strong>${placeholderWithTranslation.GENERIC_MARKED_TEMPLATES_PP}</strong>
-	       	<input type="button" id="deletePdfTemplateButton" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markiertevorlagenloschen}" />
+                <strong>${placeholderWithTranslation.GENERIC_MARKED_TEMPLATES_PP}</strong>
+                <input type="button" id="deletePdfTemplateButton" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" title="${placeholderWithTranslation.markiertevorlagenloschen}" />
         </span>
         <span id="" class="buttonPanel-top textRight floatRight">
-			<input type="button" name="new" value="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" title="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" class="mainButton" onclick="window.location.href='PdfTemplateDetail';" />
+                        <input type="button" name="new" value="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" title="${placeholderWithTranslation.GENERIC_INSERT_NEW_TEMPLATES}" class="mainButton" onclick="window.location.href='PdfTemplateDetail';" />
         </span>
 
-		<table id="pdftemplate-list-overview" class="fixed">
-			##Set column size
-			<col width="$column0%" />
-			<col width="$column1%" />
-			<col width="$column2%" />
+                <table id="pdftemplate-list-overview" class="fixed">
+                        ##Set column size
+                        <col width="$column0%" />
+                        <col width="$column1%" />
+                        <col width="$column2%" />
 
-			<tr>
-				<th class="smallCell textCenter">
-					<input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/>
-				</th>
-				<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
-				<th>${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}</th>
-			</tr>
+                        <tr>
+                                <th class="smallCell textCenter">
+                                        <input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}" #if($listselection.size() == $list.size()) checked#end/>
+                                </th>
+                                <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_ID}</th>
+                                <th>${placeholderWithTranslation.GENERIC_TEMPLATE_NAME}</th>
+                        </tr>
 
-			<tr class="colspan">
-				<td colspan="3">
-					<span class="amount" id="listnavitext"><span id="pdftemplates-count"></span> ${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_S_P}</span>
-				</td>
-			</tr>
-		</table>
+                        <tr class="colspan">
+                                <td colspan="3">
+                                        <span class="amount" id="listnavitext"><span id="pdftemplates-count"></span> ${placeholderWithTranslation.GENERIC_PDF_TEMPLATE_S_P}</span>
+                                </td>
+                        </tr>
+                </table>
 
     </form>
 </div>

@@ -233,34 +233,34 @@ public class LoginManagerLDAPAA extends LoginManagerLDAPGeneric implements Login
         if (origAuth != null && (origAuth.getPassword() == null || origAuth.getPassword().length == 0))
             throw new TcSecurityException("Leere Passw\u00f6rter sind nicht zul\u00e4ssig.");
         try {
-        	/* the password authentication returned by TcRequest contains the fully
-        	 * qualified username. This will break with the current implementation
-        	 * of the LoginManagerLDAPGeneric.
-        	 * Therefore we will simply rewrite the username request paramter in
-        	 * tcRequest.
-        	 *
-        	 * Change Request 2.11 for the next release version 1.2.0
-		     * requires that users may now use qualified names when logging in
-		     * (i.e. users may specify their at-domain, e.g. username@domain.tld)
-		     * instead of just their ldap name.
-		     *
-		     * cklein
-        	 * 2008-02-14
-        	 *
-        	 * we will try the login twice, if the first try fails, then we
-        	 * will retry using the username without the appended at domain
-        	 */
-        	try
-        	{
-        		super.doLogin( commonConfig, pConfig, tcRequest );
-        	}
-        	catch( TcSecurityException se )
-        	{
-        		String username = ( String ) tcRequest.getParam( "username" );
-        		String[] parts = username.split( "@" );
-        		tcRequest.setParam( "username", parts[ 0 ] );
-        		super.doLogin( commonConfig, pConfig, tcRequest );
-        	}
+                /* the password authentication returned by TcRequest contains the fully
+                 * qualified username. This will break with the current implementation
+                 * of the LoginManagerLDAPGeneric.
+                 * Therefore we will simply rewrite the username request paramter in
+                 * tcRequest.
+                 *
+                 * Change Request 2.11 for the next release version 1.2.0
+                     * requires that users may now use qualified names when logging in
+                     * (i.e. users may specify their at-domain, e.g. username@domain.tld)
+                     * instead of just their ldap name.
+                     *
+                     * cklein
+                 * 2008-02-14
+                 *
+                 * we will try the login twice, if the first try fails, then we
+                 * will retry using the username without the appended at domain
+                 */
+                try
+                {
+                        super.doLogin( commonConfig, pConfig, tcRequest );
+                }
+                catch( TcSecurityException se )
+                {
+                        String username = ( String ) tcRequest.getParam( "username" );
+                        String[] parts = username.split( "@" );
+                        tcRequest.setParam( "username", parts[ 0 ] );
+                        super.doLogin( commonConfig, pConfig, tcRequest );
+                }
 
             if (pConfig instanceof PersonalConfigAA) {
                 PersonalConfigAA aaConfig = (PersonalConfigAA) pConfig;

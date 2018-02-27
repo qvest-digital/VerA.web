@@ -104,8 +104,8 @@ public class LDAPManagerAA extends LDAPManager {
         String objFilter = "(uid={0})";
         if ( this.defaultUserObjectClass != null && this.defaultUserObjectClass.length() > 0 )
         {
-        	// if set, we extend the default search filter template by the defined user object class
-        	objFilter = "(&(objectclass=" + this.defaultUserObjectClass + ")" + objFilter + ")";
+                // if set, we extend the default search filter template by the defined user object class
+                objFilter = "(&(objectclass=" + this.defaultUserObjectClass + ")" + objFilter + ")";
         }
         filterTemplate = new MessageFormat(roleFilter != null ? roleFilter : objFilter);
     }
@@ -125,7 +125,7 @@ public class LDAPManagerAA extends LDAPManager {
     public Map getUserData(String userName) throws LDAPException {
         try {
             String dn = fullUserDN(userName);
-    		return LDAPUtil.toMap(lctx.getAttributes(dn));
+                return LDAPUtil.toMap(lctx.getAttributes(dn));
         } catch (NamingException e) {
             throw new LDAPException("Es ist ein Fehler beim Holen der Userdaten aufgetreten!", e);
         }
@@ -138,9 +138,9 @@ public class LDAPManagerAA extends LDAPManager {
      * @throws NamingException
      */
     public Set getPossibleRoles() throws NamingException {
-		SearchControls cons = new SearchControls();
-		this.initializeSearchControls( cons );
-		Set roleUids = getPossibleRoles("(objectclass=" + this.defaultUserObjectClass + ")", cons);
+                SearchControls cons = new SearchControls();
+                this.initializeSearchControls( cons );
+                Set roleUids = getPossibleRoles("(objectclass=" + this.defaultUserObjectClass + ")", cons);
         logger.fine("Alle verfügbaren Rollen: " + roleUids);
         return roleUids;
     }
@@ -160,8 +160,8 @@ public class LDAPManagerAA extends LDAPManager {
      * @throws NamingException
      */
     public Set getPossibleRoles(String login) throws NamingException {
-    	SearchControls cons = new SearchControls();
-    	this.initializeSearchControls( cons );
+        SearchControls cons = new SearchControls();
+        this.initializeSearchControls( cons );
         Set roleUids = getPossibleRoles(filterTemplate.format(new Object[]{login}), cons);
         logger.fine("Rollen für " + login + ": " + roleUids);
         return roleUids;
@@ -179,18 +179,18 @@ public class LDAPManagerAA extends LDAPManager {
         Set roleUids = new HashSet();
         try
         {
-	        this.recreateInitialContext();
-	        NamingEnumeration ergebnis = lctx.search(relativeUser.substring(1) + baseDN, filter, cons);
-	        while (ergebnis.hasMore()) {
-	            Attributes result = ((SearchResult) ergebnis.nextElement()).getAttributes();
-	            // TODO: hier wird einer der uid-Einträge genommen, nicht alle. Nach Anpassung andere getPossibleRoles entsprechend anpassen
-	            roleUids.add(result.get("uid").get());
-	        }
-	        return roleUids;
+                this.recreateInitialContext();
+                NamingEnumeration ergebnis = lctx.search(relativeUser.substring(1) + baseDN, filter, cons);
+                while (ergebnis.hasMore()) {
+                    Attributes result = ((SearchResult) ergebnis.nextElement()).getAttributes();
+                    // TODO: hier wird einer der uid-Einträge genommen, nicht alle. Nach Anpassung andere getPossibleRoles entsprechend anpassen
+                    roleUids.add(result.get("uid").get());
+                }
+                return roleUids;
         }
         catch( LDAPException e )
         {
-        	throw new NamingException( "Die Verbindung zum LDAP Server wurde geschlossen." );
+                throw new NamingException( "Die Verbindung zum LDAP Server wurde geschlossen." );
         }
     }
 

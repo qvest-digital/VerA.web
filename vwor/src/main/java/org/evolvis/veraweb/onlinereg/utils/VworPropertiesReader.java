@@ -71,7 +71,7 @@ import java.util.Properties;
  * Created by Jon Nuñez, tarent solutions GmbH on 28.09.15.
  */
 public class VworPropertiesReader {
-	private static final Logger LOGGER = Logger.getLogger(VworPropertiesReader.class);
+        private static final Logger LOGGER = Logger.getLogger(VworPropertiesReader.class);
     private static final String PROPERTY_FILE = "/etc/veraweb/vwor.properties";
 
     private Properties properties;
@@ -88,7 +88,7 @@ public class VworPropertiesReader {
         if (properties != null) {
             return properties.getProperty(key);
         } else {
-        	LOGGER.warn("Property " + key + " is null.");
+                LOGGER.warn("Property " + key + " is null.");
         }
         return null;
     }
@@ -105,15 +105,15 @@ public class VworPropertiesReader {
             inputStream = new FileInputStream(PROPERTY_FILE);
             properties.load(inputStream);
         } catch (IOException e) {
-        	LOGGER.warn("Could not read properties file", e);
+                LOGGER.warn("Could not read properties file", e);
             return null;
         } finally {
             try {
-            	if(inputStream != null) {
-            		inputStream.close();
-            	}
+                if(inputStream != null) {
+                        inputStream.close();
+                }
             } catch (Exception e) {
-            	LOGGER.warn("Could not close stream", e);
+                LOGGER.warn("Could not close stream", e);
             }
         }
 

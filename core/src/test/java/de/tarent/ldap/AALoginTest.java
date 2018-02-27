@@ -75,27 +75,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AALoginTest extends TestCase {
-	private boolean TEST_ENABLED = false;
+        private boolean TEST_ENABLED = false;
 
     private LDAPManagerAA manager = null;
 
     @Override
     protected void setUp() throws Exception {
-    	super.setUp();
+        super.setUp();
 
-    	if (!TEST_ENABLED)
-    		return;
+        if (!TEST_ENABLED)
+                return;
 
         Map params = new HashMap();
         params.put(LDAPManager.KEY_BASE_DN, "ou=testav01,dc=aa");
         params.put(LDAPManager.KEY_RELATIVE, "ou=Users");
         params.put(LDAPManager.KEY_RELATIVE_USER, "ou=Users");
         try {
-        	manager = (LDAPManagerAA) LDAPManager.login(LDAPManagerAA.class, "ldap://192.168.250.128:3890/", params);
+                manager = (LDAPManagerAA) LDAPManager.login(LDAPManagerAA.class, "ldap://192.168.250.128:3890/", params);
         } catch (LDAPException e) {
-        	// Catch CommunicationException for offline building.
-        	if (!(e.getCause() instanceof CommunicationException))
-        		throw e;
+                // Catch CommunicationException for offline building.
+                if (!(e.getCause() instanceof CommunicationException))
+                        throw e;
         }
     }
 
@@ -106,8 +106,8 @@ public class AALoginTest extends TestCase {
     }
 
     public void testFindRolesForAddress() throws NamingException {
-    	if (!TEST_ENABLED || manager == null)
-    		return;
+        if (!TEST_ENABLED || manager == null)
+                return;
 
         SearchControls cons = new SearchControls();
         cons.setSearchScope(SearchControls.ONELEVEL_SCOPE);
@@ -125,8 +125,8 @@ public class AALoginTest extends TestCase {
     }
 
     public void testGetUserData() throws LDAPException {
-    	if (!TEST_ENABLED || manager == null)
-    		return;
+        if (!TEST_ENABLED || manager == null)
+                return;
 
         System.out.println(manager.getUserData("pol-2"));
     }

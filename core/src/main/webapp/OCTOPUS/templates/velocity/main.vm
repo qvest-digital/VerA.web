@@ -14,23 +14,23 @@
 <div id="content_container">
     #if($errors && $errors.size() > 0)
     <vera-warn>
-    	#foreach($error in $errors)
-    		$error<br>
-    	#end
-    	<br>
-    	${placeholderWithTranslation.eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator}
+        #foreach($error in $errors)
+                $error<br>
+        #end
+        <br>
+        ${placeholderWithTranslation.eskannzuunerwartetenfehlernkommenbittewendensiesichanihrenadministrator}
     </vera-warn>
     #end
 
-    	<div id="breadcrumb" class="textRight marginBottom10">
-    		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span>${placeholderWithTranslation.GENERIC_HOME}</span>
-    	</div>
+        <div id="breadcrumb" class="textRight marginBottom10">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span>${placeholderWithTranslation.GENERIC_HOME}</span>
+        </div>
 
     <h1 class="marginTop25">${placeholderWithTranslation.willkommenbeiveraweb}</h1>
 
     #if($grants.isUser())
     ##<p>
-    ##	Hallo $!{octopusConfig.personalConfig.userGivenName} $!{octopusConfig.personalConfig.userLastName}.
+    ##  Hallo $!{octopusConfig.personalConfig.userGivenName} $!{octopusConfig.personalConfig.userLastName}.
     ##</p>
 
     #if($grants.isAdmin())

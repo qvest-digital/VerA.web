@@ -78,11 +78,11 @@ public class PropertiesReader {
     public Properties properties;
 
     public PropertiesReader() {
-    	this.properties = this.loadProperties();
+        this.properties = this.loadProperties();
     }
 
     public Properties getProperties() {
-    	return this.properties;
+        return this.properties;
     }
 
     public String getProperty(String key) {
@@ -90,12 +90,12 @@ public class PropertiesReader {
     }
 
     public boolean propertiesAreAvailable() {
-    	return this.properties != null;
+        return this.properties != null;
     }
 
 
     private Properties loadProperties() {
-    	final Properties properties = new Properties();
+        final Properties properties = new Properties();
 
         FileInputStream inputStream = null;
         try {

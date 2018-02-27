@@ -94,7 +94,7 @@ import java.util.logging.Logger;
  * @version 1.3
  */
 public class DatabaseVeraWeb extends Database {
-	private static final Logger logger = Logger.getLogger(DatabaseVeraWeb.class.getName());
+        private static final Logger logger = Logger.getLogger(DatabaseVeraWeb.class.getName());
 
     /** VerA.web-Bean-Package */
     public static final String BEANPACKAGE = "de.tarent.aa.veraweb.beans";
@@ -114,12 +114,12 @@ public class DatabaseVeraWeb extends Database {
      * @param cntx Octopus-Kontext, der DB-Modulnamen und
      *  Bean-Property-Dateipfade bestimmt.
      */
-	public DatabaseVeraWeb(OctopusContext cntx) {
-		super(cntx, BEANPACKAGE);
-		this.cntx = cntx;
-	}
+        public DatabaseVeraWeb(OctopusContext cntx) {
+                super(cntx, BEANPACKAGE);
+                this.cntx = cntx;
+        }
 
-	/**
+        /**
      * Creates a new Database object refering the same datasource
      */
     public DatabaseVeraWeb createCopy() {
@@ -263,27 +263,27 @@ public class DatabaseVeraWeb extends Database {
     public ResultList getList(Select statement, ExecutionContext context) throws BeanException {
         ResultList list = super.getList(statement, context);
         if (Context.getActive() != null)
-        	Context.getActive().addCleanupCode(list);
+                Context.getActive().addCleanupCode(list);
         else
-        	logger.log(Level.WARNING, getClass().getName() + " - getList(): No active context set.");
+                logger.log(Level.WARNING, getClass().getName() + " - getList(): No active context set.");
         return list;
     }
 
-	public Connection getDefaultConnection() throws SQLException {
-		if(defaultConnection ==null|| defaultConnection.isClosed()){
-			defaultConnection = getPool().getConnection();
-		}
-		return defaultConnection;
-	}
+        public Connection getDefaultConnection() throws SQLException {
+                if(defaultConnection ==null|| defaultConnection.isClosed()){
+                        defaultConnection = getPool().getConnection();
+                }
+                return defaultConnection;
+        }
 
-	public void close() {
+        public void close() {
         try {
             if(defaultConnection != null && ! defaultConnection.isClosed()) {
                 defaultConnection.close();
                 defaultConnection = null;
             }
         } catch (SQLException e) {
-			logger.log(Level.WARNING, e.getLocalizedMessage(), e);
+                        logger.log(Level.WARNING, e.getLocalizedMessage(), e);
         }
     }
 }

@@ -4,27 +4,27 @@
 <div class="table">
     <div class="tableRow">
         <div class="tableCell">
-        	<label for="input.username">Nombre de usuario</label>
-        	<input type="text" id="input.username" name="username">
+                <label for="input.username">Nombre de usuario</label>
+                <input type="text" id="input.username" name="username">
         </div>
     </div>
     <div class="tableRow">
         <div class="tableCell">
-        	<label for="input.password">Contraseña</label>
-        	<input type="password" id="input.password" name="password">
+                <label for="input.password">Contraseña</label>
+                <input type="password" id="input.password" name="password">
         </div>
     </div>
     <div class="tableRow">
         <div class="tableCell inlineLabel">
-        	<label for="loginasproxy">Acceder como representante</label>
-        	<input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
+                <label for="loginasproxy">Acceder como representante</label>
+                <input type="checkbox" value="true" name="input.loginasproxy" class="noFloat" id="loginasproxy">
         </div>
     </div>
 </div>
 
 <div id="buttonPanel-bottom" class="marginTop5 marginBottom20">
-	<input type="submit" class="mainButton" value="Acceder" title="Acceder" name="submit" id="button.login" />
-	<input type="reset" class="mainButton" value="Borrar" title="Borrar" name="cancel" id="button.clearFields" />
+        <input type="submit" class="mainButton" value="Acceder" title="Acceder" name="submit" id="button.login" />
+        <input type="reset" class="mainButton" value="Borrar" title="Borrar" name="cancel" id="button.clearFields" />
 </div>
 
 <div class="hinweis grayBorder marginBottom20 notBold">
@@ -43,7 +43,7 @@
         </vera-warn>
     #end
 <vera-warn>
-	El nombre de usuario y contraseña son incorrectos. Por favor, vuelva a introducir los datos de acceso.
+        El nombre de usuario y contraseña son incorrectos. Por favor, vuelva a introducir los datos de acceso.
 </vera-warn>
 #end
 </form>

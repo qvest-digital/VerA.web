@@ -118,57 +118,57 @@ public class UserListWorker extends ListWorkerVeraWeb {
     }
 
     //
-	// BeanListWorker
-	//
-	/**
-	 * Methode für das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
-	 * Hier wird eine Sortierung eingefügt.
-	 *
-	 * @param cntx
-	 *          Octopus-Context
-	 * @param select
-	 *          Select-Statement
-	 * @see de.tarent.octopus.beans.BeanListWorker#extendColumns(de.tarent.octopus.server.OctopusContext,
-	 *      de.tarent.dblayer.sql.statement.Select)
-	 */
-	@Override
+        // BeanListWorker
+        //
+        /**
+         * Methode für das Erweitern des ListWorkerVeraWeb-Select-Statements um Spalten.<br>
+         * Hier wird eine Sortierung eingefügt.
+         *
+         * @param cntx
+         *          Octopus-Context
+         * @param select
+         *          Select-Statement
+         * @see de.tarent.octopus.beans.BeanListWorker#extendColumns(de.tarent.octopus.server.OctopusContext,
+         *      de.tarent.dblayer.sql.statement.Select)
+         */
+        @Override
     protected void extendColumns(OctopusContext cntx, Select select) throws BeanException, IOException
-	{
-		String order = cntx.contentAsString(PARAM_ORDER);
-		if (order != null)
-		{
-			Database database = getDatabase(cntx);
-			// Bug 1599 orgunit (Mandant) nach Name, nicht nach Schluessel sortieren
-			if ("orgunit".equals(order))
-			{
-				select.select("torgunit.unitname");
-				select.joinLeftOuter("torgunit", "torgunit.pk", "tuser.fk_orgunit");
-				select.orderBy(Order.asc("torgunit.unitname").andAsc("tuser.username"));
-			}
-			else
-			{
-				order = database.getProperty(new User(), order);
-				if (order != null)
-				{
-					select.orderBy(Order.asc(order).andAsc("tuser.username"));
-				}
-			}
-		}
-	}
+        {
+                String order = cntx.contentAsString(PARAM_ORDER);
+                if (order != null)
+                {
+                        Database database = getDatabase(cntx);
+                        // Bug 1599 orgunit (Mandant) nach Name, nicht nach Schluessel sortieren
+                        if ("orgunit".equals(order))
+                        {
+                                select.select("torgunit.unitname");
+                                select.joinLeftOuter("torgunit", "torgunit.pk", "tuser.fk_orgunit");
+                                select.orderBy(Order.asc("torgunit.unitname").andAsc("tuser.username"));
+                        }
+                        else
+                        {
+                                order = database.getProperty(new User(), order);
+                                if (order != null)
+                                {
+                                        select.orderBy(Order.asc(order).andAsc("tuser.username"));
+                                }
+                        }
+                }
+        }
 
     /**
-		 * Methode für das Erweitern des Select-Statements um Bedingungen.<br>
-		 * Hier wird der Parameter {@link #PARAM_DOMAIN "domain"} ausgewertet.<br>
-		 * {@link #PARAM_DOMAIN "domain"} kann neben einer Rollenbezeichnung die Werte {@link #PARAM_DOMAIN_VALUE_ALL "all"},
-		 * {@link #PARAM_DOMAIN_VALUE_OU "ou"} und {@link #PARAM_DOMAIN_VALUE_SELF "self"} haben.
-		 *
-		 * @param cntx
-		 *          Octopus-Context
-		 * @param select
-		 *          Select-Statement
-		 * @see de.tarent.octopus.beans.BeanListWorker#extendWhere(de.tarent.octopus.server.OctopusContext,
-		 *      de.tarent.dblayer.sql.statement.Select)
-		 */
+                 * Methode für das Erweitern des Select-Statements um Bedingungen.<br>
+                 * Hier wird der Parameter {@link #PARAM_DOMAIN "domain"} ausgewertet.<br>
+                 * {@link #PARAM_DOMAIN "domain"} kann neben einer Rollenbezeichnung die Werte {@link #PARAM_DOMAIN_VALUE_ALL "all"},
+                 * {@link #PARAM_DOMAIN_VALUE_OU "ou"} und {@link #PARAM_DOMAIN_VALUE_SELF "self"} haben.
+                 *
+                 * @param cntx
+                 *          Octopus-Context
+                 * @param select
+                 *          Select-Statement
+                 * @see de.tarent.octopus.beans.BeanListWorker#extendWhere(de.tarent.octopus.server.OctopusContext,
+                 *      de.tarent.dblayer.sql.statement.Select)
+                 */
     @Override
     protected void extendWhere(OctopusContext cntx, Select select) throws BeanException, IOException {
         PersonalConfigAA pCfg = (PersonalConfigAA) cntx.personalConfig();
@@ -214,7 +214,7 @@ public class UserListWorker extends ListWorkerVeraWeb {
      */
     @Override
     protected int insertBean(OctopusContext cntx, List errors, Bean bean, TransactionContext context ) throws BeanException, IOException {
-    	int count = 0;
+        int count = 0;
         if (bean.isModified()) {
             if (bean instanceof User) {
                 ((User) bean).verify(cntx);
@@ -276,19 +276,19 @@ public class UserListWorker extends ListWorkerVeraWeb {
      */
    @Override
    protected boolean removeBean(OctopusContext cntx, Bean bean, TransactionContext transactionContext) throws BeanException, IOException {
-	    if (bean != null && ((User)bean).id != null) {
-	        Integer userId = ((User)bean).id;
+            if (bean != null && ((User)bean).id != null) {
+                Integer userId = ((User)bean).id;
 
-	        /* delete related proxy configurations */
-		    Proxy proxy = new Proxy();
-		    proxy.user = userId;
-		    Database database = transactionContext.getDatabase();
-	    	transactionContext.execute(database.getDelete("Proxy").where(database.getWhere(proxy)));
+                /* delete related proxy configurations */
+                    Proxy proxy = new Proxy();
+                    proxy.user = userId;
+                    Database database = transactionContext.getDatabase();
+                transactionContext.execute(database.getDelete("Proxy").where(database.getWhere(proxy)));
 
-	    	/* delete related user configurations */
-	    	transactionContext.execute(database.getDelete("UserConfig").where(Expr.equal("fk_user", userId)));
+                /* delete related user configurations */
+                transactionContext.execute(database.getDelete("UserConfig").where(Expr.equal("fk_user", userId)));
             transactionContext.commit();
-	    }
-    	return super.removeBean(cntx, bean, transactionContext);
+            }
+        return super.removeBean(cntx, bean, transactionContext);
     }
 }

@@ -60,9 +60,9 @@
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 (function(){
-	$(document).ready(function() {
-	    var backtotop = ['<div id="gotop"></a>'].join("");
-        	$("body").append(backtotop);
+        $(document).ready(function() {
+            var backtotop = ['<div id="gotop"></a>'].join("");
+                $("body").append(backtotop);
             $('#gotop').gotop({
              // Background color
               background : '#8B0F0F',

@@ -127,20 +127,20 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
      */
     public LDAPManagerTarentContact(InitialLdapContext lctx, Map params) {
         super(lctx, params);
-		use_tarent_objectclass = !isParameterTrue(params.get(KEY_OBJECTCLASS));
-		gosa_support = isParameterTrue(params.get(KEY_GOSASUPPORT));
-		really_delete = isParameterTrue(params.get(KEY_REALLYDELETE));
-		if(use_tarent_objectclass){
-			setDefaultObjectClasses(new String[] {OBJECT_CLASS_TARENT_CONTACT});
-		}
+                use_tarent_objectclass = !isParameterTrue(params.get(KEY_OBJECTCLASS));
+                gosa_support = isParameterTrue(params.get(KEY_GOSASUPPORT));
+                really_delete = isParameterTrue(params.get(KEY_REALLYDELETE));
+                if(use_tarent_objectclass){
+                        setDefaultObjectClasses(new String[] {OBJECT_CLASS_TARENT_CONTACT});
+                }
     }
 
-	/**
-	 * @param param FIXME
-	 */
-	private boolean isParameterTrue(Object param) {
+        /**
+         * @param param FIXME
+         */
+        private boolean isParameterTrue(Object param) {
         return ("true".equals(param) || "1".equals(param) || "TRUE".equals(param) || "True".equals(param));
-	}
+        }
 
     /**
      * Fügt einen Contact zum LDAP hinzu
@@ -205,9 +205,9 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
             throw new LDAPException("Der User ist bereits gelöscht worden.");
         }
         try {
-        	//FIXME: ueberarbeiten!!!
-        	String dn = fullUserDN(uid);
-        	if(use_tarent_objectclass){
+                //FIXME: ueberarbeiten!!!
+                String dn = fullUserDN(uid);
+                if(use_tarent_objectclass){
                 Attribute objectClass;
                 Vector mods = new Vector();
                 try {
@@ -217,16 +217,16 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
                     throw new LDAPException(e1);
                 }
                 if(this.checkAttribute(uid, "objectClass", "TarentContact")){
-                	objectClass.remove("TarentContact");
+                        objectClass.remove("TarentContact");
                 }
                 mods.add(new ModificationItem(DirContext.REPLACE_ATTRIBUTE, objectClass));
                 logger.log(Level.FINE, mods.toString());
                 lctx.modifyAttributes(dn, (ModificationItem[]) mods.toArray(new ModificationItem[1]));
-        	}else{
-        		if(really_delete){
-        			lctx.destroySubcontext(dn);
-        		}
-        	}
+                }else{
+                        if(really_delete){
+                                lctx.destroySubcontext(dn);
+                        }
+                }
         } catch (NamingException e) {
             throw new LDAPException("Fehler beim Löschen des Users!", e);
         }
@@ -482,7 +482,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
         String nachname,
         String passwort) throws LDAPException
     {
-    	String password_enc2 = null;
+        String password_enc2 = null;
         if(passwort!=null&&passwort.length()>0){
             try
             {
@@ -494,7 +494,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
             }
             addContactUserRawPassword(userid, vorname, nachname, "{SHA}"+password_enc2);
         }else{
-        	addContactUserRawPassword(userid, vorname, nachname, passwort);
+                addContactUserRawPassword(userid, vorname, nachname, passwort);
         }
     }
 
@@ -523,9 +523,9 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
             try
             {
                 if(gosa_support){
-                	lctx.createSubcontext("cn=" + nachname + " " + vorname + relative + baseDN, attr);
+                        lctx.createSubcontext("cn=" + nachname + " " + vorname + relative + baseDN, attr);
                 }else{
-                	lctx.createSubcontext("uid=" + userid + relative + baseDN, attr);
+                        lctx.createSubcontext("uid=" + userid + relative + baseDN, attr);
                 }
             } catch (NamingException e)
                 {
@@ -599,7 +599,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
      * @throws LDAPException
      */
     public void modifyContactUser(String userid, String vorname, String nachname, String passwort) throws LDAPException{
-    	String password_enc2 = null;
+        String password_enc2 = null;
         if(passwort!=null&&passwort.length()>0){
             try
             {
@@ -611,7 +611,7 @@ public class LDAPManagerTarentContact extends LDAPManager implements UserManager
             }
             modifyContactUserRawPassword(userid, vorname, nachname, "{SHA}"+password_enc2);
         }else{
-        	modifyContactUserRawPassword(userid, vorname, nachname, passwort);
+                modifyContactUserRawPassword(userid, vorname, nachname, passwort);
         }
 
     }

@@ -16,8 +16,8 @@
 
 <script type="text/javascript">
     function openNewEmail() {
-    	var check = confirm("${placeholderWithTranslation.GM_CONFIRMATION_EMAIL_DISTRIBUTOR}");
-    	if (check == true) {
+        var check = confirm("${placeholderWithTranslation.GM_CONFIRMATION_EMAIL_DISTRIBUTOR}");
+        if (check == true) {
             var addressArray = new Array;
             #foreach ($address in $mailAddresses)
                 addressArray.push("$!address");
@@ -29,99 +29,99 @@
                 }
                 window.location.href = item;
             });
-    	}
+        }
     }
 </script>
 
 <div id="content_container">
-	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>
-	</div>
+        <div id="breadcrumb" class="textRight marginBottom10">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENTS_PP} > ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR}</span>
+        </div>
 
-	<h1>${placeholderWithTranslation.verteilerdetails}: $!message.text($!mailinglist.name)</h1>
+        <h1>${placeholderWithTranslation.verteilerdetails}: $!message.text($!mailinglist.name)</h1>
 
-	<form id="formlist" name="formlist" action="ShowMailinglistDetail" method="POST">
-		<input type="hidden" name="start" value="">
-		<input type="hidden" name="limit" value="">
-		<input type="hidden" name="selectNone" value="true">
-		<input type="hidden" name="doRemove" value="true">
+        <form id="formlist" name="formlist" action="ShowMailinglistDetail" method="POST">
+                <input type="hidden" name="start" value="">
+                <input type="hidden" name="limit" value="">
+                <input type="hidden" name="selectNone" value="true">
+                <input type="hidden" name="doRemove" value="true">
 
-		<input type="hidden" name="id" value="$!id">
+                <input type="hidden" name="id" value="$!id">
 
-		#foreach($bean in $list)
-		<input type="hidden" name="list" value="$bean.id">
-		#end
+                #foreach($bean in $list)
+                <input type="hidden" name="list" value="$bean.id">
+                #end
 
-		#if($list && $list.size() > 0)
+                #if($list && $list.size() > 0)
 
-    		<span class="inlineLabel" id="actionPanel">
-				#if($grants.mayWrite())
-					<strong>${placeholderWithTranslation.markierteadressen}</strong> <input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" onclick="submit();" title="${placeholderWithTranslation.markierteadressenausdemverteilerloschen}"/>
-				#else &nbsp;#end
+                <span class="inlineLabel" id="actionPanel">
+                                #if($grants.mayWrite())
+                                        <strong>${placeholderWithTranslation.markierteadressen}</strong> <input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_DELETE}" onclick="submit();" title="${placeholderWithTranslation.markierteadressenausdemverteilerloschen}"/>
+                                #else &nbsp;#end
             </span>
 
-			#if($grants.mayReadStandardFields())
-        		<span id="buttonPanel_top" class="textRight floatRight">
-        			<input type="button" name="send" value="${placeholderWithTranslation.verteilerversenden}" onclick="window.location.href='MailinglistWrite';" title="${placeholderWithTranslation.analleadressenversenden}" class="mainButton"/>
-        			<select id="selectSeparation" name="selectSeparation" style="margin-left: 20px">
+                        #if($grants.mayReadStandardFields())
+                        <span id="buttonPanel_top" class="textRight floatRight">
+                                <input type="button" name="send" value="${placeholderWithTranslation.verteilerversenden}" onclick="window.location.href='MailinglistWrite';" title="${placeholderWithTranslation.analleadressenversenden}" class="mainButton"/>
+                                <select id="selectSeparation" name="selectSeparation" style="margin-left: 20px">
                       <option value=",">${placeholderWithTranslation.mailclient_other}</option>
                       <option value=";">${placeholderWithTranslation.mailclient_msoutlook}</option>
                     </select>
-					<input type="button" name="openMailClient" value="${placeholderWithTranslation.emailclientaufrufen}" onclick="javascript:openNewEmail();" title="${placeholderWithTranslation.emailclientaufrufen}" class="mainButton"/>
-        		</span>
-			#end
+                                        <input type="button" name="openMailClient" value="${placeholderWithTranslation.emailclientaufrufen}" onclick="javascript:openNewEmail();" title="${placeholderWithTranslation.emailclientaufrufen}" class="mainButton"/>
+                        </span>
+                        #end
 
-    		<table class="marginBottom10 fixed
-    			##Set column size
-				<col width="$column0%" />
-				<col width="$column1%" />
-				<col width="$column2%" />
-				<col width="$column3%" />
-				<col width="$column4%" />
+                <table class="marginBottom10 fixed
+                        ##Set column size
+                                <col width="$column0%" />
+                                <col width="$column1%" />
+                                <col width="$column2%" />
+                                <col width="$column3%" />
+                                <col width="$column4%" />
 
-    			<tr>
-    				<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}"/></th>
-    				<th>${placeholderWithTranslation.GENERIC_NAME}</th>
-    				<th>${placeholderWithTranslation.GENERIC_FIRSTNAME}</th>
-    				<th>${placeholderWithTranslation.GENERIC_ADDRESSES}</th>
-    			</tr>
-    			#foreach($bean in $list)
-    			<tr>
-    				<td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true"></td>
-    				<td><input type="hidden" name="${bean.id}-id" value="$bean.id">$!message.text($!bean.lastname)</td>
-    				<td>$!message.text($!bean.firstname)</td>
-    				<td><a href="mailto:?bcc=$!bean.address">$!message.text($!bean.address)</a></td>
-    			</tr>
-				#end
+                        <tr>
+                                <th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}"/></th>
+                                <th>${placeholderWithTranslation.GENERIC_NAME}</th>
+                                <th>${placeholderWithTranslation.GENERIC_FIRSTNAME}</th>
+                                <th>${placeholderWithTranslation.GENERIC_ADDRESSES}</th>
+                        </tr>
+                        #foreach($bean in $list)
+                        <tr>
+                                <td class="textCenter"><input type="checkbox" name="${bean.id}-select" value="true"></td>
+                                <td><input type="hidden" name="${bean.id}-id" value="$bean.id">$!message.text($!bean.lastname)</td>
+                                <td>$!message.text($!bean.firstname)</td>
+                                <td><a href="mailto:?bcc=$!bean.address">$!message.text($!bean.address)</a></td>
+                        </tr>
+                                #end
 
-				#set($itemName = "${placeholderWithTranslation.GENERIC_ADDRESS_DATA_PLURAL}")
-				#tableFooter(4)
-				#parse("inc/list-direct-new.vm")
-    		</table>
+                                #set($itemName = "${placeholderWithTranslation.GENERIC_ADDRESS_DATA_PLURAL}")
+                                #tableFooter(4)
+                                #parse("inc/list-direct-new.vm")
+                </table>
 
-		#else
+                #else
 
-			<div class="contentBoxColored grayBorder marginBottom5">
-				${placeholderWithTranslation.esliegenkeineadressdatenfurdiesenverteilervor}
+                        <div class="contentBoxColored grayBorder marginBottom5">
+                                ${placeholderWithTranslation.esliegenkeineadressdatenfurdiesenverteilervor}
             </div>
 
-		#end
+                #end
 
-		<span class="floatRight" id="buttonPanel-bottom">
-			<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzurverteilerubersicht}"  onclick="window.location.href='ShowMailinglistList?selectNone=true';" title="${placeholderWithTranslation.zuruckzurverteilerubersicht}" class="mainButton">
-		</span>
+                <span class="floatRight" id="buttonPanel-bottom">
+                        <input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzurverteilerubersicht}"  onclick="window.location.href='ShowMailinglistList?selectNone=true';" title="${placeholderWithTranslation.zuruckzurverteilerubersicht}" class="mainButton">
+                </span>
 
-	</form>
+        </form>
     <div class="clear"></div>
 </div>
 <script type="text/javascript">
     #if($maildispatchParams && $maildispatchParams.count)
         #if($maildispatchParams.count == 0)
-        	showWarning(' ${placeholderWithTranslation.eswurdekeineemailzumversendengespeichert} ');
+                showWarning(' ${placeholderWithTranslation.eswurdekeineemailzumversendengespeichert} ');
         #elseif($maildispatchParams.count == 1)
-        	showSuccess(' ${placeholderWithTranslation.eswurdeeineemailzumversendengespeichertdiesewirdnunautomatischversendet} ');
+                showSuccess(' ${placeholderWithTranslation.eswurdeeineemailzumversendengespeichertdiesewirdnunautomatischversendet} ');
         #else
-        	showSuccess(' ${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $maildispatchParams.count ${placeholderWithTranslation.emailszumversendengespeichertdiesewerdennunautomatischversendet} ');
+                showSuccess(' ${placeholderWithTranslation.MESSAGE_REPORT_NUMBER_PART_1} $maildispatchParams.count ${placeholderWithTranslation.emailszumversendengespeichertdiesewerdennunautomatischversendet} ');
         #end
     #end
 </script>

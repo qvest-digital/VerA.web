@@ -21,67 +21,67 @@
     <input type="hidden" name="limit" value="" />
 
     <div id="content_container">
-		<div class="textRight marginBottom10" id="breadcrumb">
-			<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.emailpostausgang}</span>
-		</div>
+                <div class="textRight marginBottom10" id="breadcrumb">
+                        <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="${placeholderWithTranslation.zurstartseite}">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.administration} > ${placeholderWithTranslation.emailpostausgang}</span>
+                </div>
 
-		<div id="main_content">
-    		<h1>${placeholderWithTranslation.emailpostausgang}</h1>
+                <div id="main_content">
+                <h1>${placeholderWithTranslation.emailpostausgang}</h1>
 
-    		#foreach($bean in $list)
-    			<input type="hidden" name="list" value="$bean.id"/>
+                #foreach($bean in $list)
+                        <input type="hidden" name="list" value="$bean.id"/>
             #end
 
-    		<span id="actionPanel" class="inlineLabel">
-    			<strong>${placeholderWithTranslation.markierteemails}</strong>
-    	       	<input type="submit" name="remove" value="${placeholderWithTranslation.loeschen}" title="${placeholderWithTranslation.markierteemailsloeschen}"/>
-    	    </span>
+                <span id="actionPanel" class="inlineLabel">
+                        <strong>${placeholderWithTranslation.markierteemails}</strong>
+                <input type="submit" name="remove" value="${placeholderWithTranslation.loeschen}" title="${placeholderWithTranslation.markierteemailsloeschen}"/>
+            </span>
 
-    		<table class="fixed">
-    			##Set column size
-				<col width="$column0%" />
-   				<col width="$column1%" />
-   				<col width="$column2%" />
-   				<col width="$column3%" />
-   				<col width="$column4%" />
+                <table class="fixed">
+                        ##Set column size
+                                <col width="$column0%" />
+                                <col width="$column1%" />
+                                <col width="$column2%" />
+                                <col width="$column3%" />
+                                <col width="$column4%" />
 
-        		<tr>
-        			<th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}"/></th>
-        			<th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_STATUS}</th>
-        			<th>${placeholderWithTranslation.GENERIC_FROM}</th>
-        			<th>${placeholderWithTranslation.GENERIC_TO}</th>
-        			<th class="width50">${placeholderWithTranslation.GENERIC_SUBJECT}</th>
-        		</tr>
+                        <tr>
+                                <th class="smallCell textCenter"><input type="checkbox" name="toggleAllSelect" id="toggleAllSelect" title="${placeholderWithTranslation.alledemarkieren}"/></th>
+                                <th class="smallCell textCenter">${placeholderWithTranslation.GENERIC_STATUS}</th>
+                                <th>${placeholderWithTranslation.GENERIC_FROM}</th>
+                                <th>${placeholderWithTranslation.GENERIC_TO}</th>
+                                <th class="width50">${placeholderWithTranslation.GENERIC_SUBJECT}</th>
+                        </tr>
                 #foreach($bean in $list)
-    	        	<tr>
-    					<td class="textCenter"><input type="hidden" value="$bean.id" name="${bean.id}-id"/><input type="checkbox" value="true" name="${bean.id}-select"/></td>
-    					<td class="textCenter" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">
-    					      #if($bean.status == 1)${placeholderWithTranslation.offen}
-    					      #elseif($bean.status == 2)${placeholderWithTranslation.wartet}
-    					      #elseif($bean.status == 3)${placeholderWithTranslation.wirdversendet}
-    					      #elseif($bean.status == 4)${placeholderWithTranslation.gesendet}
-    					      #elseif($bean.status > 10)<span style="font-weight: bold; color: #ff0000;">${placeholderWithTranslation.GENERIC_ERROR}</span>
-    					      #else<em>${placeholderWithTranslation.unbekannt}</em>
-    					      #end
-    						</td>
-    					<td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.from)</td>
-    					<td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.to)</td>
-    					<td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.subject)</td>
-    				</tr>
-    			#end
+                        <tr>
+                                        <td class="textCenter"><input type="hidden" value="$bean.id" name="${bean.id}-id"/><input type="checkbox" value="true" name="${bean.id}-select"/></td>
+                                        <td class="textCenter" onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">
+                                              #if($bean.status == 1)${placeholderWithTranslation.offen}
+                                              #elseif($bean.status == 2)${placeholderWithTranslation.wartet}
+                                              #elseif($bean.status == 3)${placeholderWithTranslation.wirdversendet}
+                                              #elseif($bean.status == 4)${placeholderWithTranslation.gesendet}
+                                              #elseif($bean.status > 10)<span style="font-weight: bold; color: #ff0000;">${placeholderWithTranslation.GENERIC_ERROR}</span>
+                                              #else<em>${placeholderWithTranslation.unbekannt}</em>
+                                              #end
+                                                </td>
+                                        <td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.from)</td>
+                                        <td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.to)</td>
+                                        <td onclick="window.location.href='MailOutboxDetail?id=$!{bean.id}';">$!message.text($bean.subject)</td>
+                                </tr>
+                        #end
 
-    			#if ($listparam.count == 0)
-        			<tr>
-    					<td colspan="5">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td>
-        			</tr>
-        		#end
+                        #if ($listparam.count == 0)
+                                <tr>
+                                        <td colspan="5">${placeholderWithTranslation.GENERIC_NO_DATA_FOUND}.</td>
+                                </tr>
+                        #end
 
-    			#set($itemName = "${placeholderWithTranslation.GENERIC_EMAIL_PLURAL}")
-				#tableFooter(5)
-    			#parse("inc/list-direct-new.vm")
-    		</table>
+                        #set($itemName = "${placeholderWithTranslation.GENERIC_EMAIL_PLURAL}")
+                                #tableFooter(5)
+                        #parse("inc/list-direct-new.vm")
+                </table>
 
-    	</div>
+        </div>
     </div>
 
 </form>

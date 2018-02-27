@@ -208,17 +208,17 @@ public class FieldMapping {
      * @return FIXME
      */
     public String resolve(String mapping, String value) {
-    	int starlet = mapping.indexOf("*");
-    	if (starlet == -1 || mapping.indexOf("*", starlet + 1) != -1)
-    		return null;
+        int starlet = mapping.indexOf("*");
+        if (starlet == -1 || mapping.indexOf("*", starlet + 1) != -1)
+                return null;
 
-    	String pre = mapping.substring(0, starlet);
-    	String suf = mapping.substring(starlet + 1);
+        String pre = mapping.substring(0, starlet);
+        String suf = mapping.substring(starlet + 1);
 
-    	if (!(value.startsWith(pre) && value.endsWith(suf)))
-    		return null;
+        if (!(value.startsWith(pre) && value.endsWith(suf)))
+                return null;
 
-    	return value.substring(starlet, value.length() - suf.length());
+        return value.substring(starlet, value.length() - suf.length());
     }
 
     /**
@@ -248,57 +248,57 @@ public class FieldMapping {
      * Header übergeben wurde, aber noch nicht in der Datenbank vorhanden sind
      * und deswegen nicht in den {@link #availableSources} verfügbar waren.
      */
-	public void extendCategoryImport(List extensions) {
-		assert mappingDescription != null && resolvedMappings != null;
+        public void extendCategoryImport(List extensions) {
+                assert mappingDescription != null && resolvedMappings != null;
 
         // Map der aufgelösten Mappings
         Map finalMappings = new HashMap();
         finalMappings.putAll(resolvedMappings);
 
-		for (Iterator it = mappingDescription.entrySet().iterator(); it.hasNext(); ) {
-			Map.Entry entry = (Map.Entry)it.next();
-			String mappingMarker = entry.getKey().toString();
-			String mappingTarget = entry.getValue().toString();
+                for (Iterator it = mappingDescription.entrySet().iterator(); it.hasNext(); ) {
+                        Map.Entry entry = (Map.Entry)it.next();
+                        String mappingMarker = entry.getKey().toString();
+                        String mappingTarget = entry.getValue().toString();
 
-			if (mappingTarget == null || mappingMarker == null)
-				continue;
-			if (mappingTarget.startsWith("{") || mappingTarget.startsWith("}"))
-				mappingTarget = mappingTarget.substring(1, mappingTarget.length() - 1);
-			if (!(
-					mappingTarget.startsWith("CAT:") ||
-					mappingTarget.startsWith("EVE:") ||
-					mappingTarget.startsWith("COR:")))
-				continue;
+                        if (mappingTarget == null || mappingMarker == null)
+                                continue;
+                        if (mappingTarget.startsWith("{") || mappingTarget.startsWith("}"))
+                                mappingTarget = mappingTarget.substring(1, mappingTarget.length() - 1);
+                        if (!(
+                                        mappingTarget.startsWith("CAT:") ||
+                                        mappingTarget.startsWith("EVE:") ||
+                                        mappingTarget.startsWith("COR:")))
+                                continue;
 
-			for (Iterator it2 = extensions.iterator(); it2.hasNext(); ) {
-				String extension = it2.next().toString();
-				String cleaned = resolve(mappingMarker, extension);
-				if (cleaned == null) continue;
-				String resolved = mappingTarget.replaceAll("\\*", cleaned);
-				if (resolved == null) continue;
+                        for (Iterator it2 = extensions.iterator(); it2.hasNext(); ) {
+                                String extension = it2.next().toString();
+                                String cleaned = resolve(mappingMarker, extension);
+                                if (cleaned == null) continue;
+                                String resolved = mappingTarget.replaceAll("\\*", cleaned);
+                                if (resolved == null) continue;
 
-				finalMappings.put(resolved, "{" + extension + "}");
-			}
-		}
+                                finalMappings.put(resolved, "{" + extension + "}");
+                        }
+                }
 
-		resolvedMappings = Collections.unmodifiableMap(finalMappings);
-		availableTargets = finalMappings.keySet();
-	}
+                resolvedMappings = Collections.unmodifiableMap(finalMappings);
+                availableTargets = finalMappings.keySet();
+        }
 
-	//
+        //
     // geschützte Hilfsmethoden
     //
     /**
-	 * Diese Methode ermittelt mittels der verfügbaren Quellfelder und der
-	 * allgemeinen Abbildungsbeschreibung (die im Konstruktor
-	 * {@link #FieldMapping(Set, Map)} übergeben wurden) die aufgelösten simplen
-	 * Abbildungen und die verfügbaren Zielfelder.
-	 *
-	 * @param mappingDescription
-	 *            die zu parsende Abbildungsbeschreibung
-	 * @throws MappingException
-	 *             bei Problemen beim Auflösen der Mapping-Beschreibung
-	 */
+         * Diese Methode ermittelt mittels der verfügbaren Quellfelder und der
+         * allgemeinen Abbildungsbeschreibung (die im Konstruktor
+         * {@link #FieldMapping(Set, Map)} übergeben wurden) die aufgelösten simplen
+         * Abbildungen und die verfügbaren Zielfelder.
+         *
+         * @param mappingDescription
+         *            die zu parsende Abbildungsbeschreibung
+         * @throws MappingException
+         *             bei Problemen beim Auflösen der Mapping-Beschreibung
+         */
     void parseDescription(Map mappingDescription) throws MappingException {
         assert availableSources != null;
         assert mappingDescription != null;

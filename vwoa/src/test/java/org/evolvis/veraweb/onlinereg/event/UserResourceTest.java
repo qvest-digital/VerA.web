@@ -97,8 +97,8 @@ public class UserResourceTest {
 
     @Test@Ignore
     public void testRegisterUser() throws IOException {
-    	//Benutzer wird durch Test angelegt, aber nicht mehr gelöscht -> Erneutes Ausführen des Tests schlägt fehl
-    	long zeit = Calendar.getInstance().getTimeInMillis();
+        //Benutzer wird durch Test angelegt, aber nicht mehr gelöscht -> Erneutes Ausführen des Tests schlägt fehl
+        long zeit = Calendar.getInstance().getTimeInMillis();
 
         String result = ur.registerUser("newusertest" + zeit, "firstnametest" + zeit, "secondnametest" + zeit, "passwordtest" + zeit, "email" + zeit, "language");
         assertEquals(StatusConverter.convertStatus("OK"), result);
@@ -112,17 +112,17 @@ public class UserResourceTest {
         r = r.queryParam("username", "newuserTwo").queryParam("firstname", "firstnameTwo").queryParam("lastname", "lastnameTwo");
 
        try {
-        	Person person = r.post(Person.class);
-        	assertTrue(person instanceof Person);
+                Person person = r.post(Person.class);
+                assertTrue(person instanceof Person);
 
-	    } catch (UniformInterfaceException uie) {
-	        ClientResponse response = uie.getResponse();
-	        if (response.getStatus() == 404) {
-	        	System.out.println("404");
-	        } else {
-	            throw uie;
-	        }
-	    }
+            } catch (UniformInterfaceException uie) {
+                ClientResponse response = uie.getResponse();
+                if (response.getStatus() == 404) {
+                        System.out.println("404");
+                } else {
+                    throw uie;
+                }
+            }
     }
 
     @Test
