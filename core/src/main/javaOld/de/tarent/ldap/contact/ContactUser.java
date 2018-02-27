@@ -4,6 +4,7 @@ package de.tarent.ldap.contact;
  * Veranstaltungsmanagement VerA.web (platform-independent
  * webservice-based event management) is Copyright
  *  © 2014, 2015, 2016, 2017 Атанас Александров <a.alexandrov@tarent.de>
+ *  © 2018 Атанас Александров <sirakov@gmail.com>
  *  © 2013 Иванка Александрова <i.alexandrova@tarent.de>
  *  © 2013 Patrick Apel <p.apel@tarent.de>
  *  © 2016 Eugen Auschew <e.auschew@tarent.de>
@@ -23,7 +24,7 @@ package de.tarent.ldap.contact;
  *  © 2008, 2009, 2010 Carsten Klein <c.klein@tarent.de>
  *  © 2014 Martin Ley <m.ley@tarent.de>
  *  © 2014, 2015 Max Marche <m.marche@tarent.de>
- *  © 2013, 2014, 2015, 2016, 2017 mirabilos <t.glaser@tarent.de>
+ *  © 2013, 2014, 2015, 2016, 2017, 2018 mirabilos <t.glaser@tarent.de>
  *  © 2016 Cristian Molina <c.molina@tarent.de>
  *  © 2017 Michael Nienhaus <m.nienhaus@tarent.de>
  *  © 2013 Claudia Nuessle <c.nuessle@tarent.de>
