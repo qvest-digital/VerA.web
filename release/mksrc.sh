@@ -52,6 +52,7 @@ if test -n "$(git status --porcelain)"; then
 		if grep -e ' TO''DO$' -e ' FA''IL$' release/ckdep.lst; then
 			echo >&2 "[ERROR] licence review incomplete"
 #			exit 1
+# git revert 1caede520473f2fffe60195832e7b6c9ea6d50a0
 		fi
 
 		exit 0
