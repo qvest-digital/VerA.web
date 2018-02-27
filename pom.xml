@@ -7,7 +7,7 @@
 	</parent>
 	<groupId>org.evolvis.veraweb</groupId>
 	<artifactId>online-anmeldung</artifactId>
-	<version>1.8.55</version>
+	<version>1.8.56-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>VerA.web Online-Anmeldung frontend</name>
 	<scm>
