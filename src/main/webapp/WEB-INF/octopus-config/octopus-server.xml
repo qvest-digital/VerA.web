@@ -46,7 +46,6 @@ with this program; if not, see: http://www.gnu.org/licenses/
     <param name="defaultResponseType" value="velocity"/>
     <param name="defaultErrorDescriptionName" value="defaultErrorPage"/>
 
-<!-- <param name="defaultEncoding" value="ISO-8859-1"/> -->
     <param name="defaultEncoding" value="UTF-8"/>
     <param name="defaultContentType" value="text/html"/>
 
