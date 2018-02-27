@@ -30,9 +30,9 @@ import de.tarent.octopus.beans.BeanException;
 import de.tarent.octopus.beans.TransactionContext;
 import de.tarent.utils.CSVFileReader;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.lang.reflect.Constructor;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -111,9 +111,20 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         assert inputStream != null;
         assert headers == null;
 
-        Reader reader = new InputStreamReader(inputStream, fileEncoding);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, fileEncoding));
+        final String firstLine = reader.readLine();
+
+        // figure out field separator; we can do that in VerA.web
+        if (firstLine.indexOf(/* tab */ 0x09) > -1) {
+            fieldSeparator = 0x09;
+        } else if (firstLine.indexOf(/* semicolon */ 0x3B) > -1) {
+            fieldSeparator = 0x3B;
+        } else if (firstLine.indexOf(/* comma */ 0x2C) > -1) {
+            fieldSeparator = 0x2C;
+        }
+
         csvReader = new CSVFileReader(reader, fieldSeparator, textQualifier);
-        headers = csvReader.readFields();
+        headers = csvReader.readFields(firstLine);
     }
 
     /**
