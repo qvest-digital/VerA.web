@@ -31,7 +31,7 @@ package de.tarent.utils;
  * on what you need to do.
  * <p>
  * The simplest example for using the classes contained in this package is
- * {@link CSVFileExample}, that simply converts one CSV file into another one
+ * CSVFileExample, that simply converts one CSV file into another one
  * that makes use of a different notation for field separator and text
  * qualifier.<br>
  * The example just comprises the following lines:
@@ -43,13 +43,12 @@ package de.tarent.utils;
  *
  * public class CSVFileExample {
  *
- * public static void main(String[] args) throws FileNotFoundException,IOException {
- *
+ * public static void main(String[] args) throws IOException {
  *     CSVFileReader in = new CSVFileReader(&quot;csv_in.txt&quot;, ';', '&quot;');
  *     CSVFileWriter out = new CSVFileWriter(&quot;csv_out.txt&quot;, ',', '\'');
  *
- *     Vector&lt;String&gt; fields = in.readFields();
- *     while(fields!=null) {
+ *     List fields = in.readFields();
+ *     while (fields != null) {
  *         out.writeFields(fields);
  *         fields = in.readFields();
  *     }
