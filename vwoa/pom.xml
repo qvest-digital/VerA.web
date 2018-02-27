@@ -95,7 +95,7 @@
 									<arguments>
 										<argument>install</argument>
 									</arguments>
-									<workingDirectory>${basedir}/src/main/webroot-src</workingDirectory>
+									<workingDirectory>${project.basedir}/src/main/webroot-src</workingDirectory>
 								</configuration>
 							</execution>
 						</executions>
@@ -110,8 +110,8 @@
 									<goal>start</goal>
 								</goals>
 								<configuration>
-									<configFile>${basedir}/src/test/js/karma.conf.js</configFile>
-									<karmaExecutable>${basedir}/node_modules/.bin/karma</karmaExecutable>
+									<configFile>${project.basedir}/src/test/js/karma.conf.js</configFile>
+									<karmaExecutable>${project.basedir}/node_modules/.bin/karma</karmaExecutable>
 								</configuration>
 							</execution>
 						</executions>
@@ -123,12 +123,12 @@
 	<build>
 		<resources>
 			<resource>
-				<directory>${basedir}/src/main/webroot-src/dist</directory>
+				<directory>${project.basedir}/src/main/webroot-src/dist</directory>
 				<targetPath>webroot</targetPath>
 			</resource>
 			<resource>
 				<filtering>true</filtering>
-				<directory>${basedir}/src/main/webapp</directory>
+				<directory>${project.basedir}/src/main/webapp</directory>
 				<targetPath>webroot</targetPath>
 			</resource>
 		</resources>

@@ -16,7 +16,7 @@
 		<archiver.copyright>Copyright © 2001–2018 tarent solutions GmbH</archiver.copyright>
 		<java.version>1.8</java.version>
 		<servlet.api>3.1.0</servlet.api>
-		<sonar.jacoco.reportPath>${basedir}/target/jacoco-unit.exec</sonar.jacoco.reportPath>
+		<sonar.jacoco.reportPath>${project.basedir}/target/jacoco-unit.exec</sonar.jacoco.reportPath>
 		<!-- maven plugins -->
 		<maven.assembly.version>2.5.3</maven.assembly.version>
 		<maven.buildhelper.version>3.0.0</maven.buildhelper.version>
@@ -276,8 +276,8 @@
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
 				<configuration>
-					<basedir>${basedir}</basedir>
-					<header>${basedir}/release/LICENCE.hdr</header>
+					<basedir>${project.basedir}</basedir>
+					<header>${project.basedir}/release/LICENCE.hdr</header>
 					<quiet>false</quiet>
 					<failIfMissing>true</failIfMissing>
 					<aggregate>true</aggregate>
@@ -292,7 +292,7 @@
 						<exclude>**/src/main/js/ext/**</exclude>
 					</excludes>
 					<headerDefinitions>
-						<headerDefinition>${basedir}/release/myc-javapkg.xml</headerDefinition>
+						<headerDefinition>${project.basedir}/release/myc-javapkg.xml</headerDefinition>
 					</headerDefinitions>
 					<mapping>
 						<java>JavaPackage_style</java>
