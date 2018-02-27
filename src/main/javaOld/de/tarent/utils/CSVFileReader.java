@@ -211,15 +211,32 @@ public class CSVFileReader extends CSVFile {
      * Split the next line of the input CSV file into fields.
      * <p>
      * This is currently the most important function of the package.
+     * It can read a subsequent line from the input stream if necessary
+     * due to a newline inside a quoted field.
      *
-     * @return List of strings containing each field from the next line of the
-     * file
+     * @return List of strings containing each field from the next line of the file
      * @throws IOException If an error occurs while reading the new line from the file
      */
     public List readFields() throws IOException {
+        return readFields(in.readLine());
+    }
+
+    /**
+     * Split the next line of the input CSV file into fields.
+     * <p>
+     * This is currently the most important function of the package.
+     * It can read a subsequent line from the input stream if necessary
+     * due to a newline inside a quoted field.
+     *
+     * @param firstLine result of in.readLine() if called by parent for preparation
+     *                  already (can only happen if instantiated with a BufferedReader)
+     * @return List of strings containing each field from the next line of the file
+     * @throws IOException If an error occurs while reading the new line from the file
+     */
+    public List readFields(String firstLine) throws IOException {
         List fields = new ArrayList();
         StringBuffer sb = new StringBuffer();
-        line = in.readLine();
+        line = firstLine;
         if (line == null) {
             return null;
         }
