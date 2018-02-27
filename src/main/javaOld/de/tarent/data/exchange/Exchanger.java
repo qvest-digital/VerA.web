@@ -22,6 +22,7 @@ package de.tarent.data.exchange;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 /**
  * Diese Schnittstelle beschreibt Grundfunktionen einer Datenaustauschklasse,
@@ -66,4 +67,12 @@ public interface Exchanger {
      * Der zu verwendende Ausgabedatenstrom
      */
     void setOutputStream(OutputStream stream);
+
+    /**
+     * Wir handhaben neuerdings das Encoding (Unix-Sinn, nicht VerA.web-„Zeichensatz“)
+     * separat vom Ausgabeformat. Hier wird es gesetzt.
+     *
+     * @param cs file encoding to be used
+     */
+    void setFileEncoding(Charset cs);
 }

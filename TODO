@@ -1,8 +1,6 @@
 • bump minimum requirements to Java™ 8, Tomcat 8
   all customers satisfy these nowadays
 
-XXX TODO: adjust files/cli-import.sh
-
 Charset considerations for Import/Export
 • default: UTF-8 (first)
 • Import:
