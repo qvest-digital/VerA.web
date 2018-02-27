@@ -608,10 +608,10 @@ GENERIC_TARGET_CLIENT=Client cible
 GENERIC_IMPORT_DATA=Importer un fichier
 GENERIC_DATA_TYPE=Type de fichier
 GENERIC_FILE_ENCODING=Codage de fichier
-GENERIC_AUTO_ENCODING=Unicode ou Windows 1252 (d\u00E9tection automatique)
+GENERIC_AUTO_ENCODING=Unicode ou Windows \u00ABEurope de l\u2019Ouest\u00BB 1252 (d\u00E9tection automatique)
 dateiauswahlen=Choisissez Fichier
 keineausgewahlt=Aucun s\u00E9lectionn\u00E9
-GENERIC_START_IMPORT=D\u00E9marrage de l\u2019 importation
+GENERIC_START_IMPORT=D\u00E9marrage de l\u2019importation
 
 # PERSONENDROPDOWN
 GENERIC_NEW_PERSON=Nouvelle personne

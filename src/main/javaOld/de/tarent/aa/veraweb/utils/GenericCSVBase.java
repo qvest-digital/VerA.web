@@ -63,11 +63,6 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
     public static final String PROPERTY_EXPORT_MAPPING = "exportMapping";
 
     /**
-     * Property-Schlüssel für das Encoding der Ausgabedatei
-     */
-    public final static String PROPERTY_ENCODING = "encoding";
-
-    /**
      * Property-Schlüssel für das Feldtrennzeichen
      */
     public final static String PROPERTY_FIELD_SEPARATOR = "fieldSeparator";
@@ -81,16 +76,6 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      * Property-Schlüssel für das Datumsformatmuster
      */
     public final static String PROPERTY_DATE_FORMAT = "dateFormat";
-
-    /**
-     * Encoding: UTF-8
-     */
-    public final static String ENCODING_UTF_8 = "UTF-8";
-
-    /**
-     * Vorgabewert: Character-Encoding
-     */
-    public final static String DEFAULT_ENCODING = ENCODING_UTF_8;
 
     /**
      * Vorgabewert: Feldtrennzeichen
@@ -324,20 +309,14 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
 
     /**
      * Diese Methode liest aus den Properties des Austauschformats Informationen
-     * über das zu verwendende Encoding und die zu verwendenden Feldtrenner und
-     * Quote-Zeichen.
+     * über die zu verwendenden Feldtrenner und Quote-Zeichen.
      *
-     * @see #encoding
      * @see #fieldSeparator
      * @see #textQualifier
      */
     protected void readProperties() {
         if (exchangeFormat.getProperties() != null) {
-            Object property = exchangeFormat.getProperties().get(PROPERTY_ENCODING);
-            if (property instanceof String) {
-                encoding = property.toString();
-            }
-            property = exchangeFormat.getProperties().get(PROPERTY_FIELD_SEPARATOR);
+            Object property = exchangeFormat.getProperties().get(PROPERTY_FIELD_SEPARATOR);
             if (property instanceof String && property.toString().length() > 0) {
                 fieldSeparator = property.toString().charAt(0);
             }
@@ -387,10 +366,6 @@ public class GenericCSVBase implements Exchanger, DatabaseUtilizer {
      * Bezeichner der CSV-Spalten
      */
     protected List csvFieldNames = null;
-    /**
-     * Das zu verwendende Encoding
-     */
-    protected String encoding = DEFAULT_ENCODING;
     /**
      * Der zu verwendende Feldtrenner
      */

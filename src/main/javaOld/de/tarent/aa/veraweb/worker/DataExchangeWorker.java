@@ -418,7 +418,29 @@ public class DataExchangeWorker {
                     throw new TcContentProzessException("Fehlende Benutzerinformation.");
                 }
 
-                Importer importer = createImporter(format, transactionContext, istream);
+                Charset ics;
+                if ("_auto".equals(filenc)) {
+                    //XXX for later
+                    if (!Charset.isSupported("cp1252")) {
+                        LOGGER.error("JVM does not support \"cp1252\", falling back to latin1 standard encoding; some characters will be lost!");
+                        ics = StandardCharsets.ISO_8859_1;
+                    } else {
+                        ics = Charset.forName("cp1252");
+                    }
+                    //XXX TODO: implement
+                    ics = StandardCharsets.UTF_8;
+                } else {
+                    try {
+                        if (!Charset.isSupported(filenc)) {
+                            throw new TcContentProzessException("JVM unterstützt Encoding nicht: " + filenc);
+                        }
+                    } catch (IllegalCharsetNameException icne) {
+                        throw new TcContentProzessException("Ungültiger Encoding-Name: " + filenc);
+                    }
+                    ics = Charset.forName(filenc);
+                }
+
+                Importer importer = createImporter(format, transactionContext, istream, ics);
                 Import importInstance = createImport(transactionContext, formatKey, importSource, mandantId);
                 VerawebDigester digester = new VerawebDigester(octopusContext, transactionContext, importProperties, importSource, importInstance);
 
@@ -794,7 +816,8 @@ public class DataExchangeWorker {
      * @return ein passender {@link Importer}
      * @throws TcContentProzessException bei Fehlern beim Instanziieren des Exporters.
      */
-    static Importer createImporter(ExchangeFormat format, TransactionContext context, InputStream is) throws TcContentProzessException {
+    static Importer createImporter(ExchangeFormat format, TransactionContext context, InputStream is, final Charset cs)
+            throws TcContentProzessException {
         assert format != null;
         assert context != null;
         try {
@@ -803,6 +826,7 @@ public class DataExchangeWorker {
                 Exchanger exchanger = (Exchanger) importer;
                 exchanger.setExchangeFormat(format);
                 exchanger.setInputStream(is);
+                exchanger.setFileEncoding(cs);
             }
             if (importer instanceof DatabaseUtilizer) {
                 DatabaseUtilizer dbUtilizer = (DatabaseUtilizer) importer;
