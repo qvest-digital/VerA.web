@@ -124,8 +124,6 @@
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA}
                                     #elseif($format.name == "CSVPersdat+Kategorien")
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY}
-                                    #elseif($format.name == "CSV-ISO-8859-15")
-                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSV_ISO_8859_15}
                                     #end
                                 </option>
                             #end

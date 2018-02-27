@@ -107,8 +107,6 @@
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA}
                                     #elseif($format.name == "CSVPersdat+Kategorien")
                                         ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSVPERSDATA_CATEGORY}
-                                    #elseif($format.name == "CSV-ISO-8859-15")
-                                        ${placeholderWithTranslation.EXPORT_DATA_TYPE_CSV_ISO_8859_15}
                                     #end
                                 </option>
                             #end
@@ -136,8 +134,6 @@
                                     ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA}:
                                 #elseif($format.name == "CSVPersdat+Kategorien")
                                     ${placeholderWithTranslation.EXPORT_TITLE_CSVPERSDATA_CATEGORY}:
-                                #elseif($format.name == "CSV-ISO-8859-15")
-                                    ${placeholderWithTranslation.EXPORT_TITLE_CSV_ISO_8859_15}:
                                 #end
 
                                 #if($remarks.size() == 1)
@@ -163,10 +159,6 @@
                         #elseif($format.name == "CSVPersdat+Kategorien")
                             <p>
                                 ${placeholderWithTranslation.HINT_EXPORT_CSVPERSDATA_CATEGORY}
-                            </p>
-                        #elseif($format.name == "CSV-ISO-8859-15")
-                            <p>
-                                ${placeholderWithTranslation.HINT_EXPORT_CSV_ISO_8859_15}
                             </p>
                         #end
                         </fieldset>
