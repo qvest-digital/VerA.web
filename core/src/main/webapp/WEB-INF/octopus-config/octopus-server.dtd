@@ -36,16 +36,13 @@ with this program; if not, see: http://www.gnu.org/licenses/
 
 <!ELEMENT value (#PCDATA) >
 
-
 <!-- Docroot -->
 <!ELEMENT config (application, loginManager) >
-
 
 <!-- Section: application
   Für allgemeine Parameter
 -->
 <!ELEMENT application (param)+ >
-
 
 <!-- Section: loginManager
   Für die Konfiguration des Loginmanagers
