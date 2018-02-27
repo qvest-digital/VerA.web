@@ -500,7 +500,7 @@ public class DataExchangeWorker {
      *                  in den {@link ExchangeFormat#getProperties() Properties} unter dem Schlüssel
      *                  <code>"choices"</code> liegt. Sie werden diesen Properties unter dem jeweiligen
      *                  Schlüssel <code>choiceKey</code> hinzugefügt.
-     *  XXX choices-Support wurde entfernt
+     *                  XXX choices-Support wurde entfernt
      * @return zugehöriges {@link ExchangeFormat} oder <code>null</code>
      */
     static ExchangeFormat getExchangeFormat(Map config, String formatKey, Map params) {
