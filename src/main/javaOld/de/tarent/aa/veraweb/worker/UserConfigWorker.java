@@ -79,11 +79,23 @@ public class UserConfigWorker {
 			result.put(data.get("key"), data.get("value"));
 		}
 
-		/* check if REST API is available */
+		/* check if REST API is available and what version it reports to be */
 		VworUtils vworUtils = new VworUtils();
 		String vworAvailable;
 		try {
-			vworAvailable = LocaleMessage.formatTextToHtmlString(vworUtils.readResource(vworUtils.path(VworConstants.AVAILABLE)));
+			vworAvailable = vworUtils.readResource(vworUtils.path(VworConstants.AVAILABLE));
+			String vworVersion = null;
+			if ("OK".equals(vworAvailable)) {
+				try {
+					vworVersion = vworUtils.readResource(vworUtils.path(VworConstants.INFO));
+				} catch (Exception e) {
+					vworVersion = null;
+				}
+			}
+			if (vworVersion != null) {
+				vworAvailable = vworAvailable + " (" + vworVersion + ")";
+			}
+			vworAvailable = LocaleMessage.formatTextToHtmlString(vworAvailable);
 		} catch (Exception e) {
 			StringBuilder sb = new StringBuilder();
 			final String emsg = e.getMessage();
