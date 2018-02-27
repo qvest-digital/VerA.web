@@ -70,45 +70,45 @@ import java.util.List;
  */
 public class OptionalFieldValue extends OptionalField {
 
-	public OptionalFieldValue() {
-	}
+        public OptionalFieldValue() {
+        }
 
-	public OptionalFieldValue(OptionalField field, String value) {
-		this.setPk(field.getPk());
-		this.setFk_event(field.getFk_event());
-		this.setLabel(field.getLabel());
-		this.setValue(value);
-		this.setFk_type(field.getFk_type());
-	}
+        public OptionalFieldValue(OptionalField field, String value) {
+                this.setPk(field.getPk());
+                this.setFk_event(field.getFk_event());
+                this.setLabel(field.getLabel());
+                this.setValue(value);
+                this.setFk_type(field.getFk_type());
+        }
 
-	private Integer id;
+        private Integer id;
 
-	private String value;
+        private String value;
 
-	private List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade;
+        private List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade;
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+        public void setValue(String value) {
+                this.value = value;
+        }
 
-	public String getValue() {
-		return value;
-	}
+        public String getValue() {
+                return value;
+        }
 
-	public List<OptionalFieldTypeContentFacade> getOptionalFieldTypeContentsFacade() {
-		return optionalFieldTypeContentsFacade;
-	}
+        public List<OptionalFieldTypeContentFacade> getOptionalFieldTypeContentsFacade() {
+                return optionalFieldTypeContentsFacade;
+        }
 
-	public void setOptionalFieldTypeContentsFacade(
-			List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade) {
-		this.optionalFieldTypeContentsFacade = optionalFieldTypeContentsFacade;
-	}
+        public void setOptionalFieldTypeContentsFacade(
+                        List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade) {
+                this.optionalFieldTypeContentsFacade = optionalFieldTypeContentsFacade;
+        }
 
-	public Integer getId() {
-	    return id;
+        public Integer getId() {
+            return id;
     }
 
-	public void setId(Integer id) {
-	    this.id = id;
+        public void setId(Integer id) {
+            this.id = id;
     }
 }

@@ -165,13 +165,13 @@ public class EventResource {
     @Path("/list")
     public List<EventTransporter> getEvents() throws IOException {
         final String username = (String) request.getAttribute(LoginResource.USERNAME);
-    	final List<Event> listEvents = readResource(path("event"), EVENT_LIST);
-    	final List<EventTransporter> listTransporters = new ArrayList<EventTransporter>();
+        final List<Event> listEvents = readResource(path("event"), EVENT_LIST);
+        final List<EventTransporter> listTransporters = new ArrayList<EventTransporter>();
 
-    	for (final Iterator<Event> iterator = listEvents.iterator(); iterator.hasNext();) {
+        for (final Iterator<Event> iterator = listEvents.iterator(); iterator.hasNext();) {
             final EventTransporter eventTransporter = createEventTransporter(username, iterator);
-			listTransporters.add(eventTransporter);
-		}
+                        listTransporters.add(eventTransporter);
+                }
 
         return listTransporters;
     }
@@ -201,8 +201,8 @@ public class EventResource {
     @GET
     @Path("/{eventId}/register/{userId}")
     public Guest getRegistration(
-    		@PathParam("eventId") int eventId,
-    		@PathParam("userId") int userId) throws IOException {
+                @PathParam("eventId") int eventId,
+                @PathParam("userId") int userId) throws IOException {
         return readResource(path("guest", eventId, userId), GUEST);
     }
 
@@ -220,18 +220,18 @@ public class EventResource {
     @POST
     @Path("/{eventId}/register")
     public String register(
-    		@PathParam("eventId") String eventId,
-    		@FormParam("notehost") String notehost,
+                @PathParam("eventId") String eventId,
+                @FormParam("notehost") String notehost,
             @FormParam("guestStatus") String guestStatus) throws IOException {
         final String username = (String) request.getAttribute(USERNAME);
 
-    	// checking if the user is registered on the event
-    	if (!isUserRegistered(username, eventId)) {
+        // checking if the user is registered on the event
+        if (!isUserRegistered(username, eventId)) {
             registerUserAsGuestForEvent(eventId, notehost, guestStatus, username);
-    		return StatusConverter.convertStatus("OK");
-    	}
+                return StatusConverter.convertStatus("OK");
+        }
 
-    	return StatusConverter.convertStatus("REGISTERED");
+        return StatusConverter.convertStatus("REGISTERED");
     }
 
     /**

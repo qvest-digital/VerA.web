@@ -84,7 +84,7 @@ import java.util.List;
  */
 @Log
 public class OsiamClient {
-	private OsiamConnector connector;
+        private OsiamConnector connector;
 
     /**
      * Creates a new OSIAM client
@@ -93,11 +93,11 @@ public class OsiamClient {
      * @param client jersey HTTP client
      */
     public OsiamClient(OsiamConfig config, Client client) {
-    	this.connector = new OsiamConnector.Builder()
-    						.setEndpoint(config.getEndpoint())
-    						.setClientId(config.getClientId())
-    						.setClientSecret(config.getClientSecret())
-    						.build();
+        this.connector = new OsiamConnector.Builder()
+                                                .setEndpoint(config.getEndpoint())
+                                                .setClientId(config.getClientId())
+                                                .setClientSecret(config.getClientSecret())
+                                                .build();
     }
 
     /**
@@ -147,15 +147,15 @@ public class OsiamClient {
      * @throws IOException FIXME
      */
     public User getUser(String accessTokenAsString, String userName) throws IOException {
-    	Query query = new QueryBuilder().filter("userName eq \"" + userName + "\"").build();
-    	AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
-    	SCIMSearchResult<User> users = this.connector.searchUsers(query, accessToken);
+        Query query = new QueryBuilder().filter("userName eq \"" + userName + "\"").build();
+        AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
+        SCIMSearchResult<User> users = this.connector.searchUsers(query, accessToken);
 
 
-    	if(users.getResources().size() == 0) {
-    		return null;
-    	}
-    	return users.getResources().get(0);
+        if(users.getResources().size() == 0) {
+                return null;
+        }
+        return users.getResources().get(0);
     }
 
     /**
@@ -167,63 +167,63 @@ public class OsiamClient {
      * @throws IOException FIXME
      */
     public User createUser(String accessTokenAsString, User user) throws IOException {
-    	AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
-    	return this.connector.createUser(user, accessToken);
-	}
+        AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
+        return this.connector.createUser(user, accessToken);
+        }
 
     public BasicUser getUserBasic(String accessToken){
         return this.connector.getCurrentUserBasic(new AccessToken.Builder(accessToken).build());
     }
 
-	/**
-	 * Get all users.
-	 *
-	 * @param accessTokenAsString Access token
-	 *
-	 * @return List with users
-	 */
-	public List<User> getAllUsers(String accessTokenAsString) {
-		AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
-		return this.connector.getAllUsers(accessToken);
-	}
+        /**
+         * Get all users.
+         *
+         * @param accessTokenAsString Access token
+         *
+         * @return List with users
+         */
+        public List<User> getAllUsers(String accessTokenAsString) {
+                AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
+                return this.connector.getAllUsers(accessToken);
+        }
 
-	/**
-	 * Get user by email
-	 *
-	 * @param email Email of the user
-	 *
-	 * @throws IOException FIXME
-	 * @return {@link User}
-	 */
-	public User getUserByEmail(String email) throws IOException {
-		final String accessTokenAsString = getAccessTokenClientCred("GET", "POST");
-		final AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
-		final Query query = new QueryBuilder().filter("emails.value eq \"" + email +"\"").build();
-		final List<User> resources = connector.searchUsers(query, accessToken).getResources();
-		if (resources.size() == 1) {
-			return resources.get(0);
-		}
-		return null;
-	}
+        /**
+         * Get user by email
+         *
+         * @param email Email of the user
+         *
+         * @throws IOException FIXME
+         * @return {@link User}
+         */
+        public User getUserByEmail(String email) throws IOException {
+                final String accessTokenAsString = getAccessTokenClientCred("GET", "POST");
+                final AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
+                final Query query = new QueryBuilder().filter("emails.value eq \"" + email +"\"").build();
+                final List<User> resources = connector.searchUsers(query, accessToken).getResources();
+                if (resources.size() == 1) {
+                        return resources.get(0);
+                }
+                return null;
+        }
 
-	/**
-	 * Delete osiam user
-	 * @param accessToken FIXME
-	 * @param id FIXME
-	 */
-	public void deleteUser(String id, AccessToken accessToken) {
-		this.connector.deleteUser(id, accessToken);
-	}
+        /**
+         * Delete osiam user
+         * @param accessToken FIXME
+         * @param id FIXME
+         */
+        public void deleteUser(String id, AccessToken accessToken) {
+                this.connector.deleteUser(id, accessToken);
+        }
 
-	public void updateUser(String id, UpdateUser updateUser, AccessToken accessToken) {
-		this.connector.updateUser(id, updateUser, accessToken);
-	}
+        public void updateUser(String id, UpdateUser updateUser, AccessToken accessToken) {
+                this.connector.updateUser(id, updateUser, accessToken);
+        }
 
-	public OsiamConnector getConnector() {
-		return connector;
-	}
+        public OsiamConnector getConnector() {
+                return connector;
+        }
 
-	public void setConnector(OsiamConnector connector) {
-		this.connector = connector;
-	}
+        public void setConnector(OsiamConnector connector) {
+                this.connector = connector;
+        }
 }

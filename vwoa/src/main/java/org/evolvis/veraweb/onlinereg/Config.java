@@ -80,8 +80,8 @@ public class Config extends Configuration {
     @JsonProperty
     private String verawebEndpoint;
 
-	@JsonProperty
-	private String onlineRegistrationEndpoint;
+        @JsonProperty
+        private String onlineRegistrationEndpoint;
 
     @JsonProperty
     private OsiamConfig osiam;
@@ -95,36 +95,36 @@ public class Config extends Configuration {
     private JerseyClientConfiguration jerseyClientConfiguration = new JerseyClientConfiguration();
 
     public String getVerawebEndpoint() {
-    	return this.verawebEndpoint;
+        return this.verawebEndpoint;
     }
 
-	public String getOnlineRegistrationEndpoint() {
-		return this.onlineRegistrationEndpoint;
-	}
+        public String getOnlineRegistrationEndpoint() {
+                return this.onlineRegistrationEndpoint;
+        }
 
     public OsiamConfig getOsiam() {
-		return this.osiam;
-	}
+                return this.osiam;
+        }
 
-	public AuthConfig getRestauth() {
-		return this.restauth;
-	}
+        public AuthConfig getRestauth() {
+                return this.restauth;
+        }
 
-	public JerseyClientConfiguration getJerseyClientConfiguration() {
-		return this.jerseyClientConfiguration;
-	}
+        public JerseyClientConfiguration getJerseyClientConfiguration() {
+                return this.jerseyClientConfiguration;
+        }
 
-	public void setOnlineRegistrationEndpoint(String onlineRegistrationEndpoint) {
-		this.onlineRegistrationEndpoint = onlineRegistrationEndpoint;
-	}
+        public void setOnlineRegistrationEndpoint(String onlineRegistrationEndpoint) {
+                this.onlineRegistrationEndpoint = onlineRegistrationEndpoint;
+        }
 
-	// TODO remove?
-	public void setJerseyClientConfiguration(JerseyClientConfiguration jerseyClientConfiguration) {
-		this.jerseyClientConfiguration = jerseyClientConfiguration;
-	}
+        // TODO remove?
+        public void setJerseyClientConfiguration(JerseyClientConfiguration jerseyClientConfiguration) {
+                this.jerseyClientConfiguration = jerseyClientConfiguration;
+        }
 
-	// TODO remove?
-	public void setVerawebEndpoint(String verawebEndpoint) {
-		this.verawebEndpoint = verawebEndpoint;
-	}
+        // TODO remove?
+        public void setVerawebEndpoint(String verawebEndpoint) {
+                this.verawebEndpoint = verawebEndpoint;
+        }
 }

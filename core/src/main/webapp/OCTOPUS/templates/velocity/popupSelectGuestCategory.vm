@@ -71,13 +71,13 @@
                          form.appendChild(input);
                          form.submit();
                     }, function () { //nein
-                    	closePopup();
+                        closePopup();
                         showSuccess('${placeholderWithTranslation.eswurdekeinekategorieentfernt}');
                     },
                     '${placeholderWithTranslation.GENERIC_DELETE}',
                     '${placeholderWithTranslation.GENERIC_CANCEL}');
                 #else
-                	// count = ${count}
+                        // count = ${count}
                     showAllocateRemove('${helper.l10n("wollensiepersonenbzwgaesteausderausgewaehltenkategorieentfernen", $count)}?',
                     function () { // Ja
                         var form = window.opener.document.forms[ "formlist" ];
@@ -88,7 +88,7 @@
                          form.appendChild(input);
                          form.submit();
                     }, function () { //nein
-                    	closePopup();
+                        closePopup();
                         showSuccess('${placeholderWithTranslation.eswurdenkeinekategorienentfernt}');
                     },
                     '${placeholderWithTranslation.GENERIC_DELETE}',
@@ -176,7 +176,7 @@
     <body onload="adjustSize();" id="popUp">
         <form>
             <div class="contentBoxColored grayBorder">
-				#if( $assignmentAction == "assign" )
+                                #if( $assignmentAction == "assign" )
                     <h1>${placeholderWithTranslation.waehlensieeinekategorieauswelchesie} ${placeholderWithTranslation.zuordnen_klein} ${placeholderWithTranslation.moechten}:</h1>
 
                     #if( $allCategorie.size() > 0 )
@@ -192,21 +192,21 @@
                         ${placeholderWithTranslation.siehabenkeinekategorienkonfiguriertdiesekoennensieimadministrationsbereichunterdempunkt} <em>${placeholderWithTranslation.GENERIC_CATEGORY_PLURAL}</em> ${placeholderWithTranslation.definieren}
                     #end
 
-	                <div class="textRight marginTop5" id="buttonPanel-bottom">
-	                    #if($allCategorie.size() > 0 )
-	                        <input id="1" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.zuordnen}" onClick="showCategory();">
-	                    #end
-	                    <input id="0" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.abbrechen}" onClick="restore();closePopup();">
-	                </div>
-	            #elseif ( $assignmentAction == "unassign")
-	            	<h1> ${placeholderWithTranslation.GUEST_LIST_CONFIRM_ACTION}:</h1>
-           	        <script type="text/javascript">$(function(){
-           	            window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = "${assignmentAction}";
+                        <div class="textRight marginTop5" id="buttonPanel-bottom">
+                            #if($allCategorie.size() > 0 )
+                                <input id="1" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.zuordnen}" onClick="showCategory();">
+                            #end
+                            <input id="0" type="button" name="checkboxForSelection" value="${placeholderWithTranslation.abbrechen}" onClick="restore();closePopup();">
+                        </div>
+                    #elseif ( $assignmentAction == "unassign")
+                        <h1> ${placeholderWithTranslation.GUEST_LIST_CONFIRM_ACTION}:</h1>
+                        <script type="text/javascript">$(function(){
+                            window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = "${assignmentAction}";
 
-           	        	showRemoveCategory();
-           	        });</script>
+                                showRemoveCategory();
+                        });</script>
 
-				#end
+                                #end
             </div>
         </form>
 

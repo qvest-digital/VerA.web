@@ -73,37 +73,37 @@ import de.tarent.extract.ExtractIo;
 
 public class CsvIo implements ExtractIo {
 
-	private final Reader reader;
-	private final Writer writer;
+        private final Reader reader;
+        private final Writer writer;
     private final Properties properties;
 
-	public CsvIo(Reader reader, Writer writer, Properties properties){
-		this.reader = reader;
-		this.writer = writer;
+        public CsvIo(Reader reader, Writer writer, Properties properties){
+                this.reader = reader;
+                this.writer = writer;
         this.properties = properties;
-	}
+        }
 
-	public File getOutputFile() {
-		return null;
-	}
+        public File getOutputFile() {
+                return null;
+        }
 
-	public File getInputFile() {
-		return null;
-	}
+        public File getInputFile() {
+                return null;
+        }
 
-	public Reader reader() throws IOException {
-		return reader;
-	}
+        public Reader reader() throws IOException {
+                return reader;
+        }
 
-	public Writer writer() throws IOException {
-		return writer;
-	}
+        public Writer writer() throws IOException {
+                return writer;
+        }
 
-	public BackgroundJobMonitor getMonitor() {
-		return new DummyMonitor(null);
-	}
+        public BackgroundJobMonitor getMonitor() {
+                return new DummyMonitor(null);
+        }
 
-	public Properties getProperties() {
-		return properties;
-	}
+        public Properties getProperties() {
+                return properties;
+        }
 }

@@ -93,14 +93,14 @@ public class FreeVisitorsResource {
     private final ObjectMapper mapper = new ObjectMapper();
 
     private final Config config;
-	private final Client client;
+        private final Client client;
     private final ResourceReader resourceReader;
 
     public FreeVisitorsResource(Config config, Client client) {
-		this.config = config;
-		this.client = client;
-		this.resourceReader = new ResourceReader(client, mapper, config);
-	}
+                this.config = config;
+                this.client = client;
+                this.resourceReader = new ResourceReader(client, mapper, config);
+        }
 
     /**
      * Get

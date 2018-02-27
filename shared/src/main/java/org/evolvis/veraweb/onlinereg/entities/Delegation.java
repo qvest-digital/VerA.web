@@ -82,63 +82,63 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "toptional_fields_delegation_content")
 @NamedQueries({
     @NamedQuery(name = Delegation.QUERY_FIND_BY_GUEST,
-		query = "select d from Delegation d where fk_guest=:" + Delegation.PARAM_GUEST_ID + " and fk_delegation_field=:" + Delegation.PARAM_FIELD_ID),
-	@NamedQuery(name = Delegation.DELETE_OPTIONAL_FIELDS,
-		query = "delete from Delegation d where fk_guest=:" + Delegation.PARAM_GUEST_ID + " and fk_delegation_field=:" + Delegation.PARAM_FIELD_ID)
+                query = "select d from Delegation d where fk_guest=:" + Delegation.PARAM_GUEST_ID + " and fk_delegation_field=:" + Delegation.PARAM_FIELD_ID),
+        @NamedQuery(name = Delegation.DELETE_OPTIONAL_FIELDS,
+                query = "delete from Delegation d where fk_guest=:" + Delegation.PARAM_GUEST_ID + " and fk_delegation_field=:" + Delegation.PARAM_FIELD_ID)
 
 })
 public class Delegation {
 
-	public static final String QUERY_FIND_BY_GUEST = "Delegation.findByGuestId";
-	public static final String DELETE_OPTIONAL_FIELDS = "Delegation.deleteOptionalFieldsByGuestId";
-	public static final String PARAM_GUEST_ID = "guestId";
-	public static final String PARAM_FIELD_ID = "fieldId";
+        public static final String QUERY_FIND_BY_GUEST = "Delegation.findByGuestId";
+        public static final String DELETE_OPTIONAL_FIELDS = "Delegation.deleteOptionalFieldsByGuestId";
+        public static final String PARAM_GUEST_ID = "guestId";
+        public static final String PARAM_FIELD_ID = "fieldId";
 
-	@Id
+        @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int pk;
-	private Integer fk_guest;
-	private Integer fk_delegation_field;
-	private String value;
+        private int pk;
+        private Integer fk_guest;
+        private Integer fk_delegation_field;
+        private String value;
 
-	public Delegation() {}
+        public Delegation() {}
 
-	public Delegation(Integer fk_guest, Integer fk_delegation_field, String value) {
-	    super();
-	    this.fk_guest = fk_guest;
-	    this.fk_delegation_field = fk_delegation_field;
-	    this.value = value;
+        public Delegation(Integer fk_guest, Integer fk_delegation_field, String value) {
+            super();
+            this.fk_guest = fk_guest;
+            this.fk_delegation_field = fk_delegation_field;
+            this.value = value;
     }
 
-	public int getPk() {
-		return pk;
-	}
+        public int getPk() {
+                return pk;
+        }
 
-	public void setPk(int pk) {
-		this.pk = pk;
-	}
+        public void setPk(int pk) {
+                this.pk = pk;
+        }
 
-	public Integer getFk_guest() {
-		return fk_guest;
-	}
+        public Integer getFk_guest() {
+                return fk_guest;
+        }
 
-	public void setFk_guest(Integer fk_guest) {
-		this.fk_guest = fk_guest;
-	}
+        public void setFk_guest(Integer fk_guest) {
+                this.fk_guest = fk_guest;
+        }
 
-	public Integer getFk_delegation_field() {
-		return fk_delegation_field;
-	}
+        public Integer getFk_delegation_field() {
+                return fk_delegation_field;
+        }
 
-	public void setFk_delegation_field(Integer fk_delegation_field) {
-		this.fk_delegation_field = fk_delegation_field;
-	}
+        public void setFk_delegation_field(Integer fk_delegation_field) {
+                this.fk_delegation_field = fk_delegation_field;
+        }
 
-	public String getValue() {
-		return value;
-	}
+        public String getValue() {
+                return value;
+        }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+        public void setValue(String value) {
+                this.value = value;
+        }
 }

@@ -91,14 +91,14 @@ public class OsiamConfig {
     }
 
     public String getEndpoint() {
-    	return this.endpoint;
+        return this.endpoint;
     }
 
-	public String getClientId() {
-		return this.clientId;
-	}
+        public String getClientId() {
+                return this.clientId;
+        }
 
-	public String getClientSecret() {
-		return this.clientSecret;
-	}
+        public String getClientSecret() {
+                return this.clientSecret;
+        }
 }

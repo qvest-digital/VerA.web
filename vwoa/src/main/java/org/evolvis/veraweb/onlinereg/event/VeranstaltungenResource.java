@@ -82,7 +82,7 @@ import java.util.List;
 @Log
 public class VeranstaltungenResource {
 
-	 /**
+         /**
      * base path of all resource
      */
     public static final String BASE_RESOURCE = "/rest";

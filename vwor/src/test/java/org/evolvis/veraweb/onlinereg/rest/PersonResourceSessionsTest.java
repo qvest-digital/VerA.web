@@ -180,12 +180,12 @@ public class PersonResourceSessionsTest {
     @Test
     public void testCreateDelegateSessionClosedWithoutResults() {
         // GIVEN
-    	List resultList = mock(List.class);
+        List resultList = mock(List.class);
         Query query = mock(Query.class);
         mockEvent(mockitoSession);
         mockPerson(mockitoSession);
 
-    	when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
         when(query.list()).thenReturn(resultList);

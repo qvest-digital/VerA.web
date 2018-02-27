@@ -96,7 +96,7 @@ import java.io.IOException;
 @Log
 public class ResetPasswordResource {
 
-	/** Returned types from REST */
+        /** Returned types from REST */
     private static final TypeReference<Integer> INTEGER = new TypeReference<Integer>() {};
     private static final TypeReference<Person> PERSON = new TypeReference<Person>() {};
 

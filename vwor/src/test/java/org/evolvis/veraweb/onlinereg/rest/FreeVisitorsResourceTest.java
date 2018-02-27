@@ -84,58 +84,58 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class FreeVisitorsResourceTest {
 
-	 @Mock
-	 private static SessionFactory mockitoSessionFactory;
-	 @Mock
-	 private static Session mockitoSession;
+         @Mock
+         private static SessionFactory mockitoSessionFactory;
+         @Mock
+         private static Session mockitoSession;
 
-	 FreeVisitorsResource freeVisitorsResource;
+         FreeVisitorsResource freeVisitorsResource;
 
-	 public FreeVisitorsResourceTest() {
-		 freeVisitorsResource = new FreeVisitorsResource();
-		 freeVisitorsResource.context = mock(ServletContext.class);
-	 }
+         public FreeVisitorsResourceTest() {
+                 freeVisitorsResource = new FreeVisitorsResource();
+                 freeVisitorsResource.context = mock(ServletContext.class);
+         }
 
-	 @Test
-	 public void checkGuestExistsByNoLoginRequiredUUID() {
-		 // GIVEN
-		 String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
-		 prepareSession();
-		 Integer integerMocked = new Integer(13);
-		 Query query = mock(Query.class);
-	     when(mockitoSession.getNamedQuery("Guest.getGuestByNoLoginRequiredUUID")).thenReturn(query);
-	     when(query.uniqueResult()).thenReturn(integerMocked);
+         @Test
+         public void checkGuestExistsByNoLoginRequiredUUID() {
+                 // GIVEN
+                 String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
+                 prepareSession();
+                 Integer integerMocked = new Integer(13);
+                 Query query = mock(Query.class);
+             when(mockitoSession.getNamedQuery("Guest.getGuestByNoLoginRequiredUUID")).thenReturn(query);
+             when(query.uniqueResult()).thenReturn(integerMocked);
 
-	     // WHEN
-		 Integer integer = freeVisitorsResource.checkGuestExistsByNoLoginRequiredUUID(uuid);
+             // WHEN
+                 Integer integer = freeVisitorsResource.checkGuestExistsByNoLoginRequiredUUID(uuid);
 
-		 // THEN
-		 assertEquals(integer,integerMocked);
-		 verify(mockitoSessionFactory, times(1)).openSession();
-		 verify(mockitoSession, times(1)).close();
-	 }
+                 // THEN
+                 assertEquals(integer,integerMocked);
+                 verify(mockitoSessionFactory, times(1)).openSession();
+                 verify(mockitoSession, times(1)).close();
+         }
 
-	 @Test
-	 public void checkGuestExistsByNoLoginRequiredUUIDWithoutResults() {
-		 // GIVEN
-		 String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
-		 prepareSession();
-		 Integer integerMocked = new Integer(-1);
-		 Query query = mock(Query.class);
-	     when(mockitoSession.getNamedQuery("Guest.getGuestByNoLoginRequiredUUID")).thenReturn(query);
-	     when(query.uniqueResult()).thenReturn(null);
+         @Test
+         public void checkGuestExistsByNoLoginRequiredUUIDWithoutResults() {
+                 // GIVEN
+                 String uuid = "534707a6-f432-4f6b-9e6a-c1032f221a50";
+                 prepareSession();
+                 Integer integerMocked = new Integer(-1);
+                 Query query = mock(Query.class);
+             when(mockitoSession.getNamedQuery("Guest.getGuestByNoLoginRequiredUUID")).thenReturn(query);
+             when(query.uniqueResult()).thenReturn(null);
 
-	     // WHEN
-		 Integer integer = freeVisitorsResource.checkGuestExistsByNoLoginRequiredUUID(uuid);
+             // WHEN
+                 Integer integer = freeVisitorsResource.checkGuestExistsByNoLoginRequiredUUID(uuid);
 
-		 // THEN
-		 assertEquals(integer, integerMocked);
-		 verify(mockitoSessionFactory, times(1)).openSession();
-		 verify(mockitoSession, times(1)).close();
-	 }
+                 // THEN
+                 assertEquals(integer, integerMocked);
+                 verify(mockitoSessionFactory, times(1)).openSession();
+                 verify(mockitoSession, times(1)).close();
+         }
 
-	 private void prepareSession() {
-		 when(freeVisitorsResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
-		 when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
-	 }
+         private void prepareSession() {
+                 when(freeVisitorsResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
+                 when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+         }
 }

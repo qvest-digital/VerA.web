@@ -21,701 +21,701 @@
 <div id="content_container">
     <script src="${paths.staticWeb}js/vera/veraweb-back-to-top.js"></script>
     <script src="${paths.staticWeb}js/ext/Scroll-to-Top/jquery.gotop.js"></script>
-	<div id="breadcrumb" class="textRight marginBottom10">
-		<strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
-	</div>
-	<h1>${placeholderWithTranslation.gasteverwaltungderveranstaltung}: $!message.plain($event.shortname)</h1>
+        <div id="breadcrumb" class="textRight marginBottom10">
+                <strong>${placeholderWithTranslation.GENERIC_YOU_ARE_HERE}:</strong> <span><a href="${paths.staticWeb}do/" title="Zur Startseite">${placeholderWithTranslation.GENERIC_HOME}</a> > ${placeholderWithTranslation.GENERIC_EVENT_PLURAL} > ${placeholderWithTranslation.GENERIC_EDIT_EVENT}</span>
+        </div>
+        <h1>${placeholderWithTranslation.gasteverwaltungderveranstaltung}: $!message.plain($event.shortname)</h1>
 
-	#if(!$isNewEvent)
-		#set($completeEventHeader = true)
-		#parse("inc/event-header.vm")
-	#end
+        #if(!$isNewEvent)
+                #set($completeEventHeader = true)
+                #parse("inc/event-header.vm")
+        #end
 
-	#set($isUser = false)
-	#set($isAdmin = false)
-	#foreach($group in $octopusConfig.personalConfig.UserGroups)
-		#if($group == "Writer")
-			#set($isUser = true)
-		#elseif($group == "PartialAdmin")
-			#set($isAdmin = true)
-		#elseif($group == "Administrator")
-			#set($isAdmin = true)
-		#end
-	#end
+        #set($isUser = false)
+        #set($isAdmin = false)
+        #foreach($group in $octopusConfig.personalConfig.UserGroups)
+                #if($group == "Writer")
+                        #set($isUser = true)
+                #elseif($group == "PartialAdmin")
+                        #set($isAdmin = true)
+                #elseif($group == "Administrator")
+                        #set($isAdmin = true)
+                #end
+        #end
 
-	##IMPLEMENTNEWMESSAGEMETHOD
-	#if($invited)
-		<vera-success>
-			#if($invited == 0)
+        ##IMPLEMENTNEWMESSAGEMETHOD
+        #if($invited)
+                <vera-success>
+                        #if($invited == 0)
                 ${placeholderWithTranslation.GUEST_LIST_DIDNT_CHANGE}.
-			#elseif($invited == 1)
+                        #elseif($invited == 1)
                 ${placeholderWithTranslation.GUEST_LIST_EXPAND_ONE}.
-			#else
+                        #else
                 ${placeholderWithTranslation.GUEST_LIST_EXPAND_MULTIPLE_PART_ONE} $invited ${placeholderWithTranslation.GUEST_LIST_EXPAND_MULTIPLE_PART_TWO}.
-			#end
-		</vera-success>
-	#end
-	#if($mailinglistParams && $mailinglistParams.count)
-		<vera-success>
-			#if($mailinglistParams.count == 0)
+                        #end
+                </vera-success>
+        #end
+        #if($mailinglistParams && $mailinglistParams.count)
+                <vera-success>
+                        #if($mailinglistParams.count == 0)
              ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR} &quot;$!message.plain($mailinglist.name)&quot; ${placeholderWithTranslation.GUEST_LIST_CREATED_NO_PERSON}.
-			#elseif($mailinglistParams.count == 1)
+                        #elseif($mailinglistParams.count == 1)
                 ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR} &quot;$!message.plain($mailinglist.name)&quot; ${placeholderWithTranslation.GUEST_LIST_CREATED_ONE_PERSON}.
-			#else
+                        #else
                 ${placeholderWithTranslation.GENERIC_DISTRIBUTOR_SINGULAR} &quot;$!message.plain($mailinglist.name)&quot; ${placeholderWithTranslation.GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_ONE} $!mailinglistParams.count ${placeholderWithTranslation.GUEST_LIST_CREATED_MULTIPLE_PERSON_PART_TWO}.
-			#end
-		</vera-success>
-	#end
+                        #end
+                </vera-success>
+        #end
 
-	#if($octopusRequest.task == "CalcSerialNumber" && (!$listquestions || $listquestions.size() == 0))
-		<vera-success>
+        #if($octopusRequest.task == "CalcSerialNumber" && (!$listquestions || $listquestions.size() == 0))
+                <vera-success>
             ${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATED_SAVED}.
-		</vera-success>
-	#end
-	<div id="main_content" class="tabs contentBox marginBottom10 marginTop20 grayBorder" style="border-bottom:0">
+                </vera-success>
+        #end
+        <div id="main_content" class="tabs contentBox marginBottom10 marginTop20 grayBorder" style="border-bottom:0">
 
-		<div id="tabsMain">
-			<ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
-				<li id="gaesteliste" vera-tab class="active posRel" style="z-index:2">
+                <div id="tabsMain">
+                        <ul vera-tab-group="" class="gray-gradient"> <!-- Bitte das End-tag der <li>s immer mit in die nächste Zeile nehmen (verhindert Mozilla styling bug) -->
+                                <li id="gaesteliste" vera-tab class="active posRel" style="z-index:2">
                     <div>${placeholderWithTranslation.GENERIC_LIST_OF_GUESTS}</div>
-				</li>
-				#if($list.size() > 0)
+                                </li>
+                                #if($list.size() > 0)
                 <li id="gastdetails" class="inactive">
                     <div>${placeholderWithTranslation.gastedetails}</div>
-				</li>
+                                </li>
                 <li id="export" class="inactive">
                     <div>${placeholderWithTranslation.GENERIC_EXPORT}</div>
-				</li>
-				#end
-			</ul>
-		</div>
+                                </li>
+                                #end
+                        </ul>
+                </div>
 
-		<div style="border-bottom:1px solid #BDBDBD;" class="contentBoxColored tabsContent notBold posRel marginBottom40" vera-content="">
+                <div style="border-bottom:1px solid #BDBDBD;" class="contentBoxColored tabsContent notBold posRel marginBottom40" vera-content="">
 
-			<div id="guestSummary" class="table posAb hinweis grayBorder" style="padding-bottom: 5px;">
-				<div class="tableRow">
-					<div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_STATUS_OPEN}:</strong> $!guestlist-sums.offen</div>
-					<div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}:</strong> $!guestlist-sums.zusagen</div>
-					<div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_STATUS_DECLINE}:</strong> $!guestlist-sums.absagen</div>
-					<div class="tableCell"><strong>${placeholderWithTranslation.teilnahmen}:</strong> $!guestlist-sums.teilnahmen</div>
-					<div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_ON}&nbsp;${placeholderWithTranslation.GENERIC_PLACE}:</strong> $!guestlist-sums.platz</div>
-					<div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_ON}&nbsp;${placeholderWithTranslation.reserve}:</strong> $!guestlist-sums.reserve</div>
-				</div>
-			</div>
+                        <div id="guestSummary" class="table posAb hinweis grayBorder" style="padding-bottom: 5px;">
+                                <div class="tableRow">
+                                        <div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_STATUS_OPEN}:</strong> $!guestlist-sums.offen</div>
+                                        <div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}:</strong> $!guestlist-sums.zusagen</div>
+                                        <div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_STATUS_DECLINE}:</strong> $!guestlist-sums.absagen</div>
+                                        <div class="tableCell"><strong>${placeholderWithTranslation.teilnahmen}:</strong> $!guestlist-sums.teilnahmen</div>
+                                        <div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_ON}&nbsp;${placeholderWithTranslation.GENERIC_PLACE}:</strong> $!guestlist-sums.platz</div>
+                                        <div class="tableCell"><strong>${placeholderWithTranslation.GENERIC_ON}&nbsp;${placeholderWithTranslation.reserve}:</strong> $!guestlist-sums.reserve</div>
+                                </div>
+                        </div>
 
-			<form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST" class="marginTop25">
-				<input type="hidden" name="start" value="0">
-				<input type="hidden" name="limit" value="" />
-				<input type="hidden" name="selectAll" value="false">
-				<input type="hidden" name="selectNone" value="true">
-				<input type="hidden" name="sortList" value="true" />
-				<input type="hidden" name="search-event" value="$search.event">
-				<input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder"/>
+                        <form id="guestListFilter" name="guestListFilter" action="ShowGuestList" method="POST" class="marginTop25">
+                                <input type="hidden" name="start" value="0">
+                                <input type="hidden" name="limit" value="" />
+                                <input type="hidden" name="selectAll" value="false">
+                                <input type="hidden" name="selectNone" value="true">
+                                <input type="hidden" name="sortList" value="true" />
+                                <input type="hidden" name="search-event" value="$search.event">
+                                <input type="hidden" id="search-listorder" name="search-listorder" value="$!search.listorder"/>
 
-				<h3 class="marginBottom0">${placeholderWithTranslation.filter}</h3>
+                                <h3 class="marginBottom0">${placeholderWithTranslation.filter}</h3>
 
-				<div class="table">
-					<div class="tableRow">
-						<div class="tableCell width25">
-							<label for="search-reserve">${placeholderWithTranslation.platzwahl}</label>
-							<select name="search-reserve" id="search-reserve" onchange="submit();">
-										<option value="">${placeholderWithTranslation.GUEST_LIST_ALL_GUEST}</option>
-										<option #if($search.reserve && $search.reserve == 1) selected#end value="1">${placeholderWithTranslation.GUEST_LIST_ALL_GUEST_ON_PLACE}</option>
-										<option #if($search.reserve && $search.reserve == 2) selected#end value="2">${placeholderWithTranslation.GUEST_LIST_ALL_GUEST_ON_RESERVE}</option>
-							</select>
-						</div>
-						<div class="tableCell width25">
-							<label for="search-invitationstatus">${placeholderWithTranslation.GENERIC_STATUS}</label>
-							<select name="search-invitationstatus" id="search-invitationstatus" onchange="submit();">
-								<option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
-								<option #if($search.invitationstatus && $search.invitationstatus == 1) selected#end value="1">${placeholderWithTranslation.GUEST_LIST_ONLY_OPEN}</option>
-								<option #if($search.invitationstatus && $search.invitationstatus == 2) selected#end value="2">${placeholderWithTranslation.GUEST_LIST_ONLY_ACCEPT}</option>
-								<option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="3">${placeholderWithTranslation.GUEST_LIST_ONLY_DECLINED}</option>
-								<option #if($search.invitationstatus && $search.invitationstatus == 4) selected#end value="4">${placeholderWithTranslation.GUEST_LIST_ONLY_PARTICIPATE}</option>
-							</select>
-						</div>
-						<div class="tableCell width25">
-							<label for="search-category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
-							<select name="search-category" id="search-category" onchange="submit();">
-								<option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
-								#foreach($category in $categories)
-									<option #if($search.category && $search.category == $category) selected#end value="$category">$category</option>
-								#end
-							</select>
-						</div>
-						<div class="tableCell width25">
-							<label for="search-keywords">${placeholderWithTranslation.GENERIC_KEYWORDS}</label>
-							<input type="text" id="search-keywords" name="search-keywords" #if($search.keywords) value="${search.keywords}" #end />
-						</div>
-					</div>
-				</div>
+                                <div class="table">
+                                        <div class="tableRow">
+                                                <div class="tableCell width25">
+                                                        <label for="search-reserve">${placeholderWithTranslation.platzwahl}</label>
+                                                        <select name="search-reserve" id="search-reserve" onchange="submit();">
+                                                                                <option value="">${placeholderWithTranslation.GUEST_LIST_ALL_GUEST}</option>
+                                                                                <option #if($search.reserve && $search.reserve == 1) selected#end value="1">${placeholderWithTranslation.GUEST_LIST_ALL_GUEST_ON_PLACE}</option>
+                                                                                <option #if($search.reserve && $search.reserve == 2) selected#end value="2">${placeholderWithTranslation.GUEST_LIST_ALL_GUEST_ON_RESERVE}</option>
+                                                        </select>
+                                                </div>
+                                                <div class="tableCell width25">
+                                                        <label for="search-invitationstatus">${placeholderWithTranslation.GENERIC_STATUS}</label>
+                                                        <select name="search-invitationstatus" id="search-invitationstatus" onchange="submit();">
+                                                                <option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
+                                                                <option #if($search.invitationstatus && $search.invitationstatus == 1) selected#end value="1">${placeholderWithTranslation.GUEST_LIST_ONLY_OPEN}</option>
+                                                                <option #if($search.invitationstatus && $search.invitationstatus == 2) selected#end value="2">${placeholderWithTranslation.GUEST_LIST_ONLY_ACCEPT}</option>
+                                                                <option #if($search.invitationstatus && $search.invitationstatus == 3) selected#end value="3">${placeholderWithTranslation.GUEST_LIST_ONLY_DECLINED}</option>
+                                                                <option #if($search.invitationstatus && $search.invitationstatus == 4) selected#end value="4">${placeholderWithTranslation.GUEST_LIST_ONLY_PARTICIPATE}</option>
+                                                        </select>
+                                                </div>
+                                                <div class="tableCell width25">
+                                                        <label for="search-category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
+                                                        <select name="search-category" id="search-category" onchange="submit();">
+                                                                <option value="">${placeholderWithTranslation.GENERIC_ALL}</option>
+                                                                #foreach($category in $categories)
+                                                                        <option #if($search.category && $search.category == $category) selected#end value="$category">$category</option>
+                                                                #end
+                                                        </select>
+                                                </div>
+                                                <div class="tableCell width25">
+                                                        <label for="search-keywords">${placeholderWithTranslation.GENERIC_KEYWORDS}</label>
+                                                        <input type="text" id="search-keywords" name="search-keywords" #if($search.keywords) value="${search.keywords}" #end />
+                                                </div>
+                                        </div>
+                                </div>
 
-			</form>
+                        </form>
 
-			#if($listerrors && $listerrors.size() > 0)
-				<vera-warn>
-					#foreach($error in $listerrors)
-						$error<br>
-					#end
-				</vera-warn>
-			#elseif($listquestions && $listquestions.size() > 0)
-				<form action="" method="POST">
-				<div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
-					<strong>${placeholderWithTranslation.GUEST_LIST_CONFIRM_ACTION}</strong><br>
-					<table class="form" style="margin: 5px 0px 0px 0px;">
-					#foreach($quest in $listquestions.entrySet())
-						<tr>
-							<td><input type="hidden" name="$quest.key" value="true">$quest.value</td>
-						</tr>
-						#set($save = true)
-					#end
-					</table><br>
+                        #if($listerrors && $listerrors.size() > 0)
+                                <vera-warn>
+                                        #foreach($error in $listerrors)
+                                                $error<br>
+                                        #end
+                                </vera-warn>
+                        #elseif($listquestions && $listquestions.size() > 0)
+                                <form action="" method="POST">
+                                <div style="margin: 10px 0px 10px 0px; padding: 10px 10px 10px 10px; background-color: #ffffff; border: 2px solid #00ff00;">
+                                        <strong>${placeholderWithTranslation.GUEST_LIST_CONFIRM_ACTION}</strong><br>
+                                        <table class="form" style="margin: 5px 0px 0px 0px;">
+                                        #foreach($quest in $listquestions.entrySet())
+                                                <tr>
+                                                        <td><input type="hidden" name="$quest.key" value="true">$quest.value</td>
+                                                </tr>
+                                                #set($save = true)
+                                        #end
+                                        </table><br>
 
-					#if($save)
-						<input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" title="${placeholderWithTranslation.speichern}" />
-					#end
+                                        #if($save)
+                                                <input type="submit" name="remove" value="${placeholderWithTranslation.GENERIC_YES}" title="${placeholderWithTranslation.speichern}" />
+                                        #end
 
-					<input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" title="${placeholderWithTranslation.abbrechen}" onclick="window.location.href='ShowGuestList?selectNone=true';"> &nbsp;
-				</div>
-				</form>
-			#end
+                                        <input type="button" name="cancel" value="${placeholderWithTranslation.GENERIC_NO}" title="${placeholderWithTranslation.abbrechen}" onclick="window.location.href='ShowGuestList?selectNone=true';"> &nbsp;
+                                </div>
+                                </form>
+                        #end
 
-			<form id="formlist" name="formlist" action="ShowGuestList" method="POST">
-			<input type="hidden" name="start" value="">
-			<input type="hidden" name="limit" value="" />
-			<input type="hidden" name="filter" value="" />
+                        <form id="formlist" name="formlist" action="ShowGuestList" method="POST">
+                        <input type="hidden" name="start" value="">
+                        <input type="hidden" name="limit" value="" />
+                        <input type="hidden" name="filter" value="" />
 
-			<input type="hidden" name="selectNone" id="selectNone" value="true">
-			<input type="hidden" name="doInsert" value="false">
-			<input type="hidden" name="doUpdate" value="true">
-			<input type="hidden" name="doRemove" value="true">
-			<input type="hidden" name="categoryAssignmentAction" value="">
-			<input type="hidden" name="categoryAssignmentId" value="">
-			<input type="hidden" name="workareaAssignmentAction" value="">
-			<input type="hidden" name="workareaAssignmentId" value="">
+                        <input type="hidden" name="selectNone" id="selectNone" value="true">
+                        <input type="hidden" name="doInsert" value="false">
+                        <input type="hidden" name="doUpdate" value="true">
+                        <input type="hidden" name="doRemove" value="true">
+                        <input type="hidden" name="categoryAssignmentAction" value="">
+                        <input type="hidden" name="categoryAssignmentId" value="">
+                        <input type="hidden" name="workareaAssignmentAction" value="">
+                        <input type="hidden" name="workareaAssignmentId" value="">
 
-			#foreach($bean in $list)
-				<input type="hidden" name="list" value="$bean.id">
-			#end
+                        #foreach($bean in $list)
+                                <input type="hidden" name="list" value="$bean.id">
+                        #end
 
-			<div class="flexContainer marginTop30">
-				<div style="" class="flexItem inlineInput">
-					<label><input type="checkbox" title="${placeholderWithTranslation.alledemarkieren}" id="select-all" name="select-all" style="vertical-align: baseline;" onclick="toggleSelectAll()"> ${placeholderWithTranslation.GENERIC_SELECT_ALL} <span id="guestsOnPages">
-						#if($listparam.count == 1)
-							($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_SINGULAR}
-						#elseif($listparam.count > 1)
-							($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_PLURAL}
-						#else
-							(${placeholderWithTranslation.GENERIC_GUEST_NONE})
-						#end
-						#set($currentNumberOfPages = $listparam.count / $listparam.limit)
-						#if( $currentNumberOfPages > 1 )
-							${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})
-						#elseif( $currentNumberOfPages == 1 )
-							${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGE})
-						#elseif(  $currentNumberOfPages == 0 && $listparam.count > 0 )
-							${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGE})
-						#end
-						</span>
-					</label>
-				</div>
+                        <div class="flexContainer marginTop30">
+                                <div style="" class="flexItem inlineInput">
+                                        <label><input type="checkbox" title="${placeholderWithTranslation.alledemarkieren}" id="select-all" name="select-all" style="vertical-align: baseline;" onclick="toggleSelectAll()"> ${placeholderWithTranslation.GENERIC_SELECT_ALL} <span id="guestsOnPages">
+                                                #if($listparam.count == 1)
+                                                        ($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_SINGULAR}
+                                                #elseif($listparam.count > 1)
+                                                        ($listparam.count ${placeholderWithTranslation.GENERIC_GUEST_PLURAL}
+                                                #else
+                                                        (${placeholderWithTranslation.GENERIC_GUEST_NONE})
+                                                #end
+                                                #set($currentNumberOfPages = $listparam.count / $listparam.limit)
+                                                #if( $currentNumberOfPages > 1 )
+                                                        ${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGES})
+                                                #elseif( $currentNumberOfPages == 1 )
+                                                        ${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGE})
+                                                #elseif(  $currentNumberOfPages == 0 && $listparam.count > 0 )
+                                                        ${placeholderWithTranslation.GENERIC_ON_LOWERCASE} $listparam.pages ${placeholderWithTranslation.GENERIC_PAGE})
+                                                #end
+                                                </span>
+                                        </label>
+                                </div>
 
-				<div class="flexItem inlineInput" style="">
-					<label for="actionSelection">${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}</label>
-						<select id="actionSelection" class="autoWidth">
-							<option value="0">${placeholderWithTranslation.GENERIC_DELETE}</option>
-							<option value="1">${placeholderWithTranslation.GUEST_LIST_CATEGORY_ASSIGN}</option>
-							<option value="2">${placeholderWithTranslation.GUEST_LIST_CATEGORY_REMOVE}</option>
-							<option value="3">${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
-						</select>
-						<input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.GENERIC_EXECUTE}" title="${placeholderWithTranslation.GENERIC_EXECUTE}" class="autoWidth">
-				</div>
-				<div class="flexItem textRight alignBottom" style="flex-grow: 2; margin-right: 0px;">
-					#if($grants.mayWrite())
-						<input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
-						<input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
-						<input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
-					#end
-				</div>
-			</div>
+                                <div class="flexItem inlineInput" style="">
+                                        <label for="actionSelection">${placeholderWithTranslation.GENERIC_MARKED_PERSONS_PP}</label>
+                                                <select id="actionSelection" class="autoWidth">
+                                                        <option value="0">${placeholderWithTranslation.GENERIC_DELETE}</option>
+                                                        <option value="1">${placeholderWithTranslation.GUEST_LIST_CATEGORY_ASSIGN}</option>
+                                                        <option value="2">${placeholderWithTranslation.GUEST_LIST_CATEGORY_REMOVE}</option>
+                                                        <option value="3">${placeholderWithTranslation.GUEST_LIST_DISTRIBUTOR_CREATE}</option>
+                                                </select>
+                                                <input type="button" name="button.execute" id="button.execute" value="${placeholderWithTranslation.GENERIC_EXECUTE}" title="${placeholderWithTranslation.GENERIC_EXECUTE}" class="autoWidth">
+                                </div>
+                                <div class="flexItem textRight alignBottom" style="flex-grow: 2; margin-right: 0px;">
+                                        #if($grants.mayWrite())
+                                                <input type="button" class="mainButton inlineInput autoWidth" name="createGuestList" value="${placeholderWithTranslation.GUEST_LIST_CREATE}" title="${placeholderWithTranslation.GUEST_LIST_CREATE}" onclick="submitFormWithGivenAction('ShowReportGuestList', $grants.mayWrite());" />
+                                                <input type="button" class="mainButton inlineInput autoWidth" name="addGuestsFromEvent" value="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" title="${placeholderWithTranslation.GUEST_LIST_APPLY_GUEST_FROM_EVENT}" onclick="window.location.href='AddEventToEventSearch?action=guest';" />
+                                                <input type="button" class="mainButton inlineInput autoWidth" name="add" value="${placeholderWithTranslation.gasthinzufuegen}" title="${placeholderWithTranslation.GUEST_LIST_SEARCH_PERSON_ADD}" onclick="window.location.href='AddPersonToEventSearch?action=guest&search=clear';" />
+                                        #end
+                                </div>
+                        </div>
 
-			## Handler für selektierte Aktion
-			<script>
-				var removeGuestabfrage = function () {
-						#if(!$grants.mayWrite())
-							showWarning('${placeholderWithTranslation.siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen}.');
-							return;
-						#end
-						var checkBoxes = $('input:checkbox[name$="-select"]:checked');
-						if (checkBoxes.length === 0 && !document.getElementById('select-all').checked) {
-							$(".errormsg").remove();
-							$(".successmsg").remove();
-							showWarning('${placeholderWithTranslation.wahlensiebittezunachsteinenodermehreregasteaus}.');
-						} else {
-							$(".errormsg").remove();
-							$(".successmsg").remove();
-							var msg = '';
-							msg += '<br><span class="notBold">${placeholderWithTranslation.wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab}</span><br>'+ '${placeholderWithTranslation.sollenallemarkiertenpersonengeloeschtwerden} ' +
-							'${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden}<br>';
-							// disable all checkboxes while confirmation is visible
-							$('input:checkbox').prop('disabled', true);
-							showConfirmYesNo('${placeholderWithTranslation.bittebestatigensiedasloschendermarkiertengasteliste}',
-								msg,
-								function () { // Ja
-									$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
-									$('input:checkbox').prop('disabled', false);
-									document.formlist.submit();
+                        ## Handler für selektierte Aktion
+                        <script>
+                                var removeGuestabfrage = function () {
+                                                #if(!$grants.mayWrite())
+                                                        showWarning('${placeholderWithTranslation.siehabenkeineausreichendeberechtigungumdiegastelistezuentfernen}.');
+                                                        return;
+                                                #end
+                                                var checkBoxes = $('input:checkbox[name$="-select"]:checked');
+                                                if (checkBoxes.length === 0 && !document.getElementById('select-all').checked) {
+                                                        $(".errormsg").remove();
+                                                        $(".successmsg").remove();
+                                                        showWarning('${placeholderWithTranslation.wahlensiebittezunachsteinenodermehreregasteaus}.');
+                                                } else {
+                                                        $(".errormsg").remove();
+                                                        $(".successmsg").remove();
+                                                        var msg = '';
+                                                        msg += '<br><span class="notBold">${placeholderWithTranslation.wennsieihreauswahlanpassenwollenbrechensiebittedasloeschenab}</span><br>'+ '${placeholderWithTranslation.sollenallemarkiertenpersonengeloeschtwerden} ' +
+                                                        '${placeholderWithTranslation.dieseaktionkannnichtrueckgaungiggemachtwerden}<br>';
+                                                        // disable all checkboxes while confirmation is visible
+                                                        $('input:checkbox').prop('disabled', true);
+                                                        showConfirmYesNo('${placeholderWithTranslation.bittebestatigensiedasloschendermarkiertengasteliste}',
+                                                                msg,
+                                                                function () { // Ja
+                                                                        $('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
+                                                                        $('input:checkbox').prop('disabled', false);
+                                                                        document.formlist.submit();
 
-								}, function () { // Nein
-									$(".errormsg").remove();
-									$(".successmsg").remove();
-									showSuccess('GENERIC_NO_GUESTLIST_DELETED');
-									$('input:checkbox').prop('disabled', false);
+                                                                }, function () { // Nein
+                                                                        $(".errormsg").remove();
+                                                                        $(".successmsg").remove();
+                                                                        showSuccess('GENERIC_NO_GUESTLIST_DELETED');
+                                                                        $('input:checkbox').prop('disabled', false);
 
-								},
-								'${placeholderWithTranslation.GENERIC_DELETE}',
-								'${placeholderWithTranslation.abbrechen}'
-								);
-						}
-				}
-
-
-				$(function () {
-					$('#button\\.execute').click(function (e) {
-						var selectValue = $('#actionSelection option:selected').val();
-
-						if(hasSelection() || document.getElementById('select-all').checked){
-							if (selectValue == "0") {
-								removeGuestabfrage();
-							} else if (selectValue == "1") {
-								assignCategories();
-							} else if (selectValue == "2") {
-								unassignCategories();
-							} else if (selectValue == "3") {
-								$('#selectNone').val('false');
-								submitFormWithGivenAction('CreateMailinglistFromGuest', $grants.mayWrite());
-							}
-						} else {
-							$(".errormsg").remove();
-							$(".successmsg").remove();
-							showWarning( "${placeholderWithTranslation.wahlensiebittezunachsteinenodermehreregasteaus}." );
-						}
-					});
-				});
+                                                                },
+                                                                '${placeholderWithTranslation.GENERIC_DELETE}',
+                                                                '${placeholderWithTranslation.abbrechen}'
+                                                                );
+                                                }
+                                }
 
 
-				var isSelectAllChecked = function(){
-					return $("#select-all").get(0).checked;
-				};
+                                $(function () {
+                                        $('#button\\.execute').click(function (e) {
+                                                var selectValue = $('#actionSelection option:selected').val();
 
-				var selectAllValue = function(){
-					if(isSelectAllChecked()){
-						return $("#select-all").val();
-					}
-					return "";
-				};
+                                                if(hasSelection() || document.getElementById('select-all').checked){
+                                                        if (selectValue == "0") {
+                                                                removeGuestabfrage();
+                                                        } else if (selectValue == "1") {
+                                                                assignCategories();
+                                                        } else if (selectValue == "2") {
+                                                                unassignCategories();
+                                                        } else if (selectValue == "3") {
+                                                                $('#selectNone').val('false');
+                                                                submitFormWithGivenAction('CreateMailinglistFromGuest', $grants.mayWrite());
+                                                        }
+                                                } else {
+                                                        $(".errormsg").remove();
+                                                        $(".successmsg").remove();
+                                                        showWarning( "${placeholderWithTranslation.wahlensiebittezunachsteinenodermehreregasteaus}." );
+                                                }
+                                        });
+                                });
 
-				var selectedCount = function(){
-					if(isSelectAllChecked()){
-						return ${listparam.count};
-				}
-					return $('input:checkbox[name$="-select"]:checked').length;
-				};
 
-				function hasSelection() {
-					return selectedCount() > 0;
-				}
+                                var isSelectAllChecked = function(){
+                                        return $("#select-all").get(0).checked;
+                                };
+
+                                var selectAllValue = function(){
+                                        if(isSelectAllChecked()){
+                                                return $("#select-all").val();
+                                        }
+                                        return "";
+                                };
+
+                                var selectedCount = function(){
+                                        if(isSelectAllChecked()){
+                                                return ${listparam.count};
+                                }
+                                        return $('input:checkbox[name$="-select"]:checked').length;
+                                };
+
+                                function hasSelection() {
+                                        return selectedCount() > 0;
+                                }
 
 
-				function selectedActionRemoveGuest() {
-					$('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
-					document.formlist.submit();
-				}
+                                function selectedActionRemoveGuest() {
+                                        $('<input>').attr({ type: 'hidden', id: 'remove', name: 'remove' }).appendTo($('#formlist'));
+                                        document.formlist.submit();
+                                }
 
-				function unassignCategories() {
-					selectPersonCategory( "${paths.staticWeb}do/popupUnassignGuestCategory?count=" + selectedCount() + "&eventId=" + ${event.id}+"&select-all="+selectAllValue() );
-				}
+                                function unassignCategories() {
+                                        selectPersonCategory( "${paths.staticWeb}do/popupUnassignGuestCategory?count=" + selectedCount() + "&eventId=" + ${event.id}+"&select-all="+selectAllValue() );
+                                }
 
-				function assignCategories() {
-					selectPersonCategory( "${paths.staticWeb}do/popupAssignGuestCategory?count=" + selectedCount() + "&eventId=" + ${event.id}+"&select-all="+selectAllValue() );
-				}
+                                function assignCategories() {
+                                        selectPersonCategory( "${paths.staticWeb}do/popupAssignGuestCategory?count=" + selectedCount() + "&eventId=" + ${event.id}+"&select-all="+selectAllValue() );
+                                }
 
-				function submitFormWithGivenAction(action, permission) {
-						htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');
-						document.getElementById('formlist').action = action;
-						document.formlist.submit();
-				}
-			</script>
-				<div id="guestListWrapper">
-					<table class="sortable">
-						##Set column size
-						<col width="$column0%" />
-						<col width="$column1%" />
-						<col width="$column2%" />
-						<col width="$column3%" />
-						<col width="$column4%" />
-						<col width="$column5%" />
-						<col width="$column6%" />
-						<col width="$column7%" />
-						<col width="$column8%" />
-						<tr >
-							<!-- BEGIN OF COLUMNS TO ORDER -->
-								<th class="textCenter smallCell"></th>
+                                function submitFormWithGivenAction(action, permission) {
+                                                htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}');
+                                                document.getElementById('formlist').action = action;
+                                                document.formlist.submit();
+                                }
+                        </script>
+                                <div id="guestListWrapper">
+                                        <table class="sortable">
+                                                ##Set column size
+                                                <col width="$column0%" />
+                                                <col width="$column1%" />
+                                                <col width="$column2%" />
+                                                <col width="$column3%" />
+                                                <col width="$column4%" />
+                                                <col width="$column5%" />
+                                                <col width="$column6%" />
+                                                <col width="$column7%" />
+                                                <col width="$column8%" />
+                                                <tr >
+                                                        <!-- BEGIN OF COLUMNS TO ORDER -->
+                                                                <th class="textCenter smallCell"></th>
 
-								<th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"
-									#if($search.listorder && $search.listorder == "orderno")
-										style="color: #000000;"
-									#end
-								><nobr>${placeholderWithTranslation.lfdnr}</nobr>
-									#if($search.listorder && $search.listorder == 'orderno')
-										#showSortArrows($search.sortDirection)
-									#else
-										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-									#end
-								</a></th>
+                                                                <th class="textCenter smallCell"><a href="javascript:orderGuestList('orderno');"
+                                                                        #if($search.listorder && $search.listorder == "orderno")
+                                                                                style="color: #000000;"
+                                                                        #end
+                                                                ><nobr>${placeholderWithTranslation.lfdnr}</nobr>
+                                                                        #if($search.listorder && $search.listorder == 'orderno')
+                                                                                #showSortArrows($search.sortDirection)
+                                                                        #else
+                                                                                <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                                        #end
+                                                                </a></th>
 
-								<th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
+                                                                <th class="textCenter smallCell" title="${placeholderWithTranslation.aufreservesetzen} / ${placeholderWithTranslation.EXPORT_HEADER_SEAT}"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GUEST_LIST_RESERVE}</span></th>
 
-								<th><a href="javascript:orderGuestList('companyname');"
-									#if($search.listorder && $search.listorder == "companyname")
-										style="color: #000000;"
-									#end
-								><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr>
-									#if($search.listorder && $search.listorder == 'companyname')
-										#showSortArrows($search.sortDirection)
-									#else
-										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-									#end
-								</a></th>
+                                                                <th><a href="javascript:orderGuestList('companyname');"
+                                                                        #if($search.listorder && $search.listorder == "companyname")
+                                                                                style="color: #000000;"
+                                                                        #end
+                                                                ><nobr>${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}</nobr>
+                                                                        #if($search.listorder && $search.listorder == 'companyname')
+                                                                                #showSortArrows($search.sortDirection)
+                                                                        #else
+                                                                                <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                                        #end
+                                                                </a></th>
 
-								<th><a href="javascript:orderGuestList('lastname_a_e1');"
-									#if($search.listorder && $search.listorder == "lastname_a_e1")
-										style="color: #000000;"
-									#end
-								>${placeholderWithTranslation.GENERIC_NAME}
-									#if($search.listorder && $search.listorder == 'lastname_a_e1')
-										#showSortArrows($search.sortDirection)
-									#else
-										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-									#end
-								</a></th>
+                                                                <th><a href="javascript:orderGuestList('lastname_a_e1');"
+                                                                        #if($search.listorder && $search.listorder == "lastname_a_e1")
+                                                                                style="color: #000000;"
+                                                                        #end
+                                                                >${placeholderWithTranslation.GENERIC_NAME}
+                                                                        #if($search.listorder && $search.listorder == 'lastname_a_e1')
+                                                                                #showSortArrows($search.sortDirection)
+                                                                        #else
+                                                                                <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                                        #end
+                                                                </a></th>
 
-								<th><a href="javascript:orderGuestList('firstname_a_e1');"
-									#if($search.listorder && $search.listorder == "firstname_a_e1")
-										style="color: #000000;"
-									#end
-								>${placeholderWithTranslation.GENERIC_FIRSTNAME}
-									#if($search.listorder && $search.listorder == 'firstname_a_e1')
-										#showSortArrows($search.sortDirection)
-									#else
-										<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-									#end
-								</a></th>
+                                                                <th><a href="javascript:orderGuestList('firstname_a_e1');"
+                                                                        #if($search.listorder && $search.listorder == "firstname_a_e1")
+                                                                                style="color: #000000;"
+                                                                        #end
+                                                                >${placeholderWithTranslation.GENERIC_FIRSTNAME}
+                                                                        #if($search.listorder && $search.listorder == 'firstname_a_e1')
+                                                                                #showSortArrows($search.sortDirection)
+                                                                        #else
+                                                                                <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                                        #end
+                                                                </a></th>
 
-								<th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');"
-									#if($search.listorder && $search.listorder == "mail_a_e1")
-										style="color: #000000;"
-									#end
-								>${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}
-								#if($search.listorder && $search.listorder == 'mail_a_e1')
-									#showSortArrows($search.sortDirection)
-								#else
-									<span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
-								#end
+                                                                <th class="textCenter smallCell" style="width:10%"><a href="javascript:orderGuestList('mail_a_e1');"
+                                                                        #if($search.listorder && $search.listorder == "mail_a_e1")
+                                                                                style="color: #000000;"
+                                                                        #end
+                                                                >${placeholderWithTranslation.GENERIC_EMAIL_SINGULAR}
+                                                                #if($search.listorder && $search.listorder == 'mail_a_e1')
+                                                                        #showSortArrows($search.sortDirection)
+                                                                #else
+                                                                        <span class="floatRight"><img border="0" alt="none" src="${paths.staticWeb}images/sort_none.gif"></img></span>
+                                                                #end
 
-								</a></th>
-							<!-- END OF COLUMNS TO ORDER -->
+                                                                </a></th>
+                                                        <!-- END OF COLUMNS TO ORDER -->
 
-					#if($userConfig.guestListFunction)
-							<th style="padding: 10px">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</th>
-					#end
+                                        #if($userConfig.guestListFunction)
+                                                        <th style="padding: 10px">${placeholderWithTranslation.GENERIC_FUNCTION_SINGULAR}</th>
+                                        #end
 
-					#if($userConfig.guestListCity)
-							<th style="padding: 10px">${placeholderWithTranslation.GENERIC_POST_NUMBER} / ${placeholderWithTranslation.GENERIC_CITY}</th>
-					#end
+                                        #if($userConfig.guestListCity)
+                                                        <th style="padding: 10px">${placeholderWithTranslation.GENERIC_POST_NUMBER} / ${placeholderWithTranslation.GENERIC_CITY}</th>
+                                        #end
 
-					#if($userConfig.guestListPhone)
-							<th style="padding: 10px">${placeholderWithTranslation.GENERIC_TELEFON}</th>
-					#end
-							<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_MAIN_PERSON}</span></th>
-							<th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_PARTNER}</span></th>
-						</tr>
+                                        #if($userConfig.guestListPhone)
+                                                        <th style="padding: 10px">${placeholderWithTranslation.GENERIC_TELEFON}</th>
+                                        #end
+                                                        <th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_MAIN_PERSON}</span></th>
+                                                        <th style="width: 100px; text-align: center;"><span style="display: inline-block; padding: 10px;color: #1B1B1B;">${placeholderWithTranslation.GENERIC_PARTNER}</span></th>
+                                                </tr>
 
-						#set($deletedperson = false)
+                                                #set($deletedperson = false)
 
-						#foreach($bean in $list)
-							#if ($bean.deleted == "t")
-								#set($deletedperson = true)
-							#end
+                                                #foreach($bean in $list)
+                                                        #if ($bean.deleted == "t")
+                                                                #set($deletedperson = true)
+                                                        #end
 
-						#set($offset = $listparam.start + $velocityCount)
-						## We want zero-indexed offset to create jump marks. I don't understand how the other "offset" is
-						## used, and I don't want to break anything...
-						#set($offset0 = $offset - 1)
+                                                #set($offset = $listparam.start + $velocityCount)
+                                                ## We want zero-indexed offset to create jump marks. I don't understand how the other "offset" is
+                                                ## used, and I don't want to break anything...
+                                                #set($offset0 = $offset - 1)
 
-						<tr id="row-${offset0}">
-							<td>
-								<input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false">
-								<input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}">
-								<img title="ich bin eine tolle Überschrift" src="${paths.staticWeb}images/checked_disabled.png" class="invisible invisibleselector"/>
-								<input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/>
-							</td>
-							<td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
-								#if($bean.ishost && $bean.ishost == 1)
-									<em>${placeholderWithTranslation.GENERIC_HOST}</em>
-								#elseif($bean.someorderno)
-									$bean.someorderno
-								#else
-									<em>${placeholderWithTranslation.keine}</em>
-								#end
-							</td>
+                                                <tr id="row-${offset0}">
+                                                        <td>
+                                                                <input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false">
+                                                                <input type="hidden" id="${bean.id}-invitationtype" name="${bean.id}-invitationtype" value="${bean.invitationtype}">
+                                                                <img title="ich bin eine tolle Überschrift" src="${paths.staticWeb}images/checked_disabled.png" class="invisible invisibleselector"/>
+                                                                <input type="checkbox" name="${bean.id}-select" value="true" #if($listselection.indexOf($bean.id) != -1) checked#end/>
+                                                        </td>
+                                                        <td style="cursor: pointer;" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';"><input type="hidden" name="${bean.id}-id" value="$bean.id">
+                                                                #if($bean.ishost && $bean.ishost == 1)
+                                                                        <em>${placeholderWithTranslation.GENERIC_HOST}</em>
+                                                                #elseif($bean.someorderno)
+                                                                        $bean.someorderno
+                                                                #else
+                                                                        <em>${placeholderWithTranslation.keine}</em>
+                                                                #end
+                                                        </td>
 
-							#if($bean.reserve == 1)
-								<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufreserve}"><strong>${placeholderWithTranslation.GUEST_LIST_RESERVE}</strong></td>
-							#else
-								<td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufplatz}">&nbsp;</td>
-							#end
+                                                        #if($bean.reserve == 1)
+                                                                <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufreserve}"><strong>${placeholderWithTranslation.GUEST_LIST_RESERVE}</strong></td>
+                                                        #else
+                                                                <td class="textCenter" onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.aufplatz}">&nbsp;</td>
+                                                        #end
 
-							#if($bean.company_a_e1 != "")
-								<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">$bean.company_a_e1</td>
-							#else
-								<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">&nbsp;</td>
-							#end
+                                                        #if($bean.company_a_e1 != "")
+                                                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">$bean.company_a_e1</td>
+                                                        #else
+                                                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';" title="${placeholderWithTranslation.GENERIC_COMPANY_SINGULAR}/${placeholderWithTranslation.GENERIC_INSTITUTION_SINGULAR}">&nbsp;</td>
+                                                        #end
 
-							#if($bean.iscompany == "t" && $bean.delegation != "" && $bean.invitationtype != 4)
-								<td></td>
-								<td></td>
-								<td></td>
-								#if($userConfig.guestListFunction)
-									<td></td>
-								#end
+                                                        #if($bean.iscompany == "t" && $bean.delegation != "" && $bean.invitationtype != 4)
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                #if($userConfig.guestListFunction)
+                                                                        <td></td>
+                                                                #end
 
-								#if($userConfig.guestListCity)
-									<td></td>
-								#end
+                                                                #if($userConfig.guestListCity)
+                                                                        <td></td>
+                                                                #end
 
-								#if($userConfig.guestListPhone)
-									<td></td>
-								#end
-								<td></td>
-								<td></td>
-							#else
-								<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
-									#if($bean.invitationtype != 3)
-										#if($bean.showdoctype)
-											$!message.plain($bean.lastname_a_gd)
-										#else
-											$!message.plain($bean.lastname_a_e1)
-										#end
-									#else
-										#if($bean.showdoctype)
-											$!message.plain($bean.lastname_b_gd)
-										#else
-											$!message.plain($bean.lastname_b_e1)
-										#end
-									#end
-								</td>
-								<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
-									#if($bean.invitationtype != 3)
-										#if($bean.showdoctype)$!message.plain($bean.firstname_a_gd)#else$!message.plain($bean.firstname_a_e1)#end
-									#else
-										#if($bean.showdoctype)$!message.plain($bean.firstname_b_gd)#else$!message.plain($bean.firstname_b_e1)#end
-									#end
-								</td>
-								<td class="textCenter">
-									<div class="cutOff">
-										#if($bean.showdoctype)
-											#if($bean.mail_a_gd.length() > 0)
-												<a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
-											#else
-												&nbsp;
-											#end
-										#else
-											#if($bean.mail_a_e1.length() > 0)
-												<a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
-											#else
-												&nbsp;
-											#end
-										#end
-									</div>
-								</td>
-								#if($userConfig.guestListFunction)
-									<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
-								#end
-								#if($userConfig.guestListCity)
-									<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
-								#end
-								#if($userConfig.guestListPhone)
-									<td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
-								#end
-								<td class="textCenter">
-									#if($bean.invitationtype != 3)
-										#if($grants.mayWrite())
-										<select name="${bean.id}-invitationstatus_a" onchange="setModified('${bean.id}')">
-											<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_STATUS_OPEN}</option>
-											<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 1) selected#end value="1">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
-											<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 2) selected#end value="2">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
-											<option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 3) selected#end value="3">${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}</option>
-										</select>
-										#else
-											#if($bean.invitationstatus_a && $bean.invitationstatus_a == 0)
-												${placeholderWithTranslation.GENERIC_STATUS_OPEN}
-											#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 1)
-												${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}
-											#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 2)
-												${placeholderWithTranslation.GENERIC_STATUS_DECLINE}
-											#elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 3)
-												${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}
-											#end
-										#end
-									#else
-										<input type="hidden" name="${bean.id}-invitationstatus_a" value="$!bean.invitationstatus_a">${placeholderWithTranslation.nichteingeladen}</input>
-									#end
-								</td>
+                                                                #if($userConfig.guestListPhone)
+                                                                        <td></td>
+                                                                #end
+                                                                <td></td>
+                                                                <td></td>
+                                                        #else
+                                                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
+                                                                        #if($bean.invitationtype != 3)
+                                                                                #if($bean.showdoctype)
+                                                                                        $!message.plain($bean.lastname_a_gd)
+                                                                                #else
+                                                                                        $!message.plain($bean.lastname_a_e1)
+                                                                                #end
+                                                                        #else
+                                                                                #if($bean.showdoctype)
+                                                                                        $!message.plain($bean.lastname_b_gd)
+                                                                                #else
+                                                                                        $!message.plain($bean.lastname_b_e1)
+                                                                                #end
+                                                                        #end
+                                                                </td>
+                                                                <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">
+                                                                        #if($bean.invitationtype != 3)
+                                                                                #if($bean.showdoctype)$!message.plain($bean.firstname_a_gd)#else$!message.plain($bean.firstname_a_e1)#end
+                                                                        #else
+                                                                                #if($bean.showdoctype)$!message.plain($bean.firstname_b_gd)#else$!message.plain($bean.firstname_b_e1)#end
+                                                                        #end
+                                                                </td>
+                                                                <td class="textCenter">
+                                                                        <div class="cutOff">
+                                                                                #if($bean.showdoctype)
+                                                                                        #if($bean.mail_a_gd.length() > 0)
+                                                                                                <a href="mailto:$!message.plain($bean.mail_a_gd)" title="$!message.plain($bean.mail_a_gd)">$!message.plain($bean.mail_a_gd)</a>
+                                                                                        #else
+                                                                                                &nbsp;
+                                                                                        #end
+                                                                                #else
+                                                                                        #if($bean.mail_a_e1.length() > 0)
+                                                                                                <a href="mailto:$!message.plain($bean.mail_a_e1)" title="$!message.plain($bean.mail_a_e1)">$!message.plain($bean.mail_a_e1)</a>
+                                                                                        #else
+                                                                                                &nbsp;
+                                                                                        #end
+                                                                                #end
+                                                                        </div>
+                                                                </td>
+                                                                #if($userConfig.guestListFunction)
+                                                                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.function_a_gd)#else$!message.plain($bean.function_a_e1)#end</td>
+                                                                #end
+                                                                #if($userConfig.guestListCity)
+                                                                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.zipcode_a_gd) $!message.plain($bean.city_a_gd)#else$!message.plain($bean.zipcode_a_e1) $!message.plain($bean.city_a_e1)#end</td>
+                                                                #end
+                                                                #if($userConfig.guestListPhone)
+                                                                        <td onclick="window.location.href='ShowGuestDetail?id=$!{bean.id}&eventId=${event.id}&offset=$offset';">#if($bean.showdoctype)$!message.plain($bean.fon_a_gd)#else$!message.plain($bean.fon_a_e1)#end</td>
+                                                                #end
+                                                                <td class="textCenter">
+                                                                        #if($bean.invitationtype != 3)
+                                                                                #if($grants.mayWrite())
+                                                                                <select name="${bean.id}-invitationstatus_a" onchange="setModified('${bean.id}')">
+                                                                                        <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_STATUS_OPEN}</option>
+                                                                                        <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 1) selected#end value="1">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
+                                                                                        <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 2) selected#end value="2">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
+                                                                                        <option #if($bean.invitationstatus_a && $bean.invitationstatus_a == 3) selected#end value="3">${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}</option>
+                                                                                </select>
+                                                                                #else
+                                                                                        #if($bean.invitationstatus_a && $bean.invitationstatus_a == 0)
+                                                                                                ${placeholderWithTranslation.GENERIC_STATUS_OPEN}
+                                                                                        #elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 1)
+                                                                                                ${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}
+                                                                                        #elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 2)
+                                                                                                ${placeholderWithTranslation.GENERIC_STATUS_DECLINE}
+                                                                                        #elseif($bean.invitationstatus_a && $bean.invitationstatus_a == 3)
+                                                                                                ${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}
+                                                                                        #end
+                                                                                #end
+                                                                        #else
+                                                                                <input type="hidden" name="${bean.id}-invitationstatus_a" value="$!bean.invitationstatus_a">${placeholderWithTranslation.nichteingeladen}</input>
+                                                                        #end
+                                                                </td>
 
-								<td class="textCenter">
-									#if($bean.invitationtype != 2)
-										#if($grants.mayWrite())
-											<select name="${bean.id}-invitationstatus_b" onchange="setModified('${bean.id}')">
-												<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_STATUS_OPEN}</option>
-												<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 1) selected#end value="1">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
-												<option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 2) selected#end value="2">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
-												<option #if($bean.invitationstatus_a && $bean.invitationstatus_b == 3) selected#end value="3">${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}</option>
-											</select>
-										#else
-											#if($bean.invitationstatus_b && $bean.invitationstatus_b == 0)
-												${placeholderWithTranslation.GENERIC_STATUS_OPEN}
-											#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 1)
-												${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}
-											#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 2)
-												${placeholderWithTranslation.GENERIC_STATUS_DECLINE}
-											#elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 3)
-												${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}
-											#end
-										#end
-									#else
-										<input type="hidden" name="${bean.id}-invitationstatus_b" value="$!bean.invitationstatus_b">${placeholderWithTranslation.nichteingeladen}</input>
-									#end
-								</td>
-							#end
-						</tr>
-						#end
+                                                                <td class="textCenter">
+                                                                        #if($bean.invitationtype != 2)
+                                                                                #if($grants.mayWrite())
+                                                                                        <select name="${bean.id}-invitationstatus_b" onchange="setModified('${bean.id}')">
+                                                                                                <option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0) selected#end value="0">${placeholderWithTranslation.GENERIC_STATUS_OPEN}</option>
+                                                                                                <option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 1) selected#end value="1">${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}</option>
+                                                                                                <option #if($bean.invitationstatus_b && $bean.invitationstatus_b == 2) selected#end value="2">${placeholderWithTranslation.GENERIC_STATUS_DECLINE}</option>
+                                                                                                <option #if($bean.invitationstatus_a && $bean.invitationstatus_b == 3) selected#end value="3">${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}</option>
+                                                                                        </select>
+                                                                                #else
+                                                                                        #if($bean.invitationstatus_b && $bean.invitationstatus_b == 0)
+                                                                                                ${placeholderWithTranslation.GENERIC_STATUS_OPEN}
+                                                                                        #elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 1)
+                                                                                                ${placeholderWithTranslation.GENERIC_STATUS_ACCEPT}
+                                                                                        #elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 2)
+                                                                                                ${placeholderWithTranslation.GENERIC_STATUS_DECLINE}
+                                                                                        #elseif($bean.invitationstatus_b && $bean.invitationstatus_b == 3)
+                                                                                                ${placeholderWithTranslation.GENERIC_STATUS_PARTICIPATED}
+                                                                                        #end
+                                                                                #end
+                                                                        #else
+                                                                                <input type="hidden" name="${bean.id}-invitationstatus_b" value="$!bean.invitationstatus_b">${placeholderWithTranslation.nichteingeladen}</input>
+                                                                        #end
+                                                                </td>
+                                                        #end
+                                                </tr>
+                                                #end
 
-						#if ($listparam.count == 0)
-							<tr class="colspan"><td colspan="99">${placeholderWithTranslation.GUEST_LIST_NO_GUEST_INVITED}</td></tr>
-						#end
+                                                #if ($listparam.count == 0)
+                                                        <tr class="colspan"><td colspan="99">${placeholderWithTranslation.GUEST_LIST_NO_GUEST_INVITED}</td></tr>
+                                                #end
 
-						#set($itemName = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
-						#tableFooter(12)
+                                                #set($itemName = "${placeholderWithTranslation.GENERIC_GUEST_PLURAL}")
+                                                #tableFooter(12)
 
-						#if($search.listorder && $jumpOffsets)
-							#parse("inc/list-direct-even-newer.vm")
-						#else
-							<tr class="colspan">
-								<td colspan="99" class="textCenter">
-									<strong>${placeholderWithTranslation.GENERIC_TOOLTIP}:</strong> ${placeholderWithTranslation.HINT_ENTRY_POINT}
-								</td>
-							</tr>
-						#end
+                                                #if($search.listorder && $jumpOffsets)
+                                                        #parse("inc/list-direct-even-newer.vm")
+                                                #else
+                                                        <tr class="colspan">
+                                                                <td colspan="99" class="textCenter">
+                                                                        <strong>${placeholderWithTranslation.GENERIC_TOOLTIP}:</strong> ${placeholderWithTranslation.HINT_ENTRY_POINT}
+                                                                </td>
+                                                        </tr>
+                                                #end
 
-					</table>
-				</div>
-			<div class="textRight marginTop10 marginBottom20">
-				#if($grants.mayWrite())
-				    <input type="button" name="calcSerialNumber" value="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" title="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" onclick="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}'); window.location.href='CalcSerialNumber';" class="mainButton" />
-				    <input type="button" name="reloadAllGuestData" value="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" title="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" class="mainButton" />
-            		<input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
-            	#end
-			</div>
+                                        </table>
+                                </div>
+                        <div class="textRight marginTop10 marginBottom20">
+                                #if($grants.mayWrite())
+                                    <input type="button" name="calcSerialNumber" value="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" title="${placeholderWithTranslation.GUEST_LIST_NUMBER_CALCULATE}" onclick="htmlWait('${placeholderWithTranslation.GENERIC_PLEASE_WAIT_HEADER}','${placeholderWithTranslation.GENERIC_PLEASE_WAIT_MESSAGE}'); window.location.href='CalcSerialNumber';" class="mainButton" />
+                                    <input type="button" name="reloadAllGuestData" value="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" title="${placeholderWithTranslation.GUEST_LIST_PERSON_DATA_RELOAD}" onclick="submitFormWithGivenAction('ReloadAllGuestData', $grants.mayWrite());" class="mainButton" />
+                        <input type="submit" name="save" value="${placeholderWithTranslation.speichern}" title="${placeholderWithTranslation.speichern}" class="mainButton" />
+                #end
+                        </div>
 
-			<vera-info vera-stay>
+                        <vera-info vera-stay>
                 ${placeholderWithTranslation.GUEST_LIST_HINT_FILTER}.<br>
                 ${placeholderWithTranslation.GUEST_LIST_HINT_EXPORT_GUEST}.
                 <img src="../images/dialog_close.png" id="close-info" style="top:-28px;" onclick="$(this).parent().get(0).remove()" />
-			</vera-info>
+                        </vera-info>
 
-			#if($deletedperson)
-				<table>
-					<tr style="height: 20px;">
-						<td class="list2error" style="width: 20px;">&nbsp;</td>
-						<td class="list1error">
+                        #if($deletedperson)
+                                <table>
+                                        <tr style="height: 20px;">
+                                                <td class="list2error" style="width: 20px;">&nbsp;</td>
+                                                <td class="list1error">
                             ${placeholderWithTranslation.GUEST_LIST_HINT_RED_PERSON}.
-						</td>
-					</tr>
-				</table>
-				<br>
-			#end
+                                                </td>
+                                        </tr>
+                                </table>
+                                <br>
+                        #end
 
-			<div>
+                        <div>
 
 
 
-			#set($isUser = false)
-			#set($isAdmin = false)
+                        #set($isUser = false)
+                        #set($isAdmin = false)
 
-			#foreach($group in $octopusConfig.personalConfig.UserGroups)
-				#if($group == "Writer")
-					#set($isUser = true)
-				#elseif($group == "PartialAdmin")
-					#set($isAdmin = true)
-				#elseif($group == "Administrator")
-					#set($isAdmin = true)
-				#end
-			#end
+                        #foreach($group in $octopusConfig.personalConfig.UserGroups)
+                                #if($group == "Writer")
+                                        #set($isUser = true)
+                                #elseif($group == "PartialAdmin")
+                                        #set($isAdmin = true)
+                                #elseif($group == "Administrator")
+                                        #set($isAdmin = true)
+                                #end
+                        #end
 
-			</div>
+                        </div>
 
-			<div style="bottom: -40px; right: -1px;" class="textRight posAb" id="buttonPanel-bottom">
-				<input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" title="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
-			</div>
+                        <div style="bottom: -40px; right: -1px;" class="textRight posAb" id="buttonPanel-bottom">
+                                <input type="button" name="cancel" value="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" title="${placeholderWithTranslation.zuruckzudenveranstaltungsdetails}" class="mainButton" onclick="window.location.href='ShowEvent?id=$!event.id&action=event';" />
+                        </div>
 
-			</form>
-		</div>
-	</div>
+                        </form>
+                </div>
+        </div>
 
 </div>
 
 
 <script type="text/javascript">
-	function orderGuestList(column) {
-		document.getElementById('search-listorder').value = column;
-		document.getElementById('guestListFilter').submit();
-	}
+        function orderGuestList(column) {
+                document.getElementById('search-listorder').value = column;
+                document.getElementById('guestListFilter').submit();
+        }
 
-	#if($invited && $invited == 0 && $notInvited && $notInvited == 0 && ! $doNotAlert)
-		showWarning('Sie haben keine Person ausgewählt.');
-	#elseif($notInvited)
-		#if($notInvited == 1)
-			showWarning('${placeholderWithTranslation.HINT_GUEST_ALREADY_INVITED_SINGULAR}');
-		#elseif($notInvited > 1)
-			showWarning('$!notInvited' + ' ' + '${placeholderWithTranslation.HINT_GUEST_ALREADY_INVITED_PLURAL}');
-		#end
-	#end
+        #if($invited && $invited == 0 && $notInvited && $notInvited == 0 && ! $doNotAlert)
+                showWarning('Sie haben keine Person ausgewählt.');
+        #elseif($notInvited)
+                #if($notInvited == 1)
+                        showWarning('${placeholderWithTranslation.HINT_GUEST_ALREADY_INVITED_SINGULAR}');
+                #elseif($notInvited > 1)
+                        showWarning('$!notInvited' + ' ' + '${placeholderWithTranslation.HINT_GUEST_ALREADY_INVITED_PLURAL}');
+                #end
+        #end
 
-	$(function () {
-		$('li#gastdetails').click(function () {
-			window.location.href = '${paths.staticWeb}do/ShowGuestDetail';
-		});
-		$('li#export').click(function () {
-			window.location.href = '${paths.staticWeb}do/ShowExportGuest';
-		});
-	});
+        $(function () {
+                $('li#gastdetails').click(function () {
+                        window.location.href = '${paths.staticWeb}do/ShowGuestDetail';
+                });
+                $('li#export').click(function () {
+                        window.location.href = '${paths.staticWeb}do/ShowExportGuest';
+                });
+        });
 
-	var toggleSelectAll = function() {
-		var guestsTable = $("table.sortable");
-		var checkboxes = guestsTable.find('input[type="checkbox"]');
-		var icons = guestsTable.find('img[class*="invisibleselector"]');
-		if (document.getElementById('select-all').checked) {
-			checkboxes.prop('checked', false);
-			checkboxes.prop('disabled', true);
-			checkboxes.addClass( "invisible" );
-			icons.removeClass( "invisible" );
-		} else {
-			checkboxes.prop('disabled', false);
-			checkboxes.removeClass( "invisible" );
-			icons.addClass( "invisible" );
-		}
-	};
+        var toggleSelectAll = function() {
+                var guestsTable = $("table.sortable");
+                var checkboxes = guestsTable.find('input[type="checkbox"]');
+                var icons = guestsTable.find('img[class*="invisibleselector"]');
+                if (document.getElementById('select-all').checked) {
+                        checkboxes.prop('checked', false);
+                        checkboxes.prop('disabled', true);
+                        checkboxes.addClass( "invisible" );
+                        icons.removeClass( "invisible" );
+                } else {
+                        checkboxes.prop('disabled', false);
+                        checkboxes.removeClass( "invisible" );
+                        icons.addClass( "invisible" );
+                }
+        };
 
 </script>
 

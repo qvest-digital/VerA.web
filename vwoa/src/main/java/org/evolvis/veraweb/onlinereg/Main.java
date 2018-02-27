@@ -95,20 +95,20 @@ import java.util.EnumSet;
 public class Main extends Application<Config> {
 
 
-	/* RESOURCES */
-		private EventResource eventResource;
-		private UserResource userResource;
-		private LoginResource loginResource;
-		private DelegationResource delegationResource;
+        /* RESOURCES */
+                private EventResource eventResource;
+                private UserResource userResource;
+                private LoginResource loginResource;
+                private DelegationResource delegationResource;
         private KontaktdatenResource kontaktdatenResource;
-		private MediaResource mediaResource;
-		private Health health;
-		private FreeVisitorsResource freeVisitorsResource;
-		private UpdateResource updateResource;
+                private MediaResource mediaResource;
+                private Health health;
+                private FreeVisitorsResource freeVisitorsResource;
+                private UpdateResource updateResource;
         private ResetPasswordResource resetPasswordResource;
         private FileUploadResource fileUploadResource;
         private ImprintResource imprintResource;
-	/* ********* */
+        /* ********* */
 
     /**
      * Startup with the parameter java DropwizardDemo server config.json
@@ -169,13 +169,13 @@ public class Main extends Application<Config> {
      * @param environment
      * @param client
      */
-	private void initAPIResources(final Config configuration, final Environment environment, final Client client) {
-	    environment.servlets().addFilter("AuthorizationRequestFilter", new AuthenticationFilter(configuration,client))
+        private void initAPIResources(final Config configuration, final Environment environment, final Client client) {
+            environment.servlets().addFilter("AuthorizationRequestFilter", new AuthenticationFilter(configuration,client))
         .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
-	    environment.jersey().register(HttpSessionProvider.class);
-	    environment.servlets().setSessionHandler(new SessionHandler());
+            environment.jersey().register(HttpSessionProvider.class);
+            environment.servlets().setSessionHandler(new SessionHandler());
 
-		environment.jersey().register(setEventResource(new EventResource(configuration, client)));
+                environment.jersey().register(setEventResource(new EventResource(configuration, client)));
         environment.jersey().register(userResource = new UserResource(configuration, client));
         environment.jersey().register(loginResource = new LoginResource(configuration, client));
         environment.jersey().register(delegationResource = new DelegationResource(configuration, client));
@@ -186,14 +186,14 @@ public class Main extends Application<Config> {
         environment.jersey().register(resetPasswordResource = new ResetPasswordResource(configuration, client));
         environment.jersey().register(fileUploadResource = new FileUploadResource(configuration, client));
         environment.jersey().register(imprintResource = new ImprintResource(configuration, client));
-	}
+        }
 
-	public EventResource getEventResource() {
-		return eventResource;
-	}
+        public EventResource getEventResource() {
+                return eventResource;
+        }
 
-	public EventResource setEventResource(EventResource eventResource) {
-		this.eventResource = eventResource;
-		return eventResource;
-	}
+        public EventResource setEventResource(EventResource eventResource) {
+                this.eventResource = eventResource;
+                return eventResource;
+        }
 }

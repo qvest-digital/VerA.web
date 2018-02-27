@@ -85,17 +85,17 @@ import java.util.Date;
 @Table(name = "tperson")
 @NamedQueries(value = {
         @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p where p.username like :username"),
-		@NamedQuery(name = "Person.findByMail", query = "SELECT p FROM Person p where p.mail_a_e1=:email"),
+                @NamedQuery(name = "Person.findByMail", query = "SELECT p FROM Person p where p.mail_a_e1=:email"),
         @NamedQuery(name = "Person.findPersonIdByUsername", query = "SELECT p.pk FROM Person p where p.username like :username"),
         @NamedQuery(name = "Person.findByPersonId", query = "SELECT p FROM Person p where p.pk=:personId"),
         @NamedQuery(name = "Person.getPeopleByEventId", query = "SELECT p FROM Person p where p.pk IN (SELECT g.fk_person from Guest g where g.fk_event=:eventid)")
 })
 @NamedNativeQueries(value={
-		 @NamedNativeQuery(name = "Person.getDelegatesByUUID", query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson.iscompany='f'", resultClass=Person.class),
-		 @NamedNativeQuery(name = "Person.getCompanyByUUID", query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson.iscompany='t'", resultClass=Person.class),
-		 @NamedNativeQuery(name = "Person.getPersonNamesByUsername", query = "SELECT CASE WHEN iscompany='t' THEN company_a_e1 " +
-		 																				 "WHEN iscompany='f' THEN firstname_a_e1 || ' ' || lastname_a_e1 END " +
-		 																				 "from tperson where username like :username")
+                 @NamedNativeQuery(name = "Person.getDelegatesByUUID", query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson.iscompany='f'", resultClass=Person.class),
+                 @NamedNativeQuery(name = "Person.getCompanyByUUID", query = "SELECT tperson.* FROM tperson LEFT JOIN tguest g on tperson.pk=g.fk_person WHERE g.delegation=:uuid AND tperson.iscompany='t'", resultClass=Person.class),
+                 @NamedNativeQuery(name = "Person.getPersonNamesByUsername", query = "SELECT CASE WHEN iscompany='t' THEN company_a_e1 " +
+                                                                                                                                                                                 "WHEN iscompany='f' THEN firstname_a_e1 || ' ' || lastname_a_e1 END " +
+                                                                                                                                                                                 "from tperson where username like :username")
 })
 public class Person {
 
@@ -127,13 +127,13 @@ public class Person {
     private String zipcode_a_e1;
     private String city_a_e1;
     private String country_a_e1;
-	private String sex_a_e1;
-	private String salutation_a_e1;
-	private Integer fk_salutation_a_e1;
-	private String title_a_e1;
-	private Date birthday_a_e1;
-	private String languages_a_e1;
-	private String nationality_a_e1;
+        private String sex_a_e1;
+        private String salutation_a_e1;
+        private Integer fk_salutation_a_e1;
+        private String title_a_e1;
+        private Date birthday_a_e1;
+        private String languages_a_e1;
+        private String nationality_a_e1;
 
     private String company_a_e1;
 
@@ -158,12 +158,12 @@ public class Person {
     }
 
     public String getCompany_a_e1() {
-		return company_a_e1;
-	}
+                return company_a_e1;
+        }
 
     public void setCompany_a_e1(String company_a_e1) {
-		this.company_a_e1 = company_a_e1;
-	}
+                this.company_a_e1 = company_a_e1;
+        }
 
     public void setNote_a_e1(String note_a_e1) {
         this.note_a_e1 = note_a_e1;
@@ -181,235 +181,235 @@ public class Person {
         return this.pk;
     }
 
-	public Date getCreated() {
-		return created;
-	}
+        public Date getCreated() {
+                return created;
+        }
 
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+        public void setCreated(Date created) {
+                this.created = created;
+        }
 
-	public String getCreatedby() {
-		return createdby;
-	}
+        public String getCreatedby() {
+                return createdby;
+        }
 
-	public void setCreatedby(String createdby) {
-		this.createdby = createdby;
-	}
+        public void setCreatedby(String createdby) {
+                this.createdby = createdby;
+        }
 
-	public char getIsCompany() {
-		return isCompany;
-	}
+        public char getIsCompany() {
+                return isCompany;
+        }
 
-	public void setIsCompany(char isCompany) {
-		this.isCompany = isCompany;
-	}
+        public void setIsCompany(char isCompany) {
+                this.isCompany = isCompany;
+        }
 
-	public char getDeleted() {
-		return deleted;
-	}
+        public char getDeleted() {
+                return deleted;
+        }
 
-	public void setDeleted(char deleted) {
-		this.deleted = deleted;
-	}
+        public void setDeleted(char deleted) {
+                this.deleted = deleted;
+        }
 
-	public String getFirstname_a_e1() {
-		return firstname_a_e1;
-	}
+        public String getFirstname_a_e1() {
+                return firstname_a_e1;
+        }
 
-	public void setFirstname_a_e1(String firstname_a_e1) {
-		this.firstname_a_e1 = firstname_a_e1;
-	}
+        public void setFirstname_a_e1(String firstname_a_e1) {
+                this.firstname_a_e1 = firstname_a_e1;
+        }
 
-	public String getFirstname_a_e2() {
-		return firstname_a_e2;
-	}
+        public String getFirstname_a_e2() {
+                return firstname_a_e2;
+        }
 
-	public void setFirstname_a_e2(String firstname_a_e2) {
-		this.firstname_a_e2 = firstname_a_e2;
-	}
+        public void setFirstname_a_e2(String firstname_a_e2) {
+                this.firstname_a_e2 = firstname_a_e2;
+        }
 
-	public String getFirstname_a_e3() {
-		return firstname_a_e3;
-	}
+        public String getFirstname_a_e3() {
+                return firstname_a_e3;
+        }
 
-	public void setFirstname_a_e3(String firstname_a_e3) {
-		this.firstname_a_e3 = firstname_a_e3;
-	}
+        public void setFirstname_a_e3(String firstname_a_e3) {
+                this.firstname_a_e3 = firstname_a_e3;
+        }
 
-	public String getLastname_a_e1() {
-		return lastname_a_e1;
-	}
+        public String getLastname_a_e1() {
+                return lastname_a_e1;
+        }
 
-	public void setLastname_a_e1(String lastname_a_e1) {
-		this.lastname_a_e1 = lastname_a_e1;
-	}
+        public void setLastname_a_e1(String lastname_a_e1) {
+                this.lastname_a_e1 = lastname_a_e1;
+        }
 
-	public String getLastname_a_e2() {
-		return lastname_a_e2;
-	}
+        public String getLastname_a_e2() {
+                return lastname_a_e2;
+        }
 
-	public void setLastname_a_e2(String lastname_a_e2) {
-		this.lastname_a_e2 = lastname_a_e2;
-	}
+        public void setLastname_a_e2(String lastname_a_e2) {
+                this.lastname_a_e2 = lastname_a_e2;
+        }
 
-	public String getLastname_a_e3() {
-		return lastname_a_e3;
-	}
+        public String getLastname_a_e3() {
+                return lastname_a_e3;
+        }
 
-	public void setLastname_a_e3(String lastname_a_e3) {
-		this.lastname_a_e3 = lastname_a_e3;
-	}
+        public void setLastname_a_e3(String lastname_a_e3) {
+                this.lastname_a_e3 = lastname_a_e3;
+        }
 
-	public String getFunction_a_e1() {
-		return function_a_e1;
-	}
+        public String getFunction_a_e1() {
+                return function_a_e1;
+        }
 
-	public void setFunction_a_e1(String function_a_e1) {
-		this.function_a_e1 = function_a_e1;
-	}
+        public void setFunction_a_e1(String function_a_e1) {
+                this.function_a_e1 = function_a_e1;
+        }
 
-	public String getMail_a_e1() {
-		return mail_a_e1;
-	}
+        public String getMail_a_e1() {
+                return mail_a_e1;
+        }
 
-	public void setMail_a_e1(String mail_a_e1) {
-		this.mail_a_e1 = mail_a_e1;
-	}
+        public void setMail_a_e1(String mail_a_e1) {
+                this.mail_a_e1 = mail_a_e1;
+        }
 
-	public String getStreet_a_e1() {
-		return street_a_e1;
-	}
+        public String getStreet_a_e1() {
+                return street_a_e1;
+        }
 
-	public void setStreet_a_e1(String street_a_e1) {
-		this.street_a_e1 = street_a_e1;
-	}
+        public void setStreet_a_e1(String street_a_e1) {
+                this.street_a_e1 = street_a_e1;
+        }
 
-	public String getZipcode_a_e1() {
-		return zipcode_a_e1;
-	}
+        public String getZipcode_a_e1() {
+                return zipcode_a_e1;
+        }
 
-	public void setZipcode_a_e1(String zipcode_a_e1) {
-		this.zipcode_a_e1 = zipcode_a_e1;
-	}
+        public void setZipcode_a_e1(String zipcode_a_e1) {
+                this.zipcode_a_e1 = zipcode_a_e1;
+        }
 
-	public String getCity_a_e1() {
-		return city_a_e1;
-	}
+        public String getCity_a_e1() {
+                return city_a_e1;
+        }
 
-	public void setCity_a_e1(String city_a_e1) {
-		this.city_a_e1 = city_a_e1;
-	}
+        public void setCity_a_e1(String city_a_e1) {
+                this.city_a_e1 = city_a_e1;
+        }
 
-	public String getCountry_a_e1() {
-		return country_a_e1;
-	}
+        public String getCountry_a_e1() {
+                return country_a_e1;
+        }
 
-	public void setCountry_a_e1(String country_a_e1) {
-		this.country_a_e1 = country_a_e1;
-	}
+        public void setCountry_a_e1(String country_a_e1) {
+                this.country_a_e1 = country_a_e1;
+        }
 
-	public String getSex_a_e1() {
-		return sex_a_e1;
-	}
+        public String getSex_a_e1() {
+                return sex_a_e1;
+        }
 
-	public void setSex_a_e1(String sex_a_e1) {
-		this.sex_a_e1 = sex_a_e1;
-	}
+        public void setSex_a_e1(String sex_a_e1) {
+                this.sex_a_e1 = sex_a_e1;
+        }
 
-	public String getNote_a_e1() {
-		return note_a_e1;
-	}
+        public String getNote_a_e1() {
+                return note_a_e1;
+        }
 
-	public void setPk(int pk) {
-		this.pk = pk;
-	}
+        public void setPk(int pk) {
+                this.pk = pk;
+        }
 
-	public Date getChanged() {
-		return changed;
-	}
+        public Date getChanged() {
+                return changed;
+        }
 
-	public void setChanged(Date changed) {
-		this.changed = changed;
-	}
+        public void setChanged(Date changed) {
+                this.changed = changed;
+        }
 
-	public String getUsername() {
-		return username;
-	}
+        public String getUsername() {
+                return username;
+        }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+        public void setUsername(String username) {
+                this.username = username;
+        }
 
     public String getNotehost_a_e1() {
-		return notehost_a_e1;
-	}
+                return notehost_a_e1;
+        }
 
     public void setNotehost_a_e1(String notehost_a_e1) {
-		this.notehost_a_e1 = notehost_a_e1;
-	}
+                this.notehost_a_e1 = notehost_a_e1;
+        }
 
     public String getChangedby() {
-		return changedby;
-	}
+                return changedby;
+        }
 
     public void setChangedby(String changedby) {
-		this.changedby = changedby;
-	}
+                this.changedby = changedby;
+        }
 
     public int getFk_workarea() {
- 		return fk_workarea;
- 	}
+                return fk_workarea;
+        }
 
- 	public void setFk_workarea(int fk_workarea) {
- 		this.fk_workarea = fk_workarea;
- 	}
+        public void setFk_workarea(int fk_workarea) {
+                this.fk_workarea = fk_workarea;
+        }
 
-	public String getSalutation_a_e1() {
-		return salutation_a_e1;
-	}
+        public String getSalutation_a_e1() {
+                return salutation_a_e1;
+        }
 
-	public void setSalutation_a_e1(String salutation_a_e1) {
-		this.salutation_a_e1 = salutation_a_e1;
-	}
+        public void setSalutation_a_e1(String salutation_a_e1) {
+                this.salutation_a_e1 = salutation_a_e1;
+        }
 
-	public Integer getFk_salutation_a_e1() {
-		return fk_salutation_a_e1;
-	}
+        public Integer getFk_salutation_a_e1() {
+                return fk_salutation_a_e1;
+        }
 
-	public void setFk_salutation_a_e1(Integer fk_salutation_a_e1) {
-		this.fk_salutation_a_e1 = fk_salutation_a_e1;
-	}
+        public void setFk_salutation_a_e1(Integer fk_salutation_a_e1) {
+                this.fk_salutation_a_e1 = fk_salutation_a_e1;
+        }
 
-	public String getTitle_a_e1() {
-		return title_a_e1;
-	}
+        public String getTitle_a_e1() {
+                return title_a_e1;
+        }
 
-	public void setTitle_a_e1(String title_a_e1) {
-		this.title_a_e1 = title_a_e1;
-	}
+        public void setTitle_a_e1(String title_a_e1) {
+                this.title_a_e1 = title_a_e1;
+        }
 
-	public Date getBirthday_a_e1() {
-		return birthday_a_e1;
-	}
+        public Date getBirthday_a_e1() {
+                return birthday_a_e1;
+        }
 
-	public void setBirthday_a_e1(Date birthday_a_e1) {
-		this.birthday_a_e1 = birthday_a_e1;
-	}
+        public void setBirthday_a_e1(Date birthday_a_e1) {
+                this.birthday_a_e1 = birthday_a_e1;
+        }
 
-	public void setLanguages_a_e1(String languages_a_e1) {
-		this.languages_a_e1 = languages_a_e1;
-	}
+        public void setLanguages_a_e1(String languages_a_e1) {
+                this.languages_a_e1 = languages_a_e1;
+        }
 
-	public String getLanguages_a_e1() {
-		return languages_a_e1;
-	}
+        public String getLanguages_a_e1() {
+                return languages_a_e1;
+        }
 
-	public void setNationality_a_e1(String nationality_a_e1) {
-		this.nationality_a_e1 = nationality_a_e1;
-	}
+        public void setNationality_a_e1(String nationality_a_e1) {
+                this.nationality_a_e1 = nationality_a_e1;
+        }
 
-	public String getNationality_a_e1() {
-		return nationality_a_e1;
-	}
+        public String getNationality_a_e1() {
+                return nationality_a_e1;
+        }
 }

@@ -1,8 +1,8 @@
 ---
 sql: |
   select
-  	person.*,
-  	person.id as link
+        person.*,
+        person.id as link
   from person
   where id = ${id}
 

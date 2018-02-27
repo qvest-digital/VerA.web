@@ -81,21 +81,21 @@ import lombok.Data;
 @Table(name = "toptional_field_type")
 public class OptionalFieldType {
 
-	@Id
+        @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int pk;
+        private int pk;
 
-	private String description;
+        private String description;
 
-	public int getPk() {
-		return pk;
-	}
+        public int getPk() {
+                return pk;
+        }
 
-	public String getDescription() {
-		return description;
-	}
+        public String getDescription() {
+                return description;
+        }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+        public void setDescription(String description) {
+                this.description = description;
+        }
 }

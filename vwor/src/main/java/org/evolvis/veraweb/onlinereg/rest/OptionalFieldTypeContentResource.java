@@ -76,15 +76,15 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class OptionalFieldTypeContentResource extends AbstractResource {
 
-	/**
-	 * Getting type contents by optional field ID
-	 *
-	 * @param optionalFieldId optional field ID
-	 * @return Content types for a field
-	 */
-	@GET
-	@Path("/{optionalFieldId}")
-	public List<OptionalFieldTypeContent> getTypeContentsByOptionalField(
+        /**
+         * Getting type contents by optional field ID
+         *
+         * @param optionalFieldId optional field ID
+         * @return Content types for a field
+         */
+        @GET
+        @Path("/{optionalFieldId}")
+        public List<OptionalFieldTypeContent> getTypeContentsByOptionalField(
             @PathParam("optionalFieldId") Integer optionalFieldId) {
         final Session session = openSession();
         try {

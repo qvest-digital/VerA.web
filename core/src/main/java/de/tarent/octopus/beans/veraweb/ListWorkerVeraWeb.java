@@ -97,36 +97,36 @@ public abstract class ListWorkerVeraWeb extends BeanListWorker {
     //
     // Oberklasse BeanListWorker
     //
-	/**
+        /**
      * Diese Methode liefert eine {@link DatabaseVeraWeb}-Instanz
      *
-	 * @see BeanListWorker#getDatabase(OctopusContext)
-	 */
-	@Override
+         * @see BeanListWorker#getDatabase(OctopusContext)
+         */
+        @Override
     protected Database getDatabase(OctopusContext cntx) {
-		return new DatabaseVeraWeb(cntx);
-	}
+                return new DatabaseVeraWeb(cntx);
+        }
 
-	/**
+        /**
      * Diese Methode liefert eine {@link RequestVeraWeb}-Instanz.
-	 * @see BeanListWorker#getRequest(OctopusContext)
-	 */
-	@Override
+         * @see BeanListWorker#getRequest(OctopusContext)
+         */
+        @Override
     protected Request getRequest(OctopusContext cntx) {
-		return new RequestVeraWeb(cntx);
-	}
-	/**
-	 * Table column to use for Jump Offsets (a.k.a. "Direkteinsprung")
-	 * <br>
-	 * @param octopusContext The {@link OctopusContext}
-	 * @return the db column name or <code>null</code> if no jump offsets should be generated.
-	 * @throws BeanException
-	 */
-	protected  String getJumpOffsetsColumn(OctopusContext octopusContext) throws BeanException{
-	    return null;
-	}
+                return new RequestVeraWeb(cntx);
+        }
+        /**
+         * Table column to use for Jump Offsets (a.k.a. "Direkteinsprung")
+         * <br>
+         * @param octopusContext The {@link OctopusContext}
+         * @return the db column name or <code>null</code> if no jump offsets should be generated.
+         * @throws BeanException
+         */
+        protected  String getJumpOffsetsColumn(OctopusContext octopusContext) throws BeanException{
+            return null;
+        }
 
-	public static final String INPUT_getJumpOffsets[] = {};
+        public static final String INPUT_getJumpOffsets[] = {};
     public static final String OUTPUT_getJumpOffsets = "jumpOffsets";
     public List<JumpOffset> getJumpOffsets(OctopusContext octopusContext) throws BeanException, IOException, SQLException {
         final Database database = getDatabase(octopusContext);

@@ -85,8 +85,8 @@ import java.util.List;
 public class PersonResource extends AbstractResource {
 
     private static final String PARAM_PERSON_ID = "personId";
-	private static final String PARAM_UUID = "uuid";
-	private static final String PARAM_USERNAME = "username";
+        private static final String PARAM_UUID = "uuid";
+        private static final String PARAM_USERNAME = "username";
     private static final String PARAM_EMAIL = "email";
 
     /**
@@ -102,7 +102,7 @@ public class PersonResource extends AbstractResource {
     @POST
     @Path("/")
     public Person createPerson(@FormParam(PARAM_USERNAME) String username,
-    						   @FormParam("firstname") String firstName,
+                                                   @FormParam("firstname") String firstName,
                                @FormParam("lastname") String lastname,
                                @FormParam("email") String email) {
         final Session session = openSession();
@@ -129,11 +129,11 @@ public class PersonResource extends AbstractResource {
     @POST
     @Path("/delegate")
     public Person createDelegate(@FormParam("eventId") Integer eventId,
-						    		@FormParam(PARAM_USERNAME) String username,
-						    		@FormParam("firstname") String firstName,
-						    		@FormParam("lastname") String lastname,
-						    		@FormParam("gender") String gender,
-					    			@FormParam("company") String company,
+                                                                @FormParam(PARAM_USERNAME) String username,
+                                                                @FormParam("firstname") String firstName,
+                                                                @FormParam("lastname") String lastname,
+                                                                @FormParam("gender") String gender,
+                                                                @FormParam("company") String company,
                                     @FormParam("function") String function) {
         final Session session = openSession();
         try {
@@ -201,7 +201,7 @@ public class PersonResource extends AbstractResource {
      *
      * @return The newly created person.
      */
-	@POST
+        @POST
     @Path("/press")
     public Person createPersonPress(@FormParam("eventId") Integer eventId,
                                     @FormParam(PARAM_USERNAME) String username,
@@ -268,9 +268,9 @@ public class PersonResource extends AbstractResource {
      *
      * @return first name and last name in one string separated by a whitespace
      */
-	@GET
-	@Path("/userinfo/{username}")
-	public String getFirstAndLastName(@PathParam(PARAM_USERNAME) String username) {
+        @GET
+        @Path("/userinfo/{username}")
+        public String getFirstAndLastName(@PathParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
         try {
             final Query query = session.getNamedQuery("Person.getPersonNamesByUsername");
@@ -474,8 +474,8 @@ public class PersonResource extends AbstractResource {
     }
 
     private void updatePerson(Person person, Session session) {
-    	session.update(person);
-    	session.flush();
+        session.update(person);
+        session.flush();
     }
 
     private Person initPerson(String username, String firstName, String lastname, String email) {
