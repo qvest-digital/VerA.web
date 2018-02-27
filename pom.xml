@@ -245,6 +245,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!--
 			<plugin>
 				<inherited>false</inherited>
 				<groupId>org.codehaus.mojo</groupId>
@@ -263,6 +264,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
 		</plugins>
 	</build>
 	<dependencyManagement>
