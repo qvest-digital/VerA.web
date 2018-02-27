@@ -92,9 +92,9 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>postgresql</groupId>
+			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>7.4.1-jdbc3</version>
+			<version>42.2.1</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.mail</groupId>
