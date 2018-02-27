@@ -815,6 +815,14 @@ sudo chmod 640 /etc/ssl/private/vwserver.key
 \end{lstdump}
 \end{minipage}
 
+Unsere Software wird ausschließlich auf normalen Linux-Systemen ohne
+SELinux getestet. Sollten Sie eine Distribution mit SELinux einsetzen
+müssen Sie SELinux deaktivieren, zum Beispiel kurzzeitig (bis spätestens
+zum nächsten Neustart) mit dem Befehl \texttt{sudo setenforce 0}, oder,
+z.B. auf RHEL und CentOS, permanent, indem Sie in der Konfigurationsdatei
+\texttt{/etc/sysconfig/selinux} die Einstellung \texttt{SELINUX=disabled}
+setzen und das System neustarten.
+
 \section{Installation OpenLDAP und LDAP-Account-Manager}\label{sec:setup-lam}
 
 Falls Sie bereits über einen \nameref{subsec:req-ldap} verfügen
