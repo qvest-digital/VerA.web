@@ -21,6 +21,8 @@
 #-
 # Build-specific tool to create a tarball of the entire source code.
 
+#TODO:MAVEN_CMD_LINE_ARGS= -Prelease generate-resources
+
 # initialisation
 LC_ALL=C; export LC_ALL
 unset LANGUAGE
