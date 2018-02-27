@@ -1,2 +1,4 @@
 • replace core/src/main/webapp/index.html by redirect
 • update FROM in all Dockerfiles to latest/secure/Debian/…
+• webjars for dependencies
+• npm-free build even for vwoa
