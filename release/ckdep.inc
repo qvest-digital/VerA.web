@@ -1,3 +1,4 @@
+com.lowagie:itext 4.2.0 TODO illegal:https://developers.itextpdf.com/question/versions-older-than-5
 github::HubSpot/vex 3.0.0 ok
 github::baconjs/bacon.js 0.7.73 ok
 github::bbatliner/vex-dialog 1.0.6 ok
