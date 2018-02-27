@@ -365,7 +365,6 @@ OPTION_HELP_WINDOW_1=Utilizar ventana de ayuda actual
 OPTION_HELP_WINDOW_2=Abrir una nueva ventana navegador por llamada
 OPTION_HELP_WINDOW_3=La misma ventana de ayuda por llamada (no la actual)
 GENERIC_MISCELLANEOUS=Otros
-GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
 GENERIC_PROTOCOL_TIME_CHANGE=Historial de cambios
 GENERIC_PROTOCOL_COMMISIONING_TIME=Intervalo del registro de datos
 HINT_GIVE_THE_RETENTION_PERIOD=Indique el per\u00EDodo de retenci\u00F3n

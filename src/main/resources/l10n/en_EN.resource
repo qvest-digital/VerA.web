@@ -365,7 +365,6 @@ OPTION_HELP_WINDOW_1=Use current browser window
 OPTION_HELP_WINDOW_2=Open new browser window per request
 OPTION_HELP_WINDOW_3=Same browser window for each request (not the current one)
 GENERIC_MISCELLANEOUS=Miscellaneous
-GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
 GENERIC_PROTOCOL_TIME_CHANGE=Protocol of amendment
 GENERIC_PROTOCOL_COMMISIONING_TIME=Derivative time of protocol data
 HINT_GIVE_THE_RETENTION_PERIOD=Please enter the retention period

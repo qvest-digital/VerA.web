@@ -365,7 +365,6 @@ OPTION_HELP_WINDOW_1=Aktuelles Browser-Fenster verwenden
 OPTION_HELP_WINDOW_2=Pro Aufruf ein neues Browser-Fenster \u00F6ffnen
 OPTION_HELP_WINDOW_3=Bei jedem Aufruf das selbe Browser-Fenster (nicht das aktuelle)
 GENERIC_MISCELLANEOUS=Sonstiges
-GENERIC_FAX_CONFIG_FIELD=Fax-DN (@fax.aa)
 GENERIC_PROTOCOL_TIME_CHANGE=\u00C4nderungsprotokoll
 GENERIC_PROTOCOL_COMMISIONING_TIME=Vorhaltezeit der Protokolldaten
 HINT_GIVE_THE_RETENTION_PERIOD=Geben Sie die Aufbewahrungsfrist ein
