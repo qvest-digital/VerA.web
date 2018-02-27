@@ -277,7 +277,7 @@
 		</dependencies>
 	</dependencyManagement>
 	<modules>
-		<module>common</module>
+		<module>shared</module>
 		<module>core</module>
 		<module>export</module>
 		<module>vwor</module>
