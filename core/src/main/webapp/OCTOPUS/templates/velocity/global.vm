@@ -179,4 +179,3 @@
 		<span class="floatRight"><img border="0" alt="DESC" src="${paths.staticWeb}images/sort_down.gif"></img></span>
 	#end
 #end
-

@@ -569,4 +569,3 @@ public class EventDelegationWorker {
         return event;
     }
 }
-

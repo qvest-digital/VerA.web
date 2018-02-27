@@ -129,6 +129,4 @@ public class XMLUtil {
 		parent2.removeChild(objectclass);
 		return parent2.getChildNodes();
 	}
-
 }
-
