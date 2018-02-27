@@ -150,8 +150,8 @@ public class OsiamClient {
     	Query query = new QueryBuilder().filter("userName eq \"" + userName + "\"").build();
     	AccessToken accessToken = new AccessToken.Builder(accessTokenAsString).build();
     	SCIMSearchResult<User> users = this.connector.searchUsers(query, accessToken);
-    	
-    	
+
+
     	if(users.getResources().size() == 0) {
     		return null;
     	}
@@ -174,7 +174,7 @@ public class OsiamClient {
     public BasicUser getUserBasic(String accessToken){
         return this.connector.getCurrentUserBasic(new AccessToken.Builder(accessToken).build());
     }
-    
+
 	/**
 	 * Get all users.
 	 *

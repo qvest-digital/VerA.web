@@ -182,5 +182,4 @@ public class CategoryResourceSessionsTest {
         when(categoryResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
     }
-
 }

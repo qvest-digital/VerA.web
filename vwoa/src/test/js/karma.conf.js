@@ -28,7 +28,7 @@ module.exports = function (config) {
       // ..
       'js/*.js': 'coverage'         // (1)
     },
- 
+
     coverageReporter: {
       type : 'html',                // (2)
       dir : '../target/karma-coverage'

@@ -94,7 +94,7 @@ import java.util.EnumSet;
 @Log
 public class Main extends Application<Config> {
 
-	
+
 	/* RESOURCES */
 		private EventResource eventResource;
 		private UserResource userResource;
@@ -109,7 +109,7 @@ public class Main extends Application<Config> {
         private FileUploadResource fileUploadResource;
         private ImprintResource imprintResource;
 	/* ********* */
-		
+
     /**
      * Startup with the parameter java DropwizardDemo server config.json
      *
@@ -164,7 +164,7 @@ public class Main extends Application<Config> {
     /**
      * Initializing every resources needed from Online-Anmeldung
      * MUST: When a new Resource is created, it is need to be initialized here
-     * 
+     *
      * @param configuration
      * @param environment
      * @param client

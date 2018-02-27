@@ -174,7 +174,7 @@ public class MailingResource extends FormDataResource {
     }
 
     private String getFrom(PersonMailinglist recipient) {
-        
+
         return emailConfiguration.getFrom(recipient.getPerson().getFk_orgunit());
     }
 

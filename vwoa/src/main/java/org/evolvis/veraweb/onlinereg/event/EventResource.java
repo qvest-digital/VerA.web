@@ -167,12 +167,12 @@ public class EventResource {
         final String username = (String) request.getAttribute(LoginResource.USERNAME);
     	final List<Event> listEvents = readResource(path("event"), EVENT_LIST);
     	final List<EventTransporter> listTransporters = new ArrayList<EventTransporter>();
-    	
+
     	for (final Iterator<Event> iterator = listEvents.iterator(); iterator.hasNext();) {
             final EventTransporter eventTransporter = createEventTransporter(username, iterator);
 			listTransporters.add(eventTransporter);
 		}
-    	
+
         return listTransporters;
     }
 
@@ -201,7 +201,7 @@ public class EventResource {
     @GET
     @Path("/{eventId}/register/{userId}")
     public Guest getRegistration(
-    		@PathParam("eventId") int eventId, 
+    		@PathParam("eventId") int eventId,
     		@PathParam("userId") int userId) throws IOException {
         return readResource(path("guest", eventId, userId), GUEST);
     }
@@ -230,7 +230,7 @@ public class EventResource {
             registerUserAsGuestForEvent(eventId, notehost, guestStatus, username);
     		return StatusConverter.convertStatus("OK");
     	}
-    	
+
     	return StatusConverter.convertStatus("REGISTERED");
     }
 

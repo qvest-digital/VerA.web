@@ -93,38 +93,36 @@ public class OptionalField {
 	private Integer fk_event;
 	private String label;
 	private Integer fk_type;
-	
+
 	public Integer getPk() {
 		return pk;
 	}
-	
+
 	public void setPk(Integer pk) {
 		this.pk = pk;
 	}
-	
+
 	public Integer getFk_event() {
 		return fk_event;
 	}
-	
+
 	public void setFk_event(Integer fk_event) {
 		this.fk_event = fk_event;
 	}
-	
+
 	public String getLabel() {
 		return label;
 	}
-	
+
 	public void setLabel(String label) {
 		this.label = label;
 	}
-	
+
 	public Integer getFk_type() {
 		return fk_type;
 	}
-	
+
 	public void setFk_type(Integer fk_type) {
 		this.fk_type = fk_type;
 	}
-	
-	
 }

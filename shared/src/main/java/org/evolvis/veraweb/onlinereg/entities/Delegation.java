@@ -88,7 +88,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 })
 public class Delegation {
-	
+
 	public static final String QUERY_FIND_BY_GUEST = "Delegation.findByGuestId";
 	public static final String DELETE_OPTIONAL_FIELDS = "Delegation.deleteOptionalFieldsByGuestId";
 	public static final String PARAM_GUEST_ID = "guestId";
@@ -102,7 +102,7 @@ public class Delegation {
 	private String value;
 
 	public Delegation() {}
-	
+
 	public Delegation(Integer fk_guest, Integer fk_delegation_field, String value) {
 	    super();
 	    this.fk_guest = fk_guest;
@@ -141,5 +141,4 @@ public class Delegation {
 	public void setValue(String value) {
 		this.value = value;
 	}
-
 }

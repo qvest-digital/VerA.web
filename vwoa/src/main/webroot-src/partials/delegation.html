@@ -12,9 +12,9 @@
             <div class="row marginB10"
                  ng-class="delegationForm.gender.$valid ? 'has-success' : 'has-error'">
               <label>{{'GENERIC_GENDER'|translate}}</label>
-              <select 
-                 class="form-control" 
-                 id="gender" 
+              <select
+                 class="form-control"
+                 id="gender"
                  name="gender"
                  ng-model="person.gender"
                  ng-options="option.label | translate for option in genderOptions"
@@ -30,8 +30,8 @@
               <div class="col-md-6 paddingL0 marginB10"
                    ng-class="delegationForm.firstname.$valid ? 'has-success' : 'has-error'">
                 <label>{{'GENERIC_FIRSTNAME'|translate}}</label>
-                <input type="text" 
-                       class="form-control" 
+                <input type="text"
+                       class="form-control"
                        id="firstname"
                        name="firstname"
                        placeholder="{{'GENERIC_FIRSTNAME'|translate}}"
@@ -48,12 +48,12 @@
                    ng-class="delegationForm.lastname.$valid ? 'has-success' : 'has-error'">
                 <label>{{'GENERIC_LASTNAME'|translate}}</label>
                 <input type="text"
-                       class="form-control" 
+                       class="form-control"
                        id="lastname"
                        name="lastname"
                        placeholder="{{'GENERIC_LASTNAME'|translate}}"
-                       ng-model="person.lastname" 
-                       required 
+                       ng-model="person.lastname"
+                       required
                        ng-maxlength="35"/>
 
                 <p ng-show="delegationForm.lastname.$error.required && !delegationForm.lastname.$pristine" class="help-block">

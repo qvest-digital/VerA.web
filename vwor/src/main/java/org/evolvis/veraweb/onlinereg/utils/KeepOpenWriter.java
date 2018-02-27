@@ -65,7 +65,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 public class KeepOpenWriter extends Writer {
-    
+
     private final Writer delegatee;
 
     public KeepOpenWriter(Writer delegatee) {
@@ -86,5 +86,4 @@ public class KeepOpenWriter extends Writer {
     public void close() throws IOException {
         delegatee.flush();
     }
-
 }

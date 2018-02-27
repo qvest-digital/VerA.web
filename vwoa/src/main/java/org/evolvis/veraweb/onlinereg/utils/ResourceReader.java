@@ -113,13 +113,13 @@ public class ResourceReader {
      */
     public String constructPath(String baseResource, Object... pathParts) {
         final URI base;
-       
+
         try {
             base = new URI(config.getVerawebEndpoint() + baseResource);
         } catch (URISyntaxException e) {
             throw new IllegalArgumentException(e);
         }
-      
+
         final StringBuilder sb = new StringBuilder(base.getPath());
         for (Object p : pathParts) {
             // path segments must not include forward slashes. Period.
@@ -131,7 +131,7 @@ public class ResourceReader {
             sb.append('/');
             sb.append(segment);
         }
-        
+
         try {
             return new URI(base.getScheme(),base.getUserInfo(),base.getHost(),base.getPort(),sb.toString(),base.getQuery(),base.getFragment()).toASCIIString();
         } catch (URISyntaxException e) {

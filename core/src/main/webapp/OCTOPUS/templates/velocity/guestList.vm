@@ -184,7 +184,7 @@
 			<input type="hidden" name="start" value="">
 			<input type="hidden" name="limit" value="" />
 			<input type="hidden" name="filter" value="" />
-			
+
 			<input type="hidden" name="selectNone" id="selectNone" value="true">
 			<input type="hidden" name="doInsert" value="false">
 			<input type="hidden" name="doUpdate" value="true">
@@ -452,7 +452,7 @@
 						## We want zero-indexed offset to create jump marks. I don't understand how the other "offset" is
 						## used, and I don't want to break anything...
 						#set($offset0 = $offset - 1)
-						
+
 						<tr id="row-${offset0}">
 							<td>
 								<input type="hidden" id="${bean.id}-modified" name="${bean.id}-modified" value="false">

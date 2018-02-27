@@ -91,11 +91,11 @@ public class FreeVisitorsResource {
      * Jackson Object Mapper
      */
     private final ObjectMapper mapper = new ObjectMapper();
-    
+
     private final Config config;
 	private final Client client;
     private final ResourceReader resourceReader;
-    
+
     public FreeVisitorsResource(Config config, Client client) {
 		this.config = config;
 		this.client = client;
@@ -129,7 +129,7 @@ public class FreeVisitorsResource {
         return null;
     }
 
-   
+
     private String path(Object... path) {
         return resourceReader.constructPath(BASE_RESOURCE, path);
     }

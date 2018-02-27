@@ -130,7 +130,7 @@ public class CategoryResource extends AbstractResource {
 
     /**
      * Get category name by person ID and Delegation UUID
-     * 
+     *
      * @param uuid delegation UUID
      * @param personId person ID
      * @return String catname

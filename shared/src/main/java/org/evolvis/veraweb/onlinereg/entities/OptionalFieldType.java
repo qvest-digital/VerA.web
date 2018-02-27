@@ -72,7 +72,7 @@ import lombok.Data;
 
 /**
  * Class which represents the table toptional_field_type
- * 
+ *
  * @author jnunez
  */
 @Data
@@ -84,17 +84,17 @@ public class OptionalFieldType {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int pk;
-	
+
 	private String description;
-	
+
 	public int getPk() {
 		return pk;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
 	}

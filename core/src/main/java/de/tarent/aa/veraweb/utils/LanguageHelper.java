@@ -71,7 +71,7 @@ import java.util.Map;
 public class LanguageHelper {
 
     final Map<String,String> placeholderWithTranslation;
-    
+
     public LanguageHelper(Map<String, String> placeholderWithTranslation) {
         this.placeholderWithTranslation = placeholderWithTranslation;
     }
@@ -109,7 +109,7 @@ public class LanguageHelper {
         return message;
     }
 
-   
+
 
     public String makeFirstLetterLowerCase (String input) {
         Locale.setDefault(new Locale("en"));
@@ -120,7 +120,7 @@ public class LanguageHelper {
         return LowerCase;
     }
 
-    
+
     // velocity 1.4 does not support varargs...
     public String l10n(String code){
         return translate(code);
@@ -146,5 +146,4 @@ public class LanguageHelper {
         String format = placeholderWithTranslation.containsKey(code) ? placeholderWithTranslation.get(code): code;
         return String.format(format, args);
     }
-
 }

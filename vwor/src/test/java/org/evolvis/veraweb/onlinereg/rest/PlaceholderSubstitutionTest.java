@@ -79,13 +79,13 @@ public class PlaceholderSubstitutionTest {
         PlaceholderSubstitution subst = new PlaceholderSubstitution(person);
         final List<String> words = Arrays.asList("firstname", "lastname", "salutation", "title", "function", "company", "street", "zipcode", "city",
                 "country", "poboxzipcode", "pobox", "suffix1", "suffix2", "phone", "fax", "mobile", "email", "url");
-        
+
         final String template = createTemplate(words);
         final String expectedOutput = createExpectedOutput(words);
-        
+
         // WHEN
         String actualOutput = subst.apply(template);
-        
+
         // THEN
         assertEquals(expectedOutput, actualOutput);
     }
@@ -106,7 +106,7 @@ public class PlaceholderSubstitutionTest {
             }
             sb2.append(word+": '"+expectedValue+"_a_e1'\n");
         }
-        
+
         final String expectedOutput = sb2.toString();
         return expectedOutput;
     }
@@ -121,9 +121,9 @@ public class PlaceholderSubstitutionTest {
         return template;
     }
 
-    
+
     private Person createPerson() throws IllegalAccessException {
-        
+
         final Person person = new Person();
         final Field[] fields = Person.class.getDeclaredFields();
         for (Field field : fields) {
@@ -137,5 +137,4 @@ public class PlaceholderSubstitutionTest {
         }
         return person;
     }
-
 }

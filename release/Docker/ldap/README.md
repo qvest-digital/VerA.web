@@ -14,7 +14,7 @@ by other Docker containers using the `--link` option.
 New features
 ------------
 
-Additionally to original image [dinkel/openldap](https://hub.docker.com/r/dinkel/openldap/), 
+Additionally to original image [dinkel/openldap](https://hub.docker.com/r/dinkel/openldap/),
 a new volume `/bootstrap/data` and a new variable `SLAPD_BOOTSTRAP_DATA_FILES` added.
 
 Usage
@@ -93,9 +93,9 @@ A container could be initialized with data files that are stored in volume `/boo
 and configured with an optional environment variable called
 
     SLAPD_BOOTSTRAP_DATA_FILES
-    
+
 which can hold comma-separated entries. It will try to run `.ldif` files with
-a corresponding name from `/bootstrap/data` directory. 
+a corresponding name from `/bootstrap/data` directory.
 
 After the first start of the image (and the initial configuration), these
 environment variables are not evaluated anymore.
@@ -107,4 +107,4 @@ The image exposes three directories (`VOLUME ["/etc/ldap", "/var/lib/ldap", "/bo
 The first holds the "static" configuration while the second holds the actual
 database. Please make sure that these two directories are saved (in a data-only
 container or alike) in order to make sure that everything is restored after a
-restart of the container. The third one is used only during initialization phase. 
+restart of the container. The third one is used only during initialization phase.

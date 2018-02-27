@@ -9,7 +9,7 @@
 
         	<form class="form-horizontal" role="form">
 		    	<div ng-if="error" class="alert alert-danger" role="alert">{{error}}</div>
-		    	
+
                 <div class="form-group">
                     <label for="start" class="col-lg-4 control-label">{{'USER_EVENTS_EDIT_STATUS_BEGIN_LABEL' | translate}}</label>
 
@@ -17,7 +17,7 @@
                         <div class="form-control-static" id="start" >{{parseDate(event.datebegin) | date:'dd.MM.yyyy HH:mm'}}</div>
                     </div>
                 </div>
-                
+
 				<div class="form-group">
                     <label for="acceptance" class="col-lg-4 control-label">{{'USER_EVENTS_EDIT_STATUS_LABEL' | translate}}</label>
                     <div class="col-lg-4">
@@ -26,7 +26,7 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="noteToHost" class="col-lg-4 control-label">{{'USER_EVENTS_EDIT_STATUS_ADDITIONAL_INFO' | translate}}</label>
 

@@ -72,11 +72,11 @@ import de.tarent.extract.DummyMonitor;
 import de.tarent.extract.ExtractIo;
 
 public class CsvIo implements ExtractIo {
-	
+
 	private final Reader reader;
 	private final Writer writer;
     private final Properties properties;
-	
+
 	public CsvIo(Reader reader, Writer writer, Properties properties){
 		this.reader = reader;
 		this.writer = writer;
@@ -106,5 +106,4 @@ public class CsvIo implements ExtractIo {
 	public Properties getProperties() {
 		return properties;
 	}
-
 }

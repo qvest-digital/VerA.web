@@ -94,7 +94,7 @@
                     '${placeholderWithTranslation.GENERIC_DELETE}',
                     '${placeholderWithTranslation.GENERIC_CANCEL}');
                 #end
-                    
+
             };
 
             // Funktion um ausgewählte Option : Zuweisen / Entfernen und Abbrechen zu überprüfen und dementspreche abfragen zu implementieren
@@ -183,7 +183,7 @@
                         <label for="category">${placeholderWithTranslation.GENERIC_CATEGORY_SINGULAR}</label>
                         <select name="category" id="category" onChange="selected(this);">
                         <option name="nix" value="">
-                    
+
                         #foreach( $category in $allCategorie )
                             <option name="kategorie" value="${category.id}">$!message.plain(${category.name})
                         #end
@@ -202,12 +202,12 @@
 	            	<h1> ${placeholderWithTranslation.GUEST_LIST_CONFIRM_ACTION}:</h1>
            	        <script type="text/javascript">$(function(){
            	            window.opener.document.forms[ "formlist" ].elements[ "categoryAssignmentAction" ].value = "${assignmentAction}";
-           	        
+
            	        	showRemoveCategory();
            	        });</script>
-	            	
-				#end  
-            </div> 
+
+				#end
+            </div>
         </form>
 
         <vera-info>

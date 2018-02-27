@@ -379,10 +379,10 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
-    
+
     /**
      * Find whether guest is registered for the event delegation
-     * 
+     *
      * @param username OSIAM username
      * @param delegation UUID of delegation
      *
@@ -438,7 +438,7 @@ public class GuestResource extends AbstractResource{
 
     /**
      * Generalized method for isUserRegisteredintoEvent and isUserRegisteredintoEventToAccept.
-     * 
+     *
      * @param username Username
      * @param eventId Event id
      * @param namedQuery Query
@@ -460,7 +460,7 @@ public class GuestResource extends AbstractResource{
             session.close();
         }
     }
-    
+
     /**
      * Checking if the current user is registered into the event
      *
@@ -567,7 +567,7 @@ public class GuestResource extends AbstractResource{
                                 @FormParam("invitationtype") Integer invitationtype,
                                 @FormParam("gender") String gender,
                                 @FormParam("category") Integer category,
-                                @FormParam(PARAM_USERNAME) String username, 
+                                @FormParam(PARAM_USERNAME) String username,
                                 @FormParam("hostNode") String nodeHost,
                                 @FormParam("reserve") Integer reserve) {
         final Session session = openSession();

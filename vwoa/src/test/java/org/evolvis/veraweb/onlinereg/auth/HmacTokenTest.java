@@ -92,10 +92,10 @@ public class HmacTokenTest {
             ;
         }
     }
-    
+
     @Test
     public void checkMinLength(){
-        // MAC + Timestamp are exactly 28 bytes. 
+        // MAC + Timestamp are exactly 28 bytes.
         // Both should fail early since the message (the osiam access token) cannot be empty.
         try{
             new HmacToken(new byte[28]);

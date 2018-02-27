@@ -73,7 +73,7 @@ public class JumpOffset {
         this.offset = offset;
         this.currentPageOffset = currentPageOffset;
         this.targetPageOffset = (offset / itemsPerPage) * itemsPerPage;
-        
+
     }
 
     public String getLetter() {
@@ -83,13 +83,12 @@ public class JumpOffset {
     public Integer getOffset() {
         return offset;
     }
-    
+
     public Integer getTargetPageOffset(){
-        return targetPageOffset;   
+        return targetPageOffset;
     }
-    
+
     public boolean isTargetOnCurrentPage(){
         return targetPageOffset == currentPageOffset;
     }
-
 }

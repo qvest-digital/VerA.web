@@ -12,7 +12,7 @@ describe('Registration Test Suits', function() {
         ];
 
 	var scope, ctrl, routeParams;
-	
+
 	beforeEach(module('onlineRegApp'));
 
         beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
@@ -23,10 +23,10 @@ describe('Registration Test Suits', function() {
 	    routeParams.acceptanceId = 0;
 	    routeParams.noteToHost="wir sind dabei";
 	    //routeParams.
-	
+
             //create new RegisterController
             ctrl = $controller('RegisterController', {$scope: scope, $routeParams: routeParams});
-            
+
 	    //for(var i=1;i<4;i++){
 		    _$httpBackend_.whenGET('api/event/'+routeParams.eventId).respond(eventList[routeParams.eventId-1]);
 	    //}
@@ -44,7 +44,7 @@ describe('Registration Test Suits', function() {
 		expect(scope.acceptance).toEqual(acceptanceOptions[routeParams.acceptanceId]);
 		//expect(scope.noteToHost).toEqual(routeParams.noteToHost);
 		//_$httpBackend_.expectPOST('api/event/' + routeParams.eventId + '/register/2').respond();
-		
+
         });
 
 	});

@@ -106,7 +106,7 @@ public class FileUploadResource {
 
 	/** Return types */
 	private static final TypeReference<String> STRING = new TypeReference<String>() {};
-    
+
     public FileUploadResource(Config config, Client client) {
         this.client = client;
         this.config = config;
@@ -126,7 +126,7 @@ public class FileUploadResource {
 		return StatusConverter.convertStatus("OK");
 	}
 
-	
+
 
 	@GET
 	@Path("/download/{imgUUID}")
@@ -187,5 +187,4 @@ public class FileUploadResource {
 	private String path(Object... path) {
         return resourceReader.constructPath(BASE_RESOURCE, path);
     }
-
 }

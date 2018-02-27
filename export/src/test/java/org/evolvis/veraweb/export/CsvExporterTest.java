@@ -97,7 +97,7 @@ public class CsvExporterTest {
         public MyColumn(Properties props) {
             this.props = props;
         }
-        
+
         public Object extractValue(ResultSet rs, int col) throws SQLException {
             return getBaseUrl()+"?id="+rs.getInt(col + 1);
         }
@@ -105,9 +105,9 @@ public class CsvExporterTest {
         private Object getBaseUrl() {
             return props != null && props.containsKey("baseUrl") ? props.get("baseUrl") : "/";
         }
-        
+
     }
-    
+
     @Before
     public void setup() throws UnsupportedEncodingException {
         dataSource = new JdbcDataSource();
@@ -129,5 +129,4 @@ public class CsvExporterTest {
         csvExporter.export(map);
         assertEquals("id,firstname,lastname,link\r\n1,Ford,Prefect,http://fnord-west.eu/api?id=1\r\n", writer.toString());
     }
-
 }

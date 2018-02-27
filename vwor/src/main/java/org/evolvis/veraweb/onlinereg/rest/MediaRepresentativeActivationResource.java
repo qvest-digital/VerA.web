@@ -181,7 +181,7 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
         mediaRepresentativeActivation.setLastname(lastname);
         mediaRepresentativeActivation.setZip(zip);
         mediaRepresentativeActivation.setActivated(0);
-        
+
         return mediaRepresentativeActivation;
     }
 }

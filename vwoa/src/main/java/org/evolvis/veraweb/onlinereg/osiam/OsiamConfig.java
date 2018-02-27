@@ -89,7 +89,7 @@ public class OsiamConfig {
     public OsiamClient getClient(Client client) {
         return new OsiamClient(this, client);
     }
-    
+
     public String getEndpoint() {
     	return this.endpoint;
     }
@@ -101,7 +101,4 @@ public class OsiamConfig {
 	public String getClientSecret() {
 		return this.clientSecret;
 	}
-    
-    
-
 }

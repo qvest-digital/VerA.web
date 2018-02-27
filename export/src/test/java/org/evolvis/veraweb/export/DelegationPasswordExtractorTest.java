@@ -84,7 +84,7 @@ public class DelegationPasswordExtractorTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
-    
+
     @Mock
     private ResultSet rs;
 
@@ -94,10 +94,10 @@ public class DelegationPasswordExtractorTest {
     private Date eventBegin;
     private String companyName;
     private String eventName;
-    
+
     @Before
     public void setup(){
-        
+
         final Calendar cal = Calendar.getInstance();
         cal.set(1978, 0, 9);
         eventBegin = cal.getTime();
@@ -105,7 +105,7 @@ public class DelegationPasswordExtractorTest {
         companyName = "tarent solutions GmbH";
         when(generator.generatePassword(anyString(), any(Date.class), anyString())).thenReturn("generated password");
     }
-    
+
     @Test
     public void createsPasswordByCallingTheDelegationPasswordGenerator() throws SQLException {
         Properties properties = new Properties();
@@ -117,7 +117,7 @@ public class DelegationPasswordExtractorTest {
         verify(generator).generatePassword(eventName, eventBegin, companyName);
         assertEquals("generated password", extractedValue);
     }
-    
+
     @Test
     public void returnsNullIfColumnValueIsNull() throws SQLException{
         Properties properties = new Properties();
@@ -128,9 +128,9 @@ public class DelegationPasswordExtractorTest {
         Object extractedValue = new DelegationPasswordExtractor(properties, generator).extractValue(rs, 42);
         verify(generator,times(0)).generatePassword(eventName, eventBegin, companyName);
         assertNull(extractedValue);
-        
+
     }
-    
+
     @Test
     public void canReadEventBeginAndEventNameFromCustomProperties() throws SQLException{
         Properties properties = new Properties();
@@ -144,5 +144,4 @@ public class DelegationPasswordExtractorTest {
         verify(generator).generatePassword(eventName, eventBegin, companyName);
         assertEquals("generated password", extractedValue);
     }
-
 }

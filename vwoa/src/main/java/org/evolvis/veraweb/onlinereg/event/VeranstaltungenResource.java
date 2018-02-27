@@ -131,7 +131,7 @@ public class VeranstaltungenResource {
         this.resourceReader = new ResourceReader(client, mapper, config);
     }
 
-    
+
 
     /**
      * Returns a list of events
@@ -144,7 +144,7 @@ public class VeranstaltungenResource {
     public List<Event> getEvents() throws IOException {
         return readResource(path("veranstaltungen"), EVENT_LIST);
     }
-    
+
     private String path(Object... path) {
         return resourceReader.constructPath(BASE_RESOURCE, path);
     }

@@ -1,5 +1,5 @@
 module.exports=function($scope, authService, show) {
-  var tools = require("../../scope-tools")($scope); 
+  var tools = require("../../scope-tools")($scope);
   $scope.login = function(){
     authService
     .login($scope.user.accountName, $scope.user.password)
@@ -19,5 +19,4 @@ module.exports=function($scope, authService, show) {
   $scope.$on("vwoa-auth:authentication-state-changed",function(ev,data){
     tools.putInScope("user")(data);
   });
-
 };

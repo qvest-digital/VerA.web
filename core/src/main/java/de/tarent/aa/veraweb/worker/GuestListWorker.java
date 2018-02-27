@@ -150,7 +150,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         super("Guest");
     }
 
-    
+
 
     @Override
     public void saveList(OctopusContext octopusContext) throws BeanException, IOException {
@@ -626,8 +626,8 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         octopusContext.setSession("search" + BEANNAME, search);
         return search;
     }
-    
-    
+
+
     /**
      * Diese Octopus-Aktion liefert das Ereignis aus der aktuellen Gästesuche,
      * siehe Aktion {@link #getSearch(OctopusContext)}.
@@ -655,12 +655,12 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         return event;
     }
 
-    
-    
-    
+
+
+
     /**
      * // TODO
-     * 
+     *
      * @param octopusContext
      *            The {@link de.tarent.octopus.server.OctopusContext}
      *
@@ -699,7 +699,7 @@ public class GuestListWorker extends ListWorkerVeraWeb {
     /**
      * Diese Methode überträgt Gästesuchkriterien aus einer {@link GuestSearch}
      * -Instanz in einer WHERE-Statement-Liste.
-     * 
+     *
      * @deprecated Use
      *             {@link GuestSearch#addGuestListFilter(GuestSearch, WhereList)}
      *             instead
@@ -798,5 +798,4 @@ public class GuestListWorker extends ListWorkerVeraWeb {
         }
         return null;
     }
-
 }

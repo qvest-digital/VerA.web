@@ -74,7 +74,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Class of table 'tcategorie'
- * 
+ *
  * @author jnunez
  */
 @Data
@@ -116,5 +116,4 @@ public class Category {
 	public void setCatname(String catname) {
 		this.catname = catname;
 	}
-
 }

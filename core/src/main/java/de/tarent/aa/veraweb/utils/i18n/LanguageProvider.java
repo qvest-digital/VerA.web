@@ -266,7 +266,7 @@ public class LanguageProvider {
         octopusContext.setContent("language", octopusContext.sessionAsString("sessionLanguage"));
         octopusContext.setContent("placeholderWithTranslation", placeholderWithTranslation);
         octopusContext.setContent("helper", new LanguageHelper(placeholderWithTranslation));
-        
+
     }
 
     // Set language names (language parameter of language data) from all
@@ -297,7 +297,7 @@ public class LanguageProvider {
         for(String localeName:localeNames){
             languageFileNames.add(localeName+".resource");
         }
-        
+
         return languageFileNames;
     }
 

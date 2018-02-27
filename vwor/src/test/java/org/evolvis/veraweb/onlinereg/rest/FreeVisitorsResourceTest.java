@@ -83,19 +83,19 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class FreeVisitorsResourceTest {
-	
+
 	 @Mock
 	 private static SessionFactory mockitoSessionFactory;
 	 @Mock
 	 private static Session mockitoSession;
-	 
+
 	 FreeVisitorsResource freeVisitorsResource;
 
 	 public FreeVisitorsResourceTest() {
 		 freeVisitorsResource = new FreeVisitorsResource();
 		 freeVisitorsResource.context = mock(ServletContext.class);
 	 }
-	 
+
 	 @Test
 	 public void checkGuestExistsByNoLoginRequiredUUID() {
 		 // GIVEN

@@ -79,11 +79,11 @@ public class LinkExtractorTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
-    
+
     @Mock
     private ResultSet rs;
 
-    
+
     @Test
     public void createsLinkByPrependingAPrefix() throws SQLException {
         Properties properties = new Properties();
@@ -92,7 +92,7 @@ public class LinkExtractorTest {
         Object extractedValue = new LinkExtractor(properties).extractValue(rs, 42);
         assertEquals("http://blabla.foo.de/bar/baz/gnaaahahahaha",extractedValue);
     }
-    
+
     @Test
     public void removesRedundantSlashes() throws SQLException {
         Properties properties = new Properties();
@@ -101,7 +101,7 @@ public class LinkExtractorTest {
         Object extractedValue = new LinkExtractor(properties).extractValue(rs, 42);
         assertEquals("http://blabla.foo.de/bar/baz/gnaaahahahaha",extractedValue);
     }
-    
+
     @Test
     public void returnsNullIfColumnContainsNowValue() throws SQLException {
         Properties properties = new Properties();
@@ -110,7 +110,7 @@ public class LinkExtractorTest {
         Object extractedValue = new LinkExtractor(properties).extractValue(rs, 42);
         assertNull(extractedValue);
     }
-    
+
     @Test
     public void canReadPrefixFromCustomProperty() throws SQLException {
         Properties properties = new Properties();
@@ -120,5 +120,4 @@ public class LinkExtractorTest {
         Object extractedValue = new LinkExtractor(properties).extractValue(rs, 42);
         assertEquals("http://blabla.foo.de/bar/baz/gnaaahahahaha",extractedValue);
     }
-
 }

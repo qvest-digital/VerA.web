@@ -70,11 +70,11 @@ import java.util.regex.Pattern;
 
 public class PlaceholderSubstitution {
 
-    /* TODO:  
+    /* TODO:
      * this is a first, naive take at this.
      * We probably want to think this over.
      */
-    
+
     final private Map<String, String> map;
 
     public PlaceholderSubstitution(Person person) {
@@ -111,7 +111,7 @@ public class PlaceholderSubstitution {
     }
 
     public String apply(String text) {
-        
+
         Pattern p = Pattern.compile("&lt;(\\w+)&gt;");
         Matcher matcher = p.matcher(text);
         StringBuffer sb = new StringBuffer();
@@ -127,10 +127,9 @@ public class PlaceholderSubstitution {
     private String lookup(String name) {
         if(map.containsKey(name)){
             String val = map.get(name);
-            return val == null ? "" : val; 
+            return val == null ? "" : val;
         }
         //return null only to signal
         return null;
     }
-
 }

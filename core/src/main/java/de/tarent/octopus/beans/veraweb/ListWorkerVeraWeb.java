@@ -125,14 +125,14 @@ public abstract class ListWorkerVeraWeb extends BeanListWorker {
 	protected  String getJumpOffsetsColumn(OctopusContext octopusContext) throws BeanException{
 	    return null;
 	}
-	
+
 	public static final String INPUT_getJumpOffsets[] = {};
     public static final String OUTPUT_getJumpOffsets = "jumpOffsets";
     public List<JumpOffset> getJumpOffsets(OctopusContext octopusContext) throws BeanException, IOException, SQLException {
         final Database database = getDatabase(octopusContext);
         final Integer start = getStart(octopusContext);
         final Integer limit = getLimit(octopusContext);
-        final String col = getJumpOffsetsColumn(octopusContext); 
+        final String col = getJumpOffsetsColumn(octopusContext);
         if(col==null){
             return null;
         }

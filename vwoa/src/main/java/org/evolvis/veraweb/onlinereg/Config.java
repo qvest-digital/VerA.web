@@ -85,15 +85,15 @@ public class Config extends Configuration {
 
     @JsonProperty
     private OsiamConfig osiam;
-    
+
     @JsonProperty
     private AuthConfig restauth;
-    
+
     @Valid
     @NotNull
     @JsonProperty
     private JerseyClientConfiguration jerseyClientConfiguration = new JerseyClientConfiguration();
-    
+
     public String getVerawebEndpoint() {
     	return this.verawebEndpoint;
     }
@@ -101,7 +101,7 @@ public class Config extends Configuration {
 	public String getOnlineRegistrationEndpoint() {
 		return this.onlineRegistrationEndpoint;
 	}
-    
+
     public OsiamConfig getOsiam() {
 		return this.osiam;
 	}
@@ -127,10 +127,4 @@ public class Config extends Configuration {
 	public void setVerawebEndpoint(String verawebEndpoint) {
 		this.verawebEndpoint = verawebEndpoint;
 	}
-
-
-
-
-
-
 }

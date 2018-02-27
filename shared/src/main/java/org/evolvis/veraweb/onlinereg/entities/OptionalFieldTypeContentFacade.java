@@ -66,18 +66,18 @@ package org.evolvis.veraweb.onlinereg.entities;
  * OptionalFieldTypeContent Object i.e: possible selections.
  */
 public class OptionalFieldTypeContentFacade extends OptionalFieldTypeContent {
-	
+
 	private Boolean isSelected = false;
 
 	public OptionalFieldTypeContentFacade () {
 	}
-	
+
 	public OptionalFieldTypeContentFacade (OptionalFieldTypeContent optionalFieldTypeContent) {
 		this.setPk(optionalFieldTypeContent.getPk());
 		this.setContent(optionalFieldTypeContent.getContent());
 		this.setFk_optional_field(optionalFieldTypeContent.getFk_optional_field());
 	}
-	
+
 	public Boolean getIsSelected() {
 		return isSelected;
 	}
@@ -85,6 +85,4 @@ public class OptionalFieldTypeContentFacade extends OptionalFieldTypeContent {
 	public void setIsSelected(Boolean isSelected) {
 		this.isSelected = isSelected;
 	}
-
-	
 }

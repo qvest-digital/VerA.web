@@ -139,7 +139,7 @@
 			</div>
 
 		</div>
-		
+
 		<div id="success" class="contentBoxColored grayBorder marginBottom10" style="display: none;">
 			<h1>${placeholderWithTranslation.verteilerverschickt}</h1>
 		</div>
@@ -149,7 +149,5 @@
 		</div>
     </form>
 </div>
-
-
 
 #parse("inc/footer.vm")

@@ -114,8 +114,8 @@ public class ExportResource extends AbstractResource{
     private static final String CONFIG_FILE_NAME = "config.yaml";
     private static final String CONFIG_FILE_NAME_GUEST_LIST_SHORT = "configGuestListShort.yaml";
     private static final String CONFIG_PLACEHOLDER = "__event_id_placeholder__";
-    
-    
+
+
     private Event getEvent(int eventId) {
         final Session session = openSession();
         try {
@@ -127,7 +127,7 @@ public class ExportResource extends AbstractResource{
         }
 
     }
-    
+
     @GET
     @Path("/guestList/{eventId}")
     public Response getGuestList(@PathParam("eventId") final int eventId, @javax.ws.rs.core.Context UriInfo ui) throws NamingException, UnsupportedEncodingException {
@@ -160,7 +160,7 @@ public class ExportResource extends AbstractResource{
             public void write(OutputStream os) throws IOException {
                 final Writer writer = new BufferedWriter(new OutputStreamWriter(os));
                 final CsvExporter csvExporter = new CsvExporter(reader,new KeepOpenWriter(writer), dataSource, properties);
-                
+
                 csvExporter.export(substitutions);
 
                 writer.flush();
@@ -194,6 +194,4 @@ public class ExportResource extends AbstractResource{
         }
         return getClass().getClassLoader().getResourceAsStream(CONFIG_FILE_NAME);
     }
-
-
 }

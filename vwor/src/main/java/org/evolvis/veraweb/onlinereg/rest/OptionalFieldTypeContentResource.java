@@ -78,7 +78,7 @@ public class OptionalFieldTypeContentResource extends AbstractResource {
 
 	/**
 	 * Getting type contents by optional field ID
-	 * 
+	 *
 	 * @param optionalFieldId optional field ID
 	 * @return Content types for a field
 	 */

@@ -168,6 +168,6 @@ public class GuestSearch extends AbstractBean {
                 where.addAnd(Expr.like("tguest.keywords", "%"+word+"%"));
             }
         }
-        
+
     }
 }

@@ -472,7 +472,7 @@ public class PersonResource extends AbstractResource {
         session.persist(person);
         session.flush();
     }
-    
+
     private void updatePerson(Person person, Session session) {
     	session.update(person);
     	session.flush();

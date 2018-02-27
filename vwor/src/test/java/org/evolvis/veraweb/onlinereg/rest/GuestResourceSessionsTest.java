@@ -395,7 +395,7 @@ public class GuestResourceSessionsTest {
         verify(sessionFactory, times(1)).openSession();
         verify(session, times(1)).close();
     }
-    
+
     @Test
     public void testIsUserRegisteredintoEventByDelegation() {
         // GIVEN
@@ -521,7 +521,7 @@ public class GuestResourceSessionsTest {
         verify(session, times(1)).close();
         assertEquals(false, isReserve);
     }
-    
+
     private void prepareSession() {
         when(guestResource.context.getAttribute("SessionFactory")).thenReturn(sessionFactory);
         when(sessionFactory.openSession()).thenReturn(session);

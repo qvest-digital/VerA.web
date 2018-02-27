@@ -86,7 +86,7 @@ public class EventResource extends AbstractResource {
 
     /**
      * Getting the list of openned Events
-     * 
+     *
      * @return List of events
      */
     @Path("/")
@@ -152,7 +152,7 @@ public class EventResource extends AbstractResource {
             session.close();
         }
     }
-    
+
     @Path("/userid/{username}")
     @GET
     public Integer getPersonIdByUsername(@PathParam(PARAM_USERNAME) String username) {
@@ -176,7 +176,7 @@ public class EventResource extends AbstractResource {
 
     /**
      * Get event using the event id
-     * 
+     *
      * @param eventId int
      * @return Event the event
      */
@@ -196,7 +196,7 @@ public class EventResource extends AbstractResource {
 
     /**
      * Checks if a delegation exists according to the relationship between delegation and event
-     * 
+     *
      * @param uuid String the uuid
      * @return the checking
      */
@@ -216,10 +216,10 @@ public class EventResource extends AbstractResource {
             session.close();
         }
     }
-    
+
     /**
      * Get event id using the uuid from a Press Event
-     * 
+     *
      * @param uuid press uuid
      * @return Integer the event id
      */
@@ -237,10 +237,10 @@ public class EventResource extends AbstractResource {
             session.close();
         }
     }
-    
+
     /**
      * Checking if one event (eventId) is open or not
-     * 
+     *
      * @param eventId Integer pk
      * @return Boolean check
      */
@@ -293,7 +293,7 @@ public class EventResource extends AbstractResource {
     }
     /**
      * Generalized method for isGuestListFull and isReserveListFull.
-     * 
+     *
      * @param eventId
      * @param namedQuery
      * @return
@@ -315,7 +315,7 @@ public class EventResource extends AbstractResource {
             session.close();
         }
     }
-    
+
     /**
      * Get the events associated to a person
      *

@@ -62,7 +62,7 @@ package org.evolvis.veraweb.onlinereg.auth;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 public class InvalidTokenException extends Exception {
-    
+
     private static final long serialVersionUID = 1124072645499948366L;
 
     public InvalidTokenException() {

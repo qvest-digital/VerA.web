@@ -89,7 +89,7 @@ import java.io.IOException;
 public class FileUploadResource extends AbstractResource {
     private static final Logger LOGGER = Logger.getLogger(FileUploadResource.class);
     private static final String FILES_LOCATION = "filesLocation";
-    
+
     private VworPropertiesReader vworPropertiesReader;
 
     /**

@@ -9,7 +9,7 @@ var factories = bulk(__dirname, ['factories/*.js']).factories;
 var customModules = bulk(__dirname, ['modules/*']).modules;
 var utils = require("./utils");
 var UnexpectedStatusError = require('./unexpected-status-error')
-//there are some misbehaving angular modules that require us to 
+//there are some misbehaving angular modules that require us to
 //get them via bower through the debowerify transform.... sigh....
 
 
@@ -176,8 +176,8 @@ app.directive('equals', function() {
   }
 });
 app.factory("vwoa", function($rootScope, $location, $timeout, $translate,show) {
-  
-  
+
+
 
   var expectStatus = function(expectedStatus, messages) {
     return function(result) {

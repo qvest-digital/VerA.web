@@ -66,7 +66,7 @@ import lombok.Getter;
 
 /**
  * HTTP Basic Auth Logic class. Relationship between REST-API and Online-Reg app
- * 
+ *
  * @author jnunez
  */
 @Getter
@@ -76,13 +76,12 @@ public class AuthConfig {
 	private String username;
 	@JsonProperty
 	private String password;
-	
+
 	public String getUsername() {
 		return username;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
-	
 }

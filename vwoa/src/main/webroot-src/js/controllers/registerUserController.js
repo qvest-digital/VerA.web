@@ -3,7 +3,7 @@ module.exports = function($scope, $http, $location, param, show, $translate) {
 	//<div ng-show="status == 'e'" class="alert alert-danger" role="alert">{{'GENERIC_ERROR'|translate}}</div>
 		//<div ng-show="status == 'e1'" class="alert alert-danger" role="alert">{{'REGISTER_USER_MESSAGE_USER_EXISTS_ERROR'|translate}}</div>
 		//<div ng-show="status == 'e2'" class="alert alert-danger" role="alert">{{'REGISTER_USER_MESSAGE_VALIDATION_ERROR'|translate}}</div>
-    
+
     $scope.register = function(isValid) {
         if(!isValid) { return; }
         $http({

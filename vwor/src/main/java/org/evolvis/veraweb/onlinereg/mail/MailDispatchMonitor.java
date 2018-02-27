@@ -112,9 +112,9 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
             }
             sb.append("\n");
         }
-        
+
     }
-    
+
     private void debug(ConnectionEvent e) {
         LOGGER.debug(e);
     }
@@ -125,12 +125,12 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
         LOGGER.warn(message(e));
         sb.append(message(e));
     }
-    
+
     @Override
     public String toString() {
         return sb.toString();
     }
-    
+
 
     @Override
     public void opened(ConnectionEvent e) {
@@ -142,7 +142,7 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
         debug(e);
     }
 
-    
+
 
     @Override
     public void closed(ConnectionEvent e) {
@@ -153,17 +153,16 @@ public class MailDispatchMonitor implements TransportListener, ConnectionListene
     public void messageDelivered(TransportEvent e) {
         info(e);
     }
-    
+
 
     @Override
     public void messageNotDelivered(TransportEvent e) {
         warn(e);
     }
-   
+
 
     @Override
     public void messagePartiallyDelivered(TransportEvent e) {
         warn(e);
     }
-
 }

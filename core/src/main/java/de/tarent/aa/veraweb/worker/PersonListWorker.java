@@ -243,8 +243,8 @@ public class PersonListWorker extends ListWorkerVeraWeb {
         }
         return null;
     }
-    
-    
+
+
     private void filterByFirstCharacterOfLastname(final OctopusContext octopusContext, final Select personSelect) {
         final Map allRequestParameters = octopusContext.getRequestObject().getRequestParameters();
         if (allRequestParameters.get("filter") != null) {
@@ -470,7 +470,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
     /*
      * 2009-05-12 cklein introduced as part of fix for issue #1530 - removal of
      * orgunits, and subsequently also individual workareas
-     * 
+     *
      * unassigns from all persons the given workArea. Will not commit the query
      * as this is left to the caller.
      */
@@ -571,7 +571,7 @@ public class PersonListWorker extends ListWorkerVeraWeb {
 
         /*
          * extension to support for multiple categories at once
-         * 
+         *
          * cklein 2008-02-20/26
          */
         extendSelectByMultipleCategorySearch(octopusContext, personSearch, select);

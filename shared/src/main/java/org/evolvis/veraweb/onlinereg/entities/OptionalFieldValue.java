@@ -80,11 +80,11 @@ public class OptionalFieldValue extends OptionalField {
 		this.setValue(value);
 		this.setFk_type(field.getFk_type());
 	}
-	
+
 	private Integer id;
-	
+
 	private String value;
-	
+
 	private List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade;
 
 	public void setValue(String value) {
@@ -94,22 +94,21 @@ public class OptionalFieldValue extends OptionalField {
 	public String getValue() {
 		return value;
 	}
-	
+
 	public List<OptionalFieldTypeContentFacade> getOptionalFieldTypeContentsFacade() {
 		return optionalFieldTypeContentsFacade;
 	}
-	
+
 	public void setOptionalFieldTypeContentsFacade(
 			List<OptionalFieldTypeContentFacade> optionalFieldTypeContentsFacade) {
 		this.optionalFieldTypeContentsFacade = optionalFieldTypeContentsFacade;
 	}
-	
+
 	public Integer getId() {
 	    return id;
     }
-	
+
 	public void setId(Integer id) {
 	    this.id = id;
     }
-
 }

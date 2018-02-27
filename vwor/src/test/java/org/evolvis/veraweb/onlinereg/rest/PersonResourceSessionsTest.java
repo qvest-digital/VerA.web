@@ -125,7 +125,7 @@ public class PersonResourceSessionsTest {
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }
-    
+
     @Test
     public void testCreatePersonSessionClosedWithoutResults() {
         // GIVEN
@@ -160,7 +160,7 @@ public class PersonResourceSessionsTest {
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }
-    
+
     @Test
     public void testCreateDelegateSessionClosedFemale() {
         // GIVEN
@@ -184,7 +184,7 @@ public class PersonResourceSessionsTest {
         Query query = mock(Query.class);
         mockEvent(mockitoSession);
         mockPerson(mockitoSession);
-    	
+
     	when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
@@ -223,7 +223,7 @@ public class PersonResourceSessionsTest {
         Query query = mock(Query.class);
         mockEvent(mockitoSession);
         mockPerson(mockitoSession);
-        
+
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);

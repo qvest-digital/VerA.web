@@ -249,25 +249,25 @@ sql: |
     p.mobil_c_e3 as p_mobil_c_e3,
     p.mail_c_e3 as p_mail_c_e3,
     p.url_c_e3 as p_url_c_e3,
-    
+
     case
       when p.iscompany = 't' then g.delegation
       else null
     end as delegationLink,
-    
-    case 
-      when p.iscompany = 't' and g.delegation is not null then g.osiam_login 
+
+    case
+      when p.iscompany = 't' and g.delegation is not null then g.osiam_login
       else null
     end as delegationUser,
-    
-    case 
-      when p.iscompany = 't' and g.delegation is not null then p.company_a_e1 
+
+    case
+      when p.iscompany = 't' and g.delegation is not null then p.company_a_e1
       else null
     end as delegationPassword,
-    
+
     l.uuid as passwordResetLink
-    
-    
+
+
   from veraweb.tguest g
   inner join veraweb.tperson p on (g.fk_person = p.pk)
   left outer join veraweb.link_uuid l on l.personid = p.pk

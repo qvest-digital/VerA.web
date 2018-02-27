@@ -181,14 +181,14 @@ public class EventRessourceSessionsTest {
         verify(mockitoSessionFactory, times(1)).openSession();
         verify(mockitoSession, times(1)).close();
     }
-    
+
     @Test
     public void testListUserEventsWithoutResults() {
         // GIVEN
         prepareSession();
         List resultList = mock(List.class);
         Query query = mock(Query.class);
-        
+
         when(mockitoSession.getNamedQuery("Person.findPersonIdByUsername")).thenReturn(query);
         when(query.list()).thenReturn(resultList);
         when(resultList.isEmpty()).thenReturn(true);

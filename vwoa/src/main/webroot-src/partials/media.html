@@ -4,11 +4,11 @@
   <div class="form-group container">
     <div class="row">
       <div ng-class="mediaForm.gender.$valid ? 'has-success' : 'has-error'">
-        <select class="form-control" 
+        <select class="form-control"
                 id="gender" name="gender"
-                            ng-model="gender" 
-                            ng-options="option.name | translate for option in genderOptions" 
-                            required  
+                            ng-model="gender"
+                            ng-options="option.name | translate for option in genderOptions"
+                            required
                             >
                             <option value="">{{'GENERIC_PLEASE_SELECT' | translate}}</option>
         </select>

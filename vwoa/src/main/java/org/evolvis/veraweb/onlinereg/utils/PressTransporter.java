@@ -73,7 +73,7 @@ public class PressTransporter {
 	private String city;
 	private String country;
 	private String username;
-	
+
 	/**
 	 * Empty constructor
 	 */
@@ -180,13 +180,12 @@ public class PressTransporter {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
-	
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
 }
