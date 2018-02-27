@@ -17,7 +17,7 @@ com.codahale.metrics:metrics-servlets 3.0.2 ok
 com.fasterxml.jackson.core:jackson-annotations 2.5.4 ok
 com.fasterxml.jackson.core:jackson-core 2.5.4 ok
 com.fasterxml.jackson.core:jackson-databind 2.5.4 ok
-com.fasterxml.jackson.dataformat:jackson-dataformat-yaml 2.3.3 ok
+com.fasterxml.jackson.dataformat:jackson-dataformat-yaml 2.7.4 ok
 com.fasterxml.jackson.datatype:jackson-datatype-guava 2.3.3 ok
 com.fasterxml.jackson.datatype:jackson-datatype-joda 2.3.3 ok
 com.fasterxml.jackson.jaxrs:jackson-jaxrs-base 2.3.3 ok
@@ -57,7 +57,7 @@ javax.activation:activation 1.1 ok
 javax.annotation:javax.annotation-api 1.2 ok
 javax.el:javax.el-api 2.2.5 ok
 javax.mail:mail 1.4.7 ok
-javax.servlet:javax.servlet-api 3.0.1 ok
+javax.servlet:javax.servlet-api 3.1.0 ok
 javax.validation:validation-api 1.1.0.Final ok
 javax.ws.rs:javax.ws.rs-api 2.0.1 ok
 joda-time:joda-time 2.3 ok
@@ -124,4 +124,5 @@ org.slf4j:jcl-over-slf4j 1.7.6 ok
 org.slf4j:jul-to-slf4j 1.7.6 ok
 org.slf4j:log4j-over-slf4j 1.7.6 ok
 org.slf4j:slf4j-api 1.7.6 ok
+org.yaml:snakeyaml 1.15 ok
 xml-apis:xml-apis 1.0.b2 ok
