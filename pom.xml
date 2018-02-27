@@ -102,12 +102,179 @@
 		</snapshotRepository>
 	</distributionManagement>
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>${maven.buildhelper.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>${maven.exec.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.gmavenplus</groupId>
+					<artifactId>gmavenplus-plugin</artifactId>
+					<version>${maven.gmavenplus.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>testCompile</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>${maven.jacoco.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>jetty-maven-plugin</artifactId>
+					<version>${maven.jetty.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>com.github.fracpete</groupId>
+					<artifactId>latex-maven-plugin</artifactId>
+					<version>${maven.latex.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>${maven.mycila.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>${maven.assembly.version}</version>
+					<configuration>
+						<tarLongFileMode>posix</tarLongFileMode>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven.compiler.version}</version>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<compilerArgs>
+							<arg>-Xlint:unchecked</arg>
+						</compilerArgs>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>${maven.enforcer.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven.jar.version}</version>
+					<configuration>
+						<archive>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							</manifest>
+							<manifestEntries>
+								<Build-Job>${JOB_NAME}</Build-Job>
+								<Build-Id>${BUILD_ID}</Build-Id>
+								<Build-Number>${BUILD_NUMBER}</Build-Number>
+								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
+								<Build-Time>${maven.build.timestamp}</Build-Time>
+								<version_name>${project.name}</version_name>
+								<version_description>${project.description}</version_description>
+								<version_copyright>${archiver.copyright}</version_copyright>
+								<version_vendor>${project.organization.name}</version_vendor>
+								<version_version>${project.version}</version_version>
+							</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven.javadoc.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>com.kelveden</groupId>
+					<artifactId>maven-karma-plugin</artifactId>
+					<version>${maven.karma.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>${maven.release.version}</version>
+					<configuration>
+						<tagNameFormat>@{project.version}</tagNameFormat>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-shade-plugin</artifactId>
+					<version>${maven.shade.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven.source.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven.surefire.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${maven.war.version}</version>
+					<configuration>
+						<archive>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							</manifest>
+							<manifestEntries>
+								<Build-Job>${JOB_NAME}</Build-Job>
+								<Build-Id>${BUILD_ID}</Build-Id>
+								<Build-Number>${BUILD_NUMBER}</Build-Number>
+								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
+								<Build-Time>${maven.build.timestamp}</Build-Time>
+								<version_name>${project.name}</version_name>
+								<version_description>${project.description}</version_description>
+								<version_copyright>${archiver.copyright}</version_copyright>
+								<version_vendor>${project.organization.name}</version_vendor>
+								<version_version>${project.version}</version_version>
+							</manifestEntries>
+						</archive>
+						<webResources combine.children="append">
+							<resource>
+								<filtering>true</filtering>
+								<directory>src/main/webapp</directory>
+								<includes>
+									<include>artifact-version</include>
+								</includes>
+							</resource>
+						</webResources>
+						<archiveClasses>true</archiveClasses>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.pitest</groupId>
+					<artifactId>pitest-maven</artifactId>
+					<version>${maven.pitest.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<inherited>false</inherited>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
-				<version>${maven.mycila.version}</version>
 				<configuration>
 					<basedir>${basedir}</basedir>
 					<header>${basedir}/release/LICENCE.hdr</header>
@@ -139,20 +306,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven.compiler.version}</version>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<encoding>${project.build.sourceEncoding}</encoding>
-					<compilerArgs>
-						<arg>-Xlint:unchecked</arg>
-					</compilerArgs>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>${maven.source.version}</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -170,7 +327,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>${maven.javadoc.version}</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -183,16 +339,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>${maven.release.version}</version>
-				<configuration>
-					<tagNameFormat>@{project.version}</tagNameFormat>
-				</configuration>
 			</plugin>
 			<!-- JaCoCo: allows code coverage analysis in Sonar -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>${maven.jacoco.version}</version>
 				<executions>
 					<execution>
 						<id>jacoco-initialize</id>
@@ -218,7 +369,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven.surefire.version}</version>
 				<configuration>
 					<includes>
 						<include>**/Test*.java</include>
@@ -233,7 +383,6 @@
 				<!-- Avoid the M.A.D. Gadget vulnerability in certain apache commons-collections versions -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>${maven.enforcer.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -257,7 +406,6 @@
 				<inherited>false</inherited>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>${maven.exec.version}</version>
 				<executions>
 					<execution>
 						<id>dep-check</id>
@@ -331,6 +479,31 @@
 				<groupId>de.tarent.dfg-commons</groupId>
 				<artifactId>background-jobs</artifactId>
 				<version>${background-jobs.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard</groupId>
+				<artifactId>dropwizard-core</artifactId>
+				<version>${dropwizard.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard</groupId>
+				<artifactId>dropwizard-assets</artifactId>
+				<version>${dropwizard.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard</groupId>
+				<artifactId>dropwizard-auth</artifactId>
+				<version>${dropwizard.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard</groupId>
+				<artifactId>dropwizard-client</artifactId>
+				<version>${dropwizard.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.dropwizard</groupId>
+				<artifactId>dropwizard-testing</artifactId>
+				<version>${dropwizard.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>de.tarent.extract</groupId>
@@ -680,7 +853,6 @@
 						<inherited>false</inherited>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
-						<version>${maven.exec.version}</version>
 						<executions>
 							<execution>
 								<id>generate-toplevel-sources</id>

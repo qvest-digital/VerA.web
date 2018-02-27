@@ -29,22 +29,18 @@
 		<dependency>
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-core</artifactId>
-			<version>${dropwizard.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-auth</artifactId>
-			<version>${dropwizard.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-client</artifactId>
-			<version>${dropwizard.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-assets</artifactId>
-			<version>${dropwizard.version}</version>
 		</dependency>
 		<!-- @Data,Getter,Setter annotations -->
 		<dependency>
@@ -55,7 +51,6 @@
 		<dependency>
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-testing</artifactId>
-			<version>${dropwizard.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -88,7 +83,6 @@
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
-						<version>${maven.exec.version}</version>
 						<executions>
 							<execution>
 								<id>step1: get build dependencies</id>
@@ -109,7 +103,6 @@
 					<plugin>
 						<groupId>com.kelveden</groupId>
 						<artifactId>maven-karma-plugin</artifactId>
-						<version>${maven.karma.version}</version>
 						<executions>
 							<execution>
 								<id>runTests</id>
@@ -144,12 +137,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>${maven.assembly.version}</version>
 				<configuration>
 					<descriptors>
 						<descriptor>assembly.xml</descriptor>
 					</descriptors>
-					<tarLongFileMode>posix</tarLongFileMode>
 				</configuration>
 				<executions>
 					<execution>
@@ -163,33 +154,11 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>${maven.jar.version}</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-						</manifest>
-						<manifestEntries>
-							<Build-Job>${JOB_NAME}</Build-Job>
-							<Build-Id>${BUILD_ID}</Build-Id>
-							<Build-Number>${BUILD_NUMBER}</Build-Number>
-							<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
-							<Build-Time>${maven.build.timestamp}</Build-Time>
-							<version_name>${project.name}</version_name>
-							<version_description>${project.description}</version_description>
-							<version_copyright>${archiver.copyright}</version_copyright>
-							<version_vendor>${project.organization.name}</version_vendor>
-							<version_version>${project.version}</version_version>
-						</manifestEntries>
-					</archive>
-				</configuration>
 			</plugin>
 			<!-- shade plugin for fat JARs -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>${maven.shade.version}</version>
 				<configuration>
 					<createDependencyReducedPom>true</createDependencyReducedPom>
 					<filters>
@@ -224,7 +193,6 @@
 				<inherited>false</inherited>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>${maven.exec.version}</version>
 				<executions>
 					<execution>
 						<id>exec-npm-install</id>
