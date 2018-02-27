@@ -59,7 +59,7 @@ if (( build_vwoa )); then
 	    -e '/:test$/d' \
 	    -e '/^\[INFO]    org.evolvis.veraweb:/d' \
 	    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' \
-	    >ckdep-npm.tmp
+	    >ckdep-vwoa.tmp
 	# analyse NPM and Bower dependencies
 	(
 		cd ../vwoa/src/main/webroot-src
@@ -68,19 +68,19 @@ if (( build_vwoa )); then
 		    '.dependencies | to_entries[] | recurse(.value.dependencies | objects | to_entries[]) | [.key, .value.version] | map(gsub("(?<x>[^!#-&*-~ -�]+)"; "{\(.x | @base64)}")) | "npm::" + .[0] + " " + .[1] + " ok"'
 		bower list | tee /dev/stderr | LC_ALL=C.UTF-8 sed --posix -n \
 		    '/^[ ─-╿]\{1,\}\([a-z0-9.-]\{1,\}\)#\([^ ]\{1,\}\)\( .*\)\{0,1\}$/s//bower::\1 \2 ok/p'
-	) 2>&1 >>ckdep-npm.tmp | sed 's!^![INFO] !' >&2
-	sort -uo ckdep-npm.tmp ckdep-npm.tmp
-	if cmp -s ckdep-npm.inc ckdep-npm.tmp; then
-		print -ru2 -- '[INFO] list of NPM/Bower dependencies did not change'
+	) 2>&1 >>ckdep-vwoa.tmp | sed 's!^![INFO] !' >&2
+	sort -uo ckdep-vwoa.tmp ckdep-vwoa.tmp
+	if cmp -s ckdep-vwoa.lst ckdep-vwoa.tmp; then
+		print -ru2 -- '[INFO] list of VWOA dependencies did not change'
 	else
-		print -ru2 -- '[WARNING] list of NPM/Bower dependencies changed!'
+		print -ru2 -- '[WARNING] list of VWOA dependencies changed!'
 		abend=1
 	fi
-	mv -f ckdep-npm.tmp ckdep-npm.inc
+	mv -f ckdep-vwoa.tmp ckdep-vwoa.lst
 else
 	print -ru2 -- '[WARNING] NPM not available, assuming c.p. build'
 fi
-[[ -s ckdep-npm.inc ]] && cat ckdep-npm.inc >>ckdep.tmp
+[[ -s ckdep-vwoa.lst ]] && cat ckdep-vwoa.lst >>ckdep.tmp
 # add static dependencies from embedded files, for SecurityWatch
 [[ -s ckdep.inc ]] && cat ckdep.inc >>ckdep.tmp
 # generate file with changed dependencies set to be a to-do item
@@ -103,7 +103,7 @@ else
 fi
 # check if anything needs to be committed
 if (( abend )); then
-	print -ru2 -- '[ERROR] please commit the changed ckdep.lst file!'
+	print -ru2 -- '[ERROR] please commit the changed ckdep*.lst files!'
 	exit 1
 fi
 
