@@ -342,7 +342,7 @@ public class UserResource {
         } else {
             return StatusConverter.convertStatus("ERROR");
         }
-        
+
     }
 
     private boolean isAssociatedWithEvent() {

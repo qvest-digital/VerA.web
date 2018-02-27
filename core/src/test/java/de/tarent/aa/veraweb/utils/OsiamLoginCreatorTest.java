@@ -139,7 +139,7 @@ public class OsiamLoginCreatorTest {
         assertEquals("mmuste1", username);
     }
 
-    
+
     @Test
     public void testGeneratePersonUsernameNoWhitespace() throws Exception {
         // GIVEN
@@ -155,7 +155,7 @@ public class OsiamLoginCreatorTest {
         when(connector.searchUsers(query, accessToken)).thenReturn(scimUsersResults);
         when(scimUsersResults.getTotalResults()).thenReturn(0l);
 
-        
+
         when(connector.retrieveAccessToken(Scope.ALL)).thenReturn(accessToken);
 
         // WHEN
@@ -239,7 +239,7 @@ public class OsiamLoginCreatorTest {
         // THEN
         assertEquals("targmbh", username);
     }
-    
+
     @Test
     public void testGeneratePassword() throws Exception {
         for (int i = 0; i < 1000; i++) {

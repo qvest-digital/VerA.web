@@ -136,5 +136,4 @@ public class OsiamLoginRemoverTest {
 
         return  users;
     }
-
 }

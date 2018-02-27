@@ -82,7 +82,7 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class CategoryResourceSessionsTest {
-	
+
     @Mock
     private static SessionFactory mockitoSessionFactory;
     @Mock

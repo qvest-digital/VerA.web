@@ -117,5 +117,4 @@ public class PersonURLHandlerTest {
         // THEN
         assertEquals("", url);
     }
-
 }

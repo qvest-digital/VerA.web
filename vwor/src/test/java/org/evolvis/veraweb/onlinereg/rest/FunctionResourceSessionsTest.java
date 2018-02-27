@@ -116,5 +116,4 @@ public class FunctionResourceSessionsTest {
         when(functionResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
     }
-
 }

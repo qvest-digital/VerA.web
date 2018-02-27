@@ -141,7 +141,4 @@ public class EventURLHandlerTest {
         // THEN
         assertEquals("", url);
     }
-
-
-
 }

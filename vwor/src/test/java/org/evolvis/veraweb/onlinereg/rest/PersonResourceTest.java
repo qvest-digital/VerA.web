@@ -113,5 +113,4 @@ public class PersonResourceTest extends AbstractResourceTest<PersonResource>{
 
         assertNull(p);
     }
-    
 }

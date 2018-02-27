@@ -89,8 +89,8 @@ public class EmailConfigurationTest {
     public void setUp() throws Exception {
         when(propertiesReader.getProperty(any(String.class))).thenReturn("42");
 
-        
-        
+
+
     }
 
     @Test
