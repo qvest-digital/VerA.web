@@ -93,7 +93,7 @@
                         </label>
                     </div>
                     <div class="tableCell">
-                        <select name="format" id="format" class="autoWidth" onchange="return formatChanged();">
+                        <select name="format" id="format" onchange="return formatChanged();">
                             #foreach($formatKey in $formats.keySet())
                                 #set($format = $formats.get($formatKey))
                                 <option value="$formatKey">
