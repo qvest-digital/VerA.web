@@ -62,6 +62,7 @@ if (( have_npm )); then
 		bower list | tee /dev/stderr | LC_ALL=C.UTF-8 sed --posix -n \
 		    '/^[ ─-╿]\{1,\}\([a-z0-9.-]\{1,\}\)#\([^ ]\{1,\}\)\( .*\)\{0,1\}$/s//bower::\1 \2 ok/p'
 	) 2>&1 >ckdep-npm.tmp | sed 's!^![INFO] !' >&2
+	sort -uo ckdep-npm.tmp ckdep-npm.tmp
 	if cmp -s ckdep-npm.inc ckdep-npm.tmp; then
 		print -ru2 -- '[INFO] list of NPM/Bower dependencies did not change'
 	else
