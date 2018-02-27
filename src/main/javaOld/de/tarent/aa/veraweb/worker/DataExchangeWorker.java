@@ -52,6 +52,7 @@ import de.tarent.octopus.server.OctopusContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.BufferedInputStream;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -422,7 +423,16 @@ public class DataExchangeWorker {
 
                 Charset ics;
                 if ("UTF-8".equals(filenc)) {
-                    //XXX TODO: skip BOM (if present)
+                    // ensure we can peek at the input octets
+                    if (!istream.markSupported()) {
+                        istream = new BufferedInputStream(istream);
+                    }
+                    // skip Byte Order Mark if present
+                    istream.mark(8);
+                    if (istream.read() != 0xEF || istream.read() != 0xBB || istream.read() != 0xBF) {
+                        // no BOM
+                        istream.reset();
+                    }
                     ics = StandardCharsets.UTF_8;
                 } else if ("_auto".equals(filenc)) {
                     //XXX for later
