@@ -1,0 +1,3 @@
+<persistence-unit name="default">
+	<jar-file>classpath:../lib/rest-api-common-${releaseVersion}.jar</jar-file>
+</persistence-unit>
