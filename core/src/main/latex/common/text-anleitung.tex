@@ -1352,9 +1352,7 @@ Installieren Sie einige Pakete und stellen Sie sicher, daß keine
 ### Debian 8 „jessie“ / Java 8
 sudo apt-get install openjdk-8-jre-headless/jessie-backports
 sudo apt-get install postgresql tomcat8 \
-    libpostgresql-jdbc-java apache2 libapache2-mod-jk curl
-sudo mkdir -p /var/lib/tomcat8/lib
-sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat8/lib/
+    apache2 libapache2-mod-jk curl
 sudo a2dismod mpm_event
 sudo a2enmod mpm_prefork
 sudo apt-get purge openjdk-7-jre-headless \
@@ -2414,26 +2412,8 @@ Schritte der Installationsanleitung für Tomcat 8 nochmals
 durchgehen und die alten Konfigurationsdateien nur als Referenz
 betrachten.
 
-Außerdem müssen Sie, wie im folgenden Unterabschnitt beschrieben,
-noch das PostgreSQL-JDBC verlinken.
-
-Schließlich müssen die WARs nach \texttt{/var/lib/tomcat8/webapps/}
+Außerdem müssen die WARs nach \texttt{/var/lib/tomcat8/webapps/}
 umgezogen werden, während die Tomcat-Applikationsserver nicht laufen.
-
-\subsection{Upgrade von Debian 7 „wheezy“ auf Debian 8 „jessie“}
-
-Nachdem Sie das System regulär auf die neue Version von Debian
-aktualisiert und die Konfigurationen (z.B. Apache Webserver)
-angepaßt haben müssen Sie auf dem System, auf dem die REST-API
-installiert ist, noch folgende Anpassungen tätigen:\keinumbruch
-
-\begin{minipage}{\textwidth}
-\begin{lstdump}{Upgrade core wheezy/jessie}
-sudo apt-get install libpostgresql-jdbc-java
-sudo mkdir -p /var/lib/tomcat8/lib
-sudo ln -sf /usr/share/java/postgresql-jdbc4.jar /var/lib/tomcat8/lib/
-\end{lstdump}
-\end{minipage}
 
 \ifoa\ifupgradeanleitung\else% oa !upgradeanleitung
 

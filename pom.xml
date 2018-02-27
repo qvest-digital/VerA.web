@@ -59,7 +59,7 @@
 		<lombok.version>1.14.4</lombok.version>
 		<mockito.version>1.10.19</mockito.version>
 		<osiam.connector4java.version>1.7</osiam.connector4java.version>
-		<postgresql.version>9.3-1101-jdbc41</postgresql.version>
+		<postgresql.version>42.2.1</postgresql.version>
 		<spock-core.version>1.0-groovy-2.4</spock-core.version>
 		<spring-jdbc.version>4.2.6.RELEASE</spring-jdbc.version>
 	</properties>
