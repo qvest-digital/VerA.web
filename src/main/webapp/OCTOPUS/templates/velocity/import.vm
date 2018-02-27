@@ -1,3 +1,4 @@
+#set($charportIm = 1)
 #set($activeMenu = "Personen")
 #set($title = "${placeholderWithTranslation.BROWSER_TITLE_IMPORT_PERSONDATA}")
 #set($elementNameSex = "${placeholderWithTranslation.GENDER_TYPE_PERSON}")
@@ -127,6 +128,18 @@
                                     #end
                                 </option>
                             #end
+                        </select>
+                    </div>
+                </div>
+                <div class="tableRow">
+                    <div class="tableCell">
+                        <label for="filenc">
+                            ${placeholderWithTranslation.GENERIC_FILE_ENCODING}*
+                        </label>
+                    </div>
+                    <div class="tableCell">
+                        <select name="filenc" id="filenc">
+#parse("inc/charport.vm")
                         </select>
                     </div>
                 </div>
