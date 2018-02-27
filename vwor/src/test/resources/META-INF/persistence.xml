@@ -1,0 +1,3 @@
+<persistence-unit name="default">
+	<jar-file>file://${settings.localRepository}/org/evolvis/veraweb/rest-api-common/${releaseVersion}/rest-api-common-${releaseVersion}.jar</jar-file>
+</persistence-unit>
