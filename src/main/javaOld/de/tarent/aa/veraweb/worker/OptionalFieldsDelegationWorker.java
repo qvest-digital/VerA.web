@@ -276,7 +276,7 @@ public class OptionalFieldsDelegationWorker {
 
 
     /**
-	 * Check if the given {@link }OptionalDelegationField} exists.
+	 * Check if the given {@link OptionalDelegationField} exists.
      *
 	 * @param optionalDelegationField The {@link OptionalDelegationField}
      *
