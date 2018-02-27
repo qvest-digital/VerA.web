@@ -29,11 +29,11 @@ set -e
 set -o pipefail
 cd "$(dirname "$0")"
 
-have_npm=1 # assume by default
+build_vwoa=1 # assume by default
 x=" ${MAVEN_CMD_LINE_ARGS//	/ } "
 if [[ $x = *' -Prelease '* && $x != *' -PoA '* ]]; then
-	# build without -PoA, assume no npm
-	have_npm=0
+	# build without -PoA
+	build_vwoa=0
 fi
 
 # check old file is sorted
@@ -52,7 +52,14 @@ fi
     -e '/^\[INFO]    org.evolvis.veraweb:/d' \
     -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' \
     >ckdep.tmp
-if (( have_npm )); then
+if (( build_vwoa )); then
+	# analyse Maven dependencies
+	(cd ../vwoa && mvn -B -P '!test-only-dependencies' dependency:list) 2>&1 | \
+	    tee /dev/stderr | sed -n \
+	    -e '/:test$/d' \
+	    -e '/^\[INFO]    org.evolvis.veraweb:/d' \
+	    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' \
+	    >ckdep.tmp
 	# analyse NPM and Bower dependencies
 	(
 		cd ../vwoa/src/main/webroot-src
@@ -61,7 +68,7 @@ if (( have_npm )); then
 		    '.dependencies | to_entries[] | recurse(.value.dependencies | objects | to_entries[]) | [.key, .value.version] | map(gsub("(?<x>[^!#-&*-~ -�]+)"; "{\(.x | @base64)}")) | "npm::" + .[0] + " " + .[1] + " ok"'
 		bower list | tee /dev/stderr | LC_ALL=C.UTF-8 sed --posix -n \
 		    '/^[ ─-╿]\{1,\}\([a-z0-9.-]\{1,\}\)#\([^ ]\{1,\}\)\( .*\)\{0,1\}$/s//bower::\1 \2 ok/p'
-	) 2>&1 >ckdep-npm.tmp | sed 's!^![INFO] !' >&2
+	) 2>&1 >>ckdep-npm.tmp | sed 's!^![INFO] !' >&2
 	sort -uo ckdep-npm.tmp ckdep-npm.tmp
 	if cmp -s ckdep-npm.inc ckdep-npm.tmp; then
 		print -ru2 -- '[INFO] list of NPM/Bower dependencies did not change'
