@@ -231,23 +231,6 @@
 		</profile>
 	</profiles>
 	<build>
-		<sourceDirectory>src/main/java</sourceDirectory>
-		<outputDirectory>
-			target/${project.artifactId}/WEB-INF/classes
-		</outputDirectory>
-		<testSourceDirectory>src/test/java</testSourceDirectory>
-		<testOutputDirectory>target/test-classes</testOutputDirectory>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-			</testResource>
-		</testResources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>

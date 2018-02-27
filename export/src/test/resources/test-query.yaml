@@ -4,7 +4,7 @@ sql: |
         person.*,
         person.id as link
   from person
-  where id = ${id}
+  where id = \${id}
 
 mappings:
 
