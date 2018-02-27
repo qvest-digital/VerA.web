@@ -114,6 +114,13 @@
 					<groupId>org.codehaus.gmavenplus</groupId>
 					<artifactId>gmavenplus-plugin</artifactId>
 					<version>${maven.gmavenplus.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>testCompile</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.mortbay.jetty</groupId>
@@ -188,7 +195,13 @@
 								</includes>
 							</resource>
 						</webResources>
+						<archiveClasses>true</archiveClasses>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.pitest</groupId>
+					<artifactId>pitest-maven</artifactId>
+					<version>${maven.pitest.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>

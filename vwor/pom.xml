@@ -106,55 +106,15 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>${maven.war.version}</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-						</manifest>
-						<manifestEntries>
-							<Build-Job>${JOB_NAME}</Build-Job>
-							<Build-Id>${BUILD_ID}</Build-Id>
-							<Build-Number>${BUILD_NUMBER}</Build-Number>
-							<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
-							<Build-Time>${maven.build.timestamp}</Build-Time>
-							<version_name>${project.name}</version_name>
-							<version_description>${project.description}</version_description>
-							<version_copyright>${archiver.copyright}</version_copyright>
-							<version_vendor>${project.organization.name}</version_vendor>
-							<version_version>${project.version}</version_version>
-						</manifestEntries>
-					</archive>
-					<webResources>
-						<resource>
-							<filtering>true</filtering>
-							<directory>src/main/webapp</directory>
-							<includes>
-								<include>artifact-version</include>
-							</includes>
-						</resource>
-					</webResources>
-					<archiveClasses>true</archiveClasses>
-				</configuration>
 			</plugin>
 			<!-- Needed to get correct code coverage from java and groovy tests -->
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
 				<artifactId>gmavenplus-plugin</artifactId>
-				<version>${maven.gmavenplus.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>testCompile</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.pitest</groupId>
 				<artifactId>pitest-maven</artifactId>
-				<version>${maven.pitest.version}</version>
 				<configuration>
 					<targetClasses>
 						<param>org.evolvis.veraweb.onlinereg.*</param>
