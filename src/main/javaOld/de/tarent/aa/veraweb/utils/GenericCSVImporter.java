@@ -51,6 +51,10 @@ import java.util.logging.Logger;
  * @author mikel
  */
 public class GenericCSVImporter extends GenericCSVBase implements Importer {
+    private static final int TAB_FIELD_SEPARATOR = 0x09;
+    private static final int SEMICOLON_FIELD_SEPARATOR = 0x3B;
+    private static final int COMMA_FIELD_SEPARATOR = 0x2C;
+
     /**
      * Dieser Konstruktor ist leer; dieser wird von {@link ExchangeFormat#getImporterClass()}
      * genutzt.
@@ -111,20 +115,23 @@ public class GenericCSVImporter extends GenericCSVBase implements Importer {
         assert inputStream != null;
         assert headers == null;
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, fileEncoding));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, fileEncoding));
         final String firstLine = reader.readLine();
-
-        // figure out field separator; we can do that in VerA.web
-        if (firstLine.indexOf(/* tab */ 0x09) > -1) {
-            fieldSeparator = 0x09;
-        } else if (firstLine.indexOf(/* semicolon */ 0x3B) > -1) {
-            fieldSeparator = 0x3B;
-        } else if (firstLine.indexOf(/* comma */ 0x2C) > -1) {
-            fieldSeparator = 0x2C;
-        }
+        identifyFieldSeparator(firstLine);
 
         csvReader = new CSVFileReader(reader, fieldSeparator, textQualifier);
         headers = csvReader.readFields(firstLine);
+    }
+
+    private void identifyFieldSeparator(String firstLine) {
+        // figure out field separator; we can do that in VerA.web
+        if (firstLine.indexOf(TAB_FIELD_SEPARATOR) > -1) {
+            fieldSeparator = TAB_FIELD_SEPARATOR;
+        } else if (firstLine.indexOf(SEMICOLON_FIELD_SEPARATOR) > -1) {
+            fieldSeparator = SEMICOLON_FIELD_SEPARATOR;
+        } else if (firstLine.indexOf(COMMA_FIELD_SEPARATOR) > -1) {
+            fieldSeparator = COMMA_FIELD_SEPARATOR;
+        }
     }
 
     /**
