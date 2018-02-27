@@ -66,7 +66,7 @@ import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.utils.KeepOpenWriter;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 
 import javax.naming.Context;

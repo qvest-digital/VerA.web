@@ -75,7 +75,7 @@ import org.evolvis.veraweb.onlinereg.entities.SalutationAlternative;
 import org.evolvis.veraweb.onlinereg.utils.PdfTemplateUtilities;
 import org.evolvis.veraweb.onlinereg.utils.VworConstants;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.jboss.logging.Logger;
 

@@ -65,7 +65,7 @@ import org.evolvis.veraweb.onlinereg.entities.Delegation;
 import org.evolvis.veraweb.onlinereg.entities.OptionalField;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldTypeContent;
 import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.AfterClass;

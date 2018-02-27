@@ -66,7 +66,7 @@ import org.evolvis.veraweb.onlinereg.entities.LinkUUID;
 import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.evolvis.veraweb.onlinereg.mail.EmailConfiguration;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 
 import javax.mail.MessagingException;

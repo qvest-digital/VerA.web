@@ -69,7 +69,7 @@ import org.glassfish.jersey.media.multipart.BodyPartEntity
 import org.glassfish.jersey.media.multipart.FormDataBodyPart
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition
 import org.glassfish.jersey.media.multipart.FormDataMultiPart
-import org.hibernate.Query
+import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import spock.lang.Ignore
