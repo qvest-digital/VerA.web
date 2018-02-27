@@ -1,6 +1,6 @@
 % VerA.web (public) Installationsanleitung
 %
-% Copyright © 2015, 2016, 2017
+% Copyright © 2015, 2016, 2017, 2018
 %	Thorsten Glaser <t.glaser@tarent.de>
 % Copyright © 2014, 2015
 %	Thorsten Glaser <thorsten.glaser@teckids.org>
@@ -1559,13 +1559,14 @@ Sie bitte nun die Eigenschaft \texttt{filesLocation} in der Datei
 Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
 \end{minipage}
 
+\begin{minipage}{\textwidth}
 Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
 \texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die beim
 Versenden von Verteilernachrichten von VerA.web und Bestätigungsnachrichten der Online-Anmeldung
 als Absenderadresse verwendet wird.
 
-Der Parameter \texttt{mail.smtp.from} setzt die Standard Absenderadresse.
-Mit den Parametern \texttt{mail.smtp.from.ID} können für die Id's der einzelnen
+Der Parameter \texttt{mail.smtp.from} setzt die Standard-Absenderadresse.
+Mit den Parametern \texttt{mail.smtp.from.ID} können für die IDs der einzelnen
 Mandaten spezielle Absenderadressen gesetzt werden.
 
 \begin{lstdump}{Adresse für einzelne Mandanten setzen}
@@ -1585,6 +1586,8 @@ Die \texttt{subject}- und
 sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
 
 \fi% oa
+
+\end{minipage}
 
 \subsection{LDAP-Anbindung VerA.web-core}\label{subsec:setup-core-ldap}
 
@@ -2329,13 +2332,14 @@ Sie bitte die Eigenschaft \texttt{filesLocation} in der Datei
 Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
 \end{minipage}
 
+\begin{minipage}{\textwidth}
 Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
 \texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die beim
 Versenden von Verteilernachrichten von VerA.web und Bestätigungsnachrichten der Online-Anmeldung
 als Absenderadresse verwendet wird.
 
-Der Parameter \texttt{mail.smtp.from} setzt die Standard Absenderadresse.
-Mit den Parametern \texttt{mail.smtp.from.ID} können für die Id's der einzelnen
+Der Parameter \texttt{mail.smtp.from} setzt die Standard-Absenderadresse.
+Mit den Parametern \texttt{mail.smtp.from.ID} können für die IDs der einzelnen
 Mandaten spezielle Absenderadressen gesetzt werden.
 
 \begin{lstdump}{Adresse für einzelne Mandanten setzen}
@@ -2355,6 +2359,8 @@ Die \texttt{subject}- und
 sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
 
 \fi% oa
+
+\end{minipage}
 
 \begin{minipage}{\textwidth}
 Installieren Sie nun die Konfigurationsdateien für die REST-API:
@@ -2444,13 +2450,14 @@ daß sie der \texttt{/etc/veraweb/vwor.properties} für die
 dort bereits enthaltenen Einträge entspricht. Dann passen Sie noch
 die neuen Einträge an:
 
-Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
+\begin{minipage}{\textwidth}
+Passen Sie in der \texttt{vwor.properties} die Eigenschaft
 \texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die beim
 Versenden von Verteilernachrichten von VerA.web und Bestätigungsnachrichten der Online-Anmeldung
 als Absenderadresse verwendet wird.
 
-Der Parameter \texttt{mail.smtp.from} setzt die Standard Absenderadresse.
-Mit den Parametern \texttt{mail.smtp.from.ID} können für die Id's der einzelnen
+Der Parameter \texttt{mail.smtp.from} setzt die Standard-Absenderadresse.
+Mit den Parametern \texttt{mail.smtp.from.ID} können für die IDs der einzelnen
 Mandaten spezielle Absenderadressen gesetzt werden.
 
 \begin{lstdump}{Adresse für einzelne Mandanten setzen}
@@ -2470,6 +2477,8 @@ Die \texttt{subject}- und
 sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
 
 \fi% oa
+
+\end{minipage}
 
 \begin{minipage}{\textwidth}
 Installieren Sie nun die angepaßte Konfigurationsdatei:
@@ -2898,15 +2907,16 @@ einmal für den Sprachschlüssel (<language\_key>) „de\_DE“ und „en\_EN“
 
 Durch das Nummerieren der Abschnitte kann die vorgesehene Reihenfolge erzeugt werden.
 Umlaute wie ä, ö, ü, Ä, Ö, Ü, ß,~… müssen auch dementsprechend nach Unicode kodiert
-werden (ä wird zu \textbackslash u00e4).
+werden (\texttt{ä} wird zu \texttt{\textbackslash{}u00E4}).
 
 Um nur einen Textblock ohne Überschrift zu generieren kann nur der Eintrag
 für die Inhalt angegeben werden (imprint.<language\_key>.content.<sorting\_number>=<content>)
 
 Sollte es mehrere Einträge ohne Sortiernummer oder mit doppelter Nummer geben,
-ist keine spezielle Reihenfolge gewährleistet. Auch Sollten die Nummer zu
-Sortierung mit führenden Nullen beginnen.
+ist keine spezielle Reihenfolge gewährleistet. Auch sollten die Nummern mit
+führenden Nullen beginnen, damit sie korrekt sortiert werden.
 
+\begin{minipage}{\textwidth}
 \begin{lstdump}{/etc/veraweb/vwor.properties}
 ...
 imprint.de_DE.heading.01=\u00DCberschrift
@@ -2916,6 +2926,7 @@ imprint.de_DE.content.02=Text des zweiten Abschnitts
 
 imprint.en_EN.content.00=Just text without headline.
 \end{lstdump}
+\end{minipage}
 
 \fi% oa
 
