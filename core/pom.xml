@@ -184,7 +184,6 @@
 							<descriptors>
 								<descriptor>assembly.xml</descriptor>
 							</descriptors>
-							<tarLongFileMode>posix</tarLongFileMode>
 						</configuration>
 						<executions>
 							<execution>
@@ -244,37 +243,10 @@
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<archive>
-						<manifest>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-						</manifest>
-						<manifestEntries>
-							<Build-Job>${JOB_NAME}</Build-Job>
-							<Build-Id>${BUILD_ID}</Build-Id>
-							<Build-Number>${BUILD_NUMBER}</Build-Number>
-							<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
-							<Build-Time>${maven.build.timestamp}</Build-Time>
-							<version_name>${project.name}</version_name>
-							<version_description>${project.description}</version_description>
-							<version_copyright>${archiver.copyright}</version_copyright>
-							<version_vendor>${project.organization.name}</version_vendor>
-							<version_version>${project.version}</version_version>
-						</manifestEntries>
-					</archive>
 					<warName>veraweb</warName>
 					<webappDirectory>
 						${project.build.directory}/veraweb
 					</webappDirectory>
-					<webResources combine.children="append">
-						<resource>
-							<filtering>true</filtering>
-							<directory>src/main/webapp</directory>
-							<includes>
-								<include>artifact-version</include>
-							</includes>
-						</resource>
-					</webResources>
 					<warSourceExcludes>
 						OCTOPUS/customized.xml
 					</warSourceExcludes>

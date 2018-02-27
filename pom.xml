@@ -129,14 +129,66 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-assembly-plugin</artifactId>
 					<version>${maven.assembly.version}</version>
+					<configuration>
+						<tarLongFileMode>posix</tarLongFileMode>
+					</configuration>
 				</plugin>
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>${maven.jar.version}</version>
+					<configuration>
+						<archive>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							</manifest>
+							<manifestEntries>
+								<Build-Job>${JOB_NAME}</Build-Job>
+								<Build-Id>${BUILD_ID}</Build-Id>
+								<Build-Number>${BUILD_NUMBER}</Build-Number>
+								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
+								<Build-Time>${maven.build.timestamp}</Build-Time>
+								<version_name>${project.name}</version_name>
+								<version_description>${project.description}</version_description>
+								<version_copyright>${archiver.copyright}</version_copyright>
+								<version_vendor>${project.organization.name}</version_vendor>
+								<version_version>${project.version}</version_version>
+							</manifestEntries>
+						</archive>
+					</configuration>
 				</plugin>
 				<plugin>
 					<artifactId>maven-war-plugin</artifactId>
 					<version>${maven.war.version}</version>
+					<configuration>
+						<archive>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							</manifest>
+							<manifestEntries>
+								<Build-Job>${JOB_NAME}</Build-Job>
+								<Build-Id>${BUILD_ID}</Build-Id>
+								<Build-Number>${BUILD_NUMBER}</Build-Number>
+								<Build-Repository-Rev>${GIT_COMMIT}</Build-Repository-Rev>
+								<Build-Time>${maven.build.timestamp}</Build-Time>
+								<version_name>${project.name}</version_name>
+								<version_description>${project.description}</version_description>
+								<version_copyright>${archiver.copyright}</version_copyright>
+								<version_vendor>${project.organization.name}</version_vendor>
+								<version_version>${project.version}</version_version>
+							</manifestEntries>
+						</archive>
+						<webResources combine.children="append">
+							<resource>
+								<filtering>true</filtering>
+								<directory>src/main/webapp</directory>
+								<includes>
+									<include>artifact-version</include>
+								</includes>
+							</resource>
+						</webResources>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
