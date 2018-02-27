@@ -112,7 +112,7 @@
 						<include>**/*.java</include>
 						<include>core/files/cli-import.sh</include>
 						<include>core/files/upgrade.sql</include>
-						<include>core/src/main/js/vera/*.js</include>
+						<include>core/src/main/webapp/js/vera/*.js</include>
 					</includes>
 					<excludes>
 						<exclude>**/src/main/js/ext/**</exclude>
