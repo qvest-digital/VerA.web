@@ -59,7 +59,7 @@ if (( build_vwoa )); then
 	    -e '/:test$/d' \
 	    -e '/^\[INFO]    org.evolvis.veraweb:/d' \
 	    -e '/^\[INFO]    \([^:]*\):\([^:]*\):jar:\([^:]*\):[^:]*$/s//\1:\2 \3 ok/p' \
-	    >ckdep.tmp
+	    >ckdep-npm.tmp
 	# analyse NPM and Bower dependencies
 	(
 		cd ../vwoa/src/main/webroot-src
