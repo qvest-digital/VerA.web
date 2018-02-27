@@ -13,10 +13,10 @@ Location: &lt;a href=&quot;http://veraweb-tools.lan.tarent.de/&quot;&gt;http://v
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
       <permission>hudson.model.Item.Configure:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
-      <permission>hudson.model.Item.Delete:veraweb</permission>
       <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
+      <permission>hudson.model.Item.Delete:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -27,6 +27,9 @@ Location: &lt;a href=&quot;http://veraweb-tools.lan.tarent.de/&quot;&gt;http://v
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
+    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@1.7">
+      <labelName>mr_veraweb</labelName>
+    </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.12">
     <configVersion>2</configVersion>
@@ -66,7 +69,7 @@ Location: &lt;a href=&quot;http://veraweb-tools.lan.tarent.de/&quot;&gt;http://v
   if [ $IS_VERAWEB != &quot;OK&quot; ]; then
     ssh -l root veraweb-tools.lan.tarent.de &quot;docker pull $NAME:$VERSION&quot;
   fi
-  ssh -l root veraweb-tools.lan.tarent.de &quot;docker save -o /var/www/$RELEASE_VERSION/$COMPONENT-$VERSION.img $NAME:$VERSION &amp;&amp; gzip /var/www/$RELEASE_VERSION/$COMPONENT-$VERSION.img&quot;
+  ssh -l root veraweb-tools.lan.tarent.de &quot;docker save -o /var/www/$RELEASE_VERSION/$COMPONENT-$VERSION.img $NAME:$VERSION &amp;&amp; gzip -n9 /var/www/$RELEASE_VERSION/$COMPONENT-$VERSION.img&quot;
 done
 </command>
     </hudson.tasks.Shell>
@@ -81,33 +84,6 @@ done
         <completeBuild>true</completeBuild>
       </threshold>
     </hudson.tasks.BuildTrigger>
-    <hudson.plugins.jabber.im.transport.JabberPublisher plugin="jabber@1.35">
-      <targets>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>adirla@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>afreid@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>eausch@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>ldegen@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-        <hudson.plugins.im.DefaultIMMessageTarget plugin="instant-messaging@1.35">
-          <value>mpech@info.tarent.de</value>
-        </hudson.plugins.im.DefaultIMMessageTarget>
-      </targets>
-      <strategy>ALL</strategy>
-      <notifyOnBuildStart>false</notifyOnBuildStart>
-      <notifySuspects>false</notifySuspects>
-      <notifyCulprits>false</notifyCulprits>
-      <notifyFixers>false</notifyFixers>
-      <notifyUpstreamCommitters>false</notifyUpstreamCommitters>
-      <buildToChatNotifier class="hudson.plugins.im.build_notify.DefaultBuildToChatNotifier" plugin="instant-messaging@1.35"/>
-      <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
-    </hudson.plugins.jabber.im.transport.JabberPublisher>
   </publishers>
   <buildWrappers/>
 </project>
