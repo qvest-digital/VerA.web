@@ -1,29 +1,4 @@
 {
-  "name": "veraweb-onlineanmeldung",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "bower": "bower install",
-    "copy": "mkdir -p dist && cp -R index.html images languages partials bower_components/bootstrap/fonts dist",
-    "site-css": "mkdir -p dist/css && cssmin css/*.css > dist/css/site.css",
-    "vendor-css": "mkdir -p dist/css && cat bower_components/bootstrap/dist/css/bootstrap.min.css bower_components/bootstrapvalidator/dist/css/bootstrapValidator.min.css node_modules/angular-material/angular-material.min.css > dist/css/vendor.css",
-    "browserify-dev": "mkdir -p dist/js && browserify -d -t bulkify -t [ debowerify --preferNPM ] -e js/onlinereg.js  -o dist/js/app.js",
-    "server": "cd dist; http-server -P http://localhost:8181 -p 8182",
-    "prepublish": "npm run bower && npm run copy && npm run site-css && npm run vendor-css && npm run browserify-dev"
-  },
-  "devDependencies": {
-    "bower": "^1.7.7",
-    "browserify": "^13.0.0",
-    "bulkify": "^1.2.0",
-    "cssmin": "^0.4.3",
-    "debowerify": "^1.4.1",
-    "expect.js": "0.3.1",
-    "http-server": "^0.9.0",
-    "mocha": "1.18.2",
-    "protractor": "~1.4.0",
-    "styledocco": "~0.6.6",
-    "superagent": "0.17.0"
-  },
   "dependencies": {
     "angular": "^1.5.3",
     "angular-animate": "^1.5.3",
@@ -38,5 +13,30 @@
     "jquery-param": "^0.2.0",
     "moment": "^2.12.0",
     "ng-file-upload": "^12.0.4"
-  }
+  },
+  "devDependencies": {
+    "bower": "^1.7.7",
+    "browserify": "^13.0.0",
+    "bulkify": "^1.2.0",
+    "cssmin": "^0.4.3",
+    "debowerify": "^1.4.1",
+    "expect.js": "0.3.1",
+    "http-server": "^0.9.0",
+    "mocha": "1.18.2",
+    "protractor": "~1.4.0",
+    "styledocco": "~0.6.6",
+    "superagent": "0.17.0"
+  },
+  "name": "veraweb-onlineanmeldung",
+  "private": true,
+  "scripts": {
+    "bower": "bower install",
+    "browserify-dev": "mkdir -p dist/js && browserify -d -t bulkify -t [ debowerify --preferNPM ] -e js/onlinereg.js  -o dist/js/app.js",
+    "copy": "mkdir -p dist && cp -R index.html images languages partials bower_components/bootstrap/fonts dist",
+    "prepublish": "npm run bower && npm run copy && npm run site-css && npm run vendor-css && npm run browserify-dev",
+    "server": "cd dist; http-server -P http://localhost:8181 -p 8182",
+    "site-css": "mkdir -p dist/css && cssmin css/*.css > dist/css/site.css",
+    "vendor-css": "mkdir -p dist/css && cat bower_components/bootstrap/dist/css/bootstrap.min.css bower_components/bootstrapvalidator/dist/css/bootstrapValidator.min.css node_modules/angular-material/angular-material.min.css > dist/css/vendor.css"
+  },
+  "version": "0.0.1"
 }
