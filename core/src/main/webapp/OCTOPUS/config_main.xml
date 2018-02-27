@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--!DOCTYPE tcModuleConfig SYSTEM "../tcModuleConfig.dtd"-->
-
 <!--
 	OCTOPUS config_main.xml
 
@@ -28,7 +27,6 @@
 		<param name="defaultEncoding" value="UTF-8"/>
 		<!-- der Name des Skripts für die Darstellung von Fehlerseiten; "error" referenziert bei obigen Einstellungen "templates/velocity/error.vm". -->
 		<param name="defaultErrorDescriptionName" value="error"/>
-
 		<!-- ************************************************ -->
 		<!-- *** Automatisches Kopieren von Personendaten *** -->
 		<!-- ************************************************ -->
@@ -39,7 +37,6 @@
 		-->
 		<!-- kopieren der lateinischen Daten in die anderen Zeichensätze. -->
 		<param name="copyPersonDataLatinToExtra" value="all"/>
-
 		<!-- ******************************************************************* -->
 		<!-- *** Automatisches Erstellen von Personen-Dokumenttyp-Freitexten *** -->
 		<!-- ******************************************************************* -->
@@ -71,7 +68,6 @@
 			<value>BOTH: </value>
 			<value>lastname</value>
 		</param>
-
 		<!-- ***************** -->
 		<!-- *** Sonstiges *** -->
 		<!-- ***************** -->
@@ -81,7 +77,6 @@
 		<param name="encoding.input" value="ISO-8859-1"/>
 		<!-- der Ausgangszeichensatz bei einer Zeichensatzwandlung. -->
 		<param name="encoding.output" value="UTF-8"/>
-
 		<!-- Liste der verfügbaren Sprachen -->
 		<param name="availableTranslations" type="array">
 			<value>de_DE</value>
