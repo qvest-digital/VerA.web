@@ -551,7 +551,7 @@ Several ECMAscript files came into existence in 2007 and lack a licence:
 
 ┌──┤ Some build and utility scripts (MirOS) ├──────────────────────────────┐
 │                                                                          │
-│ Copyright © 2015, 2016, 2017                                             │
+│ Copyright © 2015, 2016, 2017, 2018                                       │
 │     mirabilos <t.glaser@tarent.de>                                       │
 │ Copyright (c) 2013                                                       │
 │     mirabilos <m@mirbsd.org>                                             │

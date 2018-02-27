@@ -13,7 +13,7 @@
 		<maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 		<releaseVersion>${project.version}</releaseVersion>
-		<archiver.copyright>Copyright © 2001–2017 tarent solutions GmbH</archiver.copyright>
+		<archiver.copyright>Copyright © 2001–2018 tarent solutions GmbH</archiver.copyright>
 		<java.version>1.8</java.version>
 		<servlet.api>3.1.0</servlet.api>
 		<sonar.jacoco.reportPath>${basedir}/target/jacoco-unit.exec</sonar.jacoco.reportPath>
