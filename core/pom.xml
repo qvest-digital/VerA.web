@@ -10,6 +10,7 @@
 	<name>VerA.web core module</name>
 	<properties>
 		<sonar.exclusions>src/main/js/ext/**</sonar.exclusions>
+		<sonar.tests>src/test/java,src/test/groovy</sonar.tests>
 	</properties>
 	<dependencies>
 		<dependency>
