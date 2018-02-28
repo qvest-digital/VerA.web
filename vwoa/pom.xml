@@ -184,6 +184,12 @@
 								<exclude>META-INF/*.RSA</exclude>
 							</excludes>
 						</filter>
+						<filter>
+							<artifact>io.dropwizard:dropwizard-client</artifact>
+							<excludes>
+								<exclude>io/dropwizard/client/HttpClientConfiguration.class</exclude>
+							</excludes>
+						</filter>
 					</filters>
 				</configuration>
 				<executions>
