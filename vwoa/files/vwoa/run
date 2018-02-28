@@ -11,6 +11,7 @@ sleep 2
 date -u +'INFO  [%F %T,000] starting up VWOA' >>/var/log/vwoa/vwoa.log
 chown vwoa:adm /var/log/vwoa/vwoa.log
 chmod 0640 /var/log/vwoa/vwoa.log
+date -u +'INFO  [%F %T,000] Note: log timestamps are in UTC!' >>/var/log/vwoa/vwoa.log
 sleep 1
 exec setuidgid vwoa java \
     -Dfile.encoding=UTF-8 -Djava.awt.headless=true \
