@@ -8,6 +8,9 @@
 	<artifactId>veraweb-core</artifactId>
 	<packaging>war</packaging>
 	<name>VerA.web core module</name>
+	<properties>
+		<sonar.exclusions>src/main/js/ext/**</sonar.exclusions>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.mitre.dsmiley.httpproxy</groupId>
