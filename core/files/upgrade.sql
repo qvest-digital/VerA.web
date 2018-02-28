@@ -837,8 +837,9 @@ BEGIN
 		ALTER TABLE veraweb.tperson ADD COLUMN internal_id VARCHAR(45);
 		ALTER TABLE veraweb.timportperson ADD COLUMN internal_id VARCHAR(45);
 
+		DROP VIEW veraweb.aggregated_field_content;
 		CREATE OR REPLACE VIEW veraweb.aggregated_field_content as (
-		    select c.fk_guest, c.fk_delegation_field, ';' as value
+		    select c.fk_guest, c.fk_delegation_field, ';'::text as value
 		      from veraweb.toptional_fields_delegation_content c
 		      group by c.fk_guest,  c.fk_delegation_field
 		);
