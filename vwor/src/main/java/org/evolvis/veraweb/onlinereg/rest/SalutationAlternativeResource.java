@@ -140,6 +140,7 @@ public class SalutationAlternativeResource extends AbstractResource {
     @Path("delete/{salutationId}")
     public Response deleteAlternativeSalutation(@PathParam("salutationId") Integer salutationId){
         final Session session = openSession();
+        session.beginTransaction();
 
         try {
             final Query query = session.getNamedQuery(SalutationAlternative.DELETE_SALUTATION_ALTERNATIVE_BY_ID);
@@ -147,6 +148,7 @@ public class SalutationAlternativeResource extends AbstractResource {
 
             query.executeUpdate();
             session.flush();
+            session.getTransaction().commit();
 
             return Response.ok(salutationId).build();
         } finally {
@@ -176,11 +178,13 @@ public class SalutationAlternativeResource extends AbstractResource {
         }
 
         final Session session = openSession();
+        session.beginTransaction();
 
         try {
             final SalutationAlternative salutation = initSalutationAlternative(pdftemplateId, salutationId, content);
             session.save(salutation);
             session.flush();
+            session.getTransaction().commit();
 
             return Response.ok(salutation).build();
         } finally {

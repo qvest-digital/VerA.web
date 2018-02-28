@@ -179,6 +179,7 @@ public class GuestResource extends AbstractResource{
                            @QueryParam("notehost") String notehost,
                            @QueryParam("reserve") int reserve) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Query query = session.getNamedQuery(QUERY_FIND_BY_EVENT_AND_USER);
             query.setInteger(PARAM_EVENT_ID, eventId);
@@ -196,6 +197,7 @@ public class GuestResource extends AbstractResource{
 
             session.update(guest);
             session.flush();
+            session.getTransaction().commit();
             return guest;
         } finally {
             session.close();
@@ -211,6 +213,7 @@ public class GuestResource extends AbstractResource{
     @Path("/update/entity")
     public void updateGuestEntity(@FormParam(PARAM_GUEST_ID) Integer guestId, @FormParam("imgUUID") String imgUUID) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("Guest.getGuestById");
             query.setInteger(PARAM_GUEST_ID, guestId);
@@ -219,6 +222,7 @@ public class GuestResource extends AbstractResource{
 
             session.update(guest);
             session.flush();
+            session.getTransaction().commit();
         } finally {
             session.close();
         }
@@ -239,6 +243,7 @@ public class GuestResource extends AbstractResource{
                            @FormParam("invitationstatus") int invitationstatus,
                            @FormParam("notehost") String notehost) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Query checkMaxGuestLimit = session.getNamedQuery("Event.checkMaxGuestLimit");
             checkMaxGuestLimit.setInteger(PARAM_EVENT_ID, eventId);
@@ -260,6 +265,7 @@ public class GuestResource extends AbstractResource{
 
             session.update(guest);
             session.flush();
+            session.getTransaction().commit();
         } finally {
             session.close();
         }
@@ -278,6 +284,7 @@ public class GuestResource extends AbstractResource{
                             @FormParam("invitationstatus") int invitationstatus,
                             @FormParam("notehost") String notehost) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("Guest.findByNoLoginUUID");
             query.setString(PARAM_NO_LOGIN_REQUIRED_UUID, noLoginRequiredUUID);
@@ -288,6 +295,7 @@ public class GuestResource extends AbstractResource{
 
             session.update(guest);
             session.flush();
+            session.getTransaction().commit();
         } finally {
             session.close();
         }
@@ -522,6 +530,7 @@ public class GuestResource extends AbstractResource{
                                 @FormParam("hostNode") String hostNode,
                                 @FormParam(PARAM_USERNAME) String username) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             //0 = not in reserve list
             final Guest guest = initGuest(uuid, eventId, userId, invitationstatus, invitationtype, gender, category,
@@ -529,6 +538,7 @@ public class GuestResource extends AbstractResource{
 
             session.save(guest);
             session.flush();
+            session.getTransaction().commit();
 
             return guest;
         } finally {
@@ -571,6 +581,7 @@ public class GuestResource extends AbstractResource{
                                 @FormParam("hostNode") String nodeHost,
                                 @FormParam("reserve") Integer reserve) {
         final Session session = openSession();
+        session.beginTransaction();
 
         try {
             final Guest guest = initGuest(null, eventId, userId, invitationstatus, invitationtype, gender, category,
@@ -586,6 +597,7 @@ public class GuestResource extends AbstractResource{
 
             session.saveOrUpdate(guest);
             session.flush();
+            session.getTransaction().commit();
 
             return guest;
         } finally {

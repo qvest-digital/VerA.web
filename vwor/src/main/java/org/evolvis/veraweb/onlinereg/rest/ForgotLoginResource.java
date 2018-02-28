@@ -86,6 +86,7 @@ public class ForgotLoginResource extends AbstractResource {
     @Path("/resend/login")
     public void resendLogin(@FormParam("mail") String mail, @FormParam("currentLanguageKey") String currentLanguageKey) throws MessagingException {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("Person.findByMail");
             query.setString("email", mail);
@@ -94,6 +95,7 @@ public class ForgotLoginResource extends AbstractResource {
             if (personList != null && !personList.isEmpty()) {
                 sendLoginDataEmail(mail, personList, currentLanguageKey);
             }
+            session.getTransaction().commit();
         } finally {
             session.close();
         }

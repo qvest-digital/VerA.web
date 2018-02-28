@@ -106,9 +106,11 @@ public class PersonResource extends AbstractResource {
                                @FormParam("lastname") String lastname,
                                @FormParam("email") String email) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             return handleCreatePerson(username, firstName, lastname, session, email);
         } finally {
+            session.getTransaction().commit();//XXX?
             session.close();
         }
     }
@@ -136,11 +138,13 @@ public class PersonResource extends AbstractResource {
                                                                 @FormParam("company") String company,
                                     @FormParam("function") String function) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Integer mandantId = getOrgUnitId(session, eventId);
             final Person person = initPersonDelegation(company, mandantId, username, firstName, lastname, gender, function);
             return handleCreatePersonDelegation(person, session);
         } finally {
+            session.getTransaction().commit();//XXX?
             session.close();
         }
     }
@@ -164,6 +168,7 @@ public class PersonResource extends AbstractResource {
                                  @FormParam(PARAM_PERSON_ID) Integer personId) {
 
         final Session session = openSession();
+        session.beginTransaction();
         try {
 
             final Query query = session.getNamedQuery("Person.findByPersonId");
@@ -177,6 +182,7 @@ public class PersonResource extends AbstractResource {
             person.setFunction_a_e1(function);
 
             updatePerson(person, session);
+            session.getTransaction().commit();
 
             return person;
 
@@ -215,11 +221,13 @@ public class PersonResource extends AbstractResource {
                                     @FormParam("country") String country) {
 
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Integer mandantId = getOrgUnitId(session, eventId);
             final Person person = initPersonPress(mandantId, username, firstName, lastname, gender, email, address, zipCode, city, country);
             return handleCreatePersonPress(person, session);
         } finally {
+            session.getTransaction().commit();//XXX?
             session.close();
         }
     }
@@ -252,10 +260,12 @@ public class PersonResource extends AbstractResource {
                                      @FormParam("languages") String languages,
                                      @FormParam("gender") String gender) {
         final Session session = openSession();
+        session.beginTransaction();
 
         try {
             prepareAndUpdatePersonCoreData(username, salutation, fkSalutation, title, firstName, lastName, birthday,
                     nationality, languages, gender, session);
+            session.getTransaction().commit();
         } finally {
             session.close();
         }
@@ -379,6 +389,7 @@ public class PersonResource extends AbstractResource {
     @Path("/update/orgunit")
     public void updatePersonOrgunit(@FormParam("orgunit") Integer orgunit, @FormParam(PARAM_PERSON_ID) Integer personId) {
         final Session session = openSession();
+        session.beginTransaction();
 
         try {
             final Query query = session.getNamedQuery("Person.findByPersonId");
@@ -389,7 +400,7 @@ public class PersonResource extends AbstractResource {
 
             session.update(person);
             session.flush();
-
+            session.getTransaction().commit();
         } finally {
             session.close();
         }

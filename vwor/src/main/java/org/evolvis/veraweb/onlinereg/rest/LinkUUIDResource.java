@@ -104,10 +104,12 @@ public class LinkUUIDResource extends AbstractResource {
     @POST
     public void deleteUUID(@FormParam("personId") Integer personId) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("LinkUUID.deleteUUIDByPersonid");
             query.setInteger("personid", personId);
             query.executeUpdate();
+            session.getTransaction().commit();
         } finally {
             session.close();
         }

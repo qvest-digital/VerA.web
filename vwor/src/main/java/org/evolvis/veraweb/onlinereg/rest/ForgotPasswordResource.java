@@ -91,6 +91,7 @@ public class ForgotPasswordResource extends AbstractResource {
     @Path("/request/reset-password-link")
     public void requestResetPasswordLink(@FormParam("username") String username, @FormParam("currentLanguageKey") String currentLanguageKey, @FormParam("oaEndpoint") String oaEndpoint) throws MessagingException {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("Person.findByUsername");
             query.setParameter("username", username);
@@ -101,6 +102,7 @@ public class ForgotPasswordResource extends AbstractResource {
                 createOrUpdateLinkUuidEntry(personId, session, uuid);
                 sendResetPasswordLinkEmail(person.getMail_a_e1(), currentLanguageKey, oaEndpoint, uuid);
             }
+            session.getTransaction().commit();
         } finally {
             session.close();
         }

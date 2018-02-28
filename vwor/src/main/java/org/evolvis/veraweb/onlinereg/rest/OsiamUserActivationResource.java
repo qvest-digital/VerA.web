@@ -91,11 +91,13 @@ public class OsiamUserActivationResource extends AbstractResource {
     @Path("/create")
     public OsiamUserActivation addOsiamUserActivationEntry(@FormParam("username") String username, @FormParam("activation_token") String activationToken) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Date expirationDate = getExpirationDate();
             final OsiamUserActivation osiamUserActivationEntry = new OsiamUserActivation(username, expirationDate, activationToken);
             session.persist(osiamUserActivationEntry);
             session.flush();
+            session.getTransaction().commit();
             return osiamUserActivationEntry;
         } finally {
             session.close();
@@ -106,10 +108,12 @@ public class OsiamUserActivationResource extends AbstractResource {
     @Path("/activate")
     public void removeOsiamUserActivationEntry(@FormParam("osiam_user_activation") String activationToken) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final OsiamUserActivation osiamUserActivation = getOsiamUserActivation(activationToken);
             session.delete(osiamUserActivation);
             session.flush();
+            session.getTransaction().commit();
         } finally {
             session.close();
         }
@@ -166,12 +170,14 @@ public class OsiamUserActivationResource extends AbstractResource {
             @FormParam("endpoint") String endpoint,
             @FormParam("language") String currentLanguageKey) throws MessagingException {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("OsiamUserActivation.refreshOsiamUserActivationByUsername");
             query.setString("username", username);
             query.setString("activation_token", activationToken);
             query.setDate("expiration_date",getExpirationDate());
             query.executeUpdate();
+            session.getTransaction().commit();
 
             // Resend mail
             emailResource = getEmailResource();

@@ -166,6 +166,7 @@ public class PdfTemplateResource extends FormDataResource {
             return Response.status(Status.BAD_REQUEST).build();
         }
         Session session = openSession();
+        session.beginTransaction();
         try {
             final Query query = session.getNamedQuery(PdfTemplate.DELETE_PDF_TEMPLATE);
             for (Integer id : idList) {
@@ -173,6 +174,7 @@ public class PdfTemplateResource extends FormDataResource {
                 query.executeUpdate();
             }
             session.flush();
+            session.getTransaction().commit();
             return Response.ok(idList).build();
         } finally {
             session.close();
@@ -443,10 +445,12 @@ public class PdfTemplateResource extends FormDataResource {
 
     private PdfTemplate handlePdfTemplateCreate(String name, Integer mandantId, byte[] content) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             PdfTemplate pdfTemplate = initPdfTemplate(name, mandantId, content);
             session.save(pdfTemplate);
             session.flush();
+            session.getTransaction().commit();
             return pdfTemplate;
         } finally {
             session.close();
@@ -455,6 +459,7 @@ public class PdfTemplateResource extends FormDataResource {
 
     private PdfTemplate handlePdfTemplateUpdate(Integer id, String name, byte[] content) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             PdfTemplate pdfTemplate = getExistingTemplate(id, session);
             if (content == null) {
@@ -464,6 +469,7 @@ public class PdfTemplateResource extends FormDataResource {
             }
 
             session.flush();
+            session.getTransaction().commit();
             return pdfTemplate;
         } finally {
             session.close();

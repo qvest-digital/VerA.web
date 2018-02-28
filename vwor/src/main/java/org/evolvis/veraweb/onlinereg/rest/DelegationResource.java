@@ -119,11 +119,13 @@ public class DelegationResource extends AbstractResource {
     @Path("/remove/fields")
     public void removeFieldsForGuest(@FormParam("guestId") Integer guestId, @FormParam("fieldId") Integer fieldId) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("Delegation.deleteOptionalFieldsByGuestId");
             query.setInteger("guestId", guestId);
             query.setInteger("fieldId", fieldId);
             query.executeUpdate();
+            session.getTransaction().commit();
         } finally {
             session.close();
         }
@@ -172,6 +174,7 @@ public class DelegationResource extends AbstractResource {
     public Delegation saveOptionalField(@FormParam("guestId") Integer guestId, @FormParam("fieldId") Integer fieldId,
             @FormParam("fieldContent") String fieldContent) {
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Delegation delegation = new Delegation();
             delegation.setFk_guest(guestId);
@@ -180,6 +183,7 @@ public class DelegationResource extends AbstractResource {
 
             session.saveOrUpdate(delegation);
             session.flush();
+            session.getTransaction().commit();
 
             return delegation;
 

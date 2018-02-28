@@ -182,6 +182,7 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
 
     private static void createDummyEvents() {
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
 
         Event e = new Event();
         e.setPk(1);
@@ -227,6 +228,7 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         e.setEventtype("Offene Veranstaltung");
         session.persist(e);
 
+        session.getTransaction().commit();
         session.flush();
         session.close();
     }

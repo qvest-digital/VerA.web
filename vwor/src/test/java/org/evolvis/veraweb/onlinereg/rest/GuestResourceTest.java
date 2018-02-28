@@ -81,6 +81,7 @@ public class GuestResourceTest extends AbstractResourceTest<GuestResource>{
     @BeforeClass
     public static void init() {
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
 
         Guest guest = new Guest();
 //        guest.setPk(1);
@@ -91,6 +92,7 @@ public class GuestResourceTest extends AbstractResourceTest<GuestResource>{
 
         session.persist(guest);
 
+        session.getTransaction().commit();
         session.flush();
         session.close();
     }

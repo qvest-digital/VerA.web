@@ -83,6 +83,7 @@ public class PersonResourceTest extends AbstractResourceTest<PersonResource>{
     @BeforeClass
     public static void init() {
         Session s = sessionFactory.openSession();
+        s.beginTransaction();
 
         Person p = new Person();
         p.setPk(1);
@@ -92,6 +93,7 @@ public class PersonResourceTest extends AbstractResourceTest<PersonResource>{
 
         s.save(p);
         s.flush();
+        s.getTransaction().commit();
         s.close();
     }
 

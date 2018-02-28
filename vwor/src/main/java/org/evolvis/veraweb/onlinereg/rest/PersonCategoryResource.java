@@ -83,11 +83,13 @@ public class PersonCategoryResource extends AbstractResource {
 											   @FormParam("categoryId") Integer categoryId) {
 
 		final Session session = openSession();
+        session.beginTransaction();
 
 		try {
 			final PersonCategory personCategory = handleCreatePersonCategory(personId, categoryId);
 			session.save(personCategory);
 			session.flush();
+            session.getTransaction().commit();
 
 			return personCategory;
 		} finally {

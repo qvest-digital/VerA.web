@@ -80,6 +80,7 @@ public class HealthResourceTest extends AbstractResourceTest<HealthResource> {
     @Test
     public void testOk() {
         Session s = sessionFactory.openSession();
+        s.beginTransaction();
 
         Config c = new Config();
         c.setPk(1);
@@ -88,12 +89,15 @@ public class HealthResourceTest extends AbstractResourceTest<HealthResource> {
 
         s.save(c);
         s.flush();
+        s.getTransaction().commit();
         s.close();
         assertEquals("OK", resource.health());
 
         s = sessionFactory.openSession();
+        s.beginTransaction();
         s.delete(c);
         s.flush();
+        s.getTransaction().commit();
         s.close();
 
     }

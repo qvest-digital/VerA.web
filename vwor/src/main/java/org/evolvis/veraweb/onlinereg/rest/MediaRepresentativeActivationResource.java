@@ -97,6 +97,7 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
     ) {
 
         final Session session = openSession();
+        session.beginTransaction();
         try {
 
             final MediaRepresentativeActivation mediaRepresentativeActivation = initMediaRepresentativeActivation(
@@ -104,6 +105,7 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
             );
             session.persist(mediaRepresentativeActivation);
             session.flush();
+            session.getTransaction().commit();
             return mediaRepresentativeActivation;
         } finally {
             session.close();
@@ -148,11 +150,13 @@ public class MediaRepresentativeActivationResource extends AbstractResource {
     public void activatePressUser(@FormParam("email") String email, @FormParam("eventId") Integer eventId) {
 
         final Session session = openSession();
+        session.beginTransaction();
         try {
             final Query query = session.getNamedQuery("MediaRepresentativeActivation.activate");
             query.setString("email", email);
             query.setInteger("fk_event", eventId);
             query.executeUpdate();
+            session.getTransaction().commit();
         } finally {
             session.close();
         }
