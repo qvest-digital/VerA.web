@@ -3,6 +3,5 @@
 • webjars for dependencies
 • npm-free build even for vwoa
 • check the DB/transactional changes in vwor for correctness
-• check commit 707422469624c42f33a4b5bc25cd2759a7ae8d8d
 • figure out why some tests are Skipped
 • test everything
