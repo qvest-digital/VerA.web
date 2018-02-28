@@ -41,6 +41,7 @@
 		<file>
 			<source>${settings.localRepository}/org/postgresql/postgresql/${postgresql.version}/postgresql-${postgresql.version}.jar</source>
 			<outputDirectory/>
+			<destName>postgresql-jdbc4.jar</destName>
 		</file>
 	</files>
 </assembly>
