@@ -92,8 +92,8 @@ public class GuestResourceTest extends AbstractResourceTest<GuestResource>{
 
         session.persist(guest);
 
-        session.getTransaction().commit();
         session.flush();
+        session.getTransaction().commit();
         session.close();
     }
 

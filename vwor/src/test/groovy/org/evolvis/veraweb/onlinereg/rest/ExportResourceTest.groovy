@@ -67,6 +67,7 @@ import org.evolvis.veraweb.onlinereg.utils.VworConstants
 import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
+import org.hibernate.Transaction
 import spock.lang.Specification
 
 import javax.naming.Context
@@ -86,6 +87,7 @@ class ExportResourceTest extends Specification {
     ServletContext context = Mock(ServletContext)
     SessionFactory sessionFactory = Mock(SessionFactory)
     Session session = Mock(Session)
+    Transaction mockTxn = Mock(Transaction)
 
     private ExportResource exportResource
     private InitialContext initContext = Mock(InitialContext)
@@ -99,6 +101,7 @@ class ExportResourceTest extends Specification {
         namingContext.lookup("jdbc/vwonlinereg") >> dataSource
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
+        session.getTransaction() >> mockTxn
     }
 
     void testGetGuestList() {

@@ -69,6 +69,7 @@ import org.evolvis.veraweb.onlinereg.entities.OptionalFieldValue;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.junit.AfterClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -91,11 +92,12 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class DelegationResourceSessionsTest {
-
     @Mock
     private static SessionFactory mockitoSessionFactory;
     @Mock
     private static Session mockitoSession;
+    @Mock
+    private static Transaction mockitoTransaction;
 
     DelegationResource delegationResource;
 
@@ -336,5 +338,6 @@ public class DelegationResourceSessionsTest {
     private void prepareSession() {
         when(delegationResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
     }
 }

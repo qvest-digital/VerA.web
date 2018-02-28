@@ -64,6 +64,7 @@ package org.evolvis.veraweb.onlinereg.rest
 import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
+import org.hibernate.Transaction
 import spock.lang.Specification
 
 import javax.servlet.ServletContext
@@ -76,12 +77,15 @@ class SalutationAlternativeResourceTest extends Specification {
     ServletContext context = Mock(ServletContext)
     SessionFactory sessionFactory = Mock(SessionFactory)
     Session session = Mock(Session)
+    Transaction mockTxn = Mock(Transaction)
+
     Query query = Mock(Query)
 
     def setup() {
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
         session.getNamedQuery(_) >> query
+        session.getTransaction() >> mockTxn
 
         resource = new SalutationAlternativeResource(context: context);
     }

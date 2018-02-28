@@ -64,6 +64,7 @@ package org.evolvis.veraweb.onlinereg.rest;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -82,11 +83,12 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class FunctionResourceSessionsTest {
-
     @Mock
     private static SessionFactory mockitoSessionFactory;
     @Mock
     private static Session mockitoSession;
+    @Mock
+    private static Transaction mockitoTransaction;
 
     FunctionResource functionResource;
 
@@ -115,5 +117,6 @@ public class FunctionResourceSessionsTest {
     private void prepareSession() {
         when(functionResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
     }
 }

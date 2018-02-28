@@ -66,6 +66,7 @@ import org.evolvis.veraweb.onlinereg.entities.Person;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -90,11 +91,12 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class PersonResourceSessionsTest {
-
     @Mock
     private static SessionFactory mockitoSessionFactory;
     @Mock
     private static Session mockitoSession;
+    @Mock
+    private static Transaction mockitoTransaction;
 
     PersonResource personResource;
 
@@ -149,6 +151,7 @@ public class PersonResourceSessionsTest {
     public void testCreateDelegateSessionClosedMale() {
         // GIVEN
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         mockEvent(mockitoSession);
         mockPerson(mockitoSession);
@@ -165,6 +168,7 @@ public class PersonResourceSessionsTest {
     public void testCreateDelegateSessionClosedFemale() {
         // GIVEN
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         mockEvent(mockitoSession);
         mockPerson(mockitoSession);
@@ -186,6 +190,7 @@ public class PersonResourceSessionsTest {
         mockPerson(mockitoSession);
 
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
         when(query.list()).thenReturn(resultList);
@@ -204,6 +209,7 @@ public class PersonResourceSessionsTest {
     public void testCreateMediaRepresentatives() {
         // GIVEN
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         mockEvent(mockitoSession);
         mockPerson(mockitoSession);
@@ -225,6 +231,7 @@ public class PersonResourceSessionsTest {
         mockPerson(mockitoSession);
 
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
         when(query.list()).thenReturn(resultList);
@@ -245,6 +252,7 @@ public class PersonResourceSessionsTest {
         Query query = mock(Query.class);
         List resultList = mock(List.class);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
         when(query.list()).thenReturn(resultList);
@@ -266,6 +274,7 @@ public class PersonResourceSessionsTest {
         Query query = mock(Query.class);
         List resultList = mock(List.class);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
         when(query.list()).thenReturn(resultList);
@@ -374,6 +383,7 @@ public class PersonResourceSessionsTest {
     private void prepareSession() {
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
     }
 
     @Test

@@ -73,6 +73,7 @@ import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -115,6 +116,8 @@ public class MailingResourceTest {
     private static SessionFactory sessionFactory;
     @Mock
     private static Session session;
+    @Mock
+    private static Transaction mockitoTransaction;
 
     private MailingResource objectToTest;
     private String tmpPath;
@@ -211,5 +214,6 @@ public class MailingResourceTest {
     private void prepareSession() {
         when(objectToTest.context.getAttribute("SessionFactory")).thenReturn(sessionFactory);
         when(sessionFactory.openSession()).thenReturn(session);
+        when(session.getTransaction()).thenReturn(mockitoTransaction);
     }
 }

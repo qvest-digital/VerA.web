@@ -65,6 +65,7 @@ import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
@@ -90,12 +91,14 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class OsiamUserActivationResourceTest {
-
     private OsiamUserActivationResource osiamUserActivationResource;
+
     @Mock
     private static SessionFactory sessionFactory;
     @Mock
     private static Session session;
+    @Mock
+    private static Transaction mockitoTransaction;
 
     @Before
     public void setUp() throws Exception {
@@ -151,5 +154,6 @@ public class OsiamUserActivationResourceTest {
     private void prepareSession() {
         when(osiamUserActivationResource.context.getAttribute("SessionFactory")).thenReturn(sessionFactory);
         when(sessionFactory.openSession()).thenReturn(session);
+        when(session.getTransaction()).thenReturn(mockitoTransaction);
     }
 }

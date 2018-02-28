@@ -72,6 +72,7 @@ import org.glassfish.jersey.media.multipart.FormDataMultiPart
 import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
+import org.hibernate.Transaction
 import spock.lang.Ignore
 import spock.lang.Specification
 
@@ -97,12 +98,15 @@ class PdfTemplateResourceTest extends Specification {
     ServletContext context = Mock(ServletContext)
     SessionFactory sessionFactory = Mock(SessionFactory)
     Session session = Mock(Session)
+    Transaction mockTxn = Mock(Transaction)
+
     Query query = Mock(Query)
 
     def setup() {
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
         session.getNamedQuery(_) >> query
+        session.getTransaction() >> mockTxn
 
         multipart.getField("files") >> bodypart_file
         bodypart_file.getFormDataContentDisposition() >> content_disposition
