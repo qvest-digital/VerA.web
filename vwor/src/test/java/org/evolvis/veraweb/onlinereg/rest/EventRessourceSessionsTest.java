@@ -65,6 +65,7 @@ import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -89,11 +90,12 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class EventRessourceSessionsTest {
-
     @Mock
     private static SessionFactory mockitoSessionFactory;
     @Mock
     private static Session mockitoSession;
+    @Mock
+    private static Transaction mockitoTransaction;
 
     EventResource eventResource;
 
@@ -413,5 +415,6 @@ public class EventRessourceSessionsTest {
     private void prepareSession() {
         when(eventResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
     }
 }

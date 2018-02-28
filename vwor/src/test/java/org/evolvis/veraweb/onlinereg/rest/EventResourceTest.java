@@ -66,6 +66,7 @@ import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -90,11 +91,12 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class EventResourceTest extends AbstractResourceTest<EventResource> {
-
     @Mock
     private static SessionFactory mockitoSessionFactory;
     @Mock
     private static Session mockitoSession;
+    @Mock
+    private static Transaction mockitoTransaction;
 
     EventResource eventResource;
 
@@ -164,6 +166,7 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
     private void prepareSession() {
         when(eventResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
     }
 
     private static Date getFutureDate() {
