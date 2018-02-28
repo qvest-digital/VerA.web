@@ -1099,6 +1099,11 @@ Zeile an:\keinumbruch
 
 \texttt{java.util.logging.SimpleFormatter.format=\%1\$tF \%1\$tT.\%1\$tL \%4\$7s (\%2\$s) [\%3\$s] \%5\$s\%6\$s\%n}
 
+Suchen Sie in der Konfigurationsdatei
+\texttt{/etc/tomcat8/catalina.properties} die Zeile, die mit
+\texttt{tomcat.util.scan.StandardJarScanFilter.jarsToSkip} beginnt, und
+fügen als neue Zeile darunter \texttt{javassist-*.jar,\textbackslash} ein.
+
 \begin{minipage}{\textwidth}
 Nun bearbeiten Sie die Datei \texttt{/etc/tomcat8/server.xml}, um Tomcat
 von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
@@ -1585,6 +1590,11 @@ Hängen Sie an die \texttt{/etc/tomcat8/logging.properties} folgende
 Zeile an:\keinumbruch
 
 \texttt{java.util.logging.SimpleFormatter.format=\%1\$tF \%1\$tT.\%1\$tL \%4\$7s (\%2\$s) [\%3\$s] \%5\$s\%6\$s\%n}
+
+Suchen Sie in der Konfigurationsdatei
+\texttt{/etc/tomcat8/catalina.properties} die Zeile, die mit
+\texttt{tomcat.util.scan.StandardJarScanFilter.jarsToSkip} beginnt, und
+fügen als neue Zeile darunter \texttt{javassist-*.jar,\textbackslash} ein.
 
 \begin{minipage}{\textwidth}
 Nun bearbeiten Sie die Datei \texttt{/etc/tomcat8/server.xml}, um Tomcat
@@ -2310,6 +2320,11 @@ Hängen Sie an die \texttt{/etc/tomcat8/logging.properties} folgende
 Zeile an:\keinumbruch
 
 \texttt{java.util.logging.SimpleFormatter.format=\%1\$tF \%1\$tT.\%1\$tL \%4\$7s (\%2\$s) [\%3\$s] \%5\$s\%6\$s\%n}
+
+Suchen Sie in der Konfigurationsdatei
+\texttt{/etc/tomcat8/catalina.properties} die Zeile, die mit
+\texttt{tomcat.util.scan.StandardJarScanFilter.jarsToSkip} beginnt, und
+fügen als neue Zeile darunter \texttt{javassist-*.jar,\textbackslash} ein.
 
 Nun muß noch die Konfiguration von Tomcat für die neu hinzugekommene
 REST-API vorgenommen werden.
