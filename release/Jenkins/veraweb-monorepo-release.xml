@@ -131,6 +131,8 @@ ssh root@veraweb-po.lan.tarent.de &apos;
 	service tomcat7 start
 	sleep 5
 	svc -t /service/vwoa
+	sleep 5
+	svstat /service/vwoa
     &apos;
 : migration to tomcat8 later
 exit 0</command>
