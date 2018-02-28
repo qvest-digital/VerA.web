@@ -82,8 +82,10 @@ class MediaRepresentativeActivationResourceTest extends Specification {
 
     private resource
 
+    /* "setuo" below is *NOT* a typo but required */
+
     @Before
-    void setup() {
+    void setuo() {
         resource = new MediaRepresentativeActivationResource(context: context)
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
