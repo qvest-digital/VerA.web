@@ -98,7 +98,6 @@ javax.mail:mail 1.4.7 TODO
 javax.servlet:javax.servlet-api 3.1.0 TODO
 javax.validation:validation-api 1.1.0.Final TODO
 javax.ws.rs:javax.ws.rs-api 2.0.1 TODO
-javax.ws.rs:jsr311-api 1.1.1 TODO
 jfree:jcommon 1.0.15 TODO
 jfree:jfreechart 1.0.12 TODO
 joda-time:joda-time 2.9 TODO
@@ -166,7 +165,6 @@ org.glassfish.jersey.media:jersey-media-jaxb 2.22.2 TODO
 org.glassfish.jersey.media:jersey-media-json-jackson 2.22.2 TODO
 org.glassfish.jersey.media:jersey-media-multipart 2.22.2 TODO
 org.glassfish.web:javax.el 2.2.6 TODO
-org.glassfish:javax.el 3.0.1-b08 TODO
 org.hibernate.common:hibernate-commons-annotations 5.0.1.Final TODO
 org.hibernate.javax.persistence:hibernate-jpa-2.1-api 1.0.0.Final TODO
 org.hibernate:hibernate-core 5.2.13.Final TODO
