@@ -42,6 +42,11 @@
 			<groupId>io.dropwizard</groupId>
 			<artifactId>dropwizard-assets</artifactId>
 		</dependency>
+		<!-- POJO mojo -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+		</dependency>
 		<!-- @Data,Getter,Setter annotations -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
