@@ -62,7 +62,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  * with this program; if not, see: http://www.gnu.org/licenses/
  */
 import org.evolvis.veraweb.onlinereg.entities.OsiamUserActivation;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 
 import javax.mail.MessagingException;

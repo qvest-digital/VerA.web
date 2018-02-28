@@ -33,6 +33,7 @@
 		<maven.mycila.version>3.0</maven.mycila.version>
 		<maven.pitest.version>1.0.0</maven.pitest.version>
 		<maven.release.version>2.5.2</maven.release.version>
+		<maven.resource.version>3.0.2</maven.resource.version>
 		<maven.shade.version>1.6</maven.shade.version>
 		<maven.source.version>2.4</maven.source.version>
 		<maven.surefire.version>2.13</maven.surefire.version>
@@ -51,7 +52,8 @@
 		<groovy-all.version>2.4.3</groovy-all.version>
 		<guava.version>18.0</guava.version>
 		<h2.version>1.4.191</h2.version>
-		<hibernate.version>5.1.1.Final</hibernate.version>
+		<hibernate.version>5.2.13.Final</hibernate.version>
+		<hibernate-validator.version>5.4.2.Final</hibernate-validator.version>
 		<hk2.version>2.4.0-b34</hk2.version>
 		<itext.version>4.2.0</itext.version>
 		<jackson.version>2.5.4</jackson.version>
@@ -102,6 +104,22 @@
 		</snapshotRepository>
 	</distributionManagement>
 	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<outputDirectory>target/classes</outputDirectory>
+		<testOutputDirectory>target/test-classes</testOutputDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -212,6 +230,13 @@
 					<version>${maven.release.version}</version>
 					<configuration>
 						<tagNameFormat>@{project.version}</tagNameFormat>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven.resource.version}</version>
+					<configuration>
+						<escapeString>\</escapeString>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -540,8 +565,13 @@
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>${hibernate-validator.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator-annotation-processor</artifactId>
-				<version>${hibernate.version}</version>
+				<version>${hibernate-validator.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.hk2.external</groupId>
@@ -627,6 +657,11 @@
 				<groupId>javax.activation</groupId>
 				<artifactId>activation</artifactId>
 				<version>1.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish</groupId>
+				<artifactId>javax.el</artifactId>
+				<version>3.0.1-b08</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.mail</groupId>

@@ -68,7 +68,7 @@ import org.evolvis.veraweb.onlinereg.mail.MailDispatchMonitor;
 import org.evolvis.veraweb.onlinereg.mail.MailDispatcher;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.jboss.logging.Logger;
 

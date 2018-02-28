@@ -63,7 +63,7 @@ package org.evolvis.veraweb.onlinereg.rest;
  */
 import org.evolvis.veraweb.onlinereg.entities.Event;
 import org.evolvis.veraweb.onlinereg.entities.Person;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 
 import javax.ws.rs.FormParam;

@@ -62,7 +62,7 @@
 package org.evolvis.veraweb.onlinereg.rest
 
 import org.evolvis.veraweb.onlinereg.entities.OptionalField
-import org.hibernate.Query
+import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import spock.lang.Specification
