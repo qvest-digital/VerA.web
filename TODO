@@ -4,6 +4,10 @@
 • npm-free build even for vwoa
 • check the DB/transactional changes in vwor for correctness
 • figure out why some tests are Skipped
+• convert all Groovy files (18 here, just 4 in the blue tool)
+  ‣ to Groovy++ first, to check types
+    cf. https://stackoverflow.com/a/5941495/2171120
+  ‣ to Java™ via IntelliJ
 • test everything
 
 Status: VWOA kaput, Rest kann getestet werden
