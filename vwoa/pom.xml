@@ -8,6 +8,9 @@
 	<artifactId>online-anmeldung</artifactId>
 	<packaging>jar</packaging>
 	<name>VerA.web Online-Anmeldung frontend</name>
+	<properties>
+		<sonar.exclusions>src/main/java/io/dropwizard/client/HttpClientConfiguration.java</sonar.exclusions>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.evolvis.veraweb</groupId>
