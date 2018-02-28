@@ -5,3 +5,5 @@
 • check the DB/transactional changes in vwor for correctness
 • figure out why some tests are Skipped
 • test everything
+
+Status: VWOA kaput, Rest kann getestet werden
