@@ -19,7 +19,11 @@
                 ##              Calendar (http://www.dynarch.com/projects/calendar/)
                 <script type="text/javascript" src="${paths.staticWeb}js/ext/jscalendar/calendar.js"></script>
                 <script type="text/javascript" src="${paths.staticWeb}js/ext/jscalendar/calendar-setup.js"></script>
+#if("$!{placeholderWithTranslation.language_short}" == "")
+                <script type="text/javascript" src="${paths.staticWeb}js/ext/jscalendar/lang/calendar-de.js"></script>
+#else
                 <script type="text/javascript" src="${paths.staticWeb}js/ext/jscalendar/lang/calendar-${placeholderWithTranslation.language_short}.js"></script>
+#end
 
                 <script>
                         document.createElement("header");
