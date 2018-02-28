@@ -3,7 +3,8 @@
   <actions/>
   <description>&lt;p&gt;⚠ DO NOT USE YET!!!&lt;/p&gt;&#xd;
 &#xd;
-&lt;p&gt;Regular builds of VerA.web (with OA) with Sonar, also, release job.&lt;/p&gt;</description>
+&lt;p&gt;Regular builds of VerA.web (with OA) with Sonar, also, release job.&lt;/p&gt;&#xd;
+&lt;p&gt;All builds update &lt;tt&gt;veraweb-po&lt;/tt&gt; currently.&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -16,13 +17,13 @@
       <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:veraweb</permission>
       <permission>hudson.model.Item.Build:veraweb</permission>
       <permission>hudson.model.Item.Cancel:veraweb</permission>
-      <permission>hudson.scm.SCM.Tag:veraweb</permission>
-      <permission>hudson.model.Item.Configure:veraweb</permission>
       <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
       <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>hudson.scm.SCM.Tag:veraweb</permission>
       <permission>hudson.model.Item.Workspace:veraweb</permission>
-      <permission>hudson.model.Run.Update:veraweb</permission>
       <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@1.7">
@@ -115,7 +116,26 @@ H/5 * * * *</spec>
     </org.jvnet.hudson.plugins.m2release.M2ReleaseBuildWrapper>
   </buildWrappers>
   <prebuilders/>
-  <postbuilders/>
+  <postbuilders>
+    <hudson.tasks.Shell>
+      <command>set -ex
+ssh root@veraweb-po.lan.tarent.de &apos;service tomcat7 stop&apos;
+scp vwoa/target/vw-online-registration.jar root@veraweb-po.lan.tarent.de:/service/vwoa/vwoa.jar
+sleep 5
+ssh root@veraweb-po.lan.tarent.de &apos;
+	psql -U veraweb -h 127.0.0.1 veraweb
+	rm -rf /var/lib/tomcat7/webapps/v*
+    &apos; &lt;core/files/upgrade.sql
+scp core/target/veraweb.war vwor/target/vwor.war root@veraweb-po.lan.tarent.de:/var/lib/tomcat7/webapps/
+ssh root@veraweb-po.lan.tarent.de &apos;
+	service tomcat7 start
+	sleep 5
+	svc -t /service/vwoa
+    &apos;
+: migration to tomcat8 later
+exit 0</command>
+    </hudson.tasks.Shell>
+  </postbuilders>
   <runPostStepsIfResult>
     <name>SUCCESS</name>
     <ordinal>0</ordinal>

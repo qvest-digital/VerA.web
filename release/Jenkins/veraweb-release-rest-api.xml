@@ -41,14 +41,16 @@
 &#xd;
 &lt;p&gt;Das Bauen eines der Dev-Jobs stößt immer automatisch das Bauen des nächsten&#xd;
   in der Kette an. Dev-Jobs aktualisieren die Systeme &lt;tt&gt;veraweb-mit&lt;/tt&gt; und&#xd;
-  &lt;tt&gt;veraweb-ohne&lt;/tt&gt;; Release-Jobs aktualisieren &lt;tt&gt;veraweb-po&lt;/tt&gt;.&lt;/p&gt;&#xd;
+  &lt;tt&gt;veraweb-ohne&lt;/tt&gt;; Release-Jobs aktualisieren aktuell kein System mehr.&lt;/p&gt;&#xd;
 &#xd;
 &lt;p&gt;Alle Jobs &lt;em&gt;müssen&lt;/em&gt; immer mit derselben Version wie rest-api-common&#xd;
  entwickelt und releast werden. Beim Release ist die Versionsnummer direkt auch das&#xd;
  SCM-Tag; dies passiert nun standardmäßig (muß nicht mehr angegeben werden).&lt;/p&gt;&#xd;
 &#xd;
 &lt;p&gt;XXX TODO: mit Infos über die von Jens Oberender eingerichteten neuen Jobs&#xd;
- und die Build-Pipilinie aktualisieren.&lt;/p&gt;</description>
+ und die Build-Pipilinie aktualisieren.&lt;/p&gt;&#xd;
+&#xd;
+&lt;p&gt;XXX TODO: auf monorepo-Job umschalten&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>20</numToKeep>
@@ -59,13 +61,13 @@
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
       <permission>hudson.model.Item.Cancel:veraweb</permission>
-      <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Item.Release:veraweb</permission>
-      <permission>hudson.model.Run.Update:veraweb</permission>
       <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
       <permission>hudson.model.Item.Configure:veraweb</permission>
       <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
