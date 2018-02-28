@@ -1,18 +1,14 @@
-
 verawebEndpoint: http://localhost:8091/vwor/
 
+#XXX TODO: this is wrong
 osiam:
-  endpoint: http://172.26.12.40/
+  endpoint: http://127.0.0.1/
   clientId: online-registration
   clientSecret: geheim
 
 restauth:
   username: veraweb
   password: veraweb
-
-## start WireMock:
-# cd src/test/resources/wiremock
-# java -jar /path/to/wirekmock.jar --port 9090
 
 server:
   type: simple

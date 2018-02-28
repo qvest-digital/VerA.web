@@ -7,5 +7,3 @@
 • figure out why some tests are Skipped
 • test everything
 • the even more pityful karma tests don’t work anyway, nuke ’em
-• those “wiremock” tests reference a dynamic IP and a VM that
-  is gone since ages, kill ’em
