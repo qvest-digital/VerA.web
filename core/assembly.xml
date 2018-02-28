@@ -7,7 +7,7 @@
 	<fileSets>
 		<fileSet>
 			<directory>files</directory>
-			<outputDirectory></outputDirectory>
+			<outputDirectory/>
 		</fileSet>
 		<fileSet>
 			<directory>src/main/resources/l10n</directory>
@@ -17,27 +17,31 @@
 	<files>
 		<file>
 			<source>src/main/webapp/OCTOPUS/config_database_pools.xml</source>
-			<outputDirectory></outputDirectory>
+			<outputDirectory/>
 		</file>
 		<file>
 			<source>src/main/webapp/doc/Benutzerhandbuch.pdf</source>
-			<outputDirectory></outputDirectory>
+			<outputDirectory/>
 		</file>
 		<file>
 			<source>target/latex/installationsanleitung-core/installationsanleitung-core.lst</source>
-			<outputDirectory></outputDirectory>
+			<outputDirectory/>
 		</file>
 		<file>
 			<source>target/latex/installationsanleitung-full/installationsanleitung-full.lst</source>
-			<outputDirectory></outputDirectory>
+			<outputDirectory/>
 		</file>
 		<file>
 			<source>target/latex/upgradeanleitung-core/upgradeanleitung-core.lst</source>
-			<outputDirectory></outputDirectory>
+			<outputDirectory/>
 		</file>
 		<file>
 			<source>target/latex/upgradeanleitung-full/upgradeanleitung-full.lst</source>
-			<outputDirectory></outputDirectory>
+			<outputDirectory/>
+		</file>
+		<file>
+			<source>${settings.localRepository}/org/postgresql/postgresql/${postgresql.version}/postgresql-${postgresql.version}.jar</source>
+			<outputDirectory/>
 		</file>
 	</files>
 </assembly>
