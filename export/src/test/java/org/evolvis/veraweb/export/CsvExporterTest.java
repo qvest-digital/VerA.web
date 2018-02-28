@@ -115,7 +115,7 @@ public class CsvExporterTest {
         dataSource.setUser("sa");
         dataSource.setPassword("sa");
         writer = new StringWriter();
-        reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream("test-query.yaml"), "utf-8");
+        reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream("test-query.jsn"), "utf-8");
         properties = new Properties();
         properties.setProperty("baseUrl", "http://fnord-west.eu/api");
         csvExporter = new CsvExporter(reader, writer, dataSource,properties);
