@@ -65,6 +65,7 @@ import org.evolvis.veraweb.onlinereg.entities.OptionalField
 import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
+import org.hibernate.Transaction
 import spock.lang.Specification
 
 import javax.servlet.ServletContext
@@ -77,6 +78,7 @@ class OptionalFieldResourceTest extends Specification {
     ServletContext context = Mock(ServletContext)
     SessionFactory sessionFactory = Mock(SessionFactory)
     Session session = Mock(Session)
+    Transaction mockTxn = Mock(Transaction)
 
     OptionalFieldResource optionalFieldResource;
 
@@ -84,6 +86,7 @@ class OptionalFieldResourceTest extends Specification {
         optionalFieldResource = new OptionalFieldResource(context: context)
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
+        session.getTransaction() >> mockTxn
     }
 
     public void testGetOptionalFields() {

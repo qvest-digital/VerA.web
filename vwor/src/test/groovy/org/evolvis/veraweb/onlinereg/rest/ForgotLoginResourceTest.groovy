@@ -67,6 +67,7 @@ import org.evolvis.veraweb.onlinereg.mail.MailDispatcher
 import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
+import org.hibernate.Transaction
 import spock.lang.Specification
 
 import javax.mail.Transport
@@ -80,6 +81,8 @@ class ForgotLoginResourceTest extends Specification {
     ServletContext context = Mock(ServletContext)
     SessionFactory sessionFactory = Mock(SessionFactory)
     Session session = Mock(Session)
+    Transaction mockTxn = Mock(Transaction)
+
     def dispatcher
     def forgotLoginResource
 
@@ -91,6 +94,7 @@ class ForgotLoginResourceTest extends Specification {
         dispatcher.setTransport(transport)
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
+        session.getTransaction() >> mockTxn
         forgotLoginResource = new ForgotLoginResource(mailDispatcher: dispatcher, context: context, emailConfiguration: emailConfiguration)
     }
 

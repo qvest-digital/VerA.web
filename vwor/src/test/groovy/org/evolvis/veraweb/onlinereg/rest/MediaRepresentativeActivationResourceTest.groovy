@@ -64,6 +64,7 @@ package org.evolvis.veraweb.onlinereg.rest
 import org.hibernate.query.Query
 import org.hibernate.Session
 import org.hibernate.SessionFactory
+import org.hibernate.Transaction
 import org.junit.Before
 import spock.lang.Specification
 
@@ -77,13 +78,16 @@ class MediaRepresentativeActivationResourceTest extends Specification {
     ServletContext context = Mock(ServletContext)
     SessionFactory sessionFactory = Mock(SessionFactory)
     Session session = Mock(Session)
+    Transaction mockTxn = Mock(Transaction)
+
     private resource
 
     @Before
-    void setuo() {
+    void setup() {
         resource = new MediaRepresentativeActivationResource(context: context)
         context.getAttribute("SessionFactory") >> sessionFactory
         sessionFactory.openSession() >> session
+        session.getTransaction() >> mockTxn
     }
 
     void testAddMediaRepresentativeActivationEntry() {
