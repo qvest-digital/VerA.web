@@ -2,3 +2,4 @@
 • update FROM in all Dockerfiles to latest/secure/Debian/…
 • webjars for dependencies
 • npm-free build even for vwoa
+• check the DB/transactional changes in vwor for correctness
