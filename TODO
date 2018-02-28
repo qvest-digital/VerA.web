@@ -4,3 +4,6 @@
 • npm-free build even for vwoa
 • check the DB/transactional changes in vwor for correctness
 • fix cf. vwoa/src/main/java/org/evolvis/veraweb/onlinereg/Config.java
+• check commit 707422469624c42f33a4b5bc25cd2759a7ae8d8d
+• figure out why some tests are Skipped
+• test everything
