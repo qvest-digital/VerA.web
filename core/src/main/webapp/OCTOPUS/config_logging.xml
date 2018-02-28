@@ -69,7 +69,7 @@
 		<appender name="Console" class="org.apache.log4j.ConsoleAppender">
 			<param name="Target" value="System.out"/>
 			<layout class="org.apache.log4j.PatternLayout">
-				<param name="ConversionPattern" value="%-5p %c{1} - %m%n"/>
+				<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %7level (%thread) [%logger] %msg%n"/>
 			</layout>
 		</appender>
 
@@ -78,7 +78,7 @@
 			<param name="MaxBackupIndex" value="8"/>
 			<param name="File" value="veraweb.log"/>
 			<layout class="org.apache.log4j.PatternLayout">
-				<param name="ConversionPattern" value="[%5p] %d{dd.MM.yy HH:mm:ss} (%F:%L) - %m%n"/>
+				<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %7level (%thread) [%logger] %msg%n"/>
 			</layout>
 		</appender>
 
@@ -87,7 +87,7 @@
 			<param name="MaxBackupIndex" value="8"/>
 			<param name="File" value="error.log"/>
 			<layout class="org.apache.log4j.PatternLayout">
-				<param name="ConversionPattern" value="[%5p] %d{dd.MM.yy HH:mm:ss} (%F:%L) - %m%n"/>
+				<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %7level (%thread) [%logger] %msg%n"/>
 			</layout>
 		</appender>
 

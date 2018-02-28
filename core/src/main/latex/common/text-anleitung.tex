@@ -1096,6 +1096,11 @@ Option ist ein Kommentar und nicht die gesuchte Stelle! Ändern Sie
 diesen Wert auf \texttt{-Xms512m -Xmx1024m} falls die VM über mehr
 als 1280 MiB RAM verfügt, \texttt{-Xmx512m} andernfalls.
 
+Hängen Sie an die \texttt{/etc/tomcat8/logging.properties} folgende
+Zeile an:\keinumbruch
+
+\texttt{java.util.logging.SimpleFormatter.format=\%1\$tF \%1\$tT.\%1\$tL \%4\$7s (\%2\$s) [\%3\$s] \%5\$s\%6\$s\%n}
+
 \begin{minipage}{\textwidth}
 Nun bearbeiten Sie die Datei \texttt{/etc/tomcat8/server.xml}, um Tomcat
 von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
@@ -1574,6 +1579,11 @@ indem sie eine nichtblockierende Quelle für Zufallszahlen auswählt:
 JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 \end{lstdump}
 \end{minipage}
+
+Hängen Sie an die \texttt{/etc/tomcat8/logging.properties} folgende
+Zeile an:\keinumbruch
+
+\texttt{java.util.logging.SimpleFormatter.format=\%1\$tF \%1\$tT.\%1\$tL \%4\$7s (\%2\$s) [\%3\$s] \%5\$s\%6\$s\%n}
 
 \begin{minipage}{\textwidth}
 Nun bearbeiten Sie die Datei \texttt{/etc/tomcat8/server.xml}, um Tomcat
@@ -2297,6 +2307,11 @@ indem sie eine nichtblockierende Quelle für Zufallszahlen auswählt:
 JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 \end{lstdump}
 \end{minipage}
+
+Hängen Sie an die \texttt{/etc/tomcat8/logging.properties} folgende
+Zeile an:\keinumbruch
+
+\texttt{java.util.logging.SimpleFormatter.format=\%1\$tF \%1\$tT.\%1\$tL \%4\$7s (\%2\$s) [\%3\$s] \%5\$s\%6\$s\%n}
 
 Nun muß noch die Konfiguration von Tomcat für die neu hinzugekommene
 REST-API vorgenommen werden.
