@@ -49,7 +49,7 @@
 \fancyfoot[C]{\tarentlogo[7cm]{}}
 
 \colorbox{tarentrot}{
- \parbox[b][3cm][c]{0.975\textwidth}{
+ \parbox[b][3cm][c]{0.975\linewidth}{
   \centering
   \color{white}\textbf{\Huge #1}
  }
@@ -63,7 +63,7 @@
 \ifthenelse{\equal{x#6}{x}}{}{
  \vspace{4cm}
  \begin{center}
-  \includegraphics[width=.8\textwidth]{#6}
+  \includegraphics[width=.8\linewidth]{#6}
  \end{center}
 }
 

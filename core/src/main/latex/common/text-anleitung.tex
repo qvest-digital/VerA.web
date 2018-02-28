@@ -101,7 +101,7 @@ Sie bitte ggfs. die Seite des Kapitels im Inhaltsverzeichnis nach.
 
 \subsubsection{Listings}\label{subsubsec:aboutmanual-lst}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Alle Code-Listings finden Sie auch nochmal als Plaintext unter
 \texttt{\jobname.lst} im „files“-Tarball
 (\texttt{veraweb-core-\vwiaverssw{}-files.tgz}, siehe
@@ -195,7 +195,7 @@ ggfs. weitere geeignete Maßnahmen zur Absicherung zu treffen.
 Im folgenden finden Sie eine grobe Übersicht über die einzelnen oben
 erwähnten Komponenten und ihr Zusammenspiel:\keinumbruch
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 
 \begin{tikzpicture}[
   >=stealth',
@@ -251,7 +251,7 @@ an den entsprechenden Stellen in dieser Anleitung finden Sie Hinweise hierzu.
 In der nächsten Graphik werden die zu VerA.web gehörenden Komponenten
 mit mehr Detailtiefe aufgeschlüsselt:\keinumbruch
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 
 \begin{tikzpicture}[
   >=stealth',
@@ -347,7 +347,7 @@ die zugehörigen Apache-Frontends, und in der vierten Spalte die
 Benutzer. In schwarzen Kästen befinden sich jeweils zugehörige
 Skripte.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 
 \begin{tikzpicture}[
   >=stealth',
@@ -811,7 +811,7 @@ Plazieren Sie bitte für jede VM das zugehörige SSL-Zertifikat als
 Zertifikatskette als \texttt{/etc/ssl/vwchain.cer}. Setzen Sie die
 Rechte entsprechend:\keinumbruch
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 \begin{lstdump}{SSL-Zertifikate}
 sudo chown 0:ssl-cert /etc/ssl/vw*.cer /etc/ssl/private/vwserver.key
 sudo chmod 644 /etc/ssl/vw*.cer
@@ -843,7 +843,7 @@ später auch VerA.web-core installieren möchten.
 
 \subsection{Installation OpenLDAP-Server}\label{subsec:setup-lam-slapd}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Installieren Sie zunächst die nötigen Pakete:
 
 \begin{lstdump}{Install LDAP}
@@ -868,7 +868,7 @@ Ihrem neuen LDAP-Verzeichnis enthaltenen Einträge sehen; dies ist initial
 lediglich der Wurzelknoten \texttt{dc=lan,dc=tarent,dc=de} sowie der
 LDAP-Administrator \texttt{cn=admin,dc=lan,dc=tarent,dc=de}.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 \begin{lstdump}{LDAP-Clientkonfiguration}
 cfg=/etc/ldap/slapd.d/cn=config/olcDatabase={1}mdb.ldif
 basedn=$(sudo sed -n '/^olcSuffix: */s///p' "$cfg")
@@ -968,7 +968,7 @@ Kopieren Sie jedoch bitte zunächst die Datei
 \texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
 auf den OSIAM-Server.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Entpacken Sie das \texttt{files}-Archiv und wechseln in das
 Unterverzeichnis mit den OSIAM-Dateien:
 
@@ -1001,7 +1001,7 @@ zugegriffen werden kann; danach können Sie direkt im nächsten Abschnitt
 
 \subsubsection{System vorbereiten}\label{subsubsec:setup-osiam-prepare}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Sofern Sie noch nicht über eine OSIAM-Installation besitzen, bereiten
 Sie bitte zunächst das System vor, indem Sie einige Pakete installieren
 und sicherstellen, daß keine ältere Java-Version installiert ist bzw.
@@ -1034,7 +1034,7 @@ der Webserver sowie Hilfsprogramme installiert.
 
 \subsubsection{Datenbank}\label{subsubsec:setup-osiam-db}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Legen Sie den Datenbankbenutzer und die Datenbank an:
 
 \begin{lstdump}{DB erstellen OSIAM}
@@ -1053,7 +1053,7 @@ Das Datenbankschema wird durch OSIAM selbst automatisch verwaltet.
 
 \subsubsection{Applikationsserver}\label{subsubsec:setup-osiam-tomcat}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 In den Dateien \texttt{auth-server.properties} und
 \texttt{resource-server.properties} ersetzen Sie bitte an allen
 Stellen \texttt{HOSTNAME-OSIAM} durch den vollen Hostnamen des
@@ -1070,7 +1070,7 @@ sudo install -c -o 0 -g tomcat8 -m 640 *.properties /etc/osiam/
 Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat8}
 einige Zeilen ein, um weitere JVM-Startoptionen zu setzen.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Diese Option setzen Sie bitte in jedem Fall, um eine korrekte
 Kodierung von Dateien, Logs und internen Abläufen zu gewährleisten:
 
@@ -1079,7 +1079,7 @@ JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Diese (Linux-spezifische) Option spart u.a. beim Starten Zeit,
 indem sie eine nichtblockierende Quelle für Zufallszahlen auswählt:
 
@@ -1104,7 +1104,7 @@ Suchen Sie in der Konfigurationsdatei
 \texttt{tomcat.util.scan.StandardJarScanFilter.jarsToSkip} beginnt, und
 fügen als neue Zeile darunter \texttt{javassist-*.jar,\textbackslash} ein.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Nun bearbeiten Sie die Datei \texttt{/etc/tomcat8/server.xml}, um Tomcat
 von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
 (eine einfache Suche nach „8080“ findet ihn) und kommentieren ihn aus,
@@ -1118,7 +1118,7 @@ indem Sie davor \texttt{<!‑‑} und dahinter \texttt{‑‑>} schreiben:
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Dann suchen Sie folgenden auskommentierten Abschnitt (ca. 50 Zeilen weiter):
 
 \begin{lstdump}[language=XML]{Tomcat AJP-Connector orig}
@@ -1133,7 +1133,7 @@ hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Suchen Sie bitte in der Datei \texttt{/etc/tomcat8/catalina.properties}
 die Zeile, die mit \texttt{shared.loader=} beginnt, und hängen Sie am
 Ende der Zeile \texttt{,/etc/osiam} an; das könnte dann wie folgt aussehen:
@@ -1149,7 +1149,7 @@ Tomcat-Dienst ggfs. noch einige Sekunden weiterläuft, nachdem
 der Stop-Befehl abgeschickt wurde; im Zweifelsfalle prüfen Sie
 explizit, ob noch \texttt{java}-Prozesse laufen.\keinumbruch
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 \begin{lstdump}{Tomcat restart}
 sudo service tomcat8 stop
 ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
@@ -1159,7 +1159,7 @@ sudo service tomcat8 start
 
 \subsubsection{Download von OSIAM}\label{subsubsec:setup-osiam-download}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Jetzt laden Sie die OSIAM-Anwendungen herunter und installieren Sie sie:
 
 \begin{lstdump}{OSIAM herunterladen}
@@ -1178,7 +1178,7 @@ in 12,338 ms} (eine separate solche Zeile pro Applikationsarchiv).
 
 \subsubsection{Webserver}\label{subsubsec:setup-osiam-apache}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Jetzt richten Sie den Webserver ein:
 
 \begin{lstdump}{Apache OSIAM}
@@ -1188,7 +1188,7 @@ sudo a2ensite default-ssl
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
 fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
 \texttt{DocumentRoot}), folgende Zeilen ein:
@@ -1199,7 +1199,7 @@ JkMount /osiam-resource-server* ajp13_worker
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Einige Zeilen weiter unten ersetzen Sie bitte die bestehenden
 Angaben durch die folgenden:
 
@@ -1220,7 +1220,7 @@ die Pfade \texttt{/osiam-auth-server} und \texttt{/osiam-resource-server})
 über HTTPS nur vom OSIAM-Server selber, dem core/REST-API-System und der
 Online-Anmeldung möglich sind, z.B. durch Apache-Direktiven oder Firewalling.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Nun starten Sie den Webserver neu:
 
 \begin{lstdump}{Apache restart OSIAM}
@@ -1231,7 +1231,7 @@ sudo service apache2 start
 
 \subsubsection{Funktionstest}\label{subsubsec:setup-osiam-check}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Nach einem erfolgreichen Start können Sie prüfen, ob sich der
 Dienst\Hair\textsuperscript{\ref{fn:osiamsvcchk}} ansprechen läßt:
 
@@ -1249,7 +1249,7 @@ Informationen, u.a. wie man den Standardzugang ändert.
 
 \subsection{Registrierung von VerA.web mit OSIAM}\label{subsec:setup-osiam-register}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Zunächst müssen einige benötigte Hilfsprogramme installiert werden:
 
 \begin{lstdump}{Pakete register-into-osiam}
@@ -1269,7 +1269,7 @@ Sie nun einige ggfs. zu ändernde Stellen rund um Zeile 30:
   hinterher VerA.web bei OSIAM identifizieren wird}
 \end{itemize}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Nun rufen Sie dieses Skript bitte auf:
 
 \begin{lstdump}{register VW into OSIAM}
@@ -1284,7 +1284,7 @@ auf demselben Server laufen muß wie OSIAM selbst) und
 registriert danach über die REST-Schnittstelle von OSIAM
 VerA.web als Client.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Nach erfolgreichem Abschluß können Sie nun die
 Installationsdateien löschen:
 
@@ -1310,7 +1310,7 @@ sowie die
 Installationsarchive \texttt{veraweb-core-\vwiaverssw{}.war}
 und \texttt{rest-api-\vwiaverssw{}.war} auf den core-Server.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Benennen Sie die Applikationsdateien in später leicher zu
 verwendende Namen um, entpacken Sie das Zusatzarchiv und
 wechseln Sie in das Unterverzeichnis mit den core-Dateien:
@@ -1351,7 +1351,7 @@ später in der Anwendung auch als Online-Hilfe verfügbar ist, als
 \texttt{Benutzerhandbuch.pdf} mitgeliefert, sodaß Sie dieses bereits
 vorab Ihren Sachbearbeitern zukommen lassen können.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Installieren Sie einige Pakete und stellen Sie sicher, daß keine
 ältere Java-Version installiert ist bzw. versehentlich verwendet wird:
 
@@ -1386,7 +1386,7 @@ Im folgenden Abschnitt wird die Datenbank für VerA.web mit dem
 Datenbankschema sowie den Stammdaten und Fachadministratorenzugängen
 eingerichtet.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Legen Sie zunächst den Datenbankbenutzer und die Datenbank an:
 
 \begin{lstdump}{DB erstellen}
@@ -1414,7 +1414,7 @@ Bei letzteren haben Sie die Möglichkeit, statt der vorgegebenen Stammdaten
 lediglich einen Minimalsatz zu laden (\texttt{stammdaten-colours.sql} statt
 \texttt{stammdaten-full.sql}).
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Loggen Sie sich zunächst auf der Datenbank ein:
 
 \begin{lstdump}{DB Login}
@@ -1425,7 +1425,7 @@ psql -U veraweb -h 127.0.0.1 -W veraweb
 Falls Sie andere Werte für Datenbankserver, Port, Benutzer oder Datenbankname
 verwenden müssen Sie diese hier selbstverständlich anpassen.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Dann setzen Sie im PostgreSQL-Client folgende Kommandos ab:
 
 \begin{lstdump}{DB Schema Init Beginn}
@@ -1435,7 +1435,7 @@ SELECT serv_verawebschema(1);
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Nun müssen Sie diejenigen LDAP-Benutzer, die initial als Administratoren
 agieren sollen, der Software bekanntgeben. Setzen Sie hierzu für jeden
 LDAP-Benutzer einen SQL-Befehl entsprechend dem folgenden ab, wobei Sie
@@ -1448,7 +1448,7 @@ INSERT INTO veraweb.tuser (fk_orgunit, username, role)
 \end{lstdump}\label{manual:db-user}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Schließlich müssen einige Sequenzen initialisiert und das Datenbankschema
 auf die jeweils aktuelle Version aktualisiert werden; danach können Sie
 den \texttt{psql}-Client wieder verlassen:
@@ -1478,7 +1478,7 @@ ein, den Sie bei der \nameref{subsec:setup-osiam-register}
 als \texttt{vwsecret} gesetzt haben.
 \fi% oa
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Legen Sie ein neues Verzeichnis an, in dem Sie die hochgeladenen
 Bilddateien speichern wollen (wir empfehlen ein Unterverzeichnis,
 sodaß es später möglich ist, weitere Strukturen aufzubauen), und
@@ -1496,7 +1496,7 @@ Sie bitte nun die Eigenschaft \texttt{filesLocation} in der Datei
 Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
 \texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die beim
 Versenden von Verteilernachrichten von VerA.web und Bestätigungsnachrichten der Online-Anmeldung
@@ -1547,7 +1547,7 @@ benutzen zu können. Dies sind insbesondere die folgenden Parameter:\keinumbruch
 
 \subsection{Applikationsserver VerA.web-core und REST-API}\label{subsec:setup-core-tomcat}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Legen Sie ein neues Verzeichnis \texttt{/etc/veraweb} mit einem
 Unterverzeichnis \texttt{l10n} an und kopieren Sie die
 Konfigurationsdateien dorthin:
@@ -1568,7 +1568,7 @@ den Übersetzungen abgelegt werden. %Das entsprechende Vorgehen wird
 Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat8}
 einige Zeilen ein, um weitere JVM-Startoptionen zu setzen.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Diese Option setzen Sie bitte in jedem Fall, um eine korrekte
 Kodierung von Dateien, Logs und internen Abläufen zu gewährleisten:
 
@@ -1577,7 +1577,7 @@ JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Diese (Linux-spezifische) Option spart u.a. beim Starten Zeit,
 indem sie eine nichtblockierende Quelle für Zufallszahlen auswählt:
 
@@ -1596,7 +1596,7 @@ Suchen Sie in der Konfigurationsdatei
 \texttt{tomcat.util.scan.StandardJarScanFilter.jarsToSkip} beginnt, und
 fügen als neue Zeile darunter \texttt{javassist-*.jar,\textbackslash} ein.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Nun bearbeiten Sie die Datei \texttt{/etc/tomcat8/server.xml}, um Tomcat
 von HTTP auf AJP umzustellen. Suchen Sie zunächst folgenden Abschnitt
 (eine einfache Suche nach „8080“ findet ihn) und kommentieren ihn aus,
@@ -1610,7 +1610,7 @@ indem Sie davor \texttt{<!‑‑} und dahinter \texttt{‑‑>} schreiben:
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Dann suchen Sie folgenden auskommentierten Abschnitt (ca. 50 Zeilen weiter):
 
 \begin{lstdump}[language=XML]{Tomcat AJP-Connector orig}
@@ -1625,7 +1625,7 @@ hinzu, um Zugriffe nur vom lokalen System (durch den Webserver) zuzulassen:
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat8/context.xml} vor
 das schließende \texttt{</Context>}-Tag folgendes Tag ein, um die
  \ifupgradeanleitung
@@ -1651,7 +1651,7 @@ Datenbanknamen, die Sie verwendet haben, falls Sie von den Standardvorgaben
 abgewichen sind.
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat8/tomcat-users.xml} vor
 das schließende \texttt{</tomcat-users>}-Tag folgende Tags ein, setzen dabei
 aber die von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
@@ -1670,7 +1670,7 @@ Tomcat-Dienst ggfs. noch einige Sekunden weiterläuft, nachdem
 der Stop-Befehl abgeschickt wurde; im Zweifelsfalle prüfen Sie
 explizit, ob noch \texttt{java}-Prozesse laufen.\keinumbruch
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 \begin{lstdump}{Tomcat restart}
 sudo service tomcat8 stop
 ps ax | grep java # darf keinesfalls irgendeinen tomcat anzeigen
@@ -1678,7 +1678,7 @@ sudo service tomcat8 start
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Deployen Sie die VerA.web-Anwendung und die REST-API in den Applikationsserver:
 
 \begin{lstdump}{Tomcat deploy}
@@ -1700,7 +1700,7 @@ installiert werden kann der Startvorgang deutlich länger dauern.
 
 \subsection{Webserver VerA.web-core und REST-API}\label{subsec:setup-core-apache}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Jetzt richten Sie den Webserver ein:
 
 \begin{lstdump}{Apache core}
@@ -1710,7 +1710,7 @@ sudo a2ensite default-ssl
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
 fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
 \texttt{DocumentRoot}), folgende Zeilen ein:
@@ -1721,7 +1721,7 @@ JkMount /vwor* ajp13_worker
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Desweiteren richten wir üblicherweise eine Weiterleitung von der
 Startseite des Servers auf die VerA.web-Anwendung ein, an derselben Stelle:
 
@@ -1734,7 +1734,7 @@ Ersetzen Sie wie üblich \texttt{HOSTNAME-CORE} durch den vollen
 Hostnamen (mit Domainteil) \dash den sogenannten FQDN \dash des
 core-Systems.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Einige Zeilen weiter unten ersetzen Sie bitte die bestehenden
 Angaben durch die folgenden:
 
@@ -1757,7 +1757,7 @@ oder Apache-Direktiven, sodaß Zugriffe nur durch das core/REST-API-System
 selber, die Online-Anmeldung, und autorisierte Personen (Administratoren
 und Sachbearbeiter) möglich sind.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/000-default.conf}
 fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
 \texttt{DocumentRoot}), eine Weiterleitung von HTTP auf HTTPS ein:
@@ -1767,7 +1767,7 @@ RedirectMatch 301 . https://HOSTNAME-CORE/
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Nun starten Sie den Webserver neu:
 
 \begin{lstdump}{Apache restart core}
@@ -1778,7 +1778,7 @@ sudo service apache2 start
 
 \subsection{Funktionstest}\label{subsec:setup-core-check}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Nun können Sie die Lauffähigkeit der REST-API z.B. mit cURL prüfen;
 ersetzen Sie hierbei \texttt{veraweb:veraweb@} durch die in Kapitel
 \ref{manual:restpw} vergebenen Zugangsdaten für die REST-API (im
@@ -1796,7 +1796,7 @@ Jetzt können Sie über einen Webbrowser auf das Veranstaltungsmanagement
 zugreifen und sich einloggen. Falls hierbei Fehler auftauchen prüfen Sie
 bitte den LDAP-Zugriff und die Logs\Hair\textsuperscript{\ref{fn:tomcatlogs}}.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
 mehr; diese können nun entfernt werden:
 
@@ -1818,7 +1818,7 @@ rm -rf veraweb-core-〈\lstdumpesc{\vwiaverssw}〉* veraweb.war vwor.war
 
 \section{Installation Online-Anmeldung}\label{sec:setup-oa}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Kopieren Sie bitte zunächst \texttt{online-anmeldung-\vwiaverssw{}-files.tgz}
 und \texttt{online-anmeldung-\vwiaverssw{}.jar}
 auf den Server, auf dem Sie die Online-Anmeldung installieren möchten,
@@ -1842,7 +1842,7 @@ enthalten werden.
 
 \subsection{System vorbereiten}\label{subsec:setup-oa-prep}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Installieren Sie nun die benötigten Pakete und stellen Sie sicher, daß keine
 ältere Java-Version installiert ist bzw. versehentlich verwendet wird:
 
@@ -1862,7 +1862,7 @@ java -version
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Richten Sie das Standardverzeichnis für die DJB dæmontools
 ein und legen Sie einen Benutzeraccount an, unter dem die
 Online-Anmeldung ausgeführt werden kann:
@@ -1887,7 +1887,7 @@ gesetzt haben; unterhalb von \texttt{restauth} tragen Sie die
 von Ihnen gewählten Zugangsdaten der REST-API gemäß Kapitel
 \ref{manual:restpw} ein.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Nun richten Sie den Dienst für die Online-Anmeldung ein und
 löschen danach die Installationsdateien:
 
@@ -1913,7 +1913,7 @@ Logdateien der Online-Anmeldung.
 
 \subsection{Webserver}\label{subsec:setup-oa-apache}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Jetzt richten Sie den Webserver ein:
 
 \begin{lstdump}{Apache core}
@@ -1923,7 +1923,7 @@ sudo a2ensite default-ssl
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/default-ssl.conf}
 fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
 \texttt{DocumentRoot}), folgende Zeilen ein:
@@ -1934,7 +1934,7 @@ ProxyPassReverse /vwor-app/ http://localhost:8081/
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Desweiteren richten wir üblicherweise eine Weiterleitung von der
 Startseite des Servers auf die VerA.web Online-Anmeldung ein, an
 derselben Stelle, aber nur, falls sie sich nicht den Server mit
@@ -1949,7 +1949,7 @@ Ersetzen Sie wie üblich \texttt{HOSTNAME-OA} durch den vollen
 Hostnamen (mit Domainteil) \dash den sogenannten FQDN \dash der
 Online-Anmeldung.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Einige Zeilen weiter unten ersetzen Sie bitte die bestehenden
 Angaben durch die folgenden:
 
@@ -1969,7 +1969,7 @@ Der Zugriff auf die Online-Anmeldung muß für Ihre Gäste aus dem Internet
 möglich sein, sowohl bei der Delegationsanmeldung als auch insbesondere
 bei der Anmeldung zu offenen Veranstaltungen.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 In der vhost-Konfiguration \texttt{/etc/apache2/sites-enabled/000-default.conf}
 fügen Sie nun, relativ weit oben (z.B. hinter der Einstellung
 \texttt{DocumentRoot}), eine Weiterleitung von HTTP auf HTTPS ein:
@@ -1982,7 +1982,7 @@ RedirectMatch 301 . https://HOSTNAME-OA/
 Falls sich die Online-Anmeldung den Server mit dem core-System teilt ist
 diese Anpassung natürlich hinfällig, da bereits erledigt.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Nun starten Sie den Webserver neu:
 
 \begin{lstdump}{Apache restart core}
@@ -2029,7 +2029,7 @@ anders installiert oder die Installation manuell in einem
 folgen Sie bitte den offiziellen Anleitungen, die auf der
 Seite \href{http://osiam.org/}{osiam.org} publiziert werden.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Für ein Upgrade einer minimalen OSIAM-Installation müssen Sie
 lediglich, während der Tomcat-Anwendungsserver heruntergefahren
 ist, die Webapplikationsarchive durch die neuen Versionen tauschen:
@@ -2091,7 +2091,7 @@ und Wartungsteam.
 Es empfiehlt sich, eine Sicherung von \texttt{/etc/veraweb} und
 \texttt{/var/lib/tomcat8/webapps} zu erstellen.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Bevor Sie mit dem eigentlichen Upgrade des VerA.web-core-Systems beginnen
 fahren Sie bitte den dort laufenden Tomcat-Applikationsserver herunter:
 
@@ -2119,7 +2119,7 @@ sowie die
 Installationsarchive \texttt{veraweb-core-\vwiaverssw{}.war}
 und \texttt{rest-api-\vwiaverssw{}.war} auf den core-Server.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Benennen Sie die Applikationsdateien in später leicher zu
 verwendende Namen um, entpacken Sie das Zusatzarchiv und
 wechseln Sie in das Unterverzeichnis mit den core-Dateien:
@@ -2228,7 +2228,7 @@ ein, den Sie bei der
 als \texttt{vwsecret} gesetzt hatten.
 \fi% oa
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Legen Sie ein neues Verzeichnis an, in dem Sie die hochgeladenen
 Bilddateien speichern wollen (wir empfehlen ein Unterverzeichnis,
 sodaß es später möglich ist, weitere Strukturen aufzubauen), und
@@ -2246,7 +2246,7 @@ Sie bitte die Eigenschaft \texttt{filesLocation} in der Datei
 Pfad \emph{unbedingt} mit einem Schrägstrich („/“) enden muß!
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Passen Sie weiterhin in der \texttt{vwor.properties} die Eigenschaft
 \texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die beim
 Versenden von Verteilernachrichten von VerA.web und Bestätigungsnachrichten der Online-Anmeldung
@@ -2276,7 +2276,7 @@ sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
 
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Installieren Sie nun die Konfigurationsdateien für die REST-API:
 
 \begin{lstdump}{/etc/veraweb/*.properties}
@@ -2284,7 +2284,7 @@ sudo install -c -o 0 -g tomcat8 -m 640 *.properties /etc/veraweb/
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Fügen Sie folgende Zeile der Apache-vhost-Konfiguration hinzu:
 
 \begin{lstdump}{AJP Worker VWOR}
@@ -2298,7 +2298,7 @@ Fügen Sie bitte am Ende der Datei \texttt{/etc/default/tomcat8}
 einige Zeilen ein, um weitere JVM-Startoptionen zu setzen, die
 in alten Installationen ggfs. noch nicht gesetzt waren.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Diese Option setzen Sie bitte in jedem Fall, um eine korrekte
 Kodierung von Dateien, Logs und internen Abläufen zu gewährleisten:
 
@@ -2307,7 +2307,7 @@ JAVA_OPTS="${JAVA_OPTS} -Dfile.encoding=UTF-8"
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Diese (Linux-spezifische) Option spart u.a. beim Starten Zeit,
 indem sie eine nichtblockierende Quelle für Zufallszahlen auswählt:
 
@@ -2329,7 +2329,7 @@ fügen als neue Zeile darunter \texttt{javassist-*.jar,\textbackslash} ein.
 Nun muß noch die Konfiguration von Tomcat für die neu hinzugekommene
 REST-API vorgenommen werden.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Fügen Sie bitte am Ende der Datei\texttt{/etc/tomcat8/context.xml} vor
 das schließende \texttt{</Context>}-Tag folgendes Tag ein, um die
  \ifupgradeanleitung
@@ -2355,7 +2355,7 @@ Datenbanknamen, die Sie verwendet haben, falls Sie von den Standardvorgaben
 abgewichen sind.
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Fügen Sie bitte am Ende der Datei \texttt{/etc/tomcat8/tomcat-users.xml} vor
 das schließende \texttt{</tomcat-users>}-Tag folgende Tags ein, setzen dabei
 aber die von Ihnen am Anfang dieses Unterkapitels gewählten Zugangsdaten der
@@ -2374,7 +2374,7 @@ daß sie der \texttt{/etc/veraweb/vwor.properties} für die
 dort bereits enthaltenen Einträge entspricht. Dann passen Sie noch
 die neuen Einträge an:
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Passen Sie in der \texttt{vwor.properties} die Eigenschaft
 \texttt{mail.smtp.from} an; tragen Sie hier eine Adresse ein, die beim
 Versenden von Verteilernachrichten von VerA.web und Bestätigungsnachrichten der Online-Anmeldung
@@ -2404,7 +2404,7 @@ sicher, daß der Platzhalter \texttt{\$\{link\}} erhalten bleibt.
 
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Installieren Sie nun die angepaßte Konfigurationsdatei:
 
 \begin{lstdump}{/etc/veraweb/*.properties}
@@ -2414,7 +2414,7 @@ sudo install -c -o 0 -g tomcat8 -m 640 vwor.properties /etc/veraweb/
 
 \subsection{Upgrade von Versionen vor 1.8.27}\label{subsec:upgrade-1827}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 In der Version 1.8 wurden die Übersetzungsdateien des Core in die
 \texttt{war}-Datei integriert. Wenn keine Anpassungen an diesen Dateien
 gemacht wurden, müssen diese entfernt werden.
@@ -2467,7 +2467,7 @@ tragen Sie für \texttt{osiam.client.secret} denselben Wert
 ein, den Sie bei der \nameref{subsec:setup-osiam-register}
 als \texttt{vwsecret} gesetzt haben.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Schließlich installieren Sie die neuen Konfigurationsdateien:
 
 \begin{lstdump}{core add OA}
@@ -2480,7 +2480,7 @@ sudo install -c -o 0 -g tomcat8 -m 640 veraweb.properties /etc/veraweb/
 
 \subsection{Datenbank VerA.web-core}\label{subsec:upgrade-core-db}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Loggen Sie sich auf der Datenbank ein und starten Sie das Upgrade-SQL:
 
 \begin{lstdump}{DB-Upgrade}
@@ -2498,7 +2498,7 @@ Tomcat wieder gestartet hatten fahren Sie ihn bitte (siehe Kapitel
 \ref{subsec:upgrade-core-pre}) für den nächsten Schritt zunächst
 wieder herunter.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Löschen Sie die alten und deployen die neuen Fassungen der
 VerA.web-Kernanwendung und der REST-API und starten den
 Tomcat-Applikationsserver wieder:
@@ -2512,7 +2512,7 @@ sudo service tomcat8 start
 \end{lstdump}
 \end{minipage}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Die heruntergeladenen und entpackten Dateien benötigen Sie nun nicht
 mehr; diese können nun entfernt werden:
 
@@ -2560,7 +2560,7 @@ und fügen Sie diese Zeile an der entsprechenden Stelle in Ihrer
 
 \subsection{Softwareaktualisierung}\label{subsec:upgrade-oa-software}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Kopieren Sie bitte die Datei \texttt{online-anmeldung-\vwiaverssw{}.jar}
 auf den Server, auf dem die Online-Anmeldung betrieben wird, und führen
 Sie dort folgende Befehle aus:
@@ -2755,7 +2755,7 @@ Datei gesetzt werden.
 
 \subsubsection{Deaktivierung der Online-Anmeldung für die ganze Installation}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_override.xml},
 indem Sie die folgenden zwei Parameter hinzufügen oder ggfs. anpassen.
 
@@ -2783,7 +2783,7 @@ Mandanten finden Sie als Benutzer mit Administratorenrechten auf der
 Weboberfläche unter dem Menüpunkt \inlinekasten{Administration} /
 \inlinekasten{Mandanten}.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 Bearbeiten Sie die Datei \texttt{/etc/veraweb/config\_override.xml}
 indem Sie die folgenden zwei Parameter hinzufügen oder ggfs. anpassen.
 
@@ -2838,7 +2838,7 @@ Sollte es mehrere Einträge ohne Sortiernummer oder mit doppelter Nummer geben,
 ist keine spezielle Reihenfolge gewährleistet. Auch sollten die Nummern mit
 führenden Nullen beginnen, damit sie korrekt sortiert werden.
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\linewidth}
 \begin{lstdump}{/etc/veraweb/vwor.properties}
 ...
 imprint.de_DE.heading.01=\u00DCberschrift
