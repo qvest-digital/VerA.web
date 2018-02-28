@@ -1,0 +1,185 @@
+{
+  "mappings": {
+    "OPTIONAL_FIELD_LABEL_00": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_00__}"
+    },
+    "OPTIONAL_FIELD_LABEL_01": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_01__}"
+    },
+    "OPTIONAL_FIELD_LABEL_02": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_02__}"
+    },
+    "OPTIONAL_FIELD_LABEL_03": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_03__}"
+    },
+    "OPTIONAL_FIELD_LABEL_04": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_04__}"
+    },
+    "OPTIONAL_FIELD_LABEL_05": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_05__}"
+    },
+    "OPTIONAL_FIELD_LABEL_06": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_06__}"
+    },
+    "OPTIONAL_FIELD_LABEL_07": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_07__}"
+    },
+    "OPTIONAL_FIELD_LABEL_08": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_08__}"
+    },
+    "OPTIONAL_FIELD_LABEL_09": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_09__}"
+    },
+    "OPTIONAL_FIELD_LABEL_10": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_10__}"
+    },
+    "OPTIONAL_FIELD_LABEL_11": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_11__}"
+    },
+    "OPTIONAL_FIELD_LABEL_12": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_12__}"
+    },
+    "OPTIONAL_FIELD_LABEL_13": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_13__}"
+    },
+    "OPTIONAL_FIELD_LABEL_14": {
+      "mapTo": "${__OPTIONAL_FIELD_LABEL_14__}"
+    },
+    "c_name": {
+      "mapTo": "c_name"
+    },
+    "g_changed": {
+      "mapTo": "g_changed"
+    },
+    "g_changedby": {
+      "mapTo": "g_changedby"
+    },
+    "g_created": {
+      "mapTo": "g_created"
+    },
+    "g_createdby": {
+      "mapTo": "g_createdby"
+    },
+    "g_delegation": {
+      "mapTo": "g_delegation"
+    },
+    "g_diplodate": {
+      "mapTo": "g_diplodate"
+    },
+    "g_domestic_a": {
+      "mapTo": "g_domestic_a"
+    },
+    "g_domestic_b": {
+      "mapTo": "g_domestic_b"
+    },
+    "g_fk_category": {
+      "mapTo": "g_fk_category"
+    },
+    "g_fk_event": {
+      "mapTo": "g_fk_event"
+    },
+    "g_fk_person": {
+      "mapTo": "g_fk_person"
+    },
+    "g_gender": {
+      "mapTo": "g_gender"
+    },
+    "g_gender_p": {
+      "mapTo": "g_gender_p"
+    },
+    "g_image_uuid": {
+      "mapTo": "g_image_uuid"
+    },
+    "g_image_uuid_p": {
+      "mapTo": "g_image_uuid_p"
+    },
+    "g_invitationstatus": {
+      "mapTo": "g_invitationstatus"
+    },
+    "g_invitationstatus_p": {
+      "mapTo": "g_invitationstatus_p"
+    },
+    "g_invitationtype": {
+      "mapTo": "g_invitationtype"
+    },
+    "g_ishost": {
+      "mapTo": "g_ishost"
+    },
+    "g_keywords": {
+      "mapTo": "g_keywords"
+    },
+    "g_language": {
+      "mapTo": "g_language"
+    },
+    "g_language_p": {
+      "mapTo": "g_language_p"
+    },
+    "g_login_required_uuid": {
+      "mapTo": "g_login_required_uuid"
+    },
+    "g_nationality": {
+      "mapTo": "g_nationality"
+    },
+    "g_nationality_p": {
+      "mapTo": "g_nationality_p"
+    },
+    "g_notehost": {
+      "mapTo": "g_notehost"
+    },
+    "g_notehost_p": {
+      "mapTo": "g_notehost_p"
+    },
+    "g_noteorga": {
+      "mapTo": "g_noteorga"
+    },
+    "g_noteorga_p": {
+      "mapTo": "g_noteorga_p"
+    },
+    "g_orderno": {
+      "mapTo": "g_orderno"
+    },
+    "g_orderno_p": {
+      "mapTo": "g_orderno_p"
+    },
+    "g_osiam_login": {
+      "mapTo": "g_osiam_login"
+    },
+    "g_pk": {
+      "mapTo": "g_pk"
+    },
+    "g_rank": {
+      "mapTo": "g_rank"
+    },
+    "g_reserve": {
+      "mapTo": "g_reserve"
+    },
+    "g_seatno": {
+      "mapTo": "g_seatno"
+    },
+    "g_seatno_p": {
+      "mapTo": "g_seatno_p"
+    },
+    "g_tableno": {
+      "mapTo": "g_tableno"
+    },
+    "g_tableno_p": {
+      "mapTo": "g_tableno_p"
+    },
+    "p_firstname_a_e1": {
+      "mapTo": "p_firstname_a_e1"
+    },
+    "p_internal_id": {
+      "mapTo": "p_internal_id"
+    },
+    "p_lastname_a_e1": {
+      "mapTo": "p_lastname_a_e1"
+    },
+    "p_mail_a_e1": {
+      "mapTo": "p_mail_a_e1"
+    },
+    "p_pk": {
+      "mapTo": "p_pk"
+    }
+  },
+  "sql": "select g.pk as g_pk, g.fk_person as g_fk_person, g.fk_event as g_fk_event, g.fk_category as g_fk_category, c.catname as c_name, g.invitationtype as g_invitationtype, g.invitationstatus as g_invitationstatus, g.ishost as g_ishost, g.diplodate as g_diplodate, g.rank as g_rank, g.reserve as g_reserve, g.tableno as g_tableno, g.seatno as g_seatno, g.orderno as g_orderno, g.notehost as g_notehost, g.noteorga as g_noteorga, g.language as g_language, g.gender as g_gender, g.nationality as g_nationality, g.domestic_a as g_domestic_a, g.invitationstatus_p as g_invitationstatus_p, g.tableno_p as g_tableno_p, g.seatno_p as g_seatno_p, g.orderno_p as g_orderno_p, g.notehost_p as g_notehost_p, g.noteorga_p as g_noteorga_p, g.language_p as g_language_p, g.gender_p as g_gender_p, g.nationality_p as g_nationality_p, g.domestic_b as g_domestic_b, g.createdby as g_createdby, g.changedby as g_changedby, g.created as g_created, g.changed as g_changed, g.delegation as g_delegation, g.osiam_login as g_osiam_login, g.login_required_uuid as g_login_required_uuid, g.image_uuid as g_image_uuid, g.image_uuid_p as g_image_uuid_p, g.keywords as g_keywords, p.pk as p_pk, p.internal_id as p_internal_id, p.firstname_a_e1 as p_firstname_a_e1, p.lastname_a_e1 as p_lastname_a_e1, p.mail_a_e1 as p_mail_a_e1, c00.value as OPTIONAL_FIELD_LABEL_00, c01.value as OPTIONAL_FIELD_LABEL_01, c02.value as OPTIONAL_FIELD_LABEL_02, c03.value as OPTIONAL_FIELD_LABEL_03, c04.value as OPTIONAL_FIELD_LABEL_04, c05.value as OPTIONAL_FIELD_LABEL_05, c06.value as OPTIONAL_FIELD_LABEL_06, c07.value as OPTIONAL_FIELD_LABEL_07, c08.value as OPTIONAL_FIELD_LABEL_08, c09.value as OPTIONAL_FIELD_LABEL_09, c10.value as OPTIONAL_FIELD_LABEL_10, c11.value as OPTIONAL_FIELD_LABEL_11, c12.value as OPTIONAL_FIELD_LABEL_12, c13.value as OPTIONAL_FIELD_LABEL_13, c14.value as OPTIONAL_FIELD_LABEL_14 from veraweb.tguest g inner join veraweb.tperson p on (g.fk_person = p.pk) left outer join veraweb.link_uuid l on l.personid = p.pk left outer join veraweb.tcategorie c on c.pk = g.fk_category left join aggregated_field_content c00 on c00.fk_guest=g.pk and c00.fk_delegation_field=${__optional_field_00_id_placeholder__} left join aggregated_field_content c01 on c01.fk_guest=g.pk and c01.fk_delegation_field=${__optional_field_01_id_placeholder__} left join aggregated_field_content c02 on c02.fk_guest=g.pk and c02.fk_delegation_field=${__optional_field_02_id_placeholder__} left join aggregated_field_content c03 on c03.fk_guest=g.pk and c03.fk_delegation_field=${__optional_field_03_id_placeholder__} left join aggregated_field_content c04 on c04.fk_guest=g.pk and c04.fk_delegation_field=${__optional_field_04_id_placeholder__} left join aggregated_field_content c05 on c05.fk_guest=g.pk and c05.fk_delegation_field=${__optional_field_05_id_placeholder__} left join aggregated_field_content c06 on c06.fk_guest=g.pk and c06.fk_delegation_field=${__optional_field_06_id_placeholder__} left join aggregated_field_content c07 on c07.fk_guest=g.pk and c07.fk_delegation_field=${__optional_field_07_id_placeholder__} left join aggregated_field_content c08 on c08.fk_guest=g.pk and c08.fk_delegation_field=${__optional_field_08_id_placeholder__} left join aggregated_field_content c09 on c09.fk_guest=g.pk and c09.fk_delegation_field=${__optional_field_09_id_placeholder__} left join aggregated_field_content c10 on c10.fk_guest=g.pk and c10.fk_delegation_field=${__optional_field_10_id_placeholder__} left join aggregated_field_content c11 on c11.fk_guest=g.pk and c11.fk_delegation_field=${__optional_field_11_id_placeholder__} left join aggregated_field_content c12 on c12.fk_guest=g.pk and c12.fk_delegation_field=${__optional_field_12_id_placeholder__} left join aggregated_field_content c13 on c13.fk_guest=g.pk and c13.fk_delegation_field=${__optional_field_13_id_placeholder__} left join aggregated_field_content c14 on c14.fk_guest=g.pk and c14.fk_delegation_field=${__optional_field_14_id_placeholder__} where g.fk_event = ${__event_id_placeholder__}"
+}

@@ -15,8 +15,6 @@
 .settings
 /.apt_generated/
 bin
-config.json
-config.yaml
 core/src/main/webapp/OCTOPUS/config_ldap_access.xml
 core/src/main/webapp/OCTOPUS/module.wsdl
 core/src/main/webapp/WEB-INF/*.lck

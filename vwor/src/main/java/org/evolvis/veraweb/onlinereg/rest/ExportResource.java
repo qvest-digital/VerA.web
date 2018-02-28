@@ -110,8 +110,8 @@ public class ExportResource extends AbstractResource{
     ResourceContext resourceContext;
 
     private InitialContext initContext;
-    private static final String CONFIG_FILE_NAME = "config.yaml";
-    private static final String CONFIG_FILE_NAME_GUEST_LIST_SHORT = "configGuestListShort.yaml";
+    private static final String CONFIG_FILE_NAME = "config.jsn";
+    private static final String CONFIG_FILE_NAME_GUEST_LIST_SHORT = "configGuestListShort.jsn";
     private static final String CONFIG_PLACEHOLDER = "__event_id_placeholder__";
 
     private Event getEvent(int eventId) {
