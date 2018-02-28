@@ -313,6 +313,7 @@
 						<include>core/src/main/webapp/js/vera/*.js</include>
 					</includes>
 					<excludes>
+						<exclude>**/io/dropwizard/client/HttpClientConfiguration.java</exclude>
 						<exclude>**/src/main/js/ext/**</exclude>
 					</excludes>
 					<headerDefinitions>
