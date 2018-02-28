@@ -76,6 +76,7 @@ ohne die gesonderten Bestimmungen für die Online-Anmeldung.
 Summary of individual licences used, including all dependencies:
 ⚠ (unlicenced)
 • 3-clause BSD
+• Apache v2
 ⚠ Creative Commons CC-BY-SA 1.0
 • Creative Commons CC-BY 3.0 (unported)
 • GNU GPLv2 or later
@@ -589,6 +590,17 @@ External code found in the Java™ backend part includes:
 │ the Addison-Wesley website <http://tpop.awl.com/> which says:            │
 │ “You may use this code for any purpose, as long as you leave the         │
 │ copyright notice and book citation attached.”                            │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──┤ Dropwizard (Apache 2.0) ├─────────────────────────────────────────────┐
+│                                                                          │
+│ The Java™ source code includes a slightly modified copy of a file from   │
+│ Dropwizard 0.7.1; its NOTICE file is comprised of this text:             │
+│                                                                          │
+│ Dropwizard                                                               │
+│ Copyright 2010-2013 Coda Hale and Yammer, Inc.                           │
+│                                                                          │
+│ This product includes software developed by Coda Hale and Yammer, Inc.   │
 └──────────────────────────────────────────────────────────────────────────┘
 
 Further dependencies are:
