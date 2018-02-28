@@ -67,7 +67,7 @@ import io.dropwizard.client.JerseyClientConfiguration;
 import lombok.Getter;
 import org.evolvis.veraweb.onlinereg.auth.AuthConfig;
 import org.evolvis.veraweb.onlinereg.osiam.OsiamConfig;
-
+import org.hibernate.validator.valuehandling.UnwrapValidatedValue;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -91,6 +91,7 @@ public class Config extends Configuration {
 
     @Valid
     @NotNull
+    @UnwrapValidatedValue(false)
     @JsonProperty
     private JerseyClientConfiguration jerseyClientConfiguration = new JerseyClientConfiguration();
 
