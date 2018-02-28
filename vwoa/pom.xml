@@ -92,52 +92,6 @@
 			<artifactId>javax.ws.rs-api</artifactId>
 		</dependency>
 	</dependencies>
-	<profiles>
-		<profile>
-			<!-- run karma tests only on demand -->
-			<id>karma-tests</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>step1: get build dependencies</id>
-								<phase>generate-resources</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<configuration>
-									<executable>npm</executable>
-									<arguments>
-										<argument>install</argument>
-									</arguments>
-									<workingDirectory>${project.basedir}/src/main/webroot-src</workingDirectory>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>com.kelveden</groupId>
-						<artifactId>maven-karma-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>runTests</id>
-								<goals>
-									<goal>start</goal>
-								</goals>
-								<configuration>
-									<configFile>${project.basedir}/src/test/js/karma.conf.js</configFile>
-									<karmaExecutable>${project.basedir}/node_modules/.bin/karma</karmaExecutable>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 	<build>
 		<resources>
 			<resource>
