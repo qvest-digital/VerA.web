@@ -119,22 +119,21 @@ H/5 * * * *</spec>
   <postbuilders>
     <hudson.tasks.Shell>
       <command>set -ex
-ssh root@veraweb-po.lan.tarent.de &apos;service tomcat7 stop&apos;
+ssh root@veraweb-po.lan.tarent.de &apos;service tomcat8 stop&apos;
 scp vwoa/target/vw-online-registration.jar root@veraweb-po.lan.tarent.de:/service/vwoa/vwoa.jar
 sleep 5
 ssh root@veraweb-po.lan.tarent.de &apos;
 	psql -U veraweb -h 127.0.0.1 veraweb
-	rm -rf /var/lib/tomcat7/webapps/v*
+	rm -rf /var/lib/tomcat8/webapps/v*
     &apos; &lt;core/files/upgrade.sql
-scp core/target/veraweb.war vwor/target/vwor.war root@veraweb-po.lan.tarent.de:/var/lib/tomcat7/webapps/
+scp core/target/veraweb.war vwor/target/vwor.war root@veraweb-po.lan.tarent.de:/var/lib/tomcat8/webapps/
 ssh root@veraweb-po.lan.tarent.de &apos;
-	service tomcat7 start
+	service tomcat8 start
 	sleep 5
 	svc -t /service/vwoa
 	sleep 5
 	svstat /service/vwoa
     &apos;
-: migration to tomcat8 later
 exit 0</command>
     </hudson.tasks.Shell>
   </postbuilders>
