@@ -151,6 +151,7 @@ public class PersonResourceSessionsTest {
     public void testCreateDelegateSessionClosedMale() {
         // GIVEN
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         mockEvent(mockitoSession);
         mockPerson(mockitoSession);
@@ -167,6 +168,7 @@ public class PersonResourceSessionsTest {
     public void testCreateDelegateSessionClosedFemale() {
         // GIVEN
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         mockEvent(mockitoSession);
         mockPerson(mockitoSession);
@@ -188,6 +190,7 @@ public class PersonResourceSessionsTest {
         mockPerson(mockitoSession);
 
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
         when(query.list()).thenReturn(resultList);
@@ -206,6 +209,7 @@ public class PersonResourceSessionsTest {
     public void testCreateMediaRepresentatives() {
         // GIVEN
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         mockEvent(mockitoSession);
         mockPerson(mockitoSession);
@@ -227,6 +231,7 @@ public class PersonResourceSessionsTest {
         mockPerson(mockitoSession);
 
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
         when(query.list()).thenReturn(resultList);
@@ -247,6 +252,7 @@ public class PersonResourceSessionsTest {
         Query query = mock(Query.class);
         List resultList = mock(List.class);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
         when(query.list()).thenReturn(resultList);
@@ -268,6 +274,7 @@ public class PersonResourceSessionsTest {
         Query query = mock(Query.class);
         List resultList = mock(List.class);
         when(mockitoSessionFactory.openSession()).thenReturn(mockitoSession);
+        when(mockitoSession.getTransaction()).thenReturn(mockitoTransaction);
         when(personResource.context.getAttribute("SessionFactory")).thenReturn(mockitoSessionFactory);
         when(mockitoSession.getNamedQuery("Person.findByUsername")).thenReturn(query);
         when(query.list()).thenReturn(resultList);
