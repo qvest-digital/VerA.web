@@ -231,8 +231,8 @@ public class EventResourceTest extends AbstractResourceTest<EventResource> {
         e.setEventtype("Offene Veranstaltung");
         session.persist(e);
 
-        session.getTransaction().commit();
         session.flush();
+        session.getTransaction().commit();
         session.close();
     }
 }
