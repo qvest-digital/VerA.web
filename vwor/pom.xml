@@ -8,9 +8,6 @@
 	<artifactId>rest-api</artifactId>
 	<packaging>war</packaging>
 	<name>VerA.web REST API server module</name>
-	<properties>
-		<sonar.tests>src/test/java,src/test/groovy</sonar.tests>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.evolvis.veraweb</groupId>
