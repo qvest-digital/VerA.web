@@ -2,7 +2,6 @@
 	<id>files</id>
 	<formats>
 		<format>tgz</format>
-		<format>zip</format>
 	</formats>
 	<fileSets>
 		<fileSet>
