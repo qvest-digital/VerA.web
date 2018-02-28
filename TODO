@@ -3,3 +3,4 @@
 • webjars for dependencies
 • npm-free build even for vwoa
 • check the DB/transactional changes in vwor for correctness
+• fix cf. vwoa/src/main/java/org/evolvis/veraweb/onlinereg/Config.java
