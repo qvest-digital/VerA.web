@@ -138,7 +138,6 @@ org.bouncycastle:bcprov-jdk14 1.38 TODO
 org.bouncycastle:bctsp-jdk14 1.38 TODO
 org.easytesting:fest-assert-core 2.0M10 TODO
 org.easytesting:fest-util 1.2.5 TODO
-org.eclipse.jetty.orbit:javax.servlet 3.0.0.v201112011016 TODO
 org.eclipse.jetty.toolchain.setuid:jetty-setuid-java 1.0.2 TODO
 org.eclipse.jetty:jetty-continuation 9.0.7.v20131107 TODO
 org.eclipse.jetty:jetty-http 9.0.7.v20131107 TODO
@@ -176,6 +175,7 @@ org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec 1.0.1.Final TODO
 org.jboss:jandex 2.0.3.Final TODO
 org.jvnet.mimepull:mimepull 1.9.6 TODO
 org.mitre.dsmiley.httpproxy:smiley-http-proxy-servlet 1.7 TODO
+org.mockito:mockito-core 1.10.19 TODO
 org.objenesis:objenesis 2.1 TODO
 org.osiam:connector4java 1.7 TODO
 org.osiam:scim-schema 1.5 TODO
