@@ -59,7 +59,7 @@
 		<jackson.version>2.6.3</jackson.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
 		<jersey1.version>1.19.4</jersey1.version>
-		<jersey.version>2.22.2</jersey.version>
+		<jersey2.version>2.22.2</jersey2.version>
 		<json.version>0.0.20131108.vaadin1</json.version>
 		<junit.version>4.12</junit.version>
 		<log4j.version>2.6.2</log4j.version>
@@ -69,7 +69,7 @@
 		<postgresql.version>42.2.1</postgresql.version>
 		<slf4j.version>1.7.12</slf4j.version>
 		<spock-core.version>1.0-groovy-2.4</spock-core.version>
-		<spring-jdbc.version>4.2.6.RELEASE</spring-jdbc.version>
+		<spring.version>4.2.6.RELEASE</spring.version>
 	</properties>
 	<organization>
 		<name>tarent solutions GmbH, Germany</name>
@@ -643,6 +643,16 @@
 				<version>${jackson.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.fasterxml.jackson.datatype</groupId>
+				<artifactId>jackson-datatype-guava</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.datatype</groupId>
+				<artifactId>jackson-datatype-joda</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.fasterxml.jackson.jaxrs</groupId>
 				<artifactId>jackson-jaxrs-base</artifactId>
 				<version>${jackson.version}</version>
@@ -654,8 +664,13 @@
 			</dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.module</groupId>
+				<artifactId>jackson-module-afterburner</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.module</groupId>
 				<artifactId>jackson-module-jaxb-annotations</artifactId>
-				<version>2.4.0</version>
+				<version>${jackson.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.activation</groupId>
@@ -689,6 +704,21 @@
 				<version>3.3.1.Final</version>
 			</dependency>
 			<dependency>
+				<groupId>com.sun.jersey.contribs</groupId>
+				<artifactId>jersey-apache-client4</artifactId>
+				<version>${jersey1.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.jersey.jersey-test-framework</groupId>
+				<artifactId>jersey-test-framework-core</artifactId>
+				<version>${jersey1.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.jersey.jersey-test-framework</groupId>
+				<artifactId>jersey-test-framework-inmemory</artifactId>
+				<version>${jersey1.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.sun.jersey</groupId>
 				<artifactId>jersey-client</artifactId>
 				<version>${jersey1.version}</version>
@@ -699,29 +729,39 @@
 				<version>${jersey1.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-server</artifactId>
+				<version>${jersey1.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-servlet</artifactId>
+				<version>${jersey1.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.glassfish.jersey.bundles.repackaged</groupId>
 				<artifactId>jersey-guava</artifactId>
-				<version>${jersey.version}</version>
+				<version>${jersey2.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jersey.core</groupId>
 				<artifactId>jersey-common</artifactId>
-				<version>${jersey.version}</version>
+				<version>${jersey2.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jersey.containers</groupId>
 				<artifactId>jersey-container-servlet</artifactId>
-				<version>${jersey.version}</version>
+				<version>${jersey2.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jersey.media</groupId>
 				<artifactId>jersey-media-json-jackson</artifactId>
-				<version>${jersey.version}</version>
+				<version>${jersey2.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jersey.media</groupId>
 				<artifactId>jersey-media-multipart</artifactId>
-				<version>${jersey.version}</version>
+				<version>${jersey2.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>joda-time</groupId>
@@ -742,6 +782,11 @@
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
 				<artifactId>log4j-core</artifactId>
+				<version>${log4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-jcl</artifactId>
 				<version>${log4j.version}</version>
 			</dependency>
 			<dependency>
@@ -840,6 +885,21 @@
 			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jul-to-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>log4j-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>${slf4j.version}</version>
 			</dependency>
@@ -856,8 +916,38 @@
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-expression</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
 				<artifactId>spring-jdbc</artifactId>
-				<version>${spring-jdbc.version}</version>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>de.tarent.libraries</groupId>
