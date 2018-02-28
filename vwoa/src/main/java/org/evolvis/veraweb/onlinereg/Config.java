@@ -89,9 +89,7 @@ public class Config extends Configuration {
     @JsonProperty
     private AuthConfig restauth;
 
-//    @Valid
-//XXX TODO FIXME: backport the following commit to dropwizard 0.7.1:
-// https://github.com/dropwizard/dropwizard/commit/3191f87035ad4c75dc0058aa8fe6c5e16768368d
+    @Valid
     @NotNull
     @UnwrapValidatedValue(false)
     @JsonProperty
