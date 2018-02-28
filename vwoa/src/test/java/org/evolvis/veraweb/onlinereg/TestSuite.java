@@ -83,7 +83,7 @@ public class TestSuite{
 
     @ClassRule
     public static final DropwizardAppRule<Config> DROPWIZARD =
-            new DropwizardAppRule<Config>(Main.class, TestSuite.class.getResource("/test_config.yaml").getPath());
+            new DropwizardAppRule<Config>(Main.class, TestSuite.class.getResource("/test_config.jsn").getPath());
 
     @ClassRule
     public static final WiremockRule WIREMOCK = new WiremockRule();
