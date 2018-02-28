@@ -19,6 +19,7 @@ package io.dropwizard.client;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Optional;
 import io.dropwizard.util.Duration;
+import org.hibernate.validator.valuehandling.UnwrapValidatedValue;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -59,6 +60,7 @@ public class HttpClientConfiguration {
     private int retries = 0;
 
     @NotNull
+    @UnwrapValidatedValue(false)
     private Optional<String> userAgent = Optional.absent();
 
     @JsonProperty
