@@ -122,7 +122,6 @@ public class ImprintResource {
     }
 
     @GET
-    @Path("/")
     public List<ImprintTransporter> getImprint(@QueryParam("current_language") String currentLanguageKey) throws IOException {
         final String imprintString = resourceReader.constructPath(BASE_RESOURCE, "imprint", currentLanguageKey);
         final Map<String, Imprint> listImprint = resourceReader.readStringResource(imprintString, IMPRINT_LIST);
