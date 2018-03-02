@@ -78,7 +78,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.WebApplicationException;
 import java.io.IOException;
 
@@ -154,7 +153,13 @@ public class AuthenticationFilter implements Filter {
         BasicUser user;
         try {
             user = osiamClient.getUserBasic(token.getOsiamAccessToken());
-        } catch (UnauthorizedException | ForbiddenException | ConnectionInitializationException | IllegalStateException e) {
+        } catch (UnauthorizedException | ConnectionInitializationException | IllegalStateException e) {
+            /*-
+             * TODO: we used to catch JAX-RS 2.0 ForbiddenException here,
+             * but Jersey 1 uses JAX-RS 1 which doesn’t have this; perhaps
+             * we could catch a ClientErrorException (parent) or even its
+             * WebApplicationException grandparent here?
+             */
             // right now we frankly don't care *why* the authorization failed...
             user = null;
         }
@@ -181,7 +186,6 @@ public class AuthenticationFilter implements Filter {
         } catch (WebApplicationException e) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.setStatus(e.getResponse().getStatus());
-
         }
     }
 
