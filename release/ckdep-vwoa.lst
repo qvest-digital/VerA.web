@@ -55,7 +55,7 @@ javax.el:javax.el-api 2.2.5 ok
 javax.mail:mail 1.4.7 ok
 javax.servlet:javax.servlet-api 3.1.0 ok
 javax.validation:validation-api 1.1.0.Final ok
-javax.ws.rs:javax.ws.rs-api 2.0.1 ok
+javax.ws.rs:jsr311-api 1.1.1 ok
 joda-time:joda-time 2.9 ok
 net.sourceforge.argparse4j:argparse4j 0.4.3 ok
 npm::angular 1.6.9 ok
