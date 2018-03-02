@@ -1094,10 +1094,16 @@ Option ist ein Kommentar und nicht die gesuchte Stelle! Ändern Sie
 diesen Wert auf \texttt{-Xms512m -Xmx1024m} falls die VM über mehr
 als 1280 MiB RAM verfügt, \texttt{-Xmx512m} andernfalls.
 
+\begin{minipage}{\linewidth}
 Hängen Sie an die \texttt{/etc/tomcat8/logging.properties} folgende
-Zeile an:\keinumbruch
+Zeilen an:
 
-\texttt{java.util.logging.SimpleFormatter.format=\%1\$tF \%1\$tT.\%1\$tL \%4\$7s (\%2\$s) [\%3\$s] \%5\$s\%6\$s\%n}
+\begin{lstdump}[breaklines=false]{Tomcat Logging}
+java.util.logging.SimpleFormatter.format=%1$tF %1$tT.%1$tL %4$7s (%2$s) [%3$s] %5$s%6$s%n
+org.apache.juli.OneLineFormatter.timeFormat=yyyy-MM-dd HH:mm:ss
+java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
+\end{lstdump}
+\end{minipage}
 
 \begin{minipage}{\linewidth}
 Nun bearbeiten Sie die Datei \texttt{/etc/tomcat8/server.xml}, um Tomcat
@@ -1581,10 +1587,16 @@ JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 \end{lstdump}
 \end{minipage}
 
+\begin{minipage}{\linewidth}
 Hängen Sie an die \texttt{/etc/tomcat8/logging.properties} folgende
-Zeile an:\keinumbruch
+Zeilen an:
 
-\texttt{java.util.logging.SimpleFormatter.format=\%1\$tF \%1\$tT.\%1\$tL \%4\$7s (\%2\$s) [\%3\$s] \%5\$s\%6\$s\%n}
+\begin{lstdump}[breaklines=false]{Tomcat Logging}
+java.util.logging.SimpleFormatter.format=%1$tF %1$tT.%1$tL %4$7s (%2$s) [%3$s] %5$s%6$s%n
+org.apache.juli.OneLineFormatter.timeFormat=yyyy-MM-dd HH:mm:ss
+java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
+\end{lstdump}
+\end{minipage}
 
 \begin{minipage}{\linewidth}
 Nun bearbeiten Sie die Datei \texttt{/etc/tomcat8/server.xml}, um Tomcat
@@ -2306,10 +2318,16 @@ JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom"
 \end{lstdump}
 \end{minipage}
 
+\begin{minipage}{\linewidth}
 Hängen Sie an die \texttt{/etc/tomcat8/logging.properties} folgende
-Zeile an:\keinumbruch
+Zeilen an:
 
-\texttt{java.util.logging.SimpleFormatter.format=\%1\$tF \%1\$tT.\%1\$tL \%4\$7s (\%2\$s) [\%3\$s] \%5\$s\%6\$s\%n}
+\begin{lstdump}[breaklines=false]{Tomcat Logging}
+java.util.logging.SimpleFormatter.format=%1$tF %1$tT.%1$tL %4$7s (%2$s) [%3$s] %5$s%6$s%n
+org.apache.juli.OneLineFormatter.timeFormat=yyyy-MM-dd HH:mm:ss
+java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
+\end{lstdump}
+\end{minipage}
 
 Nun muß noch die Konfiguration von Tomcat für die neu hinzugekommene
 REST-API vorgenommen werden.
