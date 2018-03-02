@@ -171,7 +171,5 @@
 
     </form>
 </div>
-<!--
-$responseParams
--->
+
 #parse("inc/footer.vm")

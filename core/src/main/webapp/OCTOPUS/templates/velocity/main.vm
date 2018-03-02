@@ -76,7 +76,4 @@
     #end
 </div>
 
-<!--
-$responseParams
--->
 #parse("inc/footer.vm")

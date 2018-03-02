@@ -40,7 +40,4 @@
 
 <hr class="footline">
 
-<!--
-$responseParams
--->
 #parse("inc/footer.vm")

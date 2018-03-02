@@ -78,7 +78,4 @@ Bitte melden Sie dies Ihrem Administrator.</p>
 <p>Unbekannter Fehler.</p>
 #end
 
-<!--
-$responseParams
--->
 #parse("inc/footer.vm")
