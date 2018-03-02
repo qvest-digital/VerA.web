@@ -87,7 +87,6 @@ import java.util.Map;
 @Produces(MediaType.APPLICATION_JSON)
 @Log
 public class ImprintResource {
-
     /** base path of all resource */
     public static final String BASE_RESOURCE = "/rest";
 
@@ -125,7 +124,6 @@ public class ImprintResource {
     @GET
     @Path("/")
     public List<ImprintTransporter> getImprint(@QueryParam("current_language") String currentLanguageKey) throws IOException {
-
         final String imprintString = resourceReader.constructPath(BASE_RESOURCE, "imprint", currentLanguageKey);
         final Map<String, Imprint> listImprint = resourceReader.readStringResource(imprintString, IMPRINT_LIST);
         final List<ImprintTransporter> listTransporter = new ArrayList<>();
@@ -142,5 +140,4 @@ public class ImprintResource {
     private ImprintTransporter generateImprintTransporter(Map.Entry<String, Imprint> imprint) {
         return new ImprintTransporter(imprint.getKey(), imprint.getValue().getHeading(), imprint.getValue().getContent());
     }
-
 }
