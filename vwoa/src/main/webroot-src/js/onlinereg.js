@@ -64,7 +64,11 @@ app.run(function($rootScope,moment) {
   setStatus = null;
 });
 
-app.config(function($routeProvider, $translateProvider) {
+/* initialise app configuration */
+app.config(['$locationProvider', '$routeProvider', '$translateProvider', '$mdDateLocaleProvider',
+ function ($locationProvider, $routeProvider, $translateProvider, $mdDateLocaleProvider) {
+  $locationProvider.hashPrefix('');
+
   $routeProvider.when('/login', {
     templateUrl: 'partials/login.html',
     controller: 'LoginController'
@@ -138,12 +142,10 @@ app.config(function($routeProvider, $translateProvider) {
   });
 
   $translateProvider.preferredLanguage('de_DE');
-});
 
-//Datepicker configuration
-app.config(function($mdDateLocaleProvider) {
+  //Datepicker configuration
   $mdDateLocaleProvider.firstDayOfWeek = 1;
-});
+}]);
 
 app.directive('equals', function() {
   return {
