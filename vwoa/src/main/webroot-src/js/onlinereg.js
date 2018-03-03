@@ -88,10 +88,10 @@ app.config(['$locationProvider', '$routeProvider', '$translateProvider', '$mdDat
     templateUrl: 'partials/register_user.html',
     controller: 'RegisterUserController'
   }).when('/forgotLogin/', {
-    templateUrl: 'partials/forogt_login.html',
+    templateUrl: 'partials/forgot_login.html',
     controller: 'ForgotLoginController'
   }).when('/forgotPassword/', {
-    templateUrl: 'partials/forogt_password.html',
+    templateUrl: 'partials/forgot_password.html',
     controller: 'ForgotPasswordController'
   }).when('/veranstaltungen', {
     templateUrl: 'partials/meine-veranstaltungen.html',
