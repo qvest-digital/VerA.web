@@ -125,7 +125,7 @@
         <tr>
                 <td class="width15 bold">${placeholderWithTranslation.GENERIC_CLIENT_SINGULAR}:</td>
                 <td>
-    #if($orgUnit.id != 0)
+    #if($orgUnit.id)
                         $orgUnit.name
     #else
                         <i>${placeholderWithTranslation.nichtgewahlt}</i>
