@@ -1,7 +1,7 @@
-• replace core/src/main/webapp/index.html by redirect
-• update FROM in all Dockerfiles to latest/secure/Debian/…
+• replace core/src/main/webapp/index.html by redirect [VERA-582]
+• update FROM in all Dockerfiles to latest/secure/Debian/… [VERA-565] [VERA-356] [VERA-357]
 • webjars for dependencies
-• npm-free build even for vwoa
+• npm-free build even for vwoa [VERA-202]
 • check the DB/transactional changes in vwor for correctness
 • check the Angular 1.6 transition in vwoa for correctness
 • figure out why some tests are Skipped
@@ -10,5 +10,10 @@
     cf. https://stackoverflow.com/a/5941495/2171120
   ‣ to Java™ via IntelliJ
 • test everything
+• ensure releasing works
+• build Docker stuff
+• deploy Docker stuff to test VMs
+• build Docker releases and deploy them
+• drop old Jenkins jobs, merge into master [VERA-353]
 
 Status: kann alles getestet werden, löpt
