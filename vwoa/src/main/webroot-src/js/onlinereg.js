@@ -136,6 +136,7 @@ app.config(['$locationProvider', '$routeProvider', '$translateProvider', '$mdDat
     redirectTo: '/event'
   });
 
+  $translateProvider.useSanitizeValueStrategy(/* 'sanitize' */ 'escape'); // until issue 1101 is resolved, see https://angular-translate.github.io/docs/#/guide/19_security
   $translateProvider.useStaticFilesLoader({
     prefix: 'languages/lang-',
     suffix: '.json'
