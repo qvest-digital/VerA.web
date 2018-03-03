@@ -5,7 +5,7 @@ module.exports = function($http, $translate, $scope, param, show) {
   $http({
     method: 'GET',
     url: '/api/user/userdata/existing/event'
-  }).success(function(result) {
+  }).then(function(result) {
     if (result.status == 'OK') {
       //user has events and fields should be enabled
       $scope.formDisabled = false
@@ -97,7 +97,7 @@ module.exports = function($http, $translate, $scope, param, show) {
           person_languages: $scope.person.languages_a_e1,
           person_gender: $scope.gender.id
         })
-      }).success(function(result) {
+      }).then(function(result) {
         switch (result.status) {
           case 'OK':
             show.success('USER_ACCOUNT_CORE_DATA_UPDATED');
@@ -106,7 +106,7 @@ module.exports = function($http, $translate, $scope, param, show) {
             show.error('GENERIC_ERROR');
         }
 
-      }).error(function(data, status, headers, config) {
+      }).catch(function(rejection) {
         show.error('GENERIC_ERROR');
       });
     }

@@ -10,7 +10,7 @@ module.exports = function($http, $scope, $location, show, $timeout, param, $tran
                     username: encodeURIComponent($scope.osiam.userName),
                     current_language: $translate.use()
             })
-        }).success(function (result) {
+        }).then(function (result) {
             switch(result.status) {
             case 'OK':
                 show.success("USER_PASSWORD_RESET_MAIL");
@@ -19,7 +19,7 @@ module.exports = function($http, $scope, $location, show, $timeout, param, $tran
                 show.error("GENERIC_ERROR");
             }
 
-        }).error(function (data, status, headers, config) {
+        }).catch(function (rejection) {
                 show.error("GENERIC_ERROR");
         });
   };

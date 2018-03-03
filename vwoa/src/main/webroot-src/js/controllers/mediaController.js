@@ -26,7 +26,7 @@ module.exports = function($scope, $http, $routeParams, $translate, param,show) {
         country: $scope.country,
         current_language: $translate.use()
       })
-    }).success(function(result) {
+    }).then(function(result) {
       if (result.status === 'NO_EVENT_DATA') {
         show.error('GENERIC_MESSAGE_EVENT_DOESNT_EXISTS');
       } else if (result.status === 'WRONG_EMAIL') {
@@ -49,7 +49,7 @@ module.exports = function($scope, $http, $routeParams, $translate, param,show) {
       } else {
         show.error('GENERIC_ERROR');
       }
-    }).error(function(data, status, headers, config) {
+    }).catch(function(rejection) {
       show.error('GENERIC_ERROR');
     });
 

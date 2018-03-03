@@ -12,7 +12,7 @@ module.exports = function($http, $scope, $routeParams, $location, $rootScope, sh
         data: param({
           password: $scope.resetPasswordForm.password.$viewValue
         })
-      }).success(function(result) {
+      }).then(function(result) {
         if (result.status === "OK") {
           show.success('USER_PASSWORD_CHANGE_SUCCESS_MESSAGE');
           $location.path('/event');
@@ -20,7 +20,7 @@ module.exports = function($http, $scope, $routeParams, $location, $rootScope, sh
           // TODO: für Status "WRONG_LINK", "OK" UND "GETTING_USER_FAILED" braucht man je eine Hinweismeldung
           show.error("GENERIC_ERROR")
         }
-      }).error(function() {
+      }).catch(function (rejection) {
         show.error("GENERIC_ERROR")
       });
     }

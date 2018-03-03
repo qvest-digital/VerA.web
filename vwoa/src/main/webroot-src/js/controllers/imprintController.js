@@ -5,7 +5,7 @@ module.exports = function($scope, $http, $rootScope, $translate, param) {
         params: {
             current_language: $translate.use()
         }
-    }).success(function (result) {
-        $scope.parts = result;
+    }).then(function (result) {
+        $scope.parts = result.data;
     });
 };

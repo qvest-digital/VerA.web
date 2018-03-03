@@ -17,7 +17,7 @@ module.exports = function($scope, $http, $location, param, show, $translate) {
                 osiam_email: $scope.osiam.email,
                 current_language: $translate.use()
             })
-        }).success(function (result) {
+        }).then(function (result) {
             switch(result.status) {
             case 'OK':
                 $location.path('/login');
@@ -33,7 +33,7 @@ module.exports = function($scope, $http, $location, param, show, $translate) {
                 show.error("GENERIC_ERROR");
             }
 
-        }).error(function (data, status, headers, config) {
+        }).catch(function (rejection) {
                 show.error("GENERIC_ERROR");
         });
     };

@@ -2,11 +2,11 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
 
     var eventId = undefined;
 
-    $http.get('api/event/uuid/' + $routeParams.eventUuid).success(function(result) {
+    $http.get('api/event/uuid/' + $routeParams.eventUuid).then(function(result) {
         if(result.status != 'ERROR') {
             eventId = result.status;
 
-            $http.get('api/event/guestlist/status/' + eventId).success(function(result) {
+            $http.get('api/event/guestlist/status/' + eventId).then(function(result) {
                 //save result.status in scope for next functions
                 $scope.guestStatus = result.status;
                 //second status to save status of registering in waiting list
@@ -22,13 +22,13 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
             });
 
             $http.get('api/event/registered/' + eventId)
-                .success(function(isUserRegistered) {
+                .then(function(isUserRegistered) {
 
-                if (!isUserRegistered) {
+                if (!isUserRegistered.data) {
                     $scope.noLoginRequiredUUID = $routeParams.noLoginRequiredUUID;
 
-                    $http.get('api/event/' + eventId).success(function(result) {
-                        $scope.event = result;
+                    $http.get('api/event/' + eventId).then(function(result) {
+                        $scope.event = result.data;
                     });
                 } else {
                     // redirect to update site because the user is already registered
@@ -48,7 +48,7 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
                             notehost: $scope.noteToHost,
                             guestStatus: $scope.guestStatus
                         })
-                    }).success(function(result) {
+                    }).then(function(result) {
                         if ($scope.registeredOnWaitingList === 'WAITING_LIST_OK') {
                             show.success('REGISTER_USER_MESSAGE_TO_RESERVE_LIST');
                             $location.path('veranstaltungen');
@@ -70,7 +70,7 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
                             notehost: $scope.noteToHost,
                             noLoginRequiredUUID: $scope.noLoginRequiredUUID
                         })
-                    }).success(function(result) {
+                    }).then(function(result) {
                     if (result.status === 'OK') {
                             show.success('REGISTER_USER_MESSAGE_TO_RESERVE_LIST');
                             $location.path('veranstaltungen');

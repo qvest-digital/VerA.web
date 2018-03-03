@@ -19,15 +19,15 @@ module.exports = function($scope, $location, $http, $rootScope, $translate, $rou
                 password: $scope.password,
                 delegation: $routeParams.delegation
             })
-        }).success(function (result) {
+        }).then(function (result) {
             $scope.error = null;
             $scope.button = false;
-           if (result != "") {//result=object
-               if(result.status.localeCompare("disabled")==0){
-                   $rootScope.protocol=result.protocol;
-                   $rootScope.host=result.host;
-                   $rootScope.port=result.port;
-                   $rootScope.suffix=result.suffix;
+           if (result.data != "") {//result=object
+               if(result.data.status.localeCompare("disabled")==0){
+                   $rootScope.protocol=result.data.protocol;
+                   $rootScope.host=result.data.host;
+                   $rootScope.port=result.data.port;
+                   $rootScope.suffix=result.data.suffix;
                    setStatus=42;
                    $scope.status=42;
                    $rootScope.status= null;
@@ -36,7 +36,7 @@ module.exports = function($scope, $location, $http, $rootScope, $translate, $rou
                    $location.path($scope.nextPage);
                }else{
                    $rootScope.user_logged_in = $scope.username;
-                   $rootScope.userinfo = result.status;
+                   $rootScope.userinfo = result.data.status;
                    $rootScope.status = null;
                    $rootScope.messageContent = null;
                    $location.path($scope.nextPage);
@@ -49,7 +49,7 @@ module.exports = function($scope, $location, $http, $rootScope, $translate, $rou
                     $rootScope.messageContent = text;
                 });
             }
-        }).error(function (data, status, headers, config) {
+        }).catch(function (rejection) {
             $scope.button = false;
             $rootScope.status = "danger";
             $translate('GENERIC_ERROR').then(function (text) {

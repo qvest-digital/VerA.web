@@ -9,12 +9,12 @@ module.exports = function($http, $scope, $rootScope, $routeParams, $location, $t
             activation_token: $routeParams.activation_token,
             language: $translate.use()
         })
-    }).success(function (result) {
+    }).then(function (result) {
       $rootScope.error = null;
       $translate('ACTIVATION_RESEND_USER_MESSAGE_SUCCESS').then(function (text) {
           $rootScope.success = text;
       });
-    }).error(function (data, status, headers, config) {
+    }).catch(function (rejection) {
       $rootScope.success = null;
       $translate('ACTIVATION_RESEND_USER_MESSAGE_FAILED').then(function (text) {
           $rootScope.error = text;

@@ -12,24 +12,24 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
 
   var eventId = undefined;
 
-  $http.get('api/event/uuid/' + $routeParams.eventUuid).success(function(result) {
+  $http.get('api/event/uuid/' + $routeParams.eventUuid).then(function(result) {
     if(result.status != 'ERROR') {
       eventId = result.status;
 
-      $http.get('api/update/' + eventId).success(function(result) {
-        $scope.event = result;
+      $http.get('api/update/' + eventId).then(function(result) {
+        $scope.event = result.data;
         $scope.acceptance = $scope.acceptanceOptions[$scope.event.status];
         $scope.noteToHost = $scope.event.message;
-      }).error(function(data, status, headers, config) {
+      }).catch(function (rejection) {
         show.error('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE');
       });
 
-      $http.get('api/update/isreserve/' + eventId ).success(function(result) {
-        $scope.event = result;
-        if (result) {
+      $http.get('api/update/isreserve/' + eventId ).then(function(result) {
+        $scope.event = result.data;
+        if (result.data) {
           show.error('REGISTER_USER_MESSAGE_TO_RESERVE_LIST');
         } else $scope.error = null;
-      }).error(function(data, status, headers, config) {
+      }).catch(function (rejection) {
         show.error('USER_EVENTS_STATUS_CHANGED_ERROR_MESSAGE');
       });
 
@@ -44,7 +44,7 @@ module.exports = function($scope, $rootScope, $location, $routeParams, $http, sh
             notehost: $scope.noteToHost,
             invitationstatus: $scope.acceptance.id
           })
-        }).success(function(result) {
+        }).then(function(result) {
           if (result.status === 'OK') {
             show.success('USER_EVENTS_STATUS_CHANGED_SUCCESSFUL_MESSAGE',{name:$scope.event.shortname});
             $location.path('veranstaltungen');
