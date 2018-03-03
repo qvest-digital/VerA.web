@@ -2,7 +2,16 @@
 # DJB Daemontools startup script for VerA.web Online-Anmeldung
 
 cd "$(dirname "$0")"
-exec >&2
+if test -d log && test -x log/run && test -d log/supervise; then
+	echo restarting
+	# for example with DJB daemontools:
+	# #!/bin/sh
+	# exec setuidgid vwoalog multilog t ./main
+	# log/main/ is then 2770 vwoalog:adm
+	exec 2>&1
+else
+	exec >&2
+fi
 mkdir -p /var/log/vwoa
 chown vwoa:adm /var/log/vwoa
 chmod 2770 /var/log/vwoa
