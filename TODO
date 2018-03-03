@@ -1,2 +1,4 @@
 • bump minimum requirements to Java™ 8, Tomcat 8
   all customers satisfy these nowadays
+• move src.tgz (but probably actually all of the licence info) to vwor,
+  proxy from both core and vwoa
