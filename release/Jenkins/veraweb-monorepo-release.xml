@@ -120,7 +120,11 @@ H/5 * * * *</spec>
     <hudson.tasks.Shell>
       <command>PS4=&quot;++ &quot;
 set -ex
-ssh root@veraweb-po.lan.tarent.de &apos;service tomcat8 stop&apos;
+ssh root@veraweb-po.lan.tarent.de &apos;
+	PS4=&quot;+++ &quot;
+	set -ex
+	(service tomcat8 stop || :)
+    &apos;
 scp vwoa/target/vw-online-registration.jar \
     root@veraweb-po.lan.tarent.de:/service/vwoa/
 sleep 5
@@ -139,7 +143,7 @@ ssh root@veraweb-po.lan.tarent.de &apos;
 	sleep 5
 	cd /service/vwoa
 	rm -f vwoa.jar
-	mv -f vw-online-registration.jar vwoa.jar
+	mv vw-online-registration.jar vwoa.jar
 	svc -t /service/vwoa
 	sleep 5
 	svstat /service/vwoa
