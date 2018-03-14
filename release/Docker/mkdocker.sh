@@ -15,6 +15,10 @@ doone() (
 	set -A ours -- "${ours[@]}" veraweb-tools.lan.tarent.de:5000/"$2:$tag"
 )
 
+ln -f ../../core/target/veraweb.war core/
+ln -f ../../vwoa/target/vw-online-registration.jar vwoa/
+ln -f ../../vwor/target/vwor.war vwor/
+
 doone core veraweb-core
 doone vwoa veraweb-oa
 doone vwor veraweb-rest-api

@@ -1,7 +1,7 @@
 FROM openjdk:8
 MAINTAINER VerA.web Team <veraweb-discuss@lists.evolvis.org>
 
-ADD ../../../vwoa/target/vw-online-registration.jar /
+ADD vw-online-registration.jar /
 
 EXPOSE 8181
 
