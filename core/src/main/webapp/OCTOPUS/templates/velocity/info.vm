@@ -27,7 +27,6 @@
     #end
 
     <h3>VerA.web</h3>
-    #if($properties)
     <table class="form fixed">
         ##Set column size
         <col width="$column0%" />
@@ -60,11 +59,9 @@
 -->
         </tr>
     </table>
-    <br>
-    #else
-    <p><i>${placeholderWithTranslation.informationennichtverfugbar}</i></p>
-    #end
+    <p>${placeholderWithTranslation.INFO_VWOR_MANDATORY}</p>
 
+    <br>
     <h3>${placeholderWithTranslation.GENERIC_DATABASE}</h3>
     <table class="form fixed">
         ##Set column size
