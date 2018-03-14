@@ -19,5 +19,7 @@
 • restore offline mode in environment repo after figuring out how
 • write upgrade documentation (e.g. for v-ohne)
   ‣ e.g. database connection
+• replace ANSI-Bell: it installs stuff into /usr/local with pip
+  FROM THE INTERNETZ⚠
 
 Status: kann alles getestet werden, löpt
