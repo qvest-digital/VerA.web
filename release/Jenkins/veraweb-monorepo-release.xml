@@ -14,18 +14,46 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Configure:veraweb</permission>
-      <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Item.Release:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
       <permission>hudson.model.Item.Workspace:veraweb</permission>
-      <permission>hudson.scm.SCM.Tag:veraweb</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
-      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:veraweb</permission>
+      <permission>hudson.model.Item.Read:veraweb</permission>
       <permission>hudson.model.Item.Cancel:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:veraweb</permission>
+      <permission>hudson.scm.SCM.Tag:veraweb</permission>
+      <permission>hudson.model.Item.Release:veraweb</permission>
+      <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>VWJENKINS_PROPER_INSTALL_STAGE</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>mit/ohne</string>
+              <string>po</string>
+              <string>(keine)</string>
+              <string>stadtmuenchen</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>VWJENKINS_DOCKER_INSTALL_STAGE</name>
+          <description></description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>dev</string>
+              <string>test</string>
+              <string>ref</string>
+              <string>(keine)</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
     <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@1.7">
       <labelName>mr_veraweb</labelName>
     </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
@@ -43,6 +71,9 @@
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <browser class="hudson.plugins.git.browser.GitWeb">
+      <url>https://evolvis.org/plugins/scmgit/cgi-bin/gitweb.cgi?p=veraweb/veraweb.git</url>
+    </browser>
     <submoduleCfg class="list"/>
     <extensions>
       <hudson.plugins.git.extensions.impl.LocalBranch>
@@ -58,7 +89,7 @@
   <triggers>
     <hudson.triggers.SCMTrigger>
       <spec># alle 5 min
-H/5 * * * *</spec>
+#H/5 * * * *</spec>
       <ignorePostCommitHooks>false</ignorePostCommitHooks>
     </hudson.triggers.SCMTrigger>
   </triggers>
@@ -118,36 +149,144 @@ H/5 * * * *</spec>
   <prebuilders/>
   <postbuilders>
     <hudson.tasks.Shell>
-      <command>PS4=&quot;++ &quot;
+      <command>PS4=&quot;(ci-busyapps)++ &quot;
 set -ex
-ssh root@veraweb-po.lan.tarent.de &apos;
-	PS4=&quot;+++ &quot;
-	set -ex
-	(service tomcat8 stop || :)
-    &apos;
-scp vwoa/target/vw-online-registration.jar \
-    root@veraweb-po.lan.tarent.de:/service/vwoa/
-sleep 5
-ssh root@veraweb-po.lan.tarent.de &apos;
-	PS4=&quot;+++ &quot;
-	set -ex
-	psql -U veraweb -h 127.0.0.1 veraweb
-	rm -rf /var/lib/tomcat8/webapps/v*
-    &apos; &lt;core/files/upgrade.sql
-scp core/target/veraweb.war vwor/target/vwor.war \
-    root@veraweb-po.lan.tarent.de:/var/lib/tomcat8/webapps/
-ssh root@veraweb-po.lan.tarent.de &apos;
-	PS4=&quot;+++ &quot;
-	set -ex
-	service tomcat8 start
+if test x&quot;$VWJENKINS_PROPER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
+	: not installing to a proper system
+else
+	oa=true
+	tomcat=8
+	case $VWJENKINS_PROPER_INSTALL_STAGE in
+	(mit/ohne)
+		oa=false
+		hostbase=veraweb-mit.lan.tarent.de
+		hostoa=veraweb-mit-oa.lan.tarent.de
+		hostohne=veraweb-ohne.lan.tarent.de
+		tomcat=7
+		;;
+	(po)
+		hostbase=veraweb-po.lan.tarent.de
+		hostoa=$hostbase
+		;;
+	(stadtmuenchen)
+		hostbase=veraweb-stadtmuenchen.lan.tarent.de
+		hostoa=
+		tomcat=7
+		;;
+	(*)
+		echo &gt;&amp;2 &quot;E: stage &apos;$VWJENKINS_PROPER_INSTALL_STAGE&apos; unknown&quot;
+		exit 1
+		;;
+	esac
+
+	ssh root@$hostbase &quot;
+		PS4=&apos;(${hostbase%%.*})+++ &apos;
+		set -ex
+		(service tomcat$tomcat stop || :)
+	    &quot;
+	$oa || ssh root@$hostohne &quot;
+		PS4=&apos;(${hostohne%%.*})+++ &apos;
+		set -ex
+		(service tomcat$tomcat stop || :)
+	    &quot;
+	test -z &quot;$hostoa&quot; || \
+	    scp vwoa/target/vw-online-registration.jar root@$hostoa:/service/vwoa/
 	sleep 5
-	cd /service/vwoa
-	rm -f vwoa.jar
-	mv vw-online-registration.jar vwoa.jar
-	svc -t /service/vwoa
+	ssh root@$hostbase &quot;
+		PS4=&apos;(${hostbase%%.*})+++ &apos;
+		set -ex
+		psql -U veraweb -h 127.0.0.1 veraweb
+		rm -rf /var/lib/tomcat$tomcat/webapps/v*
+	    &quot; &lt;core/files/upgrade.sql
+	$oa || ssh root@$hostohne &quot;
+		PS4=&apos;(${hostohne%%.*})+++ &apos;
+		set -ex
+		psql -U veraweb -h 127.0.0.1 veraweb
+		rm -rf /var/lib/tomcat$tomcat/webapps/v*
+	    &quot; &lt;core/files/upgrade.sql
+	scp core/target/veraweb.war vwor/target/vwor.war \
+	    root@$hostbase:/var/lib/tomcat$tomcat/webapps/
+	$oa || scp core/target/veraweb.war vwor/target/vwor.war \
+	    root@$hostohne:/var/lib/tomcat$tomcat/webapps/
+	ssh root@$hostbase &quot;
+		PS4=&apos;(${hostbase%%.*})+++ &apos;
+		set -ex
+		service tomcat$tomcat start
+	    &quot;
+	$oa || ssh root@$hostohne &quot;
+		PS4=&apos;(${hostohne%%.*})+++ &apos;
+		set -ex
+		service tomcat$tomcat start
+	    &quot;
 	sleep 5
-	svstat /service/vwoa
-    &apos;
+	test -z &quot;$hostoa&quot; &amp;&amp; sleep 5 || ssh root@$hostoa &quot;
+		PS4=&apos;(${hostoa%%.*})+++ &apos;
+		set -ex
+		cd /service/vwoa
+		rm -f vwoa.jar
+		mv vw-online-registration.jar vwoa.jar
+		svc -t /service/vwoa
+		sleep 5
+		svstat /service/vwoa
+	    &quot;
+	: finished installing to a proper system
+fi
+git gc
+rsync --delete-before -zavPHK &quot;$PWD/&quot; root@veraweb-tools.lan.tarent.de:/root/jenkins-tmp/monorepo/
+vsn=
+if test x&quot;$IS_M2RELEASEBUILD&quot; = x&quot;true&quot;; then
+	vsn=$(xmlstarlet sel -N pom=http://maven.apache.org/POM/4.0.0 \
+	    -T -t -c /pom:project/pom:version &lt;pom.xml)
+	case x$vsn in
+	(x)
+		echo &gt;&amp;2 &quot;E: could not determine POM version&quot;
+		exit 1
+		;;
+	(x*SNAPSHOT*)
+		echo &gt;&amp;2 &quot;W: not tagging snapshot&quot;
+		vsn=
+		;;
+	(*\&apos;*)
+		echo &gt;&amp;2 &quot;E: invalid POM version: $vsn&quot;
+		exit 1
+		;;
+	(*)
+		echo &gt;&amp;2 &quot;I: tagging release $vsn&quot;
+		;;
+	esac
+else
+	: no Maven release build
+fi
+ssh -l root veraweb-tools.lan.tarent.de &quot;
+	PS4=&apos;(veraweb-tools)+++ &apos;
+	set -ex
+	exec env PS4=&apos;(veraweb-tools)++++ &apos; \
+	    /root/jenkins-tmp/monorepo/release/Docker/mkdocker.sh &apos;$vsn&apos;
+    &quot;
+if test x&quot;$VWJENKINS_DOCKER_INSTALL_STAGE&quot; = x&quot;(keine)&quot;; then
+	: not installing to a Docker system
+else
+	case $VWJENKINS_DOCKER_INSTALL_STAGE in
+	(dev|test|ref) ;;
+	(*)
+		echo &gt;&amp;2 &quot;E: stage &apos;$VWJENKINS_DOCKER_INSTALL_STAGE&apos; unknown&quot;
+		exit 1
+		;;
+	esac
+	ssh-agent sh -c &quot;
+		PS4=\&quot;(ci-busyapps)+++ \&quot;
+		set -ex
+		ssh-add &lt;/dev/null
+		ssh -Al root veraweb-tools.lan.tarent.de \&quot;
+			PS4=&apos;(veraweb-tools)++++ &apos;
+			set -ex
+			cd /srv/environment
+			git pull
+			env PS4=&apos;(veraweb-tools)+++++ &apos; ./dockerdeploy.sh $VWJENKINS_DOCKER_INSTALL_STAGE
+		    \&quot;
+	    &quot;
+	: finished installing to a Docker system
+fi
 exit 0</command>
     </hudson.tasks.Shell>
   </postbuilders>
