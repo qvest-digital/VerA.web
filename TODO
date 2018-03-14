@@ -14,5 +14,8 @@
 • deploy Docker stuff to test VMs
 • build Docker releases and deploy them
 • drop old Jenkins jobs, merge into master [VERA-353]
+• ensure MTA is set up on all Docker hosts, on 172.17.0.1
+  cf. commit 2551bbe21b9723ede478f3bc0261a5cebb2f9d1f in env
+• restore offline mode in environment repo after figuring out how
 
 Status: kann alles getestet werden, löpt
