@@ -12,11 +12,11 @@ Location: &lt;a href=&quot;http://veraweb-tools.lan.tarent.de/&quot;&gt;http://v
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Configure:veraweb</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Delete:veraweb</permission>
       <permission>hudson.model.Item.Workspace:veraweb</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
-      <permission>hudson.model.Item.Delete:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -52,7 +52,7 @@ Location: &lt;a href=&quot;http://veraweb-tools.lan.tarent.de/&quot;&gt;http://v
     </extensions>
   </scm>
   <canRoam>true</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>

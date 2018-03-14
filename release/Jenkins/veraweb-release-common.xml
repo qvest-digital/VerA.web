@@ -61,13 +61,13 @@
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
       <permission>hudson.model.Item.Cancel:veraweb</permission>
-      <permission>hudson.model.Item.Build:veraweb</permission>
-      <permission>hudson.model.Item.Configure:veraweb</permission>
       <permission>hudson.scm.SCM.Tag:veraweb</permission>
-      <permission>hudson.model.Item.Workspace:veraweb</permission>
       <permission>hudson.model.Item.Release:veraweb</permission>
       <permission>hudson.model.Run.Update:veraweb</permission>
+      <permission>hudson.model.Item.Workspace:veraweb</permission>
       <permission>hudson.model.Item.Read:veraweb</permission>
+      <permission>hudson.model.Item.Build:veraweb</permission>
+      <permission>hudson.model.Item.Configure:veraweb</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
@@ -111,7 +111,7 @@
     </extensions>
   </scm>
   <canRoam>true</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
