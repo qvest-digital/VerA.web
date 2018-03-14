@@ -10,6 +10,9 @@
   ‣ to Java™ via IntelliJ
 • test everything
 • ensure releasing works
+• split Jenkins jobs: Ansi-Bell takes way too long
+  ‣ Add post-build step: Trigger/call builds on other projects
+    ☻ Add parameters ⇒ current build parameters
 • drop old Jenkins jobs, merge into master [VERA-353]
 • ensure MTA is set up on all Docker hosts, on 172.17.0.1
   cf. commit 2551bbe21b9723ede478f3bc0261a5cebb2f9d1f in env
