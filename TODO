@@ -1,4 +1,3 @@
-• replace core/src/main/webapp/index.html by redirect [VERA-582]
 • update FROM in all Dockerfiles to latest/secure/Debian/… [VERA-565] [VERA-356] [VERA-357]
 • webjars for dependencies
 • npm-free build even for vwoa [VERA-202]
