@@ -25,4 +25,4 @@ sleep 1
 exec setuidgid vwoa java \
     -Dfile.encoding=UTF-8 -Djava.awt.headless=true \
     -Djava.security.egd=file:/dev/./urandom -Xmx128m \
-    -jar vwoa.jar server config.json
+    -jar vwoa.jar server config.jsn

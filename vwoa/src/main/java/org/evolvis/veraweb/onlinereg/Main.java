@@ -110,7 +110,7 @@ public class Main extends Application<Config> {
         /* ********* */
 
     /**
-     * Startup with the parameter java DropwizardDemo server config.json
+     * Startup with the parameter java DropwizardDemo server config.jsn
      *
      * @param args the commandline args
      */
@@ -146,7 +146,7 @@ public class Main extends Application<Config> {
                                                      configuration.getRestauth().getPassword()));
         } catch (NullPointerException e) {
             e.printStackTrace();
-            log.warning("REST-Auth Konfiguration in config.json prüfen!");
+            log.warning("REST-Auth Konfiguration in config.jsn prüfen!");
         }
 
         environment.jersey().setUrlPattern("/api/*");

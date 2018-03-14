@@ -1879,7 +1879,7 @@ sudo ln -sf etc/service /service
 
 \subsection{Microservice installieren}\label{subsec:setup-oa-svc}
 
-Bearbeiten Sie jetzt die \texttt{config.json}, indem Sie wieder
+Bearbeiten Sie jetzt die \texttt{config.jsn}, indem Sie wieder
 \texttt{HOSTNAME-OA},
 \texttt{HOSTNAME-OSIAM} und \texttt{HOSTNAME-REST} durch die
 entsprechenden Hostnamen ersetzen; für \texttt{clientSecret}
@@ -1896,10 +1896,10 @@ löschen danach die Installationsdateien:
 \begin{lstdump}{OA service}
 mv ../../online-anmeldung-〈\lstdumpesc{\vwiaverssw}〉.jar vwoa.jar
 sudo chown -R 0:0 .
-sudo chgrp vwoa config.json
+sudo chgrp vwoa config.jsn
 sudo chmod 644 *
 sudo chmod 755 . run
-sudo chmod 640 config.json
+sudo chmod 640 config.jsn
 cd ..
 sudo mv vwoa /service/vwoa
 cd ..
@@ -2555,11 +2555,11 @@ Installationsmethode seinerzeit noch nicht ausgereift war.
 
 \subsection{Upgrade von Versionen vor 1.8.1}\label{subsec:upgrade-oa-181}
 
-In der mitgelieferten \texttt{config.json} befindet sich eine neue
+In der mitgelieferten \texttt{config.jsn} befindet sich eine neue
 Zeile \texttt{onlineRegistrationEndpoint}. Ändern Sie dort den Text
 \texttt{HOSTNAME-OA} in den vollen Hostnamen (FQDN) der Online-Anmeldung
 und fügen Sie diese Zeile an der entsprechenden Stelle in Ihrer
-\texttt{/service/vwoa/config.json} ein.
+\texttt{/service/vwoa/config.jsn} ein.
 
 \subsection{Softwareaktualisierung}\label{subsec:upgrade-oa-software}
 
@@ -2952,7 +2952,7 @@ Die Online-Anmeldung läuft als separater Unix-Nutzer \texttt{vwoa}
 und hält folgende sicherheitsrelevanten Daten vor:\keinumbruch
 
 \begin{itemize}
- \item{\texttt{/etc/service/vwoa/config.json}}
+ \item{\texttt{/etc/service/vwoa/config.jsn}}
  \item{in Logdateien unterhalb von \texttt{/var/log/apache2/}
   und \texttt{/var/log/vwoa/}}
 \end{itemize}
@@ -3567,11 +3567,11 @@ org.osiam.resource-server.client.secret=〔random-client-secret〕
 org.osiam.auth-server.home=https://「vwosiam.lan.tarent.de」/osiam-auth-server
 \end{lstdump}
 
-\subsection{/etc/service/vwoa/config.json}\label{subsec:refcfg-oa-cfg}
+\subsection{/etc/service/vwoa/config.jsn}\label{subsec:refcfg-oa-cfg}
 
 Betrifft: Online-Anmeldung
 
-\begin{lstdump}{/etc/service/vwoa/config.json}
+\begin{lstdump}{/etc/service/vwoa/config.jsn}
 {
   "logging": {
     "appenders": [

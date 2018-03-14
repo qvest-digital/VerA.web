@@ -8,4 +8,4 @@ EXPOSE 8181
 CMD ["java", "-Dfile.encoding=UTF-8", "-Djava.awt.headless=true", \
     "-Djava.security.egd=file:/dev/./urandom", "-Xmx128m", \
     "-jar", "/vw-online-registration.jar", \
-    "server", "/root/veraweb-oa/veraweb-oa-config.json"]
+    "server", "/srv/config.jsn"]
