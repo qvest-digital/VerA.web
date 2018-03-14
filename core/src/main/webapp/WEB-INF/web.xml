@@ -20,7 +20,7 @@
 		<servlet-class>
 			de.tarent.octopus.request.servlet.OctopusServlet
 		</servlet-class>
-		<!-- Config directory. -->
+		<!-- config directory -->
 		<init-param>
 			<param-name>paths.configRoot</param-name>
 			<param-value>octopus-config/</param-value>
@@ -36,11 +36,15 @@
 			<param-value>true</param-value>
 		</init-param>
 		<!-- systemweites Logging -->
-		<!-- <init-param> <param-name>paths.logfile</param-name> <param-value>/var/log/tomcat7/veraweb.%u.log</param-value>
-			</init-param> -->
-		<!-- Logging parameter for octopus. Allowed parameters are logging.level
-			(see java.util.logging.Level), logging.pattern, logging.limit and logging.count
-			(see java.util.logging.FileHandler). logging.count additional support disabled. -->
+		<!-- init-param>
+			<param-name>paths.logfile</param-name>
+			<param-value>/var/log/tomcat7/veraweb.%u.log</param-value>
+		</init-param -->
+		<!-- Logging parameter for OCTOPUS
+		     Allowed parameters are logging.level (see java.util.logging.Level),
+		     logging.pattern, logging.limit and logging.count (see java.util.logging.FileHandler).
+		     logging.count additional support disabled.
+		-->
 		<init-param>
 			<param-name>logging.level</param-name>
 			<param-value>INFO</param-value>
@@ -57,18 +61,17 @@
 			<param-name>logging.count</param-name>
 			<param-value>default</param-value>
 		</init-param>
-		<!-- Pfad is relativ to '/WEB-INF/' directory and must terminte with an
-			'/'. -->
+		<!-- path is relativ to '/WEB-INF/' directory and must terminate with a '/' -->
 		<init-param>
 			<param-name>paths.logPath</param-name>
 			<param-value>log</param-value>
 		</init-param>
-		<!-- Response error level "development" or "release" -->
+		<!-- response error level "development" or "release" -->
 		<init-param>
 			<param-name>response.errorLevel</param-name>
 			<param-value>development</param-value>
 		</init-param>
-		<!-- Allowed request types: ANY, WEB, SOAP, XMLRPC or DIRECTCALL -->
+		<!-- allowed request types: ANY, WEB, SOAP, XMLRPC or DIRECTCALL -->
 		<init-param>
 			<param-name>request.allowedTypes</param-name>
 			<param-value>SOAP, WEB</param-value>
@@ -92,11 +95,18 @@
 		<servlet-class>
 			de.tarent.octopus.request.servlet.Forward
 		</servlet-class>
-		<!-- Parameter zum Weiterleiten an eine Octopus Instanz: Wenn der Octopus
-			in der gleichen Webanwendung liegt, am Besten auskommentiert lassen, damit
-			die Defaults (/<aktuellesModul>/octopus) verwendet werden. <init-param> <param-name>targetContext</param-name>
-			<param-value>/octopus</param-value> </init-param> <init-param> <param-name>targetPath</param-name>
-			<param-value></param-value> </init-param> -->
+		<!-- Parameter zum Weiterleiten an eine OCTOPUS-Instanz:
+		     Wenn der OCTOPUS in der gleichen Webanwendung liegt,
+		     am besten auskommentiert lassen, damit die Defaults
+		     (/<aktuellesModul>/octopus) verwendet werden. -->
+		<!-- init-param>
+			<param-name>targetContext</param-name>
+			<param-value>/octopus</param-value>
+		</init-param>
+		<init-param>
+			<param-name>targetPath</param-name>
+			<param-value/>
+		</init-param -->
 		<load-on-startup>20</load-on-startup>
 	</servlet>
 	<servlet>
