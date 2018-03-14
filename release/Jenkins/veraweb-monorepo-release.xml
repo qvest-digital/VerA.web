@@ -3,8 +3,9 @@
   <actions/>
   <description>&lt;p&gt;⚠ DO NOT USE YET!!!&lt;/p&gt;&#xd;
 &#xd;
-&lt;p&gt;Regular builds of VerA.web (with OA) with Sonar, also, release job.&lt;/p&gt;&#xd;
-&lt;p&gt;All builds update &lt;tt&gt;veraweb-po&lt;/tt&gt; currently.&lt;/p&gt;</description>
+&lt;h2&gt;Regular builds of VerA.web with Sonar&lt;/h2&gt;&#xd;
+&lt;p&gt;Installs to one proper and one Docker system.&lt;/p&gt;&#xd;
+&lt;p&gt;Upon maven release, also tags and exports Docker stuff.&lt;/p&gt;</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>-1</daysToKeep>
     <numToKeep>5</numToKeep>
@@ -281,7 +282,14 @@ else
 			PS4=&apos;(veraweb-tools)++++ &apos;
 			set -ex
 			cd /srv/environment
-			git pull
+			git fetch origin
+			git checkout origin/master
+			git branch -D master
+			git checkout -b master origin/master
+			if test x&apos;$vsn&apos; = x&apos;&apos;; then :; else
+				git tag -a -m &apos;tag VerA.web release $vsn&apos; &apos;$vsn&apos;
+				git push --tags origin
+			fi
 			env PS4=&apos;(veraweb-tools)+++++ &apos; ./dockerdeploy.sh $VWJENKINS_DOCKER_INSTALL_STAGE
 		    \&quot;
 	    &quot;
