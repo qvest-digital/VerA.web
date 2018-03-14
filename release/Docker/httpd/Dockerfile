@@ -3,6 +3,7 @@ FROM debian:jessie
 MAINTAINER VerA.web Team <veraweb-discuss@lists.evolvis.org>
 
 RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get --purge dist-upgrade -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
         apache2 libapache2-mod-jk ldap-account-manager && \
     a2enmod jk && a2enmod ssl && a2enmod proxy && a2enmod proxy_http && \
@@ -15,7 +16,8 @@ EXPOSE 443
 VOLUME ["/etc/apache2", "/etc/libapache2-mod-jk", \
     "/var/lib/ldap-account-manager/config"]
 
-ENV  LANG=C \
+ENV \
+     LANG=C \
      PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
      APACHE_RUN_USER=www-data \
      APACHE_RUN_GROUP=www-data \
