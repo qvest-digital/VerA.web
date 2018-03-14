@@ -246,7 +246,7 @@ if test x&quot;$IS_M2RELEASEBUILD&quot; = x&quot;true&quot;; then
 		echo &gt;&amp;2 &quot;W: not tagging snapshot&quot;
 		vsn=
 		;;
-	(*\&apos;*)
+	(*\&apos;*|*/*)
 		echo &gt;&amp;2 &quot;E: invalid POM version: $vsn&quot;
 		exit 1
 		;;
