@@ -19,6 +19,11 @@ ln -f ../../core/target/veraweb.war core/
 ln -f ../../vwoa/target/vw-online-registration.jar vwoa/
 ln -f ../../vwor/target/vwor.war vwor/
 
+tar -xzf ../../core/target/veraweb-core-*-files.tgz \
+    -O $(tar -tzf ../../core/target/veraweb-core-*-files.tgz | \
+    fgrep postgresql-jdbc4.jar) >core/postgresql-jdbc4.jar
+ln -f core/postgresql-jdbc4.jar vwor/
+
 doone core veraweb-core
 doone vwoa veraweb-oa
 doone vwor veraweb-rest-api
