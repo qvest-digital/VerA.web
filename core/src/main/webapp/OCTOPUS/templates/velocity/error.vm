@@ -28,7 +28,7 @@
         </tr>
  #end
  #macro(printStackTraceAsCause $ex $ct)
-  #if($ex.cause)
+  #if($ex && $ex.cause)
    #printStackTraceAsCause($ex.cause $ex.stackTrace)
   #end
   #set($ttl=[])
@@ -58,7 +58,7 @@
  #end
  #macro(printStackTrace $ex)
 <table>
-  #if($ex.cause)
+  #if($ex && $ex.cause)
    #printStackTraceAsCause($ex.cause $ex.stackTrace)
   #end
         <tr><th colspan="4" style="padding: 4px;">$ex.class.name</th></tr>
