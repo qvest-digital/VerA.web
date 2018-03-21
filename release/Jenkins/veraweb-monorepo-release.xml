@@ -163,7 +163,7 @@ else
 		hostbase=veraweb-mit.lan.tarent.de
 		hostoa=veraweb-mit-oa.lan.tarent.de
 		hostohne=veraweb-ohne.lan.tarent.de
-		tomcat=7
+		tomcat=8
 		;;
 	(po)
 		hostbase=veraweb-po.lan.tarent.de
