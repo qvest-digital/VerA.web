@@ -19,7 +19,7 @@
 			<outputDirectory/>
 		</file>
 		<file>
-			<source>src/main/webapp/doc/Benutzerhandbuch.pdf</source>
+			<source>../vwor/src/main/webapp/doc/Benutzerhandbuch.pdf</source>
 			<outputDirectory/>
 		</file>
 		<file>
