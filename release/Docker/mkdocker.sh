@@ -42,10 +42,10 @@ for x in "${externals[@]}"; do
 	docker pull "$x"
 done
 
-mkdir -p "/var/www/$tag"
+mkdir -p "/var/www/html/$tag"
 
 for x in "${ours[@]}" "${externals[@]}"; do
-	docker save -o "/var/www/$tag/${x##*/}.img" "$x"
-	gzip -n9 "/var/www/$tag/${x##*/}.img" &
+	docker save -o "/var/www/html/$tag/${x##*/}.img" "$x"
+	gzip -n9 "/var/www/html/$tag/${x##*/}.img" &
 done
 wait
