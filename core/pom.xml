@@ -218,28 +218,6 @@
 				</plugins>
 			</build>
 		</profile>
-		<profile>
-			<id>release</id>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-war-plugin</artifactId>
-						<configuration>
-							<webResources>
-								<resource>
-									<filtering>false</filtering>
-									<directory>../target/mksrc</directory>
-									<targetPath>doc</targetPath>
-									<includes>
-										<include>src.tgz</include>
-									</includes>
-								</resource>
-							</webResources>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
 	</profiles>
 	<build>
 		<plugins>
