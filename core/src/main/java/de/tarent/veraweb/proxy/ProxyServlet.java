@@ -168,6 +168,9 @@ public class ProxyServlet extends org.mitre.dsmiley.httpproxy.ProxyServlet {
     }
 
     protected boolean hasGroup(final HttpSession session, final String requiredGroup) {
+	if (requiredGroup.equals("ANY"))
+		return true;
+
         final PersonalConfig pc = (PersonalConfig) session.getAttribute(PERSONAL_CONFIG_VERAWEB);
         if (pc != null) {
             final String[] requiredGroups = requiredGroup.split(",");

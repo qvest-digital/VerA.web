@@ -104,6 +104,10 @@
 			<param-name>targetPath</param-name>
 			<param-value>/doc</param-value>
 		</init-param>
+		<init-param>
+			<param-name>requiredGroup</param-name>
+			<param-value>ANY</param-value>
+		</init-param>
 	</servlet>
 	<servlet>
 		<servlet-name>Mail</servlet-name>

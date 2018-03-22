@@ -52,6 +52,12 @@
 	</resource-ref>
 	<security-constraint>
 		<web-resource-collection>
+			<web-resource-name>VerA.web docs</web-resource-name>
+			<url-pattern>/doc/*</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
 			<web-resource-name>Veraweb REST API</web-resource-name>
 			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
