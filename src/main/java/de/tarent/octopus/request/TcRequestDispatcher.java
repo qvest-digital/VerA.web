@@ -268,7 +268,7 @@ public class TcRequestDispatcher {
 						    .get("REQUESTDISPATCHER_LOG_CLEANUPOBJECT_WRONG_TYPE", requestID,
 							(cleanupObject == null ? null :
 							    cleanupObject.getClass().getName()), cleanupObject));
-				} catch (Throwable t) {
+				} catch (Exception t) {
 					logger.error(Resources.getInstance()
 					    .get("REQUESTDISPATCHER_LOG_CLEANUPOBJECT_CLOSE_ERROR", requestID,
 						cleanupObject), t);
