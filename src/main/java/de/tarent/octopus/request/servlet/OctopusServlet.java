@@ -61,7 +61,7 @@ import java.util.Map;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class OctopusServlet extends HttpServlet {
-	private static final long serialVersionUID = 3257852090755133745L;
+	private static final long serialVersionUID = 4282983278380049718L;
 
 	private static Octopus octopus = null;
 	private static TcEnv env;
