@@ -187,7 +187,7 @@ public class TcModuleConfig implements Serializable {
 							logger.info("Loading file '" + cfgPath + "'.");
 						} else if (configFile.exists()) {
 							cfgPath = configFile.getAbsolutePath();
-							logger.warn("Loading file '" + cfgPath +
+							logger.info("Loading file '" + cfgPath +
 							    "', no system override exists in '" +
 							    attributes.getNamedItem("systempath").getNodeValue() +
 							    "'.");
