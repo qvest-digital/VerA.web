@@ -63,26 +63,26 @@ import java.util.Map;
 public class OctopusServlet extends HttpServlet {
 	private static final long serialVersionUID = 3257852090755133745L;
 
-	private Octopus octopus = null;
-	private TcEnv env;
+	private static Octopus octopus = null;
+	private static TcEnv env;
 
-	private TcSOAPEngine soapEngine;
+	private static TcSOAPEngine soapEngine;
 	private static final Log LOGGER = LogFactory.getLog(OctopusServlet.class);
 
 	// Fehler, der während des Initialisierens auftritt
-	private Exception initError = null;
+	private static Exception initError = null;
 
 	/**
 	 * Name dieser Webapp aus dem ContextPath (==ContextPath ohne '/' am Anfang).
 	 * Wird beim ersten Request oder ueber die Servlet-Konfiguration gesetzt, da er nicht über den Servlet-Context
 	 * abgerufen werden kann
 	 */
-	protected String webappContextPathName = null;
+	protected static String webappContextPathName = null;
 
 	/**
 	 * Bit field with request types which are allowed for connections with this octopus servlet
 	 */
-	protected int allowedRequestTypes = 0x00000000;
+	protected static int allowedRequestTypes = 0x00000000;
 
 	/**
 	 * Inititalisiert die Komponenten, die für alle Aufrufe gleich sind.
