@@ -1,3 +1,4 @@
+package de.tarent.octopus.request.directCall;
 
 /*-
  * tarent-octopus, Webservice Data Integrator and Application Server
@@ -22,9 +23,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package de.tarent.octopus.request.directCall;
 
 import de.tarent.octopus.request.TcSession;
+
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -34,57 +35,56 @@ import java.util.Hashtable;
  * @author <a href="mailto:mancke@mancke-software.de">Sebastian Mancke</a>, <b>tarent GmbH</b>
  */
 public class TcDirectCallSession implements TcSession {
+	Hashtable attributes = new Hashtable();
+	long creationTime;
+	String id;
 
-    Hashtable attributes = new Hashtable();
-    long creationTime;
-    String id;
+	public TcDirectCallSession() {
+		this.creationTime = System.currentTimeMillis();
+		this.id = (new StringBuffer(Long.toHexString(System.currentTimeMillis())).reverse()).toString();
+	}
 
-    public TcDirectCallSession(){
-        this.creationTime = System.currentTimeMillis();
-        this.id = (new StringBuffer(Long.toHexString(System.currentTimeMillis())).reverse()).toString();
-    }
+	public Object getAttribute(String name) {
+		return attributes.get(name);
+	}
 
-    public Object getAttribute(String name) {
-        return attributes.get(name);
-    }
+	public Enumeration getAttributeNames() {
+		return attributes.keys();
+	}
 
-    public Enumeration getAttributeNames() {
-        return attributes.keys();
-    }
+	public void removeAttribute(String name) {
+		attributes.remove(name);
+	}
 
-    public void removeAttribute(String name) {
-        attributes.remove(name);
-    }
+	public void setAttribute(String name, Object value) {
+		attributes.put(name, value);
+	}
 
-    public void setAttribute(String name, Object value) {
-        attributes.put(name,value);
-    }
+	public long getCreationTime() {
+		return creationTime;
+	}
 
-    public long getCreationTime() {
-        return creationTime;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public long getLastAccessedTime() {
+		return -1;
+	}
 
-    public long getLastAccessedTime() {
-        return -1;
-    }
+	public int getMaxInactiveInterval() {
+		return -1;
+	}
 
-    public int getMaxInactiveInterval() {
-        return -1;
-    }
+	public void invalidate() {
+		// do nothing
+	}
 
-    public void invalidate() {
-        // do nothing
-    }
+	public boolean isNew() {
+		return false;
+	}
 
-    public boolean isNew() {
-        return false;
-    }
-
-    public void setMaxInactiveInterval(int interval) {
-        // do nothing
-    }
+	public void setMaxInactiveInterval(int interval) {
+		// do nothing
+	}
 }
